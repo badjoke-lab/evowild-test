@@ -2,10 +2,50 @@ import * as THREE from "three";
 import "./styles.css";
 
 const canvas = document.querySelector("#game");
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
-renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.setPixelRatio(Math.min(devicePixelRatio, 1.35));
-renderer.shadowMap.enabled = false;
+const stage = document.querySelector("#stage");
+const isMobile = matchMedia("(pointer: coarse)").matches || innerWidth < 800;
+
+const runtimeStatus = document.createElement("div");
+runtimeStatus.className = "runtime-status";
+runtimeStatus.textContent = "Starting 3D race renderer…";
+stage.append(runtimeStatus);
+
+function failRuntime(error) {
+  const message = error instanceof Error ? error.message : String(error);
+  runtimeStatus.textContent = `3D runtime error: ${message}`;
+  runtimeStatus.classList.add("error");
+  runtimeStatus.hidden = false;
+  console.error(error);
+}
+
+let renderer;
+try {
+  renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: !isMobile,
+    powerPreference: "default",
+    precision: "mediump"
+  });
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.setPixelRatio(isMobile ? 1 : Math.min(devicePixelRatio, 1.25));
+  renderer.shadowMap.enabled = false;
+} catch (error) {
+  failRuntime(error);
+  throw error;
+}
+
+canvas.addEventListener("webglcontextlost", (event) => {
+  event.preventDefault();
+  runtimeStatus.textContent = "WebGL context lost — restoring renderer…";
+  runtimeStatus.classList.add("error");
+  runtimeStatus.hidden = false;
+});
+
+canvas.addEventListener("webglcontextrestored", () => {
+  runtimeStatus.textContent = "WebGL restored — restarting race…";
+  runtimeStatus.classList.remove("error");
+  runtimeStatus.hidden = false;
+});
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x9bc6dc);
@@ -565,9 +605,11 @@ function drawMiniMap() {
 }
 
 function resize() {
-  const rect = document.querySelector("#stage").getBoundingClientRect();
-  renderer.setSize(rect.width, rect.height, false);
-  camera.aspect = rect.width / rect.height;
+  const rect = stage.getBoundingClientRect();
+  const width = Math.max(1, Math.floor(rect.width));
+  const height = Math.max(1, Math.floor(rect.height));
+  renderer.setSize(width, height, false);
+  camera.aspect = width / height;
   camera.updateProjectionMatrix();
 }
 addEventListener("resize", resize);
@@ -583,22 +625,49 @@ function resetRace() {
     r.cooldown = 0;
     r.decision = "START";
     r.command = "BUILD SPEED";
+
+    const t = (r.distance / raceMeters) % 1;
+    const p = curve.getPointAt(t);
+    const tangent = curve.getTangentAt(t).normalize();
+    const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+    r.obj.position.copy(p.clone().addScaledVector(side, (r.laneF - 1) * 1.70));
+    r.obj.position.y = 0.98;
+    r.obj.rotation.y = Math.atan2(-tangent.z, tangent.x);
   });
   elapsed = 0;
 }
 resetRace();
 
+// Draw a valid scene immediately instead of waiting for the first animation tick.
+camera.position.set(-12, 12, 28);
+camera.up.set(0, 1, 0);
+camera.lookAt(0, 0.8, 0);
+renderer.render(scene, camera);
+updateHud();
+drawMiniMap();
+
+let renderedFrames = 0;
 function frame(now) {
-  const dt = Math.min(45, now - last);
-  last = now;
-  update(dt);
-  setCamera();
-  renderer.render(scene, camera);
-  updateHud();
-  drawMiniMap();
-  requestAnimationFrame(frame);
+  try {
+    const dt = Math.min(45, Math.max(0, now - last));
+    last = now;
+    update(dt);
+    setCamera();
+    renderer.render(scene, camera);
+    updateHud();
+    drawMiniMap();
+
+    renderedFrames += 1;
+    if (renderedFrames === 2) {
+      runtimeStatus.hidden = true;
+    }
+  } catch (error) {
+    paused = true;
+    failRuntime(error);
+    renderer.setAnimationLoop(null);
+  }
 }
-requestAnimationFrame(frame);
+renderer.setAnimationLoop(frame);
 
 document.querySelectorAll("[data-view]").forEach((button) => {
   button.addEventListener("click", () => {
