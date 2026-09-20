@@ -24,8 +24,9 @@ button.active { border-color: #6bb1ff; background: #1d3144; }
 }
 #game { width: 100%; height: 100%; display: block; }
 .hud {
-  position: absolute; background: rgba(12,18,25,.92); border: 1px solid rgba(255,255,255,.1);
+  position: absolute; background: rgba(12,18,25,.88); border: 1px solid rgba(255,255,255,.1);
   border-radius: 10px; pointer-events: none; padding: 8px 10px;
+  backdrop-filter: blur(2px);
 }
 .hud-view { left: 12px; top: 12px; font-weight: 850; font-size: 12px; }
 .hud-race { right: 12px; top: 12px; text-align: right; font-size: 12px; line-height: 1.45; }
@@ -49,15 +50,60 @@ button.active { border-color: #6bb1ff; background: #1d3144; }
 .rank-row.selected { background: #203247; }
 .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; }
 .badge { font-size: 9px; padding: 2px 5px; border-radius: 999px; border: 1px solid #3b4d5e; margin-left: 4px; color: #b9c7d5; }
+
 @media (max-width: 980px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { display: grid; grid-template-columns: 1fr 1fr; }
 }
+
 @media (max-width: 620px) {
-  .stage { min-height: 0; }
-  .hud-selected { width: 240px; }
-  .hud-mini { width: 165px; height: 95px; }
-  .sidebar { grid-template-columns: 1fr; }
+  #app { padding: 8px; }
+  .topbar { gap: 8px; margin-bottom: 8px; }
+  h1 { font-size: 18px; line-height: 1.15; }
+  .topbar p { display: none; }
+  .controls {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    width: 100%;
+    gap: 5px;
+  }
+  button {
+    min-width: 0;
+    padding: 9px 3px;
+    border-radius: 7px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  /* Mobile visual-test mode: devote the first screen to the race itself. */
+  .stage {
+    min-height: 0;
+    height: clamp(430px, 68svh, 620px);
+    aspect-ratio: auto;
+    border-radius: 10px;
+  }
+  .hud { padding: 5px 7px; border-radius: 7px; }
+  .hud-view { left: 7px; top: 7px; font-size: 10px; }
+  .hud-race { right: 7px; top: 7px; font-size: 10px; line-height: 1.35; }
+  .hud-selected { display: none; }
+  .hud-mini {
+    right: 7px;
+    bottom: 7px;
+    width: 122px;
+    height: 70px;
+    padding: 4px;
+    opacity: .9;
+  }
+
+  .sidebar {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .card { padding: 10px; }
+  .morph-key { grid-template-columns: 1fr 1fr; }
+  .standings { max-height: 320px; }
 }
 
 .runtime-status {
