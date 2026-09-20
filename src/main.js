@@ -275,11 +275,45 @@ function addHorn(group, start, end, radius, material) {
   addSegment(group, start, end, radius, 0.018, material, 5);
 }
 
+function addSpeciesHead(group, headY, neckRootY, scale, body, accent) {
+  addProfile(group, [
+    [0.72, neckRootY, 0.28 * scale, 0.30 * scale],
+    [1.02, (neckRootY + headY) * 0.52, 0.24 * scale, 0.27 * scale],
+    [1.28, headY - 0.04, 0.20 * scale, 0.24 * scale]
+  ], accent, 6);
+
+  addProfile(group, [
+    [1.18, headY, 0.22 * scale, 0.26 * scale],
+    [1.50, headY + 0.01, 0.24 * scale, 0.28 * scale],
+    [1.82, headY - 0.04, 0.18 * scale, 0.22 * scale],
+    [2.10, headY - 0.10, 0.09 * scale, 0.14 * scale]
+  ], body, 6);
+
+  addProfile(group, [
+    [1.45, headY - 0.16, 0.08 * scale, 0.22 * scale],
+    [1.78, headY - 0.18, 0.08 * scale, 0.18 * scale],
+    [2.06, headY - 0.17, 0.04 * scale, 0.10 * scale]
+  ], accent, 5);
+
+  for (const z of [-0.11 * scale, 0.11 * scale]) {
+    addHorn(
+      group,
+      [1.48, headY + 0.24 * scale, z],
+      [0.56, headY + 1.02 * scale, z * 1.12],
+      0.06 * scale,
+      accent
+    );
+  }
+
+  addCueBand(group, 1.60, headY + 0.01, 0.78 * scale);
+  addEyes(group, 1.82, headY + 0.01, 0.20, 0.86 * scale);
+}
+
 function buildMorph(index, morph, forcedColor = null) {
   const group = new THREE.Group();
   const baseColor = forcedColor ?? palette[index];
   const body = makeMat(baseColor);
-  const darker = new THREE.Color(baseColor).offsetHSL(0, 0.04, -0.13);
+  const darker = new THREE.Color(baseColor).offsetHSL(0, 0.05, -0.15);
   const accent = makeMat(darker);
   const legs = [];
 
@@ -293,108 +327,80 @@ function buildMorph(index, morph, forcedColor = null) {
 
   if (morph === "S") {
     addProfile(group, [
-      [-1.75, 0.12, 0.18, 0.22],
-      [-1.30, 0.14, 0.34, 0.40],
-      [-0.45, 0.18, 0.46, 0.50],
-      [0.45, 0.22, 0.42, 0.46],
-      [1.05, 0.30, 0.30, 0.34]
+      [-1.82, 0.24, 0.16, 0.20],
+      [-1.35, 0.24, 0.34, 0.40],
+      [-0.72, 0.24, 0.39, 0.45],
+      [-0.12, 0.25, 0.34, 0.40],
+      [0.50, 0.30, 0.40, 0.44],
+      [0.86, 0.37, 0.25, 0.30]
     ], body);
     addProfile(group, [
-      [0.78, 0.28, 0.28, 0.30],
-      [1.10, 0.58, 0.24, 0.26],
-      [1.42, 0.82, 0.20, 0.22]
+      [-1.30, 0.50, 0.13, 0.30],
+      [-0.42, 0.51, 0.15, 0.34],
+      [0.48, 0.55, 0.16, 0.34]
     ], accent, 6);
-    addProfile(group, [
-      [1.32, 0.80, 0.22, 0.24],
-      [1.72, 0.84, 0.24, 0.25],
-      [2.02, 0.78, 0.10, 0.15]
-    ], body, 6);
-    addHorn(group, [1.56, 1.02, -0.10], [0.72, 1.72, -0.12], 0.07, accent);
-    addHorn(group, [1.56, 1.02, 0.10], [0.72, 1.72, 0.12], 0.07, accent);
-    legPair([-0.72, 0.65], -0.08, 0.27, 0.95, 0.88, 0.10);
-    addSegment(group, [-1.55, 0.22, 0], [-2.32, 0.46, 0], 0.10, 0.025, accent, 5);
-    addCueBand(group, 1.62, 0.84, 0.78);
-    addEyes(group, 1.84, 0.86, 0.20, 0.90);
+    legPair([-0.78, 0.58], -0.04, 0.27, 0.98, 0.90, 0.095);
+    addSegment(group, [-1.62, 0.30, 0], [-2.38, 0.55, 0], 0.09, 0.022, accent, 5);
+    addSpeciesHead(group, 0.86, 0.36, 0.92, body, accent);
   } else if (morph === "P") {
     addProfile(group, [
-      [-1.58, 0.10, 0.42, 0.48],
-      [-1.10, 0.16, 0.72, 0.78],
-      [-0.20, 0.20, 0.88, 0.88],
-      [0.72, 0.28, 0.82, 0.84],
-      [1.18, 0.40, 0.48, 0.54]
+      [-1.58, 0.18, 0.30, 0.38],
+      [-1.18, 0.22, 0.54, 0.62],
+      [-0.52, 0.24, 0.62, 0.70],
+      [0.12, 0.28, 0.64, 0.72],
+      [0.66, 0.38, 0.70, 0.72],
+      [0.94, 0.44, 0.40, 0.46]
     ], body);
     addProfile(group, [
-      [0.72, 0.35, 0.50, 0.54],
-      [1.08, 0.58, 0.40, 0.44],
-      [1.38, 0.70, 0.32, 0.34]
+      [-0.62, 0.66, 0.15, 0.45],
+      [0.06, 0.72, 0.18, 0.52],
+      [0.62, 0.76, 0.22, 0.50]
     ], accent, 6);
-    addProfile(group, [
-      [1.24, 0.68, 0.34, 0.36],
-      [1.62, 0.70, 0.38, 0.38],
-      [1.90, 0.62, 0.18, 0.24]
-    ], body, 6);
-    addHorn(group, [1.45, 0.95, -0.16], [1.02, 1.36, -0.18], 0.11, accent);
-    addHorn(group, [1.45, 0.95, 0.16], [1.02, 1.36, 0.18], 0.11, accent);
-    legPair([-0.64, 0.58], -0.18, 0.40, 0.66, 0.56, 0.18);
-    addSegment(group, [-1.42, 0.18, 0], [-1.92, 0.28, 0], 0.18, 0.06, accent, 6);
-    addCueBand(group, 1.53, 0.70, 0.92);
-    addEyes(group, 1.72, 0.70, 0.28, 1.00);
+    legPair([-0.66, 0.54], -0.20, 0.36, 0.68, 0.58, 0.16);
+    addSegment(group, [-1.42, 0.28, 0], [-1.94, 0.39, 0], 0.15, 0.055, accent, 6);
+    addSpeciesHead(group, 0.82, 0.42, 0.98, body, accent);
   } else if (morph === "E") {
     addProfile(group, [
-      [-1.85, 0.30, 0.18, 0.22],
-      [-1.30, 0.34, 0.30, 0.34],
-      [-0.42, 0.38, 0.38, 0.42],
-      [0.52, 0.44, 0.34, 0.38],
-      [1.10, 0.54, 0.24, 0.28]
+      [-1.92, 0.43, 0.14, 0.18],
+      [-1.45, 0.43, 0.27, 0.31],
+      [-0.78, 0.44, 0.32, 0.36],
+      [-0.10, 0.46, 0.29, 0.34],
+      [0.54, 0.51, 0.31, 0.35],
+      [0.90, 0.60, 0.21, 0.25]
     ], body);
     addProfile(group, [
-      [0.82, 0.50, 0.24, 0.26],
-      [1.10, 0.88, 0.18, 0.20],
-      [1.38, 1.20, 0.15, 0.18]
+      [-1.34, 0.64, 0.10, 0.24],
+      [-0.48, 0.66, 0.11, 0.27],
+      [0.46, 0.70, 0.12, 0.27]
     ], accent, 6);
-    addProfile(group, [
-      [1.28, 1.16, 0.20, 0.22],
-      [1.67, 1.20, 0.22, 0.24],
-      [1.96, 1.14, 0.09, 0.14]
-    ], body, 6);
-    addHorn(group, [1.52, 1.40, -0.10], [1.15, 1.98, -0.12], 0.055, accent);
-    addHorn(group, [1.52, 1.40, 0.10], [1.15, 1.98, 0.12], 0.055, accent);
-    addHorn(group, [1.30, 1.74, -0.11], [0.90, 1.92, -0.11], 0.035, accent);
-    addHorn(group, [1.30, 1.74, 0.11], [0.90, 1.92, 0.11], 0.035, accent);
-    legPair([-0.74, 0.66], 0.10, 0.24, 1.08, 0.98, 0.082);
-    addSegment(group, [-1.65, 0.35, 0], [-2.36, 0.56, 0], 0.075, 0.018, accent, 5);
-    addCueBand(group, 1.56, 1.20, 0.72);
-    addEyes(group, 1.78, 1.20, 0.19, 0.82);
+    legPair([-0.78, 0.62], 0.14, 0.23, 1.12, 1.02, 0.078);
+    addSegment(group, [-1.72, 0.48, 0], [-2.44, 0.68, 0], 0.065, 0.015, accent, 5);
+    addSpeciesHead(group, 1.22, 0.58, 0.86, body, accent);
   } else {
     addProfile(group, [
-      [-1.35, -0.06, 0.30, 0.38],
-      [-0.98, -0.02, 0.48, 0.58],
-      [-0.28, 0.00, 0.54, 0.66],
-      [0.50, 0.06, 0.48, 0.58],
-      [0.96, 0.18, 0.32, 0.38]
+      [-1.34, 0.02, 0.25, 0.34],
+      [-1.04, 0.04, 0.42, 0.50],
+      [-0.46, 0.07, 0.48, 0.57],
+      [0.12, 0.10, 0.44, 0.54],
+      [0.60, 0.17, 0.46, 0.52],
+      [0.86, 0.25, 0.30, 0.35]
     ], body);
     addProfile(group, [
-      [0.68, 0.14, 0.30, 0.34],
-      [0.98, 0.40, 0.26, 0.28],
-      [1.26, 0.56, 0.22, 0.24]
+      [-0.76, 0.37, 0.11, 0.34],
+      [-0.15, 0.42, 0.12, 0.40],
+      [0.48, 0.48, 0.14, 0.38]
     ], accent, 6);
-    addProfile(group, [
-      [1.16, 0.54, 0.24, 0.26],
-      [1.52, 0.56, 0.26, 0.30],
-      [1.82, 0.50, 0.10, 0.16]
-    ], body, 6);
-    for (let j = 0; j < 4; j++) {
-      addHorn(group, [0.00 + j * 0.24, 0.48, 0], [-0.08 + j * 0.24, 0.92 + j * 0.05, 0], 0.055, accent);
+    for (let j = 0; j < 3; j++) {
+      addHorn(group, [-0.35 + j * 0.28, 0.48, 0], [-0.42 + j * 0.28, 0.82 + j * 0.04, 0], 0.045, accent);
     }
-    legPair([-0.55, 0.48], -0.28, 0.34, 0.54, 0.48, 0.12);
-    addSegment(group, [-1.16, 0.04, 0], [-1.74, 0.18, 0], 0.17, 0.11, accent, 6);
-    const blade = new THREE.Mesh(new THREE.ConeGeometry(0.46, 1.62, 5), accent);
-    blade.rotation.z = 1.18;
-    blade.position.set(-2.05, 0.30, 0);
-    blade.scale.z = 1.26;
+    legPair([-0.55, 0.46], -0.27, 0.32, 0.54, 0.48, 0.11);
+    addSegment(group, [-1.14, 0.12, 0], [-1.62, 0.25, 0], 0.14, 0.09, accent, 6);
+    const blade = new THREE.Mesh(new THREE.ConeGeometry(0.38, 1.30, 5), accent);
+    blade.rotation.z = 1.20;
+    blade.position.set(-1.92, 0.34, 0);
+    blade.scale.z = 1.12;
     group.add(blade);
-    addCueBand(group, 1.48, 0.57, 0.80);
-    addEyes(group, 1.66, 0.57, 0.21, 0.86);
+    addSpeciesHead(group, 0.64, 0.24, 0.90, body, accent);
   }
 
   group.userData.legs = legs;
@@ -404,6 +410,9 @@ function buildMorph(index, morph, forcedColor = null) {
 const racers = [];
 const selectedId = 6;
 const raceMeters = 1800;
+const laneCount = 6;
+const laneSpacing = 1.55;
+const laneOffset = (lane) => (lane - (laneCount - 1) / 2) * laneSpacing;
 
 for (let i = 0; i < 18; i++) {
   const morph = i === 5 ? "A" : morphCycle[i % 4];
@@ -418,8 +427,8 @@ for (let i = 0; i < 18; i++) {
     morph,
     obj,
     distance: Math.max(0, (17 - i) * 1.1),
-    lane: i % 3,
-    laneF: i % 3,
+    lane: i % laneCount,
+    laneF: i % laneCount,
     cruise: stats.cruise + (i % 5) * 0.18,
     accel: stats.accel,
     drain: stats.drain,
@@ -530,7 +539,7 @@ function laneFree(r, lane) {
 }
 
 function chooseLane(r) {
-  const options = [0, 1, 2].filter((lane) => lane !== Math.round(r.laneF) && laneFree(r, lane));
+  const options = Array.from({ length: laneCount }, (_, lane) => lane).filter((lane) => lane !== Math.round(r.laneF) && laneFree(r, lane));
   if (!options.length) return null;
   options.sort((a, b) => gapAhead(r, b) - gapAhead(r, a));
   return options[0];
@@ -611,7 +620,7 @@ function update(dt) {
     const p = curve.getPointAt(t);
     const tangent = curve.getTangentAt(t).normalize();
     const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
-    const targetPos = p.clone().addScaledVector(side, (r.laneF - 1) * 1.70);
+    const targetPos = p.clone().addScaledVector(side, laneOffset(r.laneF));
     targetPos.y = 0.98 + Math.abs(Math.sin(elapsed * 0.014 + r.id * 0.8)) * 0.07;
     r.obj.position.lerp(targetPos, 0.44);
 
@@ -773,8 +782,8 @@ resize();
 function resetRace() {
   racers.forEach((r, i) => {
     r.distance = Math.max(0, (17 - i) * 1.1);
-    r.lane = i % 3;
-    r.laneF = i % 3;
+    r.lane = i % laneCount;
+    r.laneF = i % laneCount;
     r.stamina = 100;
     r.speed = 0;
     r.cooldown = 0;
@@ -785,7 +794,7 @@ function resetRace() {
     const p = curve.getPointAt(t);
     const tangent = curve.getTangentAt(t).normalize();
     const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
-    r.obj.position.copy(p.clone().addScaledVector(side, (r.laneF - 1) * 1.70));
+    r.obj.position.copy(p.clone().addScaledVector(side, laneOffset(r.laneF)));
     r.obj.position.y = 0.98;
     r.obj.rotation.y = Math.atan2(-tangent.z, tangent.x);
   });
