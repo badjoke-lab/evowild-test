@@ -1,0 +1,31 @@
+import { test, expect } from "@playwright/test";
+
+test("race scene renders and advances", async ({ page }) => {
+  const pageErrors = [];
+  const consoleErrors = [];
+
+  page.on("pageerror", (err) => pageErrors.push(String(err)));
+  page.on("console", (msg) => {
+    if (msg.type() === "error") consoleErrors.push(msg.text());
+  });
+
+  await page.goto("/evowild-test/", { waitUntil: "networkidle" });
+
+  await expect(page.locator("#game")).toBeVisible();
+  await expect(page.locator("#clock")).not.toHaveText("00:00.00", { timeout: 5000 });
+  await expect(page.locator("#position")).not.toHaveText("— / 18", { timeout: 5000 });
+
+  const canvasInfo = await page.locator("#game").evaluate((canvas) => ({
+    width: canvas.width,
+    height: canvas.height,
+    cssWidth: canvas.getBoundingClientRect().width,
+    cssHeight: canvas.getBoundingClientRect().height
+  }));
+
+  expect(canvasInfo.width).toBeGreaterThan(0);
+  expect(canvasInfo.height).toBeGreaterThan(0);
+  expect(canvasInfo.cssWidth).toBeGreaterThan(0);
+  expect(canvasInfo.cssHeight).toBeGreaterThan(0);
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+});
