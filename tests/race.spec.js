@@ -53,9 +53,10 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
   await page.waitForTimeout(1500);
 
   const views = [
-    ["race", "1 Race", "RACE VIEW"],
-    ["follow", "2 Follow", "FOLLOW VIEW"],
-    ["tactical", "3 Tactical", "TACTICAL VIEW"]
+    ["morph", "1 Morph", "MORPH LAB"],
+    ["race", "2 Race", "RACE VIEW"],
+    ["follow", "3 Follow", "FOLLOW VIEW"],
+    ["tactical", "4 Tactical", "TACTICAL VIEW"]
   ];
 
   for (const [name, buttonText, label] of views) {
