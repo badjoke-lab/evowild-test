@@ -37,6 +37,29 @@ button.active { border-color: #6bb1ff; background: #1d3144; }
 .chips span { font-size: 10px; padding: 4px 6px; border-radius: 999px; border: 1px solid #344352; background: #1a2632; }
 .hud-mini { right: 12px; bottom: 12px; width: 215px; height: 126px; padding: 7px; }
 #mini { width: 100%; height: 100%; display: block; }
+.morph-switcher {
+  position: absolute;
+  z-index: 15;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+.morph-switcher button {
+  min-width: 42px;
+  padding: 7px 10px;
+  background: rgba(12,18,25,.90);
+}
+.hud-lab {
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  min-width: 220px;
+  text-align: center;
+}
+.hud-lab strong, .hud-lab span { display: block; }
+.hud-lab span { margin-top: 3px; color: #a9bac8; font-size: 11px; }
 .sidebar { display: flex; flex-direction: column; gap: 10px; }
 .card { background: #111922; border: 1px solid #283542; border-radius: 12px; padding: 11px; }
 .card h2 { font-size: 13px; margin: 0 0 8px; }
@@ -93,6 +116,22 @@ button.active { border-color: #6bb1ff; background: #1d3144; }
     height: 70px;
     padding: 4px;
     opacity: .9;
+  }
+  .morph-switcher {
+    top: 7px;
+    right: 7px;
+    gap: 4px;
+  }
+  .morph-switcher button {
+    min-width: 34px;
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+  .hud-lab {
+    bottom: 10px;
+    width: calc(100% - 20px);
+    min-width: 0;
+    font-size: 11px;
   }
 
   .sidebar {
