@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import fs from "node:fs";
 
 test("race scene renders and advances", async ({ page }) => {
   const pageErrors = [];
@@ -39,4 +40,28 @@ test("race scene renders and advances", async ({ page }) => {
   expect(canvasInfo.height).toBeGreaterThan(0);
   expect(canvasInfo.cssWidth).toBeGreaterThan(0);
   expect(canvasInfo.cssHeight).toBeGreaterThan(0);
+});
+
+
+test("capture mobile race camera views", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "android-chromium");
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  await page.goto("/evowild-test/", { waitUntil: "networkidle" });
+  await page.waitForTimeout(1500);
+
+  const views = [
+    ["race", "1 Race", "RACE VIEW"],
+    ["follow", "2 Follow", "FOLLOW VIEW"],
+    ["tactical", "3 Tactical", "TACTICAL VIEW"]
+  ];
+
+  for (const [name, buttonText, label] of views) {
+    await page.getByRole("button", { name: buttonText }).click();
+    await expect(page.locator("#viewLabel")).toHaveText(label);
+    await page.waitForTimeout(900);
+    await page.locator("#stage").screenshot({ path: `${outDir}/android-${name}.png` });
+  }
 });
