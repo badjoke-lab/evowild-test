@@ -49,7 +49,8 @@ canvas.addEventListener("webglcontextrestored", () => {
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x9bc6dc);
-scene.fog = new THREE.Fog(0x9bc6dc, 75, 150);
+const raceFog = new THREE.Fog(0x9bc6dc, 75, 150);
+scene.fog = raceFog;
 
 const camera = new THREE.PerspectiveCamera(42, 16 / 9, 0.1, 240);
 scene.add(new THREE.HemisphereLight(0xdceeff, 0x557050, 1.05));
@@ -137,8 +138,9 @@ buildTrack();
 const hillMaterial = new THREE.MeshStandardMaterial({ color: 0x738474, roughness: 1, flatShading: true });
 function addHill(x, z, s) {
   const hill = new THREE.Mesh(new THREE.ConeGeometry(1, 1.5, 7), hillMaterial);
-  hill.position.set(x, s * 0.65, z);
-  hill.scale.setScalar(s);
+  const hillScale = s * (isMobile ? 0.42 : 1);
+  hill.position.set(x, hillScale * 0.65, z);
+  hill.scale.setScalar(hillScale);
   scene.add(hill);
 }
 addHill(-60, -34, 11);
@@ -385,12 +387,13 @@ scene.add(ring);
 
 const tacticalMarkers = racers.map((r) => {
   const marker = new THREE.Mesh(
-    new THREE.CircleGeometry(r.id === selectedId ? 0.92 : 0.66, 18),
+    new THREE.CircleGeometry(r.id === selectedId ? 1.25 : 0.88, 18),
     new THREE.MeshBasicMaterial({
       color: r.id === selectedId ? 0xffffff : palette[r.id - 1],
       transparent: true,
       opacity: r.id === selectedId ? 1 : 0.9,
-      depthTest: false
+      depthTest: false,
+      fog: false
     })
   );
   marker.rotation.x = -Math.PI / 2;
@@ -530,7 +533,11 @@ function setCamera() {
   const tangent = curve.getTangentAt(t).normalize();
   const side = new THREE.Vector3(-tangent.z, 0, tangent.x);
 
-  tacticalMarkers.forEach((marker) => { marker.visible = view === "tactical"; });
+  const tactical = view === "tactical";
+  scene.fog = tactical ? null : raceFog;
+  racers.forEach((r) => { r.obj.visible = !tactical; });
+  ring.visible = !tactical;
+  tacticalMarkers.forEach((marker) => { marker.visible = tactical; });
 
   if (view === "follow") {
     camera.up.set(0, 1, 0);
