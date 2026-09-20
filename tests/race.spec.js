@@ -4,7 +4,7 @@ test("race scene renders and advances", async ({ page }) => {
   const pageErrors = [];
   const consoleErrors = [];
 
-  page.on("pageerror", (err) => pageErrors.push(String(err)));
+  page.on("pageerror", (err) => pageErrors.push(err.stack || String(err)));
   page.on("console", (msg) => {
     if (msg.type() === "error") consoleErrors.push(msg.text());
   });
