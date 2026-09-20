@@ -27,6 +27,8 @@ try {
     precision: "mediump"
   });
   renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.05;
   renderer.setPixelRatio(isMobile ? Math.min(devicePixelRatio, 1.5) : Math.min(devicePixelRatio, 1.25));
   renderer.shadowMap.enabled = false;
 } catch (error) {
@@ -53,10 +55,13 @@ const raceFog = new THREE.Fog(0x9bc6dc, 75, 150);
 scene.fog = raceFog;
 
 const camera = new THREE.PerspectiveCamera(42, 16 / 9, 0.1, 240);
-scene.add(new THREE.HemisphereLight(0xdceeff, 0x557050, 1.05));
-const sun = new THREE.DirectionalLight(0xfff6dd, 1.25);
+scene.add(new THREE.HemisphereLight(0xddeeff, 0x26332e, 1.18));
+const sun = new THREE.DirectionalLight(0xfff0d2, 1.55);
 sun.position.set(30, 42, 12);
 scene.add(sun);
+const rim = new THREE.DirectionalLight(0x79bfff, 0.55);
+rim.position.set(-24, 18, -28);
+scene.add(rim);
 
 const ground = new THREE.Mesh(
   new THREE.PlaneGeometry(210, 160),
@@ -190,9 +195,9 @@ const morphStats = {
 const headsetMat = new THREE.MeshStandardMaterial({ color: 0x111820, roughness: 0.72, flatShading: true });
 const headsetAccent = new THREE.MeshStandardMaterial({ color: 0x42c7ff, emissive: 0x123547, emissiveIntensity: 0.65, roughness: 0.4, flatShading: true });
 const eyeMat = new THREE.MeshBasicMaterial({ color: 0x7ee8ff });
-const makeMat = (color) => new THREE.MeshStandardMaterial({ color, roughness: 0.72, metalness: 0.02, flatShading: true });
+const makeMat = (color) => new THREE.MeshStandardMaterial({ color, roughness: 0.58, metalness: 0.04, flatShading: false });
 
-function profileGeometry(sections, radialSegments = 7) {
+function profileGeometry(sections, radialSegments = 12) {
   const vertices = [];
   const indices = [];
   const ring = radialSegments;
@@ -222,18 +227,18 @@ function profileGeometry(sections, radialSegments = 7) {
   return geometry;
 }
 
-function addProfile(group, sections, material, radialSegments = 7) {
+function addProfile(group, sections, material, radialSegments = 12) {
   const mesh = new THREE.Mesh(profileGeometry(sections, radialSegments), material);
   group.add(mesh);
   return mesh;
 }
 
-function addSegment(group, start, end, rStart, rEnd, material, radial = 6) {
+function addSegment(group, start, end, rStart, rEnd, material, radial = 8) {
   const a = new THREE.Vector3(...start);
   const b = new THREE.Vector3(...end);
   const dir = b.clone().sub(a);
   const length = dir.length();
-  const mesh = new THREE.Mesh(new THREE.CylinderGeometry(rEnd, rStart, length, radial, 1, false), material);
+  const mesh = new THREE.Mesh(new THREE.CylinderGeometry(rEnd, rStart, length, radial, 2, false), material);
   mesh.position.copy(a.clone().add(b).multiplyScalar(0.5));
   mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.clone().normalize());
   group.add(mesh);
@@ -280,20 +285,20 @@ function addSpeciesHead(group, headY, neckRootY, scale, body, accent) {
     [0.72, neckRootY, 0.28 * scale, 0.30 * scale],
     [1.02, (neckRootY + headY) * 0.52, 0.24 * scale, 0.27 * scale],
     [1.28, headY - 0.04, 0.20 * scale, 0.24 * scale]
-  ], accent, 6);
+  ], accent, 10);
 
   addProfile(group, [
     [1.18, headY, 0.22 * scale, 0.26 * scale],
     [1.50, headY + 0.01, 0.24 * scale, 0.28 * scale],
     [1.82, headY - 0.04, 0.18 * scale, 0.22 * scale],
     [2.10, headY - 0.10, 0.09 * scale, 0.14 * scale]
-  ], body, 6);
+  ], body, 10);
 
   addProfile(group, [
     [1.45, headY - 0.16, 0.08 * scale, 0.22 * scale],
     [1.78, headY - 0.18, 0.08 * scale, 0.18 * scale],
     [2.06, headY - 0.17, 0.04 * scale, 0.10 * scale]
-  ], accent, 5);
+  ], accent, 8);
 
   for (const z of [-0.11 * scale, 0.11 * scale]) {
     addHorn(
@@ -338,7 +343,7 @@ function buildMorph(index, morph, forcedColor = null) {
       [-1.30, 0.50, 0.13, 0.30],
       [-0.42, 0.51, 0.15, 0.34],
       [0.48, 0.55, 0.16, 0.34]
-    ], accent, 6);
+    ], accent, 10);
     legPair([-0.78, 0.58], -0.04, 0.27, 0.98, 0.90, 0.095);
     addSegment(group, [-1.62, 0.30, 0], [-2.38, 0.55, 0], 0.09, 0.022, accent, 5);
     addSpeciesHead(group, 0.86, 0.36, 0.92, body, accent);
@@ -355,7 +360,7 @@ function buildMorph(index, morph, forcedColor = null) {
       [-0.62, 0.66, 0.15, 0.45],
       [0.06, 0.72, 0.18, 0.52],
       [0.62, 0.76, 0.22, 0.50]
-    ], accent, 6);
+    ], accent, 10);
     legPair([-0.66, 0.54], -0.20, 0.36, 0.68, 0.58, 0.16);
     addSegment(group, [-1.42, 0.28, 0], [-1.94, 0.39, 0], 0.15, 0.055, accent, 6);
     addSpeciesHead(group, 0.82, 0.42, 0.98, body, accent);
@@ -372,7 +377,7 @@ function buildMorph(index, morph, forcedColor = null) {
       [-1.34, 0.64, 0.10, 0.24],
       [-0.48, 0.66, 0.11, 0.27],
       [0.46, 0.70, 0.12, 0.27]
-    ], accent, 6);
+    ], accent, 10);
     legPair([-0.78, 0.62], 0.14, 0.23, 1.12, 1.02, 0.078);
     addSegment(group, [-1.72, 0.48, 0], [-2.44, 0.68, 0], 0.065, 0.015, accent, 5);
     addSpeciesHead(group, 1.22, 0.58, 0.86, body, accent);
@@ -389,7 +394,7 @@ function buildMorph(index, morph, forcedColor = null) {
       [-0.76, 0.37, 0.11, 0.34],
       [-0.15, 0.42, 0.12, 0.40],
       [0.48, 0.48, 0.14, 0.38]
-    ], accent, 6);
+    ], accent, 10);
     for (let j = 0; j < 3; j++) {
       addHorn(group, [-0.35 + j * 0.28, 0.48, 0], [-0.42 + j * 0.28, 0.82 + j * 0.04, 0], 0.045, accent);
     }
