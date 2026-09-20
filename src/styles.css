@@ -59,3 +59,26 @@ button.active { border-color: #6bb1ff; background: #1d3144; }
   .hud-mini { width: 165px; height: 95px; }
   .sidebar { grid-template-columns: 1fr; }
 }
+
+.runtime-status {
+  position: absolute;
+  z-index: 20;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: min(90%, 560px);
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(9, 15, 21, .92);
+  border: 1px solid #41617b;
+  color: #d8e8f7;
+  font-size: 12px;
+  font-weight: 750;
+  text-align: center;
+  pointer-events: none;
+}
+.runtime-status.error {
+  border-color: #a95b5b;
+  color: #ffd4d4;
+}
+.runtime-status[hidden] { display: none; }
