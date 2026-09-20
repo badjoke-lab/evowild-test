@@ -351,7 +351,7 @@ const raceMeters = 1800;
 for (let i = 0; i < 18; i++) {
   const morph = i === 5 ? "A" : morphCycle[i % 4];
   const obj = buildMorph(i, morph);
-  obj.scale.setScalar(0.88);
+  obj.scale.setScalar(isMobile ? 1.02 : 0.88);
   scene.add(obj);
 
   const stats = morphStats[morph];
@@ -532,8 +532,11 @@ function setCamera() {
     const leaderTangent = curve.getTangentAt(lt).normalize();
     const leaderSide = new THREE.Vector3(-leaderTangent.z, 0, leaderTangent.x);
 
+    const raceBack = isMobile ? -10 : -14;
+    const raceSide = isMobile ? 8 : 11;
+    const raceHeight = isMobile ? 6.2 : 8.5;
     camera.position.lerp(
-      center.clone().addScaledVector(leaderTangent, -14).addScaledVector(leaderSide, 11).add(new THREE.Vector3(0, 8.5, 0)),
+      center.clone().addScaledVector(leaderTangent, raceBack).addScaledVector(leaderSide, raceSide).add(new THREE.Vector3(0, raceHeight, 0)),
       0.055
     );
     camera.lookAt(center.clone().add(new THREE.Vector3(0, 0.65, 0)));
@@ -610,6 +613,7 @@ function resize() {
   const height = Math.max(1, Math.floor(rect.height));
   renderer.setSize(width, height, false);
   camera.aspect = width / height;
+  camera.fov = isMobile ? 48 : 42;
   camera.updateProjectionMatrix();
 }
 addEventListener("resize", resize);
