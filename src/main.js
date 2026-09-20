@@ -185,219 +185,216 @@ const morphStats = {
   A: { cruise: 16.2, accel: 3.7, drain: 0.95 }
 };
 
-const headsetMat = new THREE.MeshStandardMaterial({ color: 0x1b252d, roughness: 0.68, flatShading: true });
-const headsetAccent = new THREE.MeshStandardMaterial({ color: 0x6bb1ff, roughness: 0.45, flatShading: true });
-const makeMat = (color) => new THREE.MeshStandardMaterial({ color, roughness: 0.78, metalness: 0.03, flatShading: true });
+const headsetMat = new THREE.MeshStandardMaterial({ color: 0x111820, roughness: 0.72, flatShading: true });
+const headsetAccent = new THREE.MeshStandardMaterial({ color: 0x42c7ff, emissive: 0x123547, emissiveIntensity: 0.65, roughness: 0.4, flatShading: true });
+const eyeMat = new THREE.MeshBasicMaterial({ color: 0x7ee8ff });
+const makeMat = (color) => new THREE.MeshStandardMaterial({ color, roughness: 0.72, metalness: 0.02, flatShading: true });
 
-function addHeadset(group, x, y, scale = 1) {
-  // Low-profile Cue Band: readable in race view without dominating the head silhouette.
-  const bridge = new THREE.Mesh(
-    new THREE.BoxGeometry(0.26 * scale, 0.075 * scale, 0.68 * scale),
-    headsetMat
-  );
-  bridge.position.set(x - 0.04 * scale, y + 0.10 * scale, 0);
-  bridge.rotation.z = -0.08;
-  group.add(bridge);
+function profileGeometry(sections, radialSegments = 7) {
+  const vertices = [];
+  const indices = [];
+  const ring = radialSegments;
 
-  for (const z of [-0.37, 0.37]) {
-    const pod = new THREE.Mesh(
-      new THREE.BoxGeometry(0.16 * scale, 0.18 * scale, 0.10 * scale),
-      headsetAccent
-    );
+  for (const [x, cy, ry, rz] of sections) {
+    for (let j = 0; j < ring; j++) {
+      const angle = (j / ring) * Math.PI * 2;
+      vertices.push(x, cy + Math.cos(angle) * ry, Math.sin(angle) * rz);
+    }
+  }
+
+  for (let i = 0; i < sections.length - 1; i++) {
+    for (let j = 0; j < ring; j++) {
+      const n = (j + 1) % ring;
+      const a0 = i * ring + j;
+      const a1 = i * ring + n;
+      const b0 = (i + 1) * ring + j;
+      const b1 = (i + 1) * ring + n;
+      indices.push(a0, b0, a1, a1, b0, b1);
+    }
+  }
+
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
+  geometry.setIndex(indices);
+  geometry.computeVertexNormals();
+  return geometry;
+}
+
+function addProfile(group, sections, material, radialSegments = 7) {
+  const mesh = new THREE.Mesh(profileGeometry(sections, radialSegments), material);
+  group.add(mesh);
+  return mesh;
+}
+
+function addSegment(group, start, end, rStart, rEnd, material, radial = 6) {
+  const a = new THREE.Vector3(...start);
+  const b = new THREE.Vector3(...end);
+  const dir = b.clone().sub(a);
+  const length = dir.length();
+  const mesh = new THREE.Mesh(new THREE.CylinderGeometry(rEnd, rStart, length, radial, 1, false), material);
+  mesh.position.copy(a.clone().add(b).multiplyScalar(0.5));
+  mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.clone().normalize());
+  group.add(mesh);
+  return mesh;
+}
+
+function addCueBand(group, x, y, scale = 1) {
+  const band = new THREE.Mesh(new THREE.BoxGeometry(0.30 * scale, 0.08 * scale, 0.66 * scale), headsetMat);
+  band.position.set(x - 0.05 * scale, y + 0.08 * scale, 0);
+  band.rotation.z = -0.10;
+  group.add(band);
+
+  for (const z of [-0.36, 0.36]) {
+    const pod = new THREE.Mesh(new THREE.BoxGeometry(0.16 * scale, 0.18 * scale, 0.10 * scale), headsetAccent);
     pod.position.set(x + 0.02 * scale, y + 0.02 * scale, z * scale);
     group.add(pod);
   }
 }
 
-function addMarkings(group, color, index) {
-  const mark = new THREE.MeshStandardMaterial({ color, roughness: 0.85, flatShading: true });
-  for (const z of [-0.66, 0.66]) {
-    const stripe = new THREE.Mesh(new THREE.BoxGeometry(0.62, 0.16, 0.05), mark);
-    stripe.position.set(index % 2 ? 0.15 : -0.15, 0.15, z);
-    stripe.rotation.z = index % 2 ? 0.35 : -0.35;
-    group.add(stripe);
+function addEyes(group, x, y, z = 0.26, scale = 1) {
+  for (const side of [-1, 1]) {
+    const eye = new THREE.Mesh(new THREE.SphereGeometry(0.055 * scale, 6, 5), eyeMat);
+    eye.position.set(x, y, side * z * scale);
+    group.add(eye);
   }
 }
 
-function buildMorph(index, morph) {
+function addLeg(group, hipX, hipY, hipZ, upper, lower, thickness, material, forward = 1) {
+  const knee = [hipX + 0.12 * forward, hipY - upper * 0.52, hipZ];
+  const ankle = [hipX - 0.10 * forward, hipY - upper * 0.52 - lower * 0.46, hipZ];
+  const hoof = [hipX + 0.12 * forward, hipY - upper * 0.52 - lower * 0.56, hipZ];
+  const upperMesh = addSegment(group, [hipX, hipY, hipZ], knee, thickness, thickness * 0.78, material, 5);
+  const lowerMesh = addSegment(group, knee, ankle, thickness * 0.78, thickness * 0.50, material, 5);
+  addSegment(group, ankle, hoof, thickness * 0.58, thickness * 0.42, material, 5);
+  return [upperMesh, lowerMesh];
+}
+
+function addHorn(group, start, end, radius, material) {
+  addSegment(group, start, end, radius, 0.018, material, 5);
+}
+
+function buildMorph(index, morph, forcedColor = null) {
   const group = new THREE.Group();
-  const baseColor = palette[index];
+  const baseColor = forcedColor ?? palette[index];
   const body = makeMat(baseColor);
-  const accent = makeMat(new THREE.Color(baseColor).offsetHSL((index % 3 - 1) * 0.025, 0.04, 0.04));
+  const darker = new THREE.Color(baseColor).offsetHSL(0, 0.04, -0.13);
+  const accent = makeMat(darker);
   const legs = [];
 
-  const addLegs = (xs, zs, radius, length, y) => {
-    for (const x of xs) {
-      for (const z of zs) {
-        const leg = new THREE.Mesh(new THREE.CylinderGeometry(radius * 0.8, radius, length, 5), body);
-        leg.position.set(x, y, z);
-        group.add(leg);
-        legs.push(leg);
+  const legPair = (hipXs, hipY, hipZ, upper, lower, thickness) => {
+    hipXs.forEach((x, xi) => {
+      for (const z of [-hipZ, hipZ]) {
+        legs.push(...addLeg(group, x, hipY, z, upper, lower, thickness, body, xi ? -1 : 1));
       }
-    }
+    });
   };
 
   if (morph === "S") {
-    // Sprint: narrow torso, long legs, long rear-swept horn profile.
-    const torso = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 1), body);
-    torso.scale.set(1.72, 0.43, 0.50);
-    torso.position.y = 0.08;
-    group.add(torso);
-
-    const chest = new THREE.Mesh(new THREE.IcosahedronGeometry(0.55, 0), accent);
-    chest.scale.set(0.85, 0.88, 0.92);
-    chest.position.set(0.72, 0.12, 0);
-    group.add(chest);
-
-    const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.21, 1.10, 6), accent);
-    neck.rotation.z = -1.10;
-    neck.position.set(1.10, 0.45, 0);
-    group.add(neck);
-
-    const head = new THREE.Mesh(new THREE.IcosahedronGeometry(0.36, 1), body);
-    head.scale.set(1.34, 0.62, 0.65);
-    head.position.set(1.62, 0.76, 0);
-    group.add(head);
-
-    for (const z of [-0.13, 0.13]) {
-      const horn = new THREE.Mesh(new THREE.ConeGeometry(0.055, 1.08, 5), accent);
-      horn.position.set(1.52, 1.28, z);
-      horn.rotation.z = -0.95;
-      group.add(horn);
-    }
-
-    addLegs([-0.72, 0.67], [-0.28, 0.28], 0.082, 1.58, -0.96);
-
-    const tail = new THREE.Mesh(new THREE.ConeGeometry(0.065, 1.50, 5), accent);
-    tail.rotation.z = 1.43;
-    tail.position.set(-1.72, 0.08, 0);
-    group.add(tail);
-
-    addHeadset(group, 1.63, 0.77, 0.80);
+    addProfile(group, [
+      [-1.75, 0.12, 0.18, 0.22],
+      [-1.30, 0.14, 0.34, 0.40],
+      [-0.45, 0.18, 0.46, 0.50],
+      [0.45, 0.22, 0.42, 0.46],
+      [1.05, 0.30, 0.30, 0.34]
+    ], body);
+    addProfile(group, [
+      [0.78, 0.28, 0.28, 0.30],
+      [1.10, 0.58, 0.24, 0.26],
+      [1.42, 0.82, 0.20, 0.22]
+    ], accent, 6);
+    addProfile(group, [
+      [1.32, 0.80, 0.22, 0.24],
+      [1.72, 0.84, 0.24, 0.25],
+      [2.02, 0.78, 0.10, 0.15]
+    ], body, 6);
+    addHorn(group, [1.56, 1.02, -0.10], [0.72, 1.72, -0.12], 0.07, accent);
+    addHorn(group, [1.56, 1.02, 0.10], [0.72, 1.72, 0.12], 0.07, accent);
+    legPair([-0.72, 0.65], -0.08, 0.27, 0.95, 0.88, 0.10);
+    addSegment(group, [-1.55, 0.22, 0], [-2.32, 0.46, 0], 0.10, 0.025, accent, 5);
+    addCueBand(group, 1.62, 0.84, 0.78);
+    addEyes(group, 1.84, 0.86, 0.20, 0.90);
   } else if (morph === "P") {
-    // Power: deep chest, heavy shoulders, short thick legs.
-    const torso = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 1), body);
-    torso.scale.set(1.40, 0.92, 0.92);
-    torso.position.y = 0.02;
-    group.add(torso);
-
-    const shoulder = new THREE.Mesh(new THREE.IcosahedronGeometry(0.76, 0), accent);
-    shoulder.scale.set(1.10, 1.05, 1.08);
-    shoulder.position.set(0.60, 0.26, 0);
-    group.add(shoulder);
-
-    const rump = new THREE.Mesh(new THREE.IcosahedronGeometry(0.63, 0), body);
-    rump.scale.set(1.05, 0.95, 1.02);
-    rump.position.set(-0.72, 0.05, 0);
-    group.add(rump);
-
-    const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.31, 0.45, 0.78, 6), accent);
-    neck.rotation.z = -0.82;
-    neck.position.set(1.00, 0.32, 0);
-    group.add(neck);
-
-    const head = new THREE.Mesh(new THREE.IcosahedronGeometry(0.50, 1), body);
-    head.scale.set(1.08, 0.86, 0.90);
-    head.position.set(1.44, 0.52, 0);
-    group.add(head);
-
-    for (const z of [-0.22, 0.22]) {
-      const horn = new THREE.Mesh(new THREE.ConeGeometry(0.11, 0.62, 5), accent);
-      horn.position.set(1.37, 1.00, z);
-      horn.rotation.z = -0.52;
-      group.add(horn);
-    }
-
-    addLegs([-0.60, 0.53], [-0.39, 0.39], 0.19, 0.88, -0.78);
-
-    const tail = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.22, 0.72, 6), accent);
-    tail.rotation.z = 1.18;
-    tail.position.set(-1.35, 0.00, 0);
-    group.add(tail);
-
-    addHeadset(group, 1.43, 0.53, 0.96);
+    addProfile(group, [
+      [-1.58, 0.10, 0.42, 0.48],
+      [-1.10, 0.16, 0.72, 0.78],
+      [-0.20, 0.20, 0.88, 0.88],
+      [0.72, 0.28, 0.82, 0.84],
+      [1.18, 0.40, 0.48, 0.54]
+    ], body);
+    addProfile(group, [
+      [0.72, 0.35, 0.50, 0.54],
+      [1.08, 0.58, 0.40, 0.44],
+      [1.38, 0.70, 0.32, 0.34]
+    ], accent, 6);
+    addProfile(group, [
+      [1.24, 0.68, 0.34, 0.36],
+      [1.62, 0.70, 0.38, 0.38],
+      [1.90, 0.62, 0.18, 0.24]
+    ], body, 6);
+    addHorn(group, [1.45, 0.95, -0.16], [1.02, 1.36, -0.18], 0.11, accent);
+    addHorn(group, [1.45, 0.95, 0.16], [1.02, 1.36, 0.18], 0.11, accent);
+    legPair([-0.64, 0.58], -0.18, 0.40, 0.66, 0.56, 0.18);
+    addSegment(group, [-1.42, 0.18, 0], [-1.92, 0.28, 0], 0.18, 0.06, accent, 6);
+    addCueBand(group, 1.53, 0.70, 0.92);
+    addEyes(group, 1.72, 0.70, 0.28, 1.00);
   } else if (morph === "E") {
-    // Endurance: light torso, tallest stance, long neck/legs and fine branch-like crest.
-    const torso = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 1), body);
-    torso.scale.set(1.52, 0.40, 0.43);
-    torso.position.y = 0.22;
-    group.add(torso);
-
-    const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.20, 1.28, 6), accent);
-    neck.rotation.z = -1.16;
-    neck.position.set(1.08, 0.62, 0);
-    group.add(neck);
-
-    const head = new THREE.Mesh(new THREE.IcosahedronGeometry(0.34, 1), body);
-    head.scale.set(1.22, 0.58, 0.62);
-    head.position.set(1.60, 1.02, 0);
-    group.add(head);
-
-    for (const z of [-0.12, 0.12]) {
-      const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.032, 0.045, 0.92, 5), accent);
-      stem.rotation.z = -0.58;
-      stem.position.set(1.50, 1.48, z);
-      group.add(stem);
-      const tine = new THREE.Mesh(new THREE.ConeGeometry(0.04, 0.36, 5), accent);
-      tine.rotation.z = -1.02;
-      tine.position.set(1.28, 1.67, z);
-      group.add(tine);
-    }
-
-    addLegs([-0.66, 0.62], [-0.23, 0.23], 0.070, 1.86, -1.03);
-
-    const tail = new THREE.Mesh(new THREE.ConeGeometry(0.055, 1.48, 5), accent);
-    tail.rotation.z = 1.44;
-    tail.position.set(-1.58, 0.18, 0);
-    group.add(tail);
-
-    addHeadset(group, 1.58, 1.02, 0.76);
+    addProfile(group, [
+      [-1.85, 0.30, 0.18, 0.22],
+      [-1.30, 0.34, 0.30, 0.34],
+      [-0.42, 0.38, 0.38, 0.42],
+      [0.52, 0.44, 0.34, 0.38],
+      [1.10, 0.54, 0.24, 0.28]
+    ], body);
+    addProfile(group, [
+      [0.82, 0.50, 0.24, 0.26],
+      [1.10, 0.88, 0.18, 0.20],
+      [1.38, 1.20, 0.15, 0.18]
+    ], accent, 6);
+    addProfile(group, [
+      [1.28, 1.16, 0.20, 0.22],
+      [1.67, 1.20, 0.22, 0.24],
+      [1.96, 1.14, 0.09, 0.14]
+    ], body, 6);
+    addHorn(group, [1.52, 1.40, -0.10], [1.15, 1.98, -0.12], 0.055, accent);
+    addHorn(group, [1.52, 1.40, 0.10], [1.15, 1.98, 0.12], 0.055, accent);
+    addHorn(group, [1.30, 1.74, -0.11], [0.90, 1.92, -0.11], 0.035, accent);
+    addHorn(group, [1.30, 1.74, 0.11], [0.90, 1.92, 0.11], 0.035, accent);
+    legPair([-0.74, 0.66], 0.10, 0.24, 1.08, 0.98, 0.082);
+    addSegment(group, [-1.65, 0.35, 0], [-2.36, 0.56, 0], 0.075, 0.018, accent, 5);
+    addCueBand(group, 1.56, 1.20, 0.72);
+    addEyes(group, 1.78, 1.20, 0.19, 0.82);
   } else {
-    // Agility: low center of gravity, compact torso, short legs, large balancing blade-tail.
-    const torso = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 1), body);
-    torso.scale.set(1.22, 0.50, 0.66);
-    torso.position.y = -0.18;
-    group.add(torso);
-
-    const shoulder = new THREE.Mesh(new THREE.IcosahedronGeometry(0.54, 0), accent);
-    shoulder.scale.set(0.88, 0.82, 0.94);
-    shoulder.position.set(0.56, -0.10, 0);
-    group.add(shoulder);
-
-    const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.17, 0.25, 0.62, 6), accent);
-    neck.rotation.z = -0.90;
-    neck.position.set(0.78, 0.08, 0);
-    group.add(neck);
-
-    const head = new THREE.Mesh(new THREE.IcosahedronGeometry(0.38, 1), body);
-    head.scale.set(1.16, 0.70, 0.78);
-    head.position.set(1.18, 0.28, 0);
-    group.add(head);
-
+    addProfile(group, [
+      [-1.35, -0.06, 0.30, 0.38],
+      [-0.98, -0.02, 0.48, 0.58],
+      [-0.28, 0.00, 0.54, 0.66],
+      [0.50, 0.06, 0.48, 0.58],
+      [0.96, 0.18, 0.32, 0.38]
+    ], body);
+    addProfile(group, [
+      [0.68, 0.14, 0.30, 0.34],
+      [0.98, 0.40, 0.26, 0.28],
+      [1.26, 0.56, 0.22, 0.24]
+    ], accent, 6);
+    addProfile(group, [
+      [1.16, 0.54, 0.24, 0.26],
+      [1.52, 0.56, 0.26, 0.30],
+      [1.82, 0.50, 0.10, 0.16]
+    ], body, 6);
     for (let j = 0; j < 4; j++) {
-      const fin = new THREE.Mesh(new THREE.ConeGeometry(0.070, 0.52 + j * 0.04, 5), accent);
-      fin.position.set(-0.28 + j * 0.27, 0.50, 0);
-      fin.rotation.z = -0.22;
-      group.add(fin);
+      addHorn(group, [0.00 + j * 0.24, 0.48, 0], [-0.08 + j * 0.24, 0.92 + j * 0.05, 0], 0.055, accent);
     }
-
-    addLegs([-0.50, 0.45], [-0.34, 0.34], 0.105, 0.68, -0.62);
-
-    const tailStem = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.19, 0.88, 6), accent);
-    tailStem.rotation.z = 1.14;
-    tailStem.position.set(-1.04, -0.06, 0);
-    group.add(tailStem);
-
-    const blade = new THREE.Mesh(new THREE.ConeGeometry(0.44, 1.55, 5), accent);
-    blade.rotation.z = 1.22;
-    blade.position.set(-1.78, 0.02, 0);
-    blade.scale.z = 1.34;
+    legPair([-0.55, 0.48], -0.28, 0.34, 0.54, 0.48, 0.12);
+    addSegment(group, [-1.16, 0.04, 0], [-1.74, 0.18, 0], 0.17, 0.11, accent, 6);
+    const blade = new THREE.Mesh(new THREE.ConeGeometry(0.46, 1.62, 5), accent);
+    blade.rotation.z = 1.18;
+    blade.position.set(-2.05, 0.30, 0);
+    blade.scale.z = 1.26;
     group.add(blade);
-
-    addHeadset(group, 1.17, 0.29, 0.84);
+    addCueBand(group, 1.48, 0.57, 0.80);
+    addEyes(group, 1.66, 0.57, 0.21, 0.86);
   }
 
-  addMarkings(group, morph === "P" ? 0x171b22 : 0xe9eef4, index);
   group.userData.legs = legs;
   return group;
 }
