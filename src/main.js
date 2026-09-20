@@ -456,10 +456,36 @@ const tacticalMarkers = racers.map((r) => {
   return marker;
 });
 
+const labGroup = new THREE.Group();
+const labFloor = new THREE.Mesh(
+  new THREE.PlaneGeometry(26, 12),
+  new THREE.MeshStandardMaterial({ color: 0x18212a, roughness: 1 })
+);
+labFloor.rotation.x = -Math.PI / 2;
+labFloor.position.y = 0.055;
+labFloor.visible = false;
+scene.add(labFloor);
+
+const labSpecs = [
+  ["S", 0x5379a8, -6.0],
+  ["P", 0x8f3f3f, -2.0],
+  ["E", 0xa3906c, 2.0],
+  ["A", 0x356b82, 6.0]
+];
+for (let i = 0; i < labSpecs.length; i++) {
+  const [morph, color, x] = labSpecs[i];
+  const obj = buildMorph(i, morph, color);
+  obj.position.set(x, 1.2, 0);
+  obj.scale.setScalar(0.88);
+  labGroup.add(obj);
+}
+labGroup.visible = false;
+scene.add(labGroup);
+
 let elapsed = 0;
 let last = performance.now();
 let paused = false;
-let view = "race";
+let view = "lab";
 
 const ranks = () => [...racers].sort((a, b) => b.distance - a.distance);
 const rankOf = (r) => ranks().findIndex((x) => x === r) + 1;
@@ -586,13 +612,22 @@ function setCamera() {
   const tangent = curve.getTangentAt(t).normalize();
   const side = new THREE.Vector3(-tangent.z, 0, tangent.x);
 
+  const lab = view === "lab";
   const tactical = view === "tactical";
-  scene.fog = tactical ? null : raceFog;
-  racers.forEach((r) => { r.obj.visible = !tactical; });
-  ring.visible = !tactical;
+  scene.fog = (lab || tactical) ? null : raceFog;
+  racers.forEach((r) => { r.obj.visible = !lab && !tactical; });
+  ring.visible = !lab && !tactical;
   tacticalMarkers.forEach((marker) => { marker.visible = tactical; });
+  labGroup.visible = lab;
+  labFloor.visible = lab;
+  document.querySelector(".hud-race").hidden = lab;
+  document.querySelector(".hud-mini").hidden = lab;
 
-  if (view === "follow") {
+  if (lab) {
+    camera.up.set(0, 1, 0);
+    camera.position.lerp(new THREE.Vector3(0, 5.0, isMobile ? 31 : 27), 0.16);
+    camera.lookAt(0, 1.2, 0);
+  } else if (view === "follow") {
     camera.up.set(0, 1, 0);
     const followBack = isMobile ? -9.5 : -8;
     const followSide = isMobile ? 2.8 : 2.2;
@@ -700,7 +735,7 @@ function resize() {
   const height = Math.max(1, Math.floor(rect.height));
   renderer.setSize(width, height, false);
   camera.aspect = width / height;
-  camera.fov = isMobile ? (view === "tactical" ? 50 : view === "follow" ? 54 : 50) : 42;
+  camera.fov = isMobile ? (view === "lab" ? 43 : view === "tactical" ? 50 : view === "follow" ? 54 : 50) : 42;
   camera.updateProjectionMatrix();
 }
 addEventListener("resize", resize);
@@ -765,7 +800,7 @@ document.querySelectorAll("[data-view]").forEach((button) => {
     view = button.dataset.view;
     resize();
     document.querySelector("#viewLabel").textContent =
-      view === "race" ? "RACE VIEW" : view === "follow" ? "FOLLOW VIEW" : "TACTICAL VIEW";
+      view === "lab" ? "MORPH LAB" : view === "race" ? "RACE VIEW" : view === "follow" ? "FOLLOW VIEW" : "TACTICAL VIEW";
     document.querySelectorAll("[data-view]").forEach((b) => b.classList.toggle("active", b === button));
   });
 });
