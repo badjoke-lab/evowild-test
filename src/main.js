@@ -27,7 +27,7 @@ try {
     precision: "mediump"
   });
   renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.setPixelRatio(isMobile ? 1 : Math.min(devicePixelRatio, 1.25));
+  renderer.setPixelRatio(isMobile ? Math.min(devicePixelRatio, 1.5) : Math.min(devicePixelRatio, 1.25));
   renderer.shadowMap.enabled = false;
 } catch (error) {
   failRuntime(error);
@@ -169,6 +169,8 @@ const stand = new THREE.Mesh(
 );
 stand.position.set(7, 1.5, -31);
 scene.add(stand);
+
+const raceEnvironment = scene.children.filter((obj) => !obj.isLight);
 
 const palette = [
   0x78a9d7, 0xc96e62, 0x78a877, 0xd0ad59, 0x9a78b8, 0xdf8b4e,
@@ -458,29 +460,52 @@ const tacticalMarkers = racers.map((r) => {
 
 const labGroup = new THREE.Group();
 const labFloor = new THREE.Mesh(
-  new THREE.PlaneGeometry(26, 12),
-  new THREE.MeshStandardMaterial({ color: 0x18212a, roughness: 1 })
+  new THREE.PlaneGeometry(18, 8),
+  new THREE.MeshStandardMaterial({ color: 0x151b23, roughness: 1 })
 );
 labFloor.rotation.x = -Math.PI / 2;
-labFloor.position.y = 0.055;
+labFloor.position.y = 0.02;
 labFloor.visible = false;
 scene.add(labFloor);
 
 const labSpecs = [
-  ["S", 0x5379a8, -6.0],
-  ["P", 0x8f3f3f, -2.0],
-  ["E", 0xa3906c, 2.0],
-  ["A", 0x356b82, 6.0]
+  ["S", 0x587aa3],
+  ["P", 0x8f4a45],
+  ["E", 0xa39578],
+  ["A", 0x326f82]
 ];
+const labObjects = new Map();
 for (let i = 0; i < labSpecs.length; i++) {
-  const [morph, color, x] = labSpecs[i];
+  const [morph, color] = labSpecs[i];
   const obj = buildMorph(i, morph, color);
-  obj.position.set(x, 1.2, 0);
-  obj.scale.setScalar(0.88);
+  obj.position.set(0, 1.12, 0);
+  obj.scale.setScalar(1.68);
+  obj.visible = morph === "S";
   labGroup.add(obj);
+  labObjects.set(morph, obj);
 }
 labGroup.visible = false;
 scene.add(labGroup);
+
+let activeLabMorph = "S";
+const labText = {
+  S: ["S — Sprint", "細身・長脚・後方へ流れる角"],
+  P: ["P — Power", "太い胴・大型肩・短く太い脚"],
+  E: ["E — Endurance", "細長い体・最長脚・高い頭"],
+  A: ["A — Agility", "低重心・短脚・大型の尾"]
+};
+
+function setLabMorph(morph) {
+  activeLabMorph = morph;
+  labObjects.forEach((obj, key) => { obj.visible = key === morph; });
+  const [title, detail] = labText[morph];
+  const label = document.querySelector("#labLabel");
+  label.innerHTML = `<strong>${title}</strong><span>${detail}</span>`;
+  document.querySelectorAll("[data-morph]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.morph === morph);
+  });
+}
+setLabMorph("S");
 
 let elapsed = 0;
 let last = performance.now();
@@ -615,6 +640,8 @@ function setCamera() {
   const lab = view === "lab";
   const tactical = view === "tactical";
   scene.fog = (lab || tactical) ? null : raceFog;
+  scene.background = new THREE.Color(lab ? 0x202a35 : 0x9bc6dc);
+  raceEnvironment.forEach((obj) => { obj.visible = !lab; });
   racers.forEach((r) => { r.obj.visible = !lab && !tactical; });
   ring.visible = !lab && !tactical;
   tacticalMarkers.forEach((marker) => { marker.visible = tactical; });
@@ -622,11 +649,13 @@ function setCamera() {
   labFloor.visible = lab;
   document.querySelector(".hud-race").hidden = lab;
   document.querySelector(".hud-mini").hidden = lab;
+  document.querySelector("#morphSwitcher").hidden = !lab;
+  document.querySelector("#labLabel").hidden = !lab;
 
   if (lab) {
     camera.up.set(0, 1, 0);
-    camera.position.lerp(new THREE.Vector3(0, 5.0, isMobile ? 31 : 27), 0.16);
-    camera.lookAt(0, 1.2, 0);
+    camera.position.lerp(new THREE.Vector3(0, 2.7, isMobile ? 12.5 : 11.5), 0.20);
+    camera.lookAt(0, 1.25, 0);
   } else if (view === "follow") {
     camera.up.set(0, 1, 0);
     const followBack = isMobile ? -9.5 : -8;
@@ -735,7 +764,7 @@ function resize() {
   const height = Math.max(1, Math.floor(rect.height));
   renderer.setSize(width, height, false);
   camera.aspect = width / height;
-  camera.fov = isMobile ? (view === "lab" ? 43 : view === "tactical" ? 50 : view === "follow" ? 54 : 50) : 42;
+  camera.fov = isMobile ? (view === "lab" ? 44 : view === "tactical" ? 50 : view === "follow" ? 54 : 50) : 42;
   camera.updateProjectionMatrix();
 }
 addEventListener("resize", resize);
@@ -802,6 +831,12 @@ document.querySelectorAll("[data-view]").forEach((button) => {
     document.querySelector("#viewLabel").textContent =
       view === "lab" ? "MORPH LAB" : view === "race" ? "RACE VIEW" : view === "follow" ? "FOLLOW VIEW" : "TACTICAL VIEW";
     document.querySelectorAll("[data-view]").forEach((b) => b.classList.toggle("active", b === button));
+  });
+});
+
+document.querySelectorAll("[data-morph]").forEach((button) => {
+  button.addEventListener("click", () => {
+    setLabMorph(button.dataset.morph);
   });
 });
 
