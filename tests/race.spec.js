@@ -52,8 +52,15 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
   await page.goto("/evowild-test/", { waitUntil: "networkidle" });
   await page.waitForTimeout(1500);
 
+  await page.getByRole("button", { name: "1 Morph" }).click();
+  await expect(page.locator("#viewLabel")).toHaveText("MORPH LAB");
+  for (const morph of ["S", "P", "E", "A"]) {
+    await page.locator(`[data-morph="${morph}"]`).click();
+    await page.waitForTimeout(350);
+    await page.locator("#stage").screenshot({ path: `${outDir}/android-morph-${morph}.png` });
+  }
+
   const views = [
-    ["morph", "1 Morph", "MORPH LAB"],
     ["race", "2 Race", "RACE VIEW"],
     ["follow", "3 Follow", "FOLLOW VIEW"],
     ["tactical", "4 Tactical", "TACTICAL VIEW"]
