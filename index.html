@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EvoWild Run — Race Visual Test</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <div>
+          <h1>EvoWild Run — Race Visual Test</h1>
+          <p>18 racers / S-P-E-A morphs / Race-Follow-Tactical cameras</p>
+        </div>
+        <div class="controls">
+          <button data-view="race" class="active">1 Race</button>
+          <button data-view="follow">2 Follow</button>
+          <button data-view="tactical">3 Tactical</button>
+          <button id="pause">Pause</button>
+          <button id="reset">Reset</button>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="stage" id="stage">
+          <canvas id="game"></canvas>
+          <div class="hud hud-view" id="viewLabel">RACE VIEW</div>
+          <div class="hud hud-race">
+            <strong>1800m — Ridge Oval</strong><br />
+            <span id="clock">00:00.00</span> ・ <span id="position">— / 18</span>
+          </div>
+          <div class="hud hud-selected">
+            <strong>#06 Mica</strong>
+            <div class="metric"><span>Speed</span><b id="speed">0</b></div>
+            <div class="metric"><span>Stamina</span><b id="stamina">100</b></div>
+            <div class="chips">
+              <span id="morph">A / AGILITY</span>
+              <span id="decision">START / BUILD SPEED</span>
+            </div>
+          </div>
+          <div class="hud hud-mini"><canvas id="mini" width="220" height="125"></canvas></div>
+        </section>
+
+        <aside class="sidebar">
+          <section class="card">
+            <h2>Selected #06</h2>
+            <div class="row"><span>Morph</span><b id="morphName">A — Agility</b></div>
+            <div class="row"><span>Lane</span><b id="lane">2</b></div>
+            <div class="row"><span>Gap ahead</span><b id="gap">—</b></div>
+            <div class="row"><span>Phase</span><b id="phase">START</b></div>
+          </section>
+
+          <section class="card morph-key">
+            <h2>Morph Key</h2>
+            <div><b>S</b><span>細長い胴・長脚・後方へ流れる角</span></div>
+            <div><b>P</b><span>太い胴・短く太い脚・大型肩</span></div>
+            <div><b>E</b><span>細い胴・最長脚・高い頭・枝角</span></div>
+            <div><b>A</b><span>短胴・低重心・短脚・大型尾</span></div>
+          </section>
+
+          <section class="card standings">
+            <h2>Field — 18 racers</h2>
+            <div id="ranking"></div>
+          </section>
+        </aside>
+      </main>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
