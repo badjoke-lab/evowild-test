@@ -12,10 +12,27 @@ test("race scene renders and advances", async ({ page }) => {
   await page.goto("/evowild-test/", { waitUntil: "networkidle" });
   await page.waitForTimeout(1200);
 
+  const pixel = await page.locator("#game").evaluate((canvas) => {
+    const gl = canvas.getContext("webgl2");
+    if (!gl) return null;
+    const data = new Uint8Array(4);
+    gl.readPixels(
+      Math.floor(canvas.width / 2),
+      Math.floor(canvas.height / 2),
+      1,
+      1,
+      gl.RGBA,
+      gl.UNSIGNED_BYTE,
+      data
+    );
+    return Array.from(data);
+  });
+
   const state = {
     clock: await page.locator("#clock").textContent(),
     position: await page.locator("#position").textContent(),
     pauseLabel: await page.locator("#pause").textContent(),
+    pixel,
     pageErrors,
     consoleErrors
   };
@@ -24,6 +41,8 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#game")).toBeVisible();
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+  expect(pixel).not.toBeNull();
+  expect(pixel.slice(0, 3).some((v) => v > 10)).toBeTruthy();
   await expect(page.locator("#clock")).not.toHaveText("00:00.00", { timeout: 5000 });
   await expect(page.locator("#position")).not.toHaveText("— / 18", { timeout: 5000 });
 
