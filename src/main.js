@@ -52,8 +52,8 @@ scene.background = new THREE.Color(0x9bc6dc);
 scene.fog = new THREE.Fog(0x9bc6dc, 75, 150);
 
 const camera = new THREE.PerspectiveCamera(42, 16 / 9, 0.1, 240);
-scene.add(new THREE.HemisphereLight(0xdceeff, 0x557050, 2.0));
-const sun = new THREE.DirectionalLight(0xfff6dd, 2.15);
+scene.add(new THREE.HemisphereLight(0xdceeff, 0x557050, 1.05));
+const sun = new THREE.DirectionalLight(0xfff6dd, 1.25);
 sun.position.set(30, 42, 12);
 scene.add(sun);
 
@@ -383,6 +383,23 @@ const ring = new THREE.Mesh(
 ring.rotation.x = -Math.PI / 2;
 scene.add(ring);
 
+const tacticalMarkers = racers.map((r) => {
+  const marker = new THREE.Mesh(
+    new THREE.CircleGeometry(r.id === selectedId ? 0.92 : 0.66, 18),
+    new THREE.MeshBasicMaterial({
+      color: r.id === selectedId ? 0xffffff : palette[r.id - 1],
+      transparent: true,
+      opacity: r.id === selectedId ? 1 : 0.9,
+      depthTest: false
+    })
+  );
+  marker.rotation.x = -Math.PI / 2;
+  marker.visible = false;
+  marker.renderOrder = 10;
+  scene.add(marker);
+  return marker;
+});
+
 let elapsed = 0;
 let last = performance.now();
 let paused = false;
@@ -501,6 +518,10 @@ function update(dt) {
   }
 
   ring.position.set(selected.obj.position.x, 0.08, selected.obj.position.z);
+  tacticalMarkers.forEach((marker, index) => {
+    const r = racers[index];
+    marker.position.set(r.obj.position.x, 2.8, r.obj.position.z);
+  });
 }
 
 function setCamera() {
@@ -509,16 +530,22 @@ function setCamera() {
   const tangent = curve.getTangentAt(t).normalize();
   const side = new THREE.Vector3(-tangent.z, 0, tangent.x);
 
+  tacticalMarkers.forEach((marker) => { marker.visible = view === "tactical"; });
+
   if (view === "follow") {
     camera.up.set(0, 1, 0);
+    const followBack = isMobile ? -9.5 : -8;
+    const followSide = isMobile ? 2.8 : 2.2;
+    const followHeight = isMobile ? 3.7 : 2.8;
     camera.position.lerp(
-      selectedPos.clone().addScaledVector(tangent, -7).addScaledVector(side, 2.2).add(new THREE.Vector3(0, 2.8, 0)),
+      selectedPos.clone().addScaledVector(tangent, followBack).addScaledVector(side, followSide).add(new THREE.Vector3(0, followHeight, 0)),
       0.13
     );
-    camera.lookAt(selectedPos.clone().addScaledVector(tangent, 4.5).add(new THREE.Vector3(0, 0.45, 0)));
+    camera.lookAt(selectedPos.clone().addScaledVector(tangent, 2.8).add(new THREE.Vector3(0, 0.45, 0)));
   } else if (view === "tactical") {
     camera.up.set(0, 0, -1);
-    camera.position.lerp(new THREE.Vector3(0, 64, 0.01), 0.14);
+    const tacticalHeight = isMobile ? 112 : 78;
+    camera.position.lerp(new THREE.Vector3(0, tacticalHeight, 0.01), 0.14);
     camera.lookAt(0, 0, 0);
   } else {
     camera.up.set(0, 1, 0);
@@ -532,9 +559,9 @@ function setCamera() {
     const leaderTangent = curve.getTangentAt(lt).normalize();
     const leaderSide = new THREE.Vector3(-leaderTangent.z, 0, leaderTangent.x);
 
-    const raceBack = isMobile ? -10 : -14;
-    const raceSide = isMobile ? 8 : 11;
-    const raceHeight = isMobile ? 6.2 : 8.5;
+    const raceBack = isMobile ? -4.5 : -14;
+    const raceSide = isMobile ? 15.5 : 11;
+    const raceHeight = isMobile ? 7.4 : 8.5;
     camera.position.lerp(
       center.clone().addScaledVector(leaderTangent, raceBack).addScaledVector(leaderSide, raceSide).add(new THREE.Vector3(0, raceHeight, 0)),
       0.055
@@ -613,7 +640,7 @@ function resize() {
   const height = Math.max(1, Math.floor(rect.height));
   renderer.setSize(width, height, false);
   camera.aspect = width / height;
-  camera.fov = isMobile ? 48 : 42;
+  camera.fov = isMobile ? (view === "tactical" ? 50 : view === "follow" ? 54 : 50) : 42;
   camera.updateProjectionMatrix();
 }
 addEventListener("resize", resize);
@@ -676,6 +703,7 @@ renderer.setAnimationLoop(frame);
 document.querySelectorAll("[data-view]").forEach((button) => {
   button.addEventListener("click", () => {
     view = button.dataset.view;
+    resize();
     document.querySelector("#viewLabel").textContent =
       view === "race" ? "RACE VIEW" : view === "follow" ? "FOLLOW VIEW" : "TACTICAL VIEW";
     document.querySelectorAll("[data-view]").forEach((b) => b.classList.toggle("active", b === button));
