@@ -36,89 +36,55 @@ jobs:
           out=Path("hf-poc/output")
           out.mkdir(parents=True,exist_ok=True)
 
-          spaces=["Orvixgames/TripoSR","gdTharusha/TripoSR"]
-          last=None
-          for sid in spaces:
-              try:
-                  client=Client(sid,token=token)
-                  info=client.view_api(return_format="dict")
-                  eps=info.get("named_endpoints",{})
-                  print("SPACE",sid,"ENDPOINTS",list(eps))
-                  for name,ep in eps.items():
-                      print("EP",sid,name,[p.get("parameter_name") for p in ep.get("parameters",[])])
-                  # Find an endpoint taking an image and returning a model/file.
-                  chosen=None
-                  for name,ep in eps.items():
-                      ps=[p.get("parameter_name") for p in ep.get("parameters",[])]
-                      rs=ep.get("returns",[])
-                      if ps and any("image" in (p or "").lower() for p in ps):
-                          chosen=name
-                          break
-                  if not chosen:
-                      continue
-                  ep=eps[chosen]
-                  vals={
-                    "image":handle_file(str(src)),
-                    "input_image":handle_file(str(src)),
-                    "foreground_ratio":0.85,
-                    "mc_resolution":128,
-                    "model_save_format":"glb",
-                    "bake_texture":False,
-                    "texture_resolution":1024,
-                  }
-                  args=[]
-                  ok=True
-                  for p in ep.get("parameters",[]):
-                      n=p.get("parameter_name")
-                      if n in vals:
-                          args.append(vals[n])
-                      elif p.get("parameter_has_default"):
-                          args.append(p.get("parameter_default"))
-                      else:
-                          ok=False; break
-                  if not ok:
-                      print("UNSUPPORTED",sid,chosen)
-                      continue
-                  print("CALL",sid,chosen)
-                  res=client.predict(*args,api_name=chosen)
-                  print("RESULT",sid,repr(res)[:20000])
-                  items=list(res) if isinstance(res,(list,tuple)) else [res]
-                  cands=[]
-                  for item in items:
-                      if isinstance(item,str):
-                          cands.append((item,None))
-                      elif isinstance(item,dict):
-                          p=item.get("path") or item.get("value")
-                          if p:cands.append((str(p),item.get("url")))
-                  models=[x for x in cands if x[0].lower().endswith((".glb",".obj",".ply"))]
-                  if not models:
-                      print("NO_MODEL",sid,cands); continue
-                  path,url=models[-1]
-                  ext=Path(path).suffix.lower() or ".glb"
-                  dst=out/f"evowild_s_triposr_running{ext}"
-                  if Path(path).exists():
-                      shutil.copy2(path,dst)
-                  elif url:
-                      rr=requests.get(url,timeout=180)
-                      if rr.ok:dst.write_bytes(rr.content)
-                  if not dst.exists():
-                      base=str(getattr(client,"src","")).rstrip("/")
-                      enc=quote(path,safe="/")
-                      for u in [f"{base}/gradio_api/file={enc}",f"{base}/file={enc}"]:
-                          rr=requests.get(u,timeout=180)
-                          if rr.ok and len(rr.content)>1024:
-                              dst.write_bytes(rr.content);break
-                  if dst.exists():
-                      meta={"space":sid,"endpoint":chosen,"bytes":dst.stat().st_size,"file":dst.name}
-                      (out/"triposr_running_metadata.json").write_text(json.dumps(meta,indent=2))
-                      print("SAVED",json.dumps(meta))
-                      raise SystemExit(0)
-              except SystemExit:
-                  raise
-              except Exception as e:
-                  last=e
-                  print("SPACE_ERROR",sid,repr(e))
-          raise RuntimeError(f"No running TripoSR Space succeeded: {last!r}")
+          sid="Orvixgames/TripoSR"
+          client=Client(sid,token=token)
+          info=client.view_api(return_format="dict")
+          eps=info.get("named_endpoints",{})
+          print("SPACE",sid,"ENDPOINTS",list(eps))
+          if "/preprocess" not in eps or "/generate" not in eps:
+              raise RuntimeError(f"Expected TripoSR endpoints missing: {list(eps)}")
+
+          image_arg=handle_file(str(src))
+          processed=client.predict(image_arg, True, 0.85, api_name="/preprocess")
+          print("PREPROCESSED",repr(processed))
+
+          # Orvixgames uses the current TripoSR-style signature:
+          # generate(processed_image, mc_resolution) -> (obj, glb)
+          res=client.predict(processed, 128, api_name="/generate")
+          print("RESULT",repr(res)[:20000])
+
+          items=list(res) if isinstance(res,(list,tuple)) else [res]
+          cands=[]
+          for item in items:
+              if isinstance(item,str):
+                  cands.append((item,None))
+              elif isinstance(item,dict):
+                  p=item.get("path") or item.get("value")
+                  if p:cands.append((str(p),item.get("url")))
+          models=[x for x in cands if x[0].lower().endswith((".glb",".obj",".ply"))]
+          if not models:
+              raise RuntimeError(f"No model returned: {cands}")
+          glbs=[x for x in models if x[0].lower().endswith(".glb")]
+          path,url=(glbs[-1] if glbs else models[-1])
+          ext=Path(path).suffix.lower() or ".glb"
+          dst=out/f"evowild_s_triposr_running{ext}"
+          if Path(path).exists():
+              shutil.copy2(path,dst)
+          elif url:
+              rr=requests.get(url,timeout=180)
+              if rr.ok:dst.write_bytes(rr.content)
+          if not dst.exists():
+              base=str(getattr(client,"src","")).rstrip("/")
+              enc=quote(path,safe="/")
+              for u in [f"{base}/gradio_api/file={enc}",f"{base}/file={enc}"]:
+                  rr=requests.get(u,timeout=180)
+                  if rr.ok and len(rr.content)>1024:
+                      dst.write_bytes(rr.content);break
+          if not dst.exists():
+              raise RuntimeError(f"Could not retrieve {path}")
+          meta={"space":sid,"endpoint":"/generate","mc_resolution":128,"bytes":dst.stat().st_size,"file":dst.name}
+          (out/"triposr_running_metadata.json").write_text(json.dumps(meta,indent=2))
+          print("SAVED",json.dumps(meta))
           PY
       - name: Upload
         if: always()
