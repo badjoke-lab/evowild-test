@@ -41,9 +41,14 @@ jobs:
           runtime.mkdir(parents=True, exist_ok=True)
           out.mkdir(parents=True, exist_ok=True)
 
-          # Keep the silver-white creature intact. Stable Fast 3D receives the
-          # original 3/4 reference and handles foreground framing itself.
-          cutout = src
+          # The 3/4 reference contains a partial second creature on the left.
+          # Crop it out so SF3D sees only the intended S-Type subject.
+          im = Image.open(src).convert("RGB")
+          w, h = im.size
+          im = im.crop((int(w * 0.30), 0, w, h))
+          crop = runtime / "evowild_3q_main_subject.png"
+          im.save(crop)
+          cutout = crop
 
           spaces = [
               ("Upsampler/stable-fast-3d", "https://upsampler-stable-fast-3d.hf.space", 4),
