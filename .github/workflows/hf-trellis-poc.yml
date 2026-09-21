@@ -64,7 +64,7 @@ jobs:
 
           token = os.environ.get("HF_TOKEN") or None
           print("HF_AUTH:", "token" if token else "anonymous")
-          client = Client("trellis-community/TRELLIS", hf_token=token)
+          client = Client("trellis-community/TRELLIS", token=token) if token else Client("trellis-community/TRELLIS")
           info = client.view_api(return_format="dict")
           print("ENDPOINTS:", list(info.get("named_endpoints", {}).keys()))
 
