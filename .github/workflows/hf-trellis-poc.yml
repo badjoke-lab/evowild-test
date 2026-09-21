@@ -22,9 +22,11 @@ jobs:
       - name: Install client
         run: pip install -q gradio_client pillow requests
       - name: Generate textured GLB with TRELLIS
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           python - <<'PY'
-          import json, shutil
+          import json, shutil, os
           from pathlib import Path
           import requests
           from PIL import Image
@@ -60,7 +62,9 @@ jobs:
           cutout=runtime/"evowild_3q_cutout_trellis.png"
           canvas.save(cutout)
 
-          client = Client("trellis-community/TRELLIS")
+          token = os.environ.get("HF_TOKEN") or None
+          print("HF_AUTH:", "token" if token else "anonymous")
+          client = Client("trellis-community/TRELLIS", hf_token=token)
           info = client.view_api(return_format="dict")
           print("ENDPOINTS:", list(info.get("named_endpoints", {}).keys()))
 
