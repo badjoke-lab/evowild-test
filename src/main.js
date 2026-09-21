@@ -506,6 +506,37 @@ scene.add(labGroup);
 let activeLabMorph = "S";
 let dedicatedS = null;
 let dedicatedSReady = false;
+let conceptSSprite = null;
+let conceptSReady = false;
+
+new THREE.TextureLoader().load(
+  `${import.meta.env.BASE_URL}concept/S.webp`,
+  (texture) => {
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    const material = new THREE.SpriteMaterial({
+      map: texture,
+      transparent: true,
+      depthWrite: false
+    });
+    const sprite = new THREE.Sprite(material);
+    sprite.name = "Concept_S_2_5D";
+    sprite.position.set(0, 2.15, 0.15);
+    sprite.scale.set(7.2, 6.85, 1);
+    sprite.visible = activeLabMorph === "S";
+    conceptSSprite = sprite;
+    conceptSReady = true;
+    labGroup.add(sprite);
+    stage.dataset.conceptS = "loaded";
+    setLabMorph(activeLabMorph);
+  },
+  undefined,
+  (error) => {
+    stage.dataset.conceptS = "error";
+    console.error("Concept S sprite failed to load", error);
+  }
+);
 
 const assetBase = `${import.meta.env.BASE_URL}models/`;
 const mtlLoader = new MTLLoader();
@@ -560,14 +591,17 @@ const labText = {
 function setLabMorph(morph) {
   activeLabMorph = morph;
   labObjects.forEach((obj, key) => {
-    obj.visible = key === morph && !(key === "S" && dedicatedSReady);
+    obj.visible = key === morph && !(key === "S" && (conceptSReady || dedicatedSReady));
   });
-  if (dedicatedS) dedicatedS.visible = morph === "S";
+  if (dedicatedS) dedicatedS.visible = morph === "S" && !conceptSReady;
+  if (conceptSSprite) conceptSSprite.visible = morph === "S";
 
   const [title, baseDetail] = labText[morph];
-  const detail = morph === "S" && dedicatedSReady
-    ? `${baseDetail} / dedicated asset`
-    : baseDetail;
+  const detail = morph === "S" && conceptSReady
+    ? `${baseDetail} / 2.5D concept-source test`
+    : morph === "S" && dedicatedSReady
+      ? `${baseDetail} / dedicated 3D asset`
+      : baseDetail;
   const label = document.querySelector("#labLabel");
   label.innerHTML = `<strong>${title}</strong><span>${detail}</span>`;
   document.querySelectorAll("[data-morph]").forEach((button) => {
