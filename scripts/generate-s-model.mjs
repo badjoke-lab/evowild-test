@@ -134,16 +134,29 @@ addMesh(root, "dorsal_ridge", loftGeometry([
   [ 0.76, 1.56, 0.05, 0.18]
 ], 12), materials.accent);
 
-// Shoulder and haunch plates create the sharp anatomical landmarks from the design sheet.
-for (const [name, x, y, z, sx, sy, sz] of [
-  ["shoulder_l", 0.58, 1.34, -0.36, 1.18, 1.45, 0.62],
-  ["shoulder_r", 0.58, 1.34,  0.36, 1.18, 1.45, 0.62],
-  ["haunch_l",  -0.93, 1.30, -0.38, 1.10, 1.30, 0.65],
-  ["haunch_r",  -0.93, 1.30,  0.38, 1.10, 1.30, 0.65]
-]) {
-  const plate = addMesh(root, name, new THREE.SphereGeometry(0.25, 16, 10), materials.accent);
-  plate.scale.set(sx, sy, sz);
-  plate.position.set(x, y, z);
+// Angular side armor/muscle plates: avoid toy-like circular joints.
+const shoulderPlate = [
+  [0.26, 1.13],
+  [0.42, 1.57],
+  [0.72, 1.67],
+  [0.96, 1.46],
+  [0.86, 1.16],
+  [0.54, 1.04]
+];
+const haunchPlate = [
+  [-1.28, 1.08],
+  [-1.18, 1.49],
+  [-0.92, 1.61],
+  [-0.62, 1.46],
+  [-0.64, 1.12],
+  [-0.96, 1.02]
+];
+for (const side of [-1, 1]) {
+  const shoulder = addMesh(root, `shoulder_plate_${side}`, profilePrismGeometry(shoulderPlate, 0.055), materials.accent);
+  shoulder.position.z = 0.37 * side;
+
+  const haunch = addMesh(root, `haunch_plate_${side}`, profilePrismGeometry(haunchPlate, 0.055), materials.accent);
+  haunch.position.z = 0.39 * side;
 }
 
 // Slender rising neck and small wedge-shaped head.
@@ -243,7 +256,7 @@ const exporter = new OBJExporter();
 const obj = exporter.parse(root);
 const mtl = `# EvoWild Run S prototype
 newmtl S_body
-Kd 0.62 0.72 0.82
+Kd 0.70 0.79 0.87
 Ks 0.08 0.10 0.12
 Ns 55
 
@@ -253,7 +266,7 @@ Ks 0.10 0.14 0.18
 Ns 70
 
 newmtl S_under
-Kd 0.82 0.86 0.89
+Kd 0.86 0.89 0.92
 Ks 0.05 0.06 0.07
 Ns 35
 
