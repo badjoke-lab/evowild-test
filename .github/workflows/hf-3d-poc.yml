@@ -1,0 +1,27 @@
+name: HF 3D POC Inspect
+
+on:
+  push:
+    branches:
+      - test/hf-3d-poc-20260921
+    paths:
+      - '.github/workflows/hf-3d-poc.yml'
+      - 'hf-poc/**'
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -q gradio_client
+      - name: Inspect Hunyuan3D-2mv API
+        run: |
+          python - <<'PY'
+          from gradio_client import Client
+          c = Client("tencent/Hunyuan3D-2mv")
+          print(c.view_api())
+          PY
