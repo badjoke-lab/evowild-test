@@ -1,4 +1,4 @@
-name: HF Pixal3D API Inspect
+name: HF Pixal3D Generate POC
 
 on:
   push:
@@ -11,27 +11,134 @@ permissions:
   contents: read
 
 jobs:
-  inspect:
+  generate:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 40
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
       - name: Install client
-        run: pip install -q gradio_client
-      - name: Inspect Pixal3D API
+        run: pip install -q gradio_client requests
+
+      - name: Generate EvoWild with Pixal3D
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           python - <<'PY'
-          import json, os
-          from gradio_client import Client
+          import json, os, shutil, uuid
+          from pathlib import Path
+          import requests
+          from gradio_client import Client, handle_file
+
           token=os.environ.get("HF_TOKEN")
           if not token:
               raise RuntimeError("HF_TOKEN missing")
           print("HF_AUTH: token present")
+
+          src=Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")
+          out=Path("hf-poc/output")
+          out.mkdir(parents=True, exist_ok=True)
+          session_id="evowild-" + uuid.uuid4().hex[:12]
+
           client=Client("TencentARC/Pixal3D", token=token)
-          info=client.view_api(return_format="dict")
-          print("API_INFO:", json.dumps(info, default=str))
+
+          processed=client.predict(handle_file(str(src)), api_name="/preprocess")
+          print("PREPROCESSED:", repr(processed))
+
+          result=client.predict(
+              processed,
+              42,
+              1024,
+              7.5,
+              0.7,
+              12,
+              5.0,
+              7.5,
+              0.5,
+              12,
+              3.0,
+              1.0,
+              0.0,
+              12,
+              3.0,
+              -1.0,
+              "deg",
+              session_id,
+              api_name="/generate_3d",
+          )
+          print("GENERATE_KEYS:", list(result.keys()) if isinstance(result,dict) else type(result).__name__)
+          print("GENERATE_RESULT:", repr(result)[:30000])
+
+          # Preserve returned render images locally when gradio_client materializes them.
+          copied=[]
+          if isinstance(result,dict):
+              render_paths=result.get("render_paths") or {}
+              for mode, items in render_paths.items():
+                  for i,item in enumerate(items or []):
+                      p=None
+                      if isinstance(item,str):
+                          p=item
+                      elif isinstance(item,dict):
+                          p=item.get("path") or item.get("value")
+                      if p and Path(p).exists():
+                          dst=out/f"pixal3d_{mode}_{i}.jpg"
+                          shutil.copy2(p,dst)
+                          copied.append(dst.name)
+
+          state_path=result.get("state_path") if isinstance(result,dict) else None
+          meta={
+              "space":"TencentARC/Pixal3D",
+              "source":str(src),
+              "resolution":1024,
+              "seed":42,
+              "session_id":session_id,
+              "state_path":state_path,
+              "camera_angle_x":result.get("camera_angle_x") if isinstance(result,dict) else None,
+              "distance":result.get("distance") if isinstance(result,dict) else None,
+              "render_files":copied,
+          }
+
+          # Try GLB extraction. Keep generation results even if Free ZeroGPU rejects
+          # this separate duration=240 endpoint.
+          extract_error=None
+          if state_path:
+              try:
+                  glb_result=client.predict(
+                      state_path,
+                      100000,
+                      1024,
+                      session_id,
+                      api_name="/extract_glb_api",
+                  )
+                  print("GLB_RESULT:", repr(glb_result))
+                  p=glb_result.get("path") if isinstance(glb_result,dict) else str(glb_result)
+                  url=glb_result.get("url") if isinstance(glb_result,dict) else None
+                  dst=out/"evowild_s_pixal3d.glb"
+                  if p and Path(p).exists():
+                      shutil.copy2(p,dst)
+                  elif url:
+                      rr=requests.get(url,timeout=180)
+                      if rr.ok:
+                          dst.write_bytes(rr.content)
+                  if dst.exists():
+                      if dst.read_bytes()[:4] != b"glTF":
+                          raise RuntimeError("Pixal3D result is not binary GLB")
+                      meta["glb_bytes"]=dst.stat().st_size
+              except Exception as e:
+                  extract_error=repr(e)
+                  print("GLB_EXTRACT_ERROR:", extract_error)
+          meta["glb_extract_error"]=extract_error
+          (out/"pixal3d_metadata.json").write_text(json.dumps(meta,indent=2),encoding="utf-8")
+          print("SAVED_METADATA:", json.dumps(meta))
           PY
+
+      - name: Upload result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evowild-s-pixal3d
+          path: hf-poc/output/
+          if-no-files-found: warn
