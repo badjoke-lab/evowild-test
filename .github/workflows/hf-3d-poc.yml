@@ -22,8 +22,32 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Gradio client
-        run: pip install -q gradio_client
+      - name: Install clients
+        run: pip install -q gradio_client pillow
+
+      - name: Validate and normalize reference images
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+
+          src = Path("hf-poc/input")
+          dst = Path("hf-poc/runtime")
+          dst.mkdir(parents=True, exist_ok=True)
+
+          names = [
+              "01_SIDE_authority",
+              "02_FRONT_width_reference",
+              "03_BACK_rear_reference",
+              "04_3Q_FRONT_shape_support",
+          ]
+          for name in names:
+              path = src / f"{name}.jpg"
+              with Image.open(path) as im:
+                  im.load()
+                  print(name, im.size, im.mode)
+                  im.convert("RGB").save(dst / f"{name}.png", format="PNG")
+          PY
 
       - name: Generate EvoWild S-Type mesh with Hunyuan3D-2mv
         run: |
@@ -43,10 +67,10 @@ jobs:
 
           result = client.predict(
               caption,
-              handle_file("hf-poc/input/04_3Q_FRONT_shape_support.jpg"),
-              handle_file("hf-poc/input/02_FRONT_width_reference.jpg"),
-              handle_file("hf-poc/input/03_BACK_rear_reference.jpg"),
-              handle_file("hf-poc/input/01_SIDE_authority.jpg"),
+              handle_file("hf-poc/runtime/04_3Q_FRONT_shape_support.png"),
+              handle_file("hf-poc/runtime/02_FRONT_width_reference.png"),
+              handle_file("hf-poc/runtime/03_BACK_rear_reference.png"),
+              handle_file("hf-poc/runtime/01_SIDE_authority.png"),
               None,
               5,
               5.0,
