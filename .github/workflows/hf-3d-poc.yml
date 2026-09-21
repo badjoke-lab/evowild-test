@@ -37,7 +37,7 @@ jobs:
           out.mkdir(parents=True,exist_ok=True)
 
           sid="Orvixgames/TripoSR"
-          client=Client(sid,token=token)
+          client=Client("https://orvixgamesai-triposr.hf.space")
           info=client.view_api(return_format="dict")
           eps=info.get("named_endpoints",{})
           print("SPACE",sid,"ENDPOINTS",list(eps))
