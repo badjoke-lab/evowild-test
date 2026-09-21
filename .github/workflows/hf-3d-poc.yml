@@ -90,15 +90,32 @@ jobs:
           if not server_path:
               raise RuntimeError(f"No mesh path in result: {mesh_result!r}")
 
-          mesh_url = f"{base}/gradio_api/file={quote(server_path, safe='')}"
-          response = requests.get(mesh_url, timeout=120)
-          print("MESH_DOWNLOAD:", response.status_code, len(response.content), mesh_url)
-          response.raise_for_status()
+          encoded_path = quote(server_path, safe="/")
+          candidates = [
+              f"{base}/gradio_api/file={encoded_path}",
+              f"{base}/file={encoded_path}",
+          ]
+
+          response = None
+          used_url = None
+          for mesh_url in candidates:
+              r = requests.get(mesh_url, timeout=120)
+              print("MESH_DOWNLOAD:", r.status_code, len(r.content), mesh_url)
+              if r.ok and len(r.content) > 1024:
+                  response = r
+                  used_url = mesh_url
+                  break
+
+          if response is None:
+              raise RuntimeError("Generated mesh exists, but no Gradio file endpoint returned it")
 
           out = Path("hf-poc/output")
           out.mkdir(parents=True, exist_ok=True)
           target = out / "evowild_s_hunyuan3d2mv.glb"
           target.write_bytes(response.content)
+
+          if target.read_bytes()[:4] != b"glTF":
+              raise RuntimeError("Downloaded file is not a binary GLB")
 
           metadata = {
               "source_space": "tencent/Hunyuan3D-2mv",
@@ -110,6 +127,7 @@ jobs:
               "octree_resolution": 256,
               "mesh_stats": result[2],
               "server_path": server_path,
+              "download_url": used_url,
               "output_filename": target.name,
               "output_bytes": target.stat().st_size,
           }
