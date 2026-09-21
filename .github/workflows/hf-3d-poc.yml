@@ -41,29 +41,9 @@ jobs:
           runtime.mkdir(parents=True, exist_ok=True)
           out.mkdir(parents=True, exist_ok=True)
 
-          # Create transparent square input from the 3/4 concept view.
-          im = Image.open(src).convert("RGBA")
-          px = im.load()
-          for y in range(im.height):
-              for x in range(im.width):
-                  r,g,b,a = px[x,y]
-                  mn, mx = min(r,g,b), max(r,g,b)
-                  if mn >= 245:
-                      alpha = 0
-                  elif mn >= 225 and mx - mn < 18:
-                      alpha = int(max(0, min(255, (245 - mn) / 20 * 255)))
-                  else:
-                      alpha = 255
-                  px[x,y] = (r,g,b,alpha)
-          bbox = im.getbbox()
-          if bbox:
-              im = im.crop(bbox)
-          w,h = im.size
-          side = max(w,h)
-          canvas = Image.new("RGBA", (side,side), (0,0,0,0))
-          canvas.alpha_composite(im, ((side-w)//2, (side-h)//2))
-          cutout = runtime / "evowild_3q_cutout.png"
-          canvas.save(cutout)
+          # Keep the silver-white creature intact. Stable Fast 3D receives the
+          # original 3/4 reference and handles foreground framing itself.
+          cutout = src
 
           spaces = [
               ("Upsampler/stable-fast-3d", "https://upsampler-stable-fast-3d.hf.space", 4),
