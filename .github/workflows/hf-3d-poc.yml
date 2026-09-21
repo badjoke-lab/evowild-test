@@ -1,9 +1,9 @@
-name: HF TRELLIS Multi-view POC
+name: HF TRELLIS Single-image POC
 
 on:
   push:
     branches:
-      - test/hf-trellis-multiview-20260921
+      - test/hf-trellis-single-20260921
     paths:
       - '.github/workflows/hf-3d-poc.yml'
 
@@ -23,7 +23,7 @@ jobs:
       - name: Install client
         run: pip install -q gradio_client pillow requests
 
-      - name: Generate textured EvoWild GLB with TRELLIS multi-image
+      - name: Generate textured EvoWild GLB with TRELLIS single-image
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
@@ -40,138 +40,98 @@ jobs:
               raise RuntimeError("HF_TOKEN secret missing")
           print("HF_AUTH: token present")
 
-          runtime = Path("hf-poc/runtime/trellis")
+          src = Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")
+          runtime = Path("hf-poc/runtime/trellis-single")
           out = Path("hf-poc/output")
           runtime.mkdir(parents=True, exist_ok=True)
           out.mkdir(parents=True, exist_ok=True)
 
-          sources = [
-              ("side", Path("hf-poc/input/01_SIDE_authority.jpg")),
-              ("front", Path("hf-poc/input/02_FRONT_width_reference.jpg")),
-              ("back", Path("hf-poc/input/03_BACK_rear_reference.jpg")),
-              ("three_quarter", Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")),
-          ]
-
-          # Locally convert the white-background concept views to centered RGBA inputs.
-          # TRELLIS multi-image generation is called with preprocess_image=False.
-          prepared = []
-          for label, src in sources:
-              im = Image.open(src).convert("RGBA")
-              px = im.load()
-              for y in range(im.height):
-                  for x in range(im.width):
-                      r,g,b,a = px[x,y]
-                      mn, mx = min(r,g,b), max(r,g,b)
-                      if mn >= 246:
-                          alpha = 0
-                      elif mn >= 226 and mx - mn < 18:
-                          alpha = int(max(0, min(255, (246-mn)/20*255)))
-                      else:
-                          alpha = 255
-                      px[x,y] = (r,g,b,alpha)
-              bbox = im.getbbox()
-              if bbox:
-                  im = im.crop(bbox)
-              # Keep consistent square framing with margin.
-              w,h = im.size
-              side = int(max(w,h) * 1.12)
-              canvas = Image.new("RGBA", (side,side), (0,0,0,0))
-              canvas.alpha_composite(im, ((side-w)//2,(side-h)//2))
-              p = runtime / f"{label}.png"
-              canvas.save(p)
-              prepared.append(p)
+          im = Image.open(src).convert("RGBA")
+          px = im.load()
+          for y in range(im.height):
+              for x in range(im.width):
+                  r,g,b,a = px[x,y]
+                  mn, mx = min(r,g,b), max(r,g,b)
+                  if mn >= 246:
+                      alpha = 0
+                  elif mn >= 226 and mx - mn < 18:
+                      alpha = int(max(0, min(255, (246-mn)/20*255)))
+                  else:
+                      alpha = 255
+                  px[x,y] = (r,g,b,alpha)
+          bbox = im.getbbox()
+          if bbox:
+              im = im.crop(bbox)
+          w,h = im.size
+          side = int(max(w,h) * 1.12)
+          canvas = Image.new("RGBA",(side,side),(0,0,0,0))
+          canvas.alpha_composite(im,((side-w)//2,(side-h)//2))
+          inp = runtime/"input.png"
+          canvas.save(inp)
 
           client = Client("trellis-community/TRELLIS", token=token)
           info = client.view_api(return_format="dict")
           eps = info.get("named_endpoints", {})
           print("ENDPOINTS:", list(eps))
 
-          gen_ep = None
-          for name, ep in eps.items():
-              params = [p.get("parameter_name") for p in ep.get("parameters", [])]
-              if "multiimages" in params and "mesh_simplify" in params and "texture_size" in params:
-                  gen_ep = name
-                  print("GEN_ENDPOINT:", name, params)
-                  break
-          if not gen_ep:
-              for name in eps:
-                  if "generate" in name.lower() and "glb" in name.lower():
-                      gen_ep = name
-                      break
-          if not gen_ep:
-              raise RuntimeError(f"TRELLIS generation endpoint not found: {list(eps)}")
-
-          params = eps[gen_ep].get("parameters", [])
-          names = [p.get("parameter_name") for p in params]
-          print("PARAMS:", names)
-
-          # Reproduce the Space UI event sequence so hidden Gradio State
-          # (multi-image mode + per-session output directory) is initialized.
           if "/start_session" in eps:
               client.predict(api_name="/start_session")
               print("SESSION_STARTED")
-          if "/lambda_1" in eps:
-              client.predict(api_name="/lambda_1")
-              print("MULTIIMAGE_STATE_SELECTED")
+          if "/lambda" in eps:
+              client.predict(api_name="/lambda")
+              print("SINGLEIMAGE_STATE_SELECTED")
 
-          gallery = [{"image": handle_file(str(p)), "caption": None} for p in prepared]
-          if "/preprocess_images" in eps:
-              gallery = client.predict(gallery, api_name="/preprocess_images")
-              print("PREPROCESSED_GALLERY:", repr(gallery)[:4000])
-
-          # Supply a valid single-image value as well even though hidden
-          # is_multiimage state should make the server use the gallery.
-          single_image = handle_file(str(prepared[-1]))
-          vals = {
-              "image": single_image,
-              "multiimages": gallery,
-              "seed": 42,
-              "ss_guidance_strength": 7.5,
-              "ss_sampling_steps": 12,
-              "slat_guidance_strength": 3.0,
-              "slat_sampling_steps": 12,
-              "multiimage_algo": "stochastic",
-              "mesh_simplify": 0.95,
-              "texture_size": 1024,
-          }
-
-          args = []
-          for p in params:
-              n = p.get("parameter_name")
-              if n in vals:
-                  args.append(vals[n])
-              elif p.get("parameter_has_default"):
-                  args.append(p.get("parameter_default"))
+          image_arg = handle_file(str(inp))
+          if "/preprocess_image" in eps:
+              processed = client.predict(image_arg, api_name="/preprocess_image")
+              print("PREPROCESSED_IMAGE:", repr(processed))
+              if isinstance(processed, str) and Path(processed).exists():
+                  image_arg = handle_file(processed)
               else:
-                  raise RuntimeError(f"Unsupported required TRELLIS parameter: {n}")
+                  image_arg = processed
 
-          result = client.predict(*args, api_name=gen_ep)
+          gen_ep = "/generate_and_extract_glb"
+          if gen_ep not in eps:
+              raise RuntimeError(f"TRELLIS generation endpoint missing: {list(eps)}")
+
+          result = client.predict(
+              image_arg,
+              [],
+              42,
+              7.5,
+              12,
+              3.0,
+              12,
+              "stochastic",
+              0.95,
+              1024,
+              api_name=gen_ep,
+          )
           print("RESULT_TYPE:", type(result).__name__)
           print("RESULT_REPR:", repr(result)[:10000])
 
           items = list(result) if isinstance(result,(list,tuple)) else [result]
-          candidates = []
+          candidates=[]
           for item in items:
-              if isinstance(item, str):
+              if isinstance(item,str):
                   if item.lower().endswith(".glb") or "/tmp/" in item:
                       candidates.append((item,None))
-              elif isinstance(item, dict):
-                  p = item.get("path") or item.get("value")
-                  u = item.get("url")
+              elif isinstance(item,dict):
+                  p=item.get("path") or item.get("value")
+                  u=item.get("url")
                   if p and (str(p).lower().endswith(".glb") or "/tmp/" in str(p)):
                       candidates.append((str(p),u))
-          # TRELLIS returns GLB twice (viewer + download); choose the last.
-          glbs = [(p,u) for p,u in candidates if p.lower().endswith(".glb")]
+          glbs=[(p,u) for p,u in candidates if p.lower().endswith(".glb")]
           if not glbs:
-              raise RuntimeError(f"No GLB returned by TRELLIS: {candidates}")
+              raise RuntimeError(f"No GLB returned: {candidates}")
 
-          path,url = glbs[-1]
-          target = out / "evowild_s_trellis_multiview.glb"
-          lp = Path(path)
-          source = None
+          path,url=glbs[-1]
+          target=out/"evowild_s_trellis_single.glb"
+          lp=Path(path)
+          source=None
           if lp.exists():
               shutil.copy2(lp,target)
-              source = "local"
+              source="local"
           elif url:
               r=requests.get(url,timeout=180)
               print("DIRECT_DOWNLOAD:",r.status_code,len(r.content),url)
@@ -179,7 +139,7 @@ jobs:
                   target.write_bytes(r.content)
                   source=url
           if not target.exists():
-              base = str(getattr(client,"src","https://trellis-community-trellis.hf.space")).rstrip("/")
+              base=str(getattr(client,"src","https://trellis-community-trellis.hf.space")).rstrip("/")
               enc=quote(path,safe="/")
               for u in [f"{base}/gradio_api/file={enc}",f"{base}/file={enc}"]:
                   r=requests.get(u,timeout=180)
@@ -191,29 +151,27 @@ jobs:
           if not target.exists() or target.read_bytes()[:4] != b"glTF":
               raise RuntimeError("TRELLIS GLB retrieval/validation failed")
 
-          meta = {
+          meta={
               "space":"trellis-community/TRELLIS",
-              "mode":"multi-image",
-              "views":[label for label,_ in sources],
+              "mode":"single-image",
+              "source_image":str(src),
               "seed":42,
               "ss_guidance_strength":7.5,
               "ss_sampling_steps":12,
               "slat_guidance_strength":3.0,
               "slat_sampling_steps":12,
-              "multiimage_algo":"stochastic",
               "mesh_simplify":0.95,
               "texture_size":1024,
               "output_bytes":target.stat().st_size,
-              "endpoint":gen_ep,
               "source":source,
           }
-          (out/"trellis_multiview_metadata.json").write_text(json.dumps(meta,indent=2),encoding="utf-8")
+          (out/"trellis_single_metadata.json").write_text(json.dumps(meta,indent=2),encoding="utf-8")
           print("SAVED:",target,target.stat().st_size)
           PY
 
       - name: Upload result
         uses: actions/upload-artifact@v4
         with:
-          name: evowild-s-trellis-multiview
+          name: evowild-s-trellis-single
           path: hf-poc/output/
           if-no-files-found: error
