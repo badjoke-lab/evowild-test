@@ -46,28 +46,9 @@ jobs:
           runtime.mkdir(parents=True, exist_ok=True)
           out.mkdir(parents=True, exist_ok=True)
 
-          im = Image.open(src).convert("RGBA")
-          px = im.load()
-          for y in range(im.height):
-              for x in range(im.width):
-                  r,g,b,a = px[x,y]
-                  mn, mx = min(r,g,b), max(r,g,b)
-                  if mn >= 246:
-                      alpha = 0
-                  elif mn >= 226 and mx - mn < 18:
-                      alpha = int(max(0, min(255, (246-mn)/20*255)))
-                  else:
-                      alpha = 255
-                  px[x,y] = (r,g,b,alpha)
-          bbox = im.getbbox()
-          if bbox:
-              im = im.crop(bbox)
-          w,h = im.size
-          side = int(max(w,h) * 1.12)
-          canvas = Image.new("RGBA",(side,side),(0,0,0,0))
-          canvas.alpha_composite(im,((side-w)//2,(side-h)//2))
-          inp = runtime/"input.png"
-          canvas.save(inp)
+          # Do not threshold the silver-white creature against the white background.
+          # Let TRELLIS' own preprocess_image/rembg preserve the actual subject.
+          inp = src
 
           client = Client("trellis-community/TRELLIS", token=token)
           info = client.view_api(return_format="dict")
