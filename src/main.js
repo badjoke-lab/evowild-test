@@ -1,4 +1,6 @@
 import * as THREE from "three";
+import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
+import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
 import "./styles.css";
 
 const canvas = document.querySelector("#game");
@@ -502,6 +504,52 @@ labGroup.visible = false;
 scene.add(labGroup);
 
 let activeLabMorph = "S";
+let dedicatedS = null;
+let dedicatedSReady = false;
+
+const assetBase = `${import.meta.env.BASE_URL}models/`;
+const mtlLoader = new MTLLoader();
+mtlLoader.load(
+  `${assetBase}evowild-s.mtl`,
+  (materials) => {
+    materials.preload();
+    const objLoader = new OBJLoader();
+    objLoader.setMaterials(materials);
+    objLoader.load(
+      `${assetBase}evowild-s.obj`,
+      (asset) => {
+        asset.name = "EvoWild_S_Dedicated";
+        asset.position.set(0, 0.02, 0);
+        asset.scale.setScalar(1.25);
+        asset.visible = activeLabMorph === "S";
+        asset.traverse((node) => {
+          if (!node.isMesh) return;
+          node.frustumCulled = true;
+          if (node.material) {
+            node.material.side = THREE.FrontSide;
+            node.material.needsUpdate = true;
+          }
+        });
+        dedicatedS = asset;
+        dedicatedSReady = true;
+        labGroup.add(asset);
+        stage.dataset.sAsset = "loaded";
+        setLabMorph(activeLabMorph);
+      },
+      undefined,
+      (error) => {
+        stage.dataset.sAsset = "error";
+        console.error("Dedicated S asset failed to load", error);
+      }
+    );
+  },
+  undefined,
+  (error) => {
+    stage.dataset.sAsset = "error";
+    console.error("Dedicated S material failed to load", error);
+  }
+);
+
 const labText = {
   S: ["S — Sprint", "細身・長脚・後方へ流れる角"],
   P: ["P — Power", "太い胴・大型肩・短く太い脚"],
@@ -511,8 +559,15 @@ const labText = {
 
 function setLabMorph(morph) {
   activeLabMorph = morph;
-  labObjects.forEach((obj, key) => { obj.visible = key === morph; });
-  const [title, detail] = labText[morph];
+  labObjects.forEach((obj, key) => {
+    obj.visible = key === morph && !(key === "S" && dedicatedSReady);
+  });
+  if (dedicatedS) dedicatedS.visible = morph === "S";
+
+  const [title, baseDetail] = labText[morph];
+  const detail = morph === "S" && dedicatedSReady
+    ? `${baseDetail} / dedicated asset`
+    : baseDetail;
   const label = document.querySelector("#labLabel");
   label.innerHTML = `<strong>${title}</strong><span>${detail}</span>`;
   document.querySelectorAll("[data-morph]").forEach((button) => {
