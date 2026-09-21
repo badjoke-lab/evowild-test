@@ -1,4 +1,4 @@
-name: HF 3D POC Inspect
+name: HF 3D POC Generate
 
 on:
   push:
@@ -8,20 +8,82 @@ on:
       - '.github/workflows/hf-3d-poc.yml'
       - 'hf-poc/**'
 
+permissions:
+  contents: read
+
 jobs:
-  inspect:
+  generate:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install -q gradio_client
-      - name: Inspect Hunyuan3D-2mv API
+
+      - name: Install Gradio client
+        run: pip install -q gradio_client
+
+      - name: Generate EvoWild S-Type mesh with Hunyuan3D-2mv
         run: |
           python - <<'PY'
-          from gradio_client import Client
-          c = Client("tencent/Hunyuan3D-2mv")
-          print(c.view_api())
+          import json
+          import shutil
+          from pathlib import Path
+          from gradio_client import Client, handle_file
+
+          client = Client("tencent/Hunyuan3D-2mv")
+
+          caption = (
+              "slim futuristic quadruped racing creature, silver white body, cool blue and cyan accents, "
+              "four clearly separated long legs, long narrow head, two upright horn ear structures, "
+              "backward crest blades, blade-like fin tail, neutral standing pose, full body"
+          )
+
+          result = client.predict(
+              caption,
+              handle_file("hf-poc/input/04_3Q_FRONT_shape_support.jpg"),
+              handle_file("hf-poc/input/02_FRONT_width_reference.jpg"),
+              handle_file("hf-poc/input/03_BACK_rear_reference.jpg"),
+              handle_file("hf-poc/input/01_SIDE_authority.jpg"),
+              None,
+              5,
+              5.0,
+              1234,
+              256,
+              True,
+              8000,
+              False,
+              api_name="/shape_generation",
+          )
+
+          print("RESULT:", result)
+          mesh_path = Path(result[0])
+          out = Path("hf-poc/output")
+          out.mkdir(parents=True, exist_ok=True)
+          suffix = mesh_path.suffix or ".glb"
+          target = out / f"evowild_s_hunyuan3d2mv{suffix}"
+          shutil.copy2(mesh_path, target)
+
+          metadata = {
+              "source_space": "tencent/Hunyuan3D-2mv",
+              "api": "/shape_generation",
+              "caption": caption,
+              "steps": 5,
+              "guidance_scale": 5.0,
+              "seed": result[3],
+              "octree_resolution": 256,
+              "mesh_stats": result[2],
+              "output_filename": target.name,
+          }
+          (out / "metadata.json").write_text(json.dumps(metadata, indent=2), encoding="utf-8")
+          print("SAVED:", target)
           PY
+
+      - name: Upload 3D result
+        uses: actions/upload-artifact@v4
+        with:
+          name: evowild-s-hunyuan3d2mv
+          path: hf-poc/output/
+          if-no-files-found: error
