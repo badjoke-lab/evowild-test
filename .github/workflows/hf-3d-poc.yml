@@ -105,11 +105,26 @@ jobs:
           names = [p.get("parameter_name") for p in params]
           print("PARAMS:", names)
 
-          gallery = [handle_file(str(p)) for p in prepared]
+          # Reproduce the Space UI event sequence so hidden Gradio State
+          # (multi-image mode + per-session output directory) is initialized.
+          if "/start_session" in eps:
+              client.predict(api_name="/start_session")
+              print("SESSION_STARTED")
+          if "/lambda_1" in eps:
+              client.predict(api_name="/lambda_1")
+              print("MULTIIMAGE_STATE_SELECTED")
+
+          gallery = [{"image": handle_file(str(p)), "caption": None} for p in prepared]
+          if "/preprocess_images" in eps:
+              gallery = client.predict(gallery, api_name="/preprocess_images")
+              print("PREPROCESSED_GALLERY:", repr(gallery)[:4000])
+
+          # Supply a valid single-image value as well even though hidden
+          # is_multiimage state should make the server use the gallery.
+          single_image = handle_file(str(prepared[-1]))
           vals = {
-              "image": None,
+              "image": single_image,
               "multiimages": gallery,
-              "is_multiimage": True,
               "seed": 42,
               "ss_guidance_strength": 7.5,
               "ss_sampling_steps": 12,
