@@ -70,40 +70,67 @@ jobs:
           info = client.view_api(return_format="dict")
           print("API_INFO:", json.dumps(info, default=str))
 
+          endpoints = info.get("named_endpoints", {})
+          api_name = next(
+              (name for name in ["/image_to_glb_1", "/image_to_glb", "/run_button"] if name in endpoints),
+              None
+          )
+          if not api_name:
+              raise RuntimeError(f"No supported generation endpoint: {list(endpoints)}")
+          print("USING_ENDPOINT:", api_name)
+
           result = client.predict(
               handle_file(str(cutout)),
               0.85,
               "None",
               20000,
               1024,
-              api_name="/run_button",
+              api_name=api_name,
           )
           print("RESULT:", result)
 
-          file_result = result[1]
-          server_path = file_result.get("value") if isinstance(file_result, dict) else str(file_result)
-          if not server_path:
-              raise RuntimeError(f"No GLB path in result: {file_result!r}")
-
-          base = "https://upsampler-stable-fast-3d.hf.space"
-          encoded_path = quote(server_path, safe="/")
-          response = None
-          used_url = None
-          for url in [
-              f"{base}/gradio_api/file={encoded_path}",
-              f"{base}/file={encoded_path}",
-          ]:
-              r = requests.get(url, timeout=180)
-              print("DOWNLOAD:", r.status_code, len(r.content), url)
-              if r.ok and len(r.content) > 1024:
-                  response = r
-                  used_url = url
-                  break
-          if response is None:
-              raise RuntimeError("Generated GLB could not be downloaded")
+          if isinstance(result, (tuple, list)):
+              file_result = result[-1]
+          else:
+              file_result = result
 
           target = out / "evowild_s_stable_fast_3d_textured_20k.glb"
-          target.write_bytes(response.content)
+          used_url = None
+          server_path = None
+
+          # gradio_client often downloads File outputs locally for us.
+          if isinstance(file_result, str) and Path(file_result).exists():
+              target.write_bytes(Path(file_result).read_bytes())
+              server_path = file_result
+          else:
+              if isinstance(file_result, dict):
+                  server_path = file_result.get("path") or file_result.get("value")
+                  used_url = file_result.get("url")
+              else:
+                  server_path = str(file_result)
+
+              if used_url:
+                  r = requests.get(used_url, timeout=180)
+                  r.raise_for_status()
+                  target.write_bytes(r.content)
+              else:
+                  base = "https://upsampler-stable-fast-3d.hf.space"
+                  encoded_path = quote(server_path, safe="/")
+                  response = None
+                  for url in [
+                      f"{base}/gradio_api/file={encoded_path}",
+                      f"{base}/file={encoded_path}",
+                  ]:
+                      r = requests.get(url, timeout=180)
+                      print("DOWNLOAD:", r.status_code, len(r.content), url)
+                      if r.ok and len(r.content) > 1024:
+                          response = r
+                          used_url = url
+                          break
+                  if response is None:
+                      raise RuntimeError("Generated GLB could not be downloaded")
+                  target.write_bytes(response.content)
+
           if target.read_bytes()[:4] != b"glTF":
               raise RuntimeError("Downloaded file is not GLB")
 
