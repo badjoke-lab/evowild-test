@@ -1,4 +1,4 @@
-name: HF 3D POC Generate Textured Mini Turbo
+name: HF Stable Fast 3D POC
 
 on:
   push:
@@ -6,7 +6,6 @@ on:
       - test/hf-3d-poc-20260921
     paths:
       - '.github/workflows/hf-3d-poc.yml'
-      - 'hf-poc/**'
 
 permissions:
   contents: read
@@ -17,132 +16,116 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Install clients
+      - name: Install client
         run: pip install -q gradio_client pillow requests
 
-      - name: Validate and normalize reference images
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          from PIL import Image
-
-          src = Path("hf-poc/input")
-          dst = Path("hf-poc/runtime")
-          dst.mkdir(parents=True, exist_ok=True)
-
-          names = [
-              "01_SIDE_authority",
-              "02_FRONT_width_reference",
-              "03_BACK_rear_reference",
-              "04_3Q_FRONT_shape_support",
-          ]
-          for name in names:
-              path = src / f"{name}.jpg"
-              with Image.open(path) as im:
-                  im.load()
-                  print(name, im.size, im.mode)
-                  im.convert("RGB").save(dst / f"{name}.png", format="PNG")
-          PY
-
-      - name: Generate textured EvoWild S-Type with Hunyuan3D-2mv
+      - name: Generate textured 20k GLB with Stable Fast 3D
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
           from urllib.parse import quote
           import requests
+          from PIL import Image
           from gradio_client import Client, handle_file
 
-          base = "https://tencent-hunyuan3d-2mini-turbo.hf.space"
-          client = Client("tencent/Hunyuan3D-2mini-Turbo")
-
-          caption = (
-              "slim futuristic quadruped racing creature, silver white body, cool blue and cyan accents, "
-              "four clearly separated long legs, long narrow head, two upright horn ear structures, "
-              "backward crest blades, blade-like fin tail, neutral standing pose, full body"
-          )
-
-          result = client.predict(
-              caption,
-              handle_file("hf-poc/runtime/04_3Q_FRONT_shape_support.png"),
-              None,
-              None,
-              None,
-              None,
-              5,
-              5.0,
-              1234,
-              256,
-              True,
-              8000,
-              False,
-              api_name="/generation_all",
-          )
-
-          print("RESULT:", result)
-
+          src = Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")
+          runtime = Path("hf-poc/runtime")
           out = Path("hf-poc/output")
+          runtime.mkdir(parents=True, exist_ok=True)
           out.mkdir(parents=True, exist_ok=True)
 
-          def download_file(file_result, target_name):
-              server_path = file_result.get("value") if isinstance(file_result, dict) else str(file_result)
-              if not server_path:
-                  raise RuntimeError(f"No file path in result: {file_result!r}")
-              encoded_path = quote(server_path, safe="/")
-              candidates = [
-                  f"{base}/gradio_api/file={encoded_path}",
-                  f"{base}/file={encoded_path}",
-              ]
-              for url in candidates:
-                  r = requests.get(url, timeout=180)
-                  print("DOWNLOAD:", target_name, r.status_code, len(r.content), url)
-                  if r.ok and len(r.content) > 1024:
-                      target = out / target_name
-                      target.write_bytes(r.content)
-                      if target.read_bytes()[:4] != b"glTF":
-                          raise RuntimeError(f"{target_name} is not a binary GLB")
-                      return server_path, url, target.stat().st_size
-              raise RuntimeError(f"Could not download {target_name}")
+          # Simple white-background removal for the clean concept sheet crop.
+          im = Image.open(src).convert("RGBA")
+          px = im.load()
+          for y in range(im.height):
+              for x in range(im.width):
+                  r,g,b,a = px[x,y]
+                  m = min(r,g,b)
+                  mx = max(r,g,b)
+                  if m >= 245:
+                      alpha = 0
+                  elif m >= 225 and mx - m < 18:
+                      alpha = int(max(0, min(255, (245 - m) / 20 * 255)))
+                  else:
+                      alpha = 255
+                  px[x,y] = (r,g,b,alpha)
 
-          white_path, white_url, white_bytes = download_file(
-              result[0], "evowild_s_hunyuan3d2mini_turbo_white.glb"
-          )
-          textured_path, textured_url, textured_bytes = download_file(
-              result[1], "evowild_s_hunyuan3d2mini_turbo_textured.glb"
-          )
+          bbox = im.getbbox()
+          if bbox:
+              im = im.crop(bbox)
+          # square canvas with margin
+          w,h = im.size
+          side = max(w,h)
+          canvas = Image.new("RGBA", (side,side), (0,0,0,0))
+          canvas.alpha_composite(im, ((side-w)//2, (side-h)//2))
+          cutout = runtime / "evowild_3q_cutout.png"
+          canvas.save(cutout)
 
-          metadata = {
-              "source_space": "tencent/Hunyuan3D-2mini-Turbo",
-              "api": "/generation_all",
-              "caption": caption,
-              "steps": 5,
-              "guidance_scale": 5.0,
-              "seed": result[4],
-              "octree_resolution": 256,
-              "mesh_stats": result[3],
-              "white": {
-                  "server_path": white_path,
-                  "download_url": white_url,
-                  "output_bytes": white_bytes,
-              },
-              "textured": {
-                  "server_path": textured_path,
-                  "download_url": textured_url,
-                  "output_bytes": textured_bytes,
-              },
+          client = Client("stabilityai/stable-fast-3d")
+          info = client.view_api(return_format="dict")
+          print("API_INFO:", json.dumps(info, default=str))
+
+          result = client.predict(
+              "Run",
+              handle_file(str(cutout)),
+              handle_file(str(cutout)),
+              0.85,
+              "None",
+              20000,
+              1024,
+              api_name="/run_button",
+          )
+          print("RESULT:", result)
+
+          file_result = result[4]
+          server_path = file_result.get("value") if isinstance(file_result, dict) else str(file_result)
+          if not server_path:
+              raise RuntimeError(f"No GLB path in result: {file_result!r}")
+
+          base = "https://stabilityai-stable-fast-3d.hf.space"
+          encoded_path = quote(server_path, safe="/")
+          response = None
+          used_url = None
+          for url in [
+              f"{base}/gradio_api/file={encoded_path}",
+              f"{base}/file={encoded_path}",
+          ]:
+              r = requests.get(url, timeout=180)
+              print("DOWNLOAD:", r.status_code, len(r.content), url)
+              if r.ok and len(r.content) > 1024:
+                  response = r
+                  used_url = url
+                  break
+          if response is None:
+              raise RuntimeError("Generated GLB could not be downloaded")
+
+          target = out / "evowild_s_stable_fast_3d_textured_20k.glb"
+          target.write_bytes(response.content)
+          if target.read_bytes()[:4] != b"glTF":
+              raise RuntimeError("Downloaded file is not GLB")
+
+          meta = {
+              "space":"stabilityai/stable-fast-3d",
+              "source":"04_3Q_FRONT_shape_support.jpg",
+              "target_vertex_count":20000,
+              "texture_size":1024,
+              "remesh":"None",
+              "output_bytes":target.stat().st_size,
+              "server_path":server_path,
+              "download_url":used_url,
           }
-          (out / "metadata.json").write_text(json.dumps(metadata, indent=2), encoding="utf-8")
-          print("SAVED_TEXTURED:", textured_bytes)
+          (out/"stable_fast_3d_metadata.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
+          print("SAVED:", target, target.stat().st_size)
           PY
 
-      - name: Upload 3D result
+      - name: Upload result
         uses: actions/upload-artifact@v4
         with:
-          name: evowild-s-hunyuan3d2mini-turbo-textured
+          name: evowild-s-stable-fast-3d-textured-20k
           path: hf-poc/output/
           if-no-files-found: error
