@@ -23,7 +23,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install clients
-        run: pip install -q gradio_client pillow
+        run: pip install -q gradio_client pillow requests
 
       - name: Validate and normalize reference images
         run: |
@@ -53,10 +53,12 @@ jobs:
         run: |
           python - <<'PY'
           import json
-          import shutil
           from pathlib import Path
+          from urllib.parse import quote
+          import requests
           from gradio_client import Client, handle_file
 
+          base = "https://tencent-hunyuan3d-2mv.hf.space"
           client = Client("tencent/Hunyuan3D-2mv")
 
           caption = (
@@ -83,12 +85,20 @@ jobs:
           )
 
           print("RESULT:", result)
-          mesh_path = Path(result[0])
+          mesh_result = result[0]
+          server_path = mesh_result.get("value") if isinstance(mesh_result, dict) else str(mesh_result)
+          if not server_path:
+              raise RuntimeError(f"No mesh path in result: {mesh_result!r}")
+
+          mesh_url = f"{base}/gradio_api/file={quote(server_path, safe='')}"
+          response = requests.get(mesh_url, timeout=120)
+          print("MESH_DOWNLOAD:", response.status_code, len(response.content), mesh_url)
+          response.raise_for_status()
+
           out = Path("hf-poc/output")
           out.mkdir(parents=True, exist_ok=True)
-          suffix = mesh_path.suffix or ".glb"
-          target = out / f"evowild_s_hunyuan3d2mv{suffix}"
-          shutil.copy2(mesh_path, target)
+          target = out / "evowild_s_hunyuan3d2mv.glb"
+          target.write_bytes(response.content)
 
           metadata = {
               "source_space": "tencent/Hunyuan3D-2mv",
@@ -99,10 +109,12 @@ jobs:
               "seed": result[3],
               "octree_resolution": 256,
               "mesh_stats": result[2],
+              "server_path": server_path,
               "output_filename": target.name,
+              "output_bytes": target.stat().st_size,
           }
           (out / "metadata.json").write_text(json.dumps(metadata, indent=2), encoding="utf-8")
-          print("SAVED:", target)
+          print("SAVED:", target, target.stat().st_size)
           PY
 
       - name: Upload 3D result
