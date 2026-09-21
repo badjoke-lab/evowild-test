@@ -52,34 +52,9 @@ jobs:
               ("three_quarter", Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")),
           ]
 
-          # Locally convert the white-background concept views to centered RGBA inputs.
-          # TRELLIS multi-image generation is called with preprocess_image=False.
-          prepared = []
-          for label, src in sources:
-              im = Image.open(src).convert("RGBA")
-              px = im.load()
-              for y in range(im.height):
-                  for x in range(im.width):
-                      r,g,b,a = px[x,y]
-                      mn, mx = min(r,g,b), max(r,g,b)
-                      if mn >= 246:
-                          alpha = 0
-                      elif mn >= 226 and mx - mn < 18:
-                          alpha = int(max(0, min(255, (246-mn)/20*255)))
-                      else:
-                          alpha = 255
-                      px[x,y] = (r,g,b,alpha)
-              bbox = im.getbbox()
-              if bbox:
-                  im = im.crop(bbox)
-              # Keep consistent square framing with margin.
-              w,h = im.size
-              side = int(max(w,h) * 1.12)
-              canvas = Image.new("RGBA", (side,side), (0,0,0,0))
-              canvas.alpha_composite(im, ((side-w)//2,(side-h)//2))
-              p = runtime / f"{label}.png"
-              canvas.save(p)
-              prepared.append(p)
+          # Do not threshold silver-white subject pixels. Feed originals into
+          # TRELLIS' own multi-image preprocessing/rembg.
+          prepared = [src for _, src in sources]
 
           client = Client("trellis-community/TRELLIS", token=token)
           info = client.view_api(return_format="dict")
