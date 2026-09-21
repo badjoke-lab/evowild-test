@@ -24,9 +24,11 @@ jobs:
         run: pip install -q gradio_client pillow requests
 
       - name: Generate textured GLB with Stable Fast 3D
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           python - <<'PY'
-          import json, time, shutil
+          import json, time, shutil, os
           from pathlib import Path
           from urllib.parse import quote
           import requests
@@ -68,12 +70,17 @@ jobs:
               ("stabilityai/stable-fast-3d", "https://stabilityai-stable-fast-3d.hf.space", 1),
           ]
 
+          token = os.environ.get("HF_TOKEN")
+          if not token:
+              raise RuntimeError("HF_TOKEN secret is not available to this workflow")
+          print("HF_AUTH: token present")
+
           last_error = None
           success = None
 
           for space_id, base, attempts in spaces:
               try:
-                  client = Client(space_id)
+                  client = Client(space_id, token=token)
                   info = client.view_api(return_format="dict")
                   endpoints = info.get("named_endpoints", {})
                   api_name = next((n for n in ["/image_to_glb_1","/image_to_glb","/run_button"] if n in endpoints), None)
