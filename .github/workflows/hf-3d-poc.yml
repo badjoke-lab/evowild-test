@@ -1,9 +1,9 @@
-name: HF Stable Fast 3D POC
+name: HF InstantMesh POC
 
 on:
   push:
     branches:
-      - test/hf-3d-poc-20260921
+      - test/hf-instantmesh-20260921
     paths:
       - '.github/workflows/hf-3d-poc.yml'
 
@@ -23,10 +23,10 @@ jobs:
       - name: Install client
         run: pip install -q gradio_client pillow requests
 
-      - name: Generate textured 20k GLB with Stable Fast 3D
+      - name: Generate EvoWild GLB with InstantMesh
         run: |
           python - <<'PY'
-          import json
+          import json, shutil
           from pathlib import Path
           from urllib.parse import quote
           import requests
@@ -39,118 +39,141 @@ jobs:
           runtime.mkdir(parents=True, exist_ok=True)
           out.mkdir(parents=True, exist_ok=True)
 
-          # Simple white-background removal for the clean concept sheet crop.
+          # Prepare transparent square image.
           im = Image.open(src).convert("RGBA")
           px = im.load()
           for y in range(im.height):
               for x in range(im.width):
                   r,g,b,a = px[x,y]
-                  m = min(r,g,b)
-                  mx = max(r,g,b)
-                  if m >= 245:
+                  mn, mx = min(r,g,b), max(r,g,b)
+                  if mn >= 245:
                       alpha = 0
-                  elif m >= 225 and mx - m < 18:
-                      alpha = int(max(0, min(255, (245 - m) / 20 * 255)))
+                  elif mn >= 225 and mx - mn < 18:
+                      alpha = int(max(0, min(255, (245 - mn) / 20 * 255)))
                   else:
                       alpha = 255
                   px[x,y] = (r,g,b,alpha)
-
           bbox = im.getbbox()
           if bbox:
               im = im.crop(bbox)
-          # square canvas with margin
           w,h = im.size
           side = max(w,h)
-          canvas = Image.new("RGBA", (side,side), (0,0,0,0))
-          canvas.alpha_composite(im, ((side-w)//2, (side-h)//2))
-          cutout = runtime / "evowild_3q_cutout.png"
-          canvas.save(cutout)
+          canvas = Image.new("RGBA",(side,side),(0,0,0,0))
+          canvas.alpha_composite(im,((side-w)//2,(side-h)//2))
+          inp = runtime / "evowild_3q_instantmesh.png"
+          canvas.save(inp)
 
-          client = Client("Upsampler/stable-fast-3d")
+          client = Client("TencentARC/InstantMesh")
           info = client.view_api(return_format="dict")
           print("API_INFO:", json.dumps(info, default=str))
+          eps = info.get("named_endpoints", {})
+          print("ENDPOINTS:", list(eps))
 
-          endpoints = info.get("named_endpoints", {})
-          api_name = next(
-              (name for name in ["/image_to_glb_1", "/image_to_glb", "/run_button"] if name in endpoints),
-              None
-          )
-          if not api_name:
-              raise RuntimeError(f"No supported generation endpoint: {list(endpoints)}")
-          print("USING_ENDPOINT:", api_name)
+          def find_ep(fragment):
+              for name in eps:
+                  if fragment.lower() in name.lower():
+                      return name
+              return None
 
-          result = client.predict(
-              handle_file(str(cutout)),
-              0.85,
-              "None",
-              20000,
-              1024,
-              api_name=api_name,
-          )
-          print("RESULT:", result)
+          preprocess_ep = find_ep("preprocess")
+          mvs_ep = find_ep("generate_mvs")
+          make3d_ep = find_ep("make3d")
 
-          if isinstance(result, (tuple, list)):
-              file_result = result[-1]
+          if not (mvs_ep and make3d_ep):
+              # Fall back by parameter signatures.
+              for name, ep in eps.items():
+                  params = [p.get("parameter_name") for p in ep.get("parameters",[])]
+                  if not mvs_ep and len(params) >= 3 and ("sample_steps" in params or "sample_seed" in params):
+                      mvs_ep = name
+                  if not make3d_ep and len(params) == 1 and params[0] in ("images","mv_images"):
+                      make3d_ep = name
+
+          print("SELECTED:", preprocess_ep, mvs_ep, make3d_ep)
+          if not (mvs_ep and make3d_ep):
+              raise RuntimeError(f"Required InstantMesh endpoints not found: {list(eps)}")
+
+          image_arg = handle_file(str(inp))
+          processed = image_arg
+          if preprocess_ep:
+              p = client.predict(image_arg, False, api_name=preprocess_ep)
+              print("PREPROCESS:", p)
+              processed = handle_file(p) if isinstance(p,str) and Path(p).exists() else p
+
+          mvs = client.predict(processed, 30, 42, api_name=mvs_ep)
+          print("MVS_RESULT:", mvs)
+
+          # First return is the internal multi-view image/state used by make3d.
+          if isinstance(mvs,(list,tuple)):
+              mv_state = mvs[0]
           else:
-              file_result = result
-
-          target = out / "evowild_s_stable_fast_3d_textured_20k.glb"
-          used_url = None
-          server_path = None
-
-          # gradio_client often downloads File outputs locally for us.
-          if isinstance(file_result, str) and Path(file_result).exists():
-              target.write_bytes(Path(file_result).read_bytes())
-              server_path = file_result
+              mv_state = mvs
+          if isinstance(mv_state,str) and Path(mv_state).exists():
+              mv_state_arg = handle_file(mv_state)
           else:
-              if isinstance(file_result, dict):
-                  server_path = file_result.get("path") or file_result.get("value")
-                  used_url = file_result.get("url")
-              else:
-                  server_path = str(file_result)
+              mv_state_arg = mv_state
 
-              if used_url:
-                  r = requests.get(used_url, timeout=180)
-                  r.raise_for_status()
+          result = client.predict(mv_state_arg, api_name=make3d_ep)
+          print("MAKE3D_RESULT:", result)
+          items = list(result) if isinstance(result,(list,tuple)) else [result]
+
+          # Prefer GLB output (typically second return).
+          candidates = []
+          for item in items:
+              if isinstance(item,str):
+                  candidates.append((item,None))
+              elif isinstance(item,dict):
+                  p = item.get("path") or item.get("value")
+                  if p:
+                      candidates.append((str(p),item.get("url")))
+          glb_candidates = [(p,u) for p,u in candidates if p.lower().endswith(".glb")]
+          if not glb_candidates:
+              raise RuntimeError(f"No GLB returned: {result!r}")
+
+          path,url = glb_candidates[-1]
+          target = out / "evowild_s_instantmesh.glb"
+          lp = Path(path)
+          source = None
+          if lp.exists():
+              shutil.copy2(lp,target)
+              source = "local"
+          elif url:
+              r = requests.get(url,timeout=180)
+              print("DIRECT_DOWNLOAD:",r.status_code,len(r.content),url)
+              if r.ok and len(r.content)>1024:
                   target.write_bytes(r.content)
-              else:
-                  base = "https://upsampler-stable-fast-3d.hf.space"
-                  encoded_path = quote(server_path, safe="/")
-                  response = None
-                  for url in [
-                      f"{base}/gradio_api/file={encoded_path}",
-                      f"{base}/file={encoded_path}",
-                  ]:
-                      r = requests.get(url, timeout=180)
-                      print("DOWNLOAD:", r.status_code, len(r.content), url)
-                      if r.ok and len(r.content) > 1024:
-                          response = r
-                          used_url = url
-                          break
-                  if response is None:
-                      raise RuntimeError("Generated GLB could not be downloaded")
-                  target.write_bytes(response.content)
+                  source=url
+          if not target.exists():
+              base = str(getattr(client,"src","https://tencentarc-instantmesh.hf.space")).rstrip("/")
+              enc = quote(path,safe="/")
+              for u in [f"{base}/gradio_api/file={enc}",f"{base}/file={enc}"]:
+                  r=requests.get(u,timeout=180)
+                  print("DOWNLOAD:",r.status_code,len(r.content),u)
+                  if r.ok and len(r.content)>1024:
+                      target.write_bytes(r.content)
+                      source=u
+                      break
 
-          if target.read_bytes()[:4] != b"glTF":
-              raise RuntimeError("Downloaded file is not GLB")
+          if not target.exists() or target.read_bytes()[:4] != b"glTF":
+              raise RuntimeError("InstantMesh GLB retrieval/validation failed")
 
           meta = {
-              "space":"Upsampler/stable-fast-3d",
-              "source":"04_3Q_FRONT_shape_support.jpg",
-              "target_vertex_count":20000,
-              "texture_size":1024,
-              "remesh":"None",
+              "space":"TencentARC/InstantMesh",
+              "license":"apache-2.0",
+              "source_image":str(src),
+              "sample_steps":30,
+              "seed":42,
               "output_bytes":target.stat().st_size,
-              "server_path":server_path,
-              "download_url":used_url,
+              "source":source,
+              "endpoints":{"preprocess":preprocess_ep,"generate_mvs":mvs_ep,"make3d":make3d_ep},
+              "result_repr":repr(result)[:10000],
           }
-          (out/"stable_fast_3d_metadata.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
-          print("SAVED:", target, target.stat().st_size)
+          (out/"instantmesh_metadata.json").write_text(json.dumps(meta,indent=2),encoding="utf-8")
+          print("SAVED:",target,target.stat().st_size)
           PY
 
       - name: Upload result
         uses: actions/upload-artifact@v4
         with:
-          name: evowild-s-stable-fast-3d-textured-20k
+          name: evowild-s-instantmesh
           path: hf-poc/output/
           if-no-files-found: error
