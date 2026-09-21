@@ -506,37 +506,56 @@ scene.add(labGroup);
 let activeLabMorph = "S";
 let dedicatedS = null;
 let dedicatedSReady = false;
-let conceptSSprite = null;
-let conceptSReady = false;
 
-new THREE.TextureLoader().load(
-  `${import.meta.env.BASE_URL}concept/S.webp`,
-  (texture) => {
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.minFilter = THREE.LinearFilter;
-    texture.magFilter = THREE.LinearFilter;
-    const material = new THREE.SpriteMaterial({
-      map: texture,
-      transparent: true,
-      depthWrite: false
-    });
-    const sprite = new THREE.Sprite(material);
-    sprite.name = "Concept_S_2_5D";
-    sprite.position.set(0, 2.35, 0.15);
-    sprite.scale.set(4.85, 4.45, 1);
-    sprite.visible = activeLabMorph === "S";
-    conceptSSprite = sprite;
-    conceptSReady = true;
-    labGroup.add(sprite);
-    stage.dataset.conceptS = "loaded";
-    setLabMorph(activeLabMorph);
-  },
-  undefined,
-  (error) => {
-    stage.dataset.conceptS = "error";
-    console.error("Concept S sprite failed to load", error);
-  }
-);
+const conceptSprites = new Map();
+const conceptTextures = new Map();
+const conceptReady = new Set();
+const textureLoader = new THREE.TextureLoader();
+const conceptLayout = {
+  S: { scale: [4.85, 4.45], y: 2.35 },
+  P: { scale: [5.20, 4.10], y: 2.18 },
+  E: { scale: [4.85, 4.16], y: 2.20 },
+  A: { scale: [5.25, 3.66], y: 1.96 }
+};
+
+function updateConceptReadyState() {
+  if (conceptReady.size === 4) stage.dataset.conceptMorphs = "loaded";
+}
+
+for (const morph of ["S", "P", "E", "A"]) {
+  textureLoader.load(
+    `${import.meta.env.BASE_URL}concept/${morph}.webp`,
+    (texture) => {
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.minFilter = THREE.LinearFilter;
+      texture.magFilter = THREE.LinearFilter;
+      conceptTextures.set(morph, texture);
+
+      const material = new THREE.SpriteMaterial({
+        map: texture,
+        transparent: true,
+        depthWrite: false
+      });
+      const sprite = new THREE.Sprite(material);
+      const layout = conceptLayout[morph];
+      sprite.name = `Concept_${morph}_2_5D`;
+      sprite.position.set(0, layout.y, 0.15);
+      sprite.scale.set(layout.scale[0], layout.scale[1], 1);
+      sprite.visible = activeLabMorph === morph;
+      conceptSprites.set(morph, sprite);
+      conceptReady.add(morph);
+      labGroup.add(sprite);
+      stage.dataset[`concept${morph}`] = "loaded";
+      updateConceptReadyState();
+      setLabMorph(activeLabMorph);
+    },
+    undefined,
+    (error) => {
+      stage.dataset[`concept${morph}`] = "error";
+      console.error(`Concept ${morph} sprite failed to load`, error);
+    }
+  );
+}
 
 const assetBase = `${import.meta.env.BASE_URL}models/`;
 const mtlLoader = new MTLLoader();
@@ -591,16 +610,18 @@ const labText = {
 function setLabMorph(morph) {
   activeLabMorph = morph;
   labObjects.forEach((obj, key) => {
-    obj.visible = key === morph && !(key === "S" && (conceptSReady || dedicatedSReady));
+    obj.visible = key === morph && !conceptReady.has(key) && !(key === "S" && dedicatedSReady);
   });
-  if (dedicatedS) dedicatedS.visible = morph === "S" && !conceptSReady;
-  if (conceptSSprite) conceptSSprite.visible = morph === "S";
+  if (dedicatedS) dedicatedS.visible = morph === "S" && !conceptReady.has("S");
+  conceptSprites.forEach((sprite, key) => {
+    sprite.visible = key === morph;
+  });
 
   const [title, baseDetail] = labText[morph];
-  const detail = morph === "S" && conceptSReady
+  const detail = conceptReady.has(morph)
     ? `${baseDetail} / 2.5D concept-source test`
     : morph === "S" && dedicatedSReady
-      ? `${baseDetail} / dedicated 3D asset`
+      ? `${baseDetail} / dedicated 3D fallback`
       : baseDetail;
   const label = document.querySelector("#labLabel");
   label.innerHTML = `<strong>${title}</strong><span>${detail}</span>`;
