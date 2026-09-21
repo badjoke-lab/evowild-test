@@ -83,7 +83,6 @@ jobs:
           result = client.predict(
               handle_file(str(cutout)),
               [],
-              False,
               1234,
               7.5,
               12,
