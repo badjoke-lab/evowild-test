@@ -55,7 +55,7 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
   await page.getByRole("button", { name: "1 Morph" }).click();
   await expect(page.locator("#viewLabel")).toHaveText("MORPH LAB");
   await expect(page.locator("#stage")).toHaveAttribute("data-s-asset", "loaded", { timeout: 8000 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-concept-s", "loaded", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-concept-morphs", "loaded", { timeout: 8000 });
   for (const morph of ["S", "P", "E", "A"]) {
     await page.locator(`[data-morph="${morph}"]`).click();
     await page.waitForTimeout(350);
