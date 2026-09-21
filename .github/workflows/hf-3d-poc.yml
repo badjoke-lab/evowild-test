@@ -1,9 +1,9 @@
-name: HF Stable Fast 3D POC
+name: HF Microsoft TRELLIS Dedicated POC
 
 on:
   push:
     branches:
-      - test/hf-3d-poc-20260921
+      - test/hf-ms-trellis-dedicated-20260921
     paths:
       - '.github/workflows/hf-3d-poc.yml'
 
@@ -13,144 +13,123 @@ permissions:
 jobs:
   generate:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
       - name: Install client
-        run: pip install -q gradio_client pillow requests
-
-      - name: Generate textured 20k GLB with Stable Fast 3D
+        run: pip install -q gradio_client requests
+      - name: Generate with Microsoft TRELLIS
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           python - <<'PY'
-          import json
+          import os, json, shutil
           from pathlib import Path
-          from urllib.parse import quote
           import requests
-          from PIL import Image
           from gradio_client import Client, handle_file
 
-          src = Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")
-          runtime = Path("hf-poc/runtime")
-          out = Path("hf-poc/output")
-          runtime.mkdir(parents=True, exist_ok=True)
-          out.mkdir(parents=True, exist_ok=True)
+          token=os.environ.get("HF_TOKEN")
+          src=Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")
+          out=Path("hf-poc/output")
+          out.mkdir(parents=True,exist_ok=True)
 
-          # Simple white-background removal for the clean concept sheet crop.
-          im = Image.open(src).convert("RGBA")
-          px = im.load()
-          for y in range(im.height):
-              for x in range(im.width):
-                  r,g,b,a = px[x,y]
-                  m = min(r,g,b)
-                  mx = max(r,g,b)
-                  if m >= 245:
-                      alpha = 0
-                  elif m >= 225 and mx - m < 18:
-                      alpha = int(max(0, min(255, (245 - m) / 20 * 255)))
-                  else:
-                      alpha = 255
-                  px[x,y] = (r,g,b,alpha)
+          client=Client("microsoft/TRELLIS", token=token)
+          info=client.view_api(return_format="dict")
+          eps=info.get("named_endpoints",{})
+          print("ENDPOINTS:", list(eps))
+          for name,ep in eps.items():
+              print("EP:",name,[p.get("parameter_name") for p in ep.get("parameters",[])])
 
-          bbox = im.getbbox()
-          if bbox:
-              im = im.crop(bbox)
-          # square canvas with margin
-          w,h = im.size
-          side = max(w,h)
-          canvas = Image.new("RGBA", (side,side), (0,0,0,0))
-          canvas.alpha_composite(im, ((side-w)//2, (side-h)//2))
-          cutout = runtime / "evowild_3q_cutout.png"
-          canvas.save(cutout)
+          # Initialize server-side session/state where exposed.
+          for init_ep in ["/start_session","/lambda"]:
+              if init_ep in eps:
+                  try:
+                      print("INIT",init_ep,client.predict(api_name=init_ep))
+                  except Exception as e:
+                      print("INIT_ERROR",init_ep,repr(e))
 
-          client = Client("Upsampler/stable-fast-3d")
-          info = client.view_api(return_format="dict")
-          print("API_INFO:", json.dumps(info, default=str))
+          image_arg=handle_file(str(src))
+          if "/preprocess_image" in eps:
+              p=client.predict(image_arg, api_name="/preprocess_image")
+              print("PREPROCESSED:",repr(p))
+              image_arg=p
 
-          endpoints = info.get("named_endpoints", {})
-          api_name = next(
-              (name for name in ["/image_to_glb_1", "/image_to_glb", "/run_button"] if name in endpoints),
-              None
-          )
-          if not api_name:
-              raise RuntimeError(f"No supported generation endpoint: {list(endpoints)}")
-          print("USING_ENDPOINT:", api_name)
+          gen="/generate_and_extract_glb" if "/generate_and_extract_glb" in eps else None
+          if not gen:
+              candidates=[]
+              for name,ep in eps.items():
+                  params=[p.get("parameter_name") for p in ep.get("parameters",[])]
+                  if "mesh_simplify" in params and "texture_size" in params:
+                      candidates.append(name)
+              if candidates: gen=candidates[0]
+          if not gen:
+              raise RuntimeError(f"No TRELLIS generation endpoint found: {list(eps)}")
 
-          result = client.predict(
-              handle_file(str(cutout)),
-              0.85,
-              "None",
-              20000,
-              1024,
-              api_name=api_name,
-          )
-          print("RESULT:", result)
-
-          if isinstance(result, (tuple, list)):
-              file_result = result[-1]
-          else:
-              file_result = result
-
-          target = out / "evowild_s_stable_fast_3d_textured_20k.glb"
-          used_url = None
-          server_path = None
-
-          # gradio_client often downloads File outputs locally for us.
-          if isinstance(file_result, str) and Path(file_result).exists():
-              target.write_bytes(Path(file_result).read_bytes())
-              server_path = file_result
-          else:
-              if isinstance(file_result, dict):
-                  server_path = file_result.get("path") or file_result.get("value")
-                  used_url = file_result.get("url")
-              else:
-                  server_path = str(file_result)
-
-              if used_url:
-                  r = requests.get(used_url, timeout=180)
-                  r.raise_for_status()
-                  target.write_bytes(r.content)
-              else:
-                  base = "https://upsampler-stable-fast-3d.hf.space"
-                  encoded_path = quote(server_path, safe="/")
-                  response = None
-                  for url in [
-                      f"{base}/gradio_api/file={encoded_path}",
-                      f"{base}/file={encoded_path}",
-                  ]:
-                      r = requests.get(url, timeout=180)
-                      print("DOWNLOAD:", r.status_code, len(r.content), url)
-                      if r.ok and len(r.content) > 1024:
-                          response = r
-                          used_url = url
-                          break
-                  if response is None:
-                      raise RuntimeError("Generated GLB could not be downloaded")
-                  target.write_bytes(response.content)
-
-          if target.read_bytes()[:4] != b"glTF":
-              raise RuntimeError("Downloaded file is not GLB")
-
-          meta = {
-              "space":"Upsampler/stable-fast-3d",
-              "source":"04_3Q_FRONT_shape_support.jpg",
-              "target_vertex_count":20000,
-              "texture_size":1024,
-              "remesh":"None",
-              "output_bytes":target.stat().st_size,
-              "server_path":server_path,
-              "download_url":used_url,
+          params=eps[gen].get("parameters",[])
+          vals={
+            "image":image_arg,
+            "multiimages":[],
+            "seed":42,
+            "ss_guidance_strength":7.5,
+            "ss_sampling_steps":12,
+            "slat_guidance_strength":3.0,
+            "slat_sampling_steps":12,
+            "multiimage_algo":"stochastic",
+            "mesh_simplify":0.95,
+            "texture_size":1024,
           }
-          (out/"stable_fast_3d_metadata.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
-          print("SAVED:", target, target.stat().st_size)
-          PY
+          args=[]
+          for p in params:
+              n=p.get("parameter_name")
+              if n in vals:
+                  args.append(vals[n])
+              elif p.get("parameter_has_default"):
+                  args.append(p.get("parameter_default"))
+              else:
+                  raise RuntimeError(f"Unsupported required parameter {n!r}")
+          print("CALL:",gen,[p.get("parameter_name") for p in params])
+          result=client.predict(*args,api_name=gen)
+          print("RESULT:",repr(result)[:30000])
 
-      - name: Upload result
+          items=list(result) if isinstance(result,(list,tuple)) else [result]
+          candidates=[]
+          for item in items:
+              if isinstance(item,str):
+                  candidates.append((item,None))
+              elif isinstance(item,dict):
+                  p=item.get("path") or item.get("value")
+                  if p: candidates.append((str(p),item.get("url")))
+          glbs=[x for x in candidates if x[0].lower().endswith(".glb")]
+          if not glbs:
+              raise RuntimeError(f"No GLB result: {candidates}")
+          path,url=glbs[-1]
+          dst=out/"evowild_s_ms_trellis.glb"
+          if Path(path).exists():
+              shutil.copy2(path,dst)
+          elif url:
+              r=requests.get(url,timeout=180)
+              if r.ok: dst.write_bytes(r.content)
+          if not dst.exists():
+              base=str(getattr(client,"src","")).rstrip("/")
+              from urllib.parse import quote
+              enc=quote(path,safe="/")
+              for u in [f"{base}/gradio_api/file={enc}",f"{base}/file={enc}"]:
+                  r=requests.get(u,timeout=180)
+                  if r.ok and len(r.content)>1024:
+                      dst.write_bytes(r.content); break
+          if not dst.exists() or dst.read_bytes()[:4] != b"glTF":
+              raise RuntimeError("No valid GLB")
+          meta={"space":"microsoft/TRELLIS","endpoint":gen,"bytes":dst.stat().st_size}
+          (out/"ms_trellis_metadata.json").write_text(json.dumps(meta,indent=2),encoding="utf-8")
+          print("SAVED:",json.dumps(meta))
+          PY
+      - name: Upload
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: evowild-s-stable-fast-3d-textured-20k
+          name: evowild-s-ms-trellis
           path: hf-poc/output/
-          if-no-files-found: error
+          if-no-files-found: warn
