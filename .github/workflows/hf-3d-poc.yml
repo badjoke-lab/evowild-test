@@ -1,4 +1,4 @@
-name: HF 3D POC Generate Textured
+name: HF 3D POC Generate Textured Mini Turbo
 
 on:
   push:
@@ -58,8 +58,8 @@ jobs:
           import requests
           from gradio_client import Client, handle_file
 
-          base = "https://tencent-hunyuan3d-2mv.hf.space"
-          client = Client("tencent/Hunyuan3D-2mv")
+          base = "https://tencent-hunyuan3d-2mini-turbo.hf.space"
+          client = Client("tencent/Hunyuan3D-2mini-Turbo")
 
           caption = (
               "slim futuristic quadruped racing creature, silver white body, cool blue and cyan accents, "
@@ -70,9 +70,9 @@ jobs:
           result = client.predict(
               caption,
               handle_file("hf-poc/runtime/04_3Q_FRONT_shape_support.png"),
-              handle_file("hf-poc/runtime/02_FRONT_width_reference.png"),
-              handle_file("hf-poc/runtime/03_BACK_rear_reference.png"),
-              handle_file("hf-poc/runtime/01_SIDE_authority.png"),
+              None,
+              None,
+              None,
               None,
               5,
               5.0,
@@ -110,14 +110,14 @@ jobs:
               raise RuntimeError(f"Could not download {target_name}")
 
           white_path, white_url, white_bytes = download_file(
-              result[0], "evowild_s_hunyuan3d2mv_white.glb"
+              result[0], "evowild_s_hunyuan3d2mini_turbo_white.glb"
           )
           textured_path, textured_url, textured_bytes = download_file(
-              result[1], "evowild_s_hunyuan3d2mv_textured.glb"
+              result[1], "evowild_s_hunyuan3d2mini_turbo_textured.glb"
           )
 
           metadata = {
-              "source_space": "tencent/Hunyuan3D-2mv",
+              "source_space": "tencent/Hunyuan3D-2mini-Turbo",
               "api": "/generation_all",
               "caption": caption,
               "steps": 5,
@@ -143,6 +143,6 @@ jobs:
       - name: Upload 3D result
         uses: actions/upload-artifact@v4
         with:
-          name: evowild-s-hunyuan3d2mv-textured
+          name: evowild-s-hunyuan3d2mini-turbo-textured
           path: hf-poc/output/
           if-no-files-found: error
