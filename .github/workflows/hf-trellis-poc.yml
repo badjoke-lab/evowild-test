@@ -1,0 +1,143 @@
+name: HF TRELLIS POC
+
+on:
+  push:
+    branches:
+      - test/hf-3d-poc-20260921
+    paths:
+      - '.github/workflows/hf-trellis-poc.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install client
+        run: pip install -q gradio_client pillow requests
+      - name: Generate textured GLB with TRELLIS
+        run: |
+          python - <<'PY'
+          import json, shutil
+          from pathlib import Path
+          import requests
+          from PIL import Image
+          from gradio_client import Client, handle_file
+
+          src = Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")
+          runtime = Path("hf-poc/runtime")
+          out = Path("hf-poc/trellis-output")
+          runtime.mkdir(parents=True, exist_ok=True)
+          out.mkdir(parents=True, exist_ok=True)
+
+          # Transparent cutout from the clean white reference background.
+          im = Image.open(src).convert("RGBA")
+          px = im.load()
+          for y in range(im.height):
+              for x in range(im.width):
+                  r,g,b,a = px[x,y]
+                  m, mx = min(r,g,b), max(r,g,b)
+                  if m >= 245:
+                      alpha = 0
+                  elif m >= 225 and mx - m < 18:
+                      alpha = int(max(0, min(255, (245-m)/20*255)))
+                  else:
+                      alpha = 255
+                  px[x,y] = (r,g,b,alpha)
+          bbox = im.getbbox()
+          if bbox:
+              im = im.crop(bbox)
+          w,h = im.size
+          side=max(w,h)
+          canvas=Image.new("RGBA",(side,side),(0,0,0,0))
+          canvas.alpha_composite(im,((side-w)//2,(side-h)//2))
+          cutout=runtime/"evowild_3q_cutout_trellis.png"
+          canvas.save(cutout)
+
+          client = Client("trellis-community/TRELLIS")
+          info = client.view_api(return_format="dict")
+          print("ENDPOINTS:", list(info.get("named_endpoints", {}).keys()))
+
+          endpoints = info.get("named_endpoints", {})
+          api_name = next(
+              (n for n in ["/generate_and_extract_glb", "/generate_and_extract_glb_1"] if n in endpoints),
+              None
+          )
+          if not api_name:
+              # Find a generation endpoint that returns a GLB/download file.
+              for n, spec in endpoints.items():
+                  txt = json.dumps(spec).lower()
+                  if "glb" in n.lower() or ("texture size" in txt and "simplify" in txt):
+                      api_name = n
+                      break
+          if not api_name:
+              raise RuntimeError(f"No TRELLIS GLB endpoint found: {list(endpoints)}")
+          print("USING_ENDPOINT:", api_name)
+
+          result = client.predict(
+              handle_file(str(cutout)),
+              [],
+              False,
+              1234,
+              7.5,
+              12,
+              3.0,
+              12,
+              "stochastic",
+              0.95,
+              1024,
+              api_name=api_name,
+          )
+          print("RESULT_TYPE:", type(result), result)
+
+          file_result = result[-1] if isinstance(result,(tuple,list)) else result
+          target = out/"evowild_s_trellis_textured.glb"
+
+          if isinstance(file_result,str) and Path(file_result).exists():
+              shutil.copy2(file_result,target)
+          elif isinstance(file_result,dict):
+              p=file_result.get("path")
+              u=file_result.get("url")
+              if p and Path(p).exists():
+                  shutil.copy2(p,target)
+              elif u:
+                  r=requests.get(u,timeout=180)
+                  r.raise_for_status()
+                  target.write_bytes(r.content)
+              else:
+                  raise RuntimeError(f"Unusable GLB result: {file_result}")
+          else:
+              raise RuntimeError(f"Unusable GLB result: {file_result!r}")
+
+          if target.read_bytes()[:4] != b"glTF":
+              raise RuntimeError("TRELLIS output is not a GLB")
+
+          meta = {
+              "space":"trellis-community/TRELLIS",
+              "model":"microsoft/TRELLIS-image-large",
+              "license":"MIT",
+              "source":"04_3Q_FRONT_shape_support.jpg",
+              "seed":1234,
+              "ss_guidance":7.5,
+              "ss_steps":12,
+              "slat_guidance":3.0,
+              "slat_steps":12,
+              "mesh_simplify":0.95,
+              "texture_size":1024,
+              "output_bytes":target.stat().st_size
+          }
+          (out/"metadata.json").write_text(json.dumps(meta,indent=2),encoding="utf-8")
+          print("SAVED:",target,target.stat().st_size)
+          PY
+      - name: Upload TRELLIS result
+        uses: actions/upload-artifact@v4
+        with:
+          name: evowild-s-trellis-textured
+          path: hf-poc/trellis-output/
+          if-no-files-found: error
