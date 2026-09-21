@@ -108,17 +108,9 @@ jobs:
           mvs = client.predict(processed, 30, 42, api_name=mvs_ep)
           print("MVS_RESULT:", mvs)
 
-          # First return is the internal multi-view image/state used by make3d.
-          if isinstance(mvs,(list,tuple)):
-              mv_state = mvs[0]
-          else:
-              mv_state = mvs
-          if isinstance(mv_state,str) and Path(mv_state).exists():
-              mv_state_arg = handle_file(mv_state)
-          else:
-              mv_state_arg = mv_state
-
-          result = client.predict(mv_state_arg, api_name=make3d_ep)
+          # /make3d has no explicit parameters. It consumes the server-side
+          # state established by /generate_mvs in the same Gradio client session.
+          result = client.predict(api_name=make3d_ep)
           print("MAKE3D_RESULT:", result)
           items = list(result) if isinstance(result,(list,tuple)) else [result]
 
