@@ -522,8 +522,8 @@ new THREE.TextureLoader().load(
     });
     const sprite = new THREE.Sprite(material);
     sprite.name = "Concept_S_2_5D";
-    sprite.position.set(0, 2.15, 0.15);
-    sprite.scale.set(7.2, 6.85, 1);
+    sprite.position.set(0, 2.35, 0.15);
+    sprite.scale.set(4.85, 4.45, 1);
     sprite.visible = activeLabMorph === "S";
     conceptSSprite = sprite;
     conceptSReady = true;
