@@ -1,9 +1,9 @@
-name: HF Stable Fast 3D POC
+name: HF Pixal3D Server POC
 
 on:
   push:
     branches:
-      - test/hf-3d-poc-20260921
+      - test/hf-pixal3d-server-20260921
     paths:
       - '.github/workflows/hf-3d-poc.yml'
 
@@ -13,144 +13,103 @@ permissions:
 jobs:
   generate:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
       - name: Install client
-        run: pip install -q gradio_client pillow requests
-
-      - name: Generate textured 20k GLB with Stable Fast 3D
+        run: pip install -q gradio_client requests
+      - name: Generate via Pixal3D Server
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           python - <<'PY'
-          import json
+          import os, json, shutil, uuid
           from pathlib import Path
-          from urllib.parse import quote
           import requests
-          from PIL import Image
           from gradio_client import Client, handle_file
 
-          src = Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")
-          runtime = Path("hf-poc/runtime")
-          out = Path("hf-poc/output")
-          runtime.mkdir(parents=True, exist_ok=True)
+          token=os.environ.get("HF_TOKEN")
+          if not token:
+              raise RuntimeError("HF_TOKEN missing")
+          print("HF_AUTH: token present")
+          src=Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")
+          out=Path("hf-poc/output")
           out.mkdir(parents=True, exist_ok=True)
+          sid="evowild-server-"+uuid.uuid4().hex[:10]
 
-          # Simple white-background removal for the clean concept sheet crop.
-          im = Image.open(src).convert("RGBA")
-          px = im.load()
-          for y in range(im.height):
-              for x in range(im.width):
-                  r,g,b,a = px[x,y]
-                  m = min(r,g,b)
-                  mx = max(r,g,b)
-                  if m >= 245:
-                      alpha = 0
-                  elif m >= 225 and mx - m < 18:
-                      alpha = int(max(0, min(255, (245 - m) / 20 * 255)))
-                  else:
-                      alpha = 255
-                  px[x,y] = (r,g,b,alpha)
+          client=Client("TencentARC/Pixal3D-Server", token=token)
+          info=client.view_api(return_format="dict")
+          eps=info.get("named_endpoints",{})
+          print("ENDPOINTS:", list(eps))
+          if "/preprocess" not in eps or "/generate_3d" not in eps:
+              raise RuntimeError(f"Required API missing: {list(eps)}")
 
-          bbox = im.getbbox()
-          if bbox:
-              im = im.crop(bbox)
-          # square canvas with margin
-          w,h = im.size
-          side = max(w,h)
-          canvas = Image.new("RGBA", (side,side), (0,0,0,0))
-          canvas.alpha_composite(im, ((side-w)//2, (side-h)//2))
-          cutout = runtime / "evowild_3q_cutout.png"
-          canvas.save(cutout)
+          processed=client.predict(handle_file(str(src)), api_name="/preprocess")
+          print("PREPROCESSED:", repr(processed))
 
-          client = Client("Upsampler/stable-fast-3d")
-          info = client.view_api(return_format="dict")
-          print("API_INFO:", json.dumps(info, default=str))
-
-          endpoints = info.get("named_endpoints", {})
-          api_name = next(
-              (name for name in ["/image_to_glb_1", "/image_to_glb", "/run_button"] if name in endpoints),
-              None
+          result=client.predict(
+              processed, 42, 1024,
+              7.5, 0.7, 12, 5.0,
+              7.5, 0.5, 12, 3.0,
+              1.0, 0.0, 12, 3.0,
+              -1.0, "deg", sid,
+              api_name="/generate_3d"
           )
-          if not api_name:
-              raise RuntimeError(f"No supported generation endpoint: {list(endpoints)}")
-          print("USING_ENDPOINT:", api_name)
+          print("GENERATE_RESULT:", repr(result)[:30000])
 
-          result = client.predict(
-              handle_file(str(cutout)),
-              0.85,
-              "None",
-              20000,
-              1024,
-              api_name=api_name,
-          )
-          print("RESULT:", result)
+          if not isinstance(result, dict):
+              raise RuntimeError(f"Unexpected generation result: {type(result)}")
+          state=result.get("state_path")
+          render_paths=result.get("render_paths") or {}
+          copied=[]
+          for mode,items in render_paths.items():
+              for i,item in enumerate(items or []):
+                  p=item if isinstance(item,str) else item.get("path")
+                  u=None if isinstance(item,str) else item.get("url")
+                  dst=out/f"pixal_server_{mode}_{i}.jpg"
+                  if p and Path(p).exists():
+                      shutil.copy2(p,dst); copied.append(dst.name)
+                  elif u:
+                      rr=requests.get(u,timeout=180)
+                      if rr.ok:
+                          dst.write_bytes(rr.content); copied.append(dst.name)
 
-          if isinstance(result, (tuple, list)):
-              file_result = result[-1]
-          else:
-              file_result = result
+          if not state:
+              raise RuntimeError("No state_path returned")
 
-          target = out / "evowild_s_stable_fast_3d_textured_20k.glb"
-          used_url = None
-          server_path = None
+          glb_res=client.predict(state, 100000, 1024, sid, api_name="/extract_glb_api")
+          print("GLB_RESULT:", repr(glb_res))
+          p=glb_res.get("path") if isinstance(glb_res,dict) else str(glb_res)
+          u=glb_res.get("url") if isinstance(glb_res,dict) else None
+          dst=out/"evowild_s_pixal3d_server.glb"
+          if p and Path(p).exists():
+              shutil.copy2(p,dst)
+          elif u:
+              rr=requests.get(u,timeout=180)
+              if rr.ok: dst.write_bytes(rr.content)
+          if not dst.exists() or dst.read_bytes()[:4] != b"glTF":
+              raise RuntimeError("No valid GLB retrieved")
 
-          # gradio_client often downloads File outputs locally for us.
-          if isinstance(file_result, str) and Path(file_result).exists():
-              target.write_bytes(Path(file_result).read_bytes())
-              server_path = file_result
-          else:
-              if isinstance(file_result, dict):
-                  server_path = file_result.get("path") or file_result.get("value")
-                  used_url = file_result.get("url")
-              else:
-                  server_path = str(file_result)
-
-              if used_url:
-                  r = requests.get(used_url, timeout=180)
-                  r.raise_for_status()
-                  target.write_bytes(r.content)
-              else:
-                  base = "https://upsampler-stable-fast-3d.hf.space"
-                  encoded_path = quote(server_path, safe="/")
-                  response = None
-                  for url in [
-                      f"{base}/gradio_api/file={encoded_path}",
-                      f"{base}/file={encoded_path}",
-                  ]:
-                      r = requests.get(url, timeout=180)
-                      print("DOWNLOAD:", r.status_code, len(r.content), url)
-                      if r.ok and len(r.content) > 1024:
-                          response = r
-                          used_url = url
-                          break
-                  if response is None:
-                      raise RuntimeError("Generated GLB could not be downloaded")
-                  target.write_bytes(response.content)
-
-          if target.read_bytes()[:4] != b"glTF":
-              raise RuntimeError("Downloaded file is not GLB")
-
-          meta = {
-              "space":"Upsampler/stable-fast-3d",
-              "source":"04_3Q_FRONT_shape_support.jpg",
-              "target_vertex_count":20000,
-              "texture_size":1024,
-              "remesh":"None",
-              "output_bytes":target.stat().st_size,
-              "server_path":server_path,
-              "download_url":used_url,
+          meta={
+            "space":"TencentARC/Pixal3D-Server",
+            "resolution":1024,
+            "seed":42,
+            "session_id":sid,
+            "glb_bytes":dst.stat().st_size,
+            "render_files":copied,
+            "camera_angle_x":result.get("camera_angle_x"),
+            "distance":result.get("distance"),
           }
-          (out/"stable_fast_3d_metadata.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
-          print("SAVED:", target, target.stat().st_size)
+          (out/"pixal3d_server_metadata.json").write_text(json.dumps(meta,indent=2),encoding="utf-8")
+          print("SAVED:", json.dumps(meta))
           PY
-
       - name: Upload result
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: evowild-s-stable-fast-3d-textured-20k
+          name: evowild-s-pixal3d-server
           path: hf-poc/output/
-          if-no-files-found: error
+          if-no-files-found: warn
