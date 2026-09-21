@@ -1,9 +1,9 @@
-name: HF Stable Fast 3D POC
+name: HF Hunyuan3D 2mv Auth Textured POC
 
 on:
   push:
     branches:
-      - test/hf-3d-poc-20260921
+      - test/hf-hunyuan2mv-auth-20260921
     paths:
       - '.github/workflows/hf-3d-poc.yml'
 
@@ -13,7 +13,7 @@ permissions:
 jobs:
   generate:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -23,134 +23,153 @@ jobs:
       - name: Install client
         run: pip install -q gradio_client pillow requests
 
-      - name: Generate textured 20k GLB with Stable Fast 3D
+      - name: Generate textured EvoWild GLB with Hunyuan3D-2mv
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           python - <<'PY'
-          import json
+          import json, os, shutil
           from pathlib import Path
           from urllib.parse import quote
           import requests
           from PIL import Image
           from gradio_client import Client, handle_file
 
-          src = Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")
+          token = os.environ.get("HF_TOKEN")
+          if not token:
+              raise RuntimeError("HF_TOKEN secret missing")
+          print("HF_AUTH: token present")
+
           runtime = Path("hf-poc/runtime")
           out = Path("hf-poc/output")
           runtime.mkdir(parents=True, exist_ok=True)
           out.mkdir(parents=True, exist_ok=True)
 
-          # Simple white-background removal for the clean concept sheet crop.
-          im = Image.open(src).convert("RGBA")
-          px = im.load()
-          for y in range(im.height):
-              for x in range(im.width):
-                  r,g,b,a = px[x,y]
-                  m = min(r,g,b)
-                  mx = max(r,g,b)
-                  if m >= 245:
-                      alpha = 0
-                  elif m >= 225 and mx - m < 18:
-                      alpha = int(max(0, min(255, (245 - m) / 20 * 255)))
-                  else:
-                      alpha = 255
-                  px[x,y] = (r,g,b,alpha)
+          refs = {
+              "image": "hf-poc/input/04_3Q_FRONT_shape_support.jpg",
+              "mv_image_front": "hf-poc/input/02_FRONT_width_reference.jpg",
+              "mv_image_back": "hf-poc/input/03_BACK_rear_reference.jpg",
+              "mv_image_left": "hf-poc/input/01_SIDE_authority.jpg",
+          }
+          normalized = {}
+          for key, src in refs.items():
+              p = runtime / f"{key}.png"
+              Image.open(src).convert("RGBA").save(p)
+              normalized[key] = p
 
-          bbox = im.getbbox()
-          if bbox:
-              im = im.crop(bbox)
-          # square canvas with margin
-          w,h = im.size
-          side = max(w,h)
-          canvas = Image.new("RGBA", (side,side), (0,0,0,0))
-          canvas.alpha_composite(im, ((side-w)//2, (side-h)//2))
-          cutout = runtime / "evowild_3q_cutout.png"
-          canvas.save(cutout)
-
-          client = Client("Upsampler/stable-fast-3d")
+          client = Client("tencent/Hunyuan3D-2mv", token=token)
           info = client.view_api(return_format="dict")
-          print("API_INFO:", json.dumps(info, default=str))
+          eps = info.get("named_endpoints", {})
+          if "/generation_all" not in eps:
+              raise RuntimeError(f"/generation_all unavailable: {list(eps)}")
 
-          endpoints = info.get("named_endpoints", {})
-          api_name = next(
-              (name for name in ["/image_to_glb_1", "/image_to_glb", "/run_button"] if name in endpoints),
-              None
-          )
-          if not api_name:
-              raise RuntimeError(f"No supported generation endpoint: {list(endpoints)}")
-          print("USING_ENDPOINT:", api_name)
+          params = eps["/generation_all"].get("parameters", [])
+          names = [p.get("parameter_name") for p in params]
+          print("PARAMS:", names)
 
-          result = client.predict(
-              handle_file(str(cutout)),
-              0.85,
-              "None",
-              20000,
-              1024,
-              api_name=api_name,
+          caption = (
+              "slim futuristic quadruped racing creature, silver white body, cool blue accents, "
+              "cyan glowing accents, four clearly separated long legs, long narrow head, "
+              "two upright horn ear structures, backward crest blades, blade-like fin tail, "
+              "head mounted Cue Band device on both sides, neutral standing pose, full body"
           )
+
+          values = {
+              "caption": caption,
+              "image": handle_file(str(normalized["image"])),
+              "mv_image_front": handle_file(str(normalized["mv_image_front"])),
+              "mv_image_back": handle_file(str(normalized["mv_image_back"])),
+              "mv_image_left": handle_file(str(normalized["mv_image_left"])),
+              "mv_image_right": None,
+              "steps": 5,
+              "guidance_scale": 5.0,
+              "seed": 1234,
+              "octree_resolution": 128,
+              "check_box_rembg": True,
+              "num_chunks": 8000,
+              "randomize_seed": False,
+          }
+
+          args = []
+          for p in params:
+              name = p.get("parameter_name")
+              if name in values:
+                  args.append(values[name])
+              elif p.get("parameter_has_default"):
+                  args.append(p.get("parameter_default"))
+              else:
+                  raise RuntimeError(f"Unsupported required parameter: {name}")
+
+          result = client.predict(*args, api_name="/generation_all")
           print("RESULT:", result)
 
-          if isinstance(result, (tuple, list)):
-              file_result = result[-1]
-          else:
-              file_result = result
+          items = list(result) if isinstance(result, (list, tuple)) else [result]
+          file_items = []
+          for item in items:
+              if isinstance(item, str):
+                  if item.endswith((".glb",".obj",".ply",".stl")) or "/tmp/" in item:
+                      file_items.append((item, None))
+              elif isinstance(item, dict):
+                  path = item.get("path") or item.get("value")
+                  url = item.get("url")
+                  if path and (str(path).endswith((".glb",".obj",".ply",".stl")) or "/tmp/" in str(path)):
+                      file_items.append((str(path), url))
 
-          target = out / "evowild_s_stable_fast_3d_textured_20k.glb"
-          used_url = None
-          server_path = None
+          print("FILE_ITEMS:", file_items)
+          if len(file_items) < 2:
+              raise RuntimeError(f"Expected white + textured files, got: {file_items}")
 
-          # gradio_client often downloads File outputs locally for us.
-          if isinstance(file_result, str) and Path(file_result).exists():
-              target.write_bytes(Path(file_result).read_bytes())
-              server_path = file_result
-          else:
-              if isinstance(file_result, dict):
-                  server_path = file_result.get("path") or file_result.get("value")
-                  used_url = file_result.get("url")
-              else:
-                  server_path = str(file_result)
+          base = str(getattr(client, "src", "https://tencent-hunyuan3d-2mv.hf.space")).rstrip("/")
 
-              if used_url:
-                  r = requests.get(used_url, timeout=180)
-                  r.raise_for_status()
-                  target.write_bytes(r.content)
-              else:
-                  base = "https://upsampler-stable-fast-3d.hf.space"
-                  encoded_path = quote(server_path, safe="/")
-                  response = None
-                  for url in [
-                      f"{base}/gradio_api/file={encoded_path}",
-                      f"{base}/file={encoded_path}",
-                  ]:
-                      r = requests.get(url, timeout=180)
-                      print("DOWNLOAD:", r.status_code, len(r.content), url)
-                      if r.ok and len(r.content) > 1024:
-                          response = r
-                          used_url = url
-                          break
-                  if response is None:
-                      raise RuntimeError("Generated GLB could not be downloaded")
-                  target.write_bytes(response.content)
+          def save_item(item, target):
+              path, url = item
+              lp = Path(path)
+              if lp.exists():
+                  shutil.copy2(lp, target)
+                  return "local"
+              if url:
+                  r = requests.get(url, timeout=180)
+                  print("DIRECT_DOWNLOAD:", r.status_code, len(r.content), url)
+                  if r.ok and len(r.content) > 1024:
+                      target.write_bytes(r.content)
+                      return url
+              enc = quote(path, safe="/")
+              for u in [f"{base}/gradio_api/file={enc}", f"{base}/file={enc}"]:
+                  r = requests.get(u, timeout=180)
+                  print("DOWNLOAD:", r.status_code, len(r.content), u)
+                  if r.ok and len(r.content) > 1024:
+                      target.write_bytes(r.content)
+                      return u
+              raise RuntimeError(f"Could not retrieve {path}")
 
-          if target.read_bytes()[:4] != b"glTF":
-              raise RuntimeError("Downloaded file is not GLB")
+          white = out / "evowild_s_hunyuan3d2mv_auth_white.glb"
+          textured = out / "evowild_s_hunyuan3d2mv_auth_textured.glb"
+          white_src = save_item(file_items[0], white)
+          tex_src = save_item(file_items[1], textured)
+
+          for p in (white, textured):
+              if p.read_bytes()[:4] != b"glTF":
+                  raise RuntimeError(f"Not GLB: {p}")
 
           meta = {
-              "space":"Upsampler/stable-fast-3d",
-              "source":"04_3Q_FRONT_shape_support.jpg",
-              "target_vertex_count":20000,
-              "texture_size":1024,
-              "remesh":"None",
-              "output_bytes":target.stat().st_size,
-              "server_path":server_path,
-              "download_url":used_url,
+              "space": "tencent/Hunyuan3D-2mv",
+              "endpoint": "/generation_all",
+              "octree_resolution": 128,
+              "steps": 5,
+              "seed": result[-1] if isinstance(result,(list,tuple)) else 1234,
+              "mesh_stats": result[-2] if isinstance(result,(list,tuple)) and len(result) >= 2 else None,
+              "white_bytes": white.stat().st_size,
+              "textured_bytes": textured.stat().st_size,
+              "white_source": white_src,
+              "textured_source": tex_src,
           }
-          (out/"stable_fast_3d_metadata.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
-          print("SAVED:", target, target.stat().st_size)
+          (out/"hunyuan3d2mv_auth_metadata.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
+          print("SAVED_TEXTURED:", textured.stat().st_size)
           PY
 
       - name: Upload result
         uses: actions/upload-artifact@v4
         with:
-          name: evowild-s-stable-fast-3d-textured-20k
+          name: evowild-s-hunyuan3d2mv-auth-textured
           path: hf-poc/output/
           if-no-files-found: error
