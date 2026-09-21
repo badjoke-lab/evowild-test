@@ -71,8 +71,6 @@ jobs:
           print("API_INFO:", json.dumps(info, default=str))
 
           result = client.predict(
-              "Run",
-              handle_file(str(cutout)),
               handle_file(str(cutout)),
               0.85,
               "None",
@@ -82,7 +80,7 @@ jobs:
           )
           print("RESULT:", result)
 
-          file_result = result[4]
+          file_result = result[1]
           server_path = file_result.get("value") if isinstance(file_result, dict) else str(file_result)
           if not server_path:
               raise RuntimeError(f"No GLB path in result: {file_result!r}")
