@@ -69,7 +69,7 @@ jobs:
           if not token:
               raise RuntimeError("HF_TOKEN secret is not available to this workflow")
           print("HF_AUTH: token present")
-          client = Client("TencentARC/InstantMesh", hf_token=token)
+          client = Client("TencentARC/InstantMesh", token=token)
           info = client.view_api(return_format="dict")
           print("API_INFO:", json.dumps(info, default=str))
           eps = info.get("named_endpoints", {})
