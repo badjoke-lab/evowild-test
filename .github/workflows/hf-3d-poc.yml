@@ -1,9 +1,9 @@
-name: HF Stable Fast 3D POC
+name: HF Stable Fast 3D Retry POC
 
 on:
   push:
     branches:
-      - test/hf-3d-poc-20260921
+      - test/hf-sf3d-retry-20260921
     paths:
       - '.github/workflows/hf-3d-poc.yml'
 
@@ -23,10 +23,10 @@ jobs:
       - name: Install client
         run: pip install -q gradio_client pillow requests
 
-      - name: Generate textured 20k GLB with Stable Fast 3D
+      - name: Generate textured GLB with Stable Fast 3D
         run: |
           python - <<'PY'
-          import json
+          import json, time, shutil
           from pathlib import Path
           from urllib.parse import quote
           import requests
@@ -39,26 +39,23 @@ jobs:
           runtime.mkdir(parents=True, exist_ok=True)
           out.mkdir(parents=True, exist_ok=True)
 
-          # Simple white-background removal for the clean concept sheet crop.
+          # Create transparent square input from the 3/4 concept view.
           im = Image.open(src).convert("RGBA")
           px = im.load()
           for y in range(im.height):
               for x in range(im.width):
                   r,g,b,a = px[x,y]
-                  m = min(r,g,b)
-                  mx = max(r,g,b)
-                  if m >= 245:
+                  mn, mx = min(r,g,b), max(r,g,b)
+                  if mn >= 245:
                       alpha = 0
-                  elif m >= 225 and mx - m < 18:
-                      alpha = int(max(0, min(255, (245 - m) / 20 * 255)))
+                  elif mn >= 225 and mx - mn < 18:
+                      alpha = int(max(0, min(255, (245 - mn) / 20 * 255)))
                   else:
                       alpha = 255
                   px[x,y] = (r,g,b,alpha)
-
           bbox = im.getbbox()
           if bbox:
               im = im.crop(bbox)
-          # square canvas with margin
           w,h = im.size
           side = max(w,h)
           canvas = Image.new("RGBA", (side,side), (0,0,0,0))
@@ -66,83 +63,114 @@ jobs:
           cutout = runtime / "evowild_3q_cutout.png"
           canvas.save(cutout)
 
-          client = Client("Upsampler/stable-fast-3d")
-          info = client.view_api(return_format="dict")
-          print("API_INFO:", json.dumps(info, default=str))
+          spaces = [
+              ("Upsampler/stable-fast-3d", "https://upsampler-stable-fast-3d.hf.space", 4),
+              ("stabilityai/stable-fast-3d", "https://stabilityai-stable-fast-3d.hf.space", 1),
+          ]
 
-          endpoints = info.get("named_endpoints", {})
-          api_name = next(
-              (name for name in ["/image_to_glb_1", "/image_to_glb", "/run_button"] if name in endpoints),
-              None
-          )
-          if not api_name:
-              raise RuntimeError(f"No supported generation endpoint: {list(endpoints)}")
-          print("USING_ENDPOINT:", api_name)
+          last_error = None
+          success = None
 
-          result = client.predict(
-              handle_file(str(cutout)),
-              0.85,
-              "None",
-              20000,
-              1024,
-              api_name=api_name,
-          )
-          print("RESULT:", result)
+          for space_id, base, attempts in spaces:
+              try:
+                  client = Client(space_id)
+                  info = client.view_api(return_format="dict")
+                  endpoints = info.get("named_endpoints", {})
+                  api_name = next((n for n in ["/image_to_glb_1","/image_to_glb","/run_button"] if n in endpoints), None)
+                  if api_name is None:
+                      raise RuntimeError(f"No supported endpoint in {space_id}: {list(endpoints)}")
+                  print("SPACE:", space_id, "ENDPOINT:", api_name)
 
-          if isinstance(result, (tuple, list)):
-              file_result = result[-1]
-          else:
-              file_result = result
-
-          target = out / "evowild_s_stable_fast_3d_textured_20k.glb"
-          used_url = None
-          server_path = None
-
-          # gradio_client often downloads File outputs locally for us.
-          if isinstance(file_result, str) and Path(file_result).exists():
-              target.write_bytes(Path(file_result).read_bytes())
-              server_path = file_result
-          else:
-              if isinstance(file_result, dict):
-                  server_path = file_result.get("path") or file_result.get("value")
-                  used_url = file_result.get("url")
-              else:
-                  server_path = str(file_result)
-
-              if used_url:
-                  r = requests.get(used_url, timeout=180)
-                  r.raise_for_status()
-                  target.write_bytes(r.content)
-              else:
-                  base = "https://upsampler-stable-fast-3d.hf.space"
-                  encoded_path = quote(server_path, safe="/")
-                  response = None
-                  for url in [
-                      f"{base}/gradio_api/file={encoded_path}",
-                      f"{base}/file={encoded_path}",
-                  ]:
-                      r = requests.get(url, timeout=180)
-                      print("DOWNLOAD:", r.status_code, len(r.content), url)
-                      if r.ok and len(r.content) > 1024:
-                          response = r
-                          used_url = url
+                  for attempt in range(1, attempts + 1):
+                      try:
+                          print("ATTEMPT:", space_id, attempt)
+                          result = client.predict(
+                              handle_file(str(cutout)),
+                              0.85,
+                              "None",
+                              -1,
+                              1024,
+                              api_name=api_name,
+                          )
+                          print("RESULT:", result)
+                          success = (client, base, space_id, api_name, result, attempt)
                           break
-                  if response is None:
-                      raise RuntimeError("Generated GLB could not be downloaded")
-                  target.write_bytes(response.content)
+                      except Exception as e:
+                          last_error = e
+                          print("ATTEMPT_ERROR:", repr(e))
+                          if attempt < attempts:
+                              time.sleep(15)
+                  if success:
+                      break
+              except Exception as e:
+                  last_error = e
+                  print("SPACE_ERROR:", space_id, repr(e))
 
+          if not success:
+              raise RuntimeError(f"All Stable Fast 3D attempts failed: {last_error!r}")
+
+          client, base, space_id, api_name, result, attempt = success
+          items = list(result) if isinstance(result, (tuple,list)) else [result]
+
+          def file_candidate(item):
+              if isinstance(item, str):
+                  return item, None
+              if isinstance(item, dict):
+                  return item.get("path") or item.get("value"), item.get("url")
+              return None, None
+
+          candidates = []
+          for item in items:
+              p,u = file_candidate(item)
+              if p and (str(p).endswith(".glb") or "/tmp/" in str(p)):
+                  candidates.append((str(p),u))
+          if not candidates:
+              # Stable Fast 3D commonly returns preview first and model last.
+              p,u = file_candidate(items[-1])
+              if p:
+                  candidates.append((str(p),u))
+          if not candidates:
+              raise RuntimeError(f"No model file returned: {result!r}")
+
+          path, url = candidates[-1]
+          target = out / "evowild_s_stable_fast_3d_textured.glb"
+          lp = Path(path)
+          source = None
+          if lp.exists():
+              shutil.copy2(lp, target)
+              source = "local"
+          elif url:
+              r = requests.get(url, timeout=180)
+              print("DIRECT_DOWNLOAD:", r.status_code, len(r.content), url)
+              if r.ok and len(r.content) > 1024:
+                  target.write_bytes(r.content)
+                  source = url
+          if not target.exists():
+              enc = quote(path, safe="/")
+              for u in [f"{base}/gradio_api/file={enc}", f"{base}/file={enc}"]:
+                  r = requests.get(u, timeout=180)
+                  print("DOWNLOAD:", r.status_code, len(r.content), u)
+                  if r.ok and len(r.content) > 1024:
+                      target.write_bytes(r.content)
+                      source = u
+                      break
+          if not target.exists():
+              raise RuntimeError(f"Could not retrieve generated GLB: {path}")
           if target.read_bytes()[:4] != b"glTF":
-              raise RuntimeError("Downloaded file is not GLB")
+              raise RuntimeError("Generated file is not a valid binary GLB")
 
           meta = {
-              "space":"Upsampler/stable-fast-3d",
-              "source":"04_3Q_FRONT_shape_support.jpg",
-              "target_vertex_count":20000,
-              "texture_size":1024,
-              "remesh":"None",
-              "output_bytes":target.stat().st_size,
-              "server_path":server_path,
-              "download_url":used_url,
+              "space": space_id,
+              "endpoint": api_name,
+              "attempt": attempt,
+              "source_image": str(src),
+              "foreground_ratio": 0.85,
+              "remesh": "None",
+              "vertex_count": -1,
+              "texture_size": 1024,
+              "output_bytes": target.stat().st_size,
+              "source": source,
+              "result_repr": repr(result)[:10000],
           }
           (out/"stable_fast_3d_metadata.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
           print("SAVED:", target, target.stat().st_size)
@@ -151,6 +179,6 @@ jobs:
       - name: Upload result
         uses: actions/upload-artifact@v4
         with:
-          name: evowild-s-stable-fast-3d-textured-20k
+          name: evowild-s-stable-fast-3d-textured
           path: hf-poc/output/
           if-no-files-found: error
