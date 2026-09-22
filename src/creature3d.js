@@ -156,6 +156,95 @@ export function fitCreature3D(model, {
   return model;
 }
 
+export function createStaticCreatureInstanceBatch(source, {
+  renderer,
+  profile,
+  placement = "benchmark",
+  count,
+  materialSide,
+  transforms = []
+}) {
+  const instanceCount = Math.max(0, Number.parseInt(count, 10) || 0);
+  if (!instanceCount) {
+    return { supported: false, reason: "count_zero", object: null };
+  }
+
+  const prototype = fitCreature3D(cloneCreature3D(source), {
+    renderer,
+    profile,
+    placement,
+    materialSide
+  });
+  prototype.updateMatrixWorld(true);
+
+  const meshes = [];
+  prototype.traverse((node) => {
+    if (node.isMesh) meshes.push(node);
+  });
+
+  if (meshes.length !== 1) {
+    return {
+      supported: false,
+      reason: `requires_single_mesh_got_${meshes.length}`,
+      object: null
+    };
+  }
+
+  const mesh = meshes[0];
+  if (mesh.isSkinnedMesh) {
+    return { supported: false, reason: "skinned_mesh", object: null };
+  }
+  if (Array.isArray(mesh.material)) {
+    return { supported: false, reason: "multi_material_mesh", object: null };
+  }
+
+  const batch = new THREE.InstancedMesh(mesh.geometry, mesh.material, instanceCount);
+  batch.name = `Creature3D_Instanced_${profile.id}_${instanceCount}`;
+  batch.frustumCulled = false;
+  batch.castShadow = false;
+  batch.receiveShadow = false;
+
+  const rootMatrix = new THREE.Matrix4();
+  const finalMatrix = new THREE.Matrix4();
+  const position = new THREE.Vector3();
+  const quaternion = new THREE.Quaternion();
+  const scale = new THREE.Vector3(1, 1, 1);
+  const euler = new THREE.Euler();
+
+  for (let i = 0; i < instanceCount; i++) {
+    const transform = transforms[i] || {};
+    const p = transform.position || [0, 0, 0];
+    const r = transform.rotation || [0, 0, 0];
+    const s = transform.scale || [1, 1, 1];
+
+    position.set(p[0] ?? 0, p[1] ?? 0, p[2] ?? 0);
+    euler.set(r[0] ?? 0, r[1] ?? 0, r[2] ?? 0);
+    quaternion.setFromEuler(euler);
+    scale.set(s[0] ?? 1, s[1] ?? 1, s[2] ?? 1);
+    rootMatrix.compose(position, quaternion, scale);
+
+    finalMatrix.multiplyMatrices(rootMatrix, mesh.matrixWorld);
+    batch.setMatrixAt(i, finalMatrix);
+  }
+
+  batch.instanceMatrix.needsUpdate = true;
+  batch.computeBoundingSphere();
+
+  const geometry = mesh.geometry;
+  const triangles = geometry.index
+    ? geometry.index.count / 3
+    : (geometry.getAttribute("position")?.count || 0) / 3;
+
+  return {
+    supported: true,
+    reason: null,
+    object: batch,
+    meshCount: 1,
+    trianglesPerInstance: Math.round(triangles),
+    expectedTriangles: Math.round(triangles * instanceCount)
+  };
+}
+
 export function loadCreature3D(profile) {
   return new Promise((resolve, reject) => {
     new GLTFLoader().load(
