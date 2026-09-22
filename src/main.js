@@ -562,10 +562,32 @@ for (const morph of ["S", "P", "E", "A"]) {
 
 const sf3dAssetUrl = `${import.meta.env.BASE_URL}models/evowild-s-sf3d-clean.glb`;
 
+function normalizeSf3dMaterial(material) {
+  const normalized = material.clone();
+
+  // SF3D's source material is fully metallic. Without an environment map that
+  // renders almost black in the current lightweight race scene, so use a
+  // neutral game-preview PBR response while preserving its maps.
+  if ("metalness" in normalized) normalized.metalness = 0.08;
+  if ("roughness" in normalized) normalized.roughness = Math.max(0.52, normalized.roughness ?? 0.52);
+  if (normalized.color) normalized.color.set(0xffffff);
+  if (normalized.map) {
+    normalized.map.colorSpace = THREE.SRGBColorSpace;
+    normalized.map.anisotropy = Math.min(4, renderer.capabilities.getMaxAnisotropy());
+    normalized.map.needsUpdate = true;
+  }
+
+  // The generated prototype is not watertight. Double-sided rendering is only
+  // for validation so missing backfaces do not masquerade as missing geometry.
+  normalized.side = THREE.DoubleSide;
+  normalized.needsUpdate = true;
+  return normalized;
+}
+
 function fitSf3dModel(model, targetHeight, groundY) {
-  // Stable Fast 3D source uses its longest axis as body length. Rotate it so
-  // body length follows EvoWild's +X forward convention, then fit by height.
-  model.rotation.z = -Math.PI / 2;
+  // Stable Fast 3D already exports this asset Y-up. Do not rotate around Z:
+  // the previous -90 degree correction was what laid the creature on its side.
+  model.rotation.set(0, 0, 0);
   model.updateMatrixWorld(true);
 
   const initialBox = new THREE.Box3().setFromObject(model);
@@ -586,9 +608,10 @@ function fitSf3dModel(model, targetHeight, groundY) {
     node.frustumCulled = true;
     node.castShadow = false;
     node.receiveShadow = false;
-    if (node.material) {
-      node.material.side = THREE.FrontSide;
-      node.material.needsUpdate = true;
+    if (Array.isArray(node.material)) {
+      node.material = node.material.map(normalizeSf3dMaterial);
+    } else if (node.material) {
+      node.material = normalizeSf3dMaterial(node.material);
     }
   });
   return model;
