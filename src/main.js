@@ -569,7 +569,7 @@ for (const morph of ["S", "P", "E", "A"]) {
   );
 }
 
-const sf3dProfile = CREATURE_3D_PROFILES.sSf3dPrototype;
+const sf3dProfile = CREATURE_3D_PROFILES.sSf3dCorrected;
 
 function setupSf3dBenchmark(source, count) {
   if (!count) return;
