@@ -1148,15 +1148,16 @@ function updateRaceLifecycle(dt) {
 
 function update(dt) {
   if (paused || raceState !== "running") return;
-  elapsed += dt;
-  const sec = dt / 1000;
+  const raceDt = fastFinishProof ? dt * 8 : dt;
+  elapsed += raceDt;
+  const sec = raceDt / 1000;
 
   for (const r of racers) {
     if (r.finished) {
       r.speed = 0;
       continue;
     }
-    r.cooldown = Math.max(0, r.cooldown - dt);
+    r.cooldown = Math.max(0, r.cooldown - raceDt);
     const currentPhase = phase(r);
     const gap = gapAhead(r);
     const position = rankOf(r);
@@ -1202,8 +1203,8 @@ function update(dt) {
     r.distance += Math.max(0, r.speed) * sec;
 
     const load = Math.max(0, r.speed / r.cruise - 0.96);
-    r.stamina = Math.max(0, r.stamina - (0.018 + 0.038 * load * load) * r.drain * dt / 1000);
-    r.laneF = THREE.MathUtils.lerp(r.laneF, r.lane, Math.min(1, dt * 0.0032));
+    r.stamina = Math.max(0, r.stamina - (0.018 + 0.038 * load * load) * r.drain * raceDt / 1000);
+    r.laneF = THREE.MathUtils.lerp(r.laneF, r.lane, Math.min(1, raceDt * 0.0032));
 
     const t = (r.distance / raceMeters) % 1;
     const p = curve.getPointAt(t);
@@ -1229,7 +1230,7 @@ function update(dt) {
       applySRunFrame(r, frameIndex);
     }
 
-    r.dustTimer = Math.max(0, (r.dustTimer ?? 0) - dt);
+    r.dustTimer = Math.max(0, (r.dustTimer ?? 0) - raceDt);
     if (r.speed > 7 && r.dustTimer <= 0) {
       spawnDust(r, tangent);
       r.dustTimer = r.id === selectedId ? 155 : 265 + (r.id % 4) * 42;
@@ -1243,6 +1244,7 @@ function update(dt) {
       r.command = `PLACE #${r.finishPlace}`;
       r.speed = 0;
       finishOrder.push(r.id);
+      stage.dataset.finishCount = String(finishOrder.length);
       if (r.obj.userData.sRunAnimated) applySRunFrame(r, 5);
     }
   }
@@ -1262,7 +1264,7 @@ function update(dt) {
     const shrink = THREE.MathUtils.clamp(1 - bob * 1.8, 0.72, 1);
     shadow.scale.set(1.55 * shrink, 0.62 * shrink, 1);
   });
-  updateDust(dt);
+  updateDust(fastFinishProof ? dt * 8 : dt);
 }
 
 function setCamera() {
@@ -1488,9 +1490,10 @@ drawMiniMap();
 let renderedFrames = 0;
 function frame(now) {
   try {
-    const dt = Math.min(45, Math.max(0, now - last));
+    const rawDt = Math.max(0, now - last);
+    const dt = Math.min(45, rawDt);
     last = now;
-    updateRaceLifecycle(dt);
+    updateRaceLifecycle(rawDt);
     update(dt);
     setCamera();
     orientAnimatedSRunPlanes();
