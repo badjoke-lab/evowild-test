@@ -1,0 +1,43 @@
+name: HF Pixal3D API Inspect
+
+on:
+  push:
+    branches:
+      - test/hf-pixal3d-20260923
+    paths:
+      - '.github/workflows/hf-pixal3d-poc.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Gradio client
+        run: pip install -q gradio_client
+      - name: Inspect Pixal3D API
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from gradio_client import Client
+
+          token = os.environ.get("HF_TOKEN")
+          if not token:
+              raise RuntimeError("HF_TOKEN is missing")
+          print("HF_AUTH: token present")
+
+          client = Client("TencentARC/Pixal3D", token=token)
+          info = client.view_api(return_format="dict")
+          print("PIXAL3D_API_JSON_BEGIN")
+          print(json.dumps(info, indent=2, default=str))
+          print("PIXAL3D_API_JSON_END")
+          PY
