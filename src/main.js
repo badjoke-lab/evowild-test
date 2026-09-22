@@ -1480,13 +1480,30 @@ function updateHud() {
 
   const rankingNow = performance.now();
   if (rankingNow - lastRankingPaint >= 220 || raceState === "finished") {
-    rankingPanel.innerHTML = ordered.map((r, index) => `
-      <div class="rank-row ${r.id === selectedId ? "selected" : ""}" data-racer-id="${r.id}" role="button" tabindex="0" aria-label="Select #${String(r.id).padStart(2, "0")} ${r.name}">
-        <b>${index + 1}</b>
-        <span><i class="dot" style="background:${r.color}"></i>#${String(r.id).padStart(2, "0")} ${r.name}<span class="badge">${r.morph}</span></span>
-        <span>${r.finished ? `#${r.finishPlace}` : r.speed.toFixed(1)}</span>
-      </div>
-    `).join("");
+    ordered.forEach((r, index) => {
+      let row = rankingPanel.querySelector(`[data-racer-id="${r.id}"]`);
+      if (!row) {
+        row = document.createElement("div");
+        row.className = "rank-row";
+        row.dataset.racerId = String(r.id);
+        row.setAttribute("role", "button");
+        row.tabIndex = 0;
+        row.setAttribute("aria-label", `Select #${String(r.id).padStart(2, "0")} ${r.name}`);
+        row.innerHTML = `
+          <b class="rank-pos"></b>
+          <span><i class="dot"></i><span class="rank-copy"></span><span class="badge"></span></span>
+          <span class="rank-value"></span>
+        `;
+        row.querySelector(".dot").style.background = r.color;
+        row.querySelector(".rank-copy").textContent = `#${String(r.id).padStart(2, "0")} ${r.name}`;
+        row.querySelector(".badge").textContent = r.morph;
+      }
+
+      row.classList.toggle("selected", r.id === selectedId);
+      row.querySelector(".rank-pos").textContent = String(index + 1);
+      row.querySelector(".rank-value").textContent = r.finished ? `#${r.finishPlace}` : r.speed.toFixed(1);
+      rankingPanel.append(row);
+    });
     lastRankingPaint = rankingNow;
   }
 }
