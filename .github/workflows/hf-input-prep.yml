@@ -1,0 +1,104 @@
+name: HF 3D Input Prep
+
+on:
+  push:
+    branches:
+      - test/hf-sf3d-retry-20260921
+    paths:
+      - '.github/workflows/hf-input-prep.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Pillow
+        run: pip install -q pillow
+
+      - name: Prepare single-subject SF3D inputs
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+
+          src = Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")
+          out = Path("hf-poc/prepared-inputs")
+          out.mkdir(parents=True, exist_ok=True)
+
+          original = Image.open(src).convert("RGBA")
+          w, h = original.size
+
+          def make_variant(left_frac, name):
+              im = original.crop((int(w * left_frac), 0, w, h)).copy()
+              px = im.load()
+              for y in range(im.height):
+                  for x in range(im.width):
+                      r,g,b,a = px[x,y]
+                      mn, mx = min(r,g,b), max(r,g,b)
+                      # Remove white / near-neutral studio background.
+                      if mn >= 245:
+                          alpha = 0
+                      elif mn >= 225 and mx - mn < 18:
+                          alpha = int(max(0, min(255, (245 - mn) / 20 * 255)))
+                      else:
+                          alpha = 255
+                      px[x,y] = (r,g,b,alpha)
+
+              bbox = im.getbbox()
+              if not bbox:
+                  raise RuntimeError(f"No foreground for {name}")
+              im = im.crop(bbox)
+
+              # Center subject on transparent square with margin.
+              iw, ih = im.size
+              side = max(iw, ih)
+              target_fill = 0.82
+              scale = (side * target_fill) / max(iw, ih)
+              nw, nh = max(1, int(iw*scale)), max(1, int(ih*scale))
+              im = im.resize((nw, nh), Image.Resampling.LANCZOS)
+              canvas = Image.new("RGBA", (side, side), (0,0,0,0))
+              canvas.alpha_composite(im, ((side-nw)//2, (side-nh)//2))
+              path = out / f"{name}.png"
+              canvas.save(path)
+              return path
+
+          variants = [
+              make_variant(0.25, "sf3d_3q_crop25"),
+              make_variant(0.30, "sf3d_3q_crop30"),
+              make_variant(0.35, "sf3d_3q_crop35"),
+          ]
+
+          # Contact sheet for human inspection.
+          thumbs=[]
+          for p in variants:
+              im=Image.open(p).convert("RGBA")
+              bg=Image.new("RGBA", im.size, (240,240,240,255))
+              bg.alpha_composite(im)
+              bg=bg.convert("RGB")
+              bg.thumbnail((420,420))
+              thumbs.append((p.stem,bg.copy()))
+
+          sheet=Image.new("RGB",(420*3,470),(255,255,255))
+          draw=ImageDraw.Draw(sheet)
+          for i,(label,im) in enumerate(thumbs):
+              x=i*420
+              sheet.paste(im,(x,30))
+              draw.text((x+10,5),label,fill=(0,0,0))
+          sheet.save(out/"contact_sheet.jpg",quality=95)
+          print("prepared:", [str(p) for p in variants])
+          PY
+
+      - name: Upload prepared inputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: evowild-s-sf3d-prepared-inputs
+          path: hf-poc/prepared-inputs/
+          if-no-files-found: error
