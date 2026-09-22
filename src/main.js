@@ -608,7 +608,7 @@ function installSRunSprite() {
 
   racer.obj.remove(oldSprite);
   if (oldSprite.material) oldSprite.material.dispose();
-  if (oldSprite.geometry) oldSprite.geometry.dispose();
+  if (oldSprite.isMesh && oldSprite.geometry) oldSprite.geometry.dispose();
 
   const raceSprite = buildAnimatedSRunPlane(sRunSheetTexture, raceSpriteLayout.S);
   racer.obj.add(raceSprite);
