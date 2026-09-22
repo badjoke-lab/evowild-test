@@ -157,6 +157,31 @@ function buildTrack() {
     );
   }
 
+  const laneGuideOffsets = [-3.10, -1.55, 0, 1.55, 3.10];
+  const laneGuideMaterial = new THREE.LineDashedMaterial({
+    color: 0xf1d8b5,
+    transparent: true,
+    opacity: 0.28,
+    dashSize: 0.72,
+    gapSize: 0.88
+  });
+  for (const offset of laneGuideOffsets) {
+    const points = [];
+    for (let i = 0; i <= samples; i++) {
+      const t = i / samples;
+      const p = curve.getPointAt(t);
+      const tangent = curve.getTangentAt(t).normalize();
+      const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+      points.push(p.clone().addScaledVector(side, offset).add(new THREE.Vector3(0, 0.075, 0)));
+    }
+    const guide = new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints(points),
+      laneGuideMaterial
+    );
+    guide.computeLineDistances();
+    scene.add(guide);
+  }
+
   const railOffset = half + 0.78;
   const railMaterial = new THREE.LineBasicMaterial({ color: 0xd8dee2, transparent: true, opacity: 0.95 });
   for (const offset of [-railOffset, railOffset]) {
@@ -251,7 +276,7 @@ function buildTrack() {
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
-  stage.dataset.trackPresentation = "v4";
+  stage.dataset.trackPresentation = "v5";
 }
 buildTrack();
 
