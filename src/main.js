@@ -545,19 +545,28 @@ const raceSpriteLayout = {
 };
 
 const sRunFrames = [
-  { phase: "CONTACT", stride: 0.05, lift: -0.015, squash: 0.018, lean: -0.010 },
-  { phase: "PUSH",    stride: 0.95, lift:  0.005, squash: 0.008, lean: -0.026 },
-  { phase: "LIFT",    stride: 0.55, lift:  0.035, squash: -0.012, lean: -0.018 },
-  { phase: "FLIGHT",  stride: -0.05, lift: 0.052, squash: -0.020, lean:  0.004 },
-  { phase: "REACH",   stride: -0.90, lift: 0.025, squash: -0.004, lean:  0.018 },
-  { phase: "LAND",    stride: -0.45, lift: -0.006, squash: 0.020, lean:  0.008 }
+  { phase: "CONTACT", col: 0, row: 0, y: 0.00 },
+  { phase: "PUSH",    col: 1, row: 0, y: 0.00 },
+  { phase: "LIFT",    col: 2, row: 0, y: 0.00 },
+  { phase: "FLIGHT",  col: 0, row: 1, y: -0.42 },
+  { phase: "REACH",   col: 1, row: 1, y: -0.17 },
+  { phase: "LAND",    col: 2, row: 1, y: -0.16 }
 ];
 let sRunProofRacer = null;
+let sRunSheetTexture = null;
 const sBillboardParentQ = new THREE.Quaternion();
 const sBillboardCameraQ = new THREE.Quaternion();
 
 function buildAnimatedSRunPlane(texture, raceLayout) {
-  const geometry = new THREE.PlaneGeometry(1, 1, 12, 8);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.minFilter = THREE.LinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  texture.generateMipmaps = false;
+  texture.wrapS = THREE.ClampToEdgeWrapping;
+  texture.wrapT = THREE.ClampToEdgeWrapping;
+  texture.repeat.set(1 / 3, 1 / 2);
+
+  const geometry = new THREE.PlaneGeometry(1, 1);
   const material = new THREE.MeshBasicMaterial({
     map: texture,
     transparent: true,
@@ -566,12 +575,11 @@ function buildAnimatedSRunPlane(texture, raceLayout) {
     side: THREE.DoubleSide
   });
   const mesh = new THREE.Mesh(geometry, material);
-  mesh.name = `Race2_5D_S_Animated_${sRunProofRacerId}`;
+  mesh.name = `Race2_5D_S_SpriteSheet_${sRunProofRacerId}`;
   mesh.position.set(0, raceLayout.y, 0);
-  mesh.scale.set(raceLayout.scale[0], raceLayout.scale[1], 1);
+  mesh.scale.set(3.65, 3.10, 1);
   mesh.renderOrder = 4;
   mesh.frustumCulled = false;
-  mesh.userData.basePositions = geometry.attributes.position.array.slice();
   mesh.userData.frameIndex = -1;
   return mesh;
 }
@@ -581,39 +589,37 @@ function applySRunFrame(racer, frameIndex) {
   if (!mesh?.isMesh || mesh.userData.frameIndex === frameIndex) return;
 
   const frame = sRunFrames[frameIndex];
-  const attr = mesh.geometry.attributes.position;
-  const base = mesh.userData.basePositions;
+  const map = mesh.material?.map;
+  if (!map) return;
 
-  for (let i = 0; i < attr.count; i++) {
-    const x0 = base[i * 3];
-    const y0 = base[i * 3 + 1];
-    const nx = x0 / 0.5;
-    const ny = y0 / 0.5;
-    const lower = THREE.MathUtils.clamp((-ny - 0.02) / 0.98, 0, 1);
-    const foot = Math.pow(lower, 1.7);
-    const frontRear = nx >= 0 ? 1 : -1;
-    const legStride = frame.stride * frontRear;
-    const stanceArc = Math.max(0, 1 - Math.abs(frame.stride));
-    const swingLift = Math.max(0, legStride) * 0.070 * foot;
-
-    const x = x0 * (1 - frame.squash * 0.40)
-      + legStride * 0.175 * foot
-      + frame.lean * (0.5 - y0) * 0.7;
-    const y = y0 * (1 + frame.squash)
-      + frame.lift * (0.35 + lower * 0.65)
-      + stanceArc * 0.040 * foot
-      + swingLift;
-
-    attr.setXYZ(i, x, y, base[i * 3 + 2]);
-  }
-
-  attr.needsUpdate = true;
-  mesh.geometry.computeBoundingSphere();
+  map.offset.set(frame.col / 3, frame.row / 2);
+  map.updateMatrix();
   mesh.userData.frameIndex = frameIndex;
-  mesh.rotation.z = frame.lean;
-  mesh.position.y = raceSpriteLayout.S.y + frame.lift * 0.55;
+  mesh.position.y = raceSpriteLayout.S.y + frame.y;
   stage.dataset.sRunFrame = String(frameIndex);
   stage.dataset.sRunPhase = frame.phase;
+}
+
+function installSRunSprite() {
+  if (!sRunSheetTexture) return;
+  const racer = racers.find((r) => r.id === sRunProofRacerId);
+  const oldSprite = racer?.obj?.userData?.raceSprite;
+  if (!racer || !oldSprite) return;
+
+  racer.obj.remove(oldSprite);
+  if (oldSprite.material) oldSprite.material.dispose();
+  if (oldSprite.geometry) oldSprite.geometry.dispose();
+
+  const raceSprite = buildAnimatedSRunPlane(sRunSheetTexture, raceSpriteLayout.S);
+  racer.obj.add(raceSprite);
+  racer.obj.userData.raceSprite = raceSprite;
+  racer.obj.userData.sRunAnimated = true;
+  sRunProofRacer = racer;
+  applySRunFrame(racer, 0);
+
+  stage.dataset.sRunCycle = "loaded";
+  stage.dataset.sRunFrames = String(sRunFrames.length);
+  stage.dataset.sRunSource = "sprite-sheet";
 }
 
 function orientAnimatedSRunPlane() {
@@ -623,6 +629,20 @@ function orientAnimatedSRunPlane() {
   camera.getWorldQuaternion(sBillboardCameraQ);
   mesh.quaternion.copy(sBillboardParentQ).invert().multiply(sBillboardCameraQ);
 }
+
+textureLoader.load(
+  `${import.meta.env.BASE_URL}concept/s-run-sheet.webp`,
+  (texture) => {
+    sRunSheetTexture = texture;
+    stage.dataset.sRunSheet = "loaded";
+    installSRunSprite();
+  },
+  undefined,
+  (error) => {
+    stage.dataset.sRunSheet = "error";
+    console.error("S run sprite sheet failed to load", error);
+  }
+);
 
 function updateConceptReadyState() {
   if (conceptReady.size === 4) {
@@ -644,28 +664,20 @@ for (const morph of ["S", "P", "E", "A"]) {
         racer.obj.children.forEach((child) => { child.visible = false; });
         const raceLayout = raceSpriteLayout[morph];
         let raceSprite;
-        if (morph === "S" && racer.id === sRunProofRacerId) {
-          raceSprite = buildAnimatedSRunPlane(texture, raceLayout);
-          racer.obj.userData.sRunAnimated = true;
-          sRunProofRacer = racer;
-          applySRunFrame(racer, 0);
-          stage.dataset.sRunCycle = "loaded";
-          stage.dataset.sRunFrames = String(sRunFrames.length);
-        } else {
-          const raceMaterial = new THREE.SpriteMaterial({
-            map: texture,
-            transparent: true,
-            depthWrite: false,
-            alphaTest: 0.02
-          });
-          raceSprite = new THREE.Sprite(raceMaterial);
-          raceSprite.name = `Race2_5D_${morph}_${racer.id}`;
-          raceSprite.position.set(0, raceLayout.y, 0);
-          raceSprite.scale.set(raceLayout.scale[0], raceLayout.scale[1], 1);
-          raceSprite.renderOrder = 3;
-        }
+        const raceMaterial = new THREE.SpriteMaterial({
+          map: texture,
+          transparent: true,
+          depthWrite: false,
+          alphaTest: 0.02
+        });
+        raceSprite = new THREE.Sprite(raceMaterial);
+        raceSprite.name = `Race2_5D_${morph}_${racer.id}`;
+        raceSprite.position.set(0, raceLayout.y, 0);
+        raceSprite.scale.set(raceLayout.scale[0], raceLayout.scale[1], 1);
+        raceSprite.renderOrder = 3;
         racer.obj.add(raceSprite);
         racer.obj.userData.raceSprite = raceSprite;
+        if (morph === "S" && racer.id === sRunProofRacerId) installSRunSprite();
       }
 
       const material = new THREE.SpriteMaterial({
