@@ -26,10 +26,19 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           pip install -q numpy trimesh pillow
-          mkdir -p /tmp/sf3d
+          mkdir -p /tmp/sf3d /tmp/sf3d-corrected
           gh api repos/${{ github.repository }}/actions/artifacts/10644576625/zip > /tmp/sf3d.zip
           unzip -q /tmp/sf3d.zip -d /tmp/sf3d
           python scripts/prepare-sf3d-asset.py
+
+          gh api repos/${{ github.repository }}/actions/artifacts/10702684118/zip > /tmp/sf3d-corrected.zip
+          unzip -q /tmp/sf3d-corrected.zip -d /tmp/sf3d-corrected
+          corrected_glb="$(find /tmp/sf3d-corrected -name 'evowild_s_stable_fast_3d_textured.glb' -print -quit)"
+          corrected_meta="$(find /tmp/sf3d-corrected -name 'stable_fast_3d_metadata.json' -print -quit)"
+          test -n "$corrected_glb"
+          test -n "$corrected_meta"
+          cp "$corrected_glb" public/models/evowild-s-sf3d-corrected.glb
+          cp "$corrected_meta" public/models/evowild-s-sf3d-corrected.json
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -48,11 +57,15 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/models/evowild-s-sf3d-clean.glb public/models/evowild-s-sf3d-clean.json
+          git add \
+            public/models/evowild-s-sf3d-clean.glb \
+            public/models/evowild-s-sf3d-clean.json \
+            public/models/evowild-s-sf3d-corrected.glb \
+            public/models/evowild-s-sf3d-corrected.json
           if git diff --cached --quiet; then
             echo "No asset changes"
           else
-            git commit -m "test: add cleaned Stable Fast 3D game candidate"
+            git commit -m "test: refresh Stable Fast 3D validation assets"
             git fetch origin ${{ github.head_ref || github.ref_name }}
             git rebase origin/${{ github.head_ref || github.ref_name }}
             git push origin HEAD:${{ github.head_ref || github.ref_name }}
