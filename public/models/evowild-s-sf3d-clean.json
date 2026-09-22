@@ -1,0 +1,11 @@
+{
+  "source_artifact_id": 10644576625,
+  "source_faces": 11252,
+  "source_vertices": 8631,
+  "source_components": 459,
+  "clean_faces": 8035,
+  "clean_vertices": 5169,
+  "clean_components_kept": 19,
+  "rule": "drop center_x>0.2, face_count<25, diag<0.07",
+  "status": "prototype_only_not_final_asset"
+}
