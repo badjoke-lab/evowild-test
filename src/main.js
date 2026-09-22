@@ -126,12 +126,12 @@ function buildTrack() {
   makeRibbon(
     half + 0.72,
     0.015,
-    new THREE.MeshStandardMaterial({ color: 0x765c40, roughness: 1 })
+    new THREE.MeshStandardMaterial({ color: 0x765c40, roughness: 1, side: THREE.DoubleSide })
   );
   makeRibbon(
     half,
     0.035,
-    new THREE.MeshStandardMaterial({ color: 0xb88758, roughness: 1 })
+    new THREE.MeshStandardMaterial({ color: 0xb88758, roughness: 1, side: THREE.DoubleSide })
   );
 
   for (const offset of [-half, half]) {
@@ -245,7 +245,7 @@ function buildTrack() {
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
-  stage.dataset.trackPresentation = "v2";
+  stage.dataset.trackPresentation = "v3";
 }
 buildTrack();
 
@@ -268,10 +268,13 @@ for (let i = 0; i < 72; i++) {
 
 const hillMaterial = new THREE.MeshStandardMaterial({ color: 0x697d70, roughness: 1, flatShading: true });
 function addHill(x, z, s) {
-  const hill = new THREE.Mesh(new THREE.DodecahedronGeometry(1, 1), hillMaterial);
+  const hill = new THREE.Mesh(
+    new THREE.SphereGeometry(1, 14, 6, 0, Math.PI * 2, 0, Math.PI / 2),
+    hillMaterial
+  );
   const hillScale = s * (isMobile ? 0.50 : 1);
-  hill.position.set(x, hillScale * 0.34, z);
-  hill.scale.set(hillScale, hillScale * 0.54, hillScale * 0.78);
+  hill.position.set(x, 0, z);
+  hill.scale.set(hillScale, hillScale * 0.48, hillScale * 0.76);
   scene.add(hill);
 }
 addHill(-60, -34, 11);
