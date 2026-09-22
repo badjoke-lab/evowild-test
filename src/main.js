@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import "./styles.css";
 
 const canvas = document.querySelector("#game");
@@ -506,6 +507,8 @@ scene.add(labGroup);
 let activeLabMorph = "S";
 let dedicatedS = null;
 let dedicatedSReady = false;
+let sf3dLab = null;
+let sf3dReady = false;
 
 const conceptSprites = new Map();
 const conceptTextures = new Map();
@@ -541,7 +544,7 @@ for (const morph of ["S", "P", "E", "A"]) {
       sprite.name = `Concept_${morph}_2_5D`;
       sprite.position.set(0, layout.y, 0.15);
       sprite.scale.set(layout.scale[0], layout.scale[1], 1);
-      sprite.visible = activeLabMorph === morph;
+      sprite.visible = activeLabMorph === morph && !(morph === "S" && sf3dReady);
       conceptSprites.set(morph, sprite);
       conceptReady.add(morph);
       labGroup.add(sprite);
@@ -556,6 +559,73 @@ for (const morph of ["S", "P", "E", "A"]) {
     }
   );
 }
+
+const sf3dAssetUrl = `${import.meta.env.BASE_URL}models/evowild-s-sf3d-clean.glb`;
+
+function fitSf3dModel(model, targetHeight, groundY) {
+  // Stable Fast 3D source uses its longest axis as body length. Rotate it so
+  // body length follows EvoWild's +X forward convention, then fit by height.
+  model.rotation.z = -Math.PI / 2;
+  model.updateMatrixWorld(true);
+
+  const initialBox = new THREE.Box3().setFromObject(model);
+  const initialSize = initialBox.getSize(new THREE.Vector3());
+  const height = Math.max(0.001, initialSize.y);
+  model.scale.multiplyScalar(targetHeight / height);
+  model.updateMatrixWorld(true);
+
+  const fittedBox = new THREE.Box3().setFromObject(model);
+  const center = fittedBox.getCenter(new THREE.Vector3());
+  model.position.x -= center.x;
+  model.position.z -= center.z;
+  model.position.y += groundY - fittedBox.min.y;
+  model.updateMatrixWorld(true);
+
+  model.traverse((node) => {
+    if (!node.isMesh) return;
+    node.frustumCulled = true;
+    node.castShadow = false;
+    node.receiveShadow = false;
+    if (node.material) {
+      node.material.side = THREE.FrontSide;
+      node.material.needsUpdate = true;
+    }
+  });
+  return model;
+}
+
+new GLTFLoader().load(
+  sf3dAssetUrl,
+  (gltf) => {
+    const source = gltf.scene;
+    source.name = "EvoWild_S_SF3D_Source";
+
+    sf3dLab = fitSf3dModel(source.clone(true), 3.2, 0.03);
+    sf3dLab.name = "EvoWild_S_SF3D_Lab";
+    sf3dLab.visible = activeLabMorph === "S";
+    labGroup.add(sf3dLab);
+
+    const raceS = racers.find((r) => r.morph === "S");
+    if (raceS) {
+      // Keep the procedural S as a fallback container/transform, but replace
+      // its visible geometry with the validated Stable Fast 3D candidate.
+      raceS.obj.children.forEach((child) => { child.visible = false; });
+      const raceModel = fitSf3dModel(source.clone(true), 1.7, -0.92);
+      raceModel.name = "EvoWild_S_SF3D_Race";
+      raceS.obj.add(raceModel);
+      raceS.obj.userData.sf3d = raceModel;
+    }
+
+    sf3dReady = true;
+    stage.dataset.sf3d = "loaded";
+    setLabMorph(activeLabMorph);
+  },
+  undefined,
+  (error) => {
+    stage.dataset.sf3d = "error";
+    console.error("Stable Fast 3D S asset failed to load; keeping existing fallback", error);
+  }
+);
 
 const assetBase = `${import.meta.env.BASE_URL}models/`;
 const mtlLoader = new MTLLoader();
@@ -610,19 +680,22 @@ const labText = {
 function setLabMorph(morph) {
   activeLabMorph = morph;
   labObjects.forEach((obj, key) => {
-    obj.visible = key === morph && !conceptReady.has(key) && !(key === "S" && dedicatedSReady);
+    obj.visible = key === morph && !conceptReady.has(key) && !(key === "S" && (dedicatedSReady || sf3dReady));
   });
-  if (dedicatedS) dedicatedS.visible = morph === "S" && !conceptReady.has("S");
+  if (dedicatedS) dedicatedS.visible = morph === "S" && !conceptReady.has("S") && !sf3dReady;
+  if (sf3dLab) sf3dLab.visible = morph === "S" && sf3dReady;
   conceptSprites.forEach((sprite, key) => {
-    sprite.visible = key === morph;
+    sprite.visible = key === morph && !(key === "S" && sf3dReady);
   });
 
   const [title, baseDetail] = labText[morph];
-  const detail = conceptReady.has(morph)
-    ? `${baseDetail} / 2.5D concept-source test`
-    : morph === "S" && dedicatedSReady
-      ? `${baseDetail} / dedicated 3D fallback`
-      : baseDetail;
+  const detail = morph === "S" && sf3dReady
+    ? `${baseDetail} / Stable Fast 3D live candidate`
+    : conceptReady.has(morph)
+      ? `${baseDetail} / 2.5D concept-source test`
+      : morph === "S" && dedicatedSReady
+        ? `${baseDetail} / dedicated 3D fallback`
+        : baseDetail;
   const label = document.querySelector("#labLabel");
   label.innerHTML = `<strong>${title}</strong><span>${detail}</span>`;
   document.querySelectorAll("[data-morph]").forEach((button) => {
