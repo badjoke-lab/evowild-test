@@ -26,7 +26,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           pip install -q numpy trimesh pillow
-          mkdir -p /tmp/sf3d /tmp/sf3d-corrected
+          mkdir -p /tmp/sf3d /tmp/sf3d-corrected /tmp/sf3d-side
           gh api repos/${{ github.repository }}/actions/artifacts/10644576625/zip > /tmp/sf3d.zip
           unzip -q /tmp/sf3d.zip -d /tmp/sf3d
           python scripts/prepare-sf3d-asset.py
@@ -39,6 +39,15 @@ jobs:
           test -n "$corrected_meta"
           cp "$corrected_glb" public/models/evowild-s-sf3d-corrected.glb
           cp "$corrected_meta" public/models/evowild-s-sf3d-corrected.json
+
+          gh api repos/${{ github.repository }}/actions/artifacts/10704141291/zip > /tmp/sf3d-side.zip
+          unzip -q /tmp/sf3d-side.zip -d /tmp/sf3d-side
+          side_glb="$(find /tmp/sf3d-side -name 'evowild_s_stable_fast_3d_textured.glb' -print -quit)"
+          side_meta="$(find /tmp/sf3d-side -name 'stable_fast_3d_metadata.json' -print -quit)"
+          test -n "$side_glb"
+          test -n "$side_meta"
+          cp "$side_glb" public/models/evowild-s-sf3d-side.glb
+          cp "$side_meta" public/models/evowild-s-sf3d-side.json
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -61,7 +70,9 @@ jobs:
             public/models/evowild-s-sf3d-clean.glb \
             public/models/evowild-s-sf3d-clean.json \
             public/models/evowild-s-sf3d-corrected.glb \
-            public/models/evowild-s-sf3d-corrected.json
+            public/models/evowild-s-sf3d-corrected.json \
+            public/models/evowild-s-sf3d-side.glb \
+            public/models/evowild-s-sf3d-side.json
           if git diff --cached --quiet; then
             echo "No asset changes"
           else
