@@ -64,6 +64,7 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-source", "sprite-sheet", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-animated-racers", "5", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-follow-occlusion-fade", "enabled", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v2", { timeout: 8000 });
   for (const morph of ["S", "P", "E", "A"]) {
     await page.locator(`[data-morph="${morph}"]`).click();
     await page.waitForTimeout(350);
@@ -79,6 +80,9 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
   for (const [name, buttonText, label] of views) {
     await page.getByRole("button", { name: buttonText }).click();
     await expect(page.locator("#viewLabel")).toHaveText(label);
+    if (name === "race") {
+      await expect(page.locator("#stage")).toHaveAttribute("data-race-camera", "wide-pack", { timeout: 8000 });
+    }
     await page.waitForTimeout(900);
     await page.locator("#stage").screenshot({ path: `${outDir}/android-${name}.png` });
   }
@@ -115,6 +119,7 @@ test("record 2.5D race speed proof", async ({ browser }, testInfo) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-source", "sprite-sheet", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-animated-racers", "5", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-follow-occlusion-fade", "enabled", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v2", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-proof", "isolated", { timeout: 8000 });
   await page.getByRole("button", { name: "3 Follow" }).click();
   await page.waitForTimeout(7200);
