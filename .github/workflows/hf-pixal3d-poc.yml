@@ -1,4 +1,4 @@
-name: HF Pixal3D Preview Recovery
+name: HF Pixal3D Input Prep
 
 on:
   push:
@@ -6,64 +6,36 @@ on:
       - test/hf-pixal3d-20260923
     paths:
       - '.github/workflows/hf-pixal3d-poc.yml'
+      - 'scripts/prepare-3d-input.py'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  recover:
+  prepare:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - name: Recover Pixal3D generated previews without GPU
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -q pillow
+      - name: Prepare high-resolution single-creature input
         run: |
-          set -euxo pipefail
-          mkdir -p pixal3d-preview/normal pixal3d-preview/base_color pixal3d-preview/clay
-          base="https://tencentarc-pixal3d.hf.space/tmp"
-
-          normal_names=(
-            render_normal_0_1790092105079.jpg
-            render_normal_1_1790092105086.jpg
-            render_normal_2_1790092105091.jpg
-            render_normal_3_1790092105095.jpg
-            render_normal_4_1790092105101.jpg
-            render_normal_5_1790092105106.jpg
-            render_normal_6_1790092105111.jpg
-            render_normal_7_1790092105115.jpg
-          )
-          base_names=(
-            render_base_color_0_1790092105260.jpg
-            render_base_color_1_1790092105265.jpg
-            render_base_color_2_1790092105269.jpg
-            render_base_color_3_1790092105273.jpg
-            render_base_color_4_1790092105277.jpg
-            render_base_color_5_1790092105280.jpg
-            render_base_color_6_1790092105283.jpg
-            render_base_color_7_1790092105287.jpg
-          )
-          clay_names=(
-            render_clay_0_1790092105666.jpg
-            render_clay_1_1790092105682.jpg
-            render_clay_2_1790092105697.jpg
-            render_clay_3_1790092105714.jpg
-            render_clay_4_1790092105730.jpg
-            render_clay_5_1790092105746.jpg
-            render_clay_6_1790092105762.jpg
-            render_clay_7_1790092105777.jpg
-          )
-
-          for i in ${!normal_names[@]}; do
-            curl -fL --retry 2 --connect-timeout 10 "$base/${normal_names[$i]}" -o "pixal3d-preview/normal/${i}.jpg"
-            curl -fL --retry 2 --connect-timeout 10 "$base/${base_names[$i]}" -o "pixal3d-preview/base_color/${i}.jpg"
-            curl -fL --retry 2 --connect-timeout 10 "$base/${clay_names[$i]}" -o "pixal3d-preview/clay/${i}.jpg"
-          done
-
-          file pixal3d-preview/*/*.jpg
-      - name: Upload recovered Pixal3D previews
+          mkdir -p hf-poc/prepared-input
+          python scripts/prepare-3d-input.py \
+            hf-poc/input/04_3Q_FRONT_shape_support.jpg \
+            hf-poc/prepared-input/evowild_s_3q_edge_clean_1024.png \
+            --left-crop-ratio 0.30 \
+            --canvas-size 1024 \
+            --fill-ratio 0.90 \
+            --threshold 242 \
+            --metadata hf-poc/prepared-input/evowild_s_3q_edge_clean_1024.json
+      - name: Upload prepared input
         uses: actions/upload-artifact@v4
         with:
-          name: evowild-s-pixal3d-generated-previews
-          path: pixal3d-preview/
+          name: evowild-s-3d-prepared-input
+          path: hf-poc/prepared-input/
           if-no-files-found: error
