@@ -3,7 +3,7 @@ name: HF Stable Fast 3D Retry POC
 on:
   push:
     branches:
-      - test/hf-sf3d-retry-20260921
+      - test/hf-sf3d-tight-3q-20260923
     paths:
       - '.github/workflows/hf-3d-poc.yml'
 
@@ -66,7 +66,7 @@ jobs:
           im = im.crop(bbox)
           iw, ih = im.size
           side = max(iw, ih)
-          target_fill = 0.82
+          target_fill = 0.94
           scale = (side * target_fill) / max(iw, ih)
           nw, nh = max(1, int(iw*scale)), max(1, int(ih*scale))
           im = im.resize((nw, nh), Image.Resampling.LANCZOS)
@@ -104,7 +104,7 @@ jobs:
                           print("ATTEMPT:", space_id, attempt)
                           result = client.predict(
                               handle_file(str(cutout)),
-                              0.85,
+                              0.95,
                               "None",
                               -1,
                               1024,
@@ -182,7 +182,8 @@ jobs:
               "endpoint": api_name,
               "attempt": attempt,
               "source_image": str(src),
-              "foreground_ratio": 0.85,
+              "variant": "tight_3q",
+              "foreground_ratio": 0.95,
               "remesh": "None",
               "vertex_count": -1,
               "texture_size": 1024,
@@ -197,6 +198,6 @@ jobs:
       - name: Upload result
         uses: actions/upload-artifact@v4
         with:
-          name: evowild-s-stable-fast-3d-textured
+          name: evowild-s-stable-fast-3d-tight-3q
           path: hf-poc/output/
           if-no-files-found: error
