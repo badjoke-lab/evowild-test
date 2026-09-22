@@ -2,7 +2,9 @@ name: deploy-pages
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main
+      - feat/2p5d-animated-s-proof-20260922
   workflow_dispatch:
 
 permissions:
@@ -18,12 +20,38 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Checkout 2.5D preview branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/2p5d-animated-s-proof-20260922
+          path: _preview
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install
-      - run: npm run build
+
+      - name: Build main site
+        run: |
+          npm install
+          npm run build
+
+      - name: Build 2.5D preview
+        working-directory: _preview
+        run: |
+          node -e 'const fs=require("fs");const p="vite.config.js";let s=fs.readFileSync(p,"utf8");s=s.replace(`base: "/evowild-test/"`,`base: "/evowild-test/preview-2p5d/"`);fs.writeFileSync(p,s)'
+          npm install
+          npm run build
+
+      - name: Add 2.5D preview under dedicated path
+        run: |
+          mkdir -p dist/preview-2p5d
+          cp -R _preview/dist/. dist/preview-2p5d/
+
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
