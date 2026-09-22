@@ -135,3 +135,42 @@ test("compare 18-instance SF3D double-side versus front-side rendering", async (
     JSON.stringify({ generatedBy: "Playwright CI Chromium", results }, null, 2)
   );
 });
+
+
+test("compare 18-instance SF3D clone versus instanced rendering", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(70000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+  const results = [];
+
+  for (const mode of ["clone", "instance"]) {
+    await page.goto(`/evowild-test/?sf3dBench=18&sf3dMode=${mode}`, { waitUntil: "networkidle" });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 12000 });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-bench-mode", mode, { timeout: 12000 });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-bench", "ready", { timeout: 30000 });
+
+    const metrics = await page.evaluate(() => window.__sf3dBench);
+    expect(metrics?.count).toBe(18);
+    expect(metrics?.mode).toBe(mode);
+    expect(metrics?.supported).toBe(true);
+    expect(metrics?.rendererTriangles).toBeGreaterThan(0);
+    expect(metrics?.rendererCalls).toBeGreaterThan(0);
+    results.push(metrics);
+    console.log("SF3D_MODE_BENCH", JSON.stringify(metrics));
+
+    await page.locator("#stage").screenshot({
+      path: `${outDir}/sf3d-mode-${mode}-18.png`
+    });
+  }
+
+  const cloneResult = results.find((result) => result.mode === "clone");
+  const instanceResult = results.find((result) => result.mode === "instance");
+  expect(instanceResult.rendererCalls).toBeLessThan(cloneResult.rendererCalls);
+
+  fs.writeFileSync(
+    `${outDir}/sf3d-mode-benchmark.json`,
+    JSON.stringify({ generatedBy: "Playwright CI Chromium", results }, null, 2)
+  );
+});
