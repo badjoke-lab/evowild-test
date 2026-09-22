@@ -111,7 +111,7 @@ function buildTrack() {
       const b = a + 1;
       const c = a + 2;
       const d = a + 3;
-      indices.push(a, c, b, b, c, d);
+      indices.push(a, b, c, b, d, c);
     }
 
     const geometry = new THREE.BufferGeometry();
@@ -126,12 +126,12 @@ function buildTrack() {
   makeRibbon(
     half + 0.72,
     0.015,
-    new THREE.MeshStandardMaterial({ color: 0x765c40, roughness: 1, side: THREE.DoubleSide })
+    new THREE.MeshStandardMaterial({ color: 0x765c40, roughness: 1 })
   );
   makeRibbon(
     half,
     0.035,
-    new THREE.MeshStandardMaterial({ color: 0xb88758, roughness: 1, side: THREE.DoubleSide })
+    new THREE.MeshStandardMaterial({ color: 0xb88758, roughness: 1 })
   );
 
   for (const offset of [-half, half]) {
@@ -245,7 +245,7 @@ function buildTrack() {
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
-  stage.dataset.trackPresentation = "v3";
+  stage.dataset.trackPresentation = "v4";
 }
 buildTrack();
 
@@ -267,15 +267,24 @@ for (let i = 0; i < 72; i++) {
 }
 
 const hillMaterial = new THREE.MeshStandardMaterial({ color: 0x697d70, roughness: 1, flatShading: true });
+const hillGeometry = new THREE.SphereGeometry(1, 12, 5, 0, Math.PI * 2, 0, Math.PI / 2);
 function addHill(x, z, s) {
-  const hill = new THREE.Mesh(
-    new THREE.SphereGeometry(1, 14, 6, 0, Math.PI * 2, 0, Math.PI / 2),
-    hillMaterial
-  );
-  const hillScale = s * (isMobile ? 0.50 : 1);
-  hill.position.set(x, 0, z);
-  hill.scale.set(hillScale, hillScale * 0.48, hillScale * 0.76);
-  scene.add(hill);
+  const hillScale = s * (isMobile ? 0.44 : 1);
+  const lobes = [
+    [0.00, 0.00, 1.05, 0.34, 0.76],
+    [-0.52, 0.10, 0.72, 0.29, 0.60],
+    [0.48, -0.08, 0.64, 0.26, 0.55]
+  ];
+  for (const [ox, oz, sx, sy, sz] of lobes) {
+    const hill = new THREE.Mesh(hillGeometry, hillMaterial);
+    hill.position.set(
+      x + ox * hillScale * 0.72,
+      0,
+      z + oz * hillScale * 0.72
+    );
+    hill.scale.set(hillScale * sx, hillScale * sy, hillScale * sz);
+    scene.add(hill);
+  }
 }
 addHill(-60, -34, 11);
 addHill(58, -33, 13);
@@ -1234,8 +1243,8 @@ function setCamera() {
     let targetOpacity = 1;
     if (view === "follow" && r.id !== selectedId && r.obj.visible) {
       const d = camera.position.distanceTo(r.obj.position);
-      if (d < selectedCameraDistance - 0.55) targetOpacity = 0.10;
-      else if (d < selectedCameraDistance + 0.20) targetOpacity = 0.42;
+      if (d < selectedCameraDistance - 0.55) targetOpacity = 0.02;
+      else if (d < selectedCameraDistance + 0.20) targetOpacity = 0.22;
     }
     material.opacity = THREE.MathUtils.lerp(material.opacity, targetOpacity, 0.24);
   });
