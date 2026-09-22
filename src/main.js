@@ -661,7 +661,8 @@ function buildAnimatedSRunPlane(texture, raceLayout, racerId) {
   const mesh = new THREE.Mesh(geometry, material);
   mesh.name = `Race2_5D_S_SpriteSheet_${racerId}`;
   mesh.position.set(0, raceLayout.y, 0);
-  mesh.scale.set(3.65, 3.10, 1);
+  const focusScale = racerId === selectedId ? 1.08 : 0.96;
+  mesh.scale.set(3.65 * focusScale, 3.10 * focusScale, 1);
   mesh.renderOrder = 4;
   mesh.frustumCulled = false;
   mesh.userData.frameIndex = -1;
@@ -1027,7 +1028,7 @@ function setCamera() {
 
   const speedRatio = THREE.MathUtils.clamp(selected.speed / Math.max(1, selected.cruise), 0, 1.2);
   const targetFov = view === "follow"
-    ? THREE.MathUtils.lerp(isMobile ? 56 : 48, isMobile ? 70 : 62, speedRatio)
+    ? THREE.MathUtils.lerp(isMobile ? 52 : 44, isMobile ? 62 : 54, speedRatio)
     : view === "race"
       ? THREE.MathUtils.lerp(isMobile ? 52 : 44, isMobile ? 66 : 58, speedRatio)
       : (isMobile ? 50 : 42);
@@ -1058,9 +1059,9 @@ function setCamera() {
     camera.lookAt(0, 1.25, 0);
   } else if (view === "follow") {
     camera.up.set(0, 1, 0);
-    const followBack = sRunIsolatedProof ? (isMobile ? -1.9 : -1.5) : (isMobile ? -2.8 : -2.2);
-    const followSide = sRunIsolatedProof ? (isMobile ? 4.7 : 5.2) : (isMobile ? 5.2 : 5.8);
-    const followHeight = sRunIsolatedProof ? (isMobile ? 2.05 : 1.85) : (isMobile ? 2.55 : 2.25);
+    const followBack = sRunIsolatedProof ? (isMobile ? -1.5 : -1.2) : (isMobile ? -2.3 : -1.8);
+    const followSide = sRunIsolatedProof ? (isMobile ? 4.3 : 4.1) : (isMobile ? 4.6 : 4.8);
+    const followHeight = sRunIsolatedProof ? (isMobile ? 1.92 : 1.72) : (isMobile ? 2.42 : 2.12);
     const shake = Math.max(0, speedRatio - 0.48) * (sRunIsolatedProof ? 0.10 : 0.075);
     const desired = selectedPos.clone()
       .addScaledVector(tangent, followBack)
@@ -1098,6 +1099,22 @@ function setCamera() {
     );
     camera.lookAt(center.clone().addScaledVector(leaderTangent, 2.2).add(new THREE.Vector3(0, 0.45, 0)));
   }
+
+  const selectedCameraDistance = camera.position.distanceTo(selected.obj.position);
+  racers.forEach((r) => {
+    const sprite = r.obj.userData.raceSprite;
+    const material = sprite?.material;
+    if (!material || material.opacity === undefined) return;
+
+    let targetOpacity = 1;
+    if (view === "follow" && r.id !== selectedId && r.obj.visible) {
+      const d = camera.position.distanceTo(r.obj.position);
+      if (d < selectedCameraDistance - 0.55) targetOpacity = 0.10;
+      else if (d < selectedCameraDistance + 0.20) targetOpacity = 0.42;
+    }
+    material.opacity = THREE.MathUtils.lerp(material.opacity, targetOpacity, 0.24);
+  });
+  stage.dataset.followOcclusionFade = "enabled";
 }
 
 function updateHud() {
