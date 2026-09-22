@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
-import { CREATURE_3D_PROFILES, cloneCreature3D, fitCreature3D, loadCreature3D } from "./creature3d.js";
+import { CREATURE_3D_PROFILES, cloneCreature3D, createStaticCreatureInstanceBatch, fitCreature3D, loadCreature3D } from "./creature3d.js";
 import "./styles.css";
 
 const canvas = document.querySelector("#game");
@@ -10,6 +10,7 @@ const isMobile = matchMedia("(pointer: coarse)").matches || innerWidth < 800;
 const query = new URLSearchParams(location.search);
 const sf3dBenchCount = Math.min(18, Math.max(0, Number.parseInt(query.get("sf3dBench") || "0", 10) || 0));
 const sf3dBenchSide = query.get("sf3dSide") === "front" ? "front" : "double";
+const sf3dBenchMode = query.get("sf3dMode") === "instance" ? "instance" : "clone";
 let sf3dBenchGroup = null;
 let sf3dBenchStartedAt = 0;
 let sf3dBenchFrameTimes = [];
@@ -574,23 +575,62 @@ function setupSf3dBenchmark(source, count) {
   if (!count) return;
 
   sf3dBenchGroup = new THREE.Group();
-  sf3dBenchGroup.name = `SF3D_Benchmark_${count}`;
+  sf3dBenchGroup.name = `SF3D_Benchmark_${sf3dBenchMode}_${count}`;
   const columns = Math.min(6, count);
   const rows = Math.ceil(count / columns);
+  const transforms = Array.from({ length: count }, (_, i) => {
+    const column = i % columns;
+    const row = Math.floor(i / columns);
+    return {
+      position: [
+        (column - (columns - 1) / 2) * 1.42,
+        0,
+        (row - (rows - 1) / 2) * 1.18
+      ],
+      rotation: [0, (column - (columns - 1) / 2) * 0.035, 0]
+    };
+  });
 
-  for (let i = 0; i < count; i++) {
-    const model = fitCreature3D(cloneCreature3D(source), {
+  if (sf3dBenchMode === "instance") {
+    const batch = createStaticCreatureInstanceBatch(source, {
       renderer,
       profile: sf3dProfile,
       placement: "benchmark",
-      materialSide: sf3dBenchSide
+      count,
+      materialSide: sf3dBenchSide,
+      transforms
     });
-    const column = i % columns;
-    const row = Math.floor(i / columns);
-    model.position.x += (column - (columns - 1) / 2) * 1.42;
-    model.position.z += (row - (rows - 1) / 2) * 1.18;
-    model.rotation.y += (column - (columns - 1) / 2) * 0.035;
-    sf3dBenchGroup.add(model);
+
+    if (batch.supported) {
+      sf3dBenchGroup.add(batch.object);
+      stage.dataset.sf3dBenchInstancing = "supported";
+    } else {
+      stage.dataset.sf3dBenchInstancing = `unsupported:${batch.reason}`;
+      sf3dBenchReady = true;
+      stage.dataset.sf3dBench = "unsupported";
+      window.__sf3dBench = {
+        count,
+        mode: sf3dBenchMode,
+        materialSide: sf3dBenchSide,
+        supported: false,
+        reason: batch.reason
+      };
+      return;
+    }
+  } else {
+    for (let i = 0; i < count; i++) {
+      const model = fitCreature3D(cloneCreature3D(source), {
+        renderer,
+        profile: sf3dProfile,
+        placement: "benchmark",
+        materialSide: sf3dBenchSide
+      });
+      const transform = transforms[i];
+      model.position.x += transform.position[0];
+      model.position.z += transform.position[2];
+      model.rotation.y += transform.rotation[1];
+      sf3dBenchGroup.add(model);
+    }
   }
 
   if (sf3dLab) sf3dLab.visible = false;
@@ -603,6 +643,7 @@ function setupSf3dBenchmark(source, count) {
   stage.dataset.sf3dBench = "running";
   stage.dataset.sf3dBenchCount = String(count);
   stage.dataset.sf3dBenchSide = sf3dBenchSide;
+  stage.dataset.sf3dBenchMode = sf3dBenchMode;
 }
 
 function sampleSf3dBenchmark(now, frameMs) {
@@ -621,7 +662,9 @@ function sampleSf3dBenchmark(now, frameMs) {
 
   window.__sf3dBench = {
     count: sf3dBenchCount,
+    mode: sf3dBenchMode,
     materialSide: sf3dBenchSide,
+    supported: true,
     samples: times.length,
     averageFrameMs: Number(average.toFixed(3)),
     averageFps: Number((1000 / average).toFixed(2)),
