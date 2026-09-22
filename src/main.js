@@ -142,6 +142,23 @@ function buildTrack() {
 }
 buildTrack();
 
+const speedMarkerGeometry = new THREE.BoxGeometry(1.05, 0.08, 0.16);
+const speedMarkerMaterial = new THREE.MeshBasicMaterial({ color: 0xf4e8cf });
+for (let i = 0; i < 72; i++) {
+  const t = i / 72;
+  const p = curve.getPointAt(t);
+  const tangent = curve.getTangentAt(t).normalize();
+  const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+  const yaw = Math.atan2(-tangent.z, tangent.x);
+  for (const offset of [-5.25, 5.25]) {
+    const marker = new THREE.Mesh(speedMarkerGeometry, speedMarkerMaterial);
+    marker.position.copy(p.clone().addScaledVector(side, offset));
+    marker.position.y = 0.085;
+    marker.rotation.y = yaw;
+    scene.add(marker);
+  }
+}
+
 const hillMaterial = new THREE.MeshStandardMaterial({ color: 0x738474, roughness: 1, flatShading: true });
 function addHill(x, z, s) {
   const hill = new THREE.Mesh(new THREE.ConeGeometry(1, 1.5, 7), hillMaterial);
@@ -416,7 +433,7 @@ function buildMorph(index, morph, forcedColor = null) {
 
 const racers = [];
 const selectedId = 6;
-const raceMeters = 1800;
+const raceMeters = 700;
 const laneCount = 6;
 const laneSpacing = 1.55;
 const laneOffset = (lane) => (lane - (laneCount - 1) / 2) * laneSpacing;
@@ -518,8 +535,18 @@ const conceptLayout = {
   A: { scale: [5.25, 3.66], y: 1.96 }
 };
 
+const raceSpriteLayout = {
+  S: { scale: [2.85, 2.62], y: 0.15 },
+  P: { scale: [3.00, 2.48], y: 0.14 },
+  E: { scale: [2.82, 2.52], y: 0.15 },
+  A: { scale: [3.05, 2.30], y: 0.08 }
+};
+
 function updateConceptReadyState() {
-  if (conceptReady.size === 4) stage.dataset.conceptMorphs = "loaded";
+  if (conceptReady.size === 4) {
+    stage.dataset.conceptMorphs = "loaded";
+    stage.dataset.race2p5d = "loaded";
+  }
 }
 
 for (const morph of ["S", "P", "E", "A"]) {
@@ -530,6 +557,24 @@ for (const morph of ["S", "P", "E", "A"]) {
       texture.minFilter = THREE.LinearFilter;
       texture.magFilter = THREE.LinearFilter;
       conceptTextures.set(morph, texture);
+
+      for (const racer of racers.filter((r) => r.morph === morph)) {
+        racer.obj.children.forEach((child) => { child.visible = false; });
+        const raceMaterial = new THREE.SpriteMaterial({
+          map: texture,
+          transparent: true,
+          depthWrite: false,
+          alphaTest: 0.02
+        });
+        const raceSprite = new THREE.Sprite(raceMaterial);
+        const raceLayout = raceSpriteLayout[morph];
+        raceSprite.name = `Race2_5D_${morph}_${racer.id}`;
+        raceSprite.position.set(0, raceLayout.y, 0);
+        raceSprite.scale.set(raceLayout.scale[0], raceLayout.scale[1], 1);
+        raceSprite.renderOrder = 3;
+        racer.obj.add(raceSprite);
+        racer.obj.userData.raceSprite = raceSprite;
+      }
 
       const material = new THREE.SpriteMaterial({
         map: texture,
@@ -761,6 +806,15 @@ function setCamera() {
   const tangent = curve.getTangentAt(t).normalize();
   const side = new THREE.Vector3(-tangent.z, 0, tangent.x);
 
+  const speedRatio = THREE.MathUtils.clamp(selected.speed / Math.max(1, selected.cruise), 0, 1.2);
+  const targetFov = view === "follow"
+    ? THREE.MathUtils.lerp(isMobile ? 56 : 48, isMobile ? 70 : 62, speedRatio)
+    : view === "race"
+      ? THREE.MathUtils.lerp(isMobile ? 52 : 44, isMobile ? 66 : 58, speedRatio)
+      : (isMobile ? 50 : 42);
+  camera.fov = THREE.MathUtils.lerp(camera.fov, targetFov, 0.09);
+  camera.updateProjectionMatrix();
+
   const lab = view === "lab";
   const tactical = view === "tactical";
   scene.fog = (lab || tactical) ? null : raceFog;
@@ -782,9 +836,9 @@ function setCamera() {
     camera.lookAt(0, 1.25, 0);
   } else if (view === "follow") {
     camera.up.set(0, 1, 0);
-    const followBack = isMobile ? -9.5 : -8;
-    const followSide = isMobile ? 2.8 : 2.2;
-    const followHeight = isMobile ? 3.7 : 2.8;
+    const followBack = isMobile ? -6.2 : -5.4;
+    const followSide = isMobile ? 1.8 : 1.45;
+    const followHeight = isMobile ? 2.45 : 2.0;
     camera.position.lerp(
       selectedPos.clone().addScaledVector(tangent, followBack).addScaledVector(side, followSide).add(new THREE.Vector3(0, followHeight, 0)),
       0.13
@@ -807,14 +861,14 @@ function setCamera() {
     const leaderTangent = curve.getTangentAt(lt).normalize();
     const leaderSide = new THREE.Vector3(-leaderTangent.z, 0, leaderTangent.x);
 
-    const raceBack = isMobile ? -4.5 : -14;
-    const raceSide = isMobile ? 15.5 : 11;
-    const raceHeight = isMobile ? 7.4 : 8.5;
+    const raceBack = isMobile ? -3.2 : -5.8;
+    const raceSide = isMobile ? 9.2 : 8.6;
+    const raceHeight = isMobile ? 3.6 : 4.4;
     camera.position.lerp(
       center.clone().addScaledVector(leaderTangent, raceBack).addScaledVector(leaderSide, raceSide).add(new THREE.Vector3(0, raceHeight, 0)),
       0.055
     );
-    camera.lookAt(center.clone().add(new THREE.Vector3(0, 0.65, 0)));
+    camera.lookAt(center.clone().addScaledVector(leaderTangent, 2.2).add(new THREE.Vector3(0, 0.45, 0)));
   }
 }
 
