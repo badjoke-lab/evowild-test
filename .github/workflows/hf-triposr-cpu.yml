@@ -1,0 +1,142 @@
+name: HF TripoSR CPU POC
+
+on:
+  push:
+    branches:
+      - test/hf-triposr-cpu-20260922
+    paths:
+      - '.github/workflows/hf-triposr-cpu.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install CPU dependencies
+        run: |
+          python -m pip install -q --upgrade pip setuptools wheel
+          pip install -q torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          pip install -q omegaconf==2.3.0 Pillow==10.1.0 einops==0.7.0 transformers==4.35.0 trimesh==4.0.5 huggingface-hub
+          pip install -q git+https://github.com/tatsy/torchmcubes.git
+          git clone --depth 1 https://github.com/VAST-AI-Research/TripoSR.git /tmp/TripoSR
+
+      - name: Generate EvoWild mesh on CPU
+        run: |
+          python - <<'PY'
+          import os, sys, json, time
+          from pathlib import Path
+          import numpy as np
+          import torch
+          from PIL import Image
+          from huggingface_hub import login
+
+          if os.environ.get("HF_TOKEN"):
+              login(token=os.environ["HF_TOKEN"], add_to_git_credential=False)
+
+          sys.path.insert(0, "/tmp/TripoSR")
+          from tsr.system import TSR
+
+          src = Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")
+          out = Path("hf-poc/output-triposr-cpu")
+          out.mkdir(parents=True, exist_ok=True)
+
+          # Same validated subject isolation as the SF3D input prep.
+          im = Image.open(src).convert("RGBA")
+          w, h = im.size
+          im = im.crop((int(w * 0.30), 0, w, h)).copy()
+          px = im.load()
+          for y in range(im.height):
+              for x in range(im.width):
+                  r,g,b,a = px[x,y]
+                  mn, mx = min(r,g,b), max(r,g,b)
+                  if mn >= 245:
+                      alpha = 0
+                  elif mn >= 225 and mx - mn < 18:
+                      alpha = int(max(0, min(255, (245 - mn) / 20 * 255)))
+                  else:
+                      alpha = 255
+                  px[x,y] = (r,g,b,alpha)
+
+          bbox = im.getbbox()
+          if not bbox:
+              raise RuntimeError("No foreground after input cleanup")
+          im = im.crop(bbox)
+          iw, ih = im.size
+          side = max(iw, ih)
+          fill = 0.82
+          scale = (side * fill) / max(iw, ih)
+          nw, nh = max(1, int(iw*scale)), max(1, int(ih*scale))
+          im = im.resize((nw, nh), Image.Resampling.LANCZOS)
+
+          # TripoSR --no-remove-bg convention: gray background.
+          canvas = Image.new("RGB", (side, side), (128,128,128))
+          rgba = im
+          rgb = Image.new("RGB", rgba.size, (128,128,128))
+          rgb.paste(rgba.convert("RGB"), mask=rgba.getchannel("A"))
+          canvas.paste(rgb, ((side-nw)//2, (side-nh)//2))
+          input_path = out / "triposr_input.png"
+          canvas.save(input_path)
+
+          print("torch", torch.__version__, "cuda", torch.cuda.is_available())
+          print("input", input_path, canvas.size)
+
+          t0=time.time()
+          model = TSR.from_pretrained(
+              "stabilityai/TripoSR",
+              config_name="config.yaml",
+              weight_name="model.ckpt",
+          )
+          model.renderer.set_chunk_size(512)
+          model.to("cpu")
+          print("model_init_seconds", round(time.time()-t0,2))
+
+          t1=time.time()
+          with torch.no_grad():
+              scene_codes = model([canvas], device="cpu")
+          print("inference_seconds", round(time.time()-t1,2))
+
+          t2=time.time()
+          meshes = model.extract_mesh(scene_codes, True, resolution=96)
+          print("mesh_extract_seconds", round(time.time()-t2,2))
+          mesh = meshes[0]
+
+          glb = out / "evowild_s_triposr_cpu.glb"
+          mesh.export(glb)
+          if not glb.exists() or glb.read_bytes()[:4] != b"glTF":
+              raise RuntimeError("TripoSR GLB export failed")
+
+          meta = {
+              "model": "stabilityai/TripoSR",
+              "license": "MIT",
+              "device": "cpu",
+              "chunk_size": 512,
+              "mc_resolution": 96,
+              "vertices": int(len(mesh.vertices)),
+              "faces": int(len(mesh.faces)),
+              "output_bytes": int(glb.stat().st_size),
+              "model_init_seconds": round(t1-t0,2),
+              "inference_seconds": round(t2-t1,2),
+              "total_seconds": round(time.time()-t0,2),
+          }
+          (out/"triposr_cpu_metadata.json").write_text(json.dumps(meta,indent=2),encoding="utf-8")
+          print(json.dumps(meta,indent=2))
+          PY
+
+      - name: Upload CPU result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evowild-s-triposr-cpu
+          path: hf-poc/output-triposr-cpu/
+          if-no-files-found: warn
