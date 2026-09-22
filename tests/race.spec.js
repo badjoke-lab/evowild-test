@@ -56,6 +56,7 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
   await expect(page.locator("#viewLabel")).toHaveText("MORPH LAB");
   await expect(page.locator("#stage")).toHaveAttribute("data-s-asset", "loaded", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-concept-morphs", "loaded", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-race2p5d", "loaded", { timeout: 8000 });
   for (const morph of ["S", "P", "E", "A"]) {
     await page.locator(`[data-morph="${morph}"]`).click();
     await page.waitForTimeout(350);
@@ -74,4 +75,27 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
     await page.waitForTimeout(900);
     await page.locator("#stage").screenshot({ path: `${outDir}/android-${name}.png` });
   }
+});
+
+
+test("record 2.5D race speed proof", async ({ browser }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const context = await browser.newContext({
+    viewport: { width: 1280, height: 720 },
+    recordVideo: { dir: outDir, size: { width: 1280, height: 720 } }
+  });
+  const page = await context.newPage();
+  await page.goto("http://127.0.0.1:4173/evowild-test/", { waitUntil: "networkidle" });
+  await expect(page.locator("#stage")).toHaveAttribute("data-race2p5d", "loaded", { timeout: 8000 });
+  await page.getByRole("button", { name: "2 Race" }).click();
+  await page.waitForTimeout(6500);
+  const video = page.video();
+  await page.close();
+  const raw = await video.path();
+  const finalPath = `${outDir}/desktop-2p5d-race-proof.webm`;
+  fs.renameSync(raw, finalPath);
+  await context.close();
 });
