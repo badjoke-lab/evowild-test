@@ -1039,7 +1039,7 @@ const rankOf = (r) => ranks().findIndex((x) => x === r) + 1;
 function gapAhead(r, lane = Math.round(r.laneF)) {
   let gap = 999;
   for (const other of racers) {
-    if (other === r || Math.round(other.laneF) !== lane) continue;
+    if (other === r || other.finished || Math.round(other.laneF) !== lane) continue;
     const d = other.distance - r.distance;
     if (d > 0 && d < gap) gap = d;
   }
@@ -1047,7 +1047,12 @@ function gapAhead(r, lane = Math.round(r.laneF)) {
 }
 
 function laneFree(r, lane) {
-  return racers.every((other) => other === r || Math.round(other.laneF) !== lane || Math.abs(other.distance - r.distance) > 6.5);
+  return racers.every((other) =>
+    other === r ||
+    other.finished ||
+    Math.round(other.laneF) !== lane ||
+    Math.abs(other.distance - r.distance) > 6.5
+  );
 }
 
 function chooseLane(r) {
