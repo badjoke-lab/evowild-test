@@ -673,7 +673,7 @@ function sampleSf3dBenchmark(now, frameMs) {
     sf3dBenchFrameTimes.push(frameMs);
   }
 
-  if (elapsedMs < 3000 || sf3dBenchFrameTimes.length < 30) return;
+  if (elapsedMs < 3000 || sf3dBenchFrameTimes.length < 5) return;
 
   const times = [...sf3dBenchFrameTimes].sort((a, b) => a - b);
   const average = times.reduce((sum, value) => sum + value, 0) / times.length;
