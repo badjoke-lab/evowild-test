@@ -30,7 +30,7 @@ jobs:
           python -m pip install -q --upgrade pip setuptools wheel
           pip install -q torch torchvision --index-url https://download.pytorch.org/whl/cpu
           pip install -q "numpy<2"
-          pip install -q omegaconf==2.3.0 Pillow==10.1.0 einops==0.7.0 transformers==4.35.0 trimesh==4.0.5 huggingface-hub scikit-build-core ninja cmake pybind11 imageio xatlas moderngl
+          pip install -q omegaconf==2.3.0 Pillow==10.1.0 einops==0.7.0 transformers==4.35.0 trimesh==4.0.5 huggingface-hub scikit-build-core ninja cmake pybind11 imageio xatlas moderngl scipy
           pip install -q --no-build-isolation git+https://github.com/tatsy/torchmcubes.git
           git clone --depth 1 https://github.com/VAST-AI-Research/TripoSR.git /tmp/TripoSR
 
