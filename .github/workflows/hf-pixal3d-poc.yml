@@ -70,7 +70,7 @@ jobs:
           print("INPUT:", clean, canvas.size)
 
           session_id = "evowild-" + uuid.uuid4().hex[:12]
-          client = Client("TencentARC/Pixal3D", token=token)
+          client = Client("TencentARC/Pixal3D", token=token, download_files=False)
 
           print("PIXAL_GENERATE_BEGIN")
           generated = client.predict(
