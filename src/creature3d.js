@@ -3,6 +3,30 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { clone as cloneSkeletonSafe } from "three/addons/utils/SkeletonUtils.js";
 
 export const CREATURE_3D_PROFILES = {
+  sSf3dCorrected: {
+    id: "s-sf3d-corrected-candidate",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-sf3d-corrected.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.08,
+      minRoughness: 0.52,
+      side: "front",
+      preserveBaseColorMap: true,
+      maxAnisotropy: 4
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "candidate_unapproved",
+    notes: [
+      "Generated from the corrected single-creature crop on Stable Fast 3D.",
+      "Input-contamination artifact is removed, but silhouette fidelity still requires visual review.",
+      "Use front-side rendering by default; the source GLB is not approved as a final EvoWild S-Type."
+    ]
+  },
   sSf3dPrototype: {
     id: "s-sf3d-clean-prototype",
     morph: "S",
