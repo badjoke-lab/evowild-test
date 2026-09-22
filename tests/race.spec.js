@@ -26,6 +26,10 @@ test("race scene renders and advances", async ({ page }) => {
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
   await expect(page.locator("#stage")).toHaveAttribute("data-race-state", "running", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-hud-telemetry", "active", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-race-section", /START|MID|BUILD|FINAL/, { timeout: 6500 });
+  await expect(page.locator("#remaining")).toContainText("m to go", { timeout: 6500 });
+  await expect(page.locator("#leaderGap")).not.toHaveText("", { timeout: 6500 });
   await expect(page.locator("#clock")).not.toHaveText("00:00.00", { timeout: 5000 });
   await expect(page.locator("#position")).not.toHaveText("— / 18", { timeout: 5000 });
   await expect(page.locator(".runtime-status")).toBeHidden({ timeout: 5000 });
@@ -66,6 +70,7 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-animated-racers", "5", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-follow-occlusion-fade", "enabled", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v4", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-hud-telemetry", "active", { timeout: 8000 });
   for (const morph of ["S", "P", "E", "A"]) {
     await page.locator(`[data-morph="${morph}"]`).click();
     await page.waitForTimeout(350);
@@ -121,6 +126,7 @@ test("record 2.5D race speed proof", async ({ browser }, testInfo) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-animated-racers", "5", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-follow-occlusion-fade", "enabled", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v4", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-hud-telemetry", "active", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-proof", "isolated", { timeout: 8000 });
   await page.getByRole("button", { name: "3 Follow" }).click();
   await page.waitForTimeout(7200);
