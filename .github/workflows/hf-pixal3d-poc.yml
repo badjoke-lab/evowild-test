@@ -1,4 +1,4 @@
-name: HF Pixal3D Fast Studio POC
+name: HF Pixal3D Preview Recovery
 
 on:
   push:
@@ -12,135 +12,58 @@ permissions:
   contents: read
 
 jobs:
-  generate:
+  recover:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Install client
-        run: pip install -q gradio_client pillow httpx
-      - name: Generate Pixal3D fast-final GLB
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      - name: Recover Pixal3D generated previews without GPU
         run: |
-          python - <<'PY'
-          import json, os, uuid
-          from pathlib import Path
-          from urllib.parse import urljoin
-          import httpx
-          from PIL import Image
-          from gradio_client import Client, handle_file
+          set -euxo pipefail
+          mkdir -p pixal3d-preview/normal pixal3d-preview/base_color pixal3d-preview/clay
+          base="https://tencentarc-pixal3d.hf.space/tmp"
 
-          token = os.environ.get("HF_TOKEN")
-          if not token:
-              raise RuntimeError("HF_TOKEN is missing")
-          print("HF_AUTH: token present")
-
-          src = Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")
-          runtime = Path("hf-poc/runtime-pixal3d-fast")
-          output = Path("hf-poc/output-pixal3d-fast")
-          runtime.mkdir(parents=True, exist_ok=True)
-          output.mkdir(parents=True, exist_ok=True)
-
-          im = Image.open(src).convert("RGBA")
-          w, h = im.size
-          im = im.crop((int(w * 0.30), 0, w, h)).copy()
-          arr = im.load()
-          xs, ys = [], []
-          for y in range(im.height):
-              for x in range(im.width):
-                  r, g, b, a = arr[x, y]
-                  if a and max(r, g, b) < 247:
-                      xs.append(x); ys.append(y)
-                  else:
-                      arr[x, y] = (r, g, b, 0)
-          if not xs:
-              raise RuntimeError("No foreground pixels after cleanup")
-          subject = im.crop((min(xs), min(ys), max(xs)+1, max(ys)+1))
-          side = max(subject.size)
-          canvas = Image.new("RGBA", (side, side), (255,255,255,0))
-          canvas.alpha_composite(subject, ((side-subject.width)//2, (side-subject.height)//2))
-          clean = runtime / "evowild_3q_clean.png"
-          canvas.save(clean)
-          print("INPUT:", clean, canvas.size)
-
-          client = Client(
-              "victor/pixal3d-studio",
-              token=token,
-              download_files=False,
+          normal_names=(
+            render_normal_0_1790092105079.jpg
+            render_normal_1_1790092105086.jpg
+            render_normal_2_1790092105091.jpg
+            render_normal_3_1790092105095.jpg
+            render_normal_4_1790092105101.jpg
+            render_normal_5_1790092105106.jpg
+            render_normal_6_1790092105111.jpg
+            render_normal_7_1790092105115.jpg
           )
-          print("PIXAL_FAST_BEGIN")
-          result = client.predict(
-              handle_file(str(clean)),
-              "EvoWild S-Type quadruped validation asset",
-              42,
-              1024,
-              "balanced",
-              -1.0,
-              False,
-              api_name="/generate_fast",
+          base_names=(
+            render_base_color_0_1790092105260.jpg
+            render_base_color_1_1790092105265.jpg
+            render_base_color_2_1790092105269.jpg
+            render_base_color_3_1790092105273.jpg
+            render_base_color_4_1790092105277.jpg
+            render_base_color_5_1790092105280.jpg
+            render_base_color_6_1790092105283.jpg
+            render_base_color_7_1790092105287.jpg
           )
-          print("PIXAL_FAST_RESULT:", repr(result))
-
-          if isinstance(result, str):
-              payload = json.loads(result)
-          elif isinstance(result, dict):
-              payload = result
-          else:
-              raise RuntimeError(f"Unexpected fast result type: {type(result)!r}")
-
-          if not payload.get("ok"):
-              raise RuntimeError(f"Pixal3D fast-final failed: {payload.get('error')}")
-          asset = payload.get("asset") or {}
-          model_url = asset.get("model_url")
-          if not model_url:
-              raise RuntimeError(f"model_url missing: {asset}")
-
-          if model_url.startswith("/"):
-              model_url = urljoin("https://victor-pixal3d-studio.hf.space", model_url)
-
-          print("MODEL_URL:", model_url)
-          headers = {"User-Agent": "evowild-test/1.0"}
-          if "huggingface.co" in model_url:
-              headers["Authorization"] = f"Bearer {token}"
-          with httpx.Client(timeout=180, follow_redirects=True, headers=headers) as http:
-              response = http.get(model_url)
-              response.raise_for_status()
-              glb_bytes = response.content
-
-          if glb_bytes[:4] != b"glTF":
-              raise RuntimeError(f"Downloaded asset is not GLB: {glb_bytes[:16]!r}")
-
-          target = output / "evowild_s_pixal3d_fast_balanced.glb"
-          target.write_bytes(glb_bytes)
-          metadata = {
-              "space": "victor/pixal3d-studio",
-              "upstream_model": "TencentARC/Pixal3D",
-              "endpoint": "/generate_fast",
-              "source_image": str(src),
-              "prepared_image": str(clean),
-              "seed": 42,
-              "resolution": 1024,
-              "quality": "balanced",
-              "share_to_community": False,
-              "asset": asset,
-              "timings": payload.get("timings"),
-              "mode": payload.get("mode"),
-              "output_bytes": len(glb_bytes),
-          }
-          (output / "pixal3d_fast_metadata.json").write_text(
-              json.dumps(metadata, indent=2),
-              encoding="utf-8",
+          clay_names=(
+            render_clay_0_1790092105666.jpg
+            render_clay_1_1790092105682.jpg
+            render_clay_2_1790092105697.jpg
+            render_clay_3_1790092105714.jpg
+            render_clay_4_1790092105730.jpg
+            render_clay_5_1790092105746.jpg
+            render_clay_6_1790092105762.jpg
+            render_clay_7_1790092105777.jpg
           )
-          print("SAVED:", target, len(glb_bytes))
-          PY
-      - name: Upload result
-        if: always()
+
+          for i in ${!normal_names[@]}; do
+            curl -fL --retry 2 --connect-timeout 10 "$base/${normal_names[$i]}" -o "pixal3d-preview/normal/${i}.jpg"
+            curl -fL --retry 2 --connect-timeout 10 "$base/${base_names[$i]}" -o "pixal3d-preview/base_color/${i}.jpg"
+            curl -fL --retry 2 --connect-timeout 10 "$base/${clay_names[$i]}" -o "pixal3d-preview/clay/${i}.jpg"
+          done
+
+          file pixal3d-preview/*/*.jpg
+      - name: Upload recovered Pixal3D previews
         uses: actions/upload-artifact@v4
         with:
-          name: evowild-s-pixal3d-fast-balanced
-          path: hf-poc/output-pixal3d-fast/
-          if-no-files-found: warn
+          name: evowild-s-pixal3d-generated-previews
+          path: pixal3d-preview/
+          if-no-files-found: error
