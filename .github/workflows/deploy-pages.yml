@@ -2,9 +2,10 @@ name: deploy-pages
 
 on:
   push:
-    branches:
-      - main
-      - feat/2p5d-animated-s-proof-20260922
+    branches: ["main"]
+  workflow_run:
+    workflows: ["build"]
+    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -18,6 +19,10 @@ concurrency:
 
 jobs:
   build:
+    if: >
+      github.event_name != 'workflow_run' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'feat/2p5d-animated-s-proof-20260922')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main
