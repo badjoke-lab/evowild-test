@@ -1366,10 +1366,16 @@ function setCamera() {
 }
 
 function updateHud() {
+  const ordered = ranks();
   const position = rankOf(selected);
   const gapValue = gapAhead(selected);
   const currentPhase = phase(selected);
   const sec = elapsed / 1000;
+  const progress = THREE.MathUtils.clamp(selected.distance / raceMeters, 0, 1);
+  const remaining = Math.max(0, raceMeters - selected.distance);
+  const leader = ordered[0];
+  const leaderGap = leader === selected ? 0 : Math.max(0, leader.distance - selected.distance);
+  const finalCharge = currentPhase === "FINAL" && !selected.finished;
 
   document.querySelector("#position").textContent = `${position} / 18`;
   document.querySelector("#speed").textContent = Math.round(selected.speed);
@@ -1383,7 +1389,20 @@ function updateHud() {
   document.querySelector("#clock").textContent =
     `${String(Math.floor(sec / 60)).padStart(2, "0")}:${String(Math.floor(sec % 60)).padStart(2, "0")}.${String(Math.floor((sec % 1) * 100)).padStart(2, "0")}`;
 
-  document.querySelector("#ranking").innerHTML = ranks().map((r, index) => `
+  const progressFill = document.querySelector("#raceProgressFill");
+  const remainingLabel = document.querySelector("#remaining");
+  const leaderGapLabel = document.querySelector("#leaderGap");
+  const sectionLabel = document.querySelector("#raceSection");
+  if (progressFill) progressFill.style.width = `${(progress * 100).toFixed(1)}%`;
+  if (remainingLabel) remainingLabel.textContent = selected.finished ? "FINISHED" : `${Math.ceil(remaining)} m to go`;
+  if (leaderGapLabel) leaderGapLabel.textContent = leader === selected ? "LEADER" : `+${leaderGap.toFixed(1)} m`;
+  if (sectionLabel) sectionLabel.textContent = currentPhase;
+  document.querySelector(".hud-race")?.classList.toggle("final", finalCharge);
+  stage.dataset.hudTelemetry = "active";
+  stage.dataset.raceSection = currentPhase;
+  stage.dataset.remainingMeters = String(Math.ceil(remaining));
+
+  document.querySelector("#ranking").innerHTML = ordered.map((r, index) => `
     <div class="rank-row ${r.id === selectedId ? "selected" : ""}">
       <b>${index + 1}</b>
       <span><i class="dot" style="background:${r.color}"></i>#${String(r.id).padStart(2, "0")} ${r.name}<span class="badge">${r.morph}</span></span>
