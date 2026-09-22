@@ -15,13 +15,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ github.head_ref || github.ref_name }}
       - uses: actions/setup-python@v5
-        if: startsWith(github.ref_name, 'feat/sf3d-game-integration-')
+        if: (github.head_ref == 'feat/sf3d-game-integration-20260922' || startsWith(github.ref_name, 'feat/sf3d-game-integration-'))
         with:
           python-version: '3.11'
       - name: Prepare Stable Fast 3D prototype asset
-        if: startsWith(github.ref_name, 'feat/sf3d-game-integration-')
+        if: (github.head_ref == 'feat/sf3d-game-integration-20260922' || startsWith(github.ref_name, 'feat/sf3d-game-integration-'))
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -38,7 +38,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
       - name: Commit prepared SF3D asset
-        if: startsWith(github.ref_name, 'feat/sf3d-game-integration-') && success()
+        if: (github.head_ref == 'feat/sf3d-game-integration-20260922' || startsWith(github.ref_name, 'feat/sf3d-game-integration-')) && success()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -47,7 +47,7 @@ jobs:
             echo "No asset changes"
           else
             git commit -m "test: add cleaned Stable Fast 3D game candidate"
-            git push origin HEAD:${{ github.ref_name }}
+            git push origin HEAD:${{ github.head_ref || github.ref_name }}
           fi
       - name: Upload mobile visual screenshots
         if: always()
