@@ -44,6 +44,11 @@ jobs:
           if os.environ.get("HF_TOKEN"):
               login(token=os.environ["HF_TOKEN"], add_to_git_credential=False)
 
+          # TripoSR utils imports rembg even though this POC supplies an
+          # already-prepared gray-background image and never calls rembg.
+          import types
+          sys.modules["rembg"] = types.ModuleType("rembg")
+
           sys.path.insert(0, "/tmp/TripoSR")
           from tsr.system import TSR
 
