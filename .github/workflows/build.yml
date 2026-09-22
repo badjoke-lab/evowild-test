@@ -47,6 +47,8 @@ jobs:
             echo "No asset changes"
           else
             git commit -m "test: add cleaned Stable Fast 3D game candidate"
+            git fetch origin ${{ github.head_ref || github.ref_name }}
+            git rebase origin/${{ github.head_ref || github.ref_name }}
             git push origin HEAD:${{ github.head_ref || github.ref_name }}
           fi
       - name: Upload mobile visual screenshots
