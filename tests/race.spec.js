@@ -31,6 +31,11 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#remaining")).toContainText("m to go", { timeout: 6500 });
   await expect(page.locator("#leaderGap")).not.toHaveText("", { timeout: 6500 });
   await expect(page.locator("#clock")).not.toHaveText("00:00.00", { timeout: 5000 });
+
+  await page.locator('[data-racer-id="2"]').click();
+  await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "2");
+  await expect(page.locator("#selectedName")).toContainText("#02 Brim");
+  await expect(page.locator("#selectedTitle")).toHaveText("Selected #02");
   await expect(page.locator("#position")).not.toHaveText("— / 18", { timeout: 5000 });
   await expect(page.locator(".runtime-status")).toBeHidden({ timeout: 5000 });
 
