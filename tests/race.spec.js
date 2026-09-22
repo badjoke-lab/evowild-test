@@ -56,6 +56,8 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
   await expect(page.locator("#viewLabel")).toHaveText("MORPH LAB");
   await expect(page.locator("#stage")).toHaveAttribute("data-s-asset", "loaded", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 12000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-profile", "s-sf3d-clean-prototype", { timeout: 12000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-triangles", "8035", { timeout: 12000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-concept-morphs", "loaded", { timeout: 8000 });
   for (const morph of ["S", "P", "E", "A"]) {
     await page.locator(`[data-morph="${morph}"]`).click();
@@ -104,6 +106,32 @@ test("benchmark Stable Fast 3D scaling at 1 4 and 18 instances", async ({ page }
 
   fs.writeFileSync(
     `${outDir}/sf3d-benchmark.json`,
+    JSON.stringify({ generatedBy: "Playwright CI Chromium", results }, null, 2)
+  );
+});
+
+
+test("compare 18-instance SF3D double-side versus front-side rendering", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(70000);
+
+  const results = [];
+  for (const side of ["double", "front"]) {
+    await page.goto(`/evowild-test/?sf3dBench=18&sf3dSide=${side}`, { waitUntil: "networkidle" });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 12000 });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-bench-side", side, { timeout: 12000 });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-bench", "ready", { timeout: 30000 });
+
+    const metrics = await page.evaluate(() => window.__sf3dBench);
+    expect(metrics?.count).toBe(18);
+    expect(metrics?.materialSide).toBe(side);
+    results.push(metrics);
+    console.log("SF3D_SIDE_BENCH", JSON.stringify(metrics));
+  }
+
+  fs.mkdirSync("test-results/visuals", { recursive: true });
+  fs.writeFileSync(
+    "test-results/visuals/sf3d-side-benchmark.json",
     JSON.stringify({ generatedBy: "Playwright CI Chromium", results }, null, 2)
   );
 });
