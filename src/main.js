@@ -594,13 +594,15 @@ function applySRunFrame(racer, frameIndex) {
     const frontRear = nx >= 0 ? 1 : -1;
     const legStride = frame.stride * frontRear;
     const stanceArc = Math.max(0, 1 - Math.abs(frame.stride));
+    const swingLift = Math.max(0, legStride) * 0.070 * foot;
 
     const x = x0 * (1 - frame.squash * 0.40)
-      + legStride * 0.095 * foot
+      + legStride * 0.175 * foot
       + frame.lean * (0.5 - y0) * 0.7;
     const y = y0 * (1 + frame.squash)
       + frame.lift * (0.35 + lower * 0.65)
-      + stanceArc * 0.025 * foot;
+      + stanceArc * 0.040 * foot
+      + swingLift;
 
     attr.setXYZ(i, x, y, base[i * 3 + 2]);
   }
@@ -933,9 +935,9 @@ function setCamera() {
     camera.lookAt(0, 1.25, 0);
   } else if (view === "follow") {
     camera.up.set(0, 1, 0);
-    const followBack = sRunIsolatedProof ? (isMobile ? -4.2 : -3.8) : (isMobile ? -6.2 : -5.4);
-    const followSide = sRunIsolatedProof ? (isMobile ? 1.15 : 0.95) : (isMobile ? 1.8 : 1.45);
-    const followHeight = sRunIsolatedProof ? (isMobile ? 1.95 : 1.65) : (isMobile ? 2.45 : 2.0);
+    const followBack = sRunIsolatedProof ? (isMobile ? -3.4 : -2.9) : (isMobile ? -6.2 : -5.4);
+    const followSide = sRunIsolatedProof ? (isMobile ? 0.82 : 0.62) : (isMobile ? 1.8 : 1.45);
+    const followHeight = sRunIsolatedProof ? (isMobile ? 1.65 : 1.38) : (isMobile ? 2.45 : 2.0);
     camera.position.lerp(
       selectedPos.clone().addScaledVector(tangent, followBack).addScaledVector(side, followSide).add(new THREE.Vector3(0, followHeight, 0)),
       0.13
