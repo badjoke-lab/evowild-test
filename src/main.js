@@ -661,6 +661,7 @@ function setSelectedRacer(id) {
   });
 
   ring.position.set(selected.obj.position.x, 0.08, selected.obj.position.z);
+  lastRankingPaint = -Infinity;
 }
 
 const rankingPanel = document.querySelector("#ranking");
@@ -680,6 +681,7 @@ rankingPanel.addEventListener("keydown", (event) => {
   if (Number.isInteger(id)) setSelectedRacer(id);
 });
 stage.dataset.selectedRacer = String(selectedId);
+let lastRankingPaint = -Infinity;
 
 const shadowGeometry = new THREE.CircleGeometry(0.78, 20);
 const racerShadows = racers.map((r) => {
@@ -1444,13 +1446,17 @@ function updateHud() {
   stage.dataset.raceSection = currentPhase;
   stage.dataset.remainingMeters = String(Math.ceil(remaining));
 
-  document.querySelector("#ranking").innerHTML = ordered.map((r, index) => `
-    <div class="rank-row ${r.id === selectedId ? "selected" : ""}" data-racer-id="${r.id}" role="button" tabindex="0" aria-label="Select #${String(r.id).padStart(2, "0")} ${r.name}">
-      <b>${index + 1}</b>
-      <span><i class="dot" style="background:${r.color}"></i>#${String(r.id).padStart(2, "0")} ${r.name}<span class="badge">${r.morph}</span></span>
-      <span>${r.finished ? `#${r.finishPlace}` : r.speed.toFixed(1)}</span>
-    </div>
-  `).join("");
+  const rankingNow = performance.now();
+  if (rankingNow - lastRankingPaint >= 220 || raceState === "finished") {
+    rankingPanel.innerHTML = ordered.map((r, index) => `
+      <div class="rank-row ${r.id === selectedId ? "selected" : ""}" data-racer-id="${r.id}" role="button" tabindex="0" aria-label="Select #${String(r.id).padStart(2, "0")} ${r.name}">
+        <b>${index + 1}</b>
+        <span><i class="dot" style="background:${r.color}"></i>#${String(r.id).padStart(2, "0")} ${r.name}<span class="badge">${r.morph}</span></span>
+        <span>${r.finished ? `#${r.finishPlace}` : r.speed.toFixed(1)}</span>
+      </div>
+    `).join("");
+    lastRankingPaint = rankingNow;
+  }
 }
 
 function drawMiniMap() {
