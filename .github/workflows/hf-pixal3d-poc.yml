@@ -1,4 +1,4 @@
-name: HF Pixal3D POC
+name: HF Pixal3D Fast Studio POC
 
 on:
   push:
@@ -21,14 +21,16 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install client
-        run: pip install -q gradio_client pillow
-      - name: Generate Pixal3D GLB
+        run: pip install -q gradio_client pillow httpx
+      - name: Generate Pixal3D fast-final GLB
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           python - <<'PY'
-          import json, os, shutil, uuid
+          import json, os, uuid
           from pathlib import Path
+          from urllib.parse import urljoin
+          import httpx
           from PIL import Image
           from gradio_client import Client, handle_file
 
@@ -38,14 +40,11 @@ jobs:
           print("HF_AUTH: token present")
 
           src = Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")
-          runtime = Path("hf-poc/runtime-pixal3d")
-          output = Path("hf-poc/output-pixal3d")
+          runtime = Path("hf-poc/runtime-pixal3d-fast")
+          output = Path("hf-poc/output-pixal3d-fast")
           runtime.mkdir(parents=True, exist_ok=True)
           output.mkdir(parents=True, exist_ok=True)
 
-          # Same clean single-subject preparation that removed the extra creature
-          # from the successful corrected SF3D input. This is input preparation,
-          # not an aspirational/generated design image.
           im = Image.open(src).convert("RGBA")
           w, h = im.size
           im = im.crop((int(w * 0.30), 0, w, h)).copy()
@@ -60,103 +59,88 @@ jobs:
                       arr[x, y] = (r, g, b, 0)
           if not xs:
               raise RuntimeError("No foreground pixels after cleanup")
-          bbox = (min(xs), min(ys), max(xs) + 1, max(ys) + 1)
-          subject = im.crop(bbox)
+          subject = im.crop((min(xs), min(ys), max(xs)+1, max(ys)+1))
           side = max(subject.size)
-          canvas = Image.new("RGBA", (side, side), (255, 255, 255, 0))
+          canvas = Image.new("RGBA", (side, side), (255,255,255,0))
           canvas.alpha_composite(subject, ((side-subject.width)//2, (side-subject.height)//2))
           clean = runtime / "evowild_3q_clean.png"
           canvas.save(clean)
           print("INPUT:", clean, canvas.size)
 
-          session_id = "evowild-" + uuid.uuid4().hex[:12]
-          client = Client("TencentARC/Pixal3D", token=token, download_files=False)
-
-          print("PIXAL_GENERATE_BEGIN")
-          generated = client.predict(
+          client = Client(
+              "victor/pixal3d-studio",
+              token=token,
+              download_files=False,
+          )
+          print("PIXAL_FAST_BEGIN")
+          result = client.predict(
               handle_file(str(clean)),
+              "EvoWild S-Type quadruped validation asset",
               42,
               1024,
-              7.5,
-              0.7,
-              12,
-              5.0,
-              7.5,
-              0.5,
-              12,
-              3.0,
-              1.0,
-              0.0,
-              12,
-              3.0,
+              "balanced",
               -1.0,
-              "deg",
-              session_id,
-              api_name="/generate_3d",
+              False,
+              api_name="/generate_fast",
           )
-          print("PIXAL_GENERATE_RESULT:", repr(generated))
+          print("PIXAL_FAST_RESULT:", repr(result))
 
-          if not isinstance(generated, dict):
-              raise RuntimeError(f"Unexpected /generate_3d result: {type(generated)!r}")
-          state_path = generated.get("state_path")
-          if not state_path:
-              raise RuntimeError(f"state_path missing: {generated.keys()}")
+          if isinstance(result, str):
+              payload = json.loads(result)
+          elif isinstance(result, dict):
+              payload = result
+          else:
+              raise RuntimeError(f"Unexpected fast result type: {type(result)!r}")
 
-          print("PIXAL_EXTRACT_BEGIN", state_path)
-          extracted = client.predict(
-              state_path,
-              100000,
-              2048,
-              session_id,
-              api_name="/extract_glb_api",
-          )
-          print("PIXAL_EXTRACT_RESULT:", repr(extracted))
+          if not payload.get("ok"):
+              raise RuntimeError(f"Pixal3D fast-final failed: {payload.get('error')}")
+          asset = payload.get("asset") or {}
+          model_url = asset.get("model_url")
+          if not model_url:
+              raise RuntimeError(f"model_url missing: {asset}")
 
-          def resolve_file(value):
-              if isinstance(value, str):
-                  return Path(value)
-              if isinstance(value, dict):
-                  for key in ("path", "name", "value"):
-                      v = value.get(key)
-                      if isinstance(v, str):
-                          return Path(v)
-              path = getattr(value, "path", None)
-              if isinstance(path, str):
-                  return Path(path)
-              return None
+          if model_url.startswith("/"):
+              model_url = urljoin("https://victor-pixal3d-studio.hf.space", model_url)
 
-          result_path = resolve_file(extracted)
-          if not result_path or not result_path.exists():
-              raise RuntimeError(f"Extracted GLB not found locally: {result_path!r}")
+          print("MODEL_URL:", model_url)
+          headers = {"User-Agent": "evowild-test/1.0"}
+          if "huggingface.co" in model_url:
+              headers["Authorization"] = f"Bearer {token}"
+          with httpx.Client(timeout=180, follow_redirects=True, headers=headers) as http:
+              response = http.get(model_url)
+              response.raise_for_status()
+              glb_bytes = response.content
 
-          target = output / "evowild_s_pixal3d.glb"
-          shutil.copy2(result_path, target)
-          if target.read_bytes()[:4] != b"glTF":
-              raise RuntimeError("Pixal3D output is not binary glTF")
+          if glb_bytes[:4] != b"glTF":
+              raise RuntimeError(f"Downloaded asset is not GLB: {glb_bytes[:16]!r}")
 
+          target = output / "evowild_s_pixal3d_fast_balanced.glb"
+          target.write_bytes(glb_bytes)
           metadata = {
-              "space": "TencentARC/Pixal3D",
-              "generate_endpoint": "/generate_3d",
-              "extract_endpoint": "/extract_glb_api",
+              "space": "victor/pixal3d-studio",
+              "upstream_model": "TencentARC/Pixal3D",
+              "endpoint": "/generate_fast",
               "source_image": str(src),
               "prepared_image": str(clean),
               "seed": 42,
               "resolution": 1024,
-              "decimation_target": 100000,
-              "texture_size": 2048,
-              "session_id": session_id,
-              "output_bytes": target.stat().st_size,
+              "quality": "balanced",
+              "share_to_community": False,
+              "asset": asset,
+              "timings": payload.get("timings"),
+              "mode": payload.get("mode"),
+              "output_bytes": len(glb_bytes),
           }
-          (output / "pixal3d_metadata.json").write_text(
+          (output / "pixal3d_fast_metadata.json").write_text(
               json.dumps(metadata, indent=2),
               encoding="utf-8",
           )
-          print("SAVED:", target, target.stat().st_size)
+          print("SAVED:", target, len(glb_bytes))
           PY
       - name: Upload result
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: evowild-s-pixal3d
-          path: hf-poc/output-pixal3d/
+          name: evowild-s-pixal3d-fast-balanced
+          path: hf-poc/output-pixal3d-fast/
           if-no-files-found: warn
