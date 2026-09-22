@@ -572,7 +572,7 @@ function buildMorph(index, morph, forcedColor = null) {
 }
 
 const racers = [];
-const selectedId = 1;
+let selectedId = 1;
 const sRunProofRacerId = 1;
 const raceMeters = fastFinishProof ? 45 : 700;
 const countdownDuration = fastFinishProof ? 1200 : 3000;
@@ -613,7 +613,7 @@ for (let i = 0; i < 18; i++) {
   });
 }
 
-const selected = racers[selectedId - 1];
+let selected = racers[selectedId - 1];
 const ring = new THREE.Mesh(
   new THREE.RingGeometry(1.15, 1.28, 36),
   new THREE.MeshBasicMaterial({ color: 0x6bb1ff, side: THREE.DoubleSide, transparent: true, opacity: 0.9 })
@@ -638,6 +638,48 @@ const tacticalMarkers = racers.map((r) => {
   scene.add(marker);
   return marker;
 });
+
+function setSelectedRacer(id) {
+  const next = racers.find((r) => r.id === id);
+  if (!next) return;
+
+  selectedId = next.id;
+  selected = next;
+  stage.dataset.selectedRacer = String(selectedId);
+
+  const selectedName = document.querySelector("#selectedName");
+  const selectedTitle = document.querySelector("#selectedTitle");
+  if (selectedName) selectedName.textContent = `#${String(selected.id).padStart(2, "0")} ${selected.name}`;
+  if (selectedTitle) selectedTitle.textContent = `Selected #${String(selected.id).padStart(2, "0")}`;
+
+  tacticalMarkers.forEach((marker, index) => {
+    const racer = racers[index];
+    const isSelected = racer.id === selectedId;
+    marker.material.color.set(isSelected ? 0xffffff : palette[index]);
+    marker.material.opacity = isSelected ? 1 : 0.9;
+    marker.scale.setScalar(isSelected ? 1.22 : 1);
+  });
+
+  ring.position.set(selected.obj.position.x, 0.08, selected.obj.position.z);
+}
+
+const rankingPanel = document.querySelector("#ranking");
+rankingPanel.addEventListener("click", (event) => {
+  const row = event.target.closest("[data-racer-id]");
+  if (!row) return;
+  const id = Number(row.dataset.racerId);
+  if (!Number.isInteger(id)) return;
+  setSelectedRacer(id);
+});
+rankingPanel.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" && event.key !== " ") return;
+  const row = event.target.closest("[data-racer-id]");
+  if (!row) return;
+  event.preventDefault();
+  const id = Number(row.dataset.racerId);
+  if (Number.isInteger(id)) setSelectedRacer(id);
+});
+stage.dataset.selectedRacer = String(selectedId);
 
 const shadowGeometry = new THREE.CircleGeometry(0.78, 20);
 const racerShadows = racers.map((r) => {
@@ -1403,7 +1445,7 @@ function updateHud() {
   stage.dataset.remainingMeters = String(Math.ceil(remaining));
 
   document.querySelector("#ranking").innerHTML = ordered.map((r, index) => `
-    <div class="rank-row ${r.id === selectedId ? "selected" : ""}">
+    <div class="rank-row ${r.id === selectedId ? "selected" : ""}" data-racer-id="${r.id}" role="button" tabindex="0" aria-label="Select #${String(r.id).padStart(2, "0")} ${r.name}">
       <b>${index + 1}</b>
       <span><i class="dot" style="background:${r.color}"></i>#${String(r.id).padStart(2, "0")} ${r.name}<span class="badge">${r.morph}</span></span>
       <span>${r.finished ? `#${r.finishPlace}` : r.speed.toFixed(1)}</span>
