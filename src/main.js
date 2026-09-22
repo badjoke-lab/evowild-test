@@ -6,7 +6,13 @@ import "./styles.css";
 const canvas = document.querySelector("#game");
 const stage = document.querySelector("#stage");
 const isMobile = matchMedia("(pointer: coarse)").matches || innerWidth < 800;
-const sRunIsolatedProof = new URLSearchParams(location.search).get("proof") === "s-run";
+const proofMode = new URLSearchParams(location.search).get("proof");
+const sRunIsolatedProof = proofMode === "s-run";
+const fastFinishProof = proofMode === "finish";
+const raceBanner = document.querySelector("#raceBanner");
+const resultsPanel = document.querySelector("#resultsPanel");
+const resultsList = document.querySelector("#resultsList");
+const resultHeadline = document.querySelector("#resultHeadline");
 
 const runtimeStatus = document.createElement("div");
 runtimeStatus.className = "runtime-status";
@@ -568,7 +574,10 @@ function buildMorph(index, morph, forcedColor = null) {
 const racers = [];
 const selectedId = 1;
 const sRunProofRacerId = 1;
-const raceMeters = 700;
+const raceMeters = fastFinishProof ? 45 : 700;
+const countdownDuration = fastFinishProof ? 180 : 3000;
+document.querySelector(".hud-race strong").textContent = `${raceMeters}m — Ridge Oval`;
+stage.dataset.raceDistance = String(raceMeters);
 const laneCount = 6;
 const laneSpacing = 1.55;
 const laneOffset = (lane) => (lane - (laneCount - 1) / 2) * laneSpacing;
@@ -596,6 +605,10 @@ for (let i = 0; i < 18; i++) {
     decision: "START",
     command: "BUILD SPEED",
     cooldown: 0,
+    dustTimer: 0,
+    finished: false,
+    finishPlace: null,
+    finishTime: null,
     color: "#" + palette[i].toString(16).padStart(6, "0")
   });
 }
@@ -1009,9 +1022,18 @@ setLabMorph("S");
 let elapsed = 0;
 let last = performance.now();
 let paused = false;
-let view = "lab";
+let view = sRunIsolatedProof ? "follow" : "race";
+let raceState = "countdown";
+let countdownRemaining = countdownDuration;
+let goFlashRemaining = 0;
+const finishOrder = [];
 
-const ranks = () => [...racers].sort((a, b) => b.distance - a.distance);
+const ranks = () => [...racers].sort((a, b) => {
+  if (a.finished && b.finished) return a.finishPlace - b.finishPlace;
+  if (a.finished) return -1;
+  if (b.finished) return 1;
+  return b.distance - a.distance;
+});
 const rankOf = (r) => ranks().findIndex((x) => x === r) + 1;
 
 function gapAhead(r, lane = Math.round(r.laneF)) {
@@ -1036,6 +1058,7 @@ function chooseLane(r) {
 }
 
 function phase(r) {
+  if (r.finished) return "FINISH";
   const p = r.distance / raceMeters;
   if (p < 0.08) return "START";
   if (p < 0.55) return "MID";
@@ -1051,12 +1074,83 @@ function morphTarget(r) {
   return r.cruise * (p < 0.20 ? 1.00 : p < 0.70 ? 1.02 : 1.07);
 }
 
-function update(dt) {
+function formatRaceTime(ms) {
+  const total = Math.max(0, ms) / 1000;
+  const minutes = Math.floor(total / 60);
+  const seconds = Math.floor(total % 60);
+  const hundredths = Math.floor((total % 1) * 100);
+  return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}.${String(hundredths).padStart(2, "0")}`;
+}
+
+function updateRaceStateDataset() {
+  stage.dataset.raceState = raceState;
+  stage.dataset.finishCount = String(finishOrder.length);
+}
+
+function beginRace() {
+  raceState = "running";
+  goFlashRemaining = 650;
+  raceBanner.hidden = false;
+  raceBanner.textContent = "GO";
+  raceBanner.classList.add("go");
+  updateRaceStateDataset();
+}
+
+function finishRace() {
+  if (raceState === "finished") return;
+  raceState = "finished";
+  raceBanner.hidden = true;
+  raceBanner.classList.remove("go");
+  paused = false;
+  document.querySelector("#pause").textContent = "Pause";
+
+  const ordered = [...racers].sort((a, b) => a.finishPlace - b.finishPlace);
+  resultsList.innerHTML = ordered.map((r) => `
+    <div class="result-row ${r.id === selectedId ? "selected" : ""}">
+      <span class="place">#${r.finishPlace}</span>
+      <span><span class="result-name">${r.name}</span><span class="result-morph"> #${String(r.id).padStart(2, "0")}</span></span>
+      <span class="result-morph">${r.morph}</span>
+      <span class="result-time">${formatRaceTime(r.finishTime)}</span>
+    </div>
+  `).join("");
+
+  resultHeadline.textContent = `#${selected.finishPlace} ${selected.name} — ${formatRaceTime(selected.finishTime)}`;
+  resultsPanel.hidden = false;
+  updateRaceStateDataset();
+}
+
+function updateRaceLifecycle(dt) {
   if (paused) return;
+
+  if (raceState === "countdown") {
+    countdownRemaining -= dt;
+    const value = Math.max(1, Math.ceil(countdownRemaining / 1000));
+    raceBanner.hidden = false;
+    raceBanner.classList.remove("go");
+    raceBanner.textContent = String(value);
+    if (countdownRemaining <= 0) beginRace();
+    return;
+  }
+
+  if (raceState === "running" && goFlashRemaining > 0) {
+    goFlashRemaining -= dt;
+    if (goFlashRemaining <= 0) {
+      raceBanner.hidden = true;
+      raceBanner.classList.remove("go");
+    }
+  }
+}
+
+function update(dt) {
+  if (paused || raceState !== "running") return;
   elapsed += dt;
   const sec = dt / 1000;
 
   for (const r of racers) {
+    if (r.finished) {
+      r.speed = 0;
+      continue;
+    }
     r.cooldown = Math.max(0, r.cooldown - dt);
     const currentPhase = phase(r);
     const gap = gapAhead(r);
@@ -1135,7 +1229,20 @@ function update(dt) {
       spawnDust(r, tangent);
       r.dustTimer = r.id === selectedId ? 155 : 265 + (r.id % 4) * 42;
     }
+
+    if (r.distance >= raceMeters) {
+      r.finished = true;
+      r.finishPlace = finishOrder.length + 1;
+      r.finishTime = elapsed;
+      r.decision = "FINISHED";
+      r.command = `PLACE #${r.finishPlace}`;
+      r.speed = 0;
+      finishOrder.push(r.id);
+      if (r.obj.userData.sRunAnimated) applySRunFrame(r, 5);
+    }
   }
+
+  if (finishOrder.length === racers.length) finishRace();
 
   ring.position.set(selected.obj.position.x, 0.08, selected.obj.position.z);
   tacticalMarkers.forEach((marker, index) => {
@@ -1273,7 +1380,7 @@ function updateHud() {
     <div class="rank-row ${r.id === selectedId ? "selected" : ""}">
       <b>${index + 1}</b>
       <span><i class="dot" style="background:${r.color}"></i>#${String(r.id).padStart(2, "0")} ${r.name}<span class="badge">${r.morph}</span></span>
-      <span>${r.speed.toFixed(1)}</span>
+      <span>${r.finished ? `#${r.finishPlace}` : r.speed.toFixed(1)}</span>
     </div>
   `).join("");
 }
@@ -1328,6 +1435,7 @@ addEventListener("resize", resize);
 resize();
 
 function resetRace() {
+  finishOrder.length = 0;
   racers.forEach((r, i) => {
     r.distance = Math.max(0, (17 - i) * 1.1);
     r.lane = i % laneCount;
@@ -1336,6 +1444,9 @@ function resetRace() {
     r.speed = 0;
     r.cooldown = 0;
     r.dustTimer = 0;
+    r.finished = false;
+    r.finishPlace = null;
+    r.finishTime = null;
     r.decision = "START";
     r.command = "BUILD SPEED";
 
@@ -1348,6 +1459,16 @@ function resetRace() {
     r.obj.rotation.y = Math.atan2(-tangent.z, tangent.x);
   });
   elapsed = 0;
+  paused = false;
+  raceState = "countdown";
+  countdownRemaining = countdownDuration;
+  goFlashRemaining = 0;
+  resultsPanel.hidden = true;
+  raceBanner.hidden = false;
+  raceBanner.classList.remove("go");
+  raceBanner.textContent = String(Math.max(1, Math.ceil(countdownDuration / 1000)));
+  document.querySelector("#pause").textContent = "Pause";
+  updateRaceStateDataset();
 }
 resetRace();
 
@@ -1364,6 +1485,7 @@ function frame(now) {
   try {
     const dt = Math.min(45, Math.max(0, now - last));
     last = now;
+    updateRaceLifecycle(dt);
     update(dt);
     setCamera();
     orientAnimatedSRunPlanes();
@@ -1384,15 +1506,22 @@ function frame(now) {
 }
 renderer.setAnimationLoop(frame);
 
+function syncViewUi() {
+  document.querySelector("#viewLabel").textContent =
+    view === "lab" ? "MORPH LAB" : view === "race" ? "RACE VIEW" : view === "follow" ? "FOLLOW VIEW" : "TACTICAL VIEW";
+  document.querySelectorAll("[data-view]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.view === view);
+  });
+}
+
 document.querySelectorAll("[data-view]").forEach((button) => {
   button.addEventListener("click", () => {
     view = button.dataset.view;
     resize();
-    document.querySelector("#viewLabel").textContent =
-      view === "lab" ? "MORPH LAB" : view === "race" ? "RACE VIEW" : view === "follow" ? "FOLLOW VIEW" : "TACTICAL VIEW";
-    document.querySelectorAll("[data-view]").forEach((b) => b.classList.toggle("active", b === button));
+    syncViewUi();
   });
 });
+syncViewUi();
 
 document.querySelectorAll("[data-morph]").forEach((button) => {
   button.addEventListener("click", () => {
@@ -1401,8 +1530,18 @@ document.querySelectorAll("[data-morph]").forEach((button) => {
 });
 
 document.querySelector("#pause").addEventListener("click", (event) => {
+  if (raceState === "finished") return;
   paused = !paused;
   event.currentTarget.textContent = paused ? "Resume" : "Pause";
+  if (paused) {
+    raceBanner.hidden = false;
+    raceBanner.classList.remove("go");
+    raceBanner.textContent = "PAUSED";
+  } else {
+    updateRaceLifecycle(0);
+    if (raceState === "running" && goFlashRemaining <= 0) raceBanner.hidden = true;
+  }
 });
 
 document.querySelector("#reset").addEventListener("click", resetRace);
+document.querySelector("#rematch").addEventListener("click", resetRace);
