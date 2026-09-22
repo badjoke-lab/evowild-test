@@ -76,3 +76,33 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
     await page.locator("#stage").screenshot({ path: `${outDir}/android-${name}.png` });
   }
 });
+
+
+test("benchmark Stable Fast 3D scaling at 1 4 and 18 instances", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+  const results = [];
+
+  for (const count of [1, 4, 18]) {
+    await page.goto(`/evowild-test/?sf3dBench=${count}`, { waitUntil: "networkidle" });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 12000 });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-bench", "ready", { timeout: 15000 });
+
+    const metrics = await page.evaluate(() => window.__sf3dBench);
+    expect(metrics?.count).toBe(count);
+    expect(metrics?.trianglesPerInstance).toBeGreaterThan(0);
+    expect(metrics?.rendererTriangles).toBeGreaterThan(0);
+    expect(metrics?.rendererCalls).toBeGreaterThan(0);
+
+    results.push(metrics);
+    console.log("SF3D_BENCH", JSON.stringify(metrics));
+    await page.locator("#stage").screenshot({ path: `${outDir}/sf3d-bench-${count}.png` });
+  }
+
+  fs.writeFileSync(
+    `${outDir}/sf3d-benchmark.json`,
+    JSON.stringify({ generatedBy: "Playwright CI Chromium", results }, null, 2)
+  );
+});
