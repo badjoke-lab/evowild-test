@@ -13,8 +13,8 @@
           <p>18 racers / S-P-E-A morphs / Race-Follow-Tactical cameras</p>
         </div>
         <div class="controls">
-          <button data-view="lab" class="active">1 Morph</button>
-          <button data-view="race">2 Race</button>
+          <button data-view="lab">1 Morph</button>
+          <button data-view="race" class="active">2 Race</button>
           <button data-view="follow">3 Follow</button>
           <button data-view="tactical">4 Tactical</button>
           <button id="pause">Pause</button>
@@ -25,7 +25,7 @@
       <main class="layout">
         <section class="stage" id="stage">
           <canvas id="game"></canvas>
-          <div class="hud hud-view" id="viewLabel">MORPH LAB</div>
+          <div class="hud hud-view" id="viewLabel">RACE VIEW</div>
           <div class="morph-switcher" id="morphSwitcher">
             <button data-morph="S" class="active">S</button>
             <button data-morph="P">P</button>
@@ -34,7 +34,7 @@
           </div>
           <div class="hud hud-lab" id="labLabel"><strong>S — Sprint</strong><span>細身・長脚・後方へ流れる角</span></div>
           <div class="hud hud-race">
-            <strong>1800m — Ridge Oval</strong><br />
+            <strong>700m — Ridge Oval</strong><br />
             <span id="clock">00:00.00</span> ・ <span id="position">— / 18</span>
           </div>
           <div class="hud hud-selected">
@@ -47,6 +47,17 @@
             </div>
           </div>
           <div class="hud hud-mini"><canvas id="mini" width="220" height="125"></canvas></div>
+          <div class="race-banner" id="raceBanner" aria-live="polite">3</div>
+          <section class="race-results" id="resultsPanel" hidden>
+            <div class="results-head">
+              <div>
+                <span>RACE COMPLETE</span>
+                <strong id="resultHeadline">Results</strong>
+              </div>
+              <button id="rematch">Rematch</button>
+            </div>
+            <div class="results-list" id="resultsList"></div>
+          </section>
         </section>
 
         <aside class="sidebar">
