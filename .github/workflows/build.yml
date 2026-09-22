@@ -36,7 +36,13 @@ jobs:
       - run: npm install
       - run: npm run build
       - run: npx playwright install --with-deps chromium
-      - run: npm run test:e2e
+      - name: Run browser validation
+        run: |
+          if [[ "${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}" == "feat/sf3d-game-integration-20260922" ]]; then
+            npm run test:e2e -- --workers=1
+          else
+            npm run test:e2e
+          fi
       - name: Commit prepared SF3D asset
         if: (github.head_ref == 'feat/sf3d-game-integration-20260922' || startsWith(github.ref_name, 'feat/sf3d-game-integration-')) && success()
         run: |
