@@ -102,10 +102,11 @@ test("record 2.5D race speed proof", async ({ browser }, testInfo) => {
     recordVideo: { dir: outDir, size: { width: 1280, height: 720 } }
   });
   const page = await context.newPage();
-  await page.goto("http://127.0.0.1:4173/evowild-test/", { waitUntil: "networkidle" });
+  await page.goto("http://127.0.0.1:4173/evowild-test/?proof=s-run", { waitUntil: "networkidle" });
   await expect(page.locator("#stage")).toHaveAttribute("data-race2p5d", "loaded", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-cycle", "loaded", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-frames", "6", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-s-run-proof", "isolated", { timeout: 8000 });
   await page.getByRole("button", { name: "3 Follow" }).click();
   await page.waitForTimeout(7200);
   const video = page.video();
