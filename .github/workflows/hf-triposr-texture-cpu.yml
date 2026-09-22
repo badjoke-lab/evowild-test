@@ -1,0 +1,174 @@
+name: HF TripoSR CPU Texture POC
+
+on:
+  push:
+    branches:
+      - test/hf-triposr-cpu-20260922
+    paths:
+      - '.github/workflows/hf-triposr-texture-cpu.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  generate-textured:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install CPU texture dependencies
+        run: |
+          python -m pip install -q --upgrade pip setuptools wheel
+          pip install -q torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          pip install -q "numpy<2"
+          pip install -q omegaconf==2.3.0 Pillow==10.1.0 einops==0.7.0 transformers==4.35.0 trimesh==4.0.5 huggingface-hub scikit-build-core ninja cmake pybind11 imageio xatlas moderngl
+          pip install -q --no-build-isolation git+https://github.com/tatsy/torchmcubes.git
+          git clone --depth 1 https://github.com/VAST-AI-Research/TripoSR.git /tmp/TripoSR
+
+      - name: Generate textured SIDE GLB on CPU
+        run: |
+          python - <<'PY'
+          import os, sys, json, time, types
+          from pathlib import Path
+          import numpy as np
+          import torch
+          import trimesh
+          from PIL import Image
+          from huggingface_hub import login
+
+          if os.environ.get("HF_TOKEN"):
+              login(token=os.environ["HF_TOKEN"], add_to_git_credential=False)
+
+          sys.modules["rembg"] = types.ModuleType("rembg")
+          sys.path.insert(0, "/tmp/TripoSR")
+
+          import moderngl
+          _orig_create_context = moderngl.create_context
+          def _egl_context(*args, **kwargs):
+              kwargs.setdefault("backend", "egl")
+              return _orig_create_context(*args, **kwargs)
+          moderngl.create_context = _egl_context
+
+          from tsr.system import TSR
+          from tsr.bake_texture import bake_texture
+          from trimesh.visual.texture import TextureVisuals
+          from trimesh.visual.material import SimpleMaterial
+
+          out = Path("hf-poc/output-triposr-texture-cpu")
+          out.mkdir(parents=True, exist_ok=True)
+
+          src = Path("hf-poc/input/01_SIDE_authority.jpg")
+          im = Image.open(src).convert("RGBA")
+          px = im.load()
+          for y in range(im.height):
+              for x in range(im.width):
+                  r,g,b,a = px[x,y]
+                  mn, mx = min(r,g,b), max(r,g,b)
+                  if mn >= 245:
+                      alpha = 0
+                  elif mn >= 225 and mx - mn < 18:
+                      alpha = int(max(0, min(255, (245 - mn) / 20 * 255)))
+                  else:
+                      alpha = 255
+                  px[x,y] = (r,g,b,alpha)
+          bbox = im.getbbox()
+          if not bbox:
+              raise RuntimeError("No foreground in SIDE reference")
+          im = im.crop(bbox)
+          iw, ih = im.size
+          side = max(iw, ih)
+          fill = 0.82
+          scale = (side * fill) / max(iw, ih)
+          nw, nh = max(1, int(iw*scale)), max(1, int(ih*scale))
+          im = im.resize((nw,nh), Image.Resampling.LANCZOS)
+          canvas = Image.new("RGB",(side,side),(128,128,128))
+          rgb = Image.new("RGB",im.size,(128,128,128))
+          rgb.paste(im.convert("RGB"),mask=im.getchannel("A"))
+          canvas.paste(rgb,((side-nw)//2,(side-nh)//2))
+          input_path = out/"triposr_side_texture_input.png"
+          canvas.save(input_path)
+
+          t0=time.time()
+          model=TSR.from_pretrained(
+              "stabilityai/TripoSR",
+              config_name="config.yaml",
+              weight_name="model.ckpt",
+          )
+          model.renderer.set_chunk_size(512)
+          model.to("cpu")
+          model_init=round(time.time()-t0,2)
+
+          t1=time.time()
+          with torch.no_grad():
+              scene_codes=model([canvas],device="cpu")
+          inference=round(time.time()-t1,2)
+
+          t2=time.time()
+          mesh=model.extract_mesh(scene_codes,False,resolution=96)[0]
+          extract=round(time.time()-t2,2)
+
+          t3=time.time()
+          bake=bake_texture(mesh,model,scene_codes[0],512)
+          bake_seconds=round(time.time()-t3,2)
+
+          # Match the official TripoSR export orientation for the atlas.
+          rgba=(np.clip(bake["colors"],0,1)*255).astype(np.uint8)
+          tex=Image.fromarray(rgba).transpose(Image.Transpose.FLIP_TOP_BOTTOM)
+          texture_path=out/"evowild_s_triposr_side_texture.png"
+          tex.save(texture_path)
+
+          vmapping=np.asarray(bake["vmapping"])
+          new_vertices=np.asarray(mesh.vertices)[vmapping]
+          new_normals=np.asarray(mesh.vertex_normals)[vmapping]
+          new_faces=np.asarray(bake["indices"])
+          new_uv=np.asarray(bake["uvs"])
+
+          material=SimpleMaterial(image=tex.convert("RGB"))
+          visual=TextureVisuals(uv=new_uv,image=tex.convert("RGB"),material=material)
+          textured=trimesh.Trimesh(
+              vertices=new_vertices,
+              faces=new_faces,
+              vertex_normals=new_normals,
+              visual=visual,
+              process=False,
+          )
+
+          glb=out/"evowild_s_triposr_side_textured_cpu.glb"
+          textured.export(glb)
+          if glb.read_bytes()[:4] != b"glTF":
+              raise RuntimeError("Textured TripoSR GLB export failed")
+
+          meta={
+              "model":"stabilityai/TripoSR",
+              "license":"MIT",
+              "device":"cpu",
+              "source":str(src),
+              "mc_resolution":96,
+              "texture_resolution":512,
+              "vertices":int(len(textured.vertices)),
+              "faces":int(len(textured.faces)),
+              "output_bytes":int(glb.stat().st_size),
+              "model_init_seconds":model_init,
+              "inference_seconds":inference,
+              "mesh_extract_seconds":extract,
+              "texture_bake_seconds":bake_seconds,
+              "total_seconds":round(time.time()-t0,2),
+          }
+          (out/"metadata.json").write_text(json.dumps(meta,indent=2),encoding="utf-8")
+          print(json.dumps(meta,indent=2))
+          PY
+
+      - name: Upload textured CPU result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evowild-s-triposr-side-textured-cpu
+          path: hf-poc/output-triposr-texture-cpu/
+          if-no-files-found: warn
