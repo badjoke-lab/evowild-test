@@ -432,7 +432,8 @@ function buildMorph(index, morph, forcedColor = null) {
 }
 
 const racers = [];
-const selectedId = 1;\nconst sRunProofRacerId = 1;
+const selectedId = 1;
+const sRunProofRacerId = 1;
 const raceMeters = 700;
 const laneCount = 6;
 const laneSpacing = 1.55;
