@@ -25,6 +25,7 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#game")).toBeVisible();
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+  await expect(page.locator("#stage")).toHaveAttribute("data-race-state", "running", { timeout: 6500 });
   await expect(page.locator("#clock")).not.toHaveText("00:00.00", { timeout: 5000 });
   await expect(page.locator("#position")).not.toHaveText("— / 18", { timeout: 5000 });
   await expect(page.locator(".runtime-status")).toBeHidden({ timeout: 5000 });
@@ -129,4 +130,22 @@ test("record 2.5D race speed proof", async ({ browser }, testInfo) => {
   const finalPath = `${outDir}/desktop-2p5d-animated-s-proof.webm`;
   fs.renameSync(raw, finalPath);
   await context.close();
+});
+
+
+test("race reaches results and rematch returns to countdown", async ({ page }, testInfo) => {
+  test.setTimeout(30000);
+  test.skip(testInfo.project.name !== "desktop-chromium");
+
+  await page.goto("/evowild-test/?proof=finish", { waitUntil: "networkidle" });
+  await expect(page.locator("#stage")).toHaveAttribute("data-race-distance", "45");
+  await expect(page.locator("#stage")).toHaveAttribute("data-race-state", "finished", { timeout: 18000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-finish-count", "18");
+  await expect(page.locator("#resultsPanel")).toBeVisible();
+  await expect(page.locator("#resultsList .result-row")).toHaveCount(18);
+  await expect(page.locator("#resultHeadline")).toContainText("Aster");
+
+  await page.getByRole("button", { name: "Rematch" }).click();
+  await expect(page.locator("#stage")).toHaveAttribute("data-race-state", "countdown");
+  await expect(page.locator("#resultsPanel")).toBeHidden();
 });
