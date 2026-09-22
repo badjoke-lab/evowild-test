@@ -87,41 +87,51 @@ const curve = new THREE.CatmullRomCurve3(
 function buildTrack() {
   const samples = 180;
   const half = 5.8;
-  const vertices = [];
-  const normals = [];
-  const indices = [];
 
-  for (let i = 0; i <= samples; i++) {
-    const t = i / samples;
-    const p = curve.getPointAt(t);
-    const tangent = curve.getTangentAt(t).normalize();
-    const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+  function makeRibbon(ribbonHalf, y, material) {
+    const vertices = [];
+    const normals = [];
+    const indices = [];
 
-    for (const offset of [-half, half]) {
-      const q = p.clone().addScaledVector(side, offset);
-      vertices.push(q.x, 0.03, q.z);
-      normals.push(0, 1, 0);
+    for (let i = 0; i <= samples; i++) {
+      const t = i / samples;
+      const p = curve.getPointAt(t);
+      const tangent = curve.getTangentAt(t).normalize();
+      const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+
+      for (const offset of [-ribbonHalf, ribbonHalf]) {
+        const q = p.clone().addScaledVector(side, offset);
+        vertices.push(q.x, y, q.z);
+        normals.push(0, 1, 0);
+      }
     }
+
+    for (let i = 0; i < samples; i++) {
+      const a = i * 2;
+      const b = a + 1;
+      const c = a + 2;
+      const d = a + 3;
+      indices.push(a, c, b, b, c, d);
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
+    geometry.setAttribute("normal", new THREE.Float32BufferAttribute(normals, 3));
+    geometry.setIndex(indices);
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+    return mesh;
   }
 
-  for (let i = 0; i < samples; i++) {
-    const a = i * 2;
-    const b = a + 1;
-    const c = a + 2;
-    const d = a + 3;
-    indices.push(a, c, b, b, c, d);
-  }
-
-  const geometry = new THREE.BufferGeometry();
-  geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
-  geometry.setAttribute("normal", new THREE.Float32BufferAttribute(normals, 3));
-  geometry.setIndex(indices);
-
-  scene.add(
-    new THREE.Mesh(
-      geometry,
-      new THREE.MeshStandardMaterial({ color: 0xb98c5b, roughness: 1 })
-    )
+  makeRibbon(
+    half + 0.72,
+    0.015,
+    new THREE.MeshStandardMaterial({ color: 0x765c40, roughness: 1 })
+  );
+  makeRibbon(
+    half,
+    0.035,
+    new THREE.MeshStandardMaterial({ color: 0xb88758, roughness: 1 })
   );
 
   for (const offset of [-half, half]) {
@@ -131,15 +141,111 @@ function buildTrack() {
       const p = curve.getPointAt(t);
       const tangent = curve.getTangentAt(t).normalize();
       const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
-      points.push(p.clone().addScaledVector(side, offset).add(new THREE.Vector3(0, 0.18, 0)));
+      points.push(p.clone().addScaledVector(side, offset).add(new THREE.Vector3(0, 0.07, 0)));
     }
     scene.add(
       new THREE.Line(
         new THREE.BufferGeometry().setFromPoints(points),
-        new THREE.LineBasicMaterial({ color: 0xe6d6b8 })
+        new THREE.LineBasicMaterial({ color: 0xf2dfbd })
       )
     );
   }
+
+  const railOffset = half + 0.78;
+  const railMaterial = new THREE.LineBasicMaterial({ color: 0xd8dee2, transparent: true, opacity: 0.95 });
+  for (const offset of [-railOffset, railOffset]) {
+    for (const y of [0.52, 0.88]) {
+      const points = [];
+      for (let i = 0; i <= samples; i++) {
+        const t = i / samples;
+        const p = curve.getPointAt(t);
+        const tangent = curve.getTangentAt(t).normalize();
+        const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+        points.push(p.clone().addScaledVector(side, offset).add(new THREE.Vector3(0, y, 0)));
+      }
+      scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), railMaterial));
+    }
+  }
+
+  const postsPerSide = isMobile ? 28 : 42;
+  const postGeometry = new THREE.BoxGeometry(0.11, 0.92, 0.11);
+  const postMaterial = new THREE.MeshStandardMaterial({ color: 0xd1d7da, roughness: 0.78 });
+  const posts = new THREE.InstancedMesh(postGeometry, postMaterial, postsPerSide * 2);
+  const postDummy = new THREE.Object3D();
+  let postIndex = 0;
+  for (const offset of [-railOffset, railOffset]) {
+    for (let i = 0; i < postsPerSide; i++) {
+      const t = i / postsPerSide;
+      const p = curve.getPointAt(t);
+      const tangent = curve.getTangentAt(t).normalize();
+      const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+      const q = p.clone().addScaledVector(side, offset);
+      postDummy.position.set(q.x, 0.46, q.z);
+      postDummy.rotation.set(0, Math.atan2(-tangent.z, tangent.x), 0);
+      postDummy.updateMatrix();
+      posts.setMatrixAt(postIndex++, postDummy.matrix);
+    }
+  }
+  posts.instanceMatrix.needsUpdate = true;
+  scene.add(posts);
+
+  const streakCount = isMobile ? 72 : 120;
+  const streakGeometry = new THREE.BoxGeometry(1.25, 0.018, 0.065);
+  const streakMaterial = new THREE.MeshBasicMaterial({ color: 0x8f6848, transparent: true, opacity: 0.42 });
+  const streaks = new THREE.InstancedMesh(streakGeometry, streakMaterial, streakCount);
+  const streakDummy = new THREE.Object3D();
+  for (let i = 0; i < streakCount; i++) {
+    const t = (i + 0.35) / streakCount;
+    const p = curve.getPointAt(t);
+    const tangent = curve.getTangentAt(t).normalize();
+    const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+    const lateral = Math.sin(i * 12.731) * 4.75;
+    const q = p.clone().addScaledVector(side, lateral);
+    streakDummy.position.set(q.x, 0.055, q.z);
+    streakDummy.rotation.set(0, Math.atan2(-tangent.z, tangent.x), 0);
+    streakDummy.scale.set(0.65 + (i % 5) * 0.12, 1, 1);
+    streakDummy.updateMatrix();
+    streaks.setMatrixAt(i, streakDummy.matrix);
+  }
+  streaks.instanceMatrix.needsUpdate = true;
+  scene.add(streaks);
+
+  const startT = 0.012;
+  const startPoint = curve.getPointAt(startT);
+  const startTangent = curve.getTangentAt(startT).normalize();
+  const startYaw = Math.atan2(-startTangent.z, startTangent.x);
+  const gantry = new THREE.Group();
+  gantry.position.copy(startPoint);
+  gantry.rotation.y = startYaw;
+
+  const gantryMat = new THREE.MeshStandardMaterial({ color: 0x263746, roughness: 0.58, metalness: 0.10 });
+  const gantryAccent = new THREE.MeshBasicMaterial({ color: 0x63d9ff });
+  for (const z of [-6.45, 6.45]) {
+    const upright = new THREE.Mesh(new THREE.BoxGeometry(0.30, 4.2, 0.30), gantryMat);
+    upright.position.set(0, 2.1, z);
+    gantry.add(upright);
+  }
+  const beam = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.34, 13.2), gantryMat);
+  beam.position.y = 4.05;
+  gantry.add(beam);
+  const sign = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.82, 4.6), gantryMat);
+  sign.position.y = 4.08;
+  gantry.add(sign);
+  const accent = new THREE.Mesh(new THREE.BoxGeometry(0.40, 0.08, 3.55), gantryAccent);
+  accent.position.set(-0.02, 4.08, 0.22);
+  gantry.add(accent);
+  scene.add(gantry);
+
+  const startLine = new THREE.Mesh(
+    new THREE.BoxGeometry(0.22, 0.026, 11.1),
+    new THREE.MeshBasicMaterial({ color: 0xf3eee4 })
+  );
+  startLine.position.copy(startPoint);
+  startLine.position.y = 0.065;
+  startLine.rotation.y = startYaw;
+  scene.add(startLine);
+
+  stage.dataset.trackPresentation = "v2";
 }
 buildTrack();
 
@@ -160,12 +266,12 @@ for (let i = 0; i < 72; i++) {
   }
 }
 
-const hillMaterial = new THREE.MeshStandardMaterial({ color: 0x738474, roughness: 1, flatShading: true });
+const hillMaterial = new THREE.MeshStandardMaterial({ color: 0x697d70, roughness: 1, flatShading: true });
 function addHill(x, z, s) {
-  const hill = new THREE.Mesh(new THREE.ConeGeometry(1, 1.5, 7), hillMaterial);
-  const hillScale = s * (isMobile ? 0.42 : 1);
-  hill.position.set(x, hillScale * 0.65, z);
-  hill.scale.setScalar(hillScale);
+  const hill = new THREE.Mesh(new THREE.DodecahedronGeometry(1, 1), hillMaterial);
+  const hillScale = s * (isMobile ? 0.50 : 1);
+  hill.position.set(x, hillScale * 0.34, z);
+  hill.scale.set(hillScale, hillScale * 0.54, hillScale * 0.78);
   scene.add(hill);
 }
 addHill(-60, -34, 11);
@@ -175,12 +281,15 @@ addHill(-62, 30, 9);
 const trunkMat = new THREE.MeshStandardMaterial({ color: 0x5a4432, roughness: 1 });
 const leafMat = new THREE.MeshStandardMaterial({ color: 0x3f6542, roughness: 1, flatShading: true });
 function addTree(x, z, s = 0.85) {
-  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.18, 1.4, 5), trunkMat);
+  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.18, 1.4, 6), trunkMat);
   trunk.position.set(x, 0.7, z);
-  const leaves = new THREE.Mesh(new THREE.ConeGeometry(0.75, 2.2, 7), leafMat);
-  leaves.position.set(x, 2, z);
-  leaves.scale.setScalar(s);
-  scene.add(trunk, leaves);
+  const lower = new THREE.Mesh(new THREE.ConeGeometry(0.82, 1.85, 8), leafMat);
+  lower.position.set(x, 1.72, z);
+  lower.scale.setScalar(s);
+  const upper = new THREE.Mesh(new THREE.ConeGeometry(0.62, 1.55, 8), leafMat);
+  upper.position.set(x, 2.45, z);
+  upper.scale.setScalar(s * 0.88);
+  scene.add(trunk, lower, upper);
 }
 for (let i = 0; i < 22; i++) {
   const a = (i / 22) * Math.PI * 2;
@@ -188,12 +297,24 @@ for (let i = 0; i < 22; i++) {
   addTree(Math.cos(a) * r, Math.sin(a) * r * 0.68, 0.74 + (i % 4) * 0.05);
 }
 
-const stand = new THREE.Mesh(
-  new THREE.BoxGeometry(14, 3, 4.6),
-  new THREE.MeshStandardMaterial({ color: 0x626a71, roughness: 1 })
-);
-stand.position.set(7, 1.5, -31);
-scene.add(stand);
+const standGroup = new THREE.Group();
+standGroup.position.set(7, 0, -34.2);
+standGroup.rotation.y = -0.03;
+const standMat = new THREE.MeshStandardMaterial({ color: 0x596773, roughness: 0.92 });
+const seatMat = new THREE.MeshBasicMaterial({ color: 0x8ea0ad });
+for (let i = 0; i < 4; i++) {
+  const tier = new THREE.Mesh(new THREE.BoxGeometry(15.8 - i * 0.55, 0.42, 1.32), standMat);
+  tier.position.set(0, 0.22 + i * 0.43, i * 0.58);
+  standGroup.add(tier);
+  const row = new THREE.Mesh(new THREE.BoxGeometry(14.7 - i * 0.50, 0.07, 0.10), seatMat);
+  row.position.set(0, 0.46 + i * 0.43, i * 0.58 - 0.22);
+  standGroup.add(row);
+}
+const canopy = new THREE.Mesh(new THREE.BoxGeometry(16.8, 0.22, 2.15), standMat);
+canopy.position.set(0, 2.35, 2.15);
+canopy.rotation.x = -0.12;
+standGroup.add(canopy);
+scene.add(standGroup);
 
 const raceEnvironment = scene.children.filter((obj) => !obj.isLight);
 
@@ -552,9 +673,9 @@ function spawnDust(racer, tangent) {
     .addScaledVector(tangent, -0.75)
     .addScaledVector(side, jitter * 0.22);
   puff.sprite.position.y = 0.24;
-  const baseScale = racer.id === selectedId ? 0.72 : 0.52;
-  puff.sprite.scale.set(baseScale * 1.6, baseScale, 1);
-  puff.sprite.material.opacity = racer.id === selectedId ? 0.34 : 0.23;
+  const baseScale = racer.id === selectedId ? 0.88 : 0.58;
+  puff.sprite.scale.set(baseScale * 1.75, baseScale, 1);
+  puff.sprite.material.opacity = racer.id === selectedId ? 0.42 : 0.27;
   puff.sprite.visible = true;
 }
 
@@ -570,7 +691,7 @@ function updateDust(dt) {
     puff.sprite.position.y += dt * puff.rise;
     const scale = 1 + age * 1.45;
     puff.sprite.scale.multiplyScalar(1 + dt * 0.0008);
-    puff.sprite.material.opacity = (1 - age) * 0.28;
+    puff.sprite.material.opacity = (1 - age) * 0.36;
     puff.sprite.visible = show && puff.life > 0;
   }
 }
@@ -1000,7 +1121,7 @@ function update(dt) {
     r.dustTimer = Math.max(0, (r.dustTimer ?? 0) - dt);
     if (r.speed > 7 && r.dustTimer <= 0) {
       spawnDust(r, tangent);
-      r.dustTimer = 250 + (r.id % 4) * 45;
+      r.dustTimer = r.id === selectedId ? 155 : 265 + (r.id % 4) * 42;
     }
   }
 
@@ -1090,14 +1211,15 @@ function setCamera() {
     const leaderTangent = curve.getTangentAt(lt).normalize();
     const leaderSide = new THREE.Vector3(-leaderTangent.z, 0, leaderTangent.x);
 
-    const raceBack = isMobile ? -3.2 : -5.8;
-    const raceSide = isMobile ? 9.2 : 8.6;
-    const raceHeight = isMobile ? 3.6 : 4.4;
+    const raceBack = isMobile ? -7.4 : -8.2;
+    const raceSide = isMobile ? 13.3 : 12.6;
+    const raceHeight = isMobile ? 6.2 : 5.9;
     camera.position.lerp(
       center.clone().addScaledVector(leaderTangent, raceBack).addScaledVector(leaderSide, raceSide).add(new THREE.Vector3(0, raceHeight, 0)),
-      0.055
+      0.065
     );
-    camera.lookAt(center.clone().addScaledVector(leaderTangent, 2.2).add(new THREE.Vector3(0, 0.45, 0)));
+    camera.lookAt(center.clone().addScaledVector(leaderTangent, 2.8).add(new THREE.Vector3(0, 0.62, 0)));
+    stage.dataset.raceCamera = "wide-pack";
   }
 
   const selectedCameraDistance = camera.position.distanceTo(selected.obj.position);
