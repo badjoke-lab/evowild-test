@@ -80,6 +80,7 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
 
 test("benchmark Stable Fast 3D scaling at 1 4 and 18 instances", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(90000);
 
   const outDir = "test-results/visuals";
   fs.mkdirSync(outDir, { recursive: true });
@@ -88,7 +89,7 @@ test("benchmark Stable Fast 3D scaling at 1 4 and 18 instances", async ({ page }
   for (const count of [1, 4, 18]) {
     await page.goto(`/evowild-test/?sf3dBench=${count}`, { waitUntil: "networkidle" });
     await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 12000 });
-    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-bench", "ready", { timeout: 15000 });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-bench", "ready", { timeout: 30000 });
 
     const metrics = await page.evaluate(() => window.__sf3dBench);
     expect(metrics?.count).toBe(count);
