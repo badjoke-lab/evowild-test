@@ -6,6 +6,7 @@ import "./styles.css";
 const canvas = document.querySelector("#game");
 const stage = document.querySelector("#stage");
 const isMobile = matchMedia("(pointer: coarse)").matches || innerWidth < 800;
+const sRunIsolatedProof = new URLSearchParams(location.search).get("proof") === "s-run";
 
 const runtimeStatus = document.createElement("div");
 runtimeStatus.className = "runtime-status";
@@ -916,7 +917,7 @@ function setCamera() {
   scene.fog = (lab || tactical) ? null : raceFog;
   scene.background = new THREE.Color(lab ? 0x202a35 : 0x9bc6dc);
   raceEnvironment.forEach((obj) => { obj.visible = !lab; });
-  racers.forEach((r) => { r.obj.visible = !lab && !tactical; });
+  racers.forEach((r) => { r.obj.visible = !lab && !tactical && (!sRunIsolatedProof || r.id === sRunProofRacerId); });
   ring.visible = !lab && !tactical;
   tacticalMarkers.forEach((marker) => { marker.visible = tactical; });
   labGroup.visible = lab;
@@ -932,9 +933,9 @@ function setCamera() {
     camera.lookAt(0, 1.25, 0);
   } else if (view === "follow") {
     camera.up.set(0, 1, 0);
-    const followBack = isMobile ? -6.2 : -5.4;
-    const followSide = isMobile ? 1.8 : 1.45;
-    const followHeight = isMobile ? 2.45 : 2.0;
+    const followBack = sRunIsolatedProof ? (isMobile ? -4.2 : -3.8) : (isMobile ? -6.2 : -5.4);
+    const followSide = sRunIsolatedProof ? (isMobile ? 1.15 : 0.95) : (isMobile ? 1.8 : 1.45);
+    const followHeight = sRunIsolatedProof ? (isMobile ? 1.95 : 1.65) : (isMobile ? 2.45 : 2.0);
     camera.position.lerp(
       selectedPos.clone().addScaledVector(tangent, followBack).addScaledVector(side, followSide).add(new THREE.Vector3(0, followHeight, 0)),
       0.13
@@ -1090,6 +1091,7 @@ function frame(now) {
     renderedFrames += 1;
     if (renderedFrames === 2) {
       runtimeStatus.hidden = true;
+      if (sRunIsolatedProof) stage.dataset.sRunProof = "isolated";
     }
   } catch (error) {
     paused = true;
