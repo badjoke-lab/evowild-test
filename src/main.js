@@ -621,9 +621,10 @@ const ring = new THREE.Mesh(
 ring.rotation.x = -Math.PI / 2;
 scene.add(ring);
 
+const tacticalMarkerGeometry = new THREE.CircleGeometry(0.88, 18);
 const tacticalMarkers = racers.map((r) => {
   const marker = new THREE.Mesh(
-    new THREE.CircleGeometry(r.id === selectedId ? 1.25 : 0.88, 18),
+    tacticalMarkerGeometry,
     new THREE.MeshBasicMaterial({
       color: r.id === selectedId ? 0xffffff : palette[r.id - 1],
       transparent: true,
@@ -633,6 +634,7 @@ const tacticalMarkers = racers.map((r) => {
     })
   );
   marker.rotation.x = -Math.PI / 2;
+  marker.scale.setScalar(r.id === selectedId ? 1.42 : 1);
   marker.visible = false;
   marker.renderOrder = 10;
   scene.add(marker);
@@ -657,7 +659,9 @@ function setSelectedRacer(id) {
     const isSelected = racer.id === selectedId;
     marker.material.color.set(isSelected ? 0xffffff : palette[index]);
     marker.material.opacity = isSelected ? 1 : 0.9;
-    marker.scale.setScalar(isSelected ? 1.22 : 1);
+    marker.scale.setScalar(isSelected ? 1.42 : 1);
+    const shadow = racerShadows[index];
+    if (shadow) shadow.material.opacity = isSelected ? 0.30 : 0.20;
   });
 
   ring.position.set(selected.obj.position.x, 0.08, selected.obj.position.z);
