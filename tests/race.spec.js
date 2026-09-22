@@ -56,8 +56,8 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
   await expect(page.locator("#viewLabel")).toHaveText("MORPH LAB");
   await expect(page.locator("#stage")).toHaveAttribute("data-s-asset", "loaded", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 12000 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-profile", "s-sf3d-clean-prototype", { timeout: 12000 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-triangles", "8035", { timeout: 12000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-profile", "s-sf3d-corrected-candidate", { timeout: 12000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-triangles", "8960", { timeout: 12000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-concept-morphs", "loaded", { timeout: 8000 });
   for (const morph of ["S", "P", "E", "A"]) {
     await page.locator(`[data-morph="${morph}"]`).click();
