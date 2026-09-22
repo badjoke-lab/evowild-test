@@ -29,7 +29,42 @@ button.active { border-color: #6bb1ff; background: #1d3144; }
   backdrop-filter: blur(2px);
 }
 .hud-view { left: 12px; top: 12px; font-weight: 850; font-size: 12px; }
-.hud-race { right: 12px; top: 12px; text-align: right; font-size: 12px; line-height: 1.45; }
+.hud-race { right: 12px; top: 12px; text-align: right; font-size: 12px; line-height: 1.45; min-width: 220px; transition: border-color .2s ease, box-shadow .2s ease; }
+.hud-race.final {
+  border-color: rgba(255, 198, 92, .72);
+  box-shadow: 0 0 0 1px rgba(255,198,92,.10), 0 8px 26px rgba(0,0,0,.18);
+}
+.race-progress {
+  width: 100%;
+  height: 5px;
+  margin-top: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255,255,255,.12);
+}
+.race-progress i {
+  display: block;
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #6bb1ff, #8edcff);
+  transition: width .12s linear;
+}
+.race-status-line {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 5px;
+  color: #b8c7d4;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.race-status-line span:first-child {
+  color: #8edcff;
+  font-weight: 850;
+  letter-spacing: .04em;
+}
+.hud-race.final .race-status-line span:first-child { color: #ffd37d; }
 .hud-selected { left: 12px; bottom: 12px; width: 310px; }
 .metric, .row { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; margin-top: 6px; }
 .metric span, .row span { color: #93a3b2; }
@@ -107,7 +142,9 @@ button.active { border-color: #6bb1ff; background: #1d3144; }
   }
   .hud { padding: 5px 7px; border-radius: 7px; }
   .hud-view { left: 7px; top: 7px; font-size: 10px; }
-  .hud-race { right: 7px; top: 7px; font-size: 10px; line-height: 1.35; }
+  .hud-race { right: 7px; top: 7px; min-width: 176px; font-size: 10px; line-height: 1.35; }
+  .race-status-line { gap: 5px; font-size: 8px; }
+  .race-progress { height: 4px; margin-top: 5px; }
   .hud-selected { display: none; }
   .hud-mini {
     right: 7px;
