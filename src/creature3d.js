@@ -27,6 +27,30 @@ export const CREATURE_3D_PROFILES = {
       "Use front-side rendering by default; the source GLB is not approved as a final EvoWild S-Type."
     ]
   },
+  sSf3dSide: {
+    id: "s-sf3d-side-authority",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-sf3d-side.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.08,
+      minRoughness: 0.52,
+      side: "front",
+      preserveBaseColorMap: true,
+      maxAnisotropy: 4
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "comparison_only",
+    notes: [
+      "Generated from the SIDE authority reference only.",
+      "Preserves the full SIDE silhouette input, but the generated model is heavier and visually less faithful than the corrected 3/4 candidate.",
+      "Keep only for direct comparison; do not treat as an approved EvoWild S-Type."
+    ]
+  },
   sSf3dPrototype: {
     id: "s-sf3d-clean-prototype",
     morph: "S",
