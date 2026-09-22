@@ -1,0 +1,176 @@
+import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { clone as cloneSkeletonSafe } from "three/addons/utils/SkeletonUtils.js";
+
+export const CREATURE_3D_PROFILES = {
+  sSf3dPrototype: {
+    id: "s-sf3d-clean-prototype",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-sf3d-clean.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.08,
+      minRoughness: 0.52,
+      side: "double",
+      preserveBaseColorMap: true,
+      maxAnisotropy: 4
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "prototype_only",
+    notes: [
+      "Generated from the first Stable Fast 3D input that contained partial-image contamination.",
+      "Use as a loader/performance validation asset, not as an approved EvoWild S-Type model."
+    ]
+  }
+};
+
+function resolveSide(side) {
+  if (side === "front") return THREE.FrontSide;
+  if (side === "back") return THREE.BackSide;
+  return THREE.DoubleSide;
+}
+
+function normalizeMaterial(material, renderer, profile) {
+  const normalized = material.clone();
+  const materialProfile = profile.material || {};
+
+  if ("metalness" in normalized && Number.isFinite(materialProfile.metalness)) {
+    normalized.metalness = materialProfile.metalness;
+  }
+  if ("roughness" in normalized && Number.isFinite(materialProfile.minRoughness)) {
+    normalized.roughness = Math.max(materialProfile.minRoughness, normalized.roughness ?? materialProfile.minRoughness);
+  }
+  if (normalized.color) normalized.color.set(0xffffff);
+
+  if (normalized.map && materialProfile.preserveBaseColorMap !== false) {
+    normalized.map.colorSpace = THREE.SRGBColorSpace;
+    const maxSupported = renderer?.capabilities?.getMaxAnisotropy?.() ?? 1;
+    const requested = materialProfile.maxAnisotropy ?? 1;
+    normalized.map.anisotropy = Math.min(requested, maxSupported);
+    normalized.map.needsUpdate = true;
+  }
+
+  normalized.side = resolveSide(materialProfile.side);
+  normalized.needsUpdate = true;
+  return normalized;
+}
+
+export function cloneCreature3D(source) {
+  // SkeletonUtils.clone is safe for the current static mesh and also avoids
+  // having to redesign this adapter when a future accepted GLB is rigged.
+  return cloneSkeletonSafe(source);
+}
+
+export function inspectCreature3D(model) {
+  let triangles = 0;
+  let meshes = 0;
+  const materials = new Set();
+  const textures = new Set();
+
+  model.traverse((node) => {
+    if (!node.isMesh || !node.geometry) return;
+    meshes += 1;
+    const geometry = node.geometry;
+    triangles += geometry.index
+      ? geometry.index.count / 3
+      : (geometry.getAttribute("position")?.count || 0) / 3;
+
+    const nodeMaterials = Array.isArray(node.material) ? node.material : [node.material];
+    for (const material of nodeMaterials) {
+      if (!material) continue;
+      materials.add(material.uuid);
+      if (material.map) textures.add(material.map.uuid);
+      if (material.normalMap) textures.add(material.normalMap.uuid);
+      if (material.roughnessMap) textures.add(material.roughnessMap.uuid);
+      if (material.metalnessMap) textures.add(material.metalnessMap.uuid);
+    }
+  });
+
+  model.updateMatrixWorld(true);
+  const box = new THREE.Box3().setFromObject(model);
+  const size = box.getSize(new THREE.Vector3());
+
+  return {
+    triangles: Math.round(triangles),
+    meshes,
+    materials: materials.size,
+    textures: textures.size,
+    bounds: {
+      x: Number(size.x.toFixed(5)),
+      y: Number(size.y.toFixed(5)),
+      z: Number(size.z.toFixed(5))
+    }
+  };
+}
+
+export function fitCreature3D(model, {
+  renderer,
+  profile,
+  placement = "race",
+  targetHeight,
+  groundY,
+  materialSide
+}) {
+  const placementProfile = profile.placements?.[placement] || {};
+  const desiredHeight = targetHeight ?? placementProfile.targetHeight ?? 1;
+  const desiredGroundY = groundY ?? placementProfile.groundY ?? 0;
+
+  const [rx, ry, rz] = profile.rotation || [0, 0, 0];
+  model.rotation.set(rx, ry, rz);
+  model.updateMatrixWorld(true);
+
+  const initialBox = new THREE.Box3().setFromObject(model);
+  const initialSize = initialBox.getSize(new THREE.Vector3());
+  const height = Math.max(0.001, initialSize.y);
+  model.scale.multiplyScalar(desiredHeight / height);
+  model.updateMatrixWorld(true);
+
+  const fittedBox = new THREE.Box3().setFromObject(model);
+  const center = fittedBox.getCenter(new THREE.Vector3());
+  model.position.x -= center.x;
+  model.position.z -= center.z;
+  model.position.y += desiredGroundY - fittedBox.min.y;
+  model.updateMatrixWorld(true);
+
+  const effectiveProfile = materialSide
+    ? { ...profile, material: { ...(profile.material || {}), side: materialSide } }
+    : profile;
+
+  model.traverse((node) => {
+    if (!node.isMesh) return;
+    node.frustumCulled = true;
+    node.castShadow = false;
+    node.receiveShadow = false;
+
+    if (Array.isArray(node.material)) {
+      node.material = node.material.map((material) => normalizeMaterial(material, renderer, effectiveProfile));
+    } else if (node.material) {
+      node.material = normalizeMaterial(node.material, renderer, effectiveProfile);
+    }
+  });
+
+  return model;
+}
+
+export function loadCreature3D(profile) {
+  return new Promise((resolve, reject) => {
+    new GLTFLoader().load(
+      profile.url,
+      (gltf) => {
+        gltf.scene.name = `Creature3D_Source_${profile.id}`;
+        resolve({
+          source: gltf.scene,
+          animations: gltf.animations || [],
+          stats: inspectCreature3D(gltf.scene),
+          profile
+        });
+      },
+      undefined,
+      reject
+    );
+  });
+}
