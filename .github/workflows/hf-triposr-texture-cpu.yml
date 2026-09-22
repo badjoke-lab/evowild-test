@@ -25,6 +25,8 @@ jobs:
 
       - name: Install CPU texture dependencies
         run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libegl1 libgl1-mesa-dri
           python -m pip install -q --upgrade pip setuptools wheel
           pip install -q torch torchvision --index-url https://download.pytorch.org/whl/cpu
           pip install -q "numpy<2"
