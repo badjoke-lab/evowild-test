@@ -7,6 +7,13 @@ import "./styles.css";
 const canvas = document.querySelector("#game");
 const stage = document.querySelector("#stage");
 const isMobile = matchMedia("(pointer: coarse)").matches || innerWidth < 800;
+const query = new URLSearchParams(location.search);
+const sf3dBenchCount = Math.min(18, Math.max(0, Number.parseInt(query.get("sf3dBench") || "0", 10) || 0));
+let sf3dBenchGroup = null;
+let sf3dBenchStartedAt = 0;
+let sf3dBenchFrameTimes = [];
+let sf3dBenchReady = false;
+let sf3dTrianglesPerInstance = 0;
 
 const runtimeStatus = document.createElement("div");
 runtimeStatus.className = "runtime-status";
@@ -617,11 +624,93 @@ function fitSf3dModel(model, targetHeight, groundY) {
   return model;
 }
 
+function countModelTriangles(model) {
+  let triangles = 0;
+  model.traverse((node) => {
+    if (!node.isMesh || !node.geometry) return;
+    const geometry = node.geometry;
+    triangles += geometry.index
+      ? geometry.index.count / 3
+      : (geometry.getAttribute("position")?.count || 0) / 3;
+  });
+  return Math.round(triangles);
+}
+
+function setupSf3dBenchmark(source, count) {
+  if (!count) return;
+
+  sf3dBenchGroup = new THREE.Group();
+  sf3dBenchGroup.name = `SF3D_Benchmark_${count}`;
+  const columns = Math.min(6, count);
+  const rows = Math.ceil(count / columns);
+
+  for (let i = 0; i < count; i++) {
+    const model = fitSf3dModel(source.clone(true), 1.28, 0.03);
+    const column = i % columns;
+    const row = Math.floor(i / columns);
+    model.position.x += (column - (columns - 1) / 2) * 1.42;
+    model.position.z += (row - (rows - 1) / 2) * 1.18;
+    model.rotation.y = (column - (columns - 1) / 2) * 0.035;
+    sf3dBenchGroup.add(model);
+  }
+
+  if (sf3dLab) sf3dLab.visible = false;
+  conceptSprites.forEach((sprite) => { sprite.visible = false; });
+  labGroup.add(sf3dBenchGroup);
+  view = "lab";
+  sf3dBenchStartedAt = performance.now();
+  sf3dBenchFrameTimes = [];
+  sf3dBenchReady = false;
+  stage.dataset.sf3dBench = "running";
+  stage.dataset.sf3dBenchCount = String(count);
+}
+
+function sampleSf3dBenchmark(now, frameMs) {
+  if (!sf3dBenchCount || !sf3dBenchStartedAt || sf3dBenchReady) return;
+  const elapsedMs = now - sf3dBenchStartedAt;
+
+  if (elapsedMs >= 500 && Number.isFinite(frameMs) && frameMs > 0) {
+    sf3dBenchFrameTimes.push(frameMs);
+  }
+
+  if (elapsedMs < 3000 || sf3dBenchFrameTimes.length < 30) return;
+
+  const times = [...sf3dBenchFrameTimes].sort((a, b) => a - b);
+  const average = times.reduce((sum, value) => sum + value, 0) / times.length;
+  const percentile = (p) => times[Math.min(times.length - 1, Math.floor((times.length - 1) * p))];
+
+  window.__sf3dBench = {
+    count: sf3dBenchCount,
+    samples: times.length,
+    averageFrameMs: Number(average.toFixed(3)),
+    averageFps: Number((1000 / average).toFixed(2)),
+    medianFrameMs: Number(percentile(0.5).toFixed(3)),
+    p95FrameMs: Number(percentile(0.95).toFixed(3)),
+    trianglesPerInstance: sf3dTrianglesPerInstance,
+    expectedModelTriangles: sf3dTrianglesPerInstance * sf3dBenchCount,
+    rendererTriangles: renderer.info.render.triangles,
+    rendererCalls: renderer.info.render.calls,
+    rendererLines: renderer.info.render.lines,
+    rendererPoints: renderer.info.render.points,
+    geometries: renderer.info.memory.geometries,
+    textures: renderer.info.memory.textures,
+    viewport: {
+      width: renderer.domElement.width,
+      height: renderer.domElement.height,
+      pixelRatio: renderer.getPixelRatio()
+    },
+    note: "CI Chromium benchmark; not a physical-device FPS measurement"
+  };
+  sf3dBenchReady = true;
+  stage.dataset.sf3dBench = "ready";
+}
+
 new GLTFLoader().load(
   sf3dAssetUrl,
   (gltf) => {
     const source = gltf.scene;
     source.name = "EvoWild_S_SF3D_Source";
+    sf3dTrianglesPerInstance = countModelTriangles(source);
 
     sf3dLab = fitSf3dModel(source.clone(true), 3.2, 0.03);
     sf3dLab.name = "EvoWild_S_SF3D_Lab";
@@ -641,7 +730,9 @@ new GLTFLoader().load(
 
     sf3dReady = true;
     stage.dataset.sf3d = "loaded";
+    stage.dataset.sf3dTriangles = String(sf3dTrianglesPerInstance);
     setLabMorph(activeLabMorph);
+    setupSf3dBenchmark(source, sf3dBenchCount);
   },
   undefined,
   (error) => {
@@ -1024,11 +1115,13 @@ drawMiniMap();
 let renderedFrames = 0;
 function frame(now) {
   try {
-    const dt = Math.min(45, Math.max(0, now - last));
+    const rawFrameMs = Math.max(0, now - last);
+    const dt = Math.min(45, rawFrameMs);
     last = now;
     update(dt);
     setCamera();
     renderer.render(scene, camera);
+    sampleSf3dBenchmark(now, rawFrameMs);
     updateHud();
     drawMiniMap();
 
