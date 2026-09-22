@@ -2,7 +2,9 @@ name: deploy-pages
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main
+      - feat/2p5d-animated-s-proof-20260922
   workflow_dispatch:
 
 permissions:
@@ -20,6 +22,8 @@ jobs:
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Checkout 2.5D preview branch
         uses: actions/checkout@v4
