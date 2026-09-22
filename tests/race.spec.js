@@ -174,3 +174,60 @@ test("compare 18-instance SF3D clone versus instanced rendering", async ({ page 
     JSON.stringify({ generatedBy: "Playwright CI Chromium", results }, null, 2)
   );
 });
+
+
+test("compare corrected 3/4 and SIDE authority SF3D candidates", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(70000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const variants = [
+    {
+      name: "corrected",
+      query: "",
+      profile: "s-sf3d-corrected-candidate",
+      triangles: "8960"
+    },
+    {
+      name: "side",
+      query: "?sf3dVariant=side",
+      profile: "s-sf3d-side-authority",
+      triangles: "16112"
+    }
+  ];
+
+  const results = [];
+  for (const variant of variants) {
+    await page.goto(`/evowild-test/${variant.query}`, { waitUntil: "networkidle" });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 15000 });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-profile", variant.profile, { timeout: 15000 });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-triangles", variant.triangles, { timeout: 15000 });
+
+    await page.getByRole("button", { name: "1 Morph" }).click();
+    await expect(page.locator("#viewLabel")).toHaveText("MORPH LAB");
+    await page.waitForTimeout(800);
+
+    const stats = await page.locator("#stage").evaluate((stage) => ({
+      profile: stage.dataset.sf3dProfile,
+      triangles: Number(stage.dataset.sf3dTriangles),
+      meshes: Number(stage.dataset.sf3dMeshes),
+      materials: Number(stage.dataset.sf3dMaterials),
+      textures: Number(stage.dataset.sf3dTextures),
+      animations: Number(stage.dataset.sf3dAnimations),
+      bounds: stage.dataset.sf3dBounds
+    }));
+
+    results.push({ name: variant.name, ...stats });
+    console.log("SF3D_VARIANT", JSON.stringify({ name: variant.name, ...stats }));
+    await page.locator("#stage").screenshot({
+      path: `${outDir}/sf3d-variant-${variant.name}.png`
+    });
+  }
+
+  fs.writeFileSync(
+    `${outDir}/sf3d-variant-comparison.json`,
+    JSON.stringify({ generatedBy: "Playwright CI Chromium", results }, null, 2)
+  );
+});
