@@ -2,7 +2,7 @@
 
 Status: Draft  
 Project name: EvoWild Run (provisional)  
-Purpose: Current design baseline before Race Agent design  
+Purpose: Current game-design baseline with subsystem specifications linked separately  
 Last updated: 2026-09-22
 
 Visual system map:
@@ -334,20 +334,26 @@ They are not yet final Race Engine formulas.
 
 ## 6.5 Player activity during a race
 
-**TBD**
+**CURRENT**
 
-The exact role of the player after a race begins has not yet been finalized.
+The player does not directly control the Creature after the race starts.
 
-Open questions include:
+The player's role is primarily to:
 
-- direct control,
-- pre-race strategy,
-- commands during the race,
-- automated decision-making,
-- AI-assisted decision-making,
-- or combinations of these.
+- breed Creatures,
+- select the entrant,
+- select the Course,
+- configure race strategy,
+- configure the Race Agent,
+- watch the race,
+- analyse results,
+- and apply the result to later breeding and strategy.
 
-Race Agent design is intentionally outside v0.1 and is the next major design topic.
+After the start, the Race Engine and the Race Agent assigned to each Creature drive race behaviour.
+
+Detailed Race Agent / AI / Creature State design is specified separately in:
+
+`docs/race-agent-spec-v0.1.md`
 
 ---
 
@@ -649,9 +655,11 @@ The following major systems are outside the normative scope of v0.1.
 
 ### Race Agent
 
-TBD.
+Specified at the current concept level in:
 
-Known design work exists, but it should be specified separately after this baseline is accepted.
+`docs/race-agent-spec-v0.1.md`
+
+The executable command vocabulary, rule evaluation semantics, Validator rules and detailed Race Engine integration remain TBD.
 
 ### Race Engine
 
@@ -665,7 +673,9 @@ TBD.
 
 ### Creature State Schema
 
-TBD.
+The current Race Agent specification defines fatigue as a required visible race-state concept and lists candidate temporary states.
+
+The canonical machine-readable Creature State schema and transition rules remain TBD.
 
 ### Training System
 
@@ -793,20 +803,27 @@ Historical design changes are part of the project record.
 
 # 19. Current next design area
 
-The next major design area after this v0.1 baseline is:
+Race participation, Race Agent and high-level Creature State direction are now recorded in:
 
-**Race participation / Race Agent / Creature State**
+`docs/race-agent-spec-v0.1.md`
 
-Questions include:
+The next major design area is the executable Race Agent / Race Engine contract.
 
-- what the player decides before the race,
-- what the player can influence during the race,
-- what an Agent decides,
-- what commands an Agent may issue,
-- how a Creature attempts to execute commands,
-- how ability, fatigue, temperament, compatibility, surroundings and Course conditions affect execution,
-- how AI and non-AI users operate under the same Race Engine rules.
+This includes:
 
-These questions are not answered by this v0.1 specification.
+- canonical Agent command vocabulary,
+- observable inputs available to an Agent,
+- decision timing / tick model,
+- rule evaluation order,
+- command conflicts and precedence,
+- canonical Creature State schema,
+- command execution semantics,
+- outcome semantics for Excellent / Success / Partial / Failed / Backfire,
+- fatigue behaviour,
+- Agent-Creature compatibility,
+- path / congestion representation,
+- race decision logs,
+- Validator requirements,
+- and Agent File versioning rules.
 
-They should be handled in the next design revision or a dedicated Race Agent specification.
+These details should be settled before the example Agent File is treated as an implementation-ready schema.
