@@ -57,6 +57,8 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-s-asset", "loaded", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-concept-morphs", "loaded", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-race2p5d", "loaded", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-s-run-cycle", "loaded", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-s-run-frames", "6", { timeout: 8000 });
   for (const morph of ["S", "P", "E", "A"]) {
     await page.locator(`[data-morph="${morph}"]`).click();
     await page.waitForTimeout(350);
@@ -75,6 +77,18 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
     await page.waitForTimeout(900);
     await page.locator("#stage").screenshot({ path: `${outDir}/android-${name}.png` });
   }
+
+  await page.getByRole("button", { name: "3 Follow" }).click();
+  const observedFrames = new Set();
+  const observedPhases = new Set();
+  for (let i = 0; i < 12; i++) {
+    await page.waitForTimeout(110);
+    observedFrames.add(await page.locator("#stage").getAttribute("data-s-run-frame"));
+    observedPhases.add(await page.locator("#stage").getAttribute("data-s-run-phase"));
+  }
+  expect(observedFrames.size).toBeGreaterThanOrEqual(4);
+  expect(observedPhases.size).toBeGreaterThanOrEqual(4);
+  await page.locator("#stage").screenshot({ path: `${outDir}/android-s-run-proof.png` });
 });
 
 
@@ -90,12 +104,14 @@ test("record 2.5D race speed proof", async ({ browser }, testInfo) => {
   const page = await context.newPage();
   await page.goto("http://127.0.0.1:4173/evowild-test/", { waitUntil: "networkidle" });
   await expect(page.locator("#stage")).toHaveAttribute("data-race2p5d", "loaded", { timeout: 8000 });
-  await page.getByRole("button", { name: "2 Race" }).click();
-  await page.waitForTimeout(6500);
+  await expect(page.locator("#stage")).toHaveAttribute("data-s-run-cycle", "loaded", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-s-run-frames", "6", { timeout: 8000 });
+  await page.getByRole("button", { name: "3 Follow" }).click();
+  await page.waitForTimeout(7200);
   const video = page.video();
   await page.close();
   const raw = await video.path();
-  const finalPath = `${outDir}/desktop-2p5d-race-proof.webm`;
+  const finalPath = `${outDir}/desktop-2p5d-animated-s-proof.webm`;
   fs.renameSync(raw, finalPath);
   await context.close();
 });
