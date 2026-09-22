@@ -828,6 +828,19 @@ const sRunFrames = [
   { phase: "REACH",   col: 1, row: 1, y: -0.17 },
   { phase: "LAND",    col: 2, row: 1, y: -0.16 }
 ];
+const staticMotionFrames = [
+  { phase: "CONTACT", y: 0.00, sx: 1.02, sy: 0.98, rot:  0.008 },
+  { phase: "PUSH",    y: 0.03, sx: 1.04, sy: 0.96, rot: -0.018 },
+  { phase: "LIFT",    y: 0.07, sx: 0.99, sy: 1.02, rot: -0.012 },
+  { phase: "FLIGHT",  y: 0.11, sx: 1.00, sy: 1.00, rot:  0.014 },
+  { phase: "REACH",   y: 0.06, sx: 1.05, sy: 0.97, rot:  0.020 },
+  { phase: "LAND",    y: 0.00, sx: 0.98, sy: 1.03, rot: -0.006 }
+];
+const staticMotionProfile = {
+  P: { strength: 0.58, rate: 0.90 },
+  E: { strength: 0.64, rate: 0.98 },
+  A: { strength: 0.82, rate: 1.14 }
+};
 const sRunRacers = [];
 let sRunSheetTexture = null;
 const sBillboardParentQ = new THREE.Quaternion();
@@ -863,6 +876,25 @@ function buildAnimatedSRunPlane(texture, raceLayout, racerId) {
   mesh.userData.baseScaleX = Math.abs(mesh.scale.x);
   mesh.userData.facingSign = 1;
   return mesh;
+}
+
+function applyStaticSpriteMotion(racer, frameIndex) {
+  if (!racer || racer.obj.userData.sRunAnimated) return;
+  const sprite = racer.obj.userData.raceSprite;
+  const profile = staticMotionProfile[racer.morph];
+  const frame = staticMotionFrames[frameIndex];
+  if (!sprite?.isSprite || !profile || !frame) return;
+
+  const sx = 1 + (frame.sx - 1) * profile.strength;
+  const sy = 1 + (frame.sy - 1) * profile.strength;
+  sprite.userData.motionScaleX = sx;
+  sprite.scale.y = sprite.userData.baseScaleY * sy;
+  sprite.position.y = sprite.userData.baseY + frame.y * profile.strength;
+  sprite.material.rotation = frame.rot * profile.strength;
+  sprite.userData.motionFrame = frameIndex;
+
+  if (racer.id === selectedId) stage.dataset.selectedMotionPhase = frame.phase;
+  stage.dataset.nonSRunMotion = "placeholder-6phase";
 }
 
 function applySRunFrame(racer, frameIndex) {
@@ -937,7 +969,7 @@ function orientRaceSpritesToTravel() {
       sprite.userData.facingSign = screenDirection >= 0 ? 1 : -1;
     }
 
-    sprite.scale.x = sprite.userData.baseScaleX * sprite.userData.facingSign;
+    sprite.scale.x = sprite.userData.baseScaleX * (sprite.userData.motionScaleX ?? 1) * sprite.userData.facingSign;
   }
 
   stage.dataset.directionalSpriteFacing = "enabled";
@@ -989,6 +1021,9 @@ for (const morph of ["S", "P", "E", "A"]) {
         raceSprite.scale.set(raceLayout.scale[0], raceLayout.scale[1], 1);
         raceSprite.renderOrder = 3;
         raceSprite.userData.baseScaleX = Math.abs(raceLayout.scale[0]);
+        raceSprite.userData.baseScaleY = Math.abs(raceLayout.scale[1]);
+        raceSprite.userData.baseY = raceLayout.y;
+        raceSprite.userData.motionScaleX = 1;
         raceSprite.userData.facingSign = 1;
         racer.obj.add(raceSprite);
         racer.obj.userData.raceSprite = raceSprite;
@@ -1304,6 +1339,13 @@ function update(dt) {
       const phaseOffset = (r.id * 41) % Math.round(frameMs * sRunFrames.length);
       const frameIndex = Math.floor((elapsed + phaseOffset) / frameMs) % sRunFrames.length;
       applySRunFrame(r, frameIndex);
+    } else if (staticMotionProfile[r.morph]) {
+      const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
+      const profile = staticMotionProfile[r.morph];
+      const frameMs = THREE.MathUtils.lerp(165, 88, speedRatio) / profile.rate;
+      const phaseOffset = (r.id * 53) % Math.round(frameMs * staticMotionFrames.length);
+      const frameIndex = Math.floor((elapsed + phaseOffset) / frameMs) % staticMotionFrames.length;
+      applyStaticSpriteMotion(r, frameIndex);
     }
 
     r.dustTimer = Math.max(0, (r.dustTimer ?? 0) - raceDt);
@@ -1322,6 +1364,7 @@ function update(dt) {
       finishOrder.push(r.id);
       stage.dataset.finishCount = String(finishOrder.length);
       if (r.obj.userData.sRunAnimated) applySRunFrame(r, 5);
+      else if (staticMotionProfile[r.morph]) applyStaticSpriteMotion(r, 5);
     }
   }
 
