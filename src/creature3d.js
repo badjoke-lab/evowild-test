@@ -44,11 +44,11 @@ export const CREATURE_3D_PROFILES = {
       race: { targetHeight: 1.7, groundY: -0.92 },
       benchmark: { targetHeight: 1.28, groundY: 0.03 }
     },
-    status: "comparison_only",
+    status: "rejected_comparison",
     notes: [
       "Generated from the SIDE authority reference only.",
-      "Preserves the full SIDE silhouette input, but the generated model is heavier and visually less faithful than the corrected 3/4 candidate.",
-      "Keep only for direct comparison; do not treat as an approved EvoWild S-Type."
+      "Browser comparison confirmed it is heavier (16,112 triangles) and visually less faithful than the corrected 3/4 candidate.",
+      "Rejected as the active SF3D candidate; retained only as evidence and for direct comparison."
     ]
   },
   sSf3dPrototype: {
