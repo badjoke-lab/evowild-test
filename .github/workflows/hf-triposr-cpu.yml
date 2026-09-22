@@ -53,49 +53,57 @@ jobs:
           sys.path.insert(0, "/tmp/TripoSR")
           from tsr.system import TSR
 
-          src = Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")
           out = Path("hf-poc/output-triposr-cpu")
           out.mkdir(parents=True, exist_ok=True)
 
-          # Same validated subject isolation as the SF3D input prep.
-          im = Image.open(src).convert("RGBA")
-          w, h = im.size
-          im = im.crop((int(w * 0.30), 0, w, h)).copy()
-          px = im.load()
-          for y in range(im.height):
-              for x in range(im.width):
-                  r,g,b,a = px[x,y]
-                  mn, mx = min(r,g,b), max(r,g,b)
-                  if mn >= 245:
-                      alpha = 0
-                  elif mn >= 225 and mx - mn < 18:
-                      alpha = int(max(0, min(255, (245 - mn) / 20 * 255)))
-                  else:
-                      alpha = 255
-                  px[x,y] = (r,g,b,alpha)
+          def prepare_canvas(src, crop_left, output_name):
+              im = Image.open(src).convert("RGBA")
+              w, h = im.size
+              if crop_left > 0:
+                  im = im.crop((int(w * crop_left), 0, w, h)).copy()
+              else:
+                  im = im.copy()
+              px = im.load()
+              for y in range(im.height):
+                  for x in range(im.width):
+                      r,g,b,a = px[x,y]
+                      mn, mx = min(r,g,b), max(r,g,b)
+                      if mn >= 245:
+                          alpha = 0
+                      elif mn >= 225 and mx - mn < 18:
+                          alpha = int(max(0, min(255, (245 - mn) / 20 * 255)))
+                      else:
+                          alpha = 255
+                      px[x,y] = (r,g,b,alpha)
+              bbox = im.getbbox()
+              if not bbox:
+                  raise RuntimeError(f"No foreground after input cleanup: {src}")
+              im = im.crop(bbox)
+              iw, ih = im.size
+              side = max(iw, ih)
+              fill = 0.82
+              scale = (side * fill) / max(iw, ih)
+              nw, nh = max(1, int(iw*scale)), max(1, int(ih*scale))
+              im = im.resize((nw, nh), Image.Resampling.LANCZOS)
+              canvas = Image.new("RGB", (side, side), (128,128,128))
+              rgb = Image.new("RGB", im.size, (128,128,128))
+              rgb.paste(im.convert("RGB"), mask=im.getchannel("A"))
+              canvas.paste(rgb, ((side-nw)//2, (side-nh)//2))
+              input_path = out / output_name
+              canvas.save(input_path)
+              return canvas, input_path
 
-          bbox = im.getbbox()
-          if not bbox:
-              raise RuntimeError("No foreground after input cleanup")
-          im = im.crop(bbox)
-          iw, ih = im.size
-          side = max(iw, ih)
-          fill = 0.82
-          scale = (side * fill) / max(iw, ih)
-          nw, nh = max(1, int(iw*scale)), max(1, int(ih*scale))
-          im = im.resize((nw, nh), Image.Resampling.LANCZOS)
-
-          # TripoSR --no-remove-bg convention: gray background.
-          canvas = Image.new("RGB", (side, side), (128,128,128))
-          rgba = im
-          rgb = Image.new("RGB", rgba.size, (128,128,128))
-          rgb.paste(rgba.convert("RGB"), mask=rgba.getchannel("A"))
-          canvas.paste(rgb, ((side-nw)//2, (side-nh)//2))
-          input_path = out / "triposr_input.png"
-          canvas.save(input_path)
+          variants = [
+              ("3q", Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg"), 0.30),
+              ("side", Path("hf-poc/input/01_SIDE_authority.jpg"), 0.0),
+          ]
+          prepared = []
+          for name, src, crop_left in variants:
+              canvas, input_path = prepare_canvas(src, crop_left, f"triposr_input_{name}.png")
+              prepared.append((name, src, canvas, input_path))
+              print("prepared", name, input_path, canvas.size)
 
           print("torch", torch.__version__, "cuda", torch.cuda.is_available())
-          print("input", input_path, canvas.size)
 
           t0=time.time()
           model = TSR.from_pretrained(
@@ -105,22 +113,41 @@ jobs:
           )
           model.renderer.set_chunk_size(512)
           model.to("cpu")
-          print("model_init_seconds", round(time.time()-t0,2))
+          model_init_seconds = round(time.time()-t0,2)
+          print("model_init_seconds", model_init_seconds)
 
-          t1=time.time()
-          with torch.no_grad():
-              scene_codes = model([canvas], device="cpu")
-          print("inference_seconds", round(time.time()-t1,2))
+          results = []
+          for name, src, canvas, input_path in prepared:
+              t1=time.time()
+              with torch.no_grad():
+                  scene_codes = model([canvas], device="cpu")
+              inference_seconds = round(time.time()-t1,2)
+              print(name, "inference_seconds", inference_seconds)
 
-          t2=time.time()
-          meshes = model.extract_mesh(scene_codes, True, resolution=96)
-          print("mesh_extract_seconds", round(time.time()-t2,2))
-          mesh = meshes[0]
+              t2=time.time()
+              meshes = model.extract_mesh(scene_codes, True, resolution=96)
+              mesh_extract_seconds = round(time.time()-t2,2)
+              print(name, "mesh_extract_seconds", mesh_extract_seconds)
+              mesh = meshes[0]
 
-          glb = out / "evowild_s_triposr_cpu.glb"
-          mesh.export(glb)
-          if not glb.exists() or glb.read_bytes()[:4] != b"glTF":
-              raise RuntimeError("TripoSR GLB export failed")
+              glb = out / f"evowild_s_triposr_cpu_{name}.glb"
+              mesh.export(glb)
+              if not glb.exists() or glb.read_bytes()[:4] != b"glTF":
+                  raise RuntimeError(f"TripoSR GLB export failed: {name}")
+
+              result = {
+                  "variant": name,
+                  "source_image": str(src),
+                  "input_path": str(input_path),
+                  "vertices": int(len(mesh.vertices)),
+                  "faces": int(len(mesh.faces)),
+                  "output_bytes": int(glb.stat().st_size),
+                  "inference_seconds": inference_seconds,
+                  "mesh_extract_seconds": mesh_extract_seconds,
+                  "output_glb": str(glb),
+              }
+              results.append(result)
+              print(json.dumps(result, indent=2))
 
           meta = {
               "model": "stabilityai/TripoSR",
@@ -128,14 +155,13 @@ jobs:
               "device": "cpu",
               "chunk_size": 512,
               "mc_resolution": 96,
-              "vertices": int(len(mesh.vertices)),
-              "faces": int(len(mesh.faces)),
-              "output_bytes": int(glb.stat().st_size),
-              "model_init_seconds": round(t1-t0,2),
-              "inference_seconds": round(t2-t1,2),
+              "model_init_seconds": model_init_seconds,
+              "variants": results,
               "total_seconds": round(time.time()-t0,2),
           }
-          (out/"triposr_cpu_metadata.json").write_text(json.dumps(meta,indent=2),encoding="utf-8")
+          (out/"triposr_cpu_comparison_metadata.json").write_text(
+              json.dumps(meta,indent=2), encoding="utf-8"
+          )
           print(json.dumps(meta,indent=2))
           PY
 
