@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { CREATURE_3D_PROFILES, cloneCreature3D, fitCreature3D, loadCreature3D } from "./creature3d.js";
 import "./styles.css";
 
 const canvas = document.querySelector("#game");
@@ -9,6 +9,7 @@ const stage = document.querySelector("#stage");
 const isMobile = matchMedia("(pointer: coarse)").matches || innerWidth < 800;
 const query = new URLSearchParams(location.search);
 const sf3dBenchCount = Math.min(18, Math.max(0, Number.parseInt(query.get("sf3dBench") || "0", 10) || 0));
+const sf3dBenchSide = query.get("sf3dSide") === "front" ? "front" : "double";
 let sf3dBenchGroup = null;
 let sf3dBenchStartedAt = 0;
 let sf3dBenchFrameTimes = [];
@@ -567,74 +568,7 @@ for (const morph of ["S", "P", "E", "A"]) {
   );
 }
 
-const sf3dAssetUrl = `${import.meta.env.BASE_URL}models/evowild-s-sf3d-clean.glb`;
-
-function normalizeSf3dMaterial(material) {
-  const normalized = material.clone();
-
-  // SF3D's source material is fully metallic. Without an environment map that
-  // renders almost black in the current lightweight race scene, so use a
-  // neutral game-preview PBR response while preserving its maps.
-  if ("metalness" in normalized) normalized.metalness = 0.08;
-  if ("roughness" in normalized) normalized.roughness = Math.max(0.52, normalized.roughness ?? 0.52);
-  if (normalized.color) normalized.color.set(0xffffff);
-  if (normalized.map) {
-    normalized.map.colorSpace = THREE.SRGBColorSpace;
-    normalized.map.anisotropy = Math.min(4, renderer.capabilities.getMaxAnisotropy());
-    normalized.map.needsUpdate = true;
-  }
-
-  // The generated prototype is not watertight. Double-sided rendering is only
-  // for validation so missing backfaces do not masquerade as missing geometry.
-  normalized.side = THREE.DoubleSide;
-  normalized.needsUpdate = true;
-  return normalized;
-}
-
-function fitSf3dModel(model, targetHeight, groundY) {
-  // Stable Fast 3D already exports this asset Y-up. Do not rotate around Z:
-  // the previous -90 degree correction was what laid the creature on its side.
-  model.rotation.set(0, 0, 0);
-  model.updateMatrixWorld(true);
-
-  const initialBox = new THREE.Box3().setFromObject(model);
-  const initialSize = initialBox.getSize(new THREE.Vector3());
-  const height = Math.max(0.001, initialSize.y);
-  model.scale.multiplyScalar(targetHeight / height);
-  model.updateMatrixWorld(true);
-
-  const fittedBox = new THREE.Box3().setFromObject(model);
-  const center = fittedBox.getCenter(new THREE.Vector3());
-  model.position.x -= center.x;
-  model.position.z -= center.z;
-  model.position.y += groundY - fittedBox.min.y;
-  model.updateMatrixWorld(true);
-
-  model.traverse((node) => {
-    if (!node.isMesh) return;
-    node.frustumCulled = true;
-    node.castShadow = false;
-    node.receiveShadow = false;
-    if (Array.isArray(node.material)) {
-      node.material = node.material.map(normalizeSf3dMaterial);
-    } else if (node.material) {
-      node.material = normalizeSf3dMaterial(node.material);
-    }
-  });
-  return model;
-}
-
-function countModelTriangles(model) {
-  let triangles = 0;
-  model.traverse((node) => {
-    if (!node.isMesh || !node.geometry) return;
-    const geometry = node.geometry;
-    triangles += geometry.index
-      ? geometry.index.count / 3
-      : (geometry.getAttribute("position")?.count || 0) / 3;
-  });
-  return Math.round(triangles);
-}
+const sf3dProfile = CREATURE_3D_PROFILES.sSf3dPrototype;
 
 function setupSf3dBenchmark(source, count) {
   if (!count) return;
@@ -645,12 +579,17 @@ function setupSf3dBenchmark(source, count) {
   const rows = Math.ceil(count / columns);
 
   for (let i = 0; i < count; i++) {
-    const model = fitSf3dModel(source.clone(true), 1.28, 0.03);
+    const model = fitCreature3D(cloneCreature3D(source), {
+      renderer,
+      profile: sf3dProfile,
+      placement: "benchmark",
+      materialSide: sf3dBenchSide
+    });
     const column = i % columns;
     const row = Math.floor(i / columns);
     model.position.x += (column - (columns - 1) / 2) * 1.42;
     model.position.z += (row - (rows - 1) / 2) * 1.18;
-    model.rotation.y = (column - (columns - 1) / 2) * 0.035;
+    model.rotation.y += (column - (columns - 1) / 2) * 0.035;
     sf3dBenchGroup.add(model);
   }
 
@@ -663,6 +602,7 @@ function setupSf3dBenchmark(source, count) {
   sf3dBenchReady = false;
   stage.dataset.sf3dBench = "running";
   stage.dataset.sf3dBenchCount = String(count);
+  stage.dataset.sf3dBenchSide = sf3dBenchSide;
 }
 
 function sampleSf3dBenchmark(now, frameMs) {
@@ -681,6 +621,7 @@ function sampleSf3dBenchmark(now, frameMs) {
 
   window.__sf3dBench = {
     count: sf3dBenchCount,
+    materialSide: sf3dBenchSide,
     samples: times.length,
     averageFrameMs: Number(average.toFixed(3)),
     averageFps: Number((1000 / average).toFixed(2)),
@@ -705,24 +646,27 @@ function sampleSf3dBenchmark(now, frameMs) {
   stage.dataset.sf3dBench = "ready";
 }
 
-new GLTFLoader().load(
-  sf3dAssetUrl,
-  (gltf) => {
-    const source = gltf.scene;
-    source.name = "EvoWild_S_SF3D_Source";
-    sf3dTrianglesPerInstance = countModelTriangles(source);
+loadCreature3D(sf3dProfile)
+  .then(({ source, animations, stats, profile }) => {
+    sf3dTrianglesPerInstance = stats.triangles;
 
-    sf3dLab = fitSf3dModel(source.clone(true), 3.2, 0.03);
+    sf3dLab = fitCreature3D(cloneCreature3D(source), {
+      renderer,
+      profile,
+      placement: "lab"
+    });
     sf3dLab.name = "EvoWild_S_SF3D_Lab";
     sf3dLab.visible = activeLabMorph === "S";
     labGroup.add(sf3dLab);
 
     const raceS = racers.find((r) => r.morph === "S");
     if (raceS) {
-      // Keep the procedural S as a fallback container/transform, but replace
-      // its visible geometry with the validated Stable Fast 3D candidate.
       raceS.obj.children.forEach((child) => { child.visible = false; });
-      const raceModel = fitSf3dModel(source.clone(true), 1.7, -0.92);
+      const raceModel = fitCreature3D(cloneCreature3D(source), {
+        renderer,
+        profile,
+        placement: "race"
+      });
       raceModel.name = "EvoWild_S_SF3D_Race";
       raceS.obj.add(raceModel);
       raceS.obj.userData.sf3d = raceModel;
@@ -730,16 +674,20 @@ new GLTFLoader().load(
 
     sf3dReady = true;
     stage.dataset.sf3d = "loaded";
-    stage.dataset.sf3dTriangles = String(sf3dTrianglesPerInstance);
+    stage.dataset.sf3dProfile = profile.id;
+    stage.dataset.sf3dTriangles = String(stats.triangles);
+    stage.dataset.sf3dMeshes = String(stats.meshes);
+    stage.dataset.sf3dMaterials = String(stats.materials);
+    stage.dataset.sf3dTextures = String(stats.textures);
+    stage.dataset.sf3dAnimations = String(animations.length);
+    stage.dataset.sf3dBounds = `${stats.bounds.x},${stats.bounds.y},${stats.bounds.z}`;
     setLabMorph(activeLabMorph);
     setupSf3dBenchmark(source, sf3dBenchCount);
-  },
-  undefined,
-  (error) => {
+  })
+  .catch((error) => {
     stage.dataset.sf3d = "error";
-    console.error("Stable Fast 3D S asset failed to load; keeping existing fallback", error);
-  }
-);
+    console.error("3D creature asset failed to load; keeping existing fallback", error);
+  });
 
 const assetBase = `${import.meta.env.BASE_URL}models/`;
 const mtlLoader = new MTLLoader();
