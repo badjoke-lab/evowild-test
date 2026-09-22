@@ -27,6 +27,7 @@ test("race scene renders and advances", async ({ page }) => {
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
   await expect(page.locator("#stage")).toHaveAttribute("data-race-state", "running", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-hud-telemetry", "active", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-directional-sprite-facing", "enabled", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-race-section", /START|MID|BUILD|FINAL/, { timeout: 6500 });
   await expect(page.locator("#remaining")).toContainText("m to go", { timeout: 6500 });
   await expect(page.locator("#leaderGap")).not.toHaveText("", { timeout: 6500 });
