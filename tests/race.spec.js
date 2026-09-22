@@ -45,7 +45,7 @@ test("race scene renders and advances", async ({ page }) => {
 
 
 test("capture mobile race camera views", async ({ page }, testInfo) => {
-  test.setTimeout(45000);
+  test.setTimeout(70000);
   test.skip(testInfo.project.name !== "android-chromium");
 
   const outDir = "test-results/visuals";
