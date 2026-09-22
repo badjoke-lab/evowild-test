@@ -856,6 +856,8 @@ function buildAnimatedSRunPlane(texture, raceLayout, racerId) {
   mesh.renderOrder = 4;
   mesh.frustumCulled = false;
   mesh.userData.frameIndex = -1;
+  mesh.userData.baseScaleX = Math.abs(mesh.scale.x);
+  mesh.userData.facingSign = 1;
   return mesh;
 }
 
@@ -913,6 +915,30 @@ function orientAnimatedSRunPlanes() {
   }
 }
 
+const cameraRight = new THREE.Vector3();
+const spriteTravelTangent = new THREE.Vector3();
+
+function orientRaceSpritesToTravel() {
+  cameraRight.set(1, 0, 0).applyQuaternion(camera.quaternion).normalize();
+
+  for (const racer of racers) {
+    const sprite = racer.obj.userData.raceSprite;
+    if (!sprite?.userData?.baseScaleX) continue;
+
+    const t = (racer.distance / raceMeters) % 1;
+    spriteTravelTangent.copy(curve.getTangentAt(t)).normalize();
+    const screenDirection = spriteTravelTangent.dot(cameraRight);
+
+    if (Math.abs(screenDirection) > 0.08) {
+      sprite.userData.facingSign = screenDirection >= 0 ? 1 : -1;
+    }
+
+    sprite.scale.x = sprite.userData.baseScaleX * sprite.userData.facingSign;
+  }
+
+  stage.dataset.directionalSpriteFacing = "enabled";
+}
+
 textureLoader.load(
   `${import.meta.env.BASE_URL}concept/s-run-sheet.webp`,
   (texture) => {
@@ -958,6 +984,8 @@ for (const morph of ["S", "P", "E", "A"]) {
         raceSprite.position.set(0, raceLayout.y, 0);
         raceSprite.scale.set(raceLayout.scale[0], raceLayout.scale[1], 1);
         raceSprite.renderOrder = 3;
+        raceSprite.userData.baseScaleX = Math.abs(raceLayout.scale[0]);
+        raceSprite.userData.facingSign = 1;
         racer.obj.add(raceSprite);
         racer.obj.userData.raceSprite = raceSprite;
         if (morph === "S") installSRunSpriteFor(racer);
@@ -1564,6 +1592,7 @@ function frame(now) {
     update(dt);
     setCamera();
     orientAnimatedSRunPlanes();
+    orientRaceSpritesToTravel();
     renderer.render(scene, camera);
     updateHud();
     drawMiniMap();
