@@ -715,3 +715,29 @@ body.p-rig-proof .stage, body.e-rig-proof .stage { min-height: 620px; }
   }
   .race-banner { min-width: 76px; padding: 10px 14px; }
 }
+
+
+.speed-fx {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  mix-blend-mode: screen;
+  background:
+    repeating-linear-gradient(
+      96deg,
+      transparent 0 34px,
+      rgba(198, 231, 255, 0.12) 35px 37px,
+      transparent 38px 78px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.00) 0%,
+      rgba(255,255,255,0.02) 52%,
+      rgba(188,225,255,0.10) 100%
+    );
+  filter: blur(0.45px);
+  transition: opacity 120ms linear;
+  will-change: transform, opacity;
+}
