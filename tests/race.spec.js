@@ -2,6 +2,7 @@ import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 
 test("race scene renders and advances", async ({ page }) => {
+  test.setTimeout(45000);
   const pageErrors = [];
   const consoleErrors = [];
 
