@@ -73,8 +73,28 @@ canvas.addEventListener("webglcontextrestored", () => {
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x9bc6dc);
-const raceFog = new THREE.Fog(0x9bc6dc, 75, 150);
+const raceFog = new THREE.Fog(0x9bc6dc, 82, 172);
 scene.fog = raceFog;
+
+const skyCanvas = document.createElement("canvas");
+skyCanvas.width = 16;
+skyCanvas.height = 256;
+const skyCtx = skyCanvas.getContext("2d");
+const skyGradient = skyCtx.createLinearGradient(0, 0, 0, 256);
+skyGradient.addColorStop(0, "#567d9d");
+skyGradient.addColorStop(0.45, "#90b8cc");
+skyGradient.addColorStop(0.78, "#c7d5d0");
+skyGradient.addColorStop(1, "#e0ccb0");
+skyCtx.fillStyle = skyGradient;
+skyCtx.fillRect(0, 0, 16, 256);
+const skyTexture = new THREE.CanvasTexture(skyCanvas);
+skyTexture.colorSpace = THREE.SRGBColorSpace;
+const skyDome = new THREE.Mesh(
+  new THREE.SphereGeometry(185, 28, 16),
+  new THREE.MeshBasicMaterial({ map: skyTexture, side: THREE.BackSide, depthWrite: false, fog: false })
+);
+skyDome.name = "RaceSkyDome";
+scene.add(skyDome);
 
 const camera = new THREE.PerspectiveCamera(42, 16 / 9, 0.1, 240);
 scene.add(new THREE.HemisphereLight(0xddeeff, 0x26332e, 1.18));
@@ -308,6 +328,56 @@ function buildTrack() {
   beacons.instanceMatrix.needsUpdate = true;
   scene.add(beacons);
 
+  const barrierCount = isMobile ? 34 : 54;
+  const barrierGeometry = new THREE.BoxGeometry(2.15, 0.34, 0.20);
+  const barrierMaterial = new THREE.MeshStandardMaterial({
+    color: 0x27343d,
+    roughness: 0.62,
+    metalness: 0.18
+  });
+  const barriers = new THREE.InstancedMesh(barrierGeometry, barrierMaterial, barrierCount * 2);
+  const barrierDummy = new THREE.Object3D();
+  let barrierIndex = 0;
+  for (const offset of [-(half + 1.10), half + 1.10]) {
+    for (let i = 0; i < barrierCount; i++) {
+      const t = (i + 0.5) / barrierCount;
+      const p = curve.getPointAt(t);
+      const tangent = curve.getTangentAt(t).normalize();
+      const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+      const q = p.clone().addScaledVector(side, offset);
+      barrierDummy.position.set(q.x, q.y + 0.27, q.z);
+      barrierDummy.rotation.set(0, Math.atan2(-tangent.z, tangent.x), 0);
+      barrierDummy.scale.set(0.92 + (i % 3) * 0.08, 1, 1);
+      barrierDummy.updateMatrix();
+      barriers.setMatrixAt(barrierIndex++, barrierDummy.matrix);
+    }
+  }
+  barriers.instanceMatrix.needsUpdate = true;
+  scene.add(barriers);
+
+  const accentCount = Math.ceil(barrierCount / 4) * 2;
+  const accentGeometry = new THREE.BoxGeometry(1.15, 0.07, 0.225);
+  const accentMaterial = new THREE.MeshBasicMaterial({ color: 0x65d8ff });
+  const accents = new THREE.InstancedMesh(accentGeometry, accentMaterial, accentCount);
+  let accentIndex = 0;
+  for (const offset of [-(half + 1.10), half + 1.10]) {
+    for (let i = 0; i < barrierCount; i += 4) {
+      const t = (i + 0.5) / barrierCount;
+      const p = curve.getPointAt(t);
+      const tangent = curve.getTangentAt(t).normalize();
+      const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+      const q = p.clone().addScaledVector(side, offset);
+      barrierDummy.position.set(q.x, q.y + 0.39, q.z);
+      barrierDummy.rotation.set(0, Math.atan2(-tangent.z, tangent.x), 0);
+      barrierDummy.scale.set(1, 1, 1);
+      barrierDummy.updateMatrix();
+      accents.setMatrixAt(accentIndex++, barrierDummy.matrix);
+    }
+  }
+  accents.count = accentIndex;
+  accents.instanceMatrix.needsUpdate = true;
+  scene.add(accents);
+
   const startT = 0.012;
   const startPoint = curve.getPointAt(startT);
   const startTangent = curve.getTangentAt(startT).normalize();
@@ -343,9 +413,48 @@ function buildTrack() {
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
-  stage.dataset.trackPresentation = "v6";
+  stage.dataset.trackPresentation = "v7";
 }
 buildTrack();
+
+function buildHorizonRidge() {
+  const segments = isMobile ? 44 : 64;
+  const vertices = [];
+  const indices = [];
+  for (let i = 0; i <= segments; i++) {
+    const a = (i / segments) * Math.PI * 2;
+    const wave =
+      Math.sin(a * 3.0 + 0.4) * 2.3 +
+      Math.sin(a * 7.0 - 0.8) * 1.35 +
+      Math.sin(a * 13.0 + 1.7) * 0.65;
+    const ridgeHeight = 6.8 + wave;
+    for (const [radius, y] of [[49, -0.8], [68, ridgeHeight], [94, -1.6]]) {
+      vertices.push(Math.cos(a) * radius, y, Math.sin(a) * radius * 0.78);
+    }
+  }
+  for (let i = 0; i < segments; i++) {
+    const a = i * 3;
+    const b = a + 3;
+    indices.push(a, a + 1, b, b, a + 1, b + 1);
+    indices.push(a + 1, a + 2, b + 1, b + 1, a + 2, b + 2);
+  }
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
+  geometry.setIndex(indices);
+  geometry.computeVertexNormals();
+  const ridge = new THREE.Mesh(
+    geometry,
+    new THREE.MeshStandardMaterial({
+      color: 0x52695f,
+      roughness: 1,
+      flatShading: true,
+      side: THREE.DoubleSide
+    })
+  );
+  ridge.name = "HorizonRidge";
+  scene.add(ridge);
+}
+buildHorizonRidge();
 
 const speedMarkerGeometry = new THREE.BoxGeometry(1.05, 0.08, 0.16);
 const speedMarkerMaterial = new THREE.MeshBasicMaterial({ color: 0xf4e8cf });
