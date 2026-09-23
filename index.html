@@ -52,6 +52,15 @@
               <span id="decision">START / BUILD SPEED</span>
             </div>
           </div>
+          <div class="hud hud-agent" id="agentPanel">
+            <div class="agent-head">
+              <span>RACE AGENT</span>
+              <small>SCRIPTED POLICY PROOF</small>
+            </div>
+            <div class="agent-line"><span>ORDER</span><b id="agentOrder">BUILD SPEED</b></div>
+            <div class="agent-line"><span>CREATURE</span><b id="creatureResponse">READY</b></div>
+            <div class="agent-reason" id="creatureReason">Awaiting race start</div>
+          </div>
           <div class="hud hud-mini"><canvas id="mini" width="220" height="125"></canvas></div>
           <div class="race-banner" id="raceBanner" aria-live="polite">3</div>
           <section class="race-results" id="resultsPanel" hidden>
