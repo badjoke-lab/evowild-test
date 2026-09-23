@@ -231,6 +231,34 @@ test("record full field and non-S follow motion proof", async ({ browser }, test
 });
 
 
+test("record isolated original-sprite P cutout rig", async ({ browser }, testInfo) => {
+  test.setTimeout(45000);
+  test.skip(testInfo.project.name !== "desktop-chromium");
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const context = await browser.newContext({
+    viewport: { width: 1280, height: 720 },
+    recordVideo: { dir: outDir, size: { width: 1280, height: 720 } }
+  });
+  const page = await context.newPage();
+  await page.goto("http://127.0.0.1:4173/evowild-test/?proof=p-rig", { waitUntil: "networkidle" });
+  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-rig", "loaded", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-proof", "isolated", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "2");
+  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-motion", "6phase-rig", { timeout: 6500 });
+  await page.waitForTimeout(6200);
+  await page.locator("#stage").screenshot({ path: `${outDir}/desktop-p-cutout-proof.png` });
+
+  const video = page.video();
+  await page.close();
+  const raw = await video.path();
+  fs.renameSync(raw, `${outDir}/desktop-p-cutout-proof.webm`);
+  await context.close();
+});
+
+
 test("race reaches results and rematch returns to countdown", async ({ page }, testInfo) => {
   test.setTimeout(30000);
   test.skip(testInfo.project.name !== "desktop-chromium");
