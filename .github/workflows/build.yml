@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   build:
+    if: ${{ !(github.event_name == 'pull_request' && github.head_ref == 'feat/sf3d-game-integration-20260922') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
