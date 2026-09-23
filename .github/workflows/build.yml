@@ -75,6 +75,16 @@ jobs:
           test -n "$triposr3q_meta"
           cp "$triposr3q_glb" public/models/evowild-s-triposr-3q.glb
           cp "$triposr3q_meta" public/models/evowild-s-triposr-3q.json
+
+          mkdir -p /tmp/hunyuan2mv
+          gh api repos/${{ github.repository }}/actions/artifacts/10622078621/zip > /tmp/hunyuan2mv.zip
+          unzip -q /tmp/hunyuan2mv.zip -d /tmp/hunyuan2mv
+          hunyuan_glb="$(find /tmp/hunyuan2mv -name 'evowild_s_hunyuan3d2mv.glb' -print -quit)"
+          hunyuan_meta="$(find /tmp/hunyuan2mv -name 'metadata.json' -print -quit)"
+          test -n "$hunyuan_glb"
+          test -n "$hunyuan_meta"
+          cp "$hunyuan_glb" public/models/evowild-s-hunyuan2mv-raw.glb
+          cp "$hunyuan_meta" public/models/evowild-s-hunyuan2mv-raw.json
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -137,6 +147,8 @@ jobs:
             public/models/evowild-s-triposr-side.json \
             public/models/evowild-s-triposr-3q.glb \
             public/models/evowild-s-triposr-3q.json \
+            public/models/evowild-s-hunyuan2mv-raw.glb \
+            public/models/evowild-s-hunyuan2mv-raw.json \
             public/models/evowild-s-sf3d-corrected-lod1.glb \
             public/models/evowild-s-sf3d-corrected-lod2.glb \
             public/models/evowild-s-sf3d-corrected-lod3.glb \
