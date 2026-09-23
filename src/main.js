@@ -583,8 +583,25 @@ for (const morph of ["S", "P", "E", "A"]) {
   );
 }
 
+function makeLiteMaterialProfile(profile) {
+  return {
+    ...profile,
+    id: `${profile.id}-lite-runtime`,
+    material: {
+      ...(profile.material || {}),
+      preserveBaseColorMap: true,
+      preserveNormalMap: false,
+      preserveRoughnessMap: false,
+      preserveMetalnessMap: false,
+      maxAnisotropy: 1,
+      metalness: 0.0,
+      minRoughness: Math.max(0.68, profile.material?.minRoughness ?? 0.68)
+    }
+  };
+}
+
 const sf3dVariant = query.get("sf3dVariant");
-const sf3dProfile = sf3dVariant === "lod1"
+const sf3dBaseProfile = sf3dVariant === "lod1"
   ? CREATURE_3D_PROFILES.sSf3dCorrectedLod1
   : sf3dVariant === "lod2"
     ? CREATURE_3D_PROFILES.sSf3dCorrectedLod2
@@ -599,6 +616,10 @@ const sf3dProfile = sf3dVariant === "lod1"
           : sf3dVariant === "white"
             ? CREATURE_3D_PROFILES.sSf3dWhite
             : CREATURE_3D_PROFILES.sSf3dCorrected;
+
+const sf3dProfile = sf3dMaterialMode === "lite" && (sf3dVariant === "lod2" || sf3dVariant === "lod3")
+  ? makeLiteMaterialProfile(sf3dBaseProfile)
+  : sf3dBaseProfile;
 
 function setupSf3dBenchmark(source, count) {
   if (!count) return;
@@ -677,20 +698,7 @@ function setupSf3dBenchmark(source, count) {
 
 function profileForStress(profile, level) {
   if (sf3dMaterialMode !== "lite" || level < 2) return profile;
-  return {
-    ...profile,
-    id: `${profile.id}-lite-runtime`,
-    material: {
-      ...(profile.material || {}),
-      preserveBaseColorMap: true,
-      preserveNormalMap: false,
-      preserveRoughnessMap: false,
-      preserveMetalnessMap: false,
-      maxAnisotropy: 1,
-      metalness: 0.0,
-      minRoughness: Math.max(0.68, profile.material?.minRoughness ?? 0.68)
-    }
-  };
+  return makeLiteMaterialProfile(profile);
 }
 
 function setupRaceStress(baseSource, baseProfile, lod1Data, lod2Data, lod3Data) {
