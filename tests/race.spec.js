@@ -235,6 +235,8 @@ test("race reaches results and rematch returns to countdown", async ({ page }, t
   await expect(page.locator("#stage")).toHaveAttribute("data-finish-count", "18");
   await expect(page.locator("#resultsPanel")).toBeVisible();
   await expect(page.locator("#resultsList .result-row")).toHaveCount(18);
+  await expect(page.locator("#resultsList .result-agent")).toHaveCount(18);
+  await expect(page.locator("#resultsList .result-agent").first()).toContainText("AG-");
   await expect(page.locator("#resultHeadline")).toContainText("Aster");
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-starts", "1", { timeout: 3000 });
   await expect(page.locator("#agentRecord")).toContainText("1S");
