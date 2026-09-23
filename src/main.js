@@ -72,8 +72,8 @@ canvas.addEventListener("webglcontextrestored", () => {
 });
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x9bc6dc);
-const raceFog = new THREE.Fog(0x9bc6dc, 82, 172);
+scene.background = new THREE.Color(0x8eafbd);
+const raceFog = new THREE.Fog(0x8eafbd, 82, 172);
 scene.fog = raceFog;
 
 const skyCanvas = document.createElement("canvas");
@@ -107,7 +107,7 @@ scene.add(rim);
 
 const ground = new THREE.Mesh(
   new THREE.PlaneGeometry(210, 160),
-  new THREE.MeshStandardMaterial({ color: 0x6d8d62, roughness: 1 })
+  new THREE.MeshStandardMaterial({ color: 0x355248, roughness: 1 })
 );
 ground.rotation.x = -Math.PI / 2;
 ground.position.y = -0.03;
@@ -175,12 +175,12 @@ function buildTrack() {
   makeRibbon(
     half + 0.72,
     0.015,
-    new THREE.MeshStandardMaterial({ color: 0x765c40, roughness: 1 })
+    new THREE.MeshStandardMaterial({ color: 0x26333c, roughness: 0.92, metalness: 0.06 })
   );
   makeRibbon(
     half,
     0.035,
-    new THREE.MeshStandardMaterial({ color: 0xb88758, roughness: 1 })
+    new THREE.MeshStandardMaterial({ color: 0x56636c, roughness: 0.96, metalness: 0.02 })
   );
 
   for (const offset of [-half, half]) {
@@ -202,9 +202,9 @@ function buildTrack() {
 
   const laneGuideOffsets = [-3.10, -1.55, 0, 1.55, 3.10];
   const laneGuideMaterial = new THREE.LineDashedMaterial({
-    color: 0xf1d8b5,
+    color: 0xaed8e4,
     transparent: true,
-    opacity: 0.28,
+    opacity: 0.36,
     dashSize: 0.72,
     gapSize: 0.88
   });
@@ -226,7 +226,7 @@ function buildTrack() {
   }
 
   const railOffset = half + 0.78;
-  const railMaterial = new THREE.LineBasicMaterial({ color: 0xd8dee2, transparent: true, opacity: 0.95 });
+  const railMaterial = new THREE.LineBasicMaterial({ color: 0xa9c4cf, transparent: true, opacity: 0.88 });
   for (const offset of [-railOffset, railOffset]) {
     for (const y of [0.52, 0.88]) {
       const points = [];
@@ -413,7 +413,7 @@ function buildTrack() {
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
-  stage.dataset.trackPresentation = "v7";
+  stage.dataset.trackPresentation = "v8";
 }
 buildTrack();
 
@@ -457,7 +457,7 @@ function buildHorizonRidge() {
 buildHorizonRidge();
 
 const speedMarkerGeometry = new THREE.BoxGeometry(1.05, 0.08, 0.16);
-const speedMarkerMaterial = new THREE.MeshBasicMaterial({ color: 0xf4e8cf });
+const speedMarkerMaterial = new THREE.MeshBasicMaterial({ color: 0xbfe8f2 });
 for (let i = 0; i < 72; i++) {
   const t = i / 72;
   const p = curve.getPointAt(t);
@@ -517,8 +517,9 @@ for (let i = 0; i < 22; i++) {
 }
 
 const standGroup = new THREE.Group();
-standGroup.position.set(7, 0, -34.2);
-standGroup.rotation.y = -0.03;
+standGroup.position.set(10, 0.15, -48);
+standGroup.rotation.y = -0.04;
+standGroup.scale.setScalar(0.58);
 const standMat = new THREE.MeshStandardMaterial({ color: 0x596773, roughness: 0.92 });
 const seatMat = new THREE.MeshBasicMaterial({ color: 0x8ea0ad });
 for (let i = 0; i < 4; i++) {
@@ -2900,7 +2901,7 @@ function setCamera() {
   const lab = view === "lab";
   const tactical = view === "tactical";
   scene.fog = (lab || tactical) ? null : raceFog;
-  scene.background = new THREE.Color(lab ? 0x202a35 : 0x9bc6dc);
+  scene.background = new THREE.Color(lab ? 0x202a35 : 0x8eafbd);
   raceEnvironment.forEach((obj) => { obj.visible = !lab; });
   racers.forEach((r) => { r.obj.visible = !lab && !tactical && (!isolatedProof || r.id === isolatedProofRacerId); });
   ring.visible = !lab && !tactical;
