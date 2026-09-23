@@ -310,6 +310,8 @@ test("compare corrected SF3D LOD quality and 18-instance load", async ({ page },
   expect(results[1].triangles).toBeLessThan(results[0].triangles);
   expect(results[2].triangles).toBeLessThan(results[1].triangles);
   expect(results[3].triangles).toBeLessThan(results[2].triangles);
+  expect(results[4].triangles).toBeLessThan(results[3].triangles);
+  expect(results[5].triangles).toBeLessThan(results[4].triangles);
   expect(results[3].triangles).toBeLessThan(results[2].triangles);
 
   fs.writeFileSync(
@@ -635,7 +637,9 @@ test("compare raw and simplified Hunyuan multiview shapes", async ({ page }, tes
     { name: "raw", query: "?sf3dVariant=hunyuan2mv" },
     { name: "clean", query: "?sf3dVariant=hunyuanclean" },
     { name: "lod1", query: "?sf3dVariant=hunyuanlod1" },
-    { name: "lod2", query: "?sf3dVariant=hunyuanlod2" }
+    { name: "lod2", query: "?sf3dVariant=hunyuanlod2" },
+    { name: "lod3", query: "?sf3dVariant=hunyuanlod3" },
+    { name: "lod4", query: "?sf3dVariant=hunyuanlod4" }
   ];
   const results = [];
 
@@ -680,7 +684,9 @@ test("compare Hunyuan raw and LOD2 across four views", async ({ page }, testInfo
 
   const variants = [
     { name: "raw", variant: "hunyuan2mv" },
-    { name: "lod2", variant: "hunyuanlod2" }
+    { name: "lod2", variant: "hunyuanlod2" },
+    { name: "lod3", variant: "hunyuanlod3" },
+    { name: "lod4", variant: "hunyuanlod4" }
   ];
   const yaws = [0, 90, 180, 270];
 
