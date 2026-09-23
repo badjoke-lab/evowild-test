@@ -428,6 +428,7 @@ export function createStaticCreatureInstanceBatch(source, {
     supported: true,
     reason: null,
     object: batch,
+    prototypeMatrix: mesh.matrixWorld.clone(),
     meshCount: 1,
     trianglesPerInstance: Math.round(triangles),
     expectedTriangles: Math.round(triangles * instanceCount)
