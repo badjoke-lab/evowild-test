@@ -3009,9 +3009,9 @@ function setCamera() {
 
   const speedRatio = THREE.MathUtils.clamp(selected.speed / Math.max(1, selected.cruise), 0, 1.2);
   const targetFov = view === "follow"
-    ? THREE.MathUtils.lerp(isMobile ? 58 : 52, isMobile ? 72 : 68, speedRatio)
+    ? THREE.MathUtils.lerp(isMobile ? 60 : 56, isMobile ? 74 : 70, speedRatio)
     : view === "race"
-      ? THREE.MathUtils.lerp(isMobile ? 56 : 50, isMobile ? 70 : 64, speedRatio)
+      ? THREE.MathUtils.lerp(isMobile ? 54 : 50, isMobile ? 64 : 60, speedRatio)
       : (isMobile ? 50 : 42);
   camera.fov = THREE.MathUtils.lerp(camera.fov, targetFov, 0.09);
   camera.updateProjectionMatrix();
@@ -3045,20 +3045,21 @@ function setCamera() {
     const isolatedBack = aRigIsolatedProof ? -1.55 : eRigIsolatedProof ? -1.45 : pRigIsolatedProof ? -1.55 : -1.2;
     const isolatedSide = aRigIsolatedProof ? 4.95 : eRigIsolatedProof ? 5.05 : pRigIsolatedProof ? 4.8 : 4.1;
     const isolatedHeight = aRigIsolatedProof ? 1.95 : eRigIsolatedProof ? 2.18 : pRigIsolatedProof ? 1.95 : 1.72;
-    const followBack = isolatedProof ? (isMobile ? -1.5 : isolatedBack) : (isMobile ? -2.25 : -2.55);
-    const followSide = isolatedProof ? (isMobile ? 4.3 : isolatedSide) : (isMobile ? 4.65 : 3.85);
-    const followHeight = isolatedProof ? (isMobile ? 1.92 : isolatedHeight) : (isMobile ? 1.95 : 1.48);
-    const shake = Math.max(0, speedRatio - 0.42) * (isolatedProof ? 0.08 : 0.11);
+    const followBack = isolatedProof ? (isMobile ? -1.5 : isolatedBack) : (isMobile ? -4.4 : -5.2);
+    const followSide = isolatedProof ? (isMobile ? 4.3 : isolatedSide) : (isMobile ? 5.6 : 6.4);
+    const followHeight = isolatedProof ? (isMobile ? 1.92 : isolatedHeight) : (isMobile ? 2.10 : 2.25);
+    const shake = Math.max(0, speedRatio - 0.38) * (isolatedProof ? 0.08 : 0.14);
     const desired = selectedPos.clone()
       .addScaledVector(tangent, followBack)
-      .addScaledVector(side, followSide + Math.sin(elapsed * 0.023) * shake)
-      .add(new THREE.Vector3(0, followHeight + Math.sin(elapsed * 0.031) * shake * 0.6, 0));
-    camera.position.lerp(desired, 0.15);
+      .addScaledVector(side, followSide + Math.sin(elapsed * 0.021) * shake)
+      .add(new THREE.Vector3(0, followHeight + Math.sin(elapsed * 0.033) * shake * 0.45, 0));
+    camera.position.lerp(desired, 0.16);
     const lookTarget = selectedPos.clone()
-      .addScaledVector(tangent, 2.4)
-      .addScaledVector(side, Math.sin(elapsed * 0.017) * shake * 0.45)
-      .add(new THREE.Vector3(0, 0.50, 0));
+      .addScaledVector(tangent, 4.2)
+      .addScaledVector(side, -0.45)
+      .add(new THREE.Vector3(0, 0.58, 0));
     camera.lookAt(lookTarget);
+    stage.dataset.followCamera = "rear-quarter";
   } else if (view === "tactical") {
     camera.up.set(0, 0, -1);
     const tacticalHeight = isMobile ? 112 : 78;
@@ -3066,7 +3067,7 @@ function setCamera() {
     camera.lookAt(0, 0, 0);
   } else {
     camera.up.set(0, 1, 0);
-    const pack = ranks().slice(0, 10);
+    const pack = ranks().slice(0, 14);
     const center = new THREE.Vector3();
     pack.forEach((r) => center.add(r.obj.position));
     center.multiplyScalar(1 / pack.length);
@@ -3076,19 +3077,24 @@ function setCamera() {
     const leaderTangent = curve.getTangentAt(lt).normalize();
     const leaderSide = new THREE.Vector3(-leaderTangent.z, 0, leaderTangent.x);
 
-    const raceBack = isMobile ? -5.4 : -5.8;
-    const raceSide = isMobile ? 10.0 : 8.8;
-    const raceHeight = isMobile ? 4.25 : 3.45;
-    const raceShake = Math.max(0, speedRatio - 0.48) * 0.10;
+    const raceBack = isMobile ? -0.8 : -1.2;
+    const raceSide = isMobile ? 8.6 : 10.8;
+    const raceHeight = isMobile ? 2.85 : 2.65;
+    const raceShake = Math.max(0, speedRatio - 0.40) * 0.12;
     camera.position.lerp(
       center.clone()
-        .addScaledVector(leaderTangent, raceBack + Math.sin(elapsed * 0.019) * raceShake)
+        .addScaledVector(leaderTangent, raceBack + Math.sin(elapsed * 0.020) * raceShake)
         .addScaledVector(leaderSide, raceSide)
-        .add(new THREE.Vector3(0, raceHeight + Math.sin(elapsed * 0.027) * raceShake, 0)),
-      0.085
+        .add(new THREE.Vector3(0, raceHeight + Math.sin(elapsed * 0.029) * raceShake * 0.55, 0)),
+      0.11
     );
-    camera.lookAt(center.clone().addScaledVector(leaderTangent, 3.8).add(new THREE.Vector3(0, 0.48, 0)));
-    stage.dataset.raceCamera = "low-pack";
+    camera.lookAt(
+      center.clone()
+        .addScaledVector(leaderTangent, 1.8)
+        .addScaledVector(leaderSide, -0.55)
+        .add(new THREE.Vector3(0, 0.58, 0))
+    );
+    stage.dataset.raceCamera = "side-pack-cinematic";
   }
 
   const selectedCameraDistance = camera.position.distanceTo(selected.obj.position);
@@ -3348,7 +3354,9 @@ function frame(now) {
     update(dt);
     setCamera();
     orientAnimatedSRunPlanes();
-    orientGeneratedRunPlanes();
+    orientPCutoutRigs();
+    orientECutoutRigs();
+    orientACutoutRigs();
     orientRaceSpritesToTravel();
     updateAgentVisual(now);
     renderer.render(scene, camera);
@@ -3377,6 +3385,7 @@ function syncViewUi() {
   document.querySelectorAll("[data-view]").forEach((button) => {
     button.classList.toggle("active", button.dataset.view === view);
   });
+  document.body.classList.toggle("cinematic-race", view === "race" && !isolatedProof);
   document.body.classList.toggle("cinematic-follow", view === "follow" && !isolatedProof);
 }
 
