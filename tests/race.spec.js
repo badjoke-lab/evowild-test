@@ -264,6 +264,44 @@ test("record isolated original-sprite P cutout rig", async ({ browser }, testInf
 });
 
 
+test("record isolated original-sprite E cutout rig", async ({ browser }, testInfo) => {
+  test.setTimeout(45000);
+  test.skip(testInfo.project.name !== "desktop-chromium");
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const context = await browser.newContext({
+    viewport: { width: 1280, height: 720 },
+    recordVideo: { dir: outDir, size: { width: 1280, height: 720 } }
+  });
+  const page = await context.newPage();
+  await page.goto("http://127.0.0.1:4173/evowild-test/?proof=e-rig", { waitUntil: "networkidle" });
+  await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-rig", "loaded", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-proof", "isolated", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-racers", "1");
+  await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-racer", "3");
+  await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "3");
+  await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-motion", "6phase-rig-v1", { timeout: 6500 });
+
+  const observed = new Set();
+  for (let i = 0; i < 10; i++) {
+    await page.waitForTimeout(120);
+    observed.add(await page.locator("#stage").getAttribute("data-selected-motion-phase"));
+  }
+  expect(observed.size).toBeGreaterThanOrEqual(4);
+
+  await page.waitForTimeout(4500);
+  await page.locator("#stage").screenshot({ path: `${outDir}/desktop-e-cutout-proof.png` });
+
+  const video = page.video();
+  await page.close();
+  const raw = await video.path();
+  fs.renameSync(raw, `${outDir}/desktop-e-cutout-proof.webm`);
+  await context.close();
+});
+
+
 test("race reaches results and rematch returns to countdown", async ({ page }, testInfo) => {
   test.setTimeout(30000);
   test.skip(testInfo.project.name !== "desktop-chromium");
