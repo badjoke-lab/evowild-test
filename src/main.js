@@ -1871,6 +1871,7 @@ function renderResultAgentSummary(racer) {
   document.querySelector("#resultPartial").textContent = String(stats.partial);
   document.querySelector("#resultFailed").textContent = String(stats.failed);
   document.querySelector("#resultLaneMoves").textContent = String(stats.laneMoves);
+  document.querySelector("#resultCompatibility").textContent = `${compatibilityScoreFor(racer)}%`;
   document.querySelector("#resultFinalFatigue").textContent = `${fatigue}%`;
   document.querySelector("#resultAgentRecord").textContent = `Race history ${historyCount}`;
   document.querySelector("#resultAgentInterpretation").textContent = resultInterpretationFor(racer);
@@ -1878,6 +1879,7 @@ function renderResultAgentSummary(racer) {
   stage.dataset.resultAgentSummary = "ready";
   stage.dataset.resultAgentDecisions = String(stats.decisions);
   stage.dataset.resultAgentFailed = String(stats.failed);
+  stage.dataset.resultAgentCompatibility = String(compatibilityScoreFor(racer));
   stage.dataset.resultAgentCompatibility = String(compatibilityScore);
 }
 function updateRaceStateDataset() {
