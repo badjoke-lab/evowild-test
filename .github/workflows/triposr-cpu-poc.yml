@@ -74,7 +74,7 @@ jobs:
           git clone --depth 1 https://github.com/VAST-AI-Research/TripoSR.git /tmp/TripoSR
           python -m pip install -q --upgrade pip setuptools wheel
           python -m pip install -q torch==2.2.2 torchvision==0.17.2 --index-url https://download.pytorch.org/whl/cpu
-          python -m pip install -q scikit-build-core cmake ninja pybind11
+          python -m pip install -q scikit-build-core cmake ninja pybind11 onnxruntime
           cd /tmp/TripoSR
           grep -v 'torchmcubes' requirements.txt > /tmp/triposr-requirements-no-mcubes.txt
           python -m pip install -q -r /tmp/triposr-requirements-no-mcubes.txt
