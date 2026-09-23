@@ -1,0 +1,36 @@
+{
+  "source_space": "tencent/Hunyuan3D-2mv",
+  "api": "/shape_generation",
+  "caption": "slim futuristic quadruped racing creature, silver white body, cool blue and cyan accents, four clearly separated long legs, long narrow head, two upright horn ear structures, backward crest blades, blade-like fin tail, neutral standing pose, full body",
+  "steps": 5,
+  "guidance_scale": 5.0,
+  "seed": 1234,
+  "octree_resolution": 256,
+  "mesh_stats": {
+    "model": {
+      "shapegen": "tencent/Hunyuan3D-2mv/hunyuan3d-dit-v2-mv-turbo",
+      "texgen": "tencent/Hunyuan3D-2"
+    },
+    "params": {
+      "caption": "slim futuristic quadruped racing creature, silver white body, cool blue and cyan accents, four clearly separated long legs, long narrow head, two upright horn ear structures, backward crest blades, blade-like fin tail, neutral standing pose, full body",
+      "steps": 5,
+      "guidance_scale": 5.0,
+      "seed": 1234,
+      "octree_resolution": 256,
+      "check_box_rembg": true,
+      "num_chunks": 8000
+    },
+    "number_of_faces": 242426,
+    "number_of_vertices": 83107,
+    "time": {
+      "remove background": 2.7491211891174316,
+      "shape generation": 2.112614631652832,
+      "export to trimesh": 0.03757953643798828,
+      "total": 4.901767730712891
+    }
+  },
+  "server_path": "/tmp/gradio/6a4d9bfa1cb23eab25a1e760919c770664787186e89c4235c64ce1ec75183843/white_mesh.glb",
+  "download_url": "https://tencent-hunyuan3d-2mv.hf.space/file=/tmp/gradio/6a4d9bfa1cb23eab25a1e760919c770664787186e89c4235c64ce1ec75183843/white_mesh.glb",
+  "output_filename": "evowild_s_hunyuan3d2mv.glb",
+  "output_bytes": 3907912
+}
