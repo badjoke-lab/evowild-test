@@ -280,7 +280,8 @@ test("race reaches results and rematch returns to countdown", async ({ page }, t
   await expect(page.locator("#stage")).toHaveAttribute("data-result-agent-summary", "ready");
   await expect(page.locator("#stage")).toHaveAttribute("data-result-agent-decisions", /[1-9]\d*/);
   await expect(page.locator("#resultAgentIdentity")).toContainText("AG-001");
-  await expect(page.locator("#resultAgentPolicy")).not.toHaveText("");
+  await expect(page.locator("#resultAgentPolicy")).toContainText("COMPAT");
+  await expect(page.locator("#stage")).toHaveAttribute("data-result-agent-compatibility", /\d+/);
   await expect(page.locator("#resultDecisions")).not.toHaveText("0");
   await expect(page.locator("#resultFinalFatigue")).toContainText("%");
   await expect(page.locator("#resultAgentRecord")).toContainText("Race history 1");
