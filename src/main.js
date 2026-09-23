@@ -1599,7 +1599,7 @@ function finishRace() {
   resultsList.innerHTML = ordered.map((r) => `
     <div class="result-row ${r.id === selectedId ? "selected" : ""}">
       <span class="place">#${r.finishPlace}</span>
-      <span><span class="result-name">${r.name}</span><span class="result-morph"> #${String(r.id).padStart(2, "0")}</span></span>
+      <span><span class="result-name">${r.name}</span><span class="result-morph"> #${String(r.id).padStart(2, "0")}</span><small class="result-agent">${r.agent.id} ${r.agent.name} · ${r.agent.policy.label}</small></span>
       <span class="result-morph">${r.morph}</span>
       <span class="result-time">${formatRaceTime(r.finishTime)}</span>
     </div>
