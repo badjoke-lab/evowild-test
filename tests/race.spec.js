@@ -197,8 +197,11 @@ test("record full field and non-S follow motion proof", async ({ browser }, test
 
   await page.locator('[data-racer-id="2"]').click();
   await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "2");
+  await expect(page.locator("#stage")).toHaveAttribute("data-creature-state", "active", { timeout: 3000 });
   await page.getByRole("button", { name: "3 Follow" }).click();
-  await page.waitForTimeout(4200);
+  await page.waitForTimeout(1500);
+  await page.screenshot({ path: `${outDir}/desktop-agent-creature-state.png`, fullPage: true });
+  await page.waitForTimeout(2700);
 
   const video = page.video();
   await page.close();
