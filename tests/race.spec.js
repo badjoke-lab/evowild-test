@@ -516,3 +516,29 @@ test("capture fixed LOD2 and LOD3 full versus lite material previews", async ({ 
     }
   }
 });
+
+
+test("physical lite LOD2 and LOD3 assets prune the normal texture", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(70000);
+
+  const results = [];
+  for (const variant of ["lod2", "lod2lite", "lod3", "lod3lite"]) {
+    await page.goto(`/evowild-test/?sf3dVariant=${variant}`, { waitUntil: "networkidle" });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 15000 });
+
+    const stats = await page.locator("#stage").evaluate((stage) => ({
+      profile: stage.dataset.sf3dProfile,
+      triangles: Number(stage.dataset.sf3dTriangles),
+      textures: Number(stage.dataset.sf3dTextures)
+    }));
+    results.push({ variant, ...stats });
+    console.log("SF3D_PHYSICAL_LITE", JSON.stringify({ variant, ...stats }));
+  }
+
+  const byName = Object.fromEntries(results.map((result) => [result.variant, result]));
+  expect(byName.lod2lite.triangles).toBe(byName.lod2.triangles);
+  expect(byName.lod3lite.triangles).toBe(byName.lod3.triangles);
+  expect(byName.lod2lite.textures).toBeLessThan(byName.lod2.textures);
+  expect(byName.lod3lite.textures).toBeLessThan(byName.lod3.textures);
+});
