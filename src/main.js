@@ -1845,6 +1845,8 @@ function formatRaceTime(ms) {
 function resultInterpretationFor(racer) {
   const stats = racer.agentStats;
   const fatigue = Math.round(100 - racer.stamina);
+  const compatibility = compatibilityScoreFor(racer);
+  if (compatibility < 99) return `Compatibility ${compatibility}% constrained some Agent commands.`;
   if (stats.failed > 0) return `${stats.failed} failed execution${stats.failed === 1 ? "" : "s"} need review.`;
   if (stats.partial >= 3) return "Several commands were only partially executed.";
   if (fatigue >= 80) return "Race completed under heavy fatigue.";
@@ -1861,7 +1863,9 @@ function renderResultAgentSummary(racer) {
 
   document.querySelector("#resultAgentIdentity").textContent =
     `${racer.agent.id} ${racer.agent.name} / ${racer.agent.version}`;
-  document.querySelector("#resultAgentPolicy").textContent = racer.agent.policy.label.toUpperCase();
+  const compatibilityScore = compatibilityScoreFor(racer);
+  document.querySelector("#resultAgentPolicy").textContent =
+    `${racer.agent.policy.label.toUpperCase()} · COMPAT ${compatibilityScore}%`;
   document.querySelector("#resultDecisions").textContent = String(stats.decisions);
   document.querySelector("#resultSuccess").textContent = String(stats.success);
   document.querySelector("#resultPartial").textContent = String(stats.partial);
@@ -1874,6 +1878,7 @@ function renderResultAgentSummary(racer) {
   stage.dataset.resultAgentSummary = "ready";
   stage.dataset.resultAgentDecisions = String(stats.decisions);
   stage.dataset.resultAgentFailed = String(stats.failed);
+  stage.dataset.resultAgentCompatibility = String(compatibilityScore);
 }
 function updateRaceStateDataset() {
   stage.dataset.raceState = raceState;
