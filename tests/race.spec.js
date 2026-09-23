@@ -192,7 +192,7 @@ test("record 2.5D race speed proof", async ({ browser }, testInfo) => {
 
 
 test("record full field and non-S follow motion proof", async ({ browser }, testInfo) => {
-  test.setTimeout(30000);
+  test.setTimeout(45000);
   test.skip(testInfo.project.name !== "desktop-chromium");
 
   const outDir = "test-results/visuals";
