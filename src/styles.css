@@ -68,6 +68,23 @@ button.active { border-color: #6bb1ff; background: #1d3144; }
 .hud-selected { left: 12px; bottom: 12px; width: 310px; }
 .metric, .row { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; margin-top: 6px; }
 .metric span, .row span { color: #93a3b2; }
+.fatigue-track {
+  height: 5px;
+  margin-top: 4px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255,255,255,.10);
+}
+.fatigue-track i {
+  display: block;
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: #6bb1ff;
+  transition: width .12s linear, background .16s ease;
+}
+.fatigue-track i.high { background: #ffbd68; }
+.fatigue-track i.critical { background: #ff7c7c; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
 .chips span { font-size: 10px; padding: 4px 6px; border-radius: 999px; border: 1px solid #344352; background: #1a2632; }
 .hud-agent {
