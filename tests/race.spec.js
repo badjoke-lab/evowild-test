@@ -60,7 +60,7 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-non-s-run-motion", "placeholder-6phase", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-rig", "loaded", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-racer", "2", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-motion", "6phase-rig", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-motion", "6phase-rig-v2", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-race-section", /START|MID|BUILD|FINAL/, { timeout: 6500 });
   await expect(page.locator("#remaining")).toContainText("m to go", { timeout: 6500 });
   await expect(page.locator("#leaderGap")).not.toHaveText("", { timeout: 6500 });
@@ -78,7 +78,7 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-log-events", /[1-9]\d*/, { timeout: 3000 });
   await expect(page.locator("#selectedName")).toContainText("#02 Brim");
   await expect(page.locator("#selectedTitle")).toHaveText("Selected #02");
-  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-motion", "6phase-rig");
+  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-motion", "6phase-rig-v2");
   await expect(page.locator("#stage")).toHaveAttribute("data-selected-motion-phase", /CONTACT|PUSH|LIFT|FLIGHT|REACH|LAND/, { timeout: 3000 });
   await expect(page.locator("#stateOutput")).toContainText("%");
   await expect(page.locator("#stateLane")).not.toHaveText("");
@@ -247,7 +247,7 @@ test("record isolated original-sprite P cutout rig", async ({ browser }, testInf
   await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-rig", "loaded", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-proof", "isolated", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "2");
-  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-motion", "6phase-rig", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-motion", "6phase-rig-v2", { timeout: 6500 });
   await page.waitForTimeout(6200);
   await page.locator("#stage").screenshot({ path: `${outDir}/desktop-p-cutout-proof.png` });
 
