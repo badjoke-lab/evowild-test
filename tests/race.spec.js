@@ -249,3 +249,68 @@ test("compare five 3D creature generation candidates", async ({ page }, testInfo
     JSON.stringify({ generatedBy: "Playwright CI Chromium", results }, null, 2)
   );
 });
+
+
+test("compare corrected SF3D LOD quality and 18-instance load", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(120000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const variants = [
+    { name: "base", query: "" },
+    { name: "lod1", query: "?sf3dVariant=lod1" },
+    { name: "lod2", query: "?sf3dVariant=lod2" }
+  ];
+
+  const results = [];
+
+  for (const variant of variants) {
+    await page.goto(`/evowild-test/${variant.query}`, { waitUntil: "networkidle" });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 15000 });
+
+    const modelStats = await page.locator("#stage").evaluate((stage) => ({
+      profile: stage.dataset.sf3dProfile,
+      triangles: Number(stage.dataset.sf3dTriangles),
+      meshes: Number(stage.dataset.sf3dMeshes),
+      materials: Number(stage.dataset.sf3dMaterials),
+      textures: Number(stage.dataset.sf3dTextures),
+      bounds: stage.dataset.sf3dBounds
+    }));
+
+    expect(modelStats.triangles).toBeGreaterThan(0);
+    expect(modelStats.meshes).toBe(1);
+    expect(modelStats.materials).toBeGreaterThan(0);
+    expect(modelStats.textures).toBeGreaterThanOrEqual(2);
+
+    await page.getByRole("button", { name: "1 Morph" }).click();
+    await expect(page.locator("#viewLabel")).toHaveText("MORPH LAB");
+    await page.waitForTimeout(700);
+    await page.locator("#stage").screenshot({
+      path: `${outDir}/sf3d-lod-${variant.name}.png`
+    });
+
+    const benchJoin = variant.query ? "&" : "?";
+    await page.goto(
+      `/evowild-test/${variant.query}${benchJoin}sf3dBench=18&sf3dMode=clone&sf3dSide=front`,
+      { waitUntil: "networkidle" }
+    );
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-bench", "ready", { timeout: 35000 });
+    const bench = await page.evaluate(() => window.__sf3dBench);
+    expect(bench?.count).toBe(18);
+    expect(bench?.rendererTriangles).toBeGreaterThan(0);
+
+    const result = { name: variant.name, ...modelStats, bench };
+    results.push(result);
+    console.log("SF3D_LOD_BENCH", JSON.stringify(result));
+  }
+
+  expect(results[1].triangles).toBeLessThan(results[0].triangles);
+  expect(results[2].triangles).toBeLessThan(results[1].triangles);
+
+  fs.writeFileSync(
+    `${outDir}/sf3d-lod-benchmark.json`,
+    JSON.stringify({ generatedBy: "Playwright CI Chromium", results }, null, 2)
+  );
+});
