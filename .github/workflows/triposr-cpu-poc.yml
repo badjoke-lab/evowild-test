@@ -1,0 +1,127 @@
+name: TripoSR CPU Fallback POC
+
+on:
+  push:
+    branches:
+      - test/hf-sf3d-retry-20260921
+    paths:
+      - '.github/workflows/triposr-cpu-poc.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Prepare clean TripoSR input
+        run: |
+          pip install -q pillow
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+
+          src = Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")
+          out = Path("hf-poc/runtime")
+          out.mkdir(parents=True, exist_ok=True)
+
+          im = Image.open(src).convert("RGBA")
+          w, h = im.size
+          im = im.crop((int(w * 0.30), 0, w, h)).copy()
+
+          px = im.load()
+          for y in range(im.height):
+              for x in range(im.width):
+                  r,g,b,a = px[x,y]
+                  mn, mx = min(r,g,b), max(r,g,b)
+                  if mn >= 245:
+                      alpha = 0
+                  elif mn >= 225 and mx - mn < 18:
+                      alpha = int(max(0, min(255, (245-mn)/20*255)))
+                  else:
+                      alpha = 255
+                  px[x,y] = (r,g,b,alpha)
+
+          bbox = im.getbbox()
+          if not bbox:
+              raise RuntimeError("No foreground after cleanup")
+          im = im.crop(bbox)
+          iw, ih = im.size
+          side = max(iw, ih)
+          fg = int(side * 0.82)
+          scale = fg / max(iw, ih)
+          nw, nh = max(1,int(iw*scale)), max(1,int(ih*scale))
+          im = im.resize((nw,nh), Image.Resampling.LANCZOS)
+
+          canvas = Image.new("RGBA",(side,side),(128,128,128,255))
+          canvas.alpha_composite(im,((side-nw)//2,(side-nh)//2))
+          rgb = canvas.convert("RGB")
+          target = out/"evowild_s_triposr_cpu_input.png"
+          rgb.save(target)
+          print("INPUT",target,rgb.size)
+          PY
+
+      - name: Install CPU TripoSR
+        env:
+          PIP_DISABLE_PIP_VERSION_CHECK: '1'
+        run: |
+          git clone --depth 1 https://github.com/VAST-AI-Research/TripoSR.git /tmp/TripoSR
+          python -m pip install -q --upgrade pip setuptools wheel
+          python -m pip install -q torch==2.2.2 torchvision==0.17.2 --index-url https://download.pytorch.org/whl/cpu
+          cd /tmp/TripoSR
+          python -m pip install -q -r requirements.txt
+
+      - name: Run TripoSR on CPU
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          mkdir -p hf-poc/triposr-cpu-output
+          cd /tmp/TripoSR
+          python run.py "$GITHUB_WORKSPACE/hf-poc/runtime/evowild_s_triposr_cpu_input.png" \
+            --device cpu \
+            --no-remove-bg \
+            --chunk-size 2048 \
+            --mc-resolution 128 \
+            --model-save-format glb \
+            --output-dir "$GITHUB_WORKSPACE/hf-poc/triposr-cpu-output"
+          find "$GITHUB_WORKSPACE/hf-poc/triposr-cpu-output" -maxdepth 3 -type f -print -exec ls -lh {} \;
+
+      - name: Validate result
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          out = Path("hf-poc/triposr-cpu-output")
+          glbs = list(out.rglob("*.glb"))
+          if not glbs:
+              raise RuntimeError("TripoSR CPU produced no GLB")
+          glb = glbs[0]
+          if glb.read_bytes()[:4] != b"glTF":
+              raise RuntimeError("TripoSR CPU result is not valid GLB")
+          meta = {
+              "engine":"TripoSR",
+              "execution":"GitHub Actions CPU",
+              "source":"04_3Q_FRONT_shape_support.jpg",
+              "input_variant":"crop30_gray",
+              "mc_resolution":128,
+              "chunk_size":2048,
+              "output_file":str(glb.relative_to(out)),
+              "output_bytes":glb.stat().st_size,
+              "commercial_license_note":"Official TripoSR repo/model card state MIT; verify output terms before adoption."
+          }
+          (out/"metadata.json").write_text(json.dumps(meta,indent=2),encoding="utf-8")
+          print(json.dumps(meta,indent=2))
+          PY
+
+      - name: Upload result
+        uses: actions/upload-artifact@v4
+        with:
+          name: evowild-s-triposr-cpu
+          path: hf-poc/triposr-cpu-output/
+          if-no-files-found: error
