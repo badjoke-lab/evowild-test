@@ -261,7 +261,8 @@ test("compare corrected SF3D LOD quality and 18-instance load", async ({ page },
   const variants = [
     { name: "base", query: "" },
     { name: "lod1", query: "?sf3dVariant=lod1" },
-    { name: "lod2", query: "?sf3dVariant=lod2" }
+    { name: "lod2", query: "?sf3dVariant=lod2" },
+    { name: "lod3", query: "?sf3dVariant=lod3" }
   ];
 
   const results = [];
@@ -308,6 +309,7 @@ test("compare corrected SF3D LOD quality and 18-instance load", async ({ page },
 
   expect(results[1].triangles).toBeLessThan(results[0].triangles);
   expect(results[2].triangles).toBeLessThan(results[1].triangles);
+  expect(results[3].triangles).toBeLessThan(results[2].triangles);
 
   fs.writeFileSync(
     `${outDir}/sf3d-lod-benchmark.json`,
@@ -316,7 +318,7 @@ test("compare corrected SF3D LOD quality and 18-instance load", async ({ page },
 });
 
 
-test("loads three-level SF3D race LOD on the active corrected candidate", async ({ page }, testInfo) => {
+test("loads four-level SF3D race LOD on the active corrected candidate", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
 
   const outDir = "test-results/visuals";
@@ -325,16 +327,16 @@ test("loads three-level SF3D race LOD on the active corrected candidate", async 
   await page.goto("/evowild-test/", { waitUntil: "networkidle" });
   await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 15000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-lod", "loaded", { timeout: 20000 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-lod-levels", "3");
-  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-lod-distances", "0,10,22");
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-lod-levels", "4");
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-lod-distances", "0,9,18,30");
 
   const lod = await page.evaluate(() => ({
     levels: window.__sf3dRaceLod?.levels?.length || 0,
     distances: window.__sf3dRaceLod?.levels?.map((level) => level.distance) || []
   }));
 
-  expect(lod.levels).toBe(3);
-  expect(lod.distances).toEqual([0, 10, 22]);
+  expect(lod.levels).toBe(4);
+  expect(lod.distances).toEqual([0, 9, 18, 30]);
 
   await page.getByRole("button", { name: "2 Race" }).click();
   await page.waitForTimeout(900);
@@ -370,7 +372,7 @@ test("benchmark mixed-distance 18-racer SF3D LOD", async ({ page }, testInfo) =>
 });
 
 
-test("stress 18 moving racers with three-level SF3D LOD", async ({ page }, testInfo) => {
+test("stress 18 moving racers with four-level SF3D LOD", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(90000);
 
