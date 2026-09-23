@@ -12,6 +12,7 @@ const sf3dBenchCount = Math.min(18, Math.max(0, Number.parseInt(query.get("sf3dB
 const sf3dBenchSide = query.get("sf3dSide") === "front" ? "front" : "double";
 const sf3dBenchMode = query.get("sf3dMode") === "instance" ? "instance" : "clone";
 const sf3dRaceLodBench = query.get("sf3dRaceLodBench") === "1";
+const sf3dRaceStress = query.get("sf3dRaceStress") === "1";
 let sf3dBenchGroup = null;
 let sf3dBenchStartedAt = 0;
 let sf3dBenchFrameTimes = [];
@@ -20,6 +21,9 @@ let sf3dTrianglesPerInstance = 0;
 let sf3dRaceLodBenchStartedAt = 0;
 let sf3dRaceLodBenchFrameTimes = [];
 let sf3dRaceLodBenchReady = false;
+let sf3dRaceStressStartedAt = 0;
+let sf3dRaceStressFrames = [];
+let sf3dRaceStressReady = false;
 
 const runtimeStatus = document.createElement("div");
 runtimeStatus.className = "runtime-status";
@@ -663,6 +667,90 @@ function setupSf3dBenchmark(source, count) {
   stage.dataset.sf3dBenchMode = sf3dBenchMode;
 }
 
+function setupRaceStress(baseSource, baseProfile, lod1Data, lod2Data) {
+  if (!sf3dRaceStress) return;
+
+  for (const racer of racers) {
+    racer.obj.children.forEach((child) => { child.visible = false; });
+
+    const lod = new THREE.LOD();
+    lod.name = `SF3D_RaceStress_${racer.id}`;
+
+    const baseModel = fitCreature3D(cloneCreature3D(baseSource), {
+      renderer,
+      profile: baseProfile,
+      placement: "race",
+      materialSide: "front"
+    });
+    const lod1Model = fitCreature3D(cloneCreature3D(lod1Data.source), {
+      renderer,
+      profile: lod1Data.profile,
+      placement: "race",
+      materialSide: "front"
+    });
+    const lod2Model = fitCreature3D(cloneCreature3D(lod2Data.source), {
+      renderer,
+      profile: lod2Data.profile,
+      placement: "race",
+      materialSide: "front"
+    });
+
+    lod.addLevel(baseModel, 0);
+    lod.addLevel(lod1Model, 10);
+    lod.addLevel(lod2Model, 22);
+    racer.obj.add(lod);
+    racer.obj.userData.sf3dStressLod = lod;
+  }
+
+  view = "race";
+  stage.dataset.sf3dRaceStress = "running";
+  stage.dataset.sf3dRaceStressRacers = String(racers.length);
+  sf3dRaceStressStartedAt = performance.now();
+  sf3dRaceStressFrames = [];
+  sf3dRaceStressReady = false;
+}
+
+function sampleRaceStress(now, frameMs) {
+  if (!sf3dRaceStress || !sf3dRaceStressStartedAt || sf3dRaceStressReady) return;
+  const elapsed = now - sf3dRaceStressStartedAt;
+  if (elapsed >= 1000 && Number.isFinite(frameMs) && frameMs > 0) {
+    sf3dRaceStressFrames.push({
+      ms: frameMs,
+      triangles: renderer.info.render.triangles,
+      calls: renderer.info.render.calls
+    });
+  }
+  if (elapsed < 6500 || sf3dRaceStressFrames.length < 12) return;
+
+  const ms = sf3dRaceStressFrames.map((frame) => frame.ms).sort((a, b) => a - b);
+  const triangles = sf3dRaceStressFrames.map((frame) => frame.triangles);
+  const calls = sf3dRaceStressFrames.map((frame) => frame.calls);
+  const avg = ms.reduce((sum, value) => sum + value, 0) / ms.length;
+  const avgTriangles = triangles.reduce((sum, value) => sum + value, 0) / triangles.length;
+  const avgCalls = calls.reduce((sum, value) => sum + value, 0) / calls.length;
+  const percentile = (p) => ms[Math.min(ms.length - 1, Math.floor((ms.length - 1) * p))];
+
+  window.__sf3dRaceStress = {
+    racers: racers.length,
+    durationMs: Number(elapsed.toFixed(0)),
+    samples: ms.length,
+    averageFrameMs: Number(avg.toFixed(3)),
+    averageFps: Number((1000 / avg).toFixed(2)),
+    medianFrameMs: Number(percentile(0.5).toFixed(3)),
+    p95FrameMs: Number(percentile(0.95).toFixed(3)),
+    averageRendererTriangles: Math.round(avgTriangles),
+    minRendererTriangles: Math.min(...triangles),
+    maxRendererTriangles: Math.max(...triangles),
+    averageRendererCalls: Number(avgCalls.toFixed(2)),
+    minRendererCalls: Math.min(...calls),
+    maxRendererCalls: Math.max(...calls),
+    allBaseTriangles: racers.length * 8960,
+    note: "CI Chromium real race-loop stress test with 18 moving three-level LOD creatures; not physical-device FPS"
+  };
+  sf3dRaceStressReady = true;
+  stage.dataset.sf3dRaceStress = "ready";
+}
+
 function setupRaceLodBenchmark(baseSource, baseProfile, lod1Data, lod2Data) {
   if (!sf3dRaceLodBench) return;
 
@@ -820,7 +908,7 @@ loadCreature3D(sf3dProfile)
     labGroup.add(sf3dLab);
 
     const raceS = racers.find((r) => r.morph === "S");
-    if (raceS) {
+    if (raceS && !sf3dRaceStress) {
       raceS.obj.children.forEach((child) => { child.visible = false; });
 
       const baseRaceModel = fitCreature3D(cloneCreature3D(source), {
@@ -899,6 +987,18 @@ loadCreature3D(sf3dProfile)
       }).catch((error) => {
         stage.dataset.sf3dRaceLodBench = "error";
         console.error("Mixed-distance race LOD benchmark failed to load", error);
+      });
+    }
+
+    if (sf3dRaceStress && profile.id === CREATURE_3D_PROFILES.sSf3dCorrected.id) {
+      Promise.all([
+        loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod1),
+        loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod2)
+      ]).then(([lod1Data, lod2Data]) => {
+        setupRaceStress(source, profile, lod1Data, lod2Data);
+      }).catch((error) => {
+        stage.dataset.sf3dRaceStress = "error";
+        console.error("18-racer SF3D stress assets failed to load", error);
       });
     }
   })
@@ -1289,6 +1389,7 @@ function frame(now) {
     renderer.render(scene, camera);
     sampleSf3dBenchmark(now, rawFrameMs);
     sampleRaceLodBenchmark(now, rawFrameMs);
+    sampleRaceStress(now, rawFrameMs);
     updateHud();
     drawMiniMap();
 
