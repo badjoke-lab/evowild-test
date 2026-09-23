@@ -137,6 +137,17 @@ button.active { border-color: #6bb1ff; background: #1d3144; }
   white-space: nowrap;
 }
 .agent-line #creatureResponse { color: #d8e8f7; }
+.agent-policy-rule {
+  margin: 6px 0 2px;
+  padding: 5px 7px;
+  border-radius: 6px;
+  border: 1px solid rgba(107,177,255,.12);
+  background: rgba(107,177,255,.05);
+  color: #8298a8;
+  font-size: 8px;
+  line-height: 1.35;
+  letter-spacing: .025em;
+}
 .agent-reason {
   margin-top: 5px;
   color: #9fb0be;
