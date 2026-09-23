@@ -621,3 +621,49 @@ test("capture four-view comparison for Hunyuan SF3D and TripoSR", async ({ page 
     }
   }
 });
+
+
+test("compare raw and simplified Hunyuan multiview shapes", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(120000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const variants = [
+    { name: "raw", query: "?sf3dVariant=hunyuan2mv" },
+    { name: "lod1", query: "?sf3dVariant=hunyuanlod1" },
+    { name: "lod2", query: "?sf3dVariant=hunyuanlod2" }
+  ];
+  const results = [];
+
+  for (const variant of variants) {
+    await page.goto(`/evowild-test/${variant.query}`, { waitUntil: "networkidle" });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
+
+    const stats = await page.locator("#stage").evaluate((stage) => ({
+      profile: stage.dataset.sf3dProfile,
+      triangles: Number(stage.dataset.sf3dTriangles),
+      meshes: Number(stage.dataset.sf3dMeshes),
+      bounds: stage.dataset.sf3dBounds
+    }));
+    expect(stats.triangles).toBeGreaterThan(0);
+    results.push({ name: variant.name, ...stats });
+    console.log("HUNYUAN_SIMPLIFY", JSON.stringify({ name: variant.name, ...stats }));
+
+    await page.getByRole("button", { name: "1 Morph" }).click();
+    await expect(page.locator("#viewLabel")).toHaveText("MORPH LAB");
+    await page.waitForTimeout(500);
+    await page.locator("#stage").screenshot({
+      path: `${outDir}/hunyuan-${variant.name}.png`
+    });
+  }
+
+  expect(results[1].triangles).toBeLessThan(results[0].triangles);
+  expect(results[2].triangles).toBeLessThan(results[1].triangles);
+
+  fs.writeFileSync(
+    `${outDir}/hunyuan-simplify-comparison.json`,
+    JSON.stringify({ generatedBy: "Playwright CI Chromium", results }, null, 2)
+  );
+});
