@@ -34,6 +34,8 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#agentOrder")).not.toHaveText("");
   await expect(page.locator("#creatureResponse")).toHaveText(/READY|SUCCESS|PARTIAL|FAILED|FINISHED/, { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-orb-count", "18");
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-log-events", /[1-9]\d*/, { timeout: 6500 });
+  await expect(page.locator("#agentLog .agent-log-row").first()).toBeVisible();
   await expect(page.locator("#fatigue")).toContainText("%");
   await expect(page.locator("#agentFatigue")).toContainText("%");
   await expect(page.locator("#stage")).toHaveAttribute("data-creature-fatigue", /\d+/);
@@ -47,6 +49,7 @@ test("race scene renders and advances", async ({ page }) => {
   await page.locator('[data-racer-id="2"]').click();
   await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "2");
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-selected-id", "2");
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-log-events", /[1-9]\d*/, { timeout: 3000 });
   await expect(page.locator("#selectedName")).toContainText("#02 Brim");
   await expect(page.locator("#selectedTitle")).toHaveText("Selected #02");
   await expect(page.locator("#stage")).toHaveAttribute("data-selected-motion-phase", /CONTACT|PUSH|LIFT|FLIGHT|REACH|LAND/, { timeout: 3000 });
