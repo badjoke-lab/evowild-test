@@ -582,6 +582,8 @@ const sf3dProfile = sf3dVariant === "lod1"
   ? CREATURE_3D_PROFILES.sSf3dCorrectedLod1
   : sf3dVariant === "lod2"
     ? CREATURE_3D_PROFILES.sSf3dCorrectedLod2
+    : sf3dVariant === "lod3"
+      ? CREATURE_3D_PROFILES.sSf3dCorrectedLod3
     : sf3dVariant === "triposr3q"
       ? CREATURE_3D_PROFILES.sTripoSr3q
       : sf3dVariant === "triposr"
