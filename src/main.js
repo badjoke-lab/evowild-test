@@ -646,14 +646,14 @@ const ring = new THREE.Mesh(
 ring.rotation.x = -Math.PI / 2;
 scene.add(ring);
 
-const agentOrbGeometry = new THREE.SphereGeometry(0.16, 14, 10);
+const agentOrbGeometry = new THREE.SphereGeometry(0.075, 8, 6);
 const agentOrbs = racers.map((r) => {
   const orb = new THREE.Mesh(
     agentOrbGeometry,
     new THREE.MeshBasicMaterial({
       color: 0x76e59b,
       transparent: true,
-      opacity: r.id === selectedId ? 0.92 : 0.34,
+      opacity: r.id === selectedId ? 0.86 : 0.16,
       depthWrite: false
     })
   );
@@ -661,7 +661,6 @@ const agentOrbs = racers.map((r) => {
   scene.add(orb);
   return orb;
 });
-const agentOrbTravelTangent = new THREE.Vector3();
 
 const agentCommandColors = {
   "BUILD SPEED": 0x76e59b,
@@ -738,18 +737,16 @@ function updateAgentVisual(now) {
   const showWorldSignal = view !== "lab" && view !== "tactical";
   agentOrbs.forEach((orb, index) => {
     const racer = racers[index];
-    const t = (racer.distance / raceMeters) % 1;
-    agentOrbTravelTangent.copy(curve.getTangentAt(t)).normalize();
-    orb.position.copy(racer.obj.position).addScaledVector(agentOrbTravelTangent, -0.62);
-    orb.position.y += 2.85;
+    orb.position.copy(racer.obj.position);
+    orb.position.y += 2.05;
 
     const racerOrder = racer.command || "WAIT";
     orb.material.color.setHex(agentCommandColors[racerOrder] ?? 0x6bdcff);
     const isSelected = racer.id === selectedId;
-    orb.material.opacity = isSelected ? 0.92 : 0.30;
+    orb.material.opacity = isSelected ? 0.86 : 0.16;
     const pulse = isSelected
-      ? (now < agentPulseUntil ? 1.38 : 1 + Math.sin(now * 0.008) * 0.08)
-      : 0.74 + Math.sin(now * 0.004 + racer.id) * 0.04;
+      ? (now < agentPulseUntil ? 1.28 : 1 + Math.sin(now * 0.008) * 0.06)
+      : 0.58 + Math.sin(now * 0.004 + racer.id) * 0.025;
     orb.scale.setScalar(pulse);
     orb.visible = showWorldSignal && (!sRunIsolatedProof || racer.id === sRunProofRacerId);
   });
