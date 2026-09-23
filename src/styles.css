@@ -571,6 +571,13 @@ button.active { border-color: #6bb1ff; background: #1d3144; }
 }
 .result-row .place { font-size: 16px; font-weight: 900; }
 .result-row .result-name { font-weight: 800; }
+.result-row .result-agent {
+  display: block;
+  margin-top: 2px;
+  color: #718797;
+  font-size: 8px;
+  line-height: 1.25;
+}
 .result-row .result-morph { color: #93a3b2; font-size: 10px; }
 .result-row .result-time { text-align: right; font-variant-numeric: tabular-nums; }
 
