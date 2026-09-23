@@ -176,7 +176,7 @@ test("compare 18-instance SF3D clone versus instanced rendering", async ({ page 
 });
 
 
-test("compare corrected, white-background and SIDE SF3D candidates", async ({ page }, testInfo) => {
+test("compare five 3D creature generation candidates", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(70000);
 
@@ -203,10 +203,16 @@ test("compare corrected, white-background and SIDE SF3D candidates", async ({ pa
       triangles: "16112"
     },
     {
-      name: "triposr",
+      name: "triposr-side",
       query: "?sf3dVariant=triposr",
       profile: "s-triposr-side-authority",
       triangles: "12764"
+    },
+    {
+      name: "triposr-3q",
+      query: "?sf3dVariant=triposr3q",
+      profile: "s-triposr-3q-crop30",
+      triangles: "15024"
     }
   ];
 
