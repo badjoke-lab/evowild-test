@@ -314,3 +314,29 @@ test("compare corrected SF3D LOD quality and 18-instance load", async ({ page },
     JSON.stringify({ generatedBy: "Playwright CI Chromium", results }, null, 2)
   );
 });
+
+
+test("loads three-level SF3D race LOD on the active corrected candidate", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  await page.goto("/evowild-test/", { waitUntil: "networkidle" });
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 15000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-lod", "loaded", { timeout: 20000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-lod-levels", "3");
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-lod-distances", "0,10,22");
+
+  const lod = await page.evaluate(() => ({
+    levels: window.__sf3dRaceLod?.levels?.length || 0,
+    distances: window.__sf3dRaceLod?.levels?.map((level) => level.distance) || []
+  }));
+
+  expect(lod.levels).toBe(3);
+  expect(lod.distances).toEqual([0, 10, 22]);
+
+  await page.getByRole("button", { name: "2 Race" }).click();
+  await page.waitForTimeout(900);
+  await page.locator("#stage").screenshot({ path: `${outDir}/sf3d-race-lod-proof.png` });
+});
