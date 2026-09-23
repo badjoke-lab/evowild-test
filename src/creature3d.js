@@ -7,7 +7,7 @@ export const CREATURE_3D_PROFILES = {
     id: "s-triposr-3q-crop30",
     morph: "S",
     url: `${import.meta.env.BASE_URL}models/evowild-s-triposr-3q.glb`,
-    rotation: [0, 0, 0],
+    rotation: [-Math.PI / 2, 0, 0],
     material: {
       metalness: 0.0,
       minRoughness: 0.72,
@@ -31,7 +31,7 @@ export const CREATURE_3D_PROFILES = {
     id: "s-triposr-side-authority",
     morph: "S",
     url: `${import.meta.env.BASE_URL}models/evowild-s-triposr-side.glb`,
-    rotation: [0, 0, 0],
+    rotation: [-Math.PI / 2, 0, 0],
     material: {
       metalness: 0.0,
       minRoughness: 0.72,
