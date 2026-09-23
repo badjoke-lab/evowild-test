@@ -601,8 +601,10 @@ function makeLiteMaterialProfile(profile) {
 }
 
 const sf3dVariant = query.get("sf3dVariant");
-const sf3dBaseProfile = sf3dVariant === "lod1"
-  ? CREATURE_3D_PROFILES.sSf3dCorrectedLod1
+const sf3dBaseProfile = sf3dVariant === "hunyuan2mv"
+  ? CREATURE_3D_PROFILES.sHunyuan2mvRaw
+  : sf3dVariant === "lod1"
+    ? CREATURE_3D_PROFILES.sSf3dCorrectedLod1
   : sf3dVariant === "lod2lite"
     ? CREATURE_3D_PROFILES.sSf3dCorrectedLod2Lite
     : sf3dVariant === "lod3lite"
