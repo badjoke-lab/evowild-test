@@ -676,9 +676,16 @@ body.p-rig-proof .stage { min-height: 620px; }
   border-bottom: 1px solid rgba(255,255,255,.06);
   font-size: 12px;
 }
+.result-row { cursor: pointer; outline: none; }
+.result-row:hover,
+.result-row:focus-visible {
+  background: rgba(38, 69, 96, .34);
+  border-radius: 8px;
+}
 .result-row.selected {
   background: rgba(51, 92, 128, .38);
   border-radius: 8px;
+  box-shadow: inset 2px 0 0 #6bb1ff;
 }
 .result-row .place { font-size: 16px; font-weight: 900; }
 .result-row .result-name { font-weight: 800; }
