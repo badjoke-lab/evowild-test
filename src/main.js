@@ -710,6 +710,98 @@ function creatureResponseFor(racer) {
   return { state: "SUCCESS", reason: `${racer.command} executed within current capability` };
 }
 
+function creatureStateFor(racer) {
+  if (!racer) {
+    return {
+      output: 0,
+      condition: "UNKNOWN",
+      traffic: "UNKNOWN",
+      laneState: "UNKNOWN",
+      execution: "FAILED",
+      note: "No selected creature."
+    };
+  }
+
+  const response = creatureResponseFor(racer);
+  const fatigue = THREE.MathUtils.clamp(100 - racer.stamina, 0, 100);
+  const output = THREE.MathUtils.clamp((racer.speed / Math.max(0.1, racer.cruise)) * 100, 0, 125);
+  const gap = gapAhead(racer);
+  const laneDelta = Math.abs(racer.laneF - racer.lane);
+
+  const condition = racer.finished
+    ? "FINISHED"
+    : fatigue >= 85
+      ? "STRAINED"
+      : fatigue >= 60
+        ? "TIRING"
+        : fatigue >= 30
+          ? "WORKING"
+          : "FRESH";
+
+  const traffic = racer.finished
+    ? "CLEAR"
+    : racer.decision === "BLOCKED" || gap < 2.5
+      ? "BLOCKED"
+      : gap < 5
+        ? "TIGHT"
+        : gap < 9
+          ? "NEAR"
+          : "CLEAR";
+
+  const laneState = racer.finished
+    ? "STOPPED"
+    : laneDelta > 0.12
+      ? `CHANGING → ${racer.lane + 1}`
+      : `STABLE ${Math.round(racer.laneF) + 1}`;
+
+  let note = response.reason;
+  if (raceState === "running" && response.state === "SUCCESS") {
+    if (traffic === "TIGHT") note = "Command is executing, but nearby traffic limits available space.";
+    else if (condition === "TIRING") note = "Command is executing while fatigue is beginning to reduce reserve.";
+    else if (condition === "STRAINED") note = "Command is executing under severe fatigue constraint.";
+  }
+
+  return {
+    output: Math.round(output),
+    condition,
+    traffic,
+    laneState,
+    execution: response.state,
+    note
+  };
+}
+
+function updateCreatureStateVisual() {
+  const state = creatureStateFor(selected);
+  const outputEl = document.querySelector("#stateOutput");
+  const conditionEl = document.querySelector("#stateCondition");
+  const trafficEl = document.querySelector("#stateTraffic");
+  const laneEl = document.querySelector("#stateLane");
+  const executionEl = document.querySelector("#stateExecution");
+  const noteEl = document.querySelector("#stateNote");
+
+  if (outputEl) outputEl.textContent = `${state.output}%`;
+  if (conditionEl) conditionEl.textContent = state.condition;
+  if (trafficEl) trafficEl.textContent = state.traffic;
+  if (laneEl) laneEl.textContent = state.laneState;
+  if (executionEl) {
+    executionEl.textContent = state.execution;
+    executionEl.className = state.execution.toLowerCase();
+  }
+  if (noteEl) noteEl.textContent = state.note;
+
+  conditionEl?.classList.toggle("warn", state.condition === "TIRING");
+  conditionEl?.classList.toggle("critical", state.condition === "STRAINED");
+  trafficEl?.classList.toggle("warn", state.traffic === "TIGHT");
+  trafficEl?.classList.toggle("critical", state.traffic === "BLOCKED");
+
+  stage.dataset.creatureState = "active";
+  stage.dataset.creatureCondition = state.condition;
+  stage.dataset.creatureTraffic = state.traffic;
+  stage.dataset.creatureExecution = state.execution;
+  stage.dataset.creatureOutput = String(state.output);
+}
+
 function recordAgentEvent(racer, force = false) {
   if (!racer || (raceState !== "running" && !racer.finished)) return;
   const response = creatureResponseFor(racer);
@@ -760,6 +852,7 @@ function updateAgentVisual(now) {
   if (fatigueEl) fatigueEl.textContent = `${Math.round(100 - (selected?.stamina ?? 100))}%`;
   if (reasonEl) reasonEl.textContent = response.reason;
   if (panel) panel.classList.toggle("pulse", now < agentPulseUntil);
+  updateCreatureStateVisual();
 
   const showWorldSignal = view !== "lab" && view !== "tactical";
   agentOrbs.forEach((orb, index) => {
