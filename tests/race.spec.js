@@ -542,3 +542,47 @@ test("physical lite LOD2 and LOD3 assets prune the normal texture", async ({ pag
   expect(byName.lod2lite.textures).toBeLessThan(byName.lod2.textures);
   expect(byName.lod3lite.textures).toBeLessThan(byName.lod3.textures);
 });
+
+
+test("compare Hunyuan multiview raw shape against active SF3D candidate", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(90000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const variants = [
+    { name: "sf3d", query: "", profile: "s-sf3d-corrected-candidate" },
+    { name: "hunyuan2mv", query: "?sf3dVariant=hunyuan2mv", profile: "s-hunyuan2mv-raw" }
+  ];
+
+  const results = [];
+  for (const variant of variants) {
+    await page.goto(`/evowild-test/${variant.query}`, { waitUntil: "networkidle" });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 30000 });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-profile", variant.profile, { timeout: 30000 });
+
+    const stats = await page.locator("#stage").evaluate((stage) => ({
+      profile: stage.dataset.sf3dProfile,
+      triangles: Number(stage.dataset.sf3dTriangles),
+      meshes: Number(stage.dataset.sf3dMeshes),
+      textures: Number(stage.dataset.sf3dTextures),
+      bounds: stage.dataset.sf3dBounds
+    }));
+    results.push({ name: variant.name, ...stats });
+    console.log("MULTIVIEW_SHAPE_COMPARE", JSON.stringify({ name: variant.name, ...stats }));
+
+    await page.getByRole("button", { name: "1 Morph" }).click();
+    await expect(page.locator("#viewLabel")).toHaveText("MORPH LAB");
+    await page.waitForTimeout(1200);
+    await page.locator("#stage").screenshot({
+      path: `${outDir}/shape-compare-${variant.name}.png`
+    });
+  }
+
+  expect(results[1].triangles).toBeGreaterThan(results[0].triangles);
+  fs.writeFileSync(
+    `${outDir}/multiview-shape-comparison.json`,
+    JSON.stringify({ generatedBy: "Playwright CI Chromium", results }, null, 2)
+  );
+});
