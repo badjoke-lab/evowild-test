@@ -718,14 +718,60 @@ loadCreature3D(sf3dProfile)
     const raceS = racers.find((r) => r.morph === "S");
     if (raceS) {
       raceS.obj.children.forEach((child) => { child.visible = false; });
-      const raceModel = fitCreature3D(cloneCreature3D(source), {
+
+      const baseRaceModel = fitCreature3D(cloneCreature3D(source), {
         renderer,
         profile,
         placement: "race"
       });
-      raceModel.name = "EvoWild_S_SF3D_Race";
-      raceS.obj.add(raceModel);
-      raceS.obj.userData.sf3d = raceModel;
+      baseRaceModel.name = "EvoWild_S_SF3D_Race_Base";
+
+      const useRaceLod = profile.id === CREATURE_3D_PROFILES.sSf3dCorrected.id && !sf3dVariant;
+      if (useRaceLod) {
+        const raceLod = new THREE.LOD();
+        raceLod.name = "EvoWild_S_SF3D_Race_LOD";
+        raceLod.addLevel(baseRaceModel, 0);
+        raceS.obj.add(raceLod);
+        raceS.obj.userData.sf3d = raceLod;
+        stage.dataset.sf3dRaceLod = "loading";
+        stage.dataset.sf3dRaceLodLevels = "1";
+
+        Promise.all([
+          loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod1),
+          loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod2)
+        ])
+          .then(([lod1Data, lod2Data]) => {
+            const lod1Model = fitCreature3D(cloneCreature3D(lod1Data.source), {
+              renderer,
+              profile: lod1Data.profile,
+              placement: "race"
+            });
+            lod1Model.name = "EvoWild_S_SF3D_Race_LOD1";
+
+            const lod2Model = fitCreature3D(cloneCreature3D(lod2Data.source), {
+              renderer,
+              profile: lod2Data.profile,
+              placement: "race"
+            });
+            lod2Model.name = "EvoWild_S_SF3D_Race_LOD2";
+
+            raceLod.addLevel(lod1Model, 10);
+            raceLod.addLevel(lod2Model, 22);
+            stage.dataset.sf3dRaceLod = "loaded";
+            stage.dataset.sf3dRaceLodLevels = String(raceLod.levels.length);
+            stage.dataset.sf3dRaceLodDistances = raceLod.levels.map((level) => level.distance).join(",");
+            window.__sf3dRaceLod = raceLod;
+          })
+          .catch((error) => {
+            stage.dataset.sf3dRaceLod = "error";
+            console.error("Race LOD assets failed to load; keeping base SF3D race model", error);
+          });
+      } else {
+        baseRaceModel.name = "EvoWild_S_SF3D_Race";
+        raceS.obj.add(baseRaceModel);
+        raceS.obj.userData.sf3d = baseRaceModel;
+        stage.dataset.sf3dRaceLod = "disabled";
+      }
     }
 
     sf3dReady = true;
