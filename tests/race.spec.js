@@ -42,6 +42,8 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#agentPolicyRule")).toContainText("PASS 4.2m");
   await expect(page.locator("#agentRecord")).toHaveText("NO STARTS");
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-starts", "0");
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-pending-profile", "");
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-version-history", "1");
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-log-events", /[1-9]\d*/, { timeout: 6500 });
   await expect(page.locator("#agentLog .agent-log-row").first()).toBeVisible();
   await expect(page.locator("#creatureStateCard")).toBeVisible();
@@ -241,9 +243,20 @@ test("race reaches results and rematch returns to countdown", async ({ page }, t
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-starts", "1", { timeout: 3000 });
   await expect(page.locator("#agentRecord")).toContainText("1S");
 
+  await page.locator('#agentSetupCard [data-agent-policy="PRESSURE"]').click();
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-pending-profile", "PRESSURE");
+  await expect(page.locator("#agentSetupStatus")).toContainText("NEXT PRESSURE");
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-version-history", "1");
+
   await page.getByRole("button", { name: "Rematch" }).click();
   await expect(page.locator("#stage")).toHaveAttribute("data-race-state", "countdown");
   await expect(page.locator("#resultsPanel")).toBeHidden();
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-starts", "1");
   await expect(page.locator("#agentRecord")).toContainText("1S");
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-profile", "PRESSURE", { timeout: 3000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-version", "v2", { timeout: 3000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-pending-profile", "");
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-version-history", "2");
+  await expect(page.locator("#agentProfile")).toHaveText("PRESSURE");
+  await expect(page.locator("#agentIdentity")).toContainText("/ v2");
 });
