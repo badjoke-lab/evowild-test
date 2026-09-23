@@ -702,3 +702,34 @@ test("compare Hunyuan raw and LOD2 across four views", async ({ page }, testInfo
     }
   }
 });
+
+
+test("benchmark 18 Hunyuan LOD2 instances", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(70000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  await page.goto(
+    "/evowild-test/?sf3dVariant=hunyuanlod2&sf3dBench=18&sf3dMode=instance&sf3dSide=double&renderScale=0.75",
+    { waitUntil: "networkidle" }
+  );
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-bench", "ready", { timeout: 35000 });
+
+  const metrics = await page.evaluate(() => window.__sf3dBench);
+  expect(metrics?.count).toBe(18);
+  expect(metrics?.mode).toBe("instance");
+  expect(metrics?.trianglesPerInstance).toBeGreaterThan(10000);
+  expect(metrics?.rendererTriangles).toBeGreaterThan(200000);
+
+  console.log("HUNYUAN_18_BENCH", JSON.stringify(metrics));
+  fs.writeFileSync(
+    `${outDir}/hunyuan-lod2-18-benchmark.json`,
+    JSON.stringify(metrics, null, 2)
+  );
+  await page.locator("#stage").screenshot({
+    path: `${outDir}/hunyuan-lod2-18-benchmark.png`
+  });
+});
