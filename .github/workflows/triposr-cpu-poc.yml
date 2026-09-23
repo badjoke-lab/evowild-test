@@ -84,7 +84,7 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          mkdir -p hf-poc/triposr-cpu-output
+          mkdir -p hf-poc/triposr-cpu-output/0
           cd /tmp/TripoSR
           python run.py "$GITHUB_WORKSPACE/hf-poc/runtime/evowild_s_triposr_cpu_input.png" \
             --device cpu \
