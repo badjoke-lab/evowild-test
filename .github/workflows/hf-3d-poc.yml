@@ -47,7 +47,7 @@ jobs:
           # subject on a transparent square.
           im = Image.open(src).convert("RGBA")
           w, h = im.size
-          im = im.crop((int(w * 0.30), 0, w, h)).copy()
+          im = im.crop((int(w * 0.25), 0, w, h)).copy()
           px = im.load()
           for y in range(im.height):
               for x in range(im.width):
@@ -182,6 +182,7 @@ jobs:
               "endpoint": api_name,
               "attempt": attempt,
               "source_image": str(src),
+              "variant": "crop25",
               "foreground_ratio": 0.85,
               "remesh": "None",
               "vertex_count": -1,
