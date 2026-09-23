@@ -743,7 +743,7 @@ function compatibilityScoreFor(racer) {
 }
 
 const racers = [];
-let selectedId = eRigIsolatedProof ? 3 : pRigIsolatedProof ? 2 : 1;
+let selectedId = isolatedProof ? isolatedProofRacerId : 1;
 const sRunProofRacerId = 1;
 const raceMeters = fastFinishProof ? 45 : 700;
 const countdownDuration = fastFinishProof ? 1200 : 3000;
