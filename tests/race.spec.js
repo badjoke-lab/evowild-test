@@ -36,6 +36,13 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-orb-count", "18");
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-log-events", /[1-9]\d*/, { timeout: 6500 });
   await expect(page.locator("#agentLog .agent-log-row").first()).toBeVisible();
+  await expect(page.locator("#creatureStateCard")).toBeVisible();
+  await expect(page.locator("#stage")).toHaveAttribute("data-creature-state", "active", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-creature-condition", /FRESH|WORKING|TIRING|STRAINED|FINISHED/, { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-creature-traffic", /CLEAR|NEAR|TIGHT|BLOCKED/, { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-creature-execution", /READY|SUCCESS|PARTIAL|FAILED|FINISHED/, { timeout: 6500 });
+  await expect(page.locator("#stateOutput")).toContainText("%");
+  await expect(page.locator("#stateExecution")).not.toHaveText("");
   await expect(page.locator("#fatigue")).toContainText("%");
   await expect(page.locator("#agentFatigue")).toContainText("%");
   await expect(page.locator("#stage")).toHaveAttribute("data-creature-fatigue", /\d+/);
@@ -53,6 +60,8 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#selectedName")).toContainText("#02 Brim");
   await expect(page.locator("#selectedTitle")).toHaveText("Selected #02");
   await expect(page.locator("#stage")).toHaveAttribute("data-selected-motion-phase", /CONTACT|PUSH|LIFT|FLIGHT|REACH|LAND/, { timeout: 3000 });
+  await expect(page.locator("#stateOutput")).toContainText("%");
+  await expect(page.locator("#stateLane")).not.toHaveText("");
   await expect(page.locator("#position")).not.toHaveText("— / 18", { timeout: 5000 });
   await expect(page.locator(".runtime-status")).toBeHidden({ timeout: 5000 });
 
