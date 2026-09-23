@@ -14,6 +14,7 @@ const sf3dBenchMode = query.get("sf3dMode") === "instance" ? "instance" : "clone
 const sf3dRaceLodBench = query.get("sf3dRaceLodBench") === "1";
 const sf3dRaceStress = query.get("sf3dRaceStress") === "1";
 const sf3dRaceStressMode = query.get("sf3dRaceStressMode") === "instance" ? "instance" : "clone";
+const sf3dMaterialMode = query.get("sf3dMaterialMode") === "lite" ? "lite" : "full";
 const renderScale = Math.min(1, Math.max(0.5, Number.parseFloat(query.get("renderScale") || "1") || 1));
 let sf3dBenchGroup = null;
 let sf3dBenchStartedAt = 0;
@@ -674,6 +675,24 @@ function setupSf3dBenchmark(source, count) {
   stage.dataset.sf3dBenchMode = sf3dBenchMode;
 }
 
+function profileForStress(profile, level) {
+  if (sf3dMaterialMode !== "lite" || level < 2) return profile;
+  return {
+    ...profile,
+    id: `${profile.id}-lite-runtime`,
+    material: {
+      ...(profile.material || {}),
+      preserveBaseColorMap: true,
+      preserveNormalMap: false,
+      preserveRoughnessMap: false,
+      preserveMetalnessMap: false,
+      maxAnisotropy: 1,
+      metalness: 0.0,
+      minRoughness: Math.max(0.68, profile.material?.minRoughness ?? 0.68)
+    }
+  };
+}
+
 function setupRaceStress(baseSource, baseProfile, lod1Data, lod2Data, lod3Data) {
   if (!sf3dRaceStress) return;
 
@@ -683,10 +702,10 @@ function setupRaceStress(baseSource, baseProfile, lod1Data, lod2Data, lod3Data) 
 
   if (sf3dRaceStressMode === "instance") {
     const inputs = [
-      [baseSource, baseProfile],
-      [lod1Data.source, lod1Data.profile],
-      [lod2Data.source, lod2Data.profile],
-      [lod3Data.source, lod3Data.profile]
+      [baseSource, profileForStress(baseProfile, 0)],
+      [lod1Data.source, profileForStress(lod1Data.profile, 1)],
+      [lod2Data.source, profileForStress(lod2Data.profile, 2)],
+      [lod3Data.source, profileForStress(lod3Data.profile, 3)]
     ];
 
     sf3dRaceStressBatches = inputs.map(([source, profile]) => {
@@ -711,25 +730,25 @@ function setupRaceStress(baseSource, baseProfile, lod1Data, lod2Data, lod3Data) 
 
       const baseModel = fitCreature3D(cloneCreature3D(baseSource), {
         renderer,
-        profile: baseProfile,
+        profile: profileForStress(baseProfile, 0),
         placement: "race",
         materialSide: "front"
       });
       const lod1Model = fitCreature3D(cloneCreature3D(lod1Data.source), {
         renderer,
-        profile: lod1Data.profile,
+        profile: profileForStress(lod1Data.profile, 1),
         placement: "race",
         materialSide: "front"
       });
       const lod2Model = fitCreature3D(cloneCreature3D(lod2Data.source), {
         renderer,
-        profile: lod2Data.profile,
+        profile: profileForStress(lod2Data.profile, 2),
         placement: "race",
         materialSide: "front"
       });
       const lod3Model = fitCreature3D(cloneCreature3D(lod3Data.source), {
         renderer,
-        profile: lod3Data.profile,
+        profile: profileForStress(lod3Data.profile, 3),
         placement: "race",
         materialSide: "front"
       });
@@ -746,6 +765,7 @@ function setupRaceStress(baseSource, baseProfile, lod1Data, lod2Data, lod3Data) 
   view = "race";
   stage.dataset.sf3dRaceStress = "running";
   stage.dataset.sf3dRaceStressMode = sf3dRaceStressMode;
+  stage.dataset.sf3dMaterialMode = sf3dMaterialMode;
   stage.dataset.sf3dRaceStressRacers = String(racers.length);
   sf3dRaceStressStartedAt = performance.now();
   sf3dRaceStressFrames = [];
@@ -800,6 +820,7 @@ function sampleRaceStress(now, frameMs) {
   window.__sf3dRaceStress = {
     racers: racers.length,
     mode: sf3dRaceStressMode,
+    materialMode: sf3dMaterialMode,
     durationMs: Number(elapsed.toFixed(0)),
     samples: ms.length,
     averageFrameMs: Number(avg.toFixed(3)),
