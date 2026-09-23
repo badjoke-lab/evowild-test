@@ -368,3 +368,33 @@ test("benchmark mixed-distance 18-racer SF3D LOD", async ({ page }, testInfo) =>
     path: `${outDir}/sf3d-race-lod-benchmark.png`
   });
 });
+
+
+test("stress 18 moving racers with three-level SF3D LOD", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(90000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  await page.goto("/evowild-test/?sf3dRaceStress=1", { waitUntil: "networkidle" });
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 15000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-stress-racers", "18", { timeout: 20000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-stress", "ready", { timeout: 40000 });
+
+  const metrics = await page.evaluate(() => window.__sf3dRaceStress);
+  expect(metrics?.racers).toBe(18);
+  expect(metrics?.samples).toBeGreaterThan(10);
+  expect(metrics?.averageRendererTriangles).toBeGreaterThan(0);
+  expect(metrics?.averageRendererTriangles).toBeLessThan(metrics?.allBaseTriangles);
+  expect(metrics?.maxRendererCalls).toBeGreaterThan(0);
+
+  console.log("SF3D_RACE_STRESS", JSON.stringify(metrics));
+  fs.writeFileSync(
+    `${outDir}/sf3d-race-stress.json`,
+    JSON.stringify(metrics, null, 2)
+  );
+  await page.locator("#stage").screenshot({
+    path: `${outDir}/sf3d-race-stress.png`
+  });
+});
