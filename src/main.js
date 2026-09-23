@@ -634,6 +634,8 @@ for (let i = 0; i < 18; i++) {
     finished: false,
     finishPlace: null,
     finishTime: null,
+    agentLog: [],
+    lastAgentLogSignature: null,
     color: "#" + palette[i].toString(16).padStart(6, "0")
   });
 }
@@ -706,6 +708,30 @@ function creatureResponseFor(racer) {
     return { state: "SUCCESS", reason: "Position held while waiting for space" };
   }
   return { state: "SUCCESS", reason: `${racer.command} executed within current capability` };
+}
+
+function recordAgentEvent(racer, force = false) {
+  if (!racer || (raceState !== "running" && !racer.finished)) return;
+  const response = creatureResponseFor(racer);
+  const signature = `${racer.decision}|${racer.command}|${response.state}`;
+  if (!force && racer.lastAgentLogSignature === signature) return;
+
+  racer.lastAgentLogSignature = signature;
+  racer.agentLog.push({
+    time: elapsed,
+    phase: phase(racer),
+    decision: racer.decision,
+    order: racer.command,
+    result: response.state,
+    reason: response.reason,
+    fatigue: Math.round(100 - racer.stamina),
+    position: rankOf(racer)
+  });
+  if (racer.agentLog.length > 10) racer.agentLog.shift();
+
+  if (racer.id === selectedId) {
+    stage.dataset.agentLogEvents = String(racer.agentLog.length);
+  }
 }
 
 function updateAgentVisual(now) {
@@ -1468,6 +1494,7 @@ function update(dt) {
     const load = Math.max(0, r.speed / r.cruise - 0.96);
     r.stamina = Math.max(0, r.stamina - (0.018 + 0.038 * load * load) * r.drain * raceDt / 1000);
     r.laneF = THREE.MathUtils.lerp(r.laneF, r.lane, Math.min(1, raceDt * 0.0032));
+    recordAgentEvent(r);
 
     const t = (r.distance / raceMeters) % 1;
     const p = curve.getPointAt(t);
@@ -1514,6 +1541,7 @@ function update(dt) {
       r.command = `PLACE #${r.finishPlace}`;
       r.speed = 0;
       finishOrder.push(r.id);
+      recordAgentEvent(r, true);
       stage.dataset.finishCount = String(finishOrder.length);
       if (r.obj.userData.sRunAnimated) applySRunFrame(r, 5);
       else if (staticMotionProfile[r.morph]) applyStaticSpriteMotion(r, 5);
@@ -1682,6 +1710,26 @@ function updateHud() {
   stage.dataset.raceSection = currentPhase;
   stage.dataset.remainingMeters = String(Math.ceil(remaining));
 
+  const agentLogEl = document.querySelector("#agentLog");
+  const selectedLog = selected.agentLog ?? [];
+  if (agentLogEl) {
+    if (!selectedLog.length) {
+      agentLogEl.innerHTML = '<p class="agent-log-empty">No decisions yet.</p>';
+    } else {
+      agentLogEl.innerHTML = selectedLog.slice(-5).reverse().map((event) => `
+        <div class="agent-log-row ${event.result.toLowerCase()}">
+          <time>${formatRaceTime(event.time)}</time>
+          <div class="agent-log-main">
+            <b>${event.order}</b>
+            <span>${event.reason} · F${event.fatigue}% · #${event.position}</span>
+          </div>
+          <span class="agent-log-result">${event.result}</span>
+        </div>
+      `).join("");
+    }
+  }
+  stage.dataset.agentLogEvents = String(selectedLog.length);
+
   const rankingNow = performance.now();
   if (rankingNow - lastRankingPaint >= 220 || raceState === "finished") {
     ordered.forEach((r, index) => {
@@ -1774,6 +1822,8 @@ function resetRace() {
     r.finished = false;
     r.finishPlace = null;
     r.finishTime = null;
+    r.agentLog.length = 0;
+    r.lastAgentLogSignature = null;
     r.decision = "START";
     r.command = "BUILD SPEED";
 
