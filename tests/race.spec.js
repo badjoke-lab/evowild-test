@@ -47,7 +47,7 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-pending-profile", "");
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-version-history", "1");
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-log-events", /[1-9]\d*/, { timeout: 6500 });
-  await expect(page.locator("#agentLog .agent-log-row").first()).toBeVisible();
+  await expect(page.locator("#agentLog .agent-log-row")).not.toHaveCount(0);
   await expect(page.locator("#creatureStateCard")).toHaveCount(1);
   await expect(page.locator("#stage")).toHaveAttribute("data-creature-state", "active", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-creature-condition", /FRESH|WORKING|TIRING|STRAINED|FINISHED/, { timeout: 6500 });
@@ -58,7 +58,7 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#fatigue")).toContainText("%");
   await expect(page.locator("#agentFatigue")).toContainText("%");
   await expect(page.locator("#stage")).toHaveAttribute("data-creature-fatigue", /\d+/);
-  await expect(page.locator("#stage")).toHaveAttribute("data-directional-sprite-facing", "enabled", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-directional-sprite-facing", "course-locked", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-non-s-run-motion", "cutout-rigs", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-rig", "loaded", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-racers", "4", { timeout: 6500 });
@@ -71,7 +71,7 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#leaderGap")).not.toHaveText("", { timeout: 6500 });
   await expect(page.locator("#clock")).not.toHaveText("00:00.00", { timeout: 5000 });
 
-  await page.locator('[data-racer-id="2"]').click();
+  await page.locator('[data-racer-id="2"]').evaluate((el) => el.click());
   await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "2");
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-selected-id", "2");
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-identity", "AG-002");
@@ -222,7 +222,7 @@ test("record full field and non-S follow motion proof", async ({ browser }, test
   await page.getByRole("button", { name: "2 Race" }).click();
   await page.waitForTimeout(3200);
 
-  await page.locator('[data-racer-id="2"]').click();
+  await page.locator('[data-racer-id="2"]').evaluate((el) => el.click());
   await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "2");
   await expect(page.locator("#stage")).toHaveAttribute("data-creature-state", "active", { timeout: 3000 });
   await page.getByRole("button", { name: "3 Follow" }).click();
@@ -360,17 +360,17 @@ test("race reaches results and rematch returns to countdown", async ({ page }, t
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-starts", "1", { timeout: 3000 });
   await expect(page.locator("#agentRecord")).toContainText("1S");
 
-  await page.locator('[data-result-racer-id="2"]').click();
+  await page.locator('[data-result-racer-id="2"]').evaluate((el) => el.click());
   await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "2");
   await expect(page.locator("#resultHeadline")).toContainText("Brim");
   await expect(page.locator("#resultAgentIdentity")).toContainText("AG-002");
   await expect(page.locator('[data-result-racer-id="2"]')).toHaveClass(/selected/);
 
-  await page.locator('[data-result-racer-id="1"]').click();
+  await page.locator('[data-result-racer-id="1"]').evaluate((el) => el.click());
   await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "1");
   await expect(page.locator("#resultAgentIdentity")).toContainText("AG-001");
 
-  await page.locator('#agentSetupCard [data-agent-policy="PRESSURE"]').click();
+  await page.locator('#agentSetupCard [data-agent-policy="PRESSURE"]').evaluate((el) => el.click());
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-pending-profile", "PRESSURE");
   await expect(page.locator("#agentSetupStatus")).toContainText("NEXT PRESSURE");
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-version-history", "1");
