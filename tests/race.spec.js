@@ -372,31 +372,45 @@ test("benchmark mixed-distance 18-racer SF3D LOD", async ({ page }, testInfo) =>
 });
 
 
-test("stress 18 moving racers with four-level SF3D LOD", async ({ page }, testInfo) => {
+test("compare moving 18-racer four-level LOD clone versus dynamic instancing", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
-  test.setTimeout(90000);
+  test.setTimeout(120000);
 
   const outDir = "test-results/visuals";
   fs.mkdirSync(outDir, { recursive: true });
+  const results = [];
 
-  await page.goto("/evowild-test/?sf3dRaceStress=1", { waitUntil: "networkidle" });
-  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 15000 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-stress-racers", "18", { timeout: 20000 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-stress", "ready", { timeout: 40000 });
+  for (const mode of ["clone", "instance"]) {
+    await page.goto(
+      `/evowild-test/?sf3dRaceStress=1&sf3dRaceStressMode=${mode}`,
+      { waitUntil: "networkidle" }
+    );
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 15000 });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-stress-racers", "18", { timeout: 20000 });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-stress-mode", mode, { timeout: 20000 });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-stress", "ready", { timeout: 40000 });
 
-  const metrics = await page.evaluate(() => window.__sf3dRaceStress);
-  expect(metrics?.racers).toBe(18);
-  expect(metrics?.samples).toBeGreaterThan(10);
-  expect(metrics?.averageRendererTriangles).toBeGreaterThan(0);
-  expect(metrics?.averageRendererTriangles).toBeLessThan(metrics?.allBaseTriangles);
-  expect(metrics?.maxRendererCalls).toBeGreaterThan(0);
+    const metrics = await page.evaluate(() => window.__sf3dRaceStress);
+    expect(metrics?.racers).toBe(18);
+    expect(metrics?.mode).toBe(mode);
+    expect(metrics?.samples).toBeGreaterThan(10);
+    expect(metrics?.averageRendererTriangles).toBeGreaterThan(0);
+    expect(metrics?.averageRendererTriangles).toBeLessThan(metrics?.allBaseTriangles);
+    expect(metrics?.maxRendererCalls).toBeGreaterThan(0);
 
-  console.log("SF3D_RACE_STRESS", JSON.stringify(metrics));
+    results.push(metrics);
+    console.log("SF3D_RACE_STRESS", JSON.stringify(metrics));
+    await page.locator("#stage").screenshot({
+      path: `${outDir}/sf3d-race-stress-${mode}.png`
+    });
+  }
+
+  const cloneResult = results.find((result) => result.mode === "clone");
+  const instanceResult = results.find((result) => result.mode === "instance");
+  expect(instanceResult.averageRendererCalls).toBeLessThan(cloneResult.averageRendererCalls);
+
   fs.writeFileSync(
-    `${outDir}/sf3d-race-stress.json`,
-    JSON.stringify(metrics, null, 2)
+    `${outDir}/sf3d-race-stress-comparison.json`,
+    JSON.stringify({ generatedBy: "Playwright CI Chromium", results }, null, 2)
   );
-  await page.locator("#stage").screenshot({
-    path: `${outDir}/sf3d-race-stress.png`
-  });
 });
