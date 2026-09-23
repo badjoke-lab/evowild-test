@@ -404,25 +404,20 @@ button.active { border-color: #6bb1ff; background: #1d3144; }
     right: 136px;
     bottom: 7px;
     width: auto;
-    padding: 6px 7px;
+    padding: 5px 6px;
   }
-  .agent-head { margin-bottom: 3px; }
+  .agent-head { margin-bottom: 2px; }
+  .agent-head span { font-size: 9px; }
   .agent-head small { display: none; }
   .agent-line {
-    grid-template-columns: 54px minmax(0, 1fr);
-    gap: 5px;
-    margin-top: 2px;
-    font-size: 9px;
+    grid-template-columns: 50px minmax(0, 1fr);
+    gap: 4px;
+    margin-top: 1px;
+    font-size: 8.5px;
   }
-  .agent-line span { font-size: 8px; }
-  .agent-reason {
-    max-width: 220px;
-    margin-top: 3px;
-    font-size: 8px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  .agent-line span { font-size: 7px; }
+  .agent-policy-rule,
+  .agent-reason { display: none; }
   .agent-toast {
     max-width: 180px;
     gap: 4px;
