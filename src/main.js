@@ -16,6 +16,8 @@ const sf3dRaceStress = query.get("sf3dRaceStress") === "1";
 const sf3dRaceStressMode = query.get("sf3dRaceStressMode") === "instance" ? "instance" : "clone";
 const sf3dMaterialMode = query.get("sf3dMaterialMode") === "lite" ? "lite" : "full";
 const renderScale = Math.min(1, Math.max(0.5, Number.parseFloat(query.get("renderScale") || "1") || 1));
+const modelYawDegrees = Number.parseFloat(query.get("modelYaw") || "0") || 0;
+const modelYawRadians = THREE.MathUtils.degToRad(modelYawDegrees);
 let sf3dBenchGroup = null;
 let sf3dBenchStartedAt = 0;
 let sf3dBenchFrameTimes = [];
@@ -1022,7 +1024,10 @@ loadCreature3D(sf3dProfile)
       profile,
       placement: "lab"
     });
+    sf3dLab.rotation.y += modelYawRadians;
+    sf3dLab.updateMatrixWorld(true);
     sf3dLab.name = "EvoWild_S_SF3D_Lab";
+    stage.dataset.modelYaw = String(modelYawDegrees);
     sf3dLab.visible = activeLabMorph === "S";
     labGroup.add(sf3dLab);
 
