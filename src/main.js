@@ -678,7 +678,7 @@ for (let i = 0; i < 18; i++) {
   const agent = {
     id: `AG-${String(i + 1).padStart(3, "0")}`,
     name: agentNames[i],
-    version: `v1.${i % 3}`,
+    version: "v1",
     policy: { ...agentTemplate },
     raceHistory: []
   };
