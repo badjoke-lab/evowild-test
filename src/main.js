@@ -712,6 +712,7 @@ function updateAgentVisual(now) {
   const panel = document.querySelector("#agentPanel");
   const orderEl = document.querySelector("#agentOrder");
   const responseEl = document.querySelector("#creatureResponse");
+  const fatigueEl = document.querySelector("#agentFatigue");
   const reasonEl = document.querySelector("#creatureReason");
   const order = selected?.command || "WAIT";
   const response = creatureResponseFor(selected);
@@ -730,6 +731,7 @@ function updateAgentVisual(now) {
 
   if (orderEl) orderEl.textContent = order;
   if (responseEl) responseEl.textContent = response.state;
+  if (fatigueEl) fatigueEl.textContent = `${Math.round(100 - (selected?.stamina ?? 100))}%`;
   if (reasonEl) reasonEl.textContent = response.reason;
   if (panel) panel.classList.toggle("pulse", now < agentPulseUntil);
 
