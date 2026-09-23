@@ -646,17 +646,22 @@ const ring = new THREE.Mesh(
 ring.rotation.x = -Math.PI / 2;
 scene.add(ring);
 
-const agentOrb = new THREE.Mesh(
-  new THREE.SphereGeometry(0.16, 14, 10),
-  new THREE.MeshBasicMaterial({
-    color: 0x76e59b,
-    transparent: true,
-    opacity: 0.92,
-    depthWrite: false
-  })
-);
-agentOrb.renderOrder = 8;
-scene.add(agentOrb);
+const agentOrbGeometry = new THREE.SphereGeometry(0.16, 14, 10);
+const agentOrbs = racers.map((r) => {
+  const orb = new THREE.Mesh(
+    agentOrbGeometry,
+    new THREE.MeshBasicMaterial({
+      color: 0x76e59b,
+      transparent: true,
+      opacity: r.id === selectedId ? 0.92 : 0.34,
+      depthWrite: false
+    })
+  );
+  orb.renderOrder = 8;
+  scene.add(orb);
+  return orb;
+});
+const agentOrbTravelTangent = new THREE.Vector3();
 
 const agentCommandColors = {
   "BUILD SPEED": 0x76e59b,
@@ -674,7 +679,7 @@ let agentToastUntil = 0;
 const agentToastWorld = new THREE.Vector3();
 
 function creatureResponseFor(racer) {
-  if (!racer) return { state: "UNKNOWN", reason: "No selected creature" };
+  if (!racer) return { state: "FAILED", reason: "No selected creature" };
   if (racer.finished) {
     return { state: "FINISHED", reason: `Result fixed at place #${racer.finishPlace}` };
   }
@@ -682,24 +687,25 @@ function creatureResponseFor(racer) {
     return { state: "READY", reason: "Waiting for the start signal" };
   }
   if (racer.decision === "BLOCKED") {
-    return { state: "BLOCKED", reason: "Traffic prevents the requested line change" };
+    return { state: "FAILED", reason: "No safe path available for the requested move" };
   }
   if (Math.abs(racer.laneF - racer.lane) > 0.12) {
-    return { state: "EXECUTING", reason: `Changing toward lane ${racer.lane + 1}` };
+    return { state: "PARTIAL", reason: `Lane change in progress toward lane ${racer.lane + 1}` };
   }
   if (racer.stamina < 18) {
-    return { state: "LIMITED", reason: `Low stamina limits output (${Math.round(racer.stamina)}%)` };
+    const fatigue = 100 - racer.stamina;
+    return { state: "PARTIAL", reason: `High fatigue reduces output (${Math.round(fatigue)}%)` };
   }
   if (racer.command === "PUSH" && racer.speed < racer.cruise * 0.98) {
-    return { state: "LIMITED", reason: "Push order exceeds current acceleration/output" };
+    return { state: "PARTIAL", reason: "Acceleration/output limits reduce the push response" };
   }
   if (racer.command === "EASE") {
-    return { state: "COMPLYING", reason: "Pace reduced to preserve stamina" };
+    return { state: "SUCCESS", reason: "Pace reduced to preserve energy" };
   }
   if (racer.command === "WAIT") {
-    return { state: "COMPLYING", reason: "Holding position until space opens" };
+    return { state: "SUCCESS", reason: "Position held while waiting for space" };
   }
-  return { state: "EXECUTING", reason: `${racer.decision} within current capability` };
+  return { state: "SUCCESS", reason: `${racer.decision} command executed within current capability` };
 }
 
 function updateAgentVisual(now) {
@@ -727,19 +733,24 @@ function updateAgentVisual(now) {
   if (reasonEl) reasonEl.textContent = response.reason;
   if (panel) panel.classList.toggle("pulse", now < agentPulseUntil);
 
-  if (selected) {
-    agentOrb.position.copy(selected.obj.position);
-    agentOrb.position.y += 3.05;
-    const color = agentCommandColors[order] ?? 0x6bdcff;
-    agentOrb.material.color.setHex(color);
-    const pulse = now < agentPulseUntil
-      ? 1.38
-      : 1 + Math.sin(now * 0.008) * 0.08;
-    agentOrb.scale.setScalar(pulse);
-  }
-
   const showWorldSignal = view !== "lab" && view !== "tactical";
-  agentOrb.visible = Boolean(selected) && showWorldSignal;
+  agentOrbs.forEach((orb, index) => {
+    const racer = racers[index];
+    const t = (racer.distance / raceMeters) % 1;
+    agentOrbTravelTangent.copy(curve.getTangentAt(t)).normalize();
+    orb.position.copy(racer.obj.position).addScaledVector(agentOrbTravelTangent, -0.62);
+    orb.position.y += 2.85;
+
+    const racerOrder = racer.command || "WAIT";
+    orb.material.color.setHex(agentCommandColors[racerOrder] ?? 0x6bdcff);
+    const isSelected = racer.id === selectedId;
+    orb.material.opacity = isSelected ? 0.92 : 0.30;
+    const pulse = isSelected
+      ? (now < agentPulseUntil ? 1.38 : 1 + Math.sin(now * 0.008) * 0.08)
+      : 0.74 + Math.sin(now * 0.004 + racer.id) * 0.04;
+    orb.scale.setScalar(pulse);
+    orb.visible = showWorldSignal && (!sRunIsolatedProof || racer.id === sRunProofRacerId);
+  });
 
   const toast = document.querySelector("#agentToast");
   if (toast && selected && showWorldSignal && now < agentToastUntil) {
@@ -754,6 +765,7 @@ function updateAgentVisual(now) {
   }
   stage.dataset.agentVisual = "enabled";
   stage.dataset.agentToast = "enabled";
+  stage.dataset.agentOrbCount = String(agentOrbs.length);
   stage.dataset.agentSelectedId = String(selectedId);
   stage.dataset.agentOrder = order;
   stage.dataset.creatureResponse = response.state;
@@ -1637,7 +1649,15 @@ function updateHud() {
 
   document.querySelector("#position").textContent = `${position} / 18`;
   document.querySelector("#speed").textContent = Math.round(selected.speed);
-  document.querySelector("#stamina").textContent = Math.round(selected.stamina);
+  const fatigue = Math.round(100 - selected.stamina);
+  document.querySelector("#fatigue").textContent = `${fatigue}%`;
+  const fatigueFill = document.querySelector("#fatigueFill");
+  if (fatigueFill) {
+    fatigueFill.style.width = `${fatigue}%`;
+    fatigueFill.classList.toggle("high", fatigue >= 65 && fatigue < 85);
+    fatigueFill.classList.toggle("critical", fatigue >= 85);
+  }
+  stage.dataset.creatureFatigue = String(fatigue);
   document.querySelector("#morph").textContent = `${selected.morph} / ${morphLabel[selected.morph].toUpperCase()}`;
   document.querySelector("#decision").textContent = `${selected.decision} / ${selected.command}`;
   document.querySelector("#morphName").textContent = `${selected.morph} — ${morphLabel[selected.morph]}`;
