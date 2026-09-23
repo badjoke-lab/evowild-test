@@ -30,6 +30,32 @@ export const CREATURE_3D_PROFILES = {
       "Use only to judge multiview silhouette fidelity before cleanup or retopology."
     ]
   },
+  sHunyuan2mvClean: {
+    id: "s-hunyuan2mv-clean",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-clean.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.0,
+      minRoughness: 0.78,
+      side: "double",
+      preserveBaseColorMap: false,
+      preserveNormalMap: false,
+      preserveRoughnessMap: false,
+      preserveMetalnessMap: false,
+      maxAnisotropy: 1
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "multiview_clean_candidate",
+    notes: [
+      "Hunyuan multiview shape with degenerate triangles removed and only the largest connected component retained.",
+      "Shape-only validation asset; source for subsequent simplification tests."
+    ]
+  },
   sHunyuan2mvLod1: {
     id: "s-hunyuan2mv-lod1",
     morph: "S",
