@@ -670,6 +670,8 @@ const agentCommandColors = {
 let lastAgentCommand = "";
 let lastAgentRacerId = null;
 let agentPulseUntil = 0;
+let agentToastUntil = 0;
+const agentToastWorld = new THREE.Vector3();
 
 function creatureResponseFor(racer) {
   if (!racer) return { state: "UNKNOWN", reason: "No selected creature" };
@@ -712,6 +714,12 @@ function updateAgentVisual(now) {
     lastAgentRacerId = selected.id;
     lastAgentCommand = order;
     agentPulseUntil = now + 420;
+    agentToastUntil = now + 1050;
+
+    const toastOrder = document.querySelector("#agentToastOrder");
+    const toastResult = document.querySelector("#agentToastResult");
+    if (toastOrder) toastOrder.textContent = order;
+    if (toastResult) toastResult.textContent = response.state;
   }
 
   if (orderEl) orderEl.textContent = order;
@@ -732,7 +740,20 @@ function updateAgentVisual(now) {
 
   const showWorldSignal = view !== "lab" && view !== "tactical";
   agentOrb.visible = Boolean(selected) && showWorldSignal;
+
+  const toast = document.querySelector("#agentToast");
+  if (toast && selected && showWorldSignal && now < agentToastUntil) {
+    agentToastWorld.copy(selected.obj.position);
+    agentToastWorld.y += 3.45;
+    agentToastWorld.project(camera);
+    toast.style.left = `${(agentToastWorld.x * 0.5 + 0.5) * 100}%`;
+    toast.style.top = `${(-agentToastWorld.y * 0.5 + 0.5) * 100}%`;
+    toast.hidden = false;
+  } else if (toast) {
+    toast.hidden = true;
+  }
   stage.dataset.agentVisual = "enabled";
+  stage.dataset.agentToast = "enabled";
   stage.dataset.agentSelectedId = String(selectedId);
   stage.dataset.agentOrder = order;
   stage.dataset.creatureResponse = response.state;
@@ -1755,6 +1776,7 @@ function resetRace() {
   lastAgentCommand = "";
   lastAgentRacerId = null;
   agentPulseUntil = performance.now() + 420;
+  agentToastUntil = performance.now() + 1050;
   updateRaceStateDataset();
 }
 resetRace();
