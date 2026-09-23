@@ -1248,8 +1248,17 @@ const staticMotionProfile = {
 };
 const sRunRacers = [];
 let sRunSheetTexture = null;
+const pCutoutRigRacerId = 2;
+const pCutoutRigRacers = [];
 const sBillboardParentQ = new THREE.Quaternion();
 const sBillboardCameraQ = new THREE.Quaternion();
+
+const pRigLegDefs = [
+  { key: "front-far", x: 0.13, y: 0.40, w: 0.22, h: 0.58, hipX: 0.28, hipY: 0.47, amp: 0.34, phase: Math.PI, z: -0.018 },
+  { key: "front-near", x: 0.25, y: 0.43, w: 0.23, h: 0.55, hipX: 0.38, hipY: 0.49, amp: 0.40, phase: 0, z: 0.022 },
+  { key: "rear-far", x: 0.52, y: 0.45, w: 0.22, h: 0.53, hipX: 0.63, hipY: 0.49, amp: 0.32, phase: 0, z: -0.014 },
+  { key: "rear-near", x: 0.66, y: 0.43, w: 0.24, h: 0.55, hipX: 0.72, hipY: 0.48, amp: 0.38, phase: Math.PI, z: 0.026 }
+];
 
 function buildAnimatedSRunPlane(texture, raceLayout, racerId) {
   const sheet = texture.clone();
@@ -1283,8 +1292,161 @@ function buildAnimatedSRunPlane(texture, raceLayout, racerId) {
   return mesh;
 }
 
+function makeCanvasTexture(canvas) {
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.minFilter = THREE.LinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  texture.generateMipmaps = false;
+  return texture;
+}
+
+function buildPCutoutRig(texture, raceLayout, racerId) {
+  const image = texture.image;
+  const width = image.naturalWidth || image.width;
+  const height = image.naturalHeight || image.height;
+  if (!width || !height) return null;
+
+  const rig = new THREE.Group();
+  rig.name = `Race2_5D_P_CutoutRig_${racerId}`;
+  rig.position.set(0, raceLayout.y, 0);
+  rig.userData.baseScaleX = 1;
+  rig.userData.motionScaleX = 1;
+  rig.userData.facingSign = 1;
+  rig.userData.legPivots = [];
+
+  const bodyCanvas = document.createElement("canvas");
+  bodyCanvas.width = width;
+  bodyCanvas.height = height;
+  const bodyCtx = bodyCanvas.getContext("2d");
+  bodyCtx.drawImage(image, 0, 0, width, height);
+
+  for (const def of pRigLegDefs) {
+    const x = Math.floor(def.x * width);
+    const y = Math.floor(def.y * height);
+    const w = Math.ceil(def.w * width);
+    const h = Math.ceil(def.h * height);
+    const eraseTop = Math.floor(y + h * 0.17);
+    bodyCtx.clearRect(x, eraseTop, w, Math.max(1, y + h - eraseTop));
+  }
+
+  const body = new THREE.Mesh(
+    new THREE.PlaneGeometry(1, 1),
+    new THREE.MeshBasicMaterial({
+      map: makeCanvasTexture(bodyCanvas),
+      transparent: true,
+      depthWrite: false,
+      alphaTest: 0.02,
+      side: THREE.DoubleSide
+    })
+  );
+  body.name = `P_Cutout_Body_${racerId}`;
+  body.scale.set(raceLayout.scale[0], raceLayout.scale[1], 1);
+  body.position.z = 0;
+  body.renderOrder = 4;
+  rig.add(body);
+  rig.userData.body = body;
+
+  for (const def of pRigLegDefs) {
+    const x = Math.floor(def.x * width);
+    const y = Math.floor(def.y * height);
+    const w = Math.max(1, Math.ceil(def.w * width));
+    const h = Math.max(1, Math.ceil(def.h * height));
+    const hipX = def.hipX * width;
+    const hipY = def.hipY * height;
+
+    const legCanvas = document.createElement("canvas");
+    legCanvas.width = w;
+    legCanvas.height = h;
+    const legCtx = legCanvas.getContext("2d");
+    legCtx.drawImage(image, x, y, w, h, 0, 0, w, h);
+
+    const pivot = new THREE.Group();
+    pivot.name = `P_Cutout_Pivot_${def.key}_${racerId}`;
+    pivot.position.set(
+      (def.hipX - 0.5) * raceLayout.scale[0],
+      (0.5 - def.hipY) * raceLayout.scale[1],
+      def.z
+    );
+
+    const leg = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshBasicMaterial({
+        map: makeCanvasTexture(legCanvas),
+        transparent: true,
+        depthWrite: false,
+        alphaTest: 0.02,
+        side: THREE.DoubleSide
+      })
+    );
+    leg.name = `P_Cutout_Leg_${def.key}_${racerId}`;
+    leg.scale.set(
+      (w / width) * raceLayout.scale[0],
+      (h / height) * raceLayout.scale[1],
+      1
+    );
+    leg.position.set(
+      ((x + w / 2 - hipX) / width) * raceLayout.scale[0],
+      (-(y + h / 2 - hipY) / height) * raceLayout.scale[1],
+      0
+    );
+    leg.renderOrder = def.z > 0 ? 5 : 3;
+    pivot.add(leg);
+    pivot.userData.amp = def.amp;
+    pivot.userData.phase = def.phase;
+    rig.userData.legPivots.push(pivot);
+    rig.add(pivot);
+  }
+
+  return rig;
+}
+
+function installPCutoutRigFor(racer, texture) {
+  if (!racer || racer.id !== pCutoutRigRacerId || racer.morph !== "P" || racer.obj.userData.pCutoutRig) return;
+  const oldSprite = racer.obj.userData.raceSprite;
+  if (!oldSprite) return;
+
+  const rig = buildPCutoutRig(texture, raceSpriteLayout.P, racer.id);
+  if (!rig) return;
+
+  racer.obj.remove(oldSprite);
+  if (oldSprite.material) oldSprite.material.dispose();
+
+  racer.obj.add(rig);
+  racer.obj.userData.raceRig = rig;
+  racer.obj.userData.raceSprite = rig.userData.body;
+  racer.obj.userData.pCutoutRig = true;
+  pCutoutRigRacers.push(racer);
+
+  stage.dataset.pCutoutRig = "loaded";
+  stage.dataset.pCutoutRacer = String(racer.id);
+}
+
+function applyPCutoutRigMotion(racer, frameIndex) {
+  const rig = racer?.obj?.userData?.raceRig;
+  if (!rig || !racer.obj.userData.pCutoutRig) return;
+
+  const angle = (frameIndex / 6) * Math.PI * 2;
+  rig.userData.legPivots.forEach((pivot, index) => {
+    const stride = Math.sin(angle + pivot.userData.phase) * pivot.userData.amp;
+    const secondary = Math.sin(angle * 2 + index * 0.7) * 0.035;
+    pivot.rotation.z = stride + secondary;
+  });
+
+  const body = rig.userData.body;
+  if (body) {
+    body.position.y = Math.abs(Math.sin(angle)) * 0.045;
+    body.rotation.z = Math.sin(angle) * 0.012;
+  }
+
+  if (racer.id === selectedId) {
+    stage.dataset.selectedMotionPhase = staticMotionFrames[frameIndex]?.phase || String(frameIndex);
+  }
+  stage.dataset.pCutoutMotion = "6phase-rig";
+}
+
 function applyStaticSpriteMotion(racer, frameIndex) {
-  if (!racer || racer.obj.userData.sRunAnimated) return;
+  if (!racer || racer.obj.userData.sRunAnimated || racer.obj.userData.pCutoutRig) return;
   const sprite = racer.obj.userData.raceSprite;
   const profile = staticMotionProfile[racer.morph];
   const frame = staticMotionFrames[frameIndex];
@@ -1433,6 +1595,7 @@ for (const morph of ["S", "P", "E", "A"]) {
         racer.obj.add(raceSprite);
         racer.obj.userData.raceSprite = raceSprite;
         if (morph === "S") installSRunSpriteFor(racer);
+        if (morph === "P" && racer.id === pCutoutRigRacerId) installPCutoutRigFor(racer, texture);
       }
 
       const material = new THREE.SpriteMaterial({
@@ -1758,6 +1921,11 @@ function update(dt) {
       const phaseOffset = (r.id * 41) % Math.round(frameMs * sRunFrames.length);
       const frameIndex = Math.floor((elapsed + phaseOffset) / frameMs) % sRunFrames.length;
       applySRunFrame(r, frameIndex);
+    } else if (r.obj.userData.pCutoutRig) {
+      const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
+      const frameMs = THREE.MathUtils.lerp(160, 86, speedRatio);
+      const frameIndex = Math.floor((elapsed + r.id * 37) / frameMs) % 6;
+      applyPCutoutRigMotion(r, frameIndex);
     } else if (staticMotionProfile[r.morph]) {
       const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
       const profile = staticMotionProfile[r.morph];
@@ -1784,6 +1952,7 @@ function update(dt) {
       recordAgentEvent(r, true);
       stage.dataset.finishCount = String(finishOrder.length);
       if (r.obj.userData.sRunAnimated) applySRunFrame(r, 5);
+      else if (r.obj.userData.pCutoutRig) applyPCutoutRigMotion(r, 5);
       else if (staticMotionProfile[r.morph]) applyStaticSpriteMotion(r, 5);
     }
   }
