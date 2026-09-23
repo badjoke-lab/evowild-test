@@ -340,3 +340,31 @@ test("loads three-level SF3D race LOD on the active corrected candidate", async 
   await page.waitForTimeout(900);
   await page.locator("#stage").screenshot({ path: `${outDir}/sf3d-race-lod-proof.png` });
 });
+
+
+test("benchmark mixed-distance 18-racer SF3D LOD", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(70000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  await page.goto("/evowild-test/?sf3dRaceLodBench=1", { waitUntil: "networkidle" });
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 15000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-lod-bench", "ready", { timeout: 30000 });
+
+  const metrics = await page.evaluate(() => window.__sf3dRaceLodBench);
+  expect(metrics?.count).toBe(18);
+  expect(metrics?.rendererTriangles).toBeGreaterThan(0);
+  expect(metrics?.rendererTriangles).toBeLessThan(metrics?.allBaseTriangles + 10);
+  expect(metrics?.rendererCalls).toBeGreaterThan(0);
+
+  console.log("SF3D_RACE_LOD_BENCH", JSON.stringify(metrics));
+  fs.writeFileSync(
+    `${outDir}/sf3d-race-lod-benchmark.json`,
+    JSON.stringify(metrics, null, 2)
+  );
+  await page.locator("#stage").screenshot({
+    path: `${outDir}/sf3d-race-lod-benchmark.png`
+  });
+});
