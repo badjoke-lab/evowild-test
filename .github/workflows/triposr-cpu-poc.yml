@@ -74,11 +74,11 @@ jobs:
           git clone --depth 1 https://github.com/VAST-AI-Research/TripoSR.git /tmp/TripoSR
           python -m pip install -q --upgrade pip setuptools wheel
           python -m pip install -q torch==2.2.2 torchvision==0.17.2 --index-url https://download.pytorch.org/whl/cpu
-          python -m pip install -q scikit-build-core cmake ninja
+          python -m pip install -q scikit-build-core cmake ninja pybind11
           cd /tmp/TripoSR
           grep -v 'torchmcubes' requirements.txt > /tmp/triposr-requirements-no-mcubes.txt
           python -m pip install -q -r /tmp/triposr-requirements-no-mcubes.txt
-          python -m pip install -q --no-build-isolation git+https://github.com/tatsy/torchmcubes.git
+          CMAKE_PREFIX_PATH="$(python -m pybind11 --cmakedir)" python -m pip install -q --no-build-isolation git+https://github.com/tatsy/torchmcubes.git
 
       - name: Run TripoSR on CPU
         env:
