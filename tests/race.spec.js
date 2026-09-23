@@ -201,6 +201,12 @@ test("compare corrected, white-background and SIDE SF3D candidates", async ({ pa
       query: "?sf3dVariant=side",
       profile: "s-sf3d-side-authority",
       triangles: "16112"
+    },
+    {
+      name: "triposr",
+      query: "?sf3dVariant=triposr",
+      profile: "s-triposr-side-authority",
+      triangles: "12764"
     }
   ];
 
