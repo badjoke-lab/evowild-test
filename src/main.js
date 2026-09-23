@@ -1452,6 +1452,229 @@ function makeCanvasTexture(canvas) {
   return texture;
 }
 
+
+const generatedRunFrames = [
+  { phase: "CONTACT", col: 0, row: 0, y: 0.00 },
+  { phase: "PUSH",    col: 1, row: 0, y: 0.02 },
+  { phase: "LIFT",    col: 2, row: 0, y: 0.06 },
+  { phase: "FLIGHT",  col: 0, row: 1, y: 0.10 },
+  { phase: "REACH",   col: 1, row: 1, y: 0.05 },
+  { phase: "LAND",    col: 2, row: 1, y: 0.00 }
+];
+const generatedRunRacers = { P: [], E: [], A: [] };
+const generatedRunTextures = new Map();
+const generatedRunLayout = {
+  P: { scale: [3.70, 3.04], y: 0.10, frameSlow: 160, frameFast: 84 },
+  E: { scale: [3.48, 3.18], y: 0.08, frameSlow: 174, frameFast: 92 },
+  A: { scale: [3.78, 2.78], y: 0.05, frameSlow: 148, frameFast: 76 }
+};
+const runPoseDeltas = [
+  [[-3,0,-10,0],[4,0,10,0],[2,0,-8,0],[-2,0,10,0]],
+  [[0,-2,-2,-4],[10,-6,24,-12],[-2,-2,2,-7],[-12,-5,-24,-12]],
+  [[8,-9,14,-21],[8,-8,20,-20],[-10,-7,-10,-18],[-8,-9,-18,-20]],
+  [[10,-12,20,-28],[-6,-13,-10,-27],[-12,-11,-18,-24],[8,-10,14,-22]],
+  [[10,-5,-18,-9],[-12,-7,-30,-10],[-10,-4,-12,-7],[10,-6,22,-10]],
+  [[2,0,-8,0],[-8,-3,-18,-6],[-3,-3,-8,-5],[7,-2,12,-5]]
+];
+
+const runWarpDefs = {
+  P: {
+    points: [[0,0],[103.5,0],[206,0],[0,162],[103.5,162],[206,162],[5,45],[30,40],[55,45],[90,40],[125,45],[160,55],[200,75],[15,75],[45,70],[75,70],[105,70],[135,75],[170,80],[200,100],[48,82],[45,117],[34,158],[78,84],[78,120],[73,158],[126,91],[135,124],[125,158],[160,96],[169,128],[172,158],[58,60],[85,55],[115,58],[145,68],[100,90],[145,95]],
+    triangles: [[6,3,0],[6,13,3],[13,21,3],[5,12,2],[12,11,2],[11,12,18],[22,4,3],[21,22,3],[20,21,13],[6,7,13],[7,6,0],[1,7,0],[8,7,1],[10,1,2],[11,10,2],[4,31,5],[31,30,5],[12,19,18],[19,12,5],[30,19,5],[22,25,4],[25,24,4],[25,22,21],[24,25,21],[33,32,8],[10,9,1],[9,8,1],[9,33,8],[9,34,33],[34,9,10],[19,29,18],[29,19,30],[14,7,8],[32,14,8],[14,32,20],[14,20,13],[7,14,13],[15,32,33],[32,15,20],[16,26,36],[34,16,33],[16,15,33],[35,10,11],[35,11,18],[29,35,18],[35,29,37],[31,27,30],[37,27,26],[27,29,30],[29,27,37],[24,27,4],[27,24,36],[26,27,36],[15,23,20],[23,24,21],[20,23,21],[24,23,36],[23,16,36],[16,23,15],[16,17,26],[17,16,34],[17,37,26],[17,35,37],[17,34,10],[35,17,10],[28,31,4],[27,28,4],[28,27,31]],
+    legs: [[20,21,22],[23,24,25],[26,27,28],[29,30,31]],
+    bodyIds: [12,13,14,15,16,17,18,19,20,23,26,29,32,33,34,35,36,37],
+    poseScale: 1.00, airLift: 1.00, cellScale: 1.08, cellY: 8
+  },
+  E: {
+    points: [[0,0],[105,0],[210,0],[0,180],[105,180],[210,180],[5,45],[30,35],[60,45],[95,55],[130,58],[165,60],[205,75],[10,82],[45,78],[80,78],[115,76],[150,80],[180,82],[208,100],[43,91],[41,135],[33,176],[83,94],[82,137],[79,176],[143,91],[147,136],[141,176],[170,94],[178,137],[178,176],[55,60],[85,65],[115,62],[145,66],[105,92],[150,95]],
+    triangles: [[5,19,2],[6,3,0],[6,13,3],[22,4,3],[27,24,36],[24,27,4],[6,14,13],[14,20,13],[11,1,2],[4,28,5],[27,28,4],[30,19,5],[24,23,36],[22,25,4],[25,24,4],[20,21,13],[23,21,20],[21,23,24],[21,25,22],[25,21,24],[13,21,3],[21,22,3],[9,8,1],[10,9,1],[11,10,1],[19,12,2],[12,11,2],[31,28,27],[30,31,27],[28,31,5],[31,30,5],[7,14,6],[7,6,0],[1,7,0],[8,7,1],[14,15,20],[15,23,20],[23,15,36],[7,32,14],[32,7,8],[32,15,14],[10,34,9],[34,16,9],[16,34,10],[26,27,36],[16,26,36],[32,33,15],[16,33,9],[33,8,9],[33,32,8],[15,33,36],[33,16,36],[26,37,27],[35,16,10],[35,26,16],[35,10,11],[12,18,11],[18,12,19],[17,37,26],[35,17,26],[17,35,11],[18,17,11],[17,29,37],[29,17,18],[29,30,27],[37,29,27],[30,29,19],[29,18,19]],
+    legs: [[20,21,22],[23,24,25],[26,27,28],[29,30,31]],
+    bodyIds: [12,13,14,15,16,17,18,19,20,23,26,29,32,33,34,35,36,37],
+    poseScale: 0.82, airLift: 0.80, cellScale: 1.00, cellY: 7
+  },
+  A: {
+    points: [[0,0],[97,0],[194,0],[0,135],[97,135],[194,135],[5,38],[30,28],[60,30],[90,35],[120,32],[155,25],[192,40],[8,65],[40,62],[72,58],[100,60],[130,58],[160,56],[192,68],[57,67],[56,95],[43,129],[90,70],[91,99],[86,129],[124,70],[126,98],[123,129],[148,72],[157,100],[168,130],[50,48],[78,45],[105,45],[135,44],[100,70],[140,72]],
+    triangles: [[21,13,14],[5,19,2],[11,1,2],[30,19,5],[6,3,0],[6,13,3],[7,6,0],[13,6,14],[6,7,14],[7,32,14],[20,21,14],[32,20,14],[12,19,18],[11,12,18],[19,12,2],[12,11,2],[11,10,1],[4,31,5],[31,30,5],[19,29,18],[30,29,19],[8,32,7],[32,8,33],[1,8,0],[8,7,0],[20,23,21],[25,22,21],[13,22,3],[21,22,13],[22,4,3],[22,25,4],[15,32,33],[15,20,32],[23,15,33],[15,23,20],[10,9,1],[9,8,1],[8,9,33],[35,11,18],[35,10,11],[27,24,36],[24,23,36],[25,24,4],[24,25,21],[23,24,21],[28,31,4],[24,28,4],[28,24,27],[31,28,30],[28,27,30],[29,17,18],[17,35,18],[35,17,10],[26,27,36],[17,34,10],[34,9,10],[37,17,29],[37,26,17],[26,37,27],[37,29,30],[27,37,30],[26,16,17],[16,34,17],[16,26,36],[23,16,36],[16,23,33],[9,16,33],[34,16,9]],
+    legs: [[20,21,22],[23,24,25],[26,27,28],[29,30,31]],
+    bodyIds: [12,13,14,15,16,17,18,19,20,23,26,29,32,33,34,35,36,37],
+    poseScale: 0.72, airLift: 0.55, cellScale: 1.16, cellY: 7
+  }
+};
+
+function affineFromTriangles(src, dst) {
+  const s0 = src[0], s1 = src[1], s2 = src[2];
+  const d0 = dst[0], d1 = dst[1], d2 = dst[2];
+  const den = s0[0] * (s1[1] - s2[1]) + s1[0] * (s2[1] - s0[1]) + s2[0] * (s0[1] - s1[1]);
+  if (Math.abs(den) < 1e-6) return null;
+  const a = (d0[0]*(s1[1]-s2[1]) + d1[0]*(s2[1]-s0[1]) + d2[0]*(s0[1]-s1[1])) / den;
+  const c = (d0[0]*(s2[0]-s1[0]) + d1[0]*(s0[0]-s2[0]) + d2[0]*(s1[0]-s0[0])) / den;
+  const e = (d0[0]*(s1[0]*s2[1]-s2[0]*s1[1]) + d1[0]*(s2[0]*s0[1]-s0[0]*s2[1]) + d2[0]*(s0[0]*s1[1]-s1[0]*s0[1])) / den;
+  const b = (d0[1]*(s1[1]-s2[1]) + d1[1]*(s2[1]-s0[1]) + d2[1]*(s0[1]-s1[1])) / den;
+  const d = (d0[1]*(s2[0]-s1[0]) + d1[1]*(s0[0]-s2[0]) + d2[1]*(s1[0]-s0[0])) / den;
+  const ff = (d0[1]*(s1[0]*s2[1]-s2[0]*s1[1]) + d1[1]*(s2[0]*s0[1]-s0[0]*s2[1]) + d2[1]*(s0[0]*s1[1]-s1[0]*s0[1])) / den;
+  return [a,b,c,d,e,ff];
+}
+
+function expandedTriangle(points, factor = 1.018) {
+  const cx = (points[0][0] + points[1][0] + points[2][0]) / 3;
+  const cy = (points[0][1] + points[1][1] + points[2][1]) / 3;
+  return points.map(([x,y]) => [cx + (x-cx)*factor, cy + (y-cy)*factor]);
+}
+
+function drawWarpTriangle(ctx, image, src, dst) {
+  const matrix = affineFromTriangles(src, dst);
+  if (!matrix) return;
+  const clip = expandedTriangle(dst);
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(clip[0][0], clip[0][1]);
+  ctx.lineTo(clip[1][0], clip[1][1]);
+  ctx.lineTo(clip[2][0], clip[2][1]);
+  ctx.closePath();
+  ctx.clip();
+  ctx.setTransform(matrix[0],matrix[1],matrix[2],matrix[3],matrix[4],matrix[5]);
+  ctx.drawImage(image,0,0);
+  ctx.restore();
+}
+
+function warpedPosePoints(def, frameIndex) {
+  const dst = def.points.map(([x,y]) => [x,y]);
+  const pose = runPoseDeltas[frameIndex];
+  if (frameIndex === 2 || frameIndex === 3 || frameIndex === 4) {
+    const lift = (frameIndex === 2 ? -3 : frameIndex === 3 ? -5 : -2) * def.airLift;
+    def.bodyIds.forEach((index) => { dst[index][1] += lift; });
+  }
+  def.legs.forEach(([hip,knee,foot], legIndex) => {
+    const delta = pose[legIndex];
+    dst[knee][0] += delta[0] * def.poseScale;
+    dst[knee][1] += delta[1] * def.poseScale;
+    dst[foot][0] += delta[2] * def.poseScale;
+    dst[foot][1] += delta[3] * def.poseScale;
+  });
+  return dst;
+}
+
+function generateRunSheetTexture(morph, sourceTexture) {
+  const def = runWarpDefs[morph];
+  const image = sourceTexture && sourceTexture.image;
+  if (!def || !image) return null;
+  const width = image.naturalWidth || image.width;
+  const height = image.naturalHeight || image.height;
+  if (!width || !height) return null;
+
+  const sheet = document.createElement("canvas");
+  sheet.width = 768;
+  sheet.height = 512;
+  const sheetCtx = sheet.getContext("2d");
+  sheetCtx.imageSmoothingEnabled = true;
+  sheetCtx.imageSmoothingQuality = "high";
+
+  for (let frameIndex = 0; frameIndex < 6; frameIndex++) {
+    const frame = document.createElement("canvas");
+    frame.width = width;
+    frame.height = height;
+    const frameCtx = frame.getContext("2d");
+    frameCtx.imageSmoothingEnabled = true;
+    frameCtx.imageSmoothingQuality = "high";
+    const dst = warpedPosePoints(def, frameIndex);
+
+    for (const tri of def.triangles) {
+      drawWarpTriangle(frameCtx, image, tri.map((i) => def.points[i]), tri.map((i) => dst[i]));
+    }
+
+    const drawW = width * def.cellScale;
+    const drawH = height * def.cellScale;
+    const cellX = (frameIndex % 3) * 256;
+    const cellY = Math.floor(frameIndex / 3) * 256;
+    sheetCtx.drawImage(frame, cellX + (256-drawW)/2, cellY + (256-drawH)/2 + def.cellY, drawW, drawH);
+  }
+
+  const texture = makeCanvasTexture(sheet);
+  texture.needsUpdate = true;
+  generatedRunTextures.set(morph, texture);
+  stage.dataset[morph.toLowerCase() + "RunSheet"] = "generated";
+  return texture;
+}
+
+function buildGeneratedRunPlane(texture, morph, racerId) {
+  const layout = generatedRunLayout[morph];
+  const sheet = texture.clone();
+  sheet.colorSpace = THREE.SRGBColorSpace;
+  sheet.minFilter = THREE.LinearFilter;
+  sheet.magFilter = THREE.LinearFilter;
+  sheet.generateMipmaps = false;
+  sheet.wrapS = THREE.ClampToEdgeWrapping;
+  sheet.wrapT = THREE.ClampToEdgeWrapping;
+  sheet.repeat.set(1/3,1/2);
+  sheet.needsUpdate = true;
+
+  const mesh = new THREE.Mesh(
+    new THREE.PlaneGeometry(1,1),
+    new THREE.MeshBasicMaterial({ map: sheet, transparent: true, depthWrite: false, alphaTest: 0.02, side: THREE.DoubleSide })
+  );
+  mesh.name = "Race2_5D_" + morph + "_GeneratedRun_" + racerId;
+  mesh.position.set(0,layout.y,0);
+  mesh.scale.set(layout.scale[0],layout.scale[1],1);
+  mesh.renderOrder = 4;
+  mesh.frustumCulled = false;
+  mesh.userData.frameIndex = -1;
+  mesh.userData.baseScaleX = Math.abs(mesh.scale.x);
+  mesh.userData.baseScaleY = Math.abs(mesh.scale.y);
+  mesh.userData.motionScaleX = 1;
+  mesh.userData.facingSign = 1;
+  return mesh;
+}
+
+function applyGeneratedRunFrame(racer, frameIndex) {
+  const mesh = racer && racer.obj && racer.obj.userData.raceSprite;
+  const morph = racer && racer.obj && racer.obj.userData.generatedRunMorph;
+  if (!mesh || !mesh.isMesh || !morph || mesh.userData.frameIndex === frameIndex) return;
+  const frame = generatedRunFrames[frameIndex];
+  const map = mesh.material && mesh.material.map;
+  if (!map) return;
+  map.offset.set(frame.col/3,frame.row/2);
+  map.updateMatrix();
+  mesh.userData.frameIndex = frameIndex;
+  mesh.position.y = generatedRunLayout[morph].y + frame.y;
+  if (racer.id === selectedId) {
+    stage.dataset.selectedMotionPhase = frame.phase;
+    stage.dataset[morph.toLowerCase() + "RunPhase"] = frame.phase;
+  }
+}
+
+function installGeneratedRunFor(racer, morph, texture) {
+  if (!racer || racer.morph !== morph || racer.obj.userData.generatedRunAnimated || !texture) return;
+  const oldSprite = racer.obj.userData.raceSprite;
+  if (!oldSprite) return;
+  racer.obj.remove(oldSprite);
+  if (oldSprite.material) oldSprite.material.dispose();
+  if (oldSprite.isMesh && oldSprite.geometry) oldSprite.geometry.dispose();
+
+  const raceSprite = buildGeneratedRunPlane(texture,morph,racer.id);
+  racer.obj.add(raceSprite);
+  racer.obj.userData.raceSprite = raceSprite;
+  racer.obj.userData.generatedRunAnimated = true;
+  racer.obj.userData.generatedRunMorph = morph;
+  generatedRunRacers[morph].push(racer);
+  applyGeneratedRunFrame(racer,racer.id % generatedRunFrames.length);
+  stage.dataset[morph.toLowerCase() + "RunAnimatedRacers"] = String(generatedRunRacers[morph].length);
+  if (generatedRunRacers.P.length === 4 && generatedRunRacers.E.length === 4 && generatedRunRacers.A.length === 5) {
+    stage.dataset.nonSRunMotion = "sprite-sheets";
+  }
+}
+
+function orientGeneratedRunPlanes() {
+  const list = generatedRunRacers.P.concat(generatedRunRacers.E, generatedRunRacers.A);
+  if (!list.length) return;
+  camera.getWorldQuaternion(sBillboardCameraQ);
+  for (const racer of list) {
+    const mesh = racer.obj.userData.raceSprite;
+    if (!mesh || !mesh.isMesh) continue;
+    racer.obj.getWorldQuaternion(sBillboardParentQ);
+    mesh.quaternion.copy(sBillboardParentQ).invert().multiply(sBillboardCameraQ);
+  }
+}
+
 function buildPCutoutRig(texture, raceLayout, racerId) {
   const image = texture.image;
   const width = image.naturalWidth || image.width;
@@ -1909,7 +2132,7 @@ function applyACutoutRigMotion(racer, frameIndex) {
 }
 
 function applyStaticSpriteMotion(racer, frameIndex) {
-  if (!racer || racer.obj.userData.sRunAnimated || racer.obj.userData.pCutoutRig || racer.obj.userData.eCutoutRig || racer.obj.userData.aCutoutRig) return;
+  if (!racer || racer.obj.userData.sRunAnimated || racer.obj.userData.generatedRunAnimated || racer.obj.userData.pCutoutRig || racer.obj.userData.eCutoutRig || racer.obj.userData.aCutoutRig) return;
   const sprite = racer.obj.userData.raceSprite;
   const profile = staticMotionProfile[racer.morph];
   const frame = staticMotionFrames[frameIndex];
@@ -2056,7 +2279,7 @@ function updateConceptReadyState() {
   if (conceptReady.size === 4) {
     stage.dataset.conceptMorphs = "loaded";
     stage.dataset.race2p5d = "loaded";
-    stage.dataset.nonSRunMotion = "animated-rigs";
+    if (!stage.dataset.nonSRunMotion) stage.dataset.nonSRunMotion = "loading-sprite-sheets";
   }
 }
 
@@ -2092,9 +2315,11 @@ for (const morph of ["S", "P", "E", "A"]) {
         racer.obj.add(raceSprite);
         racer.obj.userData.raceSprite = raceSprite;
         if (morph === "S") installSRunSpriteFor(racer);
-        if (morph === "P") installPCutoutRigFor(racer, texture);
-        if (morph === "E") installECutoutRigFor(racer, texture);
-        if (morph === "A") installACutoutRigFor(racer, texture);
+      }
+
+      if (morph !== "S") {
+        const runTexture = generateRunSheetTexture(morph, texture);
+        racers.filter((r) => r.morph === morph).forEach((r) => installGeneratedRunFor(r, morph, runTexture));
       }
 
       const material = new THREE.SpriteMaterial({
@@ -2492,21 +2717,13 @@ function update(dt) {
       const phaseOffset = (r.id * 41) % Math.round(frameMs * sRunFrames.length);
       const frameIndex = Math.floor((elapsed + phaseOffset) / frameMs) % sRunFrames.length;
       applySRunFrame(r, frameIndex);
-    } else if (r.obj.userData.pCutoutRig) {
+    } else if (r.obj.userData.generatedRunAnimated) {
       const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
-      const frameMs = THREE.MathUtils.lerp(160, 86, speedRatio);
-      const frameIndex = Math.floor((elapsed + r.id * 37) / frameMs) % 6;
-      applyPCutoutRigMotion(r, frameIndex);
-    } else if (r.obj.userData.eCutoutRig) {
-      const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
-      const frameMs = THREE.MathUtils.lerp(176, 94, speedRatio);
-      const frameIndex = Math.floor((elapsed + r.id * 43) / frameMs) % 6;
-      applyECutoutRigMotion(r, frameIndex);
-    } else if (r.obj.userData.aCutoutRig) {
-      const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
-      const frameMs = THREE.MathUtils.lerp(150, 78, speedRatio);
-      const frameIndex = Math.floor((elapsed + r.id * 47) / frameMs) % 6;
-      applyACutoutRigMotion(r, frameIndex);
+      const layout = generatedRunLayout[r.morph];
+      const frameMs = THREE.MathUtils.lerp(layout.frameSlow, layout.frameFast, speedRatio);
+      const phaseOffset = (r.id * 47) % Math.round(frameMs * generatedRunFrames.length);
+      const frameIndex = Math.floor((elapsed + phaseOffset) / frameMs) % generatedRunFrames.length;
+      applyGeneratedRunFrame(r, frameIndex);
     } else if (staticMotionProfile[r.morph]) {
       const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
       const profile = staticMotionProfile[r.morph];
@@ -2533,9 +2750,7 @@ function update(dt) {
       recordAgentEvent(r, true);
       stage.dataset.finishCount = String(finishOrder.length);
       if (r.obj.userData.sRunAnimated) applySRunFrame(r, 5);
-      else if (r.obj.userData.pCutoutRig) applyPCutoutRigMotion(r, 5);
-      else if (r.obj.userData.eCutoutRig) applyECutoutRigMotion(r, 5);
-      else if (r.obj.userData.aCutoutRig) applyACutoutRigMotion(r, 5);
+      else if (r.obj.userData.generatedRunAnimated) applyGeneratedRunFrame(r, 5);
       else if (staticMotionProfile[r.morph]) applyStaticSpriteMotion(r, 5);
     }
   }
@@ -2905,9 +3120,7 @@ function frame(now) {
     update(dt);
     setCamera();
     orientAnimatedSRunPlanes();
-    orientPCutoutRigs();
-    orientECutoutRigs();
-    orientACutoutRigs();
+    orientGeneratedRunPlanes();
     orientRaceSpritesToTravel();
     updateAgentVisual(now);
     renderer.render(scene, camera);
