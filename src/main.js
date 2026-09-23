@@ -130,7 +130,7 @@ function buildTrack() {
 
       for (const offset of [-ribbonHalf, ribbonHalf]) {
         const q = p.clone().addScaledVector(side, offset);
-        vertices.push(q.x, y, q.z);
+        vertices.push(q.x, q.y + y, q.z);
         normals.push(0, 1, 0);
       }
     }
@@ -339,7 +339,7 @@ function buildTrack() {
     new THREE.MeshBasicMaterial({ color: 0xf3eee4 })
   );
   startLine.position.copy(startPoint);
-  startLine.position.y = 0.065;
+  startLine.position.y = startPoint.y + 0.065;
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
@@ -358,7 +358,7 @@ for (let i = 0; i < 72; i++) {
   for (const offset of [-5.25, 5.25]) {
     const marker = new THREE.Mesh(speedMarkerGeometry, speedMarkerMaterial);
     marker.position.copy(p.clone().addScaledVector(side, offset));
-    marker.position.y = 0.085;
+    marker.position.y = p.y + 0.085;
     marker.rotation.y = yaw;
     scene.add(marker);
   }
