@@ -47,33 +47,17 @@ jobs:
           # subject on a transparent square.
           im = Image.open(src).convert("RGBA")
           w, h = im.size
-          im = im.crop((int(w * 0.35), 0, w, h)).copy()
-          px = im.load()
-          for y in range(im.height):
-              for x in range(im.width):
-                  r,g,b,a = px[x,y]
-                  mn, mx = min(r,g,b), max(r,g,b)
-                  if mn >= 245:
-                      alpha = 0
-                  elif mn >= 225 and mx - mn < 18:
-                      alpha = int(max(0, min(255, (245 - mn) / 20 * 255)))
-                  else:
-                      alpha = 255
-                  px[x,y] = (r,g,b,alpha)
-          bbox = im.getbbox()
-          if not bbox:
-              raise RuntimeError("No foreground found after SF3D input cleanup")
-          im = im.crop(bbox)
-          iw, ih = im.size
+          im = im.crop((int(w * 0.30), 0, w, h)).copy()
+          # Keep the original white studio background for this variant.
+          # Stable Fast 3D performs its own foreground preprocessing; this
+          # tests whether our previous alpha cutout flattened depth cues.
+          rgb = im.convert("RGB")
+          iw, ih = rgb.size
           side = max(iw, ih)
-          target_fill = 0.82
-          scale = (side * target_fill) / max(iw, ih)
-          nw, nh = max(1, int(iw*scale)), max(1, int(ih*scale))
-          im = im.resize((nw, nh), Image.Resampling.LANCZOS)
-          canvas = Image.new("RGBA", (side, side), (0,0,0,0))
-          canvas.alpha_composite(im, ((side-nw)//2, (side-nh)//2))
-          crop = runtime / "evowild_3q_main_subject_clean.png"
-          canvas.save(crop)
+          canvas = Image.new("RGB", (side, side), (255,255,255))
+          canvas.paste(rgb, ((side-iw)//2, (side-ih)//2))
+          crop = runtime / "evowild_3q_crop30_white.jpg"
+          canvas.save(crop, quality=96)
           cutout = crop
 
           spaces = [
@@ -182,7 +166,7 @@ jobs:
               "endpoint": api_name,
               "attempt": attempt,
               "source_image": str(src),
-              "variant": "crop35",
+              "variant": "crop30_white",
               "foreground_ratio": 0.85,
               "remesh": "None",
               "vertex_count": -1,
