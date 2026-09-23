@@ -18,9 +18,9 @@ button {
 }
 button.active { border-color: #6bb1ff; background: #1d3144; }
 .layout { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 10px; }
-body.p-rig-proof .layout { grid-template-columns: minmax(0, 1fr); }
-body.p-rig-proof .sidebar { display: none; }
-body.p-rig-proof .stage { min-height: 620px; }
+body.p-rig-proof .layout, body.e-rig-proof .layout { grid-template-columns: minmax(0, 1fr); }
+body.p-rig-proof .sidebar, body.e-rig-proof .sidebar { display: none; }
+body.p-rig-proof .stage, body.e-rig-proof .stage { min-height: 620px; }
 .stage {
   position: relative; min-height: 500px; aspect-ratio: 16 / 9;
   border: 1px solid #283542; border-radius: 14px; overflow: hidden; background: #0c151e;
