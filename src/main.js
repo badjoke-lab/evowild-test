@@ -3131,9 +3131,9 @@ function frame(now) {
     if (renderedFrames === 2) {
       runtimeStatus.hidden = true;
       if (sRunIsolatedProof) stage.dataset.sRunProof = "isolated";
-      if (pRigIsolatedProof) stage.dataset.pCutoutProof = "isolated";
-      if (eRigIsolatedProof) stage.dataset.eCutoutProof = "isolated";
-      if (aRigIsolatedProof) stage.dataset.aCutoutProof = "isolated";
+      if (pRigIsolatedProof) stage.dataset.pRunProof = "isolated";
+      if (eRigIsolatedProof) stage.dataset.eRunProof = "isolated";
+      if (aRigIsolatedProof) stage.dataset.aRunProof = "isolated";
     }
   } catch (error) {
     paused = true;
