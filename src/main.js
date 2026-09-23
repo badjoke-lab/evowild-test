@@ -8,7 +8,11 @@ const stage = document.querySelector("#stage");
 const isMobile = matchMedia("(pointer: coarse)").matches || innerWidth < 800;
 const proofMode = new URLSearchParams(location.search).get("proof");
 const sRunIsolatedProof = proofMode === "s-run";
+const pRigIsolatedProof = proofMode === "p-rig";
+const isolatedProof = sRunIsolatedProof || pRigIsolatedProof;
+const isolatedProofRacerId = pRigIsolatedProof ? 2 : 1;
 const fastFinishProof = proofMode === "finish";
+if (pRigIsolatedProof) document.body.classList.add("p-rig-proof");
 const raceBanner = document.querySelector("#raceBanner");
 const resultsPanel = document.querySelector("#resultsPanel");
 const resultsList = document.querySelector("#resultsList");
@@ -658,7 +662,7 @@ const agentNames = [
 const agentPolicyByKey = (key) => agentPolicyTemplates.find((policy) => policy.key === key) ?? null;
 
 const racers = [];
-let selectedId = 1;
+let selectedId = pRigIsolatedProof ? 2 : 1;
 const sRunProofRacerId = 1;
 const raceMeters = fastFinishProof ? 45 : 700;
 const countdownDuration = fastFinishProof ? 1200 : 3000;
@@ -962,7 +966,7 @@ function updateAgentVisual(now) {
       ? (now < agentPulseUntil ? 1.28 : 1 + Math.sin(now * 0.008) * 0.06)
       : 0.58 + Math.sin(now * 0.004 + racer.id) * 0.025;
     orb.scale.setScalar(pulse);
-    orb.visible = showWorldSignal && (!sRunIsolatedProof || racer.id === sRunProofRacerId);
+    orb.visible = showWorldSignal && (!isolatedProof || racer.id === isolatedProofRacerId);
   });
 
   const toast = document.querySelector("#agentToast");
@@ -1712,7 +1716,7 @@ setLabMorph("S");
 let elapsed = 0;
 let last = performance.now();
 let paused = false;
-let view = sRunIsolatedProof ? "follow" : "race";
+let view = isolatedProof ? "follow" : "race";
 let raceState = "countdown";
 let countdownRemaining = countdownDuration;
 let goFlashRemaining = 0;
@@ -2006,17 +2010,18 @@ function setCamera() {
   scene.fog = (lab || tactical) ? null : raceFog;
   scene.background = new THREE.Color(lab ? 0x202a35 : 0x9bc6dc);
   raceEnvironment.forEach((obj) => { obj.visible = !lab; });
-  racers.forEach((r) => { r.obj.visible = !lab && !tactical && (!sRunIsolatedProof || r.id === sRunProofRacerId); });
+  racers.forEach((r) => { r.obj.visible = !lab && !tactical && (!isolatedProof || r.id === isolatedProofRacerId); });
   ring.visible = !lab && !tactical;
   racerShadows.forEach((shadow, index) => {
-    shadow.visible = !lab && !tactical && (!sRunIsolatedProof || racers[index].id === sRunProofRacerId);
+    shadow.visible = !lab && !tactical && (!isolatedProof || racers[index].id === isolatedProofRacerId);
   });
   tacticalMarkers.forEach((marker) => { marker.visible = tactical; });
   labGroup.visible = lab;
   labFloor.visible = lab;
   document.querySelector(".hud-race").hidden = lab;
-  document.querySelector(".hud-mini").hidden = lab;
-  document.querySelector("#agentPanel").hidden = lab;
+  document.querySelector(".hud-mini").hidden = lab || pRigIsolatedProof;
+  document.querySelector(".hud-selected").hidden = lab || pRigIsolatedProof;
+  document.querySelector("#agentPanel").hidden = lab || pRigIsolatedProof;
   document.querySelector("#morphSwitcher").hidden = !lab;
   document.querySelector("#labLabel").hidden = !lab;
 
@@ -2026,10 +2031,13 @@ function setCamera() {
     camera.lookAt(0, 1.25, 0);
   } else if (view === "follow") {
     camera.up.set(0, 1, 0);
-    const followBack = sRunIsolatedProof ? (isMobile ? -1.5 : -1.2) : (isMobile ? -2.8 : -1.8);
-    const followSide = sRunIsolatedProof ? (isMobile ? 4.3 : 4.1) : (isMobile ? 5.6 : 4.8);
-    const followHeight = sRunIsolatedProof ? (isMobile ? 1.92 : 1.72) : (isMobile ? 2.68 : 2.12);
-    const shake = Math.max(0, speedRatio - 0.48) * (sRunIsolatedProof ? 0.10 : 0.075);
+    const isolatedBack = pRigIsolatedProof ? -1.55 : -1.2;
+    const isolatedSide = pRigIsolatedProof ? 4.8 : 4.1;
+    const isolatedHeight = pRigIsolatedProof ? 1.95 : 1.72;
+    const followBack = isolatedProof ? (isMobile ? -1.5 : isolatedBack) : (isMobile ? -2.8 : -1.8);
+    const followSide = isolatedProof ? (isMobile ? 4.3 : isolatedSide) : (isMobile ? 5.6 : 4.8);
+    const followHeight = isolatedProof ? (isMobile ? 1.92 : isolatedHeight) : (isMobile ? 2.68 : 2.12);
+    const shake = Math.max(0, speedRatio - 0.48) * (isolatedProof ? 0.08 : 0.075);
     const desired = selectedPos.clone()
       .addScaledVector(tangent, followBack)
       .addScaledVector(side, followSide + Math.sin(elapsed * 0.023) * shake)
@@ -2325,6 +2333,7 @@ function frame(now) {
     if (renderedFrames === 2) {
       runtimeStatus.hidden = true;
       if (sRunIsolatedProof) stage.dataset.sRunProof = "isolated";
+      if (pRigIsolatedProof) stage.dataset.pCutoutProof = "isolated";
     }
   } catch (error) {
     paused = true;
