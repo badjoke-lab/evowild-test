@@ -3,6 +3,30 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { clone as cloneSkeletonSafe } from "three/addons/utils/SkeletonUtils.js";
 
 export const CREATURE_3D_PROFILES = {
+  sTripoSr3q: {
+    id: "s-triposr-3q-crop30",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-triposr-3q.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.0,
+      minRoughness: 0.72,
+      side: "front",
+      preserveBaseColorMap: false,
+      maxAnisotropy: 1
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "candidate_unapproved",
+    notes: [
+      "Generated with TripoSR on GitHub Actions CPU from the cleaned 3/4 crop30 reference.",
+      "Geometry is nearly one connected component and uses vertex colors.",
+      "Not approved as final EvoWild S-Type; retained for direct engine comparison."
+    ]
+  },
   sTripoSrSide: {
     id: "s-triposr-side-authority",
     morph: "S",
