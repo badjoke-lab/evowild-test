@@ -206,6 +206,74 @@ button.active { border-color: #6bb1ff; background: #1d3144; }
 .sidebar { display: flex; flex-direction: column; gap: 10px; }
 .card { background: #111922; border: 1px solid #283542; border-radius: 12px; padding: 11px; }
 .card h2 { font-size: 13px; margin: 0 0 8px; }
+.creature-state-card {
+  border-color: rgba(118,229,155,.20);
+}
+.creature-state-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.creature-state-head h2 { margin: 0; }
+.creature-state-head small {
+  color: #708392;
+  font-size: 9px;
+  letter-spacing: .04em;
+}
+.state-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.state-grid div {
+  padding: 7px 8px;
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 8px;
+  background: #0f171f;
+}
+.state-grid span,
+.state-execution span {
+  display: block;
+  color: #758897;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.state-grid b {
+  display: block;
+  margin-top: 3px;
+  color: #dce8f2;
+  font-size: 11px;
+}
+.state-grid b.warn { color: #ffd37d; }
+.state-grid b.critical { color: #ff8d8d; }
+.state-execution {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 7px;
+  padding: 7px 8px;
+  border-radius: 8px;
+  background: rgba(118,229,155,.06);
+  border: 1px solid rgba(118,229,155,.12);
+}
+.state-execution b {
+  color: #9ee8ba;
+  font-size: 10px;
+}
+.state-execution b.partial { color: #ffd37d; }
+.state-execution b.failed { color: #ff8d8d; }
+.state-execution b.finished { color: #b9a3ff; }
+.state-note {
+  margin-top: 6px;
+  color: #8fa2b0;
+  font-size: 9px;
+  line-height: 1.35;
+}
 .agent-log-card { min-height: 120px; }
 .agent-log-head {
   display: flex;
