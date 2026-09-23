@@ -11,11 +11,15 @@ const query = new URLSearchParams(location.search);
 const sf3dBenchCount = Math.min(18, Math.max(0, Number.parseInt(query.get("sf3dBench") || "0", 10) || 0));
 const sf3dBenchSide = query.get("sf3dSide") === "front" ? "front" : "double";
 const sf3dBenchMode = query.get("sf3dMode") === "instance" ? "instance" : "clone";
+const sf3dRaceLodBench = query.get("sf3dRaceLodBench") === "1";
 let sf3dBenchGroup = null;
 let sf3dBenchStartedAt = 0;
 let sf3dBenchFrameTimes = [];
 let sf3dBenchReady = false;
 let sf3dTrianglesPerInstance = 0;
+let sf3dRaceLodBenchStartedAt = 0;
+let sf3dRaceLodBenchFrameTimes = [];
+let sf3dRaceLodBenchReady = false;
 
 const runtimeStatus = document.createElement("div");
 runtimeStatus.className = "runtime-status";
@@ -659,6 +663,106 @@ function setupSf3dBenchmark(source, count) {
   stage.dataset.sf3dBenchMode = sf3dBenchMode;
 }
 
+function setupRaceLodBenchmark(baseSource, baseProfile, lod1Data, lod2Data) {
+  if (!sf3dRaceLodBench) return;
+
+  const group = new THREE.Group();
+  group.name = "SF3D_Race_LOD_Benchmark_18";
+
+  const near = 4;
+  const mid = 6;
+  const far = 8;
+  const distances = [
+    ...Array.from({ length: near }, (_, i) => 4 + i * 1.2),
+    ...Array.from({ length: mid }, (_, i) => 12 + i * 1.45),
+    ...Array.from({ length: far }, (_, i) => 24 + i * 1.65)
+  ];
+
+  for (let i = 0; i < distances.length; i++) {
+    const lod = new THREE.LOD();
+
+    const baseModel = fitCreature3D(cloneCreature3D(baseSource), {
+      renderer,
+      profile: baseProfile,
+      placement: "benchmark",
+      materialSide: "front"
+    });
+    const lod1Model = fitCreature3D(cloneCreature3D(lod1Data.source), {
+      renderer,
+      profile: lod1Data.profile,
+      placement: "benchmark",
+      materialSide: "front"
+    });
+    const lod2Model = fitCreature3D(cloneCreature3D(lod2Data.source), {
+      renderer,
+      profile: lod2Data.profile,
+      placement: "benchmark",
+      materialSide: "front"
+    });
+
+    lod.addLevel(baseModel, 0);
+    lod.addLevel(lod1Model, 10);
+    lod.addLevel(lod2Model, 22);
+
+    const column = i % 6;
+    const row = Math.floor(i / 6);
+    lod.position.set(
+      (column - 2.5) * 1.45,
+      0,
+      -distances[i]
+    );
+    lod.rotation.y = (column - 2.5) * 0.025;
+    group.add(lod);
+  }
+
+  if (sf3dLab) sf3dLab.visible = false;
+  conceptSprites.forEach((sprite) => { sprite.visible = false; });
+  labGroup.add(group);
+  labGroup.visible = true;
+  view = "lab";
+
+  camera.position.set(0, 5.4, 5.5);
+  camera.lookAt(0, 0.8, -14);
+  camera.updateMatrixWorld(true);
+  group.updateMatrixWorld(true);
+
+  sf3dRaceLodBenchStartedAt = performance.now();
+  sf3dRaceLodBenchFrameTimes = [];
+  sf3dRaceLodBenchReady = false;
+  stage.dataset.sf3dRaceLodBench = "running";
+}
+
+function sampleRaceLodBenchmark(now, frameMs) {
+  if (!sf3dRaceLodBench || !sf3dRaceLodBenchStartedAt || sf3dRaceLodBenchReady) return;
+  const elapsed = now - sf3dRaceLodBenchStartedAt;
+  if (elapsed >= 500 && Number.isFinite(frameMs) && frameMs > 0) {
+    sf3dRaceLodBenchFrameTimes.push(frameMs);
+  }
+  if (elapsed < 3000 || sf3dRaceLodBenchFrameTimes.length < 8) return;
+
+  const times = [...sf3dRaceLodBenchFrameTimes].sort((a, b) => a - b);
+  const avg = times.reduce((s, v) => s + v, 0) / times.length;
+  const percentile = (p) => times[Math.min(times.length - 1, Math.floor((times.length - 1) * p))];
+
+  window.__sf3dRaceLodBench = {
+    count: 18,
+    expectedNear: 4,
+    expectedMid: 6,
+    expectedFar: 8,
+    theoreticalTriangles: 4 * 8960 + 6 * 4480 + 8 * 2240,
+    allBaseTriangles: 18 * 8960,
+    rendererTriangles: renderer.info.render.triangles,
+    rendererCalls: renderer.info.render.calls,
+    averageFrameMs: Number(avg.toFixed(3)),
+    averageFps: Number((1000 / avg).toFixed(2)),
+    medianFrameMs: Number(percentile(0.5).toFixed(3)),
+    p95FrameMs: Number(percentile(0.95).toFixed(3)),
+    note: "CI Chromium synthetic mixed-distance LOD benchmark; not physical-device FPS"
+  };
+  sf3dRaceLodBenchReady = true;
+  stage.dataset.sf3dRaceLodBench = "ready";
+}
+
 function sampleSf3dBenchmark(now, frameMs) {
   if (!sf3dBenchCount || !sf3dBenchStartedAt || sf3dBenchReady) return;
   const elapsedMs = now - sf3dBenchStartedAt;
@@ -785,6 +889,18 @@ loadCreature3D(sf3dProfile)
     stage.dataset.sf3dBounds = `${stats.bounds.x},${stats.bounds.y},${stats.bounds.z}`;
     setLabMorph(activeLabMorph);
     setupSf3dBenchmark(source, sf3dBenchCount);
+
+    if (sf3dRaceLodBench && profile.id === CREATURE_3D_PROFILES.sSf3dCorrected.id) {
+      Promise.all([
+        loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod1),
+        loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod2)
+      ]).then(([lod1Data, lod2Data]) => {
+        setupRaceLodBenchmark(source, profile, lod1Data, lod2Data);
+      }).catch((error) => {
+        stage.dataset.sf3dRaceLodBench = "error";
+        console.error("Mixed-distance race LOD benchmark failed to load", error);
+      });
+    }
   })
   .catch((error) => {
     stage.dataset.sf3d = "error";
@@ -1172,6 +1288,7 @@ function frame(now) {
     setCamera();
     renderer.render(scene, camera);
     sampleSf3dBenchmark(now, rawFrameMs);
+    sampleRaceLodBenchmark(now, rawFrameMs);
     updateHud();
     drawMiniMap();
 
