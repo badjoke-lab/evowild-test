@@ -712,6 +712,13 @@ for (let i = 0; i < 18; i++) {
     finishPlace: null,
     finishTime: null,
     agentLog: [],
+    agentStats: {
+      decisions: 0,
+      success: 0,
+      partial: 0,
+      failed: 0,
+      laneMoves: 0
+    },
     lastAgentLogSignature: null,
     color: "#" + palette[i].toString(16).padStart(6, "0")
   });
@@ -886,6 +893,14 @@ function recordAgentEvent(racer, force = false) {
   if (!force && racer.lastAgentLogSignature === signature) return;
 
   racer.lastAgentLogSignature = signature;
+  racer.agentStats.decisions += 1;
+  if (response.state === "SUCCESS") racer.agentStats.success += 1;
+  else if (response.state === "PARTIAL") racer.agentStats.partial += 1;
+  else if (response.state === "FAILED") racer.agentStats.failed += 1;
+  if (racer.command === "MOVE INSIDE" || racer.command === "MOVE OUTSIDE") {
+    racer.agentStats.laneMoves += 1;
+  }
+
   racer.agentLog.push({
     time: elapsed,
     phase: phase(racer),
@@ -1799,6 +1814,39 @@ function formatRaceTime(ms) {
   return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}.${String(hundredths).padStart(2, "0")}`;
 }
 
+function resultInterpretationFor(racer) {
+  const stats = racer.agentStats;
+  const fatigue = Math.round(100 - racer.stamina);
+  if (stats.failed > 0) return `${stats.failed} failed execution${stats.failed === 1 ? "" : "s"} need review.`;
+  if (stats.partial >= 3) return "Several commands were only partially executed.";
+  if (fatigue >= 80) return "Race completed under heavy fatigue.";
+  if (stats.laneMoves >= 3) return "High lane-change activity shaped this run.";
+  if (racer.finishPlace <= 3) return "Clean execution with a podium result.";
+  return "Execution was mostly stable; compare policy and pace for the next run.";
+}
+
+function renderResultAgentSummary(racer) {
+  if (!racer?.agent) return;
+  const stats = racer.agentStats;
+  const fatigue = Math.round(100 - racer.stamina);
+  const historyCount = racer.agent.raceHistory.length;
+
+  document.querySelector("#resultAgentIdentity").textContent =
+    `${racer.agent.id} ${racer.agent.name} / ${racer.agent.version}`;
+  document.querySelector("#resultAgentPolicy").textContent = racer.agent.policy.label.toUpperCase();
+  document.querySelector("#resultDecisions").textContent = String(stats.decisions);
+  document.querySelector("#resultSuccess").textContent = String(stats.success);
+  document.querySelector("#resultPartial").textContent = String(stats.partial);
+  document.querySelector("#resultFailed").textContent = String(stats.failed);
+  document.querySelector("#resultLaneMoves").textContent = String(stats.laneMoves);
+  document.querySelector("#resultFinalFatigue").textContent = `${fatigue}%`;
+  document.querySelector("#resultAgentRecord").textContent = `Race history ${historyCount}`;
+  document.querySelector("#resultAgentInterpretation").textContent = resultInterpretationFor(racer);
+
+  stage.dataset.resultAgentSummary = "ready";
+  stage.dataset.resultAgentDecisions = String(stats.decisions);
+  stage.dataset.resultAgentFailed = String(stats.failed);
+}
 function updateRaceStateDataset() {
   stage.dataset.raceState = raceState;
   stage.dataset.finishCount = String(finishOrder.length);
@@ -1827,7 +1875,11 @@ function finishRace() {
       place: r.finishPlace,
       time: r.finishTime,
       creatureId: r.id,
-      morph: r.morph
+      morph: r.morph,
+      agentVersion: r.agent.version,
+      policy: r.agent.policy.key,
+      finalFatigue: Math.round(100 - r.stamina),
+      summary: { ...r.agentStats }
     });
   }
   resultsList.innerHTML = ordered.map((r) => `
@@ -1840,6 +1892,7 @@ function finishRace() {
   `).join("");
 
   resultHeadline.textContent = `#${selected.finishPlace} ${selected.name} — ${formatRaceTime(selected.finishTime)}`;
+  renderResultAgentSummary(selected);
   resultsPanel.hidden = false;
   updateRaceStateDataset();
 }
@@ -2291,6 +2344,11 @@ function resetRace() {
     r.finishPlace = null;
     r.finishTime = null;
     r.agentLog.length = 0;
+    r.agentStats.decisions = 0;
+    r.agentStats.success = 0;
+    r.agentStats.partial = 0;
+    r.agentStats.failed = 0;
+    r.agentStats.laneMoves = 0;
     r.lastAgentLogSignature = null;
     r.decision = "START";
     r.command = "BUILD SPEED";
