@@ -235,12 +235,26 @@ function normalizeMaterial(material, renderer, profile) {
   }
   if (normalized.color) normalized.color.set(0xffffff);
 
-  if (normalized.map && materialProfile.preserveBaseColorMap !== false) {
-    normalized.map.colorSpace = THREE.SRGBColorSpace;
-    const maxSupported = renderer?.capabilities?.getMaxAnisotropy?.() ?? 1;
-    const requested = materialProfile.maxAnisotropy ?? 1;
-    normalized.map.anisotropy = Math.min(requested, maxSupported);
-    normalized.map.needsUpdate = true;
+  if (normalized.map) {
+    if (materialProfile.preserveBaseColorMap === false) {
+      normalized.map = null;
+    } else {
+      normalized.map.colorSpace = THREE.SRGBColorSpace;
+      const maxSupported = renderer?.capabilities?.getMaxAnisotropy?.() ?? 1;
+      const requested = materialProfile.maxAnisotropy ?? 1;
+      normalized.map.anisotropy = Math.min(requested, maxSupported);
+      normalized.map.needsUpdate = true;
+    }
+  }
+
+  if (materialProfile.preserveNormalMap === false) {
+    normalized.normalMap = null;
+  }
+  if (materialProfile.preserveRoughnessMap === false) {
+    normalized.roughnessMap = null;
+  }
+  if (materialProfile.preserveMetalnessMap === false) {
+    normalized.metalnessMap = null;
   }
 
   normalized.side = resolveSide(materialProfile.side);
