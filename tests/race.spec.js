@@ -34,6 +34,10 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#agentOrder")).not.toHaveText("");
   await expect(page.locator("#creatureResponse")).toHaveText(/READY|SUCCESS|PARTIAL|FAILED|FINISHED/, { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-orb-count", "18");
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-identity", "AG-001", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-profile", "BALANCED", { timeout: 6500 });
+  await expect(page.locator("#agentIdentity")).toContainText("AG-001");
+  await expect(page.locator("#agentProfile")).toHaveText("BALANCED");
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-log-events", /[1-9]\d*/, { timeout: 6500 });
   await expect(page.locator("#agentLog .agent-log-row").first()).toBeVisible();
   await expect(page.locator("#creatureStateCard")).toBeVisible();
@@ -56,6 +60,10 @@ test("race scene renders and advances", async ({ page }) => {
   await page.locator('[data-racer-id="2"]').click();
   await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "2");
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-selected-id", "2");
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-identity", "AG-002");
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-profile", "PRESSURE");
+  await expect(page.locator("#agentIdentity")).toContainText("AG-002");
+  await expect(page.locator("#agentProfile")).toHaveText("PRESSURE");
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-log-events", /[1-9]\d*/, { timeout: 3000 });
   await expect(page.locator("#selectedName")).toContainText("#02 Brim");
   await expect(page.locator("#selectedTitle")).toHaveText("Selected #02");
