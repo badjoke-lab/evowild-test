@@ -94,6 +94,21 @@ jobs:
             public/models/evowild-s-sf3d-corrected.glb \
             public/models/evowild-s-sf3d-corrected-lod3.glb \
             --ratio 0.125 --error 0.008
+
+          python scripts/strip-glb-normal-map.py \
+            public/models/evowild-s-sf3d-corrected-lod2.glb \
+            /tmp/evowild-s-sf3d-corrected-lod2-lite-preprune.glb
+          npx --yes @gltf-transform/cli prune \
+            /tmp/evowild-s-sf3d-corrected-lod2-lite-preprune.glb \
+            public/models/evowild-s-sf3d-corrected-lod2-lite.glb
+
+          python scripts/strip-glb-normal-map.py \
+            public/models/evowild-s-sf3d-corrected-lod3.glb \
+            /tmp/evowild-s-sf3d-corrected-lod3-lite-preprune.glb
+          npx --yes @gltf-transform/cli prune \
+            /tmp/evowild-s-sf3d-corrected-lod3-lite-preprune.glb \
+            public/models/evowild-s-sf3d-corrected-lod3-lite.glb
+
           ls -lh public/models/evowild-s-sf3d-corrected*.glb
       - run: npm run build
       - run: npx playwright install --with-deps chromium
@@ -124,7 +139,9 @@ jobs:
             public/models/evowild-s-triposr-3q.json \
             public/models/evowild-s-sf3d-corrected-lod1.glb \
             public/models/evowild-s-sf3d-corrected-lod2.glb \
-            public/models/evowild-s-sf3d-corrected-lod3.glb
+            public/models/evowild-s-sf3d-corrected-lod3.glb \
+            public/models/evowild-s-sf3d-corrected-lod2-lite.glb \
+            public/models/evowild-s-sf3d-corrected-lod3-lite.glb
           if git diff --cached --quiet; then
             echo "No asset changes"
           else
