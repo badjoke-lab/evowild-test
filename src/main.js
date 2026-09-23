@@ -1611,17 +1611,22 @@ function update(dt) {
     const currentPhase = phase(r);
     const gap = gapAhead(r);
     const position = rankOf(r);
+    const policy = r.agent.policy;
     let target = morphTarget(r);
 
-    if (r.stamina < 18) {
+    if (currentPhase === "START") target *= policy.startBias;
+    else if (currentPhase === "MID") target *= policy.midBias;
+    else if (currentPhase === "BUILD") target *= policy.buildBias;
+
+    if (r.stamina < policy.preserveAt) {
       target *= 0.88;
       r.decision = "PRESERVE";
       r.command = "EASE";
-    } else if (gap < 4.2 && r.cooldown <= 0) {
+    } else if (gap < policy.overtakeGap && r.cooldown <= 0) {
       const nextLane = chooseLane(r);
       if (nextLane !== null) {
         r.lane = nextLane;
-        r.cooldown = 900;
+        r.cooldown = policy.laneCooldown;
         r.decision = "OVERTAKE";
         r.command = nextLane < r.laneF ? "MOVE INSIDE" : "MOVE OUTSIDE";
         target *= 1.025;
@@ -1631,11 +1636,11 @@ function update(dt) {
         r.command = "WAIT";
       }
     } else if (currentPhase === "FINAL") {
-      target *= 1.04;
+      target *= policy.finalBoost;
       r.decision = "ATTACK";
       r.command = "PUSH";
-    } else if (position > 12 && currentPhase !== "START") {
-      target *= 1.012;
+    } else if (position > policy.advanceAt && currentPhase !== "START") {
+      target *= policy.advanceBoost;
       r.decision = "ADVANCE";
       r.command = "PUSH";
     } else {
