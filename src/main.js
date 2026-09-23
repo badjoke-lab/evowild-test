@@ -704,7 +704,7 @@ function creatureResponseFor(racer) {
   if (racer.command === "WAIT") {
     return { state: "SUCCESS", reason: "Position held while waiting for space" };
   }
-  return { state: "SUCCESS", reason: `${racer.decision} command executed within current capability` };
+  return { state: "SUCCESS", reason: `${racer.command} executed within current capability` };
 }
 
 function updateAgentVisual(now) {
@@ -737,8 +737,10 @@ function updateAgentVisual(now) {
   const showWorldSignal = view !== "lab" && view !== "tactical";
   agentOrbs.forEach((orb, index) => {
     const racer = racers[index];
-    orb.position.copy(racer.obj.position);
-    orb.position.y += 2.05;
+    const t = (racer.distance / raceMeters) % 1;
+    agentOrbTravelTangent.copy(curve.getTangentAt(t)).normalize();
+    orb.position.copy(racer.obj.position).addScaledVector(agentOrbTravelTangent, -0.20);
+    orb.position.y += 1.65;
 
     const racerOrder = racer.command || "WAIT";
     orb.material.color.setHex(agentCommandColors[racerOrder] ?? 0x6bdcff);
