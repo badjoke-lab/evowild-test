@@ -27,13 +27,13 @@ jobs:
           from pathlib import Path
           from PIL import Image
 
-          src = Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")
+          src = Path("hf-poc/input/01_SIDE_authority.jpg")
           out = Path("hf-poc/runtime")
           out.mkdir(parents=True, exist_ok=True)
 
           im = Image.open(src).convert("RGBA")
           w, h = im.size
-          im = im.crop((int(w * 0.30), 0, w, h)).copy()
+          im = im.copy()
 
           px = im.load()
           for y in range(im.height):
@@ -110,8 +110,8 @@ jobs:
           meta = {
               "engine":"TripoSR",
               "execution":"GitHub Actions CPU",
-              "source":"04_3Q_FRONT_shape_support.jpg",
-              "input_variant":"crop30_gray",
+              "source":"01_SIDE_authority.jpg",
+              "input_variant":"side_authority_gray",
               "mc_resolution":128,
               "chunk_size":2048,
               "output_file":str(glb.relative_to(out)),
