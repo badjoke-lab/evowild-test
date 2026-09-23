@@ -646,6 +646,98 @@ const ring = new THREE.Mesh(
 ring.rotation.x = -Math.PI / 2;
 scene.add(ring);
 
+const agentOrb = new THREE.Mesh(
+  new THREE.SphereGeometry(0.16, 14, 10),
+  new THREE.MeshBasicMaterial({
+    color: 0x76e59b,
+    transparent: true,
+    opacity: 0.92,
+    depthWrite: false
+  })
+);
+agentOrb.renderOrder = 8;
+scene.add(agentOrb);
+
+const agentCommandColors = {
+  "BUILD SPEED": 0x76e59b,
+  "MAINTAIN": 0x6bdcff,
+  "PUSH": 0xffbd68,
+  "EASE": 0x7db9ff,
+  "WAIT": 0x98a6b2,
+  "MOVE INSIDE": 0xd28cff,
+  "MOVE OUTSIDE": 0xd28cff
+};
+let lastAgentCommand = "";
+let lastAgentRacerId = null;
+let agentPulseUntil = 0;
+
+function creatureResponseFor(racer) {
+  if (!racer) return { state: "UNKNOWN", reason: "No selected creature" };
+  if (racer.finished) {
+    return { state: "FINISHED", reason: `Result fixed at place #${racer.finishPlace}` };
+  }
+  if (raceState === "countdown") {
+    return { state: "READY", reason: "Waiting for the start signal" };
+  }
+  if (racer.decision === "BLOCKED") {
+    return { state: "BLOCKED", reason: "Traffic prevents the requested line change" };
+  }
+  if (Math.abs(racer.laneF - racer.lane) > 0.12) {
+    return { state: "EXECUTING", reason: `Changing toward lane ${racer.lane + 1}` };
+  }
+  if (racer.stamina < 18) {
+    return { state: "LIMITED", reason: `Low stamina limits output (${Math.round(racer.stamina)}%)` };
+  }
+  if (racer.command === "PUSH" && racer.speed < racer.cruise * 0.98) {
+    return { state: "LIMITED", reason: "Push order exceeds current acceleration/output" };
+  }
+  if (racer.command === "EASE") {
+    return { state: "COMPLYING", reason: "Pace reduced to preserve stamina" };
+  }
+  if (racer.command === "WAIT") {
+    return { state: "COMPLYING", reason: "Holding position until space opens" };
+  }
+  return { state: "EXECUTING", reason: `${racer.decision} within current capability` };
+}
+
+function updateAgentVisual(now) {
+  const panel = document.querySelector("#agentPanel");
+  const orderEl = document.querySelector("#agentOrder");
+  const responseEl = document.querySelector("#creatureResponse");
+  const reasonEl = document.querySelector("#creatureReason");
+  const order = selected?.command || "WAIT";
+  const response = creatureResponseFor(selected);
+
+  if (selected && (lastAgentRacerId !== selected.id || lastAgentCommand !== order)) {
+    lastAgentRacerId = selected.id;
+    lastAgentCommand = order;
+    agentPulseUntil = now + 420;
+  }
+
+  if (orderEl) orderEl.textContent = order;
+  if (responseEl) responseEl.textContent = response.state;
+  if (reasonEl) reasonEl.textContent = response.reason;
+  if (panel) panel.classList.toggle("pulse", now < agentPulseUntil);
+
+  if (selected) {
+    agentOrb.position.copy(selected.obj.position);
+    agentOrb.position.y += 3.05;
+    const color = agentCommandColors[order] ?? 0x6bdcff;
+    agentOrb.material.color.setHex(color);
+    const pulse = now < agentPulseUntil
+      ? 1.38
+      : 1 + Math.sin(now * 0.008) * 0.08;
+    agentOrb.scale.setScalar(pulse);
+  }
+
+  const showWorldSignal = view !== "lab" && view !== "tactical";
+  agentOrb.visible = Boolean(selected) && showWorldSignal;
+  stage.dataset.agentVisual = "enabled";
+  stage.dataset.agentSelectedId = String(selectedId);
+  stage.dataset.agentOrder = order;
+  stage.dataset.creatureResponse = response.state;
+}
+
 const tacticalMarkerGeometry = new THREE.CircleGeometry(0.88, 18);
 const tacticalMarkers = racers.map((r) => {
   const marker = new THREE.Mesh(
@@ -1441,6 +1533,7 @@ function setCamera() {
   labFloor.visible = lab;
   document.querySelector(".hud-race").hidden = lab;
   document.querySelector(".hud-mini").hidden = lab;
+  document.querySelector("#agentPanel").hidden = lab;
   document.querySelector("#morphSwitcher").hidden = !lab;
   document.querySelector("#labLabel").hidden = !lab;
 
@@ -1659,6 +1752,9 @@ function resetRace() {
   raceBanner.classList.remove("go");
   raceBanner.textContent = String(Math.max(1, Math.ceil(countdownDuration / 1000)));
   document.querySelector("#pause").textContent = "Pause";
+  lastAgentCommand = "";
+  lastAgentRacerId = null;
+  agentPulseUntil = performance.now() + 420;
   updateRaceStateDataset();
 }
 resetRace();
@@ -1682,6 +1778,7 @@ function frame(now) {
     setCamera();
     orientAnimatedSRunPlanes();
     orientRaceSpritesToTravel();
+    updateAgentVisual(now);
     renderer.render(scene, camera);
     updateHud();
     drawMiniMap();
