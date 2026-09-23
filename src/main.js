@@ -284,9 +284,9 @@ function buildTrack() {
   streaks.instanceMatrix.needsUpdate = true;
   scene.add(streaks);
 
-  const kineticPostCount = isMobile ? 32 : 56;
-  const kineticPostGeometry = new THREE.BoxGeometry(0.18, 2.65, 0.18);
-  const kineticPostMaterial = new THREE.MeshStandardMaterial({ color: 0x283541, roughness: 0.66, metalness: 0.12 });
+  const kineticPostCount = isMobile ? 10 : 16;
+  const kineticPostGeometry = new THREE.BoxGeometry(0.12, 1.05, 0.12);
+  const kineticPostMaterial = new THREE.MeshStandardMaterial({ color: 0x8096a0, roughness: 0.66, metalness: 0.12 });
   const kineticPosts = new THREE.InstancedMesh(kineticPostGeometry, kineticPostMaterial, kineticPostCount * 2);
   const kineticDummy = new THREE.Object3D();
   let kineticIndex = 0;
@@ -297,7 +297,7 @@ function buildTrack() {
       const tangent = curve.getTangentAt(t).normalize();
       const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
       const q = p.clone().addScaledVector(side, offset);
-      kineticDummy.position.set(q.x, q.y + 1.32, q.z);
+      kineticDummy.position.set(q.x, q.y + 0.53, q.z);
       kineticDummy.rotation.set(0, Math.atan2(-tangent.z, tangent.x), 0);
       kineticDummy.scale.set(1, 0.78 + (i % 4) * 0.08, 1);
       kineticDummy.updateMatrix();
@@ -318,7 +318,7 @@ function buildTrack() {
       const tangent = curve.getTangentAt(t).normalize();
       const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
       const q = p.clone().addScaledVector(side, offset);
-      kineticDummy.position.set(q.x, q.y + 2.55 + (i % 4) * 0.21, q.z);
+      kineticDummy.position.set(q.x, q.y + 1.18 + (i % 3) * 0.08, q.z);
       kineticDummy.rotation.set(0, Math.atan2(-tangent.z, tangent.x), 0);
       kineticDummy.scale.set(1, 1, 1);
       kineticDummy.updateMatrix();
@@ -644,6 +644,132 @@ function buildOuterStadium() {
   }
 }
 buildOuterStadium();
+
+function buildArenaBowl() {
+  const samples = isMobile ? 96 : 144;
+  const vertices = [];
+  const indices = [];
+  const crowdRows = 5;
+
+  for (let i = 0; i <= samples; i++) {
+    const t = i / samples;
+    const p = curve.getPointAt(t);
+    const radial = new THREE.Vector3(p.x, 0, p.z).normalize();
+    const lower = p.clone().addScaledVector(radial, 12.8);
+    const upper = p.clone().addScaledVector(radial, 23.5);
+    lower.y = p.y + 0.15;
+    upper.y = p.y + 8.0;
+    vertices.push(lower.x, lower.y, lower.z, upper.x, upper.y, upper.z);
+  }
+
+  for (let i = 0; i < samples; i++) {
+    const a = i * 2;
+    indices.push(a, a + 2, a + 1, a + 1, a + 2, a + 3);
+  }
+
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
+  geometry.setIndex(indices);
+  geometry.computeVertexNormals();
+  const bowl = new THREE.Mesh(
+    geometry,
+    new THREE.MeshStandardMaterial({
+      color: 0x253540,
+      roughness: 0.78,
+      metalness: 0.10,
+      side: THREE.DoubleSide
+    })
+  );
+  bowl.name = "ArenaBowl";
+  scene.add(bowl);
+
+  const fasciaMat = new THREE.LineBasicMaterial({ color: 0x5ddcff, transparent: true, opacity: 0.80 });
+  const crowdMat = new THREE.MeshBasicMaterial({ color: 0xd4d9dc, transparent: true, opacity: 0.72 });
+  const crowdGeo = new THREE.BoxGeometry(0.085, 0.12, 0.085);
+  const crowdCount = isMobile ? 520 : 900;
+  const crowd = new THREE.InstancedMesh(crowdGeo, crowdMat, crowdCount);
+  const dummy = new THREE.Object3D();
+
+  for (let row = 0; row < crowdRows; row++) {
+    const linePoints = [];
+    for (let i = 0; i <= samples; i++) {
+      const t = i / samples;
+      const p = curve.getPointAt(t);
+      const radial = new THREE.Vector3(p.x, 0, p.z).normalize();
+      const q = p.clone().addScaledVector(radial, 14.6 + row * 1.65);
+      q.y = p.y + 1.25 + row * 1.12;
+      linePoints.push(q);
+    }
+    const line = new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints(linePoints),
+      new THREE.LineBasicMaterial({
+        color: row === crowdRows - 1 ? 0x6bdcff : 0xa7b6bd,
+        transparent: true,
+        opacity: row === crowdRows - 1 ? 0.75 : 0.22
+      })
+    );
+    scene.add(line);
+  }
+
+  for (let i = 0; i < crowdCount; i++) {
+    const t = (i + 0.37) / crowdCount;
+    const p = curve.getPointAt(t);
+    const radial = new THREE.Vector3(p.x, 0, p.z).normalize();
+    const row = i % crowdRows;
+    const q = p.clone().addScaledVector(radial, 14.6 + row * 1.65);
+    q.y = p.y + 1.45 + row * 1.12 + ((i * 17) % 9) * 0.025;
+    dummy.position.copy(q);
+    dummy.scale.setScalar(0.80 + ((i * 13) % 7) * 0.06);
+    dummy.updateMatrix();
+    crowd.setMatrixAt(i, dummy.matrix);
+  }
+  crowd.instanceMatrix.needsUpdate = true;
+  scene.add(crowd);
+
+  const canopyVertices = [];
+  const canopyIndices = [];
+  for (let i = 0; i <= samples; i++) {
+    const t = i / samples;
+    const p = curve.getPointAt(t);
+    const radial = new THREE.Vector3(p.x, 0, p.z).normalize();
+    const inner = p.clone().addScaledVector(radial, 21.5);
+    const outer = p.clone().addScaledVector(radial, 26.0);
+    inner.y = p.y + 8.0;
+    outer.y = p.y + 9.4;
+    canopyVertices.push(inner.x, inner.y, inner.z, outer.x, outer.y, outer.z);
+  }
+  for (let i = 0; i < samples; i++) {
+    const a = i * 2;
+    canopyIndices.push(a, a + 2, a + 1, a + 1, a + 2, a + 3);
+  }
+  const canopyGeo = new THREE.BufferGeometry();
+  canopyGeo.setAttribute("position", new THREE.Float32BufferAttribute(canopyVertices, 3));
+  canopyGeo.setIndex(canopyIndices);
+  canopyGeo.computeVertexNormals();
+  const canopy = new THREE.Mesh(
+    canopyGeo,
+    new THREE.MeshStandardMaterial({
+      color: 0x17232d,
+      roughness: 0.72,
+      metalness: 0.18,
+      side: THREE.DoubleSide
+    })
+  );
+  canopy.name = "ArenaCanopy";
+  scene.add(canopy);
+
+  const fasciaPoints = [];
+  for (let i = 0; i <= samples; i++) {
+    const t = i / samples;
+    const p = curve.getPointAt(t);
+    const radial = new THREE.Vector3(p.x, 0, p.z).normalize();
+    const q = p.clone().addScaledVector(radial, 21.2);
+    q.y = p.y + 7.7;
+    fasciaPoints.push(q);
+  }
+  scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(fasciaPoints), fasciaMat));
+}
+buildArenaBowl();
 
 const raceEnvironment = scene.children.filter((obj) => !obj.isLight);
 
@@ -1274,7 +1400,7 @@ function updateAgentVisual(now) {
   if (panel) panel.classList.toggle("pulse", now < agentPulseUntil);
   updateCreatureStateVisual();
 
-  const showWorldSignal = view !== "lab" && view !== "tactical";
+  const showWorldSignal = isolatedProof && view !== "lab" && view !== "tactical";
   agentOrbs.forEach((orb, index) => {
     const racer = racers[index];
     const t = (racer.distance / raceMeters) % 1;
@@ -3015,7 +3141,7 @@ function setCamera() {
   scene.background = new THREE.Color(lab ? 0x202a35 : 0x8eafbd);
   raceEnvironment.forEach((obj) => { obj.visible = !lab; });
   racers.forEach((r) => { r.obj.visible = !lab && !tactical && (!isolatedProof || r.id === isolatedProofRacerId); });
-  ring.visible = !lab && !tactical;
+  ring.visible = isolatedProof && !lab && !tactical;
   racerShadows.forEach((shadow, index) => {
     shadow.visible = !lab && !tactical && (!isolatedProof || racers[index].id === isolatedProofRacerId);
   });
@@ -3038,9 +3164,9 @@ function setCamera() {
     const isolatedBack = aRigIsolatedProof ? -1.55 : eRigIsolatedProof ? -1.45 : pRigIsolatedProof ? -1.55 : -1.2;
     const isolatedSide = aRigIsolatedProof ? 4.95 : eRigIsolatedProof ? 5.05 : pRigIsolatedProof ? 4.8 : 4.1;
     const isolatedHeight = aRigIsolatedProof ? 1.95 : eRigIsolatedProof ? 2.18 : pRigIsolatedProof ? 1.95 : 1.72;
-    const followBack = isolatedProof ? (isMobile ? -1.5 : isolatedBack) : (isMobile ? -6.2 : -7.0);
-    const followSide = isolatedProof ? (isMobile ? 4.3 : isolatedSide) : (isMobile ? 3.6 : 4.2);
-    const followHeight = isolatedProof ? (isMobile ? 1.92 : isolatedHeight) : (isMobile ? 2.65 : 2.85);
+    const followBack = isolatedProof ? (isMobile ? -1.5 : isolatedBack) : (isMobile ? -13.0 : -14.5);
+    const followSide = isolatedProof ? (isMobile ? 4.3 : isolatedSide) : (isMobile ? 7.2 : 8.0);
+    const followHeight = isolatedProof ? (isMobile ? 1.92 : isolatedHeight) : (isMobile ? 2.75 : 2.95);
     const shake = Math.max(0, speedRatio - 0.38) * (isolatedProof ? 0.08 : 0.14);
     const desired = selectedPos.clone()
       .addScaledVector(tangent, followBack)
@@ -3048,7 +3174,7 @@ function setCamera() {
       .add(new THREE.Vector3(0, followHeight + Math.sin(elapsed * 0.033) * shake * 0.45, 0));
     camera.position.lerp(desired, 0.16);
     const lookTarget = selectedPos.clone()
-      .addScaledVector(tangent, 7.2)
+      .addScaledVector(tangent, 2.8)
       .addScaledVector(side, -0.20)
       .add(new THREE.Vector3(0, 0.58, 0));
     camera.lookAt(lookTarget);
@@ -3070,22 +3196,24 @@ function setCamera() {
     const leaderTangent = curve.getTangentAt(lt).normalize();
     const leaderSide = new THREE.Vector3(-leaderTangent.z, 0, leaderTangent.x);
 
-    const raceBack = isMobile ? -1.0 : -1.4;
-    const raceSide = isMobile ? 12.8 : 14.4;
-    const raceHeight = isMobile ? 3.65 : 3.85;
-    const raceShake = Math.max(0, speedRatio - 0.40) * 0.12;
+    const raceBack = isMobile ? -0.8 : -1.1;
+    const raceSide = isMobile ? 10.8 : 12.2;
+    const raceHeight = isMobile ? 2.20 : 2.05;
+    const raceShake = Math.max(0, speedRatio - 0.40) * 0.11;
+    const radial = new THREE.Vector3(center.x, 0, center.z).normalize();
+    const sideOutward = leaderSide.dot(radial) >= 0 ? 1 : -1;
+    const cameraSide = leaderSide.clone().multiplyScalar(-sideOutward);
     camera.position.lerp(
       center.clone()
         .addScaledVector(leaderTangent, raceBack + Math.sin(elapsed * 0.020) * raceShake)
-        .addScaledVector(leaderSide, raceSide)
-        .add(new THREE.Vector3(0, raceHeight + Math.sin(elapsed * 0.029) * raceShake * 0.55, 0)),
-      0.11
+        .addScaledVector(cameraSide, raceSide)
+        .add(new THREE.Vector3(0, raceHeight + Math.sin(elapsed * 0.029) * raceShake * 0.50, 0)),
+      0.12
     );
     camera.lookAt(
       center.clone()
-        .addScaledVector(leaderTangent, 1.8)
-        .addScaledVector(leaderSide, -0.55)
-        .add(new THREE.Vector3(0, 0.58, 0))
+        .addScaledVector(leaderTangent, 1.5)
+        .add(new THREE.Vector3(0, 0.76, 0))
     );
     stage.dataset.raceCamera = "side-pack-cinematic";
   }
@@ -3282,7 +3410,8 @@ function resetRace() {
       r.agent.pendingPolicyKey = null;
     }
 
-    r.distance = Math.max(0, (17 - i) * 1.1);
+    const gridRow = Math.floor(i / laneCount);
+    r.distance = Math.max(0, 6.4 - gridRow * 3.2);
     r.lane = i % laneCount;
     r.laneF = i % laneCount;
     r.stamina = 100;
