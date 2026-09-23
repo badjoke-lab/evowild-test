@@ -661,6 +661,7 @@ const agentOrbs = racers.map((r) => {
   scene.add(orb);
   return orb;
 });
+const agentOrbTravelTangent = new THREE.Vector3();
 
 const agentCommandColors = {
   "BUILD SPEED": 0x76e59b,
