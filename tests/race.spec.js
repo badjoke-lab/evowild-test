@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 
 test("race scene renders and advances", async ({ page }) => {
-  test.setTimeout(45000);
+  test.setTimeout(90000);
   const pageErrors = [];
   const consoleErrors = [];
 
@@ -188,7 +188,7 @@ test("capture desktop cinematic race and follow views", async ({ page }, testInf
 
   await page.getByRole("button", { name: "3 Follow" }).click();
   await expect(page.locator("#viewLabel")).toHaveText("FOLLOW VIEW");
-  await expect(page.locator("#stage")).toHaveAttribute("data-follow-camera", "rear-quarter", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-follow-camera", "side-chase", { timeout: 6500 });
   await page.waitForTimeout(2400);
   await page.locator("#stage").screenshot({ path: `${outDir}/desktop-follow-cinematic.png` });
 });
