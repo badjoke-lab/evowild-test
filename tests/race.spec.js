@@ -176,7 +176,7 @@ test("compare 18-instance SF3D clone versus instanced rendering", async ({ page 
 });
 
 
-test("compare corrected 3/4 and SIDE authority SF3D candidates", async ({ page }, testInfo) => {
+test("compare corrected, white-background and SIDE SF3D candidates", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(70000);
 
@@ -189,6 +189,12 @@ test("compare corrected 3/4 and SIDE authority SF3D candidates", async ({ page }
       query: "",
       profile: "s-sf3d-corrected-candidate",
       triangles: "8960"
+    },
+    {
+      name: "white",
+      query: "?sf3dVariant=white",
+      profile: "s-sf3d-crop30-white",
+      triangles: "9480"
     },
     {
       name: "side",
