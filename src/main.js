@@ -1085,6 +1085,7 @@ function setSelectedRacer(id) {
   ring.position.set(selected.obj.position.x, 0.08, selected.obj.position.z);
   lastRankingPaint = -Infinity;
   updateAgentSetupUi();
+  if (raceState === "finished" && !resultsPanel.hidden) syncFinishedResultSelection();
 }
 
 function updateAgentSetupUi() {
@@ -1879,8 +1880,17 @@ function renderResultAgentSummary(racer) {
   stage.dataset.resultAgentSummary = "ready";
   stage.dataset.resultAgentDecisions = String(stats.decisions);
   stage.dataset.resultAgentFailed = String(stats.failed);
-  stage.dataset.resultAgentCompatibility = String(compatibilityScoreFor(racer));
   stage.dataset.resultAgentCompatibility = String(compatibilityScore);
+}
+
+function syncFinishedResultSelection() {
+  if (raceState !== "finished" || !selected?.finished) return;
+  resultHeadline.textContent =
+    `#${selected.finishPlace} ${selected.name} — ${formatRaceTime(selected.finishTime)}`;
+  renderResultAgentSummary(selected);
+  resultsList.querySelectorAll("[data-result-racer-id]").forEach((row) => {
+    row.classList.toggle("selected", Number(row.dataset.resultRacerId) === selectedId);
+  });
 }
 function updateRaceStateDataset() {
   stage.dataset.raceState = raceState;
@@ -1919,7 +1929,7 @@ function finishRace() {
     });
   }
   resultsList.innerHTML = ordered.map((r) => `
-    <div class="result-row ${r.id === selectedId ? "selected" : ""}">
+    <div class="result-row ${r.id === selectedId ? "selected" : ""}" data-result-racer-id="${r.id}" role="button" tabindex="0" aria-label="Analyze #${String(r.id).padStart(2, "0")} ${r.name}">
       <span class="place">#${r.finishPlace}</span>
       <span><span class="result-name">${r.name}</span><span class="result-morph"> #${String(r.id).padStart(2, "0")}</span><small class="result-agent">${r.agent.id} ${r.agent.name} · ${r.agent.policy.label}</small></span>
       <span class="result-morph">${r.morph}</span>
@@ -1931,7 +1941,23 @@ function finishRace() {
   renderResultAgentSummary(selected);
   resultsPanel.hidden = false;
   updateRaceStateDataset();
+  syncFinishedResultSelection();
 }
+
+resultsList.addEventListener("click", (event) => {
+  const row = event.target.closest("[data-result-racer-id]");
+  if (!row) return;
+  const id = Number(row.dataset.resultRacerId);
+  if (Number.isInteger(id)) setSelectedRacer(id);
+});
+resultsList.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" && event.key !== " ") return;
+  const row = event.target.closest("[data-result-racer-id]");
+  if (!row) return;
+  event.preventDefault();
+  const id = Number(row.dataset.resultRacerId);
+  if (Number.isInteger(id)) setSelectedRacer(id);
+});
 
 function updateRaceLifecycle(dt) {
   if (paused) return;
