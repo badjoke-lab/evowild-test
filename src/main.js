@@ -880,6 +880,8 @@ function recordAgentEvent(racer, force = false) {
   racer.agentLog.push({
     time: elapsed,
     phase: phase(racer),
+    agentId: racer.agent.id,
+    agentProfile: racer.agent.policy.key,
     decision: racer.decision,
     order: racer.command,
     result: response.state,
@@ -896,6 +898,8 @@ function recordAgentEvent(racer, force = false) {
 
 function updateAgentVisual(now) {
   const panel = document.querySelector("#agentPanel");
+  const identityEl = document.querySelector("#agentIdentity");
+  const profileEl = document.querySelector("#agentProfile");
   const orderEl = document.querySelector("#agentOrder");
   const responseEl = document.querySelector("#creatureResponse");
   const fatigueEl = document.querySelector("#agentFatigue");
@@ -915,6 +919,8 @@ function updateAgentVisual(now) {
     if (toastResult) toastResult.textContent = response.state;
   }
 
+  if (identityEl && selected?.agent) identityEl.textContent = `${selected.agent.id} ${selected.agent.name} / ${selected.agent.version}`;
+  if (profileEl && selected?.agent) profileEl.textContent = selected.agent.policy.label.toUpperCase();
   if (orderEl) orderEl.textContent = order;
   if (responseEl) responseEl.textContent = response.state;
   if (fatigueEl) fatigueEl.textContent = `${Math.round(100 - (selected?.stamina ?? 100))}%`;
@@ -956,6 +962,9 @@ function updateAgentVisual(now) {
   stage.dataset.agentToast = "enabled";
   stage.dataset.agentOrbCount = String(agentOrbs.length);
   stage.dataset.agentSelectedId = String(selectedId);
+  stage.dataset.agentIdentity = selected?.agent?.id || "";
+  stage.dataset.agentProfile = selected?.agent?.policy?.key || "";
+  stage.dataset.agentVersion = selected?.agent?.version || "";
   stage.dataset.agentOrder = order;
   stage.dataset.creatureResponse = response.state;
 }
