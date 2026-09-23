@@ -26,7 +26,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           pip install -q numpy trimesh pillow
-          mkdir -p /tmp/sf3d /tmp/sf3d-corrected /tmp/sf3d-white /tmp/sf3d-side /tmp/triposr-side
+          mkdir -p /tmp/sf3d /tmp/sf3d-corrected /tmp/sf3d-white /tmp/sf3d-side /tmp/triposr-side /tmp/triposr-3q
           gh api repos/${{ github.repository }}/actions/artifacts/10644576625/zip > /tmp/sf3d.zip
           unzip -q /tmp/sf3d.zip -d /tmp/sf3d
           python scripts/prepare-sf3d-asset.py
@@ -66,6 +66,15 @@ jobs:
           test -n "$triposr_meta"
           cp "$triposr_glb" public/models/evowild-s-triposr-side.glb
           cp "$triposr_meta" public/models/evowild-s-triposr-side.json
+
+          gh api repos/${{ github.repository }}/actions/artifacts/10727044686/zip > /tmp/triposr-3q.zip
+          unzip -q /tmp/triposr-3q.zip -d /tmp/triposr-3q
+          triposr3q_glb="$(find /tmp/triposr-3q -name '*.glb' -print -quit)"
+          triposr3q_meta="$(find /tmp/triposr-3q -name 'metadata.json' -print -quit)"
+          test -n "$triposr3q_glb"
+          test -n "$triposr3q_meta"
+          cp "$triposr3q_glb" public/models/evowild-s-triposr-3q.glb
+          cp "$triposr3q_meta" public/models/evowild-s-triposr-3q.json
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -94,7 +103,9 @@ jobs:
             public/models/evowild-s-sf3d-side.glb \
             public/models/evowild-s-sf3d-side.json \
             public/models/evowild-s-triposr-side.glb \
-            public/models/evowild-s-triposr-side.json
+            public/models/evowild-s-triposr-side.json \
+            public/models/evowild-s-triposr-3q.glb \
+            public/models/evowild-s-triposr-3q.json
           if git diff --cached --quiet; then
             echo "No asset changes"
           else
