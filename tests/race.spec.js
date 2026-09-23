@@ -586,3 +586,38 @@ test("compare Hunyuan multiview raw shape against active SF3D candidate", async 
     JSON.stringify({ generatedBy: "Playwright CI Chromium", results }, null, 2)
   );
 });
+
+
+test("capture four-view comparison for Hunyuan SF3D and TripoSR", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(120000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const candidates = [
+    { name: "hunyuan2mv", variant: "hunyuan2mv" },
+    { name: "sf3d-corrected", variant: "" },
+    { name: "triposr-3q", variant: "triposr3q" }
+  ];
+  const yaws = [0, 90, 180, 270];
+
+  for (const candidate of candidates) {
+    for (const yaw of yaws) {
+      const params = new URLSearchParams();
+      if (candidate.variant) params.set("sf3dVariant", candidate.variant);
+      params.set("modelYaw", String(yaw));
+      await page.goto(`/evowild-test/?${params.toString()}`, { waitUntil: "networkidle" });
+
+      await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
+      await expect(page.locator("#stage")).toHaveAttribute("data-model-yaw", String(yaw), { timeout: 20000 });
+      await page.getByRole("button", { name: "1 Morph" }).click();
+      await expect(page.locator("#viewLabel")).toHaveText("MORPH LAB");
+      await page.waitForTimeout(500);
+
+      await page.locator("#stage").screenshot({
+        path: `${outDir}/shape4-${candidate.name}-yaw${yaw}.png`
+      });
+    }
+  }
+});
