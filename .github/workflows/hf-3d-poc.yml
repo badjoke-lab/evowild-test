@@ -41,24 +41,22 @@ jobs:
           runtime.mkdir(parents=True, exist_ok=True)
           out.mkdir(parents=True, exist_ok=True)
 
-          # Prepare the validated clean single-subject input:
-          # 30% left crop removes the partial second creature without cutting
-          # the intended S-Type. Remove near-white background and center the
-          # subject on a transparent square.
-          im = Image.open(src).convert("RGBA")
+          # Preserve the original 3/4 main creature exactly in-place.
+          # The source contains an unwanted partial second creature at the
+          # far-left edge. Instead of cropping/recentering the image, erase
+          # only that contaminated left strip to the original white studio
+          # background. This keeps the main subject scale and perspective.
+          im = Image.open(src).convert("RGB")
           w, h = im.size
-          im = im.crop((int(w * 0.30), 0, w, h)).copy()
-          # Keep the original white studio background for this variant.
-          # Stable Fast 3D performs its own foreground preprocessing; this
-          # tests whether our previous alpha cutout flattened depth cues.
-          rgb = im.convert("RGB")
-          iw, ih = rgb.size
-          side = max(iw, ih)
+          erase_x = int(w * 0.30)
+          im.paste((255,255,255), (0, 0, erase_x, h))
+
+          side = max(w, h)
           canvas = Image.new("RGB", (side, side), (255,255,255))
-          canvas.paste(rgb, ((side-iw)//2, (side-ih)//2))
-          crop = runtime / "evowild_3q_crop30_white.jpg"
-          canvas.save(crop, quality=96)
-          cutout = crop
+          canvas.paste(im, ((side-w)//2, (side-h)//2))
+          prepared = runtime / "evowild_3q_maskleft30_white.jpg"
+          canvas.save(prepared, quality=96)
+          cutout = prepared
 
           spaces = [
               ("Upsampler/stable-fast-3d", "https://upsampler-stable-fast-3d.hf.space", 1),
@@ -166,7 +164,7 @@ jobs:
               "endpoint": api_name,
               "attempt": attempt,
               "source_image": str(src),
-              "variant": "crop30_white",
+              "variant": "maskleft30_white",
               "foreground_ratio": 0.85,
               "remesh": "None",
               "vertex_count": -1,
