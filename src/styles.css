@@ -595,6 +595,74 @@ body.p-rig-proof .stage { min-height: 620px; }
   margin-top: 3px;
   font-size: 21px;
 }
+.result-analysis {
+  margin: 10px 12px 0;
+  padding: 10px;
+  border: 1px solid rgba(107,177,255,.18);
+  border-radius: 10px;
+  background: rgba(15,23,31,.82);
+}
+.result-analysis-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.result-analysis-head span {
+  display: block;
+  color: #6bb1ff;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+.result-analysis-head strong {
+  display: block;
+  margin-top: 2px;
+  font-size: 13px;
+}
+.result-analysis-head > b {
+  color: #a8c8df;
+  font-size: 10px;
+}
+.result-analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 6px;
+}
+.result-analysis-grid div {
+  padding: 6px 7px;
+  border: 1px solid rgba(255,255,255,.05);
+  border-radius: 7px;
+  background: #0d151c;
+}
+.result-analysis-grid span {
+  display: block;
+  color: #6f8494;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.result-analysis-grid b {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+}
+#resultSuccess { color: #9ee8ba; }
+#resultPartial { color: #ffd37d; }
+#resultFailed { color: #ff8d8d; }
+.result-analysis-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 7px;
+  color: #8195a4;
+  font-size: 8px;
+}
+.result-analysis-foot span:last-child {
+  text-align: right;
+}
 .results-list {
   overflow: auto;
   padding: 8px 12px 14px;
@@ -628,6 +696,10 @@ body.p-rig-proof .stage { min-height: 620px; }
   .race-results { inset: 5%; }
   .results-head { padding: 11px 12px 9px; }
   .results-head strong { font-size: 17px; }
+  .result-analysis-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .result-analysis-foot { display: block; }
+  .result-analysis-foot span { display: block; margin-top: 3px; }
+  .result-analysis-foot span:last-child { text-align: left; }
   .result-row {
     grid-template-columns: 34px minmax(0, 1fr) 42px 68px;
     gap: 6px;
