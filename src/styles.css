@@ -743,25 +743,28 @@ body.cinematic-follow .agent-toast {
 
 .speed-fx {
   position: absolute;
-  inset: 0;
+  inset: -4%;
   pointer-events: none;
   z-index: 5;
   opacity: 0;
   mix-blend-mode: screen;
   background:
     repeating-linear-gradient(
-      96deg,
-      transparent 0 34px,
-      rgba(198, 231, 255, 0.12) 35px 37px,
-      transparent 38px 78px
+      100deg,
+      transparent 0 54px,
+      rgba(198, 231, 255, 0.10) 55px 57px,
+      transparent 58px 118px
     ),
     linear-gradient(
       90deg,
-      rgba(255,255,255,0.00) 0%,
-      rgba(255,255,255,0.02) 52%,
-      rgba(188,225,255,0.10) 100%
+      rgba(188,225,255,0.12) 0%,
+      rgba(255,255,255,0.00) 18%,
+      rgba(255,255,255,0.00) 82%,
+      rgba(188,225,255,0.12) 100%
     );
-  filter: blur(0.45px);
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, transparent 23%, transparent 77%, #000 100%);
+  mask-image: linear-gradient(90deg, #000 0%, transparent 23%, transparent 77%, #000 100%);
+  filter: blur(0.6px);
   transition: opacity 120ms linear;
   will-change: transform, opacity;
 }
