@@ -3,6 +3,30 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { clone as cloneSkeletonSafe } from "three/addons/utils/SkeletonUtils.js";
 
 export const CREATURE_3D_PROFILES = {
+  sSf3dWhite: {
+    id: "s-sf3d-crop30-white",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-sf3d-white.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.08,
+      minRoughness: 0.52,
+      side: "front",
+      preserveBaseColorMap: true,
+      maxAnisotropy: 4
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "candidate_unapproved",
+    notes: [
+      "Generated from the same corrected crop30 3/4 reference with white background preserved.",
+      "Tests whether manual alpha cutout was flattening depth cues.",
+      "Not approved as final EvoWild S-Type."
+    ]
+  },
   sSf3dCorrected: {
     id: "s-sf3d-corrected-candidate",
     morph: "S",
