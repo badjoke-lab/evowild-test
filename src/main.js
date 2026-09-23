@@ -1808,9 +1808,9 @@ function setCamera() {
     camera.lookAt(0, 1.25, 0);
   } else if (view === "follow") {
     camera.up.set(0, 1, 0);
-    const followBack = sRunIsolatedProof ? (isMobile ? -1.5 : -1.2) : (isMobile ? -2.3 : -1.8);
-    const followSide = sRunIsolatedProof ? (isMobile ? 4.3 : 4.1) : (isMobile ? 4.6 : 4.8);
-    const followHeight = sRunIsolatedProof ? (isMobile ? 1.92 : 1.72) : (isMobile ? 2.42 : 2.12);
+    const followBack = sRunIsolatedProof ? (isMobile ? -1.5 : -1.2) : (isMobile ? -2.8 : -1.8);
+    const followSide = sRunIsolatedProof ? (isMobile ? 4.3 : 4.1) : (isMobile ? 5.6 : 4.8);
+    const followHeight = sRunIsolatedProof ? (isMobile ? 1.92 : 1.72) : (isMobile ? 2.68 : 2.12);
     const shake = Math.max(0, speedRatio - 0.48) * (sRunIsolatedProof ? 0.10 : 0.075);
     const desired = selectedPos.clone()
       .addScaledVector(tangent, followBack)
