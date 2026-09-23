@@ -3258,6 +3258,7 @@ function syncViewUi() {
   document.querySelectorAll("[data-view]").forEach((button) => {
     button.classList.toggle("active", button.dataset.view === view);
   });
+  document.body.classList.toggle("cinematic-follow", view === "follow" && !isolatedProof);
 }
 
 document.querySelectorAll("[data-view]").forEach((button) => {
