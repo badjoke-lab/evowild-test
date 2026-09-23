@@ -1422,7 +1422,7 @@ function buildPCutoutRig(texture, raceLayout, racerId) {
 }
 
 function installPCutoutRigFor(racer, texture) {
-  if (!racer || racer.id !== pCutoutRigRacerId || racer.morph !== "P" || racer.obj.userData.pCutoutRig) return;
+  if (!racer || racer.morph !== "P" || racer.obj.userData.pCutoutRig) return;
   const oldSprite = racer.obj.userData.raceSprite;
   if (!oldSprite) return;
 
@@ -1439,7 +1439,8 @@ function installPCutoutRigFor(racer, texture) {
   pCutoutRigRacers.push(racer);
 
   stage.dataset.pCutoutRig = "loaded";
-  stage.dataset.pCutoutRacer = String(racer.id);
+  stage.dataset.pCutoutRacers = String(pCutoutRigRacers.length);
+  if (racer.id === pCutoutRigRacerId) stage.dataset.pCutoutRacer = String(racer.id);
 }
 
 function applyPCutoutRigMotion(racer, frameIndex) {
@@ -1627,7 +1628,7 @@ for (const morph of ["S", "P", "E", "A"]) {
         racer.obj.add(raceSprite);
         racer.obj.userData.raceSprite = raceSprite;
         if (morph === "S") installSRunSpriteFor(racer);
-        if (morph === "P" && racer.id === pCutoutRigRacerId) installPCutoutRigFor(racer, texture);
+        if (morph === "P") installPCutoutRigFor(racer, texture);
       }
 
       const material = new THREE.SpriteMaterial({
