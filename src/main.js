@@ -667,7 +667,7 @@ function setupSf3dBenchmark(source, count) {
   stage.dataset.sf3dBenchMode = sf3dBenchMode;
 }
 
-function setupRaceStress(baseSource, baseProfile, lod1Data, lod2Data) {
+function setupRaceStress(baseSource, baseProfile, lod1Data, lod2Data, lod3Data) {
   if (!sf3dRaceStress) return;
 
   for (const racer of racers) {
@@ -694,10 +694,17 @@ function setupRaceStress(baseSource, baseProfile, lod1Data, lod2Data) {
       placement: "race",
       materialSide: "front"
     });
+    const lod3Model = fitCreature3D(cloneCreature3D(lod3Data.source), {
+      renderer,
+      profile: lod3Data.profile,
+      placement: "race",
+      materialSide: "front"
+    });
 
     lod.addLevel(baseModel, 0);
-    lod.addLevel(lod1Model, 10);
-    lod.addLevel(lod2Model, 22);
+    lod.addLevel(lod1Model, 9);
+    lod.addLevel(lod2Model, 18);
+    lod.addLevel(lod3Model, 30);
     racer.obj.add(lod);
     racer.obj.userData.sf3dStressLod = lod;
   }
@@ -745,25 +752,27 @@ function sampleRaceStress(now, frameMs) {
     minRendererCalls: Math.min(...calls),
     maxRendererCalls: Math.max(...calls),
     allBaseTriangles: racers.length * 8960,
-    note: "CI Chromium real race-loop stress test with 18 moving three-level LOD creatures; not physical-device FPS"
+    note: "CI Chromium real race-loop stress test with 18 moving four-level LOD creatures; not physical-device FPS"
   };
   sf3dRaceStressReady = true;
   stage.dataset.sf3dRaceStress = "ready";
 }
 
-function setupRaceLodBenchmark(baseSource, baseProfile, lod1Data, lod2Data) {
+function setupRaceLodBenchmark(baseSource, baseProfile, lod1Data, lod2Data, lod3Data) {
   if (!sf3dRaceLodBench) return;
 
   const group = new THREE.Group();
   group.name = "SF3D_Race_LOD_Benchmark_18";
 
   const near = 4;
-  const mid = 6;
-  const far = 8;
+  const mid = 5;
+  const far = 5;
+  const veryFar = 4;
   const distances = [
-    ...Array.from({ length: near }, (_, i) => 4 + i * 1.2),
-    ...Array.from({ length: mid }, (_, i) => 12 + i * 1.45),
-    ...Array.from({ length: far }, (_, i) => 24 + i * 1.65)
+    ...Array.from({ length: near }, (_, i) => 4 + i * 1.1),
+    ...Array.from({ length: mid }, (_, i) => 10 + i * 1.4),
+    ...Array.from({ length: far }, (_, i) => 19 + i * 1.6),
+    ...Array.from({ length: veryFar }, (_, i) => 31 + i * 1.8)
   ];
 
   for (let i = 0; i < distances.length; i++) {
@@ -787,10 +796,17 @@ function setupRaceLodBenchmark(baseSource, baseProfile, lod1Data, lod2Data) {
       placement: "benchmark",
       materialSide: "front"
     });
+    const lod3Model = fitCreature3D(cloneCreature3D(lod3Data.source), {
+      renderer,
+      profile: lod3Data.profile,
+      placement: "benchmark",
+      materialSide: "front"
+    });
 
     lod.addLevel(baseModel, 0);
-    lod.addLevel(lod1Model, 10);
-    lod.addLevel(lod2Model, 22);
+    lod.addLevel(lod1Model, 9);
+    lod.addLevel(lod2Model, 18);
+    lod.addLevel(lod3Model, 30);
 
     const column = i % 6;
     const row = Math.floor(i / 6);
@@ -835,9 +851,10 @@ function sampleRaceLodBenchmark(now, frameMs) {
   window.__sf3dRaceLodBench = {
     count: 18,
     expectedNear: 4,
-    expectedMid: 6,
-    expectedFar: 8,
-    theoreticalTriangles: 4 * 8960 + 6 * 4480 + 8 * 2240,
+    expectedMid: 5,
+    expectedFar: 5,
+    expectedVeryFar: 4,
+    theoreticalTriangles: 4 * 8960 + 5 * 4480 + 5 * 2240 + 4 * 1120,
     allBaseTriangles: 18 * 8960,
     rendererTriangles: renderer.info.render.triangles,
     rendererCalls: renderer.info.render.calls,
@@ -930,9 +947,10 @@ loadCreature3D(sf3dProfile)
 
         Promise.all([
           loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod1),
-          loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod2)
+          loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod2),
+          loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod3)
         ])
-          .then(([lod1Data, lod2Data]) => {
+          .then(([lod1Data, lod2Data, lod3Data]) => {
             const lod1Model = fitCreature3D(cloneCreature3D(lod1Data.source), {
               renderer,
               profile: lod1Data.profile,
@@ -947,8 +965,16 @@ loadCreature3D(sf3dProfile)
             });
             lod2Model.name = "EvoWild_S_SF3D_Race_LOD2";
 
-            raceLod.addLevel(lod1Model, 10);
-            raceLod.addLevel(lod2Model, 22);
+            const lod3Model = fitCreature3D(cloneCreature3D(lod3Data.source), {
+              renderer,
+              profile: lod3Data.profile,
+              placement: "race"
+            });
+            lod3Model.name = "EvoWild_S_SF3D_Race_LOD3";
+
+            raceLod.addLevel(lod1Model, 9);
+            raceLod.addLevel(lod2Model, 18);
+            raceLod.addLevel(lod3Model, 30);
             stage.dataset.sf3dRaceLod = "loaded";
             stage.dataset.sf3dRaceLodLevels = String(raceLod.levels.length);
             stage.dataset.sf3dRaceLodDistances = raceLod.levels.map((level) => level.distance).join(",");
@@ -981,9 +1007,10 @@ loadCreature3D(sf3dProfile)
     if (sf3dRaceLodBench && profile.id === CREATURE_3D_PROFILES.sSf3dCorrected.id) {
       Promise.all([
         loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod1),
-        loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod2)
-      ]).then(([lod1Data, lod2Data]) => {
-        setupRaceLodBenchmark(source, profile, lod1Data, lod2Data);
+        loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod2),
+        loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod3)
+      ]).then(([lod1Data, lod2Data, lod3Data]) => {
+        setupRaceLodBenchmark(source, profile, lod1Data, lod2Data, lod3Data);
       }).catch((error) => {
         stage.dataset.sf3dRaceLodBench = "error";
         console.error("Mixed-distance race LOD benchmark failed to load", error);
@@ -993,9 +1020,10 @@ loadCreature3D(sf3dProfile)
     if (sf3dRaceStress && profile.id === CREATURE_3D_PROFILES.sSf3dCorrected.id) {
       Promise.all([
         loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod1),
-        loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod2)
-      ]).then(([lod1Data, lod2Data]) => {
-        setupRaceStress(source, profile, lod1Data, lod2Data);
+        loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod2),
+        loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod3)
+      ]).then(([lod1Data, lod2Data, lod3Data]) => {
+        setupRaceStress(source, profile, lod1Data, lod2Data, lod3Data);
       }).catch((error) => {
         stage.dataset.sf3dRaceStress = "error";
         console.error("18-racer SF3D stress assets failed to load", error);
