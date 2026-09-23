@@ -75,6 +75,52 @@ export const CREATURE_3D_PROFILES = {
       "Not approved as final EvoWild S-Type."
     ]
   },
+  sSf3dCorrectedLod1: {
+    id: "s-sf3d-corrected-lod1",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-sf3d-corrected-lod1.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.08,
+      minRoughness: 0.52,
+      side: "front",
+      preserveBaseColorMap: true,
+      maxAnisotropy: 4
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "lod_candidate",
+    notes: [
+      "Derived from corrected SF3D candidate with glTF Transform simplification at ratio 0.5.",
+      "Texture/material preservation is validated by browser load tests before use."
+    ]
+  },
+  sSf3dCorrectedLod2: {
+    id: "s-sf3d-corrected-lod2",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-sf3d-corrected-lod2.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.08,
+      minRoughness: 0.52,
+      side: "front",
+      preserveBaseColorMap: true,
+      maxAnisotropy: 4
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "lod_candidate",
+    notes: [
+      "Derived from corrected SF3D candidate with glTF Transform simplification at ratio 0.25.",
+      "Texture/material preservation is validated by browser load tests before use."
+    ]
+  },
   sSf3dCorrected: {
     id: "s-sf3d-corrected-candidate",
     morph: "S",
