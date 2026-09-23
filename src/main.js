@@ -611,6 +611,10 @@ const sf3dBaseProfile = sf3dVariant === "hunyuan2mv"
       ? CREATURE_3D_PROFILES.sHunyuan2mvLod1
     : sf3dVariant === "hunyuanlod2"
       ? CREATURE_3D_PROFILES.sHunyuan2mvLod2
+    : sf3dVariant === "hunyuanlod3"
+      ? CREATURE_3D_PROFILES.sHunyuan2mvLod3
+    : sf3dVariant === "hunyuanlod4"
+      ? CREATURE_3D_PROFILES.sHunyuan2mvLod4
       : sf3dVariant === "lod1"
     ? CREATURE_3D_PROFILES.sSf3dCorrectedLod1
   : sf3dVariant === "lod2lite"
