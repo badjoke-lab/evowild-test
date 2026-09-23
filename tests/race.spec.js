@@ -310,6 +310,7 @@ test("compare corrected SF3D LOD quality and 18-instance load", async ({ page },
   expect(results[1].triangles).toBeLessThan(results[0].triangles);
   expect(results[2].triangles).toBeLessThan(results[1].triangles);
   expect(results[3].triangles).toBeLessThan(results[2].triangles);
+  expect(results[3].triangles).toBeLessThan(results[2].triangles);
 
   fs.writeFileSync(
     `${outDir}/sf3d-lod-benchmark.json`,
@@ -632,6 +633,7 @@ test("compare raw and simplified Hunyuan multiview shapes", async ({ page }, tes
 
   const variants = [
     { name: "raw", query: "?sf3dVariant=hunyuan2mv" },
+    { name: "clean", query: "?sf3dVariant=hunyuanclean" },
     { name: "lod1", query: "?sf3dVariant=hunyuanlod1" },
     { name: "lod2", query: "?sf3dVariant=hunyuanlod2" }
   ];
