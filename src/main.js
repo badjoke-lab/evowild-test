@@ -14,6 +14,7 @@ const sf3dBenchMode = query.get("sf3dMode") === "instance" ? "instance" : "clone
 const sf3dRaceLodBench = query.get("sf3dRaceLodBench") === "1";
 const sf3dRaceStress = query.get("sf3dRaceStress") === "1";
 const sf3dRaceStressMode = query.get("sf3dRaceStressMode") === "instance" ? "instance" : "clone";
+const renderScale = Math.min(1, Math.max(0.5, Number.parseFloat(query.get("renderScale") || "1") || 1));
 let sf3dBenchGroup = null;
 let sf3dBenchStartedAt = 0;
 let sf3dBenchFrameTimes = [];
@@ -51,7 +52,9 @@ try {
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
-  renderer.setPixelRatio(isMobile ? Math.min(devicePixelRatio, 1.5) : Math.min(devicePixelRatio, 1.25));
+  const basePixelRatio = isMobile ? Math.min(devicePixelRatio, 1.5) : Math.min(devicePixelRatio, 1.25);
+  renderer.setPixelRatio(basePixelRatio * renderScale);
+  stage.dataset.renderScale = String(renderScale);
   renderer.shadowMap.enabled = false;
 } catch (error) {
   failRuntime(error);
@@ -810,6 +813,12 @@ function sampleRaceStress(now, frameMs) {
     minRendererCalls: Math.min(...calls),
     maxRendererCalls: Math.max(...calls),
     allBaseTriangles: racers.length * 8960,
+    renderScale,
+    viewport: {
+      width: renderer.domElement.width,
+      height: renderer.domElement.height,
+      pixelRatio: renderer.getPixelRatio()
+    },
     note: "CI Chromium real race-loop stress test with 18 moving four-level LOD creatures; not physical-device FPS"
   };
   sf3dRaceStressReady = true;
