@@ -661,6 +661,24 @@ const agentNames = [
 ];
 const agentPolicyByKey = (key) => agentPolicyTemplates.find((policy) => policy.key === key) ?? null;
 
+// Gameplay-proof tuning only: compatibility is intentionally small so it matters
+// without overriding the creature's own morph, speed, fatigue, traffic, and lane state.
+const agentCreatureCompatibility = {
+  BALANCED:    { S: 1.000, P: 1.000, E: 1.000, A: 1.000 },
+  PRESSURE:    { S: 1.030, P: 1.020, E: 0.970, A: 1.000 },
+  RESERVE:     { S: 0.980, P: 0.990, E: 1.030, A: 1.010 },
+  OPPORTUNIST: { S: 1.010, P: 1.000, E: 1.000, A: 1.030 }
+};
+
+function compatibilityFor(racer) {
+  if (!racer?.agent?.policy) return 1;
+  return agentCreatureCompatibility[racer.agent.policy.key]?.[racer.morph] ?? 1;
+}
+
+function compatibilityScoreFor(racer) {
+  return Math.round(compatibilityFor(racer) * 100);
+}
+
 const racers = [];
 let selectedId = pRigIsolatedProof ? 2 : 1;
 const sRunProofRacerId = 1;
@@ -790,6 +808,13 @@ function creatureResponseFor(racer) {
   }
   if (racer.command === "WAIT") {
     return { state: "SUCCESS", reason: "Position held while waiting for space" };
+  }
+  const compatibility = compatibilityFor(racer);
+  if (compatibility < 0.985 && ["PUSH", "BUILD SPEED", "MOVE INSIDE", "MOVE OUTSIDE"].includes(racer.command)) {
+    return {
+      state: "PARTIAL",
+      reason: `Agent profile / ${racer.morph} compatibility limits execution (${compatibilityScoreFor(racer)}%)`
+    };
   }
   return { state: "SUCCESS", reason: `${racer.command} executed within current capability` };
 }
@@ -924,6 +949,7 @@ function updateAgentVisual(now) {
   const panel = document.querySelector("#agentPanel");
   const identityEl = document.querySelector("#agentIdentity");
   const profileEl = document.querySelector("#agentProfile");
+  const compatibilityEl = document.querySelector("#agentCompatibility");
   const recordEl = document.querySelector("#agentRecord");
   const policyRuleEl = document.querySelector("#agentPolicyRule");
   const orderEl = document.querySelector("#agentOrder");
@@ -947,6 +973,7 @@ function updateAgentVisual(now) {
 
   if (identityEl && selected?.agent) identityEl.textContent = `${selected.agent.id} ${selected.agent.name} / ${selected.agent.version}`;
   if (profileEl && selected?.agent) profileEl.textContent = selected.agent.policy.label.toUpperCase();
+  if (compatibilityEl && selected?.agent) compatibilityEl.textContent = `${compatibilityScoreFor(selected)}%`;
   if (recordEl && selected?.agent) {
     const history = selected.agent.raceHistory;
     const starts = history.length;
@@ -1001,6 +1028,7 @@ function updateAgentVisual(now) {
   stage.dataset.agentSelectedId = String(selectedId);
   stage.dataset.agentIdentity = selected?.agent?.id || "";
   stage.dataset.agentProfile = selected?.agent?.policy?.key || "";
+  stage.dataset.agentCompatibility = String(compatibilityScoreFor(selected));
   stage.dataset.agentVersion = selected?.agent?.version || "";
   stage.dataset.agentStarts = String(selected?.agent?.raceHistory?.length ?? 0);
   if (selected?.agent?.policy) {
@@ -1878,6 +1906,7 @@ function finishRace() {
       morph: r.morph,
       agentVersion: r.agent.version,
       policy: r.agent.policy.key,
+      compatibility: compatibilityScoreFor(r),
       finalFatigue: Math.round(100 - r.stamina),
       summary: { ...r.agentStats }
     });
@@ -1935,7 +1964,8 @@ function update(dt) {
     const gap = gapAhead(r);
     const position = rankOf(r);
     const policy = r.agent.policy;
-    let target = morphTarget(r);
+    const compatibility = compatibilityFor(r);
+    let target = morphTarget(r) * compatibility;
 
     if (currentPhase === "START") target *= policy.startBias;
     else if (currentPhase === "MID") target *= policy.midBias;
