@@ -38,6 +38,8 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-profile", "BALANCED", { timeout: 6500 });
   await expect(page.locator("#agentIdentity")).toContainText("AG-001");
   await expect(page.locator("#agentProfile")).toHaveText("BALANCED");
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-policy", "4.2|18|1.040|900");
+  await expect(page.locator("#agentPolicyRule")).toContainText("PASS 4.2m");
   await expect(page.locator("#agentRecord")).toHaveText("NO STARTS");
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-starts", "0");
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-log-events", /[1-9]\d*/, { timeout: 6500 });
@@ -66,6 +68,8 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-profile", "PRESSURE");
   await expect(page.locator("#agentIdentity")).toContainText("AG-002");
   await expect(page.locator("#agentProfile")).toHaveText("PRESSURE");
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-policy", "5.4|14|1.060|720");
+  await expect(page.locator("#agentPolicyRule")).toContainText("PASS 5.4m");
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-log-events", /[1-9]\d*/, { timeout: 3000 });
   await expect(page.locator("#selectedName")).toContainText("#02 Brim");
   await expect(page.locator("#selectedTitle")).toHaveText("Selected #02");
