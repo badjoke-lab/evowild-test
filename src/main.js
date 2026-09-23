@@ -563,21 +563,25 @@ function buildOuterStadium() {
   const cyanMaterial = new THREE.MeshBasicMaterial({ color: 0x57d8ff });
   const crowdMaterial = new THREE.MeshBasicMaterial({ color: 0xc8d0d6 });
   const crowdGeometry = new THREE.BoxGeometry(0.10, 0.16, 0.10);
-  const crowdCount = isMobile ? 130 : 260;
+  const crowdCount = isMobile ? 180 : 360;
   const crowd = new THREE.InstancedMesh(crowdGeometry, crowdMaterial, crowdCount);
   const dummy = new THREE.Object3D();
 
   const sections = [
-    { t: 0.10, offset: 15.5, width: 15.0 },
-    { t: 0.17, offset: 16.2, width: 17.0 },
-    { t: 0.24, offset: 15.8, width: 15.5 }
+    { t: 0.08, offset: 15.2, width: 14.0 },
+    { t: 0.20, offset: 15.8, width: 17.0 },
+    { t: 0.34, offset: 15.4, width: 15.5 },
+    { t: 0.50, offset: 16.0, width: 16.5 },
+    { t: 0.66, offset: 15.3, width: 15.0 },
+    { t: 0.82, offset: 15.8, width: 16.0 }
   ];
 
   sections.forEach(({ t, offset, width }, sectionIndex) => {
     const p = curve.getPointAt(t);
     const tangent = curve.getTangentAt(t).normalize();
     const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
-    const q = p.clone().addScaledVector(side, offset);
+    const outerSign = (p.x * side.x + p.z * side.z) >= 0 ? 1 : -1;
+    const q = p.clone().addScaledVector(side, offset * outerSign);
     const yaw = Math.atan2(-tangent.z, tangent.x);
 
     const stand = new THREE.Group();
@@ -603,7 +607,8 @@ function buildOuterStadium() {
     const p = curve.getPointAt(section.t);
     const tangent = curve.getTangentAt(section.t).normalize();
     const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
-    const base = p.clone().addScaledVector(side, section.offset);
+    const outerSign = (p.x * side.x + p.z * side.z) >= 0 ? 1 : -1;
+    const base = p.clone().addScaledVector(side, section.offset * outerSign);
     const row = Math.floor((i / sections.length) % 4);
     const col = (i * 0.61803398875) % 1;
     const along = (col - 0.5) * (section.width - 1.3);
@@ -626,7 +631,8 @@ function buildOuterStadium() {
     const p = curve.getPointAt(t);
     const tangent = curve.getTangentAt(t).normalize();
     const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
-    const q = p.clone().addScaledVector(side, 11.2);
+    const outerSign = (p.x * side.x + p.z * side.z) >= 0 ? 1 : -1;
+    const q = p.clone().addScaledVector(side, 11.2 * outerSign);
     const banner = new THREE.Mesh(bannerGeometry, bannerMaterial);
     banner.position.set(q.x, q.y + 2.4, q.z);
     banner.rotation.y = Math.atan2(-tangent.z, tangent.x);
@@ -1543,10 +1549,10 @@ const conceptLayout = {
 };
 
 const raceSpriteLayout = {
-  S: { scale: [3.30, 3.03], y: 0.16 },
-  P: { scale: [3.45, 2.85], y: 0.15 },
-  E: { scale: [3.24, 2.90], y: 0.16 },
-  A: { scale: [3.52, 2.66], y: 0.09 }
+  S: { scale: [2.92, 2.68], y: 0.16 },
+  P: { scale: [3.08, 2.55], y: 0.15 },
+  E: { scale: [2.92, 2.62], y: 0.16 },
+  A: { scale: [3.14, 2.38], y: 0.09 }
 };
 
 const sRunFrames = [
@@ -2461,24 +2467,16 @@ function orientACutoutRigs() {
 }
 
 function orientRaceSpritesToTravel() {
-  cameraRight.set(1, 0, 0).applyQuaternion(camera.quaternion).normalize();
-
   for (const racer of racers) {
     const visual = racer.obj.userData.raceRig ?? racer.obj.userData.raceSprite;
     if (!visual?.userData?.baseScaleX) continue;
 
-    const t = (racer.distance / raceMeters) % 1;
-    spriteTravelTangent.copy(curve.getTangentAt(t)).normalize();
-    const screenDirection = spriteTravelTangent.dot(cameraRight);
-
-    if (Math.abs(screenDirection) > 0.08) {
-      visual.userData.facingSign = screenDirection >= 0 ? 1 : -1;
-    }
-
-    visual.scale.x = visual.userData.baseScaleX * (visual.userData.motionScaleX ?? 1) * visual.userData.facingSign;
+    if (!isolatedProof && visual.quaternion) visual.quaternion.identity();
+    visual.userData.facingSign = 1;
+    visual.scale.x = Math.abs(visual.userData.baseScaleX) * (visual.userData.motionScaleX ?? 1);
   }
 
-  stage.dataset.directionalSpriteFacing = "enabled";
+  stage.dataset.directionalSpriteFacing = "course-locked";
 }
 
 textureLoader.load(
@@ -3045,9 +3043,9 @@ function setCamera() {
     const isolatedBack = aRigIsolatedProof ? -1.55 : eRigIsolatedProof ? -1.45 : pRigIsolatedProof ? -1.55 : -1.2;
     const isolatedSide = aRigIsolatedProof ? 4.95 : eRigIsolatedProof ? 5.05 : pRigIsolatedProof ? 4.8 : 4.1;
     const isolatedHeight = aRigIsolatedProof ? 1.95 : eRigIsolatedProof ? 2.18 : pRigIsolatedProof ? 1.95 : 1.72;
-    const followBack = isolatedProof ? (isMobile ? -1.5 : isolatedBack) : (isMobile ? -4.4 : -5.2);
-    const followSide = isolatedProof ? (isMobile ? 4.3 : isolatedSide) : (isMobile ? 5.6 : 6.4);
-    const followHeight = isolatedProof ? (isMobile ? 1.92 : isolatedHeight) : (isMobile ? 2.10 : 2.25);
+    const followBack = isolatedProof ? (isMobile ? -1.5 : isolatedBack) : (isMobile ? -6.2 : -7.0);
+    const followSide = isolatedProof ? (isMobile ? 4.3 : isolatedSide) : (isMobile ? 3.6 : 4.2);
+    const followHeight = isolatedProof ? (isMobile ? 1.92 : isolatedHeight) : (isMobile ? 2.65 : 2.85);
     const shake = Math.max(0, speedRatio - 0.38) * (isolatedProof ? 0.08 : 0.14);
     const desired = selectedPos.clone()
       .addScaledVector(tangent, followBack)
@@ -3055,8 +3053,8 @@ function setCamera() {
       .add(new THREE.Vector3(0, followHeight + Math.sin(elapsed * 0.033) * shake * 0.45, 0));
     camera.position.lerp(desired, 0.16);
     const lookTarget = selectedPos.clone()
-      .addScaledVector(tangent, 4.2)
-      .addScaledVector(side, -0.45)
+      .addScaledVector(tangent, 7.2)
+      .addScaledVector(side, -0.20)
       .add(new THREE.Vector3(0, 0.58, 0));
     camera.lookAt(lookTarget);
     stage.dataset.followCamera = "rear-quarter";
@@ -3077,9 +3075,9 @@ function setCamera() {
     const leaderTangent = curve.getTangentAt(lt).normalize();
     const leaderSide = new THREE.Vector3(-leaderTangent.z, 0, leaderTangent.x);
 
-    const raceBack = isMobile ? -0.8 : -1.2;
-    const raceSide = isMobile ? 8.6 : 10.8;
-    const raceHeight = isMobile ? 2.85 : 2.65;
+    const raceBack = isMobile ? -1.0 : -1.4;
+    const raceSide = isMobile ? 12.8 : 14.4;
+    const raceHeight = isMobile ? 3.65 : 3.85;
     const raceShake = Math.max(0, speedRatio - 0.40) * 0.12;
     camera.position.lerp(
       center.clone()
@@ -3353,10 +3351,12 @@ function frame(now) {
     updateRaceLifecycle(rawDt);
     update(dt);
     setCamera();
-    orientAnimatedSRunPlanes();
-    orientPCutoutRigs();
-    orientECutoutRigs();
-    orientACutoutRigs();
+    if (isolatedProof) {
+      orientAnimatedSRunPlanes();
+      orientPCutoutRigs();
+      orientECutoutRigs();
+      orientACutoutRigs();
+    }
     orientRaceSpritesToTravel();
     updateAgentVisual(now);
     renderer.render(scene, camera);
