@@ -3,7 +3,7 @@ name: HF TRELLIS POC
 on:
   push:
     branches:
-      - test/hf-3d-poc-20260921
+      - test/hf-sf3d-retry-20260921
     paths:
       - '.github/workflows/hf-trellis-poc.yml'
 
@@ -38,8 +38,10 @@ jobs:
           runtime.mkdir(parents=True, exist_ok=True)
           out.mkdir(parents=True, exist_ok=True)
 
-          # Transparent cutout from the clean white reference background.
+          # Use the same validated single-subject crop as the SF3D lane.
           im = Image.open(src).convert("RGBA")
+          w0, h0 = im.size
+          im = im.crop((int(w0 * 0.30), 0, w0, h0)).copy()
           px = im.load()
           for y in range(im.height):
               for x in range(im.width):
@@ -64,7 +66,7 @@ jobs:
 
           token = os.environ.get("HF_TOKEN") or None
           print("HF_AUTH:", "token" if token else "anonymous")
-          client = Client("trellis-community/TRELLIS", hf_token=token)
+          client = Client("trellis-community/TRELLIS", token=token)
           info = client.view_api(return_format="dict")
           print("ENDPOINTS:", list(info.get("named_endpoints", {}).keys()))
 
@@ -138,7 +140,7 @@ jobs:
           meta = {
               "space":"trellis-community/TRELLIS",
               "model":"microsoft/TRELLIS-image-large",
-              "license":"MIT",
+              "license_note":"verify model/code/output terms separately before commercial adoption",
               "source":"04_3Q_FRONT_shape_support.jpg",
               "seed":1234,
               "ss_guidance":7.5,
