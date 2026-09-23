@@ -283,6 +283,8 @@ test("race reaches results and rematch returns to countdown", async ({ page }, t
   await expect(page.locator("#resultAgentPolicy")).toContainText("COMPAT");
   await expect(page.locator("#stage")).toHaveAttribute("data-result-agent-compatibility", /\d+/);
   await expect(page.locator("#resultDecisions")).not.toHaveText("0");
+  await expect(page.locator("#resultCompatibility")).toContainText("%");
+  await expect(page.locator("#stage")).toHaveAttribute("data-result-agent-compatibility", /\d+/, { timeout: 3000 });
   await expect(page.locator("#resultFinalFatigue")).toContainText("%");
   await expect(page.locator("#resultAgentRecord")).toContainText("Race history 1");
   const outDir = "test-results/visuals";
