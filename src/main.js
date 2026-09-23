@@ -402,6 +402,7 @@ function buildTrack() {
   const accent = new THREE.Mesh(new THREE.BoxGeometry(0.40, 0.08, 3.55), gantryAccent);
   accent.position.set(-0.02, 4.08, 0.22);
   gantry.add(accent);
+  gantry.visible = false;
   scene.add(gantry);
 
   const startLine = new THREE.Mesh(
@@ -769,7 +770,8 @@ function buildArenaBowl() {
   }
   scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(fasciaPoints), fasciaMat));
 }
-buildArenaBowl();
+// Disabled for cinematic v10: the closed bowl hid the horizon and hurt mobile frame rate.
+// buildArenaBowl();
 
 const raceEnvironment = scene.children.filter((obj) => !obj.isLight);
 
@@ -3164,9 +3166,9 @@ function setCamera() {
     const isolatedBack = aRigIsolatedProof ? -1.55 : eRigIsolatedProof ? -1.45 : pRigIsolatedProof ? -1.55 : -1.2;
     const isolatedSide = aRigIsolatedProof ? 4.95 : eRigIsolatedProof ? 5.05 : pRigIsolatedProof ? 4.8 : 4.1;
     const isolatedHeight = aRigIsolatedProof ? 1.95 : eRigIsolatedProof ? 2.18 : pRigIsolatedProof ? 1.95 : 1.72;
-    const followBack = isolatedProof ? (isMobile ? -1.5 : isolatedBack) : (isMobile ? -13.0 : -14.5);
-    const followSide = isolatedProof ? (isMobile ? 4.3 : isolatedSide) : (isMobile ? 7.2 : 8.0);
-    const followHeight = isolatedProof ? (isMobile ? 1.92 : isolatedHeight) : (isMobile ? 2.75 : 2.95);
+    const followBack = isolatedProof ? (isMobile ? -1.5 : isolatedBack) : (isMobile ? -3.0 : -3.6);
+    const followSide = isolatedProof ? (isMobile ? 4.3 : isolatedSide) : (isMobile ? 6.5 : 7.2);
+    const followHeight = isolatedProof ? (isMobile ? 1.92 : isolatedHeight) : (isMobile ? 1.78 : 1.90);
     const shake = Math.max(0, speedRatio - 0.38) * (isolatedProof ? 0.08 : 0.14);
     const desired = selectedPos.clone()
       .addScaledVector(tangent, followBack)
@@ -3174,11 +3176,11 @@ function setCamera() {
       .add(new THREE.Vector3(0, followHeight + Math.sin(elapsed * 0.033) * shake * 0.45, 0));
     camera.position.lerp(desired, 0.16);
     const lookTarget = selectedPos.clone()
-      .addScaledVector(tangent, 2.8)
-      .addScaledVector(side, -0.20)
-      .add(new THREE.Vector3(0, 0.58, 0));
+      .addScaledVector(tangent, 2.2)
+      .addScaledVector(side, -0.12)
+      .add(new THREE.Vector3(0, 0.56, 0));
     camera.lookAt(lookTarget);
-    stage.dataset.followCamera = "rear-quarter";
+    stage.dataset.followCamera = "side-chase";
   } else if (view === "tactical") {
     camera.up.set(0, 0, -1);
     const tacticalHeight = isMobile ? 112 : 78;
@@ -3196,9 +3198,9 @@ function setCamera() {
     const leaderTangent = curve.getTangentAt(lt).normalize();
     const leaderSide = new THREE.Vector3(-leaderTangent.z, 0, leaderTangent.x);
 
-    const raceBack = isMobile ? -0.8 : -1.1;
-    const raceSide = isMobile ? 10.8 : 12.2;
-    const raceHeight = isMobile ? 2.20 : 2.05;
+    const raceBack = isMobile ? -0.4 : -0.7;
+    const raceSide = isMobile ? 7.4 : 8.6;
+    const raceHeight = isMobile ? 1.70 : 1.58;
     const raceShake = Math.max(0, speedRatio - 0.40) * 0.11;
     const radial = new THREE.Vector3(center.x, 0, center.z).normalize();
     const sideOutward = leaderSide.dot(radial) >= 0 ? 1 : -1;
@@ -3455,6 +3457,12 @@ function resetRace() {
   agentToastUntil = performance.now() + 1050;
   updateRaceStateDataset();
   updateAgentSetupUi();
+  stage.dataset.agentSelectedId = String(selectedId);
+  stage.dataset.agentIdentity = selected?.agent?.id || "";
+  stage.dataset.agentProfile = selected?.agent?.policy?.key || "";
+  stage.dataset.agentCompatibility = String(compatibilityScoreFor(selected));
+  stage.dataset.agentVersion = selected?.agent?.version || "";
+  stage.dataset.agentStarts = String(selected?.agent?.raceHistory?.length ?? 0);
 }
 resetRace();
 
