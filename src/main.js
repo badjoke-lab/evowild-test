@@ -570,13 +570,15 @@ for (const morph of ["S", "P", "E", "A"]) {
 }
 
 const sf3dVariant = query.get("sf3dVariant");
-const sf3dProfile = sf3dVariant === "triposr"
-  ? CREATURE_3D_PROFILES.sTripoSrSide
-  : sf3dVariant === "side"
-    ? CREATURE_3D_PROFILES.sSf3dSide
-    : sf3dVariant === "white"
-      ? CREATURE_3D_PROFILES.sSf3dWhite
-      : CREATURE_3D_PROFILES.sSf3dCorrected;
+const sf3dProfile = sf3dVariant === "triposr3q"
+  ? CREATURE_3D_PROFILES.sTripoSr3q
+  : sf3dVariant === "triposr"
+    ? CREATURE_3D_PROFILES.sTripoSrSide
+    : sf3dVariant === "side"
+      ? CREATURE_3D_PROFILES.sSf3dSide
+      : sf3dVariant === "white"
+        ? CREATURE_3D_PROFILES.sSf3dWhite
+        : CREATURE_3D_PROFILES.sSf3dCorrected;
 
 function setupSf3dBenchmark(source, count) {
   if (!count) return;
