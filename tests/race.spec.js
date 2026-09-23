@@ -491,3 +491,28 @@ test("compare full versus lite far-LOD materials at render scale 0.75", async ({
     JSON.stringify({ generatedBy: "Playwright CI Chromium", results }, null, 2)
   );
 });
+
+
+test("capture fixed LOD2 and LOD3 full versus lite material previews", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(90000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  for (const lod of ["lod2", "lod3"]) {
+    for (const materialMode of ["full", "lite"]) {
+      await page.goto(
+        `/evowild-test/?sf3dVariant=${lod}&sf3dMaterialMode=${materialMode}`,
+        { waitUntil: "networkidle" }
+      );
+      await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 15000 });
+      await page.getByRole("button", { name: "1 Morph" }).click();
+      await expect(page.locator("#viewLabel")).toHaveText("MORPH LAB");
+      await page.waitForTimeout(900);
+      await page.locator("#stage").screenshot({
+        path: `${outDir}/sf3d-${lod}-material-${materialMode}.png`
+      });
+    }
+  }
+});
