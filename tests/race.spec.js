@@ -293,6 +293,16 @@ test("race reaches results and rematch returns to countdown", async ({ page }, t
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-starts", "1", { timeout: 3000 });
   await expect(page.locator("#agentRecord")).toContainText("1S");
 
+  await page.locator('[data-result-racer-id="2"]').click();
+  await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "2");
+  await expect(page.locator("#resultHeadline")).toContainText("Brim");
+  await expect(page.locator("#resultAgentIdentity")).toContainText("AG-002");
+  await expect(page.locator('[data-result-racer-id="2"]')).toHaveClass(/selected/);
+
+  await page.locator('[data-result-racer-id="1"]').click();
+  await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "1");
+  await expect(page.locator("#resultAgentIdentity")).toContainText("AG-001");
+
   await page.locator('#agentSetupCard [data-agent-policy="PRESSURE"]').click();
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-pending-profile", "PRESSURE");
   await expect(page.locator("#agentSetupStatus")).toContainText("NEXT PRESSURE");
