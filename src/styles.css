@@ -70,6 +70,62 @@ button.active { border-color: #6bb1ff; background: #1d3144; }
 .metric span, .row span { color: #93a3b2; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
 .chips span { font-size: 10px; padding: 4px 6px; border-radius: 999px; border: 1px solid #344352; background: #1a2632; }
+.hud-agent {
+  left: 12px;
+  bottom: 126px;
+  width: 310px;
+  border-color: rgba(107,177,255,.28);
+  transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease;
+}
+.hud-agent.pulse {
+  border-color: rgba(142,220,255,.86);
+  box-shadow: 0 0 0 1px rgba(142,220,255,.16), 0 10px 30px rgba(0,0,0,.24);
+  transform: translateY(-2px);
+}
+.agent-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.agent-head span {
+  color: #8edcff;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+.agent-head small {
+  color: #708392;
+  font-size: 8px;
+  letter-spacing: .05em;
+}
+.agent-line {
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr);
+  gap: 8px;
+  align-items: baseline;
+  margin-top: 3px;
+  font-size: 11px;
+}
+.agent-line span {
+  color: #778b9a;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+.agent-line b {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.agent-line #creatureResponse { color: #d8e8f7; }
+.agent-reason {
+  margin-top: 5px;
+  color: #9fb0be;
+  font-size: 9px;
+  line-height: 1.35;
+}
 .hud-mini { right: 12px; bottom: 12px; width: 215px; height: 126px; padding: 7px; }
 #mini { width: 100%; height: 100%; display: block; }
 .morph-switcher {
@@ -147,6 +203,30 @@ button.active { border-color: #6bb1ff; background: #1d3144; }
   .race-status-line { gap: 5px; font-size: 8px; }
   .race-progress { height: 4px; margin-top: 5px; }
   .hud-selected { display: none; }
+  .hud-agent {
+    left: 7px;
+    right: 136px;
+    bottom: 7px;
+    width: auto;
+    padding: 6px 7px;
+  }
+  .agent-head { margin-bottom: 3px; }
+  .agent-head small { display: none; }
+  .agent-line {
+    grid-template-columns: 54px minmax(0, 1fr);
+    gap: 5px;
+    margin-top: 2px;
+    font-size: 9px;
+  }
+  .agent-line span { font-size: 8px; }
+  .agent-reason {
+    max-width: 220px;
+    margin-top: 3px;
+    font-size: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   .hud-mini {
     right: 7px;
     bottom: 7px;
