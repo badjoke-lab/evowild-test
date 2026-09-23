@@ -1518,6 +1518,17 @@ function orientAnimatedSRunPlanes() {
   }
 }
 
+function orientPCutoutRigs() {
+  if (!pCutoutRigRacers.length) return;
+  camera.getWorldQuaternion(sBillboardCameraQ);
+  for (const racer of pCutoutRigRacers) {
+    const rig = racer.obj.userData.raceRig;
+    if (!rig) continue;
+    racer.obj.getWorldQuaternion(sBillboardParentQ);
+    rig.quaternion.copy(sBillboardParentQ).invert().multiply(sBillboardCameraQ);
+  }
+}
+
 const cameraRight = new THREE.Vector3();
 const spriteTravelTangent = new THREE.Vector3();
 
@@ -1525,18 +1536,18 @@ function orientRaceSpritesToTravel() {
   cameraRight.set(1, 0, 0).applyQuaternion(camera.quaternion).normalize();
 
   for (const racer of racers) {
-    const sprite = racer.obj.userData.raceSprite;
-    if (!sprite?.userData?.baseScaleX) continue;
+    const visual = racer.obj.userData.raceRig ?? racer.obj.userData.raceSprite;
+    if (!visual?.userData?.baseScaleX) continue;
 
     const t = (racer.distance / raceMeters) % 1;
     spriteTravelTangent.copy(curve.getTangentAt(t)).normalize();
     const screenDirection = spriteTravelTangent.dot(cameraRight);
 
     if (Math.abs(screenDirection) > 0.08) {
-      sprite.userData.facingSign = screenDirection >= 0 ? 1 : -1;
+      visual.userData.facingSign = screenDirection >= 0 ? 1 : -1;
     }
 
-    sprite.scale.x = sprite.userData.baseScaleX * (sprite.userData.motionScaleX ?? 1) * sprite.userData.facingSign;
+    visual.scale.x = visual.userData.baseScaleX * (visual.userData.motionScaleX ?? 1) * visual.userData.facingSign;
   }
 
   stage.dataset.directionalSpriteFacing = "enabled";
@@ -2059,16 +2070,24 @@ function setCamera() {
 
   const selectedCameraDistance = camera.position.distanceTo(selected.obj.position);
   racers.forEach((r) => {
-    const sprite = r.obj.userData.raceSprite;
-    const material = sprite?.material;
-    if (!material || material.opacity === undefined) return;
-
     let targetOpacity = 1;
     if (view === "follow" && r.id !== selectedId && r.obj.visible) {
       const d = camera.position.distanceTo(r.obj.position);
       if (d < selectedCameraDistance - 0.55) targetOpacity = 0.02;
       else if (d < selectedCameraDistance + 0.20) targetOpacity = 0.22;
     }
+
+    const rig = r.obj.userData.raceRig;
+    if (rig) {
+      rig.traverse((part) => {
+        if (!part.material || part.material.opacity === undefined) return;
+        part.material.opacity = THREE.MathUtils.lerp(part.material.opacity, targetOpacity, 0.24);
+      });
+      return;
+    }
+
+    const material = r.obj.userData.raceSprite?.material;
+    if (!material || material.opacity === undefined) return;
     material.opacity = THREE.MathUtils.lerp(material.opacity, targetOpacity, 0.24);
   });
   stage.dataset.followOcclusionFade = "enabled";
@@ -2295,6 +2314,7 @@ function frame(now) {
     update(dt);
     setCamera();
     orientAnimatedSRunPlanes();
+    orientPCutoutRigs();
     orientRaceSpritesToTravel();
     updateAgentVisual(now);
     renderer.render(scene, camera);
