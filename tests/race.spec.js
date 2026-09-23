@@ -27,6 +27,10 @@ test("race scene renders and advances", async ({ page }) => {
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
   await expect(page.locator("#stage")).toHaveAttribute("data-race-state", "running", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-hud-telemetry", "active", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-visual", "enabled", { timeout: 6500 });
+  await expect(page.locator("#agentPanel")).toBeVisible();
+  await expect(page.locator("#agentOrder")).not.toHaveText("");
+  await expect(page.locator("#creatureResponse")).toHaveText(/READY|EXECUTING|LIMITED|BLOCKED|COMPLYING|FINISHED/, { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-directional-sprite-facing", "enabled", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-non-s-run-motion", "placeholder-6phase", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-race-section", /START|MID|BUILD|FINAL/, { timeout: 6500 });
@@ -36,6 +40,7 @@ test("race scene renders and advances", async ({ page }) => {
 
   await page.locator('[data-racer-id="2"]').click();
   await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "2");
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-selected-id", "2");
   await expect(page.locator("#selectedName")).toContainText("#02 Brim");
   await expect(page.locator("#selectedTitle")).toHaveText("Selected #02");
   await expect(page.locator("#stage")).toHaveAttribute("data-selected-motion-phase", /CONTACT|PUSH|LIFT|FLIGHT|REACH|LAND/, { timeout: 3000 });
@@ -79,6 +84,8 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-follow-occlusion-fade", "enabled", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v5", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-hud-telemetry", "active", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-visual", "enabled", { timeout: 8000 });
+  await expect(page.locator("#agentPanel")).toBeVisible();
   for (const morph of ["S", "P", "E", "A"]) {
     await page.locator(`[data-morph="${morph}"]`).click();
     await page.waitForTimeout(350);
