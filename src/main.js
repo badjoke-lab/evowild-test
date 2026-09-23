@@ -741,7 +741,7 @@ function updateAgentVisual(now) {
     const t = (racer.distance / raceMeters) % 1;
     agentOrbTravelTangent.copy(curve.getTangentAt(t)).normalize();
     orb.position.copy(racer.obj.position).addScaledVector(agentOrbTravelTangent, -0.20);
-    orb.position.y += 1.65;
+    orb.position.y += 1.05;
 
     const racerOrder = racer.command || "WAIT";
     orb.material.color.setHex(agentCommandColors[racerOrder] ?? 0x6bdcff);
@@ -757,7 +757,7 @@ function updateAgentVisual(now) {
   const toast = document.querySelector("#agentToast");
   if (toast && selected && showWorldSignal && now < agentToastUntil) {
     agentToastWorld.copy(selected.obj.position);
-    agentToastWorld.y += 3.45;
+    agentToastWorld.y += 1.45;
     agentToastWorld.project(camera);
     toast.style.left = `${(agentToastWorld.x * 0.5 + 0.5) * 100}%`;
     toast.style.top = `${(-agentToastWorld.y * 0.5 + 0.5) * 100}%`;
