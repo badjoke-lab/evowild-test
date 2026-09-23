@@ -1325,14 +1325,19 @@ function buildPCutoutRig(texture, raceLayout, racerId) {
   const bodyCtx = bodyCanvas.getContext("2d");
   bodyCtx.drawImage(image, 0, 0, width, height);
 
+  bodyCtx.save();
+  bodyCtx.globalCompositeOperation = "destination-out";
+  bodyCtx.globalAlpha = 0.74;
+  bodyCtx.fillStyle = "#000";
   for (const def of pRigLegDefs) {
     const x = Math.floor(def.x * width);
     const y = Math.floor(def.y * height);
     const w = Math.ceil(def.w * width);
     const h = Math.ceil(def.h * height);
-    const eraseTop = Math.floor(y + h * 0.17);
-    bodyCtx.clearRect(x, eraseTop, w, Math.max(1, y + h - eraseTop));
+    const fadeTop = Math.floor(y + h * 0.26);
+    bodyCtx.fillRect(x, fadeTop, w, Math.max(1, y + h - fadeTop));
   }
+  bodyCtx.restore();
 
   const body = new THREE.Mesh(
     new THREE.PlaneGeometry(1, 1),
@@ -1446,7 +1451,7 @@ function applyPCutoutRigMotion(racer, frameIndex) {
   if (racer.id === selectedId) {
     stage.dataset.selectedMotionPhase = staticMotionFrames[frameIndex]?.phase || String(frameIndex);
   }
-  stage.dataset.pCutoutMotion = "6phase-rig";
+  stage.dataset.pCutoutMotion = "6phase-rig-v2";
 }
 
 function applyStaticSpriteMotion(racer, frameIndex) {
