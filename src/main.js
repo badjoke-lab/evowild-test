@@ -603,10 +603,14 @@ function makeLiteMaterialProfile(profile) {
 const sf3dVariant = query.get("sf3dVariant");
 const sf3dBaseProfile = sf3dVariant === "lod1"
   ? CREATURE_3D_PROFILES.sSf3dCorrectedLod1
-  : sf3dVariant === "lod2"
-    ? CREATURE_3D_PROFILES.sSf3dCorrectedLod2
-    : sf3dVariant === "lod3"
-      ? CREATURE_3D_PROFILES.sSf3dCorrectedLod3
+  : sf3dVariant === "lod2lite"
+    ? CREATURE_3D_PROFILES.sSf3dCorrectedLod2Lite
+    : sf3dVariant === "lod3lite"
+      ? CREATURE_3D_PROFILES.sSf3dCorrectedLod3Lite
+    : sf3dVariant === "lod2"
+      ? CREATURE_3D_PROFILES.sSf3dCorrectedLod2
+      : sf3dVariant === "lod3"
+        ? CREATURE_3D_PROFILES.sSf3dCorrectedLod3
     : sf3dVariant === "triposr3q"
       ? CREATURE_3D_PROFILES.sTripoSr3q
       : sf3dVariant === "triposr"
@@ -1114,10 +1118,17 @@ loadCreature3D(sf3dProfile)
     }
 
     if (sf3dRaceStress && profile.id === CREATURE_3D_PROFILES.sSf3dCorrected.id) {
+      const stressLod2Profile = sf3dMaterialMode === "lite"
+        ? CREATURE_3D_PROFILES.sSf3dCorrectedLod2Lite
+        : CREATURE_3D_PROFILES.sSf3dCorrectedLod2;
+      const stressLod3Profile = sf3dMaterialMode === "lite"
+        ? CREATURE_3D_PROFILES.sSf3dCorrectedLod3Lite
+        : CREATURE_3D_PROFILES.sSf3dCorrectedLod3;
+
       Promise.all([
         loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod1),
-        loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod2),
-        loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod3)
+        loadCreature3D(stressLod2Profile),
+        loadCreature3D(stressLod3Profile)
       ]).then(([lod1Data, lod2Data, lod3Data]) => {
         setupRaceStress(source, profile, lod1Data, lod2Data, lod3Data);
       }).catch((error) => {
