@@ -87,7 +87,7 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-hud-telemetry", "active", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-visual", "enabled", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-toast", "enabled", { timeout: 8000 });
-  await expect(page.locator("#agentPanel")).toBeVisible();
+  await expect(page.locator("#agentPanel")).toBeHidden();
   for (const morph of ["S", "P", "E", "A"]) {
     await page.locator(`[data-morph="${morph}"]`).click();
     await page.waitForTimeout(350);
@@ -105,6 +105,7 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
     await expect(page.locator("#viewLabel")).toHaveText(label);
     if (name === "race") {
       await expect(page.locator("#stage")).toHaveAttribute("data-race-camera", "wide-pack", { timeout: 8000 });
+      await expect(page.locator("#agentPanel")).toBeVisible();
     }
     await page.waitForTimeout(900);
     await page.locator("#stage").screenshot({ path: `${outDir}/android-${name}.png` });
