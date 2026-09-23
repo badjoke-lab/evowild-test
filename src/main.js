@@ -596,6 +596,66 @@ function buildMorph(index, morph, forcedColor = null) {
   return group;
 }
 
+const agentPolicyTemplates = [
+  {
+    key: "BALANCED",
+    label: "Balanced",
+    preserveAt: 18,
+    overtakeGap: 4.2,
+    laneCooldown: 900,
+    finalBoost: 1.040,
+    advanceAt: 12,
+    advanceBoost: 1.012,
+    startBias: 1.000,
+    midBias: 1.000,
+    buildBias: 1.000
+  },
+  {
+    key: "PRESSURE",
+    label: "Pressure",
+    preserveAt: 14,
+    overtakeGap: 5.4,
+    laneCooldown: 720,
+    finalBoost: 1.060,
+    advanceAt: 10,
+    advanceBoost: 1.020,
+    startBias: 1.010,
+    midBias: 1.006,
+    buildBias: 1.010
+  },
+  {
+    key: "RESERVE",
+    label: "Reserve",
+    preserveAt: 27,
+    overtakeGap: 3.5,
+    laneCooldown: 1120,
+    finalBoost: 1.085,
+    advanceAt: 14,
+    advanceBoost: 1.008,
+    startBias: 0.982,
+    midBias: 0.992,
+    buildBias: 1.005
+  },
+  {
+    key: "OPPORTUNIST",
+    label: "Opportunist",
+    preserveAt: 20,
+    overtakeGap: 6.2,
+    laneCooldown: 640,
+    finalBoost: 1.050,
+    advanceAt: 11,
+    advanceBoost: 1.016,
+    startBias: 0.996,
+    midBias: 1.008,
+    buildBias: 1.012
+  }
+];
+const agentNames = [
+  "Vela", "Flux", "Morrow", "Kite", "Slate", "Nix",
+  "Pace", "Rook", "Aero", "Lumen", "Drift", "Cairn",
+  "Vale", "Arc", "Mica", "Sable", "Rill", "Nova"
+];
+
 const racers = [];
 let selectedId = 1;
 const sRunProofRacerId = 1;
@@ -614,6 +674,13 @@ for (let i = 0; i < 18; i++) {
   scene.add(obj);
 
   const stats = morphStats[morph];
+  const agentTemplate = agentPolicyTemplates[i % agentPolicyTemplates.length];
+  const agent = {
+    id: `AG-${String(i + 1).padStart(3, "0")}`,
+    name: agentNames[i],
+    version: `v1.${i % 3}`,
+    policy: { ...agentTemplate }
+  };
   racers.push({
     id: i + 1,
     name: names[i],
@@ -627,6 +694,7 @@ for (let i = 0; i < 18; i++) {
     drain: stats.drain,
     stamina: 100,
     speed: 0,
+    agent,
     decision: "START",
     command: "BUILD SPEED",
     cooldown: 0,
