@@ -108,6 +108,58 @@ export const CREATURE_3D_PROFILES = {
       "Shape-only validation asset; not production-ready."
     ]
   },
+  sHunyuan2mvLod3: {
+    id: "s-hunyuan2mv-lod3",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-lod3.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.0,
+      minRoughness: 0.84,
+      side: "double",
+      preserveBaseColorMap: false,
+      preserveNormalMap: false,
+      preserveRoughnessMap: false,
+      preserveMetalnessMap: false,
+      maxAnisotropy: 1
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "multiview_simplify_candidate",
+    notes: [
+      "Hunyuan clean multiview shape simplified to 4% target ratio.",
+      "Intended as mid/far race LOD candidate."
+    ]
+  },
+  sHunyuan2mvLod4: {
+    id: "s-hunyuan2mv-lod4",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-lod4.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.0,
+      minRoughness: 0.86,
+      side: "double",
+      preserveBaseColorMap: false,
+      preserveNormalMap: false,
+      preserveRoughnessMap: false,
+      preserveMetalnessMap: false,
+      maxAnisotropy: 1
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "multiview_simplify_candidate",
+    notes: [
+      "Hunyuan clean multiview shape simplified to 2% target ratio.",
+      "Intended only as far-distance race LOD candidate."
+    ]
+  },
   sTripoSr3q: {
     id: "s-triposr-3q-crop30",
     morph: "S",
