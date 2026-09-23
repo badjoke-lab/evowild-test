@@ -26,7 +26,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           pip install -q numpy trimesh pillow
-          mkdir -p /tmp/sf3d /tmp/sf3d-corrected /tmp/sf3d-side
+          mkdir -p /tmp/sf3d /tmp/sf3d-corrected /tmp/sf3d-white /tmp/sf3d-side
           gh api repos/${{ github.repository }}/actions/artifacts/10644576625/zip > /tmp/sf3d.zip
           unzip -q /tmp/sf3d.zip -d /tmp/sf3d
           python scripts/prepare-sf3d-asset.py
@@ -39,6 +39,15 @@ jobs:
           test -n "$corrected_meta"
           cp "$corrected_glb" public/models/evowild-s-sf3d-corrected.glb
           cp "$corrected_meta" public/models/evowild-s-sf3d-corrected.json
+
+          gh api repos/${{ github.repository }}/actions/artifacts/10727195815/zip > /tmp/sf3d-white.zip
+          unzip -q /tmp/sf3d-white.zip -d /tmp/sf3d-white
+          white_glb="$(find /tmp/sf3d-white -name 'evowild_s_stable_fast_3d_textured.glb' -print -quit)"
+          white_meta="$(find /tmp/sf3d-white -name 'stable_fast_3d_metadata.json' -print -quit)"
+          test -n "$white_glb"
+          test -n "$white_meta"
+          cp "$white_glb" public/models/evowild-s-sf3d-white.glb
+          cp "$white_meta" public/models/evowild-s-sf3d-white.json
 
           gh api repos/${{ github.repository }}/actions/artifacts/10704141291/zip > /tmp/sf3d-side.zip
           unzip -q /tmp/sf3d-side.zip -d /tmp/sf3d-side
@@ -71,6 +80,8 @@ jobs:
             public/models/evowild-s-sf3d-clean.json \
             public/models/evowild-s-sf3d-corrected.glb \
             public/models/evowild-s-sf3d-corrected.json \
+            public/models/evowild-s-sf3d-white.glb \
+            public/models/evowild-s-sf3d-white.json \
             public/models/evowild-s-sf3d-side.glb \
             public/models/evowild-s-sf3d-side.json
           if git diff --cached --quiet; then
