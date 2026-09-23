@@ -102,3 +102,23 @@ jobs:
           name: evowild-s-sf3d-prepared-inputs
           path: hf-poc/prepared-inputs/
           if-no-files-found: error
+
+      - name: Inspect Unique3D API
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          pip install -q gradio_client
+          python - <<'PY'
+          import json, os
+          from gradio_client import Client
+
+          token = os.environ.get("HF_TOKEN")
+          if not token:
+              raise RuntimeError("HF_TOKEN secret missing")
+          client = Client("Wuvin/Unique3D", token=token)
+          info = client.view_api(return_format="dict")
+          print("HF_AUTH: token present")
+          print("SPACE: Wuvin/Unique3D")
+          print("ENDPOINTS_JSON:")
+          print(json.dumps(info.get("named_endpoints", {}), indent=2, default=str))
+          PY
