@@ -107,7 +107,7 @@ scene.add(rim);
 
 const ground = new THREE.Mesh(
   new THREE.PlaneGeometry(210, 160),
-  new THREE.MeshStandardMaterial({ color: 0x355248, roughness: 1 })
+  new THREE.MeshStandardMaterial({ color: 0x416742, roughness: 1 })
 );
 ground.rotation.x = -Math.PI / 2;
 ground.position.y = -0.03;
@@ -175,12 +175,12 @@ function buildTrack() {
   makeRibbon(
     half + 0.72,
     0.015,
-    new THREE.MeshStandardMaterial({ color: 0x26333c, roughness: 0.92, metalness: 0.06 })
+    new THREE.MeshStandardMaterial({ color: 0x5a4535, roughness: 1, metalness: 0.00 })
   );
   makeRibbon(
     half,
     0.035,
-    new THREE.MeshStandardMaterial({ color: 0x56636c, roughness: 0.96, metalness: 0.02 })
+    new THREE.MeshStandardMaterial({ color: 0xa86f3f, roughness: 1, metalness: 0.00 })
   );
 
   for (const offset of [-half, half]) {
@@ -202,9 +202,9 @@ function buildTrack() {
 
   const laneGuideOffsets = [-3.10, -1.55, 0, 1.55, 3.10];
   const laneGuideMaterial = new THREE.LineDashedMaterial({
-    color: 0xaed8e4,
+    color: 0xf0e1c7,
     transparent: true,
-    opacity: 0.36,
+    opacity: 0.54,
     dashSize: 0.72,
     gapSize: 0.88
   });
@@ -226,7 +226,7 @@ function buildTrack() {
   }
 
   const railOffset = half + 0.78;
-  const railMaterial = new THREE.LineBasicMaterial({ color: 0xa9c4cf, transparent: true, opacity: 0.88 });
+  const railMaterial = new THREE.LineBasicMaterial({ color: 0xe4edf0, transparent: true, opacity: 0.94 });
   for (const offset of [-railOffset, railOffset]) {
     for (const y of [0.52, 0.88]) {
       const points = [];
@@ -413,7 +413,7 @@ function buildTrack() {
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
-  stage.dataset.trackPresentation = "v8";
+  stage.dataset.trackPresentation = "v9";
 }
 buildTrack();
 
@@ -457,7 +457,7 @@ function buildHorizonRidge() {
 buildHorizonRidge();
 
 const speedMarkerGeometry = new THREE.BoxGeometry(1.05, 0.08, 0.16);
-const speedMarkerMaterial = new THREE.MeshBasicMaterial({ color: 0xbfe8f2 });
+const speedMarkerMaterial = new THREE.MeshBasicMaterial({ color: 0xf5ead9 });
 for (let i = 0; i < 72; i++) {
   const t = i / 72;
   const p = curve.getPointAt(t);
@@ -472,6 +472,27 @@ for (let i = 0; i < 72; i++) {
     scene.add(marker);
   }
 }
+
+const dirtStreakCount = isMobile ? 120 : 220;
+const dirtStreakGeometry = new THREE.BoxGeometry(1.35, 0.018, 0.055);
+const dirtStreakMaterial = new THREE.MeshBasicMaterial({ color: 0x704626, transparent: true, opacity: 0.55 });
+const dirtStreaks = new THREE.InstancedMesh(dirtStreakGeometry, dirtStreakMaterial, dirtStreakCount);
+const dirtStreakDummy = new THREE.Object3D();
+for (let i = 0; i < dirtStreakCount; i++) {
+  const t = (i + 0.37) / dirtStreakCount;
+  const p = curve.getPointAt(t);
+  const tangent = curve.getTangentAt(t).normalize();
+  const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+  const lateral = Math.sin(i * 8.713) * 4.8;
+  const q = p.clone().addScaledVector(side, lateral);
+  dirtStreakDummy.position.set(q.x, q.y + 0.061, q.z);
+  dirtStreakDummy.rotation.set(0, Math.atan2(-tangent.z, tangent.x), 0);
+  dirtStreakDummy.scale.set(0.55 + (i % 7) * 0.13, 1, 1);
+  dirtStreakDummy.updateMatrix();
+  dirtStreaks.setMatrixAt(i, dirtStreakDummy.matrix);
+}
+dirtStreaks.instanceMatrix.needsUpdate = true;
+scene.add(dirtStreaks);
 
 const hillMaterial = new THREE.MeshStandardMaterial({ color: 0x697d70, roughness: 1, flatShading: true });
 const hillGeometry = new THREE.SphereGeometry(1, 12, 5, 0, Math.PI * 2, 0, Math.PI / 2);
@@ -535,6 +556,88 @@ canopy.position.set(0, 2.35, 2.15);
 canopy.rotation.x = -0.12;
 standGroup.add(canopy);
 scene.add(standGroup);
+
+function buildOuterStadium() {
+  const standMaterial = new THREE.MeshStandardMaterial({ color: 0x273541, roughness: 0.82, metalness: 0.10 });
+  const canopyMaterial = new THREE.MeshStandardMaterial({ color: 0x1a2530, roughness: 0.72, metalness: 0.16 });
+  const cyanMaterial = new THREE.MeshBasicMaterial({ color: 0x57d8ff });
+  const crowdMaterial = new THREE.MeshBasicMaterial({ color: 0xc8d0d6 });
+  const crowdGeometry = new THREE.BoxGeometry(0.10, 0.16, 0.10);
+  const crowdCount = isMobile ? 130 : 260;
+  const crowd = new THREE.InstancedMesh(crowdGeometry, crowdMaterial, crowdCount);
+  const dummy = new THREE.Object3D();
+
+  const sections = [
+    { t: 0.10, offset: 15.5, width: 15.0 },
+    { t: 0.17, offset: 16.2, width: 17.0 },
+    { t: 0.24, offset: 15.8, width: 15.5 }
+  ];
+
+  sections.forEach(({ t, offset, width }, sectionIndex) => {
+    const p = curve.getPointAt(t);
+    const tangent = curve.getTangentAt(t).normalize();
+    const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+    const q = p.clone().addScaledVector(side, offset);
+    const yaw = Math.atan2(-tangent.z, tangent.x);
+
+    const stand = new THREE.Group();
+    stand.position.set(q.x, q.y + 0.1, q.z);
+    stand.rotation.y = yaw;
+    for (let tier = 0; tier < 4; tier++) {
+      const slab = new THREE.Mesh(new THREE.BoxGeometry(width - tier * 0.7, 0.38, 1.25), standMaterial);
+      slab.position.set(0, 0.24 + tier * 0.42, tier * 0.62);
+      stand.add(slab);
+    }
+    const canopy = new THREE.Mesh(new THREE.BoxGeometry(width + 0.8, 0.18, 2.5), canopyMaterial);
+    canopy.position.set(0, 2.28, 2.28);
+    canopy.rotation.x = -0.10;
+    stand.add(canopy);
+    const strip = new THREE.Mesh(new THREE.BoxGeometry(width - 1.4, 0.08, 0.12), cyanMaterial);
+    strip.position.set(0, 1.75, -0.55);
+    stand.add(strip);
+    scene.add(stand);
+  });
+
+  for (let i = 0; i < crowdCount; i++) {
+    const section = sections[i % sections.length];
+    const p = curve.getPointAt(section.t);
+    const tangent = curve.getTangentAt(section.t).normalize();
+    const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+    const base = p.clone().addScaledVector(side, section.offset);
+    const row = Math.floor((i / sections.length) % 4);
+    const col = (i * 0.61803398875) % 1;
+    const along = (col - 0.5) * (section.width - 1.3);
+    dummy.position.copy(base)
+      .addScaledVector(tangent, along)
+      .addScaledVector(side, 0.55 + row * 0.62);
+    dummy.position.y = base.y + 0.62 + row * 0.43 + ((i % 5) * 0.015);
+    dummy.rotation.set(0, Math.atan2(-tangent.z, tangent.x), 0);
+    dummy.updateMatrix();
+    crowd.setMatrixAt(i, dummy.matrix);
+  }
+  crowd.instanceMatrix.needsUpdate = true;
+  scene.add(crowd);
+
+  const bannerGeometry = new THREE.BoxGeometry(0.36, 4.8, 0.22);
+  const bannerMaterial = new THREE.MeshStandardMaterial({ color: 0x173a55, roughness: 0.72 });
+  const bannerAccentMaterial = new THREE.MeshBasicMaterial({ color: 0x6ad9ff });
+  for (let i = 0; i < 12; i++) {
+    const t = 0.05 + i * 0.028;
+    const p = curve.getPointAt(t);
+    const tangent = curve.getTangentAt(t).normalize();
+    const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+    const q = p.clone().addScaledVector(side, 11.2);
+    const banner = new THREE.Mesh(bannerGeometry, bannerMaterial);
+    banner.position.set(q.x, q.y + 2.4, q.z);
+    banner.rotation.y = Math.atan2(-tangent.z, tangent.x);
+    scene.add(banner);
+    const accent = new THREE.Mesh(new THREE.BoxGeometry(0.40, 0.12, 0.24), bannerAccentMaterial);
+    accent.position.set(q.x, q.y + 4.35, q.z);
+    accent.rotation.y = banner.rotation.y;
+    scene.add(accent);
+  }
+}
+buildOuterStadium();
 
 const raceEnvironment = scene.children.filter((obj) => !obj.isLight);
 
@@ -1346,7 +1449,7 @@ dustCtx.fillRect(0, 0, 64, 64);
 const dustTexture = new THREE.CanvasTexture(dustCanvas);
 dustTexture.colorSpace = THREE.SRGBColorSpace;
 
-const dustPool = Array.from({ length: isMobile ? 30 : 48 }, () => {
+const dustPool = Array.from({ length: isMobile ? 52 : 96 }, () => {
   const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
     map: dustTexture,
     transparent: true,
@@ -1365,16 +1468,16 @@ function spawnDust(racer, tangent) {
   const puff = dustPool[dustCursor++ % dustPool.length];
   const side = new THREE.Vector3(-tangent.z, 0, tangent.x);
   const jitter = Math.sin(elapsed * 0.004 + racer.id * 2.17);
-  puff.life = 420 + (racer.id % 3) * 60;
+  puff.life = 520 + (racer.id % 3) * 90;
   puff.maxLife = puff.life;
   puff.rise = 0.00045 + (racer.id % 2) * 0.00012;
   puff.sprite.position.copy(racer.obj.position)
     .addScaledVector(tangent, -0.75)
     .addScaledVector(side, jitter * 0.22);
   puff.sprite.position.y = 0.24;
-  const baseScale = racer.id === selectedId ? 0.88 : 0.58;
-  puff.sprite.scale.set(baseScale * 1.75, baseScale, 1);
-  puff.sprite.material.opacity = racer.id === selectedId ? 0.42 : 0.27;
+  const baseScale = racer.id === selectedId ? 1.10 : 0.72;
+  puff.sprite.scale.set(baseScale * 2.0, baseScale, 1);
+  puff.sprite.material.opacity = racer.id === selectedId ? 0.56 : 0.38;
   puff.sprite.visible = true;
 }
 
@@ -1390,7 +1493,7 @@ function updateDust(dt) {
     puff.sprite.position.y += dt * puff.rise;
     const scale = 1 + age * 1.45;
     puff.sprite.scale.multiplyScalar(1 + dt * 0.0008);
-    puff.sprite.material.opacity = (1 - age) * 0.36;
+    puff.sprite.material.opacity = (1 - age) * 0.48;
     puff.sprite.visible = show && puff.life > 0;
   }
 }
@@ -1440,10 +1543,10 @@ const conceptLayout = {
 };
 
 const raceSpriteLayout = {
-  S: { scale: [2.85, 2.62], y: 0.15 },
-  P: { scale: [3.00, 2.48], y: 0.14 },
-  E: { scale: [2.82, 2.52], y: 0.15 },
-  A: { scale: [3.05, 2.30], y: 0.08 }
+  S: { scale: [3.30, 3.03], y: 0.16 },
+  P: { scale: [3.45, 2.85], y: 0.15 },
+  E: { scale: [3.24, 2.90], y: 0.16 },
+  A: { scale: [3.52, 2.66], y: 0.09 }
 };
 
 const sRunFrames = [
@@ -2149,6 +2252,7 @@ function applyPCutoutRigMotion(racer, frameIndex) {
 
   if (racer.id === selectedId) {
     stage.dataset.selectedMotionPhase = pose.phase;
+    stage.dataset.pRunPhase = pose.phase;
   }
   stage.dataset.pCutoutMotion = "6phase-rig-v3";
 }
@@ -2193,7 +2297,10 @@ function applyECutoutRigMotion(racer, frameIndex) {
     body.rotation.z = pose.lean;
   }
 
-  if (racer.id === selectedId) stage.dataset.selectedMotionPhase = pose.phase;
+  if (racer.id === selectedId) {
+    stage.dataset.selectedMotionPhase = pose.phase;
+    stage.dataset.eRunPhase = pose.phase;
+  }
   stage.dataset.eCutoutMotion = "6phase-rig-v1";
 }
 
@@ -2237,7 +2344,10 @@ function applyACutoutRigMotion(racer, frameIndex) {
     body.rotation.z = pose.lean;
   }
 
-  if (racer.id === selectedId) stage.dataset.selectedMotionPhase = pose.phase;
+  if (racer.id === selectedId) {
+    stage.dataset.selectedMotionPhase = pose.phase;
+    stage.dataset.aRunPhase = pose.phase;
+  }
   stage.dataset.aCutoutMotion = "6phase-rig-v1";
 }
 
@@ -2389,7 +2499,7 @@ function updateConceptReadyState() {
   if (conceptReady.size === 4) {
     stage.dataset.conceptMorphs = "loaded";
     stage.dataset.race2p5d = "loaded";
-    if (!stage.dataset.nonSRunMotion) stage.dataset.nonSRunMotion = "loading-sprite-sheets";
+    stage.dataset.nonSRunMotion = "cutout-rigs";
   }
 }
 
@@ -2425,11 +2535,9 @@ for (const morph of ["S", "P", "E", "A"]) {
         racer.obj.add(raceSprite);
         racer.obj.userData.raceSprite = raceSprite;
         if (morph === "S") installSRunSpriteFor(racer);
-      }
-
-      if (morph !== "S") {
-        const runTexture = generateRunSheetTexture(morph, texture);
-        racers.filter((r) => r.morph === morph).forEach((r) => installGeneratedRunFor(r, morph, runTexture));
+        if (morph === "P") installPCutoutRigFor(racer, texture);
+        if (morph === "E") installECutoutRigFor(racer, texture);
+        if (morph === "A") installACutoutRigFor(racer, texture);
       }
 
       const material = new THREE.SpriteMaterial({
@@ -2827,13 +2935,21 @@ function update(dt) {
       const phaseOffset = (r.id * 41) % Math.round(frameMs * sRunFrames.length);
       const frameIndex = Math.floor((elapsed + phaseOffset) / frameMs) % sRunFrames.length;
       applySRunFrame(r, frameIndex);
-    } else if (r.obj.userData.generatedRunAnimated) {
+    } else if (r.obj.userData.pCutoutRig) {
       const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
-      const layout = generatedRunLayout[r.morph];
-      const frameMs = THREE.MathUtils.lerp(layout.frameSlow, layout.frameFast, speedRatio);
-      const phaseOffset = (r.id * 47) % Math.round(frameMs * generatedRunFrames.length);
-      const frameIndex = Math.floor((elapsed + phaseOffset) / frameMs) % generatedRunFrames.length;
-      applyGeneratedRunFrame(r, frameIndex);
+      const frameMs = THREE.MathUtils.lerp(150, 72, speedRatio);
+      const frameIndex = Math.floor((elapsed + r.id * 37) / frameMs) % 6;
+      applyPCutoutRigMotion(r, frameIndex);
+    } else if (r.obj.userData.eCutoutRig) {
+      const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
+      const frameMs = THREE.MathUtils.lerp(168, 82, speedRatio);
+      const frameIndex = Math.floor((elapsed + r.id * 43) / frameMs) % 6;
+      applyECutoutRigMotion(r, frameIndex);
+    } else if (r.obj.userData.aCutoutRig) {
+      const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
+      const frameMs = THREE.MathUtils.lerp(142, 66, speedRatio);
+      const frameIndex = Math.floor((elapsed + r.id * 47) / frameMs) % 6;
+      applyACutoutRigMotion(r, frameIndex);
     } else if (staticMotionProfile[r.morph]) {
       const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
       const profile = staticMotionProfile[r.morph];
@@ -2846,7 +2962,7 @@ function update(dt) {
     r.dustTimer = Math.max(0, (r.dustTimer ?? 0) - raceDt);
     if (r.speed > 7 && r.dustTimer <= 0) {
       spawnDust(r, tangent);
-      r.dustTimer = r.id === selectedId ? 155 : 265 + (r.id % 4) * 42;
+      r.dustTimer = r.id === selectedId ? 72 : 120 + (r.id % 4) * 28;
     }
 
     if (r.distance >= raceMeters) {
@@ -2860,7 +2976,9 @@ function update(dt) {
       recordAgentEvent(r, true);
       stage.dataset.finishCount = String(finishOrder.length);
       if (r.obj.userData.sRunAnimated) applySRunFrame(r, 5);
-      else if (r.obj.userData.generatedRunAnimated) applyGeneratedRunFrame(r, 5);
+      else if (r.obj.userData.pCutoutRig) applyPCutoutRigMotion(r, 5);
+      else if (r.obj.userData.eCutoutRig) applyECutoutRigMotion(r, 5);
+      else if (r.obj.userData.aCutoutRig) applyACutoutRigMotion(r, 5);
       else if (staticMotionProfile[r.morph]) applyStaticSpriteMotion(r, 5);
     }
   }
