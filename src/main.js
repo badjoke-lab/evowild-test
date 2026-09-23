@@ -655,6 +655,7 @@ const agentNames = [
   "Pace", "Rook", "Aero", "Lumen", "Drift", "Cairn",
   "Vale", "Arc", "Mica", "Sable", "Rill", "Nova"
 ];
+const agentPolicyByKey = (key) => agentPolicyTemplates.find((policy) => policy.key === key) ?? null;
 
 const racers = [];
 let selectedId = 1;
@@ -678,8 +679,11 @@ for (let i = 0; i < 18; i++) {
   const agent = {
     id: `AG-${String(i + 1).padStart(3, "0")}`,
     name: agentNames[i],
+    versionNumber: 1,
     version: "v1",
     policy: { ...agentTemplate },
+    pendingPolicyKey: null,
+    versionHistory: [{ version: "v1", profile: agentTemplate.key }],
     raceHistory: []
   };
   racers.push({
@@ -1033,7 +1037,40 @@ function setSelectedRacer(id) {
 
   ring.position.set(selected.obj.position.x, 0.08, selected.obj.position.z);
   lastRankingPaint = -Infinity;
+  updateAgentSetupUi();
 }
+
+function updateAgentSetupUi() {
+  if (!selected?.agent) return;
+  const activeKey = selected.agent.policy.key;
+  const pendingKey = selected.agent.pendingPolicyKey;
+
+  document.querySelectorAll("[data-agent-policy]").forEach((button) => {
+    const key = button.dataset.agentPolicy;
+    button.classList.toggle("active", key === activeKey);
+    button.classList.toggle("pending", key === pendingKey);
+  });
+
+  const status = document.querySelector("#agentSetupStatus");
+  if (status) {
+    status.textContent = pendingKey
+      ? `Active ${activeKey} · ${selected.agent.version} → NEXT ${pendingKey}`
+      : `Active ${activeKey} · ${selected.agent.version}`;
+  }
+
+  stage.dataset.agentPendingProfile = pendingKey || "";
+  stage.dataset.agentVersionHistory = String(selected.agent.versionHistory.length);
+}
+
+document.querySelector("#agentProfileButtons")?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-agent-policy]");
+  if (!button || !selected?.agent) return;
+  const key = button.dataset.agentPolicy;
+  if (!agentPolicyByKey(key)) return;
+
+  selected.agent.pendingPolicyKey = key === selected.agent.policy.key ? null : key;
+  updateAgentSetupUi();
+});
 
 const rankingPanel = document.querySelector("#ranking");
 rankingPanel.addEventListener("click", (event) => {
@@ -1053,6 +1090,7 @@ rankingPanel.addEventListener("keydown", (event) => {
 });
 stage.dataset.selectedRacer = String(selectedId);
 let lastRankingPaint = -Infinity;
+updateAgentSetupUi();
 
 const shadowGeometry = new THREE.CircleGeometry(0.78, 20);
 const racerShadows = racers.map((r) => {
@@ -2014,6 +2052,20 @@ resize();
 function resetRace() {
   finishOrder.length = 0;
   racers.forEach((r, i) => {
+    if (r.agent.pendingPolicyKey) {
+      const nextPolicy = agentPolicyByKey(r.agent.pendingPolicyKey);
+      if (nextPolicy && nextPolicy.key !== r.agent.policy.key) {
+        r.agent.versionNumber += 1;
+        r.agent.version = `v${r.agent.versionNumber}`;
+        r.agent.policy = { ...nextPolicy };
+        r.agent.versionHistory.push({
+          version: r.agent.version,
+          profile: nextPolicy.key
+        });
+      }
+      r.agent.pendingPolicyKey = null;
+    }
+
     r.distance = Math.max(0, (17 - i) * 1.1);
     r.lane = i % laneCount;
     r.laneF = i % laneCount;
@@ -2052,6 +2104,7 @@ function resetRace() {
   agentPulseUntil = performance.now() + 420;
   agentToastUntil = performance.now() + 1050;
   updateRaceStateDataset();
+  updateAgentSetupUi();
 }
 resetRace();
 
