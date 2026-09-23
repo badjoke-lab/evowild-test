@@ -121,12 +121,16 @@ jobs:
 
           ls -lh public/models/evowild-s-sf3d-corrected*.glb
 
-          npx --yes @gltf-transform/cli simplify \
+          python scripts/clean-hunyuan2mv.py \
             public/models/evowild-s-hunyuan2mv-raw.glb \
+            public/models/evowild-s-hunyuan2mv-clean.glb \
+            public/models/evowild-s-hunyuan2mv-clean.json
+          npx --yes @gltf-transform/cli simplify \
+            public/models/evowild-s-hunyuan2mv-clean.glb \
             public/models/evowild-s-hunyuan2mv-lod1.glb \
             --ratio 0.20 --error 0.006
           npx --yes @gltf-transform/cli simplify \
-            public/models/evowild-s-hunyuan2mv-raw.glb \
+            public/models/evowild-s-hunyuan2mv-clean.glb \
             public/models/evowild-s-hunyuan2mv-lod2.glb \
             --ratio 0.08 --error 0.012
           ls -lh public/models/evowild-s-hunyuan2mv-*.glb
@@ -162,6 +166,8 @@ jobs:
             public/models/evowild-s-triposr-3q.json \
             public/models/evowild-s-hunyuan2mv-raw.glb \
             public/models/evowild-s-hunyuan2mv-raw.json \
+            public/models/evowild-s-hunyuan2mv-clean.glb \
+            public/models/evowild-s-hunyuan2mv-clean.json \
             public/models/evowild-s-hunyuan2mv-lod1.glb \
             public/models/evowild-s-hunyuan2mv-lod2.glb \
             public/models/evowild-s-sf3d-corrected-lod1.glb \
