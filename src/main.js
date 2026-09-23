@@ -679,7 +679,8 @@ for (let i = 0; i < 18; i++) {
     id: `AG-${String(i + 1).padStart(3, "0")}`,
     name: agentNames[i],
     version: `v1.${i % 3}`,
-    policy: { ...agentTemplate }
+    policy: { ...agentTemplate },
+    raceHistory: []
   };
   racers.push({
     id: i + 1,
@@ -900,6 +901,7 @@ function updateAgentVisual(now) {
   const panel = document.querySelector("#agentPanel");
   const identityEl = document.querySelector("#agentIdentity");
   const profileEl = document.querySelector("#agentProfile");
+  const recordEl = document.querySelector("#agentRecord");
   const orderEl = document.querySelector("#agentOrder");
   const responseEl = document.querySelector("#creatureResponse");
   const fatigueEl = document.querySelector("#agentFatigue");
@@ -921,6 +923,13 @@ function updateAgentVisual(now) {
 
   if (identityEl && selected?.agent) identityEl.textContent = `${selected.agent.id} ${selected.agent.name} / ${selected.agent.version}`;
   if (profileEl && selected?.agent) profileEl.textContent = selected.agent.policy.label.toUpperCase();
+  if (recordEl && selected?.agent) {
+    const history = selected.agent.raceHistory;
+    const starts = history.length;
+    const wins = history.filter((race) => race.place === 1).length;
+    const best = starts ? Math.min(...history.map((race) => race.place)) : null;
+    recordEl.textContent = starts ? `${starts}S / ${wins}W / BEST #${best}` : "NO STARTS";
+  }
   if (orderEl) orderEl.textContent = order;
   if (responseEl) responseEl.textContent = response.state;
   if (fatigueEl) fatigueEl.textContent = `${Math.round(100 - (selected?.stamina ?? 100))}%`;
@@ -965,6 +974,7 @@ function updateAgentVisual(now) {
   stage.dataset.agentIdentity = selected?.agent?.id || "";
   stage.dataset.agentProfile = selected?.agent?.policy?.key || "";
   stage.dataset.agentVersion = selected?.agent?.version || "";
+  stage.dataset.agentStarts = String(selected?.agent?.raceHistory?.length ?? 0);
   stage.dataset.agentOrder = order;
   stage.dataset.creatureResponse = response.state;
 }
@@ -1569,6 +1579,14 @@ function finishRace() {
   document.querySelector("#pause").textContent = "Pause";
 
   const ordered = [...racers].sort((a, b) => a.finishPlace - b.finishPlace);
+  for (const r of ordered) {
+    r.agent.raceHistory.push({
+      place: r.finishPlace,
+      time: r.finishTime,
+      creatureId: r.id,
+      morph: r.morph
+    });
+  }
   resultsList.innerHTML = ordered.map((r) => `
     <div class="result-row ${r.id === selectedId ? "selected" : ""}">
       <span class="place">#${r.finishPlace}</span>
