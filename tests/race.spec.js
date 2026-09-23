@@ -280,6 +280,9 @@ test("race reaches results and rematch returns to countdown", async ({ page }, t
   await expect(page.locator("#resultDecisions")).not.toHaveText("0");
   await expect(page.locator("#resultFinalFatigue")).toContainText("%");
   await expect(page.locator("#resultAgentRecord")).toContainText("Race history 1");
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+  await page.screenshot({ path: `${outDir}/desktop-agent-result-summary.png`, fullPage: true });
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-starts", "1", { timeout: 3000 });
   await expect(page.locator("#agentRecord")).toContainText("1S");
 
