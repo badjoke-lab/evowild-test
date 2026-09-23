@@ -172,6 +172,28 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
 });
 
 
+test("capture desktop cinematic race and follow views", async ({ page }, testInfo) => {
+  test.setTimeout(45000);
+  test.skip(testInfo.project.name !== "desktop-chromium");
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  await page.goto("/evowild-test/", { waitUntil: "networkidle" });
+  await expect(page.locator("#stage")).toHaveAttribute("data-race-state", "running", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v9", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-race-camera", "side-pack-cinematic", { timeout: 6500 });
+  await page.waitForTimeout(5200);
+  await page.locator("#stage").screenshot({ path: `${outDir}/desktop-race-cinematic.png` });
+
+  await page.getByRole("button", { name: "3 Follow" }).click();
+  await expect(page.locator("#viewLabel")).toHaveText("FOLLOW VIEW");
+  await expect(page.locator("#stage")).toHaveAttribute("data-follow-camera", "rear-quarter", { timeout: 6500 });
+  await page.waitForTimeout(2400);
+  await page.locator("#stage").screenshot({ path: `${outDir}/desktop-follow-cinematic.png` });
+});
+
+
 test("record 2.5D race speed proof", async ({ browser }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   const outDir = "test-results/visuals";
