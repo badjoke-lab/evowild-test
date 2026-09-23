@@ -144,6 +144,58 @@ export const CREATURE_3D_PROFILES = {
       "Intended only for far-distance race rendering."
     ]
   },
+  sSf3dCorrectedLod2Lite: {
+    id: "s-sf3d-corrected-lod2-lite",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-sf3d-corrected-lod2-lite.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.0,
+      minRoughness: 0.68,
+      side: "front",
+      preserveBaseColorMap: true,
+      preserveNormalMap: false,
+      preserveRoughnessMap: false,
+      preserveMetalnessMap: false,
+      maxAnisotropy: 1
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "lod_candidate",
+    notes: [
+      "LOD2 with the normal texture removed from the GLB and unused texture/image data pruned.",
+      "Intended for mid/far race rendering after visual and performance validation."
+    ]
+  },
+  sSf3dCorrectedLod3Lite: {
+    id: "s-sf3d-corrected-lod3-lite",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-sf3d-corrected-lod3-lite.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.0,
+      minRoughness: 0.72,
+      side: "front",
+      preserveBaseColorMap: true,
+      preserveNormalMap: false,
+      preserveRoughnessMap: false,
+      preserveMetalnessMap: false,
+      maxAnisotropy: 1
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "lod_candidate",
+    notes: [
+      "LOD3 with the normal texture removed from the GLB and unused texture/image data pruned.",
+      "Intended only for far-distance race rendering."
+    ]
+  },
   sSf3dCorrected: {
     id: "s-sf3d-corrected-candidate",
     morph: "S",
