@@ -902,6 +902,7 @@ function updateAgentVisual(now) {
   const identityEl = document.querySelector("#agentIdentity");
   const profileEl = document.querySelector("#agentProfile");
   const recordEl = document.querySelector("#agentRecord");
+  const policyRuleEl = document.querySelector("#agentPolicyRule");
   const orderEl = document.querySelector("#agentOrder");
   const responseEl = document.querySelector("#creatureResponse");
   const fatigueEl = document.querySelector("#agentFatigue");
@@ -929,6 +930,10 @@ function updateAgentVisual(now) {
     const wins = history.filter((race) => race.place === 1).length;
     const best = starts ? Math.min(...history.map((race) => race.place)) : null;
     recordEl.textContent = starts ? `${starts}S / ${wins}W / BEST #${best}` : "NO STARTS";
+  }
+  if (policyRuleEl && selected?.agent) {
+    const p = selected.agent.policy;
+    policyRuleEl.textContent = `PASS ${p.overtakeGap.toFixed(1)}m · PRESERVE ${p.preserveAt} · FINAL ×${p.finalBoost.toFixed(3)} · LANE ${p.laneCooldown}ms`;
   }
   if (orderEl) orderEl.textContent = order;
   if (responseEl) responseEl.textContent = response.state;
@@ -975,6 +980,10 @@ function updateAgentVisual(now) {
   stage.dataset.agentProfile = selected?.agent?.policy?.key || "";
   stage.dataset.agentVersion = selected?.agent?.version || "";
   stage.dataset.agentStarts = String(selected?.agent?.raceHistory?.length ?? 0);
+  if (selected?.agent?.policy) {
+    const p = selected.agent.policy;
+    stage.dataset.agentPolicy = `${p.overtakeGap.toFixed(1)}|${p.preserveAt}|${p.finalBoost.toFixed(3)}|${p.laneCooldown}`;
+  }
   stage.dataset.agentOrder = order;
   stage.dataset.creatureResponse = response.state;
 }
