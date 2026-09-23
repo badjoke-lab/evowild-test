@@ -1263,6 +1263,14 @@ const pRigLegDefs = [
   { key: "rear-far", x: 0.52, y: 0.45, w: 0.22, h: 0.53, hipX: 0.63, hipY: 0.49, amp: 0.32, phase: 0, z: -0.014 },
   { key: "rear-near", x: 0.66, y: 0.43, w: 0.24, h: 0.55, hipX: 0.72, hipY: 0.48, amp: 0.38, phase: Math.PI, z: 0.026 }
 ];
+const pRigPoseFrames = [
+  { phase: "CONTACT", legs: [-0.22,  0.30,  0.24, -0.28], bodyY: 0.00, lean:  0.000 },
+  { phase: "PUSH",    legs: [-0.08,  0.50,  0.10, -0.50], bodyY: 0.025, lean: -0.018 },
+  { phase: "LIFT",    legs: [ 0.20,  0.18, -0.22, -0.18], bodyY: 0.075, lean: -0.010 },
+  { phase: "FLIGHT",  legs: [ 0.30, -0.18, -0.30,  0.20], bodyY: 0.125, lean:  0.012 },
+  { phase: "REACH",   legs: [ 0.44, -0.48, -0.42,  0.46], bodyY: 0.070, lean:  0.020 },
+  { phase: "LAND",    legs: [ 0.12, -0.28, -0.12,  0.28], bodyY: 0.015, lean: -0.006 }
+];
 
 function buildAnimatedSRunPlane(texture, raceLayout, racerId) {
   const sheet = texture.clone();
@@ -1327,7 +1335,7 @@ function buildPCutoutRig(texture, raceLayout, racerId) {
 
   bodyCtx.save();
   bodyCtx.globalCompositeOperation = "destination-out";
-  bodyCtx.globalAlpha = 0.74;
+  bodyCtx.globalAlpha = 0.88;
   bodyCtx.fillStyle = "#000";
   for (const def of pRigLegDefs) {
     const x = Math.floor(def.x * width);
@@ -1403,10 +1411,13 @@ function buildPCutoutRig(texture, raceLayout, racerId) {
     pivot.add(leg);
     pivot.userData.amp = def.amp;
     pivot.userData.phase = def.phase;
+    pivot.userData.baseX = pivot.position.x;
+    pivot.userData.baseY = pivot.position.y;
     rig.userData.legPivots.push(pivot);
     rig.add(pivot);
   }
 
+  rig.userData.baseY = raceLayout.y;
   return rig;
 }
 
@@ -1435,23 +1446,24 @@ function applyPCutoutRigMotion(racer, frameIndex) {
   const rig = racer?.obj?.userData?.raceRig;
   if (!rig || !racer.obj.userData.pCutoutRig) return;
 
-  const angle = (frameIndex / 6) * Math.PI * 2;
+  const pose = pRigPoseFrames[frameIndex] ?? pRigPoseFrames[0];
   rig.userData.legPivots.forEach((pivot, index) => {
-    const stride = Math.sin(angle + pivot.userData.phase) * pivot.userData.amp;
-    const secondary = Math.sin(angle * 2 + index * 0.7) * 0.035;
-    pivot.rotation.z = stride + secondary;
+    pivot.rotation.z = pose.legs[index] ?? 0;
+    pivot.position.x = pivot.userData.baseX;
+    pivot.position.y = pivot.userData.baseY;
   });
 
+  rig.position.y = rig.userData.baseY + pose.bodyY;
   const body = rig.userData.body;
   if (body) {
-    body.position.y = Math.abs(Math.sin(angle)) * 0.045;
-    body.rotation.z = Math.sin(angle) * 0.012;
+    body.position.y = 0;
+    body.rotation.z = pose.lean;
   }
 
   if (racer.id === selectedId) {
-    stage.dataset.selectedMotionPhase = staticMotionFrames[frameIndex]?.phase || String(frameIndex);
+    stage.dataset.selectedMotionPhase = pose.phase;
   }
-  stage.dataset.pCutoutMotion = "6phase-rig-v2";
+  stage.dataset.pCutoutMotion = "6phase-rig-v3";
 }
 
 function applyStaticSpriteMotion(racer, frameIndex) {
