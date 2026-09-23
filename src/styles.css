@@ -26,25 +26,57 @@ body.p-rig-proof .stage, body.e-rig-proof .stage, body.a-rig-proof .stage { min-
   border: 1px solid #283542; border-radius: 14px; overflow: hidden; background: #0c151e;
 }
 
+body.cinematic-race .layout,
 body.cinematic-follow .layout {
   grid-template-columns: minmax(0, 1fr);
 }
+body.cinematic-race .sidebar,
 body.cinematic-follow .sidebar {
   display: none;
 }
+body.cinematic-race .stage,
 body.cinematic-follow .stage {
-  min-height: min(76vh, 820px);
+  min-height: min(80vh, 860px);
+  border-color: rgba(109, 190, 228, .34);
+  box-shadow: 0 22px 54px rgba(0,0,0,.34);
 }
+body.cinematic-race .hud-agent,
 body.cinematic-follow .hud-agent {
   display: none;
 }
+body.cinematic-race .hud-selected,
 body.cinematic-follow .hud-selected {
-  width: 260px;
-  background: rgba(8, 14, 20, .72);
+  display: block;
+  width: 268px;
+  padding: 10px 12px;
+  background: linear-gradient(180deg, rgba(7,14,20,.82), rgba(7,14,20,.72));
+  border-color: rgba(87,216,255,.38);
+  box-shadow: 0 12px 30px rgba(0,0,0,.26);
 }
+body.cinematic-race .hud-selected strong,
+body.cinematic-follow .hud-selected strong {
+  font-size: 17px;
+}
+body.cinematic-race .hud-mini,
 body.cinematic-follow .hud-mini {
-  opacity: .72;
+  opacity: .88;
+  background: rgba(7,14,20,.74);
+  border-color: rgba(87,216,255,.30);
 }
+body.cinematic-race .hud-race,
+body.cinematic-follow .hud-race {
+  background: rgba(7,14,20,.78);
+  border-color: rgba(87,216,255,.30);
+  box-shadow: 0 10px 26px rgba(0,0,0,.20);
+}
+body.cinematic-race .hud-view,
+body.cinematic-follow .hud-view {
+  padding: 9px 13px;
+  background: rgba(7,14,20,.78);
+  border-color: rgba(87,216,255,.34);
+  letter-spacing: .04em;
+}
+body.cinematic-race .agent-toast,
 body.cinematic-follow .agent-toast {
   background: rgba(8, 14, 20, .72);
 }
@@ -113,7 +145,7 @@ body.cinematic-follow .agent-toast {
 .fatigue-track i.high { background: #ffbd68; }
 .fatigue-track i.critical { background: #ff7c7c; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-.chips span { font-size: 10px; padding: 4px 6px; border-radius: 999px; border: 1px solid #344352; background: #1a2632; }
+.chips span { font-size: 10px; padding: 4px 7px; border-radius: 999px; border: 1px solid rgba(87,216,255,.26); background: rgba(17,31,43,.82); }
 .hud-agent {
   left: 12px;
   bottom: 126px;
@@ -767,4 +799,61 @@ body.cinematic-follow .agent-toast {
   filter: blur(0.6px);
   transition: opacity 120ms linear;
   will-change: transform, opacity;
+}
+
+
+/* v9 cinematic race presentation */
+@media (max-width: 620px) {
+  body.cinematic-race #app,
+  body.cinematic-follow #app {
+    padding: 6px;
+  }
+  body.cinematic-race .stage,
+  body.cinematic-follow .stage {
+    height: clamp(520px, 78svh, 760px);
+    min-height: 520px;
+    border-radius: 12px;
+  }
+  body.cinematic-race .hud-selected,
+  body.cinematic-follow .hud-selected {
+    display: block;
+    left: 8px;
+    bottom: 8px;
+    width: 194px;
+    padding: 7px 8px;
+  }
+  body.cinematic-race .hud-selected strong,
+  body.cinematic-follow .hud-selected strong {
+    font-size: 13px;
+  }
+  body.cinematic-race .hud-selected .metric,
+  body.cinematic-follow .hud-selected .metric {
+    margin-top: 3px;
+    font-size: 9px;
+  }
+  body.cinematic-race .hud-selected .fatigue-track,
+  body.cinematic-follow .hud-selected .fatigue-track {
+    height: 4px;
+  }
+  body.cinematic-race .hud-selected .chips,
+  body.cinematic-follow .hud-selected .chips {
+    margin-top: 5px;
+    gap: 4px;
+  }
+  body.cinematic-race .hud-selected .chips span,
+  body.cinematic-follow .hud-selected .chips span {
+    font-size: 7.5px;
+    padding: 3px 5px;
+  }
+  body.cinematic-race .hud-mini,
+  body.cinematic-follow .hud-mini {
+    width: 132px;
+    height: 76px;
+    right: 8px;
+    bottom: 8px;
+  }
+  body.cinematic-race .hud-race,
+  body.cinematic-follow .hud-race {
+    min-width: 178px;
+  }
 }
