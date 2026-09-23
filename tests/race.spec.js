@@ -31,7 +31,10 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-toast", "enabled", { timeout: 6500 });
   await expect(page.locator("#agentPanel")).toBeVisible();
   await expect(page.locator("#agentOrder")).not.toHaveText("");
-  await expect(page.locator("#creatureResponse")).toHaveText(/READY|EXECUTING|LIMITED|BLOCKED|COMPLYING|FINISHED/, { timeout: 6500 });
+  await expect(page.locator("#creatureResponse")).toHaveText(/READY|SUCCESS|PARTIAL|FAILED|FINISHED/, { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-orb-count", "18");
+  await expect(page.locator("#fatigue")).toContainText("%");
+  await expect(page.locator("#stage")).toHaveAttribute("data-creature-fatigue", /\d+/);
   await expect(page.locator("#stage")).toHaveAttribute("data-directional-sprite-facing", "enabled", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-non-s-run-motion", "placeholder-6phase", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-race-section", /START|MID|BUILD|FINAL/, { timeout: 6500 });
@@ -87,6 +90,8 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-hud-telemetry", "active", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-visual", "enabled", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-toast", "enabled", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-orb-count", "18", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-creature-fatigue", /\d+/, { timeout: 8000 });
   await expect(page.locator("#agentPanel")).toBeHidden();
   for (const morph of ["S", "P", "E", "A"]) {
     await page.locator(`[data-morph="${morph}"]`).click();
