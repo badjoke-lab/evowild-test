@@ -1,0 +1,162 @@
+name: HF TripoSR POC
+
+on:
+  push:
+    branches:
+      - test/hf-sf3d-retry-20260921
+    paths:
+      - '.github/workflows/hf-triposr-poc.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install client
+        run: pip install -q gradio_client pillow requests
+      - name: Generate mesh with TripoSR
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          python - <<'PY'
+          import json, os, shutil
+          from pathlib import Path
+          from PIL import Image
+          from gradio_client import Client, handle_file
+
+          src = Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")
+          runtime = Path("hf-poc/runtime")
+          out = Path("hf-poc/triposr-output")
+          runtime.mkdir(parents=True, exist_ok=True)
+          out.mkdir(parents=True, exist_ok=True)
+
+          # Same clean single-subject crop used in the SF3D comparison lane.
+          im = Image.open(src).convert("RGBA")
+          w, h = im.size
+          im = im.crop((int(w * 0.30), 0, w, h)).copy()
+          px = im.load()
+          for y in range(im.height):
+              for x in range(im.width):
+                  r,g,b,a = px[x,y]
+                  mn, mx = min(r,g,b), max(r,g,b)
+                  if mn >= 245:
+                      alpha = 0
+                  elif mn >= 225 and mx - mn < 18:
+                      alpha = int(max(0, min(255, (245-mn)/20*255)))
+                  else:
+                      alpha = 255
+                  px[x,y] = (r,g,b,alpha)
+          bbox = im.getbbox()
+          if not bbox:
+              raise RuntimeError("No foreground after cleanup")
+          im = im.crop(bbox)
+          iw, ih = im.size
+          side = max(iw, ih)
+          canvas = Image.new("RGBA", (side, side), (0,0,0,0))
+          canvas.alpha_composite(im, ((side-iw)//2, (side-ih)//2))
+          inp = runtime/"evowild_s_triposr_input.png"
+          canvas.save(inp)
+
+          token = os.environ.get("HF_TOKEN")
+          print("HF_AUTH:", "token" if token else "anonymous")
+          client = Client("stabilityai/TripoSR", token=token)
+          info = client.view_api(return_format="dict")
+          endpoints = info.get("named_endpoints", {})
+          print("ENDPOINTS:", json.dumps(endpoints)[:20000])
+
+          processed = None
+          if "/preprocess" in endpoints:
+              errors=[]
+              for args in [
+                  (handle_file(str(inp)), True, 0.85),
+                  (handle_file(str(inp)), 0.85),
+                  (handle_file(str(inp)),),
+              ]:
+                  try:
+                      processed = client.predict(*args, api_name="/preprocess")
+                      print("PREPROCESS_OK:", repr(processed)[:2000])
+                      break
+                  except Exception as e:
+                      errors.append(repr(e))
+                      print("PREPROCESS_ERROR:", repr(e))
+              if processed is None:
+                  raise RuntimeError(f"TripoSR preprocess failed: {errors}")
+          else:
+              processed = handle_file(str(inp))
+
+          result = None
+          gen_endpoint = next((n for n in ["/generate", "/predict", "/run"] if n in endpoints), None)
+          if not gen_endpoint:
+              raise RuntimeError(f"No TripoSR generation endpoint: {list(endpoints)}")
+          print("USING_ENDPOINT:", gen_endpoint)
+
+          attempts = [
+              (processed,),
+              (processed, 256),
+              (handle_file(str(inp)), 256),
+              (handle_file(str(inp)),),
+          ]
+          errors=[]
+          for args in attempts:
+              try:
+                  result = client.predict(*args, api_name=gen_endpoint)
+                  print("GENERATE_OK:", repr(result)[:5000])
+                  break
+              except Exception as e:
+                  errors.append(repr(e))
+                  print("GENERATE_ERROR:", repr(e))
+          if result is None:
+              raise RuntimeError(f"TripoSR generation failed: {errors}")
+
+          items = list(result) if isinstance(result,(tuple,list)) else [result]
+          candidates=[]
+          for item in items:
+              if isinstance(item,str):
+                  candidates.append(item)
+              elif isinstance(item,dict):
+                  if item.get("path"): candidates.append(item["path"])
+                  if item.get("value"): candidates.append(item["value"])
+
+          saved=[]
+          for i,p in enumerate(candidates):
+              if not p:
+                  continue
+              lp=Path(str(p))
+              if not lp.exists():
+                  continue
+              suffix=lp.suffix.lower() or ".bin"
+              target=out/f"triposr_result_{i}{suffix}"
+              shutil.copy2(lp,target)
+              saved.append(target)
+
+          if not saved:
+              raise RuntimeError(f"No local TripoSR result file found: {result!r}")
+
+          glb = next((p for p in saved if p.suffix.lower()==".glb"), None)
+          if glb and glb.read_bytes()[:4] != b"glTF":
+              raise RuntimeError("TripoSR GLB result invalid")
+
+          meta = {
+              "space":"stabilityai/TripoSR",
+              "source":"04_3Q_FRONT_shape_support.jpg",
+              "input_variant":"crop30_transparent",
+              "endpoint":gen_endpoint,
+              "saved_files":[p.name for p in saved],
+              "sizes":{p.name:p.stat().st_size for p in saved}
+          }
+          (out/"metadata.json").write_text(json.dumps(meta,indent=2),encoding="utf-8")
+          print("SAVED_FILES:", meta)
+          PY
+      - name: Upload TripoSR result
+        uses: actions/upload-artifact@v4
+        with:
+          name: evowild-s-triposr
+          path: hf-poc/triposr-output/
+          if-no-files-found: error
