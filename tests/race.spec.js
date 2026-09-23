@@ -59,6 +59,7 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-directional-sprite-facing", "enabled", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-non-s-run-motion", "placeholder-6phase", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-rig", "loaded", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-racers", "4", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-racer", "2", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-motion", "6phase-rig-v3", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-race-section", /START|MID|BUILD|FINAL/, { timeout: 6500 });
