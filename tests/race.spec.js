@@ -38,6 +38,8 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-profile", "BALANCED", { timeout: 6500 });
   await expect(page.locator("#agentIdentity")).toContainText("AG-001");
   await expect(page.locator("#agentProfile")).toHaveText("BALANCED");
+  await expect(page.locator("#agentRecord")).toHaveText("NO STARTS");
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-starts", "0");
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-log-events", /[1-9]\d*/, { timeout: 6500 });
   await expect(page.locator("#agentLog .agent-log-row").first()).toBeVisible();
   await expect(page.locator("#creatureStateCard")).toBeVisible();
@@ -230,8 +232,12 @@ test("race reaches results and rematch returns to countdown", async ({ page }, t
   await expect(page.locator("#resultsPanel")).toBeVisible();
   await expect(page.locator("#resultsList .result-row")).toHaveCount(18);
   await expect(page.locator("#resultHeadline")).toContainText("Aster");
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-starts", "1", { timeout: 3000 });
+  await expect(page.locator("#agentRecord")).toContainText("1S");
 
   await page.getByRole("button", { name: "Rematch" }).click();
   await expect(page.locator("#stage")).toHaveAttribute("data-race-state", "countdown");
   await expect(page.locator("#resultsPanel")).toBeHidden();
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-starts", "1");
+  await expect(page.locator("#agentRecord")).toContainText("1S");
 });
