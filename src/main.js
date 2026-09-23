@@ -1047,8 +1047,8 @@ loadCreature3D(sf3dProfile)
 
         Promise.all([
           loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod1),
-          loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod2),
-          loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod3)
+          loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod2Lite),
+          loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod3Lite)
         ])
           .then(([lod1Data, lod2Data, lod3Data]) => {
             const lod1Model = fitCreature3D(cloneCreature3D(lod1Data.source), {
@@ -1076,6 +1076,12 @@ loadCreature3D(sf3dProfile)
             raceLod.addLevel(lod2Model, 18);
             raceLod.addLevel(lod3Model, 30);
             stage.dataset.sf3dRaceLod = "loaded";
+            stage.dataset.sf3dRaceLodProfiles = [
+              profile.id,
+              lod1Data.profile.id,
+              lod2Data.profile.id,
+              lod3Data.profile.id
+            ].join(",");
             stage.dataset.sf3dRaceLodLevels = String(raceLod.levels.length);
             stage.dataset.sf3dRaceLodDistances = raceLod.levels.map((level) => level.distance).join(",");
             window.__sf3dRaceLod = raceLod;
