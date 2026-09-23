@@ -414,3 +414,40 @@ test("compare moving 18-racer four-level LOD clone versus dynamic instancing", a
     JSON.stringify({ generatedBy: "Playwright CI Chromium", results }, null, 2)
   );
 });
+
+
+test("compare render scale in dynamic-instanced 18-racer stress", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(140000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+  const results = [];
+
+  for (const scale of [1, 0.75, 0.5]) {
+    await page.goto(
+      `/evowild-test/?sf3dRaceStress=1&sf3dRaceStressMode=instance&renderScale=${scale}`,
+      { waitUntil: "networkidle" }
+    );
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 15000 });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-stress-mode", "instance", { timeout: 20000 });
+    await expect(page.locator("#stage")).toHaveAttribute("data-render-scale", String(scale), { timeout: 20000 });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-stress", "ready", { timeout: 40000 });
+
+    const metrics = await page.evaluate(() => window.__sf3dRaceStress);
+    expect(metrics?.mode).toBe("instance");
+    expect(metrics?.renderScale).toBe(scale);
+    expect(metrics?.samples).toBeGreaterThan(10);
+    results.push(metrics);
+    console.log("SF3D_RENDER_SCALE", JSON.stringify(metrics));
+
+    await page.locator("#stage").screenshot({
+      path: `${outDir}/sf3d-render-scale-${String(scale).replace(".", "_")}.png`
+    });
+  }
+
+  fs.writeFileSync(
+    `${outDir}/sf3d-render-scale-comparison.json`,
+    JSON.stringify({ generatedBy: "Playwright CI Chromium", results }, null, 2)
+  );
+});
