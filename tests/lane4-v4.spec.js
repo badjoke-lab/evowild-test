@@ -10,7 +10,7 @@ test("Lane 4 runs with animated EvoWild S racers", async ({ page }, testInfo) =>
   });
 
   const response = await page.goto(
-    "/evowild-test/lane4-v4/?ciNoPrewarm=1&quality=low&scale=0.5&scaler=0.5",
+    "/evowild-test/lane4-v4/?ciNoPrewarm=1&ciRace=1&quality=low&scale=0.5&scaler=0.5",
     { waitUntil: "domcontentloaded" }
   );
   expect(response?.status()).toBeLessThan(400);
@@ -37,13 +37,17 @@ test("Lane 4 runs with animated EvoWild S racers", async ({ page }, testInfo) =>
   expect(visual.model).toBe("hunyuan-rigged-s");
   expect(visual.clip).toBe("EvoWild_S_Run");
 
-  await page.evaluate(() => {
-    window.__ctx.race.autoDrive = true;
-    window.__ctx.race.start();
-  });
-
-  await page.waitForFunction(() => window.__ctx?.race?.state === 2, null, { timeout: 12000 });
-  await page.waitForTimeout(4500);
+  await page.waitForFunction(
+    () => document.documentElement.dataset.ciRace === "racing" && window.__ctx?.race?.state === 2,
+    null,
+    { timeout: 90000 }
+  );
+  const firstFrame = await page.evaluate(() => window.__ctx.frame);
+  await page.waitForFunction(
+    (frame) => window.__ctx?.frame >= frame + 8,
+    firstFrame,
+    { timeout: 90000 }
+  );
 
   fs.mkdirSync("test-results/visuals", { recursive: true });
   const filename = testInfo.project.name === "android-chromium"
