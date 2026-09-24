@@ -23,7 +23,8 @@ jobs:
     if: >
       github.event_name != 'workflow_run' ||
       (github.event.workflow_run.conclusion == 'success' &&
-       (github.event.workflow_run.head_branch == 'feat/2p5d-animated-s-proof-20260922' ||
+       (github.event.workflow_run.head_branch == 'main' ||
+        github.event.workflow_run.head_branch == 'feat/2p5d-animated-s-proof-20260922' ||
         github.event.workflow_run.head_branch == 'feat/2p5d-four-morph-race-v1' ||
         github.event.workflow_run.head_branch == 'feat/2p5d-race-quality-floor-v2' ||
         github.event.workflow_run.head_branch == 'feat/2p5d-s-only-v3-sideview-rebuild-20260924' ||
