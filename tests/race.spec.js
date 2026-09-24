@@ -59,7 +59,11 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#agentFatigue")).toContainText("%");
   await expect(page.locator("#stage")).toHaveAttribute("data-creature-fatigue", /\d+/);
   await expect(page.locator("#stage")).toHaveAttribute("data-directional-sprite-facing", "enabled", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-non-s-run-motion", "placeholder-6phase", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-rig", "loaded", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-racers", "4", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-a-cutout-rig", "loaded", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-a-cutout-racers", "5", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-four-morph-motion", "ready", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-rig", "loaded", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-racers", "4", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-racer", "2", { timeout: 6500 });
@@ -216,7 +220,11 @@ test("record full field and non-S follow motion proof", async ({ browser }, test
   const page = await context.newPage();
   await page.goto("http://127.0.0.1:4173/evowild-test/", { waitUntil: "networkidle" });
   await expect(page.locator("#stage")).toHaveAttribute("data-race-state", "running", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-non-s-run-motion", "placeholder-6phase", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-rig", "loaded", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-racers", "4", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-a-cutout-rig", "loaded", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-a-cutout-racers", "5", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-four-morph-motion", "ready", { timeout: 6500 });
   await page.getByRole("button", { name: "2 Race" }).click();
   await page.waitForTimeout(3200);
 
@@ -279,7 +287,7 @@ test("record isolated original-sprite E cutout rig", async ({ browser }, testInf
   await page.goto("http://127.0.0.1:4173/evowild-test/?proof=e-rig", { waitUntil: "networkidle" });
   await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-rig", "loaded", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-proof", "isolated", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-racers", "1");
+  await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-racers", "4");
   await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-racer", "3");
   await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "3");
   await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-motion", "6phase-rig-v1", { timeout: 6500 });
@@ -301,6 +309,43 @@ test("record isolated original-sprite E cutout rig", async ({ browser }, testInf
   await context.close();
 });
 
+
+test("record isolated original-sprite A cutout rig", async ({ browser }, testInfo) => {
+  test.setTimeout(45000);
+  test.skip(testInfo.project.name !== "desktop-chromium");
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const context = await browser.newContext({
+    viewport: { width: 1280, height: 720 },
+    recordVideo: { dir: outDir, size: { width: 1280, height: 720 } }
+  });
+  const page = await context.newPage();
+  await page.goto("http://127.0.0.1:4173/evowild-test/?proof=a-rig", { waitUntil: "networkidle" });
+  await expect(page.locator("#stage")).toHaveAttribute("data-a-cutout-rig", "loaded", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-a-cutout-proof", "isolated", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-a-cutout-racers", "5");
+  await expect(page.locator("#stage")).toHaveAttribute("data-a-cutout-racer", "4");
+  await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "4");
+  await expect(page.locator("#stage")).toHaveAttribute("data-a-cutout-motion", "6phase-rig-v1", { timeout: 6500 });
+
+  const observed = new Set();
+  for (let i = 0; i < 10; i++) {
+    await page.waitForTimeout(120);
+    observed.add(await page.locator("#stage").getAttribute("data-selected-motion-phase"));
+  }
+  expect(observed.size).toBeGreaterThanOrEqual(4);
+
+  await page.waitForTimeout(4500);
+  await page.locator("#stage").screenshot({ path: `${outDir}/desktop-a-cutout-proof.png` });
+
+  const video = page.video();
+  await page.close();
+  const raw = await video.path();
+  fs.renameSync(raw, `${outDir}/desktop-a-cutout-proof.webm`);
+  await context.close();
+});
 
 test("race reaches results and rematch returns to countdown", async ({ page }, testInfo) => {
   test.setTimeout(30000);
