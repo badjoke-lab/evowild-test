@@ -36,6 +36,8 @@ let sf3dRaceStressConfig = null;
 let sf3dRaceStressLevelCounts = [];
 let hunyuanRacePackBatches = null;
 let hunyuanRacePackCounts = [0, 0, 0];
+let sf3dLabMixer = null;
+const sf3dRaceMixers = [];
 
 const runtimeStatus = document.createElement("div");
 runtimeStatus.className = "runtime-status";
@@ -609,7 +611,9 @@ function makeLiteMaterialProfile(profile) {
 }
 
 const sf3dVariant = query.get("sf3dVariant");
-const sf3dBaseProfile = sf3dVariant === "hunyuanstyled"
+const sf3dBaseProfile = sf3dVariant === "hunyuanrigged"
+  ? CREATURE_3D_PROFILES.sHunyuan2mvRigged
+  : sf3dVariant === "hunyuanstyled"
   ? CREATURE_3D_PROFILES.sHunyuan2mvStyled
   : sf3dVariant === "hunyuan2mv"
     ? CREATURE_3D_PROFILES.sHunyuan2mvRaw
@@ -1157,6 +1161,21 @@ loadCreature3D(sf3dProfile)
     sf3dLab.visible = activeLabMorph === "S";
     labGroup.add(sf3dLab);
 
+    if (animations.length) {
+      sf3dLabMixer = new THREE.AnimationMixer(sf3dLab);
+      sf3dLabMixer.clipAction(animations[0]).play();
+      let animatedBoneCount = 0;
+      sf3dLab.traverse((node) => {
+        if (node.isBone) animatedBoneCount += 1;
+      });
+      stage.dataset.sf3dAnimation = "playing";
+      stage.dataset.sf3dAnimationClip = animations[0].name || "unnamed";
+      stage.dataset.sf3dAnimationBones = String(animatedBoneCount);
+      window.__sf3dAnimatedLab = sf3dLab;
+    } else {
+      stage.dataset.sf3dAnimation = "none";
+    }
+
     const raceS = racers.find((r) => r.morph === "S");
     if (raceS && !sf3dRaceStress && !hunyuanRacePack) {
       raceS.obj.children.forEach((child) => { child.visible = false; });
@@ -1167,6 +1186,13 @@ loadCreature3D(sf3dProfile)
         placement: "race"
       });
       baseRaceModel.name = "EvoWild_S_SF3D_Race_Base";
+
+      if (animations.length) {
+        const raceMixer = new THREE.AnimationMixer(baseRaceModel);
+        raceMixer.clipAction(animations[0]).play();
+        sf3dRaceMixers.push(raceMixer);
+        window.__sf3dAnimatedRace = baseRaceModel;
+      }
 
       const useSf3dRaceLod = profile.id === CREATURE_3D_PROFILES.sSf3dCorrected.id && !sf3dVariant;
       const useHunyuanRaceLod = profile.id === CREATURE_3D_PROFILES.sHunyuan2mvStyled.id;
@@ -1700,6 +1726,11 @@ function frame(now) {
     const dt = Math.min(45, rawFrameMs);
     last = now;
     update(dt);
+    if (!paused) {
+      const animationDt = dt / 1000;
+      if (sf3dLabMixer) sf3dLabMixer.update(animationDt);
+      for (const mixer of sf3dRaceMixers) mixer.update(animationDt);
+    }
     setCamera();
     updateRaceStressInstances();
     updateHunyuanRacePackInstances();

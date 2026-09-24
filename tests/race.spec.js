@@ -851,6 +851,71 @@ test("capture styled Hunyuan prototype in Morph Lab and Race", async ({ page }, 
 });
 
 
+test("animate rigged Hunyuan skeletal proof in Morph Lab and Race", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(70000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  await page.goto(
+    "/evowild-test/?sf3dVariant=hunyuanrigged&renderScale=0.75",
+    { waitUntil: "domcontentloaded", timeout: 30000 }
+  );
+
+  const stage = page.locator("#stage");
+  await expect(stage).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
+  await expect(stage).toHaveAttribute("data-sf3d-profile", "s-hunyuan2mv-rigged-proof");
+  await expect(stage).toHaveAttribute("data-sf3d-animation", "playing");
+  await expect.poll(async () => Number(await stage.getAttribute("data-sf3d-animation-bones"))).toBeGreaterThan(0);
+
+  const sampleBone = async (which) => page.evaluate((target) => {
+    const root = target === "lab" ? window.__sf3dAnimatedLab : window.__sf3dAnimatedRace;
+    if (!root) return null;
+    let bone = null;
+    root.traverse((node) => {
+      if (!bone && node.isBone && node.name === "fore_L_upper") bone = node;
+    });
+    if (!bone) return null;
+    return [
+      Number(bone.quaternion.x.toFixed(6)),
+      Number(bone.quaternion.y.toFixed(6)),
+      Number(bone.quaternion.z.toFixed(6)),
+      Number(bone.quaternion.w.toFixed(6))
+    ];
+  }, which);
+
+  await page.getByRole("button", { name: "1 Morph" }).click();
+  await expect(page.locator("#viewLabel")).toHaveText("MORPH LAB");
+  await page.waitForTimeout(250);
+  const labA = await sampleBone("lab");
+  await page.waitForTimeout(350);
+  const labB = await sampleBone("lab");
+  expect(labA).not.toBeNull();
+  expect(labB).not.toEqual(labA);
+  await stage.screenshot({ path: `${outDir}/hunyuan-rigged-lab.png` });
+
+  await page.getByRole("button", { name: "2 Race" }).click();
+  await expect(page.locator("#viewLabel")).toHaveText("RACE VIEW");
+  await page.waitForTimeout(250);
+  const raceA = await sampleBone("race");
+  await page.waitForTimeout(350);
+  const raceB = await sampleBone("race");
+  expect(raceA).not.toBeNull();
+  expect(raceB).not.toEqual(raceA);
+  await stage.screenshot({ path: `${outDir}/hunyuan-rigged-race.png` });
+
+  console.log("HUNYUAN_RIGGED_BROWSER", JSON.stringify({
+    clip: await stage.getAttribute("data-sf3d-animation-clip"),
+    bones: Number(await stage.getAttribute("data-sf3d-animation-bones")),
+    labA,
+    labB,
+    raceA,
+    raceB
+  }));
+});
+
+
 test("run S-only Hunyuan 18-racer pack with race and follow LOD policy", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(70000);
