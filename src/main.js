@@ -8,6 +8,7 @@ const canvas = document.querySelector("#game");
 const stage = document.querySelector("#stage");
 const isMobile = matchMedia("(pointer: coarse)").matches || innerWidth < 800;
 const query = new URLSearchParams(location.search);
+const preview3d = location.pathname.includes("/preview-3d/");
 const sf3dBenchCount = Math.min(18, Math.max(0, Number.parseInt(query.get("sf3dBench") || "0", 10) || 0));
 const sf3dBenchSide = query.get("sf3dSide") === "front" ? "front" : "double";
 const sf3dBenchMode = query.get("sf3dMode") === "instance" ? "instance" : "clone";
@@ -15,9 +16,15 @@ const sf3dRaceLodBench = query.get("sf3dRaceLodBench") === "1";
 const sf3dRaceStress = query.get("sf3dRaceStress") === "1";
 const sf3dRaceStressMode = query.get("sf3dRaceStressMode") === "instance" ? "instance" : "clone";
 const sf3dMaterialMode = query.get("sf3dMaterialMode") === "lite" ? "lite" : "full";
-const hunyuanRacePack = query.get("hunyuanRacePack") === "1";
+const hunyuanRacePack =
+  query.get("hunyuanRacePack") === "1" ||
+  (preview3d && !query.has("hunyuanRacePack"));
 const hunyuanRacePackSide = query.get("hunyuanRacePackSide") === "double" ? "double" : "front";
-const renderScale = Math.min(1, Math.max(0.5, Number.parseFloat(query.get("renderScale") || "1") || 1));
+const previewRenderScale = preview3d ? (isMobile ? 0.5 : 0.75) : 1;
+const renderScale = Math.min(
+  1,
+  Math.max(0.5, Number.parseFloat(query.get("renderScale") || String(previewRenderScale)) || previewRenderScale)
+);
 const modelYawDegrees = Number.parseFloat(query.get("modelYaw") || "0") || 0;
 const modelYawRadians = THREE.MathUtils.degToRad(modelYawDegrees);
 let sf3dBenchGroup = null;
@@ -611,7 +618,7 @@ function makeLiteMaterialProfile(profile) {
   };
 }
 
-const sf3dVariant = query.get("sf3dVariant");
+const sf3dVariant = query.get("sf3dVariant") || (preview3d ? "hunyuanstyled" : null);
 const sf3dBaseProfile = sf3dVariant === "hunyuanrigged"
   ? CREATURE_3D_PROFILES.sHunyuan2mvRigged
   : sf3dVariant === "hunyuanstyled"
@@ -1461,7 +1468,14 @@ setLabMorph("S");
 let elapsed = 0;
 let last = performance.now();
 let paused = false;
-let view = "lab";
+let view = preview3d ? "race" : "lab";
+if (preview3d) {
+  const viewLabel = document.querySelector("#viewLabel");
+  if (viewLabel) viewLabel.textContent = "RACE VIEW";
+  document.querySelectorAll("[data-view]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.view === "race");
+  });
+}
 
 const ranks = () => [...racers].sort((a, b) => b.distance - a.distance);
 const rankOf = (r) => ranks().findIndex((x) => x === r) + 1;

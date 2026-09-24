@@ -1,0 +1,62 @@
+name: deploy-3d-preview
+
+on:
+  push:
+    branches: ["feat/sf3d-game-integration-20260922"]
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    if: ${{ contains(github.event.head_commit.message, '[deploy-3d-preview]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - name: Build isolated 3D preview
+        env:
+          EVOWILD_BASE: /evowild-test/preview-3d/
+        run: |
+          npm run build
+          find dist/models -maxdepth 1 -type f \
+            ! -name 'evowild-s-hunyuan2mv-lod2.glb' \
+            ! -name 'evowild-s-hunyuan2mv-lod3.glb' \
+            ! -name 'evowild-s-hunyuan2mv-lod4.glb' \
+            ! -name 'evowild-s-hunyuan2mv-rigged.glb' \
+            ! -name 'evowild-s.obj' \
+            ! -name 'evowild-s.mtl' \
+            -delete
+          test -f dist/index.html
+          test -f dist/models/evowild-s-hunyuan2mv-lod2.glb
+          test -f dist/models/evowild-s-hunyuan2mv-lod3.glb
+          test -f dist/models/evowild-s-hunyuan2mv-lod4.glb
+          test -f dist/models/evowild-s-hunyuan2mv-rigged.glb
+          du -sh dist
+          mkdir -p /tmp/evowild-preview-3d
+          cp -a dist/. /tmp/evowild-preview-3d/
+      - name: Publish preview subtree to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git reset --hard HEAD
+          git clean -fdx
+          git fetch origin main
+          git checkout main
+          git pull --rebase origin main
+          rm -rf public/preview-3d
+          mkdir -p public/preview-3d
+          cp -a /tmp/evowild-preview-3d/. public/preview-3d/
+          git add public/preview-3d
+          if git diff --cached --quiet; then
+            echo "No 3D preview changes"
+          else
+            git commit -m "preview: update isolated 3D race proof"
+            git pull --rebase origin main
+            git push origin main
+          fi

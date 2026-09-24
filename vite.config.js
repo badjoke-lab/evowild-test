@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: "/evowild-test/"
+  base: process.env.EVOWILD_BASE || "/evowild-test/"
 });
