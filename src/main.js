@@ -1785,12 +1785,12 @@ function makeCanvasTexture(canvas) {
 
 
 const generatedRunFrames = [
-  { phase: "CONTACT", col: 0, row: 0, y: 0.00, sx: 1.03, sy: 0.97, rot:  0.006 },
-  { phase: "PUSH",    col: 1, row: 0, y: 0.01, sx: 1.08, sy: 0.94, rot: -0.022 },
-  { phase: "LIFT",    col: 2, row: 0, y: 0.08, sx: 0.98, sy: 1.04, rot: -0.014 },
-  { phase: "FLIGHT",  col: 0, row: 1, y: 0.15, sx: 1.01, sy: 1.01, rot:  0.012 },
-  { phase: "REACH",   col: 1, row: 1, y: 0.08, sx: 1.09, sy: 0.95, rot:  0.024 },
-  { phase: "LAND",    col: 2, row: 1, y: 0.00, sx: 0.97, sy: 1.05, rot: -0.010 }
+  { phase: "CONTACT", col: 0, row: 0, y: 0.00, sx: 1.00, sy: 1.00, rot: 0 },
+  { phase: "PUSH",    col: 1, row: 0, y: 0.02, sx: 1.00, sy: 1.00, rot: 0 },
+  { phase: "LIFT",    col: 2, row: 0, y: 0.08, sx: 1.00, sy: 1.00, rot: 0 },
+  { phase: "FLIGHT",  col: 0, row: 1, y: 0.14, sx: 1.00, sy: 1.00, rot: 0 },
+  { phase: "REACH",   col: 1, row: 1, y: 0.07, sx: 1.00, sy: 1.00, rot: 0 },
+  { phase: "LAND",    col: 2, row: 1, y: 0.00, sx: 1.00, sy: 1.00, rot: 0 }
 ];
 const generatedRunRacers = { P: [], E: [], A: [] };
 const generatedRunTextures = new Map();
@@ -1993,7 +1993,7 @@ function installGeneratedRunFor(racer, morph, texture) {
   applyGeneratedRunFrame(racer,racer.id % generatedRunFrames.length);
   stage.dataset[morph.toLowerCase() + "RunAnimatedRacers"] = String(generatedRunRacers[morph].length);
   if (generatedRunRacers.P.length === 4 && generatedRunRacers.E.length === 4 && generatedRunRacers.A.length === 5) {
-    stage.dataset.nonSRunMotion = "sprite-sheets";
+    stage.dataset.nonSRunMotion = "dedicated-sprite-sheets";
   }
 }
 
@@ -2608,11 +2608,33 @@ textureLoader.load(
   }
 );
 
+for (const morph of ["P", "E", "A"]) {
+  textureLoader.load(
+    `${import.meta.env.BASE_URL}concept/${morph.toLowerCase()}-run-sheet.svg`,
+    (texture) => {
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.minFilter = THREE.LinearFilter;
+      texture.magFilter = THREE.LinearFilter;
+      texture.generateMipmaps = false;
+      generatedRunTextures.set(morph, texture);
+      stage.dataset[morph.toLowerCase() + "RunSheet"] = "loaded";
+      racers.forEach((racer) => installGeneratedRunFor(racer, morph, texture));
+    },
+    undefined,
+    (error) => {
+      stage.dataset[morph.toLowerCase() + "RunSheet"] = "error";
+      console.error(`${morph} dedicated run sprite sheet failed to load`, error);
+    }
+  );
+}
+
 function updateConceptReadyState() {
   if (conceptReady.size === 4) {
     stage.dataset.conceptMorphs = "loaded";
     stage.dataset.race2p5d = "loaded";
-    stage.dataset.nonSRunMotion = "articulated-cutout-rigs";
+    if (stage.dataset.nonSRunMotion !== "dedicated-sprite-sheets") {
+      stage.dataset.nonSRunMotion = "loading-dedicated-sprite-sheets";
+    }
   }
 }
 
@@ -2647,10 +2669,12 @@ for (const morph of ["S", "P", "E", "A"]) {
         raceSprite.userData.facingSign = 1;
         racer.obj.add(raceSprite);
         racer.obj.userData.raceSprite = raceSprite;
-        if (morph === "S") installSRunSpriteFor(racer);
-        else if (morph === "P") installPCutoutRigFor(racer, texture);
-        else if (morph === "E") installECutoutRigFor(racer, texture);
-        else if (morph === "A") installACutoutRigFor(racer, texture);
+        if (morph === "S") {
+          installSRunSpriteFor(racer);
+        } else {
+          const runTexture = generatedRunTextures.get(morph);
+          if (runTexture) installGeneratedRunFor(racer, morph, runTexture);
+        }
       }
 
       const material = new THREE.SpriteMaterial({
@@ -3048,21 +3072,13 @@ function update(dt) {
       const phaseOffset = (r.id * 41) % Math.round(frameMs * sRunFrames.length);
       const frameIndex = Math.floor((elapsed + phaseOffset) / frameMs) % sRunFrames.length;
       applySRunFrame(r, frameIndex);
-    } else if (r.obj.userData.pCutoutRig) {
+    } else if (r.obj.userData.generatedRunAnimated) {
       const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
-      const frameMs = THREE.MathUtils.lerp(150, 72, speedRatio);
-      const frameIndex = Math.floor((elapsed + r.id * 37) / frameMs) % pRigPoseFrames.length;
-      applyPCutoutRigMotion(r, frameIndex);
-    } else if (r.obj.userData.eCutoutRig) {
-      const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
-      const frameMs = THREE.MathUtils.lerp(168, 82, speedRatio);
-      const frameIndex = Math.floor((elapsed + r.id * 43) / frameMs) % eRigPoseFrames.length;
-      applyECutoutRigMotion(r, frameIndex);
-    } else if (r.obj.userData.aCutoutRig) {
-      const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
-      const frameMs = THREE.MathUtils.lerp(142, 66, speedRatio);
-      const frameIndex = Math.floor((elapsed + r.id * 47) / frameMs) % aRigPoseFrames.length;
-      applyACutoutRigMotion(r, frameIndex);
+      const layout = generatedRunLayout[r.morph];
+      const frameMs = THREE.MathUtils.lerp(layout.frameSlow, layout.frameFast, speedRatio);
+      const phaseOffset = (r.id * 47) % Math.round(frameMs * generatedRunFrames.length);
+      const frameIndex = Math.floor((elapsed + phaseOffset) / frameMs) % generatedRunFrames.length;
+      applyGeneratedRunFrame(r, frameIndex);
     } else if (staticMotionProfile[r.morph]) {
       const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
       const profile = staticMotionProfile[r.morph];
@@ -3089,9 +3105,7 @@ function update(dt) {
       recordAgentEvent(r, true);
       stage.dataset.finishCount = String(finishOrder.length);
       if (r.obj.userData.sRunAnimated) applySRunFrame(r, 5);
-      else if (r.obj.userData.pCutoutRig) applyPCutoutRigMotion(r, pRigPoseFrames.length - 1);
-      else if (r.obj.userData.eCutoutRig) applyECutoutRigMotion(r, eRigPoseFrames.length - 1);
-      else if (r.obj.userData.aCutoutRig) applyACutoutRigMotion(r, aRigPoseFrames.length - 1);
+      else if (r.obj.userData.generatedRunAnimated) applyGeneratedRunFrame(r, 5);
       else if (staticMotionProfile[r.morph]) applyStaticSpriteMotion(r, 5);
     }
   }
