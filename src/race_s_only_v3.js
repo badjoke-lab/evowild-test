@@ -223,6 +223,29 @@ function drawBackground(cameraMeters, baseCurve, horizon) {
   grass.addColorStop(1, "#263f2d");
   ctx.fillStyle = grass;
   ctx.fillRect(0, horizon, width, height - horizon);
+
+  // Horizontal field bands make forward motion legible even when the road is straight.
+  for (let i = 0; i < 7; i++) {
+    const y = horizon + (height - horizon) * (0.12 + i * 0.13);
+    ctx.fillStyle = `rgba(207,226,177,${0.018 + i * 0.007})`;
+    ctx.fillRect(0, y, width, Math.max(1, (i + 1) * 0.8));
+  }
+
+  // Mid-distance tree line; deliberately procedural so it remains free and lightweight.
+  const treeShift = ((cameraMeters * 2.4 + baseCurve * 160) % 92 + 92) % 92;
+  for (let x = -110 - treeShift; x < width + 110; x += 46) {
+    const variant = Math.abs(Math.sin((x + cameraMeters) * 0.031));
+    const treeH = 18 + variant * 28;
+    const treeY = horizon + 8 + variant * 8;
+    ctx.fillStyle = "rgba(43,70,51,.72)";
+    ctx.fillRect(x - 2, treeY - treeH * 0.08, 4, treeH * 0.34);
+    ctx.beginPath();
+    ctx.moveTo(x, treeY - treeH);
+    ctx.lineTo(x - treeH * 0.38, treeY);
+    ctx.lineTo(x + treeH * 0.38, treeY);
+    ctx.closePath();
+    ctx.fill();
+  }
 }
 
 function drawRoadSegment(seg, indexInView) {
@@ -293,13 +316,38 @@ function drawRoadSegment(seg, indexInView) {
     ctx.fillRect(leftX - postW * 1.8, p1.y - postH, postW * 3.6, Math.max(2, postH * 0.12));
     ctx.fillRect(rightX - postW * 1.8, p1.y - postH, postW * 3.6, Math.max(2, postH * 0.12));
   }
+
+  // Larger roadside silhouettes are a near-field speed reference, not decoration.
+  if (seg.index % 18 === 5 && indexInView < 88) {
+    const treeH = clamp(p1.w * 0.34, 8, 170);
+    const treeW = treeH * 0.48;
+    for (const side of [-1, 1]) {
+      const tx = p1.x + side * (p1.w + rumble1 + treeW * 0.95);
+      const ty = p1.y;
+      ctx.fillStyle = "rgba(48,57,42,.92)";
+      ctx.fillRect(tx - treeW * 0.07, ty - treeH * 0.28, treeW * 0.14, treeH * 0.28);
+      ctx.fillStyle = side < 0 ? "#31543c" : "#294a36";
+      ctx.beginPath();
+      ctx.moveTo(tx, ty - treeH);
+      ctx.lineTo(tx - treeW, ty - treeH * 0.18);
+      ctx.lineTo(tx + treeW, ty - treeH * 0.18);
+      ctx.closePath();
+      ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(tx, ty - treeH * 0.76);
+      ctx.lineTo(tx - treeW * 0.82, ty);
+      ctx.lineTo(tx + treeW * 0.82, ty);
+      ctx.closePath();
+      ctx.fill();
+    }
+  }
 }
 
 function makeRacers() {
   return Array.from({ length: FIELD_SIZE }, (_, i) => ({
     id: i + 1,
     name: racerNames[i],
-    distance: Math.max(0, 1.4 * (FIELD_SIZE - 1 - i)),
+    distance: Math.max(0, 2.5 * (FIELD_SIZE - 1 - i)),
     speed: 0,
     cruise: 21.7 + ((i * 7) % 5) * 0.22,
     accel: 5.2 + (i % 3) * 0.22,
@@ -469,14 +517,15 @@ function renderWorld() {
   fov = BASE_FOV + speedNorm * 8;
   cameraDepth = 1 / Math.tan((fov * 0.5) * Math.PI / 180);
 
-  const cameraMeters = clamp(focus.distance - 19.5, 0, RACE_METERS - 0.1);
+  const followDistance = width < 700 ? 34 : 28;
+  const cameraMeters = clamp(focus.distance - followDistance, 0, RACE_METERS - 0.1);
   const cameraZ = cameraMeters * WORLD_PER_METER;
   const baseSegment = findSegmentByWorld(cameraZ);
   const baseIndex = baseSegment.index;
   const basePercent = percentRemaining(cameraZ, SEGMENT_LENGTH);
   const cameraY = lerp(baseSegment.p1.world.y, baseSegment.p2.world.y, basePercent) + CAMERA_HEIGHT;
 
-  cameraXTarget = focus.lane * ROAD_WIDTH * 0.72;
+  cameraXTarget = focus.lane * ROAD_WIDTH * 0.66;
   cameraX = lerp(cameraX, cameraXTarget, 0.055 + speedNorm * 0.035);
 
   let x = 0;
@@ -551,7 +600,8 @@ function drawTracksideMotion(visible, speedNorm) {
 }
 
 function projectRacer(racer, cameraZ) {
-  const racerZ = racer.distance * WORLD_PER_METER;
+  const racerMeters = Math.min(racer.distance, RACE_METERS - 0.001);
+  const racerZ = racerMeters * WORLD_PER_METER;
   const dz = racerZ - cameraZ;
   if (dz < SEGMENT_LENGTH * 0.35 || dz > DRAW_DISTANCE * SEGMENT_LENGTH) return null;
 
@@ -567,7 +617,7 @@ function projectRacer(racer, cameraZ) {
   if (!Number.isFinite(y) || !Number.isFinite(roadX) || roadW <= 1) return null;
 
   return {
-    x: roadX + racer.lane * roadW * 0.76,
+    x: roadX + racer.lane * roadW * 0.66,
     y,
     roadW,
     scale,
@@ -590,8 +640,12 @@ function drawRacers(cameraZ, baseIndex, speedNorm) {
     const r = item.racer;
     const selectedRacer = r.id === SELECTED_ID;
 
-    const screenFactor = clamp(item.roadW / (width * 0.43), 0.17, 1.35);
-    const spriteW = clamp(268 * screenFactor, 38, selectedRacer ? 286 : 248);
+    const mobile = width < 700;
+    const screenFactor = clamp(item.roadW / (width * (mobile ? 0.62 : 0.52)), 0.14, 1.12);
+    const maxWidth = mobile
+      ? width * (selectedRacer ? 0.34 : 0.29)
+      : width * (selectedRacer ? 0.19 : 0.17);
+    const spriteW = clamp((mobile ? 150 : 220) * screenFactor, mobile ? 28 : 34, maxWidth);
     const spriteH = spriteW * 0.84;
 
     const cadence = 7.0 + clamp(r.speed / 24, 0, 1) * 7.4;
