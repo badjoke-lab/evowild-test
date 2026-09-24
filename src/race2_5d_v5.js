@@ -59,11 +59,13 @@ const playerZ = 920;
 const SPRITE_WORLD_SCALE = 0.00046;
 
 const COLORS = {
+  FOG:"#294d40",
   LIGHT: { road:"#4d5961", grass:"#315949", rumble:"#d6dce0", lane:"#cbd7de" },
   DARK:  { road:"#414b52", grass:"#294d40", rumble:"#6d7880", lane:"#94a4ad" },
   START: { road:"#66717a", grass:"#315949", rumble:"#ffffff", lane:"#e7f2f8" },
   FINISH:{ road:"#222a30", grass:"#294d40", rumble:"#ffffff", lane:"#ffffff" }
 };
+window.COLORS = COLORS;
 
 const segments = [];
 let trackLength = 0;
