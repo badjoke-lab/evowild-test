@@ -393,10 +393,10 @@ function buildTrack() {
 
   stage.dataset.trackEdgeRhythm = "curb-v1";
 
-  const roadsideCount = isMobile ? 34 : 52;
-  const signGeometry = new THREE.BoxGeometry(0.10, 1.05, 0.42);
-  const signLight = new THREE.MeshBasicMaterial({ color: 0xdce8ee });
-  const signAccent = new THREE.MeshBasicMaterial({ color: 0x36b7e4 });
+  const roadsideCount = presentationMode ? (isMobile ? 16 : 22) : (isMobile ? 34 : 52);
+  const signGeometry = new THREE.BoxGeometry(0.10, 0.64, 0.24);
+  const signLight = new THREE.MeshBasicMaterial({ color: 0xd7ddd8 });
+  const signAccent = new THREE.MeshBasicMaterial({ color: 0x31414a });
   const roadsideMeshes = [
     new THREE.InstancedMesh(signGeometry, signLight, roadsideCount),
     new THREE.InstancedMesh(signGeometry, signAccent, roadsideCount)
@@ -410,7 +410,7 @@ function buildTrack() {
     const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
     const outside = (i % 2 ? 1 : -1) * (railOffset + 1.18);
     const q = p.clone().addScaledVector(side, outside);
-    signDummy.position.set(q.x, 0.58, q.z);
+    signDummy.position.set(q.x, 0.34, q.z);
     signDummy.rotation.set(0, Math.atan2(-tangent.z, tangent.x), 0);
     signDummy.scale.set(1, 0.78 + (i % 3) * 0.08, 1);
     signDummy.updateMatrix();
@@ -479,8 +479,9 @@ function buildTrack() {
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
-  stage.dataset.trackPresentation = "v12";
+  stage.dataset.trackPresentation = "v13";
   stage.dataset.presentationField = presentationMode ? "s-only-5" : "full-18";
+  stage.dataset.presentationSpeed = presentationMode ? "1.65x" : "1x";
   stage.dataset.raceQualityPass = "floor-v2";
   stage.dataset.presentationMode = presentationMode ? "cinematic" : "standard";
 }
@@ -2436,6 +2437,7 @@ const rankOf = (r) => ranks().findIndex((x) => x === r) + 1;
 function gapAhead(r, lane = Math.round(r.laneF)) {
   let gap = 999;
   for (const other of racers) {
+    if (presentationMode && other.morph !== "S") continue;
     if (other === r || other.finished || Math.round(other.laneF) !== lane) continue;
     const d = other.distance - r.distance;
     if (d > 0 && d < gap) gap = d;
@@ -2445,6 +2447,7 @@ function gapAhead(r, lane = Math.round(r.laneF)) {
 
 function laneFree(r, lane) {
   return racers.every((other) =>
+    (presentationMode && other.morph !== "S") ||
     other === r ||
     other.finished ||
     Math.round(other.laneF) !== lane ||
@@ -2629,6 +2632,7 @@ function update(dt) {
   const sec = raceDt / 1000;
 
   for (const r of racers) {
+    if (presentationMode && r.morph !== "S") continue;
     if (r.finished) {
       r.speed = 0;
       continue;
@@ -2682,7 +2686,7 @@ function update(dt) {
     const diff = target - r.speed;
     const maxStep = (diff > 0 ? r.accel : r.accel * 1.5) * sec;
     r.speed += THREE.MathUtils.clamp(diff, -maxStep, maxStep);
-    r.distance += Math.max(0, r.speed) * sec;
+    r.distance += Math.max(0, r.speed) * sec * (presentationMode ? 1.65 : 1);
 
     const load = Math.max(0, r.speed / r.cruise - 0.96);
     r.stamina = Math.max(0, r.stamina - (0.018 + 0.038 * load * load) * r.drain * raceDt / 1000);
@@ -2837,17 +2841,17 @@ function setCamera() {
     const followBack = isolatedProof
       ? (isMobile ? -1.5 : isolatedBack)
       : presentationMode
-        ? (isMobile ? -6.8 : -7.3)
+        ? (isMobile ? -5.9 : -6.15)
         : (isMobile ? -2.2 : -1.35);
     const followSide = isolatedProof
       ? (isMobile ? 4.3 : isolatedSide)
       : presentationMode
-        ? (isMobile ? 0.70 : 0.82)
+        ? (isMobile ? 0.55 : 0.68)
         : (isMobile ? 4.8 : 3.95);
     const followHeight = isolatedProof
       ? (isMobile ? 1.92 : isolatedHeight)
       : presentationMode
-        ? (isMobile ? 1.75 : 1.62)
+        ? (isMobile ? 1.52 : 1.42)
         : (isMobile ? 2.18 : 1.68);
     const shake = Math.max(0, speedRatio - 0.34) * (isolatedProof ? 0.075 : presentationMode ? 0.08 : 0.13);
     const desired = selectedPos.clone()
@@ -2856,7 +2860,7 @@ function setCamera() {
       .add(new THREE.Vector3(0, followHeight + Math.sin(elapsed * 0.031) * shake * 0.6, 0));
     camera.position.lerp(desired, 0.15);
     const lookTarget = selectedPos.clone()
-      .addScaledVector(tangent, presentationMode ? (4.8 + speedRatio * 2.0) : (3.8 + speedRatio * 1.4))
+      .addScaledVector(tangent, presentationMode ? (4.25 + speedRatio * 1.65) : (3.8 + speedRatio * 1.4))
       .addScaledVector(side, presentationMode ? 0.35 : Math.sin(elapsed * 0.017) * shake * 0.45)
       .add(new THREE.Vector3(0, presentationMode ? 0.52 : 0.50, 0));
     camera.lookAt(lookTarget);
