@@ -75,3 +75,43 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
     await page.locator("#stage").screenshot({ path: `${outDir}/android-${name}.png` });
   }
 });
+
+
+test("lane 4 pseudo-3D S-only race renders and advances", async ({ page }, testInfo) => {
+  const pageErrors = [];
+  const consoleErrors = [];
+
+  page.on("pageerror", (err) => pageErrors.push(err.stack || String(err)));
+  page.on("console", (msg) => {
+    if (msg.type() === "error") consoleErrors.push(msg.text());
+  });
+
+  await page.goto("/evowild-test/race-2_5d-lane4.html", { waitUntil: "networkidle" });
+  await expect(page.locator("#stage")).toHaveAttribute("data-s-sheet", "ready", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-lane4", "running", { timeout: 8000 });
+  await expect(page.locator("#race")).toBeVisible();
+
+  const startDistance = await page.locator("#distance").textContent();
+  await page.waitForTimeout(1600);
+  const nextDistance = await page.locator("#distance").textContent();
+
+  expect(nextDistance).not.toBe(startDistance);
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+
+  const canvas = await page.locator("#race").evaluate((el) => ({
+    width: el.width,
+    height: el.height,
+    cssWidth: el.getBoundingClientRect().width,
+    cssHeight: el.getBoundingClientRect().height
+  }));
+  expect(canvas.width).toBeGreaterThan(0);
+  expect(canvas.height).toBeGreaterThan(0);
+  expect(canvas.cssWidth).toBeGreaterThan(0);
+  expect(canvas.cssHeight).toBeGreaterThan(0);
+
+  if (testInfo.project.name === "android-chromium") {
+    fs.mkdirSync("test-results/visuals", { recursive: true });
+    await page.locator("#stage").screenshot({ path: "test-results/visuals/android-lane4-pseudo3d.png" });
+  }
+});
