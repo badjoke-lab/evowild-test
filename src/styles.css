@@ -12,6 +12,11 @@ body { min-height: 100vh; background: #0b1015; }
 h1 { margin: 0; font-size: 20px; }
 .topbar p { margin: 2px 0 0; color: #93a3b2; font-size: 12px; }
 .controls { display: flex; gap: 7px; flex-wrap: wrap; }
+.mode-link {
+  border: 1px solid #3f6380; background: #17324a; color: #dff3ff;
+  border-radius: 8px; padding: 9px 12px; font-weight: 800; cursor: pointer; text-decoration: none;
+}
+.mode-link:hover { border-color: #6bb1ff; background: #1d405d; }
 button {
   border: 1px solid #283542; background: #151f29; color: #edf3f8;
   border-radius: 8px; padding: 9px 12px; font-weight: 750; cursor: pointer;
