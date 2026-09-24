@@ -55,7 +55,7 @@ try{
   renderer.outputColorSpace=THREE.SRGBColorSpace;
   renderer.toneMapping=THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure=1.08;
-  renderer.setPixelRatio(Math.min(devicePixelRatio||1,innerWidth<700?1.45:1.6));
+  renderer.setPixelRatio(Math.min(devicePixelRatio||1,innerWidth<700?1.25:1.35));
   stage.dataset.webglReady="true";
 }catch(error){
   stage.dataset.webglReady="error";
@@ -491,7 +491,6 @@ spriteSheet.onerror=()=>{
 };
 
 function updateVisuals(){
-  const speedScale=innerWidth<700?1:1.05;
   for(const r of racers){
     if(!r.visual)continue;
     const p=trackPoint(r.distance,new THREE.Vector3());
@@ -505,9 +504,14 @@ function updateVisuals(){
     const frame=S_FRAMES[frameIndex];
     drawSpriteFrame(r,frameIndex);
 
+    const fw=spriteSheet.naturalWidth/3;
+    const fh=spriteSheet.naturalHeight/2;
+    const aspect=fw/fh;
+    const spriteH=(innerWidth<700?2.55:2.9)*(r.id===SELECTED_ID?1.06:1);
+    r.visual.sprite.scale.set(spriteH*aspect,spriteH,1);
+
     const flight=frame.phase==="FLIGHT"?1:frame.phase==="REACH"?.55:frame.phase==="LIFT"?.25:0;
     r.visual.sprite.position.set(p.x,p.y+.42+flight*.14,p.z);
-    r.visual.sprite.scale.multiplyScalar(speedScale);
 
     r.shadow.position.set(p.x,p.y+.045,p.z);
     const shadowScale=flight?1.0:1.35;
@@ -634,9 +638,9 @@ stage.dataset.raceState="countdown";
 ui.assetStatus.textContent="Loading S run cycle…";
 
 function frame(now){
-  const dt=Math.min(60,Math.max(0,now-last));
+  const rawDt=Math.max(0,now-last);
   last=now;
-  updateRace(dt);
+  updateRace(rawDt);
   updateVisuals();
   updateCamera();
   renderer.render(scene,camera);
