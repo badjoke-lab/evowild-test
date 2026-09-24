@@ -58,6 +58,8 @@ let frameCounter = 0;
 let lastRankingPaint = 0;
 let cameraMeters = 0;
 let cameraVelocity = 0;
+let pixelsPerMeter = 8;
+let pixelsPerMeterVelocity = 0;
 
 const clamp = (v,a,b) => Math.max(a, Math.min(b,v));
 const lerp = (a,b,t) => a + (b-a)*t;
@@ -298,9 +300,8 @@ function drawBackground() {
 }
 
 function screenXForMeters(m) {
-  const anchor = width<700 ? width*.31 : width*.34;
-  const pxPerMeter = width<700 ? 6.4 : 8.0;
-  return anchor + (m-cameraMeters)*pxPerMeter;
+  const anchor = width<700 ? width*.27 : width*.34;
+  return anchor + (m-cameraMeters)*pixelsPerMeter;
 }
 
 function trackBaseY(m) {
@@ -320,10 +321,9 @@ function laneScale(lane) {
 }
 
 function drawTrack() {
-  const pxPerMeter = width<700 ? 6.4 : 8.0;
-  const leftM = cameraMeters - width*.40/pxPerMeter;
-  const rightM = cameraMeters + width*.80/pxPerMeter;
-  const step=2.4;
+  const leftM = cameraMeters - width*.40/pixelsPerMeter;
+  const rightM = cameraMeters + width*.84/pixelsPerMeter;
+  const step=2.0;
 
   // Four perspective bands.
   for (let lane=0; lane<4; lane++) {
@@ -359,15 +359,32 @@ function drawTrack() {
     ctx.stroke();
   }
 
+  // Repeating ground marks make speed visible even when the racers are clustered.
+  for(let lane=0;lane<4;lane++){
+    const yOffset=laneOffset(lane)+14;
+    ctx.strokeStyle=lane===3?"rgba(238,243,235,.34)":"rgba(229,236,226,.18)";
+    ctx.lineWidth=lane===3?2:1;
+    for(let m=Math.floor(leftM/7)*7;m<=rightM+8;m+=7){
+      const x1=screenXForMeters(m);
+      const x2=screenXForMeters(m+2.2);
+      const y1=trackBaseY(m)+yOffset;
+      const y2=trackBaseY(m+2.2)+yOffset;
+      ctx.beginPath();
+      ctx.moveTo(x1,y1);
+      ctx.lineTo(x2,y2);
+      ctx.stroke();
+    }
+  }
+
   // Roadside posts: strong speed cue.
-  for (let m=Math.floor(leftM/12)*12; m<=rightM+18; m+=12) {
+  for (let m=Math.floor(leftM/10)*10; m<=rightM+16; m+=10) {
     const x=screenXForMeters(m);
-    const y=trackBaseY(m)-52;
-    const s=clamp(1+(m-cameraMeters)*.002,.72,1.18);
+    const y=trackBaseY(m)-54;
+    const sc=clamp(1+(m-cameraMeters)*.002,.72,1.18);
     ctx.fillStyle="rgba(229,238,235,.9)";
-    ctx.fillRect(x-2*s,y,4*s,45*s);
+    ctx.fillRect(x-2*sc,y,4*sc,47*sc);
     ctx.fillStyle="#385245";
-    ctx.fillRect(x-7*s,y,14*s,5*s);
+    ctx.fillRect(x-7*sc,y,14*sc,5*sc);
   }
 
   // Near grass blades and dust streaks.
@@ -379,7 +396,7 @@ function drawTrack() {
     ctx.strokeStyle="rgba(232,240,214,.5)";
     for(let i=0;i<18;i++){
       const y=height*(.72+((i*29)%22)/100);
-      const x=((i*83 - cameraMeters*8.5)%(width+180))-90;
+      const x=((i*83 - cameraMeters*(pixelsPerMeter*1.72))%(width+180))-90;
       ctx.beginPath();
       ctx.moveTo(x,y);
       ctx.lineTo(x-55-speedNorm*85,y+3);
@@ -391,14 +408,21 @@ function drawTrack() {
 
 function drawRacers() {
   const list=[];
+  let minX=Infinity;
+  let maxX=-Infinity;
   for(const r of racers){
     const x=screenXForMeters(r.distance);
     if(x<-220 || x>width+260) continue;
     const lane=clamp(r.lane,0,3);
     const y=trackBaseY(r.distance)+laneOffset(lane);
     list.push({r,x,y,lane});
+    minX=Math.min(minX,x);
+    maxX=Math.max(maxX,x);
   }
   list.sort((a,b)=>a.lane-b.lane);
+  stage.dataset.visibleRacers=String(list.length);
+  stage.dataset.fieldMinX=Number.isFinite(minX)?minX.toFixed(1):"";
+  stage.dataset.fieldMaxX=Number.isFinite(maxX)?maxX.toFixed(1):"";
 
   for(const item of list){
     const r=item.r;
@@ -473,7 +497,7 @@ function drawRacers() {
 }
 
 function drawForeground() {
-  const shift=-cameraMeters*2.2;
+  const shift=-cameraMeters*(pixelsPerMeter*.52);
   ctx.save();
   ctx.globalAlpha=.68;
   for(let i=-2;i<Math.ceil(width/90)+4;i++){
@@ -497,18 +521,77 @@ function drawForeground() {
   ctx.restore();
 }
 
+function updateCamera() {
+  const focus=selected();
+  const live=racers.filter(r=>!r.finished);
+  const front=live.length?Math.max(...live.map(r=>r.distance)):focus.distance;
+  const back=live.length?Math.min(...live.map(r=>r.distance)):focus.distance;
+  const ahead=Math.max(0,front-focus.distance);
+  const behind=Math.max(0,focus.distance-back);
+
+  // Mobile must keep the race readable: zoom out only when the pack genuinely spreads.
+  const base=width<700?6.4:8.0;
+  const usableAhead=width*(width<700?.64:.56);
+  const usableBehind=width*(width<700?.16:.20);
+  const byAhead=ahead>1?usableAhead/ahead:base;
+  const byBehind=behind>1?usableBehind/behind:base;
+  const targetPPM=clamp(Math.min(base,byAhead,byBehind),width<700?3.9:5.2,base);
+  const ppmDelta=targetPPM-pixelsPerMeter;
+  pixelsPerMeterVelocity=lerp(pixelsPerMeterVelocity,ppmDelta*.18,.16);
+  pixelsPerMeter+=pixelsPerMeterVelocity*.11;
+
+  // Keep selected S left-of-centre and give more room in the direction of travel.
+  const lookAhead=clamp(ahead*.06,0,3.5);
+  const targetCamera=Math.max(0,focus.distance+lookAhead);
+  const delta=targetCamera-cameraMeters;
+  cameraVelocity=lerp(cameraVelocity,delta*.11,.16);
+  cameraMeters+=cameraVelocity*.075;
+  if(Math.abs(delta)<.015) cameraMeters=targetCamera;
+
+  stage.dataset.pixelsPerMeter=pixelsPerMeter.toFixed(2);
+}
+
+function drawSpeedRush() {
+  const focus=selected();
+  const speedNorm=clamp(focus.speed/24.5,0,1);
+  if(speedNorm<.52)return;
+
+  ctx.save();
+  const strength=(speedNorm-.52)/.48;
+  ctx.globalAlpha=.12+.25*strength;
+  ctx.strokeStyle="rgba(238,247,243,.78)";
+  ctx.lineCap="round";
+  const count=width<700?14:22;
+  for(let i=0;i<count;i++){
+    const band=(i%5)/5;
+    const y=height*(.61+band*.31)+Math.sin(i*1.73)*8;
+    const phase=(elapsed*.24*(1+band*.6)+i*97)%(width+220);
+    const x=width+80-phase;
+    const len=34+strength*105+band*55;
+    ctx.lineWidth=.7+band*1.4;
+    ctx.beginPath();
+    ctx.moveTo(x,y);
+    ctx.lineTo(x-len,y+band*3);
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
 function render() {
   const focus=selected();
-  const targetCamera=Math.max(0,focus.distance);
-  const delta=targetCamera-cameraMeters;
-  cameraVelocity=lerp(cameraVelocity,delta*.085,.12);
-  cameraMeters+=cameraVelocity*.055;
-  if(Math.abs(delta)<.02) cameraMeters=targetCamera;
+  updateCamera();
+
+  const speedNorm=clamp(focus.speed/24.5,0,1);
+  const shake=speedNorm>.70?(speedNorm-.70)*5.2:0;
+  ctx.save();
+  ctx.translate(Math.sin(elapsed*.041)*shake,Math.sin(elapsed*.053+1.2)*shake*.38);
 
   drawBackground();
   drawTrack();
   drawRacers();
   drawForeground();
+  drawSpeedRush();
+  ctx.restore();
 
   // subtle speed vignette
   const speedNorm=clamp(focus.speed/24.5,0,1);
@@ -558,6 +641,8 @@ function resetRace(){
   finishCounter=0;
   cameraMeters=0;
   cameraVelocity=0;
+  pixelsPerMeter=width<700?6.4:8.0;
+  pixelsPerMeterVelocity=0;
   paused=false;
   ui.pause.textContent="Pause";
   ui.countdown.hidden=false;
