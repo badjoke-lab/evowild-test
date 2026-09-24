@@ -1054,52 +1054,49 @@ loadCreature3D(sf3dProfile)
       });
       baseRaceModel.name = "EvoWild_S_SF3D_Race_Base";
 
-      const useRaceLod = profile.id === CREATURE_3D_PROFILES.sSf3dCorrected.id && !sf3dVariant;
+      const useSf3dRaceLod = profile.id === CREATURE_3D_PROFILES.sSf3dCorrected.id && !sf3dVariant;
+      const useHunyuanRaceLod = profile.id === CREATURE_3D_PROFILES.sHunyuan2mvStyled.id;
+      const useRaceLod = useSf3dRaceLod || useHunyuanRaceLod;
+
       if (useRaceLod) {
         const raceLod = new THREE.LOD();
-        raceLod.name = "EvoWild_S_SF3D_Race_LOD";
+        raceLod.name = useHunyuanRaceLod
+          ? "EvoWild_S_Hunyuan_Race_LOD"
+          : "EvoWild_S_SF3D_Race_LOD";
         raceLod.addLevel(baseRaceModel, 0);
         raceS.obj.add(raceLod);
         raceS.obj.userData.sf3d = raceLod;
         stage.dataset.sf3dRaceLod = "loading";
         stage.dataset.sf3dRaceLodLevels = "1";
 
-        Promise.all([
-          loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod1),
-          loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod2Lite),
-          loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod3Lite)
-        ])
-          .then(([lod1Data, lod2Data, lod3Data]) => {
-            const lod1Model = fitCreature3D(cloneCreature3D(lod1Data.source), {
-              renderer,
-              profile: lod1Data.profile,
-              placement: "race"
-            });
-            lod1Model.name = "EvoWild_S_SF3D_Race_LOD1";
+        const extraProfiles = useHunyuanRaceLod
+          ? [
+              CREATURE_3D_PROFILES.sHunyuan2mvStyledLod3,
+              CREATURE_3D_PROFILES.sHunyuan2mvStyledLod4
+            ]
+          : [
+              CREATURE_3D_PROFILES.sSf3dCorrectedLod1,
+              CREATURE_3D_PROFILES.sSf3dCorrectedLod2Lite,
+              CREATURE_3D_PROFILES.sSf3dCorrectedLod3Lite
+            ];
+        const distances = useHunyuanRaceLod ? [16, 30] : [9, 18, 30];
 
-            const lod2Model = fitCreature3D(cloneCreature3D(lod2Data.source), {
-              renderer,
-              profile: lod2Data.profile,
-              placement: "race"
+        Promise.all(extraProfiles.map((lodProfile) => loadCreature3D(lodProfile)))
+          .then((lodData) => {
+            lodData.forEach((data, index) => {
+              const lodModel = fitCreature3D(cloneCreature3D(data.source), {
+                renderer,
+                profile: data.profile,
+                placement: "race"
+              });
+              lodModel.name = `${raceLod.name}_L${index + 1}`;
+              raceLod.addLevel(lodModel, distances[index]);
             });
-            lod2Model.name = "EvoWild_S_SF3D_Race_LOD2";
 
-            const lod3Model = fitCreature3D(cloneCreature3D(lod3Data.source), {
-              renderer,
-              profile: lod3Data.profile,
-              placement: "race"
-            });
-            lod3Model.name = "EvoWild_S_SF3D_Race_LOD3";
-
-            raceLod.addLevel(lod1Model, 9);
-            raceLod.addLevel(lod2Model, 18);
-            raceLod.addLevel(lod3Model, 30);
             stage.dataset.sf3dRaceLod = "loaded";
             stage.dataset.sf3dRaceLodProfiles = [
               profile.id,
-              lod1Data.profile.id,
-              lod2Data.profile.id,
-              lod3Data.profile.id
+              ...lodData.map((data) => data.profile.id)
             ].join(",");
             stage.dataset.sf3dRaceLodLevels = String(raceLod.levels.length);
             stage.dataset.sf3dRaceLodDistances = raceLod.levels.map((level) => level.distance).join(",");
@@ -1107,10 +1104,10 @@ loadCreature3D(sf3dProfile)
           })
           .catch((error) => {
             stage.dataset.sf3dRaceLod = "error";
-            console.error("Race LOD assets failed to load; keeping base SF3D race model", error);
+            console.error("Race LOD assets failed to load; keeping base race model", error);
           });
       } else {
-        baseRaceModel.name = "EvoWild_S_SF3D_Race";
+        baseRaceModel.name = "EvoWild_S_3D_Race";
         raceS.obj.add(baseRaceModel);
         raceS.obj.userData.sf3d = baseRaceModel;
         stage.dataset.sf3dRaceLod = "disabled";
