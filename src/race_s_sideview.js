@@ -27,12 +27,12 @@ const smooth = t => t * t * (3 - 2 * t);
 const PHASES = [
   // Use the six complete-body poses in biomechanical order:
   // load/contact -> maximal extension -> tuck -> airborne extension -> reach -> land.
-  { name:"CONTACT",  col:1, row:1, duration:62,  lift:0,  pitch:3.2,  x:-4, scaleX:.975, scaleY:1.035 },
+  { name:"CONTACT",  col:1, row:1, duration:62,  lift:0,  pitch:0.0,  x:-4, scaleX:.975, scaleY:1.035 },
   { name:"PUSH",     col:1, row:0, duration:76,  lift:1,  pitch:-2.8, x:3,  scaleX:1.060, scaleY:.965 },
   { name:"RECOVERY", col:0, row:1, duration:76,  lift:13, pitch:-1.6, x:5,  scaleX:1.010, scaleY:.985 },
   { name:"FLIGHT",   col:2, row:0, duration:102, lift:30, pitch:-1.1, x:9,  scaleX:1.045, scaleY:.975 },
   { name:"REACH",    col:0, row:0, duration:82,  lift:12, pitch:.9,   x:5,  scaleX:1.018, scaleY:.995 },
-  { name:"LAND",     col:2, row:1, duration:66,  lift:0,  pitch:3.0,  x:0,  scaleX:.990, scaleY:1.020 }
+  { name:"LAND",     col:2, row:1, duration:66,  lift:0,  pitch:0.0,  x:0,  scaleX:.990, scaleY:1.020 }
 ];
 const CYCLE_MS = PHASES.reduce((sum, p) => sum + p.duration, 0);
 
