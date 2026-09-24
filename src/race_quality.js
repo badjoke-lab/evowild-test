@@ -433,7 +433,7 @@ function laneYAt(m,lane) {
 
 function laneOffset(lane) {
   const portrait=height>width*1.35;
-  const stops=portrait?[-142,-48,50,148]:[-82,-28,30,88];
+  const stops=portrait?[-78,-26,28,84]:[-82,-28,30,88];
   const lo=Math.floor(clamp(lane,0,3));
   const hi=Math.ceil(clamp(lane,0,3));
   const t=clamp(lane-lo,0,1);
@@ -441,7 +441,7 @@ function laneOffset(lane) {
 }
 function laneScale(lane) {
   const t=clamp(lane/3,0,1);
-  return lerp(.68,1.12,t);
+  return lerp(.76,1.08,t);
 }
 
 function drawTrack() {
@@ -561,14 +561,14 @@ function drawTrack() {
   const speedNorm=clamp(focus.speed/31.5,0,1);
   if(speedNorm>.30){
     ctx.save();
-    ctx.globalAlpha=clamp((speedNorm-.30)*.64,0,.43);
+    ctx.globalAlpha=clamp((speedNorm-.30)*.46,0,.28);
     ctx.strokeStyle="rgba(232,240,214,.48)";
-    for(let i=0;i<18;i++){
+    for(let i=0;i<12;i++){
       const y=height*(.80+((i*29)%17)/100);
       const x=((i*83-cameraMeters*(pixelsPerMeter*1.72))%(width+180))-90;
       ctx.beginPath();
       ctx.moveTo(x,y);
-      ctx.lineTo(x-58-speedNorm*92,y+3);
+      ctx.lineTo(x-42-speedNorm*76,y+2);
       ctx.stroke();
     }
     ctx.restore();
@@ -638,8 +638,8 @@ function drawRacers() {
     const meta=MORPH_META[r.morph] ?? MORPH_META.S;
     const frames=spriteFrames.get(r.morph);
     const baseW = width<700
-      ? clamp(width*.14,90,124)
-      : clamp(width*.092,122,148);
+      ? clamp(width*.13,78,108)
+      : clamp(width*.078,104,128);
     const spriteW=baseW*scale*(selectedRacer?1.04:1)*meta.width;
     const sampleFrame=frames?.[0];
     const sourceAspect=sampleFrame
@@ -791,10 +791,10 @@ function drawSpeedRush() {
 
   ctx.save();
   const strength=clamp((speedNorm-.36)/.64,0,1);
-  ctx.globalAlpha=.12+.25*strength;
+  ctx.globalAlpha=.08+.18*strength;
   ctx.strokeStyle="rgba(238,247,243,.78)";
   ctx.lineCap="round";
-  const count=width<700?20:34;
+  const count=width<700?14:24;
   for(let i=0;i<count;i++){
     const band=(i%5)/5;
     const y=height*(.61+band*.31)+Math.sin(i*1.73)*8;
