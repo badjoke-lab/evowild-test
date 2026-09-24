@@ -6,6 +6,7 @@ const assetStatus = document.querySelector("#assetStatus");
 const BASE = import.meta.env.BASE_URL || "/";
 const params = new URLSearchParams(location.search);
 const PLAYBACK_RATE = params.has("slow") ? 0.35 : 1;
+const FIXED_POSE = (params.get("pose") || "").toUpperCase();
 
 let width = 1;
 let height = 1;
@@ -118,6 +119,12 @@ sheet.onerror = () => {
   stage.dataset.motionPhase = "error";
   assetStatus.textContent = "S run frames failed";
 };
+
+function fixedPhaseState(name) {
+  const index = PHASES.findIndex(phase => phase.name === name);
+  if (index < 0) return null;
+  return { index, phase: PHASES[index], t: .08, cycle: 0 };
+}
 
 function phaseState(ms) {
   const cycle = ((ms % CYCLE_MS) + CYCLE_MS) % CYCLE_MS;
@@ -340,7 +347,7 @@ function renderCreature(state) {
 }
 
 function render() {
-  const state = phaseState(elapsed);
+  const state = fixedPhaseState(FIXED_POSE) || phaseState(elapsed);
   drawBackground(.94);
   if (sheetReady) renderCreature(state);
 
@@ -359,8 +366,10 @@ function render() {
 function frame(now) {
   const dt = clamp(now - last, 0, 45);
   last = now;
-  elapsed += dt * PLAYBACK_RATE;
-  worldTravel += dt * .48 * PLAYBACK_RATE;
+  if (!FIXED_POSE) {
+    elapsed += dt * PLAYBACK_RATE;
+    worldTravel += dt * .48 * PLAYBACK_RATE;
+  }
   render();
   requestAnimationFrame(frame);
 }
