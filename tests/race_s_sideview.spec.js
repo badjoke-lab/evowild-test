@@ -1,6 +1,19 @@
 import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 
+async function waitForPhase(page, phase, timeout = 3000) {
+  return page.evaluate(({ phase, timeout }) => new Promise((resolve, reject) => {
+    const stage = document.querySelector("#stage");
+    const started = performance.now();
+    const tick = () => {
+      if (stage?.dataset.motionPhase === phase) return resolve(true);
+      if (performance.now() - started > timeout) return reject(new Error("phase timeout: " + phase));
+      requestAnimationFrame(tick);
+    };
+    tick();
+  }), { phase, timeout });
+}
+
 test("S visual lane is one articulated creature with grounded gait phases", async ({ page }, testInfo) => {
   const pageErrors = [];
   const consoleErrors = [];
@@ -57,13 +70,14 @@ test("S visual lane is one articulated creature with grounded gait phases", asyn
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
 
   fs.mkdirSync("test-results/visuals", { recursive: true });
+  if (testInfo.project.name === "desktop-chromium") {
+    fs.copyFileSync("public/concept/S.webp", "test-results/visuals/source-S.webp");
+  }
 
-  await expect.poll(
-    async () => stage.getAttribute("data-motion-phase"),
-    { timeout: 3000, intervals: [20, 30, 40] }
-  ).toBe("FLIGHT");
-
-  await stage.screenshot({
-    path: `test-results/visuals/${testInfo.project.name}-s-motion-flight.png`
-  });
+  for (const phase of ["CONTACT", "PUSH", "FLIGHT", "REACH"]) {
+    await waitForPhase(page, phase);
+    await stage.screenshot({
+      path: `test-results/visuals/${testInfo.project.name}-s-motion-${phase.toLowerCase()}.png`
+    });
+  }
 });
