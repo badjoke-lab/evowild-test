@@ -15,6 +15,8 @@ const sf3dRaceLodBench = query.get("sf3dRaceLodBench") === "1";
 const sf3dRaceStress = query.get("sf3dRaceStress") === "1";
 const sf3dRaceStressMode = query.get("sf3dRaceStressMode") === "instance" ? "instance" : "clone";
 const sf3dMaterialMode = query.get("sf3dMaterialMode") === "lite" ? "lite" : "full";
+const hunyuanRacePack = query.get("hunyuanRacePack") === "1";
+const hunyuanRacePackSide = query.get("hunyuanRacePackSide") === "double" ? "double" : "front";
 const renderScale = Math.min(1, Math.max(0.5, Number.parseFloat(query.get("renderScale") || "1") || 1));
 const modelYawDegrees = Number.parseFloat(query.get("modelYaw") || "0") || 0;
 const modelYawRadians = THREE.MathUtils.degToRad(modelYawDegrees);
@@ -32,6 +34,8 @@ let sf3dRaceStressReady = false;
 let sf3dRaceStressBatches = null;
 let sf3dRaceStressConfig = null;
 let sf3dRaceStressLevelCounts = [];
+let hunyuanRacePackBatches = null;
+let hunyuanRacePackCounts = [0, 0, 0];
 
 const runtimeStatus = document.createElement("div");
 runtimeStatus.className = "runtime-status";
@@ -905,6 +909,85 @@ function sampleRaceStress(now, frameMs) {
   stage.dataset.sf3dRaceStress = "ready";
 }
 
+function setupHunyuanRacePack(baseData, lod3Data, lod4Data) {
+  if (!hunyuanRacePack) return;
+
+  const levels = [baseData, lod3Data, lod4Data];
+  hunyuanRacePackBatches = levels.map((data) => {
+    const batch = createStaticCreatureInstanceBatch(data.source, {
+      renderer,
+      profile: data.profile,
+      placement: "race",
+      count: racers.length,
+      materialSide: hunyuanRacePackSide
+    });
+    if (!batch.supported) {
+      throw new Error(`Hunyuan race pack instancing unsupported for ${data.profile.id}: ${batch.reason}`);
+    }
+    batch.object.count = 0;
+    batch.object.visible = false;
+    scene.add(batch.object);
+    return batch;
+  });
+
+  racers.forEach((racer, index) => {
+    racer.obj.children.forEach((child) => { child.visible = false; });
+    racer.morph = "S";
+    racer.cruise = morphStats.S.cruise + (index % 5) * 0.18;
+    racer.accel = morphStats.S.accel;
+    racer.drain = morphStats.S.drain;
+  });
+
+  stage.dataset.hunyuanRacePack = "loaded";
+  stage.dataset.hunyuanRacePackSide = hunyuanRacePackSide;
+  stage.dataset.hunyuanRacePackProfiles = levels.map((data) => data.profile.id).join(",");
+  stage.dataset.hunyuanRacePackTriangles = levels.map((data) => data.stats.triangles).join(",");
+}
+
+function updateHunyuanRacePackInstances() {
+  if (!hunyuanRacePackBatches) return;
+
+  const visible = view === "race" || view === "follow";
+  for (const batch of hunyuanRacePackBatches) batch.object.visible = visible;
+  if (!visible) {
+    hunyuanRacePackCounts = [0, 0, 0];
+    stage.dataset.hunyuanRacePackCounts = "0,0,0";
+    return;
+  }
+
+  const counts = [0, 0, 0];
+  const finalMatrix = new THREE.Matrix4();
+
+  for (const racer of racers) {
+    racer.obj.updateMatrixWorld(true);
+    const distance = camera.position.distanceTo(racer.obj.position);
+
+    let level = 2;
+    if (view === "follow" && racer.id === selectedId) {
+      level = 0;
+    } else if (view === "follow" && distance < 16) {
+      level = 1;
+    } else if (view === "race" && distance < 12) {
+      level = 1;
+    }
+
+    const batch = hunyuanRacePackBatches[level];
+    finalMatrix.multiplyMatrices(racer.obj.matrixWorld, batch.prototypeMatrix);
+    batch.object.setMatrixAt(counts[level], finalMatrix);
+    counts[level] += 1;
+  }
+
+  for (let i = 0; i < hunyuanRacePackBatches.length; i++) {
+    const batch = hunyuanRacePackBatches[i];
+    batch.object.count = counts[i];
+    batch.object.instanceMatrix.needsUpdate = true;
+  }
+
+  hunyuanRacePackCounts = counts;
+  stage.dataset.hunyuanRacePackCounts = counts.join(",");
+  stage.dataset.hunyuanRacePackView = view;
+}
+
 function setupRaceLodBenchmark(baseSource, baseProfile, lod1Data, lod2Data, lod3Data) {
   if (!sf3dRaceLodBench) return;
 
@@ -1075,7 +1158,7 @@ loadCreature3D(sf3dProfile)
     labGroup.add(sf3dLab);
 
     const raceS = racers.find((r) => r.morph === "S");
-    if (raceS && !sf3dRaceStress) {
+    if (raceS && !sf3dRaceStress && !hunyuanRacePack) {
       raceS.obj.children.forEach((child) => { child.visible = false; });
 
       const baseRaceModel = fitCreature3D(cloneCreature3D(source), {
@@ -1156,6 +1239,19 @@ loadCreature3D(sf3dProfile)
     stage.dataset.sf3dBounds = `${stats.bounds.x},${stats.bounds.y},${stats.bounds.z}`;
     setLabMorph(activeLabMorph);
     setupSf3dBenchmark(source, sf3dBenchCount);
+
+    if (hunyuanRacePack && profile.id === CREATURE_3D_PROFILES.sHunyuan2mvStyled.id) {
+      Promise.all([
+        Promise.resolve({ source, animations, stats, profile }),
+        loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvStyledLod3),
+        loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvStyledLod4)
+      ]).then(([baseData, lod3Data, lod4Data]) => {
+        setupHunyuanRacePack(baseData, lod3Data, lod4Data);
+      }).catch((error) => {
+        stage.dataset.hunyuanRacePack = "error";
+        console.error("18-racer Hunyuan S-only race pack failed to load", error);
+      });
+    }
 
     if (sf3dRaceLodBench && profile.id === CREATURE_3D_PROFILES.sSf3dCorrected.id) {
       Promise.all([
@@ -1606,6 +1702,7 @@ function frame(now) {
     update(dt);
     setCamera();
     updateRaceStressInstances();
+    updateHunyuanRacePackInstances();
     renderer.render(scene, camera);
     sampleSf3dBenchmark(now, rawFrameMs);
     sampleRaceLodBenchmark(now, rawFrameMs);

@@ -851,6 +851,60 @@ test("capture styled Hunyuan prototype in Morph Lab and Race", async ({ page }, 
 });
 
 
+test("run S-only Hunyuan 18-racer pack with race and follow LOD policy", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(70000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  await page.goto(
+    "/evowild-test/?sf3dVariant=hunyuanstyled&hunyuanRacePack=1&hunyuanRacePackSide=front&renderScale=0.75",
+    { waitUntil: "domcontentloaded", timeout: 30000 }
+  );
+
+  const stage = page.locator("#stage");
+  await expect(stage).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
+  await expect(stage).toHaveAttribute("data-hunyuan-race-pack", "loaded", { timeout: 30000 });
+
+  await page.getByRole("button", { name: "2 Race" }).click();
+  await expect(page.locator("#viewLabel")).toHaveText("RACE VIEW");
+  await expect.poll(
+    async () => (await stage.getAttribute("data-hunyuan-race-pack-counts")) || "",
+    { timeout: 10000 }
+  ).toMatch(/^0,\d+,\d+$/);
+
+  const raceCounts = (await stage.getAttribute("data-hunyuan-race-pack-counts"))
+    .split(",")
+    .map(Number);
+  expect(raceCounts.reduce((sum, value) => sum + value, 0)).toBe(18);
+  expect(raceCounts[2]).toBeGreaterThan(raceCounts[1]);
+  await stage.screenshot({ path: `${outDir}/hunyuan-s-only-race-pack.png` });
+
+  await page.getByRole("button", { name: "3 Follow" }).click();
+  await expect(page.locator("#viewLabel")).toHaveText("FOLLOW VIEW");
+  await expect.poll(
+    async () => (await stage.getAttribute("data-hunyuan-race-pack-counts")) || "",
+    { timeout: 10000 }
+  ).toMatch(/^1,\d+,\d+$/);
+
+  const followCounts = (await stage.getAttribute("data-hunyuan-race-pack-counts"))
+    .split(",")
+    .map(Number);
+  expect(followCounts.reduce((sum, value) => sum + value, 0)).toBe(18);
+  expect(followCounts[0]).toBe(1);
+  await stage.screenshot({ path: `${outDir}/hunyuan-s-only-follow-pack.png` });
+
+  console.log("HUNYUAN_S_ONLY_PACK", JSON.stringify({
+    raceCounts,
+    followCounts,
+    side: await stage.getAttribute("data-hunyuan-race-pack-side"),
+    profiles: await stage.getAttribute("data-hunyuan-race-pack-profiles"),
+    triangles: await stage.getAttribute("data-hunyuan-race-pack-triangles")
+  }));
+});
+
+
 test("benchmark moving 18 Hunyuan mixed LOD race", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(150000);
