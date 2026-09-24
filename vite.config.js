@@ -7,7 +7,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(process.cwd(), "index.html"),
-        race2_5d: resolve(process.cwd(), "race-2_5d.html")
+        race2_5d: resolve(process.cwd(), "race-2_5d.html"),
+        race2_5d_v5: resolve(process.cwd(), "race-2_5d-v5.html")
       }
     }
   }
