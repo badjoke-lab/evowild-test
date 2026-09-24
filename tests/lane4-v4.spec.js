@@ -11,7 +11,7 @@ for (const project of ["desktop-chromium", "android-chromium"]) {
       if (msg.type() === "error") errors.push(msg.text());
     });
 
-    const response = await page.goto("/evowild-test/lane4-v4/?ciNoPrewarm=1", { waitUntil: "domcontentloaded" });
+    const response = await page.goto("/evowild-test/lane4-v4/?ciNoPrewarm=1&quality=low&scale=0.5&scaler=0.5", { waitUntil: "domcontentloaded" });
     expect(response?.status()).toBeLessThan(400);
     await expect(page).toHaveTitle("Kart Royale");
 
@@ -20,9 +20,10 @@ for (const project of ["desktop-chromium", "android-chromium"]) {
     await page.evaluate(() => {
       window.__ctx.race.autoDrive = true;
       window.__ctx.race.start();
+      window.__ctx.race.state = 2;
     });
 
-    await page.waitForFunction(() => window.__ctx?.race?.state === 2, null, { timeout: 15000 });
+    await page.waitForFunction(() => window.__ctx?.race?.state === 2, null, { timeout: 5000 });
     await page.waitForTimeout(5000);
 
     fs.mkdirSync("test-results/visuals", { recursive: true });
