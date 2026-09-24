@@ -32,7 +32,7 @@ const WORLD_TO_METERS = 0.12;
 const TRACK_WORLD = TRACK_METERS / WORLD_TO_METERS;
 const MAX_SPEED = 22.5 / WORLD_TO_METERS;
 const START_Z = 5200;
-const CAMERA_TRAIL = 3450;
+const CAMERA_TRAIL = 2850;
 
 let width = 0;
 let height = 0;
@@ -135,6 +135,7 @@ function project(point, cameraX, cameraY, cameraZ) {
 }
 
 const racerNames = ["Mica", "Vela", "Rook", "Nacre", "Serein", "Kite", "Flint", "Dune"];
+const laneSlots = [0, -2, 2, -1, 1, -2, 2, 0];
 const startOffsets = [260, 0, 180, 360, 90, 460, 220, 400];
 const selectedId = 0;
 
@@ -144,8 +145,8 @@ function makeRacers() {
     return {
       id: i,
       name,
-      lane: (i % LANES) - (LANES - 1) / 2,
-      laneTarget: (i % LANES) - (LANES - 1) / 2,
+      lane: laneSlots[i],
+      laneTarget: laneSlots[i],
       startZ,
       z: startZ,
       speed: 0,
@@ -398,7 +399,7 @@ function drawRoad() {
       }
     }
 
-    if (seg.index % 5 === 0) {
+    if (seg.index % 3 === 0) {
       drawRoadsideMarker(p1, p2, -1, seg.index);
       drawRoadsideMarker(p1, p2, 1, seg.index);
     }
@@ -449,9 +450,9 @@ function drawRacer(r, nowSec) {
   const sw = image.naturalWidth / 3;
   const sh = image.naturalHeight / 2;
 
-  const perspective = clamp(s.roadW / (width * 0.44), 0.10, 1.45);
-  const focus = r.id === selectedId ? 1.07 : 0.94;
-  const dw = clamp(88 * perspective * focus, 18, 118);
+  const perspective = clamp(s.roadW / (width * 0.44), 0.10, 1.55);
+  const focus = r.id === selectedId ? 1.08 : 0.95;
+  const dw = clamp(112 * perspective * focus, 20, 148);
   const dh = dw * (sh / sw);
 
   const speedPulse = 1 + Math.sin(nowSec * 12 + r.id) * 0.018;
