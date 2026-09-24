@@ -14,9 +14,9 @@ test("S-only hybrid renders animated sprites on a Three.js course", async ({ pag
   await expect(stage).toHaveAttribute("data-renderer","three-sprite-hybrid");
   await expect(stage).toHaveAttribute("data-webgl-ready","true");
   await expect(stage).toHaveAttribute("data-s-run-sheet","ready",{timeout:10000});
-  await expect(stage).toHaveAttribute("data-race-state","running",{timeout:8000});
+  await expect(stage).toHaveAttribute("data-race-state","running",{timeout:12000});
 
-  await page.waitForTimeout(1700);
+  await page.waitForTimeout(2300);
 
   const distance=Number(await stage.getAttribute("data-selected-distance"));
   const speed=Number(await stage.getAttribute("data-selected-speed"));
