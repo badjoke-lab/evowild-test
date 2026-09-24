@@ -20,10 +20,10 @@ const LANES = 6;
 const SELECTED_ID = 1;
 
 const MORPHS = {
-  S: { sheet: "s-run-sheet.svg", cruise: 20.6, accel: 5.4, drain: 1.06, w: 184, h: 153, phase: 0.00 },
-  P: { art: "P.webp", cruise: 19.8, accel: 6.2, drain: 1.12, w: 204, h: 161, phase: 0.90 },
-  E: { art: "E.webp", cruise: 19.3, accel: 4.5, drain: 0.82, w: 196, h: 168, phase: 1.80 },
-  A: { art: "A.webp", cruise: 20.0, accel: 5.3, drain: 0.94, w: 196, h: 137, phase: 2.70 }
+  S: { sheet: "s-run-sheet.svg", cruise: 20.6, accel: 5.4, drain: 1.06, w: 180, h: 150, phase: 0.00 },
+  P: { art: "P.webp", cruise: 19.8, accel: 6.2, drain: 1.12, w: 190, h: 150, phase: 0.90 },
+  E: { art: "E.webp", cruise: 19.3, accel: 4.5, drain: 0.82, w: 186, h: 159, phase: 1.80 },
+  A: { art: "A.webp", cruise: 20.0, accel: 5.3, drain: 0.94, w: 188, h: 131, phase: 2.70 }
 };
 
 const RIGS = {
@@ -69,9 +69,9 @@ const RUN_POSES = [
 ];
 
 const GAITS = {
-  P: { cadence: 0.0102, stride: 0.92, bob: 7.0, pitch: 0.040, crouch: 3.5 },
-  E: { cadence: 0.0117, stride: 1.08, bob: 3.1, pitch: 0.022, crouch: 0.8 },
-  A: { cadence: 0.0148, stride: 0.78, bob: 4.2, pitch: 0.052, crouch: 5.2 }
+  P: { cadence: 0.0102, stride: 0.80, bob: 6.4, pitch: 0.034, crouch: 3.2 },
+  E: { cadence: 0.0117, stride: 1.00, bob: 2.8, pitch: 0.020, crouch: 0.7 },
+  A: { cadence: 0.0148, stride: 0.70, bob: 3.8, pitch: 0.046, crouch: 4.7 }
 };
 
 function smooth01(t) {
