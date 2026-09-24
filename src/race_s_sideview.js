@@ -306,7 +306,7 @@ function screenXForMeters(m) {
 
 function trackBaseY(m) {
   const portrait=height>width*1.35;
-  const base=portrait?height*.625:height*.70;
+  const base=portrait?height*.58:height*.70;
   return base - terrainY(m)*(portrait?.68:.52);
 }
 
@@ -328,50 +328,78 @@ function drawTrack() {
   const rightM = cameraMeters + width*.84/pixelsPerMeter;
   const step=2.0;
 
-  // Four perspective bands.
-  for (let lane=0; lane<4; lane++) {
-    const far = laneOffset(lane)-24;
-    const near = laneOffset(lane)+24;
-    const shade = lane%2 ? "#464c4f" : "#50575a";
+  const laneCenters=[0,1,2,3].map(laneOffset);
+  const boundaries=[
+    laneCenters[0]-36,
+    (laneCenters[0]+laneCenters[1])*.5,
+    (laneCenters[1]+laneCenters[2])*.5,
+    (laneCenters[2]+laneCenters[3])*.5,
+    laneCenters[3]+38
+  ];
 
+  // One continuous racing surface. Lane depth exists inside it; there are no stacked roads.
+  for(let lane=0;lane<4;lane++){
+    const far=boundaries[lane];
+    const near=boundaries[lane+1];
+    const shade=lane%2===0?"#4b5154":"#464c4f";
     ctx.fillStyle=shade;
     ctx.beginPath();
     let first=true;
-    for (let m=leftM; m<=rightM+step; m+=step) {
+    for(let m=leftM;m<=rightM+step;m+=step){
       const x=screenXForMeters(m);
       const y=trackBaseY(m)+far;
       if(first){ctx.moveTo(x,y);first=false;}else ctx.lineTo(x,y);
     }
-    for (let m=rightM+step; m>=leftM; m-=step) {
+    for(let m=rightM+step;m>=leftM;m-=step){
       const x=screenXForMeters(m);
       const y=trackBaseY(m)+near;
       ctx.lineTo(x,y);
     }
     ctx.closePath();
     ctx.fill();
+  }
 
-    // Lane edge.
-    ctx.strokeStyle = lane===3 ? "rgba(226,236,237,.55)" : "rgba(230,238,240,.16)";
-    ctx.lineWidth = lane===3 ? 2 : 1;
+  // Back and near track edges anchor the whole surface in the scene.
+  for(const [offset,alpha,lineWidth] of [
+    [boundaries[0],"rgba(226,236,237,.46)",2],
+    [boundaries[4],"rgba(226,236,237,.62)",2.4]
+  ]){
+    ctx.strokeStyle=alpha;
+    ctx.lineWidth=lineWidth;
     ctx.beginPath();
-    first=true;
+    let first=true;
     for(let m=leftM;m<=rightM+step;m+=step){
-      const x=screenXForMeters(m), y=trackBaseY(m)+near;
+      const x=screenXForMeters(m);
+      const y=trackBaseY(m)+offset;
       if(first){ctx.moveTo(x,y);first=false;}else ctx.lineTo(x,y);
     }
     ctx.stroke();
   }
 
-  // Repeating ground marks make speed visible even when the racers are clustered.
+  // Internal lane boundaries are subtle, broken markers rather than separate roads.
+  for(let divider=1;divider<4;divider++){
+    const offset=boundaries[divider];
+    ctx.strokeStyle="rgba(225,234,235,.19)";
+    ctx.lineWidth=1.2;
+    for(let m=Math.floor(leftM/10)*10;m<=rightM+10;m+=10){
+      const m2=m+4.0;
+      ctx.beginPath();
+      ctx.moveTo(screenXForMeters(m),trackBaseY(m)+offset);
+      ctx.lineTo(screenXForMeters(m2),trackBaseY(m2)+offset);
+      ctx.stroke();
+    }
+  }
+
+  // Short longitudinal texture marks make lateral speed readable without covering the creatures.
   for(let lane=0;lane<4;lane++){
-    const yOffset=laneOffset(lane)+14;
-    ctx.strokeStyle=lane===3?"rgba(238,243,235,.34)":"rgba(229,236,226,.18)";
-    ctx.lineWidth=lane===3?2:1;
+    const yOffset=laneCenters[lane]+18;
+    ctx.strokeStyle=lane===3?"rgba(238,243,235,.27)":"rgba(229,236,226,.15)";
+    ctx.lineWidth=lane===3?1.7:1;
     for(let m=Math.floor(leftM/7)*7;m<=rightM+8;m+=7){
       const x1=screenXForMeters(m);
-      const x2=screenXForMeters(m+2.2);
+      const x2=screenXForMeters(m+2.0);
       const y1=trackBaseY(m)+yOffset;
-      const y2=trackBaseY(m+2.2)+yOffset;
+      const y2=trackBaseY(m+2.0)+yOffset;
       ctx.beginPath();
       ctx.moveTo(x1,y1);
       ctx.lineTo(x2,y2);
@@ -379,36 +407,47 @@ function drawTrack() {
     }
   }
 
-  // Roadside posts: strong speed cue.
-  for (let m=Math.floor(leftM/10)*10; m<=rightM+16; m+=10) {
+  // Fence only on the back edge. It no longer cuts the race into separate horizontal strips.
+  const fenceOffset=boundaries[0]-6;
+  ctx.strokeStyle="rgba(212,224,219,.38)";
+  ctx.lineWidth=2;
+  ctx.beginPath();
+  let fenceFirst=true;
+  for(let m=leftM;m<=rightM+step;m+=step){
     const x=screenXForMeters(m);
-    const y=trackBaseY(m)-54;
-    const sc=clamp(1+(m-cameraMeters)*.002,.72,1.18);
-    ctx.fillStyle="rgba(229,238,235,.9)";
-    ctx.fillRect(x-2*sc,y,4*sc,47*sc);
-    ctx.fillStyle="#385245";
-    ctx.fillRect(x-7*sc,y,14*sc,5*sc);
+    const y=trackBaseY(m)+fenceOffset-22;
+    if(fenceFirst){ctx.moveTo(x,y);fenceFirst=false;}else ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+
+  for(let m=Math.floor(leftM/14)*14;m<=rightM+16;m+=14){
+    const x=screenXForMeters(m);
+    const baseY=trackBaseY(m)+fenceOffset;
+    const sc=clamp(1+(m-cameraMeters)*.0015,.78,1.14);
+    ctx.fillStyle="rgba(224,234,230,.82)";
+    ctx.fillRect(x-1.5*sc,baseY-31*sc,3*sc,31*sc);
   }
 
-  // Near grass blades and dust streaks.
+  // Near-field streaks remain outside the track to sell speed.
   const focus=selected();
-  const speedNorm=clamp(focus.speed/24.5,0,1);
-  if(speedNorm>.34){
+  const speedNorm=clamp(focus.speed/31.5,0,1);
+  if(speedNorm>.30){
     ctx.save();
-    ctx.globalAlpha=clamp((speedNorm-.34)*.62,0,.42);
-    ctx.strokeStyle="rgba(232,240,214,.5)";
+    ctx.globalAlpha=clamp((speedNorm-.30)*.64,0,.43);
+    ctx.strokeStyle="rgba(232,240,214,.48)";
     for(let i=0;i<18;i++){
-      const y=height*(.72+((i*29)%22)/100);
-      const x=((i*83 - cameraMeters*(pixelsPerMeter*1.72))%(width+180))-90;
+      const y=height*(.80+((i*29)%17)/100);
+      const x=((i*83-cameraMeters*(pixelsPerMeter*1.72))%(width+180))-90;
       ctx.beginPath();
       ctx.moveTo(x,y);
-      ctx.lineTo(x-55-speedNorm*85,y+3);
+      ctx.lineTo(x-58-speedNorm*92,y+3);
       ctx.stroke();
     }
     ctx.restore();
   }
-}
 
+  stage.dataset.trackSurface="single-field";
+}
 function drawRacers() {
   const list=[];
   let minEdge=Infinity;
