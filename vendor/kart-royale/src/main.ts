@@ -20,6 +20,7 @@ import { Race } from './game/Race';
 import { ChaseCamera } from './game/Camera';
 import { HUD } from './ui/HUD';
 import { Audio } from './audio/Audio';
+import { EvoWildRacers } from './evowild/EvoWildRacers';
 
 const parent = document.getElementById('app')!;
 
@@ -82,6 +83,7 @@ const race = new Race();
 const camera = new ChaseCamera();
 const hud = new HUD();
 const audio = new Audio();
+const evowildRacers = new EvoWildRacers();
 const drawBudget = new DrawBudget();
 const frameWatch = new FrameWatch();
 const diagnostics = new Diagnostics();
@@ -140,16 +142,16 @@ const ctx: Ctx = {
 //   drawBudget — LOD and shadow culling, measured from the posed camera, so it
 //               must be last: its lateUpdate has to run after the chase rig's.
 const systems: System[] = [
-  pipeline, input, sky, materials, track, scenery, race, items, effects, camera, hud, audio,
+  pipeline, input, sky, materials, track, scenery, race, evowildRacers, items, effects, camera, hud, audio,
   drawBudget,
 ];
 
 /** Human-readable names for the boot progress readout, indexed with `systems`. */
 const SYSTEM_LABELS = [
   'starting renderer', 'reading controls', 'raising the sun', 'mixing materials',
-  'laying the circuit', 'dressing the bay', 'rolling out the grid', 'loading item boxes',
-  'lighting the effects', 'mounting the camera', 'drawing the hud', 'tuning the engines',
-  'balancing the frame',
+  'laying the circuit', 'dressing the bay', 'rolling out the grid', 'fitting EvoWild racers',
+  'loading item boxes', 'lighting the effects', 'mounting the camera', 'drawing the hud',
+  'tuning the engines', 'balancing the frame',
 ];
 
 function bootProgress(frac: number, label: string) {
