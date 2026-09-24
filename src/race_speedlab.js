@@ -247,7 +247,9 @@ function makeRacers() {
       drain: m.drain,
       cooldown: 0,
       seed: index * 1.731 + m.phase,
-      command: "BUILD"
+      command: "BUILD",
+      contactPhase: -1,
+      impactPulse: 0
     };
   });
 }
@@ -322,7 +324,25 @@ function update(dtMs) {
       r.speed *= .985;
     }
 
-    if (r.speed > 8 && Math.random() < dt * (r.id === SELECTED_ID ? 11 : 4.5)) spawnDust(r);
+    const speedRatio = Math.max(.2, Math.min(1.15, r.speed / r.cruise));
+    let contactPhase;
+    if (r.morph === "S") {
+      contactPhase = frameIndexFor(r);
+    } else {
+      const gait = GAITS[r.morph];
+      const cycle = (elapsed * gait.cadence * (0.56 + speedRatio * 0.72) + r.seed * 0.41) % 6;
+      contactPhase = Math.floor(cycle);
+    }
+
+    if (contactPhase !== r.contactPhase && (contactPhase === 0 || contactPhase === 5) && r.speed > 8) {
+      r.impactPulse = 1;
+      spawnDust(r);
+      if (r.id === SELECTED_ID) spawnDust(r);
+    }
+    r.contactPhase = contactPhase;
+    r.impactPulse = Math.max(0, r.impactPulse - dt * 5.2);
+
+    if (r.speed > 8 && Math.random() < dt * (r.id === SELECTED_ID ? 4.2 : 1.5)) spawnDust(r);
   }
 
   for (const p of particles) {
@@ -781,7 +801,9 @@ function drawSpeedFX(speedRatio) {
 function render() {
   const s=selected();
   const speedRatio=Math.max(0,Math.min(1.15,s.speed/s.cruise));
-  const shake=(cameraMode==="chase"?1.8:1.0)*Math.max(0,speedRatio-.55);
+  const baseShake=(cameraMode==="chase"?1.8:1.0)*Math.max(0,speedRatio-.55);
+  const impactShake=s.impactPulse*(cameraMode==="chase"?2.4:1.1);
+  const shake=baseShake+impactShake;
   const scroll=s.distance*72;
 
   ctx.save();
@@ -789,7 +811,10 @@ function render() {
   ctx.translate(width*.5,height*.52);
   ctx.scale(accelZoom,accelZoom);
   ctx.translate(-width*.5,-height*.52);
-  ctx.translate(Math.sin(elapsed*.041)*shake,Math.sin(elapsed*.057)*shake*.45);
+  ctx.translate(
+    Math.sin(elapsed*.041)*baseShake + Math.sin(elapsed*.089)*impactShake,
+    Math.sin(elapsed*.057)*baseShake*.45 + Math.cos(elapsed*.103)*impactShake*.32
+  );
 
   drawSky(scroll);
   drawGrandstand(scroll);
