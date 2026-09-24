@@ -112,36 +112,38 @@ const creature = new Image();
 creature.decoding = "async";
 creature.src = BASE + "concept/S.webp";
 
-const upstreamBackground = new Image();
-upstreamBackground.decoding = "async";
-upstreamBackground.src = BASE + "upstream/javascript-racer/background.png";
+const ambientTexture = new Image();
+ambientTexture.decoding = "async";
+ambientTexture.src = BASE + "upstream/js-racer-turbo/low_ambient.png";
 
-const upstreamSprites = new Image();
-upstreamSprites.decoding = "async";
-upstreamSprites.src = BASE + "upstream/javascript-racer/sprites.png";
+const objectTexture = new Image();
+objectTexture.decoding = "async";
+objectTexture.src = BASE + "upstream/js-racer-turbo/low_objects.png";
 
 const BACKGROUND = {
-  HILLS: { x:5, y:5, w:1280, h:480 },
-  SKY: { x:5, y:495, w:1280, h:480 },
-  TREES: { x:5, y:985, w:1280, h:480 }
+  SKY: { x:20, y:2062, w:1280, h:640 },
+  HILLS: { x:20, y:2744, w:1280, h:640 },
+  TREES: { x:20, y:3424, w:1280, h:640 }
 };
 
 const ENV_SPRITES = [
-  { x:625, y:5, w:360, h:360, scale:0.58 },
-  { x:1205, y:5, w:282, h:295, scale:0.64 },
-  { x:5, y:555, w:135, h:332, scale:0.72 },
-  { x:1205, y:490, w:150, h:260, scale:0.78 },
-  { x:230, y:280, w:320, h:220, scale:0.44 },
-  { x:621, y:897, w:298, h:140, scale:0.45 },
-  { x:5, y:1097, w:240, h:155, scale:0.52 },
-  { x:255, y:1097, w:232, h:152, scale:0.52 },
-  { x:929, y:897, w:235, h:118, scale:0.50 }
+  { x:619, y:21, w:277, h:690, scale:0.52 },
+  { x:1105, y:80, w:378, h:377, scale:0.58 },
+  { x:1149, y:489, w:334, h:344, scale:0.62 },
+  { x:906, y:21, w:189, h:437, scale:0.64 },
+  { x:906, y:488, w:234, h:474, scale:0.62 },
+  { x:293, y:754, w:277, h:142, scale:0.52 },
+  { x:346, y:904, w:223, h:212, scale:0.54 },
+  { x:335, y:1124, w:235, h:212, scale:0.54 },
+  { x:1213, y:845, w:271, h:239, scale:0.48 },
+  { x:907, y:1187, w:224, h:147, scale:0.52 },
+  { x:1142, y:1094, w:342, h:240, scale:0.46 }
 ];
 
 const lanes = 3;
 const roadWidth = 2200;
 const segmentLength = 200;
-const rumbleLength = 3;
+const rumbleLength = 6;
 const drawDistance = 330;
 const maxSpeed = 16500;
 const accel = 7600;
@@ -149,15 +151,15 @@ const decel = 9200;
 const selectedId = 6;
 const raceMeters = 1800;
 const playerZ = 920;
-const SPRITE_WORLD_SCALE = 0.00056;
-const ENV_WORLD_SCALE = 0.00036;
+const SPRITE_WORLD_SCALE = 0.00072;
+const ENV_WORLD_SCALE = 0.00030;
 
 const COLORS = {
-  FOG:"#294d40",
-  LIGHT: { road:"#4d5961", grass:"#315949", rumble:"#d6dce0", lane:"#cbd7de" },
-  DARK:  { road:"#414b52", grass:"#294d40", rumble:"#6d7880", lane:"#94a4ad" },
-  START: { road:"#66717a", grass:"#315949", rumble:"#ffffff", lane:"#e7f2f8" },
-  FINISH:{ road:"#222a30", grass:"#294d40", rumble:"#ffffff", lane:"#ffffff" }
+  FOG:"#180028",
+  LIGHT: { road:"#10121a", grass:"#4c075e", rumble:"#0ee7ff", lane:"#d9fbff" },
+  DARK:  { road:"#0b0d14", grass:"#2a053f", rumble:"#ff38dc", lane:"#9eeeff" },
+  START: { road:"#19142c", grass:"#4c075e", rumble:"#ffffff", lane:"#ffffff" },
+  FINISH:{ road:"#05060a", grass:"#2a053f", rumble:"#ffffff", lane:"#ffffff" }
 };
 window.COLORS = COLORS;
 
@@ -202,9 +204,9 @@ function addRoad(enter, hold, leave, curve, y) {
 function buildRoad() {
   segments.length = 0;
   addRoad(8, 14, 8, 0, 0);
-  addRoad(12, 30, 12, 2.8, 8);
-  addRoad(10, 24, 10, -2.1, -5);
-  const curves = [1.4,-2.8,0,3.2,-1.6,0,-3.8,2.2,0,1.2,-2.4,3.5,0,-1.4];
+  addRoad(10, 28, 10, 5.2, 8);
+  addRoad(10, 24, 10, -4.4, -5);
+  const curves = [4.8,-5.6,3.4,6.0,-4.2,5.2,-6.4,4.6,-3.8,5.8,-4.9,6.2,-3.6];
   const hills = [0,8,14,-10,0,18,-12,6,0,-16,10,20,-14,4,0];
 
   for (let block = 0; block < 30; block++) {
@@ -435,10 +437,10 @@ function drawBackdropLayer(layer, rotation, offsetY, destH, alpha = 1) {
 
   ctx.save();
   ctx.globalAlpha = alpha;
-  ctx.drawImage(upstreamBackground, sourceX, layer.y, sourceW, layer.h, 0, offsetY, destW, destH);
+  ctx.drawImage(ambientTexture, sourceX, layer.y, sourceW, layer.h, 0, offsetY, destW, destH);
   if (sourceW < imageW) {
     ctx.drawImage(
-      upstreamBackground,
+      ambientTexture,
       layer.x,
       layer.y,
       imageW - sourceW,
@@ -453,30 +455,31 @@ function drawBackdropLayer(layer, rotation, offsetY, destH, alpha = 1) {
 }
 
 function drawBackground(position, curve, speedNorm) {
-  if (!upstreamBackground.complete || !upstreamBackground.naturalWidth) {
+  if (!ambientTexture.complete || !ambientTexture.naturalWidth) {
     drawProceduralBackground(position, curve, speedNorm);
     return;
   }
 
   const curveShift = curve * 0.012;
-  const vertical = -height * 0.05 - speedNorm * height * 0.018;
-  drawBackdropLayer(BACKGROUND.SKY, position * 0.0000013 + curveShift * 0.18, vertical, height * 0.92, 1);
-  drawBackdropLayer(BACKGROUND.HILLS, position * 0.0000038 + curveShift * 0.60, vertical + height * 0.02, height * 0.94, 0.98);
-  drawBackdropLayer(BACKGROUND.TREES, position * 0.0000085 + curveShift, vertical + height * 0.055, height * 0.98, 0.98);
+  const vertical = -height * 0.10 - speedNorm * height * 0.012;
+  drawBackdropLayer(BACKGROUND.SKY, position * 0.0000014 + curveShift * 0.14, vertical, height * 1.04, 1);
+  drawBackdropLayer(BACKGROUND.HILLS, position * 0.0000044 + curveShift * 0.62, vertical + height * 0.01, height * 1.06, 1);
+  drawBackdropLayer(BACKGROUND.TREES, position * 0.0000105 + curveShift, vertical + height * 0.035, height * 1.08, 1);
 
-  const horizonShade = ctx.createLinearGradient(0, height * 0.34, 0, height * 0.64);
-  horizonShade.addColorStop(0, "rgba(18,37,42,0)");
-  horizonShade.addColorStop(1, "rgba(18,37,42,.18)");
+  const horizonShade = ctx.createLinearGradient(0, height * 0.28, 0, height * 0.70);
+  horizonShade.addColorStop(0, "rgba(8,4,18,0)");
+  horizonShade.addColorStop(0.72, "rgba(14,2,27,.12)");
+  horizonShade.addColorStop(1, "rgba(9,0,18,.34)");
   ctx.fillStyle = horizonShade;
-  ctx.fillRect(0, height * 0.30, width, height * 0.38);
+  ctx.fillRect(0, height * 0.26, width, height * 0.46);
 }
 
 function drawEnvironmentSprite(segment, index) {
-  if (!upstreamSprites.complete || !upstreamSprites.naturalWidth) return;
-  if (index % 9 !== 0 && index % 13 !== 0) return;
+  if (!objectTexture.complete || !objectTexture.naturalWidth) return;
+  if (index % 11 !== 0 && index % 17 !== 0) return;
   const source = ENV_SPRITES[Math.abs((index * 7 + 3) % ENV_SPRITES.length)];
   const side = index % 2 === 0 ? -1 : 1;
-  const offset = side * (1.34 + ((index * 17) % 23) / 100);
+  const offset = side * (1.42 + ((index * 17) % 31) / 100);
   const scale = segment.p1.screen.scale;
   const pxScale = scale * width / 2 * (ENV_WORLD_SCALE * roadWidth) * source.scale;
   let destW = source.w * pxScale;
@@ -498,7 +501,7 @@ function drawEnvironmentSprite(segment, index) {
   if (visibleH <= 0) return;
 
   ctx.drawImage(
-    upstreamSprites,
+    objectTexture,
     source.x,
     source.y,
     source.w,
@@ -517,13 +520,13 @@ function drawRoadside(segment, index, speedNorm) {
   const y = segment.p1.screen.y;
   const w = segment.p1.screen.w;
 
-  if (index % 7 === 0) {
+  if (index % 9 === 0) {
     const postH = Util.limit(w * 0.30, 4, height * 0.24);
     const postW = Util.limit(postH * 0.10, 1, 7);
-    ctx.fillStyle = "rgba(222,236,241,.86)";
+    ctx.fillStyle = "rgba(219,245,255,.76)";
     ctx.fillRect(x - w * 1.14 - postW / 2, y - postH, postW, postH);
     ctx.fillRect(x + w * 1.14 - postW / 2, y - postH, postW, postH);
-    ctx.fillStyle = "rgba(90,214,255,.68)";
+    ctx.fillStyle = "rgba(37,226,255,.78)";
     ctx.fillRect(x - w * 1.14 - postW, y - postH, postW * 2, Math.max(1, postW));
     ctx.fillRect(x + w * 1.14 - postW, y - postH, postW * 2, Math.max(1, postW));
   }
@@ -532,7 +535,7 @@ function drawRoadside(segment, index, speedNorm) {
     const gateH = Util.limit(w * 0.42, 12, height * 0.32);
     const left = x - w * 1.02;
     const right = x + w * 1.02;
-    ctx.strokeStyle = "rgba(163,231,255," + (0.34 + speedNorm * 0.25) + ")";
+    ctx.strokeStyle = "rgba(255,72,226," + (0.32 + speedNorm * 0.34) + ")";
     ctx.lineWidth = Util.limit(w * 0.012, 1, 5);
     ctx.beginPath();
     ctx.moveTo(left, y);
@@ -573,7 +576,7 @@ function drawCreature(r, x, y, roadScale, clipY) {
       const trail = cycle * w * (0.34 + speedNorm * 0.42);
       const py = baseY + h * 0.01 + Math.sin(i * 2.3 + elapsed * 0.01) * h * 0.025;
       const len = w * (0.035 + (i % 3) * 0.018) * speedNorm;
-      ctx.strokeStyle = "rgba(222,205,169," + (dustAlpha * (1 - cycle)).toFixed(3) + ")";
+      ctx.strokeStyle = "rgba(88,229,255," + (dustAlpha * (1 - cycle)).toFixed(3) + ")";
       ctx.lineWidth = Math.max(1, h * 0.009 * (1 - cycle * 0.55));
       ctx.beginPath();
       ctx.moveTo(x - w * 0.22 - trail, py);
@@ -749,7 +752,7 @@ function render() {
 
   if (speedNorm > 0.52) {
     const alpha = (speedNorm - 0.52) * 0.34;
-    ctx.strokeStyle = "rgba(226,244,255," + alpha.toFixed(3) + ")";
+    ctx.strokeStyle = "rgba(111,232,255," + alpha.toFixed(3) + ")";
     ctx.lineWidth = 1;
     const count = 14;
     for (let i = 0; i < count; i++) {
