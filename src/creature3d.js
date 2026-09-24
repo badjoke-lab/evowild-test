@@ -108,6 +108,34 @@ export const CREATURE_3D_PROFILES = {
       "Shape-only validation asset; not production-ready."
     ]
   },
+  sHunyuan2mvStyled: {
+    id: "s-hunyuan2mv-styled-prototype",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-lod2.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.22,
+      minRoughness: 0.52,
+      side: "double",
+      preserveBaseColorMap: false,
+      preserveNormalMap: false,
+      preserveRoughnessMap: false,
+      preserveMetalnessMap: false,
+      maxAnisotropy: 1,
+      prototypeVertexPalette: true
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "prototype_material_only",
+    notes: [
+      "Uses the semantic Hunyuan LOD2 geometry with a procedural vertex-color material.",
+      "Silver-white / cool-blue / cyan palette is only for in-engine readability testing.",
+      "This is not an AI-generated source-fidelity texture and is not final art."
+    ]
+  },
   sHunyuan2mvLod3: {
     id: "s-hunyuan2mv-lod3",
     morph: "S",
@@ -438,6 +466,60 @@ function resolveSide(side) {
   return THREE.DoubleSide;
 }
 
+function applyPrototypeVertexPalette(node) {
+  if (!node.geometry?.getAttribute("position")) return;
+
+  const geometry = node.geometry.clone();
+  if (!geometry.getAttribute("normal")) {
+    geometry.computeVertexNormals();
+  }
+  geometry.computeBoundingBox();
+  const box = geometry.boundingBox;
+  const size = new THREE.Vector3();
+  box.getSize(size);
+
+  const position = geometry.getAttribute("position");
+  const colors = new Float32Array(position.count * 3);
+
+  const silver = new THREE.Color(0xdce7eb);
+  const coolBlue = new THREE.Color(0x5d87a8);
+  const cyan = new THREE.Color(0x5fe7ee);
+  const color = new THREE.Color();
+
+  const dx = Math.max(1e-6, size.x);
+  const dy = Math.max(1e-6, size.y);
+  const dz = Math.max(1e-6, size.z);
+
+  for (let i = 0; i < position.count; i++) {
+    const nx = (position.getX(i) - box.min.x) / dx;
+    const ny = (position.getY(i) - box.min.y) / dy;
+    const nz = (position.getZ(i) - box.min.z) / dz;
+
+    color.copy(silver);
+
+    // Cool blue underside and flank treatment.
+    const sideDistance = Math.abs(nx - 0.5) * 2;
+    if (ny < 0.33 || (sideDistance > 0.58 && ny < 0.68)) {
+      color.lerp(coolBlue, 0.58);
+    }
+
+    // Cyan only on ridge/extremity zones so it reads as a device/accent cue,
+    // not as a fake all-over texture.
+    const dorsal = ny > 0.82;
+    const longitudinalTip = nz < 0.08 || nz > 0.92;
+    if (dorsal || (longitudinalTip && ny > 0.55)) {
+      color.lerp(cyan, 0.72);
+    }
+
+    colors[i * 3] = color.r;
+    colors[i * 3 + 1] = color.g;
+    colors[i * 3 + 2] = color.b;
+  }
+
+  geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+  node.geometry = geometry;
+}
+
 function normalizeMaterial(material, renderer, profile) {
   const normalized = material.clone();
   const materialProfile = profile.material || {};
@@ -470,6 +552,15 @@ function normalizeMaterial(material, renderer, profile) {
   }
   if (materialProfile.preserveMetalnessMap === false) {
     normalized.metalnessMap = null;
+  }
+
+  if (materialProfile.prototypeVertexPalette) {
+    normalized.vertexColors = true;
+    if (normalized.color) normalized.color.set(0xffffff);
+    if ("emissive" in normalized) {
+      normalized.emissive.set(0x071b20);
+      normalized.emissiveIntensity = 0.18;
+    }
   }
 
   normalized.side = resolveSide(materialProfile.side);
@@ -563,6 +654,10 @@ export function fitCreature3D(model, {
     node.frustumCulled = true;
     node.castShadow = false;
     node.receiveShadow = false;
+
+    if (effectiveProfile.material?.prototypeVertexPalette) {
+      applyPrototypeVertexPalette(node);
+    }
 
     if (Array.isArray(node.material)) {
       node.material = node.material.map((material) => normalizeMaterial(material, renderer, effectiveProfile));
