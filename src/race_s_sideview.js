@@ -477,9 +477,6 @@ function renderCreature(globalPhase) {
     y: groundY - baseDrop + bodyYOffset
   };
 
-  const frontRootBase = sourcePointToWorld(rig.front.root, bodyCenterWorld, scale, bodyPitch);
-  const hindRootBase = sourcePointToWorld(rig.hind.root, bodyCenterWorld, scale, bodyPitch);
-
   const legScale = scale;
   const frontUpper = Math.hypot(
     rig.front.knee.x - rig.front.root.x,
@@ -508,15 +505,62 @@ function renderCreature(globalPhase) {
   const qForeFar = legPhase(globalPhase, .120);
   const qForeNear = legPhase(globalPhase, .180);
 
-  const hindFarRoot = { x: hindRootBase.x + 7 * scale, y: hindRootBase.y + 4 * scale };
-  const hindNearRoot = { x: hindRootBase.x - 3 * scale, y: hindRootBase.y - 1 * scale };
-  const foreFarRoot = { x: frontRootBase.x - 8 * scale, y: frontRootBase.y + 5 * scale };
-  const foreNearRoot = { x: frontRootBase.x + 3 * scale, y: frontRootBase.y - 1 * scale };
+  function geometryForBody(center) {
+    const frontRootBase = sourcePointToWorld(rig.front.root, center, scale, bodyPitch);
+    const hindRootBase = sourcePointToWorld(rig.hind.root, center, scale, bodyPitch);
 
-  const hindFarFoot = footTrajectory(qHindFar, hindFarRoot, strideHind, liftHind, groundY, -8 * scale);
-  const hindNearFoot = footTrajectory(qHindNear, hindNearRoot, strideHind, liftHind * 1.04, groundY, -1 * scale);
-  const foreFarFoot = footTrajectory(qForeFar, foreFarRoot, strideFront, liftFront, groundY, 5 * scale);
-  const foreNearFoot = footTrajectory(qForeNear, foreNearRoot, strideFront, liftFront * 1.04, groundY, 11 * scale);
+    const roots = {
+      hindFar: { x: hindRootBase.x + 7 * scale, y: hindRootBase.y + 4 * scale },
+      hindNear: { x: hindRootBase.x - 3 * scale, y: hindRootBase.y - 1 * scale },
+      foreFar: { x: frontRootBase.x - 8 * scale, y: frontRootBase.y + 5 * scale },
+      foreNear: { x: frontRootBase.x + 3 * scale, y: frontRootBase.y - 1 * scale }
+    };
+
+    const feet = {
+      hindFar: footTrajectory(qHindFar, roots.hindFar, strideHind, liftHind, groundY, -8 * scale),
+      hindNear: footTrajectory(qHindNear, roots.hindNear, strideHind, liftHind * 1.04, groundY, -1 * scale),
+      foreFar: footTrajectory(qForeFar, roots.foreFar, strideFront, liftFront, groundY, 5 * scale),
+      foreNear: footTrajectory(qForeNear, roots.foreNear, strideFront, liftFront * 1.04, groundY, 11 * scale)
+    };
+
+    return { roots, feet };
+  }
+
+  function requiredContactSettle(geometry) {
+    const candidates = [
+      [qHindFar, geometry.roots.hindFar, geometry.feet.hindFar, (hindUpper + hindLower) * .97 - 2],
+      [qHindNear, geometry.roots.hindNear, geometry.feet.hindNear, hindUpper + hindLower - 2],
+      [qForeFar, geometry.roots.foreFar, geometry.feet.foreFar, (frontUpper + frontLower) * .97 - 2],
+      [qForeNear, geometry.roots.foreNear, geometry.feet.foreNear, frontUpper + frontLower - 2]
+    ];
+
+    let settle = 0;
+    for (const [q, root, foot, maxReach] of candidates) {
+      if (q >= .22) continue;
+      const dx = foot.x - root.x;
+      const verticalReach = Math.sqrt(Math.max(0, maxReach * maxReach - dx * dx));
+      const lowestAllowedRootY = groundY - verticalReach;
+      settle = Math.max(settle, lowestAllowedRootY - root.y);
+    }
+    return Math.max(0, settle);
+  }
+
+  let geometry = geometryForBody(bodyCenterWorld);
+  const contactSettle = requiredContactSettle(geometry);
+  if (contactSettle > 0) {
+    bodyCenterWorld.y += contactSettle + .25;
+    geometry = geometryForBody(bodyCenterWorld);
+  }
+
+  const { roots, feet } = geometry;
+  const hindFarRoot = roots.hindFar;
+  const hindNearRoot = roots.hindNear;
+  const foreFarRoot = roots.foreFar;
+  const foreNearRoot = roots.foreNear;
+  const hindFarFoot = feet.hindFar;
+  const hindNearFoot = feet.hindNear;
+  const foreFarFoot = feet.foreFar;
+  const foreNearFoot = feet.foreNear;
 
   drawShadow(bodyCenterWorld.x, groundY, phase);
 
@@ -568,6 +612,7 @@ function renderCreature(globalPhase) {
   stage.dataset.flight = contacts.length === 0 ? "true" : "false";
   stage.dataset.bodyPitch = (bodyPitch * 180 / Math.PI).toFixed(2);
   stage.dataset.bodyY = bodyCenterWorld.y.toFixed(1);
+  stage.dataset.contactSettle = contactSettle.toFixed(2);
   stage.dataset.frontFootY = foreNearPose.foot.y.toFixed(1);
   stage.dataset.rearFootY = hindNearPose.foot.y.toFixed(1);
 }
