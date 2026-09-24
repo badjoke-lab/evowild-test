@@ -177,7 +177,8 @@ let dustCursor = 0;
 function spawnDust(r) {
   const p = particles[dustCursor++ % particles.length];
   const laneT = r.laneF/(LANES-1);
-  const y = trackY(laneT);
+  const x = worldX(r.distance, r.laneF);
+  const y = trackYAt(x, laneT, selected().distance * 58);
   const scale = laneScale(laneT);
   p.active = true;
   p.x = worldX(r.distance, r.laneF) - MORPHS[r.morph].w*scale*.34;
@@ -198,14 +199,21 @@ function worldX(distance, laneF = 2.5) {
   return focusX + (distance - focus.distance) * ppm + depthShear;
 }
 
-function trackY(t) {
-  const top = height * .53;
-  const bottom = height * .94;
-  return top + (bottom-top) * Math.pow(t,1.22);
+function trackCurveY(x, scroll) {
+  const nx = (x - width * 0.5) / Math.max(1, width);
+  const sweep = Math.sin(nx * 2.55 + scroll * 0.010) * height * 0.045;
+  const camber = -Math.cos(nx * 1.45 + scroll * 0.006) * height * 0.018;
+  return sweep + camber;
+}
+
+function trackYAt(x, laneT, scroll) {
+  const far = height * 0.505 + trackCurveY(x, scroll);
+  const near = height * 0.955 + trackCurveY(x, scroll) * 0.44;
+  return far + (near - far) * Math.pow(laneT, 1.18);
 }
 
 function laneScale(t) {
-  return .66 + t * .34;
+  return .68 + t * .33;
 }
 
 function drawSky(scroll) {
@@ -264,74 +272,152 @@ function treeLine(base,shift) {
 }
 
 function drawGrandstand(scroll) {
-  const y=height*.42;
-  const speed=scroll*.52;
-  const span=360;
-  const off=((speed%span)+span)%span;
-  for(let x=-span+off;x<width+span;x+=span){
-    ctx.fillStyle="rgba(34,48,58,.90)";
-    ctx.fillRect(x,y-55,300,57);
-    ctx.fillStyle="#d7e0df";
-    ctx.fillRect(x-10,y-63,320,7);
-    ctx.fillStyle="rgba(194,206,207,.58)";
-    for(let r=0;r<5;r++){
-      const ry=y-43+r*9;
-      for(let c=0;c<26;c++){
-        const tone=(c*13+r*7)%3;
-        ctx.fillStyle=tone===0?"#b8a58f":tone===1?"#7f939f":"#d1c7b7";
-        ctx.fillRect(x+8+c*11,ry,5,4);
+  const base = height * .455;
+  const span = 470;
+  const off = ((scroll * .24) % span + span) % span;
+  for (let x = -span + off; x < width + span; x += span) {
+    ctx.save();
+    ctx.translate(x, 0);
+
+    const roof = ctx.createLinearGradient(0, base - 95, 0, base - 50);
+    roof.addColorStop(0, "#182630");
+    roof.addColorStop(1, "#314450");
+    ctx.fillStyle = roof;
+    ctx.beginPath();
+    ctx.moveTo(-18, base - 92);
+    ctx.lineTo(335, base - 92);
+    ctx.lineTo(305, base - 58);
+    ctx.lineTo(0, base - 58);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = "#d9e0dd";
+    ctx.fillRect(-8, base - 100, 350, 7);
+
+    const tiers = [base - 50, base - 39, base - 28, base - 17];
+    for (let r = 0; r < tiers.length; r++) {
+      const ry = tiers[r];
+      ctx.fillStyle = r % 2 ? "#5d6d73" : "#68777b";
+      ctx.fillRect(2, ry, 306, 7);
+      for (let c = 0; c < 31; c++) {
+        const v = (c * 17 + r * 11) % 5;
+        ctx.fillStyle = ["#e0c6a1","#98b1b8","#c77b62","#d8d7c9","#8395a0"][v];
+        ctx.fillRect(7 + c * 9.6, ry + 1, 4.2, 3.6);
       }
     }
-    ctx.strokeStyle="rgba(219,232,236,.45)";
-    ctx.lineWidth=2;
+
+    ctx.strokeStyle = "rgba(222,234,235,.42)";
+    ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.moveTo(x,y+1);ctx.lineTo(x+300,y+1);ctx.stroke();
+    ctx.moveTo(0, base - 7);
+    ctx.lineTo(308, base - 7);
+    ctx.stroke();
+
+    ctx.restore();
   }
 }
 
 function drawTrack(scroll) {
-  const top=height*.50, bottom=height;
-  const g=ctx.createLinearGradient(0,top,0,bottom);
-  g.addColorStop(0,"#b9864e");
-  g.addColorStop(.55,"#9d6638");
-  g.addColorStop(1,"#744629");
-  ctx.fillStyle=g;
-  ctx.fillRect(0,top,width,bottom-top);
-
-  for(let lane=0;lane<LANES;lane++){
-    const t=lane/(LANES-1);
-    const y=trackY(t);
-    ctx.strokeStyle=`rgba(255,241,214,${.20+t*.18})`;
-    ctx.lineWidth=1+t*1.3;
-    ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(width,y);ctx.stroke();
+  const samples = 44;
+  const farPts = [];
+  const nearPts = [];
+  for (let i = 0; i <= samples; i++) {
+    const x = (i / samples) * width;
+    farPts.push([x, trackYAt(x, 0, scroll)]);
+    nearPts.push([x, trackYAt(x, 1, scroll)]);
   }
 
-  const markGap=64;
-  const off=((scroll*2.6)%markGap+markGap)%markGap;
-  for(let x=-markGap+off;x<width+markGap;x+=markGap){
-    const t=(x+120)/(width+240);
-    const y=height*(.62+.29*Math.max(0,Math.min(1,t)));
-    ctx.fillStyle="rgba(244,223,191,.48)";
-    ctx.fillRect(x,y,22+34*t,2+3*t);
+  const grad = ctx.createLinearGradient(0, height * .49, 0, height);
+  grad.addColorStop(0, "#bd8b55");
+  grad.addColorStop(.42, "#9a6339");
+  grad.addColorStop(1, "#684028");
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.moveTo(farPts[0][0], farPts[0][1]);
+  for (const [x,y] of farPts) ctx.lineTo(x,y);
+  for (let i = nearPts.length - 1; i >= 0; i--) ctx.lineTo(nearPts[i][0], nearPts[i][1]);
+  ctx.closePath();
+  ctx.fill();
+
+  // far apron
+  ctx.strokeStyle = "rgba(233,239,231,.95)";
+  ctx.lineWidth = 5;
+  ctx.beginPath();
+  farPts.forEach(([x,y],i)=> i ? ctx.lineTo(x,y-5) : ctx.moveTo(x,y-5));
+  ctx.stroke();
+
+  // lane curves
+  for (let lane = 1; lane < LANES; lane++) {
+    const t = lane / LANES;
+    ctx.strokeStyle = `rgba(255,240,211,${.12 + t * .16})`;
+    ctx.lineWidth = 1 + t * 1.1;
+    ctx.beginPath();
+    for (let i = 0; i <= samples; i++) {
+      const x = (i / samples) * width;
+      const y = trackYAt(x, t, scroll);
+      if (i) ctx.lineTo(x,y); else ctx.moveTo(x,y);
+    }
+    ctx.stroke();
   }
 
-  const streakCount = width < 760 ? 55 : 110;
-  ctx.strokeStyle="rgba(255,232,196,.20)";
-  for(let i=0;i<streakCount;i++){
-    const seed=i*97.13;
-    const y=top+((Math.sin(seed)*.5+.5)*(bottom-top));
-    const x=((seed*31-scroll*4.2)%(width+160)+width+160)%(width+160)-80;
-    const len=16+(y-top)/(bottom-top)*46;
-    ctx.lineWidth=.7+(y-top)/(bottom-top)*1.8;
-    ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-len,y+1);ctx.stroke();
+  // moving painted dashes, projected into the curved surface
+  const gap = 82;
+  const phase = ((scroll * 3.2) % gap + gap) % gap;
+  for (let x = -gap + phase; x < width + gap; x += gap) {
+    const t = Math.max(0, Math.min(1, (x + 80) / (width + 160)));
+    const laneT = .18 + .70 * t;
+    const y = trackYAt(x, laneT, scroll);
+    const len = 22 + 46 * laneT;
+    const slope = (trackCurveY(x + 10, scroll) - trackCurveY(x - 10, scroll)) / 20;
+    ctx.save();
+    ctx.translate(x,y);
+    ctx.rotate(Math.atan(slope));
+    ctx.fillStyle = `rgba(250,228,194,${.30 + laneT * .22})`;
+    ctx.fillRect(-len * .5, -1.2 - laneT, len, 2.4 + laneT * 2.1);
+    ctx.restore();
   }
 
-  ctx.strokeStyle="#e9ece6";
-  ctx.lineWidth=4;
-  ctx.beginPath();ctx.moveTo(0,top-7);ctx.lineTo(width,top-7);ctx.stroke();
+  // subtle surface streaks
+  const streaks = width < 760 ? 48 : 88;
+  for (let i = 0; i < streaks; i++) {
+    const seed = i * 91.731;
+    const x = ((seed * 17 - scroll * 4.8) % (width + 220) + width + 220) % (width + 220) - 110;
+    const laneT = ((i * 37) % 100) / 100;
+    const y = trackYAt(x, laneT, scroll);
+    const len = 15 + laneT * 48;
+    ctx.strokeStyle = `rgba(255,235,202,${.035 + laneT * .07})`;
+    ctx.lineWidth = .7 + laneT * 1.5;
+    ctx.beginPath();
+    ctx.moveTo(x,y);
+    ctx.lineTo(x-len,y+1);
+    ctx.stroke();
+  }
+
+  // near rail with moving posts for strong speed parallax
+  const postGap = 78;
+  const poff = ((scroll * 5.3) % postGap + postGap) % postGap;
+  ctx.strokeStyle = "rgba(239,242,235,.92)";
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  for (let i = 0; i <= samples; i++) {
+    const x = (i / samples) * width;
+    const y = trackYAt(x, 1, scroll) - 5;
+    if (i) ctx.lineTo(x,y); else ctx.moveTo(x,y);
+  }
+  ctx.stroke();
+
+  for (let x = -postGap + poff; x < width + postGap; x += postGap) {
+    const y = trackYAt(x, 1, scroll);
+    ctx.strokeStyle = "rgba(215,225,226,.72)";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(x,y-5);
+    ctx.lineTo(x+3,y+27);
+    ctx.stroke();
+  }
 }
 
-function frameIndexFor(r) {
+function frameIndexFor(r) {function frameIndexFor(r) {
   const ratio=Math.max(.2,Math.min(1.15,r.speed/r.cruise));
   const frameMs=150-(ratio*74);
   return Math.floor((elapsed+r.id*47)/frameMs)%6;
@@ -343,7 +429,8 @@ function drawRacer(r) {
   const laneT=r.laneF/(LANES-1);
   const scale=laneScale(laneT)*(cameraMode==="chase"?1.00:.90);
   const x=worldX(r.distance, r.laneF);
-  const y=trackY(laneT);
+  const scroll=selected().distance*58;
+  const y=trackYAt(x,laneT,scroll);
   if(x<-300||x>width+300) return;
 
   const stat=MORPHS[r.morph];
@@ -437,10 +524,16 @@ function render() {
   drawDust();
   drawSpeedFX(speedRatio);
 
-  const nearRail=height*.965;
-  ctx.strokeStyle="rgba(240,244,239,.84)";
-  ctx.lineWidth=5;
-  ctx.beginPath();ctx.moveTo(0,nearRail);ctx.lineTo(width,nearRail);ctx.stroke();
+  // foreground verge / posts: fastest parallax layer
+  const vergeY = height * .985;
+  ctx.fillStyle = "#223c2c";
+  ctx.fillRect(0, vergeY - 10, width, 28);
+  const fgGap = 118;
+  const fgOff = ((scroll * 7.2) % fgGap + fgGap) % fgGap;
+  for (let x = -fgGap + fgOff; x < width + fgGap; x += fgGap) {
+    ctx.fillStyle = "rgba(230,237,233,.72)";
+    ctx.fillRect(x, vergeY - 28, 4, 34);
+  }
 
   const vignette=ctx.createRadialGradient(width*.48,height*.48,height*.18,width*.5,height*.5,width*.76);
   vignette.addColorStop(0,"rgba(0,0,0,0)");
