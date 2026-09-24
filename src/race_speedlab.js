@@ -367,15 +367,15 @@ function laneScale(t) {
 
 function drawSky(scroll) {
   const g = ctx.createLinearGradient(0,0,0,height*.62);
-  g.addColorStop(0,"#5f9fc9");
-  g.addColorStop(.48,"#a7c7d6");
-  g.addColorStop(1,"#d2c7a5");
+  g.addColorStop(0,"#4e92bf");
+  g.addColorStop(.46,"#9fc2d2");
+  g.addColorStop(1,"#d4c39b");
   ctx.fillStyle = g;
   ctx.fillRect(0,0,width,height);
 
   const sx = width*.78, sy=height*.16, sr=Math.max(44,width*.035);
   const glow = ctx.createRadialGradient(sx,sy,0,sx,sy,sr*2.7);
-  glow.addColorStop(0,"rgba(255,242,200,.70)");
+  glow.addColorStop(0,"rgba(255,242,200,.82)");
   glow.addColorStop(1,"rgba(255,242,200,0)");
   ctx.fillStyle=glow;
   ctx.fillRect(sx-sr*2.7,sy-sr*2.7,sr*5.4,sr*5.4);
@@ -696,13 +696,30 @@ function drawRacer(r) {
     }
   }
 
-  ctx.fillStyle=`rgba(18,14,12,${.14+.10*scale})`;
-  ctx.beginPath();
-  ctx.ellipse(x,y+7,w*.31,4.5+5*scale,0,0,Math.PI*2);
-  ctx.fill();
+  // Directional soft shadow gives each runner contact and track depth.
+  ctx.save();
+  ctx.translate(-10*scale, 4*scale);
+  for (let sh = 3; sh >= 1; sh--) {
+    ctx.fillStyle = `rgba(20,14,10,${(0.035 + sh * 0.025) * Math.min(1,scale)})`;
+    ctx.beginPath();
+    ctx.ellipse(x - sh * 3 * scale, y + 6 + sh, w * (.25 + sh * .035), (3 + sh * 2.1) * scale, -.035, 0, Math.PI*2);
+    ctx.fill();
+  }
+  ctx.restore();
 
   if(r.morph==="S") drawSpriteMorph(r,x,y,scale,frame,bob,tilt);
   else drawArticulatedMorph(r,x,y,scale,speedRatio);
+
+  if (speedRatio > .82) {
+    const wake = 28 + speedRatio * 35;
+    const dg = ctx.createLinearGradient(x - wake, y, x, y);
+    dg.addColorStop(0, "rgba(203,164,119,0)");
+    dg.addColorStop(1, "rgba(203,164,119,.12)");
+    ctx.fillStyle = dg;
+    ctx.beginPath();
+    ctx.ellipse(x - wake*.42, y + 8, wake*.60, 4 + scale*3, 0, 0, Math.PI*2);
+    ctx.fill();
+  }
 
   if(r.id===SELECTED_ID){
     const markerY=y-h-(r.morph==="S"?bob:3)-8;
