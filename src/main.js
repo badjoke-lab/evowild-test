@@ -338,9 +338,13 @@ function buildTrack() {
   posts.instanceMatrix.needsUpdate = true;
   scene.add(posts);
 
-  const streakCount = isMobile ? 72 : 120;
-  const streakGeometry = new THREE.BoxGeometry(1.25, 0.018, 0.065);
-  const streakMaterial = new THREE.MeshBasicMaterial({ color: 0x8f6848, transparent: true, opacity: 0.42 });
+  const streakCount = presentationMode ? (isMobile ? 120 : 180) : (isMobile ? 72 : 120);
+  const streakGeometry = new THREE.BoxGeometry(presentationMode ? 2.35 : 1.25, 0.018, presentationMode ? 0.045 : 0.065);
+  const streakMaterial = new THREE.MeshBasicMaterial({
+    color: 0x8f6848,
+    transparent: true,
+    opacity: presentationMode ? 0.56 : 0.42
+  });
   const streaks = new THREE.InstancedMesh(streakGeometry, streakMaterial, streakCount);
   const streakDummy = new THREE.Object3D();
   for (let i = 0; i < streakCount; i++) {
@@ -479,7 +483,7 @@ function buildTrack() {
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
-  stage.dataset.trackPresentation = "v14";
+  stage.dataset.trackPresentation = "v15";
   stage.dataset.presentationField = presentationMode ? "s-only-5" : "full-18";
   stage.dataset.presentationSpeed = presentationMode ? "2.15x" : "1x";
   stage.dataset.presentationTint = presentationMode ? "s-variant-v1" : "off";
@@ -2846,7 +2850,7 @@ function setCamera() {
     const followBack = isolatedProof
       ? (isMobile ? -1.5 : isolatedBack)
       : presentationMode
-        ? (isMobile ? -5.9 : -6.15)
+        ? (isMobile ? -5.35 : -5.55)
         : (isMobile ? -2.2 : -1.35);
     const followSide = isolatedProof
       ? (isMobile ? 4.3 : isolatedSide)
@@ -2856,14 +2860,14 @@ function setCamera() {
     const followHeight = isolatedProof
       ? (isMobile ? 1.92 : isolatedHeight)
       : presentationMode
-        ? (isMobile ? 1.52 : 1.42)
+        ? (isMobile ? 1.42 : 1.34)
         : (isMobile ? 2.18 : 1.68);
     const shake = Math.max(0, speedRatio - 0.34) * (isolatedProof ? 0.075 : presentationMode ? 0.08 : 0.13);
     const desired = selectedPos.clone()
       .addScaledVector(tangent, followBack)
       .addScaledVector(side, followSide + Math.sin(elapsed * 0.023) * shake)
       .add(new THREE.Vector3(0, followHeight + Math.sin(elapsed * 0.031) * shake * 0.6, 0));
-    camera.position.lerp(desired, 0.15);
+    camera.position.lerp(desired, presentationMode ? 0.28 : 0.15);
     const lookTarget = selectedPos.clone()
       .addScaledVector(tangent, presentationMode ? (4.25 + speedRatio * 1.65) : (3.8 + speedRatio * 1.4))
       .addScaledVector(side, presentationMode ? 0.35 : Math.sin(elapsed * 0.017) * shake * 0.45)
