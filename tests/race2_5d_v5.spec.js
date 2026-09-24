@@ -14,6 +14,10 @@ test("lane 5 pseudo-3D race builds speed and renders without browser errors", as
 
   const canvas = page.locator("#race");
   await expect(canvas).toBeVisible();
+  await page.waitForTimeout(500);
+  console.log("LANE5_RUNTIME", JSON.stringify({ pageErrors, consoleErrors }));
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
   await expect(page.locator("#speed")).not.toHaveText("0 km/h", { timeout: 6000 });
   await expect(page.locator("#distance")).not.toHaveText("0m", { timeout: 6000 });
 
