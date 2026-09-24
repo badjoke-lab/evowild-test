@@ -1,15 +1,18 @@
+import * as THREE from "three";
+
 /*
- * EvoWild Run Road Lab
+ * EvoWild Run Road Lab — WebGL 2.5D
  *
- * The segmented pseudo-3D road projection in this experimental lane is
- * adapted from the MIT-licensed javascript-racer architecture by Jake Gordon
- * and contributors. See /THIRD_PARTY_NOTICES.md.
+ * Creature: 2D animated S run-sheet billboard.
+ * Course/environment: real 3D geometry rendered with Three.js.
  *
- * No javascript-racer image, sprite, or music assets are used here.
+ * The earlier MIT pseudo-3D experiment remains documented in
+ * /THIRD_PARTY_NOTICES.md, but this renderer no longer depends on that
+ * projection code.
  */
 
+const host = document.querySelector(".roadlab");
 const canvas = document.querySelector("#roadCanvas");
-const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
 const board = document.querySelector("#board");
 const ui = {
   phase: document.querySelector("#phase"),
@@ -20,709 +23,634 @@ const ui = {
 };
 
 const BASE = import.meta.env.BASE_URL || "/";
-const FPS = 60;
-const STEP = 1 / FPS;
-const SEGMENT_LENGTH = 180;
-const ROAD_WIDTH = 1920;
-const RUMBLE_LENGTH = 3;
+const RACER_COUNT = 8;
 const LANES = 6;
-const DRAW_DISTANCE = 260;
-const CAMERA_HEIGHT = 760;
-const FIELD_OF_VIEW = 80;
-const CAMERA_DEPTH = 1 / Math.tan((FIELD_OF_VIEW / 2) * Math.PI / 180);
-const CAMERA_LEAD = 1720;
-const SPRITE_SCALE = 0.00050;
+const TRACK_WIDTH = 48;
+const TRACK_SEGMENTS = 520;
 const RACE_METERS = 1200;
 const SELECTED_ID = 1;
 
-let width = 1280;
-let height = 720;
-let dpr = 1;
-let elapsed = 0;
-let accumulator = 0;
-let last = performance.now();
-let trackLength = 0;
-let cameraZ = 0;
-let cameraX = 0;
-let cameraY = CAMERA_HEIGHT;
-let baseCurve = 0;
-let lastBoardPaint = 0;
+const renderer = new THREE.WebGLRenderer({
+  canvas,
+  antialias: true,
+  alpha: false,
+  powerPreference: "high-performance"
+});
+renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.7));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.08;
 
-const segments = [];
-const runners = [];
-let sSheet = null;
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x7ba6bd);
+scene.fog = new THREE.FogExp2(0x9fb7b6, 0.00175);
 
-const COLORS = {
-  skyTop: "#3d7fa9",
-  skyMid: "#9fc0cf",
-  skyLow: "#dcc59c",
-  grassLight: "#3c654a",
-  grassDark: "#3a6348",
-  roadLight: "#8d603f",
-  roadDark: "#8d603f",
-  rumbleLight: "#e7dac1",
-  rumbleDark: "#526776",
-  lane: "rgba(248,231,198,.74)",
-  fog: "#b5c1b7"
-};
+const camera = new THREE.PerspectiveCamera(54, 16 / 9, 0.1, 1800);
 
-function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
-function lerp(a, b, t) { return a + (b - a) * t; }
-function easeIn(a, b, t) { return a + (b - a) * t * t; }
-function easeOut(a, b, t) { return a + (b - a) * (1 - (1 - t) * (1 - t)); }
-function easeInOut(a, b, t) { return a + (b - a) * ((-Math.cos(t * Math.PI) / 2) + .5); }
-function percentRemaining(n, total) { return (n % total) / total; }
-function increase(start, inc, max) {
-  let r = start + inc;
-  while (r >= max) r -= max;
-  while (r < 0) r += max;
-  return r;
-}
-function fogFactor(distance, density = 4.1) {
-  return 1 / Math.pow(Math.E, distance * distance * density);
-}
+const hemi = new THREE.HemisphereLight(0xc9e7f2, 0x35543d, 2.15);
+scene.add(hemi);
 
-function resize() {
-  const rect = canvas.getBoundingClientRect();
-  width = Math.max(320, rect.width);
-  height = Math.max(480, rect.height);
-  dpr = Math.min(window.devicePixelRatio || 1, 1.7);
-  canvas.width = Math.round(width * dpr);
-  canvas.height = Math.round(height * dpr);
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-}
-new ResizeObserver(resize).observe(canvas);
-resize();
+const sun = new THREE.DirectionalLight(0xffe7bc, 3.4);
+sun.position.set(180, 260, 120);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.camera.left = -140;
+sun.shadow.camera.right = 140;
+sun.shadow.camera.top = 140;
+sun.shadow.camera.bottom = -140;
+sun.shadow.camera.near = 1;
+sun.shadow.camera.far = 520;
+sun.shadow.bias = -0.00035;
+scene.add(sun);
 
-function loadImage(src) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.decoding = "async";
-    img.onload = () => resolve(img);
-    img.onerror = reject;
-    img.src = src;
-  });
-}
+const sunDisc = new THREE.Mesh(
+  new THREE.SphereGeometry(13, 24, 16),
+  new THREE.MeshBasicMaterial({ color: 0xffe5a8, fog: false })
+);
+sunDisc.position.set(240, 170, -320);
+scene.add(sunDisc);
 
-loadImage(BASE + "concept/s-run-sheet.svg")
-  .then(img => {
-    sSheet = img;
-    document.querySelector(".roadlab").dataset.state = "ready";
-  })
-  .catch(err => {
-    document.querySelector(".roadlab").dataset.state = "asset-error";
-    console.error(err);
-  });
+const ground = new THREE.Mesh(
+  new THREE.PlaneGeometry(1500, 1500),
+  new THREE.MeshStandardMaterial({ color: 0x315b3f, roughness: 1, metalness: 0 })
+);
+ground.rotation.x = -Math.PI / 2;
+ground.position.y = -2.1;
+ground.receiveShadow = true;
+scene.add(ground);
 
-function lastY() {
-  return segments.length ? segments[segments.length - 1].p2.world.y : 0;
-}
+function makeDirtTexture() {
+  const c = document.createElement("canvas");
+  c.width = 512;
+  c.height = 512;
+  const g = c.getContext("2d");
+  g.fillStyle = "#8b5d39";
+  g.fillRect(0, 0, 512, 512);
 
-function addSegment(curve, y) {
-  const n = segments.length;
-  segments.push({
-    index: n,
-    p1: { world: { y: lastY(), z: n * SEGMENT_LENGTH }, camera: {}, screen: {} },
-    p2: { world: { y, z: (n + 1) * SEGMENT_LENGTH }, camera: {}, screen: {} },
-    curve,
-    clip: height,
-    fog: 1,
-    visible: false,
-    colorIndex: Math.floor(n / RUMBLE_LENGTH) % 2
-  });
-}
-
-function addRoad(enter, hold, leave, curve, hill) {
-  const startY = lastY();
-  const endY = startY + hill * SEGMENT_LENGTH;
-  const total = enter + hold + leave;
-  for (let n = 0; n < enter; n++)
-    addSegment(easeIn(0, curve, n / Math.max(1, enter)), easeInOut(startY, endY, n / total));
-  for (let n = 0; n < hold; n++)
-    addSegment(curve, easeInOut(startY, endY, (enter + n) / total));
-  for (let n = 0; n < leave; n++)
-    addSegment(easeInOut(curve, 0, n / Math.max(1, leave)), easeInOut(startY, endY, (enter + hold + n) / total));
-}
-
-function buildTrack() {
-  segments.length = 0;
-
-  addRoad(20, 36, 20, 0.0, 8);
-  addRoad(24, 46, 24, 4.2, 18);
-  addRoad(18, 38, 18, 7.0, -10);
-  addRoad(20, 42, 20, 0.0, 24);
-  addRoad(24, 54, 24, -7.4, 8);
-  addRoad(18, 34, 18, -3.8, -24);
-  addRoad(20, 48, 20, 6.2, 12);
-  addRoad(20, 36, 20, 0.0, 8);
-  addRoad(22, 46, 22, -6.6, 18);
-  addRoad(18, 42, 18, 4.8, -10);
-  addRoad(20, 50, 20, 0.0, 0);
-
-  trackLength = segments.length * SEGMENT_LENGTH;
-}
-
-function findSegment(z) {
-  return segments[Math.floor(z / SEGMENT_LENGTH) % segments.length];
-}
-
-function project(point, camX, camY, camZ) {
-  point.camera.x = -camX;
-  point.camera.y = point.world.y - camY;
-  point.camera.z = point.world.z - camZ;
-  point.screen.scale = CAMERA_DEPTH / point.camera.z;
-  point.screen.x = Math.round((width / 2) + point.screen.scale * point.camera.x * width / 2);
-  point.screen.y = Math.round((height / 2) - point.screen.scale * point.camera.y * height / 2);
-  point.screen.w = Math.round(point.screen.scale * ROAD_WIDTH * width / 2);
-}
-
-function roadPolygon(x1,y1,w1,x2,y2,w2,color) {
-  ctx.fillStyle = color;
-  ctx.beginPath();
-  ctx.moveTo(x1 - w1, y1);
-  ctx.lineTo(x1 + w1, y1);
-  ctx.lineTo(x2 + w2, y2);
-  ctx.lineTo(x2 - w2, y2);
-  ctx.closePath();
-  ctx.fill();
-}
-
-function quad(x1,y1,x2,y2,x3,y3,x4,y4,color) {
-  ctx.fillStyle = color;
-  ctx.beginPath();
-  ctx.moveTo(x1,y1);
-  ctx.lineTo(x2,y2);
-  ctx.lineTo(x3,y3);
-  ctx.lineTo(x4,y4);
-  ctx.closePath();
-  ctx.fill();
-}
-
-function renderRoadSegment(seg) {
-  const { p1, p2 } = seg;
-  const light = seg.colorIndex === 0;
-  const grass = light ? COLORS.grassLight : COLORS.grassDark;
-  const road = light ? COLORS.roadLight : COLORS.roadDark;
-  const rumble = light ? COLORS.rumbleLight : COLORS.rumbleDark;
-
-  const r1 = p1.screen.w / 13;
-  const r2 = p2.screen.w / 13;
-  const l1 = p1.screen.w / 76;
-  const l2 = p2.screen.w / 76;
-
-  ctx.fillStyle = grass;
-  ctx.fillRect(0, p2.screen.y, width, p1.screen.y - p2.screen.y + 1);
-
-  quad(
-    p1.screen.x - p1.screen.w - r1, p1.screen.y,
-    p1.screen.x - p1.screen.w, p1.screen.y,
-    p2.screen.x - p2.screen.w, p2.screen.y,
-    p2.screen.x - p2.screen.w - r2, p2.screen.y,
-    rumble
-  );
-  quad(
-    p1.screen.x + p1.screen.w + r1, p1.screen.y,
-    p1.screen.x + p1.screen.w, p1.screen.y,
-    p2.screen.x + p2.screen.w, p2.screen.y,
-    p2.screen.x + p2.screen.w + r2, p2.screen.y,
-    rumble
-  );
-
-  roadPolygon(p1.screen.x, p1.screen.y, p1.screen.w, p2.screen.x, p2.screen.y, p2.screen.w, road);
-
-  const laneW1 = p1.screen.w * 2 / LANES;
-  const laneW2 = p2.screen.w * 2 / LANES;
-  let lx1 = p1.screen.x - p1.screen.w + laneW1;
-  let lx2 = p2.screen.x - p2.screen.w + laneW2;
-  for (let lane = 1; lane < LANES; lane++) {
-    if ((seg.index + lane) % 5 < 3) {
-      quad(lx1-l1/2,p1.screen.y,lx1+l1/2,p1.screen.y,lx2+l2/2,p2.screen.y,lx2-l2/2,p2.screen.y,COLORS.lane);
-    }
-    lx1 += laneW1;
-    lx2 += laneW2;
+  for (let i = 0; i < 5200; i++) {
+    const v = 78 + Math.floor(Math.random() * 72);
+    const a = .025 + Math.random() * .065;
+    g.fillStyle = `rgba(${v+35},${v},${Math.max(35,v-28)},${a})`;
+    const x = Math.random() * 512;
+    const y = Math.random() * 512;
+    const w = 1 + Math.random() * 6;
+    const h = .5 + Math.random() * 1.6;
+    g.fillRect(x, y, w, h);
   }
 
-  if (seg.fog < 1) {
-    ctx.globalAlpha = 1 - seg.fog;
-    ctx.fillStyle = COLORS.fog;
-    ctx.fillRect(0, p2.screen.y, width, p1.screen.y - p2.screen.y + 1);
-    ctx.globalAlpha = 1;
+  g.strokeStyle = "rgba(63,39,25,.16)";
+  g.lineWidth = 1.2;
+  for (let i = 0; i < 28; i++) {
+    const x = 14 + i * 18 + (i % 3) * 3;
+    g.beginPath();
+    g.moveTo(x, 0);
+    g.bezierCurveTo(x + 5, 130, x - 4, 360, x + 3, 512);
+    g.stroke();
   }
+
+  const tex = new THREE.CanvasTexture(c);
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(3.4, 36);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+  return tex;
 }
 
-function drawBackground(curve, roadY) {
-  const sky = ctx.createLinearGradient(0,0,0,height*.66);
-  sky.addColorStop(0,"#397aa5");
-  sky.addColorStop(.54,"#9abccc");
-  sky.addColorStop(1,"#d7c39a");
-  ctx.fillStyle = sky;
-  ctx.fillRect(0,0,width,height);
+const controlPoints = [
+  new THREE.Vector3(-175, 5, -18),
+  new THREE.Vector3(-148, 10, -125),
+  new THREE.Vector3(-58, 18, -188),
+  new THREE.Vector3(58, 13, -184),
+  new THREE.Vector3(154, 6, -120),
+  new THREE.Vector3(198, 2, -18),
+  new THREE.Vector3(168, 10, 92),
+  new THREE.Vector3(82, 22, 164),
+  new THREE.Vector3(-30, 26, 186),
+  new THREE.Vector3(-138, 14, 126),
+  new THREE.Vector3(-198, 6, 48)
+];
 
-  const sunX = width * .79 - curve * 10;
-  const sunY = height * .14;
-  const sr = Math.max(36, width * .026);
-  const glow = ctx.createRadialGradient(sunX,sunY,0,sunX,sunY,sr*3.2);
-  glow.addColorStop(0,"rgba(255,244,199,.90)");
-  glow.addColorStop(.34,"rgba(255,239,190,.32)");
-  glow.addColorStop(1,"rgba(255,239,190,0)");
-  ctx.fillStyle = glow;
-  ctx.fillRect(sunX-sr*3.2,sunY-sr*3.2,sr*6.4,sr*6.4);
+const trackCurve = new THREE.CatmullRomCurve3(controlPoints, true, "catmullrom", 0.28);
+const trackLength = trackCurve.getLength();
 
-  // high cloud streaks: thin enough to imply motion without hiding the course.
-  ctx.strokeStyle="rgba(233,241,239,.18)";
-  ctx.lineWidth=1;
-  for(let i=0;i<11;i++){
-    const y=height*(.15+((i*37)%28)/100);
-    const len=70+(i%4)*55;
-    const x=((i*211-cameraZ*.006)%(width+260)+width+260)%(width+260)-120;
-    ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+len,y);ctx.stroke();
-  }
-
-  const shift1=(cameraZ*.006+curve*62)%520;
-  const shift2=(cameraZ*.012+curve*94)%360;
-
-  // distant mountain chain
-  ctx.fillStyle="#718992";
-  ctx.beginPath();
-  ctx.moveTo(0,height*.51);
-  for(let x=-560;x<=width+560;x+=18){
-    const xx=x-shift1;
-    const n=.56*Math.sin((x+120)*.013)+.28*Math.sin((x+40)*.029)+.16*Math.sin(x*.061);
-    const y=height*(.40-n*.095);
-    ctx.lineTo(xx,y);
-  }
-  ctx.lineTo(width,height*.56);ctx.lineTo(0,height*.56);ctx.closePath();ctx.fill();
-
-  // middle ridge
-  ctx.fillStyle="#58766d";
-  ctx.beginPath();
-  ctx.moveTo(0,height*.55);
-  for(let x=-420;x<=width+420;x+=16){
-    const xx=x-shift2;
-    const n=.62*Math.sin((x+90)*.021)+.22*Math.sin(x*.053)+.16*Math.cos(x*.095);
-    const y=height*(.49-n*.050);
-    ctx.lineTo(xx,y);
-  }
-  ctx.lineTo(width,height*.59);ctx.lineTo(0,height*.59);ctx.closePath();ctx.fill();
-
-  // close tree line
-  ctx.fillStyle="#315945";
-  ctx.beginPath();
-  ctx.moveTo(0,height*.57);
-  for(let x=-120;x<=width+120;x+=28){
-    const h=.025+.026*Math.abs(Math.sin((x+cameraZ*.018)*.067));
-    ctx.lineTo(x-shift2*.36,height*(.56-h));
-    ctx.lineTo(x+10-shift2*.36,height*.57);
-  }
-  ctx.lineTo(width,height*.62);ctx.lineTo(0,height*.62);ctx.closePath();ctx.fill();
-
-  const haze=ctx.createLinearGradient(0,height*.35,0,height*.63);
-  haze.addColorStop(0,"rgba(224,234,227,0)");
-  haze.addColorStop(1,"rgba(224,234,227,.16)");
-  ctx.fillStyle=haze;ctx.fillRect(0,height*.34,width,height*.31);
-
-  if(roadY>height*.40){
-    ctx.fillStyle="rgba(14,28,30,.07)";
-    ctx.fillRect(0,roadY-1,width,2);
-  }
+const up = new THREE.Vector3(0, 1, 0);
+function trackFrame(u) {
+  const center = trackCurve.getPointAt((u % 1 + 1) % 1);
+  const tangent = trackCurve.getTangentAt((u % 1 + 1) % 1).normalize();
+  const side = new THREE.Vector3().crossVectors(up, tangent).normalize();
+  const bank = Math.sin(u * Math.PI * 6.0) * 0.045 + Math.sin(u * Math.PI * 2.0) * 0.025;
+  return { center, tangent, side, bank };
 }
 
-function drawTrackside(seg) {
-  if (!seg.visible) return;
-  const p = seg.p1.screen;
-  if (p.scale <= 0) return;
+function buildRibbon(width, yLift, material, lateralCenter = 0) {
+  const positions = [];
+  const uvs = [];
+  const indices = [];
+  const rows = 12;
 
-  const left = p.x - p.w * 1.07;
-  const right = p.x + p.w * 1.07;
-  const p2 = seg.p2.screen;
-  const left2 = p2.x - p2.w * 1.07;
-  const right2 = p2.x + p2.w * 1.07;
-  const postH = clamp(p.scale * 290000, 3, 145);
-  const postW = clamp(postH * .045, 1, 5);
-
-  // continuous guard rail makes the course read as a real circuit rather than isolated poles
-  ctx.strokeStyle = "rgba(222,232,231,.54)";
-  ctx.lineWidth = Math.max(.7, postW * .42);
-  ctx.beginPath();
-  ctx.moveTo(left, p.y - postH*.56);
-  ctx.lineTo(left2, p2.y - clamp(p2.scale * 290000,3,145)*.56);
-  ctx.moveTo(right, p.y - postH*.56);
-  ctx.lineTo(right2, p2.y - clamp(p2.scale * 290000,3,145)*.56);
-  ctx.stroke();
-
-  if (seg.index % 7 === 0) {
-    ctx.strokeStyle = "rgba(225,234,233,.70)";
-    ctx.lineWidth = postW;
-    ctx.beginPath();
-    ctx.moveTo(left,p.y);
-    ctx.lineTo(left,p.y-postH);
-    ctx.moveTo(right,p.y);
-    ctx.lineTo(right,p.y-postH);
-    ctx.stroke();
-
-    ctx.strokeStyle = "rgba(215,229,231,.44)";
-    ctx.lineWidth = Math.max(1,postW*.55);
-    ctx.beginPath();
-    ctx.moveTo(left,p.y-postH*.60);
-    ctx.lineTo(right,p.y-postH*.60);
-    ctx.stroke();
-  }
-
-  if (seg.index % 31 === 0 && p.scale > .00018) {
-    const side = (Math.floor(seg.index/31)%2===0) ? -1 : 1;
-    const bx = p.x + side * p.w * 1.38;
-    const bw = clamp(postH * .72, 16, 118);
-    const bh = bw * .34;
-    ctx.fillStyle = "rgba(13,34,45,.90)";
-    ctx.fillRect(bx - (side<0?bw:0), p.y-postH*.92, bw, bh);
-    ctx.fillStyle = "rgba(105,220,247,.86)";
-    ctx.fillRect(bx - (side<0?bw*.76: -bw*.12), p.y-postH*.78, bw*.62, Math.max(2,bh*.12));
-  }
-
-  if (seg.index % 53 === 0 && p.scale > .00021) {
-    const side = (Math.floor(seg.index/53)%2===0) ? 1 : -1;
-    const gx = p.x + side * p.w * 1.65;
-    const gw = clamp(postH * 1.35, 32, 190);
-    const gh = gw * .46;
-    ctx.fillStyle = "rgba(31,45,52,.92)";
-    ctx.fillRect(gx - (side<0?gw:0), p.y-gh, gw, gh);
-    ctx.fillStyle = "rgba(195,205,204,.68)";
-    for(let row=0;row<3;row++){
-      for(let col=0;col<8;col++){
-        if((row*3+col+seg.index)%4===0) ctx.fillStyle="#d4a983";
-        else if((row+col)%3===0) ctx.fillStyle="#8faab3";
-        else ctx.fillStyle="#c9d2d0";
-        ctx.fillRect(gx + (side<0?-gw:0) + 5 + col*(gw/9), p.y-gh+6+row*(gh/4), Math.max(2,gw/24), Math.max(2,gh/14));
-      }
+  for (let i = 0; i <= TRACK_SEGMENTS; i++) {
+    const u = i / TRACK_SEGMENTS;
+    const { center, side, bank } = trackFrame(u);
+    for (let j = 0; j <= rows; j++) {
+      const f = j / rows - .5;
+      const lateral = lateralCenter + f * width;
+      const p = center.clone().addScaledVector(side, lateral);
+      p.y += yLift + bank * lateral;
+      positions.push(p.x, p.y, p.z);
+      uvs.push(j / rows, u * 12);
     }
   }
+
+  for (let i = 0; i < TRACK_SEGMENTS; i++) {
+    for (let j = 0; j < rows; j++) {
+      const a = i * (rows + 1) + j;
+      const b = a + rows + 1;
+      indices.push(a, b, a + 1, b, b + 1, a + 1);
+    }
+  }
+
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+  geo.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
+  geo.setIndex(indices);
+  geo.computeVertexNormals();
+
+  const mesh = new THREE.Mesh(geo, material);
+  mesh.receiveShadow = true;
+  return mesh;
 }
 
-function makeRunners() {
-  const names=["Vela","Aster","Mica","Rook","Nacre","Ilex","Lumen","Tern"];
-  const lanes=[2,4,1,5,3,0,4,1];
-  const offsets=[0,480,-420,950,-760,1450,1880,-1120];
-  const baseSpeed=[8650,8520,8760,8430,8600,8480,8700,8570];
+const trackMat = new THREE.MeshStandardMaterial({
+  map: makeDirtTexture(),
+  color: 0xd5a06f,
+  roughness: .94,
+  metalness: 0
+});
+const track = buildRibbon(TRACK_WIDTH, 0, trackMat);
+scene.add(track);
 
-  runners.length=0;
-  for(let i=0;i<names.length;i++){
-    runners.push({
+const shoulderMat = new THREE.MeshStandardMaterial({
+  color: 0x657783,
+  roughness: .88,
+  metalness: .02
+});
+scene.add(buildRibbon(TRACK_WIDTH + 7.5, -.20, shoulderMat));
+
+const innerTrack = buildRibbon(TRACK_WIDTH, .03, trackMat);
+innerTrack.renderOrder = 2;
+scene.add(innerTrack);
+
+function makeLaneStrip(offset, stripWidth, color, opacity = 1) {
+  const positions = [];
+  const indices = [];
+  const material = new THREE.MeshBasicMaterial({
+    color,
+    transparent: opacity < 1,
+    opacity,
+    side: THREE.DoubleSide,
+    depthWrite: opacity >= 1
+  });
+
+  for (let i = 0; i <= TRACK_SEGMENTS; i++) {
+    const u = i / TRACK_SEGMENTS;
+    const { center, side, bank } = trackFrame(u);
+    for (const sign of [-1, 1]) {
+      const lateral = offset + sign * stripWidth * .5;
+      const p = center.clone().addScaledVector(side, lateral);
+      p.y += .12 + bank * lateral;
+      positions.push(p.x, p.y, p.z);
+    }
+  }
+
+  for (let i = 0; i < TRACK_SEGMENTS; i++) {
+    const a = i * 2;
+    indices.push(a, a + 2, a + 1, a + 2, a + 3, a + 1);
+  }
+
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+  geo.setIndex(indices);
+  return new THREE.Mesh(geo, material);
+}
+
+for (let lane = 1; lane < LANES; lane++) {
+  const offset = -TRACK_WIDTH / 2 + lane * (TRACK_WIDTH / LANES);
+  const strip = makeLaneStrip(offset, .34, 0xf0dec0, .72);
+  strip.renderOrder = 3;
+  scene.add(strip);
+}
+
+const edgeA = makeLaneStrip(-TRACK_WIDTH/2 + .55, .45, 0xf2eadb, .85);
+const edgeB = makeLaneStrip(TRACK_WIDTH/2 - .55, .45, 0xf2eadb, .85);
+edgeA.renderOrder = edgeB.renderOrder = 3;
+scene.add(edgeA, edgeB);
+
+function offsetCurve(offset, lift = 2.1) {
+  const pts = [];
+  for (let i = 0; i < 96; i++) {
+    const u = i / 96;
+    const { center, side, bank } = trackFrame(u);
+    const p = center.clone().addScaledVector(side, offset);
+    p.y += lift + bank * offset;
+    pts.push(p);
+  }
+  return new THREE.CatmullRomCurve3(pts, true, "catmullrom", .2);
+}
+
+const railMaterial = new THREE.MeshStandardMaterial({
+  color: 0xcfd9da,
+  roughness: .42,
+  metalness: .52
+});
+for (const offset of [-TRACK_WIDTH/2 - 2.3, TRACK_WIDTH/2 + 2.3]) {
+  const rail = new THREE.Mesh(
+    new THREE.TubeGeometry(offsetCurve(offset, 2.5), 420, .22, 5, true),
+    railMaterial
+  );
+  rail.castShadow = true;
+  scene.add(rail);
+}
+
+const postGeo = new THREE.CylinderGeometry(.20, .26, 4.4, 6);
+const postMat = new THREE.MeshStandardMaterial({ color: 0xc7d1d2, roughness: .52, metalness: .35 });
+const postCount = 120;
+const posts = new THREE.InstancedMesh(postGeo, postMat, postCount * 2);
+posts.castShadow = true;
+posts.receiveShadow = true;
+const dummy = new THREE.Object3D();
+let postIndex = 0;
+for (let i = 0; i < postCount; i++) {
+  const u = i / postCount;
+  const { center, side, bank } = trackFrame(u);
+  for (const offset of [-TRACK_WIDTH/2 - 2.3, TRACK_WIDTH/2 + 2.3]) {
+    const p = center.clone().addScaledVector(side, offset);
+    p.y += 2.2 + bank * offset;
+    dummy.position.copy(p);
+    dummy.rotation.set(0, 0, 0);
+    dummy.updateMatrix();
+    posts.setMatrixAt(postIndex++, dummy.matrix);
+  }
+}
+scene.add(posts);
+
+function addMountains() {
+  const mat1 = new THREE.MeshStandardMaterial({ color: 0x536b70, roughness: 1 });
+  const mat2 = new THREE.MeshStandardMaterial({ color: 0x3c5f50, roughness: 1 });
+  const ring = [
+    [-360,-320,85,mat1],[-180,-405,105,mat1],[60,-420,80,mat1],[310,-330,110,mat1],
+    [415,-90,72,mat2],[390,180,95,mat2],[210,345,76,mat2],[-80,410,115,mat1],
+    [-320,320,88,mat2],[-430,80,96,mat2]
+  ];
+  for (const [x,z,h,mat] of ring) {
+    const m = new THREE.Mesh(new THREE.ConeGeometry(h*.62,h,7),mat);
+    m.position.set(x,h*.45-4,z);
+    m.rotation.y = (x+z)*.01;
+    m.receiveShadow = true;
+    scene.add(m);
+  }
+}
+addMountains();
+
+function addGrandstand(u, sideSign) {
+  const { center, side, tangent } = trackFrame(u);
+  const root = new THREE.Group();
+  const pos = center.clone().addScaledVector(side, sideSign * (TRACK_WIDTH/2 + 34));
+  root.position.copy(pos);
+
+  const yaw = Math.atan2(tangent.x, tangent.z);
+  root.rotation.y = yaw;
+
+  const baseMat = new THREE.MeshStandardMaterial({ color: 0x31434c, roughness: .8 });
+  const seatMat = new THREE.MeshStandardMaterial({ color: 0x667980, roughness: .9 });
+  for (let tier = 0; tier < 4; tier++) {
+    const tierMesh = new THREE.Mesh(
+      new THREE.BoxGeometry(54, 3.4, 8),
+      tier % 2 ? seatMat : baseMat
+    );
+    tierMesh.position.set(0, 2.2 + tier*3.0, sideSign * (-tier*2.1));
+    tierMesh.castShadow = true;
+    tierMesh.receiveShadow = true;
+    root.add(tierMesh);
+  }
+  const roof = new THREE.Mesh(
+    new THREE.BoxGeometry(62, 1.2, 13),
+    new THREE.MeshStandardMaterial({ color: 0xd4d9d6, roughness: .42, metalness: .24 })
+  );
+  roof.position.set(0, 15.2, sideSign * -7.5);
+  root.add(roof);
+  scene.add(root);
+}
+addGrandstand(.07, 1);
+addGrandstand(.56, -1);
+
+const billboardMat = new THREE.MeshStandardMaterial({ color: 0x153643, roughness: .55, metalness: .1 });
+const glowMat = new THREE.MeshBasicMaterial({ color: 0x64d7f7 });
+for (const u of [.16,.31,.47,.68,.84]) {
+  const { center, side, tangent } = trackFrame(u);
+  const sign = Math.floor(u*100)%2 ? 1 : -1;
+  const root = new THREE.Group();
+  root.position.copy(center.clone().addScaledVector(side,sign*(TRACK_WIDTH/2+17)));
+  root.rotation.y = Math.atan2(tangent.x,tangent.z);
+  const panel = new THREE.Mesh(new THREE.BoxGeometry(16,6,.7),billboardMat);
+  panel.position.y=5.4;
+  root.add(panel);
+  const bar = new THREE.Mesh(new THREE.BoxGeometry(10,.55,.82),glowMat);
+  bar.position.set(0,5.4,.5);
+  root.add(bar);
+  scene.add(root);
+}
+
+function createShadow() {
+  const geo = new THREE.CircleGeometry(1, 28);
+  const mat = new THREE.MeshBasicMaterial({
+    color: 0x1b130f,
+    transparent: true,
+    opacity: .22,
+    depthWrite: false
+  });
+  const m = new THREE.Mesh(geo, mat);
+  m.rotation.x = -Math.PI / 2;
+  m.scale.set(6.2, 2.5, 1);
+  return m;
+}
+
+const names = ["Vela","Aster","Mica","Rook","Nacre","Ilex","Lumen","Tern"];
+const laneSeed = [2,4,1,5,3,0,4,1];
+const startGap = [0,14,-11,28,-22,41,55,-34];
+const baseSpeed = [29.8,29.1,30.2,28.8,29.5,29.0,30.0,29.4];
+
+const racers = [];
+const textureLoader = new THREE.TextureLoader();
+
+function frameTexture(baseTexture) {
+  const t = baseTexture.clone();
+  t.needsUpdate = true;
+  t.wrapS = THREE.RepeatWrapping;
+  t.wrapT = THREE.RepeatWrapping;
+  t.repeat.set(1/3,1/2);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+}
+
+function setFrame(texture, frame) {
+  const col = frame % 3;
+  const row = Math.floor(frame / 3);
+  texture.offset.x = col / 3;
+  texture.offset.y = row === 0 ? .5 : 0;
+}
+
+function createRacers(baseTexture) {
+  for (let i = 0; i < RACER_COUNT; i++) {
+    const tex = frameTexture(baseTexture);
+    const mat = new THREE.SpriteMaterial({
+      map: tex,
+      transparent: true,
+      depthWrite: false,
+      alphaTest: .04,
+      color: 0xffffff
+    });
+    const sprite = new THREE.Sprite(mat);
+    sprite.scale.set(14.5,14.5,1);
+    sprite.renderOrder = 8;
+    scene.add(sprite);
+
+    const shadow = createShadow();
+    scene.add(shadow);
+
+    const marker = new THREE.Mesh(
+      new THREE.ConeGeometry(.75,1.8,3),
+      new THREE.MeshBasicMaterial({ color: 0x63dcff })
+    );
+    marker.rotation.z = Math.PI;
+    marker.visible = i === 0;
+    scene.add(marker);
+
+    racers.push({
       id:i+1,
       name:names[i],
-      lane:lanes[i],
-      laneF:lanes[i],
-      offset: (lanes[i]-(LANES-1)/2)/(LANES*.60),
-      z: 37000 + offsets[i],
-      speed:baseSpeed[i],
+      lane:laneSeed[i],
+      laneF:laneSeed[i],
+      targetLane:laneSeed[i],
       baseSpeed:baseSpeed[i],
+      speed:baseSpeed[i],
+      totalDistance:startGap[i],
       stamina:100,
-      seed:i*1.81,
-      targetLane:lanes[i],
-      cooldown:0
+      seed:i*1.73,
+      cooldown:0,
+      sprite,
+      shadow,
+      marker,
+      texture:tex,
+      frame:-1
     });
   }
+  host.dataset.state = "ready";
 }
 
-function runnerRank(r) {
-  return [...runners].sort((a,b)=>b.z-a.z).findIndex(x=>x===r)+1;
+textureLoader.load(
+  BASE + "concept/s-run-sheet.svg",
+  (tex)=>{
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.minFilter = THREE.LinearFilter;
+    tex.magFilter = THREE.LinearFilter;
+    tex.generateMipmaps = false;
+    createRacers(tex);
+  },
+  undefined,
+  (err)=>{
+    host.dataset.state = "asset-error";
+    console.error(err);
+  }
+);
+
+function rankOrder() {
+  return [...racers].sort((a,b)=>b.totalDistance-a.totalDistance);
 }
 
-function updateRunnerAI(r, dt) {
-  r.cooldown=Math.max(0,r.cooldown-dt);
-  const progress=(r.z%trackLength)/trackLength;
-  const phaseBoost = progress>.78 ? 1.025 : progress>.52 ? 1.008 : 1;
-  const fatigue = .90 + .10*(r.stamina/100);
-  const wave = Math.sin(elapsed*.0007+r.seed)*.008;
-  const target=r.baseSpeed*phaseBoost*fatigue*(1+wave);
+function updateRacer(r, dt) {
+  r.cooldown = Math.max(0,r.cooldown-dt);
 
-  r.speed += (target-r.speed)*Math.min(1,dt*1.7);
+  const lapU = ((r.totalDistance % trackLength)+trackLength)%trackLength / trackLength;
+  const late = lapU > .76 ? 1.025 : lapU > .52 ? 1.010 : 1;
+  const fatigue = .91 + .09*(r.stamina/100);
+  const pulse = 1 + Math.sin(performance.now()*.0011+r.seed)*.006;
+  const targetSpeed = r.baseSpeed*late*fatigue*pulse;
+  r.speed += (targetSpeed-r.speed)*Math.min(1,dt*1.8);
 
-  const ahead=[...runners]
-    .filter(o=>o!==r && Math.round(o.laneF)===Math.round(r.laneF) && o.z>r.z && o.z-r.z<720)
-    .sort((a,b)=>a.z-b.z)[0];
+  const ahead = racers
+    .filter(o=>o!==r && Math.round(o.laneF)===Math.round(r.laneF) && o.totalDistance>r.totalDistance && o.totalDistance-r.totalDistance<18)
+    .sort((a,b)=>a.totalDistance-b.totalDistance)[0];
 
   if(ahead && r.cooldown<=0){
     const options=[r.targetLane-1,r.targetLane+1].filter(l=>l>=0&&l<LANES);
-    const free=options.find(l=>runners.every(o=>o===r || Math.round(o.laneF)!==l || Math.abs(o.z-r.z)>560));
+    const free=options.find(l=>racers.every(o=>o===r || Math.round(o.laneF)!==l || Math.abs(o.totalDistance-r.totalDistance)>16));
     if(free!==undefined){
       r.targetLane=free;
-      r.cooldown=1.2;
+      r.cooldown=1.0;
     }
   }
 
-  r.laneF += (r.targetLane-r.laneF)*Math.min(1,dt*2.9);
-  r.offset=(r.laneF-(LANES-1)/2)/(LANES*.60);
-  r.z = increase(r.z, r.speed*dt, trackLength);
-  r.stamina=Math.max(18,r.stamina-(.045+Math.max(0,r.speed/r.baseSpeed-1)*.20)*dt);
+  r.laneF += (r.targetLane-r.laneF)*Math.min(1,dt*3.2);
+  r.totalDistance += r.speed*dt;
+  r.stamina = Math.max(20,r.stamina-(.016+Math.max(0,r.speed/r.baseSpeed-1)*.12)*dt);
 }
 
-function update(dt) {
-  for(const r of runners) updateRunnerAI(r,dt);
+function placeRacer(r, elapsedMs) {
+  const u = (((r.totalDistance % trackLength)+trackLength)%trackLength) / trackLength;
+  const { center, side, bank } = trackFrame(u);
+  const laneWidth = TRACK_WIDTH / LANES;
+  const lateral = -TRACK_WIDTH/2 + laneWidth*(r.laneF+.5);
+  const p = center.clone().addScaledVector(side,lateral);
+  p.y += 2.7 + bank*lateral;
+  r.sprite.position.copy(p);
 
-  const me=runners.find(r=>r.id===SELECTED_ID);
-  cameraZ = increase(me.z,-CAMERA_LEAD,trackLength);
-  cameraX += ((me.offset*ROAD_WIDTH*.36)-cameraX)*Math.min(1,dt*2.8);
+  const frameMs = 94 - clamp((r.speed-r.baseSpeed)*2.4,-10,12);
+  const frame = Math.floor((elapsedMs+r.id*43)/frameMs)%6;
+  if(frame!==r.frame){
+    r.frame=frame;
+    setFrame(r.texture,frame);
+  }
+
+  const bob=[0,.08,.32,.58,.30,0][frame];
+  r.sprite.position.y += bob;
+  const scale = 13.7 + (r.id===SELECTED_ID ? .9 : 0);
+  r.sprite.scale.set(scale,scale,1);
+
+  r.shadow.position.copy(center.clone().addScaledVector(side,lateral));
+  r.shadow.position.y += .18 + bank*lateral;
+  r.shadow.scale.set(5.7,2.15,1);
+
+  r.marker.position.copy(p);
+  r.marker.position.y += 10.2;
 }
 
-function frameIndexFor(r) {
-  const cadence = 76 - clamp((r.speed-r.baseSpeed)*.004,-8,8);
-  return Math.floor((elapsed+r.id*61)/cadence)%6;
+const camPos = new THREE.Vector3();
+const camLook = new THREE.Vector3();
+const desiredCam = new THREE.Vector3();
+const desiredLook = new THREE.Vector3();
+
+function updateCamera(dt) {
+  if(!racers.length)return;
+  const me = racers[0];
+  const u = (((me.totalDistance % trackLength)+trackLength)%trackLength) / trackLength;
+  const { center, tangent, side, bank } = trackFrame(u);
+  const laneWidth = TRACK_WIDTH/LANES;
+  const lateral = -TRACK_WIDTH/2 + laneWidth*(me.laneF+.5);
+  const target = center.clone().addScaledVector(side,lateral);
+  target.y += 2.6 + bank*lateral;
+
+  desiredCam.copy(target)
+    .addScaledVector(tangent,-25)
+    .addScaledVector(side,31)
+    .add(new THREE.Vector3(0,14.5,0));
+
+  desiredLook.copy(target)
+    .addScaledVector(tangent,20)
+    .add(new THREE.Vector3(0,2.4,0));
+
+  const posAlpha=1-Math.pow(.001,dt);
+  const lookAlpha=1-Math.pow(.004,dt);
+  camPos.lerp(desiredCam,posAlpha);
+  camLook.lerp(desiredLook,lookAlpha);
+
+  const gaitImpact = [0,.1,.36,.66,.34,0][me.frame<0?0:me.frame];
+  camera.position.copy(camPos);
+  camera.position.y += gaitImpact*.22;
+  camera.lookAt(camLook);
+
+  const speedRatio=clamp(me.speed/me.baseSpeed,.90,1.08);
+  camera.fov = lerp(camera.fov,54+(speedRatio-.90)*18,.08);
+  camera.updateProjectionMatrix();
 }
 
-function drawRunner(r) {
-  if(!sSheet) return;
-
-  const seg=findSegment(r.z);
-  if(!seg.visible) return;
-
-  const percent=percentRemaining(r.z,SEGMENT_LENGTH);
-  const scale=lerp(seg.p1.screen.scale,seg.p2.screen.scale,percent);
-  if(scale<=0) return;
-
-  const sxRoad=lerp(seg.p1.screen.x,seg.p2.screen.x,percent);
-  const syRoad=lerp(seg.p1.screen.y,seg.p2.screen.y,percent);
-  const swRoad=lerp(seg.p1.screen.w,seg.p2.screen.w,percent);
-  const x=sxRoad + scale*r.offset*ROAD_WIDTH*width/2;
-  const y=syRoad;
-
-  const frame=frameIndexFor(r);
-  const col=frame%3;
-  const row=Math.floor(frame/3);
-  const srcX=col*256;
-  const srcY=row*256;
-
-  const size = 256 * scale * width/2 * SPRITE_SCALE * ROAD_WIDTH;
-  const w=clamp(size,12,width*.30);
-  const h=w;
-  const bob=[0,2,7,13,7,0][frame]*(w/190)*.34;
-
-  if(y<0||y>height+80||x<w*.28||x>width-w*.28) return;
-
-  const shadowW=w*.34;
-  ctx.fillStyle="rgba(17,12,10,.23)";
-  ctx.beginPath();
-  ctx.ellipse(x,y+4,shadowW,Math.max(2,w*.027),0,0,Math.PI*2);
-  ctx.fill();
-
-  if(w>48){
-    const streak=(w/180)*clamp(r.speed/r.baseSpeed,.8,1.08);
-    ctx.strokeStyle="rgba(210,236,246,.12)";
-    ctx.lineWidth=Math.max(1,w*.008);
-    for(let k=0;k<3;k++){
-      const yy=y-h*(.26+k*.14);
-      ctx.beginPath();
-      ctx.moveTo(x-w*.26,yy);
-      ctx.lineTo(x-w*(.26+.20*streak+k*.04),yy);
-      ctx.stroke();
-    }
-  }
-
-  const clipY=seg.clip;
-  const drawH=Math.min(h,Math.max(0,clipY-(y-h)));
-  if(drawH<=0) return;
-
-  const srcH=256*(drawH/h);
-
-  ctx.save();
-  ctx.translate(x,y-h*.50-bob);
-  ctx.transform(1,-.025,.08,1,0,0);
-  ctx.scale(-1,1);
-  ctx.drawImage(
-    sSheet,
-    srcX,srcY,256,srcH,
-    -w*.5,-h*.5,w,drawH
-  );
-  ctx.restore();
-
-  if(r.id===SELECTED_ID && w>60){
-    const markerY=y-h-bob-9;
-    ctx.fillStyle="rgba(102,223,255,.94)";
-    ctx.beginPath();
-    ctx.moveTo(x,markerY+7);
-    ctx.lineTo(x-6,markerY-3);
-    ctx.lineTo(x+6,markerY-3);
-    ctx.closePath();
-    ctx.fill();
-  }
-}
-
-function drawSpeedCues(me) {
-  const ratio=clamp(me.speed/me.baseSpeed,.75,1.08);
-  const strength=clamp((ratio-.82)/.26,0,1);
-
-  ctx.save();
-  ctx.globalAlpha=.10+.12*strength;
-  ctx.strokeStyle="#d8eef6";
-  const count=42;
-  for(let i=0;i<count;i++){
-    const y=height*(.17+((i*43)%78)/100*.78);
-    const x=((i*197-elapsed*.55)%(width+340)+width+340)%(width+340)-140;
-    const len=35+strength*(90+(i%5)*24);
-    ctx.lineWidth=.6+(i%4)*.28;
-    ctx.beginPath();
-    ctx.moveTo(x,y);
-    ctx.lineTo(x-len,y);
-    ctx.stroke();
-  }
-  ctx.restore();
-
-  const vergeY=height*.982;
-  const phase=((cameraZ*.16)%(width+180)+width+180)%(width+180);
-  ctx.fillStyle="#243e2d";
-  ctx.fillRect(0,vergeY-12,width,30);
-  for(let x=-160+phase%160;x<width+160;x+=160){
-    ctx.fillStyle="rgba(229,236,233,.76)";
-    ctx.fillRect(x,vergeY-31,4,38);
-    ctx.fillStyle="rgba(221,235,239,.10)";
-    ctx.fillRect(x-40-strength*55,vergeY-16,40+strength*55,3);
-  }
-}
-
-function render() {
-  if(!segments.length) return;
-
-  const me=runners.find(r=>r.id===SELECTED_ID);
-  const base=findSegment(cameraZ);
-  const basePercent=percentRemaining(cameraZ,SEGMENT_LENGTH);
-  const meSeg=findSegment(me.z);
-  const mePercent=percentRemaining(me.z,SEGMENT_LENGTH);
-  const roadY=lerp(meSeg.p1.world.y,meSeg.p2.world.y,mePercent);
-  cameraY = roadY + CAMERA_HEIGHT;
-
-  baseCurve=base.curve;
-  drawBackground(baseCurve,height*.52);
-
-  let x=0;
-  let dx=-(base.curve*basePercent);
-  let maxY=height;
-
-  for(const seg of segments){
-    seg.visible=false;
-    seg.clip=height;
-  }
-
-  for(let n=0;n<DRAW_DISTANCE;n++){
-    const seg=segments[(base.index+n)%segments.length];
-    const looped=seg.index<base.index;
-    seg.fog=fogFactor(n/DRAW_DISTANCE);
-    seg.clip=maxY;
-
-    const camZ=cameraZ-(looped?trackLength:0);
-    project(seg.p1,cameraX-x,cameraY,camZ);
-    project(seg.p2,cameraX-x-dx,cameraY,camZ);
-
-    x+=dx;
-    dx+=seg.curve;
-
-    if(seg.p1.camera.z<=CAMERA_DEPTH) continue;
-    if(seg.p2.screen.y>=seg.p1.screen.y) continue;
-    if(seg.p2.screen.y>=maxY) continue;
-
-    seg.visible=true;
-    renderRoadSegment(seg);
-    maxY=seg.p2.screen.y;
-  }
-
-  // long, low-contrast direction streaks keep the dirt surface from reading as flat bands
-  ctx.save();
-  ctx.strokeStyle="rgba(255,229,190,.075)";
-  for(let i=0;i<26;i++){
-    const y=height*(.58+((i*29)%39)/100);
-    const x=((i*149-cameraZ*.10)%(width+220)+width+220)%(width+220)-110;
-    const len=34+(i%6)*23;
-    ctx.lineWidth=.6+(i%3)*.35;
-    ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-len,y+1);ctx.stroke();
-  }
-  ctx.restore();
-
-  for(let n=DRAW_DISTANCE-1;n>0;n--){
-    const seg=segments[(base.index+n)%segments.length];
-    if(seg.visible) drawTrackside(seg);
-  }
-
-  const cameraRelative = (z)=>{
-    let d=z-cameraZ;
-    if(d<0)d+=trackLength;
-    return d;
-  };
-  [...runners]
-    .filter(r=>cameraRelative(r.z)>0&&cameraRelative(r.z)<DRAW_DISTANCE*SEGMENT_LENGTH)
-    .sort((a,b)=>cameraRelative(b.z)-cameraRelative(a.z))
-    .forEach(drawRunner);
-
-  drawSpeedCues(me);
-
-  const vignette=ctx.createRadialGradient(width*.49,height*.48,height*.18,width*.5,height*.5,width*.78);
-  vignette.addColorStop(0,"rgba(0,0,0,0)");
-  vignette.addColorStop(1,"rgba(0,0,0,.28)");
-  ctx.fillStyle=vignette;
-  ctx.fillRect(0,0,width,height);
-}
-
-function phaseOf(progress) {
-  if(progress<.12)return "START";
-  if(progress<.60)return "MID";
-  if(progress<.84)return "BUILD";
-  return "FINAL";
-}
-
-function fmt(ms) {
+function fmt(ms){
   const t=ms/1000;
   const m=Math.floor(t/60);
   const s=Math.floor(t%60);
   const cs=Math.floor((t-Math.floor(t))*100);
   return `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}.${String(cs).padStart(2,"0")}`;
 }
+function phaseOf(progress){
+  if(progress<.12)return "START";
+  if(progress<.60)return "MID";
+  if(progress<.84)return "BUILD";
+  return "FINAL";
+}
 
-function paintUI(now) {
-  const me=runners.find(r=>r.id===SELECTED_ID);
-  const progress=(me.z%trackLength)/trackLength;
-  const rank=runnerRank(me);
+let elapsed=0;
+let last=performance.now();
+let lastBoardPaint=0;
+
+function updateUI(now){
+  if(!racers.length)return;
+  const me=racers[0];
+  const order=rankOrder();
+  const rank=order.findIndex(r=>r===me)+1;
+  const progress=(((me.totalDistance%trackLength)+trackLength)%trackLength)/trackLength;
+
   ui.phase.textContent=phaseOf(progress);
   ui.clock.textContent=fmt(elapsed);
   ui.remain.textContent=`${Math.max(0,Math.round((1-progress)*RACE_METERS))} m to go`;
   ui.rank.textContent=rank;
-  ui.speed.textContent=(me.speed/430).toFixed(1);
+  ui.speed.textContent=me.speed.toFixed(1);
 
-  document.querySelector(".roadlab").dataset.running="true";
-  document.querySelector(".roadlab").dataset.frame=String(frameIndexFor(me));
+  host.dataset.running="true";
+  host.dataset.frame=String(me.frame);
+  host.dataset.renderer="webgl-3d-course-2d-creatures";
 
-  if(now-lastBoardPaint>160){
+  if(now-lastBoardPaint>150){
     lastBoardPaint=now;
-    const order=[...runners].sort((a,b)=>b.z-a.z);
-    const lead=order[0].z;
+    const lead=order[0].totalDistance;
     board.innerHTML=order.slice(0,6).map((r,i)=>{
-      let gap=lead-r.z;
-      if(gap<0)gap+=trackLength;
-      return `<div class="board-row ${r.id===SELECTED_ID?"me":""}">
+      const gap=Math.max(0,lead-r.totalDistance);
+      return `<div class="board-row ${r===me?"me":""}">
         <span class="p">${i+1}</span>
         <span class="n">#${String(r.id).padStart(2,"0")} ${r.name}</span>
-        <span class="g">${i===0?"LEAD":"+"+(gap/430).toFixed(1)+"m"}</span>
+        <span class="g">${i===0?"LEAD":"+"+gap.toFixed(1)+"m"}</span>
       </div>`;
     }).join("");
   }
 }
 
-function loop(now) {
+function resize(){
+  const w=Math.max(320,canvas.clientWidth);
+  const h=Math.max(480,canvas.clientHeight);
+  renderer.setSize(w,h,false);
+  camera.aspect=w/h;
+  camera.updateProjectionMatrix();
+}
+new ResizeObserver(resize).observe(canvas);
+resize();
+
+function animate(now){
   const dt=Math.min(.05,(now-last)/1000);
   last=now;
   elapsed+=dt*1000;
-  accumulator+=dt;
 
-  while(accumulator>=STEP){
-    update(STEP);
-    accumulator-=STEP;
+  for(const r of racers){
+    updateRacer(r,dt);
+    placeRacer(r,elapsed);
   }
+  updateCamera(dt);
+  updateUI(now);
 
-  render();
-  paintUI(now);
-  requestAnimationFrame(loop);
+  renderer.render(scene,camera);
+  requestAnimationFrame(animate);
 }
 
-buildTrack();
-makeRunners();
-cameraZ=increase(runners[0].z,-CAMERA_LEAD,trackLength);
 requestAnimationFrame(now=>{
   last=now;
-  loop(now);
+  if(racers.length){
+    const me=racers[0];
+    const u=(((me.totalDistance%trackLength)+trackLength)%trackLength)/trackLength;
+    const {center,tangent,side}=trackFrame(u);
+    camPos.copy(center).addScaledVector(tangent,-25).addScaledVector(side,31).add(new THREE.Vector3(0,14.5,0));
+    camLook.copy(center).addScaledVector(tangent,20).add(new THREE.Vector3(0,4,0));
+    camera.position.copy(camPos);
+    camera.lookAt(camLook);
+  }
+  animate(now);
 });
