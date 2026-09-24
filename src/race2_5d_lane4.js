@@ -31,7 +31,8 @@ const TRACK_METERS = 2400;
 const WORLD_TO_METERS = 0.12;
 const TRACK_WORLD = TRACK_METERS / WORLD_TO_METERS;
 const MAX_SPEED = 22.5 / WORLD_TO_METERS;
-const START_Z = 5200;\nconst CAMERA_TRAIL = 3450;
+const START_Z = 5200;
+const CAMERA_TRAIL = 3450;
 
 let width = 0;
 let height = 0;
