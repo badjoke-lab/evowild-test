@@ -1,802 +1,572 @@
-const canvas = document.querySelector("#raceCanvas");
+const canvas = document.querySelector("#motionCanvas");
 const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
 const stage = document.querySelector("#stage");
-
-const ui = {
-  rank: document.querySelector("#rank"),
-  speed: document.querySelector("#speed"),
-  command: document.querySelector("#command"),
-  reason: document.querySelector("#reason"),
-  distance: document.querySelector("#distance"),
-  clock: document.querySelector("#clock"),
-  progress: document.querySelector("#progress"),
-  ranking: document.querySelector("#ranking"),
-  countdown: document.querySelector("#countdown"),
-  pause: document.querySelector("#pause"),
-  reset: document.querySelector("#reset"),
-  assetStatus: document.querySelector("#assetStatus")
-};
+const assetStatus = document.querySelector("#assetStatus");
 
 const BASE = import.meta.env.BASE_URL || "/";
-const FIELD_SIZE = 8;
-const SELECTED_ID = 1;
-const RACE_METERS = 1440;
-const LANES = [1, 1, 2, 3, 0, 2, 1, 3];
-const CRUISE = [32.6,29.6,31.1,30.0,31.5,29.9,30.6,30.2];
-const ACCEL = [12.2,10.3,11.2,10.6,11.0,10.2,10.8,10.4];
-const NAMES = ["Mica","Vela","Rook","Serein","Flint","Nacre","Ilex","Sora"];
-
-const S_FRAMES = [
-  { phase:"CONTACT", col:0, row:0, y:0.00 },
-  { phase:"PUSH",    col:1, row:0, y:0.00 },
-  { phase:"LIFT",    col:2, row:0, y:0.00 },
-  { phase:"FLIGHT",  col:0, row:1, y:-0.42 },
-  { phase:"REACH",   col:1, row:1, y:-0.17 },
-  { phase:"LAND",    col:2, row:1, y:-0.16 }
-];
-
-const spriteSheet = new Image();
-spriteSheet.decoding = "async";
-spriteSheet.onload = () => {
-  stage.dataset.sRunSheet = "ready";
-  ui.assetStatus.textContent = "S run cycle ready";
-};
-spriteSheet.onerror = () => {
-  stage.dataset.sRunSheet = "error";
-  ui.assetStatus.textContent = "S run cycle failed";
-};
-spriteSheet.src = BASE + "concept/s-run-sheet.webp";
+const params = new URLSearchParams(location.search);
+const PLAYBACK_RATE = params.has("slow") ? 0.34 : 1;
+const CYCLE_MS = 560;
+const TAU = Math.PI * 2;
 
 let width = 1;
 let height = 1;
 let dpr = 1;
-let elapsed = 0;
 let last = performance.now();
-let paused = false;
-let raceState = "countdown";
-let countdownRemaining = 2500;
-let finishCounter = 0;
-let frameCounter = 0;
-let lastRankingPaint = 0;
-let cameraMeters = 0;
-let cameraVelocity = 0;
-let pixelsPerMeter = 8;
-let pixelsPerMeterVelocity = 0;
+let elapsed = 0;
+let worldTravel = 0;
+let rig = null;
 
-const clamp = (v,a,b) => Math.max(a, Math.min(b,v));
-const lerp = (a,b,t) => a + (b-a)*t;
-const smooth = (t) => t*t*(3-2*t);
+const source = new Image();
+source.decoding = "async";
+source.src = BASE + "concept/S.webp";
+
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const lerp = (a, b, t) => a + (b - a) * t;
+const smooth = t => t * t * (3 - 2 * t);
+const mod1 = v => ((v % 1) + 1) % 1;
+const rad = deg => deg * Math.PI / 180;
 
 function resize() {
   const r = canvas.getBoundingClientRect();
   width = Math.max(320, Math.floor(r.width));
-  height = Math.max(420, Math.floor(r.height));
-  dpr = Math.min(window.devicePixelRatio || 1, 1.65);
-  canvas.width = Math.round(width*dpr);
-  canvas.height = Math.round(height*dpr);
-  ctx.setTransform(dpr,0,0,dpr,0,0);
+  height = Math.max(360, Math.floor(r.height));
+  dpr = Math.min(window.devicePixelRatio || 1, 1.75);
+  canvas.width = Math.round(width * dpr);
+  canvas.height = Math.round(height * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = "high";
 }
+
 new ResizeObserver(resize).observe(canvas);
 resize();
 
-function terrainY(m) {
-  const a = Math.sin(m*0.0125)*14;
-  const b = Math.sin(m*0.0042 + 0.8)*25;
-  const c = Math.sin(m*0.021 + 1.7)*5;
-  const openingRise = m > 35 && m < 205 ? Math.sin((m-35)/170*Math.PI)*48 : 0;
-  const openingDrop = m >= 205 && m < 330 ? -Math.sin((m-205)/125*Math.PI)*28 : 0;
-  const climb = m > 360 && m < 610 ? Math.sin((m-360)/250*Math.PI)*52 : 0;
-  const dip = m > 760 && m < 1030 ? -Math.sin((m-760)/270*Math.PI)*38 : 0;
-  return a+b+c+openingRise+openingDrop+climb+dip;
+function makeMaskedPart(srcCanvas, polygon) {
+  const c = document.createElement("canvas");
+  c.width = srcCanvas.width;
+  c.height = srcCanvas.height;
+  const cctx = c.getContext("2d");
+  cctx.imageSmoothingEnabled = true;
+  cctx.beginPath();
+  polygon.forEach(([nx, ny], i) => {
+    const x = nx * c.width;
+    const y = ny * c.height;
+    if (i === 0) cctx.moveTo(x, y);
+    else cctx.lineTo(x, y);
+  });
+  cctx.closePath();
+  cctx.clip();
+  cctx.drawImage(srcCanvas, 0, 0);
+  return c;
 }
 
-function terrainSlope(m) {
-  return (terrainY(m+1.5)-terrainY(m-1.5))/3;
+function pt(nx, ny, sw, sh) {
+  return { x: nx * sw, y: ny * sh };
 }
 
-function courseBank(m) {
-  const bankA = m > 170 && m < 360
-    ? Math.sin((m-170)/190*Math.PI)*22
-    : 0;
-  const bankB = m > 520 && m < 760
-    ? -Math.sin((m-520)/240*Math.PI)*28
-    : 0;
-  const bankC = m > 980 && m < 1240
-    ? Math.sin((m-980)/260*Math.PI)*24
-    : 0;
-  return bankA+bankB+bankC;
-}
+function buildRig() {
+  const sw = source.naturalWidth;
+  const sh = source.naturalHeight;
 
-function laneBankOffset(m,lane) {
-  const depth=clamp(lane/3,0,1)*2-1;
-  return courseBank(m)*depth;
-}
+  // The authoritative S art faces left. Mirror it once so every rig layer keeps
+  // the original pixels while the motion study runs left-to-right.
+  const mirrored = document.createElement("canvas");
+  mirrored.width = sw;
+  mirrored.height = sh;
+  const mctx = mirrored.getContext("2d");
+  mctx.translate(sw, 0);
+  mctx.scale(-1, 1);
+  mctx.drawImage(source, 0, 0);
 
-function makeRacers() {
-  return Array.from({length:FIELD_SIZE}, (_,i) => ({
-    id:i+1,
-    name:NAMES[i],
-    distance: i*4.0,
-    speed:0,
-    cruise:CRUISE[i],
-    accel:ACCEL[i],
-    stamina:100,
-    lane:LANES[i],
-    targetLane:LANES[i],
-    phaseOffset:i*0.87,
-    cooldown:0,
-    command:"HOLD FORM",
-    reason:"Pre-start",
-    finished:false,
-    finishPlace:0,
-    finishTime:0
-  }));
-}
-let racers = makeRacers();
+  const defs = {
+    torso: [
+      [.24,.25],[.39,.20],[.62,.22],[.76,.36],
+      [.74,.56],[.62,.69],[.38,.69],[.23,.57]
+    ],
+    head: [
+      [.57,.00],[.99,.00],[1,.44],[.88,.57],
+      [.74,.60],[.61,.47]
+    ],
+    tail: [
+      [.00,.32],[.30,.29],[.37,.39],[.33,.59],
+      [.17,.66],[.00,.67]
+    ],
+    shoulder: [
+      [.48,.35],[.66,.35],[.70,.48],[.64,.68],
+      [.49,.66],[.43,.52]
+    ],
+    hip: [
+      [.23,.37],[.40,.34],[.45,.48],[.39,.68],
+      [.23,.68],[.18,.53]
+    ],
+    foreUpper: [
+      [.49,.48],[.61,.47],[.69,.60],[.76,.76],
+      [.71,.83],[.64,.78],[.56,.66]
+    ],
+    foreLower: [
+      [.65,.73],[.77,.74],[.84,.86],[.94,.95],
+      [.92,1],[.83,.99],[.73,.90],[.68,.83]
+    ],
+    hindUpper: [
+      [.23,.48],[.36,.47],[.35,.61],[.27,.76],
+      [.20,.84],[.14,.78],[.17,.65]
+    ],
+    hindLower: [
+      [.13,.75],[.24,.75],[.28,.84],[.25,.98],
+      [.18,1],[.13,.94],[.12,.84]
+    ]
+  };
 
-const selected = () => racers.find(r => r.id===SELECTED_ID);
-const order = () => [...racers].sort((a,b) => {
-  if (a.finished && b.finished) return a.finishPlace-b.finishPlace;
-  if (a.finished) return -1;
-  if (b.finished) return 1;
-  return b.distance-a.distance;
-});
-const rankOf = r => order().findIndex(x=>x===r)+1;
+  const parts = Object.fromEntries(
+    Object.entries(defs).map(([name, polygon]) => [name, makeMaskedPart(mirrored, polygon)])
+  );
 
-function occupiedNear(r, lane, radius=8.5) {
-  return racers.some(o => o!==r && !o.finished && o.lane===lane && Math.abs(o.distance-r.distance)<radius);
-}
-function gapAhead(r) {
-  let best = Infinity;
-  for (const o of racers) {
-    if (o===r || o.finished || o.lane!==r.lane) continue;
-    const g = o.distance-r.distance;
-    if (g>0 && g<best) best=g;
-  }
-  return best;
-}
-function chooseLane(r) {
-  const choices = [r.lane-1,r.lane+1,r.lane-2,r.lane+2]
-    .filter(l => l>=0 && l<=3 && !occupiedNear(r,l,9))
-    .sort((a,b) => Math.abs(a-r.lane)-Math.abs(b-r.lane));
-  return choices[0] ?? r.lane;
-}
-
-function targetSpeedFor(r) {
-  const p = r.distance/RACE_METERS;
-  let target = r.cruise * (p<.15 ? 1.035 : p>.87 ? 1.085 : p>.68 ? 1.025 : 1.0);
-  const gap = gapAhead(r);
-  if (gap<7.5 && r.cooldown<=0) {
-    const nextLane = chooseLane(r);
-    if (nextLane!==r.lane) {
-      r.targetLane = nextLane;
-      r.cooldown = 1500;
-      r.command = "SHIFT LINE";
-      r.reason = "Traffic ahead";
-      target *= 1.015;
-    } else {
-      target *= clamp(gap/7.5,.77,.97);
-      r.command = "HOLD GAP";
-      r.reason = "Blocked";
+  return {
+    sw,
+    sh,
+    parts,
+    bodyCenter: pt(.50, .47, sw, sh),
+    neckPivot: pt(.66, .41, sw, sh),
+    tailPivot: pt(.29, .48, sw, sh),
+    shoulderPivot: pt(.56, .52, sw, sh),
+    hipPivot: pt(.31, .53, sw, sh),
+    front: {
+      root: pt(.56,.54,sw,sh),
+      knee: pt(.70,.78,sw,sh),
+      foot: pt(.88,.98,sw,sh)
+    },
+    hind: {
+      root: pt(.31,.54,sw,sh),
+      knee: pt(.19,.78,sw,sh),
+      foot: pt(.23,.98,sw,sh)
     }
-  } else if (p>.87 && r.stamina>22) {
-    r.command = "COMMIT";
-    r.reason = "Final drive";
-  } else if (p>.68) {
-    r.command = "PRESS";
-    r.reason = "Build phase";
+  };
+}
+
+source.onload = () => {
+  rig = buildRig();
+  stage.dataset.rigReady = "true";
+  stage.dataset.motionPhase = "CONTACT";
+  assetStatus.textContent = "S rig ready";
+};
+
+source.onerror = () => {
+  stage.dataset.rigReady = "error";
+  stage.dataset.motionPhase = "error";
+  assetStatus.textContent = "S rig failed";
+};
+
+function sample(frames, p) {
+  for (let i = 0; i < frames.length - 1; i++) {
+    const a = frames[i];
+    const b = frames[i + 1];
+    if (p >= a[0] && p <= b[0]) {
+      const t = smooth((p - a[0]) / Math.max(.0001, b[0] - a[0]));
+      return lerp(a[1], b[1], t);
+    }
+  }
+  return frames[frames.length - 1][1];
+}
+
+const BODY_Y = [
+  [0, 0], [.07, 2.5], [.20, -7], [.36, -19],
+  [.54, -27], [.68, -18], [.84, 5], [1, 0]
+];
+
+const BODY_X = [
+  [0, -2], [.12, 3], [.28, 6], [.48, 1],
+  [.68, -3], [.86, -5], [1, -2]
+];
+
+const BODY_PITCH = [
+  [0, 2.2], [.12, 0.4], [.25, -3.8], [.48, -1.7],
+  [.67, 1.6], [.86, 4.4], [1, 2.2]
+];
+
+function motionPhase(p) {
+  if (p < .06) return "CONTACT";
+  if (p < .23) return "PUSH";
+  if (p < .39) return "RECOVERY";
+  if (p < .66) return "FLIGHT";
+  if (p < .86) return "REACH";
+  return "LAND";
+}
+
+function rotateAround(point, center, angle) {
+  const dx = point.x - center.x;
+  const dy = point.y - center.y;
+  const c = Math.cos(angle);
+  const s = Math.sin(angle);
+  return {
+    x: center.x + dx * c - dy * s,
+    y: center.y + dx * s + dy * c
+  };
+}
+
+function sourcePointToWorld(sourcePoint, bodyCenterWorld, scale, rotation) {
+  const local = {
+    x: bodyCenterWorld.x + (sourcePoint.x - rig.bodyCenter.x) * scale,
+    y: bodyCenterWorld.y + (sourcePoint.y - rig.bodyCenter.y) * scale
+  };
+  return rotateAround(local, bodyCenterWorld, rotation);
+}
+
+function drawRigid(partName, sourcePivot, targetPivot, rotation, scale, alpha = 1) {
+  const part = rig.parts[partName];
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.translate(targetPivot.x, targetPivot.y);
+  ctx.rotate(rotation);
+  ctx.scale(scale, scale);
+  ctx.translate(-sourcePivot.x, -sourcePivot.y);
+  ctx.drawImage(part, 0, 0);
+  ctx.restore();
+}
+
+function drawBone(partName, srcA, srcB, targetA, targetB, alpha = 1) {
+  const sourceAngle = Math.atan2(srcB.y - srcA.y, srcB.x - srcA.x);
+  const targetAngle = Math.atan2(targetB.y - targetA.y, targetB.x - targetA.x);
+  const sourceLength = Math.hypot(srcB.x - srcA.x, srcB.y - srcA.y);
+  const targetLength = Math.hypot(targetB.x - targetA.x, targetB.y - targetA.y);
+  const scale = targetLength / Math.max(1, sourceLength);
+
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.translate(targetA.x, targetA.y);
+  ctx.rotate(targetAngle - sourceAngle);
+  ctx.scale(scale, scale);
+  ctx.translate(-srcA.x, -srcA.y);
+  ctx.drawImage(rig.parts[partName], 0, 0);
+  ctx.restore();
+}
+
+function solveIK(root, target, upper, lower, bend) {
+  const dx = target.x - root.x;
+  const dy = target.y - root.y;
+  let d = Math.hypot(dx, dy);
+  d = clamp(d, Math.abs(upper - lower) + .01, upper + lower - .01);
+
+  const ux = dx / Math.max(.001, Math.hypot(dx, dy));
+  const uy = dy / Math.max(.001, Math.hypot(dx, dy));
+  const along = (upper * upper - lower * lower + d * d) / (2 * d);
+  const h = Math.sqrt(Math.max(0, upper * upper - along * along));
+  const mx = root.x + ux * along;
+  const my = root.y + uy * along;
+  const px = -uy;
+  const py = ux;
+
+  return {
+    x: mx + px * h * bend,
+    y: my + py * h * bend
+  };
+}
+
+function legPhase(globalPhase, contactStart) {
+  return mod1(globalPhase - contactStart);
+}
+
+function footTrajectory(q, root, stride, lift, groundY, frontBias = 0) {
+  let x;
+  let y;
+
+  if (q < .22) {
+    const t = smooth(q / .22);
+    x = lerp(root.x + stride * .58, root.x - stride * .78, t);
+    y = groundY;
+  } else if (q < .40) {
+    const t = smooth((q - .22) / .18);
+    x = lerp(root.x - stride * .78, root.x - stride * .62, t);
+    y = groundY - lift * t;
+  } else if (q < .65) {
+    const t = smooth((q - .40) / .25);
+    x = lerp(root.x - stride * .62, root.x + stride * .05, t);
+    y = groundY - lift * (1 + .12 * Math.sin(t * Math.PI));
+  } else if (q < .86) {
+    const t = smooth((q - .65) / .21);
+    x = lerp(root.x + stride * .05, root.x + stride * .78, t);
+    y = groundY - lerp(lift, lift * .28, t);
   } else {
-    r.command = "HOLD FORM";
-    r.reason = "Efficient pace";
+    const t = smooth((q - .86) / .14);
+    x = lerp(root.x + stride * .78, root.x + stride * .58, t);
+    y = lerp(groundY - lift * .28, groundY - 1.2, t);
   }
 
-  if (r.stamina<18) {
-    target *= .89;
-    r.command = "PRESERVE";
-    r.reason = "Low stamina";
-  }
-  return target * (.83 + .17*(r.stamina/100));
+  return { x: x + frontBias, y };
 }
 
-function updateRace(dtMs) {
-  if (paused) return;
-  const dt = Math.min(50,dtMs)/1000;
+function drawBackground(speedNorm) {
+  const horizon = height * .61;
+  const sky = ctx.createLinearGradient(0, 0, 0, horizon);
+  sky.addColorStop(0, "#91aeb8");
+  sky.addColorStop(.58, "#c5c9bd");
+  sky.addColorStop(1, "#d7c6a5");
+  ctx.fillStyle = sky;
+  ctx.fillRect(0, 0, width, horizon);
 
-  if (raceState==="countdown") {
-    countdownRemaining -= dtMs;
-    const n = Math.ceil(countdownRemaining/800);
-    ui.countdown.hidden = false;
-    ui.countdown.textContent = n>0 ? String(n) : "GO";
-    if (countdownRemaining<=0) {
-      raceState = "running";
-      stage.dataset.raceState = "running";
-      ui.countdown.textContent = "GO";
+  const sunX = width * .78;
+  const sunY = height * .19;
+  const sunR = Math.max(34, width * .036);
+  const glow = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, sunR * 3);
+  glow.addColorStop(0, "rgba(255,244,207,.82)");
+  glow.addColorStop(1, "rgba(255,244,207,0)");
+  ctx.fillStyle = glow;
+  ctx.fillRect(sunX - sunR * 3, sunY - sunR * 3, sunR * 6, sunR * 6);
+
+  const drawRidge = (baseY, amp, speed, fill) => {
+    const shift = worldTravel * speed;
+    ctx.fillStyle = fill;
+    ctx.beginPath();
+    ctx.moveTo(0, height);
+    ctx.lineTo(0, baseY);
+    for (let x = 0; x <= width + 45; x += 45) {
+      const wx = x + shift;
+      const n = .45 + .55 * Math.abs(Math.sin(wx * .009) * Math.cos(wx * .0037));
+      ctx.lineTo(x, baseY - amp * n);
     }
-    return;
+    ctx.lineTo(width, height);
+    ctx.closePath();
+    ctx.fill();
+  };
+
+  drawRidge(height * .58, 75, .07, "#6d8383");
+  drawRidge(height * .62, 47, .13, "#536f60");
+
+  const ground = ctx.createLinearGradient(0, horizon, 0, height);
+  ground.addColorStop(0, "#59645d");
+  ground.addColorStop(1, "#2d3333");
+  ctx.fillStyle = ground;
+  ctx.fillRect(0, horizon, width, height - horizon);
+
+  const trackTop = height * .72;
+  const trackGrad = ctx.createLinearGradient(0, trackTop, 0, height);
+  trackGrad.addColorStop(0, "#555b5e");
+  trackGrad.addColorStop(1, "#30363a");
+  ctx.fillStyle = trackGrad;
+  ctx.fillRect(0, trackTop, width, height - trackTop);
+
+  const streakSpeed = 1.1 + speedNorm * 1.9;
+  const spacing = width < 700 ? 82 : 118;
+  const shift = (worldTravel * streakSpeed) % spacing;
+
+  ctx.strokeStyle = "rgba(229,235,236,.18)";
+  ctx.lineWidth = 1.2;
+  for (let x = -spacing; x < width + spacing; x += spacing) {
+    const sx = x - shift;
+    const len = 26 + speedNorm * 72;
+    ctx.beginPath();
+    ctx.moveTo(sx, trackTop + 38);
+    ctx.lineTo(sx - len, trackTop + 38);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(sx + spacing * .37, trackTop + 92);
+    ctx.lineTo(sx + spacing * .37 - len * 1.25, trackTop + 92);
+    ctx.stroke();
   }
 
-  if (raceState!=="running") return;
-  elapsed += dtMs;
-  if (elapsed>650) ui.countdown.hidden = true;
-
-  for (const r of racers) {
-    if (r.finished) continue;
-    r.cooldown = Math.max(0,r.cooldown-dtMs);
-
-    let target = targetSpeedFor(r);
-    target += Math.sin(elapsed*.0015 + r.id*1.51)*.16;
-
-    const diff = target-r.speed;
-    const step = r.accel*dt*(diff>=0 ? 1 : 1.45);
-    r.speed += clamp(diff,-step,step);
-
-    if (r.lane!==r.targetLane) {
-      const dir = Math.sign(r.targetLane-r.lane);
-      const laneStep = dt*1.9;
-      const next = r.lane + dir*laneStep;
-      if ((dir>0 && next>=r.targetLane)||(dir<0 && next<=r.targetLane)) r.lane=r.targetLane;
-      else r.lane=next;
+  if (speedNorm > .35) {
+    ctx.save();
+    ctx.globalAlpha = clamp((speedNorm - .35) * .46, 0, .34);
+    ctx.strokeStyle = "rgba(238,245,244,.85)";
+    for (let i = 0; i < 15; i++) {
+      const y = height * (.77 + (i % 7) * .03);
+      const x = ((i * 143 - worldTravel * 2.3) % (width + 240)) + width;
+      const len = 65 + speedNorm * 105;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x - len, y + 2);
+      ctx.stroke();
     }
-
-    const effort = Math.max(0,r.speed/r.cruise-.95);
-    r.stamina = Math.max(0,r.stamina-(.62+effort*effort*4.4)*dt);
-    r.distance += Math.max(0,r.speed)*dt;
-
-    if (r.distance>=RACE_METERS) {
-      r.distance=RACE_METERS;
-      r.finished=true;
-      r.finishPlace=++finishCounter;
-      r.finishTime=elapsed;
-    }
-  }
-  if (finishCounter===racers.length) {
-    raceState="finished";
-    stage.dataset.raceState="finished";
+    ctx.restore();
   }
 }
 
-function drawSky() {
-  const horizon = height*.48;
-  const sky = ctx.createLinearGradient(0,0,0,horizon);
-  sky.addColorStop(0,"#789fb6");
-  sky.addColorStop(.56,"#b8c9c9");
-  sky.addColorStop(1,"#d8c6a3");
-  ctx.fillStyle=sky;
-  ctx.fillRect(0,0,width,horizon);
-
-  const sunX=width*.76, sunY=height*.18, r=Math.max(28,width*.025);
-  const glow=ctx.createRadialGradient(sunX,sunY,0,sunX,sunY,r*3.2);
-  glow.addColorStop(0,"rgba(255,243,204,.9)");
-  glow.addColorStop(1,"rgba(255,243,204,0)");
-  ctx.fillStyle=glow;
-  ctx.fillRect(sunX-r*3.3,sunY-r*3.3,r*6.6,r*6.6);
-}
-
-function drawParallaxLayer(baseY, amplitude, speed, period, fill, jaggedness) {
-  const shift = cameraMeters*speed;
-  ctx.fillStyle=fill;
+function drawShadow(cx, groundY, phase) {
+  const flight = phase === "FLIGHT" ? 1 : phase === "REACH" ? .65 : phase === "RECOVERY" ? .35 : 0;
+  ctx.save();
+  ctx.globalAlpha = .30 - flight * .12;
+  ctx.fillStyle = "#091014";
   ctx.beginPath();
-  ctx.moveTo(0,height);
-  ctx.lineTo(0,baseY);
-  const step=Math.max(24,period*.12);
-  for(let x=0;x<=width+step;x+=step){
-    const worldX=x+shift;
-    const wave=
-      Math.abs(Math.sin(worldX*.0067))*jaggedness +
-      Math.abs(Math.sin(worldX*.013))*(1-jaggedness);
-    const ridge=Math.sin(worldX*.0021+1.2)*.16;
-    ctx.lineTo(x,baseY-amplitude*(.22+.66*wave+ridge));
-  }
-  ctx.lineTo(width,height);
-  ctx.closePath();
+  ctx.ellipse(cx - 12, groundY + 6, 108 - flight * 18, 15 - flight * 4, 0, 0, TAU);
   ctx.fill();
+  ctx.restore();
 }
 
-function drawBackground() {
-  drawSky();
-  drawParallaxLayer(height*.50,95,.20,280,"#7b8f96",.7);
-  drawParallaxLayer(height*.54,68,.38,210,"#62786d",.6);
-  drawParallaxLayer(height*.58,42,.62,150,"#455d4d",.5);
-
-  const ground=ctx.createLinearGradient(0,height*.53,0,height);
-  ground.addColorStop(0,"#607d52");
-  ground.addColorStop(1,"#253c2c");
-  ctx.fillStyle=ground;
-  ctx.fillRect(0,height*.53,width,height*.47);
-
-  const treeShift = -cameraMeters*1.18;
-  for (let i=-2;i<Math.ceil(width/54)+4;i++) {
-    const x=i*54 + (treeShift%54);
-    const v=Math.abs(Math.sin((i+Math.floor(cameraMeters/54))*.81));
-    const h=32+v*46;
-    const y=height*.57+v*7;
-    ctx.fillStyle="#294634";
-    ctx.fillRect(x-2,y-h*.08,4,h*.36);
-    ctx.beginPath();
-    ctx.moveTo(x,y-h);
-    ctx.lineTo(x-h*.34,y-h*.15);
-    ctx.lineTo(x+h*.34,y-h*.15);
-    ctx.closePath();
-    ctx.fill();
-  }
-}
-
-function screenXForMeters(m) {
-  const anchor = width<700 ? width*.50 : width*.46;
-  return anchor + (m-cameraMeters)*pixelsPerMeter;
-}
-
-function trackBaseY(m) {
-  const portrait=height>width*1.35;
-  const base=portrait?height*.54:height*.64;
-  return base - terrainY(m)*(portrait?.68:.52);
-}
-
-function laneYAt(m,lane) {
-  return trackBaseY(m)+laneOffset(lane)+laneBankOffset(m,lane);
-}
-
-function laneOffset(lane) {
-  const portrait=height>width*1.35;
-  const stops=portrait?[-142,-48,50,148]:[-82,-28,30,88];
-  const lo=Math.floor(clamp(lane,0,3));
-  const hi=Math.ceil(clamp(lane,0,3));
-  const t=clamp(lane-lo,0,1);
-  return lerp(stops[lo],stops[hi],t);
-}
-function laneScale(lane) {
-  const t=clamp(lane/3,0,1);
-  return lerp(.68,1.12,t);
-}
-
-function drawTrack() {
-  const leftM = cameraMeters - width*.40/pixelsPerMeter;
-  const rightM = cameraMeters + width*.84/pixelsPerMeter;
-  const step=2.0;
-
-  const laneCenters=[0,1,2,3].map(laneOffset);
-  const boundaries=[
-    laneCenters[0]-36,
-    (laneCenters[0]+laneCenters[1])*.5,
-    (laneCenters[1]+laneCenters[2])*.5,
-    (laneCenters[2]+laneCenters[3])*.5,
-    laneCenters[3]+38
-  ];
-
-  // One continuous racing surface. Lane depth exists inside it; there are no stacked roads.
-  for(let lane=0;lane<4;lane++){
-    const far=boundaries[lane];
-    const near=boundaries[lane+1];
-    const shade=lane%2===0?"#4b5154":"#464c4f";
-    ctx.fillStyle=shade;
-    ctx.beginPath();
-    let first=true;
-    for(let m=leftM;m<=rightM+step;m+=step){
-      const x=screenXForMeters(m);
-      const bank=courseBank(m);
-      const farDepth=lane/4*2-1;
-      const y=trackBaseY(m)+far+bank*farDepth;
-      if(first){ctx.moveTo(x,y);first=false;}else ctx.lineTo(x,y);
-    }
-    for(let m=rightM+step;m>=leftM;m-=step){
-      const x=screenXForMeters(m);
-      const bank=courseBank(m);
-      const nearDepth=(lane+1)/4*2-1;
-      const y=trackBaseY(m)+near+bank*nearDepth;
-      ctx.lineTo(x,y);
-    }
-    ctx.closePath();
-    ctx.fill();
-  }
-
-  // Back and near track edges anchor the whole surface in the scene.
-  for(const [offset,alpha,lineWidth] of [
-    [boundaries[0],"rgba(226,236,237,.46)",2],
-    [boundaries[4],"rgba(226,236,237,.62)",2.4]
-  ]){
-    ctx.strokeStyle=alpha;
-    ctx.lineWidth=lineWidth;
-    ctx.beginPath();
-    let first=true;
-    for(let m=leftM;m<=rightM+step;m+=step){
-      const x=screenXForMeters(m);
-      const depthNorm=(offset-boundaries[0])/(boundaries[4]-boundaries[0])*2-1;
-      const y=trackBaseY(m)+offset+courseBank(m)*depthNorm;
-      if(first){ctx.moveTo(x,y);first=false;}else ctx.lineTo(x,y);
-    }
-    ctx.stroke();
-  }
-
-  // Internal lane boundaries are subtle, broken markers rather than separate roads.
-  for(let divider=1;divider<4;divider++){
-    const offset=boundaries[divider];
-    ctx.strokeStyle="rgba(225,234,235,.19)";
-    ctx.lineWidth=1.2;
-    for(let m=Math.floor(leftM/10)*10;m<=rightM+10;m+=10){
-      const m2=m+4.0;
-      ctx.beginPath();
-      const dividerDepth=divider/4*2-1;
-      ctx.moveTo(screenXForMeters(m),trackBaseY(m)+offset+courseBank(m)*dividerDepth);
-      ctx.lineTo(screenXForMeters(m2),trackBaseY(m2)+offset+courseBank(m2)*dividerDepth);
-      ctx.stroke();
-    }
-  }
-
-  // Short longitudinal texture marks make lateral speed readable without covering the creatures.
-  for(let lane=0;lane<4;lane++){
-    const yOffset=laneCenters[lane]+18;
-    ctx.strokeStyle=lane===3?"rgba(238,243,235,.27)":"rgba(229,236,226,.15)";
-    ctx.lineWidth=lane===3?1.7:1;
-    for(let m=Math.floor(leftM/7)*7;m<=rightM+8;m+=7){
-      const x1=screenXForMeters(m);
-      const x2=screenXForMeters(m+2.0);
-      const laneDepth=lane/3*2-1;
-      const y1=trackBaseY(m)+yOffset+courseBank(m)*laneDepth;
-      const y2=trackBaseY(m+2.0)+yOffset+courseBank(m+2.0)*laneDepth;
-      ctx.beginPath();
-      ctx.moveTo(x1,y1);
-      ctx.lineTo(x2,y2);
-      ctx.stroke();
-    }
-  }
-
-  // Fence only on the back edge. It no longer cuts the race into separate horizontal strips.
-  const fenceOffset=boundaries[0]-6;
-  ctx.strokeStyle="rgba(212,224,219,.38)";
-  ctx.lineWidth=2;
-  ctx.beginPath();
-  let fenceFirst=true;
-  for(let m=leftM;m<=rightM+step;m+=step){
-    const x=screenXForMeters(m);
-    const y=trackBaseY(m)+fenceOffset-22-courseBank(m);
-    if(fenceFirst){ctx.moveTo(x,y);fenceFirst=false;}else ctx.lineTo(x,y);
-  }
-  ctx.stroke();
-
-  for(let m=Math.floor(leftM/14)*14;m<=rightM+16;m+=14){
-    const x=screenXForMeters(m);
-    const baseY=trackBaseY(m)+fenceOffset-courseBank(m);
-    const sc=clamp(1+(m-cameraMeters)*.0015,.78,1.14);
-    ctx.fillStyle="rgba(224,234,230,.82)";
-    ctx.fillRect(x-1.5*sc,baseY-31*sc,3*sc,31*sc);
-  }
-
-  // Near-field streaks remain outside the track to sell speed.
-  const focus=selected();
-  const speedNorm=clamp(focus.speed/31.5,0,1);
-  if(speedNorm>.30){
-    ctx.save();
-    ctx.globalAlpha=clamp((speedNorm-.30)*.64,0,.43);
-    ctx.strokeStyle="rgba(232,240,214,.48)";
-    for(let i=0;i<18;i++){
-      const y=height*(.80+((i*29)%17)/100);
-      const x=((i*83-cameraMeters*(pixelsPerMeter*1.72))%(width+180))-90;
-      ctx.beginPath();
-      ctx.moveTo(x,y);
-      ctx.lineTo(x-58-speedNorm*92,y+3);
-      ctx.stroke();
-    }
-    ctx.restore();
-  }
-
-  stage.dataset.trackSurface="single-field";
-}
-
-function drawCourseLandmarks() {
-  const leftM=cameraMeters-width*.55/pixelsPerMeter;
-  const rightM=cameraMeters+width*.62/pixelsPerMeter;
-  const farY=laneOffset(0)-42;
-
-  for(let mark=60;mark<RACE_METERS;mark+=60){
-    if(mark<leftM-8||mark>rightM+8) continue;
-    const x=screenXForMeters(mark);
-    const baseY=trackBaseY(mark)+farY-courseBank(mark);
-    const major=mark%360===0;
-    const h=major?(height>width*1.35?86:64):(height>width*1.35?58:44);
-    const w=major?54:38;
-
-    ctx.save();
-    ctx.fillStyle="rgba(22,35,38,.88)";
-    ctx.fillRect(x-w*.5,baseY-h,w,major?24:19);
-    ctx.fillStyle="rgba(226,241,242,.92)";
-    ctx.font=`${major?"800":"700"} ${major?11:9}px ui-monospace, Menlo, monospace`;
-    ctx.textAlign="center";
-    ctx.textBaseline="middle";
-    ctx.fillText(major?`SECTOR ${mark/360}`:`${mark}m`,x,baseY-h+(major?12:9.5));
-    ctx.fillStyle="rgba(218,231,226,.70)";
-    ctx.fillRect(x-2,baseY-h+(major?24:19),4,h-(major?24:19));
-    ctx.restore();
-  }
-
-  for(let mark=360;mark<RACE_METERS;mark+=360){
-    if(mark<leftM-18||mark>rightM+18) continue;
-    const x=screenXForMeters(mark);
-    const trackTop=laneYAt(mark,0)-45;
-    const trackBottom=laneYAt(mark,3)+48;
-    ctx.save();
-    ctx.globalAlpha=.72;
-    ctx.fillStyle="#23363a";
-    ctx.fillRect(x-6,trackTop-34,6,trackBottom-trackTop+42);
-    ctx.fillStyle="#8ddff4";
-    ctx.fillRect(x-6,trackTop-34,6,9);
-    ctx.restore();
-  }
-}
-
-function drawRacers() {
-  const list=[];
-  let minEdge=Infinity;
-  let maxEdge=-Infinity;
-  for(const r of racers){
-    const x=screenXForMeters(r.distance);
-    if(x<-220 || x>width+260) continue;
-    const lane=clamp(r.lane,0,3);
-    const y=laneYAt(r.distance,lane);
-    list.push({r,x,y,lane});
-  }
-  list.sort((a,b)=>a.lane-b.lane);
-
-  for(const item of list){
-    const r=item.r;
-    const selectedRacer=r.id===SELECTED_ID;
-    const scale=laneScale(item.lane);
-    const baseW = width<700
-      ? clamp(width*.14,90,124)
-      : clamp(width*.092,122,148);
-    const spriteW=baseW*scale*(selectedRacer?1.04:1);
-    const spriteH=spriteW*.84;
-    minEdge=Math.min(minEdge,item.x-spriteW*.52);
-    maxEdge=Math.max(maxEdge,item.x+spriteW*.52);
-
-    const cadence=7+clamp(r.speed/24,0,1)*7.7;
-    const frameFloat=elapsed/1000*cadence+r.phaseOffset;
-    const frameIndex=((Math.floor(frameFloat)%S_FRAMES.length)+S_FRAMES.length)%S_FRAMES.length;
-    const frame=S_FRAMES[frameIndex];
-
-    const slope=terrainSlope(r.distance);
-    const lean=clamp(slope*.022,-.045,.045);
-
-    const flight =
-      frame.phase==="FLIGHT" ? 1 :
-      frame.phase==="REACH" ? .55 :
-      frame.phase==="LIFT" ? .28 : 0;
-    const shadowW=spriteW*(.40-flight*.09);
-    const shadowH=Math.max(3,spriteH*(.05-flight*.012));
-    ctx.save();
-    ctx.globalAlpha=.32-flight*.14;
-    ctx.fillStyle="#071016";
-    ctx.beginPath();
-    ctx.ellipse(item.x,item.y+6+flight*3,shadowW,shadowH,0,0,Math.PI*2);
-    ctx.fill();
-    ctx.restore();
-
-    const contactKick=frame.phase==="LAND"||frame.phase==="CONTACT"||frame.phase==="PUSH";
-    if(r.speed>16&&contactKick){
-      ctx.save();
-      ctx.globalAlpha=.14;
-      ctx.fillStyle="#d9c7a0";
-      for(let p=0;p<3;p++){
-        ctx.beginPath();
-        ctx.ellipse(item.x-spriteW*(.28+p*.18),item.y+4+p*2,spriteW*(.09+p*.03),spriteH*.035,0,0,Math.PI*2);
-        ctx.fill();
-      }
-      ctx.restore();
-    }
-
-    if(spriteSheet.complete && spriteSheet.naturalWidth>0){
-      const fw=spriteSheet.naturalWidth/3, fh=spriteSheet.naturalHeight/2;
-      const sx=frame.col*fw, sy=frame.row*fh;
-      const footAdjust=frame.y*spriteH*.12;
-
-      ctx.save();
-      ctx.translate(item.x,item.y-spriteH*.48);
-      ctx.rotate(lean);
-      if(selectedRacer){
-        ctx.shadowColor="rgba(126,226,255,.85)";
-        ctx.shadowBlur=clamp(spriteW*.08,4,18);
-      }
-      ctx.drawImage(spriteSheet,sx,sy,fw,fh,-spriteW/2,-spriteH/2+footAdjust,spriteW,spriteH);
-      ctx.restore();
-    }
-
-    const labelY=item.y-spriteH*.66;
-    ctx.font=`800 ${width<700?9:11}px ui-monospace, Menlo, monospace`;
-    ctx.textAlign="center";
-    const txt=`S${String(r.id).padStart(2,"0")}`;
-    const tw=ctx.measureText(txt).width+10;
-    ctx.fillStyle=selectedRacer?"rgba(8,41,56,.92)":"rgba(3,10,15,.72)";
-    ctx.fillRect(item.x-tw/2,labelY-12,tw,15);
-    ctx.fillStyle="#eef9ff";
-    ctx.fillText(txt,item.x,labelY);
-
-    if(selectedRacer){
-      stage.dataset.sRunFrame=String(frameIndex);
-      stage.dataset.sRunPhase=frame.phase;
-      stage.dataset.selectedX=item.x.toFixed(1);
-      stage.dataset.selectedY=item.y.toFixed(1);
-    }
-  }
-
-  stage.dataset.visibleRacers=String(list.length);
-  stage.dataset.fieldMinX=Number.isFinite(minEdge)?minEdge.toFixed(1):"";
-  stage.dataset.fieldMaxX=Number.isFinite(maxEdge)?maxEdge.toFixed(1):"";
-}
-
-function drawForeground() {
-  const shift=-cameraMeters*(pixelsPerMeter*.52);
+function drawDust(foot, intensity, scale) {
+  if (intensity <= 0) return;
   ctx.save();
-  ctx.globalAlpha=.68;
-  for(let i=-2;i<Math.ceil(width/90)+4;i++){
-    const x=i*90+(shift%90);
-    const h=38+Math.abs(Math.sin(i*1.3))*34;
-    ctx.strokeStyle="#1c3528";
-    ctx.lineWidth=3;
+  ctx.globalAlpha = .14 * intensity;
+  ctx.fillStyle = "#d7c3a1";
+  for (let i = 0; i < 4; i++) {
     ctx.beginPath();
-    ctx.moveTo(x,height);
-    ctx.lineTo(x+8,height-h);
-    ctx.stroke();
-    ctx.strokeStyle="#274936";
-    ctx.lineWidth=2;
-    for(let b=0;b<3;b++){
-      ctx.beginPath();
-      ctx.moveTo(x+5,height-h+b*10);
-      ctx.lineTo(x-10-b*2,height-h-8+b*8);
-      ctx.stroke();
-    }
+    ctx.ellipse(
+      foot.x - (12 + i * 13) * scale,
+      foot.y + 2 + i,
+      (7 + i * 3) * scale,
+      (2.3 + i * .8) * scale,
+      0,
+      0,
+      TAU
+    );
+    ctx.fill();
   }
   ctx.restore();
 }
 
-function updateCamera() {
-  const focus=selected();
-  const live=racers.filter(r=>!r.finished);
-  const front=live.length?Math.max(...live.map(r=>r.distance)):focus.distance;
-  const back=live.length?Math.min(...live.map(r=>r.distance)):focus.distance;
-  const span=Math.max(1,front-back);
-  const center=(front+back)*.5;
-
-  // Frame the actual pack, including sprite width. The race is the subject, not one fixed S.
-  const base=width<700?6.7:8.4;
-  const spriteBase=width<700
-    ? clamp(width*.14,90,124)
-    : clamp(width*.092,122,148);
-  const maxHalfSprite=spriteBase*1.12*.54;
-  const sidePadding=width<700?8:18;
-  const usableWidth=Math.max(90,width-2*(maxHalfSprite+sidePadding));
-  const bySpan=usableWidth/span;
-  const targetPPM=clamp(Math.min(base,bySpan),width<700?2.55:4.15,base);
-
-  if(width<700){
-    pixelsPerMeter=targetPPM;
-    cameraMeters=center;
-  } else {
-    const zoomRate=targetPPM<pixelsPerMeter?.20:.055;
-    pixelsPerMeter=lerp(pixelsPerMeter,targetPPM,zoomRate);
-    const targetCamera=center+span*.015;
-    cameraMeters=lerp(cameraMeters,targetCamera,.22);
-  }
-
-  stage.dataset.pixelsPerMeter=pixelsPerMeter.toFixed(2);
-  stage.dataset.packSpan=span.toFixed(2);
+function drawLeg(root, foot, sourceDef, upperLength, lowerLength, bend, alpha) {
+  const knee = solveIK(root, foot, upperLength, lowerLength, bend);
+  drawBone("foreUpper", sourceDef.root, sourceDef.knee, root, knee, alpha);
+  drawBone("foreLower", sourceDef.knee, sourceDef.foot, knee, foot, alpha);
+  return knee;
 }
 
-function drawSpeedRush() {
-  const focus=selected();
-  const speedNorm=clamp(focus.speed/24.5,0,1);
-  if(speedNorm<.36)return;
+function drawHindLeg(root, foot, sourceDef, upperLength, lowerLength, bend, alpha) {
+  const knee = solveIK(root, foot, upperLength, lowerLength, bend);
+  drawBone("hindUpper", sourceDef.root, sourceDef.knee, root, knee, alpha);
+  drawBone("hindLower", sourceDef.knee, sourceDef.foot, knee, foot, alpha);
+  return knee;
+}
 
-  ctx.save();
-  const strength=clamp((speedNorm-.36)/.64,0,1);
-  ctx.globalAlpha=.12+.25*strength;
-  ctx.strokeStyle="rgba(238,247,243,.78)";
-  ctx.lineCap="round";
-  const count=width<700?14:22;
-  for(let i=0;i<count;i++){
-    const band=(i%5)/5;
-    const y=height*(.61+band*.31)+Math.sin(i*1.73)*8;
-    const phase=(elapsed*.24*(1+band*.6)+i*97)%(width+220);
-    const x=width+80-phase;
-    const len=34+strength*105+band*55;
-    ctx.lineWidth=.7+band*1.4;
-    ctx.beginPath();
-    ctx.moveTo(x,y);
-    ctx.lineTo(x-len,y+band*3);
-    ctx.stroke();
+function renderCreature(globalPhase) {
+  const targetW = clamp(Math.min(width * .61, height * .86), width < 560 ? 285 : 360, 675);
+  const scale = targetW / rig.sw;
+  const phase = motionPhase(globalPhase);
+  const groundY = height * (height > width * 1.15 ? .77 : .80);
+
+  const bodyYOffset = sample(BODY_Y, globalPhase) * scale;
+  const bodyXOffset = sample(BODY_X, globalPhase) * scale;
+  const bodyPitch = rad(sample(BODY_PITCH, globalPhase));
+  const baseDrop = (0.985 * rig.sh - rig.bodyCenter.y) * scale;
+  const bodyCenterWorld = {
+    x: width * .52 + bodyXOffset,
+    y: groundY - baseDrop + bodyYOffset
+  };
+
+  const frontRootBase = sourcePointToWorld(rig.front.root, bodyCenterWorld, scale, bodyPitch);
+  const hindRootBase = sourcePointToWorld(rig.hind.root, bodyCenterWorld, scale, bodyPitch);
+
+  const legScale = scale;
+  const frontUpper = Math.hypot(
+    rig.front.knee.x - rig.front.root.x,
+    rig.front.knee.y - rig.front.root.y
+  ) * legScale;
+  const frontLower = Math.hypot(
+    rig.front.foot.x - rig.front.knee.x,
+    rig.front.foot.y - rig.front.knee.y
+  ) * legScale;
+  const hindUpper = Math.hypot(
+    rig.hind.knee.x - rig.hind.root.x,
+    rig.hind.knee.y - rig.hind.root.y
+  ) * legScale;
+  const hindLower = Math.hypot(
+    rig.hind.foot.x - rig.hind.knee.x,
+    rig.hind.foot.y - rig.hind.knee.y
+  ) * legScale;
+
+  const strideFront = 55 * scale;
+  const strideHind = 50 * scale;
+  const liftFront = 38 * scale;
+  const liftHind = 34 * scale;
+
+  const qHindFar = legPhase(globalPhase, 0.00);
+  const qHindNear = legPhase(globalPhase, .055);
+  const qForeFar = legPhase(globalPhase, .120);
+  const qForeNear = legPhase(globalPhase, .180);
+
+  const hindFarRoot = { x: hindRootBase.x + 7 * scale, y: hindRootBase.y + 4 * scale };
+  const hindNearRoot = { x: hindRootBase.x - 3 * scale, y: hindRootBase.y - 1 * scale };
+  const foreFarRoot = { x: frontRootBase.x - 8 * scale, y: frontRootBase.y + 5 * scale };
+  const foreNearRoot = { x: frontRootBase.x + 3 * scale, y: frontRootBase.y - 1 * scale };
+
+  const hindFarFoot = footTrajectory(qHindFar, hindFarRoot, strideHind, liftHind, groundY, -8 * scale);
+  const hindNearFoot = footTrajectory(qHindNear, hindNearRoot, strideHind, liftHind * 1.04, groundY, -1 * scale);
+  const foreFarFoot = footTrajectory(qForeFar, foreFarRoot, strideFront, liftFront, groundY, 5 * scale);
+  const foreNearFoot = footTrajectory(qForeNear, foreNearRoot, strideFront, liftFront * 1.04, groundY, 11 * scale);
+
+  drawShadow(bodyCenterWorld.x, groundY, phase);
+
+  // Far limbs first: same S pixels, reduced only by depth opacity.
+  drawHindLeg(hindFarRoot, hindFarFoot, rig.hind, hindUpper * .97, hindLower * .97, -1, .58);
+  drawLeg(foreFarRoot, foreFarFoot, rig.front, frontUpper * .97, frontLower * .97, 1, .58);
+
+  const tailPivotWorld = sourcePointToWorld(rig.tailPivot, bodyCenterWorld, scale, bodyPitch);
+  const tailSwing = rad(Math.sin(globalPhase * TAU + .65) * 5.5 - sample(BODY_PITCH, globalPhase) * .35);
+  drawRigid("tail", rig.tailPivot, tailPivotWorld, bodyPitch + tailSwing, scale, .94);
+
+  drawRigid("torso", rig.bodyCenter, bodyCenterWorld, bodyPitch, scale, 1);
+
+  // Near limbs remain fully opaque and articulate from the body roots.
+  drawHindLeg(hindNearRoot, hindNearFoot, rig.hind, hindUpper, hindLower, -1, 1);
+  drawLeg(foreNearRoot, foreNearFoot, rig.front, frontUpper, frontLower, 1, 1);
+
+  const shoulderPivotWorld = sourcePointToWorld(rig.shoulderPivot, bodyCenterWorld, scale, bodyPitch);
+  const hipPivotWorld = sourcePointToWorld(rig.hipPivot, bodyCenterWorld, scale, bodyPitch);
+  const shoulderRock = rad(Math.sin(globalPhase * TAU + .4) * 2.8);
+  const hipRock = rad(Math.sin(globalPhase * TAU - .9) * 3.2);
+  drawRigid("shoulder", rig.shoulderPivot, shoulderPivotWorld, bodyPitch + shoulderRock, scale, .98);
+  drawRigid("hip", rig.hipPivot, hipPivotWorld, bodyPitch + hipRock, scale, .98);
+
+  const neckPivotWorld = sourcePointToWorld(rig.neckPivot, bodyCenterWorld, scale, bodyPitch);
+  const headCounter = rad(-sample(BODY_PITCH, globalPhase) * .46 + Math.sin(globalPhase * TAU + .2) * .65);
+  drawRigid("head", rig.neckPivot, neckPivotWorld, bodyPitch + headCounter, scale, 1);
+
+  const contacts = [
+    [qHindFar, hindFarFoot],
+    [qHindNear, hindNearFoot],
+    [qForeFar, foreFarFoot],
+    [qForeNear, foreNearFoot]
+  ].filter(([q]) => q < .22);
+
+  for (const [q, foot] of contacts) {
+    const pulse = 1 - clamp(q / .22, 0, 1);
+    drawDust(foot, pulse, scale * .45);
   }
-  ctx.restore();
+
+  const contactError = contacts.length
+    ? Math.max(...contacts.map(([, foot]) => Math.abs(foot.y - groundY)))
+    : 0;
+
+  stage.dataset.motionPhase = phase;
+  stage.dataset.phaseProgress = globalPhase.toFixed(3);
+  stage.dataset.contactCount = String(contacts.length);
+  stage.dataset.contactError = contactError.toFixed(2);
+  stage.dataset.flight = contacts.length === 0 ? "true" : "false";
+  stage.dataset.bodyPitch = (bodyPitch * 180 / Math.PI).toFixed(2);
+  stage.dataset.bodyY = bodyCenterWorld.y.toFixed(1);
+  stage.dataset.frontFootY = foreNearFoot.y.toFixed(1);
+  stage.dataset.rearFootY = hindNearFoot.y.toFixed(1);
 }
 
 function render() {
-  const focus=selected();
-  updateCamera();
+  const p = mod1(elapsed / CYCLE_MS);
+  const phase = motionPhase(p);
+  const speedNorm = .92;
 
-  const speedNorm=clamp(focus.speed/24.5,0,1);
-  const shake=speedNorm>.70?(speedNorm-.70)*5.2:0;
-  ctx.save();
-  ctx.translate(Math.sin(elapsed*.041)*shake,Math.sin(elapsed*.053+1.2)*shake*.38);
+  drawBackground(speedNorm);
+  if (rig) renderCreature(p);
 
-  drawBackground();
-  drawTrack();
-  drawCourseLandmarks();
-  drawRacers();
-  drawForeground();
-  drawSpeedRush();
-  ctx.restore();
-
-  // subtle speed vignette
-  const vignetteSpeed=clamp(focus.speed/24.5,0,1);
-  if(vignetteSpeed>.58){
-    const a=(vignetteSpeed-.58)*.17;
-    const vg=ctx.createRadialGradient(width*.5,height*.55,height*.12,width*.5,height*.55,width*.78);
-    vg.addColorStop(0,"rgba(0,0,0,0)");
-    vg.addColorStop(1,`rgba(0,5,8,${a})`);
-    ctx.fillStyle=vg;
-    ctx.fillRect(0,0,width,height);
+  if (phase === "FLIGHT") {
+    const vignette = ctx.createRadialGradient(
+      width * .52, height * .53, height * .18,
+      width * .52, height * .53, width * .72
+    );
+    vignette.addColorStop(0, "rgba(0,0,0,0)");
+    vignette.addColorStop(1, "rgba(0,5,8,.10)");
+    ctx.fillStyle = vignette;
+    ctx.fillRect(0, 0, width, height);
   }
 }
 
-function fmtTime(ms){
-  const t=Math.max(0,ms)/1000;
-  const min=Math.floor(t/60), sec=Math.floor(t%60), cs=Math.floor((t%1)*100);
-  return `${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}.${String(cs).padStart(2,"0")}`;
-}
-
-function updateUI(now){
-  const focus=selected();
-  const ranks=order();
-  ui.rank.textContent=`${rankOf(focus)} / ${FIELD_SIZE}`;
-  ui.speed.textContent=String(Math.round(focus.speed*3.6));
-  ui.command.textContent=focus.command;
-  ui.reason.textContent=focus.reason;
-  ui.distance.textContent=`${Math.round(focus.distance)} / ${RACE_METERS} m`;
-  ui.clock.textContent=fmtTime(elapsed);
-  ui.progress.style.width=`${clamp(focus.distance/RACE_METERS*100,0,100).toFixed(2)}%`;
-
-  if(now-lastRankingPaint>180){
-    lastRankingPaint=now;
-    ui.ranking.innerHTML=ranks.map((r,i)=>`<span class="${r.id===SELECTED_ID?"selected":""}">#${i+1} S${String(r.id).padStart(2,"0")}</span>`).join("");
-  }
-
-  stage.dataset.selectedDistance=focus.distance.toFixed(2);
-  stage.dataset.selectedSpeed=focus.speed.toFixed(2);
-  stage.dataset.selectedRank=String(rankOf(focus));
-  stage.dataset.courseBank=courseBank(focus.distance).toFixed(2);
-  stage.dataset.cameraMeters=cameraMeters.toFixed(2);
-  stage.dataset.frameCounter=String(frameCounter);
-}
-
-function resetRace(){
-  racers=makeRacers();
-  elapsed=0;
-  raceState="countdown";
-  countdownRemaining=2500;
-  finishCounter=0;
-  cameraMeters=0;
-  cameraVelocity=0;
-  pixelsPerMeter=width<700?6.7:8.4;
-  pixelsPerMeterVelocity=0;
-  paused=false;
-  ui.pause.textContent="Pause";
-  ui.countdown.hidden=false;
-  ui.countdown.textContent="3";
-  stage.dataset.raceState="countdown";
-}
-
-ui.pause.addEventListener("click",()=>{
-  paused=!paused;
-  ui.pause.textContent=paused?"Resume":"Pause";
-});
-ui.reset.addEventListener("click",resetRace);
-
-function frame(now){
-  const dt=Math.min(60,Math.max(0,now-last));
-  last=now;
-  updateRace(dt);
+function frame(now) {
+  const dt = clamp(now - last, 0, 45);
+  last = now;
+  elapsed += dt * PLAYBACK_RATE;
+  worldTravel += dt * .46 * PLAYBACK_RATE;
   render();
-  frameCounter++;
-  updateUI(now);
   requestAnimationFrame(frame);
 }
 
-stage.dataset.raceState="countdown";
-requestAnimationFrame(now=>{last=now;frame(now);});
+requestAnimationFrame(now => {
+  last = now;
+  frame(now);
+});
