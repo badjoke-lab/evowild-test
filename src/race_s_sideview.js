@@ -21,7 +21,9 @@ const BASE = import.meta.env.BASE_URL || "/";
 const FIELD_SIZE = 8;
 const SELECTED_ID = 1;
 const RACE_METERS = 1440;
-const LANES = [1, 0, 2, 3, 1, 2, 0, 3];
+const LANES = [1, 1, 2, 3, 0, 2, 1, 3];
+const CRUISE = [32.6,29.6,31.1,30.0,31.5,29.9,30.6,30.2];
+const ACCEL = [12.2,10.3,11.2,10.6,11.0,10.2,10.8,10.4];
 const NAMES = ["Mica","Vela","Rook","Serein","Flint","Nacre","Ilex","Sora"];
 
 const S_FRAMES = [
@@ -114,10 +116,10 @@ function makeRacers() {
   return Array.from({length:FIELD_SIZE}, (_,i) => ({
     id:i+1,
     name:NAMES[i],
-    distance: i*7.0,
+    distance: i*4.0,
     speed:0,
-    cruise:29.4 + ((i*5)%7)*0.34,
-    accel:10.4 + (i%3)*0.45,
+    cruise:CRUISE[i],
+    accel:ACCEL[i],
     stamina:100,
     lane:LANES[i],
     targetLane:LANES[i],
@@ -554,18 +556,24 @@ function drawRacers() {
     const slope=terrainSlope(r.distance);
     const lean=clamp(slope*.022,-.045,.045);
 
-    const shadowW=spriteW*.40, shadowH=Math.max(3,spriteH*.05);
+    const flight =
+      frame.phase==="FLIGHT" ? 1 :
+      frame.phase==="REACH" ? .55 :
+      frame.phase==="LIFT" ? .28 : 0;
+    const shadowW=spriteW*(.40-flight*.09);
+    const shadowH=Math.max(3,spriteH*(.05-flight*.012));
     ctx.save();
-    ctx.globalAlpha=.32;
+    ctx.globalAlpha=.32-flight*.14;
     ctx.fillStyle="#071016";
     ctx.beginPath();
-    ctx.ellipse(item.x,item.y+6,shadowW,shadowH,0,0,Math.PI*2);
+    ctx.ellipse(item.x,item.y+6+flight*3,shadowW,shadowH,0,0,Math.PI*2);
     ctx.fill();
     ctx.restore();
 
-    if(r.speed>16){
+    const contactKick=frame.phase==="LAND"||frame.phase==="CONTACT"||frame.phase==="PUSH";
+    if(r.speed>16&&contactKick){
       ctx.save();
-      ctx.globalAlpha=.12;
+      ctx.globalAlpha=.14;
       ctx.fillStyle="#d9c7a0";
       for(let p=0;p<3;p++){
         ctx.beginPath();
@@ -751,6 +759,7 @@ function updateUI(now){
 
   stage.dataset.selectedDistance=focus.distance.toFixed(2);
   stage.dataset.selectedSpeed=focus.speed.toFixed(2);
+  stage.dataset.selectedRank=String(rankOf(focus));
   stage.dataset.courseBank=courseBank(focus.distance).toFixed(2);
   stage.dataset.cameraMeters=cameraMeters.toFixed(2);
   stage.dataset.frameCounter=String(frameCounter);
