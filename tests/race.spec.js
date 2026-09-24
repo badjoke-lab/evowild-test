@@ -84,7 +84,7 @@ test("lane 4 v4 runs the unmodified Kart Royale baseline", async ({ page }, test
   page.on("pageerror", (err) => errors.push(err.stack || String(err)));
   page.on("console", (msg) => { if (msg.type() === "error") errors.push(msg.text()); });
 
-  await page.goto("/evowild-test/lane4-v4/", { waitUntil: "domcontentloaded" });
+  await page.goto("/evowild-test/lane4-v4/?ciNoPrewarm=1", { waitUntil: "domcontentloaded" });
   await page.waitForFunction(() => window.__gameReady === true, null, { timeout: 90000 });
 
   await page.evaluate(() => {
