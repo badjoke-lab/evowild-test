@@ -75,3 +75,28 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
     await page.locator("#stage").screenshot({ path: `${outDir}/android-${name}.png` });
   }
 });
+
+
+test("lane 4 V3 runs javascript-racer road engine with S field", async ({ page }, testInfo) => {
+  const errors = [];
+  page.on("pageerror", (err) => errors.push(err.stack || String(err)));
+  page.on("console", (msg) => { if (msg.type() === "error") errors.push(msg.text()); });
+
+  await page.goto("/evowild-test/race-2_5d-lane4.html", { waitUntil: "networkidle" });
+  await expect(page.locator("#stage")).toHaveAttribute("data-lane4", "running", { timeout: 10000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-sprite-sheet", "ready", { timeout: 10000 });
+
+  const first = Number(await page.locator("#stage").getAttribute("data-base-z"));
+  await page.waitForTimeout(1800);
+  const second = Number(await page.locator("#stage").getAttribute("data-base-z"));
+
+  expect(second).not.toBe(first);
+  expect(errors, errors.join("\n")).toEqual([]);
+  await expect(page.locator("#race")).toBeVisible();
+
+  fs.mkdirSync("test-results/visuals", { recursive: true });
+  const filename = testInfo.project.name === "android-chromium"
+    ? "test-results/visuals/android-lane4-v3.png"
+    : "test-results/visuals/desktop-lane4-v3.png";
+  await page.screenshot({ path: filename, fullPage: true });
+});
