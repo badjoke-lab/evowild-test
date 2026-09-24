@@ -31,7 +31,7 @@ const TRACK_METERS = 2400;
 const WORLD_TO_METERS = 0.12;
 const TRACK_WORLD = TRACK_METERS / WORLD_TO_METERS;
 const MAX_SPEED = 22.5 / WORLD_TO_METERS;
-const START_SPREAD = 1150;
+const START_Z = 5200;\nconst CAMERA_TRAIL = 3450;
 
 let width = 0;
 let height = 0;
@@ -449,7 +449,7 @@ function drawRacer(r, nowSec) {
   const dh = dw * (sh / sw);
 
   const speedPulse = 1 + Math.sin(nowSec * 12 + r.id) * 0.018;
-  const bob = Math.sin(nowSec * 17 + r.id * 0.8) * Math.min(4, perspective * 3.5);
+  const bob = Math.sin(nowSec * 17 + r.id * 0.8) * Math.min(2.4, perspective * 2.0);
 
   ctx.save();
   ctx.translate(s.x, s.y + bob);
@@ -466,11 +466,20 @@ function drawRacer(r, nowSec) {
   ctx.fill();
 
   if (r.id === selectedId) {
-    ctx.globalAlpha = clamp(0.26 + perspective * 0.18, .26, .46);
-    ctx.strokeStyle = "#79e7ff";
-    ctx.lineWidth = Math.max(1, 2.3 * perspective);
+    const markerY = -dh - clamp(7 * perspective, 4, 9);
+    ctx.fillStyle = "rgba(121,231,255,.92)";
     ctx.beginPath();
-    ctx.ellipse(0, -dh * 0.44, dw * 0.45, dh * 0.48, 0, 0, Math.PI * 2);
+    ctx.moveTo(0, markerY + 6);
+    ctx.lineTo(-5, markerY - 2);
+    ctx.lineTo(5, markerY - 2);
+    ctx.closePath();
+    ctx.fill();
+    ctx.globalAlpha = 0.72;
+    ctx.strokeStyle = "#79e7ff";
+    ctx.lineWidth = Math.max(1, 1.4 * perspective);
+    ctx.beginPath();
+    ctx.moveTo(-dw * 0.28, 2);
+    ctx.lineTo(dw * 0.28, 2);
     ctx.stroke();
     ctx.globalAlpha = 1;
   }
