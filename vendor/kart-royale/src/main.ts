@@ -193,10 +193,17 @@ async function boot() {
     );
   }
 
-  // Deliberately NOT race.start(): the director already sits in RaceState.Menu,
-  // which is what puts the title screen and character select on screen. Booting
-  // straight into a countdown skipped the entire front end — it dated from the
-  // original scaffold, written before there was a front end to skip.
+  // Normal play stays on the title/select flow. CI visual capture can bypass
+  // the real-time countdown because software WebGL may advance simulation far
+  // slower than wall clock; that must not block a render-quality screenshot.
+  const ciRace = new URLSearchParams(window.location.search).get('ciRace') === '1';
+  if (ciRace) {
+    race.autoDrive = true;
+    race.start();
+    race.state = RaceState.Racing;
+    document.documentElement.dataset.ciRace = 'racing';
+  }
+
   bootProgress(1, 'ready');
 
   // Press R to record. Deliberately not a System: it owns no scene state and
