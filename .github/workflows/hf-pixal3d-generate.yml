@@ -1,0 +1,139 @@
+name: HF Pixal3D generation
+
+on:
+  push:
+    branches:
+      - test/hf-sf3d-retry-20260921
+    paths:
+      - ".github/workflows/hf-pixal3d-generate.yml"
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install client
+        run: pip install --quiet "gradio_client>=1.10,<2" pillow
+
+      - name: Generate EvoWild S with Pixal3D
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          python - <<'PY'
+          import inspect, json, os, shutil
+          from pathlib import Path
+          from PIL import Image
+          from gradio_client import Client, handle_file
+
+          src = Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")
+          runtime = Path("hf-poc/runtime-pixal3d")
+          out = Path("hf-poc/output-pixal3d")
+          runtime.mkdir(parents=True, exist_ok=True)
+          out.mkdir(parents=True, exist_ok=True)
+
+          im = Image.open(src).convert("RGB")
+          w, h = im.size
+          im.paste((255,255,255), (0,0,int(w*0.30),h))
+          prepared = runtime / "evowild_3q_cleanleft30.jpg"
+          im.save(prepared, quality=96)
+
+          token = os.environ.get("HF_TOKEN")
+          params = inspect.signature(Client).parameters
+          auth_kw = {"token": token} if "token" in params else {"hf_token": token}
+          client = Client("TencentARC/Pixal3D", **auth_kw)
+
+          processed = client.predict(
+              handle_file(str(prepared)),
+              api_name="/preprocess",
+          )
+          print("PREPROCESS:", repr(processed))
+
+          gen = client.predict(
+              processed,
+              1234,
+              256,
+              7.5,
+              0.7,
+              12,
+              5.0,
+              7.5,
+              0.5,
+              12,
+              3.0,
+              1.0,
+              0.0,
+              12,
+              3.0,
+              -1.0,
+              "deg",
+              "evowild-s-1234",
+              api_name="/generate_3d",
+          )
+          print("GENERATE:", repr(gen))
+
+          if not isinstance(gen, dict):
+              raise RuntimeError(f"Unexpected generate result: {gen!r}")
+
+          state_path = (
+              gen.get("state_path")
+              or gen.get("path")
+              or gen.get("state")
+              or gen.get("output_path")
+          )
+          if not state_path:
+              # Preserve the full response in the error so we can adapt to the
+              # current Space schema without guessing.
+              raise RuntimeError(f"No state path in generate result: {gen!r}")
+
+          glb = client.predict(
+              str(state_path),
+              20000,
+              1024,
+              "evowild-s-1234",
+              api_name="/extract_glb_api",
+          )
+          print("GLB:", repr(glb))
+
+          if isinstance(glb, dict):
+              model_path = glb.get("path") or glb.get("value")
+          else:
+              model_path = str(glb)
+          if not model_path:
+              raise RuntimeError(f"No GLB path returned: {glb!r}")
+
+          p = Path(model_path)
+          if not p.exists():
+              raise RuntimeError(f"Returned GLB missing: {p}")
+
+          target = out / "evowild_s_pixal3d.glb"
+          shutil.copy2(p, target)
+
+          meta = {
+              "space": "TencentARC/Pixal3D",
+              "source": str(src),
+              "prepared": str(prepared),
+              "seed": 1234,
+              "resolution": 256,
+              "decimation_target": 20000,
+              "texture_size": 1024,
+              "output_bytes": target.stat().st_size,
+              "preprocess_repr": repr(processed)[:8000],
+              "generate_repr": repr(gen)[:12000],
+              "glb_repr": repr(glb)[:8000],
+          }
+          (out / "metadata.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
+          print("SAVED:", target, target.stat().st_size)
+          PY
+
+      - name: Upload result
+        uses: actions/upload-artifact@v4
+        with:
+          name: evowild-s-pixal3d
+          path: hf-poc/output-pixal3d/
+          if-no-files-found: error
