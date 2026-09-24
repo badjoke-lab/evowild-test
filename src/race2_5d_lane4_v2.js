@@ -48,8 +48,9 @@ for (let i = 0; i < 10; i++) {
     brake: 0.58,
     grip: 0.62 + (i % 3) * 0.035
   });
-  car.position.z = i === 0 ? 0 : 120 + i * 70;
-  car.position.x = ((i % 5) - 2) * 135;
+  car.renderScale = i === 0 ? 0.30 : 0.24;
+  car.position.z = i === 0 ? 0 : 180 + i * 115;
+  car.position.x = ((i % 5) - 2) * 150;
   cars.push(car);
   new BasicCPUControl(car);
 }
