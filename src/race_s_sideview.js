@@ -273,7 +273,7 @@ function drawFrame(index, cx, groundY, alpha = 1, trailX = 0, extraBlur = 0) {
   ctx.translate(cx + trailX, groundY - liftPx);
   ctx.rotate(phase.pitch * Math.PI / 180);
   ctx.translate(-(cx + trailX), -(groundY - liftPx));
-  if (extraBlur) ctx.filter = \`blur(\${extraBlur}px)\`;
+  if (extraBlur) ctx.filter = "blur(" + extraBlur + "px)";
   ctx.drawImage(
     sheet,
     meta.sx, meta.sy, meta.sw, meta.sh,
