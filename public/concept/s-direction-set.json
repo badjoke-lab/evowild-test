@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "morph": "S",
+  "canonical_design_source": "user-provided EvoWild Run creature design sheet",
+  "frames_per_direction": 6,
+  "required_directions": [
+    "side",
+    "front_3q",
+    "front",
+    "back_3q",
+    "back"
+  ],
+  "directions": {
+    "side": {
+      "status": "implemented",
+      "asset": "s-side-run-sheet.svg"
+    },
+    "front_3q": {
+      "status": "missing",
+      "asset": "s-front-3q-run-sheet.svg"
+    },
+    "front": {
+      "status": "missing",
+      "asset": "s-front-run-sheet.svg"
+    },
+    "back_3q": {
+      "status": "missing",
+      "asset": "s-back-3q-run-sheet.svg"
+    },
+    "back": {
+      "status": "missing",
+      "asset": "s-back-run-sheet.svg"
+    }
+  },
+  "policy": {
+    "no_cross_direction_reuse": true,
+    "no_side_sprite_for_chase_or_front_views": true,
+    "no_design_invention_from_missing_views": true
+  }
+}
