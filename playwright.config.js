@@ -5,16 +5,7 @@ export default defineConfig({
   timeout: 30000,
   use: {
     baseURL: "http://127.0.0.1:4173",
-    trace: "retain-on-failure",
-    launchOptions: {
-      args: [
-        "--no-sandbox",
-        "--enable-unsafe-swiftshader",
-        "--use-gl=angle",
-        "--enable-webgl",
-        "--ignore-gpu-blocklist"
-      ]
-    }
+    trace: "retain-on-failure"
   },
   webServer: {
     command: "npm run dev -- --host 127.0.0.1 --port 4173",
