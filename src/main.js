@@ -27,6 +27,12 @@ runtimeStatus.className = "runtime-status";
 runtimeStatus.textContent = "Starting 3D race renderer…";
 stage.append(runtimeStatus);
 
+const speedFx = document.createElement("div");
+speedFx.className = "speed-fx";
+speedFx.setAttribute("aria-hidden", "true");
+stage.append(speedFx);
+stage.dataset.speedFx = "dynamic";
+
 function failRuntime(error) {
   const message = error instanceof Error ? error.message : String(error);
   runtimeStatus.textContent = `3D runtime error: ${message}`;
@@ -249,6 +255,39 @@ function buildTrack() {
   streaks.instanceMatrix.needsUpdate = true;
   scene.add(streaks);
 
+
+  const curbSegments = isMobile ? 56 : 84;
+  const curbGeometry = new THREE.BoxGeometry(0.74, 0.075, 0.34);
+  const curbLight = new THREE.MeshBasicMaterial({ color: 0xe7e1d6 });
+  const curbDark = new THREE.MeshBasicMaterial({ color: 0x35434c });
+  const curbMeshes = [
+    new THREE.InstancedMesh(curbGeometry, curbLight, curbSegments),
+    new THREE.InstancedMesh(curbGeometry, curbDark, curbSegments)
+  ];
+  const curbCounts = [0, 0];
+  const curbDummy = new THREE.Object3D();
+  for (let i = 0; i < curbSegments * 2; i++) {
+    const sideIndex = i % 2;
+    const step = Math.floor(i / 2);
+    const t = (step + 0.25) / curbSegments;
+    const p = curve.getPointAt(t);
+    const tangent = curve.getTangentAt(t).normalize();
+    const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+    const edge = sideIndex === 0 ? -(half + 0.46) : (half + 0.46);
+    const q = p.clone().addScaledVector(side, edge);
+    curbDummy.position.set(q.x, 0.085, q.z);
+    curbDummy.rotation.set(0, Math.atan2(-tangent.z, tangent.x), 0);
+    curbDummy.updateMatrix();
+    const meshIndex = (step + sideIndex) % 2;
+    curbMeshes[meshIndex].setMatrixAt(curbCounts[meshIndex]++, curbDummy.matrix);
+  }
+  curbMeshes.forEach((mesh) => {
+    mesh.count = curbCounts[curbMeshes.indexOf(mesh)];
+    mesh.instanceMatrix.needsUpdate = true;
+    scene.add(mesh);
+  });
+
+  stage.dataset.trackEdgeRhythm = "curb-v1";
   const startT = 0.012;
   const startPoint = curve.getPointAt(startT);
   const startTangent = curve.getTangentAt(startT).normalize();
@@ -284,7 +323,7 @@ function buildTrack() {
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
-  stage.dataset.trackPresentation = "v5";
+  stage.dataset.trackPresentation = "v6";
 }
 buildTrack();
 
@@ -2506,9 +2545,9 @@ function setCamera() {
 
   const speedRatio = THREE.MathUtils.clamp(selected.speed / Math.max(1, selected.cruise), 0, 1.2);
   const targetFov = view === "follow"
-    ? THREE.MathUtils.lerp(isMobile ? 52 : 44, isMobile ? 62 : 54, speedRatio)
+    ? THREE.MathUtils.lerp(isMobile ? 54 : 48, isMobile ? 72 : 68, speedRatio)
     : view === "race"
-      ? THREE.MathUtils.lerp(isMobile ? 52 : 44, isMobile ? 66 : 58, speedRatio)
+      ? THREE.MathUtils.lerp(isMobile ? 54 : 48, isMobile ? 76 : 72, speedRatio)
       : (isMobile ? 50 : 42);
   camera.fov = THREE.MathUtils.lerp(camera.fov, targetFov, 0.09);
   camera.updateProjectionMatrix();
@@ -2542,9 +2581,9 @@ function setCamera() {
     const isolatedBack = aRigIsolatedProof ? -1.35 : eRigIsolatedProof ? -1.45 : pRigIsolatedProof ? -1.55 : -1.2;
     const isolatedSide = aRigIsolatedProof ? 4.85 : eRigIsolatedProof ? 5.05 : pRigIsolatedProof ? 4.8 : 4.1;
     const isolatedHeight = aRigIsolatedProof ? 1.85 : eRigIsolatedProof ? 2.18 : pRigIsolatedProof ? 1.95 : 1.72;
-    const followBack = isolatedProof ? (isMobile ? -1.5 : isolatedBack) : (isMobile ? -2.8 : -1.8);
-    const followSide = isolatedProof ? (isMobile ? 4.3 : isolatedSide) : (isMobile ? 5.6 : 4.8);
-    const followHeight = isolatedProof ? (isMobile ? 1.92 : isolatedHeight) : (isMobile ? 2.68 : 2.12);
+    const followBack = isolatedProof ? (isMobile ? -1.5 : isolatedBack) : (isMobile ? -2.2 : -1.35);
+    const followSide = isolatedProof ? (isMobile ? 4.3 : isolatedSide) : (isMobile ? 4.8 : 3.95);
+    const followHeight = isolatedProof ? (isMobile ? 1.92 : isolatedHeight) : (isMobile ? 2.18 : 1.68);
     const shake = Math.max(0, speedRatio - 0.48) * (isolatedProof ? 0.08 : 0.075);
     const desired = selectedPos.clone()
       .addScaledVector(tangent, followBack)
@@ -2573,9 +2612,9 @@ function setCamera() {
     const leaderTangent = curve.getTangentAt(lt).normalize();
     const leaderSide = new THREE.Vector3(-leaderTangent.z, 0, leaderTangent.x);
 
-    const raceBack = isMobile ? -7.4 : -8.2;
-    const raceSide = isMobile ? 13.3 : 12.6;
-    const raceHeight = isMobile ? 6.2 : 5.9;
+    const raceBack = isMobile ? -6.4 : -6.2;
+    const raceSide = isMobile ? 11.8 : 10.9;
+    const raceHeight = isMobile ? 5.1 : 4.65;
     camera.position.lerp(
       center.clone().addScaledVector(leaderTangent, raceBack).addScaledVector(leaderSide, raceSide).add(new THREE.Vector3(0, raceHeight, 0)),
       0.065
@@ -2584,6 +2623,21 @@ function setCamera() {
     stage.dataset.raceCamera = "wide-pack";
   }
 
+
+  const speedFxStrength = (lab || tactical || raceState !== "running")
+    ? 0
+    : THREE.MathUtils.smoothstep(speedRatio, 0.36, 1.12);
+  speedFx.style.opacity = String(speedFxStrength * (view === "follow" ? 0.72 : 0.48));
+  speedFx.style.setProperty("--speed-fx-rate", `${Math.max(0.18, 0.62 - speedFxStrength * 0.38).toFixed(2)}s`);
+  speedFx.style.setProperty("--speed-fx-stretch", `${(1 + speedFxStrength * 0.9).toFixed(2)}`);
+
+  if (!lab && !tactical) {
+    const aheadTangent = curve.getTangentAt((t + 0.008) % 1).normalize();
+    const signedCurve = tangent.x * aheadTangent.z - tangent.z * aheadTangent.x;
+    const targetRoll = THREE.MathUtils.clamp(signedCurve * 2.7, -0.07, 0.07) * speedRatio;
+    camera.rotateZ(targetRoll);
+    stage.dataset.cameraSpeedRoll = targetRoll.toFixed(4);
+  }
   const selectedCameraDistance = camera.position.distanceTo(selected.obj.position);
   racers.forEach((r) => {
     let targetOpacity = 1;
