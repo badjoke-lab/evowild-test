@@ -28,7 +28,7 @@ const CAMERA_HEIGHT = 860;
 const DRAW_DISTANCE = 220;
 const BASE_FOV = 88;
 const RACE_METERS = 1440;
-const LANES = [-0.62, -0.42, -0.20, 0.04, 0.26, 0.48, 0.68, -0.02];
+const LANES = [0.04, -0.20, 0.26, -0.42, 0.48, -0.62, 0.68, -0.02];
 
 const S_FRAMES = [
   { phase: "CONTACT", col: 0, row: 0, y: 0.00 },
