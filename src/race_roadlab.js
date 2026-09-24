@@ -310,7 +310,7 @@ function addMountains() {
     [-320,320,88,mat2],[-430,80,96,mat2]
   ];
   for (const [x,z,h,mat] of ring) {
-    const m = new THREE.Mesh(new THREE.ConeGeometry(h*.62,h,7),mat);
+    const m = new THREE.Mesh(new THREE.ConeGeometry(h*.62,h,14),mat);
     m.position.set(x,h*.45-4,z);
     m.rotation.y = (x+z)*.01;
     m.receiveShadow = true;
@@ -322,7 +322,7 @@ addMountains();
 function addGrandstand(u, sideSign) {
   const { center, side, tangent } = trackFrame(u);
   const root = new THREE.Group();
-  const pos = center.clone().addScaledVector(side, sideSign * (TRACK_WIDTH/2 + 34));
+  const pos = center.clone().addScaledVector(side, sideSign * (TRACK_WIDTH/2 + 46));
   root.position.copy(pos);
 
   const yaw = Math.atan2(tangent.x, tangent.z);
@@ -332,26 +332,26 @@ function addGrandstand(u, sideSign) {
   const seatMat = new THREE.MeshStandardMaterial({ color: 0x667980, roughness: .9 });
   for (let tier = 0; tier < 4; tier++) {
     const tierMesh = new THREE.Mesh(
-      new THREE.BoxGeometry(54, 3.4, 8),
+      new THREE.BoxGeometry(46, 3.0, 7),
       tier % 2 ? seatMat : baseMat
     );
-    tierMesh.position.set(0, 2.2 + tier*3.0, sideSign * (-tier*2.1));
+    tierMesh.position.set(0, 2.0 + tier*2.7, sideSign * (-tier*1.8));
     tierMesh.castShadow = true;
     tierMesh.receiveShadow = true;
     root.add(tierMesh);
   }
   const roof = new THREE.Mesh(
-    new THREE.BoxGeometry(62, 1.2, 13),
+    new THREE.BoxGeometry(54, 1.0, 11),
     new THREE.MeshStandardMaterial({ color: 0xd4d9d6, roughness: .42, metalness: .24 })
   );
-  roof.position.set(0, 15.2, sideSign * -7.5);
+  roof.position.set(0, 13.7, sideSign * -6.4);
   root.add(roof);
   scene.add(root);
 }
-addGrandstand(.07, 1);
-addGrandstand(.56, -1);
+addGrandstand(.22, 1);
+addGrandstand(.61, -1);
 
-const billboardMat = new THREE.MeshStandardMaterial({ color: 0x153643, roughness: .55, metalness: .1 });
+const billboardMat = new THREE.MeshBasicMaterial({ color: 0x153643 });
 const glowMat = new THREE.MeshBasicMaterial({ color: 0x64d7f7 });
 for (const u of [.16,.31,.47,.68,.84]) {
   const { center, side, tangent } = trackFrame(u);
@@ -367,6 +367,38 @@ for (const u of [.16,.31,.47,.68,.84]) {
   root.add(bar);
   scene.add(root);
 }
+
+function addTracksideTrees() {
+  const trunkGeo = new THREE.CylinderGeometry(.34,.48,4.8,6);
+  const crownGeo = new THREE.ConeGeometry(3.1,8.2,9);
+  const trunkMat = new THREE.MeshStandardMaterial({ color:0x4b3a2b, roughness:1 });
+  const crownMat = new THREE.MeshStandardMaterial({ color:0x244c38, roughness:1 });
+  const count = 78;
+  const trunks = new THREE.InstancedMesh(trunkGeo,trunkMat,count);
+  const crowns = new THREE.InstancedMesh(crownGeo,crownMat,count);
+  const d = new THREE.Object3D();
+  for(let i=0;i<count;i++){
+    const u=(i+.35)/count;
+    const {center,side}=trackFrame(u);
+    const sign=i%2===0?1:-1;
+    const distance=TRACK_WIDTH/2 + 18 + (i%5)*4.5;
+    const p=center.clone().addScaledVector(side,sign*distance);
+    p.y += 2.2;
+    const scale=.75 + ((i*17)%10)/20;
+    d.position.copy(p);
+    d.scale.set(scale,scale,scale);
+    d.rotation.y=(i*1.71)%Math.PI;
+    d.updateMatrix();
+    trunks.setMatrixAt(i,d.matrix);
+    d.position.y += 5.2*scale;
+    d.updateMatrix();
+    crowns.setMatrixAt(i,d.matrix);
+  }
+  trunks.castShadow=false;
+  crowns.castShadow=false;
+  scene.add(trunks,crowns);
+}
+addTracksideTrees();
 
 function createShadow() {
   const geo = new THREE.CircleGeometry(1, 28);
@@ -418,7 +450,7 @@ function createRacers(baseTexture) {
       color: 0xffffff
     });
     const sprite = new THREE.Sprite(mat);
-    sprite.scale.set(14.5,14.5,1);
+    sprite.scale.set(11.8,11.8,1);
     sprite.renderOrder = 8;
     scene.add(sprite);
 
@@ -521,7 +553,7 @@ function placeRacer(r, elapsedMs) {
 
   const bob=[0,.08,.32,.58,.30,0][frame];
   r.sprite.position.y += bob;
-  const scale = 13.7 + (r.id===SELECTED_ID ? .9 : 0);
+  const scale = 11.2 + (r.id===SELECTED_ID ? .8 : 0);
   r.sprite.scale.set(scale,scale,1);
 
   r.shadow.position.copy(center.clone().addScaledVector(side,lateral));
@@ -548,9 +580,9 @@ function updateCamera(dt) {
   target.y += 2.6 + bank*lateral;
 
   desiredCam.copy(target)
-    .addScaledVector(tangent,-25)
-    .addScaledVector(side,31)
-    .add(new THREE.Vector3(0,14.5,0));
+    .addScaledVector(tangent,-30)
+    .addScaledVector(side,24)
+    .add(new THREE.Vector3(0,13.2,0));
 
   desiredLook.copy(target)
     .addScaledVector(tangent,20)
@@ -657,7 +689,7 @@ requestAnimationFrame(now=>{
     const me=racers[0];
     const u=(((me.totalDistance%trackLength)+trackLength)%trackLength)/trackLength;
     const {center,tangent,side}=trackFrame(u);
-    camPos.copy(center).addScaledVector(tangent,-25).addScaledVector(side,31).add(new THREE.Vector3(0,14.5,0));
+    camPos.copy(center).addScaledVector(tangent,-30).addScaledVector(side,24).add(new THREE.Vector3(0,13.2,0));
     camLook.copy(center).addScaledVector(tangent,20).add(new THREE.Vector3(0,4,0));
     camera.position.copy(camPos);
     camera.lookAt(camLook);
