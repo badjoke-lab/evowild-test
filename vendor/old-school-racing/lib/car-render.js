@@ -18,7 +18,7 @@ CarRender.prototype.update = function (status, segment) {
   var point = this.raceRender.pseudo3d.projectPoint(noisePosition);
   this.sprite.position.x = point.x;
   this.sprite.position.y = point.y;
-  this.sprite.scale.set(point.s);
+  this.sprite.scale.set(point.s * (this.car.renderScale || 1));
   this.sprite.z = status.track.getRelativeZ(this.car.position.z) + status.getLoopedZ(segment);
   this.car.update(segment);
 }
