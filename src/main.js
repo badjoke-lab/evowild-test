@@ -1298,6 +1298,28 @@ const staticMotionProfile = {
 };
 const sRunRacers = [];
 let sRunSheetTexture = null;
+
+const nonSRunFrames = [
+  { phase: "CONTACT", col: 0, row: 0 },
+  { phase: "PUSH",    col: 1, row: 0 },
+  { phase: "LIFT",    col: 2, row: 0 },
+  { phase: "FLIGHT",  col: 0, row: 1 },
+  { phase: "REACH",   col: 1, row: 1 },
+  { phase: "LAND",    col: 2, row: 1 }
+];
+const nonSRunSheetTextures = new Map();
+const nonSRunRacers = [];
+const nonSRunTiming = {
+  P: { slow: 158, fast: 82 },
+  E: { slow: 150, fast: 76 },
+  A: { slow: 142, fast: 70 }
+};
+const nonSRunScale = {
+  P: [3.78, 3.05],
+  E: [3.42, 3.18],
+  A: [4.02, 2.92]
+};
+
 const pCutoutRigRacerId = 2;
 const pCutoutRigRacers = [];
 const eCutoutRigRacerId = 3;
@@ -1358,6 +1380,39 @@ function buildAnimatedSRunPlane(texture, raceLayout, racerId) {
   mesh.position.set(0, raceLayout.y, 0);
   const focusScale = racerId === selectedId ? 1.08 : 0.96;
   mesh.scale.set(3.65 * focusScale, 3.10 * focusScale, 1);
+  mesh.renderOrder = 4;
+  mesh.frustumCulled = false;
+  mesh.userData.frameIndex = -1;
+  mesh.userData.baseScaleX = Math.abs(mesh.scale.x);
+  mesh.userData.facingSign = 1;
+  return mesh;
+}
+
+function buildAnimatedNonSRunPlane(texture, raceLayout, racer) {
+  const sheet = texture.clone();
+  sheet.colorSpace = THREE.SRGBColorSpace;
+  sheet.minFilter = THREE.LinearFilter;
+  sheet.magFilter = THREE.LinearFilter;
+  sheet.generateMipmaps = false;
+  sheet.wrapS = THREE.ClampToEdgeWrapping;
+  sheet.wrapT = THREE.ClampToEdgeWrapping;
+  sheet.repeat.set(1 / 3, 1 / 2);
+  sheet.needsUpdate = true;
+
+  const geometry = new THREE.PlaneGeometry(1, 1);
+  const material = new THREE.MeshBasicMaterial({
+    map: sheet,
+    transparent: true,
+    depthWrite: false,
+    alphaTest: 0.02,
+    side: THREE.DoubleSide
+  });
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.name = `Race2_5D_${racer.morph}_SpriteSheet_${racer.id}`;
+  mesh.position.set(0, raceLayout.y, 0);
+  const focusScale = racer.id === selectedId ? 1.06 : 0.96;
+  const [sx, sy] = nonSRunScale[racer.morph] ?? [raceLayout.scale[0], raceLayout.scale[1]];
+  mesh.scale.set(sx * focusScale, sy * focusScale, 1);
   mesh.renderOrder = 4;
   mesh.frustumCulled = false;
   mesh.userData.frameIndex = -1;
@@ -1743,6 +1798,61 @@ function installSRunSpriteFor(racer) {
   stage.dataset.sRunAnimatedRacers = String(sRunRacers.length);
 }
 
+function applyNonSRunFrame(racer, frameIndex) {
+  const mesh = racer?.obj?.userData?.raceSprite;
+  if (!mesh?.isMesh || !racer.obj.userData.nonSRunAnimated || mesh.userData.frameIndex === frameIndex) return;
+
+  const frame = nonSRunFrames[frameIndex];
+  const map = mesh.material?.map;
+  if (!frame || !map) return;
+
+  map.offset.set(frame.col / 3, frame.row / 2);
+  map.updateMatrix();
+  mesh.userData.frameIndex = frameIndex;
+  mesh.position.y = raceSpriteLayout[racer.morph].y;
+
+  if (racer.id === selectedId) stage.dataset.selectedMotionPhase = frame.phase;
+  stage.dataset.nonSRunMotion = "sprite-sheet-6frame";
+  stage.dataset[`${racer.morph.toLowerCase()}RunFrame`] = String(frameIndex);
+  stage.dataset[`${racer.morph.toLowerCase()}RunPhase`] = frame.phase;
+}
+
+function installNonSRunSpriteFor(racer) {
+  if (!racer || !["P", "E", "A"].includes(racer.morph) || racer.obj.userData.nonSRunAnimated) return;
+  const texture = nonSRunSheetTextures.get(racer.morph);
+  const oldSprite = racer.obj.userData.raceSprite;
+  if (!texture || !oldSprite) return;
+
+  racer.obj.remove(oldSprite);
+  if (oldSprite.material) oldSprite.material.dispose();
+  if (oldSprite.isMesh && oldSprite.geometry) oldSprite.geometry.dispose();
+
+  const raceSprite = buildAnimatedNonSRunPlane(texture, raceSpriteLayout[racer.morph], racer);
+  racer.obj.add(raceSprite);
+  racer.obj.userData.raceSprite = raceSprite;
+  racer.obj.userData.raceRig = null;
+  racer.obj.userData.pCutoutRig = false;
+  racer.obj.userData.eCutoutRig = false;
+  racer.obj.userData.nonSRunAnimated = true;
+  nonSRunRacers.push(racer);
+  applyNonSRunFrame(racer, racer.id % nonSRunFrames.length);
+
+  const key = racer.morph.toLowerCase();
+  const count = nonSRunRacers.filter((r) => r.morph === racer.morph).length;
+  stage.dataset[`${key}RunAnimatedRacers`] = String(count);
+}
+
+function orientAnimatedNonSRunPlanes() {
+  if (!nonSRunRacers.length) return;
+  camera.getWorldQuaternion(sBillboardCameraQ);
+  for (const racer of nonSRunRacers) {
+    const mesh = racer.obj.userData.raceSprite;
+    if (!mesh?.isMesh) continue;
+    racer.obj.getWorldQuaternion(sBillboardParentQ);
+    mesh.quaternion.copy(sBillboardParentQ).invert().multiply(sBillboardCameraQ);
+  }
+}
+
 function orientAnimatedSRunPlanes() {
   if (!sRunRacers.length) return;
   camera.getWorldQuaternion(sBillboardCameraQ);
@@ -1814,6 +1924,23 @@ textureLoader.load(
   }
 );
 
+for (const morph of ["P", "E", "A"]) {
+  const key = morph.toLowerCase();
+  textureLoader.load(
+    `${import.meta.env.BASE_URL}concept/${key}-run-sheet.webp`,
+    (texture) => {
+      nonSRunSheetTextures.set(morph, texture);
+      stage.dataset[`${key}RunSheet`] = "loaded";
+      racers.filter((r) => r.morph === morph).forEach(installNonSRunSpriteFor);
+    },
+    undefined,
+    (error) => {
+      stage.dataset[`${key}RunSheet`] = "error";
+      console.error(`${morph} run sprite sheet failed to load`, error);
+    }
+  );
+}
+
 function updateConceptReadyState() {
   if (conceptReady.size === 4) {
     stage.dataset.conceptMorphs = "loaded";
@@ -1853,8 +1980,7 @@ for (const morph of ["S", "P", "E", "A"]) {
         racer.obj.add(raceSprite);
         racer.obj.userData.raceSprite = raceSprite;
         if (morph === "S") installSRunSpriteFor(racer);
-        if (morph === "P") installPCutoutRigFor(racer, texture);
-        if (morph === "E") installECutoutRigFor(racer, texture);
+        else installNonSRunSpriteFor(racer);
       }
 
       const material = new THREE.SpriteMaterial({
@@ -2259,6 +2385,13 @@ function update(dt) {
       const phaseOffset = (r.id * 41) % Math.round(frameMs * sRunFrames.length);
       const frameIndex = Math.floor((elapsed + phaseOffset) / frameMs) % sRunFrames.length;
       applySRunFrame(r, frameIndex);
+    } else if (r.obj.userData.nonSRunAnimated) {
+      const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
+      const timing = nonSRunTiming[r.morph] ?? { slow: 155, fast: 78 };
+      const frameMs = THREE.MathUtils.lerp(timing.slow, timing.fast, speedRatio);
+      const phaseOffset = (r.id * 47) % Math.round(frameMs * nonSRunFrames.length);
+      const frameIndex = Math.floor((elapsed + phaseOffset) / frameMs) % nonSRunFrames.length;
+      applyNonSRunFrame(r, frameIndex);
     } else if (r.obj.userData.pCutoutRig) {
       const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
       const frameMs = THREE.MathUtils.lerp(160, 86, speedRatio);
@@ -2295,6 +2428,7 @@ function update(dt) {
       recordAgentEvent(r, true);
       stage.dataset.finishCount = String(finishOrder.length);
       if (r.obj.userData.sRunAnimated) applySRunFrame(r, 5);
+      else if (r.obj.userData.nonSRunAnimated) applyNonSRunFrame(r, 5);
       else if (r.obj.userData.pCutoutRig) applyPCutoutRigMotion(r, 5);
       else if (r.obj.userData.eCutoutRig) applyECutoutRigMotion(r, 5);
       else if (staticMotionProfile[r.morph]) applyStaticSpriteMotion(r, 5);
@@ -2656,6 +2790,7 @@ function frame(now) {
     update(dt);
     setCamera();
     orientAnimatedSRunPlanes();
+    orientAnimatedNonSRunPlanes();
     orientPCutoutRigs();
     orientECutoutRigs();
     orientRaceSpritesToTravel();
