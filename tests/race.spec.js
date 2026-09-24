@@ -834,6 +834,15 @@ test("capture styled Hunyuan prototype in Morph Lab and Race", async ({ page }, 
     { waitUntil: "domcontentloaded", timeout: 30000 }
   );
   await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-lod", "loaded", { timeout: 25000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-lod-levels", "3");
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-lod-distances", "0,16,30");
+
+  const raceLodProfiles = await page.locator("#stage").getAttribute("data-sf3d-race-lod-profiles");
+  expect(raceLodProfiles).toContain("s-hunyuan2mv-styled-prototype");
+  expect(raceLodProfiles).toContain("s-hunyuan2mv-styled-lod3");
+  expect(raceLodProfiles).toContain("s-hunyuan2mv-styled-lod4");
+
   await page.getByRole("button", { name: "2 Race" }).click();
   await page.waitForTimeout(1800);
   await page.locator("#stage").screenshot({
