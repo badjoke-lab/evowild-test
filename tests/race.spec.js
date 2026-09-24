@@ -59,11 +59,13 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#agentFatigue")).toContainText("%");
   await expect(page.locator("#stage")).toHaveAttribute("data-creature-fatigue", /\d+/);
   await expect(page.locator("#stage")).toHaveAttribute("data-directional-sprite-facing", "enabled", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-non-s-run-motion", "placeholder-6phase", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-rig", "loaded", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-racers", "4", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-racer", "2", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-motion", "6phase-rig-v3", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-non-s-run-motion", "sprite-sheet-6frame", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-p-run-sheet", "loaded", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-e-run-sheet", "loaded", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-a-run-sheet", "loaded", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-p-run-animated-racers", "4", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-e-run-animated-racers", "4", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-a-run-animated-racers", "5", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-race-section", /START|MID|BUILD|FINAL/, { timeout: 6500 });
   await expect(page.locator("#remaining")).toContainText("m to go", { timeout: 6500 });
   await expect(page.locator("#leaderGap")).not.toHaveText("", { timeout: 6500 });
@@ -83,7 +85,7 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-log-events", /[1-9]\d*/, { timeout: 3000 });
   await expect(page.locator("#selectedName")).toContainText("#02 Brim");
   await expect(page.locator("#selectedTitle")).toHaveText("Selected #02");
-  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-motion", "6phase-rig-v3");
+  await expect(page.locator("#stage")).toHaveAttribute("data-p-run-phase", /CONTACT|PUSH|LIFT|FLIGHT|REACH|LAND/, { timeout: 3000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-selected-motion-phase", /CONTACT|PUSH|LIFT|FLIGHT|REACH|LAND/, { timeout: 3000 });
   await expect(page.locator("#stateOutput")).toContainText("%");
   await expect(page.locator("#stateLane")).not.toHaveText("");
@@ -216,7 +218,7 @@ test("record full field and non-S follow motion proof", async ({ browser }, test
   const page = await context.newPage();
   await page.goto("http://127.0.0.1:4173/evowild-test/", { waitUntil: "networkidle" });
   await expect(page.locator("#stage")).toHaveAttribute("data-race-state", "running", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-non-s-run-motion", "placeholder-6phase", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-non-s-run-motion", "sprite-sheet-6frame", { timeout: 6500 });
   await page.getByRole("button", { name: "2 Race" }).click();
   await page.waitForTimeout(3200);
 
@@ -236,69 +238,37 @@ test("record full field and non-S follow motion proof", async ({ browser }, test
 });
 
 
-test("record isolated original-sprite P cutout rig", async ({ browser }, testInfo) => {
+test("P E A use six-frame run sheets in the live race", async ({ page }, testInfo) => {
   test.setTimeout(45000);
   test.skip(testInfo.project.name !== "desktop-chromium");
 
   const outDir = "test-results/visuals";
   fs.mkdirSync(outDir, { recursive: true });
 
-  const context = await browser.newContext({
-    viewport: { width: 1280, height: 720 },
-    recordVideo: { dir: outDir, size: { width: 1280, height: 720 } }
-  });
-  const page = await context.newPage();
-  await page.goto("http://127.0.0.1:4173/evowild-test/?proof=p-rig", { waitUntil: "networkidle" });
-  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-rig", "loaded", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-proof", "isolated", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "2");
-  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-motion", "6phase-rig-v3", { timeout: 6500 });
-  await page.waitForTimeout(6200);
-  await page.locator("#stage").screenshot({ path: `${outDir}/desktop-p-cutout-proof.png` });
+  await page.goto("http://127.0.0.1:4173/evowild-test/", { waitUntil: "networkidle" });
+  await expect(page.locator("#stage")).toHaveAttribute("data-race-state", "running", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-p-run-sheet", "loaded", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-e-run-sheet", "loaded", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-a-run-sheet", "loaded", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-p-run-animated-racers", "4", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-e-run-animated-racers", "4", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-a-run-animated-racers", "5", { timeout: 6500 });
 
-  const video = page.video();
-  await page.close();
-  const raw = await video.path();
-  fs.renameSync(raw, `${outDir}/desktop-p-cutout-proof.webm`);
-  await context.close();
-});
-
-
-test("record isolated original-sprite E cutout rig", async ({ browser }, testInfo) => {
-  test.setTimeout(45000);
-  test.skip(testInfo.project.name !== "desktop-chromium");
-
-  const outDir = "test-results/visuals";
-  fs.mkdirSync(outDir, { recursive: true });
-
-  const context = await browser.newContext({
-    viewport: { width: 1280, height: 720 },
-    recordVideo: { dir: outDir, size: { width: 1280, height: 720 } }
-  });
-  const page = await context.newPage();
-  await page.goto("http://127.0.0.1:4173/evowild-test/?proof=e-rig", { waitUntil: "networkidle" });
-  await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-rig", "loaded", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-proof", "isolated", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-racers", "1");
-  await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-racer", "3");
-  await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "3");
-  await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-motion", "6phase-rig-v1", { timeout: 6500 });
-
-  const observed = new Set();
-  for (let i = 0; i < 10; i++) {
-    await page.waitForTimeout(120);
-    observed.add(await page.locator("#stage").getAttribute("data-selected-motion-phase"));
+  for (const [id, morph] of [[2, "P"], [3, "E"], [4, "A"]]) {
+    await page.locator(`[data-racer-id="${id}"]`).click();
+    await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", String(id));
+    const observed = new Set();
+    for (let i = 0; i < 12; i++) {
+      await page.waitForTimeout(120);
+      observed.add(await page.locator("#stage").getAttribute("data-selected-motion-phase"));
+    }
+    expect(observed.size).toBeGreaterThanOrEqual(4);
+    await expect(page.locator("#stage")).toHaveAttribute(
+      `data-${morph.toLowerCase()}-run-phase`,
+      /CONTACT|PUSH|LIFT|FLIGHT|REACH|LAND/
+    );
+    await page.locator("#stage").screenshot({ path: `${outDir}/desktop-${morph.toLowerCase()}-run-sheet-proof.png` });
   }
-  expect(observed.size).toBeGreaterThanOrEqual(4);
-
-  await page.waitForTimeout(4500);
-  await page.locator("#stage").screenshot({ path: `${outDir}/desktop-e-cutout-proof.png` });
-
-  const video = page.video();
-  await page.close();
-  const raw = await video.path();
-  fs.renameSync(raw, `${outDir}/desktop-e-cutout-proof.webm`);
-  await context.close();
 });
 
 
