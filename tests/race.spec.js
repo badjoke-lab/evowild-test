@@ -123,13 +123,15 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-s-asset", "loaded", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-concept-morphs", "loaded", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-race2p5d", "loaded", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-speed-fx", "dynamic", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-track-edge-rhythm", "curb-v1", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-cycle", "loaded", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-frames", "6", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-sheet", "loaded", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-source", "sprite-sheet", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-animated-racers", "5", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-follow-occlusion-fade", "enabled", { timeout: 8000 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v5", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v6", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-hud-telemetry", "active", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-visual", "enabled", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-toast", "enabled", { timeout: 8000 });
@@ -192,7 +194,7 @@ test("record 2.5D race speed proof", async ({ browser }, testInfo) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-source", "sprite-sheet", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-animated-racers", "5", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-follow-occlusion-fade", "enabled", { timeout: 8000 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v5", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v6", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-hud-telemetry", "active", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-proof", "isolated", { timeout: 8000 });
   await page.getByRole("button", { name: "3 Follow" }).click();
