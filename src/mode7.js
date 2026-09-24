@@ -209,27 +209,29 @@ function renderSegment(seg, n) {
 
   const r1 = p1.w / Math.max(8, 2.2 * LANES);
   const r2 = p2.w / Math.max(8, 2.2 * LANES);
+  const y1 = p1.y + 1.5 * DPR;
+  const y2 = p2.y - 1.5 * DPR;
 
   ctx.fillStyle = grass;
-  ctx.fillRect(0, p2.y, W, Math.max(0, p1.y - p2.y + 1));
+  ctx.fillRect(0, y2, W, Math.max(0, y1 - y2 + 1));
 
   polygon(rumble,
-    p1.x - p1.w - r1, p1.y,
-    p1.x - p1.w, p1.y,
-    p2.x - p2.w, p2.y,
-    p2.x - p2.w - r2, p2.y
+    p1.x - p1.w - r1, y1,
+    p1.x - p1.w, y1,
+    p2.x - p2.w, y2,
+    p2.x - p2.w - r2, y2
   );
   polygon(rumble,
-    p1.x + p1.w + r1, p1.y,
-    p1.x + p1.w, p1.y,
-    p2.x + p2.w, p2.y,
-    p2.x + p2.w + r2, p2.y
+    p1.x + p1.w + r1, y1,
+    p1.x + p1.w, y1,
+    p2.x + p2.w, y2,
+    p2.x + p2.w + r2, y2
   );
   polygon(road,
-    p1.x - p1.w, p1.y,
-    p1.x + p1.w, p1.y,
-    p2.x + p2.w, p2.y,
-    p2.x - p2.w, p2.y
+    p1.x - p1.w, y1,
+    p1.x + p1.w, y1,
+    p2.x + p2.w, y2,
+    p2.x - p2.w, y2
   );
 
   if (alt === 0 || n < 20) {
@@ -241,10 +243,10 @@ function renderSegment(seg, n) {
     let x2 = p2.x - p2.w + laneW2;
     for (let lane = 1; lane < LANES; lane++) {
       polygon(COLORS.lane,
-        x1 - marker1, p1.y,
-        x1 + marker1, p1.y,
-        x2 + marker2, p2.y,
-        x2 - marker2, p2.y
+        x1 - marker1, y1,
+        x1 + marker1, y1,
+        x2 + marker2, y2,
+        x2 - marker2, y2
       );
       x1 += laneW1;
       x2 += laneW2;
@@ -259,15 +261,15 @@ function renderSegment(seg, n) {
     const x1 = p1.x + p1.w * lane;
     const x2 = p2.x + p2.w * lane;
     ctx.beginPath();
-    ctx.moveTo(x1, p1.y);
-    ctx.lineTo(x2, p2.y);
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
     ctx.stroke();
   }
 
   const fog = 1 - Math.exp(-Math.pow(n / DRAW_DISTANCE, 2) * 5.0);
   if (n > 108 && fog > 0.30) {
     ctx.fillStyle = "rgba(139,166,160," + (fog * 0.42) + ")";
-    ctx.fillRect(0, p2.y - 1, W, Math.max(0, p1.y - p2.y + 3));
+    ctx.fillRect(0, y2 - 1, W, Math.max(0, y1 - y2 + 3));
   }
 }
 
@@ -356,9 +358,9 @@ function drawTrackside(seg, n) {
     drawTreeSprite(x, p.y, h, side);
   }
 
-  if (seg.index % 41 === 0 && n > 10 && n < 95) {
+  if (seg.index % 41 === 0 && n > 20 && n < 95) {
     const side = seg.index % 82 === 0 ? 1 : -1;
-    const h = clamp(p.scale * 210000, 12 * DPR, H * 0.20);
+    const h = clamp(p.scale * 180000, 10 * DPR, H * 0.125);
     const w = h * 1.28;
     const x = p.x + side * (outward + clamp(p.w * 0.24, 12, 140));
     drawTrackBoard(x, p.y, w, h, side);
@@ -563,7 +565,7 @@ function renderWorld(ts) {
   canvas.dataset.renderer = "pseudo3d-segment-projection";
   canvas.dataset.field = "s-only-5";
   canvas.dataset.speed = String(Math.round(speed));
-  canvas.dataset.proofVersion = "v4";
+  canvas.dataset.proofVersion = "v5";
 }
 
 function frame(ts) {
