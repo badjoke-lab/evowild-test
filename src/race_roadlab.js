@@ -56,7 +56,7 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x7ba6bd);
 scene.fog = new THREE.FogExp2(0x9fb7b6, 0.00175);
 
-const camera = new THREE.PerspectiveCamera(54, 16 / 9, 0.1, 1800);
+const camera = new THREE.PerspectiveCamera(46, 16 / 9, 0.1, 1800);
 
 const hemi = new THREE.HemisphereLight(0xc9e7f2, 0x35543d, 2.15);
 scene.add(hemi);
@@ -89,6 +89,58 @@ ground.rotation.x = -Math.PI / 2;
 ground.position.y = -2.1;
 ground.receiveShadow = true;
 scene.add(ground);
+
+const dustMax = 140;
+const dustPositions = new Float32Array(dustMax * 3);
+const dustGeometry = new THREE.BufferGeometry();
+dustGeometry.setAttribute("position", new THREE.BufferAttribute(dustPositions, 3));
+const dustMaterial = new THREE.PointsMaterial({
+  color: 0xc89463,
+  size: 2.0,
+  transparent: true,
+  opacity: .32,
+  depthWrite: false,
+  sizeAttenuation: true
+});
+const dustPoints = new THREE.Points(dustGeometry, dustMaterial);
+dustPoints.frustumCulled = false;
+scene.add(dustPoints);
+const dust = Array.from({length:dustMax},()=>({life:0,p:new THREE.Vector3(),v:new THREE.Vector3()}));
+let dustCursor = 0;
+
+function spawnDustAt(position, tangent, amount=2) {
+  for(let i=0;i<amount;i++){
+    const d=dust[dustCursor++%dustMax];
+    d.life=.34 + Math.random()*.26;
+    d.p.copy(position);
+    d.p.x += (Math.random()-.5)*1.4;
+    d.p.z += (Math.random()-.5)*1.4;
+    d.p.y += .3 + Math.random()*.35;
+    d.v.copy(tangent).multiplyScalar(-7 - Math.random()*7);
+    d.v.x += (Math.random()-.5)*2.4;
+    d.v.z += (Math.random()-.5)*2.4;
+    d.v.y = 1.2 + Math.random()*2.1;
+  }
+}
+
+function updateDust(dt){
+  for(let i=0;i<dustMax;i++){
+    const d=dust[i];
+    if(d.life>0){
+      d.life-=dt;
+      d.p.addScaledVector(d.v,dt);
+      d.v.y-=3.8*dt;
+      dustPositions[i*3]=d.p.x;
+      dustPositions[i*3+1]=d.p.y;
+      dustPositions[i*3+2]=d.p.z;
+    } else {
+      dustPositions[i*3]=9999;
+      dustPositions[i*3+1]=9999;
+      dustPositions[i*3+2]=9999;
+    }
+  }
+  dustGeometry.attributes.position.needsUpdate=true;
+}
 
 function makeDirtTexture() {
   const c = document.createElement("canvas");
@@ -271,11 +323,12 @@ const railMaterial = new THREE.MeshStandardMaterial({
   metalness: .52
 });
 for (const offset of [-TRACK_WIDTH/2 - 2.3, TRACK_WIDTH/2 + 2.3]) {
+  const nearSide = offset > 0;
   const rail = new THREE.Mesh(
-    new THREE.TubeGeometry(offsetCurve(offset, 2.5), 220, .22, 5, true),
+    new THREE.TubeGeometry(offsetCurve(offset, nearSide ? 1.25 : 2.35), 220, nearSide ? .13 : .20, 5, true),
     railMaterial
   );
-  rail.castShadow = true;
+  rail.castShadow = false;
   scene.add(rail);
 }
 
@@ -310,9 +363,10 @@ function addMountains() {
     [-320,320,88,mat2],[-430,80,96,mat2]
   ];
   for (const [x,z,h,mat] of ring) {
-    const m = new THREE.Mesh(new THREE.ConeGeometry(h*.62,h,14),mat);
-    m.position.set(x,h*.45-4,z);
-    m.rotation.y = (x+z)*.01;
+    const m = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 2),mat);
+    m.scale.set(h*.72,h*.52,h*.60);
+    m.position.set(x,h*.34-8,z);
+    m.rotation.set(0,(x+z)*.01,0);
     m.receiveShadow = true;
     scene.add(m);
   }
@@ -370,7 +424,7 @@ for (const u of [.16,.31,.47,.68,.84]) {
 
 function addTracksideTrees() {
   const trunkGeo = new THREE.CylinderGeometry(.34,.48,4.8,6);
-  const crownGeo = new THREE.ConeGeometry(3.1,8.2,9);
+  const crownGeo = new THREE.IcosahedronGeometry(3.5,1);
   const trunkMat = new THREE.MeshStandardMaterial({ color:0x4b3a2b, roughness:1 });
   const crownMat = new THREE.MeshStandardMaterial({ color:0x244c38, roughness:1 });
   const count = 78;
@@ -390,7 +444,8 @@ function addTracksideTrees() {
     d.rotation.y=(i*1.71)%Math.PI;
     d.updateMatrix();
     trunks.setMatrixAt(i,d.matrix);
-    d.position.y += 5.2*scale;
+    d.position.y += 5.8*scale;
+    d.scale.set(scale*1.05,scale*1.45,scale*1.05);
     d.updateMatrix();
     crowns.setMatrixAt(i,d.matrix);
   }
@@ -416,7 +471,7 @@ function createShadow() {
 
 const names = ["Vela","Aster","Mica","Rook","Nacre","Ilex","Lumen","Tern"];
 const laneSeed = [2,4,1,5,3,0,4,1];
-const startGap = [0,14,-11,28,-22,41,55,-34];
+const startGap = [0,22,-18,39,-31,54,73,-48];
 const baseSpeed = [29.8,29.1,30.2,28.8,29.5,29.0,30.0,29.4];
 
 const racers = [];
@@ -450,7 +505,7 @@ function createRacers(baseTexture) {
       color: 0xffffff
     });
     const sprite = new THREE.Sprite(mat);
-    sprite.scale.set(11.8,11.8,1);
+    sprite.scale.set(10.6,10.6,1);
     sprite.renderOrder = 8;
     scene.add(sprite);
 
@@ -549,11 +604,16 @@ function placeRacer(r, elapsedMs) {
   if(frame!==r.frame){
     r.frame=frame;
     setFrame(r.texture,frame);
+    if(frame===0 || frame===5){
+      spawnDustAt(r.shadow.position, trackFrame(u).tangent, r.id===SELECTED_ID ? 3 : 2);
+    }
   }
+
+  r.sprite.material.rotation = -bank * .75 + Math.sin((elapsedMs + r.id*37) * .010) * .012;
 
   const bob=[0,.08,.32,.58,.30,0][frame];
   r.sprite.position.y += bob;
-  const scale = 11.2 + (r.id===SELECTED_ID ? .8 : 0);
+  const scale = 10.2 + (r.id===SELECTED_ID ? .7 : 0);
   r.sprite.scale.set(scale,scale,1);
 
   r.shadow.position.copy(center.clone().addScaledVector(side,lateral));
@@ -580,13 +640,13 @@ function updateCamera(dt) {
   target.y += 2.6 + bank*lateral;
 
   desiredCam.copy(target)
-    .addScaledVector(tangent,-30)
-    .addScaledVector(side,24)
-    .add(new THREE.Vector3(0,13.2,0));
+    .addScaledVector(side,58)
+    .addScaledVector(tangent,-4)
+    .add(new THREE.Vector3(0,12.0,0));
 
   desiredLook.copy(target)
-    .addScaledVector(tangent,20)
-    .add(new THREE.Vector3(0,2.4,0));
+    .addScaledVector(tangent,5)
+    .add(new THREE.Vector3(0,3.4,0));
 
   const posAlpha=1-Math.pow(.001,dt);
   const lookAlpha=1-Math.pow(.004,dt);
@@ -599,7 +659,7 @@ function updateCamera(dt) {
   camera.lookAt(camLook);
 
   const speedRatio=clamp(me.speed/me.baseSpeed,.90,1.08);
-  camera.fov = lerp(camera.fov,54+(speedRatio-.90)*18,.08);
+  camera.fov = lerp(camera.fov,46+(speedRatio-.90)*8,.08);
   camera.updateProjectionMatrix();
 }
 
@@ -689,8 +749,8 @@ requestAnimationFrame(now=>{
     const me=racers[0];
     const u=(((me.totalDistance%trackLength)+trackLength)%trackLength)/trackLength;
     const {center,tangent,side}=trackFrame(u);
-    camPos.copy(center).addScaledVector(tangent,-30).addScaledVector(side,24).add(new THREE.Vector3(0,13.2,0));
-    camLook.copy(center).addScaledVector(tangent,20).add(new THREE.Vector3(0,4,0));
+    camPos.copy(center).addScaledVector(side,58).addScaledVector(tangent,-4).add(new THREE.Vector3(0,12.0,0));
+    camLook.copy(center).addScaledVector(tangent,5).add(new THREE.Vector3(0,3.4,0));
     camera.position.copy(camPos);
     camera.lookAt(camLook);
   }
