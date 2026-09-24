@@ -853,35 +853,62 @@ test("capture styled Hunyuan prototype in Morph Lab and Race", async ({ page }, 
 
 test("benchmark moving 18 Hunyuan mixed LOD race", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
-  test.setTimeout(70000);
+  test.setTimeout(150000);
 
   const outDir = "test-results/visuals";
   fs.mkdirSync(outDir, { recursive: true });
+  const results = [];
 
-  await page.goto(
-    "/evowild-test/?sf3dVariant=hunyuanstyled&sf3dRaceStress=1&sf3dRaceStressMode=instance&renderScale=0.75",
-    { waitUntil: "domcontentloaded", timeout: 30000 }
-  );
-  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-stress", "ready", { timeout: 50000 });
+  const variants = [
+    { name: "double-16-30", side: "double", near: 16, far: 30, renderScale: 0.75 },
+    { name: "front-16-30", side: "front", near: 16, far: 30, renderScale: 0.75 },
+    { name: "front-14-24", side: "front", near: 14, far: 24, renderScale: 0.75 },
+    { name: "front-all-lod4", side: "front", near: 0.1, far: 0.2, renderScale: 0.75 },
+    { name: "front-all-lod4-rs05", side: "front", near: 0.1, far: 0.2, renderScale: 0.5 }
+  ];
 
-  const metrics = await page.evaluate(() => window.__sf3dRaceStress);
-  expect(metrics?.racers).toBe(18);
-  expect(metrics?.mode).toBe("instance");
-  expect(metrics?.label).toBe("hunyuan");
-  expect(metrics?.distances).toEqual([16, 30]);
-  expect(metrics?.levelTriangles?.length).toBe(3);
-  expect(metrics?.averageModelTriangles).toBeLessThan(metrics?.allBaseTriangles);
-  expect(metrics?.maxLevelCounts?.slice(1).some((count) => count > 0)).toBe(true);
+  for (const variant of variants) {
+    const params = new URLSearchParams({
+      sf3dVariant: "hunyuanstyled",
+      sf3dRaceStress: "1",
+      sf3dRaceStressMode: "instance",
+      sf3dSide: variant.side,
+      hunyuanStressNear: String(variant.near),
+      hunyuanStressFar: String(variant.far),
+      renderScale: String(variant.renderScale)
+    });
 
-  console.log("HUNYUAN_MIXED_LOD_RACE", JSON.stringify(metrics));
+    await page.goto(
+      `/evowild-test/?${params.toString()}`,
+      { waitUntil: "domcontentloaded", timeout: 30000 }
+    );
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-stress", "ready", { timeout: 50000 });
+
+    const metrics = await page.evaluate(() => window.__sf3dRaceStress);
+    expect(metrics?.racers).toBe(18);
+    expect(metrics?.mode).toBe("instance");
+    expect(metrics?.label).toBe("hunyuan");
+    expect(metrics?.distances).toEqual([variant.near, variant.far]);
+    expect(metrics?.levelTriangles?.length).toBe(3);
+    expect(metrics?.averageModelTriangles).toBeLessThanOrEqual(metrics?.allBaseTriangles);
+    expect(metrics?.maxLevelCounts?.slice(1).some((count) => count > 0)).toBe(true);
+
+    results.push({ name: variant.name, ...metrics });
+    console.log("HUNYUAN_MIXED_LOD_VARIANT", JSON.stringify({ name: variant.name, ...metrics }));
+    await page.locator("#stage").screenshot({
+      path: `${outDir}/hunyuan-mixed-${variant.name}.png`
+    });
+  }
+
+  const baseline = results.find((result) => result.name === "double-16-30");
+  const allLod4 = results.find((result) => result.name === "front-all-lod4");
+  expect(allLod4.averageModelTriangles).toBeLessThan(baseline.averageModelTriangles);
+
   fs.writeFileSync(
-    `${outDir}/hunyuan-mixed-lod-race-benchmark.json`,
-    JSON.stringify(metrics, null, 2)
+    `${outDir}/hunyuan-mixed-lod-race-variants.json`,
+    JSON.stringify(results, null, 2)
   );
-  await page.locator("#stage").screenshot({
-    path: `${outDir}/hunyuan-mixed-lod-race-benchmark.png`
-  });
 });
 
 

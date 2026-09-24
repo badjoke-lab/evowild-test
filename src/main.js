@@ -1200,11 +1200,20 @@ loadCreature3D(sf3dProfile)
         loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvStyledLod3),
         loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvStyledLod4)
       ]).then((lodData) => {
+        const stressNear = Math.max(
+          0,
+          Number.parseFloat(query.get("hunyuanStressNear") || "16") || 16
+        );
+        const requestedFar = Math.max(
+          0,
+          Number.parseFloat(query.get("hunyuanStressFar") || "30") || 30
+        );
+        const stressFar = Math.max(stressNear, requestedFar);
         setupRaceStress(source, profile, lodData, {
           label: "hunyuan",
-          distances: [16, 30],
+          distances: [stressNear, stressFar],
           baseTriangles: stats.triangles,
-          materialSide: "double"
+          materialSide: sf3dBenchSide
         });
       }).catch((error) => {
         stage.dataset.sf3dRaceStress = "error";
