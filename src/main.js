@@ -152,10 +152,10 @@ function makeSkyTexture() {
   c.height = 512;
   const ctx = c.getContext("2d");
   const g = ctx.createLinearGradient(0, 0, 0, c.height);
-  g.addColorStop(0, "#5f9fca");
-  g.addColorStop(.45, "#82b9d7");
-  g.addColorStop(.78, "#b9d6df");
-  g.addColorStop(1, "#e6d3ae");
+  g.addColorStop(0, "#426d8c");
+  g.addColorStop(.42, "#6e9fb5");
+  g.addColorStop(.76, "#b6c8c4");
+  g.addColorStop(1, "#d6c29d");
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, c.width, c.height);
   const texture = new THREE.CanvasTexture(c);
@@ -182,7 +182,7 @@ scene.add(rim);
 
 const ground = new THREE.Mesh(
   new THREE.PlaneGeometry(210, 160),
-  new THREE.MeshStandardMaterial({ map: grassTexture, color: 0xb4c7a6, roughness: 1 })
+  new THREE.MeshStandardMaterial({ map: grassTexture, color: 0x7f9b72, roughness: 1 })
 );
 ground.rotation.x = -Math.PI / 2;
 ground.position.y = -0.03;
@@ -245,14 +245,14 @@ function buildTrack() {
   makeRibbon(
     half + 0.72,
     0.015,
-    new THREE.MeshStandardMaterial({ color: 0x765c40, roughness: 1 })
+    new THREE.MeshStandardMaterial({ color: presentationMode ? 0x4c5146 : 0x765c40, roughness: 1 })
   );
   makeRibbon(
     half,
     0.035,
     new THREE.MeshStandardMaterial({
       map: trackTexture,
-      color: 0xe3c39f,
+      color: presentationMode ? 0xb77e5d : 0xe3c39f,
       roughness: 1,
       metalness: 0
     })
@@ -301,7 +301,11 @@ function buildTrack() {
   }
 
   const railOffset = half + 0.78;
-  const railMaterial = new THREE.LineBasicMaterial({ color: 0xd8dee2, transparent: true, opacity: 0.95 });
+  const railMaterial = new THREE.LineBasicMaterial({
+    color: presentationMode ? 0x8abac2 : 0xd8dee2,
+    transparent: true,
+    opacity: presentationMode ? 0.72 : 0.95
+  });
   for (const offset of [-railOffset, railOffset]) {
     for (const y of [0.52, 0.88]) {
       const points = [];
@@ -318,7 +322,12 @@ function buildTrack() {
 
   const postsPerSide = isMobile ? 28 : 42;
   const postGeometry = new THREE.BoxGeometry(0.11, 0.92, 0.11);
-  const postMaterial = new THREE.MeshStandardMaterial({ color: 0xd1d7da, roughness: 0.78 });
+  const postMaterial = new THREE.MeshStandardMaterial({
+    color: presentationMode ? 0x38505b : 0xd1d7da,
+    emissive: presentationMode ? 0x0b2f37 : 0x000000,
+    emissiveIntensity: presentationMode ? 0.28 : 0,
+    roughness: 0.78
+  });
   const posts = new THREE.InstancedMesh(postGeometry, postMaterial, postsPerSide * 2);
   const postDummy = new THREE.Object3D();
   let postIndex = 0;
@@ -365,9 +374,13 @@ function buildTrack() {
 
 
   const curbSegments = isMobile ? 56 : 84;
-  const curbGeometry = new THREE.BoxGeometry(0.74, 0.075, 0.34);
-  const curbLight = new THREE.MeshBasicMaterial({ color: 0xe7e1d6 });
-  const curbDark = new THREE.MeshBasicMaterial({ color: 0x35434c });
+  const curbGeometry = new THREE.BoxGeometry(
+    presentationMode ? 0.58 : 0.74,
+    presentationMode ? 0.055 : 0.075,
+    presentationMode ? 0.24 : 0.34
+  );
+  const curbLight = new THREE.MeshBasicMaterial({ color: presentationMode ? 0xa9d6d8 : 0xe7e1d6 });
+  const curbDark = new THREE.MeshBasicMaterial({ color: presentationMode ? 0x294953 : 0x35434c });
   const curbMeshes = [
     new THREE.InstancedMesh(curbGeometry, curbLight, curbSegments),
     new THREE.InstancedMesh(curbGeometry, curbDark, curbSegments)
@@ -427,9 +440,13 @@ function buildTrack() {
     scene.add(mesh);
   });
 
-  const apexCount = isMobile ? 18 : 30;
-  const apexGeometry = new THREE.ConeGeometry(0.16, 0.58, 5);
-  const apexMaterial = new THREE.MeshBasicMaterial({ color: 0xffd56a });
+  const apexCount = presentationMode ? (isMobile ? 10 : 14) : (isMobile ? 18 : 30);
+  const apexGeometry = new THREE.ConeGeometry(
+    presentationMode ? 0.11 : 0.16,
+    presentationMode ? 0.38 : 0.58,
+    5
+  );
+  const apexMaterial = new THREE.MeshBasicMaterial({ color: presentationMode ? 0x79d7df : 0xffd56a });
   const apexMarkers = new THREE.InstancedMesh(apexGeometry, apexMaterial, apexCount);
   for (let i = 0; i < apexCount; i++) {
     const t = (i + 0.2) / apexCount;
@@ -483,7 +500,7 @@ function buildTrack() {
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
-  stage.dataset.trackPresentation = "v15";
+  stage.dataset.trackPresentation = "v16";
   stage.dataset.presentationField = presentationMode ? "s-only-5" : "full-18";
   stage.dataset.presentationSpeed = presentationMode ? "2.15x" : "1x";
   stage.dataset.presentationTint = presentationMode ? "s-variant-v1" : "off";
@@ -580,34 +597,45 @@ for (const mesh of [trunkInstances, lowerInstances, upperInstances]) {
   scene.add(mesh);
 }
 
-const mountainCount = isMobile ? 24 : 40;
-const mountainGeo = new THREE.ConeGeometry(1, 1, 8);
-const mountainMats = [
-  new THREE.MeshStandardMaterial({ color: 0x60756f, roughness: 1, flatShading: true }),
-  new THREE.MeshStandardMaterial({ color: 0x72847d, roughness: 1, flatShading: true })
-];
-const mountainMeshes = [
-  new THREE.InstancedMesh(mountainGeo, mountainMats[0], mountainCount),
-  new THREE.InstancedMesh(mountainGeo, mountainMats[1], mountainCount)
-];
-const mountainCounts = [0, 0];
-const mountainDummy = new THREE.Object3D();
-for (let i = 0; i < mountainCount; i++) {
-  const a = (i / mountainCount) * Math.PI * 2;
-  const r = 102 + (i % 6) * 4.8;
-  const height = 5.2 + (i % 7) * 0.85;
-  mountainDummy.position.set(Math.cos(a) * r, height * 0.43 - 0.6, Math.sin(a) * r * 0.76);
-  mountainDummy.rotation.set(0, a * 0.19, 0);
-  mountainDummy.scale.set(8.8 + (i % 5) * 1.55, height, 7.2 + (i % 4) * 1.5);
-  mountainDummy.updateMatrix();
-  const mi = i % 2;
-  mountainMeshes[mi].setMatrixAt(mountainCounts[mi]++, mountainDummy.matrix);
+function addRidge(radius, zScale, baseHeight, color, phase, opacity = 1) {
+  const segments = isMobile ? 56 : 96;
+  const vertices = [];
+  const indices = [];
+  for (let i = 0; i <= segments; i++) {
+    const a = (i / segments) * Math.PI * 2;
+    const wave =
+      Math.sin(a * 3.0 + phase) * 1.45 +
+      Math.sin(a * 7.0 + phase * 1.7) * 0.72 +
+      Math.sin(a * 13.0 + phase * 0.6) * 0.28;
+    const h = baseHeight + wave;
+    const bottomR = radius + 3.6;
+    const topR = radius - 2.4;
+    vertices.push(Math.cos(a) * bottomR, -0.4, Math.sin(a) * bottomR * zScale);
+    vertices.push(Math.cos(a) * topR, h, Math.sin(a) * topR * zScale);
+    if (i < segments) {
+      const k = i * 2;
+      indices.push(k, k + 1, k + 2, k + 1, k + 3, k + 2);
+    }
+  }
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
+  geometry.setIndex(indices);
+  geometry.computeVertexNormals();
+  const ridge = new THREE.Mesh(
+    geometry,
+    new THREE.MeshStandardMaterial({
+      color,
+      roughness: 1,
+      flatShading: true,
+      transparent: opacity < 1,
+      opacity,
+      side: THREE.DoubleSide
+    })
+  );
+  scene.add(ridge);
 }
-mountainMeshes.forEach((mesh, index) => {
-  mesh.count = mountainCounts[index];
-  mesh.instanceMatrix.needsUpdate = true;
-  scene.add(mesh);
-});
+addRidge(104, 0.76, 5.7, 0x526b69, 0.8, 0.96);
+addRidge(92, 0.74, 3.8, 0x6e8175, 2.2, 0.82);
 
 const standGroup = new THREE.Group();
 standGroup.position.set(7, 0, -34.2);
