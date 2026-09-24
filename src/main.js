@@ -198,6 +198,8 @@ const curve = new THREE.CatmullRomCurve3(
   0.4
 );
 
+let startGantry = null;
+
 function buildTrack() {
   const samples = 180;
   const half = 5.8;
@@ -466,6 +468,7 @@ function buildTrack() {
   accent.position.set(-0.02, 4.08, 0.22);
   gantry.add(accent);
   scene.add(gantry);
+  startGantry = gantry;
 
   const startLine = new THREE.Mesh(
     new THREE.BoxGeometry(0.22, 0.026, 11.1),
@@ -476,7 +479,7 @@ function buildTrack() {
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
-  stage.dataset.trackPresentation = "v9";
+  stage.dataset.trackPresentation = "v10";
   stage.dataset.raceQualityPass = "floor-v2";
   stage.dataset.presentationMode = presentationMode ? "cinematic" : "standard";
 }
@@ -525,26 +528,49 @@ addHill(-62, 30, 9);
 
 const trunkMat = new THREE.MeshStandardMaterial({ color: 0x5a4432, roughness: 1 });
 const leafMat = new THREE.MeshStandardMaterial({ color: 0x3f6542, roughness: 1, flatShading: true });
-function addTree(x, z, s = 0.85) {
-  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.18, 1.4, 6), trunkMat);
-  trunk.position.set(x, 0.7, z);
-  const lower = new THREE.Mesh(new THREE.ConeGeometry(0.82, 1.85, 8), leafMat);
-  lower.position.set(x, 1.72, z);
-  lower.scale.setScalar(s);
-  const upper = new THREE.Mesh(new THREE.ConeGeometry(0.62, 1.55, 8), leafMat);
-  upper.position.set(x, 2.45, z);
-  upper.scale.setScalar(s * 0.88);
-  scene.add(trunk, lower, upper);
-}
-const treeCount = isMobile ? 42 : 86;
+const treeCount = isMobile ? 34 : 58;
+const trunkInstances = new THREE.InstancedMesh(
+  new THREE.CylinderGeometry(0.12, 0.18, 1.4, 6),
+  trunkMat,
+  treeCount
+);
+const lowerInstances = new THREE.InstancedMesh(
+  new THREE.ConeGeometry(0.82, 1.85, 8),
+  leafMat,
+  treeCount
+);
+const upperInstances = new THREE.InstancedMesh(
+  new THREE.ConeGeometry(0.62, 1.55, 8),
+  leafMat,
+  treeCount
+);
+const treeDummy = new THREE.Object3D();
 for (let i = 0; i < treeCount; i++) {
   const a = (i / treeCount) * Math.PI * 2 + Math.sin(i * 2.17) * 0.035;
-  const r = 46 + (i % 7) * 1.55;
-  addTree(
-    Math.cos(a) * r,
-    Math.sin(a) * r * 0.68,
-    0.64 + (i % 6) * 0.055
-  );
+  const r = 47 + (i % 7) * 1.85;
+  const x = Math.cos(a) * r;
+  const z = Math.sin(a) * r * 0.68;
+  const scale = 0.68 + (i % 6) * 0.06;
+
+  treeDummy.position.set(x, 0.7, z);
+  treeDummy.rotation.set(0, a * 0.13, 0);
+  treeDummy.scale.set(1, 1, 1);
+  treeDummy.updateMatrix();
+  trunkInstances.setMatrixAt(i, treeDummy.matrix);
+
+  treeDummy.position.set(x, 1.72, z);
+  treeDummy.scale.setScalar(scale);
+  treeDummy.updateMatrix();
+  lowerInstances.setMatrixAt(i, treeDummy.matrix);
+
+  treeDummy.position.set(x, 2.45, z);
+  treeDummy.scale.setScalar(scale * 0.88);
+  treeDummy.updateMatrix();
+  upperInstances.setMatrixAt(i, treeDummy.matrix);
+}
+for (const mesh of [trunkInstances, lowerInstances, upperInstances]) {
+  mesh.instanceMatrix.needsUpdate = true;
+  scene.add(mesh);
 }
 
 const mountainCount = isMobile ? 24 : 40;
@@ -945,7 +971,7 @@ for (let i = 0; i < 18; i++) {
     name: names[i],
     morph,
     obj,
-    distance: Math.max(0, (17 - i) * 1.1),
+    distance: Math.max(0, (17 - i) * (presentationMode ? 1.65 : 1.1)),
     lane: i % laneCount,
     laneF: i % laneCount,
     cruise: stats.cruise + (i % 5) * 0.18,
@@ -1224,7 +1250,7 @@ function updateAgentVisual(now) {
   if (panel) panel.classList.toggle("pulse", now < agentPulseUntil);
   updateCreatureStateVisual();
 
-  const showWorldSignal = view !== "lab" && view !== "tactical";
+  const showWorldSignal = view !== "lab" && view !== "tactical" && !presentationMode;
   agentOrbs.forEach((orb, index) => {
     const racer = racers[index];
     const t = (racer.distance / raceMeters) % 1;
@@ -2762,7 +2788,7 @@ function setCamera() {
   scene.background = new THREE.Color(lab ? 0x202a35 : 0x9bc6dc);
   raceEnvironment.forEach((obj) => { obj.visible = !lab; });
   racers.forEach((r) => { r.obj.visible = !lab && !tactical && (!isolatedProof || r.id === isolatedProofRacerId); });
-  ring.visible = !lab && !tactical;
+  ring.visible = !lab && !tactical && !presentationMode;
   racerShadows.forEach((shadow, index) => {
     shadow.visible = !lab && !tactical && (!isolatedProof || racers[index].id === isolatedProofRacerId);
   });
@@ -2840,6 +2866,10 @@ function setCamera() {
   }
 
 
+  if (startGantry) {
+    startGantry.visible = !presentationMode || raceState === "countdown" || elapsed < 260;
+  }
+
   const speedFxStrength = (lab || tactical || raceState !== "running")
     ? 0
     : THREE.MathUtils.smoothstep(speedRatio, 0.36, 1.12);
@@ -2857,7 +2887,7 @@ function setCamera() {
   const selectedCameraDistance = camera.position.distanceTo(selected.obj.position);
   racers.forEach((r) => {
     let targetOpacity = 1;
-    if (view === "follow" && r.id !== selectedId && r.obj.visible) {
+    if (view === "follow" && !presentationMode && r.id !== selectedId && r.obj.visible) {
       const d = camera.position.distanceTo(r.obj.position);
       if (d < selectedCameraDistance - 0.55) targetOpacity = 0.02;
       else if (d < selectedCameraDistance + 0.20) targetOpacity = 0.22;
@@ -3040,7 +3070,7 @@ function resetRace() {
       r.agent.pendingPolicyKey = null;
     }
 
-    r.distance = Math.max(0, (17 - i) * 1.1);
+    r.distance = Math.max(0, (17 - i) * (presentationMode ? 1.65 : 1.1));
     r.lane = i % laneCount;
     r.laneF = i % laneCount;
     r.stamina = 100;
