@@ -4,8 +4,75 @@
  * jakesgordon/javascript-racer MIT implementation in /vendor/javascript-racer/.
  */
 
-const { Util, Render } = window;
-if (!Util || !Render) throw new Error("Pseudo-3D base failed to load");
+const Util = {
+  limit(value, min, max) { return Math.max(min, Math.min(value, max)); },
+  percentRemaining(n, total) { return (n % total) / total; },
+  interpolate(a, b, percent) { return a + (b - a) * percent; },
+  easeIn(a, b, percent) { return a + (b - a) * Math.pow(percent, 2); },
+  easeInOut(a, b, percent) { return a + (b - a) * ((-Math.cos(percent * Math.PI) / 2) + 0.5); },
+  exponentialFog(distance, density) { return 1 / Math.pow(Math.E, distance * distance * density); },
+  project(p, cameraX, cameraY, cameraZ, cameraDepth, viewWidth, viewHeight, projectedRoadWidth) {
+    p.camera.x = (p.world.x || 0) - cameraX;
+    p.camera.y = (p.world.y || 0) - cameraY;
+    p.camera.z = (p.world.z || 0) - cameraZ;
+    p.screen.scale = cameraDepth / p.camera.z;
+    p.screen.x = Math.round((viewWidth / 2) + (p.screen.scale * p.camera.x * viewWidth / 2));
+    p.screen.y = Math.round((viewHeight / 2) - (p.screen.scale * p.camera.y * viewHeight / 2));
+    p.screen.w = Math.round(p.screen.scale * projectedRoadWidth * viewWidth / 2);
+  }
+};
+
+const Render = {
+  polygon(context, x1, y1, x2, y2, x3, y3, x4, y4, color) {
+    context.fillStyle = color;
+    context.beginPath();
+    context.moveTo(x1, y1);
+    context.lineTo(x2, y2);
+    context.lineTo(x3, y3);
+    context.lineTo(x4, y4);
+    context.closePath();
+    context.fill();
+  },
+  segment(context, viewWidth, laneCount, x1, y1, w1, x2, y2, w2, fog, color) {
+    const r1 = Render.rumbleWidth(w1, laneCount);
+    const r2 = Render.rumbleWidth(w2, laneCount);
+    const l1 = Render.laneMarkerWidth(w1, laneCount);
+    const l2 = Render.laneMarkerWidth(w2, laneCount);
+
+    context.fillStyle = color.grass;
+    context.fillRect(0, y2, viewWidth, y1 - y2);
+
+    Render.polygon(context, x1-w1-r1, y1, x1-w1, y1, x2-w2, y2, x2-w2-r2, y2, color.rumble);
+    Render.polygon(context, x1+w1+r1, y1, x1+w1, y1, x2+w2, y2, x2+w2+r2, y2, color.rumble);
+    Render.polygon(context, x1-w1, y1, x1+w1, y1, x2+w2, y2, x2-w2, y2, color.road);
+
+    if (color.lane) {
+      const laneW1 = w1 * 2 / laneCount;
+      const laneW2 = w2 * 2 / laneCount;
+      let laneX1 = x1 - w1 + laneW1;
+      let laneX2 = x2 - w2 + laneW2;
+      for (let lane = 1; lane < laneCount; lane++, laneX1 += laneW1, laneX2 += laneW2) {
+        Render.polygon(context, laneX1-l1/2, y1, laneX1+l1/2, y1, laneX2+l2/2, y2, laneX2-l2/2, y2, color.lane);
+      }
+    }
+
+    Render.fog(context, 0, y1, viewWidth, y2 - y1, fog);
+  },
+  fog(context, x, y, w, h, fog) {
+    if (fog < 1) {
+      context.globalAlpha = 1 - fog;
+      context.fillStyle = COLORS.FOG;
+      context.fillRect(x, y, w, h);
+      context.globalAlpha = 1;
+    }
+  },
+  rumbleWidth(projectedRoadWidth, laneCount) {
+    return projectedRoadWidth / Math.max(6, 2 * laneCount);
+  },
+  laneMarkerWidth(projectedRoadWidth, laneCount) {
+    return projectedRoadWidth / Math.max(32, 8 * laneCount);
+  }
+};
 
 const canvas = document.querySelector("#race");
 const ctx = canvas.getContext("2d", { alpha: false });
