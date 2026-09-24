@@ -851,6 +851,40 @@ test("capture styled Hunyuan prototype in Morph Lab and Race", async ({ page }, 
 });
 
 
+test("benchmark moving 18 Hunyuan mixed LOD race", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(70000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  await page.goto(
+    "/evowild-test/?sf3dVariant=hunyuanstyled&sf3dRaceStress=1&sf3dRaceStressMode=instance&renderScale=0.75",
+    { waitUntil: "domcontentloaded", timeout: 30000 }
+  );
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-race-stress", "ready", { timeout: 50000 });
+
+  const metrics = await page.evaluate(() => window.__sf3dRaceStress);
+  expect(metrics?.racers).toBe(18);
+  expect(metrics?.mode).toBe("instance");
+  expect(metrics?.label).toBe("hunyuan");
+  expect(metrics?.distances).toEqual([16, 30]);
+  expect(metrics?.levelTriangles?.length).toBe(3);
+  expect(metrics?.averageModelTriangles).toBeLessThan(metrics?.allBaseTriangles);
+  expect(metrics?.maxLevelCounts?.slice(1).some((count) => count > 0)).toBe(true);
+
+  console.log("HUNYUAN_MIXED_LOD_RACE", JSON.stringify(metrics));
+  fs.writeFileSync(
+    `${outDir}/hunyuan-mixed-lod-race-benchmark.json`,
+    JSON.stringify(metrics, null, 2)
+  );
+  await page.locator("#stage").screenshot({
+    path: `${outDir}/hunyuan-mixed-lod-race-benchmark.png`
+  });
+});
+
+
 test("capture Hunyuan LOD4 final views", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(45000);

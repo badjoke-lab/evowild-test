@@ -148,7 +148,9 @@ jobs:
       - name: Run browser validation
         run: |
           subject="$(git log -1 --pretty=%s)"
-          if [[ "$subject" == *"[targeted-hunyuan-final]"* ]]; then
+          if [[ "$subject" == *"[targeted-hunyuan-mixed]"* ]]; then
+            npm run test:e2e -- --workers=1 -g "benchmark moving 18 Hunyuan mixed LOD race"
+          elif [[ "$subject" == *"[targeted-hunyuan-final]"* ]]; then
             npm run test:e2e -- --workers=1 -g "capture Hunyuan LOD4 final views"
           elif [[ "$subject" == *"[targeted-hunyuan]"* ]]; then
             npm run test:e2e -- --workers=1 -g "compare raw and simplified Hunyuan multiview shapes|compare Hunyuan raw and LOD2 across four views|benchmark 18 Hunyuan LOD2 instances|benchmark 18 Hunyuan LOD3 and LOD4 instances|compare SF3D TripoSR and semantic Hunyuan across four views"
