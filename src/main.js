@@ -392,9 +392,9 @@ function buildTrack() {
   stage.dataset.trackEdgeRhythm = "curb-v1";
 
   const roadsideCount = isMobile ? 34 : 52;
-  const signGeometry = new THREE.BoxGeometry(0.16, 1.45, 1.35);
-  const signLight = new THREE.MeshBasicMaterial({ color: 0xeaf6ff });
-  const signAccent = new THREE.MeshBasicMaterial({ color: 0x3bbef1 });
+  const signGeometry = new THREE.BoxGeometry(0.10, 1.05, 0.42);
+  const signLight = new THREE.MeshBasicMaterial({ color: 0xdce8ee });
+  const signAccent = new THREE.MeshBasicMaterial({ color: 0x36b7e4 });
   const roadsideMeshes = [
     new THREE.InstancedMesh(signGeometry, signLight, roadsideCount),
     new THREE.InstancedMesh(signGeometry, signAccent, roadsideCount)
@@ -408,9 +408,9 @@ function buildTrack() {
     const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
     const outside = (i % 2 ? 1 : -1) * (railOffset + 1.18);
     const q = p.clone().addScaledVector(side, outside);
-    signDummy.position.set(q.x, 0.80, q.z);
+    signDummy.position.set(q.x, 0.58, q.z);
     signDummy.rotation.set(0, Math.atan2(-tangent.z, tangent.x), 0);
-    signDummy.scale.set(1, 0.74 + (i % 3) * 0.12, 1);
+    signDummy.scale.set(1, 0.78 + (i % 3) * 0.08, 1);
     signDummy.updateMatrix();
     const meshIndex = i % 2;
     roadsideMeshes[meshIndex].setMatrixAt(roadsideCounts[meshIndex]++, signDummy.matrix);
@@ -476,7 +476,7 @@ function buildTrack() {
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
-  stage.dataset.trackPresentation = "v8";
+  stage.dataset.trackPresentation = "v9";
   stage.dataset.raceQualityPass = "floor-v2";
   stage.dataset.presentationMode = presentationMode ? "cinematic" : "standard";
 }
@@ -547,11 +547,11 @@ for (let i = 0; i < treeCount; i++) {
   );
 }
 
-const mountainCount = isMobile ? 18 : 30;
-const mountainGeo = new THREE.ConeGeometry(1, 1, 6);
+const mountainCount = isMobile ? 24 : 40;
+const mountainGeo = new THREE.ConeGeometry(1, 1, 8);
 const mountainMats = [
-  new THREE.MeshStandardMaterial({ color: 0x53665f, roughness: 1, flatShading: true }),
-  new THREE.MeshStandardMaterial({ color: 0x66766e, roughness: 1, flatShading: true })
+  new THREE.MeshStandardMaterial({ color: 0x60756f, roughness: 1, flatShading: true }),
+  new THREE.MeshStandardMaterial({ color: 0x72847d, roughness: 1, flatShading: true })
 ];
 const mountainMeshes = [
   new THREE.InstancedMesh(mountainGeo, mountainMats[0], mountainCount),
@@ -561,11 +561,11 @@ const mountainCounts = [0, 0];
 const mountainDummy = new THREE.Object3D();
 for (let i = 0; i < mountainCount; i++) {
   const a = (i / mountainCount) * Math.PI * 2;
-  const r = 76 + (i % 5) * 4.3;
-  const height = 9 + (i % 7) * 2.4;
-  mountainDummy.position.set(Math.cos(a) * r, height * 0.45 - 0.2, Math.sin(a) * r * 0.74);
-  mountainDummy.rotation.set(0, a * 0.37, 0);
-  mountainDummy.scale.set(7.5 + (i % 4) * 2.2, height, 6.2 + (i % 3) * 2.6);
+  const r = 102 + (i % 6) * 4.8;
+  const height = 5.2 + (i % 7) * 0.85;
+  mountainDummy.position.set(Math.cos(a) * r, height * 0.43 - 0.6, Math.sin(a) * r * 0.76);
+  mountainDummy.rotation.set(0, a * 0.19, 0);
+  mountainDummy.scale.set(8.8 + (i % 5) * 1.55, height, 7.2 + (i % 4) * 1.5);
   mountainDummy.updateMatrix();
   const mi = i % 2;
   mountainMeshes[mi].setMatrixAt(mountainCounts[mi]++, mountainDummy.matrix);
@@ -912,7 +912,7 @@ function compatibilityScoreFor(racer) {
 }
 
 const racers = [];
-let selectedId = aRigIsolatedProof ? 4 : eRigIsolatedProof ? 3 : pRigIsolatedProof ? 2 : 1;
+let selectedId = aRigIsolatedProof ? 4 : eRigIsolatedProof ? 3 : pRigIsolatedProof ? 2 : (presentationMode ? 5 : 1);
 const sRunProofRacerId = 1;
 const raceMeters = fastFinishProof ? 45 : 700;
 const countdownDuration = fastFinishProof ? 1200 : 3000;
@@ -2747,7 +2747,9 @@ function setCamera() {
 
   const speedRatio = THREE.MathUtils.clamp(selected.speed / Math.max(1, selected.cruise), 0, 1.2);
   const targetFov = view === "follow"
-    ? THREE.MathUtils.lerp(isMobile ? 54 : 48, isMobile ? 72 : 68, speedRatio)
+    ? presentationMode
+      ? THREE.MathUtils.lerp(isMobile ? 62 : 60, isMobile ? 80 : 78, speedRatio)
+      : THREE.MathUtils.lerp(isMobile ? 54 : 48, isMobile ? 72 : 68, speedRatio)
     : view === "race"
       ? THREE.MathUtils.lerp(isMobile ? 54 : 48, isMobile ? 76 : 72, speedRatio)
       : (isMobile ? 50 : 42);
@@ -2786,28 +2788,28 @@ function setCamera() {
     const followBack = isolatedProof
       ? (isMobile ? -1.5 : isolatedBack)
       : presentationMode
-        ? (isMobile ? -1.10 : -0.75)
+        ? (isMobile ? -6.2 : -6.8)
         : (isMobile ? -2.2 : -1.35);
     const followSide = isolatedProof
       ? (isMobile ? 4.3 : isolatedSide)
       : presentationMode
-        ? (isMobile ? 3.70 : 3.25)
+        ? (isMobile ? 1.25 : 1.55)
         : (isMobile ? 4.8 : 3.95);
     const followHeight = isolatedProof
       ? (isMobile ? 1.92 : isolatedHeight)
       : presentationMode
-        ? (isMobile ? 1.58 : 1.28)
+        ? (isMobile ? 1.52 : 1.42)
         : (isMobile ? 2.18 : 1.68);
-    const shake = Math.max(0, speedRatio - 0.38) * (isolatedProof ? 0.075 : 0.13);
+    const shake = Math.max(0, speedRatio - 0.34) * (isolatedProof ? 0.075 : presentationMode ? 0.08 : 0.13);
     const desired = selectedPos.clone()
       .addScaledVector(tangent, followBack)
       .addScaledVector(side, followSide + Math.sin(elapsed * 0.023) * shake)
       .add(new THREE.Vector3(0, followHeight + Math.sin(elapsed * 0.031) * shake * 0.6, 0));
     camera.position.lerp(desired, 0.15);
     const lookTarget = selectedPos.clone()
-      .addScaledVector(tangent, presentationMode ? (5.6 + speedRatio * 2.2) : (3.8 + speedRatio * 1.4))
-      .addScaledVector(side, Math.sin(elapsed * 0.017) * shake * 0.45)
-      .add(new THREE.Vector3(0, presentationMode ? 0.36 : 0.50, 0));
+      .addScaledVector(tangent, presentationMode ? (8.8 + speedRatio * 3.6) : (3.8 + speedRatio * 1.4))
+      .addScaledVector(side, presentationMode ? 0.35 : Math.sin(elapsed * 0.017) * shake * 0.45)
+      .add(new THREE.Vector3(0, presentationMode ? 0.52 : 0.50, 0));
     camera.lookAt(lookTarget);
   } else if (view === "tactical") {
     camera.up.set(0, 0, -1);
