@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EvoWild Run — 2.5D Speed Lab B</title>
+    <link rel="stylesheet" href="/src/race_speedlab.css" />
+  </head>
+  <body>
+    <main class="speedlab">
+      <section class="viewport" id="speedlabStage" data-state="loading" data-motion="loading">
+        <canvas id="speedlabCanvas" aria-label="EvoWild Run 2.5D speed lab"></canvas>
+
+        <header class="hud hud-top">
+          <div class="brand">
+            <span class="eyebrow">ISOLATED IMPLEMENTATION / LANE B</span>
+            <strong>EvoWild Run</strong>
+            <small>2.5D Speed Lab</small>
+          </div>
+          <div class="race-meta">
+            <span id="section">START</span>
+            <b id="clock">00:00.00</b>
+            <span id="distance">1200 m</span>
+          </div>
+        </header>
+
+        <aside class="hud rankbox" id="rankbox"></aside>
+
+        <section class="hud selected">
+          <span class="morph-badge" id="selectedMorph">S</span>
+          <div>
+            <strong id="selectedName">#01 Vela</strong>
+            <small><span id="selectedSpeed">0.0</span> m/s · <span id="selectedRank">1</span>/12</small>
+          </div>
+        </section>
+
+        <nav class="hud camera-switch" aria-label="Camera">
+          <button data-camera="chase" class="active">CHASE</button>
+          <button data-camera="wide">WIDE</button>
+        </nav>
+
+        <div class="hud asset-state" id="assetState">Loading dedicated run sheets…</div>
+        <div class="speed-vignette" aria-hidden="true"></div>
+      </section>
+    </main>
+    <script type="module" src="/src/race_speedlab.js"></script>
+  </body>
+</html>
