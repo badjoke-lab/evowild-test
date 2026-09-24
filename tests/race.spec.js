@@ -84,7 +84,21 @@ test("lane 4 v4 runs the unmodified Kart Royale baseline", async ({ page }, test
   page.on("pageerror", (err) => errors.push(err.stack || String(err)));
   page.on("console", (msg) => { if (msg.type() === "error") errors.push(msg.text()); });
 
-  await page.goto("/evowild-test/lane4-v4/?ciNoPrewarm=1", { waitUntil: "domcontentloaded" });
+  const candidates = [
+    "/evowild-test/lane4-v4/index.html?ciNoPrewarm=1",
+    "/lane4-v4/index.html?ciNoPrewarm=1"
+  ];
+  let loaded = false;
+  for (const url of candidates) {
+    const response = await page.goto(url, { waitUntil: "domcontentloaded" });
+    const title = await page.title();
+    console.log("LANE4_ROUTE", JSON.stringify({ url, status: response?.status(), title }));
+    if (title === "Kart Royale") {
+      loaded = true;
+      break;
+    }
+  }
+  expect(loaded).toBe(true);
   await page.waitForFunction(() => Boolean(window.__ctx?.race), null, { timeout: 90000 });
 
   await page.evaluate(() => {
