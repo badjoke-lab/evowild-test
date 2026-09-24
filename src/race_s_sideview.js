@@ -5,9 +5,7 @@ const assetStatus = document.querySelector("#assetStatus");
 
 const BASE = import.meta.env.BASE_URL || "/";
 const params = new URLSearchParams(location.search);
-const PLAYBACK_RATE = params.has("slow") ? 0.34 : 1;
-const CYCLE_MS = 560;
-const TAU = Math.PI * 2;
+const PLAYBACK_RATE = params.has("slow") ? 0.35 : 1;
 
 let width = 1;
 let height = 1;
@@ -15,17 +13,26 @@ let dpr = 1;
 let last = performance.now();
 let elapsed = 0;
 let worldTravel = 0;
-let rig = null;
+let sheetReady = false;
+let frameMeta = [];
 
-const source = new Image();
-source.decoding = "async";
-source.src = BASE + "concept/S.webp";
+const sheet = new Image();
+sheet.decoding = "async";
+sheet.src = BASE + "concept/s-run-sheet.webp";
 
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const lerp = (a, b, t) => a + (b - a) * t;
 const smooth = t => t * t * (3 - 2 * t);
-const mod1 = v => ((v % 1) + 1) % 1;
-const rad = deg => deg * Math.PI / 180;
+
+const PHASES = [
+  { name:"CONTACT",  col:0, row:0, duration:68,  lift:0,   pitch:1.8,  x:-3, scaleX:.995, scaleY:1.01 },
+  { name:"PUSH",     col:1, row:0, duration:82,  lift:4,   pitch:-.7,  x:1,  scaleX:1.015, scaleY:.995 },
+  { name:"RECOVERY", col:2, row:0, duration:86,  lift:15,  pitch:-2.4, x:5,  scaleX:1.025, scaleY:.985 },
+  { name:"FLIGHT",   col:0, row:1, duration:118, lift:29,  pitch:-1.4, x:8,  scaleX:1.035, scaleY:.98 },
+  { name:"REACH",    col:1, row:1, duration:92,  lift:17,  pitch:.7,   x:5,  scaleX:1.025, scaleY:.99 },
+  { name:"LAND",     col:2, row:1, duration:74,  lift:2,   pitch:2.7,  x:0,  scaleX:1.0,   scaleY:1.01 }
+];
+const CYCLE_MS = PHASES.reduce((sum, p) => sum + p.duration, 0);
 
 function resize() {
   const r = canvas.getBoundingClientRect();
@@ -42,280 +49,87 @@ function resize() {
 new ResizeObserver(resize).observe(canvas);
 resize();
 
-function makeMaskedPart(srcCanvas, polygon) {
-  const c = document.createElement("canvas");
-  c.width = srcCanvas.width;
-  c.height = srcCanvas.height;
-  const cctx = c.getContext("2d");
-  cctx.imageSmoothingEnabled = true;
-  cctx.beginPath();
-  polygon.forEach(([nx, ny], i) => {
-    const x = nx * c.width;
-    const y = ny * c.height;
-    if (i === 0) cctx.moveTo(x, y);
-    else cctx.lineTo(x, y);
-  });
-  cctx.closePath();
-  cctx.clip();
-  cctx.drawImage(srcCanvas, 0, 0);
-  return c;
-}
+function analyzeFrame(col, row) {
+  const fw = Math.floor(sheet.naturalWidth / 3);
+  const fh = Math.floor(sheet.naturalHeight / 2);
+  const temp = document.createElement("canvas");
+  temp.width = fw;
+  temp.height = fh;
+  const tctx = temp.getContext("2d", { willReadFrequently: true });
+  tctx.clearRect(0, 0, fw, fh);
+  tctx.drawImage(sheet, col * fw, row * fh, fw, fh, 0, 0, fw, fh);
 
-function pt(nx, ny, sw, sh) {
-  return { x: nx * sw, y: ny * sh };
-}
+  const data = tctx.getImageData(0, 0, fw, fh).data;
+  let minX = fw, minY = fh, maxX = 0, maxY = 0;
+  const rowCounts = new Uint16Array(fh);
 
-function makeSegmentPart(srcCanvas, a, b, radius) {
-  const c = document.createElement("canvas");
-  c.width = srcCanvas.width;
-  c.height = srcCanvas.height;
-  const cctx = c.getContext("2d");
-  cctx.drawImage(srcCanvas, 0, 0);
-  cctx.globalCompositeOperation = "destination-in";
-  cctx.strokeStyle = "#fff";
-  cctx.lineCap = "round";
-  cctx.lineJoin = "round";
-  cctx.lineWidth = radius * 2;
-  cctx.beginPath();
-  cctx.moveTo(a.x, a.y);
-  cctx.lineTo(b.x, b.y);
-  cctx.stroke();
-  cctx.globalCompositeOperation = "source-over";
-  return c;
-}
-
-function buildRig() {
-  const sw = source.naturalWidth;
-  const sh = source.naturalHeight;
-
-  // The authoritative S art faces left. Mirror it once so every rig layer keeps
-  // the original pixels while the motion study runs left-to-right.
-  const mirrored = document.createElement("canvas");
-  mirrored.width = sw;
-  mirrored.height = sh;
-  const mctx = mirrored.getContext("2d");
-  mctx.translate(sw, 0);
-  mctx.scale(-1, 1);
-  mctx.drawImage(source, 0, 0);
-
-  const front = {
-    root: pt(.56,.54,sw,sh),
-    knee: pt(.73,.78,sw,sh),
-    foot: pt(.90,.985,sw,sh)
-  };
-  const hind = {
-    root: pt(.30,.54,sw,sh),
-    knee: pt(.17,.78,sw,sh),
-    foot: pt(.16,.985,sw,sh)
-  };
-
-  const bodyDefs = {
-    torso: [
-      [.20,.24],[.39,.19],[.63,.21],[.79,.36],
-      [.77,.60],[.63,.73],[.37,.74],[.18,.59]
-    ],
-    head: [
-      [.55,.00],[.99,.00],[1,.45],[.89,.59],
-      [.73,.63],[.58,.49]
-    ],
-    tail: [
-      [.00,.30],[.31,.27],[.39,.39],[.35,.62],
-      [.16,.69],[.00,.69]
-    ],
-    shoulder: [
-      [.47,.34],[.68,.34],[.72,.49],[.65,.70],
-      [.47,.69],[.41,.51]
-    ],
-    hip: [
-      [.20,.35],[.42,.33],[.47,.49],[.40,.70],
-      [.20,.70],[.16,.52]
-    ]
-  };
-
-  const parts = Object.fromEntries(
-    Object.entries(bodyDefs).map(([name, polygon]) => [name, makeMaskedPart(mirrored, polygon)])
-  );
-
-  parts.foreUpper = makeSegmentPart(mirrored, front.root, front.knee, Math.max(5, sw * .043));
-  parts.foreLower = makeSegmentPart(mirrored, front.knee, front.foot, Math.max(4, sw * .030));
-  parts.hindUpper = makeSegmentPart(mirrored, hind.root, hind.knee, Math.max(5, sw * .046));
-  parts.hindLower = makeSegmentPart(mirrored, hind.knee, hind.foot, Math.max(4, sw * .030));
-
-  return {
-    sw,
-    sh,
-    parts,
-    bodyCenter: pt(.50, .47, sw, sh),
-    neckPivot: pt(.66, .41, sw, sh),
-    tailPivot: pt(.29, .48, sw, sh),
-    shoulderPivot: pt(.56, .52, sw, sh),
-    hipPivot: pt(.31, .53, sw, sh),
-    front,
-    hind
-  };
-}
-
-source.onload = () => {
-  rig = buildRig();
-  stage.dataset.rigReady = "true";
-  stage.dataset.motionPhase = "CONTACT";
-  assetStatus.textContent = "S rig ready";
-};
-
-source.onerror = () => {
-  stage.dataset.rigReady = "error";
-  stage.dataset.motionPhase = "error";
-  assetStatus.textContent = "S rig failed";
-};
-
-function sample(frames, p) {
-  for (let i = 0; i < frames.length - 1; i++) {
-    const a = frames[i];
-    const b = frames[i + 1];
-    if (p >= a[0] && p <= b[0]) {
-      const t = smooth((p - a[0]) / Math.max(.0001, b[0] - a[0]));
-      return lerp(a[1], b[1], t);
+  for (let y = 0; y < fh; y++) {
+    for (let x = 0; x < fw; x++) {
+      const a = data[(y * fw + x) * 4 + 3];
+      if (a < 28) continue;
+      minX = Math.min(minX, x);
+      maxX = Math.max(maxX, x);
+      minY = Math.min(minY, y);
+      maxY = Math.max(maxY, y);
+      rowCounts[y]++;
     }
   }
-  return frames[frames.length - 1][1];
-}
 
-const BODY_Y = [
-  [0, 0], [.07, 2.5], [.20, -7], [.36, -19],
-  [.54, -27], [.68, -18], [.84, 5], [1, 0]
-];
-
-const BODY_X = [
-  [0, -2], [.12, 3], [.28, 6], [.48, 1],
-  [.68, -3], [.86, -5], [1, -2]
-];
-
-const BODY_PITCH = [
-  [0, 2.2], [.12, 0.4], [.25, -3.8], [.48, -1.7],
-  [.67, 1.6], [.86, 4.4], [1, 2.2]
-];
-
-function motionPhase(p) {
-  if (p < .06) return "CONTACT";
-  if (p < .23) return "PUSH";
-  if (p < .39) return "RECOVERY";
-  if (p < .66) return "FLIGHT";
-  if (p < .86) return "REACH";
-  return "LAND";
-}
-
-function rotateAround(point, center, angle) {
-  const dx = point.x - center.x;
-  const dy = point.y - center.y;
-  const c = Math.cos(angle);
-  const s = Math.sin(angle);
-  return {
-    x: center.x + dx * c - dy * s,
-    y: center.y + dx * s + dy * c
-  };
-}
-
-function sourcePointToWorld(sourcePoint, bodyCenterWorld, scale, rotation) {
-  const local = {
-    x: bodyCenterWorld.x + (sourcePoint.x - rig.bodyCenter.x) * scale,
-    y: bodyCenterWorld.y + (sourcePoint.y - rig.bodyCenter.y) * scale
-  };
-  return rotateAround(local, bodyCenterWorld, rotation);
-}
-
-function drawRigid(partName, sourcePivot, targetPivot, rotation, scale, alpha = 1) {
-  const part = rig.parts[partName];
-  ctx.save();
-  ctx.globalAlpha = alpha;
-  ctx.translate(targetPivot.x, targetPivot.y);
-  ctx.rotate(rotation);
-  ctx.scale(scale, scale);
-  ctx.translate(-sourcePivot.x, -sourcePivot.y);
-  ctx.drawImage(part, 0, 0);
-  ctx.restore();
-}
-
-function drawBone(partName, srcA, srcB, targetA, targetB, alpha = 1) {
-  const sourceAngle = Math.atan2(srcB.y - srcA.y, srcB.x - srcA.x);
-  const targetAngle = Math.atan2(targetB.y - targetA.y, targetB.x - targetA.x);
-  const sourceLength = Math.hypot(srcB.x - srcA.x, srcB.y - srcA.y);
-  const targetLength = Math.hypot(targetB.x - targetA.x, targetB.y - targetA.y);
-  const scale = targetLength / Math.max(1, sourceLength);
-
-  ctx.save();
-  ctx.globalAlpha = alpha;
-  ctx.translate(targetA.x, targetA.y);
-  ctx.rotate(targetAngle - sourceAngle);
-  ctx.scale(scale, scale);
-  ctx.translate(-srcA.x, -srcA.y);
-  ctx.drawImage(rig.parts[partName], 0, 0);
-  ctx.restore();
-}
-
-function constrainTarget(root, target, minDistance, maxDistance) {
-  const dx = target.x - root.x;
-  const dy = target.y - root.y;
-  const d = Math.max(.001, Math.hypot(dx, dy));
-  const wanted = clamp(d, minDistance, maxDistance);
-  if (Math.abs(wanted - d) < .01) return { ...target };
-  return {
-    x: root.x + dx / d * wanted,
-    y: root.y + dy / d * wanted
-  };
-}
-
-function solveIK(root, target, upper, lower, bend) {
-  const dx = target.x - root.x;
-  const dy = target.y - root.y;
-  let d = Math.hypot(dx, dy);
-  d = clamp(d, Math.abs(upper - lower) + .01, upper + lower - .01);
-
-  const ux = dx / Math.max(.001, Math.hypot(dx, dy));
-  const uy = dy / Math.max(.001, Math.hypot(dx, dy));
-  const along = (upper * upper - lower * lower + d * d) / (2 * d);
-  const h = Math.sqrt(Math.max(0, upper * upper - along * along));
-  const mx = root.x + ux * along;
-  const my = root.y + uy * along;
-  const px = -uy;
-  const py = ux;
-
-  return {
-    x: mx + px * h * bend,
-    y: my + py * h * bend
-  };
-}
-
-function legPhase(globalPhase, contactStart) {
-  return mod1(globalPhase - contactStart);
-}
-
-function footTrajectory(q, root, stride, lift, groundY, frontBias = 0) {
-  let x;
-  let y;
-
-  if (q < .22) {
-    const t = smooth(q / .22);
-    x = lerp(root.x + stride * .58, root.x - stride * .78, t);
-    y = groundY;
-  } else if (q < .40) {
-    const t = smooth((q - .22) / .18);
-    x = lerp(root.x - stride * .78, root.x - stride * .62, t);
-    y = groundY - lift * t;
-  } else if (q < .65) {
-    const t = smooth((q - .40) / .25);
-    x = lerp(root.x - stride * .62, root.x + stride * .05, t);
-    y = groundY - lift * (1 + .12 * Math.sin(t * Math.PI));
-  } else if (q < .86) {
-    const t = smooth((q - .65) / .21);
-    x = lerp(root.x + stride * .05, root.x + stride * .78, t);
-    y = groundY - lerp(lift, lift * .28, t);
-  } else {
-    const t = smooth((q - .86) / .14);
-    x = lerp(root.x + stride * .78, root.x + stride * .58, t);
-    y = lerp(groundY - lift * .28, groundY - 1.2, t);
+  // Ignore one-pixel debris when finding the visual ground anchor.
+  let robustBottom = maxY;
+  for (let y = fh - 1; y >= 0; y--) {
+    if (rowCounts[y] >= 5) {
+      robustBottom = y;
+      break;
+    }
   }
 
-  return { x: x + frontBias, y };
+  const padX = Math.max(2, Math.round(fw * .012));
+  const padY = Math.max(2, Math.round(fh * .012));
+  minX = clamp(minX - padX, 0, fw - 1);
+  maxX = clamp(maxX + padX, minX + 1, fw - 1);
+  minY = clamp(minY - padY, 0, fh - 1);
+  robustBottom = clamp(robustBottom + padY, minY + 1, fh - 1);
+
+  return {
+    sx: col * fw + minX,
+    sy: row * fh + minY,
+    sw: maxX - minX + 1,
+    sh: robustBottom - minY + 1,
+    rawBottom: robustBottom,
+    cellW: fw,
+    cellH: fh
+  };
+}
+
+sheet.onload = () => {
+  frameMeta = PHASES.map(p => analyzeFrame(p.col, p.row));
+  sheetReady = true;
+  stage.dataset.rigReady = "true";
+  stage.dataset.frameSource = "s-run-sheet";
+  stage.dataset.motionPhase = "CONTACT";
+  assetStatus.textContent = "S run frames ready";
+};
+
+sheet.onerror = () => {
+  stage.dataset.rigReady = "error";
+  stage.dataset.motionPhase = "error";
+  assetStatus.textContent = "S run frames failed";
+};
+
+function phaseState(ms) {
+  const cycle = ((ms % CYCLE_MS) + CYCLE_MS) % CYCLE_MS;
+  let cursor = 0;
+  for (let i = 0; i < PHASES.length; i++) {
+    const phase = PHASES[i];
+    const end = cursor + phase.duration;
+    if (cycle < end) {
+      const t = (cycle - cursor) / phase.duration;
+      return { index:i, phase, t, cycle };
+    }
+    cursor = end;
+  }
+  return { index:0, phase:PHASES[0], t:0, cycle:0 };
 }
 
 function drawBackground(speedNorm) {
@@ -355,283 +169,176 @@ function drawBackground(speedNorm) {
   drawRidge(height * .58, 75, .07, "#6d8383");
   drawRidge(height * .62, 47, .13, "#536f60");
 
-  const ground = ctx.createLinearGradient(0, horizon, 0, height);
-  ground.addColorStop(0, "#59645d");
-  ground.addColorStop(1, "#2d3333");
-  ctx.fillStyle = ground;
-  ctx.fillRect(0, horizon, width, height - horizon);
-
   const trackTop = height * .72;
+  const ground = ctx.createLinearGradient(0, horizon, 0, trackTop);
+  ground.addColorStop(0, "#59645d");
+  ground.addColorStop(1, "#394840");
+  ctx.fillStyle = ground;
+  ctx.fillRect(0, horizon, width, trackTop - horizon);
+
   const trackGrad = ctx.createLinearGradient(0, trackTop, 0, height);
   trackGrad.addColorStop(0, "#555b5e");
   trackGrad.addColorStop(1, "#30363a");
   ctx.fillStyle = trackGrad;
   ctx.fillRect(0, trackTop, width, height - trackTop);
 
-  const streakSpeed = 1.1 + speedNorm * 1.9;
-  const spacing = width < 700 ? 82 : 118;
-  const shift = (worldTravel * streakSpeed) % spacing;
-
+  const spacing = width < 700 ? 80 : 116;
+  const shift = (worldTravel * (1.1 + speedNorm * 2.1)) % spacing;
   ctx.strokeStyle = "rgba(229,235,236,.18)";
   ctx.lineWidth = 1.2;
   for (let x = -spacing; x < width + spacing; x += spacing) {
     const sx = x - shift;
-    const len = 26 + speedNorm * 72;
+    const len = 28 + speedNorm * 76;
     ctx.beginPath();
-    ctx.moveTo(sx, trackTop + 38);
-    ctx.lineTo(sx - len, trackTop + 38);
+    ctx.moveTo(sx, trackTop + 37);
+    ctx.lineTo(sx - len, trackTop + 37);
     ctx.stroke();
     ctx.beginPath();
-    ctx.moveTo(sx + spacing * .37, trackTop + 92);
-    ctx.lineTo(sx + spacing * .37 - len * 1.25, trackTop + 92);
+    ctx.moveTo(sx + spacing * .41, trackTop + 94);
+    ctx.lineTo(sx + spacing * .41 - len * 1.25, trackTop + 94);
     ctx.stroke();
   }
 
-  if (speedNorm > .35) {
-    ctx.save();
-    ctx.globalAlpha = clamp((speedNorm - .35) * .46, 0, .34);
-    ctx.strokeStyle = "rgba(238,245,244,.85)";
-    for (let i = 0; i < 15; i++) {
-      const y = height * (.77 + (i % 7) * .03);
-      const x = ((i * 143 - worldTravel * 2.3) % (width + 240)) + width;
-      const len = 65 + speedNorm * 105;
-      ctx.beginPath();
-      ctx.moveTo(x, y);
-      ctx.lineTo(x - len, y + 2);
-      ctx.stroke();
-    }
-    ctx.restore();
+  ctx.save();
+  ctx.globalAlpha = .12 + speedNorm * .12;
+  ctx.strokeStyle = "rgba(239,246,245,.72)";
+  for (let i = 0; i < (width < 700 ? 12 : 20); i++) {
+    const band = (i % 6) / 6;
+    const y = height * (.76 + band * .20);
+    const x = ((i * 137 - worldTravel * 2.7) % (width + 240)) + width;
+    const len = 50 + speedNorm * 115 + band * 35;
+    ctx.lineWidth = .6 + band * 1.1;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x - len, y + 2);
+    ctx.stroke();
   }
+  ctx.restore();
 }
 
-function drawShadow(cx, groundY, phase) {
-  const flight = phase === "FLIGHT" ? 1 : phase === "REACH" ? .65 : phase === "RECOVERY" ? .35 : 0;
+function drawShadow(cx, groundY, lift, spriteW) {
+  const liftNorm = clamp(lift / 30, 0, 1);
   ctx.save();
-  ctx.globalAlpha = .30 - flight * .12;
+  ctx.globalAlpha = .30 - liftNorm * .13;
   ctx.fillStyle = "#091014";
   ctx.beginPath();
-  ctx.ellipse(cx - 12, groundY + 6, 108 - flight * 18, 15 - flight * 4, 0, 0, TAU);
+  ctx.ellipse(
+    cx - spriteW * .02,
+    groundY + 7,
+    spriteW * (.22 - liftNorm * .025),
+    Math.max(6, spriteW * (.032 - liftNorm * .008)),
+    0, 0, Math.PI * 2
+  );
   ctx.fill();
   ctx.restore();
 }
 
-function drawDust(foot, intensity, scale) {
-  if (intensity <= 0) return;
+function drawDust(cx, groundY, strength, spriteW) {
+  if (strength <= 0) return;
   ctx.save();
-  ctx.globalAlpha = .14 * intensity;
+  ctx.globalAlpha = .13 * strength;
   ctx.fillStyle = "#d7c3a1";
   for (let i = 0; i < 4; i++) {
     ctx.beginPath();
     ctx.ellipse(
-      foot.x - (12 + i * 13) * scale,
-      foot.y + 2 + i,
-      (7 + i * 3) * scale,
-      (2.3 + i * .8) * scale,
-      0,
-      0,
-      TAU
+      cx - spriteW * (.20 + i * .055),
+      groundY + 2 + i,
+      spriteW * (.035 + i * .012),
+      Math.max(2, spriteW * (.009 + i * .002)),
+      0, 0, Math.PI * 2
     );
     ctx.fill();
   }
   ctx.restore();
 }
 
-function drawLeg(root, foot, sourceDef, upperLength, lowerLength, bend, alpha) {
-  const safeFoot = constrainTarget(
-    root,
-    foot,
-    Math.abs(upperLength - lowerLength) + 2,
-    upperLength + lowerLength - 2
+function drawFrame(index, cx, groundY, alpha = 1, trailX = 0, extraBlur = 0) {
+  if (!sheetReady) return;
+  const phase = PHASES[index];
+  const meta = frameMeta[index];
+  const targetCreatureW = clamp(
+    Math.min(width * .54, height * .78),
+    width < 560 ? 285 : 360,
+    640
   );
-  const knee = solveIK(root, safeFoot, upperLength, lowerLength, bend);
-  drawBone("foreUpper", sourceDef.root, sourceDef.knee, root, knee, alpha);
-  drawBone("foreLower", sourceDef.knee, sourceDef.foot, knee, safeFoot, alpha);
-  return { knee, foot: safeFoot };
+  const scale = targetCreatureW / meta.sw;
+  const drawW = meta.sw * scale * phase.scaleX;
+  const drawH = meta.sh * scale * phase.scaleY;
+  const liftPx = phase.lift * scale * .64;
+  const x = cx - drawW * .50 + phase.x * scale * .28 + trailX;
+  const y = groundY - drawH - liftPx;
+
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.translate(cx + trailX, groundY - liftPx);
+  ctx.rotate(phase.pitch * Math.PI / 180);
+  ctx.translate(-(cx + trailX), -(groundY - liftPx));
+  if (extraBlur) ctx.filter = \`blur(\${extraBlur}px)\`;
+  ctx.drawImage(
+    sheet,
+    meta.sx, meta.sy, meta.sw, meta.sh,
+    x, y, drawW, drawH
+  );
+  ctx.restore();
+
+  return { drawW, drawH, liftPx, x, y };
 }
 
-function drawHindLeg(root, foot, sourceDef, upperLength, lowerLength, bend, alpha) {
-  const safeFoot = constrainTarget(
-    root,
-    foot,
-    Math.abs(upperLength - lowerLength) + 2,
-    upperLength + lowerLength - 2
+function renderCreature(state) {
+  const { index, phase, t } = state;
+  const groundY = height * (height > width * 1.15 ? .80 : .82);
+  const cx = width * .51;
+
+  const meta = frameMeta[index];
+  const targetCreatureW = clamp(
+    Math.min(width * .54, height * .78),
+    width < 560 ? 285 : 360,
+    640
   );
-  const knee = solveIK(root, safeFoot, upperLength, lowerLength, bend);
-  drawBone("hindUpper", sourceDef.root, sourceDef.knee, root, knee, alpha);
-  drawBone("hindLower", sourceDef.knee, sourceDef.foot, knee, safeFoot, alpha);
-  return { knee, foot: safeFoot };
-}
+  const spriteW = targetCreatureW;
 
-function renderCreature(globalPhase) {
-  const targetW = clamp(Math.min(width * .61, height * .86), width < 560 ? 285 : 360, 675);
-  const scale = targetW / rig.sw;
-  const phase = motionPhase(globalPhase);
-  const groundY = height * (height > width * 1.15 ? .77 : .80);
+  drawShadow(cx, groundY, phase.lift, spriteW);
 
-  const bodyYOffset = sample(BODY_Y, globalPhase) * scale;
-  const bodyXOffset = sample(BODY_X, globalPhase) * scale;
-  const bodyPitch = rad(sample(BODY_PITCH, globalPhase));
-  const baseDrop = (0.985 * rig.sh - rig.bodyCenter.y) * scale;
-  const bodyCenterWorld = {
-    x: width * .52 + bodyXOffset,
-    y: groundY - baseDrop + bodyYOffset
-  };
-
-  const legScale = scale;
-  const frontUpper = Math.hypot(
-    rig.front.knee.x - rig.front.root.x,
-    rig.front.knee.y - rig.front.root.y
-  ) * legScale;
-  const frontLower = Math.hypot(
-    rig.front.foot.x - rig.front.knee.x,
-    rig.front.foot.y - rig.front.knee.y
-  ) * legScale;
-  const hindUpper = Math.hypot(
-    rig.hind.knee.x - rig.hind.root.x,
-    rig.hind.knee.y - rig.hind.root.y
-  ) * legScale;
-  const hindLower = Math.hypot(
-    rig.hind.foot.x - rig.hind.knee.x,
-    rig.hind.foot.y - rig.hind.knee.y
-  ) * legScale;
-
-  const strideFront = 46 * scale;
-  const strideHind = 38 * scale;
-  const liftFront = 34 * scale;
-  const liftHind = 30 * scale;
-
-  const qHindFar = legPhase(globalPhase, 0.00);
-  const qHindNear = legPhase(globalPhase, .055);
-  const qForeFar = legPhase(globalPhase, .120);
-  const qForeNear = legPhase(globalPhase, .180);
-
-  function geometryForBody(center) {
-    const frontRootBase = sourcePointToWorld(rig.front.root, center, scale, bodyPitch);
-    const hindRootBase = sourcePointToWorld(rig.hind.root, center, scale, bodyPitch);
-
-    const roots = {
-      hindFar: { x: hindRootBase.x + 7 * scale, y: hindRootBase.y + 4 * scale },
-      hindNear: { x: hindRootBase.x - 3 * scale, y: hindRootBase.y - 1 * scale },
-      foreFar: { x: frontRootBase.x - 8 * scale, y: frontRootBase.y + 5 * scale },
-      foreNear: { x: frontRootBase.x + 3 * scale, y: frontRootBase.y - 1 * scale }
-    };
-
-    const feet = {
-      hindFar: footTrajectory(qHindFar, roots.hindFar, strideHind, liftHind, groundY, -8 * scale),
-      hindNear: footTrajectory(qHindNear, roots.hindNear, strideHind, liftHind * 1.04, groundY, -1 * scale),
-      foreFar: footTrajectory(qForeFar, roots.foreFar, strideFront, liftFront, groundY, 5 * scale),
-      foreNear: footTrajectory(qForeNear, roots.foreNear, strideFront, liftFront * 1.04, groundY, 11 * scale)
-    };
-
-    return { roots, feet };
+  // A short, blurred echo from the preceding complete pose reads as speed,
+  // without dismembering the creature into rotating limb cards.
+  const prev = (index + PHASES.length - 1) % PHASES.length;
+  if (phase.name !== "CONTACT" && phase.name !== "LAND") {
+    drawFrame(prev, cx, groundY, .075, -12 - t * 8, 1.2);
   }
 
-  function requiredContactSettle(geometry) {
-    const candidates = [
-      [qHindFar, geometry.roots.hindFar, geometry.feet.hindFar, (hindUpper + hindLower) * .97 - 2],
-      [qHindNear, geometry.roots.hindNear, geometry.feet.hindNear, hindUpper + hindLower - 2],
-      [qForeFar, geometry.roots.foreFar, geometry.feet.foreFar, (frontUpper + frontLower) * .97 - 2],
-      [qForeNear, geometry.roots.foreNear, geometry.feet.foreNear, frontUpper + frontLower - 2]
-    ];
+  const draw = drawFrame(index, cx, groundY, 1, 0, 0);
 
-    let settle = 0;
-    for (const [q, root, foot, maxReach] of candidates) {
-      if (q >= .22) continue;
-      const dx = foot.x - root.x;
-      const verticalReach = Math.sqrt(Math.max(0, maxReach * maxReach - dx * dx));
-      const lowestAllowedRootY = groundY - verticalReach;
-      settle = Math.max(settle, lowestAllowedRootY - root.y);
-    }
-    return Math.max(0, settle);
-  }
+  const dust =
+    phase.name === "CONTACT" ? 1 - t * .45 :
+    phase.name === "PUSH" ? .72 * (1 - t) :
+    phase.name === "LAND" ? .75 * t :
+    0;
+  drawDust(cx, groundY, dust, spriteW);
 
-  let geometry = geometryForBody(bodyCenterWorld);
-  const contactSettle = requiredContactSettle(geometry);
-  if (contactSettle > 0) {
-    bodyCenterWorld.y += contactSettle + .25;
-    geometry = geometryForBody(bodyCenterWorld);
-  }
-
-  const { roots, feet } = geometry;
-  const hindFarRoot = roots.hindFar;
-  const hindNearRoot = roots.hindNear;
-  const foreFarRoot = roots.foreFar;
-  const foreNearRoot = roots.foreNear;
-  const hindFarFoot = feet.hindFar;
-  const hindNearFoot = feet.hindNear;
-  const foreFarFoot = feet.foreFar;
-  const foreNearFoot = feet.foreNear;
-
-  drawShadow(bodyCenterWorld.x, groundY, phase);
-
-  // Far limbs first: same S pixels, reduced only by depth opacity.
-  const hindFarPose = drawHindLeg(hindFarRoot, hindFarFoot, rig.hind, hindUpper * .97, hindLower * .97, -1, .58);
-  const foreFarPose = drawLeg(foreFarRoot, foreFarFoot, rig.front, frontUpper * .97, frontLower * .97, 1, .58);
-
-  const tailPivotWorld = sourcePointToWorld(rig.tailPivot, bodyCenterWorld, scale, bodyPitch);
-  const tailSwing = rad(Math.sin(globalPhase * TAU + .65) * 5.5 - sample(BODY_PITCH, globalPhase) * .35);
-  drawRigid("tail", rig.tailPivot, tailPivotWorld, bodyPitch + tailSwing, scale, .94);
-
-  drawRigid("torso", rig.bodyCenter, bodyCenterWorld, bodyPitch, scale, 1);
-
-  // Near limbs remain fully opaque and articulate from the body roots.
-  const hindNearPose = drawHindLeg(hindNearRoot, hindNearFoot, rig.hind, hindUpper, hindLower, -1, 1);
-  const foreNearPose = drawLeg(foreNearRoot, foreNearFoot, rig.front, frontUpper, frontLower, 1, 1);
-
-  const shoulderPivotWorld = sourcePointToWorld(rig.shoulderPivot, bodyCenterWorld, scale, bodyPitch);
-  const hipPivotWorld = sourcePointToWorld(rig.hipPivot, bodyCenterWorld, scale, bodyPitch);
-  const shoulderRock = rad(Math.sin(globalPhase * TAU + .4) * 2.8);
-  const hipRock = rad(Math.sin(globalPhase * TAU - .9) * 3.2);
-  drawRigid("shoulder", rig.shoulderPivot, shoulderPivotWorld, bodyPitch + shoulderRock, scale, .98);
-  drawRigid("hip", rig.hipPivot, hipPivotWorld, bodyPitch + hipRock, scale, .98);
-
-  const neckPivotWorld = sourcePointToWorld(rig.neckPivot, bodyCenterWorld, scale, bodyPitch);
-  const headCounter = rad(-sample(BODY_PITCH, globalPhase) * .46 + Math.sin(globalPhase * TAU + .2) * .65);
-  drawRigid("head", rig.neckPivot, neckPivotWorld, bodyPitch + headCounter, scale, 1);
-
-  const contacts = [
-    [qHindFar, hindFarPose.foot],
-    [qHindNear, hindNearPose.foot],
-    [qForeFar, foreFarPose.foot],
-    [qForeNear, foreNearPose.foot]
-  ].filter(([q]) => q < .22);
-
-  for (const [q, foot] of contacts) {
-    const pulse = 1 - clamp(q / .22, 0, 1);
-    drawDust(foot, pulse, scale * .45);
-  }
-
-  const contactError = contacts.length
-    ? Math.max(...contacts.map(([, foot]) => Math.abs(foot.y - groundY)))
-    : 0;
-
-  stage.dataset.motionPhase = phase;
-  stage.dataset.phaseProgress = globalPhase.toFixed(3);
-  stage.dataset.contactCount = String(contacts.length);
-  stage.dataset.contactError = contactError.toFixed(2);
-  stage.dataset.flight = contacts.length === 0 ? "true" : "false";
-  stage.dataset.bodyPitch = (bodyPitch * 180 / Math.PI).toFixed(2);
-  stage.dataset.bodyY = bodyCenterWorld.y.toFixed(1);
-  stage.dataset.contactSettle = contactSettle.toFixed(2);
-  stage.dataset.frontFootY = foreNearPose.foot.y.toFixed(1);
-  stage.dataset.rearFootY = hindNearPose.foot.y.toFixed(1);
+  stage.dataset.motionPhase = phase.name;
+  stage.dataset.phaseProgress = t.toFixed(3);
+  stage.dataset.frameIndex = String(index);
+  stage.dataset.flight = phase.name === "RECOVERY" || phase.name === "FLIGHT" || phase.name === "REACH" ? "true" : "false";
+  stage.dataset.groundAnchorY = groundY.toFixed(1);
+  stage.dataset.spriteBottomY = (draw.y + draw.drawH).toFixed(1);
+  stage.dataset.visualLift = draw.liftPx.toFixed(1);
+  stage.dataset.bodyPitch = phase.pitch.toFixed(2);
+  stage.dataset.frameWidth = meta.sw.toFixed(0);
+  stage.dataset.frameHeight = meta.sh.toFixed(0);
 }
 
 function render() {
-  const p = mod1(elapsed / CYCLE_MS);
-  const phase = motionPhase(p);
-  const speedNorm = .92;
+  const state = phaseState(elapsed);
+  drawBackground(.94);
+  if (sheetReady) renderCreature(state);
 
-  drawBackground(speedNorm);
-  if (rig) renderCreature(p);
-
-  if (phase === "FLIGHT") {
+  if (state.phase.name === "FLIGHT") {
     const vignette = ctx.createRadialGradient(
-      width * .52, height * .53, height * .18,
-      width * .52, height * .53, width * .72
+      width * .52, height * .54, height * .17,
+      width * .52, height * .54, width * .73
     );
     vignette.addColorStop(0, "rgba(0,0,0,0)");
-    vignette.addColorStop(1, "rgba(0,5,8,.10)");
+    vignette.addColorStop(1, "rgba(0,5,8,.09)");
     ctx.fillStyle = vignette;
     ctx.fillRect(0, 0, width, height);
   }
@@ -641,7 +348,7 @@ function frame(now) {
   const dt = clamp(now - last, 0, 45);
   last = now;
   elapsed += dt * PLAYBACK_RATE;
-  worldTravel += dt * .46 * PLAYBACK_RATE;
+  worldTravel += dt * .48 * PLAYBACK_RATE;
   render();
   requestAnimationFrame(frame);
 }
