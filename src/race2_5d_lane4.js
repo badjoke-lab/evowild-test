@@ -134,29 +134,34 @@ function project(point, cameraX, cameraY, cameraZ) {
   point.screen.w = Math.round(point.screen.scale * ROAD_HALF_WIDTH * width / 2);
 }
 
-const racerNames = ["Mica", "Vela", "Rook", "Nacre", "Serein", "Kite", "Flint", "Dune", "Lumen", "Aster"];
+const racerNames = ["Mica", "Vela", "Rook", "Nacre", "Serein", "Kite", "Flint", "Dune"];
+const startOffsets = [260, 0, 180, 360, 90, 460, 220, 400];
 const selectedId = 0;
 
 function makeRacers() {
-  return racerNames.map((name, i) => ({
-    id: i,
-    name,
-    lane: (i % LANES) - (LANES - 1) / 2,
-    laneTarget: (i % LANES) - (LANES - 1) / 2,
-    z: 950 + i * START_SPREAD / racerNames.length,
-    speed: 0,
-    max: MAX_SPEED * (0.965 + pseudoNoise(i + 1) * 0.065),
-    accel: 37 + pseudoNoise(i + 9) * 8,
-    stamina: 100,
-    seed: i * 7.31,
-    cooldown: 0,
-    finished: false
-  }));
+  return racerNames.map((name, i) => {
+    const startZ = START_Z + startOffsets[i];
+    return {
+      id: i,
+      name,
+      lane: (i % LANES) - (LANES - 1) / 2,
+      laneTarget: (i % LANES) - (LANES - 1) / 2,
+      startZ,
+      z: startZ,
+      speed: 0,
+      max: MAX_SPEED * (0.965 + pseudoNoise(i + 1) * 0.065),
+      accel: 37 + pseudoNoise(i + 9) * 8,
+      stamina: 100,
+      seed: i * 7.31,
+      cooldown: 0,
+      finished: false
+    };
+  });
 }
 let racers = makeRacers();
 
 function currentRaceMeters(r) {
-  return clamp((r.z - 950) * WORLD_TO_METERS, 0, TRACK_METERS);
+  return clamp((r.z - r.startZ) * WORLD_TO_METERS, 0, TRACK_METERS);
 }
 function rankOf(r) {
   return [...racers].sort((a,b) => b.z - a.z).findIndex(x => x === r) + 1;
