@@ -1,0 +1,135 @@
+name: HF Hunyuan3D 2mv textured generation
+
+on:
+  push:
+    branches:
+      - test/hf-sf3d-retry-20260921
+    paths:
+      - ".github/workflows/hf-hunyuan2mv-texture.yml"
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install client
+        run: pip install --quiet "gradio_client>=1.10,<2" pillow
+
+      - name: Generate textured EvoWild S with semantic multiview
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          python - <<'PY'
+          import inspect, json, os, shutil
+          from pathlib import Path
+          from PIL import Image
+          from gradio_client import Client, handle_file
+
+          out = Path("hf-poc/output-hunyuan2mv-textured")
+          out.mkdir(parents=True, exist_ok=True)
+          runtime = Path("hf-poc/runtime-hunyuan2mv-textured")
+          runtime.mkdir(parents=True, exist_ok=True)
+
+          side = Path("hf-poc/input/01_SIDE_authority.jpg")
+          front = Path("hf-poc/input/02_FRONT_width_reference.jpg")
+          back = Path("hf-poc/input/03_BACK_rear_reference.jpg")
+          for p in [side, front, back]:
+              if not p.exists():
+                  raise FileNotFoundError(p)
+
+          right = runtime / "01_SIDE_authority_mirrored_right.jpg"
+          Image.open(side).convert("RGB").transpose(
+              Image.Transpose.FLIP_LEFT_RIGHT
+          ).save(right, quality=96)
+
+          token = os.environ.get("HF_TOKEN")
+          params = inspect.signature(Client).parameters
+          auth_kw = {"token": token} if "token" in params else {"hf_token": token}
+          client = Client("tencent/Hunyuan3D-2mv", **auth_kw)
+
+          caption = (
+              "slim futuristic quadruped racing creature, four clearly separated long legs, "
+              "long narrow head, two upright horn-ear structures, backward crest blades, "
+              "blade-like fin tail, head-mounted Cue Band device on both sides, "
+              "silver white body with cool blue and cyan accents"
+          )
+
+          result = client.predict(
+              caption,
+              None,
+              handle_file(str(front)),
+              handle_file(str(back)),
+              handle_file(str(side)),
+              handle_file(str(right)),
+              5,
+              5.0,
+              1234,
+              256,
+              True,
+              8000,
+              False,
+              api_name="/generation_all",
+          )
+          print("RESULT:", repr(result))
+
+          items = list(result) if isinstance(result, (tuple, list)) else [result]
+          copied = []
+          for idx, item in enumerate(items[:2]):
+              if isinstance(item, dict):
+                  src = item.get("path") or item.get("value")
+              else:
+                  src = str(item) if item else None
+              if not src:
+                  continue
+              p = Path(src)
+              if not p.exists():
+                  continue
+              suffix = p.suffix.lower() or ".glb"
+              target = out / f"result_{idx}{suffix}"
+              shutil.copy2(p, target)
+              copied.append({
+                  "index": idx,
+                  "source": str(p),
+                  "target": target.name,
+                  "bytes": target.stat().st_size,
+                  "magic": target.read_bytes()[:4].hex(),
+              })
+
+          if not copied:
+              raise RuntimeError(f"No output files copied: {result!r}")
+
+          stats = items[3] if len(items) > 3 else None
+          seed = items[4] if len(items) > 4 else None
+          meta = {
+              "space": "tencent/Hunyuan3D-2mv",
+              "endpoint": "/generation_all",
+              "variant": "semantic_4view_front_back_side_mirror",
+              "steps": 5,
+              "guidance_scale": 5.0,
+              "seed": seed,
+              "octree_resolution": 256,
+              "remove_background": True,
+              "num_chunks": 8000,
+              "files": copied,
+              "mesh_stats": stats,
+          }
+          (out / "metadata.json").write_text(
+              json.dumps(meta, indent=2, default=str), encoding="utf-8"
+          )
+          print("COPIED:", copied)
+          print("MESH_STATS:", stats)
+          PY
+
+      - name: Upload result
+        uses: actions/upload-artifact@v4
+        with:
+          name: evowild-s-hunyuan2mv-textured
+          path: hf-poc/output-hunyuan2mv-textured/
+          if-no-files-found: error
