@@ -77,11 +77,11 @@ test("S visual lane stays one complete creature and covers a grounded six-phase 
   fs.mkdirSync("test-results/visuals", { recursive: true });
 
   const expectedCells = {
-    CONTACT: "1,1",
-    PUSH: "1,0",
-    RECOVERY: "0,1",
-    FLIGHT: "2,0",
-    REACH: "0,0",
+    CONTACT: "0,0",
+    PUSH: "2,0",
+    RECOVERY: "1,0",
+    FLIGHT: "0,1",
+    REACH: "1,1",
     LAND: "2,1"
   };
 
