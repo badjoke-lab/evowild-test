@@ -542,8 +542,12 @@ function updateCamera() {
   const byAhead=ahead>1?usableAhead/ahead:base;
   const byBehind=behind>1?usableBehind/behind:base;
   const targetPPM=clamp(Math.min(base,byAhead,byBehind),width<700?3.35:4.8,base);
-  const zoomRate=targetPPM<pixelsPerMeter?.18:.045;
-  pixelsPerMeter=lerp(pixelsPerMeter,targetPPM,zoomRate);
+  if(width<700){
+    pixelsPerMeter=targetPPM;
+  } else {
+    const zoomRate=targetPPM<pixelsPerMeter?.18:.045;
+    pixelsPerMeter=lerp(pixelsPerMeter,targetPPM,zoomRate);
+  }
 
   // Keep selected S left-of-centre and give more room in the direction of travel.
   const lookAhead=clamp(ahead*.06,0,3.5);
