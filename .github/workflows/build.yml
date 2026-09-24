@@ -149,7 +149,7 @@ jobs:
         run: |
           subject="$(git log -1 --pretty=%s)"
           if [[ "$subject" == *"[targeted-hunyuan]"* ]]; then
-            npm run test:e2e -- --workers=1 -g "compare raw and simplified Hunyuan multiview shapes|compare Hunyuan raw and LOD2 across four views|benchmark 18 Hunyuan LOD2 instances"
+            npm run test:e2e -- --workers=1 -g "compare raw and simplified Hunyuan multiview shapes|compare Hunyuan raw and LOD2 across four views|benchmark 18 Hunyuan LOD2 instances|benchmark 18 Hunyuan LOD3 and LOD4 instances|compare SF3D TripoSR and semantic Hunyuan across four views"
           elif [[ "${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}" == "feat/sf3d-game-integration-20260922" ]]; then
             npm run test:e2e -- --workers=1
           else
