@@ -23,14 +23,14 @@ const BASE = import.meta.env.BASE_URL || "/";
 const FPS = 60;
 const STEP = 1 / FPS;
 const SEGMENT_LENGTH = 180;
-const ROAD_WIDTH = 2150;
+const ROAD_WIDTH = 1920;
 const RUMBLE_LENGTH = 3;
 const LANES = 6;
 const DRAW_DISTANCE = 260;
-const CAMERA_HEIGHT = 930;
-const FIELD_OF_VIEW = 88;
+const CAMERA_HEIGHT = 760;
+const FIELD_OF_VIEW = 80;
 const CAMERA_DEPTH = 1 / Math.tan((FIELD_OF_VIEW / 2) * Math.PI / 180);
-const CAMERA_LEAD = 1450;
+const CAMERA_LEAD = 1720;
 const SPRITE_SCALE = 0.00050;
 const RACE_METERS = 1200;
 const SELECTED_ID = 1;
@@ -56,12 +56,12 @@ const COLORS = {
   skyTop: "#3d7fa9",
   skyMid: "#9fc0cf",
   skyLow: "#dcc59c",
-  grassLight: "#416a4e",
-  grassDark: "#365d45",
-  roadLight: "#9e6c42",
-  roadDark: "#865936",
-  rumbleLight: "#e5d8be",
-  rumbleDark: "#4f6471",
+  grassLight: "#3c654a",
+  grassDark: "#365e45",
+  roadLight: "#8d603f",
+  roadDark: "#8a5e3e",
+  rumbleLight: "#e7dac1",
+  rumbleDark: "#526776",
   lane: "rgba(248,231,198,.74)",
   fog: "#b5c1b7"
 };
@@ -148,15 +148,15 @@ function buildTrack() {
   segments.length = 0;
 
   addRoad(20, 36, 20, 0.0, 8);
-  addRoad(24, 46, 24, 1.2, 18);
-  addRoad(18, 38, 18, 2.7, -10);
+  addRoad(24, 46, 24, 4.2, 18);
+  addRoad(18, 38, 18, 7.0, -10);
   addRoad(20, 42, 20, 0.0, 24);
-  addRoad(24, 54, 24, -3.1, 8);
-  addRoad(18, 34, 18, -1.4, -24);
-  addRoad(20, 48, 20, 2.2, 12);
+  addRoad(24, 54, 24, -7.4, 8);
+  addRoad(18, 34, 18, -3.8, -24);
+  addRoad(20, 48, 20, 6.2, 12);
   addRoad(20, 36, 20, 0.0, 8);
-  addRoad(22, 46, 22, -2.5, 18);
-  addRoad(18, 42, 18, 1.7, -10);
+  addRoad(22, 46, 22, -6.6, 18);
+  addRoad(18, 42, 18, 4.8, -10);
   addRoad(20, 50, 20, 0.0, 0);
 
   trackLength = segments.length * SEGMENT_LENGTH;
@@ -251,62 +251,79 @@ function renderRoadSegment(seg) {
 }
 
 function drawBackground(curve, roadY) {
-  const sky = ctx.createLinearGradient(0,0,0,height*.64);
-  sky.addColorStop(0,COLORS.skyTop);
-  sky.addColorStop(.56,COLORS.skyMid);
-  sky.addColorStop(1,COLORS.skyLow);
+  const sky = ctx.createLinearGradient(0,0,0,height*.66);
+  sky.addColorStop(0,"#397aa5");
+  sky.addColorStop(.54,"#9abccc");
+  sky.addColorStop(1,"#d7c39a");
   ctx.fillStyle = sky;
   ctx.fillRect(0,0,width,height);
 
-  const sunX = width * .78 - curve * 18;
+  const sunX = width * .79 - curve * 10;
   const sunY = height * .14;
-  const sr = Math.max(38, width * .028);
-  const glow = ctx.createRadialGradient(sunX,sunY,0,sunX,sunY,sr*3);
-  glow.addColorStop(0,"rgba(255,246,205,.88)");
-  glow.addColorStop(1,"rgba(255,246,205,0)");
+  const sr = Math.max(36, width * .026);
+  const glow = ctx.createRadialGradient(sunX,sunY,0,sunX,sunY,sr*3.2);
+  glow.addColorStop(0,"rgba(255,244,199,.90)");
+  glow.addColorStop(.34,"rgba(255,239,190,.32)");
+  glow.addColorStop(1,"rgba(255,239,190,0)");
   ctx.fillStyle = glow;
-  ctx.fillRect(sunX-sr*3,sunY-sr*3,sr*6,sr*6);
+  ctx.fillRect(sunX-sr*3.2,sunY-sr*3.2,sr*6.4,sr*6.4);
 
-  const shift1 = (cameraZ * .012 + curve * 130) % 420;
-  const shift2 = (cameraZ * .020 + curve * 190) % 290;
+  // high cloud streaks: thin enough to imply motion without hiding the course.
+  ctx.strokeStyle="rgba(233,241,239,.18)";
+  ctx.lineWidth=1;
+  for(let i=0;i<11;i++){
+    const y=height*(.15+((i*37)%28)/100);
+    const len=70+(i%4)*55;
+    const x=((i*211-cameraZ*.006)%(width+260)+width+260)%(width+260)-120;
+    ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+len,y);ctx.stroke();
+  }
 
-  ctx.fillStyle = "#6d8791";
+  const shift1=(cameraZ*.006+curve*62)%520;
+  const shift2=(cameraZ*.012+curve*94)%360;
+
+  // distant mountain chain
+  ctx.fillStyle="#718992";
   ctx.beginPath();
-  ctx.moveTo(0,height*.50);
-  for(let x=-440;x<width+440;x+=210) {
+  ctx.moveTo(0,height*.51);
+  for(let x=-560;x<=width+560;x+=70){
     const xx=x-shift1;
-    const peak=height*.31 - Math.abs(Math.sin((x+cameraZ*.001)*.013))*height*.08;
-    ctx.lineTo(xx,peak);
-    ctx.lineTo(xx+105,height*.50);
+    const n=.56*Math.sin((x+120)*.013)+.28*Math.sin((x+40)*.029)+.16*Math.sin(x*.061);
+    const y=height*(.40-n*.095);
+    ctx.lineTo(xx,y);
   }
-  ctx.lineTo(width,height*.56);
-  ctx.lineTo(0,height*.56);
-  ctx.closePath();
-  ctx.fill();
+  ctx.lineTo(width,height*.56);ctx.lineTo(0,height*.56);ctx.closePath();ctx.fill();
 
-  ctx.fillStyle = "#486b5d";
+  // middle ridge
+  ctx.fillStyle="#58766d";
   ctx.beginPath();
-  ctx.moveTo(0,height*.54);
-  for(let x=-320;x<width+320;x+=95) {
+  ctx.moveTo(0,height*.55);
+  for(let x=-420;x<=width+420;x+=42){
     const xx=x-shift2;
-    const peak=height*.43 - Math.abs(Math.sin((x+cameraZ*.002)*.041))*height*.05;
-    ctx.lineTo(xx,peak);
-    ctx.lineTo(xx+48,height*.55);
+    const n=.62*Math.sin((x+90)*.021)+.22*Math.sin(x*.053)+.16*Math.cos(x*.095);
+    const y=height*(.49-n*.050);
+    ctx.lineTo(xx,y);
   }
-  ctx.lineTo(width,height*.62);
-  ctx.lineTo(0,height*.62);
-  ctx.closePath();
-  ctx.fill();
+  ctx.lineTo(width,height*.59);ctx.lineTo(0,height*.59);ctx.closePath();ctx.fill();
 
-  const haze = ctx.createLinearGradient(0,height*.35,0,height*.63);
-  haze.addColorStop(0,"rgba(225,235,226,0)");
-  haze.addColorStop(1,"rgba(225,235,226,.20)");
-  ctx.fillStyle=haze;
-  ctx.fillRect(0,height*.34,width,height*.30);
+  // close tree line
+  ctx.fillStyle="#315945";
+  ctx.beginPath();
+  ctx.moveTo(0,height*.57);
+  for(let x=-120;x<=width+120;x+=28){
+    const h=.025+.026*Math.abs(Math.sin((x+cameraZ*.018)*.067));
+    ctx.lineTo(x-shift2*.36,height*(.56-h));
+    ctx.lineTo(x+10-shift2*.36,height*.57);
+  }
+  ctx.lineTo(width,height*.62);ctx.lineTo(0,height*.62);ctx.closePath();ctx.fill();
 
-  if (roadY > height*.40) {
-    ctx.fillStyle="rgba(15,28,31,.08)";
-    ctx.fillRect(0,roadY-2,width,3);
+  const haze=ctx.createLinearGradient(0,height*.35,0,height*.63);
+  haze.addColorStop(0,"rgba(224,234,227,0)");
+  haze.addColorStop(1,"rgba(224,234,227,.16)");
+  ctx.fillStyle=haze;ctx.fillRect(0,height*.34,width,height*.31);
+
+  if(roadY>height*.40){
+    ctx.fillStyle="rgba(14,28,30,.07)";
+    ctx.fillRect(0,roadY-1,width,2);
   }
 }
 
@@ -382,7 +399,7 @@ function makeRunners() {
       lane:lanes[i],
       laneF:lanes[i],
       offset: (lanes[i]-(LANES-1)/2)/(LANES*.60),
-      z: 7600 + offsets[i],
+      z: 37000 + offsets[i],
       speed:baseSpeed[i],
       baseSpeed:baseSpeed[i],
       stamina:100,
