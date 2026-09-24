@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EvoWild Run — Road Lab</title>
+  <link rel="stylesheet" href="/src/race_roadlab.css" />
+</head>
+<body>
+  <main class="roadlab">
+    <canvas id="roadCanvas" aria-label="EvoWild Run S-only pseudo-3D race"></canvas>
+
+    <header class="hud topbar">
+      <div class="brand">
+        <span>RIDGE CIRCUIT</span>
+        <strong>EvoWild Run</strong>
+      </div>
+      <div class="race">
+        <b id="phase">MID</b>
+        <strong id="clock">00:00.00</strong>
+        <span id="remain">1200m</span>
+      </div>
+    </header>
+
+    <aside class="hud board" id="board"></aside>
+
+    <section class="hud runner">
+      <span class="num">01</span>
+      <div>
+        <strong>Vela / S</strong>
+        <small><span id="rank">1</span>/8 · <span id="speed">0.0</span> m/s</small>
+      </div>
+    </section>
+
+    <div class="hud proof">S-ONLY ROAD LAB</div>
+  </main>
+
+  <script type="module" src="/src/race_roadlab.js"></script>
+</body>
+</html>
