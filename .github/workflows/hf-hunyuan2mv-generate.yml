@@ -20,7 +20,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install client
-        run: pip install --quiet "gradio_client>=1.10,<2"
+        run: pip install --quiet "gradio_client>=1.10,<2" pillow
 
       - name: Generate EvoWild S with Hunyuan3D 2mv Turbo
         env:
@@ -29,13 +29,30 @@ jobs:
           python - <<'PY'
           import inspect, json, os, shutil
           from pathlib import Path
+          from PIL import Image
           from gradio_client import Client, handle_file
 
           out = Path("hf-poc/output-hunyuan2mv-turbo")
           out.mkdir(parents=True, exist_ok=True)
 
+          raw_main = Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")
+          if not raw_main.exists():
+              raise FileNotFoundError(raw_main)
+
+          runtime = Path("hf-poc/runtime-hunyuan2mv")
+          runtime.mkdir(parents=True, exist_ok=True)
+
+          # Remove only the unwanted partial second creature at the far-left edge.
+          # Keep the authority subject in its original position/scale.
+          im = Image.open(raw_main).convert("RGB")
+          w, h = im.size
+          erase_x = int(w * 0.30)
+          im.paste((255, 255, 255), (0, 0, erase_x, h))
+          clean_main = runtime / "04_3Q_FRONT_cleanleft30.jpg"
+          im.save(clean_main, quality=96)
+
           images = {
-              "main_3q": Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg"),
+              "main_3q": clean_main,
               "front": Path("hf-poc/input/02_FRONT_width_reference.jpg"),
               "back": Path("hf-poc/input/03_BACK_rear_reference.jpg"),
               "left": Path("hf-poc/input/01_SIDE_authority.jpg"),
@@ -103,6 +120,7 @@ jobs:
               "caption": caption,
               "inputs": {k: str(v) for k,v in images.items()},
               "right_view": None,
+              "variant": "clean_3q_left30_same_seed",
               "steps": 5,
               "guidance_scale": 5.0,
               "seed_requested": 1234,
