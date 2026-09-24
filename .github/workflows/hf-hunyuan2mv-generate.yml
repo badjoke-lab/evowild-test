@@ -35,31 +35,29 @@ jobs:
           out = Path("hf-poc/output-hunyuan2mv-turbo")
           out.mkdir(parents=True, exist_ok=True)
 
-          raw_main = Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")
-          if not raw_main.exists():
-              raise FileNotFoundError(raw_main)
-
           runtime = Path("hf-poc/runtime-hunyuan2mv")
           runtime.mkdir(parents=True, exist_ok=True)
 
-          # Remove only the unwanted partial second creature at the far-left edge.
-          # Keep the authority subject in its original position/scale.
-          im = Image.open(raw_main).convert("RGB")
-          w, h = im.size
-          erase_x = int(w * 0.30)
-          im.paste((255, 255, 255), (0, 0, erase_x, h))
-          clean_main = runtime / "04_3Q_FRONT_cleanleft30.jpg"
-          im.save(clean_main, quality=96)
+          side_source = Path("hf-poc/input/01_SIDE_authority.jpg")
+          front_source = Path("hf-poc/input/02_FRONT_width_reference.jpg")
+          back_source = Path("hf-poc/input/03_BACK_rear_reference.jpg")
+          for path in [side_source, front_source, back_source]:
+              if not path.exists():
+                  raise FileNotFoundError(path)
+
+          # MV_MODE ignores the generic image input and consumes semantic
+          # front/back/left/right views only. Build the missing opposite side
+          # strictly as a horizontal mirror of the authority SIDE image.
+          side_im = Image.open(side_source).convert("RGB")
+          right_source = runtime / "01_SIDE_authority_mirrored_right.jpg"
+          side_im.transpose(Image.Transpose.FLIP_LEFT_RIGHT).save(right_source, quality=96)
 
           images = {
-              "main_3q": clean_main,
-              "front": Path("hf-poc/input/02_FRONT_width_reference.jpg"),
-              "back": Path("hf-poc/input/03_BACK_rear_reference.jpg"),
-              "left": Path("hf-poc/input/01_SIDE_authority.jpg"),
+              "front": front_source,
+              "back": back_source,
+              "left": side_source,
+              "right": right_source,
           }
-          for name, path in images.items():
-              if not path.exists():
-                  raise FileNotFoundError(f"{name}: {path}")
 
           token = os.environ.get("HF_TOKEN")
           params = inspect.signature(Client).parameters
@@ -78,11 +76,11 @@ jobs:
 
           result = client.predict(
               caption,
-              handle_file(str(images["main_3q"])),
+              None,
               handle_file(str(images["front"])),
               handle_file(str(images["back"])),
               handle_file(str(images["left"])),
-              None,
+              handle_file(str(images["right"])),
               5,
               5.0,
               1234,
@@ -119,8 +117,8 @@ jobs:
               "endpoint": "/shape_generation",
               "caption": caption,
               "inputs": {k: str(v) for k,v in images.items()},
-              "right_view": None,
-              "variant": "clean_3q_left30_same_seed",
+              "right_view": str(images["right"]),
+              "variant": "semantic_4view_front_back_side_mirror",
               "steps": 5,
               "guidance_scale": 5.0,
               "seed_requested": 1234,
