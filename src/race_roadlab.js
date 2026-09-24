@@ -30,6 +30,10 @@ const TRACK_SEGMENTS = 520;
 const RACE_METERS = 1200;
 const SELECTED_ID = 1;
 
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
 const renderer = new THREE.WebGLRenderer({
   canvas,
   antialias: true,
