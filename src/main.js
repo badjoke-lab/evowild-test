@@ -6,7 +6,10 @@ import "./styles.css";
 const canvas = document.querySelector("#game");
 const stage = document.querySelector("#stage");
 const isMobile = matchMedia("(pointer: coarse)").matches || innerWidth < 800;
-const proofMode = new URLSearchParams(location.search).get("proof");
+const query = new URLSearchParams(location.search);
+const proofMode = query.get("proof");
+const presentationMode = query.get("presentation") === "1";
+if (presentationMode) document.body.classList.add("presentation-mode");
 const sRunIsolatedProof = proofMode === "s-run";
 const pRigIsolatedProof = proofMode === "p-rig";
 const eRigIsolatedProof = proofMode === "e-rig";
@@ -450,6 +453,7 @@ function buildTrack() {
 
   stage.dataset.trackPresentation = "v7";
   stage.dataset.raceQualityPass = "floor-v2";
+  stage.dataset.presentationMode = presentationMode ? "cinematic" : "standard";
 }
 buildTrack();
 
@@ -2318,7 +2322,7 @@ setLabMorph("S");
 let elapsed = 0;
 let last = performance.now();
 let paused = false;
-let view = isolatedProof ? "follow" : "race";
+let view = isolatedProof ? "follow" : (presentationMode ? "follow" : "race");
 let raceState = "countdown";
 let countdownRemaining = countdownDuration;
 let goFlashRemaining = 0;
@@ -2720,9 +2724,21 @@ function setCamera() {
     const isolatedBack = aRigIsolatedProof ? -1.35 : eRigIsolatedProof ? -1.45 : pRigIsolatedProof ? -1.55 : -1.2;
     const isolatedSide = aRigIsolatedProof ? 4.85 : eRigIsolatedProof ? 5.05 : pRigIsolatedProof ? 4.8 : 4.1;
     const isolatedHeight = aRigIsolatedProof ? 1.85 : eRigIsolatedProof ? 2.18 : pRigIsolatedProof ? 1.95 : 1.72;
-    const followBack = isolatedProof ? (isMobile ? -1.5 : isolatedBack) : (isMobile ? -2.2 : -1.35);
-    const followSide = isolatedProof ? (isMobile ? 4.3 : isolatedSide) : (isMobile ? 4.8 : 3.95);
-    const followHeight = isolatedProof ? (isMobile ? 1.92 : isolatedHeight) : (isMobile ? 2.18 : 1.68);
+    const followBack = isolatedProof
+      ? (isMobile ? -1.5 : isolatedBack)
+      : presentationMode
+        ? (isMobile ? -1.10 : -0.75)
+        : (isMobile ? -2.2 : -1.35);
+    const followSide = isolatedProof
+      ? (isMobile ? 4.3 : isolatedSide)
+      : presentationMode
+        ? (isMobile ? 3.70 : 3.25)
+        : (isMobile ? 4.8 : 3.95);
+    const followHeight = isolatedProof
+      ? (isMobile ? 1.92 : isolatedHeight)
+      : presentationMode
+        ? (isMobile ? 1.58 : 1.28)
+        : (isMobile ? 2.18 : 1.68);
     const shake = Math.max(0, speedRatio - 0.38) * (isolatedProof ? 0.075 : 0.13);
     const desired = selectedPos.clone()
       .addScaledVector(tangent, followBack)
@@ -2730,9 +2746,9 @@ function setCamera() {
       .add(new THREE.Vector3(0, followHeight + Math.sin(elapsed * 0.031) * shake * 0.6, 0));
     camera.position.lerp(desired, 0.15);
     const lookTarget = selectedPos.clone()
-      .addScaledVector(tangent, 3.8 + speedRatio * 1.4)
+      .addScaledVector(tangent, presentationMode ? (5.6 + speedRatio * 2.2) : (3.8 + speedRatio * 1.4))
       .addScaledVector(side, Math.sin(elapsed * 0.017) * shake * 0.45)
-      .add(new THREE.Vector3(0, 0.50, 0));
+      .add(new THREE.Vector3(0, presentationMode ? 0.36 : 0.50, 0));
     camera.lookAt(lookTarget);
   } else if (view === "tactical") {
     camera.up.set(0, 0, -1);
