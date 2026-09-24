@@ -76,13 +76,26 @@ test("S visual lane stays one complete creature and covers a grounded six-phase 
 
   fs.mkdirSync("test-results/visuals", { recursive: true });
 
+  const expectedCells = {
+    CONTACT: "1,1",
+    PUSH: "1,0",
+    RECOVERY: "0,1",
+    FLIGHT: "2,0",
+    REACH: "0,0",
+    LAND: "2,1"
+  };
+
   const capturePhases = testInfo.project.name === "desktop-chromium"
     ? ["CONTACT", "PUSH", "RECOVERY", "FLIGHT", "REACH", "LAND"]
     : ["CONTACT"];
 
   for (const phase of capturePhases) {
-    await waitForPhase(page, phase);
-    await stage.screenshot({
+    await page.goto("/evowild-test/race-s-sideview.html?pose=" + phase, { waitUntil: "networkidle" });
+    const fixedStage = page.locator("#stage");
+    await expect(fixedStage).toHaveAttribute("data-rig-ready", "true", { timeout: 10000 });
+    await expect(fixedStage).toHaveAttribute("data-motion-phase", phase);
+    await expect(fixedStage).toHaveAttribute("data-pose-cell", expectedCells[phase]);
+    await fixedStage.screenshot({
       path: "test-results/visuals/" + testInfo.project.name + "-s-motion-" + phase.toLowerCase() + ".png"
     });
   }
