@@ -1,0 +1,98 @@
+name: HF Unique3D generation
+
+on:
+  push:
+    branches:
+      - test/hf-sf3d-retry-20260921
+    paths:
+      - ".github/workflows/hf-unique3d-generate.yml"
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install client
+        run: pip install --quiet "gradio_client>=1.10,<2" pillow
+
+      - name: Generate EvoWild S with Unique3D
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          python - <<'PY'
+          import inspect, json, os, shutil
+          from pathlib import Path
+          from PIL import Image
+          from gradio_client import Client, handle_file
+
+          src = Path("hf-poc/input/04_3Q_FRONT_shape_support.jpg")
+          runtime = Path("hf-poc/runtime-unique3d")
+          out = Path("hf-poc/output-unique3d")
+          runtime.mkdir(parents=True, exist_ok=True)
+          out.mkdir(parents=True, exist_ok=True)
+
+          im = Image.open(src).convert("RGB")
+          w, h = im.size
+          im.paste((255,255,255), (0,0,int(w*0.30),h))
+          prepared = runtime / "evowild_3q_cleanleft30.jpg"
+          im.save(prepared, quality=96)
+
+          token = os.environ.get("HF_TOKEN")
+          params = inspect.signature(Client).parameters
+          auth_kw = {"token": token} if "token" in params else {"hf_token": token}
+          client = Client("Wuvin/Unique3D", **auth_kw)
+
+          result = client.predict(
+              handle_file(str(prepared)),
+              True,
+              1234,
+              False,
+              True,
+              0.1,
+              "std",
+              api_name="/generate3dv2",
+          )
+          print("RESULT:", repr(result))
+
+          items = list(result) if isinstance(result, (tuple, list)) else [result]
+          model = items[0]
+          path = model.get("path") if isinstance(model, dict) else str(model)
+          if not path:
+              raise RuntimeError(f"No model file returned: {result!r}")
+          p = Path(path)
+          if not p.exists():
+              raise RuntimeError(f"Returned model path missing: {p}")
+
+          target = out / ("evowild_s_unique3d" + (p.suffix or ".glb"))
+          shutil.copy2(p, target)
+          meta = {
+              "space": "Wuvin/Unique3D",
+              "endpoint": "/generate3dv2",
+              "source": str(src),
+              "prepared": str(prepared),
+              "remove_background": True,
+              "seed": 1234,
+              "render_video": False,
+              "refine": True,
+              "expansion_weight": 0.1,
+              "init_type": "std",
+              "output_file": target.name,
+              "output_bytes": target.stat().st_size,
+              "result_repr": repr(result)[:12000],
+          }
+          (out / "metadata.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
+          print("SAVED:", target, target.stat().st_size)
+          PY
+
+      - name: Upload result
+        uses: actions/upload-artifact@v4
+        with:
+          name: evowild-s-unique3d
+          path: hf-poc/output-unique3d/
+          if-no-files-found: error
