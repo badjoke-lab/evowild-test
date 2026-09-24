@@ -626,19 +626,24 @@ new ResizeObserver(resize).observe(canvas);
 resize();
 
 function animate(now){
-  const dt=Math.min(.05,(now-last)/1000);
-  last=now;
-  elapsed+=dt*1000;
+  try {
+    const dt=Math.min(.05,(now-last)/1000);
+    last=now;
+    elapsed+=dt*1000;
 
-  for(const r of racers){
-    updateRacer(r,dt);
-    placeRacer(r,elapsed);
+    for(const r of racers){
+      updateRacer(r,dt);
+      placeRacer(r,elapsed);
+    }
+    updateCamera(dt);
+    updateUI(now);
+
+    renderer.render(scene,camera);
+    requestAnimationFrame(animate);
+  } catch (error) {
+    host.dataset.runtimeError = String(error?.message || error);
+    console.error("ROADLAB_RUNTIME_ERROR", error);
   }
-  updateCamera(dt);
-  updateUI(now);
-
-  renderer.render(scene,camera);
-  requestAnimationFrame(animate);
 }
 
 requestAnimationFrame(now=>{
