@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EvoWild Run — Lane 5 Pseudo-3D Race</title>
+    <link rel="stylesheet" href="/src/race2_5d_v5.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="bar">
+        <div>
+          <p class="eyebrow">EvoWild Run / LANE 5</p>
+          <h1>Pseudo-3D Race Engine Test</h1>
+        </div>
+        <div class="controls">
+          <a href="./race-2_5d.html">Lane 2.5D</a>
+          <button id="pause" type="button">Pause</button>
+          <button id="reset" type="button">Reset</button>
+        </div>
+      </header>
+
+      <section class="race-wrap">
+        <canvas id="race" aria-label="EvoWild Run pseudo-3D race"></canvas>
+
+        <div class="hud hud-left">
+          <span class="hud-label">S-06 / MICA</span>
+          <strong id="speed">0 km/h</strong>
+          <span id="rank">1 / 12</span>
+        </div>
+
+        <div class="hud hud-right">
+          <span class="hud-label">RACE AGENT</span>
+          <strong id="command">BUILD</strong>
+          <span id="phase">START</span>
+        </div>
+
+        <div class="meter">
+          <span id="distance">0m</span>
+          <i><b id="progress"></b></i>
+          <span>1800m</span>
+        </div>
+
+        <div class="quality">
+          <span>pseudo-3D projection</span>
+          <span>curves + hills</span>
+          <span>speed-linked camera</span>
+          <span>S-only field</span>
+        </div>
+      </section>
+
+      <section class="readout">
+        <div><span>Road</span><b id="roadState">STRAIGHT</b></div>
+        <div><span>Stamina</span><b id="stamina">100</b></div>
+        <div><span>Gap</span><b id="gap">LEAD</b></div>
+        <div><span>FPS</span><b id="fps">--</b></div>
+      </section>
+    </main>
+
+    <script src="/vendor/javascript-racer/common.js"></script>
+    <script type="module" src="/src/race2_5d_v5.js"></script>
+  </body>
+</html>
