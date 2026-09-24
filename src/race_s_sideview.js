@@ -594,9 +594,9 @@ function render() {
   ctx.restore();
 
   // subtle speed vignette
-  const speedNorm=clamp(focus.speed/24.5,0,1);
-  if(speedNorm>.58){
-    const a=(speedNorm-.58)*.17;
+  const vignetteSpeed=clamp(focus.speed/24.5,0,1);
+  if(vignetteSpeed>.58){
+    const a=(vignetteSpeed-.58)*.17;
     const vg=ctx.createRadialGradient(width*.5,height*.55,height*.12,width*.5,height*.55,width*.78);
     vg.addColorStop(0,"rgba(0,0,0,0)");
     vg.addColorStop(1,`rgba(0,5,8,${a})`);
