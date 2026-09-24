@@ -22,7 +22,7 @@ const FIELD_SIZE=8;
 const SELECTED_ID=1;
 const RACE_METERS=1440;
 const WORLD_SCALE=.08;
-const ROAD_HALF=5.5;
+const ROAD_HALF=6.4;
 const LANES=[1,1,2,3,0,2,1,3];
 const CRUISE=[32.6,29.6,31.1,30.0,31.5,29.9,30.6,30.2];
 const ACCEL=[12.2,10.3,11.2,10.6,11.0,10.2,10.8,10.4];
@@ -71,8 +71,8 @@ const camera=new THREE.PerspectiveCamera(42,1,.1,160);
 camera.position.set(0,8,15);
 scene.add(camera);
 
-scene.add(new THREE.HemisphereLight(0xe7f3ff,0x22352a,1.35));
-const sun=new THREE.DirectionalLight(0xffefd0,2.0);
+scene.add(new THREE.HemisphereLight(0xe7f3ff,0x18231d,1.18));
+const sun=new THREE.DirectionalLight(0xffefd0,1.72);
 sun.position.set(26,34,18);
 scene.add(sun);
 const rim=new THREE.DirectionalLight(0x72cfff,.65);
@@ -145,9 +145,9 @@ function buildTrack(){
   geo.computeVertexNormals();
 
   const mat=new THREE.MeshStandardMaterial({
-    color:0x3b4247,
-    roughness:.92,
-    metalness:.03
+    color:0x242b30,
+    roughness:.80,
+    metalness:.09
   });
   const road=new THREE.Mesh(geo,mat);
   road.receiveShadow=false;
@@ -159,9 +159,9 @@ function buildTrack(){
     opacity:.28
   });
   const edgeMat=new THREE.LineBasicMaterial({
-    color:0xe0eaeb,
+    color:0x78def4,
     transparent:true,
-    opacity:.48
+    opacity:.80
   });
 
   function dashedOffset(offset,material,dash=8,gap=6){
@@ -186,64 +186,87 @@ buildTrack();
 
 const ground=new THREE.Mesh(
   new THREE.PlaneGeometry(RACE_METERS*WORLD_SCALE+45,120),
-  new THREE.MeshStandardMaterial({color:0x47613f,roughness:1})
+  new THREE.MeshStandardMaterial({color:0x314a38,roughness:1})
 );
 ground.rotation.x=-Math.PI/2;
 ground.position.set(RACE_METERS*WORLD_SCALE*.5,-2.7,0);
 scene.add(ground);
 
-function buildTrees(){
-  const count=92;
-  const trunkGeo=new THREE.CylinderGeometry(.12,.16,1.5,5);
-  const crownGeo=new THREE.ConeGeometry(.85,2.65,6);
-  const trunkMat=new THREE.MeshStandardMaterial({color:0x3b4638,roughness:1});
-  const crownMat=new THREE.MeshStandardMaterial({color:0x284b35,roughness:1});
-  const trunks=new THREE.InstancedMesh(trunkGeo,trunkMat,count);
-  const crowns=new THREE.InstancedMesh(crownGeo,crownMat,count);
+function buildTracksideStructures(){
+  const count=64;
+  const bodyGeo=new THREE.BoxGeometry(.54,3.4,1.05);
+  const lightGeo=new THREE.BoxGeometry(.58,.12,1.10);
+  const bodyMat=new THREE.MeshStandardMaterial({
+    color:0x182529,
+    roughness:.68,
+    metalness:.26
+  });
+  const lightMat=new THREE.MeshStandardMaterial({
+    color:0x65d7ef,
+    emissive:0x176579,
+    emissiveIntensity:1.65,
+    roughness:.35
+  });
+  const bodies=new THREE.InstancedMesh(bodyGeo,bodyMat,count);
+  const lights=new THREE.InstancedMesh(lightGeo,lightMat,count);
   const matrix=new THREE.Matrix4();
+  const quat=new THREE.Quaternion();
   const pos=new THREE.Vector3();
   const scale=new THREE.Vector3();
-  let idx=0;
 
   for(let i=0;i<count;i++){
-    const m=18+i*(RACE_METERS-36)/(count-1);
+    const m=30+i*(RACE_METERS-60)/(count-1);
     const p=trackPoint(m,new THREE.Vector3());
     const side=sideAt(m,new THREE.Vector3());
-    const seed=Math.abs(Math.sin(i*12.9898)*43758.5453)%1;
+    const seed=(Math.sin(i*17.371)*.5+.5);
     const sign=i%2===0?1:-1;
-    const offset=sign*(8.5+seed*9);
+    const offset=sign*(10.5+seed*7.5);
     pos.copy(p).addScaledVector(side,offset);
-    pos.y-=.25;
-    const size=.72+seed*.72;
-    scale.set(size,size,size);
-    matrix.compose(pos,new THREE.Quaternion(),scale);
-    trunks.setMatrixAt(idx,matrix);
-    pos.y+=1.95*size;
-    matrix.compose(pos,new THREE.Quaternion(),scale);
-    crowns.setMatrixAt(idx,matrix);
-    idx++;
+    const h=.70+seed*.85;
+    pos.y+=1.7*h-.35;
+    const yaw=Math.atan2(side.x,side.z)+(sign<0?Math.PI:0);
+    quat.setFromAxisAngle(up,yaw+.15*Math.sin(i*.7));
+    scale.set(1,h,1);
+    matrix.compose(pos,quat,scale);
+    bodies.setMatrixAt(i,matrix);
+
+    const capPos=pos.clone();
+    capPos.y+=1.63*h;
+    matrix.compose(capPos,quat,scale.set(1,1,1));
+    lights.setMatrixAt(i,matrix);
   }
-  scene.add(trunks,crowns);
+  scene.add(bodies,lights);
 }
-buildTrees();
+buildTracksideStructures();
 
 function buildFence(){
   const marks=[];
-  for(let m=0;m<=RACE_METERS;m+=14){
-    for(const sign of [-1,1]) marks.push([m,sign]);
+  for(let m=0;m<=RACE_METERS;m+=16){
+    for(const sign of [-1,1])marks.push([m,sign]);
   }
-  const geo=new THREE.BoxGeometry(.14,1.15,.14);
-  const mat=new THREE.MeshStandardMaterial({color:0xd5dfda,roughness:.8});
-  const mesh=new THREE.InstancedMesh(geo,mat,marks.length);
+  const postGeo=new THREE.BoxGeometry(.18,1.08,.18);
+  const capGeo=new THREE.BoxGeometry(.24,.10,.24);
+  const postMat=new THREE.MeshStandardMaterial({color:0x17262a,roughness:.72,metalness:.18});
+  const capMat=new THREE.MeshStandardMaterial({
+    color:0x76def2,
+    emissive:0x155a6c,
+    emissiveIntensity:1.45,
+    roughness:.38
+  });
+  const posts=new THREE.InstancedMesh(postGeo,postMat,marks.length);
+  const caps=new THREE.InstancedMesh(capGeo,capMat,marks.length);
   const matrix=new THREE.Matrix4();
   marks.forEach(([m,sign],i)=>{
     const p=trackPoint(m,new THREE.Vector3());
-    p.addScaledVector(sideAt(m,new THREE.Vector3()),sign*(ROAD_HALF+.65));
-    p.y+=.55;
+    p.addScaledVector(sideAt(m,new THREE.Vector3()),sign*(ROAD_HALF+.70));
+    p.y+=.53;
     matrix.makeTranslation(p.x,p.y,p.z);
-    mesh.setMatrixAt(i,matrix);
+    posts.setMatrixAt(i,matrix);
+    p.y+=.59;
+    matrix.makeTranslation(p.x,p.y,p.z);
+    caps.setMatrixAt(i,matrix);
   });
-  scene.add(mesh);
+  scene.add(posts,caps);
 }
 buildFence();
 
@@ -276,7 +299,7 @@ function makeRacers(){
   return Array.from({length:FIELD_SIZE},(_,i)=>({
     id:i+1,
     name:NAMES[i],
-    distance:i*4,
+    distance:i*5.2,
     speed:0,
     cruise:CRUISE[i],
     accel:ACCEL[i],
@@ -514,8 +537,8 @@ function updateVisuals(){
     r.visual.sprite.position.set(p.x,p.y+.42+flight*.14,p.z);
 
     r.shadow.position.set(p.x,p.y+.045,p.z);
-    const shadowScale=flight?1.0:1.35;
-    r.shadow.scale.set(1.55*shadowScale,.60*shadowScale,1);
+    const shadowScale=flight?.82:1.0;
+    r.shadow.scale.set(1.18*shadowScale,.42*shadowScale,1);
     r.shadow.material.opacity=.30-flight*.13;
 
     if(r.ring){
@@ -541,9 +564,9 @@ function updateCamera(){
 
   const mobile=innerWidth<700;
   const desired=p.clone()
-    .addScaledVector(side,mobile?11.4:13.2)
-    .addScaledVector(t,-2.6)
-    .add(new THREE.Vector3(0,mobile?6.2:7.0,0));
+    .addScaledVector(side,mobile?11.2:12.4)
+    .addScaledVector(t,-3.8)
+    .add(new THREE.Vector3(0,mobile?5.3:5.5,0));
 
   const speedNorm=clamp(focus.speed/31.5,0,1);
   const shake=(speedNorm>.72?(speedNorm-.72)*.09:0);
@@ -552,11 +575,11 @@ function updateCamera(){
 
   camera.position.lerp(desired,mobile?.14:.10);
 
-  const look=p.clone().addScaledVector(t,4.2).add(new THREE.Vector3(0,1.0,0));
+  const look=p.clone().addScaledVector(t,5.4).add(new THREE.Vector3(0,.82,0));
   cameraLook.lerp(look,.12);
   camera.lookAt(cameraLook);
 
-  const targetFov=(mobile?45:40)+speedNorm*5;
+  const targetFov=(mobile?43:38)+speedNorm*4.2;
   camera.fov=lerp(camera.fov,targetFov,.08);
   camera.updateProjectionMatrix();
 
