@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EvoWild Run — Lane 4 Pseudo-3D Proof</title>
+    <link rel="stylesheet" href="/src/race2_5d_lane4.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="mast">
+        <div>
+          <p class="kicker">EVOWILD RUN / 2.5D PROOF / LANE 4</p>
+          <h1>Pseudo-3D Race Engine</h1>
+          <p class="lede">S型だけで、道路投影・カーブ・丘・奥行き・疾走感を先に成立させる独立レーン。</p>
+        </div>
+        <div class="controls">
+          <button id="pause" type="button">PAUSE</button>
+          <button id="reset" type="button">RESET</button>
+        </div>
+      </header>
+
+      <section class="race-wrap">
+        <div class="viewport" id="stage" data-lane4="booting" data-s-sheet="loading">
+          <canvas id="race" aria-label="Lane 4 pseudo-3D race"></canvas>
+
+          <div class="hud hud-left">
+            <span class="hud-label">RIDGE CIRCUIT</span>
+            <strong id="distance">0000 m</strong>
+          </div>
+
+          <div class="hud hud-right">
+            <span class="hud-label">S / SPRINTER</span>
+            <strong><span id="speed">0.0</span> m/s</strong>
+          </div>
+
+          <div class="agent">
+            <span>RACE AGENT</span>
+            <strong id="command">BUILD SPEED</strong>
+            <small id="reason">Launch phase</small>
+          </div>
+
+          <div class="rank">
+            <span>POSITION</span>
+            <strong id="rank">— / 10</strong>
+          </div>
+
+          <div class="quality">
+            <span id="engineState">pseudo-3D projection</span>
+            <span id="assetState">loading S run sheet</span>
+          </div>
+
+          <div class="speed-vignette"></div>
+        </div>
+
+        <aside class="side">
+          <section>
+            <p class="eyebrow">LANE 4 RULE</p>
+            <h2>S only.</h2>
+            <p>No P / E / A. This lane tests whether a borrowed, proven pseudo-3D road technique plus the existing S run cycle can clear the visual floor.</p>
+          </section>
+
+          <section>
+            <p class="eyebrow">LIVE STATE</p>
+            <dl>
+              <div><dt>Phase</dt><dd id="phase">START</dd></div>
+              <div><dt>Stamina</dt><dd id="stamina">100</dd></div>
+              <div><dt>Road</dt><dd id="roadState">STRAIGHT</dd></div>
+              <div><dt>Frame</dt><dd id="frameState">0 / 6</dd></div>
+            </dl>
+          </section>
+
+          <section class="note">
+            <p class="eyebrow">SOURCE POLICY</p>
+            <p>Road projection follows the MIT-licensed pseudo-3D technique popularized by Jake Gordon's JavaScript Racer. No OutRun artwork, music, or other copyrighted game assets are included.</p>
+          </section>
+        </aside>
+      </section>
+    </main>
+
+    <script type="module" src="/src/race2_5d_lane4.js"></script>
+  </body>
+</html>
