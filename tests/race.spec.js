@@ -849,3 +849,28 @@ test("capture styled Hunyuan prototype in Morph Lab and Race", async ({ page }, 
     path: `${outDir}/hunyuan-styled-race.png`
   });
 });
+
+
+test("capture Hunyuan LOD4 final views", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(45000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  for (const yaw of [180, 270]) {
+    const params = new URLSearchParams({
+      sf3dVariant: "hunyuanlod4",
+      modelYaw: String(yaw)
+    });
+    await page.goto(`/evowild-test/?${params.toString()}`, { waitUntil: "networkidle" });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
+    await expect(page.locator("#stage")).toHaveAttribute("data-model-yaw", String(yaw), { timeout: 20000 });
+    await page.getByRole("button", { name: "1 Morph" }).click();
+    await expect(page.locator("#viewLabel")).toHaveText("MORPH LAB");
+    await page.waitForTimeout(250);
+    await page.locator("#stage").screenshot({
+      path: `${outDir}/hunyuan4-lod4-yaw${yaw}.png`
+    });
+  }
+});
