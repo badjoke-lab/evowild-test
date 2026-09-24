@@ -10,7 +10,7 @@ type RacerVisual = {
   action: THREE.AnimationAction | null;
 };
 
-const MODEL_URL = `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-rigged.glb`;
+const MODEL_URL = `${(import.meta as any).env.BASE_URL}models/evowild-s-hunyuan2mv-rigged.glb`;
 const TARGET_HEIGHT = 1.42;
 
 function hideKartGeometry(kart: IKart) {
