@@ -25,14 +25,14 @@ const lerp = (a, b, t) => a + (b - a) * t;
 const smooth = t => t * t * (3 - 2 * t);
 
 const PHASES = [
-  // Frame order is chosen by the actual leg pose, not by sprite-sheet position.
-  // This gives the cycle a readable load -> push -> recovery -> flight -> reach -> land sequence.
-  { name:"CONTACT",  col:2, row:1, duration:64,  lift:0,  pitch:2.0,  x:-2, scaleX:.995, scaleY:1.01 },
-  { name:"PUSH",     col:0, row:0, duration:82,  lift:0,  pitch:-.8,  x:1,  scaleX:1.018, scaleY:.995 },
-  { name:"RECOVERY", col:1, row:0, duration:80,  lift:10, pitch:-2.2, x:4,  scaleX:1.025, scaleY:.985 },
-  { name:"FLIGHT",   col:0, row:1, duration:110, lift:28, pitch:-1.4, x:8,  scaleX:1.038, scaleY:.98 },
-  { name:"REACH",    col:2, row:0, duration:90,  lift:14, pitch:.7,   x:5,  scaleX:1.025, scaleY:.99 },
-  { name:"LAND",     col:1, row:1, duration:72,  lift:0,  pitch:2.6,  x:0,  scaleX:1.0,   scaleY:1.01 }
+  // Use the six complete-body poses in biomechanical order:
+  // load/contact -> maximal extension -> tuck -> airborne extension -> reach -> land.
+  { name:"CONTACT",  col:1, row:1, duration:62,  lift:0,  pitch:3.2,  x:-4, scaleX:.975, scaleY:1.035 },
+  { name:"PUSH",     col:1, row:0, duration:76,  lift:1,  pitch:-2.8, x:3,  scaleX:1.060, scaleY:.965 },
+  { name:"RECOVERY", col:0, row:1, duration:76,  lift:13, pitch:-1.6, x:5,  scaleX:1.010, scaleY:.985 },
+  { name:"FLIGHT",   col:2, row:0, duration:102, lift:30, pitch:-1.1, x:9,  scaleX:1.045, scaleY:.975 },
+  { name:"REACH",    col:0, row:0, duration:82,  lift:12, pitch:.9,   x:5,  scaleX:1.018, scaleY:.995 },
+  { name:"LAND",     col:2, row:1, duration:66,  lift:0,  pitch:3.0,  x:0,  scaleX:.990, scaleY:1.020 }
 ];
 const CYCLE_MS = PHASES.reduce((sum, p) => sum + p.duration, 0);
 
@@ -320,6 +320,7 @@ function renderCreature(state) {
   stage.dataset.motionPhase = phase.name;
   stage.dataset.phaseProgress = t.toFixed(3);
   stage.dataset.frameIndex = String(index);
+  stage.dataset.poseCell = phase.col + "," + phase.row;
   stage.dataset.flight = phase.name === "RECOVERY" || phase.name === "FLIGHT" || phase.name === "REACH" ? "true" : "false";
   stage.dataset.groundAnchorY = groundY.toFixed(1);
   stage.dataset.spriteBottomY = (draw.y + draw.drawH).toFixed(1);
