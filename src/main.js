@@ -2180,7 +2180,14 @@ function update(dt) {
     const position = rankOf(r);
     const policy = r.agent.policy;
     const compatibility = compatibilityFor(r);
-    let target = morphTarget(r) * compatibility;
+    const baseTarget = morphTarget(r);
+    let target = baseTarget * compatibility;
+
+    if (r.id === selectedId) {
+      stage.dataset.agentCompatibilityFactor = compatibility.toFixed(3);
+      stage.dataset.agentBaseTarget = baseTarget.toFixed(4);
+      stage.dataset.agentCompatibleTarget = target.toFixed(4);
+    }
 
     if (currentPhase === "START") target *= policy.startBias;
     else if (currentPhase === "MID") target *= policy.midBias;

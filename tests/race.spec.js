@@ -323,6 +323,13 @@ test("race reaches results and rematch returns to countdown", async ({ page }, t
   await expect(page.locator("#resultDecisions")).not.toHaveText("0");
   await expect(page.locator("#resultCompatibility")).toContainText("%");
   await expect(page.locator("#stage")).toHaveAttribute("data-result-agent-compatibility", /\d+/, { timeout: 3000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-compatibility-factor", "1.000");
+  const balancedTargets = await page.locator("#stage").evaluate((stage) => ({
+    base: Number(stage.dataset.agentBaseTarget),
+    compatible: Number(stage.dataset.agentCompatibleTarget)
+  }));
+  expect(balancedTargets.base).toBeGreaterThan(0);
+  expect(balancedTargets.compatible).toBeCloseTo(balancedTargets.base, 3);
   await expect(page.locator("#resultFinalFatigue")).toContainText("%");
   await expect(page.locator("#resultAgentRecord")).toContainText("Race history 1");
   const outDir = "test-results/visuals";
@@ -358,5 +365,13 @@ test("race reaches results and rematch returns to countdown", async ({ page }, t
   await expect(page.locator("#agentProfile")).toHaveText("PRESSURE");
   await expect(page.locator("#agentCompatibility")).toHaveText("103%");
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-compatibility", "103");
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-compatibility-factor", "1.030", { timeout: 8000 });
+  const pressureTargets = await page.locator("#stage").evaluate((stage) => ({
+    base: Number(stage.dataset.agentBaseTarget),
+    compatible: Number(stage.dataset.agentCompatibleTarget)
+  }));
+  expect(pressureTargets.base).toBeGreaterThan(0);
+  expect(pressureTargets.compatible).toBeGreaterThan(pressureTargets.base);
+  expect(pressureTargets.compatible / pressureTargets.base).toBeCloseTo(1.03, 2);
   await expect(page.locator("#agentIdentity")).toContainText("/ v2");
 });
