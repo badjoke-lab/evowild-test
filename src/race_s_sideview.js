@@ -293,13 +293,22 @@ function renderCreature(state) {
 
   // Keep the whole-body image crisp, but interpolate its center of mass between
   // pose changes so the body does not snap when the sprite frame changes.
-  const motion = {
-    lift: lerp(phase.lift, next.lift, moveT),
-    pitch: lerp(phase.pitch, next.pitch, moveT),
-    x: lerp(phase.x, next.x, moveT),
-    scaleX: lerp(phase.scaleX, next.scaleX, moveT),
-    scaleY: lerp(phase.scaleY, next.scaleY, moveT)
-  };
+  const grounded = phase.name === "CONTACT" || phase.name === "LAND";
+  const motion = grounded
+    ? {
+        lift: 0,
+        pitch: 0,
+        x: phase.x,
+        scaleX: phase.scaleX,
+        scaleY: phase.scaleY
+      }
+    : {
+        lift: lerp(phase.lift, next.lift, moveT),
+        pitch: lerp(phase.pitch, next.pitch, moveT),
+        x: lerp(phase.x, next.x, moveT),
+        scaleX: lerp(phase.scaleX, next.scaleX, moveT),
+        scaleY: lerp(phase.scaleY, next.scaleY, moveT)
+      };
 
   const targetCreatureW = clamp(
     Math.min(width * .54, height * .78),
