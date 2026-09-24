@@ -2392,23 +2392,6 @@ function update(dt) {
       const phaseOffset = (r.id * 47) % Math.round(frameMs * nonSRunFrames.length);
       const frameIndex = Math.floor((elapsed + phaseOffset) / frameMs) % nonSRunFrames.length;
       applyNonSRunFrame(r, frameIndex);
-    } else if (r.obj.userData.pCutoutRig) {
-      const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
-      const frameMs = THREE.MathUtils.lerp(160, 86, speedRatio);
-      const frameIndex = Math.floor((elapsed + r.id * 37) / frameMs) % 6;
-      applyPCutoutRigMotion(r, frameIndex);
-    } else if (r.obj.userData.eCutoutRig) {
-      const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
-      const frameMs = THREE.MathUtils.lerp(176, 94, speedRatio);
-      const frameIndex = Math.floor((elapsed + r.id * 43) / frameMs) % 6;
-      applyECutoutRigMotion(r, frameIndex);
-    } else if (staticMotionProfile[r.morph]) {
-      const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
-      const profile = staticMotionProfile[r.morph];
-      const frameMs = THREE.MathUtils.lerp(165, 88, speedRatio) / profile.rate;
-      const phaseOffset = (r.id * 53) % Math.round(frameMs * staticMotionFrames.length);
-      const frameIndex = Math.floor((elapsed + phaseOffset) / frameMs) % staticMotionFrames.length;
-      applyStaticSpriteMotion(r, frameIndex);
     }
 
     r.dustTimer = Math.max(0, (r.dustTimer ?? 0) - raceDt);
@@ -2429,9 +2412,6 @@ function update(dt) {
       stage.dataset.finishCount = String(finishOrder.length);
       if (r.obj.userData.sRunAnimated) applySRunFrame(r, 5);
       else if (r.obj.userData.nonSRunAnimated) applyNonSRunFrame(r, 5);
-      else if (r.obj.userData.pCutoutRig) applyPCutoutRigMotion(r, 5);
-      else if (r.obj.userData.eCutoutRig) applyECutoutRigMotion(r, 5);
-      else if (staticMotionProfile[r.morph]) applyStaticSpriteMotion(r, 5);
     }
   }
 
