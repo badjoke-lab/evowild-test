@@ -35,8 +35,8 @@ const COLORS = {
   grassB: "#6c8663",
   shoulderA: "#233d45",
   shoulderB: "#9acfd1",
-  roadA: "#9e6b52",
-  roadB: "#a06d54",
+  roadA: "#9f6b52",
+  roadB: "#9f6b52",
   lane: "rgba(226,238,229,.58)",
   fog: "#8ba6a0",
   rail: "#17333d",
@@ -271,34 +271,97 @@ function renderSegment(seg, n) {
   }
 }
 
+function drawTreeSprite(x, y, h, side) {
+  const trunkW = Math.max(2 * DPR, h * 0.055);
+  ctx.fillStyle = "#30483b";
+  ctx.fillRect(x - trunkW / 2, y - h * 0.46, trunkW, h * 0.46);
+
+  const layers = [
+    [0.98, 0.58, "#315a46"],
+    [0.76, 0.48, "#3b684f"],
+    [0.55, 0.38, "#46765a"]
+  ];
+  for (let i = 0; i < layers.length; i++) {
+    const layer = layers[i];
+    const yy = y - h * (0.34 + i * 0.20);
+    const half = h * layer[1] * 0.34;
+    ctx.fillStyle = layer[2];
+    ctx.beginPath();
+    ctx.moveTo(x, yy - h * 0.30);
+    ctx.lineTo(x - half, yy + h * 0.18);
+    ctx.lineTo(x + half, yy + h * 0.18);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  if (h > 95 * DPR) {
+    ctx.strokeStyle = "rgba(105,215,224,.15)";
+    ctx.lineWidth = Math.max(1, h * 0.012);
+    ctx.beginPath();
+    ctx.moveTo(x + side * h * 0.03, y - h * 0.88);
+    ctx.lineTo(x + side * h * 0.12, y - h * 0.42);
+    ctx.stroke();
+  }
+}
+
+function drawTrackBoard(x, y, w, h, side) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.fillStyle = "rgba(20,47,57,.92)";
+  ctx.fillRect(-w / 2, -h, w, h);
+  ctx.fillStyle = "rgba(106,216,225,.88)";
+  ctx.fillRect(-w / 2, -h, w, Math.max(2 * DPR, h * 0.09));
+  ctx.fillStyle = "rgba(222,235,228,.48)";
+  ctx.fillRect(-w * 0.28, -h * 0.56, w * 0.56, Math.max(2 * DPR, h * 0.08));
+  ctx.restore();
+}
+
 function drawTrackside(seg, n) {
-  if (n < 5 || n > 120 || seg.index % 7 !== 0) return;
+  if (n < 4 || n > 135) return;
   const p = seg.p1.screen;
   if (!seg.visible || p.scale <= 0) return;
 
-  const poleH = clamp(p.scale * 185000, 4, H * 0.30);
-  const poleW = clamp(poleH * 0.055, 1.4, 8 * DPR);
   const outward = p.w + clamp(p.w * 0.20, 12, 170);
-  const sides = seg.index % 14 === 0 ? [-1, 1] : [seg.index % 2 ? 1 : -1];
 
-  for (const side of sides) {
-    const x = p.x + outward * side;
-    const y = p.y;
-    ctx.fillStyle = COLORS.rail;
-    ctx.fillRect(x - poleW / 2, y - poleH, poleW, poleH);
+  if (seg.index % 7 === 0) {
+    const poleH = clamp(p.scale * 185000, 4, H * 0.30);
+    const poleW = clamp(poleH * 0.055, 1.4, 8 * DPR);
+    const sides = seg.index % 14 === 0 ? [-1, 1] : [seg.index % 2 ? 1 : -1];
 
-    ctx.fillStyle = COLORS.railGlow;
-    const glow = Math.max(2.4 * DPR, poleW * 1.6);
-    ctx.fillRect(x - glow / 2, y - poleH, glow, Math.max(2 * DPR, poleH * 0.08));
+    for (const side of sides) {
+      const x = p.x + outward * side;
+      const y = p.y;
+      ctx.fillStyle = COLORS.rail;
+      ctx.fillRect(x - poleW / 2, y - poleH, poleW, poleH);
 
-    if (n < 42) {
-      ctx.strokeStyle = "rgba(107,216,225," + (0.10 + (1 - n / 42) * 0.22) + ")";
-      ctx.lineWidth = Math.max(1, poleW * 0.35);
-      ctx.beginPath();
-      ctx.moveTo(x, y);
-      ctx.lineTo(x + side * clamp(p.w * 0.42, 25, 210), y + clamp(poleH * 0.22, 5, 24));
-      ctx.stroke();
+      ctx.fillStyle = COLORS.railGlow;
+      const glow = Math.max(2.4 * DPR, poleW * 1.6);
+      ctx.fillRect(x - glow / 2, y - poleH, glow, Math.max(2 * DPR, poleH * 0.08));
+
+      if (n < 42) {
+        ctx.strokeStyle = "rgba(107,216,225," + (0.10 + (1 - n / 42) * 0.22) + ")";
+        ctx.lineWidth = Math.max(1, poleW * 0.35);
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + side * clamp(p.w * 0.42, 25, 210), y + clamp(poleH * 0.22, 5, 24));
+        ctx.stroke();
+      }
     }
+  }
+
+  if (seg.index % 13 === 0 && n > 8) {
+    const side = seg.index % 26 === 0 ? -1 : 1;
+    const h = clamp(p.scale * 460000, 18 * DPR, H * 0.44);
+    const x = p.x + side * (outward + clamp(p.w * 0.42, 16, 240));
+    drawTreeSprite(x, p.y, h, side);
+  }
+
+  if (seg.index % 41 === 0 && n > 10 && n < 95) {
+    const side = seg.index % 82 === 0 ? 1 : -1;
+    const h = clamp(p.scale * 210000, 12 * DPR, H * 0.20);
+    const w = h * 1.28;
+    const x = p.x + side * (outward + clamp(p.w * 0.24, 12, 140));
+    drawTrackBoard(x, p.y, w, h, side);
   }
 }
 
@@ -442,7 +505,7 @@ function renderWorld(ts) {
     project(seg.p2, -620, playerY + CAMERA_HEIGHT, cameraBase, x + dx, n + 1);
 
     x += dx;
-    dx += seg.curve * 0.025;
+    dx += seg.curve * 0.72;
 
     seg.visible = false;
     if (
@@ -500,7 +563,7 @@ function renderWorld(ts) {
   canvas.dataset.renderer = "pseudo3d-segment-projection";
   canvas.dataset.field = "s-only-5";
   canvas.dataset.speed = String(Math.round(speed));
-  canvas.dataset.proofVersion = "v2";
+  canvas.dataset.proofVersion = "v3";
 }
 
 function frame(ts) {
