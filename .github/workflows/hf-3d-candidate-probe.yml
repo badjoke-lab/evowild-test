@@ -1,0 +1,65 @@
+name: HF 3D candidate API probe
+
+on:
+  push:
+    branches:
+      - test/hf-sf3d-retry-20260921
+    paths:
+      - ".github/workflows/hf-3d-candidate-probe.yml"
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Gradio client
+        run: pip install --quiet "gradio_client>=1.10,<2"
+
+      - name: Probe candidate APIs
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          python - <<'PY'
+          import inspect, json, os
+          from pathlib import Path
+          from gradio_client import Client
+
+          token = os.environ.get("HF_TOKEN")
+          params = inspect.signature(Client).parameters
+          auth_kw = {"token": token} if "token" in params else {"hf_token": token}
+          candidates = [
+              "Wuvin/Unique3D",
+              "TencentARC/Pixal3D",
+              "Stable-X/Hi3DGen",
+              "ilcve21/Sparc3D",
+              "VAST-AI/TripoSG",
+          ]
+          out = Path("hf-poc/candidate-api")
+          out.mkdir(parents=True, exist_ok=True)
+          summary = {}
+          for space in candidates:
+              try:
+                  print("SPACE:", space)
+                  client = Client(space, **auth_kw)
+                  api = client.view_api(return_format="dict")
+                  summary[space] = {"ok": True, "api": api}
+                  safe = space.replace("/", "__")
+                  (out / f"{safe}.json").write_text(json.dumps(api, indent=2, default=str), encoding="utf-8")
+                  print("SUCCESS:", space, list(api.get("named_endpoints", {}).keys()))
+              except Exception as exc:
+                  summary[space] = {"ok": False, "error": repr(exc)}
+                  print("ERROR:", space, repr(exc))
+          (out / "summary.json").write_text(json.dumps(summary, indent=2, default=str), encoding="utf-8")
+          PY
+
+      - name: Upload schemas
+        uses: actions/upload-artifact@v4
+        with:
+          name: hf-3d-candidate-api
+          path: hf-poc/candidate-api/
