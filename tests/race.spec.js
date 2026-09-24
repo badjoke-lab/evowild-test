@@ -75,3 +75,26 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
     await page.locator("#stage").screenshot({ path: `${outDir}/android-${name}.png` });
   }
 });
+
+
+test("lane 4 v2 runs vendored upstream race engine", async ({ page }, testInfo) => {
+  const errors = [];
+  page.on("pageerror", (err) => errors.push(err.stack || String(err)));
+  page.on("console", (msg) => { if (msg.type() === "error") errors.push(msg.text()); });
+
+  await page.goto("/evowild-test/race-2_5d-lane4.html", { waitUntil: "networkidle" });
+  await expect(page.locator("#lane4-status")).toHaveAttribute("data-upstream", "running", { timeout: 10000 });
+
+  const first = Number(await page.locator("#lane4-status").getAttribute("data-base-z"));
+  await page.waitForTimeout(1800);
+  const second = Number(await page.locator("#lane4-status").getAttribute("data-base-z"));
+
+  expect(second).toBeGreaterThan(first);
+  expect(errors, errors.join("\n")).toEqual([]);
+  await expect(page.locator("canvas")).toBeVisible();
+
+  if (testInfo.project.name === "android-chromium") {
+    fs.mkdirSync("test-results/visuals", { recursive: true });
+    await page.screenshot({ path: "test-results/visuals/android-lane4-upstream-v2.png", fullPage: true });
+  }
+});
