@@ -53,21 +53,11 @@ jobs:
           auth_kw = {"token": token} if "token" in params else {"hf_token": token}
           client = Client("VAST-AI/TripoSG", **auth_kw)
 
-          segmented = client.predict(
-              handle_file(str(cleaned)),
-              api_name="/run_segmentation",
-          )
-          print("SEGMENTATION:", repr(segmented))
-
-          seg_path = segmented.get("path") if isinstance(segmented, dict) else str(segmented)
-          if not seg_path or not Path(seg_path).exists():
-              raise RuntimeError(f"Segmentation file unavailable: {segmented!r}")
-
-          seg_copy = out / Path(seg_path).name
-          shutil.copy2(seg_path, seg_copy)
-
+          # The source artwork already has a clean white background and the
+          # Space segmentation endpoint currently throws RuntimeError. Feed the
+          # cleaned reference directly into the independent shape endpoint.
           mesh = client.predict(
-              handle_file(seg_path),
+              handle_file(str(cleaned)),
               1234,
               50,
               7.0,
@@ -88,7 +78,7 @@ jobs:
               "space": "VAST-AI/TripoSG",
               "endpoint": "/image_to_3d",
               "source": str(src),
-              "preprocess": "erase left 30 percent contamination then Space segmentation",
+              "preprocess": "erase left 30 percent contamination; direct white-background input",
               "seed": 1234,
               "num_inference_steps": 50,
               "guidance_scale": 7.0,
