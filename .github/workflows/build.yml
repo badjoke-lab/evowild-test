@@ -78,9 +78,9 @@ jobs:
           cp "$triposr3q_meta" public/models/evowild-s-triposr-3q.json
 
           mkdir -p /tmp/hunyuan2mv
-          gh api repos/${{ github.repository }}/actions/artifacts/10622078621/zip > /tmp/hunyuan2mv.zip
+          gh api repos/${{ github.repository }}/actions/artifacts/10786733746/zip > /tmp/hunyuan2mv.zip
           unzip -q /tmp/hunyuan2mv.zip -d /tmp/hunyuan2mv
-          hunyuan_glb="$(find /tmp/hunyuan2mv -name 'evowild_s_hunyuan3d2mv.glb' -print -quit)"
+          hunyuan_glb="$(find /tmp/hunyuan2mv -name '*.glb' -print -quit)"
           hunyuan_meta="$(find /tmp/hunyuan2mv -name 'metadata.json' -print -quit)"
           test -n "$hunyuan_glb"
           test -n "$hunyuan_meta"
