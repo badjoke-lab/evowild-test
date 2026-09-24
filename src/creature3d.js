@@ -136,6 +136,54 @@ export const CREATURE_3D_PROFILES = {
       "This is not an AI-generated source-fidelity texture and is not final art."
     ]
   },
+  sHunyuan2mvStyledLod3: {
+    id: "s-hunyuan2mv-styled-lod3",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-lod3.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.18,
+      minRoughness: 0.58,
+      side: "double",
+      preserveBaseColorMap: false,
+      preserveNormalMap: false,
+      preserveRoughnessMap: false,
+      preserveMetalnessMap: false,
+      maxAnisotropy: 1,
+      prototypeVertexPalette: true
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "prototype_material_lod",
+    notes: ["Styled semantic Hunyuan mid-distance race LOD; prototype material only."]
+  },
+  sHunyuan2mvStyledLod4: {
+    id: "s-hunyuan2mv-styled-lod4",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-lod4.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.12,
+      minRoughness: 0.64,
+      side: "double",
+      preserveBaseColorMap: false,
+      preserveNormalMap: false,
+      preserveRoughnessMap: false,
+      preserveMetalnessMap: false,
+      maxAnisotropy: 1,
+      prototypeVertexPalette: true
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "prototype_material_lod",
+    notes: ["Styled semantic Hunyuan far-distance race LOD; prototype material only."]
+  },
   sHunyuan2mvLod3: {
     id: "s-hunyuan2mv-lod3",
     morph: "S",
