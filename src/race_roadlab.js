@@ -206,6 +206,31 @@ function trackFrame(u) {
   return { center, tangent, side, bank };
 }
 
+const availableRunDirections = new Set(["side"]);
+const missingRunDirections = ["front_3q","front","back_3q","back"];
+host.dataset.directionSet = "side-only";
+host.dataset.missingDirections = missingRunDirections.join(",");
+
+function requiredDirectionForView(tangent, racerPosition) {
+  const toCamera = camera.position.clone().sub(racerPosition);
+  toCamera.y = 0;
+  if (toCamera.lengthSq() < 0.0001) return "side";
+  toCamera.normalize();
+
+  const forward = tangent.clone();
+  forward.y = 0;
+  forward.normalize();
+
+  const dot = clamp(forward.dot(toCamera), -1, 1);
+  const absDot = Math.abs(dot);
+
+  // side: camera within ±22.5° of a true side-on view.
+  if (absDot <= 0.383) return "side";
+  // diagonal: between side and head/tail-on.
+  if (absDot <= 0.924) return dot < 0 ? "front_3q" : "back_3q";
+  return dot < 0 ? "front" : "back";
+}
+
 function buildRibbon(width, yLift, material, lateralCenter = 0) {
   const positions = [];
   const uvs = [];
@@ -536,14 +561,15 @@ function createRacers(baseTexture) {
       shadow,
       marker,
       texture:tex,
-      frame:-1
+      frame:-1,
+      requiredDirection:"side"
     });
   }
   host.dataset.state = "ready";
 }
 
 textureLoader.load(
-  BASE + "concept/s-run-sheet.svg",
+  BASE + "concept/s-side-run-sheet.svg",
   (tex)=>{
     tex.colorSpace = THREE.SRGBColorSpace;
     tex.minFilter = THREE.LinearFilter;
@@ -598,6 +624,12 @@ function placeRacer(r, elapsedMs) {
   const p = center.clone().addScaledVector(side,lateral);
   p.y += 2.7 + bank*lateral;
   r.sprite.position.copy(p);
+
+  const requiredDirection = requiredDirectionForView(trackFrame(u).tangent, p);
+  r.requiredDirection = requiredDirection;
+  r.sprite.visible = availableRunDirections.has(requiredDirection);
+  r.shadow.visible = r.sprite.visible;
+  r.marker.visible = r.id === SELECTED_ID && r.sprite.visible;
 
   const frameMs = 94 - clamp((r.speed-r.baseSpeed)*2.4,-10,12);
   const frame = Math.floor((elapsedMs+r.id*43)/frameMs)%6;
@@ -697,6 +729,8 @@ function updateUI(now){
   host.dataset.running="true";
   host.dataset.frame=String(me.frame);
   host.dataset.renderer="webgl-3d-course-2d-creatures";
+  host.dataset.selectedDirection=me.requiredDirection || "side";
+  host.dataset.directionReady=availableRunDirections.has(me.requiredDirection || "side") ? "true" : "false";
 
   if(now-lastBoardPaint>150){
     lastBoardPaint=now;
