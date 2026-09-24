@@ -162,16 +162,18 @@ button { font: inherit; }
 
 @media (max-width: 700px) {
   .stage { min-height: 420px; }
-  .top { top: 9px; left: 10px; right: 10px; }
-  .eyebrow { font-size: 8px; }
-  .top strong { font-size: 16px; }
-  .readout { gap: 5px; padding: 6px 7px; }
-  .readout b { font-size: 28px; }
-  .readout span { font-size: 10px; }
-  .agent { top: 72px; left: 10px; min-width: 150px; padding: 7px 8px; }
-  .agent strong { font-size: 12px; }
-  .controls { top: 72px; right: 10px; }
-  .controls button { padding: 6px 8px; font-size: 11px; }
+  .top { top: 7px; left: 9px; right: 9px; }
+  .eyebrow { font-size: 7px; letter-spacing: .09em; }
+  .top strong { font-size: 13px; }
+  .readout { gap: 4px; padding: 5px 6px; border-radius: 8px; }
+  .readout b { font-size: 23px; }
+  .readout span { font-size: 9px; }
+  .readout small { font-size: 7px; }
+  .agent { top: 57px; left: 9px; min-width: 132px; padding: 6px 7px; }
+  .agent strong { font-size: 11px; }
+  .agent small { font-size: 9px; }
+  .controls { top: 57px; right: 9px; }
+  .controls button { padding: 5px 7px; font-size: 10px; }
   .bottom { left: 10px; right: 10px; bottom: max(9px, env(safe-area-inset-bottom)); }
   .ranking { gap: 3px; }
   .ranking span { padding: 4px 5px; font-size: 8px; }
