@@ -14,3 +14,11 @@ Policy for EvoWild Run Lane 4:
 - environmental graphics in Lane 4 are procedural canvas graphics made in this repository
 
 This file exists so the source boundary is explicit.
+
+
+Second MIT donor:
+- Srdjan Susnic, "Pseudo-3d-Racer"
+- Repository: https://github.com/ssusnic/Pseudo-3d-Racer
+- License: MIT (Copyright 2021 Srdjan Susnic)
+- Lane 4 adapts code-level road-rendering proportions from `source/part2/circuit.js`, especially the pseudo-3D projection / clipped segment renderer and the road-width ratios used for rumble strips and lane markers.
+- No image assets from that repository are imported into EvoWild Run in this lane.
