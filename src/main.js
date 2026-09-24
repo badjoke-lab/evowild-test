@@ -414,7 +414,7 @@ function buildTrack() {
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
-  stage.dataset.trackPresentation = "v9";
+  stage.dataset.trackPresentation = "v12";
 }
 buildTrack();
 
@@ -556,6 +556,7 @@ const canopy = new THREE.Mesh(new THREE.BoxGeometry(16.8, 0.22, 2.15), standMat)
 canopy.position.set(0, 2.35, 2.15);
 canopy.rotation.x = -0.12;
 standGroup.add(canopy);
+standGroup.visible = false;
 scene.add(standGroup);
 
 function buildOuterStadium() {
@@ -626,7 +627,8 @@ function buildOuterStadium() {
 
   // v11: no tall trackside banner poles in the cinematic camera corridor.
 }
-buildOuterStadium();
+// v12: keep grandstands out of the camera corridor until safe placement is proven.
+// buildOuterStadium();
 
 function buildArenaBowl() {
   const samples = isMobile ? 96 : 144;
@@ -2610,7 +2612,7 @@ function updateConceptReadyState() {
   if (conceptReady.size === 4) {
     stage.dataset.conceptMorphs = "loaded";
     stage.dataset.race2p5d = "loaded";
-    stage.dataset.nonSRunMotion = "generated-pose-sheets";
+    stage.dataset.nonSRunMotion = "articulated-cutout-rigs";
   }
 }
 
@@ -2646,11 +2648,9 @@ for (const morph of ["S", "P", "E", "A"]) {
         racer.obj.add(raceSprite);
         racer.obj.userData.raceSprite = raceSprite;
         if (morph === "S") installSRunSpriteFor(racer);
-      }
-
-      if (morph !== "S") {
-        const runTexture = generateRunSheetTexture(morph, texture);
-        racers.filter((r) => r.morph === morph).forEach((r) => installGeneratedRunFor(r, morph, runTexture));
+        else if (morph === "P") installPCutoutRigFor(racer, texture);
+        else if (morph === "E") installECutoutRigFor(racer, texture);
+        else if (morph === "A") installACutoutRigFor(racer, texture);
       }
 
       const material = new THREE.SpriteMaterial({
@@ -3048,13 +3048,21 @@ function update(dt) {
       const phaseOffset = (r.id * 41) % Math.round(frameMs * sRunFrames.length);
       const frameIndex = Math.floor((elapsed + phaseOffset) / frameMs) % sRunFrames.length;
       applySRunFrame(r, frameIndex);
-    } else if (r.obj.userData.generatedRunAnimated) {
+    } else if (r.obj.userData.pCutoutRig) {
       const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
-      const layout = generatedRunLayout[r.morph];
-      const frameMs = THREE.MathUtils.lerp(layout.frameSlow, layout.frameFast, speedRatio);
-      const phaseOffset = (r.id * 47) % Math.round(frameMs * generatedRunFrames.length);
-      const frameIndex = Math.floor((elapsed + phaseOffset) / frameMs) % generatedRunFrames.length;
-      applyGeneratedRunFrame(r, frameIndex);
+      const frameMs = THREE.MathUtils.lerp(150, 72, speedRatio);
+      const frameIndex = Math.floor((elapsed + r.id * 37) / frameMs) % pRigPoseFrames.length;
+      applyPCutoutRigMotion(r, frameIndex);
+    } else if (r.obj.userData.eCutoutRig) {
+      const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
+      const frameMs = THREE.MathUtils.lerp(168, 82, speedRatio);
+      const frameIndex = Math.floor((elapsed + r.id * 43) / frameMs) % eRigPoseFrames.length;
+      applyECutoutRigMotion(r, frameIndex);
+    } else if (r.obj.userData.aCutoutRig) {
+      const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
+      const frameMs = THREE.MathUtils.lerp(142, 66, speedRatio);
+      const frameIndex = Math.floor((elapsed + r.id * 47) / frameMs) % aRigPoseFrames.length;
+      applyACutoutRigMotion(r, frameIndex);
     } else if (staticMotionProfile[r.morph]) {
       const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
       const profile = staticMotionProfile[r.morph];
@@ -3081,7 +3089,9 @@ function update(dt) {
       recordAgentEvent(r, true);
       stage.dataset.finishCount = String(finishOrder.length);
       if (r.obj.userData.sRunAnimated) applySRunFrame(r, 5);
-      else if (r.obj.userData.generatedRunAnimated) applyGeneratedRunFrame(r, 5);
+      else if (r.obj.userData.pCutoutRig) applyPCutoutRigMotion(r, pRigPoseFrames.length - 1);
+      else if (r.obj.userData.eCutoutRig) applyECutoutRigMotion(r, eRigPoseFrames.length - 1);
+      else if (r.obj.userData.aCutoutRig) applyACutoutRigMotion(r, aRigPoseFrames.length - 1);
       else if (staticMotionProfile[r.morph]) applyStaticSpriteMotion(r, 5);
     }
   }
