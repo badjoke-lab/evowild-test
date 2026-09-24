@@ -1164,6 +1164,7 @@ loadCreature3D(sf3dProfile)
     if (animations.length) {
       sf3dLabMixer = new THREE.AnimationMixer(sf3dLab);
       sf3dLabMixer.clipAction(animations[0]).play();
+      window.__sf3dLabMixer = sf3dLabMixer;
       let animatedBoneCount = 0;
       sf3dLab.traverse((node) => {
         if (node.isBone) animatedBoneCount += 1;

@@ -859,7 +859,7 @@ test("animate rigged Hunyuan skeletal proof in Morph Lab and Race", async ({ pag
   fs.mkdirSync(outDir, { recursive: true });
 
   await page.goto(
-    "/evowild-test/?sf3dVariant=hunyuanrigged&renderScale=0.75",
+    "/evowild-test/?sf3dVariant=hunyuanrigged&modelYaw=90&renderScale=0.75",
     { waitUntil: "domcontentloaded", timeout: 30000 }
   );
 
@@ -894,6 +894,14 @@ test("animate rigged Hunyuan skeletal proof in Morph Lab and Race", async ({ pag
   expect(labA).not.toBeNull();
   expect(labB).not.toEqual(labA);
   await stage.screenshot({ path: `${outDir}/hunyuan-rigged-lab.png` });
+
+  for (const [label, time] of [["00", 0.00], ["25", 0.25], ["50", 0.50], ["75", 0.75]]) {
+    await page.evaluate((t) => {
+      window.__sf3dLabMixer?.setTime(t);
+    }, time);
+    await page.waitForTimeout(60);
+    await stage.screenshot({ path: `${outDir}/hunyuan-rigged-side-${label}.png` });
+  }
 
   await page.getByRole("button", { name: "2 Race" }).click();
   await expect(page.locator("#viewLabel")).toHaveText("RACE VIEW");

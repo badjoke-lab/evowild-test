@@ -208,6 +208,7 @@ jobs:
           mkdir -p docs/visuals
           cp test-results/visuals/hunyuan-rigged-lab.png docs/visuals/
           cp test-results/visuals/hunyuan-rigged-race.png docs/visuals/
+          cp test-results/visuals/hunyuan-rigged-side-*.png docs/visuals/
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add docs/visuals/hunyuan-rigged-lab.png docs/visuals/hunyuan-rigged-race.png
