@@ -10,11 +10,13 @@ const proofMode = new URLSearchParams(location.search).get("proof");
 const sRunIsolatedProof = proofMode === "s-run";
 const pRigIsolatedProof = proofMode === "p-rig";
 const eRigIsolatedProof = proofMode === "e-rig";
-const isolatedProof = sRunIsolatedProof || pRigIsolatedProof || eRigIsolatedProof;
-const isolatedProofRacerId = eRigIsolatedProof ? 3 : pRigIsolatedProof ? 2 : 1;
+const aRigIsolatedProof = proofMode === "a-rig";
+const isolatedProof = sRunIsolatedProof || pRigIsolatedProof || eRigIsolatedProof || aRigIsolatedProof;
+const isolatedProofRacerId = aRigIsolatedProof ? 4 : eRigIsolatedProof ? 3 : pRigIsolatedProof ? 2 : 1;
 const fastFinishProof = proofMode === "finish";
 if (pRigIsolatedProof) document.body.classList.add("p-rig-proof");
 if (eRigIsolatedProof) document.body.classList.add("e-rig-proof");
+if (aRigIsolatedProof) document.body.classList.add("a-rig-proof");
 const raceBanner = document.querySelector("#raceBanner");
 const resultsPanel = document.querySelector("#resultsPanel");
 const resultsList = document.querySelector("#resultsList");
@@ -1302,6 +1304,8 @@ const pCutoutRigRacerId = 2;
 const pCutoutRigRacers = [];
 const eCutoutRigRacerId = 3;
 const eCutoutRigRacers = [];
+const aCutoutRigRacerId = 4;
+const aCutoutRigRacers = [];
 const sBillboardParentQ = new THREE.Quaternion();
 const sBillboardCameraQ = new THREE.Quaternion();
 
@@ -1332,6 +1336,20 @@ const eRigPoseFrames = [
   { phase: "FLIGHT",  legs: [ 0.36, -0.22, -0.36,  0.24], bodyY: 0.140, lean:  0.010 },
   { phase: "REACH",   legs: [ 0.50, -0.52, -0.48,  0.50], bodyY: 0.080, lean:  0.016 },
   { phase: "LAND",    legs: [ 0.14, -0.30, -0.14,  0.30], bodyY: 0.015, lean: -0.005 }
+];
+const aRigLegDefs = [
+  { key: "front-far", x: 0.16, y: 0.43, w: 0.21, h: 0.54, hipX: 0.29, hipY: 0.49, z: -0.018 },
+  { key: "front-near", x: 0.29, y: 0.44, w: 0.22, h: 0.53, hipX: 0.41, hipY: 0.50, z: 0.022 },
+  { key: "rear-far", x: 0.54, y: 0.45, w: 0.21, h: 0.51, hipX: 0.64, hipY: 0.50, z: -0.014 },
+  { key: "rear-near", x: 0.66, y: 0.44, w: 0.22, h: 0.52, hipX: 0.73, hipY: 0.49, z: 0.026 }
+];
+const aRigPoseFrames = [
+  { phase: "CONTACT", legs: [-0.34,  0.40,  0.38, -0.38], bodyY: 0.000, lean:  0.004 },
+  { phase: "PUSH",    legs: [-0.18,  0.60,  0.18, -0.58], bodyY: 0.035, lean: -0.022 },
+  { phase: "LIFT",    legs: [ 0.30,  0.22, -0.31, -0.24], bodyY: 0.095, lean: -0.012 },
+  { phase: "FLIGHT",  legs: [ 0.43, -0.30, -0.43,  0.32], bodyY: 0.155, lean:  0.014 },
+  { phase: "REACH",   legs: [ 0.58, -0.60, -0.55,  0.58], bodyY: 0.085, lean:  0.024 },
+  { phase: "LAND",    legs: [ 0.18, -0.36, -0.18,  0.36], bodyY: 0.012, lean: -0.008 }
 ];
 
 function buildAnimatedSRunPlane(texture, raceLayout, racerId) {
@@ -1591,6 +1609,112 @@ function buildECutoutRig(texture, raceLayout, racerId) {
   return rig;
 }
 
+function buildACutoutRig(texture, raceLayout, racerId) {
+  const image = texture.image;
+  const width = image.naturalWidth || image.width;
+  const height = image.naturalHeight || image.height;
+  if (!width || !height) return null;
+
+  const rig = new THREE.Group();
+  rig.name = `Race2_5D_A_CutoutRig_${racerId}`;
+  rig.position.set(0, raceLayout.y, 0);
+  rig.userData.baseScaleX = 1;
+  rig.userData.motionScaleX = 1;
+  rig.userData.facingSign = 1;
+  rig.userData.legPivots = [];
+
+  const bodyCanvas = document.createElement("canvas");
+  bodyCanvas.width = width;
+  bodyCanvas.height = height;
+  const bodyCtx = bodyCanvas.getContext("2d");
+  bodyCtx.drawImage(image, 0, 0, width, height);
+
+  bodyCtx.save();
+  bodyCtx.globalCompositeOperation = "destination-out";
+  bodyCtx.globalAlpha = 0.88;
+  bodyCtx.fillStyle = "#000";
+  for (const def of aRigLegDefs) {
+    const x = Math.floor(def.x * width);
+    const y = Math.floor(def.y * height);
+    const w = Math.ceil(def.w * width);
+    const h = Math.ceil(def.h * height);
+    const fadeTop = Math.floor(y + h * 0.26);
+    bodyCtx.fillRect(x, fadeTop, w, Math.max(1, y + h - fadeTop));
+  }
+  bodyCtx.restore();
+
+  const body = new THREE.Mesh(
+    new THREE.PlaneGeometry(1, 1),
+    new THREE.MeshBasicMaterial({
+      map: makeCanvasTexture(bodyCanvas),
+      transparent: true,
+      depthWrite: false,
+      alphaTest: 0.02,
+      side: THREE.DoubleSide
+    })
+  );
+  body.name = `A_Cutout_Body_${racerId}`;
+  body.scale.set(raceLayout.scale[0], raceLayout.scale[1], 1);
+  body.position.z = 0;
+  body.renderOrder = 4;
+  rig.add(body);
+  rig.userData.body = body;
+
+  for (const def of aRigLegDefs) {
+    const x = Math.floor(def.x * width);
+    const y = Math.floor(def.y * height);
+    const w = Math.max(1, Math.ceil(def.w * width));
+    const h = Math.max(1, Math.ceil(def.h * height));
+    const hipX = def.hipX * width;
+    const hipY = def.hipY * height;
+
+    const legCanvas = document.createElement("canvas");
+    legCanvas.width = w;
+    legCanvas.height = h;
+    const legCtx = legCanvas.getContext("2d");
+    legCtx.drawImage(image, x, y, w, h, 0, 0, w, h);
+
+    const pivot = new THREE.Group();
+    pivot.name = `A_Cutout_Pivot_${def.key}_${racerId}`;
+    pivot.position.set(
+      (def.hipX - 0.5) * raceLayout.scale[0],
+      (0.5 - def.hipY) * raceLayout.scale[1],
+      def.z
+    );
+
+    const leg = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshBasicMaterial({
+        map: makeCanvasTexture(legCanvas),
+        transparent: true,
+        depthWrite: false,
+        alphaTest: 0.02,
+        side: THREE.DoubleSide
+      })
+    );
+    leg.name = `A_Cutout_Leg_${def.key}_${racerId}`;
+    leg.scale.set(
+      (w / width) * raceLayout.scale[0],
+      (h / height) * raceLayout.scale[1],
+      1
+    );
+    leg.position.set(
+      ((x + w / 2 - hipX) / width) * raceLayout.scale[0],
+      (-(y + h / 2 - hipY) / height) * raceLayout.scale[1],
+      0
+    );
+    leg.renderOrder = def.z > 0 ? 5 : 3;
+    pivot.add(leg);
+    pivot.userData.baseX = pivot.position.x;
+    pivot.userData.baseY = pivot.position.y;
+    rig.userData.legPivots.push(pivot);
+    rig.add(pivot);
+  }
+
+  rig.userData.baseY = raceLayout.y;
+  return rig;
+}
+
 function installPCutoutRigFor(racer, texture) {
   if (!racer || racer.morph !== "P" || racer.obj.userData.pCutoutRig) return;
   const oldSprite = racer.obj.userData.raceSprite;
@@ -1638,7 +1762,7 @@ function applyPCutoutRigMotion(racer, frameIndex) {
 }
 
 function installECutoutRigFor(racer, texture) {
-  if (!eRigIsolatedProof || !racer || racer.morph !== "E" || racer.id !== eCutoutRigRacerId || racer.obj.userData.eCutoutRig) return;
+  if (!racer || racer.morph !== "E" || racer.obj.userData.eCutoutRig) return;
   const oldSprite = racer.obj.userData.raceSprite;
   if (!oldSprite) return;
 
@@ -1681,8 +1805,52 @@ function applyECutoutRigMotion(racer, frameIndex) {
   stage.dataset.eCutoutMotion = "6phase-rig-v1";
 }
 
+function installACutoutRigFor(racer, texture) {
+  if (!racer || racer.morph !== "A" || racer.obj.userData.aCutoutRig) return;
+  const oldSprite = racer.obj.userData.raceSprite;
+  if (!oldSprite) return;
+
+  const rig = buildACutoutRig(texture, raceSpriteLayout.A, racer.id);
+  if (!rig) return;
+
+  racer.obj.remove(oldSprite);
+  if (oldSprite.material) oldSprite.material.dispose();
+
+  racer.obj.add(rig);
+  racer.obj.userData.raceRig = rig;
+  racer.obj.userData.raceSprite = rig.userData.body;
+  racer.obj.userData.aCutoutRig = true;
+  aCutoutRigRacers.push(racer);
+
+  stage.dataset.aCutoutRig = "loaded";
+  stage.dataset.aCutoutRacers = String(aCutoutRigRacers.length);
+  if (racer.id === aCutoutRigRacerId) stage.dataset.aCutoutRacer = String(racer.id);
+}
+
+function applyACutoutRigMotion(racer, frameIndex) {
+  const rig = racer?.obj?.userData?.raceRig;
+  if (!rig || !racer.obj.userData.aCutoutRig) return;
+
+  const pose = aRigPoseFrames[frameIndex] ?? aRigPoseFrames[0];
+  rig.userData.legPivots.forEach((pivot, index) => {
+    pivot.rotation.z = pose.legs[index] ?? 0;
+    pivot.position.x = pivot.userData.baseX;
+    pivot.position.y = pivot.userData.baseY;
+  });
+
+  rig.position.y = rig.userData.baseY + pose.bodyY;
+  const body = rig.userData.body;
+  if (body) {
+    body.position.y = 0;
+    body.rotation.z = pose.lean;
+  }
+
+  if (racer.id === selectedId) stage.dataset.selectedMotionPhase = pose.phase;
+  stage.dataset.aCutoutMotion = "6phase-rig-v1";
+}
+
 function applyStaticSpriteMotion(racer, frameIndex) {
-  if (!racer || racer.obj.userData.sRunAnimated || racer.obj.userData.pCutoutRig || racer.obj.userData.eCutoutRig) return;
+  if (!racer || racer.obj.userData.sRunAnimated || racer.obj.userData.pCutoutRig || racer.obj.userData.eCutoutRig || racer.obj.userData.aCutoutRig) return;
   const sprite = racer.obj.userData.raceSprite;
   const profile = staticMotionProfile[racer.morph];
   const frame = staticMotionFrames[frameIndex];
@@ -1776,6 +1944,17 @@ function orientECutoutRigs() {
   }
 }
 
+function orientACutoutRigs() {
+  if (!aCutoutRigRacers.length) return;
+  camera.getWorldQuaternion(sBillboardCameraQ);
+  for (const racer of aCutoutRigRacers) {
+    const rig = racer.obj.userData.raceRig;
+    if (!rig) continue;
+    racer.obj.getWorldQuaternion(sBillboardParentQ);
+    rig.quaternion.copy(sBillboardParentQ).invert().multiply(sBillboardCameraQ);
+  }
+}
+
 const cameraRight = new THREE.Vector3();
 const spriteTravelTangent = new THREE.Vector3();
 
@@ -1855,6 +2034,7 @@ for (const morph of ["S", "P", "E", "A"]) {
         if (morph === "S") installSRunSpriteFor(racer);
         if (morph === "P") installPCutoutRigFor(racer, texture);
         if (morph === "E") installECutoutRigFor(racer, texture);
+        if (morph === "A") installACutoutRigFor(racer, texture);
       }
 
       const material = new THREE.SpriteMaterial({
@@ -2262,6 +2442,11 @@ function update(dt) {
       const frameMs = THREE.MathUtils.lerp(176, 94, speedRatio);
       const frameIndex = Math.floor((elapsed + r.id * 43) / frameMs) % 6;
       applyECutoutRigMotion(r, frameIndex);
+    } else if (r.obj.userData.aCutoutRig) {
+      const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
+      const frameMs = THREE.MathUtils.lerp(150, 78, speedRatio);
+      const frameIndex = Math.floor((elapsed + r.id * 47) / frameMs) % 6;
+      applyACutoutRigMotion(r, frameIndex);
     } else if (staticMotionProfile[r.morph]) {
       const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
       const profile = staticMotionProfile[r.morph];
@@ -2290,6 +2475,7 @@ function update(dt) {
       if (r.obj.userData.sRunAnimated) applySRunFrame(r, 5);
       else if (r.obj.userData.pCutoutRig) applyPCutoutRigMotion(r, 5);
       else if (r.obj.userData.eCutoutRig) applyECutoutRigMotion(r, 5);
+      else if (r.obj.userData.aCutoutRig) applyACutoutRigMotion(r, 5);
       else if (staticMotionProfile[r.morph]) applyStaticSpriteMotion(r, 5);
     }
   }
@@ -2341,9 +2527,9 @@ function setCamera() {
   labGroup.visible = lab;
   labFloor.visible = lab;
   document.querySelector(".hud-race").hidden = lab;
-  document.querySelector(".hud-mini").hidden = lab || pRigIsolatedProof || eRigIsolatedProof;
-  document.querySelector(".hud-selected").hidden = lab || pRigIsolatedProof || eRigIsolatedProof;
-  document.querySelector("#agentPanel").hidden = lab || pRigIsolatedProof || eRigIsolatedProof;
+  document.querySelector(".hud-mini").hidden = lab || pRigIsolatedProof || eRigIsolatedProof || aRigIsolatedProof;
+  document.querySelector(".hud-selected").hidden = lab || pRigIsolatedProof || eRigIsolatedProof || aRigIsolatedProof;
+  document.querySelector("#agentPanel").hidden = lab || pRigIsolatedProof || eRigIsolatedProof || aRigIsolatedProof;
   document.querySelector("#morphSwitcher").hidden = !lab;
   document.querySelector("#labLabel").hidden = !lab;
 
@@ -2353,9 +2539,9 @@ function setCamera() {
     camera.lookAt(0, 1.25, 0);
   } else if (view === "follow") {
     camera.up.set(0, 1, 0);
-    const isolatedBack = eRigIsolatedProof ? -1.45 : pRigIsolatedProof ? -1.55 : -1.2;
-    const isolatedSide = eRigIsolatedProof ? 5.05 : pRigIsolatedProof ? 4.8 : 4.1;
-    const isolatedHeight = eRigIsolatedProof ? 2.18 : pRigIsolatedProof ? 1.95 : 1.72;
+    const isolatedBack = aRigIsolatedProof ? -1.35 : eRigIsolatedProof ? -1.45 : pRigIsolatedProof ? -1.55 : -1.2;
+    const isolatedSide = aRigIsolatedProof ? 4.85 : eRigIsolatedProof ? 5.05 : pRigIsolatedProof ? 4.8 : 4.1;
+    const isolatedHeight = aRigIsolatedProof ? 1.85 : eRigIsolatedProof ? 2.18 : pRigIsolatedProof ? 1.95 : 1.72;
     const followBack = isolatedProof ? (isMobile ? -1.5 : isolatedBack) : (isMobile ? -2.8 : -1.8);
     const followSide = isolatedProof ? (isMobile ? 4.3 : isolatedSide) : (isMobile ? 5.6 : 4.8);
     const followHeight = isolatedProof ? (isMobile ? 1.92 : isolatedHeight) : (isMobile ? 2.68 : 2.12);
@@ -2651,6 +2837,7 @@ function frame(now) {
     orientAnimatedSRunPlanes();
     orientPCutoutRigs();
     orientECutoutRigs();
+    orientACutoutRigs();
     orientRaceSpritesToTravel();
     updateAgentVisual(now);
     renderer.render(scene, camera);
@@ -2663,6 +2850,10 @@ function frame(now) {
       if (sRunIsolatedProof) stage.dataset.sRunProof = "isolated";
       if (pRigIsolatedProof) stage.dataset.pCutoutProof = "isolated";
       if (eRigIsolatedProof) stage.dataset.eCutoutProof = "isolated";
+      if (aRigIsolatedProof) stage.dataset.aCutoutProof = "isolated";
+      if (sRunRacers.length && pCutoutRigRacers.length && eCutoutRigRacers.length && aCutoutRigRacers.length) {
+        stage.dataset.fourMorphMotion = "ready";
+      }
     }
   } catch (error) {
     paused = true;
