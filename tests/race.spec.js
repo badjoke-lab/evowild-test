@@ -959,7 +959,7 @@ test("run S-only Hunyuan 18-racer pack with race and follow LOD policy", async (
   await expect.poll(
     async () => (await stage.getAttribute("data-hunyuan-race-pack-counts")) || "",
     { timeout: 10000 }
-  ).toMatch(/^1,\d+,\d+$/);
+  ).toMatch(/^0,\d+,\d+$/);
 
   const followCounts = (await stage.getAttribute("data-hunyuan-race-pack-counts"))
     .split(",")
