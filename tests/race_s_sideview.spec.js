@@ -22,6 +22,9 @@ test("S-only sideview rebuild aligns motion and race direction", async ({ page }
   const frame=Number(await stage.getAttribute("data-s-run-frame"));
   const phase=await stage.getAttribute("data-s-run-phase");
   const x=Number(await stage.getAttribute("data-selected-x"));
+  const visible=Number(await stage.getAttribute("data-visible-racers"));
+  const fieldMinX=Number(await stage.getAttribute("data-field-min-x"));
+  const fieldMaxX=Number(await stage.getAttribute("data-field-max-x"));
 
   expect(distance).toBeGreaterThan(0);
   expect(speed).toBeGreaterThan(0);
@@ -29,7 +32,11 @@ test("S-only sideview rebuild aligns motion and race direction", async ({ page }
   expect(frame).toBeLessThan(6);
   expect(["CONTACT","PUSH","LIFT","FLIGHT","REACH","LAND"]).toContain(phase);
   expect(x).toBeGreaterThan(50);
-  expect(x).toBeLessThan(await page.evaluate(()=>innerWidth-50));
+  const viewportWidth=await page.evaluate(()=>innerWidth);
+  expect(x).toBeLessThan(viewportWidth-50);
+  expect(visible).toBe(8);
+  expect(fieldMinX).toBeGreaterThan(-25);
+  expect(fieldMaxX).toBeLessThan(viewportWidth+25);
   expect(pageErrors,pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors,consoleErrors.join("\n")).toEqual([]);
 
