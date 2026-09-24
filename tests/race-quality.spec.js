@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
+import fs from "node:fs";
 
-test("four morph race uses all six-frame sheets in fixed-step race", async ({ page }) => {
+test("four morph race uses all six-frame sheets in fixed-step race", async ({ page }, testInfo) => {
   await page.goto("/evowild-test/race-quality.html", { waitUntil: "networkidle" });
   const stage = page.locator("#stage");
 
@@ -18,4 +19,11 @@ test("four morph race uses all six-frame sheets in fixed-step race", async ({ pa
   await expect(stage).toHaveAttribute("data-visible-racers", /[1-8]/);
   await expect(stage).toHaveAttribute("data-selected-run-frame", /[0-5]/);
   await expect(stage).toHaveAttribute("data-selected-run-phase", /(CONTACT|PUSH|LIFT|FLIGHT|REACH|LAND)/);
+
+  await page.waitForTimeout(1800);
+  fs.mkdirSync("test-results/visuals", { recursive: true });
+  await page.screenshot({
+    path: `test-results/visuals/four-morph-quality-${testInfo.project.name}.png`,
+    fullPage: true
+  });
 });
