@@ -19,7 +19,7 @@ test("record modern clean-room 2.5D race proof", async ({ browser }, testInfo) =
   await expect(stage).toHaveAttribute("data-proof", "modern-2p5d");
   await expect(stage).toHaveAttribute("data-ready", "true", { timeout: 10000 });
   await expect(stage).toHaveAttribute("data-sprite-sheet", "loaded", { timeout: 10000 });
-  await expect(stage).toHaveAttribute("data-mode", "modern-hd", { timeout: 10000 });
+  await expect(stage).toHaveAttribute("data-mode", "modern-hd-side", { timeout: 10000 });
   await expect(stage).toHaveAttribute("data-resolution", "1280x720", { timeout: 10000 });
 
   await page.waitForTimeout(3800);
