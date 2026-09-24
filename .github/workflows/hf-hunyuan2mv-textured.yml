@@ -1,0 +1,145 @@
+name: HF Hunyuan3D 2mv Turbo textured generation
+
+on:
+  push:
+    branches:
+      - test/hf-sf3d-retry-20260921
+    paths:
+      - ".github/workflows/hf-hunyuan2mv-textured.yml"
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install client
+        run: pip install --quiet "gradio_client>=1.10,<2" pillow
+
+      - name: Generate textured EvoWild S with Hunyuan3D 2mv Turbo
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          python - <<'PY'
+          import inspect, json, os, shutil
+          from pathlib import Path
+          from PIL import Image
+          from gradio_client import Client, handle_file
+
+          out = Path("hf-poc/output-hunyuan2mv-textured")
+          runtime = Path("hf-poc/runtime-hunyuan2mv-textured")
+          out.mkdir(parents=True, exist_ok=True)
+          runtime.mkdir(parents=True, exist_ok=True)
+
+          side = Path("hf-poc/input/01_SIDE_authority.jpg")
+          front = Path("hf-poc/input/02_FRONT_width_reference.jpg")
+          back = Path("hf-poc/input/03_BACK_rear_reference.jpg")
+          for p in [side, front, back]:
+              if not p.exists():
+                  raise FileNotFoundError(p)
+
+          side_im = Image.open(side).convert("RGB")
+          right = runtime / "01_SIDE_authority_mirrored_right.jpg"
+          side_im.transpose(Image.Transpose.FLIP_LEFT_RIGHT).save(right, quality=96)
+
+          token = os.environ.get("HF_TOKEN")
+          params = inspect.signature(Client).parameters
+          auth_kw = {"token": token} if "token" in params else {"hf_token": token}
+          print("HF_AUTH:", "token present" if token else "token missing")
+          print("GRADIO_AUTH_ARG:", next(iter(auth_kw)))
+
+          client = Client("tencent/Hunyuan3D-2mv", **auth_kw)
+
+          caption = (
+              "slim futuristic quadruped racing creature, four clearly separated long legs, "
+              "long narrow head, two upright horn-ear structures, backward crest blades, "
+              "blade-like fin tail, head-mounted Cue Band device on both sides, "
+              "silver white body with cool blue secondary accents and cyan glowing accents"
+          )
+
+          result = client.predict(
+              caption,
+              None,
+              handle_file(str(front)),
+              handle_file(str(back)),
+              handle_file(str(side)),
+              handle_file(str(right)),
+              5,
+              5.0,
+              1234,
+              256,
+              True,
+              8000,
+              False,
+              api_name="/generation_all",
+          )
+          print("RESULT:", repr(result))
+
+          items = list(result) if isinstance(result, (tuple, list)) else [result]
+          saved = []
+          for i, item in enumerate(items[:2]):
+              if isinstance(item, dict):
+                  src = item.get("path") or item.get("value")
+              else:
+                  src = str(item) if item is not None else None
+              if not src:
+                  continue
+              src_path = Path(src)
+              if not src_path.exists():
+                  print("MISSING_RETURN_FILE:", i, src)
+                  continue
+              suffix = src_path.suffix.lower() or ".glb"
+              target = out / f"evowild_s_hunyuan2mv_generation_all_{i}{suffix}"
+              shutil.copy2(src_path, target)
+              saved.append({
+                  "index": i,
+                  "target": target.name,
+                  "bytes": target.stat().st_size,
+                  "magic_hex": target.read_bytes()[:4].hex(),
+              })
+              print("SAVED:", target, target.stat().st_size, target.read_bytes()[:4])
+
+          if not saved:
+              raise RuntimeError(f"No returned model files were retrievable: {result!r}")
+
+          stats = items[3] if len(items) > 3 else None
+          returned_seed = items[4] if len(items) > 4 else None
+          meta = {
+              "space": "tencent/Hunyuan3D-2mv",
+              "endpoint": "/generation_all",
+              "variant": "semantic_4view_front_back_side_mirror",
+              "caption": caption,
+              "inputs": {
+                  "front": str(front),
+                  "back": str(back),
+                  "left": str(side),
+                  "right": str(right),
+              },
+              "steps": 5,
+              "guidance_scale": 5.0,
+              "seed_requested": 1234,
+              "seed_returned": returned_seed,
+              "octree_resolution": 256,
+              "remove_background": True,
+              "num_chunks": 8000,
+              "randomize_seed": False,
+              "saved": saved,
+              "mesh_stats": stats,
+              "result_repr": repr(result)[:12000],
+          }
+          (out / "metadata.json").write_text(json.dumps(meta, indent=2, default=str), encoding="utf-8")
+          print("MESH_STATS:", stats)
+          PY
+
+      - name: Upload result
+        uses: actions/upload-artifact@v4
+        with:
+          name: evowild-s-hunyuan2mv-textured
+          path: hf-poc/output-hunyuan2mv-textured/
+          if-no-files-found: error
