@@ -22,7 +22,8 @@ jobs:
     if: >
       github.event_name != 'workflow_run' ||
       (github.event.workflow_run.conclusion == 'success' &&
-       github.event.workflow_run.head_branch == 'feat/2p5d-animated-s-proof-20260922')
+       (github.event.workflow_run.head_branch == 'feat/2p5d-animated-s-proof-20260922' ||
+        github.event.workflow_run.head_branch == 'feat/2p5d-four-morph-race-v1'))
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main
@@ -30,11 +31,17 @@ jobs:
         with:
           ref: main
 
-      - name: Checkout 2.5D preview branch
+      - name: Checkout existing 2.5D preview branch
         uses: actions/checkout@v4
         with:
           ref: feat/2p5d-animated-s-proof-20260922
           path: _preview
+
+      - name: Checkout four-morph 2.5D preview branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/2p5d-four-morph-race-v1
+          path: _preview_four
 
       - uses: actions/setup-node@v4
         with:
@@ -45,17 +52,26 @@ jobs:
           npm install
           npm run build
 
-      - name: Build 2.5D preview
+      - name: Build existing 2.5D preview
         working-directory: _preview
         run: |
           node -e 'const fs=require("fs");const p="vite.config.js";let s=fs.readFileSync(p,"utf8");s=s.replace(`base: "/evowild-test/"`,`base: "/evowild-test/preview-2p5d/"`);fs.writeFileSync(p,s)'
           npm install
           npm run build
 
-      - name: Add 2.5D preview under dedicated path
+      - name: Build four-morph 2.5D preview
+        working-directory: _preview_four
+        run: |
+          node -e 'const fs=require("fs");const p="vite.config.js";let s=fs.readFileSync(p,"utf8");s=s.replace(`base: "/evowild-test/"`,`base: "/evowild-test/preview-2p5d-four-morph/"`);fs.writeFileSync(p,s)'
+          npm install
+          npm run build
+
+      - name: Add previews under dedicated paths
         run: |
           mkdir -p dist/preview-2p5d
           cp -R _preview/dist/. dist/preview-2p5d/
+          mkdir -p dist/preview-2p5d-four-morph
+          cp -R _preview_four/dist/. dist/preview-2p5d-four-morph/
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
