@@ -148,7 +148,9 @@ jobs:
       - name: Run browser validation
         run: |
           subject="$(git log -1 --pretty=%s)"
-          if [[ "$subject" == *"[targeted-hunyuan-rig-browser]"* ]]; then
+          if [[ "$subject" == *"[targeted-hunyuan-rig-race]"* ]]; then
+            npm run test:e2e -- --workers=1 -g "benchmark full versus hybrid rigged Hunyuan race"
+          elif [[ "$subject" == *"[targeted-hunyuan-rig-browser]"* ]]; then
             npm run test:e2e -- --workers=1 -g "animate rigged Hunyuan skeletal proof"
           elif [[ "$subject" == *"[targeted-hunyuan-pack]"* ]]; then
             npm run test:e2e -- --workers=1 -g "run S-only Hunyuan 18-racer pack"

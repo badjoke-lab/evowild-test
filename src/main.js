@@ -17,6 +17,9 @@ const sf3dRaceStressMode = query.get("sf3dRaceStressMode") === "instance" ? "ins
 const sf3dMaterialMode = query.get("sf3dMaterialMode") === "lite" ? "lite" : "full";
 const hunyuanRacePack = query.get("hunyuanRacePack") === "1";
 const hunyuanRacePackSide = query.get("hunyuanRacePackSide") === "double" ? "double" : "front";
+const hunyuanRigRaceBenchMode = ["full", "hybrid"].includes(query.get("hunyuanRigRaceBench"))
+  ? query.get("hunyuanRigRaceBench")
+  : null;
 const renderScale = Math.min(1, Math.max(0.5, Number.parseFloat(query.get("renderScale") || "1") || 1));
 const modelYawDegrees = Number.parseFloat(query.get("modelYaw") || "0") || 0;
 const modelYawRadians = THREE.MathUtils.degToRad(modelYawDegrees);
@@ -36,6 +39,12 @@ let sf3dRaceStressConfig = null;
 let sf3dRaceStressLevelCounts = [];
 let hunyuanRacePackBatches = null;
 let hunyuanRacePackCounts = [0, 0, 0];
+let hunyuanRigRaceBenchStartedAt = 0;
+let hunyuanRigRaceBenchFrames = [];
+let hunyuanRigRaceBenchReady = false;
+let hunyuanRigRaceStaticBatch = null;
+let hunyuanRigRaceStaticCount = 0;
+let hunyuanRigRaceRiggedCount = 0;
 let hunyuanRacePackRiggedSelected = null;
 let sf3dLabMixer = null;
 const sf3dRaceMixers = [];
@@ -914,6 +923,139 @@ function sampleRaceStress(now, frameMs) {
   stage.dataset.sf3dRaceStress = "ready";
 }
 
+function setupHunyuanRigRaceBench(baseData, lod4Data) {
+  if (!hunyuanRigRaceBenchMode) return;
+  if (!baseData.animations?.length) {
+    throw new Error("Rigged Hunyuan benchmark requires an animation clip");
+  }
+
+  for (const racer of racers) {
+    racer.obj.children.forEach((child) => { child.visible = false; });
+    racer.morph = "S";
+  }
+
+  const clip = baseData.animations[0];
+  const addRiggedRacer = (racer, phase = 0) => {
+    const model = fitCreature3D(cloneCreature3D(baseData.source), {
+      renderer,
+      profile: baseData.profile,
+      placement: "race",
+      materialSide: "front"
+    });
+    model.name = `HunyuanRigRace_${racer.id}`;
+    racer.obj.add(model);
+
+    const mixer = new THREE.AnimationMixer(model);
+    mixer.clipAction(clip).play();
+    if (clip.duration > 0) mixer.setTime((phase % 1) * clip.duration);
+    sf3dRaceMixers.push(mixer);
+  };
+
+  if (hunyuanRigRaceBenchMode === "full") {
+    racers.forEach((racer, index) => addRiggedRacer(racer, index / racers.length));
+    hunyuanRigRaceRiggedCount = racers.length;
+    hunyuanRigRaceStaticCount = 0;
+  } else {
+    if (!lod4Data) throw new Error("Hybrid rig benchmark requires Hunyuan LOD4");
+    const selectedRacer = racers.find((racer) => racer.id === selectedId);
+    addRiggedRacer(selectedRacer, 0);
+    hunyuanRigRaceRiggedCount = 1;
+    hunyuanRigRaceStaticCount = racers.length - 1;
+
+    hunyuanRigRaceStaticBatch = createStaticCreatureInstanceBatch(lod4Data.source, {
+      renderer,
+      profile: lod4Data.profile,
+      placement: "race",
+      count: hunyuanRigRaceStaticCount,
+      materialSide: "front"
+    });
+    if (!hunyuanRigRaceStaticBatch.supported) {
+      throw new Error(`Hybrid Hunyuan LOD4 instancing unsupported: ${hunyuanRigRaceStaticBatch.reason}`);
+    }
+    hunyuanRigRaceStaticBatch.object.count = 0;
+    scene.add(hunyuanRigRaceStaticBatch.object);
+  }
+
+  view = "race";
+  stage.dataset.hunyuanRigRaceBench = "running";
+  stage.dataset.hunyuanRigRaceBenchMode = hunyuanRigRaceBenchMode;
+  stage.dataset.hunyuanRigRaceRigged = String(hunyuanRigRaceRiggedCount);
+  stage.dataset.hunyuanRigRaceStatic = String(hunyuanRigRaceStaticCount);
+  stage.dataset.hunyuanRigRaceClip = clip.name || "unnamed";
+  hunyuanRigRaceBenchStartedAt = performance.now();
+  hunyuanRigRaceBenchFrames = [];
+  hunyuanRigRaceBenchReady = false;
+}
+
+function updateHunyuanRigRaceBenchStatic() {
+  if (!hunyuanRigRaceStaticBatch) return;
+
+  const visible = view === "race" || view === "follow";
+  hunyuanRigRaceStaticBatch.object.visible = visible;
+  if (!visible) {
+    hunyuanRigRaceStaticBatch.object.count = 0;
+    return;
+  }
+
+  const finalMatrix = new THREE.Matrix4();
+  let count = 0;
+  for (const racer of racers) {
+    if (racer.id === selectedId) continue;
+    racer.obj.updateMatrixWorld(true);
+    finalMatrix.multiplyMatrices(racer.obj.matrixWorld, hunyuanRigRaceStaticBatch.prototypeMatrix);
+    hunyuanRigRaceStaticBatch.object.setMatrixAt(count, finalMatrix);
+    count += 1;
+  }
+  hunyuanRigRaceStaticBatch.object.count = count;
+  hunyuanRigRaceStaticBatch.object.instanceMatrix.needsUpdate = true;
+}
+
+function sampleHunyuanRigRaceBench(now, frameMs) {
+  if (!hunyuanRigRaceBenchMode || !hunyuanRigRaceBenchStartedAt || hunyuanRigRaceBenchReady) return;
+  const elapsed = now - hunyuanRigRaceBenchStartedAt;
+  if (elapsed >= 1000 && Number.isFinite(frameMs) && frameMs > 0) {
+    hunyuanRigRaceBenchFrames.push({
+      ms: frameMs,
+      triangles: renderer.info.render.triangles,
+      calls: renderer.info.render.calls
+    });
+  }
+  if (elapsed < 6500 || hunyuanRigRaceBenchFrames.length < 12) return;
+
+  const ms = hunyuanRigRaceBenchFrames.map((frame) => frame.ms).sort((a, b) => a - b);
+  const triangles = hunyuanRigRaceBenchFrames.map((frame) => frame.triangles);
+  const calls = hunyuanRigRaceBenchFrames.map((frame) => frame.calls);
+  const avg = ms.reduce((sum, value) => sum + value, 0) / ms.length;
+  const percentile = (p) => ms[Math.min(ms.length - 1, Math.floor((ms.length - 1) * p))];
+
+  window.__hunyuanRigRaceBench = {
+    mode: hunyuanRigRaceBenchMode,
+    racers: racers.length,
+    riggedRacers: hunyuanRigRaceRiggedCount,
+    staticLod4Racers: hunyuanRigRaceStaticCount,
+    samples: ms.length,
+    averageFrameMs: Number(avg.toFixed(3)),
+    averageFps: Number((1000 / avg).toFixed(2)),
+    medianFrameMs: Number(percentile(0.5).toFixed(3)),
+    p95FrameMs: Number(percentile(0.95).toFixed(3)),
+    averageRendererTriangles: Math.round(triangles.reduce((sum, value) => sum + value, 0) / triangles.length),
+    minRendererTriangles: Math.min(...triangles),
+    maxRendererTriangles: Math.max(...triangles),
+    averageRendererCalls: Number((calls.reduce((sum, value) => sum + value, 0) / calls.length).toFixed(2)),
+    minRendererCalls: Math.min(...calls),
+    maxRendererCalls: Math.max(...calls),
+    renderScale,
+    viewport: {
+      width: renderer.domElement.width,
+      height: renderer.domElement.height,
+      pixelRatio: renderer.getPixelRatio()
+    },
+    note: "CI Chromium moving race-loop comparison for skeletal Hunyuan animation; not physical-device FPS"
+  };
+  hunyuanRigRaceBenchReady = true;
+  stage.dataset.hunyuanRigRaceBench = "ready";
+}
+
 function setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData) {
   if (!hunyuanRacePack) return;
 
@@ -1209,7 +1351,7 @@ loadCreature3D(sf3dProfile)
     }
 
     const raceS = racers.find((r) => r.morph === "S");
-    if (raceS && !sf3dRaceStress && !hunyuanRacePack) {
+    if (raceS && !sf3dRaceStress && !hunyuanRacePack && !hunyuanRigRaceBenchMode) {
       raceS.obj.children.forEach((child) => { child.visible = false; });
 
       const baseRaceModel = fitCreature3D(cloneCreature3D(source), {
@@ -1297,6 +1439,19 @@ loadCreature3D(sf3dProfile)
     stage.dataset.sf3dBounds = `${stats.bounds.x},${stats.bounds.y},${stats.bounds.z}`;
     setLabMorph(activeLabMorph);
     setupSf3dBenchmark(source, sf3dBenchCount);
+
+    if (hunyuanRigRaceBenchMode && profile.id === CREATURE_3D_PROFILES.sHunyuan2mvRigged.id) {
+      const baseData = { source, animations, stats, profile };
+      const lod4Promise = hunyuanRigRaceBenchMode === "hybrid"
+        ? loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvStyledLod4)
+        : Promise.resolve(null);
+      lod4Promise.then((lod4Data) => {
+        setupHunyuanRigRaceBench(baseData, lod4Data);
+      }).catch((error) => {
+        stage.dataset.hunyuanRigRaceBench = "error";
+        console.error("Hunyuan rig race benchmark failed to load", error);
+      });
+    }
 
     if (hunyuanRacePack && profile.id === CREATURE_3D_PROFILES.sHunyuan2mvStyled.id) {
       Promise.all([
@@ -1767,10 +1922,12 @@ function frame(now) {
     setCamera();
     updateRaceStressInstances();
     updateHunyuanRacePackInstances();
+    updateHunyuanRigRaceBenchStatic();
     renderer.render(scene, camera);
     sampleSf3dBenchmark(now, rawFrameMs);
     sampleRaceLodBenchmark(now, rawFrameMs);
     sampleRaceStress(now, rawFrameMs);
+    sampleHunyuanRigRaceBench(now, rawFrameMs);
     updateHud();
     drawMiniMap();
 

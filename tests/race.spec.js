@@ -924,6 +924,50 @@ test("animate rigged Hunyuan skeletal proof in Morph Lab and Race", async ({ pag
 });
 
 
+test("benchmark full versus hybrid rigged Hunyuan race", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(100000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+  const results = [];
+
+  for (const mode of ["full", "hybrid"]) {
+    await page.goto(
+      `/evowild-test/?sf3dVariant=hunyuanrigged&hunyuanRigRaceBench=${mode}&renderScale=0.75`,
+      { waitUntil: "domcontentloaded", timeout: 30000 }
+    );
+    const stage = page.locator("#stage");
+    await expect(stage).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
+    await expect(stage).toHaveAttribute("data-hunyuan-rig-race-bench", "ready", { timeout: 50000 });
+
+    const metrics = await page.evaluate(() => window.__hunyuanRigRaceBench);
+    expect(metrics?.mode).toBe(mode);
+    expect(metrics?.racers).toBe(18);
+    if (mode === "full") {
+      expect(metrics?.riggedRacers).toBe(18);
+      expect(metrics?.staticLod4Racers).toBe(0);
+    } else {
+      expect(metrics?.riggedRacers).toBe(1);
+      expect(metrics?.staticLod4Racers).toBe(17);
+    }
+
+    results.push(metrics);
+    console.log("HUNYUAN_RIG_RACE_BENCH", JSON.stringify(metrics));
+    await stage.screenshot({ path: `${outDir}/hunyuan-rig-race-${mode}.png` });
+  }
+
+  const full = results.find((result) => result.mode === "full");
+  const hybrid = results.find((result) => result.mode === "hybrid");
+  expect(hybrid.averageRendererTriangles).toBeLessThan(full.averageRendererTriangles);
+
+  fs.writeFileSync(
+    `${outDir}/hunyuan-rig-race-benchmark.json`,
+    JSON.stringify(results, null, 2)
+  );
+});
+
+
 test("run S-only Hunyuan 18-racer pack with race and follow LOD policy", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(70000);
