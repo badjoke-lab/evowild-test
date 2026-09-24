@@ -72,6 +72,72 @@ canvas.addEventListener("webglcontextrestored", () => {
   runtimeStatus.hidden = false;
 });
 
+function makeProceduralTexture(kind) {
+  const size = kind === "track" ? 512 : 256;
+  const c = document.createElement("canvas");
+  c.width = size;
+  c.height = size;
+  const ctx = c.getContext("2d");
+  let seed = kind === "track" ? 7717 : 4129;
+  const rnd = () => {
+    seed = (seed * 1664525 + 1013904223) >>> 0;
+    return seed / 4294967296;
+  };
+
+  if (kind === "track") {
+    ctx.fillStyle = "#a97449";
+    ctx.fillRect(0, 0, size, size);
+    const grad = ctx.createLinearGradient(0, 0, size, 0);
+    grad.addColorStop(0, "rgba(55,30,12,.20)");
+    grad.addColorStop(.08, "rgba(255,229,185,.06)");
+    grad.addColorStop(.5, "rgba(255,255,255,.02)");
+    grad.addColorStop(.92, "rgba(255,229,185,.06)");
+    grad.addColorStop(1, "rgba(55,30,12,.20)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, size, size);
+
+    for (let i = 0; i < 2600; i++) {
+      const x = rnd() * size;
+      const y = rnd() * size;
+      const len = 2 + rnd() * 22;
+      const alpha = .025 + rnd() * .08;
+      ctx.strokeStyle = rnd() > .5
+        ? `rgba(255,236,205,${alpha})`
+        : `rgba(73,42,24,${alpha})`;
+      ctx.lineWidth = .5 + rnd() * 1.3;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x, y + len);
+      ctx.stroke();
+    }
+  } else {
+    ctx.fillStyle = "#567748";
+    ctx.fillRect(0, 0, size, size);
+    for (let i = 0; i < 3600; i++) {
+      const x = rnd() * size;
+      const y = rnd() * size;
+      const g = 78 + Math.floor(rnd() * 70);
+      ctx.fillStyle = `rgba(${35 + Math.floor(rnd()*30)},${g},${28 + Math.floor(rnd()*35)},${.12 + rnd()*.24})`;
+      const w = .7 + rnd() * 2.3;
+      const h = 1.5 + rnd() * 5.5;
+      ctx.fillRect(x, y, w, h);
+    }
+  }
+
+  const texture = new THREE.CanvasTexture(c);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+  texture.needsUpdate = true;
+  return texture;
+}
+
+const grassTexture = makeProceduralTexture("grass");
+grassTexture.repeat.set(28, 20);
+const trackTexture = makeProceduralTexture("track");
+trackTexture.repeat.set(1, 1);
+
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x9bc6dc);
 const raceFog = new THREE.Fog(0x9bc6dc, 75, 150);
@@ -88,7 +154,7 @@ scene.add(rim);
 
 const ground = new THREE.Mesh(
   new THREE.PlaneGeometry(210, 160),
-  new THREE.MeshStandardMaterial({ color: 0x6d8d62, roughness: 1 })
+  new THREE.MeshStandardMaterial({ map: grassTexture, color: 0xb4c7a6, roughness: 1 })
 );
 ground.rotation.x = -Math.PI / 2;
 ground.position.y = -0.03;
@@ -111,6 +177,7 @@ function buildTrack() {
   function makeRibbon(ribbonHalf, y, material) {
     const vertices = [];
     const normals = [];
+    const uvs = [];
     const indices = [];
 
     for (let i = 0; i <= samples; i++) {
@@ -123,6 +190,7 @@ function buildTrack() {
         const q = p.clone().addScaledVector(side, offset);
         vertices.push(q.x, y, q.z);
         normals.push(0, 1, 0);
+        uvs.push(offset < 0 ? 0 : 1, t * 34);
       }
     }
 
@@ -137,6 +205,7 @@ function buildTrack() {
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
     geometry.setAttribute("normal", new THREE.Float32BufferAttribute(normals, 3));
+    geometry.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
     geometry.setIndex(indices);
     const mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
@@ -151,7 +220,12 @@ function buildTrack() {
   makeRibbon(
     half,
     0.035,
-    new THREE.MeshStandardMaterial({ color: 0xb88758, roughness: 1 })
+    new THREE.MeshStandardMaterial({
+      map: trackTexture,
+      color: 0xe3c39f,
+      roughness: 1,
+      metalness: 0
+    })
   );
 
   for (const offset of [-half, half]) {
@@ -288,6 +362,57 @@ function buildTrack() {
   });
 
   stage.dataset.trackEdgeRhythm = "curb-v1";
+
+  const roadsideCount = isMobile ? 34 : 52;
+  const signGeometry = new THREE.BoxGeometry(0.16, 1.45, 1.35);
+  const signLight = new THREE.MeshBasicMaterial({ color: 0xeaf6ff });
+  const signAccent = new THREE.MeshBasicMaterial({ color: 0x3bbef1 });
+  const roadsideMeshes = [
+    new THREE.InstancedMesh(signGeometry, signLight, roadsideCount),
+    new THREE.InstancedMesh(signGeometry, signAccent, roadsideCount)
+  ];
+  const roadsideCounts = [0, 0];
+  const signDummy = new THREE.Object3D();
+  for (let i = 0; i < roadsideCount; i++) {
+    const t = (i + 0.45) / roadsideCount;
+    const p = curve.getPointAt(t);
+    const tangent = curve.getTangentAt(t).normalize();
+    const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+    const outside = (i % 2 ? 1 : -1) * (railOffset + 1.18);
+    const q = p.clone().addScaledVector(side, outside);
+    signDummy.position.set(q.x, 0.80, q.z);
+    signDummy.rotation.set(0, Math.atan2(-tangent.z, tangent.x), 0);
+    signDummy.scale.set(1, 0.74 + (i % 3) * 0.12, 1);
+    signDummy.updateMatrix();
+    const meshIndex = i % 2;
+    roadsideMeshes[meshIndex].setMatrixAt(roadsideCounts[meshIndex]++, signDummy.matrix);
+  }
+  roadsideMeshes.forEach((mesh, index) => {
+    mesh.count = roadsideCounts[index];
+    mesh.instanceMatrix.needsUpdate = true;
+    scene.add(mesh);
+  });
+
+  const apexCount = isMobile ? 18 : 30;
+  const apexGeometry = new THREE.ConeGeometry(0.16, 0.58, 5);
+  const apexMaterial = new THREE.MeshBasicMaterial({ color: 0xffd56a });
+  const apexMarkers = new THREE.InstancedMesh(apexGeometry, apexMaterial, apexCount);
+  for (let i = 0; i < apexCount; i++) {
+    const t = (i + 0.2) / apexCount;
+    const p = curve.getPointAt(t);
+    const tangent = curve.getTangentAt(t).normalize();
+    const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+    const q = p.clone().addScaledVector(side, (i % 2 ? 1 : -1) * (half + 0.92));
+    signDummy.position.set(q.x, 0.30, q.z);
+    signDummy.rotation.set(0, Math.atan2(-tangent.z, tangent.x), 0);
+    signDummy.scale.setScalar(1);
+    signDummy.updateMatrix();
+    apexMarkers.setMatrixAt(i, signDummy.matrix);
+  }
+  apexMarkers.instanceMatrix.needsUpdate = true;
+  scene.add(apexMarkers);
+
+  stage.dataset.trackRhythmObjects = "dense-v2";
   const startT = 0.012;
   const startPoint = curve.getPointAt(startT);
   const startTangent = curve.getTangentAt(startT).normalize();
@@ -323,14 +448,15 @@ function buildTrack() {
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
-  stage.dataset.trackPresentation = "v6";
+  stage.dataset.trackPresentation = "v7";
+  stage.dataset.raceQualityPass = "floor-v2";
 }
 buildTrack();
 
 const speedMarkerGeometry = new THREE.BoxGeometry(1.05, 0.08, 0.16);
 const speedMarkerMaterial = new THREE.MeshBasicMaterial({ color: 0xf4e8cf });
-for (let i = 0; i < 72; i++) {
-  const t = i / 72;
+for (let i = 0; i < (isMobile ? 96 : 144); i++) {
+  const t = i / (isMobile ? 96 : 144);
   const p = curve.getPointAt(t);
   const tangent = curve.getTangentAt(t).normalize();
   const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
@@ -2597,14 +2723,14 @@ function setCamera() {
     const followBack = isolatedProof ? (isMobile ? -1.5 : isolatedBack) : (isMobile ? -2.2 : -1.35);
     const followSide = isolatedProof ? (isMobile ? 4.3 : isolatedSide) : (isMobile ? 4.8 : 3.95);
     const followHeight = isolatedProof ? (isMobile ? 1.92 : isolatedHeight) : (isMobile ? 2.18 : 1.68);
-    const shake = Math.max(0, speedRatio - 0.48) * (isolatedProof ? 0.08 : 0.075);
+    const shake = Math.max(0, speedRatio - 0.38) * (isolatedProof ? 0.075 : 0.13);
     const desired = selectedPos.clone()
       .addScaledVector(tangent, followBack)
       .addScaledVector(side, followSide + Math.sin(elapsed * 0.023) * shake)
       .add(new THREE.Vector3(0, followHeight + Math.sin(elapsed * 0.031) * shake * 0.6, 0));
     camera.position.lerp(desired, 0.15);
     const lookTarget = selectedPos.clone()
-      .addScaledVector(tangent, 2.4)
+      .addScaledVector(tangent, 3.8 + speedRatio * 1.4)
       .addScaledVector(side, Math.sin(elapsed * 0.017) * shake * 0.45)
       .add(new THREE.Vector3(0, 0.50, 0));
     camera.lookAt(lookTarget);
@@ -2625,9 +2751,9 @@ function setCamera() {
     const leaderTangent = curve.getTangentAt(lt).normalize();
     const leaderSide = new THREE.Vector3(-leaderTangent.z, 0, leaderTangent.x);
 
-    const raceBack = isMobile ? -6.4 : -6.2;
-    const raceSide = isMobile ? 11.8 : 10.9;
-    const raceHeight = isMobile ? 5.1 : 4.65;
+    const raceBack = isMobile ? -5.6 : -5.0;
+    const raceSide = isMobile ? 10.4 : 9.2;
+    const raceHeight = isMobile ? 4.45 : 3.72;
     camera.position.lerp(
       center.clone().addScaledVector(leaderTangent, raceBack).addScaledVector(leaderSide, raceSide).add(new THREE.Vector3(0, raceHeight, 0)),
       0.065
@@ -2640,9 +2766,9 @@ function setCamera() {
   const speedFxStrength = (lab || tactical || raceState !== "running")
     ? 0
     : THREE.MathUtils.smoothstep(speedRatio, 0.36, 1.12);
-  speedFx.style.opacity = String(speedFxStrength * (view === "follow" ? 0.72 : 0.48));
-  speedFx.style.setProperty("--speed-fx-rate", `${Math.max(0.18, 0.62 - speedFxStrength * 0.38).toFixed(2)}s`);
-  speedFx.style.setProperty("--speed-fx-stretch", `${(1 + speedFxStrength * 0.9).toFixed(2)}`);
+  speedFx.style.opacity = String(speedFxStrength * (view === "follow" ? 0.86 : 0.64));
+  speedFx.style.setProperty("--speed-fx-rate", `${Math.max(0.11, 0.54 - speedFxStrength * 0.38).toFixed(2)}s`);
+  speedFx.style.setProperty("--speed-fx-stretch", `${(1 + speedFxStrength * 1.35).toFixed(2)}`);
 
   if (!lab && !tactical) {
     const aheadTangent = curve.getTangentAt((t + 0.008) % 1).normalize();
