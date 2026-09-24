@@ -112,6 +112,32 @@ const creature = new Image();
 creature.decoding = "async";
 creature.src = BASE + "concept/S.webp";
 
+const upstreamBackground = new Image();
+upstreamBackground.decoding = "async";
+upstreamBackground.src = BASE + "upstream/javascript-racer/background.png";
+
+const upstreamSprites = new Image();
+upstreamSprites.decoding = "async";
+upstreamSprites.src = BASE + "upstream/javascript-racer/sprites.png";
+
+const BACKGROUND = {
+  HILLS: { x:5, y:5, w:1280, h:480 },
+  SKY: { x:5, y:495, w:1280, h:480 },
+  TREES: { x:5, y:985, w:1280, h:480 }
+};
+
+const ENV_SPRITES = [
+  { x:625, y:5, w:360, h:360, scale:0.58 },
+  { x:1205, y:5, w:282, h:295, scale:0.64 },
+  { x:5, y:555, w:135, h:332, scale:0.72 },
+  { x:1205, y:490, w:150, h:260, scale:0.78 },
+  { x:230, y:280, w:320, h:220, scale:0.44 },
+  { x:621, y:897, w:298, h:140, scale:0.45 },
+  { x:5, y:1097, w:240, h:155, scale:0.52 },
+  { x:255, y:1097, w:232, h:152, scale:0.52 },
+  { x:929, y:897, w:235, h:118, scale:0.50 }
+];
+
 const lanes = 3;
 const roadWidth = 2200;
 const segmentLength = 200;
@@ -123,7 +149,8 @@ const decel = 9200;
 const selectedId = 6;
 const raceMeters = 1800;
 const playerZ = 920;
-const SPRITE_WORLD_SCALE = 0.00046;
+const SPRITE_WORLD_SCALE = 0.00056;
+const ENV_WORLD_SCALE = 0.00036;
 
 const COLORS = {
   FOG:"#294d40",
@@ -146,12 +173,14 @@ function lastY() {
 
 function addSegment(curve, y) {
   const n = segments.length;
+  const baseColor = Math.floor(n / rumbleLength) % 2 ? COLORS.DARK : COLORS.LIGHT;
+  const laneDashOn = Math.floor(n / 4) % 2 === 0;
   segments.push({
     index:n,
     p1:{ world:{ y:lastY(), z:n * segmentLength }, camera:{}, screen:{} },
     p2:{ world:{ y, z:(n + 1) * segmentLength }, camera:{}, screen:{} },
     curve,
-    color: Math.floor(n / rumbleLength) % 2 ? COLORS.DARK : COLORS.LIGHT,
+    color:{ ...baseColor, lane: laneDashOn ? baseColor.lane : null },
     clip: height,
     fog:1
   });
@@ -172,8 +201,10 @@ function addRoad(enter, hold, leave, curve, y) {
 
 function buildRoad() {
   segments.length = 0;
-  addRoad(30, 90, 30, 0, 0);
-  const curves = [0,1.8,-2.7,0,3.2,-1.6,0,-3.8,2.2,0,1.2,-2.4,3.5,0,-1.4];
+  addRoad(8, 14, 8, 0, 0);
+  addRoad(12, 30, 12, 2.8, 8);
+  addRoad(10, 24, 10, -2.1, -5);
+  const curves = [1.4,-2.8,0,3.2,-1.6,0,-3.8,2.2,0,1.2,-2.4,3.5,0,-1.4];
   const hills = [0,8,14,-10,0,18,-12,6,0,-16,10,20,-14,4,0];
 
   for (let block = 0; block < 30; block++) {
@@ -188,7 +219,7 @@ function buildRoad() {
 
   addRoad(30, 130, 30, 0, -lastY() / segmentLength);
   trackLength = segments.length * segmentLength;
-  startZ = playerZ + segmentLength * 10;
+  startZ = playerZ + segmentLength * 6;
   raceWorld = Math.min(540000, trackLength - startZ - drawDistance * segmentLength - 4000);
   finishZ = startZ + raceWorld;
 
@@ -364,7 +395,7 @@ function update(dtMs) {
   if (resetAt && elapsed >= resetAt) resetRace();
 }
 
-function drawBackground(position, curve, speedNorm) {
+function drawProceduralBackground(position, curve, speedNorm) {
   const sky = ctx.createLinearGradient(0, 0, 0, height * 0.72);
   sky.addColorStop(0, "#6ca8c8");
   sky.addColorStop(0.47, "#a8c3cb");
@@ -373,15 +404,6 @@ function drawBackground(position, curve, speedNorm) {
   ctx.fillRect(-20, -20, width + 40, height + 40);
 
   const horizon = height * (0.38 - speedNorm * 0.025);
-  const sunX = width * 0.76 - curve * width * 0.014;
-  const sunY = horizon * 0.52;
-  const sunR = Math.max(26, width * 0.026);
-  const glow = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, sunR * 3.2);
-  glow.addColorStop(0, "rgba(255,245,204,.72)");
-  glow.addColorStop(1, "rgba(255,245,204,0)");
-  ctx.fillStyle = glow;
-  ctx.fillRect(sunX - sunR * 3.2, sunY - sunR * 3.2, sunR * 6.4, sunR * 6.4);
-
   const layers = [
     { y:horizon + 20, amp:74, step:118, par:0.010, fill:"#6c7f83" },
     { y:horizon + 48, amp:58, step:96, par:0.022, fill:"#526f68" },
@@ -405,8 +427,92 @@ function drawBackground(position, curve, speedNorm) {
   }
 }
 
+function drawBackdropLayer(layer, rotation, offsetY, destH, alpha = 1) {
+  const imageW = layer.w / 2;
+  const sourceX = layer.x + Math.floor(layer.w * (((rotation % 1) + 1) % 1));
+  const sourceW = Math.min(imageW, layer.x + layer.w - sourceX);
+  const destW = Math.floor(width * (sourceW / imageW));
+
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.drawImage(upstreamBackground, sourceX, layer.y, sourceW, layer.h, 0, offsetY, destW, destH);
+  if (sourceW < imageW) {
+    ctx.drawImage(
+      upstreamBackground,
+      layer.x,
+      layer.y,
+      imageW - sourceW,
+      layer.h,
+      destW - 1,
+      offsetY,
+      width - destW + 2,
+      destH
+    );
+  }
+  ctx.restore();
+}
+
+function drawBackground(position, curve, speedNorm) {
+  if (!upstreamBackground.complete || !upstreamBackground.naturalWidth) {
+    drawProceduralBackground(position, curve, speedNorm);
+    return;
+  }
+
+  const curveShift = curve * 0.012;
+  const vertical = -height * 0.05 - speedNorm * height * 0.018;
+  drawBackdropLayer(BACKGROUND.SKY, position * 0.0000013 + curveShift * 0.18, vertical, height * 0.92, 1);
+  drawBackdropLayer(BACKGROUND.HILLS, position * 0.0000038 + curveShift * 0.60, vertical + height * 0.02, height * 0.94, 0.98);
+  drawBackdropLayer(BACKGROUND.TREES, position * 0.0000085 + curveShift, vertical + height * 0.055, height * 0.98, 0.98);
+
+  const horizonShade = ctx.createLinearGradient(0, height * 0.34, 0, height * 0.64);
+  horizonShade.addColorStop(0, "rgba(18,37,42,0)");
+  horizonShade.addColorStop(1, "rgba(18,37,42,.18)");
+  ctx.fillStyle = horizonShade;
+  ctx.fillRect(0, height * 0.30, width, height * 0.38);
+}
+
+function drawEnvironmentSprite(segment, index) {
+  if (!upstreamSprites.complete || !upstreamSprites.naturalWidth) return;
+  if (index % 9 !== 0 && index % 13 !== 0) return;
+  const source = ENV_SPRITES[Math.abs((index * 7 + 3) % ENV_SPRITES.length)];
+  const side = index % 2 === 0 ? -1 : 1;
+  const offset = side * (1.34 + ((index * 17) % 23) / 100);
+  const scale = segment.p1.screen.scale;
+  const pxScale = scale * width / 2 * (ENV_WORLD_SCALE * roadWidth) * source.scale;
+  let destW = source.w * pxScale;
+  let destH = source.h * pxScale;
+  if (destW < 2 || destH < 3) return;
+
+  const maxH = height * 0.46;
+  if (destH > maxH) {
+    const k = maxH / destH;
+    destW *= k;
+    destH *= k;
+  }
+
+  const x = segment.p1.screen.x + scale * offset * roadWidth * width / 2;
+  const y = segment.p1.screen.y;
+  const clipY = segment.clip;
+  const clipH = Number.isFinite(clipY) ? Math.max(0, y - clipY) : 0;
+  const visibleH = Math.max(0, destH - clipH);
+  if (visibleH <= 0) return;
+
+  ctx.drawImage(
+    upstreamSprites,
+    source.x,
+    source.y,
+    source.w,
+    source.h * (visibleH / destH),
+    x - destW / 2,
+    y - destH,
+    destW,
+    visibleH
+  );
+}
+
 function drawRoadside(segment, index, speedNorm) {
   if (!segment.p1.screen.scale || segment.p1.screen.y >= height) return;
+  drawEnvironmentSprite(segment, index);
   const x = segment.p1.screen.x;
   const y = segment.p1.screen.y;
   const w = segment.p1.screen.w;
@@ -458,6 +564,24 @@ function drawCreature(r, x, y, roadScale, clipY) {
   const compression = 1 + Math.sin(phase * 2 + Math.PI / 2) * 0.018 * speedNorm;
   const lean = -0.018 - speedNorm * 0.028;
   const baseY = y + bob;
+
+  if (r.id === selectedId && speedNorm > 0.52) {
+    ctx.save();
+    const dustAlpha = 0.10 + (speedNorm - 0.52) * 0.22;
+    for (let i = 0; i < 9; i++) {
+      const cycle = ((elapsed * (0.00055 + i * 0.000017) + i * 0.113) % 1);
+      const trail = cycle * w * (0.34 + speedNorm * 0.42);
+      const py = baseY + h * 0.01 + Math.sin(i * 2.3 + elapsed * 0.01) * h * 0.025;
+      const len = w * (0.035 + (i % 3) * 0.018) * speedNorm;
+      ctx.strokeStyle = "rgba(222,205,169," + (dustAlpha * (1 - cycle)).toFixed(3) + ")";
+      ctx.lineWidth = Math.max(1, h * 0.009 * (1 - cycle * 0.55));
+      ctx.beginPath();
+      ctx.moveTo(x - w * 0.22 - trail, py);
+      ctx.lineTo(x - w * 0.22 - trail - len, py + h * 0.012);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
 
   ctx.save();
   if (Number.isFinite(clipY) && clipY > 0 && clipY < height) {
@@ -623,11 +747,11 @@ function render() {
     drawCreature(r, sx, sy, scale, segment.clip);
   }
 
-  if (speedNorm > 0.58) {
-    const alpha = (speedNorm - 0.58) * 0.22;
+  if (speedNorm > 0.52) {
+    const alpha = (speedNorm - 0.52) * 0.34;
     ctx.strokeStyle = "rgba(226,244,255," + alpha.toFixed(3) + ")";
     ctx.lineWidth = 1;
-    const count = 10;
+    const count = 14;
     for (let i = 0; i < count; i++) {
       const yy = height * (0.20 + ((i * 0.071 + elapsed * 0.00033) % 0.68));
       const len = 20 + speedNorm * 80 + (i % 4) * 12;
