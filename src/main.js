@@ -143,8 +143,33 @@ trackTexture.repeat.set(1, 1);
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x9bc6dc);
-const raceFog = new THREE.Fog(0x9bc6dc, 75, 150);
+const raceFog = new THREE.Fog(0x9bc6dc, 82, 168);
 scene.fog = raceFog;
+
+function makeSkyTexture() {
+  const c = document.createElement("canvas");
+  c.width = 64;
+  c.height = 512;
+  const ctx = c.getContext("2d");
+  const g = ctx.createLinearGradient(0, 0, 0, c.height);
+  g.addColorStop(0, "#5f9fca");
+  g.addColorStop(.45, "#82b9d7");
+  g.addColorStop(.78, "#b9d6df");
+  g.addColorStop(1, "#e6d3ae");
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, c.width, c.height);
+  const texture = new THREE.CanvasTexture(c);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.needsUpdate = true;
+  return texture;
+}
+
+const skyDome = new THREE.Mesh(
+  new THREE.SphereGeometry(135, isMobile ? 18 : 28, isMobile ? 10 : 16),
+  new THREE.MeshBasicMaterial({ map: makeSkyTexture(), side: THREE.BackSide, fog: false })
+);
+skyDome.position.y = 5;
+scene.add(skyDome);
 
 const camera = new THREE.PerspectiveCamera(42, 16 / 9, 0.1, 240);
 scene.add(new THREE.HemisphereLight(0xddeeff, 0x26332e, 1.18));
@@ -451,7 +476,7 @@ function buildTrack() {
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
-  stage.dataset.trackPresentation = "v7";
+  stage.dataset.trackPresentation = "v8";
   stage.dataset.raceQualityPass = "floor-v2";
   stage.dataset.presentationMode = presentationMode ? "cinematic" : "standard";
 }
@@ -511,11 +536,45 @@ function addTree(x, z, s = 0.85) {
   upper.scale.setScalar(s * 0.88);
   scene.add(trunk, lower, upper);
 }
-for (let i = 0; i < 22; i++) {
-  const a = (i / 22) * Math.PI * 2;
-  const r = 49 + (i % 3) * 2;
-  addTree(Math.cos(a) * r, Math.sin(a) * r * 0.68, 0.74 + (i % 4) * 0.05);
+const treeCount = isMobile ? 42 : 86;
+for (let i = 0; i < treeCount; i++) {
+  const a = (i / treeCount) * Math.PI * 2 + Math.sin(i * 2.17) * 0.035;
+  const r = 46 + (i % 7) * 1.55;
+  addTree(
+    Math.cos(a) * r,
+    Math.sin(a) * r * 0.68,
+    0.64 + (i % 6) * 0.055
+  );
 }
+
+const mountainCount = isMobile ? 18 : 30;
+const mountainGeo = new THREE.ConeGeometry(1, 1, 6);
+const mountainMats = [
+  new THREE.MeshStandardMaterial({ color: 0x53665f, roughness: 1, flatShading: true }),
+  new THREE.MeshStandardMaterial({ color: 0x66766e, roughness: 1, flatShading: true })
+];
+const mountainMeshes = [
+  new THREE.InstancedMesh(mountainGeo, mountainMats[0], mountainCount),
+  new THREE.InstancedMesh(mountainGeo, mountainMats[1], mountainCount)
+];
+const mountainCounts = [0, 0];
+const mountainDummy = new THREE.Object3D();
+for (let i = 0; i < mountainCount; i++) {
+  const a = (i / mountainCount) * Math.PI * 2;
+  const r = 76 + (i % 5) * 4.3;
+  const height = 9 + (i % 7) * 2.4;
+  mountainDummy.position.set(Math.cos(a) * r, height * 0.45 - 0.2, Math.sin(a) * r * 0.74);
+  mountainDummy.rotation.set(0, a * 0.37, 0);
+  mountainDummy.scale.set(7.5 + (i % 4) * 2.2, height, 6.2 + (i % 3) * 2.6);
+  mountainDummy.updateMatrix();
+  const mi = i % 2;
+  mountainMeshes[mi].setMatrixAt(mountainCounts[mi]++, mountainDummy.matrix);
+}
+mountainMeshes.forEach((mesh, index) => {
+  mesh.count = mountainCounts[index];
+  mesh.instanceMatrix.needsUpdate = true;
+  scene.add(mesh);
+});
 
 const standGroup = new THREE.Group();
 standGroup.position.set(7, 0, -34.2);
