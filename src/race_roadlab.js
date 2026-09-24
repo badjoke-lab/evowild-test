@@ -206,9 +206,14 @@ function trackFrame(u) {
   return { center, tangent, side, bank };
 }
 
-const availableRunDirections = new Set(["side"]);
-const missingRunDirections = ["front_3q","front","back_3q","back"];
-host.dataset.directionSet = "side-only";
+const runDirectionAssets = {
+  side: "s-side-run-sheet.svg",
+  front: "s-front-run-sheet.webp",
+  back: "s-back-run-sheet.webp"
+};
+const availableRunDirections = new Set(Object.keys(runDirectionAssets));
+const missingRunDirections = ["front_3q","back_3q"];
+host.dataset.directionSet = "side-front-back";
 host.dataset.missingDirections = missingRunDirections.join(",");
 
 function requiredDirectionForView(tangent, racerPosition) {
@@ -519,11 +524,13 @@ function setFrame(texture, frame) {
   texture.offset.y = row === 0 ? .5 : 0;
 }
 
-function createRacers(baseTexture) {
+function createRacers(baseTextures) {
   for (let i = 0; i < RACER_COUNT; i++) {
-    const tex = frameTexture(baseTexture);
+    const textures = Object.fromEntries(
+      Object.entries(baseTextures).map(([direction, baseTexture]) => [direction, frameTexture(baseTexture)])
+    );
     const mat = new THREE.SpriteMaterial({
-      map: tex,
+      map: textures.side,
       transparent: true,
       depthWrite: false,
       alphaTest: .04,
@@ -560,7 +567,8 @@ function createRacers(baseTexture) {
       sprite,
       shadow,
       marker,
-      texture:tex,
+      textures,
+      currentDirection:"side",
       frame:-1,
       requiredDirection:"side"
     });
@@ -568,21 +576,33 @@ function createRacers(baseTexture) {
   host.dataset.state = "ready";
 }
 
-textureLoader.load(
-  BASE + "concept/s-side-run-sheet.svg",
-  (tex)=>{
-    tex.colorSpace = THREE.SRGBColorSpace;
-    tex.minFilter = THREE.LinearFilter;
-    tex.magFilter = THREE.LinearFilter;
-    tex.generateMipmaps = false;
-    createRacers(tex);
-  },
-  undefined,
-  (err)=>{
-    host.dataset.state = "asset-error";
-    console.error(err);
-  }
-);
+function loadRunDirection(direction, asset) {
+  return new Promise((resolve, reject) => {
+    textureLoader.load(
+      BASE + "concept/" + asset,
+      (tex) => {
+        tex.colorSpace = THREE.SRGBColorSpace;
+        tex.minFilter = THREE.LinearFilter;
+        tex.magFilter = THREE.LinearFilter;
+        tex.generateMipmaps = false;
+        resolve([direction, tex]);
+      },
+      undefined,
+      reject
+    );
+  });
+}
+
+Promise.all(
+  Object.entries(runDirectionAssets).map(([direction, asset]) => loadRunDirection(direction, asset))
+).then((entries) => {
+  const baseTextures = Object.fromEntries(entries);
+  createRacers(baseTextures);
+  host.dataset.loadedDirections = Object.keys(baseTextures).join(",");
+}).catch((err) => {
+  host.dataset.state = "asset-error";
+  console.error(err);
+});
 
 function rankOrder() {
   return [...racers].sort((a,b)=>b.totalDistance-a.totalDistance);
@@ -627,15 +647,24 @@ function placeRacer(r, elapsedMs) {
 
   const requiredDirection = requiredDirectionForView(trackFrame(u).tangent, p);
   r.requiredDirection = requiredDirection;
-  r.sprite.visible = availableRunDirections.has(requiredDirection);
-  r.shadow.visible = r.sprite.visible;
-  r.marker.visible = r.id === SELECTED_ID && r.sprite.visible;
+  const directionReady = availableRunDirections.has(requiredDirection) && Boolean(r.textures[requiredDirection]);
+  r.sprite.visible = directionReady;
+  r.shadow.visible = directionReady;
+  r.marker.visible = r.id === SELECTED_ID && directionReady;
 
   const frameMs = 94 - clamp((r.speed-r.baseSpeed)*2.4,-10,12);
   const frame = Math.floor((elapsedMs+r.id*43)/frameMs)%6;
+
+  if (directionReady && r.currentDirection !== requiredDirection) {
+    r.currentDirection = requiredDirection;
+    r.sprite.material.map = r.textures[requiredDirection];
+    r.sprite.material.needsUpdate = true;
+    setFrame(r.textures[requiredDirection], frame);
+  }
+
   if(frame!==r.frame){
     r.frame=frame;
-    setFrame(r.texture,frame);
+    if (directionReady) setFrame(r.textures[requiredDirection],frame);
     if(frame===0 || frame===5){
       spawnDustAt(r.shadow.position, trackFrame(u).tangent, r.id===SELECTED_ID ? 3 : 2);
     }
