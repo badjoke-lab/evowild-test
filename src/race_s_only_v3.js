@@ -347,7 +347,7 @@ function makeRacers() {
   return Array.from({ length: FIELD_SIZE }, (_, i) => ({
     id: i + 1,
     name: racerNames[i],
-    distance: Math.max(0, 2.5 * (FIELD_SIZE - 1 - i)),
+    distance: 2.5 * i,
     speed: 0,
     cruise: 21.7 + ((i * 7) % 5) * 0.22,
     accel: 5.2 + (i % 3) * 0.22,
