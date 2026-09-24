@@ -26,7 +26,8 @@ jobs:
        (github.event.workflow_run.head_branch == 'feat/2p5d-animated-s-proof-20260922' ||
         github.event.workflow_run.head_branch == 'feat/2p5d-four-morph-race-v1' ||
         github.event.workflow_run.head_branch == 'feat/2p5d-race-quality-floor-v2' ||
-        github.event.workflow_run.head_branch == 'feat/2p5d-s-only-v3-sideview-rebuild-20260924'))
+        github.event.workflow_run.head_branch == 'feat/2p5d-s-only-v3-sideview-rebuild-20260924' ||
+        github.event.workflow_run.head_branch == 'feat/2p5d-four-morph-quality-integration-20260925'))
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main
@@ -57,6 +58,12 @@ jobs:
         with:
           ref: feat/2p5d-s-only-v3-sideview-rebuild-20260924
           path: _preview_s_v3
+
+      - name: Checkout four-morph quality integration branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/2p5d-four-morph-quality-integration-20260925
+          path: _preview_four_quality
 
       - uses: actions/setup-node@v4
         with:
@@ -95,6 +102,13 @@ jobs:
           npm install
           npm run build
 
+      - name: Build four-morph quality integration preview
+        working-directory: _preview_four_quality
+        run: |
+          node -e 'const fs=require("fs");const p="vite.config.js";let s=fs.readFileSync(p,"utf8");s=s.replace(`base: "/evowild-test/"`,`base: "/evowild-test/preview-2p5d-four-morph-quality/"`);fs.writeFileSync(p,s)'
+          npm install
+          npm run build
+
       - name: Add previews under dedicated paths
         run: |
           mkdir -p dist/preview-2p5d
@@ -105,6 +119,8 @@ jobs:
           cp -R _preview_quality/dist/. dist/preview-2p5d-quality/
           mkdir -p dist/preview-2p5d-s-only-v3
           cp -R _preview_s_v3/dist/. dist/preview-2p5d-s-only-v3/
+          mkdir -p dist/preview-2p5d-four-morph-quality
+          cp -R _preview_four_quality/dist/. dist/preview-2p5d-four-morph-quality/
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
