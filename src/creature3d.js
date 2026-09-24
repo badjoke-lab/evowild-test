@@ -252,7 +252,7 @@ export const CREATURE_3D_PROFILES = {
     status: "lod_candidate",
     notes: [
       "Derived from corrected SF3D candidate with glTF Transform simplification at ratio 0.5.",
-      "Texture/material preservation is validated by browser load tests before use."
+      "Base color is preserved; normal/roughness/metalness maps are disabled at this distance after browser stress validation."
     ]
   },
   sSf3dCorrectedLod2: {
@@ -261,11 +261,14 @@ export const CREATURE_3D_PROFILES = {
     url: `${import.meta.env.BASE_URL}models/evowild-s-sf3d-corrected-lod2.glb`,
     rotation: [0, 0, 0],
     material: {
-      metalness: 0.08,
-      minRoughness: 0.52,
+      metalness: 0.0,
+      minRoughness: 0.68,
       side: "front",
       preserveBaseColorMap: true,
-      maxAnisotropy: 4
+      preserveNormalMap: false,
+      preserveRoughnessMap: false,
+      preserveMetalnessMap: false,
+      maxAnisotropy: 1
     },
     placements: {
       lab: { targetHeight: 3.2, groundY: 0.03 },
@@ -284,11 +287,14 @@ export const CREATURE_3D_PROFILES = {
     url: `${import.meta.env.BASE_URL}models/evowild-s-sf3d-corrected-lod3.glb`,
     rotation: [0, 0, 0],
     material: {
-      metalness: 0.08,
-      minRoughness: 0.56,
+      metalness: 0.0,
+      minRoughness: 0.72,
       side: "front",
       preserveBaseColorMap: true,
-      maxAnisotropy: 2
+      preserveNormalMap: false,
+      preserveRoughnessMap: false,
+      preserveMetalnessMap: false,
+      maxAnisotropy: 1
     },
     placements: {
       lab: { targetHeight: 3.2, groundY: 0.03 },
@@ -298,7 +304,7 @@ export const CREATURE_3D_PROFILES = {
     status: "lod_candidate",
     notes: [
       "Derived from corrected SF3D candidate with glTF Transform simplification at ratio 0.125.",
-      "Intended only for far-distance race rendering."
+      "Intended only for far-distance race rendering; keeps base color but disables normal/roughness/metalness maps."
     ]
   },
   sSf3dCorrectedLod2Lite: {
