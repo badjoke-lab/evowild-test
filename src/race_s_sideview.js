@@ -411,21 +411,16 @@ function drawTrack() {
 
 function drawRacers() {
   const list=[];
-  let minX=Infinity;
-  let maxX=-Infinity;
+  let minEdge=Infinity;
+  let maxEdge=-Infinity;
   for(const r of racers){
     const x=screenXForMeters(r.distance);
     if(x<-220 || x>width+260) continue;
     const lane=clamp(r.lane,0,3);
     const y=trackBaseY(r.distance)+laneOffset(lane);
     list.push({r,x,y,lane});
-    minX=Math.min(minX,x);
-    maxX=Math.max(maxX,x);
   }
   list.sort((a,b)=>a.lane-b.lane);
-  stage.dataset.visibleRacers=String(list.length);
-  stage.dataset.fieldMinX=Number.isFinite(minX)?minX.toFixed(1):"";
-  stage.dataset.fieldMaxX=Number.isFinite(maxX)?maxX.toFixed(1):"";
 
   for(const item of list){
     const r=item.r;
@@ -436,6 +431,8 @@ function drawRacers() {
       : clamp(width*.092,122,148);
     const spriteW=baseW*scale*(selectedRacer?1.04:1);
     const spriteH=spriteW*.84;
+    minEdge=Math.min(minEdge,item.x-spriteW*.52);
+    maxEdge=Math.max(maxEdge,item.x+spriteW*.52);
 
     const cadence=7+clamp(r.speed/24,0,1)*7.7;
     const frameFloat=elapsed/1000*cadence+r.phaseOffset;
@@ -499,6 +496,10 @@ function drawRacers() {
       stage.dataset.selectedY=item.y.toFixed(1);
     }
   }
+
+  stage.dataset.visibleRacers=String(list.length);
+  stage.dataset.fieldMinX=Number.isFinite(minEdge)?minEdge.toFixed(1):"";
+  stage.dataset.fieldMaxX=Number.isFinite(maxEdge)?maxEdge.toFixed(1):"";
 }
 
 function drawForeground() {
@@ -536,14 +537,13 @@ function updateCamera() {
 
   // Mobile must keep the race readable: zoom out only when the pack genuinely spreads.
   const base=width<700?6.7:8.4;
-  const usableAhead=width*(width<700?.64:.56);
-  const usableBehind=width*(width<700?.16:.20);
+  const usableAhead=width*(width<700?.54:.53);
+  const usableBehind=width*(width<700?.12:.18);
   const byAhead=ahead>1?usableAhead/ahead:base;
   const byBehind=behind>1?usableBehind/behind:base;
-  const targetPPM=clamp(Math.min(base,byAhead,byBehind),width<700?3.9:5.2,base);
-  const ppmDelta=targetPPM-pixelsPerMeter;
-  pixelsPerMeterVelocity=lerp(pixelsPerMeterVelocity,ppmDelta*.18,.16);
-  pixelsPerMeter+=pixelsPerMeterVelocity*.11;
+  const targetPPM=clamp(Math.min(base,byAhead,byBehind),width<700?3.35:4.8,base);
+  const zoomRate=targetPPM<pixelsPerMeter?.18:.045;
+  pixelsPerMeter=lerp(pixelsPerMeter,targetPPM,zoomRate);
 
   // Keep selected S left-of-centre and give more room in the direction of travel.
   const lookAhead=clamp(ahead*.06,0,3.5);
