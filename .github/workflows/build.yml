@@ -15,8 +15,10 @@ jobs:
           node-version: 22
       - run: npm install
       - run: npm run build
-      - name: Verify 2.5D page is in production build
-        run: test -f dist/race-2_5d.html
+      - name: Verify race pages are in production build
+        run: |
+          test -f dist/race-2_5d.html
+          test -f dist/race-2_5d-v5.html
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
       - name: Upload mobile visual screenshots
