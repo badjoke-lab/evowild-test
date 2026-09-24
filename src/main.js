@@ -1348,6 +1348,15 @@ const aCutoutRigRacers = [];
 const sBillboardParentQ = new THREE.Quaternion();
 const sBillboardCameraQ = new THREE.Quaternion();
 
+function updateFourMorphMotionState() {
+  const ready =
+    sRunRacers.length > 0 &&
+    pCutoutRigRacers.length > 0 &&
+    eCutoutRigRacers.length > 0 &&
+    aCutoutRigRacers.length > 0;
+  if (ready) stage.dataset.fourMorphMotion = "ready";
+}
+
 const pRigLegDefs = [
   { key: "front-far", x: 0.13, y: 0.40, w: 0.22, h: 0.58, hipX: 0.28, hipY: 0.47, amp: 0.34, phase: Math.PI, z: -0.018 },
   { key: "front-near", x: 0.25, y: 0.43, w: 0.23, h: 0.55, hipX: 0.38, hipY: 0.49, amp: 0.40, phase: 0, z: 0.022 },
@@ -1774,6 +1783,7 @@ function installPCutoutRigFor(racer, texture) {
   stage.dataset.pCutoutRig = "loaded";
   stage.dataset.pCutoutRacers = String(pCutoutRigRacers.length);
   if (racer.id === pCutoutRigRacerId) stage.dataset.pCutoutRacer = String(racer.id);
+  updateFourMorphMotionState();
 }
 
 function applyPCutoutRigMotion(racer, frameIndex) {
@@ -1819,7 +1829,8 @@ function installECutoutRigFor(racer, texture) {
 
   stage.dataset.eCutoutRig = "loaded";
   stage.dataset.eCutoutRacers = String(eCutoutRigRacers.length);
-  stage.dataset.eCutoutRacer = String(racer.id);
+  if (racer.id === eCutoutRigRacerId) stage.dataset.eCutoutRacer = String(racer.id);
+  updateFourMorphMotionState();
 }
 
 function applyECutoutRigMotion(racer, frameIndex) {
@@ -1864,6 +1875,7 @@ function installACutoutRigFor(racer, texture) {
   stage.dataset.aCutoutRig = "loaded";
   stage.dataset.aCutoutRacers = String(aCutoutRigRacers.length);
   if (racer.id === aCutoutRigRacerId) stage.dataset.aCutoutRacer = String(racer.id);
+  updateFourMorphMotionState();
 }
 
 function applyACutoutRigMotion(racer, frameIndex) {
@@ -1948,6 +1960,7 @@ function installSRunSpriteFor(racer) {
     stage.dataset.sRunSource = "sprite-sheet";
   }
   stage.dataset.sRunAnimatedRacers = String(sRunRacers.length);
+  updateFourMorphMotionState();
 }
 
 function orientAnimatedSRunPlanes() {
@@ -2905,9 +2918,7 @@ function frame(now) {
       if (pRigIsolatedProof) stage.dataset.pCutoutProof = "isolated";
       if (eRigIsolatedProof) stage.dataset.eCutoutProof = "isolated";
       if (aRigIsolatedProof) stage.dataset.aCutoutProof = "isolated";
-      if (sRunRacers.length && pCutoutRigRacers.length && eCutoutRigRacers.length && aCutoutRigRacers.length) {
-        stage.dataset.fourMorphMotion = "ready";
-      }
+      updateFourMorphMotionState();
     }
   } catch (error) {
     paused = true;
