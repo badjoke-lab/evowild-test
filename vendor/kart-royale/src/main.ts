@@ -180,11 +180,16 @@ async function boot() {
   // time a new material first appears, which reads as the screen flashing black.
   bootProgress(systems.length / (systems.length + 1), 'compiling shaders');
   await new Promise((r) => requestAnimationFrame(r));
-  const warm = await prewarm(ctx);
-  console.info(
-    `[prewarm] ${warm.programsBefore} -> ${warm.programsAfter} programs ` +
-    `(${warm.objectsRevealed} hidden objects included) in ${warm.ms}ms`,
-  );
+  const skipPrewarm = new URLSearchParams(window.location.search).get('ciNoPrewarm') === '1';
+  if (skipPrewarm) {
+    console.info('[prewarm] skipped by ciNoPrewarm=1 test harness');
+  } else {
+    const warm = await prewarm(ctx);
+    console.info(
+      `[prewarm] ${warm.programsBefore} -> ${warm.programsAfter} programs ` +
+      `(${warm.objectsRevealed} hidden objects included) in ${warm.ms}ms`,
+    );
+  }
 
   // Deliberately NOT race.start(): the director already sits in RaceState.Menu,
   // which is what puts the title screen and character select on screen. Booting
