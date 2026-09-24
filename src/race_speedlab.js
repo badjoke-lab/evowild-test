@@ -472,11 +472,14 @@ function drawRacer(r) {
   ctx.restore();
 
   if(r.id===SELECTED_ID){
-    ctx.strokeStyle="rgba(108,221,255,.78)";
-    ctx.lineWidth=1.5;
+    const markerY = y - h - bob - 10;
+    ctx.fillStyle = "rgba(103,220,255,.92)";
     ctx.beginPath();
-    ctx.arc(x,y-h*.52-bob,Math.max(26,w*.34),0,Math.PI*2);
-    ctx.stroke();
+    ctx.moveTo(x, markerY + 8);
+    ctx.lineTo(x - 7, markerY - 3);
+    ctx.lineTo(x + 7, markerY - 3);
+    ctx.closePath();
+    ctx.fill();
   }
 }
 
