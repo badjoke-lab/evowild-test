@@ -20,6 +20,10 @@ const hunyuanRacePackSide = query.get("hunyuanRacePackSide") === "double" ? "dou
 const hunyuanRigRaceBenchMode = ["full", "hybrid"].includes(query.get("hunyuanRigRaceBench"))
   ? query.get("hunyuanRigRaceBench")
   : null;
+const hunyuanRigRaceBenchCount = Math.min(
+  18,
+  Math.max(1, Number.parseInt(query.get("hunyuanRigRaceCount") || "1", 10) || 1)
+);
 const renderScale = Math.min(1, Math.max(0.5, Number.parseFloat(query.get("renderScale") || "1") || 1));
 const modelYawDegrees = Number.parseFloat(query.get("modelYaw") || "0") || 0;
 const modelYawRadians = THREE.MathUtils.degToRad(modelYawDegrees);
@@ -45,6 +49,7 @@ let hunyuanRigRaceBenchReady = false;
 let hunyuanRigRaceStaticBatch = null;
 let hunyuanRigRaceStaticCount = 0;
 let hunyuanRigRaceRiggedCount = 0;
+let hunyuanRigRaceRiggedIds = new Set();
 let hunyuanRacePackRiggedSelected = null;
 let sf3dLabMixer = null;
 const sf3dRaceMixers = [];
@@ -949,19 +954,25 @@ function setupHunyuanRigRaceBench(baseData, lod4Data) {
     mixer.clipAction(clip).play();
     if (clip.duration > 0) mixer.setTime((phase % 1) * clip.duration);
     sf3dRaceMixers.push(mixer);
+    hunyuanRigRaceRiggedIds.add(racer.id);
   };
 
-  if (hunyuanRigRaceBenchMode === "full") {
-    racers.forEach((racer, index) => addRiggedRacer(racer, index / racers.length));
-    hunyuanRigRaceRiggedCount = racers.length;
-    hunyuanRigRaceStaticCount = 0;
-  } else {
-    if (!lod4Data) throw new Error("Hybrid rig benchmark requires Hunyuan LOD4");
-    const selectedRacer = racers.find((racer) => racer.id === selectedId);
-    addRiggedRacer(selectedRacer, 0);
-    hunyuanRigRaceRiggedCount = 1;
-    hunyuanRigRaceStaticCount = racers.length - 1;
+  const selectedRacer = racers.find((racer) => racer.id === selectedId);
+  const orderedOthers = racers.filter((racer) => racer.id !== selectedId);
+  const requestedRiggedCount = hunyuanRigRaceBenchMode === "full"
+    ? racers.length
+    : hunyuanRigRaceBenchCount;
+  const riggedRacers = [
+    selectedRacer,
+    ...orderedOthers.slice(0, Math.max(0, requestedRiggedCount - 1))
+  ];
 
+  riggedRacers.forEach((racer, index) => addRiggedRacer(racer, index / riggedRacers.length));
+  hunyuanRigRaceRiggedCount = riggedRacers.length;
+  hunyuanRigRaceStaticCount = racers.length - hunyuanRigRaceRiggedCount;
+
+  if (hunyuanRigRaceStaticCount > 0) {
+    if (!lod4Data) throw new Error("Hybrid rig benchmark requires Hunyuan LOD4");
     hunyuanRigRaceStaticBatch = createStaticCreatureInstanceBatch(lod4Data.source, {
       renderer,
       profile: lod4Data.profile,
@@ -1000,7 +1011,7 @@ function updateHunyuanRigRaceBenchStatic() {
   const finalMatrix = new THREE.Matrix4();
   let count = 0;
   for (const racer of racers) {
-    if (racer.id === selectedId) continue;
+    if (hunyuanRigRaceRiggedIds.has(racer.id)) continue;
     racer.obj.updateMatrixWorld(true);
     finalMatrix.multiplyMatrices(racer.obj.matrixWorld, hunyuanRigRaceStaticBatch.prototypeMatrix);
     hunyuanRigRaceStaticBatch.object.setMatrixAt(count, finalMatrix);
