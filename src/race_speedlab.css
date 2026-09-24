@@ -203,18 +203,7 @@ body { overflow: hidden; }
 }
 .camera-switch button.active { background:#19374a; color:#e7f8ff; }
 
-.asset-state {
-  right:18px;
-  top:132px;
-  padding:7px 10px;
-  border-radius:8px;
-  border:1px solid rgba(135,210,242,.16);
-  background:rgba(4,14,22,.58);
-  color:#a8bbc6;
-  font-size:10px;
-  font-weight:800;
-  letter-spacing:.05em;
-}
+.asset-state { display:none; }
 
 .speed-vignette {
   position:absolute;
