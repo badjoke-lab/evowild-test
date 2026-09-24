@@ -93,8 +93,9 @@ test("lane 4 v2 runs vendored upstream race engine", async ({ page }, testInfo) 
   expect(errors, errors.join("\n")).toEqual([]);
   await expect(page.locator("canvas")).toBeVisible();
 
-  if (testInfo.project.name === "android-chromium") {
-    fs.mkdirSync("test-results/visuals", { recursive: true });
-    await page.screenshot({ path: "test-results/visuals/android-lane4-upstream-v2.png", fullPage: true });
-  }
+  fs.mkdirSync("test-results/visuals", { recursive: true });
+  const lane4Shot = testInfo.project.name === "android-chromium"
+    ? "test-results/visuals/android-lane4-upstream-v2.png"
+    : "test-results/visuals/desktop-lane4-upstream-v2.png";
+  await page.screenshot({ path: lane4Shot, fullPage: true });
 });
