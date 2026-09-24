@@ -1,61 +1,69 @@
 import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 
-test("S-only sideview rebuild aligns motion and race direction", async ({ page }, testInfo) => {
-  const pageErrors=[];
-  const consoleErrors=[];
-  page.on("pageerror", e=>pageErrors.push(e.stack||String(e)));
-  page.on("console", m=>{ if(m.type()==="error") consoleErrors.push(m.text()); });
+test("S visual lane is one articulated creature with grounded gait phases", async ({ page }, testInfo) => {
+  const pageErrors = [];
+  const consoleErrors = [];
+  page.on("pageerror", error => pageErrors.push(error.stack || String(error)));
+  page.on("console", message => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
 
-  await page.goto("/evowild-test/race-s-sideview.html", { waitUntil:"networkidle" });
+  await page.goto("/evowild-test/race-s-sideview.html", { waitUntil: "networkidle" });
 
-  const stage=page.locator("#stage");
-  await expect(stage).toHaveAttribute("data-mode","s-only-sideview");
-  await expect(stage).toHaveAttribute("data-renderer","side-perspective");
-  await expect(stage).toHaveAttribute("data-s-run-sheet","ready",{timeout:10000});
-  await expect(stage).toHaveAttribute("data-race-state","running",{timeout:8000});
+  const stage = page.locator("#stage");
+  await expect(stage).toHaveAttribute("data-mode", "s-solo-motion");
+  await expect(stage).toHaveAttribute("data-creature-count", "1");
+  await expect(stage).toHaveAttribute("data-agent", "off");
+  await expect(stage).toHaveAttribute("data-hud", "off");
+  await expect(stage).toHaveAttribute("data-race-logic", "off");
+  await expect(stage).toHaveAttribute("data-rig-ready", "true", { timeout: 10000 });
+  await expect(page.locator(".hud")).toHaveCount(0);
+  await expect(page.locator("#motionCanvas")).toBeVisible();
 
-  await page.waitForTimeout(1500);
+  const samples = await page.evaluate(async () => {
+    const stage = document.querySelector("#stage");
+    const out = [];
+    for (let i = 0; i < 34; i++) {
+      out.push({
+        phase: stage.dataset.motionPhase,
+        contacts: Number(stage.dataset.contactCount || 0),
+        contactError: Number(stage.dataset.contactError || 0),
+        bodyY: Number(stage.dataset.bodyY || 0),
+        pitch: Number(stage.dataset.bodyPitch || 0),
+        flight: stage.dataset.flight
+      });
+      await new Promise(resolve => setTimeout(resolve, 25));
+    }
+    return out;
+  });
 
-  const distance=Number(await stage.getAttribute("data-selected-distance"));
-  const speed=Number(await stage.getAttribute("data-selected-speed"));
-  const frame=Number(await stage.getAttribute("data-s-run-frame"));
-  const phase=await stage.getAttribute("data-s-run-phase");
-  const x=Number(await stage.getAttribute("data-selected-x"));
-  const visible=Number(await stage.getAttribute("data-visible-racers"));
-  const fieldMinX=Number(await stage.getAttribute("data-field-min-x"));
-  const fieldMaxX=Number(await stage.getAttribute("data-field-max-x"));
+  const phases = new Set(samples.map(sample => sample.phase));
+  for (const phase of ["CONTACT", "PUSH", "RECOVERY", "FLIGHT", "REACH", "LAND"]) {
+    expect(phases.has(phase), `missing motion phase: ${phase}`).toBeTruthy();
+  }
 
-  expect(distance).toBeGreaterThan(0);
-  expect(speed).toBeGreaterThan(0);
-  expect(frame).toBeGreaterThanOrEqual(0);
-  expect(frame).toBeLessThan(6);
-  expect(["CONTACT","PUSH","LIFT","FLIGHT","REACH","LAND"]).toContain(phase);
-  const viewportWidth=await page.evaluate(()=>innerWidth);
-  expect(visible).toBe(8);
-  expect(fieldMinX).toBeGreaterThanOrEqual(0);
-  expect(fieldMaxX).toBeLessThanOrEqual(viewportWidth);
-  expect(speed).toBeGreaterThan(14);
-  expect(pageErrors,pageErrors.join("\n")).toEqual([]);
-  expect(consoleErrors,consoleErrors.join("\n")).toEqual([]);
+  const contactSamples = samples.filter(sample => sample.contacts > 0);
+  expect(contactSamples.length).toBeGreaterThan(0);
+  expect(Math.max(...contactSamples.map(sample => sample.contactError))).toBeLessThanOrEqual(0.5);
+  expect(samples.some(sample => sample.flight === "true")).toBeTruthy();
 
-  fs.mkdirSync("test-results/visuals",{recursive:true});
-  await stage.screenshot({path:`test-results/visuals/${testInfo.project.name}-s-sideview.png`});
+  const bodyYs = samples.map(sample => sample.bodyY);
+  const pitches = samples.map(sample => sample.pitch);
+  expect(Math.max(...bodyYs) - Math.min(...bodyYs)).toBeGreaterThan(12);
+  expect(Math.max(...pitches) - Math.min(...pitches)).toBeGreaterThan(4);
+
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+
+  fs.mkdirSync("test-results/visuals", { recursive: true });
 
   await expect.poll(
-    async()=>Number(await stage.getAttribute("data-selected-distance")),
-    { timeout:12000, intervals:[250,500,750] }
-  ).toBeGreaterThan(190);
-
-  const bank=Number(await stage.getAttribute("data-course-bank"));
-  const laterRank=Number(await stage.getAttribute("data-selected-rank"));
-  expect(Math.abs(bank)).toBeGreaterThan(2);
-  expect(laterRank).toBeLessThan(8);
-  expect(Number(await stage.getAttribute("data-visible-racers"))).toBe(8);
-  expect(pageErrors,pageErrors.join("\n")).toEqual([]);
-  expect(consoleErrors,consoleErrors.join("\n")).toEqual([]);
+    async () => stage.getAttribute("data-motion-phase"),
+    { timeout: 3000, intervals: [20, 30, 40] }
+  ).toBe("FLIGHT");
 
   await stage.screenshot({
-    path:`test-results/visuals/${testInfo.project.name}-s-sideview-bank.png`
+    path: `test-results/visuals/${testInfo.project.name}-s-motion-flight.png`
   });
 });
