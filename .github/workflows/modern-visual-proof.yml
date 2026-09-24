@@ -1,0 +1,29 @@
+name: modern-visual-proof
+
+on:
+  push:
+    branches: ["feat/2p5d-modern-engine-zero-v1"]
+  workflow_dispatch:
+
+concurrency:
+  group: modern-visual-proof-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test tests/modern-race.spec.js --project=desktop-chromium
+      - name: Upload modern visual proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: modern-race-proof
+          path: test-results/modern-visuals/**/*
+          if-no-files-found: warn
