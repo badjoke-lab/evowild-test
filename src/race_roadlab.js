@@ -26,7 +26,7 @@ const BASE = import.meta.env.BASE_URL || "/";
 const RACER_COUNT = 8;
 const LANES = 6;
 const TRACK_WIDTH = 48;
-const TRACK_SEGMENTS = 520;
+const TRACK_SEGMENTS = 260;
 const RACE_METERS = 1200;
 const SELECTED_ID = 1;
 
@@ -44,8 +44,9 @@ const renderer = new THREE.WebGLRenderer({
   alpha: false,
   powerPreference: "high-performance"
 });
-renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.7));
-renderer.shadowMap.enabled = true;
+const compactGpu = window.matchMedia?.("(max-width: 720px)")?.matches;
+renderer.setPixelRatio(Math.min(devicePixelRatio || 1, compactGpu ? 1.05 : 1.35));
+renderer.shadowMap.enabled = !compactGpu;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -63,7 +64,7 @@ scene.add(hemi);
 const sun = new THREE.DirectionalLight(0xffe7bc, 3.4);
 sun.position.set(180, 260, 120);
 sun.castShadow = true;
-sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.mapSize.set(1024, 1024);
 sun.shadow.camera.left = -140;
 sun.shadow.camera.right = 140;
 sun.shadow.camera.top = 140;
@@ -157,7 +158,7 @@ function buildRibbon(width, yLift, material, lateralCenter = 0) {
   const positions = [];
   const uvs = [];
   const indices = [];
-  const rows = 12;
+  const rows = 2;
 
   for (let i = 0; i <= TRACK_SEGMENTS; i++) {
     const u = i / TRACK_SEGMENTS;
@@ -206,10 +207,6 @@ const shoulderMat = new THREE.MeshStandardMaterial({
   metalness: .02
 });
 scene.add(buildRibbon(TRACK_WIDTH + 7.5, -.20, shoulderMat));
-
-const innerTrack = buildRibbon(TRACK_WIDTH, .03, trackMat);
-innerTrack.renderOrder = 2;
-scene.add(innerTrack);
 
 function makeLaneStrip(offset, stripWidth, color, opacity = 1) {
   const positions = [];
@@ -275,7 +272,7 @@ const railMaterial = new THREE.MeshStandardMaterial({
 });
 for (const offset of [-TRACK_WIDTH/2 - 2.3, TRACK_WIDTH/2 + 2.3]) {
   const rail = new THREE.Mesh(
-    new THREE.TubeGeometry(offsetCurve(offset, 2.5), 420, .22, 5, true),
+    new THREE.TubeGeometry(offsetCurve(offset, 2.5), 220, .22, 5, true),
     railMaterial
   );
   rail.castShadow = true;
@@ -284,9 +281,9 @@ for (const offset of [-TRACK_WIDTH/2 - 2.3, TRACK_WIDTH/2 + 2.3]) {
 
 const postGeo = new THREE.CylinderGeometry(.20, .26, 4.4, 6);
 const postMat = new THREE.MeshStandardMaterial({ color: 0xc7d1d2, roughness: .52, metalness: .35 });
-const postCount = 120;
+const postCount = 72;
 const posts = new THREE.InstancedMesh(postGeo, postMat, postCount * 2);
-posts.castShadow = true;
+posts.castShadow = false;
 posts.receiveShadow = true;
 const dummy = new THREE.Object3D();
 let postIndex = 0;
