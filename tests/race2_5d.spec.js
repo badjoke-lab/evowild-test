@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
+import fs from "node:fs";
 
-test("2.5D race proof loads creature assets and advances", async ({ page }) => {
+test("2.5D race proof loads creature assets and advances", async ({ page }, testInfo) => {
   const pageErrors = [];
   const consoleErrors = [];
 
@@ -29,4 +30,10 @@ test("2.5D race proof loads creature assets and advances", async ({ page }) => {
   expect(canvasInfo.cssHeight).toBeGreaterThan(0);
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+  await page.locator("#stage").screenshot({
+    path: outDir + "/" + testInfo.project.name + "-2_5d-race.png"
+  });
 });
