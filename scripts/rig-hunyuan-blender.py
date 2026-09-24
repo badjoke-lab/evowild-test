@@ -143,6 +143,7 @@ def deterministic_weights(mesh, arm, dims):
     height = max(1e-6, dims["height"])
     length = max(1e-6, dims["length"])
     scale = max(width, height, length)
+    min_vertex_y = min((v.co.y for v in mesh.data.vertices), default=0.0)
 
     bone_segments = {
         bone.name: (arm.matrix_world @ bone.head_local, arm.matrix_world @ bone.tail_local)
@@ -160,7 +161,7 @@ def deterministic_weights(mesh, arm, dims):
             d = segment_distance(world, a, c)
             penalty = 1.0
 
-            yn = (world.y - min(v.co.y for v in mesh.data.vertices)) / max(height, 1e-6)
+            yn = (world.y - min_vertex_y) / max(height, 1e-6)
             if ("fore_" in name or "hind_" in name) and yn > 0.66:
                 penalty *= 4.5
             if name in {"head", "neck"} and abs(world.z - dims["center"][2]) < length * 0.12:
