@@ -307,11 +307,9 @@ test("compare corrected SF3D LOD quality and 18-instance load", async ({ page },
     console.log("SF3D_LOD_BENCH", JSON.stringify(result));
   }
 
+  expect(results).toHaveLength(4);
   expect(results[1].triangles).toBeLessThan(results[0].triangles);
   expect(results[2].triangles).toBeLessThan(results[1].triangles);
-  expect(results[3].triangles).toBeLessThan(results[2].triangles);
-  expect(results[4].triangles).toBeLessThan(results[3].triangles);
-  expect(results[5].triangles).toBeLessThan(results[4].triangles);
   expect(results[3].triangles).toBeLessThan(results[2].triangles);
 
   fs.writeFileSync(
