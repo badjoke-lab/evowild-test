@@ -1,0 +1,61 @@
+name: HF TRELLIS API probe
+
+on:
+  push:
+    branches:
+      - test/hf-sf3d-retry-20260921
+    paths:
+      - ".github/workflows/hf-trellis-probe.yml"
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Gradio client
+        run: pip install --quiet "gradio_client>=1.10,<2"
+
+      - name: Probe TRELLIS API
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          python - <<'PY'
+          import inspect, json, os
+          from gradio_client import Client
+
+          token = os.environ.get("HF_TOKEN")
+          params = inspect.signature(Client).parameters
+          auth_kw = {"token": token} if "token" in params else {"hf_token": token}
+          print("HF_AUTH:", "token present" if token else "token missing")
+          print("GRADIO_AUTH_ARG:", next(iter(auth_kw)))
+
+          candidates = ["crevelop/Trellis", "Ayush4151y/trellis-3d-demo"]
+          errors = {}
+          for space in candidates:
+              try:
+                  print("SPACE:", space)
+                  client = Client(space, **auth_kw)
+                  api = client.view_api(return_format="dict")
+                  with open("trellis-api.json", "w", encoding="utf-8") as f:
+                      json.dump({"space": space, "api": api}, f, indent=2, default=str)
+                  print(json.dumps(api, indent=2, default=str))
+                  break
+              except Exception as exc:
+                  errors[space] = repr(exc)
+                  print("ERROR:", space, repr(exc))
+          else:
+              raise RuntimeError(json.dumps(errors))
+          PY
+
+      - name: Upload API schema
+        uses: actions/upload-artifact@v4
+        with:
+          name: trellis-api-schema
+          path: trellis-api.json
