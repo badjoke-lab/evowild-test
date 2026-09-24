@@ -675,16 +675,14 @@ test("compare raw and simplified Hunyuan multiview shapes", async ({ page }, tes
 
 test("compare Hunyuan raw and LOD2 across four views", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
-  test.setTimeout(90000);
+  test.setTimeout(140000);
 
   const outDir = "test-results/visuals";
   fs.mkdirSync(outDir, { recursive: true });
 
   const variants = [
     { name: "raw", variant: "hunyuan2mv" },
-    { name: "lod2", variant: "hunyuanlod2" },
-    { name: "lod3", variant: "hunyuanlod3" },
-    { name: "lod4", variant: "hunyuanlod4" }
+    { name: "lod2", variant: "hunyuanlod2" }
   ];
   const yaws = [0, 90, 180, 270];
 
@@ -736,4 +734,74 @@ test("benchmark 18 Hunyuan LOD2 instances", async ({ page }, testInfo) => {
   await page.locator("#stage").screenshot({
     path: `${outDir}/hunyuan-lod2-18-benchmark.png`
   });
+});
+
+
+test("benchmark 18 Hunyuan LOD3 and LOD4 instances", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(90000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+  const results = [];
+
+  for (const variant of [
+    { name: "lod3", query: "hunyuanlod3" },
+    { name: "lod4", query: "hunyuanlod4" }
+  ]) {
+    await page.goto(
+      `/evowild-test/?sf3dVariant=${variant.query}&sf3dBench=18&sf3dMode=instance&sf3dSide=double&renderScale=0.75`,
+      { waitUntil: "networkidle" }
+    );
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-bench", "ready", { timeout: 35000 });
+
+    const metrics = await page.evaluate(() => window.__sf3dBench);
+    expect(metrics?.count).toBe(18);
+    expect(metrics?.mode).toBe("instance");
+    expect(metrics?.trianglesPerInstance).toBeGreaterThan(0);
+    results.push({ name: variant.name, ...metrics });
+    console.log("HUNYUAN_LOD_18_BENCH", JSON.stringify({ name: variant.name, ...metrics }));
+
+    await page.locator("#stage").screenshot({
+      path: `${outDir}/hunyuan-${variant.name}-18-benchmark.png`
+    });
+  }
+
+  expect(results[1].trianglesPerInstance).toBeLessThan(results[0].trianglesPerInstance);
+  fs.writeFileSync(
+    `${outDir}/hunyuan-lod3-lod4-18-benchmark.json`,
+    JSON.stringify(results, null, 2)
+  );
+});
+
+
+test("compare SF3D TripoSR and semantic Hunyuan across four views", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(150000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const candidates = [
+    { name: "sf3d", variant: "" },
+    { name: "triposr", variant: "triposr3q" },
+    { name: "hunyuan", variant: "hunyuanlod2" }
+  ];
+  const yaws = [0, 90, 180, 270];
+
+  for (const candidate of candidates) {
+    for (const yaw of yaws) {
+      const params = new URLSearchParams({ modelYaw: String(yaw) });
+      if (candidate.variant) params.set("sf3dVariant", candidate.variant);
+      await page.goto(`/evowild-test/?${params.toString()}`, { waitUntil: "networkidle" });
+      await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
+      await page.getByRole("button", { name: "1 Morph" }).click();
+      await expect(page.locator("#viewLabel")).toHaveText("MORPH LAB");
+      await page.waitForTimeout(350);
+      await page.locator("#stage").screenshot({
+        path: `${outDir}/direct3d-${candidate.name}-yaw${yaw}.png`
+      });
+    }
+  }
 });
