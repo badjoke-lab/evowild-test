@@ -32,9 +32,9 @@ test("S-only sideview rebuild aligns motion and race direction", async ({ page }
   expect(frame).toBeLessThan(6);
   expect(["CONTACT","PUSH","LIFT","FLIGHT","REACH","LAND"]).toContain(phase);
   const viewportWidth=await page.evaluate(()=>innerWidth);
-  expect(visible).toBe(8);
-  expect(fieldMinX).toBeGreaterThanOrEqual(0);
-  expect(fieldMaxX).toBeLessThanOrEqual(viewportWidth);
+  expect(visible).toBeGreaterThanOrEqual(3);
+  expect(x).toBeGreaterThan(viewportWidth*.18);
+  expect(x).toBeLessThan(viewportWidth*.58);
   expect(speed).toBeGreaterThan(14);
   expect(pageErrors,pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors,consoleErrors.join("\n")).toEqual([]);
@@ -51,7 +51,9 @@ test("S-only sideview rebuild aligns motion and race direction", async ({ page }
   const laterRank=Number(await stage.getAttribute("data-selected-rank"));
   expect(Math.abs(bank)).toBeGreaterThan(2);
   expect(laterRank).toBeLessThan(8);
-  expect(Number(await stage.getAttribute("data-visible-racers"))).toBe(8);
+  expect(Number(await stage.getAttribute("data-visible-racers"))).toBeGreaterThanOrEqual(3);
+  expect(await stage.getAttribute("data-camera-subject")).toBe("selected-plus-nearby");
+  expect(Math.abs(Number(await stage.getAttribute("data-camera-roll")))).toBeLessThan(.03);
   expect(pageErrors,pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors,consoleErrors.join("\n")).toEqual([]);
 
