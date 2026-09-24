@@ -59,13 +59,13 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#agentFatigue")).toContainText("%");
   await expect(page.locator("#stage")).toHaveAttribute("data-creature-fatigue", /\d+/);
   await expect(page.locator("#stage")).toHaveAttribute("data-directional-sprite-facing", "course-locked", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-non-s-run-motion", "generated-pose-sheets", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-p-run-sheet", "generated", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-p-run-animated-racers", "4", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-e-run-sheet", "generated", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-e-run-animated-racers", "4", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-a-run-sheet", "generated", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-a-run-animated-racers", "5", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-non-s-run-motion", "articulated-cutout-rigs", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-rig", "loaded", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-racers", "4", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-rig", "loaded", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-racers", "4", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-a-cutout-rig", "loaded", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-a-cutout-racers", "5", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-race-section", /START|MID|BUILD|FINAL/, { timeout: 6500 });
   await expect(page.locator("#remaining")).toContainText("m to go", { timeout: 6500 });
   await expect(page.locator("#leaderGap")).not.toHaveText("", { timeout: 6500 });
@@ -127,7 +127,7 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-source", "sprite-sheet", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-animated-racers", "5", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-follow-occlusion-fade", "disabled", { timeout: 8000 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v9", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v12", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-hud-telemetry", "active", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-visual", "enabled", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-toast", "enabled", { timeout: 8000 });
@@ -181,7 +181,7 @@ test("capture desktop cinematic race and follow views", async ({ page }, testInf
 
   await page.goto("/evowild-test/", { waitUntil: "networkidle" });
   await expect(page.locator("#stage")).toHaveAttribute("data-race-state", "running", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v9", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v12", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-race-camera", "side-pack-cinematic", { timeout: 6500 });
   await page.waitForTimeout(5200);
   await page.locator("#stage").screenshot({ path: `${outDir}/desktop-race-cinematic.png` });
@@ -212,7 +212,7 @@ test("record 2.5D race speed proof", async ({ browser }, testInfo) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-source", "sprite-sheet", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-animated-racers", "5", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-follow-occlusion-fade", "disabled", { timeout: 8000 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v9", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v12", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-hud-telemetry", "active", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-proof", "isolated", { timeout: 8000 });
   await page.getByRole("button", { name: "3 Follow" }).click();
@@ -240,7 +240,7 @@ test("record full field and non-S follow motion proof", async ({ browser }, test
   const page = await context.newPage();
   await page.goto("http://127.0.0.1:4173/evowild-test/", { waitUntil: "networkidle" });
   await expect(page.locator("#stage")).toHaveAttribute("data-race-state", "running", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-non-s-run-motion", "generated-pose-sheets", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-non-s-run-motion", "articulated-cutout-rigs", { timeout: 6500 });
   await page.getByRole("button", { name: "2 Race" }).click();
   await page.waitForTimeout(3200);
 
