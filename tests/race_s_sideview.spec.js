@@ -77,7 +77,7 @@ test("S visual lane stays one complete creature and covers a grounded six-phase 
   fs.mkdirSync("test-results/visuals", { recursive: true });
 
   const capturePhases = testInfo.project.name === "desktop-chromium"
-    ? ["CONTACT", "PUSH", "FLIGHT", "REACH"]
+    ? ["CONTACT", "PUSH", "RECOVERY", "FLIGHT", "REACH", "LAND"]
     : ["CONTACT"];
 
   for (const phase of capturePhases) {
