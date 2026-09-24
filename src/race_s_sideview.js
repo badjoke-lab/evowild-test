@@ -92,7 +92,7 @@ function makeRacers() {
   return Array.from({length:FIELD_SIZE}, (_,i) => ({
     id:i+1,
     name:NAMES[i],
-    distance: i*3.0,
+    distance: i*7.0,
     speed:0,
     cruise:21.8 + ((i*5)%7)*0.18,
     accel:5.2 + (i%3)*0.22,
@@ -249,15 +249,19 @@ function drawSky() {
 }
 
 function drawParallaxLayer(baseY, amplitude, speed, period, fill, jaggedness) {
-  const shift = -cameraMeters*speed;
+  const shift = cameraMeters*speed;
   ctx.fillStyle=fill;
   ctx.beginPath();
   ctx.moveTo(0,height);
-  const start = -period + (shift%period);
-  for (let x=start; x<width+period; x+=period/2) {
-    const wave = Math.abs(Math.sin((x-shift)*.009))*jaggedness + Math.abs(Math.sin((x-shift)*.017))*(1-jaggedness);
-    ctx.lineTo(x, baseY-amplitude*(.25+.75*wave));
-    ctx.lineTo(x+period*.28, baseY-amplitude*.10);
+  ctx.lineTo(0,baseY);
+  const step=Math.max(24,period*.12);
+  for(let x=0;x<=width+step;x+=step){
+    const worldX=x+shift;
+    const wave=
+      Math.abs(Math.sin(worldX*.0067))*jaggedness +
+      Math.abs(Math.sin(worldX*.013))*(1-jaggedness);
+    const ridge=Math.sin(worldX*.0021+1.2)*.16;
+    ctx.lineTo(x,baseY-amplitude*(.22+.66*wave+ridge));
   }
   ctx.lineTo(width,height);
   ctx.closePath();
@@ -295,7 +299,7 @@ function drawBackground() {
 
 function screenXForMeters(m) {
   const anchor = width<700 ? width*.31 : width*.34;
-  const pxPerMeter = width<700 ? 5.0 : 6.2;
+  const pxPerMeter = width<700 ? 6.4 : 8.0;
   return anchor + (m-cameraMeters)*pxPerMeter;
 }
 
@@ -304,24 +308,27 @@ function trackBaseY(m) {
 }
 
 function laneOffset(lane) {
-  const t=clamp(lane/3,0,1);
-  return lerp(-32,36,t);
+  const stops=[-82,-28,30,88];
+  const lo=Math.floor(clamp(lane,0,3));
+  const hi=Math.ceil(clamp(lane,0,3));
+  const t=clamp(lane-lo,0,1);
+  return lerp(stops[lo],stops[hi],t);
 }
 function laneScale(lane) {
   const t=clamp(lane/3,0,1);
-  return lerp(.78,1.08,t);
+  return lerp(.66,1.10,t);
 }
 
 function drawTrack() {
-  const pxPerMeter = width<700 ? 5.0 : 6.2;
+  const pxPerMeter = width<700 ? 6.4 : 8.0;
   const leftM = cameraMeters - width*.40/pxPerMeter;
   const rightM = cameraMeters + width*.80/pxPerMeter;
   const step=2.4;
 
   // Four perspective bands.
   for (let lane=0; lane<4; lane++) {
-    const far = laneOffset(lane)-17;
-    const near = laneOffset(lane)+17;
+    const far = laneOffset(lane)-24;
+    const near = laneOffset(lane)+24;
     const shade = lane%2 ? "#464c4f" : "#50575a";
 
     ctx.fillStyle=shade;
@@ -397,7 +404,7 @@ function drawRacers() {
     const r=item.r;
     const selectedRacer=r.id===SELECTED_ID;
     const scale=laneScale(item.lane);
-    const baseW = width<700 ? 118 : 150;
+    const baseW = width<700 ? 104 : 132;
     const spriteW=baseW*scale*(selectedRacer?1.04:1);
     const spriteH=spriteW*.84;
 
