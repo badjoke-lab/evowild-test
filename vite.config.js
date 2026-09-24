@@ -9,7 +9,8 @@ export default defineConfig({
         main: resolve(process.cwd(), "index.html"),
         race2_5d: resolve(process.cwd(), "race-2_5d.html"),
         raceSSideview: resolve(process.cwd(), "race-s-sideview.html"),
-        raceSOnlyV3: resolve(process.cwd(), "race-s-only-v3.html")
+        raceSOnlyV3: resolve(process.cwd(), "race-s-only-v3.html"),
+        raceSHybrid: resolve(process.cwd(), "race-s-hybrid.html")
       }
     }
   }
