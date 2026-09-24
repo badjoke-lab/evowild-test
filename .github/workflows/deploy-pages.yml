@@ -26,7 +26,7 @@ jobs:
        (github.event.workflow_run.head_branch == 'feat/2p5d-animated-s-proof-20260922' ||
         github.event.workflow_run.head_branch == 'feat/2p5d-four-morph-race-v1' ||
         github.event.workflow_run.head_branch == 'feat/2p5d-race-quality-floor-v2' ||
-        github.event.workflow_run.head_branch == 'feat/2p5d-s-only-v3-20260924'))
+        github.event.workflow_run.head_branch == 'feat/2p5d-s-only-v3-sideview-rebuild-20260924'))
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main
@@ -55,7 +55,7 @@ jobs:
       - name: Checkout S-only V3 2.5D preview branch
         uses: actions/checkout@v4
         with:
-          ref: feat/2p5d-s-only-v3-20260924
+          ref: feat/2p5d-s-only-v3-sideview-rebuild-20260924
           path: _preview_s_v3
 
       - uses: actions/setup-node@v4
