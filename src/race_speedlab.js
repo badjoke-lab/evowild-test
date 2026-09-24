@@ -340,10 +340,10 @@ function spawnDust(r) {
 
 function worldX(distance, laneF = 2.5) {
   const focus = selected();
-  const focusX = cameraMode === "chase" ? width * .31 : width * .40;
+  const focusX = cameraMode === "chase" ? width * .34 : width * .40;
   const ppm = cameraMode === "chase"
-    ? Math.min(5.8, Math.max(3.7, width / 245))
-    : Math.min(4.2, Math.max(2.7, width / 340));
+    ? Math.min(8.4, Math.max(5.7, width / 190))
+    : Math.min(4.3, Math.max(2.8, width / 330));
   const depthShear = (laneF - (LANES - 1) * 0.5) * (cameraMode === "chase" ? 18 : 13);
   return focusX + (distance - focus.distance) * ppm + depthShear;
 }
@@ -362,7 +362,7 @@ function trackYAt(x, laneT, scroll) {
 }
 
 function laneScale(t) {
-  return .68 + t * .33;
+  return .70 + t * .35;
 }
 
 function drawSky(scroll) {
@@ -669,9 +669,9 @@ function drawSpriteMorph(r, x, y, scale, frame, bob, tilt) {
 
 function drawRacer(r) {
   const laneT=r.laneF/(LANES-1);
-  const scale=laneScale(laneT)*(cameraMode==="chase"?1.00:.90);
+  const scale=laneScale(laneT)*(cameraMode==="chase"?1.18:.90);
   const x=worldX(r.distance, r.laneF);
-  const scroll=selected().distance*58;
+  const scroll=selected().distance*72;
   const y=trackYAt(x,laneT,scroll);
   if(x<-300||x>width+300) return;
 
@@ -748,7 +748,7 @@ function render() {
   const s=selected();
   const speedRatio=Math.max(0,Math.min(1.15,s.speed/s.cruise));
   const shake=(cameraMode==="chase"?1.8:1.0)*Math.max(0,speedRatio-.55);
-  const scroll=s.distance*58;
+  const scroll=s.distance*72;
 
   ctx.save();
   const accelZoom = 1 + Math.max(0, speedRatio - .72) * (cameraMode === "chase" ? .055 : .025);
@@ -769,11 +769,14 @@ function render() {
   const vergeY = height * .985;
   ctx.fillStyle = "#223c2c";
   ctx.fillRect(0, vergeY - 10, width, 28);
-  const fgGap = 118;
-  const fgOff = ((scroll * 7.2) % fgGap + fgGap) % fgGap;
+  const fgGap = 132;
+  const fgOff = ((scroll * 8.4) % fgGap + fgGap) % fgGap;
   for (let x = -fgGap + fgOff; x < width + fgGap; x += fgGap) {
-    ctx.fillStyle = "rgba(230,237,233,.72)";
-    ctx.fillRect(x, vergeY - 28, 4, 34);
+    const smear = cameraMode === "chase" ? 18 + speedRatio * 28 : 10 + speedRatio * 14;
+    ctx.fillStyle = "rgba(230,237,233,.74)";
+    ctx.fillRect(x, vergeY - 34, 4, 40);
+    ctx.fillStyle = "rgba(214,232,236,.10)";
+    ctx.fillRect(x - smear, vergeY - 17, smear, 3);
   }
 
   const vignette=ctx.createRadialGradient(width*.48,height*.48,height*.18,width*.5,height*.5,width*.76);
