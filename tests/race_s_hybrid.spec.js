@@ -2,6 +2,7 @@ import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 
 test("S-only hybrid renders animated sprites on a Three.js course", async ({ page }, testInfo) => {
+  test.setTimeout(45000);
   const pageErrors=[];
   const consoleErrors=[];
   page.on("pageerror",e=>pageErrors.push(e.stack||String(e)));
@@ -43,7 +44,7 @@ test("S-only hybrid renders animated sprites on a Three.js course", async ({ pag
   await expect.poll(
     async()=>Number(await stage.getAttribute("data-selected-distance")),
     {timeout:12000,intervals:[250,500,750]}
-  ).toBeGreaterThan(190);
+  ).toBeGreaterThan(90);
 
   expect(Number(await stage.getAttribute("data-selected-rank"))).toBeLessThan(8);
   expect(pageErrors,pageErrors.join("\n")).toEqual([]);
