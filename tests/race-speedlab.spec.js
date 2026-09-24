@@ -13,23 +13,19 @@ test("isolated speed lab loads all run sheets and animates", async ({ page }, te
   await expect(stage).toHaveAttribute("data-motion", "sprite-sheets", { timeout: 10000 });
   await expect(stage).toHaveAttribute("data-running", /true|finished/, { timeout: 5000 });
 
-  const before = {
-    s: await stage.getAttribute("data-frame-s"),
-    p: await stage.getAttribute("data-frame-p"),
-    e: await stage.getAttribute("data-frame-e"),
-    a: await stage.getAttribute("data-frame-a")
-  };
+  const observed = { s: new Set(), p: new Set(), e: new Set(), a: new Set() };
+  for (let sample = 0; sample < 9; sample++) {
+    observed.s.add(await stage.getAttribute("data-frame-s"));
+    observed.p.add(await stage.getAttribute("data-frame-p"));
+    observed.e.add(await stage.getAttribute("data-frame-e"));
+    observed.a.add(await stage.getAttribute("data-frame-a"));
+    await page.waitForTimeout(95);
+  }
 
-  await page.waitForTimeout(650);
-
-  const after = {
-    s: await stage.getAttribute("data-frame-s"),
-    p: await stage.getAttribute("data-frame-p"),
-    e: await stage.getAttribute("data-frame-e"),
-    a: await stage.getAttribute("data-frame-a")
-  };
-
-  expect(Object.keys(before).filter((key) => before[key] !== after[key]).length).toBeGreaterThanOrEqual(3);
+  expect(observed.s.size).toBeGreaterThanOrEqual(3);
+  expect(observed.p.size).toBeGreaterThanOrEqual(3);
+  expect(observed.e.size).toBeGreaterThanOrEqual(3);
+  expect(observed.a.size).toBeGreaterThanOrEqual(3);
   expect(errors).toEqual([]);
 
   if (testInfo.project.name === "desktop-chromium") {
