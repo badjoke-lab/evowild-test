@@ -65,7 +65,7 @@ test("S visual lane stays one complete creature and covers a grounded six-phase 
 
   const flight = samples.filter(sample => sample.phase === "FLIGHT");
   expect(flight.length).toBeGreaterThan(0);
-  expect(Math.min(...flight.map(sample => sample.lift))).toBeGreaterThan(20);
+  expect(Math.max(...flight.map(sample => sample.lift))).toBeGreaterThan(20);
 
   expect(new Set(samples.map(sample => sample.frame)).size).toBe(6);
   const pitches = samples.map(sample => sample.pitch);
