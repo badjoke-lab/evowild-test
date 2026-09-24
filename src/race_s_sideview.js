@@ -359,7 +359,7 @@ function drawBackground() {
 }
 
 function screenXForMeters(m) {
-  const anchor = width<700 ? width*.50 : width*.46;
+  const anchor = width<700 ? width*.37 : width*.41;
   return anchor + (m-cameraMeters)*pixelsPerMeter;
 }
 
@@ -375,7 +375,7 @@ function laneYAt(m,lane) {
 
 function laneOffset(lane) {
   const portrait=height>width*1.35;
-  const stops=portrait?[-142,-48,50,148]:[-82,-28,30,88];
+  const stops=portrait?[-108,-36,38,112]:[-76,-24,28,80];
   const lo=Math.floor(clamp(lane,0,3));
   const hi=Math.ceil(clamp(lane,0,3));
   const t=clamp(lane-lo,0,1);
@@ -553,8 +553,8 @@ function drawCourseLandmarks() {
     const x=screenXForMeters(mark);
     const baseY=trackBaseY(mark)+farY-courseBank(mark);
     const major=mark%360===0;
-    const h=major?(height>width*1.35?86:64):(height>width*1.35?58:44);
-    const w=major?54:38;
+    const h=major?(height>width*1.35?68:54):(height>width*1.35?48:38);
+    const w=major?46:34;
 
     ctx.save();
     ctx.fillStyle="rgba(22,35,38,.88)";
@@ -602,8 +602,8 @@ function drawRacers() {
     const selectedRacer=r.id===SELECTED_ID;
     const scale=laneScale(item.lane);
     const baseW = width<700
-      ? clamp(width*.14,90,124)
-      : clamp(width*.092,122,148);
+      ? clamp(width*.23,112,146)
+      : clamp(width*.132,164,194);
     const spriteW=baseW*scale*(selectedRacer?1.04:1);
     const spriteH=spriteW*.84;
     minEdge=Math.min(minEdge,item.x-spriteW*.52);
@@ -732,34 +732,33 @@ function drawForeground() {
 function updateCamera() {
   const focus=selected();
   const live=racers.filter(r=>!r.finished);
-  const front=live.length?Math.max(...live.map(r=>r.distance)):focus.distance;
-  const back=live.length?Math.min(...live.map(r=>r.distance)):focus.distance;
-  const span=Math.max(1,front-back);
-  const center=(front+back)*.5;
+  const nearby=live.filter(r=>Math.abs(r.distance-focus.distance)<=28);
+  const relevant=nearby.length>=3?nearby:live
+    .slice()
+    .sort((a,b)=>Math.abs(a.distance-focus.distance)-Math.abs(b.distance-focus.distance))
+    .slice(0,4);
 
-  // Frame the actual pack, including sprite width. The race is the subject, not one fixed S.
-  const base=width<700?6.7:8.4;
-  const spriteBase=width<700
-    ? clamp(width*.14,90,124)
-    : clamp(width*.092,122,148);
-  const maxHalfSprite=spriteBase*1.12*.54;
-  const sidePadding=width<700?8:18;
-  const usableWidth=Math.max(90,width-2*(maxHalfSprite+sidePadding));
-  const bySpan=usableWidth/span;
-  const targetPPM=clamp(Math.min(base,bySpan),width<700?2.55:4.15,base);
+  const front=relevant.length?Math.max(...relevant.map(r=>r.distance)):focus.distance;
+  const back=relevant.length?Math.min(...relevant.map(r=>r.distance)):focus.distance;
+  const localSpan=Math.max(1,front-back);
+  const mobile=width<700;
+  const base=mobile?8.2:10.4;
+  const min=mobile?5.8:7.6;
+  const available=width*(mobile?.62:.58);
+  const targetPPM=clamp(Math.min(base,available/Math.max(12,localSpan)),min,base);
 
-  if(width<700){
-    pixelsPerMeter=targetPPM;
-    cameraMeters=center;
-  } else {
-    const zoomRate=targetPPM<pixelsPerMeter?.20:.055;
-    pixelsPerMeter=lerp(pixelsPerMeter,targetPPM,zoomRate);
-    const targetCamera=center+span*.015;
-    cameraMeters=lerp(cameraMeters,targetCamera,.22);
-  }
+  const zoomRate=targetPPM<pixelsPerMeter?.18:.075;
+  pixelsPerMeter=lerp(pixelsPerMeter,targetPPM,zoomRate);
+
+  // Race-camera framing: selected S stays large and left of centre, with room to attack.
+  const lookAhead=clamp((front-focus.distance)*.10,1.5,4.5);
+  const targetCamera=Math.max(0,focus.distance+lookAhead);
+  const followRate=mobile?.22:.14;
+  cameraMeters=lerp(cameraMeters,targetCamera,followRate);
 
   stage.dataset.pixelsPerMeter=pixelsPerMeter.toFixed(2);
-  stage.dataset.packSpan=span.toFixed(2);
+  stage.dataset.packSpan=localSpan.toFixed(2);
+  stage.dataset.cameraSubject="selected-plus-nearby";
 }
 
 function drawSpeedRush() {
@@ -800,18 +799,18 @@ function render() {
 
   const slope=terrainSlope(focus.distance);
   const bank=courseBank(focus.distance);
-  const targetRoll=clamp(bank*.0032+slope*.010,-.095,.095);
-  cameraRoll=lerp(cameraRoll,targetRoll,.055);
-  cameraLift=lerp(cameraLift,terrainY(focus.distance)*.55,.055);
+  const targetRoll=clamp(bank*.00065+slope*.0025,-.018,.018);
+  cameraRoll=lerp(cameraRoll,targetRoll,.06);
+  cameraLift=lerp(cameraLift,terrainY(focus.distance)*.28,.06);
 
-  const shake=speedNorm>.62?(speedNorm-.62)*7.2:0;
-  const pulseZoom=1+overtakePulse*.018;
+  const shake=speedNorm>.68?(speedNorm-.68)*4.2:0;
+  const pulseZoom=1+overtakePulse*.008;
 
   ctx.save();
   ctx.translate(width*.5,height*.58);
   ctx.rotate(cameraRoll);
   ctx.scale(pulseZoom,pulseZoom);
-  ctx.translate(-width*.5,-height*.58);
+  ctx.translate(-width*.5,-height*.58-cameraLift*.05);
   ctx.translate(Math.sin(elapsed*.044)*shake,Math.sin(elapsed*.057+1.2)*shake*.42);
 
   drawBackground();
@@ -876,7 +875,7 @@ function resetRace(){
   finishCounter=0;
   cameraMeters=0;
   cameraVelocity=0;
-  pixelsPerMeter=width<700?6.7:8.4;
+  pixelsPerMeter=width<700?8.2:10.4;
   pixelsPerMeterVelocity=0;
   cameraRoll=0;
   cameraLift=0;
