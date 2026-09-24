@@ -1,0 +1,30 @@
+name: mode7-visual
+
+on:
+  push:
+    branches: ["feat/2p5d-mode7-racer-proof"]
+  workflow_dispatch:
+
+concurrency:
+  group: mode7-visual-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test tests/mode7.spec.js --project=desktop-chromium
+      - name: Upload pseudo-3D race capture
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mode7-race-visuals
+          path: test-results/visuals/mode7-race*
+          if-no-files-found: warn
