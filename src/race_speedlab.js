@@ -20,10 +20,10 @@ const LANES = 6;
 const SELECTED_ID = 1;
 
 const MORPHS = {
-  S: { sheet: "s-run-sheet.svg", cruise: 20.6, accel: 5.4, drain: 1.06, w: 168, h: 140, phase: 0.00 },
-  P: { art: "P.webp", cruise: 19.8, accel: 6.2, drain: 1.12, w: 184, h: 145, phase: 0.90 },
-  E: { art: "E.webp", cruise: 19.3, accel: 4.5, drain: 0.82, w: 176, h: 151, phase: 1.80 },
-  A: { art: "A.webp", cruise: 20.0, accel: 5.3, drain: 0.94, w: 176, h: 123, phase: 2.70 }
+  S: { sheet: "s-run-sheet.svg", cruise: 20.6, accel: 5.4, drain: 1.06, w: 184, h: 153, phase: 0.00 },
+  P: { art: "P.webp", cruise: 19.8, accel: 6.2, drain: 1.12, w: 204, h: 161, phase: 0.90 },
+  E: { art: "E.webp", cruise: 19.3, accel: 4.5, drain: 0.82, w: 196, h: 168, phase: 1.80 },
+  A: { art: "A.webp", cruise: 20.0, accel: 5.3, drain: 0.94, w: 196, h: 137, phase: 2.70 }
 };
 
 const RIGS = {
@@ -488,12 +488,45 @@ function drawTrack(scroll) {
   ctx.closePath();
   ctx.fill();
 
+  // speed-readable longitudinal grooves
+  for (let groove = 0; groove < 10; groove++) {
+    const laneT = 0.10 + groove * 0.085;
+    ctx.strokeStyle = `rgba(74,45,29,${0.055 + groove * 0.004})`;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let i = 0; i <= samples; i++) {
+      const x = (i / samples) * width;
+      const jitter = Math.sin((x + scroll * 2.2 + groove * 73) * .035) * (1 + laneT * 2.5);
+      const y = trackYAt(x, laneT, scroll) + jitter;
+      if (i) ctx.lineTo(x,y); else ctx.moveTo(x,y);
+    }
+    ctx.stroke();
+  }
+
   // far apron
   ctx.strokeStyle = "rgba(233,239,231,.95)";
   ctx.lineWidth = 5;
   ctx.beginPath();
   farPts.forEach(([x,y],i)=> i ? ctx.lineTo(x,y-5) : ctx.moveTo(x,y-5));
   ctx.stroke();
+
+  const farPostGap = 92;
+  const farPostPhase = ((scroll * 1.9) % farPostGap + farPostGap) % farPostGap;
+  for (let x = -farPostGap + farPostPhase; x < width + farPostGap; x += farPostGap) {
+    const y = trackYAt(x, 0, scroll) - 7;
+    ctx.strokeStyle = "rgba(222,232,230,.64)";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(x,y);
+    ctx.lineTo(x,y-21);
+    ctx.stroke();
+    if (((Math.floor((x-farPostPhase)/farPostGap)+20) % 4) === 0) {
+      ctx.fillStyle = "rgba(20,43,56,.82)";
+      ctx.fillRect(x+4,y-25,46,14);
+      ctx.fillStyle = "rgba(164,227,246,.76)";
+      ctx.fillRect(x+10,y-20,28,3);
+    }
+  }
 
   // lane curves
   for (let lane = 1; lane < LANES; lane++) {
@@ -701,11 +734,11 @@ function drawSpeedFX(speedRatio) {
   ctx.save();
   ctx.strokeStyle=`rgba(214,240,255,${.08*strength})`;
   ctx.lineWidth=1.2;
-  const count=width<760?18:34;
+  const count=width<760?24:46;
   for(let i=0;i<count;i++){
     const y=height*(.16+((i*37)%73)/100*.78);
     const x=((i*191-elapsed*.32)%(width+300)+width+300)%(width+300)-120;
-    const len=70+160*strength*((i%5)/5+.25);
+    const len=90+210*strength*((i%5)/5+.25);
     ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-len,y);ctx.stroke();
   }
   ctx.restore();
@@ -718,6 +751,10 @@ function render() {
   const scroll=s.distance*58;
 
   ctx.save();
+  const accelZoom = 1 + Math.max(0, speedRatio - .72) * (cameraMode === "chase" ? .055 : .025);
+  ctx.translate(width*.5,height*.52);
+  ctx.scale(accelZoom,accelZoom);
+  ctx.translate(-width*.5,-height*.52);
   ctx.translate(Math.sin(elapsed*.041)*shake,Math.sin(elapsed*.057)*shake*.45);
 
   drawSky(scroll);
