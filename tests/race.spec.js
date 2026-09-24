@@ -805,3 +805,38 @@ test("compare SF3D TripoSR and semantic Hunyuan across four views", async ({ pag
     }
   }
 });
+
+
+test("capture styled Hunyuan prototype in Morph Lab and Race", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(120000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  for (const yaw of [0, 90, 180, 270]) {
+    await page.goto(
+      `/evowild-test/?sf3dVariant=hunyuanstyled&modelYaw=${yaw}`,
+      { waitUntil: "domcontentloaded", timeout: 30000 }
+    );
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
+    await expect(page.locator("#stage")).toHaveAttribute("data-sf3d-profile", "s-hunyuan2mv-styled-prototype");
+    await page.getByRole("button", { name: "1 Morph" }).click();
+    await expect(page.locator("#viewLabel")).toHaveText("MORPH LAB");
+    await page.waitForTimeout(450);
+    await page.locator("#stage").screenshot({
+      path: `${outDir}/hunyuan-styled-yaw${yaw}.png`
+    });
+  }
+
+  await page.goto(
+    "/evowild-test/?sf3dVariant=hunyuanstyled&renderScale=0.75",
+    { waitUntil: "domcontentloaded", timeout: 30000 }
+  );
+  await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
+  await page.getByRole("button", { name: "2 Race" }).click();
+  await page.waitForTimeout(1800);
+  await page.locator("#stage").screenshot({
+    path: `${outDir}/hunyuan-styled-race.png`
+  });
+});
