@@ -81,9 +81,11 @@ function terrainY(m) {
   const a = Math.sin(m*0.0125)*14;
   const b = Math.sin(m*0.0042 + 0.8)*25;
   const c = Math.sin(m*0.021 + 1.7)*5;
-  const climb = m > 260 && m < 530 ? Math.sin((m-260)/270*Math.PI)*42 : 0;
-  const dip = m > 760 && m < 1030 ? -Math.sin((m-760)/270*Math.PI)*34 : 0;
-  return a+b+c+climb+dip;
+  const openingRise = m > 35 && m < 205 ? Math.sin((m-35)/170*Math.PI)*48 : 0;
+  const openingDrop = m >= 205 && m < 330 ? -Math.sin((m-205)/125*Math.PI)*28 : 0;
+  const climb = m > 360 && m < 610 ? Math.sin((m-360)/250*Math.PI)*52 : 0;
+  const dip = m > 760 && m < 1030 ? -Math.sin((m-760)/270*Math.PI)*38 : 0;
+  return a+b+c+openingRise+openingDrop+climb+dip;
 }
 
 function terrainSlope(m) {
@@ -454,7 +456,7 @@ function drawCourseLandmarks() {
   const rightM=cameraMeters+width*.62/pixelsPerMeter;
   const farY=laneOffset(0)-42;
 
-  for(let mark=120;mark<RACE_METERS;mark+=120){
+  for(let mark=60;mark<RACE_METERS;mark+=60){
     if(mark<leftM-8||mark>rightM+8) continue;
     const x=screenXForMeters(mark);
     const baseY=trackBaseY(mark)+farY;
