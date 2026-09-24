@@ -300,7 +300,7 @@ function drawBackground() {
 }
 
 function screenXForMeters(m) {
-  const anchor = width<700 ? width*.27 : width*.34;
+  const anchor = width<700 ? width*.44 : width*.43;
   return anchor + (m-cameraMeters)*pixelsPerMeter;
 }
 
@@ -532,32 +532,32 @@ function updateCamera() {
   const live=racers.filter(r=>!r.finished);
   const front=live.length?Math.max(...live.map(r=>r.distance)):focus.distance;
   const back=live.length?Math.min(...live.map(r=>r.distance)):focus.distance;
-  const ahead=Math.max(0,front-focus.distance);
-  const behind=Math.max(0,focus.distance-back);
+  const span=Math.max(1,front-back);
+  const center=(front+back)*.5;
 
-  // Mobile must keep the race readable: zoom out only when the pack genuinely spreads.
+  // Frame the actual pack, including sprite width. The race is the subject, not one fixed S.
   const base=width<700?6.7:8.4;
-  const usableAhead=width*(width<700?.54:.53);
-  const usableBehind=width*(width<700?.12:.18);
-  const byAhead=ahead>1?usableAhead/ahead:base;
-  const byBehind=behind>1?usableBehind/behind:base;
-  const targetPPM=clamp(Math.min(base,byAhead,byBehind),width<700?3.35:4.8,base);
+  const spriteBase=width<700
+    ? clamp(width*.14,90,124)
+    : clamp(width*.092,122,148);
+  const maxHalfSprite=spriteBase*1.12*.54;
+  const sidePadding=width<700?8:18;
+  const usableWidth=Math.max(90,width-2*(maxHalfSprite+sidePadding));
+  const bySpan=usableWidth/span;
+  const targetPPM=clamp(Math.min(base,bySpan),width<700?2.55:4.15,base);
+
   if(width<700){
     pixelsPerMeter=targetPPM;
+    cameraMeters=center;
   } else {
-    const zoomRate=targetPPM<pixelsPerMeter?.18:.045;
+    const zoomRate=targetPPM<pixelsPerMeter?.20:.055;
     pixelsPerMeter=lerp(pixelsPerMeter,targetPPM,zoomRate);
+    const targetCamera=center+span*.015;
+    cameraMeters=lerp(cameraMeters,targetCamera,.22);
   }
 
-  // Keep selected S left-of-centre and give more room in the direction of travel.
-  const lookAhead=clamp(ahead*.06,0,3.5);
-  const targetCamera=Math.max(0,focus.distance+lookAhead);
-  const delta=targetCamera-cameraMeters;
-  cameraVelocity=lerp(cameraVelocity,delta*.11,.16);
-  cameraMeters+=cameraVelocity*.075;
-  if(Math.abs(delta)<.015) cameraMeters=targetCamera;
-
   stage.dataset.pixelsPerMeter=pixelsPerMeter.toFixed(2);
+  stage.dataset.packSpan=span.toFixed(2);
 }
 
 function drawSpeedRush() {
