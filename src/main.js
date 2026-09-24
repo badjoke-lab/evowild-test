@@ -479,7 +479,8 @@ function buildTrack() {
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
-  stage.dataset.trackPresentation = "v11";
+  stage.dataset.trackPresentation = "v12";
+  stage.dataset.presentationField = presentationMode ? "s-only-5" : "full-18";
   stage.dataset.raceQualityPass = "floor-v2";
   stage.dataset.presentationMode = presentationMode ? "cinematic" : "standard";
 }
@@ -971,7 +972,9 @@ for (let i = 0; i < 18; i++) {
     name: names[i],
     morph,
     obj,
-    distance: Math.max(0, (17 - i) * (presentationMode ? 2.2 : 1.1)),
+    distance: presentationMode && morph === "S"
+      ? (4 - Math.floor(i / 4)) * 3.35
+      : Math.max(0, (17 - i) * 1.1),
     lane: i % laneCount,
     laneF: i % laneCount,
     cruise: stats.cruise + (i % 5) * 0.18,
@@ -1530,7 +1533,7 @@ const raceSpriteLayout = {
   E: { scale: [2.82, 2.52], y: 0.15 },
   A: { scale: [3.05, 2.30], y: 0.08 }
 };
-const presentationSpriteScale = presentationMode ? 0.58 : 1;
+const presentationSpriteScale = presentationMode ? 0.72 : 1;
 function scaledRaceLayout(morph) {
   const layout = raceSpriteLayout[morph];
   return {
@@ -2783,7 +2786,7 @@ function setCamera() {
   const speedRatio = THREE.MathUtils.clamp(selected.speed / Math.max(1, selected.cruise), 0, 1.2);
   const targetFov = view === "follow"
     ? presentationMode
-      ? THREE.MathUtils.lerp(isMobile ? 56 : 54, isMobile ? 74 : 72, speedRatio)
+      ? THREE.MathUtils.lerp(isMobile ? 54 : 50, isMobile ? 70 : 66, speedRatio)
       : THREE.MathUtils.lerp(isMobile ? 54 : 48, isMobile ? 72 : 68, speedRatio)
     : view === "race"
       ? THREE.MathUtils.lerp(isMobile ? 54 : 48, isMobile ? 76 : 72, speedRatio)
@@ -2796,7 +2799,13 @@ function setCamera() {
   scene.fog = (lab || tactical) ? null : raceFog;
   scene.background = new THREE.Color(lab ? 0x202a35 : 0x9bc6dc);
   raceEnvironment.forEach((obj) => { obj.visible = !lab; });
-  racers.forEach((r) => { r.obj.visible = !lab && !tactical && (!isolatedProof || r.id === isolatedProofRacerId); });
+  racers.forEach((r) => {
+    r.obj.visible =
+      !lab &&
+      !tactical &&
+      (!isolatedProof || r.id === isolatedProofRacerId) &&
+      (!presentationMode || r.morph === "S");
+  });
   ring.visible = !lab && !tactical && !presentationMode;
   racerShadows.forEach((shadow, index) => {
     shadow.visible = !lab && !tactical && (!isolatedProof || racers[index].id === isolatedProofRacerId);
@@ -2823,17 +2832,17 @@ function setCamera() {
     const followBack = isolatedProof
       ? (isMobile ? -1.5 : isolatedBack)
       : presentationMode
-        ? (isMobile ? -9.2 : -10.4)
+        ? (isMobile ? -6.8 : -7.3)
         : (isMobile ? -2.2 : -1.35);
     const followSide = isolatedProof
       ? (isMobile ? 4.3 : isolatedSide)
       : presentationMode
-        ? (isMobile ? 0.85 : 1.05)
+        ? (isMobile ? 0.70 : 0.82)
         : (isMobile ? 4.8 : 3.95);
     const followHeight = isolatedProof
       ? (isMobile ? 1.92 : isolatedHeight)
       : presentationMode
-        ? (isMobile ? 2.05 : 1.90)
+        ? (isMobile ? 1.75 : 1.62)
         : (isMobile ? 2.18 : 1.68);
     const shake = Math.max(0, speedRatio - 0.34) * (isolatedProof ? 0.075 : presentationMode ? 0.08 : 0.13);
     const desired = selectedPos.clone()
@@ -2842,7 +2851,7 @@ function setCamera() {
       .add(new THREE.Vector3(0, followHeight + Math.sin(elapsed * 0.031) * shake * 0.6, 0));
     camera.position.lerp(desired, 0.15);
     const lookTarget = selectedPos.clone()
-      .addScaledVector(tangent, presentationMode ? (7.4 + speedRatio * 2.8) : (3.8 + speedRatio * 1.4))
+      .addScaledVector(tangent, presentationMode ? (4.8 + speedRatio * 2.0) : (3.8 + speedRatio * 1.4))
       .addScaledVector(side, presentationMode ? 0.35 : Math.sin(elapsed * 0.017) * shake * 0.45)
       .add(new THREE.Vector3(0, presentationMode ? 0.52 : 0.50, 0));
     camera.lookAt(lookTarget);
@@ -3079,7 +3088,9 @@ function resetRace() {
       r.agent.pendingPolicyKey = null;
     }
 
-    r.distance = Math.max(0, (17 - i) * (presentationMode ? 2.2 : 1.1));
+    r.distance = presentationMode && r.morph === "S"
+      ? (4 - Math.floor(i / 4)) * 3.35
+      : Math.max(0, (17 - i) * 1.1);
     r.lane = i % laneCount;
     r.laneF = i % laneCount;
     r.stamina = 100;
