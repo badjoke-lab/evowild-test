@@ -479,7 +479,7 @@ function buildTrack() {
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
-  stage.dataset.trackPresentation = "v10";
+  stage.dataset.trackPresentation = "v11";
   stage.dataset.raceQualityPass = "floor-v2";
   stage.dataset.presentationMode = presentationMode ? "cinematic" : "standard";
 }
@@ -938,7 +938,7 @@ function compatibilityScoreFor(racer) {
 }
 
 const racers = [];
-let selectedId = aRigIsolatedProof ? 4 : eRigIsolatedProof ? 3 : pRigIsolatedProof ? 2 : (presentationMode ? 5 : 1);
+let selectedId = aRigIsolatedProof ? 4 : eRigIsolatedProof ? 3 : pRigIsolatedProof ? 2 : (presentationMode ? 17 : 1);
 const sRunProofRacerId = 1;
 const raceMeters = fastFinishProof ? 45 : 700;
 const countdownDuration = fastFinishProof ? 1200 : (presentationMode ? 900 : 3000);
@@ -971,7 +971,7 @@ for (let i = 0; i < 18; i++) {
     name: names[i],
     morph,
     obj,
-    distance: Math.max(0, (17 - i) * (presentationMode ? 1.65 : 1.1)),
+    distance: Math.max(0, (17 - i) * (presentationMode ? 2.2 : 1.1)),
     lane: i % laneCount,
     laneF: i % laneCount,
     cruise: stats.cruise + (i % 5) * 0.18,
@@ -1530,6 +1530,14 @@ const raceSpriteLayout = {
   E: { scale: [2.82, 2.52], y: 0.15 },
   A: { scale: [3.05, 2.30], y: 0.08 }
 };
+const presentationSpriteScale = presentationMode ? 0.58 : 1;
+function scaledRaceLayout(morph) {
+  const layout = raceSpriteLayout[morph];
+  return {
+    scale: [layout.scale[0] * presentationSpriteScale, layout.scale[1] * presentationSpriteScale],
+    y: layout.y
+  };
+}
 
 const sRunFrames = [
   { phase: "CONTACT", col: 0, row: 0, y: 0.00 },
@@ -1637,8 +1645,9 @@ function buildAnimatedSRunPlane(texture, raceLayout, racerId) {
   const mesh = new THREE.Mesh(geometry, material);
   mesh.name = `Race2_5D_S_SpriteSheet_${racerId}`;
   mesh.position.set(0, raceLayout.y, 0);
-  const focusScale = racerId === selectedId ? 1.08 : 0.96;
-  mesh.scale.set(3.65 * focusScale, 3.10 * focusScale, 1);
+  const focusScale = racerId === selectedId ? 1.05 : 0.94;
+  const sheetScale = presentationMode ? 0.58 : 1;
+  mesh.scale.set(3.65 * focusScale * sheetScale, 3.10 * focusScale * sheetScale, 1);
   mesh.renderOrder = 4;
   mesh.frustumCulled = false;
   mesh.userData.frameIndex = -1;
@@ -1983,7 +1992,7 @@ function installPCutoutRigFor(racer, texture) {
   const oldSprite = racer.obj.userData.raceSprite;
   if (!oldSprite) return;
 
-  const rig = buildPCutoutRig(texture, raceSpriteLayout.P, racer.id);
+  const rig = buildPCutoutRig(texture, scaledRaceLayout("P"), racer.id);
   if (!rig) return;
 
   racer.obj.remove(oldSprite);
@@ -2030,7 +2039,7 @@ function installECutoutRigFor(racer, texture) {
   const oldSprite = racer.obj.userData.raceSprite;
   if (!oldSprite) return;
 
-  const rig = buildECutoutRig(texture, raceSpriteLayout.E, racer.id);
+  const rig = buildECutoutRig(texture, scaledRaceLayout("E"), racer.id);
   if (!rig) return;
 
   racer.obj.remove(oldSprite);
@@ -2075,7 +2084,7 @@ function installACutoutRigFor(racer, texture) {
   const oldSprite = racer.obj.userData.raceSprite;
   if (!oldSprite) return;
 
-  const rig = buildACutoutRig(texture, raceSpriteLayout.A, racer.id);
+  const rig = buildACutoutRig(texture, scaledRaceLayout("A"), racer.id);
   if (!rig) return;
 
   racer.obj.remove(oldSprite);
@@ -2278,7 +2287,7 @@ for (const morph of ["S", "P", "E", "A"]) {
 
       for (const racer of racers.filter((r) => r.morph === morph)) {
         racer.obj.children.forEach((child) => { child.visible = false; });
-        const raceLayout = raceSpriteLayout[morph];
+        const raceLayout = scaledRaceLayout(morph);
         let raceSprite;
         const raceMaterial = new THREE.SpriteMaterial({
           map: texture,
@@ -2774,7 +2783,7 @@ function setCamera() {
   const speedRatio = THREE.MathUtils.clamp(selected.speed / Math.max(1, selected.cruise), 0, 1.2);
   const targetFov = view === "follow"
     ? presentationMode
-      ? THREE.MathUtils.lerp(isMobile ? 62 : 60, isMobile ? 80 : 78, speedRatio)
+      ? THREE.MathUtils.lerp(isMobile ? 56 : 54, isMobile ? 74 : 72, speedRatio)
       : THREE.MathUtils.lerp(isMobile ? 54 : 48, isMobile ? 72 : 68, speedRatio)
     : view === "race"
       ? THREE.MathUtils.lerp(isMobile ? 54 : 48, isMobile ? 76 : 72, speedRatio)
@@ -2814,17 +2823,17 @@ function setCamera() {
     const followBack = isolatedProof
       ? (isMobile ? -1.5 : isolatedBack)
       : presentationMode
-        ? (isMobile ? -6.2 : -6.8)
+        ? (isMobile ? -9.2 : -10.4)
         : (isMobile ? -2.2 : -1.35);
     const followSide = isolatedProof
       ? (isMobile ? 4.3 : isolatedSide)
       : presentationMode
-        ? (isMobile ? 1.25 : 1.55)
+        ? (isMobile ? 0.85 : 1.05)
         : (isMobile ? 4.8 : 3.95);
     const followHeight = isolatedProof
       ? (isMobile ? 1.92 : isolatedHeight)
       : presentationMode
-        ? (isMobile ? 1.52 : 1.42)
+        ? (isMobile ? 2.05 : 1.90)
         : (isMobile ? 2.18 : 1.68);
     const shake = Math.max(0, speedRatio - 0.34) * (isolatedProof ? 0.075 : presentationMode ? 0.08 : 0.13);
     const desired = selectedPos.clone()
@@ -2833,7 +2842,7 @@ function setCamera() {
       .add(new THREE.Vector3(0, followHeight + Math.sin(elapsed * 0.031) * shake * 0.6, 0));
     camera.position.lerp(desired, 0.15);
     const lookTarget = selectedPos.clone()
-      .addScaledVector(tangent, presentationMode ? (8.8 + speedRatio * 3.6) : (3.8 + speedRatio * 1.4))
+      .addScaledVector(tangent, presentationMode ? (7.4 + speedRatio * 2.8) : (3.8 + speedRatio * 1.4))
       .addScaledVector(side, presentationMode ? 0.35 : Math.sin(elapsed * 0.017) * shake * 0.45)
       .add(new THREE.Vector3(0, presentationMode ? 0.52 : 0.50, 0));
     camera.lookAt(lookTarget);
@@ -3070,7 +3079,7 @@ function resetRace() {
       r.agent.pendingPolicyKey = null;
     }
 
-    r.distance = Math.max(0, (17 - i) * (presentationMode ? 1.65 : 1.1));
+    r.distance = Math.max(0, (17 - i) * (presentationMode ? 2.2 : 1.1));
     r.lane = i % laneCount;
     r.laneF = i % laneCount;
     r.stamina = 100;
