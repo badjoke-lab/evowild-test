@@ -112,6 +112,6 @@ test("lane 4 pseudo-3D S-only race renders and advances", async ({ page }, testI
 
   if (testInfo.project.name === "android-chromium") {
     fs.mkdirSync("test-results/visuals", { recursive: true });
-    await page.locator("#stage").screenshot({ path: "test-results/visuals/android-lane4-pseudo3d.png" });
+    await page.screenshot({ path: "test-results/visuals/android-lane4-pseudo3d.png", fullPage: false });
   }
 });
