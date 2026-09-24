@@ -13,8 +13,8 @@
           <p>18 racers / S-P-E-A morphs / Race-Follow-Tactical cameras</p>
         </div>
         <div class="controls">
-          <button data-view="lab" class="active">1 Morph</button>
-          <button data-view="race">2 Race</button>
+          <button data-view="lab">1 Morph</button>
+          <button data-view="race" class="active">2 Race</button>
           <button data-view="follow">3 Follow</button>
           <button data-view="tactical">4 Tactical</button>
           <a class="mode-link" href="./race-2_5d.html">2.5D Proof</a>
@@ -26,7 +26,7 @@
       <main class="layout">
         <section class="stage" id="stage">
           <canvas id="game"></canvas>
-          <div class="hud hud-view" id="viewLabel">MORPH LAB</div>
+          <div class="hud hud-view" id="viewLabel">RACE VIEW</div>
           <div class="morph-switcher" id="morphSwitcher">
             <button data-morph="S" class="active">S</button>
             <button data-morph="P">P</button>
@@ -35,28 +35,128 @@
           </div>
           <div class="hud hud-lab" id="labLabel"><strong>S — Sprint</strong><span>細身・長脚・後方へ流れる角</span></div>
           <div class="hud hud-race">
-            <strong>1800m — Ridge Oval</strong><br />
+            <strong>700m — Ridge Oval</strong><br />
             <span id="clock">00:00.00</span> ・ <span id="position">— / 18</span>
+            <div class="race-progress" aria-label="Race progress"><i id="raceProgressFill"></i></div>
+            <div class="race-status-line">
+              <span id="raceSection">START</span>
+              <span id="remaining">700 m to go</span>
+              <span id="leaderGap">LEADER</span>
+            </div>
           </div>
           <div class="hud hud-selected">
-            <strong>#06 Mica</strong>
+            <strong id="selectedName">#01 Aster</strong>
             <div class="metric"><span>Speed</span><b id="speed">0</b></div>
-            <div class="metric"><span>Stamina</span><b id="stamina">100</b></div>
+            <div class="metric"><span>Fatigue</span><b id="fatigue">0%</b></div>
+            <div class="fatigue-track" aria-label="Creature fatigue"><i id="fatigueFill"></i></div>
             <div class="chips">
-              <span id="morph">A / AGILITY</span>
+              <span id="morph">S / SPRINT</span>
               <span id="decision">START / BUILD SPEED</span>
             </div>
           </div>
+          <div class="hud hud-agent" id="agentPanel">
+            <div class="agent-head">
+              <span>RACE AGENT</span>
+              <small>SCRIPTED POLICY PROOF</small>
+            </div>
+            <div class="agent-line"><span>AGENT</span><b id="agentIdentity">AG-001 / v1</b></div>
+            <div class="agent-line"><span>PROFILE</span><b id="agentProfile">BALANCED</b></div>
+            <div class="agent-line"><span>COMPAT</span><b id="agentCompatibility">100%</b></div>
+            <div class="agent-line"><span>RECORD</span><b id="agentRecord">NO STARTS</b></div>
+            <div class="agent-policy-rule" id="agentPolicyRule">PASS 4.2m · PRESERVE 18 · FINAL ×1.04 · LANE 900ms</div>
+            <div class="agent-line"><span>ORDER</span><b id="agentOrder">BUILD SPEED</b></div>
+            <div class="agent-line"><span>CREATURE</span><b id="creatureResponse">READY</b></div>
+            <div class="agent-line"><span>FATIGUE</span><b id="agentFatigue">0%</b></div>
+            <div class="agent-reason" id="creatureReason">Awaiting race start</div>
+          </div>
+          <div class="agent-toast" id="agentToast" hidden>
+            <span id="agentToastOrder">BUILD SPEED</span>
+            <i>→</i>
+            <b id="agentToastResult">EXECUTING</b>
+          </div>
           <div class="hud hud-mini"><canvas id="mini" width="220" height="125"></canvas></div>
+          <div class="race-banner" id="raceBanner" aria-live="polite">3</div>
+          <section class="race-results" id="resultsPanel" hidden>
+            <div class="results-head">
+              <div>
+                <span>RACE COMPLETE</span>
+                <strong id="resultHeadline">Results</strong>
+              </div>
+              <button id="rematch">Rematch</button>
+            </div>
+            <div class="result-analysis" id="resultAnalysis">
+              <div class="result-analysis-head">
+                <div>
+                  <span>SELECTED AGENT</span>
+                  <strong id="resultAgentIdentity">—</strong>
+                </div>
+                <b id="resultAgentPolicy">—</b>
+              </div>
+              <div class="result-analysis-grid">
+                <div><span>Decisions</span><b id="resultDecisions">0</b></div>
+                <div><span>Success</span><b id="resultSuccess">0</b></div>
+                <div><span>Partial</span><b id="resultPartial">0</b></div>
+                <div><span>Failed</span><b id="resultFailed">0</b></div>
+                <div><span>Lane moves</span><b id="resultLaneMoves">0</b></div>
+                <div><span>Compatibility</span><b id="resultCompatibility">100%</b></div>
+                <div><span>Final fatigue</span><b id="resultFinalFatigue">0%</b></div>
+              </div>
+              <div class="result-analysis-foot">
+                <span id="resultAgentRecord">Race history 0</span>
+                <span id="resultAgentInterpretation">No race analysis yet.</span>
+              </div>
+            </div>
+            <div class="results-list" id="resultsList"></div>
+          </section>
         </section>
 
         <aside class="sidebar">
           <section class="card">
-            <h2>Selected #06</h2>
-            <div class="row"><span>Morph</span><b id="morphName">A — Agility</b></div>
-            <div class="row"><span>Lane</span><b id="lane">2</b></div>
+            <h2 id="selectedTitle">Selected #01</h2>
+            <div class="row"><span>Morph</span><b id="morphName">S — Sprint</b></div>
+            <div class="row"><span>Lane</span><b id="lane">1</b></div>
             <div class="row"><span>Gap ahead</span><b id="gap">—</b></div>
             <div class="row"><span>Phase</span><b id="phase">START</b></div>
+          </section>
+
+          <section class="card creature-state-card" id="creatureStateCard">
+            <div class="creature-state-head">
+              <h2>Creature State</h2>
+              <small>execution context</small>
+            </div>
+            <div class="state-grid">
+              <div><span>Output</span><b id="stateOutput">0%</b></div>
+              <div><span>Condition</span><b id="stateCondition">FRESH</b></div>
+              <div><span>Traffic</span><b id="stateTraffic">CLEAR</b></div>
+              <div><span>Lane</span><b id="stateLane">STABLE</b></div>
+            </div>
+            <div class="state-execution">
+              <span>Agent → Creature</span>
+              <b id="stateExecution">READY</b>
+            </div>
+            <div class="state-note" id="stateNote">Waiting for race start.</div>
+          </section>
+
+          <section class="card agent-setup-card" id="agentSetupCard">
+            <div class="agent-setup-head">
+              <h2>Agent Setup</h2>
+              <small>applies next race</small>
+            </div>
+            <div class="agent-profile-buttons" id="agentProfileButtons">
+              <button data-agent-policy="BALANCED">Balanced</button>
+              <button data-agent-policy="PRESSURE">Pressure</button>
+              <button data-agent-policy="RESERVE">Reserve</button>
+              <button data-agent-policy="OPPORTUNIST">Opportunist</button>
+            </div>
+            <div class="agent-setup-status" id="agentSetupStatus">Active BALANCED · v1</div>
+          </section>
+
+          <section class="card agent-log-card">
+            <div class="agent-log-head">
+              <h2>Agent Log</h2>
+              <small>decision → result</small>
+            </div>
+            <div id="agentLog"><p class="agent-log-empty">No decisions yet.</p></div>
           </section>
 
           <section class="card morph-key">

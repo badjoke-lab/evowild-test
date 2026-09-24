@@ -6,11 +6,32 @@ import "./styles.css";
 const canvas = document.querySelector("#game");
 const stage = document.querySelector("#stage");
 const isMobile = matchMedia("(pointer: coarse)").matches || innerWidth < 800;
+const proofMode = new URLSearchParams(location.search).get("proof");
+const sRunIsolatedProof = proofMode === "s-run";
+const pRigIsolatedProof = proofMode === "p-rig";
+const eRigIsolatedProof = proofMode === "e-rig";
+const aRigIsolatedProof = proofMode === "a-rig";
+const isolatedProof = sRunIsolatedProof || pRigIsolatedProof || eRigIsolatedProof || aRigIsolatedProof;
+const isolatedProofRacerId = aRigIsolatedProof ? 4 : eRigIsolatedProof ? 3 : pRigIsolatedProof ? 2 : 1;
+const fastFinishProof = proofMode === "finish";
+if (pRigIsolatedProof) document.body.classList.add("p-rig-proof");
+if (eRigIsolatedProof) document.body.classList.add("e-rig-proof");
+if (aRigIsolatedProof) document.body.classList.add("a-rig-proof");
+const raceBanner = document.querySelector("#raceBanner");
+const resultsPanel = document.querySelector("#resultsPanel");
+const resultsList = document.querySelector("#resultsList");
+const resultHeadline = document.querySelector("#resultHeadline");
 
 const runtimeStatus = document.createElement("div");
 runtimeStatus.className = "runtime-status";
 runtimeStatus.textContent = "Starting 3D race renderer…";
 stage.append(runtimeStatus);
+
+const speedFx = document.createElement("div");
+speedFx.className = "speed-fx";
+speedFx.setAttribute("aria-hidden", "true");
+stage.append(speedFx);
+stage.dataset.speedFx = "dynamic";
 
 function failRuntime(error) {
   const message = error instanceof Error ? error.message : String(error);
@@ -86,41 +107,51 @@ const curve = new THREE.CatmullRomCurve3(
 function buildTrack() {
   const samples = 180;
   const half = 5.8;
-  const vertices = [];
-  const normals = [];
-  const indices = [];
 
-  for (let i = 0; i <= samples; i++) {
-    const t = i / samples;
-    const p = curve.getPointAt(t);
-    const tangent = curve.getTangentAt(t).normalize();
-    const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+  function makeRibbon(ribbonHalf, y, material) {
+    const vertices = [];
+    const normals = [];
+    const indices = [];
 
-    for (const offset of [-half, half]) {
-      const q = p.clone().addScaledVector(side, offset);
-      vertices.push(q.x, 0.03, q.z);
-      normals.push(0, 1, 0);
+    for (let i = 0; i <= samples; i++) {
+      const t = i / samples;
+      const p = curve.getPointAt(t);
+      const tangent = curve.getTangentAt(t).normalize();
+      const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+
+      for (const offset of [-ribbonHalf, ribbonHalf]) {
+        const q = p.clone().addScaledVector(side, offset);
+        vertices.push(q.x, y, q.z);
+        normals.push(0, 1, 0);
+      }
     }
+
+    for (let i = 0; i < samples; i++) {
+      const a = i * 2;
+      const b = a + 1;
+      const c = a + 2;
+      const d = a + 3;
+      indices.push(a, b, c, b, d, c);
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
+    geometry.setAttribute("normal", new THREE.Float32BufferAttribute(normals, 3));
+    geometry.setIndex(indices);
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+    return mesh;
   }
 
-  for (let i = 0; i < samples; i++) {
-    const a = i * 2;
-    const b = a + 1;
-    const c = a + 2;
-    const d = a + 3;
-    indices.push(a, c, b, b, c, d);
-  }
-
-  const geometry = new THREE.BufferGeometry();
-  geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
-  geometry.setAttribute("normal", new THREE.Float32BufferAttribute(normals, 3));
-  geometry.setIndex(indices);
-
-  scene.add(
-    new THREE.Mesh(
-      geometry,
-      new THREE.MeshStandardMaterial({ color: 0xb98c5b, roughness: 1 })
-    )
+  makeRibbon(
+    half + 0.72,
+    0.015,
+    new THREE.MeshStandardMaterial({ color: 0x765c40, roughness: 1 })
+  );
+  makeRibbon(
+    half,
+    0.035,
+    new THREE.MeshStandardMaterial({ color: 0xb88758, roughness: 1 })
   );
 
   for (const offset of [-half, half]) {
@@ -130,25 +161,208 @@ function buildTrack() {
       const p = curve.getPointAt(t);
       const tangent = curve.getTangentAt(t).normalize();
       const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
-      points.push(p.clone().addScaledVector(side, offset).add(new THREE.Vector3(0, 0.18, 0)));
+      points.push(p.clone().addScaledVector(side, offset).add(new THREE.Vector3(0, 0.07, 0)));
     }
     scene.add(
       new THREE.Line(
         new THREE.BufferGeometry().setFromPoints(points),
-        new THREE.LineBasicMaterial({ color: 0xe6d6b8 })
+        new THREE.LineBasicMaterial({ color: 0xf2dfbd })
       )
     );
   }
+
+  const laneGuideOffsets = [-3.10, -1.55, 0, 1.55, 3.10];
+  const laneGuideMaterial = new THREE.LineDashedMaterial({
+    color: 0xf1d8b5,
+    transparent: true,
+    opacity: 0.28,
+    dashSize: 0.72,
+    gapSize: 0.88
+  });
+  for (const offset of laneGuideOffsets) {
+    const points = [];
+    for (let i = 0; i <= samples; i++) {
+      const t = i / samples;
+      const p = curve.getPointAt(t);
+      const tangent = curve.getTangentAt(t).normalize();
+      const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+      points.push(p.clone().addScaledVector(side, offset).add(new THREE.Vector3(0, 0.075, 0)));
+    }
+    const guide = new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints(points),
+      laneGuideMaterial
+    );
+    guide.computeLineDistances();
+    scene.add(guide);
+  }
+
+  const railOffset = half + 0.78;
+  const railMaterial = new THREE.LineBasicMaterial({ color: 0xd8dee2, transparent: true, opacity: 0.95 });
+  for (const offset of [-railOffset, railOffset]) {
+    for (const y of [0.52, 0.88]) {
+      const points = [];
+      for (let i = 0; i <= samples; i++) {
+        const t = i / samples;
+        const p = curve.getPointAt(t);
+        const tangent = curve.getTangentAt(t).normalize();
+        const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+        points.push(p.clone().addScaledVector(side, offset).add(new THREE.Vector3(0, y, 0)));
+      }
+      scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), railMaterial));
+    }
+  }
+
+  const postsPerSide = isMobile ? 28 : 42;
+  const postGeometry = new THREE.BoxGeometry(0.11, 0.92, 0.11);
+  const postMaterial = new THREE.MeshStandardMaterial({ color: 0xd1d7da, roughness: 0.78 });
+  const posts = new THREE.InstancedMesh(postGeometry, postMaterial, postsPerSide * 2);
+  const postDummy = new THREE.Object3D();
+  let postIndex = 0;
+  for (const offset of [-railOffset, railOffset]) {
+    for (let i = 0; i < postsPerSide; i++) {
+      const t = i / postsPerSide;
+      const p = curve.getPointAt(t);
+      const tangent = curve.getTangentAt(t).normalize();
+      const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+      const q = p.clone().addScaledVector(side, offset);
+      postDummy.position.set(q.x, 0.46, q.z);
+      postDummy.rotation.set(0, Math.atan2(-tangent.z, tangent.x), 0);
+      postDummy.updateMatrix();
+      posts.setMatrixAt(postIndex++, postDummy.matrix);
+    }
+  }
+  posts.instanceMatrix.needsUpdate = true;
+  scene.add(posts);
+
+  const streakCount = isMobile ? 72 : 120;
+  const streakGeometry = new THREE.BoxGeometry(1.25, 0.018, 0.065);
+  const streakMaterial = new THREE.MeshBasicMaterial({ color: 0x8f6848, transparent: true, opacity: 0.42 });
+  const streaks = new THREE.InstancedMesh(streakGeometry, streakMaterial, streakCount);
+  const streakDummy = new THREE.Object3D();
+  for (let i = 0; i < streakCount; i++) {
+    const t = (i + 0.35) / streakCount;
+    const p = curve.getPointAt(t);
+    const tangent = curve.getTangentAt(t).normalize();
+    const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+    const lateral = Math.sin(i * 12.731) * 4.75;
+    const q = p.clone().addScaledVector(side, lateral);
+    streakDummy.position.set(q.x, 0.055, q.z);
+    streakDummy.rotation.set(0, Math.atan2(-tangent.z, tangent.x), 0);
+    streakDummy.scale.set(0.65 + (i % 5) * 0.12, 1, 1);
+    streakDummy.updateMatrix();
+    streaks.setMatrixAt(i, streakDummy.matrix);
+  }
+  streaks.instanceMatrix.needsUpdate = true;
+  scene.add(streaks);
+
+
+  const curbSegments = isMobile ? 56 : 84;
+  const curbGeometry = new THREE.BoxGeometry(0.74, 0.075, 0.34);
+  const curbLight = new THREE.MeshBasicMaterial({ color: 0xe7e1d6 });
+  const curbDark = new THREE.MeshBasicMaterial({ color: 0x35434c });
+  const curbMeshes = [
+    new THREE.InstancedMesh(curbGeometry, curbLight, curbSegments),
+    new THREE.InstancedMesh(curbGeometry, curbDark, curbSegments)
+  ];
+  const curbCounts = [0, 0];
+  const curbDummy = new THREE.Object3D();
+  for (let i = 0; i < curbSegments * 2; i++) {
+    const sideIndex = i % 2;
+    const step = Math.floor(i / 2);
+    const t = (step + 0.25) / curbSegments;
+    const p = curve.getPointAt(t);
+    const tangent = curve.getTangentAt(t).normalize();
+    const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+    const edge = sideIndex === 0 ? -(half + 0.46) : (half + 0.46);
+    const q = p.clone().addScaledVector(side, edge);
+    curbDummy.position.set(q.x, 0.085, q.z);
+    curbDummy.rotation.set(0, Math.atan2(-tangent.z, tangent.x), 0);
+    curbDummy.updateMatrix();
+    const meshIndex = (step + sideIndex) % 2;
+    curbMeshes[meshIndex].setMatrixAt(curbCounts[meshIndex]++, curbDummy.matrix);
+  }
+  curbMeshes.forEach((mesh) => {
+    mesh.count = curbCounts[curbMeshes.indexOf(mesh)];
+    mesh.instanceMatrix.needsUpdate = true;
+    scene.add(mesh);
+  });
+
+  stage.dataset.trackEdgeRhythm = "curb-v1";
+  const startT = 0.012;
+  const startPoint = curve.getPointAt(startT);
+  const startTangent = curve.getTangentAt(startT).normalize();
+  const startYaw = Math.atan2(-startTangent.z, startTangent.x);
+  const gantry = new THREE.Group();
+  gantry.position.copy(startPoint);
+  gantry.rotation.y = startYaw;
+
+  const gantryMat = new THREE.MeshStandardMaterial({ color: 0x263746, roughness: 0.58, metalness: 0.10 });
+  const gantryAccent = new THREE.MeshBasicMaterial({ color: 0x63d9ff });
+  for (const z of [-6.45, 6.45]) {
+    const upright = new THREE.Mesh(new THREE.BoxGeometry(0.30, 4.2, 0.30), gantryMat);
+    upright.position.set(0, 2.1, z);
+    gantry.add(upright);
+  }
+  const beam = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.34, 13.2), gantryMat);
+  beam.position.y = 4.05;
+  gantry.add(beam);
+  const sign = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.82, 4.6), gantryMat);
+  sign.position.y = 4.08;
+  gantry.add(sign);
+  const accent = new THREE.Mesh(new THREE.BoxGeometry(0.40, 0.08, 3.55), gantryAccent);
+  accent.position.set(-0.02, 4.08, 0.22);
+  gantry.add(accent);
+  scene.add(gantry);
+
+  const startLine = new THREE.Mesh(
+    new THREE.BoxGeometry(0.22, 0.026, 11.1),
+    new THREE.MeshBasicMaterial({ color: 0xf3eee4 })
+  );
+  startLine.position.copy(startPoint);
+  startLine.position.y = 0.065;
+  startLine.rotation.y = startYaw;
+  scene.add(startLine);
+
+  stage.dataset.trackPresentation = "v6";
 }
 buildTrack();
 
-const hillMaterial = new THREE.MeshStandardMaterial({ color: 0x738474, roughness: 1, flatShading: true });
+const speedMarkerGeometry = new THREE.BoxGeometry(1.05, 0.08, 0.16);
+const speedMarkerMaterial = new THREE.MeshBasicMaterial({ color: 0xf4e8cf });
+for (let i = 0; i < 72; i++) {
+  const t = i / 72;
+  const p = curve.getPointAt(t);
+  const tangent = curve.getTangentAt(t).normalize();
+  const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+  const yaw = Math.atan2(-tangent.z, tangent.x);
+  for (const offset of [-5.25, 5.25]) {
+    const marker = new THREE.Mesh(speedMarkerGeometry, speedMarkerMaterial);
+    marker.position.copy(p.clone().addScaledVector(side, offset));
+    marker.position.y = 0.085;
+    marker.rotation.y = yaw;
+    scene.add(marker);
+  }
+}
+
+const hillMaterial = new THREE.MeshStandardMaterial({ color: 0x697d70, roughness: 1, flatShading: true });
+const hillGeometry = new THREE.SphereGeometry(1, 12, 5, 0, Math.PI * 2, 0, Math.PI / 2);
 function addHill(x, z, s) {
-  const hill = new THREE.Mesh(new THREE.ConeGeometry(1, 1.5, 7), hillMaterial);
-  const hillScale = s * (isMobile ? 0.42 : 1);
-  hill.position.set(x, hillScale * 0.65, z);
-  hill.scale.setScalar(hillScale);
-  scene.add(hill);
+  const hillScale = s * (isMobile ? 0.44 : 1);
+  const lobes = [
+    [0.00, 0.00, 1.05, 0.34, 0.76],
+    [-0.52, 0.10, 0.72, 0.29, 0.60],
+    [0.48, -0.08, 0.64, 0.26, 0.55]
+  ];
+  for (const [ox, oz, sx, sy, sz] of lobes) {
+    const hill = new THREE.Mesh(hillGeometry, hillMaterial);
+    hill.position.set(
+      x + ox * hillScale * 0.72,
+      0,
+      z + oz * hillScale * 0.72
+    );
+    hill.scale.set(hillScale * sx, hillScale * sy, hillScale * sz);
+    scene.add(hill);
+  }
 }
 addHill(-60, -34, 11);
 addHill(58, -33, 13);
@@ -157,12 +371,15 @@ addHill(-62, 30, 9);
 const trunkMat = new THREE.MeshStandardMaterial({ color: 0x5a4432, roughness: 1 });
 const leafMat = new THREE.MeshStandardMaterial({ color: 0x3f6542, roughness: 1, flatShading: true });
 function addTree(x, z, s = 0.85) {
-  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.18, 1.4, 5), trunkMat);
+  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.18, 1.4, 6), trunkMat);
   trunk.position.set(x, 0.7, z);
-  const leaves = new THREE.Mesh(new THREE.ConeGeometry(0.75, 2.2, 7), leafMat);
-  leaves.position.set(x, 2, z);
-  leaves.scale.setScalar(s);
-  scene.add(trunk, leaves);
+  const lower = new THREE.Mesh(new THREE.ConeGeometry(0.82, 1.85, 8), leafMat);
+  lower.position.set(x, 1.72, z);
+  lower.scale.setScalar(s);
+  const upper = new THREE.Mesh(new THREE.ConeGeometry(0.62, 1.55, 8), leafMat);
+  upper.position.set(x, 2.45, z);
+  upper.scale.setScalar(s * 0.88);
+  scene.add(trunk, lower, upper);
 }
 for (let i = 0; i < 22; i++) {
   const a = (i / 22) * Math.PI * 2;
@@ -170,12 +387,24 @@ for (let i = 0; i < 22; i++) {
   addTree(Math.cos(a) * r, Math.sin(a) * r * 0.68, 0.74 + (i % 4) * 0.05);
 }
 
-const stand = new THREE.Mesh(
-  new THREE.BoxGeometry(14, 3, 4.6),
-  new THREE.MeshStandardMaterial({ color: 0x626a71, roughness: 1 })
-);
-stand.position.set(7, 1.5, -31);
-scene.add(stand);
+const standGroup = new THREE.Group();
+standGroup.position.set(7, 0, -34.2);
+standGroup.rotation.y = -0.03;
+const standMat = new THREE.MeshStandardMaterial({ color: 0x596773, roughness: 0.92 });
+const seatMat = new THREE.MeshBasicMaterial({ color: 0x8ea0ad });
+for (let i = 0; i < 4; i++) {
+  const tier = new THREE.Mesh(new THREE.BoxGeometry(15.8 - i * 0.55, 0.42, 1.32), standMat);
+  tier.position.set(0, 0.22 + i * 0.43, i * 0.58);
+  standGroup.add(tier);
+  const row = new THREE.Mesh(new THREE.BoxGeometry(14.7 - i * 0.50, 0.07, 0.10), seatMat);
+  row.position.set(0, 0.46 + i * 0.43, i * 0.58 - 0.22);
+  standGroup.add(row);
+}
+const canopy = new THREE.Mesh(new THREE.BoxGeometry(16.8, 0.22, 2.15), standMat);
+canopy.position.set(0, 2.35, 2.15);
+canopy.rotation.x = -0.12;
+standGroup.add(canopy);
+scene.add(standGroup);
 
 const raceEnvironment = scene.children.filter((obj) => !obj.isLight);
 
@@ -414,9 +643,92 @@ function buildMorph(index, morph, forcedColor = null) {
   return group;
 }
 
+const agentPolicyTemplates = [
+  {
+    key: "BALANCED",
+    label: "Balanced",
+    preserveAt: 18,
+    overtakeGap: 4.2,
+    laneCooldown: 900,
+    finalBoost: 1.040,
+    advanceAt: 12,
+    advanceBoost: 1.012,
+    startBias: 1.000,
+    midBias: 1.000,
+    buildBias: 1.000
+  },
+  {
+    key: "PRESSURE",
+    label: "Pressure",
+    preserveAt: 14,
+    overtakeGap: 5.4,
+    laneCooldown: 720,
+    finalBoost: 1.060,
+    advanceAt: 10,
+    advanceBoost: 1.020,
+    startBias: 1.010,
+    midBias: 1.006,
+    buildBias: 1.010
+  },
+  {
+    key: "RESERVE",
+    label: "Reserve",
+    preserveAt: 27,
+    overtakeGap: 3.5,
+    laneCooldown: 1120,
+    finalBoost: 1.085,
+    advanceAt: 14,
+    advanceBoost: 1.008,
+    startBias: 0.982,
+    midBias: 0.992,
+    buildBias: 1.005
+  },
+  {
+    key: "OPPORTUNIST",
+    label: "Opportunist",
+    preserveAt: 20,
+    overtakeGap: 6.2,
+    laneCooldown: 640,
+    finalBoost: 1.050,
+    advanceAt: 11,
+    advanceBoost: 1.016,
+    startBias: 0.996,
+    midBias: 1.008,
+    buildBias: 1.012
+  }
+];
+const agentNames = [
+  "Vela", "Flux", "Morrow", "Kite", "Slate", "Nix",
+  "Pace", "Rook", "Aero", "Lumen", "Drift", "Cairn",
+  "Vale", "Arc", "Mica", "Sable", "Rill", "Nova"
+];
+const agentPolicyByKey = (key) => agentPolicyTemplates.find((policy) => policy.key === key) ?? null;
+
+// Gameplay-proof tuning only: compatibility is intentionally small so it matters
+// without overriding the creature's own morph, speed, fatigue, traffic, and lane state.
+const agentCreatureCompatibility = {
+  BALANCED:    { S: 1.000, P: 1.000, E: 1.000, A: 1.000 },
+  PRESSURE:    { S: 1.030, P: 1.020, E: 0.970, A: 1.000 },
+  RESERVE:     { S: 0.980, P: 0.990, E: 1.030, A: 1.010 },
+  OPPORTUNIST: { S: 1.010, P: 1.000, E: 1.000, A: 1.030 }
+};
+
+function compatibilityFor(racer) {
+  if (!racer?.agent?.policy) return 1;
+  return agentCreatureCompatibility[racer.agent.policy.key]?.[racer.morph] ?? 1;
+}
+
+function compatibilityScoreFor(racer) {
+  return Math.round(compatibilityFor(racer) * 100);
+}
+
 const racers = [];
-const selectedId = 6;
-const raceMeters = 1800;
+let selectedId = aRigIsolatedProof ? 4 : eRigIsolatedProof ? 3 : pRigIsolatedProof ? 2 : 1;
+const sRunProofRacerId = 1;
+const raceMeters = fastFinishProof ? 45 : 700;
+const countdownDuration = fastFinishProof ? 1200 : 3000;
+document.querySelector(".hud-race strong").textContent = `${raceMeters}m — Ridge Oval`;
+stage.dataset.raceDistance = String(raceMeters);
 const laneCount = 6;
 const laneSpacing = 1.55;
 const laneOffset = (lane) => (lane - (laneCount - 1) / 2) * laneSpacing;
@@ -428,6 +740,17 @@ for (let i = 0; i < 18; i++) {
   scene.add(obj);
 
   const stats = morphStats[morph];
+  const agentTemplate = agentPolicyTemplates[i % agentPolicyTemplates.length];
+  const agent = {
+    id: `AG-${String(i + 1).padStart(3, "0")}`,
+    name: agentNames[i],
+    versionNumber: 1,
+    version: "v1",
+    policy: { ...agentTemplate },
+    pendingPolicyKey: null,
+    versionHistory: [{ version: "v1", profile: agentTemplate.key }],
+    raceHistory: []
+  };
   racers.push({
     id: i + 1,
     name: names[i],
@@ -441,14 +764,28 @@ for (let i = 0; i < 18; i++) {
     drain: stats.drain,
     stamina: 100,
     speed: 0,
+    agent,
     decision: "START",
     command: "BUILD SPEED",
     cooldown: 0,
+    dustTimer: 0,
+    finished: false,
+    finishPlace: null,
+    finishTime: null,
+    agentLog: [],
+    agentStats: {
+      decisions: 0,
+      success: 0,
+      partial: 0,
+      failed: 0,
+      laneMoves: 0
+    },
+    lastAgentLogSignature: null,
     color: "#" + palette[i].toString(16).padStart(6, "0")
   });
 }
 
-const selected = racers[selectedId - 1];
+let selected = racers[selectedId - 1];
 const ring = new THREE.Mesh(
   new THREE.RingGeometry(1.15, 1.28, 36),
   new THREE.MeshBasicMaterial({ color: 0x6bb1ff, side: THREE.DoubleSide, transparent: true, opacity: 0.9 })
@@ -456,9 +793,299 @@ const ring = new THREE.Mesh(
 ring.rotation.x = -Math.PI / 2;
 scene.add(ring);
 
+const agentOrbGeometry = new THREE.SphereGeometry(0.075, 8, 6);
+const agentOrbs = racers.map((r) => {
+  const orb = new THREE.Mesh(
+    agentOrbGeometry,
+    new THREE.MeshBasicMaterial({
+      color: 0x76e59b,
+      transparent: true,
+      opacity: r.id === selectedId ? 0.86 : 0.16,
+      depthWrite: false
+    })
+  );
+  orb.renderOrder = 8;
+  scene.add(orb);
+  return orb;
+});
+const agentOrbTravelTangent = new THREE.Vector3();
+
+const agentCommandColors = {
+  "BUILD SPEED": 0x76e59b,
+  "MAINTAIN": 0x6bdcff,
+  "PUSH": 0xffbd68,
+  "EASE": 0x7db9ff,
+  "WAIT": 0x98a6b2,
+  "MOVE INSIDE": 0xd28cff,
+  "MOVE OUTSIDE": 0xd28cff
+};
+let lastAgentCommand = "";
+let lastAgentRacerId = null;
+let agentPulseUntil = 0;
+let agentToastUntil = 0;
+const agentToastWorld = new THREE.Vector3();
+
+function creatureResponseFor(racer) {
+  if (!racer) return { state: "FAILED", reason: "No selected creature" };
+  if (racer.finished) {
+    return { state: "FINISHED", reason: `Result fixed at place #${racer.finishPlace}` };
+  }
+  if (raceState === "countdown") {
+    return { state: "READY", reason: "Waiting for the start signal" };
+  }
+  if (racer.decision === "BLOCKED") {
+    return { state: "FAILED", reason: "No safe path available for the requested move" };
+  }
+  if (Math.abs(racer.laneF - racer.lane) > 0.12) {
+    return { state: "PARTIAL", reason: `Lane change in progress toward lane ${racer.lane + 1}` };
+  }
+  if (racer.stamina < 18) {
+    const fatigue = 100 - racer.stamina;
+    return { state: "PARTIAL", reason: `High fatigue reduces output (${Math.round(fatigue)}%)` };
+  }
+  if (racer.command === "PUSH" && racer.speed < racer.cruise * 0.98) {
+    return { state: "PARTIAL", reason: "Acceleration/output limits reduce the push response" };
+  }
+  if (racer.command === "EASE") {
+    return { state: "SUCCESS", reason: "Pace reduced to preserve energy" };
+  }
+  if (racer.command === "WAIT") {
+    return { state: "SUCCESS", reason: "Position held while waiting for space" };
+  }
+  const compatibility = compatibilityFor(racer);
+  if (compatibility < 0.985 && ["PUSH", "BUILD SPEED", "MOVE INSIDE", "MOVE OUTSIDE"].includes(racer.command)) {
+    return {
+      state: "PARTIAL",
+      reason: `Agent profile / ${racer.morph} compatibility limits execution (${compatibilityScoreFor(racer)}%)`
+    };
+  }
+  return { state: "SUCCESS", reason: `${racer.command} executed within current capability` };
+}
+
+function creatureStateFor(racer) {
+  if (!racer) {
+    return {
+      output: 0,
+      condition: "UNKNOWN",
+      traffic: "UNKNOWN",
+      laneState: "UNKNOWN",
+      execution: "FAILED",
+      note: "No selected creature."
+    };
+  }
+
+  const response = creatureResponseFor(racer);
+  const fatigue = THREE.MathUtils.clamp(100 - racer.stamina, 0, 100);
+  const output = THREE.MathUtils.clamp((racer.speed / Math.max(0.1, racer.cruise)) * 100, 0, 125);
+  const gap = gapAhead(racer);
+  const laneDelta = Math.abs(racer.laneF - racer.lane);
+
+  const condition = racer.finished
+    ? "FINISHED"
+    : fatigue >= 85
+      ? "STRAINED"
+      : fatigue >= 60
+        ? "TIRING"
+        : fatigue >= 30
+          ? "WORKING"
+          : "FRESH";
+
+  const traffic = racer.finished
+    ? "CLEAR"
+    : racer.decision === "BLOCKED" || gap < 2.5
+      ? "BLOCKED"
+      : gap < 5
+        ? "TIGHT"
+        : gap < 9
+          ? "NEAR"
+          : "CLEAR";
+
+  const laneState = racer.finished
+    ? "STOPPED"
+    : laneDelta > 0.12
+      ? `CHANGING → ${racer.lane + 1}`
+      : `STABLE ${Math.round(racer.laneF) + 1}`;
+
+  let note = response.reason;
+  if (raceState === "running" && response.state === "SUCCESS") {
+    if (traffic === "TIGHT") note = "Command is executing, but nearby traffic limits available space.";
+    else if (condition === "TIRING") note = "Command is executing while fatigue is beginning to reduce reserve.";
+    else if (condition === "STRAINED") note = "Command is executing under severe fatigue constraint.";
+  }
+
+  return {
+    output: Math.round(output),
+    condition,
+    traffic,
+    laneState,
+    execution: response.state,
+    note
+  };
+}
+
+function updateCreatureStateVisual() {
+  const state = creatureStateFor(selected);
+  const outputEl = document.querySelector("#stateOutput");
+  const conditionEl = document.querySelector("#stateCondition");
+  const trafficEl = document.querySelector("#stateTraffic");
+  const laneEl = document.querySelector("#stateLane");
+  const executionEl = document.querySelector("#stateExecution");
+  const noteEl = document.querySelector("#stateNote");
+
+  if (outputEl) outputEl.textContent = `${state.output}%`;
+  if (conditionEl) conditionEl.textContent = state.condition;
+  if (trafficEl) trafficEl.textContent = state.traffic;
+  if (laneEl) laneEl.textContent = state.laneState;
+  if (executionEl) {
+    executionEl.textContent = state.execution;
+    executionEl.className = state.execution.toLowerCase();
+  }
+  if (noteEl) noteEl.textContent = state.note;
+
+  conditionEl?.classList.toggle("warn", state.condition === "TIRING");
+  conditionEl?.classList.toggle("critical", state.condition === "STRAINED");
+  trafficEl?.classList.toggle("warn", state.traffic === "TIGHT");
+  trafficEl?.classList.toggle("critical", state.traffic === "BLOCKED");
+
+  stage.dataset.creatureState = "active";
+  stage.dataset.creatureCondition = state.condition;
+  stage.dataset.creatureTraffic = state.traffic;
+  stage.dataset.creatureExecution = state.execution;
+  stage.dataset.creatureOutput = String(state.output);
+}
+
+function recordAgentEvent(racer, force = false) {
+  if (!racer || (raceState !== "running" && !racer.finished)) return;
+  const response = creatureResponseFor(racer);
+  const signature = `${racer.decision}|${racer.command}|${response.state}`;
+  if (!force && racer.lastAgentLogSignature === signature) return;
+
+  racer.lastAgentLogSignature = signature;
+  racer.agentStats.decisions += 1;
+  if (response.state === "SUCCESS") racer.agentStats.success += 1;
+  else if (response.state === "PARTIAL") racer.agentStats.partial += 1;
+  else if (response.state === "FAILED") racer.agentStats.failed += 1;
+  if (racer.command === "MOVE INSIDE" || racer.command === "MOVE OUTSIDE") {
+    racer.agentStats.laneMoves += 1;
+  }
+
+  racer.agentLog.push({
+    time: elapsed,
+    phase: phase(racer),
+    agentId: racer.agent.id,
+    agentProfile: racer.agent.policy.key,
+    decision: racer.decision,
+    order: racer.command,
+    result: response.state,
+    reason: response.reason,
+    fatigue: Math.round(100 - racer.stamina),
+    position: rankOf(racer)
+  });
+  if (racer.agentLog.length > 10) racer.agentLog.shift();
+
+  if (racer.id === selectedId) {
+    stage.dataset.agentLogEvents = String(racer.agentLog.length);
+  }
+}
+
+function updateAgentVisual(now) {
+  const panel = document.querySelector("#agentPanel");
+  const identityEl = document.querySelector("#agentIdentity");
+  const profileEl = document.querySelector("#agentProfile");
+  const compatibilityEl = document.querySelector("#agentCompatibility");
+  const recordEl = document.querySelector("#agentRecord");
+  const policyRuleEl = document.querySelector("#agentPolicyRule");
+  const orderEl = document.querySelector("#agentOrder");
+  const responseEl = document.querySelector("#creatureResponse");
+  const fatigueEl = document.querySelector("#agentFatigue");
+  const reasonEl = document.querySelector("#creatureReason");
+  const order = selected?.command || "WAIT";
+  const response = creatureResponseFor(selected);
+
+  if (selected && (lastAgentRacerId !== selected.id || lastAgentCommand !== order)) {
+    lastAgentRacerId = selected.id;
+    lastAgentCommand = order;
+    agentPulseUntil = now + 420;
+    agentToastUntil = now + 1050;
+
+    const toastOrder = document.querySelector("#agentToastOrder");
+    const toastResult = document.querySelector("#agentToastResult");
+    if (toastOrder) toastOrder.textContent = order;
+    if (toastResult) toastResult.textContent = response.state;
+  }
+
+  if (identityEl && selected?.agent) identityEl.textContent = `${selected.agent.id} ${selected.agent.name} / ${selected.agent.version}`;
+  if (profileEl && selected?.agent) profileEl.textContent = selected.agent.policy.label.toUpperCase();
+  if (compatibilityEl && selected?.agent) compatibilityEl.textContent = `${compatibilityScoreFor(selected)}%`;
+  if (recordEl && selected?.agent) {
+    const history = selected.agent.raceHistory;
+    const starts = history.length;
+    const wins = history.filter((race) => race.place === 1).length;
+    const best = starts ? Math.min(...history.map((race) => race.place)) : null;
+    recordEl.textContent = starts ? `${starts}S / ${wins}W / BEST #${best}` : "NO STARTS";
+  }
+  if (policyRuleEl && selected?.agent) {
+    const p = selected.agent.policy;
+    policyRuleEl.textContent = `PASS ${p.overtakeGap.toFixed(1)}m · PRESERVE ${p.preserveAt} · FINAL ×${p.finalBoost.toFixed(3)} · LANE ${p.laneCooldown}ms`;
+  }
+  if (orderEl) orderEl.textContent = order;
+  if (responseEl) responseEl.textContent = response.state;
+  if (fatigueEl) fatigueEl.textContent = `${Math.round(100 - (selected?.stamina ?? 100))}%`;
+  if (reasonEl) reasonEl.textContent = response.reason;
+  if (panel) panel.classList.toggle("pulse", now < agentPulseUntil);
+  updateCreatureStateVisual();
+
+  const showWorldSignal = view !== "lab" && view !== "tactical";
+  agentOrbs.forEach((orb, index) => {
+    const racer = racers[index];
+    const t = (racer.distance / raceMeters) % 1;
+    agentOrbTravelTangent.copy(curve.getTangentAt(t)).normalize();
+    orb.position.copy(racer.obj.position).addScaledVector(agentOrbTravelTangent, -0.20);
+    orb.position.y += 1.05;
+
+    const racerOrder = racer.command || "WAIT";
+    orb.material.color.setHex(agentCommandColors[racerOrder] ?? 0x6bdcff);
+    const isSelected = racer.id === selectedId;
+    orb.material.opacity = isSelected ? 0.86 : 0.16;
+    const pulse = isSelected
+      ? (now < agentPulseUntil ? 1.28 : 1 + Math.sin(now * 0.008) * 0.06)
+      : 0.58 + Math.sin(now * 0.004 + racer.id) * 0.025;
+    orb.scale.setScalar(pulse);
+    orb.visible = showWorldSignal && (!isolatedProof || racer.id === isolatedProofRacerId);
+  });
+
+  const toast = document.querySelector("#agentToast");
+  if (toast && selected && showWorldSignal && now < agentToastUntil) {
+    agentToastWorld.copy(selected.obj.position);
+    agentToastWorld.y += 1.45;
+    agentToastWorld.project(camera);
+    toast.style.left = `${(agentToastWorld.x * 0.5 + 0.5) * 100}%`;
+    toast.style.top = `${(-agentToastWorld.y * 0.5 + 0.5) * 100}%`;
+    toast.hidden = false;
+  } else if (toast) {
+    toast.hidden = true;
+  }
+  stage.dataset.agentVisual = "enabled";
+  stage.dataset.agentToast = "enabled";
+  stage.dataset.agentOrbCount = String(agentOrbs.length);
+  stage.dataset.agentSelectedId = String(selectedId);
+  stage.dataset.agentIdentity = selected?.agent?.id || "";
+  stage.dataset.agentProfile = selected?.agent?.policy?.key || "";
+  stage.dataset.agentCompatibility = String(compatibilityScoreFor(selected));
+  stage.dataset.agentVersion = selected?.agent?.version || "";
+  stage.dataset.agentStarts = String(selected?.agent?.raceHistory?.length ?? 0);
+  if (selected?.agent?.policy) {
+    const p = selected.agent.policy;
+    stage.dataset.agentPolicy = `${p.overtakeGap.toFixed(1)}|${p.preserveAt}|${p.finalBoost.toFixed(3)}|${p.laneCooldown}`;
+  }
+  stage.dataset.agentOrder = order;
+  stage.dataset.creatureResponse = response.state;
+}
+
+const tacticalMarkerGeometry = new THREE.CircleGeometry(0.88, 18);
 const tacticalMarkers = racers.map((r) => {
   const marker = new THREE.Mesh(
-    new THREE.CircleGeometry(r.id === selectedId ? 1.25 : 0.88, 18),
+    tacticalMarkerGeometry,
     new THREE.MeshBasicMaterial({
       color: r.id === selectedId ? 0xffffff : palette[r.id - 1],
       transparent: true,
@@ -468,11 +1095,175 @@ const tacticalMarkers = racers.map((r) => {
     })
   );
   marker.rotation.x = -Math.PI / 2;
+  marker.scale.setScalar(r.id === selectedId ? 1.42 : 1);
   marker.visible = false;
   marker.renderOrder = 10;
   scene.add(marker);
   return marker;
 });
+
+function setSelectedRacer(id) {
+  const next = racers.find((r) => r.id === id);
+  if (!next) return;
+
+  selectedId = next.id;
+  selected = next;
+  stage.dataset.selectedRacer = String(selectedId);
+
+  const selectedName = document.querySelector("#selectedName");
+  const selectedTitle = document.querySelector("#selectedTitle");
+  if (selectedName) selectedName.textContent = `#${String(selected.id).padStart(2, "0")} ${selected.name}`;
+  if (selectedTitle) selectedTitle.textContent = `Selected #${String(selected.id).padStart(2, "0")}`;
+
+  tacticalMarkers.forEach((marker, index) => {
+    const racer = racers[index];
+    const isSelected = racer.id === selectedId;
+    marker.material.color.set(isSelected ? 0xffffff : palette[index]);
+    marker.material.opacity = isSelected ? 1 : 0.9;
+    marker.scale.setScalar(isSelected ? 1.42 : 1);
+    const shadow = racerShadows[index];
+    if (shadow) shadow.material.opacity = isSelected ? 0.30 : 0.20;
+  });
+
+  ring.position.set(selected.obj.position.x, 0.08, selected.obj.position.z);
+  lastRankingPaint = -Infinity;
+  updateAgentSetupUi();
+  if (raceState === "finished" && !resultsPanel.hidden) syncFinishedResultSelection();
+}
+
+function updateAgentSetupUi() {
+  if (!selected?.agent) return;
+  const activeKey = selected.agent.policy.key;
+  const pendingKey = selected.agent.pendingPolicyKey;
+
+  document.querySelectorAll("[data-agent-policy]").forEach((button) => {
+    const key = button.dataset.agentPolicy;
+    button.classList.toggle("active", key === activeKey);
+    button.classList.toggle("pending", key === pendingKey);
+  });
+
+  const status = document.querySelector("#agentSetupStatus");
+  if (status) {
+    status.textContent = pendingKey
+      ? `Active ${activeKey} · ${selected.agent.version} → NEXT ${pendingKey}`
+      : `Active ${activeKey} · ${selected.agent.version}`;
+  }
+
+  stage.dataset.agentPendingProfile = pendingKey || "";
+  stage.dataset.agentVersionHistory = String(selected.agent.versionHistory.length);
+}
+
+document.querySelector("#agentProfileButtons")?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-agent-policy]");
+  if (!button || !selected?.agent) return;
+  const key = button.dataset.agentPolicy;
+  if (!agentPolicyByKey(key)) return;
+
+  selected.agent.pendingPolicyKey = key === selected.agent.policy.key ? null : key;
+  updateAgentSetupUi();
+});
+
+const rankingPanel = document.querySelector("#ranking");
+rankingPanel.addEventListener("click", (event) => {
+  const row = event.target.closest("[data-racer-id]");
+  if (!row) return;
+  const id = Number(row.dataset.racerId);
+  if (!Number.isInteger(id)) return;
+  setSelectedRacer(id);
+});
+rankingPanel.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" && event.key !== " ") return;
+  const row = event.target.closest("[data-racer-id]");
+  if (!row) return;
+  event.preventDefault();
+  const id = Number(row.dataset.racerId);
+  if (Number.isInteger(id)) setSelectedRacer(id);
+});
+stage.dataset.selectedRacer = String(selectedId);
+let lastRankingPaint = -Infinity;
+updateAgentSetupUi();
+
+const shadowGeometry = new THREE.CircleGeometry(0.78, 20);
+const racerShadows = racers.map((r) => {
+  const shadow = new THREE.Mesh(
+    shadowGeometry,
+    new THREE.MeshBasicMaterial({
+      color: 0x17202a,
+      transparent: true,
+      opacity: r.id === selectedId ? 0.30 : 0.20,
+      depthWrite: false,
+      fog: false
+    })
+  );
+  shadow.rotation.x = -Math.PI / 2;
+  shadow.scale.set(1.55, 0.62, 1);
+  shadow.position.y = 0.055;
+  shadow.renderOrder = 1;
+  scene.add(shadow);
+  return shadow;
+});
+
+const dustCanvas = document.createElement("canvas");
+dustCanvas.width = 64;
+dustCanvas.height = 64;
+const dustCtx = dustCanvas.getContext("2d");
+const dustGradient = dustCtx.createRadialGradient(32, 32, 2, 32, 32, 30);
+dustGradient.addColorStop(0, "rgba(232,214,184,0.72)");
+dustGradient.addColorStop(0.45, "rgba(211,185,150,0.34)");
+dustGradient.addColorStop(1, "rgba(190,160,125,0)");
+dustCtx.fillStyle = dustGradient;
+dustCtx.fillRect(0, 0, 64, 64);
+const dustTexture = new THREE.CanvasTexture(dustCanvas);
+dustTexture.colorSpace = THREE.SRGBColorSpace;
+
+const dustPool = Array.from({ length: isMobile ? 30 : 48 }, () => {
+  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+    map: dustTexture,
+    transparent: true,
+    opacity: 0,
+    depthWrite: false,
+    fog: true
+  }));
+  sprite.visible = false;
+  sprite.renderOrder = 2;
+  scene.add(sprite);
+  return { sprite, life: 0, maxLife: 1, rise: 0 };
+});
+let dustCursor = 0;
+
+function spawnDust(racer, tangent) {
+  const puff = dustPool[dustCursor++ % dustPool.length];
+  const side = new THREE.Vector3(-tangent.z, 0, tangent.x);
+  const jitter = Math.sin(elapsed * 0.004 + racer.id * 2.17);
+  puff.life = 420 + (racer.id % 3) * 60;
+  puff.maxLife = puff.life;
+  puff.rise = 0.00045 + (racer.id % 2) * 0.00012;
+  puff.sprite.position.copy(racer.obj.position)
+    .addScaledVector(tangent, -0.75)
+    .addScaledVector(side, jitter * 0.22);
+  puff.sprite.position.y = 0.24;
+  const baseScale = racer.id === selectedId ? 0.88 : 0.58;
+  puff.sprite.scale.set(baseScale * 1.75, baseScale, 1);
+  puff.sprite.material.opacity = racer.id === selectedId ? 0.42 : 0.27;
+  puff.sprite.visible = true;
+}
+
+function updateDust(dt) {
+  const show = view !== "lab" && view !== "tactical";
+  for (const puff of dustPool) {
+    if (puff.life <= 0) {
+      puff.sprite.visible = false;
+      continue;
+    }
+    puff.life -= dt;
+    const age = 1 - Math.max(0, puff.life) / puff.maxLife;
+    puff.sprite.position.y += dt * puff.rise;
+    const scale = 1 + age * 1.45;
+    puff.sprite.scale.multiplyScalar(1 + dt * 0.0008);
+    puff.sprite.material.opacity = (1 - age) * 0.36;
+    puff.sprite.visible = show && puff.life > 0;
+  }
+}
 
 const labGroup = new THREE.Group();
 const labFloor = new THREE.Mesh(
@@ -518,8 +1309,747 @@ const conceptLayout = {
   A: { scale: [5.25, 3.66], y: 1.96 }
 };
 
+const raceSpriteLayout = {
+  S: { scale: [2.85, 2.62], y: 0.15 },
+  P: { scale: [3.00, 2.48], y: 0.14 },
+  E: { scale: [2.82, 2.52], y: 0.15 },
+  A: { scale: [3.05, 2.30], y: 0.08 }
+};
+
+const sRunFrames = [
+  { phase: "CONTACT", col: 0, row: 0, y: 0.00 },
+  { phase: "PUSH",    col: 1, row: 0, y: 0.00 },
+  { phase: "LIFT",    col: 2, row: 0, y: 0.00 },
+  { phase: "FLIGHT",  col: 0, row: 1, y: -0.42 },
+  { phase: "REACH",   col: 1, row: 1, y: -0.17 },
+  { phase: "LAND",    col: 2, row: 1, y: -0.16 }
+];
+const staticMotionFrames = [
+  { phase: "CONTACT", y: 0.00, sx: 1.02, sy: 0.98, rot:  0.008 },
+  { phase: "PUSH",    y: 0.03, sx: 1.04, sy: 0.96, rot: -0.018 },
+  { phase: "LIFT",    y: 0.07, sx: 0.99, sy: 1.02, rot: -0.012 },
+  { phase: "FLIGHT",  y: 0.11, sx: 1.00, sy: 1.00, rot:  0.014 },
+  { phase: "REACH",   y: 0.06, sx: 1.05, sy: 0.97, rot:  0.020 },
+  { phase: "LAND",    y: 0.00, sx: 0.98, sy: 1.03, rot: -0.006 }
+];
+const staticMotionProfile = {
+  P: { strength: 0.58, rate: 0.90 },
+  E: { strength: 0.64, rate: 0.98 },
+  A: { strength: 0.82, rate: 1.14 }
+};
+const sRunRacers = [];
+let sRunSheetTexture = null;
+const pCutoutRigRacerId = 2;
+const pCutoutRigRacers = [];
+const eCutoutRigRacerId = 3;
+const eCutoutRigRacers = [];
+const aCutoutRigRacerId = 4;
+const aCutoutRigRacers = [];
+const sBillboardParentQ = new THREE.Quaternion();
+const sBillboardCameraQ = new THREE.Quaternion();
+
+function updateFourMorphMotionState() {
+  const ready =
+    sRunRacers.length > 0 &&
+    pCutoutRigRacers.length > 0 &&
+    eCutoutRigRacers.length > 0 &&
+    aCutoutRigRacers.length > 0;
+  if (ready) stage.dataset.fourMorphMotion = "ready";
+}
+
+const pRigLegDefs = [
+  { key: "front-far", x: 0.13, y: 0.40, w: 0.22, h: 0.58, hipX: 0.28, hipY: 0.47, amp: 0.34, phase: Math.PI, z: -0.018 },
+  { key: "front-near", x: 0.25, y: 0.43, w: 0.23, h: 0.55, hipX: 0.38, hipY: 0.49, amp: 0.40, phase: 0, z: 0.022 },
+  { key: "rear-far", x: 0.52, y: 0.45, w: 0.22, h: 0.53, hipX: 0.63, hipY: 0.49, amp: 0.32, phase: 0, z: -0.014 },
+  { key: "rear-near", x: 0.66, y: 0.43, w: 0.24, h: 0.55, hipX: 0.72, hipY: 0.48, amp: 0.38, phase: Math.PI, z: 0.026 }
+];
+const pRigPoseFrames = [
+  { phase: "CONTACT", legs: [-0.22,  0.30,  0.24, -0.28], bodyY: 0.00, lean:  0.000 },
+  { phase: "PUSH",    legs: [-0.08,  0.50,  0.10, -0.50], bodyY: 0.025, lean: -0.018 },
+  { phase: "LIFT",    legs: [ 0.20,  0.18, -0.22, -0.18], bodyY: 0.075, lean: -0.010 },
+  { phase: "FLIGHT",  legs: [ 0.30, -0.18, -0.30,  0.20], bodyY: 0.125, lean:  0.012 },
+  { phase: "REACH",   legs: [ 0.44, -0.48, -0.42,  0.46], bodyY: 0.070, lean:  0.020 },
+  { phase: "LAND",    legs: [ 0.12, -0.28, -0.12,  0.28], bodyY: 0.015, lean: -0.006 }
+];
+const eRigLegDefs = [
+  { key: "front-far", x: 0.21, y: 0.40, w: 0.18, h: 0.58, hipX: 0.33, hipY: 0.47, z: -0.018 },
+  { key: "front-near", x: 0.34, y: 0.41, w: 0.18, h: 0.57, hipX: 0.45, hipY: 0.48, z: 0.022 },
+  { key: "rear-far", x: 0.52, y: 0.40, w: 0.18, h: 0.59, hipX: 0.62, hipY: 0.47, z: -0.014 },
+  { key: "rear-near", x: 0.64, y: 0.40, w: 0.18, h: 0.59, hipX: 0.71, hipY: 0.47, z: 0.026 }
+];
+const eRigPoseFrames = [
+  { phase: "CONTACT", legs: [-0.28,  0.34,  0.30, -0.32], bodyY: 0.000, lean:  0.000 },
+  { phase: "PUSH",    legs: [-0.12,  0.53,  0.14, -0.52], bodyY: 0.030, lean: -0.014 },
+  { phase: "LIFT",    legs: [ 0.24,  0.20, -0.25, -0.20], bodyY: 0.090, lean: -0.008 },
+  { phase: "FLIGHT",  legs: [ 0.36, -0.22, -0.36,  0.24], bodyY: 0.140, lean:  0.010 },
+  { phase: "REACH",   legs: [ 0.50, -0.52, -0.48,  0.50], bodyY: 0.080, lean:  0.016 },
+  { phase: "LAND",    legs: [ 0.14, -0.30, -0.14,  0.30], bodyY: 0.015, lean: -0.005 }
+];
+const aRigLegDefs = [
+  { key: "front-far", x: 0.16, y: 0.43, w: 0.21, h: 0.54, hipX: 0.29, hipY: 0.49, z: -0.018 },
+  { key: "front-near", x: 0.29, y: 0.44, w: 0.22, h: 0.53, hipX: 0.41, hipY: 0.50, z: 0.022 },
+  { key: "rear-far", x: 0.54, y: 0.45, w: 0.21, h: 0.51, hipX: 0.64, hipY: 0.50, z: -0.014 },
+  { key: "rear-near", x: 0.66, y: 0.44, w: 0.22, h: 0.52, hipX: 0.73, hipY: 0.49, z: 0.026 }
+];
+const aRigPoseFrames = [
+  { phase: "CONTACT", legs: [-0.34,  0.40,  0.38, -0.38], bodyY: 0.000, lean:  0.004 },
+  { phase: "PUSH",    legs: [-0.18,  0.60,  0.18, -0.58], bodyY: 0.035, lean: -0.022 },
+  { phase: "LIFT",    legs: [ 0.30,  0.22, -0.31, -0.24], bodyY: 0.095, lean: -0.012 },
+  { phase: "FLIGHT",  legs: [ 0.43, -0.30, -0.43,  0.32], bodyY: 0.155, lean:  0.014 },
+  { phase: "REACH",   legs: [ 0.58, -0.60, -0.55,  0.58], bodyY: 0.085, lean:  0.024 },
+  { phase: "LAND",    legs: [ 0.18, -0.36, -0.18,  0.36], bodyY: 0.012, lean: -0.008 }
+];
+
+function buildAnimatedSRunPlane(texture, raceLayout, racerId) {
+  const sheet = texture.clone();
+  sheet.colorSpace = THREE.SRGBColorSpace;
+  sheet.minFilter = THREE.LinearFilter;
+  sheet.magFilter = THREE.LinearFilter;
+  sheet.generateMipmaps = false;
+  sheet.wrapS = THREE.ClampToEdgeWrapping;
+  sheet.wrapT = THREE.ClampToEdgeWrapping;
+  sheet.repeat.set(1 / 3, 1 / 2);
+  sheet.needsUpdate = true;
+
+  const geometry = new THREE.PlaneGeometry(1, 1);
+  const material = new THREE.MeshBasicMaterial({
+    map: sheet,
+    transparent: true,
+    depthWrite: false,
+    alphaTest: 0.02,
+    side: THREE.DoubleSide
+  });
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.name = `Race2_5D_S_SpriteSheet_${racerId}`;
+  mesh.position.set(0, raceLayout.y, 0);
+  const focusScale = racerId === selectedId ? 1.08 : 0.96;
+  mesh.scale.set(3.65 * focusScale, 3.10 * focusScale, 1);
+  mesh.renderOrder = 4;
+  mesh.frustumCulled = false;
+  mesh.userData.frameIndex = -1;
+  mesh.userData.baseScaleX = Math.abs(mesh.scale.x);
+  mesh.userData.facingSign = 1;
+  return mesh;
+}
+
+function makeCanvasTexture(canvas) {
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.minFilter = THREE.LinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  texture.generateMipmaps = false;
+  return texture;
+}
+
+function buildPCutoutRig(texture, raceLayout, racerId) {
+  const image = texture.image;
+  const width = image.naturalWidth || image.width;
+  const height = image.naturalHeight || image.height;
+  if (!width || !height) return null;
+
+  const rig = new THREE.Group();
+  rig.name = `Race2_5D_P_CutoutRig_${racerId}`;
+  rig.position.set(0, raceLayout.y, 0);
+  rig.userData.baseScaleX = 1;
+  rig.userData.motionScaleX = 1;
+  rig.userData.facingSign = 1;
+  rig.userData.legPivots = [];
+
+  const bodyCanvas = document.createElement("canvas");
+  bodyCanvas.width = width;
+  bodyCanvas.height = height;
+  const bodyCtx = bodyCanvas.getContext("2d");
+  bodyCtx.drawImage(image, 0, 0, width, height);
+
+  bodyCtx.save();
+  bodyCtx.globalCompositeOperation = "destination-out";
+  bodyCtx.globalAlpha = 0.88;
+  bodyCtx.fillStyle = "#000";
+  for (const def of pRigLegDefs) {
+    const x = Math.floor(def.x * width);
+    const y = Math.floor(def.y * height);
+    const w = Math.ceil(def.w * width);
+    const h = Math.ceil(def.h * height);
+    const fadeTop = Math.floor(y + h * 0.26);
+    bodyCtx.fillRect(x, fadeTop, w, Math.max(1, y + h - fadeTop));
+  }
+  bodyCtx.restore();
+
+  const body = new THREE.Mesh(
+    new THREE.PlaneGeometry(1, 1),
+    new THREE.MeshBasicMaterial({
+      map: makeCanvasTexture(bodyCanvas),
+      transparent: true,
+      depthWrite: false,
+      alphaTest: 0.02,
+      side: THREE.DoubleSide
+    })
+  );
+  body.name = `P_Cutout_Body_${racerId}`;
+  body.scale.set(raceLayout.scale[0], raceLayout.scale[1], 1);
+  body.position.z = 0;
+  body.renderOrder = 4;
+  rig.add(body);
+  rig.userData.body = body;
+
+  for (const def of pRigLegDefs) {
+    const x = Math.floor(def.x * width);
+    const y = Math.floor(def.y * height);
+    const w = Math.max(1, Math.ceil(def.w * width));
+    const h = Math.max(1, Math.ceil(def.h * height));
+    const hipX = def.hipX * width;
+    const hipY = def.hipY * height;
+
+    const legCanvas = document.createElement("canvas");
+    legCanvas.width = w;
+    legCanvas.height = h;
+    const legCtx = legCanvas.getContext("2d");
+    legCtx.drawImage(image, x, y, w, h, 0, 0, w, h);
+
+    const pivot = new THREE.Group();
+    pivot.name = `P_Cutout_Pivot_${def.key}_${racerId}`;
+    pivot.position.set(
+      (def.hipX - 0.5) * raceLayout.scale[0],
+      (0.5 - def.hipY) * raceLayout.scale[1],
+      def.z
+    );
+
+    const leg = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshBasicMaterial({
+        map: makeCanvasTexture(legCanvas),
+        transparent: true,
+        depthWrite: false,
+        alphaTest: 0.02,
+        side: THREE.DoubleSide
+      })
+    );
+    leg.name = `P_Cutout_Leg_${def.key}_${racerId}`;
+    leg.scale.set(
+      (w / width) * raceLayout.scale[0],
+      (h / height) * raceLayout.scale[1],
+      1
+    );
+    leg.position.set(
+      ((x + w / 2 - hipX) / width) * raceLayout.scale[0],
+      (-(y + h / 2 - hipY) / height) * raceLayout.scale[1],
+      0
+    );
+    leg.renderOrder = def.z > 0 ? 5 : 3;
+    pivot.add(leg);
+    pivot.userData.amp = def.amp;
+    pivot.userData.phase = def.phase;
+    pivot.userData.baseX = pivot.position.x;
+    pivot.userData.baseY = pivot.position.y;
+    rig.userData.legPivots.push(pivot);
+    rig.add(pivot);
+  }
+
+  rig.userData.baseY = raceLayout.y;
+  return rig;
+}
+
+function buildECutoutRig(texture, raceLayout, racerId) {
+  const image = texture.image;
+  const width = image.naturalWidth || image.width;
+  const height = image.naturalHeight || image.height;
+  if (!width || !height) return null;
+
+  const rig = new THREE.Group();
+  rig.name = `Race2_5D_E_CutoutRig_${racerId}`;
+  rig.position.set(0, raceLayout.y, 0);
+  rig.userData.baseScaleX = 1;
+  rig.userData.motionScaleX = 1;
+  rig.userData.facingSign = 1;
+  rig.userData.legPivots = [];
+
+  const bodyCanvas = document.createElement("canvas");
+  bodyCanvas.width = width;
+  bodyCanvas.height = height;
+  const bodyCtx = bodyCanvas.getContext("2d");
+  bodyCtx.drawImage(image, 0, 0, width, height);
+
+  bodyCtx.save();
+  bodyCtx.globalCompositeOperation = "destination-out";
+  bodyCtx.globalAlpha = 0.88;
+  bodyCtx.fillStyle = "#000";
+  for (const def of eRigLegDefs) {
+    const x = Math.floor(def.x * width);
+    const y = Math.floor(def.y * height);
+    const w = Math.ceil(def.w * width);
+    const h = Math.ceil(def.h * height);
+    const fadeTop = Math.floor(y + h * 0.26);
+    bodyCtx.fillRect(x, fadeTop, w, Math.max(1, y + h - fadeTop));
+  }
+  bodyCtx.restore();
+
+  const body = new THREE.Mesh(
+    new THREE.PlaneGeometry(1, 1),
+    new THREE.MeshBasicMaterial({
+      map: makeCanvasTexture(bodyCanvas),
+      transparent: true,
+      depthWrite: false,
+      alphaTest: 0.02,
+      side: THREE.DoubleSide
+    })
+  );
+  body.name = `E_Cutout_Body_${racerId}`;
+  body.scale.set(raceLayout.scale[0], raceLayout.scale[1], 1);
+  body.position.z = 0;
+  body.renderOrder = 4;
+  rig.add(body);
+  rig.userData.body = body;
+
+  for (const def of eRigLegDefs) {
+    const x = Math.floor(def.x * width);
+    const y = Math.floor(def.y * height);
+    const w = Math.max(1, Math.ceil(def.w * width));
+    const h = Math.max(1, Math.ceil(def.h * height));
+    const hipX = def.hipX * width;
+    const hipY = def.hipY * height;
+
+    const legCanvas = document.createElement("canvas");
+    legCanvas.width = w;
+    legCanvas.height = h;
+    const legCtx = legCanvas.getContext("2d");
+    legCtx.drawImage(image, x, y, w, h, 0, 0, w, h);
+
+    const pivot = new THREE.Group();
+    pivot.name = `E_Cutout_Pivot_${def.key}_${racerId}`;
+    pivot.position.set(
+      (def.hipX - 0.5) * raceLayout.scale[0],
+      (0.5 - def.hipY) * raceLayout.scale[1],
+      def.z
+    );
+
+    const leg = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshBasicMaterial({
+        map: makeCanvasTexture(legCanvas),
+        transparent: true,
+        depthWrite: false,
+        alphaTest: 0.02,
+        side: THREE.DoubleSide
+      })
+    );
+    leg.name = `E_Cutout_Leg_${def.key}_${racerId}`;
+    leg.scale.set(
+      (w / width) * raceLayout.scale[0],
+      (h / height) * raceLayout.scale[1],
+      1
+    );
+    leg.position.set(
+      ((x + w / 2 - hipX) / width) * raceLayout.scale[0],
+      (-(y + h / 2 - hipY) / height) * raceLayout.scale[1],
+      0
+    );
+    leg.renderOrder = def.z > 0 ? 5 : 3;
+    pivot.add(leg);
+    pivot.userData.amp = def.amp;
+    pivot.userData.phase = def.phase;
+    pivot.userData.baseX = pivot.position.x;
+    pivot.userData.baseY = pivot.position.y;
+    rig.userData.legPivots.push(pivot);
+    rig.add(pivot);
+  }
+
+  rig.userData.baseY = raceLayout.y;
+  return rig;
+}
+
+function buildACutoutRig(texture, raceLayout, racerId) {
+  const image = texture.image;
+  const width = image.naturalWidth || image.width;
+  const height = image.naturalHeight || image.height;
+  if (!width || !height) return null;
+
+  const rig = new THREE.Group();
+  rig.name = `Race2_5D_A_CutoutRig_${racerId}`;
+  rig.position.set(0, raceLayout.y, 0);
+  rig.userData.baseScaleX = 1;
+  rig.userData.motionScaleX = 1;
+  rig.userData.facingSign = 1;
+  rig.userData.legPivots = [];
+
+  const bodyCanvas = document.createElement("canvas");
+  bodyCanvas.width = width;
+  bodyCanvas.height = height;
+  const bodyCtx = bodyCanvas.getContext("2d");
+  bodyCtx.drawImage(image, 0, 0, width, height);
+
+  bodyCtx.save();
+  bodyCtx.globalCompositeOperation = "destination-out";
+  bodyCtx.globalAlpha = 0.88;
+  bodyCtx.fillStyle = "#000";
+  for (const def of aRigLegDefs) {
+    const x = Math.floor(def.x * width);
+    const y = Math.floor(def.y * height);
+    const w = Math.ceil(def.w * width);
+    const h = Math.ceil(def.h * height);
+    const fadeTop = Math.floor(y + h * 0.26);
+    bodyCtx.fillRect(x, fadeTop, w, Math.max(1, y + h - fadeTop));
+  }
+  bodyCtx.restore();
+
+  const body = new THREE.Mesh(
+    new THREE.PlaneGeometry(1, 1),
+    new THREE.MeshBasicMaterial({
+      map: makeCanvasTexture(bodyCanvas),
+      transparent: true,
+      depthWrite: false,
+      alphaTest: 0.02,
+      side: THREE.DoubleSide
+    })
+  );
+  body.name = `A_Cutout_Body_${racerId}`;
+  body.scale.set(raceLayout.scale[0], raceLayout.scale[1], 1);
+  body.position.z = 0;
+  body.renderOrder = 4;
+  rig.add(body);
+  rig.userData.body = body;
+
+  for (const def of aRigLegDefs) {
+    const x = Math.floor(def.x * width);
+    const y = Math.floor(def.y * height);
+    const w = Math.max(1, Math.ceil(def.w * width));
+    const h = Math.max(1, Math.ceil(def.h * height));
+    const hipX = def.hipX * width;
+    const hipY = def.hipY * height;
+
+    const legCanvas = document.createElement("canvas");
+    legCanvas.width = w;
+    legCanvas.height = h;
+    const legCtx = legCanvas.getContext("2d");
+    legCtx.drawImage(image, x, y, w, h, 0, 0, w, h);
+
+    const pivot = new THREE.Group();
+    pivot.name = `A_Cutout_Pivot_${def.key}_${racerId}`;
+    pivot.position.set(
+      (def.hipX - 0.5) * raceLayout.scale[0],
+      (0.5 - def.hipY) * raceLayout.scale[1],
+      def.z
+    );
+
+    const leg = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshBasicMaterial({
+        map: makeCanvasTexture(legCanvas),
+        transparent: true,
+        depthWrite: false,
+        alphaTest: 0.02,
+        side: THREE.DoubleSide
+      })
+    );
+    leg.name = `A_Cutout_Leg_${def.key}_${racerId}`;
+    leg.scale.set(
+      (w / width) * raceLayout.scale[0],
+      (h / height) * raceLayout.scale[1],
+      1
+    );
+    leg.position.set(
+      ((x + w / 2 - hipX) / width) * raceLayout.scale[0],
+      (-(y + h / 2 - hipY) / height) * raceLayout.scale[1],
+      0
+    );
+    leg.renderOrder = def.z > 0 ? 5 : 3;
+    pivot.add(leg);
+    pivot.userData.baseX = pivot.position.x;
+    pivot.userData.baseY = pivot.position.y;
+    rig.userData.legPivots.push(pivot);
+    rig.add(pivot);
+  }
+
+  rig.userData.baseY = raceLayout.y;
+  return rig;
+}
+
+function installPCutoutRigFor(racer, texture) {
+  if (!racer || racer.morph !== "P" || racer.obj.userData.pCutoutRig) return;
+  const oldSprite = racer.obj.userData.raceSprite;
+  if (!oldSprite) return;
+
+  const rig = buildPCutoutRig(texture, raceSpriteLayout.P, racer.id);
+  if (!rig) return;
+
+  racer.obj.remove(oldSprite);
+  if (oldSprite.material) oldSprite.material.dispose();
+
+  racer.obj.add(rig);
+  racer.obj.userData.raceRig = rig;
+  racer.obj.userData.raceSprite = rig.userData.body;
+  racer.obj.userData.pCutoutRig = true;
+  pCutoutRigRacers.push(racer);
+
+  stage.dataset.pCutoutRig = "loaded";
+  stage.dataset.pCutoutRacers = String(pCutoutRigRacers.length);
+  if (racer.id === pCutoutRigRacerId) stage.dataset.pCutoutRacer = String(racer.id);
+  updateFourMorphMotionState();
+}
+
+function applyPCutoutRigMotion(racer, frameIndex) {
+  const rig = racer?.obj?.userData?.raceRig;
+  if (!rig || !racer.obj.userData.pCutoutRig) return;
+
+  const pose = pRigPoseFrames[frameIndex] ?? pRigPoseFrames[0];
+  rig.userData.legPivots.forEach((pivot, index) => {
+    pivot.rotation.z = pose.legs[index] ?? 0;
+    pivot.position.x = pivot.userData.baseX;
+    pivot.position.y = pivot.userData.baseY;
+  });
+
+  rig.position.y = rig.userData.baseY + pose.bodyY;
+  const body = rig.userData.body;
+  if (body) {
+    body.position.y = 0;
+    body.rotation.z = pose.lean;
+  }
+
+  if (racer.id === selectedId) {
+    stage.dataset.selectedMotionPhase = pose.phase;
+  }
+  stage.dataset.pCutoutMotion = "6phase-rig-v3";
+}
+
+function installECutoutRigFor(racer, texture) {
+  if (!racer || racer.morph !== "E" || racer.obj.userData.eCutoutRig) return;
+  const oldSprite = racer.obj.userData.raceSprite;
+  if (!oldSprite) return;
+
+  const rig = buildECutoutRig(texture, raceSpriteLayout.E, racer.id);
+  if (!rig) return;
+
+  racer.obj.remove(oldSprite);
+  if (oldSprite.material) oldSprite.material.dispose();
+
+  racer.obj.add(rig);
+  racer.obj.userData.raceRig = rig;
+  racer.obj.userData.raceSprite = rig.userData.body;
+  racer.obj.userData.eCutoutRig = true;
+  eCutoutRigRacers.push(racer);
+
+  stage.dataset.eCutoutRig = "loaded";
+  stage.dataset.eCutoutRacers = String(eCutoutRigRacers.length);
+  if (racer.id === eCutoutRigRacerId) stage.dataset.eCutoutRacer = String(racer.id);
+  updateFourMorphMotionState();
+}
+
+function applyECutoutRigMotion(racer, frameIndex) {
+  const rig = racer?.obj?.userData?.raceRig;
+  if (!rig || !racer.obj.userData.eCutoutRig) return;
+
+  const pose = eRigPoseFrames[frameIndex] ?? eRigPoseFrames[0];
+  rig.userData.legPivots.forEach((pivot, index) => {
+    pivot.rotation.z = pose.legs[index] ?? 0;
+    pivot.position.x = pivot.userData.baseX;
+    pivot.position.y = pivot.userData.baseY;
+  });
+
+  rig.position.y = rig.userData.baseY + pose.bodyY;
+  const body = rig.userData.body;
+  if (body) {
+    body.position.y = 0;
+    body.rotation.z = pose.lean;
+  }
+
+  if (racer.id === selectedId) stage.dataset.selectedMotionPhase = pose.phase;
+  stage.dataset.eCutoutMotion = "6phase-rig-v1";
+}
+
+function installACutoutRigFor(racer, texture) {
+  if (!racer || racer.morph !== "A" || racer.obj.userData.aCutoutRig) return;
+  const oldSprite = racer.obj.userData.raceSprite;
+  if (!oldSprite) return;
+
+  const rig = buildACutoutRig(texture, raceSpriteLayout.A, racer.id);
+  if (!rig) return;
+
+  racer.obj.remove(oldSprite);
+  if (oldSprite.material) oldSprite.material.dispose();
+
+  racer.obj.add(rig);
+  racer.obj.userData.raceRig = rig;
+  racer.obj.userData.raceSprite = rig.userData.body;
+  racer.obj.userData.aCutoutRig = true;
+  aCutoutRigRacers.push(racer);
+
+  stage.dataset.aCutoutRig = "loaded";
+  stage.dataset.aCutoutRacers = String(aCutoutRigRacers.length);
+  if (racer.id === aCutoutRigRacerId) stage.dataset.aCutoutRacer = String(racer.id);
+  updateFourMorphMotionState();
+}
+
+function applyACutoutRigMotion(racer, frameIndex) {
+  const rig = racer?.obj?.userData?.raceRig;
+  if (!rig || !racer.obj.userData.aCutoutRig) return;
+
+  const pose = aRigPoseFrames[frameIndex] ?? aRigPoseFrames[0];
+  rig.userData.legPivots.forEach((pivot, index) => {
+    pivot.rotation.z = pose.legs[index] ?? 0;
+    pivot.position.x = pivot.userData.baseX;
+    pivot.position.y = pivot.userData.baseY;
+  });
+
+  rig.position.y = rig.userData.baseY + pose.bodyY;
+  const body = rig.userData.body;
+  if (body) {
+    body.position.y = 0;
+    body.rotation.z = pose.lean;
+  }
+
+  if (racer.id === selectedId) stage.dataset.selectedMotionPhase = pose.phase;
+  stage.dataset.aCutoutMotion = "6phase-rig-v1";
+}
+
+function applyStaticSpriteMotion(racer, frameIndex) {
+  if (!racer || racer.obj.userData.sRunAnimated || racer.obj.userData.pCutoutRig || racer.obj.userData.eCutoutRig || racer.obj.userData.aCutoutRig) return;
+  const sprite = racer.obj.userData.raceSprite;
+  const profile = staticMotionProfile[racer.morph];
+  const frame = staticMotionFrames[frameIndex];
+  if (!sprite?.isSprite || !profile || !frame) return;
+
+  const sx = 1 + (frame.sx - 1) * profile.strength;
+  const sy = 1 + (frame.sy - 1) * profile.strength;
+  sprite.userData.motionScaleX = sx;
+  sprite.scale.y = sprite.userData.baseScaleY * sy;
+  sprite.position.y = sprite.userData.baseY + frame.y * profile.strength;
+  sprite.material.rotation = frame.rot * profile.strength;
+  sprite.userData.motionFrame = frameIndex;
+
+  if (racer.id === selectedId) stage.dataset.selectedMotionPhase = frame.phase;
+  stage.dataset.nonSRunMotion = "placeholder-6phase";
+}
+
+function applySRunFrame(racer, frameIndex) {
+  const mesh = racer?.obj?.userData?.raceSprite;
+  if (!mesh?.isMesh || mesh.userData.frameIndex === frameIndex) return;
+
+  const frame = sRunFrames[frameIndex];
+  const map = mesh.material?.map;
+  if (!map) return;
+
+  map.offset.set(frame.col / 3, frame.row / 2);
+  map.updateMatrix();
+  mesh.userData.frameIndex = frameIndex;
+  mesh.position.y = raceSpriteLayout.S.y + frame.y;
+
+  if (racer.id === sRunProofRacerId) {
+    stage.dataset.sRunFrame = String(frameIndex);
+    stage.dataset.sRunPhase = frame.phase;
+  }
+}
+
+function installSRunSpriteFor(racer) {
+  if (!sRunSheetTexture || !racer || racer.morph !== "S" || racer.obj.userData.sRunAnimated) return;
+  const oldSprite = racer.obj.userData.raceSprite;
+  if (!oldSprite) return;
+
+  racer.obj.remove(oldSprite);
+  if (oldSprite.material) oldSprite.material.dispose();
+  if (oldSprite.isMesh && oldSprite.geometry) oldSprite.geometry.dispose();
+
+  const raceSprite = buildAnimatedSRunPlane(sRunSheetTexture, raceSpriteLayout.S, racer.id);
+  racer.obj.add(raceSprite);
+  racer.obj.userData.raceSprite = raceSprite;
+  racer.obj.userData.sRunAnimated = true;
+  sRunRacers.push(racer);
+  applySRunFrame(racer, racer.id % sRunFrames.length);
+
+  if (racer.id === sRunProofRacerId) {
+    stage.dataset.sRunCycle = "loaded";
+    stage.dataset.sRunFrames = String(sRunFrames.length);
+    stage.dataset.sRunSource = "sprite-sheet";
+  }
+  stage.dataset.sRunAnimatedRacers = String(sRunRacers.length);
+  updateFourMorphMotionState();
+}
+
+function orientAnimatedSRunPlanes() {
+  if (!sRunRacers.length) return;
+  camera.getWorldQuaternion(sBillboardCameraQ);
+  for (const racer of sRunRacers) {
+    const mesh = racer.obj.userData.raceSprite;
+    if (!mesh?.isMesh) continue;
+    racer.obj.getWorldQuaternion(sBillboardParentQ);
+    mesh.quaternion.copy(sBillboardParentQ).invert().multiply(sBillboardCameraQ);
+  }
+}
+
+function orientPCutoutRigs() {
+  if (!pCutoutRigRacers.length) return;
+  camera.getWorldQuaternion(sBillboardCameraQ);
+  for (const racer of pCutoutRigRacers) {
+    const rig = racer.obj.userData.raceRig;
+    if (!rig) continue;
+    racer.obj.getWorldQuaternion(sBillboardParentQ);
+    rig.quaternion.copy(sBillboardParentQ).invert().multiply(sBillboardCameraQ);
+  }
+}
+
+function orientECutoutRigs() {
+  if (!eCutoutRigRacers.length) return;
+  camera.getWorldQuaternion(sBillboardCameraQ);
+  for (const racer of eCutoutRigRacers) {
+    const rig = racer.obj.userData.raceRig;
+    if (!rig) continue;
+    racer.obj.getWorldQuaternion(sBillboardParentQ);
+    rig.quaternion.copy(sBillboardParentQ).invert().multiply(sBillboardCameraQ);
+  }
+}
+
+function orientACutoutRigs() {
+  if (!aCutoutRigRacers.length) return;
+  camera.getWorldQuaternion(sBillboardCameraQ);
+  for (const racer of aCutoutRigRacers) {
+    const rig = racer.obj.userData.raceRig;
+    if (!rig) continue;
+    racer.obj.getWorldQuaternion(sBillboardParentQ);
+    rig.quaternion.copy(sBillboardParentQ).invert().multiply(sBillboardCameraQ);
+  }
+}
+
+const cameraRight = new THREE.Vector3();
+const spriteTravelTangent = new THREE.Vector3();
+
+function orientRaceSpritesToTravel() {
+  cameraRight.set(1, 0, 0).applyQuaternion(camera.quaternion).normalize();
+
+  for (const racer of racers) {
+    const visual = racer.obj.userData.raceRig ?? racer.obj.userData.raceSprite;
+    if (!visual?.userData?.baseScaleX) continue;
+
+    const t = (racer.distance / raceMeters) % 1;
+    spriteTravelTangent.copy(curve.getTangentAt(t)).normalize();
+    const screenDirection = spriteTravelTangent.dot(cameraRight);
+
+    if (Math.abs(screenDirection) > 0.08) {
+      visual.userData.facingSign = screenDirection >= 0 ? 1 : -1;
+    }
+
+    visual.scale.x = visual.userData.baseScaleX * (visual.userData.motionScaleX ?? 1) * visual.userData.facingSign;
+  }
+
+  stage.dataset.directionalSpriteFacing = "enabled";
+}
+
+textureLoader.load(
+  `${import.meta.env.BASE_URL}concept/s-run-sheet.webp`,
+  (texture) => {
+    sRunSheetTexture = texture;
+    stage.dataset.sRunSheet = "loaded";
+    racers.forEach(installSRunSpriteFor);
+  },
+  undefined,
+  (error) => {
+    stage.dataset.sRunSheet = "error";
+    console.error("S run sprite sheet failed to load", error);
+  }
+);
+
 function updateConceptReadyState() {
-  if (conceptReady.size === 4) stage.dataset.conceptMorphs = "loaded";
+  if (conceptReady.size === 4) {
+    stage.dataset.conceptMorphs = "loaded";
+    stage.dataset.race2p5d = "loaded";
+  }
 }
 
 for (const morph of ["S", "P", "E", "A"]) {
@@ -530,6 +2060,34 @@ for (const morph of ["S", "P", "E", "A"]) {
       texture.minFilter = THREE.LinearFilter;
       texture.magFilter = THREE.LinearFilter;
       conceptTextures.set(morph, texture);
+
+      for (const racer of racers.filter((r) => r.morph === morph)) {
+        racer.obj.children.forEach((child) => { child.visible = false; });
+        const raceLayout = raceSpriteLayout[morph];
+        let raceSprite;
+        const raceMaterial = new THREE.SpriteMaterial({
+          map: texture,
+          transparent: true,
+          depthWrite: false,
+          alphaTest: 0.02
+        });
+        raceSprite = new THREE.Sprite(raceMaterial);
+        raceSprite.name = `Race2_5D_${morph}_${racer.id}`;
+        raceSprite.position.set(0, raceLayout.y, 0);
+        raceSprite.scale.set(raceLayout.scale[0], raceLayout.scale[1], 1);
+        raceSprite.renderOrder = 3;
+        raceSprite.userData.baseScaleX = Math.abs(raceLayout.scale[0]);
+        raceSprite.userData.baseScaleY = Math.abs(raceLayout.scale[1]);
+        raceSprite.userData.baseY = raceLayout.y;
+        raceSprite.userData.motionScaleX = 1;
+        raceSprite.userData.facingSign = 1;
+        racer.obj.add(raceSprite);
+        racer.obj.userData.raceSprite = raceSprite;
+        if (morph === "S") installSRunSpriteFor(racer);
+        if (morph === "P") installPCutoutRigFor(racer, texture);
+        if (morph === "E") installECutoutRigFor(racer, texture);
+        if (morph === "A") installACutoutRigFor(racer, texture);
+      }
 
       const material = new THREE.SpriteMaterial({
         map: texture,
@@ -634,15 +2192,24 @@ setLabMorph("S");
 let elapsed = 0;
 let last = performance.now();
 let paused = false;
-let view = "lab";
+let view = isolatedProof ? "follow" : "race";
+let raceState = "countdown";
+let countdownRemaining = countdownDuration;
+let goFlashRemaining = 0;
+const finishOrder = [];
 
-const ranks = () => [...racers].sort((a, b) => b.distance - a.distance);
+const ranks = () => [...racers].sort((a, b) => {
+  if (a.finished && b.finished) return a.finishPlace - b.finishPlace;
+  if (a.finished) return -1;
+  if (b.finished) return 1;
+  return b.distance - a.distance;
+});
 const rankOf = (r) => ranks().findIndex((x) => x === r) + 1;
 
 function gapAhead(r, lane = Math.round(r.laneF)) {
   let gap = 999;
   for (const other of racers) {
-    if (other === r || Math.round(other.laneF) !== lane) continue;
+    if (other === r || other.finished || Math.round(other.laneF) !== lane) continue;
     const d = other.distance - r.distance;
     if (d > 0 && d < gap) gap = d;
   }
@@ -650,7 +2217,12 @@ function gapAhead(r, lane = Math.round(r.laneF)) {
 }
 
 function laneFree(r, lane) {
-  return racers.every((other) => other === r || Math.round(other.laneF) !== lane || Math.abs(other.distance - r.distance) > 6.5);
+  return racers.every((other) =>
+    other === r ||
+    other.finished ||
+    Math.round(other.laneF) !== lane ||
+    Math.abs(other.distance - r.distance) > 6.5
+  );
 }
 
 function chooseLane(r) {
@@ -661,6 +2233,7 @@ function chooseLane(r) {
 }
 
 function phase(r) {
+  if (r.finished) return "FINISH";
   const p = r.distance / raceMeters;
   if (p < 0.08) return "START";
   if (p < 0.55) return "MID";
@@ -676,27 +2249,184 @@ function morphTarget(r) {
   return r.cruise * (p < 0.20 ? 1.00 : p < 0.70 ? 1.02 : 1.07);
 }
 
-function update(dt) {
+function formatRaceTime(ms) {
+  const total = Math.max(0, ms) / 1000;
+  const minutes = Math.floor(total / 60);
+  const seconds = Math.floor(total % 60);
+  const hundredths = Math.floor((total % 1) * 100);
+  return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}.${String(hundredths).padStart(2, "0")}`;
+}
+
+function resultInterpretationFor(racer) {
+  const stats = racer.agentStats;
+  const fatigue = Math.round(100 - racer.stamina);
+  const compatibility = compatibilityScoreFor(racer);
+  if (compatibility < 99) return `Compatibility ${compatibility}% constrained some Agent commands.`;
+  if (stats.failed > 0) return `${stats.failed} failed execution${stats.failed === 1 ? "" : "s"} need review.`;
+  if (stats.partial >= 3) return "Several commands were only partially executed.";
+  if (fatigue >= 80) return "Race completed under heavy fatigue.";
+  if (stats.laneMoves >= 3) return "High lane-change activity shaped this run.";
+  if (racer.finishPlace <= 3) return "Clean execution with a podium result.";
+  return "Execution was mostly stable; compare policy and pace for the next run.";
+}
+
+function renderResultAgentSummary(racer) {
+  if (!racer?.agent) return;
+  const stats = racer.agentStats;
+  const fatigue = Math.round(100 - racer.stamina);
+  const historyCount = racer.agent.raceHistory.length;
+
+  document.querySelector("#resultAgentIdentity").textContent =
+    `${racer.agent.id} ${racer.agent.name} / ${racer.agent.version}`;
+  const compatibilityScore = compatibilityScoreFor(racer);
+  document.querySelector("#resultAgentPolicy").textContent =
+    `${racer.agent.policy.label.toUpperCase()} · COMPAT ${compatibilityScore}%`;
+  document.querySelector("#resultDecisions").textContent = String(stats.decisions);
+  document.querySelector("#resultSuccess").textContent = String(stats.success);
+  document.querySelector("#resultPartial").textContent = String(stats.partial);
+  document.querySelector("#resultFailed").textContent = String(stats.failed);
+  document.querySelector("#resultLaneMoves").textContent = String(stats.laneMoves);
+  document.querySelector("#resultCompatibility").textContent = `${compatibilityScoreFor(racer)}%`;
+  document.querySelector("#resultFinalFatigue").textContent = `${fatigue}%`;
+  document.querySelector("#resultAgentRecord").textContent = `Race history ${historyCount}`;
+  document.querySelector("#resultAgentInterpretation").textContent = resultInterpretationFor(racer);
+
+  stage.dataset.resultAgentSummary = "ready";
+  stage.dataset.resultAgentDecisions = String(stats.decisions);
+  stage.dataset.resultAgentFailed = String(stats.failed);
+  stage.dataset.resultAgentCompatibility = String(compatibilityScore);
+}
+
+function syncFinishedResultSelection() {
+  if (raceState !== "finished" || !selected?.finished) return;
+  resultHeadline.textContent =
+    `#${selected.finishPlace} ${selected.name} — ${formatRaceTime(selected.finishTime)}`;
+  renderResultAgentSummary(selected);
+  resultsList.querySelectorAll("[data-result-racer-id]").forEach((row) => {
+    row.classList.toggle("selected", Number(row.dataset.resultRacerId) === selectedId);
+  });
+}
+function updateRaceStateDataset() {
+  stage.dataset.raceState = raceState;
+  stage.dataset.finishCount = String(finishOrder.length);
+}
+
+function beginRace() {
+  raceState = "running";
+  goFlashRemaining = 650;
+  raceBanner.hidden = false;
+  raceBanner.textContent = "GO";
+  raceBanner.classList.add("go");
+  updateRaceStateDataset();
+}
+
+function finishRace() {
+  if (raceState === "finished") return;
+  raceState = "finished";
+  raceBanner.hidden = true;
+  raceBanner.classList.remove("go");
+  paused = false;
+  document.querySelector("#pause").textContent = "Pause";
+
+  const ordered = [...racers].sort((a, b) => a.finishPlace - b.finishPlace);
+  for (const r of ordered) {
+    r.agent.raceHistory.push({
+      place: r.finishPlace,
+      time: r.finishTime,
+      creatureId: r.id,
+      morph: r.morph,
+      agentVersion: r.agent.version,
+      policy: r.agent.policy.key,
+      compatibility: compatibilityScoreFor(r),
+      finalFatigue: Math.round(100 - r.stamina),
+      summary: { ...r.agentStats }
+    });
+  }
+  resultsList.innerHTML = ordered.map((r) => `
+    <div class="result-row ${r.id === selectedId ? "selected" : ""}" data-result-racer-id="${r.id}" role="button" tabindex="0" aria-label="Analyze #${String(r.id).padStart(2, "0")} ${r.name}">
+      <span class="place">#${r.finishPlace}</span>
+      <span><span class="result-name">${r.name}</span><span class="result-morph"> #${String(r.id).padStart(2, "0")}</span><small class="result-agent">${r.agent.id} ${r.agent.name} · ${r.agent.policy.label}</small></span>
+      <span class="result-morph">${r.morph}</span>
+      <span class="result-time">${formatRaceTime(r.finishTime)}</span>
+    </div>
+  `).join("");
+
+  resultHeadline.textContent = `#${selected.finishPlace} ${selected.name} — ${formatRaceTime(selected.finishTime)}`;
+  renderResultAgentSummary(selected);
+  resultsPanel.hidden = false;
+  updateRaceStateDataset();
+  syncFinishedResultSelection();
+}
+
+resultsList.addEventListener("click", (event) => {
+  const row = event.target.closest("[data-result-racer-id]");
+  if (!row) return;
+  const id = Number(row.dataset.resultRacerId);
+  if (Number.isInteger(id)) setSelectedRacer(id);
+});
+resultsList.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" && event.key !== " ") return;
+  const row = event.target.closest("[data-result-racer-id]");
+  if (!row) return;
+  event.preventDefault();
+  const id = Number(row.dataset.resultRacerId);
+  if (Number.isInteger(id)) setSelectedRacer(id);
+});
+
+function updateRaceLifecycle(dt) {
   if (paused) return;
-  elapsed += dt;
-  const sec = dt / 1000;
+
+  if (raceState === "countdown") {
+    countdownRemaining -= dt;
+    const value = Math.max(1, Math.ceil(countdownRemaining / 1000));
+    raceBanner.hidden = false;
+    raceBanner.classList.remove("go");
+    raceBanner.textContent = String(value);
+    if (countdownRemaining <= 0) beginRace();
+    return;
+  }
+
+  if (raceState === "running" && goFlashRemaining > 0) {
+    goFlashRemaining -= dt;
+    if (goFlashRemaining <= 0) {
+      raceBanner.hidden = true;
+      raceBanner.classList.remove("go");
+    }
+  }
+}
+
+function update(dt) {
+  if (paused || raceState !== "running") return;
+  const raceDt = fastFinishProof ? dt * 8 : dt;
+  elapsed += raceDt;
+  const sec = raceDt / 1000;
 
   for (const r of racers) {
-    r.cooldown = Math.max(0, r.cooldown - dt);
+    if (r.finished) {
+      r.speed = 0;
+      continue;
+    }
+    r.cooldown = Math.max(0, r.cooldown - raceDt);
     const currentPhase = phase(r);
     const gap = gapAhead(r);
     const position = rankOf(r);
-    let target = morphTarget(r);
+    const policy = r.agent.policy;
+    const compatibility = compatibilityFor(r);
+    let target = morphTarget(r) * compatibility;
 
-    if (r.stamina < 18) {
+    if (currentPhase === "START") target *= policy.startBias;
+    else if (currentPhase === "MID") target *= policy.midBias;
+    else if (currentPhase === "BUILD") target *= policy.buildBias;
+
+    if (r.stamina < policy.preserveAt) {
       target *= 0.88;
       r.decision = "PRESERVE";
       r.command = "EASE";
-    } else if (gap < 4.2 && r.cooldown <= 0) {
+    } else if (gap < policy.overtakeGap && r.cooldown <= 0) {
       const nextLane = chooseLane(r);
       if (nextLane !== null) {
         r.lane = nextLane;
-        r.cooldown = 900;
+        r.cooldown = policy.laneCooldown;
         r.decision = "OVERTAKE";
         r.command = nextLane < r.laneF ? "MOVE INSIDE" : "MOVE OUTSIDE";
         target *= 1.025;
@@ -706,11 +2436,11 @@ function update(dt) {
         r.command = "WAIT";
       }
     } else if (currentPhase === "FINAL") {
-      target *= 1.04;
+      target *= policy.finalBoost;
       r.decision = "ATTACK";
       r.command = "PUSH";
-    } else if (position > 12 && currentPhase !== "START") {
-      target *= 1.012;
+    } else if (position > policy.advanceAt && currentPhase !== "START") {
+      target *= policy.advanceBoost;
       r.decision = "ADVANCE";
       r.command = "PUSH";
     } else {
@@ -728,8 +2458,9 @@ function update(dt) {
     r.distance += Math.max(0, r.speed) * sec;
 
     const load = Math.max(0, r.speed / r.cruise - 0.96);
-    r.stamina = Math.max(0, r.stamina - (0.018 + 0.038 * load * load) * r.drain * dt / 1000);
-    r.laneF = THREE.MathUtils.lerp(r.laneF, r.lane, Math.min(1, dt * 0.0032));
+    r.stamina = Math.max(0, r.stamina - (0.018 + 0.038 * load * load) * r.drain * raceDt / 1000);
+    r.laneF = THREE.MathUtils.lerp(r.laneF, r.lane, Math.min(1, raceDt * 0.0032));
+    recordAgentEvent(r);
 
     const t = (r.distance / raceMeters) % 1;
     const p = curve.getPointAt(t);
@@ -746,13 +2477,77 @@ function update(dt) {
     r.obj.userData.legs.forEach((leg, index) => {
       leg.rotation.z = (index % 2 ? 1 : -1) * stride;
     });
+
+    if (r.obj.userData.sRunAnimated) {
+      const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
+      const frameMs = THREE.MathUtils.lerp(145, 72, speedRatio);
+      const phaseOffset = (r.id * 41) % Math.round(frameMs * sRunFrames.length);
+      const frameIndex = Math.floor((elapsed + phaseOffset) / frameMs) % sRunFrames.length;
+      applySRunFrame(r, frameIndex);
+    } else if (r.obj.userData.pCutoutRig) {
+      const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
+      const frameMs = THREE.MathUtils.lerp(160, 86, speedRatio);
+      const frameIndex = Math.floor((elapsed + r.id * 37) / frameMs) % 6;
+      applyPCutoutRigMotion(r, frameIndex);
+    } else if (r.obj.userData.eCutoutRig) {
+      const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
+      const frameMs = THREE.MathUtils.lerp(176, 94, speedRatio);
+      const frameIndex = Math.floor((elapsed + r.id * 43) / frameMs) % 6;
+      applyECutoutRigMotion(r, frameIndex);
+    } else if (r.obj.userData.aCutoutRig) {
+      const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
+      const frameMs = THREE.MathUtils.lerp(150, 78, speedRatio);
+      const frameIndex = Math.floor((elapsed + r.id * 47) / frameMs) % 6;
+      applyACutoutRigMotion(r, frameIndex);
+    } else if (staticMotionProfile[r.morph]) {
+      const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
+      const profile = staticMotionProfile[r.morph];
+      const frameMs = THREE.MathUtils.lerp(165, 88, speedRatio) / profile.rate;
+      const phaseOffset = (r.id * 53) % Math.round(frameMs * staticMotionFrames.length);
+      const frameIndex = Math.floor((elapsed + phaseOffset) / frameMs) % staticMotionFrames.length;
+      applyStaticSpriteMotion(r, frameIndex);
+    }
+
+    r.dustTimer = Math.max(0, (r.dustTimer ?? 0) - raceDt);
+    if (r.speed > 7 && r.dustTimer <= 0) {
+      spawnDust(r, tangent);
+      r.dustTimer = r.id === selectedId ? 155 : 265 + (r.id % 4) * 42;
+    }
+
+    if (r.distance >= raceMeters) {
+      r.finished = true;
+      r.finishPlace = finishOrder.length + 1;
+      r.finishTime = elapsed;
+      r.decision = "FINISHED";
+      r.command = `PLACE #${r.finishPlace}`;
+      r.speed = 0;
+      finishOrder.push(r.id);
+      recordAgentEvent(r, true);
+      stage.dataset.finishCount = String(finishOrder.length);
+      if (r.obj.userData.sRunAnimated) applySRunFrame(r, 5);
+      else if (r.obj.userData.pCutoutRig) applyPCutoutRigMotion(r, 5);
+      else if (r.obj.userData.eCutoutRig) applyECutoutRigMotion(r, 5);
+      else if (r.obj.userData.aCutoutRig) applyACutoutRigMotion(r, 5);
+      else if (staticMotionProfile[r.morph]) applyStaticSpriteMotion(r, 5);
+    }
   }
+
+  if (finishOrder.length === racers.length) finishRace();
 
   ring.position.set(selected.obj.position.x, 0.08, selected.obj.position.z);
   tacticalMarkers.forEach((marker, index) => {
     const r = racers[index];
     marker.position.set(r.obj.position.x, 2.8, r.obj.position.z);
   });
+  racerShadows.forEach((shadow, index) => {
+    const r = racers[index];
+    shadow.position.x = r.obj.position.x;
+    shadow.position.z = r.obj.position.z;
+    const bob = Math.max(0, r.obj.position.y - 0.98);
+    const shrink = THREE.MathUtils.clamp(1 - bob * 1.8, 0.72, 1);
+    shadow.scale.set(1.55 * shrink, 0.62 * shrink, 1);
+  });
+  updateDust(fastFinishProof ? dt * 8 : dt);
 }
 
 function setCamera() {
@@ -761,18 +2556,32 @@ function setCamera() {
   const tangent = curve.getTangentAt(t).normalize();
   const side = new THREE.Vector3(-tangent.z, 0, tangent.x);
 
+  const speedRatio = THREE.MathUtils.clamp(selected.speed / Math.max(1, selected.cruise), 0, 1.2);
+  const targetFov = view === "follow"
+    ? THREE.MathUtils.lerp(isMobile ? 54 : 48, isMobile ? 72 : 68, speedRatio)
+    : view === "race"
+      ? THREE.MathUtils.lerp(isMobile ? 54 : 48, isMobile ? 76 : 72, speedRatio)
+      : (isMobile ? 50 : 42);
+  camera.fov = THREE.MathUtils.lerp(camera.fov, targetFov, 0.09);
+  camera.updateProjectionMatrix();
+
   const lab = view === "lab";
   const tactical = view === "tactical";
   scene.fog = (lab || tactical) ? null : raceFog;
   scene.background = new THREE.Color(lab ? 0x202a35 : 0x9bc6dc);
   raceEnvironment.forEach((obj) => { obj.visible = !lab; });
-  racers.forEach((r) => { r.obj.visible = !lab && !tactical; });
+  racers.forEach((r) => { r.obj.visible = !lab && !tactical && (!isolatedProof || r.id === isolatedProofRacerId); });
   ring.visible = !lab && !tactical;
+  racerShadows.forEach((shadow, index) => {
+    shadow.visible = !lab && !tactical && (!isolatedProof || racers[index].id === isolatedProofRacerId);
+  });
   tacticalMarkers.forEach((marker) => { marker.visible = tactical; });
   labGroup.visible = lab;
   labFloor.visible = lab;
   document.querySelector(".hud-race").hidden = lab;
-  document.querySelector(".hud-mini").hidden = lab;
+  document.querySelector(".hud-mini").hidden = lab || pRigIsolatedProof || eRigIsolatedProof || aRigIsolatedProof;
+  document.querySelector(".hud-selected").hidden = lab || pRigIsolatedProof || eRigIsolatedProof || aRigIsolatedProof;
+  document.querySelector("#agentPanel").hidden = lab || pRigIsolatedProof || eRigIsolatedProof || aRigIsolatedProof;
   document.querySelector("#morphSwitcher").hidden = !lab;
   document.querySelector("#labLabel").hidden = !lab;
 
@@ -782,14 +2591,23 @@ function setCamera() {
     camera.lookAt(0, 1.25, 0);
   } else if (view === "follow") {
     camera.up.set(0, 1, 0);
-    const followBack = isMobile ? -9.5 : -8;
-    const followSide = isMobile ? 2.8 : 2.2;
-    const followHeight = isMobile ? 3.7 : 2.8;
-    camera.position.lerp(
-      selectedPos.clone().addScaledVector(tangent, followBack).addScaledVector(side, followSide).add(new THREE.Vector3(0, followHeight, 0)),
-      0.13
-    );
-    camera.lookAt(selectedPos.clone().addScaledVector(tangent, 2.8).add(new THREE.Vector3(0, 0.45, 0)));
+    const isolatedBack = aRigIsolatedProof ? -1.35 : eRigIsolatedProof ? -1.45 : pRigIsolatedProof ? -1.55 : -1.2;
+    const isolatedSide = aRigIsolatedProof ? 4.85 : eRigIsolatedProof ? 5.05 : pRigIsolatedProof ? 4.8 : 4.1;
+    const isolatedHeight = aRigIsolatedProof ? 1.85 : eRigIsolatedProof ? 2.18 : pRigIsolatedProof ? 1.95 : 1.72;
+    const followBack = isolatedProof ? (isMobile ? -1.5 : isolatedBack) : (isMobile ? -2.2 : -1.35);
+    const followSide = isolatedProof ? (isMobile ? 4.3 : isolatedSide) : (isMobile ? 4.8 : 3.95);
+    const followHeight = isolatedProof ? (isMobile ? 1.92 : isolatedHeight) : (isMobile ? 2.18 : 1.68);
+    const shake = Math.max(0, speedRatio - 0.48) * (isolatedProof ? 0.08 : 0.075);
+    const desired = selectedPos.clone()
+      .addScaledVector(tangent, followBack)
+      .addScaledVector(side, followSide + Math.sin(elapsed * 0.023) * shake)
+      .add(new THREE.Vector3(0, followHeight + Math.sin(elapsed * 0.031) * shake * 0.6, 0));
+    camera.position.lerp(desired, 0.15);
+    const lookTarget = selectedPos.clone()
+      .addScaledVector(tangent, 2.4)
+      .addScaledVector(side, Math.sin(elapsed * 0.017) * shake * 0.45)
+      .add(new THREE.Vector3(0, 0.50, 0));
+    camera.lookAt(lookTarget);
   } else if (view === "tactical") {
     camera.up.set(0, 0, -1);
     const tacticalHeight = isMobile ? 112 : 78;
@@ -807,26 +2625,80 @@ function setCamera() {
     const leaderTangent = curve.getTangentAt(lt).normalize();
     const leaderSide = new THREE.Vector3(-leaderTangent.z, 0, leaderTangent.x);
 
-    const raceBack = isMobile ? -4.5 : -14;
-    const raceSide = isMobile ? 15.5 : 11;
-    const raceHeight = isMobile ? 7.4 : 8.5;
+    const raceBack = isMobile ? -6.4 : -6.2;
+    const raceSide = isMobile ? 11.8 : 10.9;
+    const raceHeight = isMobile ? 5.1 : 4.65;
     camera.position.lerp(
       center.clone().addScaledVector(leaderTangent, raceBack).addScaledVector(leaderSide, raceSide).add(new THREE.Vector3(0, raceHeight, 0)),
-      0.055
+      0.065
     );
-    camera.lookAt(center.clone().add(new THREE.Vector3(0, 0.65, 0)));
+    camera.lookAt(center.clone().addScaledVector(leaderTangent, 2.8).add(new THREE.Vector3(0, 0.62, 0)));
+    stage.dataset.raceCamera = "wide-pack";
   }
+
+
+  const speedFxStrength = (lab || tactical || raceState !== "running")
+    ? 0
+    : THREE.MathUtils.smoothstep(speedRatio, 0.36, 1.12);
+  speedFx.style.opacity = String(speedFxStrength * (view === "follow" ? 0.72 : 0.48));
+  speedFx.style.setProperty("--speed-fx-rate", `${Math.max(0.18, 0.62 - speedFxStrength * 0.38).toFixed(2)}s`);
+  speedFx.style.setProperty("--speed-fx-stretch", `${(1 + speedFxStrength * 0.9).toFixed(2)}`);
+
+  if (!lab && !tactical) {
+    const aheadTangent = curve.getTangentAt((t + 0.008) % 1).normalize();
+    const signedCurve = tangent.x * aheadTangent.z - tangent.z * aheadTangent.x;
+    const targetRoll = THREE.MathUtils.clamp(signedCurve * 2.7, -0.07, 0.07) * speedRatio;
+    camera.rotateZ(targetRoll);
+    stage.dataset.cameraSpeedRoll = targetRoll.toFixed(4);
+  }
+  const selectedCameraDistance = camera.position.distanceTo(selected.obj.position);
+  racers.forEach((r) => {
+    let targetOpacity = 1;
+    if (view === "follow" && r.id !== selectedId && r.obj.visible) {
+      const d = camera.position.distanceTo(r.obj.position);
+      if (d < selectedCameraDistance - 0.55) targetOpacity = 0.02;
+      else if (d < selectedCameraDistance + 0.20) targetOpacity = 0.22;
+    }
+
+    const rig = r.obj.userData.raceRig;
+    if (rig) {
+      rig.traverse((part) => {
+        if (!part.material || part.material.opacity === undefined) return;
+        part.material.opacity = THREE.MathUtils.lerp(part.material.opacity, targetOpacity, 0.24);
+      });
+      return;
+    }
+
+    const material = r.obj.userData.raceSprite?.material;
+    if (!material || material.opacity === undefined) return;
+    material.opacity = THREE.MathUtils.lerp(material.opacity, targetOpacity, 0.24);
+  });
+  stage.dataset.followOcclusionFade = "enabled";
 }
 
 function updateHud() {
+  const ordered = ranks();
   const position = rankOf(selected);
   const gapValue = gapAhead(selected);
   const currentPhase = phase(selected);
   const sec = elapsed / 1000;
+  const progress = THREE.MathUtils.clamp(selected.distance / raceMeters, 0, 1);
+  const remaining = Math.max(0, raceMeters - selected.distance);
+  const leader = ordered[0];
+  const leaderGap = leader === selected ? 0 : Math.max(0, leader.distance - selected.distance);
+  const finalCharge = currentPhase === "FINAL" && !selected.finished;
 
   document.querySelector("#position").textContent = `${position} / 18`;
   document.querySelector("#speed").textContent = Math.round(selected.speed);
-  document.querySelector("#stamina").textContent = Math.round(selected.stamina);
+  const fatigue = Math.round(100 - selected.stamina);
+  document.querySelector("#fatigue").textContent = `${fatigue}%`;
+  const fatigueFill = document.querySelector("#fatigueFill");
+  if (fatigueFill) {
+    fatigueFill.style.width = `${fatigue}%`;
+    fatigueFill.classList.toggle("high", fatigue >= 65 && fatigue < 85);
+    fatigueFill.classList.toggle("critical", fatigue >= 85);
+  }
+  stage.dataset.creatureFatigue = String(fatigue);
   document.querySelector("#morph").textContent = `${selected.morph} / ${morphLabel[selected.morph].toUpperCase()}`;
   document.querySelector("#decision").textContent = `${selected.decision} / ${selected.command}`;
   document.querySelector("#morphName").textContent = `${selected.morph} — ${morphLabel[selected.morph]}`;
@@ -836,13 +2708,67 @@ function updateHud() {
   document.querySelector("#clock").textContent =
     `${String(Math.floor(sec / 60)).padStart(2, "0")}:${String(Math.floor(sec % 60)).padStart(2, "0")}.${String(Math.floor((sec % 1) * 100)).padStart(2, "0")}`;
 
-  document.querySelector("#ranking").innerHTML = ranks().map((r, index) => `
-    <div class="rank-row ${r.id === selectedId ? "selected" : ""}">
-      <b>${index + 1}</b>
-      <span><i class="dot" style="background:${r.color}"></i>#${String(r.id).padStart(2, "0")} ${r.name}<span class="badge">${r.morph}</span></span>
-      <span>${r.speed.toFixed(1)}</span>
-    </div>
-  `).join("");
+  const progressFill = document.querySelector("#raceProgressFill");
+  const remainingLabel = document.querySelector("#remaining");
+  const leaderGapLabel = document.querySelector("#leaderGap");
+  const sectionLabel = document.querySelector("#raceSection");
+  if (progressFill) progressFill.style.width = `${(progress * 100).toFixed(1)}%`;
+  if (remainingLabel) remainingLabel.textContent = selected.finished ? "FINISHED" : `${Math.ceil(remaining)} m to go`;
+  if (leaderGapLabel) leaderGapLabel.textContent = leader === selected ? "LEADER" : `+${leaderGap.toFixed(1)} m`;
+  if (sectionLabel) sectionLabel.textContent = currentPhase;
+  document.querySelector(".hud-race")?.classList.toggle("final", finalCharge);
+  stage.dataset.hudTelemetry = "active";
+  stage.dataset.raceSection = currentPhase;
+  stage.dataset.remainingMeters = String(Math.ceil(remaining));
+
+  const agentLogEl = document.querySelector("#agentLog");
+  const selectedLog = selected.agentLog ?? [];
+  if (agentLogEl) {
+    if (!selectedLog.length) {
+      agentLogEl.innerHTML = '<p class="agent-log-empty">No decisions yet.</p>';
+    } else {
+      agentLogEl.innerHTML = selectedLog.slice(-5).reverse().map((event) => `
+        <div class="agent-log-row ${event.result.toLowerCase()}">
+          <time>${formatRaceTime(event.time)}</time>
+          <div class="agent-log-main">
+            <b>${event.order}</b>
+            <span>${event.reason} · F${event.fatigue}% · #${event.position}</span>
+          </div>
+          <span class="agent-log-result">${event.result}</span>
+        </div>
+      `).join("");
+    }
+  }
+  stage.dataset.agentLogEvents = String(selectedLog.length);
+
+  const rankingNow = performance.now();
+  if (rankingNow - lastRankingPaint >= 220 || raceState === "finished") {
+    ordered.forEach((r, index) => {
+      let row = rankingPanel.querySelector(`[data-racer-id="${r.id}"]`);
+      if (!row) {
+        row = document.createElement("div");
+        row.className = "rank-row";
+        row.dataset.racerId = String(r.id);
+        row.setAttribute("role", "button");
+        row.tabIndex = 0;
+        row.setAttribute("aria-label", `Select #${String(r.id).padStart(2, "0")} ${r.name}`);
+        row.innerHTML = `
+          <b class="rank-pos"></b>
+          <span><i class="dot"></i><span class="rank-copy"></span><span class="badge"></span></span>
+          <span class="rank-value"></span>
+        `;
+        row.querySelector(".dot").style.background = r.color;
+        row.querySelector(".rank-copy").textContent = `#${String(r.id).padStart(2, "0")} ${r.name}`;
+        row.querySelector(".badge").textContent = r.morph;
+      }
+
+      row.classList.toggle("selected", r.id === selectedId);
+      row.querySelector(".rank-pos").textContent = String(index + 1);
+      row.querySelector(".rank-value").textContent = r.finished ? `#${r.finishPlace}` : r.speed.toFixed(1);
+      rankingPanel.append(row);
+    });
+    lastRankingPaint = rankingNow;
+  }
 }
 
 function drawMiniMap() {
@@ -895,13 +2821,39 @@ addEventListener("resize", resize);
 resize();
 
 function resetRace() {
+  finishOrder.length = 0;
   racers.forEach((r, i) => {
+    if (r.agent.pendingPolicyKey) {
+      const nextPolicy = agentPolicyByKey(r.agent.pendingPolicyKey);
+      if (nextPolicy && nextPolicy.key !== r.agent.policy.key) {
+        r.agent.versionNumber += 1;
+        r.agent.version = `v${r.agent.versionNumber}`;
+        r.agent.policy = { ...nextPolicy };
+        r.agent.versionHistory.push({
+          version: r.agent.version,
+          profile: nextPolicy.key
+        });
+      }
+      r.agent.pendingPolicyKey = null;
+    }
+
     r.distance = Math.max(0, (17 - i) * 1.1);
     r.lane = i % laneCount;
     r.laneF = i % laneCount;
     r.stamina = 100;
     r.speed = 0;
     r.cooldown = 0;
+    r.dustTimer = 0;
+    r.finished = false;
+    r.finishPlace = null;
+    r.finishTime = null;
+    r.agentLog.length = 0;
+    r.agentStats.decisions = 0;
+    r.agentStats.success = 0;
+    r.agentStats.partial = 0;
+    r.agentStats.failed = 0;
+    r.agentStats.laneMoves = 0;
+    r.lastAgentLogSignature = null;
     r.decision = "START";
     r.command = "BUILD SPEED";
 
@@ -914,6 +2866,21 @@ function resetRace() {
     r.obj.rotation.y = Math.atan2(-tangent.z, tangent.x);
   });
   elapsed = 0;
+  paused = false;
+  raceState = "countdown";
+  countdownRemaining = countdownDuration;
+  goFlashRemaining = 0;
+  resultsPanel.hidden = true;
+  raceBanner.hidden = false;
+  raceBanner.classList.remove("go");
+  raceBanner.textContent = String(Math.max(1, Math.ceil(countdownDuration / 1000)));
+  document.querySelector("#pause").textContent = "Pause";
+  lastAgentCommand = "";
+  lastAgentRacerId = null;
+  agentPulseUntil = performance.now() + 420;
+  agentToastUntil = performance.now() + 1050;
+  updateRaceStateDataset();
+  updateAgentSetupUi();
 }
 resetRace();
 
@@ -928,10 +2895,18 @@ drawMiniMap();
 let renderedFrames = 0;
 function frame(now) {
   try {
-    const dt = Math.min(45, Math.max(0, now - last));
+    const rawDt = Math.max(0, now - last);
+    const dt = Math.min(45, rawDt);
     last = now;
+    updateRaceLifecycle(rawDt);
     update(dt);
     setCamera();
+    orientAnimatedSRunPlanes();
+    orientPCutoutRigs();
+    orientECutoutRigs();
+    orientACutoutRigs();
+    orientRaceSpritesToTravel();
+    updateAgentVisual(now);
     renderer.render(scene, camera);
     updateHud();
     drawMiniMap();
@@ -939,6 +2914,11 @@ function frame(now) {
     renderedFrames += 1;
     if (renderedFrames === 2) {
       runtimeStatus.hidden = true;
+      if (sRunIsolatedProof) stage.dataset.sRunProof = "isolated";
+      if (pRigIsolatedProof) stage.dataset.pCutoutProof = "isolated";
+      if (eRigIsolatedProof) stage.dataset.eCutoutProof = "isolated";
+      if (aRigIsolatedProof) stage.dataset.aCutoutProof = "isolated";
+      updateFourMorphMotionState();
     }
   } catch (error) {
     paused = true;
@@ -948,15 +2928,22 @@ function frame(now) {
 }
 renderer.setAnimationLoop(frame);
 
+function syncViewUi() {
+  document.querySelector("#viewLabel").textContent =
+    view === "lab" ? "MORPH LAB" : view === "race" ? "RACE VIEW" : view === "follow" ? "FOLLOW VIEW" : "TACTICAL VIEW";
+  document.querySelectorAll("[data-view]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.view === view);
+  });
+}
+
 document.querySelectorAll("[data-view]").forEach((button) => {
   button.addEventListener("click", () => {
     view = button.dataset.view;
     resize();
-    document.querySelector("#viewLabel").textContent =
-      view === "lab" ? "MORPH LAB" : view === "race" ? "RACE VIEW" : view === "follow" ? "FOLLOW VIEW" : "TACTICAL VIEW";
-    document.querySelectorAll("[data-view]").forEach((b) => b.classList.toggle("active", b === button));
+    syncViewUi();
   });
 });
+syncViewUi();
 
 document.querySelectorAll("[data-morph]").forEach((button) => {
   button.addEventListener("click", () => {
@@ -965,8 +2952,18 @@ document.querySelectorAll("[data-morph]").forEach((button) => {
 });
 
 document.querySelector("#pause").addEventListener("click", (event) => {
+  if (raceState === "finished") return;
   paused = !paused;
   event.currentTarget.textContent = paused ? "Resume" : "Pause";
+  if (paused) {
+    raceBanner.hidden = false;
+    raceBanner.classList.remove("go");
+    raceBanner.textContent = "PAUSED";
+  } else {
+    updateRaceLifecycle(0);
+    if (raceState === "running" && goFlashRemaining <= 0) raceBanner.hidden = true;
+  }
 });
 
 document.querySelector("#reset").addEventListener("click", resetRace);
+document.querySelector("#rematch").addEventListener("click", resetRace);
