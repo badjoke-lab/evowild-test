@@ -20,10 +20,10 @@ const LANES = 6;
 const SELECTED_ID = 1;
 
 const MORPHS = {
-  S: { sheet: "s-run-sheet.svg", cruise: 20.6, accel: 5.4, drain: 1.06, w: 214, h: 178, phase: 0.00 },
-  P: { sheet: "p-run-sheet.svg", cruise: 19.8, accel: 6.2, drain: 1.12, w: 226, h: 190, phase: 0.90 },
-  E: { sheet: "e-run-sheet.svg", cruise: 19.3, accel: 4.5, drain: 0.82, w: 218, h: 186, phase: 1.80 },
-  A: { sheet: "a-run-sheet.svg", cruise: 20.0, accel: 5.3, drain: 0.94, w: 224, h: 176, phase: 2.70 }
+  S: { sheet: "s-run-sheet.svg", cruise: 20.6, accel: 5.4, drain: 1.06, w: 154, h: 128, phase: 0.00 },
+  P: { sheet: "p-run-sheet.svg", cruise: 19.8, accel: 6.2, drain: 1.12, w: 162, h: 136, phase: 0.90 },
+  E: { sheet: "e-run-sheet.svg", cruise: 19.3, accel: 4.5, drain: 0.82, w: 156, h: 132, phase: 1.80 },
+  A: { sheet: "a-run-sheet.svg", cruise: 20.0, accel: 5.3, drain: 0.94, w: 160, h: 126, phase: 2.70 }
 };
 
 const names = ["Vela","Brim","Serein","Kite","Aster","Mica","Rook","Nacre","Ilex","Lumen","Dune","Tern"];
@@ -76,8 +76,8 @@ function makeRacers() {
       morph,
       lane: index % LANES,
       laneF: index % LANES,
-      distance: Math.max(0, 32 - index * 2.25),
-      speed: 0,
+      distance: Math.max(0, 176 - index * 10.5 + (index % 3) * 2.4),
+      speed: m.cruise * (0.86 + ((index * 7) % 5) * 0.018),
       stamina: 100,
       cruise: m.cruise + ((index * 11) % 5) * 0.11,
       accel: m.accel,
@@ -180,7 +180,7 @@ function spawnDust(r) {
   const y = trackY(laneT);
   const scale = laneScale(laneT);
   p.active = true;
-  p.x = worldX(r.distance) - MORPHS[r.morph].w*scale*.34;
+  p.x = worldX(r.distance, r.laneF) - MORPHS[r.morph].w*scale*.34;
   p.y = y + 5;
   p.vx = -(70 + r.speed*5) * (0.8 + Math.random()*.5);
   p.vy = -4 - Math.random()*8;
@@ -188,11 +188,14 @@ function spawnDust(r) {
   p.size = 12*scale*(.7+Math.random()*.8);
 }
 
-function worldX(distance) {
+function worldX(distance, laneF = 2.5) {
   const focus = selected();
-  const focusX = cameraMode === "chase" ? width * .34 : width * .44;
-  const ppm = cameraMode === "chase" ? Math.min(2.2,Math.max(1.25,width/720)) : Math.min(1.6,Math.max(.92,width/950));
-  return focusX + (distance-focus.distance)*ppm;
+  const focusX = cameraMode === "chase" ? width * .31 : width * .40;
+  const ppm = cameraMode === "chase"
+    ? Math.min(5.8, Math.max(3.7, width / 245))
+    : Math.min(4.2, Math.max(2.7, width / 340));
+  const depthShear = (laneF - (LANES - 1) * 0.5) * (cameraMode === "chase" ? 18 : 13);
+  return focusX + (distance - focus.distance) * ppm + depthShear;
 }
 
 function trackY(t) {
@@ -202,7 +205,7 @@ function trackY(t) {
 }
 
 function laneScale(t) {
-  return .58 + t*.58;
+  return .66 + t * .34;
 }
 
 function drawSky(scroll) {
@@ -338,8 +341,8 @@ function drawRacer(r) {
   const img=sheets.get(r.morph);
   if(!img) return;
   const laneT=r.laneF/(LANES-1);
-  const scale=laneScale(laneT)*(cameraMode==="chase"?1.04:.92);
-  const x=worldX(r.distance);
+  const scale=laneScale(laneT)*(cameraMode==="chase"?1.00:.90);
+  const x=worldX(r.distance, r.laneF);
   const y=trackY(laneT);
   if(x<-300||x>width+300) return;
 
@@ -355,15 +358,18 @@ function drawRacer(r) {
 
   ctx.save();
 
-  const trail = r.id===SELECTED_ID ? 4 : 2;
-  for(let t=trail;t>=1;t--){
-    ctx.save();
-    ctx.globalAlpha=.035*(trail-t+1);
-    ctx.translate(x-t*(8+speedRatio*10)*scale,y-h*.5-bob);
-    ctx.rotate(tilt);
-    ctx.scale(-1,1);
-    ctx.drawImage(img,sx,sy,256,256,-w*.5,-h*.5,w,h);
-    ctx.restore();
+  if (speedRatio > .72) {
+    const streakAlpha = .06 + (speedRatio - .72) * .12;
+    ctx.strokeStyle = `rgba(215,240,251,${Math.max(0,streakAlpha)})`;
+    ctx.lineWidth = Math.max(1, 1.6 * scale);
+    for (let k = 0; k < 3; k++) {
+      const sy2 = y - h * (.30 + k * .16);
+      const len = (34 + k * 14) * scale * speedRatio;
+      ctx.beginPath();
+      ctx.moveTo(x - w * .28, sy2);
+      ctx.lineTo(x - w * .28 - len, sy2 + k);
+      ctx.stroke();
+    }
   }
 
   ctx.fillStyle=`rgba(18,14,12,${.16+.10*scale})`;
@@ -418,7 +424,7 @@ function render() {
   const s=selected();
   const speedRatio=Math.max(0,Math.min(1.15,s.speed/s.cruise));
   const shake=(cameraMode==="chase"?1.8:1.0)*Math.max(0,speedRatio-.55);
-  const scroll=s.distance*44;
+  const scroll=s.distance*58;
 
   ctx.save();
   ctx.translate(Math.sin(elapsed*.041)*shake,Math.sin(elapsed*.057)*shake*.45);
