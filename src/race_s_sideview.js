@@ -29,10 +29,10 @@ const PHASES = [
   // Verified against deterministic fixed-pose captures.
   // support -> toe-off/push -> leg recovery -> full flight -> reach -> landing.
   { name:"CONTACT",  col:0, row:0, duration:66,  lift:0,  pitch:0.0,  x:-3, scaleX:.990, scaleY:1.015 },
-  { name:"PUSH",     col:2, row:0, duration:72,  lift:0,  pitch:-1.8, x:3,  scaleX:1.035, scaleY:.985 },
-  { name:"RECOVERY", col:1, row:0, duration:74,  lift:11, pitch:-1.2, x:5,  scaleX:1.005, scaleY:.990 },
-  { name:"FLIGHT",   col:0, row:1, duration:106, lift:30, pitch:-1.5, x:9,  scaleX:1.050, scaleY:.970 },
-  { name:"REACH",    col:1, row:1, duration:88,  lift:14, pitch:.5,   x:6,  scaleX:1.025, scaleY:.990 },
+  { name:"PUSH",     col:2, row:0, duration:72,  lift:0,  pitch:-3.6, x:3,  scaleX:1.040, scaleY:.980 },
+  { name:"RECOVERY", col:1, row:0, duration:74,  lift:11, pitch:-2.2, x:5,  scaleX:1.005, scaleY:.990 },
+  { name:"FLIGHT",   col:0, row:1, duration:106, lift:30, pitch:-1.0, x:9,  scaleX:1.050, scaleY:.970 },
+  { name:"REACH",    col:1, row:1, duration:88,  lift:14, pitch:1.2,  x:6,  scaleX:1.025, scaleY:.990 },
   { name:"LAND",     col:2, row:1, duration:68,  lift:0,  pitch:0.0,  x:0,  scaleX:.995, scaleY:1.015 }
 ];
 const CYCLE_MS = PHASES.reduce((sum, p) => sum + p.duration, 0);
