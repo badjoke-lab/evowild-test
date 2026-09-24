@@ -57,9 +57,9 @@ const COLORS = {
   skyMid: "#9fc0cf",
   skyLow: "#dcc59c",
   grassLight: "#3c654a",
-  grassDark: "#365e45",
+  grassDark: "#3a6348",
   roadLight: "#8d603f",
-  roadDark: "#8a5e3e",
+  roadDark: "#8d603f",
   rumbleLight: "#e7dac1",
   rumbleDark: "#526776",
   lane: "rgba(248,231,198,.74)",
@@ -207,8 +207,8 @@ function renderRoadSegment(seg) {
 
   const r1 = p1.screen.w / 13;
   const r2 = p2.screen.w / 13;
-  const l1 = p1.screen.w / 58;
-  const l2 = p2.screen.w / 58;
+  const l1 = p1.screen.w / 76;
+  const l2 = p2.screen.w / 76;
 
   ctx.fillStyle = grass;
   ctx.fillRect(0, p2.screen.y, width, p1.screen.y - p2.screen.y + 1);
@@ -285,7 +285,7 @@ function drawBackground(curve, roadY) {
   ctx.fillStyle="#718992";
   ctx.beginPath();
   ctx.moveTo(0,height*.51);
-  for(let x=-560;x<=width+560;x+=70){
+  for(let x=-560;x<=width+560;x+=18){
     const xx=x-shift1;
     const n=.56*Math.sin((x+120)*.013)+.28*Math.sin((x+40)*.029)+.16*Math.sin(x*.061);
     const y=height*(.40-n*.095);
@@ -297,7 +297,7 @@ function drawBackground(curve, roadY) {
   ctx.fillStyle="#58766d";
   ctx.beginPath();
   ctx.moveTo(0,height*.55);
-  for(let x=-420;x<=width+420;x+=42){
+  for(let x=-420;x<=width+420;x+=16){
     const xx=x-shift2;
     const n=.62*Math.sin((x+90)*.021)+.22*Math.sin(x*.053)+.16*Math.cos(x*.095);
     const y=height*(.49-n*.050);
@@ -334,8 +334,21 @@ function drawTrackside(seg) {
 
   const left = p.x - p.w * 1.07;
   const right = p.x + p.w * 1.07;
+  const p2 = seg.p2.screen;
+  const left2 = p2.x - p2.w * 1.07;
+  const right2 = p2.x + p2.w * 1.07;
   const postH = clamp(p.scale * 290000, 3, 145);
   const postW = clamp(postH * .045, 1, 5);
+
+  // continuous guard rail makes the course read as a real circuit rather than isolated poles
+  ctx.strokeStyle = "rgba(222,232,231,.54)";
+  ctx.lineWidth = Math.max(.7, postW * .42);
+  ctx.beginPath();
+  ctx.moveTo(left, p.y - postH*.56);
+  ctx.lineTo(left2, p2.y - clamp(p2.scale * 290000,3,145)*.56);
+  ctx.moveTo(right, p.y - postH*.56);
+  ctx.lineTo(right2, p2.y - clamp(p2.scale * 290000,3,145)*.56);
+  ctx.stroke();
 
   if (seg.index % 7 === 0) {
     ctx.strokeStyle = "rgba(225,234,233,.70)";
@@ -483,7 +496,7 @@ function drawRunner(r) {
   const h=w;
   const bob=[0,2,7,13,7,0][frame]*(w/190)*.34;
 
-  if(y<0||y>height+80||x<-w||x>width+w) return;
+  if(y<0||y>height+80||x<w*.28||x>width-w*.28) return;
 
   const shadowW=w*.34;
   ctx.fillStyle="rgba(17,12,10,.23)";
@@ -609,6 +622,18 @@ function render() {
     renderRoadSegment(seg);
     maxY=seg.p2.screen.y;
   }
+
+  // long, low-contrast direction streaks keep the dirt surface from reading as flat bands
+  ctx.save();
+  ctx.strokeStyle="rgba(255,229,190,.075)";
+  for(let i=0;i<26;i++){
+    const y=height*(.58+((i*29)%39)/100);
+    const x=((i*149-cameraZ*.10)%(width+220)+width+220)%(width+220)-110;
+    const len=34+(i%6)*23;
+    ctx.lineWidth=.6+(i%3)*.35;
+    ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-len,y+1);ctx.stroke();
+  }
+  ctx.restore();
 
   for(let n=DRAW_DISTANCE-1;n>0;n--){
     const seg=segments[(base.index+n)%segments.length];
