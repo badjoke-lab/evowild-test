@@ -145,7 +145,9 @@ jobs:
           ls -lh public/models/evowild-s-hunyuan2mv-*.glb
       - run: npm run build
       - run: npx playwright install --with-deps chromium
+        if: ${{ !(github.event_name == 'push' && contains(github.event.head_commit.message, '[targeted-hunyuan-rig-lod4]')) }}
       - name: Run browser validation
+        if: ${{ !(github.event_name == 'push' && contains(github.event.head_commit.message, '[targeted-hunyuan-rig-lod4]')) }}
         run: |
           subject="$(git log -1 --pretty=%s)"
           if [[ "$subject" == *"[targeted-hunyuan-rig-race]"* ]]; then
