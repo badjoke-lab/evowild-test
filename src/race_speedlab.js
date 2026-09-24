@@ -20,33 +20,144 @@ const LANES = 6;
 const SELECTED_ID = 1;
 
 const MORPHS = {
-  S: { sheet: "s-run-sheet.svg", cruise: 20.6, accel: 5.4, drain: 1.06, w: 154, h: 128, phase: 0.00 },
-  P: { sheet: "p-run-sheet.svg", cruise: 19.8, accel: 6.2, drain: 1.12, w: 162, h: 136, phase: 0.90 },
-  E: { sheet: "e-run-sheet.svg", cruise: 19.3, accel: 4.5, drain: 0.82, w: 156, h: 132, phase: 1.80 },
-  A: { sheet: "a-run-sheet.svg", cruise: 20.0, accel: 5.3, drain: 0.94, w: 160, h: 126, phase: 2.70 }
+  S: { sheet: "s-run-sheet.svg", cruise: 20.6, accel: 5.4, drain: 1.06, w: 168, h: 140, phase: 0.00 },
+  P: { art: "P.webp", cruise: 19.8, accel: 6.2, drain: 1.12, w: 184, h: 145, phase: 0.90 },
+  E: { art: "E.webp", cruise: 19.3, accel: 4.5, drain: 0.82, w: 176, h: 151, phase: 1.80 },
+  A: { art: "A.webp", cruise: 20.0, accel: 5.3, drain: 0.94, w: 176, h: 123, phase: 2.70 }
 };
+
+const RIGS = {
+  P: {
+    w:207,h:163,
+    parts:{
+      FN:{up:[[49,71],[76,72],[82,88],[69,103],[58,120],[43,119],[46,98]],lo:[[43,108],[59,110],[56,131],[44,151],[34,162],[20,162],[28,147],[39,128]],hip:[62,78],knee:[51,113]},
+      FF:{up:[[78,79],[99,85],[105,101],[101,120],[91,126],[84,108]],lo:[[89,115],[104,114],[108,136],[116,160],[96,162],[91,140]],hip:[88,87],knee:[97,120]},
+      RN:{up:[[122,82],[150,86],[160,101],[155,119],[143,126],[132,112]],lo:[[139,114],[157,113],[159,137],[162,160],[140,160],[139,137]],hip:[139,91],knee:[148,120]},
+      RF:{up:[[149,91],[177,97],[185,113],[181,131],[170,136],[160,118]],lo:[[168,124],[184,124],[186,145],[196,162],[174,162],[170,145]],hip:[165,101],knee:[176,130]}
+    },
+    covers:[[[62,80],11],[[89,88],9],[[139,92],11],[[165,102],10]]
+  },
+  E: {
+    w:211,h:181,
+    parts:{
+      FN:{up:[[35,70],[58,72],[64,89],[58,109],[49,127],[35,130],[32,106]],lo:[[33,118],[50,119],[45,144],[33,167],[27,180],[10,180],[20,161],[28,140]],hip:[50,78],knee:[41,124]},
+      FF:{up:[[57,73],[78,77],[83,94],[80,113],[70,122],[62,107]],lo:[[62,112],[79,111],[78,137],[79,176],[60,178],[61,140]],hip:[69,82],knee:[70,119]},
+      RN:{up:[[118,77],[145,79],[157,96],[154,116],[143,126],[130,112]],lo:[[136,114],[154,113],[154,139],[154,178],[136,179],[137,140]],hip:[139,85],knee:[145,120]},
+      RF:{up:[[144,81],[170,87],[181,104],[181,123],[169,133],[159,116]],lo:[[165,121],[181,120],[183,143],[194,179],[176,180],[169,143]],hip:[163,92],knee:[175,128]}
+    },
+    covers:[[[50,79],10],[[69,83],9],[[139,86],10],[[163,93],9]]
+  },
+  A: {
+    w:195,h:136,
+    parts:{
+      FN:{up:[[34,58],[60,58],[70,72],[66,88],[55,103],[42,103],[42,82]],lo:[[39,94],[56,96],[52,115],[41,130],[26,135],[19,128],[31,116]],hip:[53,64],knee:[48,100]},
+      FF:{up:[[60,59],[82,63],[90,77],[88,93],[78,102],[70,89]],lo:[[70,91],[87,91],[86,110],[88,129],[70,135],[70,113]],hip:[75,67],knee:[79,97]},
+      RN:{up:[[110,55],[137,59],[149,73],[146,90],[135,99],[123,87]],lo:[[131,88],[148,88],[149,108],[160,131],[141,135],[134,112]],hip:[133,64],knee:[140,95]},
+      RF:{up:[[135,61],[162,66],[173,80],[172,96],[162,104],[151,91]],lo:[[158,94],[174,95],[176,113],[188,132],[169,135],[161,115]],hip:[157,70],knee:[168,101]}
+    },
+    covers:[[[53,65],9],[[75,68],8],[[133,65],9],[[157,71],8]]
+  }
+};
+
+const RUN_POSES = [
+  {FN:[34,-32],FF:[-28,28],RN:[-28,26],RF:[32,-30]},
+  {FN:[50,-48],FF:[-42,44],RN:[-8,2],RF:[12,-8]},
+  {FN:[26,-34],FF:[26,-34],RN:[36,-42],RF:[-26,32]},
+  {FN:[-32,36],FF:[36,-40],RN:[42,-46],RF:[-36,40]},
+  {FN:[-48,50],FF:[12,-8],RN:[8,-4],RF:[46,-48]},
+  {FN:[-18,18],FF:[-26,28],RN:[-32,34],RF:[24,-26]}
+];
 
 const names = ["Vela","Brim","Serein","Kite","Aster","Mica","Rook","Nacre","Ilex","Lumen","Dune","Tern"];
 const cycle = ["S","P","E","A"];
 const sheets = new Map();
+const artImages = new Map();
+const rigLayers = new Map();
 
-function loadSheet(morph) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.decoding = "async";
-    img.onload = () => { sheets.set(morph, img); resolve(); };
-    img.onerror = reject;
-    img.src = BASE + "concept/" + MORPHS[morph].sheet;
+function polygonPath(ctx2d, points) {
+  ctx2d.beginPath();
+  points.forEach(([x,y], index) => index ? ctx2d.lineTo(x,y) : ctx2d.moveTo(x,y));
+  ctx2d.closePath();
+}
+
+function clippedLayer(img, w, h, polygon) {
+  const layer = document.createElement("canvas");
+  layer.width = w;
+  layer.height = h;
+  const c = layer.getContext("2d");
+  c.save();
+  polygonPath(c, polygon);
+  c.clip();
+  c.drawImage(img,0,0,w,h);
+  c.restore();
+  return layer;
+}
+
+function circleLayer(img, w, h, cx, cy, r) {
+  const layer = document.createElement("canvas");
+  layer.width = w;
+  layer.height = h;
+  const c = layer.getContext("2d");
+  c.save();
+  c.beginPath();
+  c.arc(cx,cy,r,0,Math.PI*2);
+  c.clip();
+  c.drawImage(img,0,0,w,h);
+  c.restore();
+  return layer;
+}
+
+function buildRigLayers(morph, img) {
+  const rig = RIGS[morph];
+  const body = document.createElement("canvas");
+  body.width = rig.w;
+  body.height = rig.h;
+  const bc = body.getContext("2d");
+  bc.drawImage(img,0,0,rig.w,rig.h);
+  bc.globalCompositeOperation = "destination-out";
+  for (const part of Object.values(rig.parts)) {
+    for (const poly of [part.up,part.lo]) {
+      polygonPath(bc,poly);
+      bc.fillStyle="#000";
+      bc.fill();
+    }
+  }
+  bc.globalCompositeOperation = "source-over";
+
+  const parts = {};
+  for (const [name,part] of Object.entries(rig.parts)) {
+    parts[name] = {
+      upper: clippedLayer(img,rig.w,rig.h,part.up),
+      lower: clippedLayer(img,rig.w,rig.h,part.lo)
+    };
+  }
+  const covers = rig.covers.map(([[cx,cy],r])=>circleLayer(img,rig.w,rig.h,cx,cy,r));
+  rigLayers.set(morph,{body,parts,covers});
+}
+
+function loadImage(src) {
+  return new Promise((resolve,reject)=>{
+    const img=new Image();
+    img.decoding="async";
+    img.onload=()=>resolve(img);
+    img.onerror=reject;
+    img.src=BASE+"concept/"+src;
   });
 }
 
-Promise.all(Object.keys(MORPHS).map(loadSheet)).then(() => {
+Promise.all([
+  loadImage(MORPHS.S.sheet).then(img=>sheets.set("S",img)),
+  ...["P","E","A"].map(morph=>loadImage(MORPHS[morph].art).then(img=>{
+    artImages.set(morph,img);
+    buildRigLayers(morph,img);
+  }))
+]).then(() => {
   stage.dataset.state = "ready";
-  stage.dataset.motion = "sprite-sheets";
-  assetState.textContent = "S / P / E / A dedicated run sheets loaded";
+  stage.dataset.motion = "s-sprite-plus-articulated-morphs";
+  assetState.textContent = "Race assets ready";
 }).catch((error) => {
   stage.dataset.state = "asset-error";
-  assetState.textContent = "Run sheet load failed";
+  assetState.textContent = "Race asset load failed";
   console.error(error);
 });
 
@@ -424,9 +535,68 @@ function frameIndexFor(r) {
   return Math.floor((elapsed+r.id*47)/frameMs)%6;
 }
 
-function drawRacer(r) {
-  const img=sheets.get(r.morph);
+function drawArticulatedMorph(r, x, y, scale, frame, bob, tilt) {
+  const rig = RIGS[r.morph];
+  const layers = rigLayers.get(r.morph);
+  if (!rig || !layers) return;
+
+  const desiredW = MORPHS[r.morph].w * scale;
+  const k = desiredW / rig.w;
+  const pose = RUN_POSES[frame];
+
+  ctx.save();
+  ctx.translate(x, y - rig.h * k * .52 - bob);
+  ctx.rotate(tilt);
+  ctx.scale(-1,1);
+  ctx.translate(-rig.w * k * .5, -rig.h * k * .5);
+
+  const drawLeg = (name) => {
+    const cfg = rig.parts[name];
+    const layer = layers.parts[name];
+    const [upperDeg, lowerDeg] = pose[name];
+    ctx.save();
+    ctx.translate(cfg.hip[0]*k,cfg.hip[1]*k);
+    ctx.rotate(upperDeg*Math.PI/180);
+    ctx.translate(-cfg.hip[0]*k,-cfg.hip[1]*k);
+    ctx.drawImage(layer.upper,0,0,rig.w*k,rig.h*k);
+
+    ctx.save();
+    ctx.translate(cfg.knee[0]*k,cfg.knee[1]*k);
+    ctx.rotate(lowerDeg*Math.PI/180);
+    ctx.translate(-cfg.knee[0]*k,-cfg.knee[1]*k);
+    ctx.drawImage(layer.lower,0,0,rig.w*k,rig.h*k);
+    ctx.restore();
+    ctx.restore();
+  };
+
+  drawLeg("RN");
+  drawLeg("RF");
+  ctx.drawImage(layers.body,0,0,rig.w*k,rig.h*k);
+  drawLeg("FN");
+  drawLeg("FF");
+
+  rig.covers.forEach((cover,index)=>{
+    ctx.drawImage(layers.covers[index],0,0,rig.w*k,rig.h*k);
+  });
+
+  ctx.restore();
+}
+
+function drawSpriteMorph(r, x, y, scale, frame, bob, tilt) {
+  const img=sheets.get("S");
   if(!img) return;
+  const w=MORPHS.S.w*scale, h=MORPHS.S.h*scale;
+  const col=frame%3,row=Math.floor(frame/3);
+  const sx=col*256,sy=row*256;
+  ctx.save();
+  ctx.translate(x,y-h*.5-bob);
+  ctx.rotate(tilt);
+  ctx.scale(-1,1);
+  ctx.drawImage(img,sx,sy,256,256,-w*.5,-h*.5,w,h);
+  ctx.restore();
+}
+
+function drawRacer(r) {
   const laneT=r.laneF/(LANES-1);
   const scale=laneScale(laneT)*(cameraMode==="chase"?1.00:.90);
   const x=worldX(r.distance, r.laneF);
@@ -435,49 +605,41 @@ function drawRacer(r) {
   if(x<-300||x>width+300) return;
 
   const stat=MORPHS[r.morph];
-  const w=stat.w*scale, h=stat.h*scale;
+  const w=stat.w*scale,h=stat.h*scale;
   const frame=frameIndexFor(r);
-  const col=frame%3,row=Math.floor(frame/3);
-  const sx=col*256, sy=row*256;
-
   const speedRatio=Math.max(0,Math.min(1.15,r.speed/r.cruise));
-  const bob=[0,2,8,15,8,0][frame]*scale*.55;
+  const bob=[0,2,8,15,8,0][frame]*scale*.43;
   const tilt=[0,-.012,-.008,.010,.016,-.005][frame];
 
-  ctx.save();
-
-  if (speedRatio > .72) {
-    const streakAlpha = .06 + (speedRatio - .72) * .12;
-    ctx.strokeStyle = `rgba(215,240,251,${Math.max(0,streakAlpha)})`;
-    ctx.lineWidth = Math.max(1, 1.6 * scale);
-    for (let k = 0; k < 3; k++) {
-      const sy2 = y - h * (.30 + k * .16);
-      const len = (34 + k * 14) * scale * speedRatio;
+  if(speedRatio>.72){
+    const streakAlpha=.06+(speedRatio-.72)*.12;
+    ctx.strokeStyle=`rgba(215,240,251,${Math.max(0,streakAlpha)})`;
+    ctx.lineWidth=Math.max(1,1.5*scale);
+    for(let k=0;k<3;k++){
+      const sy2=y-h*(.25+k*.15);
+      const len=(28+k*13)*scale*speedRatio;
       ctx.beginPath();
-      ctx.moveTo(x - w * .28, sy2);
-      ctx.lineTo(x - w * .28 - len, sy2 + k);
+      ctx.moveTo(x-w*.28,sy2);
+      ctx.lineTo(x-w*.28-len,sy2+k);
       ctx.stroke();
     }
   }
 
-  ctx.fillStyle=`rgba(18,14,12,${.16+.10*scale})`;
+  ctx.fillStyle=`rgba(18,14,12,${.14+.10*scale})`;
   ctx.beginPath();
-  ctx.ellipse(x,y+6,w*.34,5+5*scale,0,0,Math.PI*2);
+  ctx.ellipse(x,y+7,w*.31,4.5+5*scale,0,0,Math.PI*2);
   ctx.fill();
 
-  ctx.translate(x,y-h*.5-bob);
-  ctx.rotate(tilt);
-  ctx.scale(-1,1);
-  ctx.drawImage(img,sx,sy,256,256,-w*.5,-h*.5,w,h);
-  ctx.restore();
+  if(r.morph==="S") drawSpriteMorph(r,x,y,scale,frame,bob,tilt);
+  else drawArticulatedMorph(r,x,y,scale,frame,bob,tilt);
 
   if(r.id===SELECTED_ID){
-    const markerY = y - h - bob - 10;
-    ctx.fillStyle = "rgba(103,220,255,.92)";
+    const markerY=y-h-bob-8;
+    ctx.fillStyle="rgba(103,220,255,.92)";
     ctx.beginPath();
-    ctx.moveTo(x, markerY + 8);
-    ctx.lineTo(x - 7, markerY - 3);
-    ctx.lineTo(x + 7, markerY - 3);
+    ctx.moveTo(x,markerY+8);
+    ctx.lineTo(x-7,markerY-3);
+    ctx.lineTo(x+7,markerY-3);
     ctx.closePath();
     ctx.fill();
   }
