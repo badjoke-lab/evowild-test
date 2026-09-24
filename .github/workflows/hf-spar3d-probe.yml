@@ -27,12 +27,15 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           python - <<'PY'
-          import json, os
+          import inspect, json, os
           from gradio_client import Client
 
           token = os.environ.get("HF_TOKEN")
           print("HF_AUTH:", "token present" if token else "token missing")
-          client = Client("stabilityai/stable-point-aware-3d", token=token)
+          params = inspect.signature(Client).parameters
+          auth_kw = {"token": token} if "token" in params else {"hf_token": token}
+          print("GRADIO_AUTH_ARG:", next(iter(auth_kw)))
+          client = Client("stabilityai/stable-point-aware-3d", **auth_kw)
           api = client.view_api(return_format="dict")
           print(json.dumps(api, indent=2, default=str))
           with open("spar3d-api.json", "w", encoding="utf-8") as f:
