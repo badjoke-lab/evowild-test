@@ -41,4 +41,19 @@ test("S-only sideview rebuild aligns motion and race direction", async ({ page }
 
   fs.mkdirSync("test-results/visuals",{recursive:true});
   await stage.screenshot({path:`test-results/visuals/${testInfo.project.name}-s-sideview.png`});
+
+  await expect.poll(
+    async()=>Number(await stage.getAttribute("data-selected-distance")),
+    { timeout:12000, intervals:[250,500,750] }
+  ).toBeGreaterThan(190);
+
+  const bank=Number(await stage.getAttribute("data-course-bank"));
+  expect(Math.abs(bank)).toBeGreaterThan(2);
+  expect(Number(await stage.getAttribute("data-visible-racers"))).toBe(8);
+  expect(pageErrors,pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors,consoleErrors.join("\n")).toEqual([]);
+
+  await stage.screenshot({
+    path:`test-results/visuals/${testInfo.project.name}-s-sideview-bank.png`
+  });
 });
