@@ -306,7 +306,7 @@ function screenXForMeters(m) {
 
 function trackBaseY(m) {
   const portrait=height>width*1.35;
-  const base=portrait?height*.58:height*.70;
+  const base=portrait?height*.54:height*.64;
   return base - terrainY(m)*(portrait?.68:.52);
 }
 
@@ -448,6 +448,48 @@ function drawTrack() {
 
   stage.dataset.trackSurface="single-field";
 }
+
+function drawCourseLandmarks() {
+  const leftM=cameraMeters-width*.55/pixelsPerMeter;
+  const rightM=cameraMeters+width*.62/pixelsPerMeter;
+  const farY=laneOffset(0)-42;
+
+  for(let mark=120;mark<RACE_METERS;mark+=120){
+    if(mark<leftM-8||mark>rightM+8) continue;
+    const x=screenXForMeters(mark);
+    const baseY=trackBaseY(mark)+farY;
+    const major=mark%360===0;
+    const h=major?(height>width*1.35?86:64):(height>width*1.35?58:44);
+    const w=major?54:38;
+
+    ctx.save();
+    ctx.fillStyle="rgba(22,35,38,.88)";
+    ctx.fillRect(x-w*.5,baseY-h,w,major?24:19);
+    ctx.fillStyle="rgba(226,241,242,.92)";
+    ctx.font=`${major?"800":"700"} ${major?11:9}px ui-monospace, Menlo, monospace`;
+    ctx.textAlign="center";
+    ctx.textBaseline="middle";
+    ctx.fillText(major?`SECTOR ${mark/360}`:`${mark}m`,x,baseY-h+(major?12:9.5));
+    ctx.fillStyle="rgba(218,231,226,.70)";
+    ctx.fillRect(x-2,baseY-h+(major?24:19),4,h-(major?24:19));
+    ctx.restore();
+  }
+
+  for(let mark=360;mark<RACE_METERS;mark+=360){
+    if(mark<leftM-18||mark>rightM+18) continue;
+    const x=screenXForMeters(mark);
+    const trackTop=trackBaseY(mark)+laneOffset(0)-45;
+    const trackBottom=trackBaseY(mark)+laneOffset(3)+48;
+    ctx.save();
+    ctx.globalAlpha=.72;
+    ctx.fillStyle="#23363a";
+    ctx.fillRect(x-6,trackTop-34,6,trackBottom-trackTop+42);
+    ctx.fillStyle="#8ddff4";
+    ctx.fillRect(x-6,trackTop-34,6,9);
+    ctx.restore();
+  }
+}
+
 function drawRacers() {
   const list=[];
   let minEdge=Infinity;
@@ -636,6 +678,7 @@ function render() {
 
   drawBackground();
   drawTrack();
+  drawCourseLandmarks();
   drawRacers();
   drawForeground();
   drawSpeedRush();
