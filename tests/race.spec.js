@@ -59,13 +59,13 @@ test("race scene renders and advances", async ({ page }) => {
   await expect(page.locator("#agentFatigue")).toContainText("%");
   await expect(page.locator("#stage")).toHaveAttribute("data-creature-fatigue", /\d+/);
   await expect(page.locator("#stage")).toHaveAttribute("data-directional-sprite-facing", "course-locked", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-non-s-run-motion", "articulated-cutout-rigs", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-rig", "loaded", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-p-cutout-racers", "4", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-rig", "loaded", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-e-cutout-racers", "4", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-a-cutout-rig", "loaded", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-a-cutout-racers", "5", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-non-s-run-motion", "dedicated-sprite-sheets", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-p-run-sheet", "loaded", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-p-run-animated-racers", "4", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-e-run-sheet", "loaded", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-e-run-animated-racers", "4", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-a-run-sheet", "loaded", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-a-run-animated-racers", "5", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-race-section", /START|MID|BUILD|FINAL/, { timeout: 6500 });
   await expect(page.locator("#remaining")).toContainText("m to go", { timeout: 6500 });
   await expect(page.locator("#leaderGap")).not.toHaveText("", { timeout: 6500 });
@@ -240,7 +240,7 @@ test("record full field and non-S follow motion proof", async ({ browser }, test
   const page = await context.newPage();
   await page.goto("http://127.0.0.1:4173/evowild-test/", { waitUntil: "networkidle" });
   await expect(page.locator("#stage")).toHaveAttribute("data-race-state", "running", { timeout: 6500 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-non-s-run-motion", "articulated-cutout-rigs", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-non-s-run-motion", "dedicated-sprite-sheets", { timeout: 6500 });
   await page.getByRole("button", { name: "2 Race" }).click();
   await page.waitForTimeout(3200);
 
@@ -271,7 +271,7 @@ test("record isolated amplified P pose sheet", async ({ browser }, testInfo) => 
   });
   const page = await context.newPage();
   await page.goto("http://127.0.0.1:4173/evowild-test/?proof=p-rig", { waitUntil: "networkidle" });
-  await expect(page.locator("#stage")).toHaveAttribute("data-p-run-sheet", "generated", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-p-run-sheet", "loaded", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-p-run-proof", "isolated", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-p-run-animated-racers", "4");
   await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "2");
@@ -302,7 +302,7 @@ test("record isolated amplified E pose sheet", async ({ browser }, testInfo) => 
   });
   const page = await context.newPage();
   await page.goto("http://127.0.0.1:4173/evowild-test/?proof=e-rig", { waitUntil: "networkidle" });
-  await expect(page.locator("#stage")).toHaveAttribute("data-e-run-sheet", "generated", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-e-run-sheet", "loaded", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-e-run-proof", "isolated", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-e-run-animated-racers", "4");
   await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "3");
@@ -333,7 +333,7 @@ test("record isolated amplified A pose sheet", async ({ browser }, testInfo) => 
   });
   const page = await context.newPage();
   await page.goto("http://127.0.0.1:4173/evowild-test/?proof=a-rig", { waitUntil: "networkidle" });
-  await expect(page.locator("#stage")).toHaveAttribute("data-a-run-sheet", "generated", { timeout: 6500 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-a-run-sheet", "loaded", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-a-run-proof", "isolated", { timeout: 6500 });
   await expect(page.locator("#stage")).toHaveAttribute("data-a-run-animated-racers", "5");
   await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "4");
