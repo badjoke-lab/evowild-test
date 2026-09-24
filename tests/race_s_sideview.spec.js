@@ -48,7 +48,9 @@ test("S-only sideview rebuild aligns motion and race direction", async ({ page }
   ).toBeGreaterThan(190);
 
   const bank=Number(await stage.getAttribute("data-course-bank"));
+  const laterRank=Number(await stage.getAttribute("data-selected-rank"));
   expect(Math.abs(bank)).toBeGreaterThan(2);
+  expect(laterRank).toBeLessThan(8);
   expect(Number(await stage.getAttribute("data-visible-racers"))).toBe(8);
   expect(pageErrors,pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors,consoleErrors.join("\n")).toEqual([]);
