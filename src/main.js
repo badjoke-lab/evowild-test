@@ -628,6 +628,8 @@ function makeLiteMaterialProfile(profile) {
 const sf3dVariant = query.get("sf3dVariant");
 const sf3dBaseProfile = sf3dVariant === "hunyuanrigged"
   ? CREATURE_3D_PROFILES.sHunyuan2mvRigged
+  : sf3dVariant === "hunyuanlod4rigged"
+    ? CREATURE_3D_PROFILES.sHunyuan2mvLod4Rigged
   : sf3dVariant === "hunyuanstyled"
   ? CREATURE_3D_PROFILES.sHunyuan2mvStyled
   : sf3dVariant === "hunyuan2mv"
@@ -1451,7 +1453,13 @@ loadCreature3D(sf3dProfile)
     setLabMorph(activeLabMorph);
     setupSf3dBenchmark(source, sf3dBenchCount);
 
-    if (hunyuanRigRaceBenchMode && profile.id === CREATURE_3D_PROFILES.sHunyuan2mvRigged.id) {
+    if (
+      hunyuanRigRaceBenchMode &&
+      (
+        profile.id === CREATURE_3D_PROFILES.sHunyuan2mvRigged.id ||
+        profile.id === CREATURE_3D_PROFILES.sHunyuan2mvLod4Rigged.id
+      )
+    ) {
       const baseData = { source, animations, stats, profile };
       const lod4Promise = hunyuanRigRaceBenchMode === "hybrid"
         ? loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvStyledLod4)
