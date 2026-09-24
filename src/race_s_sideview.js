@@ -25,12 +25,14 @@ const lerp = (a, b, t) => a + (b - a) * t;
 const smooth = t => t * t * (3 - 2 * t);
 
 const PHASES = [
-  { name:"CONTACT",  col:0, row:0, duration:68,  lift:0,   pitch:1.8,  x:-3, scaleX:.995, scaleY:1.01 },
-  { name:"PUSH",     col:1, row:0, duration:82,  lift:4,   pitch:-.7,  x:1,  scaleX:1.015, scaleY:.995 },
-  { name:"RECOVERY", col:2, row:0, duration:86,  lift:15,  pitch:-2.4, x:5,  scaleX:1.025, scaleY:.985 },
-  { name:"FLIGHT",   col:0, row:1, duration:118, lift:29,  pitch:-1.4, x:8,  scaleX:1.035, scaleY:.98 },
-  { name:"REACH",    col:1, row:1, duration:92,  lift:17,  pitch:.7,   x:5,  scaleX:1.025, scaleY:.99 },
-  { name:"LAND",     col:2, row:1, duration:74,  lift:2,   pitch:2.7,  x:0,  scaleX:1.0,   scaleY:1.01 }
+  // Frame order is chosen by the actual leg pose, not by sprite-sheet position.
+  // This gives the cycle a readable load -> push -> recovery -> flight -> reach -> land sequence.
+  { name:"CONTACT",  col:2, row:1, duration:64,  lift:0,  pitch:2.0,  x:-2, scaleX:.995, scaleY:1.01 },
+  { name:"PUSH",     col:0, row:0, duration:82,  lift:0,  pitch:-.8,  x:1,  scaleX:1.018, scaleY:.995 },
+  { name:"RECOVERY", col:1, row:0, duration:80,  lift:10, pitch:-2.2, x:4,  scaleX:1.025, scaleY:.985 },
+  { name:"FLIGHT",   col:0, row:1, duration:110, lift:28, pitch:-1.4, x:8,  scaleX:1.038, scaleY:.98 },
+  { name:"REACH",    col:2, row:0, duration:90,  lift:14, pitch:.7,   x:5,  scaleX:1.025, scaleY:.99 },
+  { name:"LAND",     col:1, row:1, duration:72,  lift:0,  pitch:2.6,  x:0,  scaleX:1.0,   scaleY:1.01 }
 ];
 const CYCLE_MS = PHASES.reduce((sum, p) => sum + p.duration, 0);
 
@@ -252,9 +254,8 @@ function drawDust(cx, groundY, strength, spriteW) {
   ctx.restore();
 }
 
-function drawFrame(index, cx, groundY, alpha = 1, trailX = 0, extraBlur = 0) {
+function drawFrame(index, cx, groundY, motion) {
   if (!sheetReady) return;
-  const phase = PHASES[index];
   const meta = frameMeta[index];
   const targetCreatureW = clamp(
     Math.min(width * .54, height * .78),
@@ -262,18 +263,16 @@ function drawFrame(index, cx, groundY, alpha = 1, trailX = 0, extraBlur = 0) {
     640
   );
   const scale = targetCreatureW / meta.sw;
-  const drawW = meta.sw * scale * phase.scaleX;
-  const drawH = meta.sh * scale * phase.scaleY;
-  const liftPx = phase.lift * scale * .64;
-  const x = cx - drawW * .50 + phase.x * scale * .28 + trailX;
+  const drawW = meta.sw * scale * motion.scaleX;
+  const drawH = meta.sh * scale * motion.scaleY;
+  const liftPx = motion.lift * scale * .64;
+  const x = cx - drawW * .50 + motion.x * scale * .28;
   const y = groundY - drawH - liftPx;
 
   ctx.save();
-  ctx.globalAlpha = alpha;
-  ctx.translate(cx + trailX, groundY - liftPx);
-  ctx.rotate(phase.pitch * Math.PI / 180);
-  ctx.translate(-(cx + trailX), -(groundY - liftPx));
-  if (extraBlur) ctx.filter = "blur(" + extraBlur + "px)";
+  ctx.translate(cx, groundY - liftPx);
+  ctx.rotate(motion.pitch * Math.PI / 180);
+  ctx.translate(-cx, -(groundY - liftPx));
   ctx.drawImage(
     sheet,
     meta.sx, meta.sy, meta.sw, meta.sh,
@@ -288,32 +287,35 @@ function renderCreature(state) {
   const { index, phase, t } = state;
   const groundY = height * (height > width * 1.15 ? .80 : .82);
   const cx = width * .51;
-
   const meta = frameMeta[index];
+  const next = PHASES[(index + 1) % PHASES.length];
+  const moveT = smooth(t);
+
+  // Keep the whole-body image crisp, but interpolate its center of mass between
+  // pose changes so the body does not snap when the sprite frame changes.
+  const motion = {
+    lift: lerp(phase.lift, next.lift, moveT),
+    pitch: lerp(phase.pitch, next.pitch, moveT),
+    x: lerp(phase.x, next.x, moveT),
+    scaleX: lerp(phase.scaleX, next.scaleX, moveT),
+    scaleY: lerp(phase.scaleY, next.scaleY, moveT)
+  };
+
   const targetCreatureW = clamp(
     Math.min(width * .54, height * .78),
     width < 560 ? 285 : 360,
     640
   );
-  const spriteW = targetCreatureW;
 
-  drawShadow(cx, groundY, phase.lift, spriteW);
-
-  // A short, blurred echo from the preceding complete pose reads as speed,
-  // without dismembering the creature into rotating limb cards.
-  const prev = (index + PHASES.length - 1) % PHASES.length;
-  if (phase.name !== "CONTACT" && phase.name !== "LAND") {
-    drawFrame(prev, cx, groundY, .075, -12 - t * 8, 1.2);
-  }
-
-  const draw = drawFrame(index, cx, groundY, 1, 0, 0);
+  drawShadow(cx, groundY, motion.lift, targetCreatureW);
+  const draw = drawFrame(index, cx, groundY, motion);
 
   const dust =
-    phase.name === "CONTACT" ? 1 - t * .45 :
-    phase.name === "PUSH" ? .72 * (1 - t) :
+    phase.name === "CONTACT" ? 1 - t * .55 :
+    phase.name === "PUSH" ? .70 * (1 - t) :
     phase.name === "LAND" ? .75 * t :
     0;
-  drawDust(cx, groundY, dust, spriteW);
+  drawDust(cx, groundY, dust, targetCreatureW);
 
   stage.dataset.motionPhase = phase.name;
   stage.dataset.phaseProgress = t.toFixed(3);
@@ -322,7 +324,7 @@ function renderCreature(state) {
   stage.dataset.groundAnchorY = groundY.toFixed(1);
   stage.dataset.spriteBottomY = (draw.y + draw.drawH).toFixed(1);
   stage.dataset.visualLift = draw.liftPx.toFixed(1);
-  stage.dataset.bodyPitch = phase.pitch.toFixed(2);
+  stage.dataset.bodyPitch = motion.pitch.toFixed(2);
   stage.dataset.frameWidth = meta.sw.toFixed(0);
   stage.dataset.frameHeight = meta.sh.toFixed(0);
 }
