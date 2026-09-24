@@ -96,8 +96,8 @@ function makeRacers() {
     name:NAMES[i],
     distance: i*7.0,
     speed:0,
-    cruise:21.8 + ((i*5)%7)*0.18,
-    accel:5.2 + (i%3)*0.22,
+    cruise:29.4 + ((i*5)%7)*0.34,
+    accel:10.4 + (i%3)*0.45,
     stamina:100,
     lane:LANES[i],
     targetLane:LANES[i],
@@ -305,11 +305,14 @@ function screenXForMeters(m) {
 }
 
 function trackBaseY(m) {
-  return height*.70 - terrainY(m)*0.52;
+  const portrait=height>width*1.35;
+  const base=portrait?height*.625:height*.70;
+  return base - terrainY(m)*(portrait?.68:.52);
 }
 
 function laneOffset(lane) {
-  const stops=[-82,-28,30,88];
+  const portrait=height>width*1.35;
+  const stops=portrait?[-142,-48,50,148]:[-82,-28,30,88];
   const lo=Math.floor(clamp(lane,0,3));
   const hi=Math.ceil(clamp(lane,0,3));
   const t=clamp(lane-lo,0,1);
@@ -317,7 +320,7 @@ function laneOffset(lane) {
 }
 function laneScale(lane) {
   const t=clamp(lane/3,0,1);
-  return lerp(.66,1.10,t);
+  return lerp(.68,1.12,t);
 }
 
 function drawTrack() {
@@ -390,9 +393,9 @@ function drawTrack() {
   // Near grass blades and dust streaks.
   const focus=selected();
   const speedNorm=clamp(focus.speed/24.5,0,1);
-  if(speedNorm>.48){
+  if(speedNorm>.34){
     ctx.save();
-    ctx.globalAlpha=(speedNorm-.48)*.55;
+    ctx.globalAlpha=clamp((speedNorm-.34)*.62,0,.42);
     ctx.strokeStyle="rgba(232,240,214,.5)";
     for(let i=0;i<18;i++){
       const y=height*(.72+((i*29)%22)/100);
@@ -428,7 +431,9 @@ function drawRacers() {
     const r=item.r;
     const selectedRacer=r.id===SELECTED_ID;
     const scale=laneScale(item.lane);
-    const baseW = width<700 ? 104 : 132;
+    const baseW = width<700
+      ? clamp(width*.14,90,124)
+      : clamp(width*.092,122,148);
     const spriteW=baseW*scale*(selectedRacer?1.04:1);
     const spriteH=spriteW*.84;
 
@@ -530,7 +535,7 @@ function updateCamera() {
   const behind=Math.max(0,focus.distance-back);
 
   // Mobile must keep the race readable: zoom out only when the pack genuinely spreads.
-  const base=width<700?6.4:8.0;
+  const base=width<700?6.7:8.4;
   const usableAhead=width*(width<700?.64:.56);
   const usableBehind=width*(width<700?.16:.20);
   const byAhead=ahead>1?usableAhead/ahead:base;
@@ -554,10 +559,10 @@ function updateCamera() {
 function drawSpeedRush() {
   const focus=selected();
   const speedNorm=clamp(focus.speed/24.5,0,1);
-  if(speedNorm<.52)return;
+  if(speedNorm<.36)return;
 
   ctx.save();
-  const strength=(speedNorm-.52)/.48;
+  const strength=clamp((speedNorm-.36)/.64,0,1);
   ctx.globalAlpha=.12+.25*strength;
   ctx.strokeStyle="rgba(238,247,243,.78)";
   ctx.lineCap="round";
@@ -641,7 +646,7 @@ function resetRace(){
   finishCounter=0;
   cameraMeters=0;
   cameraVelocity=0;
-  pixelsPerMeter=width<700?6.4:8.0;
+  pixelsPerMeter=width<700?6.7:8.4;
   pixelsPerMeterVelocity=0;
   paused=false;
   ui.pause.textContent="Pause";
