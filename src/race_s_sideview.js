@@ -65,6 +65,25 @@ function pt(nx, ny, sw, sh) {
   return { x: nx * sw, y: ny * sh };
 }
 
+function makeSegmentPart(srcCanvas, a, b, radius) {
+  const c = document.createElement("canvas");
+  c.width = srcCanvas.width;
+  c.height = srcCanvas.height;
+  const cctx = c.getContext("2d");
+  cctx.drawImage(srcCanvas, 0, 0);
+  cctx.globalCompositeOperation = "destination-in";
+  cctx.strokeStyle = "#fff";
+  cctx.lineCap = "round";
+  cctx.lineJoin = "round";
+  cctx.lineWidth = radius * 2;
+  cctx.beginPath();
+  cctx.moveTo(a.x, a.y);
+  cctx.lineTo(b.x, b.y);
+  cctx.stroke();
+  cctx.globalCompositeOperation = "source-over";
+  return c;
+}
+
 function buildRig() {
   const sw = source.naturalWidth;
   const sh = source.naturalHeight;
@@ -79,48 +98,48 @@ function buildRig() {
   mctx.scale(-1, 1);
   mctx.drawImage(source, 0, 0);
 
-  const defs = {
+  const front = {
+    root: pt(.56,.54,sw,sh),
+    knee: pt(.73,.78,sw,sh),
+    foot: pt(.90,.985,sw,sh)
+  };
+  const hind = {
+    root: pt(.30,.54,sw,sh),
+    knee: pt(.17,.78,sw,sh),
+    foot: pt(.16,.985,sw,sh)
+  };
+
+  const bodyDefs = {
     torso: [
-      [.24,.25],[.39,.20],[.62,.22],[.76,.36],
-      [.74,.56],[.62,.69],[.38,.69],[.23,.57]
+      [.20,.24],[.39,.19],[.63,.21],[.79,.36],
+      [.77,.60],[.63,.73],[.37,.74],[.18,.59]
     ],
     head: [
-      [.57,.00],[.99,.00],[1,.44],[.88,.57],
-      [.74,.60],[.61,.47]
+      [.55,.00],[.99,.00],[1,.45],[.89,.59],
+      [.73,.63],[.58,.49]
     ],
     tail: [
-      [.00,.32],[.30,.29],[.37,.39],[.33,.59],
-      [.17,.66],[.00,.67]
+      [.00,.30],[.31,.27],[.39,.39],[.35,.62],
+      [.16,.69],[.00,.69]
     ],
     shoulder: [
-      [.48,.35],[.66,.35],[.70,.48],[.64,.68],
-      [.49,.66],[.43,.52]
+      [.47,.34],[.68,.34],[.72,.49],[.65,.70],
+      [.47,.69],[.41,.51]
     ],
     hip: [
-      [.23,.37],[.40,.34],[.45,.48],[.39,.68],
-      [.23,.68],[.18,.53]
-    ],
-    foreUpper: [
-      [.49,.48],[.61,.47],[.69,.60],[.76,.76],
-      [.71,.83],[.64,.78],[.56,.66]
-    ],
-    foreLower: [
-      [.65,.73],[.77,.74],[.84,.86],[.94,.95],
-      [.92,1],[.83,.99],[.73,.90],[.68,.83]
-    ],
-    hindUpper: [
-      [.23,.48],[.36,.47],[.35,.61],[.27,.76],
-      [.20,.84],[.14,.78],[.17,.65]
-    ],
-    hindLower: [
-      [.13,.75],[.24,.75],[.28,.84],[.25,.98],
-      [.18,1],[.13,.94],[.12,.84]
+      [.20,.35],[.42,.33],[.47,.49],[.40,.70],
+      [.20,.70],[.16,.52]
     ]
   };
 
   const parts = Object.fromEntries(
-    Object.entries(defs).map(([name, polygon]) => [name, makeMaskedPart(mirrored, polygon)])
+    Object.entries(bodyDefs).map(([name, polygon]) => [name, makeMaskedPart(mirrored, polygon)])
   );
+
+  parts.foreUpper = makeSegmentPart(mirrored, front.root, front.knee, Math.max(5, sw * .043));
+  parts.foreLower = makeSegmentPart(mirrored, front.knee, front.foot, Math.max(4, sw * .030));
+  parts.hindUpper = makeSegmentPart(mirrored, hind.root, hind.knee, Math.max(5, sw * .046));
+  parts.hindLower = makeSegmentPart(mirrored, hind.knee, hind.foot, Math.max(4, sw * .030));
 
   return {
     sw,
@@ -131,16 +150,8 @@ function buildRig() {
     tailPivot: pt(.29, .48, sw, sh),
     shoulderPivot: pt(.56, .52, sw, sh),
     hipPivot: pt(.31, .53, sw, sh),
-    front: {
-      root: pt(.56,.54,sw,sh),
-      knee: pt(.70,.78,sw,sh),
-      foot: pt(.88,.98,sw,sh)
-    },
-    hind: {
-      root: pt(.31,.54,sw,sh),
-      knee: pt(.19,.78,sw,sh),
-      foot: pt(.23,.98,sw,sh)
-    }
+    front,
+    hind
   };
 }
 
@@ -239,6 +250,18 @@ function drawBone(partName, srcA, srcB, targetA, targetB, alpha = 1) {
   ctx.translate(-srcA.x, -srcA.y);
   ctx.drawImage(rig.parts[partName], 0, 0);
   ctx.restore();
+}
+
+function constrainTarget(root, target, minDistance, maxDistance) {
+  const dx = target.x - root.x;
+  const dy = target.y - root.y;
+  const d = Math.max(.001, Math.hypot(dx, dy));
+  const wanted = clamp(d, minDistance, maxDistance);
+  if (Math.abs(wanted - d) < .01) return { ...target };
+  return {
+    x: root.x + dx / d * wanted,
+    y: root.y + dy / d * wanted
+  };
 }
 
 function solveIK(root, target, upper, lower, bend) {
@@ -414,17 +437,29 @@ function drawDust(foot, intensity, scale) {
 }
 
 function drawLeg(root, foot, sourceDef, upperLength, lowerLength, bend, alpha) {
-  const knee = solveIK(root, foot, upperLength, lowerLength, bend);
+  const safeFoot = constrainTarget(
+    root,
+    foot,
+    Math.abs(upperLength - lowerLength) + 2,
+    upperLength + lowerLength - 2
+  );
+  const knee = solveIK(root, safeFoot, upperLength, lowerLength, bend);
   drawBone("foreUpper", sourceDef.root, sourceDef.knee, root, knee, alpha);
-  drawBone("foreLower", sourceDef.knee, sourceDef.foot, knee, foot, alpha);
-  return knee;
+  drawBone("foreLower", sourceDef.knee, sourceDef.foot, knee, safeFoot, alpha);
+  return { knee, foot: safeFoot };
 }
 
 function drawHindLeg(root, foot, sourceDef, upperLength, lowerLength, bend, alpha) {
-  const knee = solveIK(root, foot, upperLength, lowerLength, bend);
+  const safeFoot = constrainTarget(
+    root,
+    foot,
+    Math.abs(upperLength - lowerLength) + 2,
+    upperLength + lowerLength - 2
+  );
+  const knee = solveIK(root, safeFoot, upperLength, lowerLength, bend);
   drawBone("hindUpper", sourceDef.root, sourceDef.knee, root, knee, alpha);
-  drawBone("hindLower", sourceDef.knee, sourceDef.foot, knee, foot, alpha);
-  return knee;
+  drawBone("hindLower", sourceDef.knee, sourceDef.foot, knee, safeFoot, alpha);
+  return { knee, foot: safeFoot };
 }
 
 function renderCreature(globalPhase) {
@@ -463,10 +498,10 @@ function renderCreature(globalPhase) {
     rig.hind.foot.y - rig.hind.knee.y
   ) * legScale;
 
-  const strideFront = 55 * scale;
-  const strideHind = 50 * scale;
-  const liftFront = 38 * scale;
-  const liftHind = 34 * scale;
+  const strideFront = 46 * scale;
+  const strideHind = 38 * scale;
+  const liftFront = 34 * scale;
+  const liftHind = 30 * scale;
 
   const qHindFar = legPhase(globalPhase, 0.00);
   const qHindNear = legPhase(globalPhase, .055);
@@ -486,8 +521,8 @@ function renderCreature(globalPhase) {
   drawShadow(bodyCenterWorld.x, groundY, phase);
 
   // Far limbs first: same S pixels, reduced only by depth opacity.
-  drawHindLeg(hindFarRoot, hindFarFoot, rig.hind, hindUpper * .97, hindLower * .97, -1, .58);
-  drawLeg(foreFarRoot, foreFarFoot, rig.front, frontUpper * .97, frontLower * .97, 1, .58);
+  const hindFarPose = drawHindLeg(hindFarRoot, hindFarFoot, rig.hind, hindUpper * .97, hindLower * .97, -1, .58);
+  const foreFarPose = drawLeg(foreFarRoot, foreFarFoot, rig.front, frontUpper * .97, frontLower * .97, 1, .58);
 
   const tailPivotWorld = sourcePointToWorld(rig.tailPivot, bodyCenterWorld, scale, bodyPitch);
   const tailSwing = rad(Math.sin(globalPhase * TAU + .65) * 5.5 - sample(BODY_PITCH, globalPhase) * .35);
@@ -496,8 +531,8 @@ function renderCreature(globalPhase) {
   drawRigid("torso", rig.bodyCenter, bodyCenterWorld, bodyPitch, scale, 1);
 
   // Near limbs remain fully opaque and articulate from the body roots.
-  drawHindLeg(hindNearRoot, hindNearFoot, rig.hind, hindUpper, hindLower, -1, 1);
-  drawLeg(foreNearRoot, foreNearFoot, rig.front, frontUpper, frontLower, 1, 1);
+  const hindNearPose = drawHindLeg(hindNearRoot, hindNearFoot, rig.hind, hindUpper, hindLower, -1, 1);
+  const foreNearPose = drawLeg(foreNearRoot, foreNearFoot, rig.front, frontUpper, frontLower, 1, 1);
 
   const shoulderPivotWorld = sourcePointToWorld(rig.shoulderPivot, bodyCenterWorld, scale, bodyPitch);
   const hipPivotWorld = sourcePointToWorld(rig.hipPivot, bodyCenterWorld, scale, bodyPitch);
@@ -511,10 +546,10 @@ function renderCreature(globalPhase) {
   drawRigid("head", rig.neckPivot, neckPivotWorld, bodyPitch + headCounter, scale, 1);
 
   const contacts = [
-    [qHindFar, hindFarFoot],
-    [qHindNear, hindNearFoot],
-    [qForeFar, foreFarFoot],
-    [qForeNear, foreNearFoot]
+    [qHindFar, hindFarPose.foot],
+    [qHindNear, hindNearPose.foot],
+    [qForeFar, foreFarPose.foot],
+    [qForeNear, foreNearPose.foot]
   ].filter(([q]) => q < .22);
 
   for (const [q, foot] of contacts) {
@@ -533,8 +568,8 @@ function renderCreature(globalPhase) {
   stage.dataset.flight = contacts.length === 0 ? "true" : "false";
   stage.dataset.bodyPitch = (bodyPitch * 180 / Math.PI).toFixed(2);
   stage.dataset.bodyY = bodyCenterWorld.y.toFixed(1);
-  stage.dataset.frontFootY = foreNearFoot.y.toFixed(1);
-  stage.dataset.rearFootY = hindNearFoot.y.toFixed(1);
+  stage.dataset.frontFootY = foreNearPose.foot.y.toFixed(1);
+  stage.dataset.rearFootY = hindNearPose.foot.y.toFixed(1);
 }
 
 function render() {
