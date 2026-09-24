@@ -92,6 +92,24 @@ function terrainSlope(m) {
   return (terrainY(m+1.5)-terrainY(m-1.5))/3;
 }
 
+function courseBank(m) {
+  const bankA = m > 170 && m < 360
+    ? Math.sin((m-170)/190*Math.PI)*22
+    : 0;
+  const bankB = m > 520 && m < 760
+    ? -Math.sin((m-520)/240*Math.PI)*28
+    : 0;
+  const bankC = m > 980 && m < 1240
+    ? Math.sin((m-980)/260*Math.PI)*24
+    : 0;
+  return bankA+bankB+bankC;
+}
+
+function laneBankOffset(m,lane) {
+  const depth=clamp(lane/3,0,1)*2-1;
+  return courseBank(m)*depth;
+}
+
 function makeRacers() {
   return Array.from({length:FIELD_SIZE}, (_,i) => ({
     id:i+1,
@@ -312,6 +330,10 @@ function trackBaseY(m) {
   return base - terrainY(m)*(portrait?.68:.52);
 }
 
+function laneYAt(m,lane) {
+  return trackBaseY(m)+laneOffset(lane)+laneBankOffset(m,lane);
+}
+
 function laneOffset(lane) {
   const portrait=height>width*1.35;
   const stops=portrait?[-142,-48,50,148]:[-82,-28,30,88];
@@ -349,12 +371,16 @@ function drawTrack() {
     let first=true;
     for(let m=leftM;m<=rightM+step;m+=step){
       const x=screenXForMeters(m);
-      const y=trackBaseY(m)+far;
+      const bank=courseBank(m);
+      const farDepth=lane/3*2-1;
+      const y=trackBaseY(m)+far+bank*farDepth;
       if(first){ctx.moveTo(x,y);first=false;}else ctx.lineTo(x,y);
     }
     for(let m=rightM+step;m>=leftM;m-=step){
       const x=screenXForMeters(m);
-      const y=trackBaseY(m)+near;
+      const bank=courseBank(m);
+      const nearDepth=(lane+1)/4*2-1;
+      const y=trackBaseY(m)+near+bank*nearDepth;
       ctx.lineTo(x,y);
     }
     ctx.closePath();
@@ -372,7 +398,8 @@ function drawTrack() {
     let first=true;
     for(let m=leftM;m<=rightM+step;m+=step){
       const x=screenXForMeters(m);
-      const y=trackBaseY(m)+offset;
+      const depthNorm=(offset-boundaries[0])/(boundaries[4]-boundaries[0])*2-1;
+      const y=trackBaseY(m)+offset+courseBank(m)*depthNorm;
       if(first){ctx.moveTo(x,y);first=false;}else ctx.lineTo(x,y);
     }
     ctx.stroke();
@@ -386,8 +413,9 @@ function drawTrack() {
     for(let m=Math.floor(leftM/10)*10;m<=rightM+10;m+=10){
       const m2=m+4.0;
       ctx.beginPath();
-      ctx.moveTo(screenXForMeters(m),trackBaseY(m)+offset);
-      ctx.lineTo(screenXForMeters(m2),trackBaseY(m2)+offset);
+      const dividerDepth=divider/4*2-1;
+      ctx.moveTo(screenXForMeters(m),trackBaseY(m)+offset+courseBank(m)*dividerDepth);
+      ctx.lineTo(screenXForMeters(m2),trackBaseY(m2)+offset+courseBank(m2)*dividerDepth);
       ctx.stroke();
     }
   }
@@ -400,8 +428,9 @@ function drawTrack() {
     for(let m=Math.floor(leftM/7)*7;m<=rightM+8;m+=7){
       const x1=screenXForMeters(m);
       const x2=screenXForMeters(m+2.0);
-      const y1=trackBaseY(m)+yOffset;
-      const y2=trackBaseY(m+2.0)+yOffset;
+      const laneDepth=lane/3*2-1;
+      const y1=trackBaseY(m)+yOffset+courseBank(m)*laneDepth;
+      const y2=trackBaseY(m+2.0)+yOffset+courseBank(m+2.0)*laneDepth;
       ctx.beginPath();
       ctx.moveTo(x1,y1);
       ctx.lineTo(x2,y2);
@@ -417,14 +446,14 @@ function drawTrack() {
   let fenceFirst=true;
   for(let m=leftM;m<=rightM+step;m+=step){
     const x=screenXForMeters(m);
-    const y=trackBaseY(m)+fenceOffset-22;
+    const y=trackBaseY(m)+fenceOffset-22-courseBank(m);
     if(fenceFirst){ctx.moveTo(x,y);fenceFirst=false;}else ctx.lineTo(x,y);
   }
   ctx.stroke();
 
   for(let m=Math.floor(leftM/14)*14;m<=rightM+16;m+=14){
     const x=screenXForMeters(m);
-    const baseY=trackBaseY(m)+fenceOffset;
+    const baseY=trackBaseY(m)+fenceOffset-courseBank(m);
     const sc=clamp(1+(m-cameraMeters)*.0015,.78,1.14);
     ctx.fillStyle="rgba(224,234,230,.82)";
     ctx.fillRect(x-1.5*sc,baseY-31*sc,3*sc,31*sc);
@@ -459,7 +488,7 @@ function drawCourseLandmarks() {
   for(let mark=60;mark<RACE_METERS;mark+=60){
     if(mark<leftM-8||mark>rightM+8) continue;
     const x=screenXForMeters(mark);
-    const baseY=trackBaseY(mark)+farY;
+    const baseY=trackBaseY(mark)+farY-courseBank(mark);
     const major=mark%360===0;
     const h=major?(height>width*1.35?86:64):(height>width*1.35?58:44);
     const w=major?54:38;
@@ -480,8 +509,8 @@ function drawCourseLandmarks() {
   for(let mark=360;mark<RACE_METERS;mark+=360){
     if(mark<leftM-18||mark>rightM+18) continue;
     const x=screenXForMeters(mark);
-    const trackTop=trackBaseY(mark)+laneOffset(0)-45;
-    const trackBottom=trackBaseY(mark)+laneOffset(3)+48;
+    const trackTop=laneYAt(mark,0)-45;
+    const trackBottom=laneYAt(mark,3)+48;
     ctx.save();
     ctx.globalAlpha=.72;
     ctx.fillStyle="#23363a";
@@ -500,7 +529,7 @@ function drawRacers() {
     const x=screenXForMeters(r.distance);
     if(x<-220 || x>width+260) continue;
     const lane=clamp(r.lane,0,3);
-    const y=trackBaseY(r.distance)+laneOffset(lane);
+    const y=laneYAt(r.distance,lane);
     list.push({r,x,y,lane});
   }
   list.sort((a,b)=>a.lane-b.lane);
@@ -722,6 +751,7 @@ function updateUI(now){
 
   stage.dataset.selectedDistance=focus.distance.toFixed(2);
   stage.dataset.selectedSpeed=focus.speed.toFixed(2);
+  stage.dataset.courseBank=courseBank(focus.distance).toFixed(2);
   stage.dataset.cameraMeters=cameraMeters.toFixed(2);
   stage.dataset.frameCounter=String(frameCounter);
 }
