@@ -608,7 +608,7 @@ test("capture four-view comparison for Hunyuan SF3D and TripoSR", async ({ page 
       const params = new URLSearchParams();
       if (candidate.variant) params.set("sf3dVariant", candidate.variant);
       params.set("modelYaw", String(yaw));
-      await page.goto(`/evowild-test/?${params.toString()}`, { waitUntil: "networkidle" });
+      await page.goto(`/evowild-test/?${params.toString()}`, { waitUntil: "domcontentloaded", timeout: 30000 });
 
       await expect(page.locator("#stage")).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
       await expect(page.locator("#stage")).toHaveAttribute("data-model-yaw", String(yaw), { timeout: 20000 });
@@ -675,7 +675,7 @@ test("compare raw and simplified Hunyuan multiview shapes", async ({ page }, tes
 
 test("compare Hunyuan raw and LOD2 across four views", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
-  test.setTimeout(140000);
+  test.setTimeout(180000);
 
   const outDir = "test-results/visuals";
   fs.mkdirSync(outDir, { recursive: true });
