@@ -202,7 +202,7 @@ let startGantry = null;
 
 function buildTrack() {
   const samples = 180;
-  const half = 5.8;
+  const half = presentationMode ? 5.15 : 5.8;
 
   function makeRibbon(ribbonHalf, y, material) {
     const vertices = [];
@@ -547,9 +547,9 @@ function buildTrack() {
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
-  stage.dataset.trackPresentation = "v17";
+  stage.dataset.trackPresentation = "v18";
   stage.dataset.presentationField = presentationMode ? "s-only-5" : "full-18";
-  stage.dataset.presentationSpeed = presentationMode ? "2.15x" : "1x";
+  stage.dataset.presentationSpeed = presentationMode ? "3.05x" : "1x";
   stage.dataset.presentationTint = presentationMode ? "s-variant-v1" : "off";
   stage.dataset.raceQualityPass = "floor-v2";
   stage.dataset.presentationMode = presentationMode ? "cinematic" : "standard";
@@ -2761,7 +2761,7 @@ function update(dt) {
     const diff = target - r.speed;
     const maxStep = (diff > 0 ? r.accel : r.accel * 1.5) * sec;
     r.speed += THREE.MathUtils.clamp(diff, -maxStep, maxStep);
-    r.distance += Math.max(0, r.speed) * sec * (presentationMode ? 2.15 : 1);
+    r.distance += Math.max(0, r.speed) * sec * (presentationMode ? 3.05 : 1);
 
     const load = Math.max(0, r.speed / r.cruise - 0.96);
     r.stamina = Math.max(0, r.stamina - (0.018 + 0.038 * load * load) * r.drain * raceDt / 1000);
@@ -2786,7 +2786,7 @@ function update(dt) {
 
     if (r.obj.userData.sRunAnimated) {
       const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
-      const frameMs = THREE.MathUtils.lerp(145, 72, speedRatio);
+      const frameMs = THREE.MathUtils.lerp(145, 72, speedRatio) / (presentationMode ? 1.38 : 1);
       const phaseOffset = (r.id * 41) % Math.round(frameMs * sRunFrames.length);
       const frameIndex = Math.floor((elapsed + phaseOffset) / frameMs) % sRunFrames.length;
       applySRunFrame(r, frameIndex);
@@ -2817,7 +2817,9 @@ function update(dt) {
     r.dustTimer = Math.max(0, (r.dustTimer ?? 0) - raceDt);
     if (r.speed > 7 && r.dustTimer <= 0 && (!presentationMode || r.morph === "S")) {
       spawnDust(r, tangent);
-      r.dustTimer = r.id === selectedId ? 155 : 265 + (r.id % 4) * 42;
+      r.dustTimer = presentationMode
+        ? (r.id === selectedId ? 92 : 148 + (r.id % 4) * 18)
+        : (r.id === selectedId ? 155 : 265 + (r.id % 4) * 42);
     }
 
     if (r.distance >= raceMeters) {
@@ -2865,12 +2867,12 @@ function setCamera() {
   const speedRatio = THREE.MathUtils.clamp(selected.speed / Math.max(1, selected.cruise), 0, 1.2);
   const targetFov = view === "follow"
     ? presentationMode
-      ? THREE.MathUtils.lerp(isMobile ? 54 : 50, isMobile ? 70 : 66, speedRatio)
+      ? THREE.MathUtils.lerp(isMobile ? 56 : 52, isMobile ? 76 : 72, speedRatio)
       : THREE.MathUtils.lerp(isMobile ? 54 : 48, isMobile ? 72 : 68, speedRatio)
     : view === "race"
       ? THREE.MathUtils.lerp(isMobile ? 54 : 48, isMobile ? 76 : 72, speedRatio)
       : (isMobile ? 50 : 42);
-  camera.fov = THREE.MathUtils.lerp(camera.fov, targetFov, 0.09);
+  camera.fov = THREE.MathUtils.lerp(camera.fov, targetFov, presentationMode ? 0.14 : 0.09);
   camera.updateProjectionMatrix();
 
   const lab = view === "lab";
@@ -2916,28 +2918,28 @@ function setCamera() {
     const followBack = isolatedProof
       ? (isMobile ? -1.5 : isolatedBack)
       : presentationMode
-        ? (isMobile ? -5.35 : -5.55)
+        ? (isMobile ? -4.75 : -4.95)
         : (isMobile ? -2.2 : -1.35);
     const followSide = isolatedProof
       ? (isMobile ? 4.3 : isolatedSide)
       : presentationMode
-        ? (isMobile ? 0.55 : 0.68)
+        ? (isMobile ? 0.42 : 0.52)
         : (isMobile ? 4.8 : 3.95);
     const followHeight = isolatedProof
       ? (isMobile ? 1.92 : isolatedHeight)
       : presentationMode
-        ? (isMobile ? 1.42 : 1.34)
+        ? (isMobile ? 1.24 : 1.14)
         : (isMobile ? 2.18 : 1.68);
-    const shake = Math.max(0, speedRatio - 0.34) * (isolatedProof ? 0.075 : presentationMode ? 0.08 : 0.13);
+    const shake = Math.max(0, speedRatio - 0.34) * (isolatedProof ? 0.075 : presentationMode ? 0.12 : 0.13);
     const desired = selectedPos.clone()
       .addScaledVector(tangent, followBack)
       .addScaledVector(side, followSide + Math.sin(elapsed * 0.023) * shake)
       .add(new THREE.Vector3(0, followHeight + Math.sin(elapsed * 0.031) * shake * 0.6, 0));
     camera.position.lerp(desired, presentationMode ? 0.28 : 0.15);
     const lookTarget = selectedPos.clone()
-      .addScaledVector(tangent, presentationMode ? (4.25 + speedRatio * 1.65) : (3.8 + speedRatio * 1.4))
+      .addScaledVector(tangent, presentationMode ? (3.70 + speedRatio * 1.45) : (3.8 + speedRatio * 1.4))
       .addScaledVector(side, presentationMode ? 0.35 : Math.sin(elapsed * 0.017) * shake * 0.45)
-      .add(new THREE.Vector3(0, presentationMode ? 0.52 : 0.50, 0));
+      .add(new THREE.Vector3(0, presentationMode ? 0.44 : 0.50, 0));
     camera.lookAt(lookTarget);
   } else if (view === "tactical") {
     camera.up.set(0, 0, -1);
