@@ -16,6 +16,7 @@ for (const project of ["desktop-chromium", "android-chromium"]) {
     await expect(page).toHaveTitle("Kart Royale");
 
     await page.waitForFunction(() => Boolean(window.__ctx?.race), null, { timeout: 90000 });
+    await page.waitForFunction(() => window.__gameReady === true, null, { timeout: 90000 });
     await page.evaluate(() => {
       window.__ctx.race.autoDrive = true;
       window.__ctx.race.start();
