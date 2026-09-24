@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EvoWild Run — Lane 4 / Javascript Racer V3</title>
+  <link rel="stylesheet" href="/src/race2_5d_lane4_v3.css" />
+</head>
+<body>
+  <main id="stage" data-lane4="booting" data-source="javascript-racer-mit">
+    <canvas id="race" width="1280" height="720"></canvas>
+
+    <div class="hud top-left">
+      <span>EVOWILD RUN / LANE 4 V3</span>
+      <strong id="speed">0.0 m/s</strong>
+      <small id="distance">0000 m</small>
+    </div>
+
+    <div class="hud top-right">
+      <span>POSITION</span>
+      <strong id="rank">10 / 10</strong>
+      <small id="phase">START</small>
+    </div>
+
+    <div class="agent">
+      <span>RACE AGENT</span>
+      <strong id="command">BUILD SPEED</strong>
+      <small id="reason">Launch phase</small>
+    </div>
+
+    <div class="source-note">MIT javascript-racer code base / original art only</div>
+  </main>
+
+  <script type="module" src="/src/race2_5d_lane4_v3.js"></script>
+</body>
+</html>
