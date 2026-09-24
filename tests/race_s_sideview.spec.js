@@ -35,8 +35,9 @@ test("S-only sideview rebuild aligns motion and race direction", async ({ page }
   const viewportWidth=await page.evaluate(()=>innerWidth);
   expect(x).toBeLessThan(viewportWidth-50);
   expect(visible).toBe(8);
-  expect(fieldMinX).toBeGreaterThan(-25);
-  expect(fieldMaxX).toBeLessThan(viewportWidth+25);
+  expect(fieldMinX).toBeGreaterThanOrEqual(0);
+  expect(fieldMaxX).toBeLessThanOrEqual(viewportWidth);
+  expect(speed).toBeGreaterThan(14);
   expect(pageErrors,pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors,consoleErrors.join("\n")).toEqual([]);
 
