@@ -1,0 +1,44 @@
+name: Hunyuan styled browser proof
+
+on:
+  push:
+    branches:
+      - feat/sf3d-game-integration-20260922
+    paths:
+      - "src/creature3d.js"
+      - "src/main.js"
+      - "tests/race.spec.js"
+      - ".github/workflows/hunyuan-styled-proof.yml"
+  workflow_dispatch:
+
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run styled Hunyuan proof only
+        run: npm run test:e2e -- --grep "capture styled Hunyuan prototype in Morph Lab and Race" --workers=1
+
+      - name: Upload proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hunyuan-styled-proof
+          path: |
+            test-results/visuals/hunyuan-styled-*.png
+          if-no-files-found: warn
