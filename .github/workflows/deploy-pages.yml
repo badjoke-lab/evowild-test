@@ -1,4 +1,5 @@
 name: deploy-pages
+# Preview branches are built into isolated paths so experiments do not overwrite each other.
 
 on:
   push:
