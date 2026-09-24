@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("four morph race uses all six-frame sheets in fixed-step race", async ({ page }) => {
-  await page.goto("/race-quality.html");
+  await page.goto("/evowild-test/race-quality.html", { waitUntil: "networkidle" });
   const stage = page.locator("#stage");
 
   await expect(stage).toHaveAttribute("data-morph-set", "S,P,E,A");
