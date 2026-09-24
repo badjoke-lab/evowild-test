@@ -213,7 +213,7 @@ function renderSegment(seg, n) {
   const y2 = p2.y - 1.5 * DPR;
 
   ctx.fillStyle = grass;
-  ctx.fillRect(0, y2, W, Math.max(0, y1 - y2 + 1));
+  ctx.fillRect(0, p2.y, W, Math.max(0, p1.y - p2.y + 1));
 
   polygon(rumble,
     p1.x - p1.w - r1, y1,
@@ -358,13 +358,6 @@ function drawTrackside(seg, n) {
     drawTreeSprite(x, p.y, h, side);
   }
 
-  if (seg.index % 41 === 0 && n > 20 && n < 95) {
-    const side = seg.index % 82 === 0 ? 1 : -1;
-    const h = clamp(p.scale * 180000, 10 * DPR, H * 0.125);
-    const w = h * 1.28;
-    const x = p.x + side * (outward + clamp(p.w * 0.24, 12, 140));
-    drawTrackBoard(x, p.y, w, h, side);
-  }
 }
 
 const racers = [
@@ -565,7 +558,7 @@ function renderWorld(ts) {
   canvas.dataset.renderer = "pseudo3d-segment-projection";
   canvas.dataset.field = "s-only-5";
   canvas.dataset.speed = String(Math.round(speed));
-  canvas.dataset.proofVersion = "v5";
+  canvas.dataset.proofVersion = "v6";
 }
 
 function frame(ts) {
