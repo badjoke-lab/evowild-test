@@ -28,6 +28,8 @@ const CAMERA_HEIGHT = 860;
 const DRAW_DISTANCE = 220;
 const BASE_FOV = 88;
 const RACE_METERS = 1440;
+const START_PAD_METERS = 44;
+const TRACK_METERS = RACE_METERS + START_PAD_METERS + 12;
 const LANES = [0.04, -0.20, 0.26, -0.42, 0.48, -0.62, 0.68, -0.02];
 
 const S_FRAMES = [
@@ -142,9 +144,10 @@ function buildTrack() {
   addRoad(12, 22, 12, 0.64, 1200);
   addRoad(10, 18, 10, -0.52, 700);
   addRoad(10, 30, 10, 0.0, 0);
-  while (segments.length < RACE_METERS / METERS_PER_SEGMENT) addSegment(0, lastY());
-  if (segments.length > RACE_METERS / METERS_PER_SEGMENT) {
-    segments.length = RACE_METERS / METERS_PER_SEGMENT;
+  const targetSegments = Math.ceil(TRACK_METERS / METERS_PER_SEGMENT);
+  while (segments.length < targetSegments) addSegment(0, lastY());
+  if (segments.length > targetSegments) {
+    segments.length = targetSegments;
   }
 }
 buildTrack();
@@ -518,7 +521,8 @@ function renderWorld() {
   cameraDepth = 1 / Math.tan((fov * 0.5) * Math.PI / 180);
 
   const followDistance = width < 700 ? 34 : 28;
-  const cameraMeters = clamp(focus.distance - followDistance, 0, RACE_METERS - 0.1);
+  const focusWorldMeters = focus.distance + START_PAD_METERS;
+  const cameraMeters = clamp(focusWorldMeters - followDistance, 0, TRACK_METERS - 0.1);
   const cameraZ = cameraMeters * WORLD_PER_METER;
   const baseSegment = findSegmentByWorld(cameraZ);
   const baseIndex = baseSegment.index;
@@ -600,7 +604,7 @@ function drawTracksideMotion(visible, speedNorm) {
 }
 
 function projectRacer(racer, cameraZ) {
-  const racerMeters = Math.min(racer.distance, RACE_METERS - 0.001);
+  const racerMeters = Math.min(racer.distance, RACE_METERS - 0.001) + START_PAD_METERS;
   const racerZ = racerMeters * WORLD_PER_METER;
   const dz = racerZ - cameraZ;
   if (dz < SEGMENT_LENGTH * 0.35 || dz > DRAW_DISTANCE * SEGMENT_LENGTH) return null;
