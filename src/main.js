@@ -534,7 +534,7 @@ function addTree(x, z, s = 0.85) {
 }
 for (let i = 0; i < 22; i++) {
   const a = (i / 22) * Math.PI * 2;
-  const r = 49 + (i % 3) * 2;
+  const r = 58 + (i % 3) * 3;
   addTree(Math.cos(a) * r, Math.sin(a) * r * 0.68, 0.74 + (i % 4) * 0.05);
 }
 
@@ -624,25 +624,7 @@ function buildOuterStadium() {
   crowd.instanceMatrix.needsUpdate = true;
   scene.add(crowd);
 
-  const bannerGeometry = new THREE.BoxGeometry(0.36, 4.8, 0.22);
-  const bannerMaterial = new THREE.MeshStandardMaterial({ color: 0x173a55, roughness: 0.72 });
-  const bannerAccentMaterial = new THREE.MeshBasicMaterial({ color: 0x6ad9ff });
-  for (let i = 0; i < 12; i++) {
-    const t = 0.05 + i * 0.028;
-    const p = curve.getPointAt(t);
-    const tangent = curve.getTangentAt(t).normalize();
-    const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
-    const outerSign = (p.x * side.x + p.z * side.z) >= 0 ? 1 : -1;
-    const q = p.clone().addScaledVector(side, 11.2 * outerSign);
-    const banner = new THREE.Mesh(bannerGeometry, bannerMaterial);
-    banner.position.set(q.x, q.y + 2.4, q.z);
-    banner.rotation.y = Math.atan2(-tangent.z, tangent.x);
-    scene.add(banner);
-    const accent = new THREE.Mesh(new THREE.BoxGeometry(0.40, 0.12, 0.24), bannerAccentMaterial);
-    accent.position.set(q.x, q.y + 4.35, q.z);
-    accent.rotation.y = banner.rotation.y;
-    scene.add(accent);
-  }
+  // v11: no tall trackside banner poles in the cinematic camera corridor.
 }
 buildOuterStadium();
 
@@ -3175,12 +3157,17 @@ function setCamera() {
       .addScaledVector(side, followSide + Math.sin(elapsed * 0.021) * shake)
       .add(new THREE.Vector3(0, followHeight + Math.sin(elapsed * 0.033) * shake * 0.45, 0));
     camera.position.lerp(desired, 0.16);
-    const lookTarget = selectedPos.clone()
-      .addScaledVector(tangent, 2.2)
-      .addScaledVector(side, -0.12)
-      .add(new THREE.Vector3(0, 0.56, 0));
+    const nearby = [...racers]
+      .sort((a, b) => Math.abs(a.distance - selected.distance) - Math.abs(b.distance - selected.distance))
+      .slice(0, 7);
+    const localPackCenter = new THREE.Vector3();
+    nearby.forEach((r) => localPackCenter.add(r.obj.position));
+    localPackCenter.multiplyScalar(1 / nearby.length);
+    const lookTarget = localPackCenter.clone()
+      .addScaledVector(tangent, 1.6)
+      .add(new THREE.Vector3(0, 0.58, 0));
     camera.lookAt(lookTarget);
-    stage.dataset.followCamera = "side-chase";
+    stage.dataset.followCamera = "side-chase-pack";
   } else if (view === "tactical") {
     camera.up.set(0, 0, -1);
     const tacticalHeight = isMobile ? 112 : 78;
@@ -3199,12 +3186,12 @@ function setCamera() {
     const leaderSide = new THREE.Vector3(-leaderTangent.z, 0, leaderTangent.x);
 
     const raceBack = isMobile ? -0.4 : -0.7;
-    const raceSide = isMobile ? 7.4 : 8.6;
-    const raceHeight = isMobile ? 1.70 : 1.58;
+    const raceSide = isMobile ? 8.2 : 9.4;
+    const raceHeight = isMobile ? 1.85 : 1.72;
     const raceShake = Math.max(0, speedRatio - 0.40) * 0.11;
     const radial = new THREE.Vector3(center.x, 0, center.z).normalize();
     const sideOutward = leaderSide.dot(radial) >= 0 ? 1 : -1;
-    const cameraSide = leaderSide.clone().multiplyScalar(-sideOutward);
+    const cameraSide = leaderSide.clone().multiplyScalar(sideOutward);
     camera.position.lerp(
       center.clone()
         .addScaledVector(leaderTangent, raceBack + Math.sin(elapsed * 0.020) * raceShake)
@@ -3220,27 +3207,18 @@ function setCamera() {
     stage.dataset.raceCamera = "side-pack-cinematic";
   }
 
-  const selectedCameraDistance = camera.position.distanceTo(selected.obj.position);
   racers.forEach((r) => {
-    let targetOpacity = 1;
-    if (view === "follow" && r.id !== selectedId && r.obj.visible) {
-      const d = camera.position.distanceTo(r.obj.position);
-      if (d < selectedCameraDistance - 0.55) targetOpacity = 0.02;
-      else if (d < selectedCameraDistance + 0.20) targetOpacity = 0.22;
-    }
-
     const rig = r.obj.userData.raceRig;
     if (rig) {
       rig.traverse((part) => {
         if (!part.material || part.material.opacity === undefined) return;
-        part.material.opacity = THREE.MathUtils.lerp(part.material.opacity, targetOpacity, 0.24);
+        part.material.opacity = THREE.MathUtils.lerp(part.material.opacity, 1, 0.28);
       });
       return;
     }
-
     const material = r.obj.userData.raceSprite?.material;
     if (!material || material.opacity === undefined) return;
-    material.opacity = THREE.MathUtils.lerp(material.opacity, targetOpacity, 0.24);
+    material.opacity = THREE.MathUtils.lerp(material.opacity, 1, 0.28);
   });
   const fxStrength = (view === "follow" || view === "race") && raceState === "running"
     ? THREE.MathUtils.clamp((speedRatio - 0.28) / 0.82, 0, 1)
@@ -3248,7 +3226,7 @@ function setCamera() {
   speedFx.style.opacity = String((fxStrength * (view === "follow" ? 0.42 : 0.26)).toFixed(3));
   speedFx.style.transform = `translateX(${(-elapsed * (0.018 + fxStrength * 0.035)) % 80}px)`;
   stage.dataset.speedFx = fxStrength > 0.12 ? "active" : "idle";
-  stage.dataset.followOcclusionFade = "enabled";
+  stage.dataset.followOcclusionFade = "disabled";
 }
 
 function updateHud() {
