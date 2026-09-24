@@ -17,19 +17,19 @@
     },
     "front_3q": {
       "status": "missing",
-      "asset": "s-front-3q-run-sheet.svg"
+      "asset": "s-front-3q-run-sheet.webp"
     },
     "front": {
-      "status": "missing",
-      "asset": "s-front-run-sheet.svg"
+      "status": "implemented",
+      "asset": "s-front-run-sheet.webp"
     },
     "back_3q": {
       "status": "missing",
-      "asset": "s-back-3q-run-sheet.svg"
+      "asset": "s-back-3q-run-sheet.webp"
     },
     "back": {
-      "status": "missing",
-      "asset": "s-back-run-sheet.svg"
+      "status": "implemented",
+      "asset": "s-back-run-sheet.webp"
     }
   },
   "policy": {
