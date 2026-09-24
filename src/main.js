@@ -2736,7 +2736,7 @@ function update(dt) {
     }
 
     r.dustTimer = Math.max(0, (r.dustTimer ?? 0) - raceDt);
-    if (r.speed > 7 && r.dustTimer <= 0) {
+    if (r.speed > 7 && r.dustTimer <= 0 && (!presentationMode || r.morph === "S")) {
       spawnDust(r, tangent);
       r.dustTimer = r.id === selectedId ? 155 : 265 + (r.id % 4) * 42;
     }
@@ -2808,7 +2808,12 @@ function setCamera() {
   });
   ring.visible = !lab && !tactical && !presentationMode;
   racerShadows.forEach((shadow, index) => {
-    shadow.visible = !lab && !tactical && (!isolatedProof || racers[index].id === isolatedProofRacerId);
+    const racer = racers[index];
+    shadow.visible =
+      !lab &&
+      !tactical &&
+      (!isolatedProof || racer.id === isolatedProofRacerId) &&
+      (!presentationMode || racer.morph === "S");
   });
   tacticalMarkers.forEach((marker) => { marker.visible = tactical; });
   labGroup.visible = lab;
