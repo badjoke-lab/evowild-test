@@ -210,6 +210,37 @@ test("record 2.5D race speed proof", async ({ browser }, testInfo) => {
 });
 
 
+test("record cinematic race presentation", async ({ browser }, testInfo) => {
+  test.setTimeout(50000);
+  test.skip(testInfo.project.name !== "desktop-chromium");
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const context = await browser.newContext({
+    viewport: { width: 1280, height: 720 },
+    recordVideo: { dir: outDir, size: { width: 1280, height: 720 } }
+  });
+  const page = await context.newPage();
+  await page.goto("http://127.0.0.1:4173/evowild-test/?presentation=1", { waitUntil: "networkidle" });
+  await expect(page.locator("#stage")).toHaveAttribute("data-presentation-mode", "cinematic", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v8", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-four-morph-motion", "ready", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-race-state", "running", { timeout: 8000 });
+
+  await page.waitForTimeout(4200);
+  await page.screenshot({ path: `${outDir}/desktop-cinematic-race.png`, fullPage: true });
+  await page.waitForTimeout(4200);
+  await page.screenshot({ path: `${outDir}/desktop-cinematic-race-late.png`, fullPage: true });
+
+  const video = page.video();
+  await page.close();
+  const raw = await video.path();
+  fs.renameSync(raw, `${outDir}/desktop-cinematic-race.webm`);
+  await context.close();
+});
+
+
 test("record full field and non-S follow motion proof", async ({ browser }, testInfo) => {
   test.setTimeout(45000);
   test.skip(testInfo.project.name !== "desktop-chromium");
