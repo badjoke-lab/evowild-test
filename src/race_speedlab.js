@@ -67,6 +67,7 @@ new ResizeObserver(resize).observe(canvas);
 resize();
 
 function makeRacers() {
+  const startOffsets = [0, 14, -18, 30, -31, 46, -48, 59, -64, 75, -80, 92];
   return names.map((name, index) => {
     const morph = cycle[index % cycle.length];
     const m = MORPHS[morph];
@@ -76,8 +77,8 @@ function makeRacers() {
       morph,
       lane: index % LANES,
       laneF: index % LANES,
-      distance: Math.max(0, 176 - index * 10.5 + (index % 3) * 2.4),
-      speed: m.cruise * (0.86 + ((index * 7) % 5) * 0.018),
+      distance: 182 + startOffsets[index],
+      speed: m.cruise * (0.92 + ((index * 7) % 5) * 0.015),
       stamina: 100,
       cruise: m.cruise + ((index * 11) % 5) * 0.11,
       accel: m.accel,
@@ -417,7 +418,7 @@ function drawTrack(scroll) {
   }
 }
 
-function frameIndexFor(r) {function frameIndexFor(r) {
+function frameIndexFor(r) {
   const ratio=Math.max(.2,Math.min(1.15,r.speed/r.cruise));
   const frameMs=150-(ratio*74);
   return Math.floor((elapsed+r.id*47)/frameMs)%6;
