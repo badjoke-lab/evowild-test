@@ -6,7 +6,10 @@ import "./styles.css";
 const canvas = document.querySelector("#game");
 const stage = document.querySelector("#stage");
 const isMobile = matchMedia("(pointer: coarse)").matches || innerWidth < 800;
-const proofMode = new URLSearchParams(location.search).get("proof");
+const query = new URLSearchParams(location.search);
+const proofMode = query.get("proof");
+const presentationMode = query.get("presentation") === "1";
+if (presentationMode) document.body.classList.add("presentation-mode");
 const sRunIsolatedProof = proofMode === "s-run";
 const pRigIsolatedProof = proofMode === "p-rig";
 const eRigIsolatedProof = proofMode === "e-rig";
@@ -72,10 +75,101 @@ canvas.addEventListener("webglcontextrestored", () => {
   runtimeStatus.hidden = false;
 });
 
+function makeProceduralTexture(kind) {
+  const size = kind === "track" ? 512 : 256;
+  const c = document.createElement("canvas");
+  c.width = size;
+  c.height = size;
+  const ctx = c.getContext("2d");
+  let seed = kind === "track" ? 7717 : 4129;
+  const rnd = () => {
+    seed = (seed * 1664525 + 1013904223) >>> 0;
+    return seed / 4294967296;
+  };
+
+  if (kind === "track") {
+    ctx.fillStyle = "#a97449";
+    ctx.fillRect(0, 0, size, size);
+    const grad = ctx.createLinearGradient(0, 0, size, 0);
+    grad.addColorStop(0, "rgba(55,30,12,.20)");
+    grad.addColorStop(.08, "rgba(255,229,185,.06)");
+    grad.addColorStop(.5, "rgba(255,255,255,.02)");
+    grad.addColorStop(.92, "rgba(255,229,185,.06)");
+    grad.addColorStop(1, "rgba(55,30,12,.20)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, size, size);
+
+    for (let i = 0; i < 2600; i++) {
+      const x = rnd() * size;
+      const y = rnd() * size;
+      const len = 2 + rnd() * 22;
+      const alpha = .025 + rnd() * .08;
+      ctx.strokeStyle = rnd() > .5
+        ? `rgba(255,236,205,${alpha})`
+        : `rgba(73,42,24,${alpha})`;
+      ctx.lineWidth = .5 + rnd() * 1.3;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x, y + len);
+      ctx.stroke();
+    }
+  } else {
+    ctx.fillStyle = "#567748";
+    ctx.fillRect(0, 0, size, size);
+    for (let i = 0; i < 3600; i++) {
+      const x = rnd() * size;
+      const y = rnd() * size;
+      const g = 78 + Math.floor(rnd() * 70);
+      ctx.fillStyle = `rgba(${35 + Math.floor(rnd()*30)},${g},${28 + Math.floor(rnd()*35)},${.12 + rnd()*.24})`;
+      const w = .7 + rnd() * 2.3;
+      const h = 1.5 + rnd() * 5.5;
+      ctx.fillRect(x, y, w, h);
+    }
+  }
+
+  const texture = new THREE.CanvasTexture(c);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+  texture.needsUpdate = true;
+  return texture;
+}
+
+const grassTexture = makeProceduralTexture("grass");
+grassTexture.repeat.set(28, 20);
+const trackTexture = makeProceduralTexture("track");
+trackTexture.repeat.set(1, 1);
+
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x9bc6dc);
-const raceFog = new THREE.Fog(0x9bc6dc, 75, 150);
+const raceFog = new THREE.Fog(0x9bc6dc, 82, 168);
 scene.fog = raceFog;
+
+function makeSkyTexture() {
+  const c = document.createElement("canvas");
+  c.width = 64;
+  c.height = 512;
+  const ctx = c.getContext("2d");
+  const g = ctx.createLinearGradient(0, 0, 0, c.height);
+  g.addColorStop(0, "#426d8c");
+  g.addColorStop(.42, "#6e9fb5");
+  g.addColorStop(.76, "#b6c8c4");
+  g.addColorStop(1, "#d6c29d");
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, c.width, c.height);
+  const texture = new THREE.CanvasTexture(c);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.needsUpdate = true;
+  return texture;
+}
+
+const skyDome = new THREE.Mesh(
+  new THREE.SphereGeometry(135, isMobile ? 18 : 28, isMobile ? 10 : 16),
+  new THREE.MeshBasicMaterial({ map: makeSkyTexture(), side: THREE.BackSide, fog: false })
+);
+skyDome.position.y = 5;
+scene.add(skyDome);
 
 const camera = new THREE.PerspectiveCamera(42, 16 / 9, 0.1, 240);
 scene.add(new THREE.HemisphereLight(0xddeeff, 0x26332e, 1.18));
@@ -88,7 +182,7 @@ scene.add(rim);
 
 const ground = new THREE.Mesh(
   new THREE.PlaneGeometry(210, 160),
-  new THREE.MeshStandardMaterial({ color: 0x6d8d62, roughness: 1 })
+  new THREE.MeshStandardMaterial({ map: grassTexture, color: 0x94aa82, roughness: 1 })
 );
 ground.rotation.x = -Math.PI / 2;
 ground.position.y = -0.03;
@@ -104,13 +198,16 @@ const curve = new THREE.CatmullRomCurve3(
   0.4
 );
 
+let startGantry = null;
+
 function buildTrack() {
   const samples = 180;
-  const half = 5.8;
+  const half = presentationMode ? 5.15 : 5.8;
 
   function makeRibbon(ribbonHalf, y, material) {
     const vertices = [];
     const normals = [];
+    const uvs = [];
     const indices = [];
 
     for (let i = 0; i <= samples; i++) {
@@ -123,6 +220,7 @@ function buildTrack() {
         const q = p.clone().addScaledVector(side, offset);
         vertices.push(q.x, y, q.z);
         normals.push(0, 1, 0);
+        uvs.push(offset < 0 ? 0 : 1, t * 34);
       }
     }
 
@@ -137,6 +235,7 @@ function buildTrack() {
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
     geometry.setAttribute("normal", new THREE.Float32BufferAttribute(normals, 3));
+    geometry.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
     geometry.setIndex(indices);
     const mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
@@ -146,12 +245,17 @@ function buildTrack() {
   makeRibbon(
     half + 0.72,
     0.015,
-    new THREE.MeshStandardMaterial({ color: 0x765c40, roughness: 1 })
+    new THREE.MeshStandardMaterial({ color: presentationMode ? 0x4c5146 : 0x765c40, roughness: 1 })
   );
   makeRibbon(
     half,
     0.035,
-    new THREE.MeshStandardMaterial({ color: 0xb88758, roughness: 1 })
+    new THREE.MeshStandardMaterial({
+      map: trackTexture,
+      color: presentationMode ? 0xb77e5d : 0xe3c39f,
+      roughness: 1,
+      metalness: 0
+    })
   );
 
   for (const offset of [-half, half]) {
@@ -197,7 +301,11 @@ function buildTrack() {
   }
 
   const railOffset = half + 0.78;
-  const railMaterial = new THREE.LineBasicMaterial({ color: 0xd8dee2, transparent: true, opacity: 0.95 });
+  const railMaterial = new THREE.LineBasicMaterial({
+    color: presentationMode ? 0x8abac2 : 0xd8dee2,
+    transparent: true,
+    opacity: presentationMode ? 0.16 : 0.95
+  });
   for (const offset of [-railOffset, railOffset]) {
     for (const y of [0.52, 0.88]) {
       const points = [];
@@ -214,7 +322,12 @@ function buildTrack() {
 
   const postsPerSide = isMobile ? 28 : 42;
   const postGeometry = new THREE.BoxGeometry(0.11, 0.92, 0.11);
-  const postMaterial = new THREE.MeshStandardMaterial({ color: 0xd1d7da, roughness: 0.78 });
+  const postMaterial = new THREE.MeshStandardMaterial({
+    color: presentationMode ? 0x38505b : 0xd1d7da,
+    emissive: presentationMode ? 0x0b2f37 : 0x000000,
+    emissiveIntensity: presentationMode ? 0.28 : 0,
+    roughness: 0.78
+  });
   const posts = new THREE.InstancedMesh(postGeometry, postMaterial, postsPerSide * 2);
   const postDummy = new THREE.Object3D();
   let postIndex = 0;
@@ -234,9 +347,60 @@ function buildTrack() {
   posts.instanceMatrix.needsUpdate = true;
   scene.add(posts);
 
-  const streakCount = isMobile ? 72 : 120;
-  const streakGeometry = new THREE.BoxGeometry(1.25, 0.018, 0.065);
-  const streakMaterial = new THREE.MeshBasicMaterial({ color: 0x8f6848, transparent: true, opacity: 0.42 });
+  if (presentationMode) {
+    const guardMaterial = new THREE.MeshStandardMaterial({
+      color: 0x294651,
+      emissive: 0x0b2530,
+      emissiveIntensity: 0.34,
+      roughness: 0.56,
+      metalness: 0.16
+    });
+    const markerMaterial = new THREE.MeshBasicMaterial({ color: 0x6fd5de });
+    for (const offset of [-railOffset, railOffset]) {
+      const railPoints = [];
+      for (let i = 0; i < 72; i++) {
+        const t = i / 72;
+        const p = curve.getPointAt(t);
+        const tangent = curve.getTangentAt(t).normalize();
+        const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+        railPoints.push(p.clone().addScaledVector(side, offset).add(new THREE.Vector3(0, 0.43, 0)));
+      }
+      const railCurve = new THREE.CatmullRomCurve3(railPoints, true, "centripetal", 0.35);
+      const rail = new THREE.Mesh(
+        new THREE.TubeGeometry(railCurve, isMobile ? 72 : 120, 0.065, 5, true),
+        guardMaterial
+      );
+      scene.add(rail);
+    }
+
+    const markerCount = isMobile ? 28 : 42;
+    const markerGeometry = new THREE.BoxGeometry(0.08, 0.52, 0.08);
+    const markers = new THREE.InstancedMesh(markerGeometry, markerMaterial, markerCount);
+    const markerDummy = new THREE.Object3D();
+    for (let i = 0; i < markerCount; i++) {
+      const t = (i + 0.25) / markerCount;
+      const p = curve.getPointAt(t);
+      const tangent = curve.getTangentAt(t).normalize();
+      const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+      const offset = (i % 2 ? 1 : -1) * (railOffset + 0.16);
+      const q = p.clone().addScaledVector(side, offset);
+      markerDummy.position.set(q.x, 0.28, q.z);
+      markerDummy.rotation.set(0, Math.atan2(-tangent.z, tangent.x), 0);
+      markerDummy.scale.set(1, 0.72 + (i % 4) * 0.08, 1);
+      markerDummy.updateMatrix();
+      markers.setMatrixAt(i, markerDummy.matrix);
+    }
+    markers.instanceMatrix.needsUpdate = true;
+    scene.add(markers);
+  }
+
+  const streakCount = presentationMode ? (isMobile ? 120 : 180) : (isMobile ? 72 : 120);
+  const streakGeometry = new THREE.BoxGeometry(presentationMode ? 2.35 : 1.25, 0.018, presentationMode ? 0.045 : 0.065);
+  const streakMaterial = new THREE.MeshBasicMaterial({
+    color: 0x8f6848,
+    transparent: true,
+    opacity: presentationMode ? 0.56 : 0.42
+  });
   const streaks = new THREE.InstancedMesh(streakGeometry, streakMaterial, streakCount);
   const streakDummy = new THREE.Object3D();
   for (let i = 0; i < streakCount; i++) {
@@ -257,9 +421,13 @@ function buildTrack() {
 
 
   const curbSegments = isMobile ? 56 : 84;
-  const curbGeometry = new THREE.BoxGeometry(0.74, 0.075, 0.34);
-  const curbLight = new THREE.MeshBasicMaterial({ color: 0xe7e1d6 });
-  const curbDark = new THREE.MeshBasicMaterial({ color: 0x35434c });
+  const curbGeometry = new THREE.BoxGeometry(
+    presentationMode ? 0.58 : 0.74,
+    presentationMode ? 0.055 : 0.075,
+    presentationMode ? 0.24 : 0.34
+  );
+  const curbLight = new THREE.MeshBasicMaterial({ color: presentationMode ? 0xa9d6d8 : 0xe7e1d6 });
+  const curbDark = new THREE.MeshBasicMaterial({ color: presentationMode ? 0x294953 : 0x35434c });
   const curbMeshes = [
     new THREE.InstancedMesh(curbGeometry, curbLight, curbSegments),
     new THREE.InstancedMesh(curbGeometry, curbDark, curbSegments)
@@ -288,6 +456,61 @@ function buildTrack() {
   });
 
   stage.dataset.trackEdgeRhythm = "curb-v1";
+
+  const roadsideCount = presentationMode ? (isMobile ? 16 : 22) : (isMobile ? 34 : 52);
+  const signGeometry = new THREE.BoxGeometry(0.10, 0.64, 0.24);
+  const signLight = new THREE.MeshBasicMaterial({ color: 0xd7ddd8 });
+  const signAccent = new THREE.MeshBasicMaterial({ color: 0x31414a });
+  const roadsideMeshes = [
+    new THREE.InstancedMesh(signGeometry, signLight, roadsideCount),
+    new THREE.InstancedMesh(signGeometry, signAccent, roadsideCount)
+  ];
+  const roadsideCounts = [0, 0];
+  const signDummy = new THREE.Object3D();
+  for (let i = 0; i < roadsideCount; i++) {
+    const t = (i + 0.45) / roadsideCount;
+    const p = curve.getPointAt(t);
+    const tangent = curve.getTangentAt(t).normalize();
+    const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+    const outside = (i % 2 ? 1 : -1) * (railOffset + 1.18);
+    const q = p.clone().addScaledVector(side, outside);
+    signDummy.position.set(q.x, 0.34, q.z);
+    signDummy.rotation.set(0, Math.atan2(-tangent.z, tangent.x), 0);
+    signDummy.scale.set(1, 0.78 + (i % 3) * 0.08, 1);
+    signDummy.updateMatrix();
+    const meshIndex = i % 2;
+    roadsideMeshes[meshIndex].setMatrixAt(roadsideCounts[meshIndex]++, signDummy.matrix);
+  }
+  roadsideMeshes.forEach((mesh, index) => {
+    mesh.count = roadsideCounts[index];
+    mesh.instanceMatrix.needsUpdate = true;
+    scene.add(mesh);
+  });
+
+  const apexCount = presentationMode ? (isMobile ? 10 : 14) : (isMobile ? 18 : 30);
+  const apexGeometry = new THREE.ConeGeometry(
+    presentationMode ? 0.11 : 0.16,
+    presentationMode ? 0.38 : 0.58,
+    5
+  );
+  const apexMaterial = new THREE.MeshBasicMaterial({ color: presentationMode ? 0x79d7df : 0xffd56a });
+  const apexMarkers = new THREE.InstancedMesh(apexGeometry, apexMaterial, apexCount);
+  for (let i = 0; i < apexCount; i++) {
+    const t = (i + 0.2) / apexCount;
+    const p = curve.getPointAt(t);
+    const tangent = curve.getTangentAt(t).normalize();
+    const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+    const q = p.clone().addScaledVector(side, (i % 2 ? 1 : -1) * (half + 0.92));
+    signDummy.position.set(q.x, 0.30, q.z);
+    signDummy.rotation.set(0, Math.atan2(-tangent.z, tangent.x), 0);
+    signDummy.scale.setScalar(1);
+    signDummy.updateMatrix();
+    apexMarkers.setMatrixAt(i, signDummy.matrix);
+  }
+  apexMarkers.instanceMatrix.needsUpdate = true;
+  scene.add(apexMarkers);
+
+  stage.dataset.trackRhythmObjects = "dense-v2";
   const startT = 0.012;
   const startPoint = curve.getPointAt(startT);
   const startTangent = curve.getTangentAt(startT).normalize();
@@ -313,6 +536,7 @@ function buildTrack() {
   accent.position.set(-0.02, 4.08, 0.22);
   gantry.add(accent);
   scene.add(gantry);
+  startGantry = gantry;
 
   const startLine = new THREE.Mesh(
     new THREE.BoxGeometry(0.22, 0.026, 11.1),
@@ -323,14 +547,19 @@ function buildTrack() {
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
-  stage.dataset.trackPresentation = "v6";
+  stage.dataset.trackPresentation = "v18";
+  stage.dataset.presentationField = presentationMode ? "s-only-5" : "full-18";
+  stage.dataset.presentationSpeed = presentationMode ? "3.05x" : "1x";
+  stage.dataset.presentationTint = presentationMode ? "s-variant-v1" : "off";
+  stage.dataset.raceQualityPass = "floor-v2";
+  stage.dataset.presentationMode = presentationMode ? "cinematic" : "standard";
 }
 buildTrack();
 
 const speedMarkerGeometry = new THREE.BoxGeometry(1.05, 0.08, 0.16);
 const speedMarkerMaterial = new THREE.MeshBasicMaterial({ color: 0xf4e8cf });
-for (let i = 0; i < 72; i++) {
-  const t = i / 72;
+for (let i = 0; i < (isMobile ? 96 : 144); i++) {
+  const t = i / (isMobile ? 96 : 144);
   const p = curve.getPointAt(t);
   const tangent = curve.getTangentAt(t).normalize();
   const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
@@ -370,22 +599,81 @@ addHill(-62, 30, 9);
 
 const trunkMat = new THREE.MeshStandardMaterial({ color: 0x5a4432, roughness: 1 });
 const leafMat = new THREE.MeshStandardMaterial({ color: 0x3f6542, roughness: 1, flatShading: true });
-function addTree(x, z, s = 0.85) {
-  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.18, 1.4, 6), trunkMat);
-  trunk.position.set(x, 0.7, z);
-  const lower = new THREE.Mesh(new THREE.ConeGeometry(0.82, 1.85, 8), leafMat);
-  lower.position.set(x, 1.72, z);
-  lower.scale.setScalar(s);
-  const upper = new THREE.Mesh(new THREE.ConeGeometry(0.62, 1.55, 8), leafMat);
-  upper.position.set(x, 2.45, z);
-  upper.scale.setScalar(s * 0.88);
-  scene.add(trunk, lower, upper);
+const treeCount = isMobile ? 34 : 58;
+const trunkInstances = new THREE.InstancedMesh(
+  new THREE.CylinderGeometry(0.12, 0.18, 1.4, 6),
+  trunkMat,
+  treeCount
+);
+const lowerInstances = new THREE.InstancedMesh(
+  new THREE.ConeGeometry(0.82, 1.85, 8),
+  leafMat,
+  treeCount
+);
+const upperInstances = new THREE.InstancedMesh(
+  new THREE.ConeGeometry(0.62, 1.55, 8),
+  leafMat,
+  treeCount
+);
+const treeDummy = new THREE.Object3D();
+for (let i = 0; i < treeCount; i++) {
+  const a = (i / treeCount) * Math.PI * 2 + Math.sin(i * 2.17) * 0.035;
+  const r = 47 + (i % 7) * 1.85;
+  const x = Math.cos(a) * r;
+  const z = Math.sin(a) * r * 0.68;
+  const scale = 0.68 + (i % 6) * 0.06;
+
+  treeDummy.position.set(x, 0.7, z);
+  treeDummy.rotation.set(0, a * 0.13, 0);
+  treeDummy.scale.set(1, 1, 1);
+  treeDummy.updateMatrix();
+  trunkInstances.setMatrixAt(i, treeDummy.matrix);
+
+  treeDummy.position.set(x, 1.72, z);
+  treeDummy.scale.setScalar(scale);
+  treeDummy.updateMatrix();
+  lowerInstances.setMatrixAt(i, treeDummy.matrix);
+
+  treeDummy.position.set(x, 2.45, z);
+  treeDummy.scale.setScalar(scale * 0.88);
+  treeDummy.updateMatrix();
+  upperInstances.setMatrixAt(i, treeDummy.matrix);
 }
-for (let i = 0; i < 22; i++) {
-  const a = (i / 22) * Math.PI * 2;
-  const r = 49 + (i % 3) * 2;
-  addTree(Math.cos(a) * r, Math.sin(a) * r * 0.68, 0.74 + (i % 4) * 0.05);
+for (const mesh of [trunkInstances, lowerInstances, upperInstances]) {
+  mesh.instanceMatrix.needsUpdate = true;
+  scene.add(mesh);
 }
+
+const distantHillCount = isMobile ? 18 : 28;
+const distantHillGeo = new THREE.SphereGeometry(1, 14, 6, 0, Math.PI * 2, 0, Math.PI / 2);
+const distantHillMats = [
+  new THREE.MeshStandardMaterial({ color: 0x647a72, roughness: 1, flatShading: true }),
+  new THREE.MeshStandardMaterial({ color: 0x78897b, roughness: 1, flatShading: true })
+];
+const distantHills = [
+  new THREE.InstancedMesh(distantHillGeo, distantHillMats[0], distantHillCount),
+  new THREE.InstancedMesh(distantHillGeo, distantHillMats[1], distantHillCount)
+];
+const distantHillCounts = [0, 0];
+const distantHillDummy = new THREE.Object3D();
+for (let i = 0; i < distantHillCount; i++) {
+  const a = (i / distantHillCount) * Math.PI * 2 + Math.sin(i * 1.71) * 0.055;
+  const radius = 88 + (i % 5) * 6.2;
+  const sx = 11.0 + (i % 6) * 2.1;
+  const sy = 3.0 + (i % 5) * 0.72;
+  const sz = 8.5 + (i % 4) * 1.8;
+  distantHillDummy.position.set(Math.cos(a) * radius, -0.18, Math.sin(a) * radius * 0.74);
+  distantHillDummy.rotation.set(0, a * 0.15, 0);
+  distantHillDummy.scale.set(sx, sy, sz);
+  distantHillDummy.updateMatrix();
+  const mi = i % 2;
+  distantHills[mi].setMatrixAt(distantHillCounts[mi]++, distantHillDummy.matrix);
+}
+distantHills.forEach((mesh, index) => {
+  mesh.count = distantHillCounts[index];
+  mesh.instanceMatrix.needsUpdate = true;
+  scene.add(mesh);
+});
 
 const standGroup = new THREE.Group();
 standGroup.position.set(7, 0, -34.2);
@@ -723,10 +1011,10 @@ function compatibilityScoreFor(racer) {
 }
 
 const racers = [];
-let selectedId = aRigIsolatedProof ? 4 : eRigIsolatedProof ? 3 : pRigIsolatedProof ? 2 : 1;
+let selectedId = aRigIsolatedProof ? 4 : eRigIsolatedProof ? 3 : pRigIsolatedProof ? 2 : (presentationMode ? 17 : 1);
 const sRunProofRacerId = 1;
 const raceMeters = fastFinishProof ? 45 : 700;
-const countdownDuration = fastFinishProof ? 1200 : 3000;
+const countdownDuration = fastFinishProof ? 1200 : (presentationMode ? 900 : 3000);
 document.querySelector(".hud-race strong").textContent = `${raceMeters}m — Ridge Oval`;
 stage.dataset.raceDistance = String(raceMeters);
 const laneCount = 6;
@@ -756,7 +1044,9 @@ for (let i = 0; i < 18; i++) {
     name: names[i],
     morph,
     obj,
-    distance: Math.max(0, (17 - i) * 1.1),
+    distance: presentationMode && morph === "S"
+      ? (4 - Math.floor(i / 4)) * 3.35
+      : Math.max(0, (17 - i) * 1.1),
     lane: i % laneCount,
     laneF: i % laneCount,
     cruise: stats.cruise + (i % 5) * 0.18,
@@ -1035,7 +1325,7 @@ function updateAgentVisual(now) {
   if (panel) panel.classList.toggle("pulse", now < agentPulseUntil);
   updateCreatureStateVisual();
 
-  const showWorldSignal = view !== "lab" && view !== "tactical";
+  const showWorldSignal = view !== "lab" && view !== "tactical" && !presentationMode;
   agentOrbs.forEach((orb, index) => {
     const racer = racers[index];
     const t = (racer.distance / raceMeters) % 1;
@@ -1315,6 +1605,14 @@ const raceSpriteLayout = {
   E: { scale: [2.82, 2.52], y: 0.15 },
   A: { scale: [3.05, 2.30], y: 0.08 }
 };
+const presentationSpriteScale = presentationMode ? 0.72 : 1;
+function scaledRaceLayout(morph) {
+  const layout = raceSpriteLayout[morph];
+  return {
+    scale: [layout.scale[0] * presentationSpriteScale, layout.scale[1] * presentationSpriteScale],
+    y: layout.y
+  };
+}
 
 const sRunFrames = [
   { phase: "CONTACT", col: 0, row: 0, y: 0.00 },
@@ -1412,8 +1710,12 @@ function buildAnimatedSRunPlane(texture, raceLayout, racerId) {
   sheet.needsUpdate = true;
 
   const geometry = new THREE.PlaneGeometry(1, 1);
+  const sTint = presentationMode
+    ? new THREE.Color(palette[(racerId - 1) % palette.length]).lerp(new THREE.Color(0xffffff), 0.72)
+    : new THREE.Color(0xffffff);
   const material = new THREE.MeshBasicMaterial({
     map: sheet,
+    color: sTint,
     transparent: true,
     depthWrite: false,
     alphaTest: 0.02,
@@ -1422,8 +1724,9 @@ function buildAnimatedSRunPlane(texture, raceLayout, racerId) {
   const mesh = new THREE.Mesh(geometry, material);
   mesh.name = `Race2_5D_S_SpriteSheet_${racerId}`;
   mesh.position.set(0, raceLayout.y, 0);
-  const focusScale = racerId === selectedId ? 1.08 : 0.96;
-  mesh.scale.set(3.65 * focusScale, 3.10 * focusScale, 1);
+  const focusScale = racerId === selectedId ? 1.05 : 0.94;
+  const sheetScale = presentationMode ? 0.58 : 1;
+  mesh.scale.set(3.65 * focusScale * sheetScale, 3.10 * focusScale * sheetScale, 1);
   mesh.renderOrder = 4;
   mesh.frustumCulled = false;
   mesh.userData.frameIndex = -1;
@@ -1768,7 +2071,7 @@ function installPCutoutRigFor(racer, texture) {
   const oldSprite = racer.obj.userData.raceSprite;
   if (!oldSprite) return;
 
-  const rig = buildPCutoutRig(texture, raceSpriteLayout.P, racer.id);
+  const rig = buildPCutoutRig(texture, scaledRaceLayout("P"), racer.id);
   if (!rig) return;
 
   racer.obj.remove(oldSprite);
@@ -1815,7 +2118,7 @@ function installECutoutRigFor(racer, texture) {
   const oldSprite = racer.obj.userData.raceSprite;
   if (!oldSprite) return;
 
-  const rig = buildECutoutRig(texture, raceSpriteLayout.E, racer.id);
+  const rig = buildECutoutRig(texture, scaledRaceLayout("E"), racer.id);
   if (!rig) return;
 
   racer.obj.remove(oldSprite);
@@ -1860,7 +2163,7 @@ function installACutoutRigFor(racer, texture) {
   const oldSprite = racer.obj.userData.raceSprite;
   if (!oldSprite) return;
 
-  const rig = buildACutoutRig(texture, raceSpriteLayout.A, racer.id);
+  const rig = buildACutoutRig(texture, scaledRaceLayout("A"), racer.id);
   if (!rig) return;
 
   racer.obj.remove(oldSprite);
@@ -2063,7 +2366,7 @@ for (const morph of ["S", "P", "E", "A"]) {
 
       for (const racer of racers.filter((r) => r.morph === morph)) {
         racer.obj.children.forEach((child) => { child.visible = false; });
-        const raceLayout = raceSpriteLayout[morph];
+        const raceLayout = scaledRaceLayout(morph);
         let raceSprite;
         const raceMaterial = new THREE.SpriteMaterial({
           map: texture,
@@ -2192,7 +2495,7 @@ setLabMorph("S");
 let elapsed = 0;
 let last = performance.now();
 let paused = false;
-let view = isolatedProof ? "follow" : "race";
+let view = isolatedProof ? "follow" : (presentationMode ? "follow" : "race");
 let raceState = "countdown";
 let countdownRemaining = countdownDuration;
 let goFlashRemaining = 0;
@@ -2209,6 +2512,7 @@ const rankOf = (r) => ranks().findIndex((x) => x === r) + 1;
 function gapAhead(r, lane = Math.round(r.laneF)) {
   let gap = 999;
   for (const other of racers) {
+    if (presentationMode && other.morph !== "S") continue;
     if (other === r || other.finished || Math.round(other.laneF) !== lane) continue;
     const d = other.distance - r.distance;
     if (d > 0 && d < gap) gap = d;
@@ -2218,6 +2522,7 @@ function gapAhead(r, lane = Math.round(r.laneF)) {
 
 function laneFree(r, lane) {
   return racers.every((other) =>
+    (presentationMode && other.morph !== "S") ||
     other === r ||
     other.finished ||
     Math.round(other.laneF) !== lane ||
@@ -2402,6 +2707,7 @@ function update(dt) {
   const sec = raceDt / 1000;
 
   for (const r of racers) {
+    if (presentationMode && r.morph !== "S") continue;
     if (r.finished) {
       r.speed = 0;
       continue;
@@ -2455,7 +2761,7 @@ function update(dt) {
     const diff = target - r.speed;
     const maxStep = (diff > 0 ? r.accel : r.accel * 1.5) * sec;
     r.speed += THREE.MathUtils.clamp(diff, -maxStep, maxStep);
-    r.distance += Math.max(0, r.speed) * sec;
+    r.distance += Math.max(0, r.speed) * sec * (presentationMode ? 3.05 : 1);
 
     const load = Math.max(0, r.speed / r.cruise - 0.96);
     r.stamina = Math.max(0, r.stamina - (0.018 + 0.038 * load * load) * r.drain * raceDt / 1000);
@@ -2480,7 +2786,7 @@ function update(dt) {
 
     if (r.obj.userData.sRunAnimated) {
       const speedRatio = THREE.MathUtils.clamp(r.speed / Math.max(1, r.cruise), 0, 1.15);
-      const frameMs = THREE.MathUtils.lerp(145, 72, speedRatio);
+      const frameMs = THREE.MathUtils.lerp(145, 72, speedRatio) / (presentationMode ? 1.38 : 1);
       const phaseOffset = (r.id * 41) % Math.round(frameMs * sRunFrames.length);
       const frameIndex = Math.floor((elapsed + phaseOffset) / frameMs) % sRunFrames.length;
       applySRunFrame(r, frameIndex);
@@ -2509,9 +2815,11 @@ function update(dt) {
     }
 
     r.dustTimer = Math.max(0, (r.dustTimer ?? 0) - raceDt);
-    if (r.speed > 7 && r.dustTimer <= 0) {
+    if (r.speed > 7 && r.dustTimer <= 0 && (!presentationMode || r.morph === "S")) {
       spawnDust(r, tangent);
-      r.dustTimer = r.id === selectedId ? 155 : 265 + (r.id % 4) * 42;
+      r.dustTimer = presentationMode
+        ? (r.id === selectedId ? 92 : 148 + (r.id % 4) * 18)
+        : (r.id === selectedId ? 155 : 265 + (r.id % 4) * 42);
     }
 
     if (r.distance >= raceMeters) {
@@ -2558,11 +2866,13 @@ function setCamera() {
 
   const speedRatio = THREE.MathUtils.clamp(selected.speed / Math.max(1, selected.cruise), 0, 1.2);
   const targetFov = view === "follow"
-    ? THREE.MathUtils.lerp(isMobile ? 54 : 48, isMobile ? 72 : 68, speedRatio)
+    ? presentationMode
+      ? THREE.MathUtils.lerp(isMobile ? 56 : 52, isMobile ? 76 : 72, speedRatio)
+      : THREE.MathUtils.lerp(isMobile ? 54 : 48, isMobile ? 72 : 68, speedRatio)
     : view === "race"
       ? THREE.MathUtils.lerp(isMobile ? 54 : 48, isMobile ? 76 : 72, speedRatio)
       : (isMobile ? 50 : 42);
-  camera.fov = THREE.MathUtils.lerp(camera.fov, targetFov, 0.09);
+  camera.fov = THREE.MathUtils.lerp(camera.fov, targetFov, presentationMode ? 0.14 : 0.09);
   camera.updateProjectionMatrix();
 
   const lab = view === "lab";
@@ -2570,10 +2880,21 @@ function setCamera() {
   scene.fog = (lab || tactical) ? null : raceFog;
   scene.background = new THREE.Color(lab ? 0x202a35 : 0x9bc6dc);
   raceEnvironment.forEach((obj) => { obj.visible = !lab; });
-  racers.forEach((r) => { r.obj.visible = !lab && !tactical && (!isolatedProof || r.id === isolatedProofRacerId); });
-  ring.visible = !lab && !tactical;
+  racers.forEach((r) => {
+    r.obj.visible =
+      !lab &&
+      !tactical &&
+      (!isolatedProof || r.id === isolatedProofRacerId) &&
+      (!presentationMode || r.morph === "S");
+  });
+  ring.visible = !lab && !tactical && !presentationMode;
   racerShadows.forEach((shadow, index) => {
-    shadow.visible = !lab && !tactical && (!isolatedProof || racers[index].id === isolatedProofRacerId);
+    const racer = racers[index];
+    shadow.visible =
+      !lab &&
+      !tactical &&
+      (!isolatedProof || racer.id === isolatedProofRacerId) &&
+      (!presentationMode || racer.morph === "S");
   });
   tacticalMarkers.forEach((marker) => { marker.visible = tactical; });
   labGroup.visible = lab;
@@ -2594,19 +2915,31 @@ function setCamera() {
     const isolatedBack = aRigIsolatedProof ? -1.35 : eRigIsolatedProof ? -1.45 : pRigIsolatedProof ? -1.55 : -1.2;
     const isolatedSide = aRigIsolatedProof ? 4.85 : eRigIsolatedProof ? 5.05 : pRigIsolatedProof ? 4.8 : 4.1;
     const isolatedHeight = aRigIsolatedProof ? 1.85 : eRigIsolatedProof ? 2.18 : pRigIsolatedProof ? 1.95 : 1.72;
-    const followBack = isolatedProof ? (isMobile ? -1.5 : isolatedBack) : (isMobile ? -2.2 : -1.35);
-    const followSide = isolatedProof ? (isMobile ? 4.3 : isolatedSide) : (isMobile ? 4.8 : 3.95);
-    const followHeight = isolatedProof ? (isMobile ? 1.92 : isolatedHeight) : (isMobile ? 2.18 : 1.68);
-    const shake = Math.max(0, speedRatio - 0.48) * (isolatedProof ? 0.08 : 0.075);
+    const followBack = isolatedProof
+      ? (isMobile ? -1.5 : isolatedBack)
+      : presentationMode
+        ? (isMobile ? -4.75 : -4.95)
+        : (isMobile ? -2.2 : -1.35);
+    const followSide = isolatedProof
+      ? (isMobile ? 4.3 : isolatedSide)
+      : presentationMode
+        ? (isMobile ? 0.42 : 0.52)
+        : (isMobile ? 4.8 : 3.95);
+    const followHeight = isolatedProof
+      ? (isMobile ? 1.92 : isolatedHeight)
+      : presentationMode
+        ? (isMobile ? 1.24 : 1.14)
+        : (isMobile ? 2.18 : 1.68);
+    const shake = Math.max(0, speedRatio - 0.34) * (isolatedProof ? 0.075 : presentationMode ? 0.12 : 0.13);
     const desired = selectedPos.clone()
       .addScaledVector(tangent, followBack)
       .addScaledVector(side, followSide + Math.sin(elapsed * 0.023) * shake)
       .add(new THREE.Vector3(0, followHeight + Math.sin(elapsed * 0.031) * shake * 0.6, 0));
-    camera.position.lerp(desired, 0.15);
+    camera.position.lerp(desired, presentationMode ? 0.28 : 0.15);
     const lookTarget = selectedPos.clone()
-      .addScaledVector(tangent, 2.4)
-      .addScaledVector(side, Math.sin(elapsed * 0.017) * shake * 0.45)
-      .add(new THREE.Vector3(0, 0.50, 0));
+      .addScaledVector(tangent, presentationMode ? (3.70 + speedRatio * 1.45) : (3.8 + speedRatio * 1.4))
+      .addScaledVector(side, presentationMode ? 0.35 : Math.sin(elapsed * 0.017) * shake * 0.45)
+      .add(new THREE.Vector3(0, presentationMode ? 0.44 : 0.50, 0));
     camera.lookAt(lookTarget);
   } else if (view === "tactical") {
     camera.up.set(0, 0, -1);
@@ -2625,9 +2958,9 @@ function setCamera() {
     const leaderTangent = curve.getTangentAt(lt).normalize();
     const leaderSide = new THREE.Vector3(-leaderTangent.z, 0, leaderTangent.x);
 
-    const raceBack = isMobile ? -6.4 : -6.2;
-    const raceSide = isMobile ? 11.8 : 10.9;
-    const raceHeight = isMobile ? 5.1 : 4.65;
+    const raceBack = isMobile ? -5.6 : -5.0;
+    const raceSide = isMobile ? 10.4 : 9.2;
+    const raceHeight = isMobile ? 4.45 : 3.72;
     camera.position.lerp(
       center.clone().addScaledVector(leaderTangent, raceBack).addScaledVector(leaderSide, raceSide).add(new THREE.Vector3(0, raceHeight, 0)),
       0.065
@@ -2637,24 +2970,30 @@ function setCamera() {
   }
 
 
+  if (startGantry) {
+    startGantry.visible = !presentationMode || raceState === "countdown" || elapsed < 260;
+  }
+
   const speedFxStrength = (lab || tactical || raceState !== "running")
     ? 0
-    : THREE.MathUtils.smoothstep(speedRatio, 0.36, 1.12);
-  speedFx.style.opacity = String(speedFxStrength * (view === "follow" ? 0.72 : 0.48));
-  speedFx.style.setProperty("--speed-fx-rate", `${Math.max(0.18, 0.62 - speedFxStrength * 0.38).toFixed(2)}s`);
-  speedFx.style.setProperty("--speed-fx-stretch", `${(1 + speedFxStrength * 0.9).toFixed(2)}`);
+    : THREE.MathUtils.smoothstep(speedRatio, presentationMode ? 0.24 : 0.36, 1.12);
+  speedFx.style.opacity = String(speedFxStrength * (view === "follow" ? (presentationMode ? 0.96 : 0.86) : 0.64));
+  speedFx.style.setProperty("--speed-fx-rate", `${Math.max(0.11, 0.54 - speedFxStrength * 0.38).toFixed(2)}s`);
+  speedFx.style.setProperty("--speed-fx-stretch", `${(1 + speedFxStrength * 1.35).toFixed(2)}`);
 
   if (!lab && !tactical) {
     const aheadTangent = curve.getTangentAt((t + 0.008) % 1).normalize();
     const signedCurve = tangent.x * aheadTangent.z - tangent.z * aheadTangent.x;
-    const targetRoll = THREE.MathUtils.clamp(signedCurve * 2.7, -0.07, 0.07) * speedRatio;
+    const rollLimit = presentationMode ? 0.12 : 0.07;
+    const rollGain = presentationMode ? 4.2 : 2.7;
+    const targetRoll = THREE.MathUtils.clamp(signedCurve * rollGain, -rollLimit, rollLimit) * speedRatio;
     camera.rotateZ(targetRoll);
     stage.dataset.cameraSpeedRoll = targetRoll.toFixed(4);
   }
   const selectedCameraDistance = camera.position.distanceTo(selected.obj.position);
   racers.forEach((r) => {
     let targetOpacity = 1;
-    if (view === "follow" && r.id !== selectedId && r.obj.visible) {
+    if (view === "follow" && !presentationMode && r.id !== selectedId && r.obj.visible) {
       const d = camera.position.distanceTo(r.obj.position);
       if (d < selectedCameraDistance - 0.55) targetOpacity = 0.02;
       else if (d < selectedCameraDistance + 0.20) targetOpacity = 0.22;
@@ -2837,7 +3176,9 @@ function resetRace() {
       r.agent.pendingPolicyKey = null;
     }
 
-    r.distance = Math.max(0, (17 - i) * 1.1);
+    r.distance = presentationMode && r.morph === "S"
+      ? (4 - Math.floor(i / 4)) * 3.35
+      : Math.max(0, (17 - i) * 1.1);
     r.lane = i % laneCount;
     r.laneF = i % laneCount;
     r.stamina = 100;

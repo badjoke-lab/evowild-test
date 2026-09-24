@@ -1,0 +1,30 @@
+name: visual-quality
+
+on:
+  push:
+    branches: ["feat/2p5d-race-quality-floor-v2"]
+  workflow_dispatch:
+
+concurrency:
+  group: visual-quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  cinematic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test tests/race.spec.js -g "record cinematic race presentation" --project=desktop-chromium
+      - name: Upload cinematic capture
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cinematic-race-quick
+          path: test-results/visuals/desktop-cinematic-race*
+          if-no-files-found: warn

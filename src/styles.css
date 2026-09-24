@@ -25,6 +25,54 @@ body.p-rig-proof .stage, body.e-rig-proof .stage, body.a-rig-proof .stage { min-
   position: relative; min-height: 500px; aspect-ratio: 16 / 9;
   border: 1px solid #283542; border-radius: 14px; overflow: hidden; background: #0c151e;
 }
+
+body.presentation-mode {
+  background: #05080b;
+}
+body.presentation-mode #app {
+  max-width: none;
+  padding: 0;
+}
+body.presentation-mode .topbar,
+body.presentation-mode .sidebar,
+body.presentation-mode .hud-view,
+body.presentation-mode .hud-race,
+body.presentation-mode .hud-selected,
+body.presentation-mode .hud-agent,
+body.presentation-mode .hud-mini {
+  display: none !important;
+}
+body.presentation-mode .layout {
+  display: block;
+}
+body.presentation-mode .stage {
+  width: 100vw;
+  height: 100svh;
+  min-height: 0;
+  aspect-ratio: auto;
+  border: 0;
+  border-radius: 0;
+}
+body.presentation-mode .hud-race {
+  top: 18px;
+  right: 18px;
+  min-width: 250px;
+  padding: 9px 12px;
+  background: rgba(5,10,15,.48);
+  border-color: rgba(255,255,255,.10);
+  backdrop-filter: blur(6px);
+}
+body.presentation-mode .agent-toast {
+  font-size: 10px;
+  background: rgba(5,10,15,.68);
+}
+body.presentation-mode .race-banner {
+  background: rgba(5,10,15,.56);
+}
+body.presentation-mode .speed-fx {
+  inset: -10%;
+}
+
 #game { width: 100%; height: 100%; display: block; }
 .speed-fx {
   --speed-fx-rate: .42s;

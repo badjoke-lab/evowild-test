@@ -125,13 +125,15 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-race2p5d", "loaded", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-speed-fx", "dynamic", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-track-edge-rhythm", "curb-v1", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-track-rhythm-objects", "dense-v2", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-race-quality-pass", "floor-v2", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-cycle", "loaded", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-frames", "6", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-sheet", "loaded", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-source", "sprite-sheet", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-animated-racers", "5", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-follow-occlusion-fade", "enabled", { timeout: 8000 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v6", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v18", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-hud-telemetry", "active", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-visual", "enabled", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-agent-toast", "enabled", { timeout: 8000 });
@@ -194,7 +196,7 @@ test("record 2.5D race speed proof", async ({ browser }, testInfo) => {
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-source", "sprite-sheet", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-animated-racers", "5", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-follow-occlusion-fade", "enabled", { timeout: 8000 });
-  await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v6", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v18", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-hud-telemetry", "active", { timeout: 8000 });
   await expect(page.locator("#stage")).toHaveAttribute("data-s-run-proof", "isolated", { timeout: 8000 });
   await page.getByRole("button", { name: "3 Follow" }).click();
@@ -204,6 +206,41 @@ test("record 2.5D race speed proof", async ({ browser }, testInfo) => {
   const raw = await video.path();
   const finalPath = `${outDir}/desktop-2p5d-animated-s-proof.webm`;
   fs.renameSync(raw, finalPath);
+  await context.close();
+});
+
+
+test("record cinematic race presentation", async ({ browser }, testInfo) => {
+  test.setTimeout(50000);
+  test.skip(testInfo.project.name !== "desktop-chromium");
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const context = await browser.newContext({
+    viewport: { width: 1280, height: 720 },
+    recordVideo: { dir: outDir, size: { width: 1280, height: 720 } }
+  });
+  const page = await context.newPage();
+  await page.goto("http://127.0.0.1:4173/evowild-test/?presentation=1", { waitUntil: "networkidle" });
+  await expect(page.locator("#stage")).toHaveAttribute("data-presentation-mode", "cinematic", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-presentation-field", "s-only-5", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-presentation-speed", "3.05x", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-presentation-tint", "s-variant-v1", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-selected-racer", "17", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-track-presentation", "v18", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-four-morph-motion", "ready", { timeout: 8000 });
+  await expect(page.locator("#stage")).toHaveAttribute("data-race-state", "running", { timeout: 8000 });
+
+  await page.waitForTimeout(4200);
+  await page.screenshot({ path: `${outDir}/desktop-cinematic-race.png`, fullPage: true });
+  await page.waitForTimeout(4200);
+  await page.screenshot({ path: `${outDir}/desktop-cinematic-race-late.png`, fullPage: true });
+
+  const video = page.video();
+  await page.close();
+  const raw = await video.path();
+  fs.renameSync(raw, `${outDir}/desktop-cinematic-race.webm`);
   await context.close();
 });
 
