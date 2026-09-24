@@ -1,18 +1,33 @@
 {
-  "source_space": "tencent/Hunyuan3D-2mv",
-  "api": "/shape_generation",
-  "caption": "slim futuristic quadruped racing creature, silver white body, cool blue and cyan accents, four clearly separated long legs, long narrow head, two upright horn ear structures, backward crest blades, blade-like fin tail, neutral standing pose, full body",
+  "space": "tencent/Hunyuan3D-2mv",
+  "endpoint": "/shape_generation",
+  "caption": "slim futuristic quadruped racing creature, four clearly separated long legs, long narrow head, two upright horn-ear structures, backward crest blades, blade-like fin tail, head-mounted Cue Band device on both sides, silver white body with cool blue and cyan accents",
+  "inputs": {
+    "front": "hf-poc/input/02_FRONT_width_reference.jpg",
+    "back": "hf-poc/input/03_BACK_rear_reference.jpg",
+    "left": "hf-poc/input/01_SIDE_authority.jpg",
+    "right": "hf-poc/runtime-hunyuan2mv/01_SIDE_authority_mirrored_right.jpg"
+  },
+  "right_view": "hf-poc/runtime-hunyuan2mv/01_SIDE_authority_mirrored_right.jpg",
+  "variant": "semantic_4view_front_back_side_mirror",
   "steps": 5,
   "guidance_scale": 5.0,
-  "seed": 1234,
+  "seed_requested": 1234,
+  "seed_returned": 1234,
   "octree_resolution": 256,
+  "remove_background": true,
+  "num_chunks": 8000,
+  "randomize_seed": false,
+  "output_file": "evowild_s_hunyuan2mv_turbo.glb",
+  "output_bytes": 3872620,
+  "magic_hex": "676c5446",
   "mesh_stats": {
     "model": {
       "shapegen": "tencent/Hunyuan3D-2mv/hunyuan3d-dit-v2-mv-turbo",
       "texgen": "tencent/Hunyuan3D-2"
     },
     "params": {
-      "caption": "slim futuristic quadruped racing creature, silver white body, cool blue and cyan accents, four clearly separated long legs, long narrow head, two upright horn ear structures, backward crest blades, blade-like fin tail, neutral standing pose, full body",
+      "caption": "slim futuristic quadruped racing creature, four clearly separated long legs, long narrow head, two upright horn-ear structures, backward crest blades, blade-like fin tail, head-mounted Cue Band device on both sides, silver white body with cool blue and cyan accents",
       "steps": 5,
       "guidance_scale": 5.0,
       "seed": 1234,
@@ -20,17 +35,13 @@
       "check_box_rembg": true,
       "num_chunks": 8000
     },
-    "number_of_faces": 242426,
-    "number_of_vertices": 83107,
+    "number_of_faces": 241694,
+    "number_of_vertices": 80897,
     "time": {
-      "remove background": 2.7491211891174316,
-      "shape generation": 2.112614631652832,
-      "export to trimesh": 0.03757953643798828,
-      "total": 4.901767730712891
+      "remove background": 4.039705514907837,
+      "shape generation": 2.5387156009674072,
+      "export to trimesh": 0.048094749450683594,
+      "total": 6.630476713180542
     }
-  },
-  "server_path": "/tmp/gradio/6a4d9bfa1cb23eab25a1e760919c770664787186e89c4235c64ce1ec75183843/white_mesh.glb",
-  "download_url": "https://tencent-hunyuan3d-2mv.hf.space/file=/tmp/gradio/6a4d9bfa1cb23eab25a1e760919c770664787186e89c4235c64ce1ec75183843/white_mesh.glb",
-  "output_filename": "evowild_s_hunyuan3d2mv.glb",
-  "output_bytes": 3907912
+  }
 }
