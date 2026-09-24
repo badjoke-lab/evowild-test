@@ -508,31 +508,32 @@ function drawRacers(nowSec) {
 function drawSpeedFX() {
   const focus = selected();
   const ratio = clamp(focus.speed / MAX_SPEED, 0, 1);
-  if (ratio < 0.45) return;
+  if (ratio < 0.28) return;
 
-  const intensity = (ratio - 0.45) / 0.55;
+  const intensity = clamp((ratio - 0.28) / 0.72, 0, 1);
   ctx.save();
-  ctx.globalAlpha = intensity * 0.20;
+  ctx.globalAlpha = 0.07 + intensity * 0.24;
   ctx.strokeStyle = "#d8f7ff";
   ctx.lineCap = "round";
 
-  const count = Math.floor(14 + intensity * 34);
+  const count = Math.floor(20 + intensity * 46);
   for (let i = 0; i < count; i++) {
-    const seed = i * 11.7 + Math.floor(elapsed * 9);
-    const y = (pseudoNoise(seed) * height);
+    const seed = i * 11.7 + Math.floor(elapsed * 13);
+    const y = pseudoNoise(seed) * height;
     const side = i % 2 ? 1 : -1;
-    const x0 = side < 0 ? pseudoNoise(seed + 2) * width * 0.22 : width - pseudoNoise(seed + 2) * width * 0.22;
-    const len = 15 + pseudoNoise(seed + 5) * 90 * intensity;
-    ctx.lineWidth = 0.6 + pseudoNoise(seed + 8) * 1.6;
+    const edgeBand = width * (0.14 + pseudoNoise(seed + 2) * 0.17);
+    const x0 = side < 0 ? edgeBand : width - edgeBand;
+    const len = 24 + pseudoNoise(seed + 5) * 125 * intensity;
+    ctx.lineWidth = 0.7 + pseudoNoise(seed + 8) * 1.8;
     ctx.beginPath();
     ctx.moveTo(x0, y);
-    ctx.lineTo(x0 + side * len, y + (pseudoNoise(seed + 1) - .5) * 4);
+    ctx.lineTo(x0 + side * len, y + (pseudoNoise(seed + 1) - .5) * 5);
     ctx.stroke();
   }
   ctx.restore();
 
-  if (intensity > 0.45) {
-    const shake = (intensity - 0.45) * 1.7;
+  if (intensity > 0.36) {
+    const shake = (intensity - 0.36) * 1.5;
     stage.style.transform = `translate(${Math.sin(elapsed * 45) * shake}px,${Math.cos(elapsed * 37) * shake * .55}px)`;
   } else {
     stage.style.transform = "";
