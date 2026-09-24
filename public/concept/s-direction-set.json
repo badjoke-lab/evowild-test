@@ -12,29 +12,46 @@
   ],
   "directions": {
     "side": {
-      "status": "implemented",
-      "asset": "s-side-run-sheet.svg"
+      "status": "implemented_animated",
+      "asset": "s-side-run-sheet.svg",
+      "usable_for_race": true
     },
     "front_3q": {
       "status": "missing",
-      "asset": "s-front-3q-run-sheet.webp"
+      "asset": "s-front-3q-run-sheet.webp",
+      "usable_for_race": false
     },
     "front": {
-      "status": "implemented",
-      "asset": "s-front-run-sheet.webp"
+      "status": "reference_only_static",
+      "asset": "s-front-run-sheet.webp",
+      "usable_for_race": false
     },
     "back_3q": {
       "status": "missing",
-      "asset": "s-back-3q-run-sheet.webp"
+      "asset": "s-back-3q-run-sheet.webp",
+      "usable_for_race": false
     },
     "back": {
-      "status": "implemented",
-      "asset": "s-back-run-sheet.webp"
+      "status": "reference_only_static",
+      "asset": "s-back-run-sheet.webp",
+      "usable_for_race": false
     }
   },
   "policy": {
     "no_cross_direction_reuse": true,
     "no_side_sprite_for_chase_or_front_views": true,
     "no_design_invention_from_missing_views": true
+  },
+  "quality_gate": {
+    "race_ready_directions": [
+      "side"
+    ],
+    "blocked_directions": [
+      "front_3q",
+      "front",
+      "back_3q",
+      "back"
+    ],
+    "reason": "Only SIDE has a genuine six-frame running cycle. FRONT/BACK currently contain repeated static reference frames and must not be treated as animation."
   }
 }
