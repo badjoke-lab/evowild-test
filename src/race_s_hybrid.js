@@ -145,9 +145,11 @@ function buildTrack(){
   geo.computeVertexNormals();
 
   const mat=new THREE.MeshStandardMaterial({
-    color:0x242b30,
-    roughness:.80,
-    metalness:.09
+    color:0x12191e,
+    emissive:0x05090c,
+    emissiveIntensity:.28,
+    roughness:.72,
+    metalness:.14
   });
   const road=new THREE.Mesh(geo,mat);
   road.receiveShadow=false;
@@ -193,46 +195,43 @@ ground.position.set(RACE_METERS*WORLD_SCALE*.5,-2.7,0);
 scene.add(ground);
 
 function buildTracksideStructures(){
-  const count=64;
-  const bodyGeo=new THREE.BoxGeometry(.54,3.4,1.05);
-  const lightGeo=new THREE.BoxGeometry(.58,.12,1.10);
+  const count=72;
+  const bodyGeo=new THREE.BoxGeometry(.34,1.15,.72);
+  const lightGeo=new THREE.BoxGeometry(.38,.08,.78);
   const bodyMat=new THREE.MeshStandardMaterial({
-    color:0x182529,
-    roughness:.68,
-    metalness:.26
+    color:0x142226,
+    roughness:.64,
+    metalness:.30
   });
   const lightMat=new THREE.MeshStandardMaterial({
-    color:0x65d7ef,
-    emissive:0x176579,
-    emissiveIntensity:1.65,
-    roughness:.35
+    color:0x7be5f7,
+    emissive:0x1b7790,
+    emissiveIntensity:1.9,
+    roughness:.28
   });
   const bodies=new THREE.InstancedMesh(bodyGeo,bodyMat,count);
   const lights=new THREE.InstancedMesh(lightGeo,lightMat,count);
   const matrix=new THREE.Matrix4();
   const quat=new THREE.Quaternion();
   const pos=new THREE.Vector3();
-  const scale=new THREE.Vector3();
+  const scale=new THREE.Vector3(1,1,1);
 
   for(let i=0;i<count;i++){
-    const m=30+i*(RACE_METERS-60)/(count-1);
+    const m=24+i*(RACE_METERS-48)/(count-1);
     const p=trackPoint(m,new THREE.Vector3());
     const side=sideAt(m,new THREE.Vector3());
-    const seed=(Math.sin(i*17.371)*.5+.5);
     const sign=i%2===0?1:-1;
-    const offset=sign*(10.5+seed*7.5);
+    const offset=sign*(ROAD_HALF+2.35+(i%5)*.25);
     pos.copy(p).addScaledVector(side,offset);
-    const h=.70+seed*.85;
-    pos.y+=1.7*h-.35;
+    pos.y+=.42;
     const yaw=Math.atan2(side.x,side.z)+(sign<0?Math.PI:0);
-    quat.setFromAxisAngle(up,yaw+.15*Math.sin(i*.7));
-    scale.set(1,h,1);
+    quat.setFromAxisAngle(up,yaw);
     matrix.compose(pos,quat,scale);
     bodies.setMatrixAt(i,matrix);
 
-    const capPos=pos.clone();
-    capPos.y+=1.63*h;
-    matrix.compose(capPos,quat,scale.set(1,1,1));
+    const cap=pos.clone();
+    cap.y+=.62;
+    matrix.compose(cap,quat,scale);
     lights.setMatrixAt(i,matrix);
   }
   scene.add(bodies,lights);
@@ -279,17 +278,30 @@ function buildSectorGates(){
     group.position.copy(p);
     group.rotation.y=yaw;
 
-    const mat=new THREE.MeshStandardMaterial({color:0x17272e,roughness:.65,metalness:.22});
-    const accent=new THREE.MeshStandardMaterial({color:0x7bdcf4,emissive:0x17495a,roughness:.55});
-    const left=new THREE.Mesh(new THREE.BoxGeometry(.28,4.2,.28),mat);
+    const dark=new THREE.MeshStandardMaterial({
+      color:0x15252b,
+      roughness:.58,
+      metalness:.32
+    });
+    const glow=new THREE.MeshStandardMaterial({
+      color:0x78e1f5,
+      emissive:0x1a7187,
+      emissiveIntensity:2.0,
+      roughness:.26
+    });
+
+    const left=new THREE.Mesh(new THREE.BoxGeometry(.18,2.3,.18),dark);
     const right=left.clone();
-    left.position.set(0,2.1,-ROAD_HALF-.35);
-    right.position.set(0,2.1,ROAD_HALF+.35);
-    const top=new THREE.Mesh(new THREE.BoxGeometry(.32,.38,ROAD_HALF*2+.98),mat);
-    top.position.set(0,4.05,0);
-    const strip=new THREE.Mesh(new THREE.BoxGeometry(.34,.08,ROAD_HALF*2+.98),accent);
-    strip.position.set(-.02,4.26,0);
-    group.add(left,right,top,strip);
+    left.position.set(0,1.15,-ROAD_HALF-.55);
+    right.position.set(0,1.15,ROAD_HALF+.55);
+
+    const top=new THREE.Mesh(
+      new THREE.BoxGeometry(.16,.12,ROAD_HALF*2+1.28),
+      glow
+    );
+    top.position.set(0,2.28,0);
+
+    group.add(left,right,top);
     scene.add(group);
   }
 }
@@ -299,7 +311,7 @@ function makeRacers(){
   return Array.from({length:FIELD_SIZE},(_,i)=>({
     id:i+1,
     name:NAMES[i],
-    distance:i*5.2,
+    distance:i*6.4,
     speed:0,
     cruise:CRUISE[i],
     accel:ACCEL[i],
@@ -564,9 +576,9 @@ function updateCamera(){
 
   const mobile=innerWidth<700;
   const desired=p.clone()
-    .addScaledVector(side,mobile?11.2:12.4)
-    .addScaledVector(t,-3.8)
-    .add(new THREE.Vector3(0,mobile?5.3:5.5,0));
+    .addScaledVector(side,mobile?10.2:11.0)
+    .addScaledVector(t,-4.9)
+    .add(new THREE.Vector3(0,mobile?4.6:4.7,0));
 
   const speedNorm=clamp(focus.speed/31.5,0,1);
   const shake=(speedNorm>.72?(speedNorm-.72)*.09:0);
@@ -575,11 +587,11 @@ function updateCamera(){
 
   camera.position.lerp(desired,mobile?.14:.10);
 
-  const look=p.clone().addScaledVector(t,5.4).add(new THREE.Vector3(0,.82,0));
+  const look=p.clone().addScaledVector(t,6.4).add(new THREE.Vector3(0,.72,0));
   cameraLook.lerp(look,.12);
   camera.lookAt(cameraLook);
 
-  const targetFov=(mobile?43:38)+speedNorm*4.2;
+  const targetFov=(mobile?41:36.5)+speedNorm*3.4;
   camera.fov=lerp(camera.fov,targetFov,.08);
   camera.updateProjectionMatrix();
 
