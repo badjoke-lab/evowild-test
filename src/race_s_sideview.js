@@ -372,7 +372,7 @@ function drawTrack() {
     for(let m=leftM;m<=rightM+step;m+=step){
       const x=screenXForMeters(m);
       const bank=courseBank(m);
-      const farDepth=lane/3*2-1;
+      const farDepth=lane/4*2-1;
       const y=trackBaseY(m)+far+bank*farDepth;
       if(first){ctx.moveTo(x,y);first=false;}else ctx.lineTo(x,y);
     }
