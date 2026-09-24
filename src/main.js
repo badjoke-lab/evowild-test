@@ -1,11 +1,44 @@
 import * as THREE from "three";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
+import { CREATURE_3D_PROFILES, cloneCreature3D, createStaticCreatureInstanceBatch, fitCreature3D, loadCreature3D } from "./creature3d.js";
 import "./styles.css";
 
 const canvas = document.querySelector("#game");
 const stage = document.querySelector("#stage");
 const isMobile = matchMedia("(pointer: coarse)").matches || innerWidth < 800;
+const query = new URLSearchParams(location.search);
+const sf3dBenchCount = Math.min(18, Math.max(0, Number.parseInt(query.get("sf3dBench") || "0", 10) || 0));
+const sf3dBenchSide = query.get("sf3dSide") === "front" ? "front" : "double";
+const sf3dBenchMode = query.get("sf3dMode") === "instance" ? "instance" : "clone";
+const sf3dRaceLodBench = query.get("sf3dRaceLodBench") === "1";
+const sf3dRaceStress = query.get("sf3dRaceStress") === "1";
+const sf3dRaceStressMode = query.get("sf3dRaceStressMode") === "instance" ? "instance" : "clone";
+const sf3dMaterialMode = query.get("sf3dMaterialMode") === "lite" ? "lite" : "full";
+const hunyuanRacePack = query.get("hunyuanRacePack") === "1";
+const hunyuanRacePackSide = query.get("hunyuanRacePackSide") === "double" ? "double" : "front";
+const renderScale = Math.min(1, Math.max(0.5, Number.parseFloat(query.get("renderScale") || "1") || 1));
+const modelYawDegrees = Number.parseFloat(query.get("modelYaw") || "0") || 0;
+const modelYawRadians = THREE.MathUtils.degToRad(modelYawDegrees);
+let sf3dBenchGroup = null;
+let sf3dBenchStartedAt = 0;
+let sf3dBenchFrameTimes = [];
+let sf3dBenchReady = false;
+let sf3dTrianglesPerInstance = 0;
+let sf3dRaceLodBenchStartedAt = 0;
+let sf3dRaceLodBenchFrameTimes = [];
+let sf3dRaceLodBenchReady = false;
+let sf3dRaceStressStartedAt = 0;
+let sf3dRaceStressFrames = [];
+let sf3dRaceStressReady = false;
+let sf3dRaceStressBatches = null;
+let sf3dRaceStressConfig = null;
+let sf3dRaceStressLevelCounts = [];
+let hunyuanRacePackBatches = null;
+let hunyuanRacePackCounts = [0, 0, 0];
+let hunyuanRacePackRiggedSelected = null;
+let sf3dLabMixer = null;
+const sf3dRaceMixers = [];
 
 const runtimeStatus = document.createElement("div");
 runtimeStatus.className = "runtime-status";
@@ -31,7 +64,9 @@ try {
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
-  renderer.setPixelRatio(isMobile ? Math.min(devicePixelRatio, 1.5) : Math.min(devicePixelRatio, 1.25));
+  const basePixelRatio = isMobile ? Math.min(devicePixelRatio, 1.5) : Math.min(devicePixelRatio, 1.25);
+  renderer.setPixelRatio(basePixelRatio * renderScale);
+  stage.dataset.renderScale = String(renderScale);
   renderer.shadowMap.enabled = false;
 } catch (error) {
   failRuntime(error);
@@ -506,6 +541,8 @@ scene.add(labGroup);
 let activeLabMorph = "S";
 let dedicatedS = null;
 let dedicatedSReady = false;
+let sf3dLab = null;
+let sf3dReady = false;
 
 const conceptSprites = new Map();
 const conceptTextures = new Map();
@@ -541,7 +578,7 @@ for (const morph of ["S", "P", "E", "A"]) {
       sprite.name = `Concept_${morph}_2_5D`;
       sprite.position.set(0, layout.y, 0.15);
       sprite.scale.set(layout.scale[0], layout.scale[1], 1);
-      sprite.visible = activeLabMorph === morph;
+      sprite.visible = activeLabMorph === morph && !(morph === "S" && sf3dReady);
       conceptSprites.set(morph, sprite);
       conceptReady.add(morph);
       labGroup.add(sprite);
@@ -556,6 +593,793 @@ for (const morph of ["S", "P", "E", "A"]) {
     }
   );
 }
+
+function makeLiteMaterialProfile(profile) {
+  return {
+    ...profile,
+    id: `${profile.id}-lite-runtime`,
+    material: {
+      ...(profile.material || {}),
+      preserveBaseColorMap: true,
+      preserveNormalMap: false,
+      preserveRoughnessMap: false,
+      preserveMetalnessMap: false,
+      maxAnisotropy: 1,
+      metalness: 0.0,
+      minRoughness: Math.max(0.68, profile.material?.minRoughness ?? 0.68)
+    }
+  };
+}
+
+const sf3dVariant = query.get("sf3dVariant");
+const sf3dBaseProfile = sf3dVariant === "hunyuanrigged"
+  ? CREATURE_3D_PROFILES.sHunyuan2mvRigged
+  : sf3dVariant === "hunyuanstyled"
+  ? CREATURE_3D_PROFILES.sHunyuan2mvStyled
+  : sf3dVariant === "hunyuan2mv"
+    ? CREATURE_3D_PROFILES.sHunyuan2mvRaw
+  : sf3dVariant === "hunyuanclean"
+    ? CREATURE_3D_PROFILES.sHunyuan2mvClean
+    : sf3dVariant === "hunyuanlod1"
+      ? CREATURE_3D_PROFILES.sHunyuan2mvLod1
+    : sf3dVariant === "hunyuanlod2"
+      ? CREATURE_3D_PROFILES.sHunyuan2mvLod2
+    : sf3dVariant === "hunyuanlod3"
+      ? CREATURE_3D_PROFILES.sHunyuan2mvLod3
+    : sf3dVariant === "hunyuanlod4"
+      ? CREATURE_3D_PROFILES.sHunyuan2mvLod4
+      : sf3dVariant === "lod1"
+    ? CREATURE_3D_PROFILES.sSf3dCorrectedLod1
+  : sf3dVariant === "lod2lite"
+    ? CREATURE_3D_PROFILES.sSf3dCorrectedLod2Lite
+    : sf3dVariant === "lod3lite"
+      ? CREATURE_3D_PROFILES.sSf3dCorrectedLod3Lite
+    : sf3dVariant === "lod2"
+      ? CREATURE_3D_PROFILES.sSf3dCorrectedLod2
+      : sf3dVariant === "lod3"
+        ? CREATURE_3D_PROFILES.sSf3dCorrectedLod3
+    : sf3dVariant === "triposr3q"
+      ? CREATURE_3D_PROFILES.sTripoSr3q
+      : sf3dVariant === "triposr"
+        ? CREATURE_3D_PROFILES.sTripoSrSide
+        : sf3dVariant === "side"
+          ? CREATURE_3D_PROFILES.sSf3dSide
+          : sf3dVariant === "white"
+            ? CREATURE_3D_PROFILES.sSf3dWhite
+            : CREATURE_3D_PROFILES.sSf3dCorrected;
+
+const sf3dProfile = sf3dMaterialMode === "lite" && (sf3dVariant === "lod2" || sf3dVariant === "lod3")
+  ? makeLiteMaterialProfile(sf3dBaseProfile)
+  : sf3dBaseProfile;
+
+function setupSf3dBenchmark(source, count) {
+  if (!count) return;
+
+  sf3dBenchGroup = new THREE.Group();
+  sf3dBenchGroup.name = `SF3D_Benchmark_${sf3dBenchMode}_${count}`;
+  const columns = Math.min(6, count);
+  const rows = Math.ceil(count / columns);
+  const transforms = Array.from({ length: count }, (_, i) => {
+    const column = i % columns;
+    const row = Math.floor(i / columns);
+    return {
+      position: [
+        (column - (columns - 1) / 2) * 1.42,
+        0,
+        (row - (rows - 1) / 2) * 1.18
+      ],
+      rotation: [0, (column - (columns - 1) / 2) * 0.035, 0]
+    };
+  });
+
+  if (sf3dBenchMode === "instance") {
+    const batch = createStaticCreatureInstanceBatch(source, {
+      renderer,
+      profile: sf3dProfile,
+      placement: "benchmark",
+      count,
+      materialSide: sf3dBenchSide,
+      transforms
+    });
+
+    if (batch.supported) {
+      sf3dBenchGroup.add(batch.object);
+      stage.dataset.sf3dBenchInstancing = "supported";
+    } else {
+      stage.dataset.sf3dBenchInstancing = `unsupported:${batch.reason}`;
+      sf3dBenchReady = true;
+      stage.dataset.sf3dBench = "unsupported";
+      window.__sf3dBench = {
+        count,
+        mode: sf3dBenchMode,
+        materialSide: sf3dBenchSide,
+        supported: false,
+        reason: batch.reason
+      };
+      return;
+    }
+  } else {
+    for (let i = 0; i < count; i++) {
+      const model = fitCreature3D(cloneCreature3D(source), {
+        renderer,
+        profile: sf3dProfile,
+        placement: "benchmark",
+        materialSide: sf3dBenchSide
+      });
+      const transform = transforms[i];
+      model.position.x += transform.position[0];
+      model.position.z += transform.position[2];
+      model.rotation.y += transform.rotation[1];
+      sf3dBenchGroup.add(model);
+    }
+  }
+
+  if (sf3dLab) sf3dLab.visible = false;
+  conceptSprites.forEach((sprite) => { sprite.visible = false; });
+  labGroup.add(sf3dBenchGroup);
+  view = "lab";
+  sf3dBenchStartedAt = performance.now();
+  sf3dBenchFrameTimes = [];
+  sf3dBenchReady = false;
+  stage.dataset.sf3dBench = "running";
+  stage.dataset.sf3dBenchCount = String(count);
+  stage.dataset.sf3dBenchSide = sf3dBenchSide;
+  stage.dataset.sf3dBenchMode = sf3dBenchMode;
+}
+
+function profileForStress(profile, level) {
+  if (sf3dMaterialMode !== "lite" || level < 2) return profile;
+  return makeLiteMaterialProfile(profile);
+}
+
+function setupRaceStress(baseSource, baseProfile, lodData, config = {}) {
+  if (!sf3dRaceStress) return;
+
+  const distances = config.distances || [9, 18, 30];
+  if (lodData.length !== distances.length) {
+    throw new Error(`Race stress LOD mismatch: ${lodData.length} assets for ${distances.length} distances`);
+  }
+
+  const levelData = [
+    {
+      source: baseSource,
+      profile: profileForStress(baseProfile, 0),
+      triangles: Number(config.baseTriangles) || 0
+    },
+    ...lodData.map((data, index) => ({
+      source: data.source,
+      profile: profileForStress(data.profile, index + 1),
+      triangles: Number(data.stats?.triangles) || 0
+    }))
+  ];
+  const materialSide = config.materialSide || "front";
+
+  sf3dRaceStressConfig = {
+    label: config.label || baseProfile.id,
+    distances: [...distances],
+    profiles: levelData.map((level) => level.profile.id),
+    triangles: levelData.map((level) => level.triangles),
+    materialSide
+  };
+  sf3dRaceStressLevelCounts = Array(levelData.length).fill(0);
+
+  for (const racer of racers) {
+    racer.obj.children.forEach((child) => { child.visible = false; });
+  }
+
+  if (sf3dRaceStressMode === "instance") {
+    sf3dRaceStressBatches = levelData.map((level) => {
+      const batch = createStaticCreatureInstanceBatch(level.source, {
+        renderer,
+        profile: level.profile,
+        placement: "race",
+        count: racers.length,
+        materialSide
+      });
+      if (!batch.supported) {
+        throw new Error(`Dynamic instancing unsupported for ${level.profile.id}: ${batch.reason}`);
+      }
+      batch.object.count = 0;
+      scene.add(batch.object);
+      return batch;
+    });
+  } else {
+    for (const racer of racers) {
+      const lod = new THREE.LOD();
+      lod.name = `${sf3dRaceStressConfig.label}_RaceStress_${racer.id}`;
+
+      levelData.forEach((level, index) => {
+        const model = fitCreature3D(cloneCreature3D(level.source), {
+          renderer,
+          profile: level.profile,
+          placement: "race",
+          materialSide
+        });
+        lod.addLevel(model, index === 0 ? 0 : distances[index - 1]);
+      });
+
+      racer.obj.add(lod);
+      racer.obj.userData.sf3dStressLod = lod;
+    }
+  }
+
+  view = "race";
+  stage.dataset.sf3dRaceStress = "running";
+  stage.dataset.sf3dRaceStressMode = sf3dRaceStressMode;
+  stage.dataset.sf3dRaceStressLabel = sf3dRaceStressConfig.label;
+  stage.dataset.sf3dRaceStressDistances = distances.join(",");
+  stage.dataset.sf3dRaceStressProfiles = sf3dRaceStressConfig.profiles.join(",");
+  stage.dataset.sf3dMaterialMode = sf3dMaterialMode;
+  stage.dataset.sf3dRaceStressRacers = String(racers.length);
+  sf3dRaceStressStartedAt = performance.now();
+  sf3dRaceStressFrames = [];
+  sf3dRaceStressReady = false;
+}
+
+function updateRaceStressInstances() {
+  if (!sf3dRaceStress || sf3dRaceStressMode !== "instance" || !sf3dRaceStressBatches || !sf3dRaceStressConfig) return;
+
+  const counts = Array(sf3dRaceStressBatches.length).fill(0);
+  const finalMatrix = new THREE.Matrix4();
+  const distances = sf3dRaceStressConfig.distances;
+
+  for (const racer of racers) {
+    racer.obj.updateMatrixWorld(true);
+    const distance = camera.position.distanceTo(racer.obj.position);
+    let level = 0;
+    while (level < distances.length && distance >= distances[level]) level += 1;
+    const batch = sf3dRaceStressBatches[level];
+    finalMatrix.multiplyMatrices(racer.obj.matrixWorld, batch.prototypeMatrix);
+    batch.object.setMatrixAt(counts[level], finalMatrix);
+    counts[level] += 1;
+  }
+
+  for (let i = 0; i < sf3dRaceStressBatches.length; i++) {
+    const batch = sf3dRaceStressBatches[i];
+    batch.object.count = counts[i];
+    batch.object.instanceMatrix.needsUpdate = true;
+  }
+
+  sf3dRaceStressLevelCounts = counts;
+  stage.dataset.sf3dRaceStressCounts = counts.join(",");
+}
+
+function sampleRaceStress(now, frameMs) {
+  if (!sf3dRaceStress || !sf3dRaceStressStartedAt || sf3dRaceStressReady || !sf3dRaceStressConfig) return;
+  const elapsed = now - sf3dRaceStressStartedAt;
+  if (elapsed >= 1000 && Number.isFinite(frameMs) && frameMs > 0) {
+    const levelCounts = [...sf3dRaceStressLevelCounts];
+    const modelTriangles = levelCounts.reduce(
+      (sum, count, index) => sum + count * (sf3dRaceStressConfig.triangles[index] || 0),
+      0
+    );
+    sf3dRaceStressFrames.push({
+      ms: frameMs,
+      triangles: renderer.info.render.triangles,
+      calls: renderer.info.render.calls,
+      levelCounts,
+      modelTriangles
+    });
+  }
+  if (elapsed < 6500 || sf3dRaceStressFrames.length < 12) return;
+
+  const ms = sf3dRaceStressFrames.map((frame) => frame.ms).sort((a, b) => a - b);
+  const triangles = sf3dRaceStressFrames.map((frame) => frame.triangles);
+  const calls = sf3dRaceStressFrames.map((frame) => frame.calls);
+  const modelTriangles = sf3dRaceStressFrames.map((frame) => frame.modelTriangles);
+  const avg = ms.reduce((sum, value) => sum + value, 0) / ms.length;
+  const avgTriangles = triangles.reduce((sum, value) => sum + value, 0) / triangles.length;
+  const avgCalls = calls.reduce((sum, value) => sum + value, 0) / calls.length;
+  const avgModelTriangles = modelTriangles.reduce((sum, value) => sum + value, 0) / modelTriangles.length;
+  const percentile = (p) => ms[Math.min(ms.length - 1, Math.floor((ms.length - 1) * p))];
+  const maxLevelCounts = sf3dRaceStressConfig.triangles.map((_, index) =>
+    Math.max(...sf3dRaceStressFrames.map((frame) => frame.levelCounts[index] || 0))
+  );
+  const allBaseTriangles = racers.length * (sf3dRaceStressConfig.triangles[0] || 0);
+
+  window.__sf3dRaceStress = {
+    racers: racers.length,
+    mode: sf3dRaceStressMode,
+    label: sf3dRaceStressConfig.label,
+    materialMode: sf3dMaterialMode,
+    materialSide: sf3dRaceStressConfig.materialSide,
+    distances: sf3dRaceStressConfig.distances,
+    profiles: sf3dRaceStressConfig.profiles,
+    levelTriangles: sf3dRaceStressConfig.triangles,
+    finalLevelCounts: [...sf3dRaceStressLevelCounts],
+    maxLevelCounts,
+    durationMs: Number(elapsed.toFixed(0)),
+    samples: ms.length,
+    averageFrameMs: Number(avg.toFixed(3)),
+    averageFps: Number((1000 / avg).toFixed(2)),
+    medianFrameMs: Number(percentile(0.5).toFixed(3)),
+    p95FrameMs: Number(percentile(0.95).toFixed(3)),
+    averageModelTriangles: Math.round(avgModelTriangles),
+    allBaseTriangles,
+    averageRendererTriangles: Math.round(avgTriangles),
+    minRendererTriangles: Math.min(...triangles),
+    maxRendererTriangles: Math.max(...triangles),
+    averageRendererCalls: Number(avgCalls.toFixed(2)),
+    minRendererCalls: Math.min(...calls),
+    maxRendererCalls: Math.max(...calls),
+    renderScale,
+    viewport: {
+      width: renderer.domElement.width,
+      height: renderer.domElement.height,
+      pixelRatio: renderer.getPixelRatio()
+    },
+    note: `CI Chromium real race-loop stress test with 18 moving ${sf3dRaceStressConfig.triangles.length}-level LOD creatures; not physical-device FPS`
+  };
+  sf3dRaceStressReady = true;
+  stage.dataset.sf3dRaceStress = "ready";
+}
+
+function setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData) {
+  if (!hunyuanRacePack) return;
+
+  const levels = [baseData, lod3Data, lod4Data];
+  hunyuanRacePackBatches = levels.map((data) => {
+    const batch = createStaticCreatureInstanceBatch(data.source, {
+      renderer,
+      profile: data.profile,
+      placement: "race",
+      count: racers.length,
+      materialSide: hunyuanRacePackSide
+    });
+    if (!batch.supported) {
+      throw new Error(`Hunyuan race pack instancing unsupported for ${data.profile.id}: ${batch.reason}`);
+    }
+    batch.object.count = 0;
+    batch.object.visible = false;
+    scene.add(batch.object);
+    return batch;
+  });
+
+  racers.forEach((racer, index) => {
+    racer.obj.children.forEach((child) => { child.visible = false; });
+    racer.morph = "S";
+    racer.cruise = morphStats.S.cruise + (index % 5) * 0.18;
+    racer.accel = morphStats.S.accel;
+    racer.drain = morphStats.S.drain;
+  });
+
+  const selectedRacer = racers.find((racer) => racer.id === selectedId);
+  if (selectedRacer && riggedData) {
+    hunyuanRacePackRiggedSelected = fitCreature3D(cloneCreature3D(riggedData.source), {
+      renderer,
+      profile: riggedData.profile,
+      placement: "race"
+    });
+    hunyuanRacePackRiggedSelected.name = "Hunyuan_RacePack_Selected_Rigged";
+    hunyuanRacePackRiggedSelected.visible = false;
+    selectedRacer.obj.add(hunyuanRacePackRiggedSelected);
+
+    if (riggedData.animations?.length) {
+      const mixer = new THREE.AnimationMixer(hunyuanRacePackRiggedSelected);
+      mixer.clipAction(riggedData.animations[0]).play();
+      sf3dRaceMixers.push(mixer);
+      window.__hunyuanRacePackRiggedSelected = hunyuanRacePackRiggedSelected;
+      stage.dataset.hunyuanRacePackRigged = "playing";
+      stage.dataset.hunyuanRacePackRiggedClip = riggedData.animations[0].name || "unnamed";
+    } else {
+      stage.dataset.hunyuanRacePackRigged = "no-animation";
+    }
+  }
+
+  stage.dataset.hunyuanRacePack = "loaded";
+  stage.dataset.hunyuanRacePackSide = hunyuanRacePackSide;
+  stage.dataset.hunyuanRacePackProfiles = levels.map((data) => data.profile.id).join(",");
+  stage.dataset.hunyuanRacePackTriangles = levels.map((data) => data.stats.triangles).join(",");
+}
+
+function updateHunyuanRacePackInstances() {
+  if (!hunyuanRacePackBatches) return;
+
+  const visible = view === "race" || view === "follow";
+  for (const batch of hunyuanRacePackBatches) batch.object.visible = visible;
+  if (hunyuanRacePackRiggedSelected) {
+    hunyuanRacePackRiggedSelected.visible = visible && view === "follow";
+    stage.dataset.hunyuanRacePackRiggedSelected =
+      hunyuanRacePackRiggedSelected.visible ? "visible" : "hidden";
+  }
+  if (!visible) {
+    hunyuanRacePackCounts = [0, 0, 0];
+    stage.dataset.hunyuanRacePackCounts = "0,0,0";
+    return;
+  }
+
+  const counts = [0, 0, 0];
+  const finalMatrix = new THREE.Matrix4();
+
+  for (const racer of racers) {
+    racer.obj.updateMatrixWorld(true);
+    const distance = camera.position.distanceTo(racer.obj.position);
+
+    if (view === "follow" && racer.id === selectedId && hunyuanRacePackRiggedSelected) {
+      continue;
+    }
+
+    let level = 2;
+    if (view === "follow" && distance < 8) {
+      level = 1;
+    } else if (view === "race" && distance < 12) {
+      level = 1;
+    }
+
+    const batch = hunyuanRacePackBatches[level];
+    finalMatrix.multiplyMatrices(racer.obj.matrixWorld, batch.prototypeMatrix);
+    batch.object.setMatrixAt(counts[level], finalMatrix);
+    counts[level] += 1;
+  }
+
+  for (let i = 0; i < hunyuanRacePackBatches.length; i++) {
+    const batch = hunyuanRacePackBatches[i];
+    batch.object.count = counts[i];
+    batch.object.instanceMatrix.needsUpdate = true;
+  }
+
+  hunyuanRacePackCounts = counts;
+  stage.dataset.hunyuanRacePackCounts = counts.join(",");
+  stage.dataset.hunyuanRacePackView = view;
+}
+
+function setupRaceLodBenchmark(baseSource, baseProfile, lod1Data, lod2Data, lod3Data) {
+  if (!sf3dRaceLodBench) return;
+
+  const group = new THREE.Group();
+  group.name = "SF3D_Race_LOD_Benchmark_18";
+
+  const near = 4;
+  const mid = 5;
+  const far = 5;
+  const veryFar = 4;
+  const distances = [
+    ...Array.from({ length: near }, (_, i) => 4 + i * 1.1),
+    ...Array.from({ length: mid }, (_, i) => 10 + i * 1.4),
+    ...Array.from({ length: far }, (_, i) => 19 + i * 1.6),
+    ...Array.from({ length: veryFar }, (_, i) => 31 + i * 1.8)
+  ];
+
+  for (let i = 0; i < distances.length; i++) {
+    const lod = new THREE.LOD();
+
+    const baseModel = fitCreature3D(cloneCreature3D(baseSource), {
+      renderer,
+      profile: baseProfile,
+      placement: "benchmark",
+      materialSide: "front"
+    });
+    const lod1Model = fitCreature3D(cloneCreature3D(lod1Data.source), {
+      renderer,
+      profile: lod1Data.profile,
+      placement: "benchmark",
+      materialSide: "front"
+    });
+    const lod2Model = fitCreature3D(cloneCreature3D(lod2Data.source), {
+      renderer,
+      profile: lod2Data.profile,
+      placement: "benchmark",
+      materialSide: "front"
+    });
+    const lod3Model = fitCreature3D(cloneCreature3D(lod3Data.source), {
+      renderer,
+      profile: lod3Data.profile,
+      placement: "benchmark",
+      materialSide: "front"
+    });
+
+    lod.addLevel(baseModel, 0);
+    lod.addLevel(lod1Model, 9);
+    lod.addLevel(lod2Model, 18);
+    lod.addLevel(lod3Model, 30);
+
+    const column = i % 6;
+    const row = Math.floor(i / 6);
+    lod.position.set(
+      (column - 2.5) * 1.45,
+      0,
+      -distances[i]
+    );
+    lod.rotation.y = (column - 2.5) * 0.025;
+    group.add(lod);
+  }
+
+  if (sf3dLab) sf3dLab.visible = false;
+  conceptSprites.forEach((sprite) => { sprite.visible = false; });
+  labGroup.add(group);
+  labGroup.visible = true;
+  view = "lab";
+
+  camera.position.set(0, 5.4, 5.5);
+  camera.lookAt(0, 0.8, -14);
+  camera.updateMatrixWorld(true);
+  group.updateMatrixWorld(true);
+
+  sf3dRaceLodBenchStartedAt = performance.now();
+  sf3dRaceLodBenchFrameTimes = [];
+  sf3dRaceLodBenchReady = false;
+  stage.dataset.sf3dRaceLodBench = "running";
+}
+
+function sampleRaceLodBenchmark(now, frameMs) {
+  if (!sf3dRaceLodBench || !sf3dRaceLodBenchStartedAt || sf3dRaceLodBenchReady) return;
+  const elapsed = now - sf3dRaceLodBenchStartedAt;
+  if (elapsed >= 500 && Number.isFinite(frameMs) && frameMs > 0) {
+    sf3dRaceLodBenchFrameTimes.push(frameMs);
+  }
+  if (elapsed < 3000 || sf3dRaceLodBenchFrameTimes.length < 8) return;
+
+  const times = [...sf3dRaceLodBenchFrameTimes].sort((a, b) => a - b);
+  const avg = times.reduce((s, v) => s + v, 0) / times.length;
+  const percentile = (p) => times[Math.min(times.length - 1, Math.floor((times.length - 1) * p))];
+
+  window.__sf3dRaceLodBench = {
+    count: 18,
+    expectedNear: 4,
+    expectedMid: 5,
+    expectedFar: 5,
+    expectedVeryFar: 4,
+    theoreticalTriangles: 4 * 8960 + 5 * 4480 + 5 * 2240 + 4 * 1120,
+    allBaseTriangles: 18 * 8960,
+    rendererTriangles: renderer.info.render.triangles,
+    rendererCalls: renderer.info.render.calls,
+    averageFrameMs: Number(avg.toFixed(3)),
+    averageFps: Number((1000 / avg).toFixed(2)),
+    medianFrameMs: Number(percentile(0.5).toFixed(3)),
+    p95FrameMs: Number(percentile(0.95).toFixed(3)),
+    note: "CI Chromium synthetic mixed-distance LOD benchmark; not physical-device FPS"
+  };
+  sf3dRaceLodBenchReady = true;
+  stage.dataset.sf3dRaceLodBench = "ready";
+}
+
+function sampleSf3dBenchmark(now, frameMs) {
+  if (!sf3dBenchCount || !sf3dBenchStartedAt || sf3dBenchReady) return;
+  const elapsedMs = now - sf3dBenchStartedAt;
+
+  if (elapsedMs >= 500 && Number.isFinite(frameMs) && frameMs > 0) {
+    sf3dBenchFrameTimes.push(frameMs);
+  }
+
+  if (elapsedMs < 3000 || sf3dBenchFrameTimes.length < 5) return;
+
+  const times = [...sf3dBenchFrameTimes].sort((a, b) => a - b);
+  const average = times.reduce((sum, value) => sum + value, 0) / times.length;
+  const percentile = (p) => times[Math.min(times.length - 1, Math.floor((times.length - 1) * p))];
+
+  window.__sf3dBench = {
+    count: sf3dBenchCount,
+    mode: sf3dBenchMode,
+    materialSide: sf3dBenchSide,
+    supported: true,
+    samples: times.length,
+    averageFrameMs: Number(average.toFixed(3)),
+    averageFps: Number((1000 / average).toFixed(2)),
+    medianFrameMs: Number(percentile(0.5).toFixed(3)),
+    p95FrameMs: Number(percentile(0.95).toFixed(3)),
+    trianglesPerInstance: sf3dTrianglesPerInstance,
+    expectedModelTriangles: sf3dTrianglesPerInstance * sf3dBenchCount,
+    rendererTriangles: renderer.info.render.triangles,
+    rendererCalls: renderer.info.render.calls,
+    rendererLines: renderer.info.render.lines,
+    rendererPoints: renderer.info.render.points,
+    geometries: renderer.info.memory.geometries,
+    textures: renderer.info.memory.textures,
+    viewport: {
+      width: renderer.domElement.width,
+      height: renderer.domElement.height,
+      pixelRatio: renderer.getPixelRatio()
+    },
+    note: "CI Chromium benchmark; not a physical-device FPS measurement"
+  };
+  sf3dBenchReady = true;
+  stage.dataset.sf3dBench = "ready";
+}
+
+loadCreature3D(sf3dProfile)
+  .then(({ source, animations, stats, profile }) => {
+    sf3dTrianglesPerInstance = stats.triangles;
+
+    sf3dLab = fitCreature3D(cloneCreature3D(source), {
+      renderer,
+      profile,
+      placement: "lab"
+    });
+    sf3dLab.rotation.y += modelYawRadians;
+    sf3dLab.updateMatrixWorld(true);
+    sf3dLab.name = "EvoWild_S_SF3D_Lab";
+    stage.dataset.modelYaw = String(modelYawDegrees);
+    sf3dLab.visible = activeLabMorph === "S";
+    labGroup.add(sf3dLab);
+
+    if (animations.length) {
+      sf3dLabMixer = new THREE.AnimationMixer(sf3dLab);
+      sf3dLabMixer.clipAction(animations[0]).play();
+      window.__sf3dLabMixer = sf3dLabMixer;
+      let animatedBoneCount = 0;
+      sf3dLab.traverse((node) => {
+        if (node.isBone) animatedBoneCount += 1;
+      });
+      stage.dataset.sf3dAnimation = "playing";
+      stage.dataset.sf3dAnimationClip = animations[0].name || "unnamed";
+      stage.dataset.sf3dAnimationBones = String(animatedBoneCount);
+      window.__sf3dAnimatedLab = sf3dLab;
+    } else {
+      stage.dataset.sf3dAnimation = "none";
+    }
+
+    const raceS = racers.find((r) => r.morph === "S");
+    if (raceS && !sf3dRaceStress && !hunyuanRacePack) {
+      raceS.obj.children.forEach((child) => { child.visible = false; });
+
+      const baseRaceModel = fitCreature3D(cloneCreature3D(source), {
+        renderer,
+        profile,
+        placement: "race"
+      });
+      baseRaceModel.name = "EvoWild_S_SF3D_Race_Base";
+
+      if (animations.length) {
+        const raceMixer = new THREE.AnimationMixer(baseRaceModel);
+        raceMixer.clipAction(animations[0]).play();
+        sf3dRaceMixers.push(raceMixer);
+        window.__sf3dAnimatedRace = baseRaceModel;
+      }
+
+      const useSf3dRaceLod = profile.id === CREATURE_3D_PROFILES.sSf3dCorrected.id && !sf3dVariant;
+      const useHunyuanRaceLod = profile.id === CREATURE_3D_PROFILES.sHunyuan2mvStyled.id;
+      const useRaceLod = (useSf3dRaceLod || useHunyuanRaceLod) && !sf3dRaceStress;
+
+      if (useRaceLod) {
+        const raceLod = new THREE.LOD();
+        raceLod.name = useHunyuanRaceLod
+          ? "EvoWild_S_Hunyuan_Race_LOD"
+          : "EvoWild_S_SF3D_Race_LOD";
+        raceLod.addLevel(baseRaceModel, 0);
+        raceS.obj.add(raceLod);
+        raceS.obj.userData.sf3d = raceLod;
+        stage.dataset.sf3dRaceLod = "loading";
+        stage.dataset.sf3dRaceLodLevels = "1";
+
+        const extraProfiles = useHunyuanRaceLod
+          ? [
+              CREATURE_3D_PROFILES.sHunyuan2mvStyledLod3,
+              CREATURE_3D_PROFILES.sHunyuan2mvStyledLod4
+            ]
+          : [
+              CREATURE_3D_PROFILES.sSf3dCorrectedLod1,
+              CREATURE_3D_PROFILES.sSf3dCorrectedLod2Lite,
+              CREATURE_3D_PROFILES.sSf3dCorrectedLod3Lite
+            ];
+        const distances = useHunyuanRaceLod ? [16, 30] : [9, 18, 30];
+
+        Promise.all(extraProfiles.map((lodProfile) => loadCreature3D(lodProfile)))
+          .then((lodData) => {
+            lodData.forEach((data, index) => {
+              const lodModel = fitCreature3D(cloneCreature3D(data.source), {
+                renderer,
+                profile: data.profile,
+                placement: "race"
+              });
+              lodModel.name = `${raceLod.name}_L${index + 1}`;
+              raceLod.addLevel(lodModel, distances[index]);
+            });
+
+            stage.dataset.sf3dRaceLod = "loaded";
+            stage.dataset.sf3dRaceLodProfiles = [
+              profile.id,
+              ...lodData.map((data) => data.profile.id)
+            ].join(",");
+            stage.dataset.sf3dRaceLodLevels = String(raceLod.levels.length);
+            stage.dataset.sf3dRaceLodDistances = raceLod.levels.map((level) => level.distance).join(",");
+            window.__sf3dRaceLod = raceLod;
+          })
+          .catch((error) => {
+            stage.dataset.sf3dRaceLod = "error";
+            console.error("Race LOD assets failed to load; keeping base race model", error);
+          });
+      } else {
+        baseRaceModel.name = "EvoWild_S_3D_Race";
+        raceS.obj.add(baseRaceModel);
+        raceS.obj.userData.sf3d = baseRaceModel;
+        stage.dataset.sf3dRaceLod = "disabled";
+      }
+    }
+
+    sf3dReady = true;
+    stage.dataset.sf3d = "loaded";
+    stage.dataset.sf3dProfile = profile.id;
+    stage.dataset.sf3dTriangles = String(stats.triangles);
+    stage.dataset.sf3dMeshes = String(stats.meshes);
+    stage.dataset.sf3dMaterials = String(stats.materials);
+    stage.dataset.sf3dTextures = String(stats.textures);
+    stage.dataset.sf3dAnimations = String(animations.length);
+    stage.dataset.sf3dBounds = `${stats.bounds.x},${stats.bounds.y},${stats.bounds.z}`;
+    setLabMorph(activeLabMorph);
+    setupSf3dBenchmark(source, sf3dBenchCount);
+
+    if (hunyuanRacePack && profile.id === CREATURE_3D_PROFILES.sHunyuan2mvStyled.id) {
+      Promise.all([
+        Promise.resolve({ source, animations, stats, profile }),
+        loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvStyledLod3),
+        loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvStyledLod4),
+        loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvRigged)
+      ]).then(([baseData, lod3Data, lod4Data, riggedData]) => {
+        setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData);
+      }).catch((error) => {
+        stage.dataset.hunyuanRacePack = "error";
+        console.error("18-racer Hunyuan S-only race pack failed to load", error);
+      });
+    }
+
+    if (sf3dRaceLodBench && profile.id === CREATURE_3D_PROFILES.sSf3dCorrected.id) {
+      Promise.all([
+        loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod1),
+        loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod2),
+        loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod3)
+      ]).then(([lod1Data, lod2Data, lod3Data]) => {
+        setupRaceLodBenchmark(source, profile, lod1Data, lod2Data, lod3Data);
+      }).catch((error) => {
+        stage.dataset.sf3dRaceLodBench = "error";
+        console.error("Mixed-distance race LOD benchmark failed to load", error);
+      });
+    }
+
+    if (sf3dRaceStress && profile.id === CREATURE_3D_PROFILES.sSf3dCorrected.id) {
+      const stressLod2Profile = sf3dMaterialMode === "lite"
+        ? CREATURE_3D_PROFILES.sSf3dCorrectedLod2Lite
+        : CREATURE_3D_PROFILES.sSf3dCorrectedLod2;
+      const stressLod3Profile = sf3dMaterialMode === "lite"
+        ? CREATURE_3D_PROFILES.sSf3dCorrectedLod3Lite
+        : CREATURE_3D_PROFILES.sSf3dCorrectedLod3;
+
+      Promise.all([
+        loadCreature3D(CREATURE_3D_PROFILES.sSf3dCorrectedLod1),
+        loadCreature3D(stressLod2Profile),
+        loadCreature3D(stressLod3Profile)
+      ]).then((lodData) => {
+        setupRaceStress(source, profile, lodData, {
+          label: "sf3d",
+          distances: [9, 18, 30],
+          baseTriangles: stats.triangles,
+          materialSide: "front"
+        });
+      }).catch((error) => {
+        stage.dataset.sf3dRaceStress = "error";
+        console.error("18-racer SF3D stress assets failed to load", error);
+      });
+    }
+
+    if (sf3dRaceStress && profile.id === CREATURE_3D_PROFILES.sHunyuan2mvStyled.id) {
+      Promise.all([
+        loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvStyledLod3),
+        loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvStyledLod4)
+      ]).then((lodData) => {
+        const stressNear = Math.max(
+          0,
+          Number.parseFloat(query.get("hunyuanStressNear") || "16") || 16
+        );
+        const requestedFar = Math.max(
+          0,
+          Number.parseFloat(query.get("hunyuanStressFar") || "30") || 30
+        );
+        const stressFar = Math.max(stressNear, requestedFar);
+        setupRaceStress(source, profile, lodData, {
+          label: "hunyuan",
+          distances: [stressNear, stressFar],
+          baseTriangles: stats.triangles,
+          materialSide: sf3dBenchSide
+        });
+      }).catch((error) => {
+        stage.dataset.sf3dRaceStress = "error";
+        console.error("18-racer Hunyuan mixed-LOD stress assets failed to load", error);
+      });
+    }
+  })
+  .catch((error) => {
+    stage.dataset.sf3d = "error";
+    console.error("3D creature asset failed to load; keeping existing fallback", error);
+  });
 
 const assetBase = `${import.meta.env.BASE_URL}models/`;
 const mtlLoader = new MTLLoader();
@@ -610,19 +1434,22 @@ const labText = {
 function setLabMorph(morph) {
   activeLabMorph = morph;
   labObjects.forEach((obj, key) => {
-    obj.visible = key === morph && !conceptReady.has(key) && !(key === "S" && dedicatedSReady);
+    obj.visible = key === morph && !conceptReady.has(key) && !(key === "S" && (dedicatedSReady || sf3dReady));
   });
-  if (dedicatedS) dedicatedS.visible = morph === "S" && !conceptReady.has("S");
+  if (dedicatedS) dedicatedS.visible = morph === "S" && !conceptReady.has("S") && !sf3dReady;
+  if (sf3dLab) sf3dLab.visible = morph === "S" && sf3dReady;
   conceptSprites.forEach((sprite, key) => {
-    sprite.visible = key === morph;
+    sprite.visible = key === morph && !(key === "S" && sf3dReady);
   });
 
   const [title, baseDetail] = labText[morph];
-  const detail = conceptReady.has(morph)
-    ? `${baseDetail} / 2.5D concept-source test`
-    : morph === "S" && dedicatedSReady
-      ? `${baseDetail} / dedicated 3D fallback`
-      : baseDetail;
+  const detail = morph === "S" && sf3dReady
+    ? `${baseDetail} / Stable Fast 3D live candidate`
+    : conceptReady.has(morph)
+      ? `${baseDetail} / 2.5D concept-source test`
+      : morph === "S" && dedicatedSReady
+        ? `${baseDetail} / dedicated 3D fallback`
+        : baseDetail;
   const label = document.querySelector("#labLabel");
   label.innerHTML = `<strong>${title}</strong><span>${detail}</span>`;
   document.querySelectorAll("[data-morph]").forEach((button) => {
@@ -928,11 +1755,22 @@ drawMiniMap();
 let renderedFrames = 0;
 function frame(now) {
   try {
-    const dt = Math.min(45, Math.max(0, now - last));
+    const rawFrameMs = Math.max(0, now - last);
+    const dt = Math.min(45, rawFrameMs);
     last = now;
     update(dt);
+    if (!paused) {
+      const animationDt = dt / 1000;
+      if (sf3dLabMixer) sf3dLabMixer.update(animationDt);
+      for (const mixer of sf3dRaceMixers) mixer.update(animationDt);
+    }
     setCamera();
+    updateRaceStressInstances();
+    updateHunyuanRacePackInstances();
     renderer.render(scene, camera);
+    sampleSf3dBenchmark(now, rawFrameMs);
+    sampleRaceLodBenchmark(now, rawFrameMs);
+    sampleRaceStress(now, rawFrameMs);
     updateHud();
     drawMiniMap();
 

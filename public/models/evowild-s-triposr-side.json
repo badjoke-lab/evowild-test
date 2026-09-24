@@ -1,0 +1,11 @@
+{
+  "engine": "TripoSR",
+  "execution": "GitHub Actions CPU",
+  "source": "01_SIDE_authority.jpg",
+  "input_variant": "side_authority_gray",
+  "mc_resolution": 128,
+  "chunk_size": 2048,
+  "output_file": "0/mesh.glb",
+  "output_bytes": 256744,
+  "commercial_license_note": "Official TripoSR repo/model card state MIT; verify output terms before adoption."
+}

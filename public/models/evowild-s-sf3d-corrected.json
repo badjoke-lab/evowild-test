@@ -1,0 +1,13 @@
+{
+  "space": "Upsampler/stable-fast-3d",
+  "endpoint": "/image_to_glb_1",
+  "attempt": 1,
+  "source_image": "hf-poc/input/04_3Q_FRONT_shape_support.jpg",
+  "foreground_ratio": 0.85,
+  "remesh": "None",
+  "vertex_count": -1,
+  "texture_size": 1024,
+  "output_bytes": 508272,
+  "source": "local",
+  "result_repr": "'/tmp/gradio/f59094a3741bc033ff7c6d320ab3e08409c6a7df5fd2324b98d3c4752dc4a50a/tmpdnrnczf1.glb'"
+}

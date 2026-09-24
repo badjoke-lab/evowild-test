@@ -1,0 +1,12 @@
+{
+  "source_vertices": 80897,
+  "source_triangles": 241694,
+  "degenerate_triangles_removed": 79934,
+  "nondegenerate_triangles": 161760,
+  "connected_components_after_degenerate_removal": 1,
+  "largest_component_triangles": 161760,
+  "clean_vertices": 80897,
+  "clean_triangles": 161760,
+  "clean_bytes": 2912632,
+  "rule": "remove area2<=1e-10; retain largest connected component"
+}
