@@ -1,0 +1,46 @@
+name: HF SPAR3D API probe
+
+on:
+  push:
+    branches:
+      - test/hf-sf3d-retry-20260921
+    paths:
+      - ".github/workflows/hf-spar3d-probe.yml"
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Gradio client
+        run: pip install --quiet "gradio_client>=1.10,<2"
+
+      - name: Probe official SPAR3D API
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from gradio_client import Client
+
+          token = os.environ.get("HF_TOKEN")
+          print("HF_AUTH:", "token present" if token else "token missing")
+          client = Client("stabilityai/stable-point-aware-3d", token=token)
+          api = client.view_api(return_format="dict")
+          print(json.dumps(api, indent=2, default=str))
+          with open("spar3d-api.json", "w", encoding="utf-8") as f:
+              json.dump(api, f, indent=2, default=str)
+          PY
+
+      - name: Upload API schema
+        uses: actions/upload-artifact@v4
+        with:
+          name: spar3d-api-schema
+          path: spar3d-api.json
