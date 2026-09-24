@@ -479,9 +479,10 @@ function buildTrack() {
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
-  stage.dataset.trackPresentation = "v13";
+  stage.dataset.trackPresentation = "v14";
   stage.dataset.presentationField = presentationMode ? "s-only-5" : "full-18";
-  stage.dataset.presentationSpeed = presentationMode ? "1.65x" : "1x";
+  stage.dataset.presentationSpeed = presentationMode ? "2.15x" : "1x";
+  stage.dataset.presentationTint = presentationMode ? "s-variant-v1" : "off";
   stage.dataset.raceQualityPass = "floor-v2";
   stage.dataset.presentationMode = presentationMode ? "cinematic" : "standard";
 }
@@ -1639,8 +1640,12 @@ function buildAnimatedSRunPlane(texture, raceLayout, racerId) {
   sheet.needsUpdate = true;
 
   const geometry = new THREE.PlaneGeometry(1, 1);
+  const sTint = presentationMode
+    ? new THREE.Color(palette[(racerId - 1) % palette.length]).lerp(new THREE.Color(0xffffff), 0.72)
+    : new THREE.Color(0xffffff);
   const material = new THREE.MeshBasicMaterial({
     map: sheet,
+    color: sTint,
     transparent: true,
     depthWrite: false,
     alphaTest: 0.02,
@@ -2686,7 +2691,7 @@ function update(dt) {
     const diff = target - r.speed;
     const maxStep = (diff > 0 ? r.accel : r.accel * 1.5) * sec;
     r.speed += THREE.MathUtils.clamp(diff, -maxStep, maxStep);
-    r.distance += Math.max(0, r.speed) * sec * (presentationMode ? 1.65 : 1);
+    r.distance += Math.max(0, r.speed) * sec * (presentationMode ? 2.15 : 1);
 
     const load = Math.max(0, r.speed / r.cruise - 0.96);
     r.stamina = Math.max(0, r.stamina - (0.018 + 0.038 * load * load) * r.drain * raceDt / 1000);
@@ -2899,15 +2904,17 @@ function setCamera() {
 
   const speedFxStrength = (lab || tactical || raceState !== "running")
     ? 0
-    : THREE.MathUtils.smoothstep(speedRatio, 0.36, 1.12);
-  speedFx.style.opacity = String(speedFxStrength * (view === "follow" ? 0.86 : 0.64));
+    : THREE.MathUtils.smoothstep(speedRatio, presentationMode ? 0.24 : 0.36, 1.12);
+  speedFx.style.opacity = String(speedFxStrength * (view === "follow" ? (presentationMode ? 0.96 : 0.86) : 0.64));
   speedFx.style.setProperty("--speed-fx-rate", `${Math.max(0.11, 0.54 - speedFxStrength * 0.38).toFixed(2)}s`);
   speedFx.style.setProperty("--speed-fx-stretch", `${(1 + speedFxStrength * 1.35).toFixed(2)}`);
 
   if (!lab && !tactical) {
     const aheadTangent = curve.getTangentAt((t + 0.008) % 1).normalize();
     const signedCurve = tangent.x * aheadTangent.z - tangent.z * aheadTangent.x;
-    const targetRoll = THREE.MathUtils.clamp(signedCurve * 2.7, -0.07, 0.07) * speedRatio;
+    const rollLimit = presentationMode ? 0.12 : 0.07;
+    const rollGain = presentationMode ? 4.2 : 2.7;
+    const targetRoll = THREE.MathUtils.clamp(signedCurve * rollGain, -rollLimit, rollLimit) * speedRatio;
     camera.rotateZ(targetRoll);
     stage.dataset.cameraSpeedRoll = targetRoll.toFixed(4);
   }
