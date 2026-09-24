@@ -182,7 +182,7 @@ scene.add(rim);
 
 const ground = new THREE.Mesh(
   new THREE.PlaneGeometry(210, 160),
-  new THREE.MeshStandardMaterial({ map: grassTexture, color: 0x7f9b72, roughness: 1 })
+  new THREE.MeshStandardMaterial({ map: grassTexture, color: 0x94aa82, roughness: 1 })
 );
 ground.rotation.x = -Math.PI / 2;
 ground.position.y = -0.03;
@@ -304,7 +304,7 @@ function buildTrack() {
   const railMaterial = new THREE.LineBasicMaterial({
     color: presentationMode ? 0x8abac2 : 0xd8dee2,
     transparent: true,
-    opacity: presentationMode ? 0.72 : 0.95
+    opacity: presentationMode ? 0.16 : 0.95
   });
   for (const offset of [-railOffset, railOffset]) {
     for (const y of [0.52, 0.88]) {
@@ -346,6 +346,53 @@ function buildTrack() {
   }
   posts.instanceMatrix.needsUpdate = true;
   scene.add(posts);
+
+  if (presentationMode) {
+    const guardMaterial = new THREE.MeshStandardMaterial({
+      color: 0x294651,
+      emissive: 0x0b2530,
+      emissiveIntensity: 0.34,
+      roughness: 0.56,
+      metalness: 0.16
+    });
+    const markerMaterial = new THREE.MeshBasicMaterial({ color: 0x6fd5de });
+    for (const offset of [-railOffset, railOffset]) {
+      const railPoints = [];
+      for (let i = 0; i < 72; i++) {
+        const t = i / 72;
+        const p = curve.getPointAt(t);
+        const tangent = curve.getTangentAt(t).normalize();
+        const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+        railPoints.push(p.clone().addScaledVector(side, offset).add(new THREE.Vector3(0, 0.43, 0)));
+      }
+      const railCurve = new THREE.CatmullRomCurve3(railPoints, true, "centripetal", 0.35);
+      const rail = new THREE.Mesh(
+        new THREE.TubeGeometry(railCurve, isMobile ? 72 : 120, 0.065, 5, true),
+        guardMaterial
+      );
+      scene.add(rail);
+    }
+
+    const markerCount = isMobile ? 28 : 42;
+    const markerGeometry = new THREE.BoxGeometry(0.08, 0.52, 0.08);
+    const markers = new THREE.InstancedMesh(markerGeometry, markerMaterial, markerCount);
+    const markerDummy = new THREE.Object3D();
+    for (let i = 0; i < markerCount; i++) {
+      const t = (i + 0.25) / markerCount;
+      const p = curve.getPointAt(t);
+      const tangent = curve.getTangentAt(t).normalize();
+      const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize();
+      const offset = (i % 2 ? 1 : -1) * (railOffset + 0.16);
+      const q = p.clone().addScaledVector(side, offset);
+      markerDummy.position.set(q.x, 0.28, q.z);
+      markerDummy.rotation.set(0, Math.atan2(-tangent.z, tangent.x), 0);
+      markerDummy.scale.set(1, 0.72 + (i % 4) * 0.08, 1);
+      markerDummy.updateMatrix();
+      markers.setMatrixAt(i, markerDummy.matrix);
+    }
+    markers.instanceMatrix.needsUpdate = true;
+    scene.add(markers);
+  }
 
   const streakCount = presentationMode ? (isMobile ? 120 : 180) : (isMobile ? 72 : 120);
   const streakGeometry = new THREE.BoxGeometry(presentationMode ? 2.35 : 1.25, 0.018, presentationMode ? 0.045 : 0.065);
@@ -500,7 +547,7 @@ function buildTrack() {
   startLine.rotation.y = startYaw;
   scene.add(startLine);
 
-  stage.dataset.trackPresentation = "v16";
+  stage.dataset.trackPresentation = "v17";
   stage.dataset.presentationField = presentationMode ? "s-only-5" : "full-18";
   stage.dataset.presentationSpeed = presentationMode ? "2.15x" : "1x";
   stage.dataset.presentationTint = presentationMode ? "s-variant-v1" : "off";
@@ -597,45 +644,36 @@ for (const mesh of [trunkInstances, lowerInstances, upperInstances]) {
   scene.add(mesh);
 }
 
-function addRidge(radius, zScale, baseHeight, color, phase, opacity = 1) {
-  const segments = isMobile ? 56 : 96;
-  const vertices = [];
-  const indices = [];
-  for (let i = 0; i <= segments; i++) {
-    const a = (i / segments) * Math.PI * 2;
-    const wave =
-      Math.sin(a * 3.0 + phase) * 1.45 +
-      Math.sin(a * 7.0 + phase * 1.7) * 0.72 +
-      Math.sin(a * 13.0 + phase * 0.6) * 0.28;
-    const h = baseHeight + wave;
-    const bottomR = radius + 3.6;
-    const topR = radius - 2.4;
-    vertices.push(Math.cos(a) * bottomR, -0.4, Math.sin(a) * bottomR * zScale);
-    vertices.push(Math.cos(a) * topR, h, Math.sin(a) * topR * zScale);
-    if (i < segments) {
-      const k = i * 2;
-      indices.push(k, k + 1, k + 2, k + 1, k + 3, k + 2);
-    }
-  }
-  const geometry = new THREE.BufferGeometry();
-  geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
-  geometry.setIndex(indices);
-  geometry.computeVertexNormals();
-  const ridge = new THREE.Mesh(
-    geometry,
-    new THREE.MeshStandardMaterial({
-      color,
-      roughness: 1,
-      flatShading: true,
-      transparent: opacity < 1,
-      opacity,
-      side: THREE.DoubleSide
-    })
-  );
-  scene.add(ridge);
+const distantHillCount = isMobile ? 18 : 28;
+const distantHillGeo = new THREE.SphereGeometry(1, 14, 6, 0, Math.PI * 2, 0, Math.PI / 2);
+const distantHillMats = [
+  new THREE.MeshStandardMaterial({ color: 0x647a72, roughness: 1, flatShading: true }),
+  new THREE.MeshStandardMaterial({ color: 0x78897b, roughness: 1, flatShading: true })
+];
+const distantHills = [
+  new THREE.InstancedMesh(distantHillGeo, distantHillMats[0], distantHillCount),
+  new THREE.InstancedMesh(distantHillGeo, distantHillMats[1], distantHillCount)
+];
+const distantHillCounts = [0, 0];
+const distantHillDummy = new THREE.Object3D();
+for (let i = 0; i < distantHillCount; i++) {
+  const a = (i / distantHillCount) * Math.PI * 2 + Math.sin(i * 1.71) * 0.055;
+  const radius = 88 + (i % 5) * 6.2;
+  const sx = 11.0 + (i % 6) * 2.1;
+  const sy = 3.0 + (i % 5) * 0.72;
+  const sz = 8.5 + (i % 4) * 1.8;
+  distantHillDummy.position.set(Math.cos(a) * radius, -0.18, Math.sin(a) * radius * 0.74);
+  distantHillDummy.rotation.set(0, a * 0.15, 0);
+  distantHillDummy.scale.set(sx, sy, sz);
+  distantHillDummy.updateMatrix();
+  const mi = i % 2;
+  distantHills[mi].setMatrixAt(distantHillCounts[mi]++, distantHillDummy.matrix);
 }
-addRidge(104, 0.76, 5.7, 0x526b69, 0.8, 0.96);
-addRidge(92, 0.74, 3.8, 0x6e8175, 2.2, 0.82);
+distantHills.forEach((mesh, index) => {
+  mesh.count = distantHillCounts[index];
+  mesh.instanceMatrix.needsUpdate = true;
+  scene.add(mesh);
+});
 
 const standGroup = new THREE.Group();
 standGroup.position.set(7, 0, -34.2);
