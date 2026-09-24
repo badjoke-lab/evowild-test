@@ -964,15 +964,41 @@ test("run S-only Hunyuan 18-racer pack with race and follow LOD policy", async (
   const followCounts = (await stage.getAttribute("data-hunyuan-race-pack-counts"))
     .split(",")
     .map(Number);
-  expect(followCounts.reduce((sum, value) => sum + value, 0)).toBe(18);
-  expect(followCounts[0]).toBe(1);
+  expect(followCounts.reduce((sum, value) => sum + value, 0)).toBe(17);
+  expect(followCounts[0]).toBe(0);
   expect(followCounts[2]).toBeGreaterThan(0);
   expect(followCounts[1]).toBeLessThan(17);
+  await expect(stage).toHaveAttribute("data-hunyuan-race-pack-rigged-selected", "visible");
+  await expect(stage).toHaveAttribute("data-hunyuan-race-pack-rigged", "playing");
+
+  const sampleSelectedRigBone = async () => page.evaluate(() => {
+    const root = window.__hunyuanRacePackRiggedSelected;
+    if (!root) return null;
+    let bone = null;
+    root.traverse((node) => {
+      if (!bone && node.isBone && node.name === "fore_L_upper") bone = node;
+    });
+    if (!bone) return null;
+    return [
+      Number(bone.quaternion.x.toFixed(6)),
+      Number(bone.quaternion.y.toFixed(6)),
+      Number(bone.quaternion.z.toFixed(6)),
+      Number(bone.quaternion.w.toFixed(6))
+    ];
+  });
+  const rigA = await sampleSelectedRigBone();
+  await page.waitForTimeout(350);
+  const rigB = await sampleSelectedRigBone();
+  expect(rigA).not.toBeNull();
+  expect(rigB).not.toEqual(rigA);
+
   await stage.screenshot({ path: `${outDir}/hunyuan-s-only-follow-pack.png` });
 
   console.log("HUNYUAN_S_ONLY_PACK", JSON.stringify({
     raceCounts,
     followCounts,
+    rigA,
+    rigB,
     side: await stage.getAttribute("data-hunyuan-race-pack-side"),
     profiles: await stage.getAttribute("data-hunyuan-race-pack-profiles"),
     triangles: await stage.getAttribute("data-hunyuan-race-pack-triangles")
