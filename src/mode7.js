@@ -31,12 +31,12 @@ const COLORS = {
   horizon: "#d0c29c",
   hillFar: "#58746d",
   hillNear: "#405d56",
-  grassA: "#6f8d66",
-  grassB: "#65815e",
+  grassA: "#708a67",
+  grassB: "#6c8663",
   shoulderA: "#233d45",
   shoulderB: "#9acfd1",
-  roadA: "#9d684f",
-  roadB: "#a97357",
+  roadA: "#9e6b52",
+  roadB: "#a06d54",
   lane: "rgba(226,238,229,.58)",
   fog: "#8ba6a0",
   rail: "#17333d",
@@ -304,10 +304,10 @@ function drawTrackside(seg, n) {
 
 const racers = [
   { id: 1, gap: 0, lane: -0.62, phase: 0, selected: true },
-  { id: 2, gap: 3200, lane: -0.28, phase: 1.1 },
-  { id: 3, gap: 6100, lane: 0.18, phase: 2.4 },
-  { id: 4, gap: 9200, lane: 0.52, phase: 3.2 },
-  { id: 5, gap: 12800, lane: -0.02, phase: 4.4 },
+  { id: 2, gap: 1250, lane: -0.28, phase: 1.1 },
+  { id: 3, gap: 2350, lane: 0.18, phase: 2.4 },
+  { id: 4, gap: 3600, lane: 0.52, phase: 3.2 },
+  { id: 5, gap: 4950, lane: -0.02, phase: 4.4 },
 ];
 
 let sSheet = null;
@@ -361,14 +361,6 @@ function drawRunner(frameIndex, x, y, height, alpha = 1, selected = false) {
     x - w * 0.48, y - h, w, h
   );
 
-  if (selected) {
-    ctx.globalCompositeOperation = "screen";
-    const g = ctx.createLinearGradient(x - w * 0.2, y - h, x + w * 0.25, y);
-    g.addColorStop(0, "rgba(116,222,232,.05)");
-    g.addColorStop(1, "rgba(116,222,232,.16)");
-    ctx.fillStyle = g;
-    ctx.fillRect(x - w * 0.48, y - h, w, h);
-  }
   ctx.restore();
 }
 
@@ -484,15 +476,15 @@ function renderWorld(ts) {
       const sy = lerp(seg.p1.screen.y, seg.p2.screen.y, pct);
       const sw = lerp(seg.p1.screen.w, seg.p2.screen.w, pct);
       const laneShift = sw * racer.lane * 0.82;
-      const height = clamp(scale * ROAD_WIDTH * W * 0.62, 16 * DPR, H * 0.30);
+      const height = clamp(scale * ROAD_WIDTH * W * 0.54, 18 * DPR, H * 0.19);
       const frameIndex = Math.floor((ts * 0.0155 + r * 1.7)) % 6;
       drawRunner(frameIndex, sx + laneShift, sy + 1, height, 0.94, false);
     }
   }
 
-  const selectedX = W * 0.345;
-  const selectedY = H * 0.865;
-  const selectedH = H * 0.255;
+  const selectedX = W * 0.335;
+  const selectedY = H * 0.875;
+  const selectedH = H * 0.285;
   const selectedFrame = Math.floor(ts * 0.0185) % 6;
 
   drawDust();
@@ -508,6 +500,7 @@ function renderWorld(ts) {
   canvas.dataset.renderer = "pseudo3d-segment-projection";
   canvas.dataset.field = "s-only-5";
   canvas.dataset.speed = String(Math.round(speed));
+  canvas.dataset.proofVersion = "v2";
 }
 
 function frame(ts) {
