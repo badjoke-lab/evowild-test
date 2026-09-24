@@ -257,8 +257,8 @@ function updateRace(dt) {
 
   const leader = [...racers].sort((a,b) => b.z - a.z)[0];
   const focus = selected();
-  const desiredCamera = Math.max(0, Math.min(focus.z - 2450, leader.z - 2100));
-  cameraZ = lerp(cameraZ, desiredCamera, clamp(dt * 3.2, 0, 1));
+  const desiredCamera = Math.max(0, Math.min(focus.z - CAMERA_TRAIL, leader.z - (CAMERA_TRAIL - 220)));
+  cameraZ = lerp(cameraZ, desiredCamera, clamp(dt * 4.0, 0, 1));
   finish = racers.every(r => r.finished);
 }
 
@@ -449,9 +449,9 @@ function drawRacer(r, nowSec) {
   const sw = image.naturalWidth / 3;
   const sh = image.naturalHeight / 2;
 
-  const perspective = clamp(s.roadW / (width * 0.44), 0.11, 1.7);
-  const focus = r.id === selectedId ? 1.12 : 0.96;
-  const dw = clamp(205 * perspective * focus, 22, 260);
+  const perspective = clamp(s.roadW / (width * 0.44), 0.10, 1.45);
+  const focus = r.id === selectedId ? 1.07 : 0.94;
+  const dw = clamp(88 * perspective * focus, 18, 118);
   const dh = dw * (sh / sw);
 
   const speedPulse = 1 + Math.sin(nowSec * 12 + r.id) * 0.018;
