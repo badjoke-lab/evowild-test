@@ -62,6 +62,10 @@ let cameraMeters = 0;
 let cameraVelocity = 0;
 let pixelsPerMeter = 8;
 let pixelsPerMeterVelocity = 0;
+let cameraRoll = 0;
+let cameraLift = 0;
+let overtakePulse = 0;
+let previousRank = FIELD_SIZE;
 
 const clamp = (v,a,b) => Math.max(a, Math.min(b,v));
 const lerp = (a,b,t) => a + (b-a)*t;
@@ -294,30 +298,63 @@ function drawParallaxLayer(baseY, amplitude, speed, period, fill, jaggedness) {
 
 function drawBackground() {
   drawSky();
-  drawParallaxLayer(height*.50,95,.20,280,"#7b8f96",.7);
-  drawParallaxLayer(height*.54,68,.38,210,"#62786d",.6);
-  drawParallaxLayer(height*.58,42,.62,150,"#455d4d",.5);
 
-  const ground=ctx.createLinearGradient(0,height*.53,0,height);
-  ground.addColorStop(0,"#607d52");
-  ground.addColorStop(1,"#253c2c");
+  const focus=selected();
+  const speedNorm=clamp(focus.speed/31.5,0,1);
+  const hillLift=terrainY(cameraMeters)*.18;
+  const horizonShift=cameraLift*.28-hillLift;
+
+  drawParallaxLayer(height*.47+horizonShift,112,.16,330,"#748892",.72);
+  drawParallaxLayer(height*.515+horizonShift,78,.31,238,"#60736b",.62);
+  drawParallaxLayer(height*.56+horizonShift,48,.58,166,"#405845",.54);
+
+  const ground=ctx.createLinearGradient(0,height*.50,0,height);
+  ground.addColorStop(0,"#566e50");
+  ground.addColorStop(.55,"#344b36");
+  ground.addColorStop(1,"#1f3127");
   ctx.fillStyle=ground;
-  ctx.fillRect(0,height*.53,width,height*.47);
+  ctx.fillRect(0,height*.50+horizonShift,width,height*.50-horizonShift);
 
-  const treeShift = -cameraMeters*1.18;
-  for (let i=-2;i<Math.ceil(width/54)+4;i++) {
-    const x=i*54 + (treeShift%54);
-    const v=Math.abs(Math.sin((i+Math.floor(cameraMeters/54))*.81));
-    const h=32+v*46;
-    const y=height*.57+v*7;
-    ctx.fillStyle="#294634";
-    ctx.fillRect(x-2,y-h*.08,4,h*.36);
+  // Mid-field vegetation is world anchored. It accelerates relative to the ridges,
+  // so speed is visible even when the pack itself stays near screen centre.
+  const treeSpacing=44;
+  const treeShift=-(cameraMeters*pixelsPerMeter*.34)%treeSpacing;
+  for(let i=-3;i<Math.ceil(width/treeSpacing)+5;i++){
+    const x=i*treeSpacing+treeShift;
+    const seed=Math.abs(Math.sin((i+Math.floor(cameraMeters/9))*1.371));
+    const h=26+seed*52;
+    const y=height*.575+horizonShift+seed*8;
+    ctx.fillStyle=seed>.52?"#294737":"#33513e";
+    ctx.fillRect(x-2,y-h*.12,4,h*.34);
     ctx.beginPath();
     ctx.moveTo(x,y-h);
-    ctx.lineTo(x-h*.34,y-h*.15);
-    ctx.lineTo(x+h*.34,y-h*.15);
+    ctx.lineTo(x-h*.34,y-h*.16);
+    ctx.lineTo(x+h*.34,y-h*.16);
     ctx.closePath();
     ctx.fill();
+  }
+
+  // Distant utility towers create recognisable world anchors instead of an endless wallpaper.
+  const towerSpacing=190;
+  for(let mark=Math.floor((cameraMeters-120)/towerSpacing)*towerSpacing;mark<cameraMeters+180;mark+=towerSpacing){
+    const x=screenXForMeters(mark);
+    if(x<-80||x>width+80) continue;
+    const baseY=height*.565+horizonShift;
+    const h=42+speedNorm*8;
+    ctx.save();
+    ctx.globalAlpha=.42;
+    ctx.strokeStyle="#233a35";
+    ctx.lineWidth=2;
+    ctx.beginPath();
+    ctx.moveTo(x,baseY);
+    ctx.lineTo(x,baseY-h);
+    ctx.lineTo(x-12,baseY-8);
+    ctx.moveTo(x,baseY-h);
+    ctx.lineTo(x+12,baseY-8);
+    ctx.moveTo(x-8,baseY-h*.66);
+    ctx.lineTo(x+8,baseY-h*.66);
+    ctx.stroke();
+    ctx.restore();
   }
 }
 
@@ -487,6 +524,30 @@ function drawCourseLandmarks() {
   const rightM=cameraMeters+width*.62/pixelsPerMeter;
   const farY=laneOffset(0)-42;
 
+  // Full-width sector gantries make progress and scale unmistakable.
+  for(let mark=240;mark<RACE_METERS;mark+=240){
+    if(mark<leftM-28||mark>rightM+28) continue;
+    const x=screenXForMeters(mark);
+    const top=laneYAt(mark,0)-92;
+    const bottom=laneYAt(mark,3)+44;
+    const lean=clamp(courseBank(mark)*.0025,-.08,.08);
+    ctx.save();
+    ctx.translate(x,(top+bottom)*.5);
+    ctx.rotate(lean);
+    ctx.translate(-x,-(top+bottom)*.5);
+    ctx.fillStyle="rgba(20,31,35,.90)";
+    ctx.fillRect(x-5,top,5,bottom-top);
+    ctx.fillRect(x+58,top,5,bottom-top);
+    ctx.fillRect(x-5,top,68,17);
+    ctx.fillStyle="#9ce9fb";
+    ctx.fillRect(x-5,top,68,3);
+    ctx.fillStyle="#eef9ff";
+    ctx.font="800 9px ui-monospace, Menlo, monospace";
+    ctx.textAlign="center";
+    ctx.fillText(`S${Math.ceil(mark/240)}`,x+29,top+11);
+    ctx.restore();
+  }
+
   for(let mark=60;mark<RACE_METERS;mark+=60){
     if(mark<leftM-8||mark>rightM+8) continue;
     const x=screenXForMeters(mark);
@@ -623,26 +684,47 @@ function drawRacers() {
 }
 
 function drawForeground() {
-  const shift=-cameraMeters*(pixelsPerMeter*.52);
+  const focus=selected();
+  const speedNorm=clamp(focus.speed/31.5,0,1);
+  const shift=-cameraMeters*(pixelsPerMeter*.92);
+
   ctx.save();
-  ctx.globalAlpha=.68;
-  for(let i=-2;i<Math.ceil(width/90)+4;i++){
-    const x=i*90+(shift%90);
-    const h=38+Math.abs(Math.sin(i*1.3))*34;
-    ctx.strokeStyle="#1c3528";
-    ctx.lineWidth=3;
+  ctx.globalAlpha=.80;
+  for(let i=-3;i<Math.ceil(width/78)+5;i++){
+    const x=i*78+(shift%78);
+    const seed=Math.abs(Math.sin((i+Math.floor(cameraMeters/12))*1.91));
+    const h=34+seed*54;
+    ctx.strokeStyle=seed>.5?"#183126":"#203d2d";
+    ctx.lineWidth=2.8+seed*1.8;
     ctx.beginPath();
-    ctx.moveTo(x,height);
-    ctx.lineTo(x+8,height-h);
+    ctx.moveTo(x,height+6);
+    ctx.lineTo(x+10,height-h);
     ctx.stroke();
-    ctx.strokeStyle="#274936";
-    ctx.lineWidth=2;
-    for(let b=0;b<3;b++){
+
+    if(seed>.38){
+      ctx.strokeStyle="rgba(44,78,55,.92)";
+      ctx.lineWidth=2;
       ctx.beginPath();
-      ctx.moveTo(x+5,height-h+b*10);
-      ctx.lineTo(x-10-b*2,height-h-8+b*8);
+      ctx.moveTo(x+7,height-h*.72);
+      ctx.lineTo(x-16,height-h*.90);
+      ctx.moveTo(x+8,height-h*.55);
+      ctx.lineTo(x+24,height-h*.73);
       ctx.stroke();
     }
+  }
+
+  // Closest guard posts cross the frame quickly and provide a strong parallax layer.
+  const postSpacing=96;
+  const postShift=-(cameraMeters*pixelsPerMeter*1.25)%postSpacing;
+  ctx.globalAlpha=.68;
+  for(let i=-2;i<Math.ceil(width/postSpacing)+4;i++){
+    const x=i*postSpacing+postShift;
+    const baseY=height*.93;
+    const h=42+speedNorm*22;
+    ctx.fillStyle="#d7e2dc";
+    ctx.fillRect(x-2,baseY-h,4,h);
+    ctx.fillStyle="#24453a";
+    ctx.fillRect(x-8,baseY-h,x<width*.5?18:16,5);
   }
   ctx.restore();
 }
@@ -710,10 +792,27 @@ function render() {
   const focus=selected();
   updateCamera();
 
-  const speedNorm=clamp(focus.speed/24.5,0,1);
-  const shake=speedNorm>.70?(speedNorm-.70)*5.2:0;
+  const speedNorm=clamp(focus.speed/31.5,0,1);
+  const rankNow=rankOf(focus);
+  if(rankNow<previousRank) overtakePulse=1;
+  previousRank=rankNow;
+  overtakePulse=Math.max(0,overtakePulse-.018);
+
+  const slope=terrainSlope(focus.distance);
+  const bank=courseBank(focus.distance);
+  const targetRoll=clamp(bank*.0032+slope*.010,-.095,.095);
+  cameraRoll=lerp(cameraRoll,targetRoll,.055);
+  cameraLift=lerp(cameraLift,terrainY(focus.distance)*.55,.055);
+
+  const shake=speedNorm>.62?(speedNorm-.62)*7.2:0;
+  const pulseZoom=1+overtakePulse*.018;
+
   ctx.save();
-  ctx.translate(Math.sin(elapsed*.041)*shake,Math.sin(elapsed*.053+1.2)*shake*.38);
+  ctx.translate(width*.5,height*.58);
+  ctx.rotate(cameraRoll);
+  ctx.scale(pulseZoom,pulseZoom);
+  ctx.translate(-width*.5,-height*.58);
+  ctx.translate(Math.sin(elapsed*.044)*shake,Math.sin(elapsed*.057+1.2)*shake*.42);
 
   drawBackground();
   drawTrack();
@@ -722,6 +821,10 @@ function render() {
   drawForeground();
   drawSpeedRush();
   ctx.restore();
+
+  stage.dataset.cameraRoll=cameraRoll.toFixed(4);
+  stage.dataset.cameraLift=cameraLift.toFixed(2);
+  stage.dataset.overtakePulse=overtakePulse.toFixed(3);
 
   // subtle speed vignette
   const vignetteSpeed=clamp(focus.speed/24.5,0,1);
@@ -775,6 +878,10 @@ function resetRace(){
   cameraVelocity=0;
   pixelsPerMeter=width<700?6.7:8.4;
   pixelsPerMeterVelocity=0;
+  cameraRoll=0;
+  cameraLift=0;
+  overtakePulse=0;
+  previousRank=FIELD_SIZE;
   paused=false;
   ui.pause.textContent="Pause";
   ui.countdown.hidden=false;
