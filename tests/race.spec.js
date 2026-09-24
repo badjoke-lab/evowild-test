@@ -966,6 +966,8 @@ test("run S-only Hunyuan 18-racer pack with race and follow LOD policy", async (
     .map(Number);
   expect(followCounts.reduce((sum, value) => sum + value, 0)).toBe(18);
   expect(followCounts[0]).toBe(1);
+  expect(followCounts[2]).toBeGreaterThan(0);
+  expect(followCounts[1]).toBeLessThan(17);
   await stage.screenshot({ path: `${outDir}/hunyuan-s-only-follow-pack.png` });
 
   console.log("HUNYUAN_S_ONLY_PACK", JSON.stringify({

@@ -969,7 +969,7 @@ function updateHunyuanRacePackInstances() {
     let level = 2;
     if (view === "follow" && racer.id === selectedId) {
       level = 0;
-    } else if (view === "follow" && distance < 16) {
+    } else if (view === "follow" && distance < 8) {
       level = 1;
     } else if (view === "race" && distance < 12) {
       level = 1;
