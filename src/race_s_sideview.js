@@ -300,7 +300,7 @@ function drawBackground() {
 }
 
 function screenXForMeters(m) {
-  const anchor = width<700 ? width*.44 : width*.43;
+  const anchor = width<700 ? width*.50 : width*.46;
   return anchor + (m-cameraMeters)*pixelsPerMeter;
 }
 
