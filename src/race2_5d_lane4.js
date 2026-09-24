@@ -289,21 +289,38 @@ function drawSky(curveAccum, horizon) {
   ctx.fillRect(sunX - 120, sunY - 120, 240, 240);
 
   const layers = [
-    { y: horizon * 0.73, amp: 62, step: 110, speed: 0.13, color: "#112b36" },
-    { y: horizon * 0.88, amp: 38, step: 74, speed: 0.23, color: "#17333b" },
-    { y: horizon * 0.98, amp: 18, step: 42, speed: 0.36, color: "#1b3d40" }
+    { y: horizon * 0.74, amp: 58, step: 54, speed: 0.12, color: "#112b36" },
+    { y: horizon * 0.89, amp: 34, step: 42, speed: 0.22, color: "#17333b" },
+    { y: horizon * 0.99, amp: 17, step: 30, speed: 0.34, color: "#1b3d40" }
   ];
+
   for (const [li, layer] of layers.entries()) {
-    const shift = -(cameraZ * layer.speed * 0.015 + curveAccum * 45) % layer.step;
+    const shift = -(cameraZ * layer.speed * 0.012 + curveAccum * 42) % layer.step;
+    const pts = [];
+    for (let x = shift - layer.step * 2; x <= width + layer.step * 2; x += layer.step) {
+      const idx = Math.floor((x - shift) / layer.step);
+      const n1 = pseudoNoise(idx + li * 37);
+      const n2 = pseudoNoise(idx * 0.61 + li * 71);
+      pts.push({
+        x,
+        y: layer.y - layer.amp * (0.28 + n1 * 0.50 + n2 * 0.22)
+      });
+    }
+
     ctx.fillStyle = layer.color;
     ctx.beginPath();
     ctx.moveTo(0, height);
-    ctx.lineTo(0, layer.y);
-    for (let x = shift - layer.step; x < width + layer.step; x += layer.step) {
-      const n = pseudoNoise(Math.floor((x - shift) / layer.step) + li * 33);
-      ctx.lineTo(x + layer.step * 0.25, layer.y - layer.amp * (0.35 + n * 0.65));
-      ctx.lineTo(x + layer.step * 0.70, layer.y - layer.amp * (0.12 + n * 0.28));
-      ctx.lineTo(x + layer.step, layer.y);
+    if (pts.length) {
+      ctx.lineTo(pts[0].x, pts[0].y);
+      for (let i = 1; i < pts.length; i++) {
+        const prev = pts[i - 1];
+        const point = pts[i];
+        const mx = (prev.x + point.x) * 0.5;
+        const my = (prev.y + point.y) * 0.5;
+        ctx.quadraticCurveTo(prev.x, prev.y, mx, my);
+      }
+      const lastPoint = pts[pts.length - 1];
+      ctx.lineTo(lastPoint.x, lastPoint.y);
     }
     ctx.lineTo(width, height);
     ctx.closePath();
