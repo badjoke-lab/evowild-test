@@ -265,9 +265,9 @@ function renderSegment(seg, n) {
   }
 
   const fog = 1 - Math.exp(-Math.pow(n / DRAW_DISTANCE, 2) * 5.0);
-  if (fog > 0.04) {
-    ctx.fillStyle = "rgba(139,166,160," + (fog * 0.70) + ")";
-    ctx.fillRect(0, p2.y, W, Math.max(0, p1.y - p2.y + 1));
+  if (n > 108 && fog > 0.30) {
+    ctx.fillStyle = "rgba(139,166,160," + (fog * 0.42) + ")";
+    ctx.fillRect(0, p2.y - 1, W, Math.max(0, p1.y - p2.y + 3));
   }
 }
 
@@ -471,8 +471,8 @@ function drawSpeedStreaks(strength) {
     const y = H * (0.56 + seed * 0.42);
     const side = i % 2 ? -1 : 1;
     const x = side < 0 ? W * (0.02 + seed * 0.20) : W * (0.80 + seed * 0.18);
-    const len = W * (0.025 + (1 - seed) * 0.08) * strength;
-    ctx.strokeStyle = "rgba(198,231,225," + (0.035 + strength * 0.055) + ")";
+    const len = W * (0.035 + (1 - seed) * 0.11) * strength;
+    ctx.strokeStyle = "rgba(198,231,225," + (0.055 + strength * 0.085) + ")";
     ctx.lineWidth = Math.max(1, 1.1 * DPR);
     ctx.beginPath();
     ctx.moveTo(x, y);
@@ -505,7 +505,7 @@ function renderWorld(ts) {
     project(seg.p2, -620, playerY + CAMERA_HEIGHT, cameraBase, x + dx, n + 1);
 
     x += dx;
-    dx += seg.curve * 0.72;
+    dx += seg.curve * 1.20;
 
     seg.visible = false;
     if (
@@ -563,7 +563,7 @@ function renderWorld(ts) {
   canvas.dataset.renderer = "pseudo3d-segment-projection";
   canvas.dataset.field = "s-only-5";
   canvas.dataset.speed = String(Math.round(speed));
-  canvas.dataset.proofVersion = "v3";
+  canvas.dataset.proofVersion = "v4";
 }
 
 function frame(ts) {
