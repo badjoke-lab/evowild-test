@@ -68,6 +68,43 @@ const RUN_POSES = [
   {FN:[-18,18],FF:[-26,28],RN:[-32,34],RF:[24,-26]}
 ];
 
+const GAITS = {
+  P: { cadence: 0.0102, stride: 0.92, bob: 7.0, pitch: 0.040, crouch: 3.5 },
+  E: { cadence: 0.0117, stride: 1.08, bob: 3.1, pitch: 0.022, crouch: 0.8 },
+  A: { cadence: 0.0148, stride: 0.78, bob: 4.2, pitch: 0.052, crouch: 5.2 }
+};
+
+function smooth01(t) {
+  return t * t * (3 - 2 * t);
+}
+
+function lerp(a,b,t) {
+  return a + (b - a) * t;
+}
+
+function articulatedPose(r, speedRatio) {
+  const gait = GAITS[r.morph];
+  const cycle = (elapsed * gait.cadence * (0.56 + speedRatio * 0.72) + r.seed * 0.41) % 6;
+  const i0 = Math.floor(cycle);
+  const i1 = (i0 + 1) % 6;
+  const t = smooth01(cycle - i0);
+  const pose = {};
+  for (const leg of ["FN","FF","RN","RF"]) {
+    pose[leg] = [
+      lerp(RUN_POSES[i0][leg][0], RUN_POSES[i1][leg][0], t) * gait.stride,
+      lerp(RUN_POSES[i0][leg][1], RUN_POSES[i1][leg][1], t) * gait.stride
+    ];
+  }
+  const wave = Math.sin((cycle / 6) * Math.PI * 2);
+  const impact = Math.max(0, Math.cos((cycle / 6) * Math.PI * 2));
+  return {
+    pose,
+    bob: (Math.abs(wave) * gait.bob + impact * gait.bob * .22),
+    tilt: wave * gait.pitch,
+    crouch: gait.crouch * (.30 + .70 * impact)
+  };
+}
+
 const names = ["Vela","Brim","Serein","Kite","Aster","Mica","Rook","Nacre","Ilex","Lumen","Dune","Tern"];
 const cycle = ["S","P","E","A"];
 const sheets = new Map();
@@ -535,18 +572,19 @@ function frameIndexFor(r) {
   return Math.floor((elapsed+r.id*47)/frameMs)%6;
 }
 
-function drawArticulatedMorph(r, x, y, scale, frame, bob, tilt) {
+function drawArticulatedMorph(r, x, y, scale, speedRatio) {
   const rig = RIGS[r.morph];
   const layers = rigLayers.get(r.morph);
   if (!rig || !layers) return;
 
   const desiredW = MORPHS[r.morph].w * scale;
   const k = desiredW / rig.w;
-  const pose = RUN_POSES[frame];
+  const motion = articulatedPose(r, speedRatio);
+  const pose = motion.pose;
 
   ctx.save();
-  ctx.translate(x, y - rig.h * k * .52 - bob);
-  ctx.rotate(tilt);
+  ctx.translate(x, y - rig.h * k * .52 - motion.bob * scale + motion.crouch * scale);
+  ctx.rotate(motion.tilt);
   ctx.scale(-1,1);
   ctx.translate(-rig.w * k * .5, -rig.h * k * .5);
 
@@ -631,10 +669,10 @@ function drawRacer(r) {
   ctx.fill();
 
   if(r.morph==="S") drawSpriteMorph(r,x,y,scale,frame,bob,tilt);
-  else drawArticulatedMorph(r,x,y,scale,frame,bob,tilt);
+  else drawArticulatedMorph(r,x,y,scale,speedRatio);
 
   if(r.id===SELECTED_ID){
-    const markerY=y-h-bob-8;
+    const markerY=y-h-(r.morph==="S"?bob:3)-8;
     ctx.fillStyle="rgba(103,220,255,.92)";
     ctx.beginPath();
     ctx.moveTo(x,markerY+8);
