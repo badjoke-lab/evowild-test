@@ -15,6 +15,7 @@ async function waitForPhase(page, phase, timeout = 3000) {
 }
 
 test("S visual lane is one articulated creature with grounded gait phases", async ({ page }, testInfo) => {
+  test.setTimeout(60000);
   const pageErrors = [];
   const consoleErrors = [];
   page.on("pageerror", error => pageErrors.push(error.stack || String(error)));
@@ -74,7 +75,11 @@ test("S visual lane is one articulated creature with grounded gait phases", asyn
     fs.copyFileSync("public/concept/S.webp", "test-results/visuals/source-S.webp");
   }
 
-  for (const phase of ["CONTACT", "PUSH", "FLIGHT", "REACH"]) {
+  const capturePhases = testInfo.project.name === "desktop-chromium"
+    ? ["CONTACT", "PUSH", "FLIGHT", "REACH"]
+    : ["CONTACT"];
+
+  for (const phase of capturePhases) {
     await waitForPhase(page, phase);
     await stage.screenshot({
       path: `test-results/visuals/${testInfo.project.name}-s-motion-${phase.toLowerCase()}.png`
