@@ -1,1 +1,89 @@
-import { test, expect } from "@playwright/test";\nimport fs from "node:fs";\n\nasync function waitForPhase(page, phase, timeout = 3000) {\n  return page.evaluate(({ phase, timeout }) => new Promise((resolve, reject) => {\n    const stage = document.querySelector("#stage");\n    const started = performance.now();\n    const tick = () => {\n      if (stage?.dataset.motionPhase === phase) return resolve(true);\n      if (performance.now() - started > timeout) return reject(new Error("phase timeout: " + phase));\n      requestAnimationFrame(tick);\n    };\n    tick();\n  }), { phase, timeout });\n}\n\ntest("S visual lane stays one complete creature and covers a grounded six-phase gait", async ({ page }, testInfo) => {\n  test.setTimeout(60000);\n\n  const pageErrors = [];\n  const consoleErrors = [];\n  page.on("pageerror", error => pageErrors.push(error.stack || String(error)));\n  page.on("console", message => {\n    if (message.type() === "error") consoleErrors.push(message.text());\n  });\n\n  await page.goto("/evowild-test/race-s-sideview.html", { waitUntil: "networkidle" });\n\n  const stage = page.locator("#stage");\n  await expect(stage).toHaveAttribute("data-mode", "s-solo-motion");\n  await expect(stage).toHaveAttribute("data-creature-count", "1");\n  await expect(stage).toHaveAttribute("data-agent", "off");\n  await expect(stage).toHaveAttribute("data-hud", "off");\n  await expect(stage).toHaveAttribute("data-race-logic", "off");\n  await expect(stage).toHaveAttribute("data-rig-ready", "true", { timeout: 10000 });\n  await expect(stage).toHaveAttribute("data-frame-source", "s-run-sheet");\n  await expect(page.locator(".hud")).toHaveCount(0);\n  await expect(page.locator("#motionCanvas")).toBeVisible();\n\n  const samples = await page.evaluate(async () => {\n    const stage = document.querySelector("#stage");\n    const out = [];\n    for (let i = 0; i < 38; i++) {\n      out.push({\n        phase: stage.dataset.motionPhase,\n        lift: Number(stage.dataset.visualLift || 0),\n        ground: Number(stage.dataset.groundAnchorY || 0),\n        bottom: Number(stage.dataset.spriteBottomY || 0),\n        pitch: Number(stage.dataset.bodyPitch || 0),\n        frame: Number(stage.dataset.frameIndex || 0)\n      });\n      await new Promise(resolve => setTimeout(resolve, 24));\n    }\n    return out;\n  });\n\n  const phases = new Set(samples.map(sample => sample.phase));\n  for (const phase of ["CONTACT", "PUSH", "RECOVERY", "FLIGHT", "REACH", "LAND"]) {\n    expect(phases.has(phase), "missing motion phase: " + phase).toBeTruthy();\n  }\n\n  const contact = samples.filter(sample => sample.phase === "CONTACT");\n  expect(contact.length).toBeGreaterThan(0);\n  expect(Math.max(...contact.map(sample => Math.abs(sample.bottom - sample.ground)))).toBeLessThanOrEqual(1);\n\n  const flight = samples.filter(sample => sample.phase === "FLIGHT");\n  expect(flight.length).toBeGreaterThan(0);\n  expect(Math.min(...flight.map(sample => sample.lift))).toBeGreaterThan(20);\n\n  expect(new Set(samples.map(sample => sample.frame)).size).toBe(6);\n  const pitches = samples.map(sample => sample.pitch);\n  expect(Math.max(...pitches) - Math.min(...pitches)).toBeGreaterThan(3);\n\n  expect(pageErrors, pageErrors.join("\n")).toEqual([]);\n  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);\n\n  fs.mkdirSync("test-results/visuals", { recursive: true });\n\n  const capturePhases = testInfo.project.name === "desktop-chromium"\n    ? ["CONTACT", "PUSH", "FLIGHT", "REACH"]\n    : ["CONTACT"];\n\n  for (const phase of capturePhases) {\n    await waitForPhase(page, phase);\n    await stage.screenshot({\n      path: "test-results/visuals/" + testInfo.project.name + "-s-motion-" + phase.toLowerCase() + ".png"\n    });\n  }\n});\n
+import { test, expect } from "@playwright/test";
+import fs from "node:fs";
+
+async function waitForPhase(page, phase, timeout = 3000) {
+  return page.evaluate(({ phase, timeout }) => new Promise((resolve, reject) => {
+    const stage = document.querySelector("#stage");
+    const started = performance.now();
+    const tick = () => {
+      if (stage?.dataset.motionPhase === phase) return resolve(true);
+      if (performance.now() - started > timeout) return reject(new Error("phase timeout: " + phase));
+      requestAnimationFrame(tick);
+    };
+    tick();
+  }), { phase, timeout });
+}
+
+test("S visual lane stays one complete creature and covers a grounded six-phase gait", async ({ page }, testInfo) => {
+  test.setTimeout(60000);
+
+  const pageErrors = [];
+  const consoleErrors = [];
+  page.on("pageerror", error => pageErrors.push(error.stack || String(error)));
+  page.on("console", message => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+
+  await page.goto("/evowild-test/race-s-sideview.html", { waitUntil: "networkidle" });
+
+  const stage = page.locator("#stage");
+  await expect(stage).toHaveAttribute("data-mode", "s-solo-motion");
+  await expect(stage).toHaveAttribute("data-creature-count", "1");
+  await expect(stage).toHaveAttribute("data-agent", "off");
+  await expect(stage).toHaveAttribute("data-hud", "off");
+  await expect(stage).toHaveAttribute("data-race-logic", "off");
+  await expect(stage).toHaveAttribute("data-rig-ready", "true", { timeout: 10000 });
+  await expect(stage).toHaveAttribute("data-frame-source", "s-run-sheet");
+  await expect(page.locator(".hud")).toHaveCount(0);
+  await expect(page.locator("#motionCanvas")).toBeVisible();
+
+  const samples = await page.evaluate(async () => {
+    const stage = document.querySelector("#stage");
+    const out = [];
+    for (let i = 0; i < 38; i++) {
+      out.push({
+        phase: stage.dataset.motionPhase,
+        lift: Number(stage.dataset.visualLift || 0),
+        ground: Number(stage.dataset.groundAnchorY || 0),
+        bottom: Number(stage.dataset.spriteBottomY || 0),
+        pitch: Number(stage.dataset.bodyPitch || 0),
+        frame: Number(stage.dataset.frameIndex || 0)
+      });
+      await new Promise(resolve => setTimeout(resolve, 24));
+    }
+    return out;
+  });
+
+  const phases = new Set(samples.map(sample => sample.phase));
+  for (const phase of ["CONTACT", "PUSH", "RECOVERY", "FLIGHT", "REACH", "LAND"]) {
+    expect(phases.has(phase), "missing motion phase: " + phase).toBeTruthy();
+  }
+
+  const contact = samples.filter(sample => sample.phase === "CONTACT");
+  expect(contact.length).toBeGreaterThan(0);
+  expect(Math.max(...contact.map(sample => Math.abs(sample.bottom - sample.ground)))).toBeLessThanOrEqual(1);
+
+  const flight = samples.filter(sample => sample.phase === "FLIGHT");
+  expect(flight.length).toBeGreaterThan(0);
+  expect(Math.min(...flight.map(sample => sample.lift))).toBeGreaterThan(20);
+
+  expect(new Set(samples.map(sample => sample.frame)).size).toBe(6);
+  const pitches = samples.map(sample => sample.pitch);
+  expect(Math.max(...pitches) - Math.min(...pitches)).toBeGreaterThan(3);
+
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+
+  fs.mkdirSync("test-results/visuals", { recursive: true });
+
+  const capturePhases = testInfo.project.name === "desktop-chromium"
+    ? ["CONTACT", "PUSH", "FLIGHT", "REACH"]
+    : ["CONTACT"];
+
+  for (const phase of capturePhases) {
+    await waitForPhase(page, phase);
+    await stage.screenshot({
+      path: "test-results/visuals/" + testInfo.project.name + "-s-motion-" + phase.toLowerCase() + ".png"
+    });
+  }
+});
