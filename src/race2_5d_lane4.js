@@ -32,7 +32,7 @@ const WORLD_TO_METERS = 0.12;
 const TRACK_WORLD = TRACK_METERS / WORLD_TO_METERS;
 const MAX_SPEED = 22.5 / WORLD_TO_METERS;
 const START_Z = 5200;
-const CAMERA_TRAIL = 2850;
+const CAMERA_TRAIL = 2350;
 
 let width = 0;
 let height = 0;
@@ -331,10 +331,10 @@ function drawSky(curveAccum, horizon) {
 function roadPalette(index) {
   const band = Math.floor(index / 3) % 2;
   return {
-    terrain: band ? "#334434" : "#304031",
-    road: band ? "#4b5157" : "#454a50",
-    edge: band ? "#dce9e8" : "#24313a",
-    lane: "#c5d3d2"
+    terrain: band ? "#2b3f31" : "#24372c",
+    road: band ? "#50575f" : "#454c53",
+    edge: band ? "#dce9e8" : "#17313a",
+    lane: "#d9e3e2"
   };
 }
 
@@ -378,8 +378,9 @@ function drawRoad() {
     ctx.fillStyle = c.terrain;
     ctx.fillRect(0, p2.y, width, Math.max(0, p1.y - p2.y));
 
-    const edge1 = p1.w / Math.max(8, LANES * 1.8);
-    const edge2 = p2.w / Math.max(8, LANES * 1.8);
+    // MIT donor proportion: ssusnic/Pseudo-3d-Racer uses road-width / 5 rumble strips.
+    const edge1 = p1.w / 5;
+    const edge2 = p2.w / 5;
 
     polygon(c.edge,
       p1.x - p1.w - edge1, p1.y,
@@ -401,8 +402,9 @@ function drawRoad() {
     );
 
     if ((seg.index % 5) < 3) {
-      const lw1 = p1.w * 0.011;
-      const lw2 = p2.w * 0.011;
+      // MIT donor proportion: lane line half-width is approximately road-width / 40.
+      const lw1 = p1.w / 40;
+      const lw2 = p2.w / 40;
       for (let lane = 1; lane < LANES; lane++) {
         const t = lane / LANES;
         const lx1 = lerp(p1.x - p1.w, p1.x + p1.w, t);
