@@ -78,6 +78,7 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
 
 
 test("lane 4 v4 runs the unmodified Kart Royale baseline", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(120000);
   const errors = [];
   page.on("pageerror", (err) => errors.push(err.stack || String(err)));
