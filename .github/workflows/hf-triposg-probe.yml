@@ -1,0 +1,50 @@
+name: HF TripoSG API probe
+
+on:
+  push:
+    branches:
+      - test/hf-sf3d-retry-20260921
+    paths:
+      - ".github/workflows/hf-triposg-probe.yml"
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Gradio client
+        run: pip install --quiet "gradio_client>=1.10,<2"
+
+      - name: Probe TripoSG API
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          python - <<'PY'
+          import inspect, json, os
+          from gradio_client import Client
+
+          token = os.environ.get("HF_TOKEN")
+          params = inspect.signature(Client).parameters
+          auth_kw = {"token": token} if "token" in params else {"hf_token": token}
+          print("HF_AUTH:", "token present" if token else "token missing")
+          print("GRADIO_AUTH_ARG:", next(iter(auth_kw)))
+
+          client = Client("VAST-AI/TripoSG", **auth_kw)
+          api = client.view_api(return_format="dict")
+          print(json.dumps(api, indent=2, default=str))
+          with open("triposg-api.json", "w", encoding="utf-8") as f:
+              json.dump(api, f, indent=2, default=str)
+          PY
+
+      - name: Upload API schema
+        uses: actions/upload-artifact@v4
+        with:
+          name: triposg-api-schema
+          path: triposg-api.json
