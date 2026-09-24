@@ -1,0 +1,55 @@
+name: HF ZeroGPU Space capability probe
+
+on:
+  push:
+    branches:
+      - test/hf-sf3d-retry-20260921
+    paths:
+      - ".github/workflows/hf-zerogpu-space-probe.yml"
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Hub client
+        run: pip install --quiet --upgrade huggingface_hub
+
+      - name: Inspect ZeroGPU Space capability
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          python - <<'PY'
+          import inspect, json, os
+          from huggingface_hub import HfApi, SpaceHardware
+
+          token = os.environ.get("HF_TOKEN")
+          if not token:
+              raise RuntimeError("HF_TOKEN missing")
+          api = HfApi(token=token)
+          who = api.whoami()
+          print("WHOAMI:", json.dumps({
+              "name": who.get("name"),
+              "type": who.get("type"),
+              "isPro": who.get("isPro"),
+              "auth": who.get("auth"),
+          }, default=str))
+
+          spaces = list(api.list_spaces(author=who.get("name"), limit=100))
+          print("SPACE_COUNT:", len(spaces))
+          for s in spaces:
+              print("SPACE:", s.id)
+
+          print("ZERO_HARDWARE_ENUM:", getattr(SpaceHardware, "ZERO_A10G", None))
+          print("CREATE_REPO_SIGNATURE:", inspect.signature(api.create_repo))
+          if hasattr(api, "duplicate_space"):
+              print("DUPLICATE_SPACE_SIGNATURE:", inspect.signature(api.duplicate_space))
+          if hasattr(api, "duplicate_repo"):
+              print("DUPLICATE_REPO_SIGNATURE:", inspect.signature(api.duplicate_repo))
+          print("REQUEST_HARDWARE_SIGNATURE:", inspect.signature(api.request_space_hardware))
+          PY
