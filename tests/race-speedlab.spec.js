@@ -10,7 +10,7 @@ test("isolated speed lab loads all run sheets and animates", async ({ page }, te
   const stage = page.locator("#speedlabStage");
 
   await expect(stage).toHaveAttribute("data-state", "ready", { timeout: 10000 });
-  await expect(stage).toHaveAttribute("data-motion", "sprite-sheets", { timeout: 10000 });
+  await expect(stage).toHaveAttribute("data-motion", "s-sprite-plus-articulated-morphs", { timeout: 10000 });
   await expect(stage).toHaveAttribute("data-running", /true|finished/, { timeout: 5000 });
 
   const observed = { s: new Set(), p: new Set(), e: new Set(), a: new Set() };
