@@ -10,6 +10,12 @@ test("S-only Road Lab renders pseudo-3D race and animates", async ({ page }, tes
   const stage = page.locator(".roadlab");
 
   await expect(stage).toHaveAttribute("data-state", "ready", { timeout: 10000 });
+  await page.waitForTimeout(1500);
+  console.log("ROADLAB_DEBUG", JSON.stringify({
+    running: await stage.getAttribute("data-running"),
+    runtimeError: await stage.getAttribute("data-runtime-error"),
+    pageErrors
+  }));
   await expect(stage).toHaveAttribute("data-running", "true", { timeout: 5000 });
 
   const frames = new Set();
