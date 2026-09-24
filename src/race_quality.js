@@ -45,15 +45,87 @@ const RUN_FRAMES = [
 ];
 
 const spriteSheets = new Map();
+const spriteFrames = new Map();
 let readySheets = 0;
 let failedSheets = 0;
+
+function extractConnectedFrame(image, col, row) {
+  const fw = Math.floor(image.naturalWidth / 3);
+  const fh = Math.floor(image.naturalHeight / 2);
+  const canvas = document.createElement("canvas");
+  canvas.width = fw;
+  canvas.height = fh;
+  const c = canvas.getContext("2d", { willReadFrequently: true });
+  c.clearRect(0, 0, fw, fh);
+  c.drawImage(image, col * fw, row * fh, fw, fh, 0, 0, fw, fh);
+
+  const pixels = c.getImageData(0, 0, fw, fh);
+  const alpha = pixels.data;
+  const count = fw * fh;
+  let seed = -1;
+  let bestDistance = Infinity;
+  const centerX = fw * 0.5;
+  const centerY = fh * 0.48;
+
+  for (let i = 0; i < count; i++) {
+    if (alpha[i * 4 + 3] <= 12) continue;
+    const x = i % fw;
+    const y = Math.floor(i / fw);
+    const dx = x - centerX;
+    const dy = y - centerY;
+    const d = dx * dx + dy * dy;
+    if (d < bestDistance) {
+      bestDistance = d;
+      seed = i;
+    }
+  }
+
+  if (seed < 0) return canvas;
+
+  const visited = new Uint8Array(count);
+  const queue = new Int32Array(count);
+  let head = 0;
+  let tail = 0;
+  queue[tail++] = seed;
+  visited[seed] = 1;
+
+  while (head < tail) {
+    const index = queue[head++];
+    const x = index % fw;
+    const y = Math.floor(index / fw);
+
+    for (let oy = -1; oy <= 1; oy++) {
+      for (let ox = -1; ox <= 1; ox++) {
+        if (ox === 0 && oy === 0) continue;
+        const nx = x + ox;
+        const ny = y + oy;
+        if (nx < 0 || nx >= fw || ny < 0 || ny >= fh) continue;
+        const next = ny * fw + nx;
+        if (visited[next] || alpha[next * 4 + 3] <= 12) continue;
+        visited[next] = 1;
+        queue[tail++] = next;
+      }
+    }
+  }
+
+  for (let i = 0; i < count; i++) {
+    if (!visited[i]) alpha[i * 4 + 3] = 0;
+  }
+  c.putImageData(pixels, 0, 0);
+  return canvas;
+}
 
 for (const morph of ["S","P","E","A"]) {
   const image = new Image();
   image.decoding = "async";
   image.onload = () => {
+    spriteFrames.set(
+      morph,
+      RUN_FRAMES.map((frame) => extractConnectedFrame(image, frame.col, frame.row))
+    );
     readySheets++;
     stage.dataset.runSheetsReady = String(readySheets);
+    stage.dataset.runSheetCleanup = "connected-body-alpha";
     if (readySheets === 4 && failedSheets === 0) {
       stage.dataset.runSheets = "ready";
       ui.assetStatus.textContent = "S / P / E / A run cycles ready";
@@ -564,13 +636,14 @@ function drawRacers() {
     const selectedRacer=r.id===SELECTED_ID;
     const scale=laneScale(item.lane);
     const meta=MORPH_META[r.morph] ?? MORPH_META.S;
-    const sheet=spriteSheets.get(r.morph);
+    const frames=spriteFrames.get(r.morph);
     const baseW = width<700
       ? clamp(width*.14,90,124)
       : clamp(width*.092,122,148);
     const spriteW=baseW*scale*(selectedRacer?1.04:1)*meta.width;
-    const sourceAspect=(sheet?.complete && sheet.naturalWidth>0)
-      ? (sheet.naturalHeight/2)/(sheet.naturalWidth/3)
+    const sampleFrame=frames?.[0];
+    const sourceAspect=sampleFrame
+      ? sampleFrame.height/sampleFrame.width
       : .84;
     const spriteH=spriteW*clamp(sourceAspect,.58,1.08);
     minEdge=Math.min(minEdge,item.x-spriteW*.52);
@@ -611,9 +684,8 @@ function drawRacers() {
       ctx.restore();
     }
 
-    if(sheet?.complete && sheet.naturalWidth>0){
-      const fw=sheet.naturalWidth/3, fh=sheet.naturalHeight/2;
-      const sx=frame.col*fw, sy=frame.row*fh;
+    const frameCanvas=frames?.[frameIndex];
+    if(frameCanvas){
       const footAdjust=frame.y*spriteH*.12*meta.lift;
 
       ctx.save();
@@ -623,8 +695,11 @@ function drawRacers() {
         ctx.shadowColor="rgba(126,226,255,.85)";
         ctx.shadowBlur=clamp(spriteW*.08,4,18);
       }
-      ctx.drawImage(sheet,sx,sy,fw,fh,-spriteW/2,-spriteH/2+footAdjust,spriteW,spriteH);
+      ctx.drawImage(frameCanvas,-spriteW/2,-spriteH/2+footAdjust,spriteW,spriteH);
       ctx.restore();
+
+      stage.dataset[`${r.morph.toLowerCase()}Animated`] = "true";
+      stage.dataset[`${r.morph.toLowerCase()}Frame`] = String(frameIndex);
     }
 
     const labelY=item.y-spriteH*.66;
