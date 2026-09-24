@@ -8,7 +8,8 @@ export default defineConfig({
       input: {
         main: resolve(process.cwd(), "index.html"),
         race2_5d: resolve(process.cwd(), "race-2_5d.html"),
-        raceSSideview: resolve(process.cwd(), "race-s-sideview.html")
+        raceSSideview: resolve(process.cwd(), "race-s-sideview.html"),
+        raceSOnlyV3: resolve(process.cwd(), "race-s-only-v3.html")
       }
     }
   }
