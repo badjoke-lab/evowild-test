@@ -1,0 +1,48 @@
+name: Hunyuan rig proof
+
+on:
+  push:
+    branches:
+      - feat/sf3d-game-integration-20260922
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rig:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[targeted-hunyuan-rig]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install Blender
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y blender
+          blender --version
+      - name: Build heuristic S-Type armature proof
+        run: |
+          blender --background             --python scripts/rig-hunyuan-blender.py --             public/models/evowild-s-hunyuan2mv-lod2.glb             public/models/evowild-s-hunyuan2mv-rigged.glb             public/models/evowild-s-hunyuan2mv-rigged.json
+          ls -lh public/models/evowild-s-hunyuan2mv-rigged.*
+          cat public/models/evowild-s-hunyuan2mv-rigged.json
+      - name: Persist rig proof
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add             public/models/evowild-s-hunyuan2mv-rigged.glb             public/models/evowild-s-hunyuan2mv-rigged.json
+          if git diff --cached --quiet; then
+            echo "No rig asset changes"
+          else
+            git commit -m "test: persist Hunyuan rig proof [skip ci]"
+            git pull --rebase origin feat/sf3d-game-integration-20260922
+            git push origin HEAD:feat/sf3d-game-integration-20260922
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hunyuan-rig-proof
+          path: |
+            public/models/evowild-s-hunyuan2mv-rigged.glb
+            public/models/evowild-s-hunyuan2mv-rigged.json
