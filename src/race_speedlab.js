@@ -69,9 +69,9 @@ const RUN_POSES = [
 ];
 
 const GAITS = {
-  P: { cadence: 0.0102, stride: 0.80, bob: 6.4, pitch: 0.034, crouch: 3.2 },
-  E: { cadence: 0.0117, stride: 1.00, bob: 2.8, pitch: 0.020, crouch: 0.7 },
-  A: { cadence: 0.0148, stride: 0.70, bob: 3.8, pitch: 0.046, crouch: 4.7 }
+  P: { cadence: 0.0102, upperStride: 0.76, lowerStride: 0.58, bob: 5.8, pitch: 0.030, crouch: 3.0 },
+  E: { cadence: 0.0117, upperStride: 0.96, lowerStride: 0.80, bob: 2.6, pitch: 0.018, crouch: 0.6 },
+  A: { cadence: 0.0148, upperStride: 0.66, lowerStride: 0.52, bob: 3.5, pitch: 0.040, crouch: 4.2 }
 };
 
 function smooth01(t) {
@@ -91,8 +91,8 @@ function articulatedPose(r, speedRatio) {
   const pose = {};
   for (const leg of ["FN","FF","RN","RF"]) {
     pose[leg] = [
-      lerp(RUN_POSES[i0][leg][0], RUN_POSES[i1][leg][0], t) * gait.stride,
-      lerp(RUN_POSES[i0][leg][1], RUN_POSES[i1][leg][1], t) * gait.stride
+      lerp(RUN_POSES[i0][leg][0], RUN_POSES[i1][leg][0], t) * gait.upperStride,
+      lerp(RUN_POSES[i0][leg][1], RUN_POSES[i1][leg][1], t) * gait.lowerStride
     ];
   }
   const wave = Math.sin((cycle / 6) * Math.PI * 2);
@@ -127,6 +127,16 @@ function clippedLayer(img, w, h, polygon) {
   c.clip();
   c.drawImage(img,0,0,w,h);
   c.restore();
+
+  // A tiny overlap copy softens hard segmentation seams at moving joints.
+  c.save();
+  c.globalAlpha = .42;
+  c.filter = "blur(.45px)";
+  polygonPath(c, polygon);
+  c.clip();
+  c.drawImage(img,-.25,-.25,w+.5,h+.5);
+  c.restore();
+  c.filter = "none";
   return layer;
 }
 
@@ -168,8 +178,12 @@ function buildRigLayers(morph, img) {
       lower: clippedLayer(img,rig.w,rig.h,part.lo)
     };
   }
-  const covers = rig.covers.map(([[cx,cy],r])=>circleLayer(img,rig.w,rig.h,cx,cy,r));
-  rigLayers.set(morph,{body,parts,covers});
+  const covers = rig.covers.map(([[cx,cy],r])=>circleLayer(img,rig.w,rig.h,cx,cy,r*1.45));
+  const knees = Object.values(rig.parts).map((part)=>{
+    const [kx,ky] = part.knee;
+    return circleLayer(img,rig.w,rig.h,kx,ky,10.5);
+  });
+  rigLayers.set(morph,{body,parts,covers,knees});
 }
 
 function loadImage(src) {
@@ -648,6 +662,9 @@ function drawArticulatedMorph(r, x, y, scale, speedRatio) {
 
   rig.covers.forEach((cover,index)=>{
     ctx.drawImage(layers.covers[index],0,0,rig.w*k,rig.h*k);
+  });
+  layers.knees.forEach((knee)=>{
+    ctx.drawImage(knee,0,0,rig.w*k,rig.h*k);
   });
 
   ctx.restore();
