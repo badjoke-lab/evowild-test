@@ -350,7 +350,7 @@ function makeTaperedPlate(length, width, height, material, parent, position = [0
 function makeSprintLimb(parent, upperMat, lowerMat, jointMat, plateMat, side, fore) {
   const hip = new THREE.Group();
   hip.position.set(
-    side * (fore ? 0.34 : 0.33),
+    side * (fore ? 0.38 : 0.35),
     fore ? -0.12 : -0.10,
     fore ? 0.26 : -0.25
   );
@@ -411,7 +411,7 @@ function makeSprintLimb(parent, upperMat, lowerMat, jointMat, plateMat, side, fo
   ankle.add(foot);
 
   const sole = makeMesh(
-    new THREE.BoxGeometry(0.15, 0.075, 0.33),
+    new THREE.BoxGeometry(0.17, 0.075, 0.36),
     jointMat,
     foot,
     [0, -0.02, 0.11]
@@ -420,12 +420,12 @@ function makeSprintLimb(parent, upperMat, lowerMat, jointMat, plateMat, side, fo
 
   [-1, 1].forEach((toeSide) => {
     const toe = makeTaperedPlate(
-      0.29,
-      0.065,
+      0.32,
+      0.075,
       0.060,
       plateMat,
       foot,
-      [toeSide * 0.045, -0.01, 0.25]
+      [toeSide * 0.052, -0.01, 0.27]
     );
     toe.rotation.x = -0.09;
     toe.rotation.y = toeSide * 0.08;
@@ -550,29 +550,38 @@ function createSprintCreature(color, index) {
 
   // The S neck stays low and forward, with less empty visual gap than v1.
   const neckPivot = new THREE.Group();
-  neckPivot.position.set(0, 0.12, 1.12);
+  neckPivot.position.set(0, 0.10, 0.98);
   chestPivot.add(neckPivot);
 
-  const neck = makeMesh(
-    new THREE.CylinderGeometry(0.145, 0.235, 0.72, 6),
+  // Collar mass closes the chest/neck seam without making the neck vertical.
+  makeMesh(
+    new THREE.IcosahedronGeometry(0.29, 1),
     primary,
     neckPivot,
-    [0, 0.00, 0.35]
+    [0, -0.025, -0.05],
+    [0.92, 0.74, 1.08]
   );
-  neck.rotation.x = Math.PI / 2 - 0.055;
+
+  const neck = makeMesh(
+    new THREE.CylinderGeometry(0.155, 0.245, 0.82, 6),
+    primary,
+    neckPivot,
+    [0, -0.005, 0.39]
+  );
+  neck.rotation.x = Math.PI / 2 - 0.045;
 
   const neckKeel = makeTaperedPlate(
-    0.70,
-    0.17,
-    0.08,
+    0.78,
+    0.16,
+    0.07,
     underside,
     neckPivot,
-    [0, -0.15, 0.35]
+    [0, -0.145, 0.37]
   );
-  neckKeel.rotation.x = -0.02;
+  neckKeel.rotation.x = -0.015;
 
   const headPivot = new THREE.Group();
-  headPivot.position.set(0, 0.055, 0.74);
+  headPivot.position.set(0, 0.045, 0.56);
   neckPivot.add(headPivot);
 
   // Smaller wedge-like head.
