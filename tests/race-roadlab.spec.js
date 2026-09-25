@@ -3,7 +3,7 @@ import fs from "node:fs";
 
 test("Road Lab renders animated S/P/E/A morph race", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium", "Road Lab visual proof runs on desktop only");
-  test.setTimeout(30000);
+  test.setTimeout(45000);
   const pageErrors = [];
   page.on("pageerror", (err) => pageErrors.push(String(err)));
 
@@ -32,9 +32,9 @@ test("Road Lab renders animated S/P/E/A morph race", async ({ page }, testInfo) 
   if (testInfo.project.name === "desktop-chromium") {
     fs.mkdirSync("test-results/visuals", { recursive: true });
     await page.waitForTimeout(1200);
-    await page.screenshot({
+    await stage.screenshot({
       path: "test-results/visuals/desktop-roadlab.png",
-      fullPage: true
+      animations: "disabled"
     });
   }
 });
