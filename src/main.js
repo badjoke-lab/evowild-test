@@ -1023,6 +1023,11 @@ function setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData, lod4Rigg
         clipDuration: Math.max(0.001, riggedData.animations[0].duration || 1)
       };
       window.__hunyuanRacePackRiggedSelected = hunyuanRacePackRiggedSelected;
+      window.__hunyuanRacePackSelectedAction = action;
+      window.__hunyuanRacePackSelectedClipDuration = Math.max(
+        0.001,
+        riggedData.animations[0].duration || 1
+      );
       stage.dataset.hunyuanRacePackRigged = "playing";
       stage.dataset.hunyuanRacePackRiggedClip = riggedData.animations[0].name || "unnamed";
     } else {
