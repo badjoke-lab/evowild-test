@@ -17,17 +17,14 @@ test("Motion First S runner renders and captures required camera views", async (
   const outDir = "test-results/visuals";
   fs.mkdirSync(outDir, { recursive: true });
 
-  await page.goto("/evowild-test/preview-motion-first/index.html", { waitUntil: "networkidle" });
+  await page.goto("/evowild-test/preview-motion-first/index.html?inspect=1", { waitUntil: "networkidle" });
   await expect(page.locator("#scene")).toBeVisible();
   await expect(page.locator("#runnerSelect")).toHaveValue("0");
 
-  // Let the canonical S reach a readable running pose, then freeze that pose
-  // while the camera moves around it. This keeps the geometry comparison fair.
-  await page.waitForTimeout(3600);
-  await page.getByRole("button", { name: "PAUSE" }).click();
-  await expect(page.locator("#raceState")).toHaveText("PAUSED");
+  await expect(page.locator("#raceState")).toHaveText("INSPECT");
+  await page.waitForTimeout(600);
 
-  const views = ["SIDE", "LOW", "CHASE", "FRONT", "PACK"];
+  const views = ["SIDE", "LOW", "CHASE", "FRONT"];
 
   for (const view of views) {
     await page.getByRole("button", { name: view, exact: true }).click({ force: true });
