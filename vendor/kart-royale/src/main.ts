@@ -18,10 +18,13 @@ import { Effects } from './fx/Effects';
 import { Items } from './game/Items';
 import { Race } from './game/Race';
 import { ChaseCamera } from './game/Camera';
+import { EvoWildSideCamera } from './evowild/SideCamera';
+import { EvoWildSpriteRunners } from './evowild/SpriteRunners';
 import { HUD } from './ui/HUD';
 import { Audio } from './audio/Audio';
 
 const parent = document.getElementById('app')!;
+const evoWildMode = new URLSearchParams(window.location.search).get('evowild') === '1';
 
 /**
  * The size the canvas will actually be displayed at, in CSS pixels.
@@ -79,7 +82,8 @@ const scenery = new Scenery();
 const effects = new Effects();
 const items = new Items();
 const race = new Race();
-const camera = new ChaseCamera();
+const spriteRunners = evoWildMode ? new EvoWildSpriteRunners() : null;
+const camera = evoWildMode ? new EvoWildSideCamera() : new ChaseCamera();
 const hud = new HUD();
 const audio = new Audio();
 const drawBudget = new DrawBudget();
@@ -140,14 +144,16 @@ const ctx: Ctx = {
 //   drawBudget — LOD and shadow culling, measured from the posed camera, so it
 //               must be last: its lateUpdate has to run after the chase rig's.
 const systems: System[] = [
-  pipeline, input, sky, materials, track, scenery, race, items, effects, camera, hud, audio,
-  drawBudget,
+  pipeline, input, sky, materials, track, scenery, race, items,
+  ...(spriteRunners ? [spriteRunners] : []),
+  effects, camera, hud, audio, drawBudget,
 ];
 
 /** Human-readable names for the boot progress readout, indexed with `systems`. */
 const SYSTEM_LABELS = [
   'starting renderer', 'reading controls', 'raising the sun', 'mixing materials',
   'laying the circuit', 'dressing the bay', 'rolling out the grid', 'loading item boxes',
+  ...(spriteRunners ? ['bringing out the S field'] : []),
   'lighting the effects', 'mounting the camera', 'drawing the hud', 'tuning the engines',
   'balancing the frame',
 ];
