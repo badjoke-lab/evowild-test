@@ -57,7 +57,7 @@ const EVOWILD_S_MODE = new URLSearchParams(location.search).get('evowildS') === 
 
 function buildEvowildSSprite(seed: number) {
   const texture = new THREE.TextureLoader().load(
-    import.meta.env.BASE_URL + 'evowild/s-run-sheet.webp',
+    new URL('evowild/s-run-sheet.webp', document.baseURI).href,
   );
   texture.colorSpace = THREE.SRGBColorSpace;
   texture.wrapS = THREE.RepeatWrapping;
