@@ -8,7 +8,7 @@ const canvas = document.querySelector("#game");
 const stage = document.querySelector("#stage");
 const isMobile = matchMedia("(pointer: coarse)").matches || innerWidth < 800;
 const query = new URLSearchParams(location.search);
-const preview3d = location.pathname.includes("/preview-3d/");
+const preview3d = location.pathname.includes("/preview-3d");
 const sf3dBenchCount = Math.min(18, Math.max(0, Number.parseInt(query.get("sf3dBench") || "0", 10) || 0));
 const sf3dBenchSide = query.get("sf3dSide") === "front" ? "front" : "double";
 const sf3dBenchMode = query.get("sf3dMode") === "instance" ? "instance" : "clone";
