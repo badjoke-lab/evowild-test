@@ -18,6 +18,14 @@ const ui = {
 };
 
 const BASE = import.meta.env.BASE_URL || "/";
+
+const UPSTREAM = window.Util;
+if (!UPSTREAM || typeof UPSTREAM.accelerate !== "function" || typeof UPSTREAM.limit !== "function") {
+  stage.dataset.upstreamRuntime = "missing";
+  throw new Error("Lane 5 requires vendored javascript-racer common.js at runtime");
+}
+stage.dataset.upstreamRuntime = "javascript-racer-common-live";
+
 const FIELD_SIZE = 8;
 const SELECTED_ID = 1;
 const RACE_METERS = 1600;
@@ -64,7 +72,7 @@ let cameraVelocity = 0;
 let pixelsPerMeter = 8;
 let pixelsPerMeterVelocity = 0;
 
-const clamp = (v,a,b) => Math.max(a, Math.min(b,v));
+const clamp = (v,a,b) => UPSTREAM.limit(v,a,b);
 const lerp = (a,b,t) => a + (b-a)*t;
 const smooth = (t) => t*t*(3-2*t);
 
@@ -228,8 +236,10 @@ function updateRace(dtMs) {
     target += Math.sin(elapsed*.0015 + r.id*1.51)*.16;
 
     const diff = target-r.speed;
-    const step = r.accel*dt*(diff>=0 ? 1 : 1.45);
-    r.speed += clamp(diff,-step,step);
+    const appliedAccel = r.accel * (diff >= 0 ? 1 : 1.45);
+    r.speed = diff >= 0
+      ? Math.min(target, UPSTREAM.accelerate(r.speed, appliedAccel, dt))
+      : Math.max(target, UPSTREAM.accelerate(r.speed, -appliedAccel, dt));
 
     if (r.lane!==r.targetLane) {
       const dir = Math.sign(r.targetLane-r.lane);
@@ -654,29 +664,34 @@ function updateCamera() {
   const front=live.length?Math.max(...live.map(r=>r.distance)):focus.distance;
   const back=live.length?Math.min(...live.map(r=>r.distance)):focus.distance;
   const span=Math.max(1,front-back);
-  const center=(front+back)*.5;
+  const p=clamp(focus.distance/RACE_METERS,0,1);
 
-  // Frame the actual pack, including sprite width. The race is the subject, not one fixed S.
-  const base=width<700?6.7:8.4;
-  const spriteBase=width<700
-    ? clamp(width*.14,90,124)
-    : clamp(width*.092,122,148);
-  const maxHalfSprite=spriteBase*1.12*.54;
-  const sidePadding=width<700?8:18;
-  const usableWidth=Math.max(90,width-2*(maxHalfSprite+sidePadding));
-  const bySpan=usableWidth/span;
-  const targetPPM=clamp(Math.min(base,bySpan),width<700?2.55:4.15,base);
+  // Lane 5 v2 stops shrinking the whole field to fit the screen.
+  // The selected runner becomes the camera subject; rivals are allowed to enter/leave frame.
+  let mode="LAUNCH";
+  let targetPPM=width<700?5.9:7.2;
+  let lead=-span*.08;
 
-  if(width<700){
-    pixelsPerMeter=targetPPM;
-    cameraMeters=center;
-  } else {
-    const zoomRate=targetPPM<pixelsPerMeter?.20:.055;
-    pixelsPerMeter=lerp(pixelsPerMeter,targetPPM,zoomRate);
-    const targetCamera=center+span*.015;
-    cameraMeters=lerp(cameraMeters,targetCamera,.22);
+  if(p>=.12 && p<.62){
+    mode="CHASE";
+    targetPPM=width<700?6.8:8.7;
+    lead=2.5;
+  } else if(p>=.62 && p<.88){
+    mode="ATTACK";
+    targetPPM=width<700?7.5:9.7;
+    lead=5.0;
+  } else if(p>=.88){
+    mode="FINISH";
+    targetPPM=width<700?8.2:10.6;
+    lead=8.0;
   }
 
+  const targetCamera=focus.distance+lead;
+  const zoomRate=targetPPM>pixelsPerMeter?.085:.15;
+  pixelsPerMeter=lerp(pixelsPerMeter,targetPPM,zoomRate);
+  cameraMeters=lerp(cameraMeters,targetCamera,mode==="LAUNCH"?.10:.18);
+
+  stage.dataset.cameraMode=mode;
   stage.dataset.pixelsPerMeter=pixelsPerMeter.toFixed(2);
   stage.dataset.packSpan=span.toFixed(2);
 }
@@ -791,19 +806,22 @@ ui.reset.addEventListener("click",resetRace);
 
 stage.dataset.raceState="countdown";
 
-// Fixed-step loop: borrowed-racer lane deliberately decouples simulation from render rate.
-const FIXED_STEP = 1000 / 60;
-let accumulator = 0;
+// Fixed timestep transplanted from the vendored javascript-racer Game.run pattern.
+// Simulation time and rendering time are deliberately decoupled.
+const FIXED_STEP_SECONDS = 1 / 60;
+let gameDelta = 0;
 function fixedFrame(now){
-  const delta = Math.min(200, Math.max(0, now-last));
+  const dt = Math.min(1, Math.max(0, (now-last)/1000));
   last = now;
-  if (!paused) accumulator += delta;
-  let guard = 0;
-  while (accumulator >= FIXED_STEP && guard < 8) {
-    updateRace(FIXED_STEP);
-    accumulator -= FIXED_STEP;
+  if(!paused) gameDelta += dt;
+
+  let guard=0;
+  while(gameDelta > FIXED_STEP_SECONDS && guard < 8){
+    gameDelta -= FIXED_STEP_SECONDS;
+    updateRace(FIXED_STEP_SECONDS*1000);
     guard++;
   }
+
   render();
   frameCounter++;
   updateUI(now);
