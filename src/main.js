@@ -1362,8 +1362,8 @@ loadCreature3D(sf3dProfile)
         Promise.resolve({ source, animations, stats, profile }),
         loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvStyledLod3),
         loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvStyledLod4),
-        loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvRigged),
-        loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvLod4Rigged)
+        loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvRiggedV2),
+        loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvLod4RiggedV2)
       ]).then(([baseData, lod3Data, lod4Data, riggedData, lod4RiggedData]) => {
         setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData, lod4RiggedData);
       }).catch((error) => {
