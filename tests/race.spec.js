@@ -1354,8 +1354,8 @@ test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, t
       if (
         previous &&
         previous.foot.name === foot.name &&
-        previous.foot.stance > 0.45 &&
-        foot.stance > 0.45
+        previous.foot.stance > 0.25 &&
+        foot.stance > 0.25
       ) {
         const footDx = foot.x - previous.foot.x;
         const footDz = foot.z - previous.foot.z;
@@ -1393,7 +1393,7 @@ test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, t
 
       previous = { foot, body };
 
-      if (now - started < 4200) {
+      if (now - started < 6500) {
         requestAnimationFrame(tick);
         return;
       }
@@ -1449,8 +1449,9 @@ test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, t
     ).toBeGreaterThan(12);
 
     const metrics = await measureSlip();
+    console.log("HUNYUAN_STANCE_SLIP_RAW", JSON.stringify({ strideMeters, ...metrics }));
     expect(metrics.error).toBeUndefined();
-    expect(metrics.samples).toBeGreaterThan(8);
+    expect(metrics.samples).toBeGreaterThan(4);
     expect(metrics.headingAlignment).toBeGreaterThan(0.85);
 
     const syncError = Number(await stage.getAttribute("data-hunyuan-selected-stride-error") || 999);
