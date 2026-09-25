@@ -1276,7 +1276,7 @@ test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, t
 
   const outDir = "test-results/visuals";
   fs.mkdirSync(outDir, { recursive: true });
-  const candidates = [7.0, 8.0, 9.0];
+  const candidates = [9.0, 10.0, 11.0, 12.0];
   const results = [];
 
   const measureSlip = async () => page.evaluate(() => new Promise((resolve) => {
