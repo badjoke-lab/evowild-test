@@ -234,8 +234,8 @@ function requiredDirectionForView(tangent, racerPosition) {
   // side: camera within ±22.5° of a true side-on view.
   if (absDot <= 0.383) return "side";
   // diagonal: between side and head/tail-on.
-  if (absDot <= 0.924) return dot < 0 ? "front_3q" : "back_3q";
-  return dot < 0 ? "front" : "back";
+  if (absDot <= 0.924) return dot > 0 ? "front_3q" : "back_3q";
+  return dot > 0 ? "front" : "back";
 }
 
 function buildRibbon(width, yLift, material, lateralCenter = 0) {
@@ -677,7 +677,14 @@ function placeRacer(r, elapsedMs) {
   const bob=[0,.08,.32,.58,.30,0][frame];
   r.sprite.position.y += bob;
   const scale = 10.2 + (r.id===SELECTED_ID ? .7 : 0);
-  r.sprite.scale.set(scale,scale,1);
+  let facingSign = 1;
+  if (requiredDirection === "side") {
+    const here = p.clone().project(camera);
+    const ahead = p.clone().addScaledVector(trackFrame(u).tangent, 2).project(camera);
+    // Canonical SIDE art faces left; mirror only when projected travel moves right.
+    facingSign = ahead.x > here.x ? -1 : 1;
+  }
+  r.sprite.scale.set(scale * facingSign,scale,1);
 
   r.shadow.position.copy(center.clone().addScaledVector(side,lateral));
   r.shadow.position.y += .18 + bank*lateral;
@@ -702,13 +709,19 @@ function updateCamera(dt) {
   const target = center.clone().addScaledVector(side,lateral);
   target.y += 2.6 + bank*lateral;
 
+  // Race camera moves between a true side-follow and a front three-quarter view.
+  // It never asks for BACK_3Q until that asset exists.
+  const cameraWave = 0.5 + 0.5 * Math.sin(u * Math.PI * 4.0);
+  const sideOffset = lerp(60, 24, cameraWave);
+  const forwardOffset = lerp(2, 34, cameraWave);
+
   desiredCam.copy(target)
-    .addScaledVector(side,58)
-    .addScaledVector(tangent,-4)
-    .add(new THREE.Vector3(0,12.0,0));
+    .addScaledVector(side,sideOffset)
+    .addScaledVector(tangent,forwardOffset)
+    .add(new THREE.Vector3(0,lerp(11.5,14.5,cameraWave),0));
 
   desiredLook.copy(target)
-    .addScaledVector(tangent,5)
+    .addScaledVector(tangent,lerp(6,12,cameraWave))
     .add(new THREE.Vector3(0,3.4,0));
 
   const posAlpha=1-Math.pow(.001,dt);
@@ -814,8 +827,8 @@ requestAnimationFrame(now=>{
     const me=racers[0];
     const u=(((me.totalDistance%trackLength)+trackLength)%trackLength)/trackLength;
     const {center,tangent,side}=trackFrame(u);
-    camPos.copy(center).addScaledVector(side,58).addScaledVector(tangent,-4).add(new THREE.Vector3(0,12.0,0));
-    camLook.copy(center).addScaledVector(tangent,5).add(new THREE.Vector3(0,3.4,0));
+    camPos.copy(center).addScaledVector(side,60).addScaledVector(tangent,2).add(new THREE.Vector3(0,11.5,0));
+    camLook.copy(center).addScaledVector(tangent,6).add(new THREE.Vector3(0,3.4,0));
     camera.position.copy(camPos);
     camera.lookAt(camLook);
   }
