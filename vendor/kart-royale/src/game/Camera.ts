@@ -883,9 +883,9 @@ export class ChaseCamera implements System {
     _right.set(_face.z, 0, -_face.x).normalize();
 
     const portrait = ctx.height > ctx.width;
-    const side = portrait ? 6.5 : 7.4;
-    const back = portrait ? 0.2 : 0.7;
-    const height = portrait ? 2.05 : 2.25;
+    const side = portrait ? 7.6 : 8.3;
+    const back = portrait ? 0.8 : 1.2;
+    const height = portrait ? 2.25 : 2.45;
 
     _eye.copy(k.position)
       .addScaledVector(_right, side)
@@ -904,7 +904,7 @@ export class ChaseCamera implements System {
       ctx.camera.position.lerp(_eye, a);
     }
 
-    const wantFov = portrait ? 48 : 42;
+    const wantFov = portrait ? 50 : 44;
     if (Math.abs(ctx.camera.fov - wantFov) > 0.01) {
       ctx.camera.fov += (wantFov - ctx.camera.fov) * a;
       ctx.camera.updateProjectionMatrix();
