@@ -26,7 +26,7 @@ const INSPECT_MODE = params.get("inspect") === "1";
 const MOTION_REVIEW_MODE = params.get("motion") === "1";
 const TAU = Math.PI * 2;
 const S_GAIT = {
-  baseY: 1.80,
+  baseY: 1.60,
   reviewBaseY: 2.16,
   minStrideWorld: 3.8,
   maxStrideWorld: 6.2,
@@ -367,9 +367,11 @@ function makeSprintLimb(parent, upperMat, lowerMat, jointMat, plateMat, side, fo
   );
   parent.add(hip);
 
-  const upperLen = fore ? 0.76 : 0.82;
-  const lowerLen = fore ? 0.62 : 0.68;
-  const cannonLen = fore ? 0.31 : 0.34;
+  // S uses similarly long fore/hind limbs so full-speed stance targets
+  // stay inside the reachable envelope instead of snapping at IK limits.
+  const upperLen = 0.82;
+  const lowerLen = 0.68;
+  const cannonLen = 0.34;
 
   const upper = makeMesh(
     new THREE.CylinderGeometry(0.085, 0.135, upperLen, 6),
@@ -1090,6 +1092,7 @@ function solveSprintLeg(leg, targetY, targetZ, footPitch, turnLean) {
     Math.abs(l1 - l2) + 0.04,
     l1 + l2 - 0.025
   );
+  leg.ikClamped = Math.abs(rawDistance - distance) > 0.002;
 
   const direction = Math.atan2(-targetZ, -targetY);
   const hipCos = THREE.MathUtils.clamp(
@@ -1140,8 +1143,8 @@ function updateSprintPose(runner, lateralVelocity) {
 
   ud.bodyMaster.position.y =
     baseY +
-    flightWave * 0.105 * speedRatio -
-    contactPulse * 0.018 * speedRatio;
+    flightWave * 0.125 * speedRatio -
+    contactPulse * 0.020 * speedRatio;
 
   ud.bodyMaster.rotation.x =
     -0.075 * speedRatio -
@@ -1151,9 +1154,9 @@ function updateSprintPose(runner, lateralVelocity) {
 
   // Chest and pelvis do real work: compress at catch, extend through rear drive.
   ud.chestPivot.rotation.x =
-    -Math.sin(phase) * 0.050 * speedRatio - flightWave * 0.015;
+    -Math.sin(phase) * 0.082 * speedRatio - flightWave * 0.018;
   ud.pelvisPivot.rotation.x =
-    Math.sin(phase + 0.18) * 0.065 * speedRatio + flightWave * 0.018;
+    Math.sin(phase + 0.18) * 0.108 * speedRatio + flightWave * 0.024;
   ud.chestPivot.rotation.y = -Math.sin(phase * 0.5) * 0.018 * speedRatio;
   ud.pelvisPivot.rotation.y = Math.sin(phase * 0.5) * 0.026 * speedRatio;
 
@@ -1172,7 +1175,7 @@ function updateSprintPose(runner, lateralVelocity) {
   Object.values(ud.legs).forEach((leg) => {
     const cycle = wrap01((phase + leg.phaseOffset) / TAU);
     const fore = leg.fore;
-    const nominalReach = fore ? 1.57 : 1.55;
+    const nominalReach = fore ? 1.43 : 1.40;
 
     let targetZ;
     let targetY;
@@ -1180,24 +1183,39 @@ function updateSprintPose(runner, lateralVelocity) {
 
     if (cycle < stanceDuration) {
       const u = cycle / stanceDuration;
-      // Linear backward sweep cancels the runner's forward travel during stance.
+      // Linear backward sweep cancels root travel while the foot is planted.
       targetZ = THREE.MathUtils.lerp(halfSweep, -halfSweep, u);
       targetY =
         -nominalReach +
-        Math.sin(u * Math.PI) * 0.018 -
-        contactPulse * 0.018;
-      footPitch = THREE.MathUtils.lerp(-0.08, 0.12, u);
+        Math.sin(u * Math.PI) * 0.012 -
+        contactPulse * 0.012;
+      footPitch = THREE.MathUtils.lerp(-0.06, 0.10, u);
+
+      const worldStridePoint = runner.distance + targetZ;
+      if (!leg.stanceActive) {
+        leg.stanceActive = true;
+        leg.stanceAnchor = worldStridePoint;
+      }
+      const slip = Math.abs(worldStridePoint - leg.stanceAnchor);
+      ud.maxStanceSlip = Math.max(ud.maxStanceSlip || 0, slip);
     } else {
+      leg.stanceActive = false;
       const u = (cycle - stanceDuration) / (1 - stanceDuration);
       const travel = 0.5 - 0.5 * Math.cos(u * Math.PI);
-      const lift = Math.pow(Math.sin(u * Math.PI), 1.22) * S_GAIT.swingLift;
+      const lift = Math.pow(Math.sin(u * Math.PI), 1.24) * 0.46;
       targetZ = THREE.MathUtils.lerp(-halfSweep, halfSweep, travel);
       targetY = -nominalReach + lift;
-      footPitch = -0.22 * Math.sin(u * Math.PI) - 0.02;
+      footPitch = -0.20 * Math.sin(u * Math.PI) - 0.015;
     }
 
     solveSprintLeg(leg, targetY, targetZ, footPitch, ud.turnLean);
   });
+
+  if (MOTION_REVIEW_MODE) {
+    const legs = Object.values(ud.legs);
+    canvas.dataset.ikClamped = legs.some((leg) => leg.ikClamped) ? "1" : "0";
+    canvas.dataset.maxStanceSlip = String(ud.maxStanceSlip || 0);
+  }
 
   ud.tailSegments.forEach((joint, i) => {
     const lag = phase * 0.52 - i * 0.48;
