@@ -20,6 +20,14 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - name: Capture intact Lane 4 Kart Royale baseline
         run: npx playwright test tests/lane4-v4.spec.js --config=playwright.lane4.config.js
+      - name: Capture Lane 4 V5 S adaptation
+        run: npx playwright test tests/lane4-v5.spec.js --config=playwright.lane4.config.js
+      - name: Upload Lane 4 V5 S visual proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: lane4-v5-s-visual
+          path: test-results/visuals/desktop-lane4-v5-s-kart-royale.png
+          if-no-files-found: error
       - name: Upload Lane 4 Kart Royale visual proof
         uses: actions/upload-artifact@v4
         with:
