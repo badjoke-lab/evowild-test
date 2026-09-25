@@ -7,7 +7,7 @@ export const CREATURE_3D_PROFILES = {
     id: "s-hunyuan2mv-raw",
     morph: "S",
     url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-raw.glb`,
-    rotation: [0, 0, 0],
+    rotation: [0, -1.5707963267948966, 0],
     material: {
       metalness: 0.0,
       minRoughness: 0.78,
@@ -34,7 +34,7 @@ export const CREATURE_3D_PROFILES = {
     id: "s-hunyuan2mv-clean",
     morph: "S",
     url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-clean.glb`,
-    rotation: [0, 0, 0],
+    rotation: [0, -1.5707963267948966, 0],
     material: {
       metalness: 0.0,
       minRoughness: 0.78,
@@ -60,7 +60,7 @@ export const CREATURE_3D_PROFILES = {
     id: "s-hunyuan2mv-lod1",
     morph: "S",
     url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-lod1.glb`,
-    rotation: [0, 0, 0],
+    rotation: [0, -1.5707963267948966, 0],
     material: {
       metalness: 0.0,
       minRoughness: 0.78,
@@ -86,7 +86,7 @@ export const CREATURE_3D_PROFILES = {
     id: "s-hunyuan2mv-lod2",
     morph: "S",
     url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-lod2.glb`,
-    rotation: [0, 0, 0],
+    rotation: [0, -1.5707963267948966, 0],
     material: {
       metalness: 0.0,
       minRoughness: 0.82,
@@ -112,7 +112,7 @@ export const CREATURE_3D_PROFILES = {
     id: "s-hunyuan2mv-rigged-proof",
     morph: "S",
     url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-rigged.glb`,
-    rotation: [0, 0, 0],
+    rotation: [0, -1.5707963267948966, 0],
     material: {
       metalness: 0.22,
       minRoughness: 0.52,
@@ -140,7 +140,7 @@ export const CREATURE_3D_PROFILES = {
     id: "s-hunyuan2mv-rigged-v2-proof",
     morph: "S",
     url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-rigged-v2.glb`,
-    rotation: [0, 0, 0],
+    rotation: [0, -1.5707963267948966, 0],
     material: {
       metalness: 0.22,
       minRoughness: 0.52,
@@ -167,7 +167,7 @@ export const CREATURE_3D_PROFILES = {
     id: "s-hunyuan2mv-lod4-rigged-proof",
     morph: "S",
     url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-lod4-rigged.glb`,
-    rotation: [0, 0, 0],
+    rotation: [0, -1.5707963267948966, 0],
     material: {
       metalness: 0.12,
       minRoughness: 0.64,
@@ -194,7 +194,7 @@ export const CREATURE_3D_PROFILES = {
     id: "s-hunyuan2mv-rigged-v21-proof",
     morph: "S",
     url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-rigged-v21.glb`,
-    rotation: [0, 0, 0],
+    rotation: [0, -1.5707963267948966, 0],
     material: {
       metalness: 0.22,
       minRoughness: 0.52,
@@ -221,7 +221,7 @@ export const CREATURE_3D_PROFILES = {
     id: "s-hunyuan2mv-lod4-rigged-v2-proof",
     morph: "S",
     url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-lod4-rigged-v2.glb`,
-    rotation: [0, 0, 0],
+    rotation: [0, -1.5707963267948966, 0],
     material: {
       metalness: 0.12,
       minRoughness: 0.64,
@@ -248,7 +248,7 @@ export const CREATURE_3D_PROFILES = {
     id: "s-hunyuan2mv-lod4-rigged-v21-proof",
     morph: "S",
     url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-lod4-rigged-v21.glb`,
-    rotation: [0, 0, 0],
+    rotation: [0, -1.5707963267948966, 0],
     material: {
       metalness: 0.12,
       minRoughness: 0.64,
@@ -275,7 +275,7 @@ export const CREATURE_3D_PROFILES = {
     id: "s-hunyuan2mv-rigged-v3-proof",
     morph: "S",
     url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-rigged-v3.glb`,
-    rotation: [0, 0, 0],
+    rotation: [0, -1.5707963267948966, 0],
     material: {
       metalness: 0.22,
       minRoughness: 0.52,
@@ -302,7 +302,7 @@ export const CREATURE_3D_PROFILES = {
     id: "s-hunyuan2mv-lod4-rigged-v3-proof",
     morph: "S",
     url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-lod4-rigged-v3.glb`,
-    rotation: [0, 0, 0],
+    rotation: [0, -1.5707963267948966, 0],
     material: {
       metalness: 0.12,
       minRoughness: 0.64,
@@ -329,7 +329,7 @@ export const CREATURE_3D_PROFILES = {
     id: "s-hunyuan2mv-styled-prototype",
     morph: "S",
     url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-lod2.glb`,
-    rotation: [0, 0, 0],
+    rotation: [0, -1.5707963267948966, 0],
     material: {
       metalness: 0.22,
       minRoughness: 0.52,
@@ -357,7 +357,7 @@ export const CREATURE_3D_PROFILES = {
     id: "s-hunyuan2mv-styled-lod3",
     morph: "S",
     url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-lod3.glb`,
-    rotation: [0, 0, 0],
+    rotation: [0, -1.5707963267948966, 0],
     material: {
       metalness: 0.18,
       minRoughness: 0.58,
@@ -381,7 +381,7 @@ export const CREATURE_3D_PROFILES = {
     id: "s-hunyuan2mv-styled-lod4",
     morph: "S",
     url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-lod4.glb`,
-    rotation: [0, 0, 0],
+    rotation: [0, -1.5707963267948966, 0],
     material: {
       metalness: 0.12,
       minRoughness: 0.64,
@@ -405,7 +405,7 @@ export const CREATURE_3D_PROFILES = {
     id: "s-hunyuan2mv-lod3",
     morph: "S",
     url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-lod3.glb`,
-    rotation: [0, 0, 0],
+    rotation: [0, -1.5707963267948966, 0],
     material: {
       metalness: 0.0,
       minRoughness: 0.84,
@@ -431,7 +431,7 @@ export const CREATURE_3D_PROFILES = {
     id: "s-hunyuan2mv-lod4",
     morph: "S",
     url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-lod4.glb`,
-    rotation: [0, 0, 0],
+    rotation: [0, -1.5707963267948966, 0],
     material: {
       metalness: 0.0,
       minRoughness: 0.86,
