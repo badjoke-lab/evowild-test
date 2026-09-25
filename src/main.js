@@ -1048,8 +1048,8 @@ function syncHunyuanStrideToSpeed() {
     const cycleHz = speed / HUNYUAN_STRIDE_METERS_PER_CYCLE;
     const timeScale = THREE.MathUtils.clamp(
       cycleHz * entry.clipDuration,
-      0.18,
-      2.35
+      0,
+      4.0
     );
     entry.action.timeScale = timeScale;
 
@@ -1078,6 +1078,11 @@ function syncHunyuanStrideToSpeed() {
     if (selectedFar) {
       stage.dataset.hunyuanSelectedSpeed = selectedFar.racer.speed.toFixed(3);
       stage.dataset.hunyuanSelectedStrideScale = selectedFar.action.timeScale.toFixed(3);
+      const selectedRepresentedSpeed =
+        (selectedFar.action.timeScale / selectedFar.clipDuration) * HUNYUAN_STRIDE_METERS_PER_CYCLE;
+      stage.dataset.hunyuanSelectedStrideRepresentedSpeed = selectedRepresentedSpeed.toFixed(3);
+      stage.dataset.hunyuanSelectedStrideError =
+        Math.abs(selectedRepresentedSpeed - selectedFar.racer.speed).toFixed(4);
     }
   }
 }
