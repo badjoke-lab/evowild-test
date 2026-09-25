@@ -207,16 +207,15 @@ function trackFrame(u) {
 }
 
 const runDirectionAssets = {
-  side: "s-side-run-sheet.svg"
-};
-const directionReferenceAssets = {
-  front: "s-front-run-sheet.webp",
-  back: "s-back-run-sheet.webp"
+  side: "s-side-run-sheet.svg",
+  front_3q: "s-front-3q-run-sheet-v1.webp",
+  front: "s-front-run-sheet-v2.webp",
+  back: "s-back-run-sheet-v2.webp"
 };
 const availableRunDirections = new Set(Object.keys(runDirectionAssets));
-const missingRunDirections = ["front_3q","front","back_3q","back"];
-host.dataset.directionSet = "side-animated-only";
-host.dataset.referenceOnlyDirections = Object.keys(directionReferenceAssets).join(",");
+const missingRunDirections = ["back_3q"];
+host.dataset.directionSet = "side-front3q-front-back";
+host.dataset.prototypeDirections = "front_3q,front,back";
 host.dataset.missingDirections = missingRunDirections.join(",");
 
 function requiredDirectionForView(tangent, racerPosition) {
