@@ -310,66 +310,126 @@ function makeLeg(parent, colorMat, legLength, width, x, z, phaseOffset) {
   return { hip, knee, foot, phaseOffset, upperLen, lowerLen };
 }
 
-function makeSprintLimb(parent, colorMat, jointMat, side, fore) {
+function makeTaperedPlate(length, width, height, material, parent, position = [0, 0, 0]) {
+  const rearZ = -length / 2;
+  const frontZ = length / 2;
+  const tipWidth = width * 0.16;
+  const tipHeight = height * 0.34;
+
+  const vertices = new Float32Array([
+    -width / 2, -height / 2, rearZ,
+     width / 2, -height / 2, rearZ,
+     width / 2,  height / 2, rearZ,
+    -width / 2,  height / 2, rearZ,
+    -tipWidth / 2, -tipHeight / 2, frontZ,
+     tipWidth / 2, -tipHeight / 2, frontZ,
+     tipWidth / 2,  tipHeight / 2, frontZ,
+    -tipWidth / 2,  tipHeight / 2, frontZ
+  ]);
+
+  const indices = [
+    0, 1, 2, 0, 2, 3,
+    4, 6, 5, 4, 7, 6,
+    0, 4, 5, 0, 5, 1,
+    1, 5, 6, 1, 6, 2,
+    2, 6, 7, 2, 7, 3,
+    3, 7, 4, 3, 4, 0
+  ];
+
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
+  geometry.setIndex(indices);
+  geometry.computeVertexNormals();
+
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.position.set(...position);
+  parent.add(mesh);
+  return mesh;
+}
+
+function makeSprintLimb(parent, upperMat, lowerMat, jointMat, plateMat, side, fore) {
   const hip = new THREE.Group();
-  const x = side * (fore ? 0.36 : 0.34);
-  const z = fore ? 0.28 : -0.26;
-  hip.position.set(x, -0.18, z);
+  hip.position.set(
+    side * (fore ? 0.38 : 0.35),
+    fore ? -0.12 : -0.10,
+    fore ? 0.26 : -0.25
+  );
   parent.add(hip);
 
-  const upperLen = fore ? 0.82 : 0.88;
-  const lowerLen = fore ? 0.77 : 0.84;
-  const cannonLen = fore ? 0.38 : 0.42;
+  const upperLen = fore ? 0.76 : 0.82;
+  const lowerLen = fore ? 0.62 : 0.68;
+  const cannonLen = fore ? 0.31 : 0.34;
 
   const upper = makeMesh(
-    new THREE.CylinderGeometry(0.095, 0.135, upperLen, 5),
-    colorMat,
+    new THREE.CylinderGeometry(0.085, 0.135, upperLen, 6),
+    upperMat,
     hip,
-    [0, -upperLen / 2, 0.035]
+    [0, -upperLen / 2, 0.055]
   );
-  upper.rotation.z = side * 0.025;
+  upper.rotation.z = side * (fore ? 0.035 : 0.055);
 
   const knee = new THREE.Group();
-  knee.position.set(0, -upperLen, 0.07);
+  knee.position.set(0, -upperLen, 0.10);
   hip.add(knee);
 
   makeMesh(
-    new THREE.CylinderGeometry(0.065, 0.10, lowerLen, 5),
+    new THREE.IcosahedronGeometry(fore ? 0.115 : 0.125, 0),
     jointMat,
     knee,
-    [0, -lowerLen / 2, 0.045]
+    [0, 0, 0]
   );
+
+  const lower = makeMesh(
+    new THREE.CylinderGeometry(0.058, 0.092, lowerLen, 6),
+    lowerMat,
+    knee,
+    [0, -lowerLen / 2, 0.07]
+  );
+  lower.rotation.z = side * (fore ? -0.025 : 0.025);
 
   const ankle = new THREE.Group();
-  ankle.position.set(0, -lowerLen, 0.08);
+  ankle.position.set(0, -lowerLen, 0.13);
   knee.add(ankle);
 
-  const cannon = makeMesh(
-    new THREE.CylinderGeometry(0.043, 0.066, cannonLen, 5),
-    colorMat,
+  makeMesh(
+    new THREE.IcosahedronGeometry(0.088, 0),
+    jointMat,
     ankle,
-    [0, -cannonLen / 2, 0.06]
+    [0, 0, 0]
   );
-  cannon.rotation.z = side * -0.025;
+
+  const cannon = makeMesh(
+    new THREE.CylinderGeometry(0.040, 0.056, cannonLen, 5),
+    upperMat,
+    ankle,
+    [0, -cannonLen / 2, 0.045]
+  );
+  cannon.rotation.z = side * -0.018;
 
   const foot = new THREE.Group();
-  foot.position.set(0, -cannonLen, 0.12);
+  foot.position.set(0, -cannonLen, 0.09);
   ankle.add(foot);
 
-  const toe = makeMesh(
-    new THREE.BoxGeometry(0.15, 0.095, 0.42),
+  const sole = makeMesh(
+    new THREE.BoxGeometry(0.17, 0.075, 0.36),
     jointMat,
     foot,
-    [0, -0.03, 0.12]
+    [0, -0.02, 0.11]
   );
-  toe.rotation.x = -0.12;
+  sole.rotation.x = -0.10;
 
-  makeMesh(
-    new THREE.ConeGeometry(0.085, 0.30, 4),
-    colorMat,
-    foot,
-    [0, 0.01, 0.32]
-  ).rotation.x = Math.PI / 2;
+  [-1, 1].forEach((toeSide) => {
+    const toe = makeTaperedPlate(
+      0.32,
+      0.075,
+      0.060,
+      plateMat,
+      foot,
+      [toeSide * 0.052, -0.01, 0.27]
+    );
+    toe.rotation.x = -0.09;
+    toe.rotation.y = toeSide * 0.08;
+  });
 
   return {
     hip,
@@ -388,241 +448,293 @@ function createSprintCreature(color, index) {
   const cfg = MORPHS.S;
   const root = new THREE.Group();
   const bodyMaster = new THREE.Group();
-  bodyMaster.position.y = 2.18;
+  bodyMaster.position.y = 2.16;
   root.add(bodyMaster);
 
   const baseColor = new THREE.Color(color);
   const primary = mat(baseColor);
-  const secondary = mat(baseColor.clone().multiplyScalar(0.70));
-  const dark = mat(0x202832, 0.68);
+  const secondary = mat(baseColor.clone().multiplyScalar(0.78));
+  const joint = mat(baseColor.clone().multiplyScalar(0.48), 0.78);
+  const underside = mat(0x252b31, 0.82);
   const plate = new THREE.MeshStandardMaterial({
-    color: baseColor.clone().lerp(new THREE.Color(0xd9e7ef), 0.30),
-    roughness: 0.62,
-    metalness: 0.05,
+    color: baseColor.clone().lerp(new THREE.Color(0xc7d7df), 0.28),
+    roughness: 0.60,
+    metalness: 0.04,
     flatShading: true
   });
   const cue = new THREE.MeshStandardMaterial({
-    color: 0x17202a,
-    emissive: baseColor.clone().multiplyScalar(0.55),
-    emissiveIntensity: 1.05,
+    color: 0x18222b,
+    emissive: baseColor.clone().multiplyScalar(0.48),
+    emissiveIntensity: 0.9,
     roughness: 0.34,
-    metalness: 0.14,
+    metalness: 0.12,
     flatShading: true
   });
 
   const chestPivot = new THREE.Group();
-  chestPivot.position.set(0, 0.02, 0.48);
+  chestPivot.position.set(0, 0.01, 0.58);
   bodyMaster.add(chestPivot);
 
   const pelvisPivot = new THREE.Group();
-  pelvisPivot.position.set(0, -0.04, -0.58);
+  pelvisPivot.position.set(0, -0.05, -0.70);
   bodyMaster.add(pelvisPivot);
 
-  // Narrow, directional torso. Two masses plus a visible waist keep S from
-  // reading as a horse/deer barrel.
+  // Longer, shallower body masses create a continuous racing silhouette.
   makeMesh(
-    new THREE.IcosahedronGeometry(0.66, 1),
+    new THREE.IcosahedronGeometry(0.60, 1),
     primary,
     chestPivot,
-    [0, 0.00, 0.08],
-    [0.64, 0.70, 1.16]
+    [0, 0, 0.02],
+    [0.68, 0.56, 1.34]
   );
 
   makeMesh(
-    new THREE.IcosahedronGeometry(0.58, 1),
+    new THREE.IcosahedronGeometry(0.56, 1),
     secondary,
     pelvisPivot,
-    [0, -0.02, -0.02],
-    [0.60, 0.64, 1.00]
+    [0, -0.02, -0.01],
+    [0.66, 0.54, 1.27]
   );
 
   const waist = makeMesh(
-    new THREE.CylinderGeometry(0.30, 0.36, 0.92, 6),
-    dark,
+    new THREE.CylinderGeometry(0.245, 0.29, 0.92, 7),
+    secondary,
     bodyMaster,
-    [0, -0.05, -0.06],
-    [1, 1, 0.78]
+    [0, -0.06, -0.08]
   );
   waist.rotation.x = Math.PI / 2;
 
-  // Dorsal plates visually connect the body without adding animal-like fur.
-  const spinePlate = makeMesh(
-    new THREE.BoxGeometry(0.16, 0.18, 1.55),
+  // Low dark underside is structural separation, not a visible black rod.
+  const keel = makeMesh(
+    new THREE.BoxGeometry(0.34, 0.12, 1.36),
+    underside,
+    bodyMaster,
+    [0, -0.34, -0.05]
+  );
+  keel.rotation.x = 0.015;
+
+  // Tapered shoulder armor replaces the v1 rectangular slabs.
+  [-1, 1].forEach((side) => {
+    const shoulder = makeTaperedPlate(
+      0.88,
+      0.20,
+      0.11,
+      plate,
+      chestPivot,
+      [side * 0.34, 0.19, 0.08]
+    );
+    shoulder.rotation.y = side * 0.045;
+    shoulder.rotation.x = -0.08;
+
+    const flank = makeTaperedPlate(
+      0.68,
+      0.16,
+      0.08,
+      secondary,
+      pelvisPivot,
+      [side * 0.29, 0.14, -0.06]
+    );
+    flank.rotation.y = side * -0.035;
+    flank.rotation.x = 0.06;
+  });
+
+  const spinePlate = makeTaperedPlate(
+    1.42,
+    0.12,
+    0.09,
     plate,
     bodyMaster,
-    [0, 0.47, -0.02]
+    [0, 0.39, -0.10]
   );
-  spinePlate.rotation.x = -0.035;
+  spinePlate.rotation.x = -0.02;
 
-  const shoulderPlateL = makeMesh(
-    new THREE.BoxGeometry(0.12, 0.54, 0.74),
-    plate,
-    chestPivot,
-    [-0.38, 0.08, 0.08]
-  );
-  shoulderPlateL.rotation.z = -0.13;
-  const shoulderPlateR = shoulderPlateL.clone();
-  shoulderPlateR.position.x = 0.38;
-  shoulderPlateR.rotation.z = 0.13;
-  chestPivot.add(shoulderPlateR);
-
-  // S neck is low and forward. It should never become the vertical feature
-  // visible in the original primitive proof.
+  // The S neck stays low and forward, with less empty visual gap than v1.
   const neckPivot = new THREE.Group();
-  neckPivot.position.set(0, 0.18, 1.04);
+  neckPivot.position.set(0, 0.10, 0.98);
   chestPivot.add(neckPivot);
 
-  const neck = makeMesh(
-    new THREE.CylinderGeometry(0.17, 0.26, 0.92, 6),
+  // Collar mass closes the chest/neck seam without making the neck vertical.
+  makeMesh(
+    new THREE.IcosahedronGeometry(0.29, 1),
     primary,
     neckPivot,
-    [0, 0.06, 0.43]
+    [0, -0.025, -0.05],
+    [0.92, 0.74, 1.08]
   );
-  neck.rotation.x = Math.PI / 2 - 0.12;
 
-  const neckKeel = makeMesh(
-    new THREE.BoxGeometry(0.22, 0.22, 0.82),
-    dark,
+  const neck = makeMesh(
+    new THREE.CylinderGeometry(0.155, 0.245, 0.82, 6),
+    primary,
     neckPivot,
-    [0, -0.12, 0.45]
+    [0, -0.005, 0.39]
   );
-  neckKeel.rotation.x = -0.08;
+  neck.rotation.x = Math.PI / 2 - 0.045;
+
+  const neckKeel = makeTaperedPlate(
+    0.78,
+    0.16,
+    0.07,
+    underside,
+    neckPivot,
+    [0, -0.145, 0.37]
+  );
+  neckKeel.rotation.x = -0.015;
 
   const headPivot = new THREE.Group();
-  headPivot.position.set(0, 0.12, 0.94);
+  headPivot.position.set(0, 0.045, 0.56);
   neckPivot.add(headPivot);
 
-  // Small wedge-like head, stretched forward rather than upward.
+  // Smaller wedge-like head.
   makeMesh(
-    new THREE.IcosahedronGeometry(0.42, 1),
+    new THREE.IcosahedronGeometry(0.36, 1),
     primary,
     headPivot,
-    [0, 0.00, 0.34],
-    [0.58, 0.48, 1.18]
+    [0, 0, 0.24],
+    [0.58, 0.45, 1.12]
   );
 
   const muzzle = makeMesh(
-    new THREE.ConeGeometry(0.19, 0.56, 5),
+    new THREE.ConeGeometry(0.15, 0.46, 5),
     secondary,
     headPivot,
-    [0, -0.06, 0.84]
+    [0, -0.055, 0.67]
   );
   muzzle.rotation.x = Math.PI / 2;
 
-  // Long integrated rearward crest establishes the S silhouette.
+  // Integrated rearward crest: shorter than v1 and rooted into the skull line.
   const crestRoot = new THREE.Group();
-  crestRoot.position.set(0, 0.28, 0.23);
+  crestRoot.position.set(0, 0.20, 0.08);
   headPivot.add(crestRoot);
 
-  const crestMain = makeMesh(
-    new THREE.ConeGeometry(0.16, 1.58, 4),
+  const crestUpper = makeTaperedPlate(
+    1.10,
+    0.16,
+    0.085,
     plate,
     crestRoot,
-    [0, 0.06, -0.68]
+    [0, 0.035, -0.43]
   );
-  crestMain.rotation.x = -Math.PI / 2 + 0.13;
+  crestUpper.rotation.x = -0.055;
+  crestUpper.rotation.z = 0.01;
 
-  const crestLower = makeMesh(
-    new THREE.ConeGeometry(0.105, 1.10, 4),
-    dark,
+  const crestLower = makeTaperedPlate(
+    0.80,
+    0.105,
+    0.065,
+    underside,
     crestRoot,
-    [0, -0.10, -0.46]
+    [0, -0.075, -0.29]
   );
-  crestLower.rotation.x = -Math.PI / 2 + 0.06;
+  crestLower.rotation.x = 0.015;
 
-  // Restrained eyes.
+  // Small cheek fins make the head read as one designed structure from FRONT.
+  [-1, 1].forEach((side) => {
+    const cheek = makeTaperedPlate(
+      0.40,
+      0.085,
+      0.055,
+      plate,
+      headPivot,
+      [side * 0.19, -0.03, 0.22]
+    );
+    cheek.rotation.y = side * 0.18;
+  });
+
   const eyeMat = new THREE.MeshBasicMaterial({ color: 0xbdeeff });
   [-1, 1].forEach((side) => {
     makeMesh(
-      new THREE.SphereGeometry(0.033, 5, 4),
+      new THREE.SphereGeometry(0.029, 5, 4),
       eyeMat,
       headPivot,
-      [side * 0.205, 0.065, 0.61]
+      [side * 0.18, 0.055, 0.50]
     );
   });
 
-  // Cue Band follows the head/crest root instead of floating around the skull.
+  // Slim Cue Band; side modules no longer dominate head width.
   const cueBand = new THREE.Group();
-  cueBand.position.set(0, 0.10, 0.26);
+  cueBand.position.set(0, 0.075, 0.24);
   headPivot.add(cueBand);
 
   const bandTop = makeMesh(
-    new THREE.BoxGeometry(0.54, 0.09, 0.18),
+    new THREE.BoxGeometry(0.42, 0.055, 0.13),
     cue,
     cueBand,
-    [0, 0.16, 0]
+    [0, 0.13, 0]
   );
-  bandTop.rotation.x = -0.08;
+  bandTop.rotation.x = -0.07;
 
   [-1, 1].forEach((side) => {
     makeMesh(
-      new THREE.BoxGeometry(0.11, 0.28, 0.24),
+      new THREE.BoxGeometry(0.070, 0.17, 0.15),
       cue,
       cueBand,
-      [side * 0.28, 0.02, 0.02]
+      [side * 0.225, 0.015, 0.02]
     );
     makeMesh(
-      new THREE.SphereGeometry(0.055, 6, 4),
+      new THREE.SphereGeometry(0.043, 6, 4),
       new THREE.MeshBasicMaterial({ color: side < 0 ? 0xffc24a : 0x62ddff }),
       cueBand,
-      [side * 0.335, 0.02, 0.08]
+      [side * 0.255, 0.015, 0.07]
     );
   });
 
   const legs = {
-    fl: makeSprintLimb(chestPivot, primary, dark, -1, true),
-    fr: makeSprintLimb(chestPivot, primary, dark, 1, true),
-    hl: makeSprintLimb(pelvisPivot, secondary, dark, -1, false),
-    hr: makeSprintLimb(pelvisPivot, secondary, dark, 1, false)
+    fl: makeSprintLimb(chestPivot, primary, secondary, joint, plate, -1, true),
+    fr: makeSprintLimb(chestPivot, primary, secondary, joint, plate, 1, true),
+    hl: makeSprintLimb(pelvisPivot, secondary, primary, joint, plate, -1, false),
+    hr: makeSprintLimb(pelvisPivot, secondary, primary, joint, plate, 1, false)
   };
 
-  // Long, thin tail with a slight blade at the tip.
+  // Tail stays long enough to read as a balancing organ without dominating LOW.
   const tailBase = new THREE.Group();
-  tailBase.position.set(0, 0.10, -1.08);
+  tailBase.position.set(0, 0.05, -0.70);
+  tailBase.rotation.x = -0.14;
   pelvisPivot.add(tailBase);
 
   const tailSegments = [];
   let tailParent = tailBase;
-  const tailLengths = [0.58, 0.52, 0.46, 0.38];
+  const tailLengths = [0.46, 0.40, 0.34];
 
   tailLengths.forEach((segLen, i) => {
-    const joint = new THREE.Group();
-    if (i > 0) joint.position.z = -tailLengths[i - 1];
-    tailParent.add(joint);
+    const jointNode = new THREE.Group();
+    if (i > 0) jointNode.position.z = -tailLengths[i - 1];
+    tailParent.add(jointNode);
 
     const seg = makeMesh(
       new THREE.CylinderGeometry(
-        Math.max(0.035, 0.095 - i * 0.016),
-        Math.max(0.045, 0.12 - i * 0.019),
+        Math.max(0.035, 0.080 - i * 0.016),
+        Math.max(0.045, 0.105 - i * 0.018),
         segLen,
         5
       ),
-      i < 2 ? secondary : dark,
-      joint,
+      i === 0 ? secondary : primary,
+      jointNode,
       [0, 0, -segLen / 2]
     );
     seg.rotation.x = Math.PI / 2;
-    tailSegments.push(joint);
-    tailParent = joint;
+    tailSegments.push(jointNode);
+    tailParent = jointNode;
   });
 
-  const tailBlade = makeMesh(
-    new THREE.ConeGeometry(0.14, 0.46, 4),
+  const tailBlade = makeTaperedPlate(
+    0.30,
+    0.12,
+    0.075,
     plate,
     tailParent,
-    [0, 0, -0.19]
+    [0, 0, -0.12]
   );
-  tailBlade.rotation.x = -Math.PI / 2;
+  tailBlade.scale.z = -1;
 
   const shadowMat = new THREE.MeshBasicMaterial({
     color: 0x000000,
     transparent: true,
-    opacity: 0.22,
+    opacity: 0.20,
     depthWrite: false
   });
   const shadow = new THREE.Mesh(new THREE.CircleGeometry(1.0, 18), shadowMat);
   shadow.rotation.x = -Math.PI / 2;
-  shadow.scale.set(0.92, 1.62, 1);
+  shadow.scale.set(0.88, 1.48, 1);
   shadow.position.y = 0.025;
   root.add(shadow);
 
