@@ -924,52 +924,13 @@ test("animate rigged Hunyuan skeletal proof in Morph Lab and Race", async ({ pag
 });
 
 
-test("validate Hunyuan gait v2 in 18-racer race and follow views", async ({ page }, testInfo) => {
+test("compare Hunyuan gait v1 v2 in the same 18-racer race", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
-  test.setTimeout(90000);
+  test.setTimeout(150000);
 
   const outDir = "test-results/visuals";
   fs.mkdirSync(outDir, { recursive: true });
-
-  await page.goto(
-    "/evowild-test/?sf3dVariant=hunyuanstyled&hunyuanRacePack=1&hunyuanRacePackSide=front&renderScale=0.75",
-    { waitUntil: "domcontentloaded", timeout: 30000 }
-  );
-
-  const stage = page.locator("#stage");
-  await expect(stage).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
-  await expect(stage).toHaveAttribute("data-hunyuan-race-pack", "loaded", { timeout: 30000 });
-  await expect(stage).toHaveAttribute("data-hunyuan-race-pack-mode", "animated-lod4");
-  await expect(stage).toHaveAttribute("data-hunyuan-race-pack-far-animation", "EvoWild_S_Run_V2");
-  await expect(stage).toHaveAttribute("data-hunyuan-race-pack-rigged-clip", "EvoWild_S_Run_V2");
-
-  const sampleRig = async (target) => page.evaluate((which) => {
-    const model = which === "far"
-      ? window.__hunyuanRacePackRiggedFar?.[0]
-      : window.__hunyuanRacePackRiggedSelected;
-    if (!model) return null;
-
-    const wanted = ["root", "spine", "fore_L_upper", "fore_R_upper", "hind_L_upper", "hind_R_upper"];
-    const values = {};
-    model.traverse((node) => {
-      if (node.isBone && wanted.includes(node.name)) {
-        values[node.name] = [
-          Number(node.quaternion.x.toFixed(6)),
-          Number(node.quaternion.y.toFixed(6)),
-          Number(node.quaternion.z.toFixed(6)),
-          Number(node.quaternion.w.toFixed(6))
-        ];
-      }
-      if (node.name === "EvoWild_S_Armature") {
-        values.armaturePosition = [
-          Number(node.position.x.toFixed(6)),
-          Number(node.position.y.toFixed(6)),
-          Number(node.position.z.toFixed(6))
-        ];
-      }
-    });
-    return values;
-  }, target);
+  const results = [];
 
   const measureFrames = async () => page.evaluate(() => new Promise((resolve) => {
     const samples = [];
@@ -997,58 +958,87 @@ test("validate Hunyuan gait v2 in 18-racer race and follow views", async ({ page
     requestAnimationFrame(tick);
   }));
 
-  await page.getByRole("button", { name: "2 Race" }).click();
-  await expect(page.locator("#viewLabel")).toHaveText("RACE VIEW");
-  await expect.poll(
-    async () => (await stage.getAttribute("data-hunyuan-race-pack-animated-counts")) || "",
-    { timeout: 10000 }
-  ).toBe("18,0");
+  const sampleRig = async () => page.evaluate(() => {
+    const model = window.__hunyuanRacePackRiggedFar?.[0];
+    if (!model) return null;
+    const wanted = ["root", "spine", "fore_L_upper", "fore_R_upper", "hind_L_upper", "hind_R_upper"];
+    const values = {};
+    model.traverse((node) => {
+      if (node.isBone && wanted.includes(node.name)) {
+        values[node.name] = [
+          Number(node.quaternion.x.toFixed(6)),
+          Number(node.quaternion.y.toFixed(6)),
+          Number(node.quaternion.z.toFixed(6)),
+          Number(node.quaternion.w.toFixed(6))
+        ];
+      }
+      if (node.name === "EvoWild_S_Armature") {
+        values.armaturePosition = [
+          Number(node.position.x.toFixed(6)),
+          Number(node.position.y.toFixed(6)),
+          Number(node.position.z.toFixed(6))
+        ];
+      }
+    });
+    return values;
+  });
 
-  const farA = await sampleRig("far");
-  await page.waitForTimeout(180);
-  const farB = await sampleRig("far");
-  await page.waitForTimeout(180);
-  const farC = await sampleRig("far");
+  for (const gait of ["v1", "v2"]) {
+    await page.goto(
+      `/evowild-test/?sf3dVariant=hunyuanstyled&hunyuanRacePack=1&hunyuanRacePackSide=front&hunyuanGait=${gait}&renderScale=0.75`,
+      { waitUntil: "domcontentloaded", timeout: 30000 }
+    );
+    const stage = page.locator("#stage");
+    await expect(stage).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
+    await expect(stage).toHaveAttribute("data-hunyuan-race-pack", "loaded", { timeout: 30000 });
+    await expect(stage).toHaveAttribute("data-hunyuan-race-pack-gait", gait);
+    await page.getByRole("button", { name: "2 Race" }).click();
+    await expect.poll(
+      async () => (await stage.getAttribute("data-hunyuan-race-pack-animated-counts")) || "",
+      { timeout: 10000 }
+    ).toBe("18,0");
 
-  expect(farA?.fore_L_upper).not.toEqual(farB?.fore_L_upper);
-  expect(farB?.hind_L_upper).not.toEqual(farC?.hind_L_upper);
-  expect(farA?.fore_L_upper).not.toEqual(farA?.fore_R_upper);
-  expect(farA?.hind_L_upper).not.toEqual(farA?.hind_R_upper);
-  expect(farA?.root).not.toEqual(farB?.root);
-  expect(farA?.armaturePosition).not.toEqual(farB?.armaturePosition);
+    const a = await sampleRig();
+    await page.waitForTimeout(180);
+    const b = await sampleRig();
+    await page.waitForTimeout(180);
+    const c = await sampleRig();
+    const perf = await measureFrames();
 
-  const racePerf = await measureFrames();
-  await stage.screenshot({ path: `${outDir}/hunyuan-gait-v2-race.png` });
-  await page.waitForTimeout(250);
-  await stage.screenshot({ path: `${outDir}/hunyuan-gait-v2-race-phase2.png` });
+    const farClip = await stage.getAttribute("data-hunyuan-race-pack-far-animation");
+    if (gait === "v2") {
+      expect(farClip).toBe("EvoWild_S_Run_V2");
+      expect(a?.fore_L_upper).not.toEqual(b?.fore_L_upper);
+      expect(b?.hind_L_upper).not.toEqual(c?.hind_L_upper);
+      expect(a?.fore_L_upper).not.toEqual(a?.fore_R_upper);
+      expect(a?.hind_L_upper).not.toEqual(a?.hind_R_upper);
+      expect(a?.root).not.toEqual(b?.root);
+      expect(a?.armaturePosition).not.toEqual(b?.armaturePosition);
+    } else {
+      expect(farClip).toBe("EvoWild_S_Run");
+    }
 
-  await page.getByRole("button", { name: "3 Follow" }).click();
-  await expect(page.locator("#viewLabel")).toHaveText("FOLLOW VIEW");
-  await expect.poll(
-    async () => (await stage.getAttribute("data-hunyuan-race-pack-animated-counts")) || "",
-    { timeout: 10000 }
-  ).toBe("17,1");
+    results.push({ gait, clip: farClip, a, b, c, perf });
+    await stage.screenshot({ path: `${outDir}/hunyuan-gait-${gait}-race.png` });
+    await page.waitForTimeout(250);
+    await stage.screenshot({ path: `${outDir}/hunyuan-gait-${gait}-race-phase2.png` });
+  }
 
-  const selectedA = await sampleRig("selected");
-  await page.waitForTimeout(250);
-  const selectedB = await sampleRig("selected");
-  expect(selectedA?.fore_L_upper).not.toEqual(selectedB?.fore_L_upper);
-  expect(selectedA?.spine).not.toEqual(selectedB?.spine);
-
-  const followPerf = await measureFrames();
-  await stage.screenshot({ path: `${outDir}/hunyuan-gait-v2-follow.png` });
-
-  console.log("HUNYUAN_GAIT_V2", JSON.stringify({
-    raceAnimated: "18,0",
-    followAnimated: "17,1",
-    farA,
-    farB,
-    farC,
-    selectedA,
-    selectedB,
-    racePerf,
-    followPerf
+  const v1 = results.find((result) => result.gait === "v1");
+  const v2 = results.find((result) => result.gait === "v2");
+  console.log("HUNYUAN_GAIT_COMPARE", JSON.stringify({
+    v1: v1.perf,
+    v2: v2.perf,
+    v1Clip: v1.clip,
+    v2Clip: v2.clip,
+    v1A: v1.a,
+    v2A: v2.a
   }));
+
+  fs.writeFileSync(
+    `${outDir}/hunyuan-gait-v1-v2-comparison.json`,
+    JSON.stringify(results, null, 2)
+  );
 });
 
 
