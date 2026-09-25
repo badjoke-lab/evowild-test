@@ -65,7 +65,7 @@ test("Motion First S gait records continuous SIDE and LOW review video", async (
     if (msg.type() === "error") consoleErrors.push(msg.text());
   });
 
-  await page.goto("http://127.0.0.1:4173/evowild-test/preview-motion-first/index.html?motion=1", {
+  await page.goto("http://127.0.0.1:4173/evowild-test/preview-motion-first-gait/index.html", {
     waitUntil: "networkidle"
   });
   await expect(page.locator("#scene")).toBeVisible();
