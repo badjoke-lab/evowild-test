@@ -1,0 +1,5 @@
+hunyuan-rig-v3-preview
+policy: v3hybrid
+source-branch: feat/hunyuan-rig-v3-20260925
+source-commit: 3197d14a560bd16ecbc3e92036c5c3f4e4f50544
+published-main: 21c1c32c342a38a16e393fc28b98be0dcb31ba48
