@@ -262,8 +262,7 @@ function drawDust(cx, groundY, strength, spriteW) {
   ctx.restore();
 }
 
-function drawFrame(index, cx, groundY, motion) {
-  if (!sheetReady) return;
+function frameGeometry(index, cx, groundY, motion) {
   const meta = frameMeta[index];
   const targetCreatureW = clamp(
     Math.min(width * .54, height * .78),
@@ -276,19 +275,55 @@ function drawFrame(index, cx, groundY, motion) {
   const liftPx = motion.lift * scale * .64;
   const x = cx - drawW * .50 + motion.x * scale * .28;
   const y = groundY - drawH - liftPx;
+  return { meta, scale, drawW, drawH, liftPx, x, y };
+}
+
+function drawFrame(index, cx, groundY, motion) {
+  if (!sheetReady) return;
+  const g = frameGeometry(index, cx, groundY, motion);
 
   ctx.save();
-  ctx.translate(cx, groundY - liftPx);
+  ctx.translate(cx, groundY - g.liftPx);
   ctx.rotate(motion.pitch * Math.PI / 180);
-  ctx.translate(-cx, -(groundY - liftPx));
+  ctx.translate(-cx, -(groundY - g.liftPx));
   ctx.drawImage(
     sheet,
-    meta.sx, meta.sy, meta.sw, meta.sh,
-    x, y, drawW, drawH
+    g.meta.sx, g.meta.sy, g.meta.sw, g.meta.sh,
+    g.x, g.y, g.drawW, g.drawH
   );
   ctx.restore();
 
-  return { drawW, drawH, liftPx, x, y };
+  return g;
+}
+
+function drawDirectionalSmear(index, cx, groundY, motion, strength) {
+  if (!sheetReady || strength <= .01) return;
+
+  const g = frameGeometry(index, cx, groundY, motion);
+  const passes = [
+    { offset: -7,  stretch: 1.012, alpha: .095 },
+    { offset: -15, stretch: 1.028, alpha: .060 },
+    { offset: -25, stretch: 1.048, alpha: .030 }
+  ];
+
+  ctx.save();
+  ctx.translate(cx, groundY - g.liftPx);
+  ctx.rotate(motion.pitch * Math.PI / 180);
+  ctx.translate(-cx, -(groundY - g.liftPx));
+
+  for (const pass of passes) {
+    const extraW = g.drawW * (pass.stretch - 1);
+    ctx.globalAlpha = pass.alpha * strength;
+    ctx.drawImage(
+      sheet,
+      g.meta.sx, g.meta.sy, g.meta.sw, g.meta.sh,
+      g.x + pass.offset - extraW,
+      g.y,
+      g.drawW * pass.stretch,
+      g.drawH
+    );
+  }
+  ctx.restore();
 }
 
 function renderCreature(state) {
@@ -326,6 +361,13 @@ function renderCreature(state) {
   );
 
   drawShadow(cx, groundY, motion.lift, targetCreatureW);
+
+  // Hide the six-pose cut without blending different poses together.
+  // Only the current complete-body frame is repeated, behind itself, for a few milliseconds.
+  const preCut = smooth(clamp((t - .82) / .18, 0, 1));
+  const postCut = smooth(clamp((.12 - t) / .12, 0, 1)) * .72;
+  const smearStrength = FIXED_POSE ? 0 : Math.max(preCut, postCut);
+  drawDirectionalSmear(index, cx, groundY, motion, smearStrength);
   const draw = drawFrame(index, cx, groundY, motion);
 
   const dust =
@@ -339,6 +381,8 @@ function renderCreature(state) {
   stage.dataset.phaseProgress = t.toFixed(3);
   stage.dataset.frameIndex = String(index);
   stage.dataset.poseCell = phase.col + "," + phase.row;
+  stage.dataset.smearMode = "same-pose";
+  stage.dataset.smearStrength = smearStrength.toFixed(3);
   stage.dataset.flight = phase.name === "RECOVERY" || phase.name === "FLIGHT" || phase.name === "REACH" ? "true" : "false";
   stage.dataset.groundAnchorY = groundY.toFixed(1);
   stage.dataset.spriteBottomY = (draw.y + draw.drawH).toFixed(1);
