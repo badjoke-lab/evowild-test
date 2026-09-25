@@ -28,6 +28,7 @@ jobs:
             ! -name 'evowild-s-hunyuan2mv-lod2.glb' \
             ! -name 'evowild-s-hunyuan2mv-lod3.glb' \
             ! -name 'evowild-s-hunyuan2mv-lod4.glb' \
+            ! -name 'evowild-s-hunyuan2mv-lod4-rigged.glb' \
             ! -name 'evowild-s-hunyuan2mv-rigged.glb' \
             ! -name 'evowild-s.obj' \
             ! -name 'evowild-s.mtl' \
