@@ -21,7 +21,18 @@ const LANE_WIDTH = 2.55;
 const TRACK_WIDTH = LANE_COUNT * LANE_WIDTH + 5;
 const RUNNER_COUNT = 18;
 const WORLD_END = 1800;
-const INSPECT_MODE = new URLSearchParams(window.location.search).get("inspect") === "1";
+const params = new URLSearchParams(window.location.search);
+const INSPECT_MODE = params.get("inspect") === "1";
+const MOTION_REVIEW_MODE = params.get("motion") === "1";
+const TAU = Math.PI * 2;
+const S_GAIT = {
+  baseY: 1.80,
+  reviewBaseY: 2.16,
+  minStrideWorld: 3.8,
+  maxStrideWorld: 6.2,
+  stance: 0.34,
+  swingLift: 0.52
+};
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x92a7b3);
@@ -437,10 +448,13 @@ function makeSprintLimb(parent, upperMat, lowerMat, jointMat, plateMat, side, fo
     ankle,
     foot,
     phaseOffset: fore
-      ? (side < 0 ? 0.0 : Math.PI * 0.42)
-      : (side < 0 ? Math.PI * 1.03 : Math.PI * 1.42),
+      ? (side < 0 ? TAU * 0.50 : TAU * 0.58)
+      : (side < 0 ? 0 : TAU * 0.08),
     upperLen,
-    lowerLen
+    lowerLen,
+    cannonLen,
+    side,
+    fore
   };
 }
 
@@ -1046,12 +1060,162 @@ function updateRunner(runner, dt) {
   runner.group.position.x = runner.laneX;
   runner.group.position.z = runner.distance;
 
-  const phaseRate = 4.2 * cfg.cadence * (0.25 + runner.speed / Math.max(cfg.baseSpeed, 1));
-  runner.group.userData.phase += dt * phaseRate;
+  if (runner.morph === "S") {
+    const speedRatio = THREE.MathUtils.clamp(runner.speed / Math.max(cfg.baseSpeed, 1), 0, 1.2);
+    const strideLength = THREE.MathUtils.lerp(
+      S_GAIT.minStrideWorld,
+      S_GAIT.maxStrideWorld,
+      THREE.MathUtils.smoothstep(speedRatio, 0.18, 1.0)
+    );
+    runner.group.userData.strideLength = strideLength;
+    runner.group.userData.phase +=
+      dt * (runner.speed / Math.max(strideLength, 0.01)) * TAU;
+  } else {
+    const phaseRate = 4.2 * cfg.cadence * (0.25 + runner.speed / Math.max(cfg.baseSpeed, 1));
+    runner.group.userData.phase += dt * phaseRate;
+  }
   updateCreaturePose(runner, lateralVelocity);
 }
 
+function wrap01(value) {
+  return ((value % 1) + 1) % 1;
+}
+
+function solveSprintLeg(leg, targetY, targetZ, footPitch, turnLean) {
+  const l1 = leg.upperLen;
+  const l2 = leg.lowerLen + leg.cannonLen;
+  const rawDistance = Math.hypot(targetY, targetZ);
+  const distance = THREE.MathUtils.clamp(
+    rawDistance,
+    Math.abs(l1 - l2) + 0.04,
+    l1 + l2 - 0.025
+  );
+
+  const direction = Math.atan2(-targetZ, -targetY);
+  const hipCos = THREE.MathUtils.clamp(
+    (l1 * l1 + distance * distance - l2 * l2) / (2 * l1 * distance),
+    -1,
+    1
+  );
+  const kneeCos = THREE.MathUtils.clamp(
+    (l1 * l1 + l2 * l2 - distance * distance) / (2 * l1 * l2),
+    -1,
+    1
+  );
+
+  const hipOffset = Math.acos(hipCos);
+  const kneeBend = Math.PI - Math.acos(kneeCos);
+
+  leg.hip.rotation.x = direction + hipOffset;
+  leg.knee.rotation.x = -kneeBend;
+  leg.ankle.rotation.x = 0.06 + kneeBend * 0.10;
+  leg.foot.rotation.x =
+    footPitch -
+    leg.hip.rotation.x -
+    leg.knee.rotation.x -
+    leg.ankle.rotation.x;
+  leg.hip.rotation.z = leg.side * turnLean * 0.22;
+}
+
+function updateSprintPose(runner, lateralVelocity) {
+  const ud = runner.group.userData;
+  const cfg = runner.cfg;
+  const speedRatio = THREE.MathUtils.clamp(runner.speed / cfg.baseSpeed, 0, 1.18);
+  const phase = ud.phase + runner.phaseBias;
+  const strideLength =
+    ud.strideLength ||
+    THREE.MathUtils.lerp(S_GAIT.minStrideWorld, S_GAIT.maxStrideWorld, speedRatio);
+
+  const accelError = (runner.targetSpeed - runner.speed) / Math.max(cfg.baseSpeed, 1);
+  ud.accelLean = THREE.MathUtils.lerp(ud.accelLean, accelError * 1.45, 0.09);
+  ud.turnLean = THREE.MathUtils.lerp(
+    ud.turnLean,
+    THREE.MathUtils.clamp(-lateralVelocity * cfg.laneLean * 0.16, -0.22, 0.22),
+    0.13
+  );
+
+  const flightWave = Math.pow(Math.abs(Math.sin(phase * 2)), 1.35);
+  const contactPulse = 1 - flightWave;
+  const baseY = INSPECT_MODE && !MOTION_REVIEW_MODE ? S_GAIT.reviewBaseY : S_GAIT.baseY;
+
+  ud.bodyMaster.position.y =
+    baseY +
+    flightWave * 0.105 * speedRatio -
+    contactPulse * 0.018 * speedRatio;
+
+  ud.bodyMaster.rotation.x =
+    -0.075 * speedRatio -
+    ud.accelLean * 0.10 +
+    Math.sin(phase) * 0.018 * speedRatio;
+  ud.bodyMaster.rotation.z = ud.turnLean;
+
+  // Chest and pelvis do real work: compress at catch, extend through rear drive.
+  ud.chestPivot.rotation.x =
+    -Math.sin(phase) * 0.050 * speedRatio - flightWave * 0.015;
+  ud.pelvisPivot.rotation.x =
+    Math.sin(phase + 0.18) * 0.065 * speedRatio + flightWave * 0.018;
+  ud.chestPivot.rotation.y = -Math.sin(phase * 0.5) * 0.018 * speedRatio;
+  ud.pelvisPivot.rotation.y = Math.sin(phase * 0.5) * 0.026 * speedRatio;
+
+  // Neck follows the shoulder mass while the head counter-rotates to stay readable.
+  ud.neckPivot.rotation.x =
+    -0.045 + Math.sin(phase + 0.30) * 0.035 * speedRatio;
+  ud.headPivot.rotation.x =
+    -ud.neckPivot.rotation.x * 0.52 -
+    Math.sin(phase + 0.95) * 0.022 * speedRatio;
+  ud.headPivot.rotation.z = -ud.turnLean * 0.50;
+
+  const stanceDuration = S_GAIT.stance;
+  const stanceSweep = strideLength * stanceDuration;
+  const halfSweep = stanceSweep * 0.5;
+
+  Object.values(ud.legs).forEach((leg) => {
+    const cycle = wrap01((phase + leg.phaseOffset) / TAU);
+    const fore = leg.fore;
+    const nominalReach = fore ? 1.57 : 1.55;
+
+    let targetZ;
+    let targetY;
+    let footPitch;
+
+    if (cycle < stanceDuration) {
+      const u = cycle / stanceDuration;
+      // Linear backward sweep cancels the runner's forward travel during stance.
+      targetZ = THREE.MathUtils.lerp(halfSweep, -halfSweep, u);
+      targetY =
+        -nominalReach +
+        Math.sin(u * Math.PI) * 0.018 -
+        contactPulse * 0.018;
+      footPitch = THREE.MathUtils.lerp(-0.08, 0.12, u);
+    } else {
+      const u = (cycle - stanceDuration) / (1 - stanceDuration);
+      const travel = 0.5 - 0.5 * Math.cos(u * Math.PI);
+      const lift = Math.pow(Math.sin(u * Math.PI), 1.22) * S_GAIT.swingLift;
+      targetZ = THREE.MathUtils.lerp(-halfSweep, halfSweep, travel);
+      targetY = -nominalReach + lift;
+      footPitch = -0.22 * Math.sin(u * Math.PI) - 0.02;
+    }
+
+    solveSprintLeg(leg, targetY, targetZ, footPitch, ud.turnLean);
+  });
+
+  ud.tailSegments.forEach((joint, i) => {
+    const lag = phase * 0.52 - i * 0.48;
+    joint.rotation.y =
+      Math.sin(lag) * (0.055 + i * 0.018) * speedRatio -
+      ud.turnLean * (0.50 + i * 0.16);
+    joint.rotation.x =
+      0.08 +
+      Math.sin(phase - i * 0.42 + 0.35) * (0.035 + i * 0.012) * speedRatio;
+  });
+}
+
 function updateCreaturePose(runner, lateralVelocity) {
+  if (runner.morph === "S") {
+    updateSprintPose(runner, lateralVelocity);
+    return;
+  }
+
   const ud = runner.group.userData;
   const cfg = runner.cfg;
   const phase = ud.phase + runner.phaseBias;
@@ -1337,7 +1501,7 @@ addWorld();
 createRunners();
 resetRace();
 
-if (INSPECT_MODE) {
+if (INSPECT_MODE || MOTION_REVIEW_MODE) {
   selectedRunner = 0;
   runnerSelect.value = "0";
   const focus = runners[0];
@@ -1352,23 +1516,33 @@ if (INSPECT_MODE) {
   focus.distance = 80;
   focus.speed = focus.cfg.baseSpeed;
   focus.targetSpeed = focus.cfg.baseSpeed;
+  focus.nextLaneDecision = Number.POSITIVE_INFINITY;
   focus.group.position.set(0, 0, focus.distance);
   focus.group.userData.phase = 1.18;
+  focus.group.userData.strideLength = S_GAIT.maxStrideWorld;
   updateCreaturePose(focus, 0);
 
-  paused = true;
   raceTime = 6;
   requestedCamera = "SIDE";
   actualCamera = "SIDE";
-  pauseButton.textContent = "RESUME";
-  raceStateEl.textContent = "INSPECT";
   cameraButtons.forEach((button) => {
     button.classList.toggle("active", button.dataset.camera === "SIDE");
   });
+
+  if (INSPECT_MODE) {
+    paused = true;
+    pauseButton.textContent = "RESUME";
+    raceStateEl.textContent = "INSPECT";
+  } else {
+    paused = false;
+    pauseButton.textContent = "PAUSE";
+    raceStateEl.textContent = "MOTION REVIEW";
+  }
 }
 
-camera.position.set(INSPECT_MODE ? 7.8 : 11, INSPECT_MODE ? 3.0 : 13, INSPECT_MODE ? 80 : -22);
-cameraLook.set(0, 1.6, INSPECT_MODE ? 80 : 8);
+const isolatedReview = INSPECT_MODE || MOTION_REVIEW_MODE;
+camera.position.set(isolatedReview ? 7.8 : 11, isolatedReview ? 3.0 : 13, isolatedReview ? 80 : -22);
+cameraLook.set(0, 1.6, isolatedReview ? 80 : 8);
 camera.lookAt(cameraLook);
 
 loading.classList.add("hidden");
