@@ -142,7 +142,8 @@ function phaseState(ms) {
 }
 
 function drawBackground(speedNorm) {
-  const horizon = height * .61;
+  const portrait = height > width * 1.25;
+  const horizon = height * (portrait ? .46 : .61);
   const sky = ctx.createLinearGradient(0, 0, 0, horizon);
   sky.addColorStop(0, "#91aeb8");
   sky.addColorStop(.58, "#c5c9bd");
@@ -175,10 +176,10 @@ function drawBackground(speedNorm) {
     ctx.fill();
   };
 
-  drawRidge(height * .58, 75, .07, "#6d8383");
-  drawRidge(height * .62, 47, .13, "#536f60");
+  drawRidge(height * (portrait ? .50 : .58), portrait ? 58 : 75, .07, "#6d8383");
+  drawRidge(height * (portrait ? .55 : .62), portrait ? 38 : 47, .13, "#536f60");
 
-  const trackTop = height * .72;
+  const trackTop = height * (portrait ? .60 : .72);
   const ground = ctx.createLinearGradient(0, horizon, 0, trackTop);
   ground.addColorStop(0, "#59645d");
   ground.addColorStop(1, "#394840");
@@ -292,7 +293,8 @@ function drawFrame(index, cx, groundY, motion) {
 
 function renderCreature(state) {
   const { index, phase, t } = state;
-  const groundY = height * (height > width * 1.15 ? .80 : .82);
+  const portrait = height > width * 1.25;
+  const groundY = height * (portrait ? .70 : .82);
   const cx = width * .51;
   const meta = frameMeta[index];
   const next = PHASES[(index + 1) % PHASES.length];
