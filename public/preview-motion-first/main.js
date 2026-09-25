@@ -1319,7 +1319,7 @@ function updateCamera(dt) {
 
   let targetFov = 58;
 
-  if (INSPECT_MODE) {
+  if (INSPECT_MODE || MOTION_REVIEW_MODE) {
     if (actualCamera === "SIDE") {
       desiredCamera.set(focusPos.x + 7.8, 3.0, focusPos.z);
       desiredLook.set(focusPos.x, 1.55, focusPos.z);
