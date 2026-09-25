@@ -77,7 +77,7 @@ function buildEvowildSSprite(seed: number) {
   sprite.name = 'evowildS';
   sprite.center.set(0.5, 0.06);
   sprite.position.set(0, 0.04, 0);
-  sprite.scale.set(5.7, 4.25, 1);
+  sprite.scale.set(4.0, 3.0, 1);
   sprite.renderOrder = 6;
   return { sprite, texture };
 }
@@ -2162,7 +2162,7 @@ export class Kart implements IKart {
       const stride = Math.sin(this.evowildAnimFrame * Math.PI * 2) * 0.025;
       this.evowildSprite.position.y = 0.04 + stride;
       const boost = this.boostTime > 0 ? 1.08 : 1;
-      this.evowildSprite.scale.set(5.7 * boost, 4.25, 1);
+      this.evowildSprite.scale.set(4.0 * boost, 3.0, 1);
     }
 
     const sus = this.suspension;
