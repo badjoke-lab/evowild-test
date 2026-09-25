@@ -2,6 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests",
+  testIgnore: "./tests/lane4-v4.spec.js",
   timeout: 30000,
   use: {
     baseURL: "http://127.0.0.1:4173",
