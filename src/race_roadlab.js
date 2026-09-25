@@ -208,15 +208,16 @@ function trackFrame(u) {
 
 const runDirectionAssets = {
   side: "s-side-run-sheet.svg",
-  front_3q: "s-front-3q-run-sheet-v1.webp",
-  front: "s-front-run-sheet-v2.webp",
-  back: "s-back-run-sheet-v2.webp"
+  front_3q: "s-front-3q-run-sheet.webp",
+  front: "s-front-run-sheet.webp",
+  back_3q: "s-back-3q-run-sheet.webp",
+  back: "s-back-run-sheet.webp"
 };
 const availableRunDirections = new Set(Object.keys(runDirectionAssets));
-const missingRunDirections = ["back_3q"];
-host.dataset.directionSet = "side-front3q-front-back";
-host.dataset.prototypeDirections = "front_3q,front,back";
-host.dataset.missingDirections = missingRunDirections.join(",");
+const missingRunDirections = [];
+host.dataset.directionSet = "side-front3q-front-back3q-back";
+host.dataset.loadedDirectionTarget = Object.keys(runDirectionAssets).join(",");
+host.dataset.missingDirections = "";
 
 function requiredDirectionForView(tangent, racerPosition) {
   const toCamera = camera.position.clone().sub(racerPosition);
@@ -709,8 +710,8 @@ function updateCamera(dt) {
   const target = center.clone().addScaledVector(side,lateral);
   target.y += 2.6 + bank*lateral;
 
-  // Race camera moves between a true side-follow and a front three-quarter view.
-  // It never asks for BACK_3Q until that asset exists.
+  // Race camera may move through all supported side/front/back directions.
+  // Each view now has its own six-frame run sheet; no cross-direction substitution.
   const cameraWave = 0.5 + 0.5 * Math.sin(u * Math.PI * 4.0);
   const sideOffset = lerp(60, 24, cameraWave);
   const forwardOffset = lerp(2, 34, cameraWave);
