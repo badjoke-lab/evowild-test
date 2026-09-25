@@ -23,7 +23,7 @@ const RUNNER_COUNT = 18;
 const WORLD_END = 1800;
 const params = new URLSearchParams(window.location.search);
 const INSPECT_MODE = params.get("inspect") === "1";
-const MOTION_REVIEW_MODE = params.get("motion") === "1";
+const MOTION_REVIEW_MODE = params.get("motion") === "1" || window.location.pathname.includes("/preview-motion-first-gait/");
 const TAU = Math.PI * 2;
 const S_GAIT = {
   baseY: 1.60,
