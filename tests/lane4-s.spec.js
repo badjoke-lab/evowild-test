@@ -56,7 +56,15 @@ for (const project of ["desktop-chromium", "android-chromium"]) {
         return Boolean(s && image && (image.width || image.naturalWidth || 0) > 0);
       });
     }, null, { timeout: 30000 });
-    await page.waitForTimeout(2600);
+    await page.waitForTimeout(2200);
+    const animBefore = await page.evaluate(() =>
+      window.__ctx.race.karts.map((k) => k.object.getObjectByName("evowildS")?.userData?.animSerial ?? -1)
+    );
+    await page.waitForTimeout(320);
+    const animAfter = await page.evaluate(() =>
+      window.__ctx.race.karts.map((k) => k.object.getObjectByName("evowildS")?.userData?.animSerial ?? -1)
+    );
+    expect(animAfter.some((v, i) => v > animBefore[i])).toBe(true);
 
     const state = await page.evaluate(() => {
       const race = window.__ctx.race;
