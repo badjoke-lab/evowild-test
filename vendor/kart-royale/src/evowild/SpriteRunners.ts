@@ -17,8 +17,8 @@ export class EvoWildSpriteRunners implements System {
   private sourceAspect = 1.55;
 
   async init(ctx: Ctx) {
-    const base = import.meta.env.BASE_URL || '/';
-    const texture = await new THREE.TextureLoader().loadAsync(base + 's-run-sheet.webp');
+    const spriteUrl = new URL('s-run-sheet.webp', window.location.href).toString();
+    const texture = await new THREE.TextureLoader().loadAsync(spriteUrl);
     texture.colorSpace = THREE.SRGBColorSpace;
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
