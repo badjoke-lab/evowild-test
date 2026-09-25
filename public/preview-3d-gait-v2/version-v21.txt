@@ -1,0 +1,5 @@
+hunyuan-gait-v2-preview
+candidate: v2.1
+source-branch: feat/hunyuan-gait-v2-20260925
+source-commit: b72075c831f50b4ee724d1cfb667ea3e0c3fe406
+published-main: eba8e96827823a84be47560dd182d8559f130f6f
