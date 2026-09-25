@@ -17,27 +17,24 @@
       "usable_for_race": true
     },
     "front_3q": {
-      "status": "prototype_animated",
-      "asset": "s-front-3q-run-sheet-v1.webp",
-      "usable_for_race": true,
-      "quality": "prototype_not_final"
+      "status": "implemented_animated",
+      "asset": "s-front-3q-run-sheet.webp",
+      "usable_for_race": true
     },
     "front": {
-      "status": "prototype_animated",
-      "asset": "s-front-run-sheet-v2.webp",
-      "usable_for_race": true,
-      "quality": "prototype_not_final"
+      "status": "implemented_animated",
+      "asset": "s-front-run-sheet.webp",
+      "usable_for_race": true
     },
     "back_3q": {
-      "status": "missing",
-      "asset": "s-back-3q-run-sheet-v1.webp",
-      "usable_for_race": false
+      "status": "implemented_animated",
+      "asset": "s-back-3q-run-sheet.webp",
+      "usable_for_race": true
     },
     "back": {
-      "status": "prototype_animated",
-      "asset": "s-back-run-sheet-v2.webp",
-      "usable_for_race": true,
-      "quality": "prototype_not_final"
+      "status": "implemented_animated",
+      "asset": "s-back-run-sheet.webp",
+      "usable_for_race": true
     }
   },
   "policy": {
@@ -47,16 +44,13 @@
   },
   "quality_gate": {
     "race_ready_directions": [
-      "side"
-    ],
-    "prototype_directions": [
+      "side",
       "front_3q",
       "front",
+      "back_3q",
       "back"
     ],
-    "blocked_directions": [
-      "back_3q"
-    ],
-    "reason": "SIDE is the existing validated run cycle. FRONT/FRONT_3Q/BACK now have distinct six-frame prototype cycles for real direction switching, but remain below final art quality. BACK_3Q is still blocked and is never substituted."
+    "blocked_directions": [],
+    "reason": "All five camera directions now have distinct six-frame running sheets. No static reference or cross-direction fallback is used."
   }
 }
