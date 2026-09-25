@@ -434,6 +434,7 @@ const CUT_TURN = 0.8;
 // ===========================================================================
 
 const WORLD_UP = new THREE.Vector3(0, 1, 0);
+const EVOWILD_SPECTATOR = new URLSearchParams(location.search).get('evowildSpectator') === '1';
 const _eye = new THREE.Vector3();
 const _aim = new THREE.Vector3();
 const _chaseEye = new THREE.Vector3();
@@ -720,6 +721,12 @@ export class ChaseCamera implements System {
 
     const mode: CamMode = ((window as any).__camMode as CamMode) || 'chase';
     const state = ctx.race.state;
+
+    if (EVOWILD_SPECTATOR) {
+      this.poseEvowildSpectator(ctx, k, dt);
+      return;
+    }
+
     this.buildProps(ctx);
 
     // A harness mode change is a cut, and the lens must be at its new focal
@@ -858,6 +865,61 @@ export class ChaseCamera implements System {
         .applyQuaternion(ctx.camera.quaternion);
       ctx.camera.position.add(_tmp);
     }
+  }
+
+  /**
+   * EvoWild Lane 4 proof camera.
+   *
+   * S currently has a real six-frame SIDE run cycle, not a fake rear-facing
+   * redraw. Keep the borrowed race/physics untouched and observe it from the
+   * side so the existing animation is spatially honest.
+   */
+  private poseEvowildSpectator(ctx: Ctx, k: IKart, dt: number) {
+    _face.copy(k.forward);
+    _face.y = 0;
+    if (_face.lengthSq() < 1e-6) _face.set(0, 0, 1);
+    else _face.normalize();
+
+    _right.set(_face.z, 0, -_face.x).normalize();
+
+    const portrait = ctx.height > ctx.width;
+    const side = portrait ? 8.4 : 10.2;
+    const back = portrait ? 0.5 : 1.4;
+    const height = portrait ? 2.35 : 2.75;
+
+    _eye.copy(k.position)
+      .addScaledVector(_right, side)
+      .addScaledVector(_face, -back)
+      .addScaledVector(WORLD_UP, height);
+
+    _aim.copy(k.position)
+      .addScaledVector(_face, 1.15)
+      .addScaledVector(WORLD_UP, 0.95);
+
+    const a = 1 - Math.exp(-8 * dt);
+    if (!this.ready) {
+      ctx.camera.position.copy(_eye);
+      this.ready = true;
+    } else {
+      ctx.camera.position.lerp(_eye, a);
+    }
+
+    const wantFov = portrait ? 52 : 46;
+    if (Math.abs(ctx.camera.fov - wantFov) > 0.01) {
+      ctx.camera.fov += (wantFov - ctx.camera.fov) * a;
+      ctx.camera.updateProjectionMatrix();
+    }
+
+    _m.lookAt(ctx.camera.position, _aim, WORLD_UP);
+    _qt.setFromRotationMatrix(_m);
+    if (!this.hasPrevQuat) ctx.camera.quaternion.copy(_qt);
+    else ctx.camera.quaternion.slerp(_qt, Math.min(1, a * 1.3));
+
+    this.prevKart.copy(k.position);
+    this.prevEye.copy(ctx.camera.position);
+    this.prevQuat.copy(ctx.camera.quaternion);
+    this.hasPrevEye = true;
+    this.hasPrevQuat = true;
   }
 
   /** First frame only: there is no previous shot, so everything starts on the
