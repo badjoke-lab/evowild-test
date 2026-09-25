@@ -96,9 +96,9 @@ const dustGeometry = new THREE.BufferGeometry();
 dustGeometry.setAttribute("position", new THREE.BufferAttribute(dustPositions, 3));
 const dustMaterial = new THREE.PointsMaterial({
   color: 0xc89463,
-  size: 2.0,
+  size: 2.8,
   transparent: true,
-  opacity: .32,
+  opacity: .38,
   depthWrite: false,
   sizeAttenuation: true
 });
@@ -111,12 +111,12 @@ let dustCursor = 0;
 function spawnDustAt(position, tangent, amount=2) {
   for(let i=0;i<amount;i++){
     const d=dust[dustCursor++%dustMax];
-    d.life=.34 + Math.random()*.26;
+    d.life=.46 + Math.random()*.34;
     d.p.copy(position);
     d.p.x += (Math.random()-.5)*1.4;
     d.p.z += (Math.random()-.5)*1.4;
     d.p.y += .3 + Math.random()*.35;
-    d.v.copy(tangent).multiplyScalar(-7 - Math.random()*7);
+    d.v.copy(tangent).multiplyScalar(-12 - Math.random()*10);
     d.v.x += (Math.random()-.5)*2.4;
     d.v.z += (Math.random()-.5)*2.4;
     d.v.y = 1.2 + Math.random()*2.1;
@@ -503,7 +503,7 @@ function createShadow() {
 const names = ["Vela","Aster","Mica","Rook","Nacre","Ilex","Lumen","Tern"];
 const morphSeed = ["S","P","E","A","S","P","E","A"];
 const laneSeed = [2,4,1,5,3,0,4,1];
-const startGap = [0,22,-18,39,-31,54,73,-48];
+const startGap = [0,6,-4,11,-9,15,20,-13];
 const baseSpeed = [29.8,29.1,30.2,28.8,29.5,29.0,30.0,29.4];
 
 const racers = [];
@@ -662,7 +662,7 @@ function placeRacer(r, elapsedMs) {
     r.frame=frame;
     setFrame(r.texture,frame,r.layout.cols,r.layout.rows);
     if(frame===0 || frame===5){
-      spawnDustAt(r.shadow.position, tangent, r.id===SELECTED_ID ? 3 : 2);
+      spawnDustAt(r.shadow.position, tangent, r.id===SELECTED_ID ? 5 : 3);
     }
   }
 
@@ -677,8 +677,8 @@ function placeRacer(r, elapsedMs) {
   const bob=(bobByMorph[r.morph] || bobByMorph.S)[frame];
   r.sprite.position.y += bob;
 
-  const scaleByMorph = { S:10.2, P:11.0, E:10.4, A:9.8 };
-  const scale=(scaleByMorph[r.morph] || 10.2) + (r.id===SELECTED_ID ? .7 : 0);
+  const scaleByMorph = { S:9.4, P:10.1, E:9.6, A:9.2 };
+  const scale=(scaleByMorph[r.morph] || 10.2) + (r.id===SELECTED_ID ? .45 : 0);
 
   const here = p.clone().project(camera);
   const ahead = p.clone().addScaledVector(tangent, 2).project(camera);
@@ -712,13 +712,13 @@ function updateCamera(dt) {
   // Side-follow is deliberate here: every morph now has real SIDE animation.
   // Multi-direction camera returns only after P/E/A also have those directions.
   desiredCam.copy(target)
-    .addScaledVector(side,60)
-    .addScaledVector(tangent,2)
-    .add(new THREE.Vector3(0,11.8,0));
+    .addScaledVector(side,48)
+    .addScaledVector(tangent,0)
+    .add(new THREE.Vector3(0,9.6,0));
 
   desiredLook.copy(target)
-    .addScaledVector(tangent,7)
-    .add(new THREE.Vector3(0,3.2,0));
+    .addScaledVector(tangent,8)
+    .add(new THREE.Vector3(0,2.9,0));
 
   const posAlpha=1-Math.pow(.001,dt);
   const lookAlpha=1-Math.pow(.004,dt);
@@ -731,7 +731,7 @@ function updateCamera(dt) {
   camera.lookAt(camLook);
 
   const speedRatio=clamp(me.speed/me.baseSpeed,.90,1.08);
-  camera.fov = lerp(camera.fov,46+(speedRatio-.90)*9,.08);
+  camera.fov = lerp(camera.fov,49+(speedRatio-.90)*12,.08);
   camera.updateProjectionMatrix();
 }
 
@@ -824,8 +824,8 @@ requestAnimationFrame(now=>{
     const me=racers[0];
     const u=(((me.totalDistance%trackLength)+trackLength)%trackLength)/trackLength;
     const {center,tangent,side}=trackFrame(u);
-    camPos.copy(center).addScaledVector(side,60).addScaledVector(tangent,2).add(new THREE.Vector3(0,11.5,0));
-    camLook.copy(center).addScaledVector(tangent,6).add(new THREE.Vector3(0,3.4,0));
+    camPos.copy(center).addScaledVector(side,48).addScaledVector(tangent,0).add(new THREE.Vector3(0,9.6,0));
+    camLook.copy(center).addScaledVector(tangent,8).add(new THREE.Vector3(0,2.9,0));
     camera.position.copy(camPos);
     camera.lookAt(camLook);
   }
