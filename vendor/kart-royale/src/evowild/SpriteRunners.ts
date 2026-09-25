@@ -100,7 +100,7 @@ export class EvoWildSpriteRunners implements System {
       const pace = THREE.MathUtils.clamp(speed / 30, 0, 1);
       const height = (kart.isPlayer ? BASE_HEIGHT * 1.08 : BASE_HEIGHT) * (1 + pace * 0.035);
       sprite.scale.set(height * this.sourceAspect, height, 1);
-      sprite.visible = kart.object.visible;
+      sprite.visible = true;
     }
   }
 
