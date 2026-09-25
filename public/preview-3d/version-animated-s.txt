@@ -1,0 +1,4 @@
+animated-s-race-preview
+source-branch: feat/sf3d-game-integration-20260922
+source-commit: 6162f5377d69ca4e5a564b735c7207fd2bcf72aa
+preview-publish-main: 9b4940ef61d6adddd7e914f5676fed96cb56677b
