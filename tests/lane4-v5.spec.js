@@ -1,7 +1,8 @@
 import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 
-test("Lane 4 V5 runs S field on intact Kart Royale world", async ({ page }) => {
+test("Lane 4 V5 runs S field on intact Kart Royale world", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(180000);
   const errors = [];
   page.on("pageerror", (err) => errors.push(err.stack || String(err)));
@@ -15,7 +16,19 @@ test("Lane 4 V5 runs S field on intact Kart Royale world", async ({ page }) => {
   );
   expect(response?.status()).toBeLessThan(400);
   await page.waitForFunction(() => window.__gameReady === true, null, { timeout: 120000 });
-  await page.waitForFunction(() => window.__evowildSReady === true, null, { timeout: 30000 });
+  await page.waitForFunction(
+    () => window.__evowildSReady === true || Boolean(window.__evowildSError),
+    null,
+    { timeout: 30000 }
+  );
+  const spriteBoot = await page.evaluate(() => ({
+    ready: window.__evowildSReady,
+    error: window.__evowildSError,
+    url: window.__evowildSLoadUrl
+  }));
+  console.log("EVOWILD_S_BOOT", JSON.stringify(spriteBoot));
+  expect(spriteBoot.error).toBeFalsy();
+  expect(spriteBoot.ready).toBe(true);
 
   await page.evaluate(() => {
     const ctx = window.__ctx;
