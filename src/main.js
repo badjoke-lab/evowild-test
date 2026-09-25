@@ -50,6 +50,8 @@ let hunyuanRacePackCounts = [0, 0, 0];
 let hunyuanRacePackRiggedSelected = null;
 let hunyuanRacePackRiggedFar = [];
 let hunyuanRacePackAnimated = false;
+let hunyuanRacePackSelectedAction = null;
+const HUNYUAN_STRIDE_METERS_PER_CYCLE = 5.6;
 let sf3dLabMixer = null;
 const sf3dRaceMixers = [];
 
@@ -956,10 +958,18 @@ function setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData, lod4Rigg
       racer.obj.add(model);
 
       const mixer = new THREE.AnimationMixer(model);
-      mixer.clipAction(clip).play();
+      const action = mixer.clipAction(clip);
+      action.play();
       if (clip.duration > 0) mixer.setTime((index / racers.length) * clip.duration);
       sf3dRaceMixers.push(mixer);
-      hunyuanRacePackRiggedFar.push({ racerId: racer.id, model });
+      hunyuanRacePackRiggedFar.push({
+        racerId: racer.id,
+        racer,
+        model,
+        mixer,
+        action,
+        clipDuration: Math.max(0.001, clip.duration || 1)
+      });
     });
 
     window.__hunyuanRacePackRiggedFar = hunyuanRacePackRiggedFar.map((entry) => entry.model);
@@ -999,8 +1009,15 @@ function setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData, lod4Rigg
 
     if (riggedData.animations?.length) {
       const mixer = new THREE.AnimationMixer(hunyuanRacePackRiggedSelected);
-      mixer.clipAction(riggedData.animations[0]).play();
+      const action = mixer.clipAction(riggedData.animations[0]);
+      action.play();
       sf3dRaceMixers.push(mixer);
+      hunyuanRacePackSelectedAction = {
+        racer: selectedRacer,
+        mixer,
+        action,
+        clipDuration: Math.max(0.001, riggedData.animations[0].duration || 1)
+      };
       window.__hunyuanRacePackRiggedSelected = hunyuanRacePackRiggedSelected;
       stage.dataset.hunyuanRacePackRigged = "playing";
       stage.dataset.hunyuanRacePackRiggedClip = riggedData.animations[0].name || "unnamed";
@@ -1014,6 +1031,55 @@ function setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData, lod4Rigg
   stage.dataset.hunyuanRacePackSide = hunyuanRacePackSide;
   stage.dataset.hunyuanRacePackProfiles = levels.map((data) => data.profile.id).join(",");
   stage.dataset.hunyuanRacePackTriangles = levels.map((data) => data.stats.triangles).join(",");
+}
+
+function syncHunyuanStrideToSpeed() {
+  if (!hunyuanRacePackAnimated) return;
+
+  let minScale = Infinity;
+  let maxScale = 0;
+  let totalScale = 0;
+  let count = 0;
+  let maxSyncError = 0;
+
+  const apply = (entry) => {
+    if (!entry?.action || !entry?.racer) return;
+    const speed = Math.max(0, entry.racer.speed);
+    const cycleHz = speed / HUNYUAN_STRIDE_METERS_PER_CYCLE;
+    const timeScale = THREE.MathUtils.clamp(
+      cycleHz * entry.clipDuration,
+      0.18,
+      2.35
+    );
+    entry.action.timeScale = timeScale;
+
+    const representedSpeed =
+      (timeScale / entry.clipDuration) * HUNYUAN_STRIDE_METERS_PER_CYCLE;
+    const syncError = Math.abs(representedSpeed - speed);
+
+    minScale = Math.min(minScale, timeScale);
+    maxScale = Math.max(maxScale, timeScale);
+    totalScale += timeScale;
+    count += 1;
+    maxSyncError = Math.max(maxSyncError, syncError);
+  };
+
+  for (const entry of hunyuanRacePackRiggedFar) apply(entry);
+  apply(hunyuanRacePackSelectedAction);
+
+  if (count > 0) {
+    const selectedFar = hunyuanRacePackRiggedFar.find((entry) => entry.racerId === selectedId);
+    stage.dataset.hunyuanStrideSync = "active";
+    stage.dataset.hunyuanStrideMeters = String(HUNYUAN_STRIDE_METERS_PER_CYCLE);
+    stage.dataset.hunyuanStrideScaleRange =
+      `${minScale.toFixed(3)},${maxScale.toFixed(3)}`;
+    stage.dataset.hunyuanStrideScaleAverage = (totalScale / count).toFixed(3);
+    stage.dataset.hunyuanStrideSyncError = maxSyncError.toFixed(4);
+    if (selectedFar) {
+      stage.dataset.hunyuanSelectedSpeed = selectedFar.racer.speed.toFixed(3);
+      stage.dataset.hunyuanSelectedStrideScale = selectedFar.action.timeScale.toFixed(3);
+    }
+  }
 }
 
 function updateHunyuanRacePackInstances() {
@@ -1850,6 +1916,7 @@ function frame(now) {
     if (!paused) {
       const animationDt = dt / 1000;
       if (sf3dLabMixer) sf3dLabMixer.update(animationDt);
+      syncHunyuanStrideToSpeed();
       for (const mixer of sf3dRaceMixers) mixer.update(animationDt);
     }
     setCamera();
