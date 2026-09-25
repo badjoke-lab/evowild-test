@@ -54,7 +54,7 @@ let hunyuanRacePackSelectedAction = null;
 const hunyuanStrideMetersPerCycle = THREE.MathUtils.clamp(
   Number.parseFloat(query.get("hunyuanStrideMeters") || "5.6") || 5.6,
   2.5,
-  9.0
+  12.0
 );
 let sf3dLabMixer = null;
 const sf3dRaceMixers = [];
