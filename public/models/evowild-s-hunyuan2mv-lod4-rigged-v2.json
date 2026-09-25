@@ -1,0 +1,43 @@
+{
+  "input": "evowild-s-hunyuan2mv-lod4.glb",
+  "output": "evowild-s-hunyuan2mv-lod4-rigged-v2.glb",
+  "mesh_vertices": 1617,
+  "mesh_polygons": 3233,
+  "armature": "EvoWild_S_Armature",
+  "deform_bones": [
+    "spine",
+    "neck",
+    "head",
+    "fore_L_upper",
+    "fore_L_lower",
+    "fore_R_upper",
+    "fore_R_lower",
+    "tail",
+    "hind_L_upper",
+    "hind_L_lower",
+    "hind_R_upper",
+    "hind_R_lower"
+  ],
+  "bone_count": 13,
+  "weight_coverage": 1.0,
+  "head_sign": -1,
+  "head_detection": {
+    "positive_end_max_y": -0.225644,
+    "negative_end_max_y": 0.858066
+  },
+  "bounds": {
+    "min_x": -0.215292,
+    "max_x": 0.177976,
+    "min_y": -0.95695,
+    "max_y": 0.99428,
+    "min_z": -0.852464,
+    "max_z": 0.824957
+  },
+  "animation": {
+    "name": "EvoWild_S_Run_V2",
+    "frame_start": 1,
+    "frame_end": 25,
+    "fps": 24
+  },
+  "status": "heuristic_gait_v2_proof_not_final_art"
+}
