@@ -78,6 +78,11 @@ test("Motion First S gait records continuous SIDE and LOW review video", async (
   await expect(page.locator("#cameraReadout")).toHaveText("LOW");
   await page.waitForTimeout(4200);
 
+  await expect(page.locator("#scene")).toHaveAttribute("data-ik-clamped", "0");
+  const stanceSlip = Number(await page.locator("#scene").getAttribute("data-max-stance-slip"));
+  expect(Number.isFinite(stanceSlip)).toBeTruthy();
+  expect(stanceSlip).toBeLessThan(0.12);
+
   const video = page.video();
   await page.close();
 
