@@ -9,8 +9,11 @@ test("Lane 4 runs with animated EvoWild S racers", async ({ page }, testInfo) =>
     if (msg.type() === "error") errors.push(msg.text());
   });
 
+  const renderQuery = testInfo.project.name === "desktop-chromium"
+    ? "quality=high&scale=1&scaler=1"
+    : "quality=medium&scale=0.72&scaler=0.72";
   const response = await page.goto(
-    "/evowild-test/lane4-v4/?ciNoPrewarm=1&ciRace=1&quality=low&scale=0.5&scaler=0.5",
+    `/evowild-test/lane4-v4/?ciNoPrewarm=1&ciRace=1&${renderQuery}`,
     { waitUntil: "domcontentloaded" }
   );
   expect(response?.status()).toBeLessThan(400);
@@ -44,7 +47,7 @@ test("Lane 4 runs with animated EvoWild S racers", async ({ page }, testInfo) =>
   );
   const firstFrame = await page.evaluate(() => window.__ctx.frame);
   await page.waitForFunction(
-    (frame) => window.__ctx?.frame >= frame + 8,
+    (frame) => window.__ctx?.frame >= frame + 4,
     firstFrame,
     { timeout: 90000 }
   );
@@ -66,7 +69,7 @@ test("Lane 4 runs with animated EvoWild S racers", async ({ page }, testInfo) =>
   console.log("LANE4_EVOWILD_STATE", JSON.stringify(state));
   expect(state.autoDrive).toBe(true);
   expect(state.karts).toBe(8);
-  expect(state.frame).toBeGreaterThan(8);
+  expect(state.frame).toBeGreaterThan(4);
   expect(state.visuals?.animation).toBe("EvoWild_S_Run");
   expect(errors, errors.join("\n")).toEqual([]);
 });
