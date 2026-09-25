@@ -15,7 +15,7 @@ test("Motion First S runner renders and captures required camera views", async (
   const outDir = "test-results/visuals";
   fs.mkdirSync(outDir, { recursive: true });
 
-  await page.goto("/evowild-test/preview-motion-first/", { waitUntil: "networkidle" });
+  await page.goto("/evowild-test/preview-motion-first/index.html", { waitUntil: "networkidle" });
   await expect(page.locator("#scene")).toBeVisible();
   await expect(page.locator("#runnerSelect")).toHaveValue("0");
 
