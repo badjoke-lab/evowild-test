@@ -19,7 +19,8 @@ test("Road Lab renders animated S/P/E/A morph race", async ({ page }, testInfo) 
   }));
   await expect(stage).toHaveAttribute("data-running", "true", { timeout: 5000 });
   await expect(stage).toHaveAttribute("data-loaded-morphs", "S,P,E,A");
-  await expect(stage).toHaveAttribute("data-direction-set", "side-for-all-morphs");
+  await expect(stage).toHaveAttribute("data-direction-set", "five-directions-all-morphs");
+  await expect(stage).toHaveAttribute("data-loaded-direction-target", "side,front_3q,front,back_3q,back");
 
   const frames = new Set();
   for (let i = 0; i < 5; i++) {
