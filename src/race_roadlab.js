@@ -729,12 +729,15 @@ function placeRacer(r, elapsedMs) {
   r.sprite.position.y += bob;
 
   const scaleByMorph = { S:9.4, P:10.1, E:9.6, A:9.2 };
-  const scale=(scaleByMorph[r.morph] || 10.2) + (r.id===SELECTED_ID ? .45 : 0);
+  const baseScale=(scaleByMorph[r.morph] || 10.2) + (r.id===SELECTED_ID ? .35 : 0);
+  const cameraDistance = camera.position.distanceTo(p);
+  const perspectiveComp = clamp(cameraDistance / 54, .56, 1.12);
+  const drawScale = baseScale * perspectiveComp;
 
   const here = p.clone().project(camera);
   const ahead = p.clone().addScaledVector(tangent, 2).project(camera);
   const facingSign = requiredDirection === "side" && ahead.x > here.x ? -1 : 1;
-  r.sprite.scale.set(scale * facingSign,scale,1);
+  r.sprite.scale.set(drawScale * facingSign,drawScale,1);
 
   r.shadow.position.copy(center.clone().addScaledVector(side,lateral));
   r.shadow.position.y += .18 + bank*lateral;
@@ -761,10 +764,10 @@ function updateCamera(dt) {
 
   // Smoothly orbit between BACK -> SIDE -> FRONT and back again.
   // Sprite direction is selected from the actual camera angle every frame.
-  const orbit = (elapsed / 1000) * (Math.PI * 2 / 28);
-  const along = Math.sin(orbit) * 56;
-  const sideDistance = 18 + Math.abs(Math.cos(orbit)) * 30;
-  const height = 9.6 + Math.abs(Math.sin(orbit)) * 3.2;
+  const orbit = (elapsed / 1000) * (Math.PI * 2 / 32);
+  const along = Math.sin(orbit) * 68;
+  const sideDistance = 24 + Math.abs(Math.cos(orbit)) * 34;
+  const height = 10.6 + Math.abs(Math.sin(orbit)) * 3.8;
 
   desiredCam.copy(target)
     .addScaledVector(side,sideDistance)
