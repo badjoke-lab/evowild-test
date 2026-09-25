@@ -47,15 +47,39 @@ for (const project of ["desktop-chromium", "android-chromium"]) {
       });
     });
 
+    await page.waitForFunction(() => {
+      const race = window.__ctx?.race;
+      if (!race || race.karts.length !== 8) return false;
+      return race.karts.every((k) => {
+        const s = k.object.getObjectByName("evowildS");
+        const image = s?.material?.map?.image;
+        return Boolean(s && image && (image.width || image.naturalWidth || 0) > 0);
+      });
+    }, null, { timeout: 30000 });
     await page.waitForTimeout(2600);
 
     const state = await page.evaluate(() => {
       const race = window.__ctx.race;
       const p = race.player;
+      let visibleKartDetails = 0;
+      let loadedSprites = 0;
+      for (const k of race.karts) {
+        const s = k.object.getObjectByName("evowildS");
+        const image = s?.material?.map?.image;
+        if (s && image && (image.width || image.naturalWidth || 0) > 0) loadedSprites++;
+        k.object.traverse((o) => {
+          const detail = o.userData?.detailNodes;
+          if (Array.isArray(detail)) {
+            for (const node of detail) if (node.visible) visibleKartDetails++;
+          }
+        });
+      }
       return {
         state: race.state,
         karts: race.karts.length,
         sSprites: race.karts.filter((k) => Boolean(k.object.getObjectByName("evowildS"))).length,
+        loadedSprites,
+        visibleKartDetails,
         speed: Math.hypot(p.velocity.x, p.velocity.z),
         frame: window.__ctx.frame,
         viewport: [innerWidth, innerHeight]
@@ -65,6 +89,8 @@ for (const project of ["desktop-chromium", "android-chromium"]) {
     expect(state.state).toBe(2);
     expect(state.karts).toBe(8);
     expect(state.sSprites).toBe(8);
+    expect(state.loadedSprites).toBe(8);
+    expect(state.visibleKartDetails).toBe(0);
     expect(state.speed).toBeGreaterThan(10);
     expect(state.frame).toBeGreaterThan(8);
     expect(errors, errors.join("\n")).toEqual([]);
