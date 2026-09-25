@@ -47,7 +47,9 @@ test("S visual lane stays one complete creature and covers a grounded six-phase 
         ground: Number(stage.dataset.groundAnchorY || 0),
         bottom: Number(stage.dataset.spriteBottomY || 0),
         pitch: Number(stage.dataset.bodyPitch || 0),
-        frame: Number(stage.dataset.frameIndex || 0)
+        frame: Number(stage.dataset.frameIndex || 0),
+        smear: Number(stage.dataset.smearStrength || 0),
+        smearMode: stage.dataset.smearMode || ""
       });
       await new Promise(resolve => setTimeout(resolve, 24));
     }
@@ -68,6 +70,8 @@ test("S visual lane stays one complete creature and covers a grounded six-phase 
   expect(Math.max(...flight.map(sample => sample.lift))).toBeGreaterThan(20);
 
   expect(new Set(samples.map(sample => sample.frame)).size).toBe(6);
+  expect(samples.every(sample => sample.smearMode === "same-pose")).toBeTruthy();
+  expect(Math.max(...samples.map(sample => sample.smear))).toBeGreaterThan(.45);
   const pitches = samples.map(sample => sample.pitch);
   expect(Math.max(...pitches) - Math.min(...pitches)).toBeGreaterThan(3);
 
@@ -95,6 +99,8 @@ test("S visual lane stays one complete creature and covers a grounded six-phase 
     await expect(fixedStage).toHaveAttribute("data-rig-ready", "true", { timeout: 10000 });
     await expect(fixedStage).toHaveAttribute("data-motion-phase", phase);
     await expect(fixedStage).toHaveAttribute("data-pose-cell", expectedCells[phase]);
+    await expect(fixedStage).toHaveAttribute("data-smear-mode", "same-pose");
+    await expect(fixedStage).toHaveAttribute("data-smear-strength", "0.000");
     await fixedStage.screenshot({
       path: "test-results/visuals/" + testInfo.project.name + "-s-motion-" + phase.toLowerCase() + ".png"
     });
