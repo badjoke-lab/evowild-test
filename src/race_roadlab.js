@@ -206,18 +206,16 @@ function trackFrame(u) {
   return { center, tangent, side, bank };
 }
 
-const runDirectionAssets = {
-  side: "s-side-run-sheet.svg",
-  front_3q: "s-front-3q-run-sheet.webp",
-  front: "s-front-run-sheet.webp",
-  back_3q: "s-back-3q-run-sheet.webp",
-  back: "s-back-run-sheet.webp"
-};
-const availableRunDirections = new Set(Object.keys(runDirectionAssets));
-const missingRunDirections = [];
-host.dataset.directionSet = "side-front3q-front-back3q-back";
-host.dataset.loadedDirectionTarget = Object.keys(runDirectionAssets).join(",");
-host.dataset.missingDirections = "";
+const runAssetSpecs = [
+  { key:"S:side", morph:"S", direction:"side", asset:"s-side-run-sheet.svg", cols:3, rows:2 },
+  { key:"P:side", morph:"P", direction:"side", asset:"p-side-run-strip.svg", cols:6, rows:1 },
+  { key:"E:side", morph:"E", direction:"side", asset:"e-side-run-strip.svg", cols:6, rows:1 },
+  { key:"A:side", morph:"A", direction:"side", asset:"a-side-run-strip.svg", cols:6, rows:1 }
+];
+const availableMorphs = new Set(runAssetSpecs.map(x=>x.morph));
+host.dataset.directionSet = "side-for-all-morphs";
+host.dataset.loadedMorphTarget = [...availableMorphs].join(",");
+host.dataset.sMultiDirectionAvailable = "front_3q,front,back_3q,back";
 
 function requiredDirectionForView(tangent, racerPosition) {
   const toCamera = camera.position.clone().sub(racerPosition);
@@ -503,6 +501,7 @@ function createShadow() {
 }
 
 const names = ["Vela","Aster","Mica","Rook","Nacre","Ilex","Lumen","Tern"];
+const morphSeed = ["S","P","E","A","S","P","E","A"];
 const laneSeed = [2,4,1,5,3,0,4,1];
 const startGap = [0,22,-18,39,-31,54,73,-48];
 const baseSpeed = [29.8,29.1,30.2,28.8,29.5,29.0,30.0,29.4];
@@ -510,30 +509,32 @@ const baseSpeed = [29.8,29.1,30.2,28.8,29.5,29.0,30.0,29.4];
 const racers = [];
 const textureLoader = new THREE.TextureLoader();
 
-function frameTexture(baseTexture) {
+function frameTexture(baseTexture, cols, rows) {
   const t = baseTexture.clone();
   t.needsUpdate = true;
   t.wrapS = THREE.RepeatWrapping;
   t.wrapT = THREE.RepeatWrapping;
-  t.repeat.set(1/3,1/2);
+  t.repeat.set(1/cols,1/rows);
   t.colorSpace = THREE.SRGBColorSpace;
   return t;
 }
 
-function setFrame(texture, frame) {
-  const col = frame % 3;
-  const row = Math.floor(frame / 3);
-  texture.offset.x = col / 3;
-  texture.offset.y = row === 0 ? .5 : 0;
+function setFrame(texture, frame, cols, rows) {
+  const col = frame % cols;
+  const row = Math.floor(frame / cols);
+  texture.offset.x = col / cols;
+  texture.offset.y = (rows - 1 - row) / rows;
 }
 
-function createRacers(baseTextures) {
+function createRacers(assetMap) {
   for (let i = 0; i < RACER_COUNT; i++) {
-    const textures = Object.fromEntries(
-      Object.entries(baseTextures).map(([direction, baseTexture]) => [direction, frameTexture(baseTexture)])
-    );
+    const morph = morphSeed[i];
+    const entry = assetMap[`${morph}:side`];
+    if (!entry) throw new Error(`Missing run asset for morph ${morph}`);
+
+    const texture = frameTexture(entry.texture, entry.spec.cols, entry.spec.rows);
     const mat = new THREE.SpriteMaterial({
-      map: textures.side,
+      map: texture,
       transparent: true,
       depthWrite: false,
       alphaTest: .04,
@@ -558,6 +559,7 @@ function createRacers(baseTextures) {
     racers.push({
       id:i+1,
       name:names[i],
+      morph,
       lane:laneSeed[i],
       laneF:laneSeed[i],
       targetLane:laneSeed[i],
@@ -570,8 +572,8 @@ function createRacers(baseTextures) {
       sprite,
       shadow,
       marker,
-      textures,
-      currentDirection:"side",
+      texture,
+      layout:entry.spec,
       frame:-1,
       requiredDirection:"side"
     });
@@ -579,16 +581,16 @@ function createRacers(baseTextures) {
   host.dataset.state = "ready";
 }
 
-function loadRunDirection(direction, asset) {
+function loadRunAsset(spec) {
   return new Promise((resolve, reject) => {
     textureLoader.load(
-      BASE + "concept/" + asset,
+      BASE + "concept/" + spec.asset,
       (tex) => {
         tex.colorSpace = THREE.SRGBColorSpace;
         tex.minFilter = THREE.LinearFilter;
         tex.magFilter = THREE.LinearFilter;
         tex.generateMipmaps = false;
-        resolve([direction, tex]);
+        resolve([spec.key, { texture:tex, spec }]);
       },
       undefined,
       reject
@@ -596,12 +598,10 @@ function loadRunDirection(direction, asset) {
   });
 }
 
-Promise.all(
-  Object.entries(runDirectionAssets).map(([direction, asset]) => loadRunDirection(direction, asset))
-).then((entries) => {
-  const baseTextures = Object.fromEntries(entries);
-  createRacers(baseTextures);
-  host.dataset.loadedDirections = Object.keys(baseTextures).join(",");
+Promise.all(runAssetSpecs.map(loadRunAsset)).then((entries) => {
+  const assetMap = Object.fromEntries(entries);
+  createRacers(assetMap);
+  host.dataset.loadedMorphs = [...new Set(runAssetSpecs.map(x=>x.morph))].join(",");
 }).catch((err) => {
   host.dataset.state = "asset-error";
   console.error(err);
@@ -641,55 +641,54 @@ function updateRacer(r, dt) {
 
 function placeRacer(r, elapsedMs) {
   const u = (((r.totalDistance % trackLength)+trackLength)%trackLength) / trackLength;
-  const { center, side, bank } = trackFrame(u);
+  const { center, side, bank, tangent } = trackFrame(u);
   const laneWidth = TRACK_WIDTH / LANES;
   const lateral = -TRACK_WIDTH/2 + laneWidth*(r.laneF+.5);
   const p = center.clone().addScaledVector(side,lateral);
   p.y += 2.7 + bank*lateral;
   r.sprite.position.copy(p);
 
-  const requiredDirection = requiredDirectionForView(trackFrame(u).tangent, p);
-  r.requiredDirection = requiredDirection;
-  const directionReady = availableRunDirections.has(requiredDirection) && Boolean(r.textures[requiredDirection]);
-  r.sprite.visible = directionReady;
-  r.shadow.visible = directionReady;
-  r.marker.visible = r.id === SELECTED_ID && directionReady;
+  // P/E/A now have real SIDE run cycles. Keep the race camera side-on until
+  // their additional directions exist; never substitute S art for another morph.
+  r.requiredDirection = "side";
+  r.sprite.visible = true;
+  r.shadow.visible = true;
+  r.marker.visible = r.id === SELECTED_ID;
 
   const frameMs = 94 - clamp((r.speed-r.baseSpeed)*2.4,-10,12);
   const frame = Math.floor((elapsedMs+r.id*43)/frameMs)%6;
 
-  if (directionReady && r.currentDirection !== requiredDirection) {
-    r.currentDirection = requiredDirection;
-    r.sprite.material.map = r.textures[requiredDirection];
-    r.sprite.material.needsUpdate = true;
-    setFrame(r.textures[requiredDirection], frame);
-  }
-
   if(frame!==r.frame){
     r.frame=frame;
-    if (directionReady) setFrame(r.textures[requiredDirection],frame);
+    setFrame(r.texture,frame,r.layout.cols,r.layout.rows);
     if(frame===0 || frame===5){
-      spawnDustAt(r.shadow.position, trackFrame(u).tangent, r.id===SELECTED_ID ? 3 : 2);
+      spawnDustAt(r.shadow.position, tangent, r.id===SELECTED_ID ? 3 : 2);
     }
   }
 
   r.sprite.material.rotation = -bank * .75 + Math.sin((elapsedMs + r.id*37) * .010) * .012;
 
-  const bob=[0,.08,.32,.58,.30,0][frame];
+  const bobByMorph = {
+    S:[0,.08,.32,.58,.30,0],
+    P:[0,.04,.18,.34,.16,0],
+    E:[0,.03,.12,.22,.10,0],
+    A:[0,.10,.38,.64,.30,0]
+  };
+  const bob=(bobByMorph[r.morph] || bobByMorph.S)[frame];
   r.sprite.position.y += bob;
-  const scale = 10.2 + (r.id===SELECTED_ID ? .7 : 0);
-  let facingSign = 1;
-  if (requiredDirection === "side") {
-    const here = p.clone().project(camera);
-    const ahead = p.clone().addScaledVector(trackFrame(u).tangent, 2).project(camera);
-    // Canonical SIDE art faces left; mirror only when projected travel moves right.
-    facingSign = ahead.x > here.x ? -1 : 1;
-  }
+
+  const scaleByMorph = { S:10.2, P:11.0, E:10.4, A:9.8 };
+  const scale=(scaleByMorph[r.morph] || 10.2) + (r.id===SELECTED_ID ? .7 : 0);
+
+  const here = p.clone().project(camera);
+  const ahead = p.clone().addScaledVector(tangent, 2).project(camera);
+  // All SIDE strips face left; mirror only when projected travel moves right.
+  const facingSign = ahead.x > here.x ? -1 : 1;
   r.sprite.scale.set(scale * facingSign,scale,1);
 
   r.shadow.position.copy(center.clone().addScaledVector(side,lateral));
   r.shadow.position.y += .18 + bank*lateral;
-  r.shadow.scale.set(5.7,2.15,1);
+  r.shadow.scale.set(r.morph==="P" ? 6.2 : 5.7, r.morph==="A" ? 1.9 : 2.15, 1);
 
   r.marker.position.copy(p);
   r.marker.position.y += 10.2;
@@ -710,33 +709,29 @@ function updateCamera(dt) {
   const target = center.clone().addScaledVector(side,lateral);
   target.y += 2.6 + bank*lateral;
 
-  // Race camera may move through all supported side/front/back directions.
-  // Each view now has its own six-frame run sheet; no cross-direction substitution.
-  const cameraWave = 0.5 + 0.5 * Math.sin(u * Math.PI * 4.0);
-  const sideOffset = lerp(60, 24, cameraWave);
-  const forwardOffset = lerp(2, 34, cameraWave);
-
+  // Side-follow is deliberate here: every morph now has real SIDE animation.
+  // Multi-direction camera returns only after P/E/A also have those directions.
   desiredCam.copy(target)
-    .addScaledVector(side,sideOffset)
-    .addScaledVector(tangent,forwardOffset)
-    .add(new THREE.Vector3(0,lerp(11.5,14.5,cameraWave),0));
+    .addScaledVector(side,60)
+    .addScaledVector(tangent,2)
+    .add(new THREE.Vector3(0,11.8,0));
 
   desiredLook.copy(target)
-    .addScaledVector(tangent,lerp(6,12,cameraWave))
-    .add(new THREE.Vector3(0,3.4,0));
+    .addScaledVector(tangent,7)
+    .add(new THREE.Vector3(0,3.2,0));
 
   const posAlpha=1-Math.pow(.001,dt);
   const lookAlpha=1-Math.pow(.004,dt);
   camPos.lerp(desiredCam,posAlpha);
   camLook.lerp(desiredLook,lookAlpha);
 
-  const gaitImpact = [0,.1,.36,.66,.34,0][me.frame<0?0:me.frame];
+  const gaitImpact = [0,.08,.24,.42,.22,0][me.frame<0?0:me.frame];
   camera.position.copy(camPos);
-  camera.position.y += gaitImpact*.22;
+  camera.position.y += gaitImpact*.18;
   camera.lookAt(camLook);
 
   const speedRatio=clamp(me.speed/me.baseSpeed,.90,1.08);
-  camera.fov = lerp(camera.fov,46+(speedRatio-.90)*8,.08);
+  camera.fov = lerp(camera.fov,46+(speedRatio-.90)*9,.08);
   camera.updateProjectionMatrix();
 }
 
@@ -774,8 +769,9 @@ function updateUI(now){
   host.dataset.running="true";
   host.dataset.frame=String(me.frame);
   host.dataset.renderer="webgl-3d-course-2d-creatures";
-  host.dataset.selectedDirection=me.requiredDirection || "side";
-  host.dataset.directionReady=availableRunDirections.has(me.requiredDirection || "side") ? "true" : "false";
+  host.dataset.selectedDirection="side";
+  host.dataset.directionReady="true";
+  host.dataset.selectedMorph=me.morph;
 
   if(now-lastBoardPaint>150){
     lastBoardPaint=now;
@@ -784,7 +780,7 @@ function updateUI(now){
       const gap=Math.max(0,lead-r.totalDistance);
       return `<div class="board-row ${r===me?"me":""}">
         <span class="p">${i+1}</span>
-        <span class="n">#${String(r.id).padStart(2,"0")} ${r.name}</span>
+        <span class="n">#${String(r.id).padStart(2,"0")} ${r.morph} · ${r.name}</span>
         <span class="g">${i===0?"LEAD":"+"+gap.toFixed(1)+"m"}</span>
       </div>`;
     }).join("");
