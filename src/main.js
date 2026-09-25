@@ -51,7 +51,11 @@ let hunyuanRacePackRiggedSelected = null;
 let hunyuanRacePackRiggedFar = [];
 let hunyuanRacePackAnimated = false;
 let hunyuanRacePackSelectedAction = null;
-const HUNYUAN_STRIDE_METERS_PER_CYCLE = 5.6;
+const hunyuanStrideMetersPerCycle = THREE.MathUtils.clamp(
+  Number.parseFloat(query.get("hunyuanStrideMeters") || "5.6") || 5.6,
+  2.5,
+  9.0
+);
 let sf3dLabMixer = null;
 const sf3dRaceMixers = [];
 
@@ -1045,7 +1049,7 @@ function syncHunyuanStrideToSpeed() {
   const apply = (entry) => {
     if (!entry?.action || !entry?.racer) return;
     const speed = Math.max(0, entry.racer.speed);
-    const cycleHz = speed / HUNYUAN_STRIDE_METERS_PER_CYCLE;
+    const cycleHz = speed / hunyuanStrideMetersPerCycle;
     const timeScale = THREE.MathUtils.clamp(
       cycleHz * entry.clipDuration,
       0,
@@ -1054,7 +1058,7 @@ function syncHunyuanStrideToSpeed() {
     entry.action.timeScale = timeScale;
 
     const representedSpeed =
-      (timeScale / entry.clipDuration) * HUNYUAN_STRIDE_METERS_PER_CYCLE;
+      (timeScale / entry.clipDuration) * hunyuanStrideMetersPerCycle;
     const syncError = Math.abs(representedSpeed - speed);
 
     minScale = Math.min(minScale, timeScale);
@@ -1070,7 +1074,7 @@ function syncHunyuanStrideToSpeed() {
   if (count > 0) {
     const selectedFar = hunyuanRacePackRiggedFar.find((entry) => entry.racerId === selectedId);
     stage.dataset.hunyuanStrideSync = "active";
-    stage.dataset.hunyuanStrideMeters = String(HUNYUAN_STRIDE_METERS_PER_CYCLE);
+    stage.dataset.hunyuanStrideMeters = String(hunyuanStrideMetersPerCycle);
     stage.dataset.hunyuanStrideScaleRange =
       `${minScale.toFixed(3)},${maxScale.toFixed(3)}`;
     stage.dataset.hunyuanStrideScaleAverage = (totalScale / count).toFixed(3);
@@ -1079,7 +1083,7 @@ function syncHunyuanStrideToSpeed() {
       stage.dataset.hunyuanSelectedSpeed = selectedFar.racer.speed.toFixed(3);
       stage.dataset.hunyuanSelectedStrideScale = selectedFar.action.timeScale.toFixed(3);
       const selectedRepresentedSpeed =
-        (selectedFar.action.timeScale / selectedFar.clipDuration) * HUNYUAN_STRIDE_METERS_PER_CYCLE;
+        (selectedFar.action.timeScale / selectedFar.clipDuration) * hunyuanStrideMetersPerCycle;
       stage.dataset.hunyuanSelectedStrideRepresentedSpeed = selectedRepresentedSpeed.toFixed(3);
       stage.dataset.hunyuanSelectedStrideError =
         Math.abs(selectedRepresentedSpeed - selectedFar.racer.speed).toFixed(4);
