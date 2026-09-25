@@ -28,12 +28,12 @@ const smooth = t => t * t * (3 - 2 * t);
 const PHASES = [
   // Verified against deterministic fixed-pose captures.
   // support -> toe-off/push -> leg recovery -> full flight -> reach -> landing.
-  { name:"CONTACT",  col:0, row:0, duration:66,  lift:0,  pitch:0.0,  x:-3, scaleX:.990, scaleY:1.015 },
-  { name:"PUSH",     col:2, row:0, duration:72,  lift:0,  pitch:-3.6, x:3,  scaleX:1.040, scaleY:.980 },
-  { name:"RECOVERY", col:1, row:0, duration:74,  lift:11, pitch:-2.2, x:5,  scaleX:1.005, scaleY:.990 },
-  { name:"FLIGHT",   col:0, row:1, duration:106, lift:30, pitch:-1.0, x:9,  scaleX:1.050, scaleY:.970 },
-  { name:"REACH",    col:1, row:1, duration:88,  lift:14, pitch:1.2,  x:6,  scaleX:1.025, scaleY:.990 },
-  { name:"LAND",     col:2, row:1, duration:68,  lift:0,  pitch:0.0,  x:0,  scaleX:.995, scaleY:1.015 }
+  { name:"CONTACT",  col:0, row:0, duration:66,  lift:0,  pitch:0.0,  x:-3, scaleX:.990, scaleY:1.015, speed:.90 },
+  { name:"PUSH",     col:2, row:0, duration:72,  lift:0,  pitch:-3.6, x:3,  scaleX:1.040, scaleY:.980, speed:1.18 },
+  { name:"RECOVERY", col:1, row:0, duration:74,  lift:11, pitch:-2.2, x:5,  scaleX:1.005, scaleY:.990, speed:1.08 },
+  { name:"FLIGHT",   col:0, row:1, duration:106, lift:30, pitch:-1.0, x:9,  scaleX:1.050, scaleY:.970, speed:1.12 },
+  { name:"REACH",    col:1, row:1, duration:88,  lift:14, pitch:1.2,  x:6,  scaleX:1.025, scaleY:.990, speed:1.04 },
+  { name:"LAND",     col:2, row:1, duration:68,  lift:0,  pitch:0.0,  x:0,  scaleX:.995, scaleY:1.015, speed:.92 }
 ];
 const CYCLE_MS = PHASES.reduce((sum, p) => sum + p.duration, 0);
 
@@ -383,6 +383,7 @@ function renderCreature(state) {
   stage.dataset.poseCell = phase.col + "," + phase.row;
   stage.dataset.smearMode = "same-pose";
   stage.dataset.smearStrength = smearStrength.toFixed(3);
+  stage.dataset.speedPulse = phase.speed.toFixed(2);
   stage.dataset.flight = phase.name === "RECOVERY" || phase.name === "FLIGHT" || phase.name === "REACH" ? "true" : "false";
   stage.dataset.groundAnchorY = groundY.toFixed(1);
   stage.dataset.spriteBottomY = (draw.y + draw.drawH).toFixed(1);
@@ -394,7 +395,7 @@ function renderCreature(state) {
 
 function render() {
   const state = fixedPhaseState(FIXED_POSE) || phaseState(elapsed);
-  drawBackground(.94);
+  drawBackground(state.phase.speed);
   if (sheetReady) renderCreature(state);
 
   if (state.phase.name === "FLIGHT") {
@@ -413,8 +414,9 @@ function frame(now) {
   const dt = clamp(now - last, 0, 45);
   last = now;
   if (!FIXED_POSE) {
+    const liveState = phaseState(elapsed);
     elapsed += dt * PLAYBACK_RATE;
-    worldTravel += dt * .48 * PLAYBACK_RATE;
+    worldTravel += dt * .48 * PLAYBACK_RATE * liveState.phase.speed;
   }
   render();
   requestAnimationFrame(frame);
