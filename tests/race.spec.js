@@ -1276,7 +1276,7 @@ test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, t
 
   const outDir = "test-results/visuals";
   fs.mkdirSync(outDir, { recursive: true });
-  const candidates = [9.0, 10.0, 11.0, 12.0];
+  const candidates = [5.4, 9.0, 12.0];
   const results = [];
 
   const measureSlip = async () => page.evaluate(() => new Promise((resolve) => {
@@ -1320,21 +1320,24 @@ test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, t
       const body = positionFromMatrix(parent);
 
       if (previous && previous.foot.name === foot.name) {
-        const footDelta = Math.hypot(
-          foot.x - previous.foot.x,
-          foot.z - previous.foot.z
-        );
-        const bodyDelta = Math.hypot(
-          body.x - previous.body.x,
-          body.z - previous.body.z
-        );
+        const footDx = foot.x - previous.foot.x;
+        const footDz = foot.z - previous.foot.z;
+        const bodyDx = body.x - previous.body.x;
+        const bodyDz = body.z - previous.body.z;
+        const footDelta = Math.hypot(footDx, footDz);
+        const bodyDelta = Math.hypot(bodyDx, bodyDz);
 
         if (bodyDelta > 0.0005) {
+          const forwardDelta = (footDx * bodyDx + footDz * bodyDz) / bodyDelta;
+          const lateralDelta = (footDx * -bodyDz + footDz * bodyDx) / bodyDelta;
           segments.push({
             foot: foot.name,
             footDelta,
             bodyDelta,
-            ratio: footDelta / bodyDelta
+            forwardDelta,
+            lateralDelta,
+            ratio: footDelta / bodyDelta,
+            forwardRatio: forwardDelta / bodyDelta
           });
           contacts[foot.name] = (contacts[foot.name] || 0) + 1;
         }
@@ -1349,7 +1352,10 @@ test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, t
       const usable = segments.filter((segment) => Number.isFinite(segment.ratio));
       const totalFoot = usable.reduce((sum, segment) => sum + segment.footDelta, 0);
       const totalBody = usable.reduce((sum, segment) => sum + segment.bodyDelta, 0);
+      const totalForward = usable.reduce((sum, segment) => sum + segment.forwardDelta, 0);
+      const totalLateralAbs = usable.reduce((sum, segment) => sum + Math.abs(segment.lateralDelta), 0);
       const ratios = usable.map((segment) => segment.ratio).sort((a, b) => a - b);
+      const forwardRatios = usable.map((segment) => segment.forwardRatio).sort((a, b) => a - b);
       const percentile = (p) => ratios[
         Math.min(ratios.length - 1, Math.floor((ratios.length - 1) * p))
       ] || 0;
@@ -1360,8 +1366,14 @@ test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, t
         totalFoot: Number(totalFoot.toFixed(5)),
         totalBody: Number(totalBody.toFixed(5)),
         slipRatio: Number((totalFoot / Math.max(totalBody, 1e-6)).toFixed(4)),
+        signedForwardRatio: Number((totalForward / Math.max(totalBody, 1e-6)).toFixed(4)),
+        lateralRatio: Number((totalLateralAbs / Math.max(totalBody, 1e-6)).toFixed(4)),
         medianRatio: Number(percentile(0.5).toFixed(4)),
-        p95Ratio: Number(percentile(0.95).toFixed(4))
+        p95Ratio: Number(percentile(0.95).toFixed(4)),
+        medianForwardRatio: Number(
+          (forwardRatios[Math.min(forwardRatios.length - 1, Math.floor((forwardRatios.length - 1) * 0.5))] || 0)
+            .toFixed(4)
+        )
       });
     }
 
