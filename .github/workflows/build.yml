@@ -148,7 +148,9 @@ jobs:
       - name: Run browser validation
         run: |
           subject="$(git log -1 --pretty=%s)"
-          if [[ "$subject" == *"[targeted-hunyuan-gait-v21-browser]"* ]]; then
+          if [[ "$subject" == *"[targeted-hunyuan-rig-v3-browser]"* ]]; then
+            npm run test:e2e -- --workers=1 -g "compare Hunyuan v21 and 19-bone v3 race rigs"
+          elif [[ "$subject" == *"[targeted-hunyuan-gait-v21-browser]"* ]]; then
             npm run test:e2e -- --workers=1 -g "compare Hunyuan gait v1 v2 v21"
           elif [[ "$subject" == *"[targeted-hunyuan-gait-compare]"* ]]; then
             npm run test:e2e -- --workers=1 -g "compare Hunyuan gait v1 v2"
