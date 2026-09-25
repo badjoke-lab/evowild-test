@@ -1276,7 +1276,7 @@ test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, t
 
   const outDir = "test-results/visuals";
   fs.mkdirSync(outDir, { recursive: true });
-  const candidates = [5.4, 9.0, 12.0];
+  const candidates = [4.6, 5.4, 6.2, 7.0];
   const results = [];
 
   const measureSlip = async () => page.evaluate(() => new Promise((resolve) => {
@@ -1289,11 +1289,21 @@ test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, t
 
     const footNames = ["fore_L_foot", "fore_R_foot", "hind_L_foot", "hind_R_foot"];
     const bones = {};
+    let headBone = null;
+    let tailBone = null;
     model.traverse((node) => {
-      if (node.isBone && footNames.includes(node.name)) bones[node.name] = node;
+      if (!node.isBone) return;
+      if (footNames.includes(node.name)) bones[node.name] = node;
+      if (node.name === "head") headBone = node;
+      if (node.name === "tail") tailBone = node;
     });
-    if (Object.keys(bones).length !== 4) {
-      resolve({ error: "missing foot bones", bones: Object.keys(bones) });
+    if (Object.keys(bones).length !== 4 || !headBone || !tailBone) {
+      resolve({
+        error: "missing gait bones",
+        bones: Object.keys(bones),
+        head: Boolean(headBone),
+        tail: Boolean(tailBone)
+      });
       return;
     }
 
@@ -1330,12 +1340,22 @@ test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, t
         if (bodyDelta > 0.0005) {
           const forwardDelta = (footDx * bodyDx + footDz * bodyDz) / bodyDelta;
           const lateralDelta = (footDx * -bodyDz + footDz * bodyDx) / bodyDelta;
+
+          const head = positionFromMatrix(headBone);
+          const tail = positionFromMatrix(tailBone);
+          const headingX = head.x - tail.x;
+          const headingZ = head.z - tail.z;
+          const headingLength = Math.hypot(headingX, headingZ) || 1;
+          const headingAlignment =
+            (headingX * bodyDx + headingZ * bodyDz) / (headingLength * bodyDelta);
+
           segments.push({
             foot: foot.name,
             footDelta,
             bodyDelta,
             forwardDelta,
             lateralDelta,
+            headingAlignment,
             ratio: footDelta / bodyDelta,
             forwardRatio: forwardDelta / bodyDelta
           });
@@ -1354,6 +1374,10 @@ test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, t
       const totalBody = usable.reduce((sum, segment) => sum + segment.bodyDelta, 0);
       const totalForward = usable.reduce((sum, segment) => sum + segment.forwardDelta, 0);
       const totalLateralAbs = usable.reduce((sum, segment) => sum + Math.abs(segment.lateralDelta), 0);
+      const averageHeadingAlignment = usable.reduce(
+        (sum, segment) => sum + segment.headingAlignment,
+        0
+      ) / Math.max(1, usable.length);
       const ratios = usable.map((segment) => segment.ratio).sort((a, b) => a - b);
       const forwardRatios = usable.map((segment) => segment.forwardRatio).sort((a, b) => a - b);
       const percentile = (p) => ratios[
@@ -1368,6 +1392,7 @@ test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, t
         slipRatio: Number((totalFoot / Math.max(totalBody, 1e-6)).toFixed(4)),
         signedForwardRatio: Number((totalForward / Math.max(totalBody, 1e-6)).toFixed(4)),
         lateralRatio: Number((totalLateralAbs / Math.max(totalBody, 1e-6)).toFixed(4)),
+        headingAlignment: Number(averageHeadingAlignment.toFixed(4)),
         medianRatio: Number(percentile(0.5).toFixed(4)),
         p95Ratio: Number(percentile(0.95).toFixed(4)),
         medianForwardRatio: Number(
@@ -1400,6 +1425,7 @@ test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, t
     const metrics = await measureSlip();
     expect(metrics.error).toBeUndefined();
     expect(metrics.samples).toBeGreaterThan(8);
+    expect(metrics.headingAlignment).toBeGreaterThan(0.85);
 
     const syncError = Number(await stage.getAttribute("data-hunyuan-selected-stride-error") || 999);
     expect(syncError).toBeLessThan(0.05);
