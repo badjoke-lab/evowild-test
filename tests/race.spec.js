@@ -939,40 +939,12 @@ test("run S-only Hunyuan 18-racer pack with race and follow LOD policy", async (
   const stage = page.locator("#stage");
   await expect(stage).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
   await expect(stage).toHaveAttribute("data-hunyuan-race-pack", "loaded", { timeout: 30000 });
+  await expect(stage).toHaveAttribute("data-hunyuan-race-pack-mode", "animated-lod4");
 
-  await page.getByRole("button", { name: "2 Race" }).click();
-  await expect(page.locator("#viewLabel")).toHaveText("RACE VIEW");
-  await expect.poll(
-    async () => (await stage.getAttribute("data-hunyuan-race-pack-counts")) || "",
-    { timeout: 10000 }
-  ).toMatch(/^0,\d+,\d+$/);
-
-  const raceCounts = (await stage.getAttribute("data-hunyuan-race-pack-counts"))
-    .split(",")
-    .map(Number);
-  expect(raceCounts.reduce((sum, value) => sum + value, 0)).toBe(18);
-  expect(raceCounts[2]).toBeGreaterThan(raceCounts[1]);
-  await stage.screenshot({ path: `${outDir}/hunyuan-s-only-race-pack.png` });
-
-  await page.getByRole("button", { name: "3 Follow" }).click();
-  await expect(page.locator("#viewLabel")).toHaveText("FOLLOW VIEW");
-  await expect.poll(
-    async () => (await stage.getAttribute("data-hunyuan-race-pack-counts")) || "",
-    { timeout: 10000 }
-  ).toMatch(/^0,\d+,\d+$/);
-
-  const followCounts = (await stage.getAttribute("data-hunyuan-race-pack-counts"))
-    .split(",")
-    .map(Number);
-  expect(followCounts.reduce((sum, value) => sum + value, 0)).toBe(17);
-  expect(followCounts[0]).toBe(0);
-  expect(followCounts[2]).toBeGreaterThan(0);
-  expect(followCounts[1]).toBeLessThan(17);
-  await expect(stage).toHaveAttribute("data-hunyuan-race-pack-rigged-selected", "visible");
-  await expect(stage).toHaveAttribute("data-hunyuan-race-pack-rigged", "playing");
-
-  const sampleSelectedRigBone = async () => page.evaluate(() => {
-    const root = window.__hunyuanRacePackRiggedSelected;
+  const sampleBone = async (target) => page.evaluate((which) => {
+    const root = which === "far"
+      ? window.__hunyuanRacePackRiggedFar?.[0]
+      : window.__hunyuanRacePackRiggedSelected;
     if (!root) return null;
     let bone = null;
     root.traverse((node) => {
@@ -985,18 +957,44 @@ test("run S-only Hunyuan 18-racer pack with race and follow LOD policy", async (
       Number(bone.quaternion.z.toFixed(6)),
       Number(bone.quaternion.w.toFixed(6))
     ];
-  });
-  const rigA = await sampleSelectedRigBone();
+  }, target);
+
+  await page.getByRole("button", { name: "2 Race" }).click();
+  await expect(page.locator("#viewLabel")).toHaveText("RACE VIEW");
+  await expect.poll(
+    async () => (await stage.getAttribute("data-hunyuan-race-pack-animated-counts")) || "",
+    { timeout: 10000 }
+  ).toBe("18,0");
+
+  const farA = await sampleBone("far");
   await page.waitForTimeout(350);
-  const rigB = await sampleSelectedRigBone();
+  const farB = await sampleBone("far");
+  expect(farA).not.toBeNull();
+  expect(farB).not.toEqual(farA);
+  await stage.screenshot({ path: `${outDir}/hunyuan-s-only-race-pack.png` });
+
+  await page.getByRole("button", { name: "3 Follow" }).click();
+  await expect(page.locator("#viewLabel")).toHaveText("FOLLOW VIEW");
+  await expect.poll(
+    async () => (await stage.getAttribute("data-hunyuan-race-pack-animated-counts")) || "",
+    { timeout: 10000 }
+  ).toBe("17,1");
+  await expect(stage).toHaveAttribute("data-hunyuan-race-pack-rigged-selected", "visible");
+  await expect(stage).toHaveAttribute("data-hunyuan-race-pack-rigged", "playing");
+
+  const rigA = await sampleBone("selected");
+  await page.waitForTimeout(350);
+  const rigB = await sampleBone("selected");
   expect(rigA).not.toBeNull();
   expect(rigB).not.toEqual(rigA);
-
   await stage.screenshot({ path: `${outDir}/hunyuan-s-only-follow-pack.png` });
 
   console.log("HUNYUAN_S_ONLY_PACK", JSON.stringify({
-    raceCounts,
-    followCounts,
+    mode: await stage.getAttribute("data-hunyuan-race-pack-mode"),
+    raceAnimated: "18,0",
+    followAnimated: "17,1",
+    farA,
+    farB,
     rigA,
     rigB,
     side: await stage.getAttribute("data-hunyuan-race-pack-side"),

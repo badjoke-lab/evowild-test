@@ -44,6 +44,8 @@ let sf3dRaceStressLevelCounts = [];
 let hunyuanRacePackBatches = null;
 let hunyuanRacePackCounts = [0, 0, 0];
 let hunyuanRacePackRiggedSelected = null;
+let hunyuanRacePackRiggedFar = [];
+let hunyuanRacePackAnimated = false;
 let sf3dLabMixer = null;
 const sf3dRaceMixers = [];
 
@@ -921,26 +923,13 @@ function sampleRaceStress(now, frameMs) {
   stage.dataset.sf3dRaceStress = "ready";
 }
 
-function setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData) {
+function setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData, lod4RiggedData) {
   if (!hunyuanRacePack) return;
 
   const levels = [baseData, lod3Data, lod4Data];
-  hunyuanRacePackBatches = levels.map((data) => {
-    const batch = createStaticCreatureInstanceBatch(data.source, {
-      renderer,
-      profile: data.profile,
-      placement: "race",
-      count: racers.length,
-      materialSide: hunyuanRacePackSide
-    });
-    if (!batch.supported) {
-      throw new Error(`Hunyuan race pack instancing unsupported for ${data.profile.id}: ${batch.reason}`);
-    }
-    batch.object.count = 0;
-    batch.object.visible = false;
-    scene.add(batch.object);
-    return batch;
-  });
+  hunyuanRacePackAnimated = Boolean(lod4RiggedData?.animations?.length);
+  hunyuanRacePackBatches = null;
+  hunyuanRacePackRiggedFar = [];
 
   racers.forEach((racer, index) => {
     racer.obj.children.forEach((child) => { child.visible = false; });
@@ -950,12 +939,55 @@ function setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData) {
     racer.drain = morphStats.S.drain;
   });
 
+  if (hunyuanRacePackAnimated) {
+    const clip = lod4RiggedData.animations[0];
+    racers.forEach((racer, index) => {
+      const model = fitCreature3D(cloneCreature3D(lod4RiggedData.source), {
+        renderer,
+        profile: lod4RiggedData.profile,
+        placement: "race",
+        materialSide: hunyuanRacePackSide
+      });
+      model.name = `Hunyuan_RacePack_LOD4_Rigged_${racer.id}`;
+      racer.obj.add(model);
+
+      const mixer = new THREE.AnimationMixer(model);
+      mixer.clipAction(clip).play();
+      if (clip.duration > 0) mixer.setTime((index / racers.length) * clip.duration);
+      sf3dRaceMixers.push(mixer);
+      hunyuanRacePackRiggedFar.push({ racerId: racer.id, model });
+    });
+
+    window.__hunyuanRacePackRiggedFar = hunyuanRacePackRiggedFar.map((entry) => entry.model);
+    stage.dataset.hunyuanRacePackMode = "animated-lod4";
+    stage.dataset.hunyuanRacePackFarAnimation = clip.name || "unnamed";
+  } else {
+    hunyuanRacePackBatches = levels.map((data) => {
+      const batch = createStaticCreatureInstanceBatch(data.source, {
+        renderer,
+        profile: data.profile,
+        placement: "race",
+        count: racers.length,
+        materialSide: hunyuanRacePackSide
+      });
+      if (!batch.supported) {
+        throw new Error(`Hunyuan race pack instancing unsupported for ${data.profile.id}: ${batch.reason}`);
+      }
+      batch.object.count = 0;
+      batch.object.visible = false;
+      scene.add(batch.object);
+      return batch;
+    });
+    stage.dataset.hunyuanRacePackMode = "static-lod-fallback";
+  }
+
   const selectedRacer = racers.find((racer) => racer.id === selectedId);
   if (selectedRacer && riggedData) {
     hunyuanRacePackRiggedSelected = fitCreature3D(cloneCreature3D(riggedData.source), {
       renderer,
       profile: riggedData.profile,
-      placement: "race"
+      placement: "race",
+      materialSide: hunyuanRacePackSide
     });
     hunyuanRacePackRiggedSelected.name = "Hunyuan_RacePack_Selected_Rigged";
     hunyuanRacePackRiggedSelected.visible = false;
@@ -980,15 +1012,35 @@ function setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData) {
 }
 
 function updateHunyuanRacePackInstances() {
-  if (!hunyuanRacePackBatches) return;
+  if (!hunyuanRacePack) return;
 
   const visible = view === "race" || view === "follow";
-  for (const batch of hunyuanRacePackBatches) batch.object.visible = visible;
+  const selectedHighVisible = visible && view === "follow" && Boolean(hunyuanRacePackRiggedSelected);
+
   if (hunyuanRacePackRiggedSelected) {
-    hunyuanRacePackRiggedSelected.visible = visible && view === "follow";
+    hunyuanRacePackRiggedSelected.visible = selectedHighVisible;
     stage.dataset.hunyuanRacePackRiggedSelected =
       hunyuanRacePackRiggedSelected.visible ? "visible" : "hidden";
   }
+
+  if (hunyuanRacePackAnimated) {
+    let farVisible = 0;
+    for (const entry of hunyuanRacePackRiggedFar) {
+      const useFar = visible && !(view === "follow" && entry.racerId === selectedId && hunyuanRacePackRiggedSelected);
+      entry.model.visible = useFar;
+      if (useFar) farVisible += 1;
+    }
+
+    const highVisible = selectedHighVisible ? 1 : 0;
+    stage.dataset.hunyuanRacePackAnimatedCounts = `${farVisible},${highVisible}`;
+    stage.dataset.hunyuanRacePackCounts = "0,0,0";
+    stage.dataset.hunyuanRacePackView = view;
+    return;
+  }
+
+  if (!hunyuanRacePackBatches) return;
+
+  for (const batch of hunyuanRacePackBatches) batch.object.visible = visible;
   if (!visible) {
     hunyuanRacePackCounts = [0, 0, 0];
     stage.dataset.hunyuanRacePackCounts = "0,0,0";
@@ -1310,9 +1362,10 @@ loadCreature3D(sf3dProfile)
         Promise.resolve({ source, animations, stats, profile }),
         loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvStyledLod3),
         loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvStyledLod4),
-        loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvRigged)
-      ]).then(([baseData, lod3Data, lod4Data, riggedData]) => {
-        setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData);
+        loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvRigged),
+        loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvLod4Rigged)
+      ]).then(([baseData, lod3Data, lod4Data, riggedData, lod4RiggedData]) => {
+        setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData, lod4RiggedData);
       }).catch((error) => {
         stage.dataset.hunyuanRacePack = "error";
         console.error("18-racer Hunyuan S-only race pack failed to load", error);
