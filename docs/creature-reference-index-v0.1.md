@@ -4,6 +4,9 @@ This file is the repository entry point for creature visual references used by t
 
 ## Core concept assets
 
+- [Full creature reference sheet (repository copy)](./references/evowild-creature-reference-sheet-20260921.jpg)
+
+
 | Reference | Purpose |
 | --- | --- |
 | [S.webp](../public/concept/S.webp) | Sprint body / silhouette reference |
