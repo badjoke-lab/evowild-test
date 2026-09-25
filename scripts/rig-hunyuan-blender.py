@@ -193,75 +193,106 @@ def animate_run_cycle(arm, dims):
     scene.frame_end = 25
     scene.render.fps = 24
 
-    action = bpy.data.actions.new("EvoWild_S_Run")
+    action = bpy.data.actions.new("EvoWild_S_Run_V2")
     arm.animation_data_create()
     arm.animation_data.action = action
 
-    upper = {
-        "fore_L_upper": 1,
-        "fore_R_upper": -1,
-        "hind_L_upper": -1,
-        "hind_R_upper": 1,
+    # A fast asymmetric quadruped stride: each limb has its own phase,
+    # the lower leg folds aggressively during recovery, and the torso
+    # compresses/extends instead of simply rocking in place.
+    frames = list(range(1, 26, 2))
+    if frames[-1] != 25:
+        frames.append(25)
+
+    limb_phase = {
+        "hind_L": 0.00,
+        "hind_R": 0.42,
+        "fore_L": math.pi + 0.22,
+        "fore_R": math.pi + 0.62,
     }
-    lower = {
-        "fore_L_lower": 1,
-        "fore_R_lower": -1,
-        "hind_L_lower": -1,
-        "hind_R_lower": 1,
-    }
 
-    frames = [1, 7, 13, 19, 25]
-    wave = [0.48, 0.0, -0.48, 0.0, 0.48]
-    flex = [0.18, 0.52, 0.78, 0.52, 0.18]
-
-    for bone_name, phase in upper.items():
-        pb = arm.pose.bones.get(bone_name)
+    def set_rot(pb, frame, x=0.0, y=0.0, z=0.0):
+        if not pb:
+            return
         pb.rotation_mode = "XYZ"
-        for frame, value in zip(frames, wave):
-            pb.rotation_euler.x = value * phase
-            pb.keyframe_insert(data_path="rotation_euler", frame=frame, index=0)
+        pb.rotation_euler = (x, y, z)
+        pb.keyframe_insert(data_path="rotation_euler", frame=frame)
 
-    for bone_name, phase in lower.items():
-        pb = arm.pose.bones.get(bone_name)
-        pb.rotation_mode = "XYZ"
-        for frame, value in zip(frames, flex):
-            pb.rotation_euler.x = value * (1 if phase > 0 else 0.86)
-            pb.keyframe_insert(data_path="rotation_euler", frame=frame, index=0)
+    for frame in frames:
+        cycle = (frame - 1) / 24.0
+        base_phase = cycle * math.tau
 
-    spine = arm.pose.bones.get("spine")
-    neck = arm.pose.bones.get("neck")
-    if spine:
-        spine.rotation_mode = "XYZ"
-    if neck:
-        neck.rotation_mode = "XYZ"
+        for limb, offset in limb_phase.items():
+            phase = base_phase + offset
+            upper = arm.pose.bones.get(f"{limb}_upper")
+            lower = arm.pose.bones.get(f"{limb}_lower")
 
-    for frame, body_value, head_value in [
-        (1, -0.035, 0.025),
-        (7, 0.020, -0.018),
-        (13, -0.035, 0.025),
-        (19, 0.020, -0.018),
-        (25, -0.035, 0.025),
-    ]:
-        if spine:
-            spine.rotation_euler.x = body_value
-            spine.keyframe_insert(data_path="rotation_euler", frame=frame, index=0)
-        if neck:
-            neck.rotation_euler.x = head_value
-            neck.keyframe_insert(data_path="rotation_euler", frame=frame, index=0)
+            is_hind = limb.startswith("hind")
+            swing = math.sin(phase)
+            drive = math.sin(phase - 0.55)
+            recovery = max(0.0, math.sin(phase + 0.65))
+            plant = max(0.0, -math.sin(phase + 0.20))
 
-    base_y = arm.location.y
-    bob = dims["height"] * 0.018
-    for frame, offset in [(1, 0), (7, bob), (13, 0), (19, bob), (25, 0)]:
-        arm.location.y = base_y + offset
+            upper_amp = 0.72 if is_hind else 0.62
+            upper_bias = 0.06 if is_hind else -0.04
+            upper_x = swing * upper_amp + upper_bias
+
+            # Hind legs extend hard through the power stroke; forelegs fold
+            # more during recovery so the feet visibly clear the ground.
+            if is_hind:
+                lower_x = 0.16 + 0.86 * recovery - 0.12 * plant
+            else:
+                lower_x = 0.12 + 0.98 * recovery - 0.08 * plant
+
+            # A small lateral spread prevents all four legs reading as one
+            # flat scissor motion from the race camera.
+            side = 1.0 if limb.endswith("_L") else -1.0
+            lateral = side * (0.025 + 0.018 * math.sin(phase + 0.4))
+
+            set_rot(upper, frame, upper_x, 0.0, lateral)
+            set_rot(lower, frame, lower_x, 0.0, lateral * 0.35)
+
+        root = arm.pose.bones.get("root")
+        spine = arm.pose.bones.get("spine")
+        neck = arm.pose.bones.get("neck")
+        head = arm.pose.bones.get("head")
+        tail = arm.pose.bones.get("tail")
+
+        compression = math.cos(base_phase)
+        suspension = max(0.0, math.sin(base_phase - 0.45))
+        body_pitch = -0.075 + 0.085 * math.sin(base_phase - 0.35)
+        spine_flex = 0.10 * math.sin(base_phase + 0.25)
+        neck_counter = -0.072 * math.sin(base_phase + 0.10)
+        head_counter = -0.038 * math.sin(base_phase - 0.05)
+        tail_flex = 0.14 * math.sin(base_phase + math.pi * 0.65)
+
+        set_rot(root, frame, body_pitch)
+        set_rot(spine, frame, spine_flex)
+        set_rot(neck, frame, neck_counter)
+        set_rot(head, frame, head_counter)
+        set_rot(tail, frame, tail_flex)
+
+        base_y = 0.0
+        bob = dims["height"] * 0.034
+        arm.location.y = base_y + bob * (0.52 * suspension - 0.32 * compression)
         arm.keyframe_insert(data_path="location", frame=frame, index=1)
-    arm.location.y = base_y
+
+        # Tiny fore-aft surge reinforces acceleration without competing with
+        # the race engine's actual world-space translation.
+        surge = dims["length"] * 0.006 * math.sin(base_phase - 0.75)
+        arm.location.z = surge * dims["head_sign"]
+        arm.keyframe_insert(data_path="location", frame=frame, index=2)
+
+    arm.location.y = 0.0
+    arm.location.z = 0.0
 
     for fc in action.fcurves:
         for kp in fc.keyframe_points:
             kp.interpolation = "BEZIER"
+            kp.handle_left_type = "AUTO_CLAMPED"
+            kp.handle_right_type = "AUTO_CLAMPED"
 
     return action
-
 
 def main():
     input_path, output_path, metadata_path = cli_args()
@@ -314,7 +345,7 @@ def main():
             "frame_end": 25,
             "fps": 24,
         },
-        "status": "heuristic_rig_proof_not_final_art"
+        "status": "heuristic_gait_v2_proof_not_final_art"
     }
     with open(metadata_path, "w", encoding="utf-8") as fh:
         json.dump(metadata, fh, indent=2)
