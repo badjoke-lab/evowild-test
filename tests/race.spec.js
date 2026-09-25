@@ -1282,21 +1282,32 @@ test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, t
   const measureSlip = async () => page.evaluate(() => new Promise((resolve) => {
     const model = window.__hunyuanRacePackRiggedSelected;
     const parent = model?.parent;
-    if (!model || !parent) {
-      resolve({ error: "missing selected rig" });
+    const action = window.__hunyuanRacePackSelectedAction;
+    const clipDuration = Number(window.__hunyuanRacePackSelectedClipDuration || 0);
+
+    if (!model || !parent || !action || !clipDuration) {
+      resolve({ error: "missing selected rig/action" });
       return;
     }
 
-    const footNames = ["fore_L_foot", "fore_R_foot", "hind_L_foot", "hind_R_foot"];
+    const limbOffsets = {
+      hind_L_foot: 0.00,
+      hind_R_foot: 0.42,
+      fore_L_foot: Math.PI + 0.22,
+      fore_R_foot: Math.PI + 0.62
+    };
+    const footNames = Object.keys(limbOffsets);
     const bones = {};
     let headBone = null;
     let tailBone = null;
+
     model.traverse((node) => {
       if (!node.isBone) return;
       if (footNames.includes(node.name)) bones[node.name] = node;
       if (node.name === "head") headBone = node;
       if (node.name === "tail") tailBone = node;
     });
+
     if (Object.keys(bones).length !== 4 || !headBone || !tailBone) {
       resolve({
         error: "missing gait bones",
@@ -1317,19 +1328,35 @@ test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, t
       return { x: e[12], y: e[13], z: e[14] };
     }
 
+    function contactState() {
+      const base = ((action.time % clipDuration) / clipDuration) * Math.PI * 2;
+      let best = null;
+      for (const name of footNames) {
+        const phase = base + limbOffsets[name];
+        const stance = Math.max(0, -Math.sin(phase + 0.16));
+        if (!best || stance > best.stance) best = { name, stance };
+      }
+      return best;
+    }
+
     function tick(now) {
       model.updateWorldMatrix(true, true);
       parent.updateWorldMatrix(true, true);
 
-      const feet = footNames.map((name) => ({
-        name,
-        ...positionFromMatrix(bones[name])
-      }));
-      feet.sort((a, b) => a.y - b.y);
-      const foot = feet[0];
+      const contact = contactState();
+      const foot = {
+        name: contact.name,
+        stance: contact.stance,
+        ...positionFromMatrix(bones[contact.name])
+      };
       const body = positionFromMatrix(parent);
 
-      if (previous && previous.foot.name === foot.name) {
+      if (
+        previous &&
+        previous.foot.name === foot.name &&
+        previous.foot.stance > 0.45 &&
+        foot.stance > 0.45
+      ) {
         const footDx = foot.x - previous.foot.x;
         const footDz = foot.z - previous.foot.z;
         const bodyDx = body.x - previous.body.x;
@@ -1351,6 +1378,7 @@ test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, t
 
           segments.push({
             foot: foot.name,
+            stance: foot.stance,
             footDelta,
             bodyDelta,
             forwardDelta,
@@ -1364,7 +1392,8 @@ test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, t
       }
 
       previous = { foot, body };
-      if (now - started < 3600) {
+
+      if (now - started < 4200) {
         requestAnimationFrame(tick);
         return;
       }
@@ -1380,8 +1409,8 @@ test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, t
       ) / Math.max(1, usable.length);
       const ratios = usable.map((segment) => segment.ratio).sort((a, b) => a - b);
       const forwardRatios = usable.map((segment) => segment.forwardRatio).sort((a, b) => a - b);
-      const percentile = (p) => ratios[
-        Math.min(ratios.length - 1, Math.floor((ratios.length - 1) * p))
+      const percentile = (values, p) => values[
+        Math.min(values.length - 1, Math.floor((values.length - 1) * p))
       ] || 0;
 
       resolve({
@@ -1393,12 +1422,9 @@ test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, t
         signedForwardRatio: Number((totalForward / Math.max(totalBody, 1e-6)).toFixed(4)),
         lateralRatio: Number((totalLateralAbs / Math.max(totalBody, 1e-6)).toFixed(4)),
         headingAlignment: Number(averageHeadingAlignment.toFixed(4)),
-        medianRatio: Number(percentile(0.5).toFixed(4)),
-        p95Ratio: Number(percentile(0.95).toFixed(4)),
-        medianForwardRatio: Number(
-          (forwardRatios[Math.min(forwardRatios.length - 1, Math.floor((forwardRatios.length - 1) * 0.5))] || 0)
-            .toFixed(4)
-        )
+        medianRatio: Number(percentile(ratios, 0.5).toFixed(4)),
+        p95Ratio: Number(percentile(ratios, 0.95).toFixed(4)),
+        medianForwardRatio: Number(percentile(forwardRatios, 0.5).toFixed(4))
       });
     }
 
@@ -1431,13 +1457,13 @@ test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, t
     expect(syncError).toBeLessThan(0.05);
 
     results.push({ strideMeters, syncError, ...metrics });
-    console.log("HUNYUAN_STRIDE_SLIP_CANDIDATE", JSON.stringify(results.at(-1)));
+    console.log("HUNYUAN_STANCE_SLIP_CANDIDATE", JSON.stringify(results.at(-1)));
     await stage.screenshot({ path: `${outDir}/hunyuan-stride-${String(strideMeters).replace(".", "p")}.png` });
   }
 
   const ranked = [...results].sort((a, b) => a.slipRatio - b.slipRatio);
   const best = ranked[0];
-  console.log("HUNYUAN_STRIDE_SLIP_BEST", JSON.stringify({ best, ranked }));
+  console.log("HUNYUAN_STANCE_SLIP_BEST", JSON.stringify({ best, ranked }));
 
   fs.writeFileSync(
     `${outDir}/hunyuan-stride-slip-calibration.json`,
