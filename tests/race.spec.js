@@ -1207,6 +1207,69 @@ test("compare Hunyuan v21 full-v3 and v3 hybrid race rigs", async ({ page }, tes
 });
 
 
+test("sync Hunyuan gait cadence to actual race speed", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(90000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  await page.goto(
+    "/evowild-test/?sf3dVariant=hunyuanstyled&hunyuanRacePack=1&hunyuanRacePackSide=front&hunyuanGait=v3hybrid&renderScale=0.75",
+    { waitUntil: "domcontentloaded", timeout: 30000 }
+  );
+
+  const stage = page.locator("#stage");
+  await expect(stage).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
+  await expect(stage).toHaveAttribute("data-hunyuan-race-pack", "loaded", { timeout: 30000 });
+  await expect(stage).toHaveAttribute("data-hunyuan-stride-sync", "active", { timeout: 10000 });
+
+  await page.getByRole("button", { name: "2 Race" }).click();
+  await expect(page.locator("#viewLabel")).toHaveText("RACE VIEW");
+
+  const readStride = async () => page.evaluate(() => ({
+    speed: Number(document.querySelector("#stage")?.dataset.hunyuanSelectedSpeed || 0),
+    represented: Number(document.querySelector("#stage")?.dataset.hunyuanSelectedStrideRepresentedSpeed || 0),
+    scale: Number(document.querySelector("#stage")?.dataset.hunyuanSelectedStrideScale || 0),
+    error: Number(document.querySelector("#stage")?.dataset.hunyuanSelectedStrideError || 999),
+    range: (document.querySelector("#stage")?.dataset.hunyuanStrideScaleRange || "")
+      .split(",")
+      .map(Number),
+    maxError: Number(document.querySelector("#stage")?.dataset.hunyuanStrideSyncError || 999)
+  }));
+
+  const early = await readStride();
+
+  await expect.poll(
+    async () => (await readStride()).speed,
+    { timeout: 12000 }
+  ).toBeGreaterThan(10);
+
+  const cruiseA = await readStride();
+  await page.waitForTimeout(1800);
+  const cruiseB = await readStride();
+
+  expect(cruiseA.scale).toBeGreaterThan(1.5);
+  expect(cruiseA.error).toBeLessThan(0.05);
+  expect(cruiseB.error).toBeLessThan(0.05);
+  expect(Math.abs(cruiseA.represented - cruiseA.speed)).toBeLessThan(0.05);
+  expect(Math.abs(cruiseB.represented - cruiseB.speed)).toBeLessThan(0.05);
+  expect(cruiseA.range[1]).toBeGreaterThan(cruiseA.range[0]);
+  expect(cruiseA.maxError).toBeLessThan(0.05);
+
+  await stage.screenshot({ path: `${outDir}/hunyuan-stride-v4-race.png` });
+
+  await page.getByRole("button", { name: "3 Follow" }).click();
+  await expect(page.locator("#viewLabel")).toHaveText("FOLLOW VIEW");
+  await page.waitForTimeout(600);
+  const follow = await readStride();
+  expect(follow.error).toBeLessThan(0.05);
+  await stage.screenshot({ path: `${outDir}/hunyuan-stride-v4-follow.png` });
+
+  console.log("HUNYUAN_STRIDE_V4", JSON.stringify({ early, cruiseA, cruiseB, follow }));
+});
+
+
 test("benchmark moving 18 Hunyuan mixed LOD race", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(150000);
