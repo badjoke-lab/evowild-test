@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   rig:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[targeted-hunyuan-rig]') || contains(github.event.head_commit.message, '[targeted-hunyuan-gait-v2]')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[targeted-hunyuan-rig]') || contains(github.event.head_commit.message, '[targeted-hunyuan-gait-v2]') || contains(github.event.head_commit.message, '[targeted-hunyuan-gait-v21]')
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -26,7 +26,14 @@ jobs:
           blender --version
       - name: Build heuristic S-Type armature proof
         run: |
-          if [[ "${GITHUB_REF_NAME}" == "feat/hunyuan-gait-v2-20260925" ]]; then
+          subject="$(git log -1 --pretty=%s)"
+          if [[ "$subject" == *"[targeted-hunyuan-gait-v21]"* ]]; then
+            blender --background --python scripts/rig-hunyuan-blender-v21.py --               public/models/evowild-s-hunyuan2mv-lod2.glb               public/models/evowild-s-hunyuan2mv-rigged-v21.glb               public/models/evowild-s-hunyuan2mv-rigged-v21.json
+            blender --background --python scripts/rig-hunyuan-blender-v21.py --               public/models/evowild-s-hunyuan2mv-lod4.glb               public/models/evowild-s-hunyuan2mv-lod4-rigged-v21.glb               public/models/evowild-s-hunyuan2mv-lod4-rigged-v21.json
+            ls -lh public/models/evowild-s-hunyuan2mv-*rigged-v21*
+            cat public/models/evowild-s-hunyuan2mv-rigged-v21.json
+            cat public/models/evowild-s-hunyuan2mv-lod4-rigged-v21.json
+          elif [[ "${GITHUB_REF_NAME}" == "feat/hunyuan-gait-v2-20260925" ]]; then
             blender --background --python scripts/rig-hunyuan-blender.py --               public/models/evowild-s-hunyuan2mv-lod2.glb               public/models/evowild-s-hunyuan2mv-rigged-v2.glb               public/models/evowild-s-hunyuan2mv-rigged-v2.json
             blender --background --python scripts/rig-hunyuan-blender.py --               public/models/evowild-s-hunyuan2mv-lod4.glb               public/models/evowild-s-hunyuan2mv-lod4-rigged-v2.glb               public/models/evowild-s-hunyuan2mv-lod4-rigged-v2.json
             ls -lh public/models/evowild-s-hunyuan2mv-*rigged-v2*
@@ -41,7 +48,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if [[ "${GITHUB_REF_NAME}" == "feat/hunyuan-gait-v2-20260925" ]]; then
+          subject="$(git log -1 --pretty=%s)"
+          if [[ "$subject" == *"[targeted-hunyuan-gait-v21]"* ]]; then
+            git add public/models/evowild-s-hunyuan2mv-rigged-v21.* public/models/evowild-s-hunyuan2mv-lod4-rigged-v21.*
+          elif [[ "${GITHUB_REF_NAME}" == "feat/hunyuan-gait-v2-20260925" ]]; then
             git add public/models/evowild-s-hunyuan2mv-rigged-v2.* public/models/evowild-s-hunyuan2mv-lod4-rigged-v2.*
           else
             git add public/models/evowild-s-hunyuan2mv-rigged.*
@@ -49,7 +59,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No rig asset changes"
           else
-            git commit -m "test: persist Hunyuan gait v2 proof [skip ci]"
+            git commit -m "test: persist Hunyuan gait proof [skip ci]"
             git pull --rebase origin "${GITHUB_REF_NAME}"
             git push origin HEAD:"${GITHUB_REF_NAME}"
           fi
