@@ -49,7 +49,8 @@ test("S visual lane stays one complete creature and covers a grounded six-phase 
         pitch: Number(stage.dataset.bodyPitch || 0),
         frame: Number(stage.dataset.frameIndex || 0),
         smear: Number(stage.dataset.smearStrength || 0),
-        smearMode: stage.dataset.smearMode || ""
+        smearMode: stage.dataset.smearMode || "",
+        speedPulse: Number(stage.dataset.speedPulse || 0)
       });
       await new Promise(resolve => setTimeout(resolve, 24));
     }
@@ -72,6 +73,7 @@ test("S visual lane stays one complete creature and covers a grounded six-phase 
   expect(new Set(samples.map(sample => sample.frame)).size).toBe(6);
   expect(samples.every(sample => sample.smearMode === "same-pose")).toBeTruthy();
   expect(Math.max(...samples.map(sample => sample.smear))).toBeGreaterThan(.45);
+  expect(Math.max(...samples.map(sample => sample.speedPulse)) - Math.min(...samples.map(sample => sample.speedPulse))).toBeGreaterThan(.20);
   const pitches = samples.map(sample => sample.pitch);
   expect(Math.max(...pitches) - Math.min(...pitches)).toBeGreaterThan(3);
 
