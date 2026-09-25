@@ -1270,6 +1270,144 @@ test("sync Hunyuan gait cadence to actual race speed", async ({ page }, testInfo
 });
 
 
+test("calibrate Hunyuan stride length by measured foot slip", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(220000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+  const candidates = [3.8, 4.6, 5.4, 6.2, 7.0];
+  const results = [];
+
+  const measureSlip = async () => page.evaluate(() => new Promise((resolve) => {
+    const model = window.__hunyuanRacePackRiggedSelected;
+    const parent = model?.parent;
+    if (!model || !parent) {
+      resolve({ error: "missing selected rig" });
+      return;
+    }
+
+    const footNames = ["fore_L_foot", "fore_R_foot", "hind_L_foot", "hind_R_foot"];
+    const bones = {};
+    model.traverse((node) => {
+      if (node.isBone && footNames.includes(node.name)) bones[node.name] = node;
+    });
+    if (Object.keys(bones).length !== 4) {
+      resolve({ error: "missing foot bones", bones: Object.keys(bones) });
+      return;
+    }
+
+    const started = performance.now();
+    let previous = null;
+    const segments = [];
+    const contacts = {};
+
+    function positionFromMatrix(object) {
+      const e = object.matrixWorld.elements;
+      return { x: e[12], y: e[13], z: e[14] };
+    }
+
+    function tick(now) {
+      model.updateWorldMatrix(true, true);
+      parent.updateWorldMatrix(true, true);
+
+      const feet = footNames.map((name) => ({
+        name,
+        ...positionFromMatrix(bones[name])
+      }));
+      feet.sort((a, b) => a.y - b.y);
+      const foot = feet[0];
+      const body = positionFromMatrix(parent);
+
+      if (previous && previous.foot.name === foot.name) {
+        const footDelta = Math.hypot(
+          foot.x - previous.foot.x,
+          foot.z - previous.foot.z
+        );
+        const bodyDelta = Math.hypot(
+          body.x - previous.body.x,
+          body.z - previous.body.z
+        );
+
+        if (bodyDelta > 0.0005) {
+          segments.push({
+            foot: foot.name,
+            footDelta,
+            bodyDelta,
+            ratio: footDelta / bodyDelta
+          });
+          contacts[foot.name] = (contacts[foot.name] || 0) + 1;
+        }
+      }
+
+      previous = { foot, body };
+      if (now - started < 3600) {
+        requestAnimationFrame(tick);
+        return;
+      }
+
+      const usable = segments.filter((segment) => Number.isFinite(segment.ratio));
+      const totalFoot = usable.reduce((sum, segment) => sum + segment.footDelta, 0);
+      const totalBody = usable.reduce((sum, segment) => sum + segment.bodyDelta, 0);
+      const ratios = usable.map((segment) => segment.ratio).sort((a, b) => a - b);
+      const percentile = (p) => ratios[
+        Math.min(ratios.length - 1, Math.floor((ratios.length - 1) * p))
+      ] || 0;
+
+      resolve({
+        samples: usable.length,
+        contacts,
+        totalFoot: Number(totalFoot.toFixed(5)),
+        totalBody: Number(totalBody.toFixed(5)),
+        slipRatio: Number((totalFoot / Math.max(totalBody, 1e-6)).toFixed(4)),
+        medianRatio: Number(percentile(0.5).toFixed(4)),
+        p95Ratio: Number(percentile(0.95).toFixed(4))
+      });
+    }
+
+    requestAnimationFrame(tick);
+  }));
+
+  for (const strideMeters of candidates) {
+    await page.goto(
+      `/evowild-test/?sf3dVariant=hunyuanstyled&hunyuanRacePack=1&hunyuanRacePackSide=front&hunyuanGait=v3hybrid&hunyuanStrideMeters=${strideMeters}&renderScale=0.75`,
+      { waitUntil: "domcontentloaded", timeout: 30000 }
+    );
+
+    const stage = page.locator("#stage");
+    await expect(stage).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
+    await expect(stage).toHaveAttribute("data-hunyuan-race-pack", "loaded", { timeout: 30000 });
+    await expect(stage).toHaveAttribute("data-hunyuan-stride-sync", "active", { timeout: 10000 });
+
+    await page.getByRole("button", { name: "3 Follow" }).click();
+    await expect.poll(
+      async () => Number(await stage.getAttribute("data-hunyuan-selected-speed") || 0),
+      { timeout: 15000 }
+    ).toBeGreaterThan(12);
+
+    const metrics = await measureSlip();
+    expect(metrics.error).toBeUndefined();
+    expect(metrics.samples).toBeGreaterThan(8);
+
+    const syncError = Number(await stage.getAttribute("data-hunyuan-selected-stride-error") || 999);
+    expect(syncError).toBeLessThan(0.05);
+
+    results.push({ strideMeters, syncError, ...metrics });
+    console.log("HUNYUAN_STRIDE_SLIP_CANDIDATE", JSON.stringify(results.at(-1)));
+    await stage.screenshot({ path: `${outDir}/hunyuan-stride-${String(strideMeters).replace(".", "p")}.png` });
+  }
+
+  const ranked = [...results].sort((a, b) => a.slipRatio - b.slipRatio);
+  const best = ranked[0];
+  console.log("HUNYUAN_STRIDE_SLIP_BEST", JSON.stringify({ best, ranked }));
+
+  fs.writeFileSync(
+    `${outDir}/hunyuan-stride-slip-calibration.json`,
+    JSON.stringify({ best, ranked }, null, 2)
+  );
+});
+
+
 test("benchmark moving 18 Hunyuan mixed LOD race", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(150000);
