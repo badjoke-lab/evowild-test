@@ -309,7 +309,346 @@ function makeLeg(parent, colorMat, legLength, width, x, z, phaseOffset) {
   return { hip, knee, foot, phaseOffset, upperLen, lowerLen };
 }
 
+function makeSprintLimb(parent, colorMat, jointMat, side, fore) {
+  const hip = new THREE.Group();
+  const x = side * (fore ? 0.36 : 0.34);
+  const z = fore ? 0.28 : -0.26;
+  hip.position.set(x, -0.18, z);
+  parent.add(hip);
+
+  const upperLen = fore ? 0.82 : 0.88;
+  const lowerLen = fore ? 0.77 : 0.84;
+  const cannonLen = fore ? 0.38 : 0.42;
+
+  const upper = makeMesh(
+    new THREE.CylinderGeometry(0.095, 0.135, upperLen, 5),
+    colorMat,
+    hip,
+    [0, -upperLen / 2, 0.035]
+  );
+  upper.rotation.z = side * 0.025;
+
+  const knee = new THREE.Group();
+  knee.position.set(0, -upperLen, 0.07);
+  hip.add(knee);
+
+  makeMesh(
+    new THREE.CylinderGeometry(0.065, 0.10, lowerLen, 5),
+    jointMat,
+    knee,
+    [0, -lowerLen / 2, 0.045]
+  );
+
+  const ankle = new THREE.Group();
+  ankle.position.set(0, -lowerLen, 0.08);
+  knee.add(ankle);
+
+  const cannon = makeMesh(
+    new THREE.CylinderGeometry(0.043, 0.066, cannonLen, 5),
+    colorMat,
+    ankle,
+    [0, -cannonLen / 2, 0.06]
+  );
+  cannon.rotation.z = side * -0.025;
+
+  const foot = new THREE.Group();
+  foot.position.set(0, -cannonLen, 0.12);
+  ankle.add(foot);
+
+  const toe = makeMesh(
+    new THREE.BoxGeometry(0.15, 0.095, 0.42),
+    jointMat,
+    foot,
+    [0, -0.03, 0.12]
+  );
+  toe.rotation.x = -0.12;
+
+  makeMesh(
+    new THREE.ConeGeometry(0.085, 0.30, 4),
+    colorMat,
+    foot,
+    [0, 0.01, 0.32]
+  ).rotation.x = Math.PI / 2;
+
+  return {
+    hip,
+    knee,
+    ankle,
+    foot,
+    phaseOffset: fore
+      ? (side < 0 ? 0.0 : Math.PI * 0.42)
+      : (side < 0 ? Math.PI * 1.03 : Math.PI * 1.42),
+    upperLen,
+    lowerLen
+  };
+}
+
+function createSprintCreature(color, index) {
+  const cfg = MORPHS.S;
+  const root = new THREE.Group();
+  const bodyMaster = new THREE.Group();
+  bodyMaster.position.y = 2.18;
+  root.add(bodyMaster);
+
+  const baseColor = new THREE.Color(color);
+  const primary = mat(baseColor);
+  const secondary = mat(baseColor.clone().multiplyScalar(0.70));
+  const dark = mat(0x202832, 0.68);
+  const plate = new THREE.MeshStandardMaterial({
+    color: baseColor.clone().lerp(new THREE.Color(0xd9e7ef), 0.30),
+    roughness: 0.62,
+    metalness: 0.05,
+    flatShading: true
+  });
+  const cue = new THREE.MeshStandardMaterial({
+    color: 0x17202a,
+    emissive: baseColor.clone().multiplyScalar(0.55),
+    emissiveIntensity: 1.05,
+    roughness: 0.34,
+    metalness: 0.14,
+    flatShading: true
+  });
+
+  const chestPivot = new THREE.Group();
+  chestPivot.position.set(0, 0.02, 0.48);
+  bodyMaster.add(chestPivot);
+
+  const pelvisPivot = new THREE.Group();
+  pelvisPivot.position.set(0, -0.04, -0.58);
+  bodyMaster.add(pelvisPivot);
+
+  // Narrow, directional torso. Two masses plus a visible waist keep S from
+  // reading as a horse/deer barrel.
+  makeMesh(
+    new THREE.IcosahedronGeometry(0.66, 1),
+    primary,
+    chestPivot,
+    [0, 0.00, 0.08],
+    [0.64, 0.70, 1.16]
+  );
+
+  makeMesh(
+    new THREE.IcosahedronGeometry(0.58, 1),
+    secondary,
+    pelvisPivot,
+    [0, -0.02, -0.02],
+    [0.60, 0.64, 1.00]
+  );
+
+  const waist = makeMesh(
+    new THREE.CylinderGeometry(0.30, 0.36, 0.92, 6),
+    dark,
+    bodyMaster,
+    [0, -0.05, -0.06],
+    [1, 1, 0.78]
+  );
+  waist.rotation.x = Math.PI / 2;
+
+  // Dorsal plates visually connect the body without adding animal-like fur.
+  const spinePlate = makeMesh(
+    new THREE.BoxGeometry(0.16, 0.18, 1.55),
+    plate,
+    bodyMaster,
+    [0, 0.47, -0.02]
+  );
+  spinePlate.rotation.x = -0.035;
+
+  const shoulderPlateL = makeMesh(
+    new THREE.BoxGeometry(0.12, 0.54, 0.74),
+    plate,
+    chestPivot,
+    [-0.38, 0.08, 0.08]
+  );
+  shoulderPlateL.rotation.z = -0.13;
+  const shoulderPlateR = shoulderPlateL.clone();
+  shoulderPlateR.position.x = 0.38;
+  shoulderPlateR.rotation.z = 0.13;
+  chestPivot.add(shoulderPlateR);
+
+  // S neck is low and forward. It should never become the vertical feature
+  // visible in the original primitive proof.
+  const neckPivot = new THREE.Group();
+  neckPivot.position.set(0, 0.18, 1.04);
+  chestPivot.add(neckPivot);
+
+  const neck = makeMesh(
+    new THREE.CylinderGeometry(0.17, 0.26, 0.92, 6),
+    primary,
+    neckPivot,
+    [0, 0.06, 0.43]
+  );
+  neck.rotation.x = Math.PI / 2 - 0.12;
+
+  const neckKeel = makeMesh(
+    new THREE.BoxGeometry(0.22, 0.22, 0.82),
+    dark,
+    neckPivot,
+    [0, -0.12, 0.45]
+  );
+  neckKeel.rotation.x = -0.08;
+
+  const headPivot = new THREE.Group();
+  headPivot.position.set(0, 0.12, 0.94);
+  neckPivot.add(headPivot);
+
+  // Small wedge-like head, stretched forward rather than upward.
+  makeMesh(
+    new THREE.IcosahedronGeometry(0.42, 1),
+    primary,
+    headPivot,
+    [0, 0.00, 0.34],
+    [0.58, 0.48, 1.18]
+  );
+
+  const muzzle = makeMesh(
+    new THREE.ConeGeometry(0.19, 0.56, 5),
+    secondary,
+    headPivot,
+    [0, -0.06, 0.84]
+  );
+  muzzle.rotation.x = Math.PI / 2;
+
+  // Long integrated rearward crest establishes the S silhouette.
+  const crestRoot = new THREE.Group();
+  crestRoot.position.set(0, 0.28, 0.23);
+  headPivot.add(crestRoot);
+
+  const crestMain = makeMesh(
+    new THREE.ConeGeometry(0.16, 1.58, 4),
+    plate,
+    crestRoot,
+    [0, 0.06, -0.68]
+  );
+  crestMain.rotation.x = -Math.PI / 2 + 0.13;
+
+  const crestLower = makeMesh(
+    new THREE.ConeGeometry(0.105, 1.10, 4),
+    dark,
+    crestRoot,
+    [0, -0.10, -0.46]
+  );
+  crestLower.rotation.x = -Math.PI / 2 + 0.06;
+
+  // Restrained eyes.
+  const eyeMat = new THREE.MeshBasicMaterial({ color: 0xbdeeff });
+  [-1, 1].forEach((side) => {
+    makeMesh(
+      new THREE.SphereGeometry(0.033, 5, 4),
+      eyeMat,
+      headPivot,
+      [side * 0.205, 0.065, 0.61]
+    );
+  });
+
+  // Cue Band follows the head/crest root instead of floating around the skull.
+  const cueBand = new THREE.Group();
+  cueBand.position.set(0, 0.10, 0.26);
+  headPivot.add(cueBand);
+
+  const bandTop = makeMesh(
+    new THREE.BoxGeometry(0.54, 0.09, 0.18),
+    cue,
+    cueBand,
+    [0, 0.16, 0]
+  );
+  bandTop.rotation.x = -0.08;
+
+  [-1, 1].forEach((side) => {
+    makeMesh(
+      new THREE.BoxGeometry(0.11, 0.28, 0.24),
+      cue,
+      cueBand,
+      [side * 0.28, 0.02, 0.02]
+    );
+    makeMesh(
+      new THREE.SphereGeometry(0.055, 6, 4),
+      new THREE.MeshBasicMaterial({ color: side < 0 ? 0xffc24a : 0x62ddff }),
+      cueBand,
+      [side * 0.335, 0.02, 0.08]
+    );
+  });
+
+  const legs = {
+    fl: makeSprintLimb(chestPivot, primary, dark, -1, true),
+    fr: makeSprintLimb(chestPivot, primary, dark, 1, true),
+    hl: makeSprintLimb(pelvisPivot, secondary, dark, -1, false),
+    hr: makeSprintLimb(pelvisPivot, secondary, dark, 1, false)
+  };
+
+  // Long, thin tail with a slight blade at the tip.
+  const tailBase = new THREE.Group();
+  tailBase.position.set(0, 0.10, -1.08);
+  pelvisPivot.add(tailBase);
+
+  const tailSegments = [];
+  let tailParent = tailBase;
+  const tailLengths = [0.58, 0.52, 0.46, 0.38];
+
+  tailLengths.forEach((segLen, i) => {
+    const joint = new THREE.Group();
+    if (i > 0) joint.position.z = -tailLengths[i - 1];
+    tailParent.add(joint);
+
+    const seg = makeMesh(
+      new THREE.CylinderGeometry(
+        Math.max(0.035, 0.095 - i * 0.016),
+        Math.max(0.045, 0.12 - i * 0.019),
+        segLen,
+        5
+      ),
+      i < 2 ? secondary : dark,
+      joint,
+      [0, 0, -segLen / 2]
+    );
+    seg.rotation.x = Math.PI / 2;
+    tailSegments.push(joint);
+    tailParent = joint;
+  });
+
+  const tailBlade = makeMesh(
+    new THREE.ConeGeometry(0.14, 0.46, 4),
+    plate,
+    tailParent,
+    [0, 0, -0.19]
+  );
+  tailBlade.rotation.x = -Math.PI / 2;
+
+  const shadowMat = new THREE.MeshBasicMaterial({
+    color: 0x000000,
+    transparent: true,
+    opacity: 0.22,
+    depthWrite: false
+  });
+  const shadow = new THREE.Mesh(new THREE.CircleGeometry(1.0, 18), shadowMat);
+  shadow.rotation.x = -Math.PI / 2;
+  shadow.scale.set(0.92, 1.62, 1);
+  shadow.position.y = 0.025;
+  root.add(shadow);
+
+  root.userData = {
+    cfg,
+    morphKey: "S",
+    index,
+    bodyMaster,
+    chestPivot,
+    pelvisPivot,
+    neckPivot,
+    headPivot,
+    tailSegments,
+    legs,
+    phase: index * 0.61,
+    turnLean: 0,
+    accelLean: 0
+  };
+
+  return root;
+}
+
 function createCreature(morphKey, color, index) {
+  if (morphKey === "S") {
+    return createSprintCreature(color, index);
+  }
+
   const cfg = MORPHS[morphKey];
   const root = new THREE.Group();
   const bodyMaster = new THREE.Group();
