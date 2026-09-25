@@ -51,6 +51,37 @@ const SUBSTEP = 1 / 120;
  */
 const MAX_SUBSTEPS = 6;
 
+// EvoWild Lane 4 V4: keep Kart Royale physics/AI intact and replace only the
+// rendered kart shell when explicitly requested by the proof URL.
+const EVOWILD_S_MODE = new URLSearchParams(location.search).get('evowildS') === '1';
+
+function buildEvowildSSprite(seed: number) {
+  const texture = new THREE.TextureLoader().load(
+    import.meta.env.BASE_URL + 'evowild/s-run-sheet.webp',
+  );
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set(1 / 3, 1 / 2);
+  texture.offset.set((seed % 3) / 3, seed >= 3 ? 0 : 0.5);
+
+  const material = new THREE.SpriteMaterial({
+    map: texture,
+    transparent: true,
+    alphaTest: 0.08,
+    depthTest: true,
+    depthWrite: false,
+    toneMapped: false,
+  });
+  const sprite = new THREE.Sprite(material);
+  sprite.name = 'evowildS';
+  sprite.center.set(0.5, 0.06);
+  sprite.position.set(0, 0.04, 0);
+  sprite.scale.set(3.05, 2.28, 1);
+  sprite.renderOrder = 6;
+  return { sprite, texture };
+}
+
 const KART_RADIUS = 0.86;
 const WHEELBASE = DEFAULT_SUSPENSION.halfBase * 2;
 
@@ -836,6 +867,9 @@ export class Kart implements IKart {
    * would lift the inside pair into the air.
    */
   private bodyNode: THREE.Object3D;
+  private evowildSprite: THREE.Sprite | null = null;
+  private evowildTexture: THREE.Texture | null = null;
+  private evowildAnimFrame = 0;
   /** DriverRig from the model, duck-typed so Driver.ts can churn freely. */
   private driverRig: DriverPoseRig | null = null;
 
@@ -889,6 +923,23 @@ export class Kart implements IKart {
     const built = buildKart(stats);
     this.visual.add(built.root);
     this.object.add(this.visual);
+
+    if (EVOWILD_S_MODE) {
+      // Keep the authored shadow/contact anchors and all physics nodes, but hide
+      // the visible kart shell. The borrowed game continues to drive exactly the
+      // same object; only its presentation changes.
+      built.root.traverse((o) => {
+        const mesh = o as THREE.Mesh;
+        if ((mesh as any).isMesh || (mesh as any).isInstancedMesh) {
+          if (mesh.name !== 'shadowBlob') mesh.visible = false;
+        }
+      });
+      const s = buildEvowildSSprite(id % 6);
+      this.evowildSprite = s.sprite;
+      this.evowildTexture = s.texture;
+      this.object.add(s.sprite);
+    }
+
     // Falls back to the whole model when it does not separate its bodywork.
     this.bodyNode = (built.root.userData?.body as THREE.Object3D) ??
       built.root.getObjectByName('body') ?? built.root;
@@ -2097,6 +2148,19 @@ export class Kart implements IKart {
     this.object.position.copy(this.position);
     this.object.quaternion.copy(this.quaternion);
     this.updateDriftPose(dt);
+
+    if (this.evowildSprite && this.evowildTexture) {
+      const pace = clamp(Math.abs(this.forwardSpeed) / BASE_TOP_SPEED, 0.30, 1.25);
+      this.evowildAnimFrame += dt * (7.5 + pace * 7.5);
+      const frame = (Math.floor(this.evowildAnimFrame + this.id * 0.73) % 6 + 6) % 6;
+      const col = frame % 3;
+      const row = Math.floor(frame / 3);
+      this.evowildTexture.offset.set(col / 3, row === 0 ? 0.5 : 0);
+      const stride = Math.sin(this.evowildAnimFrame * Math.PI * 2) * 0.025;
+      this.evowildSprite.position.y = 0.04 + stride;
+      const boost = this.boostTime > 0 ? 1.08 : 1;
+      this.evowildSprite.scale.set(3.05 * boost, 2.28, 1);
+    }
 
     const sus = this.suspension;
     // The physical roll is honest but subtle; a Nintendo kart wants to lean.
