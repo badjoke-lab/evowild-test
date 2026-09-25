@@ -136,6 +136,33 @@ export const CREATURE_3D_PROFILES = {
       "Heuristic weights and motion are not approved final animation."
     ]
   },
+  sHunyuan2mvRiggedV2: {
+    id: "s-hunyuan2mv-rigged-v2-proof",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-rigged-v2.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.22,
+      minRoughness: 0.52,
+      side: "double",
+      preserveBaseColorMap: false,
+      preserveNormalMap: false,
+      preserveRoughnessMap: false,
+      preserveMetalnessMap: false,
+      maxAnisotropy: 1,
+      prototypeVertexPalette: true
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "heuristic_gait_v2_proof_not_final_art",
+    notes: [
+      "LOD2 Hunyuan mesh with gait-v2 asymmetric four-leg phasing, recovery flex, torso compression and counter-motion.",
+      "Animation-quality proof only; not approved final animation."
+    ]
+  },
   sHunyuan2mvLod4Rigged: {
     id: "s-hunyuan2mv-lod4-rigged-proof",
     morph: "S",
@@ -161,6 +188,33 @@ export const CREATURE_3D_PROFILES = {
     notes: [
       "LOD4 Hunyuan mesh with a Blender-generated 13-bone armature and 25-frame run cycle.",
       "Used to prove many simultaneously animated racers in-browser; not approved final animation."
+    ]
+  },
+  sHunyuan2mvLod4RiggedV2: {
+    id: "s-hunyuan2mv-lod4-rigged-v2-proof",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-lod4-rigged-v2.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.12,
+      minRoughness: 0.64,
+      side: "double",
+      preserveBaseColorMap: false,
+      preserveNormalMap: false,
+      preserveRoughnessMap: false,
+      preserveMetalnessMap: false,
+      maxAnisotropy: 1,
+      prototypeVertexPalette: true
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "heuristic_gait_v2_proof_not_final_art",
+    notes: [
+      "LOD4 Hunyuan mesh using the same gait-v2 cycle for 18-racer race-view validation.",
+      "Animation-quality proof only; not approved final animation."
     ]
   },
   sHunyuan2mvStyled: {
