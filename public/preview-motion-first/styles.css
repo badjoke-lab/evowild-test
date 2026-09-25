@@ -1,0 +1,399 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #0b0f12;
+  color: #f6f7f8;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0b0f12;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+button, select {
+  font: inherit;
+}
+
+#app {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(106, 170, 255, .11), transparent 34%),
+    linear-gradient(#11171c, #090c0f);
+}
+
+#scene {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+.hud {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  pointer-events: none;
+}
+
+.hud > * {
+  pointer-events: auto;
+}
+
+.hud-top {
+  top: 16px;
+  justify-content: space-between;
+}
+
+.brand,
+.race-readout,
+.control-block,
+.focus-card {
+  background: rgba(7, 11, 14, .72);
+  border: 1px solid rgba(255, 255, 255, .12);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, .24);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  min-width: 218px;
+  padding: 10px 13px;
+  border-radius: 12px;
+}
+
+.brand strong {
+  font-size: 13px;
+  letter-spacing: .14em;
+}
+
+.brand span {
+  margin-top: 3px;
+  color: rgba(255,255,255,.62);
+  font-size: 10px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.race-readout {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 9px 12px;
+  border-radius: 999px;
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  letter-spacing: .04em;
+}
+
+.race-readout span + span {
+  border-left: 1px solid rgba(255,255,255,.12);
+  padding-left: 12px;
+}
+
+#raceState {
+  color: #8affbf;
+  font-weight: 800;
+  letter-spacing: .1em;
+}
+
+.hud-bottom {
+  bottom: 16px;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.control-block {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 52px;
+  padding: 8px 10px;
+  border-radius: 13px;
+}
+
+.label {
+  color: rgba(255,255,255,.56);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.camera-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+button,
+select {
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.78);
+  border-radius: 8px;
+  min-height: 32px;
+  padding: 0 10px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .05em;
+  cursor: pointer;
+}
+
+button:hover,
+select:hover {
+  border-color: rgba(255,255,255,.28);
+  color: white;
+}
+
+button.active {
+  background: rgba(255,255,255,.92);
+  color: #090c0f;
+  border-color: transparent;
+}
+
+select {
+  min-width: 146px;
+  appearance: none;
+  padding-right: 28px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, rgba(255,255,255,.55) 50%),
+    linear-gradient(135deg, rgba(255,255,255,.55) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 13px,
+    calc(100% - 10px) 13px;
+  background-size: 4px 4px, 4px 4px;
+  background-repeat: no-repeat;
+}
+
+.compact {
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 112px;
+}
+
+.compact strong {
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.actions {
+  gap: 6px;
+}
+
+.actions button {
+  min-width: 72px;
+}
+
+.focus-card {
+  position: absolute;
+  z-index: 9;
+  top: 86px;
+  left: 18px;
+  min-width: 265px;
+  border-radius: 14px;
+  padding: 11px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  pointer-events: none;
+}
+
+.focus-card > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.morph {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.09);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.focus-card strong {
+  font-size: 12px;
+}
+
+.focus-metrics {
+  display: flex;
+  gap: 13px;
+}
+
+.focus-metrics span {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.focus-metrics small {
+  color: rgba(255,255,255,.48);
+  font-size: 8px;
+  letter-spacing: .12em;
+}
+
+.focus-metrics strong {
+  font-variant-numeric: tabular-nums;
+}
+
+.loading {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  background: #0b0f12;
+  color: rgba(255,255,255,.64);
+  font-size: 11px;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  transition: opacity .35s ease, visibility .35s ease;
+}
+
+.loading.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+@media (max-width: 900px) {
+  .hud {
+    left: 10px;
+    right: 10px;
+  }
+
+  .hud-top {
+    top: 10px;
+  }
+
+  .brand {
+    min-width: auto;
+  }
+
+  .brand span {
+    display: none;
+  }
+
+  .race-readout span:nth-child(2) {
+    display: none;
+  }
+
+  .focus-card {
+    top: 64px;
+    left: 10px;
+    min-width: 228px;
+  }
+
+  .hud-bottom {
+    bottom: 10px;
+    gap: 6px;
+    justify-content: flex-start;
+  }
+
+  .control-block {
+    min-height: 46px;
+    padding: 6px 8px;
+  }
+
+  .camera-buttons {
+    max-width: calc(100vw - 92px);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .camera-buttons::-webkit-scrollbar {
+    display: none;
+  }
+
+  .camera-buttons button {
+    flex: 0 0 auto;
+  }
+
+  .runner-control {
+    order: 2;
+  }
+
+  .compact {
+    display: none;
+  }
+
+  .actions {
+    order: 3;
+  }
+}
+
+@media (max-width: 560px) {
+  .hud-top {
+    align-items: flex-start;
+  }
+
+  .brand strong {
+    font-size: 11px;
+  }
+
+  .race-readout {
+    padding: 7px 9px;
+    gap: 8px;
+  }
+
+  .race-readout span + span {
+    padding-left: 8px;
+  }
+
+  .focus-card {
+    right: 10px;
+    min-width: 0;
+    width: calc(100% - 20px);
+  }
+
+  .hud-bottom {
+    right: 10px;
+  }
+
+  .control-block:first-child {
+    width: 100%;
+  }
+
+  .camera-buttons {
+    flex: 1;
+  }
+
+  .runner-control {
+    flex: 1;
+  }
+
+  .runner-control select {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .actions button {
+    min-width: 62px;
+    padding: 0 8px;
+  }
+}
