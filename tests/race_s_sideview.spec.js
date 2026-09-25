@@ -80,6 +80,19 @@ test("S visual lane stays one complete creature and covers a grounded six-phase 
 
   fs.mkdirSync("test-results/visuals", { recursive: true });
 
+  if (testInfo.project.name === "desktop-chromium") {
+    await page.goto("/evowild-test/race-s-sideview.html", { waitUntil: "networkidle" });
+    const liveStage = page.locator("#stage");
+    await expect(liveStage).toHaveAttribute("data-rig-ready", "true", { timeout: 10000 });
+    await expect.poll(
+      async () => Number(await liveStage.getAttribute("data-smear-strength") || 0),
+      { timeout: 4000, intervals: [16, 16, 24, 24, 32] }
+    ).toBeGreaterThan(.70);
+    await liveStage.screenshot({
+      path: "test-results/visuals/desktop-chromium-s-motion-transition-smear.png"
+    });
+  }
+
   const expectedCells = {
     CONTACT: "0,0",
     PUSH: "2,0",
