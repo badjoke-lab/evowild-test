@@ -21,6 +21,7 @@ const LANE_WIDTH = 2.55;
 const TRACK_WIDTH = LANE_COUNT * LANE_WIDTH + 5;
 const RUNNER_COUNT = 18;
 const WORLD_END = 1800;
+const INSPECT_MODE = new URLSearchParams(window.location.search).get("inspect") === "1";
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x92a7b3);
@@ -1042,6 +1043,41 @@ function updateCamera(dt) {
 
   let targetFov = 58;
 
+  if (INSPECT_MODE) {
+    if (actualCamera === "SIDE") {
+      desiredCamera.set(focusPos.x + 7.8, 3.0, focusPos.z);
+      desiredLook.set(focusPos.x, 1.55, focusPos.z);
+      targetFov = 42;
+    } else if (actualCamera === "LOW") {
+      desiredCamera.set(focusPos.x + 2.0, 1.15, focusPos.z - 5.4);
+      desiredLook.set(focusPos.x, 1.45, focusPos.z + 0.8);
+      targetFov = 50;
+    } else if (actualCamera === "CHASE") {
+      desiredCamera.set(focusPos.x + 3.9, 3.0, focusPos.z - 6.8);
+      desiredLook.set(focusPos.x, 1.55, focusPos.z + 0.6);
+      targetFov = 44;
+    } else if (actualCamera === "FRONT") {
+      desiredCamera.set(focusPos.x - 2.7, 2.6, focusPos.z + 6.7);
+      desiredLook.set(focusPos.x, 1.55, focusPos.z - 0.2);
+      targetFov = 44;
+    } else {
+      desiredCamera.set(focusPos.x + 5.5, 4.5, focusPos.z - 5.8);
+      desiredLook.set(focusPos.x, 1.55, focusPos.z);
+      targetFov = 43;
+    }
+
+    camera.position.x = THREE.MathUtils.damp(camera.position.x, desiredCamera.x, 7.5, dt);
+    camera.position.y = THREE.MathUtils.damp(camera.position.y, desiredCamera.y, 7.5, dt);
+    camera.position.z = THREE.MathUtils.damp(camera.position.z, desiredCamera.z, 7.5, dt);
+    cameraLook.x = THREE.MathUtils.damp(cameraLook.x, desiredLook.x, 8.5, dt);
+    cameraLook.y = THREE.MathUtils.damp(cameraLook.y, desiredLook.y, 8.5, dt);
+    cameraLook.z = THREE.MathUtils.damp(cameraLook.z, desiredLook.z, 8.5, dt);
+    camera.fov = THREE.MathUtils.damp(camera.fov, targetFov, 8.0, dt);
+    camera.updateProjectionMatrix();
+    camera.lookAt(cameraLook);
+    return;
+  }
+
   if (actualCamera === "CHASE") {
     desiredCamera.set(
       focusPos.x + 5.2,
@@ -1189,8 +1225,38 @@ addWorld();
 createRunners();
 resetRace();
 
-camera.position.set(11, 13, -22);
-cameraLook.set(0, 1.6, 8);
+if (INSPECT_MODE) {
+  selectedRunner = 0;
+  runnerSelect.value = "0";
+  const focus = runners[0];
+
+  runners.forEach((runner, index) => {
+    runner.group.visible = index === 0;
+  });
+
+  focus.lane = 4;
+  focus.targetLane = 4;
+  focus.laneX = 0;
+  focus.distance = 80;
+  focus.speed = focus.cfg.baseSpeed;
+  focus.targetSpeed = focus.cfg.baseSpeed;
+  focus.group.position.set(0, 0, focus.distance);
+  focus.group.userData.phase = 1.18;
+  updateCreaturePose(focus, 0);
+
+  paused = true;
+  raceTime = 6;
+  requestedCamera = "SIDE";
+  actualCamera = "SIDE";
+  pauseButton.textContent = "RESUME";
+  raceStateEl.textContent = "INSPECT";
+  cameraButtons.forEach((button) => {
+    button.classList.toggle("active", button.dataset.camera === "SIDE");
+  });
+}
+
+camera.position.set(INSPECT_MODE ? 7.8 : 11, INSPECT_MODE ? 3.0 : 13, INSPECT_MODE ? 80 : -22);
+cameraLook.set(0, 1.6, INSPECT_MODE ? 80 : 8);
 camera.lookAt(cameraLook);
 
 loading.classList.add("hidden");

@@ -19,6 +19,10 @@ jobs:
         run: test -f dist/race-2_5d.html
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
+      - name: Capture Motion First S multi-camera visuals
+        env:
+          MOTION_FIRST_CAPTURE: "1"
+        run: npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1
       - name: Upload mobile visual screenshots
         if: always()
         uses: actions/upload-artifact@v4
