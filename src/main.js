@@ -21,9 +21,9 @@ const hunyuanRacePack =
   (preview3d && !query.has("hunyuanRacePack"));
 const hunyuanRacePackSide = query.get("hunyuanRacePackSide") === "double" ? "double" : "front";
 const requestedHunyuanGait = query.get("hunyuanGait");
-const hunyuanGaitVersion = ["v1", "v2", "v21", "v3"].includes(requestedHunyuanGait)
+const hunyuanGaitVersion = ["v1", "v2", "v21", "v3", "v3hybrid"].includes(requestedHunyuanGait)
   ? requestedHunyuanGait
-  : "v3";
+  : "v3hybrid";
 const previewRenderScale = preview3d ? (isMobile ? 0.5 : 0.75) : 1;
 const renderScale = Math.min(
   1,
@@ -1381,7 +1381,7 @@ loadCreature3D(sf3dProfile)
             ? CREATURE_3D_PROFILES.sHunyuan2mvLod4Rigged
             : hunyuanGaitVersion === "v2"
               ? CREATURE_3D_PROFILES.sHunyuan2mvLod4RiggedV2
-              : hunyuanGaitVersion === "v21"
+              : hunyuanGaitVersion === "v21" || hunyuanGaitVersion === "v3hybrid"
                 ? CREATURE_3D_PROFILES.sHunyuan2mvLod4RiggedV21
                 : CREATURE_3D_PROFILES.sHunyuan2mvLod4RiggedV3
         )
