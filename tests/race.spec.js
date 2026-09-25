@@ -1052,6 +1052,143 @@ test("compare Hunyuan gait v1 v2 v21 in the same 18-racer race", async ({ page }
 });
 
 
+test("compare Hunyuan v21 and 19-bone v3 race rigs", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(160000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+  const results = [];
+
+  const measureFrames = async () => page.evaluate(() => new Promise((resolve) => {
+    const samples = [];
+    const started = performance.now();
+    let previous = started;
+    function tick(now) {
+      const elapsed = now - started;
+      if (elapsed > 500 && elapsed < 4000) samples.push(now - previous);
+      previous = now;
+      if (elapsed >= 4200) {
+        const sorted = [...samples].sort((a, b) => a - b);
+        const avg = samples.reduce((sum, value) => sum + value, 0) / Math.max(1, samples.length);
+        const p95 = sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * 0.95))] || 0;
+        resolve({
+          samples: samples.length,
+          averageFrameMs: Number(avg.toFixed(3)),
+          averageFps: Number((1000 / avg).toFixed(2)),
+          p95FrameMs: Number(p95.toFixed(3))
+        });
+        return;
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }));
+
+  const inspectRig = async (target = "far") => page.evaluate((which) => {
+    const model = which === "selected"
+      ? window.__hunyuanRacePackRiggedSelected
+      : window.__hunyuanRacePackRiggedFar?.[0];
+    if (!model) return null;
+    const wanted = [
+      "pelvis", "spine", "chest",
+      "fore_L_upper", "fore_L_lower", "fore_L_foot",
+      "fore_R_upper", "fore_R_lower", "fore_R_foot",
+      "hind_L_upper", "hind_L_lower", "hind_L_foot",
+      "hind_R_upper", "hind_R_lower", "hind_R_foot"
+    ];
+    const values = {};
+    const bones = [];
+    model.traverse((node) => {
+      if (node.isBone) {
+        bones.push(node.name);
+        if (wanted.includes(node.name)) {
+          values[node.name] = [
+            Number(node.quaternion.x.toFixed(6)),
+            Number(node.quaternion.y.toFixed(6)),
+            Number(node.quaternion.z.toFixed(6)),
+            Number(node.quaternion.w.toFixed(6))
+          ];
+        }
+      }
+      if (node.name === "EvoWild_S_Armature_V3" || node.name === "EvoWild_S_Armature") {
+        values.armaturePosition = [
+          Number(node.position.x.toFixed(6)),
+          Number(node.position.y.toFixed(6)),
+          Number(node.position.z.toFixed(6))
+        ];
+      }
+    });
+    return { boneCount: bones.length, bones, values };
+  }, target);
+
+  for (const gait of ["v21", "v3"]) {
+    await page.goto(
+      `/evowild-test/?sf3dVariant=hunyuanstyled&hunyuanRacePack=1&hunyuanRacePackSide=front&hunyuanGait=${gait}&renderScale=0.75`,
+      { waitUntil: "domcontentloaded", timeout: 30000 }
+    );
+    const stage = page.locator("#stage");
+    await expect(stage).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
+    await expect(stage).toHaveAttribute("data-hunyuan-race-pack", "loaded", { timeout: 30000 });
+    await expect(stage).toHaveAttribute("data-hunyuan-race-pack-gait", gait);
+
+    await page.getByRole("button", { name: "2 Race" }).click();
+    await expect.poll(
+      async () => (await stage.getAttribute("data-hunyuan-race-pack-animated-counts")) || "",
+      { timeout: 10000 }
+    ).toBe("18,0");
+
+    const a = await inspectRig();
+    await page.waitForTimeout(190);
+    const b = await inspectRig();
+    const perf = await measureFrames();
+
+    if (gait === "v3") {
+      expect(a?.boneCount).toBe(19);
+      for (const name of ["pelvis", "chest", "fore_L_foot", "fore_R_foot", "hind_L_foot", "hind_R_foot"]) {
+        expect(a?.bones).toContain(name);
+      }
+      expect(a?.values.fore_L_foot).not.toEqual(b?.values.fore_L_foot);
+      expect(a?.values.hind_R_foot).not.toEqual(b?.values.hind_R_foot);
+      expect(a?.values.pelvis).not.toEqual(b?.values.pelvis);
+      expect(a?.values.chest).not.toEqual(b?.values.chest);
+    }
+
+    results.push({ gait, a, b, perf });
+    await stage.screenshot({ path: `${outDir}/hunyuan-rig-${gait}-race.png` });
+
+    if (gait === "v3") {
+      await page.getByRole("button", { name: "3 Follow" }).click();
+      await expect.poll(
+        async () => (await stage.getAttribute("data-hunyuan-race-pack-animated-counts")) || "",
+        { timeout: 10000 }
+      ).toBe("17,1");
+      for (let phase = 0; phase < 4; phase += 1) {
+        await stage.screenshot({ path: `${outDir}/hunyuan-rig-v3-follow-phase${phase + 1}.png` });
+        await page.waitForTimeout(210);
+      }
+      const selectedA = await inspectRig("selected");
+      await page.waitForTimeout(210);
+      const selectedB = await inspectRig("selected");
+      expect(selectedA?.boneCount).toBe(19);
+      expect(selectedA?.values.fore_L_foot).not.toEqual(selectedB?.values.fore_L_foot);
+    }
+  }
+
+  const v21 = results.find((result) => result.gait === "v21");
+  const v3 = results.find((result) => result.gait === "v3");
+  console.log("HUNYUAN_RIG_V3_COMPARE", JSON.stringify({
+    v21: v21.perf,
+    v3: v3.perf,
+    v3BoneCount: v3.a?.boneCount
+  }));
+  fs.writeFileSync(
+    `${outDir}/hunyuan-rig-v21-v3-comparison.json`,
+    JSON.stringify(results, null, 2)
+  );
+});
+
+
 test("benchmark moving 18 Hunyuan mixed LOD race", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(150000);
