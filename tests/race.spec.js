@@ -1052,9 +1052,9 @@ test("compare Hunyuan gait v1 v2 v21 in the same 18-racer race", async ({ page }
 });
 
 
-test("compare Hunyuan v21 and 19-bone v3 race rigs", async ({ page }, testInfo) => {
+test("compare Hunyuan v21 full-v3 and v3 hybrid race rigs", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
-  test.setTimeout(160000);
+  test.setTimeout(210000);
 
   const outDir = "test-results/visuals";
   fs.mkdirSync(outDir, { recursive: true });
@@ -1090,6 +1090,7 @@ test("compare Hunyuan v21 and 19-bone v3 race rigs", async ({ page }, testInfo) 
       ? window.__hunyuanRacePackRiggedSelected
       : window.__hunyuanRacePackRiggedFar?.[0];
     if (!model) return null;
+
     const wanted = [
       "pelvis", "spine", "chest",
       "fore_L_upper", "fore_L_lower", "fore_L_foot",
@@ -1122,15 +1123,24 @@ test("compare Hunyuan v21 and 19-bone v3 race rigs", async ({ page }, testInfo) 
     return { boneCount: bones.length, bones, values };
   }, target);
 
-  for (const gait of ["v21", "v3"]) {
+  const expected = {
+    v21: { far: "EvoWild_S_Run_V2_1", selected: "EvoWild_S_Run_V2_1" },
+    v3: { far: "EvoWild_S_Run_V3", selected: "EvoWild_S_Run_V3" },
+    v3hybrid: { far: "EvoWild_S_Run_V2_1", selected: "EvoWild_S_Run_V3" }
+  };
+
+  for (const gait of ["v21", "v3", "v3hybrid"]) {
     await page.goto(
       `/evowild-test/?sf3dVariant=hunyuanstyled&hunyuanRacePack=1&hunyuanRacePackSide=front&hunyuanGait=${gait}&renderScale=0.75`,
       { waitUntil: "domcontentloaded", timeout: 30000 }
     );
+
     const stage = page.locator("#stage");
     await expect(stage).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
     await expect(stage).toHaveAttribute("data-hunyuan-race-pack", "loaded", { timeout: 30000 });
     await expect(stage).toHaveAttribute("data-hunyuan-race-pack-gait", gait);
+    await expect(stage).toHaveAttribute("data-hunyuan-race-pack-far-animation", expected[gait].far);
+    await expect(stage).toHaveAttribute("data-hunyuan-race-pack-rigged-clip", expected[gait].selected);
 
     await page.getByRole("button", { name: "2 Race" }).click();
     await expect.poll(
@@ -1138,52 +1148,60 @@ test("compare Hunyuan v21 and 19-bone v3 race rigs", async ({ page }, testInfo) 
       { timeout: 10000 }
     ).toBe("18,0");
 
-    const a = await inspectRig();
+    const farA = await inspectRig("far");
     await page.waitForTimeout(190);
-    const b = await inspectRig();
+    const farB = await inspectRig("far");
     const perf = await measureFrames();
 
     if (gait === "v3") {
-      expect(a?.boneCount).toBe(19);
-      for (const name of ["pelvis", "chest", "fore_L_foot", "fore_R_foot", "hind_L_foot", "hind_R_foot"]) {
-        expect(a?.bones).toContain(name);
-      }
-      expect(a?.values.fore_L_foot).not.toEqual(b?.values.fore_L_foot);
-      expect(a?.values.hind_R_foot).not.toEqual(b?.values.hind_R_foot);
-      expect(a?.values.pelvis).not.toEqual(b?.values.pelvis);
-      expect(a?.values.chest).not.toEqual(b?.values.chest);
+      expect(farA?.boneCount).toBe(19);
+      expect(farA?.values.fore_L_foot).not.toEqual(farB?.values.fore_L_foot);
+    }
+    if (gait === "v3hybrid") {
+      expect(farA?.boneCount).toBe(13);
     }
 
-    results.push({ gait, a, b, perf });
     await stage.screenshot({ path: `${outDir}/hunyuan-rig-${gait}-race.png` });
 
-    if (gait === "v3") {
+    let selected = null;
+    if (gait === "v3hybrid") {
       await page.getByRole("button", { name: "3 Follow" }).click();
       await expect.poll(
         async () => (await stage.getAttribute("data-hunyuan-race-pack-animated-counts")) || "",
         { timeout: 10000 }
       ).toBe("17,1");
-      for (let phase = 0; phase < 4; phase += 1) {
-        await stage.screenshot({ path: `${outDir}/hunyuan-rig-v3-follow-phase${phase + 1}.png` });
-        await page.waitForTimeout(210);
-      }
+
       const selectedA = await inspectRig("selected");
       await page.waitForTimeout(210);
       const selectedB = await inspectRig("selected");
       expect(selectedA?.boneCount).toBe(19);
+      for (const name of ["pelvis", "chest", "fore_L_foot", "fore_R_foot", "hind_L_foot", "hind_R_foot"]) {
+        expect(selectedA?.bones).toContain(name);
+      }
       expect(selectedA?.values.fore_L_foot).not.toEqual(selectedB?.values.fore_L_foot);
+      expect(selectedA?.values.pelvis).not.toEqual(selectedB?.values.pelvis);
+
+      for (let phase = 0; phase < 4; phase += 1) {
+        await stage.screenshot({ path: `${outDir}/hunyuan-rig-v3hybrid-follow-phase${phase + 1}.png` });
+        await page.waitForTimeout(210);
+      }
+      selected = { a: selectedA, b: selectedB };
     }
+
+    results.push({ gait, farA, farB, selected, perf });
   }
 
-  const v21 = results.find((result) => result.gait === "v21");
-  const v3 = results.find((result) => result.gait === "v3");
-  console.log("HUNYUAN_RIG_V3_COMPARE", JSON.stringify({
-    v21: v21.perf,
-    v3: v3.perf,
-    v3BoneCount: v3.a?.boneCount
+  const byGait = Object.fromEntries(results.map((result) => [result.gait, result]));
+  console.log("HUNYUAN_RIG_V3_HYBRID_COMPARE", JSON.stringify({
+    v21: byGait.v21.perf,
+    v3: byGait.v3.perf,
+    v3hybrid: byGait.v3hybrid.perf,
+    hybridFarBones: byGait.v3hybrid.farA?.boneCount,
+    hybridSelectedBones: byGait.v3hybrid.selected?.a?.boneCount
   }));
+
   fs.writeFileSync(
-    `${outDir}/hunyuan-rig-v21-v3-comparison.json`,
+    `${outDir}/hunyuan-rig-v21-v3-v3hybrid-comparison.json`,
     JSON.stringify(results, null, 2)
   );
 });
