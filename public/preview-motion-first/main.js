@@ -687,7 +687,7 @@ function createSprintCreature(color, index) {
 
   // Tail stays long enough to read as a balancing organ without dominating LOW.
   const tailBase = new THREE.Group();
-  tailBase.position.set(0, 0.06, -1.02);
+  tailBase.position.set(0, 0.05, -0.70);
   tailBase.rotation.x = -0.14;
   pelvisPivot.add(tailBase);
 
