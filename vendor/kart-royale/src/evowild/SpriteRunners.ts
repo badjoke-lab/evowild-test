@@ -15,52 +15,73 @@ const BASE_HEIGHT = 2.05;
 export class EvoWildSpriteRunners implements System {
   private runners: Runner[] = [];
   private sourceAspect = 1.55;
+  private loaded = false;
 
-  async init(ctx: Ctx) {
+  init(ctx: Ctx) {
     const spriteUrl = new URL('s-run-sheet.webp', window.location.href).toString();
-    const texture = await new THREE.TextureLoader().loadAsync(spriteUrl);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set(1 / FRAME_COLS, 1 / FRAME_ROWS);
+    (window as any).__evowildSLoadUrl = spriteUrl;
+    (window as any).__evowildSReady = false;
+    (window as any).__evowildSError = null;
 
-    const image = texture.image as { width?: number; height?: number };
-    if (image?.width && image?.height) {
-      this.sourceAspect = (image.width / FRAME_COLS) / (image.height / FRAME_ROWS);
-    }
+    new THREE.TextureLoader().load(
+      spriteUrl,
+      (texture) => {
+        texture.colorSpace = THREE.SRGBColorSpace;
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+        texture.repeat.set(1 / FRAME_COLS, 1 / FRAME_ROWS);
 
-    for (const kart of ctx.race.karts) {
-      const originalVisual = kart.object.children[0];
-      if (originalVisual) originalVisual.visible = false;
+        const image = texture.image as { width?: number; height?: number };
+        if (image?.width && image?.height) {
+          this.sourceAspect = (image.width / FRAME_COLS) / (image.height / FRAME_ROWS);
+        }
 
-      const tex = texture.clone();
-      tex.needsUpdate = true;
-      tex.repeat.set(1 / FRAME_COLS, 1 / FRAME_ROWS);
+        for (const kart of ctx.race.karts) {
+          const originalVisual = kart.object.children[0];
+          if (originalVisual) originalVisual.visible = false;
 
-      const material = new THREE.SpriteMaterial({
-        map: tex,
-        color: 0xffffff,
-        transparent: true,
-        alphaTest: 0.035,
-        depthTest: true,
-        depthWrite: false,
-        fog: true,
-      });
+          const tex = texture.clone();
+          tex.needsUpdate = true;
+          tex.wrapS = THREE.RepeatWrapping;
+          tex.wrapT = THREE.RepeatWrapping;
+          tex.repeat.set(1 / FRAME_COLS, 1 / FRAME_ROWS);
 
-      const sprite = new THREE.Sprite(material);
-      sprite.name = 'evowild-s-runner';
-      const height = kart.isPlayer ? BASE_HEIGHT * 1.08 : BASE_HEIGHT;
-      sprite.scale.set(height * this.sourceAspect, height, 1);
-      sprite.renderOrder = 10;
-      ctx.scene.add(sprite);
+          const material = new THREE.SpriteMaterial({
+            map: tex,
+            color: 0xffffff,
+            transparent: true,
+            alphaTest: 0.035,
+            depthTest: true,
+            depthWrite: false,
+            fog: true,
+          });
 
-      this.runners.push({ kart, sprite, texture: tex });
-    }
+          const sprite = new THREE.Sprite(material);
+          sprite.name = 'evowild-s-runner';
+          const height = kart.isPlayer ? BASE_HEIGHT * 1.08 : BASE_HEIGHT;
+          sprite.scale.set(height * this.sourceAspect, height, 1);
+          sprite.renderOrder = 10;
+          ctx.scene.add(sprite);
 
-    (window as any).__evowildSReady = true;
+          this.runners.push({ kart, sprite, texture: tex });
+        }
+
+        texture.dispose();
+        this.loaded = true;
+        (window as any).__evowildSReady = true;
+      },
+      undefined,
+      (err) => {
+        const message = err instanceof Error ? err.message : String(err);
+        (window as any).__evowildSError = message;
+        console.error('[evowild] S run sheet failed to load', spriteUrl, err);
+      },
+    );
   }
 
   update(ctx: Ctx) {
+    if (!this.loaded) return;
+
     for (const runner of this.runners) {
       const { kart, sprite, texture } = runner;
       const speed = Math.hypot(kart.velocity.x, kart.velocity.z);
@@ -90,5 +111,6 @@ export class EvoWildSpriteRunners implements System {
       r.texture.dispose();
     }
     this.runners = [];
+    this.loaded = false;
   }
 }
