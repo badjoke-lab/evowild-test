@@ -38,6 +38,8 @@ import { Quality, type Ctx, type System } from '../types';
 import { syncKartEnv } from '../kart/Liveries';
 import { registerPrewarm } from '../core/Prewarm';
 
+const EVOWILD_S_MODE = new URLSearchParams(location.search).get('evowildS') === '1';
+
 /**
  * Distance at which a kart collapses to its merged bake, metres.
  *
@@ -201,6 +203,27 @@ export class DrawBudget implements System {
     for (const lod of this.lods) {
       lod.root.getWorldPosition(_pos);
       const d = _pos.distanceTo(cam.position);
+
+      if (EVOWILD_S_MODE) {
+        // Lane 4 replaces only the visible shell. Keep Kart Royale's single
+        // merged shadow caster, but never allow DrawBudget to turn the original
+        // body/wheels or visible impostor back on.
+        for (const n of lod.detail) n.visible = false;
+        lod.near = true;
+        lod.impostor.material = lod.shadowMat;
+        lod.impostor.renderOrder = 4;
+
+        let cast = shadows && d < shadowMax;
+        if (cast) {
+          _sphere.center.copy(_pos);
+          _sphere.radius = KART_RADIUS + SHADOW_SLACK;
+          cast = this.frustum.intersectsSphere(_sphere);
+        }
+        lod.casting = cast;
+        lod.impostor.castShadow = cast;
+        lod.impostor.visible = cast;
+        continue;
+      }
 
       // --- level of detail -------------------------------------------------
       const near = lod.near ? d < swap : d < keep;
