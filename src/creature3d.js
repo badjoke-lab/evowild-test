@@ -271,6 +271,60 @@ export const CREATURE_3D_PROFILES = {
       "Animation-quality proof only; not approved final animation."
     ]
   },
+  sHunyuan2mvRiggedV3: {
+    id: "s-hunyuan2mv-rigged-v3-proof",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-rigged-v3.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.22,
+      minRoughness: 0.52,
+      side: "double",
+      preserveBaseColorMap: false,
+      preserveNormalMap: false,
+      preserveRoughnessMap: false,
+      preserveMetalnessMap: false,
+      maxAnisotropy: 1,
+      prototypeVertexPalette: true
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "multi_joint_rig_v3_proof_not_final_art",
+    notes: [
+      "LOD2 Hunyuan mesh with 19-bone v3 rig: pelvis/chest split and independent foot bones.",
+      "Improved side/front-hind weighting constraints; animation-quality proof only."
+    ]
+  },
+  sHunyuan2mvLod4RiggedV3: {
+    id: "s-hunyuan2mv-lod4-rigged-v3-proof",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-lod4-rigged-v3.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.12,
+      minRoughness: 0.64,
+      side: "double",
+      preserveBaseColorMap: false,
+      preserveNormalMap: false,
+      preserveRoughnessMap: false,
+      preserveMetalnessMap: false,
+      maxAnisotropy: 1,
+      prototypeVertexPalette: true
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "multi_joint_rig_v3_proof_not_final_art",
+    notes: [
+      "LOD4 19-bone v3 race rig for 18-racer browser validation.",
+      "Independent feet approximate a flatter contact phase without full IK."
+    ]
+  },
   sHunyuan2mvStyled: {
     id: "s-hunyuan2mv-styled-prototype",
     morph: "S",
