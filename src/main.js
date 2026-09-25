@@ -1053,7 +1053,7 @@ function syncHunyuanStrideToSpeed() {
     const timeScale = THREE.MathUtils.clamp(
       cycleHz * entry.clipDuration,
       0,
-      4.0
+      6.0
     );
     entry.action.timeScale = timeScale;
 
