@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 
-test("S-only Road Lab renders pseudo-3D race and animates", async ({ page }, testInfo) => {
+test("Road Lab renders animated S/P/E/A morph race", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium", "Road Lab visual proof runs on desktop only");
   test.setTimeout(30000);
   const pageErrors = [];
@@ -18,6 +18,8 @@ test("S-only Road Lab renders pseudo-3D race and animates", async ({ page }, tes
     pageErrors
   }));
   await expect(stage).toHaveAttribute("data-running", "true", { timeout: 5000 });
+  await expect(stage).toHaveAttribute("data-loaded-morphs", "S,P,E,A");
+  await expect(stage).toHaveAttribute("data-direction-set", "side-for-all-morphs");
 
   const frames = new Set();
   for (let i = 0; i < 5; i++) {
