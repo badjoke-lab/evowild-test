@@ -13,7 +13,7 @@ export class EvoWildSideCamera implements System {
   private shakeT = 0;
 
   init(ctx: Ctx) {
-    ctx.camera.fov = 48;
+    ctx.camera.fov = 52;
     ctx.camera.near = 0.2;
     ctx.camera.far = 3000;
     ctx.camera.updateProjectionMatrix();
@@ -32,13 +32,13 @@ export class EvoWildSideCamera implements System {
     right.normalize();
 
     desired.copy(p.position)
-      .addScaledVector(right, 10.8)
-      .addScaledVector(p.forward, -3.4)
-      .addScaledVector(WORLD_UP, 3.25);
+      .addScaledVector(right, 6.4)
+      .addScaledVector(p.forward, -2.0)
+      .addScaledVector(WORLD_UP, 2.65);
 
     target.copy(p.position)
-      .addScaledVector(p.forward, 4.6)
-      .addScaledVector(WORLD_UP, 1.05);
+      .addScaledVector(p.forward, 0.9)
+      .addScaledVector(WORLD_UP, 1.02);
   }
 
   private snap(ctx: Ctx) {
@@ -60,10 +60,7 @@ export class EvoWildSideCamera implements System {
     const posK = 1 - Math.exp(-dt * 6.8);
     ctx.camera.position.lerp(desired, posK);
 
-    look.set(0, 0, -1).applyQuaternion(ctx.camera.quaternion);
-    look.multiplyScalar(12).add(ctx.camera.position);
-    const aimK = 1 - Math.exp(-dt * 8.5);
-    look.lerp(target, aimK);
+    look.copy(target);
 
     if (this.shakeT > 0 && dt > 0) {
       this.shakeT = Math.max(0, this.shakeT - dt);
@@ -77,7 +74,7 @@ export class EvoWildSideCamera implements System {
     ctx.camera.lookAt(look);
 
     const speed = Math.hypot(ctx.race.player.velocity.x, ctx.race.player.velocity.z);
-    const targetFov = 48 + THREE.MathUtils.clamp(speed / 30, 0, 1) * 4.5 + ctx.fovPunch * 0.25;
+    const targetFov = 52 + THREE.MathUtils.clamp(speed / 30, 0, 1) * 3.0 + ctx.fovPunch * 0.20;
     ctx.camera.fov += (targetFov - ctx.camera.fov) * (1 - Math.exp(-dt * 5.5));
     ctx.camera.updateProjectionMatrix();
   }
