@@ -20,6 +20,7 @@ const hunyuanRacePack =
   query.get("hunyuanRacePack") === "1" ||
   (preview3d && !query.has("hunyuanRacePack"));
 const hunyuanRacePackSide = query.get("hunyuanRacePackSide") === "double" ? "double" : "front";
+const hunyuanGaitVersion = query.get("hunyuanGait") === "v1" ? "v1" : "v2";
 const previewRenderScale = preview3d ? (isMobile ? 0.5 : 0.75) : 1;
 const renderScale = Math.min(
   1,
@@ -1006,6 +1007,7 @@ function setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData, lod4Rigg
   }
 
   stage.dataset.hunyuanRacePack = "loaded";
+  stage.dataset.hunyuanRacePackGait = hunyuanGaitVersion;
   stage.dataset.hunyuanRacePackSide = hunyuanRacePackSide;
   stage.dataset.hunyuanRacePackProfiles = levels.map((data) => data.profile.id).join(",");
   stage.dataset.hunyuanRacePackTriangles = levels.map((data) => data.stats.triangles).join(",");
@@ -1362,8 +1364,16 @@ loadCreature3D(sf3dProfile)
         Promise.resolve({ source, animations, stats, profile }),
         loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvStyledLod3),
         loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvStyledLod4),
-        loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvRiggedV2),
-        loadCreature3D(CREATURE_3D_PROFILES.sHunyuan2mvLod4RiggedV2)
+        loadCreature3D(
+          hunyuanGaitVersion === "v1"
+            ? CREATURE_3D_PROFILES.sHunyuan2mvRigged
+            : CREATURE_3D_PROFILES.sHunyuan2mvRiggedV2
+        ),
+        loadCreature3D(
+          hunyuanGaitVersion === "v1"
+            ? CREATURE_3D_PROFILES.sHunyuan2mvLod4Rigged
+            : CREATURE_3D_PROFILES.sHunyuan2mvLod4RiggedV2
+        )
       ]).then(([baseData, lod3Data, lod4Data, riggedData, lod4RiggedData]) => {
         setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData, lod4RiggedData);
       }).catch((error) => {
