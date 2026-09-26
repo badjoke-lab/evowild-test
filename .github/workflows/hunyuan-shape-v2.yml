@@ -1,4 +1,4 @@
-name: Hunyuan S shape refine v5.1
+name: Hunyuan S shape refine v6
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   shape:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[targeted-shape-v51]')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[targeted-shape-v6]')
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -23,41 +23,38 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y blender python3-numpy
           blender --version
-      - name: Generate v4 v5 v51 candidates
+      - name: Generate v4 and v6 candidates
         run: |
-          mkdir -p test-results/shape-v4 test-results/shape-v5 test-results/shape-v51
+          mkdir -p test-results/shape-v4 test-results/shape-v6
           blender --background --python scripts/refine-hunyuan-shape-v4.py --             public/models/evowild-s/source-lod2.glb             public/models/evowild-s/source-lod2-shape-v4.glb             public/models/evowild-s/source-lod2-shape-v4.json             test-results/shape-v4
-          blender --background --python scripts/refine-hunyuan-shape-v5.py --             public/models/evowild-s/source-lod2.glb             public/models/evowild-s/source-lod2-shape-v5.glb             public/models/evowild-s/source-lod2-shape-v5.json             test-results/shape-v5
-          blender --background --python scripts/refine-hunyuan-shape-v51.py --             public/models/evowild-s/source-lod2.glb             public/models/evowild-s/source-lod2-shape-v51.glb             public/models/evowild-s/source-lod2-shape-v51.json             test-results/shape-v51
-          ls -lh             public/models/evowild-s/source-lod2-shape-v4.*             public/models/evowild-s/source-lod2-shape-v5.*             public/models/evowild-s/source-lod2-shape-v51.*
-          cat public/models/evowild-s/source-lod2-shape-v51.json
+          blender --background --python scripts/refine-hunyuan-shape-v6.py --             public/models/evowild-s/source-lod2.glb             public/models/evowild-s/source-lod2-shape-v6.glb             public/models/evowild-s/source-lod2-shape-v6.json             test-results/shape-v6
+          ls -lh public/models/evowild-s/source-lod2-shape-v4.* public/models/evowild-s/source-lod2-shape-v6.*
+          cat public/models/evowild-s/source-lod2-shape-v6.json
       - uses: actions/setup-node@v4
         with:
           node-version: 22
       - run: npm install
       - run: npx playwright install --with-deps chromium
       - name: Render browser comparison
-        run: npm run test:e2e -- --workers=1 -g "render S shape v4 v5 v51 comparison"
+        run: npm run test:e2e -- --workers=1 -g "render S shape v4 v6 comparison"
       - name: Persist candidates
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add             public/models/evowild-s/source-lod2-shape-v4.glb             public/models/evowild-s/source-lod2-shape-v4.json             public/models/evowild-s/source-lod2-shape-v5.glb             public/models/evowild-s/source-lod2-shape-v5.json             public/models/evowild-s/source-lod2-shape-v51.glb             public/models/evowild-s/source-lod2-shape-v51.json
+          git add             public/models/evowild-s/source-lod2-shape-v4.glb             public/models/evowild-s/source-lod2-shape-v4.json             public/models/evowild-s/source-lod2-shape-v6.glb             public/models/evowild-s/source-lod2-shape-v6.json
           if git diff --cached --quiet; then
             echo "No shape changes"
           else
-            git commit -m "model: persist S shape-v5.1 candidates [skip ci]"
+            git commit -m "model: persist S shape-v6 candidate [skip ci]"
             git pull --rebase origin "${GITHUB_REF_NAME}"
             git push origin HEAD:"${GITHUB_REF_NAME}"
           fi
       - uses: actions/upload-artifact@v4
         with:
-          name: s-shape-v51-review
+          name: s-shape-v6-review
           path: |
             test-results/shape-v4/*.png
-            test-results/shape-v5/*.png
-            test-results/shape-v51/*.png
-            test-results/shape-v51-browser/*.png
+            test-results/shape-v6/*.png
+            test-results/shape-v6-browser/*.png
             public/models/evowild-s/source-lod2-shape-v4.json
-            public/models/evowild-s/source-lod2-shape-v5.json
-            public/models/evowild-s/source-lod2-shape-v51.json
+            public/models/evowild-s/source-lod2-shape-v6.json
