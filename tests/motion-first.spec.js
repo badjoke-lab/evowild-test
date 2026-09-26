@@ -616,3 +616,48 @@ test("Motion First Phase F AUTO camera is driven by race events", async ({ page 
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
 });
+
+
+test("Motion First speed presentation uses geometry optical flow and speed-responsive cameras", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(50000);
+
+  const pageErrors = [];
+  const consoleErrors = [];
+  page.on("pageerror", (err) => pageErrors.push(err.stack || String(err)));
+  page.on("console", (msg) => {
+    if (msg.type() === "error") consoleErrors.push(msg.text());
+  });
+
+  await page.goto("/evowild-test/preview-motion-first-race/index.html", {
+    waitUntil: "networkidle"
+  });
+
+  await expect(page.locator("#scene")).toHaveAttribute("data-speed-field", "1");
+  await expect(page.locator("#scene")).toHaveAttribute("data-speed-field-spacing", "4.5");
+
+  await page.waitForTimeout(5200);
+  await page.getByRole("button", { name: "LOW", exact: true }).click({ force: true });
+  await expect(page.locator("#cameraReadout")).toHaveText("LOW");
+  await page.waitForTimeout(1200);
+
+  const presentationSpeed = Number(
+    await page.locator("#scene").getAttribute("data-presentation-speed")
+  );
+  const fov = Number(
+    await page.locator("#scene").getAttribute("data-presentation-fov")
+  );
+
+  expect(Number.isFinite(presentationSpeed)).toBeTruthy();
+  expect(presentationSpeed).toBeGreaterThan(0.55);
+  expect(Number.isFinite(fov)).toBeTruthy();
+  expect(fov).toBeGreaterThan(70);
+
+  await page.locator("#scene").screenshot({
+    path: "test-results/visuals/motion-first-speed-presentation-low.png"
+  });
+
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+});
