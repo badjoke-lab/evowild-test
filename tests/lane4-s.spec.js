@@ -38,12 +38,13 @@ for (const project of ["desktop-chromium", "android-chromium"]) {
       const mark = 0.06;
       const baseSpeed = 24;
       race.karts.forEach((k, i) => {
-        const t = ((mark - i * 0.006) % 1 + 1) % 1;
+        const row = Math.floor(i / 2);
+        const t = ((mark - row * 0.0014) % 1 + 1) % 1;
         const smp = track.sample(t);
-        const lane = ((i % 2) * 2 - 1) * (2.2 + (i >> 1) * 0.32);
+        const lane = i % 2 === 0 ? -1.7 - row * 0.18 : 1.7 + row * 0.18;
         const p = smp.pos.clone().addScaledVector(smp.binormal, lane);
         k.placeAt?.(p, Math.atan2(smp.tangent.x, smp.tangent.z), t);
-        k.velocity.copy(k.forward).multiplyScalar(baseSpeed - Math.min(i * 0.35, 2.0));
+        k.velocity.copy(k.forward).multiplyScalar(baseSpeed - row * 0.45);
       });
     });
 
