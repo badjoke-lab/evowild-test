@@ -557,3 +557,80 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
 });
+
+
+test("Motion First Phase F AUTO director reacts to race state and preserves speed cues", async ({ browser }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(70000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const context = await browser.newContext({
+    viewport: { width: 1280, height: 720 },
+    recordVideo: {
+      dir: outDir,
+      size: { width: 1280, height: 720 }
+    }
+  });
+  const page = await context.newPage();
+
+  const pageErrors = [];
+  const consoleErrors = [];
+  page.on("pageerror", (err) => pageErrors.push(err.stack || String(err)));
+  page.on("console", (msg) => {
+    if (msg.type() === "error") consoleErrors.push(msg.text());
+  });
+
+  await page.goto("http://127.0.0.1:4173/evowild-test/preview-motion-first-race/index.html", {
+    waitUntil: "networkidle"
+  });
+
+  await expect(page.locator("#scene")).toBeVisible();
+  await expect(page.locator("#cameraReadout")).not.toHaveText("");
+  await expect(page.locator("#scene")).toHaveAttribute("data-speed-cue-spacing", "7.25");
+  await expect(page.locator("#scene")).toHaveAttribute("data-director-reason", "START");
+
+  await page.waitForTimeout(7200);
+
+  const decisionCount = Number(
+    await page.locator("#scene").getAttribute("data-director-decision-count")
+  );
+  expect(Number.isFinite(decisionCount)).toBeTruthy();
+  expect(decisionCount).toBeGreaterThanOrEqual(1);
+
+  const directorReason = await page.locator("#scene").getAttribute("data-director-reason");
+  expect(directorReason).toBeTruthy();
+  expect(directorReason).not.toBe("START");
+
+  const directorCamera = await page.locator("#scene").getAttribute("data-director-camera");
+  expect(["CHASE", "LOW", "SIDE", "PACK", "FRONT"]).toContain(directorCamera);
+
+  const directorFocus = Number(
+    await page.locator("#scene").getAttribute("data-director-focus")
+  );
+  expect(Number.isInteger(directorFocus)).toBeTruthy();
+  expect(directorFocus).toBeGreaterThanOrEqual(0);
+  expect(directorFocus).toBeLessThan(18);
+
+  await page.waitForTimeout(4200);
+
+  const laterDecisionCount = Number(
+    await page.locator("#scene").getAttribute("data-director-decision-count")
+  );
+  expect(laterDecisionCount).toBeGreaterThanOrEqual(decisionCount);
+
+  await page.locator("#scene").screenshot({
+    path: `${outDir}/motion-first-phase-f-auto-director.png`
+  });
+
+  const video = page.video();
+  await page.close();
+  if (!video) throw new Error("Phase F director video was not created");
+  await video.saveAs(`${outDir}/motion-first-phase-f-auto-director.webm`);
+  await context.close();
+
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+});
