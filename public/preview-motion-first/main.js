@@ -1225,8 +1225,9 @@ function updateSprintPose(runner, lateralVelocity, dt) {
 
     if (localCycle < stanceDuration) {
       const u = localCycle / stanceDuration;
-      const stanceEase = u * u * (3 - 2 * u);
-      targetZ = THREE.MathUtils.lerp(halfSweep, -halfSweep, stanceEase);
+      // Keep the world-space foot stationary: runner root travel is linear,
+      // so stance sweep must remain linear too. Shape loading vertically instead.
+      targetZ = THREE.MathUtils.lerp(halfSweep, -halfSweep, u);
 
       // Catch compresses, mid-stance stabilizes, toe-off extends.
       const compression = Math.sin(u * Math.PI);
