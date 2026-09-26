@@ -585,23 +585,24 @@ test("Motion First Phase F AUTO camera is driven by race events", async ({ page 
   // intentionally clamps large frame deltas.
   await expect
     .poll(
-      async () =>
-        Number(
-          await page.locator("#scene").getAttribute("data-auto-director-switch-count")
-        ),
+      async () => {
+        const value =
+          (await page.locator("#scene").getAttribute("data-auto-director-history")) || "";
+        return value ? value.split(",").length : 0;
+      },
       { timeout: 22000, intervals: [500, 750, 1000] }
     )
-    .toBeGreaterThan(0);
+    .toBeGreaterThan(1);
 
   const switchCount = Number(
     await page.locator("#scene").getAttribute("data-auto-director-switch-count")
   );
   expect(Number.isFinite(switchCount)).toBeTruthy();
+  expect(switchCount).toBeGreaterThan(0);
 
   const history =
     (await page.locator("#scene").getAttribute("data-auto-director-history")) || "";
   expect(history.startsWith("START")).toBeTruthy();
-  expect(history.split(",").length).toBeGreaterThan(1);
 
   const event =
     (await page.locator("#scene").getAttribute("data-auto-director-event")) || "";
