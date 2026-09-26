@@ -557,3 +557,72 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
 });
+
+
+test("Motion First Phase F AUTO camera is driven by race events", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(60000);
+
+  const pageErrors = [];
+  const consoleErrors = [];
+  page.on("pageerror", (err) => pageErrors.push(err.stack || String(err)));
+  page.on("console", (msg) => {
+    if (msg.type() === "error") consoleErrors.push(msg.text());
+  });
+
+  await page.goto("/evowild-test/preview-motion-first-race/index.html", {
+    waitUntil: "networkidle"
+  });
+
+  await expect(page.locator("#scene")).toBeVisible();
+  await expect(page.locator("#cameraReadout")).toHaveText("PACK");
+  await expect(page.locator("#scene")).toHaveAttribute("data-auto-director-source", "race-events");
+  await expect(page.locator("#scene")).toHaveAttribute("data-auto-director-event", "START");
+
+  // Stay on AUTO and wait on simulated race state, not wall-clock speed.
+  // CI software rendering may run below real-time because the animation loop
+  // intentionally clamps large frame deltas.
+  await expect
+    .poll(
+      async () => {
+        const value =
+          (await page.locator("#scene").getAttribute("data-auto-director-history")) || "";
+        return value ? value.split(",").length : 0;
+      },
+      { timeout: 22000, intervals: [500, 750, 1000] }
+    )
+    .toBeGreaterThan(1);
+
+  const switchCount = Number(
+    await page.locator("#scene").getAttribute("data-auto-director-switch-count")
+  );
+  expect(Number.isFinite(switchCount)).toBeTruthy();
+  expect(switchCount).toBeGreaterThan(0);
+
+  const history =
+    (await page.locator("#scene").getAttribute("data-auto-director-history")) || "";
+  expect(history.startsWith("START")).toBeTruthy();
+
+  const event =
+    (await page.locator("#scene").getAttribute("data-auto-director-event")) || "";
+  expect([
+    "ACCELERATION",
+    "DENSE_PACK",
+    "OVERTAKE_ATTEMPT",
+    "SIDE_BY_SIDE",
+    "LEADER_CHANGE",
+    "BREAKAWAY",
+    "FINAL_STRAIGHT",
+    "FINISH_APPROACH",
+    "CRUISE"
+  ]).toContain(event);
+
+  const directorCamera =
+    (await page.locator("#scene").getAttribute("data-auto-director-camera")) || "";
+  expect(["CHASE", "LOW", "PACK", "SIDE", "FRONT"]).toContain(directorCamera);
+  await expect(page.locator("#cameraReadout")).toHaveText(directorCamera);
+
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+});

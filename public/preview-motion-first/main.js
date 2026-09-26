@@ -12,6 +12,7 @@ const morphEl = document.querySelector("#morphReadout");
 const runnerNameEl = document.querySelector("#runnerName");
 const positionEl = document.querySelector("#positionReadout");
 const cameraEl = document.querySelector("#cameraReadout");
+const directorEl = document.querySelector("#directorReadout");
 const runnerSelect = document.querySelector("#runnerSelect");
 const pauseButton = document.querySelector("#pauseButton");
 const restartButton = document.querySelector("#restartButton");
@@ -2521,6 +2522,8 @@ function resetRace() {
     runner.nextLaneDecision = 190 + seeded(i, 11) * 210;
     runner.group.position.set(runner.laneX, 0, runner.distance);
   });
+
+  resetAutoDirector();
 }
 
 function maybeChangeLane(runner) {
@@ -3588,7 +3591,128 @@ let raceTime = 0;
 let fpsAccumulator = 0;
 let fpsFrames = 0;
 
-function autoCameraMode() {
+const AUTO_EVENT_PRIORITY = {
+  CRUISE: 0,
+  ACCELERATION: 1,
+  DENSE_PACK: 2,
+  BREAKAWAY: 2,
+  OVERTAKE_ATTEMPT: 3,
+  SIDE_BY_SIDE: 4,
+  LEADER_CHANGE: 5,
+  START: 6,
+  FINAL_STRAIGHT: 7,
+  FINISH_APPROACH: 8
+};
+
+const autoDirector = {
+  event: "START",
+  camera: "PACK",
+  focusId: 0,
+  holdUntil: 0,
+  priority: AUTO_EVENT_PRIORITY.START,
+  lastLeaderId: null,
+  previousSpeeds: [],
+  switchCount: 0,
+  eventStartedAt: 0,
+  manualFocusUntil: 0,
+  history: []
+};
+
+function syncAutoDirectorDataset() {
+  canvas.dataset.autoDirectorSource = "race-events";
+  canvas.dataset.autoDirectorEvent = autoDirector.event;
+  canvas.dataset.autoDirectorCamera = autoDirector.camera;
+  canvas.dataset.autoDirectorFocus = String(autoDirector.focusId);
+  canvas.dataset.autoDirectorSwitchCount = String(autoDirector.switchCount);
+  canvas.dataset.autoDirectorHistory = autoDirector.history.join(",");
+  if (directorEl) directorEl.textContent = autoDirector.event.replaceAll("_", " ");
+}
+
+function resetAutoDirector() {
+  const sorted = rankings();
+  const leader = sorted[0];
+
+  autoDirector.event = "START";
+  autoDirector.camera = "PACK";
+  autoDirector.focusId = leader?.id ?? 0;
+  autoDirector.holdUntil = 0;
+  autoDirector.priority = AUTO_EVENT_PRIORITY.START;
+  autoDirector.lastLeaderId = leader?.id ?? null;
+  autoDirector.previousSpeeds = runners.map((runner) => runner.speed);
+  autoDirector.switchCount = 0;
+  autoDirector.eventStartedAt = raceTime;
+  autoDirector.manualFocusUntil = 0;
+  autoDirector.history = ["START"];
+  syncAutoDirectorDataset();
+}
+
+function commitAutoDirector(event, camera, focusId, holdSeconds, priority) {
+  const eventChanged = event !== autoDirector.event;
+  const changed =
+    eventChanged ||
+    camera !== autoDirector.camera ||
+    focusId !== autoDirector.focusId;
+
+  if (changed) {
+    autoDirector.switchCount += 1;
+  }
+
+  // Event age is independent from shot handoffs inside the same event.
+  // This prevents FINISH_APPROACH from bouncing FRONT ↔ CHASE forever.
+  if (eventChanged) {
+    autoDirector.eventStartedAt = raceTime;
+    autoDirector.history.push(event);
+    if (autoDirector.history.length > 12) autoDirector.history.shift();
+  }
+
+  autoDirector.event = event;
+  autoDirector.camera = camera;
+  autoDirector.focusId = focusId;
+  autoDirector.priority = priority;
+  autoDirector.holdUntil = raceTime + holdSeconds;
+
+  if (Number.isInteger(focusId) && runners[focusId]) {
+    selectedRunner = focusId;
+    if (runnerSelect.querySelector(`option[value="${focusId}"]`)) {
+      runnerSelect.value = String(focusId);
+    }
+  }
+
+  syncAutoDirectorDataset();
+  return camera;
+}
+
+function findAutoDirectorDuel(sorted) {
+  let best = null;
+
+  for (let i = 0; i < Math.min(sorted.length - 1, 9); i += 1) {
+    const ahead = sorted[i];
+    const behind = sorted[i + 1];
+    const gap = ahead.distance - behind.distance;
+    if (gap > 4.2) continue;
+
+    const lateralGap = Math.abs(ahead.laneX - behind.laneX);
+    const laneChanging =
+      Math.abs(ahead.laneX - laneToX(ahead.targetLane)) > 0.20 ||
+      Math.abs(behind.laneX - laneToX(behind.targetLane)) > 0.20;
+
+    const score = gap + lateralGap * 0.15;
+    if (!best || score < best.score) {
+      best = {
+        ahead,
+        behind,
+        gap,
+        lateralGap,
+        laneChanging,
+        score
+      };
+    }
+  }
+
+  return best;
+}
+
+function legacyAutoCameraMode() {
   if (raceTime < 3.4) return "PACK";
   const cycle = (raceTime - 3.4) % 25;
   if (cycle < 5.0) return "CHASE";
@@ -3597,6 +3721,162 @@ function autoCameraMode() {
   if (cycle < 18.5) return "PACK";
   if (cycle < 22.0) return "FRONT";
   return "CHASE";
+}
+
+function autoCameraMode(dt) {
+  // Event direction belongs only to the isolated simplified race page.
+  // The parallel high-detail Motion First page keeps its existing AUTO behavior.
+  if (!SIMPLIFIED_RACE_PAGE) return legacyAutoCameraMode();
+
+  const sorted = rankings();
+  if (!sorted.length) return "PACK";
+
+  const leader = sorted[0];
+  const second = sorted[1] || leader;
+  const leaderChanged =
+    autoDirector.lastLeaderId !== null &&
+    leader.id !== autoDirector.lastLeaderId;
+
+  let bestAccel = -Infinity;
+  let accelRunner = leader;
+  runners.forEach((runner, index) => {
+    const previous = autoDirector.previousSpeeds[index] ?? runner.speed;
+    const accel = (runner.speed - previous) / Math.max(dt, 0.001);
+    if (accel > bestAccel) {
+      bestAccel = accel;
+      accelRunner = runner;
+    }
+  });
+  autoDirector.previousSpeeds = runners.map((runner) => runner.speed);
+  autoDirector.lastLeaderId = leader.id;
+
+  const duel = findAutoDirectorDuel(sorted);
+  const topPack = sorted.slice(0, Math.min(8, sorted.length));
+  const packSpan =
+    topPack.length > 1
+      ? topPack[0].distance - topPack[topPack.length - 1].distance
+      : 0;
+  const leaderGap = leader.distance - second.distance;
+  const progress = THREE.MathUtils.clamp(leader.distance / RACE_DISTANCE, 0, 1);
+
+  let candidate = {
+    event: "CRUISE",
+    camera: "CHASE",
+    focusId: leader.id,
+    hold: 2.8,
+    priority: AUTO_EVENT_PRIORITY.CRUISE
+  };
+
+  if (raceTime < 3.2) {
+    candidate = {
+      event: "START",
+      camera: "PACK",
+      focusId: leader.id,
+      hold: 1.4,
+      priority: AUTO_EVENT_PRIORITY.START
+    };
+  } else if (leader.distance >= RACE_DISTANCE - 105) {
+    // FRONT is deliberately brief. Once the finish approach is established,
+    // return to CHASE so the race is not hidden behind a prolonged head-on shot.
+    const frontWindow =
+      autoDirector.event !== "FINISH_APPROACH" ||
+      raceTime - autoDirector.eventStartedAt < 1.55;
+    candidate = {
+      event: "FINISH_APPROACH",
+      camera: frontWindow ? "FRONT" : "CHASE",
+      focusId: leader.id,
+      hold: frontWindow ? 1.55 : 1.8,
+      priority: AUTO_EVENT_PRIORITY.FINISH_APPROACH
+    };
+  } else if (leader.distance >= RACE_DISTANCE - 320) {
+    candidate = {
+      event: "FINAL_STRAIGHT",
+      camera: duel && duel.gap < 3.2 ? "SIDE" : "CHASE",
+      focusId: duel && duel.gap < 3.2 ? duel.behind.id : leader.id,
+      hold: 2.2,
+      priority: AUTO_EVENT_PRIORITY.FINAL_STRAIGHT
+    };
+  } else if (leaderChanged) {
+    candidate = {
+      event: "LEADER_CHANGE",
+      camera: "SIDE",
+      focusId: leader.id,
+      hold: 2.4,
+      priority: AUTO_EVENT_PRIORITY.LEADER_CHANGE
+    };
+  } else if (duel && duel.gap < 1.6 && duel.lateralGap < LANE_WIDTH * 1.35) {
+    candidate = {
+      event: "SIDE_BY_SIDE",
+      camera: "SIDE",
+      focusId: duel.behind.id,
+      hold: 2.2,
+      priority: AUTO_EVENT_PRIORITY.SIDE_BY_SIDE
+    };
+  } else if (duel && duel.gap < 4.2 && (duel.laneChanging || duel.lateralGap < LANE_WIDTH * 1.8)) {
+    candidate = {
+      event: "OVERTAKE_ATTEMPT",
+      camera: "SIDE",
+      focusId: duel.behind.id,
+      hold: 2.0,
+      priority: AUTO_EVENT_PRIORITY.OVERTAKE_ATTEMPT
+    };
+  } else if (leaderGap > 13.0 && progress > 0.18) {
+    candidate = {
+      event: "BREAKAWAY",
+      camera: "CHASE",
+      focusId: leader.id,
+      hold: 2.8,
+      priority: AUTO_EVENT_PRIORITY.BREAKAWAY
+    };
+  } else if (packSpan < 13.5 && progress > 0.08) {
+    candidate = {
+      event: "DENSE_PACK",
+      camera: "PACK",
+      focusId: leader.id,
+      hold: 2.5,
+      priority: AUTO_EVENT_PRIORITY.DENSE_PACK
+    };
+  } else if (bestAccel > 1.8 && raceTime < 12) {
+    candidate = {
+      event: "ACCELERATION",
+      camera: "LOW",
+      focusId: accelRunner.id,
+      hold: 1.8,
+      priority: AUTO_EVENT_PRIORITY.ACCELERATION
+    };
+  }
+
+  if (raceTime < autoDirector.manualFocusUntil && runners[selectedRunner]) {
+    candidate.focusId = selectedRunner;
+  }
+
+  const holdActive = raceTime < autoDirector.holdUntil;
+  const higherPriority = candidate.priority > autoDirector.priority;
+  const sameEvent = candidate.event === autoDirector.event;
+  const cameraNeedsFinishHandoff =
+    candidate.event === "FINISH_APPROACH" &&
+    candidate.camera !== autoDirector.camera;
+
+  if (!holdActive || higherPriority || cameraNeedsFinishHandoff) {
+    return commitAutoDirector(
+      candidate.event,
+      candidate.camera,
+      candidate.focusId,
+      candidate.hold,
+      candidate.priority
+    );
+  }
+
+  if (sameEvent && candidate.focusId !== autoDirector.focusId && candidate.priority >= 3) {
+    autoDirector.focusId = candidate.focusId;
+    selectedRunner = candidate.focusId;
+    if (runnerSelect.querySelector(`option[value="${candidate.focusId}"]`)) {
+      runnerSelect.value = String(candidate.focusId);
+    }
+    syncAutoDirectorDataset();
+  }
+
+  return autoDirector.camera;
 }
 
 function packCenter(out) {
@@ -3614,9 +3894,9 @@ function packCenter(out) {
 }
 
 function updateCamera(dt) {
+  actualCamera = requestedCamera === "AUTO" ? autoCameraMode(dt) : requestedCamera;
   const focus = runners[selectedRunner];
   const focusPos = focus.group.position;
-  actualCamera = requestedCamera === "AUTO" ? autoCameraMode() : requestedCamera;
 
   let targetFov = 58;
 
@@ -3790,11 +4070,26 @@ cameraButtons.forEach((button) => {
   button.addEventListener("click", () => {
     requestedCamera = button.dataset.camera;
     cameraButtons.forEach((b) => b.classList.toggle("active", b === button));
+
+    if (directorEl && SIMPLIFIED_RACE_PAGE) {
+      if (requestedCamera === "AUTO") {
+        syncAutoDirectorDataset();
+      } else {
+        directorEl.textContent = "MANUAL";
+      }
+    }
   });
 });
 
 runnerSelect.addEventListener("change", () => {
   selectedRunner = Number(runnerSelect.value);
+
+  if (requestedCamera === "AUTO" && SIMPLIFIED_RACE_PAGE) {
+    autoDirector.focusId = selectedRunner;
+    autoDirector.manualFocusUntil = raceTime + 2.0;
+    autoDirector.holdUntil = Math.max(autoDirector.holdUntil, raceTime + 1.4);
+    syncAutoDirectorDataset();
+  }
 
   if (SIMPLIFIED_GAIT_PAGE) {
     const next = runners[selectedRunner];
