@@ -1327,10 +1327,11 @@ function updateSprintPose(runner, lateralVelocity, dt) {
     const legs = Object.values(ud.legs);
     canvas.dataset.ikClamped = legs.some((leg) => leg.ikClamped) ? "1" : "0";
     canvas.dataset.maxStanceSlip = String(ud.maxStanceSlip || 0);
-    canvas.dataset.bodyStretch = String(
+    const bodyStretch =
       Math.abs(ud.chestPivot.position.z - S_GAIT.chestBaseZ) +
-      Math.abs(ud.pelvisPivot.position.z - S_GAIT.pelvisBaseZ)
-    );
+      Math.abs(ud.pelvisPivot.position.z - S_GAIT.pelvisBaseZ);
+    ud.maxBodyStretch = Math.max(ud.maxBodyStretch || 0, bodyStretch);
+    canvas.dataset.maxBodyStretch = String(ud.maxBodyStretch);
   }
 }
 
