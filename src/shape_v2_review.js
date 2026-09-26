@@ -79,13 +79,18 @@ async function mount(canvasId, url, mode) {
 const base = "/models/evowild-s/source-lod2.glb";
 const v2 = "/models/evowild-s/source-lod2-shape-v2.glb";
 
-const results = await Promise.all([
-  mount("base-side", base, "side"),
-  mount("v2-side", v2, "side"),
-  mount("base-34", base, "threequarter"),
-  mount("v2-34", v2, "threequarter")
-]);
-
-document.body.dataset.shapeReview = "ready";
-document.body.dataset.baseSize = results[0].size.toArray().map(v => v.toFixed(4)).join(",");
-document.body.dataset.v2Size = results[1].size.toArray().map(v => v.toFixed(4)).join(",");
+try {
+  const results = await Promise.all([
+    mount("base-side", base, "side"),
+    mount("v2-side", v2, "side"),
+    mount("base-34", base, "threequarter"),
+    mount("v2-34", v2, "threequarter")
+  ]);
+  document.body.dataset.shapeReview = "ready";
+  document.body.dataset.baseSize = results[0].size.toArray().map(v => v.toFixed(4)).join(",");
+  document.body.dataset.v2Size = results[1].size.toArray().map(v => v.toFixed(4)).join(",");
+} catch (error) {
+  console.error("SHAPE_V2_REVIEW_ERROR", error);
+  document.body.dataset.shapeReview = "error";
+  document.body.dataset.shapeError = String(error?.stack || error);
+}
