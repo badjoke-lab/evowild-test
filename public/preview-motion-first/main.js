@@ -26,6 +26,8 @@ const WORLD_END = 1800;
 const params = new URLSearchParams(window.location.search);
 const INSPECT_MODE = params.get("inspect") === "1";
 const SIMPLIFIED_GAIT_PAGE = window.location.pathname.includes("/preview-motion-first-gait/");
+const SIMPLIFIED_RACE_PAGE = window.location.pathname.includes("/preview-motion-first-race/");
+const SIMPLIFIED_LANE = SIMPLIFIED_GAIT_PAGE || SIMPLIFIED_RACE_PAGE;
 const MOTION_REVIEW_MODE = params.get("motion") === "1" || SIMPLIFIED_GAIT_PAGE;
 const REVIEW_MORPH = (params.get("morph") || "S").toUpperCase();
 const TAU = Math.PI * 2;
@@ -77,7 +79,7 @@ async function prepareHunyuanSAsset() {
   // The dedicated Motion First gait page is the intentionally simplified
   // visual lane. Keep it independent from the parallel Hunyuan / high-detail
   // S pipeline even though both currently share this runtime module.
-  if (SIMPLIFIED_GAIT_PAGE) {
+  if (SIMPLIFIED_LANE) {
     activeSAssetKey = null;
     activeSAsset = null;
     canvas.dataset.sAsset = "procedural-simplified-lane";
@@ -86,6 +88,7 @@ async function prepareHunyuanSAsset() {
     canvas.dataset.sAnimationClips = "0";
     canvas.dataset.sAnimationClipName = "none";
     canvas.dataset.sSimplifiedLane = "1";
+    canvas.dataset.sSimplifiedPage = SIMPLIFIED_RACE_PAGE ? "race" : "gait";
     return false;
   }
 
@@ -1407,6 +1410,7 @@ function createPowerCreature(color, index) {
     keel,
     neckPivot,
     headPivot,
+    crestRoot,
     tailSegments,
     legs,
     phase: index * 0.61,
@@ -1801,6 +1805,7 @@ function createEndureCreature(color, index) {
     keel,
     neckPivot,
     headPivot,
+    crestRoot,
     tailSegments,
     legs,
     phase: index * 0.61,
@@ -2202,6 +2207,7 @@ function createAgilityCreature(color, index) {
     keel,
     neckPivot,
     headPivot,
+    crestRoot,
     tailSegments,
     legs,
     phase: index * 0.61,
@@ -2406,6 +2412,45 @@ function seeded(i, salt = 1) {
   return x - Math.floor(x);
 }
 
+function applySimplifiedRaceVariation(creature, morph, index) {
+  const ud = creature.userData;
+  const width = THREE.MathUtils.lerp(0.975, 1.025, seeded(index, 71));
+  const length = THREE.MathUtils.lerp(0.975, 1.025, seeded(index, 72));
+  creature.scale.x = width;
+  creature.scale.z = length;
+
+  if (ud.headPivot) {
+    const headScale = THREE.MathUtils.lerp(0.955, 1.045, seeded(index, 73));
+    ud.headPivot.scale.setScalar(headScale);
+  }
+
+  if (ud.crestRoot) {
+    const crestLength = THREE.MathUtils.lerp(0.92, 1.08, seeded(index, 74));
+    const crestWidth = THREE.MathUtils.lerp(0.94, 1.06, seeded(index, 75));
+    ud.crestRoot.scale.x = crestWidth;
+    ud.crestRoot.scale.z = crestLength;
+  }
+
+  if (ud.tailSegments?.length) {
+    const tailScale = THREE.MathUtils.lerp(0.92, 1.08, seeded(index, 76));
+    ud.tailSegments[0].scale.z = tailScale;
+  }
+
+  ud.individualVariation = {
+    width,
+    length,
+    head: ud.headPivot?.scale.x || 1,
+    crest: ud.crestRoot?.scale.z || 1,
+    tail: ud.tailSegments?.[0]?.scale.z || 1
+  };
+
+  // Variation is intentionally narrow. Morph identity must remain stronger
+  // than individual variation at racing distance.
+  if (SIMPLIFIED_RACE_PAGE && index === 0) {
+    canvas.dataset.variationActive = "1";
+  }
+}
+
 function laneToX(lane) {
   return (lane - (LANE_COUNT - 1) / 2) * LANE_WIDTH;
 }
@@ -2418,6 +2463,9 @@ function createRunners() {
   for (let i = 0; i < RUNNER_COUNT; i += 1) {
     const morph = morphKeys[i % morphKeys.length];
     const creature = createCreature(morph, COLORS[i % COLORS.length], i);
+    if (SIMPLIFIED_RACE_PAGE) {
+      applySimplifiedRaceVariation(creature, morph, i);
+    }
     const lane = i % LANE_COUNT;
     const row = Math.floor(i / LANE_COUNT);
 
@@ -3820,6 +3868,12 @@ async function boot() {
   await prepareHunyuanSAsset();
   createRunners();
   resetRace();
+
+  if (SIMPLIFIED_RACE_PAGE) {
+    canvas.dataset.simplifiedRace = "1";
+    canvas.dataset.runnerCount = String(runners.length);
+    canvas.dataset.morphSet = [...new Set(runners.map((runner) => runner.morph))].join("");
+  }
 
   if (INSPECT_MODE || MOTION_REVIEW_MODE) {
     const reviewIndex = Math.max(
