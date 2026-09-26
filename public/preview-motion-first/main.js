@@ -2444,10 +2444,14 @@ function createRunners() {
     scene.add(creature);
     runners.push(runner);
 
-    const option = document.createElement("option");
-    option.value = String(i);
-    option.textContent = `${runner.name} · ${morph}`;
-    runnerSelect.append(option);
+    if (!SIMPLIFIED_GAIT_PAGE || i < 4) {
+      const option = document.createElement("option");
+      option.value = String(i);
+      option.textContent = SIMPLIFIED_GAIT_PAGE
+        ? `${morph} · ${MORPHS[morph].label}`
+        : `${runner.name} · ${morph}`;
+      runnerSelect.append(option);
+    }
   }
 }
 
@@ -3743,6 +3747,14 @@ cameraButtons.forEach((button) => {
 
 runnerSelect.addEventListener("change", () => {
   selectedRunner = Number(runnerSelect.value);
+
+  if (SIMPLIFIED_GAIT_PAGE) {
+    const next = runners[selectedRunner];
+    if (!next) return;
+    const url = new URL(window.location.href);
+    url.searchParams.set("morph", next.morph);
+    window.location.href = url.toString();
+  }
 });
 
 pauseButton.addEventListener("click", () => {
