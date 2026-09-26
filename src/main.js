@@ -22,7 +22,7 @@ const hunyuanRacePack =
 const hunyuanRacePackSide = query.get("hunyuanRacePackSide") === "double" ? "double" : "front";
 const requestedHunyuanStrideMode = query.get("hunyuanStrideMode");
 const hunyuanStrideGain = THREE.MathUtils.clamp(
-  Number.parseFloat(query.get("hunyuanStrideGain") || "1") || 1,
+  Number.parseFloat(query.get("hunyuanStrideGain") || "0.90") || 0.90,
   0.5,
   1.5
 );
@@ -1083,6 +1083,7 @@ function syncHunyuanRaceAnimationSpeed() {
       stage.dataset.hunyuanStrideSync = strideMode === "kinematic"
         ? "world-kinematic"
         : "speed-linked";
+      stage.dataset.hunyuanStrideMode = strideMode;
       stage.dataset.hunyuanStrideTimeScale = cadence.toFixed(4);
       stage.dataset.hunyuanStrideSpeed = racer.speed.toFixed(4);
       stage.dataset.hunyuanStrideCruise = racer.cruise.toFixed(4);
