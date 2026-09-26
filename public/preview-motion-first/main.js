@@ -3710,7 +3710,11 @@ function updateSimplifiedRaceDirector() {
     return;
   }
 
-  if (raceTime < raceDirector.holdUntil && !leaderChanged) return;
+  if (raceTime < raceDirector.holdUntil && !leaderChanged) {
+    selectedRunner = raceDirector.focusId;
+    runnerSelect.value = String(raceDirector.focusId);
+    return;
+  }
 
   if (leaderChanged) {
     setDirectorShot("CHASE", leader.id, "LEAD_CHANGE", 2.9);
