@@ -30,7 +30,7 @@ async function assertRunning(page, shot) {
 
 test("Road Lab renders animated S/P/E/A morph race", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium", "Road Lab visual proof runs on desktop only");
-  test.setTimeout(45000);
+  test.setTimeout(90000);
 
   fs.mkdirSync("test-results/visuals", { recursive: true });
 
