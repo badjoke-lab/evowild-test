@@ -291,11 +291,14 @@ scene.fog = new THREE.Fog(0x92a7b3, 55, 230);
 
 const renderer = new THREE.WebGLRenderer({
   canvas,
-  antialias: true,
+  // In the 18-runner simplified race, frame continuity has priority over edge
+  // smoothing. The browser stretches the lower internal resolution back to
+  // the full canvas size.
+  antialias: !SIMPLIFIED_RACE_PAGE,
   powerPreference: "high-performance"
 });
 const renderPixelRatio = SIMPLIFIED_RACE_PAGE
-  ? 1
+  ? 0.6
   : SIMPLIFIED_GAIT_PAGE
     ? Math.min(window.devicePixelRatio || 1, 1.25)
     : Math.min(window.devicePixelRatio || 1, 1.5);
