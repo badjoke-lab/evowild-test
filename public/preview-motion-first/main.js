@@ -294,8 +294,14 @@ const renderer = new THREE.WebGLRenderer({
   antialias: true,
   powerPreference: "high-performance"
 });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+const renderPixelRatio = SIMPLIFIED_RACE_PAGE
+  ? 1
+  : SIMPLIFIED_GAIT_PAGE
+    ? Math.min(window.devicePixelRatio || 1, 1.25)
+    : Math.min(window.devicePixelRatio || 1, 1.5);
+renderer.setPixelRatio(renderPixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight, false);
+canvas.dataset.renderPixelRatio = String(renderPixelRatio);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.0;
