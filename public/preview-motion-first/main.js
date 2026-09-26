@@ -2543,7 +2543,9 @@ function resetRace() {
   raceDirector.lastLeaderId = 0;
   raceDirector.lastDecisionAt = -999;
   canvas.dataset.directorDecisionCount = "0";
+  canvas.dataset.directorCutCount = "0";
   canvas.dataset.directorReason = "START";
+  previousAppliedCamera = "PACK";
   pauseButton.textContent = "PAUSE";
   raceStateEl.textContent = "RUNNING";
 
@@ -3769,10 +3771,12 @@ function packCenter(out) {
   return out;
 }
 
+let previousAppliedCamera = "PACK";
+
 function updateCamera(dt) {
+  actualCamera = requestedCamera === "AUTO" ? autoCameraMode() : requestedCamera;
   const focus = runners[selectedRunner];
   const focusPos = focus.group.position;
-  actualCamera = requestedCamera === "AUTO" ? autoCameraMode() : requestedCamera;
 
   let targetFov = 58;
 
@@ -3908,6 +3912,26 @@ function updateCamera(dt) {
     requestedCamera === "AUTO"
       ? (SIMPLIFIED_RACE_PAGE ? 4.1 : 2.6)
       : 3.8;
+
+  const autoShotChanged =
+    SIMPLIFIED_RACE_PAGE &&
+    requestedCamera === "AUTO" &&
+    previousAppliedCamera !== actualCamera;
+
+  if (autoShotChanged) {
+    // Distinct broadcast angles should cut cleanly. Gliding a camera from a
+    // front shot through the pack into a chase shot looks like a broken free
+    // camera, not deliberate race direction.
+    camera.position.copy(desiredCamera);
+    cameraLook.copy(desiredLook);
+    camera.fov = targetFov;
+    camera.updateProjectionMatrix();
+    previousAppliedCamera = actualCamera;
+    canvas.dataset.directorCutCount = String(
+      Number(canvas.dataset.directorCutCount || "0") + 1
+    );
+  }
+
   camera.position.x = THREE.MathUtils.damp(camera.position.x, desiredCamera.x, transitionRate, dt);
   camera.position.y = THREE.MathUtils.damp(camera.position.y, desiredCamera.y, transitionRate, dt);
   camera.position.z = THREE.MathUtils.damp(camera.position.z, desiredCamera.z, transitionRate, dt);
