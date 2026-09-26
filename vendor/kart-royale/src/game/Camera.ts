@@ -436,6 +436,7 @@ const CUT_TURN = 0.8;
 const WORLD_UP = new THREE.Vector3(0, 1, 0);
 const EVOWILD_SPECTATOR = new URLSearchParams(location.search).get('evowildSpectator') === '1';
 const _eye = new THREE.Vector3();
+const _packCenter = new THREE.Vector3();
 const _aim = new THREE.Vector3();
 const _chaseEye = new THREE.Vector3();
 const _chaseAim = new THREE.Vector3();
@@ -875,6 +876,18 @@ export class ChaseCamera implements System {
    * side so the existing animation is spatially honest.
    */
   private poseEvowildSpectator(ctx: Ctx, k: IKart, dt: number) {
+    _packCenter.copy(k.position);
+    let packCount = 1;
+    for (const other of ctx.race.karts) {
+      if (other === k) continue;
+      const d2 = other.position.distanceToSquared(k.position);
+      if (d2 <= 18 * 18) {
+        _packCenter.add(other.position);
+        packCount++;
+      }
+    }
+    _packCenter.multiplyScalar(1 / packCount);
+
     _face.copy(k.forward);
     _face.y = 0;
     if (_face.lengthSq() < 1e-6) _face.set(0, 0, 1);
@@ -887,13 +900,14 @@ export class ChaseCamera implements System {
     const back = portrait ? 0.8 : 1.2;
     const height = portrait ? 2.25 : 2.45;
 
-    _eye.copy(k.position)
-      .addScaledVector(_right, side)
+    const packSide = packCount > 1 ? side + Math.min(2.2, (packCount - 1) * 0.28) : side;
+    _eye.copy(_packCenter)
+      .addScaledVector(_right, packSide)
       .addScaledVector(_face, -back)
       .addScaledVector(WORLD_UP, height);
 
-    _aim.copy(k.position)
-      .addScaledVector(_face, 1.15)
+    _aim.copy(_packCenter)
+      .addScaledVector(_face, 0.9)
       .addScaledVector(WORLD_UP, 0.95);
 
     const a = 1 - Math.exp(-8 * dt);
