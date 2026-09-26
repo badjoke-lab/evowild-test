@@ -22,7 +22,7 @@ const hunyuanRacePack =
 const hunyuanRacePackSide = query.get("hunyuanRacePackSide") === "double" ? "double" : "front";
 const requestedHunyuanStrideMode = query.get("hunyuanStrideMode");
 const hunyuanStrideGain = THREE.MathUtils.clamp(
-  Number.parseFloat(query.get("hunyuanStrideGain") || "0.90") || 0.90,
+  Number.parseFloat(query.get("hunyuanStrideGain") || "1.00") || 1.00,
   0.5,
   1.5
 );
@@ -971,7 +971,7 @@ function setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData, lod4Rigg
       mixer.clipAction(clip).play();
       if (clip.duration > 0) mixer.setTime((index / racers.length) * clip.duration);
       sf3dRaceMixers.push(mixer);
-      hunyuanRaceMixerBindings.push({ racerId: racer.id, mixer, role: "far" });
+      hunyuanRaceMixerBindings.push({ racerId: racer.id, mixer, role: "far", duration: clip.duration || 1 });
       hunyuanRacePackRiggedFar.push({ racerId: racer.id, model });
     });
 
@@ -1014,7 +1014,12 @@ function setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData, lod4Rigg
       const mixer = new THREE.AnimationMixer(hunyuanRacePackRiggedSelected);
       mixer.clipAction(riggedData.animations[0]).play();
       sf3dRaceMixers.push(mixer);
-      hunyuanRaceMixerBindings.push({ racerId: selectedRacer.id, mixer, role: "selected" });
+      hunyuanRaceMixerBindings.push({
+        racerId: selectedRacer.id,
+        mixer,
+        role: "selected",
+        duration: riggedData.animations[0].duration || 1
+      });
       window.__hunyuanRacePackRiggedSelected = hunyuanRacePackRiggedSelected;
       stage.dataset.hunyuanRacePackRigged = "playing";
       stage.dataset.hunyuanRacePackRiggedClip = riggedData.animations[0].name || "unnamed";
@@ -1090,6 +1095,9 @@ function syncHunyuanRaceAnimationSpeed() {
       stage.dataset.hunyuanStrideWorldSpeed = desiredWorldSpeed.toFixed(5);
       stage.dataset.hunyuanStrideCurveScale = raceWorldUnitsPerMeter.toFixed(7);
       stage.dataset.hunyuanStrideGain = hunyuanStrideGain.toFixed(3);
+      const clipDuration = Math.max(1e-6, binding.duration || 1);
+      const normalizedPhase = ((binding.mixer.time % clipDuration) + clipDuration) % clipDuration / clipDuration;
+      stage.dataset.hunyuanStridePhase = normalizedPhase.toFixed(6);
       stage.dataset.hunyuanStrideBakedStanceSpeed =
         bakedStanceWorldSpeed === null ? "legacy" : bakedStanceWorldSpeed.toFixed(5);
     }
