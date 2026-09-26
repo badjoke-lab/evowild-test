@@ -73,6 +73,8 @@ const cameraLook = new THREE.Vector3();
 const desiredCamera = new THREE.Vector3();
 const desiredLook = new THREE.Vector3();
 const tempV = new THREE.Vector3();
+const focusBounds = new THREE.Box3();
+const focusCorner = new THREE.Vector3();
 
 const COLORS = [
   0xe65050, 0x3a88e8, 0x56be6e, 0xe2bd43, 0x965ce7, 0x48c7c4,
@@ -1463,6 +1465,38 @@ function packCenter(out) {
   return out;
 }
 
+function updateFocusFrameMetrics(focus) {
+  if (!MOTION_REVIEW_MODE) return;
+
+  focusBounds.setFromObject(focus.group);
+  const min = focusBounds.min;
+  const max = focusBounds.max;
+
+  let minX = Infinity;
+  let maxX = -Infinity;
+  let minY = Infinity;
+  let maxY = -Infinity;
+
+  for (const x of [min.x, max.x]) {
+    for (const y of [min.y, max.y]) {
+      for (const z of [min.z, max.z]) {
+        focusCorner.set(x, y, z).project(camera);
+        minX = Math.min(minX, focusCorner.x);
+        maxX = Math.max(maxX, focusCorner.x);
+        minY = Math.min(minY, focusCorner.y);
+        maxY = Math.max(maxY, focusCorner.y);
+      }
+    }
+  }
+
+  canvas.dataset.focusMinX = String(minX);
+  canvas.dataset.focusMaxX = String(maxX);
+  canvas.dataset.focusMinY = String(minY);
+  canvas.dataset.focusMaxY = String(maxY);
+  canvas.dataset.focusWidth = String(maxX - minX);
+  canvas.dataset.focusHeight = String(maxY - minY);
+}
+
 function updateCamera(dt) {
   const focus = runners[selectedRunner];
   const focusPos = focus.group.position;
@@ -1535,6 +1569,8 @@ function updateCamera(dt) {
     camera.fov = THREE.MathUtils.damp(camera.fov, targetFov, transitionRate + 0.5, dt);
     camera.updateProjectionMatrix();
     camera.lookAt(cameraLook);
+    camera.updateMatrixWorld();
+    updateFocusFrameMetrics(focus);
     return;
   }
 
