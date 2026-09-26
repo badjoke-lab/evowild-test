@@ -207,22 +207,7 @@ def main():
     bpy.ops.import_scene.gltf(filepath=input_path)
     obj=join_meshes()
 
-    # Force a simple material before any CI render; geometry is what is being reviewed.
-    for slot in obj.material_slots:
-        mat=slot.material
-        if mat:
-            mat.use_nodes=True
-            bsdf=mat.node_tree.nodes.get("Principled BSDF")
-            if bsdf:
-                bsdf.inputs["Base Color"].default_value=(0.38,0.46,0.58,1.0)
-                bsdf.inputs["Roughness"].default_value=0.72
-                bsdf.inputs["Metallic"].default_value=0.05
-
-    render_views(obj,render_dir,"baseline")
-
     stats=refine_shape(obj)
-
-    render_views(obj,render_dir,"shape-v2")
 
     bpy.ops.object.select_all(action="DESELECT")
     obj.select_set(True)
