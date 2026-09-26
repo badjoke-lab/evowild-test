@@ -1,4 +1,5 @@
 name: deploy-rig-v3-preview
+# Candidate default: v31hybrid (speed-linked cadence + contact-phased follow rig)
 
 on:
   push:
