@@ -21,7 +21,7 @@ const hunyuanRacePack =
   (preview3d && !query.has("hunyuanRacePack"));
 const hunyuanRacePackSide = query.get("hunyuanRacePackSide") === "double" ? "double" : "front";
 const requestedHunyuanGait = query.get("hunyuanGait");
-const hunyuanGaitVersion = ["v1", "v2", "v21", "v3", "v3hybrid", "v31", "v31hybrid"].includes(requestedHunyuanGait)
+const hunyuanGaitVersion = ["v1", "v2", "v21", "v3", "v3hybrid", "v31", "v31hybrid", "v4hybrid"].includes(requestedHunyuanGait)
   ? requestedHunyuanGait
   : "v31hybrid";
 const previewRenderScale = preview3d ? (isMobile ? 0.5 : 0.75) : 1;
@@ -1411,14 +1411,16 @@ loadCreature3D(sf3dProfile)
                 ? CREATURE_3D_PROFILES.sHunyuan2mvRiggedV21
                 : hunyuanGaitVersion === "v31" || hunyuanGaitVersion === "v31hybrid"
                   ? CREATURE_3D_PROFILES.sHunyuan2mvRiggedV31
-                  : CREATURE_3D_PROFILES.sHunyuan2mvRiggedV3
+                  : hunyuanGaitVersion === "v4hybrid"
+                    ? CREATURE_3D_PROFILES.sHunyuan2mvRiggedV4
+                    : CREATURE_3D_PROFILES.sHunyuan2mvRiggedV3
         ),
         loadCreature3D(
           hunyuanGaitVersion === "v1"
             ? CREATURE_3D_PROFILES.sHunyuan2mvLod4Rigged
             : hunyuanGaitVersion === "v2"
               ? CREATURE_3D_PROFILES.sHunyuan2mvLod4RiggedV2
-              : hunyuanGaitVersion === "v21" || hunyuanGaitVersion === "v3hybrid" || hunyuanGaitVersion === "v31hybrid"
+              : hunyuanGaitVersion === "v21" || hunyuanGaitVersion === "v3hybrid" || hunyuanGaitVersion === "v31hybrid" || hunyuanGaitVersion === "v4hybrid"
                 ? CREATURE_3D_PROFILES.sHunyuan2mvLod4RiggedV21
                 : hunyuanGaitVersion === "v31"
                   ? CREATURE_3D_PROFILES.sHunyuan2mvLod4RiggedV31
