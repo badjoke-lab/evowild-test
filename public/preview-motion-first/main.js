@@ -25,7 +25,8 @@ const RUNNER_COUNT = 18;
 const WORLD_END = 1800;
 const params = new URLSearchParams(window.location.search);
 const INSPECT_MODE = params.get("inspect") === "1";
-const MOTION_REVIEW_MODE = params.get("motion") === "1" || window.location.pathname.includes("/preview-motion-first-gait/");
+const SIMPLIFIED_GAIT_PAGE = window.location.pathname.includes("/preview-motion-first-gait/");
+const MOTION_REVIEW_MODE = params.get("motion") === "1" || SIMPLIFIED_GAIT_PAGE;
 const REVIEW_MORPH = (params.get("morph") || "S").toUpperCase();
 const TAU = Math.PI * 2;
 const S_GAIT = {
@@ -73,6 +74,21 @@ function chooseHunyuanSAssetKey() {
 }
 
 async function prepareHunyuanSAsset() {
+  // The dedicated Motion First gait page is the intentionally simplified
+  // visual lane. Keep it independent from the parallel Hunyuan / high-detail
+  // S pipeline even though both currently share this runtime module.
+  if (SIMPLIFIED_GAIT_PAGE) {
+    activeSAssetKey = null;
+    activeSAsset = null;
+    canvas.dataset.sAsset = "procedural-simplified-lane";
+    canvas.dataset.sAssetUrl = "none";
+    canvas.dataset.sAssetReady = "0";
+    canvas.dataset.sAnimationClips = "0";
+    canvas.dataset.sAnimationClipName = "none";
+    canvas.dataset.sSimplifiedLane = "1";
+    return false;
+  }
+
   activeSAssetKey = chooseHunyuanSAssetKey();
   const profile = HUNYUAN_S_ASSETS[activeSAssetKey];
 
