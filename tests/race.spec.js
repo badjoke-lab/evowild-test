@@ -1681,6 +1681,169 @@ test("compare legacy and calibrated v4 foot slip", async ({ page }, testInfo) =>
 });
 
 
+test("phase-calibrate Hunyuan v4 planted-foot slip", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(180000);
+
+  const candidates = [
+    { label: "legacy", mode: "legacy", gain: 1.0 },
+    { label: "g080", mode: "kinematic", gain: 0.80 },
+    { label: "g100", mode: "kinematic", gain: 1.00 },
+    { label: "g120", mode: "kinematic", gain: 1.20 },
+    { label: "g140", mode: "kinematic", gain: 1.40 }
+  ];
+  const results = [];
+
+  const measure = async () => page.evaluate(() => new Promise((resolve) => {
+    const stage = document.querySelector("#stage");
+    const model = window.__hunyuanRacePackRiggedSelected;
+    let foot = null;
+    model?.traverse((node) => {
+      if (node.isBone && node.name === "fore_L_foot") foot = node;
+    });
+    const racer = model?.parent;
+
+    if (!foot || !racer || !stage) {
+      resolve({ error: "foot_or_racer_missing" });
+      return;
+    }
+
+    const samples = [];
+    let previous = null;
+    const started = performance.now();
+
+    function snapshot(now) {
+      foot.updateWorldMatrix(true, false);
+      racer.updateWorldMatrix(true, false);
+
+      const fe = foot.matrixWorld.elements;
+      const re = racer.matrixWorld.elements;
+      const forwardLength = Math.hypot(re[0], re[2]) || 1;
+
+      return {
+        t: now,
+        phase: Number(stage.dataset.hunyuanStridePhase || "0"),
+        footX: fe[12],
+        footY: fe[13],
+        footZ: fe[14],
+        racerX: re[12],
+        racerZ: re[14],
+        forwardX: re[0] / forwardLength,
+        forwardZ: re[2] / forwardLength,
+        worldSpeed: Number(stage.dataset.hunyuanStrideWorldSpeed || "0"),
+        timeScale: Number(stage.dataset.hunyuanStrideTimeScale || "0")
+      };
+    }
+
+    function tick(now) {
+      const current = snapshot(now);
+      const u = (current.phase + 0.54) % 1.0;
+      current.stance = u < 0.40;
+
+      if (previous) {
+        const previousU = (previous.phase + 0.54) % 1.0;
+        const previousStance = previousU < 0.40;
+
+        if (current.stance && previousStance && current.phase >= previous.phase) {
+          const dt = Math.max(1e-6, (current.t - previous.t) / 1000);
+          const fx = (current.forwardX + previous.forwardX) * 0.5;
+          const fz = (current.forwardZ + previous.forwardZ) * 0.5;
+          const fl = Math.hypot(fx, fz) || 1;
+          const nx = fx / fl;
+          const nz = fz / fl;
+
+          const footDx = current.footX - previous.footX;
+          const footDz = current.footZ - previous.footZ;
+          const racerDx = current.racerX - previous.racerX;
+          const racerDz = current.racerZ - previous.racerZ;
+
+          samples.push({
+            footForward: (footDx * nx + footDz * nz) / dt,
+            racerForward: (racerDx * nx + racerDz * nz) / dt,
+            relativeForward: ((footDx - racerDx) * nx + (footDz - racerDz) * nz) / dt,
+            worldSpeed: (current.worldSpeed + previous.worldSpeed) * 0.5,
+            timeScale: (current.timeScale + previous.timeScale) * 0.5,
+            footY: (current.footY + previous.footY) * 0.5
+          });
+        }
+      }
+
+      previous = current;
+      if (now - started >= 4600) {
+        const avg = (values) =>
+          values.reduce((sum, value) => sum + value, 0) / Math.max(1, values.length);
+        resolve({
+          stanceSamples: samples.length,
+          meanAbsFootForwardSpeed: Number(
+            avg(samples.map((s) => Math.abs(s.footForward))).toFixed(5)
+          ),
+          meanSignedFootForwardSpeed: Number(
+            avg(samples.map((s) => s.footForward)).toFixed(5)
+          ),
+          meanRacerForwardSpeed: Number(
+            avg(samples.map((s) => s.racerForward)).toFixed(5)
+          ),
+          meanRelativeFootForwardSpeed: Number(
+            avg(samples.map((s) => s.relativeForward)).toFixed(5)
+          ),
+          meanDeclaredWorldSpeed: Number(
+            avg(samples.map((s) => s.worldSpeed)).toFixed(5)
+          ),
+          meanTimeScale: Number(
+            avg(samples.map((s) => s.timeScale)).toFixed(5)
+          ),
+          meanFootY: Number(
+            avg(samples.map((s) => s.footY)).toFixed(5)
+          )
+        });
+        return;
+      }
+      requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  }));
+
+  for (const candidate of candidates) {
+    await page.goto(
+      `/evowild-test/?sf3dVariant=hunyuanstyled&hunyuanRacePack=1&hunyuanRacePackSide=front&hunyuanGait=v4hybrid&hunyuanStrideMode=${candidate.mode}&hunyuanStrideGain=${candidate.gain}&renderScale=0.75`,
+      { waitUntil: "domcontentloaded", timeout: 30000 }
+    );
+
+    const stage = page.locator("#stage");
+    await expect(stage).toHaveAttribute("data-hunyuan-race-pack", "loaded", { timeout: 30000 });
+    await page.getByRole("button", { name: "3 Follow" }).click();
+
+    await expect.poll(
+      async () => Number(await stage.getAttribute("data-hunyuan-stride-speed")),
+      { timeout: 12000, intervals: [250, 250, 500, 500, 750] }
+    ).toBeGreaterThan(14.5);
+
+    await expect(stage).toHaveAttribute("data-hunyuan-stride-phase", /\d+\.\d+/);
+    const measured = await measure();
+
+    results.push({
+      ...candidate,
+      sync: await stage.getAttribute("data-hunyuan-stride-sync"),
+      bakedStanceSpeed: await stage.getAttribute("data-hunyuan-stride-baked-stance-speed"),
+      curveScale: Number(await stage.getAttribute("data-hunyuan-stride-curve-scale")),
+      ...measured
+    });
+  }
+
+  const valid = results.filter((r) =>
+    Number.isFinite(r.meanAbsFootForwardSpeed) && r.stanceSamples >= 3
+  );
+  valid.sort((a, b) => a.meanAbsFootForwardSpeed - b.meanAbsFootForwardSpeed);
+
+  expect(valid.length).toBe(candidates.length);
+  console.log("HUNYUAN_V4_PHASE_SLIP", JSON.stringify({
+    best: valid[0],
+    ordered: valid
+  }));
+});
+
+
 test("benchmark moving 18 Hunyuan mixed LOD race", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(150000);
