@@ -63,9 +63,13 @@ test("Motion First S gait records continuous SIDE and LOW review video", async (
 
   const pageErrors = [];
   const consoleErrors = [];
+  const highDetailAssetRequests = [];
   page.on("pageerror", (err) => pageErrors.push(err.stack || String(err)));
   page.on("console", (msg) => {
     if (msg.type() === "error") consoleErrors.push(msg.text());
+  });
+  page.on("request", (request) => {
+    if (request.url().includes("/models/evowild-s/")) highDetailAssetRequests.push(request.url());
   });
 
   await page.goto("http://127.0.0.1:4173/evowild-test/preview-motion-first-gait/index.html", {
@@ -101,6 +105,7 @@ test("Motion First S gait records continuous SIDE and LOW review video", async (
   await video.saveAs(`${outDir}/motion-first-s-gait-review.webm`);
   await context.close();
 
+  expect(highDetailAssetRequests).toEqual([]);
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
 });
@@ -390,6 +395,108 @@ test("Motion First normal race uses Hunyuan LOD4 rigged S", async ({ page }, tes
   await page.locator("#scene").screenshot({
     path: "test-results/visuals/motion-first-hunyuan-race.png"
   });
+
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+});
+
+
+test("Motion First Phase D A body captures same-species multi-view inspection", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(45000);
+
+  const pageErrors = [];
+  const consoleErrors = [];
+  page.on("pageerror", (err) => pageErrors.push(err.stack || String(err)));
+  page.on("console", (msg) => {
+    if (msg.type() === "error") consoleErrors.push(msg.text());
+  });
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  await page.goto("/evowild-test/preview-motion-first/index.html?inspect=1&morph=A", {
+    waitUntil: "networkidle"
+  });
+
+  await expect(page.locator("#scene")).toBeVisible();
+  await expect(page.locator("#morphReadout")).toHaveText("A");
+  await expect(page.locator("#runnerName")).toContainText("AGILITY");
+  await expect(page.locator("#raceState")).toHaveText("INSPECT");
+
+  for (const view of ["SIDE", "CHASE", "LOW", "FRONT"]) {
+    await page.getByRole("button", { name: view, exact: true }).click({ force: true });
+    await expect(page.locator("#cameraReadout")).toHaveText(view);
+    await page.waitForTimeout(700);
+    await page.locator("#scene").screenshot({
+      path: `${outDir}/motion-first-phase-d-a-${view.toLowerCase()}.png`
+    });
+  }
+
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+});
+
+test("Motion First Phase D A gait proves banking flex and planted stance", async ({ browser }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(80000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const context = await browser.newContext({
+    viewport: { width: 1280, height: 720 },
+    recordVideo: {
+      dir: outDir,
+      size: { width: 1280, height: 720 }
+    }
+  });
+  const page = await context.newPage();
+
+  const pageErrors = [];
+  const consoleErrors = [];
+  page.on("pageerror", (err) => pageErrors.push(err.stack || String(err)));
+  page.on("console", (msg) => {
+    if (msg.type() === "error") consoleErrors.push(msg.text());
+  });
+
+  await page.goto("http://127.0.0.1:4173/evowild-test/preview-motion-first-gait/index.html?morph=A", {
+    waitUntil: "networkidle"
+  });
+
+  await expect(page.locator("#scene")).toBeVisible();
+  await expect(page.locator("#raceState")).toHaveText("MOTION REVIEW");
+  await expect(page.locator("#morphReadout")).toHaveText("A");
+  await expect(page.locator("#runnerName")).toContainText("AGILITY");
+  await expect(page.locator("#cameraReadout")).toHaveText("SIDE");
+
+  await page.waitForTimeout(6200);
+
+  await page.getByRole("button", { name: "LOW", exact: true }).click({ force: true });
+  await expect(page.locator("#cameraReadout")).toHaveText("LOW");
+  await page.waitForTimeout(2600);
+
+  await expect(page.locator("#scene")).toHaveAttribute("data-a-ik-clamped", "0");
+
+  const stanceSlip = Number(await page.locator("#scene").getAttribute("data-a-max-stance-slip"));
+  expect(Number.isFinite(stanceSlip)).toBeTruthy();
+  expect(stanceSlip).toBeLessThan(0.12);
+
+  const maxBank = Number(await page.locator("#scene").getAttribute("data-a-max-bank"));
+  expect(Number.isFinite(maxBank)).toBeTruthy();
+  expect(maxBank).toBeGreaterThan(0.10);
+
+  const maxFlex = Number(await page.locator("#scene").getAttribute("data-a-max-flex"));
+  expect(Number.isFinite(maxFlex)).toBeTruthy();
+  expect(maxFlex).toBeGreaterThan(0.08);
+
+  const video = page.video();
+  await page.close();
+  if (!video) throw new Error("Playwright A gait video was not created");
+  await video.saveAs(`${outDir}/motion-first-a-gait-review.webm`);
+  await context.close();
 
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);

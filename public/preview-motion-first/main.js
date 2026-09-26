@@ -270,6 +270,18 @@ const E_GAIT = {
   pelvisBaseY: -0.03
 };
 
+const A_GAIT = {
+  baseY: 1.34,
+  minStrideWorld: 3.05,
+  maxStrideWorld: 4.85,
+  stance: 0.23,
+  swingLift: 0.43,
+  chestBaseZ: 0.48,
+  pelvisBaseZ: -0.60,
+  chestBaseY: -0.02,
+  pelvisBaseY: -0.07
+};
+
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x92a7b3);
 scene.fog = new THREE.Fog(0x92a7b3, 55, 230);
@@ -1807,6 +1819,407 @@ function createEndureCreature(color, index) {
   return root;
 }
 
+function makeAgilityLimb(parent, upperMat, lowerMat, jointMat, plateMat, side, fore) {
+  const hip = new THREE.Group();
+  hip.position.set(
+    side * (fore ? 0.39 : 0.37),
+    fore ? -0.13 : -0.11,
+    fore ? 0.24 : -0.23
+  );
+  parent.add(hip);
+
+  const upperLen = fore ? 0.66 : 0.69;
+  const lowerLen = fore ? 0.56 : 0.59;
+  const cannonLen = fore ? 0.26 : 0.28;
+
+  const upper = makeMesh(
+    new THREE.CylinderGeometry(0.085, 0.125, upperLen, 6),
+    upperMat,
+    hip,
+    [0, -upperLen / 2, 0.045]
+  );
+  upper.rotation.z = side * (fore ? 0.05 : 0.065);
+
+  const knee = new THREE.Group();
+  knee.position.set(0, -upperLen, 0.085);
+  hip.add(knee);
+
+  makeMesh(
+    new THREE.IcosahedronGeometry(fore ? 0.105 : 0.115, 0),
+    jointMat,
+    knee
+  );
+
+  const lower = makeMesh(
+    new THREE.CylinderGeometry(0.055, 0.085, lowerLen, 6),
+    lowerMat,
+    knee,
+    [0, -lowerLen / 2, 0.055]
+  );
+  lower.rotation.z = side * (fore ? -0.035 : 0.040);
+
+  const ankle = new THREE.Group();
+  ankle.position.set(0, -lowerLen, 0.105);
+  knee.add(ankle);
+
+  makeMesh(
+    new THREE.IcosahedronGeometry(0.082, 0),
+    jointMat,
+    ankle
+  );
+
+  makeMesh(
+    new THREE.CylinderGeometry(0.040, 0.055, cannonLen, 5),
+    upperMat,
+    ankle,
+    [0, -cannonLen / 2, 0.040]
+  );
+
+  const foot = new THREE.Group();
+  foot.position.set(0, -cannonLen, 0.078);
+  ankle.add(foot);
+
+  const sole = makeMesh(
+    new THREE.BoxGeometry(0.20, 0.070, 0.31),
+    jointMat,
+    foot,
+    [0, -0.018, 0.09]
+  );
+  sole.rotation.x = -0.08;
+
+  [-1, 1].forEach((toeSide) => {
+    const toe = makeTaperedPlate(
+      0.27,
+      0.080,
+      0.055,
+      plateMat,
+      foot,
+      [toeSide * 0.058, -0.006, 0.23]
+    );
+    toe.rotation.x = -0.075;
+    toe.rotation.y = toeSide * 0.11;
+  });
+
+  return {
+    hip,
+    knee,
+    ankle,
+    foot,
+    phaseOffset: fore
+      ? (side < 0 ? TAU * 0.48 : TAU * 0.57)
+      : (side < 0 ? 0 : TAU * 0.07),
+    upperLen,
+    lowerLen,
+    cannonLen,
+    side,
+    fore
+  };
+}
+
+function createAgilityCreature(color, index) {
+  const cfg = MORPHS.A;
+  const root = new THREE.Group();
+  const bodyMaster = new THREE.Group();
+  bodyMaster.position.y = A_GAIT.baseY;
+  root.add(bodyMaster);
+
+  const baseColor = new THREE.Color(color);
+  const primary = mat(baseColor);
+  const secondary = mat(baseColor.clone().multiplyScalar(0.76));
+  const joint = mat(baseColor.clone().multiplyScalar(0.48), 0.78);
+  const underside = mat(0x242a2f, 0.84);
+  const plate = new THREE.MeshStandardMaterial({
+    color: baseColor.clone().lerp(new THREE.Color(0xb7d7df), 0.22),
+    roughness: 0.58,
+    metalness: 0.05,
+    flatShading: true
+  });
+  const cue = new THREE.MeshStandardMaterial({
+    color: 0x172129,
+    emissive: baseColor.clone().multiplyScalar(0.50),
+    emissiveIntensity: 0.92,
+    roughness: 0.34,
+    metalness: 0.12,
+    flatShading: true
+  });
+
+  const chestPivot = new THREE.Group();
+  chestPivot.position.set(0, A_GAIT.chestBaseY, A_GAIT.chestBaseZ);
+  bodyMaster.add(chestPivot);
+
+  const pelvisPivot = new THREE.Group();
+  pelvisPivot.position.set(0, A_GAIT.pelvisBaseY, A_GAIT.pelvisBaseZ);
+  bodyMaster.add(pelvisPivot);
+
+  // Compact, low body with a visible flexible bridge. A should look ready to
+  // bank and change direction rather than simply being a smaller S.
+  makeMesh(
+    new THREE.IcosahedronGeometry(0.56, 1),
+    primary,
+    chestPivot,
+    [0, -0.01, 0.02],
+    [0.76, 0.58, 1.02]
+  );
+
+  makeMesh(
+    new THREE.IcosahedronGeometry(0.54, 1),
+    secondary,
+    pelvisPivot,
+    [0, -0.02, -0.02],
+    [0.78, 0.56, 0.98]
+  );
+
+  const waist = makeMesh(
+    new THREE.CylinderGeometry(0.225, 0.255, 0.78, 7),
+    secondary,
+    bodyMaster,
+    [0, -0.10, -0.04]
+  );
+  waist.rotation.x = Math.PI / 2;
+
+  const keel = makeMesh(
+    new THREE.BoxGeometry(0.34, 0.105, 1.06),
+    underside,
+    bodyMaster,
+    [0, -0.35, -0.03]
+  );
+
+  [-1, 1].forEach((side) => {
+    const shoulder = makeTaperedPlate(
+      0.70,
+      0.18,
+      0.10,
+      plate,
+      chestPivot,
+      [side * 0.34, 0.13, 0.06]
+    );
+    shoulder.rotation.y = side * 0.065;
+    shoulder.rotation.x = -0.08;
+
+    const flank = makeTaperedPlate(
+      0.64,
+      0.16,
+      0.085,
+      secondary,
+      pelvisPivot,
+      [side * 0.31, 0.10, -0.04]
+    );
+    flank.rotation.y = side * -0.05;
+    flank.rotation.x = 0.06;
+  });
+
+  const spinePlate = makeTaperedPlate(
+    1.08,
+    0.105,
+    0.075,
+    plate,
+    bodyMaster,
+    [0, 0.30, -0.06]
+  );
+  spinePlate.rotation.x = -0.035;
+
+  const neckPivot = new THREE.Group();
+  neckPivot.position.set(0, 0.02, 0.88);
+  chestPivot.add(neckPivot);
+
+  makeMesh(
+    new THREE.IcosahedronGeometry(0.255, 1),
+    primary,
+    neckPivot,
+    [0, -0.03, -0.05],
+    [0.92, 0.72, 1.00]
+  );
+
+  const neck = makeMesh(
+    new THREE.CylinderGeometry(0.145, 0.215, 0.58, 6),
+    primary,
+    neckPivot,
+    [0, -0.01, 0.28]
+  );
+  neck.rotation.x = Math.PI / 2 + 0.01;
+
+  const neckKeel = makeTaperedPlate(
+    0.54,
+    0.14,
+    0.065,
+    underside,
+    neckPivot,
+    [0, -0.135, 0.25]
+  );
+
+  const headPivot = new THREE.Group();
+  headPivot.position.set(0, 0.02, 0.46);
+  neckPivot.add(headPivot);
+
+  makeMesh(
+    new THREE.IcosahedronGeometry(0.32, 1),
+    primary,
+    headPivot,
+    [0, -0.01, 0.21],
+    [0.62, 0.50, 0.94]
+  );
+
+  const muzzle = makeMesh(
+    new THREE.ConeGeometry(0.145, 0.34, 5),
+    secondary,
+    headPivot,
+    [0, -0.055, 0.51]
+  );
+  muzzle.rotation.x = Math.PI / 2;
+
+  // A crest stays low and rear-swept to keep the crouched silhouette intact.
+  const crestRoot = new THREE.Group();
+  crestRoot.position.set(0, 0.16, 0.05);
+  headPivot.add(crestRoot);
+
+  const crestUpper = makeTaperedPlate(
+    0.72,
+    0.13,
+    0.070,
+    plate,
+    crestRoot,
+    [0, 0.015, -0.28]
+  );
+  crestUpper.rotation.x = -0.10;
+
+  const crestLower = makeTaperedPlate(
+    0.48,
+    0.085,
+    0.050,
+    underside,
+    crestRoot,
+    [0, -0.065, -0.17]
+  );
+  crestLower.rotation.x = -0.04;
+
+  const eyeMat = new THREE.MeshBasicMaterial({ color: 0xbef7ff });
+  [-1, 1].forEach((side) => {
+    makeMesh(
+      new THREE.SphereGeometry(0.028, 5, 4),
+      eyeMat,
+      headPivot,
+      [side * 0.17, 0.04, 0.42]
+    );
+  });
+
+  const cueBand = new THREE.Group();
+  cueBand.position.set(0, 0.055, 0.20);
+  headPivot.add(cueBand);
+
+  makeMesh(
+    new THREE.BoxGeometry(0.40, 0.052, 0.12),
+    cue,
+    cueBand,
+    [0, 0.115, 0]
+  );
+
+  [-1, 1].forEach((side) => {
+    makeMesh(
+      new THREE.BoxGeometry(0.062, 0.15, 0.14),
+      cue,
+      cueBand,
+      [side * 0.215, 0.005, 0.018]
+    );
+    makeMesh(
+      new THREE.SphereGeometry(0.039, 6, 4),
+      new THREE.MeshBasicMaterial({ color: side < 0 ? 0xffcf62 : 0x6eeaff }),
+      cueBand,
+      [side * 0.242, 0.005, 0.060]
+    );
+  });
+
+  const legs = {
+    fl: makeAgilityLimb(chestPivot, primary, secondary, joint, plate, -1, true),
+    fr: makeAgilityLimb(chestPivot, primary, secondary, joint, plate, 1, true),
+    hl: makeAgilityLimb(pelvisPivot, secondary, primary, joint, plate, -1, false),
+    hr: makeAgilityLimb(pelvisPivot, secondary, primary, joint, plate, 1, false)
+  };
+
+  const tailBase = new THREE.Group();
+  tailBase.position.set(0, -0.01, -0.62);
+  tailBase.rotation.x = -0.30;
+  pelvisPivot.add(tailBase);
+
+  const tailSegments = [];
+  let tailParent = tailBase;
+  const tailLengths = [0.31, 0.28, 0.24];
+
+  tailLengths.forEach((segLen, i) => {
+    const jointNode = new THREE.Group();
+    if (i > 0) jointNode.position.z = -tailLengths[i - 1];
+    tailParent.add(jointNode);
+
+    const seg = makeMesh(
+      new THREE.CylinderGeometry(
+        Math.max(0.032, 0.070 - i * 0.014),
+        Math.max(0.042, 0.092 - i * 0.016),
+        segLen,
+        5
+      ),
+      i === 0 ? secondary : primary,
+      jointNode,
+      [0, 0, -segLen / 2]
+    );
+    seg.rotation.x = Math.PI / 2;
+    tailSegments.push(jointNode);
+    tailParent = jointNode;
+  });
+
+  // Small bifurcated terminal plates make the A tail read as a balance surface.
+  [-1, 1].forEach((side) => {
+    const blade = makeTaperedPlate(
+      0.24,
+      0.070,
+      0.050,
+      plate,
+      tailParent,
+      [side * 0.045, 0, -0.09]
+    );
+    blade.rotation.y = side * 0.18;
+    blade.scale.z = -1;
+  });
+
+  const shadowMat = new THREE.MeshBasicMaterial({
+    color: 0x000000,
+    transparent: true,
+    opacity: 0.20,
+    depthWrite: false
+  });
+  const shadow = new THREE.Mesh(new THREE.CircleGeometry(1.0, 18), shadowMat);
+  shadow.rotation.x = -Math.PI / 2;
+  shadow.scale.set(1.02, 1.32, 1);
+  shadow.position.y = 0.025;
+  root.add(shadow);
+
+  root.userData = {
+    cfg,
+    morphKey: "A",
+    index,
+    bodyMaster,
+    chestPivot,
+    pelvisPivot,
+    waist,
+    keel,
+    neckPivot,
+    headPivot,
+    tailSegments,
+    legs,
+    phase: index * 0.61,
+    turnLean: 0,
+    accelLean: 0,
+    neckLag: -0.02,
+    headLag: 0,
+    tailPitchState: tailSegments.map(() => 0),
+    tailYawState: tailSegments.map(() => 0),
+    strideLength: A_GAIT.minStrideWorld,
+    maxStanceSlip: 0,
+    maxBank: 0,
+    maxFlex: 0
+  };
+
+  return root;
+}
+
 function createCreature(morphKey, color, index) {
   if (morphKey === "S") {
     return activeSAsset
@@ -1818,6 +2231,9 @@ function createCreature(morphKey, color, index) {
   }
   if (morphKey === "E") {
     return createEndureCreature(color, index);
+  }
+  if (morphKey === "A") {
+    return createAgilityCreature(color, index);
   }
 
   const cfg = MORPHS[morphKey];
@@ -2028,10 +2444,14 @@ function createRunners() {
     scene.add(creature);
     runners.push(runner);
 
-    const option = document.createElement("option");
-    option.value = String(i);
-    option.textContent = `${runner.name} · ${morph}`;
-    runnerSelect.append(option);
+    if (!SIMPLIFIED_GAIT_PAGE || i < 4) {
+      const option = document.createElement("option");
+      option.value = String(i);
+      option.textContent = SIMPLIFIED_GAIT_PAGE
+        ? `${morph} · ${MORPHS[morph].label}`
+        : `${runner.name} · ${morph}`;
+      runnerSelect.append(option);
+    }
   }
 }
 
@@ -2096,6 +2516,12 @@ function updateRunner(runner, dt) {
 
   maybeChangeLane(runner);
 
+  if (MOTION_REVIEW_MODE && REVIEW_MORPH === "A" && runner.morph === "A") {
+    const reviewLane = Math.sin(raceTime * 0.92) >= 0 ? 5 : 3;
+    runner.targetLane = reviewLane;
+    runner.lane = reviewLane;
+  }
+
   const targetX = laneToX(runner.targetLane);
   const oldX = runner.laneX;
   runner.laneX = THREE.MathUtils.damp(runner.laneX, targetX, runner.morph === "A" ? 2.7 : 2.05, dt);
@@ -2104,14 +2530,16 @@ function updateRunner(runner, dt) {
   runner.group.position.x = runner.laneX;
   runner.group.position.z = runner.distance;
 
-  if (runner.morph === "S" || runner.morph === "P" || runner.morph === "E") {
+  if (runner.morph === "S" || runner.morph === "P" || runner.morph === "E" || runner.morph === "A") {
     const speedRatio = THREE.MathUtils.clamp(runner.speed / Math.max(cfg.baseSpeed, 1), 0, 1.2);
     const gait =
       runner.morph === "S"
         ? S_GAIT
         : runner.morph === "P"
           ? P_GAIT
-          : E_GAIT;
+          : runner.morph === "E"
+            ? E_GAIT
+            : A_GAIT;
     const strideLength = THREE.MathUtils.lerp(
       gait.minStrideWorld,
       gait.maxStrideWorld,
@@ -2812,6 +3240,200 @@ function updateEndureInspectionPose(runner) {
   });
 }
 
+function updateAgilityPose(runner, lateralVelocity, dt) {
+  const ud = runner.group.userData;
+  const cfg = runner.cfg;
+  const speedRatio = THREE.MathUtils.clamp(runner.speed / cfg.baseSpeed, 0, 1.18);
+  const phase = ud.phase + runner.phaseBias;
+  const cycle = wrap01(phase / TAU);
+  const strideLength =
+    ud.strideLength ||
+    THREE.MathUtils.lerp(A_GAIT.minStrideWorld, A_GAIT.maxStrideWorld, speedRatio);
+
+  const accelError = (runner.targetSpeed - runner.speed) / Math.max(cfg.baseSpeed, 1);
+  ud.accelLean = THREE.MathUtils.damp(ud.accelLean ?? 0, accelError * 1.15, 9.5, dt);
+  const targetBank = THREE.MathUtils.clamp(-lateralVelocity * 0.095, -0.34, 0.34);
+  ud.turnLean = THREE.MathUtils.damp(ud.turnLean ?? 0, targetBank, 12.0, dt);
+
+  const rearLoad = Math.max(0, Math.sin((cycle - 0.01) * TAU));
+  const foreLoad = Math.max(0, Math.sin((cycle - 0.47) * TAU));
+  const load = Math.max(rearLoad, foreLoad);
+  const suspension = Math.pow(Math.max(0, -Math.sin((cycle - 0.08) * TAU)), 1.45);
+  const spineWave = Math.sin((cycle - 0.10) * TAU);
+
+  ud.bodyMaster.position.y =
+    A_GAIT.baseY +
+    suspension * 0.085 * speedRatio -
+    load * 0.042 * speedRatio;
+
+  const flex = spineWave * 0.125 * speedRatio;
+  const turnFlex = Math.abs(ud.turnLean) * 0.14;
+
+  ud.chestPivot.position.z = A_GAIT.chestBaseZ + flex * 0.48;
+  ud.pelvisPivot.position.z = A_GAIT.pelvisBaseZ - flex * 0.56;
+  ud.chestPivot.position.y = A_GAIT.chestBaseY - load * 0.024;
+  ud.pelvisPivot.position.y = A_GAIT.pelvisBaseY - load * 0.020;
+
+  const bodyMidZ = (ud.chestPivot.position.z + ud.pelvisPivot.position.z) * 0.5;
+  ud.waist.position.z = bodyMidZ;
+  ud.waist.scale.y = 1 + Math.abs(flex) * 1.20 + turnFlex;
+  ud.keel.position.z = bodyMidZ;
+  ud.keel.scale.z = 1 + Math.abs(flex) * 0.32;
+
+  ud.bodyMaster.rotation.x =
+    -0.075 * speedRatio -
+    ud.accelLean * 0.09 +
+    foreLoad * 0.024 -
+    rearLoad * 0.018;
+  ud.bodyMaster.rotation.z = ud.turnLean;
+
+  // Opposed chest / pelvis roll makes lane changes originate from the body,
+  // not from a camera-space tilt applied to a rigid hull.
+  ud.chestPivot.rotation.x = -spineWave * 0.095 * speedRatio - foreLoad * 0.025;
+  ud.pelvisPivot.rotation.x = spineWave * 0.120 * speedRatio + rearLoad * 0.030;
+  ud.chestPivot.rotation.z = ud.turnLean * 0.42;
+  ud.pelvisPivot.rotation.z = -ud.turnLean * 0.28;
+  ud.chestPivot.rotation.y = -ud.turnLean * 0.20 - Math.sin(phase * 0.5) * 0.012;
+  ud.pelvisPivot.rotation.y = ud.turnLean * 0.26 + Math.sin(phase * 0.5) * 0.018;
+
+  Object.values(ud.legs).forEach((leg) => {
+    const localCycle = wrap01((phase + leg.phaseOffset) / TAU);
+    const strideRoot = Math.sin(localCycle * TAU);
+    const liftRoot = Math.max(0, -Math.sin(localCycle * TAU));
+    const outside = Math.sign(ud.turnLean || 0) === leg.side ? 1 : 0;
+
+    leg.hip.position.z =
+      (leg.fore ? 0.24 : -0.23) +
+      strideRoot * (leg.fore ? 0.075 : 0.090) * speedRatio;
+    leg.hip.position.y =
+      (leg.fore ? -0.13 : -0.11) +
+      liftRoot * 0.026 * speedRatio -
+      load * 0.010 +
+      outside * Math.abs(ud.turnLean) * 0.035;
+  });
+
+  const stanceDuration = A_GAIT.stance;
+  const stanceSweep = strideLength * stanceDuration;
+  const halfSweep = stanceSweep * 0.5;
+
+  Object.values(ud.legs).forEach((leg) => {
+    const localCycle = wrap01((phase + leg.phaseOffset) / TAU);
+    const nominalReach = leg.fore ? 1.23 : 1.25;
+
+    let targetZ;
+    let targetY;
+    let footPitch;
+
+    if (localCycle < stanceDuration) {
+      const u = localCycle / stanceDuration;
+      targetZ = THREE.MathUtils.lerp(halfSweep, -halfSweep, u);
+      targetY =
+        -nominalReach +
+        Math.sin(u * Math.PI) * 0.012 -
+        load * 0.010;
+      footPitch = THREE.MathUtils.lerp(-0.055, 0.115, u);
+
+      const worldStridePoint = runner.distance + targetZ;
+      if (!leg.stanceActive) {
+        leg.stanceActive = true;
+        leg.stanceAnchor = worldStridePoint;
+      }
+      const slip = Math.abs(worldStridePoint - leg.stanceAnchor);
+      ud.maxStanceSlip = Math.max(ud.maxStanceSlip || 0, slip);
+    } else {
+      leg.stanceActive = false;
+      const u = (localCycle - stanceDuration) / (1 - stanceDuration);
+      const advance = 0.5 - 0.5 * Math.cos(u * Math.PI);
+      const liftShape = Math.pow(Math.sin(u * Math.PI), 1.12);
+      const fold = Math.pow(Math.max(0, Math.sin(Math.min(1, u / 0.44) * Math.PI)), 1.10);
+
+      targetZ = THREE.MathUtils.lerp(-halfSweep, halfSweep, advance);
+      targetY =
+        -nominalReach +
+        liftShape * A_GAIT.swingLift +
+        fold * (leg.fore ? 0.035 : 0.050);
+      footPitch = -0.18 * liftShape + THREE.MathUtils.lerp(0.05, -0.02, u);
+    }
+
+    solveSprintLeg(leg, targetY, targetZ, footPitch, ud.turnLean);
+  });
+
+  const neckTarget =
+    -0.018 -
+    ud.chestPivot.rotation.x * 0.24 -
+    ud.turnLean * 0.045;
+  ud.neckLag = THREE.MathUtils.damp(ud.neckLag ?? neckTarget, neckTarget, 12.0, dt);
+  ud.neckPivot.rotation.x = ud.neckLag;
+  ud.neckPivot.rotation.z = ud.turnLean * 0.22;
+
+  const headTarget =
+    -ud.neckLag * 0.44 -
+    ud.bodyMaster.rotation.x * 0.10;
+  ud.headLag = THREE.MathUtils.damp(ud.headLag ?? headTarget, headTarget, 14.0, dt);
+  ud.headPivot.rotation.x = ud.headLag;
+  ud.headPivot.rotation.z = -ud.turnLean * 0.62;
+
+  ud.tailSegments.forEach((joint, i) => {
+    const pitchTarget =
+      0.008 +
+      ud.pelvisPivot.rotation.x * (0.14 + i * 0.05) -
+      suspension * (0.006 + i * 0.002);
+    const yawTarget =
+      -ud.turnLean * (0.74 + i * 0.20) +
+      Math.sin(phase * 0.42 - i * 0.48) * (0.012 + i * 0.005) * speedRatio;
+
+    ud.tailPitchState[i] = THREE.MathUtils.damp(
+      ud.tailPitchState[i] ?? pitchTarget,
+      pitchTarget,
+      Math.max(4.2, 8.8 - i * 1.0),
+      dt
+    );
+    ud.tailYawState[i] = THREE.MathUtils.damp(
+      ud.tailYawState[i] ?? yawTarget,
+      yawTarget,
+      Math.max(4.0, 8.4 - i * 1.0),
+      dt
+    );
+    joint.rotation.x = ud.tailPitchState[i];
+    joint.rotation.y = ud.tailYawState[i];
+  });
+
+  if (MOTION_REVIEW_MODE && REVIEW_MORPH === "A") {
+    const legs = Object.values(ud.legs);
+    canvas.dataset.aIkClamped = legs.some((leg) => leg.ikClamped) ? "1" : "0";
+    canvas.dataset.aMaxStanceSlip = String(ud.maxStanceSlip || 0);
+
+    ud.maxBank = Math.max(ud.maxBank || 0, Math.abs(ud.bodyMaster.rotation.z));
+    ud.maxFlex = Math.max(
+      ud.maxFlex || 0,
+      Math.abs(ud.chestPivot.rotation.x - ud.pelvisPivot.rotation.x)
+    );
+    canvas.dataset.aMaxBank = String(ud.maxBank);
+    canvas.dataset.aMaxFlex = String(ud.maxFlex);
+  }
+}
+
+function updateAgilityInspectionPose(runner) {
+  const ud = runner.group.userData;
+
+  ud.bodyMaster.position.y = A_GAIT.baseY;
+  ud.bodyMaster.rotation.set(-0.06, 0, 0);
+  ud.chestPivot.rotation.set(-0.035, 0, 0);
+  ud.pelvisPivot.rotation.set(0.050, 0, 0);
+  ud.neckPivot.rotation.set(-0.02, 0, 0);
+  ud.headPivot.rotation.set(0.01, 0, 0);
+
+  Object.values(ud.legs).forEach((leg) => {
+    const targetZ = leg.fore ? 0.10 : -0.08;
+    solveSprintLeg(leg, -1.22, targetZ, -0.02, 0);
+  });
+
+  ud.tailSegments.forEach((joint, i) => {
+    joint.rotation.x = 0.005 - i * 0.008;
+    joint.rotation.y = 0;
+  });
+}
+
 function updateCreaturePose(runner, lateralVelocity, dt = 1 / 60) {
   if (runner.morph === "S" && runner.group.userData.externalS) {
     updateHunyuanSprintPose(runner, lateralVelocity, dt);
@@ -2830,6 +3452,14 @@ function updateCreaturePose(runner, lateralVelocity, dt = 1 / 60) {
       updateEndureInspectionPose(runner);
     } else {
       updateEndurePose(runner, lateralVelocity, dt);
+    }
+    return;
+  }
+  if (runner.morph === "A") {
+    if (INSPECT_MODE) {
+      updateAgilityInspectionPose(runner);
+    } else {
+      updateAgilityPose(runner, lateralVelocity, dt);
     }
     return;
   }
@@ -2945,52 +3575,57 @@ function updateCamera(dt) {
   if (INSPECT_MODE || MOTION_REVIEW_MODE) {
     const powerReview = focus.morph === "P";
     const endureReview = focus.morph === "E";
+    const agilityReview = focus.morph === "A";
     if (actualCamera === "SIDE") {
       desiredCamera.set(
-        focusPos.x + (powerReview ? 8.8 : endureReview ? 8.3 : 7.8),
-        powerReview ? 3.15 : endureReview ? 2.85 : 3.0,
+        focusPos.x + (powerReview ? 8.8 : endureReview ? 8.3 : agilityReview ? 7.2 : 7.8),
+        powerReview ? 3.15 : endureReview ? 2.85 : agilityReview ? 2.35 : 3.0,
         focusPos.z
       );
-      desiredLook.set(focusPos.x, powerReview ? 1.48 : endureReview ? 1.35 : 1.55, focusPos.z);
-      targetFov = powerReview ? 44 : endureReview ? 43 : 42;
+      desiredLook.set(
+        focusPos.x,
+        powerReview ? 1.48 : endureReview ? 1.35 : agilityReview ? 1.12 : 1.55,
+        focusPos.z
+      );
+      targetFov = powerReview ? 44 : endureReview ? 43 : agilityReview ? 43 : 42;
     } else if (actualCamera === "LOW") {
       desiredCamera.set(
-        focusPos.x + (powerReview ? 1.65 : endureReview ? 1.55 : 1.35),
-        powerReview ? 1.12 : endureReview ? 1.04 : 1.02,
-        focusPos.z - (powerReview ? 5.10 : endureReview ? 5.35 : 4.35)
+        focusPos.x + (powerReview ? 1.65 : endureReview ? 1.55 : agilityReview ? 1.25 : 1.35),
+        powerReview ? 1.12 : endureReview ? 1.04 : agilityReview ? 0.82 : 1.02,
+        focusPos.z - (powerReview ? 5.10 : endureReview ? 5.35 : agilityReview ? 4.65 : 4.35)
       );
       desiredLook.set(
         focusPos.x,
-        powerReview ? 1.30 : endureReview ? 1.30 : 1.34,
+        powerReview ? 1.30 : endureReview ? 1.30 : agilityReview ? 1.06 : 1.34,
         focusPos.z + 0.35
       );
-      targetFov = powerReview ? 48 : endureReview ? 48 : 46;
+      targetFov = powerReview ? 48 : endureReview ? 48 : agilityReview ? 47 : 46;
     } else if (actualCamera === "CHASE") {
       desiredCamera.set(
-        focusPos.x + (powerReview ? 2.45 : endureReview ? 2.15 : 2.15),
-        powerReview ? 2.60 : endureReview ? 2.35 : 2.45,
-        focusPos.z - (powerReview ? 6.05 : endureReview ? 6.15 : 5.15)
+        focusPos.x + (powerReview ? 2.45 : endureReview ? 2.15 : agilityReview ? 1.85 : 2.15),
+        powerReview ? 2.60 : endureReview ? 2.35 : agilityReview ? 1.95 : 2.45,
+        focusPos.z - (powerReview ? 6.05 : endureReview ? 6.15 : agilityReview ? 5.25 : 5.15)
       );
       desiredLook.set(
         focusPos.x,
-        powerReview ? 1.44 : endureReview ? 1.34 : 1.48,
+        powerReview ? 1.44 : endureReview ? 1.34 : agilityReview ? 1.12 : 1.48,
         focusPos.z + 0.35
       );
-      targetFov = powerReview ? 45 : endureReview ? 46 : 43;
+      targetFov = powerReview ? 45 : endureReview ? 46 : agilityReview ? 45 : 43;
     } else if (actualCamera === "FRONT") {
       // Keep the long S body fully inside frame. The previous strong lateral
       // offset turned FRONT into an extreme 3/4 crop during live motion.
       desiredCamera.set(
-        focusPos.x - (powerReview ? 0.95 : endureReview ? 0.70 : 0.85),
-        powerReview ? 2.55 : endureReview ? 2.25 : 2.35,
-        focusPos.z + (powerReview ? 8.20 : endureReview ? 6.35 : 7.25)
+        focusPos.x - (powerReview ? 0.95 : endureReview ? 0.70 : agilityReview ? 0.60 : 0.85),
+        powerReview ? 2.55 : endureReview ? 2.25 : agilityReview ? 1.95 : 2.35,
+        focusPos.z + (powerReview ? 8.20 : endureReview ? 6.35 : agilityReview ? 6.20 : 7.25)
       );
       desiredLook.set(
         focusPos.x,
-        powerReview ? 1.40 : endureReview ? 1.32 : 1.42,
+        powerReview ? 1.40 : endureReview ? 1.32 : agilityReview ? 1.10 : 1.42,
         focusPos.z - 0.10
       );
-      targetFov = powerReview ? 49 : endureReview ? 45 : 47;
+      targetFov = powerReview ? 49 : endureReview ? 45 : agilityReview ? 46 : 47;
     } else {
       desiredCamera.set(focusPos.x + 5.5, 4.5, focusPos.z - 5.8);
       desiredLook.set(focusPos.x, 1.55, focusPos.z);
@@ -3112,6 +3747,14 @@ cameraButtons.forEach((button) => {
 
 runnerSelect.addEventListener("change", () => {
   selectedRunner = Number(runnerSelect.value);
+
+  if (SIMPLIFIED_GAIT_PAGE) {
+    const next = runners[selectedRunner];
+    if (!next) return;
+    const url = new URL(window.location.href);
+    url.searchParams.set("morph", next.morph);
+    window.location.href = url.toString();
+  }
 });
 
 pauseButton.addEventListener("click", () => {
@@ -3207,6 +3850,8 @@ async function boot() {
       focus.group.userData.strideLength = P_GAIT.maxStrideWorld;
     } else if (focus.morph === "E") {
       focus.group.userData.strideLength = E_GAIT.maxStrideWorld;
+    } else if (focus.morph === "A") {
+      focus.group.userData.strideLength = A_GAIT.maxStrideWorld;
     }
     updateCreaturePose(focus, 0, 0);
 
