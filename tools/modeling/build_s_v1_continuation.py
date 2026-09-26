@@ -87,38 +87,38 @@ def build(out: Path):
 
     def body_fn(X, Y, Z):
         # Athletic thorax + tucked waist + lighter pelvis.
-        d = ellipsoid(X, Y, Z, (0, 1.90, 0.30), (0.37, 0.33, 0.69))
-        d = smin(d, ellipsoid(X, Y, Z, (0, 1.91, -0.56), (0.33, 0.30, 0.54)), .18)
+        d = ellipsoid(X, Y, Z, (0, 1.91, 0.31), (0.34, 0.37, 0.64))
+        d = smin(d, ellipsoid(X, Y, Z, (0, 1.92, -0.54), (0.31, 0.31, 0.49)), .18)
         d = smin(
             d,
-            tapered_capsule(X, Y, Z, (0, 1.90, -0.34), (0, 1.91, 0.32), .20, .23),
+            tapered_capsule(X, Y, Z, (0, 1.91, -0.33), (0, 1.91, 0.31), .17, .21),
             .14,
         )
         # Shoulder/withers integrated into chest.
-        d = smin(d, ellipsoid(X, Y, Z, (0, 2.06, 0.56), (0.28, 0.24, 0.39)), .14)
+        d = smin(d, ellipsoid(X, Y, Z, (0, 2.08, 0.55), (0.25, 0.27, 0.36)), .14)
         # Low forward neck; avoid the rejected tall generic-animal neck.
         d = smin(
             d,
-            tapered_capsule(X, Y, Z, (0, 2.00, 0.86), (0, 2.15, 1.52), .18, .115),
+            tapered_capsule(X, Y, Z, (0, 2.01, 0.84), (0, 2.19, 1.50), .17, .105),
             .13,
         )
-        d = smin(d, ellipsoid(X, Y, Z, (0, 2.14, 1.44), (0.16, 0.17, 0.26)), .12)
+        d = smin(d, ellipsoid(X, Y, Z, (0, 2.18, 1.43), (0.145, 0.16, 0.25)), .12)
         # Small directional head + tapered muzzle.
-        d = smin(d, ellipsoid(X, Y, Z, (0, 2.17, 1.80), (0.15, 0.135, 0.285)), .10)
+        d = smin(d, ellipsoid(X, Y, Z, (0, 2.20, 1.78), (0.145, 0.125, 0.27)), .10)
         d = smin(
             d,
-            tapered_capsule(X, Y, Z, (0, 2.15, 1.90), (0, 2.08, 2.16), .105, .036),
+            tapered_capsule(X, Y, Z, (0, 2.18, 1.89), (0, 2.11, 2.16), .095, .032),
             .08,
         )
         # Short structural tail integrated into pelvis.
         d = smin(
             d,
-            tapered_capsule(X, Y, Z, (0, 1.92, -1.02), (0, 1.82, -1.38), .13, .068),
+            tapered_capsule(X, Y, Z, (0, 1.92, -.96), (0, 1.82, -1.41), .12, .060),
             .10,
         )
         d = smin(
             d,
-            tapered_capsule(X, Y, Z, (0, 1.82, -1.35), (0, 1.69, -1.60), .068, .025),
+            tapered_capsule(X, Y, Z, (0, 1.82, -1.39), (0, 1.68, -1.75), .060, .020),
             .06,
         )
         return d
@@ -170,10 +170,10 @@ def build(out: Path):
     limbs = {}
     armor = {}
     specs = {
-        "fore_L": (-.30, True, -1),
-        "fore_R": (.30, True, 1),
-        "hind_L": (-.28, False, -1),
-        "hind_R": (.28, False, 1),
+        "fore_L": (-.285, True, -1),
+        "fore_R": (.285, True, 1),
+        "hind_L": (-.27, False, -1),
+        "hind_R": (.27, False, 1),
     }
 
     for name, (x, fore, side) in specs.items():
@@ -201,12 +201,12 @@ def build(out: Path):
             x0, _, z0 = pts[3]
             d = smin(
                 d,
-                tapered_capsule(X, Y, Z, (x0, .16, z0), (x0 - .045, .12, z0 + .22), .055, .026),
+                tapered_capsule(X, Y, Z, (x0, .16, z0), (x0 - .055, .115, z0 + .245), .055, .022),
                 .04,
             )
             d = smin(
                 d,
-                tapered_capsule(X, Y, Z, (x0, .16, z0), (x0 + .045, .12, z0 + .23), .055, .026),
+                tapered_capsule(X, Y, Z, (x0, .16, z0), (x0 + .055, .115, z0 + .255), .055, .022),
                 .04,
             )
             return d
@@ -223,14 +223,14 @@ def build(out: Path):
 
         rootc = pts[0]
         cap = trimesh.creation.icosphere(subdivisions=2, radius=1)
-        cap.apply_scale([.11, .16, .25 if fore else .23])
+        cap.apply_scale([.085, .12, .20 if fore else .19])
         cap.apply_translation(rootc)
         color(cap, [198, 213, 222, 255])
         armor[name + "_root"] = cap
 
         kneec = pts[1]
         kc = trimesh.creation.icosphere(subdivisions=1, radius=1)
-        kc.apply_scale([.085, .085, .12])
+        kc.apply_scale([.070, .070, .095])
         kc.apply_translation(kneec)
         color(kc, [108, 152, 188, 255])
         armor[name + "_knee"] = kc
@@ -258,14 +258,19 @@ def build(out: Path):
         return color(m, rgba)
 
     crest_main = horn(
-        [(0, 2.31, 1.68), (0, 2.50, 1.28), (0, 2.65, .76), (0, 2.69, .26)],
-        [.105, .085, .060, .024],
-        [50, 74, 106, 255],
+        [(-.055, 2.31, 1.66), (-.090, 2.50, 1.27), (-.105, 2.63, .78), (-.090, 2.66, .31)],
+        [.080, .066, .046, .018],
+        [48, 72, 103, 255],
+    )
+    crest_right = horn(
+        [(.055, 2.31, 1.66), (.090, 2.50, 1.27), (.105, 2.63, .78), (.090, 2.66, .31)],
+        [.080, .066, .046, .018],
+        [48, 72, 103, 255],
     )
     crest_lower = horn(
-        [(0, 2.27, 1.64), (0, 2.40, 1.24), (0, 2.49, .82)],
-        [.075, .052, .020],
-        [90, 151, 205, 255],
+        [(0, 2.29, 1.61), (0, 2.39, 1.25), (0, 2.45, .91)],
+        [.055, .038, .015],
+        [89, 157, 208, 255],
     )
 
     eyes = {}
@@ -279,20 +284,20 @@ def build(out: Path):
     plates = {}
     for side in (-1, 1):
         sh = trimesh.creation.icosphere(subdivisions=2, radius=1)
-        sh.apply_scale([.065, .12, .40])
-        sh.apply_translation([.37 * side, 2.06, .39])
+        sh.apply_scale([.045, .085, .34])
+        sh.apply_translation([.335 * side, 2.075, .37])
         color(sh, [188, 207, 220, 255])
         plates[f"shoulder_{side}"] = sh
 
         hp = trimesh.creation.icosphere(subdivisions=2, radius=1)
-        hp.apply_scale([.060, .105, .30])
-        hp.apply_translation([.31 * side, 2.01, -.58])
+        hp.apply_scale([.042, .075, .25])
+        hp.apply_translation([.292 * side, 2.015, -.55])
         color(hp, [145, 181, 206, 255])
         plates[f"hip_{side}"] = hp
 
     spine = trimesh.creation.icosphere(subdivisions=2, radius=1)
-    spine.apply_scale([.055, .075, .45])
-    spine.apply_translation([0, 2.20, .02])
+    spine.apply_scale([.040, .060, .36])
+    spine.apply_translation([0, 2.205, .02])
     color(spine, [116, 171, 210, 255])
     plates["spine"] = spine
 
@@ -315,9 +320,9 @@ def build(out: Path):
             rgba,
         )
 
-    cue["top"] = cap_piece((-.12, 2.32, 1.76), (.12, 2.32, 1.76), .034, [28, 38, 49, 255])
-    cue["left"] = cap_piece((-.14, 2.30, 1.72), (-.165, 2.20, 1.80), .036, [28, 38, 49, 255])
-    cue["right"] = cap_piece((.14, 2.30, 1.72), (.165, 2.20, 1.80), .036, [28, 38, 49, 255])
+    cue["top"] = cap_piece((-.105, 2.33, 1.76), (.105, 2.33, 1.76), .029, [28, 38, 49, 255])
+    cue["left"] = cap_piece((-.125, 2.31, 1.72), (-.148, 2.23, 1.80), .030, [28, 38, 49, 255])
+    cue["right"] = cap_piece((.125, 2.31, 1.72), (.148, 2.23, 1.80), .030, [28, 38, 49, 255])
 
     for side, rgba in [(-1, [248, 177, 58, 255]), (1, [51, 216, 255, 255])]:
         light = trimesh.creation.icosphere(subdivisions=1, radius=1)
@@ -335,7 +340,8 @@ def build(out: Path):
         scene.add_geometry(m, node_name=n, geom_name=n)
     for n, m in armor.items():
         scene.add_geometry(m, node_name=n, geom_name=n)
-    scene.add_geometry(crest_main, node_name="Crest_Main", geom_name="Crest_Main")
+    scene.add_geometry(crest_main, node_name="Crest_L", geom_name="Crest_L")
+    scene.add_geometry(crest_right, node_name="Crest_R", geom_name="Crest_R")
     scene.add_geometry(crest_lower, node_name="Crest_Lower", geom_name="Crest_Lower")
     for n, m in plates.items():
         scene.add_geometry(m, node_name=n, geom_name=n)
