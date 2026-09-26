@@ -256,7 +256,11 @@ Do not solve performance by reducing animation quality first.
 
 ## 10. Immediate S-morph gate
 
-No further visual expansion is allowed until one S runner meets all of the following:
+**Current status: NOT PASSED.**
+
+The current procedural / primitive S is a motion-test fixture only. It must not be treated as the accepted creature model.
+
+The accepted S candidate is to come from the dedicated **Astra modeling lane**. No further P/E/A creature-model expansion is allowed until that candidate meets all of the following:
 
 - recognizably matches the S concept silhouette;
 - no accidental real-world-animal silhouette dominates;
@@ -270,6 +274,8 @@ No further visual expansion is allowed until one S runner meets all of the follo
 - no reliance on camera distance to hide defects.
 
 Only after this gate passes should P/E/A be derived.
+
+A previous internal decision incorrectly marked the primitive S as passed because it survived multi-camera and motion checks. That decision is revoked: multi-camera stability is necessary, not sufficient, for visual acceptance.
 
 ## 11. What is deliberately deferred
 

@@ -26,28 +26,35 @@ The current Motion First implementation is a technology proof, not a quality ben
 
 ## 2. Current state
 
-Current phase: **Phase B — S locomotion**
+Current phase: **RESET TO S MODEL QUALITY GATE**
 
-Passed:
+The previous internal "Phase A/B/C pass" decisions for the primitive S are revoked.
+
+Reason: the primitive S passed technical continuity / motion checks but remained visually far below the repository creature reference. Technical viability was incorrectly treated as creature-quality acceptance.
+
+What is actually proven:
 
 - isolated Motion First page exists;
-- dedicated S gait page exists at `public/preview-motion-first-gait/`;
+- dedicated gait page exists at `public/preview-motion-first-gait/`;
 - 18 simplified articulated 3D runners can be displayed;
-- S/P/E/A parameter families can coexist;
 - CHASE / LOW / PACK / SIDE / FRONT cameras can operate;
 - camera position, target, and FOV can transition smoothly;
-- a focused runner can be changed;
-- lane changes and body lean can be represented;
-- **Phase A S body gate passed** after repository-controlled multi-view review;
-- S stance/swing separation, distance-coupled cadence, IK reach validation, and planted-stance slip checks are implemented.
+- distance-coupled gait / IK / planted-stance checks can be implemented.
 
-Still open:
+What is **not** accepted:
 
-- Phase B visual acceptance of the S gait;
-- Phase C full multi-camera motion acceptance;
-- acceptable speed sensation;
-- convincing P/E/A derivation from the same species;
-- acceptable 18-runner quality after creature replacement.
+- current primitive S body;
+- current P / E bodies as production-quality morphs;
+- any A derivation;
+- propagation to 18 production-quality creatures.
+
+The current primitive S/P/E models are motion/camera test fixtures only.
+
+### Modeling source rule
+
+The next real S candidate must come from the dedicated **Astra modeling lane** and must be checked against the repository creature references before this Motion First lane treats it as an accepted creature.
+
+Do not continue P / E / A modeling while S remains visually unaccepted.
 
 ## 3. Execution order
 
@@ -76,7 +83,10 @@ Deliverable:
 
 Gate A:
 
-- S silhouette is recognizable before animation quality is judged.
+- the S model must materially match the repository S reference in overall silhouette, head/body proportions, limb structure, crest line, tail line, and Cue Band integration;
+- "technically coherent", "multi-view stable", "builds", "runs", or "better than the previous primitive" are not sufficient;
+- the current primitive S does **not** pass this gate;
+- no P/E/A derivation is allowed until an Astra-produced S candidate passes this visual gate.
 
 ### Phase B — S locomotion
 
@@ -299,28 +309,19 @@ CI can verify regressions and runtime behavior. It cannot certify creature quali
 
 ## 9. Next concrete implementation task
 
-The current coding task is:
+The current task is **not further procedural primitive modeling**.
 
-**finish Phase B for the canonical S runner before any P/E/A derivation.**
+Next:
 
-Current Phase B work must concentrate on:
+1. obtain the S model candidate from the dedicated Astra modeling lane;
+2. compare it directly with the repository S reference sheet;
+3. reject it if the silhouette / proportions are materially wrong, even if the mesh is technically clean;
+4. only after the S model is visually accepted, integrate it into the existing Motion First rig / gait / camera harness;
+5. then re-run SIDE / LOW / CHASE / FRONT motion validation.
 
-- load → drive → suspension → recovery readability;
-- longitudinal chest/pelvis deformation rather than rigid-hull motion;
-- shoulder / hip contribution to stride;
-- compact recovery and controlled pre-touchdown extension;
-- planted stance with no obvious foot skating;
-- damped head / neck stabilization;
-- delayed tail follow-through.
+Until that happens:
 
-Acceptance order:
-
-1. CI: no IK reach clipping;
-2. CI: planted-stance slip remains below the explicit threshold;
-3. CI: body has measurable longitudinal articulation;
-4. visual review: SIDE continuous motion;
-5. visual review: LOW continuous motion.
-
-Do not redesign AUTO camera, UI, environment art, P/E/A, or the 18-runner population until Phase B passes.
-
-After Phase B passes, proceed directly to **Phase C multi-camera S validation** using SIDE / CHASE / LOW / FRONT and camera transitions.
+- no A modeling;
+- no further E modeling;
+- no 18-creature expansion;
+- no claim that the current primitive S is "done".
