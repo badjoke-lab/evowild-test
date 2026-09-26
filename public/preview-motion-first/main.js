@@ -51,6 +51,18 @@ const P_GAIT = {
   pelvisBaseY: -0.02
 };
 
+const E_GAIT = {
+  baseY: 1.55,
+  minStrideWorld: 3.55,
+  maxStrideWorld: 5.70,
+  stance: 0.25,
+  swingLift: 0.38,
+  chestBaseZ: 0.66,
+  pelvisBaseZ: -0.78,
+  chestBaseY: 0.02,
+  pelvisBaseY: -0.03
+};
+
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x92a7b3);
 scene.fog = new THREE.Fog(0x92a7b3, 55, 230);
@@ -1574,7 +1586,15 @@ function createEndureCreature(color, index) {
     legs,
     phase: index * 0.61,
     turnLean: 0,
-    accelLean: 0
+    accelLean: 0,
+    neckLag: -0.026,
+    headLag: 0,
+    tailPitchState: tailSegments.map(() => 0),
+    tailYawState: tailSegments.map(() => 0),
+    strideLength: E_GAIT.minStrideWorld,
+    maxStanceSlip: 0,
+    minBodyY: E_GAIT.baseY,
+    maxBodyY: E_GAIT.baseY
   };
 
   return root;
@@ -1875,9 +1895,14 @@ function updateRunner(runner, dt) {
   runner.group.position.x = runner.laneX;
   runner.group.position.z = runner.distance;
 
-  if (runner.morph === "S" || runner.morph === "P") {
+  if (runner.morph === "S" || runner.morph === "P" || runner.morph === "E") {
     const speedRatio = THREE.MathUtils.clamp(runner.speed / Math.max(cfg.baseSpeed, 1), 0, 1.2);
-    const gait = runner.morph === "S" ? S_GAIT : P_GAIT;
+    const gait =
+      runner.morph === "S"
+        ? S_GAIT
+        : runner.morph === "P"
+          ? P_GAIT
+          : E_GAIT;
     const strideLength = THREE.MathUtils.lerp(
       gait.minStrideWorld,
       gait.maxStrideWorld,
@@ -2363,6 +2388,199 @@ function updatePowerPose(runner, lateralVelocity, dt) {
   }
 }
 
+function updateEndurePose(runner, lateralVelocity, dt) {
+  const ud = runner.group.userData;
+  const cfg = runner.cfg;
+  const speedRatio = THREE.MathUtils.clamp(runner.speed / cfg.baseSpeed, 0, 1.16);
+  const phase = ud.phase + runner.phaseBias;
+  const cycle = wrap01(phase / TAU);
+  const strideLength =
+    ud.strideLength ||
+    THREE.MathUtils.lerp(E_GAIT.minStrideWorld, E_GAIT.maxStrideWorld, speedRatio);
+
+  const accelError = (runner.targetSpeed - runner.speed) / Math.max(cfg.baseSpeed, 1);
+  ud.accelLean = THREE.MathUtils.damp(ud.accelLean ?? 0, accelError * 1.05, 8.0, dt);
+  ud.turnLean = THREE.MathUtils.damp(
+    ud.turnLean ?? 0,
+    THREE.MathUtils.clamp(-lateralVelocity * cfg.laneLean * 0.14, -0.15, 0.15),
+    9.0,
+    dt
+  );
+
+  // E keeps energy in forward travel: low vertical excursion and an even load cycle.
+  const rearLoad = Math.max(0, Math.sin((cycle - 0.02) * TAU));
+  const foreLoad = Math.max(0, Math.sin((cycle - 0.50) * TAU));
+  const load = Math.max(rearLoad, foreLoad);
+  const suspension = Math.pow(Math.max(0, -Math.sin((cycle - 0.08) * TAU)), 1.55);
+  const spineWave = Math.sin((cycle - 0.11) * TAU);
+
+  const bodyY =
+    E_GAIT.baseY +
+    suspension * 0.062 * speedRatio -
+    load * 0.032 * speedRatio;
+  ud.bodyMaster.position.y = bodyY;
+
+  const longStretch = spineWave * 0.090 * speedRatio;
+  const compression = load * 0.038 * speedRatio;
+
+  ud.chestPivot.position.z = E_GAIT.chestBaseZ + longStretch * 0.42;
+  ud.pelvisPivot.position.z = E_GAIT.pelvisBaseZ - longStretch * 0.48;
+  ud.chestPivot.position.y = E_GAIT.chestBaseY - compression * 0.54;
+  ud.pelvisPivot.position.y = E_GAIT.pelvisBaseY - compression * 0.38;
+
+  const bodyMidZ = (ud.chestPivot.position.z + ud.pelvisPivot.position.z) * 0.5;
+  ud.waist.position.z = bodyMidZ;
+  ud.waist.scale.y = 1 + Math.abs(longStretch) * 0.62;
+  ud.keel.position.z = bodyMidZ;
+  ud.keel.scale.z = 1 + Math.abs(longStretch) * 0.20;
+
+  ud.bodyMaster.rotation.x =
+    -0.046 * speedRatio -
+    ud.accelLean * 0.085 -
+    rearLoad * 0.018 +
+    foreLoad * 0.024;
+  ud.bodyMaster.rotation.z = ud.turnLean;
+
+  ud.chestPivot.rotation.x =
+    -spineWave * 0.052 * speedRatio -
+    foreLoad * 0.022 +
+    suspension * 0.010;
+  ud.pelvisPivot.rotation.x =
+    spineWave * 0.064 * speedRatio +
+    rearLoad * 0.026 -
+    suspension * 0.010;
+  ud.chestPivot.rotation.y = -Math.sin(phase * 0.5) * 0.009 * speedRatio;
+  ud.pelvisPivot.rotation.y = Math.sin(phase * 0.5) * 0.012 * speedRatio;
+
+  Object.values(ud.legs).forEach((leg) => {
+    const localCycle = wrap01((phase + leg.phaseOffset) / TAU);
+    const strideRoot = Math.sin(localCycle * TAU);
+    const liftRoot = Math.max(0, -Math.sin(localCycle * TAU));
+    leg.hip.position.z =
+      (leg.fore ? 0.30 : -0.28) +
+      strideRoot * (leg.fore ? 0.060 : 0.072) * speedRatio;
+    leg.hip.position.y =
+      (leg.fore ? -0.10 : -0.09) +
+      liftRoot * 0.018 * speedRatio -
+      load * 0.008;
+  });
+
+  const stanceDuration = E_GAIT.stance;
+  const stanceSweep = strideLength * stanceDuration;
+  const halfSweep = stanceSweep * 0.5;
+
+  Object.values(ud.legs).forEach((leg) => {
+    const localCycle = wrap01((phase + leg.phaseOffset) / TAU);
+    const nominalReach = leg.fore ? 1.48 : 1.50;
+
+    let targetZ;
+    let targetY;
+    let footPitch;
+
+    if (localCycle < stanceDuration) {
+      const u = localCycle / stanceDuration;
+      targetZ = THREE.MathUtils.lerp(halfSweep, -halfSweep, u);
+
+      const compressionShape = Math.sin(u * Math.PI);
+      targetY =
+        -nominalReach +
+        compressionShape * 0.010 -
+        load * 0.007;
+      footPitch = THREE.MathUtils.lerp(-0.040, 0.095, u);
+
+      const worldStridePoint = runner.distance + targetZ;
+      if (!leg.stanceActive) {
+        leg.stanceActive = true;
+        leg.stanceAnchor = worldStridePoint;
+      }
+      const slip = Math.abs(worldStridePoint - leg.stanceAnchor);
+      ud.maxStanceSlip = Math.max(ud.maxStanceSlip || 0, slip);
+    } else {
+      leg.stanceActive = false;
+      const u = (localCycle - stanceDuration) / (1 - stanceDuration);
+
+      // Smooth compact recovery with no violent fold / extension.
+      const advance = 0.5 - 0.5 * Math.cos(u * Math.PI);
+      const liftShape = Math.pow(Math.sin(u * Math.PI), 1.18);
+      const settle = Math.pow(
+        THREE.MathUtils.clamp((u - 0.72) / 0.28, 0, 1),
+        1.5
+      );
+
+      targetZ = THREE.MathUtils.lerp(-halfSweep, halfSweep, advance);
+      targetY =
+        -nominalReach +
+        liftShape * E_GAIT.swingLift -
+        settle * 0.018;
+      footPitch =
+        -0.145 * liftShape +
+        THREE.MathUtils.lerp(0.045, -0.025, Math.min(1, u / 0.94));
+    }
+
+    solveSprintLeg(leg, targetY, targetZ, footPitch, ud.turnLean);
+  });
+
+  const neckTarget =
+    -0.026 -
+    ud.chestPivot.rotation.x * 0.20 +
+    suspension * 0.005;
+  ud.neckLag = THREE.MathUtils.damp(
+    ud.neckLag ?? neckTarget,
+    neckTarget,
+    10.0,
+    dt
+  );
+  ud.neckPivot.rotation.x = ud.neckLag;
+
+  const headTarget =
+    -ud.neckLag * 0.42 -
+    ud.bodyMaster.rotation.x * 0.10;
+  ud.headLag = THREE.MathUtils.damp(
+    ud.headLag ?? headTarget,
+    headTarget,
+    13.0,
+    dt
+  );
+  ud.headPivot.rotation.x = ud.headLag;
+  ud.headPivot.rotation.z = -ud.turnLean * 0.42;
+
+  ud.tailSegments.forEach((joint, i) => {
+    const pitchTarget =
+      0.006 +
+      ud.pelvisPivot.rotation.x * (0.13 + i * 0.04) -
+      suspension * (0.006 + i * 0.002);
+    const yawTarget =
+      -ud.turnLean * (0.42 + i * 0.12) +
+      Math.sin(phase * 0.30 - i * 0.44) * (0.007 + i * 0.003) * speedRatio;
+
+    ud.tailPitchState[i] = THREE.MathUtils.damp(
+      ud.tailPitchState[i] ?? pitchTarget,
+      pitchTarget,
+      Math.max(4.0, 8.2 - i * 1.0),
+      dt
+    );
+    ud.tailYawState[i] = THREE.MathUtils.damp(
+      ud.tailYawState[i] ?? yawTarget,
+      yawTarget,
+      Math.max(3.8, 7.8 - i * 0.9),
+      dt
+    );
+
+    joint.rotation.x = ud.tailPitchState[i];
+    joint.rotation.y = ud.tailYawState[i];
+  });
+
+  if (MOTION_REVIEW_MODE && REVIEW_MORPH === "E") {
+    const legs = Object.values(ud.legs);
+    canvas.dataset.eIkClamped = legs.some((leg) => leg.ikClamped) ? "1" : "0";
+    canvas.dataset.eMaxStanceSlip = String(ud.maxStanceSlip || 0);
+
+    ud.minBodyY = Math.min(ud.minBodyY ?? bodyY, bodyY);
+    ud.maxBodyY = Math.max(ud.maxBodyY ?? bodyY, bodyY);
+    canvas.dataset.eVerticalRange = String(ud.maxBodyY - ud.minBodyY);
+  }
+}
+
 function updateEndureInspectionPose(runner) {
   const ud = runner.group.userData;
 
@@ -2394,8 +2612,12 @@ function updateCreaturePose(runner, lateralVelocity, dt = 1 / 60) {
     updatePowerPose(runner, lateralVelocity, dt);
     return;
   }
-  if (runner.morph === "E" && INSPECT_MODE) {
-    updateEndureInspectionPose(runner);
+  if (runner.morph === "E") {
+    if (INSPECT_MODE) {
+      updateEndureInspectionPose(runner);
+    } else {
+      updateEndurePose(runner, lateralVelocity, dt);
+    }
     return;
   }
 
@@ -2747,6 +2969,8 @@ if (INSPECT_MODE || MOTION_REVIEW_MODE) {
     focus.group.userData.strideLength = S_GAIT.maxStrideWorld;
   } else if (focus.morph === "P") {
     focus.group.userData.strideLength = P_GAIT.maxStrideWorld;
+  } else if (focus.morph === "E") {
+    focus.group.userData.strideLength = E_GAIT.maxStrideWorld;
   }
   updateCreaturePose(focus, 0);
 
