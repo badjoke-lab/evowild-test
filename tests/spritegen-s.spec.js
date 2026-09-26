@@ -35,6 +35,20 @@ test("S sprite extraction lane builds an 8-frame transparent side run loop", asy
     path: `${outDir}/spritegen-s-side-run-poc.png`
   });
 
+  const exported = await page.evaluate(() => ({
+    source: window.__spriteGenSPoc.frames[0].toDataURL("image/png"),
+    atlas: document.querySelector("#atlas").toDataURL("image/png")
+  }));
+  const writeDataUrl = (file, dataUrl) => {
+    const base64 = dataUrl.slice(dataUrl.indexOf(",") + 1);
+    fs.writeFileSync(file, Buffer.from(base64, "base64"));
+  };
+  writeDataUrl(`${outDir}/spritegen-s-side-source.png`, exported.source);
+  writeDataUrl(`${outDir}/spritegen-s-side-atlas.png`, exported.atlas);
+
+  expect(fs.statSync(`${outDir}/spritegen-s-side-source.png`).size).toBeGreaterThan(1000);
+  expect(fs.statSync(`${outDir}/spritegen-s-side-atlas.png`).size).toBeGreaterThan(1000);
+
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
 });
