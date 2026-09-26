@@ -5,8 +5,19 @@ test("render S shape-v2 baseline comparison", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(60000);
 
+  const consoleLines = [];
+  page.on("console", (msg) => consoleLines.push(`console:${msg.type()}:${msg.text()}`));
+  page.on("pageerror", (error) => consoleLines.push(`pageerror:${error.stack || error}`));
+
   await page.goto("/shape-v2-review.html", { waitUntil: "domcontentloaded" });
-  await expect(page.locator("body")).toHaveAttribute("data-shape-review", "ready", { timeout: 30000 });
+  await expect.poll(async () => {
+    const state = await page.locator("body").getAttribute("data-shape-review");
+    if (state === "error") {
+      const detail = await page.locator("body").getAttribute("data-shape-error");
+      throw new Error(`shape review failed: ${detail}\n${consoleLines.join("\n")}`);
+    }
+    return state;
+  }, { timeout: 30000 }).toBe("ready");
 
   const baseSize = await page.locator("body").getAttribute("data-base-size");
   const v2Size = await page.locator("body").getAttribute("data-v2-size");
