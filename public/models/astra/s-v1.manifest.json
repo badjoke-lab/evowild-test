@@ -1,0 +1,19 @@
+{
+  "model_id": "astra-s-v1",
+  "status": "awaiting_model",
+  "morph": "S",
+  "role": "production_candidate",
+  "source": "astra_modeling_lane",
+  "format": null,
+  "asset_path": "public/models/astra/s-v1.glb",
+  "scale": null,
+  "forward_axis": null,
+  "up_axis": null,
+  "polygon_count": null,
+  "material_count": null,
+  "textures": [],
+  "rigged": false,
+  "animated": false,
+  "reference_version": "evowild-creature-reference-sheet-20260921",
+  "notes": "Do not substitute the procedural Motion First S for this asset."
+}
