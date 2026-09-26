@@ -1,0 +1,29 @@
+{
+  "vertices": 6469,
+  "head_sign": -1,
+  "before_bounds": {
+    "min_x": -0.21687963604927063,
+    "max_x": 0.17797645926475525,
+    "min_y": -0.9586519598960876,
+    "max_y": 0.9974579811096191,
+    "min_z": -0.8533045649528503,
+    "max_z": 0.8250856399536133
+  },
+  "after_bounds": {
+    "min_x": -0.22079579532146454,
+    "max_x": 0.18274903297424316,
+    "min_y": -0.9478933811187744,
+    "max_y": 0.9974579811096191,
+    "min_z": -0.8456844091415405,
+    "max_z": 0.8304116725921631
+  },
+  "width_before": 0.3948560953140259,
+  "height_before": 1.9561099410057068,
+  "length_before": 1.6783902049064636,
+  "width_after": 0.4035448282957077,
+  "height_after": 1.9453513622283936,
+  "length_after": 1.6760960817337036,
+  "status": "shape_refine_v4_candidate_not_canonical",
+  "source": "source-lod2.glb",
+  "output": "source-lod2-shape-v4.glb"
+}
