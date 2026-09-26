@@ -669,6 +669,14 @@ export function createSettings(): Settings {
        Quality.High)
     : detectQuality(dev);
   const s: Settings = { quality: q, masterVolume: 0.8, ...PRESETS[q] };
+  if (params.get('evowildS') === '1') {
+    // The S asset is a real side-run sprite sheet. Reprojection/radial motion
+    // blur and player-focused DoF smear its silhouette far more aggressively
+    // than the original 3D kart mesh. Keep the borrowed lighting, bloom, AO,
+    // colour grade and world, but render the creature itself legibly.
+    s.motionBlur = false;
+    s.dof = false;
+  }
   // ?scale=0.75 etc. lets the screenshot harness trade resolution for time
   const scale = parseFloat(params.get('scale') || '');
   if (Number.isFinite(scale) && scale > 0) s.renderScale = scale;
