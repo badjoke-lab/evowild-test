@@ -1192,12 +1192,403 @@ function createPowerCreature(color, index) {
   return root;
 }
 
+function makeEndureLimb(parent, upperMat, lowerMat, jointMat, plateMat, side, fore) {
+  const hip = new THREE.Group();
+  hip.position.set(
+    side * (fore ? 0.36 : 0.34),
+    fore ? -0.10 : -0.09,
+    fore ? 0.30 : -0.28
+  );
+  parent.add(hip);
+
+  const upperLen = fore ? 0.84 : 0.87;
+  const lowerLen = fore ? 0.70 : 0.73;
+  const cannonLen = fore ? 0.36 : 0.38;
+
+  const upper = makeMesh(
+    new THREE.CylinderGeometry(0.070, 0.105, upperLen, 6),
+    upperMat,
+    hip,
+    [0, -upperLen / 2, 0.05]
+  );
+  upper.rotation.z = side * (fore ? 0.025 : 0.040);
+
+  const knee = new THREE.Group();
+  knee.position.set(0, -upperLen, 0.09);
+  hip.add(knee);
+
+  makeMesh(
+    new THREE.IcosahedronGeometry(fore ? 0.095 : 0.105, 0),
+    jointMat,
+    knee
+  );
+
+  const lower = makeMesh(
+    new THREE.CylinderGeometry(0.048, 0.076, lowerLen, 6),
+    lowerMat,
+    knee,
+    [0, -lowerLen / 2, 0.06]
+  );
+  lower.rotation.z = side * (fore ? -0.018 : 0.020);
+
+  const ankle = new THREE.Group();
+  ankle.position.set(0, -lowerLen, 0.12);
+  knee.add(ankle);
+
+  makeMesh(
+    new THREE.IcosahedronGeometry(0.074, 0),
+    jointMat,
+    ankle
+  );
+
+  makeMesh(
+    new THREE.CylinderGeometry(0.033, 0.046, cannonLen, 5),
+    upperMat,
+    ankle,
+    [0, -cannonLen / 2, 0.045]
+  );
+
+  const foot = new THREE.Group();
+  foot.position.set(0, -cannonLen, 0.085);
+  ankle.add(foot);
+
+  const sole = makeMesh(
+    new THREE.BoxGeometry(0.15, 0.065, 0.34),
+    jointMat,
+    foot,
+    [0, -0.02, 0.10]
+  );
+  sole.rotation.x = -0.09;
+
+  [-1, 1].forEach((toeSide) => {
+    const toe = makeTaperedPlate(
+      0.30,
+      0.065,
+      0.050,
+      plateMat,
+      foot,
+      [toeSide * 0.045, -0.008, 0.25]
+    );
+    toe.rotation.x = -0.08;
+    toe.rotation.y = toeSide * 0.065;
+  });
+
+  return {
+    hip,
+    knee,
+    ankle,
+    foot,
+    phaseOffset: fore
+      ? (side < 0 ? TAU * 0.49 : TAU * 0.59)
+      : (side < 0 ? 0 : TAU * 0.09),
+    upperLen,
+    lowerLen,
+    cannonLen,
+    side,
+    fore
+  };
+}
+
+function createEndureCreature(color, index) {
+  const cfg = MORPHS.E;
+  const root = new THREE.Group();
+  const bodyMaster = new THREE.Group();
+  bodyMaster.position.y = 1.86;
+  root.add(bodyMaster);
+
+  const baseColor = new THREE.Color(color);
+  const primary = mat(baseColor);
+  const secondary = mat(baseColor.clone().multiplyScalar(0.82));
+  const joint = mat(baseColor.clone().multiplyScalar(0.52), 0.80);
+  const underside = mat(0x2a2f32, 0.86);
+  const plate = new THREE.MeshStandardMaterial({
+    color: baseColor.clone().lerp(new THREE.Color(0xcfd8da), 0.34),
+    roughness: 0.62,
+    metalness: 0.03,
+    flatShading: true
+  });
+  const cue = new THREE.MeshStandardMaterial({
+    color: 0x1a2227,
+    emissive: baseColor.clone().multiplyScalar(0.42),
+    emissiveIntensity: 0.82,
+    roughness: 0.36,
+    metalness: 0.10,
+    flatShading: true
+  });
+
+  const chestPivot = new THREE.Group();
+  chestPivot.position.set(0, 0.02, 0.66);
+  bodyMaster.add(chestPivot);
+
+  const pelvisPivot = new THREE.Group();
+  pelvisPivot.position.set(0, -0.03, -0.78);
+  bodyMaster.add(pelvisPivot);
+
+  // E is the long-distance form: long shallow masses, narrow width, stable back line.
+  makeMesh(
+    new THREE.IcosahedronGeometry(0.57, 1),
+    primary,
+    chestPivot,
+    [0, 0, 0.02],
+    [0.66, 0.54, 1.46]
+  );
+
+  makeMesh(
+    new THREE.IcosahedronGeometry(0.53, 1),
+    secondary,
+    pelvisPivot,
+    [0, -0.01, -0.02],
+    [0.62, 0.50, 1.34]
+  );
+
+  const waist = makeMesh(
+    new THREE.CylinderGeometry(0.215, 0.25, 1.08, 7),
+    secondary,
+    bodyMaster,
+    [0, -0.055, -0.10]
+  );
+  waist.rotation.x = Math.PI / 2;
+
+  const keel = makeMesh(
+    new THREE.BoxGeometry(0.30, 0.10, 1.56),
+    underside,
+    bodyMaster,
+    [0, -0.31, -0.06]
+  );
+
+  [-1, 1].forEach((side) => {
+    const shoulder = makeTaperedPlate(
+      0.94,
+      0.15,
+      0.085,
+      plate,
+      chestPivot,
+      [side * 0.31, 0.17, 0.09]
+    );
+    shoulder.rotation.y = side * 0.035;
+    shoulder.rotation.x = -0.05;
+
+    const flank = makeTaperedPlate(
+      0.82,
+      0.12,
+      0.065,
+      secondary,
+      pelvisPivot,
+      [side * 0.27, 0.12, -0.04]
+    );
+    flank.rotation.y = side * -0.025;
+    flank.rotation.x = 0.03;
+  });
+
+  const spinePlate = makeTaperedPlate(
+    1.62,
+    0.09,
+    0.070,
+    plate,
+    bodyMaster,
+    [0, 0.34, -0.12]
+  );
+  spinePlate.rotation.x = -0.012;
+
+  const neckPivot = new THREE.Group();
+  neckPivot.position.set(0, 0.08, 1.10);
+  chestPivot.add(neckPivot);
+
+  makeMesh(
+    new THREE.IcosahedronGeometry(0.265, 1),
+    primary,
+    neckPivot,
+    [0, -0.02, -0.06],
+    [0.86, 0.68, 1.10]
+  );
+
+  const neck = makeMesh(
+    new THREE.CylinderGeometry(0.135, 0.205, 0.88, 6),
+    primary,
+    neckPivot,
+    [0, 0.00, 0.42]
+  );
+  neck.rotation.x = Math.PI / 2 - 0.035;
+
+  const neckKeel = makeTaperedPlate(
+    0.82,
+    0.13,
+    0.060,
+    underside,
+    neckPivot,
+    [0, -0.125, 0.39]
+  );
+  neckKeel.rotation.x = -0.010;
+
+  const headPivot = new THREE.Group();
+  headPivot.position.set(0, 0.035, 0.62);
+  neckPivot.add(headPivot);
+
+  makeMesh(
+    new THREE.IcosahedronGeometry(0.33, 1),
+    primary,
+    headPivot,
+    [0, 0, 0.25],
+    [0.54, 0.42, 1.20]
+  );
+
+  const muzzle = makeMesh(
+    new THREE.ConeGeometry(0.135, 0.50, 5),
+    secondary,
+    headPivot,
+    [0, -0.045, 0.72]
+  );
+  muzzle.rotation.x = Math.PI / 2;
+
+  // E crest is long but thinner and calmer than S: endurance, not sprint aggression.
+  const crestRoot = new THREE.Group();
+  crestRoot.position.set(0, 0.18, 0.10);
+  headPivot.add(crestRoot);
+
+  const crestUpper = makeTaperedPlate(
+    1.05,
+    0.105,
+    0.060,
+    plate,
+    crestRoot,
+    [0, 0.03, -0.41]
+  );
+  crestUpper.rotation.x = -0.035;
+
+  const crestLower = makeTaperedPlate(
+    0.76,
+    0.075,
+    0.045,
+    underside,
+    crestRoot,
+    [0, -0.060, -0.29]
+  );
+
+  const eyeMat = new THREE.MeshBasicMaterial({ color: 0xd7f4ff });
+  [-1, 1].forEach((side) => {
+    makeMesh(
+      new THREE.SphereGeometry(0.026, 5, 4),
+      eyeMat,
+      headPivot,
+      [side * 0.16, 0.050, 0.53]
+    );
+  });
+
+  const cueBand = new THREE.Group();
+  cueBand.position.set(0, 0.068, 0.24);
+  headPivot.add(cueBand);
+
+  const bandTop = makeMesh(
+    new THREE.BoxGeometry(0.38, 0.050, 0.12),
+    cue,
+    cueBand,
+    [0, 0.115, 0]
+  );
+  bandTop.rotation.x = -0.065;
+
+  [-1, 1].forEach((side) => {
+    makeMesh(
+      new THREE.BoxGeometry(0.060, 0.145, 0.14),
+      cue,
+      cueBand,
+      [side * 0.205, 0.012, 0.018]
+    );
+    makeMesh(
+      new THREE.SphereGeometry(0.038, 6, 4),
+      new THREE.MeshBasicMaterial({ color: side < 0 ? 0xffd36b : 0x77e7ff }),
+      cueBand,
+      [side * 0.232, 0.012, 0.064]
+    );
+  });
+
+  const legs = {
+    fl: makeEndureLimb(chestPivot, primary, secondary, joint, plate, -1, true),
+    fr: makeEndureLimb(chestPivot, primary, secondary, joint, plate, 1, true),
+    hl: makeEndureLimb(pelvisPivot, secondary, primary, joint, plate, -1, false),
+    hr: makeEndureLimb(pelvisPivot, secondary, primary, joint, plate, 1, false)
+  };
+
+  const tailBase = new THREE.Group();
+  tailBase.position.set(0, 0.035, -0.76);
+  tailBase.rotation.x = -0.16;
+  pelvisPivot.add(tailBase);
+
+  const tailSegments = [];
+  let tailParent = tailBase;
+  const tailLengths = [0.42, 0.37, 0.31];
+
+  tailLengths.forEach((segLen, i) => {
+    const jointNode = new THREE.Group();
+    if (i > 0) jointNode.position.z = -tailLengths[i - 1];
+    tailParent.add(jointNode);
+
+    const seg = makeMesh(
+      new THREE.CylinderGeometry(
+        Math.max(0.032, 0.068 - i * 0.014),
+        Math.max(0.040, 0.090 - i * 0.015),
+        segLen,
+        5
+      ),
+      i === 0 ? secondary : primary,
+      jointNode,
+      [0, 0, -segLen / 2]
+    );
+    seg.rotation.x = Math.PI / 2;
+    tailSegments.push(jointNode);
+    tailParent = jointNode;
+  });
+
+  makeTaperedPlate(
+    0.25,
+    0.095,
+    0.060,
+    plate,
+    tailParent,
+    [0, 0, -0.10]
+  ).scale.z = -1;
+
+  const shadowMat = new THREE.MeshBasicMaterial({
+    color: 0x000000,
+    transparent: true,
+    opacity: 0.18,
+    depthWrite: false
+  });
+  const shadow = new THREE.Mesh(new THREE.CircleGeometry(1.0, 18), shadowMat);
+  shadow.rotation.x = -Math.PI / 2;
+  shadow.scale.set(0.82, 1.65, 1);
+  shadow.position.y = 0.025;
+  root.add(shadow);
+
+  root.userData = {
+    cfg,
+    morphKey: "E",
+    index,
+    bodyMaster,
+    chestPivot,
+    pelvisPivot,
+    waist,
+    keel,
+    neckPivot,
+    headPivot,
+    tailSegments,
+    legs,
+    phase: index * 0.61,
+    turnLean: 0,
+    accelLean: 0
+  };
+
+  return root;
+}
+
 function createCreature(morphKey, color, index) {
   if (morphKey === "S") {
     return createSprintCreature(color, index);
   }
   if (morphKey === "P") {
     return createPowerCreature(color, index);
+  }
+  if (morphKey === "E") {
+    return createEndureCreature(color, index);
   }
 
   const cfg = MORPHS[morphKey];
