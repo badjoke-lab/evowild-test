@@ -30,7 +30,6 @@ const SHAPE_REVIEW_V2 = SHAPE_REVIEW === "v2";
 const SHAPE_REVIEW_V21 = SHAPE_REVIEW === "v21";
 const SHAPE_REVIEW_V3 = SHAPE_REVIEW === "v3";
 const SHAPE_REVIEW_V4 = SHAPE_REVIEW === "v4";
-const SHAPE_REVIEW_V4 = SHAPE_REVIEW === "v4";
 const MOTION_REVIEW_MODE = params.get("motion") === "1" || window.location.pathname.includes("/preview-motion-first-gait/");
 const REVIEW_MORPH = (params.get("morph") || "S").toUpperCase();
 const TAU = Math.PI * 2;
