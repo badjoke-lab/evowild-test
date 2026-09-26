@@ -19,10 +19,18 @@ jobs:
         run: test -f dist/race-2_5d.html
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
-      - name: Capture Motion First S multi-camera visuals
+      - name: Capture Motion First visuals
         env:
           MOTION_FIRST_CAPTURE: "1"
-        run: npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1
+        shell: bash
+        run: |
+          BRANCH="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
+          if [[ "$BRANCH" == "feat/simplified-race-director-phase-f-20260926" ]]; then
+            npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
+              --grep "Phase E simplified race|Phase F AUTO director"
+          else
+            npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1
+          fi
       - name: Upload mobile visual screenshots
         if: always()
         uses: actions/upload-artifact@v4
