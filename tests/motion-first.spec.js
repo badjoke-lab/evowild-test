@@ -607,6 +607,12 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
   const directorCamera = await page.locator("#scene").getAttribute("data-director-camera");
   expect(["CHASE", "LOW", "SIDE", "PACK", "FRONT"]).toContain(directorCamera);
 
+  const cutCount = Number(
+    await page.locator("#scene").getAttribute("data-director-cut-count")
+  );
+  expect(Number.isFinite(cutCount)).toBeTruthy();
+  expect(cutCount).toBeGreaterThanOrEqual(1);
+
   const directorFocus = Number(
     await page.locator("#scene").getAttribute("data-director-focus")
   );
