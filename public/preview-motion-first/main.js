@@ -2499,8 +2499,23 @@ function applySimplifiedRaceRenderLOD(root) {
   if (!SIMPLIFIED_RACE_PAGE) return;
 
   const materialCache = new Map();
+  let culledDetailMeshes = 0;
+
   root.traverse((node) => {
     if (!node.isMesh) return;
+
+    // Sub-pixel eye / Cue indicator spheres cost one draw each across 18
+    // runners but are not readable at race-camera distance. Remove only these
+    // tiny decorative spheres; limb joints, split feet, crest, Cue Band body
+    // and every animated structural part stay intact.
+    if (
+      node.geometry?.type === "SphereGeometry" &&
+      Number(node.geometry.parameters?.radius || 1) <= 0.055
+    ) {
+      node.visible = false;
+      culledDetailMeshes += 1;
+      return;
+    }
 
     const source = node.material;
     if (!source || !source.isMeshStandardMaterial) return;
@@ -2526,6 +2541,10 @@ function applySimplifiedRaceRenderLOD(root) {
   });
 
   root.userData.raceRenderLod = "lambert-low";
+  root.userData.culledDetailMeshes = culledDetailMeshes;
+  if (culledDetailMeshes > 0) {
+    canvas.dataset.raceDetailCull = "1";
+  }
 }
 
 function createRunners() {
