@@ -2171,3 +2171,10 @@ html[data-touch][data-touch-hand="left"] .kr .kr-pos {
   .kr-roster { margin-top: 0.7vmin; }
   .kr-menu-list { margin-top: 0.7vmin; }
 }
+
+
+/* EvoWild Lane 4: the borrowed race engine stays intact, but direct kart-item
+   affordances are not part of the Race Agent spectator game. */
+html[data-evowild-s] .kr-item {
+  display: none !important;
+}
