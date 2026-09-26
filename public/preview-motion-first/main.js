@@ -795,12 +795,12 @@ function makePowerLimb(parent, upperMat, lowerMat, jointMat, plateMat, side, for
   );
   parent.add(hip);
 
-  const upperLen = fore ? 0.72 : 0.76;
-  const lowerLen = fore ? 0.60 : 0.64;
-  const cannonLen = fore ? 0.28 : 0.30;
+  const upperLen = fore ? 0.68 : 0.72;
+  const lowerLen = fore ? 0.56 : 0.60;
+  const cannonLen = fore ? 0.26 : 0.28;
 
   const upper = makeMesh(
-    new THREE.CylinderGeometry(0.15, 0.205, upperLen, 6),
+    new THREE.CylinderGeometry(0.17, 0.235, upperLen, 6),
     upperMat,
     hip,
     [0, -upperLen / 2, 0.05]
@@ -818,7 +818,7 @@ function makePowerLimb(parent, upperMat, lowerMat, jointMat, plateMat, side, for
   );
 
   const lower = makeMesh(
-    new THREE.CylinderGeometry(0.095, 0.14, lowerLen, 6),
+    new THREE.CylinderGeometry(0.11, 0.16, lowerLen, 6),
     lowerMat,
     knee,
     [0, -lowerLen / 2, 0.05]
@@ -836,7 +836,7 @@ function makePowerLimb(parent, upperMat, lowerMat, jointMat, plateMat, side, for
   );
 
   const cannon = makeMesh(
-    new THREE.CylinderGeometry(0.070, 0.10, cannonLen, 6),
+    new THREE.CylinderGeometry(0.080, 0.115, cannonLen, 6),
     upperMat,
     ankle,
     [0, -cannonLen / 2, 0.04]
@@ -847,7 +847,7 @@ function makePowerLimb(parent, upperMat, lowerMat, jointMat, plateMat, side, for
   ankle.add(foot);
 
   const sole = makeMesh(
-    new THREE.BoxGeometry(0.24, 0.10, 0.38),
+    new THREE.BoxGeometry(0.28, 0.11, 0.40),
     jointMat,
     foot,
     [0, -0.025, 0.11]
@@ -925,7 +925,7 @@ function createPowerCreature(color, index) {
     primary,
     chestPivot,
     [0, -0.02, 0.02],
-    [0.92, 0.82, 1.16]
+    [0.98, 0.86, 1.12]
   );
 
   makeMesh(
@@ -933,7 +933,7 @@ function createPowerCreature(color, index) {
     secondary,
     pelvisPivot,
     [0, -0.03, -0.03],
-    [0.94, 0.82, 1.08]
+    [0.90, 0.76, 1.02]
   );
 
   const waist = makeMesh(
@@ -1023,14 +1023,14 @@ function createPowerCreature(color, index) {
     primary,
     headPivot,
     [0, 0, 0.22],
-    [0.68, 0.56, 1.02]
+    [0.78, 0.64, 0.90]
   );
 
   const muzzle = makeMesh(
-    new THREE.ConeGeometry(0.17, 0.43, 5),
+    new THREE.ConeGeometry(0.19, 0.34, 5),
     secondary,
     headPivot,
-    [0, -0.06, 0.62]
+    [0, -0.06, 0.56]
   );
   muzzle.rotation.x = Math.PI / 2;
 
@@ -1103,13 +1103,13 @@ function createPowerCreature(color, index) {
   };
 
   const tailBase = new THREE.Group();
-  tailBase.position.set(0, 0.02, -0.68);
-  tailBase.rotation.x = -0.10;
+  tailBase.position.set(0, 0.00, -0.65);
+  tailBase.rotation.x = -0.28;
   pelvisPivot.add(tailBase);
 
   const tailSegments = [];
   let tailParent = tailBase;
-  const tailLengths = [0.38, 0.33, 0.28];
+  const tailLengths = [0.32, 0.28, 0.23];
 
   tailLengths.forEach((segLen, i) => {
     const jointNode = new THREE.Group();
@@ -1810,10 +1810,15 @@ function updateCreaturePose(runner, lateralVelocity, dt = 1 / 60) {
 
   ud.tailSegments.forEach((joint, i) => {
     const lag = phase * 0.42 - i * 0.52;
+    const powerTail = runner.morph === "P";
     joint.rotation.y =
-      Math.sin(lag) * (0.16 + i * 0.035) * speedRatio - ud.turnLean * (0.55 + i * 0.18);
+      Math.sin(lag) * (powerTail ? 0.055 + i * 0.014 : 0.16 + i * 0.035) * speedRatio -
+      ud.turnLean * (0.55 + i * 0.18);
     joint.rotation.x =
-      0.18 + Math.sin(lag * 0.82 + 0.7) * (0.06 + i * 0.022) * speedRatio;
+      (powerTail ? 0.035 : 0.18) +
+      Math.sin(lag * 0.82 + 0.7) *
+        (powerTail ? 0.022 + i * 0.008 : 0.06 + i * 0.022) *
+        speedRatio;
   });
 }
 
@@ -1863,24 +1868,37 @@ function updateCamera(dt) {
   let targetFov = 58;
 
   if (INSPECT_MODE || MOTION_REVIEW_MODE) {
+    const powerReview = focus.morph === "P";
     if (actualCamera === "SIDE") {
-      desiredCamera.set(focusPos.x + 7.8, 3.0, focusPos.z);
-      desiredLook.set(focusPos.x, 1.55, focusPos.z);
-      targetFov = 42;
+      desiredCamera.set(focusPos.x + (powerReview ? 8.8 : 7.8), powerReview ? 3.15 : 3.0, focusPos.z);
+      desiredLook.set(focusPos.x, powerReview ? 1.48 : 1.55, focusPos.z);
+      targetFov = powerReview ? 44 : 42;
     } else if (actualCamera === "LOW") {
-      desiredCamera.set(focusPos.x + 1.35, 1.02, focusPos.z - 4.35);
-      desiredLook.set(focusPos.x, 1.34, focusPos.z + 0.35);
-      targetFov = 46;
+      desiredCamera.set(
+        focusPos.x + (powerReview ? 1.65 : 1.35),
+        powerReview ? 1.12 : 1.02,
+        focusPos.z - (powerReview ? 5.10 : 4.35)
+      );
+      desiredLook.set(focusPos.x, powerReview ? 1.30 : 1.34, focusPos.z + 0.35);
+      targetFov = powerReview ? 48 : 46;
     } else if (actualCamera === "CHASE") {
-      desiredCamera.set(focusPos.x + 2.15, 2.45, focusPos.z - 5.15);
-      desiredLook.set(focusPos.x, 1.48, focusPos.z + 0.35);
-      targetFov = 43;
+      desiredCamera.set(
+        focusPos.x + (powerReview ? 2.45 : 2.15),
+        powerReview ? 2.60 : 2.45,
+        focusPos.z - (powerReview ? 6.05 : 5.15)
+      );
+      desiredLook.set(focusPos.x, powerReview ? 1.44 : 1.48, focusPos.z + 0.35);
+      targetFov = powerReview ? 45 : 43;
     } else if (actualCamera === "FRONT") {
       // Keep the long S body fully inside frame. The previous strong lateral
       // offset turned FRONT into an extreme 3/4 crop during live motion.
-      desiredCamera.set(focusPos.x - 0.85, 2.35, focusPos.z + 7.25);
-      desiredLook.set(focusPos.x, 1.42, focusPos.z - 0.10);
-      targetFov = 47;
+      desiredCamera.set(
+        focusPos.x - (powerReview ? 0.95 : 0.85),
+        powerReview ? 2.55 : 2.35,
+        focusPos.z + (powerReview ? 8.20 : 7.25)
+      );
+      desiredLook.set(focusPos.x, powerReview ? 1.40 : 1.42, focusPos.z - 0.10);
+      targetFov = powerReview ? 49 : 47;
     } else {
       desiredCamera.set(focusPos.x + 5.5, 4.5, focusPos.z - 5.8);
       desiredLook.set(focusPos.x, 1.55, focusPos.z);
