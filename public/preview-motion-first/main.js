@@ -2509,36 +2509,53 @@ function updateCamera(dt) {
 
   if (INSPECT_MODE || MOTION_REVIEW_MODE) {
     const powerReview = focus.morph === "P";
+    const endureReview = focus.morph === "E";
     if (actualCamera === "SIDE") {
-      desiredCamera.set(focusPos.x + (powerReview ? 8.8 : 7.8), powerReview ? 3.15 : 3.0, focusPos.z);
-      desiredLook.set(focusPos.x, powerReview ? 1.48 : 1.55, focusPos.z);
-      targetFov = powerReview ? 44 : 42;
+      desiredCamera.set(
+        focusPos.x + (powerReview ? 8.8 : endureReview ? 8.3 : 7.8),
+        powerReview ? 3.15 : endureReview ? 2.85 : 3.0,
+        focusPos.z
+      );
+      desiredLook.set(focusPos.x, powerReview ? 1.48 : endureReview ? 1.35 : 1.55, focusPos.z);
+      targetFov = powerReview ? 44 : endureReview ? 43 : 42;
     } else if (actualCamera === "LOW") {
       desiredCamera.set(
-        focusPos.x + (powerReview ? 1.65 : 1.35),
-        powerReview ? 1.12 : 1.02,
-        focusPos.z - (powerReview ? 5.10 : 4.35)
+        focusPos.x + (powerReview ? 1.65 : endureReview ? 1.55 : 1.35),
+        powerReview ? 1.12 : endureReview ? 1.04 : 1.02,
+        focusPos.z - (powerReview ? 5.10 : endureReview ? 5.35 : 4.35)
       );
-      desiredLook.set(focusPos.x, powerReview ? 1.30 : 1.34, focusPos.z + 0.35);
-      targetFov = powerReview ? 48 : 46;
+      desiredLook.set(
+        focusPos.x,
+        powerReview ? 1.30 : endureReview ? 1.30 : 1.34,
+        focusPos.z + 0.35
+      );
+      targetFov = powerReview ? 48 : endureReview ? 48 : 46;
     } else if (actualCamera === "CHASE") {
       desiredCamera.set(
-        focusPos.x + (powerReview ? 2.45 : 2.15),
-        powerReview ? 2.60 : 2.45,
-        focusPos.z - (powerReview ? 6.05 : 5.15)
+        focusPos.x + (powerReview ? 2.45 : endureReview ? 2.15 : 2.15),
+        powerReview ? 2.60 : endureReview ? 2.35 : 2.45,
+        focusPos.z - (powerReview ? 6.05 : endureReview ? 6.15 : 5.15)
       );
-      desiredLook.set(focusPos.x, powerReview ? 1.44 : 1.48, focusPos.z + 0.35);
-      targetFov = powerReview ? 45 : 43;
+      desiredLook.set(
+        focusPos.x,
+        powerReview ? 1.44 : endureReview ? 1.34 : 1.48,
+        focusPos.z + 0.35
+      );
+      targetFov = powerReview ? 45 : endureReview ? 46 : 43;
     } else if (actualCamera === "FRONT") {
       // Keep the long S body fully inside frame. The previous strong lateral
       // offset turned FRONT into an extreme 3/4 crop during live motion.
       desiredCamera.set(
-        focusPos.x - (powerReview ? 0.95 : 0.85),
-        powerReview ? 2.55 : 2.35,
-        focusPos.z + (powerReview ? 8.20 : 7.25)
+        focusPos.x - (powerReview ? 0.95 : endureReview ? 0.70 : 0.85),
+        powerReview ? 2.55 : endureReview ? 2.25 : 2.35,
+        focusPos.z + (powerReview ? 8.20 : endureReview ? 6.35 : 7.25)
       );
-      desiredLook.set(focusPos.x, powerReview ? 1.40 : 1.42, focusPos.z - 0.10);
-      targetFov = powerReview ? 49 : 47;
+      desiredLook.set(
+        focusPos.x,
+        powerReview ? 1.40 : endureReview ? 1.32 : 1.42,
+        focusPos.z - 0.10
+      );
+      targetFov = powerReview ? 49 : endureReview ? 45 : 47;
     } else {
       desiredCamera.set(focusPos.x + 5.5, 4.5, focusPos.z - 5.8);
       desiredLook.set(focusPos.x, 1.55, focusPos.z);
