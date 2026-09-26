@@ -2,18 +2,16 @@ import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 import crypto from "node:crypto";
 
-test("render S shape v4 v6 comparison", async ({ page }, testInfo) => {
+test("render S shape v6 v7 comparison", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(120000);
 
-  const outDir = "test-results/shape-v6-browser";
+  const outDir = "test-results/shape-v7-browser";
   fs.mkdirSync(outDir, { recursive: true });
 
   const errors = [];
   page.on("pageerror", (err) => errors.push(err.stack || String(err)));
-  page.on("console", (msg) => {
-    if (msg.type() === "error") errors.push(msg.text());
-  });
+  page.on("console", (msg) => { if (msg.type() === "error") errors.push(msg.text()); });
 
   async function capture(shape, expectedAsset, prefix) {
     await page.goto(
@@ -24,7 +22,6 @@ test("render S shape v4 v6 comparison", async ({ page }, testInfo) => {
     await expect(scene).toBeVisible();
     await expect(scene).toHaveAttribute("data-s-asset-ready", "1", { timeout: 30000 });
     await expect(scene).toHaveAttribute("data-s-asset", expectedAsset);
-
     const result = {};
     for (const view of ["LOW", "FRONT", "CHASE", "SIDE"]) {
       await page.getByRole("button", { name: view, exact: true }).click({ force: true });
@@ -37,13 +34,13 @@ test("render S shape v4 v6 comparison", async ({ page }, testInfo) => {
     return result;
   }
 
-  const v4 = await capture("v4", "hunyuan-s-lod2-shape-v4", "shape-v4");
   const v6 = await capture("v6", "hunyuan-s-lod2-shape-v6", "shape-v6");
+  const v7 = await capture("v7", "hunyuan-s-lod2-shape-v7", "shape-v7");
 
-  expect(v6.LOW).not.toBe(v4.LOW);
-  expect(v6.FRONT).not.toBe(v4.FRONT);
-  expect(v6.CHASE).not.toBe(v4.CHASE);
+  expect(v7.LOW).not.toBe(v6.LOW);
+  expect(v7.FRONT).not.toBe(v6.FRONT);
+  expect(v7.CHASE).not.toBe(v6.CHASE);
   expect(errors, errors.join("\n")).toEqual([]);
 
-  console.log("SHAPE_V6_BROWSER", JSON.stringify({ v4, v6 }));
+  console.log("SHAPE_V7_BROWSER", JSON.stringify({ v6, v7 }));
 });
