@@ -986,7 +986,7 @@ function createPowerCreature(color, index) {
 
   // P retains the same low forward species neck, but it is shorter and thicker.
   const neckPivot = new THREE.Group();
-  neckPivot.position.set(0, 0.13, 1.00);
+  neckPivot.position.set(0, 0.12, 0.91);
   chestPivot.add(neckPivot);
 
   makeMesh(
@@ -998,24 +998,24 @@ function createPowerCreature(color, index) {
   );
 
   const neck = makeMesh(
-    new THREE.CylinderGeometry(0.20, 0.31, 0.66, 7),
+    new THREE.CylinderGeometry(0.21, 0.32, 0.58, 7),
     primary,
     neckPivot,
-    [0, 0.00, 0.31]
+    [0, 0.00, 0.27]
   );
   neck.rotation.x = Math.PI / 2 - 0.03;
 
   const neckKeel = makeTaperedPlate(
-    0.61,
-    0.22,
+    0.54,
+    0.23,
     0.09,
     underside,
     neckPivot,
-    [0, -0.18, 0.28]
+    [0, -0.18, 0.25]
   );
 
   const headPivot = new THREE.Group();
-  headPivot.position.set(0, 0.045, 0.49);
+  headPivot.position.set(0, 0.040, 0.42);
   neckPivot.add(headPivot);
 
   makeMesh(
@@ -1023,14 +1023,14 @@ function createPowerCreature(color, index) {
     primary,
     headPivot,
     [0, 0, 0.22],
-    [0.78, 0.64, 0.90]
+    [0.80, 0.66, 0.82]
   );
 
   const muzzle = makeMesh(
-    new THREE.ConeGeometry(0.19, 0.34, 5),
+    new THREE.ConeGeometry(0.20, 0.28, 5),
     secondary,
     headPivot,
-    [0, -0.06, 0.56]
+    [0, -0.06, 0.50]
   );
   muzzle.rotation.x = Math.PI / 2;
 
@@ -1040,19 +1040,19 @@ function createPowerCreature(color, index) {
   headPivot.add(crestRoot);
 
   const crestUpper = makeTaperedPlate(
-    0.72,
-    0.25,
-    0.13,
+    0.62,
+    0.30,
+    0.15,
     plate,
     crestRoot,
-    [0, 0.02, -0.27]
+    [0, 0.03, -0.23]
   );
   crestUpper.rotation.x = -0.035;
 
   const crestLower = makeTaperedPlate(
-    0.50,
-    0.17,
-    0.09,
+    0.44,
+    0.20,
+    0.10,
     underside,
     crestRoot,
     [0, -0.09, -0.18]
