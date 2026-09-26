@@ -52,5 +52,5 @@ jobs:
         with:
           name: s-shape-v2-review
           path: |
-            test-results/shape-v2/browser-comparison.png
+            test-results/shape-v2/*.png
             public/models/evowild-s/source-lod2-shape-v2.json
