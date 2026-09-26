@@ -535,6 +535,94 @@ function addWorld() {
     marker.position.set(TRACK_WIDTH / 2 + 4.0, 0.75, z);
     scene.add(marker);
   }
+
+  if (SIMPLIFIED_RACE_PAGE) {
+    // Dense near-field reference objects provide real optical flow. These are
+    // geometry cues, not screen-space speed lines or heavy camera shake.
+    const flowFinGeo = new THREE.BoxGeometry(0.14, 0.48, 0.62);
+    const flowFinMat = new THREE.MeshStandardMaterial({
+      color: 0xe7ebe8,
+      roughness: 0.92
+    });
+    const flowSpacing = 4.5;
+    const flowRows = Math.ceil((WORLD_END + 80) / flowSpacing);
+    const flowFins = new THREE.InstancedMesh(
+      flowFinGeo,
+      flowFinMat,
+      flowRows * 2
+    );
+    let flowIndex = 0;
+    for (let i = 0; i < flowRows; i += 1) {
+      const z = -20 + i * flowSpacing;
+      for (const side of [-1, 1]) {
+        matrix.makeTranslation(
+          side * (TRACK_WIDTH / 2 + 1.85),
+          0.24,
+          z
+        );
+        flowFins.setMatrixAt(flowIndex++, matrix);
+      }
+    }
+    scene.add(flowFins);
+
+    const edgeDashGeo = new THREE.PlaneGeometry(0.18, 1.45);
+    const edgeDashMat = new THREE.MeshBasicMaterial({
+      color: 0xe8ece8,
+      transparent: true,
+      opacity: 0.70
+    });
+    const dashSpacing = 6.0;
+    const dashRows = Math.ceil((WORLD_END + 80) / dashSpacing);
+    const edgeDashes = new THREE.InstancedMesh(
+      edgeDashGeo,
+      edgeDashMat,
+      dashRows * 2
+    );
+    const dashQuat = new THREE.Quaternion().setFromEuler(
+      new THREE.Euler(-Math.PI / 2, 0, 0)
+    );
+    flowIndex = 0;
+    for (let i = 0; i < dashRows; i += 1) {
+      const z = -20 + i * dashSpacing;
+      for (const side of [-1, 1]) {
+        matrix.compose(
+          new THREE.Vector3(
+            side * (TRACK_WIDTH / 2 - 0.34),
+            0.021,
+            z
+          ),
+          dashQuat,
+          new THREE.Vector3(1, 1, 1)
+        );
+        edgeDashes.setMatrixAt(flowIndex++, matrix);
+      }
+    }
+    scene.add(edgeDashes);
+
+    const boardGeo = new THREE.BoxGeometry(0.22, 1.15, 1.15);
+    const boardMat = new THREE.MeshStandardMaterial({
+      color: 0x98a5a7,
+      roughness: 0.86
+    });
+    const boardRows = Math.ceil((WORLD_END + 50) / 24);
+    const boards = new THREE.InstancedMesh(boardGeo, boardMat, boardRows * 2);
+    flowIndex = 0;
+    for (let i = 0; i < boardRows; i += 1) {
+      const z = i * 24 + 8;
+      for (const side of [-1, 1]) {
+        matrix.makeTranslation(
+          side * (TRACK_WIDTH / 2 + 3.65),
+          0.78,
+          z
+        );
+        boards.setMatrixAt(flowIndex++, matrix);
+      }
+    }
+    scene.add(boards);
+
+    canvas.dataset.speedField = "1";
+    canvas.dataset.speedFieldSpacing = String(flowSpacing);
+  }
 }
 
 function makeLeg(parent, colorMat, legLength, width, x, z, phaseOffset) {
@@ -3897,6 +3985,7 @@ function updateCamera(dt) {
   actualCamera = requestedCamera === "AUTO" ? autoCameraMode(dt) : requestedCamera;
   const focus = runners[selectedRunner];
   const focusPos = focus.group.position;
+  const presentationSpeed = THREE.MathUtils.clamp(focus.speed / 25, 0, 1.12);
 
   let targetFov = 58;
 
@@ -3973,21 +4062,49 @@ function updateCamera(dt) {
   }
 
   if (actualCamera === "CHASE") {
-    desiredCamera.set(
-      focusPos.x + 5.2,
-      4.4,
-      focusPos.z - 11.8
-    );
-    desiredLook.set(focusPos.x, 1.75, focusPos.z + 10.5);
-    targetFov = 61;
+    if (SIMPLIFIED_RACE_PAGE) {
+      desiredCamera.set(
+        focusPos.x + 4.3,
+        3.35,
+        focusPos.z - THREE.MathUtils.lerp(10.0, 8.5, presentationSpeed)
+      );
+      desiredLook.set(
+        focusPos.x,
+        1.58,
+        focusPos.z + THREE.MathUtils.lerp(10.5, 13.5, presentationSpeed)
+      );
+      targetFov = THREE.MathUtils.lerp(60, 68, presentationSpeed);
+    } else {
+      desiredCamera.set(
+        focusPos.x + 5.2,
+        4.4,
+        focusPos.z - 11.8
+      );
+      desiredLook.set(focusPos.x, 1.75, focusPos.z + 10.5);
+      targetFov = 61;
+    }
   } else if (actualCamera === "LOW") {
-    desiredCamera.set(
-      focusPos.x + 2.4,
-      1.55,
-      focusPos.z - 8.0
-    );
-    desiredLook.set(focusPos.x, 1.42, focusPos.z + 15);
-    targetFov = 72;
+    if (SIMPLIFIED_RACE_PAGE) {
+      desiredCamera.set(
+        focusPos.x + 1.75,
+        1.12,
+        focusPos.z - THREE.MathUtils.lerp(7.0, 5.8, presentationSpeed)
+      );
+      desiredLook.set(
+        focusPos.x,
+        1.30,
+        focusPos.z + THREE.MathUtils.lerp(13, 17, presentationSpeed)
+      );
+      targetFov = THREE.MathUtils.lerp(70, 78, presentationSpeed);
+    } else {
+      desiredCamera.set(
+        focusPos.x + 2.4,
+        1.55,
+        focusPos.z - 8.0
+      );
+      desiredLook.set(focusPos.x, 1.42, focusPos.z + 15);
+      targetFov = 72;
+    }
   } else if (actualCamera === "SIDE") {
     const side = focusPos.x <= 0 ? -1 : 1;
     desiredCamera.set(
@@ -4007,13 +4124,29 @@ function updateCamera(dt) {
     targetFov = 60;
   } else {
     const center = packCenter(tempV);
-    desiredCamera.set(
-      center.x + 11,
-      12.8,
-      center.z - 21
-    );
-    desiredLook.set(center.x, 1.5, center.z + 7);
-    targetFov = 54;
+    if (SIMPLIFIED_RACE_PAGE) {
+      const sorted = rankings();
+      const sample = sorted.slice(0, Math.min(10, sorted.length));
+      const packSpan =
+        sample.length > 1
+          ? sample[0].distance - sample[sample.length - 1].distance
+          : 0;
+      desiredCamera.set(
+        center.x + 8.8,
+        THREE.MathUtils.clamp(8.7 + packSpan * 0.10, 8.7, 12.2),
+        center.z - THREE.MathUtils.clamp(14.8 + packSpan * 0.16, 14.8, 20.5)
+      );
+      desiredLook.set(center.x, 1.42, center.z + 5.5);
+      targetFov = THREE.MathUtils.clamp(49 + packSpan * 0.08, 49, 54);
+    } else {
+      desiredCamera.set(
+        center.x + 11,
+        12.8,
+        center.z - 21
+      );
+      desiredLook.set(center.x, 1.5, center.z + 7);
+      targetFov = 54;
+    }
   }
 
   const transitionRate = requestedCamera === "AUTO" ? 2.6 : 3.8;
@@ -4026,9 +4159,19 @@ function updateCamera(dt) {
   cameraLook.z = THREE.MathUtils.damp(cameraLook.z, desiredLook.z, transitionRate + 0.8, dt);
 
   if (actualCamera === "LOW" || actualCamera === "CHASE") {
-    const shake = Math.min(focus.speed / 25, 1) * (actualCamera === "LOW" ? 0.035 : 0.018);
+    const baseShake = actualCamera === "LOW" ? 0.035 : 0.018;
+    const shake =
+      Math.min(focus.speed / 25, 1) *
+      baseShake *
+      (SIMPLIFIED_RACE_PAGE ? 0.35 : 1);
     camera.position.y += Math.sin(raceTime * 17) * shake;
     camera.position.x += Math.sin(raceTime * 13.7) * shake * 0.4;
+  }
+
+  if (SIMPLIFIED_RACE_PAGE) {
+    canvas.dataset.presentationSpeed = presentationSpeed.toFixed(3);
+    canvas.dataset.presentationCamera = actualCamera;
+    canvas.dataset.presentationFov = camera.fov.toFixed(2);
   }
 
   camera.fov = THREE.MathUtils.damp(camera.fov, targetFov, 4.2, dt);
