@@ -501,3 +501,59 @@ test("Motion First Phase D A gait proves banking flex and planted stance", async
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
 });
+
+
+test("Motion First Phase E simplified race deploys 18 animated runners without Hunyuan assets", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(65000);
+
+  const pageErrors = [];
+  const consoleErrors = [];
+  const highDetailAssetRequests = [];
+
+  page.on("pageerror", (err) => pageErrors.push(err.stack || String(err)));
+  page.on("console", (msg) => {
+    if (msg.type() === "error") consoleErrors.push(msg.text());
+  });
+  page.on("request", (request) => {
+    if (request.url().includes("/models/evowild-s/")) highDetailAssetRequests.push(request.url());
+  });
+
+  await page.goto("/evowild-test/preview-motion-first-race/index.html", {
+    waitUntil: "networkidle"
+  });
+
+  await expect(page.locator("#scene")).toBeVisible();
+  await expect(page.locator("#scene")).toHaveAttribute("data-simplified-race", "1");
+  await expect(page.locator("#scene")).toHaveAttribute("data-runner-count", "18");
+  await expect(page.locator("#scene")).toHaveAttribute("data-morph-set", "SPEA");
+  await expect(page.locator("#scene")).toHaveAttribute("data-variation-active", "1");
+  await expect(page.locator("#scene")).toHaveAttribute("data-s-simplified-lane", "1");
+  await expect(page.locator("#scene")).toHaveAttribute("data-s-asset", "procedural-simplified-lane");
+  await expect(page.locator("#runnerSelect option")).toHaveCount(18);
+
+  await page.waitForTimeout(4500);
+
+  const fpsText = await page.locator("#fpsReadout").textContent();
+  const fps = Number.parseInt(fpsText || "", 10);
+  expect(Number.isFinite(fps)).toBeTruthy();
+  expect(fps).toBeGreaterThanOrEqual(20);
+
+  await page.selectOption("#runnerSelect", "3");
+  await expect(page.locator("#morphReadout")).toHaveText("A");
+
+  for (const view of ["CHASE", "SIDE", "LOW", "FRONT", "PACK"]) {
+    await page.getByRole("button", { name: view, exact: true }).click({ force: true });
+    await expect(page.locator("#cameraReadout")).toHaveText(view);
+    await page.waitForTimeout(450);
+  }
+
+  await page.locator("#scene").screenshot({
+    path: "test-results/visuals/motion-first-phase-e-18-runner-race.png"
+  });
+
+  expect(highDetailAssetRequests).toEqual([]);
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+});
