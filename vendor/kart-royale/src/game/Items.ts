@@ -16,6 +16,8 @@
  * ============================================================================
  */
 import * as THREE from 'three';
+
+const EVOWILD_S_MODE = new URLSearchParams(location.search).get('evowildS') === '1';
 import { ItemKind, RaceState, type Ctx, type IItems, type IKart } from '../types';
 import type { RacingLine } from './AI';
 import {
@@ -529,6 +531,7 @@ export class Items implements IItems {
     this.buildBoxes(ctx);
     this.buildOrbit();
 
+    if (EVOWILD_S_MODE) this.group.visible = false;
     ctx.scene.add(this.group);
     for (const k of this.karts) this.slots.set(k.id, this.freshSlot());
   }
@@ -914,6 +917,7 @@ export class Items implements IItems {
   // -------------------------------------------------------------------- frame
 
   update(ctx: Ctx, dt: number) {
+    if (EVOWILD_S_MODE) return;
     this.ctx = ctx;
     const karts = ctx.race?.karts ?? this.karts;
     this.karts = karts;
