@@ -142,43 +142,91 @@ function correctHeadSilhouette(root) {
   root.updateMatrixWorld(true);
   seamBox.setFromObject(root);
   const minY = seamBox.min.y;
-  const height = Math.max(0.001, seamBox.max.y - seamBox.min.y);
-  const centerX = (seamBox.min.x + seamBox.max.x) * 0.5;
+  const maxY = seamBox.max.y;
+  const height = Math.max(0.001, maxY - minY);
+  const topThreshold = minY + height * 0.76;
+
+  // Do not crush the imported horn/crest geometry. Instead, measure the
+  // actual upper silhouette and insert a thin tapered membrane between the
+  // two lobes. From FRONT/CHASE it closes the accidental "split head"; from
+  // SIDE it is nearly edge-on and leaves the swept crest profile intact.
+  const samples = [];
+  let sourceMaterial = null;
 
   root.traverse((o) => {
     if (!o.isMesh || !o.geometry?.attributes?.position) return;
-
-    // This page is deliberately isolated, so clone before editing the bind
-    // geometry. The source GLB used by the other lanes remains untouched.
-    const g = o.geometry.clone();
-    const pos = g.attributes.position;
-
+    if (!sourceMaterial && o.material) {
+      sourceMaterial = Array.isArray(o.material) ? o.material[0] : o.material;
+    }
+    const pos = o.geometry.attributes.position;
     for (let i = 0; i < pos.count; i += 1) {
       seamPoint.fromBufferAttribute(pos, i);
       o.localToWorld(seamPoint);
-
-      const h = (seamPoint.y - minY) / height;
-      if (h > 0.72) {
-        const t = smoothstep01((h - 0.72) / 0.28);
-        // Pull the upper head/crest toward the centre progressively. The
-        // strongest correction is reserved for the very top where the
-        // imported rig visibly opens into two separate lobes from the front.
-        const scaleX = THREE.MathUtils.lerp(0.90, 0.54, t);
-        seamPoint.x = centerX + (seamPoint.x - centerX) * scaleX;
-        o.worldToLocal(seamPoint);
-        pos.setXYZ(i, seamPoint.x, seamPoint.y, seamPoint.z);
-      }
+      if (seamPoint.y >= topThreshold) samples.push(seamPoint.clone());
     }
-
-    pos.needsUpdate = true;
-    g.computeVertexNormals();
-    o.geometry = g;
   });
 
-  root.updateMatrixWorld(true);
-  canvas.dataset.headSilhouetteCorrection = "1";
-}
+  if (samples.length < 8) return;
 
+  let minX = Infinity;
+  let maxX = -Infinity;
+  let minTopY = Infinity;
+  let maxTopY = -Infinity;
+  let zSum = 0;
+  for (const p of samples) {
+    minX = Math.min(minX, p.x);
+    maxX = Math.max(maxX, p.x);
+    minTopY = Math.min(minTopY, p.y);
+    maxTopY = Math.max(maxTopY, p.y);
+    zSum += p.z;
+  }
+
+  const spanX = Math.max(0.02, maxX - minX);
+  const spanY = Math.max(0.06, maxTopY - minTopY);
+  const centerWorld = new THREE.Vector3(
+    (minX + maxX) * 0.5,
+    minTopY + spanY * 0.43,
+    zSum / samples.length
+  );
+
+  const bridgeW = spanX * 0.48;
+  const bridgeH = spanY * 0.68;
+  const topW = bridgeW * 0.34;
+
+  const positions = new Float32Array([
+    -bridgeW * 0.5, -bridgeH * 0.5, 0,
+     bridgeW * 0.5, -bridgeH * 0.5, 0,
+     topW * 0.5,     bridgeH * 0.5, 0,
+    -topW * 0.5,     bridgeH * 0.5, 0
+  ]);
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+  geo.setIndex([0, 1, 2, 0, 2, 3]);
+  geo.computeVertexNormals();
+
+  const bridgeMat = cel({
+    color: sourceMaterial?.color?.getHex?.() ?? 0xe9e7e2,
+    bands: 3,
+    tint: 0x6c5f8c,
+    flat: false,
+    map: sourceMaterial?.map ?? null,
+    side: THREE.DoubleSide,
+    cache: false
+  });
+
+  const bridge = new THREE.Mesh(geo, bridgeMat);
+  bridge.name = "SakuraNPR_head_bridge";
+  bridge.userData.noOutline = true;
+  bridge.renderOrder = -1;
+
+  const centerLocal = centerWorld.clone();
+  root.worldToLocal(centerLocal);
+  bridge.position.copy(centerLocal);
+  root.add(bridge);
+  root.updateMatrixWorld(true);
+
+  canvas.dataset.headSilhouetteCorrection = "bridge";
+}
 const cameraForward = new THREE.Vector3();
 const cameraSide = new THREE.Vector3();
 const cameraUp = new THREE.Vector3(0, 1, 0);
