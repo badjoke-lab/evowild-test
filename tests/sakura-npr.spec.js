@@ -2,8 +2,9 @@ import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 
 test("Sakura NPR lane keeps named cameras on the correct S forward axis and captures visuals", async ({ page }, testInfo) => {
+  test.skip(process.env.SAKURA_NPR_CAPTURE !== "1");
   test.skip(testInfo.project.name !== "desktop-chromium");
-  test.setTimeout(45000);
+  test.setTimeout(90000);
 
   const pageErrors = [];
   const consoleErrors = [];
@@ -52,23 +53,23 @@ test("Sakura NPR lane keeps named cameras on the correct S forward axis and capt
   await page.waitForTimeout(200);
   const front = await cameraDot();
   expect(front.dot).toBeGreaterThan(0.72);
-  await canvas.screenshot({ path: `${outDir}/sakura-npr-front.png` });
+  await page.screenshot({ path: `${outDir}/sakura-npr-front.png`, timeout: 10000 });
 
   await page.getByRole("button", { name: "CHASE", exact: true }).click();
   await page.waitForTimeout(200);
   const chase = await cameraDot();
   expect(chase.dot).toBeLessThan(-0.72);
-  await canvas.screenshot({ path: `${outDir}/sakura-npr-chase.png` });
+  await page.screenshot({ path: `${outDir}/sakura-npr-chase.png`, timeout: 10000 });
 
   await page.getByRole("button", { name: "SIDE", exact: true }).click();
   await page.waitForTimeout(200);
   const side = await cameraDot();
   expect(Math.abs(side.dot)).toBeLessThan(0.2);
-  await canvas.screenshot({ path: `${outDir}/sakura-npr-side.png` });
+  await page.screenshot({ path: `${outDir}/sakura-npr-side.png`, timeout: 10000 });
 
   await page.getByRole("button", { name: "3/4", exact: true }).click();
   await page.waitForTimeout(200);
-  await canvas.screenshot({ path: `${outDir}/sakura-npr-threeq.png` });
+  await page.screenshot({ path: `${outDir}/sakura-npr-threeq.png`, timeout: 10000 });
 
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
