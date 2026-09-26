@@ -38,7 +38,7 @@ jobs:
       - run: npm install
       - run: npx playwright install --with-deps chromium
       - name: Render browser comparison
-        run: npm run test:e2e -- --workers=1 -g "render S shape baseline through v4 comparison"
+        run: npm run test:e2e -- --workers=1 -g "render S shape baseline v3 v4 comparison"
       - name: Persist candidate
         run: |
           git config user.name "github-actions[bot]"
@@ -59,6 +59,7 @@ jobs:
             test-results/shape-v21/*.png
             test-results/shape-v3/*.png
             test-results/shape-v4/*.png
+            test-results/shape-v4-browser/*.png
             public/models/evowild-s/source-lod2-shape-v2.json
             public/models/evowild-s/source-lod2-shape-v21.json
             public/models/evowild-s/source-lod2-shape-v3.json
