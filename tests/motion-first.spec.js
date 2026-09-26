@@ -590,7 +590,7 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
   await expect(page.locator("#scene")).toBeVisible();
   await expect(page.locator("#cameraReadout")).not.toHaveText("");
   await expect(page.locator("#scene")).toHaveAttribute("data-speed-cue-spacing", "7.25");
-  await expect(page.locator("#scene")).toHaveAttribute("data-render-pixel-ratio", "0.6");
+  await expect(page.locator("#scene")).toHaveAttribute("data-render-pixel-ratio", "0.4");
   await expect(page.locator("#scene")).toHaveAttribute("data-director-reason", "START");
 
   await page.waitForTimeout(7200);
