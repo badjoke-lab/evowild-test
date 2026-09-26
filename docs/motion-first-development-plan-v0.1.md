@@ -26,7 +26,7 @@ The current Motion First implementation is a technology proof, not a quality ben
 
 ## 2. Current state
 
-Current phase: **Phase B — S locomotion**
+Current phase: **Phase C — multi-camera S validation**
 
 Passed:
 
@@ -43,7 +43,6 @@ Passed:
 
 Still open:
 
-- Phase B visual acceptance of the S gait;
 - Phase C full multi-camera motion acceptance;
 - acceptable speed sensation;
 - convincing P/E/A derivation from the same species;
@@ -301,26 +300,29 @@ CI can verify regressions and runtime behavior. It cannot certify creature quali
 
 The current coding task is:
 
-**finish Phase B for the canonical S runner before any P/E/A derivation.**
+**finish Phase C for the canonical moving S runner before any P/E/A derivation.**
 
-Current Phase B work must concentrate on:
+Phase B is passed and recorded in:
+- `docs/reviews/motion-first-s-phase-b-v4-pass-20260926.md`
 
-- load → drive → suspension → recovery readability;
-- longitudinal chest/pelvis deformation rather than rigid-hull motion;
-- shoulder / hip contribution to stride;
-- compact recovery and controlled pre-touchdown extension;
-- planted stance with no obvious foot skating;
-- damped head / neck stabilization;
-- delayed tail follow-through.
+Current Phase C work must validate:
+
+- SIDE gait readability;
+- CHASE rear structure and limb overlap;
+- LOW contact / underside / speed impression;
+- FRONT symmetry and leg crossing;
+- transition continuity between those cameras;
+- no camera clipping through the creature;
+- no view that depends on hiding a structural or motion defect.
 
 Acceptance order:
 
-1. CI: no IK reach clipping;
-2. CI: planted-stance slip remains below the explicit threshold;
-3. CI: body has measurable longitudinal articulation;
-4. visual review: SIDE continuous motion;
-5. visual review: LOW continuous motion.
+1. record continuous SIDE → CHASE → LOW → FRONT → SIDE motion;
+2. inspect each steady view;
+3. inspect each transition;
+4. fix camera-relative overlap / framing defects;
+5. document pass/fail in `docs/reviews/`.
 
-Do not redesign AUTO camera, UI, environment art, P/E/A, or the 18-runner population until Phase B passes.
+Do not start P/E/A, 18-runner creature replacement, AUTO race director, environment art, or Race Agent UI expansion until Phase C passes.
 
-After Phase B passes, proceed directly to **Phase C multi-camera S validation** using SIDE / CHASE / LOW / FRONT and camera transitions.
+After Phase C passes, proceed to **Phase D — derive P / E / A from the accepted S species structure**.
