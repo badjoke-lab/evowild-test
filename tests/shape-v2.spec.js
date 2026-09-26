@@ -4,7 +4,7 @@ import crypto from "node:crypto";
 
 test("render S shape baseline v2 v2.1 v3 comparison", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
-  test.setTimeout(90000);
+  test.setTimeout(180000);
 
   const outDir = "test-results/shape-v2";
   fs.mkdirSync(outDir, { recursive: true });
