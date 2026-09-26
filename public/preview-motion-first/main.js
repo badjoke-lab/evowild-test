@@ -30,8 +30,8 @@ const S_GAIT = {
   reviewBaseY: 2.16,
   minStrideWorld: 3.8,
   maxStrideWorld: 6.2,
-  stance: 0.30,
-  swingLift: 0.50,
+  stance: 0.22,
+  swingLift: 0.52,
   chestBaseZ: 0.58,
   pelvisBaseZ: -0.70,
   chestBaseY: 0.01,
@@ -454,8 +454,8 @@ function makeSprintLimb(parent, upperMat, lowerMat, jointMat, plateMat, side, fo
     ankle,
     foot,
     phaseOffset: fore
-      ? (side < 0 ? TAU * 0.50 : TAU * 0.58)
-      : (side < 0 ? 0 : TAU * 0.08),
+      ? (side < 0 ? TAU * 0.48 : TAU * 0.60)
+      : (side < 0 ? 0 : TAU * 0.11),
     upperLen,
     lowerLen,
     cannonLen,
@@ -765,6 +765,8 @@ function createSprintCreature(color, index) {
     bodyMaster,
     chestPivot,
     pelvisPivot,
+    waist,
+    keel,
     neckPivot,
     headPivot,
     tailSegments,
@@ -1118,10 +1120,18 @@ function solveSprintLeg(leg, targetY, targetZ, footPitch, turnLean) {
 
   const hipOffset = Math.acos(hipCos);
   const kneeBend = Math.PI - Math.acos(kneeCos);
+  const bendSign = leg.fore ? 1 : -1;
 
-  leg.hip.rotation.x = direction + hipOffset;
-  leg.knee.rotation.x = -kneeBend;
-  leg.ankle.rotation.x = 0.06 + kneeBend * 0.10;
+  leg.hip.rotation.x = direction + hipOffset * bendSign;
+  leg.knee.rotation.x = -kneeBend * bendSign;
+
+  // Forelimbs fold through an elbow/wrist-like chain; hind limbs use an
+  // opposite stifle/hock solution so the two families do not look cloned.
+  leg.ankle.rotation.x =
+    leg.fore
+      ? 0.08 + kneeBend * 0.13
+      : -0.10 - kneeBend * 0.16;
+
   leg.foot.rotation.x =
     footPitch -
     leg.hip.rotation.x -
@@ -1160,17 +1170,24 @@ function updateSprintPose(runner, lateralVelocity, dt) {
   const baseY = INSPECT_MODE && !MOTION_REVIEW_MODE ? S_GAIT.reviewBaseY : S_GAIT.baseY;
   ud.bodyMaster.position.y =
     baseY +
-    suspension * 0.115 * speedRatio -
-    load * 0.050 * speedRatio;
+    suspension * 0.155 * speedRatio -
+    load * 0.060 * speedRatio;
 
   // Longitudinal body deformation is essential: the runner must not read as
   // a rigid hull with four animated sticks.
-  const longStretch = (spineExtend - 0.5) * 0.18 * speedRatio;
-  const verticalCompression = load * 0.055 * speedRatio;
-  ud.chestPivot.position.z = S_GAIT.chestBaseZ + longStretch * 0.48;
-  ud.pelvisPivot.position.z = S_GAIT.pelvisBaseZ - longStretch * 0.60;
-  ud.chestPivot.position.y = S_GAIT.chestBaseY - verticalCompression * 0.55;
-  ud.pelvisPivot.position.y = S_GAIT.pelvisBaseY - verticalCompression * 0.45;
+  const longStretch = (spineExtend - 0.5) * 0.34 * speedRatio;
+  const verticalCompression = load * 0.070 * speedRatio;
+
+  ud.chestPivot.position.z = S_GAIT.chestBaseZ + longStretch * 0.46;
+  ud.pelvisPivot.position.z = S_GAIT.pelvisBaseZ - longStretch * 0.62;
+  ud.chestPivot.position.y = S_GAIT.chestBaseY - verticalCompression * 0.58;
+  ud.pelvisPivot.position.y = S_GAIT.pelvisBaseY - verticalCompression * 0.42;
+
+  const bodyMidZ = (ud.chestPivot.position.z + ud.pelvisPivot.position.z) * 0.5;
+  ud.waist.position.z = bodyMidZ;
+  ud.waist.scale.y = 1 + Math.abs(longStretch) * 1.45;
+  ud.keel.position.z = bodyMidZ;
+  ud.keel.scale.z = 1 + Math.abs(longStretch) * 0.52;
 
   const contactPitch =
     -rearDrive * 0.030 +
@@ -1184,13 +1201,13 @@ function updateSprintPose(runner, lateralVelocity, dt) {
   ud.bodyMaster.rotation.z = ud.turnLean;
 
   ud.chestPivot.rotation.x =
-    -spineWave * 0.090 * speedRatio -
-    foreCatch * 0.040 +
-    suspension * 0.018;
+    -spineWave * 0.125 * speedRatio -
+    foreCatch * 0.050 +
+    suspension * 0.024;
   ud.pelvisPivot.rotation.x =
-    spineWave * 0.125 * speedRatio +
-    rearDrive * 0.045 -
-    suspension * 0.020;
+    spineWave * 0.165 * speedRatio +
+    rearDrive * 0.060 -
+    suspension * 0.028;
   ud.chestPivot.rotation.y = -Math.sin(phase * 0.5) * 0.016 * speedRatio;
   ud.pelvisPivot.rotation.y = Math.sin(phase * 0.5) * 0.024 * speedRatio;
 
@@ -1203,7 +1220,7 @@ function updateSprintPose(runner, lateralVelocity, dt) {
 
     leg.hip.position.z =
       (leg.fore ? 0.26 : -0.25) +
-      strideRoot * (leg.fore ? 0.075 : 0.090) * speedRatio;
+      strideRoot * (leg.fore ? 0.095 : 0.120) * speedRatio;
     leg.hip.position.y =
       (leg.fore ? -0.12 : -0.10) +
       liftRoot * 0.035 * speedRatio -
@@ -1253,14 +1270,22 @@ function updateSprintPose(runner, lateralVelocity, dt) {
       const advance = u < 0.58
         ? 0.5 * Math.pow(u / 0.58, 1.55)
         : 0.5 + 0.5 * (1 - Math.pow(1 - (u - 0.58) / 0.42, 2.2));
-      const liftShape = Math.pow(Math.sin(u * Math.PI), 1.15);
-      const earlyFold = Math.pow(Math.max(0, Math.sin(Math.min(1, u / 0.48) * Math.PI)), 1.35);
+      const liftShape = Math.pow(Math.sin(u * Math.PI), 1.10);
+      const earlyFold = Math.pow(
+        Math.max(0, Math.sin(Math.min(1, u / 0.42) * Math.PI)),
+        1.18
+      );
+      const lateExtend = Math.pow(
+        THREE.MathUtils.clamp((u - 0.68) / 0.32, 0, 1),
+        1.65
+      );
 
       targetZ = THREE.MathUtils.lerp(-halfSweep, halfSweep, advance);
       targetY =
         -nominalReach +
         liftShape * S_GAIT.swingLift +
-        earlyFold * 0.055;
+        earlyFold * (fore ? 0.070 : 0.095) -
+        lateExtend * 0.035;
       footPitch =
         -0.23 * liftShape +
         THREE.MathUtils.lerp(0.06, -0.04, Math.min(1, u / 0.92));
