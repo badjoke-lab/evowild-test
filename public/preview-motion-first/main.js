@@ -298,7 +298,7 @@ const renderer = new THREE.WebGLRenderer({
   powerPreference: "high-performance"
 });
 const renderPixelRatio = SIMPLIFIED_RACE_PAGE
-  ? 0.6
+  ? 0.4
   : SIMPLIFIED_GAIT_PAGE
     ? Math.min(window.devicePixelRatio || 1, 1.25)
     : Math.min(window.devicePixelRatio || 1, 1.5);
@@ -2495,6 +2495,39 @@ function laneToX(lane) {
 
 const runners = [];
 
+function applySimplifiedRaceRenderLOD(root) {
+  if (!SIMPLIFIED_RACE_PAGE) return;
+
+  const materialCache = new Map();
+  root.traverse((node) => {
+    if (!node.isMesh) return;
+
+    const source = node.material;
+    if (!source || !source.isMeshStandardMaterial) return;
+
+    const colorHex = source.color?.getHexString?.() || "ffffff";
+    const emissiveHex = source.emissive?.getHexString?.() || "000000";
+    const key = `${colorHex}:${emissiveHex}:${source.transparent ? 1 : 0}:${source.opacity ?? 1}`;
+
+    let replacement = materialCache.get(key);
+    if (!replacement) {
+      replacement = new THREE.MeshLambertMaterial({
+        color: source.color?.clone?.() || new THREE.Color(0xffffff),
+        emissive: source.emissive?.clone?.() || new THREE.Color(0x000000),
+        emissiveIntensity: Math.min(source.emissiveIntensity ?? 0, 0.9),
+        transparent: Boolean(source.transparent),
+        opacity: source.opacity ?? 1,
+        flatShading: true
+      });
+      materialCache.set(key, replacement);
+    }
+
+    node.material = replacement;
+  });
+
+  root.userData.raceRenderLod = "lambert-low";
+}
+
 function createRunners() {
   const morphKeys = ["S", "P", "E", "A"];
 
@@ -2503,6 +2536,7 @@ function createRunners() {
     const creature = createCreature(morph, COLORS[i % COLORS.length], i);
     if (SIMPLIFIED_RACE_PAGE) {
       applySimplifiedRaceVariation(creature, morph, i);
+      applySimplifiedRaceRenderLOD(creature);
     }
     const lane = i % LANE_COUNT;
     const row = Math.floor(i / LANE_COUNT);
