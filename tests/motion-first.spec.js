@@ -138,14 +138,34 @@ test("Motion First S Phase C records moving multi-camera transitions", async ({ 
     ["SIDE", 2200]
   ];
 
-  for (const [view, holdMs] of sequence) {
+  for (const [index, [view, holdMs]] of sequence.entries()) {
     if (view !== "SIDE" || (await page.locator("#cameraReadout").textContent()) !== "SIDE") {
       await page.getByRole("button", { name: view, exact: true }).click({ force: true });
       await expect(page.locator("#cameraReadout")).toHaveText(view);
     }
     await page.waitForTimeout(holdMs);
-    await page.locator("#scene").screenshot({
-      path: `${outDir}/motion-first-s-phase-c-${view.toLowerCase()}-${Date.now()}.png`
+
+    const scene = page.locator("#scene");
+    const minX = Number(await scene.getAttribute("data-focus-min-x"));
+    const maxX = Number(await scene.getAttribute("data-focus-max-x"));
+    const minY = Number(await scene.getAttribute("data-focus-min-y"));
+    const maxY = Number(await scene.getAttribute("data-focus-max-y"));
+    const width = Number(await scene.getAttribute("data-focus-width"));
+    const height = Number(await scene.getAttribute("data-focus-height"));
+
+    for (const value of [minX, maxX, minY, maxY, width, height]) {
+      expect(Number.isFinite(value)).toBeTruthy();
+    }
+
+    expect(minX, `${view} clips left`).toBeGreaterThan(-0.96);
+    expect(maxX, `${view} clips right`).toBeLessThan(0.96);
+    expect(minY, `${view} clips bottom`).toBeGreaterThan(-0.96);
+    expect(maxY, `${view} clips top`).toBeLessThan(0.96);
+    expect(width, `${view} is framed too small`).toBeGreaterThan(0.20);
+    expect(height, `${view} is framed too small`).toBeGreaterThan(0.20);
+
+    await scene.screenshot({
+      path: `${outDir}/motion-first-s-phase-c-${String(index).padStart(2, "0")}-${view.toLowerCase()}.png`
     });
   }
 
