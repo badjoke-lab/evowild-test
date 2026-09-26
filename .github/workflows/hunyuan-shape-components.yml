@@ -1,0 +1,22 @@
+name: Inspect Hunyuan S components
+
+on:
+  push:
+    branches:
+      - feat/s-hunyuan-shape-refine-v2-20260926
+  workflow_dispatch:
+
+jobs:
+  inspect:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[targeted-shape-components]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Blender
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y blender python3-numpy
+      - name: Inspect topology
+        run: |
+          blender --background --python scripts/inspect-hunyuan-components.py -- public/models/evowild-s/source-lod2.glb
