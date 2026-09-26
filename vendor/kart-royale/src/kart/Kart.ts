@@ -54,6 +54,7 @@ const MAX_SUBSTEPS = 6;
 // EvoWild Lane 4 V4: keep Kart Royale physics/AI intact and replace only the
 // rendered kart shell when explicitly requested by the proof URL.
 const EVOWILD_S_MODE = new URLSearchParams(location.search).get('evowildS') === '1';
+if (EVOWILD_S_MODE) document.documentElement.setAttribute('data-evowild-s', '');
 
 function buildEvowildSSprite(seed: number) {
   const texture = new THREE.TextureLoader().load(
