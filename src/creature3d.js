@@ -325,6 +325,60 @@ export const CREATURE_3D_PROFILES = {
       "Independent feet approximate a flatter contact phase without full IK."
     ]
   },
+  sHunyuan2mvRiggedV31: {
+    id: "s-hunyuan2mv-rigged-v31-proof",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-rigged-v31.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.22,
+      minRoughness: 0.52,
+      side: "double",
+      preserveBaseColorMap: false,
+      preserveNormalMap: false,
+      preserveRoughnessMap: false,
+      preserveMetalnessMap: false,
+      maxAnisotropy: 1,
+      prototypeVertexPalette: true
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "contact_phased_rig_v3_1_proof_not_final_art",
+    notes: [
+      "LOD2 19-bone v3.1 with explicit stance, push-off, recovery and landing timing.",
+      "Contact-phase proof only; not approved final animation."
+    ]
+  },
+  sHunyuan2mvLod4RiggedV31: {
+    id: "s-hunyuan2mv-lod4-rigged-v31-proof",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-lod4-rigged-v31.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.12,
+      minRoughness: 0.64,
+      side: "double",
+      preserveBaseColorMap: false,
+      preserveNormalMap: false,
+      preserveRoughnessMap: false,
+      preserveMetalnessMap: false,
+      maxAnisotropy: 1,
+      prototypeVertexPalette: true
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "contact_phased_rig_v3_1_proof_not_final_art",
+    notes: [
+      "LOD4 19-bone v3.1 contact-phased race rig.",
+      "Contact-phase proof only; not approved final animation."
+    ]
+  },
   sHunyuan2mvStyled: {
     id: "s-hunyuan2mv-styled-prototype",
     morph: "S",
