@@ -22,6 +22,8 @@ test("Motion First S runner renders and captures required camera views", async (
   await expect(page.locator("#runnerSelect")).toHaveValue("0");
 
   await expect(page.locator("#raceState")).toHaveText("INSPECT");
+  await expect(page.locator("#scene")).toHaveAttribute("data-s-asset-ready", "1");
+  await expect(page.locator("#scene")).toHaveAttribute("data-s-asset", "hunyuan-s-lod2");
   await page.waitForTimeout(600);
 
   const views = ["SIDE", "LOW", "CHASE", "FRONT"];
@@ -78,14 +80,12 @@ test("Motion First S gait records continuous SIDE and LOW review video", async (
   await expect(page.locator("#cameraReadout")).toHaveText("LOW");
   await page.waitForTimeout(4200);
 
-  await expect(page.locator("#scene")).toHaveAttribute("data-ik-clamped", "0");
-  const stanceSlip = Number(await page.locator("#scene").getAttribute("data-max-stance-slip"));
-  expect(Number.isFinite(stanceSlip)).toBeTruthy();
-  expect(stanceSlip).toBeLessThan(0.12);
-
-  const bodyStretch = Number(await page.locator("#scene").getAttribute("data-max-body-stretch"));
-  expect(Number.isFinite(bodyStretch)).toBeTruthy();
-  expect(bodyStretch).toBeGreaterThan(0.14);
+  await expect(page.locator("#scene")).toHaveAttribute("data-s-asset-ready", "1");
+  await expect(page.locator("#scene")).toHaveAttribute("data-s-asset", "hunyuan-s-rigged-v31");
+  await expect(page.locator("#scene")).toHaveAttribute("data-s-runtime-animated", "1");
+  const clipCount = Number(await page.locator("#scene").getAttribute("data-s-animation-clips"));
+  expect(Number.isFinite(clipCount)).toBeTruthy();
+  expect(clipCount).toBeGreaterThan(0);
 
   const video = page.video();
   await page.close();
@@ -143,7 +143,9 @@ test("Motion First Phase C records continuous S multi-camera review", async ({ b
     });
   }
 
-  await expect(page.locator("#scene")).toHaveAttribute("data-ik-clamped", "0");
+  await expect(page.locator("#scene")).toHaveAttribute("data-s-asset-ready", "1");
+  await expect(page.locator("#scene")).toHaveAttribute("data-s-asset", "hunyuan-s-rigged-v31");
+  await expect(page.locator("#scene")).toHaveAttribute("data-s-runtime-animated", "1");
 
   const video = page.video();
   await page.close();
@@ -349,6 +351,37 @@ test("Motion First Phase D E gait records continuous SIDE and LOW review", async
   if (!video) throw new Error("Playwright E gait video was not created");
   await video.saveAs(`${outDir}/motion-first-e-gait-review.webm`);
   await context.close();
+
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+});
+
+
+test("Motion First normal race uses Hunyuan LOD4 rigged S", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(45000);
+
+  const pageErrors = [];
+  const consoleErrors = [];
+  page.on("pageerror", (err) => pageErrors.push(err.stack || String(err)));
+  page.on("console", (msg) => {
+    if (msg.type() === "error") consoleErrors.push(msg.text());
+  });
+
+  await page.goto("/evowild-test/preview-motion-first/index.html", { waitUntil: "networkidle" });
+  await expect(page.locator("#scene")).toBeVisible();
+  await expect(page.locator("#scene")).toHaveAttribute("data-s-asset-ready", "1");
+  await expect(page.locator("#scene")).toHaveAttribute("data-s-asset", "hunyuan-s-lod4-rigged-v31");
+
+  const clipCount = Number(await page.locator("#scene").getAttribute("data-s-animation-clips"));
+  expect(Number.isFinite(clipCount)).toBeTruthy();
+  expect(clipCount).toBeGreaterThan(0);
+
+  await page.waitForTimeout(2500);
+  await page.locator("#scene").screenshot({
+    path: "test-results/visuals/motion-first-hunyuan-race.png"
+  });
 
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);

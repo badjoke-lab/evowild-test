@@ -256,11 +256,11 @@ Do not solve performance by reducing animation quality first.
 
 ## 10. Immediate S-morph gate
 
-**Current status: NOT PASSED.**
+**Current status: HUNYUAN BASELINE SELECTED / RUNTIME REVIEW REQUIRED.**
 
-The current procedural / primitive S is a motion-test fixture only. It must not be treated as the accepted creature model.
+The procedural / primitive S remains a motion-test fixture only.
 
-The accepted S candidate is to come from the dedicated **Astra modeling lane**. No further P/E/A creature-model expansion is allowed until that candidate meets all of the following:
+The active S geometry baseline is `public/models/evowild-s/source-lod2.glb`, with rigged v31 derivatives used for motion. This is the selected working baseline, not a declaration of final-art completion. No further P/E/A production expansion is allowed until the Hunyuan replacement survives runtime review against the following requirements:
 
 - recognizably matches the S concept silhouette;
 - no accidental real-world-animal silhouette dominates;
@@ -275,7 +275,7 @@ The accepted S candidate is to come from the dedicated **Astra modeling lane**. 
 
 Only after this gate passes should P/E/A be derived.
 
-A previous internal decision incorrectly marked the primitive S as passed because it survived multi-camera and motion checks. That decision is revoked: multi-camera stability is necessary, not sufficient, for visual acceptance.
+A previous internal decision incorrectly marked the primitive S as passed because it survived multi-camera and motion checks. That decision remains revoked. The Hunyuan selection fixes the geometry source; multi-camera stability and motion quality still have to be verified after replacement.
 
 ## 11. What is deliberately deferred
 
