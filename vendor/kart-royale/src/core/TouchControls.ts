@@ -360,6 +360,10 @@ export class TouchControls {
     root.innerHTML = MARKUP;
     document.body.appendChild(root);
     this.root = root;
+    if (new URLSearchParams(location.search).get('evowildS') === '1') {
+      root.style.display = 'none';
+      document.documentElement.setAttribute('data-evowild-s', '');
+    }
 
     this.stickWrap = root.querySelector('.tc-stick-zone')!;
     this.stickBase = root.querySelector('.tc-stick-base')!;
