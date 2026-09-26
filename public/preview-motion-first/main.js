@@ -3614,6 +3614,7 @@ const autoDirector = {
   previousSpeeds: [],
   switchCount: 0,
   eventStartedAt: 0,
+  manualFocusUntil: 0,
   history: []
 };
 
@@ -3640,6 +3641,7 @@ function resetAutoDirector() {
   autoDirector.previousSpeeds = runners.map((runner) => runner.speed);
   autoDirector.switchCount = 0;
   autoDirector.eventStartedAt = raceTime;
+  autoDirector.manualFocusUntil = 0;
   autoDirector.history = ["START"];
   syncAutoDirectorDataset();
 }
@@ -3842,6 +3844,10 @@ function autoCameraMode(dt) {
       hold: 1.8,
       priority: AUTO_EVENT_PRIORITY.ACCELERATION
     };
+  }
+
+  if (raceTime < autoDirector.manualFocusUntil && runners[selectedRunner]) {
+    candidate.focusId = selectedRunner;
   }
 
   const holdActive = raceTime < autoDirector.holdUntil;
@@ -4080,7 +4086,8 @@ runnerSelect.addEventListener("change", () => {
 
   if (requestedCamera === "AUTO" && SIMPLIFIED_RACE_PAGE) {
     autoDirector.focusId = selectedRunner;
-    autoDirector.holdUntil = raceTime + 1.4;
+    autoDirector.manualFocusUntil = raceTime + 2.0;
+    autoDirector.holdUntil = Math.max(autoDirector.holdUntil, raceTime + 1.4);
     syncAutoDirectorDataset();
   }
 
