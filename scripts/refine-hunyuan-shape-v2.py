@@ -137,26 +137,36 @@ def point_camera(cam,target):
 
 def setup_render():
     scene=bpy.context.scene
-    scene.render.engine="BLENDER_WORKBENCH"
-    scene.display.shading.light="STUDIO"
-    scene.display.shading.color_type="MATERIAL"
-    scene.display.shading.show_shadows=True
-    scene.display.shading.show_cavity=True
-    scene.display.shading.cavity_type="WORLD"
-    scene.display.shading.show_specular_highlight=True
+    scene.render.engine="BLENDER_EEVEE_NEXT"
     scene.render.resolution_x=900
     scene.render.resolution_y=700
     scene.render.resolution_percentage=100
     scene.render.image_settings.file_format="PNG"
     scene.render.film_transparent=False
-    scene.world.color=(0.92,0.94,0.97)
+    scene.world.color=(0.055,0.065,0.085)
+
+    # Neutral studio lights; avoid Workbench headless crashes on CI.
+    bpy.ops.object.light_add(type="AREA", location=(4.5,6.0,5.5))
+    key=bpy.context.object
+    key.data.energy=1050
+    key.data.shape="DISK"
+    key.data.size=5.0
+
+    bpy.ops.object.light_add(type="AREA", location=(-4.0,2.5,3.0))
+    fill=bpy.context.object
+    fill.data.energy=650
+    fill.data.size=4.0
+
+    bpy.ops.object.light_add(type="AREA", location=(0.0,-4.5,4.0))
+    rim=bpy.context.object
+    rim.data.energy=800
+    rim.data.size=3.0
 
     bpy.ops.object.camera_add()
     cam=bpy.context.object
     cam.data.type="ORTHO"
     scene.camera=cam
     return cam
-
 
 def render_views(obj,render_dir,prefix):
     os.makedirs(render_dir,exist_ok=True)
@@ -197,15 +207,20 @@ def main():
     bpy.ops.import_scene.gltf(filepath=input_path)
     obj=join_meshes()
 
-    # Render the untouched baseline side/3q first.
+    # Force a simple material before any CI render; geometry is what is being reviewed.
+    for slot in obj.material_slots:
+        mat=slot.material
+        if mat:
+            mat.use_nodes=True
+            bsdf=mat.node_tree.nodes.get("Principled BSDF")
+            if bsdf:
+                bsdf.inputs["Base Color"].default_value=(0.38,0.46,0.58,1.0)
+                bsdf.inputs["Roughness"].default_value=0.72
+                bsdf.inputs["Metallic"].default_value=0.05
+
     render_views(obj,render_dir,"baseline")
 
     stats=refine_shape(obj)
-
-    # Make material neutral and readable without replacing geometry identity.
-    for mat in obj.data.materials:
-        if mat:
-            mat.diffuse_color=(0.48,0.55,0.66,1.0)
 
     render_views(obj,render_dir,"shape-v2")
 
