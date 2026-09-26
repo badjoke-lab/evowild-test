@@ -1252,6 +1252,89 @@ test("link Hunyuan stride cadence to live race speed", async ({ page }, testInfo
 });
 
 
+test("compare Hunyuan v3 and contact-phased v31 hybrid follow rigs", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(150000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+  const results = [];
+
+  const inspect = async () => page.evaluate(() => {
+    const model = window.__hunyuanRacePackRiggedSelected;
+    if (!model) return null;
+    const wanted = ["pelvis", "chest", "fore_L_foot", "fore_R_foot", "hind_L_foot", "hind_R_foot"];
+    const values = {};
+    model.traverse((node) => {
+      if (node.isBone && wanted.includes(node.name)) {
+        const p = new THREE.Vector3();
+        node.getWorldPosition(p);
+        values[node.name] = {
+          q: [
+            Number(node.quaternion.x.toFixed(6)),
+            Number(node.quaternion.y.toFixed(6)),
+            Number(node.quaternion.z.toFixed(6)),
+            Number(node.quaternion.w.toFixed(6))
+          ],
+          p: [
+            Number(p.x.toFixed(6)),
+            Number(p.y.toFixed(6)),
+            Number(p.z.toFixed(6))
+          ]
+        };
+      }
+    });
+    return values;
+  });
+
+  for (const gait of ["v3hybrid", "v31hybrid"]) {
+    await page.goto(
+      `/evowild-test/?sf3dVariant=hunyuanstyled&hunyuanRacePack=1&hunyuanRacePackSide=front&hunyuanGait=${gait}&renderScale=0.75`,
+      { waitUntil: "domcontentloaded", timeout: 30000 }
+    );
+    const stage = page.locator("#stage");
+    await expect(stage).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
+    await expect(stage).toHaveAttribute("data-hunyuan-race-pack", "loaded", { timeout: 30000 });
+    await expect(stage).toHaveAttribute("data-hunyuan-stride-sync", "speed-linked", { timeout: 10000 });
+    await page.getByRole("button", { name: "3 Follow" }).click();
+    await expect.poll(
+      async () => (await stage.getAttribute("data-hunyuan-race-pack-animated-counts")) || "",
+      { timeout: 10000 }
+    ).toBe("17,1");
+
+    const phases = [];
+    for (let i = 0; i < 6; i += 1) {
+      phases.push(await inspect());
+      await stage.screenshot({ path: `${outDir}/hunyuan-${gait}-contact-phase${i + 1}.png` });
+      await page.waitForTimeout(170);
+    }
+
+    results.push({
+      gait,
+      clip: await stage.getAttribute("data-hunyuan-race-pack-rigged-clip"),
+      timeScale: Number(await stage.getAttribute("data-hunyuan-stride-time-scale")),
+      phases
+    });
+  }
+
+  expect(results[0].clip).toBe("EvoWild_S_Run_V3");
+  expect(results[1].clip).toBe("EvoWild_S_Run_V3_1");
+  expect(results[1].timeScale).toBeGreaterThan(0.28);
+  expect(results[1].phases[0].fore_L_foot.q).not.toEqual(results[1].phases[3].fore_L_foot.q);
+  expect(results[1].phases[0].pelvis.q).not.toEqual(results[1].phases[3].pelvis.q);
+
+  console.log("HUNYUAN_V31_CONTACT_COMPARE", JSON.stringify({
+    v3: { clip: results[0].clip, timeScale: results[0].timeScale },
+    v31: { clip: results[1].clip, timeScale: results[1].timeScale }
+  }));
+
+  fs.writeFileSync(
+    `${outDir}/hunyuan-v3-v31-contact-comparison.json`,
+    JSON.stringify(results, null, 2)
+  );
+});
+
+
 test("benchmark moving 18 Hunyuan mixed LOD race", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(150000);
