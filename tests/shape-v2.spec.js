@@ -26,7 +26,7 @@ test("render S shape baseline v2 v2.1 v3 comparison", async ({ page }, testInfo)
     for (const view of ["SIDE", "LOW", "CHASE", "FRONT"]) {
       await page.getByRole("button", { name: view, exact: true }).click({ force: true });
       await expect(page.locator("#cameraReadout")).toHaveText(view);
-      await page.waitForTimeout(450);
+      await page.waitForTimeout(280);
       const path = `${outDir}/${prefix}-${view.toLowerCase()}.png`;
       const buffer = await scene.screenshot({ path });
       result[view] = crypto.createHash("sha256").update(buffer).digest("hex");
