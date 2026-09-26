@@ -49,14 +49,14 @@ const HUNYUAN_S_ASSETS = {
     animated: false
   },
   focus: {
-    id: "hunyuan-s-rigged-v31",
-    url: "/evowild-test/models/evowild-s/focus-rigged-v31.glb",
+    id: "hunyuan-s-rigged-v5",
+    url: "/evowild-test/models/evowild-s/focus-rigged-v5.glb",
     targetHeight: 2.85,
     animated: true
   },
   race: {
-    id: "hunyuan-s-lod4-rigged-v31",
-    url: "/evowild-test/models/evowild-s/race-lod4-rigged-v31.glb",
+    id: "hunyuan-s-lod4-rigged-v5",
+    url: "/evowild-test/models/evowild-s/race-lod4-rigged-v5.glb",
     targetHeight: 2.55,
     animated: true
   }
@@ -83,6 +83,7 @@ async function prepareHunyuanSAsset() {
     canvas.dataset.sAssetUrl = profile.url;
     canvas.dataset.sAssetReady = "1";
     canvas.dataset.sAnimationClips = String(gltf.animations?.length || 0);
+    canvas.dataset.sAnimationClipName = gltf.animations?.[0]?.name || "none";
     return true;
   } catch (error) {
     console.error("Hunyuan S asset failed to load; procedural S fallback only.", error);
@@ -112,7 +113,11 @@ function prepareHunyuanMaterials(model) {
 }
 
 function fitHunyuanModel(model, targetHeight) {
-  model.rotation.y = -Math.PI / 2;
+  // Hunyuan rig metadata identifies the head on native -Z.
+  // Motion First races toward +Z, so the correct alignment is a 180° yaw.
+  // The previous -90° yaw was why the creature ran sideways across the track.
+  model.rotation.y = Math.PI;
+  canvas.dataset.sModelYawDegrees = "180";
   model.updateMatrixWorld(true);
 
   let box = new THREE.Box3().setFromObject(model);
@@ -150,7 +155,11 @@ function createHunyuanSprintCreature(index) {
   if (isSkinned && clips.length > 0) {
     mixer = new THREE.AnimationMixer(model);
     action = mixer.clipAction(clips[0]);
-    action.reset().play();
+    action.reset();
+    if (clips[0].duration > 0) {
+      action.time = (index / RUNNER_COUNT) * clips[0].duration;
+    }
+    action.play();
   }
 
   const shadowMat = new THREE.MeshBasicMaterial({
@@ -199,15 +208,20 @@ function updateHunyuanSprintPose(runner, lateralVelocity, dt) {
     dt
   );
 
-  runner.group.rotation.x = -0.045 * speedRatio - ud.accelLean * 0.08;
+  // Do not stack the old procedural body bob/pitch on top of the baked rig.
+  // The v31 integration did that and amplified the already-experimental clip.
+  runner.group.rotation.x = -ud.accelLean * 0.03;
   runner.group.rotation.z = ud.turnLean;
-
-  const phase = ud.phase + runner.phaseBias;
-  ud.visual.position.y = Math.abs(Math.sin(phase * 0.5)) * 0.026 * speedRatio;
+  ud.visual.position.y = 0;
 
   if (ud.mixer && !paused) {
-    ud.mixer.timeScale = THREE.MathUtils.clamp(0.35 + speedRatio * 0.85, 0.35, 1.25);
+    const playback =
+      speedRatio < 0.18
+        ? 0.28 + speedRatio * 1.40
+        : 0.48 + speedRatio * 0.62;
+    ud.mixer.timeScale = THREE.MathUtils.clamp(playback, 0.28, 1.22);
     ud.mixer.update(dt);
+    canvas.dataset.sPlaybackRate = ud.mixer.timeScale.toFixed(3);
   }
 
   if (MOTION_REVIEW_MODE && REVIEW_MORPH === "S") {
