@@ -3,23 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#0a1218" />
-  <title>EvoWild Run — S Motion Study</title>
+  <meta name="theme-color" content="#0b1116" />
+  <title>EvoWild Run — S Continuous Motion Study</title>
   <link rel="stylesheet" href="/src/race_s_sideview.css" />
 </head>
 <body>
-  <main id="stage"
-    class="motion-stage"
-    data-mode="s-solo-motion"
-    data-creature-count="1"
-    data-agent="off"
-    data-hud="off"
-    data-race-logic="off"
-    data-rig-ready="false"
-    data-motion-phase="loading">
-    <canvas id="motionCanvas" aria-label="EvoWild Run S creature running motion study"></canvas>
-    <div id="assetStatus" class="asset-status">Loading S rig…</div>
+  <main id="stage" class="motion-stage">
+    <canvas id="scene" aria-label="EvoWild Run S continuous gait study"></canvas>
+    <section id="runtimeControls" aria-hidden="true">
+      <span id="raceState">MOTION REVIEW</span>
+      <span id="distanceReadout">0 / 1600 m</span>
+      <span id="fpsReadout">-- FPS</span>
+      <span id="speedReadout">0.0 m/s</span>
+      <span id="morphReadout">S</span>
+      <span id="runnerName">Runner 01</span>
+      <span id="positionReadout">1 / 1</span>
+      <span id="cameraReadout">SIDE</span>
+      <select id="runnerSelect" tabindex="-1"></select>
+      <button class="cam" data-camera="AUTO" tabindex="-1">AUTO</button>
+      <button class="cam" data-camera="CHASE" tabindex="-1">CHASE</button>
+      <button class="cam" data-camera="LOW" tabindex="-1">LOW</button>
+      <button class="cam" data-camera="PACK" tabindex="-1">PACK</button>
+      <button class="cam active" data-camera="SIDE" tabindex="-1">SIDE</button>
+      <button class="cam" data-camera="FRONT" tabindex="-1">FRONT</button>
+      <button id="pauseButton" tabindex="-1">PAUSE</button>
+      <button id="restartButton" tabindex="-1">RESTART</button>
+    </section>
+    <div class="loading" id="loading">building continuous S gait…</div>
   </main>
-  <script type="module" src="/src/race_s_sideview.js"></script>
+  <script type="module" src="/src/race_s_continuous.js"></script>
 </body>
 </html>
