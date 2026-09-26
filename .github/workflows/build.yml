@@ -30,3 +30,11 @@ jobs:
           name: mobile-race-visuals
           path: test-results/visuals/*
           if-no-files-found: warn
+
+      - name: Upload S sprite-gen PoC artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: spritegen-s-poc
+          path: artifacts/spritegen-s/*
+          if-no-files-found: error
