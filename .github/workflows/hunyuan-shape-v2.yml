@@ -1,4 +1,4 @@
-name: Hunyuan S shape refine v3
+name: Hunyuan S shape refine v4
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   shape:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[targeted-shape-v2]') || contains(github.event.head_commit.message, '[targeted-shape-v21]') || contains(github.event.head_commit.message, '[targeted-shape-v3]')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[targeted-shape-v2]') || contains(github.event.head_commit.message, '[targeted-shape-v21]') || contains(github.event.head_commit.message, '[targeted-shape-v3]') || contains(github.event.head_commit.message, '[targeted-shape-v4]')
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -25,38 +25,41 @@ jobs:
           blender --version
       - name: Generate refined S candidates
         run: |
-          mkdir -p test-results/shape-v2 test-results/shape-v21 test-results/shape-v3
+          mkdir -p test-results/shape-v2 test-results/shape-v21 test-results/shape-v3 test-results/shape-v4
           blender --background --python scripts/refine-hunyuan-shape-v2.py -- public/models/evowild-s/source-lod2.glb public/models/evowild-s/source-lod2-shape-v2.glb public/models/evowild-s/source-lod2-shape-v2.json test-results/shape-v2
           blender --background --python scripts/refine-hunyuan-shape-v21.py -- public/models/evowild-s/source-lod2.glb public/models/evowild-s/source-lod2-shape-v21.glb public/models/evowild-s/source-lod2-shape-v21.json test-results/shape-v21
           blender --background --python scripts/refine-hunyuan-shape-v3.py -- public/models/evowild-s/source-lod2.glb public/models/evowild-s/source-lod2-shape-v3.glb public/models/evowild-s/source-lod2-shape-v3.json test-results/shape-v3
-          ls -lh public/models/evowild-s/source-lod2-shape-v2.* public/models/evowild-s/source-lod2-shape-v21.* public/models/evowild-s/source-lod2-shape-v3.*
-          cat public/models/evowild-s/source-lod2-shape-v3.json
+          blender --background --python scripts/refine-hunyuan-shape-v4.py -- public/models/evowild-s/source-lod2.glb public/models/evowild-s/source-lod2-shape-v4.glb public/models/evowild-s/source-lod2-shape-v4.json test-results/shape-v4
+          ls -lh public/models/evowild-s/source-lod2-shape-v2.* public/models/evowild-s/source-lod2-shape-v21.* public/models/evowild-s/source-lod2-shape-v3.* public/models/evowild-s/source-lod2-shape-v4.*
+          cat public/models/evowild-s/source-lod2-shape-v4.json
       - uses: actions/setup-node@v4
         with:
           node-version: 22
       - run: npm install
       - run: npx playwright install --with-deps chromium
       - name: Render browser comparison
-        run: npm run test:e2e -- --workers=1 -g "render S shape baseline v2 v2.1 v3 comparison"
+        run: npm run test:e2e -- --workers=1 -g "render S shape baseline through v4 comparison"
       - name: Persist candidate
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/models/evowild-s/source-lod2-shape-v2.glb public/models/evowild-s/source-lod2-shape-v2.json public/models/evowild-s/source-lod2-shape-v21.glb public/models/evowild-s/source-lod2-shape-v21.json public/models/evowild-s/source-lod2-shape-v3.glb public/models/evowild-s/source-lod2-shape-v3.json
+          git add public/models/evowild-s/source-lod2-shape-v2.glb public/models/evowild-s/source-lod2-shape-v2.json public/models/evowild-s/source-lod2-shape-v21.glb public/models/evowild-s/source-lod2-shape-v21.json public/models/evowild-s/source-lod2-shape-v3.glb public/models/evowild-s/source-lod2-shape-v3.json public/models/evowild-s/source-lod2-shape-v4.glb public/models/evowild-s/source-lod2-shape-v4.json
           if git diff --cached --quiet; then
             echo "No shape changes"
           else
-            git commit -m "model: persist S shape-v3 candidates [skip ci]"
+            git commit -m "model: persist S shape-v4 candidates [skip ci]"
             git pull --rebase origin "${GITHUB_REF_NAME}"
             git push origin HEAD:"${GITHUB_REF_NAME}"
           fi
       - uses: actions/upload-artifact@v4
         with:
-          name: s-shape-v3-review
+          name: s-shape-v4-review
           path: |
             test-results/shape-v2/*.png
             test-results/shape-v21/*.png
             test-results/shape-v3/*.png
+            test-results/shape-v4/*.png
             public/models/evowild-s/source-lod2-shape-v2.json
             public/models/evowild-s/source-lod2-shape-v21.json
             public/models/evowild-s/source-lod2-shape-v3.json
+            public/models/evowild-s/source-lod2-shape-v4.json
