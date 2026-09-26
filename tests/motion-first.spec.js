@@ -580,14 +580,23 @@ test("Motion First Phase F AUTO camera is driven by race events", async ({ page 
   await expect(page.locator("#scene")).toHaveAttribute("data-auto-director-source", "race-events");
   await expect(page.locator("#scene")).toHaveAttribute("data-auto-director-event", "START");
 
-  // Stay on AUTO and allow actual race state to create a new director event.
-  await page.waitForTimeout(7200);
+  // Stay on AUTO and wait on simulated race state, not wall-clock speed.
+  // CI software rendering may run below real-time because the animation loop
+  // intentionally clamps large frame deltas.
+  await expect
+    .poll(
+      async () =>
+        Number(
+          await page.locator("#scene").getAttribute("data-auto-director-switch-count")
+        ),
+      { timeout: 22000, intervals: [500, 750, 1000] }
+    )
+    .toBeGreaterThan(0);
 
   const switchCount = Number(
     await page.locator("#scene").getAttribute("data-auto-director-switch-count")
   );
   expect(Number.isFinite(switchCount)).toBeTruthy();
-  expect(switchCount).toBeGreaterThan(0);
 
   const history =
     (await page.locator("#scene").getAttribute("data-auto-director-history")) || "";
