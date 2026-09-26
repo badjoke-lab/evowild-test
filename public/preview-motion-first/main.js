@@ -1,4 +1,6 @@
 import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { clone as cloneSkeleton } from "three/addons/utils/SkeletonUtils.js";
 
 const canvas = document.querySelector("#scene");
 const loading = document.querySelector("#loading");
@@ -38,6 +40,181 @@ const S_GAIT = {
   chestBaseY: 0.01,
   pelvisBaseY: -0.05
 };
+
+const HUNYUAN_S_ASSETS = {
+  inspect: {
+    id: "hunyuan-s-lod2",
+    url: "/evowild-test/models/evowild-s/source-lod2.glb",
+    targetHeight: 2.95,
+    animated: false
+  },
+  focus: {
+    id: "hunyuan-s-rigged-v31",
+    url: "/evowild-test/models/evowild-s/focus-rigged-v31.glb",
+    targetHeight: 2.85,
+    animated: true
+  },
+  race: {
+    id: "hunyuan-s-lod4-rigged-v31",
+    url: "/evowild-test/models/evowild-s/race-lod4-rigged-v31.glb",
+    targetHeight: 2.55,
+    animated: true
+  }
+};
+
+const sAssetLoader = new GLTFLoader();
+let activeSAssetKey = null;
+let activeSAsset = null;
+
+function chooseHunyuanSAssetKey() {
+  if (INSPECT_MODE && REVIEW_MORPH === "S") return "inspect";
+  if (MOTION_REVIEW_MODE && REVIEW_MORPH === "S") return "focus";
+  return "race";
+}
+
+async function prepareHunyuanSAsset() {
+  activeSAssetKey = chooseHunyuanSAssetKey();
+  const profile = HUNYUAN_S_ASSETS[activeSAssetKey];
+
+  try {
+    const gltf = await sAssetLoader.loadAsync(profile.url);
+    activeSAsset = { ...profile, gltf };
+    canvas.dataset.sAsset = profile.id;
+    canvas.dataset.sAssetUrl = profile.url;
+    canvas.dataset.sAssetReady = "1";
+    canvas.dataset.sAnimationClips = String(gltf.animations?.length || 0);
+    return true;
+  } catch (error) {
+    console.error("Hunyuan S asset failed to load; procedural S fallback only.", error);
+    activeSAsset = null;
+    canvas.dataset.sAsset = "procedural-fallback";
+    canvas.dataset.sAssetReady = "0";
+    canvas.dataset.sAnimationClips = "0";
+    return false;
+  }
+}
+
+function prepareHunyuanMaterials(model) {
+  model.traverse((node) => {
+    if (!node.isMesh) return;
+    node.castShadow = false;
+    node.receiveShadow = false;
+    node.frustumCulled = false;
+
+    const materials = Array.isArray(node.material) ? node.material : [node.material];
+    materials.filter(Boolean).forEach((material) => {
+      if ("roughness" in material) material.roughness = Math.max(material.roughness ?? 0.5, 0.52);
+      if ("metalness" in material) material.metalness = Math.min(material.metalness ?? 0.2, 0.24);
+      material.side = THREE.DoubleSide;
+      material.needsUpdate = true;
+    });
+  });
+}
+
+function fitHunyuanModel(model, targetHeight) {
+  model.rotation.y = -Math.PI / 2;
+  model.updateMatrixWorld(true);
+
+  let box = new THREE.Box3().setFromObject(model);
+  const size = box.getSize(new THREE.Vector3());
+  const scale = targetHeight / Math.max(size.y, 0.001);
+  model.scale.setScalar(scale);
+  model.updateMatrixWorld(true);
+
+  box = new THREE.Box3().setFromObject(model);
+  const center = box.getCenter(new THREE.Vector3());
+  model.position.x -= center.x;
+  model.position.z -= center.z;
+  model.position.y -= box.min.y;
+  model.updateMatrixWorld(true);
+}
+
+function createHunyuanSprintCreature(index) {
+  const cfg = MORPHS.S;
+  const root = new THREE.Group();
+  const visual = new THREE.Group();
+  root.add(visual);
+
+  const isSkinned = activeSAsset?.animated;
+  const model = isSkinned
+    ? cloneSkeleton(activeSAsset.gltf.scene)
+    : activeSAsset.gltf.scene.clone(true);
+
+  prepareHunyuanMaterials(model);
+  fitHunyuanModel(model, activeSAsset.targetHeight);
+  visual.add(model);
+
+  let mixer = null;
+  let action = null;
+  const clips = activeSAsset.gltf.animations || [];
+  if (isSkinned && clips.length > 0) {
+    mixer = new THREE.AnimationMixer(model);
+    action = mixer.clipAction(clips[0]);
+    action.reset().play();
+  }
+
+  const shadowMat = new THREE.MeshBasicMaterial({
+    color: 0x000000,
+    transparent: true,
+    opacity: 0.20,
+    depthWrite: false
+  });
+  const shadow = new THREE.Mesh(new THREE.CircleGeometry(1.0, 18), shadowMat);
+  shadow.rotation.x = -Math.PI / 2;
+  shadow.scale.set(1.05, 1.70, 1);
+  shadow.position.y = 0.025;
+  root.add(shadow);
+
+  root.userData = {
+    cfg,
+    morphKey: "S",
+    index,
+    externalS: true,
+    visual,
+    model,
+    mixer,
+    action,
+    clipCount: clips.length,
+    phase: index * 0.61,
+    turnLean: 0,
+    accelLean: 0,
+    strideLength: S_GAIT.minStrideWorld,
+    maxStanceSlip: 0
+  };
+
+  return root;
+}
+
+function updateHunyuanSprintPose(runner, lateralVelocity, dt) {
+  const ud = runner.group.userData;
+  const cfg = runner.cfg;
+  const speedRatio = THREE.MathUtils.clamp(runner.speed / Math.max(cfg.baseSpeed, 1), 0, 1.2);
+  const accelError = (runner.targetSpeed - runner.speed) / Math.max(cfg.baseSpeed, 1);
+
+  ud.accelLean = THREE.MathUtils.damp(ud.accelLean ?? 0, accelError * 1.2, 8.5, dt);
+  ud.turnLean = THREE.MathUtils.damp(
+    ud.turnLean ?? 0,
+    THREE.MathUtils.clamp(-lateralVelocity * cfg.laneLean * 0.13, -0.18, 0.18),
+    9.0,
+    dt
+  );
+
+  runner.group.rotation.x = -0.045 * speedRatio - ud.accelLean * 0.08;
+  runner.group.rotation.z = ud.turnLean;
+
+  const phase = ud.phase + runner.phaseBias;
+  ud.visual.position.y = Math.abs(Math.sin(phase * 0.5)) * 0.026 * speedRatio;
+
+  if (ud.mixer && !paused) {
+    ud.mixer.timeScale = THREE.MathUtils.clamp(0.35 + speedRatio * 0.85, 0.35, 1.25);
+    ud.mixer.update(dt);
+  }
+
+  if (MOTION_REVIEW_MODE && REVIEW_MORPH === "S") {
+    canvas.dataset.sRuntime = activeSAsset?.id || "procedural-fallback";
+    canvas.dataset.sRuntimeAnimated = ud.mixer ? "1" : "0";
+  }
+}
 
 const P_GAIT = {
   baseY: 1.48,
@@ -1602,7 +1779,9 @@ function createEndureCreature(color, index) {
 
 function createCreature(morphKey, color, index) {
   if (morphKey === "S") {
-    return createSprintCreature(color, index);
+    return activeSAsset
+      ? createHunyuanSprintCreature(index)
+      : createSprintCreature(color, index);
   }
   if (morphKey === "P") {
     return createPowerCreature(color, index);
@@ -2604,6 +2783,10 @@ function updateEndureInspectionPose(runner) {
 }
 
 function updateCreaturePose(runner, lateralVelocity, dt = 1 / 60) {
+  if (runner.morph === "S" && runner.group.userData.externalS) {
+    updateHunyuanSprintPose(runner, lateralVelocity, dt);
+    return;
+  }
   if (runner.morph === "S") {
     updateSprintPose(runner, lateralVelocity, dt);
     return;
@@ -2939,65 +3122,7 @@ window.addEventListener("resize", () => {
   camera.updateProjectionMatrix();
 });
 
-addWorld();
-createRunners();
-resetRace();
 
-if (INSPECT_MODE || MOTION_REVIEW_MODE) {
-  const reviewIndex = Math.max(
-    0,
-    runners.findIndex((runner) => runner.morph === REVIEW_MORPH)
-  );
-  selectedRunner = reviewIndex;
-  runnerSelect.value = String(reviewIndex);
-  const focus = runners[reviewIndex];
-
-  runners.forEach((runner, index) => {
-    runner.group.visible = index === reviewIndex;
-  });
-
-  focus.lane = 4;
-  focus.targetLane = 4;
-  focus.laneX = 0;
-  focus.distance = 80;
-  focus.speed = focus.cfg.baseSpeed;
-  focus.targetSpeed = focus.cfg.baseSpeed;
-  focus.nextLaneDecision = Number.POSITIVE_INFINITY;
-  focus.group.position.set(0, 0, focus.distance);
-  focus.group.userData.phase = 1.18;
-  if (focus.morph === "S") {
-    focus.group.userData.strideLength = S_GAIT.maxStrideWorld;
-  } else if (focus.morph === "P") {
-    focus.group.userData.strideLength = P_GAIT.maxStrideWorld;
-  } else if (focus.morph === "E") {
-    focus.group.userData.strideLength = E_GAIT.maxStrideWorld;
-  }
-  updateCreaturePose(focus, 0);
-
-  raceTime = 6;
-  requestedCamera = "SIDE";
-  actualCamera = "SIDE";
-  cameraButtons.forEach((button) => {
-    button.classList.toggle("active", button.dataset.camera === "SIDE");
-  });
-
-  if (INSPECT_MODE) {
-    paused = true;
-    pauseButton.textContent = "RESUME";
-    raceStateEl.textContent = "INSPECT";
-  } else {
-    paused = false;
-    pauseButton.textContent = "PAUSE";
-    raceStateEl.textContent = "MOTION REVIEW";
-  }
-}
-
-const isolatedReview = INSPECT_MODE || MOTION_REVIEW_MODE;
-camera.position.set(isolatedReview ? 7.8 : 11, isolatedReview ? 3.0 : 13, isolatedReview ? 80 : -22);
-cameraLook.set(0, 1.6, isolatedReview ? 80 : 8);
-camera.lookAt(cameraLook);
-
-loading.classList.add("hidden");
 
 function animate() {
   const rawDt = clock.getDelta();
@@ -3018,3 +3143,75 @@ function animate() {
 }
 
 requestAnimationFrame(animate);
+
+async function boot() {
+  addWorld();
+  await prepareHunyuanSAsset();
+  createRunners();
+  resetRace();
+
+  if (INSPECT_MODE || MOTION_REVIEW_MODE) {
+    const reviewIndex = Math.max(
+      0,
+      runners.findIndex((runner) => runner.morph === REVIEW_MORPH)
+    );
+    selectedRunner = reviewIndex;
+    runnerSelect.value = String(reviewIndex);
+    const focus = runners[reviewIndex];
+
+    runners.forEach((runner, index) => {
+      runner.group.visible = index === reviewIndex;
+    });
+
+    focus.lane = 4;
+    focus.targetLane = 4;
+    focus.laneX = 0;
+    focus.distance = 80;
+    focus.speed = focus.cfg.baseSpeed;
+    focus.targetSpeed = focus.cfg.baseSpeed;
+    focus.nextLaneDecision = Number.POSITIVE_INFINITY;
+    focus.group.position.set(0, 0, focus.distance);
+    focus.group.userData.phase = 1.18;
+
+    if (focus.morph === "S") {
+      focus.group.userData.strideLength = S_GAIT.maxStrideWorld;
+    } else if (focus.morph === "P") {
+      focus.group.userData.strideLength = P_GAIT.maxStrideWorld;
+    } else if (focus.morph === "E") {
+      focus.group.userData.strideLength = E_GAIT.maxStrideWorld;
+    }
+    updateCreaturePose(focus, 0, 0);
+
+    raceTime = 6;
+    requestedCamera = "SIDE";
+    actualCamera = "SIDE";
+    cameraButtons.forEach((button) => {
+      button.classList.toggle("active", button.dataset.camera === "SIDE");
+    });
+
+    if (INSPECT_MODE) {
+      paused = true;
+      pauseButton.textContent = "RESUME";
+      raceStateEl.textContent = "INSPECT";
+    } else {
+      paused = false;
+      pauseButton.textContent = "PAUSE";
+      raceStateEl.textContent = "MOTION REVIEW";
+    }
+  }
+
+  const isolatedReview = INSPECT_MODE || MOTION_REVIEW_MODE;
+  camera.position.set(isolatedReview ? 7.8 : 11, isolatedReview ? 3.0 : 13, isolatedReview ? 80 : -22);
+  cameraLook.set(0, 1.6, isolatedReview ? 80 : 8);
+  camera.lookAt(cameraLook);
+
+  loading.classList.add("hidden");
+  requestAnimationFrame(animate);
+}
+
+boot().catch((error) => {
+  console.error(error);
+  loading.textContent = "Motion First failed to start";
+  loading.classList.remove("hidden");
+});
+
