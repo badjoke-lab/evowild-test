@@ -3702,7 +3702,22 @@ function findAutoDirectorDuel(sorted) {
   return best;
 }
 
+function legacyAutoCameraMode() {
+  if (raceTime < 3.4) return "PACK";
+  const cycle = (raceTime - 3.4) % 25;
+  if (cycle < 5.0) return "CHASE";
+  if (cycle < 9.0) return "LOW";
+  if (cycle < 14.0) return "SIDE";
+  if (cycle < 18.5) return "PACK";
+  if (cycle < 22.0) return "FRONT";
+  return "CHASE";
+}
+
 function autoCameraMode(dt) {
+  // Event direction belongs only to the isolated simplified race page.
+  // The parallel high-detail Motion First page keeps its existing AUTO behavior.
+  if (!SIMPLIFIED_RACE_PAGE) return legacyAutoCameraMode();
+
   const sorted = rankings();
   if (!sorted.length) return "PACK";
 
