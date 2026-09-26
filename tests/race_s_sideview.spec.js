@@ -82,8 +82,8 @@ test("S visual lane stays one complete creature and covers a grounded six-phase 
 
   fs.mkdirSync("test-results/visuals", { recursive: true });
   if (testInfo.project.name === "desktop-chromium") {
-    fs.copyFileSync("public/concept/s-run-sheet.webp", "test-results/visuals/source-s-run-sheet.webp");
-    fs.copyFileSync("public/concept/S.webp", "test-results/visuals/source-S.webp");
+    fs.copyFileSync("public/concept/s-run-sheet.webp", "test-results/visuals/source-s-run-sheet.png");
+    fs.copyFileSync("public/concept/S.webp", "test-results/visuals/source-S.png");
   }
 
   if (testInfo.project.name === "desktop-chromium") {
