@@ -25,12 +25,14 @@ jobs:
           EVOWILD_BASE: /evowild-test/preview-3d-rig-v3/
         run: |
           npm run build
-          find dist/models -maxdepth 1 -type f             ! -name 'evowild-s-hunyuan2mv-lod2.glb'             ! -name 'evowild-s-hunyuan2mv-lod3.glb'             ! -name 'evowild-s-hunyuan2mv-lod4.glb'             ! -name 'evowild-s-hunyuan2mv-rigged-v21.glb'             ! -name 'evowild-s-hunyuan2mv-lod4-rigged-v21.glb'             ! -name 'evowild-s-hunyuan2mv-rigged-v3.glb'             ! -name 'evowild-s-hunyuan2mv-lod4-rigged-v3.glb'             ! -name 'evowild-s.obj'             ! -name 'evowild-s.mtl'             -delete
+          find dist/models -maxdepth 1 -type f             ! -name 'evowild-s-hunyuan2mv-lod2.glb'             ! -name 'evowild-s-hunyuan2mv-lod3.glb'             ! -name 'evowild-s-hunyuan2mv-lod4.glb'             ! -name 'evowild-s-hunyuan2mv-rigged-v21.glb'             ! -name 'evowild-s-hunyuan2mv-lod4-rigged-v21.glb'             ! -name 'evowild-s-hunyuan2mv-rigged-v3.glb'             ! -name 'evowild-s-hunyuan2mv-lod4-rigged-v3.glb'             ! -name 'evowild-s-hunyuan2mv-rigged-v31.glb'             ! -name 'evowild-s-hunyuan2mv-lod4-rigged-v31.glb'             ! -name 'evowild-s.obj'             ! -name 'evowild-s.mtl'             -delete
           test -f dist/index.html
           test -f dist/models/evowild-s-hunyuan2mv-lod2.glb
           test -f dist/models/evowild-s-hunyuan2mv-lod4.glb
           test -f dist/models/evowild-s-hunyuan2mv-lod4-rigged-v21.glb
           test -f dist/models/evowild-s-hunyuan2mv-rigged-v3.glb
+          test -f dist/models/evowild-s-hunyuan2mv-rigged-v31.glb
+          test -f dist/models/evowild-s-hunyuan2mv-lod4-rigged-v31.glb
           du -sh dist
           mkdir -p /tmp/evowild-preview-rig-v3
           cp -a dist/. /tmp/evowild-preview-rig-v3/
