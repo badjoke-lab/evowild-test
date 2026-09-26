@@ -67,3 +67,16 @@ The next stage is to take an approved S side-view still through sprite-gen's vid
 5. only then wire camera/view selection into the 2.5D race runtime
 
 No multi-view expansion happens until SIDE run passes.
+
+
+## Running the pinned sprite-gen pass
+
+After exporting `evowild-s-side-source.png` from the preview page:
+
+```bash
+bash scripts/run-spritegen-s-poc.sh evowild-s-side-source.png artifacts/spritegen-s
+```
+
+The wrapper installs the pinned upstream commit into an isolated local virtualenv and requests only `idle,run` for the side source. It does not touch P / E / A.
+
+sprite-gen's video path requires the operator's own Grok login or `XAI_API_KEY`, plus `ffmpeg` and `img2webp`. The wrapper intentionally fails if those prerequisites are absent instead of silently substituting another generator.
