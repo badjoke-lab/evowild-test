@@ -443,32 +443,34 @@ for (let i = 0; i < postCount; i++) {
 scene.add(posts);
 
 function addMountains() {
-  const farMat = new THREE.MeshStandardMaterial({ color: 0x6f817f, roughness: 1, flatShading: true });
-  const midMat = new THREE.MeshStandardMaterial({ color: 0x526b63, roughness: 1, flatShading: true });
+  const mats = [
+    new THREE.MeshStandardMaterial({ color:0x738682, roughness:1, flatShading:true }),
+    new THREE.MeshStandardMaterial({ color:0x60766e, roughness:1, flatShading:true }),
+    new THREE.MeshStandardMaterial({ color:0x52695f, roughness:1, flatShading:true })
+  ];
+  const rockGeo = new THREE.IcosahedronGeometry(1,1);
 
-  for (let i=0;i<30;i++) {
-    const a=(i/30)*Math.PI*2;
-    const radius=430 + (i%5)*18;
-    const h=42 + ((i*37)%58);
-    const w=42 + ((i*23)%44);
-    const mat=i%3===0 ? midMat : farMat;
-    const mountain=new THREE.Mesh(new THREE.ConeGeometry(1,1,9),mat);
-    mountain.scale.set(w,h,w*.72);
-    mountain.position.set(Math.cos(a)*radius,h*.47-10,Math.sin(a)*radius);
-    mountain.rotation.y=a*.7 + (i%4)*.13;
-    mountain.receiveShadow=true;
-    scene.add(mountain);
+  for(let i=0;i<36;i++){
+    const a=(i/36)*Math.PI*2;
+    const radius=470 + (i%6)*16;
+    const w=38 + ((i*29)%38);
+    const h=28 + ((i*41)%46);
+    const d=24 + ((i*17)%25);
+    const rootX=Math.cos(a)*radius;
+    const rootZ=Math.sin(a)*radius;
 
-    if(i%2===0){
-      const shoulder=new THREE.Mesh(new THREE.IcosahedronGeometry(1,1),mat);
-      shoulder.scale.set(w*.72,h*.42,w*.58);
-      shoulder.position.set(
-        Math.cos(a)*radius + Math.sin(a)*w*.34,
-        h*.22-9,
-        Math.sin(a)*radius - Math.cos(a)*w*.34
+    for(let l=0;l<2;l++){
+      const rock=new THREE.Mesh(rockGeo,mats[(i+l)%mats.length]);
+      const lateral=(l===0 ? -1 : 1) * w*.24;
+      rock.scale.set(w*(l===0?1:.72),h*(l===0?1:.66),d*(l===0?1:.82));
+      rock.position.set(
+        rootX + Math.sin(a)*lateral,
+        h*.26 - 10 + l*3,
+        rootZ - Math.cos(a)*lateral
       );
-      shoulder.rotation.y=a;
-      scene.add(shoulder);
+      rock.rotation.set((i%3)*.05,a+(l*.22),(i%4)*.04);
+      rock.receiveShadow=true;
+      scene.add(rock);
     }
   }
 }
@@ -653,11 +655,18 @@ function createRacers(assetMap) {
     scene.add(shadow);
 
     const marker = new THREE.Mesh(
-      new THREE.ConeGeometry(.75,1.8,3),
-      new THREE.MeshBasicMaterial({ color: 0x63dcff })
+      new THREE.RingGeometry(2.15,2.38,32),
+      new THREE.MeshBasicMaterial({
+        color:0x63dcff,
+        transparent:true,
+        opacity:.72,
+        side:THREE.DoubleSide,
+        depthWrite:false
+      })
     );
-    marker.rotation.z = Math.PI;
+    marker.rotation.x = -Math.PI/2;
     marker.visible = i === 0;
+    marker.renderOrder = 7;
     scene.add(marker);
 
     racers.push({
@@ -804,7 +813,7 @@ function placeRacer(r, elapsedMs) {
   const bob=(bobByMorph[r.morph] || bobByMorph.S)[frame];
   r.sprite.position.y += bob;
 
-  const scaleByMorph = { S:9.8, P:10.6, E:10.0, A:9.6 };
+  const scaleByMorph = { S:10.6, P:11.4, E:10.8, A:10.4 };
   const drawScale=(scaleByMorph[r.morph] || 10.2) + (r.id===SELECTED_ID ? .28 : 0);
 
   const here = p.clone().project(camera);
@@ -816,8 +825,8 @@ function placeRacer(r, elapsedMs) {
   r.shadow.position.y += .18 + bank*lateral;
   r.shadow.scale.set(r.morph==="P" ? 6.2 : 5.7, r.morph==="A" ? 1.9 : 2.15, 1);
 
-  r.marker.position.copy(p);
-  r.marker.position.y += 10.2;
+  r.marker.position.copy(r.shadow.position);
+  r.marker.position.y += .08;
 }
 
 const camPos = new THREE.Vector3();
@@ -826,11 +835,11 @@ const desiredCam = new THREE.Vector3();
 const desiredLook = new THREE.Vector3();
 
 const SHOTS = [
-  { key:"side",     side:31, along:0,   height:6.8, lookAhead:5,  fov:43 },
-  { key:"front_3q", side:22, along:27,  height:7.6, lookAhead:2,  fov:46 },
-  { key:"front",    side:6,  along:31,  height:8.1, lookAhead:-1, fov:48 },
-  { key:"back_3q",  side:20, along:-27, height:7.2, lookAhead:8,  fov:46 },
-  { key:"back",     side:6,  along:-31, height:7.8, lookAhead:11, fov:48 }
+  { key:"side",     side:66, along:0,   height:13.2, lookAhead:5,  fov:29 },
+  { key:"front_3q", side:30, along:52,  height:11.8, lookAhead:1,  fov:38 },
+  { key:"front",    side:9,  along:59,  height:12.6, lookAhead:-2, fov:41 },
+  { key:"back_3q",  side:29, along:-52, height:11.2, lookAhead:9,  fov:38 },
+  { key:"back",     side:9,  along:-59, height:12.0, lookAhead:13, fov:41 }
 ];
 const shotParam = new URLSearchParams(location.search).get("shot");
 const shotAliases = { front3q:"front_3q", back3q:"back_3q" };
