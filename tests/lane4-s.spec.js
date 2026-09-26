@@ -106,6 +106,8 @@ for (const project of ["desktop-chromium", "android-chromium"]) {
           const el = document.querySelector(".kr-item");
           return el ? getComputedStyle(el).display !== "none" : false;
         })(),
+        motionBlur: window.__ctx.settings.motionBlur,
+        dof: window.__ctx.settings.dof,
         speed: Math.hypot(p.velocity.x, p.velocity.z),
         frame: window.__ctx.frame,
         viewport: [innerWidth, innerHeight]
@@ -121,6 +123,8 @@ for (const project of ["desktop-chromium", "android-chromium"]) {
     expect(state.itemsVisible).toBe(false);
     expect(state.touchControlsVisible).toBe(false);
     expect(state.itemHudVisible).toBe(false);
+    expect(state.motionBlur).toBe(false);
+    expect(state.dof).toBe(false);
     expect(state.speed).toBeGreaterThan(10);
     expect(state.frame).toBeGreaterThan(8);
     expect(errors, errors.join("\n")).toEqual([]);
