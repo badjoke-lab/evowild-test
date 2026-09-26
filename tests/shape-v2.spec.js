@@ -2,11 +2,11 @@ import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 import crypto from "node:crypto";
 
-test("render S shape baseline v4 v5 comparison", async ({ page }, testInfo) => {
+test("render S shape v4 v5 v51 comparison", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
-  test.setTimeout(150000);
+  test.setTimeout(160000);
 
-  const outDir = "test-results/shape-v5-browser";
+  const outDir = "test-results/shape-v51-browser";
   fs.mkdirSync(outDir, { recursive: true });
 
   const errors = [];
@@ -34,11 +34,6 @@ test("render S shape baseline v4 v5 comparison", async ({ page }, testInfo) => {
     return result;
   }
 
-  const baseline = await capture(
-    "/evowild-test/preview-motion-first/index.html?inspect=1&morph=S",
-    "hunyuan-s-lod2",
-    "baseline"
-  );
   const v4 = await capture(
     "/evowild-test/preview-motion-first/index.html?inspect=1&morph=S&shape=v4",
     "hunyuan-s-lod2-shape-v4",
@@ -49,11 +44,16 @@ test("render S shape baseline v4 v5 comparison", async ({ page }, testInfo) => {
     "hunyuan-s-lod2-shape-v5",
     "shape-v5"
   );
+  const v51 = await capture(
+    "/evowild-test/preview-motion-first/index.html?inspect=1&morph=S&shape=v51",
+    "hunyuan-s-lod2-shape-v51",
+    "shape-v51"
+  );
 
-  expect(v5.SIDE).not.toBe(v4.SIDE);
-  expect(v5.LOW).not.toBe(v4.LOW);
-  expect(v5.FRONT).not.toBe(v4.FRONT);
+  expect(v51.SIDE).not.toBe(v5.SIDE);
+  expect(v51.LOW).not.toBe(v5.LOW);
+  expect(v51.FRONT).not.toBe(v5.FRONT);
   expect(errors, errors.join("\n")).toEqual([]);
 
-  console.log("SHAPE_V5_BROWSER", JSON.stringify({ baseline, v4, v5 }));
+  console.log("SHAPE_V51_BROWSER", JSON.stringify({ v4, v5, v51 }));
 });
