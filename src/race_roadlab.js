@@ -814,7 +814,8 @@ function placeRacer(r, elapsedMs) {
   r.sprite.position.y += bob;
 
   const scaleByMorph = { S:10.6, P:11.4, E:10.8, A:10.4 };
-  const drawScale=(scaleByMorph[r.morph] || 10.2) + (r.id===SELECTED_ID ? .28 : 0);
+  const directionScale = r.currentDirection === "side" || r.morph === "S" ? 1 : .86;
+  const drawScale=((scaleByMorph[r.morph] || 10.2) + (r.id===SELECTED_ID ? .28 : 0)) * directionScale;
 
   const here = p.clone().project(camera);
   const ahead = p.clone().addScaledVector(tangent, 2).project(camera);
@@ -835,11 +836,14 @@ const desiredCam = new THREE.Vector3();
 const desiredLook = new THREE.Vector3();
 
 const SHOTS = [
+  // SIDE is the close hero shot because every morph has a high-resolution side cycle.
   { key:"side",     side:66, along:0,   height:13.2, lookAhead:5,  fov:29 },
-  { key:"front_3q", side:30, along:52,  height:11.8, lookAhead:1,  fov:38 },
-  { key:"front",    side:9,  along:59,  height:12.6, lookAhead:-2, fov:41 },
-  { key:"back_3q",  side:29, along:-52, height:11.2, lookAhead:9,  fov:38 },
-  { key:"back",     side:9,  along:-59, height:12.0, lookAhead:13, fov:41 }
+  // Non-side cuts stay wider until P/E/A receive full-resolution directional sheets.
+  // This keeps the camera truthful without blowing the current 36x48 atlas cells up to hero size.
+  { key:"front_3q", side:40, along:76,  height:15.5, lookAhead:2,  fov:34 },
+  { key:"front",    side:12, along:92,  height:17.0, lookAhead:0,  fov:36 },
+  { key:"back_3q",  side:38, along:-76, height:15.0, lookAhead:10, fov:34 },
+  { key:"back",     side:12, along:-92, height:16.5, lookAhead:14, fov:36 }
 ];
 const shotParam = new URLSearchParams(location.search).get("shot");
 const shotAliases = { front3q:"front_3q", back3q:"back_3q" };
@@ -926,6 +930,8 @@ function updateUI(now){
   host.dataset.selectedDirection=me.requiredDirection || "side";
   host.dataset.directionReady=Boolean(me.directions[me.requiredDirection || "side"]) ? "true" : "false";
   host.dataset.selectedMorph=me.morph;
+  host.dataset.selectedAssetQuality =
+    me.requiredDirection === "side" || me.morph === "S" ? "full" : "prototype-lowres";
 
   if(now-lastBoardPaint>150){
     lastBoardPaint=now;
