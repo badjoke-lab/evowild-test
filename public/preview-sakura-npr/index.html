@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>EvoWild Run — Sakura NPR lane</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.181.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.181.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <main id="app">
+    <canvas id="view" aria-label="EvoWild Run Sakura NPR rendering test"></canvas>
+
+    <header class="hud top">
+      <div>
+        <strong>SAKURA NPR LANE</strong>
+        <span>S morph only · isolated rendering experiment</span>
+      </div>
+      <div class="stats">
+        <span id="fps">-- FPS</span>
+        <span id="clip">loading clip…</span>
+      </div>
+    </header>
+
+    <section class="hud bottom">
+      <div class="group">
+        <span class="label">RENDER</span>
+        <div class="buttons">
+          <button data-mode="original">ORIGINAL</button>
+          <button data-mode="cel">CEL</button>
+          <button class="active" data-mode="sakura">SAKURA PIPELINE</button>
+        </div>
+      </div>
+      <div class="group">
+        <span class="label">CAMERA</span>
+        <div class="buttons">
+          <button class="cam active" data-camera="threeq">3/4</button>
+          <button class="cam" data-camera="side">SIDE</button>
+          <button class="cam" data-camera="front">FRONT</button>
+          <button class="cam" data-camera="chase">CHASE</button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="note">
+      <strong>Sakura Crossing NPR port</strong>
+      <span>Cel shader + depth-ink + anime grade/FXAA are imported from the MIT-licensed Sakura Crossing codebase, pinned to a fixed commit. This page does not touch the other race lanes.</span>
+    </aside>
+
+    <div id="loading">loading S runtime model…</div>
+  </main>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
