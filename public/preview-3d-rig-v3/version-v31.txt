@@ -1,0 +1,7 @@
+hunyuan-rig-v3-preview
+policy: v31hybrid
+stride-sync: speed-linked
+contact-phases: stance,push-off,recovery,landing
+source-branch: feat/hunyuan-rig-v3-20260925
+source-commit: 9b1140c062ca6bf913cb397b3edf891279125bea
+published-main: 3cd317f34c0fafe4775a8eeae1f6d9a372d2577b
