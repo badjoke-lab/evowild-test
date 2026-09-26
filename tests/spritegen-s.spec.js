@@ -12,7 +12,7 @@ test("S sprite extraction lane builds an 8-frame transparent side run loop", asy
     if (message.type() === "error") consoleErrors.push(message.text());
   });
 
-  await page.goto("/evowild-test/preview-spritegen-s/", { waitUntil: "networkidle" });
+  await page.goto("/evowild-test/preview-spritegen-s/index.html", { waitUntil: "networkidle" });
 
   await expect(page.locator("#state")).toHaveText("READY", { timeout: 30000 });
   await expect(page.locator("#source")).toHaveAttribute("data-ready", "1");
