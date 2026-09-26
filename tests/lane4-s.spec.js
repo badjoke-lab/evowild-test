@@ -102,6 +102,10 @@ for (const project of ["desktop-chromium", "android-chromium"]) {
         onScreenSprites,
         itemsVisible: window.__ctx.scene.getObjectByName("items")?.visible ?? null,
         touchControlsVisible: touchRoot ? getComputedStyle(touchRoot).display !== "none" : false,
+        itemHudVisible: (() => {
+          const el = document.querySelector(".kr-item");
+          return el ? getComputedStyle(el).display !== "none" : false;
+        })(),
         speed: Math.hypot(p.velocity.x, p.velocity.z),
         frame: window.__ctx.frame,
         viewport: [innerWidth, innerHeight]
@@ -116,6 +120,7 @@ for (const project of ["desktop-chromium", "android-chromium"]) {
     expect(state.onScreenSprites).toBeGreaterThanOrEqual(3);
     expect(state.itemsVisible).toBe(false);
     expect(state.touchControlsVisible).toBe(false);
+    expect(state.itemHudVisible).toBe(false);
     expect(state.speed).toBeGreaterThan(10);
     expect(state.frame).toBeGreaterThan(8);
     expect(errors, errors.join("\n")).toEqual([]);
