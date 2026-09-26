@@ -969,8 +969,14 @@ requestAnimationFrame(now=>{
     const me=racers[0];
     const u=(((me.totalDistance%trackLength)+trackLength)%trackLength)/trackLength;
     const {center,tangent,side}=trackFrame(u);
-    camPos.copy(center).addScaledVector(side,48).add(new THREE.Vector3(0,9.6,0));
-    camLook.copy(center).addScaledVector(tangent,6).add(new THREE.Vector3(0,2.9,0));
+    const shot=currentShot();
+    camPos.copy(center)
+      .addScaledVector(side,shot.side)
+      .addScaledVector(tangent,shot.along)
+      .add(new THREE.Vector3(0,shot.height,0));
+    camLook.copy(center)
+      .addScaledVector(tangent,shot.lookAhead)
+      .add(new THREE.Vector3(0,2.2,0));
     camera.position.copy(camPos);
     camera.lookAt(camLook);
   }
