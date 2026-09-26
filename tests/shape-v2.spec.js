@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 import crypto from "node:crypto";
 
-test("render S shape baseline v2 v2.1 v3 comparison", async ({ page }, testInfo) => {
+test("render S shape baseline through v4 comparison", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(180000);
 
@@ -61,10 +61,19 @@ test("render S shape baseline v2 v2.1 v3 comparison", async ({ page }, testInfo)
   expect(candidate21.SIDE).not.toBe(baseline.SIDE);
   expect(candidate21.SIDE).not.toBe(candidate.SIDE);
   expect(candidate21.FRONT).not.toBe(candidate.FRONT);
+  const candidate4 = await capture(
+    "/evowild-test/preview-motion-first/index.html?inspect=1&morph=S&shape=v4",
+    "hunyuan-s-lod2-shape-v4",
+    "shape-v4"
+  );
+
   expect(candidate3.SIDE).not.toBe(candidate21.SIDE);
   expect(candidate3.LOW).not.toBe(candidate21.LOW);
   expect(candidate3.FRONT).not.toBe(candidate21.FRONT);
+  expect(candidate4.SIDE).not.toBe(candidate3.SIDE);
+  expect(candidate4.LOW).not.toBe(candidate3.LOW);
+  expect(candidate4.FRONT).not.toBe(candidate3.FRONT);
   expect(errors, errors.join("\n")).toEqual([]);
 
-  console.log("SHAPE_V3_BROWSER", JSON.stringify({ baseline, candidate, candidate21, candidate3 }));
+  console.log("SHAPE_V4_BROWSER", JSON.stringify({ baseline, candidate, candidate21, candidate3, candidate4 }));
 });
