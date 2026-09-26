@@ -37,8 +37,9 @@ test("Road Lab renders animated S/P/E/A morph race", async ({ page }, testInfo) 
   for (const shot of ["side","front3q","back3q"]) {
     const stage = await assertRunning(page, shot);
     await page.waitForTimeout(900);
-    await stage.screenshot({
+    await page.screenshot({
       path: `test-results/visuals/desktop-roadlab-${shot}.png`,
+      fullPage: false,
       animations: "disabled"
     });
   }
