@@ -379,6 +379,33 @@ export const CREATURE_3D_PROFILES = {
       "Contact-phase proof only; not approved final animation."
     ]
   },
+  sHunyuan2mvRiggedV4: {
+    id: "s-hunyuan2mv-rigged-v4-ik-proof",
+    morph: "S",
+    url: `${import.meta.env.BASE_URL}models/evowild-s-hunyuan2mv-rigged-v4.glb`,
+    rotation: [0, 0, 0],
+    material: {
+      metalness: 0.22,
+      minRoughness: 0.52,
+      side: "double",
+      preserveBaseColorMap: false,
+      preserveNormalMap: false,
+      preserveRoughnessMap: false,
+      preserveMetalnessMap: false,
+      maxAnisotropy: 1,
+      prototypeVertexPalette: true
+    },
+    placements: {
+      lab: { targetHeight: 3.2, groundY: 0.03 },
+      race: { targetHeight: 1.7, groundY: -0.92 },
+      benchmark: { targetHeight: 1.28, groundY: 0.03 }
+    },
+    status: "ik_contact_rig_v4_proof_not_final_art",
+    notes: [
+      "LOD2 v4 proof with four root-level foot targets and two-bone IK chains.",
+      "Exporter force-samples constrained pose; browser test verifies deform-chain motion."
+    ]
+  },
   sHunyuan2mvStyled: {
     id: "s-hunyuan2mv-styled-prototype",
     morph: "S",
