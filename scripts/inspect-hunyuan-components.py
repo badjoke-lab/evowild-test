@@ -68,3 +68,4 @@ for o in meshes:
         "components":components(o)[:40]
     })
 print("S_SHAPE_COMPONENTS",json.dumps(report,separators=(",",":")))
+print("S_SHAPE_COMPONENT_COUNT",sum(len(x["components"]) for x in report))
