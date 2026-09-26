@@ -138,7 +138,7 @@ const curve = new THREE.CatmullRomCurve3(
   0.4
 );
 
-const raceWorldUnitsPerMeter = curve.getLength() / raceMeters;
+const raceWorldUnitsPerMeter = curve.getLength() / 1800;
 const HUNYUAN_V4_SOURCE_LENGTH = 1.678391;
 const HUNYUAN_V4_STANCE_TRAVEL_FRACTION = 0.50;
 const HUNYUAN_V4_STANCE_DURATION = 0.40;
