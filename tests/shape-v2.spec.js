@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 import crypto from "node:crypto";
 
-test("render S shape-v2 baseline comparison", async ({ page }, testInfo) => {
+test("render S shape-v2 and v2.1 baseline comparison", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(90000);
 
@@ -44,10 +44,18 @@ test("render S shape-v2 baseline comparison", async ({ page }, testInfo) => {
     "hunyuan-s-lod2-shape-v2",
     "shape-v2"
   );
+  const candidate21 = await capture(
+    "/evowild-test/preview-motion-first/index.html?inspect=1&morph=S&shape=v21",
+    "hunyuan-s-lod2-shape-v21",
+    "shape-v21"
+  );
 
   expect(candidate.SIDE).not.toBe(baseline.SIDE);
   expect(candidate.FRONT).not.toBe(baseline.FRONT);
+  expect(candidate21.SIDE).not.toBe(baseline.SIDE);
+  expect(candidate21.SIDE).not.toBe(candidate.SIDE);
+  expect(candidate21.FRONT).not.toBe(candidate.FRONT);
   expect(errors, errors.join("\n")).toEqual([]);
 
-  console.log("SHAPE_V2_BROWSER", JSON.stringify({ baseline, candidate }));
+  console.log("SHAPE_V21_BROWSER", JSON.stringify({ baseline, candidate, candidate21 }));
 });
