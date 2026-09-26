@@ -1471,35 +1471,68 @@ function updateCamera(dt) {
   let targetFov = 58;
 
   if (INSPECT_MODE || MOTION_REVIEW_MODE) {
-    if (actualCamera === "SIDE") {
-      desiredCamera.set(focusPos.x + 7.8, 3.0, focusPos.z);
-      desiredLook.set(focusPos.x, 1.55, focusPos.z);
-      targetFov = 42;
-    } else if (actualCamera === "LOW") {
-      desiredCamera.set(focusPos.x + 2.0, 1.15, focusPos.z - 5.4);
-      desiredLook.set(focusPos.x, 1.45, focusPos.z + 0.8);
-      targetFov = 50;
-    } else if (actualCamera === "CHASE") {
-      desiredCamera.set(focusPos.x + 3.9, 3.0, focusPos.z - 6.8);
-      desiredLook.set(focusPos.x, 1.55, focusPos.z + 0.6);
-      targetFov = 44;
-    } else if (actualCamera === "FRONT") {
-      desiredCamera.set(focusPos.x - 2.7, 2.6, focusPos.z + 6.7);
-      desiredLook.set(focusPos.x, 1.55, focusPos.z - 0.2);
-      targetFov = 44;
+    let transitionRate;
+
+    if (INSPECT_MODE) {
+      if (actualCamera === "SIDE") {
+        desiredCamera.set(focusPos.x + 7.8, 3.0, focusPos.z);
+        desiredLook.set(focusPos.x, 1.55, focusPos.z);
+        targetFov = 42;
+      } else if (actualCamera === "LOW") {
+        desiredCamera.set(focusPos.x + 2.0, 1.15, focusPos.z - 5.4);
+        desiredLook.set(focusPos.x, 1.45, focusPos.z + 0.8);
+        targetFov = 50;
+      } else if (actualCamera === "CHASE") {
+        desiredCamera.set(focusPos.x + 3.9, 3.0, focusPos.z - 6.8);
+        desiredLook.set(focusPos.x, 1.55, focusPos.z + 0.6);
+        targetFov = 44;
+      } else if (actualCamera === "FRONT") {
+        desiredCamera.set(focusPos.x - 2.7, 2.6, focusPos.z + 6.7);
+        desiredLook.set(focusPos.x, 1.55, focusPos.z - 0.2);
+        targetFov = 44;
+      } else {
+        desiredCamera.set(focusPos.x + 5.5, 4.5, focusPos.z - 5.8);
+        desiredLook.set(focusPos.x, 1.55, focusPos.z);
+        targetFov = 43;
+      }
+
+      transitionRate = 7.5;
     } else {
-      desiredCamera.set(focusPos.x + 5.5, 4.5, focusPos.z - 5.8);
-      desiredLook.set(focusPos.x, 1.55, focusPos.z);
-      targetFov = 43;
+      // Phase C motion-review cameras are framed for a moving runner, not
+      // geometry inspection. Endpoints keep the full body visible while
+      // preserving the distinct role of each view.
+      if (actualCamera === "SIDE") {
+        desiredCamera.set(focusPos.x + 8.4, 2.75, focusPos.z + 0.10);
+        desiredLook.set(focusPos.x, 1.45, focusPos.z + 0.10);
+        targetFov = 46;
+      } else if (actualCamera === "CHASE") {
+        desiredCamera.set(focusPos.x + 2.25, 2.25, focusPos.z - 5.15);
+        desiredLook.set(focusPos.x, 1.38, focusPos.z + 1.35);
+        targetFov = 52;
+      } else if (actualCamera === "LOW") {
+        desiredCamera.set(focusPos.x + 1.05, 0.82, focusPos.z - 4.25);
+        desiredLook.set(focusPos.x, 1.20, focusPos.z + 1.65);
+        targetFov = 58;
+      } else if (actualCamera === "FRONT") {
+        desiredCamera.set(focusPos.x + 0.85, 2.15, focusPos.z + 9.25);
+        desiredLook.set(focusPos.x, 1.42, focusPos.z - 0.65);
+        targetFov = 50;
+      } else {
+        desiredCamera.set(focusPos.x + 5.8, 4.8, focusPos.z - 7.0);
+        desiredLook.set(focusPos.x, 1.48, focusPos.z + 0.4);
+        targetFov = 48;
+      }
+
+      transitionRate = 4.8;
     }
 
-    camera.position.x = THREE.MathUtils.damp(camera.position.x, desiredCamera.x, 7.5, dt);
-    camera.position.y = THREE.MathUtils.damp(camera.position.y, desiredCamera.y, 7.5, dt);
-    camera.position.z = THREE.MathUtils.damp(camera.position.z, desiredCamera.z, 7.5, dt);
-    cameraLook.x = THREE.MathUtils.damp(cameraLook.x, desiredLook.x, 8.5, dt);
-    cameraLook.y = THREE.MathUtils.damp(cameraLook.y, desiredLook.y, 8.5, dt);
-    cameraLook.z = THREE.MathUtils.damp(cameraLook.z, desiredLook.z, 8.5, dt);
-    camera.fov = THREE.MathUtils.damp(camera.fov, targetFov, 8.0, dt);
+    camera.position.x = THREE.MathUtils.damp(camera.position.x, desiredCamera.x, transitionRate, dt);
+    camera.position.y = THREE.MathUtils.damp(camera.position.y, desiredCamera.y, transitionRate, dt);
+    camera.position.z = THREE.MathUtils.damp(camera.position.z, desiredCamera.z, transitionRate, dt);
+    cameraLook.x = THREE.MathUtils.damp(cameraLook.x, desiredLook.x, transitionRate + 0.8, dt);
+    cameraLook.y = THREE.MathUtils.damp(cameraLook.y, desiredLook.y, transitionRate + 0.8, dt);
+    cameraLook.z = THREE.MathUtils.damp(cameraLook.z, desiredLook.z, transitionRate + 0.8, dt);
+    camera.fov = THREE.MathUtils.damp(camera.fov, targetFov, transitionRate + 0.5, dt);
     camera.updateProjectionMatrix();
     camera.lookAt(cameraLook);
     return;
