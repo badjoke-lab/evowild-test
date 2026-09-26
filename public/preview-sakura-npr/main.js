@@ -158,12 +158,13 @@ function correctHeadSilhouette(root) {
       o.localToWorld(seamPoint);
 
       const h = (seamPoint.y - minY) / height;
-      if (h > 0.72) {
-        const t = smoothstep01((h - 0.72) / 0.28);
-        // Pull the upper head/crest toward the centre progressively. The
-        // strongest correction is reserved for the very top where the
-        // imported rig visibly opens into two separate lobes from the front.
-        const scaleX = THREE.MathUtils.lerp(0.90, 0.54, t);
+      if (h > 0.68) {
+        const t = smoothstep01((h - 0.68) / 0.32);
+        // The first pass only softened the split. Collapse the upper
+        // silhouette much harder toward the centre so the imported
+        // two-lobed crown reads as one head from FRONT/CHASE rather than
+        // two separate vertical prongs.
+        const scaleX = THREE.MathUtils.lerp(0.82, 0.08, t);
         seamPoint.x = centerX + (seamPoint.x - centerX) * scaleX;
         o.worldToLocal(seamPoint);
         pos.setXYZ(i, seamPoint.x, seamPoint.y, seamPoint.z);
