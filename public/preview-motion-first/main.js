@@ -1536,9 +1536,9 @@ function updateCamera(dt) {
       // geometry inspection. Endpoints keep the full body visible while
       // preserving the distinct role of each view.
       if (actualCamera === "SIDE") {
-        desiredCamera.set(focusPos.x + 8.4, 2.75, focusPos.z + 0.10);
-        desiredLook.set(focusPos.x, 1.45, focusPos.z + 0.10);
-        targetFov = 46;
+        desiredCamera.set(focusPos.x + 10.4, 2.75, focusPos.z);
+        desiredLook.set(focusPos.x, 1.43, focusPos.z);
+        targetFov = 48;
       } else if (actualCamera === "CHASE") {
         desiredCamera.set(focusPos.x + 2.25, 2.25, focusPos.z - 5.15);
         desiredLook.set(focusPos.x, 1.38, focusPos.z + 1.35);
