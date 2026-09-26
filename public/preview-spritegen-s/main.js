@@ -70,16 +70,25 @@ function normalizeMaterials(root) {
   });
 }
 
-function fitSideCamera() {
-  model.updateMatrixWorld(true);
-  const box = new THREE.Box3().setFromObject(model);
-  const size = box.getSize(new THREE.Vector3());
-  const center = box.getCenter(new THREE.Vector3());
+function fitSideCameraForClip() {
+  const union = new THREE.Box3();
+  const sampleBox = new THREE.Box3();
+  union.makeEmpty();
+
+  for (let i = 0; i < FRAME_COUNT; i += 1) {
+    mixer.setTime((i / FRAME_COUNT) * clip.duration);
+    model.updateMatrixWorld(true);
+    sampleBox.setFromObject(model);
+    union.union(sampleBox);
+  }
+
+  const size = union.getSize(new THREE.Vector3());
+  const center = union.getCenter(new THREE.Vector3());
 
   // Runtime forward is +Z after the canonical 180 degree alignment.
   // A camera on -X maps world +Z to screen-right.
-  const horizontal = Math.max(size.z * 1.28, 2.2);
-  const vertical = Math.max(size.y * 1.24, 2.2);
+  const horizontal = Math.max(size.z * 1.32, 2.2);
+  const vertical = Math.max(size.y * 1.30, 2.2);
   const half = Math.max(horizontal, vertical) * 0.5;
 
   camera.left = -half;
@@ -95,18 +104,7 @@ function fitSideCamera() {
   sourceCanvas.dataset.forwardAxis = "+Z";
   sourceCanvas.dataset.screenFacing = "right";
   sourceCanvas.dataset.cameraAxis = "-X";
-}
-
-function drawFrameNumber(ctx, n, x, y) {
-  ctx.save();
-  ctx.fillStyle = "rgba(11,15,20,.78)";
-  ctx.fillRect(x + 8, y + 8, 30, 24);
-  ctx.fillStyle = "#f4f7fb";
-  ctx.font = "700 13px system-ui";
-  ctx.textBaseline = "middle";
-  ctx.textAlign = "center";
-  ctx.fillText(String(n), x + 23, y + 20);
-  ctx.restore();
+  sourceCanvas.dataset.framing = "full-cycle-union";
 }
 
 function renderFrameAt(time) {
@@ -130,7 +128,6 @@ function buildAtlas() {
     const x = col * CELL;
     const y = row * CELL;
     atlasCtx.drawImage(frames[i], x, y, CELL, CELL);
-    drawFrameNumber(atlasCtx, i + 1, x, y);
   }
 }
 
@@ -157,9 +154,8 @@ async function buildFrames(gltf) {
   mixer = new THREE.AnimationMixer(model);
   const action = mixer.clipAction(clip);
   action.reset().play();
-  action.paused = true;
 
-  fitSideCamera();
+  fitSideCameraForClip();
 
   clipEl.textContent = clip.name + " · " + clip.duration.toFixed(2) + "s";
   sourceCanvas.dataset.asset = "focus-rigged-v5.glb";
