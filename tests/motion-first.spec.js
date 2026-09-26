@@ -526,6 +526,7 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
 
   await expect(page.locator("#scene")).toBeVisible();
   await expect(page.locator("#scene")).toHaveAttribute("data-simplified-race", "1");
+  await expect(page.locator("#scene")).toHaveAttribute("data-race-detail-cull", "1");
   await expect(page.locator("#scene")).toHaveAttribute("data-runner-count", "18");
   await expect(page.locator("#scene")).toHaveAttribute("data-morph-set", "SPEA");
   await expect(page.locator("#scene")).toHaveAttribute("data-variation-active", "1");
