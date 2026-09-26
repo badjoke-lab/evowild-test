@@ -26,24 +26,27 @@ The current Motion First implementation is a technology proof, not a quality ben
 
 ## 2. Current state
 
-Already proven:
+Current phase: **Phase B — S locomotion**
 
-- a separate Motion First page can run;
+Passed:
+
+- isolated Motion First page exists;
+- dedicated S gait page exists at `public/preview-motion-first-gait/`;
 - 18 simplified articulated 3D runners can be displayed;
 - S/P/E/A parameter families can coexist;
 - CHASE / LOW / PACK / SIDE / FRONT cameras can operate;
 - camera position, target, and FOV can transition smoothly;
 - a focused runner can be changed;
-- lane changes and body lean can be represented.
+- lane changes and body lean can be represented;
+- **Phase A S body gate passed** after repository-controlled multi-view review;
+- S stance/swing separation, distance-coupled cadence, IK reach validation, and planted-stance slip checks are implemented.
 
-Not proven:
+Still open:
 
-- concept-faithful creature geometry;
-- high-quality gait;
-- reliable foot locking;
-- good motion from every camera;
+- Phase B visual acceptance of the S gait;
+- Phase C full multi-camera motion acceptance;
 - acceptable speed sensation;
-- convincing S/P/E/A derivation from one species;
+- convincing P/E/A derivation from the same species;
 - acceptable 18-runner quality after creature replacement.
 
 ## 3. Execution order
@@ -296,22 +299,28 @@ CI can verify regressions and runtime behavior. It cannot certify creature quali
 
 ## 9. Next concrete implementation task
 
-The next coding task is:
+The current coding task is:
 
-**replace the current S primitive creature with a reference-driven S body, while leaving P/E/A and the rest of the race infrastructure untouched.**
+**finish Phase B for the canonical S runner before any P/E/A derivation.**
 
-The first implementation pass should concentrate on:
+Current Phase B work must concentrate on:
 
-- head;
-- crest;
-- neck line;
-- chest;
-- pelvis;
-- long limbs;
-- feet;
-- tail;
-- Cue Band.
+- load → drive → suspension → recovery readability;
+- longitudinal chest/pelvis deformation rather than rigid-hull motion;
+- shoulder / hip contribution to stride;
+- compact recovery and controlled pre-touchdown extension;
+- planted stance with no obvious foot skating;
+- damped head / neck stabilization;
+- delayed tail follow-through.
 
-Do not redesign AUTO camera, HUD, or environment in the same pass.
+Acceptance order:
 
-After that pass, inspect S in SIDE / CHASE / LOW / FRONT before proceeding.
+1. CI: no IK reach clipping;
+2. CI: planted-stance slip remains below the explicit threshold;
+3. CI: body has measurable longitudinal articulation;
+4. visual review: SIDE continuous motion;
+5. visual review: LOW continuous motion.
+
+Do not redesign AUTO camera, UI, environment art, P/E/A, or the 18-runner population until Phase B passes.
+
+After Phase B passes, proceed directly to **Phase C multi-camera S validation** using SIDE / CHASE / LOW / FRONT and camera transitions.

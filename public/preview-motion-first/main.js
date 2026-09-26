@@ -30,8 +30,12 @@ const S_GAIT = {
   reviewBaseY: 2.16,
   minStrideWorld: 3.8,
   maxStrideWorld: 6.2,
-  stance: 0.34,
-  swingLift: 0.52
+  stance: 0.22,
+  swingLift: 0.52,
+  chestBaseZ: 0.58,
+  pelvisBaseZ: -0.70,
+  chestBaseY: 0.01,
+  pelvisBaseY: -0.05
 };
 
 const scene = new THREE.Scene();
@@ -450,8 +454,8 @@ function makeSprintLimb(parent, upperMat, lowerMat, jointMat, plateMat, side, fo
     ankle,
     foot,
     phaseOffset: fore
-      ? (side < 0 ? TAU * 0.50 : TAU * 0.58)
-      : (side < 0 ? 0 : TAU * 0.08),
+      ? (side < 0 ? TAU * 0.48 : TAU * 0.60)
+      : (side < 0 ? 0 : TAU * 0.11),
     upperLen,
     lowerLen,
     cannonLen,
@@ -761,13 +765,21 @@ function createSprintCreature(color, index) {
     bodyMaster,
     chestPivot,
     pelvisPivot,
+    waist,
+    keel,
     neckPivot,
     headPivot,
     tailSegments,
     legs,
     phase: index * 0.61,
     turnLean: 0,
-    accelLean: 0
+    accelLean: 0,
+    neckLag: -0.04,
+    headLag: 0,
+    tailPitchState: tailSegments.map(() => 0),
+    tailYawState: tailSegments.map(() => 0),
+    strideLength: S_GAIT.minStrideWorld,
+    maxStanceSlip: 0
   };
 
   return root;
@@ -1076,7 +1088,7 @@ function updateRunner(runner, dt) {
     const phaseRate = 4.2 * cfg.cadence * (0.25 + runner.speed / Math.max(cfg.baseSpeed, 1));
     runner.group.userData.phase += dt * phaseRate;
   }
-  updateCreaturePose(runner, lateralVelocity);
+  updateCreaturePose(runner, lateralVelocity, dt);
 }
 
 function wrap01(value) {
@@ -1108,10 +1120,18 @@ function solveSprintLeg(leg, targetY, targetZ, footPitch, turnLean) {
 
   const hipOffset = Math.acos(hipCos);
   const kneeBend = Math.PI - Math.acos(kneeCos);
+  const bendSign = leg.fore ? 1 : -1;
 
-  leg.hip.rotation.x = direction + hipOffset;
-  leg.knee.rotation.x = -kneeBend;
-  leg.ankle.rotation.x = 0.06 + kneeBend * 0.10;
+  leg.hip.rotation.x = direction + hipOffset * bendSign;
+  leg.knee.rotation.x = -kneeBend * bendSign;
+
+  // Forelimbs fold through an elbow/wrist-like chain; hind limbs use an
+  // opposite stifle/hock solution so the two families do not look cloned.
+  leg.ankle.rotation.x =
+    leg.fore
+      ? 0.08 + kneeBend * 0.13
+      : -0.10 - kneeBend * 0.16;
+
   leg.foot.rotation.x =
     footPitch -
     leg.hip.rotation.x -
@@ -1120,60 +1140,99 @@ function solveSprintLeg(leg, targetY, targetZ, footPitch, turnLean) {
   leg.hip.rotation.z = leg.side * turnLean * 0.22;
 }
 
-function updateSprintPose(runner, lateralVelocity) {
+function updateSprintPose(runner, lateralVelocity, dt) {
   const ud = runner.group.userData;
   const cfg = runner.cfg;
   const speedRatio = THREE.MathUtils.clamp(runner.speed / cfg.baseSpeed, 0, 1.18);
   const phase = ud.phase + runner.phaseBias;
+  const cycle = wrap01(phase / TAU);
   const strideLength =
     ud.strideLength ||
     THREE.MathUtils.lerp(S_GAIT.minStrideWorld, S_GAIT.maxStrideWorld, speedRatio);
 
   const accelError = (runner.targetSpeed - runner.speed) / Math.max(cfg.baseSpeed, 1);
-  ud.accelLean = THREE.MathUtils.lerp(ud.accelLean, accelError * 1.45, 0.09);
-  ud.turnLean = THREE.MathUtils.lerp(
+  ud.accelLean = THREE.MathUtils.damp(ud.accelLean, accelError * 1.45, 8.5, dt);
+  ud.turnLean = THREE.MathUtils.damp(
     ud.turnLean,
     THREE.MathUtils.clamp(-lateralVelocity * cfg.laneLean * 0.16, -0.22, 0.22),
-    0.13
+    10.0,
+    dt
   );
 
-  const flightWave = Math.pow(Math.abs(Math.sin(phase * 2)), 1.35);
-  const contactPulse = 1 - flightWave;
-  const baseY = INSPECT_MODE && !MOTION_REVIEW_MODE ? S_GAIT.reviewBaseY : S_GAIT.baseY;
+  // Gallop cycle: rear drive -> fore catch -> compression -> suspension.
+  const rearDrive = Math.max(0, Math.sin((cycle - 0.02) * TAU));
+  const foreCatch = Math.max(0, Math.sin((cycle - 0.50) * TAU));
+  const suspension = Math.pow(Math.max(0, -Math.sin((cycle - 0.08) * TAU)), 1.35);
+  const load = Math.max(rearDrive, foreCatch);
+  const spineWave = Math.sin((cycle - 0.12) * TAU);
+  const spineExtend = 0.5 + 0.5 * spineWave;
 
+  const baseY = INSPECT_MODE && !MOTION_REVIEW_MODE ? S_GAIT.reviewBaseY : S_GAIT.baseY;
   ud.bodyMaster.position.y =
     baseY +
-    flightWave * 0.125 * speedRatio -
-    contactPulse * 0.020 * speedRatio;
+    suspension * 0.155 * speedRatio -
+    load * 0.060 * speedRatio;
+
+  // Longitudinal body deformation is essential: the runner must not read as
+  // a rigid hull with four animated sticks.
+  const longStretch = (spineExtend - 0.5) * 0.34 * speedRatio;
+  const verticalCompression = load * 0.070 * speedRatio;
+
+  ud.chestPivot.position.z = S_GAIT.chestBaseZ + longStretch * 0.46;
+  ud.pelvisPivot.position.z = S_GAIT.pelvisBaseZ - longStretch * 0.62;
+  ud.chestPivot.position.y = S_GAIT.chestBaseY - verticalCompression * 0.58;
+  ud.pelvisPivot.position.y = S_GAIT.pelvisBaseY - verticalCompression * 0.42;
+
+  const bodyMidZ = (ud.chestPivot.position.z + ud.pelvisPivot.position.z) * 0.5;
+  ud.waist.position.z = bodyMidZ;
+  ud.waist.scale.y = 1 + Math.abs(longStretch) * 1.45;
+  ud.keel.position.z = bodyMidZ;
+  ud.keel.scale.z = 1 + Math.abs(longStretch) * 0.52;
+
+  const contactPitch =
+    -rearDrive * 0.030 +
+    foreCatch * 0.042 -
+    suspension * 0.018;
 
   ud.bodyMaster.rotation.x =
-    -0.075 * speedRatio -
-    ud.accelLean * 0.10 +
-    Math.sin(phase) * 0.018 * speedRatio;
+    -0.082 * speedRatio -
+    ud.accelLean * 0.11 +
+    contactPitch;
   ud.bodyMaster.rotation.z = ud.turnLean;
 
-  // Chest and pelvis do real work: compress at catch, extend through rear drive.
   ud.chestPivot.rotation.x =
-    -Math.sin(phase) * 0.082 * speedRatio - flightWave * 0.018;
+    -spineWave * 0.125 * speedRatio -
+    foreCatch * 0.050 +
+    suspension * 0.024;
   ud.pelvisPivot.rotation.x =
-    Math.sin(phase + 0.18) * 0.108 * speedRatio + flightWave * 0.024;
-  ud.chestPivot.rotation.y = -Math.sin(phase * 0.5) * 0.018 * speedRatio;
-  ud.pelvisPivot.rotation.y = Math.sin(phase * 0.5) * 0.026 * speedRatio;
+    spineWave * 0.165 * speedRatio +
+    rearDrive * 0.060 -
+    suspension * 0.028;
+  ud.chestPivot.rotation.y = -Math.sin(phase * 0.5) * 0.016 * speedRatio;
+  ud.pelvisPivot.rotation.y = Math.sin(phase * 0.5) * 0.024 * speedRatio;
 
-  // Neck follows the shoulder mass while the head counter-rotates to stay readable.
-  ud.neckPivot.rotation.x =
-    -0.045 + Math.sin(phase + 0.30) * 0.035 * speedRatio;
-  ud.headPivot.rotation.x =
-    -ud.neckPivot.rotation.x * 0.52 -
-    Math.sin(phase + 0.95) * 0.022 * speedRatio;
-  ud.headPivot.rotation.z = -ud.turnLean * 0.50;
+  // Root travel lets the shoulder and hip participate in the stride instead
+  // of forcing the knee/ankle chain to create all apparent motion.
+  Object.values(ud.legs).forEach((leg) => {
+    const localCycle = wrap01((phase + leg.phaseOffset) / TAU);
+    const strideRoot = Math.sin(localCycle * TAU);
+    const liftRoot = Math.max(0, -Math.sin(localCycle * TAU));
+
+    leg.hip.position.z =
+      (leg.fore ? 0.26 : -0.25) +
+      strideRoot * (leg.fore ? 0.095 : 0.120) * speedRatio;
+    leg.hip.position.y =
+      (leg.fore ? -0.12 : -0.10) +
+      liftRoot * 0.035 * speedRatio -
+      load * 0.012;
+  });
 
   const stanceDuration = S_GAIT.stance;
   const stanceSweep = strideLength * stanceDuration;
   const halfSweep = stanceSweep * 0.5;
 
   Object.values(ud.legs).forEach((leg) => {
-    const cycle = wrap01((phase + leg.phaseOffset) / TAU);
+    const localCycle = wrap01((phase + leg.phaseOffset) / TAU);
     const fore = leg.fore;
     const nominalReach = fore ? 1.43 : 1.40;
 
@@ -1181,15 +1240,19 @@ function updateSprintPose(runner, lateralVelocity) {
     let targetY;
     let footPitch;
 
-    if (cycle < stanceDuration) {
-      const u = cycle / stanceDuration;
-      // Linear backward sweep cancels root travel while the foot is planted.
+    if (localCycle < stanceDuration) {
+      const u = localCycle / stanceDuration;
+      // Keep the world-space foot stationary: runner root travel is linear,
+      // so stance sweep must remain linear too. Shape loading vertically instead.
       targetZ = THREE.MathUtils.lerp(halfSweep, -halfSweep, u);
+
+      // Catch compresses, mid-stance stabilizes, toe-off extends.
+      const compression = Math.sin(u * Math.PI);
       targetY =
         -nominalReach +
-        Math.sin(u * Math.PI) * 0.012 -
-        contactPulse * 0.012;
-      footPitch = THREE.MathUtils.lerp(-0.06, 0.10, u);
+        compression * 0.016 -
+        load * 0.010;
+      footPitch = THREE.MathUtils.lerp(-0.055, 0.115, u);
 
       const worldStridePoint = runner.distance + targetZ;
       if (!leg.stanceActive) {
@@ -1200,37 +1263,107 @@ function updateSprintPose(runner, lateralVelocity) {
       ud.maxStanceSlip = Math.max(ud.maxStanceSlip || 0, slip);
     } else {
       leg.stanceActive = false;
-      const u = (cycle - stanceDuration) / (1 - stanceDuration);
-      const travel = 0.5 - 0.5 * Math.cos(u * Math.PI);
-      const lift = Math.pow(Math.sin(u * Math.PI), 1.24) * 0.46;
-      targetZ = THREE.MathUtils.lerp(-halfSweep, halfSweep, travel);
-      targetY = -nominalReach + lift;
-      footPitch = -0.20 * Math.sin(u * Math.PI) - 0.015;
+      const u = (localCycle - stanceDuration) / (1 - stanceDuration);
+
+      // Recovery is intentionally asymmetric:
+      // fold fast after toe-off, stay compact, then extend before touchdown.
+      const advance = u < 0.58
+        ? 0.5 * Math.pow(u / 0.58, 1.55)
+        : 0.5 + 0.5 * (1 - Math.pow(1 - (u - 0.58) / 0.42, 2.2));
+      const liftShape = Math.pow(Math.sin(u * Math.PI), 1.10);
+      const earlyFold = Math.pow(
+        Math.max(0, Math.sin(Math.min(1, u / 0.42) * Math.PI)),
+        1.18
+      );
+      const lateExtend = Math.pow(
+        THREE.MathUtils.clamp((u - 0.68) / 0.32, 0, 1),
+        1.65
+      );
+
+      targetZ = THREE.MathUtils.lerp(-halfSweep, halfSweep, advance);
+      targetY =
+        -nominalReach +
+        liftShape * S_GAIT.swingLift +
+        earlyFold * (fore ? 0.070 : 0.095) -
+        lateExtend * 0.035;
+      footPitch =
+        -0.23 * liftShape +
+        THREE.MathUtils.lerp(0.06, -0.04, Math.min(1, u / 0.92));
     }
 
     solveSprintLeg(leg, targetY, targetZ, footPitch, ud.turnLean);
+  });
+
+  // Damped stabilization. Neck absorbs torso motion; head remains calmer.
+  const neckTarget =
+    -0.040 -
+    ud.chestPivot.rotation.x * 0.30 +
+    suspension * 0.012;
+  ud.neckLag = THREE.MathUtils.damp(
+    ud.neckLag ?? neckTarget,
+    neckTarget,
+    9.0,
+    dt
+  );
+  ud.neckPivot.rotation.x = ud.neckLag;
+
+  const headTarget =
+    -ud.neckLag * 0.46 -
+    ud.bodyMaster.rotation.x * 0.16 -
+    foreCatch * 0.008;
+  ud.headLag = THREE.MathUtils.damp(
+    ud.headLag ?? headTarget,
+    headTarget,
+    12.5,
+    dt
+  );
+  ud.headPivot.rotation.x = ud.headLag;
+  ud.headPivot.rotation.z = -ud.turnLean * 0.48;
+
+  // Tail uses per-segment damped targets, with slower response toward the tip.
+  ud.tailSegments.forEach((joint, i) => {
+    const pitchTarget =
+      0.035 +
+      ud.pelvisPivot.rotation.x * (0.24 + i * 0.09) -
+      suspension * (0.018 + i * 0.007);
+    const yawTarget =
+      -ud.turnLean * (0.52 + i * 0.18) +
+      Math.sin(phase * 0.45 - i * 0.42) * (0.022 + i * 0.010) * speedRatio;
+
+    const pitchRate = 10.5 - i * 1.4;
+    const yawRate = 9.5 - i * 1.2;
+    ud.tailPitchState[i] = THREE.MathUtils.damp(
+      ud.tailPitchState[i] ?? pitchTarget,
+      pitchTarget,
+      Math.max(4.5, pitchRate),
+      dt
+    );
+    ud.tailYawState[i] = THREE.MathUtils.damp(
+      ud.tailYawState[i] ?? yawTarget,
+      yawTarget,
+      Math.max(4.0, yawRate),
+      dt
+    );
+
+    joint.rotation.x = ud.tailPitchState[i];
+    joint.rotation.y = ud.tailYawState[i];
   });
 
   if (MOTION_REVIEW_MODE) {
     const legs = Object.values(ud.legs);
     canvas.dataset.ikClamped = legs.some((leg) => leg.ikClamped) ? "1" : "0";
     canvas.dataset.maxStanceSlip = String(ud.maxStanceSlip || 0);
+    const bodyStretch =
+      Math.abs(ud.chestPivot.position.z - S_GAIT.chestBaseZ) +
+      Math.abs(ud.pelvisPivot.position.z - S_GAIT.pelvisBaseZ);
+    ud.maxBodyStretch = Math.max(ud.maxBodyStretch || 0, bodyStretch);
+    canvas.dataset.maxBodyStretch = String(ud.maxBodyStretch);
   }
-
-  ud.tailSegments.forEach((joint, i) => {
-    const lag = phase * 0.52 - i * 0.48;
-    joint.rotation.y =
-      Math.sin(lag) * (0.055 + i * 0.018) * speedRatio -
-      ud.turnLean * (0.50 + i * 0.16);
-    joint.rotation.x =
-      0.08 +
-      Math.sin(phase - i * 0.42 + 0.35) * (0.035 + i * 0.012) * speedRatio;
-  });
 }
 
-function updateCreaturePose(runner, lateralVelocity) {
+function updateCreaturePose(runner, lateralVelocity, dt = 1 / 60) {
   if (runner.morph === "S") {
-    updateSprintPose(runner, lateralVelocity);
+    updateSprintPose(runner, lateralVelocity, dt);
     return;
   }
 
@@ -1574,7 +1707,7 @@ function animate() {
     runners.forEach((runner) => updateRunner(runner, dt));
     finishCheck();
   } else {
-    runners.forEach((runner) => updateCreaturePose(runner, 0));
+    runners.forEach((runner) => updateCreaturePose(runner, 0, dt));
   }
 
   updateCamera(dt);
