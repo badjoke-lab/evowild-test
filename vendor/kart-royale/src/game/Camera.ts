@@ -723,12 +723,12 @@ export class ChaseCamera implements System {
     const mode: CamMode = ((window as any).__camMode as CamMode) || 'chase';
     const state = ctx.race.state;
 
+    this.buildProps(ctx);
+
     if (EVOWILD_SPECTATOR) {
       this.poseEvowildSpectator(ctx, k, dt);
       return;
     }
-
-    this.buildProps(ctx);
 
     // A harness mode change is a cut, and the lens must be at its new focal
     // length on the very first frame: the composition is solved against the
@@ -901,10 +901,19 @@ export class ChaseCamera implements System {
     const height = portrait ? 2.25 : 2.45;
 
     const packSide = packCount > 1 ? side + Math.min(2.2, (packCount - 1) * 0.28) : side;
+
+    this.up.copy(WORLD_UP);
+    _dir.copy(_right).multiplyScalar(-packSide).addScaledVector(_face, back);
+    const armDist = Math.max(0.001, _dir.length());
+    _dir.multiplyScalar(1 / armDist);
+
+    const armFrac = this.sweepArm(ctx, k, _packCenter, _dir, armDist, height);
     _eye.copy(_packCenter)
-      .addScaledVector(_right, packSide)
-      .addScaledVector(_face, -back)
-      .addScaledVector(WORLD_UP, height);
+      .addScaledVector(_dir, -armDist * armFrac)
+      .addScaledVector(WORLD_UP, height * armFrac);
+
+    // Reuse Kart Royale's final ground / roof / wall / furniture correction.
+    this.constrainEye(ctx, k, dt);
 
     _aim.copy(_packCenter)
       .addScaledVector(_face, 0.9)
