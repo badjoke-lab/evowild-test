@@ -24,6 +24,7 @@ test("Motion First S runner renders and captures required camera views", async (
   await expect(page.locator("#raceState")).toHaveText("INSPECT");
   await expect(page.locator("#scene")).toHaveAttribute("data-s-asset-ready", "1");
   await expect(page.locator("#scene")).toHaveAttribute("data-s-asset", "hunyuan-s-lod2");
+  await expect(page.locator("#scene")).toHaveAttribute("data-s-model-yaw-degrees", "180");
   await page.waitForTimeout(600);
 
   const views = ["SIDE", "LOW", "CHASE", "FRONT"];
@@ -81,11 +82,13 @@ test("Motion First S gait records continuous SIDE and LOW review video", async (
   await page.waitForTimeout(4200);
 
   await expect(page.locator("#scene")).toHaveAttribute("data-s-asset-ready", "1");
-  await expect(page.locator("#scene")).toHaveAttribute("data-s-asset", "hunyuan-s-rigged-v31");
+  await expect(page.locator("#scene")).toHaveAttribute("data-s-asset", "hunyuan-s-rigged-v5");
   await expect(page.locator("#scene")).toHaveAttribute("data-s-runtime-animated", "1");
   const clipCount = Number(await page.locator("#scene").getAttribute("data-s-animation-clips"));
   expect(Number.isFinite(clipCount)).toBeTruthy();
   expect(clipCount).toBeGreaterThan(0);
+  await expect(page.locator("#scene")).toHaveAttribute("data-s-animation-clip-name", "EvoWild_S_Run_V5");
+  await expect(page.locator("#scene")).toHaveAttribute("data-s-model-yaw-degrees", "180");
 
   const video = page.video();
   await page.close();
@@ -144,7 +147,7 @@ test("Motion First Phase C records continuous S multi-camera review", async ({ b
   }
 
   await expect(page.locator("#scene")).toHaveAttribute("data-s-asset-ready", "1");
-  await expect(page.locator("#scene")).toHaveAttribute("data-s-asset", "hunyuan-s-rigged-v31");
+  await expect(page.locator("#scene")).toHaveAttribute("data-s-asset", "hunyuan-s-rigged-v5");
   await expect(page.locator("#scene")).toHaveAttribute("data-s-runtime-animated", "1");
 
   const video = page.video();
@@ -372,7 +375,7 @@ test("Motion First normal race uses Hunyuan LOD4 rigged S", async ({ page }, tes
   await page.goto("/evowild-test/preview-motion-first/index.html", { waitUntil: "networkidle" });
   await expect(page.locator("#scene")).toBeVisible();
   await expect(page.locator("#scene")).toHaveAttribute("data-s-asset-ready", "1");
-  await expect(page.locator("#scene")).toHaveAttribute("data-s-asset", "hunyuan-s-lod4-rigged-v31");
+  await expect(page.locator("#scene")).toHaveAttribute("data-s-asset", "hunyuan-s-lod4-rigged-v5");
 
   const clipCount = Number(await page.locator("#scene").getAttribute("data-s-animation-clips"));
   expect(Number.isFinite(clipCount)).toBeTruthy();
