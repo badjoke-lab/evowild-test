@@ -52,6 +52,7 @@ let hunyuanRacePackRiggedFar = [];
 let hunyuanRacePackAnimated = false;
 let sf3dLabMixer = null;
 const sf3dRaceMixers = [];
+const hunyuanRaceMixerBindings = [];
 
 const runtimeStatus = document.createElement("div");
 runtimeStatus.className = "runtime-status";
@@ -959,6 +960,7 @@ function setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData, lod4Rigg
       mixer.clipAction(clip).play();
       if (clip.duration > 0) mixer.setTime((index / racers.length) * clip.duration);
       sf3dRaceMixers.push(mixer);
+      hunyuanRaceMixerBindings.push({ racerId: racer.id, mixer, role: "far" });
       hunyuanRacePackRiggedFar.push({ racerId: racer.id, model });
     });
 
@@ -1001,6 +1003,7 @@ function setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData, lod4Rigg
       const mixer = new THREE.AnimationMixer(hunyuanRacePackRiggedSelected);
       mixer.clipAction(riggedData.animations[0]).play();
       sf3dRaceMixers.push(mixer);
+      hunyuanRaceMixerBindings.push({ racerId: selectedRacer.id, mixer, role: "selected" });
       window.__hunyuanRacePackRiggedSelected = hunyuanRacePackRiggedSelected;
       stage.dataset.hunyuanRacePackRigged = "playing";
       stage.dataset.hunyuanRacePackRiggedClip = riggedData.animations[0].name || "unnamed";
@@ -1014,6 +1017,38 @@ function setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData, lod4Rigg
   stage.dataset.hunyuanRacePackSide = hunyuanRacePackSide;
   stage.dataset.hunyuanRacePackProfiles = levels.map((data) => data.profile.id).join(",");
   stage.dataset.hunyuanRacePackTriangles = levels.map((data) => data.stats.triangles).join(",");
+}
+
+function syncHunyuanRaceAnimationSpeed() {
+  if (!hunyuanRacePack || !hunyuanRaceMixerBindings.length) return;
+
+  for (const binding of hunyuanRaceMixerBindings) {
+    const racer = racers.find((entry) => entry.id === binding.racerId);
+    if (!racer) continue;
+
+    const ratio = racer.cruise > 0 ? racer.speed / racer.cruise : 1;
+    const normalized = THREE.MathUtils.clamp(ratio, 0, 1.18);
+
+    // At launch, keep the stride readable instead of freezing completely.
+    // Above cruise, cadence increases modestly; world-space speed still comes
+    // entirely from the race engine.
+    const cadence = normalized < 0.18
+      ? 0.28 + normalized * 1.4
+      : 0.48 + normalized * 0.62;
+
+    binding.mixer.timeScale = THREE.MathUtils.clamp(cadence, 0.28, 1.22);
+  }
+
+  const selectedBinding = hunyuanRaceMixerBindings.find(
+    (binding) => binding.racerId === selectedId && binding.role === "selected"
+  );
+  const selectedRacer = racers.find((entry) => entry.id === selectedId);
+  if (selectedBinding && selectedRacer) {
+    stage.dataset.hunyuanStrideSync = "speed-linked";
+    stage.dataset.hunyuanStrideTimeScale = selectedBinding.mixer.timeScale.toFixed(3);
+    stage.dataset.hunyuanStrideSpeed = selectedRacer.speed.toFixed(3);
+    stage.dataset.hunyuanStrideCruise = selectedRacer.cruise.toFixed(3);
+  }
 }
 
 function updateHunyuanRacePackInstances() {
@@ -1850,6 +1885,7 @@ function frame(now) {
     if (!paused) {
       const animationDt = dt / 1000;
       if (sf3dLabMixer) sf3dLabMixer.update(animationDt);
+      syncHunyuanRaceAnimationSpeed();
       for (const mixer of sf3dRaceMixers) mixer.update(animationDt);
     }
     setCamera();
