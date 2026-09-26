@@ -9,8 +9,8 @@ The procedural Motion First S and the locally generated Sol/Astra experiments ar
 ## Canonical files
 
 - Shape/edit source: `public/models/evowild-s/source-lod2.glb`
-- Near/focus animated model: `public/models/evowild-s/focus-rigged-v31.glb`
-- Multi-runner animated model: `public/models/evowild-s/race-lod4-rigged-v31.glb`
+- Near/focus animated model: `public/models/evowild-s/focus-rigged-v5.glb`
+- Multi-runner animated model: `public/models/evowild-s/race-lod4-rigged-v5.glb`
 - Far/static LOD: `public/models/evowild-s/race-lod4.glb`
 - Machine-readable mapping: `public/models/evowild-s/manifest.json`
 
@@ -24,18 +24,18 @@ Start from `source-lod2.glb`.
 
 Do not use:
 - procedural Motion First S geometry;
-- rigged-v31 as the shape-edit master;
+- rigged-v5 as the shape-edit master;
 - LOD4 as the shape-edit master.
 
 ### Motion / close camera
 
-Use `focus-rigged-v31.glb`.
+Use `focus-rigged-v5.glb`.
 
-It is the current stable near-camera animated candidate. v4 remains an IK experiment; an unverified v5 must not silently replace v31.
+v31 was rejected in Motion First after visible sideways / non-running integration. v5 is the active stance-direction-corrected runtime candidate; it is still not final animation.
 
 ### Race population
 
-Use `race-lod4-rigged-v31.glb` for animated S runners when several are on screen.
+Use `race-lod4-rigged-v5.glb` for animated S runners when several are on screen.
 
 The static `race-lod4.glb` is reserved for future far-distance LOD switching; it must not replace animation for a visible racing creature just to save performance.
 
@@ -56,6 +56,6 @@ The replacement is not complete merely because the GLB loads.
 The integration must verify:
 - the canonical GLB is actually visible;
 - no procedural S remains visible behind it;
-- gait mode has at least one animation clip or is otherwise driven by the validated v31 rig path;
+- gait mode has at least one animation clip or is otherwise driven by the stance-direction-corrected v5 rig path;
 - SIDE / LOW / CHASE / FRONT cameras keep the Hunyuan model in frame;
 - replacing the visual does not degrade race speed or camera transitions.
