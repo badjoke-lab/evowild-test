@@ -700,10 +700,11 @@ function loadRunAsset(spec) {
       BASE + "concept/" + spec.asset,
       (tex) => {
         tex.colorSpace = THREE.SRGBColorSpace;
-        tex.minFilter = THREE.LinearMipmapLinearFilter;
-        tex.magFilter = THREE.LinearFilter;
-        tex.generateMipmaps = true;
-        tex.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+        const lowResDirectionalAtlas = spec.asset.includes("multidirection-run-atlas");
+        tex.minFilter = lowResDirectionalAtlas ? THREE.NearestFilter : THREE.LinearMipmapLinearFilter;
+        tex.magFilter = lowResDirectionalAtlas ? THREE.NearestFilter : THREE.LinearFilter;
+        tex.generateMipmaps = !lowResDirectionalAtlas;
+        tex.anisotropy = lowResDirectionalAtlas ? 1 : Math.min(8, renderer.capabilities.getMaxAnisotropy());
         resolve([spec.key, { texture:tex, spec }]);
       },
       undefined,
@@ -814,7 +815,7 @@ function placeRacer(r, elapsedMs) {
   r.sprite.position.y += bob;
 
   const scaleByMorph = { S:10.6, P:11.4, E:10.8, A:10.4 };
-  const directionScale = r.currentDirection === "side" || r.morph === "S" ? 1 : .86;
+  const directionScale = r.currentDirection === "side" || r.morph === "S" ? 1 : .80;
   const drawScale=((scaleByMorph[r.morph] || 10.2) + (r.id===SELECTED_ID ? .28 : 0)) * directionScale;
 
   const here = p.clone().project(camera);
