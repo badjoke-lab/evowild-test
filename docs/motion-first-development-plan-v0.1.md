@@ -26,11 +26,11 @@ The current Motion First implementation is a technology proof, not a quality ben
 
 ## 2. Current state
 
-Current phase: **RESET TO S MODEL QUALITY GATE**
+Current phase: **HUNYUAN S INTEGRATION / S ONLY**
 
-The previous internal "Phase A/B/C pass" decisions for the primitive S are revoked.
+The procedural S remains rejected as a visual baseline.
 
-Reason: the primitive S passed technical continuity / motion checks but remained visually far below the repository creature reference. Technical viability was incorrectly treated as creature-quality acceptance.
+The active S geometry baseline is now the existing Hunyuan-derived model family. The rigless LOD2 mesh is the shape/edit source; rigged v31 variants are runtime motion assets. This does not mean the Hunyuan model is final art — it means further S work starts from the best existing geometry instead of rebuilding another weak procedural creature.
 
 What is actually proven:
 
@@ -43,18 +43,24 @@ What is actually proven:
 
 What is **not** accepted:
 
-- current primitive S body;
+- the procedural Motion First S body as a shape source;
+- the abandoned local Sol/Astra S candidates;
 - current P / E bodies as production-quality morphs;
 - any A derivation;
 - propagation to 18 production-quality creatures.
 
-The current primitive S/P/E models are motion/camera test fixtures only.
+### S source rule
 
-### Modeling source rule
+Use the canonical Hunyuan mapping in `public/models/evowild-s/manifest.json`:
 
-The next real S candidate must come from the dedicated **Astra modeling lane** and must be checked against the repository creature references before this Motion First lane treats it as an accepted creature.
+- `source-lod2.glb` — shape/edit baseline;
+- `focus-rigged-v31.glb` — near/focus motion;
+- `race-lod4-rigged-v31.glb` — multi-runner race;
+- `race-lod4.glb` — far/static LOD only.
 
-Do not continue P / E / A modeling while S remains visually unaccepted.
+Do not restart the S shape from procedural primitives or the abandoned Astra placeholder.
+
+Do not continue P / E / A production modeling until the Hunyuan S replacement is integrated and reviewed in Motion First.
 
 ## 3. Execution order
 
@@ -83,10 +89,11 @@ Deliverable:
 
 Gate A:
 
-- the S model must materially match the repository S reference in overall silhouette, head/body proportions, limb structure, crest line, tail line, and Cue Band integration;
-- "technically coherent", "multi-view stable", "builds", "runs", or "better than the previous primitive" are not sufficient;
-- the current primitive S does **not** pass this gate;
-- no P/E/A derivation is allowed until an Astra-produced S candidate passes this visual gate.
+- the visible S must use the canonical Hunyuan family rather than procedural geometry;
+- the rigless LOD2 mesh is the current shape baseline, not a claim of final-art completion;
+- "builds", "runs", or "loads a GLB" are not sufficient — the model must remain readable from SIDE / LOW / CHASE / FRONT;
+- the close-camera gait must use the rigged v31 asset without degrading movement quality;
+- no P/E/A production derivation is allowed until this replacement survives visual runtime review.
 
 ### Phase B — S locomotion
 
@@ -309,19 +316,21 @@ CI can verify regressions and runtime behavior. It cannot certify creature quali
 
 ## 9. Next concrete implementation task
 
-The current task is **not further procedural primitive modeling**.
+The current task is the Hunyuan S replacement.
 
 Next:
 
-1. obtain the S model candidate from the dedicated Astra modeling lane;
-2. compare it directly with the repository S reference sheet;
-3. reject it if the silhouette / proportions are materially wrong, even if the mesh is technically clean;
-4. only after the S model is visually accepted, integrate it into the existing Motion First rig / gait / camera harness;
-5. then re-run SIDE / LOW / CHASE / FRONT motion validation.
+1. load rigless LOD2 for S shape inspection;
+2. load high-detail rigged v31 for isolated/focus gait;
+3. load LOD4 rigged v31 for visible S runners in the race;
+4. verify that no procedural S remains visible when the GLB load succeeds;
+5. re-run SIDE / LOW / CHASE / FRONT review;
+6. verify animation clips and frame-rate behavior;
+7. only then decide whether S geometry needs further editing from LOD2.
 
-Until that happens:
+Until that passes:
 
-- no A modeling;
-- no further E modeling;
-- no 18-creature expansion;
-- no claim that the current primitive S is "done".
+- no A production modeling;
+- no further E production modeling;
+- no 18-creature production expansion;
+- no return to a newly generated procedural S.
