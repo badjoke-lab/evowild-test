@@ -1481,6 +1481,105 @@ test("inspect Hunyuan v4 IK animation track kinematics", async ({ page }, testIn
 });
 
 
+test("calibrate Hunyuan v4 world-space foot slip", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(140000);
+
+  const gains = [0.80, 0.90, 1.00, 1.10, 1.20];
+  const results = [];
+
+  const measureSlip = async () => page.evaluate(() => new Promise((resolve) => {
+    const samples = [];
+    const model = window.__hunyuanRacePackRiggedSelected;
+    let foot = null;
+    model?.traverse((node) => {
+      if (node.isBone && node.name === "fore_L_foot") foot = node;
+    });
+    if (!foot) {
+      resolve({ error: "fore_L_foot_missing" });
+      return;
+    }
+
+    const started = performance.now();
+    let previous = null;
+
+    function tick(now) {
+      foot.updateWorldMatrix(true, false);
+      const e = foot.matrixWorld.elements;
+      const current = {
+        t: now,
+        x: e[12],
+        y: e[13],
+        z: e[14]
+      };
+      if (previous) {
+        const dt = Math.max(1e-6, (current.t - previous.t) / 1000);
+        const dx = current.x - previous.x;
+        const dz = current.z - previous.z;
+        samples.push({
+          y: (current.y + previous.y) * 0.5,
+          horizontalSpeed: Math.hypot(dx, dz) / dt
+        });
+      }
+      previous = current;
+
+      if (now - started >= 1800) {
+        const ys = samples.map((s) => s.y).sort((a, b) => a - b);
+        const cutoff = ys[Math.min(ys.length - 1, Math.floor(ys.length * 0.32))] ?? Infinity;
+        const contact = samples.filter((s) => s.y <= cutoff);
+        const avg = (arr) => arr.reduce((sum, value) => sum + value, 0) / Math.max(1, arr.length);
+        resolve({
+          samples: samples.length,
+          contactSamples: contact.length,
+          contactYCutoff: Number(cutoff.toFixed(6)),
+          contactHorizontalSpeed: Number(avg(contact.map((s) => s.horizontalSpeed)).toFixed(5)),
+          allHorizontalSpeed: Number(avg(samples.map((s) => s.horizontalSpeed)).toFixed(5))
+        });
+        return;
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }));
+
+  for (const gain of gains) {
+    await page.goto(
+      `/evowild-test/?sf3dVariant=hunyuanstyled&hunyuanRacePack=1&hunyuanRacePackSide=front&hunyuanGait=v4hybrid&hunyuanStrideMode=kinematic&hunyuanStrideGain=${gain}&renderScale=0.75`,
+      { waitUntil: "domcontentloaded", timeout: 30000 }
+    );
+
+    const stage = page.locator("#stage");
+    await expect(stage).toHaveAttribute("data-hunyuan-race-pack", "loaded", { timeout: 30000 });
+    await page.getByRole("button", { name: "3 Follow" }).click();
+
+    await expect.poll(
+      async () => Number(await stage.getAttribute("data-hunyuan-stride-speed")),
+      { timeout: 12000, intervals: [250, 250, 500, 500, 750] }
+    ).toBeGreaterThan(14.5);
+
+    const before = {
+      gain: Number(await stage.getAttribute("data-hunyuan-stride-gain")),
+      timeScale: Number(await stage.getAttribute("data-hunyuan-stride-time-scale")),
+      raceSpeed: Number(await stage.getAttribute("data-hunyuan-stride-speed")),
+      worldSpeed: Number(await stage.getAttribute("data-hunyuan-stride-world-speed")),
+      bakedStanceSpeed: Number(await stage.getAttribute("data-hunyuan-stride-baked-stance-speed")),
+      curveScale: Number(await stage.getAttribute("data-hunyuan-stride-curve-scale"))
+    };
+    const slip = await measureSlip();
+    results.push({ ...before, ...slip });
+  }
+
+  const valid = results.filter((r) => Number.isFinite(r.contactHorizontalSpeed));
+  valid.sort((a, b) => a.contactHorizontalSpeed - b.contactHorizontalSpeed);
+  expect(valid.length).toBe(gains.length);
+
+  console.log("HUNYUAN_V4_SLIP_CALIBRATION", JSON.stringify({
+    best: valid[0],
+    ordered: valid
+  }));
+});
+
+
 test("benchmark moving 18 Hunyuan mixed LOD race", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(150000);
