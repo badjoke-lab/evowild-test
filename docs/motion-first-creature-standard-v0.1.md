@@ -260,7 +260,7 @@ Do not solve performance by reducing animation quality first.
 
 The procedural / primitive S remains a motion-test fixture only.
 
-The active S geometry baseline is `public/models/evowild-s/source-lod2.glb`, with rigged v31 derivatives used for motion. This is the selected working baseline, not a declaration of final-art completion. No further P/E/A production expansion is allowed until the Hunyuan replacement survives runtime review against the following requirements:
+The active S geometry baseline is `public/models/evowild-s/source-lod2.glb`, with rigged v5 derivatives used for motion. This is the selected working baseline, not a declaration of final-art completion. No further P/E/A production expansion is allowed until the Hunyuan replacement survives runtime review against the following requirements:
 
 - recognizably matches the S concept silhouette;
 - no accidental real-world-animal silhouette dominates;
