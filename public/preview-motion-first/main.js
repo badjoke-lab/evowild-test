@@ -3731,13 +3731,19 @@ function resetAutoDirector() {
 }
 
 function commitAutoDirector(event, camera, focusId, holdSeconds, priority) {
+  const eventChanged = event !== autoDirector.event;
   const changed =
-    event !== autoDirector.event ||
+    eventChanged ||
     camera !== autoDirector.camera ||
     focusId !== autoDirector.focusId;
 
   if (changed) {
     autoDirector.switchCount += 1;
+  }
+
+  // Event age is independent from shot handoffs inside the same event.
+  // This prevents FINISH_APPROACH from bouncing FRONT ↔ CHASE forever.
+  if (eventChanged) {
     autoDirector.eventStartedAt = raceTime;
     autoDirector.history.push(event);
     if (autoDirector.history.length > 12) autoDirector.history.shift();
