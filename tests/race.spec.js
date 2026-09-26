@@ -75,3 +75,4 @@ test("capture mobile race camera views", async ({ page }, testInfo) => {
     await page.locator("#stage").screenshot({ path: `${outDir}/android-${name}.png` });
   }
 });
+
