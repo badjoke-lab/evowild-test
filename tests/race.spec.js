@@ -1207,6 +1207,51 @@ test("compare Hunyuan v21 full-v3 and v3 hybrid race rigs", async ({ page }, tes
 });
 
 
+test("link Hunyuan stride cadence to live race speed", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(90000);
+
+  await page.goto(
+    "/evowild-test/?sf3dVariant=hunyuanstyled&hunyuanRacePack=1&hunyuanRacePackSide=front&hunyuanGait=v3hybrid&renderScale=0.75",
+    { waitUntil: "domcontentloaded", timeout: 30000 }
+  );
+
+  const stage = page.locator("#stage");
+  await expect(stage).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
+  await expect(stage).toHaveAttribute("data-hunyuan-race-pack", "loaded", { timeout: 30000 });
+  await expect(stage).toHaveAttribute("data-hunyuan-stride-sync", "speed-linked", { timeout: 10000 });
+
+  const sample = async () => ({
+    speed: Number(await stage.getAttribute("data-hunyuan-stride-speed")),
+    cruise: Number(await stage.getAttribute("data-hunyuan-stride-cruise")),
+    timeScale: Number(await stage.getAttribute("data-hunyuan-stride-time-scale"))
+  });
+
+  const early = await sample();
+  await page.waitForTimeout(2500);
+  const mid = await sample();
+  await page.waitForTimeout(2500);
+  const later = await sample();
+
+  expect(early.cruise).toBeGreaterThan(0);
+  expect(mid.speed).toBeGreaterThan(early.speed);
+  expect(mid.timeScale).toBeGreaterThan(early.timeScale);
+  expect(later.timeScale).toBeGreaterThanOrEqual(0.28);
+  expect(later.timeScale).toBeLessThanOrEqual(1.22);
+
+  await page.getByRole("button", { name: "3 Follow" }).click();
+  await expect.poll(
+    async () => (await stage.getAttribute("data-hunyuan-race-pack-animated-counts")) || "",
+    { timeout: 10000 }
+  ).toBe("17,1");
+
+  const follow = await sample();
+  expect(follow.timeScale).toBeGreaterThan(0.28);
+
+  console.log("HUNYUAN_STRIDE_SYNC", JSON.stringify({ early, mid, later, follow }));
+});
+
+
 test("benchmark moving 18 Hunyuan mixed LOD race", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(150000);
