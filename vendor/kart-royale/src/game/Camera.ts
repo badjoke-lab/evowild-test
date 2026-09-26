@@ -920,12 +920,11 @@ export class ChaseCamera implements System {
       .addScaledVector(WORLD_UP, 0.95);
 
     const a = 1 - Math.exp(-8 * dt);
-    if (!this.ready) {
-      ctx.camera.position.copy(_eye);
-      this.ready = true;
-    } else {
-      ctx.camera.position.lerp(_eye, a);
-    }
+    // Match Kart Royale's own camera invariant: hard constraints decide the
+    // actual eye for this frame. Do not interpolate back through the obstacle
+    // the borrowed collision solver just pushed us out of.
+    ctx.camera.position.copy(_eye);
+    this.ready = true;
 
     const wantFov = portrait ? 50 : 44;
     if (Math.abs(ctx.camera.fov - wantFov) > 0.01) {
@@ -935,8 +934,9 @@ export class ChaseCamera implements System {
 
     _m.lookAt(ctx.camera.position, _aim, WORLD_UP);
     _qt.setFromRotationMatrix(_m);
-    if (!this.hasPrevQuat) ctx.camera.quaternion.copy(_qt);
-    else ctx.camera.quaternion.slerp(_qt, Math.min(1, a * 1.3));
+    // The eye may be displaced sharply by a wall/prop constraint. Solve the
+    // view axis from that final eye immediately so the pack cannot leave frame.
+    ctx.camera.quaternion.copy(_qt);
 
     this.prevKart.copy(k.position);
     this.prevEye.copy(ctx.camera.position);
