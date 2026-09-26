@@ -12,6 +12,7 @@ const morphEl = document.querySelector("#morphReadout");
 const runnerNameEl = document.querySelector("#runnerName");
 const positionEl = document.querySelector("#positionReadout");
 const cameraEl = document.querySelector("#cameraReadout");
+const directorEl = document.querySelector("#directorReadout");
 const runnerSelect = document.querySelector("#runnerSelect");
 const pauseButton = document.querySelector("#pauseButton");
 const restartButton = document.querySelector("#restartButton");
@@ -3623,6 +3624,7 @@ function syncAutoDirectorDataset() {
   canvas.dataset.autoDirectorFocus = String(autoDirector.focusId);
   canvas.dataset.autoDirectorSwitchCount = String(autoDirector.switchCount);
   canvas.dataset.autoDirectorHistory = autoDirector.history.join(",");
+  if (directorEl) directorEl.textContent = autoDirector.event.replaceAll("_", " ");
 }
 
 function resetAutoDirector() {
