@@ -1201,12 +1201,12 @@ function makeEndureLimb(parent, upperMat, lowerMat, jointMat, plateMat, side, fo
   );
   parent.add(hip);
 
-  const upperLen = fore ? 0.84 : 0.87;
-  const lowerLen = fore ? 0.70 : 0.73;
-  const cannonLen = fore ? 0.36 : 0.38;
+  const upperLen = fore ? 0.76 : 0.79;
+  const lowerLen = fore ? 0.62 : 0.65;
+  const cannonLen = fore ? 0.31 : 0.33;
 
   const upper = makeMesh(
-    new THREE.CylinderGeometry(0.070, 0.105, upperLen, 6),
+    new THREE.CylinderGeometry(0.076, 0.114, upperLen, 6),
     upperMat,
     hip,
     [0, -upperLen / 2, 0.05]
@@ -1224,7 +1224,7 @@ function makeEndureLimb(parent, upperMat, lowerMat, jointMat, plateMat, side, fo
   );
 
   const lower = makeMesh(
-    new THREE.CylinderGeometry(0.048, 0.076, lowerLen, 6),
+    new THREE.CylinderGeometry(0.052, 0.082, lowerLen, 6),
     lowerMat,
     knee,
     [0, -lowerLen / 2, 0.06]
@@ -1293,7 +1293,7 @@ function createEndureCreature(color, index) {
   const cfg = MORPHS.E;
   const root = new THREE.Group();
   const bodyMaster = new THREE.Group();
-  bodyMaster.position.y = 1.86;
+  bodyMaster.position.y = 1.68;
   root.add(bodyMaster);
 
   const baseColor = new THREE.Color(color);
@@ -1330,7 +1330,7 @@ function createEndureCreature(color, index) {
     primary,
     chestPivot,
     [0, 0, 0.02],
-    [0.66, 0.54, 1.46]
+    [0.72, 0.58, 1.34]
   );
 
   makeMesh(
@@ -1338,11 +1338,11 @@ function createEndureCreature(color, index) {
     secondary,
     pelvisPivot,
     [0, -0.01, -0.02],
-    [0.62, 0.50, 1.34]
+    [0.68, 0.54, 1.24]
   );
 
   const waist = makeMesh(
-    new THREE.CylinderGeometry(0.215, 0.25, 1.08, 7),
+    new THREE.CylinderGeometry(0.235, 0.27, 0.98, 7),
     secondary,
     bodyMaster,
     [0, -0.055, -0.10]
@@ -1350,7 +1350,7 @@ function createEndureCreature(color, index) {
   waist.rotation.x = Math.PI / 2;
 
   const keel = makeMesh(
-    new THREE.BoxGeometry(0.30, 0.10, 1.56),
+    new THREE.BoxGeometry(0.32, 0.11, 1.44),
     underside,
     bodyMaster,
     [0, -0.31, -0.06]
@@ -1381,9 +1381,9 @@ function createEndureCreature(color, index) {
   });
 
   const spinePlate = makeTaperedPlate(
-    1.62,
-    0.09,
-    0.070,
+    1.48,
+    0.10,
+    0.074,
     plate,
     bodyMaster,
     [0, 0.34, -0.12]
@@ -1429,14 +1429,14 @@ function createEndureCreature(color, index) {
     primary,
     headPivot,
     [0, 0, 0.25],
-    [0.54, 0.42, 1.20]
+    [0.60, 0.47, 1.08]
   );
 
   const muzzle = makeMesh(
-    new THREE.ConeGeometry(0.135, 0.50, 5),
+    new THREE.ConeGeometry(0.145, 0.43, 5),
     secondary,
     headPivot,
-    [0, -0.045, 0.72]
+    [0, -0.045, 0.66]
   );
   muzzle.rotation.x = Math.PI / 2;
 
@@ -1446,12 +1446,12 @@ function createEndureCreature(color, index) {
   headPivot.add(crestRoot);
 
   const crestUpper = makeTaperedPlate(
-    1.05,
-    0.105,
-    0.060,
+    0.92,
+    0.115,
+    0.065,
     plate,
     crestRoot,
-    [0, 0.03, -0.41]
+    [0, 0.03, -0.35]
   );
   crestUpper.rotation.x = -0.035;
 
@@ -1509,13 +1509,13 @@ function createEndureCreature(color, index) {
   };
 
   const tailBase = new THREE.Group();
-  tailBase.position.set(0, 0.035, -0.76);
-  tailBase.rotation.x = -0.16;
+  tailBase.position.set(0, 0.015, -0.73);
+  tailBase.rotation.x = -0.26;
   pelvisPivot.add(tailBase);
 
   const tailSegments = [];
   let tailParent = tailBase;
-  const tailLengths = [0.42, 0.37, 0.31];
+  const tailLengths = [0.34, 0.30, 0.25];
 
   tailLengths.forEach((segLen, i) => {
     const jointNode = new THREE.Group();
@@ -2363,6 +2363,28 @@ function updatePowerPose(runner, lateralVelocity, dt) {
   }
 }
 
+function updateEndureInspectionPose(runner) {
+  const ud = runner.group.userData;
+
+  // Body-gate pose only. E locomotion is intentionally not claimed yet.
+  ud.bodyMaster.position.y = 1.68;
+  ud.bodyMaster.rotation.set(-0.035, 0, 0);
+  ud.chestPivot.rotation.set(-0.015, 0, 0);
+  ud.pelvisPivot.rotation.set(0.020, 0, 0);
+  ud.neckPivot.rotation.set(-0.025, 0, 0);
+  ud.headPivot.rotation.set(0.010, 0, 0);
+
+  Object.values(ud.legs).forEach((leg) => {
+    const targetZ = leg.fore ? 0.12 : -0.10;
+    solveSprintLeg(leg, -1.52, targetZ, 0.0, 0);
+  });
+
+  ud.tailSegments.forEach((joint, i) => {
+    joint.rotation.x = 0.010 - i * 0.010;
+    joint.rotation.y = 0;
+  });
+}
+
 function updateCreaturePose(runner, lateralVelocity, dt = 1 / 60) {
   if (runner.morph === "S") {
     updateSprintPose(runner, lateralVelocity, dt);
@@ -2370,6 +2392,10 @@ function updateCreaturePose(runner, lateralVelocity, dt = 1 / 60) {
   }
   if (runner.morph === "P") {
     updatePowerPose(runner, lateralVelocity, dt);
+    return;
+  }
+  if (runner.morph === "E" && INSPECT_MODE) {
+    updateEndureInspectionPose(runner);
     return;
   }
 
