@@ -37,6 +37,9 @@ import { Kart } from '../kart/Kart';
 import { AIField, type DriveCmd } from './AI';
 import { Items } from './Items';
 
+const EVOWILD_S_MODE = new URLSearchParams(location.search).get('evowildS') === '1';
+const EVOWILD_S_NAMES = ['Mica', 'Vela', 'Rook', 'Nacre', 'Serein', 'Kite', 'Flint', 'Dune'];
+
 const ROSTER: KartStats[] = [
   { name: 'Vela',   color: new THREE.Color(0xff3b5c), accelMul: 1.00, topSpeedMul: 1.00, weightMul: 1.0,  handlingMul: 1.00 },
   { name: 'Koa',    color: new THREE.Color(0x2ea8ff), accelMul: 0.92, topSpeedMul: 1.08, weightMul: 1.2,  handlingMul: 0.92 },
@@ -211,7 +214,11 @@ export class Race implements IRace {
     this.ctx = ctx;
     const n = Math.min(RACER_COUNT, ROSTER.length);
     for (let i = 0; i < n; i++) {
-      const k = new Kart(i, i === 0, ROSTER[i]);
+      const baseStats = ROSTER[i];
+      const stats = EVOWILD_S_MODE
+        ? { ...baseStats, name: EVOWILD_S_NAMES[i % EVOWILD_S_NAMES.length] }
+        : baseStats;
+      const k = new Kart(i, i === 0, stats);
       ctx.scene.add(k.object);
       this.karts.push(k);
       this.prog.push({
