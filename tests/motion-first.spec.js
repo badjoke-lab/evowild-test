@@ -97,3 +97,60 @@ test("Motion First S gait records continuous SIDE and LOW review video", async (
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
 });
+
+
+test("Motion First Phase C records continuous S multi-camera review", async ({ browser }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(90000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const context = await browser.newContext({
+    viewport: { width: 1280, height: 720 },
+    recordVideo: {
+      dir: outDir,
+      size: { width: 1280, height: 720 }
+    }
+  });
+  const page = await context.newPage();
+
+  const pageErrors = [];
+  const consoleErrors = [];
+  page.on("pageerror", (err) => pageErrors.push(err.stack || String(err)));
+  page.on("console", (msg) => {
+    if (msg.type() === "error") consoleErrors.push(msg.text());
+  });
+
+  await page.goto("http://127.0.0.1:4173/evowild-test/preview-motion-first-gait/index.html", {
+    waitUntil: "networkidle"
+  });
+
+  await expect(page.locator("#scene")).toBeVisible();
+  await expect(page.locator("#raceState")).toHaveText("MOTION REVIEW");
+  await expect(page.locator("#cameraReadout")).toHaveText("SIDE");
+
+  const sequence = ["SIDE", "CHASE", "LOW", "FRONT", "SIDE"];
+  for (const view of sequence) {
+    if (view !== "SIDE" || (await page.locator("#cameraReadout").textContent()) !== "SIDE") {
+      await page.getByRole("button", { name: view, exact: true }).click({ force: true });
+      await expect(page.locator("#cameraReadout")).toHaveText(view);
+    }
+    await page.waitForTimeout(1900);
+    await page.locator("#scene").screenshot({
+      path: `${outDir}/motion-first-phase-c-${view.toLowerCase()}-${Date.now()}.png`
+    });
+  }
+
+  await expect(page.locator("#scene")).toHaveAttribute("data-ik-clamped", "0");
+
+  const video = page.video();
+  await page.close();
+  if (!video) throw new Error("Playwright video was not created");
+  await video.saveAs(`${outDir}/motion-first-phase-c-multicamera.webm`);
+  await context.close();
+
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+});
