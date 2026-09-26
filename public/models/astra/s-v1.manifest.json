@@ -1,6 +1,6 @@
 {
   "model_id": "astra-s-v1",
-  "status": "awaiting_model",
+  "status": "superseded_by_hunyuan_canonical",
   "morph": "S",
   "role": "production_candidate",
   "source": "astra_modeling_lane",
@@ -15,5 +15,5 @@
   "rigged": false,
   "animated": false,
   "reference_version": "evowild-creature-reference-sheet-20260921",
-  "notes": "Do not substitute the procedural Motion First S for this asset."
+  "notes": "Astra S placeholder is no longer the active S baseline. Use public/models/evowild-s/manifest.json."
 }
