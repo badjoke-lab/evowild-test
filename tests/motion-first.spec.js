@@ -63,9 +63,13 @@ test("Motion First S gait records continuous SIDE and LOW review video", async (
 
   const pageErrors = [];
   const consoleErrors = [];
+  const highDetailAssetRequests = [];
   page.on("pageerror", (err) => pageErrors.push(err.stack || String(err)));
   page.on("console", (msg) => {
     if (msg.type() === "error") consoleErrors.push(msg.text());
+  });
+  page.on("request", (request) => {
+    if (request.url().includes("/models/evowild-s/")) highDetailAssetRequests.push(request.url());
   });
 
   await page.goto("http://127.0.0.1:4173/evowild-test/preview-motion-first-gait/index.html", {
@@ -101,6 +105,7 @@ test("Motion First S gait records continuous SIDE and LOW review video", async (
   await video.saveAs(`${outDir}/motion-first-s-gait-review.webm`);
   await context.close();
 
+  expect(highDetailAssetRequests).toEqual([]);
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
 });
