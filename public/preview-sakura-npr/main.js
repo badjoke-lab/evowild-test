@@ -130,15 +130,98 @@ function setModelMaterials(mode) {
 
 const pipeline = new Pipeline(renderer, scene, camera, { pixelBudget: 3.2e6 });
 
+const seamPoint = new THREE.Vector3();
+const seamBox = new THREE.Box3();
+
+function smoothstep01(t) {
+  t = THREE.MathUtils.clamp(t, 0, 1);
+  return t * t * (3 - 2 * t);
+}
+
+function correctHeadSilhouette(root) {
+  root.updateMatrixWorld(true);
+  seamBox.setFromObject(root);
+  const minY = seamBox.min.y;
+  const height = Math.max(0.001, seamBox.max.y - seamBox.min.y);
+  const centerX = (seamBox.min.x + seamBox.max.x) * 0.5;
+
+  root.traverse((o) => {
+    if (!o.isMesh || !o.geometry?.attributes?.position) return;
+
+    // This page is deliberately isolated, so clone before editing the bind
+    // geometry. The source GLB used by the other lanes remains untouched.
+    const g = o.geometry.clone();
+    const pos = g.attributes.position;
+
+    for (let i = 0; i < pos.count; i += 1) {
+      seamPoint.fromBufferAttribute(pos, i);
+      o.localToWorld(seamPoint);
+
+      const h = (seamPoint.y - minY) / height;
+      if (h > 0.72) {
+        const t = smoothstep01((h - 0.72) / 0.28);
+        // Pull the upper head/crest toward the centre progressively. The
+        // strongest correction is reserved for the very top where the
+        // imported rig visibly opens into two separate lobes from the front.
+        const scaleX = THREE.MathUtils.lerp(0.90, 0.54, t);
+        seamPoint.x = centerX + (seamPoint.x - centerX) * scaleX;
+        o.worldToLocal(seamPoint);
+        pos.setXYZ(i, seamPoint.x, seamPoint.y, seamPoint.z);
+      }
+    }
+
+    pos.needsUpdate = true;
+    g.computeVertexNormals();
+    o.geometry = g;
+  });
+
+  root.updateMatrixWorld(true);
+  canvas.dataset.headSilhouetteCorrection = "1";
+}
+
+const cameraForward = new THREE.Vector3();
+const cameraSide = new THREE.Vector3();
+const cameraUp = new THREE.Vector3(0, 1, 0);
+const cameraTarget = new THREE.Vector3();
+
+function getModelForward(target = cameraForward) {
+  // The source asset's head points down local -Z. The runtime rotates the
+  // model 180 degrees, so derive every named camera from that actual axis
+  // instead of hard-coded world coordinates.
+  target.set(0, 0, -1);
+  if (model) target.applyQuaternion(model.quaternion);
+  target.y = 0;
+  return target.normalize();
+}
+
 function frameCamera() {
   const y = modelHeight * 0.48;
-  const target = new THREE.Vector3(0, y, 0);
   const dist = Math.max(4.2, modelHeight * 2.6);
-  if (cameraMode === "side") camera.position.set(dist, y * 1.05, 0);
-  else if (cameraMode === "front") camera.position.set(0, y * 1.04, dist);
-  else if (cameraMode === "chase") camera.position.set(0, y * 1.08, -dist);
-  else camera.position.set(dist * 0.72, y * 1.15, dist * 0.72);
-  camera.lookAt(target);
+  cameraTarget.set(0, y, 0);
+
+  const forward = getModelForward();
+  cameraSide.crossVectors(cameraUp, forward).normalize();
+
+  camera.position.copy(cameraTarget);
+  if (cameraMode === "side") {
+    camera.position
+      .addScaledVector(cameraSide, dist)
+      .addScaledVector(cameraUp, modelHeight * 0.10);
+  } else if (cameraMode === "front") {
+    camera.position
+      .addScaledVector(forward, dist)
+      .addScaledVector(cameraUp, modelHeight * 0.10);
+  } else if (cameraMode === "chase" || cameraMode === "follow") {
+    camera.position
+      .addScaledVector(forward, -dist)
+      .addScaledVector(cameraUp, modelHeight * 0.13);
+  } else {
+    camera.position
+      .addScaledVector(cameraSide, dist * 0.72)
+      .addScaledVector(forward, dist * 0.72)
+      .addScaledVector(cameraUp, modelHeight * 0.16);
+  }
+  camera.lookAt(cameraTarget);
 }
 
 function resize() {
@@ -147,6 +230,11 @@ function resize() {
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
   pipeline.setSize(w, h);
+  // Keep the borrowed screen-space ink from exaggerating the imported
+  // head seam while retaining the overall Sakura Crossing line treatment.
+  pipeline.ink.mat.uniforms.uSens.value = 0.0058;
+  pipeline.ink.mat.uniforms.uConcave.value = 0.034;
+  pipeline.ink.mat.uniforms.uConcaveAmount.value = 0.28;
 }
 addEventListener("resize", resize);
 resize();
@@ -183,7 +271,14 @@ loader.load(
     model.position.x -= center.x;
     model.position.y -= box.min.y;
     model.position.z -= center.z;
-    modelHeight = Math.max(1, size.y);
+    model.updateMatrixWorld(true);
+
+    correctHeadSilhouette(model);
+
+    const correctedBox = new THREE.Box3().setFromObject(model);
+    const correctedSize = new THREE.Vector3();
+    correctedBox.getSize(correctedSize);
+    modelHeight = Math.max(1, correctedSize.y);
 
     setModelMaterials(renderMode);
 
@@ -201,6 +296,9 @@ loader.load(
     loading.classList.add("hidden");
     canvas.dataset.asset = "focus-rigged-v5.glb";
     canvas.dataset.renderLane = "sakura-npr";
+    canvas.dataset.nativeForwardAxis = "-Z";
+    canvas.dataset.runtimeForwardAxis = "+Z";
+    canvas.dataset.cameraAxisFix = "1";
     canvas.dataset.animationCount = String(gltf.animations.length);
   },
   undefined,
