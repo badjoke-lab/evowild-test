@@ -23,6 +23,10 @@ jobs:
         env:
           MOTION_FIRST_CAPTURE: "1"
         run: npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1
+      - name: Capture Sakura NPR camera visuals
+        env:
+          SAKURA_NPR_CAPTURE: "1"
+        run: npx playwright test tests/sakura-npr.spec.js --project=desktop-chromium --workers=1
       - name: Upload mobile visual screenshots
         if: always()
         uses: actions/upload-artifact@v4
