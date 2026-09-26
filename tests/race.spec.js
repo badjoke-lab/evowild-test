@@ -1335,6 +1335,98 @@ test("compare Hunyuan v3 and contact-phased v31 hybrid follow rigs", async ({ pa
 });
 
 
+test("validate Hunyuan v4 IK survives GLB export in follow view", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(100000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  await page.goto(
+    "/evowild-test/?sf3dVariant=hunyuanstyled&hunyuanRacePack=1&hunyuanRacePackSide=front&hunyuanGait=v4hybrid&renderScale=0.75",
+    { waitUntil: "domcontentloaded", timeout: 30000 }
+  );
+
+  const stage = page.locator("#stage");
+  await expect(stage).toHaveAttribute("data-sf3d", "loaded", { timeout: 20000 });
+  await expect(stage).toHaveAttribute("data-hunyuan-race-pack", "loaded", { timeout: 30000 });
+  await expect(stage).toHaveAttribute("data-hunyuan-race-pack-rigged-clip", "EvoWild_S_Run_V4_IK");
+  await expect(stage).toHaveAttribute("data-hunyuan-stride-sync", "speed-linked", { timeout: 10000 });
+
+  await page.getByRole("button", { name: "3 Follow" }).click();
+  await expect.poll(
+    async () => (await stage.getAttribute("data-hunyuan-race-pack-animated-counts")) || "",
+    { timeout: 10000 }
+  ).toBe("17,1");
+
+  const sample = async () => page.evaluate(() => {
+    const model = window.__hunyuanRacePackRiggedSelected;
+    if (!model) return null;
+    const wanted = [
+      "fore_L_upper", "fore_L_lower", "fore_L_foot", "fore_L_target",
+      "hind_R_upper", "hind_R_lower", "hind_R_foot", "hind_R_target"
+    ];
+    const values = {};
+    const bones = [];
+    model.traverse((node) => {
+      if (!node.isBone) return;
+      bones.push(node.name);
+      if (!wanted.includes(node.name)) return;
+      node.updateWorldMatrix(true, false);
+      const e = node.matrixWorld.elements;
+      values[node.name] = {
+        q: [
+          Number(node.quaternion.x.toFixed(6)),
+          Number(node.quaternion.y.toFixed(6)),
+          Number(node.quaternion.z.toFixed(6)),
+          Number(node.quaternion.w.toFixed(6))
+        ],
+        p: [
+          Number(e[12].toFixed(6)),
+          Number(e[13].toFixed(6)),
+          Number(e[14].toFixed(6))
+        ]
+      };
+    });
+    return { boneCount: bones.length, bones, values };
+  });
+
+  const a = await sample();
+  await page.waitForTimeout(220);
+  const b = await sample();
+  await page.waitForTimeout(220);
+  const c = await sample();
+
+  expect(a?.boneCount).toBe(27);
+  for (const name of ["fore_L_target", "hind_R_target", "fore_L_upper", "fore_L_lower", "hind_R_upper", "hind_R_lower"]) {
+    expect(a?.bones).toContain(name);
+  }
+
+  // Targets must animate, and critically the deform IK chain must also change
+  // after export. If only the targets move, Blender constraints were not baked.
+  expect(a?.values.fore_L_target.p).not.toEqual(c?.values.fore_L_target.p);
+  expect(a?.values.fore_L_upper.q).not.toEqual(b?.values.fore_L_upper.q);
+  expect(a?.values.fore_L_lower.q).not.toEqual(b?.values.fore_L_lower.q);
+  expect(a?.values.hind_R_upper.q).not.toEqual(c?.values.hind_R_upper.q);
+  expect(a?.values.hind_R_lower.q).not.toEqual(c?.values.hind_R_lower.q);
+
+  for (let phase = 0; phase < 6; phase += 1) {
+    await stage.screenshot({ path: `${outDir}/hunyuan-v4-ik-follow-phase${phase + 1}.png` });
+    await page.waitForTimeout(160);
+  }
+
+  console.log("HUNYUAN_V4_IK", JSON.stringify({
+    boneCount: a?.boneCount,
+    clip: await stage.getAttribute("data-hunyuan-race-pack-rigged-clip"),
+    timeScale: Number(await stage.getAttribute("data-hunyuan-stride-time-scale")),
+    foreTargetA: a?.values.fore_L_target,
+    foreTargetC: c?.values.fore_L_target,
+    foreUpperA: a?.values.fore_L_upper,
+    foreUpperB: b?.values.fore_L_upper
+  }));
+});
+
+
 test("benchmark moving 18 Hunyuan mixed LOD race", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(150000);
