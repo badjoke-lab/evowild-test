@@ -4064,6 +4064,14 @@ cameraButtons.forEach((button) => {
   button.addEventListener("click", () => {
     requestedCamera = button.dataset.camera;
     cameraButtons.forEach((b) => b.classList.toggle("active", b === button));
+
+    if (directorEl && SIMPLIFIED_RACE_PAGE) {
+      if (requestedCamera === "AUTO") {
+        syncAutoDirectorDataset();
+      } else {
+        directorEl.textContent = "MANUAL";
+      }
+    }
   });
 });
 
