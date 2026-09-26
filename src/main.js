@@ -20,6 +20,12 @@ const hunyuanRacePack =
   query.get("hunyuanRacePack") === "1" ||
   (preview3d && !query.has("hunyuanRacePack"));
 const hunyuanRacePackSide = query.get("hunyuanRacePackSide") === "double" ? "double" : "front";
+const requestedHunyuanStrideMode = query.get("hunyuanStrideMode");
+const hunyuanStrideGain = THREE.MathUtils.clamp(
+  Number.parseFloat(query.get("hunyuanStrideGain") || "1") || 1,
+  0.5,
+  1.5
+);
 const requestedHunyuanGait = query.get("hunyuanGait");
 const hunyuanGaitVersion = ["v1", "v2", "v21", "v3", "v3hybrid", "v31", "v31hybrid", "v4hybrid"].includes(requestedHunyuanGait)
   ? requestedHunyuanGait
@@ -131,6 +137,11 @@ const curve = new THREE.CatmullRomCurve3(
   "centripetal",
   0.4
 );
+
+const raceWorldUnitsPerMeter = curve.getLength() / raceMeters;
+const HUNYUAN_V4_SOURCE_LENGTH = 1.678391;
+const HUNYUAN_V4_STANCE_TRAVEL_FRACTION = 0.50;
+const HUNYUAN_V4_STANCE_DURATION = 0.40;
 
 function buildTrack() {
   const samples = 180;
@@ -1022,32 +1033,65 @@ function setupHunyuanRacePack(baseData, lod3Data, lod4Data, riggedData, lod4Rigg
 function syncHunyuanRaceAnimationSpeed() {
   if (!hunyuanRacePack || !hunyuanRaceMixerBindings.length) return;
 
+  const strideMode = requestedHunyuanStrideMode ||
+    (hunyuanGaitVersion === "v4hybrid" ? "kinematic" : "legacy");
+
   for (const binding of hunyuanRaceMixerBindings) {
     const racer = racers.find((entry) => entry.id === binding.racerId);
     if (!racer) continue;
 
-    const ratio = racer.cruise > 0 ? racer.speed / racer.cruise : 1;
-    const normalized = THREE.MathUtils.clamp(ratio, 0, 1.18);
+    let cadence = 1;
+    let desiredWorldSpeed = racer.speed * raceWorldUnitsPerMeter;
+    let bakedStanceWorldSpeed = null;
 
-    // At launch, keep the stride readable instead of freezing completely.
-    // Above cruise, cadence increases modestly; world-space speed still comes
-    // entirely from the race engine.
-    const cadence = normalized < 0.18
-      ? 0.28 + normalized * 1.4
-      : 0.48 + normalized * 0.62;
+    if (
+      strideMode === "kinematic" &&
+      hunyuanGaitVersion === "v4hybrid" &&
+      binding.role === "selected" &&
+      hunyuanRacePackRiggedSelected
+    ) {
+      const worldScale = new THREE.Vector3();
+      hunyuanRacePackRiggedSelected.getWorldScale(worldScale);
 
-    binding.mixer.timeScale = THREE.MathUtils.clamp(cadence, 0.28, 1.22);
-  }
+      const stanceTravel =
+        HUNYUAN_V4_SOURCE_LENGTH *
+        HUNYUAN_V4_STANCE_TRAVEL_FRACTION *
+        Math.abs(worldScale.z);
 
-  const selectedBinding = hunyuanRaceMixerBindings.find(
-    (binding) => binding.racerId === selectedId && binding.role === "selected"
-  );
-  const selectedRacer = racers.find((entry) => entry.id === selectedId);
-  if (selectedBinding && selectedRacer) {
-    stage.dataset.hunyuanStrideSync = "speed-linked";
-    stage.dataset.hunyuanStrideTimeScale = selectedBinding.mixer.timeScale.toFixed(3);
-    stage.dataset.hunyuanStrideSpeed = selectedRacer.speed.toFixed(3);
-    stage.dataset.hunyuanStrideCruise = selectedRacer.cruise.toFixed(3);
+      bakedStanceWorldSpeed = stanceTravel / HUNYUAN_V4_STANCE_DURATION;
+      cadence = bakedStanceWorldSpeed > 1e-6
+        ? (desiredWorldSpeed / bakedStanceWorldSpeed) * hunyuanStrideGain
+        : 1;
+
+      // Near standstill the correct physical answer is essentially a frozen
+      // planted foot, not an arbitrary minimum running cadence.
+      cadence = desiredWorldSpeed < 0.035
+        ? 0
+        : THREE.MathUtils.clamp(cadence, 0.06, 1.45);
+    } else {
+      const ratio = racer.cruise > 0 ? racer.speed / racer.cruise : 1;
+      const normalized = THREE.MathUtils.clamp(ratio, 0, 1.18);
+      cadence = normalized < 0.18
+        ? 0.28 + normalized * 1.4
+        : 0.48 + normalized * 0.62;
+      cadence = THREE.MathUtils.clamp(cadence, 0.28, 1.22);
+    }
+
+    binding.mixer.timeScale = cadence;
+
+    if (binding.racerId === selectedId && binding.role === "selected") {
+      stage.dataset.hunyuanStrideSync = strideMode === "kinematic"
+        ? "world-kinematic"
+        : "speed-linked";
+      stage.dataset.hunyuanStrideTimeScale = cadence.toFixed(4);
+      stage.dataset.hunyuanStrideSpeed = racer.speed.toFixed(4);
+      stage.dataset.hunyuanStrideCruise = racer.cruise.toFixed(4);
+      stage.dataset.hunyuanStrideWorldSpeed = desiredWorldSpeed.toFixed(5);
+      stage.dataset.hunyuanStrideCurveScale = raceWorldUnitsPerMeter.toFixed(7);
+      stage.dataset.hunyuanStrideGain = hunyuanStrideGain.toFixed(3);
+      stage.dataset.hunyuanStrideBakedStanceSpeed =
+        bakedStanceWorldSpeed === null ? "legacy" : bakedStanceWorldSpeed.toFixed(5);
+    }
   }
 }
 
