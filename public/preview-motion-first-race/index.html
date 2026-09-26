@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EvoWild Run — Simplified 18-Runner Race</title>
+  <link rel="stylesheet" href="../preview-motion-first/styles.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.181.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.181.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <main id="app">
+    <canvas id="scene" aria-label="EvoWild Run simplified 18-runner race test"></canvas>
+
+    <section class="hud hud-top">
+      <div class="brand">
+        <strong>SIMPLIFIED RACE LANE</strong>
+        <span>18 runners · S / P / E / A · simplified 3D · motion quality preserved</span>
+      </div>
+      <div class="race-readout">
+        <span id="raceState">RUNNING</span>
+        <span id="distanceReadout">0 / 1600 m</span>
+        <span id="fpsReadout">-- FPS</span>
+      </div>
+    </section>
+
+    <section class="hud hud-bottom">
+      <div class="control-block">
+        <span class="label">CAMERA</span>
+        <div class="camera-buttons" role="group" aria-label="Camera view">
+          <button class="cam active" data-camera="AUTO">AUTO</button>
+          <button class="cam" data-camera="CHASE">CHASE</button>
+          <button class="cam" data-camera="LOW">LOW</button>
+          <button class="cam" data-camera="PACK">PACK</button>
+          <button class="cam" data-camera="SIDE">SIDE</button>
+          <button class="cam" data-camera="FRONT">FRONT</button>
+        </div>
+      </div>
+
+      <div class="control-block runner-control">
+        <label class="label" for="runnerSelect">FOCUS</label>
+        <select id="runnerSelect"></select>
+      </div>
+
+      <div class="control-block compact">
+        <span class="label">FOCUS SPEED</span>
+        <strong id="speedReadout">0.0 m/s</strong>
+      </div>
+
+      <div class="control-block actions">
+        <button id="pauseButton">PAUSE</button>
+        <button id="restartButton">RESTART</button>
+      </div>
+    </section>
+
+    <section class="focus-card" id="focusCard">
+      <div>
+        <span class="morph" id="morphReadout">S</span>
+        <strong id="runnerName">Runner 01</strong>
+      </div>
+      <div class="focus-metrics">
+        <span><small>POS</small><strong id="positionReadout">1 / 18</strong></span>
+        <span><small>CAM</small><strong id="cameraReadout">CHASE</strong></span>
+      </div>
+    </section>
+
+    <div class="loading" id="loading">building 18 simplified runners…</div>
+  </main>
+
+  <script type="module" src="../preview-motion-first/main.js"></script>
+</body>
+</html>
