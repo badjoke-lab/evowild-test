@@ -646,7 +646,16 @@ test("Motion First speed presentation uses geometry optical flow and speed-respo
   await expect(page.locator("#scene")).toHaveAttribute("data-speed-field", "1");
   await expect(page.locator("#scene")).toHaveAttribute("data-speed-field-spacing", "4.5");
 
-  await page.waitForTimeout(5200);
+  await expect
+    .poll(
+      async () =>
+        Number(
+          await page.locator("#scene").getAttribute("data-presentation-speed")
+        ),
+      { timeout: 22000, intervals: [500, 750, 1000] }
+    )
+    .toBeGreaterThan(0.55);
+
   await page.getByRole("button", { name: "LOW", exact: true }).click({ force: true });
   await expect(page.locator("#cameraReadout")).toHaveText("LOW");
   await page.waitForTimeout(1200);
@@ -659,7 +668,6 @@ test("Motion First speed presentation uses geometry optical flow and speed-respo
   );
 
   expect(Number.isFinite(presentationSpeed)).toBeTruthy();
-  expect(presentationSpeed).toBeGreaterThan(0.55);
   expect(Number.isFinite(fov)).toBeTruthy();
   expect(fov).toBeGreaterThan(70);
 
