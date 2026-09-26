@@ -686,3 +686,48 @@ test("Motion First speed presentation uses geometry optical flow and speed-respo
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
 });
+
+
+test("Motion First records 18-runner AUTO presentation video", async ({ browser }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(70000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const context = await browser.newContext({
+    viewport: { width: 1280, height: 720 },
+    recordVideo: {
+      dir: outDir,
+      size: { width: 1280, height: 720 }
+    }
+  });
+  const page = await context.newPage();
+
+  const pageErrors = [];
+  const consoleErrors = [];
+  page.on("pageerror", (err) => pageErrors.push(err.stack || String(err)));
+  page.on("console", (msg) => {
+    if (msg.type() === "error") consoleErrors.push(msg.text());
+  });
+
+  await page.goto("http://127.0.0.1:4173/evowild-test/preview-motion-first-race/index.html", {
+    waitUntil: "networkidle"
+  });
+
+  await expect(page.locator("#scene")).toHaveAttribute("data-simplified-race", "1");
+  await expect(page.locator("#scene")).toHaveAttribute("data-auto-director-source", "race-events");
+  await expect(page.locator("#scene")).toHaveAttribute("data-speed-field", "1");
+
+  await page.waitForTimeout(11000);
+
+  const video = page.video();
+  await page.close();
+  if (!video) throw new Error("18-runner AUTO review video was not created");
+  await video.saveAs(`${outDir}/motion-first-18-runner-auto-review.webm`);
+  await context.close();
+
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+});
