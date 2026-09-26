@@ -154,3 +154,41 @@ test("Motion First Phase C records continuous S multi-camera review", async ({ b
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
 });
+
+
+test("Motion First Phase D P body captures same-species multi-view inspection", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(45000);
+
+  const pageErrors = [];
+  const consoleErrors = [];
+  page.on("pageerror", (err) => pageErrors.push(err.stack || String(err)));
+  page.on("console", (msg) => {
+    if (msg.type() === "error") consoleErrors.push(msg.text());
+  });
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  await page.goto("/evowild-test/preview-motion-first/index.html?inspect=1&morph=P", {
+    waitUntil: "networkidle"
+  });
+
+  await expect(page.locator("#scene")).toBeVisible();
+  await expect(page.locator("#morphReadout")).toHaveText("P");
+  await expect(page.locator("#runnerName")).toContainText("POWER");
+  await expect(page.locator("#raceState")).toHaveText("INSPECT");
+
+  for (const view of ["SIDE", "CHASE", "LOW", "FRONT"]) {
+    await page.getByRole("button", { name: view, exact: true }).click({ force: true });
+    await expect(page.locator("#cameraReadout")).toHaveText(view);
+    await page.waitForTimeout(700);
+    await page.locator("#scene").screenshot({
+      path: `${outDir}/motion-first-phase-d-p-${view.toLowerCase()}.png`
+    });
+  }
+
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+});
