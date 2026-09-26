@@ -16,6 +16,7 @@ const stateEl = document.querySelector("#state");
 const clipEl = document.querySelector("#clip");
 const frameCountEl = document.querySelector("#frameCount");
 const exportButton = document.querySelector("#export");
+const exportSourceButton = document.querySelector("#exportSource");
 
 const renderer = new THREE.WebGLRenderer({
   canvas: sourceCanvas,
@@ -174,6 +175,7 @@ async function buildFrames(gltf) {
 
   buildAtlas();
   exportButton.disabled = false;
+  exportSourceButton.disabled = false;
   setStatus("ready", "READY");
   sourceCanvas.dataset.ready = "1";
   atlasCanvas.dataset.ready = "1";
@@ -184,6 +186,14 @@ async function buildFrames(gltf) {
   playbackStart = 0;
   animationHandle = requestAnimationFrame(playLoop);
 }
+
+exportSourceButton.addEventListener("click", () => {
+  if (!frames[0]) return;
+  const a = document.createElement("a");
+  a.download = "evowild-s-side-source.png";
+  a.href = frames[0].toDataURL("image/png");
+  a.click();
+});
 
 exportButton.addEventListener("click", () => {
   const a = document.createElement("a");
