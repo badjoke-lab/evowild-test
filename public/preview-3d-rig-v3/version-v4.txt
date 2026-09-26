@@ -1,0 +1,8 @@
+hunyuan-rig-v3-preview
+candidate: v4hybrid
+race-rig: v21-13bone
+follow-rig: v4-ik-27bone
+stride-sync: speed-linked
+source-branch: feat/hunyuan-rig-v3-20260925
+source-commit: 93aa1cc60afbda0e21093f7bd35a7cfff0c11cc2
+published-main: 513b8c7fc0aa40dd02fa6de534805c7533c7fe1e
