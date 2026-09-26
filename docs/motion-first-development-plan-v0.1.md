@@ -30,7 +30,7 @@ Current phase: **HUNYUAN S INTEGRATION / S ONLY**
 
 The procedural S remains rejected as a visual baseline.
 
-The active S geometry baseline is now the existing Hunyuan-derived model family. The rigless LOD2 mesh is the shape/edit source; rigged v31 variants are runtime motion assets. This does not mean the Hunyuan model is final art — it means further S work starts from the best existing geometry instead of rebuilding another weak procedural creature.
+The active S geometry baseline is now the existing Hunyuan-derived model family. The rigless LOD2 mesh is the shape/edit source; rigged v5 variants are runtime motion assets. This does not mean the Hunyuan model is final art — it means further S work starts from the best existing geometry instead of rebuilding another weak procedural creature.
 
 What is actually proven:
 
@@ -54,8 +54,8 @@ What is **not** accepted:
 Use the canonical Hunyuan mapping in `public/models/evowild-s/manifest.json`:
 
 - `source-lod2.glb` — shape/edit baseline;
-- `focus-rigged-v31.glb` — near/focus motion;
-- `race-lod4-rigged-v31.glb` — multi-runner race;
+- `focus-rigged-v5.glb` — near/focus motion;
+- `race-lod4-rigged-v5.glb` — multi-runner race;
 - `race-lod4.glb` — far/static LOD only.
 
 Do not restart the S shape from procedural primitives or the abandoned Astra placeholder.
@@ -92,7 +92,7 @@ Gate A:
 - the visible S must use the canonical Hunyuan family rather than procedural geometry;
 - the rigless LOD2 mesh is the current shape baseline, not a claim of final-art completion;
 - "builds", "runs", or "loads a GLB" are not sufficient — the model must remain readable from SIDE / LOW / CHASE / FRONT;
-- the close-camera gait must use the rigged v31 asset without degrading movement quality;
+- the close-camera gait must use the rigged v5 asset without degrading movement quality;
 - no P/E/A production derivation is allowed until this replacement survives visual runtime review.
 
 ### Phase B — S locomotion
@@ -321,8 +321,8 @@ The current task is the Hunyuan S replacement.
 Next:
 
 1. load rigless LOD2 for S shape inspection;
-2. load high-detail rigged v31 for isolated/focus gait;
-3. load LOD4 rigged v31 for visible S runners in the race;
+2. load high-detail rigged v5 for isolated/focus gait;
+3. load LOD4 rigged v5 for visible S runners in the race;
 4. verify that no procedural S remains visible when the GLB load succeeds;
 5. re-run SIDE / LOW / CHASE / FRONT review;
 6. verify animation clips and frame-rate behavior;
