@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>EvoWild Run — S sprite extraction PoC</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.181.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.181.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">EVOWILD RUN / 2.5D / S ONLY</p>
+        <h1>S sprite extraction PoC</h1>
+        <p class="lead">Canonical S runtime → fixed side camera → 8-frame transparent run loop → atlas.</p>
+      </div>
+      <div class="status">
+        <span id="state" class="pill pending">BUILDING</span>
+        <span id="clip">loading clip…</span>
+      </div>
+    </header>
+
+    <section class="grid">
+      <article class="card preview-card">
+        <div class="card-head">
+          <div>
+            <p class="eyebrow">RUN LOOP</p>
+            <h2>Animated sprite</h2>
+          </div>
+          <span id="fps">12 fps</span>
+        </div>
+        <div class="checker preview-wrap">
+          <canvas id="preview" width="384" height="384" aria-label="S run sprite loop"></canvas>
+        </div>
+        <p class="caption">This canvas plays only the extracted 2D frames. The 3D model is not rendered during playback.</p>
+      </article>
+
+      <article class="card atlas-card">
+        <div class="card-head">
+          <div>
+            <p class="eyebrow">CONTACT SHEET</p>
+            <h2>8-frame cycle</h2>
+          </div>
+          <button id="export" disabled>Export atlas PNG</button>
+        </div>
+        <div class="checker atlas-wrap">
+          <canvas id="atlas" width="1024" height="512" aria-label="S run sprite contact sheet"></canvas>
+        </div>
+        <div class="metrics">
+          <div><span>Source</span><strong>focus-rigged-v5.glb</strong></div>
+          <div><span>View</span><strong>SIDE / +Z → right</strong></div>
+          <div><span>Frames</span><strong id="frameCount">0 / 8</strong></div>
+          <div><span>Mode</span><strong>transparent RGBA</strong></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="card qa">
+      <div>
+        <p class="eyebrow">GATE</p>
+        <h2>Do not promote until motion reads correctly</h2>
+      </div>
+      <ul>
+        <li>silhouette remains S</li>
+        <li>legs visibly cycle instead of bobbing</li>
+        <li>foot contact is readable</li>
+        <li>frame 8 → frame 1 does not jump</li>
+      </ul>
+      <p class="note">This page isolates S only. P / E / A are intentionally out of scope. The next external-motion pass is reserved for sprite-gen; this local extraction first establishes a deterministic reference and QA target from the current canonical S asset.</p>
+    </section>
+
+    <canvas id="source" width="384" height="384" aria-hidden="true"></canvas>
+  </main>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
