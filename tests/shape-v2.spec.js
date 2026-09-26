@@ -1,31 +1,53 @@
 import { test, expect } from "@playwright/test";
 import fs from "node:fs";
+import crypto from "node:crypto";
 
 test("render S shape-v2 baseline comparison", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
-  test.setTimeout(60000);
+  test.setTimeout(90000);
 
-  const consoleLines = [];
-  page.on("console", (msg) => consoleLines.push(`console:${msg.type()}:${msg.text()}`));
-  page.on("pageerror", (error) => consoleLines.push(`pageerror:${error.stack || error}`));
+  const outDir = "test-results/shape-v2";
+  fs.mkdirSync(outDir, { recursive: true });
 
-  await page.goto("/shape-v2-review.html", { waitUntil: "domcontentloaded" });
-  await expect.poll(async () => {
-    const state = await page.locator("body").getAttribute("data-shape-review");
-    if (state === "error") {
-      const detail = await page.locator("body").getAttribute("data-shape-error");
-      throw new Error(`shape review failed: ${detail}\n${consoleLines.join("\n")}`);
+  const errors = [];
+  page.on("pageerror", (err) => errors.push(err.stack || String(err)));
+  page.on("console", (msg) => {
+    if (msg.type() === "error") errors.push(msg.text());
+  });
+
+  async function capture(url, expectedAsset, prefix) {
+    await page.goto(url, { waitUntil: "networkidle" });
+    const scene = page.locator("#scene");
+    await expect(scene).toBeVisible();
+    await expect(scene).toHaveAttribute("data-s-asset-ready", "1", { timeout: 30000 });
+    await expect(scene).toHaveAttribute("data-s-asset", expectedAsset);
+
+    const result = {};
+    for (const view of ["SIDE", "LOW", "CHASE", "FRONT"]) {
+      await page.getByRole("button", { name: view, exact: true }).click({ force: true });
+      await expect(page.locator("#cameraReadout")).toHaveText(view);
+      await page.waitForTimeout(450);
+      const path = `${outDir}/${prefix}-${view.toLowerCase()}.png`;
+      const buffer = await scene.screenshot({ path });
+      result[view] = crypto.createHash("sha256").update(buffer).digest("hex");
     }
-    return state;
-  }, { timeout: 30000 }).toBe("ready");
+    return result;
+  }
 
-  const baseSize = await page.locator("body").getAttribute("data-base-size");
-  const v2Size = await page.locator("body").getAttribute("data-v2-size");
-  expect(baseSize).toBeTruthy();
-  expect(v2Size).toBeTruthy();
-  expect(v2Size).not.toBe(baseSize);
+  const baseline = await capture(
+    "/evowild-test/preview-motion-first/index.html?inspect=1&morph=S",
+    "hunyuan-s-lod2",
+    "baseline"
+  );
+  const candidate = await capture(
+    "/evowild-test/preview-motion-first/index.html?inspect=1&morph=S&shape=v2",
+    "hunyuan-s-lod2-shape-v2",
+    "shape-v2"
+  );
 
-  fs.mkdirSync("test-results/shape-v2", { recursive: true });
-  await page.screenshot({ path: "test-results/shape-v2/browser-comparison.png", fullPage: true });
-  console.log("SHAPE_V2_BROWSER", JSON.stringify({ baseSize, v2Size }));
+  expect(candidate.SIDE).not.toBe(baseline.SIDE);
+  expect(candidate.FRONT).not.toBe(baseline.FRONT);
+  expect(errors, errors.join("\n")).toEqual([]);
+
+  console.log("SHAPE_V2_BROWSER", JSON.stringify({ baseline, candidate }));
 });
