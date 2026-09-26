@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   rig:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[targeted-hunyuan-rig]') || contains(github.event.head_commit.message, '[targeted-hunyuan-gait-v2]') || contains(github.event.head_commit.message, '[targeted-hunyuan-gait-v21]') || contains(github.event.head_commit.message, '[targeted-hunyuan-rig-v3]') || contains(github.event.head_commit.message, '[targeted-hunyuan-rig-v31]') || contains(github.event.head_commit.message, '[targeted-hunyuan-rig-v4]')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[targeted-hunyuan-rig]') || contains(github.event.head_commit.message, '[targeted-hunyuan-gait-v2]') || contains(github.event.head_commit.message, '[targeted-hunyuan-gait-v21]') || contains(github.event.head_commit.message, '[targeted-hunyuan-rig-v3]') || contains(github.event.head_commit.message, '[targeted-hunyuan-rig-v31]') || contains(github.event.head_commit.message, '[targeted-hunyuan-rig-v4]') || contains(github.event.head_commit.message, '[targeted-hunyuan-rig-v5]')
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -28,7 +28,11 @@ jobs:
       - name: Build Hunyuan rig proof
         run: |
           subject="$(git log -1 --pretty=%s)"
-          if [[ "$subject" == *"[targeted-hunyuan-rig-v4]"* ]]; then
+          if [[ "$subject" == *"[targeted-hunyuan-rig-v5]"* ]]; then
+            blender --background --python scripts/rig-hunyuan-blender-v5-groundmatch.py --               public/models/evowild-s-hunyuan2mv-lod2.glb               public/models/evowild-s-hunyuan2mv-rigged-v5.glb               public/models/evowild-s-hunyuan2mv-rigged-v5.json
+            ls -lh public/models/evowild-s-hunyuan2mv-rigged-v5*
+            cat public/models/evowild-s-hunyuan2mv-rigged-v5.json
+          elif [[ "$subject" == *"[targeted-hunyuan-rig-v4]"* ]]; then
             blender --background --python scripts/rig-hunyuan-blender-v4-ik.py --               public/models/evowild-s-hunyuan2mv-lod2.glb               public/models/evowild-s-hunyuan2mv-rigged-v4.glb               public/models/evowild-s-hunyuan2mv-rigged-v4.json
             ls -lh public/models/evowild-s-hunyuan2mv-rigged-v4*
             cat public/models/evowild-s-hunyuan2mv-rigged-v4.json
@@ -58,7 +62,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           subject="$(git log -1 --pretty=%s)"
-          if [[ "$subject" == *"[targeted-hunyuan-rig-v4]"* ]]; then
+          if [[ "$subject" == *"[targeted-hunyuan-rig-v5]"* ]]; then
+            git add public/models/evowild-s-hunyuan2mv-rigged-v5.*
+          elif [[ "$subject" == *"[targeted-hunyuan-rig-v4]"* ]]; then
             git add public/models/evowild-s-hunyuan2mv-rigged-v4.*
           elif [[ "$subject" == *"[targeted-hunyuan-rig-v31]"* ]]; then
             git add public/models/evowild-s-hunyuan2mv-rigged-v31.* public/models/evowild-s-hunyuan2mv-lod4-rigged-v31.*
