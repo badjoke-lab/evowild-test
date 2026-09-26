@@ -595,6 +595,12 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
 
   await page.waitForTimeout(7200);
 
+  const simulatedRaceTime = Number(
+    await page.locator("#scene").getAttribute("data-race-time")
+  );
+  expect(Number.isFinite(simulatedRaceTime)).toBeTruthy();
+  expect(simulatedRaceTime).toBeGreaterThan(5.0);
+
   const decisionCount = Number(
     await page.locator("#scene").getAttribute("data-director-decision-count")
   );
