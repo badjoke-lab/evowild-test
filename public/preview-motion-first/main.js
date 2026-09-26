@@ -3142,8 +3142,6 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-requestAnimationFrame(animate);
-
 async function boot() {
   addWorld();
   await prepareHunyuanSAsset();
