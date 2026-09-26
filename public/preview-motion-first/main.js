@@ -1476,17 +1476,19 @@ function updateCamera(dt) {
       desiredLook.set(focusPos.x, 1.55, focusPos.z);
       targetFov = 42;
     } else if (actualCamera === "LOW") {
-      desiredCamera.set(focusPos.x + 2.0, 1.15, focusPos.z - 5.4);
-      desiredLook.set(focusPos.x, 1.45, focusPos.z + 0.8);
-      targetFov = 50;
+      desiredCamera.set(focusPos.x + 1.35, 1.02, focusPos.z - 4.35);
+      desiredLook.set(focusPos.x, 1.34, focusPos.z + 0.35);
+      targetFov = 46;
     } else if (actualCamera === "CHASE") {
-      desiredCamera.set(focusPos.x + 3.9, 3.0, focusPos.z - 6.8);
-      desiredLook.set(focusPos.x, 1.55, focusPos.z + 0.6);
-      targetFov = 44;
+      desiredCamera.set(focusPos.x + 2.15, 2.45, focusPos.z - 5.15);
+      desiredLook.set(focusPos.x, 1.48, focusPos.z + 0.35);
+      targetFov = 43;
     } else if (actualCamera === "FRONT") {
-      desiredCamera.set(focusPos.x - 2.7, 2.6, focusPos.z + 6.7);
-      desiredLook.set(focusPos.x, 1.55, focusPos.z - 0.2);
-      targetFov = 44;
+      // Keep the long S body fully inside frame. The previous strong lateral
+      // offset turned FRONT into an extreme 3/4 crop during live motion.
+      desiredCamera.set(focusPos.x - 0.85, 2.35, focusPos.z + 7.25);
+      desiredLook.set(focusPos.x, 1.42, focusPos.z - 0.10);
+      targetFov = 47;
     } else {
       desiredCamera.set(focusPos.x + 5.5, 4.5, focusPos.z - 5.8);
       desiredLook.set(focusPos.x, 1.55, focusPos.z);
