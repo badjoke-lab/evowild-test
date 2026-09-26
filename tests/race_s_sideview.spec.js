@@ -81,6 +81,10 @@ test("S visual lane stays one complete creature and covers a grounded six-phase 
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
 
   fs.mkdirSync("test-results/visuals", { recursive: true });
+  if (testInfo.project.name === "desktop-chromium") {
+    fs.copyFileSync("public/concept/s-run-sheet.webp", "test-results/visuals/source-s-run-sheet.webp");
+    fs.copyFileSync("public/concept/S.webp", "test-results/visuals/source-S.webp");
+  }
 
   if (testInfo.project.name === "desktop-chromium") {
     await page.goto("/evowild-test/race-s-sideview.html", { waitUntil: "networkidle" });
