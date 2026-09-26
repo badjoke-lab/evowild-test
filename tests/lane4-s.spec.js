@@ -83,12 +83,25 @@ for (const project of ["desktop-chromium", "android-chromium"]) {
           }
         });
       }
+      let onScreenSprites = 0;
+      for (const k of race.karts) {
+        const s = k.object.getObjectByName("evowildS");
+        if (!s) continue;
+        const v = new s.position.constructor();
+        s.getWorldPosition(v);
+        v.project(window.__ctx.camera);
+        if (Math.abs(v.x) <= 1.08 && Math.abs(v.y) <= 1.08 && v.z >= -1 && v.z <= 1) onScreenSprites++;
+      }
+      const touchRoot = document.querySelector(".tc-root");
       return {
         state: race.state,
         karts: race.karts.length,
         sSprites: race.karts.filter((k) => Boolean(k.object.getObjectByName("evowildS"))).length,
         loadedSprites,
         visibleKartDetails,
+        onScreenSprites,
+        itemsVisible: window.__ctx.scene.getObjectByName("items")?.visible ?? null,
+        touchControlsVisible: touchRoot ? getComputedStyle(touchRoot).display !== "none" : false,
         speed: Math.hypot(p.velocity.x, p.velocity.z),
         frame: window.__ctx.frame,
         viewport: [innerWidth, innerHeight]
@@ -100,6 +113,9 @@ for (const project of ["desktop-chromium", "android-chromium"]) {
     expect(state.sSprites).toBe(8);
     expect(state.loadedSprites).toBe(8);
     expect(state.visibleKartDetails).toBe(0);
+    expect(state.onScreenSprites).toBeGreaterThanOrEqual(3);
+    expect(state.itemsVisible).toBe(false);
+    expect(state.touchControlsVisible).toBe(false);
     expect(state.speed).toBeGreaterThan(10);
     expect(state.frame).toBeGreaterThan(8);
     expect(errors, errors.join("\n")).toEqual([]);
