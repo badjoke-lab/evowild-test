@@ -1427,6 +1427,60 @@ test("validate Hunyuan v4 IK survives GLB export in follow view", async ({ page 
 });
 
 
+test("inspect Hunyuan v4 IK animation track kinematics", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(80000);
+
+  await page.goto(
+    "/evowild-test/?sf3dVariant=hunyuanstyled&hunyuanRacePack=1&hunyuanRacePackSide=front&hunyuanGait=v4hybrid&renderScale=0.75",
+    { waitUntil: "domcontentloaded", timeout: 30000 }
+  );
+  const stage = page.locator("#stage");
+  await expect(stage).toHaveAttribute("data-hunyuan-race-pack", "loaded", { timeout: 30000 });
+
+  const info = await page.evaluate(() => {
+    const model = window.__hunyuanRacePackRiggedSelected;
+    if (!model) return null;
+
+    const animations = [];
+    model.traverse((node) => {
+      if (node.animations?.length) animations.push(...node.animations);
+    });
+
+    const root = model;
+    const bones = {};
+    model.traverse((node) => {
+      if (node.isBone && /fore_L_target|fore_L_foot|fore_L_upper|fore_L_lower/.test(node.name)) {
+        bones[node.name] = {
+          position: [node.position.x, node.position.y, node.position.z],
+          scale: [node.scale.x, node.scale.y, node.scale.z]
+        };
+      }
+    });
+
+    return {
+      modelScale: [root.scale.x, root.scale.y, root.scale.z],
+      modelPosition: [root.position.x, root.position.y, root.position.z],
+      clips: animations.map((clip) => ({
+        name: clip.name,
+        duration: clip.duration,
+        tracks: clip.tracks
+          .filter((track) => /fore_L_target|fore_L_foot|fore_L_upper|fore_L_lower/.test(track.name))
+          .map((track) => ({
+            name: track.name,
+            times: Array.from(track.times),
+            values: Array.from(track.values)
+          }))
+      })),
+      bones
+    };
+  });
+
+  console.log("HUNYUAN_V4_TRACKS", JSON.stringify(info));
+  expect(info).not.toBeNull();
+});
+
+
 test("benchmark moving 18 Hunyuan mixed LOD race", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(150000);
