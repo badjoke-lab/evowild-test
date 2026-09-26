@@ -81,9 +81,46 @@ const sunDisc = new THREE.Mesh(
 sunDisc.position.set(240, 170, -320);
 scene.add(sunDisc);
 
+function makeGrassTexture() {
+  const c = document.createElement("canvas");
+  c.width = 512;
+  c.height = 512;
+  const g = c.getContext("2d");
+  g.fillStyle = "#3d704d";
+  g.fillRect(0,0,512,512);
+
+  for (let i=0;i<7200;i++) {
+    const x=Math.random()*512;
+    const y=Math.random()*512;
+    const l=.8+Math.random()*2.8;
+    const tone=Math.random();
+    g.strokeStyle = tone>.5
+      ? `rgba(132,166,101,${.035+Math.random()*.055})`
+      : `rgba(19,69,43,${.03+Math.random()*.06})`;
+    g.lineWidth=.45+Math.random()*.8;
+    g.beginPath();
+    g.moveTo(x,y);
+    g.lineTo(x+(Math.random()-.5)*1.4,y-l);
+    g.stroke();
+  }
+
+  const tex=new THREE.CanvasTexture(c);
+  tex.wrapS=THREE.RepeatWrapping;
+  tex.wrapT=THREE.RepeatWrapping;
+  tex.repeat.set(34,34);
+  tex.colorSpace=THREE.SRGBColorSpace;
+  tex.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());
+  return tex;
+}
+
 const ground = new THREE.Mesh(
   new THREE.PlaneGeometry(1500, 1500),
-  new THREE.MeshStandardMaterial({ color: 0x315b3f, roughness: 1, metalness: 0 })
+  new THREE.MeshStandardMaterial({
+    map: makeGrassTexture(),
+    color: 0xb7c49f,
+    roughness: 1,
+    metalness: 0
+  })
 );
 ground.rotation.x = -Math.PI / 2;
 ground.position.y = -2.1;
@@ -174,7 +211,7 @@ function makeDirtTexture() {
   const tex = new THREE.CanvasTexture(c);
   tex.wrapS = THREE.RepeatWrapping;
   tex.wrapT = THREE.RepeatWrapping;
-  tex.repeat.set(3.4, 36);
+  tex.repeat.set(2.2, 2.6);
   tex.colorSpace = THREE.SRGBColorSpace;
   tex.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
   return tex;
@@ -305,11 +342,11 @@ const track = buildRibbon(TRACK_WIDTH, 0, trackMat);
 scene.add(track);
 
 const shoulderMat = new THREE.MeshStandardMaterial({
-  color: 0x657783,
-  roughness: .88,
-  metalness: .02
+  color: 0x756f63,
+  roughness: .97,
+  metalness: 0
 });
-scene.add(buildRibbon(TRACK_WIDTH + 7.5, -.20, shoulderMat));
+scene.add(buildRibbon(TRACK_WIDTH + 4.6, -.18, shoulderMat));
 
 function makeLaneStrip(offset, stripWidth, color, opacity = 1) {
   const positions = [];
@@ -346,13 +383,13 @@ function makeLaneStrip(offset, stripWidth, color, opacity = 1) {
 
 for (let lane = 1; lane < LANES; lane++) {
   const offset = -TRACK_WIDTH / 2 + lane * (TRACK_WIDTH / LANES);
-  const strip = makeLaneStrip(offset, .34, 0xf0dec0, .72);
+  const strip = makeLaneStrip(offset, .18, 0xd8bb91, .22);
   strip.renderOrder = 3;
   scene.add(strip);
 }
 
-const edgeA = makeLaneStrip(-TRACK_WIDTH/2 + .55, .45, 0xf2eadb, .85);
-const edgeB = makeLaneStrip(TRACK_WIDTH/2 - .55, .45, 0xf2eadb, .85);
+const edgeA = makeLaneStrip(-TRACK_WIDTH/2 + .42, .30, 0xead8b9, .72);
+const edgeB = makeLaneStrip(TRACK_WIDTH/2 - .42, .30, 0xead8b9, .72);
 edgeA.renderOrder = edgeB.renderOrder = 3;
 scene.add(edgeA, edgeB);
 
@@ -406,20 +443,33 @@ for (let i = 0; i < postCount; i++) {
 scene.add(posts);
 
 function addMountains() {
-  const mat1 = new THREE.MeshStandardMaterial({ color: 0x536b70, roughness: 1 });
-  const mat2 = new THREE.MeshStandardMaterial({ color: 0x3c5f50, roughness: 1 });
-  const ring = [
-    [-360,-320,85,mat1],[-180,-405,105,mat1],[60,-420,80,mat1],[310,-330,110,mat1],
-    [415,-90,72,mat2],[390,180,95,mat2],[210,345,76,mat2],[-80,410,115,mat1],
-    [-320,320,88,mat2],[-430,80,96,mat2]
-  ];
-  for (const [x,z,h,mat] of ring) {
-    const m = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 2),mat);
-    m.scale.set(h*.72,h*.52,h*.60);
-    m.position.set(x,h*.34-8,z);
-    m.rotation.set(0,(x+z)*.01,0);
-    m.receiveShadow = true;
-    scene.add(m);
+  const farMat = new THREE.MeshStandardMaterial({ color: 0x6f817f, roughness: 1, flatShading: true });
+  const midMat = new THREE.MeshStandardMaterial({ color: 0x526b63, roughness: 1, flatShading: true });
+
+  for (let i=0;i<30;i++) {
+    const a=(i/30)*Math.PI*2;
+    const radius=430 + (i%5)*18;
+    const h=42 + ((i*37)%58);
+    const w=42 + ((i*23)%44);
+    const mat=i%3===0 ? midMat : farMat;
+    const mountain=new THREE.Mesh(new THREE.ConeGeometry(1,1,9),mat);
+    mountain.scale.set(w,h,w*.72);
+    mountain.position.set(Math.cos(a)*radius,h*.47-10,Math.sin(a)*radius);
+    mountain.rotation.y=a*.7 + (i%4)*.13;
+    mountain.receiveShadow=true;
+    scene.add(mountain);
+
+    if(i%2===0){
+      const shoulder=new THREE.Mesh(new THREE.IcosahedronGeometry(1,1),mat);
+      shoulder.scale.set(w*.72,h*.42,w*.58);
+      shoulder.position.set(
+        Math.cos(a)*radius + Math.sin(a)*w*.34,
+        h*.22-9,
+        Math.sin(a)*radius - Math.cos(a)*w*.34
+      );
+      shoulder.rotation.y=a;
+      scene.add(shoulder);
+    }
   }
 }
 addMountains();
@@ -474,34 +524,59 @@ for (const u of [.16,.31,.47,.68,.84]) {
 }
 
 function addTracksideTrees() {
-  const trunkGeo = new THREE.CylinderGeometry(.34,.48,4.8,6);
-  const crownGeo = new THREE.IcosahedronGeometry(3.5,1);
-  const trunkMat = new THREE.MeshStandardMaterial({ color:0x4b3a2b, roughness:1 });
-  const crownMat = new THREE.MeshStandardMaterial({ color:0x244c38, roughness:1 });
-  const count = 78;
+  const trunkGeo = new THREE.CylinderGeometry(.24,.42,4.9,6);
+  const crownGeo = new THREE.DodecahedronGeometry(2.7,0);
+  const trunkMat = new THREE.MeshStandardMaterial({ color:0x4a3828, roughness:1 });
+  const crownMat = new THREE.MeshStandardMaterial({ color:0x28543b, roughness:1, flatShading:true });
+  const count = 92;
   const trunks = new THREE.InstancedMesh(trunkGeo,trunkMat,count);
-  const crowns = new THREE.InstancedMesh(crownGeo,crownMat,count);
+  const crowns = new THREE.InstancedMesh(crownGeo,crownMat,count*3);
   const d = new THREE.Object3D();
+  const c = new THREE.Color();
+  let crownIndex=0;
+
   for(let i=0;i<count;i++){
-    const u=(i+.35)/count;
+    const u=(i+.27)/count;
     const {center,side}=trackFrame(u);
     const sign=i%2===0?1:-1;
-    const distance=TRACK_WIDTH/2 + 18 + (i%5)*4.5;
+    const distance=TRACK_WIDTH/2 + 20 + (i%7)*5.2;
     const p=center.clone().addScaledVector(side,sign*distance);
-    p.y += 2.2;
-    const scale=.75 + ((i*17)%10)/20;
+    p.y += 2.15;
+    const scale=.68 + ((i*17)%10)/22;
+
     d.position.copy(p);
     d.scale.set(scale,scale,scale);
     d.rotation.y=(i*1.71)%Math.PI;
     d.updateMatrix();
     trunks.setMatrixAt(i,d.matrix);
-    d.position.y += 5.8*scale;
-    d.scale.set(scale*1.05,scale*1.45,scale*1.05);
-    d.updateMatrix();
-    crowns.setMatrixAt(i,d.matrix);
+
+    const crownBase=p.clone();
+    crownBase.y += 5.4*scale;
+    const lobes=[
+      [-1.25,0,.15,1.00,1.22,.92],
+      [1.20,.18,-.20,.94,1.12,1.02],
+      [.05,1.45,.28,1.14,1.30,1.08]
+    ];
+
+    for(const [ox,oy,oz,sx,sy,sz] of lobes){
+      d.position.set(
+        crownBase.x + ox*scale,
+        crownBase.y + oy*scale,
+        crownBase.z + oz*scale
+      );
+      d.scale.set(scale*sx,scale*sy,scale*sz);
+      d.rotation.set((i%3)*.08,(i*.73)%Math.PI,(i%2)*.06);
+      d.updateMatrix();
+      crowns.setMatrixAt(crownIndex,d.matrix);
+      c.setHSL(.31 + ((i+crownIndex)%5)*.008,.34,.24 + ((i*3)%6)*.012);
+      crowns.setColorAt(crownIndex,c);
+      crownIndex++;
+    }
   }
+
   trunks.castShadow=false;
   crowns.castShadow=false;
+  crowns.instanceColor.needsUpdate=true;
   scene.add(trunks,crowns);
 }
 addTracksideTrees();
@@ -523,8 +598,8 @@ function createShadow() {
 const names = ["Vela","Aster","Mica","Rook","Nacre","Ilex","Lumen","Tern"];
 const morphSeed = ["S","P","E","A","S","P","E","A"];
 const laneSeed = [2,4,1,5,3,0,4,1];
-const startGap = [0,6,-4,11,-9,15,20,-13];
-const baseSpeed = [29.8,29.1,30.2,28.8,29.5,29.0,30.0,29.4];
+const startGap = [0,2.5,-1.5,4.5,-3.5,6.5,8.0,-5.0];
+const baseSpeed = [29.8,29.6,30.0,29.5,29.9,29.6,30.0,29.7];
 
 const racers = [];
 const textureLoader = new THREE.TextureLoader();
@@ -616,9 +691,10 @@ function loadRunAsset(spec) {
       BASE + "concept/" + spec.asset,
       (tex) => {
         tex.colorSpace = THREE.SRGBColorSpace;
-        tex.minFilter = THREE.LinearFilter;
+        tex.minFilter = THREE.LinearMipmapLinearFilter;
         tex.magFilter = THREE.LinearFilter;
-        tex.generateMipmaps = false;
+        tex.generateMipmaps = true;
+        tex.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
         resolve([spec.key, { texture:tex, spec }]);
       },
       undefined,
@@ -728,11 +804,8 @@ function placeRacer(r, elapsedMs) {
   const bob=(bobByMorph[r.morph] || bobByMorph.S)[frame];
   r.sprite.position.y += bob;
 
-  const scaleByMorph = { S:9.4, P:10.1, E:9.6, A:9.2 };
-  const baseScale=(scaleByMorph[r.morph] || 10.2) + (r.id===SELECTED_ID ? .35 : 0);
-  const cameraDistance = camera.position.distanceTo(p);
-  const perspectiveComp = clamp(cameraDistance / 54, .56, 1.12);
-  const drawScale = baseScale * perspectiveComp;
+  const scaleByMorph = { S:9.8, P:10.6, E:10.0, A:9.6 };
+  const drawScale=(scaleByMorph[r.morph] || 10.2) + (r.id===SELECTED_ID ? .28 : 0);
 
   const here = p.clone().project(camera);
   const ahead = p.clone().addScaledVector(tangent, 2).project(camera);
@@ -752,6 +825,24 @@ const camLook = new THREE.Vector3();
 const desiredCam = new THREE.Vector3();
 const desiredLook = new THREE.Vector3();
 
+const SHOTS = [
+  { key:"side",     side:31, along:0,   height:6.8, lookAhead:5,  fov:43 },
+  { key:"front_3q", side:22, along:27,  height:7.6, lookAhead:2,  fov:46 },
+  { key:"front",    side:6,  along:31,  height:8.1, lookAhead:-1, fov:48 },
+  { key:"back_3q",  side:20, along:-27, height:7.2, lookAhead:8,  fov:46 },
+  { key:"back",     side:6,  along:-31, height:7.8, lookAhead:11, fov:48 }
+];
+const shotParam = new URLSearchParams(location.search).get("shot");
+const shotAliases = { front3q:"front_3q", back3q:"back_3q" };
+const forcedShotKey = shotAliases[shotParam] || shotParam || null;
+
+function currentShot() {
+  if (forcedShotKey) return SHOTS.find(s=>s.key===forcedShotKey) || SHOTS[0];
+  const seconds=elapsed/1000;
+  const slot=Math.floor(seconds/5.2)%SHOTS.length;
+  return SHOTS[slot];
+}
+
 function updateCamera(dt) {
   if(!racers.length)return;
   const me = racers[0];
@@ -762,34 +853,30 @@ function updateCamera(dt) {
   const target = center.clone().addScaledVector(side,lateral);
   target.y += 2.6 + bank*lateral;
 
-  // Smoothly orbit between BACK -> SIDE -> FRONT and back again.
-  // Sprite direction is selected from the actual camera angle every frame.
-  const orbit = (elapsed / 1000) * (Math.PI * 2 / 32);
-  const along = Math.sin(orbit) * 68;
-  const sideDistance = 24 + Math.abs(Math.cos(orbit)) * 34;
-  const height = 10.6 + Math.abs(Math.sin(orbit)) * 3.8;
+  const shot=currentShot();
+  host.dataset.cameraMode=shot.key;
 
   desiredCam.copy(target)
-    .addScaledVector(side,sideDistance)
-    .addScaledVector(tangent,along)
-    .add(new THREE.Vector3(0,height,0));
+    .addScaledVector(side,shot.side)
+    .addScaledVector(tangent,shot.along)
+    .add(new THREE.Vector3(0,shot.height,0));
 
   desiredLook.copy(target)
-    .addScaledVector(tangent,6)
-    .add(new THREE.Vector3(0,2.9,0));
+    .addScaledVector(tangent,shot.lookAhead)
+    .add(new THREE.Vector3(0,2.2,0));
 
-  const posAlpha=1-Math.pow(.0015,dt);
-  const lookAlpha=1-Math.pow(.004,dt);
+  const posAlpha=1-Math.pow(.0007,dt);
+  const lookAlpha=1-Math.pow(.0018,dt);
   camPos.lerp(desiredCam,posAlpha);
   camLook.lerp(desiredLook,lookAlpha);
 
-  const gaitImpact = [0,.08,.24,.42,.22,0][me.frame<0?0:me.frame];
+  const gaitImpact = [0,.06,.17,.30,.15,0][me.frame<0?0:me.frame];
   camera.position.copy(camPos);
-  camera.position.y += gaitImpact*.18;
+  camera.position.y += gaitImpact*.13;
   camera.lookAt(camLook);
 
-  const speedRatio=clamp(me.speed/me.baseSpeed,.90,1.08);
-  camera.fov = lerp(camera.fov,47+(speedRatio-.90)*13,.08);
+  const speedRatio=clamp(me.speed/me.baseSpeed,.94,1.06);
+  camera.fov = lerp(camera.fov,shot.fov+(speedRatio-1)*16,.10);
   camera.updateProjectionMatrix();
 }
 
