@@ -24,6 +24,7 @@ const WORLD_END = 1800;
 const params = new URLSearchParams(window.location.search);
 const INSPECT_MODE = params.get("inspect") === "1";
 const MOTION_REVIEW_MODE = params.get("motion") === "1" || window.location.pathname.includes("/preview-motion-first-gait/");
+const REVIEW_MORPH = (params.get("morph") || "S").toUpperCase();
 const TAU = Math.PI * 2;
 const S_GAIT = {
   baseY: 1.60,
@@ -785,9 +786,400 @@ function createSprintCreature(color, index) {
   return root;
 }
 
+function makePowerLimb(parent, upperMat, lowerMat, jointMat, plateMat, side, fore) {
+  const hip = new THREE.Group();
+  hip.position.set(
+    side * (fore ? 0.50 : 0.47),
+    fore ? -0.14 : -0.12,
+    fore ? 0.28 : -0.27
+  );
+  parent.add(hip);
+
+  const upperLen = fore ? 0.72 : 0.76;
+  const lowerLen = fore ? 0.60 : 0.64;
+  const cannonLen = fore ? 0.28 : 0.30;
+
+  const upper = makeMesh(
+    new THREE.CylinderGeometry(0.15, 0.205, upperLen, 6),
+    upperMat,
+    hip,
+    [0, -upperLen / 2, 0.05]
+  );
+  upper.rotation.z = side * (fore ? 0.055 : 0.065);
+
+  const knee = new THREE.Group();
+  knee.position.set(0, -upperLen, 0.08);
+  hip.add(knee);
+
+  makeMesh(
+    new THREE.IcosahedronGeometry(fore ? 0.16 : 0.175, 1),
+    jointMat,
+    knee
+  );
+
+  const lower = makeMesh(
+    new THREE.CylinderGeometry(0.095, 0.14, lowerLen, 6),
+    lowerMat,
+    knee,
+    [0, -lowerLen / 2, 0.05]
+  );
+  lower.rotation.z = side * (fore ? -0.03 : 0.035);
+
+  const ankle = new THREE.Group();
+  ankle.position.set(0, -lowerLen, 0.10);
+  knee.add(ankle);
+
+  makeMesh(
+    new THREE.IcosahedronGeometry(0.115, 1),
+    jointMat,
+    ankle
+  );
+
+  const cannon = makeMesh(
+    new THREE.CylinderGeometry(0.070, 0.10, cannonLen, 6),
+    upperMat,
+    ankle,
+    [0, -cannonLen / 2, 0.04]
+  );
+
+  const foot = new THREE.Group();
+  foot.position.set(0, -cannonLen, 0.08);
+  ankle.add(foot);
+
+  const sole = makeMesh(
+    new THREE.BoxGeometry(0.24, 0.10, 0.38),
+    jointMat,
+    foot,
+    [0, -0.025, 0.11]
+  );
+  sole.rotation.x = -0.08;
+
+  [-1, 1].forEach((toeSide) => {
+    const toe = makeTaperedPlate(
+      0.28,
+      0.095,
+      0.075,
+      plateMat,
+      foot,
+      [toeSide * 0.07, -0.01, 0.26]
+    );
+    toe.rotation.x = -0.07;
+    toe.rotation.y = toeSide * 0.06;
+  });
+
+  return {
+    hip,
+    knee,
+    ankle,
+    foot,
+    phaseOffset: fore
+      ? (side < 0 ? TAU * 0.50 : TAU * 0.61)
+      : (side < 0 ? 0 : TAU * 0.10),
+    upperLen,
+    lowerLen,
+    cannonLen,
+    side,
+    fore
+  };
+}
+
+function createPowerCreature(color, index) {
+  const cfg = MORPHS.P;
+  const root = new THREE.Group();
+  const bodyMaster = new THREE.Group();
+  bodyMaster.position.y = 2.04;
+  root.add(bodyMaster);
+
+  const baseColor = new THREE.Color(color);
+  const primary = mat(baseColor);
+  const secondary = mat(baseColor.clone().multiplyScalar(0.72));
+  const joint = mat(baseColor.clone().multiplyScalar(0.43), 0.76);
+  const underside = mat(0x24282c, 0.84);
+  const plate = new THREE.MeshStandardMaterial({
+    color: baseColor.clone().lerp(new THREE.Color(0x9fa8ad), 0.18),
+    roughness: 0.64,
+    metalness: 0.04,
+    flatShading: true
+  });
+  const cue = new THREE.MeshStandardMaterial({
+    color: 0x1a2026,
+    emissive: baseColor.clone().multiplyScalar(0.44),
+    emissiveIntensity: 0.86,
+    roughness: 0.36,
+    metalness: 0.12,
+    flatShading: true
+  });
+
+  const chestPivot = new THREE.Group();
+  chestPivot.position.set(0, 0.02, 0.54);
+  bodyMaster.add(chestPivot);
+
+  const pelvisPivot = new THREE.Group();
+  pelvisPivot.position.set(0, -0.02, -0.66);
+  bodyMaster.add(pelvisPivot);
+
+  // Same species construction as S, but with a deeper chest, larger rear mass,
+  // and shorter longitudinal profile.
+  makeMesh(
+    new THREE.IcosahedronGeometry(0.70, 1),
+    primary,
+    chestPivot,
+    [0, -0.02, 0.02],
+    [0.92, 0.82, 1.16]
+  );
+
+  makeMesh(
+    new THREE.IcosahedronGeometry(0.66, 1),
+    secondary,
+    pelvisPivot,
+    [0, -0.03, -0.03],
+    [0.94, 0.82, 1.08]
+  );
+
+  const waist = makeMesh(
+    new THREE.CylinderGeometry(0.34, 0.40, 0.78, 7),
+    secondary,
+    bodyMaster,
+    [0, -0.10, -0.07]
+  );
+  waist.rotation.x = Math.PI / 2;
+
+  const keel = makeMesh(
+    new THREE.BoxGeometry(0.50, 0.16, 1.26),
+    underside,
+    bodyMaster,
+    [0, -0.47, -0.03]
+  );
+
+  [-1, 1].forEach((side) => {
+    const shoulder = makeTaperedPlate(
+      0.72,
+      0.29,
+      0.15,
+      plate,
+      chestPivot,
+      [side * 0.48, 0.18, 0.05]
+    );
+    shoulder.rotation.y = side * 0.035;
+    shoulder.rotation.x = -0.04;
+
+    const flank = makeTaperedPlate(
+      0.58,
+      0.24,
+      0.11,
+      secondary,
+      pelvisPivot,
+      [side * 0.43, 0.13, -0.05]
+    );
+    flank.rotation.y = side * -0.03;
+  });
+
+  const spinePlate = makeTaperedPlate(
+    1.16,
+    0.18,
+    0.12,
+    plate,
+    bodyMaster,
+    [0, 0.54, -0.06]
+  );
+  spinePlate.rotation.x = -0.015;
+
+  // P retains the same low forward species neck, but it is shorter and thicker.
+  const neckPivot = new THREE.Group();
+  neckPivot.position.set(0, 0.13, 1.00);
+  chestPivot.add(neckPivot);
+
+  makeMesh(
+    new THREE.IcosahedronGeometry(0.34, 1),
+    primary,
+    neckPivot,
+    [0, -0.04, -0.05],
+    [1.02, 0.84, 1.02]
+  );
+
+  const neck = makeMesh(
+    new THREE.CylinderGeometry(0.20, 0.31, 0.66, 7),
+    primary,
+    neckPivot,
+    [0, 0.00, 0.31]
+  );
+  neck.rotation.x = Math.PI / 2 - 0.03;
+
+  const neckKeel = makeTaperedPlate(
+    0.61,
+    0.22,
+    0.09,
+    underside,
+    neckPivot,
+    [0, -0.18, 0.28]
+  );
+
+  const headPivot = new THREE.Group();
+  headPivot.position.set(0, 0.045, 0.49);
+  neckPivot.add(headPivot);
+
+  makeMesh(
+    new THREE.IcosahedronGeometry(0.39, 1),
+    primary,
+    headPivot,
+    [0, 0, 0.22],
+    [0.68, 0.56, 1.02]
+  );
+
+  const muzzle = makeMesh(
+    new THREE.ConeGeometry(0.17, 0.43, 5),
+    secondary,
+    headPivot,
+    [0, -0.06, 0.62]
+  );
+  muzzle.rotation.x = Math.PI / 2;
+
+  // P crest is broad / compact rather than the long S blade.
+  const crestRoot = new THREE.Group();
+  crestRoot.position.set(0, 0.23, 0.05);
+  headPivot.add(crestRoot);
+
+  const crestUpper = makeTaperedPlate(
+    0.72,
+    0.25,
+    0.13,
+    plate,
+    crestRoot,
+    [0, 0.02, -0.27]
+  );
+  crestUpper.rotation.x = -0.035;
+
+  const crestLower = makeTaperedPlate(
+    0.50,
+    0.17,
+    0.09,
+    underside,
+    crestRoot,
+    [0, -0.09, -0.18]
+  );
+
+  const eyeMat = new THREE.MeshBasicMaterial({ color: 0xffd27a });
+  [-1, 1].forEach((side) => {
+    makeMesh(
+      new THREE.SphereGeometry(0.032, 5, 4),
+      eyeMat,
+      headPivot,
+      [side * 0.22, 0.055, 0.45]
+    );
+  });
+
+  const cueBand = new THREE.Group();
+  cueBand.position.set(0, 0.075, 0.22);
+  headPivot.add(cueBand);
+
+  const bandTop = makeMesh(
+    new THREE.BoxGeometry(0.50, 0.065, 0.14),
+    cue,
+    cueBand,
+    [0, 0.15, 0]
+  );
+  bandTop.rotation.x = -0.06;
+
+  [-1, 1].forEach((side) => {
+    makeMesh(
+      new THREE.BoxGeometry(0.085, 0.19, 0.17),
+      cue,
+      cueBand,
+      [side * 0.265, 0.015, 0.02]
+    );
+    makeMesh(
+      new THREE.SphereGeometry(0.045, 6, 4),
+      new THREE.MeshBasicMaterial({ color: side < 0 ? 0xffa63d : 0x6ee7ff }),
+      cueBand,
+      [side * 0.30, 0.015, 0.07]
+    );
+  });
+
+  const legs = {
+    fl: makePowerLimb(chestPivot, primary, secondary, joint, plate, -1, true),
+    fr: makePowerLimb(chestPivot, primary, secondary, joint, plate, 1, true),
+    hl: makePowerLimb(pelvisPivot, secondary, primary, joint, plate, -1, false),
+    hr: makePowerLimb(pelvisPivot, secondary, primary, joint, plate, 1, false)
+  };
+
+  const tailBase = new THREE.Group();
+  tailBase.position.set(0, 0.02, -0.68);
+  tailBase.rotation.x = -0.10;
+  pelvisPivot.add(tailBase);
+
+  const tailSegments = [];
+  let tailParent = tailBase;
+  const tailLengths = [0.38, 0.33, 0.28];
+
+  tailLengths.forEach((segLen, i) => {
+    const jointNode = new THREE.Group();
+    if (i > 0) jointNode.position.z = -tailLengths[i - 1];
+    tailParent.add(jointNode);
+
+    const seg = makeMesh(
+      new THREE.CylinderGeometry(
+        Math.max(0.055, 0.105 - i * 0.018),
+        Math.max(0.070, 0.135 - i * 0.020),
+        segLen,
+        6
+      ),
+      i === 0 ? secondary : primary,
+      jointNode,
+      [0, 0, -segLen / 2]
+    );
+    seg.rotation.x = Math.PI / 2;
+    tailSegments.push(jointNode);
+    tailParent = jointNode;
+  });
+
+  makeTaperedPlate(
+    0.22,
+    0.16,
+    0.10,
+    plate,
+    tailParent,
+    [0, 0, -0.09]
+  ).scale.z = -1;
+
+  const shadowMat = new THREE.MeshBasicMaterial({
+    color: 0x000000,
+    transparent: true,
+    opacity: 0.22,
+    depthWrite: false
+  });
+  const shadow = new THREE.Mesh(new THREE.CircleGeometry(1.0, 18), shadowMat);
+  shadow.rotation.x = -Math.PI / 2;
+  shadow.scale.set(1.18, 1.45, 1);
+  shadow.position.y = 0.025;
+  root.add(shadow);
+
+  root.userData = {
+    cfg,
+    morphKey: "P",
+    index,
+    bodyMaster,
+    chestPivot,
+    pelvisPivot,
+    waist,
+    keel,
+    neckPivot,
+    headPivot,
+    tailSegments,
+    legs,
+    phase: index * 0.61,
+    turnLean: 0,
+    accelLean: 0
+  };
+
+  return root;
+}
+
 function createCreature(morphKey, color, index) {
   if (morphKey === "S") {
     return createSprintCreature(color, index);
+  }
+  if (morphKey === "P") {
+    return createPowerCreature(color, index);
   }
 
   const cfg = MORPHS[morphKey];
@@ -1655,12 +2047,15 @@ createRunners();
 resetRace();
 
 if (INSPECT_MODE || MOTION_REVIEW_MODE) {
-  selectedRunner = 0;
-  runnerSelect.value = "0";
-  const focus = runners[0];
+  const reviewIndex = MOTION_REVIEW_MODE
+    ? 0
+    : Math.max(0, runners.findIndex((runner) => runner.morph === REVIEW_MORPH));
+  selectedRunner = reviewIndex;
+  runnerSelect.value = String(reviewIndex);
+  const focus = runners[reviewIndex];
 
   runners.forEach((runner, index) => {
-    runner.group.visible = index === 0;
+    runner.group.visible = index === reviewIndex;
   });
 
   focus.lane = 4;
@@ -1672,7 +2067,9 @@ if (INSPECT_MODE || MOTION_REVIEW_MODE) {
   focus.nextLaneDecision = Number.POSITIVE_INFINITY;
   focus.group.position.set(0, 0, focus.distance);
   focus.group.userData.phase = 1.18;
-  focus.group.userData.strideLength = S_GAIT.maxStrideWorld;
+  if (focus.morph === "S") {
+    focus.group.userData.strideLength = S_GAIT.maxStrideWorld;
+  }
   updateCreaturePose(focus, 0);
 
   raceTime = 6;
