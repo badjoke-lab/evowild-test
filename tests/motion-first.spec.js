@@ -85,7 +85,7 @@ test("Motion First S gait records continuous SIDE and LOW review video", async (
 
   const bodyStretch = Number(await page.locator("#scene").getAttribute("data-max-body-stretch"));
   expect(Number.isFinite(bodyStretch)).toBeTruthy();
-  expect(bodyStretch).toBeGreaterThan(0.08);
+  expect(bodyStretch).toBeGreaterThan(0.14);
 
   const video = page.video();
   await page.close();
