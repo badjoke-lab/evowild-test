@@ -83,6 +83,7 @@ for (const project of ["desktop-chromium", "android-chromium"]) {
           }
         });
       }
+      window.__ctx.camera.updateMatrixWorld();
       let onScreenSprites = 0;
       for (const k of race.karts) {
         const s = k.object.getObjectByName("evowildS");
