@@ -1267,8 +1267,8 @@ test("compare Hunyuan v3 and contact-phased v31 hybrid follow rigs", async ({ pa
     const values = {};
     model.traverse((node) => {
       if (node.isBone && wanted.includes(node.name)) {
-        const p = new THREE.Vector3();
-        node.getWorldPosition(p);
+        node.updateWorldMatrix(true, false);
+        const e = node.matrixWorld.elements;
         values[node.name] = {
           q: [
             Number(node.quaternion.x.toFixed(6)),
@@ -1277,9 +1277,9 @@ test("compare Hunyuan v3 and contact-phased v31 hybrid follow rigs", async ({ pa
             Number(node.quaternion.w.toFixed(6))
           ],
           p: [
-            Number(p.x.toFixed(6)),
-            Number(p.y.toFixed(6)),
-            Number(p.z.toFixed(6))
+            Number(e[12].toFixed(6)),
+            Number(e[13].toFixed(6)),
+            Number(e[14].toFixed(6))
           ]
         };
       }
