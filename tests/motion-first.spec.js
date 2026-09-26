@@ -540,6 +540,9 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
   expect(Number.isFinite(fps)).toBeTruthy();
   expect(fps).toBeGreaterThanOrEqual(20);
 
+  // AUTO owns focus. Switch to a manual camera before checking manual focus.
+  await page.getByRole("button", { name: "SIDE", exact: true }).click({ force: true });
+  await expect(page.locator("#cameraReadout")).toHaveText("SIDE");
   await page.selectOption("#runnerSelect", "3");
   await expect(page.locator("#morphReadout")).toHaveText("A");
 
