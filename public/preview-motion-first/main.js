@@ -2540,6 +2540,7 @@ function createRunners() {
 
 function resetRace() {
   raceTime = 0;
+  simulationAccumulator = 0;
   finished = false;
   paused = false;
   raceDirector.camera = "PACK";
@@ -3630,6 +3631,9 @@ let actualCamera = "PACK";
 let paused = false;
 let finished = false;
 let raceTime = 0;
+let simulationAccumulator = 0;
+const SIMULATION_STEP = 1 / 120;
+const MAX_SIMULATION_STEPS = 14;
 let fpsAccumulator = 0;
 let fpsFrames = 0;
 
@@ -4057,19 +4061,40 @@ window.addEventListener("resize", () => {
 
 
 function animate() {
-  const rawDt = clock.getDelta();
-  const dt = Math.min(rawDt, 0.035);
+  // Keep race speed independent from render FPS. The old 35 ms dt clamp
+  // turned the whole race into slow motion whenever rendering dropped below
+  // ~29 FPS, which is unacceptable for the motion-first lane.
+  const rawDt = Math.min(clock.getDelta(), 0.12);
+  const cameraDt = Math.min(rawDt, 0.05);
 
   if (!paused) {
-    raceTime += dt;
-    runners.forEach((runner) => updateRunner(runner, dt));
-    finishCheck();
+    simulationAccumulator = Math.min(
+      simulationAccumulator + rawDt,
+      SIMULATION_STEP * MAX_SIMULATION_STEPS
+    );
+
+    let simulationSteps = 0;
+    while (
+      simulationAccumulator >= SIMULATION_STEP &&
+      simulationSteps < MAX_SIMULATION_STEPS &&
+      !finished
+    ) {
+      raceTime += SIMULATION_STEP;
+      runners.forEach((runner) => updateRunner(runner, SIMULATION_STEP));
+      finishCheck();
+      simulationAccumulator -= SIMULATION_STEP;
+      simulationSteps += 1;
+    }
+
+    canvas.dataset.raceTime = raceTime.toFixed(3);
+    canvas.dataset.simulationSteps = String(simulationSteps);
   } else {
-    runners.forEach((runner) => updateCreaturePose(runner, 0, dt));
+    simulationAccumulator = 0;
+    runners.forEach((runner) => updateCreaturePose(runner, 0, cameraDt));
   }
 
-  updateCamera(dt);
-  updateHud(dt);
+  updateCamera(cameraDt);
+  updateHud(rawDt);
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }
