@@ -93,7 +93,7 @@ let model = null;
 let mixer = null;
 let renderMode = "sakura";
 let cameraMode = "threeq";
-let modelHeight = 2.2;
+let modelHeight = 2.2;\nlet skullTracker = null;
 
 function materialToCel(src) {
   if (Array.isArray(src)) return src.map(materialToCel);
@@ -346,31 +346,65 @@ function correctHeadSilhouette(root) {
 
   canvas.dataset.headSilhouetteCorrection = headBone ? "head-cap-bone-v4" : "head-cap-root-fallback";
 }
-function addCentralSkullMass(root) {
-  let headBone = null;
-  root.traverse((o) => {
-    if (!headBone && o.isBone && o.name === "head") headBone = o;
-  });
-  if (!headBone) return false;
-
+function createTrackedCentralSkull(root) {
   root.updateMatrixWorld(true);
-  const box = new THREE.Box3().setFromObject(root);
-  const size = new THREE.Vector3();
-  box.getSize(size);
-  const modelH = Math.max(1, size.y);
 
-  const headPos = new THREE.Vector3();
-  const parentPos = new THREE.Vector3();
-  const dir = new THREE.Vector3();
-  headBone.getWorldPosition(headPos);
+  const skinned = [];
+  root.traverse((o) => {
+    if (o.isSkinnedMesh && o.geometry?.getAttribute("position") && o.skeleton) {
+      skinned.push(o);
+    }
+  });
+  if (!skinned.length) return null;
 
-  if (headBone.parent?.isBone) {
-    headBone.parent.getWorldPosition(parentPos);
-    dir.copy(headPos).sub(parentPos).normalize();
-  } else {
-    dir.set(0, 1, 0);
+  const tmp = new THREE.Vector3();
+  let minY = Infinity;
+  let maxY = -Infinity;
+
+  // First pass: actual skinned world bounds. This avoids relying on bone names
+  // or raw bind-space POSITION axes.
+  for (const mesh of skinned) {
+    mesh.skeleton.update();
+    const pos = mesh.geometry.getAttribute("position");
+    for (let i = 0; i < pos.count; i += 1) {
+      tmp.fromBufferAttribute(pos, i);
+      mesh.applyBoneTransform(i, tmp);
+      mesh.localToWorld(tmp);
+      minY = Math.min(minY, tmp.y);
+      maxY = Math.max(maxY, tmp.y);
+    }
   }
-  if (!Number.isFinite(dir.x) || dir.lengthSq() < 1e-6) dir.set(0, 1, 0);
+  if (!Number.isFinite(minY) || maxY <= minY) return null;
+
+  const h = maxY - minY;
+  const bandLow = minY + h * 0.68;
+  const bandHigh = minY + h * 0.80;
+  const candidates = [];
+
+  // Second pass: a narrow band at the skull / crest-root height. Keep enough
+  // samples to follow the animated head, but cap the per-frame work.
+  for (const mesh of skinned) {
+    mesh.skeleton.update();
+    const pos = mesh.geometry.getAttribute("position");
+    for (let i = 0; i < pos.count; i += 1) {
+      tmp.fromBufferAttribute(pos, i);
+      mesh.applyBoneTransform(i, tmp);
+      mesh.localToWorld(tmp);
+      if (tmp.y < bandLow || tmp.y > bandHigh) continue;
+      candidates.push({ mesh, index: i, x: tmp.x, y: tmp.y, z: tmp.z });
+    }
+  }
+  if (candidates.length < 16) return null;
+
+  // Trim lateral outliers so shoulder/crest tips cannot drag the skull centre.
+  const sortedX = candidates.map((v) => v.x).sort((a, b) => a - b);
+  const x10 = sortedX[Math.floor(sortedX.length * 0.10)];
+  const x90 = sortedX[Math.floor(sortedX.length * 0.90)];
+  const core = candidates.filter((v) => v.x >= x10 && v.x <= x90);
+  const source = core.length >= 12 ? core : candidates;
+
+  const step = Math.max(1, Math.floor(source.length / 220));
+  const tracked = source.filter((_, i) => i % step === 0).slice(0, 240);
 
   const baseColor = (() => {
     let found = null;
@@ -382,38 +416,53 @@ function addCentralSkullMass(root) {
     return found ?? 0xdedbe6;
   })();
 
-  const mat = new THREE.MeshStandardMaterial({
-    color: baseColor,
-    roughness: 0.92,
-    metalness: 0,
-    side: THREE.FrontSide
-  });
-
-  // Use the actual animated head-bone origin as the anchor. Measuring raw
-  // skinned vertices proved unreliable because their bind-space axes differ
-  // from the rendered world axes. A compact rounded mass here makes the two
-  // swept blades read as crest/horns attached to one skull rather than two
-  // separate heads.
-  const skull = new THREE.Mesh(new THREE.SphereGeometry(1, 20, 14), mat);
-  skull.name = "SakuraNPR_central_skull";
-  skull.scale.set(modelH * 0.040, modelH * 0.046, modelH * 0.043);
-  const skullWorld = headPos.clone().addScaledVector(dir, modelH * 0.028);
-  skull.position.copy(skullWorld);
+  const skull = new THREE.Mesh(
+    new THREE.SphereGeometry(1, 20, 14),
+    new THREE.MeshStandardMaterial({
+      color: baseColor,
+      roughness: 0.92,
+      metalness: 0,
+      side: THREE.FrontSide
+    })
+  );
+  skull.name = "SakuraNPR_tracked_central_skull";
+  skull.scale.set(h * 0.043, h * 0.052, h * 0.044);
   skull.castShadow = true;
   skull.receiveShadow = true;
+  root.add(skull);
 
-  scene.add(skull);
-  scene.updateMatrixWorld(true);
-  headBone.updateMatrixWorld(true);
-  headBone.attach(skull);
-  root.updateMatrixWorld(true);
+  const centerWorld = new THREE.Vector3();
+  const centerLocal = new THREE.Vector3();
 
-  canvas.dataset.centralSkull = "1";
-  canvas.dataset.headSilhouetteCorrection = "rigged-v4-headbone-skull-v2";
-  canvas.dataset.headBoneWorld = [headPos.x, headPos.y, headPos.z].map((v) => v.toFixed(4)).join(",");
-  canvas.dataset.headParentWorld = [parentPos.x, parentPos.y, parentPos.z].map((v) => v.toFixed(4)).join(",");
-  canvas.dataset.modelBoundsY = [box.min.y, box.max.y].map((v) => v.toFixed(4)).join(",");
-  return true;
+  const update = () => {
+    let sx = 0, sy = 0, sz = 0, count = 0;
+    for (const mesh of skinned) mesh.skeleton.update();
+
+    for (const sample of tracked) {
+      const pos = sample.mesh.geometry.getAttribute("position");
+      tmp.fromBufferAttribute(pos, sample.index);
+      sample.mesh.applyBoneTransform(sample.index, tmp);
+      sample.mesh.localToWorld(tmp);
+      sx += tmp.x;
+      sy += tmp.y;
+      sz += tmp.z;
+      count += 1;
+    }
+    if (!count) return;
+
+    centerWorld.set(sx / count, sy / count + h * 0.015, sz / count);
+    centerLocal.copy(centerWorld);
+    root.worldToLocal(centerLocal);
+    skull.position.copy(centerLocal);
+  };
+
+  update();
+  canvas.dataset.centralSkull = "tracked";
+  canvas.dataset.headSilhouetteCorrection = "rigged-v4-tracked-skull-v3";
+  canvas.dataset.skullTrackSamples = String(tracked.length);
+  canvas.dataset.skullBandY = [bandLow, bandHigh].map((v) => v.toFixed(4)).join(",");
+
+  return { update, skull };
 }
 
 const cameraForward = new THREE.Vector3();
@@ -511,7 +560,7 @@ loader.load(
     model.updateMatrixWorld(true);
 
     canvas.dataset.headSilhouetteCorrection = "offline-rigged-headfix-v4";
-    addCentralSkullMass(model);
+    skullTracker = createTrackedCentralSkull(model);
 
     const correctedBox = new THREE.Box3().setFromObject(model);
     const correctedSize = new THREE.Vector3();
@@ -551,7 +600,7 @@ let fpsFrames = 0;
 let fpsTime = 0;
 function tick() {
   const dt = Math.min(clock.getDelta(), 1 / 20);
-  mixer?.update(dt);
+  mixer?.update(dt);\n  skullTracker?.update();
 
   for (const stripe of stripes) {
     stripe.position.z -= 11.5 * dt;
