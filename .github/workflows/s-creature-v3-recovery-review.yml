@@ -21,6 +21,11 @@ jobs:
           ref: feat/s-creature-model
           fetch-depth: 0
 
+      - name: Install Blender runtime libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+
       - name: Download Blender 4.3.2
         run: |
           set -euxo pipefail
@@ -31,6 +36,8 @@ jobs:
           /tmp/blender-4.3.2-linux-x64/blender --version
 
       - name: Render four recovery views
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "1"
         run: |
           set -euxo pipefail
           /tmp/blender-4.3.2-linux-x64/blender \
