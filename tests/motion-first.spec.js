@@ -538,6 +538,31 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
 
   const fpsText = await page.locator("#fpsReadout").textContent();
   const fps = Number.parseInt(fpsText || "", 10);
+  const frameWindow = await page.evaluate(
+    () =>
+      new Promise((resolve) => {
+        const deltas = [];
+        const startedAt = performance.now();
+        let last = startedAt;
+        function sample(now) {
+          deltas.push(now - last);
+          last = now;
+          if (now - startedAt >= 2500) {
+            const usable = deltas.slice(1);
+            const sorted = [...usable].sort((a, b) => a - b);
+            const p95 = sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * 0.95))] || 999;
+            resolve({
+              averageFps: (usable.length * 1000) / Math.max(now - startedAt, 1),
+              p95FrameMs: p95,
+              frames: usable.length
+            });
+            return;
+          }
+          requestAnimationFrame(sample);
+        }
+        requestAnimationFrame(sample);
+      })
+  );
   const perfState = await page.locator("#scene").evaluate((node) => ({
     renderPixelRatio: node.dataset.renderPixelRatio,
     renderCalls: node.dataset.renderCalls,
@@ -548,9 +573,13 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
     simulationSteps: node.dataset.simulationSteps,
     poseUpdateMode: node.dataset.poseUpdateMode
   }));
-  console.log("SIMPLIFIED_RACE_PERF", JSON.stringify({ fps, ...perfState }));
+  console.log(
+    "SIMPLIFIED_RACE_PERF",
+    JSON.stringify({ fpsReadout: fps, ...frameWindow, ...perfState })
+  );
   expect(Number.isFinite(fps)).toBeTruthy();
-  expect(fps).toBeGreaterThanOrEqual(28);
+  expect(frameWindow.averageFps).toBeGreaterThanOrEqual(28);
+  expect(frameWindow.p95FrameMs).toBeLessThanOrEqual(50);
 
   await expect(page.locator("#scene")).toHaveAttribute("data-race-proxy-lod", "1");
   await expect(page.locator("#scene")).toHaveAttribute(
@@ -574,8 +603,8 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
   const fullCount = Number(
     await page.locator("#scene").getAttribute("data-full-runner-count")
   );
-  expect(proxyCount).toBeGreaterThanOrEqual(16);
-  expect(fullCount).toBeLessThanOrEqual(2);
+  expect(proxyCount).toBeGreaterThanOrEqual(17);
+  expect(fullCount).toBeLessThanOrEqual(1);
 
   // AUTO owns focus. Switch to a manual camera before checking manual focus.
   await page.getByRole("button", { name: "SIDE", exact: true }).click({ force: true });
