@@ -306,7 +306,9 @@ renderer.setPixelRatio(renderPixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight, false);
 canvas.dataset.renderPixelRatio = String(renderPixelRatio);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMapping = SIMPLIFIED_RACE_PAGE
+  ? THREE.NoToneMapping
+  : THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.0;
 
 const camera = new THREE.PerspectiveCamera(
@@ -430,6 +432,35 @@ function makeMesh(geometry, material, parent, position = [0, 0, 0], scale = [1, 
   mesh.scale.set(...scale);
   parent.add(mesh);
   return mesh;
+}
+
+function applySimplifiedRaceWorldMaterials() {
+  if (!SIMPLIFIED_RACE_PAGE) return;
+
+  scene.traverse((object) => {
+    if (!object.material) return;
+    const sourceMaterials = Array.isArray(object.material)
+      ? object.material
+      : [object.material];
+
+    const converted = sourceMaterials.map((source) => {
+      if (!source?.isMeshStandardMaterial) return source;
+      return new THREE.MeshBasicMaterial({
+        color: source.color?.clone?.() || new THREE.Color(0xffffff),
+        transparent: source.transparent,
+        opacity: source.opacity,
+        side: source.side,
+        depthWrite: source.depthWrite,
+        depthTest: source.depthTest,
+        fog: true
+      });
+    });
+
+    object.material = Array.isArray(object.material) ? converted : converted[0];
+  });
+
+  canvas.dataset.raceRenderProfile = "flat-basic";
+  canvas.dataset.raceToneMapping = "none";
 }
 
 function addWorld() {
@@ -2567,6 +2598,7 @@ const RACE_PROXY_PROFILE = {
     body: [0.62, 0.50, 1.18],
     pelvis: [0.56, 0.46, 0.86],
     head: [0.34, 0.30, 0.54],
+    limbWidth: 0.92,
     crest: 0.72,
     tailLengths: [0.46, 0.40, 0.34]
   },
@@ -2574,6 +2606,7 @@ const RACE_PROXY_PROFILE = {
     body: [0.86, 0.67, 1.02],
     pelvis: [0.76, 0.62, 0.80],
     head: [0.44, 0.38, 0.50],
+    limbWidth: 1.42,
     crest: 0.50,
     tailLengths: [0.32, 0.28, 0.23]
   },
@@ -2581,6 +2614,7 @@ const RACE_PROXY_PROFILE = {
     body: [0.59, 0.46, 1.28],
     pelvis: [0.53, 0.43, 0.96],
     head: [0.31, 0.27, 0.58],
+    limbWidth: 0.86,
     crest: 0.66,
     tailLengths: [0.34, 0.30, 0.25]
   },
@@ -2588,6 +2622,7 @@ const RACE_PROXY_PROFILE = {
     body: [0.69, 0.50, 0.94],
     pelvis: [0.66, 0.47, 0.76],
     head: [0.35, 0.30, 0.47],
+    limbWidth: 1.04,
     crest: 0.48,
     tailLengths: [0.31, 0.28, 0.24]
   }
@@ -2618,22 +2653,13 @@ function makeRaceProxyInstances(geometry, material, maxInstances) {
 function ensureSimplifiedRaceProxyPool() {
   if (!SIMPLIFIED_RACE_PAGE || simplifiedRaceProxyPool) return;
 
-  const primaryMaterial = new THREE.MeshLambertMaterial({
-    color: 0xffffff,
-    flatShading: true
-  });
-  const secondaryMaterial = new THREE.MeshLambertMaterial({
-    color: 0xffffff,
-    flatShading: true
-  });
-  const darkMaterial = new THREE.MeshLambertMaterial({
-    color: 0xffffff,
-    flatShading: true
-  });
+  const primaryMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, fog: true });
+  const secondaryMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, fog: true });
+  const darkMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, fog: true });
   const cueMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
 
   simplifiedRaceProxyPool = {
-    chest: makeRaceProxyInstances(proxyBodyGeometry, primaryMaterial, RUNNER_COUNT),
+    chest: makeRaceProxyInstances(proxyBodyGeometry, primaryMaterial, RUNNER_COUNT * 2),
     pelvis: makeRaceProxyInstances(proxyBodyGeometry, secondaryMaterial, RUNNER_COUNT),
     neck: makeRaceProxyInstances(proxyNeckGeometry, primaryMaterial, RUNNER_COUNT),
     head: makeRaceProxyInstances(proxyHeadGeometry, primaryMaterial, RUNNER_COUNT),
@@ -2688,6 +2714,14 @@ function createSimplifiedRaceProxy(morph, color, sourceRoot) {
   const waist = new THREE.Object3D();
   waist.position.copy(sourceUd.waist.position);
   bodyMaster.add(waist);
+
+  const waistPart = new THREE.Object3D();
+  waistPart.scale.set(
+    profile.body[0] * 0.80,
+    profile.body[1] * 0.72,
+    0.78
+  );
+  waist.add(waistPart);
 
   const keel = new THREE.Object3D();
   keel.position.copy(sourceUd.keel.position);
@@ -2787,7 +2821,7 @@ function createSimplifiedRaceProxy(morph, color, sourceRoot) {
 
     const upper = new THREE.Object3D();
     upper.position.set(0, -sourceLeg.upperLen / 2, 0.045);
-    upper.scale.set(1, sourceLeg.upperLen, 1);
+    upper.scale.set(profile.limbWidth, sourceLeg.upperLen, profile.limbWidth);
     hip.add(upper);
 
     const knee = new THREE.Object3D();
@@ -2796,7 +2830,7 @@ function createSimplifiedRaceProxy(morph, color, sourceRoot) {
 
     const lower = new THREE.Object3D();
     lower.position.set(0, -sourceLeg.lowerLen / 2, 0.05);
-    lower.scale.set(1, sourceLeg.lowerLen, 1);
+    lower.scale.set(profile.limbWidth, sourceLeg.lowerLen, profile.limbWidth);
     knee.add(lower);
 
     const ankle = new THREE.Object3D();
@@ -2805,7 +2839,11 @@ function createSimplifiedRaceProxy(morph, color, sourceRoot) {
 
     const cannon = new THREE.Object3D();
     cannon.position.set(0, -sourceLeg.cannonLen / 2, 0.04);
-    cannon.scale.set(1, sourceLeg.cannonLen, 1);
+    cannon.scale.set(
+      profile.limbWidth,
+      sourceLeg.cannonLen,
+      profile.limbWidth
+    );
     ankle.add(cannon);
 
     const foot = new THREE.Object3D();
@@ -2894,6 +2932,7 @@ function createSimplifiedRaceProxy(morph, color, sourceRoot) {
     profile,
     colors,
     chest,
+    waistPart,
     pelvis,
     neck,
     headPart,
@@ -2968,6 +3007,7 @@ function syncSimplifiedRaceProxyInstances() {
     runner.raceProxy.updateMatrixWorld(true);
 
     setProxyInstance(simplifiedRaceProxyPool.chest, counts.chest++, ud.chest, ud.colors.primary);
+    setProxyInstance(simplifiedRaceProxyPool.chest, counts.chest++, ud.waistPart, ud.colors.primary);
     setProxyInstance(simplifiedRaceProxyPool.pelvis, counts.pelvis++, ud.pelvis, ud.colors.secondary);
     setProxyInstance(simplifiedRaceProxyPool.neck, counts.neck++, ud.neck, ud.colors.primary);
     setProxyInstance(simplifiedRaceProxyPool.head, counts.head++, ud.headPart, ud.colors.primary);
@@ -4708,6 +4748,7 @@ function animate() {
 
 async function boot() {
   addWorld();
+  applySimplifiedRaceWorldMaterials();
   await prepareHunyuanSAsset();
   createRunners();
   resetRace();
