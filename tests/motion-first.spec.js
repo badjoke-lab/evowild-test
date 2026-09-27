@@ -539,7 +539,17 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
   const fpsText = await page.locator("#fpsReadout").textContent();
   const fps = Number.parseInt(fpsText || "", 10);
   expect(Number.isFinite(fps)).toBeTruthy();
-  expect(fps).toBeGreaterThanOrEqual(20);
+  expect(fps).toBeGreaterThanOrEqual(28);
+
+  await expect(page.locator("#scene")).toHaveAttribute("data-race-proxy-lod", "1");
+  const proxyCount = Number(
+    await page.locator("#scene").getAttribute("data-proxy-runner-count")
+  );
+  const fullCount = Number(
+    await page.locator("#scene").getAttribute("data-full-runner-count")
+  );
+  expect(proxyCount).toBeGreaterThanOrEqual(10);
+  expect(fullCount).toBeLessThanOrEqual(8);
 
   // AUTO owns focus. Switch to a manual camera before checking manual focus.
   await page.getByRole("button", { name: "SIDE", exact: true }).click({ force: true });
@@ -594,7 +604,8 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
   await expect(page.locator("#scene")).toBeVisible();
   await expect(page.locator("#cameraReadout")).not.toHaveText("");
   await expect(page.locator("#scene")).toHaveAttribute("data-speed-cue-spacing", "7.25");
-  await expect(page.locator("#scene")).toHaveAttribute("data-render-pixel-ratio", "0.4");
+  await expect(page.locator("#scene")).toHaveAttribute("data-render-pixel-ratio", "0.75");
+  await expect(page.locator("#scene")).toHaveAttribute("data-race-proxy-lod", "1");
   await expect(page.locator("#scene")).toHaveAttribute("data-director-reason", "START");
 
   await page.waitForTimeout(7200);
