@@ -616,11 +616,15 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
     "data-race-proxy-representation",
     "instanced-canonical-rig"
   );
-  await expect(page.locator("#scene")).toHaveAttribute("data-race-proxy-draw-calls", "11");
+  await expect(page.locator("#scene")).toHaveAttribute("data-race-proxy-draw-calls", "15");
   await expect(page.locator("#scene")).toHaveAttribute("data-race-proxy-cue-band", "1");
   await expect(page.locator("#scene")).toHaveAttribute(
     "data-race-proxy-update-mode",
     "canonical-direct"
+  );
+  await expect(page.locator("#scene")).toHaveAttribute(
+    "data-race-proxy-shading",
+    "lambert-structural"
   );
   await expect(page.locator("#scene")).toHaveAttribute("data-race-proxy-split-foot", "1");
   await expect(page.locator("#scene")).toHaveAttribute(
