@@ -2603,6 +2603,7 @@ const RACE_PROXY_PROFILE = {
     body: [0.62, 0.50, 1.18],
     pelvis: [0.56, 0.46, 0.86],
     head: [0.34, 0.30, 0.54],
+    collar: [0.44, 0.34, 0.58],
     limbWidth: 0.92,
     crest: 0.72,
     tailLengths: [0.46, 0.40, 0.34]
@@ -2611,6 +2612,7 @@ const RACE_PROXY_PROFILE = {
     body: [0.86, 0.67, 1.02],
     pelvis: [0.76, 0.62, 0.80],
     head: [0.44, 0.38, 0.50],
+    collar: [0.58, 0.48, 0.54],
     limbWidth: 1.42,
     crest: 0.50,
     tailLengths: [0.32, 0.28, 0.23]
@@ -2619,6 +2621,7 @@ const RACE_PROXY_PROFILE = {
     body: [0.59, 0.46, 1.28],
     pelvis: [0.53, 0.43, 0.96],
     head: [0.31, 0.27, 0.58],
+    collar: [0.40, 0.32, 0.56],
     limbWidth: 0.86,
     crest: 0.66,
     tailLengths: [0.34, 0.30, 0.25]
@@ -2627,6 +2630,7 @@ const RACE_PROXY_PROFILE = {
     body: [0.69, 0.50, 0.94],
     pelvis: [0.66, 0.47, 0.76],
     head: [0.35, 0.30, 0.47],
+    collar: [0.45, 0.36, 0.50],
     limbWidth: 1.04,
     crest: 0.48,
     tailLengths: [0.31, 0.28, 0.24]
@@ -2687,7 +2691,7 @@ function ensureSimplifiedRaceProxyPool() {
   });
 
   simplifiedRaceProxyPool = {
-    chest: makeRaceProxyInstances(proxyBodyGeometry, primaryMaterial, RUNNER_COUNT * 2),
+    chest: makeRaceProxyInstances(proxyBodyGeometry, primaryMaterial, RUNNER_COUNT * 3),
     pelvis: makeRaceProxyInstances(proxyBodyGeometry, secondaryMaterial, RUNNER_COUNT),
     neck: makeRaceProxyInstances(proxyNeckGeometry, primaryMaterial, RUNNER_COUNT),
     head: makeRaceProxyInstances(proxyHeadGeometry, primaryMaterial, RUNNER_COUNT),
@@ -2773,6 +2777,15 @@ function createSimplifiedRaceProxy(morph, color, sourceRoot) {
   chest.scale.set(...profile.body);
   chestPivot.add(chest);
 
+  const collar = new THREE.Object3D();
+  collar.position.set(
+    sourceUd.neckPivot.position.x,
+    sourceUd.neckPivot.position.y - 0.02,
+    sourceUd.neckPivot.position.z - 0.18
+  );
+  collar.scale.set(...profile.collar);
+  chestPivot.add(collar);
+
   const pelvis = new THREE.Object3D();
   pelvis.scale.set(...profile.pelvis);
   pelvisPivot.add(pelvis);
@@ -2784,10 +2797,12 @@ function createSimplifiedRaceProxy(morph, color, sourceRoot) {
   const neckLen = Math.max(0.36, sourceUd.headPivot.position.z + 0.14);
   const neck = new THREE.Object3D();
   neck.position.set(0, 0, neckLen * 0.44);
+  const neckWidth =
+    morph === "P" ? 1.15 : morph === "A" ? 0.98 : morph === "S" ? 0.94 : 0.90;
   neck.scale.set(
-    Math.max(0.72, profile.head[0] * 2.0),
+    neckWidth,
     neckLen,
-    Math.max(0.72, profile.head[1] * 2.0)
+    neckWidth
   );
   neck.rotation.x = Math.PI / 2;
   neckPivot.add(neck);
@@ -2834,6 +2849,7 @@ function createSimplifiedRaceProxy(morph, color, sourceRoot) {
   } else {
     tailBase.position.set(0, 0, -0.65);
   }
+  tailBase.position.z = -profile.pelvis[2] * 0.50;
   pelvisPivot.add(tailBase);
 
   const tailSegments = [];
@@ -3006,6 +3022,7 @@ function createSimplifiedRaceProxy(morph, color, sourceRoot) {
     profile,
     colors,
     chest,
+    collar,
     waistPart,
     pelvis,
     neck,
@@ -3095,6 +3112,7 @@ function syncSimplifiedRaceProxyInstances() {
 
     setProxyInstance(simplifiedRaceProxyPool.chest, counts.chest++, ud.chest, ud.colors.primary);
     setProxyInstance(simplifiedRaceProxyPool.chest, counts.chest++, ud.waistPart, ud.colors.primary);
+    setProxyInstance(simplifiedRaceProxyPool.chest, counts.chest++, ud.collar, ud.colors.primary);
     setProxyInstance(simplifiedRaceProxyPool.pelvis, counts.pelvis++, ud.pelvis, ud.colors.secondary);
     setProxyInstance(simplifiedRaceProxyPool.neck, counts.neck++, ud.neck, ud.colors.primary);
     setProxyInstance(simplifiedRaceProxyPool.head, counts.head++, ud.headPart, ud.colors.primary);
