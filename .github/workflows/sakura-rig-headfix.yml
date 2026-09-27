@@ -33,7 +33,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/models/evowild-s/focus-rigged-v5-headfix-v2.glb public/models/evowild-s/focus-rigged-v5-headfix-v2.json
+          git add public/models/evowild-s/focus-rigged-v5-headfix-v3.glb public/models/evowild-s/focus-rigged-v5-headfix-v3.json
           if git diff --cached --quiet; then
             echo "No headfix changes"
           else
