@@ -175,12 +175,19 @@ for node_index, node in enumerate(nodes):
             continue
 
         xs = [positions[i][0] for i in selected]
-        ys = [positions[i][1] for i in selected]
-        zs = [positions[i][2] for i in selected]
-        min_y, max_y = min(ys), max(ys)
-        min_z, max_z = min(zs), max(zs)
-        height = max_y - min_y
-        depth = max_z - min_z
+
+        # The source GLB is Y-up, while Blender's glTF importer maps the model
+        # used in the earlier diagnostics as:
+        #   Blender Y (vertical) = -GLB local Z
+        #   Blender Z (front/back) = GLB local Y
+        # Work in those semantic coordinates here so the direct patch selects
+        # the same upper swept crest that was identified in Blender.
+        verticals = [-positions[i][2] for i in selected]
+        rears = [positions[i][1] for i in selected]
+        min_vertical, max_vertical = min(verticals), max(verticals)
+        min_rear, max_rear = min(rears), max(rears)
+        height = max_vertical - min_vertical
+        depth = max_rear - min_rear
         if height <= 1e-6 or depth <= 1e-6:
             continue
 
@@ -188,21 +195,21 @@ for node_index, node in enumerate(nodes):
         # vertices instead of from the two crest tips themselves.
         base_indices = [
             i for i in selected
-            if positions[i][1] <= min_y + height * 0.47 and head_weight[i] >= 0.28
+            if (-positions[i][2]) <= min_vertical + height * 0.47 and head_weight[i] >= 0.28
         ]
         if not base_indices:
             base_indices = selected
         weight_sum = sum(max(head_weight[i], 1e-6) for i in base_indices)
         center_x = sum(positions[i][0] * max(head_weight[i], 1e-6) for i in base_indices) / weight_sum
 
-        y_measure = min_y + height * 0.62
-        y_blend = min_y + height * 0.50
-        z_start = min_z + depth * 0.65
+        vertical_measure = min_vertical + height * 0.62
+        vertical_blend = min_vertical + height * 0.50
+        rear_start = min_rear + depth * 0.65
         side_guard = max(0.0015, (max(xs) - min(xs)) * 0.010)
 
         crest_indices = [
             i for i in selected
-            if positions[i][1] >= y_measure and positions[i][2] >= z_start
+            if (-positions[i][2]) >= vertical_measure and positions[i][1] >= rear_start
             and abs(positions[i][0] - center_x) > side_guard
         ]
         left = [i for i in crest_indices if positions[i][0] < center_x]
@@ -220,38 +227,70 @@ for node_index, node in enumerate(nodes):
         crest_max = max(positions[i][0] for i in crest_indices)
         crest_span = max(crest_max - crest_min, 1e-6)
 
-        # Shift each lobe rigidly toward the centre. This preserves its width.
-        # A small overlap is intentional so animation cannot reopen a visible
-        # central slit during the run cycle.
+        # Translate both lobes toward each other without scaling their width.
+        # The small overlap prevents the run animation from reopening a slit.
         target_overlap = max(0.0035, crest_span * 0.045)
         shift_amount = max(0.0, (gap + target_overlap) * 0.5)
 
         changed = 0
         local_max_shift = 0.0
+        changed_indices = set()
         for i in selected:
             x, y, z = positions[i]
-            if y <= y_blend or z <= z_start:
+            vertical = -z
+            rear = y
+            if vertical <= vertical_blend or rear <= rear_start:
                 continue
             dx = x - center_x
             if abs(dx) <= side_guard * 0.5:
                 continue
 
-            hy = smooth01((y - y_blend) / max(1e-6, y_measure - y_blend))
-            hz = smooth01((z - z_start) / max(1e-6, max_z - z_start))
+            hv = smooth01((vertical - vertical_blend) / max(1e-6, vertical_measure - vertical_blend))
+            hr = smooth01((rear - rear_start) / max(1e-6, max_rear - rear_start))
             hw = smooth01((head_weight[i] - 0.18) / 0.45)
-            strength = hy * (0.74 + 0.26 * hz) * (0.75 + 0.25 * hw)
+            strength = hv * (0.74 + 0.26 * hr) * (0.75 + 0.25 * hw)
 
             shift = shift_amount if dx < 0 else -shift_amount
             new_x = x + shift * strength
             positions[i][0] = new_x
             local_max_shift = max(local_max_shift, abs(new_x - x))
             changed += 1
+            changed_indices.add(i)
 
-        for i in selected:
-            # Only writes changed and unchanged selected head vertices; all
-            # other geometry bytes remain untouched.
-            if positions[i][1] > y_blend and positions[i][2] > z_start:
-                write_position(pos_index, i, positions[i])
+        for i in changed_indices:
+            write_position(pos_index, i, positions[i])
+
+        patched_primitives.append({
+            "node_index": node_index,
+            "mesh_index": node["mesh"],
+            "primitive_index": prim_index,
+            "head_joint_name": head_name,
+            "head_joint_slot": head_slot,
+            "vertex_count": len(positions),
+            "head_weighted_count": len(selected),
+            "crest_left_count": len(left),
+            "crest_right_count": len(right),
+            "head_center_x": center_x,
+            "semantic_axes": {
+                "vertical": "-GLB_Z",
+                "front_back": "GLB_Y",
+                "lateral": "GLB_X"
+            },
+            "head_bounds": {
+                "min_vertical": min_vertical, "max_vertical": max_vertical,
+                "min_rear": min_rear, "max_rear": max_rear,
+            },
+            "vertical_measure": vertical_measure,
+            "vertical_blend": vertical_blend,
+            "rear_start": rear_start,
+            "left_inner_before": left_inner,
+            "right_inner_before": right_inner,
+            "gap_before": gap,
+            "target_overlap": target_overlap,
+            "shift_amount": shift_amount,
+            "changed_vertices": changed,
+            "max_x_shift": local_max_shift,
+        })
 
         total_changed += changed
         global_max_shift = max(global_max_shift, local_max_shift)
@@ -293,7 +332,7 @@ report = {
     "patched_primitives": patched_primitives,
     "changed_vertices": total_changed,
     "max_x_shift": global_max_shift,
-    "status": "rigged_headfix_v3_direct_glb_candidate",
+    "status": "rigged_headfix_v4_direct_glb_semantic_axes_candidate",
 }
 report_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
 print("S_HEADFIX_V3_REPORT " + json.dumps(report, separators=(",", ":")))
