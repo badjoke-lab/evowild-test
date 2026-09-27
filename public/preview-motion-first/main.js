@@ -3020,34 +3020,21 @@ function syncSimplifiedRaceProxyInstances() {
 function updateSimplifiedRaceLodSelection() {
   if (!SIMPLIFIED_RACE_PAGE || runners.length === 0) return;
 
-  // One full articulated subject follows the broadcast focus. All other
-  // runners keep the exact S/P/E/A canonical gait on lightweight proxy rigs.
-  const fullIds = new Set([selectedRunner]);
-  let fullCount = 0;
-
+  // The 18-runner race now renders every subject through the same articulated
+  // instanced body. This removes the last high-draw procedural runner from the
+  // race scene without changing the canonical S/P/E/A gait solver.
+  let proxyCount = 0;
   runners.forEach((runner) => {
-    const renderFull = fullIds.has(runner.id);
-    const previous = runner.renderFull;
-
-    if (renderFull !== previous && runner.raceProxy) {
-      if (renderFull) {
-        // Preserve damped bank/head/tail state across proxy -> full promotion.
-        copyMotionState(runner.raceProxy.userData, runner.group.userData);
-      } else {
-        // Preserve the same state when full -> proxy demotion.
-        copyMotionState(runner.group.userData, runner.raceProxy.userData);
-      }
-    }
-
-    runner.renderFull = renderFull;
-    runner.group.visible = renderFull;
-    if (renderFull) fullCount += 1;
+    runner.renderFull = false;
+    runner.group.visible = false;
+    if (runner.raceProxy) proxyCount += 1;
   });
 
-  canvas.dataset.fullRunnerCount = String(fullCount);
-  canvas.dataset.fullRunnerBudget = "1";
-  canvas.dataset.proxyRunnerCount = String(runners.length - fullCount);
+  canvas.dataset.fullRunnerCount = "0";
+  canvas.dataset.fullRunnerBudget = "0";
+  canvas.dataset.proxyRunnerCount = String(proxyCount);
   canvas.dataset.raceProxyLod = "1";
+  canvas.dataset.raceFocusRepresentation = "canonical-instanced";
 }
 
 function createRunners() {
@@ -3088,11 +3075,19 @@ function createRunners() {
       nextLaneDecision: 190 + seeded(i, 11) * 210,
       laneChangeStartedAt: -999,
       raceProxy,
-      renderFull: true
+      renderFull: !SIMPLIFIED_RACE_PAGE
     };
 
     creature.position.set(runner.laneX, 0, runner.distance);
-    scene.add(creature);
+    // The simplified race keeps the procedural source rig detached from the
+    // render scene. It remains the canonical motion/state source, while the
+    // visible race body is emitted through the shared instanced proxy pool.
+    // Detaching avoids Three.js recursively updating hundreds of hidden source
+    // mesh matrices every rendered frame.
+    if (!SIMPLIFIED_RACE_PAGE) {
+      scene.add(creature);
+    }
+    creature.visible = !SIMPLIFIED_RACE_PAGE;
     if (raceProxy) {
       raceProxy.position.set(runner.laneX, 0, runner.distance);
     }
@@ -3140,7 +3135,8 @@ function resetRace() {
     if (runner.raceProxy) {
       runner.raceProxy.position.set(runner.laneX, 0, runner.distance);
     }
-    runner.renderFull = true;
+    runner.renderFull = !SIMPLIFIED_RACE_PAGE;
+    runner.group.visible = runner.renderFull;
   });
 }
 
@@ -4680,28 +4676,20 @@ function animate() {
     simulationAccumulator = 0;
   }
 
-  // Camera/director decides the focus before LOD, so a broadcast cut and the
-  // full-detail subject switch happen in the same visible frame.
+  // Camera/director still decides the race focus, but all 18 visible subjects
+  // share the articulated instanced representation in the race page.
   updateCamera(cameraDt);
   updateSimplifiedRaceLodSelection();
 
   if (SIMPLIFIED_RACE_PAGE) {
     runners.forEach((runner) => {
-      if (runner.renderFull) {
-        updateCreaturePose(
-          runner,
-          paused ? 0 : runner.renderLateralVelocity || 0,
-          paused ? cameraDt : poseDt
-        );
-      } else {
-        updateSimplifiedRaceProxyCanonicalPose(
-          runner,
-          paused ? cameraDt : poseDt
-        );
-      }
+      updateSimplifiedRaceProxyCanonicalPose(
+        runner,
+        paused ? cameraDt : poseDt
+      );
     });
     syncSimplifiedRaceProxyInstances();
-    canvas.dataset.poseUpdateMode = "canonical-direct-lod";
+    canvas.dataset.poseUpdateMode = "canonical-instanced-all";
     canvas.dataset.proxyCanonicalGait = "1";
   } else if (paused) {
     runners.forEach((runner) => {
