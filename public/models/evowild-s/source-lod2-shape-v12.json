@@ -1,0 +1,14 @@
+{
+  "status": "shape_refine_v12_direct_geometry_surgery_candidate_not_canonical",
+  "source_vertices": 6469,
+  "source_faces": 12940,
+  "body_vertices_after_surgery": 4227,
+  "body_faces_after_surgery": 8336,
+  "removed_horn_faces": 3014,
+  "removed_tail_faces": 1590,
+  "new_crest_count": 2,
+  "new_tail_count": 1,
+  "coordinate_basis": "raw_glb_x_lateral_y_head_tail_z_vertical",
+  "source": "source-lod2.glb",
+  "output": "source-lod2-shape-v12.glb"
+}
