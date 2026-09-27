@@ -1,0 +1,43 @@
+{
+  "source": "public/models/evowild-s/focus-rigged-v5.glb",
+  "output": "public/models/evowild-s/focus-rigged-v5-headfix-v4.glb",
+  "method": "direct_glb_position_patch_preserve_all_other_accessors",
+  "patched_primitives": [
+    {
+      "node_index": 19,
+      "mesh_index": 0,
+      "primitive_index": 0,
+      "head_joint_name": "head",
+      "head_joint_slot": 5,
+      "vertex_count": 38813,
+      "head_weighted_count": 4512,
+      "crest_left_count": 5,
+      "crest_right_count": 36,
+      "head_center_x": -0.02468618045605832,
+      "semantic_axes": {
+        "vertical": "-GLB_Z",
+        "front_back": "GLB_Y",
+        "lateral": "GLB_X"
+      },
+      "head_bounds": {
+        "min_vertical": 0.46637070178985596,
+        "max_vertical": 0.951151967048645,
+        "min_rear": -0.8501012325286865,
+        "max_rear": -0.3138382136821747
+      },
+      "vertical_measure": 0.7669350862503052,
+      "vertical_blend": 0.7087613344192505,
+      "rear_start": -0.5015302702784539,
+      "left_inner_before": -0.12182879447937012,
+      "right_inner_before": -0.0196498055011034,
+      "gap_before": 0.10217898897826672,
+      "target_overlap": 0.005117745911702514,
+      "shift_amount": 0.053648367444984614,
+      "changed_vertices": 699,
+      "max_x_shift": 0.04284101719708291
+    }
+  ],
+  "changed_vertices": 699,
+  "max_x_shift": 0.04284101719708291,
+  "status": "rigged_headfix_v4_direct_glb_semantic_axes_candidate"
+}
