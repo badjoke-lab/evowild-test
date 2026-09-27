@@ -311,7 +311,7 @@ function correctHeadSilhouette(root) {
   // Add one low-poly skull cap at their base so they read as two crests/horns
   // attached to one head mass. This keeps the original swept tips intact.
   const geo = new THREE.IcosahedronGeometry(1, 2);
-  geo.scale(spanX * 0.31, spanY * 0.17, spanX * 0.23);
+  geo.scale(spanX * 0.58, spanY * 0.25, spanX * 0.70);
   geo.computeVertexNormals();
 
   const bridgeMat = cel({
@@ -329,7 +329,7 @@ function correctHeadSilhouette(root) {
   bridge.castShadow = true;
   bridge.receiveShadow = true;
 
-  centerWorld.y = minTopY + spanY * 0.20;
+  centerWorld.y = minTopY + spanY * 0.08;
 
   // The correction must move with the animated head bone. The earlier page
   // versions attached it to the scene root, so the run animation moved the
@@ -344,7 +344,7 @@ function correctHeadSilhouette(root) {
   anchor.add(bridge);
   root.updateMatrixWorld(true);
 
-  canvas.dataset.headSilhouetteCorrection = headBone ? "head-cap-bone-v4" : "head-cap-root-fallback";
+  canvas.dataset.headMassCorrection = headBone ? "head-cap-bone-v17" : "head-cap-root-fallback";
 }
 const cameraForward = new THREE.Vector3();
 const cameraSide = new THREE.Vector3();
@@ -440,14 +440,13 @@ loader.load(
     model.position.z -= center.z;
     model.updateMatrixWorld(true);
 
-    repairRiggedCrestGeometry(model);
-
     const correctedBox = new THREE.Box3().setFromObject(model);
     const correctedSize = new THREE.Vector3();
     correctedBox.getSize(correctedSize);
     modelHeight = Math.max(1, correctedSize.y);
 
     setModelMaterials(renderMode);
+    correctHeadSilhouette(model);
 
     if (gltf.animations.length) {
       mixer = new THREE.AnimationMixer(model);

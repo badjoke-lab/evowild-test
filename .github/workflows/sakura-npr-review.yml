@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - test/sakura-npr-visual-gate-20260927
+      - fix/sakura-npr-head-mass-v13-20260928
   workflow_dispatch:
 
 jobs:
