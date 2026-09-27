@@ -173,7 +173,34 @@ function repairRiggedCrestGeometry(root) {
     if (!weightedCount || !Number.isFinite(minY) || maxY <= minY) return;
 
     const centerX = (minX + maxX) * 0.5;
-    const yStart = minY + (maxY - minY) * 0.58;
+    const yStart = minY + (maxY - minY) * 0.52;
+    const centroidStart = minY + (maxY - minY) * 0.66;
+    const sideGuard = Math.max(0.012, (maxX - minX) * 0.035);
+
+    let leftSum = 0, rightSum = 0, leftCount = 0, rightCount = 0;
+    for (let i = 0; i < pos.count; i += 1) {
+      const hw = headWeightAt(i);
+      if (hw < 0.18) continue;
+      world.fromBufferAttribute(pos, i);
+      o.localToWorld(world);
+      if (world.y < centroidStart) continue;
+      const dx = world.x - centerX;
+      if (dx < -sideGuard) {
+        leftSum += world.x;
+        leftCount += 1;
+      } else if (dx > sideGuard) {
+        rightSum += world.x;
+        rightCount += 1;
+      }
+    }
+
+    if (!leftCount || !rightCount) return;
+
+    const leftCentroid = leftSum / leftCount;
+    const rightCentroid = rightSum / rightCount;
+    const desiredHalfGap = Math.max(0.003, (maxX - minX) * 0.012);
+    const leftShift = (centerX - desiredHalfGap) - leftCentroid;
+    const rightShift = (centerX + desiredHalfGap) - rightCentroid;
 
     const smooth01 = (x) => {
       x = THREE.MathUtils.clamp(x, 0, 1);
@@ -188,21 +215,16 @@ function repairRiggedCrestGeometry(root) {
       o.localToWorld(world);
       if (world.y <= yStart) continue;
 
-      const hy = smooth01((world.y - yStart) / Math.max(1e-6, maxY - yStart));
-      const hw = smooth01((hwRaw - 0.18) / 0.22);
-      const strength = hy * (0.72 + 0.28 * hw);
-
-      // Preserve each crest lobe's own width. Move the left/right lobes
-      // toward the centre as rigidly as possible instead of scaling both
-      // down into a needle. Near-centre vertices stay put.
       const dx = world.x - centerX;
-      const guard = 0.012;
-      const maxShift = 0.095 * strength;
-      if (dx > guard) {
-        world.x -= Math.min(maxShift, Math.max(0, dx - guard * 0.55));
-      } else if (dx < -guard) {
-        world.x += Math.min(maxShift, Math.max(0, -dx - guard * 0.55));
-      }
+      if (Math.abs(dx) <= sideGuard * 0.55) continue;
+
+      const hy = smooth01((world.y - yStart) / Math.max(1e-6, maxY - yStart));
+      const hw = smooth01((hwRaw - 0.18) / 0.20);
+      const strength = Math.min(1, hy * (0.82 + 0.18 * hw) + (world.y >= centroidStart ? 0.22 : 0));
+
+      // Move each whole lobe toward the same centreline. This preserves its
+      // local width; unlike scaling, it cannot turn the crest into a needle.
+      world.x += (dx < 0 ? leftShift : rightShift) * strength;
 
       o.worldToLocal(world);
       pos.setXYZ(i, world.x, world.y, world.z);
@@ -216,9 +238,11 @@ function repairRiggedCrestGeometry(root) {
 
     canvas.dataset.headBoneIndex = String(headIndex);
     canvas.dataset.headWeightedVertices = String(weightedCount);
+    canvas.dataset.crestLeftShift = leftShift.toFixed(4);
+    canvas.dataset.crestRightShift = rightShift.toFixed(4);
   });
 
-  canvas.dataset.headSilhouetteCorrection = "weighted-lobe-converge-v8";
+  canvas.dataset.headSilhouetteCorrection = "centroid-lobe-merge-v9";
   canvas.dataset.headRepairVertices = String(changed);
 }
 
