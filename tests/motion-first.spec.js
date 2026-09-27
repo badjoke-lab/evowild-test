@@ -543,6 +543,7 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
     renderCalls: node.dataset.renderCalls,
     renderTriangles: node.dataset.renderTriangles,
     fullRunnerCount: node.dataset.fullRunnerCount,
+    fullRunnerBudget: node.dataset.fullRunnerBudget,
     proxyRunnerCount: node.dataset.proxyRunnerCount,
     simulationSteps: node.dataset.simulationSteps,
     poseUpdateMode: node.dataset.poseUpdateMode
@@ -573,8 +574,8 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
   const fullCount = Number(
     await page.locator("#scene").getAttribute("data-full-runner-count")
   );
-  expect(proxyCount).toBeGreaterThanOrEqual(10);
-  expect(fullCount).toBeLessThanOrEqual(8);
+  expect(proxyCount).toBeGreaterThanOrEqual(16);
+  expect(fullCount).toBeLessThanOrEqual(2);
 
   // AUTO owns focus. Switch to a manual camera before checking manual focus.
   await page.getByRole("button", { name: "SIDE", exact: true }).click({ force: true });
