@@ -2,10 +2,10 @@ import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 import crypto from "node:crypto";
 
-test("render S shape v4 v8 comparison", async ({ page }, testInfo) => {
+test("render S shape v4 v9 comparison", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(120000);
-  const outDir = "test-results/shape-v8-browser";
+  const outDir = "test-results/shape-v9-browser";
   fs.mkdirSync(outDir, { recursive: true });
 
   const errors = [];
@@ -34,12 +34,12 @@ test("render S shape v4 v8 comparison", async ({ page }, testInfo) => {
   }
 
   const v4 = await capture("v4", "hunyuan-s-lod2-shape-v4", "shape-v4");
-  const v8 = await capture("v8", "hunyuan-s-lod2-shape-v8", "shape-v8");
+  const v9 = await capture("v9", "hunyuan-s-lod2-shape-v9", "shape-v9");
 
-  expect(v8.LOW).not.toBe(v4.LOW);
-  expect(v8.FRONT).not.toBe(v4.FRONT);
-  expect(v8.CHASE).not.toBe(v4.CHASE);
+  expect(v9.LOW).not.toBe(v4.LOW);
+  expect(v9.FRONT).not.toBe(v4.FRONT);
+  expect(v9.CHASE).not.toBe(v4.CHASE);
   expect(errors, errors.join("\n")).toEqual([]);
 
-  console.log("SHAPE_V8_BROWSER", JSON.stringify({ v4, v8 }));
+  console.log("SHAPE_V9_BROWSER", JSON.stringify({ v4, v9 }));
 });
