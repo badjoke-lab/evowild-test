@@ -191,8 +191,8 @@ function placeRunner() {
 
   let dx = 0, dz = 0, eye = modelHeight * 0.28;
   if (cameraMode === "front") { dz = 4.8; eye = modelHeight * 0.20; }
-  else if (cameraMode === "chase") { dz = -5.4; eye = modelHeight * 0.28; }
-  else if (cameraMode === "side") { dx = ROAD_HALF * 0.84; eye = modelHeight * 0.24; }
+  else if (cameraMode === "chase") { dz = -4.6; eye = modelHeight * 0.34; }
+  else if (cameraMode === "side") { dx = -ROAD_HALF * 0.68; eye = modelHeight * 0.85; }
   else { dx = ROAD_HALF * 0.72; dz = 3.6; eye = modelHeight * 0.28; }
 
   const cz = runZ + dz;
