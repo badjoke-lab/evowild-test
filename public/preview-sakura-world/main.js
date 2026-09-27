@@ -58,7 +58,8 @@ scene.add(hemi);
 
 const sky = buildSky(scene, 500);
 const world = buildWorld(scene);
-const pipeline = new Pipeline(renderer, scene, camera, { pixelBudget: 4.6e6 });
+const pipeline = new Pipeline(renderer, scene, camera, { pixelBudget: 2.4e6 });
+pipeline.forceScale = 1.15;
 
 const SUN_LOCAL = new THREE.Vector3(-52, 62, 56);
 const FILL_LOCAL = new THREE.Vector3(48, 26, -44);
@@ -270,6 +271,8 @@ loader.load(
     canvas.dataset.cameraAxisFix = "1";
     canvas.dataset.upstreamOutline = "1";
     canvas.dataset.animationCount = String(gltf.animations.length);
+    canvas.dataset.worldSimulation = "frozen-render-environment";
+    canvas.dataset.pipelineScale = String(pipeline.forceScale);
     placeRunner();
     pipeline.render();
     loading.classList.add("hidden");
@@ -288,8 +291,11 @@ let fpsTime = 0;
 function frame() {
   const dt = Math.min(clock.getDelta(), 1 / 20);
   mixer?.update(dt);
-  world.update(dt);
 
+  // The imported district is used as a rendered race environment here, not as
+  // the original walkable simulation. Keep trains/petals/interactables frozen:
+  // updating the entire upstream simulation every frame starves camera input
+  // on low-power/headless GPUs while adding nothing to this lane's goal.
   if (model) {
     runZ += runSpeed * dt;
     if (runZ > 44) runZ = 10;
