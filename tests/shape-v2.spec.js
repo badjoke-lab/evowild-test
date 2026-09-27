@@ -2,21 +2,18 @@ import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 import crypto from "node:crypto";
 
-test("render S shape v4 v9 comparison", async ({ page }, testInfo) => {
+test("render S baseline and corrected-axis v10 comparison", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(120000);
-  const outDir = "test-results/shape-v9-browser";
+  const outDir = "test-results/shape-v10-browser";
   fs.mkdirSync(outDir, { recursive: true });
 
   const errors = [];
   page.on("pageerror", (err) => errors.push(err.stack || String(err)));
   page.on("console", (msg) => { if (msg.type() === "error") errors.push(msg.text()); });
 
-  async function capture(shape, expectedAsset, prefix) {
-    await page.goto(
-      `/evowild-test/preview-motion-first/index.html?inspect=1&morph=S&shape=${shape}`,
-      { waitUntil: "networkidle" }
-    );
+  async function capture(url, expectedAsset, prefix) {
+    await page.goto(url, { waitUntil: "networkidle" });
     const scene = page.locator("#scene");
     await expect(scene).toBeVisible();
     await expect(scene).toHaveAttribute("data-s-asset-ready", "1", { timeout: 30000 });
@@ -33,13 +30,21 @@ test("render S shape v4 v9 comparison", async ({ page }, testInfo) => {
     return result;
   }
 
-  const v4 = await capture("v4", "hunyuan-s-lod2-shape-v4", "shape-v4");
-  const v9 = await capture("v9", "hunyuan-s-lod2-shape-v9", "shape-v9");
+  const baseline = await capture(
+    "/evowild-test/preview-motion-first/index.html?inspect=1&morph=S",
+    "hunyuan-s-lod2",
+    "baseline"
+  );
+  const v10 = await capture(
+    "/evowild-test/preview-motion-first/index.html?inspect=1&morph=S&shape=v10",
+    "hunyuan-s-lod2-shape-v10",
+    "shape-v10"
+  );
 
-  expect(v9.LOW).not.toBe(v4.LOW);
-  expect(v9.FRONT).not.toBe(v4.FRONT);
-  expect(v9.CHASE).not.toBe(v4.CHASE);
+  expect(v10.LOW).not.toBe(baseline.LOW);
+  expect(v10.FRONT).not.toBe(baseline.FRONT);
+  expect(v10.CHASE).not.toBe(baseline.CHASE);
   expect(errors, errors.join("\n")).toEqual([]);
 
-  console.log("SHAPE_V9_BROWSER", JSON.stringify({ v4, v9 }));
+  console.log("SHAPE_V10_BROWSER", JSON.stringify({ baseline, v10 }));
 });
