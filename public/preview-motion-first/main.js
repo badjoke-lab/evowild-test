@@ -4895,6 +4895,21 @@ async function boot() {
     canvas.dataset.runnerCount = String(runners.length);
     canvas.dataset.morphSet = [...new Set(runners.map((runner) => runner.morph))].join("");
     canvas.dataset.simulationHz = String(Math.round(1 / SIMULATION_STEP));
+
+    if (
+      Number.isInteger(PROXY_REVIEW_RUNNER) &&
+      PROXY_REVIEW_RUNNER >= 0 &&
+      PROXY_REVIEW_RUNNER < runners.length
+    ) {
+      selectedRunner = PROXY_REVIEW_RUNNER;
+      runnerSelect.value = String(PROXY_REVIEW_RUNNER);
+      requestedCamera = "SIDE";
+      actualCamera = "SIDE";
+      cameraButtons.forEach((button) => {
+        button.classList.toggle("active", button.dataset.camera === "SIDE");
+      });
+      canvas.dataset.proxyReviewFocus = String(PROXY_REVIEW_RUNNER);
+    }
   }
 
   if (INSPECT_MODE || MOTION_REVIEW_MODE) {
