@@ -4684,6 +4684,10 @@ window.addEventListener("resize", () => {
 
 
 function animate() {
+  const frameWorkStartedAt = SIMPLIFIED_RACE_PAGE ? performance.now() : 0;
+  let poseWorkMs = 0;
+  let syncWorkMs = 0;
+
   // Keep race speed independent from render FPS. Race physics and gait phase
   // stay fixed at 60 Hz; articulated transforms are solved only for frames
   // that can actually be shown.
@@ -4722,13 +4726,19 @@ function animate() {
   updateSimplifiedRaceLodSelection();
 
   if (SIMPLIFIED_RACE_PAGE) {
+    const poseStartedAt = performance.now();
     runners.forEach((runner) => {
       updateSimplifiedRaceProxyCanonicalPose(
         runner,
         paused ? cameraDt : poseDt
       );
     });
+    poseWorkMs = performance.now() - poseStartedAt;
+
+    const syncStartedAt = performance.now();
     syncSimplifiedRaceProxyInstances();
+    syncWorkMs = performance.now() - syncStartedAt;
+
     canvas.dataset.poseUpdateMode = "canonical-instanced-all";
     canvas.dataset.proxyCanonicalGait = "1";
   } else if (paused) {
@@ -4738,10 +4748,20 @@ function animate() {
   }
 
   updateHud(rawDt);
+  const renderStartedAt = SIMPLIFIED_RACE_PAGE ? performance.now() : 0;
   renderer.render(scene, camera);
   if (SIMPLIFIED_RACE_PAGE) {
+    const renderWorkMs = performance.now() - renderStartedAt;
+    const totalWorkMs = performance.now() - frameWorkStartedAt;
+    const otherWorkMs = Math.max(0, totalWorkMs - poseWorkMs - syncWorkMs - renderWorkMs);
+
     canvas.dataset.renderCalls = String(renderer.info.render.calls);
     canvas.dataset.renderTriangles = String(renderer.info.render.triangles);
+    canvas.dataset.perfPoseMs = poseWorkMs.toFixed(3);
+    canvas.dataset.perfSyncMs = syncWorkMs.toFixed(3);
+    canvas.dataset.perfRenderMs = renderWorkMs.toFixed(3);
+    canvas.dataset.perfOtherMs = otherWorkMs.toFixed(3);
+    canvas.dataset.perfTotalWorkMs = totalWorkMs.toFixed(3);
   }
   requestAnimationFrame(animate);
 }
