@@ -294,32 +294,6 @@ for node_index, node in enumerate(nodes):
 
         total_changed += changed
         global_max_shift = max(global_max_shift, local_max_shift)
-        patched_primitives.append({
-            "node_index": node_index,
-            "mesh_index": node["mesh"],
-            "primitive_index": prim_index,
-            "head_joint_name": head_name,
-            "head_joint_slot": head_slot,
-            "vertex_count": len(positions),
-            "head_weighted_count": len(selected),
-            "crest_left_count": len(left),
-            "crest_right_count": len(right),
-            "head_center_x": center_x,
-            "head_bounds": {
-                "min_y": min_y, "max_y": max_y,
-                "min_z": min_z, "max_z": max_z,
-            },
-            "y_measure": y_measure,
-            "y_blend": y_blend,
-            "z_start": z_start,
-            "left_inner_before": left_inner,
-            "right_inner_before": right_inner,
-            "gap_before": gap,
-            "target_overlap": target_overlap,
-            "shift_amount": shift_amount,
-            "changed_vertices": changed,
-            "max_x_shift": local_max_shift,
-        })
 
 if not patched_primitives or total_changed == 0:
     raise RuntimeError("no rigged S head geometry was patched")
@@ -335,4 +309,4 @@ report = {
     "status": "rigged_headfix_v4_direct_glb_semantic_axes_candidate",
 }
 report_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
-print("S_HEADFIX_V3_REPORT " + json.dumps(report, separators=(",", ":")))
+print("S_HEADFIX_V4_REPORT " + json.dumps(report, separators=(",", ":")))
