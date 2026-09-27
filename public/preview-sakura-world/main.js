@@ -4,6 +4,7 @@ import { PAL } from "https://cdn.jsdelivr.net/gh/Kenton-GMI/sakura-crossing@de01
 import { cel } from "https://cdn.jsdelivr.net/gh/Kenton-GMI/sakura-crossing@de01898e89c7f6ab3fad93fa802f0f5ac66fbd81/src/core/toon.js";
 import { Pipeline } from "https://cdn.jsdelivr.net/gh/Kenton-GMI/sakura-crossing@de01898e89c7f6ab3fad93fa802f0f5ac66fbd81/src/core/post.js";
 import { buildSky } from "https://cdn.jsdelivr.net/gh/Kenton-GMI/sakura-crossing@de01898e89c7f6ab3fad93fa802f0f5ac66fbd81/src/core/sky.js";
+import { setOutlineResolution } from "https://cdn.jsdelivr.net/gh/Kenton-GMI/sakura-crossing@de01898e89c7f6ab3fad93fa802f0f5ac66fbd81/src/core/outline.js";
 import { buildWorld } from "https://cdn.jsdelivr.net/gh/Kenton-GMI/sakura-crossing@de01898e89c7f6ab3fad93fa802f0f5ac66fbd81/src/world/index.js";
 import { basisAt, normalAt, positionAt } from "https://cdn.jsdelivr.net/gh/Kenton-GMI/sakura-crossing@de01898e89c7f6ab3fad93fa802f0f5ac66fbd81/src/world/planet.js";
 
@@ -215,6 +216,7 @@ function resize() {
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
   pipeline.setSize(w, h);
+  setOutlineResolution(pipeline.size.x, pipeline.size.y);
 }
 addEventListener("resize", resize);
 resize();
@@ -261,6 +263,7 @@ loader.load(
     canvas.dataset.renderLane = "sakura-world";
     canvas.dataset.upstreamWorld = "de01898e89c7f6ab3fad93fa802f0f5ac66fbd81";
     canvas.dataset.cameraAxisFix = "1";
+    canvas.dataset.upstreamOutline = "1";
     canvas.dataset.animationCount = String(gltf.animations.length);
     placeRunner();
     loading.classList.add("hidden");
