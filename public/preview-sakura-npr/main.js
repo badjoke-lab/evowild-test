@@ -373,6 +373,10 @@ function addCentralSkullMass(root) {
       }
       if (w < 0.18) continue;
       p.fromBufferAttribute(pos, i);
+      // Raw SkinnedMesh POSITION is bind geometry, not the current world
+      // position. Apply the skin transform before measuring the head or the
+      // patch can be placed down at the torso/pelvis.
+      o.applyBoneTransform(i, p);
       o.localToWorld(p);
       samples.push(p.clone());
     }
