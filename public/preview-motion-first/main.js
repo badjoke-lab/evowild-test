@@ -298,7 +298,7 @@ const renderer = new THREE.WebGLRenderer({
   powerPreference: "high-performance"
 });
 const renderPixelRatio = SIMPLIFIED_RACE_PAGE
-  ? 0.4
+  ? 0.75
   : SIMPLIFIED_GAIT_PAGE
     ? Math.min(window.devicePixelRatio || 1, 1.25)
     : Math.min(window.devicePixelRatio || 1, 1.5);
@@ -2547,15 +2547,302 @@ function applySimplifiedRaceRenderLOD(root) {
   }
 }
 
+const RACE_PROXY_PROFILE = {
+  S: {
+    baseY: 1.58,
+    body: [0.62, 0.50, 1.18],
+    pelvis: [0.56, 0.46, 0.86],
+    head: [0.34, 0.30, 0.54],
+    headY: 0.06,
+    headZ: 1.18,
+    hipX: 0.31,
+    foreZ: 0.42,
+    hindZ: -0.54,
+    leg: 1.30,
+    swing: 0.82,
+    bob: 0.10,
+    crest: 0.72,
+    tail: 0.88
+  },
+  P: {
+    baseY: 1.46,
+    body: [0.86, 0.67, 1.02],
+    pelvis: [0.76, 0.62, 0.80],
+    head: [0.44, 0.38, 0.50],
+    headY: 0.02,
+    headZ: 1.02,
+    hipX: 0.42,
+    foreZ: 0.34,
+    hindZ: -0.45,
+    leg: 1.08,
+    swing: 0.62,
+    bob: 0.075,
+    crest: 0.50,
+    tail: 0.68
+  },
+  E: {
+    baseY: 1.56,
+    body: [0.59, 0.46, 1.28],
+    pelvis: [0.53, 0.43, 0.96],
+    head: [0.31, 0.27, 0.58],
+    headY: 0.05,
+    headZ: 1.22,
+    hipX: 0.29,
+    foreZ: 0.46,
+    hindZ: -0.60,
+    leg: 1.24,
+    swing: 0.68,
+    bob: 0.065,
+    crest: 0.66,
+    tail: 0.78
+  },
+  A: {
+    baseY: 1.30,
+    body: [0.69, 0.50, 0.94],
+    pelvis: [0.66, 0.47, 0.76],
+    head: [0.35, 0.30, 0.47],
+    headY: -0.02,
+    headZ: 0.94,
+    hipX: 0.34,
+    foreZ: 0.30,
+    hindZ: -0.39,
+    leg: 1.00,
+    swing: 0.76,
+    bob: 0.085,
+    crest: 0.48,
+    tail: 0.62
+  }
+};
+
+const proxyBodyGeometry = new THREE.IcosahedronGeometry(0.5, 0);
+const proxyHeadGeometry = new THREE.IcosahedronGeometry(0.5, 0);
+const proxyLegGeometry = new THREE.CylinderGeometry(0.075, 0.10, 1, 5);
+const proxyLowerLegGeometry = new THREE.CylinderGeometry(0.050, 0.070, 1, 5);
+const proxyTailGeometry = new THREE.CylinderGeometry(0.045, 0.085, 1, 5);
+const proxyCrestGeometry = new THREE.ConeGeometry(0.12, 1, 4);
+
+function createSimplifiedRaceProxy(morph, color) {
+  const profile = RACE_PROXY_PROFILE[morph];
+  const root = new THREE.Group();
+  const body = new THREE.Group();
+  body.position.y = profile.baseY;
+  root.add(body);
+
+  const baseColor = new THREE.Color(color);
+  const primary = new THREE.MeshLambertMaterial({
+    color: baseColor,
+    flatShading: true
+  });
+  const secondary = new THREE.MeshLambertMaterial({
+    color: baseColor.clone().multiplyScalar(0.76),
+    flatShading: true
+  });
+  const dark = new THREE.MeshLambertMaterial({
+    color: baseColor.clone().multiplyScalar(0.46),
+    flatShading: true
+  });
+
+  const chest = makeMesh(
+    proxyBodyGeometry,
+    primary,
+    body,
+    [0, 0, 0.25],
+    profile.body
+  );
+  const pelvis = makeMesh(
+    proxyBodyGeometry,
+    secondary,
+    body,
+    [0, -0.03, -0.52],
+    profile.pelvis
+  );
+
+  const head = new THREE.Group();
+  head.position.set(0, profile.headY, profile.headZ);
+  body.add(head);
+
+  makeMesh(
+    proxyHeadGeometry,
+    primary,
+    head,
+    [0, 0, 0],
+    profile.head
+  );
+
+  const crest = makeMesh(
+    proxyCrestGeometry,
+    secondary,
+    head,
+    [0, 0.12, -profile.crest * 0.34],
+    [1, profile.crest, 1]
+  );
+  crest.rotation.x = Math.PI / 2;
+
+  const tail = makeMesh(
+    proxyTailGeometry,
+    secondary,
+    body,
+    [0, -0.02, -0.93],
+    [1, profile.tail, 1]
+  );
+  tail.rotation.x = Math.PI / 2;
+
+  const legs = [];
+  const legDefs = [
+    { side: -1, fore: true, phase: 0.00 },
+    { side: 1, fore: true, phase: Math.PI * 0.48 },
+    { side: -1, fore: false, phase: Math.PI * 1.02 },
+    { side: 1, fore: false, phase: Math.PI * 1.48 }
+  ];
+
+  legDefs.forEach((def) => {
+    const hip = new THREE.Group();
+    hip.position.set(
+      def.side * profile.hipX,
+      -0.18,
+      def.fore ? profile.foreZ : profile.hindZ
+    );
+    body.add(hip);
+
+    const upperLen = profile.leg * 0.54;
+    const lowerLen = profile.leg * 0.46;
+
+    makeMesh(
+      proxyLegGeometry,
+      def.fore ? primary : secondary,
+      hip,
+      [0, -upperLen / 2, 0],
+      [1, upperLen, 1]
+    );
+
+    const knee = new THREE.Group();
+    knee.position.set(0, -upperLen, 0);
+    hip.add(knee);
+
+    makeMesh(
+      proxyLowerLegGeometry,
+      dark,
+      knee,
+      [0, -lowerLen / 2, 0],
+      [1, lowerLen, 1]
+    );
+
+    legs.push({ hip, knee, phase: def.phase, fore: def.fore, side: def.side });
+  });
+
+  root.userData.raceProxy = {
+    profile,
+    body,
+    chest,
+    pelvis,
+    head,
+    crest,
+    tail,
+    legs
+  };
+
+  return root;
+}
+
+function updateSimplifiedRaceProxy(runner, lateralVelocity) {
+  if (!runner.raceProxy) return;
+
+  const ud = runner.raceProxy.userData.raceProxy;
+  const profile = ud.profile;
+  const phase = runner.group.userData.phase + runner.phaseBias;
+  const speedRatio = THREE.MathUtils.clamp(
+    runner.speed / Math.max(runner.cfg.baseSpeed, 1),
+    0,
+    1.2
+  );
+  const turnLean = THREE.MathUtils.clamp(
+    -lateralVelocity * runner.cfg.laneLean * 0.10,
+    -0.26,
+    0.26
+  );
+
+  runner.raceProxy.position.set(runner.laneX, 0, runner.distance);
+
+  ud.body.position.y =
+    profile.baseY +
+    Math.abs(Math.sin(phase * 0.5)) * profile.bob * speedRatio;
+  ud.body.rotation.x =
+    -0.05 * speedRatio +
+    Math.sin(phase) * 0.018 * speedRatio;
+  ud.body.rotation.z = turnLean;
+
+  const bodyFlex = Math.sin(phase * 0.5) * 0.035 * speedRatio;
+  ud.chest.rotation.x = -bodyFlex;
+  ud.pelvis.rotation.x = bodyFlex * 1.15;
+  ud.head.rotation.x =
+    -ud.body.rotation.x * 0.38 -
+    Math.sin(phase * 0.5 + 0.7) * 0.018 * speedRatio;
+  ud.head.rotation.z = -turnLean * 0.45;
+
+  ud.legs.forEach((leg) => {
+    const lp = phase + leg.phase;
+    const stride = Math.sin(lp) * profile.swing * speedRatio;
+    const fold = Math.max(0, -Math.cos(lp));
+    leg.hip.rotation.x = stride;
+    leg.hip.rotation.z = leg.side * turnLean * 0.22;
+    leg.knee.rotation.x =
+      (leg.fore ? -1 : 1) * (0.18 + fold * 0.58);
+  });
+
+  ud.tail.rotation.y =
+    Math.sin(phase * 0.42) * 0.10 * speedRatio -
+    turnLean * 0.75;
+  ud.tail.rotation.x =
+    Math.PI / 2 +
+    Math.sin(phase * 0.31 + 0.4) * 0.035 * speedRatio;
+}
+
+function updateSimplifiedRaceLodSelection() {
+  if (!SIMPLIFIED_RACE_PAGE || runners.length === 0) return;
+
+  const fullBudget =
+    actualCamera === "PACK" || actualCamera === "SIDE"
+      ? 6
+      : actualCamera === "CHASE"
+        ? 5
+        : 4;
+
+  const nearest = [...runners]
+    .sort(
+      (a, b) =>
+        camera.position.distanceToSquared(a.group.position) -
+        camera.position.distanceToSquared(b.group.position)
+    )
+    .slice(0, fullBudget);
+
+  const fullIds = new Set(nearest.map((runner) => runner.id));
+  fullIds.add(selectedRunner);
+
+  let fullCount = 0;
+  runners.forEach((runner) => {
+    const renderFull = fullIds.has(runner.id);
+    runner.renderFull = renderFull;
+    runner.group.visible = renderFull;
+    if (runner.raceProxy) runner.raceProxy.visible = !renderFull;
+    if (renderFull) fullCount += 1;
+  });
+
+  canvas.dataset.fullRunnerCount = String(fullCount);
+  canvas.dataset.proxyRunnerCount = String(runners.length - fullCount);
+  canvas.dataset.raceProxyLod = "1";
+}
+
 function createRunners() {
   const morphKeys = ["S", "P", "E", "A"];
 
   for (let i = 0; i < RUNNER_COUNT; i += 1) {
     const morph = morphKeys[i % morphKeys.length];
     const creature = createCreature(morph, COLORS[i % COLORS.length], i);
+    let raceProxy = null;
     if (SIMPLIFIED_RACE_PAGE) {
       applySimplifiedRaceVariation(creature, morph, i);
       applySimplifiedRaceRenderLOD(creature);
+      raceProxy = createSimplifiedRaceProxy(morph, COLORS[i % COLORS.length]);
     }
     const lane = i % LANE_COUNT;
     const row = Math.floor(i / LANE_COUNT);
@@ -2576,11 +2863,18 @@ function createRunners() {
       staminaBias: 0.96 + seeded(i, 7) * 0.08,
       speedBias: 0.965 + seeded(i, 3) * 0.07,
       nextLaneDecision: 190 + seeded(i, 11) * 210,
-      laneChangeStartedAt: -999
+      laneChangeStartedAt: -999,
+      raceProxy,
+      renderFull: true
     };
 
     creature.position.set(runner.laneX, 0, runner.distance);
     scene.add(creature);
+    if (raceProxy) {
+      raceProxy.position.set(runner.laneX, 0, runner.distance);
+      raceProxy.visible = false;
+      scene.add(raceProxy);
+    }
     runners.push(runner);
 
     if (!SIMPLIFIED_GAIT_PAGE || i < 4) {
@@ -2622,6 +2916,11 @@ function resetRace() {
     runner.targetSpeed = 0;
     runner.nextLaneDecision = 190 + seeded(i, 11) * 210;
     runner.group.position.set(runner.laneX, 0, runner.distance);
+    if (runner.raceProxy) {
+      runner.raceProxy.position.set(runner.laneX, 0, runner.distance);
+      runner.raceProxy.visible = false;
+    }
+    runner.renderFull = true;
   });
 }
 
@@ -2679,6 +2978,10 @@ function updateRunner(runner, dt) {
 
   runner.group.position.x = runner.laneX;
   runner.group.position.z = runner.distance;
+  if (runner.raceProxy) {
+    runner.raceProxy.position.x = runner.laneX;
+    runner.raceProxy.position.z = runner.distance;
+  }
 
   if (runner.morph === "S" || runner.morph === "P" || runner.morph === "E" || runner.morph === "A") {
     const speedRatio = THREE.MathUtils.clamp(runner.speed / Math.max(cfg.baseSpeed, 1), 0, 1.2);
@@ -2702,7 +3005,14 @@ function updateRunner(runner, dt) {
     const phaseRate = 4.2 * cfg.cadence * (0.25 + runner.speed / Math.max(cfg.baseSpeed, 1));
     runner.group.userData.phase += dt * phaseRate;
   }
-  updateCreaturePose(runner, lateralVelocity, dt);
+  if (SIMPLIFIED_RACE_PAGE) {
+    updateSimplifiedRaceProxy(runner, lateralVelocity);
+    if (runner.renderFull || runner.id === selectedRunner) {
+      updateCreaturePose(runner, lateralVelocity, dt);
+    }
+  } else {
+    updateCreaturePose(runner, lateralVelocity, dt);
+  }
 }
 
 function wrap01(value) {
@@ -4146,10 +4456,20 @@ function animate() {
     canvas.dataset.simulationSteps = String(simulationSteps);
   } else {
     simulationAccumulator = 0;
-    runners.forEach((runner) => updateCreaturePose(runner, 0, cameraDt));
+    runners.forEach((runner) => {
+      if (SIMPLIFIED_RACE_PAGE) {
+        updateSimplifiedRaceProxy(runner, 0);
+        if (runner.renderFull || runner.id === selectedRunner) {
+          updateCreaturePose(runner, 0, cameraDt);
+        }
+      } else {
+        updateCreaturePose(runner, 0, cameraDt);
+      }
+    });
   }
 
   updateCamera(cameraDt);
+  updateSimplifiedRaceLodSelection();
   updateHud(rawDt);
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
