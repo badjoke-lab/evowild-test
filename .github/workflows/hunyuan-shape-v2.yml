@@ -1,4 +1,4 @@
-name: Hunyuan S shape refine v10
+name: Hunyuan S shape refine v12
 
 on:
   push:
@@ -11,47 +11,45 @@ permissions:
 
 jobs:
   shape:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[targeted-shape-v10]')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[targeted-shape-v12]')
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Install Blender
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install geometry tools
+        run: pip install numpy trimesh
+      - name: Generate direct-surgery v12 candidate
         run: |
-          sudo apt-get update
-          sudo apt-get install -y blender python3-numpy
-          blender --version
-      - name: Generate corrected-axis v10 candidate
-        run: |
-          mkdir -p test-results/shape-v10
-          blender --background --python scripts/refine-hunyuan-shape-v10.py --             public/models/evowild-s/source-lod2.glb             public/models/evowild-s/source-lod2-shape-v10.glb             public/models/evowild-s/source-lod2-shape-v10.json             test-results/shape-v10
-          ls -lh public/models/evowild-s/source-lod2-shape-v10.*
-          cat public/models/evowild-s/source-lod2-shape-v10.json
+          python scripts/refine-hunyuan-shape-v12.py --             public/models/evowild-s/source-lod2.glb             public/models/evowild-s/source-lod2-shape-v12.glb             public/models/evowild-s/source-lod2-shape-v12.json
+          ls -lh public/models/evowild-s/source-lod2-shape-v12.*
+          cat public/models/evowild-s/source-lod2-shape-v12.json
       - uses: actions/setup-node@v4
         with:
           node-version: 22
       - run: npm install
       - run: npx playwright install --with-deps chromium
       - name: Render browser comparison
-        run: npm run test:e2e -- --workers=1 -g "render S baseline and corrected-axis v10 comparison"
+        run: npm run test:e2e -- --workers=1 -g "render S baseline and direct-surgery v12 comparison"
       - name: Persist candidate
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add             public/models/evowild-s/source-lod2-shape-v10.glb             public/models/evowild-s/source-lod2-shape-v10.json
+          git add             public/models/evowild-s/source-lod2-shape-v12.glb             public/models/evowild-s/source-lod2-shape-v12.json
           if git diff --cached --quiet; then
             echo "No shape changes"
           else
-            git commit -m "model: persist S shape-v10 candidate [skip ci]"
+            git commit -m "model: persist S shape-v12 candidate [skip ci]"
             git pull --rebase origin "${GITHUB_REF_NAME}"
             git push origin HEAD:"${GITHUB_REF_NAME}"
           fi
       - uses: actions/upload-artifact@v4
         with:
-          name: s-shape-v10-review
+          name: s-shape-v12-review
           path: |
-            test-results/shape-v10/*.png
-            test-results/shape-v10-browser/*.png
-            public/models/evowild-s/source-lod2-shape-v10.json
+            test-results/shape-v12-browser/*.png
+            public/models/evowild-s/source-lod2-shape-v12.json
