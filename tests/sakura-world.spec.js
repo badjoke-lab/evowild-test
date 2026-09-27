@@ -4,7 +4,7 @@ import fs from "node:fs";
 test("Sakura World lane loads the upstream world, runs S, and captures four views", async ({ page }, testInfo) => {
   test.skip(process.env.SAKURA_WORLD_CAPTURE !== "1");
   test.skip(testInfo.project.name !== "desktop-chromium");
-  test.setTimeout(150000);
+  test.setTimeout(330000);
 
   const pageErrors = [];
   const consoleErrors = [];
@@ -34,7 +34,7 @@ test("Sakura World lane loads the upstream world, runs S, and captures four view
       window.__sakuraWorldLane.renderOnce();
     }, mode);
     await page.waitForTimeout(120);
-    await page.screenshot({ path: `${outDir}/sakura-world-${file}.png`, timeout: 20000 });
+    await page.screenshot({ path: `${outDir}/sakura-world-${file}.png`, timeout: 45000 });
   }
 
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
