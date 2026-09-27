@@ -2,10 +2,10 @@ import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 import crypto from "node:crypto";
 
-test("render S v17 v18 comparison", async ({ page }, testInfo) => {
+test("render S v18 v19 comparison", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(120000);
-  const outDir = "test-results/shape-v18-browser";
+  const outDir = "test-results/shape-v19-browser";
   fs.mkdirSync(outDir, { recursive: true });
   const errors = [];
   page.on("pageerror", (err) => errors.push(err.stack || String(err)));
@@ -32,13 +32,13 @@ test("render S v17 v18 comparison", async ({ page }, testInfo) => {
     return result;
   }
 
-  const v17 = await capture("v17", "hunyuan-s-lod2-shape-v17", "shape-v17");
   const v18 = await capture("v18", "hunyuan-s-lod2-shape-v18", "shape-v18");
+  const v19 = await capture("v19", "hunyuan-s-lod2-shape-v19", "shape-v19");
 
-  expect(v18.LOW).not.toBe(v17.LOW);
-  expect(v18.FRONT).not.toBe(v17.FRONT);
-  expect(v18.CHASE).not.toBe(v17.CHASE);
-  expect(v18.SIDE).not.toBe(v17.SIDE);
+  expect(v19.LOW).not.toBe(v18.LOW);
+  expect(v19.FRONT).not.toBe(v18.FRONT);
+  expect(v19.CHASE).not.toBe(v18.CHASE);
+  expect(v19.SIDE).not.toBe(v18.SIDE);
   expect(errors, errors.join("\n")).toEqual([]);
-  console.log("SHAPE_V18_BROWSER", JSON.stringify({ v17, v18 }));
+  console.log("SHAPE_V19_BROWSER", JSON.stringify({ v18, v19 }));
 });
