@@ -29,7 +29,7 @@ test("S sprite extraction lane builds an 8-frame transparent side run loop", asy
   const frame1 = await page.locator("#preview").getAttribute("data-frame");
   expect(frame1).not.toBe(frame0);
 
-  const outDir = "test-results/visuals";
+  const outDir = "artifacts/spritegen-s";
   fs.mkdirSync(outDir, { recursive: true });
   await page.locator(".grid").screenshot({
     path: `${outDir}/spritegen-s-side-run-poc.png`
