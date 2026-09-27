@@ -424,7 +424,7 @@ document.querySelectorAll("[data-camera]").forEach((btn) => {
 
 const loader = new GLTFLoader();
 loader.load(
-  "../models/evowild-s/focus-rigged-v5.glb",
+  "../models/evowild-s/focus-rigged-v31.glb",
   (gltf) => {
     model = gltf.scene;
     model.rotation.y = Math.PI;
@@ -440,8 +440,6 @@ loader.load(
     model.position.z -= center.z;
     model.updateMatrixWorld(true);
 
-    repairRiggedCrestGeometry(model);
-
     const correctedBox = new THREE.Box3().setFromObject(model);
     const correctedSize = new THREE.Vector3();
     correctedBox.getSize(correctedSize);
@@ -451,7 +449,7 @@ loader.load(
 
     if (gltf.animations.length) {
       mixer = new THREE.AnimationMixer(model);
-      const clip = gltf.animations.find((c) => c.name === "EvoWild_S_Run_V5") || gltf.animations[0];
+      const clip = gltf.animations.find((c) => /run/i.test(c.name)) || gltf.animations[0];
       const action = mixer.clipAction(clip);
       action.reset().play();
       clipEl.textContent = clip.name || "run clip";
@@ -461,7 +459,7 @@ loader.load(
 
     frameCamera();
     loading.classList.add("hidden");
-    canvas.dataset.asset = "focus-rigged-v5.glb";
+    canvas.dataset.asset = "focus-rigged-v31.glb";
     canvas.dataset.renderLane = "sakura-npr";
     canvas.dataset.nativeForwardAxis = "-Z";
     canvas.dataset.runtimeForwardAxis = "+Z";
