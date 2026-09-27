@@ -71,3 +71,30 @@ Corrective direction:
 8. only then judge LOD pop, camera-cut exposure, morph readability, and motion continuity.
 
 A green CI result alone will not close this review. The post-fix artifact must also be inspected.
+
+
+## Corrective measurements
+
+These measurements are part of the same FAIL investigation and do not change the review state by themselves.
+
+| PR state | Representation | Full / proxy | Render calls | FPS evidence | Result |
+| --- | --- | ---: | ---: | --- | --- |
+| `a855e523` | per-runner low-poly proxy meshes | mixed | not instrumented | 14 FPS gate result | FAIL |
+| instanced proxy only | 8 shared proxy draw parts | mixed | not yet isolated | 14 FPS gate result | FAIL |
+| render-frame canonical pose | 8 shared proxy draw parts | 4 / 14 | 248 | 22 FPS HUD sample | improved, still FAIL |
+| focus counted inside LOD budget | 8 shared proxy draw parts | 2 / 16 | 134 | 15 FPS HUD sample | noisy / still FAIL |
+| focus-only full + stable window | 8 shared proxy draw parts | 1 / 17 | 78 | 13.56 FPS average, 83.4 ms p95 over 2.5 s | FAIL |
+
+The stable-window result proves that simply reducing draw calls and the number of visible full-detail runners is not sufficient.
+
+The remaining architectural waste is that far runners still solve the expensive full procedural hierarchy and only then copy those transforms into a proxy. The next corrective implementation therefore applies the **same reviewed S/P/E/A canonical pose functions directly to lightweight proxy rigs**. Race physics and gait phase remain fixed at 60 Hz. This removes hidden hierarchy work rather than simplifying the locomotion model.
+
+The richer proxy revision also restores motion-readable structure that the first proxy omitted:
+
+- low forward neck chain;
+- three tail joints;
+- upper / lower / cannon limb chain;
+- split foot;
+- Cue Band.
+
+The post-change state remains **FAIL until both performance gates and visual artifact review pass**.
