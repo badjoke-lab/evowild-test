@@ -307,7 +307,7 @@ document.querySelectorAll("[data-camera]").forEach((btn) => {
 
 const loader = new GLTFLoader();
 loader.load(
-  "../models/evowild-s/focus-rigged-v5.glb",
+  "../models/evowild-s/focus-rigged-v5-headfix.glb",
   (gltf) => {
     model = gltf.scene;
     model.rotation.y = Math.PI;
@@ -323,7 +323,7 @@ loader.load(
     model.position.z -= center.z;
     model.updateMatrixWorld(true);
 
-    correctHeadSilhouette(model);
+    canvas.dataset.headSilhouetteCorrection = "rigged-headfix-v1";
 
     const correctedBox = new THREE.Box3().setFromObject(model);
     const correctedSize = new THREE.Vector3();
@@ -344,7 +344,7 @@ loader.load(
 
     frameCamera();
     loading.classList.add("hidden");
-    canvas.dataset.asset = "focus-rigged-v5.glb";
+    canvas.dataset.asset = "focus-rigged-v5-headfix.glb";
     canvas.dataset.renderLane = "sakura-npr";
     canvas.dataset.nativeForwardAxis = "-Z";
     canvas.dataset.runtimeForwardAxis = "+Z";
