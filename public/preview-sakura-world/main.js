@@ -222,13 +222,16 @@ function resize() {
 addEventListener("resize", resize);
 resize();
 
-document.querySelectorAll("[data-camera]").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    cameraMode = btn.dataset.camera;
-    document.querySelectorAll("[data-camera]").forEach((b) => b.classList.toggle("active", b === btn));
-    placeRunner();
-    pipeline.render();
+function setCameraMode(mode) {
+  cameraMode = mode;
+  document.querySelectorAll("[data-camera]").forEach((b) => {
+    b.classList.toggle("active", b.dataset.camera === mode);
   });
+  placeRunner();
+}
+
+document.querySelectorAll("[data-camera]").forEach((btn) => {
+  btn.addEventListener("click", () => setCameraMode(btn.dataset.camera));
 });
 
 const loader = new GLTFLoader();
@@ -313,5 +316,6 @@ window.__sakuraWorldLane = {
   scene, camera, renderer, pipeline, world, runnerAnchor,
   get model(){ return model; },
   get runZ(){ return runZ; },
+  setCameraMode,
   THREE
 };
