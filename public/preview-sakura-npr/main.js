@@ -346,6 +346,135 @@ function correctHeadSilhouette(root) {
 
   canvas.dataset.headSilhouetteCorrection = headBone ? "head-cap-bone-v4" : "head-cap-root-fallback";
 }
+function addCentralSkullMass(root) {
+  const headBone = root.getObjectByName("head");
+  if (!headBone) return false;
+
+  root.updateMatrixWorld(true);
+  const samples = [];
+  const p = new THREE.Vector3();
+
+  root.traverse((o) => {
+    if (!o.isSkinnedMesh || !o.geometry) return;
+    const pos = o.geometry.getAttribute("position");
+    const skinIndex = o.geometry.getAttribute("skinIndex");
+    const skinWeight = o.geometry.getAttribute("skinWeight");
+    if (!pos || !skinIndex || !skinWeight || !o.skeleton) return;
+
+    const headIndex = o.skeleton.bones.indexOf(headBone);
+    if (headIndex < 0) return;
+
+    for (let i = 0; i < pos.count; i += 1) {
+      let w = 0;
+      for (let k = 0; k < 4; k += 1) {
+        if (skinIndex.getComponent(i, k) === headIndex) {
+          w += skinWeight.getComponent(i, k);
+        }
+      }
+      if (w < 0.18) continue;
+      p.fromBufferAttribute(pos, i);
+      o.localToWorld(p);
+      samples.push(p.clone());
+    }
+  });
+
+  if (samples.length < 20) return false;
+
+  let minX = Infinity, maxX = -Infinity;
+  let minY = Infinity, maxY = -Infinity;
+  let minZ = Infinity, maxZ = -Infinity;
+  for (const v of samples) {
+    minX = Math.min(minX, v.x);
+    maxX = Math.max(maxX, v.x);
+    minY = Math.min(minY, v.y);
+    maxY = Math.max(maxY, v.y);
+    minZ = Math.min(minZ, v.z);
+    maxZ = Math.max(maxZ, v.z);
+  }
+
+  const h = Math.max(0.08, maxY - minY);
+  const lower = samples.filter((v) => v.y <= minY + h * 0.58);
+  const lowerMinX = Math.min(...lower.map((v) => v.x));
+  const lowerMaxX = Math.max(...lower.map((v) => v.x));
+  const lowerSpanX = Math.max(0.05, lowerMaxX - lowerMinX);
+  const centerX = (lowerMinX + lowerMaxX) * 0.5;
+  const midBand = samples.filter((v) => v.y >= minY + h * 0.35 && v.y <= minY + h * 0.70);
+  const centerZ = midBand.length
+    ? midBand.reduce((sum, v) => sum + v.z, 0) / midBand.length
+    : (minZ + maxZ) * 0.5;
+
+  const baseColor = (() => {
+    let color = 0xdedbe6;
+    root.traverse((o) => {
+      if (color !== 0xdedbe6 || !o.isMesh) return;
+      const m = Array.isArray(o.material) ? o.material[0] : o.material;
+      if (m?.color) color = m.color.getHex();
+    });
+    return color;
+  })();
+
+  const mat = new THREE.MeshStandardMaterial({
+    color: baseColor,
+    roughness: 0.92,
+    metalness: 0,
+    side: THREE.FrontSide
+  });
+
+  // Rounded skull mass: broad enough to read as one head from FRONT/CHASE.
+  const skull = new THREE.Mesh(new THREE.SphereGeometry(1, 18, 12), mat);
+  skull.name = "SakuraNPR_central_skull";
+  skull.scale.set(
+    lowerSpanX * 0.46,
+    h * 0.20,
+    lowerSpanX * 0.35
+  );
+  skull.position.set(
+    centerX,
+    minY + h * 0.58,
+    centerZ
+  );
+  skull.castShadow = true;
+  skull.receiveShadow = true;
+  scene.add(skull);
+  scene.updateMatrixWorld(true);
+  headBone.updateMatrixWorld(true);
+  headBone.attach(skull);
+
+  // Short blunt bridge between the two crest roots. It deliberately stops
+  // well below the swept tips, so the tips remain separate crest/horn forms
+  // instead of becoming a single needle.
+  const bridge = new THREE.Mesh(
+    new THREE.CylinderGeometry(
+      lowerSpanX * 0.20,
+      lowerSpanX * 0.30,
+      h * 0.30,
+      12,
+      2,
+      false
+    ),
+    mat.clone()
+  );
+  bridge.name = "SakuraNPR_central_crest_bridge";
+  bridge.scale.z = 0.72;
+  bridge.position.set(
+    centerX,
+    minY + h * 0.76,
+    centerZ
+  );
+  bridge.castShadow = true;
+  bridge.receiveShadow = true;
+  scene.add(bridge);
+  scene.updateMatrixWorld(true);
+  headBone.updateMatrixWorld(true);
+  headBone.attach(bridge);
+
+  root.updateMatrixWorld(true);
+  canvas.dataset.centralSkull = "1";
+  canvas.dataset.headSilhouetteCorrection = "rigged-v4-central-skull-v1";
+  canvas.dataset.centralSkullWidth = (lowerSpanX * 0.92).toFixed(4);
+  return true;
+}
+
 const cameraForward = new THREE.Vector3();
 const cameraSide = new THREE.Vector3();
 const cameraUp = new THREE.Vector3(0, 1, 0);
@@ -441,6 +570,7 @@ loader.load(
     model.updateMatrixWorld(true);
 
     canvas.dataset.headSilhouetteCorrection = "offline-rigged-headfix-v4";
+    addCentralSkullMass(model);
 
     const correctedBox = new THREE.Box3().setFromObject(model);
     const correctedSize = new THREE.Vector3();
