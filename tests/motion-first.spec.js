@@ -571,7 +571,12 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
     fullRunnerBudget: node.dataset.fullRunnerBudget,
     proxyRunnerCount: node.dataset.proxyRunnerCount,
     simulationSteps: node.dataset.simulationSteps,
-    poseUpdateMode: node.dataset.poseUpdateMode
+    poseUpdateMode: node.dataset.poseUpdateMode,
+    perfPoseMs: node.dataset.perfPoseMs,
+    perfSyncMs: node.dataset.perfSyncMs,
+    perfRenderMs: node.dataset.perfRenderMs,
+    perfOtherMs: node.dataset.perfOtherMs,
+    perfTotalWorkMs: node.dataset.perfTotalWorkMs
   }));
   console.log(
     "SIMPLIFIED_RACE_PERF",
