@@ -661,6 +661,26 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
     await page.waitForTimeout(450);
   }
 
+  const proxyReviewMorphs = [
+    ["S", "0"],
+    ["P", "1"],
+    ["E", "2"],
+    ["A", "3"]
+  ];
+  for (const [morph, runnerId] of proxyReviewMorphs) {
+    await page.selectOption("#runnerSelect", runnerId);
+    await expect(page.locator("#morphReadout")).toHaveText(morph);
+
+    for (const view of ["SIDE", "LOW"]) {
+      await page.getByRole("button", { name: view, exact: true }).click({ force: true });
+      await expect(page.locator("#cameraReadout")).toHaveText(view);
+      await page.waitForTimeout(380);
+      await page.locator("#scene").screenshot({
+        path: `test-results/visuals/motion-first-race-proxy-${morph.toLowerCase()}-${view.toLowerCase()}.png`
+      });
+    }
+  }
+
   await page.locator("#scene").screenshot({
     path: "test-results/visuals/motion-first-phase-e-18-runner-race.png"
   });
