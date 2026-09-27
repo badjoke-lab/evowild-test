@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>EvoWild Run — Sakura World lane</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.181.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.181.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <main id="app">
+    <canvas id="view" aria-label="EvoWild Run inside Sakura Crossing world"></canvas>
+
+    <header class="hud top">
+      <div>
+        <strong>SAKURA WORLD LANE</strong>
+        <span>full upstream world · S runtime inserted into the actual scene</span>
+      </div>
+      <div class="stats">
+        <span id="fps">-- FPS</span>
+        <span id="clip">loading clip…</span>
+      </div>
+    </header>
+
+    <section class="hud bottom">
+      <div class="group">
+        <span class="label">CAMERA</span>
+        <div class="buttons">
+          <button class="cam active" data-camera="threeq">3/4</button>
+          <button class="cam" data-camera="chase">CHASE</button>
+          <button class="cam" data-camera="side">SIDE</button>
+          <button class="cam" data-camera="front">FRONT</button>
+        </div>
+      </div>
+      <div class="group speed">
+        <span class="label">RUN</span>
+        <span id="speed">5.5 m/s</span>
+      </div>
+    </section>
+
+    <aside class="note">
+      <strong>Not a recreation</strong>
+      <span>This page imports Sakura Crossing's actual MIT-licensed world builder, sky, palette, toon pipeline and postprocess from a pinned upstream commit. EvoWild only inserts the S runner and camera logic.</span>
+    </aside>
+
+    <div id="loading">building full Sakura Crossing world…</div>
+  </main>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
