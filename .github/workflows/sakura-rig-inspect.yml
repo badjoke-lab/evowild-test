@@ -1,0 +1,21 @@
+name: Inspect rigged S for Sakura repair
+
+on:
+  push:
+    branches:
+      - test/sakura-npr-visual-gate-20260927
+
+jobs:
+  inspect:
+    if: contains(github.event.head_commit.message, '[rig-inspect]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Blender
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y blender python3-numpy
+      - name: Inspect rigged S
+        run: |
+          blender --background --python scripts/inspect-rigged-s.py -- public/models/evowild-s/focus-rigged-v5.glb

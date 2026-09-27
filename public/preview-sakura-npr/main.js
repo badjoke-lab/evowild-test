@@ -128,6 +128,123 @@ function setModelMaterials(mode) {
   });
 }
 
+function repairRiggedCrestGeometry(root) {
+  let changed = 0;
+  const world = new THREE.Vector3();
+
+  root.updateMatrixWorld(true);
+
+  root.traverse((o) => {
+    if (!o.isSkinnedMesh || !o.geometry) return;
+
+    const g = o.geometry.clone();
+    const pos = g.getAttribute("position");
+    if (!pos) return;
+
+    let minX = Infinity, maxX = -Infinity;
+    let minY = Infinity, maxY = -Infinity;
+
+    for (let i = 0; i < pos.count; i += 1) {
+      world.fromBufferAttribute(pos, i);
+      o.localToWorld(world);
+      minX = Math.min(minX, world.x);
+      maxX = Math.max(maxX, world.x);
+      minY = Math.min(minY, world.y);
+      maxY = Math.max(maxY, world.y);
+    }
+
+    if (!Number.isFinite(minY) || maxY <= minY) return;
+
+    const centerX = (minX + maxX) * 0.5;
+    const height = maxY - minY;
+    const yStart = minY + height * 0.69;
+    const centroidStart = minY + height * 0.76;
+    const sideGuard = Math.max(0.010, (maxX - minX) * 0.028);
+
+    let leftSum = 0, rightSum = 0, leftCount = 0, rightCount = 0;
+    let leftMin = Infinity, leftMax = -Infinity;
+    let rightMin = Infinity, rightMax = -Infinity;
+
+    // Measure the two visible upper silhouette clusters directly. Do not rely
+    // on skin weights: some crest vertices are shared with neck/head groups.
+    for (let i = 0; i < pos.count; i += 1) {
+      world.fromBufferAttribute(pos, i);
+      o.localToWorld(world);
+      if (world.y < centroidStart) continue;
+      const dx = world.x - centerX;
+      if (dx < -sideGuard) {
+        leftSum += world.x;
+        leftCount += 1;
+        leftMin = Math.min(leftMin, world.x);
+        leftMax = Math.max(leftMax, world.x);
+      } else if (dx > sideGuard) {
+        rightSum += world.x;
+        rightCount += 1;
+        rightMin = Math.min(rightMin, world.x);
+        rightMax = Math.max(rightMax, world.x);
+      }
+    }
+
+    if (!leftCount || !rightCount) return;
+
+    const leftCentroid = leftSum / leftCount;
+    const rightCentroid = rightSum / rightCount;
+    const leftHalfWidth = Math.max(0.003, (leftMax - leftMin) * 0.5);
+    const rightHalfWidth = Math.max(0.003, (rightMax - rightMin) * 0.5);
+
+    // v10 moved both lobe centroids almost onto the centreline. That removed
+    // the split but collapsed the front silhouette into a needle. Preserve
+    // each lobe's measured width and move only enough for the inner edges to
+    // meet at the central skull line.
+    const overlapFactor = 0.30;
+    const leftTargetCentroid = centerX - leftHalfWidth * overlapFactor;
+    const rightTargetCentroid = centerX + rightHalfWidth * overlapFactor;
+    const leftShift = leftTargetCentroid - leftCentroid;
+    const rightShift = rightTargetCentroid - rightCentroid;
+
+    const smooth01 = (x) => {
+      x = THREE.MathUtils.clamp(x, 0, 1);
+      return x * x * (3 - 2 * x);
+    };
+
+    for (let i = 0; i < pos.count; i += 1) {
+      world.fromBufferAttribute(pos, i);
+      o.localToWorld(world);
+      if (world.y <= yStart) continue;
+
+      const dx = world.x - centerX;
+      if (Math.abs(dx) <= sideGuard * 0.5) continue;
+
+      const hy = smooth01((world.y - yStart) / Math.max(1e-6, maxY - yStart));
+      // Give the top silhouette nearly the full rigid lobe translation while
+      // easing it into the skull/neck below. Width is preserved; only the
+      // separation between the two upper clusters is removed.
+      const strength = Math.min(1, 0.38 + hy * 0.72);
+      world.x += (dx < 0 ? leftShift : rightShift) * strength;
+
+      o.worldToLocal(world);
+      pos.setXYZ(i, world.x, world.y, world.z);
+      changed += 1;
+    }
+
+    pos.needsUpdate = true;
+    g.computeBoundingBox();
+    g.computeBoundingSphere();
+    o.geometry = g;
+
+    canvas.dataset.crestLeftShift = leftShift.toFixed(4);
+    canvas.dataset.crestRightShift = rightShift.toFixed(4);
+    canvas.dataset.crestTopLeftCount = String(leftCount);
+    canvas.dataset.crestTopRightCount = String(rightCount);
+    canvas.dataset.crestLeftHalfWidth = leftHalfWidth.toFixed(4);
+    canvas.dataset.crestRightHalfWidth = rightHalfWidth.toFixed(4);
+    canvas.dataset.crestOverlapFactor = overlapFactor.toFixed(2);
+  });
+
+  canvas.dataset.headSilhouetteCorrection = "silhouette-overlap-v12";
+  canvas.dataset.headRepairVertices = String(changed);
+}
+
 const pipeline = new Pipeline(renderer, scene, camera, { pixelBudget: 3.2e6 });
 
 const seamPoint = new THREE.Vector3();
@@ -142,43 +259,93 @@ function correctHeadSilhouette(root) {
   root.updateMatrixWorld(true);
   seamBox.setFromObject(root);
   const minY = seamBox.min.y;
-  const height = Math.max(0.001, seamBox.max.y - seamBox.min.y);
-  const centerX = (seamBox.min.x + seamBox.max.x) * 0.5;
+  const maxY = seamBox.max.y;
+  const height = Math.max(0.001, maxY - minY);
+  const topThreshold = minY + height * 0.76;
+
+  // Do not crush the imported horn/crest geometry. Instead, measure the
+  // actual upper silhouette and insert a thin tapered membrane between the
+  // two lobes. From FRONT/CHASE it closes the accidental "split head"; from
+  // SIDE it is nearly edge-on and leaves the swept crest profile intact.
+  const samples = [];
+  let sourceMaterial = null;
 
   root.traverse((o) => {
     if (!o.isMesh || !o.geometry?.attributes?.position) return;
-
-    // This page is deliberately isolated, so clone before editing the bind
-    // geometry. The source GLB used by the other lanes remains untouched.
-    const g = o.geometry.clone();
-    const pos = g.attributes.position;
-
+    if (!sourceMaterial && o.material) {
+      sourceMaterial = Array.isArray(o.material) ? o.material[0] : o.material;
+    }
+    const pos = o.geometry.attributes.position;
     for (let i = 0; i < pos.count; i += 1) {
       seamPoint.fromBufferAttribute(pos, i);
       o.localToWorld(seamPoint);
-
-      const h = (seamPoint.y - minY) / height;
-      if (h > 0.72) {
-        const t = smoothstep01((h - 0.72) / 0.28);
-        // Pull the upper head/crest toward the centre progressively. The
-        // strongest correction is reserved for the very top where the
-        // imported rig visibly opens into two separate lobes from the front.
-        const scaleX = THREE.MathUtils.lerp(0.90, 0.54, t);
-        seamPoint.x = centerX + (seamPoint.x - centerX) * scaleX;
-        o.worldToLocal(seamPoint);
-        pos.setXYZ(i, seamPoint.x, seamPoint.y, seamPoint.z);
-      }
+      if (seamPoint.y >= topThreshold) samples.push(seamPoint.clone());
     }
-
-    pos.needsUpdate = true;
-    g.computeVertexNormals();
-    o.geometry = g;
   });
 
-  root.updateMatrixWorld(true);
-  canvas.dataset.headSilhouetteCorrection = "1";
-}
+  if (samples.length < 8) return;
 
+  let minX = Infinity;
+  let maxX = -Infinity;
+  let minTopY = Infinity;
+  let maxTopY = -Infinity;
+  let zSum = 0;
+  for (const p of samples) {
+    minX = Math.min(minX, p.x);
+    maxX = Math.max(maxX, p.x);
+    minTopY = Math.min(minTopY, p.y);
+    maxTopY = Math.max(maxTopY, p.y);
+    zSum += p.z;
+  }
+
+  const spanX = Math.max(0.02, maxX - minX);
+  const spanY = Math.max(0.06, maxTopY - minTopY);
+  const centerWorld = new THREE.Vector3(
+    (minX + maxX) * 0.5,
+    minTopY + spanY * 0.50,
+    zSum / samples.length
+  );
+
+  // Stop trying to fill the entire vertical split. The actual visual defect is
+  // that the two swept crest lobes appear to emerge from two separate heads.
+  // Add one low-poly skull cap at their base so they read as two crests/horns
+  // attached to one head mass. This keeps the original swept tips intact.
+  const geo = new THREE.IcosahedronGeometry(1, 2);
+  geo.scale(spanX * 0.31, spanY * 0.17, spanX * 0.23);
+  geo.computeVertexNormals();
+
+  const bridgeMat = cel({
+    color: 0xd8d5e1,
+    bands: 3,
+    tint: 0x6b6486,
+    flat: false,
+    side: THREE.FrontSide,
+    cache: false
+  });
+
+  const bridge = new THREE.Mesh(geo, bridgeMat);
+  bridge.name = "SakuraNPR_head_cap_v3";
+  bridge.userData.noOutline = true;
+  bridge.castShadow = true;
+  bridge.receiveShadow = true;
+
+  centerWorld.y = minTopY + spanY * 0.20;
+
+  // The correction must move with the animated head bone. The earlier page
+  // versions attached it to the scene root, so the run animation moved the
+  // real head away from the patch and produced the bar/rectangle artifacts
+  // seen in FRONT/CHASE captures.
+  const headBone = root.getObjectByName("head");
+  const anchor = headBone || root;
+  anchor.updateMatrixWorld(true);
+  const centerLocal = centerWorld.clone();
+  anchor.worldToLocal(centerLocal);
+  bridge.position.copy(centerLocal);
+  anchor.add(bridge);
+  root.updateMatrixWorld(true);
+
+  canvas.dataset.headSilhouetteCorrection = headBone ? "head-cap-bone-v4" : "head-cap-root-fallback";
+}
 const cameraForward = new THREE.Vector3();
 const cameraSide = new THREE.Vector3();
 const cameraUp = new THREE.Vector3(0, 1, 0);
@@ -273,7 +440,7 @@ loader.load(
     model.position.z -= center.z;
     model.updateMatrixWorld(true);
 
-    correctHeadSilhouette(model);
+    repairRiggedCrestGeometry(model);
 
     const correctedBox = new THREE.Box3().setFromObject(model);
     const correctedSize = new THREE.Vector3();

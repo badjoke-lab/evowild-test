@@ -1,0 +1,16 @@
+{
+  "source": "public/models/evowild-s/focus-rigged-v5.glb",
+  "output": "public/models/evowild-s/focus-rigged-v5-headfix.glb",
+  "changed_vertices": 213,
+  "max_x_shift": 0.004923303611576557,
+  "head_center_x": -0.01945158839225769,
+  "y_start": 0.7572394371032715,
+  "z_start": -0.5,
+  "head_bounds": {
+    "min_y": 0.46637073159217834,
+    "max_y": 0.9511519074440002,
+    "min_z": -0.8501009345054626,
+    "max_z": -0.31383803486824036
+  },
+  "status": "rigged_headfix_v1_candidate"
+}
