@@ -3983,8 +3983,8 @@ let paused = false;
 let finished = false;
 let raceTime = 0;
 let simulationAccumulator = 0;
-const SIMULATION_STEP = 1 / 120;
-const MAX_SIMULATION_STEPS = 14;
+const SIMULATION_STEP = SIMPLIFIED_RACE_PAGE ? 1 / 60 : 1 / 120;
+const MAX_SIMULATION_STEPS = SIMPLIFIED_RACE_PAGE ? 8 : 14;
 let fpsAccumulator = 0;
 let fpsFrames = 0;
 
@@ -4466,6 +4466,7 @@ async function boot() {
     canvas.dataset.simplifiedRace = "1";
     canvas.dataset.runnerCount = String(runners.length);
     canvas.dataset.morphSet = [...new Set(runners.map((runner) => runner.morph))].join("");
+    canvas.dataset.simulationHz = String(Math.round(1 / SIMULATION_STEP));
   }
 
   if (INSPECT_MODE || MOTION_REVIEW_MODE) {
