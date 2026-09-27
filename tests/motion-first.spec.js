@@ -680,11 +680,12 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
       "data-proxy-review-runner",
       runnerId
     );
-    // Lock manual camera before choosing the runner so AUTO director cannot
-    // overwrite the review focus while the isolated capture settles.
-    await page.getByRole("button", { name: "SIDE", exact: true }).click({ force: true });
+    await expect(page.locator("#scene")).toHaveAttribute(
+      "data-proxy-review-focus",
+      runnerId
+    );
+    await expect(page.locator("#runnerSelect")).toHaveValue(runnerId);
     await expect(page.locator("#cameraReadout")).toHaveText("SIDE");
-    await page.selectOption("#runnerSelect", runnerId);
     await expect(page.locator("#morphReadout")).toHaveText(morph);
     await page.waitForTimeout(950);
     await page.locator("#scene").screenshot({
