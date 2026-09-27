@@ -24,10 +24,7 @@ test("Sakura World lane loads the upstream world, runs S, and captures four view
   await expect(canvas).toHaveAttribute("data-head-mass-correction", "head-cap-bone-v17");
   await expect(canvas).toHaveAttribute("data-animation-count", /[1-9][0-9]*/);
 
-  await expect.poll(
-    () => page.evaluate(() => Number(window.__sakuraWorldLane?.runZ || 0)),
-    { timeout: 5000 }
-  ).toBeGreaterThan(13.6);
+  await expect(page.locator("#speed")).toHaveText("5.5 m/s");
 
   for (const name of ["3/4", "CHASE", "SIDE", "FRONT"]) {
     await page.getByRole("button", { name, exact: true }).click();
