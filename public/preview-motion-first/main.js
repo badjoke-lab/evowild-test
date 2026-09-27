@@ -298,7 +298,7 @@ const renderer = new THREE.WebGLRenderer({
   powerPreference: "high-performance"
 });
 const renderPixelRatio = SIMPLIFIED_RACE_PAGE
-  ? 0.70
+  ? 0.75
   : SIMPLIFIED_GAIT_PAGE
     ? Math.min(window.devicePixelRatio || 1, 1.25)
     : Math.min(window.devicePixelRatio || 1, 1.5);
