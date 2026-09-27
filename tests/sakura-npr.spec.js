@@ -21,7 +21,7 @@ test("Sakura NPR lane keeps named cameras on the correct S forward axis and capt
   await expect(canvas).toBeVisible();
   await expect(canvas).toHaveAttribute("data-render-lane", "sakura-npr");
   await expect(canvas).toHaveAttribute("data-camera-axis-fix", "1");
-  await expect(canvas).toHaveAttribute("data-head-silhouette-correction", "head-cap-bone-v4");
+  await expect(canvas).toHaveAttribute("data-head-silhouette-correction", "rigged-headfix-v1");
   await expect(canvas).toHaveAttribute("data-native-forward-axis", "-Z");
   await expect(canvas).toHaveAttribute("data-runtime-forward-axis", "+Z");
 
