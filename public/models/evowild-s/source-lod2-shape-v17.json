@@ -1,0 +1,20 @@
+{
+  "status": "shape_refine_v17_sprint_proportion_candidate_not_canonical",
+  "source_vertices": 6469,
+  "source_faces": 12940,
+  "body_vertices_after_surgery": 3753,
+  "body_faces_after_surgery": 7304,
+  "removed_crest_faces": 2936,
+  "removed_tail_faces": 2700,
+  "collapsed_ear_like_vertices": 231,
+  "source_component_count_after_cut": 1,
+  "detached_faces_removed": 0,
+  "new_crest_count": 2,
+  "crest_geometry": "swept_blade_prism",
+  "new_tail_count": 1,
+  "coordinate_basis": "raw_glb_x_lateral_y_vertical_z_longitudinal_head_positive_z",
+  "preview_rotation_y": "-pi/2",
+  "reference": "public/concept/S.webp",
+  "source": "source-lod2.glb",
+  "output": "source-lod2-shape-v17.glb"
+}
