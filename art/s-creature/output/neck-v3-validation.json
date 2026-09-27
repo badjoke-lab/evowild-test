@@ -1,0 +1,27 @@
+{
+  "input": "S-blockout-v2.blend",
+  "output": "S-blockout-v3.blend",
+  "source_object": "Neck_integrated_keel.002",
+  "lower_source_section_scale": [
+    0.85,
+    0.85
+  ],
+  "modified_surface_vertices": 37439,
+  "total_vertices": 186133,
+  "skull_and_crest_vertices_unchanged": true,
+  "topology_unchanged": true,
+  "changed_bounds": [
+    [
+      -0.4735074043273926,
+      -1.4895265102386475,
+      1.830153465270996
+    ],
+    [
+      0.4742908477783203,
+      -0.2803889214992523,
+      2.7933664321899414
+    ]
+  ],
+  "scope": "lower neck and chest junction only",
+  "accepted": false
+}
