@@ -3137,7 +3137,15 @@ function updateRunner(runner, dt) {
     const phaseRate = 4.2 * cfg.cadence * (0.25 + runner.speed / Math.max(cfg.baseSpeed, 1));
     runner.group.userData.phase += dt * phaseRate;
   }
-  updateCreaturePose(runner, lateralVelocity, dt);
+  if (SIMPLIFIED_RACE_PAGE) {
+    // Race physics, lane motion and gait phase still advance at fixed 60 Hz.
+    // Expensive articulated IK/body/head/tail transforms are deferred until
+    // the actual render frame, so catch-up simulation never solves poses that
+    // cannot be seen.
+    runner.renderLateralVelocity = lateralVelocity;
+  } else {
+    updateCreaturePose(runner, lateralVelocity, dt);
+  }
 }
 
 function wrap01(value) {
@@ -4579,13 +4587,21 @@ function animate() {
 
     canvas.dataset.raceTime = raceTime.toFixed(3);
     canvas.dataset.simulationSteps = String(simulationSteps);
+
+    if (SIMPLIFIED_RACE_PAGE) {
+      runners.forEach((runner) => {
+        updateCreaturePose(
+          runner,
+          runner.renderLateralVelocity || 0,
+          Math.max(rawDt, 1 / 240)
+        );
+      });
+      canvas.dataset.poseUpdateMode = "render-frame-canonical";
+    }
   } else {
     simulationAccumulator = 0;
     runners.forEach((runner) => {
       updateCreaturePose(runner, 0, cameraDt);
-      if (SIMPLIFIED_RACE_PAGE) {
-        updateSimplifiedRaceProxy(runner);
-      }
     });
   }
 
