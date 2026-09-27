@@ -284,7 +284,7 @@ function correctHeadSilhouette(root) {
   const spanY = Math.max(0.06, maxTopY - minTopY);
   const centerWorld = new THREE.Vector3(
     (minX + maxX) * 0.5,
-    minTopY + spanY * 0.43,
+    minTopY + spanY * 0.50,
     zSum / samples.length
   );
 
