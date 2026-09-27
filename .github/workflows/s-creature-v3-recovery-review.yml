@@ -35,7 +35,6 @@ jobs:
           set -euxo pipefail
           /tmp/blender-4.3.2-linux-x64/blender \
             --background \
-            --noaudio \
             art/s-creature/output/S-blockout-v3-recovery.blend \
             --python art/s-creature/blender/render_v3_recovery_review.py
 
