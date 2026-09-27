@@ -189,41 +189,37 @@ function correctHeadSilhouette(root) {
     zSum / samples.length
   );
 
-  const bridgeH = spanY * 0.56;
-  const bottomR = spanX * 0.16;
-  const topR = spanX * 0.055;
-
-  // A real tapered 3D crest core reads correctly from FRONT and CHASE
-  // without turning into the flat white rectangle produced by the first
-  // bridge attempt. It is deliberately narrow in depth so SIDE keeps the
-  // swept original profile.
-  const geo = new THREE.CylinderGeometry(topR, bottomR, bridgeH, 6, 2, false);
-  geo.scale(1.0, 1.0, 0.34);
+  // Stop trying to fill the entire vertical split. The actual visual defect is
+  // that the two swept crest lobes appear to emerge from two separate heads.
+  // Add one low-poly skull cap at their base so they read as two crests/horns
+  // attached to one head mass. This keeps the original swept tips intact.
+  const geo = new THREE.IcosahedronGeometry(1, 2);
+  geo.scale(spanX * 0.31, spanY * 0.17, spanX * 0.23);
   geo.computeVertexNormals();
 
   const bridgeMat = cel({
-    color: 0x8e88a5,
+    color: 0xd8d5e1,
     bands: 3,
-    tint: 0x5f5878,
+    tint: 0x6b6486,
     flat: false,
     side: THREE.FrontSide,
     cache: false
   });
 
   const bridge = new THREE.Mesh(geo, bridgeMat);
-  bridge.name = "SakuraNPR_head_bridge_v2";
+  bridge.name = "SakuraNPR_head_cap_v3";
   bridge.userData.noOutline = true;
   bridge.castShadow = true;
   bridge.receiveShadow = true;
 
-  centerWorld.y = minTopY + bridgeH * 0.49;
+  centerWorld.y = minTopY + spanY * 0.20;
   const centerLocal = centerWorld.clone();
   root.worldToLocal(centerLocal);
   bridge.position.copy(centerLocal);
   root.add(bridge);
   root.updateMatrixWorld(true);
 
-  canvas.dataset.headSilhouetteCorrection = "crest-core-v2";
+  canvas.dataset.headSilhouetteCorrection = "head-cap-v3";
 }
 const cameraForward = new THREE.Vector3();
 const cameraSide = new THREE.Vector3();
