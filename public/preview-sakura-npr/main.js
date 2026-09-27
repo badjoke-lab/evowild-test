@@ -128,6 +128,69 @@ function setModelMaterials(mode) {
   });
 }
 
+function repairRiggedCrestGeometry(root) {
+  let changed = 0;
+  const centerX = -0.01945158839225769;
+
+  root.traverse((o) => {
+    if (!o.isSkinnedMesh || !o.geometry) return;
+    const headIndex = o.skeleton?.bones?.findIndex((b) => b.name === "head") ?? -1;
+    if (headIndex < 0) return;
+
+    const g = o.geometry.clone();
+    const pos = g.getAttribute("position");
+    const skinIndex = g.getAttribute("skinIndex");
+    const skinWeight = g.getAttribute("skinWeight");
+    if (!pos || !skinIndex || !skinWeight) return;
+
+    const smooth01 = (x) => {
+      x = THREE.MathUtils.clamp(x, 0, 1);
+      return x * x * (3 - 2 * x);
+    };
+
+    for (let i = 0; i < pos.count; i += 1) {
+      let headWeight = 0;
+      if (skinIndex.getX(i) === headIndex) headWeight += skinWeight.getX(i);
+      if (skinIndex.getY(i) === headIndex) headWeight += skinWeight.getY(i);
+      if (skinIndex.getZ(i) === headIndex) headWeight += skinWeight.getZ(i);
+      if (skinIndex.getW(i) === headIndex) headWeight += skinWeight.getW(i);
+      if (headWeight < 0.18) continue;
+
+      const x = pos.getX(i);
+      const y = pos.getY(i);
+      const z = pos.getZ(i);
+
+      // Only the high swept-back crest is altered. The muzzle/head itself
+      // lives farther forward on -Z and is left untouched.
+      if (y <= 0.74 || z <= -0.52) continue;
+
+      const hy = smooth01((y - 0.74) / 0.22);
+      const hz = smooth01((z + 0.52) / 0.24);
+      const hw = smooth01((headWeight - 0.18) / 0.22);
+      const strength = hy * (0.62 + 0.38 * hz) * (0.72 + 0.28 * hw);
+
+      // Converge the two lateral lobes into one swept crest while keeping
+      // enough width to avoid the previous needle/spike failure.
+      const scaleX = THREE.MathUtils.lerp(0.86, 0.34, strength);
+      const nx = centerX + (x - centerX) * scaleX;
+
+      // A tiny rearward pull makes the merged crest read as swept, not pinched.
+      const nz = z - 0.010 * strength;
+
+      pos.setXYZ(i, nx, y, nz);
+      changed += 1;
+    }
+
+    pos.needsUpdate = true;
+    g.computeBoundingBox();
+    g.computeBoundingSphere();
+    o.geometry = g;
+  });
+
+  canvas.dataset.headSilhouetteCorrection = "weighted-crest-v5";
+  canvas.dataset.headRepairVertices = String(changed);
+}
+
 const pipeline = new Pipeline(renderer, scene, camera, { pixelBudget: 3.2e6 });
 
 const seamPoint = new THREE.Vector3();
@@ -307,7 +370,7 @@ document.querySelectorAll("[data-camera]").forEach((btn) => {
 
 const loader = new GLTFLoader();
 loader.load(
-  "../models/evowild-s/focus-rigged-v5-headfix.glb",
+  "../models/evowild-s/focus-rigged-v5.glb",
   (gltf) => {
     model = gltf.scene;
     model.rotation.y = Math.PI;
@@ -323,7 +386,7 @@ loader.load(
     model.position.z -= center.z;
     model.updateMatrixWorld(true);
 
-    canvas.dataset.headSilhouetteCorrection = "rigged-headfix-v1";
+    repairRiggedCrestGeometry(model);
 
     const correctedBox = new THREE.Box3().setFromObject(model);
     const correctedSize = new THREE.Vector3();
@@ -344,7 +407,7 @@ loader.load(
 
     frameCamera();
     loading.classList.add("hidden");
-    canvas.dataset.asset = "focus-rigged-v5-headfix.glb";
+    canvas.dataset.asset = "focus-rigged-v5.glb";
     canvas.dataset.renderLane = "sakura-npr";
     canvas.dataset.nativeForwardAxis = "-Z";
     canvas.dataset.runtimeForwardAxis = "+Z";
