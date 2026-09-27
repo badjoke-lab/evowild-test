@@ -26,9 +26,14 @@ test("Sakura World lane loads the upstream world, runs S, and captures four view
 
   await expect(page.locator("#speed")).toHaveText("5.5 m/s");
 
+  await page.evaluate(() => window.__sakuraWorldLane.pauseRendering());
+
   for (const [mode, file] of [["threeq", "threeq"], ["chase", "chase"], ["side", "side"], ["front", "front"]]) {
-    await page.evaluate((m) => window.__sakuraWorldLane.setCameraMode(m), mode);
-    await page.waitForTimeout(900);
+    await page.evaluate((m) => {
+      window.__sakuraWorldLane.setCameraMode(m);
+      window.__sakuraWorldLane.renderOnce();
+    }, mode);
+    await page.waitForTimeout(120);
     await page.screenshot({ path: `${outDir}/sakura-world-${file}.png`, timeout: 20000 });
   }
 
