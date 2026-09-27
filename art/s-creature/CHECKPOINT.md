@@ -23,3 +23,10 @@ quality_issues:
 blockers:
 - Work was interrupted for immediate remote recovery.
 - The previous remote checkpoint contained truncated model binaries; complete local binaries are being saved in this recovery commit.
+
+review_status: v3 recovery review rendered / not accepted
+review_renders_v3_recovery:
+- output/review/v3-recovery/S_blockout_front.png
+- output/review/v3-recovery/S_blockout_side.png
+- output/review/v3-recovery/S_blockout_front34.png
+- output/review/v3-recovery/S_blockout_rear34.png
