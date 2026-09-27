@@ -538,6 +538,16 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
 
   const fpsText = await page.locator("#fpsReadout").textContent();
   const fps = Number.parseInt(fpsText || "", 10);
+  const perfState = await page.locator("#scene").evaluate((node) => ({
+    renderPixelRatio: node.dataset.renderPixelRatio,
+    renderCalls: node.dataset.renderCalls,
+    renderTriangles: node.dataset.renderTriangles,
+    fullRunnerCount: node.dataset.fullRunnerCount,
+    proxyRunnerCount: node.dataset.proxyRunnerCount,
+    simulationSteps: node.dataset.simulationSteps,
+    poseUpdateMode: node.dataset.poseUpdateMode
+  }));
+  console.log("SIMPLIFIED_RACE_PERF", JSON.stringify({ fps, ...perfState }));
   expect(Number.isFinite(fps)).toBeTruthy();
   expect(fps).toBeGreaterThanOrEqual(28);
 
@@ -548,6 +558,14 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
   );
   await expect(page.locator("#scene")).toHaveAttribute("data-race-proxy-draw-calls", "8");
   await expect(page.locator("#scene")).toHaveAttribute("data-race-proxy-cue-band", "1");
+  await expect(page.locator("#scene")).toHaveAttribute(
+    "data-race-proxy-update-mode",
+    "render-frame"
+  );
+  await expect(page.locator("#scene")).toHaveAttribute(
+    "data-pose-update-mode",
+    "render-frame-canonical"
+  );
   await expect(page.locator("#scene")).toHaveAttribute("data-simulation-hz", "60");
   const proxyCount = Number(
     await page.locator("#scene").getAttribute("data-proxy-runner-count")
