@@ -2628,16 +2628,20 @@ const RACE_PROXY_PROFILE = {
   }
 };
 
-const proxyBodyGeometry = new THREE.IcosahedronGeometry(0.5, 0);
-const proxyHeadGeometry = new THREE.IcosahedronGeometry(0.5, 0);
-const proxyNeckGeometry = new THREE.CylinderGeometry(0.12, 0.18, 1, 5);
-const proxyLegGeometry = new THREE.CylinderGeometry(0.075, 0.10, 1, 5);
-const proxyLowerLegGeometry = new THREE.CylinderGeometry(0.050, 0.070, 1, 5);
+const proxyBodyGeometry = new THREE.IcosahedronGeometry(0.5, 1);
+const proxyHeadGeometry = new THREE.IcosahedronGeometry(0.5, 1);
+const proxyNeckGeometry = new THREE.CylinderGeometry(0.12, 0.18, 1, 6);
+const proxyLegGeometry = new THREE.CylinderGeometry(0.075, 0.10, 1, 6);
+const proxyLowerLegGeometry = new THREE.CylinderGeometry(0.050, 0.070, 1, 6);
 const proxyCannonGeometry = new THREE.CylinderGeometry(0.034, 0.048, 1, 5);
 const proxyTailGeometry = new THREE.CylinderGeometry(0.040, 0.070, 1, 5);
-const proxyCrestGeometry = new THREE.ConeGeometry(0.12, 1, 4);
+const proxyCrestGeometry = new THREE.CylinderGeometry(0.045, 0.12, 1, 4);
+const proxyMuzzleGeometry = new THREE.ConeGeometry(0.11, 0.36, 5);
 const proxyCueGeometry = new THREE.BoxGeometry(0.44, 0.07, 0.11);
+const proxyFootGeometry = new THREE.BoxGeometry(0.16, 0.065, 0.30);
 const proxyToeGeometry = new THREE.BoxGeometry(0.075, 0.055, 0.28);
+const proxyTailBladeGeometry = new THREE.BoxGeometry(0.10, 0.055, 0.28);
+const proxyShadowGeometry = new THREE.CircleGeometry(1, 12);
 
 let simplifiedRaceProxyPool = null;
 
@@ -2653,23 +2657,46 @@ function makeRaceProxyInstances(geometry, material, maxInstances) {
 function ensureSimplifiedRaceProxyPool() {
   if (!SIMPLIFIED_RACE_PAGE || simplifiedRaceProxyPool) return;
 
-  const primaryMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, fog: true });
-  const secondaryMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, fog: true });
-  const darkMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, fog: true });
+  const primaryMaterial = new THREE.MeshLambertMaterial({
+    color: 0xffffff,
+    flatShading: true,
+    fog: true
+  });
+  const secondaryMaterial = new THREE.MeshLambertMaterial({
+    color: 0xffffff,
+    flatShading: true,
+    fog: true
+  });
+  const darkMaterial = new THREE.MeshLambertMaterial({
+    color: 0xffffff,
+    flatShading: true,
+    fog: true
+  });
   const cueMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  const shadowMaterial = new THREE.MeshBasicMaterial({
+    color: 0x000000,
+    transparent: true,
+    opacity: 0.16,
+    depthWrite: false,
+    fog: true
+  });
 
   simplifiedRaceProxyPool = {
     chest: makeRaceProxyInstances(proxyBodyGeometry, primaryMaterial, RUNNER_COUNT * 2),
     pelvis: makeRaceProxyInstances(proxyBodyGeometry, secondaryMaterial, RUNNER_COUNT),
     neck: makeRaceProxyInstances(proxyNeckGeometry, primaryMaterial, RUNNER_COUNT),
     head: makeRaceProxyInstances(proxyHeadGeometry, primaryMaterial, RUNNER_COUNT),
+    muzzle: makeRaceProxyInstances(proxyMuzzleGeometry, secondaryMaterial, RUNNER_COUNT),
     crest: makeRaceProxyInstances(proxyCrestGeometry, secondaryMaterial, RUNNER_COUNT),
     tail: makeRaceProxyInstances(proxyTailGeometry, secondaryMaterial, RUNNER_COUNT * 3),
+    tailBlade: makeRaceProxyInstances(proxyTailBladeGeometry, secondaryMaterial, RUNNER_COUNT),
     cue: makeRaceProxyInstances(proxyCueGeometry, cueMaterial, RUNNER_COUNT),
     upperLeg: makeRaceProxyInstances(proxyLegGeometry, primaryMaterial, RUNNER_COUNT * 4),
     lowerLeg: makeRaceProxyInstances(proxyLowerLegGeometry, darkMaterial, RUNNER_COUNT * 4),
     cannon: makeRaceProxyInstances(proxyCannonGeometry, primaryMaterial, RUNNER_COUNT * 4),
-    toe: makeRaceProxyInstances(proxyToeGeometry, darkMaterial, RUNNER_COUNT * 8)
+    foot: makeRaceProxyInstances(proxyFootGeometry, darkMaterial, RUNNER_COUNT * 4),
+    toe: makeRaceProxyInstances(proxyToeGeometry, darkMaterial, RUNNER_COUNT * 8),
+    shadow: makeRaceProxyInstances(proxyShadowGeometry, shadowMaterial, RUNNER_COUNT)
   };
 
   canvas.dataset.raceProxyRepresentation = "instanced-canonical-rig";
@@ -2677,6 +2704,7 @@ function ensureSimplifiedRaceProxyPool() {
   canvas.dataset.raceProxyCueBand = "1";
   canvas.dataset.raceProxySplitFoot = "1";
   canvas.dataset.raceProxyUpdateMode = "canonical-direct";
+  canvas.dataset.raceProxyShading = "lambert-structural";
 }
 
 function copyMotionState(from, to) {
@@ -2732,7 +2760,8 @@ function createSimplifiedRaceProxy(morph, color, sourceRoot) {
     primary: baseColor.clone(),
     secondary: baseColor.clone().multiplyScalar(0.76),
     dark: baseColor.clone().multiplyScalar(0.46),
-    cue: baseColor.clone().lerp(new THREE.Color(0xbef7ff), 0.58)
+    cue: baseColor.clone().lerp(new THREE.Color(0xbef7ff), 0.58),
+    shadow: new THREE.Color(0x000000)
   };
 
   const chest = new THREE.Object3D();
@@ -2766,6 +2795,16 @@ function createSimplifiedRaceProxy(morph, color, sourceRoot) {
   headPart.position.set(0, 0, profile.head[2] * 0.22);
   headPart.scale.set(...profile.head);
   headPivot.add(headPart);
+
+  const muzzle = new THREE.Object3D();
+  muzzle.position.set(0, -0.025, profile.head[2] * 0.73);
+  muzzle.rotation.x = Math.PI / 2;
+  muzzle.scale.set(
+    morph === "P" ? 1.18 : 0.90,
+    morph === "S" ? 1.08 : 0.92,
+    morph === "P" ? 1.18 : 0.90
+  );
+  headPivot.add(muzzle);
 
   const crest = new THREE.Object3D();
   crest.position.set(0, 0.12, -profile.crest * 0.34);
@@ -2811,6 +2850,15 @@ function createSimplifiedRaceProxy(morph, color, sourceRoot) {
     tailParent = joint;
   });
 
+  const tailBlade = new THREE.Object3D();
+  tailBlade.position.set(0, 0, -0.15);
+  tailBlade.scale.set(
+    morph === "A" ? 1.45 : morph === "P" ? 1.08 : 1.18,
+    morph === "P" ? 1.10 : 0.90,
+    morph === "S" ? 1.28 : morph === "E" ? 1.05 : 0.92
+  );
+  tailParent.add(tailBlade);
+
   const sourceLegs = sourceUd.legs ? Object.values(sourceUd.legs) : [];
   const legs = sourceLegs.map((sourceLeg) => {
     const parent = sourceLeg.fore ? chestPivot : pelvisPivot;
@@ -2850,6 +2898,16 @@ function createSimplifiedRaceProxy(morph, color, sourceRoot) {
     foot.position.copy(sourceLeg.foot.position);
     ankle.add(foot);
 
+    const footPart = new THREE.Object3D();
+    footPart.position.set(0, -0.015, 0.10);
+    footPart.scale.set(
+      morph === "P" ? 1.30 : morph === "A" ? 1.12 : 0.96,
+      morph === "P" ? 1.16 : 0.96,
+      morph === "S" ? 1.18 : morph === "E" ? 1.08 : 0.98
+    );
+    footPart.rotation.x = -0.08;
+    foot.add(footPart);
+
     const toes = [-1, 1].map((toeSide) => {
       const toe = new THREE.Object3D();
       toe.position.set(toeSide * (morph === "P" ? 0.070 : 0.050), -0.01, morph === "P" ? 0.25 : 0.23);
@@ -2872,6 +2930,7 @@ function createSimplifiedRaceProxy(morph, color, sourceRoot) {
       upper,
       lower,
       cannon,
+      footPart,
       toes,
       phaseOffset: sourceLeg.phaseOffset,
       upperLen: sourceLeg.upperLen,
@@ -2884,6 +2943,16 @@ function createSimplifiedRaceProxy(morph, color, sourceRoot) {
       ikClamped: false
     };
   });
+
+  const shadow = new THREE.Object3D();
+  shadow.position.set(0, 0.025, 0);
+  shadow.rotation.x = -Math.PI / 2;
+  shadow.scale.set(
+    morph === "P" ? 0.92 : morph === "A" ? 0.72 : 0.76,
+    morph === "S" || morph === "E" ? 1.45 : morph === "P" ? 1.18 : 1.05,
+    1
+  );
+  root.add(shadow);
 
   const gait =
     morph === "S" ? S_GAIT :
@@ -2936,9 +3005,12 @@ function createSimplifiedRaceProxy(morph, color, sourceRoot) {
     pelvis,
     neck,
     headPart,
+    muzzle,
     crest,
     cue,
     tailParts,
+    tailBlade,
+    shadow,
     legs,
     motionRunner
   };
@@ -2991,13 +3063,17 @@ function syncSimplifiedRaceProxyInstances() {
     pelvis: 0,
     neck: 0,
     head: 0,
+    muzzle: 0,
     crest: 0,
     tail: 0,
+    tailBlade: 0,
     cue: 0,
     upperLeg: 0,
     lowerLeg: 0,
     cannon: 0,
-    toe: 0
+    foot: 0,
+    toe: 0,
+    shadow: 0
   };
 
   runners.forEach((runner) => {
@@ -3011,8 +3087,11 @@ function syncSimplifiedRaceProxyInstances() {
     setProxyInstance(simplifiedRaceProxyPool.pelvis, counts.pelvis++, ud.pelvis, ud.colors.secondary);
     setProxyInstance(simplifiedRaceProxyPool.neck, counts.neck++, ud.neck, ud.colors.primary);
     setProxyInstance(simplifiedRaceProxyPool.head, counts.head++, ud.headPart, ud.colors.primary);
+    setProxyInstance(simplifiedRaceProxyPool.muzzle, counts.muzzle++, ud.muzzle, ud.colors.secondary);
     setProxyInstance(simplifiedRaceProxyPool.crest, counts.crest++, ud.crest, ud.colors.secondary);
     setProxyInstance(simplifiedRaceProxyPool.cue, counts.cue++, ud.cue, ud.colors.cue);
+    setProxyInstance(simplifiedRaceProxyPool.tailBlade, counts.tailBlade++, ud.tailBlade, ud.colors.secondary);
+    setProxyInstance(simplifiedRaceProxyPool.shadow, counts.shadow++, ud.shadow, ud.colors.shadow);
 
     ud.tailParts.forEach((tailPart, index) => {
       setProxyInstance(
@@ -3041,6 +3120,12 @@ function syncSimplifiedRaceProxyInstances() {
         counts.cannon++,
         leg.cannon,
         leg.fore ? ud.colors.primary : ud.colors.secondary
+      );
+      setProxyInstance(
+        simplifiedRaceProxyPool.foot,
+        counts.foot++,
+        leg.footPart,
+        ud.colors.dark
       );
       leg.toes.forEach((toe) => {
         setProxyInstance(simplifiedRaceProxyPool.toe, counts.toe++, toe, ud.colors.dark);
