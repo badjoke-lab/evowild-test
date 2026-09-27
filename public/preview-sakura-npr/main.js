@@ -130,11 +130,13 @@ function setModelMaterials(mode) {
 
 function repairRiggedCrestGeometry(root) {
   let changed = 0;
-  const centerX = -0.01945158839225769;
+  const world = new THREE.Vector3();
+
+  root.updateMatrixWorld(true);
 
   root.traverse((o) => {
     if (!o.isSkinnedMesh || !o.geometry) return;
-    const headIndex = o.skeleton?.bones?.findIndex((b) => b.name === "head") ?? -1;
+    const headIndex = o.skeleton?.bones?.findIndex((b) => b.name === "head" || b.name.endsWith("_head")) ?? -1;
     if (headIndex < 0) return;
 
     const g = o.geometry.clone();
@@ -143,41 +145,61 @@ function repairRiggedCrestGeometry(root) {
     const skinWeight = g.getAttribute("skinWeight");
     if (!pos || !skinIndex || !skinWeight) return;
 
+    const headWeightAt = (i) => {
+      let w = 0;
+      if (skinIndex.getX(i) === headIndex) w += skinWeight.getX(i);
+      if (skinIndex.getY(i) === headIndex) w += skinWeight.getY(i);
+      if (skinIndex.getZ(i) === headIndex) w += skinWeight.getZ(i);
+      if (skinIndex.getW(i) === headIndex) w += skinWeight.getW(i);
+      return w;
+    };
+
+    let minX = Infinity, maxX = -Infinity;
+    let minY = Infinity, maxY = -Infinity;
+    let weightedCount = 0;
+
+    for (let i = 0; i < pos.count; i += 1) {
+      const hw = headWeightAt(i);
+      if (hw < 0.18) continue;
+      world.fromBufferAttribute(pos, i);
+      o.localToWorld(world);
+      minX = Math.min(minX, world.x);
+      maxX = Math.max(maxX, world.x);
+      minY = Math.min(minY, world.y);
+      maxY = Math.max(maxY, world.y);
+      weightedCount += 1;
+    }
+
+    if (!weightedCount || !Number.isFinite(minY) || maxY <= minY) return;
+
+    const centerX = (minX + maxX) * 0.5;
+    const yStart = minY + (maxY - minY) * 0.58;
+
     const smooth01 = (x) => {
       x = THREE.MathUtils.clamp(x, 0, 1);
       return x * x * (3 - 2 * x);
     };
 
     for (let i = 0; i < pos.count; i += 1) {
-      let headWeight = 0;
-      if (skinIndex.getX(i) === headIndex) headWeight += skinWeight.getX(i);
-      if (skinIndex.getY(i) === headIndex) headWeight += skinWeight.getY(i);
-      if (skinIndex.getZ(i) === headIndex) headWeight += skinWeight.getZ(i);
-      if (skinIndex.getW(i) === headIndex) headWeight += skinWeight.getW(i);
-      if (headWeight < 0.18) continue;
+      const hwRaw = headWeightAt(i);
+      if (hwRaw < 0.18) continue;
 
-      const x = pos.getX(i);
-      const y = pos.getY(i);
-      const z = pos.getZ(i);
+      world.fromBufferAttribute(pos, i);
+      o.localToWorld(world);
+      if (world.y <= yStart) continue;
 
-      // Only the high swept-back crest is altered. The muzzle/head itself
-      // lives farther forward on -Z and is left untouched.
-      if (y <= 0.74 || z <= -0.52) continue;
+      const hy = smooth01((world.y - yStart) / Math.max(1e-6, maxY - yStart));
+      const hw = smooth01((hwRaw - 0.18) / 0.22);
+      const strength = hy * (0.72 + 0.28 * hw);
 
-      const hy = smooth01((y - 0.74) / 0.22);
-      const hz = smooth01((z + 0.52) / 0.24);
-      const hw = smooth01((headWeight - 0.18) / 0.22);
-      const strength = hy * (0.62 + 0.38 * hz) * (0.72 + 0.28 * hw);
+      // Only head-weighted upper vertices converge. This keeps the muzzle,
+      // neck and body untouched while turning the forked upper silhouette
+      // into one broad swept crest instead of the earlier needle.
+      const scaleX = THREE.MathUtils.lerp(0.88, 0.40, strength);
+      world.x = centerX + (world.x - centerX) * scaleX;
 
-      // Converge the two lateral lobes into one swept crest while keeping
-      // enough width to avoid the previous needle/spike failure.
-      const scaleX = THREE.MathUtils.lerp(0.86, 0.34, strength);
-      const nx = centerX + (x - centerX) * scaleX;
-
-      // A tiny rearward pull makes the merged crest read as swept, not pinched.
-      const nz = z - 0.010 * strength;
-
-      pos.setXYZ(i, nx, y, nz);
+      o.worldToLocal(world);
+      pos.setXYZ(i, world.x, world.y, world.z);
       changed += 1;
     }
 
@@ -185,9 +207,12 @@ function repairRiggedCrestGeometry(root) {
     g.computeBoundingBox();
     g.computeBoundingSphere();
     o.geometry = g;
+
+    canvas.dataset.headBoneIndex = String(headIndex);
+    canvas.dataset.headWeightedVertices = String(weightedCount);
   });
 
-  canvas.dataset.headSilhouetteCorrection = "weighted-crest-v5";
+  canvas.dataset.headSilhouetteCorrection = "weighted-crest-world-v6";
   canvas.dataset.headRepairVertices = String(changed);
 }
 
