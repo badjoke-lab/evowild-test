@@ -189,43 +189,41 @@ function correctHeadSilhouette(root) {
     zSum / samples.length
   );
 
-  const bridgeW = spanX * 0.48;
-  const bridgeH = spanY * 0.68;
-  const topW = bridgeW * 0.34;
+  const bridgeH = spanY * 0.56;
+  const bottomR = spanX * 0.16;
+  const topR = spanX * 0.055;
 
-  const positions = new Float32Array([
-    -bridgeW * 0.5, -bridgeH * 0.5, 0,
-     bridgeW * 0.5, -bridgeH * 0.5, 0,
-     topW * 0.5,     bridgeH * 0.5, 0,
-    -topW * 0.5,     bridgeH * 0.5, 0
-  ]);
-  const geo = new THREE.BufferGeometry();
-  geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-  geo.setIndex([0, 1, 2, 0, 2, 3]);
+  // A real tapered 3D crest core reads correctly from FRONT and CHASE
+  // without turning into the flat white rectangle produced by the first
+  // bridge attempt. It is deliberately narrow in depth so SIDE keeps the
+  // swept original profile.
+  const geo = new THREE.CylinderGeometry(topR, bottomR, bridgeH, 6, 2, false);
+  geo.scale(1.0, 1.0, 0.34);
   geo.computeVertexNormals();
 
   const bridgeMat = cel({
-    color: sourceMaterial?.color?.getHex?.() ?? 0xe9e7e2,
+    color: 0x8e88a5,
     bands: 3,
-    tint: 0x6c5f8c,
+    tint: 0x5f5878,
     flat: false,
-    map: sourceMaterial?.map ?? null,
-    side: THREE.DoubleSide,
+    side: THREE.FrontSide,
     cache: false
   });
 
   const bridge = new THREE.Mesh(geo, bridgeMat);
-  bridge.name = "SakuraNPR_head_bridge";
+  bridge.name = "SakuraNPR_head_bridge_v2";
   bridge.userData.noOutline = true;
-  bridge.renderOrder = -1;
+  bridge.castShadow = true;
+  bridge.receiveShadow = true;
 
+  centerWorld.y = minTopY + bridgeH * 0.49;
   const centerLocal = centerWorld.clone();
   root.worldToLocal(centerLocal);
   bridge.position.copy(centerLocal);
   root.add(bridge);
   root.updateMatrixWorld(true);
 
-  canvas.dataset.headSilhouetteCorrection = "bridge";
+  canvas.dataset.headSilhouetteCorrection = "crest-core-v2";
 }
 const cameraForward = new THREE.Vector3();
 const cameraSide = new THREE.Vector3();
