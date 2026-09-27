@@ -7,6 +7,7 @@ import { buildSky } from "https://cdn.jsdelivr.net/gh/Kenton-GMI/sakura-crossing
 import { setOutlineResolution } from "https://cdn.jsdelivr.net/gh/Kenton-GMI/sakura-crossing@de01898e89c7f6ab3fad93fa802f0f5ac66fbd81/src/core/outline.js";
 import { buildWorld } from "https://cdn.jsdelivr.net/gh/Kenton-GMI/sakura-crossing@de01898e89c7f6ab3fad93fa802f0f5ac66fbd81/src/world/index.js";
 import { basisAt, normalAt, positionAt } from "https://cdn.jsdelivr.net/gh/Kenton-GMI/sakura-crossing@de01898e89c7f6ab3fad93fa802f0f5ac66fbd81/src/world/planet.js";
+import { centerX, ROAD_HALF } from "https://cdn.jsdelivr.net/gh/Kenton-GMI/sakura-crossing@de01898e89c7f6ab3fad93fa802f0f5ac66fbd81/src/world/street.js";
 
 const canvas = document.querySelector("#view");
 const loading = document.querySelector("#loading");
@@ -82,7 +83,6 @@ let mixer = null;
 let modelHeight = 2.0;
 let cameraMode = "threeq";
 let runZ = 13.6;
-const runX = 1.85;
 const runSpeed = 5.5;
 speedEl.textContent = runSpeed.toFixed(1) + " m/s";
 
@@ -179,6 +179,7 @@ const camWorld = new THREE.Vector3();
 const upWorld = new THREE.Vector3();
 
 function placeRunner() {
+  const runX = centerX(runZ);
   const ground = world.heightAt(runX, runZ);
   const b = basisAt(runX, runZ);
   basisMatrix.makeBasis(b.east, b.up, b.north);
@@ -188,13 +189,13 @@ function placeRunner() {
   positionAt(runX, ground + modelHeight * 0.48, runZ, targetWorld);
 
   let dx = 0, dz = 0, eye = modelHeight * 0.28;
-  if (cameraMode === "front") { dz = 5.7; eye = modelHeight * 0.20; }
-  else if (cameraMode === "chase") { dz = -6.4; eye = modelHeight * 0.30; }
-  else if (cameraMode === "side") { dx = 5.4; eye = modelHeight * 0.22; }
-  else { dx = 4.6; dz = 4.8; eye = modelHeight * 0.30; }
+  if (cameraMode === "front") { dz = 4.8; eye = modelHeight * 0.20; }
+  else if (cameraMode === "chase") { dz = -5.4; eye = modelHeight * 0.28; }
+  else if (cameraMode === "side") { dx = ROAD_HALF * 0.84; eye = modelHeight * 0.24; }
+  else { dx = ROAD_HALF * 0.72; dz = 3.6; eye = modelHeight * 0.28; }
 
-  const cx = runX + dx;
   const cz = runZ + dz;
+  const cx = centerX(cz) + dx;
   const cground = world.heightAt(cx, cz);
   positionAt(cx, cground + modelHeight * 0.62 + eye, cz, camWorld);
   normalAt(cx, cz, upWorld);
@@ -288,6 +289,7 @@ function frame() {
 
   if (model) {
     runZ += runSpeed * dt;
+    if (runZ > 44) runZ = 10;
     placeRunner();
   }
 
