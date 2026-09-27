@@ -136,51 +136,36 @@ function repairRiggedCrestGeometry(root) {
 
   root.traverse((o) => {
     if (!o.isSkinnedMesh || !o.geometry) return;
-    const headIndex = o.skeleton?.bones?.findIndex((b) => b.name === "head" || b.name.endsWith("_head")) ?? -1;
-    if (headIndex < 0) return;
 
     const g = o.geometry.clone();
     const pos = g.getAttribute("position");
-    const skinIndex = g.getAttribute("skinIndex");
-    const skinWeight = g.getAttribute("skinWeight");
-    if (!pos || !skinIndex || !skinWeight) return;
-
-    const headWeightAt = (i) => {
-      let w = 0;
-      if (skinIndex.getX(i) === headIndex) w += skinWeight.getX(i);
-      if (skinIndex.getY(i) === headIndex) w += skinWeight.getY(i);
-      if (skinIndex.getZ(i) === headIndex) w += skinWeight.getZ(i);
-      if (skinIndex.getW(i) === headIndex) w += skinWeight.getW(i);
-      return w;
-    };
+    if (!pos) return;
 
     let minX = Infinity, maxX = -Infinity;
     let minY = Infinity, maxY = -Infinity;
-    let weightedCount = 0;
 
     for (let i = 0; i < pos.count; i += 1) {
-      const hw = headWeightAt(i);
-      if (hw < 0.18) continue;
       world.fromBufferAttribute(pos, i);
       o.localToWorld(world);
       minX = Math.min(minX, world.x);
       maxX = Math.max(maxX, world.x);
       minY = Math.min(minY, world.y);
       maxY = Math.max(maxY, world.y);
-      weightedCount += 1;
     }
 
-    if (!weightedCount || !Number.isFinite(minY) || maxY <= minY) return;
+    if (!Number.isFinite(minY) || maxY <= minY) return;
 
     const centerX = (minX + maxX) * 0.5;
-    const yStart = minY + (maxY - minY) * 0.52;
-    const centroidStart = minY + (maxY - minY) * 0.66;
-    const sideGuard = Math.max(0.012, (maxX - minX) * 0.035);
+    const height = maxY - minY;
+    const yStart = minY + height * 0.69;
+    const centroidStart = minY + height * 0.76;
+    const sideGuard = Math.max(0.010, (maxX - minX) * 0.028);
 
     let leftSum = 0, rightSum = 0, leftCount = 0, rightCount = 0;
+
+    // Measure the two visible upper silhouette clusters directly. Do not rely
+    // on skin weights: some crest vertices are shared with neck/head groups.
     for (let i = 0; i < pos.count; i += 1) {
-      const hw = headWeightAt(i);
-      if (hw < 0.18) continue;
       world.fromBufferAttribute(pos, i);
       o.localToWorld(world);
       if (world.y < centroidStart) continue;
@@ -198,7 +183,7 @@ function repairRiggedCrestGeometry(root) {
 
     const leftCentroid = leftSum / leftCount;
     const rightCentroid = rightSum / rightCount;
-    const desiredHalfGap = Math.max(0.003, (maxX - minX) * 0.012);
+    const desiredHalfGap = 0.0025;
     const leftShift = (centerX - desiredHalfGap) - leftCentroid;
     const rightShift = (centerX + desiredHalfGap) - rightCentroid;
 
@@ -208,22 +193,18 @@ function repairRiggedCrestGeometry(root) {
     };
 
     for (let i = 0; i < pos.count; i += 1) {
-      const hwRaw = headWeightAt(i);
-      if (hwRaw < 0.18) continue;
-
       world.fromBufferAttribute(pos, i);
       o.localToWorld(world);
       if (world.y <= yStart) continue;
 
       const dx = world.x - centerX;
-      if (Math.abs(dx) <= sideGuard * 0.55) continue;
+      if (Math.abs(dx) <= sideGuard * 0.5) continue;
 
       const hy = smooth01((world.y - yStart) / Math.max(1e-6, maxY - yStart));
-      const hw = smooth01((hwRaw - 0.18) / 0.20);
-      const strength = Math.min(1, hy * (0.82 + 0.18 * hw) + (world.y >= centroidStart ? 0.22 : 0));
-
-      // Move each whole lobe toward the same centreline. This preserves its
-      // local width; unlike scaling, it cannot turn the crest into a needle.
+      // Give the top silhouette nearly the full rigid lobe translation while
+      // easing it into the skull/neck below. Width is preserved; only the
+      // separation between the two upper clusters is removed.
+      const strength = Math.min(1, 0.38 + hy * 0.72);
       world.x += (dx < 0 ? leftShift : rightShift) * strength;
 
       o.worldToLocal(world);
@@ -236,13 +217,13 @@ function repairRiggedCrestGeometry(root) {
     g.computeBoundingSphere();
     o.geometry = g;
 
-    canvas.dataset.headBoneIndex = String(headIndex);
-    canvas.dataset.headWeightedVertices = String(weightedCount);
     canvas.dataset.crestLeftShift = leftShift.toFixed(4);
     canvas.dataset.crestRightShift = rightShift.toFixed(4);
+    canvas.dataset.crestTopLeftCount = String(leftCount);
+    canvas.dataset.crestTopRightCount = String(rightCount);
   });
 
-  canvas.dataset.headSilhouetteCorrection = "centroid-lobe-merge-v9";
+  canvas.dataset.headSilhouetteCorrection = "silhouette-cluster-merge-v10";
   canvas.dataset.headRepairVertices = String(changed);
 }
 
