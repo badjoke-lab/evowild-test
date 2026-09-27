@@ -542,6 +542,7 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
   expect(fps).toBeGreaterThanOrEqual(28);
 
   await expect(page.locator("#scene")).toHaveAttribute("data-race-proxy-lod", "1");
+  await expect(page.locator("#scene")).toHaveAttribute("data-simulation-hz", "60");
   const proxyCount = Number(
     await page.locator("#scene").getAttribute("data-proxy-runner-count")
   );
