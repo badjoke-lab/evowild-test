@@ -347,7 +347,10 @@ function correctHeadSilhouette(root) {
   canvas.dataset.headSilhouetteCorrection = headBone ? "head-cap-bone-v4" : "head-cap-root-fallback";
 }
 function addCentralSkullMass(root) {
-  const headBone = root.getObjectByName("head");
+  let headBone = null;
+  root.traverse((o) => {
+    if (!headBone && o.isBone && o.name === "head") headBone = o;
+  });
   if (!headBone) return false;
 
   root.updateMatrixWorld(true);
