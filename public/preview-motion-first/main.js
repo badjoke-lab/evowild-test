@@ -2744,57 +2744,46 @@ function createSimplifiedRaceProxy(morph, color) {
   return root;
 }
 
-function updateSimplifiedRaceProxy(runner, lateralVelocity) {
+function updateSimplifiedRaceProxy(runner) {
   if (!runner.raceProxy) return;
 
-  const ud = runner.raceProxy.userData.raceProxy;
-  const profile = ud.profile;
-  const phase = runner.group.userData.phase + runner.phaseBias;
-  const speedRatio = THREE.MathUtils.clamp(
-    runner.speed / Math.max(runner.cfg.baseSpeed, 1),
-    0,
-    1.2
-  );
-  const turnLean = THREE.MathUtils.clamp(
-    -lateralVelocity * runner.cfg.laneLean * 0.10,
-    -0.26,
-    0.26
-  );
+  const proxyUd = runner.raceProxy.userData.raceProxy;
+  const fullUd = runner.group.userData;
 
   runner.raceProxy.position.set(runner.laneX, 0, runner.distance);
 
-  ud.body.position.y =
-    profile.baseY +
-    Math.abs(Math.sin(phase * 0.5)) * profile.bob * speedRatio;
-  ud.body.rotation.x =
-    -0.05 * speedRatio +
-    Math.sin(phase) * 0.018 * speedRatio;
-  ud.body.rotation.z = turnLean;
+  // The proxy is only a cheaper draw representation. Motion still comes from
+  // the full canonical gait state so LOD never turns into a lower-quality
+  // animation system.
+  proxyUd.body.position.y = fullUd.bodyMaster?.position.y ?? proxyUd.profile.baseY;
+  if (fullUd.bodyMaster) {
+    proxyUd.body.rotation.copy(fullUd.bodyMaster.rotation);
+  }
 
-  const bodyFlex = Math.sin(phase * 0.5) * 0.035 * speedRatio;
-  ud.chest.rotation.x = -bodyFlex;
-  ud.pelvis.rotation.x = bodyFlex * 1.15;
-  ud.head.rotation.x =
-    -ud.body.rotation.x * 0.38 -
-    Math.sin(phase * 0.5 + 0.7) * 0.018 * speedRatio;
-  ud.head.rotation.z = -turnLean * 0.45;
+  if (fullUd.chestPivot) {
+    proxyUd.chest.rotation.copy(fullUd.chestPivot.rotation);
+  }
+  if (fullUd.pelvisPivot) {
+    proxyUd.pelvis.rotation.copy(fullUd.pelvisPivot.rotation);
+  }
+  if (fullUd.headPivot) {
+    proxyUd.head.rotation.copy(fullUd.headPivot.rotation);
+  }
 
-  ud.legs.forEach((leg) => {
-    const lp = phase + leg.phase;
-    const stride = Math.sin(lp) * profile.swing * speedRatio;
-    const fold = Math.max(0, -Math.cos(lp));
-    leg.hip.rotation.x = stride;
-    leg.hip.rotation.z = leg.side * turnLean * 0.22;
-    leg.knee.rotation.x =
-      (leg.fore ? -1 : 1) * (0.18 + fold * 0.58);
+  const fullLegs = fullUd.legs ? Object.values(fullUd.legs) : [];
+  proxyUd.legs.forEach((proxyLeg, index) => {
+    const fullLeg = fullLegs[index];
+    if (!fullLeg) return;
+    proxyLeg.hip.rotation.copy(fullLeg.hip.rotation);
+    proxyLeg.knee.rotation.copy(fullLeg.knee.rotation);
   });
 
-  ud.tail.rotation.y =
-    Math.sin(phase * 0.42) * 0.10 * speedRatio -
-    turnLean * 0.75;
-  ud.tail.rotation.x =
-    Math.PI / 2 +
-    Math.sin(phase * 0.31 + 0.4) * 0.035 * speedRatio;
+  const tailJoint = fullUd.tailSegments?.[0];
+  if (tailJoint) {
+    proxyUd.tail.rotation.x = Math.PI / 2 + tailJoint.rotation.x;
+    proxyUd.tail.rotation.y = tailJoint.rotation.y;
+    proxyUd.tail.rotation.z = tailJoint.rotation.z;
+  }
 }
 
 function updateSimplifiedRaceLodSelection() {
@@ -3005,13 +2994,9 @@ function updateRunner(runner, dt) {
     const phaseRate = 4.2 * cfg.cadence * (0.25 + runner.speed / Math.max(cfg.baseSpeed, 1));
     runner.group.userData.phase += dt * phaseRate;
   }
+  updateCreaturePose(runner, lateralVelocity, dt);
   if (SIMPLIFIED_RACE_PAGE) {
-    updateSimplifiedRaceProxy(runner, lateralVelocity);
-    if (runner.renderFull || runner.id === selectedRunner) {
-      updateCreaturePose(runner, lateralVelocity, dt);
-    }
-  } else {
-    updateCreaturePose(runner, lateralVelocity, dt);
+    updateSimplifiedRaceProxy(runner);
   }
 }
 
@@ -4457,13 +4442,9 @@ function animate() {
   } else {
     simulationAccumulator = 0;
     runners.forEach((runner) => {
+      updateCreaturePose(runner, 0, cameraDt);
       if (SIMPLIFIED_RACE_PAGE) {
-        updateSimplifiedRaceProxy(runner, 0);
-        if (runner.renderFull || runner.id === selectedRunner) {
-          updateCreaturePose(runner, 0, cameraDt);
-        }
-      } else {
-        updateCreaturePose(runner, 0, cameraDt);
+        updateSimplifiedRaceProxy(runner);
       }
     });
   }
