@@ -2,10 +2,10 @@ import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 import crypto from "node:crypto";
 
-test("render S baseline and corrected-axis v10 comparison", async ({ page }, testInfo) => {
+test("render S baseline and direct-surgery v12 comparison", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(120000);
-  const outDir = "test-results/shape-v10-browser";
+  const outDir = "test-results/shape-v12-browser";
   fs.mkdirSync(outDir, { recursive: true });
 
   const errors = [];
@@ -35,16 +35,16 @@ test("render S baseline and corrected-axis v10 comparison", async ({ page }, tes
     "hunyuan-s-lod2",
     "baseline"
   );
-  const v10 = await capture(
-    "/evowild-test/preview-motion-first/index.html?inspect=1&morph=S&shape=v10",
-    "hunyuan-s-lod2-shape-v10",
-    "shape-v10"
+  const v12 = await capture(
+    "/evowild-test/preview-motion-first/index.html?inspect=1&morph=S&shape=v12",
+    "hunyuan-s-lod2-shape-v12",
+    "shape-v12"
   );
 
-  expect(v10.LOW).not.toBe(baseline.LOW);
-  expect(v10.FRONT).not.toBe(baseline.FRONT);
-  expect(v10.CHASE).not.toBe(baseline.CHASE);
+  expect(v12.LOW).not.toBe(baseline.LOW);
+  expect(v12.FRONT).not.toBe(baseline.FRONT);
+  expect(v12.CHASE).not.toBe(baseline.CHASE);
   expect(errors, errors.join("\n")).toEqual([]);
 
-  console.log("SHAPE_V10_BROWSER", JSON.stringify({ baseline, v10 }));
+  console.log("SHAPE_V12_BROWSER", JSON.stringify({ baseline, v12 }));
 });
