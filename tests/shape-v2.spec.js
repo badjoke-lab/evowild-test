@@ -2,10 +2,10 @@ import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 import crypto from "node:crypto";
 
-test("render S v14 v15 comparison", async ({ page }, testInfo) => {
+test("render S v15 v16 comparison", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(120000);
-  const outDir = "test-results/shape-v15-browser";
+  const outDir = "test-results/shape-v16-browser";
   fs.mkdirSync(outDir, { recursive: true });
   const errors = [];
   page.on("pageerror", (err) => errors.push(err.stack || String(err)));
@@ -32,13 +32,13 @@ test("render S v14 v15 comparison", async ({ page }, testInfo) => {
     return result;
   }
 
-  const v14 = await capture("v14", "hunyuan-s-lod2-shape-v14", "shape-v14");
   const v15 = await capture("v15", "hunyuan-s-lod2-shape-v15", "shape-v15");
+  const v16 = await capture("v16", "hunyuan-s-lod2-shape-v16", "shape-v16");
 
-  expect(v15.LOW).not.toBe(v14.LOW);
-  expect(v15.FRONT).not.toBe(v14.FRONT);
-  expect(v15.CHASE).not.toBe(v14.CHASE);
-  expect(v15.SIDE).not.toBe(v14.SIDE);
+  expect(v16.LOW).not.toBe(v15.LOW);
+  expect(v16.FRONT).not.toBe(v15.FRONT);
+  expect(v16.CHASE).not.toBe(v15.CHASE);
+  expect(v16.SIDE).not.toBe(v15.SIDE);
   expect(errors, errors.join("\n")).toEqual([]);
-  console.log("SHAPE_V15_BROWSER", JSON.stringify({ v14, v15 }));
+  console.log("SHAPE_V16_BROWSER", JSON.stringify({ v15, v16 }));
 });
