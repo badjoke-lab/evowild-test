@@ -446,32 +446,38 @@ function addWorld() {
   scene.add(track);
 
   const shoulderMat = new THREE.MeshStandardMaterial({ color: 0xc1a16a, roughness: 1 });
-  [-TRACK_WIDTH / 2 - 1.3, TRACK_WIDTH / 2 + 1.3].forEach((x) => {
-    const shoulder = new THREE.Mesh(
-      new THREE.PlaneGeometry(2.2, WORLD_END + 200),
-      shoulderMat
+  const shoulderGeo = new THREE.PlaneGeometry(2.2, WORLD_END + 200);
+  const shoulders = new THREE.InstancedMesh(shoulderGeo, shoulderMat, 2);
+  const flatRotation = new THREE.Quaternion().setFromEuler(
+    new THREE.Euler(-Math.PI / 2, 0, 0)
+  );
+  [-TRACK_WIDTH / 2 - 1.3, TRACK_WIDTH / 2 + 1.3].forEach((x, i) => {
+    const shoulderMatrix = new THREE.Matrix4().compose(
+      new THREE.Vector3(x, 0.008, WORLD_END / 2 - 50),
+      flatRotation,
+      new THREE.Vector3(1, 1, 1)
     );
-    shoulder.rotation.x = -Math.PI / 2;
-    shoulder.position.set(x, 0.008, WORLD_END / 2 - 50);
-    scene.add(shoulder);
+    shoulders.setMatrixAt(i, shoulderMatrix);
   });
+  scene.add(shoulders);
 
   const lineMat = new THREE.MeshBasicMaterial({
     color: 0xd8dde0,
     transparent: true,
     opacity: 0.62
   });
-
+  const lineGeo = new THREE.PlaneGeometry(0.055, WORLD_END + 180);
+  const laneLines = new THREE.InstancedMesh(lineGeo, lineMat, LANE_COUNT - 1);
   for (let lane = 1; lane < LANE_COUNT; lane += 1) {
     const x = -((LANE_COUNT - 1) * LANE_WIDTH) / 2 + lane * LANE_WIDTH - LANE_WIDTH / 2;
-    const line = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.055, WORLD_END + 180),
-      lineMat
+    const lineMatrix = new THREE.Matrix4().compose(
+      new THREE.Vector3(x, 0.015, WORLD_END / 2 - 50),
+      flatRotation,
+      new THREE.Vector3(1, 1, 1)
     );
-    line.rotation.x = -Math.PI / 2;
-    line.position.set(x, 0.015, WORLD_END / 2 - 50);
-    scene.add(line);
+    laneLines.setMatrixAt(lane - 1, lineMatrix);
   }
+  scene.add(laneLines);
 
   const railGeo = new THREE.BoxGeometry(0.10, 0.62, 4.6);
   const railMat = new THREE.MeshStandardMaterial({ color: 0xd7dbd6, roughness: 0.92 });
@@ -556,22 +562,31 @@ function addWorld() {
   scene.add(trunks, tops);
 
   const standMat = new THREE.MeshStandardMaterial({ color: 0x8c969d, roughness: 1 });
+  const standGeo = new THREE.BoxGeometry(9, 3.3, 20);
+  const stands = new THREE.InstancedMesh(standGeo, standMat, 8);
   for (let i = 0; i < 8; i += 1) {
-    const stand = new THREE.Mesh(new THREE.BoxGeometry(9, 3.3, 20), standMat);
-    stand.position.set(
+    const standMatrix = new THREE.Matrix4().makeTranslation(
       (i % 2 === 0 ? -1 : 1) * (TRACK_WIDTH / 2 + 12.5),
       1.65,
       120 + i * 190
     );
-    scene.add(stand);
+    stands.setMatrixAt(i, standMatrix);
   }
+  scene.add(stands);
 
   const markerMat = new THREE.MeshBasicMaterial({ color: 0xf2f2ec });
-  for (let z = 100; z <= RACE_DISTANCE; z += 100) {
-    const marker = new THREE.Mesh(new THREE.BoxGeometry(0.38, 1.5, 0.12), markerMat);
-    marker.position.set(TRACK_WIDTH / 2 + 4.0, 0.75, z);
-    scene.add(marker);
+  const markerCount = Math.floor(RACE_DISTANCE / 100);
+  const markerGeo = new THREE.BoxGeometry(0.38, 1.5, 0.12);
+  const markers = new THREE.InstancedMesh(markerGeo, markerMat, markerCount);
+  for (let i = 0; i < markerCount; i += 1) {
+    const markerMatrix = new THREE.Matrix4().makeTranslation(
+      TRACK_WIDTH / 2 + 4.0,
+      0.75,
+      (i + 1) * 100
+    );
+    markers.setMatrixAt(i, markerMatrix);
   }
+  scene.add(markers);
 }
 
 function makeLeg(parent, colorMat, legLength, width, x, z, phaseOffset) {
@@ -2664,6 +2679,7 @@ function ensureSimplifiedRaceProxyPool() {
   canvas.dataset.raceProxyRepresentation = "instanced-articulated";
   canvas.dataset.raceProxyDrawCalls = String(Object.keys(simplifiedRaceProxyPool).length);
   canvas.dataset.raceProxyCueBand = "1";
+  canvas.dataset.raceProxyUpdateMode = "render-frame";
 }
 
 function createSimplifiedRaceProxy(morph, color) {
@@ -2906,12 +2922,16 @@ function syncSimplifiedRaceProxyInstances() {
 function updateSimplifiedRaceLodSelection() {
   if (!SIMPLIFIED_RACE_PAGE || runners.length === 0) return;
 
+  // Keep the selected/focus runner full and retain only the closest additional
+  // runners as full articulated meshes. Far runners still use the exact
+  // canonical gait state through the articulated proxy; this changes draw
+  // complexity, not locomotion quality.
   const fullBudget =
     actualCamera === "PACK" || actualCamera === "SIDE"
-      ? 6
+      ? 3
       : actualCamera === "CHASE"
-        ? 5
-        : 4;
+        ? 2
+        : 2;
 
   const nearest = [...runners]
     .sort(
@@ -2935,6 +2955,14 @@ function updateSimplifiedRaceLodSelection() {
   canvas.dataset.fullRunnerCount = String(fullCount);
   canvas.dataset.proxyRunnerCount = String(runners.length - fullCount);
   canvas.dataset.raceProxyLod = "1";
+
+  // Copy canonical pose into the far proxy once per rendered frame rather than
+  // once per fixed simulation step. At low render FPS the simulation may run
+  // several catch-up steps; repeating draw-only transform copies there wastes
+  // CPU without adding visible motion samples.
+  runners.forEach((runner) => {
+    if (!runner.renderFull) updateSimplifiedRaceProxy(runner);
+  });
   syncSimplifiedRaceProxyInstances();
 }
 
@@ -3110,9 +3138,6 @@ function updateRunner(runner, dt) {
     runner.group.userData.phase += dt * phaseRate;
   }
   updateCreaturePose(runner, lateralVelocity, dt);
-  if (SIMPLIFIED_RACE_PAGE) {
-    updateSimplifiedRaceProxy(runner);
-  }
 }
 
 function wrap01(value) {
@@ -4568,6 +4593,10 @@ function animate() {
   updateSimplifiedRaceLodSelection();
   updateHud(rawDt);
   renderer.render(scene, camera);
+  if (SIMPLIFIED_RACE_PAGE) {
+    canvas.dataset.renderCalls = String(renderer.info.render.calls);
+    canvas.dataset.renderTriangles = String(renderer.info.render.triangles);
+  }
   requestAnimationFrame(animate);
 }
 
