@@ -351,70 +351,32 @@ function addCentralSkullMass(root) {
   if (!headBone) return false;
 
   root.updateMatrixWorld(true);
-  const samples = [];
-  const p = new THREE.Vector3();
+  const box = new THREE.Box3().setFromObject(root);
+  const size = new THREE.Vector3();
+  box.getSize(size);
+  const modelH = Math.max(1, size.y);
 
-  root.traverse((o) => {
-    if (!o.isSkinnedMesh || !o.geometry) return;
-    const pos = o.geometry.getAttribute("position");
-    const skinIndex = o.geometry.getAttribute("skinIndex");
-    const skinWeight = o.geometry.getAttribute("skinWeight");
-    if (!pos || !skinIndex || !skinWeight || !o.skeleton) return;
+  const headPos = new THREE.Vector3();
+  const parentPos = new THREE.Vector3();
+  const dir = new THREE.Vector3();
+  headBone.getWorldPosition(headPos);
 
-    const headIndex = o.skeleton.bones.indexOf(headBone);
-    if (headIndex < 0) return;
-
-    for (let i = 0; i < pos.count; i += 1) {
-      let w = 0;
-      for (let k = 0; k < 4; k += 1) {
-        if (skinIndex.getComponent(i, k) === headIndex) {
-          w += skinWeight.getComponent(i, k);
-        }
-      }
-      if (w < 0.18) continue;
-      p.fromBufferAttribute(pos, i);
-      // Raw SkinnedMesh POSITION is bind geometry, not the current world
-      // position. Apply the skin transform before measuring the head or the
-      // patch can be placed down at the torso/pelvis.
-      o.applyBoneTransform(i, p);
-      o.localToWorld(p);
-      samples.push(p.clone());
-    }
-  });
-
-  if (samples.length < 20) return false;
-
-  let minX = Infinity, maxX = -Infinity;
-  let minY = Infinity, maxY = -Infinity;
-  let minZ = Infinity, maxZ = -Infinity;
-  for (const v of samples) {
-    minX = Math.min(minX, v.x);
-    maxX = Math.max(maxX, v.x);
-    minY = Math.min(minY, v.y);
-    maxY = Math.max(maxY, v.y);
-    minZ = Math.min(minZ, v.z);
-    maxZ = Math.max(maxZ, v.z);
+  if (headBone.parent?.isBone) {
+    headBone.parent.getWorldPosition(parentPos);
+    dir.copy(headPos).sub(parentPos).normalize();
+  } else {
+    dir.set(0, 1, 0);
   }
-
-  const h = Math.max(0.08, maxY - minY);
-  const lower = samples.filter((v) => v.y <= minY + h * 0.58);
-  const lowerMinX = Math.min(...lower.map((v) => v.x));
-  const lowerMaxX = Math.max(...lower.map((v) => v.x));
-  const lowerSpanX = Math.max(0.05, lowerMaxX - lowerMinX);
-  const centerX = (lowerMinX + lowerMaxX) * 0.5;
-  const midBand = samples.filter((v) => v.y >= minY + h * 0.35 && v.y <= minY + h * 0.70);
-  const centerZ = midBand.length
-    ? midBand.reduce((sum, v) => sum + v.z, 0) / midBand.length
-    : (minZ + maxZ) * 0.5;
+  if (!Number.isFinite(dir.x) || dir.lengthSq() < 1e-6) dir.set(0, 1, 0);
 
   const baseColor = (() => {
-    let color = 0xdedbe6;
+    let found = null;
     root.traverse((o) => {
-      if (color !== 0xdedbe6 || !o.isMesh) return;
+      if (found !== null || !o.isMesh) return;
       const m = Array.isArray(o.material) ? o.material[0] : o.material;
-      if (m?.color) color = m.color.getHex();
+      if (m?.color) found = m.color.getHex();
     });
-    return color;
+    return found ?? 0xdedbe6;
   })();
 
   const mat = new THREE.MeshStandardMaterial({
@@ -424,58 +386,30 @@ function addCentralSkullMass(root) {
     side: THREE.FrontSide
   });
 
-  // Rounded skull mass: broad enough to read as one head from FRONT/CHASE.
-  const skull = new THREE.Mesh(new THREE.SphereGeometry(1, 18, 12), mat);
+  // Use the actual animated head-bone origin as the anchor. Measuring raw
+  // skinned vertices proved unreliable because their bind-space axes differ
+  // from the rendered world axes. A compact rounded mass here makes the two
+  // swept blades read as crest/horns attached to one skull rather than two
+  // separate heads.
+  const skull = new THREE.Mesh(new THREE.SphereGeometry(1, 20, 14), mat);
   skull.name = "SakuraNPR_central_skull";
-  skull.scale.set(
-    lowerSpanX * 0.46,
-    h * 0.20,
-    lowerSpanX * 0.35
-  );
-  skull.position.set(
-    centerX,
-    minY + h * 0.58,
-    centerZ
-  );
+  skull.scale.set(modelH * 0.040, modelH * 0.046, modelH * 0.043);
+  const skullWorld = headPos.clone().addScaledVector(dir, modelH * 0.028);
+  skull.position.copy(skullWorld);
   skull.castShadow = true;
   skull.receiveShadow = true;
+
   scene.add(skull);
   scene.updateMatrixWorld(true);
   headBone.updateMatrixWorld(true);
   headBone.attach(skull);
-
-  // Short blunt bridge between the two crest roots. It deliberately stops
-  // well below the swept tips, so the tips remain separate crest/horn forms
-  // instead of becoming a single needle.
-  const bridge = new THREE.Mesh(
-    new THREE.CylinderGeometry(
-      lowerSpanX * 0.20,
-      lowerSpanX * 0.30,
-      h * 0.30,
-      12,
-      2,
-      false
-    ),
-    mat.clone()
-  );
-  bridge.name = "SakuraNPR_central_crest_bridge";
-  bridge.scale.z = 0.72;
-  bridge.position.set(
-    centerX,
-    minY + h * 0.76,
-    centerZ
-  );
-  bridge.castShadow = true;
-  bridge.receiveShadow = true;
-  scene.add(bridge);
-  scene.updateMatrixWorld(true);
-  headBone.updateMatrixWorld(true);
-  headBone.attach(bridge);
-
   root.updateMatrixWorld(true);
+
   canvas.dataset.centralSkull = "1";
-  canvas.dataset.headSilhouetteCorrection = "rigged-v4-central-skull-v1";
-  canvas.dataset.centralSkullWidth = (lowerSpanX * 0.92).toFixed(4);
+  canvas.dataset.headSilhouetteCorrection = "rigged-v4-headbone-skull-v2";
+  canvas.dataset.headBoneWorld = [headPos.x, headPos.y, headPos.z].map((v) => v.toFixed(4)).join(",");
+  canvas.dataset.headParentWorld = [parentPos.x, parentPos.y, parentPos.z].map((v) => v.toFixed(4)).join(",");
+  canvas.dataset.modelBoundsY = [box.min.y, box.max.y].map((v) => v.toFixed(4)).join(",");
   return true;
 }
 
