@@ -30,6 +30,11 @@ const SIMPLIFIED_RACE_PAGE = window.location.pathname.includes("/preview-motion-
 const SIMPLIFIED_LANE = SIMPLIFIED_GAIT_PAGE || SIMPLIFIED_RACE_PAGE;
 const MOTION_REVIEW_MODE = params.get("motion") === "1" || SIMPLIFIED_GAIT_PAGE;
 const REVIEW_MORPH = (params.get("morph") || "S").toUpperCase();
+const PROXY_REVIEW_RUNNER_PARAM = params.get("proxyReviewRunner");
+const PROXY_REVIEW_RUNNER =
+  PROXY_REVIEW_RUNNER_PARAM === null
+    ? null
+    : Number.parseInt(PROXY_REVIEW_RUNNER_PARAM, 10);
 const TAU = Math.PI * 2;
 const S_GAIT = {
   baseY: 1.60,
@@ -3078,6 +3083,12 @@ function syncSimplifiedRaceProxyInstances() {
 
   runners.forEach((runner) => {
     if (runner.renderFull || !runner.raceProxy) return;
+    if (
+      Number.isInteger(PROXY_REVIEW_RUNNER) &&
+      runner.id !== PROXY_REVIEW_RUNNER
+    ) {
+      return;
+    }
 
     const ud = runner.raceProxy.userData.raceProxy;
     runner.raceProxy.updateMatrixWorld(true);
@@ -3139,7 +3150,10 @@ function syncSimplifiedRaceProxyInstances() {
     if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
   });
 
-  canvas.dataset.raceProxyInstanceCount = String(counts.chest);
+  canvas.dataset.raceProxyInstanceCount = String(counts.pelvis);
+  if (Number.isInteger(PROXY_REVIEW_RUNNER)) {
+    canvas.dataset.proxyReviewRunner = String(PROXY_REVIEW_RUNNER);
+  }
 }
 
 function updateSimplifiedRaceLodSelection() {
@@ -4576,28 +4590,28 @@ function updateCamera(dt) {
 
   if (actualCamera === "CHASE") {
     desiredCamera.set(
-      focusPos.x + (SIMPLIFIED_RACE_PAGE ? 3.8 : 5.2),
-      SIMPLIFIED_RACE_PAGE ? 3.25 : 4.4,
-      focusPos.z - (SIMPLIFIED_RACE_PAGE ? 8.8 : 11.8)
+      focusPos.x + (SIMPLIFIED_RACE_PAGE ? 2.5 : 5.2),
+      SIMPLIFIED_RACE_PAGE ? 2.6 : 4.4,
+      focusPos.z - (SIMPLIFIED_RACE_PAGE ? 6.5 : 11.8)
     );
     desiredLook.set(
       focusPos.x,
-      SIMPLIFIED_RACE_PAGE ? 1.48 : 1.75,
-      focusPos.z + (SIMPLIFIED_RACE_PAGE ? 11.5 : 10.5)
+      SIMPLIFIED_RACE_PAGE ? 1.45 : 1.75,
+      focusPos.z + (SIMPLIFIED_RACE_PAGE ? 5.8 : 10.5)
     );
-    targetFov = SIMPLIFIED_RACE_PAGE ? 67 : 61;
+    targetFov = SIMPLIFIED_RACE_PAGE ? 62 : 61;
   } else if (actualCamera === "LOW") {
     desiredCamera.set(
-      focusPos.x + (SIMPLIFIED_RACE_PAGE ? 1.65 : 2.4),
-      SIMPLIFIED_RACE_PAGE ? 1.08 : 1.55,
-      focusPos.z - (SIMPLIFIED_RACE_PAGE ? 5.9 : 8.0)
+      focusPos.x + (SIMPLIFIED_RACE_PAGE ? 1.25 : 2.4),
+      SIMPLIFIED_RACE_PAGE ? 0.95 : 1.55,
+      focusPos.z - (SIMPLIFIED_RACE_PAGE ? 3.8 : 8.0)
     );
     desiredLook.set(
       focusPos.x,
-      SIMPLIFIED_RACE_PAGE ? 1.23 : 1.42,
-      focusPos.z + (SIMPLIFIED_RACE_PAGE ? 16.5 : 15)
+      SIMPLIFIED_RACE_PAGE ? 1.20 : 1.42,
+      focusPos.z + (SIMPLIFIED_RACE_PAGE ? 4.2 : 15)
     );
-    targetFov = SIMPLIFIED_RACE_PAGE ? 78 : 72;
+    targetFov = SIMPLIFIED_RACE_PAGE ? 68 : 72;
   } else if (actualCamera === "SIDE") {
     const side = focusPos.x <= 0 ? -1 : 1;
     desiredCamera.set(
