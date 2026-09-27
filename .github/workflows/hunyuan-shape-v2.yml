@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install geometry tools
-        run: pip install numpy trimesh
+        run: pip install numpy trimesh scipy
       - name: Generate v18 and v19 candidates
         run: |
           python scripts/refine-hunyuan-shape-v18.py -- \
