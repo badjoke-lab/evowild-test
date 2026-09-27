@@ -21,19 +21,19 @@ jobs:
         run: |
           python3 scripts/patch-rigged-s-glb.py \
             public/models/evowild-s/focus-rigged-v5.glb \
-            public/models/evowild-s/focus-rigged-v5-headfix-v3.glb \
-            public/models/evowild-s/focus-rigged-v5-headfix-v3.json
-          ls -lh public/models/evowild-s/focus-rigged-v5-headfix-v3.*
-          cat public/models/evowild-s/focus-rigged-v5-headfix-v3.json
+            public/models/evowild-s/focus-rigged-v5-headfix-v4.glb \
+            public/models/evowild-s/focus-rigged-v5-headfix-v4.json
+          ls -lh public/models/evowild-s/focus-rigged-v5-headfix-v4.*
+          cat public/models/evowild-s/focus-rigged-v5-headfix-v4.json
       - name: Persist candidate
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/models/evowild-s/focus-rigged-v5-headfix-v3.glb public/models/evowild-s/focus-rigged-v5-headfix-v3.json
+          git add public/models/evowild-s/focus-rigged-v5-headfix-v4.glb public/models/evowild-s/focus-rigged-v5-headfix-v4.json
           if git diff --cached --quiet; then
             echo "No headfix changes"
           else
-            git commit -m "model: persist direct-patched rigged S headfix v3 [skip ci]"
+            git commit -m "model: persist direct-patched rigged S headfix v4 [skip ci]"
             git pull --rebase origin "${GITHUB_REF_NAME}"
             git push origin HEAD:"${GITHUB_REF_NAME}"
           fi
