@@ -1,0 +1,24 @@
+{
+  "source": "public/models/evowild-s/focus-rigged-v5.glb",
+  "output": "public/models/evowild-s/focus-rigged-v5-headfix-v2.glb",
+  "changed_vertices": 692,
+  "max_x_shift": 0.0167104322463274,
+  "head_center_x": -0.01945158839225769,
+  "y_measure": 0.7669350606203079,
+  "y_blend": 0.7087613195180893,
+  "z_start": -0.5,
+  "left_count": 23,
+  "right_count": 18,
+  "left_half_width": 0.049254401586949825,
+  "right_half_width": 0.0025,
+  "overlap": 0.00055,
+  "left_shift": -0.021585937221996164,
+  "right_shift": -0.0064852190088894625,
+  "head_bounds": {
+    "min_y": 0.46637073159217834,
+    "max_y": 0.9511519074440002,
+    "min_z": -0.8501009345054626,
+    "max_z": -0.31383803486824036
+  },
+  "status": "rigged_headfix_v2_width_preserving_candidate"
+}
