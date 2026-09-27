@@ -192,11 +192,17 @@ function repairRiggedCrestGeometry(root) {
       const hw = smooth01((hwRaw - 0.18) / 0.22);
       const strength = hy * (0.72 + 0.28 * hw);
 
-      // Only head-weighted upper vertices converge. This keeps the muzzle,
-      // neck and body untouched while turning the forked upper silhouette
-      // into one broad swept crest instead of the earlier needle.
-      const scaleX = THREE.MathUtils.lerp(0.88, 0.40, strength);
-      world.x = centerX + (world.x - centerX) * scaleX;
+      // Preserve each crest lobe's own width. Move the left/right lobes
+      // toward the centre as rigidly as possible instead of scaling both
+      // down into a needle. Near-centre vertices stay put.
+      const dx = world.x - centerX;
+      const guard = 0.018;
+      const maxShift = 0.050 * strength;
+      if (dx > guard) {
+        world.x -= Math.min(maxShift, Math.max(0, dx - guard * 0.55));
+      } else if (dx < -guard) {
+        world.x += Math.min(maxShift, Math.max(0, -dx - guard * 0.55));
+      }
 
       o.worldToLocal(world);
       pos.setXYZ(i, world.x, world.y, world.z);
@@ -212,7 +218,7 @@ function repairRiggedCrestGeometry(root) {
     canvas.dataset.headWeightedVertices = String(weightedCount);
   });
 
-  canvas.dataset.headSilhouetteCorrection = "weighted-crest-world-v6";
+  canvas.dataset.headSilhouetteCorrection = "weighted-lobe-converge-v7";
   canvas.dataset.headRepairVertices = String(changed);
 }
 
