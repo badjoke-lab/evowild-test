@@ -1,0 +1,15 @@
+{
+  "status": "shape_refine_v14_sprint_proportion_candidate_not_canonical",
+  "source_vertices": 6469,
+  "source_faces": 12940,
+  "body_vertices_after_surgery": 4220,
+  "body_faces_after_surgery": 8144,
+  "removed_crest_faces": 2096,
+  "removed_tail_faces": 2700,
+  "new_crest_count": 2,
+  "new_tail_count": 1,
+  "coordinate_basis": "raw_glb_x_lateral_y_vertical_z_longitudinal_head_positive_z",
+  "preview_rotation_y": "-pi/2",
+  "source": "source-lod2.glb",
+  "output": "source-lod2-shape-v14.glb"
+}
