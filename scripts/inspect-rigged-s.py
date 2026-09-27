@@ -54,3 +54,53 @@ print("S_RIG_INSPECT " + json.dumps({
     "armatures": arms,
     "actions": actions
 }, separators=(",", ":")))
+
+
+# Head-weighted vertex diagnostics for geometry repair.
+for obj in bpy.context.scene.objects:
+    if obj.type != "MESH" or "head" not in obj.vertex_groups:
+        continue
+    group = obj.vertex_groups["head"]
+    pts = []
+    for v in obj.data.vertices:
+        try:
+            w = group.weight(v.index)
+        except RuntimeError:
+            continue
+        if w < 0.25:
+            continue
+        p = obj.matrix_world @ v.co
+        pts.append((p.x, p.y, p.z, w, v.index))
+    if pts:
+        min_y = min(p[1] for p in pts)
+        max_y = max(p[1] for p in pts)
+        min_z = min(p[2] for p in pts)
+        max_z = max(p[2] for p in pts)
+        cutoff = min_y + (max_y - min_y) * 0.68
+        top = [p for p in pts if p[1] >= cutoff]
+        bins = []
+        if top:
+            xmin = min(p[0] for p in top)
+            xmax = max(p[0] for p in top)
+            span = max(1e-6, xmax - xmin)
+            counts = [0] * 12
+            for p in top:
+                b = min(11, int((p[0] - xmin) / span * 12))
+                counts[b] += 1
+            bins = {"xmin": xmin, "xmax": xmax, "counts": counts}
+        samples = sorted(top, key=lambda p: p[1], reverse=True)[:32]
+        print("S_HEAD_VERTS " + json.dumps({
+            "count": len(pts),
+            "bounds": {
+                "min_x": min(p[0] for p in pts), "max_x": max(p[0] for p in pts),
+                "min_y": min_y, "max_y": max_y,
+                "min_z": min_z, "max_z": max_z
+            },
+            "top_cutoff_y": cutoff,
+            "top_count": len(top),
+            "top_bins_x": bins,
+            "top_samples": [
+                {"i": p[4], "x": p[0], "y": p[1], "z": p[2], "w": p[3]}
+                for p in samples
+            ]
+        }, separators=(",", ":")))
