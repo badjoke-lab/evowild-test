@@ -287,33 +287,50 @@ loader.load(
 const clock = new THREE.Clock();
 let fpsFrames = 0;
 let fpsTime = 0;
+let renderPaused = false;
+
+function renderOnce() {
+  sky.dome.position.copy(camera.position);
+  sky.clouds.position.copy(camera.position);
+  pipeline.render();
+}
+
+function pauseRendering() {
+  renderPaused = true;
+}
+
+function resumeRendering() {
+  clock.getDelta();
+  renderPaused = false;
+}
 
 function frame() {
   const dt = Math.min(clock.getDelta(), 1 / 20);
-  mixer?.update(dt);
 
-  // The imported district is used as a rendered race environment here, not as
-  // the original walkable simulation. Keep trains/petals/interactables frozen:
-  // updating the entire upstream simulation every frame starves camera input
-  // on low-power/headless GPUs while adding nothing to this lane's goal.
-  if (model) {
-    runZ += runSpeed * dt;
-    if (runZ > 44) runZ = 10;
-    placeRunner();
+  if (!renderPaused) {
+    mixer?.update(dt);
+
+    // The imported district is used as a rendered race environment here, not as
+    // the original walkable simulation. Keep trains/petals/interactables frozen:
+    // updating the entire upstream simulation every frame starves camera input
+    // on low-power/headless GPUs while adding nothing to this lane's goal.
+    if (model) {
+      runZ += runSpeed * dt;
+      if (runZ > 44) runZ = 10;
+      placeRunner();
+    }
+
+    fpsFrames += 1;
+    fpsTime += dt;
+    if (fpsTime >= 0.6) {
+      fpsEl.textContent = Math.round(fpsFrames / fpsTime) + " FPS";
+      fpsFrames = 0;
+      fpsTime = 0;
+    }
+
+    renderOnce();
   }
 
-  sky.dome.position.copy(camera.position);
-  sky.clouds.position.copy(camera.position);
-
-  fpsFrames += 1;
-  fpsTime += dt;
-  if (fpsTime >= 0.6) {
-    fpsEl.textContent = Math.round(fpsFrames / fpsTime) + " FPS";
-    fpsFrames = 0;
-    fpsTime = 0;
-  }
-
-  pipeline.render();
   requestAnimationFrame(frame);
 }
 frame();
@@ -323,5 +340,8 @@ window.__sakuraWorldLane = {
   get model(){ return model; },
   get runZ(){ return runZ; },
   setCameraMode,
+  pauseRendering,
+  resumeRendering,
+  renderOnce,
   THREE
 };
