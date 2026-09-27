@@ -196,8 +196,8 @@ function repairRiggedCrestGeometry(root) {
       // toward the centre as rigidly as possible instead of scaling both
       // down into a needle. Near-centre vertices stay put.
       const dx = world.x - centerX;
-      const guard = 0.018;
-      const maxShift = 0.050 * strength;
+      const guard = 0.012;
+      const maxShift = 0.095 * strength;
       if (dx > guard) {
         world.x -= Math.min(maxShift, Math.max(0, dx - guard * 0.55));
       } else if (dx < -guard) {
@@ -218,7 +218,7 @@ function repairRiggedCrestGeometry(root) {
     canvas.dataset.headWeightedVertices = String(weightedCount);
   });
 
-  canvas.dataset.headSilhouetteCorrection = "weighted-lobe-converge-v7";
+  canvas.dataset.headSilhouetteCorrection = "weighted-lobe-converge-v8";
   canvas.dataset.headRepairVertices = String(changed);
 }
 
