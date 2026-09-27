@@ -2620,83 +2620,116 @@ const proxyLegGeometry = new THREE.CylinderGeometry(0.075, 0.10, 1, 5);
 const proxyLowerLegGeometry = new THREE.CylinderGeometry(0.050, 0.070, 1, 5);
 const proxyTailGeometry = new THREE.CylinderGeometry(0.045, 0.085, 1, 5);
 const proxyCrestGeometry = new THREE.ConeGeometry(0.12, 1, 4);
+const proxyCueGeometry = new THREE.BoxGeometry(0.44, 0.07, 0.11);
+
+let simplifiedRaceProxyPool = null;
+
+function makeRaceProxyInstances(geometry, material, maxInstances) {
+  const mesh = new THREE.InstancedMesh(geometry, material, maxInstances);
+  mesh.count = 0;
+  mesh.frustumCulled = false;
+  mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+  scene.add(mesh);
+  return mesh;
+}
+
+function ensureSimplifiedRaceProxyPool() {
+  if (!SIMPLIFIED_RACE_PAGE || simplifiedRaceProxyPool) return;
+
+  const primaryMaterial = new THREE.MeshLambertMaterial({
+    color: 0xffffff,
+    flatShading: true
+  });
+  const secondaryMaterial = new THREE.MeshLambertMaterial({
+    color: 0xffffff,
+    flatShading: true
+  });
+  const darkMaterial = new THREE.MeshLambertMaterial({
+    color: 0xffffff,
+    flatShading: true
+  });
+  const cueMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+
+  simplifiedRaceProxyPool = {
+    chest: makeRaceProxyInstances(proxyBodyGeometry, primaryMaterial, RUNNER_COUNT),
+    pelvis: makeRaceProxyInstances(proxyBodyGeometry, secondaryMaterial, RUNNER_COUNT),
+    head: makeRaceProxyInstances(proxyHeadGeometry, primaryMaterial, RUNNER_COUNT),
+    crest: makeRaceProxyInstances(proxyCrestGeometry, secondaryMaterial, RUNNER_COUNT),
+    tail: makeRaceProxyInstances(proxyTailGeometry, secondaryMaterial, RUNNER_COUNT),
+    cue: makeRaceProxyInstances(proxyCueGeometry, cueMaterial, RUNNER_COUNT),
+    upperLeg: makeRaceProxyInstances(proxyLegGeometry, primaryMaterial, RUNNER_COUNT * 4),
+    lowerLeg: makeRaceProxyInstances(proxyLowerLegGeometry, darkMaterial, RUNNER_COUNT * 4)
+  };
+
+  canvas.dataset.raceProxyRepresentation = "instanced-articulated";
+  canvas.dataset.raceProxyDrawCalls = String(Object.keys(simplifiedRaceProxyPool).length);
+  canvas.dataset.raceProxyCueBand = "1";
+}
 
 function createSimplifiedRaceProxy(morph, color) {
   const profile = RACE_PROXY_PROFILE[morph];
-  const root = new THREE.Group();
-  const body = new THREE.Group();
+  const root = new THREE.Object3D();
+  const body = new THREE.Object3D();
   body.position.y = profile.baseY;
   root.add(body);
 
   const baseColor = new THREE.Color(color);
-  const primary = new THREE.MeshLambertMaterial({
-    color: baseColor,
-    flatShading: true
-  });
-  const secondary = new THREE.MeshLambertMaterial({
-    color: baseColor.clone().multiplyScalar(0.76),
-    flatShading: true
-  });
-  const dark = new THREE.MeshLambertMaterial({
-    color: baseColor.clone().multiplyScalar(0.46),
-    flatShading: true
-  });
+  const colors = {
+    primary: baseColor.clone(),
+    secondary: baseColor.clone().multiplyScalar(0.76),
+    dark: baseColor.clone().multiplyScalar(0.46),
+    cue: baseColor.clone().lerp(new THREE.Color(0xbef7ff), 0.58)
+  };
 
-  const chest = makeMesh(
-    proxyBodyGeometry,
-    primary,
-    body,
-    [0, 0, 0.25],
-    profile.body
-  );
-  const pelvis = makeMesh(
-    proxyBodyGeometry,
-    secondary,
-    body,
-    [0, -0.03, -0.52],
-    profile.pelvis
-  );
+  const chest = new THREE.Object3D();
+  chest.position.set(0, 0, 0.25);
+  chest.scale.set(...profile.body);
+  body.add(chest);
 
-  const head = new THREE.Group();
+  const pelvis = new THREE.Object3D();
+  pelvis.position.set(0, -0.03, -0.52);
+  pelvis.scale.set(...profile.pelvis);
+  body.add(pelvis);
+
+  const head = new THREE.Object3D();
   head.position.set(0, profile.headY, profile.headZ);
   body.add(head);
 
-  makeMesh(
-    proxyHeadGeometry,
-    primary,
-    head,
-    [0, 0, 0],
-    profile.head
-  );
+  const headPart = new THREE.Object3D();
+  headPart.scale.set(...profile.head);
+  head.add(headPart);
 
-  const crest = makeMesh(
-    proxyCrestGeometry,
-    secondary,
-    head,
-    [0, 0.12, -profile.crest * 0.34],
-    [1, profile.crest, 1]
-  );
+  const crest = new THREE.Object3D();
+  crest.position.set(0, 0.12, -profile.crest * 0.34);
+  crest.scale.set(1, profile.crest, 1);
   crest.rotation.x = Math.PI / 2;
+  head.add(crest);
 
-  const tail = makeMesh(
-    proxyTailGeometry,
-    secondary,
-    body,
-    [0, -0.02, -0.93],
-    [1, profile.tail, 1]
+  const cue = new THREE.Object3D();
+  cue.position.set(0, 0.02, 0.15);
+  cue.scale.set(
+    Math.max(0.72, profile.head[0] * 1.85),
+    1,
+    Math.max(0.72, profile.head[2] * 1.10)
   );
+  head.add(cue);
+
+  const tail = new THREE.Object3D();
+  tail.position.set(0, -0.02, -0.93);
+  tail.scale.set(1, profile.tail, 1);
   tail.rotation.x = Math.PI / 2;
+  body.add(tail);
 
   const legs = [];
   const legDefs = [
-    { side: -1, fore: true, phase: 0.00 },
-    { side: 1, fore: true, phase: Math.PI * 0.48 },
-    { side: -1, fore: false, phase: Math.PI * 1.02 },
-    { side: 1, fore: false, phase: Math.PI * 1.48 }
+    { side: -1, fore: true },
+    { side: 1, fore: true },
+    { side: -1, fore: false },
+    { side: 1, fore: false }
   ];
 
   legDefs.forEach((def) => {
-    const hip = new THREE.Group();
+    const hip = new THREE.Object3D();
     hip.position.set(
       def.side * profile.hipX,
       -0.18,
@@ -2707,36 +2740,33 @@ function createSimplifiedRaceProxy(morph, color) {
     const upperLen = profile.leg * 0.54;
     const lowerLen = profile.leg * 0.46;
 
-    makeMesh(
-      proxyLegGeometry,
-      def.fore ? primary : secondary,
-      hip,
-      [0, -upperLen / 2, 0],
-      [1, upperLen, 1]
-    );
+    const upper = new THREE.Object3D();
+    upper.position.set(0, -upperLen / 2, 0);
+    upper.scale.set(1, upperLen, 1);
+    hip.add(upper);
 
-    const knee = new THREE.Group();
+    const knee = new THREE.Object3D();
     knee.position.set(0, -upperLen, 0);
     hip.add(knee);
 
-    makeMesh(
-      proxyLowerLegGeometry,
-      dark,
-      knee,
-      [0, -lowerLen / 2, 0],
-      [1, lowerLen, 1]
-    );
+    const lower = new THREE.Object3D();
+    lower.position.set(0, -lowerLen / 2, 0);
+    lower.scale.set(1, lowerLen, 1);
+    knee.add(lower);
 
-    legs.push({ hip, knee, phase: def.phase, fore: def.fore, side: def.side });
+    legs.push({ hip, knee, upper, lower, fore: def.fore, side: def.side });
   });
 
   root.userData.raceProxy = {
     profile,
+    colors,
     body,
     chest,
     pelvis,
     head,
+    headPart,
     crest,
+    cue,
     tail,
     legs
   };
@@ -2752,9 +2782,9 @@ function updateSimplifiedRaceProxy(runner) {
 
   runner.raceProxy.position.set(runner.laneX, 0, runner.distance);
 
-  // The proxy is only a cheaper draw representation. Motion still comes from
-  // the full canonical gait state so LOD never turns into a lower-quality
-  // animation system.
+  // The far representation is draw-only. The canonical S/P/E/A gait remains
+  // the single motion source, including planted-foot/body state on the hidden
+  // full runner. The proxy only mirrors those transforms.
   proxyUd.body.position.y = fullUd.bodyMaster?.position.y ?? proxyUd.profile.baseY;
   if (fullUd.bodyMaster) {
     proxyUd.body.rotation.copy(fullUd.bodyMaster.rotation);
@@ -2786,6 +2816,93 @@ function updateSimplifiedRaceProxy(runner) {
   }
 }
 
+function setProxyInstance(mesh, index, part, color) {
+  mesh.setMatrixAt(index, part.matrixWorld);
+  mesh.setColorAt(index, color);
+}
+
+function syncSimplifiedRaceProxyInstances() {
+  if (!simplifiedRaceProxyPool) return;
+
+  const counts = {
+    chest: 0,
+    pelvis: 0,
+    head: 0,
+    crest: 0,
+    tail: 0,
+    cue: 0,
+    upperLeg: 0,
+    lowerLeg: 0
+  };
+
+  runners.forEach((runner) => {
+    if (runner.renderFull || !runner.raceProxy) return;
+
+    const ud = runner.raceProxy.userData.raceProxy;
+    runner.raceProxy.updateMatrixWorld(true);
+
+    setProxyInstance(
+      simplifiedRaceProxyPool.chest,
+      counts.chest++,
+      ud.chest,
+      ud.colors.primary
+    );
+    setProxyInstance(
+      simplifiedRaceProxyPool.pelvis,
+      counts.pelvis++,
+      ud.pelvis,
+      ud.colors.secondary
+    );
+    setProxyInstance(
+      simplifiedRaceProxyPool.head,
+      counts.head++,
+      ud.headPart,
+      ud.colors.primary
+    );
+    setProxyInstance(
+      simplifiedRaceProxyPool.crest,
+      counts.crest++,
+      ud.crest,
+      ud.colors.secondary
+    );
+    setProxyInstance(
+      simplifiedRaceProxyPool.tail,
+      counts.tail++,
+      ud.tail,
+      ud.colors.secondary
+    );
+    setProxyInstance(
+      simplifiedRaceProxyPool.cue,
+      counts.cue++,
+      ud.cue,
+      ud.colors.cue
+    );
+
+    ud.legs.forEach((leg) => {
+      setProxyInstance(
+        simplifiedRaceProxyPool.upperLeg,
+        counts.upperLeg++,
+        leg.upper,
+        leg.fore ? ud.colors.primary : ud.colors.secondary
+      );
+      setProxyInstance(
+        simplifiedRaceProxyPool.lowerLeg,
+        counts.lowerLeg++,
+        leg.lower,
+        ud.colors.dark
+      );
+    });
+  });
+
+  Object.entries(simplifiedRaceProxyPool).forEach(([key, mesh]) => {
+    mesh.count = counts[key];
+    mesh.instanceMatrix.needsUpdate = true;
+    if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+  });
+
+  canvas.dataset.raceProxyInstanceCount = String(counts.chest);
+}
+
 function updateSimplifiedRaceLodSelection() {
   if (!SIMPLIFIED_RACE_PAGE || runners.length === 0) return;
 
@@ -2812,17 +2929,18 @@ function updateSimplifiedRaceLodSelection() {
     const renderFull = fullIds.has(runner.id);
     runner.renderFull = renderFull;
     runner.group.visible = renderFull;
-    if (runner.raceProxy) runner.raceProxy.visible = !renderFull;
     if (renderFull) fullCount += 1;
   });
 
   canvas.dataset.fullRunnerCount = String(fullCount);
   canvas.dataset.proxyRunnerCount = String(runners.length - fullCount);
   canvas.dataset.raceProxyLod = "1";
+  syncSimplifiedRaceProxyInstances();
 }
 
 function createRunners() {
   const morphKeys = ["S", "P", "E", "A"];
+  ensureSimplifiedRaceProxyPool();
 
   for (let i = 0; i < RUNNER_COUNT; i += 1) {
     const morph = morphKeys[i % morphKeys.length];
@@ -2861,8 +2979,6 @@ function createRunners() {
     scene.add(creature);
     if (raceProxy) {
       raceProxy.position.set(runner.laneX, 0, runner.distance);
-      raceProxy.visible = false;
-      scene.add(raceProxy);
     }
     runners.push(runner);
 
@@ -2907,7 +3023,6 @@ function resetRace() {
     runner.group.position.set(runner.laneX, 0, runner.distance);
     if (runner.raceProxy) {
       runner.raceProxy.position.set(runner.laneX, 0, runner.distance);
-      runner.raceProxy.visible = false;
     }
     runner.renderFull = true;
   });
