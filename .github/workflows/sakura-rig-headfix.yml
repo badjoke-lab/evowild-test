@@ -3,7 +3,7 @@ name: Build rigged S headfix
 on:
   push:
     branches:
-      - test/sakura-npr-visual-gate-20260927
+      - fix/sakura-npr-rigged-head-v2-20260927
 
 permissions:
   contents: write
@@ -25,15 +25,15 @@ jobs:
         run: |
           blender --background --python scripts/build-rigged-s-headfix.py -- \
             public/models/evowild-s/focus-rigged-v5.glb \
-            public/models/evowild-s/focus-rigged-v5-headfix.glb \
-            public/models/evowild-s/focus-rigged-v5-headfix.json
+            public/models/evowild-s/focus-rigged-v5-headfix-v2.glb \
+            public/models/evowild-s/focus-rigged-v5-headfix-v2.json
           ls -lh public/models/evowild-s/focus-rigged-v5-headfix.*
-          cat public/models/evowild-s/focus-rigged-v5-headfix.json
+          cat public/models/evowild-s/focus-rigged-v5-headfix-v2.json
       - name: Persist candidate
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/models/evowild-s/focus-rigged-v5-headfix.glb public/models/evowild-s/focus-rigged-v5-headfix.json
+          git add public/models/evowild-s/focus-rigged-v5-headfix-v2.glb public/models/evowild-s/focus-rigged-v5-headfix-v2.json
           if git diff --cached --quiet; then
             echo "No headfix changes"
           else
