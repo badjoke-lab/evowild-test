@@ -311,7 +311,7 @@ function correctHeadSilhouette(root) {
   // Add one low-poly skull cap at their base so they read as two crests/horns
   // attached to one head mass. This keeps the original swept tips intact.
   const geo = new THREE.IcosahedronGeometry(1, 2);
-  geo.scale(spanX * 0.42, spanY * 0.21, spanX * 0.28);
+  geo.scale(spanX * 0.62, spanY * 0.30, spanX * 0.42);
   geo.computeVertexNormals();
 
   const bridgeMat = cel({
@@ -329,7 +329,7 @@ function correctHeadSilhouette(root) {
   bridge.castShadow = true;
   bridge.receiveShadow = true;
 
-  centerWorld.y = minTopY + spanY * 0.18;
+  centerWorld.y = minTopY + spanY * 0.10;
 
   // The correction must move with the animated head bone. The earlier page
   // versions attached it to the scene root, so the run animation moved the
@@ -344,7 +344,7 @@ function correctHeadSilhouette(root) {
   anchor.add(bridge);
   root.updateMatrixWorld(true);
 
-  canvas.dataset.headMassCorrection = headBone ? "head-cap-bone-v13" : "head-cap-root-fallback";
+  canvas.dataset.headMassCorrection = headBone ? "head-cap-bone-v14" : "head-cap-root-fallback";
 }
 const cameraForward = new THREE.Vector3();
 const cameraSide = new THREE.Vector3();
@@ -439,8 +439,6 @@ loader.load(
     model.position.y -= box.min.y;
     model.position.z -= center.z;
     model.updateMatrixWorld(true);
-
-    repairRiggedCrestGeometry(model);
 
     const correctedBox = new THREE.Box3().setFromObject(model);
     const correctedSize = new THREE.Vector3();
