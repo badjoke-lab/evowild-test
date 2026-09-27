@@ -1,0 +1,120 @@
+{
+  "package": "evowild_astra_s_model_package_v2",
+  "files": [
+    {
+      "path": "ASTRA_TASK.md",
+      "bytes": 4258,
+      "sha256": "f23e9653e71efbf14b39f3111e577d6b3121ef0768e90e2b936c5277f4de3458"
+    },
+    {
+      "path": "CHECKPOINT.md",
+      "bytes": 845,
+      "sha256": "3ea8e81d98f4047d70ca2af9d21a430d1567a01b9fca84d723b7e421b2e3324e"
+    },
+    {
+      "path": "HANDOFF_STATE.json",
+      "bytes": 903,
+      "sha256": "5f8c37f331763d00aff8a9f417998895e42237e86474880f46d0308fe59e941f"
+    },
+    {
+      "path": "README_FIRST.md",
+      "bytes": 997,
+      "sha256": "7bc1c3c489d3f2a6130752b8784125b091acb0bd4b4c51659180dba2c7d91458"
+    },
+    {
+      "path": "REFERENCE_INDEX.md",
+      "bytes": 934,
+      "sha256": "244e72d13db6dce9bb1c6478238c76be61692effc182cad3174e712aafa21ed6"
+    },
+    {
+      "path": "RESUME_PROMPT.md",
+      "bytes": 510,
+      "sha256": "84c7d94b1133d8324322e0265c12b1b2125c1bb77b5067fa8e30820035c4a891"
+    },
+    {
+      "path": "SOL_RESUME_PROMPT.txt",
+      "bytes": 376,
+      "sha256": "432ec9cc9ab55241f456a2f3f3399a9b9787bbbf92b13fc9fb9abc13326bb150"
+    },
+    {
+      "path": "WORK_EXECUTION_PLAN.md",
+      "bytes": 3107,
+      "sha256": "74a3d30d45a409012225b74f49ba78a56e3cd49fabaf006a6d065e93c0e942b0"
+    },
+    {
+      "path": "WORK_START_PROMPT.txt",
+      "bytes": 464,
+      "sha256": "3bdefa78a41229fc129d36421530e99693a4982052fbdb4bcd6e7816bb0d01be"
+    },
+    {
+      "path": "blender/render_review.py",
+      "bytes": 735,
+      "sha256": "9c3a8b9d1d175d4a21d75cbbd4ccd641a28ba09b773e3d8941ffe4f8fe3e582b"
+    },
+    {
+      "path": "blender/setup_scene.py",
+      "bytes": 3337,
+      "sha256": "a39a1527e742b377409b842f8a2c97292fad5ac9e410e4f61f97515ae0798af2"
+    },
+    {
+      "path": "output/review/.gitkeep",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "output/models/.gitkeep",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "references/00_full_reference.png",
+      "bytes": 521357,
+      "sha256": "efa1f76a886b5e005749f70c0716f0dd8ac8431b4b74581a887074b82cd732b2"
+    },
+    {
+      "path": "references/01_s_body_primary.png",
+      "bytes": 116106,
+      "sha256": "e8d0ef325776092b92f4be777fee94e1d79998ac950f261f52813ae788d6263c"
+    },
+    {
+      "path": "references/02_s_silhouette.png",
+      "bytes": 67111,
+      "sha256": "91416ce738e52ea0889344b40c419c9c6eeb2f7a0951ee02bfd60c9d47c2546d"
+    },
+    {
+      "path": "references/03_head_variants.png",
+      "bytes": 240516,
+      "sha256": "4c8b10b6850250179023077263770a42e513bac45c962c97980f51ac2be08cfc"
+    },
+    {
+      "path": "references/04_crest_structure.png",
+      "bytes": 202040,
+      "sha256": "03425f8cb2d8098c2639c1136f4bdda72d7afd6ae3ae3566ecfde63489f51866"
+    },
+    {
+      "path": "references/05_tail_variants.png",
+      "bytes": 138648,
+      "sha256": "1e696d0a010af16cf438288100050a07e83839215c04e805d67f207236fbbd6f"
+    },
+    {
+      "path": "references/06_leg_foot_variants.png",
+      "bytes": 143713,
+      "sha256": "2f239caf2956136a79510faee604e9e894fd45d1bac063b9d90c1c7fa27cc005"
+    },
+    {
+      "path": "references/07_surface_patterns.png",
+      "bytes": 138373,
+      "sha256": "98bde1ead2d542bb5c7c9194e242762811a48b1c83266da725c782a6ddf9b5be"
+    },
+    {
+      "path": "references/08_race_context.png",
+      "bytes": 221976,
+      "sha256": "848f2f59ec05626f5aa8f9bfa6b05bfd3fcacc40090200313c240e0aef73340f"
+    },
+    {
+      "path": "references/09_cue_band.png",
+      "bytes": 288790,
+      "sha256": "1590a59f7e12a4d68c6127a76143be23155db1d61222ef03b1a3710ba0a7fa83"
+    }
+  ]
+}

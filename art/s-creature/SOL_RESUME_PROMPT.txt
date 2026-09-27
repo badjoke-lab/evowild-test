@@ -1,0 +1,1 @@
+Astra has stopped or is no longer available. Stay in this same Work task. Switch to Sol and continue from the existing files; do not restart. Read CHECKPOINT.md and continue next_action from the latest saved .blend. S-type only. The supplied S references remain the morphology source of truth. Save the next meaningful milestone and update CHECKPOINT.md before optional work.

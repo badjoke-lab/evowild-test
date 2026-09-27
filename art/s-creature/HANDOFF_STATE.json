@@ -1,0 +1,67 @@
+{
+  "project": "EvoWild Run",
+  "asset": "S-type / Sprint morph creature",
+  "scope": [
+    "S"
+  ],
+  "forbidden_scope": [
+    "P",
+    "E",
+    "A"
+  ],
+  "stage": "S-blockout-v2",
+  "source_of_truth": "references/00_full_reference.png",
+  "primary_references": [
+    "references/01_s_body_primary.png",
+    "references/02_s_silhouette.png"
+  ],
+  "next_action": "Open output/S-blockout-v2.blend, unhide S_EDITABLE_SOURCE, narrow the lower Neck_integrated_keel cross sections by 15% and reshape their chest junction against reference 01; preserve the continuous central skull.",
+  "required_gate_outputs": [
+    "editable blend",
+    "front render",
+    "side render",
+    "front 3/4 render",
+    "rear 3/4 render",
+    "updated CHECKPOINT.md"
+  ],
+  "resume_file": "RESUME_PROMPT.md",
+  "work_model_route": [
+    "GPT-6 Astra",
+    "Sol fallback",
+    "Luna/Terra housekeeping only"
+  ],
+  "work_start_prompt": "WORK_START_PROMPT.txt",
+  "astra_to_sol_prompt": "SOL_RESUME_PROMPT.txt",
+  "execution_plan": "WORK_EXECUTION_PLAN.md",
+  "current_stage": "S-blockout-v2",
+  "branch": "feat/s-creature-model",
+  "current_model_file": "output/S-blockout-v2.blend",
+  "latest_export": "output/S-blockout-v2.glb",
+  "blockers": [],
+  "done": [
+    "New S v1 and v2 meshes saved",
+    "Four-view self-review for both versions",
+    "Single manifold connected final surface",
+    "Editable source retained"
+  ],
+  "quality_issues": [
+    "冠は中央一枚の刃として強く見え、主資料の細い後方への流れと稜線構成にまだ差がある。",
+    "首下部から胸郭が厚く、主資料の軽い首肩の移行にまだ届かない。",
+    "肩・骨盤の大きな面構成は未完成で、胸郭側面に断面由来の段差が残る。",
+    "後肢の膝・足首と長い下肢の太さの変化が弱く、関節周囲を再造形する必要がある。",
+    "足先は三趾のblockout段階。接地、指の分離、前方重心は走行・変形検証をしていない。"
+  ],
+  "accepted": false,
+  "blender_version": "4.3.2",
+  "review_renders": [
+    "output/review/v2/S_blockout_front.png",
+    "output/review/v2/S_blockout_side.png",
+    "output/review/v2/S_blockout_front34.png",
+    "output/review/v2/S_blockout_rear34.png"
+  ],
+  "resume_inputs": [
+    "CHECKPOINT.md",
+    "HANDOFF_STATE.json",
+    "output/S-blockout-v2.blend"
+  ]
+}

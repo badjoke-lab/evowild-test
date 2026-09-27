@@ -1,0 +1,15 @@
+{
+  "stage": "S-blockout-v2",
+  "vertices": 186133,
+  "polygons": 186020,
+  "connected_component_sizes": [
+    186133
+  ],
+  "non_manifold_edges": 0,
+  "rigged": false,
+  "animation_tested": false,
+  "reference_accepted": false,
+  "front_axis": "-Y",
+  "up_axis": "+Z",
+  "ground_plane_z": 0.0376263413131237
+}
