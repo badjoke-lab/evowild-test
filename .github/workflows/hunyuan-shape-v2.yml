@@ -1,4 +1,4 @@
-name: Hunyuan S shape refine v12
+name: Hunyuan S shape refine v13
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   shape:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[targeted-shape-v12]')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[targeted-shape-v13]')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -23,33 +23,36 @@ jobs:
           python-version: "3.12"
       - name: Install geometry tools
         run: pip install numpy trimesh
-      - name: Generate direct-surgery v12 candidate
+      - name: Generate verified-axis v13 candidate
         run: |
-          python scripts/refine-hunyuan-shape-v12.py --             public/models/evowild-s/source-lod2.glb             public/models/evowild-s/source-lod2-shape-v12.glb             public/models/evowild-s/source-lod2-shape-v12.json
-          ls -lh public/models/evowild-s/source-lod2-shape-v12.*
-          cat public/models/evowild-s/source-lod2-shape-v12.json
+          python scripts/refine-hunyuan-shape-v13.py -- \
+            public/models/evowild-s/source-lod2.glb \
+            public/models/evowild-s/source-lod2-shape-v13.glb \
+            public/models/evowild-s/source-lod2-shape-v13.json
+          ls -lh public/models/evowild-s/source-lod2-shape-v13.*
+          cat public/models/evowild-s/source-lod2-shape-v13.json
       - uses: actions/setup-node@v4
         with:
           node-version: 22
       - run: npm install
       - run: npx playwright install --with-deps chromium
       - name: Render browser comparison
-        run: npm run test:e2e -- --workers=1 -g "render S baseline and direct-surgery v12 comparison"
+        run: npm run test:e2e -- --workers=1 -g "render S baseline and verified-axis v13 comparison"
       - name: Persist candidate
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add             public/models/evowild-s/source-lod2-shape-v12.glb             public/models/evowild-s/source-lod2-shape-v12.json
+          git add public/models/evowild-s/source-lod2-shape-v13.glb public/models/evowild-s/source-lod2-shape-v13.json
           if git diff --cached --quiet; then
             echo "No shape changes"
           else
-            git commit -m "model: persist S shape-v12 candidate [skip ci]"
+            git commit -m "model: persist S shape-v13 candidate [skip ci]"
             git pull --rebase origin "${GITHUB_REF_NAME}"
             git push origin HEAD:"${GITHUB_REF_NAME}"
           fi
       - uses: actions/upload-artifact@v4
         with:
-          name: s-shape-v12-review
+          name: s-shape-v13-review
           path: |
-            test-results/shape-v12-browser/*.png
-            public/models/evowild-s/source-lod2-shape-v12.json
+            test-results/shape-v13-browser/*.png
+            public/models/evowild-s/source-lod2-shape-v13.json
