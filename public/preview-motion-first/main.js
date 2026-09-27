@@ -37,6 +37,7 @@ const SHAPE_REVIEW_V7 = SHAPE_REVIEW === "v7";
 const SHAPE_REVIEW_V8 = SHAPE_REVIEW === "v8";
 const SHAPE_REVIEW_V9 = SHAPE_REVIEW === "v9";
 const SHAPE_REVIEW_V10 = SHAPE_REVIEW === "v10";
+const SHAPE_REVIEW_V12 = SHAPE_REVIEW === "v12";
 const MOTION_REVIEW_MODE = params.get("motion") === "1" || window.location.pathname.includes("/preview-motion-first-gait/");
 const REVIEW_MORPH = (params.get("morph") || "S").toUpperCase();
 const TAU = Math.PI * 2;
@@ -55,9 +56,11 @@ const S_GAIT = {
 
 const HUNYUAN_S_ASSETS = {
   inspect: {
-    id: SHAPE_REVIEW_V10
-      ? "hunyuan-s-lod2-shape-v10"
-      : SHAPE_REVIEW_V9
+    id: SHAPE_REVIEW_V12
+      ? "hunyuan-s-lod2-shape-v12"
+      : SHAPE_REVIEW_V10
+        ? "hunyuan-s-lod2-shape-v10"
+        : SHAPE_REVIEW_V9
         ? "hunyuan-s-lod2-shape-v9"
         : SHAPE_REVIEW_V8
         ? "hunyuan-s-lod2-shape-v8"
@@ -78,9 +81,11 @@ const HUNYUAN_S_ASSETS = {
         : SHAPE_REVIEW_V2
           ? "hunyuan-s-lod2-shape-v2"
           : "hunyuan-s-lod2",
-    url: SHAPE_REVIEW_V10
-      ? "/evowild-test/models/evowild-s/source-lod2-shape-v10.glb"
-      : SHAPE_REVIEW_V9
+    url: SHAPE_REVIEW_V12
+      ? "/evowild-test/models/evowild-s/source-lod2-shape-v12.glb"
+      : SHAPE_REVIEW_V10
+        ? "/evowild-test/models/evowild-s/source-lod2-shape-v10.glb"
+        : SHAPE_REVIEW_V9
         ? "/evowild-test/models/evowild-s/source-lod2-shape-v9.glb"
         : SHAPE_REVIEW_V8
         ? "/evowild-test/models/evowild-s/source-lod2-shape-v8.glb"
