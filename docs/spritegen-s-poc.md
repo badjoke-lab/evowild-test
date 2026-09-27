@@ -80,3 +80,27 @@ bash scripts/run-spritegen-s-poc.sh evowild-s-side-source.png artifacts/spritege
 The wrapper installs the pinned upstream commit into an isolated local virtualenv and requests only `idle,run` for the side source. It does not touch P / E / A.
 
 sprite-gen's video path requires the operator's own Grok login or `XAI_API_KEY`, plus `ffmpeg` and `img2webp`. The wrapper intentionally fails if those prerequisites are absent instead of silently substituting another generator.
+
+
+## Manual motion QA — 2026-09-27
+
+Artifact reviewed:
+
+- `spritegen-s-side-run-poc.png`
+- `spritegen-s-side-atlas.png`
+- `spritegen-s-side-source.png`
+
+Verdict for the extracted `EvoWild_S_Run_V5` reference clip: **FAIL**.
+
+Reason:
+
+- the loop technically extracts and plays correctly;
+- S silhouette/identity is mostly stable;
+- body and head pitch dominate the cycle;
+- independent fore/hind limb phase separation is too weak;
+- foot-contact information is not readable enough;
+- the motion reads closer to pose/bob variation than a convincing sprint.
+
+Therefore this clip must **not** be used as the 2.5D run asset. It remains only a deterministic negative baseline.
+
+The side source still is **provisional input** for sprite-gen, not an approved final sprite. The generated sprite-gen run must visibly outperform this baseline before any 3/4 or rear view is attempted.
