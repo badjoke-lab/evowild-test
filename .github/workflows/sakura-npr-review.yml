@@ -3,7 +3,7 @@ name: Sakura NPR review
 on:
   push:
     branches:
-      - test/sakura-npr-visual-gate-20260927
+      - fix/sakura-npr-rigged-head-v2-20260927
   workflow_dispatch:
 
 jobs:
