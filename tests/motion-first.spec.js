@@ -595,7 +595,11 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
   await expect(page.locator("#scene")).toHaveAttribute("data-race-proxy-split-foot", "1");
   await expect(page.locator("#scene")).toHaveAttribute(
     "data-pose-update-mode",
-    "canonical-direct-lod"
+    "canonical-instanced-all"
+  );
+  await expect(page.locator("#scene")).toHaveAttribute(
+    "data-race-focus-representation",
+    "canonical-instanced"
   );
   await expect(page.locator("#scene")).toHaveAttribute("data-proxy-canonical-gait", "1");
   await expect(page.locator("#scene")).toHaveAttribute("data-simulation-hz", "60");
@@ -605,8 +609,9 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
   const fullCount = Number(
     await page.locator("#scene").getAttribute("data-full-runner-count")
   );
-  expect(proxyCount).toBeGreaterThanOrEqual(17);
-  expect(fullCount).toBeLessThanOrEqual(1);
+  expect(proxyCount).toBe(18);
+  expect(fullCount).toBe(0);
+  await expect(page.locator("#scene")).toHaveAttribute("data-full-runner-budget", "0");
 
   // AUTO owns focus. Switch to a manual camera before checking manual focus.
   await page.getByRole("button", { name: "SIDE", exact: true }).click({ force: true });
