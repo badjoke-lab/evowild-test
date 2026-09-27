@@ -2926,10 +2926,11 @@ function updateSimplifiedRaceLodSelection() {
   // runners as full articulated meshes. Far runners still use the exact
   // canonical gait state through the articulated proxy; this changes draw
   // complexity, not locomotion quality.
-  const fullBudget =
-    actualCamera === "PACK" || actualCamera === "SIDE"
-      ? 2
-      : 1;
+  // The broadcast focus is the one full-detail runner. Every other runner
+  // remains fully animated through the shared articulated proxy representation.
+  // This reserves draw-call headroom for a richer proxy instead of spending it
+  // on multiple near copies of the expensive procedural mesh.
+  const fullBudget = 1;
 
   const nearest = [...runners].sort(
     (a, b) =>
