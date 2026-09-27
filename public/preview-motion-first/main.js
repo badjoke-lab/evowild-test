@@ -2928,21 +2928,23 @@ function updateSimplifiedRaceLodSelection() {
   // complexity, not locomotion quality.
   const fullBudget =
     actualCamera === "PACK" || actualCamera === "SIDE"
-      ? 3
-      : actualCamera === "CHASE"
-        ? 2
-        : 2;
+      ? 2
+      : 1;
 
-  const nearest = [...runners]
-    .sort(
-      (a, b) =>
-        camera.position.distanceToSquared(a.group.position) -
-        camera.position.distanceToSquared(b.group.position)
-    )
-    .slice(0, fullBudget);
+  const nearest = [...runners].sort(
+    (a, b) =>
+      camera.position.distanceToSquared(a.group.position) -
+      camera.position.distanceToSquared(b.group.position)
+  );
 
-  const fullIds = new Set(nearest.map((runner) => runner.id));
-  fullIds.add(selectedRunner);
+  // The broadcast focus is always one of the full-detail slots, not an extra
+  // runner outside the budget. Fill any remaining slot with the closest field
+  // runner so PACK/SIDE can still carry one nearby secondary subject.
+  const fullIds = new Set([selectedRunner]);
+  for (const runner of nearest) {
+    if (fullIds.size >= fullBudget) break;
+    fullIds.add(runner.id);
+  }
 
   let fullCount = 0;
   runners.forEach((runner) => {
@@ -2953,6 +2955,7 @@ function updateSimplifiedRaceLodSelection() {
   });
 
   canvas.dataset.fullRunnerCount = String(fullCount);
+  canvas.dataset.fullRunnerBudget = String(fullBudget);
   canvas.dataset.proxyRunnerCount = String(runners.length - fullCount);
   canvas.dataset.raceProxyLod = "1";
 
