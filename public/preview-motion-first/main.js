@@ -2564,78 +2564,45 @@ function applySimplifiedRaceRenderLOD(root) {
 
 const RACE_PROXY_PROFILE = {
   S: {
-    baseY: 1.58,
     body: [0.62, 0.50, 1.18],
     pelvis: [0.56, 0.46, 0.86],
     head: [0.34, 0.30, 0.54],
-    headY: 0.06,
-    headZ: 1.18,
-    hipX: 0.31,
-    foreZ: 0.42,
-    hindZ: -0.54,
-    leg: 1.30,
-    swing: 0.82,
-    bob: 0.10,
     crest: 0.72,
-    tail: 0.88
+    tailLengths: [0.46, 0.40, 0.34]
   },
   P: {
-    baseY: 1.46,
     body: [0.86, 0.67, 1.02],
     pelvis: [0.76, 0.62, 0.80],
     head: [0.44, 0.38, 0.50],
-    headY: 0.02,
-    headZ: 1.02,
-    hipX: 0.42,
-    foreZ: 0.34,
-    hindZ: -0.45,
-    leg: 1.08,
-    swing: 0.62,
-    bob: 0.075,
     crest: 0.50,
-    tail: 0.68
+    tailLengths: [0.32, 0.28, 0.23]
   },
   E: {
-    baseY: 1.56,
     body: [0.59, 0.46, 1.28],
     pelvis: [0.53, 0.43, 0.96],
     head: [0.31, 0.27, 0.58],
-    headY: 0.05,
-    headZ: 1.22,
-    hipX: 0.29,
-    foreZ: 0.46,
-    hindZ: -0.60,
-    leg: 1.24,
-    swing: 0.68,
-    bob: 0.065,
     crest: 0.66,
-    tail: 0.78
+    tailLengths: [0.34, 0.30, 0.25]
   },
   A: {
-    baseY: 1.30,
     body: [0.69, 0.50, 0.94],
     pelvis: [0.66, 0.47, 0.76],
     head: [0.35, 0.30, 0.47],
-    headY: -0.02,
-    headZ: 0.94,
-    hipX: 0.34,
-    foreZ: 0.30,
-    hindZ: -0.39,
-    leg: 1.00,
-    swing: 0.76,
-    bob: 0.085,
     crest: 0.48,
-    tail: 0.62
+    tailLengths: [0.31, 0.28, 0.24]
   }
 };
 
 const proxyBodyGeometry = new THREE.IcosahedronGeometry(0.5, 0);
 const proxyHeadGeometry = new THREE.IcosahedronGeometry(0.5, 0);
+const proxyNeckGeometry = new THREE.CylinderGeometry(0.12, 0.18, 1, 5);
 const proxyLegGeometry = new THREE.CylinderGeometry(0.075, 0.10, 1, 5);
 const proxyLowerLegGeometry = new THREE.CylinderGeometry(0.050, 0.070, 1, 5);
-const proxyTailGeometry = new THREE.CylinderGeometry(0.045, 0.085, 1, 5);
+const proxyCannonGeometry = new THREE.CylinderGeometry(0.034, 0.048, 1, 5);
+const proxyTailGeometry = new THREE.CylinderGeometry(0.040, 0.070, 1, 5);
 const proxyCrestGeometry = new THREE.ConeGeometry(0.12, 1, 4);
 const proxyCueGeometry = new THREE.BoxGeometry(0.44, 0.07, 0.11);
+const proxyToeGeometry = new THREE.BoxGeometry(0.075, 0.055, 0.28);
 
 let simplifiedRaceProxyPool = null;
 
@@ -2668,26 +2635,63 @@ function ensureSimplifiedRaceProxyPool() {
   simplifiedRaceProxyPool = {
     chest: makeRaceProxyInstances(proxyBodyGeometry, primaryMaterial, RUNNER_COUNT),
     pelvis: makeRaceProxyInstances(proxyBodyGeometry, secondaryMaterial, RUNNER_COUNT),
+    neck: makeRaceProxyInstances(proxyNeckGeometry, primaryMaterial, RUNNER_COUNT),
     head: makeRaceProxyInstances(proxyHeadGeometry, primaryMaterial, RUNNER_COUNT),
     crest: makeRaceProxyInstances(proxyCrestGeometry, secondaryMaterial, RUNNER_COUNT),
-    tail: makeRaceProxyInstances(proxyTailGeometry, secondaryMaterial, RUNNER_COUNT),
+    tail: makeRaceProxyInstances(proxyTailGeometry, secondaryMaterial, RUNNER_COUNT * 3),
     cue: makeRaceProxyInstances(proxyCueGeometry, cueMaterial, RUNNER_COUNT),
     upperLeg: makeRaceProxyInstances(proxyLegGeometry, primaryMaterial, RUNNER_COUNT * 4),
-    lowerLeg: makeRaceProxyInstances(proxyLowerLegGeometry, darkMaterial, RUNNER_COUNT * 4)
+    lowerLeg: makeRaceProxyInstances(proxyLowerLegGeometry, darkMaterial, RUNNER_COUNT * 4),
+    cannon: makeRaceProxyInstances(proxyCannonGeometry, primaryMaterial, RUNNER_COUNT * 4),
+    toe: makeRaceProxyInstances(proxyToeGeometry, darkMaterial, RUNNER_COUNT * 8)
   };
 
-  canvas.dataset.raceProxyRepresentation = "instanced-articulated";
+  canvas.dataset.raceProxyRepresentation = "instanced-canonical-rig";
   canvas.dataset.raceProxyDrawCalls = String(Object.keys(simplifiedRaceProxyPool).length);
   canvas.dataset.raceProxyCueBand = "1";
-  canvas.dataset.raceProxyUpdateMode = "render-frame";
+  canvas.dataset.raceProxySplitFoot = "1";
+  canvas.dataset.raceProxyUpdateMode = "canonical-direct";
 }
 
-function createSimplifiedRaceProxy(morph, color) {
+function copyMotionState(from, to) {
+  if (!from || !to) return;
+  for (const key of ["turnLean", "accelLean", "neckLag", "headLag"]) {
+    if (Number.isFinite(from[key])) to[key] = from[key];
+  }
+  if (Array.isArray(from.tailPitchState)) {
+    to.tailPitchState = [...from.tailPitchState];
+  }
+  if (Array.isArray(from.tailYawState)) {
+    to.tailYawState = [...from.tailYawState];
+  }
+}
+
+function createSimplifiedRaceProxy(morph, color, sourceRoot) {
   const profile = RACE_PROXY_PROFILE[morph];
+  const sourceUd = sourceRoot.userData;
   const root = new THREE.Object3D();
-  const body = new THREE.Object3D();
-  body.position.y = profile.baseY;
-  root.add(body);
+
+  const bodyMaster = new THREE.Object3D();
+  bodyMaster.position.copy(sourceUd.bodyMaster.position);
+  root.add(bodyMaster);
+
+  const chestPivot = new THREE.Object3D();
+  chestPivot.position.copy(sourceUd.chestPivot.position);
+  bodyMaster.add(chestPivot);
+
+  const pelvisPivot = new THREE.Object3D();
+  pelvisPivot.position.copy(sourceUd.pelvisPivot.position);
+  bodyMaster.add(pelvisPivot);
+
+  // These are intentionally transform-only nodes. The canonical pose functions
+  // update them, but the proxy does not spend draw calls on the hidden waist/keel.
+  const waist = new THREE.Object3D();
+  waist.position.copy(sourceUd.waist.position);
+  bodyMaster.add(waist);
+
+  const keel = new THREE.Object3D();
+  keel.position.copy(sourceUd.keel.position);
+  bodyMaster.add(keel);
 
   const baseColor = new THREE.Color(color);
   const colors = {
@@ -2698,137 +2702,240 @@ function createSimplifiedRaceProxy(morph, color) {
   };
 
   const chest = new THREE.Object3D();
-  chest.position.set(0, 0, 0.25);
   chest.scale.set(...profile.body);
-  body.add(chest);
+  chestPivot.add(chest);
 
   const pelvis = new THREE.Object3D();
-  pelvis.position.set(0, -0.03, -0.52);
   pelvis.scale.set(...profile.pelvis);
-  body.add(pelvis);
+  pelvisPivot.add(pelvis);
 
-  const head = new THREE.Object3D();
-  head.position.set(0, profile.headY, profile.headZ);
-  body.add(head);
+  const neckPivot = new THREE.Object3D();
+  neckPivot.position.copy(sourceUd.neckPivot.position);
+  chestPivot.add(neckPivot);
+
+  const neckLen = Math.max(0.36, sourceUd.headPivot.position.z + 0.14);
+  const neck = new THREE.Object3D();
+  neck.position.set(0, 0, neckLen * 0.44);
+  neck.scale.set(
+    Math.max(0.72, profile.head[0] * 2.0),
+    neckLen,
+    Math.max(0.72, profile.head[1] * 2.0)
+  );
+  neck.rotation.x = Math.PI / 2;
+  neckPivot.add(neck);
+
+  const headPivot = new THREE.Object3D();
+  headPivot.position.copy(sourceUd.headPivot.position);
+  neckPivot.add(headPivot);
 
   const headPart = new THREE.Object3D();
+  headPart.position.set(0, 0, profile.head[2] * 0.22);
   headPart.scale.set(...profile.head);
-  head.add(headPart);
+  headPivot.add(headPart);
 
   const crest = new THREE.Object3D();
   crest.position.set(0, 0.12, -profile.crest * 0.34);
   crest.scale.set(1, profile.crest, 1);
   crest.rotation.x = Math.PI / 2;
-  head.add(crest);
+  headPivot.add(crest);
 
   const cue = new THREE.Object3D();
-  cue.position.set(0, 0.02, 0.15);
+  cue.position.set(0, 0.10, profile.head[2] * 0.32);
   cue.scale.set(
     Math.max(0.72, profile.head[0] * 1.85),
     1,
     Math.max(0.72, profile.head[2] * 1.10)
   );
-  head.add(cue);
+  headPivot.add(cue);
 
-  const tail = new THREE.Object3D();
-  tail.position.set(0, -0.02, -0.93);
-  tail.scale.set(1, profile.tail, 1);
-  tail.rotation.x = Math.PI / 2;
-  body.add(tail);
+  const tailBase = new THREE.Object3D();
+  const sourceTailBase = sourceUd.tailSegments?.[0]?.parent;
+  if (sourceTailBase) {
+    tailBase.position.copy(sourceTailBase.position);
+    tailBase.rotation.copy(sourceTailBase.rotation);
+  } else {
+    tailBase.position.set(0, 0, -0.65);
+  }
+  pelvisPivot.add(tailBase);
 
-  const legs = [];
-  const legDefs = [
-    { side: -1, fore: true },
-    { side: 1, fore: true },
-    { side: -1, fore: false },
-    { side: 1, fore: false }
-  ];
+  const tailSegments = [];
+  const tailParts = [];
+  let tailParent = tailBase;
+  profile.tailLengths.forEach((segmentLength, index) => {
+    const joint = new THREE.Object3D();
+    if (index > 0) joint.position.z = -profile.tailLengths[index - 1];
+    tailParent.add(joint);
 
-  legDefs.forEach((def) => {
+    const part = new THREE.Object3D();
+    part.position.set(0, 0, -segmentLength / 2);
+    part.scale.set(1, segmentLength, 1);
+    part.rotation.x = Math.PI / 2;
+    joint.add(part);
+
+    tailSegments.push(joint);
+    tailParts.push(part);
+    tailParent = joint;
+  });
+
+  const sourceLegs = sourceUd.legs ? Object.values(sourceUd.legs) : [];
+  const legs = sourceLegs.map((sourceLeg) => {
+    const parent = sourceLeg.fore ? chestPivot : pelvisPivot;
+
     const hip = new THREE.Object3D();
-    hip.position.set(
-      def.side * profile.hipX,
-      -0.18,
-      def.fore ? profile.foreZ : profile.hindZ
-    );
-    body.add(hip);
-
-    const upperLen = profile.leg * 0.54;
-    const lowerLen = profile.leg * 0.46;
+    hip.position.copy(sourceLeg.hip.position);
+    parent.add(hip);
 
     const upper = new THREE.Object3D();
-    upper.position.set(0, -upperLen / 2, 0);
-    upper.scale.set(1, upperLen, 1);
+    upper.position.set(0, -sourceLeg.upperLen / 2, 0.045);
+    upper.scale.set(1, sourceLeg.upperLen, 1);
     hip.add(upper);
 
     const knee = new THREE.Object3D();
-    knee.position.set(0, -upperLen, 0);
+    knee.position.copy(sourceLeg.knee.position);
     hip.add(knee);
 
     const lower = new THREE.Object3D();
-    lower.position.set(0, -lowerLen / 2, 0);
-    lower.scale.set(1, lowerLen, 1);
+    lower.position.set(0, -sourceLeg.lowerLen / 2, 0.05);
+    lower.scale.set(1, sourceLeg.lowerLen, 1);
     knee.add(lower);
 
-    legs.push({ hip, knee, upper, lower, fore: def.fore, side: def.side });
+    const ankle = new THREE.Object3D();
+    ankle.position.copy(sourceLeg.ankle.position);
+    knee.add(ankle);
+
+    const cannon = new THREE.Object3D();
+    cannon.position.set(0, -sourceLeg.cannonLen / 2, 0.04);
+    cannon.scale.set(1, sourceLeg.cannonLen, 1);
+    ankle.add(cannon);
+
+    const foot = new THREE.Object3D();
+    foot.position.copy(sourceLeg.foot.position);
+    ankle.add(foot);
+
+    const toes = [-1, 1].map((toeSide) => {
+      const toe = new THREE.Object3D();
+      toe.position.set(toeSide * (morph === "P" ? 0.070 : 0.050), -0.01, morph === "P" ? 0.25 : 0.23);
+      toe.scale.set(
+        morph === "P" ? 1.18 : morph === "A" ? 0.92 : 0.84,
+        morph === "P" ? 1.18 : 0.90,
+        morph === "S" ? 1.12 : morph === "E" ? 1.05 : 0.98
+      );
+      toe.rotation.x = -0.08;
+      toe.rotation.y = toeSide * (morph === "A" ? 0.11 : 0.07);
+      foot.add(toe);
+      return toe;
+    });
+
+    return {
+      hip,
+      knee,
+      ankle,
+      foot,
+      upper,
+      lower,
+      cannon,
+      toes,
+      phaseOffset: sourceLeg.phaseOffset,
+      upperLen: sourceLeg.upperLen,
+      lowerLen: sourceLeg.lowerLen,
+      cannonLen: sourceLeg.cannonLen,
+      side: sourceLeg.side,
+      fore: sourceLeg.fore,
+      stanceActive: false,
+      stanceAnchor: 0,
+      ikClamped: false
+    };
   });
+
+  const gait =
+    morph === "S" ? S_GAIT :
+      morph === "P" ? P_GAIT :
+        morph === "E" ? E_GAIT : A_GAIT;
+
+  root.userData = {
+    cfg: sourceUd.cfg,
+    morphKey: morph,
+    index: sourceUd.index,
+    bodyMaster,
+    chestPivot,
+    pelvisPivot,
+    waist,
+    keel,
+    neckPivot,
+    headPivot,
+    tailSegments,
+    legs,
+    phase: sourceUd.phase,
+    turnLean: sourceUd.turnLean || 0,
+    accelLean: sourceUd.accelLean || 0,
+    neckLag: sourceUd.neckLag || 0,
+    headLag: sourceUd.headLag || 0,
+    tailPitchState: tailSegments.map((_, i) => sourceUd.tailPitchState?.[i] || 0),
+    tailYawState: tailSegments.map((_, i) => sourceUd.tailYawState?.[i] || 0),
+    strideLength: sourceUd.strideLength || gait.minStrideWorld,
+    maxStanceSlip: 0,
+    minBodyY: gait.baseY,
+    maxBodyY: gait.baseY,
+    maxBank: 0,
+    maxFlex: 0
+  };
+
+  const motionRunner = {
+    morph,
+    cfg: sourceUd.cfg,
+    group: root,
+    speed: 0,
+    targetSpeed: 0,
+    distance: 0,
+    phaseBias: 0
+  };
 
   root.userData.raceProxy = {
     profile,
     colors,
-    body,
     chest,
     pelvis,
-    head,
+    neck,
     headPart,
     crest,
     cue,
-    tail,
-    legs
+    tailParts,
+    legs,
+    motionRunner
   };
 
   return root;
 }
 
-function updateSimplifiedRaceProxy(runner) {
+function updateSimplifiedRaceProxyCanonicalPose(runner, dt) {
   if (!runner.raceProxy) return;
 
-  const proxyUd = runner.raceProxy.userData.raceProxy;
   const fullUd = runner.group.userData;
+  const proxyUd = runner.raceProxy.userData;
+  const proxyMeta = proxyUd.raceProxy;
+  const motionRunner = proxyMeta.motionRunner;
 
   runner.raceProxy.position.set(runner.laneX, 0, runner.distance);
 
-  // The far representation is draw-only. The canonical S/P/E/A gait remains
-  // the single motion source, including planted-foot/body state on the hidden
-  // full runner. The proxy only mirrors those transforms.
-  proxyUd.body.position.y = fullUd.bodyMaster?.position.y ?? proxyUd.profile.baseY;
-  if (fullUd.bodyMaster) {
-    proxyUd.body.rotation.copy(fullUd.bodyMaster.rotation);
-  }
+  // Phase/stride come from the same fixed-60-Hz race simulation as the full
+  // runner. The exact already-reviewed morph pose function then solves this
+  // lightweight rig directly; no sine-only or static proxy gait exists.
+  proxyUd.phase = fullUd.phase;
+  proxyUd.strideLength = fullUd.strideLength;
 
-  if (fullUd.chestPivot) {
-    proxyUd.chest.rotation.copy(fullUd.chestPivot.rotation);
-  }
-  if (fullUd.pelvisPivot) {
-    proxyUd.pelvis.rotation.copy(fullUd.pelvisPivot.rotation);
-  }
-  if (fullUd.headPivot) {
-    proxyUd.head.rotation.copy(fullUd.headPivot.rotation);
-  }
+  motionRunner.speed = runner.speed;
+  motionRunner.targetSpeed = runner.targetSpeed;
+  motionRunner.distance = runner.distance;
+  motionRunner.phaseBias = runner.phaseBias;
 
-  const fullLegs = fullUd.legs ? Object.values(fullUd.legs) : [];
-  proxyUd.legs.forEach((proxyLeg, index) => {
-    const fullLeg = fullLegs[index];
-    if (!fullLeg) return;
-    proxyLeg.hip.rotation.copy(fullLeg.hip.rotation);
-    proxyLeg.knee.rotation.copy(fullLeg.knee.rotation);
-  });
-
-  const tailJoint = fullUd.tailSegments?.[0];
-  if (tailJoint) {
-    proxyUd.tail.rotation.x = Math.PI / 2 + tailJoint.rotation.x;
-    proxyUd.tail.rotation.y = tailJoint.rotation.y;
-    proxyUd.tail.rotation.z = tailJoint.rotation.z;
+  if (runner.morph === "S") {
+    updateSprintPose(motionRunner, runner.renderLateralVelocity || 0, dt);
+  } else if (runner.morph === "P") {
+    updatePowerPose(motionRunner, runner.renderLateralVelocity || 0, dt);
+  } else if (runner.morph === "E") {
+    updateEndurePose(motionRunner, runner.renderLateralVelocity || 0, dt);
+  } else if (runner.morph === "A") {
+    updateAgilityPose(motionRunner, runner.renderLateralVelocity || 0, dt);
   }
 }
 
@@ -2843,12 +2950,15 @@ function syncSimplifiedRaceProxyInstances() {
   const counts = {
     chest: 0,
     pelvis: 0,
+    neck: 0,
     head: 0,
     crest: 0,
     tail: 0,
     cue: 0,
     upperLeg: 0,
-    lowerLeg: 0
+    lowerLeg: 0,
+    cannon: 0,
+    toe: 0
   };
 
   runners.forEach((runner) => {
@@ -2857,42 +2967,21 @@ function syncSimplifiedRaceProxyInstances() {
     const ud = runner.raceProxy.userData.raceProxy;
     runner.raceProxy.updateMatrixWorld(true);
 
-    setProxyInstance(
-      simplifiedRaceProxyPool.chest,
-      counts.chest++,
-      ud.chest,
-      ud.colors.primary
-    );
-    setProxyInstance(
-      simplifiedRaceProxyPool.pelvis,
-      counts.pelvis++,
-      ud.pelvis,
-      ud.colors.secondary
-    );
-    setProxyInstance(
-      simplifiedRaceProxyPool.head,
-      counts.head++,
-      ud.headPart,
-      ud.colors.primary
-    );
-    setProxyInstance(
-      simplifiedRaceProxyPool.crest,
-      counts.crest++,
-      ud.crest,
-      ud.colors.secondary
-    );
-    setProxyInstance(
-      simplifiedRaceProxyPool.tail,
-      counts.tail++,
-      ud.tail,
-      ud.colors.secondary
-    );
-    setProxyInstance(
-      simplifiedRaceProxyPool.cue,
-      counts.cue++,
-      ud.cue,
-      ud.colors.cue
-    );
+    setProxyInstance(simplifiedRaceProxyPool.chest, counts.chest++, ud.chest, ud.colors.primary);
+    setProxyInstance(simplifiedRaceProxyPool.pelvis, counts.pelvis++, ud.pelvis, ud.colors.secondary);
+    setProxyInstance(simplifiedRaceProxyPool.neck, counts.neck++, ud.neck, ud.colors.primary);
+    setProxyInstance(simplifiedRaceProxyPool.head, counts.head++, ud.headPart, ud.colors.primary);
+    setProxyInstance(simplifiedRaceProxyPool.crest, counts.crest++, ud.crest, ud.colors.secondary);
+    setProxyInstance(simplifiedRaceProxyPool.cue, counts.cue++, ud.cue, ud.colors.cue);
+
+    ud.tailParts.forEach((tailPart, index) => {
+      setProxyInstance(
+        simplifiedRaceProxyPool.tail,
+        counts.tail++,
+        tailPart,
+        index === 0 ? ud.colors.secondary : ud.colors.primary
+      );
+    });
 
     ud.legs.forEach((leg) => {
       setProxyInstance(
@@ -2907,6 +2996,15 @@ function syncSimplifiedRaceProxyInstances() {
         leg.lower,
         ud.colors.dark
       );
+      setProxyInstance(
+        simplifiedRaceProxyPool.cannon,
+        counts.cannon++,
+        leg.cannon,
+        leg.fore ? ud.colors.primary : ud.colors.secondary
+      );
+      leg.toes.forEach((toe) => {
+        setProxyInstance(simplifiedRaceProxyPool.toe, counts.toe++, toe, ud.colors.dark);
+      });
     });
   });
 
@@ -2922,52 +3020,34 @@ function syncSimplifiedRaceProxyInstances() {
 function updateSimplifiedRaceLodSelection() {
   if (!SIMPLIFIED_RACE_PAGE || runners.length === 0) return;
 
-  // Keep the selected/focus runner full and retain only the closest additional
-  // runners as full articulated meshes. Far runners still use the exact
-  // canonical gait state through the articulated proxy; this changes draw
-  // complexity, not locomotion quality.
-  // The broadcast focus is the one full-detail runner. Every other runner
-  // remains fully animated through the shared articulated proxy representation.
-  // This reserves draw-call headroom for a richer proxy instead of spending it
-  // on multiple near copies of the expensive procedural mesh.
-  const fullBudget = 1;
-
-  const nearest = [...runners].sort(
-    (a, b) =>
-      camera.position.distanceToSquared(a.group.position) -
-      camera.position.distanceToSquared(b.group.position)
-  );
-
-  // The broadcast focus is always one of the full-detail slots, not an extra
-  // runner outside the budget. Fill any remaining slot with the closest field
-  // runner so PACK/SIDE can still carry one nearby secondary subject.
+  // One full articulated subject follows the broadcast focus. All other
+  // runners keep the exact S/P/E/A canonical gait on lightweight proxy rigs.
   const fullIds = new Set([selectedRunner]);
-  for (const runner of nearest) {
-    if (fullIds.size >= fullBudget) break;
-    fullIds.add(runner.id);
-  }
-
   let fullCount = 0;
+
   runners.forEach((runner) => {
     const renderFull = fullIds.has(runner.id);
+    const previous = runner.renderFull;
+
+    if (renderFull !== previous && runner.raceProxy) {
+      if (renderFull) {
+        // Preserve damped bank/head/tail state across proxy -> full promotion.
+        copyMotionState(runner.raceProxy.userData, runner.group.userData);
+      } else {
+        // Preserve the same state when full -> proxy demotion.
+        copyMotionState(runner.group.userData, runner.raceProxy.userData);
+      }
+    }
+
     runner.renderFull = renderFull;
     runner.group.visible = renderFull;
     if (renderFull) fullCount += 1;
   });
 
   canvas.dataset.fullRunnerCount = String(fullCount);
-  canvas.dataset.fullRunnerBudget = String(fullBudget);
+  canvas.dataset.fullRunnerBudget = "1";
   canvas.dataset.proxyRunnerCount = String(runners.length - fullCount);
   canvas.dataset.raceProxyLod = "1";
-
-  // Copy canonical pose into the far proxy once per rendered frame rather than
-  // once per fixed simulation step. At low render FPS the simulation may run
-  // several catch-up steps; repeating draw-only transform copies there wastes
-  // CPU without adding visible motion samples.
-  runners.forEach((runner) => {
-    if (!runner.renderFull) updateSimplifiedRaceProxy(runner);
-  });
-  syncSimplifiedRaceProxyInstances();
 }
 
 function createRunners() {
@@ -2981,7 +3061,11 @@ function createRunners() {
     if (SIMPLIFIED_RACE_PAGE) {
       applySimplifiedRaceVariation(creature, morph, i);
       applySimplifiedRaceRenderLOD(creature);
-      raceProxy = createSimplifiedRaceProxy(morph, COLORS[i % COLORS.length]);
+      raceProxy = createSimplifiedRaceProxy(
+        morph,
+        COLORS[i % COLORS.length],
+        creature
+      );
     }
     const lane = i % LANE_COUNT;
     const row = Math.floor(i / LANE_COUNT);
@@ -4564,11 +4648,12 @@ window.addEventListener("resize", () => {
 
 
 function animate() {
-  // Keep race speed independent from render FPS. The old 35 ms dt clamp
-  // turned the whole race into slow motion whenever rendering dropped below
-  // ~29 FPS, which is unacceptable for the motion-first lane.
+  // Keep race speed independent from render FPS. Race physics and gait phase
+  // stay fixed at 60 Hz; articulated transforms are solved only for frames
+  // that can actually be shown.
   const rawDt = Math.min(clock.getDelta(), 0.12);
   const cameraDt = Math.min(rawDt, 0.05);
+  const poseDt = Math.max(rawDt, 1 / 240);
 
   if (!paused) {
     simulationAccumulator = Math.min(
@@ -4591,26 +4676,39 @@ function animate() {
 
     canvas.dataset.raceTime = raceTime.toFixed(3);
     canvas.dataset.simulationSteps = String(simulationSteps);
-
-    if (SIMPLIFIED_RACE_PAGE) {
-      runners.forEach((runner) => {
-        updateCreaturePose(
-          runner,
-          runner.renderLateralVelocity || 0,
-          Math.max(rawDt, 1 / 240)
-        );
-      });
-      canvas.dataset.poseUpdateMode = "render-frame-canonical";
-    }
   } else {
     simulationAccumulator = 0;
+  }
+
+  // Camera/director decides the focus before LOD, so a broadcast cut and the
+  // full-detail subject switch happen in the same visible frame.
+  updateCamera(cameraDt);
+  updateSimplifiedRaceLodSelection();
+
+  if (SIMPLIFIED_RACE_PAGE) {
+    runners.forEach((runner) => {
+      if (runner.renderFull) {
+        updateCreaturePose(
+          runner,
+          paused ? 0 : runner.renderLateralVelocity || 0,
+          paused ? cameraDt : poseDt
+        );
+      } else {
+        updateSimplifiedRaceProxyCanonicalPose(
+          runner,
+          paused ? cameraDt : poseDt
+        );
+      }
+    });
+    syncSimplifiedRaceProxyInstances();
+    canvas.dataset.poseUpdateMode = "canonical-direct-lod";
+    canvas.dataset.proxyCanonicalGait = "1";
+  } else if (paused) {
     runners.forEach((runner) => {
       updateCreaturePose(runner, 0, cameraDt);
     });
   }
 
-  updateCamera(cameraDt);
-  updateSimplifiedRaceLodSelection();
   updateHud(rawDt);
   renderer.render(scene, camera);
   if (SIMPLIFIED_RACE_PAGE) {
