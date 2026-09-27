@@ -162,6 +162,8 @@ function repairRiggedCrestGeometry(root) {
     const sideGuard = Math.max(0.010, (maxX - minX) * 0.028);
 
     let leftSum = 0, rightSum = 0, leftCount = 0, rightCount = 0;
+    let leftMin = Infinity, leftMax = -Infinity;
+    let rightMin = Infinity, rightMax = -Infinity;
 
     // Measure the two visible upper silhouette clusters directly. Do not rely
     // on skin weights: some crest vertices are shared with neck/head groups.
@@ -173,9 +175,13 @@ function repairRiggedCrestGeometry(root) {
       if (dx < -sideGuard) {
         leftSum += world.x;
         leftCount += 1;
+        leftMin = Math.min(leftMin, world.x);
+        leftMax = Math.max(leftMax, world.x);
       } else if (dx > sideGuard) {
         rightSum += world.x;
         rightCount += 1;
+        rightMin = Math.min(rightMin, world.x);
+        rightMax = Math.max(rightMax, world.x);
       }
     }
 
@@ -183,9 +189,17 @@ function repairRiggedCrestGeometry(root) {
 
     const leftCentroid = leftSum / leftCount;
     const rightCentroid = rightSum / rightCount;
-    const desiredHalfGap = 0.0025;
-    const leftShift = (centerX - desiredHalfGap) - leftCentroid;
-    const rightShift = (centerX + desiredHalfGap) - rightCentroid;
+    const leftHalfWidth = Math.max(0.003, (leftMax - leftMin) * 0.5);
+    const rightHalfWidth = Math.max(0.003, (rightMax - rightMin) * 0.5);
+
+    // v10 moved both lobe centroids almost onto the centreline. That removed
+    // the split but collapsed the front silhouette into a needle. Preserve
+    // each lobe's measured width and move only enough for the inner edges to
+    // meet at the central skull line.
+    const leftTargetCentroid = centerX - leftHalfWidth;
+    const rightTargetCentroid = centerX + rightHalfWidth;
+    const leftShift = leftTargetCentroid - leftCentroid;
+    const rightShift = rightTargetCentroid - rightCentroid;
 
     const smooth01 = (x) => {
       x = THREE.MathUtils.clamp(x, 0, 1);
@@ -221,9 +235,11 @@ function repairRiggedCrestGeometry(root) {
     canvas.dataset.crestRightShift = rightShift.toFixed(4);
     canvas.dataset.crestTopLeftCount = String(leftCount);
     canvas.dataset.crestTopRightCount = String(rightCount);
+    canvas.dataset.crestLeftHalfWidth = leftHalfWidth.toFixed(4);
+    canvas.dataset.crestRightHalfWidth = rightHalfWidth.toFixed(4);
   });
 
-  canvas.dataset.headSilhouetteCorrection = "silhouette-cluster-merge-v10";
+  canvas.dataset.headSilhouetteCorrection = "silhouette-edge-meet-v11";
   canvas.dataset.headRepairVertices = String(changed);
 }
 
