@@ -291,11 +291,20 @@ scene.fog = new THREE.Fog(0x92a7b3, 55, 230);
 
 const renderer = new THREE.WebGLRenderer({
   canvas,
-  antialias: true,
+  // In the 18-runner simplified race, frame continuity has priority over edge
+  // smoothing. The browser stretches the lower internal resolution back to
+  // the full canvas size.
+  antialias: !SIMPLIFIED_RACE_PAGE,
   powerPreference: "high-performance"
 });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+const renderPixelRatio = SIMPLIFIED_RACE_PAGE
+  ? 0.4
+  : SIMPLIFIED_GAIT_PAGE
+    ? Math.min(window.devicePixelRatio || 1, 1.25)
+    : Math.min(window.devicePixelRatio || 1, 1.5);
+renderer.setPixelRatio(renderPixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight, false);
+canvas.dataset.renderPixelRatio = String(renderPixelRatio);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.0;
@@ -491,6 +500,35 @@ function addWorld() {
     }
   }
   scene.add(posts);
+
+  if (SIMPLIFIED_RACE_PAGE) {
+    const cueGeo = new THREE.BoxGeometry(0.18, 0.78, 0.72);
+    const cueMatA = new THREE.MeshBasicMaterial({ color: 0xf0f2ec });
+    const cueMatB = new THREE.MeshBasicMaterial({ color: 0x252b2f });
+    const cueCountPerSide = 250;
+    const cueA = new THREE.InstancedMesh(cueGeo, cueMatA, cueCountPerSide);
+    const cueB = new THREE.InstancedMesh(cueGeo, cueMatB, cueCountPerSide);
+    let aIndex = 0;
+    let bIndex = 0;
+    const cueMatrix = new THREE.Matrix4();
+
+    for (let i = -10; i < 240; i += 1) {
+      const z = i * 7.25;
+      for (const side of [-1, 1]) {
+        cueMatrix.makeTranslation(side * (TRACK_WIDTH / 2 + 3.15), 0.42, z);
+        if ((i + (side > 0 ? 1 : 0)) % 2 === 0) {
+          if (aIndex < cueCountPerSide) cueA.setMatrixAt(aIndex++, cueMatrix);
+        } else if (bIndex < cueCountPerSide) {
+          cueB.setMatrixAt(bIndex++, cueMatrix);
+        }
+      }
+    }
+
+    cueA.count = aIndex;
+    cueB.count = bIndex;
+    scene.add(cueA, cueB);
+    canvas.dataset.speedCueSpacing = "7.25";
+  }
 
   const treeTrunkGeo = new THREE.CylinderGeometry(0.14, 0.19, 1.4, 5);
   const treeTrunkMat = new THREE.MeshStandardMaterial({ color: 0x62513b, roughness: 1 });
@@ -2457,6 +2495,58 @@ function laneToX(lane) {
 
 const runners = [];
 
+function applySimplifiedRaceRenderLOD(root) {
+  if (!SIMPLIFIED_RACE_PAGE) return;
+
+  const materialCache = new Map();
+  let culledDetailMeshes = 0;
+
+  root.traverse((node) => {
+    if (!node.isMesh) return;
+
+    // Sub-pixel eye / Cue indicator spheres cost one draw each across 18
+    // runners but are not readable at race-camera distance. Remove only these
+    // tiny decorative spheres; limb joints, split feet, crest, Cue Band body
+    // and every animated structural part stay intact.
+    if (
+      node.geometry?.type === "SphereGeometry" &&
+      Number(node.geometry.parameters?.radius || 1) <= 0.055
+    ) {
+      node.visible = false;
+      culledDetailMeshes += 1;
+      return;
+    }
+
+    const source = node.material;
+    if (!source || !source.isMeshStandardMaterial) return;
+
+    const colorHex = source.color?.getHexString?.() || "ffffff";
+    const emissiveHex = source.emissive?.getHexString?.() || "000000";
+    const key = `${colorHex}:${emissiveHex}:${source.transparent ? 1 : 0}:${source.opacity ?? 1}`;
+
+    let replacement = materialCache.get(key);
+    if (!replacement) {
+      replacement = new THREE.MeshLambertMaterial({
+        color: source.color?.clone?.() || new THREE.Color(0xffffff),
+        emissive: source.emissive?.clone?.() || new THREE.Color(0x000000),
+        emissiveIntensity: Math.min(source.emissiveIntensity ?? 0, 0.9),
+        transparent: Boolean(source.transparent),
+        opacity: source.opacity ?? 1,
+        flatShading: true
+      });
+      materialCache.set(key, replacement);
+    }
+
+    node.material = replacement;
+  });
+
+  root.userData.raceRenderLod = "lambert-low";
+  root.userData.culledDetailMeshes = culledDetailMeshes;
+  if (culledDetailMeshes > 0) {
+    canvas.dataset.raceDetailCull = "1";
+  }
+}
+
 function createRunners() {
   const morphKeys = ["S", "P", "E", "A"];
 
@@ -2465,6 +2555,7 @@ function createRunners() {
     const creature = createCreature(morph, COLORS[i % COLORS.length], i);
     if (SIMPLIFIED_RACE_PAGE) {
       applySimplifiedRaceVariation(creature, morph, i);
+      applySimplifiedRaceRenderLOD(creature);
     }
     const lane = i % LANE_COUNT;
     const row = Math.floor(i / LANE_COUNT);
@@ -2505,8 +2596,19 @@ function createRunners() {
 
 function resetRace() {
   raceTime = 0;
+  simulationAccumulator = 0;
   finished = false;
   paused = false;
+  raceDirector.camera = "PACK";
+  raceDirector.focusId = 0;
+  raceDirector.reason = "START";
+  raceDirector.holdUntil = 0;
+  raceDirector.lastLeaderId = 0;
+  raceDirector.lastDecisionAt = -999;
+  canvas.dataset.directorDecisionCount = "0";
+  canvas.dataset.directorCutCount = "0";
+  canvas.dataset.directorReason = "START";
+  previousAppliedCamera = "PACK";
   pauseButton.textContent = "PAUSE";
   raceStateEl.textContent = "RUNNING";
 
@@ -3585,10 +3687,136 @@ let actualCamera = "PACK";
 let paused = false;
 let finished = false;
 let raceTime = 0;
+let simulationAccumulator = 0;
+const SIMULATION_STEP = 1 / 120;
+const MAX_SIMULATION_STEPS = 14;
 let fpsAccumulator = 0;
 let fpsFrames = 0;
 
+const raceDirector = {
+  camera: "PACK",
+  focusId: 0,
+  reason: "START",
+  holdUntil: 0,
+  lastLeaderId: 0,
+  lastDecisionAt: -999
+};
+
+function setDirectorShot(cameraMode, focusId, reason, holdSeconds) {
+  raceDirector.camera = cameraMode;
+  raceDirector.focusId = focusId;
+  raceDirector.reason = reason;
+  raceDirector.holdUntil = raceTime + holdSeconds;
+  raceDirector.lastDecisionAt = raceTime;
+
+  selectedRunner = focusId;
+  runnerSelect.value = String(focusId);
+
+  canvas.dataset.directorCamera = cameraMode;
+  canvas.dataset.directorReason = reason;
+  canvas.dataset.directorFocus = String(focusId);
+  canvas.dataset.directorDecisionCount = String(
+    Number(canvas.dataset.directorDecisionCount || "0") + 1
+  );
+}
+
+function updateSimplifiedRaceDirector() {
+  if (!SIMPLIFIED_RACE_PAGE || requestedCamera !== "AUTO" || runners.length === 0) return;
+
+  const order = rankings();
+  const leader = order[0];
+  const second = order[1] || leader;
+  const leaderGap = Math.max(0, leader.distance - second.distance);
+  const topPack = order.slice(0, 6);
+  const packSpread =
+    topPack.length > 1
+      ? topPack[0].distance - topPack[topPack.length - 1].distance
+      : 0;
+
+  const leaderChanged = raceDirector.lastLeaderId !== leader.id;
+  raceDirector.lastLeaderId = leader.id;
+
+  const recentMove = order
+    .slice(0, 8)
+    .find((runner) => raceTime - runner.laneChangeStartedAt < 1.15);
+
+  if (raceTime < 3.8) {
+    if (raceDirector.reason !== "START") {
+      setDirectorShot("PACK", leader.id, "START", 3.8 - raceTime);
+    } else {
+      selectedRunner = leader.id;
+    }
+    return;
+  }
+
+  if (leader.distance >= RACE_DISTANCE - 210) {
+    if (leader.distance >= RACE_DISTANCE - 55) {
+      if (raceDirector.reason !== "FINISH_FRONT") {
+        setDirectorShot("FRONT", leader.id, "FINISH_FRONT", 2.5);
+      } else {
+        selectedRunner = leader.id;
+      }
+    } else if (leader.distance >= RACE_DISTANCE - 120) {
+      if (raceDirector.reason !== "FINISH_SIDE") {
+        setDirectorShot("SIDE", leader.id, "FINISH_SIDE", 3.0);
+      } else {
+        selectedRunner = leader.id;
+      }
+    } else if (raceDirector.reason !== "FINAL_CHASE") {
+      setDirectorShot("CHASE", leader.id, "FINAL_CHASE", 3.5);
+    } else {
+      selectedRunner = leader.id;
+    }
+    return;
+  }
+
+  if (raceTime < raceDirector.holdUntil && !leaderChanged) {
+    selectedRunner = raceDirector.focusId;
+    runnerSelect.value = String(raceDirector.focusId);
+    return;
+  }
+
+  if (leaderChanged) {
+    setDirectorShot("CHASE", leader.id, "LEAD_CHANGE", 2.9);
+    return;
+  }
+
+  if (recentMove) {
+    setDirectorShot(
+      recentMove.morph === "A" ? "LOW" : "CHASE",
+      recentMove.id,
+      "LANE_MOVE",
+      2.5
+    );
+    return;
+  }
+
+  if (leaderGap < 1.7 && packSpread < 8.0) {
+    setDirectorShot("SIDE", leader.id, "LEAD_DUEL", 3.2);
+    return;
+  }
+
+  if (packSpread < 11.5) {
+    setDirectorShot("PACK", leader.id, "PACK_COMPRESSION", 3.4);
+    return;
+  }
+
+  if (leaderGap > 4.2) {
+    setDirectorShot("LOW", leader.id, "BREAKAWAY", 3.0);
+    return;
+  }
+
+  const cycleIndex = Math.floor(raceTime / 3.1) % 3;
+  const fallback = cycleIndex === 0 ? "CHASE" : cycleIndex === 1 ? "SIDE" : "PACK";
+  setDirectorShot(fallback, leader.id, "RACE_FLOW", 3.1);
+}
+
 function autoCameraMode() {
+  if (SIMPLIFIED_RACE_PAGE) {
+    updateSimplifiedRaceDirector();
+    return raceDirector.camera;
+  }
+
   if (raceTime < 3.4) return "PACK";
   const cycle = (raceTime - 3.4) % 25;
   if (cycle < 5.0) return "CHASE";
@@ -3613,10 +3841,12 @@ function packCenter(out) {
   return out;
 }
 
+let previousAppliedCamera = "PACK";
+
 function updateCamera(dt) {
+  actualCamera = requestedCamera === "AUTO" ? autoCameraMode() : requestedCamera;
   const focus = runners[selectedRunner];
   const focusPos = focus.group.position;
-  actualCamera = requestedCamera === "AUTO" ? autoCameraMode() : requestedCamera;
 
   let targetFov = 58;
 
@@ -3694,29 +3924,41 @@ function updateCamera(dt) {
 
   if (actualCamera === "CHASE") {
     desiredCamera.set(
-      focusPos.x + 5.2,
-      4.4,
-      focusPos.z - 11.8
+      focusPos.x + (SIMPLIFIED_RACE_PAGE ? 3.8 : 5.2),
+      SIMPLIFIED_RACE_PAGE ? 3.25 : 4.4,
+      focusPos.z - (SIMPLIFIED_RACE_PAGE ? 8.8 : 11.8)
     );
-    desiredLook.set(focusPos.x, 1.75, focusPos.z + 10.5);
-    targetFov = 61;
+    desiredLook.set(
+      focusPos.x,
+      SIMPLIFIED_RACE_PAGE ? 1.48 : 1.75,
+      focusPos.z + (SIMPLIFIED_RACE_PAGE ? 11.5 : 10.5)
+    );
+    targetFov = SIMPLIFIED_RACE_PAGE ? 67 : 61;
   } else if (actualCamera === "LOW") {
     desiredCamera.set(
-      focusPos.x + 2.4,
-      1.55,
-      focusPos.z - 8.0
+      focusPos.x + (SIMPLIFIED_RACE_PAGE ? 1.65 : 2.4),
+      SIMPLIFIED_RACE_PAGE ? 1.08 : 1.55,
+      focusPos.z - (SIMPLIFIED_RACE_PAGE ? 5.9 : 8.0)
     );
-    desiredLook.set(focusPos.x, 1.42, focusPos.z + 15);
-    targetFov = 72;
+    desiredLook.set(
+      focusPos.x,
+      SIMPLIFIED_RACE_PAGE ? 1.23 : 1.42,
+      focusPos.z + (SIMPLIFIED_RACE_PAGE ? 16.5 : 15)
+    );
+    targetFov = SIMPLIFIED_RACE_PAGE ? 78 : 72;
   } else if (actualCamera === "SIDE") {
     const side = focusPos.x <= 0 ? -1 : 1;
     desiredCamera.set(
-      side * (TRACK_WIDTH / 2 + 11.5),
-      4.2,
-      focusPos.z - 0.6
+      side * (TRACK_WIDTH / 2 + (SIMPLIFIED_RACE_PAGE ? 8.4 : 11.5)),
+      SIMPLIFIED_RACE_PAGE ? 3.25 : 4.2,
+      focusPos.z - (SIMPLIFIED_RACE_PAGE ? 0.2 : 0.6)
     );
-    desiredLook.set(focusPos.x, 1.65, focusPos.z + 1.5);
-    targetFov = 52;
+    desiredLook.set(
+      focusPos.x,
+      SIMPLIFIED_RACE_PAGE ? 1.38 : 1.65,
+      focusPos.z + (SIMPLIFIED_RACE_PAGE ? 2.8 : 1.5)
+    );
+    targetFov = SIMPLIFIED_RACE_PAGE ? 56 : 52;
   } else if (actualCamera === "FRONT") {
     desiredCamera.set(
       focusPos.x - 3.0,
@@ -3736,7 +3978,30 @@ function updateCamera(dt) {
     targetFov = 54;
   }
 
-  const transitionRate = requestedCamera === "AUTO" ? 2.6 : 3.8;
+  const transitionRate =
+    requestedCamera === "AUTO"
+      ? (SIMPLIFIED_RACE_PAGE ? 4.1 : 2.6)
+      : 3.8;
+
+  const autoShotChanged =
+    SIMPLIFIED_RACE_PAGE &&
+    requestedCamera === "AUTO" &&
+    previousAppliedCamera !== actualCamera;
+
+  if (autoShotChanged) {
+    // Distinct broadcast angles should cut cleanly. Gliding a camera from a
+    // front shot through the pack into a chase shot looks like a broken free
+    // camera, not deliberate race direction.
+    camera.position.copy(desiredCamera);
+    cameraLook.copy(desiredLook);
+    camera.fov = targetFov;
+    camera.updateProjectionMatrix();
+    previousAppliedCamera = actualCamera;
+    canvas.dataset.directorCutCount = String(
+      Number(canvas.dataset.directorCutCount || "0") + 1
+    );
+  }
+
   camera.position.x = THREE.MathUtils.damp(camera.position.x, desiredCamera.x, transitionRate, dt);
   camera.position.y = THREE.MathUtils.damp(camera.position.y, desiredCamera.y, transitionRate, dt);
   camera.position.z = THREE.MathUtils.damp(camera.position.z, desiredCamera.z, transitionRate, dt);
@@ -3746,9 +4011,15 @@ function updateCamera(dt) {
   cameraLook.z = THREE.MathUtils.damp(cameraLook.z, desiredLook.z, transitionRate + 0.8, dt);
 
   if (actualCamera === "LOW" || actualCamera === "CHASE") {
-    const shake = Math.min(focus.speed / 25, 1) * (actualCamera === "LOW" ? 0.035 : 0.018);
+    const speedRatio = Math.min(focus.speed / 25, 1);
+    const shakeBase = actualCamera === "LOW" ? 0.035 : 0.018;
+    const shake = speedRatio * shakeBase * (SIMPLIFIED_RACE_PAGE ? 1.45 : 1);
     camera.position.y += Math.sin(raceTime * 17) * shake;
     camera.position.x += Math.sin(raceTime * 13.7) * shake * 0.4;
+
+    if (SIMPLIFIED_RACE_PAGE) {
+      camera.fov += Math.sin(raceTime * 5.2) * 0.22 * speedRatio;
+    }
   }
 
   camera.fov = THREE.MathUtils.damp(camera.fov, targetFov, 4.2, dt);
@@ -3846,19 +4117,40 @@ window.addEventListener("resize", () => {
 
 
 function animate() {
-  const rawDt = clock.getDelta();
-  const dt = Math.min(rawDt, 0.035);
+  // Keep race speed independent from render FPS. The old 35 ms dt clamp
+  // turned the whole race into slow motion whenever rendering dropped below
+  // ~29 FPS, which is unacceptable for the motion-first lane.
+  const rawDt = Math.min(clock.getDelta(), 0.12);
+  const cameraDt = Math.min(rawDt, 0.05);
 
   if (!paused) {
-    raceTime += dt;
-    runners.forEach((runner) => updateRunner(runner, dt));
-    finishCheck();
+    simulationAccumulator = Math.min(
+      simulationAccumulator + rawDt,
+      SIMULATION_STEP * MAX_SIMULATION_STEPS
+    );
+
+    let simulationSteps = 0;
+    while (
+      simulationAccumulator >= SIMULATION_STEP &&
+      simulationSteps < MAX_SIMULATION_STEPS &&
+      !finished
+    ) {
+      raceTime += SIMULATION_STEP;
+      runners.forEach((runner) => updateRunner(runner, SIMULATION_STEP));
+      finishCheck();
+      simulationAccumulator -= SIMULATION_STEP;
+      simulationSteps += 1;
+    }
+
+    canvas.dataset.raceTime = raceTime.toFixed(3);
+    canvas.dataset.simulationSteps = String(simulationSteps);
   } else {
-    runners.forEach((runner) => updateCreaturePose(runner, 0, dt));
+    simulationAccumulator = 0;
+    runners.forEach((runner) => updateCreaturePose(runner, 0, cameraDt));
   }
 
-  updateCamera(dt);
-  updateHud(dt);
+  updateCamera(cameraDt);
+  updateHud(rawDt);
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }
