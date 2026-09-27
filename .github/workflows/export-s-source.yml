@@ -1,0 +1,20 @@
+name: Export S source for geometry audit
+
+on:
+  push:
+    branches:
+      - feat/s-hunyuan-shape-refine-v2-20260926
+
+jobs:
+  export:
+    if: contains(github.event.head_commit.message, '[export-s-source]')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: s-source-geometry-audit
+          path: |
+            public/models/evowild-s/source-lod2.glb
+            public/models/evowild-s/source-lod2-shape-v4.glb
+            public/models/evowild-s/source-lod2-shape-v9.glb
