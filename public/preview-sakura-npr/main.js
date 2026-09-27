@@ -196,8 +196,9 @@ function repairRiggedCrestGeometry(root) {
     // the split but collapsed the front silhouette into a needle. Preserve
     // each lobe's measured width and move only enough for the inner edges to
     // meet at the central skull line.
-    const leftTargetCentroid = centerX - leftHalfWidth;
-    const rightTargetCentroid = centerX + rightHalfWidth;
+    const overlapFactor = 0.30;
+    const leftTargetCentroid = centerX - leftHalfWidth * overlapFactor;
+    const rightTargetCentroid = centerX + rightHalfWidth * overlapFactor;
     const leftShift = leftTargetCentroid - leftCentroid;
     const rightShift = rightTargetCentroid - rightCentroid;
 
@@ -237,9 +238,10 @@ function repairRiggedCrestGeometry(root) {
     canvas.dataset.crestTopRightCount = String(rightCount);
     canvas.dataset.crestLeftHalfWidth = leftHalfWidth.toFixed(4);
     canvas.dataset.crestRightHalfWidth = rightHalfWidth.toFixed(4);
+    canvas.dataset.crestOverlapFactor = overlapFactor.toFixed(2);
   });
 
-  canvas.dataset.headSilhouetteCorrection = "silhouette-edge-meet-v11";
+  canvas.dataset.headSilhouetteCorrection = "silhouette-overlap-v12";
   canvas.dataset.headRepairVertices = String(changed);
 }
 
