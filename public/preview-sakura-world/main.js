@@ -226,6 +226,7 @@ document.querySelectorAll("[data-camera]").forEach((btn) => {
     cameraMode = btn.dataset.camera;
     document.querySelectorAll("[data-camera]").forEach((b) => b.classList.toggle("active", b === btn));
     placeRunner();
+    pipeline.render();
   });
 });
 
@@ -266,6 +267,7 @@ loader.load(
     canvas.dataset.upstreamOutline = "1";
     canvas.dataset.animationCount = String(gltf.animations.length);
     placeRunner();
+    pipeline.render();
     loading.classList.add("hidden");
   },
   undefined,
