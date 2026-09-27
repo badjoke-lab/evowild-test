@@ -213,13 +213,21 @@ function correctHeadSilhouette(root) {
   bridge.receiveShadow = true;
 
   centerWorld.y = minTopY + spanY * 0.20;
+
+  // The correction must move with the animated head bone. The earlier page
+  // versions attached it to the scene root, so the run animation moved the
+  // real head away from the patch and produced the bar/rectangle artifacts
+  // seen in FRONT/CHASE captures.
+  const headBone = root.getObjectByName("head");
+  const anchor = headBone || root;
+  anchor.updateMatrixWorld(true);
   const centerLocal = centerWorld.clone();
-  root.worldToLocal(centerLocal);
+  anchor.worldToLocal(centerLocal);
   bridge.position.copy(centerLocal);
-  root.add(bridge);
+  anchor.add(bridge);
   root.updateMatrixWorld(true);
 
-  canvas.dataset.headSilhouetteCorrection = "head-cap-v3";
+  canvas.dataset.headSilhouetteCorrection = headBone ? "head-cap-bone-v4" : "head-cap-root-fallback";
 }
 const cameraForward = new THREE.Vector3();
 const cameraSide = new THREE.Vector3();
