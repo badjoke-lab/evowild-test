@@ -35,7 +35,6 @@ const PROXY_REVIEW_RUNNER =
   PROXY_REVIEW_RUNNER_PARAM === null
     ? null
     : Number.parseInt(PROXY_REVIEW_RUNNER_PARAM, 10);
-const PERF_RENDER_SCALE = Number.parseFloat(params.get("perfScale") || "");
 const TAU = Math.PI * 2;
 const S_GAIT = {
   baseY: 1.60,
@@ -304,9 +303,7 @@ const renderer = new THREE.WebGLRenderer({
   powerPreference: "high-performance"
 });
 const renderPixelRatio = SIMPLIFIED_RACE_PAGE
-  ? (Number.isFinite(PERF_RENDER_SCALE)
-      ? THREE.MathUtils.clamp(PERF_RENDER_SCALE, 0.20, 1.0)
-      : 0.75)
+  ? 0.75
   : SIMPLIFIED_GAIT_PAGE
     ? Math.min(window.devicePixelRatio || 1, 1.25)
     : Math.min(window.devicePixelRatio || 1, 1.5);
