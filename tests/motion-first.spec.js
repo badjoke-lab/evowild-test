@@ -783,6 +783,22 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
   );
   expect(laterDecisionCount).toBeGreaterThanOrEqual(decisionCount);
 
+  const shotHistoryText =
+    (await page.locator("#scene").getAttribute("data-director-shot-history")) || "";
+  const shotHistory = shotHistoryText.split(",").filter(Boolean);
+  expect(shotHistory.length).toBeGreaterThanOrEqual(2);
+
+  const persistentShots = new Set([
+    "LEAD_DUEL:SIDE",
+    "PACK_COMPRESSION:PACK",
+    "BREAKAWAY:LOW"
+  ]);
+  for (let i = 1; i < shotHistory.length; i += 1) {
+    if (persistentShots.has(shotHistory[i])) {
+      expect(shotHistory[i]).not.toBe(shotHistory[i - 1]);
+    }
+  }
+
   await page.locator("#scene").screenshot({
     path: `${outDir}/motion-first-phase-f-auto-director.png`
   });
