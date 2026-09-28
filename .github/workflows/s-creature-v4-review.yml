@@ -1,0 +1,85 @@
+name: S creature v4 review
+
+on:
+  push:
+    branches:
+      - feat/s-creature-model
+    paths:
+      - .github/workflows/s-creature-v4-review.yml
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/s-creature-model
+          fetch-depth: 0
+
+      - name: Install Blender runtime libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+
+      - name: Download Blender 4.3.2
+        run: |
+          set -euxo pipefail
+          curl -L --fail --retry 3 \
+            https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz \
+            -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+          /tmp/blender-4.3.2-linux-x64/blender --version
+
+      - name: Render four v4 review views
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "1"
+        run: |
+          set -euxo pipefail
+          /tmp/blender-4.3.2-linux-x64/blender \
+            --background \
+            art/s-creature/output/S-blockout-v4.blend \
+            --python art/s-creature/blender/render_v4_review.py
+
+      - name: Verify outputs and update checkpoint
+        run: |
+          set -euxo pipefail
+          for f in \
+            art/s-creature/output/review/v4/S_blockout_front.png \
+            art/s-creature/output/review/v4/S_blockout_side.png \
+            art/s-creature/output/review/v4/S_blockout_front34.png \
+            art/s-creature/output/review/v4/S_blockout_rear34.png
+          do
+            test -s "$f"
+          done
+          python - <<'PY'
+          from pathlib import Path
+          p = Path("art/s-creature/CHECKPOINT.md")
+          s = p.read_text()
+          marker = "v4 review rendered / not accepted"
+          if marker not in s:
+              s += "\nreview_status_v4: v4 review rendered / not accepted\n"
+              s += "review_renders_v4:\n"
+              s += "- output/review/v4/S_blockout_front.png\n"
+              s += "- output/review/v4/S_blockout_side.png\n"
+              s += "- output/review/v4/S_blockout_front34.png\n"
+              s += "- output/review/v4/S_blockout_rear34.png\n"
+          p.write_text(s)
+          PY
+
+      - name: Commit v4 review renders
+        run: |
+          set -euxo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add art/s-creature/CHECKPOINT.md art/s-creature/output/review/v4/
+          if git diff --cached --quiet; then
+            echo "No render changes to commit"
+            exit 0
+          fi
+          git commit -m "art: render S blockout v4 review"
+          git push origin HEAD:feat/s-creature-model
