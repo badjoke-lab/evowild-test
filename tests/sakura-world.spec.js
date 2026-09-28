@@ -23,6 +23,8 @@ test("Sakura World lane loads the upstream world, runs S, and captures four view
   await expect(canvas).toHaveAttribute("data-upstream-world", "de01898e89c7f6ab3fad93fa802f0f5ac66fbd81");
   await expect(canvas).toHaveAttribute("data-head-mass-correction", "head-cap-bone-v17");
   await expect(canvas).toHaveAttribute("data-animation-count", /[1-9][0-9]*/);
+  await expect(canvas).toHaveAttribute("data-camera-axis-fix", "2");
+  await expect(canvas).toHaveAttribute("data-run-direction", "-Z");
 
   await expect(page.locator("#speed")).toHaveText("5.5 m/s");
 
@@ -33,6 +35,11 @@ test("Sakura World lane loads the upstream world, runs S, and captures four view
       window.__sakuraWorldLane.setCameraMode(m);
       window.__sakuraWorldLane.renderOnce();
     }, mode);
+    if (mode === "chase") {
+      await expect(canvas).toHaveAttribute("data-camera-longitudinal-offset", "4.60");
+    } else if (mode === "front") {
+      await expect(canvas).toHaveAttribute("data-camera-longitudinal-offset", "-4.80");
+    }
     await page.waitForTimeout(120);
     await page.screenshot({ path: `${outDir}/sakura-world-${file}.png`, timeout: 45000 });
   }
