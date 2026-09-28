@@ -35,6 +35,7 @@ const PROXY_REVIEW_RUNNER =
   PROXY_REVIEW_RUNNER_PARAM === null
     ? null
     : Number.parseInt(PROXY_REVIEW_RUNNER_PARAM, 10);
+const PERF_RENDER_SCALE = Number.parseFloat(params.get("perfScale") || "");
 const TAU = Math.PI * 2;
 const S_GAIT = {
   baseY: 1.60,
