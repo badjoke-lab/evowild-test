@@ -190,11 +190,13 @@ function placeRunner() {
   positionAt(runX, ground + modelHeight * 0.48, runZ, targetWorld);
 
   let dx = 0, dz = 0, eye = modelHeight * 0.28;
-  if (cameraMode === "front") { dz = 4.8; eye = modelHeight * 0.20; }
-  else if (cameraMode === "chase") { dz = -4.6; eye = modelHeight * 0.34; }
+  if (cameraMode === "front") { dz = -4.8; eye = modelHeight * 0.20; }
+  else if (cameraMode === "chase") { dz = 4.6; eye = modelHeight * 0.34; }
   else if (cameraMode === "side") { dx = -ROAD_HALF * 0.68; eye = modelHeight * 0.85; }
   else { dx = ROAD_HALF * 0.72; dz = 3.6; eye = modelHeight * 0.28; }
 
+  canvas.dataset.cameraLongitudinalOffset = dz.toFixed(2);
+  canvas.dataset.cameraMode = cameraMode;
   const cz = runZ + dz;
   const cx = centerX(cz) + dx;
   const cground = world.heightAt(cx, cz);
@@ -268,7 +270,8 @@ loader.load(
     canvas.dataset.asset = "focus-rigged-v5.glb";
     canvas.dataset.renderLane = "sakura-world";
     canvas.dataset.upstreamWorld = "de01898e89c7f6ab3fad93fa802f0f5ac66fbd81";
-    canvas.dataset.cameraAxisFix = "1";
+    canvas.dataset.cameraAxisFix = "2";
+    canvas.dataset.runDirection = "-Z";
     canvas.dataset.upstreamOutline = "1";
     canvas.dataset.animationCount = String(gltf.animations.length);
     canvas.dataset.worldSimulation = "frozen-render-environment";
@@ -315,8 +318,10 @@ function frame() {
     // updating the entire upstream simulation every frame starves camera input
     // on low-power/headless GPUs while adding nothing to this lane's goal.
     if (model) {
-      runZ += runSpeed * dt;
-      if (runZ > 44) runZ = 10;
+      // The rig faces toward decreasing authored Z in this world. Advance in
+      // that direction so the creature is not visually running backwards.
+      runZ -= runSpeed * dt;
+      if (runZ < -18) runZ = 18;
       placeRunner();
     }
 
