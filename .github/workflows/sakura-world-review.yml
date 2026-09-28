@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - feat/sakura-world-lane-20260928
+      - fix/sakura-world-direction-20260928
   workflow_dispatch:
 
 jobs:
