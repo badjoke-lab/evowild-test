@@ -598,47 +598,13 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
     JSON.stringify({ fpsReadout: fps, ...frameWindow, ...perfState })
   );
 
-  const probePage = await page.context().newPage();
-  await probePage.goto("/evowild-test/preview-motion-first-race/index.html?perfScale=0.4", {
-    waitUntil: "networkidle"
-  });
-  await probePage.waitForTimeout(2500);
-  const lowScaleProbe = await probePage.evaluate(
-    () =>
-      new Promise((resolve) => {
-        const deltas = [];
-        const startedAt = performance.now();
-        let last = startedAt;
-        function sample(now) {
-          deltas.push(now - last);
-          last = now;
-          if (now - startedAt >= 1800) {
-            const usable = deltas.slice(1);
-            const sorted = [...usable].sort((a, b) => a - b);
-            resolve({
-              averageFps: (usable.length * 1000) / Math.max(now - startedAt, 1),
-              p95FrameMs:
-                sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * 0.95))] || 999,
-              renderPixelRatio: document.querySelector("#scene")?.dataset.renderPixelRatio,
-              renderCalls: document.querySelector("#scene")?.dataset.renderCalls
-            });
-            return;
-          }
-          requestAnimationFrame(sample);
-        }
-        requestAnimationFrame(sample);
-      })
-  );
-  console.log("SIMPLIFIED_RACE_SCALE_PROBE", JSON.stringify(lowScaleProbe));
-  await probePage.close();
-
   expect(Number.isFinite(fps)).toBeTruthy();
-  // GitHub-hosted Headless Chromium rAF cadence varies substantially between
-  // identical runs, so absolute observed FPS is diagnostic rather than the
-  // technical pass/fail criterion. Gate the actual EvoWild per-frame work
-  // against a 60 Hz CPU budget instead.
-  expect(frameWindow.frames).toBeGreaterThanOrEqual(20);
-  expect(frameWindow.workSamples).toBeGreaterThanOrEqual(20);
+  // Headless Chromium cadence varies, so combine a conservative observed-FPS
+  // floor with the actual EvoWild JS work budget and draw-call budget.
+  expect(frameWindow.averageFps).toBeGreaterThanOrEqual(20);
+  expect(frameWindow.p95FrameMs).toBeLessThanOrEqual(70);
+  expect(frameWindow.frames).toBeGreaterThanOrEqual(40);
+  expect(frameWindow.workSamples).toBeGreaterThanOrEqual(40);
   expect(frameWindow.averageWorkMs).toBeLessThanOrEqual(6);
   expect(frameWindow.p95WorkMs).toBeLessThanOrEqual(10);
 
