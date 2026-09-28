@@ -1,0 +1,12 @@
+{
+  "input": "S-blockout-v4.blend",
+  "output": "S-blockout-v5.blend",
+  "scope": "lower neck/chest ventral transition only",
+  "second_pass_strength": 0.18,
+  "changed_vertices": 8728,
+  "total_vertices": 186133,
+  "lateral_width_unchanged": true,
+  "topology_unchanged": true,
+  "protected_forward_region_unchanged": true,
+  "accepted": false
+}
