@@ -3272,7 +3272,9 @@ function resetRace() {
   raceDirector.holdUntil = 0;
   raceDirector.lastLeaderId = 0;
   raceDirector.lastDecisionAt = -999;
+  raceDirector.shotHistory = [];
   canvas.dataset.directorDecisionCount = "0";
+  canvas.dataset.directorShotHistory = "";
   canvas.dataset.directorCutCount = "0";
   canvas.dataset.directorReason = "START";
   previousAppliedCamera = "PACK";
@@ -4383,7 +4385,8 @@ const raceDirector = {
   reason: "START",
   holdUntil: 0,
   lastLeaderId: 0,
-  lastDecisionAt: -999
+  lastDecisionAt: -999,
+  shotHistory: []
 };
 
 function setDirectorShot(cameraMode, focusId, reason, holdSeconds) {
@@ -4402,6 +4405,10 @@ function setDirectorShot(cameraMode, focusId, reason, holdSeconds) {
   canvas.dataset.directorDecisionCount = String(
     Number(canvas.dataset.directorDecisionCount || "0") + 1
   );
+
+  raceDirector.shotHistory.push(`${reason}:${cameraMode}`);
+  if (raceDirector.shotHistory.length > 12) raceDirector.shotHistory.shift();
+  canvas.dataset.directorShotHistory = raceDirector.shotHistory.join(",");
 }
 
 function updateSimplifiedRaceDirector() {
@@ -4475,17 +4482,31 @@ function updateSimplifiedRaceDirector() {
     return;
   }
 
-  if (leaderGap < 1.7 && packSpread < 8.0) {
+  // Persistent race states must not immediately re-fire the same broadcast
+  // shot after its hold expires. Otherwise AUTO can become a de-facto fixed
+  // camera (for example a long BREAKAWAY LOW shot). Let the director insert a
+  // different event/fallback shot before revisiting the persistent condition.
+  if (
+    leaderGap < 1.7 &&
+    packSpread < 8.0 &&
+    raceDirector.reason !== "LEAD_DUEL"
+  ) {
     setDirectorShot("SIDE", leader.id, "LEAD_DUEL", 3.2);
     return;
   }
 
-  if (packSpread < 11.5) {
+  if (
+    packSpread < 11.5 &&
+    raceDirector.reason !== "PACK_COMPRESSION"
+  ) {
     setDirectorShot("PACK", leader.id, "PACK_COMPRESSION", 3.4);
     return;
   }
 
-  if (leaderGap > 4.2) {
+  if (
+    leaderGap > 4.2 &&
+    raceDirector.reason !== "BREAKAWAY"
+  ) {
     setDirectorShot("LOW", leader.id, "BREAKAWAY", 3.0);
     return;
   }
