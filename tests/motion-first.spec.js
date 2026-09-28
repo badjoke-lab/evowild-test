@@ -538,8 +538,117 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
 
   const fpsText = await page.locator("#fpsReadout").textContent();
   const fps = Number.parseInt(fpsText || "", 10);
+  const frameWindow = await page.evaluate(
+    () =>
+      new Promise((resolve) => {
+        const deltas = [];
+        const workSamples = [];
+        const startedAt = performance.now();
+        let last = startedAt;
+        function sample(now) {
+          deltas.push(now - last);
+          last = now;
+
+          const scene = document.querySelector("#scene");
+          const workMs = Number(scene?.dataset.perfTotalWorkMs || "NaN");
+          if (Number.isFinite(workMs)) workSamples.push(workMs);
+
+          if (now - startedAt >= 2500) {
+            const usable = deltas.slice(1);
+            const sorted = [...usable].sort((a, b) => a - b);
+            const p95 = sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * 0.95))] || 999;
+            const sortedWork = [...workSamples].sort((a, b) => a - b);
+            const p95WorkMs =
+              sortedWork[Math.min(sortedWork.length - 1, Math.floor(sortedWork.length * 0.95))] || 999;
+            const averageWorkMs =
+              workSamples.reduce((sum, value) => sum + value, 0) /
+              Math.max(workSamples.length, 1);
+            resolve({
+              averageFps: (usable.length * 1000) / Math.max(now - startedAt, 1),
+              p95FrameMs: p95,
+              frames: usable.length,
+              averageWorkMs,
+              p95WorkMs,
+              workSamples: workSamples.length
+            });
+            return;
+          }
+          requestAnimationFrame(sample);
+        }
+        requestAnimationFrame(sample);
+      })
+  );
+  const perfState = await page.locator("#scene").evaluate((node) => ({
+    renderPixelRatio: node.dataset.renderPixelRatio,
+    renderCalls: node.dataset.renderCalls,
+    renderTriangles: node.dataset.renderTriangles,
+    fullRunnerCount: node.dataset.fullRunnerCount,
+    fullRunnerBudget: node.dataset.fullRunnerBudget,
+    proxyRunnerCount: node.dataset.proxyRunnerCount,
+    simulationSteps: node.dataset.simulationSteps,
+    poseUpdateMode: node.dataset.poseUpdateMode,
+    perfPoseMs: node.dataset.perfPoseMs,
+    perfSyncMs: node.dataset.perfSyncMs,
+    perfRenderMs: node.dataset.perfRenderMs,
+    perfOtherMs: node.dataset.perfOtherMs,
+    perfTotalWorkMs: node.dataset.perfTotalWorkMs
+  }));
+  console.log(
+    "SIMPLIFIED_RACE_PERF",
+    JSON.stringify({ fpsReadout: fps, ...frameWindow, ...perfState })
+  );
+
   expect(Number.isFinite(fps)).toBeTruthy();
-  expect(fps).toBeGreaterThanOrEqual(20);
+  // Headless Chromium cadence varies, so combine a conservative observed-FPS
+  // floor with the actual EvoWild JS work budget and draw-call budget.
+  expect(frameWindow.averageFps).toBeGreaterThanOrEqual(20);
+  expect(frameWindow.p95FrameMs).toBeLessThanOrEqual(70);
+  expect(frameWindow.frames).toBeGreaterThanOrEqual(40);
+  expect(frameWindow.workSamples).toBeGreaterThanOrEqual(40);
+  expect(frameWindow.averageWorkMs).toBeLessThanOrEqual(6);
+  expect(frameWindow.p95WorkMs).toBeLessThanOrEqual(10);
+
+  const renderCalls = Number(perfState.renderCalls);
+  expect(Number.isFinite(renderCalls)).toBeTruthy();
+  expect(renderCalls).toBeLessThanOrEqual(32);
+
+  await expect(page.locator("#scene")).toHaveAttribute("data-race-proxy-lod", "1");
+  await expect(page.locator("#scene")).toHaveAttribute(
+    "data-race-proxy-representation",
+    "instanced-canonical-rig"
+  );
+  await expect(page.locator("#scene")).toHaveAttribute("data-race-proxy-draw-calls", "15");
+  await expect(page.locator("#scene")).toHaveAttribute("data-race-proxy-cue-band", "1");
+  await expect(page.locator("#scene")).toHaveAttribute(
+    "data-race-proxy-update-mode",
+    "canonical-direct"
+  );
+  await expect(page.locator("#scene")).toHaveAttribute(
+    "data-race-proxy-shading",
+    "lambert-structural"
+  );
+  await expect(page.locator("#scene")).toHaveAttribute("data-race-proxy-split-foot", "1");
+  await expect(page.locator("#scene")).toHaveAttribute(
+    "data-pose-update-mode",
+    "canonical-instanced-all"
+  );
+  await expect(page.locator("#scene")).toHaveAttribute(
+    "data-race-focus-representation",
+    "canonical-instanced"
+  );
+  await expect(page.locator("#scene")).toHaveAttribute("data-proxy-canonical-gait", "1");
+  await expect(page.locator("#scene")).toHaveAttribute("data-race-render-profile", "flat-basic");
+  await expect(page.locator("#scene")).toHaveAttribute("data-race-tone-mapping", "none");
+  await expect(page.locator("#scene")).toHaveAttribute("data-simulation-hz", "60");
+  const proxyCount = Number(
+    await page.locator("#scene").getAttribute("data-proxy-runner-count")
+  );
+  const fullCount = Number(
+    await page.locator("#scene").getAttribute("data-full-runner-count")
+  );
+  expect(proxyCount).toBe(18);
+  expect(fullCount).toBe(0);
+  await expect(page.locator("#scene")).toHaveAttribute("data-full-runner-budget", "0");
 
   // AUTO owns focus. Switch to a manual camera before checking manual focus.
   await page.getByRole("button", { name: "SIDE", exact: true }).click({ force: true });
@@ -556,6 +665,41 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
   await page.locator("#scene").screenshot({
     path: "test-results/visuals/motion-first-phase-e-18-runner-race.png"
   });
+
+  const proxyReviewMorphs = [
+    ["S", "0"],
+    ["P", "1"],
+    ["E", "2"],
+    ["A", "3"]
+  ];
+  for (const [morph, runnerId] of proxyReviewMorphs) {
+    await page.goto(
+      `/evowild-test/preview-motion-first-race/index.html?proxyReviewRunner=${runnerId}`,
+      { waitUntil: "networkidle" }
+    );
+    await expect(page.locator("#scene")).toHaveAttribute(
+      "data-proxy-review-runner",
+      runnerId
+    );
+    await expect(page.locator("#scene")).toHaveAttribute(
+      "data-proxy-review-focus",
+      runnerId
+    );
+    await expect(page.locator("#runnerSelect")).toHaveValue(runnerId);
+    await expect(page.locator("#cameraReadout")).toHaveText("SIDE");
+    await expect(page.locator("#morphReadout")).toHaveText(morph);
+    await page.waitForTimeout(950);
+    await page.locator("#scene").screenshot({
+      path: `test-results/visuals/motion-first-race-proxy-${morph.toLowerCase()}-side.png`
+    });
+
+    await page.getByRole("button", { name: "LOW", exact: true }).click({ force: true });
+    await expect(page.locator("#cameraReadout")).toHaveText("LOW");
+    await page.waitForTimeout(1400);
+    await page.locator("#scene").screenshot({
+      path: `test-results/visuals/motion-first-race-proxy-${morph.toLowerCase()}-low.png`
+    });
+  }
 
   expect(highDetailAssetRequests).toEqual([]);
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
@@ -594,7 +738,8 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
   await expect(page.locator("#scene")).toBeVisible();
   await expect(page.locator("#cameraReadout")).not.toHaveText("");
   await expect(page.locator("#scene")).toHaveAttribute("data-speed-cue-spacing", "7.25");
-  await expect(page.locator("#scene")).toHaveAttribute("data-render-pixel-ratio", "0.4");
+  await expect(page.locator("#scene")).toHaveAttribute("data-render-pixel-ratio", "0.75");
+  await expect(page.locator("#scene")).toHaveAttribute("data-race-proxy-lod", "1");
   await expect(page.locator("#scene")).toHaveAttribute("data-director-reason", "START");
 
   await page.waitForTimeout(7200);
