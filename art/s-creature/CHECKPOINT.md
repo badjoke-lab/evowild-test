@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-blockout-v5 second ventral correction saved, review pending
+current_stage: S-blockout-v5 lower-neck width accepted for this gate; shoulder/chest massing next
 branch: feat/s-creature-model
 current_model_file: output/S-blockout-v5.blend
 
@@ -17,10 +17,10 @@ done:
 
 - Applied second deterministic ventral-only correction (18% max of ventral excess with smooth section/radial falloff); lateral width/topology/protected forward region unchanged.
 
-next_action: Inspect only the lower-neck/chest junction in v5 review renders against reference 01 and decide KEEP or REVISE.
+next_action: Keep the current lower-neck width. Rebuild only the anterior thorax/shoulder transition to remove the hanging ventral chest bulge and create the lighter sloped shoulder-to-chest plane seen in reference 01; do not alter skull, crest, pelvis, hindlimbs, feet, or neck width.
 
 quality_issues:
-- The v4 lower-neck/chest correction has not been visually reviewed or accepted.
+- The v5 lower-neck width is accepted for this gate, but the anterior thorax/shoulder mass remains too bulbous and hangs too low compared with reference 01.
 - The creature remains an unfinished blockout.
 - Crown, shoulder planes, hindlimb joints, and feet still retain the prior v2 issues.
 
@@ -46,3 +46,6 @@ review_renders_v5:
 - output/review/v5/S_blockout_side.png
 - output/review/v5/S_blockout_front34.png
 - output/review/v5/S_blockout_rear34.png
+
+neck_subtask_decision: KEEP
+neck_subtask_reason: v5 no longer reads too narrow in front/front34; further ventral-only neck deformation gives diminishing returns. Remaining mismatch is primarily anterior thorax/shoulder massing, not neck width.
