@@ -30,3 +30,10 @@ review_renders_v3_recovery:
 - output/review/v3-recovery/S_blockout_side.png
 - output/review/v3-recovery/S_blockout_front34.png
 - output/review/v3-recovery/S_blockout_rear34.png
+
+review_status_v4: v4 review rendered / not accepted
+review_renders_v4:
+- output/review/v4/S_blockout_front.png
+- output/review/v4/S_blockout_side.png
+- output/review/v4/S_blockout_front34.png
+- output/review/v4/S_blockout_rear34.png
