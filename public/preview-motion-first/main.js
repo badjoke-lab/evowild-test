@@ -4727,12 +4727,21 @@ function updateCamera(dt) {
   } else {
     const center = packCenter(tempV);
     desiredCamera.set(
-      center.x + 11,
-      12.8,
-      center.z - 21
+      center.x + (SIMPLIFIED_RACE_PAGE ? 8.5 : 11),
+      SIMPLIFIED_RACE_PAGE ? 8.4 : 12.8,
+      center.z - (SIMPLIFIED_RACE_PAGE ? 14.5 : 21)
     );
-    desiredLook.set(center.x, 1.5, center.z + 7);
-    targetFov = 54;
+    desiredLook.set(
+      center.x,
+      SIMPLIFIED_RACE_PAGE ? 1.42 : 1.5,
+      center.z + (SIMPLIFIED_RACE_PAGE ? 5.0 : 7)
+    );
+    if (SIMPLIFIED_RACE_PAGE) {
+      canvas.dataset.packFraming = "closer-low";
+      canvas.dataset.packCameraHeight = "8.4";
+      canvas.dataset.packCameraTrailing = "14.5";
+    }
+    targetFov = SIMPLIFIED_RACE_PAGE ? 56 : 54;
   }
 
   if (SIMPLIFIED_RACE_PAGE) {
