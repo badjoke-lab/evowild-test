@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-blockout-v7 broader anterior thorax correction saved, review pending
+current_stage: S-blockout-v7 reviewed REVISE; v8 sloped ventral-plane correction next
 branch: feat/s-creature-model
 current_model_file: output/S-blockout-v7.blend
 
@@ -21,7 +21,7 @@ done:
 
 - Applied v7 broader thorax correction from v5 baseline; v6 was not used as input. Field widened laterally and displacement reduced to avoid the central smile-crease while keeping X/topology/count/neck width/root protections fixed.
 
-next_action: Inspect v7 side/front/front34 against reference 01. Specifically confirm the v6 smile-crease is gone and the anterior thorax no longer hangs as a rounded lower bulge.
+next_action: Keep v7 as the base, then reshape only the remaining central sternum lobe toward a shallow sloped ventral chest plane; preserve X, neck width, forelimb roots, scapular outer ridges, topology, vertex count, and all other regions.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -71,3 +71,7 @@ review_renders_v7:
 - output/review/v7/S_blockout_side.png
 - output/review/v7/S_blockout_front34.png
 - output/review/v7/S_blockout_rear34.png
+
+thorax_v7_decision: REVISE
+thorax_v7_reason: v7 successfully removes the v6 smile-crease, but front/front34 still show a distinct rounded central sternum lobe hanging between the shoulders; side remains heavier than reference 01.
+thorax_v7_keep: use v7 as base; do not revert to v5 and do not reintroduce v6 central-only field.
