@@ -114,65 +114,88 @@ function applyRunnerMaterials(root) {
   });
 }
 
-const samplePoint = new THREE.Vector3();
-const sampleBox = new THREE.Box3();
+const crestPoint = new THREE.Vector3();
 
-function addCentralHeadMass(root) {
-  root.updateMatrixWorld(true);
-  sampleBox.setFromObject(root);
-  const minY = sampleBox.min.y;
-  const maxY = sampleBox.max.y;
-  const height = Math.max(0.001, maxY - minY);
-  const threshold = minY + height * 0.76;
-
-  const samples = [];
-  root.traverse((o) => {
-    if (!o.isMesh || !o.geometry?.attributes?.position) return;
-    const pos = o.geometry.attributes.position;
-    for (let i = 0; i < pos.count; i += 1) {
-      samplePoint.fromBufferAttribute(pos, i);
-      o.localToWorld(samplePoint);
-      if (samplePoint.y >= threshold) samples.push(samplePoint.clone());
-    }
-  });
-  if (samples.length < 8) return;
-
-  let minX = Infinity, maxX = -Infinity, minTopY = Infinity, maxTopY = -Infinity, zSum = 0;
-  for (const p of samples) {
-    minX = Math.min(minX, p.x);
-    maxX = Math.max(maxX, p.x);
-    minTopY = Math.min(minTopY, p.y);
-    maxTopY = Math.max(maxTopY, p.y);
-    zSum += p.z;
-  }
-
-  const spanX = Math.max(0.02, maxX - minX);
-  const spanY = Math.max(0.06, maxTopY - minTopY);
-  const centerWorld = new THREE.Vector3(
-    (minX + maxX) * 0.5,
-    minTopY + spanY * 0.08,
-    zSum / samples.length
-  );
-
-  const geo = new THREE.IcosahedronGeometry(1, 2);
-  geo.scale(spanX * 0.58, spanY * 0.25, spanX * 0.70);
-  geo.computeVertexNormals();
-  const mat = cel({ color: 0xd8d5e1, bands: 3, tint: 0x6b6486, flat: false, cache: false });
-  const mass = new THREE.Mesh(geo, mat);
-  mass.name = "SakuraWorld_head_mass";
-  mass.castShadow = true;
-  mass.receiveShadow = true;
-
-  const headBone = root.getObjectByName("head");
-  const anchor = headBone || root;
-  anchor.updateMatrixWorld(true);
-  const local = centerWorld.clone();
-  anchor.worldToLocal(local);
-  mass.position.copy(local);
-  anchor.add(mass);
-  canvas.dataset.headMassCorrection = headBone ? "head-cap-bone-v17" : "root-fallback";
+function smooth01(x) {
+  x = THREE.MathUtils.clamp(x, 0, 1);
+  return x * x * (3 - 2 * x);
 }
 
+function repairWeightedHeadCrest(root) {
+  let changed = 0;
+  let maxShift = 0;
+
+  root.updateMatrixWorld(true);
+
+  root.traverse((o) => {
+    if (!o.isSkinnedMesh || !o.geometry?.attributes?.position) return;
+    const skinIndex = o.geometry.attributes.skinIndex;
+    const skinWeight = o.geometry.attributes.skinWeight;
+    if (!skinIndex || !skinWeight || !o.skeleton) return;
+
+    const headIndex = o.skeleton.bones.findIndex((b) => b.name === "head");
+    if (headIndex < 0) return;
+
+    const g = o.geometry.clone();
+    const pos = g.attributes.position;
+    const eligible = [];
+
+    for (let i = 0; i < pos.count; i += 1) {
+      let headWeight = 0;
+      for (let k = 0; k < 4; k += 1) {
+        if (skinIndex.getComponent(i, k) === headIndex) {
+          headWeight += skinWeight.getComponent(i, k);
+        }
+      }
+      if (headWeight < 0.18) continue;
+      crestPoint.fromBufferAttribute(pos, i);
+      eligible.push({ i, x: crestPoint.x, y: crestPoint.y, z: crestPoint.z, w: headWeight });
+    }
+
+    if (eligible.length < 8) return;
+
+    const minY = Math.min(...eligible.map((p) => p.y));
+    const maxY = Math.max(...eligible.map((p) => p.y));
+    const minZ = Math.min(...eligible.map((p) => p.z));
+    const maxZ = Math.max(...eligible.map((p) => p.z));
+    const centerX = (Math.min(...eligible.map((p) => p.x)) + Math.max(...eligible.map((p) => p.x))) * 0.5;
+    const yStart = minY + (maxY - minY) * 0.60;
+    const zStart = minZ + (maxZ - minZ) * 0.65;
+
+    for (const p of eligible) {
+      if (p.y <= yStart || p.z <= zStart) continue;
+
+      const hy = smooth01((p.y - yStart) / Math.max(1e-6, maxY - yStart));
+      const hz = smooth01((p.z - zStart) / Math.max(1e-6, maxZ - zStart));
+      const hw = smooth01((p.w - 0.18) / 0.45);
+      const strength = hy * (0.55 + 0.45 * hz) * (0.70 + 0.30 * hw);
+
+      // Narrow only the high swept crest. The face, muzzle and broad crest
+      // base remain unchanged. This mirrors the successful Blender-side
+      // diagnosis but keeps the experiment isolated to this page.
+      const scaleX = 1.0 - 0.62 * strength;
+      const oldX = p.x;
+      const nextX = centerX + (p.x - centerX) * scaleX;
+      const nextZ = p.z - 0.010 * strength;
+
+      pos.setXYZ(p.i, nextX, p.y, nextZ);
+      changed += 1;
+      maxShift = Math.max(maxShift, Math.abs(oldX - nextX));
+    }
+
+    if (changed) {
+      pos.needsUpdate = true;
+      g.computeVertexNormals();
+      g.computeBoundingBox();
+      g.computeBoundingSphere();
+      o.geometry = g;
+    }
+  });
+
+  canvas.dataset.headCrestRepair = changed ? "skin-weight-v18" : "none";
+  canvas.dataset.headCrestChangedVertices = String(changed);
+  canvas.dataset.headCrestMaxShift = maxShift.toFixed(6);
+}
 const basisMatrix = new THREE.Matrix4();
 const groundWorld = new THREE.Vector3();
 const targetWorld = new THREE.Vector3();
@@ -255,8 +278,8 @@ loader.load(
     model.position.z -= center.z;
     modelHeight = Math.max(1, size.y);
 
+    repairWeightedHeadCrest(model);
     applyRunnerMaterials(model);
-    addCentralHeadMass(model);
 
     if (gltf.animations.length) {
       mixer = new THREE.AnimationMixer(model);
@@ -268,6 +291,7 @@ loader.load(
     }
 
     canvas.dataset.asset = "focus-rigged-v5.glb";
+    canvas.dataset.headMassCorrection = "removed-v18";
     canvas.dataset.renderLane = "sakura-world";
     canvas.dataset.upstreamWorld = "de01898e89c7f6ab3fad93fa802f0f5ac66fbd81";
     canvas.dataset.cameraAxisFix = "2";
