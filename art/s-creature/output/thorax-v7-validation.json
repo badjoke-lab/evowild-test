@@ -1,0 +1,34 @@
+{
+  "input": "S-blockout-v5.blend",
+  "discarded_iteration": "S-blockout-v6.blend",
+  "output": "S-blockout-v7.blend",
+  "scope": "broader shallower anterior thorax lower-front correction",
+  "target_bounds": {
+    "abs_x_lt": 0.32,
+    "y": [
+      -1.02,
+      -0.4
+    ],
+    "z": [
+      1.72,
+      2.22
+    ]
+  },
+  "max_displacement": {
+    "y_back": 0.04,
+    "z_up": 0.06
+  },
+  "changed_vertices": 5142,
+  "total_vertices": 186133,
+  "max_weight": 0.9171129516008517,
+  "root_protection_objects": 4,
+  "neck_protection_objects": 1,
+  "min_root_distance_seen": 9.43374118378415e-07,
+  "min_neck_distance_seen": 6.472818313341122e-06,
+  "lateral_x_unchanged": true,
+  "topology_unchanged": true,
+  "vertex_count_unchanged": true,
+  "neck_width_reduction_preserved": true,
+  "v6_smile_crease_not_inherited": true,
+  "accepted": false
+}

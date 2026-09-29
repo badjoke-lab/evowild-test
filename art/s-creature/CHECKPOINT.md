@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-blockout-v6 reviewed REVISE; v7 broader thorax correction next
+current_stage: S-blockout-v7 broader anterior thorax correction saved, review pending
 branch: feat/s-creature-model
-current_model_file: output/S-blockout-v6.blend
+current_model_file: output/S-blockout-v7.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -19,7 +19,9 @@ done:
 
 - Applied v6 anterior-thorax correction once: central lower-front chest moved backward/upward under the specified smooth bounds while X, topology, vertex count, neck width, forelimb/scapular protected surfaces, and all other regions remained fixed.
 
-next_action: Revert to v5 and apply a broader, shallower anterior-thorax lift that avoids the v6 central smile-crease; keep X, neck width, forelimb roots, scapular outer ridges, topology, and all other regions fixed.
+- Applied v7 broader thorax correction from v5 baseline; v6 was not used as input. Field widened laterally and displacement reduced to avoid the central smile-crease while keeping X/topology/count/neck width/root protections fixed.
+
+next_action: Inspect v7 side/front/front34 against reference 01. Specifically confirm the v6 smile-crease is gone and the anterior thorax no longer hangs as a rounded lower bulge.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -62,3 +64,10 @@ review_renders_v6:
 thorax_v6_decision: REVISE
 thorax_v6_reason: front/front34 show a new horizontal smile-crease caused by the narrow central displacement/protection boundary; side improvement is insufficient to justify keeping that artifact.
 thorax_v6_recovery_rule: build v7 from S-blockout-v5.blend, not from v6.
+
+review_status_v7: v7 review rendered / not accepted
+review_renders_v7:
+- output/review/v7/S_blockout_front.png
+- output/review/v7/S_blockout_side.png
+- output/review/v7/S_blockout_front34.png
+- output/review/v7/S_blockout_rear34.png
