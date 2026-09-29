@@ -865,12 +865,38 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
     path: `${outDir}/motion-first-side-readability.png`
   });
 
-  // Dense-pack motion diagnostic: keep one S focus in SIDE and capture
-  // successive frames. This is intentionally visual evidence rather than a
-  // quality pass by assertion; it shows whether contact/body phase survives
-  // real pack occlusion before changing any gait amplitudes.
-  await speedPage.selectOption("#runnerSelect", "4");
+  // Dense-pack motion diagnostic: select an actual mid-pack subject by
+  // current race rank, then capture successive SIDE frames. Do not assume a
+  // fixed runner id is still in traffic; deterministic speed bias can produce
+  // an early breakaway.
+  let midPackRunner = null;
+  let closestRankDistance = Number.POSITIVE_INFINITY;
+  for (let runnerId = 0; runnerId < 18; runnerId += 1) {
+    await speedPage.selectOption("#runnerSelect", String(runnerId));
+    await speedPage.waitForTimeout(25);
+    const rankText = (await speedPage.locator("#positionReadout").textContent()) || "";
+    const rank = Number.parseInt(rankText.split("/")[0].trim(), 10);
+    if (!Number.isFinite(rank)) continue;
+
+    const rankDistance = Math.abs(rank - 9);
+    if (rankDistance < closestRankDistance) {
+      closestRankDistance = rankDistance;
+      midPackRunner = { runnerId, rank };
+    }
+    if (rank >= 7 && rank <= 11) {
+      midPackRunner = { runnerId, rank };
+      break;
+    }
+  }
+  expect(midPackRunner).toBeTruthy();
+  expect(midPackRunner.rank).toBeGreaterThanOrEqual(7);
+  expect(midPackRunner.rank).toBeLessThanOrEqual(11);
+  await speedPage.selectOption("#runnerSelect", String(midPackRunner.runnerId));
   await speedPage.waitForTimeout(360);
+  await speedPage.locator("#scene").evaluate((node, rank) => {
+    node.dataset.packMotionReviewRank = String(rank);
+  }, midPackRunner.rank);
+
   for (let frame = 0; frame < 4; frame += 1) {
     await speedPage.locator("#scene").screenshot({
       path: `${outDir}/motion-first-pack-motion-${frame}.png`
