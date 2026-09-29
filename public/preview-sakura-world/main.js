@@ -192,8 +192,8 @@ function placeRunner() {
   let dx = 0, dz = 0, eye = modelHeight * 0.28;
   if (cameraMode === "front") { dz = -4.8; eye = modelHeight * 0.20; }
   else if (cameraMode === "chase") { dz = 4.6; eye = modelHeight * 0.34; }
-  else if (cameraMode === "side") { dx = -ROAD_HALF * 0.68; eye = modelHeight * 0.85; }
-  else { dx = ROAD_HALF * 0.72; dz = 3.6; eye = modelHeight * 0.28; }
+  else if (cameraMode === "side") { dx = -ROAD_HALF * 0.42; eye = modelHeight * 0.74; }
+  else { dx = ROAD_HALF * 0.38; dz = 3.8; eye = modelHeight * 0.30; }
 
   canvas.dataset.cameraLongitudinalOffset = dz.toFixed(2);
   canvas.dataset.cameraMode = cameraMode;
@@ -271,6 +271,7 @@ loader.load(
     canvas.dataset.renderLane = "sakura-world";
     canvas.dataset.upstreamWorld = "de01898e89c7f6ab3fad93fa802f0f5ac66fbd81";
     canvas.dataset.cameraAxisFix = "2";
+    canvas.dataset.cameraClearance = "road-interior-v1";
     canvas.dataset.runDirection = "-Z";
     canvas.dataset.upstreamOutline = "1";
     canvas.dataset.animationCount = String(gltf.animations.length);
