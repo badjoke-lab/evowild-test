@@ -23,10 +23,20 @@ test("Sakura World lane loads the upstream world, runs S, and captures four view
   await expect(canvas).toHaveAttribute("data-upstream-world", "de01898e89c7f6ab3fad93fa802f0f5ac66fbd81");
   await expect(canvas).toHaveAttribute("data-head-mass-correction", "head-cap-bone-v17");
   await expect(canvas).toHaveAttribute("data-animation-count", /[1-9][0-9]*/);
+  await expect(canvas).toHaveAttribute("data-asset", "evowild-s-hunyuan2mv-rigged-v4.glb");
+  await expect(canvas).toHaveAttribute("data-motion-trial", "ik-v4");
   await expect(canvas).toHaveAttribute("data-camera-axis-fix", "2");
   await expect(canvas).toHaveAttribute("data-run-direction", "-Z");
 
   await expect(page.locator("#speed")).toHaveText("5.5 m/s");
+
+  // Motion trial: capture the same SIDE framing at separated animation phases.
+  await page.evaluate(() => window.__sakuraWorldLane.setCameraMode("side"));
+  await page.screenshot({ path: `${outDir}/sakura-world-v4-side-phase-a.png`, timeout: 45000 });
+  await page.waitForTimeout(260);
+  await page.screenshot({ path: `${outDir}/sakura-world-v4-side-phase-b.png`, timeout: 45000 });
+  await page.waitForTimeout(260);
+  await page.screenshot({ path: `${outDir}/sakura-world-v4-side-phase-c.png`, timeout: 45000 });
 
   await page.evaluate(() => window.__sakuraWorldLane.pauseRendering());
 
