@@ -25,7 +25,7 @@ jobs:
         shell: bash
         run: |
           BRANCH="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
-          if [[ "$BRANCH" == feat/simplified-race-lod-v* || "$BRANCH" == feat/simplified-race-director-v* ]]; then
+          if [[ "$BRANCH" == feat/simplified-race-lod-v* || "$BRANCH" == feat/simplified-race-director-v* || "$BRANCH" == feat/simplified-race-speed-v* ]]; then
             npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
               --grep "Phase E simplified race|Phase F AUTO director"
           else
