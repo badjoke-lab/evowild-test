@@ -307,6 +307,11 @@ function resumeRendering() {
   renderPaused = false;
 }
 
+function setRunPosition(z) {
+  runZ = Number(z);
+  placeRunner();
+}
+
 function frame() {
   const dt = Math.min(clock.getDelta(), 1 / 20);
 
@@ -347,6 +352,7 @@ window.__sakuraWorldLane = {
   setCameraMode,
   pauseRendering,
   resumeRendering,
+  setRunPosition,
   renderOnce,
   THREE
 };

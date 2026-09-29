@@ -32,6 +32,7 @@ test("Sakura World lane loads the upstream world, runs S, and captures four view
 
   for (const [mode, file] of [["threeq", "threeq"], ["chase", "chase"], ["side", "side"], ["front", "front"]]) {
     await page.evaluate((m) => {
+      window.__sakuraWorldLane.setRunPosition(13.6);
       window.__sakuraWorldLane.setCameraMode(m);
       window.__sakuraWorldLane.renderOnce();
     }, mode);
