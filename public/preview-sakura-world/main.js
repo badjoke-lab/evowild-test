@@ -172,7 +172,7 @@ function repairWeightedHeadCrest(root) {
 
       // Narrow the full upper crest moderately instead of crushing only the
       // rear tips. The lower face and broad horn base remain untouched.
-      const scaleX = 1.0 - 0.46 * strength;
+      const scaleX = 1.0 - 0.72 * strength;
       const oldX = p.x;
       const nextX = centerX + (p.x - centerX) * scaleX;
       const nextZ = p.z - 0.010 * strength;
@@ -191,7 +191,7 @@ function repairWeightedHeadCrest(root) {
     }
   });
 
-  canvas.dataset.headCrestRepair = changed ? "skin-weight-v19" : "none";
+  canvas.dataset.headCrestRepair = changed ? "skin-weight-v20" : "none";
   canvas.dataset.headCrestChangedVertices = String(changed);
   canvas.dataset.headCrestMaxShift = maxShift.toFixed(6);
 }
@@ -241,7 +241,7 @@ function addCentralHeadMass(root) {
   geo.computeVertexNormals();
   const mat = cel({ color: 0xd8d5e1, bands: 3, tint: 0x6b6486, flat: false, cache: false });
   const mass = new THREE.Mesh(geo, mat);
-  mass.name = "SakuraWorld_head_mass_v19";
+  mass.name = "SakuraWorld_head_mass_v20";
   mass.castShadow = true;
   mass.receiveShadow = true;
 
@@ -252,7 +252,7 @@ function addCentralHeadMass(root) {
   anchor.worldToLocal(local);
   mass.position.copy(local);
   anchor.add(mass);
-  canvas.dataset.headMassCorrection = headBone ? "head-cap-bone-v19" : "root-fallback-v19";
+  canvas.dataset.headMassCorrection = headBone ? "head-cap-bone-v20" : "root-fallback-v20";
 }
 
 const basisMatrix = new THREE.Matrix4();
