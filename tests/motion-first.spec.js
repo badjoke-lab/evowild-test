@@ -909,9 +909,9 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
   await speedPage.getByRole("button", { name: "PACK", exact: true }).click({ force: true });
   await speedPage.waitForTimeout(900);
   await expect(speedPage.locator("#cameraReadout")).toHaveText("PACK");
-  await expect(speedPage.locator("#scene")).toHaveAttribute("data-pack-framing", "closer-centered");
-  await expect(speedPage.locator("#scene")).toHaveAttribute("data-pack-camera-height", "8.8");
-  await expect(speedPage.locator("#scene")).toHaveAttribute("data-pack-camera-trailing", "15.5");
+  await expect(speedPage.locator("#scene")).toHaveAttribute("data-pack-framing", "closer-full-field");
+  await expect(speedPage.locator("#scene")).toHaveAttribute("data-pack-camera-height", "9.6");
+  await expect(speedPage.locator("#scene")).toHaveAttribute("data-pack-camera-trailing", "17");
   await speedPage.locator("#scene").screenshot({
     path: `${outDir}/motion-first-pack-framing.png`
   });
