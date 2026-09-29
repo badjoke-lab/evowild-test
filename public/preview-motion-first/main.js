@@ -4727,9 +4727,9 @@ function updateCamera(dt) {
   } else {
     const center = packCenter(tempV);
     desiredCamera.set(
-      center.x + (SIMPLIFIED_RACE_PAGE ? 4.5 : 11),
-      SIMPLIFIED_RACE_PAGE ? 8.8 : 12.8,
-      center.z - (SIMPLIFIED_RACE_PAGE ? 15.5 : 21)
+      center.x + (SIMPLIFIED_RACE_PAGE ? 2.0 : 11),
+      SIMPLIFIED_RACE_PAGE ? 9.6 : 12.8,
+      center.z - (SIMPLIFIED_RACE_PAGE ? 17.0 : 21)
     );
     desiredLook.set(
       center.x,
@@ -4737,11 +4737,11 @@ function updateCamera(dt) {
       center.z + (SIMPLIFIED_RACE_PAGE ? 5.0 : 7)
     );
     if (SIMPLIFIED_RACE_PAGE) {
-      canvas.dataset.packFraming = "closer-centered";
-      canvas.dataset.packCameraHeight = "8.8";
-      canvas.dataset.packCameraTrailing = "15.5";
+      canvas.dataset.packFraming = "closer-full-field";
+      canvas.dataset.packCameraHeight = "9.6";
+      canvas.dataset.packCameraTrailing = "17";
     }
-    targetFov = SIMPLIFIED_RACE_PAGE ? 58 : 54;
+    targetFov = SIMPLIFIED_RACE_PAGE ? 62 : 54;
   }
 
   if (SIMPLIFIED_RACE_PAGE) {
