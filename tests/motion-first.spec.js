@@ -627,6 +627,8 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
     "data-race-proxy-shading",
     "lambert-structural"
   );
+  await expect(page.locator("#scene")).toHaveAttribute("data-e-proxy-body-length", "1.4");
+  await expect(page.locator("#scene")).toHaveAttribute("data-e-proxy-pelvis-length", "1.05");
   await expect(page.locator("#scene")).toHaveAttribute("data-race-proxy-split-foot", "1");
   await expect(page.locator("#scene")).toHaveAttribute(
     "data-pose-update-mode",
