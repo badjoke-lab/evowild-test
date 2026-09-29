@@ -4697,16 +4697,20 @@ function updateCamera(dt) {
   } else if (actualCamera === "SIDE") {
     const side = focusPos.x <= 0 ? -1 : 1;
     desiredCamera.set(
-      side * (TRACK_WIDTH / 2 + (SIMPLIFIED_RACE_PAGE ? 8.4 : 11.5)),
-      SIMPLIFIED_RACE_PAGE ? 3.25 : 4.2,
-      focusPos.z - (SIMPLIFIED_RACE_PAGE ? 0.2 : 0.6)
+      side * (TRACK_WIDTH / 2 + (SIMPLIFIED_RACE_PAGE ? 7.2 : 11.5)),
+      SIMPLIFIED_RACE_PAGE ? 3.10 : 4.2,
+      focusPos.z - (SIMPLIFIED_RACE_PAGE ? 5.0 : 0.6)
     );
     desiredLook.set(
       focusPos.x,
-      SIMPLIFIED_RACE_PAGE ? 1.38 : 1.65,
-      focusPos.z + (SIMPLIFIED_RACE_PAGE ? 2.8 : 1.5)
+      SIMPLIFIED_RACE_PAGE ? 1.34 : 1.65,
+      focusPos.z + (SIMPLIFIED_RACE_PAGE ? 2.0 : 1.5)
     );
-    targetFov = SIMPLIFIED_RACE_PAGE ? 56 : 52;
+    if (SIMPLIFIED_RACE_PAGE) {
+      canvas.dataset.sideDepthOffset = "5.0";
+      canvas.dataset.sideBroadcastAngle = "shallow-three-quarter";
+    }
+    targetFov = SIMPLIFIED_RACE_PAGE ? 52 : 52;
   } else if (actualCamera === "FRONT") {
     desiredCamera.set(
       focusPos.x - 3.0,
