@@ -4682,16 +4682,15 @@ function updateCamera(dt) {
     speedFovBoost = SIMPLIFIED_RACE_PAGE ? raceSpeedRatio * 2.4 : 0;
     targetFov = SIMPLIFIED_RACE_PAGE ? 62 + speedFovBoost : 61;
   } else if (actualCamera === "LOW") {
-    const lowSide = focusPos.x <= 0 ? -1 : 1;
     desiredCamera.set(
-      focusPos.x + (SIMPLIFIED_RACE_PAGE ? lowSide * 4.2 : 2.4),
-      SIMPLIFIED_RACE_PAGE ? 0.92 : 1.55,
-      focusPos.z - (SIMPLIFIED_RACE_PAGE ? 5.4 : 8.0)
+      focusPos.x + (SIMPLIFIED_RACE_PAGE ? 1.4 : 2.4),
+      SIMPLIFIED_RACE_PAGE ? 0.78 : 1.55,
+      focusPos.z - (SIMPLIFIED_RACE_PAGE ? 6.2 : 8.0)
     );
     desiredLook.set(
       focusPos.x,
-      SIMPLIFIED_RACE_PAGE ? 1.20 : 1.42,
-      focusPos.z + (SIMPLIFIED_RACE_PAGE ? 4.4 : 15)
+      SIMPLIFIED_RACE_PAGE ? 1.16 : 1.42,
+      focusPos.z + (SIMPLIFIED_RACE_PAGE ? 4.8 : 15)
     );
     speedFovBoost = SIMPLIFIED_RACE_PAGE ? raceSpeedRatio * 3.4 : 0;
     targetFov = SIMPLIFIED_RACE_PAGE ? 68 + speedFovBoost : 72;
