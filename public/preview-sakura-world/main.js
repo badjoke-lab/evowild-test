@@ -239,7 +239,7 @@ document.querySelectorAll("[data-camera]").forEach((btn) => {
 
 const loader = new GLTFLoader();
 loader.load(
-  "../models/evowild-s/focus-rigged-v5.glb",
+  "../preview-3d-rig-v3/models/evowild-s-hunyuan2mv-rigged-v4.glb",
   (gltf) => {
     model = gltf.scene;
     model.rotation.y = Math.PI;
@@ -260,20 +260,21 @@ loader.load(
 
     if (gltf.animations.length) {
       mixer = new THREE.AnimationMixer(model);
-      const clip = gltf.animations.find((c) => c.name === "EvoWild_S_Run_V5") || gltf.animations[0];
+      const clip = gltf.animations.find((c) => /run/i.test(c.name)) || gltf.animations[0];
       mixer.clipAction(clip).reset().play();
       clipEl.textContent = clip.name || "run clip";
     } else {
       clipEl.textContent = "no embedded clip";
     }
 
-    canvas.dataset.asset = "focus-rigged-v5.glb";
+    canvas.dataset.asset = "evowild-s-hunyuan2mv-rigged-v4.glb";
     canvas.dataset.renderLane = "sakura-world";
     canvas.dataset.upstreamWorld = "de01898e89c7f6ab3fad93fa802f0f5ac66fbd81";
     canvas.dataset.cameraAxisFix = "2";
     canvas.dataset.runDirection = "-Z";
     canvas.dataset.upstreamOutline = "1";
     canvas.dataset.animationCount = String(gltf.animations.length);
+    canvas.dataset.motionTrial = "ik-v4";
     canvas.dataset.worldSimulation = "frozen-render-environment";
     canvas.dataset.pipelineScale = String(pipeline.forceScale);
     placeRunner();
