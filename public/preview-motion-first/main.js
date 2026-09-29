@@ -2655,8 +2655,11 @@ const RACE_PROXY_PROFILE = {
     tailLengths: [0.32, 0.28, 0.23]
   },
   E: {
-    body: [0.59, 0.46, 1.28],
-    pelvis: [0.53, 0.43, 0.96],
+    // Endurance separation is carried by longitudinal trunk length, not by
+    // heavier width or larger limbs. This keeps E light while making the
+    // long-body morph readable against S at race distance.
+    body: [0.59, 0.46, 1.40],
+    pelvis: [0.53, 0.43, 1.05],
     head: [0.31, 0.27, 0.58],
     collar: [0.40, 0.32, 0.56],
     limbWidth: 0.86,
@@ -2751,6 +2754,8 @@ function ensureSimplifiedRaceProxyPool() {
   canvas.dataset.raceProxySplitFoot = "1";
   canvas.dataset.raceProxyUpdateMode = "canonical-direct";
   canvas.dataset.raceProxyShading = "lambert-structural";
+  canvas.dataset.eProxyBodyLength = String(RACE_PROXY_PROFILE.E.body[2]);
+  canvas.dataset.eProxyPelvisLength = String(RACE_PROXY_PROFILE.E.pelvis[2]);
 }
 
 function copyMotionState(from, to) {
