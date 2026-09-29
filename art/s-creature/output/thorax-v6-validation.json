@@ -1,0 +1,30 @@
+{
+  "input": "S-blockout-v5.blend",
+  "output": "S-blockout-v6.blend",
+  "scope": "anterior thorax lower-front bulge only",
+  "target_bounds": {
+    "abs_x_lt": 0.2,
+    "y": [
+      -1.06,
+      -0.48
+    ],
+    "z": [
+      1.76,
+      2.28
+    ]
+  },
+  "max_displacement": {
+    "y_back": 0.06,
+    "z_up": 0.085
+  },
+  "changed_vertices": 3964,
+  "total_vertices": 186133,
+  "max_weight": 0.6130762647609662,
+  "min_protected_surface_distance_seen": 6.472818313341122e-06,
+  "protected_object_count": 5,
+  "lateral_x_unchanged": true,
+  "topology_unchanged": true,
+  "vertex_count_unchanged": true,
+  "neck_width_reduction_preserved": true,
+  "accepted": false
+}
