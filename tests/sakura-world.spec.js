@@ -25,6 +25,7 @@ test("Sakura World lane loads the upstream world, runs S, and captures four view
   await expect(canvas).toHaveAttribute("data-animation-count", /[1-9][0-9]*/);
   await expect(canvas).toHaveAttribute("data-camera-axis-fix", "2");
   await expect(canvas).toHaveAttribute("data-run-direction", "-Z");
+  await expect(canvas).toHaveAttribute("data-camera-clearance", "road-interior-v1");
 
   await expect(page.locator("#speed")).toHaveText("5.5 m/s");
 
