@@ -570,6 +570,43 @@ function addWorld() {
     cueB.count = bIndex;
     scene.add(cueA, cueB);
     canvas.dataset.speedCueSpacing = "7.25";
+
+    // A second, very low marker stream sits just outside the racing surface.
+    // These pass close to LOW/CHASE cameras and create strong near-field
+    // parallax without touching creature motion or adding per-frame JS work.
+    const parallaxGeo = new THREE.PlaneGeometry(0.16, 1.28);
+    const parallaxMatA = new THREE.MeshBasicMaterial({ color: 0xf4f4ee });
+    const parallaxMatB = new THREE.MeshBasicMaterial({ color: 0x343a3e });
+    const parallaxCapacity = 420;
+    const parallaxA = new THREE.InstancedMesh(parallaxGeo, parallaxMatA, parallaxCapacity);
+    const parallaxB = new THREE.InstancedMesh(parallaxGeo, parallaxMatB, parallaxCapacity);
+    const parallaxMatrix = new THREE.Matrix4();
+    let parallaxAIndex = 0;
+    let parallaxBIndex = 0;
+
+    for (let i = -14; i < 376; i += 1) {
+      const z = i * 4.8;
+      for (const side of [-1, 1]) {
+        parallaxMatrix.compose(
+          new THREE.Vector3(side * (TRACK_WIDTH / 2 + 1.05), 0.026, z),
+          flatRotation,
+          new THREE.Vector3(1, 1, 1)
+        );
+        if ((i + (side > 0 ? 1 : 0)) % 2 === 0) {
+          if (parallaxAIndex < parallaxCapacity) {
+            parallaxA.setMatrixAt(parallaxAIndex++, parallaxMatrix);
+          }
+        } else if (parallaxBIndex < parallaxCapacity) {
+          parallaxB.setMatrixAt(parallaxBIndex++, parallaxMatrix);
+        }
+      }
+    }
+
+    parallaxA.count = parallaxAIndex;
+    parallaxB.count = parallaxBIndex;
+    scene.add(parallaxA, parallaxB);
+    canvas.dataset.speedParallaxSpacing = "4.8";
+    canvas.dataset.speedParallaxProfile = "inner-shoulder";
   }
 
   const treeTrunkGeo = new THREE.CylinderGeometry(0.14, 0.19, 1.4, 5);
@@ -4554,6 +4591,10 @@ function updateCamera(dt) {
   const focusPos = focus.group.position;
 
   let targetFov = 58;
+  const raceSpeedRatio = SIMPLIFIED_RACE_PAGE
+    ? THREE.MathUtils.clamp(focus.speed / 25, 0, 1)
+    : 0;
+  let speedFovBoost = 0;
 
   if (INSPECT_MODE || MOTION_REVIEW_MODE) {
     const powerReview = focus.morph === "P";
@@ -4638,7 +4679,8 @@ function updateCamera(dt) {
       SIMPLIFIED_RACE_PAGE ? 1.45 : 1.75,
       focusPos.z + (SIMPLIFIED_RACE_PAGE ? 5.8 : 10.5)
     );
-    targetFov = SIMPLIFIED_RACE_PAGE ? 62 : 61;
+    speedFovBoost = SIMPLIFIED_RACE_PAGE ? raceSpeedRatio * 2.4 : 0;
+    targetFov = SIMPLIFIED_RACE_PAGE ? 62 + speedFovBoost : 61;
   } else if (actualCamera === "LOW") {
     desiredCamera.set(
       focusPos.x + (SIMPLIFIED_RACE_PAGE ? 1.25 : 2.4),
@@ -4650,7 +4692,8 @@ function updateCamera(dt) {
       SIMPLIFIED_RACE_PAGE ? 1.20 : 1.42,
       focusPos.z + (SIMPLIFIED_RACE_PAGE ? 4.2 : 15)
     );
-    targetFov = SIMPLIFIED_RACE_PAGE ? 68 : 72;
+    speedFovBoost = SIMPLIFIED_RACE_PAGE ? raceSpeedRatio * 3.4 : 0;
+    targetFov = SIMPLIFIED_RACE_PAGE ? 68 + speedFovBoost : 72;
   } else if (actualCamera === "SIDE") {
     const side = focusPos.x <= 0 ? -1 : 1;
     desiredCamera.set(
@@ -4681,6 +4724,12 @@ function updateCamera(dt) {
     );
     desiredLook.set(center.x, 1.5, center.z + 7);
     targetFov = 54;
+  }
+
+  if (SIMPLIFIED_RACE_PAGE) {
+    canvas.dataset.speedFovBoost = speedFovBoost.toFixed(2);
+    canvas.dataset.speedParallaxCamera =
+      actualCamera === "LOW" || actualCamera === "CHASE" ? "active" : "neutral";
   }
 
   const transitionRate =
