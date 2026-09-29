@@ -849,6 +849,21 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
   await speedPage.locator("#scene").screenshot({
     path: `${outDir}/motion-first-speed-low.png`
   });
+
+  await speedPage.getByRole("button", { name: "SIDE", exact: true }).click({ force: true });
+  await speedPage.waitForTimeout(900);
+  await expect(speedPage.locator("#cameraReadout")).toHaveText("SIDE");
+  await expect(speedPage.locator("#scene")).toHaveAttribute(
+    "data-side-broadcast-angle",
+    "shallow-three-quarter"
+  );
+  await expect(speedPage.locator("#scene")).toHaveAttribute(
+    "data-side-depth-offset",
+    "5.0"
+  );
+  await speedPage.locator("#scene").screenshot({
+    path: `${outDir}/motion-first-side-readability.png`
+  });
   await speedContext.close();
 
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
