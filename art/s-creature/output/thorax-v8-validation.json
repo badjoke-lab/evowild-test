@@ -1,0 +1,35 @@
+{
+  "input": "S-blockout-v7.blend",
+  "output": "S-blockout-v8.blend",
+  "scope": "central sternum lobe to shallow sloped ventral chest plane",
+  "target_bounds": {
+    "abs_x_lt": 0.3,
+    "y": [
+      -1.0,
+      -0.48
+    ],
+    "z": [
+      1.72,
+      2.14
+    ]
+  },
+  "plane": {
+    "front_z": 2.075,
+    "rear_z": 1.92,
+    "y_front": -1.0,
+    "y_rear": -0.48
+  },
+  "max_applied_displacement": {
+    "y_back": 0.02534311674890694,
+    "z_up": 0.06034075416406414
+  },
+  "changed_vertices": 2975,
+  "total_vertices": 186133,
+  "max_weight": 0.9994506137141759,
+  "lateral_x_unchanged": true,
+  "topology_unchanged": true,
+  "vertex_count_unchanged": true,
+  "neck_width_reduction_preserved": true,
+  "forelimb_and_scapular_roots_protected": true,
+  "accepted": false
+}

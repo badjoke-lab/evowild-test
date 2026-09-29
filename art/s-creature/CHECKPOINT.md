@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-blockout-v7 reviewed REVISE; v8 sloped ventral-plane correction next
+current_stage: S-blockout-v8 sternum-plane correction saved, review pending
 branch: feat/s-creature-model
-current_model_file: output/S-blockout-v7.blend
+current_model_file: output/S-blockout-v8.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -21,7 +21,9 @@ done:
 
 - Applied v7 broader thorax correction from v5 baseline; v6 was not used as input. Field widened laterally and displacement reduced to avoid the central smile-crease while keeping X/topology/count/neck width/root protections fixed.
 
-next_action: Keep v7 as the base, then reshape only the remaining central sternum lobe toward a shallow sloped ventral chest plane; preserve X, neck width, forelimb roots, scapular outer ridges, topology, vertex count, and all other regions.
+- Applied v8 sternum-plane correction from v7: only the remaining central lower-chest lobe was moved toward a shallow sloped ventral plane; X/topology/count/neck width/root protections remain fixed.
+
+next_action: Inspect v8 front/front34/side against reference 01. Confirm the central sternum lobe is no longer rounded/hanging and the ventral chest reads as a shallow sloped plane without a new crease.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -75,3 +77,10 @@ review_renders_v7:
 thorax_v7_decision: REVISE
 thorax_v7_reason: v7 successfully removes the v6 smile-crease, but front/front34 still show a distinct rounded central sternum lobe hanging between the shoulders; side remains heavier than reference 01.
 thorax_v7_keep: use v7 as base; do not revert to v5 and do not reintroduce v6 central-only field.
+
+review_status_v8: v8 review rendered / not accepted
+review_renders_v8:
+- output/review/v8/S_blockout_front.png
+- output/review/v8/S_blockout_side.png
+- output/review/v8/S_blockout_front34.png
+- output/review/v8/S_blockout_rear34.png
