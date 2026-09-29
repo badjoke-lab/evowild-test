@@ -239,7 +239,7 @@ document.querySelectorAll("[data-camera]").forEach((btn) => {
 
 const loader = new GLTFLoader();
 loader.load(
-  "../models/evowild-s/focus-rigged-v5.glb",
+  "../models/evowild-s/focus-rigged-v31.glb",
   (gltf) => {
     model = gltf.scene;
     model.rotation.y = Math.PI;
@@ -256,18 +256,18 @@ loader.load(
     modelHeight = Math.max(1, size.y);
 
     applyRunnerMaterials(model);
-    addCentralHeadMass(model);
+    canvas.dataset.headMassCorrection = "native-v31";
 
     if (gltf.animations.length) {
       mixer = new THREE.AnimationMixer(model);
-      const clip = gltf.animations.find((c) => c.name === "EvoWild_S_Run_V5") || gltf.animations[0];
+      const clip = gltf.animations.find((c) => /run/i.test(c.name)) || gltf.animations[0];
       mixer.clipAction(clip).reset().play();
       clipEl.textContent = clip.name || "run clip";
     } else {
       clipEl.textContent = "no embedded clip";
     }
 
-    canvas.dataset.asset = "focus-rigged-v5.glb";
+    canvas.dataset.asset = "focus-rigged-v31.glb";
     canvas.dataset.renderLane = "sakura-world";
     canvas.dataset.upstreamWorld = "de01898e89c7f6ab3fad93fa802f0f5ac66fbd81";
     canvas.dataset.cameraAxisFix = "2";
