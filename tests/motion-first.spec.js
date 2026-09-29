@@ -864,6 +864,20 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
   await speedPage.locator("#scene").screenshot({
     path: `${outDir}/motion-first-side-readability.png`
   });
+
+  // Dense-pack motion diagnostic: keep one S focus in SIDE and capture
+  // successive frames. This is intentionally visual evidence rather than a
+  // quality pass by assertion; it shows whether contact/body phase survives
+  // real pack occlusion before changing any gait amplitudes.
+  await speedPage.selectOption("#runnerSelect", "4");
+  await speedPage.waitForTimeout(360);
+  for (let frame = 0; frame < 4; frame += 1) {
+    await speedPage.locator("#scene").screenshot({
+      path: `${outDir}/motion-first-pack-motion-${frame}.png`
+    });
+    await speedPage.waitForTimeout(120);
+  }
+
   await speedContext.close();
 
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
