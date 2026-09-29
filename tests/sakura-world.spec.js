@@ -21,8 +21,8 @@ test("Sakura World lane loads the upstream world, runs S, and captures four view
   await expect(canvas).toBeVisible();
   await expect(canvas).toHaveAttribute("data-render-lane", "sakura-world", { timeout: 90000 });
   await expect(canvas).toHaveAttribute("data-upstream-world", "de01898e89c7f6ab3fad93fa802f0f5ac66fbd81");
-  await expect(canvas).toHaveAttribute("data-head-mass-correction", "head-cap-bone-v19");
-  await expect(canvas).toHaveAttribute("data-head-crest-repair", "skin-weight-v19");
+  await expect(canvas).toHaveAttribute("data-head-mass-correction", "head-cap-bone-v20");
+  await expect(canvas).toHaveAttribute("data-head-crest-repair", "skin-weight-v20");
   await expect(canvas).toHaveAttribute("data-head-crest-changed-vertices", /[1-9][0-9]*/);
   await expect(canvas).toHaveAttribute("data-animation-count", /[1-9][0-9]*/);
   await expect(canvas).toHaveAttribute("data-camera-axis-fix", "2");
