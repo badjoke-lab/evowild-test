@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-blockout-v8 sternum-plane correction saved, review pending
+current_stage: S-blockout-v8 reviewed REVISE; v9 constrained sternum relax next
 branch: feat/s-creature-model
 current_model_file: output/S-blockout-v8.blend
 
@@ -23,7 +23,7 @@ done:
 
 - Applied v8 sternum-plane correction from v7: only the remaining central lower-chest lobe was moved toward a shallow sloped ventral plane; X/topology/count/neck width/root protections remain fixed.
 
-next_action: Inspect v8 front/front34/side against reference 01. Confirm the central sternum lobe is no longer rounded/hanging and the ventral chest reads as a shallow sloped plane without a new crease.
+next_action: Keep the improved v8 side-profile position, then apply a topology-preserving local Y/Z relaxation only inside the sternum transition to remove the new front/front34 fold; X, neck width, forelimb roots, scapular outer ridges, boundaries, topology, vertex count, and all other regions stay fixed.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -84,3 +84,7 @@ review_renders_v8:
 - output/review/v8/S_blockout_side.png
 - output/review/v8/S_blockout_front34.png
 - output/review/v8/S_blockout_rear34.png
+
+thorax_v8_decision: REVISE
+thorax_v8_reason: side profile is lighter and closer to target, but front/front34 introduce a stronger folded smile/crease across the sternum. Do not revert the whole shape; keep v8 position and relax only the local Y/Z surface continuity.
+thorax_v8_keep: preserve v8 overall chest position as v9 base.
