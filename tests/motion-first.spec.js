@@ -212,7 +212,7 @@ test("Motion First Phase D P body captures same-species multi-view inspection", 
 test("Motion First Phase D P gait records continuous SIDE and LOW review", async ({ browser }, testInfo) => {
   test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
   test.skip(testInfo.project.name !== "desktop-chromium");
-  test.setTimeout(70000);
+  test.setTimeout(85000);
 
   const outDir = "test-results/visuals";
   fs.mkdirSync(outDir, { recursive: true });
@@ -738,6 +738,11 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
   await expect(page.locator("#scene")).toBeVisible();
   await expect(page.locator("#cameraReadout")).not.toHaveText("");
   await expect(page.locator("#scene")).toHaveAttribute("data-speed-cue-spacing", "7.25");
+  await expect(page.locator("#scene")).toHaveAttribute("data-speed-parallax-spacing", "4.8");
+  await expect(page.locator("#scene")).toHaveAttribute(
+    "data-speed-parallax-profile",
+    "inner-shoulder"
+  );
   await expect(page.locator("#scene")).toHaveAttribute("data-render-pixel-ratio", "0.75");
   await expect(page.locator("#scene")).toHaveAttribute("data-race-proxy-lod", "1");
   await expect(page.locator("#scene")).toHaveAttribute("data-director-reason", "START");
@@ -808,6 +813,43 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
   if (!video) throw new Error("Phase F director video was not created");
   await video.saveAs(`${outDir}/motion-first-phase-f-auto-director.webm`);
   await context.close();
+
+  const speedContext = await browser.newContext({
+    viewport: { width: 1280, height: 720 }
+  });
+  const speedPage = await speedContext.newPage();
+  await speedPage.goto(
+    "http://127.0.0.1:4173/evowild-test/preview-motion-first-race/index.html",
+    { waitUntil: "networkidle" }
+  );
+  await speedPage.waitForTimeout(4200);
+
+  await speedPage.getByRole("button", { name: "CHASE", exact: true }).click({ force: true });
+  await speedPage.waitForTimeout(900);
+  await expect(speedPage.locator("#cameraReadout")).toHaveText("CHASE");
+  await expect(speedPage.locator("#scene")).toHaveAttribute(
+    "data-speed-parallax-camera",
+    "active"
+  );
+  const chaseBoost = Number(
+    await speedPage.locator("#scene").getAttribute("data-speed-fov-boost")
+  );
+  expect(chaseBoost).toBeGreaterThan(0.8);
+  await speedPage.locator("#scene").screenshot({
+    path: `${outDir}/motion-first-speed-chase.png`
+  });
+
+  await speedPage.getByRole("button", { name: "LOW", exact: true }).click({ force: true });
+  await speedPage.waitForTimeout(900);
+  await expect(speedPage.locator("#cameraReadout")).toHaveText("LOW");
+  const lowBoost = Number(
+    await speedPage.locator("#scene").getAttribute("data-speed-fov-boost")
+  );
+  expect(lowBoost).toBeGreaterThan(chaseBoost);
+  await speedPage.locator("#scene").screenshot({
+    path: `${outDir}/motion-first-speed-low.png`
+  });
+  await speedContext.close();
 
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
