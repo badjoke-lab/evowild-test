@@ -4578,13 +4578,22 @@ function packCenter(out) {
   let x = 0;
   let z = 0;
   let count = 0;
-  const leaders = rankings().slice(0, 10);
-  leaders.forEach((r) => {
+  // The simplified PACK shot represents the entire 18-runner field. Using
+  // only the top 10 shifts the camera toward the leaders and clips trailing
+  // traffic once the framing is tightened.
+  const packMembers = rankings().slice(
+    0,
+    SIMPLIFIED_RACE_PAGE ? RUNNER_COUNT : 10
+  );
+  packMembers.forEach((r) => {
     x += r.group.position.x;
     z += r.group.position.z;
     count += 1;
   });
   out.set(x / count, 1.8, z / count);
+  if (SIMPLIFIED_RACE_PAGE) {
+    canvas.dataset.packCenterCount = String(count);
+  }
   return out;
 }
 
