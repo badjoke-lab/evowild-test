@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-blockout-v8 reviewed REVISE; v9 constrained sternum relax next
+current_stage: S-blockout-v9 constrained sternum relax saved, review pending
 branch: feat/s-creature-model
-current_model_file: output/S-blockout-v8.blend
+current_model_file: output/S-blockout-v9.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -23,7 +23,9 @@ done:
 
 - Applied v8 sternum-plane correction from v7: only the remaining central lower-chest lobe was moved toward a shallow sloped ventral plane; X/topology/count/neck width/root protections remain fixed.
 
-next_action: Keep the improved v8 side-profile position, then apply a topology-preserving local Y/Z relaxation only inside the sternum transition to remove the new front/front34 fold; X, neck width, forelimb roots, scapular outer ridges, boundaries, topology, vertex count, and all other regions stay fixed.
+- Applied v9 constrained Y/Z sternum relaxation from v8: five weighted local iterations, X/topology/count/neck width/root protections and boundaries fixed.
+
+next_action: Inspect v9 front/front34/side against reference 01. Confirm the v8 sternum fold is reduced without restoring the old hanging chest bulge or altering neck width/root silhouettes.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -88,3 +90,10 @@ review_renders_v8:
 thorax_v8_decision: REVISE
 thorax_v8_reason: side profile is lighter and closer to target, but front/front34 introduce a stronger folded smile/crease across the sternum. Do not revert the whole shape; keep v8 position and relax only the local Y/Z surface continuity.
 thorax_v8_keep: preserve v8 overall chest position as v9 base.
+
+review_status_v9: v9 review rendered / not accepted
+review_renders_v9:
+- output/review/v9/S_blockout_front.png
+- output/review/v9/S_blockout_side.png
+- output/review/v9/S_blockout_front34.png
+- output/review/v9/S_blockout_rear34.png

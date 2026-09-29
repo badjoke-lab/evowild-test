@@ -1,0 +1,17 @@
+{
+  "input": "S-blockout-v8.blend",
+  "output": "S-blockout-v9.blend",
+  "scope": "local sternum Y/Z surface relaxation only",
+  "iterations": 5,
+  "base_factor": 0.24,
+  "active_vertices": 2982,
+  "changed_vertices": 2982,
+  "total_vertices": 186133,
+  "max_total_vertex_delta": 0.0014226115213765336,
+  "lateral_x_unchanged": true,
+  "topology_unchanged": true,
+  "vertex_count_unchanged": true,
+  "neck_width_reduction_preserved": true,
+  "forelimb_and_scapular_roots_protected": true,
+  "accepted": false
+}
