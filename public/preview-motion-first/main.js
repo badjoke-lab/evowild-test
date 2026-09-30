@@ -4711,12 +4711,17 @@ function updateCamera(dt) {
   } else if (actualCamera === "LOW") {
     const autoLowShot = SIMPLIFIED_RACE_PAGE && requestedCamera === "AUTO";
     if (autoLowShot) {
-      const lowSide = focusPos.x <= 0 ? -1 : 1;
+      const centerward = focusPos.x <= 0 ? 1 : -1;
+      const autoLowX = THREE.MathUtils.clamp(
+        focusPos.x + centerward * 1.4,
+        -TRACK_WIDTH / 2 + 2.0,
+        TRACK_WIDTH / 2 - 2.0
+      );
       desiredCamera.set(
-        // AUTO LOW is a low lead-camera shot, not the manual inspection
-        // close-up. Keep enough distance to hold the full focus creature and
-        // nearby rivals in frame during the compressed launch pack.
-        focusPos.x + lowSide * 1.8,
+        // AUTO LOW stays ahead of the leader but sits toward track center,
+        // avoiding the off-track grass angle created by pushing edge-lane
+        // leaders farther outward.
+        autoLowX,
         1.02,
         focusPos.z + 10.5
       );
@@ -4725,7 +4730,8 @@ function updateCamera(dt) {
         1.18,
         focusPos.z + 0.25
       );
-      canvas.dataset.directorAutoLowProfile = "lead-front-quarter";
+      canvas.dataset.directorAutoLowProfile = "lead-front-quarter-inboard";
+      canvas.dataset.directorAutoLowCameraX = autoLowX.toFixed(2);
     } else {
       desiredCamera.set(
         focusPos.x,
