@@ -4713,12 +4713,12 @@ function updateCamera(dt) {
     if (autoLowShot) {
       const lowSide = focusPos.x <= 0 ? -1 : 1;
       desiredCamera.set(
-        // Stay between lane centers instead of sitting almost exactly one
-        // 2.55 m lane away from the focus, which can put another runner
-        // directly on top of the camera during a dense launch.
-        focusPos.x + lowSide * 1.2,
-        0.92,
-        focusPos.z + 6.2
+        // AUTO LOW is a low lead-camera shot, not the manual inspection
+        // close-up. Keep enough distance to hold the full focus creature and
+        // nearby rivals in frame during the compressed launch pack.
+        focusPos.x + lowSide * 1.8,
+        1.02,
+        focusPos.z + 9.0
       );
       desiredLook.set(
         focusPos.x,
@@ -4740,7 +4740,7 @@ function updateCamera(dt) {
     }
     speedFovBoost = SIMPLIFIED_RACE_PAGE ? raceSpeedRatio * 3.4 : 0;
     targetFov = SIMPLIFIED_RACE_PAGE
-      ? (autoLowShot ? 68 : 74) + speedFovBoost
+      ? (autoLowShot ? 60 : 74) + speedFovBoost
       : 72;
   } else if (actualCamera === "SIDE") {
     const side = focusPos.x <= 0 ? -1 : 1;
