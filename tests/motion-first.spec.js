@@ -794,6 +794,24 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
     (await page.locator("#scene").getAttribute("data-director-shot-history")) || "";
   const shotHistory = shotHistoryText.split(",").filter(Boolean);
   expect(shotHistory.length).toBeGreaterThanOrEqual(2);
+  expect(shotHistory).toContain("ACCELERATION:LOW");
+  await expect(page.locator("#scene")).toHaveAttribute(
+    "data-director-acceleration-shown",
+    "1"
+  );
+  await expect(page.locator("#scene")).toHaveAttribute(
+    "data-director-auto-low-profile",
+    "lead-front-quarter-inboard"
+  );
+  const autoLowCameraX = Number(
+    await page.locator("#scene").getAttribute("data-director-auto-low-camera-x")
+  );
+  expect(Number.isFinite(autoLowCameraX)).toBeTruthy();
+  expect(Math.abs(autoLowCameraX)).toBeLessThan(12.0);
+  const accelerationGap = Number(
+    await page.locator("#scene").getAttribute("data-director-acceleration-gap")
+  );
+  expect(accelerationGap).toBeGreaterThan(0.75);
 
   const persistentShots = new Set([
     "LEAD_DUEL:SIDE",

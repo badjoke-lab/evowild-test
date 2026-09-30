@@ -3314,8 +3314,11 @@ function resetRace() {
   raceDirector.holdUntil = 0;
   raceDirector.lastLeaderId = 0;
   raceDirector.lastDecisionAt = -999;
+  raceDirector.accelerationShown = false;
   raceDirector.shotHistory = [];
   canvas.dataset.directorDecisionCount = "0";
+  canvas.dataset.directorAccelerationShown = "0";
+  canvas.dataset.directorAccelerationGap = "0";
   canvas.dataset.directorShotHistory = "";
   canvas.dataset.directorCutCount = "0";
   canvas.dataset.directorReason = "START";
@@ -4428,6 +4431,7 @@ const raceDirector = {
   holdUntil: 0,
   lastLeaderId: 0,
   lastDecisionAt: -999,
+  accelerationShown: false,
   shotHistory: []
 };
 
@@ -4479,6 +4483,24 @@ function updateSimplifiedRaceDirector() {
     } else {
       selectedRunner = leader.id;
     }
+    return;
+  }
+
+  // The launch is still building after the opening PACK shot. Show that
+  // acceleration once with a short LOW cut, using the already-validated
+  // near-field speed cues and speed-linked FOV instead of inventing stronger
+  // gait motion or camera shake.
+  const accelerationGap = Math.max(0, leader.targetSpeed - leader.speed);
+  if (
+    !raceDirector.accelerationShown &&
+    raceTime < 7.2 &&
+    leader.speed > 7.0 &&
+    accelerationGap > 0.75
+  ) {
+    raceDirector.accelerationShown = true;
+    canvas.dataset.directorAccelerationShown = "1";
+    canvas.dataset.directorAccelerationGap = accelerationGap.toFixed(2);
+    setDirectorShot("LOW", leader.id, "ACCELERATION", 2.0);
     return;
   }
 
@@ -4687,18 +4709,45 @@ function updateCamera(dt) {
     speedFovBoost = SIMPLIFIED_RACE_PAGE ? raceSpeedRatio * 2.4 : 0;
     targetFov = SIMPLIFIED_RACE_PAGE ? 62 + speedFovBoost : 61;
   } else if (actualCamera === "LOW") {
-    desiredCamera.set(
-      focusPos.x,
-      SIMPLIFIED_RACE_PAGE ? 0.74 : 1.55,
-      focusPos.z - (SIMPLIFIED_RACE_PAGE ? 2.8 : 8.0)
-    );
-    desiredLook.set(
-      focusPos.x,
-      SIMPLIFIED_RACE_PAGE ? 1.14 : 1.42,
-      focusPos.z + (SIMPLIFIED_RACE_PAGE ? 4.5 : 15)
-    );
+    const autoLowShot = SIMPLIFIED_RACE_PAGE && requestedCamera === "AUTO";
+    if (autoLowShot) {
+      const centerward = focusPos.x <= 0 ? 1 : -1;
+      const autoLowX = THREE.MathUtils.clamp(
+        focusPos.x + centerward * 1.4,
+        -TRACK_WIDTH / 2 + 2.0,
+        TRACK_WIDTH / 2 - 2.0
+      );
+      desiredCamera.set(
+        // AUTO LOW stays ahead of the leader but sits toward track center,
+        // avoiding the off-track grass angle created by pushing edge-lane
+        // leaders farther outward.
+        autoLowX,
+        1.02,
+        focusPos.z + 10.5
+      );
+      desiredLook.set(
+        focusPos.x,
+        1.18,
+        focusPos.z + 0.25
+      );
+      canvas.dataset.directorAutoLowProfile = "lead-front-quarter-inboard";
+      canvas.dataset.directorAutoLowCameraX = autoLowX.toFixed(2);
+    } else {
+      desiredCamera.set(
+        focusPos.x,
+        SIMPLIFIED_RACE_PAGE ? 0.74 : 1.55,
+        focusPos.z - (SIMPLIFIED_RACE_PAGE ? 2.8 : 8.0)
+      );
+      desiredLook.set(
+        focusPos.x,
+        SIMPLIFIED_RACE_PAGE ? 1.14 : 1.42,
+        focusPos.z + (SIMPLIFIED_RACE_PAGE ? 4.5 : 15)
+      );
+    }
     speedFovBoost = SIMPLIFIED_RACE_PAGE ? raceSpeedRatio * 3.4 : 0;
-    targetFov = SIMPLIFIED_RACE_PAGE ? 74 + speedFovBoost : 72;
+    targetFov = SIMPLIFIED_RACE_PAGE
+      ? (autoLowShot ? 66 : 74) + speedFovBoost
+      : 72;
   } else if (actualCamera === "SIDE") {
     const side = focusPos.x <= 0 ? -1 : 1;
     desiredCamera.set(
