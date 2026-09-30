@@ -19,8 +19,9 @@ jobs:
           ref: feat/s-creature-model
       - uses: actions/upload-artifact@v4
         with:
-          name: S-blockout-v11-screenshots
+          name: S-blockout-v11-review-source
           path: |
+            art/s-creature/output/S-blockout-v11.blend
             art/s-creature/output/review/v11/S_blockout_front.png
             art/s-creature/output/review/v11/S_blockout_side.png
             art/s-creature/output/review/v11/S_blockout_front34.png
