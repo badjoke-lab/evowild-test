@@ -1,0 +1,67 @@
+name: S creature v12 local thorax rebuild
+on:
+  push:
+    branches: [feat/s-creature-model]
+    paths: [.github/workflows/s-creature-v12-rebuild-review.yml]
+permissions:
+  contents: write
+concurrency:
+  group: s-creature-thorax-rebuild
+  cancel-in-progress: false
+jobs:
+  rebuild-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/s-creature-model
+          fetch-depth: 0
+      - name: Verify canonical v11 input
+        run: test "$(git hash-object art/s-creature/output/S-blockout-v11.blend)" = 2c4c76fae6797f4ea85a612df2a3fe257b2389e5
+      - name: Install Blender dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+      - name: Download Blender 4.3.2
+        run: |
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Rebuild anterior thorax from fixed boundary
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-blockout-v11.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/rebuild_s_thorax_v12.py
+      - name: Render three review views
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-blockout-v12.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/render_v12_review.py
+      - name: Check outputs and checkpoint
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('art/s-creature')
+          report=json.loads((root/'output/thorax-v12-validation.json').read_text())
+          for key in ('all_non_active_vertices_position_unchanged','lateral_x_unchanged','topology_unchanged','vertex_count_unchanged','other_meshes_unchanged','neck_width_reduction_preserved','forelimb_and_scapular_roots_protected'):
+              assert report[key],key
+          assert report['coordinate_sha256']=='078c9c6e60d8ce74511b1852554ebfb53ccf4d3ddaf4bd83d5d841f2e5f9d75a'
+          for stem in ('front','side','front34'):
+              assert (root/f'output/review/v12/S_blockout_{stem}.png').stat().st_size>0
+          p=root/'CHECKPOINT.md'
+          p.write_text(p.read_text().replace('review_status_v12: local thorax reconstruction; visual review pending','review_status_v12: rebuilt and three-view review rendered; user acceptance pending'))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: S-blockout-v12-model-and-review
+          path: |
+            art/s-creature/output/S-blockout-v12.blend
+            art/s-creature/output/thorax-v12-validation.json
+            art/s-creature/output/review/v12/
+          if-no-files-found: error
+      - name: Save model, validation and images to existing branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add art/s-creature/output/S-blockout-v12.blend art/s-creature/output/thorax-v12-validation.json art/s-creature/output/review/v12/ art/s-creature/CHECKPOINT.md art/s-creature/HANDOFF_STATE.json
+          git commit -m 'art: locally rebuild S v12 anterior thorax with fixed boundaries'
+          git push origin HEAD:feat/s-creature-model
