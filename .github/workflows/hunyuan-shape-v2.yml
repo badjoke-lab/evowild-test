@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install geometry tools
-        run: pip install numpy trimesh scipy
+        run: pip install numpy trimesh scipy networkx
       - name: Generate v20 and v22 candidates
         run: |
           python scripts/refine-hunyuan-shape-v20.py --             public/models/evowild-s/source-lod2.glb             public/models/evowild-s/source-lod2-shape-v20.glb             public/models/evowild-s/source-lod2-shape-v20.json
