@@ -4709,18 +4709,36 @@ function updateCamera(dt) {
     speedFovBoost = SIMPLIFIED_RACE_PAGE ? raceSpeedRatio * 2.4 : 0;
     targetFov = SIMPLIFIED_RACE_PAGE ? 62 + speedFovBoost : 61;
   } else if (actualCamera === "LOW") {
-    desiredCamera.set(
-      focusPos.x,
-      SIMPLIFIED_RACE_PAGE ? 0.74 : 1.55,
-      focusPos.z - (SIMPLIFIED_RACE_PAGE ? 2.8 : 8.0)
-    );
-    desiredLook.set(
-      focusPos.x,
-      SIMPLIFIED_RACE_PAGE ? 1.14 : 1.42,
-      focusPos.z + (SIMPLIFIED_RACE_PAGE ? 4.5 : 15)
-    );
+    const autoLowShot = SIMPLIFIED_RACE_PAGE && requestedCamera === "AUTO";
+    if (autoLowShot) {
+      const lowSide = focusPos.x <= 0 ? -1 : 1;
+      desiredCamera.set(
+        focusPos.x + lowSide * 2.6,
+        0.88,
+        focusPos.z + 4.8
+      );
+      desiredLook.set(
+        focusPos.x,
+        1.18,
+        focusPos.z + 0.25
+      );
+      canvas.dataset.directorAutoLowProfile = "lead-front-quarter";
+    } else {
+      desiredCamera.set(
+        focusPos.x,
+        SIMPLIFIED_RACE_PAGE ? 0.74 : 1.55,
+        focusPos.z - (SIMPLIFIED_RACE_PAGE ? 2.8 : 8.0)
+      );
+      desiredLook.set(
+        focusPos.x,
+        SIMPLIFIED_RACE_PAGE ? 1.14 : 1.42,
+        focusPos.z + (SIMPLIFIED_RACE_PAGE ? 4.5 : 15)
+      );
+    }
     speedFovBoost = SIMPLIFIED_RACE_PAGE ? raceSpeedRatio * 3.4 : 0;
-    targetFov = SIMPLIFIED_RACE_PAGE ? 74 + speedFovBoost : 72;
+    targetFov = SIMPLIFIED_RACE_PAGE
+      ? (autoLowShot ? 68 : 74) + speedFovBoost
+      : 72;
   } else if (actualCamera === "SIDE") {
     const side = focusPos.x <= 0 ? -1 : 1;
     desiredCamera.set(
