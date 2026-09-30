@@ -799,6 +799,10 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
     "data-director-acceleration-shown",
     "1"
   );
+  await expect(page.locator("#scene")).toHaveAttribute(
+    "data-director-auto-low-profile",
+    "lead-front-quarter"
+  );
   const accelerationGap = Number(
     await page.locator("#scene").getAttribute("data-director-acceleration-gap")
   );
