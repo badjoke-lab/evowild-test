@@ -3319,6 +3319,10 @@ function resetRace() {
   canvas.dataset.directorDecisionCount = "0";
   canvas.dataset.directorAccelerationShown = "0";
   canvas.dataset.directorAccelerationGap = "0";
+  canvas.dataset.directorOvertakeGap = "0";
+  canvas.dataset.directorOvertakeClosingSpeed = "0";
+  canvas.dataset.directorOvertakeAhead = "";
+  canvas.dataset.directorOvertakeChallenger = "";
   canvas.dataset.directorShotHistory = "";
   canvas.dataset.directorCutCount = "0";
   canvas.dataset.directorReason = "START";
@@ -4477,6 +4481,25 @@ function updateSimplifiedRaceDirector() {
     .slice(0, 8)
     .find((runner) => raceTime - runner.laneChangeStartedAt < 1.15);
 
+  let overtakeAttempt = null;
+  for (let rank = 0; rank < Math.min(7, order.length - 1); rank += 1) {
+    const ahead = order[rank];
+    const challenger = order[rank + 1];
+    const gap = Math.max(0, ahead.distance - challenger.distance);
+    const closingSpeed = challenger.speed - ahead.speed;
+    const laneSeparation = Math.abs(challenger.laneX - ahead.laneX);
+
+    if (
+      gap >= 0.65 &&
+      gap <= 4.8 &&
+      closingSpeed >= 0.35 &&
+      laneSeparation <= LANE_WIDTH * 1.35
+    ) {
+      overtakeAttempt = { ahead, challenger, gap, closingSpeed };
+      break;
+    }
+  }
+
   if (raceTime < 3.8) {
     if (raceDirector.reason !== "START") {
       setDirectorShot("PACK", leader.id, "START", 3.8 - raceTime);
@@ -4533,6 +4556,25 @@ function updateSimplifiedRaceDirector() {
 
   if (leaderChanged) {
     setDirectorShot("CHASE", leader.id, "LEAD_CHANGE", 2.9);
+    return;
+  }
+
+  if (
+    overtakeAttempt &&
+    raceDirector.reason !== "OVERTAKE_ATTEMPT"
+  ) {
+    canvas.dataset.directorOvertakeGap = overtakeAttempt.gap.toFixed(2);
+    canvas.dataset.directorOvertakeClosingSpeed =
+      overtakeAttempt.closingSpeed.toFixed(2);
+    canvas.dataset.directorOvertakeAhead = String(overtakeAttempt.ahead.id);
+    canvas.dataset.directorOvertakeChallenger =
+      String(overtakeAttempt.challenger.id);
+    setDirectorShot(
+      "SIDE",
+      overtakeAttempt.challenger.id,
+      "OVERTAKE_ATTEMPT",
+      2.6
+    );
     return;
   }
 
