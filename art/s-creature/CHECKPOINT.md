@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-blockout-v9 constrained sternum relax saved, review pending
+current_stage: S-blockout-v9 reviewed REVISE; v10 broader lift plus weighted fairing next
 branch: feat/s-creature-model
 current_model_file: output/S-blockout-v9.blend
 
@@ -25,7 +25,7 @@ done:
 
 - Applied v9 constrained Y/Z sternum relaxation from v8: five weighted local iterations, X/topology/count/neck width/root protections and boundaries fixed.
 
-next_action: Inspect v9 front/front34/side against reference 01. Confirm the v8 sternum fold is reduced without restoring the old hanging chest bulge or altering neck width/root silhouettes.
+next_action: Build v10 from v7, not v8/v9: apply one broader shallower anterior-thorax lift, then weighted Laplacian Y/Z fairing over the same region to remove the central sternum lobe without reintroducing a fold; preserve X, neck width, forelimb roots, scapular outer ridges, topology, vertex count, and all other regions.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -97,3 +97,7 @@ review_renders_v9:
 - output/review/v9/S_blockout_side.png
 - output/review/v9/S_blockout_front34.png
 - output/review/v9/S_blockout_rear34.png
+
+thorax_v9_decision: REVISE
+thorax_v9_reason: the constrained relax moved 2982 vertices but max total delta was only 0.00142, so front/front34 are visually almost unchanged from v8 and the sternum fold remains.
+thorax_v10_base: use S-blockout-v7.blend as the clean no-fold baseline; do not inherit v8/v9 fold geometry.
