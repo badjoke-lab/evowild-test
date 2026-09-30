@@ -2,10 +2,10 @@ import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 import crypto from "node:crypto";
 
-test("render S v22 v23 comparison", async ({ page }, testInfo) => {
+test("render S v22 v24 comparison", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(120000);
-  const outDir = "test-results/shape-v23-browser";
+  const outDir = "test-results/shape-v24-browser";
   fs.mkdirSync(outDir, { recursive: true });
   const errors = [];
   page.on("pageerror", (err) => errors.push(err.stack || String(err)));
@@ -33,12 +33,12 @@ test("render S v22 v23 comparison", async ({ page }, testInfo) => {
   }
 
   const v22 = await capture("v22", "hunyuan-s-lod2-shape-v22", "shape-v22");
-  const v23 = await capture("v23", "hunyuan-s-lod2-shape-v23", "shape-v23");
+  const v24 = await capture("v24", "hunyuan-s-lod2-shape-v24", "shape-v24");
 
-  expect(v23.LOW).not.toBe(v22.LOW);
-  expect(v23.CHASE).not.toBe(v22.CHASE);
-  expect(v23.SIDE).not.toBe(v22.SIDE);
+  expect(v24.LOW).not.toBe(v22.LOW);
+  expect(v24.CHASE).not.toBe(v22.CHASE);
+  expect(v24.SIDE).not.toBe(v22.SIDE);
   expect(errors, errors.join("\n")).toEqual([]);
 
-  console.log("SHAPE_V23_BROWSER", JSON.stringify({ v22, v23 }));
+  console.log("SHAPE_V24_BROWSER", JSON.stringify({ v22, v24 }));
 });
