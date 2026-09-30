@@ -1,0 +1,42 @@
+{
+  "input": "S-blockout-v11.blend",
+  "output": "S-blockout-v12.blend",
+  "method": "Dirichlet harmonic reconstruction of anterior thorax Y/Z from fixed boundary",
+  "active_vertices": 8726,
+  "changed_vertices": 8726,
+  "total_vertices": 186133,
+  "max_displacement": 0.14418032964510208,
+  "solver_iterations": [
+    267,
+    282
+  ],
+  "solver_residuals": [
+    9.495057341157887e-11,
+    9.440223598882439e-11
+  ],
+  "target_bounds": {
+    "abs_x_lt": 0.32,
+    "y": [
+      -1.13,
+      -0.2
+    ],
+    "z": [
+      1.7,
+      2.32
+    ]
+  },
+  "protected_surface_collars": {
+    "forelimb_scapular": 0.065,
+    "neck": 0.045,
+    "neck_collar_application": "z >= 2.24 or y <= -1.04; chest-side junction rebuilt with X fixed"
+  },
+  "all_non_active_vertices_position_unchanged": true,
+  "lateral_x_unchanged": true,
+  "topology_unchanged": true,
+  "vertex_count_unchanged": true,
+  "other_meshes_unchanged": true,
+  "neck_width_reduction_preserved": true,
+  "forelimb_and_scapular_roots_protected": true,
+  "coordinate_sha256": "078c9c6e60d8ce74511b1852554ebfb53ccf4d3ddaf4bd83d5d841f2e5f9d75a",
+  "accepted": false
+}

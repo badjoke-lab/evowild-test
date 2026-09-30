@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-blockout-v11 explicit-local thorax correction saved, review pending
+current_stage: v12 anterior thorax locally rebuilt; review pending
 branch: feat/s-creature-model
-current_model_file: output/S-blockout-v11.blend
+current_model_file: output/S-blockout-v12.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Inspect v11 front/front34/side against reference 01. Confirm the sternum lobe is reduced without a smile-fold, and verify the unchanged neck/root silhouettes.
+next_action: Review v12 chest transition only; no other regions authorized.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -123,3 +123,6 @@ review_renders_v11:
 - output/review/v11/S_blockout_side.png
 - output/review/v11/S_blockout_front34.png
 - output/review/v11/S_blockout_rear34.png
+
+review_status_v12: rebuilt and three-view review rendered; user acceptance pending
+- Reconstructed anterior thorax from fixed boundary; all X, neck, forelimb roots, scapular outer ridge, topology and vertex count preserved.
