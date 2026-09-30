@@ -4740,7 +4740,7 @@ function updateCamera(dt) {
     }
     speedFovBoost = SIMPLIFIED_RACE_PAGE ? raceSpeedRatio * 3.4 : 0;
     targetFov = SIMPLIFIED_RACE_PAGE
-      ? (autoLowShot ? 60 : 74) + speedFovBoost
+      ? (autoLowShot ? 66 : 74) + speedFovBoost
       : 72;
   } else if (actualCamera === "SIDE") {
     const side = focusPos.x <= 0 ? -1 : 1;
