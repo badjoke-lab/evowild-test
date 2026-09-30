@@ -3314,8 +3314,11 @@ function resetRace() {
   raceDirector.holdUntil = 0;
   raceDirector.lastLeaderId = 0;
   raceDirector.lastDecisionAt = -999;
+  raceDirector.accelerationShown = false;
   raceDirector.shotHistory = [];
   canvas.dataset.directorDecisionCount = "0";
+  canvas.dataset.directorAccelerationShown = "0";
+  canvas.dataset.directorAccelerationGap = "0";
   canvas.dataset.directorShotHistory = "";
   canvas.dataset.directorCutCount = "0";
   canvas.dataset.directorReason = "START";
@@ -4428,6 +4431,7 @@ const raceDirector = {
   holdUntil: 0,
   lastLeaderId: 0,
   lastDecisionAt: -999,
+  accelerationShown: false,
   shotHistory: []
 };
 
@@ -4479,6 +4483,24 @@ function updateSimplifiedRaceDirector() {
     } else {
       selectedRunner = leader.id;
     }
+    return;
+  }
+
+  // The launch is still building after the opening PACK shot. Show that
+  // acceleration once with a short LOW cut, using the already-validated
+  // near-field speed cues and speed-linked FOV instead of inventing stronger
+  // gait motion or camera shake.
+  const accelerationGap = Math.max(0, leader.targetSpeed - leader.speed);
+  if (
+    !raceDirector.accelerationShown &&
+    raceTime < 7.2 &&
+    leader.speed > 7.0 &&
+    accelerationGap > 0.75
+  ) {
+    raceDirector.accelerationShown = true;
+    canvas.dataset.directorAccelerationShown = "1";
+    canvas.dataset.directorAccelerationGap = accelerationGap.toFixed(2);
+    setDirectorShot("LOW", leader.id, "ACCELERATION", 2.0);
     return;
   }
 
