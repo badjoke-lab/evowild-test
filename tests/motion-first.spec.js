@@ -827,6 +827,26 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
     }
   }
 
+  // The deterministic field does not produce a genuine closing pair during
+  // the first ~12 seconds. Continue the same race long enough to review a real
+  // top-eight overtake attempt rather than weakening the detection thresholds.
+  await page.waitForTimeout(17500);
+  const extendedShotHistoryText =
+    (await page.locator("#scene").getAttribute("data-director-shot-history")) || "";
+  const extendedShotHistory = extendedShotHistoryText.split(",").filter(Boolean);
+  console.log("DIRECTOR_EXTENDED_SHOT_HISTORY", extendedShotHistoryText);
+  expect(extendedShotHistory).toContain("OVERTAKE_ATTEMPT:SIDE");
+
+  const overtakeGap = Number(
+    await page.locator("#scene").getAttribute("data-director-overtake-gap")
+  );
+  const overtakeClosingSpeed = Number(
+    await page.locator("#scene").getAttribute("data-director-overtake-closing-speed")
+  );
+  expect(overtakeGap).toBeGreaterThanOrEqual(0.65);
+  expect(overtakeGap).toBeLessThanOrEqual(4.8);
+  expect(overtakeClosingSpeed).toBeGreaterThanOrEqual(0.35);
+
   await page.locator("#scene").screenshot({
     path: `${outDir}/motion-first-phase-f-auto-director.png`
   });
