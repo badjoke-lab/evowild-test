@@ -2,11 +2,12 @@ import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 import crypto from "node:crypto";
 
-test("render S v19 v20 comparison", async ({ page }, testInfo) => {
+test("render S v20 v22 comparison", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(120000);
-  const outDir = "test-results/shape-v20-browser";
+  const outDir = "test-results/shape-v22-browser";
   fs.mkdirSync(outDir, { recursive: true });
+
   const errors = [];
   page.on("pageerror", (err) => errors.push(err.stack || String(err)));
   page.on("console", (msg) => { if (msg.type() === "error") errors.push(msg.text()); });
@@ -20,6 +21,7 @@ test("render S v19 v20 comparison", async ({ page }, testInfo) => {
     await expect(scene).toBeVisible();
     await expect(scene).toHaveAttribute("data-s-asset-ready", "1", { timeout: 30000 });
     await expect(scene).toHaveAttribute("data-s-asset", expectedAsset);
+
     const result = {};
     for (const view of ["LOW", "FRONT", "CHASE", "SIDE"]) {
       await page.getByRole("button", { name: view, exact: true }).click({ force: true });
@@ -32,13 +34,14 @@ test("render S v19 v20 comparison", async ({ page }, testInfo) => {
     return result;
   }
 
-  const v19 = await capture("v19", "hunyuan-s-lod2-shape-v19", "shape-v19");
   const v20 = await capture("v20", "hunyuan-s-lod2-shape-v20", "shape-v20");
+  const v22 = await capture("v22", "hunyuan-s-lod2-shape-v22", "shape-v22");
 
-  expect(v20.LOW).not.toBe(v19.LOW);
-  expect(v20.FRONT).not.toBe(v19.FRONT);
-  expect(v20.CHASE).not.toBe(v19.CHASE);
-  expect(v20.SIDE).not.toBe(v19.SIDE);
+  expect(v22.LOW).not.toBe(v20.LOW);
+  expect(v22.FRONT).not.toBe(v20.FRONT);
+  expect(v22.CHASE).not.toBe(v20.CHASE);
+  expect(v22.SIDE).not.toBe(v20.SIDE);
   expect(errors, errors.join("\n")).toEqual([]);
-  console.log("SHAPE_V20_BROWSER", JSON.stringify({ v19, v20 }));
+
+  console.log("SHAPE_V22_BROWSER", JSON.stringify({ v20, v22 }));
 });
