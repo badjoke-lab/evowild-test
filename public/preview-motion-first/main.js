@@ -4713,9 +4713,12 @@ function updateCamera(dt) {
     if (autoLowShot) {
       const lowSide = focusPos.x <= 0 ? -1 : 1;
       desiredCamera.set(
-        focusPos.x + lowSide * 2.6,
-        0.88,
-        focusPos.z + 4.8
+        // Stay between lane centers instead of sitting almost exactly one
+        // 2.55 m lane away from the focus, which can put another runner
+        // directly on top of the camera during a dense launch.
+        focusPos.x + lowSide * 1.2,
+        0.92,
+        focusPos.z + 6.2
       );
       desiredLook.set(
         focusPos.x,
