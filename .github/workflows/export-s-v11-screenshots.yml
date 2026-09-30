@@ -1,0 +1,28 @@
+name: Export S v11 screenshots
+
+on:
+  push:
+    branches:
+      - feat/s-creature-model
+    paths:
+      - .github/workflows/export-s-v11-screenshots.yml
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/s-creature-model
+      - uses: actions/upload-artifact@v4
+        with:
+          name: S-blockout-v11-screenshots
+          path: |
+            art/s-creature/output/review/v11/S_blockout_front.png
+            art/s-creature/output/review/v11/S_blockout_side.png
+            art/s-creature/output/review/v11/S_blockout_front34.png
+            art/s-creature/output/review/v11/S_blockout_rear34.png
+          if-no-files-found: error
