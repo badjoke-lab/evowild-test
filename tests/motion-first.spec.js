@@ -964,6 +964,8 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
     "FINAL_CHASE",
     { timeout: 5000 }
   );
+  let finishFocusId = await finishPage.locator("#scene").getAttribute("data-director-focus");
+  await expect(finishPage.locator("#runnerSelect")).toHaveValue(finishFocusId);
   await finishPage.locator("#scene").screenshot({
     path: `${outDir}/motion-first-finish-final-chase.png`
   });
@@ -973,6 +975,8 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
     "FINISH_SIDE",
     { timeout: 7000 }
   );
+  finishFocusId = await finishPage.locator("#scene").getAttribute("data-director-focus");
+  await expect(finishPage.locator("#runnerSelect")).toHaveValue(finishFocusId);
   await finishPage.locator("#scene").screenshot({
     path: `${outDir}/motion-first-finish-side.png`
   });
@@ -982,6 +986,12 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
     "FINISH_FRONT",
     { timeout: 6000 }
   );
+  await expect(finishPage.locator("#scene")).toHaveAttribute(
+    "data-finish-front-profile",
+    "leader-centered"
+  );
+  finishFocusId = await finishPage.locator("#scene").getAttribute("data-director-focus");
+  await expect(finishPage.locator("#runnerSelect")).toHaveValue(finishFocusId);
   await finishPage.locator("#scene").screenshot({
     path: `${outDir}/motion-first-finish-front.png`
   });
