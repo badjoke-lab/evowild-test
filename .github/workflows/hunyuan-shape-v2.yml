@@ -32,7 +32,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install
+      - name: Install Node dependencies with retry
+        run: |
+          for attempt in 1 2 3; do
+            npm install && exit 0
+            echo "npm install failed on attempt $attempt"
+            sleep 10
+          done
+          exit 1
       - run: npx playwright install --with-deps chromium
       - name: Render browser comparison
         run: npm run test:e2e -- --workers=1 -g "render S v22 v24 comparison"
