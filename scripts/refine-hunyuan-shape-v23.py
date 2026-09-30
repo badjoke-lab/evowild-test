@@ -285,7 +285,7 @@ def main():
 
     fore_foot = foot & (v[:, 2] > 0.08)
     hind_foot = foot & (v[:, 2] < -0.08)
-    v[fore_foot, 2] = fore_center_z + (v[fore_foot, 2] - fore_center_z) * 0.78
+    v[fore_foot, 2] = 0.33 + (v[fore_foot, 2] - 0.33) * 0.78
     hind_foot_center_z = -0.345
     v[hind_foot, 2] = hind_foot_center_z + (v[hind_foot, 2] - hind_foot_center_z) * 0.56
 
