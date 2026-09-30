@@ -2,20 +2,17 @@ import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 import crypto from "node:crypto";
 
-test("render S v22 v24 comparison", async ({ page }, testInfo) => {
+test("render S v22 v25 comparison", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chromium");
   test.setTimeout(120000);
-  const outDir = "test-results/shape-v24-browser";
+  const outDir = "test-results/shape-v25-browser";
   fs.mkdirSync(outDir, { recursive: true });
   const errors = [];
   page.on("pageerror", (err) => errors.push(err.stack || String(err)));
   page.on("console", (msg) => { if (msg.type() === "error") errors.push(msg.text()); });
 
   async function capture(shape, expectedAsset, prefix) {
-    await page.goto(
-      `/evowild-test/preview-motion-first/index.html?inspect=1&morph=S&shape=${shape}`,
-      { waitUntil: "networkidle" }
-    );
+    await page.goto(`/evowild-test/preview-motion-first/index.html?inspect=1&morph=S&shape=${shape}`, { waitUntil: "networkidle" });
     const scene = page.locator("#scene");
     await expect(scene).toBeVisible();
     await expect(scene).toHaveAttribute("data-s-asset-ready", "1", { timeout: 30000 });
@@ -33,12 +30,11 @@ test("render S v22 v24 comparison", async ({ page }, testInfo) => {
   }
 
   const v22 = await capture("v22", "hunyuan-s-lod2-shape-v22", "shape-v22");
-  const v24 = await capture("v24", "hunyuan-s-lod2-shape-v24", "shape-v24");
+  const v25 = await capture("v25", "hunyuan-s-lod2-shape-v25", "shape-v25");
 
-  expect(v24.LOW).not.toBe(v22.LOW);
-  expect(v24.CHASE).not.toBe(v22.CHASE);
-  expect(v24.SIDE).not.toBe(v22.SIDE);
+  expect(v25.LOW).not.toBe(v22.LOW);
+  expect(v25.CHASE).not.toBe(v22.CHASE);
+  expect(v25.SIDE).not.toBe(v22.SIDE);
   expect(errors, errors.join("\n")).toEqual([]);
-
-  console.log("SHAPE_V24_BROWSER", JSON.stringify({ v22, v24 }));
+  console.log("SHAPE_V25_BROWSER", JSON.stringify({ v22, v25 }));
 });
