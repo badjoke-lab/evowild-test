@@ -4718,7 +4718,7 @@ function updateCamera(dt) {
         // nearby rivals in frame during the compressed launch pack.
         focusPos.x + lowSide * 1.8,
         1.02,
-        focusPos.z + 9.0
+        focusPos.z + 10.5
       );
       desiredLook.set(
         focusPos.x,
