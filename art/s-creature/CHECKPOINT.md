@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-blockout-v10 rejected by scope validation; v11 explicit-local fairing next
+current_stage: S-blockout-v11 explicit-local thorax correction saved, review pending
 branch: feat/s-creature-model
-current_model_file: output/S-blockout-v10.blend
+current_model_file: output/S-blockout-v11.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -27,7 +27,9 @@ done:
 
 - Applied v10 broader shallow lift plus weighted Y/Z fairing from v7 clean baseline; v8/v9 fold geometry not inherited. X/topology/count/neck width/root protections fixed.
 
-next_action: Build v11 from v7 using explicit per-vertex Y/Z updates only inside the protected anterior-thorax active set; no Blender smoothing modifier. Preserve every non-active vertex byte-for-byte in position, plus X, topology, vertex count, neck width, forelimb roots, scapular outer ridges, and all other regions.
+- Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
+
+next_action: Inspect v11 front/front34/side against reference 01. Confirm the sternum lobe is reduced without a smile-fold, and verify the unchanged neck/root silhouettes.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -114,3 +116,10 @@ review_renders_v10:
 thorax_v10_decision: REVISE
 thorax_v10_reason: visual continuity improved, but validation shows 186089 of 186133 vertices changed after the LaplacianSmooth modifier, violating the hard scope lock that all non-target regions remain fixed. v10 is invalid regardless of appearance.
 thorax_v11_base: use S-blockout-v7.blend. Reimplement fairing manually on the explicit active vertex set; do not use a Blender smoothing modifier.
+
+review_status_v11: v11 review rendered / not accepted
+review_renders_v11:
+- output/review/v11/S_blockout_front.png
+- output/review/v11/S_blockout_side.png
+- output/review/v11/S_blockout_front34.png
+- output/review/v11/S_blockout_rear34.png
