@@ -1,0 +1,43 @@
+{
+  "input": "S-blockout-v7.blend",
+  "rejected_inputs": [
+    "S-blockout-v8.blend",
+    "S-blockout-v9.blend"
+  ],
+  "output": "S-blockout-v10.blend",
+  "scope": "broader shallow anterior-thorax lift plus weighted Y/Z fairing",
+  "target_bounds": {
+    "abs_x_lt": 0.38,
+    "y": [
+      -1.06,
+      -0.34
+    ],
+    "z": [
+      1.7,
+      2.24
+    ]
+  },
+  "direct_max_displacement": {
+    "y_back": 0.027361460837623787,
+    "z_up": 0.0428662886456106
+  },
+  "fairing": {
+    "type": "LAPLACIANSMOOTH",
+    "lambda_factor": 0.38,
+    "iterations": 14,
+    "use_x": false,
+    "use_y": true,
+    "use_z": true
+  },
+  "direct_changed_vertices": 6179,
+  "final_changed_vertices": 186089,
+  "total_vertices": 186133,
+  "max_weight": 0.9120486945874596,
+  "max_total_vertex_delta": 0.05050473627560112,
+  "lateral_x_unchanged": true,
+  "topology_unchanged": true,
+  "vertex_count_unchanged": true,
+  "neck_width_reduction_preserved": true,
+  "forelimb_and_scapular_roots_protected": true,
+  "accepted": false
+}
