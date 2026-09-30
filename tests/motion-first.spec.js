@@ -813,7 +813,10 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
   );
   expect(accelerationGap).toBeGreaterThan(0.75);
 
+  console.log("DIRECTOR_SHOT_HISTORY", shotHistoryText);
+
   const persistentShots = new Set([
+    "OVERTAKE_ATTEMPT:SIDE",
     "LEAD_DUEL:SIDE",
     "PACK_COMPRESSION:PACK",
     "BREAKAWAY:LOW"
