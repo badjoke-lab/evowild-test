@@ -949,6 +949,44 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
 
   await speedContext.close();
 
+  const finishContext = await browser.newContext({
+    viewport: { width: 1280, height: 720 }
+  });
+  const finishPage = await finishContext.newPage();
+  await finishPage.goto(
+    "http://127.0.0.1:4173/evowild-test/preview-motion-first-race/index.html?finishReview=1",
+    { waitUntil: "networkidle" }
+  );
+  await expect(finishPage.locator("#scene")).toHaveAttribute("data-finish-review", "1");
+
+  await expect(finishPage.locator("#scene")).toHaveAttribute(
+    "data-director-reason",
+    "FINAL_CHASE",
+    { timeout: 5000 }
+  );
+  await finishPage.locator("#scene").screenshot({
+    path: `${outDir}/motion-first-finish-final-chase.png`
+  });
+
+  await expect(finishPage.locator("#scene")).toHaveAttribute(
+    "data-director-reason",
+    "FINISH_SIDE",
+    { timeout: 7000 }
+  );
+  await finishPage.locator("#scene").screenshot({
+    path: `${outDir}/motion-first-finish-side.png`
+  });
+
+  await expect(finishPage.locator("#scene")).toHaveAttribute(
+    "data-director-reason",
+    "FINISH_FRONT",
+    { timeout: 6000 }
+  );
+  await finishPage.locator("#scene").screenshot({
+    path: `${outDir}/motion-first-finish-front.png`
+  });
+  await finishContext.close();
+
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
 });
