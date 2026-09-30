@@ -27,6 +27,8 @@ const params = new URLSearchParams(window.location.search);
 const INSPECT_MODE = params.get("inspect") === "1";
 const SIMPLIFIED_GAIT_PAGE = window.location.pathname.includes("/preview-motion-first-gait/");
 const SIMPLIFIED_RACE_PAGE = window.location.pathname.includes("/preview-motion-first-race/");
+const FINISH_REVIEW_MODE =
+  SIMPLIFIED_RACE_PAGE && params.get("finishReview") === "1";
 const SIMPLIFIED_LANE = SIMPLIFIED_GAIT_PAGE || SIMPLIFIED_RACE_PAGE;
 const MOTION_REVIEW_MODE = params.get("motion") === "1" || SIMPLIFIED_GAIT_PAGE;
 const REVIEW_MORPH = (params.get("morph") || "S").toUpperCase();
@@ -3304,7 +3306,7 @@ function createRunners() {
 }
 
 function resetRace() {
-  raceTime = 0;
+  raceTime = FINISH_REVIEW_MODE ? 5.0 : 0;
   simulationAccumulator = 0;
   finished = false;
   paused = false;
@@ -3326,6 +3328,7 @@ function resetRace() {
   canvas.dataset.directorShotHistory = "";
   canvas.dataset.directorCutCount = "0";
   canvas.dataset.directorReason = "START";
+  canvas.dataset.finishReview = FINISH_REVIEW_MODE ? "1" : "0";
   previousAppliedCamera = "PACK";
   pauseButton.textContent = "PAUSE";
   raceStateEl.textContent = "RUNNING";
@@ -3335,7 +3338,10 @@ function resetRace() {
     runner.lane = i % LANE_COUNT;
     runner.targetLane = runner.lane;
     runner.laneX = laneToX(runner.lane);
-    runner.distance = -row * 3.2 - seeded(i, 4) * 1.5;
+    runner.distance =
+      -row * 3.2 -
+      seeded(i, 4) * 1.5 +
+      (FINISH_REVIEW_MODE ? RACE_DISTANCE - 215 : 0);
     runner.speed = 0;
     runner.targetSpeed = 0;
     runner.nextLaneDecision = 190 + seeded(i, 11) * 210;
