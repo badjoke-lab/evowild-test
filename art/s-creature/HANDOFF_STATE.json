@@ -10,11 +10,11 @@
     "A"
   ],
   "stage": "S-rebuild-gate-A-v3",
-  "current_stage": "S-rebuild-v2 reviewed REVISE; Gate A silhouette correction v3 next",
+  "current_stage": "S-rebuild-v3 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED",
   "branch": "feat/s-creature-model",
-  "base_checkpoint_commit": "d43db097d9263eb45feda275ae74430589d67808",
-  "current_model_file": "output/S-rebuild-v2.blend",
-  "source_model_file": "output/S-rebuild-v1.blend",
+  "base_checkpoint_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
+  "current_model_file": "output/S-rebuild-v3.blend",
+  "source_model_file": "output/S-rebuild-v2.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
     "S_MORPHOLOGY_RESET_PLAN.md",
@@ -42,34 +42,51 @@
     "Torso length -10%, anterior thorax depth increased, ventral waist raised, light pelvis elevated",
     "Compact fore elbow and long light distal segment; stronger hind thigh, forward knee and rearward hock",
     "Tail length -15%, continuous taper and restrained terminal lamina",
-    "Saved S-rebuild-v2.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
+    "Saved S-rebuild-v2.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A",
+    "Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained",
+    "Effective neck shortened with lower forward carriage and stronger base flare into withers and chest",
+    "Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated",
+    "Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles",
+    "Tail and all toe geometry unchanged from v2",
+    "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Create output/S-rebuild-v3.blend from v2. Fix crest front/back horn read first, then neck taper/angle, compact shoulder-thorax mass, and distinct fore/hind joint rhythm. Render five views and stop.",
+  "next_action": "Review v3 Gate A only; await user decision. Do not proceed to Gate B.",
   "quality_issues": [
-    "FRONT/BACK crest still reads as paired upright horns/arch",
-    "Neck remains too pipe-like and upright",
-    "Shoulder/thorax mass still too weak versus locked modeling image",
-    "Fore/hind limb silhouette remains too rod-like and insufficiently differentiated"
+    "Gate A v3 silhouette acceptance pending user review",
+    "Low-complexity faceted plates and overlapping limb/toe roots remain",
+    "Whole silhouette similarity and shoulder/neck proportions require review"
   ],
   "blockers": [],
   "accepted": false,
   "resume_inputs": [
     "S_MODELING_IMAGE_LOCK.md",
     "S_MORPHOLOGY_RESET_PLAN.md",
-    "S_REBUILD_V2_TASK.md",
-    "output/S-rebuild-v2.blend"
+    "S_REBUILD_V3_TASK.md",
+    "output/S-rebuild-v3.blend"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "REVISE",
-  "modeling_status": "READY_FOR_V3",
+  "gate_a_status": "REVIEW_PENDING",
+  "modeling_status": "STOPPED",
   "cage_vertex_count": 760,
   "review_renders": [
-    "output/review/rebuild-v2/S_rebuild_side.png",
-    "output/review/rebuild-v2/S_rebuild_front.png",
-    "output/review/rebuild-v2/S_rebuild_front34.png",
-    "output/review/rebuild-v2/S_rebuild_rear34.png",
-    "output/review/rebuild-v2/S_rebuild_back.png"
+    "output/review/rebuild-v3/S_rebuild_side.png",
+    "output/review/rebuild-v3/S_rebuild_front.png",
+    "output/review/rebuild-v3/S_rebuild_front34.png",
+    "output/review/rebuild-v3/S_rebuild_rear34.png",
+    "output/review/rebuild-v3/S_rebuild_back.png"
   ],
-  "geometry_sha256": "3ce2210a16642f0ac32d8356c3b926c5e3cc6f9cd74e1f4bf17e8bb89548381a",
-  "geometry_unchanged_during_render": true
+  "geometry_sha256": "d37619ae5d18eeadb110407fa2903c9bcecd592363731ae6ac01d812d5d00f57",
+  "geometry_unchanged_during_render": true,
+  "measurements": {
+    "neck_length_before": 0.7270744459819778,
+    "neck_length_after": 0.673941577586663,
+    "neck_shortening_percent": 7.307761768955345,
+    "crest_vertical_envelope_before": 0.33400022983551025,
+    "crest_vertical_envelope_after": 0.18900012969970703,
+    "crest_envelope_reduction_percent": 43.41317375955502,
+    "crest_max_z": 1.3920000791549683,
+    "crest_max_z_v2": 1.5930001735687256,
+    "tail_unchanged": true,
+    "toes_unchanged": true
+  }
 }

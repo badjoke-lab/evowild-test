@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-rebuild-v2 Gate A reviewed REVISE; silhouette correction v3 required
+current_stage: S-rebuild-v3 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED
 branch: feat/s-creature-model
-current_model_file: output/S-rebuild-v2.blend
+current_model_file: output/S-rebuild-v3.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Build S-rebuild-v3 from S-rebuild-v2. Correct crest front/back read first, then neck taper/angle, shoulder-thorax massing, and limb joint silhouette. Keep Gate A only; no detail.
+next_action: Review v3 Gate A only; await user decision. Do not proceed to Gate B.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -38,7 +38,7 @@ quality_issues:
 
 blockers: none
 
-review_status: S-rebuild-v2 Gate A review pending / not accepted
+review_status: S-rebuild-v3 Gate A review pending / not accepted
 review_renders_v3_recovery:
 - output/review/v3-recovery/S_blockout_front.png
 - output/review/v3-recovery/S_blockout_side.png
@@ -133,23 +133,23 @@ global_reset_priority: head/crest silhouette -> neck/head proportion -> thorax/s
 
 modeling_image_lock: S_MODELING_IMAGE_LOCK.md
 reset_plan: S_MORPHOLOGY_RESET_PLAN.md
-gate_a_output: output/S-rebuild-v2.blend
+gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
-gate_a_status: REVISE
-modeling_status: READY_FOR_V3
-gate_a_source: output/S-rebuild-v1.blend; no v12 geometry used
+gate_a_status: REVIEW_PENDING
+modeling_status: STOPPED
+gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
-gate_a_done: Six lower overlapping skull-rooted rear-swept plates; broader posterior cranium, muzzle retained; Shorter lower head/neck carriage; neck base width and depth increased ~18%; Torso length -10%, anterior thorax depth increased, ventral waist raised, light pelvis elevated; Compact fore elbow and long light distal segment; stronger hind thigh, forward knee and rearward hock; Tail length -15%, continuous taper and restrained terminal lamina
+gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
 gate_a_render_geometry_unchanged: true
 gate_a_scope: S only; no eyes, Cue Band, materials/textures/color design, animation or final retopology
 gate_a_limitation: low-complexity cage with overlapping limb/toe roots; no production welding or surface refinement
 gate_a_renders:
-- output/review/rebuild-v2/S_rebuild_side.png
-- output/review/rebuild-v2/S_rebuild_front.png
-- output/review/rebuild-v2/S_rebuild_front34.png
-- output/review/rebuild-v2/S_rebuild_rear34.png
-- output/review/rebuild-v2/S_rebuild_back.png
+- output/review/rebuild-v3/S_rebuild_side.png
+- output/review/rebuild-v3/S_rebuild_front.png
+- output/review/rebuild-v3/S_rebuild_front34.png
+- output/review/rebuild-v3/S_rebuild_rear34.png
+- output/review/rebuild-v3/S_rebuild_back.png
 
 gate_a_v1_decision: REVISE
 gate_a_v1_reason: The fresh rebuild removes the v12 single central horn and is a better starting direction, but the Gate A silhouette still misses the approved modeling image. Side view is too long-necked and tube-like, torso is too long/flat and under-massed at the shoulder, limbs still read as rods, and the crest becomes two tall horn-like prongs from front/back instead of backward-swept layered cranial plates.
@@ -167,3 +167,10 @@ gate_a_v2_decision: REVISE
 gate_a_v2_reason: v2 improves side sweep and shortens the overall body/tail, but FRONT/BACK still read as a paired upright horn/arch; neck remains too pipe-like; shoulder/thorax still lacks the locked athletic massing; fore/hind limbs remain too rod-like and insufficiently differentiated. Global silhouette is not yet close enough to the approved modeling image.
 gate_a_v2_keep: shorter tail; more rearward crest in SIDE; more compact torso; fresh rebuild basis; S-only scope.
 gate_a_v3_priority: eliminate upright horn read in FRONT/BACK -> taper/angle neck into shoulder -> stronger compact thorax/shoulder mass -> distinct fore/hind joint rhythm -> verify tail and pelvis balance.
+
+gate_a_v3_task: S_REBUILD_V3_TASK.md
+gate_a_v3_base_remote_commit: 70bf73b78e2a35bf642741d278e914707155edf1
+gate_a_v3_geometry_sha256: d37619ae5d18eeadb110407fa2903c9bcecd592363731ae6ac01d812d5d00f57
+gate_a_v3_done: Saved v3 from v2; low outward/rearward crest fan, shorter flared neck, stronger compact withers/thorax, distinct fore/hind joint rhythm. Tail and toes unchanged. 760 vertices and topology retained; exactly five views rendered with geometry unchanged.
+gate_a_v3_acceptance: REVIEW_PENDING; no PASS claimed
+gate_a_v3_limitations: Low-complexity faceted plates and overlapping limb/toe roots remain; whole silhouette similarity and shoulder/neck proportions need user review. No further modeling authorized.

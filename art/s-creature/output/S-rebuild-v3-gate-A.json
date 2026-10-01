@@ -1,0 +1,46 @@
+{
+  "gate": "A",
+  "status": "REVIEW_PENDING",
+  "source": "S-rebuild-v2.blend",
+  "base_remote_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
+  "v12_geometry_used": false,
+  "total_cage_vertices": 760,
+  "topology_preserved": true,
+  "source_geometry_sha256": "3ce2210a16642f0ac32d8356c3b926c5e3cc6f9cd74e1f4bf17e8bb89548381a",
+  "geometry_sha256": "d37619ae5d18eeadb110407fa2903c9bcecd592363731ae6ac01d812d5d00f57",
+  "no_materials": true,
+  "no_animation": true,
+  "no_armature": true,
+  "final_retopology": false,
+  "changes": [
+    "Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained",
+    "Effective neck shortened with lower forward carriage and stronger base flare into withers and chest",
+    "Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated",
+    "Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles",
+    "Tail and all toe geometry unchanged from v2"
+  ],
+  "measurements": {
+    "neck_length_before": 0.7270744459819778,
+    "neck_length_after": 0.673941577586663,
+    "neck_shortening_percent": 7.307761768955345,
+    "crest_vertical_envelope_before": 0.33400022983551025,
+    "crest_vertical_envelope_after": 0.18900012969970703,
+    "crest_envelope_reduction_percent": 43.41317375955502,
+    "crest_max_z": 1.3920000791549683,
+    "crest_max_z_v2": 1.5930001735687256,
+    "tail_unchanged": true,
+    "toes_unchanged": true
+  },
+  "limitations": [
+    "Gate A silhouette cage only; user acceptance pending",
+    "Faceted low-complexity plates and overlapping limb/toe roots remain; no welding or anatomical refinement"
+  ],
+  "rendered_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "geometry_unchanged_during_render": true
+}
