@@ -9,8 +9,8 @@
     "E",
     "A"
   ],
-  "stage": "S-rebuild-gate-A",
-  "current_stage": "S-rebuild-v1 Gate A cage and five renders saved; review pending; modeling stopped",
+  "stage": "S-rebuild-gate-A-v2",
+  "current_stage": "S-rebuild-v1 reviewed REVISE; Gate A silhouette correction v2 next",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
   "current_model_file": "output/S-rebuild-v1.blend",
@@ -38,10 +38,13 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Gate A review only. Await review decision and explicit next edit before any further modeling.",
+  "next_action": "Create output/S-rebuild-v2.blend from v1. Correct only global silhouette: crest/head, neck proportion, compact thorax/waist/pelvis, fore/hind joint rhythm, and tail. No detail, Cue Band, materials, animation or final topology.",
   "quality_issues": [
-    "Gate A global silhouette has not been accepted",
-    "Low-complexity cage; limb/toe root welding and anatomical surface refinement deliberately deferred"
+    "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
+    "Neck is too long, thin and tube-like",
+    "Torso is too long/flat and shoulder mass too weak",
+    "Forelimb and hindlimb still read as low-complexity rods with insufficient joint rhythm",
+    "Tail is too long/blunt for the locked aerodynamic silhouette"
   ],
   "blockers": [],
   "accepted": false,
@@ -50,7 +53,8 @@
     "S_MORPHOLOGY_RESET_PLAN.md",
     "references/00_full_reference.png",
     "references/01_s_body_primary.png",
-    "references/02_s_silhouette.png"
+    "references/02_s_silhouette.png",
+    "output/S-rebuild-v1.blend"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "REVIEW_PENDING",
