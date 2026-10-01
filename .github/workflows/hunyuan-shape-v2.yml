@@ -1,4 +1,4 @@
-name: Hunyuan S shape refine v26
+name: Hunyuan S shape refine v27
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   shape:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[targeted-shape-v26]')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[targeted-shape-v27]')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -23,11 +23,10 @@ jobs:
           python-version: "3.12"
       - name: Install geometry tools
         run: pip install numpy trimesh scipy networkx
-      - name: Generate v22 and v26 candidates
+      - name: Generate conservative v27
         run: |
-          python scripts/refine-hunyuan-shape-v22.py --             public/models/evowild-s/source-lod2.glb             public/models/evowild-s/source-lod2-shape-v22.glb             public/models/evowild-s/source-lod2-shape-v22.json
-          python scripts/refine-hunyuan-shape-v26.py --             public/models/evowild-s/source-lod2.glb             public/models/evowild-s/source-lod2-shape-v26.glb             public/models/evowild-s/source-lod2-shape-v26.json
-          cat public/models/evowild-s/source-lod2-shape-v26.json
+          python scripts/refine-hunyuan-shape-v27.py --             public/models/evowild-s/source-lod2.glb             public/models/evowild-s/source-lod2-shape-v27.glb             public/models/evowild-s/source-lod2-shape-v27.json
+          cat public/models/evowild-s/source-lod2-shape-v27.json
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -40,21 +39,20 @@ jobs:
           exit 1
       - run: npx playwright install --with-deps chromium
       - name: Render browser comparison
-        run: npm run test:e2e -- --workers=1 -g "render S v22 v26 comparison"
+        run: npm run test:e2e -- --workers=1 -g "render S baseline v27 conservative comparison"
       - name: Persist candidate
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add             public/models/evowild-s/source-lod2-shape-v22.glb             public/models/evowild-s/source-lod2-shape-v22.json             public/models/evowild-s/source-lod2-shape-v26.glb             public/models/evowild-s/source-lod2-shape-v26.json
+          git add             public/models/evowild-s/source-lod2-shape-v27.glb             public/models/evowild-s/source-lod2-shape-v27.json
           if ! git diff --cached --quiet; then
-            git commit -m "model: persist S shape-v26 candidate [skip ci]"
+            git commit -m "model: persist S shape-v27 candidate [skip ci]"
             git pull --rebase origin "${GITHUB_REF_NAME}"
             git push origin HEAD:"${GITHUB_REF_NAME}"
           fi
       - uses: actions/upload-artifact@v4
         with:
-          name: s-shape-v26-review
+          name: s-shape-v27-review
           path: |
-            test-results/shape-v26-browser/*.png
-            public/models/evowild-s/source-lod2-shape-v22.json
-            public/models/evowild-s/source-lod2-shape-v26.json
+            test-results/shape-v27-browser/*.png
+            public/models/evowild-s/source-lod2-shape-v27.json
