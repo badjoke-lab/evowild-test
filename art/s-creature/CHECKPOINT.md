@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe lane Gate A1 rendered; REVIEW_PENDING / STOPPED
+current_stage: experimental Vibe Gate A1-v2 rendered from original rebuild-v1; REVIEW_PENDING / STOPPED
 branch: feat/s-creature-model
-current_model_file: output/S-vibe-a1.blend
+current_model_file: output/S-vibe-a1-v2.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review experimental A1 head/crest/neck against approved S reference and compare with existing main lane. Do not start A2.
+next_action: Compare A1-v2 SIDE/FRONT/FRONT34/BACK against repository references and failed A1. Do not start A2.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -174,3 +174,12 @@ vibe_gate_a1_decision: REJECT
 vibe_gate_a1_reason: Side/front34 crest became broad horizontal slabs; FRONT still contains horn-like prongs and neck is too broad/flat. Do not continue from S-vibe-a1.blend.
 vibe_gate_a1_v2_source: output/S-rebuild-v1.blend
 vibe_gate_a1_v2_lock: S_VIBE_A1_REFERENCE_ANALYSIS.md
+
+vibe_gate_a1_v2_status: REVIEW_PENDING
+vibe_gate_a1_v2_source: output/S-rebuild-v1.blend
+vibe_gate_a1_v2_fixed_geometry_unchanged: true
+vibe_gate_a1_v2_renders:
+- output/review/vibe-a1-v2/S_vibe_a1_v2_side.png
+- output/review/vibe-a1-v2/S_vibe_a1_v2_front.png
+- output/review/vibe-a1-v2/S_vibe_a1_v2_front34.png
+- output/review/vibe-a1-v2/S_vibe_a1_v2_back.png
