@@ -2643,6 +2643,339 @@ function seeded(i, salt = 1) {
   return x - Math.floor(x);
 }
 
+
+const AGENT_SCHEMA_VERSION = 1;
+const AGENT_EVENT_LOG_LIMIT = 72;
+const agentEventLog = [];
+
+const AGENT_PRESETS = {
+  S: {
+    name: "FRONT PRESS",
+    start_style: "PUSH",
+    base_pace: "AGGRESSIVE",
+    lane_preference: "NATURAL",
+    sprint_at: 430
+  },
+  P: {
+    name: "POWER PRESS",
+    start_style: "PUSH",
+    base_pace: "STANDARD",
+    lane_preference: "INSIDE",
+    sprint_at: 360
+  },
+  E: {
+    name: "LATE CONSERVE",
+    start_style: "HOLD",
+    base_pace: "CONSERVE",
+    lane_preference: "NATURAL",
+    sprint_at: 300
+  },
+  A: {
+    name: "ADAPT OUTSIDE",
+    start_style: "STANDARD",
+    base_pace: "STANDARD",
+    lane_preference: "OUTSIDE",
+    sprint_at: 380
+  }
+};
+
+function createRaceAgentFile(morph, runnerId) {
+  const preset = AGENT_PRESETS[morph];
+  return {
+    agent_version: AGENT_SCHEMA_VERSION,
+    preset: preset.name,
+    start_style: preset.start_style,
+    base_pace: preset.base_pace,
+    lane_preference: preset.lane_preference,
+    compatibility: 0.55 + seeded(runnerId, 181) * 0.45,
+    rules: [
+      {
+        when: { remaining_distance_lte: preset.sprint_at },
+        action: { pace: "ATTACK" }
+      }
+    ]
+  };
+}
+
+function agentStaminaFactor(runner) {
+  const morphFactor =
+    runner.morph === "E" ? 1.22 :
+      runner.morph === "A" ? 1.04 :
+        runner.morph === "S" ? 0.96 : 0.91;
+  return morphFactor * runner.staminaBias;
+}
+
+function observeRaceForAgent(runner) {
+  const order = rankings();
+  const rankIndex = order.findIndex((entry) => entry.id === runner.id);
+  const ahead = order
+    .slice(0, Math.max(rankIndex, 0))
+    .filter((entry) => entry.distance > runner.distance)
+    .sort((a, b) => a.distance - b.distance)
+    .find(
+      (entry) =>
+        entry.distance - runner.distance <= 5.2 &&
+        Math.abs(entry.laneX - runner.laneX) <= LANE_WIDTH * 0.72
+    );
+
+  return {
+    rank: rankIndex + 1,
+    remainingDistance: Math.max(0, RACE_DISTANCE - runner.distance),
+    fatigue: runner.fatigue,
+    speedRatio: runner.speed / Math.max(runner.cfg.baseSpeed, 1),
+    congestion: Boolean(ahead),
+    blockedBy: ahead?.id ?? null
+  };
+}
+
+function chooseNaturalAgentLane(runner) {
+  const candidates = [runner.lane - 1, runner.lane + 1].filter(
+    (lane) => lane >= 0 && lane < LANE_COUNT
+  );
+  if (!candidates.length) return runner.lane;
+
+  const scoreLane = (lane) => {
+    const x = laneToX(lane);
+    let clearance = 999;
+    runners.forEach((other) => {
+      if (other.id === runner.id) return;
+      if (Math.abs(other.laneX - x) > LANE_WIDTH * 0.62) return;
+      clearance = Math.min(clearance, Math.abs(other.distance - runner.distance));
+    });
+    return clearance;
+  };
+
+  return candidates.sort((a, b) => scoreLane(b) - scoreLane(a))[0];
+}
+
+function decideRaceAgentCommand(runner, observation) {
+  if (
+    !SIMPLIFIED_RACE_PAGE ||
+    runner.finishTime !== null ||
+    raceTime < 4.8 ||
+    raceTime - runner.lastAgentDecisionAt < 0.45
+  ) {
+    return null;
+  }
+
+  runner.lastAgentDecisionAt = raceTime;
+
+  if (!runner.agentEarlyCommandIssued && raceTime >= 5.8) {
+    runner.agentEarlyCommandIssued = true;
+    if (runner.agentFile.start_style === "PUSH") {
+      return { type: "ATTACK", reason: "START_STYLE_PUSH" };
+    }
+    if (runner.agentFile.start_style === "HOLD") {
+      return { type: "HOLD", reason: "START_STYLE_HOLD" };
+    }
+    if (runner.agentFile.lane_preference === "OUTSIDE") {
+      return { type: "MOVE_OUTSIDE", reason: "POSITION_PREFERENCE" };
+    }
+  }
+
+  if (
+    observation.congestion &&
+    observation.remainingDistance > 240 &&
+    raceTime - runner.lastAgentMoveAt >= 7.0
+  ) {
+    const preference = runner.agentFile.lane_preference;
+    const type =
+      preference === "INSIDE"
+        ? "MOVE_INSIDE"
+        : preference === "OUTSIDE"
+          ? "MOVE_OUTSIDE"
+          : chooseNaturalAgentLane(runner) < runner.lane
+            ? "MOVE_INSIDE"
+            : "MOVE_OUTSIDE";
+    return { type, reason: "CONGESTION" };
+  }
+
+  if (
+    !runner.agentSprintCommandIssued &&
+    observation.remainingDistance <= runner.agentFile.rules[0].when.remaining_distance_lte
+  ) {
+    runner.agentSprintCommandIssued = true;
+    return { type: "ATTACK", reason: "SPRINT_RULE" };
+  }
+
+  if (!runner.agentFatigueCommandIssued && runner.fatigue >= 0.78) {
+    runner.agentFatigueCommandIssued = true;
+    return { type: "HOLD", reason: "HIGH_FATIGUE" };
+  }
+
+  return null;
+}
+
+function resolveAgentOutcome(runner, command, observation) {
+  const compatibility = runner.agentFile.compatibility;
+
+  if (command.type === "HOLD") {
+    const score =
+      (1 - runner.fatigue) * 0.42 +
+      compatibility * 0.33 +
+      agentStaminaFactor(runner) * 0.25;
+    return {
+      outcome: score >= 0.86 ? "EXCELLENT" : score >= 0.68 ? "SUCCESS" : "PARTIAL",
+      reason: score >= 0.68 ? "PACE_SETTLED" : "FATIGUE_RESPONSE_SLOW"
+    };
+  }
+
+  if (command.type === "ATTACK") {
+    const accelerationCapacity = THREE.MathUtils.clamp(runner.cfg.accel / 3.5, 0, 1);
+    const score =
+      accelerationCapacity * 0.43 +
+      (1 - runner.fatigue) * 0.37 +
+      compatibility * 0.20;
+
+    const outcome =
+      score >= 0.90 ? "EXCELLENT" :
+        score >= 0.78 ? "SUCCESS" :
+          score >= 0.64 ? "PARTIAL" :
+            score >= 0.52 ? "FAILED" : "BACKFIRE";
+
+    return {
+      outcome,
+      reason:
+        outcome === "PARTIAL" ? "FATIGUE_LIMITED" :
+          outcome === "FAILED" ? "RESPONSE_TOO_LOW" :
+            outcome === "BACKFIRE" ? "OVERREACHED" : "ACCELERATION_AVAILABLE"
+    };
+  }
+
+  const direction = command.type === "MOVE_INSIDE" ? -1 : 1;
+  const targetLane = runner.lane + direction;
+  if (targetLane < 0 || targetLane >= LANE_COUNT) {
+    return { outcome: "FAILED", reason: "NO_LANE", targetLane: runner.lane };
+  }
+
+  const targetX = laneToX(targetLane);
+  const blocked = runners.some(
+    (other) =>
+      other.id !== runner.id &&
+      Math.abs(other.laneX - targetX) <= LANE_WIDTH * 0.58 &&
+      Math.abs(other.distance - runner.distance) <= 4.3
+  );
+  if (blocked) {
+    return { outcome: "FAILED", reason: "LANE_BLOCKED", targetLane };
+  }
+
+  const agility =
+    runner.morph === "A" ? 0.96 :
+      runner.morph === "S" ? 0.80 :
+        runner.morph === "E" ? 0.69 : 0.57;
+  const score =
+    agility * 0.48 +
+    (1 - runner.fatigue) * 0.30 +
+    compatibility * 0.22;
+
+  const outcome =
+    score >= 0.88 ? "EXCELLENT" :
+      score >= 0.73 ? "SUCCESS" :
+        score >= 0.60 ? "PARTIAL" :
+          score >= 0.50 ? "FAILED" : "BACKFIRE";
+
+  return {
+    outcome,
+    reason:
+      outcome === "PARTIAL" ? "SLOW_LATERAL_RESPONSE" :
+        outcome === "FAILED" ? "AGILITY_LIMITED" :
+          outcome === "BACKFIRE" ? "BALANCE_LOST" : "LANE_OPEN",
+    targetLane
+  };
+}
+
+function recordAgentEvent(runner, command, resolution, observation) {
+  const event = {
+    time: Number(raceTime.toFixed(3)),
+    runner: runner.id,
+    rank: observation.rank,
+    fatigue: Number((runner.fatigue * 100).toFixed(1)),
+    command: command.type,
+    outcome: resolution.outcome,
+    reason: resolution.reason
+  };
+  agentEventLog.push(event);
+  if (agentEventLog.length > AGENT_EVENT_LOG_LIMIT) agentEventLog.shift();
+
+  runner.lastAgentEvent = event;
+  runner.agentPulseUntil = raceTime + 2.3;
+
+  canvas.dataset.agentSchemaVersion = String(AGENT_SCHEMA_VERSION);
+  canvas.dataset.agentEventCount = String(
+    Number(canvas.dataset.agentEventCount || "0") + 1
+  );
+  canvas.dataset.agentEventLog = JSON.stringify(agentEventLog);
+  if (!["EXCELLENT", "SUCCESS"].includes(resolution.outcome)) {
+    canvas.dataset.agentNonSuccessCount = String(
+      Number(canvas.dataset.agentNonSuccessCount || "0") + 1
+    );
+  }
+}
+
+function applyAgentResolution(runner, command, resolution) {
+  if (command.type === "ATTACK") {
+    const paceMultiplier = {
+      EXCELLENT: 1.055,
+      SUCCESS: 1.038,
+      PARTIAL: 1.018,
+      FAILED: 1.000,
+      BACKFIRE: 0.985
+    }[resolution.outcome];
+    const fatigueMultiplier = {
+      EXCELLENT: 1.22,
+      SUCCESS: 1.18,
+      PARTIAL: 1.14,
+      FAILED: 1.08,
+      BACKFIRE: 1.30
+    }[resolution.outcome];
+
+    runner.agentPaceMultiplier = paceMultiplier;
+    runner.agentFatigueMultiplier = fatigueMultiplier;
+    runner.agentEffectUntil = raceTime + 3.2;
+    return;
+  }
+
+  if (command.type === "HOLD") {
+    runner.agentPaceMultiplier =
+      resolution.outcome === "EXCELLENT" ? 0.970 :
+        resolution.outcome === "SUCCESS" ? 0.978 : 0.988;
+    runner.agentFatigueMultiplier =
+      resolution.outcome === "EXCELLENT" ? 0.66 :
+        resolution.outcome === "SUCCESS" ? 0.74 : 0.84;
+    runner.agentEffectUntil = raceTime + 4.0;
+    return;
+  }
+
+  if (
+    ["EXCELLENT", "SUCCESS", "PARTIAL"].includes(resolution.outcome) &&
+    Number.isInteger(resolution.targetLane)
+  ) {
+    runner.targetLane = resolution.targetLane;
+    runner.lane = resolution.targetLane;
+    runner.laneChangeStartedAt = raceTime;
+    runner.lastAgentMoveAt = raceTime;
+  } else if (command.type.startsWith("MOVE_")) {
+    runner.lastAgentMoveAt = raceTime;
+  }
+}
+
+function updateRaceAgent(runner) {
+  if (!SIMPLIFIED_RACE_PAGE || runner.finishTime !== null) return;
+
+  if (raceTime >= runner.agentEffectUntil) {
+    runner.agentPaceMultiplier = 1;
+    runner.agentFatigueMultiplier = 1;
+  }
+
+  const observation = observeRaceForAgent(runner);
+  const command = decideRaceAgentCommand(runner, observation);
+  if (!command) return;
+
+  const resolution = resolveAgentOutcome(runner, command, observation);
+  applyAgentResolution(runner, command, resolution);
+  recordAgentEvent(runner, command, resolution, observation);
+}
+
 function applySimplifiedRaceVariation(creature, morph, index) {
   const ud = creature.userData;
   const width = THREE.MathUtils.lerp(0.975, 1.025, seeded(index, 71));
