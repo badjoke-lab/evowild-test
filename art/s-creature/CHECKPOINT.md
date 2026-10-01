@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gate A1-v8 crest-only rendered; REVIEW_PENDING / STOPPED
+current_stage: experimental Vibe Gate A1-v9 reference-driven crest rendered; REVIEW_PENDING / STOPPED
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-a1-v8.blend
+current_model_file: output/S-vibe-a1-v9.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review A1-v8 crest in SIDE/FRONT/FRONT34/BACK. If crest passes, review complete A1 head/crest/neck; do not start A2 before explicit acceptance.
+next_action: Review A1-v9 against the multi-angle crest reference. If crest passes, review complete A1 head/crest/neck; do not start A2 before explicit acceptance.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -275,3 +275,12 @@ vibe_gate_a1_v8_renders:
 - output/review/vibe-a1-v8/S_vibe_a1_v8_front.png
 - output/review/vibe-a1-v8/S_vibe_a1_v8_front34.png
 - output/review/vibe-a1-v8/S_vibe_a1_v8_back.png
+
+vibe_gate_a1_v9_status: REVIEW_PENDING
+vibe_gate_a1_v9_scope: crest only / multi-angle reference reconstruction
+vibe_gate_a1_v9_noncrest_geometry_unchanged: true
+vibe_gate_a1_v9_renders:
+- output/review/vibe-a1-v9/S_vibe_a1_v9_side.png
+- output/review/vibe-a1-v9/S_vibe_a1_v9_front.png
+- output/review/vibe-a1-v9/S_vibe_a1_v9_front34.png
+- output/review/vibe-a1-v9/S_vibe_a1_v9_back.png
