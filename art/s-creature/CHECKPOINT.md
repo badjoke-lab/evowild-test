@@ -1,7 +1,7 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gate A1-v7 crest-only rendered; REVIEW_PENDING / STOPPED
-branch: feat/s-creature-model
+current_stage: experimental Vibe Gate A1-v7 reviewed REVISE; crest-only v8 twist/face-width correction required
+branch: exp/s-creature-vibe-modeling
 current_model_file: output/S-vibe-a1-v7.blend
 
 done:
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review A1-v7 crest against the approved S references. If crest passes, review the complete A1 head/crest/neck group; do not start A2 before explicit A1 acceptance.
+next_action: Build A1-v8 from output/S-vibe-a1-v7.blend. Edit CREST ONLY. Keep all core/head/neck/body/limb/foot/tail geometry fixed. Rotate the crest lamina broad faces so FRONT/BACK see layered plate width instead of edge-on horn needles; keep SIDE rear-upward layered fan. Render SIDE/FRONT/FRONT34/BACK and STOP.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -261,3 +261,8 @@ vibe_gate_a1_v7_renders:
 - output/review/vibe-a1-v7/S_vibe_a1_v7_front.png
 - output/review/vibe-a1-v7/S_vibe_a1_v7_front34.png
 - output/review/vibe-a1-v7/S_vibe_a1_v7_back.png
+
+vibe_gate_a1_v7_decision: REVISE
+vibe_gate_a1_v7_keep: SIDE/FRONT34 rear-upward layered fan direction; v6 head/neck; all non-crest geometry lock.
+vibe_gate_a1_v7_problem: FRONT/BACK still read as narrow vertical horn needles because lamina broad faces are nearly edge-on to those cameras.
+vibe_gate_a1_v8_exact_edit: crest only; preserve v7 centerline family but rotate/roll lamina face orientation and modestly broaden the front projection. Do not create bilateral horn towers and do not edit head/neck/body.
