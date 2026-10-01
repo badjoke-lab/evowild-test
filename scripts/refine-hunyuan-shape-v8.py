@@ -1,5 +1,4 @@
 import bpy
-import bmesh
 import json
 import math
 import os
@@ -48,6 +47,11 @@ def detect_head_sign(pts,b):
     plus=[p.y for p in pts if p.z>=b["max_z"]-length*0.22]
     minus=[p.y for p in pts if p.z<=b["min_z"]+length*0.22]
     return 1 if (max(plus) if plus else b["min_y"]) >= (max(minus) if minus else b["min_y"]) else -1
+
+
+def lerp(a,b,t):
+    t=max(0.0,min(1.0,t))
+    return a+(b-a)*t
 
 
 def smoothstep(a,b,x):
@@ -205,6 +209,32 @@ def refine_shape(obj):
             foot_y=bottom+height*0.055
             y=foot_y+(y-foot_y)*(1.0-0.10*foot_w)
 
+        # v8: localized crest cleanup only. Touch only the very high head
+        # region so limbs, chest and torso remain exactly at v4 geometry.
+        crest8=smoothstep(0.08,0.34,u)*smoothstep(0.78,0.91,h)
+        if crest8>0.0:
+            side=1.0 if (x-cx)>=0.0 else -1.0
+            t=max(0.0,min(1.0,(h-0.78)/0.22))
+            target_x=cx+side*width*(0.055+0.008*(1.0-t))
+            target_y=bottom+height*(0.80+0.18*t)
+            target_u=0.27-0.25*t
+            target_z=cz+head_sign*length*target_u
+            x=lerp(x,target_x,0.88*crest8)
+            y=lerp(y,target_y,0.82*crest8)
+            z=lerp(z,target_z,0.86*crest8)
+
+        # v8: localized tail cleanup only. Restrict to far rear + upper half
+        # to avoid touching the hind limbs.
+        tail8=smoothstep(0.34,0.56,-u)*smoothstep(0.45,0.72,h)
+        if tail8>0.0:
+            r=max(0.0,min(1.0,((-u)-0.34)/0.24))
+            target_x=cx
+            target_y=bottom+height*(0.57-0.08*r)
+            target_z=cz-head_sign*length*(0.34+0.27*r)
+            x=lerp(x,target_x,0.90*tail8)
+            y=lerp(y,target_y,0.88*tail8)
+            z=lerp(z,target_z,0.72*tail8)
+
         local=obj.matrix_world.inverted() @ Vector((x,y,z))
         v.co=local
 
@@ -221,130 +251,6 @@ def refine_shape(obj):
     stats["height_after"]=after["max_y"]-after["min_y"]
     stats["length_after"]=after["max_z"]-after["min_z"]
     return stats
-
-
-
-def norm_coords(p,b,head_sign):
-    width=max(1e-6,b["max_x"]-b["min_x"])
-    height=max(1e-6,b["max_y"]-b["min_y"])
-    length=max(1e-6,b["max_z"]-b["min_z"])
-    cx=(b["min_x"]+b["max_x"])*0.5
-    cz=(b["min_z"]+b["max_z"])*0.5
-    sx=(p.x-cx)/width
-    h=(p.y-b["min_y"])/height
-    u=((p.z-cz)*head_sign)/length
-    return sx,h,u
-
-
-def remove_legacy_appendages(obj):
-    pts,b=mesh_bounds(obj)
-    head_sign=detect_head_sign(pts,b)
-    bm=bmesh.new()
-    bm.from_mesh(obj.data)
-    bm.faces.ensure_lookup_table()
-    remove=[]
-    for face in bm.faces:
-        vals=[norm_coords(obj.matrix_world @ v.co,b,head_sign) for v in face.verts]
-        sx=sum(v[0] for v in vals)/len(vals)
-        h=sum(v[1] for v in vals)/len(vals)
-        u=sum(v[2] for v in vals)/len(vals)
-        max_h=max(v[1] for v in vals)
-        old_crest=(u>0.12 and h>0.72 and max_h>0.79)
-        old_tail=(u<-0.31 and 0.30<h<0.74 and abs(sx)<0.42)
-        if old_crest or old_tail:
-            remove.append(face)
-    bmesh.ops.delete(bm,geom=remove,context="FACES")
-    loose=[v for v in bm.verts if not v.link_faces]
-    if loose:
-        bmesh.ops.delete(bm,geom=loose,context="VERTS")
-    bm.to_mesh(obj.data)
-    bm.free()
-    obj.data.update()
-    return {"removed_faces":len(remove),"head_sign":head_sign}
-
-
-def nearest_anchor(obj,target_sx,target_h,target_u,head_sign):
-    _,b=mesh_bounds(obj)
-    best=None
-    best_score=1e9
-    for v in obj.data.vertices:
-        p=obj.matrix_world @ v.co
-        sx,h,u=norm_coords(p,b,head_sign)
-        score=((sx-target_sx)/0.16)**2+((h-target_h)/0.15)**2+((u-target_u)/0.16)**2
-        if score<best_score:
-            best_score=score
-            best=p.copy()
-    return best
-
-
-def cone_between(name,a,b,r1,r2,vertices=12,flatten_x=1.0):
-    a=Vector(a); b=Vector(b)
-    vec=b-a
-    seg_len=vec.length
-    if seg_len<=1e-6:
-        return None
-    mid=(a+b)*0.5
-    bpy.ops.mesh.primitive_cone_add(vertices=vertices,radius1=r1,radius2=r2,depth=seg_len,location=mid)
-    o=bpy.context.object
-    o.name=name
-    o.rotation_mode="QUATERNION"
-    o.rotation_quaternion=vec.to_track_quat("Z","Y")
-    o.scale.x=flatten_x
-    bpy.ops.object.transform_apply(location=False,rotation=False,scale=True)
-    return o
-
-
-def add_s_type_appendages_v8(body):
-    pts,b=mesh_bounds(body)
-    head_sign=detect_head_sign(pts,b)
-    width=b["max_x"]-b["min_x"]
-    height=b["max_y"]-b["min_y"]
-    length=b["max_z"]-b["min_z"]
-    created=[]
-
-    for side in (-1,1):
-        anchor=nearest_anchor(body,side*0.10,0.70,0.28,head_sign)
-        side_vec=Vector((side*width,0,0))
-        up=Vector((0,height,0))
-        forward=Vector((0,0,head_sign*length))
-        p0=anchor-forward*0.012
-        points=[
-            p0,
-            p0+side_vec*0.010+up*0.065-forward*0.050,
-            p0+side_vec*0.013+up*0.130-forward*0.125,
-            p0+side_vec*0.010+up*0.185-forward*0.215,
-            p0+side_vec*0.006+up*0.215-forward*0.300,
-        ]
-        radii=[width*0.050,width*0.041,width*0.030,width*0.018,width*0.004]
-        for i in range(len(points)-1):
-            o=cone_between(f"S8_Crest_{side}_{i}",points[i],points[i+1],radii[i],radii[i+1],12,0.72)
-            if o: created.append(o)
-
-    anchor=nearest_anchor(body,0.0,0.55,-0.27,head_sign)
-    rear=Vector((0,0,-head_sign*length))
-    down=Vector((0,-height,0))
-    p0=anchor+rear*0.012
-    points=[
-        p0,
-        p0+rear*0.11+down*0.005,
-        p0+rear*0.23+down*0.015,
-        p0+rear*0.35+down*0.028,
-        p0+rear*0.47+down*0.040,
-    ]
-    radii=[width*0.052,width*0.041,width*0.030,width*0.018,width*0.003]
-    for i in range(len(points)-1):
-        o=cone_between(f"S8_Tail_{i}",points[i],points[i+1],radii[i],radii[i+1],10,0.78)
-        if o: created.append(o)
-
-    bpy.ops.object.select_all(action="DESELECT")
-    body.select_set(True)
-    for o in created:
-        o.select_set(True)
-    bpy.context.view_layer.objects.active=body
-    bpy.ops.object.join()
-    body=bpy.context.view_layer.objects.active
-    body.name="EvoWild_S_ShapeV8"
-    return body,len(created)
 
 
 def point_camera(cam,target):
@@ -425,10 +331,6 @@ def main():
     obj=join_meshes()
 
     stats=refine_shape(obj)
-    surgery=remove_legacy_appendages(obj)
-    obj,added_parts=add_s_type_appendages_v8(obj)
-    stats["removed_legacy_faces"]=surgery["removed_faces"]
-    stats["added_appendage_segments"]=added_parts
 
     bpy.ops.object.select_all(action="DESELECT")
     obj.select_set(True)
@@ -441,7 +343,7 @@ def main():
         use_selection=True
     )
 
-    stats["status"]="shape_refine_v8_surgical_appendage_rebuild_candidate_not_canonical"
+    stats["status"]="shape_refine_v8_localized_crest_tail_candidate_not_canonical"
     stats["source"]=os.path.basename(input_path)
     stats["output"]=os.path.basename(output_path)
     with open(meta_path,"w",encoding="utf-8") as fh:
