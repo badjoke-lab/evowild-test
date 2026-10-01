@@ -9,8 +9,8 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_A1_USER_REVIEW",
-  "current_stage": "A1-v6 internally passes silhouette hard-fail checks; user review pending",
+  "stage": "VIBE_EXPERIMENT_A1_V7_REQUIRED",
+  "current_stage": "A1-v6 reviewed REVISE; crest-only v7 required",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
   "current_model_file": "output/S-vibe-a1-v6.blend",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "STOP. User reviews A1-v6 SIDE/FRONT/FRONT34/BACK. Do not start A2 until user acceptance.",
+  "next_action": "Build A1-v7 from output/S-vibe-a1-v6.blend. Edit crest only. Preserve v6 head/neck and all other geometry. Replace the four near-parallel comb-like blades with one dominant rear-upward skull-integrated primary lamina plus shorter overlapping subordinate layers; keep FRONT/BACK narrow; avoid horn, needle and comb readings. Render SIDE/FRONT/FRONT34/BACK; update checkpoint/handoff; STOP.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -59,8 +59,8 @@
     "output/S-rebuild-v1.blend"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "A1_INTERNAL_PASS_USER_REVIEW_PENDING",
-  "modeling_status": "STOPPED_FOR_USER_REVIEW",
+  "gate_a_status": "A1_V6_REVISE",
+  "modeling_status": "READY_FOR_A1_V7",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/vibe-a1-v6/S_vibe_a1_v6_side.png",
@@ -69,8 +69,21 @@
     "output/review/vibe-a1-v6/S_vibe_a1_v6_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
-  "editable_next": [],
+  "editable_next": [
+    "crest only"
+  ],
   "keep_fixed_next": [
-    "all geometry until A1 review"
-  ]
+    "head",
+    "neck",
+    "thorax",
+    "waist",
+    "pelvis",
+    "forelimbs",
+    "hindlimbs",
+    "feet",
+    "tail"
+  ],
+  "review_basis": "Direct comparison of v6 SIDE/FRONT/FRONT34/BACK against 00_full_reference.png, 01_s_body_primary.png and 02_s_silhouette.png",
+  "v6_decision": "REVISE",
+  "v6_reason": "Crest remains four near-parallel horizontal fins/comb; locked S reference uses a compact layered cranial crest dominated by a rear-upward primary lamina with shorter subordinate layers."
 }
