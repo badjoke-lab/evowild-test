@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_A1_REVIEW",
-  "current_stage": "Experimental Vibe lane A1 rendered; review pending; modeling stopped",
+  "stage": "VIBE_EXPERIMENT_A1_V2_READY",
+  "current_stage": "Experimental A1 rejected; A1-v2 restarts from S-rebuild-v1 with image-derived crest/neck constraints",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
-  "current_model_file": "output/S-vibe-a1.blend",
+  "current_model_file": "output/S-rebuild-v1.blend",
   "source_model_file": "NONE / fresh empty scene",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Review A1 head/crest/neck only. Compare against approved S reference and main-lane result. Do not start A2 before explicit acceptance.",
+  "next_action": "Run A1-v2 from S-rebuild-v1 only, using S_VIBE_A1_REFERENCE_ANALYSIS.md. Keep thorax/waist/pelvis/limbs/feet/tail fixed.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -59,8 +59,8 @@
     "output/S-rebuild-v1.blend"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "A1_REVIEW_PENDING",
-  "modeling_status": "STOPPED",
+  "gate_a_status": "A1_REJECTED_A1_V2_READY",
+  "modeling_status": "STOPPED_BEFORE_A1_V2",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/vibe-a1/S_vibe_a1_side.png",
