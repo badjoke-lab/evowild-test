@@ -476,8 +476,15 @@ function addWorld() {
   const groundMat = new THREE.MeshStandardMaterial({ color: 0x4f6844, roughness: 1 });
   const ground = new THREE.Mesh(new THREE.PlaneGeometry(160, WORLD_END + 500), groundMat);
   ground.rotation.x = -Math.PI / 2;
-  ground.position.set(0, -0.03, WORLD_END / 2 - 100);
+  // At 1200m+ race positions, a 3cm gap between the long ground and track
+  // planes is not enough at low camera angles and the grass wins depth tests.
+  // Lower only the simplified-race ground; the track/feet stay at y=0.
+  const groundY = SIMPLIFIED_RACE_PAGE ? -0.12 : -0.03;
+  ground.position.set(0, groundY, WORLD_END / 2 - 100);
   scene.add(ground);
+  if (SIMPLIFIED_RACE_PAGE) {
+    canvas.dataset.raceGroundY = groundY.toFixed(2);
+  }
 
   const trackMat = new THREE.MeshStandardMaterial({ color: 0x3a4146, roughness: 1 });
   const track = new THREE.Mesh(new THREE.PlaneGeometry(TRACK_WIDTH, WORLD_END + 200), trackMat);
