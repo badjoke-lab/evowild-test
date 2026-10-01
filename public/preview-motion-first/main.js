@@ -2647,6 +2647,10 @@ function seeded(i, salt = 1) {
 const AGENT_SCHEMA_VERSION = 1;
 const AGENT_EVENT_LOG_LIMIT = 72;
 const agentEventLog = [];
+const AGENT_ORB_DEFAULT_COLOR = new THREE.Color(0x8ee2ff);
+const AGENT_ORB_ACTIVE_COLOR = new THREE.Color(0x8affbf);
+const AGENT_ORB_PARTIAL_COLOR = new THREE.Color(0xffd787);
+const AGENT_ORB_FAILURE_COLOR = new THREE.Color(0xff8f8f);
 
 const AGENT_PRESETS = {
   S: {
@@ -2828,10 +2832,10 @@ function resolveAgentOutcome(runner, command, observation) {
       compatibility * 0.20;
 
     const outcome =
-      score >= 0.90 ? "EXCELLENT" :
-        score >= 0.78 ? "SUCCESS" :
-          score >= 0.64 ? "PARTIAL" :
-            score >= 0.52 ? "FAILED" : "BACKFIRE";
+      score >= 0.95 ? "EXCELLENT" :
+        score >= 0.88 ? "SUCCESS" :
+          score >= 0.72 ? "PARTIAL" :
+            score >= 0.58 ? "FAILED" : "BACKFIRE";
 
     return {
       outcome,
@@ -3253,7 +3257,7 @@ function createSimplifiedRaceProxy(morph, color, sourceRoot) {
     secondary: baseColor.clone().multiplyScalar(0.76),
     dark: baseColor.clone().multiplyScalar(0.46),
     cue: baseColor.clone().lerp(new THREE.Color(0xbef7ff), 0.58),
-    agent: new THREE.Color(0x8ee2ff),
+    agent: AGENT_ORB_DEFAULT_COLOR,
     shadow: new THREE.Color(0x000000)
   };
 
@@ -3620,11 +3624,11 @@ function syncSimplifiedRaceProxyInstances() {
     setProxyInstance(simplifiedRaceProxyPool.shadow, counts.shadow++, ud.shadow, ud.colors.shadow);
     const agentColor =
       runner.lastAgentEvent?.outcome === "BACKFIRE" || runner.lastAgentEvent?.outcome === "FAILED"
-        ? new THREE.Color(0xff8f8f)
+        ? AGENT_ORB_FAILURE_COLOR
         : runner.lastAgentEvent?.outcome === "PARTIAL"
-          ? new THREE.Color(0xffd787)
+          ? AGENT_ORB_PARTIAL_COLOR
           : raceTime < (runner.agentPulseUntil || -1)
-            ? new THREE.Color(0x8affbf)
+            ? AGENT_ORB_ACTIVE_COLOR
             : ud.colors.agent;
     setProxyInstance(
       simplifiedRaceProxyPool.agentOrb,
