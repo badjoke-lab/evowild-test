@@ -46,6 +46,8 @@ const PROXY_REVIEW_RUNNER =
   PROXY_REVIEW_RUNNER_PARAM === null
     ? null
     : Number.parseInt(PROXY_REVIEW_RUNNER_PARAM, 10);
+const START_REVIEW_MODE =
+  SIMPLIFIED_RACE_PAGE && params.get("startReview") === "1";
 const START_SEQUENCE_ENABLED =
   SIMPLIFIED_RACE_PAGE &&
   params.get("skipStart") !== "1" &&
@@ -5296,7 +5298,10 @@ function updateStartSequence(dt) {
   } else if (startSequenceElapsed >= 1.80 && startSequenceElapsed < 2.40) {
     phase = "1";
     label = "1";
-  } else if (startSequenceElapsed >= 2.40 && startSequenceElapsed < 3.05) {
+  } else if (
+    startSequenceElapsed >= 2.40 &&
+    (START_REVIEW_MODE || startSequenceElapsed < 3.05)
+  ) {
     phase = "GO";
     label = "GO";
     if (!canvas.dataset.startGoRaceTime) {
