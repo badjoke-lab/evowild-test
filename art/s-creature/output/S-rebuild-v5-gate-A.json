@@ -1,0 +1,114 @@
+{
+  "gate": "A",
+  "status": "REVIEW_PENDING",
+  "output": "S-rebuild-v5.blend",
+  "built_from": "empty_scene",
+  "v4_used_as_geometry_source": false,
+  "v12_used_as_geometry_source": false,
+  "source_lock": "S_MODELING_IMAGE_LOCK.md",
+  "total_cage_vertices": 800,
+  "mesh_objects": {
+    "S_rebuild_core_head_crest_neck_torso_tail": 224,
+    "S_forelimb_L": 72,
+    "S_hindlimb_L": 72,
+    "S_fore_toe_L_-1": 24,
+    "S_fore_toe_L_0": 24,
+    "S_fore_toe_L_1": 24,
+    "S_hind_toe_L_-1": 24,
+    "S_hind_toe_L_0": 24,
+    "S_hind_toe_L_1": 24,
+    "S_forelimb_R": 72,
+    "S_hindlimb_R": 72,
+    "S_fore_toe_R_-1": 24,
+    "S_fore_toe_R_0": 24,
+    "S_fore_toe_R_1": 24,
+    "S_hind_toe_R_-1": 24,
+    "S_hind_toe_R_0": 24,
+    "S_hind_toe_R_1": 24
+  },
+  "crest": {
+    "type": "six narrow skull-rooted rear-swept laminar plates",
+    "central_sagittal_horn": false,
+    "metadata": [
+      {
+        "side": 1,
+        "layer": 0,
+        "root": [
+          2,
+          1
+        ],
+        "tip_y": -0.1,
+        "tip_z": 1.5
+      },
+      {
+        "side": 1,
+        "layer": 1,
+        "root": [
+          2,
+          0
+        ],
+        "tip_y": -0.1,
+        "tip_z": 1.4
+      },
+      {
+        "side": 1,
+        "layer": 2,
+        "root": [
+          3,
+          0
+        ],
+        "tip_y": -0.08,
+        "tip_z": 1.32
+      },
+      {
+        "side": -1,
+        "layer": 0,
+        "root": [
+          2,
+          2
+        ],
+        "tip_y": -0.1,
+        "tip_z": 1.5
+      },
+      {
+        "side": -1,
+        "layer": 1,
+        "root": [
+          2,
+          3
+        ],
+        "tip_y": -0.1,
+        "tip_z": 1.4
+      },
+      {
+        "side": -1,
+        "layer": 2,
+        "root": [
+          3,
+          3
+        ],
+        "tip_y": -0.08,
+        "tip_z": 1.32
+      }
+    ]
+  },
+  "toes_per_foot": 3,
+  "no_materials": true,
+  "no_animation": true,
+  "no_armature": true,
+  "no_cue_band": true,
+  "final_retopology": false,
+  "geometry_sha256": "07cdf197799e6454c4aa33d5ae48a29f039328c8fb310f2423498dd4ec53bd66",
+  "notes": [
+    "Fresh Gate A structural reset; v4 and v12 morphology not used.",
+    "No Gate A acceptance claimed."
+  ],
+  "rendered_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "geometry_unchanged_during_render": true
+}
