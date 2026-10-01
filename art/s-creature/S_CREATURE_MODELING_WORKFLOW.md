@@ -2,7 +2,7 @@
 
 Status: ACTIVE PROCESS LOCK
 Scope: S / Sprint type only
-Branch: feat/s-creature-model
+Branch: exp/s-creature-vibe-modeling
 Primary morphology lock: S_MODELING_IMAGE_LOCK.md
 
 ## Purpose
