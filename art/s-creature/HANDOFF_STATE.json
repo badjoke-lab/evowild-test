@@ -9,8 +9,8 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_A2A_V1_REVIEW",
-  "current_stage": "A2a-v1 thorax/waist massing rendered; review pending; modeling stopped",
+  "stage": "VIBE_EXPERIMENT_A2B_READY",
+  "current_stage": "A2a-v1 KEEP; A2b pelvis lightening ready",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
   "current_model_file": "output/S-vibe-a2a-v1.blend",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Review A2a-v1 thorax/waist massing. Do not edit pelvis or start A2b before explicit A2a decision.",
+  "next_action": "Execute A2b only: edit core rings 12-14 cross-sectional pelvis mass with Y fixed. Preserve rings 0-11, accepted crest, rings 15-19, limbs, feet and topology exactly. Render SIDE/FRONT/FRONT34/BACK; STOP.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -59,8 +59,8 @@
     "output/S-rebuild-v1.blend"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "A1_ACCEPTED_A2A_V1_REVIEW_PENDING",
-  "modeling_status": "STOPPED",
+  "gate_a_status": "A1_ACCEPTED_A2A_KEEP_A2B_READY",
+  "modeling_status": "READY_FOR_A2B",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/vibe-a2a-v1/S_vibe_a2a_v1_side.png",
@@ -69,11 +69,13 @@
     "output/review/vibe-a2a-v1/S_vibe_a2a_v1_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
-  "editable_next": [],
+  "editable_next": [
+    "core rings 12-14 cross-sectional pelvis mass only"
+  ],
   "keep_fixed_next": [
-    "core rings 0-7",
+    "core rings 0-11",
     "S_reference_crest_v11",
-    "core rings 12-19",
+    "core rings 15-19",
     "forelimbs",
     "hindlimbs",
     "feet",
@@ -96,5 +98,7 @@
   "a1_decision": "ACCEPTED",
   "a1_accepted_model": "output/S-vibe-a1-v11.blend",
   "a1_scope": "experimental lane only; not merged into feat/s-creature-model",
-  "a2a_reference_lock": "S_VIBE_A2_REFERENCE_ANALYSIS.md"
+  "a2a_reference_lock": "S_VIBE_A2_REFERENCE_ANALYSIS.md",
+  "a2a_v1_decision": "KEEP",
+  "a2a_v1_reason": "Improved chest-to-abdomen-to-waist SIDE contour without barrel front projection or surface fold."
 }
