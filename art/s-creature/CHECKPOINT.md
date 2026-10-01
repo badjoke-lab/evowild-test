@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-rebuild-v5 Gate A reviewed REVISE; v6 crest-only correction ready
+current_stage: S-rebuild-v6 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED
 branch: feat/s-creature-model
-current_model_file: output/S-rebuild-v5.blend
+current_model_file: output/S-rebuild-v6.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute crest-only S-rebuild-v6 from v5. Preserve all non-crest geometry exactly; render five views and stop for review.
+next_action: Review S-rebuild-v6 Gate A only; await decision. Do not proceed to Gate B.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -136,8 +136,8 @@ reset_plan: S_MORPHOLOGY_RESET_PLAN.md
 gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
-gate_a_status: REVISE
-modeling_status: READY_FOR_V6
+gate_a_status: REVIEW_PENDING
+modeling_status: STOPPED
 gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
 gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
@@ -216,3 +216,14 @@ gate_a_v5_decision: REVISE
 gate_a_v5_reason: FRONT/BACK show the crest as two tall paired horns, which is a hard fail under S_MODELING_IMAGE_LOCK.md. SIDE/FRONT34 improve the compact body direction, so v5 body/limbs are retained for the next correction.
 gate_a_v5_keep: v5 fresh-body proportions; narrower front thorax; fore/hind chain differentiation; small three-toed feet; tapered tail.
 gate_a_v6_rule: crest-only correction. Lower the crest vertical envelope and keep strong rearward projection so FRONT/BACK no longer read as paired horns. All body, limb, foot and tail vertices must remain bit-identical to v5.
+
+
+gate_a_v6_done: Crest-only correction executed from v5; all non-crest geometry preserved exactly; five views rendered.
+gate_a_v6_acceptance: REVIEW_PENDING; no PASS claimed
+gate_a_v6_geometry_sha256: 37fa98fd103ac9087bd9043e724721f52fe85cd45020067a7831b338c84ca17e
+gate_a_v6_renders:
+- output/review/rebuild-v6/S_rebuild_side.png
+- output/review/rebuild-v6/S_rebuild_front.png
+- output/review/rebuild-v6/S_rebuild_front34.png
+- output/review/rebuild-v6/S_rebuild_rear34.png
+- output/review/rebuild-v6/S_rebuild_back.png

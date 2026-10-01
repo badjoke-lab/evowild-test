@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "S-rebuild-gate-A-v6",
-  "current_stage": "S-rebuild-v5 reviewed REVISE; crest-only v6 correction next",
+  "stage": "S-rebuild-gate-A-v6-review",
+  "current_stage": "S-rebuild-v6 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
-  "current_model_file": "output/S-rebuild-v5.blend",
+  "current_model_file": "output/S-rebuild-v6.blend",
   "source_model_file": "output/S-rebuild-v5.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -50,10 +50,9 @@
     "Tail and all toe geometry unchanged from v2",
     "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Execute crest-only v6 from output/S-rebuild-v5.blend; preserve all non-crest geometry; render five views; STOP.",
+  "next_action": "Review S-rebuild-v6 Gate A only. Do not proceed to Gate B.",
   "quality_issues": [
-    "v5 FRONT/BACK crest reads as paired upright horns",
-    "Gate A cannot pass until crest vertical envelope is reduced without losing rearward laminar flow"
+    "Gate A v6 silhouette acceptance pending review"
   ],
   "blockers": [],
   "accepted": false,
@@ -66,17 +65,17 @@
     "references/02_s_silhouette.png"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "REVISE",
-  "modeling_status": "READY_FOR_V6",
+  "gate_a_status": "REVIEW_PENDING",
+  "modeling_status": "STOPPED",
   "cage_vertex_count": 800,
   "review_renders": [
-    "output/review/rebuild-v5/S_rebuild_side.png",
-    "output/review/rebuild-v5/S_rebuild_front.png",
-    "output/review/rebuild-v5/S_rebuild_front34.png",
-    "output/review/rebuild-v5/S_rebuild_rear34.png",
-    "output/review/rebuild-v5/S_rebuild_back.png"
+    "output/review/rebuild-v6/S_rebuild_side.png",
+    "output/review/rebuild-v6/S_rebuild_front.png",
+    "output/review/rebuild-v6/S_rebuild_front34.png",
+    "output/review/rebuild-v6/S_rebuild_rear34.png",
+    "output/review/rebuild-v6/S_rebuild_back.png"
   ],
-  "geometry_sha256": "07cdf197799e6454c4aa33d5ae48a29f039328c8fb310f2423498dd4ec53bd66",
+  "geometry_sha256": "37fa98fd103ac9087bd9043e724721f52fe85cd45020067a7831b338c84ca17e",
   "geometry_unchanged_during_render": true,
   "measurements": {
     "neck_length_before": 0.7270744459819778,
