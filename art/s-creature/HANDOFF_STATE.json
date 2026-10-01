@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_A1_V6_NECK_READY",
-  "current_stage": "A1-v5 reviewed REVISE; curved crest KEEP; neck proportion/head placement only next",
+  "stage": "VIBE_EXPERIMENT_A1_V6_REVIEW",
+  "current_stage": "A1-v6 neck/head placement rendered; complete A1 group review pending; modeling stopped",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
-  "current_model_file": "output/S-vibe-a1-v5.blend",
+  "current_model_file": "output/S-vibe-a1-v6.blend",
   "source_model_file": "NONE / fresh empty scene",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "A1-v6: rigidly reposition head+crest closer/lower to thorax and rebuild neck stations 5-7 only. Keep head shape, crest shape, thorax, limbs, feet, pelvis and tail fixed.",
+  "next_action": "Review head/crest/neck A1 group. Do not start A2 unless A1 is accepted.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -59,14 +59,14 @@
     "output/S-rebuild-v1.blend"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "A1_V5_REVISE_A1_V6_READY",
-  "modeling_status": "STOPPED_BEFORE_A1_V6",
+  "gate_a_status": "A1_V6_REVIEW_PENDING",
+  "modeling_status": "STOPPED",
   "cage_vertex_count": 760,
   "review_renders": [
-    "output/review/vibe-a1-v5/S_vibe_a1_v5_side.png",
-    "output/review/vibe-a1-v5/S_vibe_a1_v5_front.png",
-    "output/review/vibe-a1-v5/S_vibe_a1_v5_front34.png",
-    "output/review/vibe-a1-v5/S_vibe_a1_v5_back.png"
+    "output/review/vibe-a1-v6/S_vibe_a1_v6_side.png",
+    "output/review/vibe-a1-v6/S_vibe_a1_v6_front.png",
+    "output/review/vibe-a1-v6/S_vibe_a1_v6_front34.png",
+    "output/review/vibe-a1-v6/S_vibe_a1_v6_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
   "editable_next": [],

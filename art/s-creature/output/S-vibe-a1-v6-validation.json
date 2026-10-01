@@ -1,0 +1,56 @@
+{
+  "lane": "exp/s-creature-vibe-modeling",
+  "gate": "A1-v6-neck-proportion",
+  "source": "S-vibe-a1-v5.blend",
+  "decision": "REVIEW_PENDING",
+  "editable": [
+    "neck rings 5-7",
+    "rigid head+crest placement"
+  ],
+  "head_shape_unchanged": true,
+  "crest_shape_unchanged": true,
+  "head_crest_rigid_delta": [
+    0.0,
+    0.11999999731779099,
+    -0.05999999865889549
+  ],
+  "hard_fixed": [
+    "thorax ring 8+",
+    "waist",
+    "pelvis",
+    "limbs",
+    "feet",
+    "tail"
+  ],
+  "fixed_geometry_hash": "16b4e339d0729c7135f006dbf8c9ef8e07e3cd90fff49293f765684fbea1b766",
+  "fixed_geometry_unchanged": true,
+  "neck_station_targets": {
+    "5": [
+      -0.34,
+      1.29,
+      1.07,
+      0.078
+    ],
+    "6": [
+      -0.22,
+      1.2,
+      0.94,
+      0.093
+    ],
+    "7": [
+      -0.11,
+      1.13,
+      0.83,
+      0.116
+    ]
+  },
+  "topology_unchanged": true,
+  "rendered_views": [
+    "side",
+    "front",
+    "front34",
+    "back"
+  ],
+  "render_geometry_unchanged": true,
+  "status": "REVIEW_PENDING"
+}

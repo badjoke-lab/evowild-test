@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gate A1-v5 curved laminar crest rendered; REVIEW_PENDING / STOPPED
+current_stage: experimental Vibe Gate A1-v6 neck/head placement rendered; REVIEW_PENDING / STOPPED
 branch: feat/s-creature-model
-current_model_file: output/S-vibe-a1-v5.blend
+current_model_file: output/S-vibe-a1-v6.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review A1-v5 against C5/H6 and FRONT hard-fails. Do not start A2.
+next_action: Review A1-v6 head/crest/neck as a complete A1 group. If it passes, only then prepare A2; otherwise reopen exactly one A1 region.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -235,3 +235,11 @@ vibe_gate_a1_v5_keep: curved laminar crest representation and four-layer crown p
 vibe_gate_a1_v5_reason: crest representation is materially improved, but A1 still fails global head/neck proportion: neck remains too long and head sits too high/forward relative to the S reference.
 vibe_gate_a1_v6_source: output/S-vibe-a1-v5.blend
 vibe_gate_a1_v6_exact_edit: neck proportion + rigid head/crest placement only. Preserve head shape, crest shape, thorax and all limbs/tail. Move head+crest as one rigid unit closer/lower to thorax and rebuild only neck stations 5-7 for a shorter continuous transition.
+
+vibe_gate_a1_v6_status: REVIEW_PENDING
+vibe_gate_a1_v6_scope: neck proportion + rigid head/crest placement only
+vibe_gate_a1_v6_renders:
+- output/review/vibe-a1-v6/S_vibe_a1_v6_side.png
+- output/review/vibe-a1-v6/S_vibe_a1_v6_front.png
+- output/review/vibe-a1-v6/S_vibe_a1_v6_front34.png
+- output/review/vibe-a1-v6/S_vibe_a1_v6_back.png
