@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_A1_V3_REVIEW",
-  "current_stage": "A1-v3 crest-only rendered; review pending; modeling stopped",
+  "stage": "VIBE_EXPERIMENT_A1_V4_CREST_TOPOLOGY_READY",
+  "current_stage": "A1-v3 rejected; bilateral paired crest construction identified as failure source",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
-  "current_model_file": "output/S-vibe-a1-v3.blend",
+  "current_model_file": "output/S-vibe-a1-v2.blend",
   "source_model_file": "NONE / fresh empty scene",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Review crest-only A1-v3. Do not start A2 without acceptance.",
+  "next_action": "Rebuild crest topology only from A1-v2: remove paired 3+3 crest, preserve v2 head/neck and all body geometry, create compact skull-rooted overlapping laminar fan, render SIDE/FRONT/FRONT34/BACK, then stop.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -59,8 +59,8 @@
     "output/S-rebuild-v1.blend"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "A1_V3_REVIEW_PENDING",
-  "modeling_status": "STOPPED",
+  "gate_a_status": "A1_V3_REJECTED_A1_V4_READY",
+  "modeling_status": "STOPPED_BEFORE_A1_V4",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/vibe-a1-v3/S_vibe_a1_v3_side.png",
