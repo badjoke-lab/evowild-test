@@ -1,43 +1,93 @@
 # S Morphology Reset — Execution Plan
 
 Primary lock: `S_MODELING_IMAGE_LOCK.md`
+Process lock: `S_CREATURE_MODELING_WORKFLOW.md`
+
+## Current state
+
+`S-rebuild-v1.blend` is the active fresh-rebuild checkpoint.
+
+Gate A v1 decision: REVISE.
+
+The old instruction to correct crest/head, neck, torso, limbs and tail in one `S-rebuild-v2` pass is cancelled.
 
 ## Immediate task
 
-Stop editing `S-blockout-v12.blend` as the final body.
+Do not perform a full-body v2 correction.
 
-Create **S-rebuild-v1** as a new modeling source on the existing `feat/s-creature-model` branch.
+Run **Gate A1 only: head / crest / neck** from `output/S-rebuild-v1.blend`.
 
-The first deliverable is Gate A only: a low-complexity silhouette cage matching the approved S-type Modeling Image v1.0.
+### Before geometry edits
 
-## Mandatory first pass
+1. Read the approved S references and process lock.
+2. Establish SIDE / FRONT reference comparison.
+3. Record the A1 landmarks for head, crest and neck.
+4. Record target / keep_fixed / intended silhouette change / forbidden edits.
+5. Only then edit geometry.
 
-1. Build head and rear-swept layered crest first.
-2. Establish neck length and angle.
-3. Establish thorax/waist/pelvis masses.
-4. Place fore/hind limb joint chains and small feet.
-5. Add tail.
-6. Render SIDE / FRONT / FRONT34 / REAR34 / BACK.
-7. Stop. Do not refine surfaces before silhouette review.
+### Editable in A1
+
+- head
+- crest
+- neck
+
+### Hard keep-fixed in A1
+
+- thorax
+- waist
+- pelvis
+- forelimbs
+- hindlimbs
+- feet
+- tail
+- topology outside A1 target
+
+### A1 target
+
+- preserve small wedge-head intent
+- remove any FRONT/BACK reading as paired horns
+- make crest skull-integrated, layered and strongly rear-swept
+- reduce the rebuild-v1 long/tubular neck read
+- create a shorter, thicker, more organic neck transition without turning it into a deer/horse neck
+
+### A1 required renders
+
+- SIDE
+- FRONT
+- FRONT34
+- BACK
+
+Stop after A1 renders. Do not continue to thorax.
+
+## Subsequent gates
+
+Only after explicit acceptance:
+- A2: thorax / waist / pelvis
+- A3: limb joint rhythm / feet
+- A4: tail
+- A5: full five-view silhouette review
 
 ## Forbidden in Gate A
 
-- reusing the v12 single sagittal crown
-- a central horn/spike
-- chest micro-polish
+- v12 sagittal crown reuse
+- horn/spike interpretation
+- full-body simultaneous correction
+- chest micro-polish during A1
 - Cue Band
 - colors/textures
 - facial detail
 - final retopology
+- rigging
 - animation
+- non-target smoothing
 
-## Save outputs
+## Save convention
 
-- `output/S-rebuild-v1.blend`
-- `output/review/rebuild-v1/S_rebuild_side.png`
-- `output/review/rebuild-v1/S_rebuild_front.png`
-- `output/review/rebuild-v1/S_rebuild_front34.png`
-- `output/review/rebuild-v1/S_rebuild_rear34.png`
-- `output/review/rebuild-v1/S_rebuild_back.png`
+A1 output:
+- `output/S-rebuild-v2-a1.blend`
+- `output/review/rebuild-v2-a1/S_rebuild_side.png`
+- `output/review/rebuild-v2-a1/S_rebuild_front.png`
+- `output/review/rebuild-v2-a1/S_rebuild_front34.png`
+- `output/review/rebuild-v2-a1/S_rebuild_back.png`
 
 Update CHECKPOINT/HANDOFF and stop for review.
