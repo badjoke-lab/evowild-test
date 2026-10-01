@@ -136,8 +136,8 @@ reset_plan: S_MORPHOLOGY_RESET_PLAN.md
 gate_a_output: output/S-rebuild-v1.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
-gate_a_status: REVIEW_PENDING
-modeling_status: STOPPED
+gate_a_status: REVISE
+modeling_status: READY_FOR_V2
 gate_a_source: fresh empty scene; no v12 donor geometry used
 gate_a_cage_vertices: 760
 gate_a_done: small wedge head; six skull-rooted layered rear-swept crest plates; tapered non-tubular neck; compact thorax / narrow waist / light pelvis; distinct fore/hind joint chains; three toes per foot; tapered aerodynamic tail
