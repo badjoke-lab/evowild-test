@@ -998,7 +998,11 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
   );
   await expect(finishPage.locator("#scene")).toHaveAttribute(
     "data-finish-front-profile",
-    "leader-centered-through-gate"
+    "leader-centered-through-line"
+  );
+  await expect(finishPage.locator("#scene")).toHaveAttribute(
+    "data-finish-structure",
+    "side-pylons-stripe"
   );
   const finishFrontCameraZ = Number(
     await finishPage.locator("#scene").getAttribute("data-finish-front-camera-z")
