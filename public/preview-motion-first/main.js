@@ -3442,6 +3442,7 @@ function resetRace() {
   canvas.dataset.startSequence = START_SEQUENCE_ENABLED ? "1" : "0";
   canvas.dataset.startPhase = START_SEQUENCE_ENABLED ? "READY" : "SKIPPED";
   canvas.dataset.startElapsed = "0.000";
+  canvas.dataset.startGoRaceTime = "";
   if (startSequenceEl) {
     startSequenceEl.classList.toggle("hidden", !START_SEQUENCE_ENABLED);
     startSequenceEl.setAttribute(
@@ -5295,10 +5296,13 @@ function updateStartSequence(dt) {
   } else if (startSequenceElapsed >= 1.80 && startSequenceElapsed < 2.40) {
     phase = "1";
     label = "1";
-  } else if (startSequenceElapsed >= 2.40 && startSequenceElapsed < 2.85) {
+  } else if (startSequenceElapsed >= 2.40 && startSequenceElapsed < 3.05) {
     phase = "GO";
     label = "GO";
-  } else if (startSequenceElapsed >= 2.85) {
+    if (!canvas.dataset.startGoRaceTime) {
+      canvas.dataset.startGoRaceTime = raceTime.toFixed(3);
+    }
+  } else if (startSequenceElapsed >= 3.05) {
     raceStarted = true;
     phase = "RUNNING";
     label = "";
