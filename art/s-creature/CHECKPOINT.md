@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: v12 REJECTED as global morphology baseline; authoritative-reference rebuild required
+current_stage: S morphology reset locked; Gate A silhouette rebuild next
 branch: feat/s-creature-model
 current_model_file: output/S-blockout-v12.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Stop local thorax polishing. Rebuild the S morphology against references 01 and 02, starting with head/crest silhouette and overall body proportions. Remove the unsupported single sagittal horn/crown; use the backward-swept integrated crest structure shown in the authoritative references. Preserve only validated useful work where it still matches the references.
+next_action: Read S_MODELING_IMAGE_LOCK.md and S_MORPHOLOGY_RESET_PLAN.md, then create S-rebuild-v1 as a new silhouette cage. Do not patch v12 and do not create a single central horn.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -130,3 +130,8 @@ review_status_v12: rebuilt and three-view review rendered; user acceptance pendi
 global_v12_decision: REJECT
 global_v12_reason: The current model diverges materially from the authoritative S reference silhouette. The procedural build hard-coded a single `Sagittal_crown` plus bilateral `Temporal_sweep` geometry, which reads as a large horn and does not match the reference head/crest structure. Continuing chest-only refinement would polish the wrong baseline.
 global_reset_priority: head/crest silhouette -> neck/head proportion -> thorax/shoulder massing -> limb joint language -> feet/tail. S only.
+
+modeling_image_lock: S_MODELING_IMAGE_LOCK.md
+reset_plan: S_MORPHOLOGY_RESET_PLAN.md
+gate_a_output: output/S-rebuild-v1.blend
+v12_role: rejected morphology baseline; technical donor/checkpoint only
