@@ -603,3 +603,108 @@ button:disabled {
     font-size: 18px;
   }
 }
+
+
+.agent-panel {
+  position: absolute;
+  z-index: 10;
+  top: 158px;
+  left: 18px;
+  width: 265px;
+  padding: 11px 12px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 14px;
+  background: rgba(7,11,14,.82);
+  box-shadow: 0 14px 40px rgba(0,0,0,.28);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.agent-heading,
+.agent-state,
+.agent-actions {
+  display: flex;
+  align-items: center;
+}
+
+.agent-heading {
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.agent-heading span {
+  color: rgba(255,255,255,.48);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .13em;
+}
+
+.agent-heading strong {
+  font-size: 11px;
+}
+
+.agent-state {
+  gap: 12px;
+  margin-bottom: 9px;
+}
+
+.agent-state span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.agent-state small {
+  color: rgba(255,255,255,.42);
+  font-size: 7px;
+  letter-spacing: .10em;
+}
+
+.agent-state strong {
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.agent-actions {
+  gap: 6px;
+}
+
+.agent-actions button {
+  min-height: 30px;
+  padding: 0 10px;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .05em;
+}
+
+.agent-actions button.active {
+  border-color: rgba(138,255,191,.42);
+  background: rgba(138,255,191,.12);
+  color: #8affbf;
+}
+
+.agent-result {
+  margin-top: 8px;
+  min-height: 14px;
+  color: rgba(255,255,255,.58);
+  font-size: 9px;
+  line-height: 1.35;
+}
+
+@media (max-width: 900px) {
+  .agent-panel {
+    top: 122px;
+    left: 10px;
+    width: 228px;
+  }
+}
+
+@media (max-width: 560px) {
+  .agent-panel {
+    top: 122px;
+    left: 10px;
+    right: 10px;
+    width: auto;
+  }
+}
