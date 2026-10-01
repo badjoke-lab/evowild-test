@@ -1,0 +1,25 @@
+name: S creature Vibe reference pack
+on:
+  push:
+    branches: [exp/s-creature-vibe-modeling]
+    paths:
+      - .github/workflows/s-creature-vibe-reference-pack.yml
+permissions:
+  contents: read
+jobs:
+  pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: exp/s-creature-vibe-modeling
+      - uses: actions/upload-artifact@v4
+        with:
+          name: S-vibe-reference-pack
+          path: |
+            art/s-creature/references/00_full_reference.png
+            art/s-creature/references/01_s_body_primary.png
+            art/s-creature/references/02_s_silhouette.png
+            art/s-creature/references/03_head_variants.png
+            art/s-creature/references/04_crest_structure.png
+          if-no-files-found: error
