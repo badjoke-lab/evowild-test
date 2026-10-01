@@ -1,0 +1,103 @@
+{
+  "lane": "exp/s-creature-vibe-modeling",
+  "gate": "A1",
+  "status": "REVIEW_PENDING",
+  "input": "S-rebuild-v1.blend",
+  "output": "S-vibe-a1.blend",
+  "method": "reference -> landmarks -> constrained geometry",
+  "editable": [
+    "head",
+    "crest",
+    "neck"
+  ],
+  "hard_fixed": [
+    "thorax",
+    "waist",
+    "pelvis",
+    "forelimbs",
+    "hindlimbs",
+    "feet",
+    "tail"
+  ],
+  "target_core_vertex_count": 136,
+  "fixed_core_vertex_count": 96,
+  "fixed_geometry_hash_before": "229578e68b97963e85bf5a18f2a6b585fb3b41ff2d952003006e49a243a22cca",
+  "fixed_geometry_hash_after": "229578e68b97963e85bf5a18f2a6b585fb3b41ff2d952003006e49a243a22cca",
+  "fixed_geometry_unchanged": true,
+  "topology_unchanged": true,
+  "landmarks": {
+    "nose_tip_station_y": -0.92,
+    "skull_rear_station_y": -0.59,
+    "neck_base_station_y": -0.16,
+    "thorax_lock_station_y": -0.04,
+    "crest_tips": [
+      {
+        "side": 1,
+        "layer": 0,
+        "tip": [
+          0.07,
+          -0.04,
+          1.535
+        ]
+      },
+      {
+        "side": 1,
+        "layer": 1,
+        "tip": [
+          0.1,
+          -0.01,
+          1.475
+        ]
+      },
+      {
+        "side": 1,
+        "layer": 2,
+        "tip": [
+          0.108,
+          0.02,
+          1.42
+        ]
+      },
+      {
+        "side": -1,
+        "layer": 0,
+        "tip": [
+          -0.07,
+          -0.04,
+          1.535
+        ]
+      },
+      {
+        "side": -1,
+        "layer": 1,
+        "tip": [
+          -0.1,
+          -0.01,
+          1.475
+        ]
+      },
+      {
+        "side": -1,
+        "layer": 2,
+        "tip": [
+          -0.108,
+          0.02,
+          1.42
+        ]
+      }
+    ]
+  },
+  "intended_effects": [
+    "shorter head-to-thorax span than rebuild-v1",
+    "wider/deeper neck taper without tube read",
+    "low rear-swept layered crest instead of tall paired prongs"
+  ],
+  "decision": "REVIEW_PENDING",
+  "rendered_views": [
+    "side",
+    "front",
+    "front34",
+    "back"
+  ],
+  "render_geometry_unchanged": true
+}

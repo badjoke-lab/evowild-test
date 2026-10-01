@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-rebuild-v1 Gate A reviewed REVISE; Gate A1 head/crest/neck correction required
+current_stage: experimental Vibe lane Gate A1 rendered; REVIEW_PENDING / STOPPED
 branch: feat/s-creature-model
-current_model_file: output/S-rebuild-v1.blend
+current_model_file: output/S-vibe-a1.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute Gate A1 only from S-rebuild-v1. Edit head/crest/neck; keep thorax/waist/pelvis/limbs/feet/tail fixed. First establish reference landmarks and SIDE/FRONT overlay comparison, then correct the horn-like crest read and long tubular neck. Save as output/S-rebuild-v2-a1.blend, render SIDE/FRONT/FRONT34/BACK, update checkpoint/handoff, and STOP. Do not proceed to thorax without explicit A1 acceptance.
+next_action: Review experimental A1 head/crest/neck against approved S reference and compare with existing main lane. Do not start A2.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -157,3 +157,14 @@ gate_a_v1_keep: fresh-rebuild approach; small wedge head intent; no v12 donor ge
 gate_a_v2_priority: Gate A is subdivided by S_CREATURE_MODELING_WORKFLOW.md. Immediate priority is A1 head/crest/neck only. A2 thorax/waist/pelvis, A3 limbs, A4 tail and A5 global review are blocked until the preceding gate is accepted.
 process_lock: S_CREATURE_MODELING_WORKFLOW.md
 self_style_rule: AI free-form modeling workflow is prohibited; reference landmarks and target/keep_fixed/review cameras must be declared before edits.
+
+vibe_lane: exp/s-creature-vibe-modeling
+vibe_gate_a1_status: REVIEW_PENDING
+vibe_modeling_status: STOPPED
+vibe_a1_fixed_geometry_unchanged: true
+vibe_a1_scope: head / crest / neck only
+vibe_a1_renders:
+- output/review/vibe-a1/S_vibe_a1_side.png
+- output/review/vibe-a1/S_vibe_a1_front.png
+- output/review/vibe-a1/S_vibe_a1_front34.png
+- output/review/vibe-a1/S_vibe_a1_back.png
