@@ -603,3 +603,117 @@ button:disabled {
     font-size: 18px;
   }
 }
+
+
+/* Motion First Race Agent v1 */
+.agent-state {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) auto;
+  gap: 10px;
+  align-items: end;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+.agent-state small,
+.agent-event > span {
+  color: rgba(255,255,255,.46);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .13em;
+}
+
+.fatigue-line,
+.agent-strategy-line {
+  display: grid;
+  gap: 4px;
+}
+
+.fatigue-line strong,
+.agent-strategy-line strong {
+  font-size: 10px;
+}
+
+.fatigue-track {
+  display: block;
+  width: 100%;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: rgba(255,255,255,.10);
+}
+
+.fatigue-track b {
+  display: block;
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: rgba(255,255,255,.80);
+  transition: width .18s linear;
+}
+
+.agent-event {
+  position: absolute;
+  left: 50%;
+  bottom: 118px;
+  z-index: 10;
+  transform: translateX(-50%);
+  min-width: min(380px, calc(100vw - 32px));
+  padding: 10px 14px 11px;
+  border: 1px solid rgba(142,226,255,.24);
+  border-radius: 10px;
+  background: rgba(7,11,14,.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  pointer-events: none;
+  text-align: center;
+}
+
+.agent-event.hidden {
+  display: none;
+}
+
+.agent-event strong {
+  display: block;
+  margin-top: 3px;
+  font-size: 15px;
+  letter-spacing: .05em;
+}
+
+.agent-event small {
+  display: block;
+  margin-top: 2px;
+  color: #8affbf;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.agent-event em {
+  display: block;
+  margin-top: 2px;
+  color: rgba(255,255,255,.58);
+  font-size: 9px;
+  font-style: normal;
+}
+
+.agent-event[data-outcome="FAILED"] small,
+.agent-event[data-outcome="BACKFIRE"] small {
+  color: #ff9f9f;
+}
+
+.agent-event[data-outcome="PARTIAL"] small {
+  color: #ffd787;
+}
+
+@media (max-width: 560px) {
+  .agent-state {
+    grid-template-columns: 1fr;
+  }
+
+  .agent-event {
+    bottom: 154px;
+    min-width: calc(100vw - 20px);
+  }
+}
