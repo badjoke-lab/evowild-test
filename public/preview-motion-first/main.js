@@ -3928,12 +3928,48 @@ function updateRunner(runner, dt) {
     phaseBoost = 1.0 + Math.sin(progress * Math.PI * 5 + runner.phaseBias) * 0.009;
   }
 
+  updateRaceAgent(runner);
+
+  const basePaceMultiplier =
+    runner.agentFile.base_pace === "AGGRESSIVE"
+      ? 1.006
+      : runner.agentFile.base_pace === "CONSERVE"
+        ? 0.994
+        : 1.0;
+  const fatiguePenalty =
+    1 - Math.max(0, runner.fatigue - 0.48) * 0.11;
+
   runner.targetSpeed =
     runner.finishTime === null
-      ? cfg.baseSpeed * runner.speedBias * phaseBoost * launch
+      ? cfg.baseSpeed *
+        runner.speedBias *
+        phaseBoost *
+        launch *
+        basePaceMultiplier *
+        runner.agentPaceMultiplier *
+        fatiguePenalty
       : 0;
   const accelRate = cfg.accel * (runner.targetSpeed >= runner.speed ? 1 : 0.62);
   runner.speed = THREE.MathUtils.damp(runner.speed, runner.targetSpeed, accelRate, dt);
+
+  if (runner.finishTime === null) {
+    const effort = THREE.MathUtils.clamp(
+      runner.speed / Math.max(cfg.baseSpeed, 1),
+      0,
+      1.25
+    );
+    const fatigueRate =
+      0.0072 * Math.pow(Math.max(effort, 0.35), 1.65) *
+      runner.agentFatigueMultiplier /
+      Math.max(agentStaminaFactor(runner), 0.70);
+    const recoveryRate =
+      effort < 0.72 ? (0.72 - effort) * 0.0025 : 0;
+    runner.fatigue = THREE.MathUtils.clamp(
+      runner.fatigue + (fatigueRate - recoveryRate) * dt,
+      0,
+      1
+    );
+  }
 
   const previousDistance = runner.distance;
   if (!finished) runner.distance += runner.speed * dt;
