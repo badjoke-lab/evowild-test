@@ -1,0 +1,71 @@
+name: S rebuild v1 Gate A save and review
+on:
+  push:
+    branches: [feat/s-creature-model]
+    paths: [.github/workflows/s-creature-rebuild-v1-gate-a.yml]
+permissions:
+  contents: write
+concurrency:
+  group: s-creature-gate-a-save
+  cancel-in-progress: false
+jobs:
+  gate-a:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/s-creature-model
+          fetch-depth: 0
+      - name: Verify modeling lock and reset plan
+        run: |
+          test "$(git hash-object art/s-creature/S_MODELING_IMAGE_LOCK.md)" = 418ae989e939baa38e0474d75ec745b2a9f6ec93
+          test "$(git hash-object art/s-creature/S_MORPHOLOGY_RESET_PLAN.md)" = 8f2acc0eeff210ddeed9ba632f0f34337cfac04c
+      - name: Install Blender libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+      - name: Download Blender 4.3.2
+        run: |
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Reproduce frozen Gate A cage from empty scene
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/build_s_rebuild_v1.py
+      - name: Render five views, update checkpoint, stop modeling
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-rebuild-v1.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/render_s_rebuild_v1.py
+      - name: Verify exact frozen geometry and review status
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('art/s-creature')
+          report=json.loads((root/'output/S-rebuild-v1-gate-A.json').read_text())
+          assert report['geometry_sha256']=='4f4c1910e926b9d616807741c3e519112374d31c8fdd0cff5b47724536b409b0'
+          assert report['built_from']=='empty_scene' and report['v12_used_as_geometry_source'] is False
+          assert report['total_cage_vertices']==760 and report['geometry_unchanged_during_render']
+          assert report['no_materials'] and report['no_animation'] and report['no_armature'] and report['no_cue_band']
+          assert report['rendered_views']==['side','front','front34','rear34','back']
+          for stem in report['rendered_views']:
+              assert (root/f'output/review/rebuild-v1/S_rebuild_{stem}.png').stat().st_size>0
+          state=json.loads((root/'HANDOFF_STATE.json').read_text())
+          assert state['gate_a_status']=='REVIEW_PENDING' and state['modeling_status']=='STOPPED' and state['accepted'] is False
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: S-rebuild-v1-Gate-A
+          path: |
+            art/s-creature/output/S-rebuild-v1.blend
+            art/s-creature/output/S-rebuild-v1-gate-A.json
+            art/s-creature/output/review/rebuild-v1/
+          if-no-files-found: error
+      - name: Commit and push Gate A checkpoint to existing branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add art/s-creature/output/S-rebuild-v1.blend art/s-creature/output/S-rebuild-v1-gate-A.json art/s-creature/output/review/rebuild-v1/ art/s-creature/CHECKPOINT.md art/s-creature/HANDOFF_STATE.json
+          git commit -m 'art: save fresh S rebuild v1 cage and stop for Gate A review'
+          git push origin HEAD:feat/s-creature-model
