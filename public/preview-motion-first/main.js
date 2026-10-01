@@ -23,7 +23,7 @@ const resultListEl = document.querySelector("#resultList");
 const startSequenceEl = document.querySelector("#startSequence");
 const startSequenceLabelEl = document.querySelector("#startSequenceLabel");
 const agentPanelEl = document.querySelector("#agentPanel");
-const agentTargetNameEl = document.querySelector("#agentTargetName");
+const agentTargetSelect = document.querySelector("#agentTargetSelect");
 const staminaReadoutEl = document.querySelector("#staminaReadout");
 const fatigueReadoutEl = document.querySelector("#fatigueReadout");
 const agentResponseReadoutEl = document.querySelector("#agentResponseReadout");
@@ -3428,6 +3428,13 @@ function createRunners() {
         ? `${morph} · ${MORPHS[morph].label}`
         : `${runner.name} · ${morph}`;
       runnerSelect.append(option);
+
+      if (SIMPLIFIED_RACE_PAGE && agentTargetSelect) {
+        const agentOption = document.createElement("option");
+        agentOption.value = String(i);
+        agentOption.textContent = `${runner.name} · ${morph}`;
+        agentTargetSelect.append(agentOption);
+      }
     }
   }
 }
@@ -3466,6 +3473,8 @@ function resetRace() {
     : "[]";
   canvas.dataset.directorFullShotCount = FULL_DIRECTOR_REVIEW_MODE ? "1" : "0";
   previousAppliedCamera = "PACK";
+  agentTargetRunner = 0;
+  if (agentTargetSelect) agentTargetSelect.value = "0";
   startSequenceElapsed = 0;
   raceStarted = !START_SEQUENCE_ENABLED;
   pauseButton.textContent = "PAUSE";
@@ -3487,6 +3496,7 @@ function resetRace() {
     startSequenceLabelEl.textContent = START_SEQUENCE_ENABLED ? "READY" : "";
   }
   canvas.dataset.agentModel = "command-only-creature-resolved";
+  canvas.dataset.agentTargetRunner = "0";
   canvas.dataset.agentCommand = "NEUTRAL";
   canvas.dataset.agentRunnerId = "";
   canvas.dataset.agentCommandUntil = "";
@@ -4699,6 +4709,7 @@ function rankings() {
 }
 
 let selectedRunner = 0;
+let agentTargetRunner = 0;
 let requestedCamera = "AUTO";
 let actualCamera = "PACK";
 let paused = false;
@@ -5237,37 +5248,44 @@ function updateHud(dt) {
   positionEl.textContent = `${rank} / ${RUNNER_COUNT}`;
   cameraEl.textContent = actualCamera;
 
-  if (SIMPLIFIED_RACE_PAGE && focus.agent) {
-    if (agentTargetNameEl) agentTargetNameEl.textContent = focus.name;
-    if (staminaReadoutEl) staminaReadoutEl.textContent = `${Math.round(focus.stamina * 100)}%`;
-    if (fatigueReadoutEl) fatigueReadoutEl.textContent = `${Math.round(focus.fatigue * 100)}%`;
-    if (agentResponseReadoutEl) {
-      agentResponseReadoutEl.textContent =
-        focus.agent.command === "NEUTRAL"
-          ? "NEUTRAL"
-          : `${focus.agent.command} ${Math.round(focus.agent.response * 100)}%`;
-    }
-    if (agentResultEl) {
-      agentResultEl.textContent =
-        focus.agent.command === "NEUTRAL"
-          ? focus.agent.lastResult === "NEUTRAL"
-            ? "No active command"
-            : `Last: ${focus.agent.lastResult}`
-          : `${focus.agent.id} v${focus.agent.version} · ${focus.agent.lastResult}`;
-    }
-    agentCommandButtons.forEach((button) => {
-      button.classList.toggle(
-        "active",
-        button.dataset.agentCommand === focus.agent.command
-      );
-      button.disabled = finished || !raceStarted;
-    });
+  if (SIMPLIFIED_RACE_PAGE) {
+    const agentTarget = runners[agentTargetRunner] || runners[0];
+    if (agentTarget?.agent) {
+      if (staminaReadoutEl) {
+        staminaReadoutEl.textContent = `${Math.round(agentTarget.stamina * 100)}%`;
+      }
+      if (fatigueReadoutEl) {
+        fatigueReadoutEl.textContent = `${Math.round(agentTarget.fatigue * 100)}%`;
+      }
+      if (agentResponseReadoutEl) {
+        agentResponseReadoutEl.textContent =
+          agentTarget.agent.command === "NEUTRAL"
+            ? "NEUTRAL"
+            : `${agentTarget.agent.command} ${Math.round(agentTarget.agent.response * 100)}%`;
+      }
+      if (agentResultEl) {
+        agentResultEl.textContent =
+          agentTarget.agent.command === "NEUTRAL"
+            ? agentTarget.agent.lastResult === "NEUTRAL"
+              ? "No active command"
+              : `Last: ${agentTarget.agent.lastResult}`
+            : `${agentTarget.agent.id} v${agentTarget.agent.version} · ${agentTarget.agent.lastResult}`;
+      }
+      agentCommandButtons.forEach((button) => {
+        button.classList.toggle(
+          "active",
+          button.dataset.agentCommand === agentTarget.agent.command
+        );
+        button.disabled = finished || !raceStarted;
+      });
 
-    canvas.dataset.agentFocusCommand = focus.agent.command;
-    canvas.dataset.agentFocusResponse = focus.agent.response.toFixed(3);
-    canvas.dataset.agentFocusStamina = focus.stamina.toFixed(3);
-    canvas.dataset.agentFocusFatigue = focus.fatigue.toFixed(3);
-    canvas.dataset.agentModel = "command-only-creature-resolved";
+      canvas.dataset.agentTargetRunner = String(agentTarget.id);
+      canvas.dataset.agentFocusCommand = agentTarget.agent.command;
+      canvas.dataset.agentFocusResponse = agentTarget.agent.response.toFixed(3);
+      canvas.dataset.agentFocusStamina = agentTarget.stamina.toFixed(3);
+      canvas.dataset.agentFocusFatigue = agentTarget.fatigue.toFixed(3);
+      canvas.dataset.agentModel = "command-only-creature-resolved";
+    }
   }
 
   fpsAccumulator += dt;
@@ -5373,9 +5391,16 @@ function finishCheck() {
   }
 }
 
+if (agentTargetSelect) {
+  agentTargetSelect.addEventListener("change", () => {
+    agentTargetRunner = Number(agentTargetSelect.value);
+    canvas.dataset.agentTargetRunner = String(agentTargetRunner);
+  });
+}
+
 agentCommandButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    const runner = runners[selectedRunner];
+    const runner = runners[agentTargetRunner];
     if (!runner || !raceStarted || finished) return;
     issueAgentCommand(runner, button.dataset.agentCommand);
   });
