@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gate A1-v4 crest topology rebuilt and rendered; REVIEW_PENDING / STOPPED
+current_stage: experimental Vibe Gate A1-v5 curved laminar crest rendered; REVIEW_PENDING / STOPPED
 branch: feat/s-creature-model
-current_model_file: output/S-vibe-a1-v4.blend
+current_model_file: output/S-vibe-a1-v5.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review A1-v4 crest topology against C5/H6 and FRONT hard-fail. Do not start A2.
+next_action: Review A1-v5 against C5/H6 and FRONT hard-fails. Do not start A2.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -220,3 +220,11 @@ vibe_gate_a1_v4_decision: REJECT
 vibe_gate_a1_v4_reason: bilateral horn towers were removed, but FRONT collapses to a single central needle and SIDE remains a straight sword bundle. Straight-prism blade representation is rejected.
 vibe_gate_a1_v5_source: output/S-vibe-a1-v2.blend
 vibe_gate_a1_v5_exact_edit: crest only; replace straight prisms with curved tapered laminar blades sampled along smooth centerlines. Preserve v2 head/neck and all non-crest geometry.
+
+vibe_gate_a1_v5_status: REVIEW_PENDING
+vibe_gate_a1_v5_scope: curved crest only; v2 head/neck and all non-crest geometry fixed
+vibe_gate_a1_v5_renders:
+- output/review/vibe-a1-v5/S_vibe_a1_v5_side.png
+- output/review/vibe-a1-v5/S_vibe_a1_v5_front.png
+- output/review/vibe-a1-v5/S_vibe_a1_v5_front34.png
+- output/review/vibe-a1-v5/S_vibe_a1_v5_back.png
