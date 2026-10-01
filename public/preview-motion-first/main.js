@@ -676,7 +676,7 @@ function addWorld() {
   const markerMat = new THREE.MeshBasicMaterial({ color: 0xf2f2ec });
   const hundredMarkerCount = Math.floor(RACE_DISTANCE / 100);
   const distanceLandmarkCount = 6;
-  const gateInstanceCount = 8;
+  const gateInstanceCount = 6;
   const markerCapacity =
     hundredMarkerCount + distanceLandmarkCount + gateInstanceCount;
   const markerGeo = new THREE.BoxGeometry(0.38, 1.5, 0.12);
@@ -706,22 +706,18 @@ function addWorld() {
   }
 
   // START and FINISH use the same instanced box draw as the distance markers.
-  // Each gate is two uprights, one crossbar and one ground stripe.
+  // Keep the finish structure open: two side pylons plus a ground stripe.
+  // A full overhead crossbar dominated the low FRONT finish composition.
   for (const z of [0, RACE_DISTANCE]) {
     const leftPost = new THREE.Matrix4().compose(
-      new THREE.Vector3(-TRACK_WIDTH / 2 - 0.55, 2.25, z),
+      new THREE.Vector3(-TRACK_WIDTH / 2 - 0.55, 2.05, z),
       new THREE.Quaternion(),
-      new THREE.Vector3(1.25, 3.0, 2.6)
+      new THREE.Vector3(1.05, 2.7, 2.6)
     );
     const rightPost = new THREE.Matrix4().compose(
-      new THREE.Vector3(TRACK_WIDTH / 2 + 0.55, 2.25, z),
+      new THREE.Vector3(TRACK_WIDTH / 2 + 0.55, 2.05, z),
       new THREE.Quaternion(),
-      new THREE.Vector3(1.25, 3.0, 2.6)
-    );
-    const crossbar = new THREE.Matrix4().compose(
-      new THREE.Vector3(0, 4.25, z),
-      new THREE.Quaternion(),
-      new THREE.Vector3((TRACK_WIDTH + 2.1) / 0.38, 0.28, 2.6)
+      new THREE.Vector3(1.05, 2.7, 2.6)
     );
     const stripe = new THREE.Matrix4().compose(
       new THREE.Vector3(0, 0.035, z),
@@ -730,7 +726,6 @@ function addWorld() {
     );
     markers.setMatrixAt(markerIndex++, leftPost);
     markers.setMatrixAt(markerIndex++, rightPost);
-    markers.setMatrixAt(markerIndex++, crossbar);
     markers.setMatrixAt(markerIndex++, stripe);
   }
 
@@ -744,6 +739,7 @@ function addWorld() {
     canvas.dataset.distanceLandmarkInterval = "400";
     canvas.dataset.environmentMarkerInstances = String(markerIndex);
     canvas.dataset.environmentStandInstances = String(standCount);
+    canvas.dataset.finishStructure = "side-pylons-stripe";
   }
 }
 
@@ -4936,7 +4932,7 @@ function updateCamera(dt) {
     if (SIMPLIFIED_RACE_PAGE && requestedCamera === "AUTO") {
       const finishFrontZ =
         raceDirector.reason === "FINISH_FRONT"
-          ? Math.max(focusPos.z + 10.2, RACE_DISTANCE + 12.0)
+          ? Math.max(focusPos.z + 10.2, RACE_DISTANCE + 18.0)
           : focusPos.z + 10.2;
       desiredCamera.set(
         focusPos.x - 1.2,
@@ -4948,10 +4944,10 @@ function updateCamera(dt) {
         1.32,
         focusPos.z + 0.10
       );
-      targetFov = 58;
+      targetFov = raceDirector.reason === "FINISH_FRONT" ? 52 : 58;
       canvas.dataset.finishFrontProfile =
         raceDirector.reason === "FINISH_FRONT"
-          ? "leader-centered-through-gate"
+          ? "leader-centered-through-line"
           : "leader-centered";
       canvas.dataset.finishFrontCameraZ = finishFrontZ.toFixed(1);
     } else {
