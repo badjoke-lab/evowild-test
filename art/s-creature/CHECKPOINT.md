@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gate A1-v2 rendered from original rebuild-v1; REVIEW_PENDING / STOPPED
+current_stage: experimental Vibe Gate A1-v3 crest-only rendered; REVIEW_PENDING / STOPPED
 branch: feat/s-creature-model
-current_model_file: output/S-vibe-a1-v2.blend
+current_model_file: output/S-vibe-a1-v3.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Compare A1-v2 SIDE/FRONT/FRONT34/BACK against repository references and failed A1. Do not start A2.
+next_action: Review A1-v3 crest only against C5/H6 and A1-v2. Do not start A2.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -189,3 +189,13 @@ vibe_gate_a1_v2_decision: REVISE
 vibe_gate_a1_v2_keep: head and neck proportions; improved FRONT crest clustering; all non-A1 geometry lock.
 vibe_gate_a1_v2_problem: SIDE/FRONT34 crest is too horizontal and reads as a bundle of needles instead of C5/H6 rear-upward layered blades.
 vibe_gate_a1_v3_exact_edit: crest only; keep all head/neck/body/limb/tail vertices fixed. Increase rear-upward blade arc while keeping distal tips converged near sagittal plane.
+
+vibe_gate_a1_v3_status: REVIEW_PENDING
+vibe_gate_a1_v3_scope: crest only
+vibe_gate_a1_v3_head_neck_unchanged: true
+vibe_gate_a1_v3_non_a1_geometry_unchanged: true
+vibe_gate_a1_v3_renders:
+- output/review/vibe-a1-v3/S_vibe_a1_v3_side.png
+- output/review/vibe-a1-v3/S_vibe_a1_v3_front.png
+- output/review/vibe-a1-v3/S_vibe_a1_v3_front34.png
+- output/review/vibe-a1-v3/S_vibe_a1_v3_back.png

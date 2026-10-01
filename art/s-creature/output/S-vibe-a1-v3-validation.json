@@ -1,0 +1,89 @@
+{
+  "lane": "exp/s-creature-vibe-modeling",
+  "gate": "A1-v3-crest-only",
+  "source": "S-vibe-a1-v2.blend",
+  "editable": [
+    "crest"
+  ],
+  "hard_fixed": [
+    "head",
+    "neck",
+    "thorax",
+    "waist",
+    "pelvis",
+    "forelimbs",
+    "hindlimbs",
+    "feet",
+    "tail"
+  ],
+  "fixed_geometry_hash_before": "ae04232676acd0fa1346c387b91fa608f015a5394bdb23f56e37a6594dc59ee2",
+  "fixed_geometry_hash_after": "ae04232676acd0fa1346c387b91fa608f015a5394bdb23f56e37a6594dc59ee2",
+  "fixed_geometry_unchanged": true,
+  "topology_unchanged": true,
+  "crest_tips": [
+    {
+      "side": 1,
+      "layer": 0,
+      "tip": [
+        0.014,
+        -0.14,
+        1.64
+      ]
+    },
+    {
+      "side": 1,
+      "layer": 1,
+      "tip": [
+        0.026,
+        -0.1,
+        1.57
+      ]
+    },
+    {
+      "side": 1,
+      "layer": 2,
+      "tip": [
+        0.04,
+        -0.06,
+        1.51
+      ]
+    },
+    {
+      "side": -1,
+      "layer": 0,
+      "tip": [
+        -0.014,
+        -0.14,
+        1.64
+      ]
+    },
+    {
+      "side": -1,
+      "layer": 1,
+      "tip": [
+        -0.026,
+        -0.1,
+        1.57
+      ]
+    },
+    {
+      "side": -1,
+      "layer": 2,
+      "tip": [
+        -0.04,
+        -0.06,
+        1.51
+      ]
+    }
+  ],
+  "hypothesis": "rear-upward tapered layered blades with sagittally clustered tips",
+  "decision": "REVIEW_PENDING",
+  "rendered_views": [
+    "side",
+    "front",
+    "front34",
+    "back"
+  ],
+  "render_geometry_unchanged": true,
+  "status": "REVIEW_PENDING"
+}
