@@ -1000,3 +1000,151 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
 });
+
+
+test("Motion First Phase F full-race AUTO director review", async ({ browser }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_FULL_RACE_REVIEW !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(130000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const context = await browser.newContext({
+    viewport: { width: 1280, height: 720 },
+    recordVideo: {
+      dir: outDir,
+      size: { width: 1280, height: 720 }
+    }
+  });
+  const page = await context.newPage();
+
+  const pageErrors = [];
+  const consoleErrors = [];
+  page.on("pageerror", (err) => pageErrors.push(err.stack || String(err)));
+  page.on("console", (msg) => {
+    if (msg.type() === "error") consoleErrors.push(msg.text());
+  });
+
+  await page.goto(
+    "http://127.0.0.1:4173/evowild-test/preview-motion-first-race/index.html?fullDirectorReview=1",
+    { waitUntil: "networkidle" }
+  );
+
+  await expect(page.locator("#scene")).toHaveAttribute("data-full-director-review", "1");
+  await expect(page.locator("#scene")).toHaveAttribute("data-race-ground-y", "-0.12");
+  await expect(page.locator("#raceState")).toHaveText("RUNNING");
+
+  await page.waitForTimeout(15000);
+  await page.locator("#scene").screenshot({
+    path: `${outDir}/motion-first-full-race-early.png`
+  });
+
+  await page.waitForTimeout(20000);
+  await page.locator("#scene").screenshot({
+    path: `${outDir}/motion-first-full-race-mid.png`
+  });
+
+  await page.waitForTimeout(20000);
+  await page.locator("#scene").screenshot({
+    path: `${outDir}/motion-first-full-race-late.png`
+  });
+
+  await expect(page.locator("#raceState")).toHaveText("FINISHED", { timeout: 45000 });
+
+  const raceTime = Number(await page.locator("#scene").getAttribute("data-race-time"));
+  expect(Number.isFinite(raceTime)).toBeTruthy();
+  expect(raceTime).toBeGreaterThan(60);
+  expect(raceTime).toBeLessThan(90);
+
+  const fullLogText =
+    (await page.locator("#scene").getAttribute("data-director-full-shot-log")) || "[]";
+  const fullLog = JSON.parse(fullLogText);
+  expect(Array.isArray(fullLog)).toBeTruthy();
+  expect(fullLog.length).toBeGreaterThanOrEqual(12);
+
+  const reasons = fullLog.map((shot) => shot.reason);
+  const cameras = new Set(fullLog.map((shot) => shot.camera));
+
+  expect(reasons[0]).toBe("START");
+  expect(reasons).toContain("ACCELERATION");
+  expect(reasons).toContain("OVERTAKE_ATTEMPT");
+  expect(reasons).toContain("FINAL_CHASE");
+  expect(reasons).toContain("FINISH_SIDE");
+  expect(reasons).toContain("FINISH_FRONT");
+
+  const finalChaseIndex = reasons.lastIndexOf("FINAL_CHASE");
+  const finishSideIndex = reasons.lastIndexOf("FINISH_SIDE");
+  const finishFrontIndex = reasons.lastIndexOf("FINISH_FRONT");
+  expect(finalChaseIndex).toBeGreaterThanOrEqual(0);
+  expect(finishSideIndex).toBeGreaterThan(finalChaseIndex);
+  expect(finishFrontIndex).toBeGreaterThan(finishSideIndex);
+
+  for (const camera of ["PACK", "LOW", "CHASE", "SIDE", "FRONT"]) {
+    expect(cameras.has(camera)).toBeTruthy();
+  }
+
+  for (let i = 1; i < fullLog.length; i += 1) {
+    expect(
+      `${fullLog[i].reason}:${fullLog[i].camera}`
+    ).not.toBe(
+      `${fullLog[i - 1].reason}:${fullLog[i - 1].camera}`
+    );
+  }
+
+  const cameraSeconds = {};
+  let focusSwitches = 0;
+  let shortestShot = Number.POSITIVE_INFINITY;
+  let longestShot = 0;
+  for (let i = 0; i < fullLog.length; i += 1) {
+    const start = Number(fullLog[i].t);
+    const end = i + 1 < fullLog.length ? Number(fullLog[i + 1].t) : raceTime;
+    const duration = Math.max(0, end - start);
+    cameraSeconds[fullLog[i].camera] =
+      (cameraSeconds[fullLog[i].camera] || 0) + duration;
+    if (i > 0 && fullLog[i].focus !== fullLog[i - 1].focus) focusSwitches += 1;
+    if (i > 0) {
+      shortestShot = Math.min(shortestShot, duration);
+      longestShot = Math.max(longestShot, duration);
+    }
+  }
+
+  const lowShare = (cameraSeconds.LOW || 0) / raceTime;
+  const maxCameraShare =
+    Math.max(...Object.values(cameraSeconds)) / raceTime;
+
+  // Full-race review gates: AUTO must not collapse back into one dominant
+  // camera, cut too rapidly, or churn focus every shot.
+  expect(lowShare).toBeLessThan(0.35);
+  expect(maxCameraShare).toBeLessThan(0.40);
+  expect(shortestShot).toBeGreaterThan(1.5);
+  expect(focusSwitches).toBeLessThanOrEqual(12);
+
+  console.log(
+    "FULL_DIRECTOR_REVIEW",
+    JSON.stringify({
+      raceTime,
+      shotCount: fullLog.length,
+      focusSwitches,
+      shortestShot,
+      longestShot,
+      lowShare,
+      maxCameraShare,
+      cameraSeconds,
+      shots: fullLog
+    })
+  );
+
+  await page.locator("#scene").screenshot({
+    path: `${outDir}/motion-first-full-race-finish.png`
+  });
+
+  const video = page.video();
+  await page.close();
+  if (!video) throw new Error("Full-race director review video was not created");
+  await video.saveAs(`${outDir}/motion-first-full-race-auto.webm`);
+  await context.close();
+
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+});

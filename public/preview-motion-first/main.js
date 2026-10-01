@@ -29,6 +29,8 @@ const SIMPLIFIED_GAIT_PAGE = window.location.pathname.includes("/preview-motion-
 const SIMPLIFIED_RACE_PAGE = window.location.pathname.includes("/preview-motion-first-race/");
 const FINISH_REVIEW_MODE =
   SIMPLIFIED_RACE_PAGE && params.get("finishReview") === "1";
+const FULL_DIRECTOR_REVIEW_MODE =
+  SIMPLIFIED_RACE_PAGE && params.get("fullDirectorReview") === "1";
 const SIMPLIFIED_LANE = SIMPLIFIED_GAIT_PAGE || SIMPLIFIED_RACE_PAGE;
 const MOTION_REVIEW_MODE = params.get("motion") === "1" || SIMPLIFIED_GAIT_PAGE;
 const REVIEW_MORPH = (params.get("morph") || "S").toUpperCase();
@@ -474,8 +476,15 @@ function addWorld() {
   const groundMat = new THREE.MeshStandardMaterial({ color: 0x4f6844, roughness: 1 });
   const ground = new THREE.Mesh(new THREE.PlaneGeometry(160, WORLD_END + 500), groundMat);
   ground.rotation.x = -Math.PI / 2;
-  ground.position.set(0, -0.03, WORLD_END / 2 - 100);
+  // At 1200m+ race positions, a 3cm gap between the long ground and track
+  // planes is not enough at low camera angles and the grass wins depth tests.
+  // Lower only the simplified-race ground; the track/feet stay at y=0.
+  const groundY = SIMPLIFIED_RACE_PAGE ? -0.12 : -0.03;
+  ground.position.set(0, groundY, WORLD_END / 2 - 100);
   scene.add(ground);
+  if (SIMPLIFIED_RACE_PAGE) {
+    canvas.dataset.raceGroundY = groundY.toFixed(2);
+  }
 
   const trackMat = new THREE.MeshStandardMaterial({ color: 0x3a4146, roughness: 1 });
   const track = new THREE.Mesh(new THREE.PlaneGeometry(TRACK_WIDTH, WORLD_END + 200), trackMat);
@@ -3316,8 +3325,12 @@ function resetRace() {
   raceDirector.holdUntil = 0;
   raceDirector.lastLeaderId = 0;
   raceDirector.lastDecisionAt = -999;
+  raceDirector.lastBreakawayAt = -999;
   raceDirector.accelerationShown = false;
   raceDirector.shotHistory = [];
+  raceDirector.fullShotLog = FULL_DIRECTOR_REVIEW_MODE
+    ? [{ t: 0, camera: "PACK", reason: "START", focus: 0 }]
+    : [];
   canvas.dataset.directorDecisionCount = "0";
   canvas.dataset.directorAccelerationShown = "0";
   canvas.dataset.directorAccelerationGap = "0";
@@ -3329,6 +3342,11 @@ function resetRace() {
   canvas.dataset.directorCutCount = "0";
   canvas.dataset.directorReason = "START";
   canvas.dataset.finishReview = FINISH_REVIEW_MODE ? "1" : "0";
+  canvas.dataset.fullDirectorReview = FULL_DIRECTOR_REVIEW_MODE ? "1" : "0";
+  canvas.dataset.directorFullShotLog = FULL_DIRECTOR_REVIEW_MODE
+    ? JSON.stringify(raceDirector.fullShotLog)
+    : "[]";
+  canvas.dataset.directorFullShotCount = FULL_DIRECTOR_REVIEW_MODE ? "1" : "0";
   previousAppliedCamera = "PACK";
   pauseButton.textContent = "PAUSE";
   raceStateEl.textContent = "RUNNING";
@@ -4441,8 +4459,10 @@ const raceDirector = {
   holdUntil: 0,
   lastLeaderId: 0,
   lastDecisionAt: -999,
+  lastBreakawayAt: -999,
   accelerationShown: false,
-  shotHistory: []
+  shotHistory: [],
+  fullShotLog: []
 };
 
 function setDirectorFocus(focusId) {
@@ -4469,6 +4489,17 @@ function setDirectorShot(cameraMode, focusId, reason, holdSeconds) {
   raceDirector.shotHistory.push(`${reason}:${cameraMode}`);
   if (raceDirector.shotHistory.length > 12) raceDirector.shotHistory.shift();
   canvas.dataset.directorShotHistory = raceDirector.shotHistory.join(",");
+
+  if (FULL_DIRECTOR_REVIEW_MODE) {
+    raceDirector.fullShotLog.push({
+      t: Number(raceTime.toFixed(3)),
+      camera: cameraMode,
+      reason,
+      focus: focusId
+    });
+    canvas.dataset.directorFullShotLog = JSON.stringify(raceDirector.fullShotLog);
+    canvas.dataset.directorFullShotCount = String(raceDirector.fullShotLog.length);
+  }
 }
 
 function updateSimplifiedRaceDirector() {
@@ -4620,8 +4651,10 @@ function updateSimplifiedRaceDirector() {
 
   if (
     leaderGap > 4.2 &&
-    raceDirector.reason !== "BREAKAWAY"
+    raceDirector.reason !== "BREAKAWAY" &&
+    raceTime - raceDirector.lastBreakawayAt >= 8.0
   ) {
+    raceDirector.lastBreakawayAt = raceTime;
     setDirectorShot("LOW", leader.id, "BREAKAWAY", 3.0);
     return;
   }
@@ -4762,19 +4795,24 @@ function updateCamera(dt) {
   } else if (actualCamera === "LOW") {
     const autoLowShot = SIMPLIFIED_RACE_PAGE && requestedCamera === "AUTO";
     if (autoLowShot) {
+      const accelerationLow = raceDirector.reason === "ACCELERATION";
       const centerward = focusPos.x <= 0 ? 1 : -1;
-      const autoLowX = THREE.MathUtils.clamp(
-        focusPos.x + centerward * 1.4,
-        -TRACK_WIDTH / 2 + 2.0,
-        TRACK_WIDTH / 2 - 2.0
-      );
+      const autoLowX = accelerationLow
+        ? THREE.MathUtils.clamp(
+            focusPos.x + centerward * 1.4,
+            -TRACK_WIDTH / 2 + 2.0,
+            TRACK_WIDTH / 2 - 2.0
+          )
+        : THREE.MathUtils.clamp(focusPos.x * 0.35, -4.5, 4.5);
+      const autoLowLeadDistance = accelerationLow ? 10.5 : 16.0;
       desiredCamera.set(
-        // AUTO LOW stays ahead of the leader but sits toward track center,
-        // avoiding the off-track grass angle created by pushing edge-lane
-        // leaders farther outward.
+        // Keep the already-reviewed short acceleration shot intact. Longer
+        // race-flow LOW shots need more lead distance because damped tracking
+        // otherwise closes roughly speed / transitionRate metres on a
+        // 23-25 m/s leader and turns BREAKAWAY into a cropped grass-side view.
         autoLowX,
         1.02,
-        focusPos.z + 10.5
+        focusPos.z + autoLowLeadDistance
       );
       desiredLook.set(
         focusPos.x,
@@ -4783,6 +4821,10 @@ function updateCamera(dt) {
       );
       canvas.dataset.directorAutoLowProfile = "lead-front-quarter-inboard";
       canvas.dataset.directorAutoLowCameraX = autoLowX.toFixed(2);
+      canvas.dataset.directorAutoLowLeadDistance =
+        autoLowLeadDistance.toFixed(1);
+      canvas.dataset.directorAutoLowPhase =
+        accelerationLow ? "acceleration" : "race-flow";
     } else {
       desiredCamera.set(
         focusPos.x,
