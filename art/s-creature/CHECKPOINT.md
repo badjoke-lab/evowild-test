@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-rebuild-v7 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED
+current_stage: S-rebuild-v7 Gate A reviewed REVISE; Gate A remains open
 branch: feat/s-creature-model
 current_model_file: output/S-rebuild-v7.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review S-rebuild-v7 Gate A only; await decision. Do not proceed to Gate B.
+next_action: v8 structural correction only: rebuild shoulder/pelvis-to-limb transitions so roots read integrated rather than pasted-on cones, while preserving v7 head/crest/neck, thorax proportions, feet and tail. Render five views and stop.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -136,8 +136,8 @@ reset_plan: S_MORPHOLOGY_RESET_PLAN.md
 gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
-gate_a_status: REVIEW_PENDING
-modeling_status: STOPPED
+gate_a_status: REVISE
+modeling_status: READY_FOR_V8
 gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
 gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
@@ -237,3 +237,8 @@ gate_a_v7_rule: lock crest, thorax, waist, pelvis and tail. Change only head/nec
 gate_a_v7_done: Head-neck shortened and limb frontal-plane joint rhythm added; crest/torso/pelvis/tail/toes locked; five views rendered.
 gate_a_v7_acceptance: REVIEW_PENDING; no PASS claimed
 gate_a_v7_geometry_sha256: 700d2b8e1ca8cea608bdeb2618843942f7f85785af68e9ff5625174b8538dd62
+
+gate_a_v7_decision: REVISE
+gate_a_v7_reason: v7 removes the paired-horn failure, shortens the effective neck, and improves frontal limb-axis rhythm. Gate A still fails because FRONT34/REAR34 show abrupt cone-like shoulder/thigh roots, distal limbs remain too visually tubular, and the global read is still too close to a generic slim ungulate rather than the locked alien racing organism.
+gate_a_v7_keep: v7 crest envelope; shortened head-neck chain; compact thorax/waist/pelvis; frontal-plane joint offsets; three-toed feet; tapered tail.
+gate_a_v8_priority: shoulder/pelvis-to-limb integration -> tapered distal limb cross-sections -> re-check global non-ungulate silhouette. No Gate B.

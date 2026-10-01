@@ -9,12 +9,12 @@
     "E",
     "A"
   ],
-  "stage": "S-rebuild-gate-A-v7-review",
-  "current_stage": "S-rebuild-v7 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED",
+  "stage": "S-rebuild-gate-A-v8-ready",
+  "current_stage": "S-rebuild-v7 reviewed REVISE; Gate A remains open",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
   "current_model_file": "output/S-rebuild-v7.blend",
-  "source_model_file": "output/S-rebuild-v6.blend",
+  "source_model_file": "output/S-rebuild-v7.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
     "S_MORPHOLOGY_RESET_PLAN.md",
@@ -50,9 +50,11 @@
     "Tail and all toe geometry unchanged from v2",
     "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Review S-rebuild-v7 Gate A only. Do not proceed to Gate B.",
+  "next_action": "v8 structural correction: integrate shoulder/pelvis-to-limb roots and improve distal taper; preserve v7 head/crest/neck, core body proportions, feet and tail; render five views and STOP.",
   "quality_issues": [
-    "Gate A v7 silhouette acceptance pending review"
+    "FRONT34/REAR34 shoulder and thigh roots still read as pasted-on cone masses",
+    "distal limbs remain too tubular",
+    "global silhouette still reads too close to a generic slim ungulate"
   ],
   "blockers": [],
   "accepted": false,
@@ -65,8 +67,8 @@
     "references/02_s_silhouette.png"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "REVIEW_PENDING",
-  "modeling_status": "STOPPED",
+  "gate_a_status": "REVISE",
+  "modeling_status": "READY_FOR_V8",
   "cage_vertex_count": 800,
   "review_renders": [
     "output/review/rebuild-v7/S_rebuild_side.png",
@@ -92,5 +94,6 @@
   "v4_task": "S_REBUILD_V4_TASK.md",
   "v5_task": "S_REBUILD_V5_TASK.md",
   "v6_scope": "crest-only; all non-crest geometry locked",
-  "v7_scope": "head/neck + limb chains only; crest/torso/pelvis/tail locked"
+  "v7_scope": "head/neck + limb chains only; crest/torso/pelvis/tail locked",
+  "v8_scope": "limb-root integration + distal taper only; no Gate B"
 }
