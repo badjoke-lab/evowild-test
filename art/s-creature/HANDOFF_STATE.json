@@ -9,8 +9,8 @@
     "E",
     "A"
   ],
-  "stage": "S-rebuild-gate-A-v3",
-  "current_stage": "S-rebuild-v3 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED",
+  "stage": "S-rebuild-gate-A-v4",
+  "current_stage": "S-rebuild-v3 reviewed REVISE; structural Gate A v4 next",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
   "current_model_file": "output/S-rebuild-v3.blend",
@@ -50,11 +50,12 @@
     "Tail and all toe geometry unchanged from v2",
     "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Review v3 Gate A only; await user decision. Do not proceed to Gate B.",
+  "next_action": "Create output/S-rebuild-v4.blend from v3. One structural silhouette pass only: integrate crest roots into skull, replace rod-like limb segments with readable jointed masses, and lower/compact the racing posture toward the locked modeling image. Render five views and stop.",
   "quality_issues": [
-    "Gate A v3 silhouette acceptance pending user review",
-    "Low-complexity faceted plates and overlapping limb/toe roots remain",
-    "Whole silhouette similarity and shoulder/neck proportions require review"
+    "Crest no longer reads as upright horns, but plates still look pasted-on/flat in front and front34",
+    "Distal limbs still read as rods",
+    "Shoulder and pelvis masses transition too abruptly into limbs",
+    "Overall silhouette remains too generic ungulate compared with approved alien racing target"
   ],
   "blockers": [],
   "accepted": false,
@@ -65,8 +66,8 @@
     "output/S-rebuild-v3.blend"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "REVIEW_PENDING",
-  "modeling_status": "STOPPED",
+  "gate_a_status": "REVISE",
+  "modeling_status": "READY_FOR_V4",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/rebuild-v3/S_rebuild_side.png",
