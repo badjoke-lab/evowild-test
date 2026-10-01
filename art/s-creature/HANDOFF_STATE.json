@@ -9,8 +9,8 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_A1_V9_REVIEW",
-  "current_stage": "A1-v9 reference-driven crest rendered; review pending; modeling stopped",
+  "stage": "VIBE_EXPERIMENT_A1_V10_REQUIRED",
+  "current_stage": "A1-v9 reviewed REVISE; crest-only compact plate v10 required",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
   "current_model_file": "output/S-vibe-a1-v9.blend",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Review v9 crest against SIDE/FRONT/BACK/TOP evidence. If crest passes, decide whether complete A1 head/crest/neck is accepted. Do not start A2 before explicit A1 acceptance.",
+  "next_action": "Build A1-v10 from output/S-vibe-a1-v9.blend. Edit crest only: reduce primary plate height/thickness, reduce L/R center separation, retain broad FRONT faces and rearward SIDE sweep, sharpen the plate read. Keep all non-crest coordinates fixed; render SIDE/FRONT/FRONT34/BACK; STOP.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -59,8 +59,8 @@
     "output/S-rebuild-v1.blend"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "A1_V9_REVIEW_PENDING",
-  "modeling_status": "STOPPED",
+  "gate_a_status": "A1_V9_REVISE",
+  "modeling_status": "READY_FOR_A1_V10",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/vibe-a1-v9/S_vibe_a1_v9_side.png",
@@ -69,7 +69,9 @@
     "output/review/vibe-a1-v9/S_vibe_a1_v9_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
-  "editable_next": [],
+  "editable_next": [
+    "crest only"
+  ],
   "keep_fixed_next": [
     "head",
     "neck",
@@ -86,5 +88,8 @@
   "v6_reason": "Crest remains four near-parallel horizontal fins/comb; locked S reference uses a compact layered cranial crest dominated by a rear-upward primary lamina with shorter subordinate layers.",
   "v7_decision": "REVISE",
   "v7_reason": "SIDE/FRONT34 improved, but FRONT/BACK still read as narrow vertical horn needles because the laminae are nearly edge-on.",
-  "v8_hypothesis": "Keep centerline family; rotate each lamina broad face by a controlled roll angle and modestly widen front projection without creating bilateral horn towers."
+  "v8_hypothesis": "Keep centerline family; rotate each lamina broad face by a controlled roll angle and modestly widen front projection without creating bilateral horn towers.",
+  "v9_decision": "REVISE",
+  "v9_reason": "Two broad primary plates now appear, but FRONT reads as oversized separated rabbit ears and SIDE plate mass is too thick/tall.",
+  "v10_hypothesis": "Compact the same plate construction: closer centers, lower tips, thinner SIDE plate width, crisp facets; preserve enough diagonal face width to remain plate-like in FRONT."
 }
