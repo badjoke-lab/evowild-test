@@ -9,8 +9,8 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_A1_V6_REVIEW",
-  "current_stage": "A1-v6 neck/head placement rendered; complete A1 group review pending; modeling stopped",
+  "stage": "VIBE_EXPERIMENT_A1_USER_REVIEW",
+  "current_stage": "A1-v6 internally passes silhouette hard-fail checks; user review pending",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
   "current_model_file": "output/S-vibe-a1-v6.blend",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Review head/crest/neck A1 group. Do not start A2 unless A1 is accepted.",
+  "next_action": "STOP. User reviews A1-v6 SIDE/FRONT/FRONT34/BACK. Do not start A2 until user acceptance.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -59,8 +59,8 @@
     "output/S-rebuild-v1.blend"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "A1_V6_REVIEW_PENDING",
-  "modeling_status": "STOPPED",
+  "gate_a_status": "A1_INTERNAL_PASS_USER_REVIEW_PENDING",
+  "modeling_status": "STOPPED_FOR_USER_REVIEW",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/vibe-a1-v6/S_vibe_a1_v6_side.png",
