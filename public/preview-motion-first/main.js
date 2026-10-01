@@ -20,6 +20,8 @@ const winnerNameEl = document.querySelector("#winnerName");
 const winningTimeEl = document.querySelector("#winningTime");
 const resultRaceTimeEl = document.querySelector("#resultRaceTime");
 const resultListEl = document.querySelector("#resultList");
+const startSequenceEl = document.querySelector("#startSequence");
+const startSequenceLabelEl = document.querySelector("#startSequenceLabel");
 const cameraButtons = [...document.querySelectorAll(".cam")];
 
 const RACE_DISTANCE = 1600;
@@ -44,6 +46,14 @@ const PROXY_REVIEW_RUNNER =
   PROXY_REVIEW_RUNNER_PARAM === null
     ? null
     : Number.parseInt(PROXY_REVIEW_RUNNER_PARAM, 10);
+const START_SEQUENCE_ENABLED =
+  SIMPLIFIED_RACE_PAGE &&
+  params.get("skipStart") !== "1" &&
+  !FINISH_REVIEW_MODE &&
+  !FULL_DIRECTOR_REVIEW_MODE &&
+  PROXY_REVIEW_RUNNER === null &&
+  !INSPECT_MODE &&
+  !MOTION_REVIEW_MODE;
 const TAU = Math.PI * 2;
 const S_GAIT = {
   baseY: 1.60,
@@ -3424,9 +3434,25 @@ function resetRace() {
     : "[]";
   canvas.dataset.directorFullShotCount = FULL_DIRECTOR_REVIEW_MODE ? "1" : "0";
   previousAppliedCamera = "PACK";
+  startSequenceElapsed = 0;
+  raceStarted = !START_SEQUENCE_ENABLED;
   pauseButton.textContent = "PAUSE";
-  pauseButton.disabled = false;
-  raceStateEl.textContent = "RUNNING";
+  pauseButton.disabled = START_SEQUENCE_ENABLED;
+  raceStateEl.textContent = START_SEQUENCE_ENABLED ? "READY" : "RUNNING";
+  canvas.dataset.startSequence = START_SEQUENCE_ENABLED ? "1" : "0";
+  canvas.dataset.startPhase = START_SEQUENCE_ENABLED ? "READY" : "SKIPPED";
+  canvas.dataset.startElapsed = "0.000";
+  if (startSequenceEl) {
+    startSequenceEl.classList.toggle("hidden", !START_SEQUENCE_ENABLED);
+    startSequenceEl.setAttribute(
+      "aria-hidden",
+      START_SEQUENCE_ENABLED ? "false" : "true"
+    );
+    startSequenceEl.dataset.phase = START_SEQUENCE_ENABLED ? "READY" : "SKIPPED";
+  }
+  if (startSequenceLabelEl) {
+    startSequenceLabelEl.textContent = START_SEQUENCE_ENABLED ? "READY" : "";
+  }
   canvas.dataset.resultReady = "0";
   canvas.dataset.winnerDeclared = "0";
   canvas.dataset.winnerId = "";
@@ -4560,6 +4586,8 @@ let paused = false;
 let finished = false;
 let raceTime = 0;
 let simulationAccumulator = 0;
+let raceStarted = !START_SEQUENCE_ENABLED;
+let startSequenceElapsed = 0;
 const SIMULATION_STEP = SIMPLIFIED_RACE_PAGE ? 1 / 60 : 1 / 120;
 const MAX_SIMULATION_STEPS = SIMPLIFIED_RACE_PAGE ? 8 : 14;
 let fpsAccumulator = 0;
@@ -5250,6 +5278,48 @@ window.addEventListener("resize", () => {
 
 
 
+function updateStartSequence(dt) {
+  if (!START_SEQUENCE_ENABLED || raceStarted) return;
+
+  startSequenceElapsed += dt;
+  canvas.dataset.startElapsed = startSequenceElapsed.toFixed(3);
+
+  let phase = "READY";
+  let label = "READY";
+  if (startSequenceElapsed >= 0.60 && startSequenceElapsed < 1.20) {
+    phase = "3";
+    label = "3";
+  } else if (startSequenceElapsed >= 1.20 && startSequenceElapsed < 1.80) {
+    phase = "2";
+    label = "2";
+  } else if (startSequenceElapsed >= 1.80 && startSequenceElapsed < 2.40) {
+    phase = "1";
+    label = "1";
+  } else if (startSequenceElapsed >= 2.40 && startSequenceElapsed < 2.85) {
+    phase = "GO";
+    label = "GO";
+  } else if (startSequenceElapsed >= 2.85) {
+    raceStarted = true;
+    phase = "RUNNING";
+    label = "";
+    raceStateEl.textContent = "RUNNING";
+    pauseButton.disabled = false;
+    if (startSequenceEl) {
+      startSequenceEl.classList.add("hidden");
+      startSequenceEl.setAttribute("aria-hidden", "true");
+    }
+  }
+
+  if (!raceStarted) {
+    raceStateEl.textContent =
+      phase === "READY" ? "READY" : phase === "GO" ? "GO" : "COUNTDOWN";
+  }
+
+  canvas.dataset.startPhase = phase;
+  if (startSequenceEl) startSequenceEl.dataset.phase = phase;
+  if (startSequenceLabelEl) startSequenceLabelEl.textContent = label;
+}
+
 function animate() {
   const frameWorkStartedAt = SIMPLIFIED_RACE_PAGE ? performance.now() : 0;
   let poseWorkMs = 0;
@@ -5263,26 +5333,33 @@ function animate() {
   const poseDt = Math.max(rawDt, 1 / 240);
 
   if (!paused) {
-    simulationAccumulator = Math.min(
-      simulationAccumulator + rawDt,
-      SIMULATION_STEP * MAX_SIMULATION_STEPS
-    );
+    if (!raceStarted) {
+      updateStartSequence(rawDt);
+      simulationAccumulator = 0;
+      canvas.dataset.raceTime = raceTime.toFixed(3);
+      canvas.dataset.simulationSteps = "0";
+    } else {
+      simulationAccumulator = Math.min(
+        simulationAccumulator + rawDt,
+        SIMULATION_STEP * MAX_SIMULATION_STEPS
+      );
 
-    let simulationSteps = 0;
-    while (
-      simulationAccumulator >= SIMULATION_STEP &&
-      simulationSteps < MAX_SIMULATION_STEPS &&
-      !finished
-    ) {
-      raceTime += SIMULATION_STEP;
-      runners.forEach((runner) => updateRunner(runner, SIMULATION_STEP));
-      finishCheck();
-      simulationAccumulator -= SIMULATION_STEP;
-      simulationSteps += 1;
+      let simulationSteps = 0;
+      while (
+        simulationAccumulator >= SIMULATION_STEP &&
+        simulationSteps < MAX_SIMULATION_STEPS &&
+        !finished
+      ) {
+        raceTime += SIMULATION_STEP;
+        runners.forEach((runner) => updateRunner(runner, SIMULATION_STEP));
+        finishCheck();
+        simulationAccumulator -= SIMULATION_STEP;
+        simulationSteps += 1;
+      }
+
+      canvas.dataset.raceTime = raceTime.toFixed(3);
+      canvas.dataset.simulationSteps = String(simulationSteps);
     }
-
-    canvas.dataset.raceTime = raceTime.toFixed(3);
-    canvas.dataset.simulationSteps = String(simulationSteps);
   } else {
     simulationAccumulator = 0;
   }
