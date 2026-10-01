@@ -15,6 +15,11 @@ const cameraEl = document.querySelector("#cameraReadout");
 const runnerSelect = document.querySelector("#runnerSelect");
 const pauseButton = document.querySelector("#pauseButton");
 const restartButton = document.querySelector("#restartButton");
+const resultPanel = document.querySelector("#resultPanel");
+const winnerNameEl = document.querySelector("#winnerName");
+const winningTimeEl = document.querySelector("#winningTime");
+const resultRaceTimeEl = document.querySelector("#resultRaceTime");
+const resultListEl = document.querySelector("#resultList");
 const cameraButtons = [...document.querySelectorAll(".cam")];
 
 const RACE_DISTANCE = 1600;
@@ -3354,6 +3359,7 @@ function createRunners() {
       speedBias: 0.965 + seeded(i, 3) * 0.07,
       nextLaneDecision: 190 + seeded(i, 11) * 210,
       laneChangeStartedAt: -999,
+      finishTime: null,
       raceProxy,
       renderFull: !SIMPLIFIED_RACE_PAGE
     };
@@ -3419,7 +3425,21 @@ function resetRace() {
   canvas.dataset.directorFullShotCount = FULL_DIRECTOR_REVIEW_MODE ? "1" : "0";
   previousAppliedCamera = "PACK";
   pauseButton.textContent = "PAUSE";
+  pauseButton.disabled = false;
   raceStateEl.textContent = "RUNNING";
+  canvas.dataset.resultReady = "0";
+  canvas.dataset.winnerDeclared = "0";
+  canvas.dataset.winnerId = "";
+  canvas.dataset.winningTime = "";
+  canvas.dataset.finalClassification = "[]";
+  if (resultPanel) {
+    resultPanel.classList.add("hidden");
+    resultPanel.setAttribute("aria-hidden", "true");
+  }
+  if (resultListEl) resultListEl.replaceChildren();
+  if (winnerNameEl) winnerNameEl.textContent = "—";
+  if (winningTimeEl) winningTimeEl.textContent = "—";
+  if (resultRaceTimeEl) resultRaceTimeEl.textContent = "—";
 
   runners.forEach((runner, i) => {
     const row = Math.floor(i / LANE_COUNT);
@@ -3432,6 +3452,7 @@ function resetRace() {
       (FINISH_REVIEW_MODE ? RACE_DISTANCE - 215 : 0);
     runner.speed = 0;
     runner.targetSpeed = 0;
+    runner.finishTime = null;
     runner.nextLaneDecision = 190 + seeded(i, 11) * 210;
     runner.group.position.set(runner.laneX, 0, runner.distance);
     if (runner.raceProxy) {
@@ -3475,11 +3496,33 @@ function updateRunner(runner, dt) {
     phaseBoost = 1.0 + Math.sin(progress * Math.PI * 5 + runner.phaseBias) * 0.009;
   }
 
-  runner.targetSpeed = cfg.baseSpeed * runner.speedBias * phaseBoost * launch;
+  runner.targetSpeed =
+    runner.finishTime === null
+      ? cfg.baseSpeed * runner.speedBias * phaseBoost * launch
+      : 0;
   const accelRate = cfg.accel * (runner.targetSpeed >= runner.speed ? 1 : 0.62);
   runner.speed = THREE.MathUtils.damp(runner.speed, runner.targetSpeed, accelRate, dt);
 
+  const previousDistance = runner.distance;
   if (!finished) runner.distance += runner.speed * dt;
+
+  if (
+    runner.finishTime === null &&
+    previousDistance < RACE_DISTANCE &&
+    runner.distance >= RACE_DISTANCE
+  ) {
+    const segmentDistance = Math.max(runner.distance - previousDistance, 0.0001);
+    const crossingFraction = THREE.MathUtils.clamp(
+      (RACE_DISTANCE - previousDistance) / segmentDistance,
+      0,
+      1
+    );
+    runner.finishTime = Math.max(0, raceTime - dt + dt * crossingFraction);
+  }
+
+  if (runner.finishTime !== null) {
+    runner.distance = Math.min(runner.distance, RACE_DISTANCE + 8.0);
+  }
 
   maybeChangeLane(runner);
 
@@ -4576,8 +4619,11 @@ function updateSimplifiedRaceDirector() {
   if (!SIMPLIFIED_RACE_PAGE || requestedCamera !== "AUTO" || runners.length === 0) return;
 
   const order = rankings();
-  const leader = order[0];
-  const second = order[1] || leader;
+  const declaredWinner = runners
+    .filter((runner) => Number.isFinite(runner.finishTime))
+    .sort((a, b) => a.finishTime - b.finishTime || a.id - b.id)[0];
+  const leader = declaredWinner || order[0];
+  const second = order.find((runner) => runner.id !== leader.id) || leader;
   const leaderGap = Math.max(0, leader.distance - second.distance);
   const topPack = order.slice(0, 6);
   const packSpread =
@@ -5027,8 +5073,17 @@ function updateCamera(dt) {
 
 function updateHud(dt) {
   const focus = runners[selectedRunner];
-  const rank = rankings().findIndex((r) => r.id === focus.id) + 1;
-  distanceEl.textContent = `${Math.max(0, Math.floor(focus.distance))} / ${RACE_DISTANCE} m`;
+  const rankOrder = finished
+    ? [...runners].sort(
+        (a, b) =>
+          (a.finishTime ?? Number.POSITIVE_INFINITY) -
+            (b.finishTime ?? Number.POSITIVE_INFINITY) ||
+          a.id - b.id
+      )
+    : rankings();
+  const rank = rankOrder.findIndex((r) => r.id === focus.id) + 1;
+  distanceEl.textContent =
+    `${Math.max(0, Math.min(RACE_DISTANCE, Math.floor(focus.distance)))} / ${RACE_DISTANCE} m`;
   speedEl.textContent = `${focus.speed.toFixed(1)} m/s`;
   morphEl.textContent = focus.morph;
   runnerNameEl.textContent = `${focus.name} · ${MORPHS[focus.morph].label}`;
@@ -5044,14 +5099,97 @@ function updateHud(dt) {
   }
 }
 
+function formatRaceTime(seconds) {
+  const safe = Math.max(0, Number(seconds) || 0);
+  const minutes = Math.floor(safe / 60);
+  const remaining = safe - minutes * 60;
+  return `${minutes}:${remaining.toFixed(3).padStart(6, "0")}`;
+}
+
+function renderRaceResults(finalOrder) {
+  if (!finalOrder.length) return;
+
+  const winner = finalOrder[0];
+  const lastFinisher = finalOrder[finalOrder.length - 1];
+
+  canvas.dataset.resultReady = "1";
+  canvas.dataset.winnerDeclared = "1";
+  canvas.dataset.winnerId = String(winner.id);
+  canvas.dataset.winningTime = winner.finishTime.toFixed(3);
+  canvas.dataset.finalClassification = JSON.stringify(
+    finalOrder.map((runner, index) => ({
+      rank: index + 1,
+      id: runner.id,
+      morph: runner.morph,
+      time: Number(runner.finishTime.toFixed(3))
+    }))
+  );
+
+  if (winnerNameEl) {
+    winnerNameEl.textContent =
+      `${winner.name} · ${winner.morph} / ${MORPHS[winner.morph].label}`;
+  }
+  if (winningTimeEl) {
+    winningTimeEl.textContent = `WIN ${formatRaceTime(winner.finishTime)}`;
+  }
+  if (resultRaceTimeEl) {
+    resultRaceTimeEl.textContent =
+      `FIELD ${formatRaceTime(lastFinisher.finishTime)}`;
+  }
+
+  if (resultListEl) {
+    resultListEl.replaceChildren();
+    finalOrder.forEach((runner) => {
+      const row = document.createElement("li");
+      const runnerCell = document.createElement("span");
+      runnerCell.className = "result-runner";
+
+      const name = document.createElement("strong");
+      name.textContent = runner.name;
+      const morph = document.createElement("small");
+      morph.textContent = runner.morph;
+      runnerCell.append(name, morph);
+
+      const time = document.createElement("span");
+      time.className = "result-time";
+      time.textContent = formatRaceTime(runner.finishTime);
+
+      row.append(runnerCell, time);
+      resultListEl.append(row);
+    });
+  }
+
+  if (resultPanel) {
+    resultPanel.classList.remove("hidden");
+    resultPanel.setAttribute("aria-hidden", "false");
+  }
+}
+
 function finishCheck() {
   if (finished) return;
-  const leader = rankings()[0];
-  if (leader.distance >= RACE_DISTANCE) {
+
+  const finishers = runners
+    .filter((runner) => Number.isFinite(runner.finishTime))
+    .sort((a, b) => a.finishTime - b.finishTime || a.id - b.id);
+
+  if (finishers.length > 0 && canvas.dataset.winnerDeclared !== "1") {
+    const winner = finishers[0];
+    canvas.dataset.winnerDeclared = "1";
+    canvas.dataset.winnerId = String(winner.id);
+    canvas.dataset.winningTime = winner.finishTime.toFixed(3);
+    raceStateEl.textContent = "FINALIZING";
+    setDirectorFocus(winner.id);
+  }
+
+  if (finishers.length === RUNNER_COUNT) {
     finished = true;
     paused = true;
+    const winner = finishers[0];
+    setDirectorFocus(winner.id);
     raceStateEl.textContent = "FINISHED";
-    pauseButton.textContent = "RESUME";
+    pauseButton.textContent = "FINISHED";
+    pauseButton.disabled = true;
+    renderRaceResults(finishers);
   }
 }
 
@@ -5075,9 +5213,7 @@ runnerSelect.addEventListener("change", () => {
 });
 
 pauseButton.addEventListener("click", () => {
-  if (finished && paused) {
-    finished = false;
-  }
+  if (finished) return;
   paused = !paused;
   pauseButton.textContent = paused ? "RESUME" : "PAUSE";
   raceStateEl.textContent = paused ? "PAUSED" : "RUNNING";

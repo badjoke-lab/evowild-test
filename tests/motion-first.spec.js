@@ -1013,6 +1013,62 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
   await finishPage.locator("#scene").screenshot({
     path: `${outDir}/motion-first-finish-front.png`
   });
+
+  await expect(finishPage.locator("#raceState")).toHaveText("FINISHED", {
+    timeout: 12000
+  });
+  await expect(finishPage.locator("#scene")).toHaveAttribute(
+    "data-result-ready",
+    "1"
+  );
+  await expect(finishPage.locator("#resultPanel")).toHaveAttribute(
+    "aria-hidden",
+    "false"
+  );
+  await expect(finishPage.locator("#resultList li")).toHaveCount(18);
+  await expect(finishPage.locator("#pauseButton")).toBeDisabled();
+
+  const winnerId = Number(
+    await finishPage.locator("#scene").getAttribute("data-winner-id")
+  );
+  const winningTime = Number(
+    await finishPage.locator("#scene").getAttribute("data-winning-time")
+  );
+  const classificationText =
+    (await finishPage.locator("#scene").getAttribute("data-final-classification")) ||
+    "[]";
+  const classification = JSON.parse(classificationText);
+
+  expect(Number.isInteger(winnerId)).toBeTruthy();
+  expect(Number.isFinite(winningTime)).toBeTruthy();
+  expect(classification).toHaveLength(18);
+  expect(classification[0].id).toBe(winnerId);
+  expect(classification[0].rank).toBe(1);
+  expect(classification[17].rank).toBe(18);
+  expect(classification[0].time).toBeCloseTo(winningTime, 3);
+  for (let i = 1; i < classification.length; i += 1) {
+    expect(classification[i].time).toBeGreaterThanOrEqual(
+      classification[i - 1].time
+    );
+  }
+
+  await finishPage.locator("#scene").screenshot({
+    path: `${outDir}/motion-first-finish-result.png`
+  });
+
+  await finishPage.getByRole("button", { name: "RESTART", exact: true }).click({
+    force: true
+  });
+  await expect(finishPage.locator("#scene")).toHaveAttribute(
+    "data-result-ready",
+    "0"
+  );
+  await expect(finishPage.locator("#resultPanel")).toHaveAttribute(
+    "aria-hidden",
+    "true"
+  );
+  await expect(finishPage.locator("#pauseButton")).toBeEnabled();
+
   await finishContext.close();
 
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
