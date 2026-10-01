@@ -9,12 +9,12 @@
     "E",
     "A"
   ],
-  "stage": "S-rebuild-gate-A-v4-review",
-  "current_stage": "S-rebuild-v4 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED",
+  "stage": "S-rebuild-gate-A-v5",
+  "current_stage": "S-rebuild-v4 reviewed REVISE; fresh Gate A v5 structural reset next",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
   "current_model_file": "output/S-rebuild-v4.blend",
-  "source_model_file": "output/S-rebuild-v3.blend",
+  "source_model_file": null,
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
     "S_MORPHOLOGY_RESET_PLAN.md",
@@ -50,21 +50,26 @@
     "Tail and all toe geometry unchanged from v2",
     "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Review S-rebuild-v4 Gate A only. Do not proceed to Gate B.",
+  "next_action": "Execute S_REBUILD_V5_TASK.md from empty scene; render five views; STOP for review.",
   "quality_issues": [
-    "Gate A v4 silhouette acceptance pending review"
+    "v4 crest remains too lateral/ear-like",
+    "v4 front thorax remains shield-like",
+    "v4 distal limbs still read too rod-like from front/back",
+    "v4 global silhouette remains too generic ungulate"
   ],
   "blockers": [],
   "accepted": false,
   "resume_inputs": [
     "S_MODELING_IMAGE_LOCK.md",
     "S_MORPHOLOGY_RESET_PLAN.md",
-    "S_REBUILD_V4_TASK.md",
-    "output/S-rebuild-v3.blend"
+    "S_REBUILD_V5_TASK.md",
+    "references/00_full_reference.png",
+    "references/01_s_body_primary.png",
+    "references/02_s_silhouette.png"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "REVIEW_PENDING",
-  "modeling_status": "STOPPED",
+  "gate_a_status": "REVISE",
+  "modeling_status": "READY_FOR_V5",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/rebuild-v4/S_rebuild_side.png",
@@ -87,5 +92,6 @@
     "tail_unchanged": true,
     "toes_unchanged": true
   },
-  "v4_task": "S_REBUILD_V4_TASK.md"
+  "v4_task": "S_REBUILD_V4_TASK.md",
+  "v5_task": "S_REBUILD_V5_TASK.md"
 }
