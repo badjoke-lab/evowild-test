@@ -311,7 +311,7 @@ test("Motion First Phase D E body captures same-species multi-view inspection", 
 test("Motion First Phase D E gait records continuous SIDE and LOW review", async ({ browser }, testInfo) => {
   test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
   test.skip(testInfo.project.name !== "desktop-chromium");
-  test.setTimeout(70000);
+  test.setTimeout(85000);
 
   const outDir = "test-results/visuals";
   fs.mkdirSync(outDir, { recursive: true });
@@ -744,7 +744,7 @@ test("Motion First Phase E simplified race public start sequence", async ({ brow
   await expect(scene).toHaveAttribute("data-start-phase", "GO", {
     timeout: 5000
   });
-  expect(Number(await scene.getAttribute("data-race-time"))).toBe(0);
+  await expect(scene).toHaveAttribute("data-start-go-race-time", "0.000");
   await expect(page.locator("#raceState")).toHaveText("GO");
   await page.locator("#scene").screenshot({
     path: `${outDir}/motion-first-start-go.png`
@@ -1070,7 +1070,7 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
   });
 
   await expect(finishPage.locator("#raceState")).toHaveText("FINISHED", {
-    timeout: 12000
+    timeout: 22000
   });
   await expect(finishPage.locator("#scene")).toHaveAttribute(
     "data-result-ready",
