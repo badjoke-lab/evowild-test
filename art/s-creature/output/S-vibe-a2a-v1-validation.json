@@ -1,0 +1,86 @@
+{
+  "lane": "exp/s-creature-vibe-modeling",
+  "gate": "A2a-v1-thorax-waist-massing",
+  "source": "S-vibe-a1-v11.blend",
+  "decision": "REVIEW_PENDING",
+  "editable": [
+    "core rings 8-11 / vertices 64-95 only"
+  ],
+  "single_hypothesis": "increase anterior thorax mass while raising ventral contour into a narrow waist",
+  "longitudinal_y_change": false,
+  "hard_fixed": [
+    "core rings 0-7",
+    "accepted crest S_reference_crest_v11",
+    "core rings 12-19",
+    "all limbs",
+    "all feet/toes",
+    "topology"
+  ],
+  "source_stations": {
+    "8": {
+      "y": -0.03999999910593033,
+      "top": 1.1100000143051147,
+      "bottom": 0.7599999904632568,
+      "half_width": 0.14499999582767487
+    },
+    "9": {
+      "y": 0.14000000059604645,
+      "top": 1.100000023841858,
+      "bottom": 0.7099999785423279,
+      "half_width": 0.15000000596046448
+    },
+    "10": {
+      "y": 0.33000001311302185,
+      "top": 1.0750000476837158,
+      "bottom": 0.7799999713897705,
+      "half_width": 0.11900000274181366
+    },
+    "11": {
+      "y": 0.5299999713897705,
+      "top": 1.090000033378601,
+      "bottom": 0.8500000238418579,
+      "half_width": 0.08299999684095383
+    }
+  },
+  "target_stations": {
+    "8": {
+      "y": -0.03999999910593033,
+      "top": 1.125,
+      "bottom": 0.735,
+      "half_width": 0.155
+    },
+    "9": {
+      "y": 0.14000000059604645,
+      "top": 1.115,
+      "bottom": 0.71,
+      "half_width": 0.155
+    },
+    "10": {
+      "y": 0.33000001311302185,
+      "top": 1.085,
+      "bottom": 0.82,
+      "half_width": 0.112
+    },
+    "11": {
+      "y": 0.5299999713897705,
+      "top": 1.08,
+      "bottom": 0.895,
+      "half_width": 0.08
+    }
+  },
+  "fixed_geometry_hash": "cf8556806fffac412a16aedf7898d4690dcef3bf8f6180744d368029755feef1",
+  "fixed_geometry_unchanged": true,
+  "crest_unchanged": true,
+  "appendages_unchanged": true,
+  "topology_unchanged": true,
+  "vertex_count": 160,
+  "polygon_count": 154,
+  "rendered_views": [
+    "side",
+    "front",
+    "front34",
+    "back"
+  ],
+  "render_geometry_unchanged": true,
+  "status": "REVIEW_PENDING"
+}

@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gate A1 accepted at v11; Gate A2a thorax/waist massing ready
+current_stage: experimental Vibe Gate A2a-v1 thorax/waist massing rendered; REVIEW_PENDING / STOPPED
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-a1-v11.blend
+current_model_file: output/S-vibe-a2a-v1.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute Gate A2a from output/S-vibe-a1-v11.blend. Edit core rings 8-11 cross-sectional mass only; keep Y positions, rings 0-7, crest, rings 12-19, limbs, feet and topology fixed. Render SIDE/FRONT/FRONT34/BACK and STOP.
+next_action: Review A2a-v1 thorax/waist massing against approved S references. Do not edit pelvis or begin A2b before explicit A2a decision.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -319,3 +319,11 @@ vibe_gate_a1_accepted_model: output/S-vibe-a1-v11.blend
 vibe_gate_a1_acceptance_scope: experimental lane only; no merge into feat/s-creature-model
 vibe_gate_a2a_lock: S_VIBE_A2_REFERENCE_ANALYSIS.md
 vibe_gate_a2a_editable: core rings 8-11 only; cross-sectional mass; Y positions fixed
+
+vibe_gate_a2a_v1_status: REVIEW_PENDING
+vibe_gate_a2a_v1_scope: core rings 8-11 cross-sectional mass only; Y fixed
+vibe_gate_a2a_v1_renders:
+- output/review/vibe-a2a-v1/S_vibe_a2a_v1_side.png
+- output/review/vibe-a2a-v1/S_vibe_a2a_v1_front.png
+- output/review/vibe-a2a-v1/S_vibe_a2a_v1_front34.png
+- output/review/vibe-a2a-v1/S_vibe_a2a_v1_back.png
