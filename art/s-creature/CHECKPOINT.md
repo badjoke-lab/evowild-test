@@ -228,3 +228,10 @@ vibe_gate_a1_v5_renders:
 - output/review/vibe-a1-v5/S_vibe_a1_v5_front.png
 - output/review/vibe-a1-v5/S_vibe_a1_v5_front34.png
 - output/review/vibe-a1-v5/S_vibe_a1_v5_back.png
+
+
+vibe_gate_a1_v5_decision: REVISE
+vibe_gate_a1_v5_keep: curved laminar crest representation and four-layer crown projection. No return to v1-v4 crest constructions.
+vibe_gate_a1_v5_reason: crest representation is materially improved, but A1 still fails global head/neck proportion: neck remains too long and head sits too high/forward relative to the S reference.
+vibe_gate_a1_v6_source: output/S-vibe-a1-v5.blend
+vibe_gate_a1_v6_exact_edit: neck proportion + rigid head/crest placement only. Preserve head shape, crest shape, thorax and all limbs/tail. Move head+crest as one rigid unit closer/lower to thorax and rebuild only neck stations 5-7 for a shorter continuous transition.
