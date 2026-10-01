@@ -18,16 +18,33 @@ const ui = {
 };
 
 const BASE = import.meta.env.BASE_URL || "/";
-const FIELD_SIZE = 8;
+const FIELD_SIZE = 18;
 const SELECTED_ID = 1;
 const RACE_METERS = 1600;
 stage.dataset.engineLineage = "lane5-fixed-step-plus-four-morph-run-sheets";
 stage.dataset.morphSet = "S,P,E,A";
-const LANES = [1, 1, 2, 3, 0, 2, 1, 3];
-const CRUISE = [36.8,34.7,35.9,34.9,36.1,35.2,35.6,34.8];
-const ACCEL = [15.0,13.4,14.3,13.6,14.0,13.5,13.9,13.4];
-const NAMES = ["Mica","Vela","Rook","Serein","Flint","Nacre","Ilex","Sora"];
-const MORPH_SEQUENCE = ["S","P","E","A","S","P","E","A"];
+stage.dataset.fieldSize = String(FIELD_SIZE);
+stage.dataset.cameraPolicy = "selected-plus-nearby";
+const LANE_PATTERN = [1, 2, 0, 3, 1, 3, 0, 2];
+const CRUISE_PATTERN = [36.8,34.7,35.9,34.9,36.1,35.2,35.6,34.8];
+const ACCEL_PATTERN = [15.0,13.4,14.3,13.6,14.0,13.5,13.9,13.4];
+const NAMES = [
+  "Mica","Vela","Rook","Serein","Flint","Nacre","Ilex","Sora",
+  "Tarin","Ossa","Brink","Nyx","Arden","Vale","Kest","Orin","Tess","Moro"
+];
+const LANES = Array.from({ length: FIELD_SIZE }, (_, i) => LANE_PATTERN[i % LANE_PATTERN.length]);
+const CRUISE = Array.from({ length: FIELD_SIZE }, (_, i) => {
+  const base = CRUISE_PATTERN[i % CRUISE_PATTERN.length];
+  return base * (1 + ((i % 5) - 2) * 0.003);
+});
+const ACCEL = Array.from({ length: FIELD_SIZE }, (_, i) => {
+  const base = ACCEL_PATTERN[i % ACCEL_PATTERN.length];
+  return base * (1 + ((i % 3) - 1) * 0.004);
+});
+const MORPH_SEQUENCE = Array.from(
+  { length: FIELD_SIZE },
+  (_, i) => ["S","P","E","A"][i % 4]
+);
 const MORPH_META = {
   S: { cadence:1.00, width:1.00, lift:1.00 },
   P: { cadence:0.90, width:1.08, lift:0.62 },
@@ -211,7 +228,7 @@ function makeRacers() {
     id:i+1,
     name:NAMES[i],
     morph:MORPH_SEQUENCE[i],
-    distance: i*4.0,
+    distance: Math.floor(i / 4) * 2.35 + (i % 4) * 0.18,
     speed:0,
     cruise:CRUISE[i],
     accel:ACCEL[i],
@@ -754,36 +771,35 @@ function drawForeground() {
 function updateCamera() {
   const focus=selected();
   const live=racers.filter(r=>!r.finished);
-  const front=live.length?Math.max(...live.map(r=>r.distance)):focus.distance;
-  const back=live.length?Math.min(...live.map(r=>r.distance)):focus.distance;
-  const span=Math.max(1,front-back);
-  const center=(front+back)*.5;
+  const nearby=live.filter(r=>Math.abs(r.distance-focus.distance)<=28);
+  const relevant=nearby.length>=3?nearby:live
+    .slice()
+    .sort((a,b)=>Math.abs(a.distance-focus.distance)-Math.abs(b.distance-focus.distance))
+    .slice(0,4);
 
-  // Frame the actual pack, including sprite width. The race is the subject, not one fixed S.
-  const base=width<700?6.7:8.4;
-  const spriteBase=width<700
-    ? clamp(width*.14,90,124)
-    : clamp(width*.092,122,148);
-  const maxHalfSprite=spriteBase*1.12*.54;
-  const sidePadding=width<700?8:18;
-  const usableWidth=Math.max(90,width-2*(maxHalfSprite+sidePadding));
-  const bySpan=usableWidth/span;
-  const targetPPM=clamp(Math.min(base,bySpan),width<700?2.55:4.15,base);
+  const front=relevant.length?Math.max(...relevant.map(r=>r.distance)):focus.distance;
+  const back=relevant.length?Math.min(...relevant.map(r=>r.distance)):focus.distance;
+  const localSpan=Math.max(1,front-back);
+  const mobile=width<700;
+  const base=mobile?8.2:10.4;
+  const min=mobile?5.8:7.6;
+  const available=width*(mobile?.62:.58);
+  const targetPPM=clamp(Math.min(base,available/Math.max(12,localSpan)),min,base);
 
-  if(width<700){
-    pixelsPerMeter=targetPPM;
-    cameraMeters=center;
-  } else {
-    const zoomRate=targetPPM<pixelsPerMeter?.20:.055;
-    pixelsPerMeter=lerp(pixelsPerMeter,targetPPM,zoomRate);
-    const targetCamera=center+span*.015;
-    cameraMeters=lerp(cameraMeters,targetCamera,.22);
-  }
+  const zoomRate=targetPPM<pixelsPerMeter?.18:.075;
+  pixelsPerMeter=lerp(pixelsPerMeter,targetPPM,zoomRate);
+
+  // Keep the selected creature readable while nearby rivals enter and leave frame.
+  // The camera must not shrink all 18 runners just to keep the whole field visible.
+  const lookAhead=clamp((front-focus.distance)*.10,1.5,4.5);
+  const targetCamera=Math.max(0,focus.distance+lookAhead);
+  const followRate=mobile?.22:.14;
+  cameraMeters=lerp(cameraMeters,targetCamera,followRate);
 
   stage.dataset.pixelsPerMeter=pixelsPerMeter.toFixed(2);
-  stage.dataset.packSpan=span.toFixed(2);
+  stage.dataset.packSpan=localSpan.toFixed(2);
+  stage.dataset.cameraSubject="selected-plus-nearby";
 }
-
 function drawSpeedRush() {
   const focus=selected();
   const speedNorm=clamp(focus.speed/36.5,0,1);
