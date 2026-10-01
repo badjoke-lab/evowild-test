@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gate A1-v10 compact crest rendered; REVIEW_PENDING / STOPPED
+current_stage: experimental Vibe Gate A1-v10 reviewed REVISE; crest-only v11 side-lamina-width correction required
 branch: exp/s-creature-vibe-modeling
 current_model_file: output/S-vibe-a1-v10.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review A1-v10 crest against multi-angle reference. If crest passes, review complete A1 head/crest/neck; do not start A2 before explicit acceptance.
+next_action: Build A1-v11 from output/S-vibe-a1-v10.blend. Edit CREST ONLY. Keep all non-crest geometry fixed. Preserve approximately the v10 FRONT/BACK plate projection while increasing SIDE lamina width and curvature by reducing roll angle proportionally as width increases. Render SIDE/FRONT/FRONT34/BACK and STOP.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -298,3 +298,8 @@ vibe_gate_a1_v10_renders:
 - output/review/vibe-a1-v10/S_vibe_a1_v10_front.png
 - output/review/vibe-a1-v10/S_vibe_a1_v10_front34.png
 - output/review/vibe-a1-v10/S_vibe_a1_v10_back.png
+
+vibe_gate_a1_v10_decision: REVISE
+vibe_gate_a1_v10_keep: compact close two-primary FRONT/BACK projection, lower crest height, skull-integrated root position, all non-crest geometry lock.
+vibe_gate_a1_v10_problem: SIDE/FRONT34 laminae became too thin and straight, reading as sword strips rather than C5-style plates.
+vibe_gate_a1_v11_exact_edit: crest only; increase Y/Z plate half-width and centerline curvature while reducing roll angle so X/front projection stays approximately v10-sized.
