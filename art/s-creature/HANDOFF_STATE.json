@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "S-morphology-reset",
-  "current_stage": "v12 rejected as global morphology baseline",
+  "stage": "S-rebuild-gate-A",
+  "current_stage": "approved modeling image locked; silhouette rebuild next",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
-  "current_model_file": "output/S-blockout-v12.blend",
+  "current_model_file": "NONE",
   "source_model_file": "output/S-blockout-v2.blend",
   "primary_references": [
     "references/01_s_body_primary.png"
@@ -29,20 +29,19 @@
     "Applied the specified ventral-only lower-neck/chest junction displacement once to the continuous surface (6738 vertices), preserving lateral coordinates and topology",
     "Saved S-blockout-v4.blend without rendering or GLB export"
   ],
-  "next_action": "Rebuild S against authoritative references 01/02, beginning with head/crest silhouette and overall proportions. Remove the unsupported single sagittal horn/crown. Do not continue chest-only polishing.",
+  "next_action": "Read S_MODELING_IMAGE_LOCK.md and S_MORPHOLOGY_RESET_PLAN.md; create output/S-rebuild-v1.blend as a new silhouette cage. Do not patch v12.",
   "quality_issues": [
-    "Global silhouette mismatch versus authoritative S references",
-    "Unsupported single sagittal horn/crown from procedural build",
-    "Current creature reads too deer/gazelle-like",
-    "Head/neck/thorax/limb language needs reference-led rebuild"
+    "v12 rejected as global morphology baseline",
+    "single sagittal horn/crown forbidden",
+    "global silhouette must be rebuilt toward approved S modeling image"
   ],
   "blockers": [],
   "accepted": false,
   "resume_inputs": [
-    "CHECKPOINT.md",
-    "HANDOFF_STATE.json",
+    "S_MODELING_IMAGE_LOCK.md",
+    "S_MORPHOLOGY_RESET_PLAN.md",
+    "references/00_full_reference.png",
     "references/01_s_body_primary.png",
-    "references/02_s_silhouette.png",
-    "output/S-blockout-v12.blend"
+    "references/02_s_silhouette.png"
   ]
 }
