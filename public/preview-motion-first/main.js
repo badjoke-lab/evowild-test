@@ -3129,6 +3129,7 @@ const proxyFootGeometry = new THREE.BoxGeometry(0.16, 0.065, 0.30);
 const proxyToeGeometry = new THREE.BoxGeometry(0.075, 0.055, 0.28);
 const proxyTailBladeGeometry = new THREE.BoxGeometry(0.10, 0.055, 0.28);
 const proxyShadowGeometry = new THREE.CircleGeometry(1, 12);
+const proxyAgentOrbGeometry = new THREE.IcosahedronGeometry(0.5, 1);
 
 let simplifiedRaceProxyPool = null;
 
@@ -3160,6 +3161,7 @@ function ensureSimplifiedRaceProxyPool() {
     fog: true
   });
   const cueMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  const agentOrbMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
   const shadowMaterial = new THREE.MeshBasicMaterial({
     color: 0x000000,
     transparent: true,
@@ -3183,7 +3185,8 @@ function ensureSimplifiedRaceProxyPool() {
     cannon: makeRaceProxyInstances(proxyCannonGeometry, primaryMaterial, RUNNER_COUNT * 4),
     foot: makeRaceProxyInstances(proxyFootGeometry, darkMaterial, RUNNER_COUNT * 4),
     toe: makeRaceProxyInstances(proxyToeGeometry, darkMaterial, RUNNER_COUNT * 8),
-    shadow: makeRaceProxyInstances(proxyShadowGeometry, shadowMaterial, RUNNER_COUNT)
+    shadow: makeRaceProxyInstances(proxyShadowGeometry, shadowMaterial, RUNNER_COUNT),
+    agentOrb: makeRaceProxyInstances(proxyAgentOrbGeometry, agentOrbMaterial, RUNNER_COUNT)
   };
 
   canvas.dataset.raceProxyRepresentation = "instanced-canonical-rig";
