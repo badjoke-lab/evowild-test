@@ -1312,7 +1312,8 @@ test("Motion First Race Agent v1 commands are creature-resolved", async ({ page 
     "data-agent-model",
     "command-only-creature-resolved"
   );
-  await expect(page.locator("#runnerSelect")).toHaveValue("0");
+  await expect(page.locator("#agentTargetSelect")).toHaveValue("0");
+  await expect(page.locator("#scene")).toHaveAttribute("data-agent-target-runner", "0");
   await expect(page.locator("#staminaReadout")).toHaveText("100%");
   await expect(page.locator("#fatigueReadout")).toHaveText("0%");
 
@@ -1356,8 +1357,8 @@ test("Motion First Race Agent v1 commands are creature-resolved", async ({ page 
   await expect(page.locator("#agentResponseReadout")).toHaveText("NEUTRAL");
 
   // Same PUSH command must not have identical strength across morphs.
-  await page.selectOption("#runnerSelect", "2");
-  await expect(page.locator("#morphReadout")).toHaveText("E");
+  await page.selectOption("#agentTargetSelect", "2");
+  await expect(page.locator("#scene")).toHaveAttribute("data-agent-target-runner", "2");
   await page.getByRole("button", { name: "PUSH", exact: true }).click();
   await page.waitForTimeout(350);
   const endurancePushResponse = Number(
