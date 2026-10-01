@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S morphology reset locked; Gate A silhouette rebuild next
+current_stage: S-rebuild-v1 Gate A silhouette cage saved and five views rendered; REVIEW_PENDING / STOPPED
 branch: feat/s-creature-model
-current_model_file: output/S-blockout-v12.blend
+current_model_file: output/S-rebuild-v1.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Read S_MODELING_IMAGE_LOCK.md and S_MORPHOLOGY_RESET_PLAN.md, then create S-rebuild-v1 as a new silhouette cage. Do not patch v12 and do not create a single central horn.
+next_action: Gate A review against approved Modeling Image v1.0. Do not model further until review instructions.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -135,3 +135,18 @@ modeling_image_lock: S_MODELING_IMAGE_LOCK.md
 reset_plan: S_MORPHOLOGY_RESET_PLAN.md
 gate_a_output: output/S-rebuild-v1.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
+
+gate_a_status: REVIEW_PENDING
+modeling_status: STOPPED
+gate_a_source: fresh empty scene; no v12 donor geometry used
+gate_a_cage_vertices: 760
+gate_a_done: small wedge head; six skull-rooted layered rear-swept crest plates; tapered non-tubular neck; compact thorax / narrow waist / light pelvis; distinct fore/hind joint chains; three toes per foot; tapered aerodynamic tail
+gate_a_render_geometry_unchanged: true
+gate_a_scope: S only; no eyes, Cue Band, materials/textures/color design, animation or final retopology
+gate_a_limitation: low-complexity cage with overlapping limb/toe roots; no production welding or surface refinement
+gate_a_renders:
+- output/review/rebuild-v1/S_rebuild_side.png
+- output/review/rebuild-v1/S_rebuild_front.png
+- output/review/rebuild-v1/S_rebuild_front34.png
+- output/review/rebuild-v1/S_rebuild_rear34.png
+- output/review/rebuild-v1/S_rebuild_back.png
