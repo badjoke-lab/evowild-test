@@ -116,3 +116,54 @@ Hard validation:
 
 Stop after SIDE / FRONT / FRONT34 / BACK renders.
 Do not start A2b automatically.
+
+## A2a-v1 decision
+
+Decision: KEEP.
+
+Observed:
+- SIDE chest-to-abdomen-to-waist line is more athletic.
+- ventral contour rises earlier behind the chest.
+- FRONT / FRONT34 do not become barrel-shaped.
+- no new sternum smile-crease or fold.
+- longitudinal Y positions remain untouched, so the improvement is attributable to cross-sectional massing.
+
+Accepted A2a source:
+- output/S-vibe-a2a-v1.blend
+
+## A2b — pelvis lightening only
+
+Editable:
+- core ring 12
+- core ring 13
+- core ring 14
+
+Hard fixed:
+- rings 0-11, including accepted A1 and A2a
+- accepted crest
+- rings 15-19 / tail
+- all hindlimb and forelimb objects
+- all feet/toes
+- topology
+- all Y station positions
+
+Single hypothesis:
+Raise and lighten the pelvis ventral mass while preserving a readable elevated hip.
+
+Target stations:
+- ring 12: top 1.130 / bottom 0.880 / half-width 0.105
+- ring 13: top 1.120 / bottom 0.870 / half-width 0.112
+- ring 14: top 1.060 / bottom 0.930 / half-width 0.078
+
+Intent:
+- preserve a mild elevated hip rhythm
+- reduce the low hanging posterior belly/pelvis read
+- keep hindquarter athletic rather than bulky
+- do not move hindlimb roots in this pass
+
+Acceptance:
+- SIDE pelvis is light/elevated, not a second barrel
+- waist-to-pelvis transition remains continuous
+- hindlimb root relationship does not visibly break
+- FRONT/BACK pelvis remains narrower/lighter than shoulder/thorax
+- no fold/shelf appears at ring 11/12 or ring 14/15
