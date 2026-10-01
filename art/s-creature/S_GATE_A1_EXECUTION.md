@@ -1,7 +1,7 @@
 # EvoWild Run — S Gate A1 Execution Brief
 
 Status: READY TO EXECUTE
-Branch: feat/s-creature-model
+Branch: exp/s-creature-vibe-modeling
 Input model: art/s-creature/output/S-rebuild-v1.blend
 Output model: art/s-creature/output/S-rebuild-v2-a1.blend
 
