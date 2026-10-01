@@ -10,11 +10,11 @@
     "A"
   ],
   "stage": "S-rebuild-gate-A-v2",
-  "current_stage": "S-rebuild-v1 reviewed REVISE; Gate A silhouette correction v2 next",
+  "current_stage": "S-rebuild-v2 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED",
   "branch": "feat/s-creature-model",
-  "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
-  "current_model_file": "output/S-rebuild-v1.blend",
-  "source_model_file": "NONE / fresh empty scene",
+  "base_checkpoint_commit": "d43db097d9263eb45feda275ae74430589d67808",
+  "current_model_file": "output/S-rebuild-v2.blend",
+  "source_model_file": "output/S-rebuild-v1.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
     "S_MORPHOLOGY_RESET_PLAN.md",
@@ -36,35 +36,38 @@
     "Read image lock, reset plan, checkpoint, handoff and three repository references; inspected approved Modeling Image v1.0",
     "Built new 760-vertex Gate A silhouette cage from an empty scene; v12 not used as morphology input",
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
-    "Verified render did not change geometry; stopped modeling for Gate A review"
+    "Verified render did not change geometry; stopped modeling for Gate A review",
+    "Six lower overlapping skull-rooted rear-swept plates; broader posterior cranium, muzzle retained",
+    "Shorter lower head/neck carriage; neck base width and depth increased ~18%",
+    "Torso length -10%, anterior thorax depth increased, ventral waist raised, light pelvis elevated",
+    "Compact fore elbow and long light distal segment; stronger hind thigh, forward knee and rearward hock",
+    "Tail length -15%, continuous taper and restrained terminal lamina",
+    "Saved S-rebuild-v2.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Create output/S-rebuild-v2.blend from output/S-rebuild-v1.blend. Gate A only: correct crest/head silhouette first, then neck proportion, compact thorax/waist/pelvis, readable fore/hind joint rhythm, and shorter aerodynamic tail. Render five views and stop.",
+  "next_action": "Review v2 Gate A only; await user decision. Do not proceed to Gate B.",
   "quality_issues": [
-    "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
-    "Neck is too long, thin and tube-like",
-    "Torso is too long/flat and shoulder mass too weak",
-    "Forelimb and hindlimb still read as low-complexity rods with insufficient joint rhythm",
-    "Tail is too long/blunt for the locked aerodynamic silhouette"
+    "Gate A v2 silhouette acceptance pending user review",
+    "Low-complexity faceted plates and overlapping limb/toe roots; no surface refinement or welding"
   ],
   "blockers": [],
   "accepted": false,
   "resume_inputs": [
     "S_MODELING_IMAGE_LOCK.md",
     "S_MORPHOLOGY_RESET_PLAN.md",
-    "references/00_full_reference.png",
-    "references/01_s_body_primary.png",
-    "references/02_s_silhouette.png",
-    "output/S-rebuild-v1.blend"
+    "S_REBUILD_V2_TASK.md",
+    "output/S-rebuild-v2.blend"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "REVISE",
-  "modeling_status": "READY_FOR_V2",
+  "gate_a_status": "REVIEW_PENDING",
+  "modeling_status": "STOPPED",
   "cage_vertex_count": 760,
   "review_renders": [
-    "output/review/rebuild-v1/S_rebuild_side.png",
-    "output/review/rebuild-v1/S_rebuild_front.png",
-    "output/review/rebuild-v1/S_rebuild_front34.png",
-    "output/review/rebuild-v1/S_rebuild_rear34.png",
-    "output/review/rebuild-v1/S_rebuild_back.png"
-  ]
+    "output/review/rebuild-v2/S_rebuild_side.png",
+    "output/review/rebuild-v2/S_rebuild_front.png",
+    "output/review/rebuild-v2/S_rebuild_front34.png",
+    "output/review/rebuild-v2/S_rebuild_rear34.png",
+    "output/review/rebuild-v2/S_rebuild_back.png"
+  ],
+  "geometry_sha256": "3ce2210a16642f0ac32d8356c3b926c5e3cc6f9cd74e1f4bf17e8bb89548381a",
+  "geometry_unchanged_during_render": true
 }
