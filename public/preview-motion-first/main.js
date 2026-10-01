@@ -3253,6 +3253,7 @@ function createSimplifiedRaceProxy(morph, color, sourceRoot) {
     secondary: baseColor.clone().multiplyScalar(0.76),
     dark: baseColor.clone().multiplyScalar(0.46),
     cue: baseColor.clone().lerp(new THREE.Color(0xbef7ff), 0.58),
+    agent: new THREE.Color(0x8ee2ff),
     shadow: new THREE.Color(0x000000)
   };
 
@@ -3448,6 +3449,11 @@ function createSimplifiedRaceProxy(morph, color, sourceRoot) {
     };
   });
 
+  const agentOrb = new THREE.Object3D();
+  agentOrb.position.set(0, 2.72, -1.10);
+  agentOrb.scale.setScalar(0.34);
+  root.add(agentOrb);
+
   const shadow = new THREE.Object3D();
   shadow.position.set(0, 0.025, 0);
   shadow.rotation.x = -Math.PI / 2;
@@ -3516,6 +3522,7 @@ function createSimplifiedRaceProxy(morph, color, sourceRoot) {
     tailParts,
     tailBlade,
     shadow,
+    agentOrb,
     legs,
     motionRunner
   };
