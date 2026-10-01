@@ -1109,6 +1109,17 @@ test("Motion First Phase F full-race AUTO director review", async ({ browser }, 
     }
   }
 
+  const lowShare = (cameraSeconds.LOW || 0) / raceTime;
+  const maxCameraShare =
+    Math.max(...Object.values(cameraSeconds)) / raceTime;
+
+  // Full-race review gates: AUTO must not collapse back into one dominant
+  // camera, cut too rapidly, or churn focus every shot.
+  expect(lowShare).toBeLessThan(0.35);
+  expect(maxCameraShare).toBeLessThan(0.40);
+  expect(shortestShot).toBeGreaterThan(1.5);
+  expect(focusSwitches).toBeLessThanOrEqual(12);
+
   console.log(
     "FULL_DIRECTOR_REVIEW",
     JSON.stringify({
@@ -1117,6 +1128,8 @@ test("Motion First Phase F full-race AUTO director review", async ({ browser }, 
       focusSwitches,
       shortestShot,
       longestShot,
+      lowShare,
+      maxCameraShare,
       cameraSeconds,
       shots: fullLog
     })
