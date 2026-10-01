@@ -243,3 +243,9 @@ vibe_gate_a1_v6_renders:
 - output/review/vibe-a1-v6/S_vibe_a1_v6_front.png
 - output/review/vibe-a1-v6/S_vibe_a1_v6_front34.png
 - output/review/vibe-a1-v6/S_vibe_a1_v6_back.png
+
+
+vibe_gate_a1_v6_decision: INTERNAL_PASS_USER_REVIEW_PENDING
+vibe_gate_a1_v6_keep: v5 curved laminar crest; v6 shorter neck; lowered/closer rigid head+crest placement.
+vibe_gate_a1_v6_reason: no paired-horn hard fail, no central-needle hard fail, head remains small wedge-like, crest reads as multiple short rear-swept blades, and neck no longer has the rebuild-v1 long tubular proportion.
+vibe_gate_a1_next: STOP. Human review required before A2. Do not edit thorax/waist/pelvis yet.
