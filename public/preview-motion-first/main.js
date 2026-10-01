@@ -29,6 +29,8 @@ const SIMPLIFIED_GAIT_PAGE = window.location.pathname.includes("/preview-motion-
 const SIMPLIFIED_RACE_PAGE = window.location.pathname.includes("/preview-motion-first-race/");
 const FINISH_REVIEW_MODE =
   SIMPLIFIED_RACE_PAGE && params.get("finishReview") === "1";
+const FULL_DIRECTOR_REVIEW_MODE =
+  SIMPLIFIED_RACE_PAGE && params.get("fullDirectorReview") === "1";
 const SIMPLIFIED_LANE = SIMPLIFIED_GAIT_PAGE || SIMPLIFIED_RACE_PAGE;
 const MOTION_REVIEW_MODE = params.get("motion") === "1" || SIMPLIFIED_GAIT_PAGE;
 const REVIEW_MORPH = (params.get("morph") || "S").toUpperCase();
@@ -3318,6 +3320,9 @@ function resetRace() {
   raceDirector.lastDecisionAt = -999;
   raceDirector.accelerationShown = false;
   raceDirector.shotHistory = [];
+  raceDirector.fullShotLog = FULL_DIRECTOR_REVIEW_MODE
+    ? [{ t: 0, camera: "PACK", reason: "START", focus: 0 }]
+    : [];
   canvas.dataset.directorDecisionCount = "0";
   canvas.dataset.directorAccelerationShown = "0";
   canvas.dataset.directorAccelerationGap = "0";
@@ -3329,6 +3334,11 @@ function resetRace() {
   canvas.dataset.directorCutCount = "0";
   canvas.dataset.directorReason = "START";
   canvas.dataset.finishReview = FINISH_REVIEW_MODE ? "1" : "0";
+  canvas.dataset.fullDirectorReview = FULL_DIRECTOR_REVIEW_MODE ? "1" : "0";
+  canvas.dataset.directorFullShotLog = FULL_DIRECTOR_REVIEW_MODE
+    ? JSON.stringify(raceDirector.fullShotLog)
+    : "[]";
+  canvas.dataset.directorFullShotCount = FULL_DIRECTOR_REVIEW_MODE ? "1" : "0";
   previousAppliedCamera = "PACK";
   pauseButton.textContent = "PAUSE";
   raceStateEl.textContent = "RUNNING";
@@ -4442,7 +4452,8 @@ const raceDirector = {
   lastLeaderId: 0,
   lastDecisionAt: -999,
   accelerationShown: false,
-  shotHistory: []
+  shotHistory: [],
+  fullShotLog: []
 };
 
 function setDirectorFocus(focusId) {
@@ -4469,6 +4480,17 @@ function setDirectorShot(cameraMode, focusId, reason, holdSeconds) {
   raceDirector.shotHistory.push(`${reason}:${cameraMode}`);
   if (raceDirector.shotHistory.length > 12) raceDirector.shotHistory.shift();
   canvas.dataset.directorShotHistory = raceDirector.shotHistory.join(",");
+
+  if (FULL_DIRECTOR_REVIEW_MODE) {
+    raceDirector.fullShotLog.push({
+      t: Number(raceTime.toFixed(3)),
+      camera: cameraMode,
+      reason,
+      focus: focusId
+    });
+    canvas.dataset.directorFullShotLog = JSON.stringify(raceDirector.fullShotLog);
+    canvas.dataset.directorFullShotCount = String(raceDirector.fullShotLog.length);
+  }
 }
 
 function updateSimplifiedRaceDirector() {
