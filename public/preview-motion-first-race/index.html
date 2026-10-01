@@ -68,6 +68,24 @@
         <span><small>POS</small><strong id="positionReadout">1 / 18</strong></span>
         <span><small>CAM</small><strong id="cameraReadout">CHASE</strong></span>
       </div>
+      <div class="agent-state" aria-label="Creature and Race Agent state">
+        <span class="fatigue-line">
+          <small>FATIGUE</small>
+          <strong id="fatigueReadout">0%</strong>
+          <i class="fatigue-track" aria-hidden="true"><b id="fatigueBar"></b></i>
+        </span>
+        <span class="agent-strategy-line">
+          <small>AGENT</small>
+          <strong id="agentStrategyReadout">STANDARD</strong>
+        </span>
+      </div>
+    </section>
+
+    <section class="agent-event hidden" id="agentEvent" aria-hidden="true">
+      <span>RACE AGENT</span>
+      <strong id="agentCommandReadout">—</strong>
+      <small id="agentOutcomeReadout">—</small>
+      <em id="agentReasonReadout">—</em>
     </section>
 
     <div class="start-sequence hidden" id="startSequence" aria-hidden="true">
