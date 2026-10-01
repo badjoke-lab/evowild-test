@@ -168,3 +168,9 @@ vibe_a1_renders:
 - output/review/vibe-a1/S_vibe_a1_front.png
 - output/review/vibe-a1/S_vibe_a1_front34.png
 - output/review/vibe-a1/S_vibe_a1_back.png
+
+
+vibe_gate_a1_decision: REJECT
+vibe_gate_a1_reason: Side/front34 crest became broad horizontal slabs; FRONT still contains horn-like prongs and neck is too broad/flat. Do not continue from S-vibe-a1.blend.
+vibe_gate_a1_v2_source: output/S-rebuild-v1.blend
+vibe_gate_a1_v2_lock: S_VIBE_A1_REFERENCE_ANALYSIS.md
