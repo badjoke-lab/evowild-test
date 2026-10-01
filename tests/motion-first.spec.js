@@ -1370,3 +1370,78 @@ test("Motion First Race Agent v1 commands are creature-resolved", async ({ page 
     path: "test-results/visuals/motion-first-race-agent-v1.png"
   });
 });
+
+
+test("Motion First Creature State v1 pressure affects Agent response", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(45000);
+
+  await page.goto(
+    "/evowild-test/preview-motion-first-race/index.html?skipStart=1",
+    { waitUntil: "networkidle" }
+  );
+
+  await expect(page.locator("#scene")).toHaveAttribute(
+    "data-agent-model",
+    "command-only-creature-resolved"
+  );
+
+  await page.waitForTimeout(4200);
+
+  let pressured = null;
+  for (let runnerId = 0; runnerId < 18; runnerId += 1) {
+    await page.selectOption("#agentTargetSelect", String(runnerId));
+    await page.waitForTimeout(40);
+    const state = await page.locator("#scene").evaluate((node) => ({
+      pressure: Number(node.dataset.agentFocusPressure),
+      stamina: Number(node.dataset.agentFocusStamina),
+      fatigue: Number(node.dataset.agentFocusFatigue),
+      creatureState: node.dataset.agentFocusCreatureState
+    }));
+    if (Number.isFinite(state.pressure) && state.pressure > 0.12) {
+      pressured = { runnerId, ...state };
+      break;
+    }
+  }
+
+  expect(pressured).toBeTruthy();
+  expect(["FRESH", "PRESSURED", "WORKING", "TIRED"]).toContain(
+    pressured.creatureState
+  );
+
+  const optionText =
+    (await page.locator(`#agentTargetSelect option[value="${pressured.runnerId}"]`).textContent()) || "";
+  const morphMatch = optionText.match(/·\s*([SPEA])\s*$/);
+  expect(morphMatch).toBeTruthy();
+  const morph = morphMatch[1];
+  const pushCompatibility = { S: 1.0, P: 0.94, E: 0.76, A: 0.88 }[morph];
+
+  await page.getByRole("button", { name: "PUSH", exact: true }).click();
+  await page.waitForTimeout(220);
+
+  const push = await page.locator("#scene").evaluate((node) => ({
+    pressure: Number(node.dataset.agentFocusPressure),
+    stamina: Number(node.dataset.agentFocusStamina),
+    fatigue: Number(node.dataset.agentFocusFatigue),
+    response: Number(node.dataset.agentFocusResponse),
+    creatureState: node.dataset.agentFocusCreatureState
+  }));
+
+  const fatiguePenalty = Math.max(0.25, 1 - push.fatigue * 0.72);
+  const noPressureResponse = pushCompatibility * push.stamina * fatiguePenalty;
+
+  expect(push.pressure).toBeGreaterThan(0.10);
+  expect(push.response).toBeLessThan(noPressureResponse);
+  expect(noPressureResponse - push.response).toBeGreaterThan(0.01);
+  expect(["FRESH", "PRESSURED", "WORKING", "TIRED"]).toContain(
+    push.creatureState
+  );
+
+  await expect(page.locator("#pressureReadout")).not.toHaveText("");
+  await expect(page.locator("#creatureStateReadout")).not.toHaveText("");
+
+  await page.locator("#scene").screenshot({
+    path: "test-results/visuals/motion-first-creature-state-v1.png"
+  });
+});
