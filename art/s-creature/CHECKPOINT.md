@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-rebuild-v1 Gate A silhouette cage saved and five views rendered; REVIEW_PENDING / STOPPED
+current_stage: S-rebuild-v1 Gate A reviewed REVISE; silhouette correction v2 required
 branch: feat/s-creature-model
 current_model_file: output/S-rebuild-v1.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Gate A review against approved Modeling Image v1.0. Do not model further until review instructions.
+next_action: Build S-rebuild-v2 from S-rebuild-v1 by correcting only the global silhouette: compact/shorten torso, strengthen thorax and shoulder mass, shorten/thicken and slightly lower the neck, reshape crest into skull-integrated rear-swept layered plates that do not read as vertical horns from front/back, establish clear fore/hind joint rhythm, and shorten/refine the tail. Keep detail/Cue Band/materials/animation forbidden.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -150,3 +150,8 @@ gate_a_renders:
 - output/review/rebuild-v1/S_rebuild_front34.png
 - output/review/rebuild-v1/S_rebuild_rear34.png
 - output/review/rebuild-v1/S_rebuild_back.png
+
+gate_a_v1_decision: REVISE
+gate_a_v1_reason: The fresh rebuild removes the v12 single central horn and is a better starting direction, but the Gate A silhouette still misses the approved modeling image. Side view is too long-necked and tube-like, torso is too long/flat and under-massed at the shoulder, limbs still read as rods, and the crest becomes two tall horn-like prongs from front/back instead of backward-swept layered cranial plates.
+gate_a_v1_keep: fresh-rebuild approach; small wedge head intent; no v12 donor geometry; multi-plate crest concept; narrow waist intent; distinct fore/hind chains; multi-toe feet.
+gate_a_v2_priority: crest/head silhouette -> neck proportion -> compact thorax/waist/pelvis -> readable limb joints -> tail length/terminal blade.
