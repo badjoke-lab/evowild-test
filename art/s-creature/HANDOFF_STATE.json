@@ -9,8 +9,8 @@
     "E",
     "A"
   ],
-  "stage": "S-blockout-v12",
-  "current_stage": "v12 anterior thorax locally rebuilt; review pending",
+  "stage": "S-morphology-reset",
+  "current_stage": "v12 rejected as global morphology baseline",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
   "current_model_file": "output/S-blockout-v12.blend",
@@ -29,18 +29,20 @@
     "Applied the specified ventral-only lower-neck/chest junction displacement once to the continuous surface (6738 vertices), preserving lateral coordinates and topology",
     "Saved S-blockout-v4.blend without rendering or GLB export"
   ],
-  "next_action": "Review v12 front/front34/side against reference 01. No other regions authorized.",
+  "next_action": "Rebuild S against authoritative references 01/02, beginning with head/crest silhouette and overall proportions. Remove the unsupported single sagittal horn/crown. Do not continue chest-only polishing.",
   "quality_issues": [
-    "The v4 lower-neck/chest correction has not been visually reviewed or accepted.",
-    "The creature remains an unfinished blockout.",
-    "Prior v2 issues remain outside this edit scope."
+    "Global silhouette mismatch versus authoritative S references",
+    "Unsupported single sagittal horn/crown from procedural build",
+    "Current creature reads too deer/gazelle-like",
+    "Head/neck/thorax/limb language needs reference-led rebuild"
   ],
   "blockers": [],
   "accepted": false,
   "resume_inputs": [
     "CHECKPOINT.md",
     "HANDOFF_STATE.json",
-    "output/S-blockout-v4.blend",
-    "references/01_s_body_primary.png"
+    "references/01_s_body_primary.png",
+    "references/02_s_silhouette.png",
+    "output/S-blockout-v12.blend"
   ]
 }
