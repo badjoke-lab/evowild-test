@@ -199,3 +199,10 @@ vibe_gate_a1_v3_renders:
 - output/review/vibe-a1-v3/S_vibe_a1_v3_front.png
 - output/review/vibe-a1-v3/S_vibe_a1_v3_front34.png
 - output/review/vibe-a1-v3/S_vibe_a1_v3_back.png
+
+
+vibe_gate_a1_v3_decision: REJECT
+vibe_gate_a1_v3_reason: SIDE rear-upward direction improved, but FRONT regressed to two tall symmetric horns. The bilateral 3+3 crest construction is the failure source.
+vibe_gate_a1_v4_source: output/S-vibe-a1-v2.blend
+vibe_gate_a1_v4_keep: all v2 head/neck vertices and all non-crest geometry
+vibe_gate_a1_v4_exact_edit: replace crest construction/topology only. Remove bilateral paired 3+3 extrusion and rebuild a compact skull-rooted overlapping laminar fan. Do not tune v3 coordinates further.
