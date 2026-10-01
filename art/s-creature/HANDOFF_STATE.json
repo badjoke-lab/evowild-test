@@ -9,8 +9,8 @@
     "E",
     "A"
   ],
-  "stage": "S-rebuild-gate-A-v2",
-  "current_stage": "S-rebuild-v2 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED",
+  "stage": "S-rebuild-gate-A-v3",
+  "current_stage": "S-rebuild-v2 reviewed REVISE; Gate A silhouette correction v3 next",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "d43db097d9263eb45feda275ae74430589d67808",
   "current_model_file": "output/S-rebuild-v2.blend",
@@ -44,10 +44,12 @@
     "Tail length -15%, continuous taper and restrained terminal lamina",
     "Saved S-rebuild-v2.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Review v2 Gate A only; await user decision. Do not proceed to Gate B.",
+  "next_action": "Create output/S-rebuild-v3.blend from v2. Fix crest front/back horn read first, then neck taper/angle, compact shoulder-thorax mass, and distinct fore/hind joint rhythm. Render five views and stop.",
   "quality_issues": [
-    "Gate A v2 silhouette acceptance pending user review",
-    "Low-complexity faceted plates and overlapping limb/toe roots; no surface refinement or welding"
+    "FRONT/BACK crest still reads as paired upright horns/arch",
+    "Neck remains too pipe-like and upright",
+    "Shoulder/thorax mass still too weak versus locked modeling image",
+    "Fore/hind limb silhouette remains too rod-like and insufficiently differentiated"
   ],
   "blockers": [],
   "accepted": false,
@@ -58,8 +60,8 @@
     "output/S-rebuild-v2.blend"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "REVIEW_PENDING",
-  "modeling_status": "STOPPED",
+  "gate_a_status": "REVISE",
+  "modeling_status": "READY_FOR_V3",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/rebuild-v2/S_rebuild_side.png",
