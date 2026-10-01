@@ -625,7 +625,7 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
     "data-race-proxy-representation",
     "instanced-canonical-rig"
   );
-  await expect(page.locator("#scene")).toHaveAttribute("data-race-proxy-draw-calls", "15");
+  await expect(page.locator("#scene")).toHaveAttribute("data-race-proxy-draw-calls", "16");
   await expect(page.locator("#scene")).toHaveAttribute("data-race-proxy-cue-band", "1");
   await expect(page.locator("#scene")).toHaveAttribute(
     "data-race-proxy-update-mode",
@@ -792,6 +792,69 @@ test("Motion First Phase E simplified race public start sequence", async ({ brow
   await context.close();
 });
 
+
+
+
+test("Motion First Race Agent v1 resolves commands through Creature state", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(30000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  await page.goto(
+    "http://127.0.0.1:4173/evowild-test/preview-motion-first-race/index.html?skipStart=1",
+    { waitUntil: "networkidle" }
+  );
+
+  const scene = page.locator("#scene");
+  await expect(scene).toHaveAttribute("data-agent-schema-version", "1");
+  await expect(scene).toHaveAttribute("data-agent-orb-count", "18");
+
+  await expect
+    .poll(async () => Number(await scene.getAttribute("data-agent-event-count")), {
+      timeout: 10000
+    })
+    .toBeGreaterThanOrEqual(18);
+
+  const logText = (await scene.getAttribute("data-agent-event-log")) || "[]";
+  const log = JSON.parse(logText);
+  expect(log.length).toBeGreaterThanOrEqual(18);
+  for (const event of log.slice(0, 18)) {
+    expect(Number.isFinite(event.time)).toBeTruthy();
+    expect(Number.isInteger(event.runner)).toBeTruthy();
+    expect(Number.isInteger(event.rank)).toBeTruthy();
+    expect(Number.isFinite(event.fatigue)).toBeTruthy();
+    expect(event.command).toBeTruthy();
+    expect(["EXCELLENT", "SUCCESS", "PARTIAL", "FAILED", "BACKFIRE"]).toContain(
+      event.outcome
+    );
+    expect(event.reason).toBeTruthy();
+  }
+
+  const nonSuccess = log.filter(
+    (event) => !["EXCELLENT", "SUCCESS"].includes(event.outcome)
+  );
+  expect(nonSuccess.length).toBeGreaterThanOrEqual(1);
+  expect(Number(await scene.getAttribute("data-agent-non-success-count"))).toBeGreaterThanOrEqual(1);
+
+  await page.getByRole("button", { name: "SIDE", exact: true }).click({ force: true });
+  await page.selectOption("#runnerSelect", "12");
+  await page.waitForTimeout(120);
+
+  const fatigue = Number(await scene.getAttribute("data-focus-fatigue"));
+  expect(fatigue).toBeGreaterThan(0);
+  expect(fatigue).toBeLessThan(0.25);
+  await expect(scene).toHaveAttribute("data-focus-agent-version", "1");
+  await expect(page.locator("#agentStrategyReadout")).not.toHaveText("");
+  await expect(page.locator("#fatigueReadout")).not.toHaveText("0%");
+  await expect(page.locator("#agentEvent")).toBeVisible();
+
+  await scene.screenshot({
+    path: `${outDir}/motion-first-agent-loop-v1.png`
+  });
+});
 
 test("Motion First Phase F AUTO director reacts to race state and preserves speed cues", async ({ browser }, testInfo) => {
   test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
