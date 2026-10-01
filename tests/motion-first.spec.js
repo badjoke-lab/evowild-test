@@ -520,7 +520,7 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
     if (request.url().includes("/models/evowild-s/")) highDetailAssetRequests.push(request.url());
   });
 
-  await page.goto("/evowild-test/preview-motion-first-race/index.html", {
+  await page.goto("/evowild-test/preview-motion-first-race/index.html?skipStart=1", {
     waitUntil: "networkidle"
   });
 
@@ -719,6 +719,61 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
 });
 
 
+test("Motion First Phase E simplified race public start sequence", async ({ browser }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(12000);
+
+  const outDir = "test-results/visuals";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const context = await browser.newContext({
+    viewport: { width: 1280, height: 720 }
+  });
+  const page = await context.newPage();
+
+  await page.goto(
+    "http://127.0.0.1:4173/evowild-test/preview-motion-first-race/index.html",
+    { waitUntil: "networkidle" }
+  );
+
+  const scene = page.locator("#scene");
+  await expect(scene).toHaveAttribute("data-start-sequence", "1");
+  await expect(scene).not.toHaveAttribute("data-start-phase", "SKIPPED");
+
+  await expect(scene).toHaveAttribute("data-start-phase", "GO", {
+    timeout: 5000
+  });
+  expect(Number(await scene.getAttribute("data-race-time"))).toBe(0);
+  await expect(page.locator("#raceState")).toHaveText("GO");
+  await page.locator("#scene").screenshot({
+    path: `${outDir}/motion-first-start-go.png`
+  });
+
+  await expect(scene).toHaveAttribute("data-start-phase", "RUNNING", {
+    timeout: 2500
+  });
+  await expect(page.locator("#raceState")).toHaveText("RUNNING");
+  await expect(page.locator("#startSequence")).toHaveAttribute(
+    "aria-hidden",
+    "true"
+  );
+  await expect(page.locator("#pauseButton")).toBeEnabled();
+
+  await page.waitForTimeout(350);
+  expect(Number(await scene.getAttribute("data-race-time"))).toBeGreaterThan(0.1);
+
+  await page.getByRole("button", { name: "RESTART", exact: true }).click({
+    force: true
+  });
+  await expect(scene).toHaveAttribute("data-start-phase", "READY");
+  await expect(page.locator("#raceState")).toHaveText("READY");
+  expect(Number(await scene.getAttribute("data-race-time"))).toBe(0);
+
+  await context.close();
+});
+
+
 test("Motion First Phase F AUTO director reacts to race state and preserves speed cues", async ({ browser }, testInfo) => {
   test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
   test.skip(testInfo.project.name !== "desktop-chromium");
@@ -743,7 +798,7 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
     if (msg.type() === "error") consoleErrors.push(msg.text());
   });
 
-  await page.goto("http://127.0.0.1:4173/evowild-test/preview-motion-first-race/index.html", {
+  await page.goto("http://127.0.0.1:4173/evowild-test/preview-motion-first-race/index.html?skipStart=1", {
     waitUntil: "networkidle"
   });
 
@@ -872,7 +927,7 @@ test("Motion First Phase F AUTO director reacts to race state and preserves spee
   });
   const speedPage = await speedContext.newPage();
   await speedPage.goto(
-    "http://127.0.0.1:4173/evowild-test/preview-motion-first-race/index.html",
+    "http://127.0.0.1:4173/evowild-test/preview-motion-first-race/index.html?skipStart=1",
     { waitUntil: "networkidle" }
   );
   await speedPage.waitForTimeout(4200);
