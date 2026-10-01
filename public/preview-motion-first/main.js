@@ -27,6 +27,8 @@ const params = new URLSearchParams(window.location.search);
 const INSPECT_MODE = params.get("inspect") === "1";
 const SIMPLIFIED_GAIT_PAGE = window.location.pathname.includes("/preview-motion-first-gait/");
 const SIMPLIFIED_RACE_PAGE = window.location.pathname.includes("/preview-motion-first-race/");
+const FINISH_REVIEW_MODE =
+  SIMPLIFIED_RACE_PAGE && params.get("finishReview") === "1";
 const SIMPLIFIED_LANE = SIMPLIFIED_GAIT_PAGE || SIMPLIFIED_RACE_PAGE;
 const MOTION_REVIEW_MODE = params.get("motion") === "1" || SIMPLIFIED_GAIT_PAGE;
 const REVIEW_MORPH = (params.get("morph") || "S").toUpperCase();
@@ -3304,7 +3306,7 @@ function createRunners() {
 }
 
 function resetRace() {
-  raceTime = 0;
+  raceTime = FINISH_REVIEW_MODE ? 5.0 : 0;
   simulationAccumulator = 0;
   finished = false;
   paused = false;
@@ -3326,6 +3328,7 @@ function resetRace() {
   canvas.dataset.directorShotHistory = "";
   canvas.dataset.directorCutCount = "0";
   canvas.dataset.directorReason = "START";
+  canvas.dataset.finishReview = FINISH_REVIEW_MODE ? "1" : "0";
   previousAppliedCamera = "PACK";
   pauseButton.textContent = "PAUSE";
   raceStateEl.textContent = "RUNNING";
@@ -3335,7 +3338,10 @@ function resetRace() {
     runner.lane = i % LANE_COUNT;
     runner.targetLane = runner.lane;
     runner.laneX = laneToX(runner.lane);
-    runner.distance = -row * 3.2 - seeded(i, 4) * 1.5;
+    runner.distance =
+      -row * 3.2 -
+      seeded(i, 4) * 1.5 +
+      (FINISH_REVIEW_MODE ? RACE_DISTANCE - 215 : 0);
     runner.speed = 0;
     runner.targetSpeed = 0;
     runner.nextLaneDecision = 190 + seeded(i, 11) * 210;
@@ -4439,6 +4445,12 @@ const raceDirector = {
   shotHistory: []
 };
 
+function setDirectorFocus(focusId) {
+  selectedRunner = focusId;
+  runnerSelect.value = String(focusId);
+  canvas.dataset.directorFocus = String(focusId);
+}
+
 function setDirectorShot(cameraMode, focusId, reason, holdSeconds) {
   raceDirector.camera = cameraMode;
   raceDirector.focusId = focusId;
@@ -4446,12 +4458,10 @@ function setDirectorShot(cameraMode, focusId, reason, holdSeconds) {
   raceDirector.holdUntil = raceTime + holdSeconds;
   raceDirector.lastDecisionAt = raceTime;
 
-  selectedRunner = focusId;
-  runnerSelect.value = String(focusId);
+  setDirectorFocus(focusId);
 
   canvas.dataset.directorCamera = cameraMode;
   canvas.dataset.directorReason = reason;
-  canvas.dataset.directorFocus = String(focusId);
   canvas.dataset.directorDecisionCount = String(
     Number(canvas.dataset.directorDecisionCount || "0") + 1
   );
@@ -4532,25 +4542,24 @@ function updateSimplifiedRaceDirector() {
       if (raceDirector.reason !== "FINISH_FRONT") {
         setDirectorShot("FRONT", leader.id, "FINISH_FRONT", 2.5);
       } else {
-        selectedRunner = leader.id;
+        setDirectorFocus(leader.id);
       }
     } else if (leader.distance >= RACE_DISTANCE - 120) {
       if (raceDirector.reason !== "FINISH_SIDE") {
         setDirectorShot("SIDE", leader.id, "FINISH_SIDE", 3.0);
       } else {
-        selectedRunner = leader.id;
+        setDirectorFocus(leader.id);
       }
     } else if (raceDirector.reason !== "FINAL_CHASE") {
       setDirectorShot("CHASE", leader.id, "FINAL_CHASE", 3.5);
     } else {
-      selectedRunner = leader.id;
+      setDirectorFocus(leader.id);
     }
     return;
   }
 
   if (raceTime < raceDirector.holdUntil && !leaderChanged) {
-    selectedRunner = raceDirector.focusId;
-    runnerSelect.value = String(raceDirector.focusId);
+    setDirectorFocus(raceDirector.focusId);
     return;
   }
 
@@ -4808,13 +4817,28 @@ function updateCamera(dt) {
     }
     targetFov = SIMPLIFIED_RACE_PAGE ? 52 : 52;
   } else if (actualCamera === "FRONT") {
-    desiredCamera.set(
-      focusPos.x - 3.0,
-      3.2,
-      focusPos.z + 10.6
-    );
-    desiredLook.set(focusPos.x, 1.65, focusPos.z - 5.5);
-    targetFov = 60;
+    if (SIMPLIFIED_RACE_PAGE && requestedCamera === "AUTO") {
+      desiredCamera.set(
+        focusPos.x - 1.2,
+        2.45,
+        focusPos.z + 10.2
+      );
+      desiredLook.set(
+        focusPos.x,
+        1.32,
+        focusPos.z + 0.10
+      );
+      targetFov = 58;
+      canvas.dataset.finishFrontProfile = "leader-centered";
+    } else {
+      desiredCamera.set(
+        focusPos.x - 3.0,
+        3.2,
+        focusPos.z + 10.6
+      );
+      desiredLook.set(focusPos.x, 1.65, focusPos.z - 5.5);
+      targetFov = 60;
+    }
   } else {
     const center = packCenter(tempV);
     desiredCamera.set(
