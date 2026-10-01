@@ -1032,6 +1032,7 @@ test("Motion First Phase F full-race AUTO director review", async ({ browser }, 
   );
 
   await expect(page.locator("#scene")).toHaveAttribute("data-full-director-review", "1");
+  await expect(page.locator("#scene")).toHaveAttribute("data-race-ground-y", "-0.12");
   await expect(page.locator("#raceState")).toHaveText("RUNNING");
 
   await page.waitForTimeout(15000);
