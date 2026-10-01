@@ -4784,19 +4784,24 @@ function updateCamera(dt) {
   } else if (actualCamera === "LOW") {
     const autoLowShot = SIMPLIFIED_RACE_PAGE && requestedCamera === "AUTO";
     if (autoLowShot) {
+      const accelerationLow = raceDirector.reason === "ACCELERATION";
       const centerward = focusPos.x <= 0 ? 1 : -1;
-      const autoLowX = THREE.MathUtils.clamp(
-        focusPos.x + centerward * 1.4,
-        -TRACK_WIDTH / 2 + 2.0,
-        TRACK_WIDTH / 2 - 2.0
-      );
+      const autoLowX = accelerationLow
+        ? THREE.MathUtils.clamp(
+            focusPos.x + centerward * 1.4,
+            -TRACK_WIDTH / 2 + 2.0,
+            TRACK_WIDTH / 2 - 2.0
+          )
+        : THREE.MathUtils.clamp(focusPos.x * 0.35, -4.5, 4.5);
+      const autoLowLeadDistance = accelerationLow ? 10.5 : 16.0;
       desiredCamera.set(
-        // AUTO LOW stays ahead of the leader but sits toward track center,
-        // avoiding the off-track grass angle created by pushing edge-lane
-        // leaders farther outward.
+        // Keep the already-reviewed short acceleration shot intact. Longer
+        // race-flow LOW shots need more lead distance because damped tracking
+        // otherwise closes roughly speed / transitionRate metres on a
+        // 23-25 m/s leader and turns BREAKAWAY into a cropped grass-side view.
         autoLowX,
         1.02,
-        focusPos.z + 10.5
+        focusPos.z + autoLowLeadDistance
       );
       desiredLook.set(
         focusPos.x,
@@ -4805,6 +4810,10 @@ function updateCamera(dt) {
       );
       canvas.dataset.directorAutoLowProfile = "lead-front-quarter-inboard";
       canvas.dataset.directorAutoLowCameraX = autoLowX.toFixed(2);
+      canvas.dataset.directorAutoLowLeadDistance =
+        autoLowLeadDistance.toFixed(1);
+      canvas.dataset.directorAutoLowPhase =
+        accelerationLow ? "acceleration" : "race-flow";
     } else {
       desiredCamera.set(
         focusPos.x,
