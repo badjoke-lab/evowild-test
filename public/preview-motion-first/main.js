@@ -4934,10 +4934,14 @@ function updateCamera(dt) {
     targetFov = SIMPLIFIED_RACE_PAGE ? 52 : 52;
   } else if (actualCamera === "FRONT") {
     if (SIMPLIFIED_RACE_PAGE && requestedCamera === "AUTO") {
+      const finishFrontZ =
+        raceDirector.reason === "FINISH_FRONT"
+          ? Math.max(focusPos.z + 10.2, RACE_DISTANCE + 12.0)
+          : focusPos.z + 10.2;
       desiredCamera.set(
         focusPos.x - 1.2,
         2.45,
-        focusPos.z + 10.2
+        finishFrontZ
       );
       desiredLook.set(
         focusPos.x,
@@ -4945,7 +4949,11 @@ function updateCamera(dt) {
         focusPos.z + 0.10
       );
       targetFov = 58;
-      canvas.dataset.finishFrontProfile = "leader-centered";
+      canvas.dataset.finishFrontProfile =
+        raceDirector.reason === "FINISH_FRONT"
+          ? "leader-centered-through-gate"
+          : "leader-centered";
+      canvas.dataset.finishFrontCameraZ = finishFrontZ.toFixed(1);
     } else {
       desiredCamera.set(
         focusPos.x - 3.0,
