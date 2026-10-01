@@ -214,3 +214,9 @@ vibe_gate_a1_v4_renders:
 - output/review/vibe-a1-v4/S_vibe_a1_v4_front.png
 - output/review/vibe-a1-v4/S_vibe_a1_v4_front34.png
 - output/review/vibe-a1-v4/S_vibe_a1_v4_back.png
+
+
+vibe_gate_a1_v4_decision: REJECT
+vibe_gate_a1_v4_reason: bilateral horn towers were removed, but FRONT collapses to a single central needle and SIDE remains a straight sword bundle. Straight-prism blade representation is rejected.
+vibe_gate_a1_v5_source: output/S-vibe-a1-v2.blend
+vibe_gate_a1_v5_exact_edit: crest only; replace straight prisms with curved tapered laminar blades sampled along smooth centerlines. Preserve v2 head/neck and all non-crest geometry.
