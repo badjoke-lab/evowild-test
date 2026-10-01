@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gate A1-v9 reviewed REVISE; crest-only v10 compact plate correction required
+current_stage: experimental Vibe Gate A1-v10 compact crest rendered; REVIEW_PENDING / STOPPED
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-a1-v9.blend
+current_model_file: output/S-vibe-a1-v10.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Build A1-v10 from output/S-vibe-a1-v9.blend. Edit CREST ONLY. Keep all non-crest geometry fixed. Reduce primary plate vertical height and side thickness, bring the two primary laminae closer to the sagittal plane, keep substantial FRONT plate-face width, make plate edges crisp, and retain shorter subordinate layers. Render SIDE/FRONT/FRONT34/BACK and STOP.
+next_action: Review A1-v10 crest against multi-angle reference. If crest passes, review complete A1 head/crest/neck; do not start A2 before explicit acceptance.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -289,3 +289,12 @@ vibe_gate_a1_v9_decision: REVISE
 vibe_gate_a1_v9_keep: two broad primary lamina concept, subordinate layers, reference-driven multi-angle construction, all non-crest geometry lock.
 vibe_gate_a1_v9_problem: FRONT reads as two oversized separated rabbit-ear plates; SIDE primary plate mass is too thick and tall relative to the approved S reference.
 vibe_gate_a1_v10_exact_edit: crest only; lower/narrow the primary laminae, reduce lateral center separation, keep broad plate-face projection, sharpen faceting, and preserve rearward sweep.
+
+vibe_gate_a1_v10_status: REVIEW_PENDING
+vibe_gate_a1_v10_scope: crest only / compact crisp plate correction
+vibe_gate_a1_v10_noncrest_geometry_unchanged: true
+vibe_gate_a1_v10_renders:
+- output/review/vibe-a1-v10/S_vibe_a1_v10_side.png
+- output/review/vibe-a1-v10/S_vibe_a1_v10_front.png
+- output/review/vibe-a1-v10/S_vibe_a1_v10_front34.png
+- output/review/vibe-a1-v10/S_vibe_a1_v10_back.png
