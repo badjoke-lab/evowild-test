@@ -2832,8 +2832,8 @@ function resolveAgentOutcome(runner, command, observation) {
       compatibility * 0.20;
 
     const outcome =
-      score >= 0.95 ? "EXCELLENT" :
-        score >= 0.88 ? "SUCCESS" :
+      score >= 0.96 ? "EXCELLENT" :
+        score >= 0.90 ? "SUCCESS" :
           score >= 0.72 ? "PARTIAL" :
             score >= 0.58 ? "FAILED" : "BACKFIRE";
 
