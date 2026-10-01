@@ -22,6 +22,13 @@ const resultRaceTimeEl = document.querySelector("#resultRaceTime");
 const resultListEl = document.querySelector("#resultList");
 const startSequenceEl = document.querySelector("#startSequence");
 const startSequenceLabelEl = document.querySelector("#startSequenceLabel");
+const agentPanelEl = document.querySelector("#agentPanel");
+const agentTargetNameEl = document.querySelector("#agentTargetName");
+const staminaReadoutEl = document.querySelector("#staminaReadout");
+const fatigueReadoutEl = document.querySelector("#fatigueReadout");
+const agentResponseReadoutEl = document.querySelector("#agentResponseReadout");
+const agentResultEl = document.querySelector("#agentResult");
+const agentCommandButtons = [...document.querySelectorAll("[data-agent-command]")];
 const cameraButtons = [...document.querySelectorAll(".cam")];
 
 const RACE_DISTANCE = 1600;
@@ -57,6 +64,26 @@ const START_SEQUENCE_ENABLED =
   !INSPECT_MODE &&
   !MOTION_REVIEW_MODE;
 const TAU = Math.PI * 2;
+const AGENT_COMMAND_DURATION = 8.0;
+const AGENT_COMPATIBILITY = {
+  S: { PUSH: 1.00, CONSERVE: 0.70 },
+  P: { PUSH: 0.94, CONSERVE: 0.76 },
+  E: { PUSH: 0.76, CONSERVE: 1.00 },
+  A: { PUSH: 0.88, CONSERVE: 0.90 }
+};
+
+function createRunnerAgentState(id) {
+  return {
+    id: `AGENT-${String(id + 1).padStart(2, "0")}`,
+    version: 1,
+    command: "NEUTRAL",
+    commandIssuedAt: -999,
+    commandUntil: -999,
+    response: 0,
+    lastResult: "NEUTRAL"
+  };
+}
+
 const S_GAIT = {
   baseY: 1.60,
   reviewBaseY: 2.16,
@@ -3372,6 +3399,9 @@ function createRunners() {
       nextLaneDecision: 190 + seeded(i, 11) * 210,
       laneChangeStartedAt: -999,
       finishTime: null,
+      stamina: 1.0,
+      fatigue: 0.0,
+      agent: createRunnerAgentState(i),
       raceProxy,
       renderFull: !SIMPLIFIED_RACE_PAGE
     };
@@ -3456,6 +3486,10 @@ function resetRace() {
   if (startSequenceLabelEl) {
     startSequenceLabelEl.textContent = START_SEQUENCE_ENABLED ? "READY" : "";
   }
+  canvas.dataset.agentModel = "command-only-creature-resolved";
+  canvas.dataset.agentCommand = "NEUTRAL";
+  canvas.dataset.agentRunnerId = "";
+  canvas.dataset.agentCommandUntil = "";
   canvas.dataset.resultReady = "0";
   canvas.dataset.winnerDeclared = "0";
   canvas.dataset.winnerId = "";
@@ -3482,6 +3516,13 @@ function resetRace() {
     runner.speed = 0;
     runner.targetSpeed = 0;
     runner.finishTime = null;
+    runner.stamina = 1.0;
+    runner.fatigue = 0.0;
+    runner.agent.command = "NEUTRAL";
+    runner.agent.commandIssuedAt = -999;
+    runner.agent.commandUntil = -999;
+    runner.agent.response = 0;
+    runner.agent.lastResult = "NEUTRAL";
     runner.nextLaneDecision = 190 + seeded(i, 11) * 210;
     runner.group.position.set(runner.laneX, 0, runner.distance);
     if (runner.raceProxy) {
@@ -3508,6 +3549,74 @@ function maybeChangeLane(runner) {
   runner.nextLaneDecision += 260 + seeded(runner.id, Math.floor(runner.distance / 70) + 51) * 260;
 }
 
+function resolveAgentCommand(runner, dt) {
+  const agent = runner.agent;
+  if (!agent) return 1;
+
+  if (agent.command !== "NEUTRAL" && raceTime >= agent.commandUntil) {
+    agent.command = "NEUTRAL";
+    agent.response = 0;
+    agent.lastResult = "EXPIRED";
+  }
+
+  const command = agent.command;
+  const compat = AGENT_COMPATIBILITY[runner.morph]?.[command] ?? 0;
+  const staminaFactor = THREE.MathUtils.clamp(runner.stamina, 0, 1);
+  const fatiguePenalty = THREE.MathUtils.clamp(1 - runner.fatigue * 0.72, 0.25, 1);
+  const response = command === "NEUTRAL"
+    ? 0
+    : compat * staminaFactor * fatiguePenalty;
+  agent.response = response;
+
+  const baseDrain = 0.0016;
+  let staminaDrain = baseDrain;
+  let fatigueDelta = 0.0012;
+
+  if (command === "PUSH") {
+    staminaDrain += 0.0085 * Math.max(0.35, response);
+    fatigueDelta += 0.0105 * Math.max(0.35, response);
+    agent.lastResult = response >= 0.72 ? "STRONG" : response >= 0.46 ? "PARTIAL" : "WEAK";
+  } else if (command === "CONSERVE") {
+    staminaDrain *= 0.34;
+    fatigueDelta = -0.0065 * Math.max(0.35, response);
+    agent.lastResult = response >= 0.72 ? "SETTLED" : response >= 0.46 ? "PARTIAL" : "WEAK";
+  } else {
+    fatigueDelta = runner.speed > runner.cfg.baseSpeed * 0.98 ? 0.0018 : -0.0015;
+  }
+
+  runner.stamina = THREE.MathUtils.clamp(runner.stamina - staminaDrain * dt, 0, 1);
+  runner.fatigue = THREE.MathUtils.clamp(runner.fatigue + fatigueDelta * dt, 0, 1);
+
+  if (command === "PUSH") {
+    return 1 + 0.035 * response;
+  }
+  if (command === "CONSERVE") {
+    return 1 - 0.025 * response;
+  }
+  return 1;
+}
+
+function issueAgentCommand(runner, command) {
+  if (!runner?.agent || !["PUSH", "CONSERVE", "CLEAR"].includes(command)) return;
+
+  if (command === "CLEAR") {
+    runner.agent.command = "NEUTRAL";
+    runner.agent.commandIssuedAt = raceTime;
+    runner.agent.commandUntil = raceTime;
+    runner.agent.response = 0;
+    runner.agent.lastResult = "CLEARED";
+  } else {
+    runner.agent.command = command;
+    runner.agent.commandIssuedAt = raceTime;
+    runner.agent.commandUntil = raceTime + AGENT_COMMAND_DURATION;
+    runner.agent.lastResult = "PENDING";
+  }
+
+  canvas.dataset.agentCommand = runner.agent.command;
+  canvas.dataset.agentRunnerId = String(runner.id);
+  canvas.dataset.agentCommandUntil = runner.agent.commandUntil.toFixed(3);
+}
+
 function updateRunner(runner, dt) {
   const cfg = runner.cfg;
   const progress = THREE.MathUtils.clamp(runner.distance / RACE_DISTANCE, 0, 1);
@@ -3525,9 +3634,16 @@ function updateRunner(runner, dt) {
     phaseBoost = 1.0 + Math.sin(progress * Math.PI * 5 + runner.phaseBias) * 0.009;
   }
 
+  const agentSpeedFactor = resolveAgentCommand(runner, dt);
+  const fatigueSpeedFactor = 1 - runner.fatigue * 0.022;
   runner.targetSpeed =
     runner.finishTime === null
-      ? cfg.baseSpeed * runner.speedBias * phaseBoost * launch
+      ? cfg.baseSpeed *
+        runner.speedBias *
+        phaseBoost *
+        launch *
+        agentSpeedFactor *
+        fatigueSpeedFactor
       : 0;
   const accelRate = cfg.accel * (runner.targetSpeed >= runner.speed ? 1 : 0.62);
   runner.speed = THREE.MathUtils.damp(runner.speed, runner.targetSpeed, accelRate, dt);
@@ -5121,6 +5237,39 @@ function updateHud(dt) {
   positionEl.textContent = `${rank} / ${RUNNER_COUNT}`;
   cameraEl.textContent = actualCamera;
 
+  if (SIMPLIFIED_RACE_PAGE && focus.agent) {
+    if (agentTargetNameEl) agentTargetNameEl.textContent = focus.name;
+    if (staminaReadoutEl) staminaReadoutEl.textContent = `${Math.round(focus.stamina * 100)}%`;
+    if (fatigueReadoutEl) fatigueReadoutEl.textContent = `${Math.round(focus.fatigue * 100)}%`;
+    if (agentResponseReadoutEl) {
+      agentResponseReadoutEl.textContent =
+        focus.agent.command === "NEUTRAL"
+          ? "NEUTRAL"
+          : `${focus.agent.command} ${Math.round(focus.agent.response * 100)}%`;
+    }
+    if (agentResultEl) {
+      agentResultEl.textContent =
+        focus.agent.command === "NEUTRAL"
+          ? focus.agent.lastResult === "NEUTRAL"
+            ? "No active command"
+            : `Last: ${focus.agent.lastResult}`
+          : `${focus.agent.id} v${focus.agent.version} · ${focus.agent.lastResult}`;
+    }
+    agentCommandButtons.forEach((button) => {
+      button.classList.toggle(
+        "active",
+        button.dataset.agentCommand === focus.agent.command
+      );
+      button.disabled = finished || !raceStarted;
+    });
+
+    canvas.dataset.agentFocusCommand = focus.agent.command;
+    canvas.dataset.agentFocusResponse = focus.agent.response.toFixed(3);
+    canvas.dataset.agentFocusStamina = focus.stamina.toFixed(3);
+    canvas.dataset.agentFocusFatigue = focus.fatigue.toFixed(3);
+    canvas.dataset.agentModel = "command-only-creature-resolved";
+  }
+
   fpsAccumulator += dt;
   fpsFrames += 1;
   if (fpsAccumulator >= 0.5) {
@@ -5223,6 +5372,14 @@ function finishCheck() {
     renderRaceResults(finishers);
   }
 }
+
+agentCommandButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const runner = runners[selectedRunner];
+    if (!runner || !raceStarted || finished) return;
+    issueAgentCommand(runner, button.dataset.agentCommand);
+  });
+});
 
 cameraButtons.forEach((button) => {
   button.addEventListener("click", () => {
