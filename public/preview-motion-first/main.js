@@ -5560,6 +5560,43 @@ function updateHud(dt) {
   positionEl.textContent = `${rank} / ${RUNNER_COUNT}`;
   cameraEl.textContent = actualCamera;
 
+  if (SIMPLIFIED_RACE_PAGE) {
+    const fatiguePercent = Math.round(focus.fatigue * 100);
+    if (fatigueReadoutEl) fatigueReadoutEl.textContent = `${fatiguePercent}%`;
+    if (fatigueBarEl) fatigueBarEl.style.width = `${fatiguePercent}%`;
+    if (agentStrategyReadoutEl) {
+      agentStrategyReadoutEl.textContent = focus.agentFile.preset;
+    }
+
+    canvas.dataset.focusFatigue = focus.fatigue.toFixed(3);
+    canvas.dataset.focusAgentPreset = focus.agentFile.preset;
+    canvas.dataset.focusAgentVersion = String(focus.agentFile.agent_version);
+
+    const event = focus.lastAgentEvent;
+    const showEvent = event && raceTime - event.time <= 2.4;
+    if (agentEventEl) {
+      agentEventEl.classList.toggle("hidden", !showEvent);
+      agentEventEl.setAttribute("aria-hidden", showEvent ? "false" : "true");
+      if (showEvent) agentEventEl.dataset.outcome = event.outcome;
+    }
+    if (showEvent) {
+      if (agentCommandReadoutEl) agentCommandReadoutEl.textContent = event.command;
+      if (agentOutcomeReadoutEl) {
+        agentOutcomeReadoutEl.textContent = event.outcome;
+      }
+      if (agentReasonReadoutEl) {
+        agentReasonReadoutEl.textContent = event.reason.replaceAll("_", " ");
+      }
+      canvas.dataset.agentCommand = event.command;
+      canvas.dataset.agentOutcome = event.outcome;
+      canvas.dataset.agentReason = event.reason;
+    } else {
+      canvas.dataset.agentCommand = "";
+      canvas.dataset.agentOutcome = "";
+      canvas.dataset.agentReason = "";
+    }
+  }
+
   fpsAccumulator += dt;
   fpsFrames += 1;
   if (fpsAccumulator >= 0.5) {
