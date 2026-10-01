@@ -26,6 +26,8 @@ const agentPanelEl = document.querySelector("#agentPanel");
 const agentTargetSelect = document.querySelector("#agentTargetSelect");
 const staminaReadoutEl = document.querySelector("#staminaReadout");
 const fatigueReadoutEl = document.querySelector("#fatigueReadout");
+const pressureReadoutEl = document.querySelector("#pressureReadout");
+const creatureStateReadoutEl = document.querySelector("#creatureStateReadout");
 const agentResponseReadoutEl = document.querySelector("#agentResponseReadout");
 const agentResultEl = document.querySelector("#agentResult");
 const agentCommandButtons = [...document.querySelectorAll("[data-agent-command]")];
@@ -3401,6 +3403,8 @@ function createRunners() {
       finishTime: null,
       stamina: 1.0,
       fatigue: 0.0,
+      pressure: 0.0,
+      creatureState: "FRESH",
       agent: createRunnerAgentState(i),
       raceProxy,
       renderFull: !SIMPLIFIED_RACE_PAGE
@@ -3528,6 +3532,8 @@ function resetRace() {
     runner.finishTime = null;
     runner.stamina = 1.0;
     runner.fatigue = 0.0;
+    runner.pressure = 0.0;
+    runner.creatureState = "FRESH";
     runner.agent.command = "NEUTRAL";
     runner.agent.commandIssuedAt = -999;
     runner.agent.commandUntil = -999;
@@ -3559,6 +3565,34 @@ function maybeChangeLane(runner) {
   runner.nextLaneDecision += 260 + seeded(runner.id, Math.floor(runner.distance / 70) + 51) * 260;
 }
 
+function computeRunnerPressure(runner) {
+  if (!SIMPLIFIED_RACE_PAGE || runner.finishTime !== null) return 0;
+
+  let strongest = 0;
+  for (const other of runners) {
+    if (other.id === runner.id || other.finishTime !== null) continue;
+
+    const gap = other.distance - runner.distance;
+    if (gap <= 0 || gap > 5.2) continue;
+
+    const lateralGap = Math.abs(other.laneX - runner.laneX);
+    if (lateralGap > LANE_WIDTH * 1.25) continue;
+
+    const longitudinal = 1 - gap / 5.2;
+    const lateral = 1 - lateralGap / (LANE_WIDTH * 1.25);
+    strongest = Math.max(strongest, longitudinal * lateral);
+  }
+
+  return THREE.MathUtils.clamp(strongest, 0, 1);
+}
+
+function deriveCreatureState(runner) {
+  if (runner.fatigue >= 0.68 || runner.stamina <= 0.30) return "TIRED";
+  if (runner.fatigue >= 0.34 || runner.stamina <= 0.58) return "WORKING";
+  if (runner.pressure >= 0.58) return "PRESSURED";
+  return "FRESH";
+}
+
 function resolveAgentCommand(runner, dt) {
   const agent = runner.agent;
   if (!agent) return 1;
@@ -3573,9 +3607,15 @@ function resolveAgentCommand(runner, dt) {
   const compat = AGENT_COMPATIBILITY[runner.morph]?.[command] ?? 0;
   const staminaFactor = THREE.MathUtils.clamp(runner.stamina, 0, 1);
   const fatiguePenalty = THREE.MathUtils.clamp(1 - runner.fatigue * 0.72, 0.25, 1);
+  const pressurePenalty =
+    command === "PUSH"
+      ? THREE.MathUtils.lerp(1, 0.62, runner.pressure)
+      : command === "CONSERVE"
+        ? THREE.MathUtils.lerp(1, 0.88, runner.pressure)
+        : 1;
   const response = command === "NEUTRAL"
     ? 0
-    : compat * staminaFactor * fatiguePenalty;
+    : compat * staminaFactor * fatiguePenalty * pressurePenalty;
   agent.response = response;
 
   const baseDrain = 0.0016;
@@ -3584,7 +3624,9 @@ function resolveAgentCommand(runner, dt) {
 
   if (command === "PUSH") {
     staminaDrain += 0.0085 * Math.max(0.35, response);
-    fatigueDelta += 0.0105 * Math.max(0.35, response);
+    fatigueDelta +=
+      0.0105 * Math.max(0.35, response) +
+      0.0040 * runner.pressure;
     agent.lastResult = response >= 0.72 ? "STRONG" : response >= 0.46 ? "PARTIAL" : "WEAK";
   } else if (command === "CONSERVE") {
     staminaDrain *= 0.34;
@@ -3596,6 +3638,7 @@ function resolveAgentCommand(runner, dt) {
 
   runner.stamina = THREE.MathUtils.clamp(runner.stamina - staminaDrain * dt, 0, 1);
   runner.fatigue = THREE.MathUtils.clamp(runner.fatigue + fatigueDelta * dt, 0, 1);
+  runner.creatureState = deriveCreatureState(runner);
 
   if (command === "PUSH") {
     return 1 + 0.035 * response;
@@ -3629,6 +3672,8 @@ function issueAgentCommand(runner, command) {
 
 function updateRunner(runner, dt) {
   const cfg = runner.cfg;
+  runner.pressure = computeRunnerPressure(runner);
+  runner.creatureState = deriveCreatureState(runner);
   const progress = THREE.MathUtils.clamp(runner.distance / RACE_DISTANCE, 0, 1);
 
   const launch = THREE.MathUtils.smoothstep(raceTime, 0, 4.8);
@@ -5257,6 +5302,12 @@ function updateHud(dt) {
       if (fatigueReadoutEl) {
         fatigueReadoutEl.textContent = `${Math.round(agentTarget.fatigue * 100)}%`;
       }
+      if (pressureReadoutEl) {
+        pressureReadoutEl.textContent = `${Math.round(agentTarget.pressure * 100)}%`;
+      }
+      if (creatureStateReadoutEl) {
+        creatureStateReadoutEl.textContent = agentTarget.creatureState;
+      }
       if (agentResponseReadoutEl) {
         agentResponseReadoutEl.textContent =
           agentTarget.agent.command === "NEUTRAL"
@@ -5284,6 +5335,8 @@ function updateHud(dt) {
       canvas.dataset.agentFocusResponse = agentTarget.agent.response.toFixed(3);
       canvas.dataset.agentFocusStamina = agentTarget.stamina.toFixed(3);
       canvas.dataset.agentFocusFatigue = agentTarget.fatigue.toFixed(3);
+      canvas.dataset.agentFocusPressure = agentTarget.pressure.toFixed(3);
+      canvas.dataset.agentFocusCreatureState = agentTarget.creatureState;
       canvas.dataset.agentModel = "command-only-creature-resolved";
     }
   }
