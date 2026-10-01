@@ -50,7 +50,7 @@
     "Tail and all toe geometry unchanged from v2",
     "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Create output/S-rebuild-v4.blend from v3. One structural silhouette pass only: integrate crest roots into skull, replace rod-like limb segments with readable jointed masses, and lower/compact the racing posture toward the locked modeling image. Render five views and stop.",
+  "next_action": "Execute S_REBUILD_V4_TASK.md from output/S-rebuild-v3.blend. One Gate A structural silhouette pass only; render five views, commit/push, and STOP for review. Do not enter Gate B.",
   "quality_issues": [
     "Crest no longer reads as upright horns, but plates still look pasted-on/flat in front and front34",
     "Distal limbs still read as rods",
@@ -62,12 +62,12 @@
   "resume_inputs": [
     "S_MODELING_IMAGE_LOCK.md",
     "S_MORPHOLOGY_RESET_PLAN.md",
-    "S_REBUILD_V3_TASK.md",
+    "S_REBUILD_V4_TASK.md",
     "output/S-rebuild-v3.blend"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "REVISE",
-  "modeling_status": "READY_FOR_V4",
+  "modeling_status": "READY_TO_EXECUTE_V4",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/rebuild-v3/S_rebuild_side.png",
@@ -89,5 +89,6 @@
     "crest_max_z_v2": 1.5930001735687256,
     "tail_unchanged": true,
     "toes_unchanged": true
-  }
+  },
+  "v4_task": "S_REBUILD_V4_TASK.md"
 }

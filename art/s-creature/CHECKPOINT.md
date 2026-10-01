@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Build S-rebuild-v4 from v3 as one final Gate A structural silhouette pass: integrate crest roots into skull, thicken/joint limb segment masses so they no longer read as rods, and lower/compact the whole racing posture toward the locked modeling image. Do not enter Gate B.
+next_action: Execute S_REBUILD_V4_TASK.md from S-rebuild-v3 as one final Gate A structural silhouette pass. Integrate crest roots into skull, replace rod-like limb segments with readable jointed masses, and lower/compact the racing posture toward the locked modeling image. Render SIDE / FRONT / FRONT34 / REAR34 / BACK, commit/push, then STOP for review. Do not enter Gate B.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -179,3 +179,7 @@ gate_a_v3_decision: REVISE
 gate_a_v3_reason: v3 is a real improvement over v2: the crest no longer reads as upright horns and the body is more compact. However Gate A still fails the locked silhouette because the crest plates read as flat pasted-on fins in FRONT/FRONT34, distal limbs still read as rods, the shoulder/pelvis joint masses are too abrupt and geometric, and the overall stance remains more generic ungulate than the approved alien racing silhouette.
 gate_a_v3_keep: low rearward crest envelope; shorter flared neck; compact torso; sharper fore/hind chain differentiation; shorter tail from v2.
 gate_a_v4_rule: one structural silhouette pass only; no more percentage-only nudges. Rebuild crest roots and limb segment masses as connected forms while preserving Gate A low complexity.
+
+
+gate_a_v4_task: S_REBUILD_V4_TASK.md
+gate_a_v4_execution_status: READY_TO_EXECUTE
