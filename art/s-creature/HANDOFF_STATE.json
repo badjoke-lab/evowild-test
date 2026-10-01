@@ -9,12 +9,12 @@
     "E",
     "A"
   ],
-  "stage": "S-rebuild-gate-A-v4",
-  "current_stage": "S-rebuild-v3 reviewed REVISE; structural Gate A v4 next",
+  "stage": "S-rebuild-gate-A-v4-review",
+  "current_stage": "S-rebuild-v4 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
-  "current_model_file": "output/S-rebuild-v3.blend",
-  "source_model_file": "output/S-rebuild-v2.blend",
+  "current_model_file": "output/S-rebuild-v4.blend",
+  "source_model_file": "output/S-rebuild-v3.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
     "S_MORPHOLOGY_RESET_PLAN.md",
@@ -50,12 +50,9 @@
     "Tail and all toe geometry unchanged from v2",
     "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Execute S_REBUILD_V4_TASK.md from output/S-rebuild-v3.blend. One Gate A structural silhouette pass only; render five views, commit/push, and STOP for review. Do not enter Gate B.",
+  "next_action": "Review S-rebuild-v4 Gate A only. Do not proceed to Gate B.",
   "quality_issues": [
-    "Crest no longer reads as upright horns, but plates still look pasted-on/flat in front and front34",
-    "Distal limbs still read as rods",
-    "Shoulder and pelvis masses transition too abruptly into limbs",
-    "Overall silhouette remains too generic ungulate compared with approved alien racing target"
+    "Gate A v4 silhouette acceptance pending review"
   ],
   "blockers": [],
   "accepted": false,
@@ -66,17 +63,17 @@
     "output/S-rebuild-v3.blend"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "REVISE",
-  "modeling_status": "READY_TO_EXECUTE_V4",
+  "gate_a_status": "REVIEW_PENDING",
+  "modeling_status": "STOPPED",
   "cage_vertex_count": 760,
   "review_renders": [
-    "output/review/rebuild-v3/S_rebuild_side.png",
-    "output/review/rebuild-v3/S_rebuild_front.png",
-    "output/review/rebuild-v3/S_rebuild_front34.png",
-    "output/review/rebuild-v3/S_rebuild_rear34.png",
-    "output/review/rebuild-v3/S_rebuild_back.png"
+    "output/review/rebuild-v4/S_rebuild_side.png",
+    "output/review/rebuild-v4/S_rebuild_front.png",
+    "output/review/rebuild-v4/S_rebuild_front34.png",
+    "output/review/rebuild-v4/S_rebuild_rear34.png",
+    "output/review/rebuild-v4/S_rebuild_back.png"
   ],
-  "geometry_sha256": "d37619ae5d18eeadb110407fa2903c9bcecd592363731ae6ac01d812d5d00f57",
+  "geometry_sha256": "5c25e613bead347cb7277d142eadc92aa014445046c870bbea1bc67221a52797",
   "geometry_unchanged_during_render": true,
   "measurements": {
     "neck_length_before": 0.7270744459819778,
