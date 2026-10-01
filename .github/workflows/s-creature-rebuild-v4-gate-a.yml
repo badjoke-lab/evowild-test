@@ -1,0 +1,143 @@
+name: S rebuild v4 Gate A structural pass
+
+on:
+  push:
+    branches:
+      - feat/s-creature-model
+    paths:
+      - .github/workflows/s-creature-rebuild-v4-gate-a.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: s-creature-rebuild-v4-gate-a
+  cancel-in-progress: false
+
+jobs:
+  gate-a-v4:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/s-creature-model
+          fetch-depth: 0
+
+      - name: Verify v4 task and v3 source
+        run: |
+          set -euxo pipefail
+          test -s art/s-creature/S_REBUILD_V4_TASK.md
+          test -s art/s-creature/output/S-rebuild-v3.blend
+          test -s art/s-creature/blender/edit_s_rebuild_v4.py
+          test -s art/s-creature/blender/render_s_rebuild_v4.py
+
+      - name: Install Blender runtime libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+
+      - name: Download Blender 4.3.2
+        run: |
+          set -euxo pipefail
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+          /tmp/blender-4.3.2-linux-x64/blender --version
+
+      - name: Execute v4 structural Gate A pass
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "1"
+        run: |
+          set -euxo pipefail
+          /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/edit_s_rebuild_v4.py
+
+      - name: Render five v4 review views
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "1"
+        run: |
+          set -euxo pipefail
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-rebuild-v4.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/render_s_rebuild_v4.py
+
+      - name: Verify v4 scope and outputs
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('art/s-creature')
+          report=json.loads((root/'output/S-rebuild-v4-gate-A.json').read_text())
+          assert report['gate']=='A'
+          assert report['status']=='REVIEW_PENDING'
+          assert report['v12_geometry_used'] is False
+          assert report['topology_preserved'] is True
+          assert report['tail_unchanged'] is True
+          assert report['toes_unchanged'] is True
+          assert report['no_materials'] and report['no_animation'] and report['no_armature']
+          assert report['rendered_views']==['SIDE','FRONT','FRONT34','REAR34','BACK']
+          assert report['geometry_unchanged_during_render'] is True
+          for stem in ('side','front','front34','rear34','back'):
+              p=root/f'output/review/rebuild-v4/S_rebuild_{stem}.png'
+              assert p.stat().st_size>0
+          PY
+
+      - name: Update checkpoint and handoff to review pending
+        run: |
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+          root=Path('art/s-creature')
+          report=json.loads((root/'output/S-rebuild-v4-gate-A.json').read_text())
+
+          p=root/'CHECKPOINT.md'
+          s=p.read_text()
+          s=re.sub(r'^current_stage:.*$', 'current_stage: S-rebuild-v4 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED', s, count=1, flags=re.M)
+          s=re.sub(r'^current_model_file:.*$', 'current_model_file: output/S-rebuild-v4.blend', s, count=1, flags=re.M)
+          s=re.sub(r'^next_action:.*$', 'next_action: Review S-rebuild-v4 Gate A only; await decision. Do not proceed to Gate B.', s, count=1, flags=re.M)
+          s=re.sub(r'^gate_a_status:.*$', 'gate_a_status: REVIEW_PENDING', s, count=1, flags=re.M)
+          s=re.sub(r'^modeling_status:.*$', 'modeling_status: STOPPED', s, count=1, flags=re.M)
+          if 'gate_a_v4_done:' not in s:
+              s += "\n\ngate_a_v4_done: Structural Gate A pass executed from v3; crest roots integrated, thorax compacted, limb masses differentiated; five views rendered.\n"
+              s += "gate_a_v4_acceptance: REVIEW_PENDING; no PASS claimed\n"
+              s += "gate_a_v4_geometry_sha256: "+report['geometry_sha256']+"\n"
+              s += "gate_a_v4_renders:\n"
+              for stem in ('side','front','front34','rear34','back'):
+                  s += f"- output/review/rebuild-v4/S_rebuild_{stem}.png\n"
+          p.write_text(s)
+
+          hp=root/'HANDOFF_STATE.json'
+          h=json.loads(hp.read_text())
+          h['stage']='S-rebuild-gate-A-v4-review'
+          h['current_stage']='S-rebuild-v4 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED'
+          h['current_model_file']='output/S-rebuild-v4.blend'
+          h['source_model_file']='output/S-rebuild-v3.blend'
+          h['next_action']='Review S-rebuild-v4 Gate A only. Do not proceed to Gate B.'
+          h['gate_a_status']='REVIEW_PENDING'
+          h['modeling_status']='STOPPED'
+          h['accepted']=False
+          h['geometry_sha256']=report['geometry_sha256']
+          h['review_renders']=[
+              'output/review/rebuild-v4/S_rebuild_side.png',
+              'output/review/rebuild-v4/S_rebuild_front.png',
+              'output/review/rebuild-v4/S_rebuild_front34.png',
+              'output/review/rebuild-v4/S_rebuild_rear34.png',
+              'output/review/rebuild-v4/S_rebuild_back.png']
+          h['quality_issues']=['Gate A v4 silhouette acceptance pending review']
+          hp.write_text(json.dumps(h,indent=2)+"\n")
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: S-rebuild-v4-Gate-A
+          path: |
+            art/s-creature/output/S-rebuild-v4.blend
+            art/s-creature/output/S-rebuild-v4-gate-A.json
+            art/s-creature/output/review/rebuild-v4/
+          if-no-files-found: error
+
+      - name: Commit and push v4 checkpoint
+        run: |
+          set -euxo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add art/s-creature/output/S-rebuild-v4.blend                   art/s-creature/output/S-rebuild-v4-gate-A.json                   art/s-creature/output/review/rebuild-v4/                   art/s-creature/CHECKPOINT.md                   art/s-creature/HANDOFF_STATE.json
+          git commit -m 'art: save S rebuild v4 cage and stop for Gate A review'
+          git push origin HEAD:feat/s-creature-model
