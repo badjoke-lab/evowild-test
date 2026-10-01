@@ -9,12 +9,12 @@
     "E",
     "A"
   ],
-  "stage": "S-rebuild-gate-A-v6-review",
-  "current_stage": "S-rebuild-v6 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED",
+  "stage": "S-rebuild-gate-A-v7",
+  "current_stage": "S-rebuild-v6 reviewed REVISE; v7 neck/limb correction next",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
   "current_model_file": "output/S-rebuild-v6.blend",
-  "source_model_file": "output/S-rebuild-v5.blend",
+  "source_model_file": "output/S-rebuild-v6.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
     "S_MORPHOLOGY_RESET_PLAN.md",
@@ -50,9 +50,11 @@
     "Tail and all toe geometry unchanged from v2",
     "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Review S-rebuild-v6 Gate A only. Do not proceed to Gate B.",
+  "next_action": "Execute v7 from output/S-rebuild-v6.blend. Lock crest and torso/pelvis/tail; shorten head/neck and re-articulate limbs in frontal plane; render five views; STOP.",
   "quality_issues": [
-    "Gate A v6 silhouette acceptance pending review"
+    "neck still reads too long/tubular",
+    "fore/hind limbs remain too parallel and rod-like from FRONT/BACK",
+    "overall read remains too generic ungulate"
   ],
   "blockers": [],
   "accepted": false,
@@ -65,8 +67,8 @@
     "references/02_s_silhouette.png"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "REVIEW_PENDING",
-  "modeling_status": "STOPPED",
+  "gate_a_status": "REVISE",
+  "modeling_status": "READY_FOR_V7",
   "cage_vertex_count": 800,
   "review_renders": [
     "output/review/rebuild-v6/S_rebuild_side.png",
@@ -91,5 +93,6 @@
   },
   "v4_task": "S_REBUILD_V4_TASK.md",
   "v5_task": "S_REBUILD_V5_TASK.md",
-  "v6_scope": "crest-only; all non-crest geometry locked"
+  "v6_scope": "crest-only; all non-crest geometry locked",
+  "v7_scope": "head/neck + limb chains only; crest/torso/pelvis/tail locked"
 }

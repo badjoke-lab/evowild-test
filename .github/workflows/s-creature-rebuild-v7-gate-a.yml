@@ -1,0 +1,100 @@
+name: S rebuild v7 Gate A neck limb correction
+
+on:
+  push:
+    branches:
+      - feat/s-creature-model
+    paths:
+      - .github/workflows/s-creature-rebuild-v7-gate-a.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: s-creature-rebuild-v7-gate-a
+  cancel-in-progress: false
+
+jobs:
+  gate-a-v7:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/s-creature-model
+          fetch-depth: 0
+      - name: Install Blender runtime libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+      - name: Download Blender 4.3.2
+        run: |
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Execute v7 correction
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "1"
+        run: /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/edit_s_rebuild_v7.py
+      - name: Render five v7 views
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "1"
+        run: /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-rebuild-v7.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/render_s_rebuild_v7.py
+      - name: Verify scope
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('art/s-creature')
+          r=json.loads((root/'output/S-rebuild-v7-gate-A.json').read_text())
+          assert r['topology_preserved']
+          assert r['crest_shape_unchanged']
+          assert r['torso_pelvis_tail_unchanged']
+          assert r['toe_geometry_unchanged']
+          assert r['rendered_views']==['SIDE','FRONT','FRONT34','REAR34','BACK']
+          assert r['geometry_unchanged_during_render']
+          for stem in ('side','front','front34','rear34','back'):
+              assert (root/f'output/review/rebuild-v7/S_rebuild_{stem}.png').stat().st_size>0
+          PY
+      - name: Update checkpoint and handoff
+        run: |
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+          root=Path('art/s-creature'); r=json.loads((root/'output/S-rebuild-v7-gate-A.json').read_text())
+          p=root/'CHECKPOINT.md'; s=p.read_text()
+          s=re.sub(r'^current_stage:.*$', 'current_stage: S-rebuild-v7 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED', s, count=1, flags=re.M)
+          s=re.sub(r'^current_model_file:.*$', 'current_model_file: output/S-rebuild-v7.blend', s, count=1, flags=re.M)
+          s=re.sub(r'^next_action:.*$', 'next_action: Review S-rebuild-v7 Gate A only; await decision. Do not proceed to Gate B.', s, count=1, flags=re.M)
+          s=re.sub(r'^gate_a_status:.*$', 'gate_a_status: REVIEW_PENDING', s, count=1, flags=re.M)
+          s=re.sub(r'^modeling_status:.*$', 'modeling_status: STOPPED', s, count=1, flags=re.M)
+          if 'gate_a_v7_done:' not in s:
+              s+='\n\ngate_a_v7_done: Head-neck shortened and limb frontal-plane joint rhythm added; crest/torso/pelvis/tail/toes locked; five views rendered.\n'
+              s+='gate_a_v7_acceptance: REVIEW_PENDING; no PASS claimed\n'
+              s+='gate_a_v7_geometry_sha256: '+r['geometry_sha256']+'\n'
+          p.write_text(s)
+          hp=root/'HANDOFF_STATE.json'; h=json.loads(hp.read_text())
+          h['stage']='S-rebuild-gate-A-v7-review'
+          h['current_stage']='S-rebuild-v7 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED'
+          h['current_model_file']='output/S-rebuild-v7.blend'; h['source_model_file']='output/S-rebuild-v6.blend'
+          h['next_action']='Review S-rebuild-v7 Gate A only. Do not proceed to Gate B.'
+          h['gate_a_status']='REVIEW_PENDING'; h['modeling_status']='STOPPED'; h['accepted']=False
+          h['geometry_sha256']=r['geometry_sha256']
+          h['review_renders']=[f'output/review/rebuild-v7/S_rebuild_{x}.png' for x in ('side','front','front34','rear34','back')]
+          h['quality_issues']=['Gate A v7 silhouette acceptance pending review']
+          hp.write_text(json.dumps(h,indent=2)+'\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: S-rebuild-v7-Gate-A
+          path: |
+            art/s-creature/output/S-rebuild-v7.blend
+            art/s-creature/output/S-rebuild-v7-gate-A.json
+            art/s-creature/output/review/rebuild-v7/
+          if-no-files-found: error
+      - name: Commit and push v7 checkpoint
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add art/s-creature/output/S-rebuild-v7.blend art/s-creature/output/S-rebuild-v7-gate-A.json art/s-creature/output/review/rebuild-v7/ art/s-creature/CHECKPOINT.md art/s-creature/HANDOFF_STATE.json
+          git commit -m 'art: save S rebuild v7 neck limb correction and stop for Gate A review'
+          git push origin HEAD:feat/s-creature-model
