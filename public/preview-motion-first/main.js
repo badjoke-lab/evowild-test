@@ -3744,6 +3744,18 @@ function createRunners() {
       nextLaneDecision: 190 + seeded(i, 11) * 210,
       laneChangeStartedAt: -999,
       finishTime: null,
+      fatigue: 0,
+      agentFile: createRaceAgentFile(morph, i),
+      agentPaceMultiplier: 1,
+      agentFatigueMultiplier: 1,
+      agentEffectUntil: -999,
+      lastAgentDecisionAt: -999,
+      lastAgentMoveAt: -999,
+      agentEarlyCommandIssued: false,
+      agentSprintCommandIssued: false,
+      agentFatigueCommandIssued: false,
+      lastAgentEvent: null,
+      agentPulseUntil: -999,
       raceProxy,
       renderFull: !SIMPLIFIED_RACE_PAGE
     };
@@ -3833,6 +3845,14 @@ function resetRace() {
   canvas.dataset.winnerId = "";
   canvas.dataset.winningTime = "";
   canvas.dataset.finalClassification = "[]";
+  agentEventLog.length = 0;
+  canvas.dataset.agentSchemaVersion = String(AGENT_SCHEMA_VERSION);
+  canvas.dataset.agentEventCount = "0";
+  canvas.dataset.agentNonSuccessCount = "0";
+  canvas.dataset.agentEventLog = "[]";
+  canvas.dataset.agentCommand = "";
+  canvas.dataset.agentOutcome = "";
+  canvas.dataset.agentReason = "";
   if (resultPanel) {
     resultPanel.classList.add("hidden");
     resultPanel.setAttribute("aria-hidden", "true");
@@ -3854,6 +3874,17 @@ function resetRace() {
     runner.speed = 0;
     runner.targetSpeed = 0;
     runner.finishTime = null;
+    runner.fatigue = 0;
+    runner.agentPaceMultiplier = 1;
+    runner.agentFatigueMultiplier = 1;
+    runner.agentEffectUntil = -999;
+    runner.lastAgentDecisionAt = -999;
+    runner.lastAgentMoveAt = -999;
+    runner.agentEarlyCommandIssued = false;
+    runner.agentSprintCommandIssued = false;
+    runner.agentFatigueCommandIssued = false;
+    runner.lastAgentEvent = null;
+    runner.agentPulseUntil = -999;
     runner.nextLaneDecision = 190 + seeded(i, 11) * 210;
     runner.group.position.set(runner.laneX, 0, runner.distance);
     if (runner.raceProxy) {
