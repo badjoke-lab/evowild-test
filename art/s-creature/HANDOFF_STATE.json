@@ -9,14 +9,15 @@
     "E",
     "A"
   ],
-  "stage": "S-rebuild-gate-A-v2",
-  "current_stage": "S-rebuild-v1 reviewed REVISE; Gate A silhouette correction v2 next",
+  "stage": "S-rebuild-gate-A1",
+  "current_stage": "S-rebuild-v1 reviewed REVISE; Gate A1 head/crest/neck correction next",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
   "current_model_file": "output/S-rebuild-v1.blend",
   "source_model_file": "NONE / fresh empty scene",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
+    "S_CREATURE_MODELING_WORKFLOW.md",
     "S_MORPHOLOGY_RESET_PLAN.md",
     "approved S-type Modeling Image v1.0",
     "references/00_full_reference.png",
@@ -38,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Create output/S-rebuild-v2.blend from v1. Correct only global silhouette: crest/head, neck proportion, compact thorax/waist/pelvis, fore/hind joint rhythm, and tail. No detail, Cue Band, materials, animation or final topology.",
+  "next_action": "Execute Gate A1 only from output/S-rebuild-v1.blend. Establish reference landmarks and SIDE/FRONT overlay comparison first. Edit head/crest/neck only; keep thorax/waist/pelvis/limbs/feet/tail fixed. Save output/S-rebuild-v2-a1.blend; render SIDE/FRONT/FRONT34/BACK; update checkpoint/handoff; STOP for review.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -50,6 +51,7 @@
   "accepted": false,
   "resume_inputs": [
     "S_MODELING_IMAGE_LOCK.md",
+    "S_CREATURE_MODELING_WORKFLOW.md",
     "S_MORPHOLOGY_RESET_PLAN.md",
     "references/00_full_reference.png",
     "references/01_s_body_primary.png",
@@ -57,8 +59,8 @@
     "output/S-rebuild-v1.blend"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "REVIEW_PENDING",
-  "modeling_status": "STOPPED",
+  "gate_a_status": "A1_READY",
+  "modeling_status": "STOPPED_BEFORE_A1",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/rebuild-v1/S_rebuild_side.png",
@@ -66,5 +68,20 @@
     "output/review/rebuild-v1/S_rebuild_front34.png",
     "output/review/rebuild-v1/S_rebuild_rear34.png",
     "output/review/rebuild-v1/S_rebuild_back.png"
+  ],
+  "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
+  "editable_next": [
+    "head",
+    "crest",
+    "neck"
+  ],
+  "keep_fixed_next": [
+    "thorax",
+    "waist",
+    "pelvis",
+    "forelimbs",
+    "hindlimbs",
+    "feet",
+    "tail"
   ]
 }
