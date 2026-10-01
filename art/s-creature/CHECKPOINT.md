@@ -183,3 +183,9 @@ vibe_gate_a1_v2_renders:
 - output/review/vibe-a1-v2/S_vibe_a1_v2_front.png
 - output/review/vibe-a1-v2/S_vibe_a1_v2_front34.png
 - output/review/vibe-a1-v2/S_vibe_a1_v2_back.png
+
+
+vibe_gate_a1_v2_decision: REVISE
+vibe_gate_a1_v2_keep: head and neck proportions; improved FRONT crest clustering; all non-A1 geometry lock.
+vibe_gate_a1_v2_problem: SIDE/FRONT34 crest is too horizontal and reads as a bundle of needles instead of C5/H6 rear-upward layered blades.
+vibe_gate_a1_v3_exact_edit: crest only; keep all head/neck/body/limb/tail vertices fixed. Increase rear-upward blade arc while keeping distal tips converged near sagittal plane.
