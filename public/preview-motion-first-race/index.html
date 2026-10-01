@@ -73,7 +73,10 @@
     <section class="agent-panel" id="agentPanel" aria-label="Race Agent commands">
       <div class="agent-heading">
         <span>RACE AGENT · v1</span>
-        <strong id="agentTargetName">Runner 01</strong>
+        <label class="agent-target-label" for="agentTargetSelect">
+          TARGET
+          <select id="agentTargetSelect" aria-label="Agent target runner"></select>
+        </label>
       </div>
       <div class="agent-state">
         <span><small>STAMINA</small><strong id="staminaReadout">100%</strong></span>
