@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gate A1-v6 reviewed REVISE; crest-only v7 required
+current_stage: experimental Vibe Gate A1-v7 crest-only rendered; REVIEW_PENDING / STOPPED
 branch: feat/s-creature-model
-current_model_file: output/S-vibe-a1-v6.blend
+current_model_file: output/S-vibe-a1-v7.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Build A1-v7 from output/S-vibe-a1-v6.blend. Edit CREST ONLY. Keep v6 head, neck and all non-A1 geometry fixed. Replace the four near-parallel comb-like blades with a compact skull-rooted layered crest dominated by one rear-upward primary lamina plus shorter subordinate layers. Preserve a narrow FRONT/BACK projection and avoid paired horns, a central needle, or an evenly spaced comb. Render SIDE/FRONT/FRONT34/BACK and STOP.
+next_action: Review A1-v7 crest against the approved S references. If crest passes, review the complete A1 head/crest/neck group; do not start A2 before explicit A1 acceptance.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -252,3 +252,12 @@ vibe_gate_a1_v7_source: output/S-vibe-a1-v6.blend
 vibe_gate_a1_v7_keep: v6 head shape, v6 neck proportion/placement, thorax, waist, pelvis, all limbs, feet and tail
 vibe_gate_a1_v7_exact_edit: crest only; reduce equal-spacing/parallel-blade construction. Build one dominant rear-upward skull-integrated primary lamina with shorter overlapping subordinate layers. Keep FRONT/BACK silhouette narrow and avoid horn/needle/comb readings.
 vibe_gate_a1_next: Render v7 SIDE/FRONT/FRONT34/BACK and STOP. Do not start A2.
+
+vibe_gate_a1_v7_status: REVIEW_PENDING
+vibe_gate_a1_v7_scope: crest only
+vibe_gate_a1_v7_noncrest_geometry_unchanged: true
+vibe_gate_a1_v7_renders:
+- output/review/vibe-a1-v7/S_vibe_a1_v7_side.png
+- output/review/vibe-a1-v7/S_vibe_a1_v7_front.png
+- output/review/vibe-a1-v7/S_vibe_a1_v7_front34.png
+- output/review/vibe-a1-v7/S_vibe_a1_v7_back.png
