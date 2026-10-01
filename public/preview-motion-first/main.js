@@ -3540,6 +3540,12 @@ function updateSimplifiedRaceProxyCanonicalPose(runner, dt) {
 
   runner.raceProxy.position.set(runner.laneX, 0, runner.distance);
 
+  const agentPulseActive = raceTime < (runner.agentPulseUntil || -1);
+  const agentPulse = agentPulseActive
+    ? 1.0 + Math.sin(raceTime * 18.0) * 0.18
+    : 1.0;
+  proxyMeta.agentOrb.scale.setScalar(0.34 * agentPulse);
+
   // Phase/stride come from the same fixed-60-Hz race simulation as the full
   // runner. The exact already-reviewed morph pose function then solves this
   // lightweight rig directly; no sine-only or static proxy gait exists.
@@ -3585,7 +3591,8 @@ function syncSimplifiedRaceProxyInstances() {
     cannon: 0,
     foot: 0,
     toe: 0,
-    shadow: 0
+    shadow: 0,
+    agentOrb: 0
   };
 
   runners.forEach((runner) => {
@@ -3611,6 +3618,20 @@ function syncSimplifiedRaceProxyInstances() {
     setProxyInstance(simplifiedRaceProxyPool.cue, counts.cue++, ud.cue, ud.colors.cue);
     setProxyInstance(simplifiedRaceProxyPool.tailBlade, counts.tailBlade++, ud.tailBlade, ud.colors.secondary);
     setProxyInstance(simplifiedRaceProxyPool.shadow, counts.shadow++, ud.shadow, ud.colors.shadow);
+    const agentColor =
+      runner.lastAgentEvent?.outcome === "BACKFIRE" || runner.lastAgentEvent?.outcome === "FAILED"
+        ? new THREE.Color(0xff8f8f)
+        : runner.lastAgentEvent?.outcome === "PARTIAL"
+          ? new THREE.Color(0xffd787)
+          : raceTime < (runner.agentPulseUntil || -1)
+            ? new THREE.Color(0x8affbf)
+            : ud.colors.agent;
+    setProxyInstance(
+      simplifiedRaceProxyPool.agentOrb,
+      counts.agentOrb++,
+      ud.agentOrb,
+      agentColor
+    );
 
     ud.tailParts.forEach((tailPart, index) => {
       setProxyInstance(
@@ -3659,6 +3680,7 @@ function syncSimplifiedRaceProxyInstances() {
   });
 
   canvas.dataset.raceProxyInstanceCount = String(counts.pelvis);
+  canvas.dataset.agentOrbCount = String(counts.agentOrb);
   if (Number.isInteger(PROXY_REVIEW_RUNNER)) {
     canvas.dataset.proxyReviewRunner = String(PROXY_REVIEW_RUNNER);
   }
