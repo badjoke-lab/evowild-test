@@ -38,7 +38,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Create output/S-rebuild-v2.blend from v1. Correct only global silhouette: crest/head, neck proportion, compact thorax/waist/pelvis, fore/hind joint rhythm, and tail. No detail, Cue Band, materials, animation or final topology.",
+  "next_action": "Create output/S-rebuild-v2.blend from output/S-rebuild-v1.blend. Gate A only: correct crest/head silhouette first, then neck proportion, compact thorax/waist/pelvis, readable fore/hind joint rhythm, and shorter aerodynamic tail. Render five views and stop.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -57,8 +57,8 @@
     "output/S-rebuild-v1.blend"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "REVIEW_PENDING",
-  "modeling_status": "STOPPED",
+  "gate_a_status": "REVISE",
+  "modeling_status": "READY_FOR_V2",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/rebuild-v1/S_rebuild_side.png",
