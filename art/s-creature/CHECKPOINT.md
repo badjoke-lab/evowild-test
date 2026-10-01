@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gate A1-v6 neck/head placement rendered; REVIEW_PENDING / STOPPED
+current_stage: experimental Vibe Gate A1-v6 reviewed REVISE; crest-only v7 required
 branch: feat/s-creature-model
 current_model_file: output/S-vibe-a1-v6.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review A1-v6 head/crest/neck as a complete A1 group. If it passes, only then prepare A2; otherwise reopen exactly one A1 region.
+next_action: Build A1-v7 from output/S-vibe-a1-v6.blend. Edit CREST ONLY. Keep v6 head, neck and all non-A1 geometry fixed. Replace the four near-parallel comb-like blades with a compact skull-rooted layered crest dominated by one rear-upward primary lamina plus shorter subordinate layers. Preserve a narrow FRONT/BACK projection and avoid paired horns, a central needle, or an evenly spaced comb. Render SIDE/FRONT/FRONT34/BACK and STOP.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -245,7 +245,10 @@ vibe_gate_a1_v6_renders:
 - output/review/vibe-a1-v6/S_vibe_a1_v6_back.png
 
 
-vibe_gate_a1_v6_decision: INTERNAL_PASS_USER_REVIEW_PENDING
+vibe_gate_a1_v6_decision: REVISE
 vibe_gate_a1_v6_keep: v5 curved laminar crest; v6 shorter neck; lowered/closer rigid head+crest placement.
-vibe_gate_a1_v6_reason: no paired-horn hard fail, no central-needle hard fail, head remains small wedge-like, crest reads as multiple short rear-swept blades, and neck no longer has the rebuild-v1 long tubular proportion.
-vibe_gate_a1_next: STOP. Human review required before A2. Do not edit thorax/waist/pelvis yet.
+vibe_gate_a1_v6_reason: neck/head placement is materially improved, but direct comparison to the locked S references shows the crest still reads as four near-parallel horizontal fins in SIDE/FRONT34 and as a comb of vertical prongs in FRONT/BACK. The reference reads as a compact layered cranial crest with a dominant rear-upward primary lamina and shorter subordinate layers.
+vibe_gate_a1_v7_source: output/S-vibe-a1-v6.blend
+vibe_gate_a1_v7_keep: v6 head shape, v6 neck proportion/placement, thorax, waist, pelvis, all limbs, feet and tail
+vibe_gate_a1_v7_exact_edit: crest only; reduce equal-spacing/parallel-blade construction. Build one dominant rear-upward skull-integrated primary lamina with shorter overlapping subordinate layers. Keep FRONT/BACK silhouette narrow and avoid horn/needle/comb readings.
+vibe_gate_a1_next: Render v7 SIDE/FRONT/FRONT34/BACK and STOP. Do not start A2.
