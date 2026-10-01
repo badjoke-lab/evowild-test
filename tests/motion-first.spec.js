@@ -1296,3 +1296,76 @@ test("Motion First Phase F full-race AUTO director review", async ({ browser }, 
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
 });
+
+
+test("Motion First Race Agent v1 commands are creature-resolved", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(45000);
+
+  await page.goto(
+    "/evowild-test/preview-motion-first-race/index.html?skipStart=1",
+    { waitUntil: "networkidle" }
+  );
+
+  await expect(page.locator("#scene")).toHaveAttribute(
+    "data-agent-model",
+    "command-only-creature-resolved"
+  );
+  await expect(page.locator("#runnerSelect")).toHaveValue("0");
+  await expect(page.locator("#staminaReadout")).toHaveText("100%");
+  await expect(page.locator("#fatigueReadout")).toHaveText("0%");
+
+  await page.getByRole("button", { name: "PUSH", exact: true }).click();
+  await expect(page.locator("#scene")).toHaveAttribute("data-agent-command", "PUSH");
+  await expect(page.locator("#scene")).toHaveAttribute("data-agent-runner-id", "0");
+  await page.waitForTimeout(1800);
+
+  const pushState = await page.locator("#scene").evaluate((node) => ({
+    command: node.dataset.agentFocusCommand,
+    response: Number(node.dataset.agentFocusResponse),
+    stamina: Number(node.dataset.agentFocusStamina),
+    fatigue: Number(node.dataset.agentFocusFatigue)
+  }));
+
+  expect(pushState.command).toBe("PUSH");
+  expect(pushState.response).toBeGreaterThan(0.70);
+  expect(pushState.stamina).toBeLessThan(1);
+  expect(pushState.fatigue).toBeGreaterThan(0);
+
+  await page.getByRole("button", { name: "CONSERVE", exact: true }).click();
+  await page.waitForTimeout(900);
+  const conserveState = await page.locator("#scene").evaluate((node) => ({
+    command: node.dataset.agentFocusCommand,
+    response: Number(node.dataset.agentFocusResponse),
+    stamina: Number(node.dataset.agentFocusStamina),
+    fatigue: Number(node.dataset.agentFocusFatigue)
+  }));
+
+  expect(conserveState.command).toBe("CONSERVE");
+  expect(conserveState.response).toBeGreaterThan(0.45);
+  expect(Number.isFinite(conserveState.stamina)).toBeTruthy();
+  expect(Number.isFinite(conserveState.fatigue)).toBeTruthy();
+
+  await page.getByRole("button", { name: "CLEAR", exact: true }).click();
+  await page.waitForTimeout(150);
+  await expect(page.locator("#scene")).toHaveAttribute(
+    "data-agent-focus-command",
+    "NEUTRAL"
+  );
+  await expect(page.locator("#agentResponseReadout")).toHaveText("NEUTRAL");
+
+  // Same PUSH command must not have identical strength across morphs.
+  await page.selectOption("#runnerSelect", "2");
+  await expect(page.locator("#morphReadout")).toHaveText("E");
+  await page.getByRole("button", { name: "PUSH", exact: true }).click();
+  await page.waitForTimeout(350);
+  const endurancePushResponse = Number(
+    await page.locator("#scene").getAttribute("data-agent-focus-response")
+  );
+  expect(endurancePushResponse).toBeLessThan(pushState.response);
+
+  await page.locator("#scene").screenshot({
+    path: "test-results/visuals/motion-first-race-agent-v1.png"
+  });
+});
