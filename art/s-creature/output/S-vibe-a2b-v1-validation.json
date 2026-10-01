@@ -1,0 +1,74 @@
+{
+  "lane": "exp/s-creature-vibe-modeling",
+  "gate": "A2b-v1-pelvis-lightening",
+  "source": "S-vibe-a2a-v1.blend",
+  "decision": "REVIEW_PENDING",
+  "editable": [
+    "core rings 12-14 / vertices 96-119 only"
+  ],
+  "single_hypothesis": "raise/lighten pelvis ventral mass while preserving elevated hip",
+  "longitudinal_y_change": false,
+  "hard_fixed": [
+    "core rings 0-11",
+    "accepted crest S_reference_crest_v11",
+    "core rings 15-19",
+    "all limbs",
+    "all feet/toes",
+    "topology"
+  ],
+  "source_stations": {
+    "12": {
+      "y": 0.7200000286102295,
+      "top": 1.1200000047683716,
+      "bottom": 0.8500000238418579,
+      "half_width": 0.1080000028014183
+    },
+    "13": {
+      "y": 0.8600000143051147,
+      "top": 1.100000023841858,
+      "bottom": 0.8299999833106995,
+      "half_width": 0.11999999731779099
+    },
+    "14": {
+      "y": 1.0199999809265137,
+      "top": 1.0399999618530273,
+      "bottom": 0.9100000262260437,
+      "half_width": 0.07999999821186066
+    }
+  },
+  "target_stations": {
+    "12": {
+      "y": 0.7200000286102295,
+      "top": 1.13,
+      "bottom": 0.88,
+      "half_width": 0.105
+    },
+    "13": {
+      "y": 0.8600000143051147,
+      "top": 1.12,
+      "bottom": 0.87,
+      "half_width": 0.112
+    },
+    "14": {
+      "y": 1.0199999809265137,
+      "top": 1.06,
+      "bottom": 0.93,
+      "half_width": 0.078
+    }
+  },
+  "fixed_geometry_hash": "9dfa42d02c74572bc30faba7f33e7ad031f644ae1c35e9336a7854332b98a955",
+  "fixed_geometry_unchanged": true,
+  "crest_unchanged": true,
+  "appendages_unchanged": true,
+  "topology_unchanged": true,
+  "vertex_count": 160,
+  "polygon_count": 154,
+  "rendered_views": [
+    "side",
+    "front",
+    "front34",
+    "back"
+  ],
+  "render_geometry_unchanged": true,
+  "status": "REVIEW_PENDING"
+}
