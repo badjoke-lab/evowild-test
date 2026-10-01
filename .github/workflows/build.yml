@@ -34,3 +34,11 @@ jobs:
           name: mobile-race-visuals
           path: test-results/visuals/*.png
           if-no-files-found: warn
+
+      - name: Upload comparable 2.5D selection visuals
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: 2p5d-selection-visuals
+          path: artifacts/2p5d-selection/*.png
+          if-no-files-found: error
