@@ -3318,6 +3318,7 @@ function resetRace() {
   raceDirector.holdUntil = 0;
   raceDirector.lastLeaderId = 0;
   raceDirector.lastDecisionAt = -999;
+  raceDirector.lastBreakawayAt = -999;
   raceDirector.accelerationShown = false;
   raceDirector.shotHistory = [];
   raceDirector.fullShotLog = FULL_DIRECTOR_REVIEW_MODE
@@ -4451,6 +4452,7 @@ const raceDirector = {
   holdUntil: 0,
   lastLeaderId: 0,
   lastDecisionAt: -999,
+  lastBreakawayAt: -999,
   accelerationShown: false,
   shotHistory: [],
   fullShotLog: []
@@ -4642,8 +4644,10 @@ function updateSimplifiedRaceDirector() {
 
   if (
     leaderGap > 4.2 &&
-    raceDirector.reason !== "BREAKAWAY"
+    raceDirector.reason !== "BREAKAWAY" &&
+    raceTime - raceDirector.lastBreakawayAt >= 8.0
   ) {
+    raceDirector.lastBreakawayAt = raceTime;
     setDirectorShot("LOW", leader.id, "BREAKAWAY", 3.0);
     return;
   }
