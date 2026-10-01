@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-rebuild-v1 Gate A reviewed REVISE; silhouette correction v2 required
+current_stage: S-rebuild-v1 Gate A reviewed REVISE; Gate A1 head/crest/neck correction required
 branch: feat/s-creature-model
 current_model_file: output/S-rebuild-v1.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Build S-rebuild-v2 from S-rebuild-v1 by correcting only the global silhouette: compact/shorten torso, strengthen thorax and shoulder mass, shorten/thicken and slightly lower the neck, reshape crest into skull-integrated rear-swept layered plates that do not read as vertical horns from front/back, establish clear fore/hind joint rhythm, and shorten/refine the tail. Keep detail/Cue Band/materials/animation forbidden.
+next_action: Execute Gate A1 only from S-rebuild-v1. Edit head/crest/neck; keep thorax/waist/pelvis/limbs/feet/tail fixed. First establish reference landmarks and SIDE/FRONT overlay comparison, then correct the horn-like crest read and long tubular neck. Save as output/S-rebuild-v2-a1.blend, render SIDE/FRONT/FRONT34/BACK, update checkpoint/handoff, and STOP. Do not proceed to thorax without explicit A1 acceptance.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -154,4 +154,6 @@ gate_a_renders:
 gate_a_v1_decision: REVISE
 gate_a_v1_reason: The fresh rebuild removes the v12 single central horn and is a better starting direction, but the Gate A silhouette still misses the approved modeling image. Side view is too long-necked and tube-like, torso is too long/flat and under-massed at the shoulder, limbs still read as rods, and the crest becomes two tall horn-like prongs from front/back instead of backward-swept layered cranial plates.
 gate_a_v1_keep: fresh-rebuild approach; small wedge head intent; no v12 donor geometry; multi-plate crest concept; narrow waist intent; distinct fore/hind chains; multi-toe feet.
-gate_a_v2_priority: crest/head silhouette -> neck proportion -> compact thorax/waist/pelvis -> readable limb joints -> tail length/terminal blade.
+gate_a_v2_priority: Gate A is subdivided by S_CREATURE_MODELING_WORKFLOW.md. Immediate priority is A1 head/crest/neck only. A2 thorax/waist/pelvis, A3 limbs, A4 tail and A5 global review are blocked until the preceding gate is accepted.
+process_lock: S_CREATURE_MODELING_WORKFLOW.md
+self_style_rule: AI free-form modeling workflow is prohibited; reference landmarks and target/keep_fixed/review cameras must be declared before edits.
