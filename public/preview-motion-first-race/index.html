@@ -70,6 +70,24 @@
       </div>
     </section>
 
+    <section class="agent-panel" id="agentPanel" aria-label="Race Agent commands">
+      <div class="agent-heading">
+        <span>RACE AGENT · v1</span>
+        <strong id="agentTargetName">Runner 01</strong>
+      </div>
+      <div class="agent-state">
+        <span><small>STAMINA</small><strong id="staminaReadout">100%</strong></span>
+        <span><small>FATIGUE</small><strong id="fatigueReadout">0%</strong></span>
+        <span><small>RESPONSE</small><strong id="agentResponseReadout">NEUTRAL</strong></span>
+      </div>
+      <div class="agent-actions" role="group" aria-label="Agent command">
+        <button data-agent-command="PUSH">PUSH</button>
+        <button data-agent-command="CONSERVE">CONSERVE</button>
+        <button data-agent-command="CLEAR">CLEAR</button>
+      </div>
+      <div class="agent-result" id="agentResult">No active command</div>
+    </section>
+
     <div class="start-sequence hidden" id="startSequence" aria-hidden="true">
       <span id="startSequenceLabel">READY</span>
     </div>
