@@ -641,6 +641,16 @@ test("Motion First Phase E simplified race deploys 18 animated runners without H
   await expect(page.locator("#scene")).toHaveAttribute("data-proxy-canonical-gait", "1");
   await expect(page.locator("#scene")).toHaveAttribute("data-race-render-profile", "flat-basic");
   await expect(page.locator("#scene")).toHaveAttribute("data-race-tone-mapping", "none");
+  await expect(page.locator("#scene")).toHaveAttribute("data-environment-pass", "1");
+  await expect(page.locator("#scene")).toHaveAttribute(
+    "data-environment-profile",
+    "instanced-three-depth"
+  );
+  await expect(page.locator("#scene")).toHaveAttribute("data-finish-line-z", "1600");
+  await expect(page.locator("#scene")).toHaveAttribute(
+    "data-distance-landmark-interval",
+    "400"
+  );
   await expect(page.locator("#scene")).toHaveAttribute("data-simulation-hz", "60");
   const proxyCount = Number(
     await page.locator("#scene").getAttribute("data-proxy-runner-count")
