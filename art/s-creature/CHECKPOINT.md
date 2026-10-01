@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-rebuild-v3 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED
+current_stage: S-rebuild-v3 Gate A reviewed REVISE; structural silhouette v4 required
 branch: feat/s-creature-model
 current_model_file: output/S-rebuild-v3.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review v3 Gate A only; await user decision. Do not proceed to Gate B.
+next_action: Build S-rebuild-v4 from v3 as one final Gate A structural silhouette pass: integrate crest roots into skull, thicken/joint limb segment masses so they no longer read as rods, and lower/compact the whole racing posture toward the locked modeling image. Do not enter Gate B.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -136,8 +136,8 @@ reset_plan: S_MORPHOLOGY_RESET_PLAN.md
 gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
-gate_a_status: REVIEW_PENDING
-modeling_status: STOPPED
+gate_a_status: REVISE
+modeling_status: READY_FOR_V4
 gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
 gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
@@ -174,3 +174,8 @@ gate_a_v3_geometry_sha256: d37619ae5d18eeadb110407fa2903c9bcecd592363731ae6ac01d
 gate_a_v3_done: Saved v3 from v2; low outward/rearward crest fan, shorter flared neck, stronger compact withers/thorax, distinct fore/hind joint rhythm. Tail and toes unchanged. 760 vertices and topology retained; exactly five views rendered with geometry unchanged.
 gate_a_v3_acceptance: REVIEW_PENDING; no PASS claimed
 gate_a_v3_limitations: Low-complexity faceted plates and overlapping limb/toe roots remain; whole silhouette similarity and shoulder/neck proportions need user review. No further modeling authorized.
+
+gate_a_v3_decision: REVISE
+gate_a_v3_reason: v3 is a real improvement over v2: the crest no longer reads as upright horns and the body is more compact. However Gate A still fails the locked silhouette because the crest plates read as flat pasted-on fins in FRONT/FRONT34, distal limbs still read as rods, the shoulder/pelvis joint masses are too abrupt and geometric, and the overall stance remains more generic ungulate than the approved alien racing silhouette.
+gate_a_v3_keep: low rearward crest envelope; shorter flared neck; compact torso; sharper fore/hind chain differentiation; shorter tail from v2.
+gate_a_v4_rule: one structural silhouette pass only; no more percentage-only nudges. Rebuild crest roots and limb segment masses as connected forms while preserving Gate A low complexity.
