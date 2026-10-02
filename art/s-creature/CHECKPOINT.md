@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gate A3 accepted; Gate A4 tail reference analysis next
+current_stage: experimental Vibe Gate A3 accepted; Gate A4-v1 tail correction ready
 branch: exp/s-creature-vibe-modeling
 current_model_file: output/S-vibe-a3b-v1.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Start Gate A4 reference analysis from output/S-vibe-a3b-v1.blend. Inspect approved tail reference before editing. Keep head/crest/neck/body/limbs/feet fixed.
+next_action: Execute Gate A4-v1 from output/S-vibe-a3b-v1.blend. Edit core rings 15-19 only using S_VIBE_A4_REFERENCE_ANALYSIS.md. Keep rings 0-14, crest, all limbs/feet and topology fixed. Render SIDE/FRONT/FRONT34/BACK and STOP.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -373,3 +373,6 @@ vibe_gate_a3b_v1_decision: KEEP
 vibe_gate_a3_decision: ACCEPTED
 vibe_gate_a3_accepted_model: output/S-vibe-a3b-v1.blend
 vibe_gate_a3_acceptance_scope: experimental lane only; no merge into feat/s-creature-model
+
+vibe_gate_a4_lock: S_VIBE_A4_REFERENCE_ANALYSIS.md
+vibe_gate_a4_editable: core rings 15-19 only; tail
