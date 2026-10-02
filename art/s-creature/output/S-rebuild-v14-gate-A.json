@@ -1,0 +1,34 @@
+{
+  "gate": "A",
+  "status": "REVIEW_PENDING",
+  "source": "S-rebuild-v13.blend",
+  "scope": "crest object only",
+  "source_geometry_sha256": "fbfa1311b999f8cebb3f638b879e656f2d7e93f19a7274d0a3ccfe65cda1a471",
+  "geometry_sha256": "cbfa7fc2b122ab90c46adfc17278e4138bb08e11d73230b1eb181eef8c756b92",
+  "all_noncrest_meshes_unchanged": true,
+  "v13_crest_removed": true,
+  "fan_plates": 5,
+  "crest_z_min": 1.2640000581741333,
+  "crest_z_max": 1.4156399965286255,
+  "crest_z_envelope": 0.1516399383544922,
+  "no_materials": true,
+  "no_animation": true,
+  "no_armature": true,
+  "changes": [
+    "Preserved distinct rearward blade lengths",
+    "Compressed the total crest vertical rise",
+    "Retained modest lateral staggering and nonzero tip widths"
+  ],
+  "limitations": [
+    "Gate A review pending; no PASS claimed",
+    "Production root welding deferred"
+  ],
+  "rendered_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "geometry_unchanged_during_render": true
+}
