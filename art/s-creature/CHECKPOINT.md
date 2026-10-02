@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-rebuild-v14 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED
+current_stage: S-rebuild-v14 Gate A accepted; Gate B v1 limb-root massing ready
 branch: feat/s-creature-model
 current_model_file: output/S-rebuild-v14.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review S-rebuild-v14 Gate A only; await decision. Do not proceed to Gate B.
+next_action: Execute S_GATE_B_V1_TASK.md from S-rebuild-v14. Modify only proximal six rings of the four limb meshes for shoulder/pelvis root integration and massing; preserve core, crest, toes, tail and distal limb geometry. Render five views and stop.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -136,8 +136,8 @@ reset_plan: S_MORPHOLOGY_RESET_PLAN.md
 gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
-gate_a_status: REVIEW_PENDING
-modeling_status: STOPPED
+gate_a_status: PASS
+modeling_status: READY_FOR_GATE_B_V1
 gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
 gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
@@ -329,3 +329,8 @@ gate_a_v14_rule: crest-only. Preserve distinct rearward blade lengths but compre
 gate_a_v14_done: Low-rise five-blade crest fan built from v13; all non-crest meshes locked; five views rendered.
 gate_a_v14_acceptance: REVIEW_PENDING; no PASS claimed
 gate_a_v14_geometry_sha256: cbfa7fc2b122ab90c46adfc17278e4138bb08e11d73230b1eb181eef8c756b92
+
+gate_a_v14_decision: PASS
+gate_a_v14_reason: All five views satisfy the Gate A silhouette purpose. Central-spike and paired-horn hard fails are removed; the crest reads as a compact layered rear-swept group, fore/hind joint rhythms are distinct, thorax/waist/pelvis remain light and sprint-oriented, and small multi-toed feet remain readable. Remaining shoulder/thigh root continuity and anatomical massing belong to Gate B.
+gate_a_accepted_model: output/S-rebuild-v14.blend
+gate_b_v1_task: S_GATE_B_V1_TASK.md
