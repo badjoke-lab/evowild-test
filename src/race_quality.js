@@ -17,6 +17,13 @@ const ui = {
   assetStatus: document.querySelector("#assetStatus")
 };
 
+const agentTargetSelect = document.querySelector("#agentTargetSelect");
+const agentStaminaEl = document.querySelector("#agentStamina");
+const agentFatigueEl = document.querySelector("#agentFatigue");
+const agentResponseEl = document.querySelector("#agentResponse");
+const agentResultEl = document.querySelector("#agentResult");
+const agentCommandButtons = [...document.querySelectorAll("[data-agent-command]")];
+
 const BASE = import.meta.env.BASE_URL || "/";
 const FIELD_SIZE = 18;
 const SELECTED_ID = 1;
@@ -51,6 +58,26 @@ const MORPH_META = {
   E: { cadence:0.96, width:1.02, lift:0.52 },
   A: { cadence:1.13, width:1.06, lift:0.82 }
 };
+
+const AGENT_COMMAND_DURATION_MS = 8000;
+const AGENT_COMPATIBILITY = {
+  S: { PUSH: 1.00, CONSERVE: 0.70 },
+  P: { PUSH: 0.94, CONSERVE: 0.76 },
+  E: { PUSH: 0.76, CONSERVE: 1.00 },
+  A: { PUSH: 0.88, CONSERVE: 0.90 }
+};
+
+function createAgentState(id) {
+  return {
+    id: `AGENT-${String(id + 1).padStart(2, "0")}`,
+    version: 1,
+    command: "NEUTRAL",
+    commandIssuedAt: -999999,
+    commandUntil: -999999,
+    response: 0,
+    lastResult: "NEUTRAL"
+  };
+}
 
 const RUN_FRAMES = [
   { phase:"CONTACT", col:0, row:0, y:0.00 },
@@ -233,6 +260,8 @@ function makeRacers() {
     cruise:CRUISE[i],
     accel:ACCEL[i],
     stamina:100,
+    fatigue:0,
+    agent:createAgentState(i),
     lane:LANES[i],
     targetLane:LANES[i],
     phaseOffset:i*0.87,
@@ -245,6 +274,20 @@ function makeRacers() {
   }));
 }
 let racers = makeRacers();
+let agentTargetIndex = 0;
+
+function populateAgentTargets() {
+  if (!agentTargetSelect) return;
+  agentTargetSelect.replaceChildren();
+  racers.forEach((r, index) => {
+    const option = document.createElement("option");
+    option.value = String(index);
+    option.textContent = `${r.name} · ${r.morph}`;
+    agentTargetSelect.append(option);
+  });
+  agentTargetSelect.value = String(agentTargetIndex);
+}
+populateAgentTargets();
 
 const selected = () => racers.find(r => r.id===SELECTED_ID);
 const order = () => [...racers].sort((a,b) => {
@@ -272,6 +315,68 @@ function chooseLane(r) {
     .filter(l => l>=0 && l<=3 && !occupiedNear(r,l,9))
     .sort((a,b) => Math.abs(a-r.lane)-Math.abs(b-r.lane));
   return choices[0] ?? r.lane;
+}
+
+function resolveAgentCommand(r, dt) {
+  const agent = r.agent;
+  if (!agent) return { speedFactor: 1, staminaDrainScale: 1 };
+
+  if (agent.command !== "NEUTRAL" && elapsed >= agent.commandUntil) {
+    agent.command = "NEUTRAL";
+    agent.response = 0;
+    agent.lastResult = "EXPIRED";
+  }
+
+  const command = agent.command;
+  const compat = AGENT_COMPATIBILITY[r.morph]?.[command] ?? 0;
+  const staminaFactor = clamp(r.stamina / 100, 0, 1);
+  const fatiguePenalty = clamp(1 - r.fatigue * 0.72, 0.25, 1);
+  const response = command === "NEUTRAL"
+    ? 0
+    : compat * staminaFactor * fatiguePenalty;
+  agent.response = response;
+
+  let speedFactor = 1;
+  let staminaDrainScale = 1;
+  let fatigueDelta = r.speed > r.cruise * 0.98 ? 0.0018 : -0.0015;
+
+  if (command === "PUSH") {
+    const effective = Math.max(0.35, response);
+    speedFactor = 1 + 0.035 * response;
+    staminaDrainScale = 1 + 0.55 * effective;
+    fatigueDelta = 0.0105 * effective;
+    agent.lastResult = response >= 0.72 ? "STRONG" : response >= 0.46 ? "PARTIAL" : "WEAK";
+  } else if (command === "CONSERVE") {
+    const effective = Math.max(0.35, response);
+    speedFactor = 1 - 0.025 * response;
+    staminaDrainScale = 0.34;
+    fatigueDelta = -0.0065 * effective;
+    agent.lastResult = response >= 0.72 ? "SETTLED" : response >= 0.46 ? "PARTIAL" : "WEAK";
+  }
+
+  r.fatigue = clamp(r.fatigue + fatigueDelta * dt, 0, 1);
+  return { speedFactor, staminaDrainScale };
+}
+
+function issueAgentCommand(r, command) {
+  if (!r?.agent || !["PUSH","CONSERVE","CLEAR"].includes(command)) return;
+
+  if (command === "CLEAR") {
+    r.agent.command = "NEUTRAL";
+    r.agent.commandIssuedAt = elapsed;
+    r.agent.commandUntil = elapsed;
+    r.agent.response = 0;
+    r.agent.lastResult = "CLEARED";
+  } else {
+    r.agent.command = command;
+    r.agent.commandIssuedAt = elapsed;
+    r.agent.commandUntil = elapsed + AGENT_COMMAND_DURATION_MS;
+    r.agent.lastResult = "PENDING";
+  }
+
+  stage.dataset.agentCommand = r.agent.command;
+  stage.dataset.agentRunnerId = String(r.id);
+  stage.dataset.agentCommandUntil = String(Math.round(r.agent.commandUntil));
 }
 
 function targetSpeedFor(r) {
@@ -335,7 +440,10 @@ function updateRace(dtMs) {
     if (r.finished) continue;
     r.cooldown = Math.max(0,r.cooldown-dtMs);
 
-    let target = targetSpeedFor(r);
+    const agentResolution = resolveAgentCommand(r, dt);
+    let target = targetSpeedFor(r) *
+      agentResolution.speedFactor *
+      (1 - r.fatigue * 0.022);
     target += Math.sin(elapsed*.0015 + r.id*1.51)*.16;
 
     const diff = target-r.speed;
@@ -351,7 +459,10 @@ function updateRace(dtMs) {
     }
 
     const effort = Math.max(0,r.speed/r.cruise-.95);
-    r.stamina = Math.max(0,r.stamina-(.62+effort*effort*4.4)*dt);
+    r.stamina = Math.max(
+      0,
+      r.stamina-(.62+effort*effort*4.4)*dt*agentResolution.staminaDrainScale
+    );
     r.distance += Math.max(0,r.speed)*dt;
 
     if (r.distance>=RACE_METERS) {
@@ -872,6 +983,35 @@ function updateUI(now){
   ui.clock.textContent=fmtTime(elapsed);
   ui.progress.style.width=`${clamp(focus.distance/RACE_METERS*100,0,100).toFixed(2)}%`;
 
+  const agentTarget = racers[agentTargetIndex] || racers[0];
+  if (agentTarget?.agent) {
+    if (agentStaminaEl) agentStaminaEl.textContent = `${Math.round(agentTarget.stamina)}%`;
+    if (agentFatigueEl) agentFatigueEl.textContent = `${Math.round(agentTarget.fatigue * 100)}%`;
+    if (agentResponseEl) {
+      agentResponseEl.textContent = agentTarget.agent.command === "NEUTRAL"
+        ? "NEUTRAL"
+        : `${agentTarget.agent.command} ${Math.round(agentTarget.agent.response * 100)}%`;
+    }
+    if (agentResultEl) {
+      agentResultEl.textContent = agentTarget.agent.command === "NEUTRAL"
+        ? agentTarget.agent.lastResult === "NEUTRAL"
+          ? "No active command"
+          : `Last: ${agentTarget.agent.lastResult}`
+        : `${agentTarget.agent.id} v${agentTarget.agent.version} · ${agentTarget.agent.lastResult}`;
+    }
+    agentCommandButtons.forEach((button) => {
+      button.classList.toggle("active", button.dataset.agentCommand === agentTarget.agent.command);
+      button.disabled = raceState !== "running";
+    });
+    stage.dataset.agentModel = "command-only-creature-resolved";
+    stage.dataset.agentTargetRunner = String(agentTarget.id);
+    stage.dataset.agentTargetMorph = agentTarget.morph;
+    stage.dataset.agentFocusCommand = agentTarget.agent.command;
+    stage.dataset.agentFocusResponse = agentTarget.agent.response.toFixed(3);
+    stage.dataset.agentFocusStamina = (agentTarget.stamina / 100).toFixed(3);
+    stage.dataset.agentFocusFatigue = agentTarget.fatigue.toFixed(3);
+  }
+
   if(now-lastRankingPaint>180){
     lastRankingPaint=now;
     ui.ranking.innerHTML=ranks.map((r,i)=>`<span class="${r.id===SELECTED_ID?"selected":""}">#${i+1} ${r.morph}${String(r.id).padStart(2,"0")}</span>`).join("");
@@ -887,6 +1027,8 @@ function updateUI(now){
 
 function resetRace(){
   racers=makeRacers();
+  agentTargetIndex=0;
+  populateAgentTargets();
   elapsed=0;
   raceState="countdown";
   countdownRemaining=2500;
@@ -900,6 +1042,12 @@ function resetRace(){
   ui.countdown.hidden=false;
   ui.countdown.textContent="3";
   stage.dataset.raceState="countdown";
+  stage.dataset.agentModel="command-only-creature-resolved";
+  stage.dataset.agentTargetRunner="1";
+  stage.dataset.agentTargetMorph="S";
+  stage.dataset.agentCommand="NEUTRAL";
+  stage.dataset.agentRunnerId="";
+  stage.dataset.agentCommandUntil="";
 }
 
 ui.pause.addEventListener("click",()=>{
@@ -908,7 +1056,27 @@ ui.pause.addEventListener("click",()=>{
 });
 ui.reset.addEventListener("click",resetRace);
 
+if (agentTargetSelect) {
+  agentTargetSelect.addEventListener("change", () => {
+    agentTargetIndex = clamp(Number(agentTargetSelect.value) || 0, 0, racers.length - 1);
+    stage.dataset.agentTargetRunner = String(racers[agentTargetIndex]?.id ?? 1);
+    stage.dataset.agentTargetMorph = racers[agentTargetIndex]?.morph ?? "S";
+  });
+}
+
+agentCommandButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    if (raceState !== "running") return;
+    const r = racers[agentTargetIndex];
+    issueAgentCommand(r, button.dataset.agentCommand);
+  });
+});
+
 stage.dataset.raceState="countdown";
+stage.dataset.agentModel="command-only-creature-resolved";
+stage.dataset.agentTargetRunner="1";
+stage.dataset.agentTargetMorph="S";
+stage.dataset.agentCommand="NEUTRAL";
 
 // Fixed-step loop: borrowed-racer lane deliberately decouples simulation from render rate.
 const FIXED_STEP = 1000 / 60;
