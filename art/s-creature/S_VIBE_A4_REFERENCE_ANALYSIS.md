@@ -148,3 +148,23 @@ A4-v2 locked hypothesis:
 - progressively raise tail centerline toward the tip
 - preserve a restrained blade broadening near ring 18
 - taper ring 19 sharply
+
+## A4-v2 decision
+
+Decision: KEEP.
+
+Observed:
+- tail remains substantially shorter and higher than the rejected pre-A4 tail
+- stem is lighter than A4-v1
+- terminal trajectory rises instead of dropping into the hind-leg silhouette
+- no non-tail geometry changed
+- remaining faceted terminal cut/tip integration is deferred to Gate B massing
+
+## Gate A4 closure
+
+Decision: ACCEPTED for the experimental lane.
+
+Accepted model:
+- output/S-vibe-a4-v2.blend
+
+A4 acceptance is local to `exp/s-creature-vibe-modeling`.
