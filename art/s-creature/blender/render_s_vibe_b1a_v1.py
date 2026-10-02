@@ -10,26 +10,7 @@ mesh=body.data
 
 rp=os.path.join(OUT,'S-vibe-b1a-v1-validation.json')
 report=json.load(open(rp))
-reg=report['region']
-YMIN,YMAX=reg['y_min'],reg['y_max']
-ZMIN,ZMAX=reg['z_min'],reg['z_max']
-MY,MZ=reg['margin_y'],reg['margin_z']
-
-def smoothstep01(t):
-    t=max(0.0,min(1.0,t))
-    return t*t*(3.0-2.0*t)
-
-def boundary_weight(co):
-    y,z=co.y,co.z
-    if not (YMIN <= y <= YMAX and ZMIN <= z <= ZMAX):
-        return 0.0
-    dy=min(y-YMIN,YMAX-y); dz=min(z-ZMIN,ZMAX-z)
-    return smoothstep01(dy/MY)*smoothstep01(dz/MZ)
-
-# The region membership is based on the saved candidate coordinates.
-# Fixed hash is reproduced by hashing all vertices outside the spatial region,
-# plus every preserved non-body mesh.
-fixed=[i for i,v in enumerate(mesh.vertices) if boundary_weight(v.co)==0.0]
+fixed=report['fixed_vertex_indices']
 preserved=[o for o in cage.objects if o.type=='MESH' and o!=body]
 
 def fixed_hash():
@@ -43,14 +24,7 @@ def fixed_hash():
             h.update(o.name.encode());h.update(b'p');h.update(str(i).encode());h.update(repr(tuple(p.vertices)).encode())
     return h.hexdigest()
 
-# Because smoothing can move an editable vertex across a box edge, spatial
-# recomputation after the edit can misclassify it as fixed. Use the count/hash
-# check from refinement as authority by storing explicit fixed indices now if needed.
-if fixed_hash()!=report['fixed_geometry_hash']:
-    # Reconstruct fixed indices conservatively from the unchanged source relation:
-    # vertices that are still outside the region AND have no displacement metadata
-    # cannot be resolved here, so fail explicitly rather than weaken validation.
-    raise AssertionError('B1a fixed-scope hash mismatch before render')
+assert fixed_hash()==report['fixed_geometry_hash'], 'B1a fixed-scope hash mismatch before render'
 
 scene=bpy.context.scene
 views=('side','front','front34','rear34','back')
