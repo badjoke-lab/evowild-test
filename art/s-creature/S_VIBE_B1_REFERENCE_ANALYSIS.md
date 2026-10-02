@@ -79,3 +79,28 @@ Acceptance:
 
 Stop after five-view render.
 Do not proceed to B1b anatomical plane shaping automatically.
+
+## B1a-v1 result
+
+Decision: REVISE / effect insufficient.
+
+Safety:
+- 916 editable vertices
+- 4742 fixed body vertices exact
+- crest/toes exact
+- topology exact
+- max displacement 0.0016187
+- mean displacement 0.0001115
+
+Visual result:
+- SIDE and FRONT34 are effectively indistinguishable from B0-v025 at review scale
+- no damage, but no meaningful voxel-waviness cleanup either
+
+B1a-v2 locked change:
+- restart from B0-v025, not from B1a-v1
+- same spatial region and boundary taper
+- lambda 0.32
+- mu -0.33
+- 4 cycles
+- reject if max displacement exceeds 0.010 object-space units
+- all other scope rules unchanged
