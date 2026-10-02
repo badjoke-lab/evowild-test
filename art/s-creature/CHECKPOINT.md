@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-rebuild-v14 Gate A accepted; Gate B v1 limb-root massing ready
+current_stage: S Gate B v1 limb-root massing saved and five views rendered; REVIEW_PENDING / STOPPED
 branch: feat/s-creature-model
-current_model_file: output/S-rebuild-v14.blend
+current_model_file: output/S-gateB-v1.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute S_GATE_B_V1_TASK.md from S-rebuild-v14. Modify only proximal six rings of the four limb meshes for shoulder/pelvis root integration and massing; preserve core, crest, toes, tail and distal limb geometry. Render five views and stop.
+next_action: Review Gate B v1 limb-root massing only. Do not proceed to Gate B v2 before decision.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -137,7 +137,7 @@ gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
 gate_a_status: PASS
-modeling_status: READY_FOR_GATE_B_V1
+modeling_status: STOPPED
 gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
 gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
@@ -334,3 +334,8 @@ gate_a_v14_decision: PASS
 gate_a_v14_reason: All five views satisfy the Gate A silhouette purpose. Central-spike and paired-horn hard fails are removed; the crest reads as a compact layered rear-swept group, fore/hind joint rhythms are distinct, thorax/waist/pelvis remain light and sprint-oriented, and small multi-toed feet remain readable. Remaining shoulder/thigh root continuity and anatomical massing belong to Gate B.
 gate_a_accepted_model: output/S-rebuild-v14.blend
 gate_b_v1_task: S_GATE_B_V1_TASK.md
+
+
+gate_b_v1_done: Proximal six rings of all four limbs remassed; core/crest/toes/distal limbs locked; five views rendered.
+gate_b_v1_acceptance: REVIEW_PENDING
+gate_b_v1_geometry_sha256: 7d7113bb13df47b273672a0946ecea840c893d6427b4180d7824ee3ee2392d21
