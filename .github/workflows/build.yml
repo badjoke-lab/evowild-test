@@ -15,10 +15,17 @@ jobs:
           node-version: 22
       - run: npm install
       - run: npm run build
-      - name: Verify 2.5D page is in production build
-        run: test -f dist/race-2_5d.html
+      - name: Verify 2.5D pages are in production build
+        run: test -f dist/race-2_5d.html && test -f dist/race-quality.html
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
+      - name: Upload 2.5D survivor visuals
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: 2p5d-survivor-visuals
+          path: artifacts/2p5d-survivor/*.png
+          if-no-files-found: warn
       - name: Capture Motion First visuals
         env:
           MOTION_FIRST_CAPTURE: "1"
