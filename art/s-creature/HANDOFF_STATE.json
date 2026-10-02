@@ -9,12 +9,12 @@
     "E",
     "A"
   ],
-  "stage": "S-rebuild-gate-A-v8-review",
-  "current_stage": "S-rebuild-v8 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED",
+  "stage": "S-rebuild-gate-A-v9",
+  "current_stage": "S-rebuild-v8 reviewed REVISE; v9 limb-topology rebuild next",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
   "current_model_file": "output/S-rebuild-v8.blend",
-  "source_model_file": "output/S-rebuild-v7.blend",
+  "source_model_file": "output/S-rebuild-v8.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
     "S_MORPHOLOGY_RESET_PLAN.md",
@@ -50,9 +50,11 @@
     "Tail and all toe geometry unchanged from v2",
     "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Review S-rebuild-v8 Gate A only. Do not proceed to Gate B.",
+  "next_action": "Execute v9 from output/S-rebuild-v8.blend. Rebuild only four limb cages with extra transition rings; lock core and toe meshes; render five views and STOP.",
   "quality_issues": [
-    "Gate A v8 silhouette acceptance pending review"
+    "v8 shoulder/thigh roots still read as cone-like in 3/4",
+    "v8 distal limbs still read too tubular from front/back",
+    "sparse limb-ring topology limits further silhouette improvement"
   ],
   "blockers": [],
   "accepted": false,
@@ -65,8 +67,8 @@
     "references/02_s_silhouette.png"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "REVIEW_PENDING",
-  "modeling_status": "STOPPED",
+  "gate_a_status": "REVISE",
+  "modeling_status": "READY_FOR_V9",
   "cage_vertex_count": 800,
   "review_renders": [
     "output/review/rebuild-v8/S_rebuild_side.png",
@@ -93,5 +95,6 @@
   "v5_task": "S_REBUILD_V5_TASK.md",
   "v6_scope": "crest-only; all non-crest geometry locked",
   "v7_scope": "head/neck + limb chains only; crest/torso/pelvis/tail locked",
-  "v8_scope": "limb-root integration + distal taper only; no Gate B"
+  "v8_scope": "limb-root integration + distal taper only; no Gate B",
+  "v9_scope": "four limb mesh objects only; core and toe meshes locked"
 }
