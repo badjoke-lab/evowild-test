@@ -228,3 +228,25 @@ Acceptance:
 - distal hindlimb remains long/light
 - feet/toes exact fixed
 - no body or forelimb change
+
+## A3b-v1 decision
+
+Decision: KEEP.
+
+Observed:
+- SIDE hip-knee-hock rhythm is clearly distinct from the accepted forelimb.
+- proximal hindlimb cone is reduced.
+- distal hindlimb stays long and light.
+- FRONT34 no longer lets the hind-root mass dominate the pelvis as strongly.
+- feet/toes remained exact fixed.
+
+## Gate A3 closure
+
+Decision: ACCEPTED for the experimental lane.
+
+Accepted model:
+- output/S-vibe-a3b-v1.blend
+
+Remaining low-poly faceting at proximal limb roots is deferred to Gate B anatomical massing.
+
+A3 acceptance is local to `exp/s-creature-vibe-modeling`; nothing is merged into `feat/s-creature-model`.
