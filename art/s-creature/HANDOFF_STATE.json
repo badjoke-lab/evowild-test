@@ -9,8 +9,8 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_A3A_V1_REVIEW",
-  "current_stage": "A3a-v1 forelimb joint rhythm rendered; review pending; modeling stopped",
+  "stage": "VIBE_EXPERIMENT_A3B_READY",
+  "current_stage": "A3a-v1 KEEP; A3b hindlimb-only correction ready",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
   "current_model_file": "output/S-vibe-a3a-v1.blend",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Review A3a-v1 forelimb rhythm. Do not edit hindlimbs or feet before explicit A3a decision.",
+  "next_action": "Execute A3b only. Edit S_hindlimb_L/R using the locked target. Preserve core, crest, accepted forelimbs, all feet/toes and topology. Render SIDE/FRONT/FRONT34/BACK; STOP.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -60,7 +60,7 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "A1_ACCEPTED_A2_ACCEPTED_A3A_V1_REVIEW_PENDING",
-  "modeling_status": "STOPPED",
+  "modeling_status": "READY_FOR_A3B",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/vibe-a3a-v1/S_vibe_a3a_v1_side.png",
@@ -69,16 +69,19 @@
     "output/review/vibe-a3a-v1/S_vibe_a3a_v1_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
-  "editable_next": [],
+  "editable_next": [
+    "S_hindlimb_L",
+    "S_hindlimb_R"
+  ],
   "keep_fixed_next": [
     "complete core",
     "S_reference_crest_v11",
-    "S_hindlimb_L",
-    "S_hindlimb_R",
+    "S_forelimb_L",
+    "S_forelimb_R",
     "all fore toes",
     "all hind toes",
     "tail",
-    "all non-forelimb topology"
+    "all non-hindlimb topology"
   ],
   "review_basis": "Direct comparison of v6 SIDE/FRONT/FRONT34/BACK against 00_full_reference.png, 01_s_body_primary.png and 02_s_silhouette.png",
   "v6_decision": "REVISE",
@@ -102,5 +105,7 @@
   "a2_decision": "ACCEPTED",
   "a2_accepted_model": "output/S-vibe-a2b-v1.blend",
   "a2_scope": "experimental lane only; not merged into feat/s-creature-model",
-  "a3_reference_lock": "S_VIBE_A3_REFERENCE_ANALYSIS.md"
+  "a3_reference_lock": "S_VIBE_A3_REFERENCE_ANALYSIS.md",
+  "a3a_v1_decision": "KEEP",
+  "a3a_v1_reason": "Forelimb joint rhythm is readable at Gate-A silhouette scale; remaining proximal faceting deferred to Gate B."
 }
