@@ -11,16 +11,17 @@ editable={foreL.name,foreR.name}
 
 def fixed_hash():
     h=hashlib.sha256()
-    for o in sorted(cage.objects,key=lambda o:o.name):
-        if o.type!='MESH': continue
-        if o.name in editable:
-            # only station 6 remains part of the hard-fixed hash
-            for k in range(8):
-                i=48+k
-                h.update(o.name.encode());h.update(str(i).encode());h.update(repr(tuple(o.data.vertices[i].co)).encode())
-        else:
-            for i,v in enumerate(o.data.vertices):
-                h.update(o.name.encode());h.update(str(i).encode());h.update(repr(tuple(v.co)).encode())
+    # Match refine_s_vibe_a3a_v1.py ordering exactly:
+    # 1) all non-editable meshes sorted by name
+    # 2) fixed station-6 ring of L then R forelimb
+    fixed=[o for o in cage.objects if o.type=='MESH' and o.name not in editable]
+    for o in sorted(fixed,key=lambda o:o.name):
+        for i,v in enumerate(o.data.vertices):
+            h.update(o.name.encode());h.update(str(i).encode());h.update(repr(tuple(v.co)).encode())
+    for o in (foreL,foreR):
+        for k in range(8):
+            i=48+k
+            h.update(o.name.encode());h.update(str(i).encode());h.update(repr(tuple(o.data.vertices[i].co)).encode())
     return h.hexdigest()
 
 rp=os.path.join(OUT,'S-vibe-a3a-v1-validation.json')
