@@ -79,3 +79,30 @@ test("2.5D Race Agent commands are creature-resolved and morph-dependent", async
   await expect(stage).toHaveAttribute("data-agent-focus-command", "CONSERVE");
 });
 
+test("2.5D race finalizes all 18 runners and exposes classification", async ({ page }) => {
+  test.setTimeout(30000);
+  await page.goto("/evowild-test/race-quality.html?finishReview=1", { waitUntil: "networkidle" });
+  const stage = page.locator("#stage");
+
+  await expect(stage).toHaveAttribute("data-finish-review", "1");
+  await expect(stage).toHaveAttribute("data-race-state", "running", { timeout: 8000 });
+  await expect(stage).toHaveAttribute("data-race-state", "finished", { timeout: 18000 });
+  await expect(stage).toHaveAttribute("data-result-ready", "1");
+  await expect(stage).toHaveAttribute("data-result-count", "18");
+
+  const rows = page.locator("#resultList li");
+  await expect(rows).toHaveCount(18);
+  await expect(page.locator("#resultsPanel")).toBeVisible();
+
+  const winnerId = await stage.getAttribute("data-winner-id");
+  await expect(rows.first()).toHaveAttribute("data-runner-id", winnerId);
+
+  const times = await rows.evaluateAll((items) =>
+    items.map((item) => Number(item.dataset.finishTime))
+  );
+  expect(times.every(Number.isFinite)).toBe(true);
+  for (let i = 1; i < times.length; i++) {
+    expect(times[i]).toBeGreaterThanOrEqual(times[i - 1]);
+  }
+});
+
