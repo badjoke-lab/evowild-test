@@ -594,6 +594,7 @@ function drawTrack() {
     (laneCenters[2]+laneCenters[3])*.5,
     laneCenters[3]+38
   ];
+  stage.dataset.laneSpread=(boundaries[4]-boundaries[0]).toFixed(1);
 
   // One continuous racing surface. Lane depth exists inside it; there are no stacked roads.
   for(let lane=0;lane<4;lane++){
