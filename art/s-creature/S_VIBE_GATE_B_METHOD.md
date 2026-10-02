@@ -83,3 +83,22 @@ Only after B0 proves a safe continuity method:
 - B5 tail root/tip
 
 Final deformation topology is a later retopology stage, not the B0/B1 sculpt topology.
+
+## B0-v025 result
+
+Decision: KEEP as a safe continuity method candidate.
+
+Measured:
+- output body: 5658 vertices / 5656 polygons
+- non-manifold edges: 0
+- preserved crest/toes exact
+- no limb loss/fusion in five-view review
+- accepted Gate A silhouette retained closely
+
+Remaining concern:
+- visible voxel-scale waviness / lumpiness at some shoulder and hip surfaces
+
+Next controlled comparison:
+- run the same method from the immutable Gate A source at voxel size 0.018
+- do not chain from v025
+- choose v025 or v018 before any B1 anatomical massing
