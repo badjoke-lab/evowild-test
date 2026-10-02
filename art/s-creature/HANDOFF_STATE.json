@@ -9,8 +9,8 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_A3_REFERENCE_ANALYSIS",
-  "current_stage": "A2 accepted; A3 limb reference analysis next",
+  "stage": "VIBE_EXPERIMENT_A3A_READY",
+  "current_stage": "A2 accepted; A3a forelimb-only correction ready",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
   "current_model_file": "output/S-vibe-a2b-v1.blend",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Inspect approved leg/foot reference before editing. Then define A3a forelimb-only hypothesis and hard locks. Do not edit all four limbs at once.",
+  "next_action": "Execute A3a only from output/S-vibe-a2b-v1.blend. Edit S_forelimb_L/R using S_VIBE_A3_REFERENCE_ANALYSIS.md. Preserve core, crest, hindlimbs, all feet/toes and topology exactly. Render SIDE/FRONT/FRONT34/BACK; STOP.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -60,7 +60,7 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "A1_ACCEPTED_A2_ACCEPTED_A3_ANALYSIS",
-  "modeling_status": "STOPPED_FOR_REFERENCE_ANALYSIS",
+  "modeling_status": "READY_FOR_A3A",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/vibe-a2b-v1/S_vibe_a2b_v1_side.png",
@@ -69,17 +69,19 @@
     "output/review/vibe-a2b-v1/S_vibe_a2b_v1_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
-  "editable_next": [],
+  "editable_next": [
+    "S_forelimb_L",
+    "S_forelimb_R"
+  ],
   "keep_fixed_next": [
-    "head",
-    "neck",
-    "crest",
-    "thorax",
-    "waist",
-    "pelvis",
+    "complete core",
+    "S_reference_crest_v11",
+    "S_hindlimb_L",
+    "S_hindlimb_R",
+    "all fore toes",
+    "all hind toes",
     "tail",
-    "all limbs until A3a scope is locked",
-    "topology outside future A3a target"
+    "all non-forelimb topology"
   ],
   "review_basis": "Direct comparison of v6 SIDE/FRONT/FRONT34/BACK against 00_full_reference.png, 01_s_body_primary.png and 02_s_silhouette.png",
   "v6_decision": "REVISE",
@@ -102,5 +104,6 @@
   "a2b_v1_decision": "KEEP",
   "a2_decision": "ACCEPTED",
   "a2_accepted_model": "output/S-vibe-a2b-v1.blend",
-  "a2_scope": "experimental lane only; not merged into feat/s-creature-model"
+  "a2_scope": "experimental lane only; not merged into feat/s-creature-model",
+  "a3_reference_lock": "S_VIBE_A3_REFERENCE_ANALYSIS.md"
 }
