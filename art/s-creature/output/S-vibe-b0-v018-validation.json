@@ -1,0 +1,66 @@
+{
+  "lane": "exp/s-creature-vibe-modeling",
+  "gate": "B0-v018-continuity-feasibility",
+  "source": "S-vibe-a4-v2.blend",
+  "decision": "REVIEW_PENDING",
+  "method": "join core+4 limbs then object.voxel_remesh",
+  "voxel_size": 0.018,
+  "joined_source_objects": [
+    "S_rebuild_core_head_crest_neck_torso_tail",
+    "S_forelimb_L",
+    "S_forelimb_R",
+    "S_hindlimb_L",
+    "S_hindlimb_R"
+  ],
+  "output_body_object": "S_B0_continuous_body_v018",
+  "body_vertex_count": 10417,
+  "body_polygon_count": 10415,
+  "nonmanifold_edge_count": 0,
+  "source_bbox_min": [
+    -0.2080792486667633,
+    -0.7199999690055847,
+    0.04089080169796944
+  ],
+  "source_bbox_max": [
+    0.2080792486667633,
+    1.659999966621399,
+    1.4000000953674316
+  ],
+  "output_bbox_min": [
+    -0.2078186720609665,
+    -0.7199999690055847,
+    0.046467944979667664
+  ],
+  "output_bbox_max": [
+    0.20765627920627594,
+    1.6587215662002563,
+    1.395571231842041
+  ],
+  "preserved_meshes": [
+    "S_fore_toe_L_-1",
+    "S_fore_toe_L_0",
+    "S_fore_toe_L_1",
+    "S_fore_toe_R_-1",
+    "S_fore_toe_R_0",
+    "S_fore_toe_R_1",
+    "S_hind_toe_L_-1",
+    "S_hind_toe_L_0",
+    "S_hind_toe_L_1",
+    "S_hind_toe_R_-1",
+    "S_hind_toe_R_0",
+    "S_hind_toe_R_1",
+    "S_reference_crest_v11"
+  ],
+  "preserved_geometry_hash": "bd8a446cff9dd98f85bbb33c378fc73327b1545576a654d4e0f178d00ab81dd8",
+  "preserved_geometry_unchanged": true,
+  "gate_a_source_overwritten": false,
+  "status": "REVIEW_PENDING",
+  "rendered_views": [
+    "side",
+    "front",
+    "front34",
+    "rear34",
+    "back"
+  ],
+  "render_preserved_geometry_unchanged": true
+}
