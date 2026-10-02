@@ -205,6 +205,10 @@ let cameraMeters = 0;
 let cameraVelocity = 0;
 let pixelsPerMeter = 8;
 let pixelsPerMeterVelocity = 0;
+let cameraRoll = 0;
+let cameraLift = 0;
+let overtakePulse = 0;
+let previousRank = FIELD_SIZE;
 
 const clamp = (v,a,b) => Math.max(a, Math.min(b,v));
 const lerp = (a,b,t) => a + (b-a)*t;
@@ -970,8 +974,24 @@ function render() {
   updateCamera();
 
   const speedNorm=clamp(focus.speed/36.5,0,1);
-  const shake=speedNorm>.62?(speedNorm-.62)*7.6:0;
+  const rankNow=rankOf(focus);
+  if (raceState==="running" && rankNow<previousRank) overtakePulse=1;
+  previousRank=rankNow;
+  overtakePulse=Math.max(0,overtakePulse-.018);
+
+  const slope=terrainSlope(focus.distance);
+  const bank=courseBank(focus.distance);
+  const targetRoll=clamp(bank*.00045+slope*.0015,-.014,.014);
+  cameraRoll=lerp(cameraRoll,targetRoll,.06);
+  cameraLift=lerp(cameraLift,terrainY(focus.distance)*.22,.06);
+
+  const shake=speedNorm>.66?(speedNorm-.66)*5.1:0;
+  const pulseZoom=1+overtakePulse*.007;
   ctx.save();
+  ctx.translate(width*.5,height*.58);
+  ctx.rotate(cameraRoll);
+  ctx.scale(pulseZoom,pulseZoom);
+  ctx.translate(-width*.5,-height*.58-cameraLift*.035);
   ctx.translate(Math.sin(elapsed*.041)*shake,Math.sin(elapsed*.053+1.2)*shake*.38);
 
   drawBackground();
@@ -981,6 +1001,10 @@ function render() {
   drawForeground();
   drawSpeedRush();
   ctx.restore();
+
+  stage.dataset.cameraRoll=cameraRoll.toFixed(4);
+  stage.dataset.cameraLift=cameraLift.toFixed(2);
+  stage.dataset.overtakePulse=overtakePulse.toFixed(3);
 
   // subtle speed vignette
   const vignetteSpeed=clamp(focus.speed/36.5,0,1);
@@ -1097,6 +1121,10 @@ function resetRace(){
   cameraVelocity=0;
   pixelsPerMeter=width<700?6.7:8.4;
   pixelsPerMeterVelocity=0;
+  cameraRoll=0;
+  cameraLift=0;
+  overtakePulse=0;
+  previousRank=FIELD_SIZE;
   paused=false;
   ui.pause.textContent="Pause";
   ui.countdown.hidden=false;
