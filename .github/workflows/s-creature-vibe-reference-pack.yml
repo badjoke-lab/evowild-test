@@ -22,4 +22,5 @@ jobs:
             art/s-creature/references/02_s_silhouette.png
             art/s-creature/references/03_head_variants.png
             art/s-creature/references/04_crest_structure.png
+            art/s-creature/references/06_leg_foot_variants.png
           if-no-files-found: error
