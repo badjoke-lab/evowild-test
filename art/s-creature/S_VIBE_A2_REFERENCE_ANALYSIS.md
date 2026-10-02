@@ -167,3 +167,22 @@ Acceptance:
 - hindlimb root relationship does not visibly break
 - FRONT/BACK pelvis remains narrower/lighter than shoulder/thorax
 - no fold/shelf appears at ring 11/12 or ring 14/15
+
+## A2b-v1 decision
+
+Decision: KEEP.
+
+Observed:
+- pelvis body is lighter and more elevated in SIDE.
+- FRONT / BACK pelvis remains narrower than thorax.
+- no new fold/shelf is introduced at the edited ring boundaries.
+- the large hindquarter mass visible in FRONT34 is primarily the fixed hindlimb-root cage, not the pelvis core itself; limb-root language is deferred to Gate A3.
+
+## Gate A2 closure
+
+Decision: ACCEPTED for the experimental lane.
+
+Accepted model:
+- output/S-vibe-a2b-v1.blend
+
+A2 acceptance is local to `exp/s-creature-vibe-modeling`; nothing is merged into `feat/s-creature-model`.
