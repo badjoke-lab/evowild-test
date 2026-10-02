@@ -38,3 +38,44 @@ test("four morph race uses all six-frame sheets in fixed-step race", async ({ pa
     fullPage: true
   });
 });
+
+test("2.5D Race Agent commands are creature-resolved and morph-dependent", async ({ page }) => {
+  await page.goto("/evowild-test/race-quality.html", { waitUntil: "networkidle" });
+  const stage = page.locator("#stage");
+  const target = page.locator("#agentTargetSelect");
+
+  await expect(stage).toHaveAttribute("data-field-size", "18");
+  await expect(stage).toHaveAttribute("data-agent-model", "command-only-creature-resolved");
+  await expect(stage).toHaveAttribute("data-race-state", "running", { timeout: 8000 });
+
+  await target.selectOption("0");
+  await expect(stage).toHaveAttribute("data-agent-target-morph", "S");
+  const sStaminaBefore = Number(await stage.getAttribute("data-agent-focus-stamina"));
+
+  await page.getByRole("button", { name: "PUSH", exact: true }).click();
+  await page.waitForTimeout(500);
+  await expect(stage).toHaveAttribute("data-agent-focus-command", "PUSH");
+  const sPushResponse = Number(await stage.getAttribute("data-agent-focus-response"));
+  const sFatigue = Number(await stage.getAttribute("data-agent-focus-fatigue"));
+  const sStaminaAfter = Number(await stage.getAttribute("data-agent-focus-stamina"));
+  expect(sPushResponse).toBeGreaterThan(0.6);
+  expect(sFatigue).toBeGreaterThan(0);
+  expect(sStaminaAfter).toBeLessThan(sStaminaBefore);
+
+  await page.getByRole("button", { name: "CLEAR", exact: true }).click();
+  await page.waitForTimeout(100);
+  await expect(stage).toHaveAttribute("data-agent-focus-command", "NEUTRAL");
+
+  await target.selectOption("2");
+  await expect(stage).toHaveAttribute("data-agent-target-morph", "E");
+  await page.getByRole("button", { name: "PUSH", exact: true }).click();
+  await page.waitForTimeout(350);
+  const ePushResponse = Number(await stage.getAttribute("data-agent-focus-response"));
+  expect(ePushResponse).toBeGreaterThan(0);
+  expect(ePushResponse).toBeLessThan(sPushResponse);
+
+  await page.getByRole("button", { name: "CONSERVE", exact: true }).click();
+  await page.waitForTimeout(100);
+  await expect(stage).toHaveAttribute("data-agent-focus-command", "CONSERVE");
+});
+
