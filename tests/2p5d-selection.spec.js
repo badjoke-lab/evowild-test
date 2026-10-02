@@ -19,6 +19,14 @@ test("2.5D selection capture - Four Morph Quality", async ({ page }, testInfo) =
   await stage.screenshot({ path: `artifacts/2p5d-survivor/2p5d-survivor-18-${testInfo.project.name}-mid.png` });
 
   expect(Number(await stage.getAttribute("data-visible-racers"))).toBeGreaterThanOrEqual(3);
+  expect(Number(await stage.getAttribute("data-camera-relevant-count"))).toBeLessThanOrEqual(6);
+  expect(Number(await stage.getAttribute("data-visible-labels"))).toBeLessThanOrEqual(4);
   expect(Number(await stage.getAttribute("data-selected-speed"))).toBeGreaterThan(14);
+
+  if (testInfo.project.name === "android-chromium") {
+    const agentBox = await page.locator("#agentControl").boundingBox();
+    expect(agentBox?.height ?? Infinity).toBeLessThan(140);
+  }
+
   expect(errors, errors.join("\n")).toEqual([]);
 });
