@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-rebuild-v12 Gate A reviewed REVISE; v13 crest fan separation ready
+current_stage: S-rebuild-v13 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED
 branch: feat/s-creature-model
-current_model_file: output/S-rebuild-v12.blend
+current_model_file: output/S-rebuild-v13.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute S-rebuild-v13 crest-only fan separation from v12. Preserve every non-crest coordinate; separate blade trajectories in side silhouette while keeping a narrow layered frontal envelope; render five views and stop.
+next_action: Review S-rebuild-v13 Gate A only; await decision. Do not proceed to Gate B.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -136,8 +136,8 @@ reset_plan: S_MORPHOLOGY_RESET_PLAN.md
 gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
-gate_a_status: REVISE
-modeling_status: READY_FOR_V13
+gate_a_status: REVIEW_PENDING
+modeling_status: STOPPED
 gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
 gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
@@ -314,3 +314,8 @@ gate_a_v12_decision: REVISE
 gate_a_v12_reason: FRONT/BACK no longer collapse to one needle, but SIDE/FRONT34 merge the five plates into one long plank because their trajectories are too similar. Canonical C5 requires a clearly layered rear-upward blade fan.
 gate_a_v12_keep: all non-crest geometry; narrow frontal crest envelope; nonzero plate tip widths.
 gate_a_v13_rule: crest-only. Preserve narrow frontal width but give each plate a distinct root/mid/tip Z trajectory and rearward length so SIDE shows multiple separated blades.
+
+
+gate_a_v13_done: Five crest blade trajectories separated in side silhouette; all non-crest meshes locked; five views rendered.
+gate_a_v13_acceptance: REVIEW_PENDING; no PASS claimed
+gate_a_v13_geometry_sha256: fbfa1311b999f8cebb3f638b879e656f2d7e93f19a7274d0a3ccfe65cda1a471
