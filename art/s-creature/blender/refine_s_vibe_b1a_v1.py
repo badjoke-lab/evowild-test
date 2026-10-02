@@ -123,6 +123,8 @@ report={
  'parameters':{'lambda':LAMBDA,'mu':MU,'cycles':CYCLES},
  'editable_vertex_count':len(editable),
  'fixed_body_vertex_count':len(fixed),
+ 'fixed_vertex_indices':sorted(fixed),
+ 'editable_vertex_indices':sorted(editable),
  'changed_vertex_count':len(changed),
  'max_displacement':max_disp,
  'mean_displacement':mean_disp,
