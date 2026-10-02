@@ -1,0 +1,23 @@
+{
+  "lane": "exp/s-creature-vibe-modeling",
+  "gate": "A5-global-silhouette-review",
+  "source": "S-vibe-a4-v2.blend",
+  "decision": "REVIEW_PENDING",
+  "geometry_edit": false,
+  "geometry_hash_before": "adf556acdc77ad74007a039cd4cdca386a953272bddf2b0c0a6d02a471022866",
+  "geometry_hash_after": "adf556acdc77ad74007a039cd4cdca386a953272bddf2b0c0a6d02a471022866",
+  "geometry_unchanged": true,
+  "rendered_views": [
+    "side",
+    "front",
+    "front34",
+    "rear34",
+    "back"
+  ],
+  "references": [
+    "00_full_reference.png",
+    "01_s_body_primary.png",
+    "02_s_silhouette.png"
+  ],
+  "status": "REVIEW_PENDING"
+}

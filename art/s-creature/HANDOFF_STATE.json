@@ -9,8 +9,8 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_A5_GLOBAL_REVIEW_READY",
-  "current_stage": "A1-A4 accepted; A5 global five-view silhouette review ready",
+  "stage": "VIBE_EXPERIMENT_A5_GLOBAL_REVIEW",
+  "current_stage": "A5 global five-view rendered; overall Gate A review pending; modeling stopped",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
   "current_model_file": "output/S-vibe-a4-v2.blend",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Render A5 SIDE/FRONT/FRONT34/REAR34/BACK with zero geometry edits. Verify geometry hash unchanged and decide overall Gate A against approved S references.",
+  "next_action": "Review A5 globally against approved S references and decide overall experimental Gate A. Do not start Gate B before decision.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -59,14 +59,15 @@
     "output/S-rebuild-v1.blend"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "A1_A2_A3_A4_ACCEPTED_A5_READY",
-  "modeling_status": "REVIEW_ONLY",
+  "gate_a_status": "A5_GLOBAL_REVIEW_PENDING",
+  "modeling_status": "STOPPED",
   "cage_vertex_count": 760,
   "review_renders": [
-    "output/review/vibe-a4-v2/S_vibe_a4_v2_side.png",
-    "output/review/vibe-a4-v2/S_vibe_a4_v2_front.png",
-    "output/review/vibe-a4-v2/S_vibe_a4_v2_front34.png",
-    "output/review/vibe-a4-v2/S_vibe_a4_v2_back.png"
+    "output/review/vibe-a5-global/S_vibe_a5_side.png",
+    "output/review/vibe-a5-global/S_vibe_a5_front.png",
+    "output/review/vibe-a5-global/S_vibe_a5_front34.png",
+    "output/review/vibe-a5-global/S_vibe_a5_rear34.png",
+    "output/review/vibe-a5-global/S_vibe_a5_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
   "editable_next": [],

@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gates A1-A4 accepted; A5 global five-view silhouette review ready
+current_stage: experimental Vibe Gate A5 global five-view rendered; REVIEW_PENDING / STOPPED
 branch: exp/s-creature-vibe-modeling
 current_model_file: output/S-vibe-a4-v2.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute A5 global review only from output/S-vibe-a4-v2.blend. Do not edit geometry. Render SIDE/FRONT/FRONT34/REAR34/BACK, verify geometry hash unchanged, compare globally against approved S references, and decide Gate A.
+next_action: Review A5 SIDE/FRONT/FRONT34/REAR34/BACK globally against approved S references and decide overall experimental Gate A. Do not start Gate B before the A5 decision.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -402,3 +402,12 @@ vibe_gate_a4_v2_decision: KEEP
 vibe_gate_a4_decision: ACCEPTED
 vibe_gate_a4_accepted_model: output/S-vibe-a4-v2.blend
 vibe_gate_a5_scope: review-only; no geometry edits; five views required
+
+vibe_gate_a5_status: REVIEW_PENDING
+vibe_gate_a5_geometry_unchanged: true
+vibe_gate_a5_renders:
+- output/review/vibe-a5-global/S_vibe_a5_side.png
+- output/review/vibe-a5-global/S_vibe_a5_front.png
+- output/review/vibe-a5-global/S_vibe_a5_front34.png
+- output/review/vibe-a5-global/S_vibe_a5_rear34.png
+- output/review/vibe-a5-global/S_vibe_a5_back.png
