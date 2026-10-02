@@ -758,6 +758,7 @@ function drawRacers() {
   const list=[];
   let minEdge=Infinity;
   let maxEdge=-Infinity;
+  let visibleLabelCount=0;
   for(const r of racers){
     const x=screenXForMeters(r.distance);
     if(x<-220 || x>width+260) continue;
@@ -841,6 +842,7 @@ function drawRacers() {
     const raceRank=rankOf(r);
     const showLabel=selectedRacer || raceRank<=3;
     if(showLabel){
+      visibleLabelCount++;
       const labelY=item.y-spriteH*.66;
       ctx.font=`800 ${width<700?9:11}px ui-monospace, Menlo, monospace`;
       ctx.textAlign="center";
@@ -864,6 +866,7 @@ function drawRacers() {
   }
 
   stage.dataset.visibleRacers=String(list.length);
+  stage.dataset.visibleLabels=String(visibleLabelCount);
   stage.dataset.fieldMinX=Number.isFinite(minEdge)?minEdge.toFixed(1):"";
   stage.dataset.fieldMaxX=Number.isFinite(maxEdge)?maxEdge.toFixed(1):"";
 }
