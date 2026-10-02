@@ -287,11 +287,17 @@ button { font: inherit; }
   .agent-control {
     top: 102px;
     left: 9px;
-    width: min(272px, calc(100vw - 18px));
+    right: 9px;
+    width: auto;
     padding: 7px 8px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 8px;
+    row-gap: 6px;
   }
   .agent-control-heading {
-    margin-bottom: 6px;
+    grid-column: 1 / -1;
+    margin-bottom: 0;
   }
   .agent-control-heading > span {
     font-size: 7px;
@@ -306,18 +312,26 @@ button { font: inherit; }
   }
   .agent-control-state {
     gap: 9px;
-    margin-bottom: 6px;
+    margin-bottom: 0;
+    align-self: center;
   }
   .agent-control-state strong {
     font-size: 9px;
   }
+  .agent-control-actions {
+    gap: 4px;
+    align-self: center;
+  }
   .agent-control-actions button {
-    min-height: 26px;
-    padding: 0 7px;
-    font-size: 8px;
+    min-height: 25px;
+    padding: 0 6px;
+    font-size: 7px;
   }
   .agent-control-result {
-    font-size: 8px;
+    grid-column: 1 / -1;
+    margin-top: 0;
+    min-height: 10px;
+    font-size: 7px;
   }
 }
 
