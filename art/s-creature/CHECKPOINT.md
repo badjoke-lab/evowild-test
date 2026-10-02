@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe B1a-v1 reviewed REVISE / effect insufficient; B1a-v2 stronger local cleanup required
+current_stage: experimental Vibe Gate B1a-v2 local shoulder/chest cleanup rendered; REVIEW_PENDING / STOPPED
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-b0-v025.blend
+current_model_file: output/S-vibe-b1a-v2.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Build B1a-v2 independently from output/S-vibe-b0-v025.blend. Use the same locked shoulder/chest region and hard-fixed outside vertices, but stronger boundary-tapered Taubin relax (lambda 0.32, mu -0.33, 4 cycles). Report displacement; render five views; STOP.
+next_action: Review B1a-v2 five views against B0-v025 and approved S references. Decide whether local cleanup removes voxel waviness without silhouette drift. Do not start B1b before explicit decision.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -456,3 +456,12 @@ vibe_gate_b1a_v1_renders:
 vibe_gate_b1a_v1_decision: REVISE
 vibe_gate_b1a_v1_reason: hard-scope safety passed but max displacement 0.00162 / mean 0.00011 produced no meaningful visible cleanup against B0-v025
 vibe_gate_b1a_v2_source: output/S-vibe-b0-v025.blend
+
+vibe_gate_b1a_v2_status: REVIEW_PENDING
+vibe_gate_b1a_v2_scope: same locked shoulder/chest region; stronger boundary-tapered Taubin relax
+vibe_gate_b1a_v2_renders:
+- output/review/vibe-b1a-v2/S_vibe_b1a_v2_side.png
+- output/review/vibe-b1a-v2/S_vibe_b1a_v2_front.png
+- output/review/vibe-b1a-v2/S_vibe_b1a_v2_front34.png
+- output/review/vibe-b1a-v2/S_vibe_b1a_v2_rear34.png
+- output/review/vibe-b1a-v2/S_vibe_b1a_v2_back.png
