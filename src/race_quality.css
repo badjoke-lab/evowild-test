@@ -178,3 +178,145 @@ button { font: inherit; }
   .ranking { gap: 3px; }
   .ranking span { padding: 4px 5px; font-size: 8px; }
 }
+
+.agent-control {
+  left: max(15px, env(safe-area-inset-left));
+  top: clamp(166px, 28vh, 270px);
+  width: min(360px, calc(100vw - 30px));
+  padding: 10px 11px;
+  border: 1px solid rgba(225,245,255,.16);
+  border-radius: 11px;
+  background: rgba(4,11,17,.76);
+  backdrop-filter: blur(10px);
+  pointer-events: auto;
+  text-shadow: none;
+}
+
+.agent-control-heading,
+.agent-control-state,
+.agent-control-actions {
+  display: flex;
+  align-items: center;
+}
+
+.agent-control-heading {
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.agent-control-heading > span {
+  font: 800 9px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .10em;
+  color: rgba(239,249,255,.72);
+}
+
+.agent-control-heading label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font: 800 8px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .08em;
+  color: rgba(239,249,255,.55);
+}
+
+.agent-control-heading select {
+  min-width: 112px;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid rgba(225,245,255,.18);
+  border-radius: 7px;
+  color: #eff9ff;
+  background: rgba(2,9,14,.88);
+  font: 750 9px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.agent-control-state {
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.agent-control-state > span {
+  display: grid;
+  gap: 2px;
+}
+
+.agent-control-state small {
+  font: 700 7px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .08em;
+  color: rgba(239,249,255,.46);
+}
+
+.agent-control-state strong {
+  font: 800 10px/1.15 ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.agent-control-actions {
+  gap: 6px;
+}
+
+.agent-control-actions button {
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid rgba(225,245,255,.18);
+  border-radius: 8px;
+  color: #eff9ff;
+  background: rgba(10,24,32,.78);
+  font: 850 9px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .05em;
+}
+
+.agent-control-actions button.active {
+  border-color: rgba(138,255,191,.50);
+  color: #8affbf;
+  background: rgba(138,255,191,.12);
+}
+
+.agent-control-actions button:disabled {
+  opacity: .38;
+}
+
+.agent-control-result {
+  margin-top: 7px;
+  min-height: 13px;
+  color: rgba(239,249,255,.60);
+  font: 700 9px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@media (max-width: 700px) {
+  .agent-control {
+    top: 102px;
+    left: 9px;
+    width: min(272px, calc(100vw - 18px));
+    padding: 7px 8px;
+  }
+  .agent-control-heading {
+    margin-bottom: 6px;
+  }
+  .agent-control-heading > span {
+    font-size: 7px;
+  }
+  .agent-control-heading label {
+    font-size: 6px;
+  }
+  .agent-control-heading select {
+    min-width: 92px;
+    height: 24px;
+    font-size: 8px;
+  }
+  .agent-control-state {
+    gap: 9px;
+    margin-bottom: 6px;
+  }
+  .agent-control-state strong {
+    font-size: 9px;
+  }
+  .agent-control-actions button {
+    min-height: 26px;
+    padding: 0 7px;
+    font-size: 8px;
+  }
+  .agent-control-result {
+    font-size: 8px;
+  }
+}
