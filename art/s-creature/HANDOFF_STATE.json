@@ -9,8 +9,8 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_A5_GLOBAL_REVIEW",
-  "current_stage": "A5 global five-view rendered; overall Gate A review pending; modeling stopped",
+  "stage": "VIBE_EXPERIMENT_B0_READY",
+  "current_stage": "Experimental Gate A accepted; B0 continuity feasibility test ready",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
   "current_model_file": "output/S-vibe-a4-v2.blend",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Review A5 globally against approved S references and decide overall experimental Gate A. Do not start Gate B before decision.",
+  "next_action": "Execute B0 on a separate candidate from immutable Gate A source. Join core+four limb meshes, voxel-remesh at 0.025, preserve crest/toes exactly, render five views, and decide continuity feasibility. Never overwrite Gate A.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -59,8 +59,8 @@
     "output/S-rebuild-v1.blend"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "A5_GLOBAL_REVIEW_PENDING",
-  "modeling_status": "STOPPED",
+  "gate_a_status": "ACCEPTED",
+  "modeling_status": "READY_FOR_B0",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/vibe-a5-global/S_vibe_a5_side.png",
@@ -70,9 +70,13 @@
     "output/review/vibe-a5-global/S_vibe_a5_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
-  "editable_next": [],
+  "editable_next": [
+    "B0 duplicate candidate: core + four limb meshes only"
+  ],
   "keep_fixed_next": [
-    "all geometry"
+    "accepted Gate A source file",
+    "S_reference_crest_v11",
+    "all toe objects"
   ],
   "review_basis": "Direct comparison of v6 SIDE/FRONT/FRONT34/BACK against 00_full_reference.png, 01_s_body_primary.png and 02_s_silhouette.png",
   "v6_decision": "REVISE",
@@ -107,5 +111,8 @@
   "a4_v1_reason": "Short/high trajectory is correct direction, but stem remains too thick/segmented and tip reads as a baton/cut end.",
   "a4_v2_decision": "KEEP",
   "a4_decision": "ACCEPTED",
-  "a4_accepted_model": "output/S-vibe-a4-v2.blend"
+  "a4_accepted_model": "output/S-vibe-a4-v2.blend",
+  "gate_a_decision": "ACCEPTED",
+  "gate_a_accepted_model": "output/S-vibe-a4-v2.blend",
+  "gate_b_method": "S_VIBE_GATE_B_METHOD.md"
 }
