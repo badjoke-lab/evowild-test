@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-rebuild-v10 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED
+current_stage: S-rebuild-v10 Gate A reviewed REVISE; v11 crest topology reset ready
 branch: feat/s-creature-model
 current_model_file: output/S-rebuild-v10.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review S-rebuild-v10 Gate A only; await decision. Do not proceed to Gate B.
+next_action: Execute S_REBUILD_V11_TASK.md from v10. Preserve body/limbs/toes/tail coordinates; remove the bilateral paired crest topology and replace it with one narrow overlapping central crest group integrated into the skull line. Render five views and stop.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -136,8 +136,8 @@ reset_plan: S_MORPHOLOGY_RESET_PLAN.md
 gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
-gate_a_status: REVIEW_PENDING
-modeling_status: STOPPED
+gate_a_status: REVISE
+modeling_status: READY_FOR_V11
 gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
 gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
@@ -285,3 +285,7 @@ gate_a_v10_renders:
 - output/review/rebuild-v10/S_rebuild_front34.png
 - output/review/rebuild-v10/S_rebuild_rear34.png
 - output/review/rebuild-v10/S_rebuild_back.png
+
+gate_a_v10_decision: REVISE
+gate_a_v10_reason: SIDE improves toward the canonical rear-upward line, but FRONT/BACK again read as two upright horns. This confirms the bilateral paired crest topology is the root failure.
+gate_a_v11_rule: topology reset for crest only. Preserve all body/limb/toe/tail coordinates. Replace the six left/right paired laminae with a single narrow overlapping crest group emerging from the skull centerline region. No Gate B.
