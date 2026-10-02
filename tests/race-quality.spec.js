@@ -12,6 +12,8 @@ test("four morph race uses all six-frame sheets in fixed-step race", async ({ pa
   await expect(stage).toHaveAttribute("data-run-sheets", "ready", { timeout: 15000 });
   await expect(stage).toHaveAttribute("data-run-sheets-ready", "4");
   await expect(stage).toHaveAttribute("data-run-sheet-cleanup", "connected-body-alpha");
+  await expect(stage).toHaveAttribute("data-visual-depth-stagger", "enabled");
+  expect(Number(await stage.getAttribute("data-lane-spread"))).toBeGreaterThan(250);
 
   await expect(page.locator("#ranking")).toContainText("S01");
   await expect(page.locator("#ranking")).toContainText("P02");
@@ -89,6 +91,8 @@ test("2.5D race finalizes all 18 runners and exposes classification", async ({ p
   await expect(stage).toHaveAttribute("data-race-state", "finished", { timeout: 18000 });
   await expect(stage).toHaveAttribute("data-result-ready", "1");
   await expect(stage).toHaveAttribute("data-result-count", "18");
+  await expect(stage).toHaveAttribute("data-finish-spread-meters", "1.35");
+  await expect(stage).toHaveAttribute("data-visual-depth-stagger", "enabled");
 
   const rows = page.locator("#resultList li");
   await expect(rows).toHaveCount(18);
@@ -101,6 +105,10 @@ test("2.5D race finalizes all 18 runners and exposes classification", async ({ p
 
   const winnerId = await stage.getAttribute("data-winner-id");
   await expect(rows.first()).toHaveAttribute("data-runner-id", winnerId);
+
+  const fieldMinX = Number(await stage.getAttribute("data-field-min-x"));
+  const fieldMaxX = Number(await stage.getAttribute("data-field-max-x"));
+  expect(fieldMaxX - fieldMinX).toBeGreaterThan(120);
 
   const times = await rows.evaluateAll((items) =>
     items.map((item) => Number(item.dataset.finishTime))
