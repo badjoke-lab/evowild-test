@@ -12,11 +12,11 @@ test("2.5D selection capture - Four Morph Quality", async ({ page }, testInfo) =
   await expect(stage).toHaveAttribute("data-run-sheets", "ready", { timeout: 15000 });
   await expect(stage).toHaveAttribute("data-race-state", "running", { timeout: 8000 });
 
-  fs.mkdirSync("artifacts/2p5d-selection", { recursive: true });
+  fs.mkdirSync("test-results/visuals", { recursive: true });
   await page.waitForTimeout(1800);
-  await stage.screenshot({ path: `artifacts/2p5d-selection/four-morph-quality-${testInfo.project.name}-early.png` });
+  await stage.screenshot({ path: `test-results/visuals/2p5d-survivor-18-${testInfo.project.name}-early.png` });
   await page.waitForTimeout(5000);
-  await stage.screenshot({ path: `artifacts/2p5d-selection/four-morph-quality-${testInfo.project.name}-mid.png` });
+  await stage.screenshot({ path: `test-results/visuals/2p5d-survivor-18-${testInfo.project.name}-mid.png` });
 
   expect(Number(await stage.getAttribute("data-visible-racers"))).toBeGreaterThanOrEqual(3);
   expect(Number(await stage.getAttribute("data-selected-speed"))).toBeGreaterThan(14);
