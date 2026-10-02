@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gate A2 accepted; Gate A3 limb reference analysis next
+current_stage: experimental Vibe Gate A2 accepted; Gate A3a forelimb-only correction ready
 branch: exp/s-creature-vibe-modeling
 current_model_file: output/S-vibe-a2b-v1.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Start Gate A3 reference analysis from output/S-vibe-a2b-v1.blend. Do not edit all four limbs at once. Inspect approved leg/foot reference first, then define A3a forelimb-only scope and hard locks.
+next_action: Execute Gate A3a from output/S-vibe-a2b-v1.blend. Edit S_forelimb_L/R only using S_VIBE_A3_REFERENCE_ANALYSIS.md. Keep core, crest, hindlimbs, all toes/feet and topology fixed. Render SIDE/FRONT/FRONT34/BACK and STOP.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -345,3 +345,6 @@ vibe_gate_a2b_v1_reason: pelvis body is lighter/elevated and remains narrower th
 vibe_gate_a2_decision: ACCEPTED
 vibe_gate_a2_accepted_model: output/S-vibe-a2b-v1.blend
 vibe_gate_a2_acceptance_scope: experimental lane only; no merge into feat/s-creature-model
+
+vibe_gate_a3a_lock: S_VIBE_A3_REFERENCE_ANALYSIS.md
+vibe_gate_a3a_editable: S_forelimb_L and S_forelimb_R only; feet/toes excluded
