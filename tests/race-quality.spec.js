@@ -79,7 +79,7 @@ test("2.5D Race Agent commands are creature-resolved and morph-dependent", async
   await expect(stage).toHaveAttribute("data-agent-focus-command", "CONSERVE");
 });
 
-test("2.5D race finalizes all 18 runners and exposes classification", async ({ page }) => {
+test("2.5D race finalizes all 18 runners and exposes classification", async ({ page }, testInfo) => {
   test.setTimeout(30000);
   await page.goto("/evowild-test/race-quality.html?finishReview=1", { waitUntil: "networkidle" });
   const stage = page.locator("#stage");
@@ -93,6 +93,11 @@ test("2.5D race finalizes all 18 runners and exposes classification", async ({ p
   const rows = page.locator("#resultList li");
   await expect(rows).toHaveCount(18);
   await expect(page.locator("#resultsPanel")).toBeVisible();
+
+  fs.mkdirSync("artifacts/2p5d-survivor", { recursive: true });
+  await stage.screenshot({
+    path: `artifacts/2p5d-survivor/2p5d-survivor-results-${testInfo.project.name}.png`
+  });
 
   const winnerId = await stage.getAttribute("data-winner-id");
   await expect(rows.first()).toHaveAttribute("data-runner-id", winnerId);
