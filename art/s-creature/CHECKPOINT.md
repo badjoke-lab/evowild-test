@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S Gate B v1 limb-root massing saved and five views rendered; REVIEW_PENDING / STOPPED
+current_stage: S Gate B v1 reviewed KEEP; Gate B v2 crest-root integration ready
 branch: feat/s-creature-model
 current_model_file: output/S-gateB-v1.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review Gate B v1 limb-root massing only. Do not proceed to Gate B v2 before decision.
+next_action: Execute Gate B v2 crest-root integration from S-gateB-v1. Keep all existing coordinates fixed and add only a compact shared crest saddle within the crest mesh; render five views and stop.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -137,7 +137,7 @@ gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
 gate_a_status: PASS
-modeling_status: STOPPED
+modeling_status: READY_FOR_GATE_B_V2
 gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
 gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
@@ -339,3 +339,7 @@ gate_b_v1_task: S_GATE_B_V1_TASK.md
 gate_b_v1_done: Proximal six rings of all four limbs remassed; core/crest/toes/distal limbs locked; five views rendered.
 gate_b_v1_acceptance: REVIEW_PENDING
 gate_b_v1_geometry_sha256: 7d7113bb13df47b273672a0946ecea840c893d6427b4180d7824ee3ee2392d21
+
+gate_b_v1_decision: KEEP
+gate_b_v1_reason: Proximal limb massing is visibly smoother than Gate A v14 in SIDE/FRONT34/REAR34, while core, crest, toes and distal limb geometry remain unchanged. Keep v1 as Gate B base.
+gate_b_v2_rule: crest-root integration only. Preserve every existing vertex coordinate. Add one compact shared saddle mass to the existing crest mesh so the five laminae read as one skull-integrated structure. No other edits.
