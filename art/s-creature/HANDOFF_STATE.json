@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_A4_V2_REQUIRED",
-  "current_stage": "A4-v1 reviewed REVISE; A4-v2 tail stem/tip correction required",
+  "stage": "VIBE_EXPERIMENT_A4_V2_REVIEW",
+  "current_stage": "A4-v2 tail stem/tip rendered; review pending; modeling stopped",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
-  "current_model_file": "output/S-vibe-a4-v1.blend",
+  "current_model_file": "output/S-vibe-a4-v2.blend",
   "source_model_file": "NONE / fresh empty scene",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Build A4-v2 from output/S-vibe-a4-v1.blend. Edit tail rings 15-19 only: keep shortened length, thin the stem, smooth upward centerline and sharpen restrained terminal blade. Preserve all non-tail geometry; render SIDE/FRONT/FRONT34/BACK; STOP.",
+  "next_action": "Review A4-v2 tail. Do not start A5 before explicit A4 decision.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -59,19 +59,17 @@
     "output/S-rebuild-v1.blend"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "A1_ACCEPTED_A2_ACCEPTED_A3_ACCEPTED_A4_V1_REVISE",
-  "modeling_status": "READY_FOR_A4_V2",
+  "gate_a_status": "A1_ACCEPTED_A2_ACCEPTED_A3_ACCEPTED_A4_V2_REVIEW_PENDING",
+  "modeling_status": "STOPPED",
   "cage_vertex_count": 760,
   "review_renders": [
-    "output/review/vibe-a4-v1/S_vibe_a4_v1_side.png",
-    "output/review/vibe-a4-v1/S_vibe_a4_v1_front.png",
-    "output/review/vibe-a4-v1/S_vibe_a4_v1_front34.png",
-    "output/review/vibe-a4-v1/S_vibe_a4_v1_back.png"
+    "output/review/vibe-a4-v2/S_vibe_a4_v2_side.png",
+    "output/review/vibe-a4-v2/S_vibe_a4_v2_front.png",
+    "output/review/vibe-a4-v2/S_vibe_a4_v2_front34.png",
+    "output/review/vibe-a4-v2/S_vibe_a4_v2_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
-  "editable_next": [
-    "core rings 15-19 / tail only"
-  ],
+  "editable_next": [],
   "keep_fixed_next": [
     "core rings 0-14",
     "S_reference_crest_v11",

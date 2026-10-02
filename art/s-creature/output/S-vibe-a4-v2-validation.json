@@ -1,0 +1,93 @@
+{
+  "lane": "exp/s-creature-vibe-modeling",
+  "gate": "A4-v2-tail-stem-tip",
+  "source": "S-vibe-a4-v1.blend",
+  "decision": "REVIEW_PENDING",
+  "editable": [
+    "core rings 15-19 / vertices 120-159 only"
+  ],
+  "single_hypothesis": "thin A4-v1 stem and progressively lift/taper terminal blade while preserving shortened length",
+  "hard_fixed": [
+    "core rings 0-14",
+    "accepted crest",
+    "accepted limbs",
+    "all feet/toes",
+    "topology"
+  ],
+  "source_stations": {
+    "15": {
+      "y": 1.149999976158142,
+      "top": 1.024999976158142,
+      "bottom": 0.9150000214576721,
+      "half_width": 0.052000001072883606
+    },
+    "16": {
+      "y": 1.2899999618530273,
+      "top": 1.034999966621399,
+      "bottom": 0.9449999928474426,
+      "half_width": 0.0430000014603138
+    },
+    "17": {
+      "y": 1.4299999475479126,
+      "top": 1.0199999809265137,
+      "bottom": 0.949999988079071,
+      "half_width": 0.03200000151991844
+    },
+    "18": {
+      "y": 1.5499999523162842,
+      "top": 1.0549999475479126,
+      "bottom": 0.9449999928474426,
+      "half_width": 0.03799999877810478
+    },
+    "19": {
+      "y": 1.659999966621399,
+      "top": 1.0700000524520874,
+      "bottom": 0.9950000047683716,
+      "half_width": 0.006000000052154064
+    }
+  },
+  "target_stations": {
+    "15": {
+      "y": 1.15,
+      "top": 1.015,
+      "bottom": 0.93,
+      "half_width": 0.045
+    },
+    "16": {
+      "y": 1.29,
+      "top": 1.025,
+      "bottom": 0.955,
+      "half_width": 0.035
+    },
+    "17": {
+      "y": 1.43,
+      "top": 1.03,
+      "bottom": 0.965,
+      "half_width": 0.028
+    },
+    "18": {
+      "y": 1.55,
+      "top": 1.07,
+      "bottom": 0.965,
+      "half_width": 0.03
+    },
+    "19": {
+      "y": 1.66,
+      "top": 1.09,
+      "bottom": 1.02,
+      "half_width": 0.006
+    }
+  },
+  "fixed_geometry_hash": "451f1be70d6643d628bcd4462f989c0ea7f77bb8240e180a0dc5754b51af7dde",
+  "fixed_geometry_unchanged": true,
+  "other_meshes_unchanged": true,
+  "topology_unchanged": true,
+  "rendered_views": [
+    "side",
+    "front",
+    "front34",
+    "back"
+  ],
+  "render_geometry_unchanged": true,
+  "status": "REVIEW_PENDING"
+}
