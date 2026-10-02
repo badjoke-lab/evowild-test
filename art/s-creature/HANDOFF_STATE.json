@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "S-rebuild-gate-A-v11",
-  "current_stage": "S-rebuild-v10 reviewed REVISE; crest topology reset v11 next",
+  "stage": "S-rebuild-gate-A-v11-review",
+  "current_stage": "S-rebuild-v11 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
-  "current_model_file": "output/S-rebuild-v10.blend",
+  "current_model_file": "output/S-rebuild-v11.blend",
   "source_model_file": "output/S-rebuild-v10.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -50,7 +50,7 @@
     "Tail and all toe geometry unchanged from v2",
     "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Execute v11 crest topology reset from output/S-rebuild-v10.blend; preserve body/limbs/toes/tail coordinates; render five views and STOP.",
+  "next_action": "Review S-rebuild-v11 Gate A only. Do not proceed to Gate B.",
   "quality_issues": [
     "bilateral crest topology creates paired-horn read in FRONT/BACK"
   ],
@@ -65,17 +65,17 @@
     "references/02_s_silhouette.png"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "REVISE",
-  "modeling_status": "READY_FOR_V11",
+  "gate_a_status": "REVIEW_PENDING",
+  "modeling_status": "STOPPED",
   "cage_vertex_count": 800,
   "review_renders": [
-    "output/review/rebuild-v10/S_rebuild_side.png",
-    "output/review/rebuild-v10/S_rebuild_front.png",
-    "output/review/rebuild-v10/S_rebuild_front34.png",
-    "output/review/rebuild-v10/S_rebuild_rear34.png",
-    "output/review/rebuild-v10/S_rebuild_back.png"
+    "output/review/rebuild-v11/S_rebuild_side.png",
+    "output/review/rebuild-v11/S_rebuild_front.png",
+    "output/review/rebuild-v11/S_rebuild_front34.png",
+    "output/review/rebuild-v11/S_rebuild_rear34.png",
+    "output/review/rebuild-v11/S_rebuild_back.png"
   ],
-  "geometry_sha256": "48c1fb5bf72505a7062118b4a91cd03ab80c404bf39c946a3a0e2e1619c7fbb6",
+  "geometry_sha256": "b68f9669a7568071e51b0ff3e6779525047823cf3d0c7e34415d9ec767004a34",
   "geometry_unchanged_during_render": true,
   "measurements": {
     "neck_length_before": 0.7270744459819778,
