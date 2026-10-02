@@ -18,6 +18,15 @@ test("2.5D selection capture - Four Morph Quality", async ({ page }, testInfo) =
   await page.waitForTimeout(5000);
   await stage.screenshot({ path: `artifacts/2p5d-survivor/2p5d-survivor-18-${testInfo.project.name}-mid.png` });
 
+  await page.locator("#agentTargetSelect").selectOption("0");
+  await page.getByRole("button", { name: "PUSH", exact: true }).click();
+  await page.waitForTimeout(450);
+  await expect(stage).toHaveAttribute("data-agent-focus-command", "PUSH");
+  expect(Number(await stage.getAttribute("data-agent-focus-response"))).toBeGreaterThan(0.6);
+  await stage.screenshot({ path: `artifacts/2p5d-survivor/2p5d-survivor-18-${testInfo.project.name}-agent-push.png` });
+  await page.getByRole("button", { name: "CLEAR", exact: true }).click();
+  await expect(stage).toHaveAttribute("data-agent-focus-command", "NEUTRAL");
+
   expect(Number(await stage.getAttribute("data-visible-racers"))).toBeGreaterThanOrEqual(3);
   expect(Number(await stage.getAttribute("data-camera-relevant-count"))).toBeLessThanOrEqual(6);
   expect(Number(await stage.getAttribute("data-visible-labels"))).toBeLessThanOrEqual(4);
