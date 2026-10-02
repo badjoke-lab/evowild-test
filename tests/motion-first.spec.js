@@ -1445,3 +1445,36 @@ test("Motion First Creature State v1 pressure affects Agent response", async ({ 
     path: "test-results/visuals/motion-first-creature-state-v1.png"
   });
 });
+
+
+test("Motion First Agent feedback v1 shows order then creature result", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(30000);
+
+  await page.goto(
+    "/evowild-test/preview-motion-first-race/index.html?skipStart=1",
+    { waitUntil: "networkidle" }
+  );
+
+  await page.selectOption("#agentTargetSelect", "0");
+  await page.getByRole("button", { name: "PUSH", exact: true }).click();
+
+  await expect(page.locator("#agentFeedback")).not.toHaveClass(/hidden/);
+  await expect(page.locator("#agentFeedbackCommand")).toHaveText("PUSH");
+  await expect(page.locator("#scene")).toHaveAttribute("data-agent-feedback-visible", "1");
+  await expect(page.locator("#scene")).toHaveAttribute("data-agent-feedback-command", "PUSH");
+
+  await expect
+    .poll(async () => page.locator("#agentFeedbackResult").textContent())
+    .toMatch(/STRONG|PARTIAL|WEAK/);
+
+  await page.locator("#scene").screenshot({
+    path: "test-results/visuals/motion-first-agent-feedback-v1.png"
+  });
+
+  await page.getByRole("button", { name: "CLEAR", exact: true }).click();
+  await expect(page.locator("#agentFeedbackCommand")).toHaveText("CLEAR");
+  await expect(page.locator("#agentFeedbackResult")).toHaveText("CLEARED");
+  await expect(page.locator("#scene")).toHaveAttribute("data-agent-feedback-result", "CLEARED");
+});
