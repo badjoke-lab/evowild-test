@@ -102,3 +102,22 @@ Next controlled comparison:
 - run the same method from the immutable Gate A source at voxel size 0.018
 - do not chain from v025
 - choose v025 or v018 before any B1 anatomical massing
+
+## B0-v018 comparison
+
+Measured:
+- 10417 vertices / 10415 polygons
+- non-manifold edges: 0
+- preserved crest/toes exact
+- no limb loss/fusion
+
+Decision:
+- REJECT as the B1 working source, while technically valid.
+
+Reason:
+- finer voxel size preserves more of the Gate-A faceting and shoulder/root angularity
+- nearly doubles body density without giving a cleaner massing base
+- B0-v025 produces a smoother continuous blockout while retaining the accepted silhouette
+
+Selected B1 source:
+- output/S-vibe-b0-v025.blend
