@@ -126,3 +126,25 @@ Hard validation:
 
 Stop after SIDE / FRONT / FRONT34 / BACK.
 Do not start A5 automatically until A4 is reviewed.
+
+## A4-v1 decision
+
+Decision: REVISE.
+
+Keep:
+- shortened high-carried tail trajectory
+- removed long descending tube
+- compact overall length
+
+Problem:
+- stem remains too thick/segmented in SIDE
+- terminal reads as a horizontal baton/cut end
+- reference S tail is lighter and finishes with a subtle upward blade
+
+A4-v2 locked hypothesis:
+- tail rings 15-19 only
+- keep the A4-v1 shortened Y extent
+- reduce stem cross-section
+- progressively raise tail centerline toward the tip
+- preserve a restrained blade broadening near ring 18
+- taper ring 19 sharply
