@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gate A2b-v1 pelvis lightening rendered; REVIEW_PENDING / STOPPED
+current_stage: experimental Vibe Gate A2 accepted; Gate A3 limb reference analysis next
 branch: exp/s-creature-vibe-modeling
 current_model_file: output/S-vibe-a2b-v1.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review A2b-v1 pelvis against approved S references. Do not start A3 or change limb roots before explicit A2 decision.
+next_action: Start Gate A3 reference analysis from output/S-vibe-a2b-v1.blend. Do not edit all four limbs at once. Inspect approved leg/foot reference first, then define A3a forelimb-only scope and hard locks.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -339,3 +339,9 @@ vibe_gate_a2b_v1_renders:
 - output/review/vibe-a2b-v1/S_vibe_a2b_v1_front.png
 - output/review/vibe-a2b-v1/S_vibe_a2b_v1_front34.png
 - output/review/vibe-a2b-v1/S_vibe_a2b_v1_back.png
+
+vibe_gate_a2b_v1_decision: KEEP
+vibe_gate_a2b_v1_reason: pelvis body is lighter/elevated and remains narrower than thorax; no new ring-boundary fold was introduced. Apparent front34 hindquarter bulk is dominated by fixed hindlimb-root meshes and is deferred to limb gate.
+vibe_gate_a2_decision: ACCEPTED
+vibe_gate_a2_accepted_model: output/S-vibe-a2b-v1.blend
+vibe_gate_a2_acceptance_scope: experimental lane only; no merge into feat/s-creature-model
