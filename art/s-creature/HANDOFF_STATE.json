@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_B0_V025_REVIEW",
-  "current_stage": "B0-v018 continuity candidate rendered; review pending; modeling stopped",
+  "stage": "VIBE_EXPERIMENT_B1A_READY",
+  "current_stage": "B0-v025 selected; B1a local shoulder/chest cleanup ready",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
-  "current_model_file": "output/S-vibe-b0-v018.blend",
+  "current_model_file": "output/S-vibe-b0-v025.blend",
   "source_model_file": "NONE / fresh empty scene",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Review B0-v018 against accepted Gate A five-view. Decide whether continuity method is safe before B1.",
+  "next_action": "Execute B1a local shoulder/chest boundary-tapered relax only. Preserve all body vertices outside the locked Y/Z region, crest, toes and topology. Render five views; STOP.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -60,7 +60,7 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "ACCEPTED",
-  "modeling_status": "STOPPED",
+  "modeling_status": "READY_FOR_B1A",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/vibe-b0-v018/S_vibe_b0_v018_side.png",
@@ -70,9 +70,14 @@
     "output/review/vibe-b0-v018/S_vibe_b0_v018_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
-  "editable_next": [],
+  "editable_next": [
+    "continuous body vertices within Y[-0.12,0.22], Z[0.74,1.14]"
+  ],
   "keep_fixed_next": [
-    "accepted Gate A source remains immutable"
+    "all continuous-body vertices outside B1a region",
+    "crest",
+    "all toes",
+    "topology"
   ],
   "review_basis": "Direct comparison of v6 SIDE/FRONT/FRONT34/BACK against 00_full_reference.png, 01_s_body_primary.png and 02_s_silhouette.png",
   "v6_decision": "REVISE",
@@ -112,5 +117,7 @@
   "gate_a_accepted_model": "output/S-vibe-a4-v2.blend",
   "gate_b_method": "S_VIBE_GATE_B_METHOD.md",
   "b0_v025_decision": "KEEP",
-  "b0_v025_reason": "Manifold continuous body with preserved silhouette and no limb loss; minor voxel waviness remains."
+  "b0_v025_reason": "Manifold continuous body with preserved silhouette and no limb loss; minor voxel waviness remains.",
+  "b0_selected": "output/S-vibe-b0-v025.blend",
+  "b1_reference_lock": "S_VIBE_B1_REFERENCE_ANALYSIS.md"
 }
