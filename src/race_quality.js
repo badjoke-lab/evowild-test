@@ -269,6 +269,7 @@ function makeRacers() {
     stamina:100,
     fatigue:0,
     agent:createAgentState(i),
+    depthBias:[-0.14,0.10,-0.08,0.14,0.04][Math.floor(i/4)%5],
     lane:LANES[i],
     targetLane:LANES[i],
     phaseOffset:i*0.87,
@@ -569,7 +570,7 @@ function laneYAt(m,lane) {
 
 function laneOffset(lane) {
   const portrait=height>width*1.35;
-  const stops=portrait?[-78,-26,28,84]:[-82,-28,30,88];
+  const stops=portrait?[-132,-43,49,142]:[-94,-31,34,101];
   const lo=Math.floor(clamp(lane,0,3));
   const hi=Math.ceil(clamp(lane,0,3));
   const t=clamp(lane-lo,0,1);
@@ -760,11 +761,15 @@ function drawRacers() {
   let maxEdge=-Infinity;
   let visibleLabelCount=0;
   for(const r of racers){
-    const x=screenXForMeters(r.distance);
+    const finishSpread = raceState==="finished" && r.finishPlace
+      ? (r.finishPlace-1)*1.35
+      : 0;
+    const visualDistance=Math.max(0,r.distance-finishSpread);
+    const x=screenXForMeters(visualDistance);
     if(x<-220 || x>width+260) continue;
-    const lane=clamp(r.lane,0,3);
-    const y=laneYAt(r.distance,lane);
-    list.push({r,x,y,lane});
+    const lane=clamp(r.lane+(r.depthBias||0),0,3);
+    const y=laneYAt(visualDistance,lane);
+    list.push({r,x,y,lane,visualDistance});
   }
   list.sort((a,b)=>a.lane-b.lane);
 
@@ -791,7 +796,7 @@ function drawRacers() {
     const frameIndex=((Math.floor(frameFloat)%RUN_FRAMES.length)+RUN_FRAMES.length)%RUN_FRAMES.length;
     const frame=RUN_FRAMES[frameIndex];
 
-    const slope=terrainSlope(r.distance);
+    const slope=terrainSlope(item.visualDistance);
     const lean=clamp(slope*.022,-.045,.045);
 
     const flight =
@@ -867,6 +872,8 @@ function drawRacers() {
 
   stage.dataset.visibleRacers=String(list.length);
   stage.dataset.visibleLabels=String(visibleLabelCount);
+  stage.dataset.visualDepthStagger="enabled";
+  stage.dataset.finishSpreadMeters="1.35";
   stage.dataset.fieldMinX=Number.isFinite(minEdge)?minEdge.toFixed(1):"";
   stage.dataset.fieldMaxX=Number.isFinite(maxEdge)?maxEdge.toFixed(1):"";
 }
