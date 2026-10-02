@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "S-gate-B-v2-ready",
-  "current_stage": "S Gate B v1 reviewed KEEP; Gate B v2 crest-root integration next",
+  "stage": "S-gate-B-v2-review",
+  "current_stage": "S Gate B v2 crest-root integration saved and five views rendered; REVIEW_PENDING / STOPPED",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
-  "current_model_file": "output/S-gateB-v1.blend",
+  "current_model_file": "output/S-gateB-v2.blend",
   "source_model_file": "output/S-gateB-v1.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -50,10 +50,9 @@
     "Tail and all toe geometry unchanged from v2",
     "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Execute Gate B v2 crest-root integration only. Preserve all existing coordinates; add one compact saddle mass to the existing crest mesh; render five views; STOP.",
+  "next_action": "Review Gate B v2 only. Do not proceed to v3 before decision.",
   "quality_issues": [
-    "crest blades still read as separate inserted plates at the skull root",
-    "Gate B crest-root integration not yet applied"
+    "Gate B v2 crest-root integration acceptance pending review"
   ],
   "blockers": [],
   "accepted": true,
@@ -67,16 +66,16 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "PASS",
-  "modeling_status": "READY_FOR_GATE_B_V2",
+  "modeling_status": "STOPPED",
   "cage_vertex_count": 800,
   "review_renders": [
-    "output/review/gate-b-v1/S_gateB_side.png",
-    "output/review/gate-b-v1/S_gateB_front.png",
-    "output/review/gate-b-v1/S_gateB_front34.png",
-    "output/review/gate-b-v1/S_gateB_rear34.png",
-    "output/review/gate-b-v1/S_gateB_back.png"
+    "output/review/gate-b-v2/S_gateB_side.png",
+    "output/review/gate-b-v2/S_gateB_front.png",
+    "output/review/gate-b-v2/S_gateB_front34.png",
+    "output/review/gate-b-v2/S_gateB_rear34.png",
+    "output/review/gate-b-v2/S_gateB_back.png"
   ],
-  "geometry_sha256": "7d7113bb13df47b273672a0946ecea840c893d6427b4180d7824ee3ee2392d21",
+  "geometry_sha256": "3beb40379d45f4704de452b53d2826d7f030a4f8a9d69f145bd3ddf9a253f349",
   "geometry_unchanged_during_render": true,
   "measurements": {
     "neck_length_before": 0.7270744459819778,
@@ -101,7 +100,7 @@
   "v12_scope": "crest object only; all non-crest meshes locked",
   "v13_scope": "crest object only; all non-crest meshes locked",
   "v14_scope": "crest object only; all non-crest meshes locked",
-  "gate_b_status": "READY_FOR_V2",
+  "gate_b_status": "REVIEW_PENDING",
   "gate_b_v1_scope": "proximal six rings of four limb meshes only",
   "gate_b_v1_decision": "KEEP",
   "gate_b_v2_scope": "crest topology addition only; no existing coordinate changes"
