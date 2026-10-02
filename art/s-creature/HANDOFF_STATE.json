@@ -9,12 +9,12 @@
     "E",
     "A"
   ],
-  "stage": "S-rebuild-gate-A-v11-review",
-  "current_stage": "S-rebuild-v11 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED",
+  "stage": "S-rebuild-gate-A-v12",
+  "current_stage": "S-rebuild-v11 reviewed REVISE; v12 crest-only correction next",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
   "current_model_file": "output/S-rebuild-v11.blend",
-  "source_model_file": "output/S-rebuild-v10.blend",
+  "source_model_file": "output/S-rebuild-v11.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
     "S_MORPHOLOGY_RESET_PLAN.md",
@@ -50,9 +50,10 @@
     "Tail and all toe geometry unchanged from v2",
     "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Review S-rebuild-v11 Gate A only. Do not proceed to Gate B.",
+  "next_action": "Execute v12 crest-only from output/S-rebuild-v11.blend. Preserve every non-crest coordinate; build a narrow staggered five-plate rear-upward fan; render five views; STOP.",
   "quality_issues": [
-    "bilateral crest topology creates paired-horn read in FRONT/BACK"
+    "v11 FRONT/BACK crest collapses into a single triangular central spike",
+    "crest must show multiple layered plates in frontal projection without reverting to paired horns"
   ],
   "blockers": [],
   "accepted": false,
@@ -65,8 +66,8 @@
     "references/02_s_silhouette.png"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "REVIEW_PENDING",
-  "modeling_status": "STOPPED",
+  "gate_a_status": "REVISE",
+  "modeling_status": "READY_FOR_V12",
   "cage_vertex_count": 800,
   "review_renders": [
     "output/review/rebuild-v11/S_rebuild_side.png",
@@ -96,5 +97,6 @@
   "v8_scope": "limb-root integration + distal taper only; no Gate B",
   "v9_scope": "four limb mesh objects only; core and toe meshes locked",
   "v10_scope": "crest-only; all non-crest geometry locked",
-  "v11_scope": "crest topology reset only"
+  "v11_scope": "crest topology reset only",
+  "v12_scope": "crest object only; all non-crest meshes locked"
 }

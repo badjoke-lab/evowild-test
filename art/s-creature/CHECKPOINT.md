@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-rebuild-v11 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED
+current_stage: S-rebuild-v11 Gate A reviewed REVISE; v12 crest fan correction ready
 branch: feat/s-creature-model
 current_model_file: output/S-rebuild-v11.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review S-rebuild-v11 Gate A only; await decision. Do not proceed to Gate B.
+next_action: Execute S-rebuild-v12 crest-only topology correction from v11. Preserve every non-crest coordinate; replace the central spike projection with a narrow staggered five-plate rear-upward fan; render five views and stop.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -136,8 +136,8 @@ reset_plan: S_MORPHOLOGY_RESET_PLAN.md
 gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
-gate_a_status: REVIEW_PENDING
-modeling_status: STOPPED
+gate_a_status: REVISE
+modeling_status: READY_FOR_V12
 gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
 gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
@@ -293,3 +293,8 @@ gate_a_v11_rule: topology reset for crest only. Preserve all body/limb/toe/tail 
 
 gate_a_v11_done: Bilateral paired crest topology removed and replaced with a narrow central overlapping crest group; body/limbs/toes/tail coordinates preserved; five views rendered.
 gate_a_v11_acceptance: REVIEW_PENDING; no PASS claimed
+
+gate_a_v11_decision: REVISE
+gate_a_v11_reason: Bilateral paired-horn topology is gone, but FRONT/BACK collapse the four centered plates into one triangular central spike. This violates the hard fail against a single central horn/spike.
+gate_a_v11_keep: all v11 non-crest geometry; rear-upward crest direction; central-group concept.
+gate_a_v12_rule: crest-only topology correction. Use five narrow overlapping laminar plates with staggered lateral centers, heights, lengths and nonzero tip widths so FRONT/BACK show layered crest width rather than one needle. No Gate B.
