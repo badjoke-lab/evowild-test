@@ -262,7 +262,7 @@ function makeRacers() {
     morph:MORPH_SEQUENCE[i],
     distance: FINISH_REVIEW_MODE
       ? 1544 - Math.floor(i / 4) * 1.8 - (i % 4) * 0.22
-      : Math.floor(i / 4) * 2.35 + (i % 4) * 0.18,
+      : Math.floor(i / 4) * 4.4 + (i % 4) * 0.28,
     speed:0,
     cruise:CRUISE[i],
     accel:ACCEL[i],
@@ -838,15 +838,21 @@ function drawRacers() {
       stage.dataset[`${r.morph.toLowerCase()}Frame`] = String(frameIndex);
     }
 
-    const labelY=item.y-spriteH*.66;
-    ctx.font=`800 ${width<700?9:11}px ui-monospace, Menlo, monospace`;
-    ctx.textAlign="center";
-    const txt=`${r.morph}${String(r.id).padStart(2,"0")}`;
-    const tw=ctx.measureText(txt).width+10;
-    ctx.fillStyle=selectedRacer?"rgba(8,41,56,.92)":"rgba(3,10,15,.72)";
-    ctx.fillRect(item.x-tw/2,labelY-12,tw,15);
-    ctx.fillStyle="#eef9ff";
-    ctx.fillText(txt,item.x,labelY);
+    const raceRank=rankOf(r);
+    const showLabel=selectedRacer || raceRank<=3;
+    if(showLabel){
+      const labelY=item.y-spriteH*.66;
+      ctx.font=`800 ${width<700?9:11}px ui-monospace, Menlo, monospace`;
+      ctx.textAlign="center";
+      const txt=selectedRacer
+        ? `YOU · ${r.morph}${String(r.id).padStart(2,"0")}`
+        : `#${raceRank} ${r.morph}${String(r.id).padStart(2,"0")}`;
+      const tw=ctx.measureText(txt).width+10;
+      ctx.fillStyle=selectedRacer?"rgba(8,41,56,.94)":"rgba(3,10,15,.76)";
+      ctx.fillRect(item.x-tw/2,labelY-12,tw,15);
+      ctx.fillStyle=selectedRacer?"#9ce9fb":"#eef9ff";
+      ctx.fillText(txt,item.x,labelY);
+    }
 
     if(selectedRacer){
       stage.dataset.selectedRunFrame=String(frameIndex);
@@ -890,11 +896,13 @@ function drawForeground() {
 function updateCamera() {
   const focus=selected();
   const live=racers.filter(r=>!r.finished);
-  const nearby=live.filter(r=>Math.abs(r.distance-focus.distance)<=28);
-  const relevant=nearby.length>=3?nearby:live
-    .slice()
-    .sort((a,b)=>Math.abs(a.distance-focus.distance)-Math.abs(b.distance-focus.distance))
-    .slice(0,4);
+  const byFocusDistance = (a,b) =>
+    Math.abs(a.distance-focus.distance)-Math.abs(b.distance-focus.distance);
+  const nearby=live
+    .filter(r=>Math.abs(r.distance-focus.distance)<=28)
+    .sort(byFocusDistance);
+  const relevant=(nearby.length>=3?nearby:live.slice().sort(byFocusDistance))
+    .slice(0,6);
 
   const front=relevant.length?Math.max(...relevant.map(r=>r.distance)):focus.distance;
   const back=relevant.length?Math.min(...relevant.map(r=>r.distance)):focus.distance;
@@ -918,6 +926,7 @@ function updateCamera() {
   stage.dataset.pixelsPerMeter=pixelsPerMeter.toFixed(2);
   stage.dataset.packSpan=localSpan.toFixed(2);
   stage.dataset.cameraSubject="selected-plus-nearby";
+  stage.dataset.cameraRelevantCount=String(relevant.length);
 }
 function drawSpeedRush() {
   const focus=selected();
