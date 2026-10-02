@@ -14,7 +14,11 @@ const ui = {
   countdown: document.querySelector("#countdown"),
   pause: document.querySelector("#pause"),
   reset: document.querySelector("#reset"),
-  assetStatus: document.querySelector("#assetStatus")
+  assetStatus: document.querySelector("#assetStatus"),
+  resultsPanel: document.querySelector("#resultsPanel"),
+  resultWinner: document.querySelector("#resultWinner"),
+  resultRaceTime: document.querySelector("#resultRaceTime"),
+  resultList: document.querySelector("#resultList")
 };
 
 const agentTargetSelect = document.querySelector("#agentTargetSelect");
@@ -25,6 +29,7 @@ const agentResultEl = document.querySelector("#agentResult");
 const agentCommandButtons = [...document.querySelectorAll("[data-agent-command]")];
 
 const BASE = import.meta.env.BASE_URL || "/";
+const FINISH_REVIEW_MODE = new URLSearchParams(location.search).get("finishReview") === "1";
 const FIELD_SIZE = 18;
 const SELECTED_ID = 1;
 const RACE_METERS = 1600;
@@ -255,7 +260,9 @@ function makeRacers() {
     id:i+1,
     name:NAMES[i],
     morph:MORPH_SEQUENCE[i],
-    distance: Math.floor(i / 4) * 2.35 + (i % 4) * 0.18,
+    distance: FINISH_REVIEW_MODE
+      ? 1544 - Math.floor(i / 4) * 1.8 - (i % 4) * 0.22
+      : Math.floor(i / 4) * 2.35 + (i % 4) * 0.18,
     speed:0,
     cruise:CRUISE[i],
     accel:ACCEL[i],
@@ -475,6 +482,7 @@ function updateRace(dtMs) {
   if (finishCounter===racers.length) {
     raceState="finished";
     stage.dataset.raceState="finished";
+    renderResults();
   }
 }
 
@@ -966,6 +974,31 @@ function render() {
   }
 }
 
+function renderResults() {
+  const ranks = order();
+  const winner = ranks[0];
+  if (!winner) return;
+
+  if (ui.resultsPanel) ui.resultsPanel.hidden = false;
+  if (ui.resultWinner) {
+    ui.resultWinner.textContent = `#1 ${winner.morph}${String(winner.id).padStart(2,"0")} · ${winner.name}`;
+  }
+  if (ui.resultRaceTime) ui.resultRaceTime.textContent = fmtTime(winner.finishTime);
+  if (ui.resultList) {
+    ui.resultList.innerHTML = ranks.map((r,index) =>
+      `<li data-runner-id="${r.id}" data-finish-time="${r.finishTime.toFixed(1)}">` +
+      `<b>#${index+1}</b><span>${r.morph}${String(r.id).padStart(2,"0")} · ${r.name}</span>` +
+      `<time>${fmtTime(r.finishTime)}</time></li>`
+    ).join("");
+  }
+
+  stage.dataset.resultReady = "1";
+  stage.dataset.resultCount = String(ranks.length);
+  stage.dataset.winnerId = String(winner.id);
+  stage.dataset.winnerMorph = winner.morph;
+  stage.dataset.winnerTime = winner.finishTime.toFixed(1);
+}
+
 function fmtTime(ms){
   const t=Math.max(0,ms)/1000;
   const min=Math.floor(t/60), sec=Math.floor(t%60), cs=Math.floor((t%1)*100);
@@ -1033,6 +1066,13 @@ function resetRace(){
   raceState="countdown";
   countdownRemaining=2500;
   finishCounter=0;
+  if (ui.resultsPanel) ui.resultsPanel.hidden = true;
+  if (ui.resultList) ui.resultList.replaceChildren();
+  stage.dataset.resultReady="0";
+  stage.dataset.resultCount="0";
+  stage.dataset.winnerId="";
+  stage.dataset.winnerMorph="";
+  stage.dataset.winnerTime="";
   cameraMeters=0;
   cameraVelocity=0;
   pixelsPerMeter=width<700?6.7:8.4;
@@ -1073,6 +1113,12 @@ agentCommandButtons.forEach((button) => {
 });
 
 stage.dataset.raceState="countdown";
+stage.dataset.resultReady="0";
+stage.dataset.resultCount="0";
+stage.dataset.winnerId="";
+stage.dataset.winnerMorph="";
+stage.dataset.winnerTime="";
+stage.dataset.finishReview=FINISH_REVIEW_MODE?"1":"0";
 stage.dataset.agentModel="command-only-creature-resolved";
 stage.dataset.agentTargetRunner="1";
 stage.dataset.agentTargetMorph="S";
