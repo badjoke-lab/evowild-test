@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gate B0-v025 continuity candidate rendered; REVIEW_PENDING / STOPPED
+current_stage: experimental Vibe B0-v025 continuity test KEEP; finer B0-v018 comparison required
 branch: exp/s-creature-vibe-modeling
 current_model_file: output/S-vibe-b0-v025.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review B0-v025 five-view continuity candidate against accepted Gate A. Decide whether voxel remesh preserves silhouette and safely unifies limb roots. Do not start B1 before B0 decision.
+next_action: Build B0-v018 independently from immutable Gate A source output/S-vibe-a4-v2.blend using the same core+four-limb voxel-remesh method at voxel size 0.018. Preserve crest/toes, render five views, compare against v025, then choose B0 source for Gate B1.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -426,3 +426,7 @@ vibe_gate_b0_v025_renders:
 - output/review/vibe-b0-v025/S_vibe_b0_v025_front34.png
 - output/review/vibe-b0-v025/S_vibe_b0_v025_rear34.png
 - output/review/vibe-b0-v025/S_vibe_b0_v025_back.png
+
+vibe_gate_b0_v025_decision: KEEP
+vibe_gate_b0_v025_reason: continuous manifold body, nonmanifold edges 0, preserved crest/toes, no limb loss/fusion, Gate A silhouette retained; minor voxel surface waviness remains
+vibe_gate_b0_next: compare finer voxel size 0.018 before B1
