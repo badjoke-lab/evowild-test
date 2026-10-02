@@ -1,0 +1,96 @@
+{
+  "lane": "exp/s-creature-vibe-modeling",
+  "gate": "A4-v1-tail-silhouette",
+  "source": "S-vibe-a3b-v1.blend",
+  "decision": "REVIEW_PENDING",
+  "editable": [
+    "core rings 15-19 / vertices 120-159 only"
+  ],
+  "single_hypothesis": "shorter high-carried aerodynamic tail with restrained terminal blade",
+  "hard_fixed": [
+    "core rings 0-14",
+    "accepted crest",
+    "accepted forelimbs",
+    "accepted hindlimbs",
+    "all feet/toes",
+    "topology"
+  ],
+  "source_stations": {
+    "15": {
+      "y": 1.149999976158142,
+      "top": 1.0,
+      "bottom": 0.8899999856948853,
+      "half_width": 0.05999999865889549
+    },
+    "16": {
+      "y": 1.340000033378601,
+      "top": 0.8999999761581421,
+      "bottom": 0.7699999809265137,
+      "half_width": 0.054999999701976776
+    },
+    "17": {
+      "y": 1.559999942779541,
+      "top": 0.7599999904632568,
+      "bottom": 0.6000000238418579,
+      "half_width": 0.05999999865889549
+    },
+    "18": {
+      "y": 1.7599999904632568,
+      "top": 0.6100000143051147,
+      "bottom": 0.44999998807907104,
+      "half_width": 0.03700000047683716
+    },
+    "19": {
+      "y": 1.9500000476837158,
+      "top": 0.47999998927116394,
+      "bottom": 0.4300000071525574,
+      "half_width": 0.004000000189989805
+    }
+  },
+  "target_stations": {
+    "15": {
+      "y": 1.15,
+      "top": 1.025,
+      "bottom": 0.915,
+      "half_width": 0.052
+    },
+    "16": {
+      "y": 1.29,
+      "top": 1.035,
+      "bottom": 0.945,
+      "half_width": 0.043
+    },
+    "17": {
+      "y": 1.43,
+      "top": 1.02,
+      "bottom": 0.95,
+      "half_width": 0.032
+    },
+    "18": {
+      "y": 1.55,
+      "top": 1.055,
+      "bottom": 0.945,
+      "half_width": 0.038
+    },
+    "19": {
+      "y": 1.66,
+      "top": 1.07,
+      "bottom": 0.995,
+      "half_width": 0.006
+    }
+  },
+  "fixed_geometry_hash": "451f1be70d6643d628bcd4462f989c0ea7f77bb8240e180a0dc5754b51af7dde",
+  "fixed_geometry_unchanged": true,
+  "other_meshes_unchanged": true,
+  "topology_unchanged": true,
+  "vertex_count": 160,
+  "polygon_count": 154,
+  "rendered_views": [
+    "side",
+    "front",
+    "front34",
+    "back"
+  ],
+  "render_geometry_unchanged": true,
+  "status": "REVIEW_PENDING"
+}
