@@ -30,7 +30,7 @@ scene=bpy.context.scene
 views=('side','front','front34','rear34','back')
 for stem in views:
     scene.camera=bpy.data.objects['S_REBUILD_CAM_'+stem.upper()]
-    scene.render.filepath=os.path.join(REVIEW,'S_vibe_b1a_v1_'+stem+'.png')
+    scene.render.filepath=os.path.join(REVIEW,'S_vibe_b1a_v2_'+stem+'.png')
     bpy.ops.render.render(write_still=True)
 
 assert fixed_hash()==report['fixed_geometry_hash']
@@ -51,21 +51,21 @@ for line in open(cp).read().splitlines():
     lines.append(line)
 lines += [
  '',
- 'vibe_gate_b1a_v1_status: REVIEW_PENDING',
- 'vibe_gate_b1a_v1_scope: boundary-tapered local relax in locked shoulder/chest Y/Z region',
- 'vibe_gate_b1a_v1_renders:',
- '- output/review/vibe-b1a-v2/S_vibe_b1a_v1_side.png',
- '- output/review/vibe-b1a-v2/S_vibe_b1a_v1_front.png',
- '- output/review/vibe-b1a-v2/S_vibe_b1a_v1_front34.png',
- '- output/review/vibe-b1a-v2/S_vibe_b1a_v1_rear34.png',
- '- output/review/vibe-b1a-v2/S_vibe_b1a_v1_back.png',
+ 'vibe_gate_b1a_v2_status: REVIEW_PENDING',
+ 'vibe_gate_b1a_v2_scope: same locked shoulder/chest region; stronger boundary-tapered Taubin relax',
+ 'vibe_gate_b1a_v2_renders:',
+ '- output/review/vibe-b1a-v2/S_vibe_b1a_v2_side.png',
+ '- output/review/vibe-b1a-v2/S_vibe_b1a_v2_front.png',
+ '- output/review/vibe-b1a-v2/S_vibe_b1a_v2_front34.png',
+ '- output/review/vibe-b1a-v2/S_vibe_b1a_v2_rear34.png',
+ '- output/review/vibe-b1a-v2/S_vibe_b1a_v2_back.png',
 ]
 open(cp,'w').write('\n'.join(lines)+'\n')
 
 hp=os.path.join(ROOT,'HANDOFF_STATE.json')
 state=json.load(open(hp))
 state.update(
- stage='VIBE_EXPERIMENT_B1A_V1_REVIEW',
+ stage='VIBE_EXPERIMENT_B1A_V2_REVIEW',
  current_stage='B1a-v2 local shoulder/chest cleanup rendered; review pending; modeling stopped',
  branch='exp/s-creature-vibe-modeling',
  current_model_file='output/S-vibe-b1a-v2.blend',
@@ -75,12 +75,12 @@ state.update(
  editable_next=[],
  keep_fixed_next=['B0-v025 source remains recovery source'],
  review_renders=[
-  'output/review/vibe-b1a-v2/S_vibe_b1a_v1_side.png',
-  'output/review/vibe-b1a-v2/S_vibe_b1a_v1_front.png',
-  'output/review/vibe-b1a-v2/S_vibe_b1a_v1_front34.png',
-  'output/review/vibe-b1a-v2/S_vibe_b1a_v1_rear34.png',
-  'output/review/vibe-b1a-v2/S_vibe_b1a_v1_back.png'
+  'output/review/vibe-b1a-v2/S_vibe_b1a_v2_side.png',
+  'output/review/vibe-b1a-v2/S_vibe_b1a_v2_front.png',
+  'output/review/vibe-b1a-v2/S_vibe_b1a_v2_front34.png',
+  'output/review/vibe-b1a-v2/S_vibe_b1a_v2_rear34.png',
+  'output/review/vibe-b1a-v2/S_vibe_b1a_v2_back.png'
  ]
 )
 json.dump(state,open(hp,'w'),ensure_ascii=False,indent=2)
-print('VIBE_B1A_V1_RENDER_COMPLETE_STOPPED')
+print('VIBE_B1A_V2_RENDER_COMPLETE_STOPPED')
