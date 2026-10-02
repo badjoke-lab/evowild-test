@@ -1,0 +1,32 @@
+{
+  "gate": "A",
+  "status": "REVIEW_PENDING",
+  "source": "S-rebuild-v7.blend",
+  "scope": "limb-root integration + distal taper only",
+  "source_geometry_sha256": "700d2b8e1ca8cea608bdeb2618843942f7f85785af68e9ff5625174b8538dd62",
+  "geometry_sha256": "998286cb18f907082c81e11e3a1d2e3b486a832cf2f3cab39c603353651b6e61",
+  "total_cage_vertices": 800,
+  "topology_preserved": true,
+  "core_geometry_unchanged": true,
+  "toe_geometry_unchanged": true,
+  "no_materials": true,
+  "no_animation": true,
+  "no_armature": true,
+  "changes": [
+    "Moved first fore/hind limb rings slightly inboard and increased root cross-sections to overlap body masses more gradually",
+    "Introduced progressive proximal-to-distal cross-section taper instead of near-uniform tubes",
+    "Preserved v7 fore/hind frontal-plane joint rhythm and exact toe endpoints"
+  ],
+  "limitations": [
+    "Gate A review pending; no PASS claimed",
+    "No Gate B welding or anatomical surface refinement"
+  ],
+  "rendered_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "geometry_unchanged_during_render": true
+}
