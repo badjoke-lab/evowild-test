@@ -1,0 +1,112 @@
+name: S rebuild v10 Gate A crest alignment
+
+on:
+  push:
+    branches:
+      - feat/s-creature-model
+    paths:
+      - .github/workflows/s-creature-rebuild-v10-gate-a.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: s-creature-rebuild-v10-gate-a
+  cancel-in-progress: false
+
+jobs:
+  gate-a-v10:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/s-creature-model
+          fetch-depth: 0
+      - name: Verify Xvfb
+        run: command -v xvfb-run
+      - name: Download Blender 4.3.2
+        run: |
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Execute v10 crest alignment
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "1"
+        run: /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/edit_s_rebuild_v10.py
+      - name: Render five v10 views through Xvfb
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "1"
+        run: xvfb-run -a /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-rebuild-v10.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/render_s_rebuild_v10.py
+      - name: Verify crest-only scope
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('art/s-creature')
+          r=json.loads((root/'output/S-rebuild-v10-gate-A.json').read_text())
+          assert r['status']=='REVIEW_PENDING'
+          assert r['non_crest_geometry_unchanged']
+          assert r['topology_preserved']
+          assert r['rendered_views']==['SIDE','FRONT','FRONT34','REAR34','BACK']
+          assert r['geometry_unchanged_during_render']
+          for stem in ('side','front','front34','rear34','back'):
+              assert (root/f'output/review/rebuild-v10/S_rebuild_{stem}.png').stat().st_size>0
+          PY
+      - name: Update checkpoint and handoff
+        run: |
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+          root=Path('art/s-creature')
+          r=json.loads((root/'output/S-rebuild-v10-gate-A.json').read_text())
+          p=root/'CHECKPOINT.md'
+          s=p.read_text()
+          s=re.sub(r'^current_stage:.*$', 'current_stage: S-rebuild-v10 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED', s, count=1, flags=re.M)
+          s=re.sub(r'^current_model_file:.*$', 'current_model_file: output/S-rebuild-v10.blend', s, count=1, flags=re.M)
+          s=re.sub(r'^next_action:.*$', 'next_action: Review S-rebuild-v10 Gate A only; await decision. Do not proceed to Gate B.', s, count=1, flags=re.M)
+          s=re.sub(r'^gate_a_status:.*$', 'gate_a_status: REVIEW_PENDING', s, count=1, flags=re.M)
+          s=re.sub(r'^modeling_status:.*$', 'modeling_status: STOPPED', s, count=1, flags=re.M)
+          if 'gate_a_v10_done:' not in s:
+              s+='\n\ngate_a_v10_done: Crest-only canonical alignment executed from v9; all non-crest geometry locked; five views rendered.\n'
+              s+='gate_a_v10_acceptance: REVIEW_PENDING; no PASS claimed\n'
+              s+='gate_a_v10_geometry_sha256: '+r['geometry_sha256']+'\n'
+              s+='gate_a_v10_renders:\n'
+              for stem in ('side','front','front34','rear34','back'):
+                  s+=f'- output/review/rebuild-v10/S_rebuild_{stem}.png\n'
+          p.write_text(s)
+
+          hp=root/'HANDOFF_STATE.json'
+          h=json.loads(hp.read_text())
+          h['stage']='S-rebuild-gate-A-v10-review'
+          h['current_stage']='S-rebuild-v10 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED'
+          h['current_model_file']='output/S-rebuild-v10.blend'
+          h['source_model_file']='output/S-rebuild-v9.blend'
+          h['next_action']='Review S-rebuild-v10 Gate A only. Do not proceed to Gate B.'
+          h['gate_a_status']='REVIEW_PENDING'
+          h['modeling_status']='STOPPED'
+          h['accepted']=False
+          h['geometry_sha256']=r['geometry_sha256']
+          h['review_renders']=[
+            'output/review/rebuild-v10/S_rebuild_side.png',
+            'output/review/rebuild-v10/S_rebuild_front.png',
+            'output/review/rebuild-v10/S_rebuild_front34.png',
+            'output/review/rebuild-v10/S_rebuild_rear34.png',
+            'output/review/rebuild-v10/S_rebuild_back.png']
+          h['quality_issues']=['Gate A v10 silhouette acceptance pending review']
+          hp.write_text(json.dumps(h,indent=2)+'\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: S-rebuild-v10-Gate-A
+          path: |
+            art/s-creature/output/S-rebuild-v10.blend
+            art/s-creature/output/S-rebuild-v10-gate-A.json
+            art/s-creature/output/review/rebuild-v10/
+          if-no-files-found: error
+      - name: Commit and push v10 checkpoint
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add art/s-creature/output/S-rebuild-v10.blend                   art/s-creature/output/S-rebuild-v10-gate-A.json                   art/s-creature/output/review/rebuild-v10/                   art/s-creature/CHECKPOINT.md                   art/s-creature/HANDOFF_STATE.json
+          git commit -m 'art: save S rebuild v10 crest alignment and stop for Gate A review'
+          git push origin HEAD:feat/s-creature-model

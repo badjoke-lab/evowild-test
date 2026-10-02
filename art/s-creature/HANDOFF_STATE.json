@@ -9,12 +9,12 @@
     "E",
     "A"
   ],
-  "stage": "S-rebuild-gate-A-v9-review",
-  "current_stage": "S-rebuild-v9 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED",
+  "stage": "S-rebuild-gate-A-v10",
+  "current_stage": "S-rebuild-v9 reviewed REVISE; crest reference-alignment v10 next",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
   "current_model_file": "output/S-rebuild-v9.blend",
-  "source_model_file": "output/S-rebuild-v8.blend",
+  "source_model_file": "output/S-rebuild-v9.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
     "S_MORPHOLOGY_RESET_PLAN.md",
@@ -50,9 +50,10 @@
     "Tail and all toe geometry unchanged from v2",
     "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Review S-rebuild-v9 Gate A only. Do not proceed to Gate B.",
+  "next_action": "Execute crest-only v10 from output/S-rebuild-v9.blend; lock all non-crest geometry; align crest to public/concept/S.webp and reference 04 C5; render five views and STOP.",
   "quality_issues": [
-    "Gate A v9 silhouette acceptance pending review"
+    "v9 crest is too horizontal relative to canonical S.webp",
+    "v9 crest reads as a flat plate bundle instead of a rear-upward integrated head line"
   ],
   "blockers": [],
   "accepted": false,
@@ -65,8 +66,8 @@
     "references/02_s_silhouette.png"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "REVIEW_PENDING",
-  "modeling_status": "STOPPED",
+  "gate_a_status": "REVISE",
+  "modeling_status": "READY_FOR_V10",
   "cage_vertex_count": 800,
   "review_renders": [
     "output/review/rebuild-v9/S_rebuild_side.png",
@@ -94,5 +95,6 @@
   "v6_scope": "crest-only; all non-crest geometry locked",
   "v7_scope": "head/neck + limb chains only; crest/torso/pelvis/tail locked",
   "v8_scope": "limb-root integration + distal taper only; no Gate B",
-  "v9_scope": "four limb mesh objects only; core and toe meshes locked"
+  "v9_scope": "four limb mesh objects only; core and toe meshes locked",
+  "v10_scope": "crest-only; all non-crest geometry locked"
 }
