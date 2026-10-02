@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gate A3a-v1 reviewed KEEP; Gate A3b hindlimb-only correction ready
+current_stage: experimental Vibe Gate A3b-v1 hindlimb joint rhythm rendered; REVIEW_PENDING / STOPPED
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-a3a-v1.blend
+current_model_file: output/S-vibe-a3b-v1.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute Gate A3b from output/S-vibe-a3a-v1.blend. Edit S_hindlimb_L/R only using S_VIBE_A3_REFERENCE_ANALYSIS.md. Keep core, crest, accepted forelimbs, all toes/feet and topology fixed. Render SIDE/FRONT/FRONT34/BACK and STOP.
+next_action: Review A3b-v1 hindlimb rhythm against S references. Do not edit feet or tail before explicit A3 decision.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -360,3 +360,11 @@ vibe_gate_a3a_v1_renders:
 vibe_gate_a3a_v1_decision: KEEP
 vibe_gate_a3a_v1_reason: elbow-to-wrist rhythm is readable at silhouette scale; FRONT stays narrow; foot/toe interface remains fixed. Proximal faceting is deferred to Gate B.
 vibe_gate_a3b_editable: S_hindlimb_L and S_hindlimb_R only; feet/toes excluded
+
+vibe_gate_a3b_v1_status: REVIEW_PENDING
+vibe_gate_a3b_v1_scope: S_hindlimb_L/R stations 0-6 only; foot-root station 7 and all toes fixed
+vibe_gate_a3b_v1_renders:
+- output/review/vibe-a3b-v1/S_vibe_a3b_v1_side.png
+- output/review/vibe-a3b-v1/S_vibe_a3b_v1_front.png
+- output/review/vibe-a3b-v1/S_vibe_a3b_v1_front34.png
+- output/review/vibe-a3b-v1/S_vibe_a3b_v1_back.png
