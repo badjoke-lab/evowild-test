@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S-rebuild-v9 Gate A reviewed REVISE; v10 crest reference-alignment ready
+current_stage: S-rebuild-v10 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED
 branch: feat/s-creature-model
-current_model_file: output/S-rebuild-v9.blend
+current_model_file: output/S-rebuild-v10.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute crest-only S-rebuild-v10 from v9. Lock the entire body and all limb/toe geometry; reshape only the six crest laminae toward the canonical S.webp/C5 rear-upward directional line; render five views and stop.
+next_action: Review S-rebuild-v10 Gate A only; await decision. Do not proceed to Gate B.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -136,8 +136,8 @@ reset_plan: S_MORPHOLOGY_RESET_PLAN.md
 gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
-gate_a_status: REVISE
-modeling_status: READY_FOR_V10
+gate_a_status: REVIEW_PENDING
+modeling_status: STOPPED
 gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
 gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
@@ -274,3 +274,14 @@ gate_a_v9_decision: REVISE
 gate_a_v9_reason: Denser limb topology improves root continuity and distal taper, but canonical reference comparison shows the crest is still materially wrong: it is too horizontal and plate-bundle-like. public/concept/S.webp and reference 04 C5 require a narrow rear-upward directional crest integrated into the skull line.
 gate_a_v9_keep: entire v9 body and all limb/toe geometry.
 gate_a_v10_rule: crest-only reference-alignment. Preserve all non-crest vertices exactly. Rearward reach stays long; vertical rise increases modestly; lateral spread narrows and tips converge toward the center so FRONT/BACK do not revert to paired horns.
+
+
+gate_a_v10_done: Crest-only canonical alignment executed from v9; all non-crest geometry locked; five views rendered.
+gate_a_v10_acceptance: REVIEW_PENDING; no PASS claimed
+gate_a_v10_geometry_sha256: 48c1fb5bf72505a7062118b4a91cd03ab80c404bf39c946a3a0e2e1619c7fbb6
+gate_a_v10_renders:
+- output/review/rebuild-v10/S_rebuild_side.png
+- output/review/rebuild-v10/S_rebuild_front.png
+- output/review/rebuild-v10/S_rebuild_front34.png
+- output/review/rebuild-v10/S_rebuild_rear34.png
+- output/review/rebuild-v10/S_rebuild_back.png

@@ -1,0 +1,34 @@
+{
+  "gate": "A",
+  "status": "REVIEW_PENDING",
+  "source": "S-rebuild-v9.blend",
+  "scope": "crest-only canonical reference alignment",
+  "source_geometry_sha256": "91d96d535e0db7128cd06a68d47babd5ec5c05ef50cff83ac9d54c5f43aa0732",
+  "geometry_sha256": "48c1fb5bf72505a7062118b4a91cd03ab80c404bf39c946a3a0e2e1619c7fbb6",
+  "non_crest_geometry_unchanged": true,
+  "topology_preserved": true,
+  "total_cage_vertices": 896,
+  "no_materials": true,
+  "no_animation": true,
+  "no_armature": true,
+  "crest_vertical_min": 1.2379999160766602,
+  "crest_vertical_max": 1.437999963760376,
+  "crest_vertical_envelope": 0.20000004768371582,
+  "changes": [
+    "Raised crest tips into a modest rear-upward canonical S direction line",
+    "Narrowed lateral spread through the mid and tip sections",
+    "Moved plate tips closer to centerline while retaining six separate skull-rooted laminae",
+    "Preserved long rearward reach and all non-crest geometry"
+  ],
+  "limitations": [
+    "Gate A review pending; no PASS claimed"
+  ],
+  "rendered_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "geometry_unchanged_during_render": true
+}
