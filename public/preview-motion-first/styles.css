@@ -726,3 +726,104 @@ button:disabled {
   padding: 0 24px 0 8px;
   font-size: 9px;
 }
+
+.agent-feedback {
+  position: absolute;
+  z-index: 11;
+  top: 158px;
+  left: 300px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 214px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 999px;
+  background: rgba(7,11,14,.86);
+  box-shadow: 0 14px 38px rgba(0,0,0,.30);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  pointer-events: none;
+}
+
+.agent-feedback.hidden {
+  display: none;
+}
+
+.agent-feedback-orb {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.24);
+  background: rgba(255,255,255,.16);
+  box-shadow: 0 0 0 4px rgba(255,255,255,.05), 0 0 22px rgba(255,255,255,.16);
+  animation: agent-feedback-pulse .72s ease-in-out infinite alternate;
+}
+
+.agent-feedback[data-tone="positive"] .agent-feedback-orb {
+  background: rgba(138,255,191,.78);
+  box-shadow: 0 0 0 4px rgba(138,255,191,.10), 0 0 24px rgba(138,255,191,.34);
+}
+
+.agent-feedback[data-tone="partial"] .agent-feedback-orb {
+  background: rgba(255,220,120,.72);
+  box-shadow: 0 0 0 4px rgba(255,220,120,.09), 0 0 24px rgba(255,220,120,.28);
+}
+
+.agent-feedback[data-tone="weak"] .agent-feedback-orb {
+  background: rgba(255,130,130,.68);
+  box-shadow: 0 0 0 4px rgba(255,130,130,.08), 0 0 24px rgba(255,130,130,.24);
+}
+
+.agent-feedback-copy {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: baseline;
+  column-gap: 8px;
+  row-gap: 2px;
+}
+
+.agent-feedback-copy small {
+  grid-column: 1 / -1;
+  color: rgba(255,255,255,.48);
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: .10em;
+}
+
+.agent-feedback-copy strong {
+  font-size: 11px;
+  letter-spacing: .08em;
+}
+
+.agent-feedback-copy span {
+  color: rgba(255,255,255,.66);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .06em;
+}
+
+@keyframes agent-feedback-pulse {
+  from { transform: scale(.88); opacity: .72; }
+  to { transform: scale(1.08); opacity: 1; }
+}
+
+@media (max-width: 900px) {
+  .agent-feedback {
+    top: 122px;
+    left: 250px;
+  }
+}
+
+@media (max-width: 560px) {
+  .agent-feedback {
+    top: 302px;
+    left: 10px;
+    right: 10px;
+    min-width: 0;
+    width: fit-content;
+    max-width: calc(100vw - 20px);
+  }
+}
+
