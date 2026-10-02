@@ -1,0 +1,65 @@
+name: S creature Vibe lane Gate A5 global review
+on:
+  push:
+    branches: [exp/s-creature-vibe-modeling]
+    paths:
+      - .github/workflows/s-creature-vibe-a5-global.yml
+      - art/s-creature/blender/render_s_vibe_a5_global.py
+permissions:
+  contents: write
+concurrency:
+  group: s-creature-vibe-a5-global
+  cancel-in-progress: false
+jobs:
+  vibe-a5-global:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: exp/s-creature-vibe-modeling
+          fetch-depth: 0
+      - name: Verify A5 source
+        run: |
+          test -f art/s-creature/output/S-vibe-a4-v2.blend
+          test "$(git branch --show-current)" = "exp/s-creature-vibe-modeling"
+      - name: Install Blender libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+      - name: Download Blender 4.3.2
+        run: |
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Render A5 global five views without edits
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-vibe-a4-v2.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/render_s_vibe_a5_global.py
+      - name: Verify zero geometry edits
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('art/s-creature')
+          r=json.loads((root/'output/S-vibe-a5-global-validation.json').read_text())
+          assert r['gate']=='A5-global-silhouette-review'
+          assert r['geometry_edit'] is False
+          assert r['geometry_unchanged']
+          assert r['geometry_hash_before']==r['geometry_hash_after']
+          for stem in ('side','front','front34','rear34','back'):
+              assert (root/f'output/review/vibe-a5-global/S_vibe_a5_{stem}.png').stat().st_size>0
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: S-vibe-A5-global-review
+          path: |
+            art/s-creature/output/S-vibe-a5-global-validation.json
+            art/s-creature/output/review/vibe-a5-global/
+          if-no-files-found: error
+      - name: Commit A5 review
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add art/s-creature/output/S-vibe-a5-global-validation.json art/s-creature/output/review/vibe-a5-global/ art/s-creature/CHECKPOINT.md art/s-creature/HANDOFF_STATE.json
+          git commit -m 'art: save Vibe A5 global review'
+          git push origin HEAD:exp/s-creature-vibe-modeling
