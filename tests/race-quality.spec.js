@@ -32,6 +32,9 @@ test("four morph race uses all six-frame sheets in fixed-step race", async ({ pa
   await expect(stage).toHaveAttribute("data-p-frame", /[0-5]/);
   await expect(stage).toHaveAttribute("data-e-frame", /[0-5]/);
   await expect(stage).toHaveAttribute("data-a-frame", /[0-5]/);
+  await expect(stage).toHaveAttribute("data-camera-roll", /-?\d+\.\d+/);
+  await expect(stage).toHaveAttribute("data-camera-lift", /-?\d+\.\d+/);
+  await expect(stage).toHaveAttribute("data-overtake-pulse", /\d+\.\d+/);
 
   await page.waitForTimeout(1800);
   fs.mkdirSync("test-results/visuals", { recursive: true });
