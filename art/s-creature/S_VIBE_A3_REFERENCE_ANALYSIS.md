@@ -148,3 +148,83 @@ Hard validation:
 
 Stop after SIDE / FRONT / FRONT34 / BACK.
 Do not start A3b hindlimbs automatically.
+
+## A3a-v1 decision
+
+Decision: KEEP.
+
+Observed:
+- SIDE now shows a clearer elbow-to-wrist directional change.
+- forelimb no longer reads as one continuous rod at Gate-A silhouette scale.
+- FRONT remains narrow; no splayed-leg regression.
+- fore toes and foot-root interface stayed fixed.
+- remaining proximal faceting is a Gate-B anatomical massing issue, not a reason to reopen Gate-A forelimb rhythm.
+
+Accepted A3a source:
+- output/S-vibe-a3a-v1.blend
+
+## A3b — hindlimb chain only
+
+Editable:
+- S_hindlimb_L
+- S_hindlimb_R
+
+Hard fixed:
+- complete core
+- accepted crest
+- accepted forelimbs from A3a
+- all fore toes / feet
+- all hind toes / feet
+- tail
+- all non-hindlimb topology
+
+Single hypothesis:
+Make hip/knee/hock rhythm clearly different from the accepted forelimb while reducing the current oversized proximal cone.
+
+Target rhythm:
+- hip/root remains near current attachment
+- thigh descends forward toward a readable knee
+- lower leg returns rearward toward the hock
+- distal segment stays long/light
+- foot-root final station is preserved exactly
+
+Target 8-station chain for each mirrored side:
+
+0 hip/root:
+- X ±0.109, Y 0.815, Z 0.982
+- lateral radius 0.072, sagittal radius 0.110
+
+1 upper thigh:
+- X ±0.145, Y 0.745, Z 0.850
+- lateral radius 0.064, sagittal radius 0.086
+
+2 knee:
+- X ±0.164, Y 0.630, Z 0.720
+- lateral radius 0.041, sagittal radius 0.050
+
+3 hock-direction hinge:
+- X ±0.164, Y 0.825, Z 0.565
+- lateral radius 0.033, sagittal radius 0.050
+
+4 distal hindlimb:
+- X ±0.158, Y 1.050, Z 0.315
+- lateral radius 0.022, sagittal radius 0.032
+
+5 distal joint:
+- X ±0.153, Y 1.055, Z 0.220
+- lateral radius 0.019, sagittal radius 0.025
+
+6 pre-foot segment:
+- X ±0.150, Y 0.985, Z 0.087
+- lateral radius 0.023, sagittal radius 0.021
+
+7 foot-root interface:
+- preserve source ring exactly
+
+Acceptance:
+- hindlimb rhythm is visibly different from forelimb
+- knee/hock direction change is readable in SIDE
+- proximal thigh is athletic, not a pasted-on cone
+- distal hindlimb remains long/light
+- feet/toes exact fixed
+- no body or forelimb change
