@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_A3A_READY",
-  "current_stage": "A2 accepted; A3a forelimb-only correction ready",
+  "stage": "VIBE_EXPERIMENT_A3A_V1_REVIEW",
+  "current_stage": "A3a-v1 forelimb joint rhythm rendered; review pending; modeling stopped",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
-  "current_model_file": "output/S-vibe-a2b-v1.blend",
+  "current_model_file": "output/S-vibe-a3a-v1.blend",
   "source_model_file": "NONE / fresh empty scene",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Execute A3a only from output/S-vibe-a2b-v1.blend. Edit S_forelimb_L/R using S_VIBE_A3_REFERENCE_ANALYSIS.md. Preserve core, crest, hindlimbs, all feet/toes and topology exactly. Render SIDE/FRONT/FRONT34/BACK; STOP.",
+  "next_action": "Review A3a-v1 forelimb rhythm. Do not edit hindlimbs or feet before explicit A3a decision.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -59,20 +59,17 @@
     "output/S-rebuild-v1.blend"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "A1_ACCEPTED_A2_ACCEPTED_A3_ANALYSIS",
-  "modeling_status": "READY_FOR_A3A",
+  "gate_a_status": "A1_ACCEPTED_A2_ACCEPTED_A3A_V1_REVIEW_PENDING",
+  "modeling_status": "STOPPED",
   "cage_vertex_count": 760,
   "review_renders": [
-    "output/review/vibe-a2b-v1/S_vibe_a2b_v1_side.png",
-    "output/review/vibe-a2b-v1/S_vibe_a2b_v1_front.png",
-    "output/review/vibe-a2b-v1/S_vibe_a2b_v1_front34.png",
-    "output/review/vibe-a2b-v1/S_vibe_a2b_v1_back.png"
+    "output/review/vibe-a3a-v1/S_vibe_a3a_v1_side.png",
+    "output/review/vibe-a3a-v1/S_vibe_a3a_v1_front.png",
+    "output/review/vibe-a3a-v1/S_vibe_a3a_v1_front34.png",
+    "output/review/vibe-a3a-v1/S_vibe_a3a_v1_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
-  "editable_next": [
-    "S_forelimb_L",
-    "S_forelimb_R"
-  ],
+  "editable_next": [],
   "keep_fixed_next": [
     "complete core",
     "S_reference_crest_v11",
