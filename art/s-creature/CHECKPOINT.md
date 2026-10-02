@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gate B0-v018 continuity candidate rendered; REVIEW_PENDING / STOPPED
+current_stage: experimental Vibe B0 selected v025; Gate B1a local shoulder/chest cleanup ready
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-b0-v018.blend
+current_model_file: output/S-vibe-b0-v025.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review B0-v018 five-view continuity candidate against accepted Gate A. Decide whether voxel remesh preserves silhouette and safely unifies limb roots. Do not start B1 before B0 decision.
+next_action: Execute B1a from output/S-vibe-b0-v025.blend using S_VIBE_B1_REFERENCE_ANALYSIS.md. Edit only the locked shoulder/chest spatial region with boundary-tapered local relax. Preserve all outside body vertices, crest, toes and topology. Render five views and STOP.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -439,3 +439,7 @@ vibe_gate_b0_v018_renders:
 - output/review/vibe-b0-v018/S_vibe_b0_v018_front34.png
 - output/review/vibe-b0-v018/S_vibe_b0_v018_rear34.png
 - output/review/vibe-b0-v018/S_vibe_b0_v018_back.png
+
+vibe_gate_b0_v018_decision: REJECT_AS_B1_SOURCE
+vibe_gate_b0_selected: output/S-vibe-b0-v025.blend
+vibe_gate_b1a_lock: S_VIBE_B1_REFERENCE_ANALYSIS.md
