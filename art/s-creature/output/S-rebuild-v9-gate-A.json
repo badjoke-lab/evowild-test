@@ -1,0 +1,43 @@
+{
+  "gate": "A",
+  "status": "REVIEW_PENDING",
+  "source": "S-rebuild-v8.blend",
+  "scope": "four limb mesh topology rebuild only",
+  "source_geometry_sha256": "998286cb18f907082c81e11e3a1d2e3b486a832cf2f3cab39c603353651b6e61",
+  "geometry_sha256": "91d96d535e0db7128cd06a68d47babd5ec5c05ef50cff83ac9d54c5f43aa0732",
+  "core_geometry_unchanged": true,
+  "toe_geometry_unchanged": true,
+  "old_limb_vertex_counts": {
+    "S_forelimb_L": 72,
+    "S_hindlimb_L": 72,
+    "S_forelimb_R": 72,
+    "S_hindlimb_R": 72
+  },
+  "new_limb_vertex_counts": {
+    "S_forelimb_L": 96,
+    "S_hindlimb_L": 96,
+    "S_forelimb_R": 96,
+    "S_hindlimb_R": 96
+  },
+  "no_materials": true,
+  "no_animation": true,
+  "no_armature": true,
+  "changes": [
+    "Rebuilt each limb with 12 cross-section rings instead of sparse v8 chains",
+    "Added buried root and transition rings to make shoulder/pelvis connections gradual in silhouette",
+    "Added explicit elbow/knee/hock transition rings and progressive distal taper",
+    "Kept v8 frontal-plane asymmetry and exact toe meshes"
+  ],
+  "limitations": [
+    "Gate A silhouette review pending; no PASS claimed",
+    "No production welding or anatomical surface refinement"
+  ],
+  "rendered_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "geometry_unchanged_during_render": true
+}
