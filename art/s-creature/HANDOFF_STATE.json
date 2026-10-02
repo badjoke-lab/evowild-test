@@ -9,12 +9,12 @@
     "E",
     "A"
   ],
-  "stage": "S-rebuild-gate-A-v13-review",
-  "current_stage": "S-rebuild-v13 Gate A saved and five views rendered; REVIEW_PENDING / STOPPED",
+  "stage": "S-rebuild-gate-A-v14",
+  "current_stage": "S-rebuild-v13 reviewed REVISE; v14 low-rise crest fan next",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
   "current_model_file": "output/S-rebuild-v13.blend",
-  "source_model_file": "output/S-rebuild-v12.blend",
+  "source_model_file": "output/S-rebuild-v13.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
     "S_MORPHOLOGY_RESET_PLAN.md",
@@ -50,9 +50,10 @@
     "Tail and all toe geometry unchanged from v2",
     "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Review S-rebuild-v13 Gate A only. Do not proceed to Gate B.",
+  "next_action": "Execute v14 crest-only from output/S-rebuild-v13.blend. Keep blade separation but compress vertical rise; render five views; STOP.",
   "quality_issues": [
-    "Gate A v13 crest silhouette acceptance pending review"
+    "v13 frontal projection still reads as a central spear",
+    "vertical crest envelope is too tall despite good side fan separation"
   ],
   "blockers": [],
   "accepted": false,
@@ -65,8 +66,8 @@
     "references/02_s_silhouette.png"
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
-  "gate_a_status": "REVIEW_PENDING",
-  "modeling_status": "STOPPED",
+  "gate_a_status": "REVISE",
+  "modeling_status": "READY_FOR_V14",
   "cage_vertex_count": 800,
   "review_renders": [
     "output/review/rebuild-v13/S_rebuild_side.png",
@@ -98,5 +99,6 @@
   "v10_scope": "crest-only; all non-crest geometry locked",
   "v11_scope": "crest topology reset only",
   "v12_scope": "crest object only; all non-crest meshes locked",
-  "v13_scope": "crest object only; all non-crest meshes locked"
+  "v13_scope": "crest object only; all non-crest meshes locked",
+  "v14_scope": "crest object only; all non-crest meshes locked"
 }
