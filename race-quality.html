@@ -21,7 +21,7 @@
         <strong>4 MORPH / 6-FRAME RACE</strong>
       </div>
       <div class="readout">
-        <span id="rank">8 / 8</span>
+        <span id="rank">18 / 18</span>
         <b id="speed">0</b><small>km/h</small>
       </div>
     </header>
@@ -30,6 +30,26 @@
       <span>RACE STATE</span>
       <strong id="command">HOLD FORM</strong>
       <small id="reason">Pre-start</small>
+    </section>
+
+    <section class="hud agent-control" id="agentControl" aria-label="Race Agent commands">
+      <div class="agent-control-heading">
+        <span>RACE AGENT · v1</span>
+        <label for="agentTargetSelect">TARGET
+          <select id="agentTargetSelect" aria-label="Agent target runner"></select>
+        </label>
+      </div>
+      <div class="agent-control-state">
+        <span><small>STAMINA</small><strong id="agentStamina">100%</strong></span>
+        <span><small>FATIGUE</small><strong id="agentFatigue">0%</strong></span>
+        <span><small>RESPONSE</small><strong id="agentResponse">NEUTRAL</strong></span>
+      </div>
+      <div class="agent-control-actions" role="group" aria-label="Agent command">
+        <button type="button" data-agent-command="PUSH">PUSH</button>
+        <button type="button" data-agent-command="CONSERVE">CONSERVE</button>
+        <button type="button" data-agent-command="CLEAR">CLEAR</button>
+      </div>
+      <div class="agent-control-result" id="agentResult">No active command</div>
     </section>
 
     <div id="countdown" class="countdown">3</div>
