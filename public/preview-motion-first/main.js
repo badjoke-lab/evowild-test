@@ -30,6 +30,10 @@ const pressureReadoutEl = document.querySelector("#pressureReadout");
 const creatureStateReadoutEl = document.querySelector("#creatureStateReadout");
 const agentResponseReadoutEl = document.querySelector("#agentResponseReadout");
 const agentResultEl = document.querySelector("#agentResult");
+const agentFeedbackEl = document.querySelector("#agentFeedback");
+const agentFeedbackMetaEl = document.querySelector("#agentFeedbackMeta");
+const agentFeedbackCommandEl = document.querySelector("#agentFeedbackCommand");
+const agentFeedbackResultEl = document.querySelector("#agentFeedbackResult");
 const agentCommandButtons = [...document.querySelectorAll("[data-agent-command]")];
 const cameraButtons = [...document.querySelectorAll(".cam")];
 
@@ -67,6 +71,7 @@ const START_SEQUENCE_ENABLED =
   !MOTION_REVIEW_MODE;
 const TAU = Math.PI * 2;
 const AGENT_COMMAND_DURATION = 8.0;
+const AGENT_FEEDBACK_HOLD = 2.4;
 const AGENT_COMPATIBILITY = {
   S: { PUSH: 1.00, CONSERVE: 0.70 },
   P: { PUSH: 0.94, CONSERVE: 0.76 },
@@ -3445,6 +3450,11 @@ function createRunners() {
 
 function resetRace() {
   raceTime = FINISH_REVIEW_MODE ? 5.0 : 0;
+  agentFeedbackRunner = -1;
+  agentFeedbackCommand = "NEUTRAL";
+  agentFeedbackUntil = -999;
+  if (agentFeedbackEl) agentFeedbackEl.classList.add("hidden");
+  canvas.dataset.agentFeedbackVisible = "0";
   simulationAccumulator = 0;
   finished = false;
   paused = false;
@@ -3649,6 +3659,61 @@ function resolveAgentCommand(runner, dt) {
   return 1;
 }
 
+function agentFeedbackTone(result) {
+  if (["STRONG", "SETTLED"].includes(result)) return "positive";
+  if (result === "PARTIAL") return "partial";
+  if (result === "WEAK") return "weak";
+  return "neutral";
+}
+
+function showAgentFeedback(runner, command) {
+  if (!SIMPLIFIED_RACE_PAGE || !agentFeedbackEl || !runner?.agent) return;
+
+  agentFeedbackRunner = runner.id;
+  agentFeedbackCommand = command;
+  agentFeedbackUntil = raceTime + (command === "CLEAR" ? 1.6 : AGENT_FEEDBACK_HOLD);
+  agentFeedbackEl.classList.remove("hidden");
+  agentFeedbackEl.dataset.tone = "neutral";
+
+  if (agentFeedbackMetaEl) {
+    agentFeedbackMetaEl.textContent = 
+      `${runner.agent.id} → ${runner.name}`;
+  }
+  if (agentFeedbackCommandEl) agentFeedbackCommandEl.textContent = command;
+  if (agentFeedbackResultEl) {
+    agentFeedbackResultEl.textContent = command === "CLEAR" ? "CLEARED" : "PENDING";
+  }
+
+  canvas.dataset.agentFeedbackVisible = "1";
+  canvas.dataset.agentFeedbackRunner = String(runner.id);
+  canvas.dataset.agentFeedbackCommand = command;
+  canvas.dataset.agentFeedbackResult = command === "CLEAR" ? "CLEARED" : "PENDING";
+}
+
+function updateAgentFeedback() {
+  if (!SIMPLIFIED_RACE_PAGE || !agentFeedbackEl) return;
+
+  if (agentFeedbackRunner < 0 || raceTime >= agentFeedbackUntil || finished) {
+    agentFeedbackEl.classList.add("hidden");
+    canvas.dataset.agentFeedbackVisible = "0";
+    return;
+  }
+
+  const runner = runners[agentFeedbackRunner];
+  if (!runner?.agent) return;
+
+  const result =
+    agentFeedbackCommand === "CLEAR"
+      ? "CLEARED"
+      : runner.agent.lastResult === "NEUTRAL"
+        ? "PENDING"
+        : runner.agent.lastResult;
+
+  agentFeedbackEl.dataset.tone = agentFeedbackTone(result);
+  if (agentFeedbackResultEl) agentFeedbackResultEl.textContent = result;
+  canvas.dataset.agentFeedbackResult = result;
+}
+
 function issueAgentCommand(runner, command) {
   if (!runner?.agent || !["PUSH", "CONSERVE", "CLEAR"].includes(command)) return;
 
@@ -3668,6 +3733,7 @@ function issueAgentCommand(runner, command) {
   canvas.dataset.agentCommand = runner.agent.command;
   canvas.dataset.agentRunnerId = String(runner.id);
   canvas.dataset.agentCommandUntil = runner.agent.commandUntil.toFixed(3);
+  showAgentFeedback(runner, command);
 }
 
 function updateRunner(runner, dt) {
@@ -4755,6 +4821,9 @@ function rankings() {
 
 let selectedRunner = 0;
 let agentTargetRunner = 0;
+let agentFeedbackRunner = -1;
+let agentFeedbackCommand = "NEUTRAL";
+let agentFeedbackUntil = -999;
 let requestedCamera = "AUTO";
 let actualCamera = "PACK";
 let paused = false;
@@ -5339,6 +5408,7 @@ function updateHud(dt) {
       canvas.dataset.agentFocusCreatureState = agentTarget.creatureState;
       canvas.dataset.agentModel = "command-only-creature-resolved";
     }
+    updateAgentFeedback();
   }
 
   fpsAccumulator += dt;
