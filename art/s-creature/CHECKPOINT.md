@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gate A4-v1 tail silhouette rendered; REVIEW_PENDING / STOPPED
+current_stage: experimental Vibe Gate A4-v1 reviewed REVISE; A4-v2 tail stem/tip correction required
 branch: exp/s-creature-vibe-modeling
 current_model_file: output/S-vibe-a4-v1.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review A4-v1 tail against approved S body and tail references. Do not start A5 before explicit A4 decision.
+next_action: Build A4-v2 from output/S-vibe-a4-v1.blend. Edit tail rings 15-19 only. Keep v1 shortened length, reduce stem depth/width, smooth the upward terminal curve, and sharpen the restrained blade tip. Keep all non-tail geometry fixed. Render SIDE/FRONT/FRONT34/BACK and STOP.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -384,3 +384,8 @@ vibe_gate_a4_v1_renders:
 - output/review/vibe-a4-v1/S_vibe_a4_v1_front.png
 - output/review/vibe-a4-v1/S_vibe_a4_v1_front34.png
 - output/review/vibe-a4-v1/S_vibe_a4_v1_back.png
+
+vibe_gate_a4_v1_decision: REVISE
+vibe_gate_a4_v1_keep: shortened high-carried tail trajectory; no return to long descending A3 tail
+vibe_gate_a4_v1_problem: stem still too thick and segmented; terminal reads as horizontal baton/cut end instead of light upward blade
+vibe_gate_a4_v2_exact_edit: tail rings 15-19 only; preserve shortened Y extent, reduce stem section, progressively raise centerline, retain small terminal blade broadening
