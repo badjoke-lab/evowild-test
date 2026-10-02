@@ -1,0 +1,72 @@
+name: S creature Vibe lane Gate A3a v1 forelimb
+on:
+  push:
+    branches: [exp/s-creature-vibe-modeling]
+    paths:
+      - .github/workflows/s-creature-vibe-a3a-v1.yml
+      - art/s-creature/blender/refine_s_vibe_a3a_v1.py
+      - art/s-creature/blender/render_s_vibe_a3a_v1.py
+permissions:
+  contents: write
+concurrency:
+  group: s-creature-vibe-a3a-v1
+  cancel-in-progress: false
+jobs:
+  vibe-a3a-v1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: exp/s-creature-vibe-modeling
+          fetch-depth: 0
+      - name: Verify A3a source
+        run: |
+          test -f art/s-creature/output/S-vibe-a2b-v1.blend
+          test "$(git branch --show-current)" = "exp/s-creature-vibe-modeling"
+      - name: Install Blender libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+      - name: Download Blender 4.3.2
+        run: |
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Apply forelimb joint rhythm only
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-vibe-a2b-v1.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/refine_s_vibe_a3a_v1.py
+      - name: Render four A3a-v1 views
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-vibe-a3a-v1.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/render_s_vibe_a3a_v1.py
+      - name: Verify A3a hard scope
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('art/s-creature')
+          r=json.loads((root/'output/S-vibe-a3a-v1-validation.json').read_text())
+          assert r['gate']=='A3a-v1-forelimb-joint-rhythm'
+          assert r['foot_root_station_6_unchanged']
+          assert r['forelimb_topology_unchanged']
+          assert r['fixed_geometry_unchanged']
+          assert r['render_geometry_unchanged']
+          for stem in ('side','front','front34','back'):
+              assert (root/f'output/review/vibe-a3a-v1/S_vibe_a3a_v1_{stem}.png').stat().st_size>0
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: S-vibe-A3a-v1-review
+          path: |
+            art/s-creature/output/S-vibe-a3a-v1.blend
+            art/s-creature/output/S-vibe-a3a-v1-validation.json
+            art/s-creature/output/review/vibe-a3a-v1/
+          if-no-files-found: error
+      - name: Commit A3a-v1 result
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add art/s-creature/output/S-vibe-a3a-v1.blend art/s-creature/output/S-vibe-a3a-v1-validation.json art/s-creature/output/review/vibe-a3a-v1/ art/s-creature/CHECKPOINT.md art/s-creature/HANDOFF_STATE.json
+          git commit -m 'art: save Vibe A3a-v1 forelimb review'
+          git push origin HEAD:exp/s-creature-vibe-modeling
