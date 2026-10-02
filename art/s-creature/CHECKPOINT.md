@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gate A5 global five-view rendered; REVIEW_PENDING / STOPPED
+current_stage: experimental Vibe Gate A ACCEPTED; Gate B0 continuity feasibility test ready
 branch: exp/s-creature-vibe-modeling
 current_model_file: output/S-vibe-a4-v2.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review A5 SIDE/FRONT/FRONT34/REAR34/BACK globally against approved S references and decide overall experimental Gate A. Do not start Gate B before the A5 decision.
+next_action: Execute Gate B0 continuity feasibility test from immutable Gate A source output/S-vibe-a4-v2.blend using S_VIBE_GATE_B_METHOD.md. Build a separate voxel-remesh candidate; preserve crest/toes; render five views; do not overwrite Gate A.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -411,3 +411,9 @@ vibe_gate_a5_renders:
 - output/review/vibe-a5-global/S_vibe_a5_front34.png
 - output/review/vibe-a5-global/S_vibe_a5_rear34.png
 - output/review/vibe-a5-global/S_vibe_a5_back.png
+
+vibe_gate_a5_decision: ACCEPTED
+vibe_gate_a_decision: ACCEPTED
+vibe_gate_a_accepted_model: output/S-vibe-a4-v2.blend
+vibe_gate_b_method: S_VIBE_GATE_B_METHOD.md
+vibe_gate_b0_status: READY
