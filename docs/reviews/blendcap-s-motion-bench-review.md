@@ -10,7 +10,24 @@ BlendCap pin: `e3238699507c00e34b6c948931c4742915b8dc42`
 
 EvoWild input: `public/models/evowild-s/focus-rigged-v5.glb`
 
-## Gate 0 — environment
+## Gate 0A — upstream source audit
+
+Status: `PASS_SOURCE_AUDIT`
+
+Verified against pinned upstream source:
+
+- Blender manifest minimum is 4.2.0
+- source-build requirements target Python 3.12
+- CPU-only execution is explicitly patched in `save_mhr_data.py`
+- Apple Silicon has an MPS fallback path, but the paid build remains officially unsupported on macOS
+- custom target rigs are supported through the bone-map editor
+- SAM 3D Body weights are required and gated by Meta license acceptance
+- YOLO11 pose weights are required
+- source build is explicitly unsupported by the vendor even though source is available
+
+This source audit does **not** prove the user's Intel Mac can complete capture at practical speed.
+
+## Gate 0B — execution environment
 
 Probe result: `UNSET`
 
@@ -118,4 +135,4 @@ Allowed values:
 
 Reason: `UNSET`
 
-Exact next action: `RUN_GATE0_PROBE`
+Exact next action: `RUN_GATE0_EXECUTION_PROBE`
