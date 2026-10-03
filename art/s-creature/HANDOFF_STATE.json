@@ -9,12 +9,12 @@
     "E",
     "A"
   ],
-  "stage": "S-gate-B-v3-review",
-  "current_stage": "S Gate B v3 shoulder/chest plane massing saved and five views rendered; REVIEW_PENDING / STOPPED",
+  "stage": "S-gate-B-v4-ready",
+  "current_stage": "S Gate B v3 reviewed KEEP; Gate B v4 feet refinement ready",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
   "current_model_file": "output/S-gateB-v3.blend",
-  "source_model_file": "output/S-gateB-v2.blend",
+  "source_model_file": "output/S-gateB-v3.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
     "S_MORPHOLOGY_RESET_PLAN.md",
@@ -50,9 +50,9 @@
     "Tail and all toe geometry unchanged from v2",
     "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Review Gate B v3 only. Do not proceed to v4 before decision.",
+  "next_action": "Execute Gate B v4 from output/S-gateB-v3.blend. Modify only toe meshes for small racing-foot taper/spread; render five views and STOP.",
   "quality_issues": [
-    "Gate B v3 shoulder/chest plane massing acceptance pending review"
+    "Gate B v4 feet refinement not yet executed"
   ],
   "blockers": [],
   "accepted": true,
@@ -66,7 +66,7 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "PASS",
-  "modeling_status": "STOPPED",
+  "modeling_status": "READY_FOR_GATE_B_V4",
   "cage_vertex_count": 800,
   "review_renders": [
     "output/review/gate-b-v3/S_gateB_side.png",
@@ -100,10 +100,12 @@
   "v12_scope": "crest object only; all non-crest meshes locked",
   "v13_scope": "crest object only; all non-crest meshes locked",
   "v14_scope": "crest object only; all non-crest meshes locked",
-  "gate_b_status": "REVIEW_PENDING",
+  "gate_b_status": "KEEP_V3_READY_FOR_V4",
   "gate_b_v1_scope": "proximal six rings of four limb meshes only",
   "gate_b_v1_decision": "KEEP",
   "gate_b_v2_scope": "crest topology addition only; no existing coordinate changes",
   "gate_b_v2_decision": "KEEP",
-  "gate_b_v3_scope": "core thorax rings 8-10 only"
+  "gate_b_v3_scope": "core thorax rings 8-10 only",
+  "gate_b_v3_decision": "KEEP",
+  "gate_b_v4_scope": "12 toe meshes only"
 }
