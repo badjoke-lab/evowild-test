@@ -1,11 +1,6 @@
 name: Pixal3D T1 anonymous clean-input smoke
 
 on:
-  push:
-    branches:
-      - exp/trellis2-pixal3d-s-bench-20261004
-    paths:
-      - ".github/workflows/trellis2-pixal3d-t1-anon-pixal.yml"
   workflow_dispatch:
 
 permissions:
