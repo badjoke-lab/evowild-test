@@ -243,3 +243,31 @@ test("2.5D battle readability shows overtake attempt and completion", async ({ p
   });
 });
 
+test("2.5D traffic sees nearby rivals during fractional lane movement", async ({ page }, testInfo) => {
+  await page.goto("/evowild-test/race-quality.html?trafficReview=1", { waitUntil: "networkidle" });
+  const stage = page.locator("#stage");
+
+  await expect(stage).toHaveAttribute("data-traffic-review", "1");
+  await expect(stage).toHaveAttribute("data-traffic-model", "continuous-lane-proximity");
+  await expect(stage).toHaveAttribute("data-race-state", "running", { timeout: 8000 });
+
+  await expect.poll(async () => {
+    const value = Number(await stage.getAttribute("data-selected-gap-ahead"));
+    return Number.isFinite(value) ? value : 999;
+  }, { timeout: 3000 }).toBeLessThan(7.5);
+
+  const gap = Number(await stage.getAttribute("data-selected-gap-ahead"));
+  expect(gap).toBeGreaterThan(0);
+  expect(gap).toBeLessThan(7.5);
+
+  await page.locator("#agentTargetSelect").selectOption("0");
+  await page.waitForTimeout(120);
+  const pressure = Number(await stage.getAttribute("data-agent-focus-pressure"));
+  expect(pressure).toBeGreaterThan(0.08);
+
+  fs.mkdirSync("artifacts/2p5d-survivor", { recursive: true });
+  await stage.screenshot({
+    path: `artifacts/2p5d-survivor/2p5d-survivor-traffic-proximity-${testInfo.project.name}.png`
+  });
+});
+
