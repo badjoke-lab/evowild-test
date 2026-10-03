@@ -41,6 +41,7 @@ const BASE = import.meta.env.BASE_URL || "/";
 const FINISH_REVIEW_MODE = new URLSearchParams(location.search).get("finishReview") === "1";
 const BATTLE_REVIEW_MODE = new URLSearchParams(location.search).get("battleReview") === "1";
 const TRAFFIC_REVIEW_MODE = new URLSearchParams(location.search).get("trafficReview") === "1";
+const LANE_REVIEW_MODE = new URLSearchParams(location.search).get("laneReview") === "1";
 const FIELD_SIZE = 18;
 const SELECTED_ID = 1;
 const RACE_METERS = 1600;
@@ -282,7 +283,9 @@ function makeRacers() {
         ? i===0 ? 120 : i===1 ? 124 : 72 - (i-2)*2
         : TRAFFIC_REVIEW_MODE
           ? i===0 ? 100 : i===1 ? 105 : 62 - (i-2)*1.6
-          : Math.floor(i / 4) * 4.4 + (i % 4) * 0.28,
+          : LANE_REVIEW_MODE
+            ? i===0 ? 100 : i===1 ? 104 : i===2 ? 103 : 62 - (i-3)*1.4
+            : Math.floor(i / 4) * 4.4 + (i % 4) * 0.28,
     speed:0,
     cruise:CRUISE[i],
     accel:ACCEL[i],
@@ -298,16 +301,31 @@ function makeRacers() {
         ? 1
         : TRAFFIC_REVIEW_MODE && i===1
           ? 1.42
-          : LANES[i],
+          : LANE_REVIEW_MODE && i===0
+            ? 1
+            : LANE_REVIEW_MODE && i===1
+              ? 1
+              : LANE_REVIEW_MODE && i===2
+                ? 2
+                : LANES[i],
     targetLane:BATTLE_REVIEW_MODE && i<2
       ? 1
       : TRAFFIC_REVIEW_MODE && i===0
         ? 1
         : TRAFFIC_REVIEW_MODE && i===1
           ? 1.42
-          : LANES[i],
+          : LANE_REVIEW_MODE && i===0
+            ? 1
+            : LANE_REVIEW_MODE && i===1
+              ? 1
+              : LANE_REVIEW_MODE && i===2
+                ? 2
+                : LANES[i],
     phaseOffset:i*0.87,
-    cooldown:(BATTLE_REVIEW_MODE && i<2) || (TRAFFIC_REVIEW_MODE && i<2) ? 999999 : 0,
+    cooldown:(BATTLE_REVIEW_MODE && i<2) || (TRAFFIC_REVIEW_MODE && i<2) || (LANE_REVIEW_MODE && (i===1 || i===2)) ? 999999 : 0,
+    laneHoldUntil:0,
+    laneDecisionCount:0,
+    laneChangeStartedAt:-999999,
     command:"HOLD FORM",
     reason:"Pre-start",
     finished:false,
@@ -460,11 +478,51 @@ function gapAhead(r) {
   }
   return best;
 }
+function laneForwardGap(r, lane, limit=22) {
+  let best = limit;
+  for (const other of racers) {
+    if (other===r || other.finished || !sameTrafficLine(other.lane,lane)) continue;
+    const gap=other.distance-r.distance;
+    if (gap>0 && gap<best) best=gap;
+  }
+  return best;
+}
+
+function laneRearGap(r, lane, limit=12) {
+  let best = limit;
+  for (const other of racers) {
+    if (other===r || other.finished || !sameTrafficLine(other.lane,lane)) continue;
+    const gap=r.distance-other.distance;
+    if (gap>0 && gap<best) best=gap;
+  }
+  return best;
+}
+
+function laneOpportunityScore(r, lane) {
+  const forward=laneForwardGap(r,lane,22);
+  const rear=laneRearGap(r,lane,12);
+  const rearPenalty=rear<5 ? (5-rear)*2.4 : 0;
+  const shiftCost=Math.abs(lane-r.lane)*1.35;
+  return forward-rearPenalty-shiftCost;
+}
+
 function chooseLane(r) {
-  const choices = [r.lane-1,r.lane+1,r.lane-2,r.lane+2]
-    .filter(l => l>=0 && l<=3 && !occupiedNear(r,l,9))
-    .sort((a,b) => Math.abs(a-r.lane)-Math.abs(b-r.lane));
-  return choices[0] ?? r.lane;
+  const currentLane=clamp(Math.round(r.lane),0,3);
+  const currentScore=laneOpportunityScore(r,currentLane);
+  let bestLane=currentLane;
+  let bestScore=currentScore;
+
+  for (let lane=0;lane<=3;lane++) {
+    if (lane===currentLane || occupiedNear(r,lane,7.0)) continue;
+    const score=laneOpportunityScore(r,lane);
+    if (score>bestScore) {
+      bestScore=score;
+      bestLane=lane;
+    }
+  }
+
+  // Do not weave for marginal gains. A line change needs a clear traffic benefit.
+  return bestScore>=currentScore+2.5 ? bestLane : currentLane;
 }
 
 function computeRunnerPressure(r) {
@@ -612,13 +670,18 @@ function targetSpeedFor(r) {
   const p = r.distance/RACE_METERS;
   let target = r.cruise * (p<.15 ? 1.035 : p>.87 ? 1.085 : p>.68 ? 1.025 : 1.0);
   const gap = gapAhead(r);
-  if (gap<7.5 && r.cooldown<=0) {
+  const laneSettled=Math.abs(r.lane-r.targetLane)<0.04;
+  const canReconsiderLane=r.cooldown<=0 && elapsed>=r.laneHoldUntil && laneSettled;
+  if (gap<7.5 && canReconsiderLane) {
     const nextLane = chooseLane(r);
-    if (nextLane!==r.lane) {
+    if (Math.abs(nextLane-r.lane)>=0.25) {
       r.targetLane = nextLane;
-      r.cooldown = 1500;
+      r.cooldown = 1200;
+      r.laneHoldUntil = elapsed + 3000;
+      r.laneChangeStartedAt = elapsed;
+      r.laneDecisionCount += 1;
       r.command = "SHIFT LINE";
-      r.reason = "Traffic ahead";
+      r.reason = "Better forward clearance";
       target *= 1.015;
     } else {
       target *= clamp(gap/7.5,.77,.97);
@@ -1332,6 +1395,11 @@ function updateUI(now){
   stage.dataset.selectedRank=String(rankOf(focus));
   const selectedGap=gapAhead(focus);
   stage.dataset.selectedGapAhead=Number.isFinite(selectedGap)?selectedGap.toFixed(2):"";
+  stage.dataset.selectedLane=focus.lane.toFixed(2);
+  stage.dataset.selectedTargetLane=focus.targetLane.toFixed(2);
+  stage.dataset.selectedLaneDecisionCount=String(focus.laneDecisionCount);
+  stage.dataset.selectedLaneHoldRemaining=String(Math.max(0,focus.laneHoldUntil-elapsed).toFixed(0));
+  stage.dataset.laneDecisionModel="clearance-score-with-hysteresis";
   stage.dataset.trafficModel="continuous-lane-proximity";
   stage.dataset.courseBank=courseBank(focus.distance).toFixed(2);
   stage.dataset.cameraMeters=cameraMeters.toFixed(2);
@@ -1423,6 +1491,8 @@ stage.dataset.winnerTime="";
 stage.dataset.finishReview=FINISH_REVIEW_MODE?"1":"0";
 stage.dataset.battleReview=BATTLE_REVIEW_MODE?"1":"0";
 stage.dataset.trafficReview=TRAFFIC_REVIEW_MODE?"1":"0";
+stage.dataset.laneReview=LANE_REVIEW_MODE?"1":"0";
+stage.dataset.laneDecisionModel="clearance-score-with-hysteresis";
 stage.dataset.trafficModel="continuous-lane-proximity";
 stage.dataset.battleVisible="0";
 stage.dataset.battleState="CLEAR";
