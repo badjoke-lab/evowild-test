@@ -1,0 +1,33 @@
+{
+  "gate": "C",
+  "pass": "v3",
+  "status": "REVIEW_PENDING",
+  "source": "S-gateC-v2.blend",
+  "scope": "crest Bevel modifier only",
+  "source_geometry_sha256": "a037893c093cc3db45e386a80c5258e12083515f2a4a48fc228c986eb64ad92c",
+  "base_geometry_sha256": "a037893c093cc3db45e386a80c5258e12083515f2a4a48fc228c986eb64ad92c",
+  "base_coordinates_unchanged": true,
+  "base_topology_unchanged": true,
+  "crest_bevel_width": 0.006,
+  "crest_bevel_segments": 2,
+  "crest_bevel_angle_degrees": 20.0,
+  "all_other_modifier_stacks_unchanged": true,
+  "no_materials": true,
+  "no_animation": true,
+  "no_armature": true,
+  "changes": [
+    "Added a two-segment angle-limited Bevel modifier to the crest group only"
+  ],
+  "limitations": [
+    "Gate C v3 review pending",
+    "No destructive welding/retopology or materials yet"
+  ],
+  "rendered_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "base_geometry_unchanged_during_render": true
+}

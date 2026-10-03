@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "S-gate-C-v3-ready",
-  "current_stage": "S Gate C v2 reviewed KEEP; Gate C v3 crest bevel integration ready",
+  "stage": "S-gate-C-v3-review",
+  "current_stage": "S Gate C v3 crest bevel integration saved and five views rendered; REVIEW_PENDING / STOPPED",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
-  "current_model_file": "output/S-gateC-v2.blend",
+  "current_model_file": "output/S-gateC-v3.blend",
   "source_model_file": "output/S-gateC-v2.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -50,9 +50,9 @@
     "Tail and all toe geometry unchanged from v2",
     "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Execute Gate C v3 from output/S-gateC-v2.blend. Add a small non-destructive Bevel to crest only; render five views and STOP.",
+  "next_action": "Review Gate C v3 only. Do not proceed before decision.",
   "quality_issues": [
-    "Crest remains visually too faceted against smoothed body"
+    "Gate C v3 crest bevel acceptance pending review"
   ],
   "blockers": [],
   "accepted": true,
@@ -66,14 +66,14 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "PASS",
-  "modeling_status": "READY_FOR_GATE_C_V3",
+  "modeling_status": "STOPPED",
   "cage_vertex_count": 800,
   "review_renders": [
-    "output/review/gate-c-v2/S_gateC_side.png",
-    "output/review/gate-c-v2/S_gateC_front.png",
-    "output/review/gate-c-v2/S_gateC_front34.png",
-    "output/review/gate-c-v2/S_gateC_rear34.png",
-    "output/review/gate-c-v2/S_gateC_back.png"
+    "output/review/gate-c-v3/S_gateC_side.png",
+    "output/review/gate-c-v3/S_gateC_front.png",
+    "output/review/gate-c-v3/S_gateC_front34.png",
+    "output/review/gate-c-v3/S_gateC_rear34.png",
+    "output/review/gate-c-v3/S_gateC_back.png"
   ],
   "geometry_sha256": "a037893c093cc3db45e386a80c5258e12083515f2a4a48fc228c986eb64ad92c",
   "geometry_unchanged_during_render": true,
@@ -111,7 +111,7 @@
   "gate_b_accepted_model": "output/S-gateB-v4.blend",
   "gate_b_v4_decision": "KEEP",
   "gate_b_tail_root_decision": "KEEP_AS_IS",
-  "gate_c_status": "KEEP_V2_READY_FOR_V3",
+  "gate_c_status": "REVIEW_PENDING",
   "gate_c_v1_scope": "modifier-only surface preview on core + four limb meshes",
   "gate_c_v1_decision": "KEEP",
   "gate_c_v2_scope": "proximal limb rings 0-1 only; existing modifiers retained",
