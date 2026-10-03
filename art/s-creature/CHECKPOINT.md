@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S Gate B v2 crest-root integration saved and five views rendered; REVIEW_PENDING / STOPPED
+current_stage: S Gate B v2 reviewed KEEP; Gate B v3 shoulder/chest plane massing ready
 branch: feat/s-creature-model
 current_model_file: output/S-gateB-v2.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review Gate B v2 crest-root integration only. Do not proceed to Gate B v3 before decision.
+next_action: Execute Gate B v3 shoulder/chest plane massing only from S-gateB-v2.blend. Modify core thorax rings 8-10 only; preserve head/neck/crest/waist/pelvis/tail/limbs/toes exactly. Render five views and stop.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -137,7 +137,7 @@ gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
 gate_a_status: PASS
-modeling_status: STOPPED
+modeling_status: READY_FOR_GATE_B_V3
 gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
 gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
@@ -348,3 +348,8 @@ gate_b_v2_rule: crest-root integration only. Preserve every existing vertex coor
 gate_b_v2_done: Shared crest saddle appended; every pre-existing coordinate and every non-crest mesh preserved; five views rendered.
 gate_b_v2_acceptance: REVIEW_PENDING
 gate_b_v2_geometry_sha256: 3beb40379d45f4704de452b53d2826d7f030a4f8a9d69f145bd3ddf9a253f349
+
+gate_b_v2_decision: KEEP
+gate_b_v2_reason: The added shared saddle makes the five crest blades read more like one skull-integrated structure in SIDE/FRONT34 without changing the accepted crest silhouette or creating a new horn/spike read. Validation confirms every pre-existing coordinate and every non-crest mesh remained unchanged.
+gate_b_v2_keep: S-gateB-v2.blend becomes the Gate B base.
+gate_b_v3_rule: shoulder/chest plane massing only. Modify only core thorax rings 8-10; preserve all other core vertices and every non-core mesh exactly.
