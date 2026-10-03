@@ -1,0 +1,42 @@
+name: Pixal3D T1 anonymous clean-input smoke
+
+on:
+  push:
+    branches:
+      - exp/trellis2-pixal3d-s-bench-20261004
+    paths:
+      - ".github/workflows/trellis2-pixal3d-t1-anon-pixal.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      HF_TOKEN: ""
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install clients
+        run: python -m pip install --upgrade gradio_client pillow
+      - name: Prepare clean shared input
+        run: python scripts/prepare_trellis2_pixal3d_inputs.py
+      - name: Generate Pixal3D candidate anonymously
+        run: >-
+          python scripts/trellis2_pixal3d_generate.py
+          --engine pixal3d
+          --seed 0
+          --resolution 1024
+          --input art/s-creature/experiments/trellis2-pixal3d/prepared/primary_clean_v1.png
+      - name: Upload candidate or failure report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s-pixal3d-clean-anon-seed-0000
+          path: art/s-creature/experiments/trellis2-pixal3d/raw/pixal3d/seed-0000/
+          if-no-files-found: error
