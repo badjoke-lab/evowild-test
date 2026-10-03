@@ -1495,3 +1495,56 @@ test("Motion First Agent feedback v1 shows order then creature result", async ({
   await expect(page.locator("#agentFeedbackResult")).toHaveText("CLEARED");
   await expect(page.locator("#scene")).toHaveAttribute("data-agent-feedback-result", "CLEARED");
 });
+
+
+test("Motion First Visual Swap Gate v1 replaces S rendering without replacing race state", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(30000);
+
+  const assetResponses = [];
+  page.on("response", (response) => {
+    if (response.url().includes("/models/evowild-s/race-lod4-rigged-v5.glb")) {
+      assetResponses.push(response.status());
+    }
+  });
+
+  await page.goto(
+    "/evowild-test/preview-motion-first-race/index.html?visualSwap=S&visualSwapRunner=0&proxyReviewRunner=0",
+    { waitUntil: "networkidle" }
+  );
+
+  const scene = page.locator("#scene");
+  await expect(scene).toHaveAttribute("data-visual-swap-ready", "1");
+  await expect(scene).toHaveAttribute("data-visual-swap-mode", "external-native-clip");
+  await expect(scene).toHaveAttribute("data-visual-swap-morph", "S");
+  await expect(scene).toHaveAttribute("data-visual-swap-runner", "0");
+  await expect(scene).toHaveAttribute("data-visual-swap-proxy-suppressed", "1");
+  await expect(scene).toHaveAttribute("data-runner-count", "18");
+  await expect(scene).toHaveAttribute("data-visual-swap-runner-count", "1");
+  await expect(scene).toHaveAttribute("data-proxy-runner-count", "17");
+  expect(assetResponses.some((status) => status >= 200 && status < 400)).toBeTruthy();
+
+  const clipCount = Number(await scene.getAttribute("data-visual-swap-clip-count"));
+  expect(clipCount).toBeGreaterThan(0);
+  await expect(page.locator("#cameraReadout")).toHaveText("SIDE");
+
+  await page.waitForTimeout(2200);
+  const speed = Number(await scene.getAttribute("data-race-time"));
+  const playback = Number(await scene.getAttribute("data-visual-swap-playback-rate"));
+  expect(speed).toBeGreaterThan(1);
+  expect(playback).toBeGreaterThan(0);
+
+  await page.getByRole("button", { name: "PUSH", exact: true }).click();
+  await expect(scene).toHaveAttribute("data-agent-command", "PUSH");
+  await page.waitForTimeout(350);
+  expect(Number(await scene.getAttribute("data-agent-focus-response"))).toBeGreaterThan(0.45);
+
+  const renderCalls = Number(await scene.getAttribute("data-render-calls"));
+  expect(Number.isFinite(renderCalls)).toBeTruthy();
+  expect(renderCalls).toBeLessThan(100);
+
+  await scene.screenshot({
+    path: "test-results/visuals/motion-first-visual-swap-s-v1.png"
+  });
+});
