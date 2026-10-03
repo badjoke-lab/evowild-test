@@ -23,10 +23,9 @@ silhouette = ROOT / "art/s-creature/references/02_s_silhouette.png"
 
 # Pure crop/pad candidates. No repainting, inpainting or shape edits.
 candidates = [
-    (primary, (0, 78, 230, 305), "primary_crop_d.png"),
-    (primary, (8, 84, 238, 310), "primary_crop_e.png"),
-    (primary, (0, 88, 250, 315), "primary_crop_f.png"),
-    (silhouette, (25, 82, 235, 315), "silhouette_crop_b.png"),
+    (primary, (0, 88, 215, 285), "primary_clean_v1.png"),
+    (primary, (4, 84, 220, 292), "primary_clean_v1_wide.png"),
+    (silhouette, (32, 92, 218, 286), "silhouette_clean_v1.png"),
 ]
 
 paths = [padded_crop(*c) for c in candidates]
