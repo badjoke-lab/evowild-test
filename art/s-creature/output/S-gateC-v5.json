@@ -1,0 +1,40 @@
+{
+  "gate": "C",
+  "pass": "v5",
+  "status": "REVIEW_PENDING",
+  "source": "S-gateC-v4.blend",
+  "scope": "two eye-marker objects only",
+  "source_geometry_sha256": "a037893c093cc3db45e386a80c5258e12083515f2a4a48fc228c986eb64ad92c",
+  "base_geometry_sha256": "a037893c093cc3db45e386a80c5258e12083515f2a4a48fc228c986eb64ad92c",
+  "existing_coordinates_unchanged": true,
+  "existing_topology_unchanged": true,
+  "existing_modifiers_unchanged": true,
+  "existing_material_assignments_unchanged": true,
+  "eye_objects": [
+    "S_eye_L",
+    "S_eye_R"
+  ],
+  "eye_radius": 0.017,
+  "eye_color": [
+    0.05,
+    0.72,
+    0.95,
+    1.0
+  ],
+  "no_cue_band": true,
+  "no_pattern": true,
+  "no_animation": true,
+  "no_armature": true,
+  "limitations": [
+    "Gate C v5 eye-marker review pending",
+    "Cue Band and surface pattern remain deferred"
+  ],
+  "rendered_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "base_geometry_unchanged_during_render": true
+}
