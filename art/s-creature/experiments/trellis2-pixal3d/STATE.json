@@ -22,6 +22,12 @@
       "status": "PENDING"
     }
   ],
+  "t0_probe": {
+    "script": "scripts/trellis2_pixal3d_t0.py",
+    "workflow": ".github/workflows/trellis2-pixal3d-t0.yml",
+    "mode": "endpoint metadata only / no GPU generation",
+    "status": "ARMED"
+  },
   "constraints": [
     "experiment branch only",
     "no feat/s-creature-model changes",
@@ -30,5 +36,5 @@
     "no paid GPU jobs",
     "no manual morphology edit before T1 decision"
   ],
-  "next_action": "Run one free/public generation per engine from the locked input; record output or blocker."
+  "next_action": "Collect T0 endpoint metadata; then execute one free/public generation per reachable engine."
 }
