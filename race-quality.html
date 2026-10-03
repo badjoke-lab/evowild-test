@@ -42,6 +42,8 @@
       <div class="agent-control-state">
         <span><small>STAMINA</small><strong id="agentStamina">100%</strong></span>
         <span><small>FATIGUE</small><strong id="agentFatigue">0%</strong></span>
+        <span><small>PRESSURE</small><strong id="agentPressure">0%</strong></span>
+        <span><small>STATE</small><strong id="creatureState">FRESH</strong></span>
         <span><small>RESPONSE</small><strong id="agentResponse">NEUTRAL</strong></span>
       </div>
       <div class="agent-control-actions" role="group" aria-label="Agent command">
@@ -51,6 +53,15 @@
       </div>
       <div class="agent-control-result" id="agentResult">No active command</div>
     </section>
+
+    <div class="agent-feedback" id="agentFeedback" aria-live="polite" data-tone="neutral" hidden>
+      <span class="agent-feedback-orb" aria-hidden="true"></span>
+      <div class="agent-feedback-copy">
+        <small id="agentFeedbackMeta">AGENT-01 → Mica</small>
+        <strong id="agentFeedbackCommand">PUSH</strong>
+        <span id="agentFeedbackResult">PENDING</span>
+      </div>
+    </div>
 
     <div id="countdown" class="countdown">3</div>
 
