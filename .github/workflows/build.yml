@@ -27,6 +27,13 @@ jobs:
           else
             npm run test:e2e
           fi
+      - name: Upload Visual Shader Lab V0 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-shader-lab-v0
+          path: artifacts/shader-lab/*.png
+          if-no-files-found: warn
       - name: Upload 2.5D survivor visuals
         if: always()
         uses: actions/upload-artifact@v4
