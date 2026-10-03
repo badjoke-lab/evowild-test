@@ -1,0 +1,37 @@
+{
+  "gate": "B",
+  "pass": "v3",
+  "status": "REVIEW_PENDING",
+  "source": "S-gateB-v2.blend",
+  "scope": "core thorax rings 8-10 only",
+  "source_geometry_sha256": "3beb40379d45f4704de452b53d2826d7f030a4f8a9d69f145bd3ddf9a253f349",
+  "geometry_sha256": "01e38475b99e06445c35884fcde1a7ee8ac1ba72aa66de3a003c4f27d27dbf07",
+  "changed_core_rings": [
+    8,
+    9,
+    10
+  ],
+  "all_other_core_vertices_unchanged": true,
+  "all_noncore_meshes_unchanged": true,
+  "topology_preserved": true,
+  "no_materials": true,
+  "no_animation": true,
+  "no_armature": true,
+  "changes": [
+    "Lifted the ventral anterior thorax locally to strengthen the rise into the accepted waist",
+    "Reduced diagonal chest roundness while preserving moderate shoulder width",
+    "Kept all longitudinal ring stations unchanged so overall body length and posture stay fixed"
+  ],
+  "limitations": [
+    "Gate B v3 review pending",
+    "No production welding/retopology"
+  ],
+  "rendered_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "geometry_unchanged_during_render": true
+}
