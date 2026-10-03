@@ -87,7 +87,16 @@ def save_returned_files(result, out_dir):
 
 def client_for(space):
     token = os.environ.get("HF_TOKEN", "").strip() or None
-    return Client(space, hf_token=token, verbose=True)
+    params = inspect.signature(Client).parameters
+    kwargs = {"verbose": True}
+    if token:
+        if "hf_token" in params:
+            kwargs["hf_token"] = token
+        elif "token" in params:
+            kwargs["token"] = token
+        # If neither exists, huggingface_hub can still pick HF_TOKEN from env.
+    print("gradio_client.Client auth parameter:", "hf_token" if "hf_token" in params else ("token" if "token" in params else "env-only"))
+    return Client(space, **kwargs)
 
 
 def run_pixal3d(seed, resolution, out_dir):
