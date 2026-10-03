@@ -72,6 +72,10 @@ const START_SEQUENCE_ENABLED =
 const TAU = Math.PI * 2;
 const AGENT_COMMAND_DURATION = 8.0;
 const AGENT_FEEDBACK_HOLD = 2.4;
+const START_PAIR_OFFSET = 0.62;
+const START_LINE_Z = -1.25;
+const START_MERGE_BEGIN = 28;
+const START_MERGE_END = 115;
 const AGENT_COMPATIBILITY = {
   S: { PUSH: 1.00, CONSERVE: 0.70 },
   P: { PUSH: 0.94, CONSERVE: 0.76 },
@@ -2713,6 +2717,25 @@ function laneToX(lane) {
   return (lane - (LANE_COUNT - 1) / 2) * LANE_WIDTH;
 }
 
+function startSlotOffset(index) {
+  if (!SIMPLIFIED_RACE_PAGE) return 0;
+  return (index < LANE_COUNT ? -1 : 1) * START_PAIR_OFFSET;
+}
+
+function startSlotX(index) {
+  return laneToX(index % LANE_COUNT) + startSlotOffset(index);
+}
+
+function startMergeOffset(runner) {
+  if (!SIMPLIFIED_RACE_PAGE || FINISH_REVIEW_MODE) return 0;
+  const merge = THREE.MathUtils.smoothstep(
+    runner.distance,
+    START_MERGE_BEGIN,
+    START_MERGE_END
+  );
+  return runner.startSlotOffset * (1 - merge);
+}
+
 const runners = [];
 
 function applySimplifiedRaceRenderLOD(root) {
@@ -3387,6 +3410,7 @@ function createRunners() {
     }
     const lane = i % LANE_COUNT;
     const row = Math.floor(i / LANE_COUNT);
+    const initialStartOffset = startSlotOffset(i);
 
     const runner = {
       id: i,
@@ -3396,8 +3420,11 @@ function createRunners() {
       group: creature,
       lane,
       targetLane: lane,
-      laneX: laneToX(lane),
-      distance: -row * 3.2 - seeded(i, 4) * 1.5,
+      startSlotOffset: initialStartOffset,
+      laneX: SIMPLIFIED_RACE_PAGE ? startSlotX(i) : laneToX(lane),
+      distance: SIMPLIFIED_RACE_PAGE
+        ? START_LINE_Z
+        : -row * 3.2 - seeded(i, 4) * 1.5,
       speed: 0,
       targetSpeed: 0,
       phaseBias: seeded(i, 8) * Math.PI * 2,
@@ -3528,15 +3555,34 @@ function resetRace() {
   if (winningTimeEl) winningTimeEl.textContent = "—";
   if (resultRaceTimeEl) resultRaceTimeEl.textContent = "—";
 
+  if (SIMPLIFIED_RACE_PAGE) {
+    canvas.dataset.startLayout = "18-wide-single-line";
+    canvas.dataset.startSlotCount = String(RUNNER_COUNT);
+    canvas.dataset.startLineZ = START_LINE_Z.toFixed(2);
+    canvas.dataset.startMergeBegin = String(START_MERGE_BEGIN);
+    canvas.dataset.startMergeEnd = String(START_MERGE_END);
+    canvas.dataset.startSlotXs = JSON.stringify(
+      runners.map((_, index) => Number(startSlotX(index).toFixed(3)))
+    );
+    canvas.dataset.startSlotDistances = JSON.stringify(
+      runners.map(() => START_LINE_Z)
+    );
+  }
+
   runners.forEach((runner, i) => {
     const row = Math.floor(i / LANE_COUNT);
+    const useSingleLineStart = SIMPLIFIED_RACE_PAGE && !FINISH_REVIEW_MODE;
     runner.lane = i % LANE_COUNT;
     runner.targetLane = runner.lane;
-    runner.laneX = laneToX(runner.lane);
-    runner.distance =
-      -row * 3.2 -
-      seeded(i, 4) * 1.5 +
-      (FINISH_REVIEW_MODE ? RACE_DISTANCE - 215 : 0);
+    runner.startSlotOffset = startSlotOffset(i);
+    runner.laneX = useSingleLineStart
+      ? startSlotX(i)
+      : laneToX(runner.lane);
+    runner.distance = useSingleLineStart
+      ? START_LINE_Z
+      : -row * 3.2 -
+        seeded(i, 4) * 1.5 +
+        (FINISH_REVIEW_MODE ? RACE_DISTANCE - 215 : 0);
     runner.speed = 0;
     runner.targetSpeed = 0;
     runner.finishTime = null;
@@ -3798,7 +3844,7 @@ function updateRunner(runner, dt) {
     runner.lane = reviewLane;
   }
 
-  const targetX = laneToX(runner.targetLane);
+  const targetX = laneToX(runner.targetLane) + startMergeOffset(runner);
   const oldX = runner.laneX;
   runner.laneX = THREE.MathUtils.damp(runner.laneX, targetX, runner.morph === "A" ? 2.7 : 2.05, dt);
   const lateralVelocity = (runner.laneX - oldX) / Math.max(dt, 0.001);

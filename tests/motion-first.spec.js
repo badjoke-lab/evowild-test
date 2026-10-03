@@ -752,6 +752,23 @@ test("Motion First Phase E simplified race public start sequence", async ({ brow
   await expect(scene).toHaveAttribute("data-start-phase", "GO", {
     timeout: 5000
   });
+  await expect(scene).toHaveAttribute("data-start-layout", "18-wide-single-line");
+  await expect(scene).toHaveAttribute("data-start-slot-count", "18");
+
+  const startXs = JSON.parse(
+    (await scene.getAttribute("data-start-slot-xs")) || "[]"
+  );
+  const startDistances = JSON.parse(
+    (await scene.getAttribute("data-start-slot-distances")) || "[]"
+  );
+  expect(startXs).toHaveLength(18);
+  expect(startDistances).toHaveLength(18);
+  expect(new Set(startXs.map((value) => Number(value).toFixed(3))).size).toBe(18);
+  expect(Math.max(...startXs) - Math.min(...startXs)).toBeGreaterThan(20);
+  expect(Math.max(...startDistances) - Math.min(...startDistances)).toBeLessThan(0.001);
+  expect(Number(await scene.getAttribute("data-start-merge-begin"))).toBe(28);
+  expect(Number(await scene.getAttribute("data-start-merge-end"))).toBe(115);
+
   // Capture immediately while the GO overlay is active. Additional locator
   // assertions can consume most of the short GO presentation window.
   await page.locator("#scene").screenshot({
