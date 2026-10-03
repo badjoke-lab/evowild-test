@@ -96,3 +96,31 @@ Entry page:
 `visual-shader-lab.html`
 
 The V0 page intentionally contains no race Creature. It is an environment-only benchmark so environment quality can be judged without motion/model confounds.
+
+
+## V0 v1 real-render review
+
+Decision: `REVISE`
+
+Evidence source: GitHub Actions run `37129601880`, artifact `visual-shader-lab-v0`.
+
+Observed:
+
+- shader ON/OFF screenshots were generated successfully;
+- the dirt track was not readable in either screenshot;
+- shader ON vs OFF difference was too weak to justify the custom material;
+- the first implementation used `fog: true` on a custom ShaderMaterial without the required Three.js fog uniforms/chunks, producing repeated `refreshFogUniforms` runtime errors;
+- captured desktop FPS was approximately mid-50s, but the visual result was not acceptable enough for a performance conclusion.
+
+Exact V0 v2 correction:
+
+- remove Three.js automatic fog handling from the custom ground ShaderMaterial and keep manual ground horizon haze;
+- reduce geometric ground relief;
+- make the track double-sided and lift it above the ground;
+- add explicit track-edge lines;
+- move the camera closer/lower so the track occupies the review frame;
+- increase low-frequency ground color variation while retaining a flat-color OFF baseline.
+
+V1 remains blocked.
+
+Next action: render V0 v2 shader ON/OFF through CI, inspect the actual images, and decide `KEEP / REVISE / REJECT`.
