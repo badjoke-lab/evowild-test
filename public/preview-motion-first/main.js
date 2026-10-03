@@ -59,6 +59,14 @@ const PROXY_REVIEW_RUNNER =
   PROXY_REVIEW_RUNNER_PARAM === null
     ? null
     : Number.parseInt(PROXY_REVIEW_RUNNER_PARAM, 10);
+const VISUAL_SWAP_MORPH = (params.get("visualSwap") || "").toUpperCase();
+const VISUAL_SWAP_RUNNER_PARAM = params.get("visualSwapRunner");
+const VISUAL_SWAP_RUNNER =
+  VISUAL_SWAP_RUNNER_PARAM === null
+    ? 0
+    : Number.parseInt(VISUAL_SWAP_RUNNER_PARAM, 10);
+const VISUAL_SWAP_ENABLED =
+  SIMPLIFIED_RACE_PAGE && VISUAL_SWAP_MORPH === "S";
 const START_REVIEW_MODE =
   SIMPLIFIED_RACE_PAGE && params.get("startReview") === "1";
 const START_SEQUENCE_ENABLED =
@@ -132,11 +140,42 @@ const HUNYUAN_S_ASSETS = {
 const sAssetLoader = new GLTFLoader();
 let activeSAssetKey = null;
 let activeSAsset = null;
+let raceVisualSwapAsset = null;
 
 function chooseHunyuanSAssetKey() {
   if (INSPECT_MODE && REVIEW_MORPH === "S") return "inspect";
   if (MOTION_REVIEW_MODE && REVIEW_MORPH === "S") return "focus";
   return "race";
+}
+
+async function prepareRaceVisualSwapAsset() {
+  if (!VISUAL_SWAP_ENABLED) {
+    raceVisualSwapAsset = null;
+    if (SIMPLIFIED_RACE_PAGE) {
+      canvas.dataset.visualSwapMode = "proxy";
+      canvas.dataset.visualSwapReady = "0";
+    }
+    return false;
+  }
+
+  const profile = HUNYUAN_S_ASSETS.race;
+  try {
+    const gltf = await sAssetLoader.loadAsync(profile.url);
+    raceVisualSwapAsset = { ...profile, gltf };
+    canvas.dataset.visualSwapMode = "external-native-clip";
+    canvas.dataset.visualSwapReady = "1";
+    canvas.dataset.visualSwapMorph = "S";
+    canvas.dataset.visualSwapRunner = String(VISUAL_SWAP_RUNNER);
+    canvas.dataset.visualSwapAsset = profile.url;
+    canvas.dataset.visualSwapClipCount = String(gltf.animations?.length || 0);
+    return true;
+  } catch (error) {
+    console.error("Race visual swap asset failed to load.", error);
+    raceVisualSwapAsset = null;
+    canvas.dataset.visualSwapMode = "proxy-fallback";
+    canvas.dataset.visualSwapReady = "0";
+    return false;
+  }
 }
 
 async function prepareHunyuanSAsset() {
@@ -215,6 +254,73 @@ function fitHunyuanModel(model, targetHeight) {
   model.position.z -= center.z;
   model.position.y -= box.min.y;
   model.updateMatrixWorld(true);
+}
+
+function createRaceVisualSwap(runner) {
+  if (
+    !raceVisualSwapAsset ||
+    !VISUAL_SWAP_ENABLED ||
+    runner.morph !== "S" ||
+    runner.id !== VISUAL_SWAP_RUNNER
+  ) {
+    return null;
+  }
+
+  const root = new THREE.Group();
+  const model = cloneSkeleton(raceVisualSwapAsset.gltf.scene);
+  prepareHunyuanMaterials(model);
+  fitHunyuanModel(model, raceVisualSwapAsset.targetHeight);
+  root.add(model);
+  scene.add(root);
+
+  const clips = raceVisualSwapAsset.gltf.animations || [];
+  let mixer = null;
+  let action = null;
+  if (clips.length > 0) {
+    mixer = new THREE.AnimationMixer(model);
+    action = mixer.clipAction(clips[0]);
+    action.reset().play();
+    mixer.setTime((runner.id / RUNNER_COUNT) * clips[0].duration);
+  }
+
+  canvas.dataset.visualSwapProxySuppressed = "1";
+  return {
+    root,
+    model,
+    mixer,
+    action,
+    clipCount: clips.length
+  };
+}
+
+function updateRaceVisualSwap(runner, dt) {
+  const swap = runner.visualSwap;
+  if (!swap) return;
+
+  swap.root.position.set(runner.laneX, 0, runner.distance);
+  swap.root.rotation.z = THREE.MathUtils.clamp(
+    -(runner.renderLateralVelocity || 0) * 0.012,
+    -0.16,
+    0.16
+  );
+
+  if (swap.mixer && !paused) {
+    const speedRatio = THREE.MathUtils.clamp(
+      runner.speed / Math.max(runner.cfg.baseSpeed, 1),
+      0,
+      1.2
+    );
+    const playback =
+      speedRatio < 0.05
+        ? 0
+        : THREE.MathUtils.clamp(0.42 + speedRatio * 0.66, 0.30, 1.22);
+    swap.mixer.timeScale = playback;
+    swap.mixer.update(dt);
+    canvas.dataset.visualSwapPlaybackRate = playback.toFixed(3);
+  }
+
+  canvas.dataset.visualSwapX = runner.laneX.toFixed(3);
+  canvas.dataset.visualSwapZ = runner.distance.toFixed(3);
 }
 
 function createHunyuanSprintCreature(index) {
@@ -3238,7 +3344,7 @@ function createSimplifiedRaceProxy(morph, color, sourceRoot) {
 }
 
 function updateSimplifiedRaceProxyCanonicalPose(runner, dt) {
-  if (!runner.raceProxy) return;
+  if (!runner.raceProxy || runner.visualSwap) return;
 
   const fullUd = runner.group.userData;
   const proxyUd = runner.raceProxy.userData;
@@ -3296,7 +3402,7 @@ function syncSimplifiedRaceProxyInstances() {
   };
 
   runners.forEach((runner) => {
-    if (runner.renderFull || !runner.raceProxy) return;
+    if (runner.renderFull || !runner.raceProxy || runner.visualSwap) return;
     if (
       Number.isInteger(PROXY_REVIEW_RUNNER) &&
       runner.id !== PROXY_REVIEW_RUNNER
@@ -3378,15 +3484,21 @@ function updateSimplifiedRaceLodSelection() {
   // instanced body. This removes the last high-draw procedural runner from the
   // race scene without changing the canonical S/P/E/A gait solver.
   let proxyCount = 0;
+  let visualSwapCount = 0;
   runners.forEach((runner) => {
     runner.renderFull = false;
     runner.group.visible = false;
-    if (runner.raceProxy) proxyCount += 1;
+    if (runner.visualSwap) {
+      visualSwapCount += 1;
+    } else if (runner.raceProxy) {
+      proxyCount += 1;
+    }
   });
 
   canvas.dataset.fullRunnerCount = "0";
   canvas.dataset.fullRunnerBudget = "0";
   canvas.dataset.proxyRunnerCount = String(proxyCount);
+  canvas.dataset.visualSwapRunnerCount = String(visualSwapCount);
   canvas.dataset.raceProxyLod = "1";
   canvas.dataset.raceFocusRepresentation = "canonical-instanced";
 }
@@ -3439,9 +3551,11 @@ function createRunners() {
       creatureState: "FRESH",
       agent: createRunnerAgentState(i),
       raceProxy,
+      visualSwap: null,
       renderFull: !SIMPLIFIED_RACE_PAGE
     };
 
+    runner.visualSwap = createRaceVisualSwap(runner);
     creature.position.set(runner.laneX, 0, runner.distance);
     // The simplified race keeps the procedural source rig detached from the
     // render scene. It remains the canonical motion/state source, while the
@@ -3597,6 +3711,11 @@ function resetRace() {
     runner.agent.lastResult = "NEUTRAL";
     runner.nextLaneDecision = 190 + seeded(i, 11) * 210;
     runner.group.position.set(runner.laneX, 0, runner.distance);
+    if (runner.visualSwap) {
+      runner.visualSwap.root.position.set(runner.laneX, 0, runner.distance);
+      runner.visualSwap.root.rotation.set(0, 0, 0);
+      if (runner.visualSwap.mixer) runner.visualSwap.mixer.setTime(0);
+    }
     if (runner.raceProxy) {
       runner.raceProxy.position.set(runner.laneX, 0, runner.distance);
     }
@@ -5736,6 +5855,10 @@ function animate() {
         runner,
         paused ? cameraDt : poseDt
       );
+      updateRaceVisualSwap(
+        runner,
+        paused ? cameraDt : poseDt
+      );
     });
     poseWorkMs = performance.now() - poseStartedAt;
 
@@ -5774,6 +5897,7 @@ async function boot() {
   addWorld();
   applySimplifiedRaceWorldMaterials();
   await prepareHunyuanSAsset();
+  await prepareRaceVisualSwapAsset();
   createRunners();
   resetRace();
 
