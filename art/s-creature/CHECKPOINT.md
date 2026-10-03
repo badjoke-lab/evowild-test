@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S Gate C v4 base-palette preview saved and five views rendered; REVIEW_PENDING / STOPPED
+current_stage: S Gate C v4 reviewed KEEP; Gate C v5 eye-marker preview ready
 branch: feat/s-creature-model
 current_model_file: output/S-gateC-v4.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review Gate C v4 base palette only. Do not add eye/Cue Band/pattern before decision.
+next_action: Execute Gate C v5 eye-marker preview from S-gateC-v4.blend. Add two small cyan eye objects only; preserve all existing meshes, modifiers and material assignments exactly. Render five views and stop.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -137,7 +137,7 @@ gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
 gate_a_status: PASS
-modeling_status: STOPPED
+modeling_status: READY_FOR_GATE_C_V5
 gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
 gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
@@ -411,3 +411,8 @@ gate_c_v4_rule: base-palette preview only. Add object-level materials and switch
 gate_c_v4_done: Object-level S base palette added with geometry/modifiers locked; five MATERIAL-color views rendered.
 gate_c_v4_acceptance: REVIEW_PENDING
 gate_c_v4_geometry_sha256: a037893c093cc3db45e386a80c5258e12083515f2a4a48fc228c986eb64ad92c
+
+gate_c_v4_decision: KEEP
+gate_c_v4_reason: The cool blue-gray core, dark navy limbs, slate crest and dark toes match the approved S reference direction without obscuring the sprint silhouette. Geometry and modifiers remain unchanged.
+gate_c_v4_keep: S-gateC-v4.blend becomes the Gate C base.
+gate_c_v5_rule: eye-marker preview only. Add two small symmetric cyan eyes as new detail objects; do not alter existing mesh coordinates/topology/modifiers/material assignments. No Cue Band or body pattern yet.
