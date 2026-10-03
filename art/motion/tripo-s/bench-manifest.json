@@ -1,0 +1,19 @@
+{
+  "project": "EvoWild Run",
+  "bench": "Tripo S Motion Bench",
+  "version": "0.1",
+  "branch": "exp/tripo-s-motion-bench-20261003",
+  "base_commit": "d25553169e4406f5af660fc5559e075163aac6ff",
+  "input": "public/models/evowild-s/focus-rigged-v5.glb",
+  "vibe_modeling_input_forbidden": true,
+  "current_gate": "T0_IMPORT_COMPATIBILITY",
+  "expand_after": "T1_EXPAND_ONLY",
+  "review_views": ["SIDE", "LOW", "CHASE", "FRONT"],
+  "motions_after_expand": [
+    "steady forward run",
+    "fast gallop / bound",
+    "maximum-effort sprint",
+    "explosive acceleration from a low start"
+  ],
+  "repetitions_after_expand": 3
+}
