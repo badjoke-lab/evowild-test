@@ -1,0 +1,18 @@
+"""Render five MATERIAL-color review views from S-gateC-v4.blend."""
+import bpy,os,json,hashlib
+ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT=os.path.join(ROOT,'output'); REVIEW=os.path.join(OUT,'review','gate-c-v4'); os.makedirs(REVIEW,exist_ok=True)
+bpy.ops.wm.open_mainfile(filepath=os.path.join(OUT,'S-gateC-v4.blend'))
+cage=bpy.data.collections['S_REBUILD_GATE_A']
+def digest():
+    return hashlib.sha256(b''.join(repr(tuple(v.co)).encode() for o in sorted(cage.objects,key=lambda o:o.name) if o.type=='MESH' for v in o.data.vertices)).hexdigest()
+r=json.load(open(os.path.join(OUT,'S-gateC-v4.json')))
+assert digest()==r['geometry_sha256']
+for stem in ('side','front','front34','rear34','back'):
+    bpy.context.scene.camera=bpy.data.objects['S_REBUILD_CAM_'+stem.upper()]
+    bpy.context.scene.render.filepath=os.path.join(REVIEW,'S_gateC_'+stem+'.png')
+    bpy.ops.render.render(write_still=True)
+assert digest()==r['geometry_sha256']
+r.update(rendered_views=['SIDE','FRONT','FRONT34','REAR34','BACK'],geometry_unchanged_during_render=True)
+json.dump(r,open(os.path.join(OUT,'S-gateC-v4.json'),'w'),indent=2)
+print('GATE_C_V4_FIVE_VIEWS_DONE_STOPPED')

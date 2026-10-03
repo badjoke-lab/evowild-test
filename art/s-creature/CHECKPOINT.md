@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S Gate C v3 crest bevel integration saved and five views rendered; REVIEW_PENDING / STOPPED
+current_stage: S Gate C v3 reviewed KEEP; Gate C v4 base-palette preview ready
 branch: feat/s-creature-model
 current_model_file: output/S-gateC-v3.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review Gate C v3 only. Do not proceed before decision.
+next_action: Execute Gate C v4 base-palette preview from S-gateC-v3.blend. Add object-level materials only for core, limbs, crest and toes; preserve all geometry and modifiers. Render five views in Workbench MATERIAL mode and stop.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -137,7 +137,7 @@ gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
 gate_a_status: PASS
-modeling_status: STOPPED
+modeling_status: READY_FOR_GATE_C_V4
 gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
 gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
@@ -401,3 +401,8 @@ gate_c_v3_rule: crest modifier only. Add a small two-segment Bevel to S_rebuild_
 gate_c_v3_done: Crest-only small two-segment Bevel preview added; all base geometry and other modifier stacks preserved; five views rendered.
 gate_c_v3_acceptance: REVIEW_PENDING
 gate_c_v3_base_geometry_sha256: a037893c093cc3db45e386a80c5258e12083515f2a4a48fc228c986eb64ad92c
+
+gate_c_v3_decision: KEEP
+gate_c_v3_reason: The small crest bevel softens blocky blade edges and shared saddle highlights without changing the accepted layered crest silhouette or creating a horn/spike regression.
+gate_c_v3_keep: S-gateC-v3.blend becomes the Gate C base.
+gate_c_v4_rule: base-palette preview only. Add object-level materials and switch Workbench to MATERIAL color. No geometry/modifier edits, no eye, no Cue Band, no surface pattern.
