@@ -322,7 +322,7 @@ function makeRacers() {
                 ? 2
                 : LANES[i],
     phaseOffset:i*0.87,
-    cooldown:(BATTLE_REVIEW_MODE && i<2) || (TRAFFIC_REVIEW_MODE && i<2) || (LANE_REVIEW_MODE && (i===1 || i===2)) ? 999999 : 0,
+    cooldown:(BATTLE_REVIEW_MODE && i===1) || (TRAFFIC_REVIEW_MODE && i<2) || (LANE_REVIEW_MODE && (i===1 || i===2)) ? 999999 : 0,
     laneHoldUntil:0,
     laneDecisionCount:0,
     laneChangeStartedAt:-999999,
