@@ -32,10 +32,14 @@ const agentFeedbackEl = document.querySelector("#agentFeedback");
 const agentFeedbackMetaEl = document.querySelector("#agentFeedbackMeta");
 const agentFeedbackCommandEl = document.querySelector("#agentFeedbackCommand");
 const agentFeedbackResultEl = document.querySelector("#agentFeedbackResult");
+const battleReadoutEl = document.querySelector("#battleReadout");
+const battleStateEl = document.querySelector("#battleState");
+const battleMetaEl = document.querySelector("#battleMeta");
 const agentCommandButtons = [...document.querySelectorAll("[data-agent-command]")];
 
 const BASE = import.meta.env.BASE_URL || "/";
 const FINISH_REVIEW_MODE = new URLSearchParams(location.search).get("finishReview") === "1";
+const BATTLE_REVIEW_MODE = new URLSearchParams(location.search).get("battleReview") === "1";
 const FIELD_SIZE = 18;
 const SELECTED_ID = 1;
 const RACE_METERS = 1600;
@@ -273,7 +277,9 @@ function makeRacers() {
     morph:MORPH_SEQUENCE[i],
     distance: FINISH_REVIEW_MODE
       ? 1544 - Math.floor(i / 4) * 1.8 - (i % 4) * 0.22
-      : Math.floor(i / 4) * 4.4 + (i % 4) * 0.28,
+      : BATTLE_REVIEW_MODE
+        ? i===0 ? 120 : i===1 ? 124 : 72 - (i-2)*2
+        : Math.floor(i / 4) * 4.4 + (i % 4) * 0.28,
     speed:0,
     cruise:CRUISE[i],
     accel:ACCEL[i],
@@ -283,10 +289,10 @@ function makeRacers() {
     creatureState:"FRESH",
     agent:createAgentState(i),
     depthBias:[-0.14,0.10,-0.08,0.14,0.04][Math.floor(i/4)%5],
-    lane:LANES[i],
-    targetLane:LANES[i],
+    lane:BATTLE_REVIEW_MODE && i<2 ? 1 : LANES[i],
+    targetLane:BATTLE_REVIEW_MODE && i<2 ? 1 : LANES[i],
     phaseOffset:i*0.87,
-    cooldown:0,
+    cooldown:BATTLE_REVIEW_MODE && i<2 ? 999999 : 0,
     command:"HOLD FORM",
     reason:"Pre-start",
     finished:false,
@@ -299,6 +305,10 @@ let agentTargetIndex = 0;
 let agentFeedbackRunnerId = -1;
 let agentFeedbackCommand = "NEUTRAL";
 let agentFeedbackUntil = -999999;
+let battleRivalId = -1;
+let battleState = "CLEAR";
+let battleGap = Infinity;
+let battleEventUntil = -999999;
 
 function populateAgentTargets() {
   if (!agentTargetSelect) return;
@@ -321,6 +331,98 @@ const order = () => [...racers].sort((a,b) => {
   return b.distance-a.distance;
 });
 const rankOf = r => order().findIndex(x=>x===r)+1;
+
+
+function runnerCode(r) {
+  return `${r.morph}${String(r.id).padStart(2,"0")}`;
+}
+
+function battleCandidateFor(focus) {
+  let best = null;
+  let bestScore = Infinity;
+  for (const other of racers) {
+    if (other===focus || other.finished) continue;
+    const gap = other.distance-focus.distance;
+    if (gap<=0 || gap>10) continue;
+    const laneGap = Math.abs(other.lane-focus.lane);
+    if (laneGap>1.15) continue;
+    const score = gap + laneGap*2.8;
+    if (score<bestScore) {
+      bestScore=score;
+      best={rival:other,gap,laneGap};
+    }
+  }
+  return best;
+}
+
+function exposeBattleState(focus, rival, state, gap) {
+  battleState=state;
+  battleGap=Math.abs(gap);
+  if (battleReadoutEl) {
+    battleReadoutEl.hidden=false;
+    battleReadoutEl.dataset.state=state==="OVERTAKE COMPLETE" ? "complete" : "active";
+  }
+  if (battleStateEl) battleStateEl.textContent=state;
+  if (battleMetaEl) {
+    const arrow = state==="OVERTAKE COMPLETE" ? "PASSED" : "→";
+    battleMetaEl.textContent=`${runnerCode(focus)} ${arrow} ${runnerCode(rival)} · ${battleGap.toFixed(1)} m`;
+  }
+  stage.dataset.battleVisible="1";
+  stage.dataset.battleState=state;
+  stage.dataset.battleRivalId=String(rival.id);
+  stage.dataset.battleRivalCode=runnerCode(rival);
+  stage.dataset.battleGap=battleGap.toFixed(2);
+}
+
+function clearBattleState() {
+  battleState="CLEAR";
+  battleGap=Infinity;
+  battleRivalId=-1;
+  if (battleReadoutEl) battleReadoutEl.hidden=true;
+  stage.dataset.battleVisible="0";
+  stage.dataset.battleState="CLEAR";
+  stage.dataset.battleRivalId="";
+  stage.dataset.battleRivalCode="";
+  stage.dataset.battleGap="";
+}
+
+function updateBattleState() {
+  const focus=selected();
+  if (!focus || focus.finished || raceState!=="running") {
+    clearBattleState();
+    return;
+  }
+
+  if (battleState==="OVERTAKE COMPLETE" && elapsed<battleEventUntil) {
+    const rival=racers.find((r)=>r.id===battleRivalId);
+    if (rival) exposeBattleState(focus,rival,"OVERTAKE COMPLETE",focus.distance-rival.distance);
+    return;
+  }
+
+  if (battleRivalId>0) {
+    const previousRival=racers.find((r)=>r.id===battleRivalId);
+    if (previousRival && focus.distance>previousRival.distance+0.45) {
+      battleEventUntil=elapsed+1600;
+      exposeBattleState(focus,previousRival,"OVERTAKE COMPLETE",focus.distance-previousRival.distance);
+      return;
+    }
+  }
+
+  const candidate=battleCandidateFor(focus);
+  if (!candidate) {
+    clearBattleState();
+    return;
+  }
+
+  battleRivalId=candidate.rival.id;
+  const closing=focus.speed-candidate.rival.speed;
+  exposeBattleState(
+    focus,
+    candidate.rival,
+    closing>0.25 ? "OVERTAKE ATTEMPT" : "CLOSE BATTLE",
+    candidate.gap
+  );
+}
 
 function occupiedNear(r, lane, radius=8.5) {
   return racers.some(o => o!==r && !o.finished && o.lane===lane && Math.abs(o.distance-r.distance)<radius);
@@ -578,6 +680,7 @@ function updateRace(dtMs) {
       r.finishTime=elapsed;
     }
   }
+  updateBattleState();
   if (finishCounter===racers.length) {
     raceState="finished";
     stage.dataset.raceState="finished";
@@ -875,6 +978,7 @@ function drawRacers() {
   for(const item of list){
     const r=item.r;
     const selectedRacer=r.id===SELECTED_ID;
+    const battleRival=r.id===battleRivalId && stage.dataset.battleVisible==="1";
     const scale=laneScale(item.lane);
     const meta=MORPH_META[r.morph] ?? MORPH_META.S;
     const frames=spriteFrames.get(r.morph);
@@ -935,6 +1039,9 @@ function drawRacers() {
       if(selectedRacer){
         ctx.shadowColor="rgba(126,226,255,.85)";
         ctx.shadowBlur=clamp(spriteW*.08,4,18);
+      } else if(battleRival){
+        ctx.shadowColor="rgba(255,220,130,.88)";
+        ctx.shadowBlur=clamp(spriteW*.075,4,16);
       }
       ctx.drawImage(frameCanvas,-spriteW/2,-spriteH/2+footAdjust,spriteW,spriteH);
       ctx.restore();
@@ -944,7 +1051,7 @@ function drawRacers() {
     }
 
     const raceRank=rankOf(r);
-    const showLabel=selectedRacer || raceRank<=3;
+    const showLabel=selectedRacer || battleRival || raceRank<=3;
     if(showLabel){
       visibleLabelCount++;
       const labelY=item.y-spriteH*.66;
@@ -952,7 +1059,9 @@ function drawRacers() {
       ctx.textAlign="center";
       const txt=selectedRacer
         ? `YOU · ${r.morph}${String(r.id).padStart(2,"0")}`
-        : `#${raceRank} ${r.morph}${String(r.id).padStart(2,"0")}`;
+        : battleRival
+          ? `RIVAL · ${r.morph}${String(r.id).padStart(2,"0")}`
+          : `#${raceRank} ${r.morph}${String(r.id).padStart(2,"0")}`;
       const tw=ctx.measureText(txt).width+10;
       ctx.fillStyle=selectedRacer?"rgba(8,41,56,.94)":"rgba(3,10,15,.76)";
       ctx.fillRect(item.x-tw/2,labelY-12,tw,15);
@@ -1208,6 +1317,11 @@ function resetRace(){
   agentFeedbackCommand="NEUTRAL";
   agentFeedbackUntil=-999999;
   if (agentFeedbackEl) agentFeedbackEl.hidden=true;
+  battleRivalId=-1;
+  battleState="CLEAR";
+  battleGap=Infinity;
+  battleEventUntil=-999999;
+  if (battleReadoutEl) battleReadoutEl.hidden=true;
   populateAgentTargets();
   elapsed=0;
   raceState="countdown";
@@ -1243,6 +1357,11 @@ function resetRace(){
   stage.dataset.agentFeedbackRunner="";
   stage.dataset.agentFeedbackCommand="";
   stage.dataset.agentFeedbackResult="";
+  stage.dataset.battleVisible="0";
+  stage.dataset.battleState="CLEAR";
+  stage.dataset.battleRivalId="";
+  stage.dataset.battleRivalCode="";
+  stage.dataset.battleGap="";
 }
 
 ui.pause.addEventListener("click",()=>{
@@ -1274,6 +1393,12 @@ stage.dataset.winnerId="";
 stage.dataset.winnerMorph="";
 stage.dataset.winnerTime="";
 stage.dataset.finishReview=FINISH_REVIEW_MODE?"1":"0";
+stage.dataset.battleReview=BATTLE_REVIEW_MODE?"1":"0";
+stage.dataset.battleVisible="0";
+stage.dataset.battleState="CLEAR";
+stage.dataset.battleRivalId="";
+stage.dataset.battleRivalCode="";
+stage.dataset.battleGap="";
 stage.dataset.agentModel="command-only-creature-resolved";
 stage.dataset.agentTargetRunner="1";
 stage.dataset.agentTargetMorph="S";
