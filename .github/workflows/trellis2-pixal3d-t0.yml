@@ -1,0 +1,34 @@
+name: TRELLIS2 Pixal3D T0 smoke
+
+on:
+  push:
+    branches:
+      - exp/trellis2-pixal3d-s-bench-20261004
+    paths:
+      - ".github/workflows/trellis2-pixal3d-t0.yml"
+      - "scripts/trellis2_pixal3d_t0.py"
+      - "art/s-creature/experiments/trellis2-pixal3d/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  endpoint-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe public Space endpoints
+        run: python3 scripts/trellis2_pixal3d_t0.py
+
+      - name: Upload endpoint metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trellis2-pixal3d-t0
+          path: art/s-creature/experiments/trellis2-pixal3d/t0/
+          if-no-files-found: error
