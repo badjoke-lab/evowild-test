@@ -66,10 +66,21 @@
       </article>
     </section>
 
+    <section class="card verdict" data-motion-verdict="fail">
+      <div>
+        <p class="eyebrow">REFERENCE CLIP QA · 2026-09-27</p>
+        <h2>FAIL — this does not read as a sprint</h2>
+      </div>
+      <div class="verdict-copy">
+        <p>The 8-frame extraction succeeds technically, but the V5 reference clip is dominated by body/head pitch and has insufficient independent limb cycling. It is a comparison baseline only, not shippable run motion.</p>
+        <span class="pill fail" id="motionVerdict">MOTION FAIL</span>
+      </div>
+    </section>
+
     <section class="card qa">
       <div>
-        <p class="eyebrow">GATE</p>
-        <h2>Do not promote until motion reads correctly</h2>
+        <p class="eyebrow">NEXT GATE</p>
+        <h2>sprite-gen output must beat this failed baseline</h2>
       </div>
       <ul>
         <li>silhouette remains S</li>
@@ -77,7 +88,7 @@
         <li>foot contact is readable</li>
         <li>frame 8 → frame 1 does not jump</li>
       </ul>
-      <p class="note">This page isolates S only. P / E / A are intentionally out of scope. The next external-motion pass is reserved for sprite-gen; this local extraction first establishes a deterministic reference and QA target from the current canonical S asset.</p>
+      <p class="note">This page isolates S only. P / E / A are intentionally out of scope. Do not promote this V5 extraction. The next external-motion pass is reserved for sprite-gen and must show clear leg phase separation, readable contact, stable identity and a clean loop seam.</p>
     </section>
 
     <canvas id="source" width="384" height="384" aria-hidden="true"></canvas>

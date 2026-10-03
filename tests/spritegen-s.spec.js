@@ -23,6 +23,8 @@ test("S sprite extraction lane builds an 8-frame transparent side run loop", asy
   await expect(page.locator("#atlas")).toHaveAttribute("data-frames", "8");
   await expect(page.locator("#atlas")).toHaveAttribute("data-transparent", "1");
   await expect(page.locator("#frameCount")).toHaveText("8 / 8");
+  await expect(page.locator(".verdict")).toHaveAttribute("data-motion-verdict", "fail");
+  await expect(page.locator("#motionVerdict")).toHaveText("MOTION FAIL");
 
   const frame0 = await page.locator("#preview").getAttribute("data-frame");
   await page.waitForTimeout(850);
