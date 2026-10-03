@@ -1,12 +1,6 @@
 name: TRELLIS2 Pixal3D T1 generation smoke
 
 on:
-  push:
-    branches:
-      - exp/trellis2-pixal3d-s-bench-20261004
-    paths:
-      - ".github/workflows/trellis2-pixal3d-t1-generate.yml"
-      - "scripts/trellis2_pixal3d_generate.py"
   workflow_dispatch:
 
 permissions:
