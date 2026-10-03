@@ -74,27 +74,37 @@ const groundShader = new THREE.ShaderMaterial({
       return fract(p.x * p.y);
     }
 
+    float valueNoise(vec2 p) {
+      vec2 i = floor(p);
+      vec2 f = fract(p);
+      vec2 u = f * f * (3.0 - 2.0 * f);
+      float a = hash21(i);
+      float b = hash21(i + vec2(1.0, 0.0));
+      float c = hash21(i + vec2(0.0, 1.0));
+      float d = hash21(i + vec2(1.0, 1.0));
+      return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
+    }
+
     void main() {
       vec3 flatColor = vec3(0.36, 0.47, 0.31);
 
-      vec2 cell = floor(vWorld.xz * 0.52);
-      float grain = hash21(cell) - 0.5;
-      float broadA = 0.5 + 0.5 * sin(vWorld.x * 0.047 + sin(vWorld.z * 0.031) * 1.6);
-      float broadB = 0.5 + 0.5 * cos(vWorld.z * 0.071 - vWorld.x * 0.019);
+      float nLarge = valueNoise(vWorld.xz * 0.055);
+      float nMedium = valueNoise(vWorld.xz * 0.16);
+      float broadA = 0.5 + 0.5 * sin(vWorld.x * 0.034 + sin(vWorld.z * 0.026) * 1.2);
       float blendField = clamp(
-        broadA * 0.52 + broadB * 0.28 + 0.20 + vMacro * 0.13,
+        nLarge * 0.46 + nMedium * 0.20 + broadA * 0.22 + 0.12 + vMacro * 0.08,
         0.0,
         1.0
       );
 
-      vec3 darkGrass = vec3(0.20, 0.31, 0.19);
-      vec3 midGrass = vec3(0.34, 0.46, 0.28);
-      vec3 lightGrass = vec3(0.49, 0.57, 0.35);
+      vec3 darkGrass = vec3(0.22, 0.32, 0.20);
+      vec3 midGrass = vec3(0.35, 0.46, 0.29);
+      vec3 lightGrass = vec3(0.46, 0.54, 0.34);
 
-      vec3 procedural = mix(darkGrass, midGrass, smoothstep(0.05, 0.68, blendField));
-      procedural = mix(procedural, lightGrass, smoothstep(0.60, 0.96, blendField) * 0.45);
-      procedural += grain * 0.045;
-      procedural += vRelief * 0.34;
+      vec3 procedural = mix(darkGrass, midGrass, smoothstep(0.08, 0.72, blendField));
+      procedural = mix(procedural, lightGrass, smoothstep(0.66, 0.98, blendField) * 0.30);
+      procedural += (nMedium - 0.5) * 0.018;
+      procedural += vRelief * 0.22;
 
       vec3 color = mix(flatColor, procedural, uEnabled);
 
