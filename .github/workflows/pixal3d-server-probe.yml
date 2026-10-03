@@ -1,0 +1,32 @@
+name: Pixal3D dedicated server probe
+
+on:
+  push:
+    branches:
+      - exp/trellis2-pixal3d-s-bench-20261004
+    paths:
+      - ".github/workflows/pixal3d-server-probe.yml"
+      - "scripts/pixal3d_server_probe.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Probe official server proxy
+        run: python scripts/pixal3d_server_probe.py
+      - name: Upload probe metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pixal3d-server-probe
+          path: art/s-creature/experiments/trellis2-pixal3d/server-probe/
+          if-no-files-found: error
