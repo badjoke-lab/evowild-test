@@ -15,18 +15,20 @@ SPACES = {
         "agents": "https://huggingface.co/spaces/microsoft/TRELLIS.2/agents.md",
         "api_info": "https://microsoft-trellis-2.hf.space/gradio_api/info",
         "config": "https://microsoft-trellis-2.hf.space/config",
+        "targets": ["/preprocess_image", "/image_to_3d", "/extract_glb"],
     },
     "pixal3d": {
         "repo": "TencentARC/Pixal3D",
         "agents": "https://huggingface.co/spaces/TencentARC/Pixal3D/agents.md",
         "api_info": "https://tencentarc-pixal3d.hf.space/gradio_api/info",
         "config": "https://tencentarc-pixal3d.hf.space/config",
+        "targets": ["/preprocess", "/generate_3d", "/extract_glb_api"],
     },
 }
 
 token = os.environ.get("HF_TOKEN", "").strip()
 headers = {
-    "User-Agent": "evowild-t0-endpoint-smoke/1.0",
+    "User-Agent": "evowild-t0-endpoint-smoke/1.1",
     "Accept": "*/*",
 }
 if token:
@@ -70,9 +72,13 @@ for key, spec in SPACES.items():
         if endpoint == "api_info" and result.get("ok"):
             try:
                 parsed = json.loads(body)
-                item["api_names"] = sorted(
-                    k for k in parsed.get("named_endpoints", {}).keys()
-                )
+                named = parsed.get("named_endpoints", {})
+                item["api_names"] = sorted(named.keys())
+                item["endpoint_schemas"] = {
+                    name: named.get(name)
+                    for name in spec["targets"]
+                    if name in named
+                }
             except Exception as exc:
                 item["api_parse_error"] = repr(exc)
 
@@ -87,6 +93,18 @@ for key, spec in SPACES.items():
                         if isinstance(d, dict) and d.get("api_name")
                     }
                 )
+                item["target_dependencies"] = [
+                    {
+                        "id": d.get("id"),
+                        "api_name": d.get("api_name"),
+                        "queue": d.get("queue"),
+                        "inputs": d.get("inputs"),
+                        "outputs": d.get("outputs"),
+                    }
+                    for d in deps
+                    if isinstance(d, dict)
+                    and d.get("api_name") in {x.lstrip("/") for x in spec["targets"]}
+                ]
             except Exception as exc:
                 item["config_parse_error"] = repr(exc)
 
@@ -99,8 +117,6 @@ for key, spec in SPACES.items():
 
 print(json.dumps(summary, indent=2, ensure_ascii=False))
 
-# Endpoint discovery is a smoke test, not generation.
-# Fail only if both Spaces are wholly unreachable at API-info level.
 reachable = [
     v.get("api_info", {}).get("ok", False)
     for v in summary["spaces"].values()
