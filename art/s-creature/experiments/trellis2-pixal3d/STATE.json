@@ -1,0 +1,34 @@
+{
+  "project": "EvoWild Run",
+  "asset": "S-type / Sprint morph creature",
+  "branch": "exp/trellis2-pixal3d-s-bench-20261004",
+  "parent_branch": "exp/s-creature-vibe-modeling",
+  "parent_commit": "07d87340345031d68834552f10561107a1560b88",
+  "status": "ACTIVE",
+  "stage": "T0_ENDPOINT_SMOKE",
+  "locked_input": "art/s-creature/references/01_s_body_primary.png",
+  "baseline": {
+    "decision": "REVISE",
+    "model": "art/s-creature/output/S-vibe-b1a-v2.blend",
+    "review_dir": "art/s-creature/output/review/vibe-b1a-v2"
+  },
+  "engines": [
+    {
+      "name": "microsoft/TRELLIS.2",
+      "status": "PENDING"
+    },
+    {
+      "name": "TencentARC/Pixal3D",
+      "status": "PENDING"
+    }
+  ],
+  "constraints": [
+    "experiment branch only",
+    "no feat/s-creature-model changes",
+    "no Vibe B1b transition from this lane",
+    "free/public execution only",
+    "no paid GPU jobs",
+    "no manual morphology edit before T1 decision"
+  ],
+  "next_action": "Run one free/public generation per engine from the locked input; record output or blocker."
+}
