@@ -22,8 +22,8 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xa7c6cf);
 scene.fog = new THREE.FogExp2(0xa7c6cf, 0.0095);
 
-const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 260);
-camera.position.set(28, 12, 34);
+const camera = new THREE.PerspectiveCamera(46, 1, 0.1, 260);
+camera.position.set(20, 7, 24);
 
 scene.add(new THREE.HemisphereLight(0xe6f2ff, 0x314133, 1.25));
 const sun = new THREE.DirectionalLight(0xffedcf, 1.7);
@@ -35,29 +35,29 @@ groundGeometry.rotateX(-Math.PI / 2);
 
 const shaderUniforms = {
   uTime: { value: 0 },
-  uEnabled: { value: 1 },
-  uFogColor: { value: new THREE.Color(0xa7c6cf) }
+  uEnabled: { value: 1 }
 };
 
 const groundShader = new THREE.ShaderMaterial({
   uniforms: shaderUniforms,
-  fog: true,
   vertexShader: `
     uniform float uTime;
     uniform float uEnabled;
     varying vec3 vWorld;
     varying float vMacro;
+    varying float vRelief;
 
     void main() {
       vec3 p = position;
       float waveA = sin(p.x * 0.075) * cos(p.z * 0.065);
       float waveB = sin((p.x + p.z) * 0.035 + 1.4);
-      float relief = (waveA * 0.20 + waveB * 0.12) * uEnabled;
+      float relief = (waveA * 0.08 + waveB * 0.045) * uEnabled;
       p.y += relief;
 
       vec4 world = modelMatrix * vec4(p, 1.0);
       vWorld = world.xyz;
       vMacro = waveA * 0.55 + waveB * 0.45;
+      vRelief = relief;
 
       gl_Position = projectionMatrix * viewMatrix * world;
     }
@@ -66,6 +66,7 @@ const groundShader = new THREE.ShaderMaterial({
     uniform float uEnabled;
     varying vec3 vWorld;
     varying float vMacro;
+    varying float vRelief;
 
     float hash21(vec2 p) {
       p = fract(p * vec2(123.34, 456.21));
@@ -75,17 +76,32 @@ const groundShader = new THREE.ShaderMaterial({
 
     void main() {
       vec3 flatColor = vec3(0.36, 0.47, 0.31);
-      vec2 cell = floor(vWorld.xz * 0.65);
+
+      vec2 cell = floor(vWorld.xz * 0.52);
       float grain = hash21(cell) - 0.5;
-      float broad = 0.5 + 0.5 * sin(vWorld.x * 0.055 + sin(vWorld.z * 0.04));
-      vec3 darkGrass = vec3(0.24, 0.36, 0.23);
-      vec3 lightGrass = vec3(0.46, 0.55, 0.34);
-      vec3 procedural = mix(darkGrass, lightGrass, broad * 0.62 + 0.19 + vMacro * 0.10);
-      procedural += grain * 0.035;
+      float broadA = 0.5 + 0.5 * sin(vWorld.x * 0.047 + sin(vWorld.z * 0.031) * 1.6);
+      float broadB = 0.5 + 0.5 * cos(vWorld.z * 0.071 - vWorld.x * 0.019);
+      float blendField = clamp(
+        broadA * 0.52 + broadB * 0.28 + 0.20 + vMacro * 0.13,
+        0.0,
+        1.0
+      );
+
+      vec3 darkGrass = vec3(0.20, 0.31, 0.19);
+      vec3 midGrass = vec3(0.34, 0.46, 0.28);
+      vec3 lightGrass = vec3(0.49, 0.57, 0.35);
+
+      vec3 procedural = mix(darkGrass, midGrass, smoothstep(0.05, 0.68, blendField));
+      procedural = mix(procedural, lightGrass, smoothstep(0.60, 0.96, blendField) * 0.45);
+      procedural += grain * 0.045;
+      procedural += vRelief * 0.34;
+
       vec3 color = mix(flatColor, procedural, uEnabled);
 
-      float horizonSoft = smoothstep(105.0, 28.0, length(vWorld.xz));
-      color = mix(vec3(0.43, 0.52, 0.39), color, horizonSoft);
+      float distanceFromCenter = length(vWorld.xz);
+      float horizonMix = smoothstep(30.0, 115.0, distanceFromCenter);
+      vec3 hazeGrass = vec3(0.43, 0.51, 0.38);
+      color = mix(color, hazeGrass, horizonMix * 0.58);
 
       gl_FragColor = vec4(color, 1.0);
     }
@@ -93,7 +109,7 @@ const groundShader = new THREE.ShaderMaterial({
 });
 
 const ground = new THREE.Mesh(groundGeometry, groundShader);
-ground.position.y = -0.05;
+ground.position.y = -0.08;
 scene.add(ground);
 
 const curve = new THREE.CatmullRomCurve3(
@@ -106,6 +122,13 @@ const curve = new THREE.CatmullRomCurve3(
   0.45
 );
 
+function offsetPoint(t, offset, y = 0.13) {
+  const p = curve.getPointAt(t);
+  const tangent = curve.getTangentAt(t).normalize();
+  const side = new THREE.Vector3(-tangent.z, 0, tangent.x);
+  return p.clone().addScaledVector(side, offset).setY(y);
+}
+
 function makeTrack() {
   const samples = 220;
   const halfWidth = 6.2;
@@ -114,13 +137,9 @@ function makeTrack() {
 
   for (let i = 0; i <= samples; i++) {
     const t = i / samples;
-    const p = curve.getPointAt(t);
-    const tangent = curve.getTangentAt(t).normalize();
-    const side = new THREE.Vector3(-tangent.z, 0, tangent.x);
-
     for (const offset of [-halfWidth, halfWidth]) {
-      const q = p.clone().addScaledVector(side, offset);
-      vertices.push(q.x, 0.035, q.z);
+      const q = offsetPoint(t, offset, 0.09);
+      vertices.push(q.x, q.y, q.z);
     }
   }
 
@@ -135,15 +154,36 @@ function makeTrack() {
   geometry.computeVertexNormals();
 
   const material = new THREE.MeshStandardMaterial({
-    color: 0xb48a5f,
-    roughness: 0.98
+    color: 0xc09262,
+    roughness: 0.98,
+    side: THREE.DoubleSide
   });
-  scene.add(new THREE.Mesh(geometry, material));
+  const track = new THREE.Mesh(geometry, material);
+  scene.add(track);
+
+  const edgeMaterial = new THREE.LineBasicMaterial({
+    color: 0xe8ddc5,
+    transparent: true,
+    opacity: 0.9
+  });
+
+  for (const offset of [-halfWidth, halfWidth]) {
+    const points = [];
+    for (let i = 0; i <= samples; i++) {
+      points.push(offsetPoint(i / samples, offset, 0.14));
+    }
+    scene.add(
+      new THREE.Line(
+        new THREE.BufferGeometry().setFromPoints(points),
+        edgeMaterial
+      )
+    );
+  }
 }
 makeTrack();
 
 const markerMaterial = new THREE.MeshStandardMaterial({
-  color: 0x6f7f72,
+  color: 0x647668,
   roughness: 1,
   flatShading: true
 });
@@ -189,15 +229,20 @@ function animate(now) {
 
   shaderUniforms.uTime.value += dt;
 
-  const t = (now * 0.000022) % 1;
+  const t = (now * 0.000018) % 1;
   const focus = curve.getPointAt(t);
   const tangent = curve.getTangentAt(t).normalize();
   const side = new THREE.Vector3(-tangent.z, 0, tangent.x);
+
   camera.position.copy(focus)
-    .addScaledVector(side, 20)
-    .add(new THREE.Vector3(0, 9.5, 0))
-    .addScaledVector(tangent, -13);
-  camera.lookAt(focus.clone().addScaledVector(tangent, 11).add(new THREE.Vector3(0, 1.1, 0)));
+    .addScaledVector(side, 12.5)
+    .add(new THREE.Vector3(0, 5.6, 0))
+    .addScaledVector(tangent, -8.5);
+  camera.lookAt(
+    focus.clone()
+      .addScaledVector(tangent, 10)
+      .add(new THREE.Vector3(0, 0.55, 0))
+  );
 
   renderer.render(scene, camera);
 
