@@ -207,3 +207,39 @@ test("2.5D Agent feedback shows command then creature result", async ({ page }, 
   await expect(stage).toHaveAttribute("data-agent-feedback-result", "CLEARED");
 });
 
+test("2.5D battle readability shows overtake attempt and completion", async ({ page }, testInfo) => {
+  test.setTimeout(30000);
+  await page.goto("/evowild-test/race-quality.html?battleReview=1", { waitUntil: "networkidle" });
+  const stage = page.locator("#stage");
+  const battle = page.locator("#battleReadout");
+
+  await expect(stage).toHaveAttribute("data-battle-review", "1");
+  await expect(stage).toHaveAttribute("data-race-state", "running", { timeout: 8000 });
+
+  await expect.poll(
+    async () => stage.getAttribute("data-battle-state"),
+    { timeout: 6000 }
+  ).toMatch(/OVERTAKE ATTEMPT|CLOSE BATTLE/);
+
+  await expect(stage).toHaveAttribute("data-battle-visible", "1");
+  await expect(stage).toHaveAttribute("data-battle-rival-id", "2");
+  await expect(battle).toBeVisible();
+  await expect(page.locator("#battleMeta")).toContainText("P02");
+
+  fs.mkdirSync("artifacts/2p5d-survivor", { recursive: true });
+  await stage.screenshot({
+    path: `artifacts/2p5d-survivor/2p5d-survivor-battle-attempt-${testInfo.project.name}.png`
+  });
+
+  await expect.poll(
+    async () => stage.getAttribute("data-battle-state"),
+    { timeout: 12000 }
+  ).toBe("OVERTAKE COMPLETE");
+
+  await expect(stage).toHaveAttribute("data-battle-visible", "1");
+  await expect(page.locator("#battleState")).toHaveText("OVERTAKE COMPLETE");
+  await stage.screenshot({
+    path: `artifacts/2p5d-survivor/2p5d-survivor-battle-complete-${testInfo.project.name}.png`
+  });
+});
+
