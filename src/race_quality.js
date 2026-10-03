@@ -40,6 +40,7 @@ const agentCommandButtons = [...document.querySelectorAll("[data-agent-command]"
 const BASE = import.meta.env.BASE_URL || "/";
 const FINISH_REVIEW_MODE = new URLSearchParams(location.search).get("finishReview") === "1";
 const BATTLE_REVIEW_MODE = new URLSearchParams(location.search).get("battleReview") === "1";
+const TRAFFIC_REVIEW_MODE = new URLSearchParams(location.search).get("trafficReview") === "1";
 const FIELD_SIZE = 18;
 const SELECTED_ID = 1;
 const RACE_METERS = 1600;
@@ -279,7 +280,9 @@ function makeRacers() {
       ? 1544 - Math.floor(i / 4) * 1.8 - (i % 4) * 0.22
       : BATTLE_REVIEW_MODE
         ? i===0 ? 120 : i===1 ? 124 : 72 - (i-2)*2
-        : Math.floor(i / 4) * 4.4 + (i % 4) * 0.28,
+        : TRAFFIC_REVIEW_MODE
+          ? i===0 ? 100 : i===1 ? 105 : 62 - (i-2)*1.6
+          : Math.floor(i / 4) * 4.4 + (i % 4) * 0.28,
     speed:0,
     cruise:CRUISE[i],
     accel:ACCEL[i],
@@ -289,10 +292,22 @@ function makeRacers() {
     creatureState:"FRESH",
     agent:createAgentState(i),
     depthBias:[-0.14,0.10,-0.08,0.14,0.04][Math.floor(i/4)%5],
-    lane:BATTLE_REVIEW_MODE && i<2 ? 1 : LANES[i],
-    targetLane:BATTLE_REVIEW_MODE && i<2 ? 1 : LANES[i],
+    lane:BATTLE_REVIEW_MODE && i<2
+      ? 1
+      : TRAFFIC_REVIEW_MODE && i===0
+        ? 1
+        : TRAFFIC_REVIEW_MODE && i===1
+          ? 1.42
+          : LANES[i],
+    targetLane:BATTLE_REVIEW_MODE && i<2
+      ? 1
+      : TRAFFIC_REVIEW_MODE && i===0
+        ? 1
+        : TRAFFIC_REVIEW_MODE && i===1
+          ? 1.42
+          : LANES[i],
     phaseOffset:i*0.87,
-    cooldown:BATTLE_REVIEW_MODE && i<2 ? 999999 : 0,
+    cooldown:(BATTLE_REVIEW_MODE && i<2) || (TRAFFIC_REVIEW_MODE && i<2) ? 999999 : 0,
     command:"HOLD FORM",
     reason:"Pre-start",
     finished:false,
@@ -424,13 +439,22 @@ function updateBattleState() {
   );
 }
 
+function sameTrafficLine(a, b, tolerance=0.58) {
+  return Math.abs(a-b)<=tolerance;
+}
+
 function occupiedNear(r, lane, radius=8.5) {
-  return racers.some(o => o!==r && !o.finished && o.lane===lane && Math.abs(o.distance-r.distance)<radius);
+  return racers.some(
+    (o) => o!==r &&
+      !o.finished &&
+      sameTrafficLine(o.lane,lane) &&
+      Math.abs(o.distance-r.distance)<radius
+  );
 }
 function gapAhead(r) {
   let best = Infinity;
   for (const o of racers) {
-    if (o===r || o.finished || o.lane!==r.lane) continue;
+    if (o===r || o.finished || !sameTrafficLine(o.lane,r.lane)) continue;
     const g = o.distance-r.distance;
     if (g>0 && g<best) best=g;
   }
@@ -1306,6 +1330,9 @@ function updateUI(now){
   stage.dataset.selectedDistance=focus.distance.toFixed(2);
   stage.dataset.selectedSpeed=focus.speed.toFixed(2);
   stage.dataset.selectedRank=String(rankOf(focus));
+  const selectedGap=gapAhead(focus);
+  stage.dataset.selectedGapAhead=Number.isFinite(selectedGap)?selectedGap.toFixed(2):"";
+  stage.dataset.trafficModel="continuous-lane-proximity";
   stage.dataset.courseBank=courseBank(focus.distance).toFixed(2);
   stage.dataset.cameraMeters=cameraMeters.toFixed(2);
   stage.dataset.frameCounter=String(frameCounter);
@@ -1395,6 +1422,8 @@ stage.dataset.winnerMorph="";
 stage.dataset.winnerTime="";
 stage.dataset.finishReview=FINISH_REVIEW_MODE?"1":"0";
 stage.dataset.battleReview=BATTLE_REVIEW_MODE?"1":"0";
+stage.dataset.trafficReview=TRAFFIC_REVIEW_MODE?"1":"0";
+stage.dataset.trafficModel="continuous-lane-proximity";
 stage.dataset.battleVisible="0";
 stage.dataset.battleState="CLEAR";
 stage.dataset.battleRivalId="";
