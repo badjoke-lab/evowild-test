@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S Gate B v3 reviewed KEEP; Gate B v4 feet refinement ready
+current_stage: S Gate B v4 feet refinement saved and five views rendered; REVIEW_PENDING / STOPPED
 branch: feat/s-creature-model
-current_model_file: output/S-gateB-v3.blend
+current_model_file: output/S-gateB-v4.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute Gate B v4 feet refinement only from S-gateB-v3.blend. Modify only the 12 toe meshes; preserve core, crest and all limb meshes exactly. Render five views and stop.
+next_action: Review Gate B v4 only. Do not proceed to Gate B v5 before decision.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -137,7 +137,7 @@ gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
 gate_a_status: PASS
-modeling_status: READY_FOR_GATE_B_V4
+modeling_status: STOPPED
 gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
 gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
@@ -363,3 +363,8 @@ gate_b_v3_decision: KEEP
 gate_b_v3_reason: FRONT shows a lighter lifted anterior thorax and FRONT34 shows less rounded shield-like chest mass, while SIDE/REAR34 preserve the accepted sprint silhouette. All changes stayed inside core rings 8-10 and validation passed.
 gate_b_v3_keep: S-gateB-v3.blend becomes the Gate B base.
 gate_b_v4_rule: feet refinement only. Modify only the 12 toe meshes; preserve core, crest and all four limb meshes exactly.
+
+
+gate_b_v4_done: Twelve toe meshes refined for taper and restrained three-toe fan; all non-toe geometry preserved; five views rendered.
+gate_b_v4_acceptance: REVIEW_PENDING
+gate_b_v4_geometry_sha256: 5bbafb74192918cc490c53f5fe35e1a2faabf40b46d6464e3ffdad7f62e7bdf2

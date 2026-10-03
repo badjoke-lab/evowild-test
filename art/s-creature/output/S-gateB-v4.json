@@ -1,0 +1,32 @@
+{
+  "gate": "B",
+  "pass": "v4",
+  "status": "REVIEW_PENDING",
+  "source": "S-gateB-v3.blend",
+  "scope": "12 toe meshes only",
+  "source_geometry_sha256": "01e38475b99e06445c35884fcde1a7ee8ac1ba72aa66de3a003c4f27d27dbf07",
+  "geometry_sha256": "5bbafb74192918cc490c53f5fe35e1a2faabf40b46d6464e3ffdad7f62e7bdf2",
+  "toe_mesh_count": 12,
+  "all_nontoe_meshes_unchanged": true,
+  "toe_topology_preserved": true,
+  "no_materials": true,
+  "no_animation": true,
+  "no_armature": true,
+  "changes": [
+    "Applied progressive root-to-tip taper to all twelve toe meshes",
+    "Added restrained lateral fan separation to outer toes",
+    "Kept toe roots compact and avoided any paw/hoof mass"
+  ],
+  "limitations": [
+    "Gate B v4 review pending",
+    "No production welding/retopology"
+  ],
+  "rendered_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "geometry_unchanged_during_render": true
+}
