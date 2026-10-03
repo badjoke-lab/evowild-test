@@ -388,7 +388,7 @@ function clearBattleState() {
 
 function updateBattleState() {
   const focus=selected();
-  if (!focus || focus.finished || raceState!=="running") {
+  if (!focus || focus.finished || raceState!=="running" || elapsed<700) {
     clearBattleState();
     return;
   }
@@ -1054,7 +1054,8 @@ function drawRacers() {
     const showLabel=selectedRacer || battleRival || raceRank<=2;
     if(showLabel){
       visibleLabelCount++;
-      const labelY=item.y-spriteH*.66;
+      const labelYOffset=battleRival ? (width<700?22:16) : 0;
+      const labelY=item.y-spriteH*.66-labelYOffset;
       ctx.font=`800 ${width<700?9:11}px ui-monospace, Menlo, monospace`;
       ctx.textAlign="center";
       const txt=selectedRacer
