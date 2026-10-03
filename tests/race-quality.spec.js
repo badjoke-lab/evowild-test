@@ -271,3 +271,35 @@ test("2.5D traffic sees nearby rivals during fractional lane movement", async ({
   });
 });
 
+test("2.5D lane decision chooses real clearance and holds the line", async ({ page }, testInfo) => {
+  await page.goto("/evowild-test/race-quality.html?laneReview=1", { waitUntil: "networkidle" });
+  const stage = page.locator("#stage");
+
+  await expect(stage).toHaveAttribute("data-lane-review", "1");
+  await expect(stage).toHaveAttribute("data-lane-decision-model", "clearance-score-with-hysteresis");
+  await expect(stage).toHaveAttribute("data-race-state", "running", { timeout: 8000 });
+
+  await expect.poll(
+    async () => Number(await stage.getAttribute("data-selected-lane-decision-count")),
+    { timeout: 4000 }
+  ).toBe(1);
+
+  await expect(stage).toHaveAttribute("data-selected-target-lane", "0.00");
+  const firstTarget = await stage.getAttribute("data-selected-target-lane");
+  const firstDecisionCount = Number(await stage.getAttribute("data-selected-lane-decision-count"));
+
+  await page.waitForTimeout(1800);
+
+  expect(await stage.getAttribute("data-selected-target-lane")).toBe(firstTarget);
+  expect(Number(await stage.getAttribute("data-selected-lane-decision-count"))).toBe(firstDecisionCount);
+  expect(Number(await stage.getAttribute("data-selected-lane-hold-remaining"))).toBeGreaterThan(0);
+
+  const lane = Number(await stage.getAttribute("data-selected-lane"));
+  expect(lane).toBeLessThan(0.25);
+
+  fs.mkdirSync("artifacts/2p5d-survivor", { recursive: true });
+  await stage.screenshot({
+    path: `artifacts/2p5d-survivor/2p5d-survivor-lane-decision-${testInfo.project.name}.png`
+  });
+});
+
