@@ -1,0 +1,214 @@
+import * as THREE from "three";
+import "./visual_shader_lab.css";
+
+const canvas = document.querySelector("#shader-lab-canvas");
+const fpsEl = document.querySelector("#fps");
+const modeEl = document.querySelector("#mode");
+const toggleEl = document.querySelector("#toggle");
+
+const isMobile = matchMedia("(pointer: coarse)").matches || innerWidth < 800;
+const renderer = new THREE.WebGLRenderer({
+  canvas,
+  antialias: !isMobile,
+  powerPreference: "default",
+  precision: "mediump"
+});
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+renderer.setPixelRatio(Math.min(devicePixelRatio, isMobile ? 1.35 : 1.5));
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xa7c6cf);
+scene.fog = new THREE.FogExp2(0xa7c6cf, 0.0095);
+
+const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 260);
+camera.position.set(28, 12, 34);
+
+scene.add(new THREE.HemisphereLight(0xe6f2ff, 0x314133, 1.25));
+const sun = new THREE.DirectionalLight(0xffedcf, 1.7);
+sun.position.set(34, 48, 20);
+scene.add(sun);
+
+const groundGeometry = new THREE.PlaneGeometry(220, 180, 96, 80);
+groundGeometry.rotateX(-Math.PI / 2);
+
+const shaderUniforms = {
+  uTime: { value: 0 },
+  uEnabled: { value: 1 },
+  uFogColor: { value: new THREE.Color(0xa7c6cf) }
+};
+
+const groundShader = new THREE.ShaderMaterial({
+  uniforms: shaderUniforms,
+  fog: true,
+  vertexShader: `
+    uniform float uTime;
+    uniform float uEnabled;
+    varying vec3 vWorld;
+    varying float vMacro;
+
+    void main() {
+      vec3 p = position;
+      float waveA = sin(p.x * 0.075) * cos(p.z * 0.065);
+      float waveB = sin((p.x + p.z) * 0.035 + 1.4);
+      float relief = (waveA * 0.20 + waveB * 0.12) * uEnabled;
+      p.y += relief;
+
+      vec4 world = modelMatrix * vec4(p, 1.0);
+      vWorld = world.xyz;
+      vMacro = waveA * 0.55 + waveB * 0.45;
+
+      gl_Position = projectionMatrix * viewMatrix * world;
+    }
+  `,
+  fragmentShader: `
+    uniform float uEnabled;
+    varying vec3 vWorld;
+    varying float vMacro;
+
+    float hash21(vec2 p) {
+      p = fract(p * vec2(123.34, 456.21));
+      p += dot(p, p + 45.32);
+      return fract(p.x * p.y);
+    }
+
+    void main() {
+      vec3 flatColor = vec3(0.36, 0.47, 0.31);
+      vec2 cell = floor(vWorld.xz * 0.65);
+      float grain = hash21(cell) - 0.5;
+      float broad = 0.5 + 0.5 * sin(vWorld.x * 0.055 + sin(vWorld.z * 0.04));
+      vec3 darkGrass = vec3(0.24, 0.36, 0.23);
+      vec3 lightGrass = vec3(0.46, 0.55, 0.34);
+      vec3 procedural = mix(darkGrass, lightGrass, broad * 0.62 + 0.19 + vMacro * 0.10);
+      procedural += grain * 0.035;
+      vec3 color = mix(flatColor, procedural, uEnabled);
+
+      float horizonSoft = smoothstep(105.0, 28.0, length(vWorld.xz));
+      color = mix(vec3(0.43, 0.52, 0.39), color, horizonSoft);
+
+      gl_FragColor = vec4(color, 1.0);
+    }
+  `
+});
+
+const ground = new THREE.Mesh(groundGeometry, groundShader);
+ground.position.y = -0.05;
+scene.add(ground);
+
+const curve = new THREE.CatmullRomCurve3(
+  [
+    [-37, -8], [-28, -20], [-5, -25], [20, -20], [38, -8],
+    [39, 10], [24, 23], [0, 27], [-24, 21], [-39, 8]
+  ].map(([x, z]) => new THREE.Vector3(x, 0, z)),
+  true,
+  "centripetal",
+  0.45
+);
+
+function makeTrack() {
+  const samples = 220;
+  const halfWidth = 6.2;
+  const vertices = [];
+  const indices = [];
+
+  for (let i = 0; i <= samples; i++) {
+    const t = i / samples;
+    const p = curve.getPointAt(t);
+    const tangent = curve.getTangentAt(t).normalize();
+    const side = new THREE.Vector3(-tangent.z, 0, tangent.x);
+
+    for (const offset of [-halfWidth, halfWidth]) {
+      const q = p.clone().addScaledVector(side, offset);
+      vertices.push(q.x, 0.035, q.z);
+    }
+  }
+
+  for (let i = 0; i < samples; i++) {
+    const a = i * 2;
+    indices.push(a, a + 2, a + 1, a + 1, a + 2, a + 3);
+  }
+
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
+  geometry.setIndex(indices);
+  geometry.computeVertexNormals();
+
+  const material = new THREE.MeshStandardMaterial({
+    color: 0xb48a5f,
+    roughness: 0.98
+  });
+  scene.add(new THREE.Mesh(geometry, material));
+}
+makeTrack();
+
+const markerMaterial = new THREE.MeshStandardMaterial({
+  color: 0x6f7f72,
+  roughness: 1,
+  flatShading: true
+});
+
+for (let i = 0; i < 34; i++) {
+  const a = (i / 34) * Math.PI * 2;
+  const radius = 54 + (i % 5) * 2.6;
+  const h = 1.8 + (i % 4) * 0.7;
+  const marker = new THREE.Mesh(
+    new THREE.ConeGeometry(0.8 + (i % 3) * 0.15, h, 6),
+    markerMaterial
+  );
+  marker.position.set(Math.cos(a) * radius, h * 0.5, Math.sin(a) * radius * 0.72);
+  scene.add(marker);
+}
+
+let shaderEnabled = true;
+toggleEl.addEventListener("click", () => {
+  shaderEnabled = !shaderEnabled;
+  shaderUniforms.uEnabled.value = shaderEnabled ? 1 : 0;
+  modeEl.textContent = shaderEnabled ? "SHADER ON" : "SHADER OFF";
+});
+
+let last = performance.now();
+let fpsAccum = 0;
+let fpsFrames = 0;
+let fpsWindowStart = last;
+
+function resize() {
+  const width = innerWidth;
+  const height = innerHeight;
+  renderer.setSize(width, height, false);
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+}
+addEventListener("resize", resize);
+resize();
+
+function animate(now) {
+  requestAnimationFrame(animate);
+  const dt = Math.min((now - last) / 1000, 0.05);
+  last = now;
+
+  shaderUniforms.uTime.value += dt;
+
+  const t = (now * 0.000022) % 1;
+  const focus = curve.getPointAt(t);
+  const tangent = curve.getTangentAt(t).normalize();
+  const side = new THREE.Vector3(-tangent.z, 0, tangent.x);
+  camera.position.copy(focus)
+    .addScaledVector(side, 20)
+    .add(new THREE.Vector3(0, 9.5, 0))
+    .addScaledVector(tangent, -13);
+  camera.lookAt(focus.clone().addScaledVector(tangent, 11).add(new THREE.Vector3(0, 1.1, 0)));
+
+  renderer.render(scene, camera);
+
+  const instFps = dt > 0 ? 1 / dt : 0;
+  fpsAccum += instFps;
+  fpsFrames += 1;
+  if (now - fpsWindowStart > 700) {
+    fpsEl.textContent = `FPS ${Math.round(fpsAccum / Math.max(1, fpsFrames))}`;
+    fpsAccum = 0;
+    fpsFrames = 0;
+    fpsWindowStart = now;
+  }
+}
+requestAnimationFrame(animate);
