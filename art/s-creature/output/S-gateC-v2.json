@@ -1,0 +1,32 @@
+{
+  "gate": "C",
+  "pass": "v2",
+  "status": "REVIEW_PENDING",
+  "source": "S-gateC-v1.blend",
+  "scope": "proximal rings 0-1 of four limb meshes only",
+  "source_geometry_sha256": "5bbafb74192918cc490c53f5fe35e1a2faabf40b46d6464e3ffdad7f62e7bdf2",
+  "geometry_sha256": "a037893c093cc3db45e386a80c5258e12083515f2a4a48fc228c986eb64ad92c",
+  "locked_limb_rings_2_11_unchanged": true,
+  "all_nonlimb_meshes_unchanged": true,
+  "topology_preserved": true,
+  "subsurf_modifiers_preserved": true,
+  "no_materials": true,
+  "no_animation": true,
+  "no_armature": true,
+  "changes": [
+    "Expanded proximal root rings to compensate Catmull-Clark shrink",
+    "Moved root centroids slightly inboard for stronger core overlap"
+  ],
+  "limitations": [
+    "Gate C v2 review pending",
+    "No destructive welding/retopology yet"
+  ],
+  "rendered_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "geometry_unchanged_during_render": true
+}

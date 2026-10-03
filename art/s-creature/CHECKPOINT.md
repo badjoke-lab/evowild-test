@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S Gate C v1 reviewed KEEP; Gate C v2 limb-root shrink compensation ready
+current_stage: S Gate C v2 limb-root shrink compensation saved and five views rendered; REVIEW_PENDING / STOPPED
 branch: feat/s-creature-model
-current_model_file: output/S-gateC-v1.blend
+current_model_file: output/S-gateC-v2.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute Gate C v2 from S-gateC-v1.blend. Modify only proximal rings 0-1 of the four limb meshes to compensate Catmull-Clark shrink; preserve core, crest, toes and distal limb rings exactly. Render five views and stop.
+next_action: Review Gate C v2 only. Do not proceed before decision.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -137,7 +137,7 @@ gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
 gate_a_status: PASS
-modeling_status: READY_FOR_GATE_C_V2
+modeling_status: STOPPED
 gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
 gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
@@ -386,3 +386,8 @@ gate_c_v1_decision: KEEP
 gate_c_v1_reason: One-level Catmull-Clark materially improves body and limb surface continuity while preserving the accepted S silhouette, neck, waist and tail. The remaining production issue is local shrink/seam visibility at proximal limb roots plus the faceted crest contrast.
 gate_c_v1_keep: S-gateC-v1.blend becomes the Gate C smoothing base.
 gate_c_v2_rule: subdivision-shrink compensation only. Modify limb rings 0-1 on all four limbs; preserve core, crest, toes, and limb rings 2 onward exactly. Keep existing Subsurf modifiers.
+
+
+gate_c_v2_done: Proximal limb rings 0-1 expanded/inboard for Subsurf shrink compensation; all other geometry locked; five views rendered.
+gate_c_v2_acceptance: REVIEW_PENDING
+gate_c_v2_geometry_sha256: a037893c093cc3db45e386a80c5258e12083515f2a4a48fc228c986eb64ad92c
