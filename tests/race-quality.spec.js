@@ -122,3 +122,88 @@ test("2.5D race finalizes all 18 runners and exposes classification", async ({ p
   }
 });
 
+test("2.5D Creature State pressure changes Agent response", async ({ page }, testInfo) => {
+  await page.goto("/evowild-test/race-quality.html", { waitUntil: "networkidle" });
+  const stage = page.locator("#stage");
+  const target = page.locator("#agentTargetSelect");
+
+  await expect(stage).toHaveAttribute("data-race-state", "running", { timeout: 8000 });
+  await page.waitForTimeout(900);
+
+  let pressured = null;
+  for (let index = 0; index < 18; index += 1) {
+    await target.selectOption(String(index));
+    await page.waitForTimeout(45);
+    const state = await stage.evaluate((node) => ({
+      pressure: Number(node.dataset.agentFocusPressure),
+      stamina: Number(node.dataset.agentFocusStamina),
+      fatigue: Number(node.dataset.agentFocusFatigue),
+      morph: node.dataset.agentTargetMorph,
+      creatureState: node.dataset.agentFocusCreatureState
+    }));
+    if (Number.isFinite(state.pressure) && state.pressure > 0.10) {
+      pressured = { index, ...state };
+      break;
+    }
+  }
+
+  expect(pressured).toBeTruthy();
+  expect(["FRESH", "PRESSURED", "WORKING", "TIRED"]).toContain(pressured.creatureState);
+
+  const compatibility = { S: 1.0, P: 0.94, E: 0.76, A: 0.88 }[pressured.morph];
+  await page.getByRole("button", { name: "PUSH", exact: true }).click();
+  await page.waitForTimeout(220);
+
+  const push = await stage.evaluate((node) => ({
+    pressure: Number(node.dataset.agentFocusPressure),
+    stamina: Number(node.dataset.agentFocusStamina),
+    fatigue: Number(node.dataset.agentFocusFatigue),
+    response: Number(node.dataset.agentFocusResponse),
+    creatureState: node.dataset.agentFocusCreatureState
+  }));
+  const fatiguePenalty = Math.max(0.25, 1 - push.fatigue * 0.72);
+  const noPressureResponse = compatibility * push.stamina * fatiguePenalty;
+
+  expect(push.pressure).toBeGreaterThan(0.08);
+  expect(push.response).toBeGreaterThan(0);
+  expect(push.response).toBeLessThan(noPressureResponse);
+  expect(noPressureResponse - push.response).toBeGreaterThan(0.005);
+  expect(["FRESH", "PRESSURED", "WORKING", "TIRED"]).toContain(push.creatureState);
+  await expect(page.locator("#agentPressure")).not.toHaveText("");
+  await expect(page.locator("#creatureState")).not.toHaveText("");
+
+  fs.mkdirSync("artifacts/2p5d-survivor", { recursive: true });
+  await stage.screenshot({
+    path: `artifacts/2p5d-survivor/2p5d-survivor-creature-state-${testInfo.project.name}.png`
+  });
+});
+
+test("2.5D Agent feedback shows command then creature result", async ({ page }, testInfo) => {
+  await page.goto("/evowild-test/race-quality.html", { waitUntil: "networkidle" });
+  const stage = page.locator("#stage");
+
+  await expect(stage).toHaveAttribute("data-race-state", "running", { timeout: 8000 });
+  await page.locator("#agentTargetSelect").selectOption("0");
+  await page.getByRole("button", { name: "PUSH", exact: true }).click();
+
+  const feedback = page.locator("#agentFeedback");
+  await expect(feedback).toBeVisible();
+  await expect(page.locator("#agentFeedbackCommand")).toHaveText("PUSH");
+  await expect(stage).toHaveAttribute("data-agent-feedback-visible", "1");
+  await expect(stage).toHaveAttribute("data-agent-feedback-command", "PUSH");
+
+  await expect
+    .poll(async () => page.locator("#agentFeedbackResult").textContent())
+    .toMatch(/STRONG|PARTIAL|WEAK/);
+
+  fs.mkdirSync("artifacts/2p5d-survivor", { recursive: true });
+  await stage.screenshot({
+    path: `artifacts/2p5d-survivor/2p5d-survivor-agent-feedback-${testInfo.project.name}.png`
+  });
+
+  await page.getByRole("button", { name: "CLEAR", exact: true }).click();
+  await expect(page.locator("#agentFeedbackCommand")).toHaveText("CLEAR");
+  await expect(page.locator("#agentFeedbackResult")).toHaveText("CLEARED");
+  await expect(stage).toHaveAttribute("data-agent-feedback-result", "CLEARED");
+});
+
