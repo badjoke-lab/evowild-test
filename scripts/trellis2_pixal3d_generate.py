@@ -7,6 +7,7 @@ import pathlib
 import shutil
 import traceback
 import uuid
+import urllib.request
 
 from gradio_client import Client, handle_file
 
@@ -73,23 +74,75 @@ def as_file(value):
     raise RuntimeError(f"Could not resolve preprocess output as file: {value!r}")
 
 
-def save_returned_files(result, out_dir):
+def iter_file_objs(value):
+    if isinstance(value, dict):
+        meta = value.get("meta") or {}
+        if (
+            isinstance(meta, dict)
+            and meta.get("_type") == "gradio.FileData"
+        ) or ("path" in value and ("url" in value or "orig_name" in value)):
+            yield value
+        for v in value.values():
+            yield from iter_file_objs(v)
+    elif isinstance(value, (list, tuple)):
+        for v in value:
+            yield from iter_file_objs(v)
+    elif hasattr(value, "path"):
+        yield {
+            "path": getattr(value, "path", None),
+            "url": getattr(value, "url", None),
+            "orig_name": getattr(value, "orig_name", None),
+            "mime_type": getattr(value, "mime_type", None),
+        }
+
+
+def save_returned_files(result, out_dir, client=None, base_url=None):
     copied = []
+    seen = set()
+
+    # Local outputs, if the installed client still downloaded anything.
     for src in find_paths(result):
         p = pathlib.Path(src)
-        if not p.is_file():
+        if not p.is_file() or str(p) in seen:
             continue
         dst = out_dir / p.name
         if dst.resolve() != p.resolve():
             shutil.copy2(p, dst)
         copied.append(str(dst))
-    return copied
+        seen.add(str(p))
+
+    # With download_files=False, explicitly fetch only returned output files.
+    for obj in iter_file_objs(result):
+        url = obj.get("url")
+        if not url:
+            continue
+        if url.startswith("/") and base_url:
+            url = base_url.rstrip("/") + url
+        if not url.startswith("http"):
+            continue
+        name = obj.get("orig_name") or pathlib.Path(str(obj.get("path") or "output.bin")).name
+        if not name:
+            name = "output.bin"
+        dst = out_dir / name
+        try:
+            headers = dict(getattr(client, "headers", {}) or {})
+            req = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(req, timeout=120) as r:
+                dst.write_bytes(r.read())
+            copied.append(str(dst))
+        except Exception as exc:
+            (out_dir / "download-errors.txt").open("a", encoding="utf-8").write(
+                f"{url}\t{exc!r}\n"
+            )
+    return list(dict.fromkeys(copied))
 
 
 def client_for(space):
     token = os.environ.get("HF_TOKEN", "").strip() or None
     params = inspect.signature(Client).parameters
     kwargs = {"verbose": True}
+    if "download_files" in params:
+        kwargs["download_files"] = False
     if token:
         if "hf_token" in params:
             kwargs["hf_token"] = token
@@ -140,7 +193,7 @@ def run_pixal3d(seed, resolution, out_dir):
         "preprocess_return": jsonable(pre),
         "generate_return": jsonable(gen),
         "extract_return": jsonable(glb),
-        "saved_files": save_returned_files(glb, out_dir),
+        "saved_files": save_returned_files(glb, out_dir, client, "https://tencentarc-pixal3d.hf.space"),
     }
 
 
@@ -173,7 +226,7 @@ def run_trellis2(seed, resolution, out_dir):
         "preprocess_return": jsonable(pre),
         "generate_return": jsonable(gen),
         "extract_return": jsonable(glb),
-        "saved_files": save_returned_files(glb, out_dir),
+        "saved_files": save_returned_files(glb, out_dir, client, "https://microsoft-trellis-2.hf.space"),
     }
 
 
