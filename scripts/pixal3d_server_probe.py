@@ -55,6 +55,39 @@ remote = []
 for pat in patterns:
     remote.extend(re.findall(pat, joined))
 report["remote_urls"] = sorted(set(remote))
+report["instances"] = []
+
+for base in [u for u in report["remote_urls"] if u.endswith(".gradio.live")]:
+    item = {"base": base}
+    for name, suffix in {
+        "queue": "/queue?session_id=",
+        "api_info": "/gradio_api/info",
+        "config": "/config",
+    }.items():
+        req = urllib.request.Request(base + suffix, headers=headers)
+        try:
+            with urllib.request.urlopen(req, timeout=20) as r:
+                body = r.read().decode("utf-8", errors="replace")
+                item[name] = {
+                    "ok": True,
+                    "status": r.status,
+                    "content_type": r.headers.get("content-type"),
+                    "bytes": len(body.encode("utf-8")),
+                }
+            if name == "queue":
+                try:
+                    item["queue_data"] = json.loads(body)
+                except Exception:
+                    item["queue_text"] = body[:1000]
+            elif name == "api_info":
+                try:
+                    info = json.loads(body)
+                    item["api_names"] = sorted((info.get("named_endpoints") or {}).keys())
+                except Exception as exc:
+                    item["api_info_parse_error"] = repr(exc)
+        except Exception as exc:
+            item[name] = {"ok": False, "error": repr(exc)}
+    report["instances"].append(item)
 
 # Pull useful HTML component values out of config if possible.
 try:
