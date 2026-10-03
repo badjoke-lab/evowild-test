@@ -24,8 +24,14 @@ const ui = {
 const agentTargetSelect = document.querySelector("#agentTargetSelect");
 const agentStaminaEl = document.querySelector("#agentStamina");
 const agentFatigueEl = document.querySelector("#agentFatigue");
+const agentPressureEl = document.querySelector("#agentPressure");
+const creatureStateEl = document.querySelector("#creatureState");
 const agentResponseEl = document.querySelector("#agentResponse");
 const agentResultEl = document.querySelector("#agentResult");
+const agentFeedbackEl = document.querySelector("#agentFeedback");
+const agentFeedbackMetaEl = document.querySelector("#agentFeedbackMeta");
+const agentFeedbackCommandEl = document.querySelector("#agentFeedbackCommand");
+const agentFeedbackResultEl = document.querySelector("#agentFeedbackResult");
 const agentCommandButtons = [...document.querySelectorAll("[data-agent-command]")];
 
 const BASE = import.meta.env.BASE_URL || "/";
@@ -65,6 +71,7 @@ const MORPH_META = {
 };
 
 const AGENT_COMMAND_DURATION_MS = 8000;
+const AGENT_FEEDBACK_HOLD_MS = 2400;
 const AGENT_COMPATIBILITY = {
   S: { PUSH: 1.00, CONSERVE: 0.70 },
   P: { PUSH: 0.94, CONSERVE: 0.76 },
@@ -272,6 +279,8 @@ function makeRacers() {
     accel:ACCEL[i],
     stamina:100,
     fatigue:0,
+    pressure:0,
+    creatureState:"FRESH",
     agent:createAgentState(i),
     depthBias:[-0.14,0.10,-0.08,0.14,0.04][Math.floor(i/4)%5],
     lane:LANES[i],
@@ -287,6 +296,9 @@ function makeRacers() {
 }
 let racers = makeRacers();
 let agentTargetIndex = 0;
+let agentFeedbackRunnerId = -1;
+let agentFeedbackCommand = "NEUTRAL";
+let agentFeedbackUntil = -999999;
 
 function populateAgentTargets() {
   if (!agentTargetSelect) return;
@@ -329,6 +341,32 @@ function chooseLane(r) {
   return choices[0] ?? r.lane;
 }
 
+function computeRunnerPressure(r) {
+  if (r.finished) return 0;
+
+  let strongest = 0;
+  for (const other of racers) {
+    if (other===r || other.finished) continue;
+    const gap = other.distance-r.distance;
+    if (gap<=0 || gap>8.0) continue;
+
+    const laneGap = Math.abs(other.lane-r.lane);
+    if (laneGap>0.82) continue;
+
+    const longitudinal = 1-gap/8.0;
+    const lateral = 1-laneGap/0.82;
+    strongest = Math.max(strongest,longitudinal*lateral);
+  }
+  return clamp(strongest,0,1);
+}
+
+function deriveCreatureState(r) {
+  if (r.fatigue>=0.68 || r.stamina<=30) return "TIRED";
+  if (r.fatigue>=0.34 || r.stamina<=58) return "WORKING";
+  if (r.pressure>=0.58) return "PRESSURED";
+  return "FRESH";
+}
+
 function resolveAgentCommand(r, dt) {
   const agent = r.agent;
   if (!agent) return { speedFactor: 1, staminaDrainScale: 1 };
@@ -343,9 +381,14 @@ function resolveAgentCommand(r, dt) {
   const compat = AGENT_COMPATIBILITY[r.morph]?.[command] ?? 0;
   const staminaFactor = clamp(r.stamina / 100, 0, 1);
   const fatiguePenalty = clamp(1 - r.fatigue * 0.72, 0.25, 1);
+  const pressurePenalty = command === "PUSH"
+    ? lerp(1,0.62,r.pressure)
+    : command === "CONSERVE"
+      ? lerp(1,0.88,r.pressure)
+      : 1;
   const response = command === "NEUTRAL"
     ? 0
-    : compat * staminaFactor * fatiguePenalty;
+    : compat * staminaFactor * fatiguePenalty * pressurePenalty;
   agent.response = response;
 
   let speedFactor = 1;
@@ -356,7 +399,7 @@ function resolveAgentCommand(r, dt) {
     const effective = Math.max(0.35, response);
     speedFactor = 1 + 0.035 * response;
     staminaDrainScale = 1 + 0.55 * effective;
-    fatigueDelta = 0.0105 * effective;
+    fatigueDelta = 0.0105 * effective + 0.0040 * r.pressure;
     agent.lastResult = response >= 0.72 ? "STRONG" : response >= 0.46 ? "PARTIAL" : "WEAK";
   } else if (command === "CONSERVE") {
     const effective = Math.max(0.35, response);
@@ -367,7 +410,54 @@ function resolveAgentCommand(r, dt) {
   }
 
   r.fatigue = clamp(r.fatigue + fatigueDelta * dt, 0, 1);
+  r.creatureState = deriveCreatureState(r);
   return { speedFactor, staminaDrainScale };
+}
+
+function agentFeedbackTone(result) {
+  if (["STRONG","SETTLED"].includes(result)) return "positive";
+  if (result==="PARTIAL") return "partial";
+  if (result==="WEAK") return "weak";
+  return "neutral";
+}
+
+function showAgentFeedback(r, command) {
+  if (!agentFeedbackEl || !r?.agent) return;
+  agentFeedbackRunnerId = r.id;
+  agentFeedbackCommand = command;
+  agentFeedbackUntil = elapsed + (command==="CLEAR" ? 1600 : AGENT_FEEDBACK_HOLD_MS);
+  agentFeedbackEl.hidden = false;
+  agentFeedbackEl.dataset.tone = "neutral";
+  if (agentFeedbackMetaEl) agentFeedbackMetaEl.textContent = `${r.agent.id} → ${r.name}`;
+  if (agentFeedbackCommandEl) agentFeedbackCommandEl.textContent = command;
+  if (agentFeedbackResultEl) {
+    agentFeedbackResultEl.textContent = command==="CLEAR" ? "CLEARED" : "PENDING";
+  }
+  stage.dataset.agentFeedbackVisible = "1";
+  stage.dataset.agentFeedbackRunner = String(r.id);
+  stage.dataset.agentFeedbackCommand = command;
+  stage.dataset.agentFeedbackResult = command==="CLEAR" ? "CLEARED" : "PENDING";
+}
+
+function updateAgentFeedback() {
+  if (!agentFeedbackEl) return;
+  if (agentFeedbackRunnerId<0 || elapsed>=agentFeedbackUntil || raceState==="finished") {
+    agentFeedbackEl.hidden = true;
+    stage.dataset.agentFeedbackVisible = "0";
+    return;
+  }
+
+  const r = racers.find((runner) => runner.id===agentFeedbackRunnerId);
+  if (!r?.agent) return;
+  const result = agentFeedbackCommand==="CLEAR"
+    ? "CLEARED"
+    : r.agent.lastResult==="NEUTRAL"
+      ? "PENDING"
+      : r.agent.lastResult;
+
+  agentFeedbackEl.dataset.tone = agentFeedbackTone(result);
+  if (agentFeedbackResultEl) agentFeedbackResultEl.textContent = result;
+  stage.dataset.agentFeedbackResult = result;
 }
 
 function issueAgentCommand(r, command) {
@@ -389,6 +479,7 @@ function issueAgentCommand(r, command) {
   stage.dataset.agentCommand = r.agent.command;
   stage.dataset.agentRunnerId = String(r.id);
   stage.dataset.agentCommandUntil = String(Math.round(r.agent.commandUntil));
+  showAgentFeedback(r, command);
 }
 
 function targetSpeedFor(r) {
@@ -451,6 +542,8 @@ function updateRace(dtMs) {
   for (const r of racers) {
     if (r.finished) continue;
     r.cooldown = Math.max(0,r.cooldown-dtMs);
+    r.pressure = computeRunnerPressure(r);
+    r.creatureState = deriveCreatureState(r);
 
     const agentResolution = resolveAgentCommand(r, dt);
     let target = targetSpeedFor(r) *
@@ -475,6 +568,7 @@ function updateRace(dtMs) {
       0,
       r.stamina-(.62+effort*effort*4.4)*dt*agentResolution.staminaDrainScale
     );
+    r.creatureState = deriveCreatureState(r);
     r.distance += Math.max(0,r.speed)*dt;
 
     if (r.distance>=RACE_METERS) {
@@ -1064,6 +1158,8 @@ function updateUI(now){
   if (agentTarget?.agent) {
     if (agentStaminaEl) agentStaminaEl.textContent = `${Math.round(agentTarget.stamina)}%`;
     if (agentFatigueEl) agentFatigueEl.textContent = `${Math.round(agentTarget.fatigue * 100)}%`;
+    if (agentPressureEl) agentPressureEl.textContent = `${Math.round(agentTarget.pressure * 100)}%`;
+    if (creatureStateEl) creatureStateEl.textContent = agentTarget.creatureState;
     if (agentResponseEl) {
       agentResponseEl.textContent = agentTarget.agent.command === "NEUTRAL"
         ? "NEUTRAL"
@@ -1087,7 +1183,10 @@ function updateUI(now){
     stage.dataset.agentFocusResponse = agentTarget.agent.response.toFixed(3);
     stage.dataset.agentFocusStamina = (agentTarget.stamina / 100).toFixed(3);
     stage.dataset.agentFocusFatigue = agentTarget.fatigue.toFixed(3);
+    stage.dataset.agentFocusPressure = agentTarget.pressure.toFixed(3);
+    stage.dataset.agentFocusCreatureState = agentTarget.creatureState;
   }
+  updateAgentFeedback();
 
   if(now-lastRankingPaint>180){
     lastRankingPaint=now;
@@ -1105,6 +1204,10 @@ function updateUI(now){
 function resetRace(){
   racers=makeRacers();
   agentTargetIndex=0;
+  agentFeedbackRunnerId=-1;
+  agentFeedbackCommand="NEUTRAL";
+  agentFeedbackUntil=-999999;
+  if (agentFeedbackEl) agentFeedbackEl.hidden=true;
   populateAgentTargets();
   elapsed=0;
   raceState="countdown";
@@ -1136,6 +1239,10 @@ function resetRace(){
   stage.dataset.agentCommand="NEUTRAL";
   stage.dataset.agentRunnerId="";
   stage.dataset.agentCommandUntil="";
+  stage.dataset.agentFeedbackVisible="0";
+  stage.dataset.agentFeedbackRunner="";
+  stage.dataset.agentFeedbackCommand="";
+  stage.dataset.agentFeedbackResult="";
 }
 
 ui.pause.addEventListener("click",()=>{
@@ -1171,6 +1278,10 @@ stage.dataset.agentModel="command-only-creature-resolved";
 stage.dataset.agentTargetRunner="1";
 stage.dataset.agentTargetMorph="S";
 stage.dataset.agentCommand="NEUTRAL";
+stage.dataset.agentFeedbackVisible="0";
+stage.dataset.agentFeedbackRunner="";
+stage.dataset.agentFeedbackCommand="";
+stage.dataset.agentFeedbackResult="";
 
 // Fixed-step loop: borrowed-racer lane deliberately decouples simulation from render rate.
 const FIXED_STEP = 1000 / 60;
