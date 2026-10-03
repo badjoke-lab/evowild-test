@@ -124,3 +124,41 @@ Exact V0 v2 correction:
 V1 remains blocked.
 
 Next action: render V0 v2 shader ON/OFF through CI, inspect the actual images, and decide `KEEP / REVISE / REJECT`.
+
+
+## V0 v2 real-render review
+
+Decision: `REVISE`
+
+Evidence source: GitHub Actions run `37129980162`, artifact `visual-shader-lab-v0`.
+
+Observed:
+
+- runtime fog error was eliminated and the full E2E suite passed;
+- dirt track and edge lines became clearly readable;
+- shader ON produced visible terrain variation;
+- the first variation pattern read as coarse tiled/checkered patches and was not acceptable as final V0 ground treatment;
+- headless capture FPS read roughly 20–23 in both modes, so this environment is useful only for relative regression checks, not a production FPS claim.
+
+Exact correction: replace cell-stepped variation with smoothly interpolated value noise; keep the accepted track/camera/haze correction unchanged.
+
+## V0 v3 real-render review
+
+Decision: `KEEP`
+
+Evidence source: GitHub Actions run `37130200719`, artifact `visual-shader-lab-v0`.
+
+Observed:
+
+- E2E passed with no shader runtime error;
+- track/ground separation remains clear;
+- shader ON now adds broad, smooth low-frequency terrain variation without the v2 checker pattern;
+- shader OFF remains a useful flat-color baseline;
+- horizon remains intentionally simple because grass, dust and production lighting are outside V0;
+- headless screenshot readout was approximately 20 FPS in both ON and OFF captures, showing no obvious ON/OFF regression in this CI run but not establishing device performance.
+
+V0 decision: `KEEP`
+
+V1 status: `READY`
+
+Next action: add wind grass in V1 without changing the V0 ground, track, camera or Creature/race logic.
