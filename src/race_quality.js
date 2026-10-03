@@ -672,21 +672,28 @@ function targetSpeedFor(r) {
   const gap = gapAhead(r);
   const laneSettled=Math.abs(r.lane-r.targetLane)<0.04;
   const canReconsiderLane=r.cooldown<=0 && elapsed>=r.laneHoldUntil && laneSettled;
-  if (gap<7.5 && canReconsiderLane) {
-    const nextLane = chooseLane(r);
-    if (Math.abs(nextLane-r.lane)>=0.25) {
-      r.targetLane = nextLane;
-      r.cooldown = 1200;
-      r.laneHoldUntil = elapsed + 3000;
-      r.laneChangeStartedAt = elapsed;
-      r.laneDecisionCount += 1;
-      r.command = "SHIFT LINE";
-      r.reason = "Better forward clearance";
-      target *= 1.015;
+  if (gap<7.5) {
+    if (canReconsiderLane) {
+      const nextLane = chooseLane(r);
+      if (Math.abs(nextLane-r.lane)>=0.25) {
+        r.targetLane = nextLane;
+        r.cooldown = 1200;
+        r.laneHoldUntil = elapsed + 3000;
+        r.laneChangeStartedAt = elapsed;
+        r.laneDecisionCount += 1;
+        r.command = "SHIFT LINE";
+        r.reason = "Better forward clearance";
+        target *= 1.015;
+      } else {
+        target *= clamp(gap/7.5,.77,.97);
+        r.command = "HOLD GAP";
+        r.reason = "Blocked";
+      }
     } else {
+      // Commitment blocks another weave, not safe following behavior.
       target *= clamp(gap/7.5,.77,.97);
-      r.command = "HOLD GAP";
-      r.reason = "Blocked";
+      r.command = laneSettled ? "HOLD LINE" : "COMPLETE SHIFT";
+      r.reason = "Committed line";
     }
   } else if (p>.87 && r.stamina>22) {
     r.command = "COMMIT";
