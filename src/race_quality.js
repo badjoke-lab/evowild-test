@@ -401,7 +401,7 @@ function updateBattleState() {
 
   if (battleRivalId>0) {
     const previousRival=racers.find((r)=>r.id===battleRivalId);
-    if (previousRival && focus.distance>previousRival.distance+0.45) {
+    if (previousRival && focus.distance>previousRival.distance+0.02) {
       battleEventUntil=elapsed+1600;
       exposeBattleState(focus,previousRival,"OVERTAKE COMPLETE",focus.distance-previousRival.distance);
       return;
@@ -1051,7 +1051,7 @@ function drawRacers() {
     }
 
     const raceRank=rankOf(r);
-    const showLabel=selectedRacer || battleRival || raceRank<=3;
+    const showLabel=selectedRacer || battleRival || raceRank<=2;
     if(showLabel){
       visibleLabelCount++;
       const labelY=item.y-spriteH*.66;
