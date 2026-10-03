@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S Gate B PASS at v4; Gate C v1 surface-continuity preview ready
+current_stage: S Gate C v1 surface-continuity preview saved and five views rendered; REVIEW_PENDING / STOPPED
 branch: feat/s-creature-model
-current_model_file: output/S-gateB-v4.blend
+current_model_file: output/S-gateC-v1.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute Gate C v1 non-destructive surface-continuity preview from S-gateB-v4.blend. Add one-level Catmull-Clark to core and four limb meshes only; preserve all base coordinates/topology. Render five views and stop.
+next_action: Review Gate C v1 surface preview only. Do not proceed to destructive topology work before decision.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -137,7 +137,7 @@ gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
 gate_a_status: PASS
-modeling_status: READY_FOR_GATE_C_V1
+modeling_status: STOPPED
 gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
 gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
@@ -376,3 +376,8 @@ gate_b_tail_root_reason: SIDE and REAR34 show a continuous pelvis-to-tail taper 
 gate_b_status: PASS
 gate_b_accepted_model: output/S-gateB-v4.blend
 gate_c_v1_rule: non-destructive surface-continuity preview only. Add one-level Catmull-Clark modifiers to the core and four limb meshes; do not alter any base vertex coordinate or topology. Crest and toes remain modifier-free.
+
+
+gate_c_v1_done: One-level non-destructive Catmull-Clark preview added to core and four limb meshes; base geometry unchanged; five views rendered.
+gate_c_v1_acceptance: REVIEW_PENDING
+gate_c_v1_base_geometry_sha256: 5bbafb74192918cc490c53f5fe35e1a2faabf40b46d6464e3ffdad7f62e7bdf2

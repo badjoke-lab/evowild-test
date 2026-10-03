@@ -1,0 +1,40 @@
+{
+  "gate": "C",
+  "pass": "v1",
+  "status": "REVIEW_PENDING",
+  "source": "S-gateB-v4.blend",
+  "scope": "non-destructive one-level Catmull-Clark preview on core + four limb meshes",
+  "source_geometry_sha256": "5bbafb74192918cc490c53f5fe35e1a2faabf40b46d6464e3ffdad7f62e7bdf2",
+  "base_geometry_sha256": "5bbafb74192918cc490c53f5fe35e1a2faabf40b46d6464e3ffdad7f62e7bdf2",
+  "base_coordinates_unchanged": true,
+  "base_topology_unchanged": true,
+  "subsurf_targets": [
+    "S_rebuild_core_head_crest_neck_torso_tail",
+    "S_forelimb_L",
+    "S_forelimb_R",
+    "S_hindlimb_L",
+    "S_hindlimb_R"
+  ],
+  "subsurf_level": 1,
+  "crest_modifier_free": true,
+  "toes_modifier_free": true,
+  "no_materials": true,
+  "no_animation": true,
+  "no_armature": true,
+  "changes": [
+    "Added one-level Catmull-Clark modifiers to core and four limb meshes",
+    "Enabled smooth shading on those five source meshes"
+  ],
+  "limitations": [
+    "Gate C v1 visual review pending",
+    "No destructive retopology, welding, materials, rigging or Cue Band yet"
+  ],
+  "rendered_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "base_geometry_unchanged_during_render": true
+}

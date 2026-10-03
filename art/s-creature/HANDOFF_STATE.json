@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "S-gate-C-v1-ready",
-  "current_stage": "S Gate B PASS at v4; Gate C v1 surface-continuity preview ready",
+  "stage": "S-gate-C-v1-review",
+  "current_stage": "S Gate C v1 surface-continuity preview saved and five views rendered; REVIEW_PENDING / STOPPED",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
-  "current_model_file": "output/S-gateB-v4.blend",
+  "current_model_file": "output/S-gateC-v1.blend",
   "source_model_file": "output/S-gateB-v4.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -50,9 +50,9 @@
     "Tail and all toe geometry unchanged from v2",
     "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Execute Gate C v1 from output/S-gateB-v4.blend. Add one-level non-destructive Catmull-Clark to core and four limb meshes only; render five views and STOP.",
+  "next_action": "Review Gate C v1 surface preview only. Do not proceed to destructive topology work before decision.",
   "quality_issues": [
-    "Gate C v1 production-smoothing compatibility not yet reviewed"
+    "Gate C v1 production-smoothing compatibility acceptance pending review"
   ],
   "blockers": [],
   "accepted": true,
@@ -66,14 +66,14 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "PASS",
-  "modeling_status": "READY_FOR_GATE_C_V1",
+  "modeling_status": "STOPPED",
   "cage_vertex_count": 800,
   "review_renders": [
-    "output/review/gate-b-v4/S_gateB_side.png",
-    "output/review/gate-b-v4/S_gateB_front.png",
-    "output/review/gate-b-v4/S_gateB_front34.png",
-    "output/review/gate-b-v4/S_gateB_rear34.png",
-    "output/review/gate-b-v4/S_gateB_back.png"
+    "output/review/gate-c-v1/S_gateC_side.png",
+    "output/review/gate-c-v1/S_gateC_front.png",
+    "output/review/gate-c-v1/S_gateC_front34.png",
+    "output/review/gate-c-v1/S_gateC_rear34.png",
+    "output/review/gate-c-v1/S_gateC_back.png"
   ],
   "geometry_sha256": "5bbafb74192918cc490c53f5fe35e1a2faabf40b46d6464e3ffdad7f62e7bdf2",
   "geometry_unchanged_during_render": true,
@@ -111,6 +111,6 @@
   "gate_b_accepted_model": "output/S-gateB-v4.blend",
   "gate_b_v4_decision": "KEEP",
   "gate_b_tail_root_decision": "KEEP_AS_IS",
-  "gate_c_status": "READY_FOR_V1",
+  "gate_c_status": "REVIEW_PENDING",
   "gate_c_v1_scope": "modifier-only surface preview on core + four limb meshes"
 }
