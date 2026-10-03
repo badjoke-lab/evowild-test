@@ -231,11 +231,16 @@ def run_trellis2(seed, resolution, out_dir):
 
 
 def main():
+    global INPUT
     ap = argparse.ArgumentParser()
     ap.add_argument("--engine", choices=["pixal3d", "trellis2"], required=True)
+    ap.add_argument("--input", default="art/s-creature/references/01_s_body_primary.png")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--resolution", default="1024")
     args = ap.parse_args()
+    INPUT = ROOT / args.input
+    if not INPUT.is_file():
+        raise FileNotFoundError(INPUT)
 
     out_dir = BASE_OUT / args.engine / f"seed-{args.seed:04d}"
     out_dir.mkdir(parents=True, exist_ok=True)
