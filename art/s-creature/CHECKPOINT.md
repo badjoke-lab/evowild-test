@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S Gate C v2 limb-root shrink compensation saved and five views rendered; REVIEW_PENDING / STOPPED
+current_stage: S Gate C v2 reviewed KEEP; Gate C v3 crest bevel integration ready
 branch: feat/s-creature-model
 current_model_file: output/S-gateC-v2.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review Gate C v2 only. Do not proceed before decision.
+next_action: Execute Gate C v3 from S-gateC-v2.blend. Add a small non-destructive Bevel modifier to the crest object only; preserve all base coordinates/topology and all other meshes/modifiers exactly. Render five views and stop.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -137,7 +137,7 @@ gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
 gate_a_status: PASS
-modeling_status: STOPPED
+modeling_status: READY_FOR_GATE_C_V3
 gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
 gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
@@ -391,3 +391,8 @@ gate_c_v2_rule: subdivision-shrink compensation only. Modify limb rings 0-1 on a
 gate_c_v2_done: Proximal limb rings 0-1 expanded/inboard for Subsurf shrink compensation; all other geometry locked; five views rendered.
 gate_c_v2_acceptance: REVIEW_PENDING
 gate_c_v2_geometry_sha256: a037893c093cc3db45e386a80c5258e12083515f2a4a48fc228c986eb64ad92c
+
+gate_c_v2_decision: KEEP
+gate_c_v2_reason: Proximal root compensation reduces the Subsurf shrink/float at shoulder and thigh attachments in FRONT34/REAR34 while preserving the accepted silhouette and all locked geometry.
+gate_c_v2_keep: S-gateC-v2.blend becomes the Gate C base.
+gate_c_v3_rule: crest modifier only. Add a small two-segment Bevel to S_rebuild_crest_low_fan_group; do not alter any base vertex coordinate or topology and do not change the existing core/limb Subsurf modifiers.
