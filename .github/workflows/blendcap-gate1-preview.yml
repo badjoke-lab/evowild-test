@@ -1,0 +1,83 @@
+name: blendcap-gate1-preview
+
+on:
+  push:
+    branches:
+      - exp/blendcap-s-motion-bench-20261003
+    paths:
+      - ".github/workflows/blendcap-gate1-preview.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  detector-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout EvoWild
+        uses: actions/checkout@v4
+
+      - name: Install system tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Fetch pinned BlendCap source
+        env:
+          BLENDCAP_SHA: e3238699507c00e34b6c948931c4742915b8dc42
+        run: |
+          git clone --filter=blob:none https://github.com/Arcomade/BlendCap.git "$RUNNER_TEMP/BlendCap"
+          git -C "$RUNNER_TEMP/BlendCap" checkout --detach "$BLENDCAP_SHA"
+          test "$(git -C "$RUNNER_TEMP/BlendCap" rev-parse HEAD)" = "$BLENDCAP_SHA"
+
+      - name: Prepare 3-second isolated runner clip
+        run: |
+          mkdir -p artifacts/blendcap-gate1-preview
+          curl --fail --location --retry 3             "https://d34w7g4gy10iej.cloudfront.net/video/2604/DOD_111615549/DOD_111615549.mp4"             -o "$RUNNER_TEMP/source.mp4"
+          ffmpeg -hide_banner -y             -ss 17.5 -t 3.0 -i "$RUNNER_TEMP/source.mp4"             -vf "scale=960:-2,fps=30" -an             artifacts/blendcap-gate1-preview/input.mp4
+          ffprobe -v error -show_entries stream=width,height,r_frame_rate,nb_frames             -show_entries format=duration             -of default=nw=1             artifacts/blendcap-gate1-preview/input.mp4             | tee artifacts/blendcap-gate1-preview/input-info.txt
+
+      - name: Create CPU preview environment
+        working-directory: ${{ runner.temp }}/BlendCap
+        run: |
+          python3 -m venv .venv
+          .venv/bin/python -m pip install --upgrade pip
+          .venv/bin/pip install             torch==2.7.1 torchvision==0.22.1             --index-url https://download.pytorch.org/whl/cpu
+          .venv/bin/pip install             ultralytics==8.4.53             opencv-python==4.13.0.92             numpy==2.4.3
+
+      - name: Download YOLO11 pose detector
+        working-directory: ${{ runner.temp }}/BlendCap
+        run: |
+          mkdir -p checkpoints/yolo
+          curl --fail --location --retry 3             "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo11m-pose.pt"             -o checkpoints/yolo/yolo11m-pose.pt
+          test -s checkpoints/yolo/yolo11m-pose.pt
+
+      - name: Run BlendCap detector preview on CPU
+        working-directory: ${{ runner.temp }}/BlendCap
+        env:
+          BLENDCAP_FORCE_CPU: "1"
+        run: |
+          set -o pipefail
+          .venv/bin/python save_mhr_data.py             --video "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-preview/input.mp4"             --output "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-preview/preview.mp4"             --preview             --preview-step 3             --max-frames 90             2>&1 | tee "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-preview/preview.log"
+
+      - name: Build preview contact sheet
+        run: |
+          ffmpeg -hide_banner -y             -i artifacts/blendcap-gate1-preview/preview.mp4             -vf "fps=3,scale=320:-2,tile=5x2"             -frames:v 1             artifacts/blendcap-gate1-preview/preview-contact.jpg
+          cat > artifacts/blendcap-gate1-preview/ATTRIBUTION.txt <<'EOF'
+          Input source: DVIDS / Wikimedia Commons, Sakura Sprint 5K Fun Run, MCAS Iwakuni 2026 B-Roll
+          Author: U.S. Marine Corps video by Lance Cpl. Saul Hernandez
+          Date: 28 March 2026
+          License: Public domain (U.S. federal government work)
+          DVIDS: https://www.dvidshub.net/video/1001990
+          Input transform: 3.0-second technical excerpt beginning at 17.5s; scaled to 960px width; no audio.
+          EOF
+
+      - name: Upload Gate 1 preview evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blendcap-gate1-detector-preview
+          path: artifacts/blendcap-gate1-preview/
+          if-no-files-found: error
