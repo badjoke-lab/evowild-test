@@ -1,0 +1,66 @@
+name: blendcap-gate0
+
+on:
+  push:
+    branches:
+      - exp/blendcap-s-motion-bench-20261003
+    paths:
+      - ".github/workflows/blendcap-gate0.yml"
+      - "scripts/blendcap/**"
+      - "docs/blendcap-s-motion-bench-v0.1.md"
+      - "docs/reviews/blendcap-s-motion-bench-review.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gate0-linux:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout EvoWild
+        uses: actions/checkout@v4
+
+      - name: Record runner disk before setup
+        run: |
+          df -h .
+          python3 --version
+          git --version
+
+      - name: Fetch pinned BlendCap source
+        env:
+          BLENDCAP_SHA: e3238699507c00e34b6c948931c4742915b8dc42
+        run: |
+          git clone --filter=blob:none https://github.com/Arcomade/BlendCap.git "$RUNNER_TEMP/BlendCap"
+          git -C "$RUNNER_TEMP/BlendCap" checkout --detach "$BLENDCAP_SHA"
+          test "$(git -C "$RUNNER_TEMP/BlendCap" rev-parse HEAD)" = "$BLENDCAP_SHA"
+
+      - name: Install portable Blender 4.2.23
+        env:
+          BLENDER_URL: https://download.blender.org/release/Blender4.2/blender-4.2.23-linux-x64.tar.xz
+        run: |
+          curl --fail --location --retry 3 "$BLENDER_URL" -o "$RUNNER_TEMP/blender.tar.xz"
+          tar -xf "$RUNNER_TEMP/blender.tar.xz" -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/blender-4.2.23-linux-x64" >> "$GITHUB_PATH"
+
+      - name: Run Gate 0 probe
+        env:
+          BLENDCAP_ROOT: ${{ runner.temp }}/BlendCap
+        run: |
+          mkdir -p artifacts/blendcap-gate0
+          set +e
+          python3 scripts/blendcap/gate0_probe.py             --blendcap-root "$BLENDCAP_ROOT"             | tee artifacts/blendcap-gate0/gate0-linux.json
+          code=${PIPESTATUS[0]}
+          set -e
+          echo "probe_exit_code=$code" | tee artifacts/blendcap-gate0/probe-exit.txt
+          cat artifacts/blendcap-gate0/gate0-linux.json
+          exit "$code"
+
+      - name: Upload Gate 0 report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blendcap-gate0-linux
+          path: artifacts/blendcap-gate0/
+          if-no-files-found: error
