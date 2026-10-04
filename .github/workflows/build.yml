@@ -32,7 +32,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: visual-shader-lab-v0
-          path: artifacts/shader-lab/*.png
+          path: artifacts/shader-lab/*
           if-no-files-found: warn
       - name: Upload 2.5D survivor visuals
         if: always()
