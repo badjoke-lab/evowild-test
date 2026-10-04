@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_B1B_V3_REVIEW",
-  "current_stage": "B1b-v3 shoulder-root Y/Z connection shaping rendered; review pending; modeling stopped",
+  "stage": "VIBE_EXPERIMENT_B1B_V4_READY",
+  "current_stage": "B1b-v3 REVISE; B1b-v4 compact 3D shoulder-root fairing ready",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
-  "current_model_file": "output/S-vibe-b1b-v3.blend",
+  "current_model_file": "output/S-vibe-b0-v025.blend",
   "source_model_file": "output/S-vibe-b0-v025.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Review B1b-v3 against B0-v025, B1b-v2 and approved S references. Decide KEEP/REVISE. B2 remains blocked.",
+  "next_action": "Execute B1b-v4 independently from B0-v025 using S_VIBE_B1B_V4_PLAN.md. Compact XYZ root fairing only; render five views and STOP. B2 remains blocked.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -60,7 +60,7 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "ACCEPTED",
-  "modeling_status": "STOPPED",
+  "modeling_status": "READY_FOR_B1B_V4",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/vibe-b1b-v3/S_vibe_b1b_v3_side.png",
@@ -70,9 +70,10 @@
     "output/review/vibe-b1b-v3/S_vibe_b1b_v3_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
-  "editable_next": [],
+  "editable_next": [
+    "compact proximal shoulder-root mask only"
+  ],
   "keep_fixed_next": [
-    "all body X",
     "all non-mask body vertices",
     "crest",
     "all toes",
@@ -233,6 +234,38 @@
       "body_x_delta": 0,
       "y_extent_drift": 0.004,
       "z_extent_drift": 0.004
+    },
+    "stop_after": "five-view render + validation + actual-image review"
+  },
+  "b1b_v3_decision": "REVISE",
+  "b1b_v3_review": "S_VIBE_B1B_V3_REVIEW.md",
+  "b1b_v4": {
+    "source": "output/S-vibe-b0-v025.blend",
+    "plan": "S_VIBE_B1B_V4_PLAN.md",
+    "target": "3D shoulder-root connection step/wedge",
+    "editable": {
+      "abs_x": [
+        0.08,
+        0.165
+      ],
+      "y": [
+        -0.075,
+        0.085
+      ],
+      "z": [
+        0.925,
+        1.085
+      ]
+    },
+    "method": {
+      "axis": "XYZ",
+      "lambda": 0.2,
+      "passes": 3,
+      "residual_threshold": 0.002,
+      "max_displacement": 0.006
+    },
+    "hard_limits": {
+      "extent_drift_per_axis": 0.004
     },
     "stop_after": "five-view render + validation + actual-image review"
   }
