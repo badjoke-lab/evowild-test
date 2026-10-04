@@ -75,9 +75,17 @@ for e in list(bm.edges):
         continue
     if not e.link_faces:
         continue
+    # Support is bilateral and non-convex because it uses |X|. Never subdivide
+    # an edge/face that bridges across the sagittal plane.
+    if e.verts[0].co.x * e.verts[1].co.x <= 0:
+        continue
+    sign=1.0 if e.verts[0].co.x>0 else -1.0
     fully_local=True
     for f in e.link_faces:
         if not all(inside_support(v.co) for v in f.verts):
+            fully_local=False
+            break
+        if not all(v.co.x*sign>0 for v in f.verts):
             fully_local=False
             break
     if fully_local:
