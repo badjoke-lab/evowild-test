@@ -29,27 +29,37 @@ This source audit does **not** prove the user's Intel Mac can complete capture a
 
 ## Gate 0B — execution environment
 
-Probe result: `UNSET`
+Probe result: `PASS`
 
-OS: `UNSET`
+Execution evidence: GitHub Actions run `37183790209`
 
-Architecture: `UNSET`
+OS: `Linux / x86_64`
 
-Python: `UNSET`
+Architecture: `x86_64`
 
-Blender: `UNSET`
+Python: `3.12.3`
 
-Free disk: `UNSET`
+Blender: `4.2.23 LTS`
 
-Git: `UNSET`
+Free disk: `84.43 GB`
 
-GPU path: `UNSET`
+Git: `PASS`
 
-CPU-only fallback: `UNSET`
+GPU path: `NO NVIDIA ON HOSTED RUNNER`
 
-Required model access: `UNSET`
+CPU-only fallback: `AVAILABLE`
 
-Gate 0 decision: `NOT_RUN`
+Pinned BlendCap checkout: `e3238699507c00e34b6c948931c4742915b8dc42`
+
+Blender add-on import: `PASS`
+
+Blender add-on register: `PASS`
+
+Blender add-on unregister: `PASS`
+
+Required model access: `NOT DOWNLOADED — SAM License acceptance required before accessing model materials`
+
+Gate 0 decision: `PASS_CPU_TEST`
 
 Allowed values:
 
@@ -58,7 +68,7 @@ Allowed values:
 - `BLOCKED_ENV`
 - `REJECT_COST_OR_DEPENDENCY`
 
-Reason: `UNSET`
+Reason: `Pinned source, Blender 4.2.23, disk, Python 3.12, S asset, and headless add-on registration all passed on the free Linux runner. No NVIDIA GPU is present, so the next capture test is CPU-only unless moved to another environment.`
 
 ## Gate 1 — video -> BVH
 
@@ -135,4 +145,4 @@ Allowed values:
 
 Reason: `UNSET`
 
-Exact next action: `RUN_GATE0_EXECUTION_PROBE`
+Exact next action: `OBTAIN_EXPLICIT_SAM_LICENSE_ACCEPTANCE_THEN_RUN_GATE1_SHORT_CPU_CAPTURE`
