@@ -199,3 +199,33 @@ test("Visual Shader Lab V3 renders lighting ON/OFF evidence", async ({ page }, t
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
 });
+
+
+test("Visual Shader Lab V4 renders speed-reactive HIGH/LOW evidence", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+
+  const { pageErrors, consoleErrors } = attachErrorCapture(page);
+  const outDir = "artifacts/shader-lab";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  await page.goto("/evowild-test/visual-shader-lab.html", { waitUntil: "networkidle" });
+  await expect(page.locator("#speedMode")).toHaveText("SPEED FX HIGH");
+
+  await page.waitForTimeout(2600);
+  await page.screenshot({
+    path: `${outDir}/v4-speed-high.png`,
+    fullPage: true
+  });
+
+  await page.getByRole("button", { name: "Toggle speed FX" }).click();
+  await expect(page.locator("#speedMode")).toHaveText("SPEED FX LOW");
+  await page.waitForTimeout(1900);
+
+  await page.screenshot({
+    path: `${outDir}/v4-speed-low.png`,
+    fullPage: true
+  });
+
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+});

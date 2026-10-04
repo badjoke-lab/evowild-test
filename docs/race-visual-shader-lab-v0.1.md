@@ -386,3 +386,50 @@ V3 review gate:
 Allowed decision: `KEEP / REVISE / REJECT`.
 
 V4 speed-reactive effects remain blocked until V3 real evidence is reviewed.
+
+
+## V3 real-render review
+
+Decision: `KEEP`
+
+Evidence source: GitHub Actions run `37185237837`, artifact `visual-shader-lab-v0`.
+
+Observed:
+
+- targeted CI passed;
+- LIGHTING ON gives the standard-material track/markers stronger warm-key/cool-fill separation;
+- no blown highlights or strong orange cast appeared;
+- ground/grass custom-shader readability remains stable;
+- no shadow-map cost was introduced.
+
+V3 decision: `KEEP`.
+
+## V4 implementation
+
+Status: `REVIEW_PENDING`
+
+V0–V3 locks preserved:
+
+- no camera/FOV/director changes;
+- no race timing, Race Engine or Agent changes;
+- no new screen-space speed-line effect;
+- accepted ground, grass geometry, dust look and lighting remain intact.
+
+V4 exact change:
+
+- add a test-only SPEED FX HIGH/LOW state;
+- HIGH increases existing grass-wind amplitude from 0.72x low response to 1.45x high response;
+- HIGH increases existing dust emission rate to 1.30x and dust drift to 1.30x;
+- LOW reduces dust emission to 0.62x and drift to 0.72x;
+- effect remains environmental only; camera motion and race state are unchanged;
+- add explicit speed-FX toggle and HIGH/LOW comparison captures.
+
+V4 review gate:
+
+- HIGH must read as more energetic environment response without becoming chaotic;
+- LOW must remain visibly calmer;
+- track and Creature-readable area must stay clear;
+- no camera trick is allowed to create the difference;
+- no runtime/WebGL errors.
+
+Allowed decision: `KEEP / REVISE / REJECT`.

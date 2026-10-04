@@ -11,6 +11,8 @@ const dustToggleEl = document.querySelector("#dustToggle");
 const dustModeEl = document.querySelector("#dustMode");
 const lightToggleEl = document.querySelector("#lightToggle");
 const lightModeEl = document.querySelector("#lightMode");
+const speedToggleEl = document.querySelector("#speedToggle");
+const speedModeEl = document.querySelector("#speedMode");
 
 const isMobile = matchMedia("(pointer: coarse)").matches || innerWidth < 800;
 const renderer = new THREE.WebGLRenderer({
@@ -223,7 +225,8 @@ function deterministic01(i, salt) {
 
 const grassUniforms = {
   uTime: { value: 0 },
-  uWindEnabled: { value: 1 }
+  uWindEnabled: { value: 1 },
+  uSpeedFactor: { value: 1 }
 };
 
 const grassGeometry = new THREE.PlaneGeometry(0.09, 0.62, 1, 3);
@@ -235,6 +238,7 @@ const grassMaterial = new THREE.ShaderMaterial({
   vertexShader: `
     uniform float uTime;
     uniform float uWindEnabled;
+    uniform float uSpeedFactor;
     varying float vHeight;
     varying float vShade;
 
@@ -245,8 +249,9 @@ const grassMaterial = new THREE.ShaderMaterial({
       float phase = seedWorld.x * 0.17 + seedWorld.z * 0.11;
       float gust = sin(uTime * 1.75 + phase) * 0.115
         + sin(uTime * 0.73 + phase * 1.9) * 0.038;
-      p.x += gust * h * h * uWindEnabled;
-      p.z += gust * 0.18 * h * h * uWindEnabled;
+      float speedWind = mix(0.72, 1.45, uSpeedFactor);
+      p.x += gust * h * h * uWindEnabled * speedWind;
+      p.z += gust * 0.18 * h * h * uWindEnabled * speedWind;
 
       vec4 world = modelMatrix * instanceMatrix * vec4(p, 1.0);
       vHeight = h;
@@ -384,6 +389,7 @@ dust.frustumCulled = false;
 scene.add(dust);
 
 let dustEnabled = true;
+let speedFxHigh = true;
 let dustCursor = 0;
 let dustEmitAccumulator = 0;
 let dustEmissionSerial = 0;
@@ -425,6 +431,14 @@ function applyLighting() {
 lightToggleEl.addEventListener("click", () => {
   lightingEnabled = !lightingEnabled;
   applyLighting();
+
+
+speedToggleEl.addEventListener("click", () => {
+  speedFxHigh = !speedFxHigh;
+  grassUniforms.uSpeedFactor.value = speedFxHigh ? 1 : 0;
+  speedModeEl.textContent = speedFxHigh ? "SPEED FX HIGH" : "SPEED FX LOW";
+});
+
 });
 
 applyLighting();
@@ -451,8 +465,9 @@ function emitDust(sourceT) {
   dustPositions[index * 3 + 2] = p.z;
 
   const drift = (deterministic01(seed, 33) - 0.5) * 0.8;
-  dustVX[index] = -tangent.x * (0.65 + deterministic01(seed, 34) * 0.75) + side.x * drift;
-  dustVZ[index] = -tangent.z * (0.65 + deterministic01(seed, 35) * 0.75) + side.z * drift;
+  const speedDrift = speedFxHigh ? 1.30 : 0.72;
+  dustVX[index] = (-tangent.x * (0.65 + deterministic01(seed, 34) * 0.75) + side.x * drift) * speedDrift;
+  dustVZ[index] = (-tangent.z * (0.65 + deterministic01(seed, 35) * 0.75) + side.z * drift) * speedDrift;
   dustVY[index] = 0.16 + deterministic01(seed, 36) * 0.20;
   dustMaxLife[index] = 0.85 + deterministic01(seed, 37) * 0.70;
   dustAges[index] = 0;
@@ -460,7 +475,8 @@ function emitDust(sourceT) {
 }
 
 function updateDust(dt, sourceT) {
-  const rate = isMobile ? 16 : 28;
+  const baseRate = isMobile ? 16 : 28;
+  const rate = baseRate * (speedFxHigh ? 1.30 : 0.62);
   if (dustEnabled) {
     dustEmitAccumulator += dt * rate;
     while (dustEmitAccumulator >= 1) {
