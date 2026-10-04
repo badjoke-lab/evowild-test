@@ -5758,6 +5758,24 @@ function updateHud(dt) {
       canvas.dataset.agentModel = "command-only-creature-resolved";
     }
 
+    const positioningDecisionCounts = runners.map(
+      (runner) => runner.laneDecisionCount || 0
+    );
+    const positioningMinTrafficFactors = runners.map(
+      (runner) => runner.minTrafficFactor ?? 1
+    );
+    canvas.dataset.positioningTotalDecisions = String(
+      positioningDecisionCounts.reduce((sum, value) => sum + value, 0)
+    );
+    canvas.dataset.positioningMaxDecisions = String(
+      Math.max(...positioningDecisionCounts)
+    );
+    canvas.dataset.positioningCongestedRunnerCount = String(
+      positioningMinTrafficFactors.filter((value) => value < 0.985).length
+    );
+    canvas.dataset.positioningWorstTrafficFactor =
+      Math.min(...positioningMinTrafficFactors).toFixed(3);
+
     const positioningRunner = runners[0];
     if (positioningRunner) {
       canvas.dataset.positioningModel = "clearance-score-with-hysteresis";
