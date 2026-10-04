@@ -1873,3 +1873,53 @@ test("Motion First course profiles v1 produce distinct race suitability", async 
     path: "test-results/visuals/motion-first-course-profiles-v1.png"
   });
 });
+
+
+test("Motion First course selector v1 switches the race profile and distance labels", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(30000);
+
+  await page.goto(
+    "/evowild-test/preview-motion-first-race/index.html?skipStart=1",
+    { waitUntil: "networkidle" }
+  );
+
+  const scene = page.locator("#scene");
+  const courseSelect = page.locator("#courseSelect");
+
+  await expect(scene).toHaveAttribute("data-course-selector-ready", "1");
+  await expect(scene).toHaveAttribute(
+    "data-course-selector-options",
+    "sprint-800-v1,balanced-1600-v1,endurance-2400-v1"
+  );
+  await expect(courseSelect).toHaveValue("balanced-1600-v1");
+  await expect(page.locator("#courseReadout")).toHaveText("BALANCED 1600");
+  await expect(page.locator("#resultDistanceLabel")).toHaveText(
+    "1600 m FINAL CLASSIFICATION"
+  );
+
+  await courseSelect.selectOption("sprint-800-v1");
+  await page.waitForURL(/course=sprint-800-v1/);
+  await expect(page.locator("#courseSelect")).toHaveValue("sprint-800-v1");
+  await expect(page.locator("#courseReadout")).toHaveText("SPRINT 800");
+  await expect(page.locator("#scene")).toHaveAttribute("data-course-distance", "800");
+  await expect(page.locator("#resultDistanceLabel")).toHaveText(
+    "800 m FINAL CLASSIFICATION"
+  );
+  await expect(page.locator("#distanceReadout")).toContainText("/ 800 m");
+
+  await page.locator("#courseSelect").selectOption("endurance-2400-v1");
+  await page.waitForURL(/course=endurance-2400-v1/);
+  await expect(page.locator("#courseSelect")).toHaveValue("endurance-2400-v1");
+  await expect(page.locator("#courseReadout")).toHaveText("ENDURANCE 2400");
+  await expect(page.locator("#scene")).toHaveAttribute("data-course-distance", "2400");
+  await expect(page.locator("#scene")).toHaveAttribute("data-course-world-end", "2600");
+  await expect(page.locator("#resultDistanceLabel")).toHaveText(
+    "2400 m FINAL CLASSIFICATION"
+  );
+
+  await page.locator("#scene").screenshot({
+    path: "test-results/visuals/motion-first-course-selector-v1.png"
+  });
+});
