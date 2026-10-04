@@ -99,7 +99,7 @@ jobs:
           FOV_MODEL: "s"
         run: |
           set -o pipefail
-          /usr/bin/time -v .venv/bin/python save_mhr_data.py             --video "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-full/input.mp4"             --output "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-full/mhr_frames.npz"             --max-frames 90             --capture-skip 8             --no-hands             --focal-mm 50             2>&1 | tee "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-full/capture.log"
+          /usr/bin/time -v .venv/bin/python save_mhr_data.py             --video "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-full/input.mp4"             --output "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-full/mhr_frames.npz"             --max-frames 90             --capture-skip 29             --no-hands             --focal-mm 50             2>&1 | tee "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-full/capture.log"
 
       - name: Convert real NPZ to BVH
         working-directory: ${{ runner.temp }}/BlendCap
