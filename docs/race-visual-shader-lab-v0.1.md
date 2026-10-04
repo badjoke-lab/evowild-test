@@ -278,3 +278,6 @@ V2 review gate:
 Allowed decision: `KEEP / REVISE / REJECT`.
 
 V3 race lighting remains blocked until V2 real screenshots and motion video are reviewed.
+
+
+V2 CI execution: `PENDING_REAL_CAPTURE`
