@@ -1,6 +1,6 @@
 # S Vibe Lane — Gate B1 Shoulder / Chest Analysis
 
-Status: B1b-v1 REVISE; B1b-v2 hypothesis locked
+Status: B1b-v1 / B1b-v2 REVISE; B1 remains OPEN
 Lane: exp/s-creature-vibe-modeling
 Source: output/S-vibe-b0-v025.blend
 
@@ -150,3 +150,7 @@ REVISE; see S_VIBE_B1B_V1_REVIEW.md.
 ## B1b-v2 single hypothesis
 
 Locked in S_VIBE_B1B_V2_PLAN.md. Replace the alternating X-only fairing with inward-only outward-residual reduction, within unchanged target mask and exact Y/Z locks. Do not restart B1a or advance B2 before actual-image acceptance.
+
+## B1b-v2 actual-image review
+
+REVISE; see S_VIBE_B1B_V2_REVIEW.md. Some local smoothing improved, but shoulder cap/triangular root transition remains. Do not promote validation PASS to KEEP. No further X-fairing intensity escalation; re-examine shoulder-root anatomical geometry before defining the next single hypothesis. B2 and later remain BLOCKED.

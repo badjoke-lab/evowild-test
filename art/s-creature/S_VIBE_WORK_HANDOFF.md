@@ -1,174 +1,39 @@
 # EvoWild Run — S Vibe current Work handoff
 
-Lane: exp/s-creature-vibe-modeling. Never modify feat/s-creature-model.
-
-B1b-v1 actual-image review: REVISE; S_VIBE_B1B_V1_REVIEW.md.
-B1b-v2 single hypothesis: LOCKED; S_VIBE_B1B_V2_PLAN.md.
-B1b-v2 workflow will run the declared inward-only X edit from B0-v025, then validate and render five views. Review the resulting actual images before acceptance. B2 and later BLOCKED.
-
-Closed B1a must not be replayed. Do not claim to have seen the thread-only Modeling Image v1.0. Use repository references 00/01/02, and always reference -> one hypothesis -> edit -> hard-scope validation -> render -> actual-image review.
-
-Prior authoritative handoff follows as historical context; its REVIEW_PENDING instruction is superseded by this review/plan.
-
-# EvoWild Run — S Vibe Modeling Work Handoff
-
-Status: ACTIVE
+Status: ACTIVE checkpoint / modeling STOPPED after actual-image review
 Lane: exp/s-creature-vibe-modeling
-Do not modify: feat/s-creature-model
-Authoritative remote checkpoint commit at handoff creation: 6417f827b76855c437e3a8250769d04e37b34c60
+Never modify: feat/s-creature-model
 
-## Purpose
+## Latest completed work
 
-This file exists so ChatGPT Work can resume the experimental S-type modeling lane from the exact current remote state without replaying old steps or guessing from chat history.
+- B1b-v1: REVISE (S_VIBE_B1B_V1_REVIEW.md).
+- B1b-v2: executed from B0-v025 under S_VIBE_B1B_V2_PLAN.md.
+- Actions run 37211294754: SUCCESS; edit, validation, five-view render and result commit completed.
+- Result commit: 3935dd071eae50c5b437b6c1402c8ed59e416197.
+- Latest model: output/S-vibe-b1b-v2.blend.
+- All five original v2 images opened and compared to B0/v1 and repository S references.
+- B1b-v2 formal decision: REVISE (S_VIBE_B1B_V2_REVIEW.md).
+- B1 is still OPEN. B2 and later BLOCKED.
 
-## First actions in Work
+## Why REVISE
 
-1. Pull/fetch the latest remote state of `exp/s-creature-vibe-modeling`.
-2. Read:
-   - `art/s-creature/S_VIBE_WORK_HANDOFF.md`
-   - `art/s-creature/CHECKPOINT.md`
-   - `art/s-creature/HANDOFF_STATE.json`
-   - `art/s-creature/S_VIBE_GATE_B_METHOD.md`
-   - `art/s-creature/S_VIBE_B1_REFERENCE_ANALYSIS.md`
-3. Inspect the latest Actions for this branch.
-4. Do not trust older chat summaries over the current remote files.
-5. Do not modify `feat/s-creature-model`.
+v2 reduces some lateral irregularity, but the shoulder cap/raised highlight and triangular forelimb-root boundary still look insufficiently integrated in FRONT34 and SIDE. Max inward X displacement 0.009492293, outward 0, X extent drift 0; scope and topology PASS. Technical PASS is not visual acceptance.
 
-## Current exact stage
+## Next action
 
-Latest completed model:
-- `art/s-creature/output/S-vibe-b1b-v1.blend`
+Remain at B1b; do not replay closed B1a. Use B0-v025 as recovery source, not unaccepted v1/v2 accumulation. Re-examine shoulder-root reference landmarks and source geometry; lock one anatomical shaping hypothesis with source / target / keep_fixed / exact_edit / expected_visual_change / hard_limit before editing. Do not repeat X-only fairing intensity escalation. The possible need for controlled root geometry reshaping is a review inference, not yet a validated method or permission to change the whole body.
 
-Latest completed action:
-- workflow: `S creature Vibe lane Gate B1b v1 shoulder plane`
-- run id: `37184095417`
-- result: SUCCESS
+## Files to read first
 
-Latest result commit:
-- `6417f827b76855c437e3a8250769d04e37b34c60`
-- message: `art: save Vibe B1b-v1 shoulder plane review`
+S_VIBE_WORK_HANDOFF.md, CHECKPOINT.md, HANDOFF_STATE.json, S_VIBE_GATE_B_METHOD.md, S_VIBE_B1_REFERENCE_ANALYSIS.md, S_VIBE_B1B_V2_REVIEW.md.
 
-Current stage:
-- **B1b-v1 = REVIEW_PENDING**
-- modeling is STOPPED for actual-image review
-- do not start a new edit before the review decision
+## Actual images
 
-## Why B1b exists
+output/review/vibe-b1b-v2/S_vibe_b1b_v2_{side,front,front34,rear34,back}.png
+Comparison: output/review/vibe-b1b-v2/B1b-v2-three-version-five-view-comparison.jpg.
 
-B1a isotropic Taubin relax was exhausted:
+Approved repository references 00_full_reference.png / 01_s_body_primary.png / 02_s_silhouette.png were opened. The separate thread-only Modeling Image v1.0 was not available and must not be claimed as reviewed.
 
-- B1a-v1: safe but visually negligible
-- B1a-v2: REVISE; visual improvement too small
-- B1a-v3: REVISE; max displacement 0.0096155548 near the 0.010 hard limit, residual remained
-- B1a-v4: HARD_FAIL before render; max displacement 0.0127101907 > 0.010
+## Permanent sequence
 
-Conclusion:
-- do not increase relax cycles further
-- do not narrow the B1a taper further
-- B0-v025 remains the recovery/source baseline
-- remaining issue was reclassified as a lateral shoulder-root / chest-side plane problem, not only voxel noise
-
-## B1b-v1 method
-
-Source:
-- `output/S-vibe-b0-v025.blend`
-
-Target:
-- lateral shoulder-root / chest-side protrusion visible in FRONT34
-
-Method:
-- X-axis-only local fairing
-- body Y/Z coordinates exact fixed
-- topology and vertex count fixed
-- symmetric same-side adjacency fairing
-- crest and toes fixed
-
-Editable mask:
-- Y: -0.12 to 0.18
-- Z: 0.80 to 1.12
-- |X| >= 0.055
-
-Hard limit:
-- max |delta X| <= 0.006
-
-## B1b-v1 validation result
-
-PASS.
-
-- editable vertices: 529
-- changed vertices: 527
-- max |delta X|: 0.004377767443656921
-- mean |delta X|: 0.0003738141986620674
-- whole-body X extent drift: 0
-- all body Y/Z unchanged: true
-- fixed geometry unchanged: true
-- crest/toes unchanged: true
-- topology unchanged: true
-- render hard-scope validation: true
-
-## B1b-v1 review renders
-
-Inspect the actual images, not filenames or metadata:
-
-- `output/review/vibe-b1b-v1/S_vibe_b1b_v1_side.png`
-- `output/review/vibe-b1b-v1/S_vibe_b1b_v1_front.png`
-- `output/review/vibe-b1b-v1/S_vibe_b1b_v1_front34.png`
-- `output/review/vibe-b1b-v1/S_vibe_b1b_v1_rear34.png`
-- `output/review/vibe-b1b-v1/S_vibe_b1b_v1_back.png`
-
-Compare primarily against:
-- `output/review/vibe-b0-v025/`
-- approved repository S references:
-  - `references/00_full_reference.png`
-  - `references/01_s_body_primary.png`
-  - `references/02_s_silhouette.png`
-
-Do not claim to have inspected any separately named "Modeling Image v1.0" unless that file is actually present and opened.
-
-## Required next decision
-
-Work's immediate task is only:
-
-**Review B1b-v1 actual five-view renders and decide KEEP or REVISE.**
-
-Review questions:
-- Did FRONT34 shoulder-root protrusion become a cleaner lateral plane?
-- Did FRONT/BACK remain narrow enough?
-- Did shoulder mass remain readable rather than collapse?
-- Did the chest avoid barrel widening?
-- SIDE should remain effectively invariant because Y/Z were hard-fixed.
-- Is the visual improvement large enough to justify keeping B1b-v1?
-
-## If KEEP
-
-1. Record the KEEP decision in a dedicated review markdown.
-2. Update CHECKPOINT and HANDOFF_STATE.
-3. Close B1 shoulder/chest shaping only if the reference comparison supports it.
-4. Define the next Gate B subtask from the method lock before editing.
-5. Use one hypothesis only.
-
-## If REVISE
-
-1. Record the reason with actual-image evidence.
-2. Do not accumulate blindly on top of B1b-v1 unless the review explicitly justifies it.
-3. Prefer B0-v025 as recovery source unless there is a documented reason to use B1b-v1 as base.
-4. Define exactly one next hypothesis with:
-   - source
-   - target
-   - keep_fixed
-   - exact_edit
-   - expected_visual_change
-   - hard_limit
-5. Execute only after those fields are locked.
-6. Stop after validation + five-view render for another actual-image review.
-
-## Permanent rules
-
-- Experimental lane only: `exp/s-creature-vibe-modeling`
-- Never change `feat/s-creature-model` from this workflow.
-- Reference -> hypothesis -> edit -> validation -> render -> actual-image review.
-- One morphological/anatomical hypothesis per revision.
-- No automatic progression across review gates.
-- Never mark KEEP from validation alone.
-- Never claim to have reviewed an image that was not actually opened.
-- B0-v025 is the recovery baseline for B1 unless a later accepted candidate explicitly replaces it.
+reference -> one locked hypothesis -> edit -> hard-scope validation -> render -> actual-image review. Never accept from validation alone, never progress gates before the actual-image decision, and never alter feat/s-creature-model from this lane.

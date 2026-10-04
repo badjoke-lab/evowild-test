@@ -9,12 +9,12 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_B1B_V2_REVIEW",
-  "current_stage": "B1b-v2 X-only shoulder-plane shaping rendered; review pending; modeling stopped",
+  "stage": "VIBE_EXPERIMENT_B1B_V2_REVISE",
+  "current_stage": "B1b-v2 actual-image review complete; REVISE; modeling stopped",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
   "current_model_file": "output/S-vibe-b1b-v2.blend",
-  "source_model_file": "NONE / fresh empty scene",
+  "source_model_file": "output/S-vibe-b0-v025.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
     "S_CREATURE_MODELING_WORKFLOW.md",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Review B1b-v2 against B0-v025 and approved S references. Do not advance beyond B1 shoulder/chest before explicit decision.",
+  "next_action": "Remain B1b. Re-inspect shoulder-root references/source geometry and lock one anatomical shaping hypothesis before further edits. Do not replay B1a, escalate X-only fairing, or advance B2.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -74,7 +74,7 @@
   "keep_fixed_next": [
     "B0-v025 source remains recovery source"
   ],
-  "review_basis": "Direct comparison of v6 SIDE/FRONT/FRONT34/BACK against 00_full_reference.png, 01_s_body_primary.png and 02_s_silhouette.png",
+  "review_basis": "Actual B1b-v2 five original PNGs and matched-camera B0-v025 / B1b-v1 comparisons, plus repository 00/01/02 S references.",
   "v6_decision": "REVISE",
   "v6_reason": "Crest remains four near-parallel horizontal fins/comb; locked S reference uses a compact layered cranial crest dominated by a rear-upward primary lamina with shorter subordinate layers.",
   "v7_decision": "REVISE",
@@ -138,7 +138,7 @@
     "hard_limit": "max displacement <= 0.010",
     "stop_after": "five-view render + hard-scope validation + review"
   },
-  "b1b_status": "B1B_V2_PLAN_LOCKED",
+  "b1b_status": "OPEN / NO_ACCEPTED_CANDIDATE",
   "main_lane_unchanged": true,
   "b1a_v3_decision": "REVISE",
   "b1a_v3_review": "S_VIBE_B1A_V3_REVIEW.md",
@@ -188,5 +188,15 @@
   },
   "b1b_v1_decision": "REVISE",
   "b1b_v1_review": "S_VIBE_B1B_V1_REVIEW.md",
-  "b1b_v2_plan": "S_VIBE_B1B_V2_PLAN.md"
+  "b1b_v2_plan": "S_VIBE_B1B_V2_PLAN.md",
+  "b1b_v2_decision": "REVISE",
+  "b1b_v2_review": "S_VIBE_B1B_V2_REVIEW.md",
+  "b1b_v2_review_status": "COMPLETE",
+  "b2_status": "BLOCKED",
+  "actual_reviewed_references": [
+    "references/00_full_reference.png",
+    "references/01_s_body_primary.png",
+    "references/02_s_silhouette.png"
+  ],
+  "modeling_image_v1_reviewed": false
 }
