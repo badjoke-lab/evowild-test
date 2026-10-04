@@ -5,6 +5,7 @@ import { clone as cloneSkeleton } from "three/addons/utils/SkeletonUtils.js";
 const canvas = document.querySelector("#scene");
 const loading = document.querySelector("#loading");
 const raceStateEl = document.querySelector("#raceState");
+const courseReadoutEl = document.querySelector("#courseReadout");
 const distanceEl = document.querySelector("#distanceReadout");
 const fpsEl = document.querySelector("#fpsReadout");
 const speedEl = document.querySelector("#speedReadout");
@@ -13,12 +14,14 @@ const runnerNameEl = document.querySelector("#runnerName");
 const positionEl = document.querySelector("#positionReadout");
 const cameraEl = document.querySelector("#cameraReadout");
 const runnerSelect = document.querySelector("#runnerSelect");
+const courseSelect = document.querySelector("#courseSelect");
 const pauseButton = document.querySelector("#pauseButton");
 const restartButton = document.querySelector("#restartButton");
 const resultPanel = document.querySelector("#resultPanel");
 const winnerNameEl = document.querySelector("#winnerName");
 const winningTimeEl = document.querySelector("#winningTime");
 const resultRaceTimeEl = document.querySelector("#resultRaceTime");
+const resultDistanceLabelEl = document.querySelector("#resultDistanceLabel");
 const resultListEl = document.querySelector("#resultList");
 const startSequenceEl = document.querySelector("#startSequence");
 const startSequenceLabelEl = document.querySelector("#startSequenceLabel");
@@ -124,6 +127,32 @@ const START_PAIR_OFFSET = 0.62;
 const START_LINE_Z = -1.25;
 const START_MERGE_BEGIN = 28;
 const START_MERGE_END = 115;
+function initializeCourseUi() {
+  if (!SIMPLIFIED_RACE_PAGE) return;
+
+  if (courseReadoutEl) {
+    courseReadoutEl.textContent = RACE_COURSE_PROFILE.label;
+  }
+  if (resultDistanceLabelEl) {
+    resultDistanceLabelEl.textContent =
+      `${RACE_DISTANCE} m FINAL CLASSIFICATION`;
+  }
+
+  if (courseSelect) {
+    courseSelect.replaceChildren();
+    Object.values(RACE_COURSE_PROFILES).forEach((profile) => {
+      const option = document.createElement("option");
+      option.value = profile.id;
+      option.textContent = profile.label;
+      courseSelect.append(option);
+    });
+    courseSelect.value = RACE_COURSE_PROFILE.id;
+  }
+
+  canvas.dataset.courseSelectorReady = courseSelect ? "1" : "0";
+  canvas.dataset.courseSelectorOptions = Object.keys(RACE_COURSE_PROFILES).join(",");
+}
+
 const AGENT_COMPATIBILITY = {
   S: { PUSH: 1.00, CONSERVE: 0.70 },
   P: { PUSH: 0.94, CONSERVE: 0.76 },
@@ -5955,6 +5984,25 @@ function finishCheck() {
   }
 }
 
+if (courseSelect) {
+  courseSelect.addEventListener("change", () => {
+    const selectedCourse = courseSelect.value;
+    if (!RACE_COURSE_PROFILES[selectedCourse]) return;
+
+    const next = new URLSearchParams(window.location.search);
+    next.set("course", selectedCourse);
+    next.delete("finishReview");
+    next.delete("fullDirectorReview");
+    next.delete("agentBalanceReview");
+    next.delete("positioningReview");
+    next.delete("proxyReviewRunner");
+    next.delete("visualSwap");
+    next.delete("visualSwapRunner");
+    next.delete("simRate");
+    window.location.search = next.toString();
+  });
+}
+
 if (agentTargetSelect) {
   agentTargetSelect.addEventListener("change", () => {
     agentTargetRunner = Number(agentTargetSelect.value);
@@ -6176,6 +6224,7 @@ async function boot() {
   applySimplifiedRaceWorldMaterials();
   await prepareHunyuanSAsset();
   await prepareRaceVisualSwapAsset();
+  initializeCourseUi();
   createRunners();
   resetRace();
 

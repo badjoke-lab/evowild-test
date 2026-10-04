@@ -827,3 +827,8 @@ button:disabled {
   }
 }
 
+
+
+.course-control select {
+  min-width: 164px;
+}
