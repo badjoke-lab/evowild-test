@@ -104,3 +104,41 @@ B1a-v2 locked change:
 - 4 cycles
 - reject if max displacement exceeds 0.010 object-space units
 - all other scope rules unchanged
+
+## B1a-v2 / v3 / v4 outcome
+
+B1a-v2: REVISE.
+- max displacement 0.0058322
+- visual cleanup still insufficient
+
+B1a-v3: REVISE.
+- cycles 8
+- max displacement 0.0096156
+- visual cleanup still insufficient
+- cycle escalation exhausted
+
+B1a-v4: HARD FAIL.
+- same 8 cycles, narrower boundary taper
+- max displacement 0.0127102 > 0.010
+- stopped before render
+
+### B1a method closure
+
+The isotropic Taubin-relax family is closed. No B1a candidate is accepted.
+B0-v025 remains the source.
+
+The dominant residual is now classified as a lateral shoulder-root / chest-side plane problem rather than only voxel-scale noise.
+
+### B1b-v1 locked hypothesis
+
+Use X-only local fairing from B0-v025:
+- target Y [-0.12, 0.18]
+- target Z [0.80, 1.12]
+- |X| >= 0.055
+- Y/Z exact fixed
+- X-only adjacency fairing
+- cumulative |delta X| <= 0.006
+- crest/toes/topology fixed
+- SIDE profile invariant by construction
+
+B1b is explicitly unblocked by this method decision. It was not started automatically from B1a-v2/v3.
