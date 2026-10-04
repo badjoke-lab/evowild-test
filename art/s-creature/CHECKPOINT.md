@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gate B1a-v2 local shoulder/chest cleanup rendered; REVIEW_PENDING / STOPPED
+current_stage: experimental Vibe B1a-v2 reviewed REVISE; B1a-v3 stronger local cleanup required
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-b1a-v2.blend
+current_model_file: output/S-vibe-b0-v025.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review B1a-v2 five views against B0-v025 and approved S references. Decide whether local cleanup removes voxel waviness without silhouette drift. Do not start B1b before explicit decision.
+next_action: Build B1a-v3 independently from output/S-vibe-b0-v025.blend. Use the same locked shoulder/chest region, lambda 0.32, mu -0.33 and boundary taper, changing only cycles 4 -> 8. Hard-fail if max displacement exceeds 0.010. Render five views and STOP; B1b remains blocked.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -465,3 +465,16 @@ vibe_gate_b1a_v2_renders:
 - output/review/vibe-b1a-v2/S_vibe_b1a_v2_front34.png
 - output/review/vibe-b1a-v2/S_vibe_b1a_v2_rear34.png
 - output/review/vibe-b1a-v2/S_vibe_b1a_v2_back.png
+
+vibe_gate_b1a_v2_decision: REVISE
+vibe_gate_b1a_v2_review: S_VIBE_B1A_V2_REVIEW.md
+vibe_gate_b1a_v2_comparison: output/review/vibe-b1a-v2/B1a-v2-three-version-five-view-comparison.png
+vibe_gate_b1a_v2_validation: PASS / fixed geometry and topology preserved
+vibe_gate_b1a_v2_reason: Visual improvement over B0-v025 and B1a-v1 is small; shoulder-root and lateral-chest unevenness remains, especially in FRONT34.
+vibe_gate_b1a_v2_modeling_image_note: Separate "Modeling Image v1.0" is not repository-accessible and was not reviewed.
+vibe_gate_b1a_v3_source: output/S-vibe-b0-v025.blend
+vibe_gate_b1a_v3_target: shoulder-root and lateral-chest bumpiness in the same locked B1a region
+vibe_gate_b1a_v3_keep_fixed: all outside-region body vertices; crest; toes; topology; vertex count
+vibe_gate_b1a_v3_exact_edit: keep lambda 0.32 / mu -0.33 / boundary taper; change cycles from 4 to 8 only
+vibe_gate_b1a_v3_hard_limit: max displacement <= 0.010
+vibe_gate_b1b_status: BLOCKED
