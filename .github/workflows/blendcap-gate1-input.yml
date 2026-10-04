@@ -24,24 +24,25 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y ffmpeg
 
-      - name: Download licensed runner source
+      - name: Download public-domain runner source
         run: |
           mkdir -p artifacts/blendcap-gate1-input
-          curl --fail --location --retry 3             "https://upload.wikimedia.org/wikipedia/commons/6/62/Was_passiert_bei_einem_SakuraSprint.mp4"             -o artifacts/blendcap-gate1-input/Sprint.webm
+          curl --fail --location --retry 3             "https://d34w7g4gy10iej.cloudfront.net/video/2604/DOD_111615549/DOD_111615549.mp4"             -o artifacts/blendcap-gate1-input/SakuraSprint.mp4
 
       - name: Build review contact sheet
         run: |
-          ffmpeg -hide_banner -y             -i artifacts/blendcap-gate1-input/Sprint.webm             -vf "fps=1/2,scale=320:-2,tile=5x3"             -frames:v 1             artifacts/blendcap-gate1-input/contact.jpg
-          ffprobe -v error -show_entries format=duration,size             -of default=nw=1             artifacts/blendcap-gate1-input/Sprint.webm             > artifacts/blendcap-gate1-input/source-info.txt
+          ffmpeg -hide_banner -y             -i artifacts/blendcap-gate1-input/SakuraSprint.mp4             -vf "fps=1/2,scale=320:-2,tile=5x3"             -frames:v 1             artifacts/blendcap-gate1-input/contact.jpg
+          ffprobe -v error -show_entries format=duration,size             -of default=nw=1             artifacts/blendcap-gate1-input/SakuraSprint.mp4             > artifacts/blendcap-gate1-input/source-info.txt
 
       - name: Record attribution
         run: |
           cat > artifacts/blendcap-gate1-input/ATTRIBUTION.txt <<'EOF'
-          Source: Wikimedia Commons, File:Sprint.webm
-          Author: Evworo
-          Date: 15 March 2019
-          License: CC BY-SA 3.0
-          Source page: https://commons.wikimedia.org/wiki/File:Sprint.webm
+          Source: DVIDS / Wikimedia Commons, Sakura Sprint 5K Fun Run, MCAS Iwakuni 2026 B-Roll
+          Author: U.S. Marine Corps video by Lance Cpl. Saul Hernandez
+          Date: 28 March 2026
+          License: Public domain (U.S. federal government work)
+          Commons source page: https://commons.wikimedia.org/wiki/File:Sakura_Sprint_5K_Fun_Run,_Marine_Corps_Air_Station_Iwakuni,_Japan_2026_(B-Roll)_(1001990).webm
+          DVIDS source: https://www.dvidshub.net/video/1001990
           Use: temporary technical input-selection review for the isolated BlendCap bench.
           EOF
 
