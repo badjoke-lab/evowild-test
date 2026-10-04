@@ -1,0 +1,105 @@
+name: UniMate S Preflight
+
+on:
+  push:
+    branches:
+      - exp/unimate-s-motion-bench-20261001
+    paths:
+      - ".github/workflows/unimate-s-preflight.yml"
+      - "public/models/evowild-s/focus-rigged-v5.glb"
+      - "scripts/unimate/**"
+      - "docs/unimate-s-motion-bench-v0.1.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preprocess:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      UNIMATE_COMMIT: 2c5b384715aa63d8639b1ed7eb74bfe614570c7a
+      MOTION_COMMIT: 08e6d32f8f777037ee43bda3fce0b80b74dd2d7f
+    steps:
+      - name: Checkout EvoWild bench
+        uses: actions/checkout@v4
+
+      - name: Install Blender and Python dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y blender ffmpeg python3-pip
+          python3 -m pip install --user --break-system-packages loguru matplotlib imageio imageio-ffmpeg tqdm
+
+      - name: Checkout pinned UniMate
+        run: |
+          git clone https://github.com/Friedrich-M/UniMate.git /tmp/UniMate
+          git -C /tmp/UniMate checkout "$UNIMATE_COMMIT"
+          git -C /tmp/UniMate rev-parse HEAD
+
+      - name: Checkout Motion dependency
+        run: |
+          git clone https://github.com/inbar-2344/Motion.git /tmp/Motion
+          # Keep this dependency source-only; UniMate imports Animation.py and Quaternions.py directly.
+          test -f /tmp/Motion/Animation.py
+          test -f /tmp/Motion/Quaternions.py
+
+      - name: Show Blender Python environment
+        run: |
+          blender --version
+          blender -b --python-expr "import sys,site; print('PY',sys.version); print('PATH',sys.path); print('USER',site.getusersitepackages())"
+
+      - name: Preprocess EvoWild S
+        env:
+          PYTHONPATH: /tmp/UniMate:/tmp/Motion:/home/runner/.local/lib/python3.12/site-packages:/usr/lib/python3/dist-packages
+        run: |
+          mkdir -p "$GITHUB_WORKSPACE/.unimate-preflight"
+          cd /tmp/UniMate
+          blender -b -P data_process/mesh_animation/preprocess_char.py --             --char_path="$GITHUB_WORKSPACE/public/models/evowild-s/focus-rigged-v5.glb"             --output_dir="$GITHUB_WORKSPACE/.unimate-preflight"             --formats=glb             --keep_intermediate
+
+      - name: Summarize topology
+        run: |
+          python3 - <<'PY'
+          import json
+          import numpy as np
+          from pathlib import Path
+
+          root = Path(".unimate-preflight")
+          cond_path = root / "cond.npy"
+          if not cond_path.exists():
+              raise SystemExit("cond.npy missing")
+          cond = np.load(cond_path, allow_pickle=True).item()
+          if len(cond) != 1:
+              raise SystemExit(f"expected one object type, got {list(cond)}")
+          name, c = next(iter(cond.items()))
+          summary = {
+              "object_type": name,
+              "joint_count": len(c["parents"]),
+              "joint_names": [str(x) for x in c.get("joint_names", [])],
+              "clean_joint_names": [str(x) for x in c.get("clean_joint_names", [])],
+              "face_joint_idxs": c.get("face_joint_idxs"),
+              "kinematic_chains": c.get("kinematic_chains"),
+              "motion_files": sorted(p.name for p in (root / "motions").glob("*.npz")),
+              "canonical_glbs": sorted(p.name for p in root.glob("*_canonical.glb")),
+          }
+          def conv(x):
+              if hasattr(x, "tolist"):
+                  return x.tolist()
+              if isinstance(x, (set, tuple)):
+                  return list(x)
+              raise TypeError(type(x).__name__)
+          (root / "preflight-summary.json").write_text(json.dumps(summary, indent=2, default=conv))
+          print(json.dumps(summary, indent=2, default=conv))
+          PY
+
+      - name: Upload preflight artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: unimate-s-preflight
+          path: |
+            .unimate-preflight/cond.npy
+            .unimate-preflight/*_canonical.glb
+            .unimate-preflight/motions/*.npz
+            .unimate-preflight/preflight-summary.json
+          if-no-files-found: error
+          retention-days: 7
