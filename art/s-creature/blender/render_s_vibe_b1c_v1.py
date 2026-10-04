@@ -14,14 +14,15 @@ s=report['support']
 XMIN,XMAX=s['abs_x_min'],s['abs_x_max']
 YMIN,YMAX=s['y_min'],s['y_max']
 ZMIN,ZMAX=s['z_min'],s['z_max']
+SUPPORT_EPS=1e-5
 preserved=[o for o in cage.objects if o.type=='MESH' and o!=body]
 
-def inside_support(co):
+def inside_support(co, eps=0.0):
     ax=abs(co.x)
-    return XMIN <= ax <= XMAX and YMIN <= co.y <= YMAX and ZMIN <= co.z <= ZMAX
+    return (XMIN-eps) <= ax <= (XMAX+eps) and (YMIN-eps) <= co.y <= (YMAX+eps) and (ZMIN-eps) <= co.z <= (ZMAX+eps)
 
 def outside_body_coords():
-    return sorted(tuple(v.co) for v in mesh.vertices if not inside_support(v.co))
+    return sorted(tuple(v.co) for v in mesh.vertices if not inside_support(v.co, SUPPORT_EPS))
 
 def fixed_hash():
     h=hashlib.sha256()
