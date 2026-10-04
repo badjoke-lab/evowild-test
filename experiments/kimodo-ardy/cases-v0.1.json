@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "lane": "kimodo-ardy-motion-feasibility",
+  "rule": "Generate humanoid source motion only. Do not directly retarget humanoid joint rotations to the EvoWild S quadruped.",
+  "cases": [
+    {
+      "id": "steady_sprint",
+      "intent": "steady high-speed forward locomotion",
+      "prompt": "A person sprints forward at a steady fast pace.",
+      "measure": ["root_speed", "cadence", "stance_duration", "vertical_com_rhythm"]
+    },
+    {
+      "id": "accelerate_to_sprint",
+      "intent": "clear acceleration transition",
+      "prompt": "A person accelerates from a run into a full sprint.",
+      "measure": ["root_acceleration", "cadence_transition", "forward_body_attitude"]
+    },
+    {
+      "id": "decelerate",
+      "intent": "controlled deceleration",
+      "prompt": "A person decelerates smoothly from a sprint to a run.",
+      "measure": ["root_deceleration", "cadence_transition", "recovery_timing"]
+    },
+    {
+      "id": "waypoint_curve",
+      "intent": "follow a curved root path or waypoints while running",
+      "prompt": "A person runs quickly along a curved path.",
+      "measure": ["heading_rate", "turn_entry_time", "turn_exit_time", "cadence"]
+    },
+    {
+      "id": "lateral_direction_change",
+      "intent": "fast left/right steering transition",
+      "prompt": "A person runs forward and makes a fast controlled direction change.",
+      "measure": ["heading_rate", "lateral_root_speed", "left_right_phase_relation"]
+    }
+  ]
+}
