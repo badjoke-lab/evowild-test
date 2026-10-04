@@ -1660,3 +1660,73 @@ test("Motion First positioning v1 leaves a blocked line for a materially clearer
     path: "test-results/visuals/motion-first-positioning-v1.png"
   });
 });
+
+
+test("Motion First gameplay integration v1 completes 1600m with Agent and traffic systems active", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(150000);
+
+  await page.goto(
+    "/evowild-test/preview-motion-first-race/index.html?skipStart=1",
+    { waitUntil: "networkidle" }
+  );
+
+  const scene = page.locator("#scene");
+  await expect(scene).toHaveAttribute("data-agent-balance-model", "fatigue-tradeoff-v1");
+  await expect(scene).toHaveAttribute("data-positioning-model", "clearance-score-with-hysteresis");
+  await page.selectOption("#agentTargetSelect", "0");
+
+  // Use all three Agent states inside the same real race. Commands alter only
+  // the Creature response; they do not bypass race physics or traffic.
+  await page.waitForTimeout(4000);
+  await page.getByRole("button", { name: "PUSH", exact: true }).click();
+  await page.waitForTimeout(6500);
+  await page.getByRole("button", { name: "CONSERVE", exact: true }).click();
+  await page.waitForTimeout(6500);
+  await page.getByRole("button", { name: "CLEAR", exact: true }).click();
+
+  await expect(page.locator("#raceState")).toHaveText("FINISHED", {
+    timeout: 105000
+  });
+  await expect(scene).toHaveAttribute("data-result-ready", "1");
+  await expect(scene).toHaveAttribute("data-agent-focus-command", "NEUTRAL");
+
+  const state = await scene.evaluate((node) => ({
+    raceTime: Number(node.dataset.raceTime),
+    classification: JSON.parse(node.dataset.finalClassification || "[]"),
+    totalDecisions: Number(node.dataset.positioningTotalDecisions),
+    maxDecisions: Number(node.dataset.positioningMaxDecisions),
+    congestedRunnerCount: Number(node.dataset.positioningCongestedRunnerCount),
+    worstTrafficFactor: Number(node.dataset.positioningWorstTrafficFactor),
+    renderCalls: Number(node.dataset.renderCalls),
+    agentStamina: Number(node.dataset.agentFocusStamina),
+    agentFatigue: Number(node.dataset.agentFocusFatigue)
+  }));
+
+  expect(state.raceTime).toBeGreaterThan(55);
+  expect(state.raceTime).toBeLessThan(105);
+  expect(state.classification).toHaveLength(18);
+  expect(new Set(state.classification.map((row) => row.id)).size).toBe(18);
+  expect(state.classification.every((row) => Number.isFinite(row.time))).toBeTruthy();
+  for (let i = 1; i < state.classification.length; i += 1) {
+    expect(state.classification[i].time).toBeGreaterThanOrEqual(
+      state.classification[i - 1].time
+    );
+  }
+
+  expect(state.totalDecisions).toBeGreaterThan(0);
+  expect(state.maxDecisions).toBeLessThanOrEqual(8);
+  expect(state.congestedRunnerCount).toBeGreaterThan(0);
+  expect(state.worstTrafficFactor).toBeLessThan(0.985);
+  expect(state.renderCalls).toBeLessThanOrEqual(35);
+  expect(state.agentStamina).toBeGreaterThan(0);
+  expect(state.agentFatigue).toBeGreaterThanOrEqual(0);
+  expect(state.agentFatigue).toBeLessThan(1);
+
+  console.log("GAMEPLAY_INTEGRATION_V1", JSON.stringify(state));
+
+  await scene.screenshot({
+    path: "test-results/visuals/motion-first-gameplay-integration-v1.png"
+  });
+});
