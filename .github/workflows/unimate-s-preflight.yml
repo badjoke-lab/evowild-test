@@ -1,4 +1,4 @@
-name: UniMate S Preflight
+name: UniMate S Bench
 
 on:
   push:
@@ -14,13 +14,13 @@ on:
 permissions:
   contents: read
 
+env:
+  UNIMATE_COMMIT: 2c5b384715aa63d8639b1ed7eb74bfe614570c7a
+
 jobs:
   preprocess:
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    env:
-      UNIMATE_COMMIT: 2c5b384715aa63d8639b1ed7eb74bfe614570c7a
-      MOTION_COMMIT: 08e6d32f8f777037ee43bda3fce0b80b74dd2d7f
     steps:
       - name: Checkout EvoWild bench
         uses: actions/checkout@v4
@@ -31,31 +31,21 @@ jobs:
           sudo apt-get install -y blender ffmpeg python3-pip
           python3 -m pip install --user --break-system-packages loguru matplotlib imageio imageio-ffmpeg tqdm
 
-      - name: Checkout pinned UniMate
+      - name: Checkout pinned UniMate and Motion
         run: |
           git clone https://github.com/Friedrich-M/UniMate.git /tmp/UniMate
           git -C /tmp/UniMate checkout "$UNIMATE_COMMIT"
-          git -C /tmp/UniMate rev-parse HEAD
-
-      - name: Checkout Motion dependency
-        run: |
           git clone https://github.com/inbar-2344/Motion.git /tmp/Motion
-          # Keep this dependency source-only; UniMate imports Animation.py and Quaternions.py directly.
           test -f /tmp/Motion/Animation.py
           test -f /tmp/Motion/Quaternions.py
 
-      - name: Show Blender Python environment
-        run: |
-          blender --version
-          blender -b --python-expr "import sys,site; print('PY',sys.version); print('PATH',sys.path); print('USER',site.getusersitepackages())"
-
-      - name: Preprocess EvoWild S
+      - name: Preprocess EvoWild S with explicit facing pair
         env:
           PYTHONPATH: /tmp/UniMate:/tmp/Motion:/home/runner/.local/lib/python3.12/site-packages:/usr/lib/python3/dist-packages
         run: |
           mkdir -p "$GITHUB_WORKSPACE/.unimate-preflight"
           cd /tmp/UniMate
-          blender -b -P data_process/mesh_animation/preprocess_char.py --             --char_path="$GITHUB_WORKSPACE/public/models/evowild-s/focus-rigged-v5.glb"             --output_dir="$GITHUB_WORKSPACE/.unimate-preflight"             --formats=glb             --keep_intermediate
+          blender -b -P data_process/mesh_animation/preprocess_char.py --             --char_path="$GITHUB_WORKSPACE/public/models/evowild-s/focus-rigged-v5.glb"             --output_dir="$GITHUB_WORKSPACE/.unimate-preflight"             --face_r=hind_R_upper             --face_l=hind_L_upper             --formats=glb             --keep_intermediate
 
       - name: Summarize topology
         run: |
@@ -65,10 +55,7 @@ jobs:
           from pathlib import Path
 
           root = Path(".unimate-preflight")
-          cond_path = root / "cond.npy"
-          if not cond_path.exists():
-              raise SystemExit("cond.npy missing")
-          cond = np.load(cond_path, allow_pickle=True).item()
+          cond = np.load(root / "cond.npy", allow_pickle=True).item()
           if len(cond) != 1:
               raise SystemExit(f"expected one object type, got {list(cond)}")
           name, c = next(iter(cond.items()))
@@ -96,10 +83,84 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: unimate-s-preflight
-          path: |
-            .unimate-preflight/cond.npy
-            .unimate-preflight/*_canonical.glb
-            .unimate-preflight/motions/*.npz
-            .unimate-preflight/preflight-summary.json
+          path: .unimate-preflight/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
+
+  cpu-smoke:
+    needs: preprocess
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout EvoWild bench
+        uses: actions/checkout@v4
+
+      - name: Download preflight asset
+        uses: actions/download-artifact@v4
+        with:
+          name: unimate-s-preflight
+          path: .unimate-preflight
+
+      - name: Checkout pinned UniMate and Motion
+        run: |
+          git clone https://github.com/Friedrich-M/UniMate.git /tmp/UniMate
+          git -C /tmp/UniMate checkout "$UNIMATE_COMMIT"
+          git clone https://github.com/inbar-2344/Motion.git /tmp/Motion
+
+      - name: Install CPU inference dependencies
+        run: |
+          python3 -m pip install --break-system-packages --extra-index-url https://download.pytorch.org/whl/cpu             torch==2.5.1
+          python3 -m pip install --break-system-packages             numpy==2.2.6             transformers==5.16.1 sentencepiece==0.2.1             torch-geometric==2.7.0 torchdiffeq==0.2.5 einops==0.8.2             accelerate==1.14.0 tyro==1.0.12 rich==14.3.3 loguru==0.7.3 tqdm==4.67.3             matplotlib==3.10.8 imageio==2.37.3 imageio-ffmpeg==0.6.0
+
+      - name: Download recommended UniMate v2 checkpoint
+        run: |
+          mkdir -p .unimate-exp/checkpoints
+          curl -L --fail --retry 5             -o .unimate-exp/config.json             https://huggingface.co/Linzhan/UniMate/resolve/main/unimate_uniml3d_f60_v2/config.json
+          curl -L --fail --retry 5             -o .unimate-exp/dataset_stats.npy             https://huggingface.co/Linzhan/UniMate/resolve/main/unimate_uniml3d_f60_v2/dataset_stats.npy
+          curl -L --fail --retry 5             -o .unimate-exp/checkpoints/checkpoint_step_100000.pt             https://huggingface.co/Linzhan/UniMate/resolve/main/unimate_uniml3d_f60_v2/checkpoints/checkpoint_step_100000.pt
+          ls -lh .unimate-exp .unimate-exp/checkpoints
+
+      - name: Patch inference config for isolated EvoWild topology
+        run: |
+          python3 - <<'PY'
+          import json, os
+          p = ".unimate-exp/config.json"
+          with open(p) as f:
+              c = json.load(f)
+          c["objaverse"]["path"] = os.path.abspath(".unimate-preflight")
+          c["objaverse"]["objects_num"] = -1
+          c["objaverse"]["filter_object"] = False
+          c["dataset"]["dataset_list"] = ["objaverse"]
+          c.setdefault("sampling", {})["device"] = "cpu"
+          with open(p, "w") as f:
+              json.dump(c, f, indent=2)
+          print("max_joints", c["dataset"].get("max_joints"), "max_depth", c["dataset"].get("max_depth"))
+          PY
+          cat > .unimate-cases.json <<'JSON'
+          {
+            "focus-rigged-v5-steady-run": "An object runs forward at a steady athletic pace with coordinated four-limb locomotion."
+          }
+          JSON
+
+      - name: Run one-sample CPU smoke generation
+        env:
+          PYTHONPATH: /tmp/UniMate:/tmp/Motion
+          TOKENIZERS_PARALLELISM: "false"
+        run: |
+          cd /tmp/UniMate
+          /usr/bin/time -v python3 -m unimate.inference.sample             --exp_dir="$GITHUB_WORKSPACE/.unimate-exp"             --model_path="$GITHUB_WORKSPACE/.unimate-exp/checkpoints/checkpoint_step_100000.pt"             --test_cases_json="$GITHUB_WORKSPACE/.unimate-cases.json"             --num_repetitions=1             --batch_size=1             --seed=20261004             --output_dir="$GITHUB_WORKSPACE/.unimate-smoke"             --only_save_motion
+
+      - name: Verify generated motion
+        run: |
+          find .unimate-smoke -maxdepth 3 -type f -printf '%p %s bytes\n'
+          test "$(find .unimate-smoke/motions -name '*.npy' | wc -l)" -ge 1
+
+      - name: Upload generated smoke motion
+        uses: actions/upload-artifact@v4
+        with:
+          name: unimate-s-cpu-smoke
+          path: .unimate-smoke/
+          include-hidden-files: true
           if-no-files-found: error
           retention-days: 7
