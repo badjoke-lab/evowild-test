@@ -1,0 +1,48 @@
+name: blendcap-gate1-input-review
+
+on:
+  push:
+    branches:
+      - exp/blendcap-s-motion-bench-20261003
+    paths:
+      - ".github/workflows/blendcap-gate1-input.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  input-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download licensed runner source
+        run: |
+          mkdir -p artifacts/blendcap-gate1-input
+          curl --fail --location --retry 3             "https://upload.wikimedia.org/wikipedia/commons/7/7e/Runners.webm"             -o artifacts/blendcap-gate1-input/Runners.webm
+
+      - name: Build review contact sheet
+        run: |
+          ffmpeg -hide_banner -y             -i artifacts/blendcap-gate1-input/Runners.webm             -vf "fps=1/2,scale=320:-2,tile=4x3"             -frames:v 1             artifacts/blendcap-gate1-input/contact.jpg
+          ffprobe -v error -show_entries format=duration,size             -of default=nw=1             artifacts/blendcap-gate1-input/Runners.webm             > artifacts/blendcap-gate1-input/source-info.txt
+
+      - name: Record attribution
+        run: |
+          cat > artifacts/blendcap-gate1-input/ATTRIBUTION.txt <<'EOF'
+          Source: Wikimedia Commons, File:Runners.webm
+          Author: Evworo
+          Date: 15 March 2019
+          License: CC BY-SA 3.0
+          Source page: https://commons.wikimedia.org/wiki/File:Runners.webm
+          Use: temporary technical input-selection review for the isolated BlendCap bench.
+          EOF
+
+      - name: Upload review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: blendcap-gate1-input-review
+          path: artifacts/blendcap-gate1-input/
+          if-no-files-found: error
