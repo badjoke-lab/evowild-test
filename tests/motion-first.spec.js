@@ -1548,3 +1548,65 @@ test("Motion First Visual Swap Gate v1 replaces S rendering without replacing ra
     path: "test-results/visuals/motion-first-visual-swap-s-v1.png"
   });
 });
+
+
+test("Motion First Agent strategy balance v1 makes exhausted PUSH worse until CONSERVE recovery", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(30000);
+
+  await page.goto(
+    "/evowild-test/preview-motion-first-race/index.html?skipStart=1&agentBalanceReview=1",
+    { waitUntil: "networkidle" }
+  );
+
+  const scene = page.locator("#scene");
+  await page.selectOption("#agentTargetSelect", "0");
+  await expect(scene).toHaveAttribute("data-agent-balance-model", "fatigue-tradeoff-v1");
+  await expect(scene).toHaveAttribute("data-agent-balance-review", "1");
+
+  const initial = await scene.evaluate((node) => ({
+    stamina: Number(node.dataset.agentFocusStamina),
+    fatigue: Number(node.dataset.agentFocusFatigue)
+  }));
+  expect(initial.stamina).toBeGreaterThan(0.69);
+  expect(initial.stamina).toBeLessThan(0.74);
+  expect(initial.fatigue).toBeGreaterThan(0.29);
+  expect(initial.fatigue).toBeLessThan(0.33);
+
+  await page.getByRole("button", { name: "PUSH", exact: true }).click();
+  await page.waitForTimeout(300);
+  const exhaustedPush = await scene.evaluate((node) => ({
+    response: Number(node.dataset.agentFocusResponse),
+    fatigue: Number(node.dataset.agentFocusFatigue),
+    effective: Number(node.dataset.agentFocusEffectiveFactor)
+  }));
+  expect(exhaustedPush.response).toBeGreaterThan(0.45);
+  expect(exhaustedPush.effective).toBeLessThan(1.0);
+
+  await page.getByRole("button", { name: "CONSERVE", exact: true }).click();
+  await page.waitForTimeout(7200);
+  const recovered = await scene.evaluate((node) => ({
+    stamina: Number(node.dataset.agentFocusStamina),
+    fatigue: Number(node.dataset.agentFocusFatigue),
+    effective: Number(node.dataset.agentFocusEffectiveFactor)
+  }));
+  expect(recovered.fatigue).toBeLessThan(exhaustedPush.fatigue - 0.06);
+  expect(recovered.stamina).toBeGreaterThan(0.68);
+  expect(recovered.effective).toBeLessThan(1.0);
+
+  await page.getByRole("button", { name: "PUSH", exact: true }).click();
+  await page.waitForTimeout(300);
+  const recoveredPush = await scene.evaluate((node) => ({
+    response: Number(node.dataset.agentFocusResponse),
+    fatigue: Number(node.dataset.agentFocusFatigue),
+    effective: Number(node.dataset.agentFocusEffectiveFactor)
+  }));
+  expect(recoveredPush.response).toBeGreaterThan(exhaustedPush.response);
+  expect(recoveredPush.effective).toBeGreaterThan(exhaustedPush.effective);
+  expect(recoveredPush.effective).toBeGreaterThan(1.0);
+
+  await scene.screenshot({
+    path: "test-results/visuals/motion-first-agent-balance-v1.png"
+  });
+});
