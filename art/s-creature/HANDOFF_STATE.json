@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Review B1b-v1 against B0-v025 and approved S references. Do not advance beyond B1 shoulder/chest before explicit decision.",
+  "next_action": "Execute locked B1b-v2 hypothesis; validate, render five views, actual-image review. No B2 progression.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -138,7 +138,7 @@
     "hard_limit": "max displacement <= 0.010",
     "stop_after": "five-view render + hard-scope validation + review"
   },
-  "b1b_status": "READY",
+  "b1b_status": "B1B_V2_PLAN_LOCKED",
   "main_lane_unchanged": true,
   "b1a_v3_decision": "REVISE",
   "b1a_v3_review": "S_VIBE_B1A_V3_REVIEW.md",
@@ -185,5 +185,8 @@
       "topology",
       "vertex count"
     ]
-  }
+  },
+  "b1b_v1_decision": "REVISE",
+  "b1b_v1_review": "S_VIBE_B1B_V1_REVIEW.md",
+  "b1b_v2_plan": "S_VIBE_B1B_V2_PLAN.md"
 }

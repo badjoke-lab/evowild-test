@@ -1,6 +1,6 @@
 # S Vibe Lane — Gate B1 Shoulder / Chest Analysis
 
-Status: LOCKED FOR B1a
+Status: B1b-v1 REVISE; B1b-v2 hypothesis locked
 Lane: exp/s-creature-vibe-modeling
 Source: output/S-vibe-b0-v025.blend
 
@@ -142,3 +142,11 @@ Use X-only local fairing from B0-v025:
 - SIDE profile invariant by construction
 
 B1b is explicitly unblocked by this method decision. It was not started automatically from B1a-v2/v3.
+
+## B1b-v1 actual-image review
+
+REVISE; see S_VIBE_B1B_V1_REVIEW.md.
+
+## B1b-v2 single hypothesis
+
+Locked in S_VIBE_B1B_V2_PLAN.md. Replace the alternating X-only fairing with inward-only outward-residual reduction, within unchanged target mask and exact Y/Z locks. Do not restart B1a or advance B2 before actual-image acceptance.

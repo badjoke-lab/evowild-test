@@ -1,3 +1,15 @@
+# EvoWild Run — S Vibe current Work handoff
+
+Lane: exp/s-creature-vibe-modeling. Never modify feat/s-creature-model.
+
+B1b-v1 actual-image review: REVISE; S_VIBE_B1B_V1_REVIEW.md.
+B1b-v2 single hypothesis: LOCKED; S_VIBE_B1B_V2_PLAN.md.
+B1b-v2 workflow will run the declared inward-only X edit from B0-v025, then validate and render five views. Review the resulting actual images before acceptance. B2 and later BLOCKED.
+
+Closed B1a must not be replayed. Do not claim to have seen the thread-only Modeling Image v1.0. Use repository references 00/01/02, and always reference -> one hypothesis -> edit -> hard-scope validation -> render -> actual-image review.
+
+Prior authoritative handoff follows as historical context; its REVIEW_PENDING instruction is superseded by this review/plan.
+
 # EvoWild Run — S Vibe Modeling Work Handoff
 
 Status: ACTIVE
