@@ -5,6 +5,8 @@ const canvas = document.querySelector("#shader-lab-canvas");
 const fpsEl = document.querySelector("#fps");
 const modeEl = document.querySelector("#mode");
 const toggleEl = document.querySelector("#toggle");
+const grassToggleEl = document.querySelector("#grassToggle");
+const grassModeEl = document.querySelector("#grassMode");
 
 const isMobile = matchMedia("(pointer: coarse)").matches || innerWidth < 800;
 const renderer = new THREE.WebGLRenderer({
@@ -192,6 +194,116 @@ function makeTrack() {
 }
 makeTrack();
 
+
+const trackSamples = Array.from({ length: 121 }, (_, i) => curve.getPointAt(i / 120));
+
+function distanceToTrackXZ(x, z) {
+  let minSq = Infinity;
+  for (const p of trackSamples) {
+    const dx = x - p.x;
+    const dz = z - p.z;
+    const d2 = dx * dx + dz * dz;
+    if (d2 < minSq) minSq = d2;
+  }
+  return Math.sqrt(minSq);
+}
+
+function deterministic01(i, salt) {
+  const x = Math.sin((i + 1) * (12.9898 + salt * 0.731)) * 43758.5453;
+  return x - Math.floor(x);
+}
+
+const grassUniforms = {
+  uTime: { value: 0 },
+  uWindEnabled: { value: 1 }
+};
+
+const grassGeometry = new THREE.PlaneGeometry(0.16, 0.82, 1, 3);
+grassGeometry.translate(0, 0.41, 0);
+
+const grassMaterial = new THREE.ShaderMaterial({
+  uniforms: grassUniforms,
+  side: THREE.DoubleSide,
+  vertexShader: `
+    uniform float uTime;
+    uniform float uWindEnabled;
+    varying float vHeight;
+    varying float vShade;
+
+    void main() {
+      vec3 p = position;
+      float h = clamp(p.y / 0.82, 0.0, 1.0);
+      vec3 seedWorld = (instanceMatrix * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
+      float phase = seedWorld.x * 0.17 + seedWorld.z * 0.11;
+      float gust = sin(uTime * 1.75 + phase) * 0.16
+        + sin(uTime * 0.73 + phase * 1.9) * 0.055;
+      p.x += gust * h * h * uWindEnabled;
+      p.z += gust * 0.18 * h * h * uWindEnabled;
+
+      vec4 world = modelMatrix * instanceMatrix * vec4(p, 1.0);
+      vHeight = h;
+      vShade = 0.5 + 0.5 * sin(phase * 2.7);
+      gl_Position = projectionMatrix * viewMatrix * world;
+    }
+  `,
+  fragmentShader: `
+    varying float vHeight;
+    varying float vShade;
+
+    void main() {
+      vec3 base = mix(
+        vec3(0.18, 0.30, 0.16),
+        vec3(0.31, 0.43, 0.22),
+        vShade
+      );
+      vec3 tip = vec3(0.44, 0.54, 0.29);
+      vec3 color = mix(base, tip, smoothstep(0.35, 1.0, vHeight) * 0.42);
+      gl_FragColor = vec4(color, 1.0);
+    }
+  `
+});
+
+const grassCount = isMobile ? 1500 : 4200;
+const grass = new THREE.InstancedMesh(grassGeometry, grassMaterial, grassCount);
+grass.frustumCulled = false;
+grass.name = "V1_WindGrass";
+
+const dummy = new THREE.Object3D();
+let acceptedGrass = 0;
+let candidate = 0;
+
+while (acceptedGrass < grassCount && candidate < grassCount * 12) {
+  const x = (deterministic01(candidate, 1) - 0.5) * 150;
+  const z = (deterministic01(candidate, 2) - 0.5) * 116;
+  candidate += 1;
+
+  if (distanceToTrackXZ(x, z) < 8.5) continue;
+
+  const scale = 0.72 + deterministic01(candidate, 3) * 0.92;
+  dummy.position.set(x, 0.0, z);
+  dummy.rotation.set(0, deterministic01(candidate, 4) * Math.PI * 2, 0);
+  dummy.scale.set(
+    0.82 + deterministic01(candidate, 5) * 0.52,
+    scale,
+    1
+  );
+  dummy.updateMatrix();
+  grass.setMatrixAt(acceptedGrass, dummy.matrix);
+  acceptedGrass += 1;
+}
+
+grass.count = acceptedGrass;
+grass.instanceMatrix.needsUpdate = true;
+scene.add(grass);
+
+let grassEnabled = true;
+grassToggleEl.addEventListener("click", () => {
+  grassEnabled = !grassEnabled;
+  grass.visible = grassEnabled;
+  grassModeEl.textContent = grassEnabled ? "GRASS ON" : "GRASS OFF";
+});
+
+
 const markerMaterial = new THREE.MeshStandardMaterial({
   color: 0x647668,
   roughness: 1,
@@ -238,6 +350,7 @@ function animate(now) {
   last = now;
 
   shaderUniforms.uTime.value += dt;
+  grassUniforms.uTime.value += dt;
 
   const t = (now * 0.000018) % 1;
   const focus = curve.getPointAt(t);
