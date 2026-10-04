@@ -4,29 +4,49 @@
   "branch": "exp/trellis2-pixal3d-s-bench-20261004",
   "parent_branch": "exp/s-creature-vibe-modeling",
   "parent_commit": "07d87340345031d68834552f10561107a1560b88",
-  "status": "ACTIVE",
-  "stage": "T0_ENDPOINT_SMOKE",
-  "locked_input": "art/s-creature/references/01_s_body_primary.png",
+  "status": "BLOCKED_EXTERNAL",
+  "stage": "T1_CLEAN_INPUT_GENERATION",
   "baseline": {
     "decision": "REVISE",
     "model": "art/s-creature/output/S-vibe-b1a-v2.blend",
     "review_dir": "art/s-creature/output/review/vibe-b1a-v2"
   },
+  "input_status": {
+    "original": "art/s-creature/references/01_s_body_primary.png",
+    "prepared": "art/s-creature/experiments/trellis2-pixal3d/prepared/primary_clean_v1.png",
+    "preparation_run": 37140483264,
+    "preparation_decision": "USE_CLEAN_INPUT_FOR_VALID_MORPHOLOGY_BENCH"
+  },
   "engines": [
     {
       "name": "microsoft/TRELLIS.2",
-      "status": "PENDING"
+      "endpoint": "REACHABLE",
+      "original_input_generation": "SUCCESS",
+      "successful_run": 37139670274,
+      "artifact_id": 11279339856,
+      "artifact_size_bytes": 10748536,
+      "morphology_decision": "NOT_VALID_FOR_T1",
+      "reason": "Generation used the unclean reference crop containing non-creature reference content; repeat with primary_clean_v1 before judging morphology.",
+      "clean_input_status": "WAITING_FREE_ZEROGPU_RESET",
+      "last_observed_quota_message": "90s requested vs 12s left"
     },
     {
       "name": "TencentARC/Pixal3D",
-      "status": "PENDING"
+      "endpoint": "REACHABLE",
+      "hf_space_clean_input_status": "WAITING_FREE_ZEROGPU_RESET",
+      "last_observed_quota_message": "30s requested vs 12s left",
+      "dedicated_proxy_probe": "SUCCESS",
+      "dedicated_proxy_run": 37141162720,
+      "dedicated_instances_reported": 4,
+      "dedicated_instance_generation": "BLOCKED",
+      "dedicated_generation_run": 37141284981,
+      "blocker": "All four official gradio.live instances timed out from GitHub Actions; no reachable instance for automated upload/generation."
     }
   ],
-  "t0_probe": {
-    "script": "scripts/trellis2_pixal3d_t0.py",
-    "workflow": ".github/workflows/trellis2-pixal3d-t0.yml",
-    "mode": "endpoint metadata only / no GPU generation",
-    "status": "ARMED"
+  "last_completed_run": {
+    "id": 37141284981,
+    "conclusion": "failure",
+    "reason": "No reachable official Pixal3D dedicated instance from GitHub Actions."
   },
   "constraints": [
     "experiment branch only",
@@ -36,5 +56,10 @@
     "no paid GPU jobs",
     "no manual morphology edit before T1 decision"
   ],
-  "next_action": "Collect T0 endpoint metadata; then execute one free/public generation per reachable engine."
+  "next_action": [
+    "Do not judge the original TRELLIS.2 candidate as T1; it used an unclean source.",
+    "Retry TRELLIS.2 and Pixal3D with primary_clean_v1 after the free ZeroGPU quota resets.",
+    "If Pixal3D dedicated instances become reachable before quota reset, run the clean-input candidate there.",
+    "Once clean candidates exist, render the same five review views and compare against B1a-v2."
+  ]
 }
