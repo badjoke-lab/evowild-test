@@ -3750,6 +3750,7 @@ function maybeChangeLane(runner) {
 
 function computeRunnerPressure(runner) {
   if (!SIMPLIFIED_RACE_PAGE || runner.finishTime !== null) return 0;
+  if (AGENT_BALANCE_REVIEW_MODE && runner.id === 0) return 0;
 
   let strongest = 0;
   for (const other of runners) {
