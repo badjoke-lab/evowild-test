@@ -335,3 +335,54 @@ Exact V2 v3 correction:
 Goal: visible diffuse wake without returning to v1 circular spots.
 
 V3 remains blocked until V2 v3 is reviewed.
+
+
+## V2 v3 real-render + motion review
+
+Decision: `KEEP`
+
+Evidence source: GitHub Actions run `37185020331`, artifact `visual-shader-lab-v0`.
+
+Observed:
+
+- targeted CI passed with unrelated capture lanes skipped;
+- the v1 dark-dot artifact remains removed;
+- the v2 over-faint problem is corrected enough to make the wake visible in motion;
+- particles read as a diffuse tan trail and dissipate without obscuring the track edges;
+- grass and V0 ground remain visually unchanged;
+- CI readout remains a relative headless signal only.
+
+V2 decision: `KEEP`.
+
+## V3 implementation
+
+Status: `REVIEW_PENDING`
+
+V0/V1/V2 locks preserved:
+
+- no geometry changes to ground, track or grass;
+- no wind or dust routing changes;
+- no Creature, gait, Race Engine, Agent or 2.5D changes;
+- V0 haze/background remains fixed.
+
+V3 exact change:
+
+- preserve the existing baseline lighting as an explicit LIGHTING OFF comparison;
+- add a warmer lower-angle key sun for LIGHTING ON;
+- add a low-intensity cool opposite rim/fill;
+- rebalance HemisphereLight sky/ground colors and intensity;
+- increase ACES exposure slightly from 1.00 to 1.08 in LIGHTING ON;
+- add explicit LIGHTING ON/OFF control;
+- capture comparison with dust disabled to avoid particle variance.
+
+V3 review gate:
+
+- track and marker form must gain depth without looking orange or over-contrasted;
+- grass/ground readability must not regress;
+- no blown highlights;
+- no runtime/WebGL errors;
+- no shadow-map cost is introduced in V3.
+
+Allowed decision: `KEEP / REVISE / REJECT`.
+
+V4 speed-reactive effects remain blocked until V3 real evidence is reviewed.

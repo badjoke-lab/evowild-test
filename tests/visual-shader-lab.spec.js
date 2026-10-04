@@ -166,3 +166,36 @@ test("Visual Shader Lab V2 records continuous dust review", async ({ browser }, 
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
 });
+
+
+test("Visual Shader Lab V3 renders lighting ON/OFF evidence", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+
+  const { pageErrors, consoleErrors } = attachErrorCapture(page);
+  const outDir = "artifacts/shader-lab";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  await page.goto("/evowild-test/visual-shader-lab.html", { waitUntil: "networkidle" });
+  await expect(page.locator("#lightMode")).toHaveText("LIGHTING ON");
+
+  await page.getByRole("button", { name: "Toggle dust" }).click();
+  await expect(page.locator("#dustMode")).toHaveText("DUST OFF");
+  await page.waitForTimeout(1200);
+
+  await page.screenshot({
+    path: `${outDir}/v3-lighting-on.png`,
+    fullPage: true
+  });
+
+  await page.getByRole("button", { name: "Toggle lighting" }).click();
+  await expect(page.locator("#lightMode")).toHaveText("LIGHTING OFF");
+  await page.waitForTimeout(180);
+
+  await page.screenshot({
+    path: `${outDir}/v3-lighting-off.png`,
+    fullPage: true
+  });
+
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+});

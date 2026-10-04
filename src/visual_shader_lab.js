@@ -9,6 +9,8 @@ const grassToggleEl = document.querySelector("#grassToggle");
 const grassModeEl = document.querySelector("#grassMode");
 const dustToggleEl = document.querySelector("#dustToggle");
 const dustModeEl = document.querySelector("#dustMode");
+const lightToggleEl = document.querySelector("#lightToggle");
+const lightModeEl = document.querySelector("#lightMode");
 
 const isMobile = matchMedia("(pointer: coarse)").matches || innerWidth < 800;
 const renderer = new THREE.WebGLRenderer({
@@ -29,10 +31,14 @@ scene.fog = new THREE.FogExp2(0xa7c6cf, 0.0095);
 const camera = new THREE.PerspectiveCamera(46, 1, 0.1, 260);
 camera.position.set(20, 7, 24);
 
-scene.add(new THREE.HemisphereLight(0xe6f2ff, 0x314133, 1.25));
+const hemi = new THREE.HemisphereLight(0xe6f2ff, 0x314133, 1.25);
+scene.add(hemi);
 const sun = new THREE.DirectionalLight(0xffedcf, 1.7);
 sun.position.set(34, 48, 20);
 scene.add(sun);
+const rim = new THREE.DirectionalLight(0x8eb6d9, 0.0);
+rim.position.set(-30, 15, -20);
+scene.add(rim);
 
 const groundGeometry = new THREE.PlaneGeometry(220, 180, 96, 80);
 groundGeometry.rotateX(-Math.PI / 2);
@@ -387,6 +393,42 @@ dustToggleEl.addEventListener("click", () => {
   dust.visible = dustEnabled;
   dustModeEl.textContent = dustEnabled ? "DUST ON" : "DUST OFF";
 });
+
+
+let lightingEnabled = true;
+
+function applyLighting() {
+  if (lightingEnabled) {
+    hemi.color.setHex(0xdcecff);
+    hemi.groundColor.setHex(0x263426);
+    hemi.intensity = 1.05;
+    sun.color.setHex(0xffcf95);
+    sun.intensity = 2.10;
+    sun.position.set(28, 32, 12);
+    rim.color.setHex(0x8eb6d9);
+    rim.intensity = 0.50;
+    renderer.toneMappingExposure = 1.08;
+    lightModeEl.textContent = "LIGHTING ON";
+  } else {
+    hemi.color.setHex(0xe6f2ff);
+    hemi.groundColor.setHex(0x314133);
+    hemi.intensity = 1.25;
+    sun.color.setHex(0xffedcf);
+    sun.intensity = 1.70;
+    sun.position.set(34, 48, 20);
+    rim.intensity = 0.0;
+    renderer.toneMappingExposure = 1.0;
+    lightModeEl.textContent = "LIGHTING OFF";
+  }
+}
+
+lightToggleEl.addEventListener("click", () => {
+  lightingEnabled = !lightingEnabled;
+  applyLighting();
+});
+
+applyLighting();
+
 
 function emitDust(sourceT) {
   const index = dustCursor;
