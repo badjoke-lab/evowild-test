@@ -72,21 +72,29 @@ Reason: `Pinned source, Blender 4.2.23, disk, Python 3.12, S asset, and headless
 
 ## Gate 1 — video -> BVH
 
-Status: `NOT_RUN`
+Status: `DETECTOR_PREVIEW_PASS / FULL_CAPTURE_PENDING`
 
-Input clip: `UNSET`
+Input source: `Public-domain U.S. Marine Corps Sakura Sprint 5K B-Roll (DVIDS 1001990)`
 
-Clip duration: `UNSET`
+Technical excerpt: `17.5s -> 20.5s, 3.0 seconds, 960x540, 30 fps, no audio`
 
-Full body continuously visible: `UNSET`
+Full body continuously visible: `YES for target runner after initial sampled frame`
 
-BVH generated: `NO`
+Detector preview evidence: GitHub Actions run `37211846424`
+
+Detector result: `29/30 sampled frames BODY OK; 1/30 initial sampled frame no person`
+
+Target continuity: `PASS — one dominant runner tracked by YOLO11 bounding box throughout the usable motion`
+
+Preview visual review: `PASS — bounding box stays on the intended black-shirt / pink-shorts runner as he approaches camera`
+
+BVH generated: `NO — SAM 3D Body full capture not run yet`
 
 BVH path: `UNSET`
 
-Tracking failures observed: `UNSET`
+Tracking failures observed: `none at detector-preview stage except first sampled frame`
 
-Decision: `NOT_RUN`
+Decision: `PROCEED_TO_FULL_CAPTURE`
 
 ## Gate 2 — motion decomposition
 
@@ -145,4 +153,4 @@ Allowed values:
 
 Reason: `UNSET`
 
-Exact next action: `OBTAIN_EXPLICIT_SAM_LICENSE_ACCEPTANCE_THEN_RUN_GATE1_SHORT_CPU_CAPTURE`
+Exact next action: `RUN_GATE1_SHORT_CPU_SAM_CAPTURE_THEN_CONVERT_REAL_NPZ_TO_BVH`
