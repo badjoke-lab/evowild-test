@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe B1b-v2 REVISE; B1b-v3 shoulder-root Y/Z connection shaping ready
+current_stage: experimental Vibe B1b-v3 shoulder-root Y/Z connection shaping rendered; REVIEW_PENDING / STOPPED
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-b0-v025.blend
+current_model_file: output/S-vibe-b1b-v3.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute B1b-v3 independently from B0-v025 using S_VIBE_B1B_V3_PLAN.md. X exact fixed; only local shoulder-root Y/Z fairing. Render five views and STOP. B2 remains blocked.
+next_action: Review B1b-v3 five views against B0-v025, B1b-v2, and approved S references. Decide KEEP/REVISE. B2 remains blocked.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -540,3 +540,12 @@ vibe_gate_b1b_v3_source: output/S-vibe-b0-v025.blend
 vibe_gate_b1b_v3_target: shoulder upper-edge step and triangular proximal-root connection
 vibe_gate_b1b_v3_exact_edit: X exact fixed; residual-gated Y/Z-only fairing; lambda 0.24; 3 passes; threshold 0.0015; max Y/Z displacement 0.006
 vibe_gate_b2_status: BLOCKED
+
+vibe_gate_b1b_v3_status: REVIEW_PENDING
+vibe_gate_b1b_v3_scope: Y/Z-only shoulder-root connection fairing; all body X exact fixed
+vibe_gate_b1b_v3_renders:
+- output/review/vibe-b1b-v3/S_vibe_b1b_v3_side.png
+- output/review/vibe-b1b-v3/S_vibe_b1b_v3_front.png
+- output/review/vibe-b1b-v3/S_vibe_b1b_v3_front34.png
+- output/review/vibe-b1b-v3/S_vibe_b1b_v3_rear34.png
+- output/review/vibe-b1b-v3/S_vibe_b1b_v3_back.png
