@@ -37,16 +37,52 @@ const agentFeedbackResultEl = document.querySelector("#agentFeedbackResult");
 const agentCommandButtons = [...document.querySelectorAll("[data-agent-command]")];
 const cameraButtons = [...document.querySelectorAll(".cam")];
 
-const RACE_DISTANCE = 1600;
 const LANE_COUNT = 9;
 const LANE_WIDTH = 2.55;
 const TRACK_WIDTH = LANE_COUNT * LANE_WIDTH + 5;
 const RUNNER_COUNT = 18;
-const WORLD_END = 1800;
 const params = new URLSearchParams(window.location.search);
 const INSPECT_MODE = params.get("inspect") === "1";
 const SIMPLIFIED_GAIT_PAGE = window.location.pathname.includes("/preview-motion-first-gait/");
 const SIMPLIFIED_RACE_PAGE = window.location.pathname.includes("/preview-motion-first-race/");
+
+const RACE_COURSE_PROFILES = {
+  "sprint-800-v1": {
+    id: "sprint-800-v1",
+    label: "SPRINT 800",
+    distance: 800,
+    morphPaceFit: { S: 0.990, P: 1.025, E: 0.985, A: 0.992 },
+    staminaDrainFit: { S: 1.02, P: 1.00, E: 0.98, A: 1.00 },
+    fatigueBuildFit: { S: 1.00, P: 0.98, E: 0.96, A: 0.98 }
+  },
+  "balanced-1600-v1": {
+    id: "balanced-1600-v1",
+    label: "BALANCED 1600",
+    distance: 1600,
+    morphPaceFit: { S: 0.966, P: 1.020, E: 1.000, A: 1.007 },
+    staminaDrainFit: { S: 1.00, P: 1.00, E: 1.00, A: 1.00 },
+    fatigueBuildFit: { S: 1.00, P: 1.00, E: 1.00, A: 1.00 }
+  },
+  "endurance-2400-v1": {
+    id: "endurance-2400-v1",
+    label: "ENDURANCE 2400",
+    distance: 2400,
+    morphPaceFit: { S: 0.955, P: 1.000, E: 1.025, A: 0.992 },
+    staminaDrainFit: { S: 1.14, P: 1.06, E: 0.82, A: 0.96 },
+    fatigueBuildFit: { S: 1.20, P: 1.08, E: 0.72, A: 0.92 }
+  }
+};
+const REQUESTED_COURSE_ID = params.get("course") || "balanced-1600-v1";
+const RACE_COURSE_PROFILE =
+  SIMPLIFIED_RACE_PAGE
+    ? RACE_COURSE_PROFILES[REQUESTED_COURSE_ID] ||
+      RACE_COURSE_PROFILES["balanced-1600-v1"]
+    : RACE_COURSE_PROFILES["balanced-1600-v1"];
+const RACE_DISTANCE = RACE_COURSE_PROFILE.distance;
+const WORLD_END = Math.max(1800, RACE_DISTANCE + 200);
+const SIMULATION_RATE = SIMPLIFIED_RACE_PAGE
+  ? Math.min(4, Math.max(1, Number(params.get("simRate")) || 1))
+  : 1;
 const FINISH_REVIEW_MODE =
   SIMPLIFIED_RACE_PAGE && params.get("finishReview") === "1";
 const FULL_DIRECTOR_REVIEW_MODE =
@@ -88,16 +124,6 @@ const START_PAIR_OFFSET = 0.62;
 const START_LINE_Z = -1.25;
 const START_MERGE_BEGIN = 28;
 const START_MERGE_END = 115;
-const RACE_COURSE_PROFILE = {
-  id: "balanced-1600-v1",
-  distance: 1600,
-  morphPaceFit: {
-    S: 0.966,
-    P: 1.020,
-    E: 1.000,
-    A: 1.007
-  }
-};
 const AGENT_COMPATIBILITY = {
   S: { PUSH: 1.00, CONSERVE: 0.70 },
   P: { PUSH: 0.94, CONSERVE: 0.76 },
@@ -3973,9 +3999,15 @@ function resolveAgentCommand(runner, dt) {
     : compat * staminaFactor * fatiguePenalty * pressurePenalty;
   agent.response = response;
 
-  const baseDrain = 0.0016;
+  const staminaDrainFit =
+    RACE_COURSE_PROFILE.staminaDrainFit?.[runner.morph] ?? 1;
+  const fatigueBuildFit =
+    RACE_COURSE_PROFILE.fatigueBuildFit?.[runner.morph] ?? 1;
+  const coursePaceFit =
+    RACE_COURSE_PROFILE.morphPaceFit?.[runner.morph] ?? 1;
+  const baseDrain = 0.0016 * staminaDrainFit;
   let staminaDrain = baseDrain;
-  let fatigueDelta = 0.0012;
+  let fatigueDelta = 0.0012 * fatigueBuildFit;
 
   if (command === "PUSH") {
     staminaDrain += 0.0085 * Math.max(0.35, response);
@@ -3988,7 +4020,12 @@ function resolveAgentCommand(runner, dt) {
     fatigueDelta = -(0.0100 + 0.0080 * Math.max(0.35, response));
     agent.lastResult = response >= 0.72 ? "SETTLED" : response >= 0.46 ? "PARTIAL" : "WEAK";
   } else {
-    fatigueDelta = runner.speed > runner.cfg.baseSpeed * 0.98 ? 0.0018 : -0.0015;
+    const exertionThreshold =
+      runner.cfg.baseSpeed * coursePaceFit * 0.98;
+    fatigueDelta =
+      runner.speed > exertionThreshold
+        ? 0.0018 * fatigueBuildFit
+        : -0.0015;
   }
 
   runner.stamina = THREE.MathUtils.clamp(runner.stamina - staminaDrain * dt, 0, 1);
@@ -6057,15 +6094,17 @@ function animate() {
       canvas.dataset.raceTime = raceTime.toFixed(3);
       canvas.dataset.simulationSteps = "0";
     } else {
+      const maxSimulationSteps =
+        Math.ceil(MAX_SIMULATION_STEPS * SIMULATION_RATE);
       simulationAccumulator = Math.min(
-        simulationAccumulator + rawDt,
-        SIMULATION_STEP * MAX_SIMULATION_STEPS
+        simulationAccumulator + rawDt * SIMULATION_RATE,
+        SIMULATION_STEP * maxSimulationSteps
       );
 
       let simulationSteps = 0;
       while (
         simulationAccumulator >= SIMULATION_STEP &&
-        simulationSteps < MAX_SIMULATION_STEPS &&
+        simulationSteps < maxSimulationSteps &&
         !finished
       ) {
         raceTime += SIMULATION_STEP;
@@ -6146,11 +6185,22 @@ async function boot() {
     canvas.dataset.morphSet = [...new Set(runners.map((runner) => runner.morph))].join("");
     canvas.dataset.simulationHz = String(Math.round(1 / SIMULATION_STEP));
     canvas.dataset.courseProfile = RACE_COURSE_PROFILE.id;
+    canvas.dataset.courseLabel = RACE_COURSE_PROFILE.label;
     canvas.dataset.courseDistance = String(RACE_COURSE_PROFILE.distance);
+    canvas.dataset.courseWorldEnd = String(WORLD_END);
     canvas.dataset.courseFitS = String(RACE_COURSE_PROFILE.morphPaceFit.S);
     canvas.dataset.courseFitP = String(RACE_COURSE_PROFILE.morphPaceFit.P);
     canvas.dataset.courseFitE = String(RACE_COURSE_PROFILE.morphPaceFit.E);
     canvas.dataset.courseFitA = String(RACE_COURSE_PROFILE.morphPaceFit.A);
+    canvas.dataset.courseFatigueS =
+      String(RACE_COURSE_PROFILE.fatigueBuildFit.S);
+    canvas.dataset.courseFatigueP =
+      String(RACE_COURSE_PROFILE.fatigueBuildFit.P);
+    canvas.dataset.courseFatigueE =
+      String(RACE_COURSE_PROFILE.fatigueBuildFit.E);
+    canvas.dataset.courseFatigueA =
+      String(RACE_COURSE_PROFILE.fatigueBuildFit.A);
+    canvas.dataset.simulationRate = String(SIMULATION_RATE);
 
     if (
       Number.isInteger(PROXY_REVIEW_RUNNER) &&

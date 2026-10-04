@@ -51,6 +51,9 @@ jobs:
           elif [[ "$BRANCH" == feat/simplified-race-course-balance-v* ]]; then
             npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
               --grep "balanced 1600 course v1"
+          elif [[ "$BRANCH" == feat/simplified-race-course-profiles-v* ]]; then
+            npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
+              --grep "course profiles v1"
           elif [[ "$BRANCH" == feat/simplified-race-lod-v* || "$BRANCH" == feat/simplified-race-director-v* || "$BRANCH" == feat/simplified-race-speed-v* || "$BRANCH" == feat/simplified-race-side-readability-v* || "$BRANCH" == feat/simplified-race-motion-readability-v* || "$BRANCH" == feat/simplified-race-accel-director-v* || "$BRANCH" == feat/simplified-race-overtake-director-v* || "$BRANCH" == feat/simplified-race-finish-review-v* || "$BRANCH" == feat/simplified-race-environment-v* || "$BRANCH" == feat/simplified-race-results-v* || "$BRANCH" == feat/simplified-race-start-v* || "$BRANCH" == feat/simplified-race-agent-v* || "$BRANCH" == feat/simplified-race-creature-state-v* || "$BRANCH" == feat/simplified-race-agent-feedback-v* || "$BRANCH" == feat/simplified-race-visual-swap-v* || "$BRANCH" == feat/simplified-race-agent-balance-v* || "$BRANCH" == feat/simplified-race-positioning-v* ]]; then
             npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
               --grep "Phase E simplified race|Phase F AUTO director|Race Agent v1|Creature State v1|Agent feedback v1|Visual Swap Gate v1|Agent strategy balance v1|positioning v1"
