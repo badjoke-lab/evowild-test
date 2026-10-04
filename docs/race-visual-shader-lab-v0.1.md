@@ -199,3 +199,28 @@ V1 review gate:
 Allowed decision: `KEEP / REVISE / REJECT`.
 
 V2 dust remains blocked until V1 is reviewed from real captures.
+
+
+## V1 v1 real-render review
+
+Decision: `REVISE`
+
+Evidence source: GitHub Actions run `37183698036`, artifact `visual-shader-lab-v0`.
+
+Observed:
+
+- full E2E suite passed;
+- grass placement stayed clear of the dirt track and materially improved environmental depth;
+- GRASS ON/OFF comparison was visually obvious;
+- the nearest blades were too broad/tall and read as bent strips rather than fine grass;
+- static evidence was insufficient to judge wind synchronization.
+
+Exact V1 v2 correction:
+
+- reduce blade width from 0.16 to 0.09;
+- reduce base blade height from 0.82 to 0.62;
+- reduce random scale range and wind amplitude;
+- raise desktop density from 4,200 to 5,200 and mobile density from 1,500 to 1,700 to recover field richness without large foreground blades;
+- add a continuous Playwright wind-review video to inspect motion coherence.
+
+V2 remains blocked until V1 v2 real screenshots and video are reviewed.
