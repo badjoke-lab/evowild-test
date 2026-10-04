@@ -88,6 +88,16 @@ const START_PAIR_OFFSET = 0.62;
 const START_LINE_Z = -1.25;
 const START_MERGE_BEGIN = 28;
 const START_MERGE_END = 115;
+const RACE_COURSE_PROFILE = {
+  id: "balanced-1600-v1",
+  distance: 1600,
+  morphPaceFit: {
+    S: 0.966,
+    P: 1.020,
+    E: 1.000,
+    A: 1.007
+  }
+};
 const AGENT_COMPATIBILITY = {
   S: { PUSH: 1.00, CONSERVE: 0.70 },
   P: { PUSH: 0.94, CONSERVE: 0.76 },
@@ -4094,6 +4104,10 @@ function updateRunner(runner, dt) {
   const agentSpeedFactor = resolveAgentCommand(runner, dt);
   const fatigueSpeedFactor = 1 - runner.fatigue * 0.08;
   const trafficSpeedFactor = computeTrafficSpeedFactor(runner);
+  const coursePaceFit =
+    SIMPLIFIED_RACE_PAGE
+      ? RACE_COURSE_PROFILE.morphPaceFit[runner.morph] ?? 1
+      : 1;
   runner.agent.fatigueFactor = fatigueSpeedFactor;
   runner.agent.effectiveFactor =
     agentSpeedFactor * fatigueSpeedFactor * trafficSpeedFactor;
@@ -4102,6 +4116,7 @@ function updateRunner(runner, dt) {
       ? cfg.baseSpeed *
         runner.speedBias *
         phaseBoost *
+        coursePaceFit *
         launch *
         agentSpeedFactor *
         fatigueSpeedFactor *
@@ -6130,6 +6145,12 @@ async function boot() {
     canvas.dataset.runnerCount = String(runners.length);
     canvas.dataset.morphSet = [...new Set(runners.map((runner) => runner.morph))].join("");
     canvas.dataset.simulationHz = String(Math.round(1 / SIMULATION_STEP));
+    canvas.dataset.courseProfile = RACE_COURSE_PROFILE.id;
+    canvas.dataset.courseDistance = String(RACE_COURSE_PROFILE.distance);
+    canvas.dataset.courseFitS = String(RACE_COURSE_PROFILE.morphPaceFit.S);
+    canvas.dataset.courseFitP = String(RACE_COURSE_PROFILE.morphPaceFit.P);
+    canvas.dataset.courseFitE = String(RACE_COURSE_PROFILE.morphPaceFit.E);
+    canvas.dataset.courseFitA = String(RACE_COURSE_PROFILE.morphPaceFit.A);
 
     if (
       Number.isInteger(PROXY_REVIEW_RUNNER) &&
