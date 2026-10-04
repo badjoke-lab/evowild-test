@@ -7,6 +7,8 @@ const modeEl = document.querySelector("#mode");
 const toggleEl = document.querySelector("#toggle");
 const grassToggleEl = document.querySelector("#grassToggle");
 const grassModeEl = document.querySelector("#grassMode");
+const dustToggleEl = document.querySelector("#dustToggle");
+const dustModeEl = document.querySelector("#dustMode");
 
 const isMobile = matchMedia("(pointer: coarse)").matches || innerWidth < 800;
 const renderer = new THREE.WebGLRenderer({
@@ -304,6 +306,151 @@ grassToggleEl.addEventListener("click", () => {
 });
 
 
+const dustCount = isMobile ? 80 : 160;
+const dustPositions = new Float32Array(dustCount * 3);
+const dustAges = new Float32Array(dustCount);
+const dustSeeds = new Float32Array(dustCount);
+const dustVX = new Float32Array(dustCount);
+const dustVY = new Float32Array(dustCount);
+const dustVZ = new Float32Array(dustCount);
+const dustMaxLife = new Float32Array(dustCount);
+
+for (let i = 0; i < dustCount; i++) {
+  dustPositions[i * 3 + 1] = -100;
+  dustAges[i] = 2;
+  dustSeeds[i] = deterministic01(i, 20);
+}
+
+const dustGeometry = new THREE.BufferGeometry();
+dustGeometry.setAttribute("position", new THREE.BufferAttribute(dustPositions, 3));
+dustGeometry.setAttribute("aAge", new THREE.BufferAttribute(dustAges, 1));
+dustGeometry.setAttribute("aSeed", new THREE.BufferAttribute(dustSeeds, 1));
+
+const dustMaterial = new THREE.ShaderMaterial({
+  transparent: true,
+  depthWrite: false,
+  uniforms: {
+    uPixelRatio: { value: renderer.getPixelRatio() }
+  },
+  vertexShader: `
+    attribute float aAge;
+    attribute float aSeed;
+    uniform float uPixelRatio;
+    varying float vAlpha;
+    varying float vShade;
+
+    void main() {
+      vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+      gl_Position = projectionMatrix * mvPosition;
+
+      float fadeIn = smoothstep(0.00, 0.10, aAge);
+      float fadeOut = 1.0 - smoothstep(0.56, 1.0, aAge);
+      vAlpha = fadeIn * fadeOut * 0.44;
+      vShade = aSeed;
+
+      float size = mix(5.0, 18.0, clamp(aAge, 0.0, 1.0));
+      float perspectiveScale = clamp(110.0 / max(4.0, -mvPosition.z), 0.45, 2.0);
+      gl_PointSize = size * perspectiveScale * uPixelRatio;
+    }
+  `,
+  fragmentShader: `
+    varying float vAlpha;
+    varying float vShade;
+
+    void main() {
+      vec2 p = gl_PointCoord - vec2(0.5);
+      float r = length(p);
+      float disc = 1.0 - smoothstep(0.18, 0.50, r);
+      float alpha = disc * vAlpha;
+      if (alpha < 0.01) discard;
+
+      vec3 darkDust = vec3(0.43, 0.31, 0.21);
+      vec3 lightDust = vec3(0.69, 0.52, 0.34);
+      vec3 color = mix(darkDust, lightDust, 0.35 + vShade * 0.45);
+      gl_FragColor = vec4(color, alpha);
+    }
+  `
+});
+
+const dust = new THREE.Points(dustGeometry, dustMaterial);
+dust.name = "V2_TrackWakeDust";
+dust.frustumCulled = false;
+scene.add(dust);
+
+let dustEnabled = true;
+let dustCursor = 0;
+let dustEmitAccumulator = 0;
+let dustEmissionSerial = 0;
+
+dustToggleEl.addEventListener("click", () => {
+  dustEnabled = !dustEnabled;
+  dust.visible = dustEnabled;
+  dustModeEl.textContent = dustEnabled ? "DUST ON" : "DUST OFF";
+});
+
+function emitDust(sourceT) {
+  const index = dustCursor;
+  dustCursor = (dustCursor + 1) % dustCount;
+
+  const source = curve.getPointAt(sourceT);
+  const tangent = curve.getTangentAt(sourceT).normalize();
+  const side = new THREE.Vector3(-tangent.z, 0, tangent.x);
+  const seed = dustEmissionSerial++;
+  const lateral = (deterministic01(seed, 30) - 0.5) * 3.4;
+  const back = 0.4 + deterministic01(seed, 31) * 1.6;
+
+  const p = source.clone()
+    .addScaledVector(side, lateral)
+    .addScaledVector(tangent, -back);
+  p.y = 0.16 + deterministic01(seed, 32) * 0.10;
+
+  dustPositions[index * 3] = p.x;
+  dustPositions[index * 3 + 1] = p.y;
+  dustPositions[index * 3 + 2] = p.z;
+
+  const drift = (deterministic01(seed, 33) - 0.5) * 0.8;
+  dustVX[index] = -tangent.x * (0.65 + deterministic01(seed, 34) * 0.75) + side.x * drift;
+  dustVZ[index] = -tangent.z * (0.65 + deterministic01(seed, 35) * 0.75) + side.z * drift;
+  dustVY[index] = 0.12 + deterministic01(seed, 36) * 0.22;
+  dustMaxLife[index] = 0.85 + deterministic01(seed, 37) * 0.70;
+  dustAges[index] = 0;
+  dustSeeds[index] = deterministic01(seed, 38);
+}
+
+function updateDust(dt, sourceT) {
+  const rate = isMobile ? 20 : 34;
+  if (dustEnabled) {
+    dustEmitAccumulator += dt * rate;
+    while (dustEmitAccumulator >= 1) {
+      emitDust(sourceT);
+      dustEmitAccumulator -= 1;
+    }
+  }
+
+  for (let i = 0; i < dustCount; i++) {
+    if (dustAges[i] >= 1) continue;
+
+    dustAges[i] += dt / Math.max(0.01, dustMaxLife[i]);
+    if (dustAges[i] >= 1) {
+      dustPositions[i * 3 + 1] = -100;
+      continue;
+    }
+
+    const damping = Math.exp(-1.25 * dt);
+    dustVX[i] *= damping;
+    dustVZ[i] *= damping;
+
+    dustPositions[i * 3] += dustVX[i] * dt;
+    dustPositions[i * 3 + 1] += dustVY[i] * dt;
+    dustPositions[i * 3 + 2] += dustVZ[i] * dt;
+  }
+
+  dustGeometry.attributes.position.needsUpdate = true;
+  dustGeometry.attributes.aAge.needsUpdate = true;
+  dustGeometry.attributes.aSeed.needsUpdate = true;
+}
+
+
 const markerMaterial = new THREE.MeshStandardMaterial({
   color: 0x647668,
   roughness: 1,
@@ -353,6 +500,7 @@ function animate(now) {
   grassUniforms.uTime.value += dt;
 
   const t = (now * 0.000018) % 1;
+  updateDust(dt, (t + 0.050) % 1);
   const focus = curve.getPointAt(t);
   const tangent = curve.getTangentAt(t).normalize();
   const side = new THREE.Vector3(-tangent.z, 0, tangent.x);

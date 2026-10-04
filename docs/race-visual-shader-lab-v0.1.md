@@ -224,3 +224,57 @@ Exact V1 v2 correction:
 - add a continuous Playwright wind-review video to inspect motion coherence.
 
 V2 remains blocked until V1 v2 real screenshots and video are reviewed.
+
+
+## V1 v2 real-render + motion review
+
+Decision: `KEEP`
+
+Evidence:
+
+- GitHub Actions run `37183879102`: refined V1 screenshots;
+- GitHub Actions run `37184043707`: continuous wind-review video and screenshots.
+
+Observed:
+
+- the reduced blade width/height removed the v1 foreground strip problem;
+- grass remains outside the track and preserves track readability;
+- the field now reads as depth texture rather than dominant vertical noise;
+- the continuous review shows spatially varied blade phase rather than a single global synchronized sweep;
+- targeted V1 evidence produced no runtime/WebGL errors;
+- CI FPS readout remains a relative headless signal only and is not a device-performance claim.
+
+V1 decision: `KEEP`.
+
+## V2 implementation
+
+Status: `REVIEW_PENDING`
+
+V0/V1 locks preserved:
+
+- no changes to V0 ground, track, camera or haze;
+- no changes to accepted V1 grass geometry or wind behavior;
+- no Creature, gait, Race Engine, Agent or 2.5D changes.
+
+V2 exact change:
+
+- add a test-only moving track-wake dust emitter ahead of the review camera;
+- use a small dynamic point pool: 160 desktop / 80 mobile;
+- CPU updates only the compact particle pool; rendering is one `THREE.Points` draw;
+- particles rise, drift backward/laterally, expand and fade;
+- deterministic emission parameters for repeatable review;
+- explicit DUST ON/OFF control;
+- add still comparison and continuous dust-review video.
+
+V2 review gate:
+
+- dust must remain a light wake, not a wall/cloud that hides the track;
+- particle motion must read as trailing/dissipating rather than hovering;
+- track edges must remain readable;
+- grass/ground must remain visually unchanged;
+- no runtime/WebGL errors;
+- CI FPS is relative-only.
+
+Allowed decision: `KEEP / REVISE / REJECT`.
+
+V3 race lighting remains blocked until V2 real screenshots and motion video are reviewed.

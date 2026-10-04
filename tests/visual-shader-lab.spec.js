@@ -104,3 +104,65 @@ test("Visual Shader Lab V1 records continuous wind review", async ({ browser }, 
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
 });
+
+
+test("Visual Shader Lab V2 renders dust ON/OFF evidence", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+
+  const { pageErrors, consoleErrors } = attachErrorCapture(page);
+  const outDir = "artifacts/shader-lab";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  await page.goto("/evowild-test/visual-shader-lab.html", { waitUntil: "networkidle" });
+  await expect(page.locator("#dustMode")).toHaveText("DUST ON");
+
+  await page.waitForTimeout(2600);
+  await page.screenshot({
+    path: `${outDir}/v2-dust-on.png`,
+    fullPage: true
+  });
+
+  await page.getByRole("button", { name: "Toggle dust" }).click();
+  await expect(page.locator("#dustMode")).toHaveText("DUST OFF");
+  await page.waitForTimeout(900);
+  await page.screenshot({
+    path: `${outDir}/v2-dust-off.png`,
+    fullPage: true
+  });
+
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+});
+
+test("Visual Shader Lab V2 records continuous dust review", async ({ browser }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(30000);
+
+  const outDir = "artifacts/shader-lab";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const context = await browser.newContext({
+    viewport: { width: 1280, height: 720 },
+    recordVideo: {
+      dir: outDir,
+      size: { width: 1280, height: 720 }
+    }
+  });
+  const page = await context.newPage();
+  const { pageErrors, consoleErrors } = attachErrorCapture(page);
+
+  await page.goto("http://127.0.0.1:4173/evowild-test/visual-shader-lab.html", {
+    waitUntil: "networkidle"
+  });
+  await expect(page.locator("#dustMode")).toHaveText("DUST ON");
+  await page.waitForTimeout(3600);
+
+  const video = page.video();
+  await page.close();
+  if (!video) throw new Error("V2 dust review video was not created");
+  await video.saveAs(`${outDir}/v2-dust-review.webm`);
+  await context.close();
+
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+});
