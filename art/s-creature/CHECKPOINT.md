@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe B1b-v3 REVISE; B1b-v4 compact 3D shoulder-root fairing ready
+current_stage: experimental Vibe B1b-v4 compact 3D shoulder-root fairing rendered; REVIEW_PENDING / STOPPED
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-b0-v025.blend
+current_model_file: output/S-vibe-b1b-v4.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute B1b-v4 independently from B0-v025 using S_VIBE_B1B_V4_PLAN.md. Compact XYZ root fairing only; render five views and STOP. B2 remains blocked.
+next_action: Review B1b-v4 five views against B0-v025, B1b-v2/v3 and approved S references. Decide KEEP/REVISE. B2 remains blocked.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -555,3 +555,12 @@ vibe_gate_b1b_v3_review: S_VIBE_B1B_V3_REVIEW.md
 vibe_gate_b1b_v3_reason: Y/Z-only shaping changed 98 vertices up to 0.00521 but SIDE upper-edge step and FRONT34 triangular root remain.
 vibe_gate_b1b_v4_plan: S_VIBE_B1B_V4_PLAN.md
 vibe_gate_b2_status: BLOCKED
+
+vibe_gate_b1b_v4_status: REVIEW_PENDING
+vibe_gate_b1b_v4_scope: compact XYZ proximal shoulder-root fairing only
+vibe_gate_b1b_v4_renders:
+- output/review/vibe-b1b-v4/S_vibe_b1b_v4_side.png
+- output/review/vibe-b1b-v4/S_vibe_b1b_v4_front.png
+- output/review/vibe-b1b-v4/S_vibe_b1b_v4_front34.png
+- output/review/vibe-b1b-v4/S_vibe_b1b_v4_rear34.png
+- output/review/vibe-b1b-v4/S_vibe_b1b_v4_back.png
