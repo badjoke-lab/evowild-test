@@ -1730,3 +1730,69 @@ test("Motion First gameplay integration v1 completes 1600m with Agent and traffi
     path: "test-results/visuals/motion-first-gameplay-integration-v1.png"
   });
 });
+
+
+test("Motion First balanced 1600 course v1 does not lock any morph into one half of the field", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(135000);
+
+  await page.goto(
+    "/evowild-test/preview-motion-first-race/index.html?skipStart=1",
+    { waitUntil: "networkidle" }
+  );
+
+  const scene = page.locator("#scene");
+  await expect(scene).toHaveAttribute("data-course-profile", "balanced-1600-v1");
+  await expect(scene).toHaveAttribute("data-course-distance", "1600");
+  await expect(scene).toHaveAttribute("data-course-fit-s", "0.966");
+  await expect(scene).toHaveAttribute("data-course-fit-p", "1.02");
+
+  await expect(page.locator("#raceState")).toHaveText("FINISHED", {
+    timeout: 105000
+  });
+
+  const classification = JSON.parse(
+    (await scene.getAttribute("data-final-classification")) || "[]"
+  );
+  expect(classification).toHaveLength(18);
+
+  const morphs = ["S", "P", "E", "A"];
+  const stats = Object.fromEntries(
+    morphs.map((morph) => [morph, { ranks: [], average: 0 }])
+  );
+  classification.forEach((row) => stats[row.morph].ranks.push(row.rank));
+  morphs.forEach((morph) => {
+    stats[morph].average =
+      stats[morph].ranks.reduce((sum, rank) => sum + rank, 0) /
+      stats[morph].ranks.length;
+  });
+
+  const topHalfMorphs = new Set(
+    classification.filter((row) => row.rank <= 9).map((row) => row.morph)
+  );
+  const bottomHalfMorphs = new Set(
+    classification.filter((row) => row.rank >= 10).map((row) => row.morph)
+  );
+  for (const morph of morphs) {
+    expect(topHalfMorphs.has(morph)).toBeTruthy();
+    expect(bottomHalfMorphs.has(morph)).toBeTruthy();
+  }
+
+  const averages = morphs.map((morph) => stats[morph].average);
+  const averageSpread = Math.max(...averages) - Math.min(...averages);
+  expect(averageSpread).toBeLessThanOrEqual(6.0);
+
+  const raceTime = Number(await scene.getAttribute("data-race-time"));
+  expect(raceTime).toBeGreaterThan(55);
+  expect(raceTime).toBeLessThan(105);
+
+  console.log(
+    "BALANCED_1600_V1",
+    JSON.stringify({ raceTime, stats, averageSpread, classification })
+  );
+
+  await scene.screenshot({
+    path: "test-results/visuals/motion-first-balanced-1600-v1.png"
+  });
+});
