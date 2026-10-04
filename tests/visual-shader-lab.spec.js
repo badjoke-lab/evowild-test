@@ -70,3 +70,37 @@ test("Visual Shader Lab V1 renders wind grass ON/OFF evidence", async ({ page },
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
 });
+
+
+test("Visual Shader Lab V1 records continuous wind review", async ({ browser }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(30000);
+
+  const outDir = "artifacts/shader-lab";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const context = await browser.newContext({
+    viewport: { width: 1280, height: 720 },
+    recordVideo: {
+      dir: outDir,
+      size: { width: 1280, height: 720 }
+    }
+  });
+  const page = await context.newPage();
+  const { pageErrors, consoleErrors } = attachErrorCapture(page);
+
+  await page.goto("http://127.0.0.1:4173/evowild-test/visual-shader-lab.html", {
+    waitUntil: "networkidle"
+  });
+  await expect(page.locator("#grassMode")).toHaveText("GRASS ON");
+  await page.waitForTimeout(3200);
+
+  const video = page.video();
+  await page.close();
+  if (!video) throw new Error("V1 wind review video was not created");
+  await video.saveAs(`${outDir}/v1-wind-review.webm`);
+  await context.close();
+
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+});
