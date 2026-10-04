@@ -3,21 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EvoWild Run — Visual Shader Lab V0</title>
+    <title>EvoWild Run — Visual Shader Lab V1</title>
   </head>
   <body>
     <main id="lab">
       <canvas id="shader-lab-canvas"></canvas>
       <section class="hud">
         <div>
-          <strong>Race Visual Shader Lab — V0</strong>
-          <span>ground shader + atmospheric baseline</span>
+          <strong>Race Visual Shader Lab — V1</strong>
+          <span>V0 ground + haze locked / V1 instanced wind grass</span>
         </div>
         <div class="metrics">
           <span id="fps">FPS --</span>
           <span id="mode">SHADER ON</span>
+          <span id="grassMode">GRASS ON</span>
         </div>
-        <button id="toggle" type="button">Toggle shader</button>
+        <div class="controls">
+          <button id="toggle" type="button">Toggle shader</button>
+          <button id="grassToggle" type="button">Toggle grass</button>
+        </div>
       </section>
     </main>
     <script type="module" src="/src/visual_shader_lab.js"></script>
