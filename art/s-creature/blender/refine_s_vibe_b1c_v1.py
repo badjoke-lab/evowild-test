@@ -11,6 +11,7 @@ This is a local B1 sculpt-topology test. It is not object-wide remesh and final
 deformation topology remains a later stage.
 """
 import bpy, bmesh, os, json, hashlib, math
+from collections import Counter
 from mathutils import Vector
 
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -43,6 +44,11 @@ preserved_topology={o.name:[tuple(p.vertices) for p in o.data.polygons] for o in
 def inside_support(co, eps=0.0):
     ax=abs(co.x)
     return (XMIN-eps) <= ax <= (XMAX+eps) and (YMIN-eps) <= co.y <= (YMAX+eps) and (ZMIN-eps) <= co.z <= (ZMAX+eps)
+
+source_outside_counter=Counter(
+    tuple(v.co) for v in orig_verts
+    if not inside_support(v.co, SUPPORT_EPS)
+)
 
 def smoothstep01(t):
     t=max(0.0,min(1.0,t))
@@ -113,18 +119,14 @@ bm.verts.ensure_lookup_table(); bm.edges.ensure_lookup_table(); bm.faces.ensure_
 new_vertex_count=len(bm.verts)-src_vert_count
 assert new_vertex_count>0, 'Subdivision created no new B1c vertices'
 
-escaped_new=[
-    v for v in bm.verts
-    if (not inside_support(v.co, SUPPORT_EPS)) and tuple(v.co) not in source_coord_set
-]
-assert not escaped_new, f'Subdivision created {len(escaped_new)} new vertices outside support'
+outside_after_subdivide=Counter(
+    tuple(v.co) for v in bm.verts
+    if not inside_support(v.co, SUPPORT_EPS)
+)
+assert outside_after_subdivide==source_outside_counter, 'Subdivision changed topology/coordinates outside support'
 
 local_verts=[v for v in bm.verts if inside_support(v.co, SUPPORT_EPS)]
 initial_local={v:v.co.copy() for v in local_verts}
-
-# Verify original outside-support coordinates are still exact after subdivision.
-for v in orig_outside:
-    assert tuple(v.co)==tuple(orig_coords[v]), 'Subdivision moved outside-support original vertex'
 
 def same_side_local_neighbors(v):
     sign=1.0 if v.co.x>=0 else -1.0
@@ -164,9 +166,12 @@ for _ in range(PASSES):
     for v,p in updates.items():
         v.co=p
 
-# Outside-support original body vertices must remain exact.
-for v in orig_outside:
-    assert tuple(v.co)==tuple(orig_coords[v]), 'Fairing moved outside-support original vertex'
+# Outside-support coordinate multiset must remain byte-coordinate identical.
+outside_after_fair=Counter(
+    tuple(v.co) for v in bm.verts
+    if not inside_support(v.co, SUPPORT_EPS)
+)
+assert outside_after_fair==source_outside_counter, 'Fairing changed geometry outside support'
 
 # Local displacement budget relative to post-subdivision starting positions.
 local_disp={v:(v.co-initial_local[v]).length for v in local_verts}
@@ -179,14 +184,7 @@ assert max_local_disp<=MAX_LOCAL_DISP+1e-9
 nonmanifold=[e for e in bm.edges if len(e.link_faces)!=2]
 assert len(nonmanifold)==0, f'Non-manifold edges after B1c resurface: {len(nonmanifold)}'
 
-# Capture extents before writing.
-src_ext={
- 'x':(min(v.co.x for v in orig_verts),max(v.co.x for v in orig_verts)),
- 'y':(min(v.co.y for v in orig_verts),max(v.co.y for v in orig_verts)),
- 'z':(min(v.co.z for v in orig_verts),max(v.co.z for v in orig_verts)),
-}
-# NOTE: orig_verts coordinates inside support may have moved; compute source extents
-# from immutable original coordinate snapshot instead.
+# Capture source extents from immutable coordinate snapshots.
 src_ext={
  'x':(min(c.x for c in orig_coords.values()),max(c.x for c in orig_coords.values())),
  'y':(min(c.y for c in orig_coords.values()),max(c.y for c in orig_coords.values())),
