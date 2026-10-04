@@ -306,7 +306,7 @@ grassToggleEl.addEventListener("click", () => {
 });
 
 
-const dustCount = isMobile ? 60 : 120;
+const dustCount = isMobile ? 70 : 140;
 const dustPositions = new Float32Array(dustCount * 3);
 const dustAges = new Float32Array(dustCount);
 const dustSeeds = new Float32Array(dustCount);
@@ -345,10 +345,10 @@ const dustMaterial = new THREE.ShaderMaterial({
 
       float fadeIn = smoothstep(0.00, 0.10, aAge);
       float fadeOut = 1.0 - smoothstep(0.56, 1.0, aAge);
-      vAlpha = fadeIn * fadeOut * 0.16;
+      vAlpha = fadeIn * fadeOut * 0.24;
       vShade = aSeed;
 
-      float size = mix(9.0, 26.0, clamp(aAge, 0.0, 1.0));
+      float size = mix(12.0, 34.0, clamp(aAge, 0.0, 1.0));
       float perspectiveScale = clamp(110.0 / max(4.0, -mvPosition.z), 0.45, 2.0);
       gl_PointSize = size * perspectiveScale * uPixelRatio;
     }
@@ -364,8 +364,8 @@ const dustMaterial = new THREE.ShaderMaterial({
       float alpha = cloud * vAlpha;
       if (alpha < 0.005) discard;
 
-      vec3 darkDust = vec3(0.64, 0.48, 0.32);
-      vec3 lightDust = vec3(0.82, 0.68, 0.48);
+      vec3 darkDust = vec3(0.58, 0.43, 0.28);
+      vec3 lightDust = vec3(0.78, 0.62, 0.42);
       vec3 color = mix(darkDust, lightDust, 0.35 + vShade * 0.45);
       gl_FragColor = vec4(color, alpha);
     }
@@ -418,7 +418,7 @@ function emitDust(sourceT) {
 }
 
 function updateDust(dt, sourceT) {
-  const rate = isMobile ? 14 : 24;
+  const rate = isMobile ? 16 : 28;
   if (dustEnabled) {
     dustEmitAccumulator += dt * rate;
     while (dustEmitAccumulator >= 1) {

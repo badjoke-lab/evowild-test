@@ -308,3 +308,30 @@ Exact V2 v2 correction:
 - preserve V0 ground, V1 grass, track and camera exactly.
 
 V3 remains blocked until V2 v2 real evidence is reviewed.
+
+
+## V2 v2 real-render + motion review
+
+Decision: `REVISE`
+
+Evidence source: GitHub Actions run `37184854954`, artifact `visual-shader-lab-v0`.
+
+Observed:
+
+- discrete dark-dot artifact from v1 is removed;
+- Gaussian falloff and track-colored dust read much more naturally;
+- the wake became too faint: in normal moving-camera review it is easy to lose against the track and no longer provides enough speed/contact cue;
+- runtime and targeted CI remain clean.
+
+Exact V2 v3 correction:
+
+- retain the Gaussian cloud falloff and v2 emitter routing;
+- increase pool modestly from 120/60 to 140/70 desktop/mobile;
+- raise emission rate from 24/14 to 28/16;
+- raise peak opacity from 0.16 to 0.24;
+- enlarge cloud size from 9–26 to 12–34;
+- darken the tan slightly while keeping it close to the track palette.
+
+Goal: visible diffuse wake without returning to v1 circular spots.
+
+V3 remains blocked until V2 v3 is reviewed.
