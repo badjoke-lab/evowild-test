@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_B1B_V1_REVIEW",
-  "current_stage": "B1b-v1 X-only shoulder-plane shaping rendered; review pending; modeling stopped",
+  "stage": "VIBE_EXPERIMENT_B1B_V2_REVIEW",
+  "current_stage": "B1b-v2 X-only shoulder-plane shaping rendered; review pending; modeling stopped",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
-  "current_model_file": "output/S-vibe-b1b-v1.blend",
+  "current_model_file": "output/S-vibe-b1b-v2.blend",
   "source_model_file": "NONE / fresh empty scene",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Execute locked B1b-v2 hypothesis; validate, render five views, actual-image review. No B2 progression.",
+  "next_action": "Review B1b-v2 against B0-v025 and approved S references. Do not advance beyond B1 shoulder/chest before explicit decision.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -63,11 +63,11 @@
   "modeling_status": "STOPPED",
   "cage_vertex_count": 760,
   "review_renders": [
-    "output/review/vibe-b1b-v1/S_vibe_b1b_v1_side.png",
-    "output/review/vibe-b1b-v1/S_vibe_b1b_v1_front.png",
-    "output/review/vibe-b1b-v1/S_vibe_b1b_v1_front34.png",
-    "output/review/vibe-b1b-v1/S_vibe_b1b_v1_rear34.png",
-    "output/review/vibe-b1b-v1/S_vibe_b1b_v1_back.png"
+    "output/review/vibe-b1b-v2/S_vibe_b1b_v2_side.png",
+    "output/review/vibe-b1b-v2/S_vibe_b1b_v2_front.png",
+    "output/review/vibe-b1b-v2/S_vibe_b1b_v2_front34.png",
+    "output/review/vibe-b1b-v2/S_vibe_b1b_v2_rear34.png",
+    "output/review/vibe-b1b-v2/S_vibe_b1b_v2_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
   "editable_next": [],
