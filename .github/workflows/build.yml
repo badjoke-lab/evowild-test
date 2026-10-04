@@ -2,7 +2,7 @@ name: build
 
 on:
   push:
-    branches: ["main", "feat/**", "fix/**"]
+    branches: ["main", "feat/**", "fix/**", "exp/race-visual-shader-lab-*"]
   pull_request:
 
 jobs:
