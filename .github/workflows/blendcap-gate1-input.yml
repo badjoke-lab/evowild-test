@@ -27,21 +27,21 @@ jobs:
       - name: Download licensed runner source
         run: |
           mkdir -p artifacts/blendcap-gate1-input
-          curl --fail --location --retry 3             "https://upload.wikimedia.org/wikipedia/commons/7/7e/Runners.webm"             -o artifacts/blendcap-gate1-input/Runners.webm
+          curl --fail --location --retry 3             "https://upload.wikimedia.org/wikipedia/commons/7/7e/Sprint.webm"             -o artifacts/blendcap-gate1-input/Sprint.webm
 
       - name: Build review contact sheet
         run: |
-          ffmpeg -hide_banner -y             -i artifacts/blendcap-gate1-input/Runners.webm             -vf "fps=1/2,scale=320:-2,tile=4x3"             -frames:v 1             artifacts/blendcap-gate1-input/contact.jpg
-          ffprobe -v error -show_entries format=duration,size             -of default=nw=1             artifacts/blendcap-gate1-input/Runners.webm             > artifacts/blendcap-gate1-input/source-info.txt
+          ffmpeg -hide_banner -y             -i artifacts/blendcap-gate1-input/Sprint.webm             -vf "fps=1/5,scale=256:-2,tile=5x5"             -frames:v 1             artifacts/blendcap-gate1-input/contact.jpg
+          ffprobe -v error -show_entries format=duration,size             -of default=nw=1             artifacts/blendcap-gate1-input/Sprint.webm             > artifacts/blendcap-gate1-input/source-info.txt
 
       - name: Record attribution
         run: |
           cat > artifacts/blendcap-gate1-input/ATTRIBUTION.txt <<'EOF'
-          Source: Wikimedia Commons, File:Runners.webm
+          Source: Wikimedia Commons, File:Sprint.webm
           Author: Evworo
           Date: 15 March 2019
           License: CC BY-SA 3.0
-          Source page: https://commons.wikimedia.org/wiki/File:Runners.webm
+          Source page: https://commons.wikimedia.org/wiki/File:Sprint.webm
           Use: temporary technical input-selection review for the isolated BlendCap bench.
           EOF
 
