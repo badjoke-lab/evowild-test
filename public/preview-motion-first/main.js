@@ -3747,6 +3747,55 @@ function resetRace() {
     runner.renderFull = !SIMPLIFIED_RACE_PAGE;
     runner.group.visible = runner.renderFull;
   });
+
+  if (POSITIONING_REVIEW_MODE) {
+    const placeReviewRunner = (runner, lane, distance) => {
+      runner.lane = lane;
+      runner.targetLane = lane;
+      runner.startSlotOffset = 0;
+      runner.laneX = laneToX(lane);
+      runner.distance = distance;
+      runner.speed = 0;
+      runner.targetSpeed = 0;
+      runner.group.position.set(runner.laneX, 0, runner.distance);
+      if (runner.raceProxy) {
+        runner.raceProxy.position.set(runner.laneX, 0, runner.distance);
+      }
+      if (runner.visualSwap) {
+        runner.visualSwap.root.position.set(runner.laneX, 0, runner.distance);
+      }
+    };
+
+    runners.forEach((runner, index) => {
+      placeReviewRunner(
+        runner,
+        runner.id % LANE_COUNT,
+        140 - index * 4.0
+      );
+      runner.nextLaneDecision = Number.POSITIVE_INFINITY;
+    });
+
+    const subject = runners[0];
+    const blocker = runners[1];
+    const rightFront = runners[2];
+    const rightRear = runners[3];
+
+    placeReviewRunner(subject, 4, 220);
+    placeReviewRunner(blocker, 4, 225);
+    placeReviewRunner(rightFront, 5, 223.5);
+    placeReviewRunner(rightRear, 5, 218.0);
+
+    subject.nextLaneDecision = 200;
+    subject.speedBias = 1.03;
+    blocker.speedBias = 0.82;
+    rightFront.speedBias = 0.96;
+    rightRear.speedBias = 0.98;
+
+    canvas.dataset.positioningReview = "1";
+    canvas.dataset.positioningReviewSubject = "0";
+    canvas.dataset.positioningReviewBlockedLane = "4";
+    canvas.dataset.positioningReviewExpectedLane = "3";
+  }
 }
 
 function forwardGapAtX(runner, targetX, limit = 22) {
