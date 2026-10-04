@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_B1A_V2_REVIEW",
-  "current_stage": "B1a-v2 local shoulder/chest cleanup rendered; review pending; modeling stopped",
+  "stage": "VIBE_EXPERIMENT_B1A_V3_READY",
+  "current_stage": "B1a-v2 reviewed REVISE; B1a-v3 stronger local cleanup required",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
-  "current_model_file": "output/S-vibe-b1a-v2.blend",
+  "current_model_file": "output/S-vibe-b0-v025.blend",
   "source_model_file": "NONE / fresh empty scene",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Review B1a-v2 against B0-v025 and approved S references. Do not start B1b before explicit decision.",
+  "next_action": "Build B1a-v3 independently from B0-v025. Same B1a region, lambda 0.32, mu -0.33, same boundary taper; change cycles 4 to 8 only. Hard-fail above max displacement 0.010. Render five views and STOP. Do not start B1b.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -60,7 +60,7 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "ACCEPTED",
-  "modeling_status": "STOPPED",
+  "modeling_status": "READY_FOR_B1A_V3",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/vibe-b1a-v2/S_vibe_b1a_v2_side.png",
@@ -70,9 +70,15 @@
     "output/review/vibe-b1a-v2/S_vibe_b1a_v2_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
-  "editable_next": [],
+  "editable_next": [
+    "same locked B1a shoulder/chest region only"
+  ],
   "keep_fixed_next": [
-    "B0-v025 source remains recovery source"
+    "all body vertices outside B1a region",
+    "crest",
+    "all toes",
+    "topology",
+    "vertex count"
   ],
   "review_basis": "Direct comparison of v6 SIDE/FRONT/FRONT34/BACK against 00_full_reference.png, 01_s_body_primary.png and 02_s_silhouette.png",
   "v6_decision": "REVISE",
@@ -116,5 +122,28 @@
   "b0_selected": "output/S-vibe-b0-v025.blend",
   "b1_reference_lock": "S_VIBE_B1_REFERENCE_ANALYSIS.md",
   "b1a_v1_decision": "REVISE",
-  "b1a_v1_reason": "Max displacement 0.00162 and mean 0.00011 were too small to produce a meaningful visual cleanup."
+  "b1a_v1_reason": "Max displacement 0.00162 and mean 0.00011 were too small to produce a meaningful visual cleanup.",
+  "b1a_v2_decision": "REVISE",
+  "b1a_v2_review": "S_VIBE_B1A_V2_REVIEW.md",
+  "b1a_v2_comparison": "output/review/vibe-b1a-v2/B1a-v2-three-version-five-view-comparison.png",
+  "b1a_v2_validation": "PASS",
+  "b1a_v2_reason": "Visual improvement is small; shoulder-root and lateral-chest bumpiness remains, especially in FRONT34.",
+  "b1a_v2_modeling_image_note": "Separate \"Modeling Image v1.0\" is not in the repository and was not reviewed.",
+  "b1a_v3": {
+    "source": "output/S-vibe-b0-v025.blend",
+    "target": "shoulder-root and lateral-chest bumpiness within the existing B1a Y/Z region only",
+    "keep_fixed": [
+      "all outside-region body vertices",
+      "crest",
+      "all toes",
+      "topology",
+      "vertex count"
+    ],
+    "exact_edit": "preserve lambda 0.32, mu -0.33 and boundary taper; change cycles 4 -> 8 only",
+    "expected_visual_change": "reduce fine shoulder-root/lateral-chest unevenness while preserving shoulder mass and chest silhouette",
+    "hard_limit": "max displacement <= 0.010",
+    "stop_after": "five-view render + hard-scope validation + review"
+  },
+  "b1b_status": "BLOCKED",
+  "main_lane_unchanged": true
 }
