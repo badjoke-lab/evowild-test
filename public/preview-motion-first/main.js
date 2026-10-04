@@ -50,14 +50,28 @@ const RACE_COURSE_PROFILES = {
   "sprint-800-v1": {
     id: "sprint-800-v1",
     label: "SPRINT 800",
+    surface: "FIRM",
+    trackColor: 0x3a4146,
     distance: 800,
     morphPaceFit: { S: 0.990, P: 1.025, E: 0.985, A: 0.992 },
     staminaDrainFit: { S: 1.02, P: 1.00, E: 0.98, A: 1.00 },
     fatigueBuildFit: { S: 1.00, P: 0.98, E: 0.96, A: 0.98 }
   },
+  "heavy-1200-v1": {
+    id: "heavy-1200-v1",
+    label: "HEAVY 1200",
+    surface: "HEAVY",
+    trackColor: 0x51463a,
+    distance: 1200,
+    morphPaceFit: { S: 0.958, P: 1.045, E: 0.995, A: 0.985 },
+    staminaDrainFit: { S: 1.08, P: 0.90, E: 0.98, A: 1.02 },
+    fatigueBuildFit: { S: 1.12, P: 0.78, E: 0.96, A: 1.00 }
+  },
   "balanced-1600-v1": {
     id: "balanced-1600-v1",
     label: "BALANCED 1600",
+    surface: "FIRM",
+    trackColor: 0x3a4146,
     distance: 1600,
     morphPaceFit: { S: 0.966, P: 1.020, E: 1.000, A: 1.007 },
     staminaDrainFit: { S: 1.00, P: 1.00, E: 1.00, A: 1.00 },
@@ -66,6 +80,8 @@ const RACE_COURSE_PROFILES = {
   "endurance-2400-v1": {
     id: "endurance-2400-v1",
     label: "ENDURANCE 2400",
+    surface: "FIRM",
+    trackColor: 0x3a4146,
     distance: 2400,
     morphPaceFit: { S: 0.955, P: 1.000, E: 1.025, A: 0.992 },
     staminaDrainFit: { S: 1.14, P: 1.06, E: 0.82, A: 0.96 },
@@ -690,7 +706,10 @@ function addWorld() {
     canvas.dataset.raceGroundY = groundY.toFixed(2);
   }
 
-  const trackMat = new THREE.MeshStandardMaterial({ color: 0x3a4146, roughness: 1 });
+  const trackMat = new THREE.MeshStandardMaterial({
+    color: RACE_COURSE_PROFILE.trackColor ?? 0x3a4146,
+    roughness: 1
+  });
   const track = new THREE.Mesh(new THREE.PlaneGeometry(TRACK_WIDTH, WORLD_END + 200), trackMat);
   track.rotation.x = -Math.PI / 2;
   track.position.set(0, 0, WORLD_END / 2 - 50);
@@ -6186,6 +6205,11 @@ async function boot() {
     canvas.dataset.simulationHz = String(Math.round(1 / SIMULATION_STEP));
     canvas.dataset.courseProfile = RACE_COURSE_PROFILE.id;
     canvas.dataset.courseLabel = RACE_COURSE_PROFILE.label;
+    canvas.dataset.courseSurface = RACE_COURSE_PROFILE.surface || "FIRM";
+    canvas.dataset.courseTrackColor =
+      `#${(RACE_COURSE_PROFILE.trackColor ?? 0x3a4146)
+        .toString(16)
+        .padStart(6, "0")}`;
     canvas.dataset.courseDistance = String(RACE_COURSE_PROFILE.distance);
     canvas.dataset.courseWorldEnd = String(WORLD_END);
     canvas.dataset.courseFitS = String(RACE_COURSE_PROFILE.morphPaceFit.S);
