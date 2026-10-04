@@ -1,0 +1,139 @@
+name: blendcap-gate1-full-capture
+
+on:
+  push:
+    branches:
+      - exp/blendcap-s-motion-bench-20261003
+    paths:
+      - ".github/workflows/blendcap-gate1-full.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cpu-capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - name: Checkout EvoWild
+        uses: actions/checkout@v4
+
+      - name: Install system tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Fetch pinned BlendCap source
+        env:
+          BLENDCAP_SHA: e3238699507c00e34b6c948931c4742915b8dc42
+        run: |
+          git clone --filter=blob:none https://github.com/Arcomade/BlendCap.git "$RUNNER_TEMP/BlendCap"
+          git -C "$RUNNER_TEMP/BlendCap" checkout --detach "$BLENDCAP_SHA"
+          test "$(git -C "$RUNNER_TEMP/BlendCap" rev-parse HEAD)" = "$BLENDCAP_SHA"
+
+      - name: Prepare locked Gate 1 input
+        run: |
+          mkdir -p artifacts/blendcap-gate1-full
+          curl --fail --location --retry 3             "https://d34w7g4gy10iej.cloudfront.net/video/2604/DOD_111615549/DOD_111615549.mp4"             -o "$RUNNER_TEMP/source.mp4"
+          ffmpeg -hide_banner -y             -ss 17.5 -t 3.0 -i "$RUNNER_TEMP/source.mp4"             -vf "scale=960:-2,fps=30" -an             artifacts/blendcap-gate1-full/input.mp4
+          ffprobe -v error -show_entries stream=width,height,r_frame_rate,nb_frames             -show_entries format=duration             -of default=nw=1             artifacts/blendcap-gate1-full/input.mp4             | tee artifacts/blendcap-gate1-full/input-info.txt
+
+      - name: Create CPU source-build environment
+        working-directory: ${{ runner.temp }}/BlendCap
+        run: |
+          python3 -m venv .venv
+          .venv/bin/python -m pip install --upgrade pip wheel setuptools
+          .venv/bin/pip install             torch==2.7.1 torchvision==0.22.1             --index-url https://download.pytorch.org/whl/cpu
+
+          python3 - <<'PY'
+          from pathlib import Path
+          src = Path("requirements.txt").read_text().splitlines()
+          drop = (
+              "--extra-index-url",
+              "torch==",
+              "torchvision==",
+              "torchaudio==",
+              "onnxruntime-gpu==",
+              "moge @",
+          )
+          kept = [line for line in src if not line.strip().startswith(drop)]
+          Path("requirements-cpu-evo.txt").write_text("\n".join(kept) + "\n")
+          print(Path("requirements-cpu-evo.txt").read_text())
+          PY
+
+          .venv/bin/pip install -r requirements-cpu-evo.txt
+
+      - name: Download required public model materials
+        working-directory: ${{ runner.temp }}/BlendCap
+        env:
+          MODEL_BASE: https://huggingface.co/Blendcap/sam-3d-body/resolve/main
+        run: |
+          mkdir -p checkpoints/sam-3d-body-dinov3/assets checkpoints/yolo
+          curl --fail --location --retry 3             "$MODEL_BASE/model.ckpt"             -o checkpoints/sam-3d-body-dinov3/model.ckpt
+          curl --fail --location --retry 3             "$MODEL_BASE/model_config.yaml"             -o checkpoints/sam-3d-body-dinov3/model_config.yaml
+          curl --fail --location --retry 3             "$MODEL_BASE/assets/mhr_model.pt"             -o checkpoints/sam-3d-body-dinov3/assets/mhr_model.pt
+          curl --fail --location --retry 3             "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo11m-pose.pt"             -o checkpoints/yolo/yolo11m-pose.pt
+
+          ls -lh             checkpoints/sam-3d-body-dinov3/model.ckpt             checkpoints/sam-3d-body-dinov3/model_config.yaml             checkpoints/sam-3d-body-dinov3/assets/mhr_model.pt             checkpoints/yolo/yolo11m-pose.pt             | tee "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-full/model-files.txt"
+
+      - name: Record resource state before capture
+        run: |
+          free -h | tee artifacts/blendcap-gate1-full/memory-before.txt
+          df -h . | tee artifacts/blendcap-gate1-full/disk-before.txt
+
+      - name: Run sparse CPU SAM capture
+        working-directory: ${{ runner.temp }}/BlendCap
+        env:
+          BLENDCAP_FORCE_CPU: "1"
+          USE_ORT: "0"
+          LAYER_DTYPE: "fp32"
+          USE_COMPILE: "0"
+          USE_COMPILE_BACKBONE: "0"
+          DECODER_COMPILE: "0"
+          BODY_INTERM_PRED_LAYERS: "0,1,2"
+          HAND_INTERM_PRED_LAYERS: "0,1"
+          MHR_NO_CORRECTIVES: "1"
+          SKIP_KEYPOINT_PROMPT: "1"
+          FOV_FAST: "1"
+          FOV_MODEL: "s"
+        run: |
+          set -o pipefail
+          /usr/bin/time -v .venv/bin/python save_mhr_data.py             --video "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-full/input.mp4"             --output "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-full/mhr_frames.npz"             --max-frames 90             --capture-skip 8             --no-hands             --focal-mm 50             2>&1 | tee "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-full/capture.log"
+
+      - name: Convert real NPZ to BVH
+        working-directory: ${{ runner.temp }}/BlendCap
+        run: |
+          set -o pipefail
+          .venv/bin/python npz_to_bvh.py             --input "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-full/mhr_frames.npz"             --output "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-full/output.bvh"             --mhr-model checkpoints/sam-3d-body-dinov3/assets/mhr_model.pt             --rest-pose tpose             --root-motion             --clean-tracking             --smooth 0.10             --smooth-root 0.08             --smooth-vertical 0.04             2>&1 | tee "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-full/bvh.log"
+          test -s "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-full/output.bvh"
+
+      - name: Build tracking overlay
+        if: success()
+        working-directory: ${{ runner.temp }}/BlendCap
+        run: |
+          .venv/bin/python overlay_track.py             --video "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-full/input.mp4"             --input "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-full/mhr_frames.npz"             --output "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-full/overlay.mp4"             || true
+          if [ -s "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-full/overlay.mp4" ]; then
+            ffmpeg -hide_banner -y               -i "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-full/overlay.mp4"               -vf "fps=3,scale=320:-2,tile=5x2"               -frames:v 1               "$GITHUB_WORKSPACE/artifacts/blendcap-gate1-full/overlay-contact.jpg"
+          fi
+
+      - name: Record attribution and result inventory
+        if: always()
+        run: |
+          cat > artifacts/blendcap-gate1-full/ATTRIBUTION.txt <<'EOF'
+          Input source: DVIDS / Wikimedia Commons, Sakura Sprint 5K Fun Run, MCAS Iwakuni 2026 B-Roll
+          Author: U.S. Marine Corps video by Lance Cpl. Saul Hernandez
+          Date: 28 March 2026
+          License: Public domain (U.S. federal government work)
+          DVIDS: https://www.dvidshub.net/video/1001990
+          Input transform: 3.0-second technical excerpt beginning at 17.5s; scaled to 960x540; 30 fps; no audio.
+          EOF
+          find artifacts/blendcap-gate1-full -maxdepth 1 -type f -printf '%f %s bytes\n'             | sort             | tee artifacts/blendcap-gate1-full/inventory.txt
+
+      - name: Upload Gate 1 full-capture evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blendcap-gate1-full-capture
+          path: artifacts/blendcap-gate1-full/
+          if-no-files-found: error
