@@ -45,11 +45,6 @@ def inside_support(co, eps=0.0):
     ax=abs(co.x)
     return (XMIN-eps) <= ax <= (XMAX+eps) and (YMIN-eps) <= co.y <= (YMAX+eps) and (ZMIN-eps) <= co.z <= (ZMAX+eps)
 
-source_outside_counter=Counter(
-    tuple(v.co) for v in orig_verts
-    if not inside_support(v.co, SUPPORT_EPS)
-)
-
 def smoothstep01(t):
     t=max(0.0,min(1.0,t))
     return t*t*(3.0-2.0*t)
@@ -70,6 +65,10 @@ bm.verts.ensure_lookup_table(); bm.edges.ensure_lookup_table(); bm.faces.ensure_
 orig_verts=list(bm.verts)
 orig_coords={v:v.co.copy() for v in orig_verts}
 source_coord_set={tuple(co) for co in orig_coords.values()}
+source_outside_counter=Counter(
+    tuple(v.co) for v in orig_verts
+    if not inside_support(v.co, SUPPORT_EPS)
+)
 orig_outside=[v for v in orig_verts if not inside_support(v.co)]
 orig_inside=[v for v in orig_verts if inside_support(v.co)]
 assert orig_inside, 'No original B1c support vertices'
