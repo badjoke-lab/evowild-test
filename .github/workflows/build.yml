@@ -69,7 +69,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Capture Sakura NPR camera visuals
-        if: ${{ github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' }}
+        if: ${{ github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && startsWith(github.head_ref, 'exp/race-visual-shader-lab-') == false && startsWith(github.ref_name, 'exp/race-visual-shader-lab-') == false }}
         env:
           SAKURA_NPR_CAPTURE: "1"
         run: npx playwright test tests/sakura-npr.spec.js --project=desktop-chromium --workers=1
