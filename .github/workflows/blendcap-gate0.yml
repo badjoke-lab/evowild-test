@@ -57,6 +57,18 @@ jobs:
           cat artifacts/blendcap-gate0/gate0-linux.json
           exit "$code"
 
+      - name: Run Blender add-on registration smoke
+        if: success()
+        env:
+          BLENDCAP_ROOT: ${{ runner.temp }}/BlendCap
+        run: |
+          set +e
+          blender --background --python scripts/blendcap/gate0_blender_smoke.py             2>&1 | tee artifacts/blendcap-gate0/blender-smoke.log
+          code=${PIPESTATUS[0]}
+          set -e
+          echo "blender_smoke_exit_code=$code" | tee artifacts/blendcap-gate0/blender-smoke-exit.txt
+          exit "$code"
+
       - name: Upload Gate 0 report
         if: always()
         uses: actions/upload-artifact@v4
