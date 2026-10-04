@@ -104,12 +104,11 @@ result=bmesh.ops.subdivide_edges(
 )
 bm.verts.ensure_lookup_table(); bm.edges.ensure_lookup_table(); bm.faces.ensure_lookup_table()
 
-new_verts=[g for g in result.get('geom_inner',[]) if isinstance(g,bmesh.types.BMVert)]
-# Fallback: detect vertices not present before if geom_inner omits some.
+# Determine new vertices by object identity relative to the pre-subdivision
+# BMesh vertex set. geom_inner may include pre-existing vertices, so it is not
+# a valid "new vertex only" list.
 orig_set=set(orig_verts)
-for v in bm.verts:
-    if v not in orig_set and v not in new_verts:
-        new_verts.append(v)
+new_verts=[v for v in bm.verts if v not in orig_set]
 
 assert new_verts, 'Subdivision created no new B1c vertices'
 
