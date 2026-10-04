@@ -1796,3 +1796,80 @@ test("Motion First balanced 1600 course v1 does not lock any morph into one half
     path: "test-results/visuals/motion-first-balanced-1600-v1.png"
   });
 });
+
+
+test("Motion First course profiles v1 produce distinct race suitability", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(120000);
+
+  const scene = page.locator("#scene");
+  const raceState = page.locator("#raceState");
+  const morphs = ["S", "P", "E", "A"];
+
+  async function runCourse(courseId, expectedDistance, expectedWorldEnd) {
+    await page.goto(
+      `/evowild-test/preview-motion-first-race/index.html?skipStart=1&course=${courseId}&simRate=4`,
+      { waitUntil: "networkidle" }
+    );
+
+    await expect(scene).toHaveAttribute("data-course-profile", courseId);
+    await expect(scene).toHaveAttribute("data-course-distance", String(expectedDistance));
+    await expect(scene).toHaveAttribute("data-course-world-end", String(expectedWorldEnd));
+    await expect(scene).toHaveAttribute("data-simulation-rate", "4");
+    await expect(raceState).toHaveText("FINISHED", { timeout: 40000 });
+
+    const classification = JSON.parse(
+      (await scene.getAttribute("data-final-classification")) || "[]"
+    );
+    expect(classification).toHaveLength(18);
+
+    const stats = Object.fromEntries(
+      morphs.map((morph) => [morph, { ranks: [], average: 0 }])
+    );
+    classification.forEach((row) => stats[row.morph].ranks.push(row.rank));
+    morphs.forEach((morph) => {
+      stats[morph].average =
+        stats[morph].ranks.reduce((sum, rank) => sum + rank, 0) /
+        stats[morph].ranks.length;
+    });
+
+    const result = {
+      courseId,
+      raceTime: Number(await scene.getAttribute("data-race-time")),
+      winnerMorph: classification[0].morph,
+      topSixMorphs: [...new Set(classification.slice(0, 6).map((row) => row.morph))],
+      stats,
+      classification
+    };
+    console.log("COURSE_PROFILE_V1", JSON.stringify(result));
+    return result;
+  }
+
+  const sprint = await runCourse("sprint-800-v1", 800, 1800);
+  const balanced = await runCourse("balanced-1600-v1", 1600, 1800);
+  const endurance = await runCourse("endurance-2400-v1", 2400, 2600);
+
+  expect(sprint.raceTime).toBeGreaterThan(25);
+  expect(sprint.raceTime).toBeLessThan(55);
+  expect(balanced.raceTime).toBeGreaterThan(55);
+  expect(balanced.raceTime).toBeLessThan(105);
+  expect(endurance.raceTime).toBeGreaterThan(90);
+  expect(endurance.raceTime).toBeLessThan(150);
+
+  // Course identity must change competitive suitability, not just the HUD label.
+  expect(sprint.stats.S.average).toBeLessThan(sprint.stats.E.average);
+  expect(endurance.stats.E.average).toBeLessThan(endurance.stats.S.average);
+  expect(endurance.stats.E.average).toBeLessThan(endurance.stats.P.average);
+  expect(sprint.winnerMorph).not.toBe(endurance.winnerMorph);
+
+  // Keep individual/traffic variance alive: no course may collapse the top six
+  // to one morph even when a profile has a preferred archetype.
+  expect(sprint.topSixMorphs.length).toBeGreaterThanOrEqual(3);
+  expect(balanced.topSixMorphs.length).toBeGreaterThanOrEqual(3);
+  expect(endurance.topSixMorphs.length).toBeGreaterThanOrEqual(3);
+
+  await scene.screenshot({
+    path: "test-results/visuals/motion-first-course-profiles-v1.png"
+  });
+});
