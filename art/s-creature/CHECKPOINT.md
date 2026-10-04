@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe B1a-v2 reviewed REVISE; B1a-v3 stronger local cleanup required
+current_stage: experimental Vibe Gate B1a-v3 local shoulder/chest cleanup rendered; REVIEW_PENDING / STOPPED
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-b0-v025.blend
+current_model_file: output/S-vibe-b1a-v3.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Build B1a-v3 independently from output/S-vibe-b0-v025.blend. Use the same locked shoulder/chest region, lambda 0.32, mu -0.33 and boundary taper, changing only cycles 4 -> 8. Hard-fail if max displacement exceeds 0.010. Render five views and STOP; B1b remains blocked.
+next_action: Review B1a-v3 five views against B0-v025, B1a-v1, B1a-v2 and approved S references. Decide KEEP/REVISE. Do not start B1b before explicit decision.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -478,3 +478,12 @@ vibe_gate_b1a_v3_keep_fixed: all outside-region body vertices; crest; toes; topo
 vibe_gate_b1a_v3_exact_edit: keep lambda 0.32 / mu -0.33 / boundary taper; change cycles from 4 to 8 only
 vibe_gate_b1a_v3_hard_limit: max displacement <= 0.010
 vibe_gate_b1b_status: BLOCKED
+
+vibe_gate_b1a_v3_status: REVIEW_PENDING
+vibe_gate_b1a_v3_scope: same locked shoulder/chest region; stronger boundary-tapered Taubin relax
+vibe_gate_b1a_v3_renders:
+- output/review/vibe-b1a-v3/S_vibe_b1a_v3_side.png
+- output/review/vibe-b1a-v3/S_vibe_b1a_v3_front.png
+- output/review/vibe-b1a-v3/S_vibe_b1a_v3_front34.png
+- output/review/vibe-b1a-v3/S_vibe_b1a_v3_rear34.png
+- output/review/vibe-b1a-v3/S_vibe_b1a_v3_back.png
