@@ -63,6 +63,7 @@ bm.verts.ensure_lookup_table(); bm.edges.ensure_lookup_table(); bm.faces.ensure_
 
 orig_verts=list(bm.verts)
 orig_coords={v:v.co.copy() for v in orig_verts}
+source_coord_set={tuple(co) for co in orig_coords.values()}
 orig_outside=[v for v in orig_verts if not inside_support(v.co)]
 orig_inside=[v for v in orig_verts if inside_support(v.co)]
 assert orig_inside, 'No original B1c support vertices'
@@ -104,16 +105,19 @@ result=bmesh.ops.subdivide_edges(
 )
 bm.verts.ensure_lookup_table(); bm.edges.ensure_lookup_table(); bm.faces.ensure_lookup_table()
 
-# Determine new vertices by object identity relative to the pre-subdivision
-# BMesh vertex set. geom_inner may include pre-existing vertices, so it is not
-# a valid "new vertex only" list.
-orig_ids={id(v) for v in orig_verts}
-new_verts=[v for v in bm.verts if id(v) not in orig_ids]
+# BMesh element wrappers may be recreated by subdivide_edges, so object identity
+# is not a reliable way to identify new vertices. Validate topology locality by
+# coordinates instead: every vertex outside support must still match a source
+# vertex coordinate exactly. Because eligible faces are fully contained and
+# same-side, any legitimate newly-created vertex must lie inside support.
+new_vertex_count=len(bm.verts)-src_vert_count
+assert new_vertex_count>0, 'Subdivision created no new B1c vertices'
 
-assert new_verts, 'Subdivision created no new B1c vertices'
-
-# All new vertices must remain local by construction.
-assert all(inside_support(v.co, SUPPORT_EPS) for v in new_verts), 'Subdivision escaped support region beyond numeric tolerance'
+escaped_new=[
+    v for v in bm.verts
+    if (not inside_support(v.co, SUPPORT_EPS)) and tuple(v.co) not in source_coord_set
+]
+assert not escaped_new, f'Subdivision created {len(escaped_new)} new vertices outside support'
 
 local_verts=[v for v in bm.verts if inside_support(v.co, SUPPORT_EPS)]
 initial_local={v:v.co.copy() for v in local_verts}
@@ -255,7 +259,7 @@ report={
  'result_edge_count':len(mesh.edges),
  'eligible_subdivided_edge_count':len(eligible),
  'affected_source_face_count':affected_face_count,
- 'new_vertex_count':len(new_verts),
+ 'new_vertex_count':new_vertex_count,
  'local_vertex_count_after_subdivision':len(local_verts),
  'changed_local_vertex_count':changed_local,
  'max_local_displacement':max_local_disp,
