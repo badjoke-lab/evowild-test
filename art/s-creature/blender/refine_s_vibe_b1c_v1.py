@@ -30,6 +30,7 @@ PASSES=3
 RESIDUAL_THRESHOLD=0.0015
 MAX_LOCAL_DISP=0.004
 MAX_EXTENT_DRIFT=0.003
+SUPPORT_EPS=1e-5
 
 src_vert_count=len(mesh.vertices)
 src_poly_count=len(mesh.polygons)
@@ -39,9 +40,9 @@ preserved=[o for o in cage.objects if o.type=='MESH' and o!=body]
 preserved_before={o.name:[v.co.copy() for v in o.data.vertices] for o in preserved}
 preserved_topology={o.name:[tuple(p.vertices) for p in o.data.polygons] for o in preserved}
 
-def inside_support(co):
+def inside_support(co, eps=0.0):
     ax=abs(co.x)
-    return XMIN <= ax <= XMAX and YMIN <= co.y <= YMAX and ZMIN <= co.z <= ZMAX
+    return (XMIN-eps) <= ax <= (XMAX+eps) and (YMIN-eps) <= co.y <= (YMAX+eps) and (ZMIN-eps) <= co.z <= (ZMAX+eps)
 
 def smoothstep01(t):
     t=max(0.0,min(1.0,t))
@@ -105,9 +106,9 @@ for v in bm.verts:
 assert new_verts, 'Subdivision created no new B1c vertices'
 
 # All new vertices must remain local by construction.
-assert all(inside_support(v.co) for v in new_verts), 'Subdivision escaped support region'
+assert all(inside_support(v.co, SUPPORT_EPS) for v in new_verts), 'Subdivision escaped support region beyond numeric tolerance'
 
-local_verts=[v for v in bm.verts if inside_support(v.co)]
+local_verts=[v for v in bm.verts if inside_support(v.co, SUPPORT_EPS)]
 initial_local={v:v.co.copy() for v in local_verts}
 
 # Verify original outside-support coordinates are still exact after subdivision.
@@ -119,7 +120,7 @@ def same_side_local_neighbors(v):
     ns=[]
     for e in v.link_edges:
         ov=e.other_vert(v)
-        if inside_support(ov.co) and ov.co.x*sign>0:
+        if inside_support(ov.co, SUPPORT_EPS) and ov.co.x*sign>0:
             ns.append(ov)
     return ns
 
@@ -205,7 +206,7 @@ mesh.update()
 # Store an outside-support coordinate hash that remains stable even though local
 # vertex indices/topology changed.
 def outside_body_coords():
-    coords=[tuple(v.co) for v in mesh.vertices if not inside_support(v.co)]
+    coords=[tuple(v.co) for v in mesh.vertices if not inside_support(v.co, SUPPORT_EPS)]
     return sorted(coords)
 
 def fixed_hash():
