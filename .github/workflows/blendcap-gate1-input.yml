@@ -27,7 +27,7 @@ jobs:
       - name: Download licensed runner source
         run: |
           mkdir -p artifacts/blendcap-gate1-input
-          curl --fail --location --retry 3             "https://upload.wikimedia.org/wikipedia/commons/7/7e/Sprint.webm"             -o artifacts/blendcap-gate1-input/Sprint.webm
+          curl --fail --location --retry 3             "https://upload.wikimedia.org/wikipedia/commons/6/62/Was_passiert_bei_einem_Sprint.webm"             -o artifacts/blendcap-gate1-input/Sprint.webm
 
       - name: Build review contact sheet
         run: |
