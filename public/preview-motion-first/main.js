@@ -71,6 +71,8 @@ const START_REVIEW_MODE =
   SIMPLIFIED_RACE_PAGE && params.get("startReview") === "1";
 const AGENT_BALANCE_REVIEW_MODE =
   SIMPLIFIED_RACE_PAGE && params.get("agentBalanceReview") === "1";
+const POSITIONING_REVIEW_MODE =
+  SIMPLIFIED_RACE_PAGE && params.get("positioningReview") === "1";
 const START_SEQUENCE_ENABLED =
   SIMPLIFIED_RACE_PAGE &&
   params.get("skipStart") !== "1" &&
@@ -3549,6 +3551,13 @@ function createRunners() {
       speedBias: 0.965 + seeded(i, 3) * 0.07,
       nextLaneDecision: 190 + seeded(i, 11) * 210,
       laneChangeStartedAt: -999,
+      laneHoldUntil: -999,
+      laneDecisionCount: 0,
+      lastLaneDecisionCurrentGap: 22,
+      lastLaneDecisionChosenGap: 22,
+      trafficFactor: 1,
+      minTrafficFactor: 1,
+      trafficGapAhead: 22,
       finishTime: null,
       stamina: 1.0,
       fatigue: 0.0,
@@ -3718,6 +3727,14 @@ function resetRace() {
     runner.agent.fatigueFactor = 1 - runner.fatigue * 0.08;
     runner.agent.effectiveFactor = runner.agent.fatigueFactor;
     runner.nextLaneDecision = 190 + seeded(i, 11) * 210;
+    runner.laneChangeStartedAt = -999;
+    runner.laneHoldUntil = -999;
+    runner.laneDecisionCount = 0;
+    runner.lastLaneDecisionCurrentGap = 22;
+    runner.lastLaneDecisionChosenGap = 22;
+    runner.trafficFactor = 1;
+    runner.minTrafficFactor = 1;
+    runner.trafficGapAhead = 22;
     runner.group.position.set(runner.laneX, 0, runner.distance);
     if (runner.visualSwap) {
       runner.visualSwap.root.position.set(runner.laneX, 0, runner.distance);
@@ -3730,22 +3747,166 @@ function resetRace() {
     runner.renderFull = !SIMPLIFIED_RACE_PAGE;
     runner.group.visible = runner.renderFull;
   });
+
+  if (POSITIONING_REVIEW_MODE) {
+    const placeReviewRunner = (runner, lane, distance) => {
+      runner.lane = lane;
+      runner.targetLane = lane;
+      runner.startSlotOffset = 0;
+      runner.laneX = laneToX(lane);
+      runner.distance = distance;
+      runner.speed = 0;
+      runner.targetSpeed = 0;
+      runner.group.position.set(runner.laneX, 0, runner.distance);
+      if (runner.raceProxy) {
+        runner.raceProxy.position.set(runner.laneX, 0, runner.distance);
+      }
+      if (runner.visualSwap) {
+        runner.visualSwap.root.position.set(runner.laneX, 0, runner.distance);
+      }
+    };
+
+    runners.forEach((runner, index) => {
+      placeReviewRunner(
+        runner,
+        runner.id % LANE_COUNT,
+        140 - index * 4.0
+      );
+      runner.nextLaneDecision = Number.POSITIVE_INFINITY;
+    });
+
+    const subject = runners[0];
+    const blocker = runners[1];
+    const rightFront = runners[2];
+    const rightRear = runners[3];
+
+    placeReviewRunner(subject, 4, 220);
+    placeReviewRunner(blocker, 4, 225);
+    placeReviewRunner(rightFront, 5, 223.5);
+    placeReviewRunner(rightRear, 5, 218.0);
+
+    subject.nextLaneDecision = 200;
+    subject.speedBias = 1.03;
+    blocker.speedBias = 0.82;
+    rightFront.speedBias = 0.96;
+    rightRear.speedBias = 0.98;
+
+    canvas.dataset.positioningReview = "1";
+    canvas.dataset.positioningReviewSubject = "0";
+    canvas.dataset.positioningReviewBlockedLane = "4";
+    canvas.dataset.positioningReviewExpectedLane = "3";
+  }
+}
+
+function forwardGapAtX(runner, targetX, limit = 22) {
+  let best = limit;
+  const lateralTolerance = LANE_WIDTH * 0.56;
+
+  for (const other of runners) {
+    if (other.id === runner.id || other.finishTime !== null) continue;
+    if (Math.abs(other.laneX - targetX) > lateralTolerance) continue;
+
+    const gap = other.distance - runner.distance;
+    if (gap > 0 && gap < best) best = gap;
+  }
+
+  return best;
+}
+
+function rearGapAtX(runner, targetX, limit = 12) {
+  let best = limit;
+  const lateralTolerance = LANE_WIDTH * 0.56;
+
+  for (const other of runners) {
+    if (other.id === runner.id || other.finishTime !== null) continue;
+    if (Math.abs(other.laneX - targetX) > lateralTolerance) continue;
+
+    const gap = runner.distance - other.distance;
+    if (gap > 0 && gap < best) best = gap;
+  }
+
+  return best;
+}
+
+function laneOpportunityScore(runner, lane) {
+  const targetX = laneToX(lane);
+  const forward = forwardGapAtX(runner, targetX, 22);
+  const rear = rearGapAtX(runner, targetX, 12);
+  const rearPenalty = rear < 4.5 ? (4.5 - rear) * 3.0 : 0;
+  const shiftCost = Math.abs(targetX - runner.laneX) * 0.42;
+
+  return {
+    lane,
+    forward,
+    rear,
+    score: forward - rearPenalty - shiftCost
+  };
+}
+
+function computeTrafficSpeedFactor(runner) {
+  if (!SIMPLIFIED_RACE_PAGE || runner.finishTime !== null) return 1;
+
+  const gap = forwardGapAtX(runner, runner.laneX, 10);
+  runner.trafficGapAhead = gap;
+
+  let factor = 1;
+  if (gap < 7.5) {
+    const clearance = THREE.MathUtils.clamp((gap - 1.0) / 6.5, 0, 1);
+    factor = THREE.MathUtils.lerp(0.86, 1, clearance);
+  }
+
+  runner.trafficFactor = factor;
+  runner.minTrafficFactor = Math.min(runner.minTrafficFactor ?? 1, factor);
+  return factor;
 }
 
 function maybeChangeLane(runner) {
-  if (runner.distance < runner.nextLaneDecision || runner.distance > RACE_DISTANCE - 180) return;
-
-  const options = [];
-  if (runner.lane > 0) options.push(runner.lane - 1);
-  if (runner.lane < LANE_COUNT - 1) options.push(runner.lane + 1);
-
-  if (options.length && seeded(runner.id, Math.floor(runner.distance / 100) + 31) > 0.42) {
-    runner.targetLane = options[Math.floor(seeded(runner.id, Math.floor(runner.distance / 90) + 44) * options.length)];
-    runner.lane = runner.targetLane;
-    runner.laneChangeStartedAt = raceTime;
+  if (
+    runner.distance < Math.max(runner.nextLaneDecision, START_MERGE_END + 25) ||
+    runner.distance > RACE_DISTANCE - 180 ||
+    raceTime < runner.laneHoldUntil
+  ) {
+    return;
   }
 
-  runner.nextLaneDecision += 260 + seeded(runner.id, Math.floor(runner.distance / 70) + 51) * 260;
+  const currentLane = THREE.MathUtils.clamp(
+    Math.round(runner.targetLane),
+    0,
+    LANE_COUNT - 1
+  );
+  const current = laneOpportunityScore(runner, currentLane);
+
+  // Position changes now respond to real congestion instead of periodic
+  // random weaving. Clear runners hold their line.
+  if (current.forward >= 8.5) {
+    runner.nextLaneDecision = runner.distance + 70;
+    return;
+  }
+
+  const candidates = [currentLane - 1, currentLane + 1]
+    .filter((lane) => lane >= 0 && lane < LANE_COUNT)
+    .map((lane) => laneOpportunityScore(runner, lane))
+    .filter((option) => option.rear >= 4.5)
+    .sort((a, b) => b.score - a.score);
+
+  const best = candidates[0];
+  const meaningfulGain =
+    best &&
+    best.forward >= current.forward + 2.0 &&
+    best.score >= current.score + 2.5;
+
+  if (meaningfulGain) {
+    runner.lastLaneDecisionCurrentGap = current.forward;
+    runner.lastLaneDecisionChosenGap = best.forward;
+    runner.targetLane = best.lane;
+    runner.lane = best.lane;
+    runner.laneChangeStartedAt = raceTime;
+    runner.laneHoldUntil = raceTime + 3.2;
+    runner.laneDecisionCount += 1;
+    runner.nextLaneDecision = runner.distance + 120;
+  } else {
+    runner.nextLaneDecision = runner.distance + 45;
+  }
 }
 
 function computeRunnerPressure(runner) {
@@ -3932,8 +4093,10 @@ function updateRunner(runner, dt) {
 
   const agentSpeedFactor = resolveAgentCommand(runner, dt);
   const fatigueSpeedFactor = 1 - runner.fatigue * 0.08;
+  const trafficSpeedFactor = computeTrafficSpeedFactor(runner);
   runner.agent.fatigueFactor = fatigueSpeedFactor;
-  runner.agent.effectiveFactor = agentSpeedFactor * fatigueSpeedFactor;
+  runner.agent.effectiveFactor =
+    agentSpeedFactor * fatigueSpeedFactor * trafficSpeedFactor;
   runner.targetSpeed =
     runner.finishTime === null
       ? cfg.baseSpeed *
@@ -3941,7 +4104,8 @@ function updateRunner(runner, dt) {
         phaseBoost *
         launch *
         agentSpeedFactor *
-        fatigueSpeedFactor
+        fatigueSpeedFactor *
+        trafficSpeedFactor
       : 0;
   const accelRate = cfg.accel * (runner.targetSpeed >= runner.speed ? 1 : 0.62);
   runner.speed = THREE.MathUtils.damp(runner.speed, runner.targetSpeed, accelRate, dt);
@@ -5592,6 +5756,28 @@ function updateHud(dt) {
       canvas.dataset.agentBalanceModel = "fatigue-tradeoff-v1";
       canvas.dataset.agentBalanceReview = AGENT_BALANCE_REVIEW_MODE ? "1" : "0";
       canvas.dataset.agentModel = "command-only-creature-resolved";
+    }
+
+    const positioningRunner = runners[0];
+    if (positioningRunner) {
+      canvas.dataset.positioningModel = "clearance-score-with-hysteresis";
+      canvas.dataset.positioningReview = POSITIONING_REVIEW_MODE ? "1" : "0";
+      canvas.dataset.positioningRunnerLane = String(positioningRunner.lane);
+      canvas.dataset.positioningRunnerTargetLane = String(positioningRunner.targetLane);
+      canvas.dataset.positioningDecisionCount =
+        String(positioningRunner.laneDecisionCount);
+      canvas.dataset.positioningCurrentGap =
+        positioningRunner.trafficGapAhead.toFixed(3);
+      canvas.dataset.positioningTrafficFactor =
+        positioningRunner.trafficFactor.toFixed(3);
+      canvas.dataset.positioningMinTrafficFactor =
+        positioningRunner.minTrafficFactor.toFixed(3);
+      canvas.dataset.positioningDecisionCurrentGap =
+        positioningRunner.lastLaneDecisionCurrentGap.toFixed(3);
+      canvas.dataset.positioningDecisionChosenGap =
+        positioningRunner.lastLaneDecisionChosenGap.toFixed(3);
+      canvas.dataset.positioningHoldRemaining =
+        Math.max(0, positioningRunner.laneHoldUntil - raceTime).toFixed(3);
     }
     updateAgentFeedback();
   }

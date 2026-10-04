@@ -1610,3 +1610,53 @@ test("Motion First Agent strategy balance v1 makes exhausted PUSH worse until CO
     path: "test-results/visuals/motion-first-agent-balance-v1.png"
   });
 });
+
+
+test("Motion First positioning v1 leaves a blocked line for a materially clearer safe lane", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(30000);
+
+  await page.goto(
+    "/evowild-test/preview-motion-first-race/index.html?skipStart=1&positioningReview=1",
+    { waitUntil: "networkidle" }
+  );
+
+  const scene = page.locator("#scene");
+  await expect(scene).toHaveAttribute("data-positioning-model", "clearance-score-with-hysteresis");
+  await expect(scene).toHaveAttribute("data-positioning-review", "1");
+  await expect(scene).toHaveAttribute("data-positioning-review-blocked-lane", "4");
+  await expect(scene).toHaveAttribute("data-positioning-review-expected-lane", "3");
+
+  await expect.poll(async () =>
+    Number(await scene.getAttribute("data-positioning-decision-count")),
+    { timeout: 4000 }
+  ).toBeGreaterThan(0);
+
+  await expect(scene).toHaveAttribute("data-positioning-runner-target-lane", "3");
+
+  const decision = await scene.evaluate((node) => ({
+    currentGap: Number(node.dataset.positioningDecisionCurrentGap),
+    chosenGap: Number(node.dataset.positioningDecisionChosenGap),
+    minTrafficFactor: Number(node.dataset.positioningMinTrafficFactor),
+    holdRemaining: Number(node.dataset.positioningHoldRemaining)
+  }));
+  expect(decision.currentGap).toBeGreaterThan(3.5);
+  expect(decision.currentGap).toBeLessThan(6.5);
+  expect(decision.chosenGap).toBeGreaterThan(decision.currentGap + 8);
+  expect(decision.minTrafficFactor).toBeLessThan(0.98);
+  expect(decision.holdRemaining).toBeGreaterThan(1.0);
+
+  await page.waitForTimeout(900);
+  const cleared = await scene.evaluate((node) => ({
+    trafficFactor: Number(node.dataset.positioningTrafficFactor),
+    minTrafficFactor: Number(node.dataset.positioningMinTrafficFactor),
+    decisionCount: Number(node.dataset.positioningDecisionCount)
+  }));
+  expect(cleared.trafficFactor).toBeGreaterThan(cleared.minTrafficFactor + 0.02);
+  expect(cleared.decisionCount).toBe(1);
+
+  await scene.screenshot({
+    path: "test-results/visuals/motion-first-positioning-v1.png"
+  });
+});
