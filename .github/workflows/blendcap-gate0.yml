@@ -57,6 +57,11 @@ jobs:
           cat artifacts/blendcap-gate0/gate0-linux.json
           exit "$code"
 
+      - name: Probe BlendCap public model mirror access
+        if: success()
+        run: |
+          bash scripts/blendcap/gate0_model_access.sh
+
       - name: Run Blender add-on registration smoke
         if: success()
         env:
