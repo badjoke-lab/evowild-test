@@ -25,12 +25,18 @@
       </div>
       <div class="race-readout">
         <span id="raceState">RUNNING</span>
+        <span id="courseReadout">BALANCED 1600</span>
         <span id="distanceReadout">0 / 1600 m</span>
         <span id="fpsReadout">-- FPS</span>
       </div>
     </section>
 
     <section class="hud hud-bottom">
+      <div class="control-block course-control">
+        <label class="label" for="courseSelect">COURSE</label>
+        <select id="courseSelect" aria-label="Race course"></select>
+      </div>
+
       <div class="control-block">
         <span class="label">CAMERA</span>
         <div class="camera-buttons" role="group" aria-label="Camera view">
@@ -113,7 +119,7 @@
         <small id="winningTime">—</small>
       </div>
       <div class="result-summary">
-        <span>1600 m FINAL CLASSIFICATION</span>
+        <span id="resultDistanceLabel">1600 m FINAL CLASSIFICATION</span>
         <span id="resultRaceTime">—</span>
       </div>
       <ol class="result-list" id="resultList"></ol>
