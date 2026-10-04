@@ -69,6 +69,8 @@ const VISUAL_SWAP_ENABLED =
   SIMPLIFIED_RACE_PAGE && VISUAL_SWAP_MORPH === "S";
 const START_REVIEW_MODE =
   SIMPLIFIED_RACE_PAGE && params.get("startReview") === "1";
+const AGENT_BALANCE_REVIEW_MODE =
+  SIMPLIFIED_RACE_PAGE && params.get("agentBalanceReview") === "1";
 const START_SEQUENCE_ENABLED =
   SIMPLIFIED_RACE_PAGE &&
   params.get("skipStart") !== "1" &&
@@ -99,7 +101,10 @@ function createRunnerAgentState(id) {
     commandIssuedAt: -999,
     commandUntil: -999,
     response: 0,
-    lastResult: "NEUTRAL"
+    lastResult: "NEUTRAL",
+    commandFactor: 1,
+    fatigueFactor: 1,
+    effectiveFactor: 1
   };
 }
 
@@ -3700,8 +3705,8 @@ function resetRace() {
     runner.speed = 0;
     runner.targetSpeed = 0;
     runner.finishTime = null;
-    runner.stamina = 1.0;
-    runner.fatigue = 0.0;
+    runner.stamina = AGENT_BALANCE_REVIEW_MODE && i === 0 ? 0.72 : 1.0;
+    runner.fatigue = AGENT_BALANCE_REVIEW_MODE && i === 0 ? 0.31 : 0.0;
     runner.pressure = 0.0;
     runner.creatureState = "FRESH";
     runner.agent.command = "NEUTRAL";
@@ -3709,6 +3714,9 @@ function resetRace() {
     runner.agent.commandUntil = -999;
     runner.agent.response = 0;
     runner.agent.lastResult = "NEUTRAL";
+    runner.agent.commandFactor = 1;
+    runner.agent.fatigueFactor = 1 - runner.fatigue * 0.08;
+    runner.agent.effectiveFactor = runner.agent.fatigueFactor;
     runner.nextLaneDecision = 190 + seeded(i, 11) * 210;
     runner.group.position.set(runner.laneX, 0, runner.distance);
     if (runner.visualSwap) {
@@ -3805,7 +3813,7 @@ function resolveAgentCommand(runner, dt) {
     agent.lastResult = response >= 0.72 ? "STRONG" : response >= 0.46 ? "PARTIAL" : "WEAK";
   } else if (command === "CONSERVE") {
     staminaDrain *= 0.34;
-    fatigueDelta = -0.0065 * Math.max(0.35, response);
+    fatigueDelta = -(0.0100 + 0.0080 * Math.max(0.35, response));
     agent.lastResult = response >= 0.72 ? "SETTLED" : response >= 0.46 ? "PARTIAL" : "WEAK";
   } else {
     fatigueDelta = runner.speed > runner.cfg.baseSpeed * 0.98 ? 0.0018 : -0.0015;
@@ -3815,13 +3823,14 @@ function resolveAgentCommand(runner, dt) {
   runner.fatigue = THREE.MathUtils.clamp(runner.fatigue + fatigueDelta * dt, 0, 1);
   runner.creatureState = deriveCreatureState(runner);
 
+  let commandFactor = 1;
   if (command === "PUSH") {
-    return 1 + 0.035 * response;
+    commandFactor = 1 + 0.035 * response;
+  } else if (command === "CONSERVE") {
+    commandFactor = 1 - 0.025 * response;
   }
-  if (command === "CONSERVE") {
-    return 1 - 0.025 * response;
-  }
-  return 1;
+  agent.commandFactor = commandFactor;
+  return commandFactor;
 }
 
 function agentFeedbackTone(result) {
@@ -3921,7 +3930,9 @@ function updateRunner(runner, dt) {
   }
 
   const agentSpeedFactor = resolveAgentCommand(runner, dt);
-  const fatigueSpeedFactor = 1 - runner.fatigue * 0.022;
+  const fatigueSpeedFactor = 1 - runner.fatigue * 0.08;
+  runner.agent.fatigueFactor = fatigueSpeedFactor;
+  runner.agent.effectiveFactor = agentSpeedFactor * fatigueSpeedFactor;
   runner.targetSpeed =
     runner.finishTime === null
       ? cfg.baseSpeed *
@@ -5571,6 +5582,14 @@ function updateHud(dt) {
       canvas.dataset.agentFocusFatigue = agentTarget.fatigue.toFixed(3);
       canvas.dataset.agentFocusPressure = agentTarget.pressure.toFixed(3);
       canvas.dataset.agentFocusCreatureState = agentTarget.creatureState;
+      canvas.dataset.agentFocusCommandFactor =
+        agentTarget.agent.commandFactor.toFixed(3);
+      canvas.dataset.agentFocusFatigueFactor =
+        agentTarget.agent.fatigueFactor.toFixed(3);
+      canvas.dataset.agentFocusEffectiveFactor =
+        agentTarget.agent.effectiveFactor.toFixed(3);
+      canvas.dataset.agentBalanceModel = "fatigue-tradeoff-v1";
+      canvas.dataset.agentBalanceReview = AGENT_BALANCE_REVIEW_MODE ? "1" : "0";
       canvas.dataset.agentModel = "command-only-creature-resolved";
     }
     updateAgentFeedback();
