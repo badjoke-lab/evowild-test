@@ -160,7 +160,17 @@ If no clear improvement survives visual review, close this lane with **NO INTEGR
 
 Kimodo and ARDY are CUDA/NVIDIA-oriented research stacks. This repo must not assume that the normal EvoWild development machine can run inference.
 
-Use external GPU compute only for the isolated generation experiment. Generated motion data may be brought back into the repository only after license and quality review.
+### Official hosted Kimodo path
+
+NVIDIA currently operates an official public Hugging Face Space:
+
+- https://huggingface.co/spaces/nvidia/Kimodo
+- runtime reported by Hugging Face: NVIDIA L40S
+- the Space launches `kimodo_demo` and the Kimodo text encoder in NVIDIA's container
+
+Use that public Space first for a no-local-GPU smoke test and manual motion authoring/export when available. Do not create a paid Hugging Face Job merely to bypass the local hardware constraint without an explicit decision to incur compute cost.
+
+For scripted reproducible K1 runs, use a CUDA host only for this isolated generation experiment. Generated motion data may be brought back into the repository only after license and quality review.
 
 Production EvoWild remains browser/runtime independent of Kimodo/ARDY.
 
@@ -185,14 +195,14 @@ Do not generalize the Apache-2.0 code license to model weights or datasets.
 
 ## 8. Next execution point
 
-The next real execution is **Gate K0 on an NVIDIA GPU host**.
+Tooling validation is already passing in GitHub Actions.
 
-Until that exists, the only valid work in this branch is:
+Next execution order:
 
-- environment probing;
-- test-case definition;
-- import/export tooling;
-- evaluation tooling;
-- upstream compatibility review.
+1. **K0A — official NVIDIA Kimodo Hugging Face Space smoke test** using the public L40S-hosted demo;
+2. export one real SOMA motion from the Space if export is available in the current deployment;
+3. run `extract_motion_signals.py` on the exported NPZ;
+4. proceed to scripted K1 on a CUDA host only if reproducibility beyond the public Space is needed;
+5. run ARDY A1 separately because there is no equivalent EvoWild-ready quadruped model.
 
 No claim of generated EvoWild motion is permitted before K1/A1 artifacts exist.
