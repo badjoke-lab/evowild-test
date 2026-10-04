@@ -22,7 +22,9 @@ jobs:
         shell: bash
         run: |
           BRANCH="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
-          if [[ "$BRANCH" == "feat/2p5d-four-morph-quality-integration-20260925" ]]; then
+          if [[ "$BRANCH" == exp/race-visual-shader-lab-* ]]; then
+            npx playwright test tests/visual-shader-lab.spec.js --project=desktop-chromium --workers=1
+          elif [[ "$BRANCH" == "feat/2p5d-four-morph-quality-integration-20260925" ]]; then
             npx playwright test tests/race-quality.spec.js tests/2p5d-selection.spec.js --workers=1
           else
             npm run test:e2e
@@ -35,14 +37,14 @@ jobs:
           path: artifacts/shader-lab/*
           if-no-files-found: warn
       - name: Upload 2.5D survivor visuals
-        if: always()
+        if: ${{ always() && startsWith(github.head_ref, 'exp/race-visual-shader-lab-') == false && startsWith(github.ref_name, 'exp/race-visual-shader-lab-') == false }}
         uses: actions/upload-artifact@v4
         with:
           name: 2p5d-survivor-visuals
           path: artifacts/2p5d-survivor/*.png
           if-no-files-found: warn
       - name: Capture Motion First visuals
-        if: ${{ github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' }}
+        if: ${{ github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && startsWith(github.head_ref, 'exp/race-visual-shader-lab-') == false && startsWith(github.ref_name, 'exp/race-visual-shader-lab-') == false }}
         env:
           MOTION_FIRST_CAPTURE: "1"
         shell: bash
@@ -59,7 +61,7 @@ jobs:
             npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1
           fi
       - name: Upload Motion First race visuals
-        if: ${{ always() && github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' }}
+        if: ${{ always() && github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && startsWith(github.head_ref, 'exp/race-visual-shader-lab-') == false && startsWith(github.ref_name, 'exp/race-visual-shader-lab-') == false }}
         uses: actions/upload-artifact@v4
         with:
           name: motion-first-race-visuals
@@ -72,7 +74,7 @@ jobs:
           SAKURA_NPR_CAPTURE: "1"
         run: npx playwright test tests/sakura-npr.spec.js --project=desktop-chromium --workers=1
       - name: Upload mobile visual screenshots
-        if: ${{ always() && github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' }}
+        if: ${{ always() && github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && startsWith(github.head_ref, 'exp/race-visual-shader-lab-') == false && startsWith(github.ref_name, 'exp/race-visual-shader-lab-') == false }}
         uses: actions/upload-artifact@v4
         with:
           name: mobile-race-visuals
@@ -80,7 +82,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Upload S sprite-gen PoC artifacts
-        if: ${{ always() && github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' }}
+        if: ${{ always() && github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && startsWith(github.head_ref, 'exp/race-visual-shader-lab-') == false && startsWith(github.ref_name, 'exp/race-visual-shader-lab-') == false }}
         uses: actions/upload-artifact@v4
         with:
           name: spritegen-s-poc
