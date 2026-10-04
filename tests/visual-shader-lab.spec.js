@@ -1,16 +1,20 @@
 import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 
-test("Visual Shader Lab V0 renders shader ON/OFF evidence", async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== "desktop-chromium");
-
+function attachErrorCapture(page) {
   const pageErrors = [];
   const consoleErrors = [];
   page.on("pageerror", (err) => pageErrors.push(err.stack || String(err)));
   page.on("console", (msg) => {
     if (msg.type() === "error") consoleErrors.push(msg.text());
   });
+  return { pageErrors, consoleErrors };
+}
 
+test("Visual Shader Lab V0 renders shader ON/OFF evidence", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+
+  const { pageErrors, consoleErrors } = attachErrorCapture(page);
   const outDir = "artifacts/shader-lab";
   fs.mkdirSync(outDir, { recursive: true });
 
@@ -30,6 +34,36 @@ test("Visual Shader Lab V0 renders shader ON/OFF evidence", async ({ page }, tes
   await page.waitForTimeout(900);
   await page.screenshot({
     path: `${outDir}/v0-shader-off.png`,
+    fullPage: true
+  });
+
+  expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+  expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+});
+
+test("Visual Shader Lab V1 renders wind grass ON/OFF evidence", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+
+  const { pageErrors, consoleErrors } = attachErrorCapture(page);
+  const outDir = "artifacts/shader-lab";
+  fs.mkdirSync(outDir, { recursive: true });
+
+  await page.goto("/evowild-test/visual-shader-lab.html", { waitUntil: "networkidle" });
+  await expect(page.locator("#shader-lab-canvas")).toBeVisible();
+  await expect(page.locator("#grassMode")).toHaveText("GRASS ON");
+
+  await page.waitForTimeout(1800);
+  await expect(page.locator("#fps")).not.toHaveText("FPS --");
+  await page.screenshot({
+    path: `${outDir}/v1-grass-on.png`,
+    fullPage: true
+  });
+
+  await page.getByRole("button", { name: "Toggle grass" }).click();
+  await expect(page.locator("#grassMode")).toHaveText("GRASS OFF");
+  await page.waitForTimeout(1000);
+  await page.screenshot({
+    path: `${outDir}/v1-grass-off.png`,
     fullPage: true
   });
 
