@@ -9,8 +9,8 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_B1A_V4_READY",
-  "current_stage": "B1a-v3 reviewed REVISE; B1a-v4 boundary-taper test required",
+  "stage": "VIBE_EXPERIMENT_B1B_V1_READY",
+  "current_stage": "B1a relax method closed after v4 hard fail; B1b-v1 X-only shoulder-plane shaping ready",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
   "current_model_file": "output/S-vibe-b0-v025.blend",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Build B1a-v4 independently from B0-v025. Keep lambda 0.32, mu -0.33, cycles 8 and same edit region. Change only boundary margins Y 0.060->0.030 and Z 0.070->0.035. Fail above max displacement 0.010 or regional silhouette drift 0.003 per axis. Render five views and STOP.",
+  "next_action": "Execute B1b-v1 from B0-v025: X-only fairing within Y[-0.12,0.18], Z[0.80,1.12], |X|>=0.055. Keep all Y/Z exact; max |delta X|<=0.006; crest/toes/topology fixed. Render five views and STOP.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -60,7 +60,7 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "ACCEPTED",
-  "modeling_status": "READY_FOR_B1A_V4",
+  "modeling_status": "READY_FOR_B1B_V1",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/vibe-b1a-v3/S_vibe_b1a_v3_side.png",
@@ -138,7 +138,7 @@
     "hard_limit": "max displacement <= 0.010",
     "stop_after": "five-view render + hard-scope validation + review"
   },
-  "b1b_status": "BLOCKED",
+  "b1b_status": "READY",
   "main_lane_unchanged": true,
   "b1a_v3_decision": "REVISE",
   "b1a_v3_review": "S_VIBE_B1A_V3_REVIEW.md",
@@ -150,34 +150,40 @@
   },
   "b1a_v3_reason": "Cycle escalation reached diminishing returns near the 0.010 displacement limit while FRONT34 shoulder-root/lateral-chest unevenness remains.",
   "b1a_v4": {
+    "decision": "HARD_FAIL",
+    "max_displacement": 0.012710190655851921,
+    "rendered": false,
+    "reason": "narrower taper exceeded 0.010 limit"
+  },
+  "b1a_status": "CLOSED_NO_ACCEPTED_CANDIDATE",
+  "b1a_recovery_source": "output/S-vibe-b0-v025.blend",
+  "b1b_v1": {
     "source": "output/S-vibe-b0-v025.blend",
-    "keep": {
-      "lambda": 0.32,
-      "mu": -0.33,
-      "cycles": 8,
-      "y_bounds": [
+    "target": "lateral shoulder-root/chest-side protrusion",
+    "editable": {
+      "y": [
         -0.12,
-        0.22
+        0.18
       ],
-      "z_bounds": [
-        0.74,
-        1.14
-      ]
-    },
-    "change_only": {
-      "margin_y": [
-        0.06,
-        0.03
+      "z": [
+        0.8,
+        1.12
       ],
-      "margin_z": [
-        0.07,
-        0.035
-      ]
+      "abs_x_min": 0.055
     },
+    "method": "X-only adjacency fairing with boundary taper",
     "hard_limits": {
-      "max_displacement": 0.01,
-      "regional_silhouette_drift_per_axis": 0.003
+      "max_abs_delta_x": 0.006,
+      "yz_delta": 0,
+      "whole_body_x_extent_change": 0.006
     },
-    "stop_after": "five-view render + validation + review"
+    "fixed": [
+      "all non-mask body vertices",
+      "all body Y/Z",
+      "crest",
+      "toes",
+      "topology",
+      "vertex count"
+    ]
   }
 }
