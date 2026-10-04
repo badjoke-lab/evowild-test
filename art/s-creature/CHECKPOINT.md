@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe B1a-v3 reviewed REVISE; B1a-v4 boundary-taper test required
+current_stage: experimental Vibe B1a method closed after v4 hard fail; B1b-v1 X-only shoulder-plane shaping ready
 branch: exp/s-creature-vibe-modeling
 current_model_file: output/S-vibe-b0-v025.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Build B1a-v4 independently from B0-v025. Keep lambda 0.32, mu -0.33, cycles 8 and same edit bounds. Change only boundary margins Y 0.060->0.030 and Z 0.070->0.035. Max displacement <=0.010; regional silhouette drift <=0.003 per axis. Render five views and STOP. B1b remains blocked.
+next_action: Execute B1b-v1 independently from B0-v025. X-only local fairing in Y[-0.12,0.18], Z[0.80,1.12], |X|>=0.055. Y/Z exact fixed; max |delta X| <=0.006; crest/toes/topology fixed. Render five views and STOP.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -495,3 +495,11 @@ vibe_gate_b1a_v4_source: output/S-vibe-b0-v025.blend
 vibe_gate_b1a_v4_exact_edit: keep lambda 0.32 / mu -0.33 / cycles 8 / same region; change boundary margins Y 0.060->0.030, Z 0.070->0.035 only
 vibe_gate_b1a_v4_hard_limit: max displacement <=0.010; regional silhouette drift <=0.003 per axis
 vibe_gate_b1b_status: BLOCKED
+
+vibe_gate_b1a_v4_decision: HARD_FAIL
+vibe_gate_b1a_v4_max_displacement: 0.012710190655851921
+vibe_gate_b1a_v4_rendered: false
+vibe_gate_b1a_method_status: CLOSED / no accepted candidate
+vibe_gate_b1a_recovery_source: output/S-vibe-b0-v025.blend
+vibe_gate_b1b_status: READY
+vibe_gate_b1b_v1_method: X-only local shoulder/chest plane fairing; Y/Z exact fixed; max |delta X| 0.006
