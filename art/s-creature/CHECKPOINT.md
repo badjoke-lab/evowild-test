@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gate B1a-v3 local shoulder/chest cleanup rendered; REVIEW_PENDING / STOPPED
+current_stage: experimental Vibe B1a-v3 reviewed REVISE; B1a-v4 boundary-taper test required
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-b1a-v3.blend
+current_model_file: output/S-vibe-b0-v025.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review B1a-v3 five views against B0-v025, B1a-v1, B1a-v2 and approved S references. Decide KEEP/REVISE. Do not start B1b before explicit decision.
+next_action: Build B1a-v4 independently from B0-v025. Keep lambda 0.32, mu -0.33, cycles 8 and same edit bounds. Change only boundary margins Y 0.060->0.030 and Z 0.070->0.035. Max displacement <=0.010; regional silhouette drift <=0.003 per axis. Render five views and STOP. B1b remains blocked.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -487,3 +487,11 @@ vibe_gate_b1a_v3_renders:
 - output/review/vibe-b1a-v3/S_vibe_b1a_v3_front34.png
 - output/review/vibe-b1a-v3/S_vibe_b1a_v3_rear34.png
 - output/review/vibe-b1a-v3/S_vibe_b1a_v3_back.png
+
+vibe_gate_b1a_v3_decision: REVISE
+vibe_gate_b1a_v3_review: S_VIBE_B1A_V3_REVIEW.md
+vibe_gate_b1a_v3_reason: Eight cycles raise max displacement to 0.0096156 but visual cleanup remains insufficient; simple cycle escalation is exhausted.
+vibe_gate_b1a_v4_source: output/S-vibe-b0-v025.blend
+vibe_gate_b1a_v4_exact_edit: keep lambda 0.32 / mu -0.33 / cycles 8 / same region; change boundary margins Y 0.060->0.030, Z 0.070->0.035 only
+vibe_gate_b1a_v4_hard_limit: max displacement <=0.010; regional silhouette drift <=0.003 per axis
+vibe_gate_b1b_status: BLOCKED
