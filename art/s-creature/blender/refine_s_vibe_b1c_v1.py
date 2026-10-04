@@ -107,8 +107,8 @@ bm.verts.ensure_lookup_table(); bm.edges.ensure_lookup_table(); bm.faces.ensure_
 # Determine new vertices by object identity relative to the pre-subdivision
 # BMesh vertex set. geom_inner may include pre-existing vertices, so it is not
 # a valid "new vertex only" list.
-orig_set=set(orig_verts)
-new_verts=[v for v in bm.verts if v not in orig_set]
+orig_ids={id(v) for v in orig_verts}
+new_verts=[v for v in bm.verts if id(v) not in orig_ids]
 
 assert new_verts, 'Subdivision created no new B1c vertices'
 
