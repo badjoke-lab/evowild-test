@@ -431,14 +431,12 @@ function applyLighting() {
 lightToggleEl.addEventListener("click", () => {
   lightingEnabled = !lightingEnabled;
   applyLighting();
-
+});
 
 speedToggleEl.addEventListener("click", () => {
   speedFxHigh = !speedFxHigh;
   grassUniforms.uSpeedFactor.value = speedFxHigh ? 1 : 0;
   speedModeEl.textContent = speedFxHigh ? "SPEED FX HIGH" : "SPEED FX LOW";
-});
-
 });
 
 applyLighting();
