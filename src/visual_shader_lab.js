@@ -306,7 +306,7 @@ grassToggleEl.addEventListener("click", () => {
 });
 
 
-const dustCount = isMobile ? 80 : 160;
+const dustCount = isMobile ? 60 : 120;
 const dustPositions = new Float32Array(dustCount * 3);
 const dustAges = new Float32Array(dustCount);
 const dustSeeds = new Float32Array(dustCount);
@@ -345,10 +345,10 @@ const dustMaterial = new THREE.ShaderMaterial({
 
       float fadeIn = smoothstep(0.00, 0.10, aAge);
       float fadeOut = 1.0 - smoothstep(0.56, 1.0, aAge);
-      vAlpha = fadeIn * fadeOut * 0.44;
+      vAlpha = fadeIn * fadeOut * 0.16;
       vShade = aSeed;
 
-      float size = mix(5.0, 18.0, clamp(aAge, 0.0, 1.0));
+      float size = mix(9.0, 26.0, clamp(aAge, 0.0, 1.0));
       float perspectiveScale = clamp(110.0 / max(4.0, -mvPosition.z), 0.45, 2.0);
       gl_PointSize = size * perspectiveScale * uPixelRatio;
     }
@@ -360,12 +360,12 @@ const dustMaterial = new THREE.ShaderMaterial({
     void main() {
       vec2 p = gl_PointCoord - vec2(0.5);
       float r = length(p);
-      float disc = 1.0 - smoothstep(0.18, 0.50, r);
-      float alpha = disc * vAlpha;
-      if (alpha < 0.01) discard;
+      float cloud = exp(-r * r * 10.5);
+      float alpha = cloud * vAlpha;
+      if (alpha < 0.005) discard;
 
-      vec3 darkDust = vec3(0.43, 0.31, 0.21);
-      vec3 lightDust = vec3(0.69, 0.52, 0.34);
+      vec3 darkDust = vec3(0.64, 0.48, 0.32);
+      vec3 lightDust = vec3(0.82, 0.68, 0.48);
       vec3 color = mix(darkDust, lightDust, 0.35 + vShade * 0.45);
       gl_FragColor = vec4(color, alpha);
     }
@@ -396,8 +396,8 @@ function emitDust(sourceT) {
   const tangent = curve.getTangentAt(sourceT).normalize();
   const side = new THREE.Vector3(-tangent.z, 0, tangent.x);
   const seed = dustEmissionSerial++;
-  const lateral = (deterministic01(seed, 30) - 0.5) * 3.4;
-  const back = 0.4 + deterministic01(seed, 31) * 1.6;
+  const lateral = (deterministic01(seed, 30) - 0.5) * 4.2;
+  const back = 0.5 + deterministic01(seed, 31) * 1.8;
 
   const p = source.clone()
     .addScaledVector(side, lateral)
@@ -411,14 +411,14 @@ function emitDust(sourceT) {
   const drift = (deterministic01(seed, 33) - 0.5) * 0.8;
   dustVX[index] = -tangent.x * (0.65 + deterministic01(seed, 34) * 0.75) + side.x * drift;
   dustVZ[index] = -tangent.z * (0.65 + deterministic01(seed, 35) * 0.75) + side.z * drift;
-  dustVY[index] = 0.12 + deterministic01(seed, 36) * 0.22;
+  dustVY[index] = 0.16 + deterministic01(seed, 36) * 0.20;
   dustMaxLife[index] = 0.85 + deterministic01(seed, 37) * 0.70;
   dustAges[index] = 0;
   dustSeeds[index] = deterministic01(seed, 38);
 }
 
 function updateDust(dt, sourceT) {
-  const rate = isMobile ? 20 : 34;
+  const rate = isMobile ? 14 : 24;
   if (dustEnabled) {
     dustEmitAccumulator += dt * rate;
     while (dustEmitAccumulator >= 1) {

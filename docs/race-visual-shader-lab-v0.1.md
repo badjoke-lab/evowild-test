@@ -280,4 +280,31 @@ Allowed decision: `KEEP / REVISE / REJECT`.
 V3 race lighting remains blocked until V2 real screenshots and motion video are reviewed.
 
 
-V2 CI execution: `PENDING_REAL_CAPTURE`
+V2 CI execution: `RUN_37184679136_SUCCESS`
+
+
+## V2 v1 real-render + motion review
+
+Decision: `REVISE`
+
+Evidence source: GitHub Actions run `37184679136`, artifact `visual-shader-lab-v0`.
+
+Observed:
+
+- targeted shader-lab CI passed; unrelated Motion First / Sakura / 2.5D capture steps were skipped as intended;
+- dust emitter remained inside the track and preserved edge visibility;
+- motion trail direction was usable, but particles read as a chain of dark circular spots rather than airborne dust;
+- the failure is visual treatment, not emitter routing or runtime stability.
+
+Exact V2 v2 correction:
+
+- reduce pool from 160/80 to 120/60 desktop/mobile;
+- reduce emission rate from 34/20 to 24/14 particles per second;
+- replace the flat circular falloff with a Gaussian-style soft cloud falloff;
+- lower peak opacity from 0.44 to 0.16;
+- shift particle color toward lighter track-colored tan;
+- enlarge point size while lowering opacity so particles overlap as a diffuse wake rather than discrete dots;
+- slightly broaden the lateral/back emission spread;
+- preserve V0 ground, V1 grass, track and camera exactly.
+
+V3 remains blocked until V2 v2 real evidence is reviewed.
