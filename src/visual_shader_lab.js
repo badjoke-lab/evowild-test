@@ -218,8 +218,8 @@ const grassUniforms = {
   uWindEnabled: { value: 1 }
 };
 
-const grassGeometry = new THREE.PlaneGeometry(0.16, 0.82, 1, 3);
-grassGeometry.translate(0, 0.41, 0);
+const grassGeometry = new THREE.PlaneGeometry(0.09, 0.62, 1, 3);
+grassGeometry.translate(0, 0.31, 0);
 
 const grassMaterial = new THREE.ShaderMaterial({
   uniforms: grassUniforms,
@@ -232,11 +232,11 @@ const grassMaterial = new THREE.ShaderMaterial({
 
     void main() {
       vec3 p = position;
-      float h = clamp(p.y / 0.82, 0.0, 1.0);
+      float h = clamp(p.y / 0.62, 0.0, 1.0);
       vec3 seedWorld = (instanceMatrix * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
       float phase = seedWorld.x * 0.17 + seedWorld.z * 0.11;
-      float gust = sin(uTime * 1.75 + phase) * 0.16
-        + sin(uTime * 0.73 + phase * 1.9) * 0.055;
+      float gust = sin(uTime * 1.75 + phase) * 0.115
+        + sin(uTime * 0.73 + phase * 1.9) * 0.038;
       p.x += gust * h * h * uWindEnabled;
       p.z += gust * 0.18 * h * h * uWindEnabled;
 
@@ -263,7 +263,7 @@ const grassMaterial = new THREE.ShaderMaterial({
   `
 });
 
-const grassCount = isMobile ? 1500 : 4200;
+const grassCount = isMobile ? 1700 : 5200;
 const grass = new THREE.InstancedMesh(grassGeometry, grassMaterial, grassCount);
 grass.frustumCulled = false;
 grass.name = "V1_WindGrass";
@@ -279,11 +279,11 @@ while (acceptedGrass < grassCount && candidate < grassCount * 12) {
 
   if (distanceToTrackXZ(x, z) < 8.5) continue;
 
-  const scale = 0.72 + deterministic01(candidate, 3) * 0.92;
+  const scale = 0.68 + deterministic01(candidate, 3) * 0.68;
   dummy.position.set(x, 0.0, z);
   dummy.rotation.set(0, deterministic01(candidate, 4) * Math.PI * 2, 0);
   dummy.scale.set(
-    0.82 + deterministic01(candidate, 5) * 0.52,
+    0.72 + deterministic01(candidate, 5) * 0.40,
     scale,
     1
   );
