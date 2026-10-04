@@ -162,3 +162,40 @@ V0 decision: `KEEP`
 V1 status: `READY`
 
 Next action: add wind grass in V1 without changing the V0 ground, track, camera or Creature/race logic.
+
+
+## V1 implementation
+
+Status: `REVIEW_PENDING`
+
+V0 locks preserved:
+
+- V0 ground shader retained;
+- V0 dirt track retained;
+- V0 camera path retained;
+- V0 haze retained;
+- no Creature, gait, Race Engine, Agent or 2.5D edits.
+
+V1 exact change:
+
+- add one instanced grass field outside the dirt track;
+- desktop target: up to 4,200 blades;
+- mobile target: up to 1,500 blades;
+- deterministic placement so comparisons are repeatable;
+- reject placements within 8.5 world units of the sampled track centerline;
+- vertex-shader wind sway only; no CPU per-blade animation;
+- explicit GRASS ON/OFF control for review;
+- no dust, post-processing or lighting expansion yet.
+
+V1 review gate:
+
+- grass must read as environmental depth, not vertical noise;
+- dirt track must remain unobstructed;
+- wind movement must not create obvious synchronized waving;
+- no runtime/WebGL errors;
+- compare GRASS ON vs OFF in the same moving-camera scene;
+- CI FPS is relative-only and must not be treated as device performance.
+
+Allowed decision: `KEEP / REVISE / REJECT`.
+
+V2 dust remains blocked until V1 is reviewed from real captures.
