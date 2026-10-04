@@ -1873,3 +1873,52 @@ test("Motion First course profiles v1 produce distinct race suitability", async 
     path: "test-results/visuals/motion-first-course-profiles-v1.png"
   });
 });
+
+
+test("Motion First heavy 1200 course v1 gives Power a distinct home course", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(60000);
+
+  await page.goto(
+    "/evowild-test/preview-motion-first-race/index.html?skipStart=1&course=heavy-1200-v1&simRate=4",
+    { waitUntil: "networkidle" }
+  );
+
+  const scene = page.locator("#scene");
+  await expect(scene).toHaveAttribute("data-course-profile", "heavy-1200-v1");
+  await expect(scene).toHaveAttribute("data-course-surface", "HEAVY");
+  await expect(scene).toHaveAttribute("data-course-track-color", "#51463a");
+  await expect(scene).toHaveAttribute("data-course-distance", "1200");
+  await expect(page.locator("#raceState")).toHaveText("FINISHED", {
+    timeout: 30000
+  });
+
+  const classification = JSON.parse(
+    (await scene.getAttribute("data-final-classification")) || "[]"
+  );
+  expect(classification).toHaveLength(18);
+
+  const morphs = ["S", "P", "E", "A"];
+  const stats = Object.fromEntries(
+    morphs.map((morph) => [morph, { ranks: [], average: 0 }])
+  );
+  classification.forEach((row) => stats[row.morph].ranks.push(row.rank));
+  morphs.forEach((morph) => {
+    stats[morph].average =
+      stats[morph].ranks.reduce((sum, rank) => sum + rank, 0) /
+      stats[morph].ranks.length;
+  });
+
+  expect(classification[0].morph).toBe("P");
+  expect(stats.P.average).toBeLessThan(stats.S.average);
+  expect(stats.P.average).toBeLessThan(stats.E.average);
+  expect(stats.P.average).toBeLessThan(stats.A.average);
+  expect(new Set(classification.slice(0, 6).map((row) => row.morph)).size)
+    .toBeGreaterThanOrEqual(3);
+
+  console.log(
+    "HEAVY_1200_V1",
+    JSON.stringify({ stats, classification })
+  );
+});
