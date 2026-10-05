@@ -54,6 +54,33 @@ def _contact_bout_lengths(mask: np.ndarray) -> list[int]:
     return [int(e - s) for s, e in zip(starts, ends)]
 
 
+def _heading_from_posed_joints(posed: np.ndarray) -> tuple[np.ndarray, str] | None:
+    """Recover a stable body heading from legacy posed-joint exports.
+
+    The official SOMA30 demo examples use joint 22 = LeftLeg and
+    joint 26 = RightLeg. The hip line gives a body-right vector; crossing that
+    with world-up gives a forward vector on the XZ plane.
+    """
+    posed = np.asarray(posed, dtype=float)
+    if posed.ndim == 4 and posed.shape[0] == 1:
+        posed = posed[0]
+    if posed.ndim != 3 or posed.shape[-1] < 3:
+        return None
+    if posed.shape[1] == 30:
+        left = posed[:, 22, :3]
+        right = posed[:, 26, :3]
+        body_right = right - left
+        up = np.zeros_like(body_right)
+        up[:, 1] = 1.0
+        forward = np.cross(body_right, up)
+        horizontal = forward[:, [0, 2]]
+        norm = np.linalg.norm(horizontal, axis=1)
+        if float(np.median(norm)) > 1e-6:
+            angle = np.unwrap(np.arctan2(horizontal[:, 0], horizontal[:, 1]))
+            return angle, "soma30_hip_axis"
+    return None
+
+
 def _dominant_frequency(signal: np.ndarray, fps: float) -> float | None:
     x = np.asarray(signal, dtype=float)
     if x.size < 8:
@@ -119,6 +146,8 @@ def analyze_motion(
     speed = np.linalg.norm(velocity_xz, axis=1)
     accel = np.gradient(speed, dt)
 
+    heading = None
+    heading_source = None
     if "global_root_heading" in data:
         heading_vec = np.asarray(data["global_root_heading"], dtype=float)
         if heading_vec.ndim == 3 and heading_vec.shape[0] == 1:
@@ -126,10 +155,24 @@ def analyze_motion(
         if heading_vec.shape == (t, 2):
             heading = np.unwrap(np.arctan2(heading_vec[:, 1], heading_vec[:, 0]))
             heading_source = "global_root_heading"
-        else:
-            heading = np.unwrap(np.arctan2(velocity_xz[:, 0], velocity_xz[:, 1]))
-            heading_source = "root_velocity_fallback"
-    else:
+
+    if heading is None and "posed_joints" in data:
+        recovered = _heading_from_posed_joints(np.asarray(data["posed_joints"]))
+        if recovered is not None:
+            heading, heading_source = recovered
+
+    if heading is None and "global_rot_mats" in data:
+        rots = np.asarray(data["global_rot_mats"], dtype=float)
+        if rots.ndim == 5 and rots.shape[0] == 1:
+            rots = rots[0]
+        if rots.ndim == 4 and rots.shape[0] == t and rots.shape[-2:] == (3, 3):
+            forward = rots[:, 0, :, 2]
+            horizontal_forward = forward[:, [0, 2]]
+            if float(np.median(np.linalg.norm(horizontal_forward, axis=1))) > 1e-6:
+                heading = np.unwrap(np.arctan2(horizontal_forward[:, 0], horizontal_forward[:, 1]))
+                heading_source = "root_global_rotation"
+
+    if heading is None:
         heading = np.unwrap(np.arctan2(velocity_xz[:, 0], velocity_xz[:, 1]))
         heading_source = "root_velocity_fallback"
 
