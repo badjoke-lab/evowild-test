@@ -23,8 +23,8 @@ bpy.ops.import_scene.gltf(filepath=str(asset_path))
 
 scene = bpy.context.scene
 scene.render.engine = "BLENDER_WORKBENCH"
-scene.render.resolution_x = 640
-scene.render.resolution_y = 360
+scene.render.resolution_x = 480
+scene.render.resolution_y = 270
 scene.render.resolution_percentage = 100
 scene.render.image_settings.file_format = "PNG"
 scene.render.film_transparent = False
@@ -214,7 +214,7 @@ def set_camera(mode):
     look_at(cam, target)
     bpy.context.view_layer.update()
 
-samples = [4, 17, 30, 43, 56, 69]
+samples = [6, 30, 54]
 foot_names = ["fore_L_foot", "fore_R_foot", "hind_L_foot", "hind_R_foot"]
 arm_base_location = arm.location.copy()
 metrics = {
