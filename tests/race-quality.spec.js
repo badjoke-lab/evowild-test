@@ -392,6 +392,7 @@ test("2.5D P E A grounded-stride v2 exposes six distinct live phases", async ({ 
     await expect(stage).toHaveAttribute(`data-${morph.toLowerCase()}-ground-anchor`, "auto-foot-v2");
     await expect(stage).toHaveAttribute("data-pea-motion-version", "grounded-stride-v2");
     await expect(stage).toHaveAttribute("data-pea-anchor-version", "alpha-bbox-x-v3");
+    await expect(stage).toHaveAttribute("data-pea-temporal-smoothing", "edge-crossfade-v4");
     await expect(stage).toHaveAttribute(
       `data-${morph.toLowerCase()}-sheet-layout`,
       morph === "A" ? "2x3" : "3x2"
@@ -403,14 +404,20 @@ test("2.5D P E A grounded-stride v2 exposes six distinct live phases", async ({ 
     expect(rawFootSpread).toBeGreaterThanOrEqual(0);
 
     const observed = new Set();
-    for (let sample = 0; sample < 48 && observed.size < 6; sample += 1) {
-      await page.waitForTimeout(45);
+    let maxBlend = 0;
+    for (let sample = 0; sample < 64 && (observed.size < 6 || maxBlend <= 0); sample += 1) {
+      await page.waitForTimeout(35);
       const frame = Number(await stage.getAttribute("data-selected-run-frame"));
       const phase = await stage.getAttribute("data-selected-run-phase");
+      const blend = Number(
+        await stage.getAttribute(`data-${morph.toLowerCase()}-temporal-blend`)
+      );
       if (Number.isFinite(frame) && frame >= 0 && frame <= 5) observed.add(frame);
+      if (Number.isFinite(blend)) maxBlend = Math.max(maxBlend, blend);
       expect(phase).toMatch(/CONTACT|PUSH|LIFT|FLIGHT|REACH|LAND/);
     }
     expect([...observed].sort()).toEqual([0,1,2,3,4,5]);
+    expect(maxBlend).toBeGreaterThan(0.05);
 
     for (const frame of [0,3,4]) {
       await page.goto(
@@ -438,6 +445,22 @@ test("2.5D P E A grounded-stride v2 exposes six distinct live phases", async ({ 
         path: `artifacts/2p5d-survivor/pea-v2-${morph.toLowerCase()}-frame-${frame}-${testInfo.project.name}.png`
       });
     }
+
+    await page.goto(
+      `/evowild-test/race-quality.html?motionReview=1&selected=${id}&motionFrame=0&motionBlend=0.5`,
+      { waitUntil: "networkidle" }
+    );
+    await expect(stage).toHaveAttribute("data-run-sheets", "ready", { timeout: 15000 });
+    await expect(stage).toHaveAttribute("data-selected-morph", morph);
+    await expect(stage).toHaveAttribute("data-motion-review-blend", "0.500");
+    await expect(stage).toHaveAttribute(
+      `data-${morph.toLowerCase()}-temporal-blend`,
+      "0.500",
+      { timeout: 8000 }
+    );
+    await stage.screenshot({
+      path: `artifacts/2p5d-survivor/pea-v4-${morph.toLowerCase()}-blend-050-${testInfo.project.name}.png`
+    });
 
     const footAdjust = Number(await stage.getAttribute(`data-${morph.toLowerCase()}-foot-adjust`));
     expect(Number.isFinite(footAdjust)).toBe(true);
