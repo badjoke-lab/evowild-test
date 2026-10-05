@@ -206,6 +206,8 @@ assert MIN_CANDIDATES<=len(candidates)<=MAX_CANDIDATES, (
 q_before=[]
 q_after=[]
 segment_counts={'m1_to_0':0,'0_to_1':0}
+skipped_support_exit=0
+applied_candidates=[]
 for v in candidates:
     p=initial_local[v]
     m=metrics[v]
@@ -229,6 +231,12 @@ for v in candidates:
     if delta.length>MAX_LOCAL_DISP and delta.length>0:
         proposed=p+delta.normalized()*MAX_LOCAL_DISP
 
+    # Preserve hard scope membership: a local candidate may not cross the
+    # support/segment union after deformation.
+    if not inside_local(proposed,SUPPORT_EPS):
+        skipped_support_exit+=1
+        continue
+
     d2=proposed-center
     u2=d2.dot(lateral)
     v2=d2.dot(sagittal)
@@ -239,6 +247,7 @@ for v in candidates:
         segment_counts['m1_to_0']+=1
     else:
         segment_counts['0_to_1']+=1
+    applied_candidates.append(v)
     v.co=proposed
 
 outside_after_fair=Counter(tuple(v.co) for v in bm.verts if not inside_local(v.co,SUPPORT_EPS))
@@ -317,6 +326,8 @@ report={
  'local_vertex_count_after_subdivision':len(local_verts),
  'raw_candidate_vertex_count':len(raw_candidates),
  'candidate_vertex_count':len(candidates),
+ 'applied_candidate_count':len(applied_candidates),
+ 'skipped_support_exit_count':skipped_support_exit,
  'selected_positive_count':len(pos),'selected_negative_count':len(neg),
  'segment_candidate_counts':segment_counts,
  'changed_local_vertex_count':changed_local,
