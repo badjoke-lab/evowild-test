@@ -121,6 +121,12 @@ def align_key(frame: np.ndarray, phase: str) -> tuple[np.ndarray, dict]:
 
 
 def optical_mid(a: np.ndarray, b: np.ndarray) -> np.ndarray:
+    """Create one single-silhouette inbetween.
+
+    Do not cross-dissolve the two creatures. Large P/E/A pose differences make
+    bidirectional blending show double heads and limbs. Instead, warp only the
+    outgoing key pose halfway toward the next key pose.
+    """
     h, w, _ = a.shape
 
     def gray(rgba: np.ndarray) -> np.ndarray:
@@ -131,51 +137,32 @@ def optical_mid(a: np.ndarray, b: np.ndarray) -> np.ndarray:
 
     ga = gray(a)
     gb = gray(b)
-
     flow_ab = cv2.calcOpticalFlowFarneback(
         ga, gb, None, 0.5, 4, 21, 4, 7, 1.5, 0
-    )
-    flow_ba = cv2.calcOpticalFlowFarneback(
-        gb, ga, None, 0.5, 4, 21, 4, 7, 1.5, 0
     )
 
     grid_x, grid_y = np.meshgrid(
         np.arange(w, dtype=np.float32),
         np.arange(h, dtype=np.float32),
     )
+    map_x = grid_x - flow_ab[:, :, 0] * 0.5
+    map_y = grid_y - flow_ab[:, :, 1] * 0.5
 
-    map_ax = grid_x - flow_ab[:, :, 0] * 0.5
-    map_ay = grid_y - flow_ab[:, :, 1] * 0.5
-    map_bx = grid_x - flow_ba[:, :, 0] * 0.5
-    map_by = grid_y - flow_ba[:, :, 1] * 0.5
-
-    wa = cv2.remap(
-        a, map_ax, map_ay, cv2.INTER_LINEAR,
-        borderMode=cv2.BORDER_CONSTANT, borderValue=(0, 0, 0, 0)
-    )
-    wb = cv2.remap(
-        b, map_bx, map_by, cv2.INTER_LINEAR,
-        borderMode=cv2.BORDER_CONSTANT, borderValue=(0, 0, 0, 0)
+    warped = cv2.remap(
+        a,
+        map_x,
+        map_y,
+        cv2.INTER_LANCZOS4,
+        borderMode=cv2.BORDER_CONSTANT,
+        borderValue=(0, 0, 0, 0),
     )
 
-    af = wa[:, :, 3:4].astype(np.float32) / 255.0
-    bf = wb[:, :, 3:4].astype(np.float32) / 255.0
-    out_a = (af + bf) * 0.5
-    premul = (
-        wa[:, :, :3].astype(np.float32) * af
-        + wb[:, :, :3].astype(np.float32) * bf
-    ) * 0.5
-    out_rgb = np.divide(
-        premul,
-        np.maximum(out_a, 1e-5),
-        out=np.zeros_like(premul),
-        where=out_a > 1e-5,
-    )
-    out = np.concatenate(
-        [np.clip(out_rgb, 0, 255), np.clip(out_a * 255.0, 0, 255)],
-        axis=2,
-    ).astype(np.uint8)
-    return out
+    # Keep alpha as one body and remove very faint flow residue.
+    alpha = warped[:, :, 3]
+    alpha[alpha < 10] = 0
+    warped[:, :, 3] = alpha
+    warped[alpha == 0, :3] = 0
+    return warped
 
 
 def make_sequence(keys: list[np.ndarray]) -> list[np.ndarray]:
@@ -246,6 +233,7 @@ def write_outputs(morph: str, keys: list[np.ndarray], sequence: list[np.ndarray]
         "source": f"public/concept/{morph}-run-sheet.webp",
         "key_phases": PHASES,
         "output_frames": 12,
+        "interpolation": "single-silhouette-forward-flow-v3b",
         "layout": "4x3",
         "key_metrics": metrics,
         "preview_labels": labels,
