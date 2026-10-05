@@ -56,9 +56,9 @@ jobs:
         run: |
           for mode in SIDE LOW CHASE FRONT; do
             lower="$(echo "$mode" | tr 'A-Z' 'a-z')"
-            ffmpeg -hide_banner -y               -framerate 1 -i "artifacts/blendcap-gate3/output/renders/$mode/baseline/%02d.png"               -vf "scale=320:-2,tile=3x2" -frames:v 1               "artifacts/blendcap-gate3/output/${lower}-baseline.jpg"
+            ffmpeg -hide_banner -y               -framerate 1 -i "artifacts/blendcap-gate3/output/renders/$mode/baseline/%02d.png"               -vf "scale=320:-2,tile=3x1" -frames:v 1               "artifacts/blendcap-gate3/output/${lower}-baseline.jpg"
 
-            ffmpeg -hide_banner -y               -framerate 1 -i "artifacts/blendcap-gate3/output/renders/$mode/hybrid/%02d.png"               -vf "scale=320:-2,tile=3x2" -frames:v 1               "artifacts/blendcap-gate3/output/${lower}-hybrid.jpg"
+            ffmpeg -hide_banner -y               -framerate 1 -i "artifacts/blendcap-gate3/output/renders/$mode/hybrid/%02d.png"               -vf "scale=320:-2,tile=3x1" -frames:v 1               "artifacts/blendcap-gate3/output/${lower}-hybrid.jpg"
 
             ffmpeg -hide_banner -y               -i "artifacts/blendcap-gate3/output/${lower}-baseline.jpg"               -i "artifacts/blendcap-gate3/output/${lower}-hybrid.jpg"               -filter_complex "vstack=inputs=2" -frames:v 1               "artifacts/blendcap-gate3/output/${lower}-comparison.jpg"
           done
