@@ -1,0 +1,62 @@
+name: tripo-t0-api
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "T0 API mode. check is zero-credit rig-check only; rig submits Auto Rig after a quadruped pass."
+        required: true
+        default: check
+        type: choice
+        options:
+          - check
+          - rig
+
+permissions:
+  contents: write
+
+jobs:
+  t0:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify API key is configured
+        env:
+          TRIPO_API_KEY: ${{ secrets.TRIPO_API_KEY }}
+        run: |
+          if [ -z "$TRIPO_API_KEY" ]; then
+            echo "TRIPO_API_KEY repository secret is not configured." >&2
+            exit 1
+          fi
+      - name: Run Tripo T0 API path
+        env:
+          TRIPO_API_KEY: ${{ secrets.TRIPO_API_KEY }}
+          TRIPO_T0_MODE: ${{ inputs.mode }}
+        run: node scripts/tripo-t0-api.mjs
+      - name: Upload T0 API evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tripo-t0-api-${{ inputs.mode }}
+          path: |
+            artifacts/tripo-t0-api/*
+            public/experiments/tripo-s/t0-rigged-lod2.glb
+          if-no-files-found: warn
+      - name: Commit successful rig output
+        if: ${{ success() && inputs.mode == 'rig' }}
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/experiments/tripo-s/t0-rigged-lod2.glb art/motion/tripo-s/review/t0-api-session.json
+          if git diff --cached --quiet; then
+            echo "No T0 rig output changes to commit."
+          else
+            git commit -m "art: add Tripo API T0 quadruped rig output"
+            git push origin HEAD:"${GITHUB_REF_NAME}"
+          fi
