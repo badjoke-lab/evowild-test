@@ -567,7 +567,7 @@ button { font: inherit; }
 
 @media (max-width: 700px) {
   .battle-readout {
-    top: 176px;
+    top: clamp(454px, 38vh, 520px);
     left: auto;
     right: 9px;
     translate: 0 0;
