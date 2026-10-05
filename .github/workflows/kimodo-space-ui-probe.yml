@@ -78,14 +78,8 @@ jobs:
                 await page.waitForTimeout(1500);
               }
 
-              const loadExample = page.getByRole('button', { name: 'Load Example', exact: true });
-              if (await loadExample.count()) {
-                await loadExample.click();
-                await page.waitForTimeout(12000);
-              }
-
               const bodyTextAfterLoad = (await page.locator('body').innerText()).slice(0, 60000);
-              const promptLocator = page.getByText(/A person runs forward and then leaps/i);
+              const promptLocator = page.getByText(/A person walks forward/i);
               const promptCount = await promptLocator.count();
               const promptFragments = [];
               for (let i = 0; i < Math.min(promptCount, 10); i++) {
