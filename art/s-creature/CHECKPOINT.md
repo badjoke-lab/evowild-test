@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S rig v1 shared-armature source saved and rest-pose views rendered; REVIEW_PENDING / STOPPED
+current_stage: S rig v1 reviewed KEEP; controlled deformation pose test ready
 branch: feat/s-creature-model
 current_model_file: output/S-rig-v1.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review S rig v1 rest pose and validation, then run a controlled deformation pose test. No animation production yet.
+next_action: Execute S rig v2 controlled deformation pose test from S-rig-v1.blend. No animation action; render five views and stop for skinning review.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -137,7 +137,7 @@ gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
 gate_a_status: PASS
-modeling_status: STOPPED_FOR_RIG_REVIEW
+modeling_status: READY_FOR_RIG_V2_POSE_TEST
 gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
 gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
@@ -477,3 +477,7 @@ rig_source_rule: derive S-rig-v1 from S-gateC-v9; do not alter S-gateC-v9.
 
 rig_v1_done: Shared 20-bone armature added to derived rig source; core+four limbs weighted, crest/toes/eyes/Cue Band rigid-parented; five rest-pose views rendered.
 rig_v1_acceptance: REVIEW_PENDING
+
+rig_v1_decision: KEEP
+rig_v1_reason: Shared 21-bone armature, deterministic core/limb weights, rigid crest/toe/detail parenting and Armature-before-Subsurf all validate. Rest-pose renders preserve the accepted visual silhouette.
+rig_v2_rule: controlled single-pose deformation test only; do not create an animation action.
