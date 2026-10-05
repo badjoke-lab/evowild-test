@@ -2060,3 +2060,78 @@ test("Motion First Race Entry v1 binds Creature and Agent selection to gameplay"
     path: "test-results/visuals/motion-first-race-entry-v1.png"
   });
 });
+
+
+test("Motion First Agent Auto Strategy v1 executes distinct plans and changes race outcome", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(100000);
+
+  async function runAuto(entryAgent) {
+    await page.goto(
+      `/evowild-test/preview-motion-first-race/index.html?skipStart=1&course=heavy-1200-v1&entry=5&entryAgent=${entryAgent}&agentAuto=1&simRate=4`,
+      { waitUntil: "networkidle" }
+    );
+
+    const scene = page.locator("#scene");
+    await expect(scene).toHaveAttribute("data-entry-runner-id", "5");
+    await expect(scene).toHaveAttribute("data-entry-agent-auto", "1");
+    await expect(page.locator("#agentAutoButton")).toHaveText("AUTO ON");
+    await expect(page.locator("#agentTargetSelect")).toBeDisabled();
+    await expect(page.locator("#raceState")).toHaveText("FINISHED", {
+      timeout: 35000
+    });
+
+    const classification = JSON.parse(
+      (await scene.getAttribute("data-final-classification")) || "[]"
+    );
+    const entryResult = classification.find((row) => row.id === 5);
+    const state = {
+      strategy: await scene.getAttribute("data-entry-agent-strategy"),
+      definition: await scene.getAttribute("data-entry-agent-strategy-definition"),
+      commandCount: Number(await scene.getAttribute("data-entry-agent-auto-command-count")),
+      pushCount: Number(await scene.getAttribute("data-entry-agent-auto-push-count")),
+      conserveCount: Number(await scene.getAttribute("data-entry-agent-auto-conserve-count")),
+      history: (await scene.getAttribute("data-entry-agent-auto-history")) || "",
+      stamina: Number(await scene.getAttribute("data-agent-focus-stamina")),
+      fatigue: Number(await scene.getAttribute("data-agent-focus-fatigue")),
+      entryTime: Number(entryResult?.time),
+      entryRank: Number(entryResult?.rank),
+      classification
+    };
+    return state;
+  }
+
+  const attack = await runAuto("attack-v1");
+  expect(attack.strategy).toBe("ATTACK");
+  expect(attack.definition).toContain("PUSH opening");
+  expect(attack.commandCount).toBeGreaterThan(1);
+  expect(attack.pushCount).toBeGreaterThanOrEqual(2);
+  expect(attack.history.split(",")[0]).toContain(":PUSH");
+  expect(attack.classification).toHaveLength(18);
+
+  const control = await runAuto("control-v1");
+  expect(control.strategy).toBe("CONTROL");
+  expect(control.definition).toContain("CONSERVE to 58%");
+  expect(control.commandCount).toBeGreaterThan(1);
+  expect(control.conserveCount).toBeGreaterThanOrEqual(1);
+  expect(control.pushCount).toBeGreaterThanOrEqual(1);
+  expect(control.history.split(",")[0]).toContain(":CONSERVE");
+  expect(control.classification).toHaveLength(18);
+
+  // Same Creature and course, different Agent strategy definitions.
+  expect(attack.history).not.toBe(control.history);
+  expect(attack.pushCount).toBeGreaterThan(control.pushCount);
+  expect(control.conserveCount).toBeGreaterThan(attack.conserveCount);
+  expect(control.stamina).toBeGreaterThan(attack.stamina);
+  expect(attack.entryTime).toBeLessThan(control.entryTime);
+
+  console.log(
+    "AGENT_AUTO_STRATEGY_V1",
+    JSON.stringify({ attack, control })
+  );
+
+  await page.locator("#scene").screenshot({
+    path: "test-results/visuals/motion-first-agent-auto-v1.png"
+  });
+});
