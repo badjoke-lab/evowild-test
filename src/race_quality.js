@@ -42,8 +42,12 @@ const FINISH_REVIEW_MODE = new URLSearchParams(location.search).get("finishRevie
 const BATTLE_REVIEW_MODE = new URLSearchParams(location.search).get("battleReview") === "1";
 const TRAFFIC_REVIEW_MODE = new URLSearchParams(location.search).get("trafficReview") === "1";
 const LANE_REVIEW_MODE = new URLSearchParams(location.search).get("laneReview") === "1";
+const MOTION_REVIEW_MODE = new URLSearchParams(location.search).get("motionReview") === "1";
 const FIELD_SIZE = 18;
-const SELECTED_ID = 1;
+const SELECTED_ID = Math.max(
+  1,
+  Math.min(FIELD_SIZE, Number(new URLSearchParams(location.search).get("selected")) || 1)
+);
 const RACE_METERS = 1600;
 stage.dataset.engineLineage = "lane5-fixed-step-plus-four-morph-run-sheets";
 stage.dataset.morphSet = "S,P,E,A";
@@ -366,7 +370,9 @@ function makeRacers() {
           ? i===0 ? 100 : i===1 ? 105 : 62 - (i-2)*1.6
           : LANE_REVIEW_MODE
             ? i===0 ? 100 : i===1 ? 104 : i===2 ? 103 : 62 - (i-3)*1.4
-            : 0,
+            : MOTION_REVIEW_MODE
+              ? i===SELECTED_ID-1 ? 120 : 54 - i*1.6
+              : 0,
     speed:0,
     cruise:CRUISE[i],
     accel:ACCEL[i],
@@ -375,7 +381,7 @@ function makeRacers() {
     pressure:0,
     creatureState:"FRESH",
     agent:createAgentState(i),
-    startVisualOffset:(FINISH_REVIEW_MODE || BATTLE_REVIEW_MODE || TRAFFIC_REVIEW_MODE || LANE_REVIEW_MODE)
+    startVisualOffset:(FINISH_REVIEW_MODE || BATTLE_REVIEW_MODE || TRAFFIC_REVIEW_MODE || LANE_REVIEW_MODE || MOTION_REVIEW_MODE)
       ? 0
       : START_VISUAL_OFFSETS[i],
     depthBias:[-0.14,0.10,-0.08,0.14,0.04][Math.floor(i/4)%5],
@@ -391,7 +397,9 @@ function makeRacers() {
               ? 1
               : LANE_REVIEW_MODE && i===2
                 ? 2
-                : LANES[i],
+                : MOTION_REVIEW_MODE && i===SELECTED_ID-1
+                  ? 1.5
+                  : LANES[i],
     targetLane:BATTLE_REVIEW_MODE && i<2
       ? 1
       : TRAFFIC_REVIEW_MODE && i===0
@@ -404,7 +412,9 @@ function makeRacers() {
               ? 1
               : LANE_REVIEW_MODE && i===2
                 ? 2
-                : LANES[i],
+                : MOTION_REVIEW_MODE && i===SELECTED_ID-1
+                  ? 1.5
+                  : LANES[i],
     phaseOffset:i*0.87,
     cooldown:(BATTLE_REVIEW_MODE && i===1) || (TRAFFIC_REVIEW_MODE && i<2) || (LANE_REVIEW_MODE && (i===1 || i===2)) ? 999999 : 0,
     laneHoldUntil:0,
@@ -1667,6 +1677,8 @@ stage.dataset.finishReview=FINISH_REVIEW_MODE?"1":"0";
 stage.dataset.battleReview=BATTLE_REVIEW_MODE?"1":"0";
 stage.dataset.trafficReview=TRAFFIC_REVIEW_MODE?"1":"0";
 stage.dataset.laneReview=LANE_REVIEW_MODE?"1":"0";
+stage.dataset.motionReview=MOTION_REVIEW_MODE?"1":"0";
+stage.dataset.reviewSelectedId=String(SELECTED_ID);
 stage.dataset.laneDecisionModel="clearance-score-with-hysteresis";
 stage.dataset.trafficModel="continuous-lane-proximity";
 stage.dataset.startModel="logical-level-visual-grid-decay";
