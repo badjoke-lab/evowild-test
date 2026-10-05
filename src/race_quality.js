@@ -43,6 +43,10 @@ const BATTLE_REVIEW_MODE = new URLSearchParams(location.search).get("battleRevie
 const TRAFFIC_REVIEW_MODE = new URLSearchParams(location.search).get("trafficReview") === "1";
 const LANE_REVIEW_MODE = new URLSearchParams(location.search).get("laneReview") === "1";
 const MOTION_REVIEW_MODE = new URLSearchParams(location.search).get("motionReview") === "1";
+const MOTION_REVIEW_FRAME = Math.max(
+  -1,
+  Math.min(5, Number(new URLSearchParams(location.search).get("motionFrame") ?? -1))
+);
 const FIELD_SIZE = 18;
 const SELECTED_ID = Math.max(
   1,
@@ -54,6 +58,8 @@ stage.dataset.morphSet = "S,P,E,A";
 stage.dataset.fieldSize = String(FIELD_SIZE);
 stage.dataset.cameraPolicy = "selected-plus-nearby";
 stage.dataset.peaMotionVersion = "grounded-stride-v2";
+stage.dataset.peaAnchorVersion = "alpha-bbox-x-v3";
+stage.dataset.aSheetLayout = "2x3";
 const LANE_PATTERN = [1, 2, 0, 3, 1, 3, 0, 2];
 const CRUISE_PATTERN = [36.8,34.7,35.9,34.9,36.1,35.2,35.6,34.8];
 const ACCEL_PATTERN = [15.0,13.4,14.3,13.6,14.0,13.5,13.9,13.4];
@@ -166,14 +172,21 @@ const RUN_FRAMES = [
   { phase:"LAND",    col:2, row:1, y:-0.16 }
 ];
 
+const SHEET_LAYOUTS = {
+  S: { cols:3, rows:2, coords:[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1]] },
+  P: { cols:3, rows:2, coords:[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1]] },
+  E: { cols:3, rows:2, coords:[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1]] },
+  A: { cols:2, rows:3, coords:[[0,0],[1,0],[0,1],[1,1],[0,2],[1,2]] }
+};
+
 const spriteSheets = new Map();
 const spriteFrames = new Map();
 let readySheets = 0;
 let failedSheets = 0;
 
-function extractConnectedFrame(image, col, row) {
-  const fw = Math.floor(image.naturalWidth / 3);
-  const fh = Math.floor(image.naturalHeight / 2);
+function extractConnectedFrame(image, col, row, cols=3, rows=2) {
+  const fw = Math.floor(image.naturalWidth / cols);
+  const fh = Math.floor(image.naturalHeight / rows);
   const canvas = document.createElement("canvas");
   canvas.width = fw;
   canvas.height = fh;
@@ -252,8 +265,12 @@ function extractConnectedFrame(image, col, row) {
     if (x >= footMinX && x <= footMaxX) footY = Math.max(footY, y);
   }
   c.putImageData(pixels, 0, 0);
+  const centerXNorm = maxX >= minX
+    ? ((minX + maxX) * 0.5) / Math.max(1, fw - 1)
+    : 0.5;
   canvas.__motionMetrics = {
     minX, maxX, minY, maxY,
+    centerXNorm,
     footYNorm: footY >= 0 ? footY / Math.max(1, fh - 1) : 0.98
   };
   return canvas;
@@ -263,8 +280,13 @@ for (const morph of ["S","P","E","A"]) {
   const image = new Image();
   image.decoding = "async";
   image.onload = () => {
-    const frames = RUN_FRAMES.map((frame) => extractConnectedFrame(image, frame.col, frame.row));
+    const layout = SHEET_LAYOUTS[morph] ?? SHEET_LAYOUTS.S;
+    const frames = RUN_FRAMES.map((frame,index) => {
+      const [col,row] = layout.coords[index] ?? [frame.col,frame.row];
+      return extractConnectedFrame(image,col,row,layout.cols,layout.rows);
+    });
     spriteFrames.set(morph, frames);
+    stage.dataset[`${morph.toLowerCase()}SheetLayout`] = `${layout.cols}x${layout.rows}`;
     if (morph !== "S") {
       const feet = frames.map((frame) => frame.__motionMetrics?.footYNorm ?? 0.98);
       const spread = Math.max(...feet) - Math.min(...feet);
@@ -1175,6 +1197,7 @@ function drawRacers() {
       -20,
       r.distance-finishSpread+(r.startVisualOffset||0)*startFormationFactor
     );
+    if(MOTION_REVIEW_MODE && r.id!==SELECTED_ID) continue;
     const x=screenXForMeters(visualDistance);
     if(x<-220 || x>width+260) continue;
     const lane=clamp(r.lane+(r.depthBias||0),0,3);
@@ -1190,9 +1213,11 @@ function drawRacers() {
     const scale=laneScale(item.lane);
     const meta=MORPH_META[r.morph] ?? MORPH_META.S;
     const frames=spriteFrames.get(r.morph);
-    const baseW = width<700
-      ? clamp(width*.13,78,108)
-      : clamp(width*.078,104,128);
+    const baseW = MOTION_REVIEW_MODE && r.id===SELECTED_ID
+      ? (width<700 ? clamp(width*.42,170,240) : clamp(width*.23,250,340))
+      : width<700
+        ? clamp(width*.13,78,108)
+        : clamp(width*.078,104,128);
     const spriteW=baseW*scale*(selectedRacer?1.04:1)*meta.width;
     const sampleFrame=frames?.[0];
     const sourceAspect=sampleFrame
@@ -1205,9 +1230,11 @@ function drawRacers() {
     const cadence=(9.5+clamp(r.speed/34,0,1)*9.5)*meta.cadence;
     const frameFloat=elapsed/1000*cadence+r.phaseOffset;
     const cyclePosition=((frameFloat%RUN_FRAMES.length)+RUN_FRAMES.length)%RUN_FRAMES.length;
-    const frameIndex=r.morph==="S"
-      ? Math.floor(cyclePosition)
-      : peaFrameIndex(r.morph,cyclePosition);
+    const frameIndex=MOTION_REVIEW_MODE && r.id===SELECTED_ID && MOTION_REVIEW_FRAME>=0
+      ? MOTION_REVIEW_FRAME
+      : r.morph==="S"
+        ? Math.floor(cyclePosition)
+        : peaFrameIndex(r.morph,cyclePosition);
     const frame=RUN_FRAMES[frameIndex];
 
     const slope=terrainSlope(item.visualDistance);
@@ -1247,13 +1274,17 @@ function drawRacers() {
       const drawW=spriteW*phaseTransform.sx;
       const drawH=spriteH*phaseTransform.sy;
       const footNorm=frameCanvas.__motionMetrics?.footYNorm ?? 0.98;
+      const centerXNorm=frameCanvas.__motionMetrics?.centerXNorm ?? 0.5;
       const groundCorrection=r.morph==="S" ? 0 : (0.98-footNorm)*drawH;
+      const horizontalCorrection=r.morph==="S"
+        ? 0
+        : clamp((0.5-centerXNorm)*drawW,-drawW*.18,drawW*.18);
       const legacyLift=r.morph==="S" ? frame.y*drawH*.12*meta.lift : 0;
       const phaseLift=r.morph==="S" ? 0 : phaseTransform.lift*drawH;
       const footAdjust=groundCorrection+legacyLift+phaseLift;
 
       ctx.save();
-      ctx.translate(item.x,item.y-drawH*.48);
+      ctx.translate(item.x+horizontalCorrection,item.y-drawH*.48);
       ctx.rotate(lean+phaseTransform.lean);
       if(selectedRacer){
         ctx.shadowColor="rgba(126,226,255,.85)";
@@ -1270,6 +1301,9 @@ function drawRacers() {
       if(r.morph!=="S"){
         stage.dataset[`${r.morph.toLowerCase()}MotionProfile`] = "grounded-stride-v2";
         stage.dataset[`${r.morph.toLowerCase()}FootAdjust`] = footAdjust.toFixed(2);
+        stage.dataset[`${r.morph.toLowerCase()}HorizontalAdjust`] = horizontalCorrection.toFixed(2);
+        stage.dataset[`${r.morph.toLowerCase()}FrameCenterX`] = centerXNorm.toFixed(3);
+        stage.dataset.peaAnchorVersion = "alpha-bbox-x-v3";
       }
     }
 
@@ -1386,6 +1420,16 @@ function drawForeground() {
 
 function updateCamera() {
   const focus=selected();
+  if(MOTION_REVIEW_MODE){
+    const targetPPM=width<700?5.2:6.8;
+    pixelsPerMeter=lerp(pixelsPerMeter,targetPPM,.16);
+    cameraMeters=lerp(cameraMeters,focus.distance+2.0,.18);
+    stage.dataset.pixelsPerMeter=pixelsPerMeter.toFixed(2);
+    stage.dataset.packSpan="0.00";
+    stage.dataset.cameraSubject="motion-review-isolated";
+    stage.dataset.cameraRelevantCount="1";
+    return;
+  }
   const live=racers.filter(r=>!r.finished);
   const byFocusDistance = (a,b) =>
     Math.abs(a.distance-focus.distance)-Math.abs(b.distance-focus.distance);
@@ -1680,6 +1724,7 @@ stage.dataset.trafficReview=TRAFFIC_REVIEW_MODE?"1":"0";
 stage.dataset.laneReview=LANE_REVIEW_MODE?"1":"0";
 stage.dataset.motionReview=MOTION_REVIEW_MODE?"1":"0";
 stage.dataset.reviewSelectedId=String(SELECTED_ID);
+stage.dataset.motionReviewFrame=String(MOTION_REVIEW_FRAME);
 stage.dataset.laneDecisionModel="clearance-score-with-hysteresis";
 stage.dataset.trafficModel="continuous-lane-proximity";
 stage.dataset.startModel="logical-level-visual-grid-decay";
