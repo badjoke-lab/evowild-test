@@ -1,0 +1,39 @@
+{
+  "gate": "C",
+  "pass": "v7",
+  "status": "REVIEW_PENDING",
+  "source": "S-gateC-v6.blend",
+  "scope": "new Cue Band detail objects only",
+  "source_geometry_sha256": "a037893c093cc3db45e386a80c5258e12083515f2a4a48fc228c986eb64ad92c",
+  "base_geometry_sha256": "a037893c093cc3db45e386a80c5258e12083515f2a4a48fc228c986eb64ad92c",
+  "existing_coordinates_unchanged": true,
+  "existing_topology_unchanged": true,
+  "existing_modifiers_unchanged": true,
+  "existing_material_assignments_unchanged": true,
+  "eye_transforms_unchanged": true,
+  "cue_band_objects": [
+    "S_cue_band_top",
+    "S_cue_band_L",
+    "S_cue_band_R",
+    "S_cue_pad_L",
+    "S_cue_pad_R",
+    "S_cue_light_L",
+    "S_cue_light_R",
+    "S_cue_receiver"
+  ],
+  "no_pattern": true,
+  "no_animation": true,
+  "no_armature": true,
+  "limitations": [
+    "Gate C v7 Cue Band review pending",
+    "Body surface pattern remains deferred"
+  ],
+  "rendered_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "base_geometry_unchanged_during_render": true
+}
