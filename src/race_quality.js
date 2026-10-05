@@ -47,10 +47,6 @@ const MOTION_REVIEW_FRAME = Math.max(
   -1,
   Math.min(5, Number(new URLSearchParams(location.search).get("motionFrame") ?? -1))
 );
-const MOTION_REVIEW_BLEND = Math.max(
-  0,
-  Math.min(1, Number(new URLSearchParams(location.search).get("motionBlend") ?? 0))
-);
 const FIELD_SIZE = 18;
 const SELECTED_ID = Math.max(
   1,
@@ -64,8 +60,6 @@ stage.dataset.cameraPolicy = "selected-plus-nearby";
 stage.dataset.peaMotionVersion = "grounded-stride-v2";
 stage.dataset.peaAnchorVersion = "alpha-bbox-x-v3";
 stage.dataset.aSheetLayout = "2x3";
-stage.dataset.peaTemporalSmoothing = "edge-crossfade-v4";
-stage.dataset.motionReviewBlend = MOTION_REVIEW_BLEND.toFixed(3);
 const LANE_PATTERN = [1, 2, 0, 3, 1, 3, 0, 2];
 const CRUISE_PATTERN = [36.8,34.7,35.9,34.9,36.1,35.2,35.6,34.8];
 const ACCEL_PATTERN = [15.0,13.4,14.3,13.6,14.0,13.5,13.9,13.4];
@@ -137,37 +131,15 @@ const PEA_MOTION_V2 = {
   }
 };
 
-function peaFrameState(morph, cyclePosition) {
+function peaFrameIndex(morph, cyclePosition) {
   const profile = PEA_MOTION_V2[morph];
-  if (!profile) {
-    const index = Math.floor(cyclePosition) % 6;
-    return { index, nextIndex:(index+1)%6, blend:0, local:0 };
-  }
-
+  if (!profile) return Math.floor(cyclePosition) % RUN_FRAMES.length;
   let cursor = 0;
   for (let index = 0; index < profile.durations.length; index++) {
-    const duration = profile.durations[index];
-    if (cyclePosition < cursor + duration) {
-      const local = Math.max(0, Math.min(1, (cyclePosition-cursor)/Math.max(.001,duration)));
-      const start = 0.80;
-      const raw = Math.max(0, Math.min(1, (local-start)/(1-start)));
-      const blend = raw*raw*(3-2*raw);
-      return {
-        index,
-        nextIndex:(index+1)%profile.durations.length,
-        blend,
-        local
-      };
-    }
-    cursor += duration;
+    cursor += profile.durations[index];
+    if (cyclePosition < cursor) return index;
   }
-
-  const index = profile.durations.length-1;
-  return { index, nextIndex:0, blend:0, local:1 };
-}
-
-function peaFrameIndex(morph, cyclePosition) {
-  return peaFrameState(morph,cyclePosition).index;
+  return profile.durations.length - 1;
 }
 
 const AGENT_COMMAND_DURATION_MS = 8000;
@@ -1258,18 +1230,11 @@ function drawRacers() {
     const cadence=(9.5+clamp(r.speed/34,0,1)*9.5)*meta.cadence;
     const frameFloat=elapsed/1000*cadence+r.phaseOffset;
     const cyclePosition=((frameFloat%RUN_FRAMES.length)+RUN_FRAMES.length)%RUN_FRAMES.length;
-    const fixedReview=MOTION_REVIEW_MODE && r.id===SELECTED_ID && MOTION_REVIEW_FRAME>=0;
-    const peaState=r.morph==="S"
-      ? { index:Math.floor(cyclePosition), nextIndex:0, blend:0, local:0 }
-      : fixedReview
-        ? {
-            index:MOTION_REVIEW_FRAME,
-            nextIndex:(MOTION_REVIEW_FRAME+1)%RUN_FRAMES.length,
-            blend:MOTION_REVIEW_BLEND,
-            local:0
-          }
-        : peaFrameState(r.morph,cyclePosition);
-    const frameIndex=peaState.index;
+    const frameIndex=MOTION_REVIEW_MODE && r.id===SELECTED_ID && MOTION_REVIEW_FRAME>=0
+      ? MOTION_REVIEW_FRAME
+      : r.morph==="S"
+        ? Math.floor(cyclePosition)
+        : peaFrameIndex(r.morph,cyclePosition);
     const frame=RUN_FRAMES[frameIndex];
 
     const slope=terrainSlope(item.visualDistance);
@@ -1304,57 +1269,41 @@ function drawRacers() {
 
     const frameCanvas=frames?.[frameIndex];
     if(frameCanvas){
-      const drawPose=(poseCanvas,poseIndex,alpha)=>{
-        if(!poseCanvas || alpha<=0) return;
-        const poseFrame=RUN_FRAMES[poseIndex];
-        const peaProfile=PEA_MOTION_V2[r.morph];
-        const phaseTransform=peaProfile?.transform?.[poseFrame.phase] ?? { sx:1, sy:1, lean:0, lift:0 };
-        const drawW=spriteW*phaseTransform.sx;
-        const drawH=spriteH*phaseTransform.sy;
-        const footNorm=poseCanvas.__motionMetrics?.footYNorm ?? 0.98;
-        const centerXNorm=poseCanvas.__motionMetrics?.centerXNorm ?? 0.5;
-        const groundCorrection=r.morph==="S" ? 0 : (0.98-footNorm)*drawH;
-        const horizontalCorrection=r.morph==="S"
-          ? 0
-          : clamp((0.5-centerXNorm)*drawW,-drawW*.18,drawW*.18);
-        const legacyLift=r.morph==="S" ? poseFrame.y*drawH*.12*meta.lift : 0;
-        const phaseLift=r.morph==="S" ? 0 : phaseTransform.lift*drawH;
-        const footAdjust=groundCorrection+legacyLift+phaseLift;
+      const peaProfile=PEA_MOTION_V2[r.morph];
+      const phaseTransform=peaProfile?.transform?.[frame.phase] ?? { sx:1, sy:1, lean:0, lift:0 };
+      const drawW=spriteW*phaseTransform.sx;
+      const drawH=spriteH*phaseTransform.sy;
+      const footNorm=frameCanvas.__motionMetrics?.footYNorm ?? 0.98;
+      const centerXNorm=frameCanvas.__motionMetrics?.centerXNorm ?? 0.5;
+      const groundCorrection=r.morph==="S" ? 0 : (0.98-footNorm)*drawH;
+      const horizontalCorrection=r.morph==="S"
+        ? 0
+        : clamp((0.5-centerXNorm)*drawW,-drawW*.18,drawW*.18);
+      const legacyLift=r.morph==="S" ? frame.y*drawH*.12*meta.lift : 0;
+      const phaseLift=r.morph==="S" ? 0 : phaseTransform.lift*drawH;
+      const footAdjust=groundCorrection+legacyLift+phaseLift;
 
-        ctx.save();
-        ctx.globalAlpha*=alpha;
-        ctx.translate(item.x+horizontalCorrection,item.y-drawH*.48);
-        ctx.rotate(lean+phaseTransform.lean);
-        if(selectedRacer){
-          ctx.shadowColor="rgba(126,226,255,.85)";
-          ctx.shadowBlur=clamp(drawW*.08,4,18);
-        } else if(battleRival){
-          ctx.shadowColor="rgba(255,220,130,.88)";
-          ctx.shadowBlur=clamp(drawW*.075,4,16);
-        }
-        ctx.drawImage(poseCanvas,-drawW/2,-drawH/2+footAdjust,drawW,drawH);
-        ctx.restore();
-
-        if(poseIndex===frameIndex && r.morph!=="S"){
-          stage.dataset[`${r.morph.toLowerCase()}FootAdjust`] = footAdjust.toFixed(2);
-          stage.dataset[`${r.morph.toLowerCase()}HorizontalAdjust`] = horizontalCorrection.toFixed(2);
-          stage.dataset[`${r.morph.toLowerCase()}FrameCenterX`] = centerXNorm.toFixed(3);
-        }
-      };
-
-      const blend=r.morph==="S" ? 0 : peaState.blend;
-      drawPose(frameCanvas,frameIndex,1-blend);
-      if(blend>0){
-        drawPose(frames?.[peaState.nextIndex],peaState.nextIndex,blend);
+      ctx.save();
+      ctx.translate(item.x+horizontalCorrection,item.y-drawH*.48);
+      ctx.rotate(lean+phaseTransform.lean);
+      if(selectedRacer){
+        ctx.shadowColor="rgba(126,226,255,.85)";
+        ctx.shadowBlur=clamp(drawW*.08,4,18);
+      } else if(battleRival){
+        ctx.shadowColor="rgba(255,220,130,.88)";
+        ctx.shadowBlur=clamp(drawW*.075,4,16);
       }
+      ctx.drawImage(frameCanvas,-drawW/2,-drawH/2+footAdjust,drawW,drawH);
+      ctx.restore();
 
       stage.dataset[`${r.morph.toLowerCase()}Animated`] = "true";
       stage.dataset[`${r.morph.toLowerCase()}Frame`] = String(frameIndex);
       if(r.morph!=="S"){
         stage.dataset[`${r.morph.toLowerCase()}MotionProfile`] = "grounded-stride-v2";
-        stage.dataset[`${r.morph.toLowerCase()}TemporalBlend`] = blend.toFixed(3);
+        stage.dataset[`${r.morph.toLowerCase()}FootAdjust`] = footAdjust.toFixed(2);
+        stage.dataset[`${r.morph.toLowerCase()}HorizontalAdjust`] = horizontalCorrection.toFixed(2);
+        stage.dataset[`${r.morph.toLowerCase()}FrameCenterX`] = centerXNorm.toFixed(3);
         stage.dataset.peaAnchorVersion = "alpha-bbox-x-v3";
-        stage.dataset.peaTemporalSmoothing = "edge-crossfade-v4";
       }
     }
 
