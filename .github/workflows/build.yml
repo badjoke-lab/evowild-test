@@ -17,6 +17,16 @@ jobs:
       - run: npm run build
       - name: Verify 2.5D pages are in production build
         run: test -f dist/race-2_5d.html && test -f dist/race-quality.html
+      - name: Generate P E A 12-frame interpolation candidate
+        if: ${{ startsWith(github.head_ref, 'feat/2p5d-survivor-pea-12frame-') || startsWith(github.ref_name, 'feat/2p5d-survivor-pea-12frame-') }}
+        run: bash scripts/generate-pea-12frame-review.sh
+      - name: Upload P E A 12-frame interpolation candidate
+        if: ${{ always() && (startsWith(github.head_ref, 'feat/2p5d-survivor-pea-12frame-') || startsWith(github.ref_name, 'feat/2p5d-survivor-pea-12frame-')) }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: pea-12frame-review
+          path: artifacts/pea-12frame/*
+          if-no-files-found: error
       - run: npx playwright install --with-deps chromium
       - name: Run E2E suite
         shell: bash
