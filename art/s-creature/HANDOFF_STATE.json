@@ -9,12 +9,12 @@
     "E",
     "A"
   ],
-  "stage": "S-gate-C-v6-review",
-  "current_stage": "S Gate C v6 restrained-eye preview saved and five views rendered; REVIEW_PENDING / STOPPED",
+  "stage": "S-gate-C-v7-ready",
+  "current_stage": "S Gate C v6 reviewed KEEP; Gate C v7 Cue Band preview ready",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
   "current_model_file": "output/S-gateC-v6.blend",
-  "source_model_file": "output/S-gateC-v5.blend",
+  "source_model_file": "output/S-gateC-v6.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
     "S_MORPHOLOGY_RESET_PLAN.md",
@@ -50,9 +50,9 @@
     "Tail and all toe geometry unchanged from v2",
     "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Review Gate C v6 eye markers only. Do not add Cue Band/pattern before decision.",
+  "next_action": "Execute Gate C v7 Cue Band preview from output/S-gateC-v6.blend; add new head-band detail objects only; render five views and STOP. No body pattern.",
   "quality_issues": [
-    "Gate C v6 eye-marker acceptance pending review"
+    "Gate C v7 Cue Band preview not yet executed"
   ],
   "blockers": [],
   "accepted": true,
@@ -66,7 +66,7 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "PASS",
-  "modeling_status": "STOPPED",
+  "modeling_status": "READY_FOR_GATE_C_V7",
   "cage_vertex_count": 800,
   "review_renders": [
     "output/review/gate-c-v6/S_gateC_side.png",
@@ -111,7 +111,7 @@
   "gate_b_accepted_model": "output/S-gateB-v4.blend",
   "gate_b_v4_decision": "KEEP",
   "gate_b_tail_root_decision": "KEEP_AS_IS",
-  "gate_c_status": "REVIEW_PENDING",
+  "gate_c_status": "KEEP_V6_READY_FOR_V7",
   "gate_c_v1_scope": "modifier-only surface preview on core + four limb meshes",
   "gate_c_v1_decision": "KEEP",
   "gate_c_v2_scope": "proximal limb rings 0-1 only; existing modifiers retained",
@@ -122,5 +122,7 @@
   "gate_c_v4_decision": "KEEP",
   "gate_c_v5_scope": "two new eye-marker objects only",
   "gate_c_v5_decision": "REVISE",
-  "gate_c_v6_scope": "S_eye_L and S_eye_R transforms only"
+  "gate_c_v6_scope": "S_eye_L and S_eye_R transforms only",
+  "gate_c_v6_decision": "KEEP",
+  "gate_c_v7_scope": "new Cue Band detail objects only"
 }
