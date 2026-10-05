@@ -12,6 +12,10 @@ Base commit: `d25553169e4406f5af660fc5559e075163aac6ff`
 
 Import result: `UNSET`
 
+Rig check result: `UNSET`
+
+Recommended rig type: `UNSET`
+
 Four limbs intact: `UNSET`
 
 Head / neck / tail intact: `UNSET`
@@ -31,7 +35,11 @@ Allowed:
 
 Reason: `UNSET`
 
-## T1 one-sprint gate
+## T1 one-sprint Text to Motion gate
+
+Generator: `Tripo Studio Create Your Own Animation / AI Animation`
+
+Duration target: `5s`
 
 Prompt:
 
@@ -71,7 +79,7 @@ Allowed:
 
 Reason: `UNSET`
 
-Exact next action: `RUN_T0`
+Exact next action: `RUN_T0_RIG_CHECK_ON_LOCKED_S_GLB`
 
 ## T2 full bench
 
@@ -91,6 +99,16 @@ Run only when T1 = `EXPAND`.
 | launch | 0 | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET |
 | launch | 1 | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET |
 | launch | 2 | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET |
+
+## Multi-stage Motion experiment
+
+Run only after T1 = `EXPAND`.
+
+Candidate sequence:
+
+`steady run -> accelerate to maximum sprint -> slight lateral move while maintaining forward speed -> return to straight sprint`
+
+Result: `UNSET`
 
 ## Final comparison
 
