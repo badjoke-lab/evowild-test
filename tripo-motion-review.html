@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EvoWild Run — Tripo T1 Motion Review</title>
+  </head>
+  <body>
+    <main id="review">
+      <canvas id="scene"></canvas>
+      <section class="hud">
+        <div class="title">
+          <strong>Tripo S Motion Review — T1</strong>
+          <span id="assetLabel">t1-steady-run.glb</span>
+        </div>
+        <div class="readout">
+          <span id="status">LOADING</span>
+          <span id="cameraReadout">SIDE</span>
+          <span id="clipReadout">clip --</span>
+          <span id="boneReadout">bones --</span>
+        </div>
+        <div class="controls" aria-label="Review cameras">
+          <button type="button" data-view="SIDE">SIDE</button>
+          <button type="button" data-view="LOW">LOW</button>
+          <button type="button" data-view="CHASE">CHASE</button>
+          <button type="button" data-view="FRONT">FRONT</button>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="/src/tripo_motion_review.js"></script>
+  </body>
+</html>
