@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe B1c-v1 local shoulder-root resurface rendered; REVIEW_PENDING / STOPPED
+current_stage: experimental Vibe B1c-v1 actual-image review complete; REVISE; B1c-v2 ridge suppression ready
 branch: exp/s-creature-vibe-modeling
 current_model_file: output/S-vibe-b1c-v1.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review B1c-v1 five views against B0-v025 and B1b-v2/v4 plus approved S references. Decide KEEP/REVISE. B2 remains blocked.
+next_action: Execute B1c-v2 from output/S-vibe-b1c-v1.blend. No topology change. Curvature/residual-gated XYZ fairing only on the already-refined shoulder-root patch; boundary fixed; residual >0.0025; lambda 0.35; 2 passes; max additional displacement 0.0035. Render five views and STOP. B2 remains blocked.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -579,3 +579,11 @@ vibe_gate_b1c_v1_renders:
 - output/review/vibe-b1c-v1/S_vibe_b1c_v1_front34.png
 - output/review/vibe-b1c-v1/S_vibe_b1c_v1_rear34.png
 - output/review/vibe-b1c-v1/S_vibe_b1c_v1_back.png
+
+vibe_gate_b1c_v1_decision: REVISE
+vibe_gate_b1c_v1_topology_basis: KEEP
+vibe_gate_b1c_v1_review: S_VIBE_B1C_V1_REVIEW.md
+vibe_gate_b1c_v2_source: output/S-vibe-b1c-v1.blend
+vibe_gate_b1c_v2_exact_edit: topology fixed; high-curvature/residual-gated XYZ fairing; residual threshold 0.0025; lambda 0.35; 2 passes; boundary fixed
+vibe_gate_b1c_v2_hard_limit: max additional displacement 0.0035; extent drift <=0.002 per axis; non-manifold 0
+vibe_gate_b2_status: BLOCKED
