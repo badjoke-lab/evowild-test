@@ -33,14 +33,11 @@ jobs:
           path: artifacts/pea-run-sheet-v3/*
           if-no-files-found: error
       - name: Materialize reviewed P E A v3 sheets on branch
-        if: ${{ startsWith(github.head_ref, 'feat/2p5d-survivor-pea-assets-v3-') || startsWith(github.ref_name, 'feat/2p5d-survivor-pea-assets-v3-') }}
+        if: ${{ github.event_name == 'push' && startsWith(github.ref_name, 'feat/2p5d-survivor-pea-assets-v3-') }}
         shell: bash
         run: |
-          BRANCH="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
-          git fetch origin "$BRANCH"
-          git checkout -B "$BRANCH" "origin/$BRANCH"
+          BRANCH="${GITHUB_REF_NAME}"
           if git ls-tree -r --name-only HEAD | grep -q '^public/concept/p-run-sheet-v3.webp
-      - run: npx playwright install --with-deps chromium
       - name: Run E2E suite
         shell: bash
         run: |
@@ -161,10 +158,6 @@ jobs:
           elif [[ "$BRANCH" == feat/2p5d-survivor-pea-motion-v2-* ]]; then
             npx playwright test tests/race-quality.spec.js \
               --grep "four morph race uses all six-frame|P E A grounded-stride v2" \
-              --workers=1
-          elif [[ "$BRANCH" == feat/2p5d-survivor-pea-assets-v3-* ]]; then
-            npx playwright test tests/race-quality.spec.js \
-              --grep "four morph race uses all six-frame" \
               --workers=1
           elif [[ "$BRANCH" == "feat/2p5d-four-morph-quality-integration-20260925" || "$BRANCH" == feat/2p5d-survivor-* ]]; then
             npx playwright test tests/race-quality.spec.js tests/2p5d-selection.spec.js --workers=1
