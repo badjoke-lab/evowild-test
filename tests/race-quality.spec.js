@@ -332,3 +332,42 @@ test("2.5D default start is logically level while visual formation decays", asyn
   });
 });
 
+test("2.5D dense-pack labels avoid overlap and battle HUD clears Agent panel", async ({ page }, testInfo) => {
+  await page.goto("/evowild-test/race-quality.html?battleReview=1", { waitUntil: "networkidle" });
+  const stage = page.locator("#stage");
+  const battle = page.locator("#battleReadout");
+  const agent = page.locator("#agentControl");
+
+  await expect(stage).toHaveAttribute("data-race-state", "running", { timeout: 8000 });
+  await expect.poll(
+    async () => stage.getAttribute("data-battle-visible"),
+    { timeout: 6000 }
+  ).toBe("1");
+
+  await expect(stage).toHaveAttribute("data-label-layout", "priority-collision-avoidance");
+  await expect.poll(
+    async () => Number(await stage.getAttribute("data-label-overlap-count")),
+    { timeout: 3000 }
+  ).toBe(0);
+
+  const visibleLabels = Number(await stage.getAttribute("data-visible-labels"));
+  expect(visibleLabels).toBeGreaterThanOrEqual(2);
+  expect(visibleLabels).toBeLessThanOrEqual(4);
+
+  const battleBox = await battle.boundingBox();
+  const agentBox = await agent.boundingBox();
+  expect(battleBox).toBeTruthy();
+  expect(agentBox).toBeTruthy();
+  const overlaps =
+    battleBox.x < agentBox.x + agentBox.width &&
+    battleBox.x + battleBox.width > agentBox.x &&
+    battleBox.y < agentBox.y + agentBox.height &&
+    battleBox.y + battleBox.height > agentBox.y;
+  expect(overlaps).toBe(false);
+
+  fs.mkdirSync("artifacts/2p5d-survivor", { recursive: true });
+  await stage.screenshot({
+    path: `artifacts/2p5d-survivor/2p5d-survivor-pack-readability-${testInfo.project.name}.png`
+  });
+});
+
