@@ -91,3 +91,28 @@ Before external Tripo execution, the branch already contains:
 - `tests/tripo-motion-review.spec.js`
 
 The test intentionally skips while `public/experiments/tripo-s/t1-steady-run.glb` is absent. Once Work commits that real T1 GLB, the same branch CI will render the four required views and continuous review video automatically.
+
+
+## WebGL-blocked fallback — use documented API for T0
+
+The authenticated Work browser has already failed T0 because its Chromium surface reports WebGL disabled. Do not keep retrying the same Studio preview.
+
+Use the repository fallback documented in:
+
+- `docs/tripo-t0-api-fallback.md`
+- `scripts/tripo-t0-api.mjs`
+- `.github/workflows/tripo-t0-api.yml`
+
+One-time requirement: GitHub Actions repository secret `TRIPO_API_KEY`.
+
+Execution order:
+
+1. dispatch `tripo-t0-api` with `mode=check`;
+2. inspect the returned rig-check result;
+3. only if `riggable=true` and `rig_type=quadruped`, dispatch `mode=rig`;
+4. the rig workflow downloads and commits `public/experiments/tripo-s/t0-rigged-lod2.glb` directly to this branch;
+5. resume the normal bench from the committed T0 GLB.
+
+Do not spend rig credits if rig-check recommends another body type.
+
+This fallback does not solve T1. The public Tripo v3 docs currently document rig-check, rig and retarget, but not the new Studio Text to Motion / Multi-stage Motion flow. T1 therefore still requires a WebGL-capable Studio execution surface unless a documented API appears.
