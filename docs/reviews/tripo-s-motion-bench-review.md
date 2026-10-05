@@ -1,131 +1,167 @@
-# Tripo S Motion Bench — Review Ledger
+# Tripo S Motion Bench — Review Ledger v0.2
 
 Branch: `exp/tripo-s-motion-bench-20261003`
 
 Status: `T0_NOT_RUN`
 
-Input: `public/models/evowild-s/focus-rigged-v5.glb`
+## Model lock
 
-Base commit: `d25553169e4406f5af660fc5559e075163aac6ff`
+Primary Tripo Auto Rig input:
 
-## T0 import / rig compatibility
+`public/models/evowild-s/source-lod2.glb`
+
+Geometry level: `LOD2`
+
+Rig state: `UNRIGGED`
+
+Approx triangles: `13270`
+
+Fallback only for clear import/density failure:
+
+`public/models/evowild-s/race-lod4.glb`
+
+Geometry level: `LOD4`
+
+Rig state: `UNRIGGED`
+
+Approx triangles: `3316`
+
+Existing EvoWild comparison reference:
+
+`public/models/evowild-s/focus-rigged-v5.glb`
+
+Role: current 19-bone near-camera Motion First reference, **not** primary Tripo Auto Rig input.
+
+## T0 — Auto Rig / export compatibility
+
+Input used: `UNSET`
+
+Geometry LOD used: `UNSET`
 
 Import result: `UNSET`
 
 Rig check result: `UNSET`
 
-Recommended rig type: `UNSET`
+Recommended/selected rig type: `UNSET`
+
+Tripo creature/non-humanoid rig path used: `UNSET`
 
 Four limbs intact: `UNSET`
 
-Head / neck / tail intact: `UNSET`
+Joint direction sane: `UNSET`
 
-Orientation usable: `UNSET`
+Head / neck / spine / tail intact: `UNSET`
 
-Animation preprocessing result: `UNSET`
+Scale/orientation usable: `UNSET`
 
-Export format: `UNSET`
+Rigged export re-opened successfully: `UNSET`
+
+Primary repository artifact: `UNSET`
+
+Fallback attempted: `NO`
 
 T0 decision: `UNSET`
 
 Allowed:
 
 - `PASS_TO_T1`
-- `REJECT_IMPORT`
+- `PASS_TO_T1_WITH_LOD4_FALLBACK`
+- `REJECT_IMPORT_OR_RIG`
 
 Reason: `UNSET`
 
-## T1 one-sprint Text to Motion gate
+Exact next action: `RUN_T0_ON_SOURCE_LOD2`
 
-Generator: `Tripo Studio Create Your Own Animation / AI Animation`
+## T1 — steady straight run
+
+Generator: `Tripo Studio Text to Motion / Create Your Own Animation`
 
 Duration target: `5s`
 
 Prompt:
 
-`maximum-effort forward quadrupedal sprint, explosive long stride, strong shoulder and pelvis drive, stable forward travel`
+`A quadruped creature runs straight forward at a steady racing speed. Powerful hind-leg propulsion, clear alternating foot contacts, stable athletic torso, minimal vertical bouncing, head facing forward. Natural grounded foot contact. Continuous run.`
 
 Raw artifact: `UNSET`
 
-Normalized artifact: `UNSET`
+Review GLB:
 
-### Measurements
+`public/experiments/tripo-s/t1-steady-run.glb`
 
-| Check | Motion First v5 | Tripo T1 | Note |
+Normalization required: `UNSET`
+
+CI artifact: `tripo-s-motion-review`
+
+Actions run: `UNSET`
+
+### T1 measurements
+
+| Check | EvoWild focus-rigged-v5 reference | Tripo T1 | Note |
 |---|---|---|---|
-| stance foot skating | UNSET | UNSET | UNSET |
-| penetration / floating | UNSET | UNSET | UNSET |
-| fore/hind phase coherence | UNSET | UNSET | UNSET |
-| stride direction | UNSET | UNSET | UNSET |
-| root / cadence match | UNSET | UNSET | UNSET |
-| shoulder / chest drive | UNSET | UNSET | UNSET |
-| pelvis drive | UNSET | UNSET | UNSET |
-| spinal compression / extension | UNSET | UNSET | UNSET |
-| neck / head follow-through | UNSET | UNSET | UNSET |
-| tail behavior | UNSET | UNSET | UNSET |
-| SIDE readability | UNSET | UNSET | UNSET |
-| LOW readability | UNSET | UNSET | UNSET |
-| CHASE readability | UNSET | UNSET | UNSET |
-| FRONT readability | UNSET | UNSET | UNSET |
+| stance foot skating | baseline | UNSET | UNSET |
+| penetration / floating | baseline | UNSET | UNSET |
+| fore/hind phase coherence | baseline | UNSET | UNSET |
+| joint reversal / collapse | baseline | UNSET | UNSET |
+| root / cadence match | baseline | UNSET | UNSET |
+| shoulder / chest drive | baseline | UNSET | UNSET |
+| pelvis drive | baseline | UNSET | UNSET |
+| spinal compression / extension | baseline | UNSET | UNSET |
+| torso vertical bounce | baseline | UNSET | UNSET |
+| head / neck stability | baseline | UNSET | UNSET |
+| tail behavior | baseline | UNSET | UNSET |
+| SIDE readability | baseline | UNSET | UNSET |
+| LOW readability | baseline | UNSET | UNSET |
+| CHASE readability | baseline | UNSET | UNSET |
+| FRONT readability | baseline | UNSET | UNSET |
 | export / replay stability | baseline | UNSET | UNSET |
 
 T1 decision: `UNSET`
 
 Allowed:
 
-- `EXPAND`
+- `PASS_TO_T2`
 - `KEEP_AS_REFERENCE`
 - `REJECT`
 
 Reason: `UNSET`
 
-Exact next action: `RUN_T0_RIG_CHECK_ON_LOCKED_S_GLB`
+## T2 — acceleration
 
-## T2 full bench
+Status: `BLOCKED_BY_T1`
 
-Run only when T1 = `EXPAND`.
+Prompt:
 
-| Case | Rep | raw export | runtime replay | contact | phase | root/cadence | whole-body | multi-view | usable |
-|---|---:|---|---|---|---|---|---|---|---|
-| steady-run | 0 | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET |
-| steady-run | 1 | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET |
-| steady-run | 2 | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET |
-| fast-gallop | 0 | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET |
-| fast-gallop | 1 | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET |
-| fast-gallop | 2 | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET |
-| max-sprint | 0 | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET |
-| max-sprint | 1 | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET |
-| max-sprint | 2 | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET |
-| launch | 0 | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET |
-| launch | 1 | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET |
-| launch | 2 | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET | UNSET |
+`The quadruped continues a steady forward racing run, then smoothly accelerates into a fast sprint while staying grounded. Cadence increases naturally, hind-leg propulsion becomes stronger, torso remains athletic and stable, head stays forward.`
 
-## Multi-stage Motion experiment
+Decision: `UNSET`
 
-Run only after T1 = `EXPAND`.
+## T3 — lateral shift / overtake
 
-Candidate sequence:
+Status: `BLOCKED_BY_T2`
 
-`steady run -> accelerate to maximum sprint -> slight lateral move while maintaining forward speed -> return to straight sprint`
+Order:
 
-Result: `UNSET`
+1. slight lateral shift while maintaining forward speed
+2. overtake attempt without stopping forward locomotion
 
-## Final comparison
+Decision: `UNSET`
 
-Motion First strengths: `UNSET`
+## T4 — Multi-stage Motion
 
-UniMate strengths: `UNSET / NO_REAL_OUTPUT_YET`
+Status: `BLOCKED_BY_T3`
 
-Tripo strengths: `UNSET`
+Target:
 
-Contact correction required: `UNSET`
+`steady run -> accelerate -> slight lateral shift -> overtake attempt -> return to straight sprint`
 
-Speed remapping required: `UNSET`
+Decision: `UNSET`
+
+## T5 — EvoWild runtime integration
+
+Status: `BLOCKED`
+
+Candidate architecture:
+
+`Tripo motion -> contact correction -> speed/cadence mapping -> race-state blending -> Three.js runtime`
 
 Final decision: `UNSET`
-
-Allowed:
-
-- `PASS_TO_HYBRID`
-- `KEEP_AS_REFERENCE`
-- `REJECT`
