@@ -58,6 +58,7 @@ stage.dataset.morphSet = "S,P,E,A";
 stage.dataset.fieldSize = String(FIELD_SIZE);
 stage.dataset.cameraPolicy = "selected-plus-nearby";
 stage.dataset.peaMotionVersion = "grounded-stride-v2";
+stage.dataset.peaAnchorVersion = "alpha-bbox-x-v3";
 const LANE_PATTERN = [1, 2, 0, 3, 1, 3, 0, 2];
 const CRUISE_PATTERN = [36.8,34.7,35.9,34.9,36.1,35.2,35.6,34.8];
 const ACCEL_PATTERN = [15.0,13.4,14.3,13.6,14.0,13.5,13.9,13.4];
@@ -256,8 +257,12 @@ function extractConnectedFrame(image, col, row) {
     if (x >= footMinX && x <= footMaxX) footY = Math.max(footY, y);
   }
   c.putImageData(pixels, 0, 0);
+  const centerXNorm = maxX >= minX
+    ? ((minX + maxX) * 0.5) / Math.max(1, fw - 1)
+    : 0.5;
   canvas.__motionMetrics = {
     minX, maxX, minY, maxY,
+    centerXNorm,
     footYNorm: footY >= 0 ? footY / Math.max(1, fh - 1) : 0.98
   };
   return canvas;
@@ -1256,13 +1261,17 @@ function drawRacers() {
       const drawW=spriteW*phaseTransform.sx;
       const drawH=spriteH*phaseTransform.sy;
       const footNorm=frameCanvas.__motionMetrics?.footYNorm ?? 0.98;
+      const centerXNorm=frameCanvas.__motionMetrics?.centerXNorm ?? 0.5;
       const groundCorrection=r.morph==="S" ? 0 : (0.98-footNorm)*drawH;
+      const horizontalCorrection=r.morph==="S"
+        ? 0
+        : clamp((0.5-centerXNorm)*drawW,-drawW*.18,drawW*.18);
       const legacyLift=r.morph==="S" ? frame.y*drawH*.12*meta.lift : 0;
       const phaseLift=r.morph==="S" ? 0 : phaseTransform.lift*drawH;
       const footAdjust=groundCorrection+legacyLift+phaseLift;
 
       ctx.save();
-      ctx.translate(item.x,item.y-drawH*.48);
+      ctx.translate(item.x+horizontalCorrection,item.y-drawH*.48);
       ctx.rotate(lean+phaseTransform.lean);
       if(selectedRacer){
         ctx.shadowColor="rgba(126,226,255,.85)";
@@ -1279,6 +1288,9 @@ function drawRacers() {
       if(r.morph!=="S"){
         stage.dataset[`${r.morph.toLowerCase()}MotionProfile`] = "grounded-stride-v2";
         stage.dataset[`${r.morph.toLowerCase()}FootAdjust`] = footAdjust.toFixed(2);
+        stage.dataset[`${r.morph.toLowerCase()}HorizontalAdjust`] = horizontalCorrection.toFixed(2);
+        stage.dataset[`${r.morph.toLowerCase()}FrameCenterX`] = centerXNorm.toFixed(3);
+        stage.dataset.peaAnchorVersion = "alpha-bbox-x-v3";
       }
     }
 
