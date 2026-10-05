@@ -391,7 +391,7 @@
     }
   ],
   "after_start": {
-    "body_text": "Kimodo\nDocumentation\nProject Page\nGithub\nKimodo\nGenerate\nVisualize\nInstructions\nModel Selection\n\nModel\n\nModel: Kimodo-SOMA-RP-v1\n\nLoad model\nExamples\n\nExample\n\nLoad Example\nGenerate\n\nTotal duration: 6.0 (sec)\n\nSOMA layer\n\nModel Parameters\nPost Processing\nGenerate\nConstraints\nExports\nWelcome — Quick Start\nCamera\nLeft-drag: rotate\nRight-drag: pan\nScroll: zoom\nPlayback\nSpace to play/pause\n←/→ to step frames, or click the frame number.\nScroll up/down in the timeline: move left/right\nShift + scroll in the timeline: zoom in/out\nPrompts\nDouble-click a text prompt to edit it.\nClick and drag the right edge of a prompt box to extend/shorten it.\nClick empty space to add a prompt.\nRight-click a prompt to delete it.\nGenerate\nGo to the Generate tab to modify options\nIt is also possible to load examples\nClick Generate to generate a motion\nConstraints\nThis is optional: should be use after a first generation\nClick in the timeline tracks (Full-Body / 2D root etc) to add a constraint.\nRight-click on a constraint to delete it.\nTo edit a constraint:\nMove playback to the target frame\nClick Enter Editing Mode in the Constraints tab.\n\nSee the Instructions tab for the full user manual.\n\nGot it (don't remind me again)",
+    "body_text": "Kimodo\nDocumentation\nProject Page\nGithub\nKimodo\nGenerate\nVisualize\nInstructions\nModel Selection\n\nModel\n\nModel: Kimodo-SOMA-RP-v1\n\nLoad model\nExamples\n\nExample\n\nLoad Example\nGenerate\n\nTotal duration: 5.0 (sec)\n\nSOMA layer\n\nModel Parameters\nPost Processing\nGenerate\nConstraints\nExports",
     "buttons": [
       "",
       "",
@@ -417,10 +417,11 @@
       "",
       "0.5x",
       "1x",
-      "2x",
-      "",
-      "Got it (don't remind me again)"
+      "2x"
     ],
+    "prompt_match_count": 0,
+    "prompt_fragments": [],
+    "after_prompt_double_click": null,
     "inputs": [
       {
         "i": 0,
@@ -795,28 +796,28 @@
       "text": "Connecting to: wss://nvidia-kimodo.hf.space with protocol: viser-v1.0.16"
     },
     {
-      "type": "warning",
-      "text": "[GroupMarkerNotSet(crbug.com/242999)!:A07020002C070000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader (about:flags#enable-unsafe-swiftshader) flag to opt in to lower security guarantees for trusted content."
-    },
-    {
-      "type": "warning",
-      "text": "[.WebGL-0x2840069bf00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
-    },
-    {
-      "type": "warning",
-      "text": "[.WebGL-0x2840069bf00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
-    },
-    {
-      "type": "warning",
-      "text": "[.WebGL-0x2840069bf00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
-    },
-    {
-      "type": "warning",
-      "text": "[.WebGL-0x2840069bf00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
-    },
-    {
       "type": "log",
       "text": "Connected! wss://nvidia-kimodo.hf.space"
+    },
+    {
+      "type": "warning",
+      "text": "[GroupMarkerNotSet(crbug.com/242999)!:A070200004250000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader (about:flags#enable-unsafe-swiftshader) flag to opt in to lower security guarantees for trusted content."
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x314c00691b00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x314c00691b00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x314c00691b00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x314c00691b00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
     },
     {
       "type": "log",
@@ -824,27 +825,35 @@
     },
     {
       "type": "log",
-      "text": "[Performance] Setting DPR to 0.8400000000000001; FPS=6/47"
+      "text": "[Performance] Setting DPR to 0.8400000000000001; FPS=5/14"
     },
     {
       "type": "log",
-      "text": "[Performance] Setting DPR to 0.6800000000000002; FPS=10/47"
+      "text": "[Performance] Setting DPR to 0.6800000000000002; FPS=7/14"
     },
     {
       "type": "log",
-      "text": "[Performance] Setting DPR to 0.52; FPS=13/47"
+      "text": "[Performance] Setting DPR to 0.52; FPS=8/14"
     },
     {
       "type": "log",
-      "text": "[Performance] Setting DPR to 0.3600000000000001; FPS=16/47"
+      "text": "[Performance] Setting DPR to 0.3600000000000001; FPS=11/14"
     },
     {
       "type": "log",
-      "text": "[Performance] Setting DPR to 0.20000000000000007; FPS=21/47"
+      "text": "Removing scene node: /character0/simple_skinned"
     },
     {
       "type": "log",
-      "text": "[Performance] Setting DPR to 0.2; FPS=26/47"
+      "text": "[Performance] Setting DPR to 0.20000000000000007; FPS=26/26"
+    },
+    {
+      "type": "log",
+      "text": "746e86f5-e0b9-4ece-bd54-ce1a94014a02 false"
+    },
+    {
+      "type": "log",
+      "text": "[Performance] Setting DPR to 0.2; FPS=15/63"
     }
   ]
 }
