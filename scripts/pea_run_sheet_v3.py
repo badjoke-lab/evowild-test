@@ -23,50 +23,102 @@ TARGET_FOOT_Y = {
 }
 
 
-def split_sheet(path: Path) -> list[np.ndarray]:
-    image = Image.open(path).convert("RGBA")
-    fw = image.width // 3
-    fh = image.height // 2
+def split_with_layout(image: Image.Image, cols: int, rows: int) -> list[np.ndarray]:
+    fw = image.width // cols
+    fh = image.height // rows
     frames = []
-    for row in range(2):
-        for col in range(3):
+    for row in range(rows):
+        for col in range(cols):
             crop = image.crop((col * fw, row * fh, (col + 1) * fw, (row + 1) * fh))
             frames.append(np.asarray(crop).copy())
     return frames
 
 
+def layout_score(frames: list[np.ndarray]) -> float:
+    scores = []
+    for frame in frames:
+        mask = (frame[:, :, 3] > 12).astype(np.uint8)
+        total = int(mask.sum())
+        if total <= 0:
+            scores.append(-5.0)
+            continue
+
+        count, labels, stats, _ = cv2.connectedComponentsWithStats(mask, 8)
+        largest = 0 if count <= 1 else int(stats[1:, cv2.CC_STAT_AREA].max())
+        integrity = largest / max(1, total)
+
+        border = np.zeros_like(mask)
+        border[:4, :] = 1
+        border[-4:, :] = 1
+        border[:, :4] = 1
+        border[:, -4:] = 1
+        border_touch = int((mask * border).sum()) / max(1, total)
+
+        scores.append(integrity - border_touch * 3.0)
+    return float(np.mean(scores))
+
+
+def split_sheet(path: Path) -> tuple[list[np.ndarray], str, dict]:
+    image = Image.open(path).convert("RGBA")
+    candidates = {}
+    for cols, rows in ((3, 2), (2, 3)):
+        frames = split_with_layout(image, cols, rows)
+        candidates[f"{cols}x{rows}"] = {
+            "frames": frames,
+            "score": layout_score(frames),
+        }
+
+    selected = max(candidates.items(), key=lambda item: item[1]["score"])
+    layout_name, payload = selected
+    metrics = {
+        "source_width": image.width,
+        "source_height": image.height,
+        "layout_scores": {
+            name: round(float(candidate["score"]), 6)
+            for name, candidate in candidates.items()
+        },
+        "selected_layout": layout_name,
+    }
+    return payload["frames"], layout_name, metrics
+
+
 def clean_connected(frame: np.ndarray) -> tuple[np.ndarray, dict]:
     alpha = frame[:, :, 3]
     mask = (alpha > 12).astype(np.uint8)
-    count, labels, stats, centroids = cv2.connectedComponentsWithStats(mask, 8)
+    count, labels, stats, _ = cv2.connectedComponentsWithStats(mask, 8)
 
     if count <= 1:
-        return frame.copy(), {"component_area": 0}
+        return frame.copy(), {"component_area": 0, "kept_components": 0}
 
-    h, w = mask.shape
-    ys, xs = np.nonzero(mask)
-    if len(xs) == 0:
-        return frame.copy(), {"component_area": 0}
+    areas = stats[1:, cv2.CC_STAT_AREA]
+    main_label = 1 + int(np.argmax(areas))
+    main_area = int(stats[main_label, cv2.CC_STAT_AREA])
+    keep = labels == main_label
+    kept_components = 1
 
-    cx = w * 0.5
-    cy = h * 0.48
-    nearest_idx = np.argmin((xs - cx) ** 2 + (ys - cy) ** 2)
-    seed_label = int(labels[int(ys[nearest_idx]), int(xs[nearest_idx])])
+    # Armor plates, horns and thin limbs can be real creature pixels even when
+    # alpha gaps split them from the largest body component. Keep meaningful
+    # components; discard only small image-generation debris.
+    min_area = max(18, int(main_area * 0.012))
+    for label in range(1, count):
+        if label == main_label:
+            continue
+        area = int(stats[label, cv2.CC_STAT_AREA])
+        if area >= min_area:
+            keep |= labels == label
+            kept_components += 1
 
-    if seed_label <= 0:
-        areas = stats[1:, cv2.CC_STAT_AREA]
-        seed_label = 1 + int(np.argmax(areas))
-
-    keep = labels == seed_label
     cleaned = frame.copy()
     cleaned[~keep] = 0
 
     yy, xx = np.nonzero(keep)
     if len(xx) == 0:
-        return cleaned, {"component_area": 0}
+        return cleaned, {"component_area": 0, "kept_components": 0}
 
     metrics = {
         "component_area": int(len(xx)),
+        "main_component_area": main_area,
+        "kept_components": kept_components,
         "min_x": int(xx.min()),
         "max_x": int(xx.max()),
         "min_y": int(yy.min()),
@@ -185,7 +237,14 @@ def checker(size: tuple[int, int], step: int = 16) -> Image.Image:
     return bg
 
 
-def write_outputs(morph: str, keys: list[np.ndarray], sequence: list[np.ndarray], metrics: list[dict]) -> None:
+def write_outputs(
+    morph: str,
+    keys: list[np.ndarray],
+    sequence: list[np.ndarray],
+    metrics: list[dict],
+    source_layout: str,
+    source_metrics: dict,
+) -> None:
     h, w, _ = sequence[0].shape
 
     sheet = Image.new("RGBA", (w * 4, h * 3), (0, 0, 0, 0))
@@ -231,6 +290,8 @@ def write_outputs(morph: str, keys: list[np.ndarray], sequence: list[np.ndarray]
     payload = {
         "morph": morph.upper(),
         "source": f"public/concept/{morph}-run-sheet.webp",
+        "source_layout": source_layout,
+        "source_metrics": source_metrics,
         "key_phases": PHASES,
         "output_frames": 12,
         "interpolation": "single-silhouette-forward-flow-v3b",
@@ -246,7 +307,8 @@ def write_outputs(morph: str, keys: list[np.ndarray], sequence: list[np.ndarray]
 
 def main() -> None:
     for morph in ("p", "e", "a"):
-        source_frames = split_sheet(SOURCE_DIR / f"{morph}-run-sheet.webp")
+        source_path = SOURCE_DIR / f"{morph}-run-sheet.webp"
+        source_frames, source_layout, source_metrics = split_sheet(source_path)
         aligned = []
         metrics = []
         for phase, frame in zip(PHASES, source_frames):
@@ -254,7 +316,14 @@ def main() -> None:
             aligned.append(aligned_frame)
             metrics.append({"phase": phase, **frame_metrics})
         sequence = make_sequence(aligned)
-        write_outputs(morph, aligned, sequence, metrics)
+        write_outputs(
+            morph,
+            aligned,
+            sequence,
+            metrics,
+            source_layout=source_layout,
+            source_metrics=source_metrics,
+        )
 
     print(f"generated P/E/A v3 candidates under {OUT_DIR}")
 
