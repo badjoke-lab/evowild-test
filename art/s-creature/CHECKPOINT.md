@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe B2a-v2 actual-image review complete; REVISE; B2a-v3 three-station thorax-root guide ready
+current_stage: experimental Vibe B2a-v3 three-station proximal forelimb root rendered; REVIEW_PENDING / STOPPED
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-b1c-v2.blend
+current_model_file: output/S-vibe-b2a-v3.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute B2a-v3 independently from B1c-v2. Repeat one local subdivision, then use station-1->0->1 piecewise elliptical guide to include thorax-side root. Max displacement 0.0040. Render five views and STOP. Do not start B2b.
+next_action: Review B2a-v3 five views against B2a-v2/B2a-v1/B1c-v2 and approved S references. Decide KEEP/REVISE. Do not start B2b.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -716,3 +716,12 @@ vibe_gate_b2a_v3_method: one local subdivision + piecewise station-1->0->1 ellip
 vibe_gate_b2a_v3_station_minus1: X ±0.088 / Y -0.070 / Z 1.035 / radii 0.086 lateral, 0.112 sagittal
 vibe_gate_b2a_v3_hard_limit: new vertices 20..500; candidates 20..240; max displacement <=0.0040; extent drift <=0.002 per axis
 vibe_gate_b2b_status: BLOCKED
+
+vibe_gate_b2a_v3_status: REVIEW_PENDING
+vibe_gate_b2a_v3_scope: one local subdivision + station-1->0->1 three-station forelimb-root guide
+vibe_gate_b2a_v3_renders:
+- output/review/vibe-b2a-v3/S_vibe_b2a_v3_side.png
+- output/review/vibe-b2a-v3/S_vibe_b2a_v3_front.png
+- output/review/vibe-b2a-v3/S_vibe_b2a_v3_front34.png
+- output/review/vibe-b2a-v3/S_vibe_b2a_v3_rear34.png
+- output/review/vibe-b2a-v3/S_vibe_b2a_v3_back.png

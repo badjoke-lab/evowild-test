@@ -1,0 +1,122 @@
+{
+  "lane": "exp/s-creature-vibe-modeling",
+  "gate": "B2a-v3-three-station-proximal-forelimb-root",
+  "source": "S-vibe-b1c-v2.blend",
+  "decision": "REVIEW_PENDING",
+  "body_object": "S_B0_continuous_body_v025",
+  "method": "one local subdivision + piecewise station-1->0->1 signed tapered elliptical guide",
+  "station_minus1": {
+    "abs_x": 0.088,
+    "y": -0.07,
+    "z": 1.035,
+    "lateral_radius": 0.086,
+    "sagittal_radius": 0.112
+  },
+  "station0": {
+    "abs_x": 0.115,
+    "y": -0.03,
+    "z": 0.985,
+    "lateral_radius": 0.068,
+    "sagittal_radius": 0.095
+  },
+  "station1": {
+    "abs_x": 0.148,
+    "y": 0.035,
+    "z": 0.845,
+    "lateral_radius": 0.056,
+    "sagittal_radius": 0.07
+  },
+  "support": {
+    "abs_x_min": 0.055,
+    "abs_x_max": 0.215,
+    "y_min": -0.075,
+    "y_max": 0.085,
+    "z_min": 0.78,
+    "z_max": 1.06
+  },
+  "parameters": {
+    "subdivision_cuts": 1,
+    "subdivision_inset": 0.005,
+    "max_subdiv_edges": 360,
+    "q_error_threshold": 0.1,
+    "q_min": 0.45,
+    "q_max": 1.9,
+    "gain": 0.3,
+    "max_local_displacement": 0.004
+  },
+  "source_vertex_count": 5940,
+  "source_polygon_count": 6010,
+  "source_edge_count": 11948,
+  "result_vertex_count": 6401,
+  "result_polygon_count": 6522,
+  "result_edge_count": 12921,
+  "eligible_edge_count_raw": 500,
+  "eligible_subdivided_edge_count": 360,
+  "affected_source_face_count": 234,
+  "new_vertex_count": 461,
+  "local_vertex_count_after_subdivision": 855,
+  "raw_candidate_vertex_count": 140,
+  "candidate_vertex_count": 140,
+  "applied_candidate_count": 134,
+  "skipped_support_exit_count": 6,
+  "selected_positive_count": 68,
+  "selected_negative_count": 72,
+  "segment_candidate_counts": {
+    "m1_to_0": 73,
+    "0_to_1": 61
+  },
+  "changed_local_vertex_count": 134,
+  "max_local_displacement": 0.004000036701419841,
+  "mean_local_displacement": 0.0005894013743702801,
+  "mean_abs_q_error_before": 0.3380637429770767,
+  "mean_abs_q_error_after": 0.2946195618617372,
+  "whole_body_extent_before": {
+    "x": [
+      -0.20604567229747772,
+      0.20645402371883392
+    ],
+    "y": [
+      -0.7199999690055847,
+      1.6521023511886597
+    ],
+    "z": [
+      0.04373600333929062,
+      1.3978015184402466
+    ]
+  },
+  "whole_body_extent_after": {
+    "x": [
+      -0.20604567229747772,
+      0.20645402371883392
+    ],
+    "y": [
+      -0.7199999690055847,
+      1.6521023511886597
+    ],
+    "z": [
+      0.04373600333929062,
+      1.3978015184402466
+    ]
+  },
+  "whole_body_extent_drift": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+  },
+  "non_manifold_edge_count": 0,
+  "outside_local_vertex_count": 5546,
+  "fixed_geometry_hash": "58a1ec9427fe1b0e064b74ec2c86d0a12dc34e0fb8b458deb0586557c9e7fd73",
+  "outside_local_original_geometry_unchanged": true,
+  "preserved_geometry_unchanged": true,
+  "topology_change_scope": "fully-contained same-side three-station proximal forelimb-root faces only",
+  "status": "REVIEW_PENDING",
+  "rendered_views": [
+    "side",
+    "front",
+    "front34",
+    "rear34",
+    "back"
+  ],
+  "render_fixed_geometry_unchanged": true,
+  "render_non_manifold_edge_count": 0
+}
