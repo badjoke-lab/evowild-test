@@ -106,7 +106,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Upload S sprite-gen PoC artifacts
-        if: ${{ always() && github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && !startsWith(github.head_ref, 'feat/2p5d-survivor-') && !startsWith(github.ref_name, 'feat/2p5d-survivor-') }}
+        if: ${{ always() && github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && !startsWith(github.head_ref, 'feat/2p5d-survivor-') && !startsWith(github.ref_name, 'feat/2p5d-survivor-') && !startsWith(github.head_ref, 'feat/simplified-race-entry-v') && !startsWith(github.ref_name, 'feat/simplified-race-entry-v') }}
         uses: actions/upload-artifact@v4
         with:
           name: spritegen-s-poc
