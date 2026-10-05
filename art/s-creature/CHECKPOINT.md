@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe B1d-v3 signed tapered bridge projection rendered; REVIEW_PENDING / STOPPED
+current_stage: experimental Vibe Gate B1 closed on B1c-v2 working source; B2a-v1 proximal forelimb-root massing ready
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-b1d-v3.blend
+current_model_file: output/S-vibe-b1c-v2.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review B1d-v3 five views against B1d-v2/B1d-v1/B1c-v2 and approved S references. Decide KEEP/REVISE. B2 remains blocked.
+next_action: Execute B2a-v1 from B1c-v2. Reshape only proximal forelimb station0->1 with accepted A3a elliptical center/radius guide. Boundary/outside support fixed; max displacement 0.0050. Render five views and STOP. Do not start B2b.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -669,3 +669,15 @@ vibe_gate_b1d_v3_renders:
 - output/review/vibe-b1d-v3/S_vibe_b1d_v3_front34.png
 - output/review/vibe-b1d-v3/S_vibe_b1d_v3_rear34.png
 - output/review/vibe-b1d-v3/S_vibe_b1d_v3_back.png
+
+vibe_gate_b1d_v3_decision: REVISE
+vibe_gate_b1d_v3_review: S_VIBE_B1D_V3_REVIEW.md
+vibe_gate_b1_decision: ACCEPTED_WORKING_SOURCE_WITH_ROOT_DEFERRED_TO_B2
+vibe_gate_b1_accepted_model: output/S-vibe-b1c-v2.blend
+vibe_gate_b1_deferred_issue: proximal forelimb root / station0-to-station1 continuity
+vibe_gate_b2_status: OPEN
+vibe_gate_b2a_status: READY
+vibe_gate_b2a_v1_source: output/S-vibe-b1c-v2.blend
+vibe_gate_b2a_v1_target: proximal forelimb root station0->1 only
+vibe_gate_b2a_v1_method: signed tapered elliptical A3a station0/1 guide; gain 0.45; max displacement 0.0050
+vibe_gate_b2b_status: BLOCKED
