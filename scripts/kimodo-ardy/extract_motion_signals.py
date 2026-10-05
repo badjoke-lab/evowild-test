@@ -76,15 +76,33 @@ def analyze_motion(
     *,
     fps_override: float | None = None,
 ) -> tuple[dict[str, Any], dict[str, np.ndarray]]:
-    root_key = "smooth_root_pos" if "smooth_root_pos" in data else "root_positions"
-    if root_key not in data:
-        raise ValueError("NPZ must contain smooth_root_pos or root_positions")
+    if "smooth_root_pos" in data:
+        root_source = "smooth_root_pos"
+        root = np.asarray(data["smooth_root_pos"], dtype=float)
+    elif "root_positions" in data:
+        root_source = "root_positions"
+        root = np.asarray(data["root_positions"], dtype=float)
+    elif "posed_joints" in data:
+        # Official Kimodo demo examples committed before the newer NPZ schema
+        # contain only posed_joints/global_rot_mats/foot_contacts. SOMA30,
+        # SOMA77, G1 and SMPL-X all place the skeleton root at joint index 0,
+        # so recover the root trajectory from posed_joints[:, 0, :].
+        posed = np.asarray(data["posed_joints"], dtype=float)
+        if posed.ndim == 4 and posed.shape[0] == 1:
+            posed = posed[0]
+        if posed.ndim != 3 or posed.shape[2] < 3:
+            raise ValueError(f"posed_joints must have shape [T,J,3], got {posed.shape}")
+        root_source = "posed_joints[:,0,:]"
+        root = posed[:, 0, :]
+    else:
+        raise ValueError(
+            "NPZ must contain smooth_root_pos, root_positions, or posed_joints"
+        )
 
-    root = np.asarray(data[root_key], dtype=float)
     if root.ndim == 3 and root.shape[0] == 1:
         root = root[0]
     if root.ndim != 2 or root.shape[1] < 3:
-        raise ValueError(f"{root_key} must have shape [T,3], got {root.shape}")
+        raise ValueError(f"{root_source} must resolve to shape [T,3], got {root.shape}")
 
     t = int(root.shape[0])
     if t < 2:
@@ -157,7 +175,7 @@ def analyze_motion(
         "fps": fps,
         "fps_source": fps_source,
         "duration_s": duration,
-        "root_source": root_key,
+        "root_source": root_source,
         "heading_source": heading_source,
         "horizontal_distance_m": distance,
         "mean_speed_mps": float(np.mean(speed)),
