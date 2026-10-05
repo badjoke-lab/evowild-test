@@ -1,17 +1,17 @@
-name: assemble-s-authority-image
+name: finalize-s-authority-image
 
 on:
   push:
     branches:
       - exp/s-creature-vibe-modeling
     paths:
-      - art/s-creature/references/.s-authority-assemble
+      - art/s-creature/references/.s_type_modeling_image_v1.bin
 
 permissions:
   contents: write
 
 jobs:
-  assemble:
+  finalize:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
@@ -20,26 +20,26 @@ jobs:
           ref: ${{ github.ref_name }}
           fetch-depth: 0
 
-      - name: Reconstruct exact approved S authority PNG
+      - name: Verify exact approved source bytes
         shell: bash
         run: |
           set -euo pipefail
-          PARTS_DIR="art/s-creature/references/.s-authority-parts"
-          OUT="art/s-creature/references/00_s_type_modeling_image_v1.png"
-          cat "$PARTS_DIR"/part-*.b64 | base64 --decode > "$OUT"
-          ACTUAL="$(sha256sum "$OUT" | awk '{print $1}')"
+          SRC="art/s-creature/references/.s_type_modeling_image_v1.bin"
           EXPECTED="93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6"
-          echo "authority sha256=$ACTUAL"
+          ACTUAL="$(sha256sum "$SRC" | awk '{print $1}')"
+          echo "S authority sha256=$ACTUAL"
           test "$ACTUAL" = "$EXPECTED"
 
-      - name: Commit canonical authority image
+      - name: Promote exact PNG and commit
         shell: bash
         run: |
           set -euo pipefail
+          SRC="art/s-creature/references/.s_type_modeling_image_v1.bin"
+          OUT="art/s-creature/references/00_s_type_modeling_image_v1.png"
+          cp "$SRC" "$OUT"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add art/s-creature/references/00_s_type_modeling_image_v1.png
-          git rm -r art/s-creature/references/.s-authority-parts
-          git rm art/s-creature/references/.s-authority-assemble
+          git add "$OUT"
+          git rm "$SRC"
           git commit -m "art: lock exact approved S modeling image v1"
           git push origin HEAD:"${GITHUB_REF_NAME}"
