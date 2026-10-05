@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe B1d-v2 actual-image review complete; REVISE; B1e-v1 support-seam blend ready
+current_stage: experimental Vibe B1d-v2 actual-image review complete; REVISE; B1d-v3 signed tapered-bridge projection ready
 branch: exp/s-creature-vibe-modeling
 current_model_file: output/S-vibe-b1c-v2.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute B1e-v1 from B1c-v2. Move only the old B1c support boundary plus one-ring neighbors inside an expanded anchored support. Topology fixed; lambda 0.25; 2 passes; max displacement 0.0035. Render five views and STOP. B2 remains blocked.
+next_action: Execute B1d-v3 independently from B1c-v2. Use signed boundary-tapered projection toward the same tapered shoulder-limb bridge; |ratio-1|>0.05; gain 0.35; max displacement 0.0042; topology/boundary fixed. Render five views and STOP. B2 remains blocked.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -652,4 +652,11 @@ vibe_gate_b1e_v1_source: output/S-vibe-b1c-v2.blend
 vibe_gate_b1e_v1_target: persistent old-support seam / triangular shoulder-root edge
 vibe_gate_b1e_v1_method: old boundary + one-ring XYZ seam blend inside expanded fixed support
 vibe_gate_b1e_v1_hard_limit: editable 40..260; max displacement <=0.0035; extent drift <=0.002 per axis
+vibe_gate_b2_status: BLOCKED
+
+vibe_gate_b1d_v2_decision: REVISE
+vibe_gate_b1d_v2_review: S_VIBE_B1D_V2_REVIEW.md
+vibe_gate_b1d_v3_source: output/S-vibe-b1c-v2.blend
+vibe_gate_b1d_v3_method: signed boundary-tapered tapered-bridge projection; inside/outside deviations both corrected
+vibe_gate_b1d_v3_hard_limit: candidate 8..180; max displacement 0.0042; extent drift <=0.002 per axis; topology/boundary fixed
 vibe_gate_b2_status: BLOCKED
