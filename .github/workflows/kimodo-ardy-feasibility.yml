@@ -30,9 +30,12 @@ jobs:
           python -m py_compile scripts/kimodo-ardy/check_environment.py
           python -m py_compile scripts/kimodo-ardy/extract_motion_signals.py
           python -m py_compile scripts/kimodo-ardy/make_kimodo_constraints.py
+          python -m py_compile scripts/kimodo-ardy/build_transfer_profile.py
 
-      - name: Run synthetic signal test
-        run: python tests/kimodo-ardy/test_extract_motion_signals.py
+      - name: Run synthetic signal tests
+        run: |
+          python tests/kimodo-ardy/test_extract_motion_signals.py
+          python tests/kimodo-ardy/test_build_transfer_profile.py
 
       - name: Validate generated Kimodo constraint files
         run: |
