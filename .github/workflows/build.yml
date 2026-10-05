@@ -17,6 +17,11 @@ jobs:
       - run: npm run build
       - name: Verify 2.5D pages are in production build
         run: test -f dist/race-2_5d.html && test -f dist/race-quality.html
+      - name: Install ffmpeg for P E A interpolation review
+        if: ${{ startsWith(github.head_ref, 'feat/2p5d-survivor-pea-12frame-') || startsWith(github.ref_name, 'feat/2p5d-survivor-pea-12frame-') }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
       - name: Generate P E A 12-frame interpolation candidate
         if: ${{ startsWith(github.head_ref, 'feat/2p5d-survivor-pea-12frame-') || startsWith(github.ref_name, 'feat/2p5d-survivor-pea-12frame-') }}
         run: bash scripts/generate-pea-12frame-review.sh
