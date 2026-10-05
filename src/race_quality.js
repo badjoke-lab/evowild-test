@@ -59,6 +59,7 @@ stage.dataset.fieldSize = String(FIELD_SIZE);
 stage.dataset.cameraPolicy = "selected-plus-nearby";
 stage.dataset.peaMotionVersion = "grounded-stride-v2";
 stage.dataset.peaAnchorVersion = "alpha-bbox-x-v3";
+stage.dataset.aSheetLayout = "2x3";
 const LANE_PATTERN = [1, 2, 0, 3, 1, 3, 0, 2];
 const CRUISE_PATTERN = [36.8,34.7,35.9,34.9,36.1,35.2,35.6,34.8];
 const ACCEL_PATTERN = [15.0,13.4,14.3,13.6,14.0,13.5,13.9,13.4];
@@ -171,14 +172,21 @@ const RUN_FRAMES = [
   { phase:"LAND",    col:2, row:1, y:-0.16 }
 ];
 
+const SHEET_LAYOUTS = {
+  S: { cols:3, rows:2, coords:[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1]] },
+  P: { cols:3, rows:2, coords:[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1]] },
+  E: { cols:3, rows:2, coords:[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1]] },
+  A: { cols:2, rows:3, coords:[[0,0],[1,0],[0,1],[1,1],[0,2],[1,2]] }
+};
+
 const spriteSheets = new Map();
 const spriteFrames = new Map();
 let readySheets = 0;
 let failedSheets = 0;
 
-function extractConnectedFrame(image, col, row) {
-  const fw = Math.floor(image.naturalWidth / 3);
-  const fh = Math.floor(image.naturalHeight / 2);
+function extractConnectedFrame(image, col, row, cols=3, rows=2) {
+  const fw = Math.floor(image.naturalWidth / cols);
+  const fh = Math.floor(image.naturalHeight / rows);
   const canvas = document.createElement("canvas");
   canvas.width = fw;
   canvas.height = fh;
@@ -272,8 +280,13 @@ for (const morph of ["S","P","E","A"]) {
   const image = new Image();
   image.decoding = "async";
   image.onload = () => {
-    const frames = RUN_FRAMES.map((frame) => extractConnectedFrame(image, frame.col, frame.row));
+    const layout = SHEET_LAYOUTS[morph] ?? SHEET_LAYOUTS.S;
+    const frames = RUN_FRAMES.map((frame,index) => {
+      const [col,row] = layout.coords[index] ?? [frame.col,frame.row];
+      return extractConnectedFrame(image,col,row,layout.cols,layout.rows);
+    });
     spriteFrames.set(morph, frames);
+    stage.dataset[`${morph.toLowerCase()}SheetLayout`] = `${layout.cols}x${layout.rows}`;
     if (morph !== "S") {
       const feet = frames.map((frame) => frame.__motionMetrics?.footYNorm ?? 0.98);
       const spread = Math.max(...feet) - Math.min(...feet);
