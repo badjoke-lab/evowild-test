@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_B1D_V3_REVIEW",
-  "current_stage": "B1d-v3 signed tapered bridge projection rendered; review pending; modeling stopped",
+  "stage": "VIBE_EXPERIMENT_B2A_V1_READY",
+  "current_stage": "Gate B1 closed on B1c-v2 working source; B2a-v1 proximal forelimb-root massing ready",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
-  "current_model_file": "output/S-vibe-b1d-v3.blend",
+  "current_model_file": "output/S-vibe-b1c-v2.blend",
   "source_model_file": "output/S-vibe-b0-v025.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Review B1d-v3 against B1d-v2/B1d-v1/B1c-v2 and approved S references. Decide KEEP/REVISE. B2 remains blocked.",
+  "next_action": "Execute B2a-v1 from B1c-v2 using accepted A3a station0->1 centers/radii as a tapered elliptical root guide. Max displacement 0.0050. Render five views and STOP. Do not start B2b.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -60,7 +60,7 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "ACCEPTED",
-  "modeling_status": "STOPPED",
+  "modeling_status": "READY_FOR_B2A_V1",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/vibe-b1d-v3/S_vibe_b1d_v3_side.png",
@@ -196,7 +196,7 @@
   "b1b_v2_decision": "REVISE",
   "b1b_v2_review": "S_VIBE_B1B_V2_REVIEW.md",
   "b1b_v2_review_status": "COMPLETE",
-  "b2_status": "BLOCKED",
+  "b2_status": "OPEN",
   "actual_reviewed_references": [
     "references/00_full_reference.png",
     "references/01_s_body_primary.png",
@@ -510,5 +510,59 @@
       "non_manifold_edges": 0
     },
     "stop_after": "five-view render + validation + actual-image review"
-  }
+  },
+  "b1_decision": "ACCEPTED_WORKING_SOURCE_WITH_ROOT_DEFERRED_TO_B2",
+  "b1_accepted_model": "output/S-vibe-b1c-v2.blend",
+  "b1_deferred_issue": "proximal forelimb root / station0-to-station1 continuity",
+  "b1d_v3_decision": "REVISE",
+  "b1d_v3_review": "S_VIBE_B1D_V3_REVIEW.md",
+  "b2a_status": "READY",
+  "b2a_v1": {
+    "source": "output/S-vibe-b1c-v2.blend",
+    "target": "proximal forelimb root station0->1 only",
+    "station0": {
+      "abs_x": 0.115,
+      "y": -0.03,
+      "z": 0.985,
+      "lateral_radius": 0.068,
+      "sagittal_radius": 0.095
+    },
+    "station1": {
+      "abs_x": 0.148,
+      "y": 0.035,
+      "z": 0.845,
+      "lateral_radius": 0.056,
+      "sagittal_radius": 0.07
+    },
+    "support": {
+      "abs_x": [
+        0.055,
+        0.215
+      ],
+      "y": [
+        -0.075,
+        0.085
+      ],
+      "z": [
+        0.78,
+        1.06
+      ]
+    },
+    "method": {
+      "type": "signed tapered elliptical segment projection",
+      "ratio_error_threshold": 0.12,
+      "gain": 0.45,
+      "max_displacement": 0.005
+    },
+    "hard_limits": {
+      "candidate_count": [
+        20,
+        220
+      ],
+      "extent_drift_per_axis": 0.002,
+      "non_manifold_edges": 0
+    },
+    "stop_after": "five-view render + validation + actual-image review"
+  },
+  "b2b_status": "BLOCKED"
 }
