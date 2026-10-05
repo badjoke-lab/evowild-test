@@ -53,6 +53,7 @@ stage.dataset.engineLineage = "lane5-fixed-step-plus-four-morph-run-sheets";
 stage.dataset.morphSet = "S,P,E,A";
 stage.dataset.fieldSize = String(FIELD_SIZE);
 stage.dataset.cameraPolicy = "selected-plus-nearby";
+stage.dataset.peaMotionVersion = "grounded-stride-v2";
 const LANE_PATTERN = [1, 2, 0, 3, 1, 3, 0, 2];
 const CRUISE_PATTERN = [36.8,34.7,35.9,34.9,36.1,35.2,35.6,34.8];
 const ACCEL_PATTERN = [15.0,13.4,14.3,13.6,14.0,13.5,13.9,13.4];
