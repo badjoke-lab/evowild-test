@@ -392,6 +392,10 @@ test("2.5D P E A grounded-stride v2 exposes six distinct live phases", async ({ 
     await expect(stage).toHaveAttribute(`data-${morph.toLowerCase()}-ground-anchor`, "auto-foot-v2");
     await expect(stage).toHaveAttribute("data-pea-motion-version", "grounded-stride-v2");
     await expect(stage).toHaveAttribute("data-pea-anchor-version", "alpha-bbox-x-v3");
+    await expect(stage).toHaveAttribute(
+      `data-${morph.toLowerCase()}-sheet-layout`,
+      morph === "A" ? "2x3" : "3x2"
+    );
     await expect(stage).toHaveAttribute("data-camera-subject", "motion-review-isolated");
 
     const rawFootSpread = Number(await stage.getAttribute(`data-${morph.toLowerCase()}-foot-spread-raw`));
