@@ -1,4 +1,4 @@
-# Tripo S Motion Bench — Work execution instructions
+# Tripo S Motion Bench — Work execution instructions v0.2
 
 Repository: `badjoke-lab/evowild-test`
 
@@ -12,112 +12,208 @@ Do not create another branch.
 - `docs/reviews/tripo-s-motion-bench-review.md`
 - `art/motion/tripo-s/bench-manifest.json`
 
-## Hard scope
+## Hard rule: repository-first handoff
 
-This task is Tripo motion evaluation only.
+Do not finish by attaching files only in chat.
 
-Do not modify:
+Before reporting a gate complete:
 
-- `exp/s-creature-vibe-modeling`
-- `feat/s-creature-model`
-- Motion First production/runtime behavior
-- UniMate bench
-- 2.5D / Sakura / Sprite / Hunyuan lanes
+1. commit the real export or the repository-safe normalized GLB;
+2. commit/update the review metadata and ledger;
+3. push this exact branch;
+4. wait for the branch/PR CI review job;
+5. report the commit SHA and Actions run ID.
 
-Locked input:
+The downstream reviewer will fetch the evidence directly from GitHub / Actions. Manual user download-and-reupload is not part of the workflow.
+
+Never commit credentials, API keys, session cookies, signed private URLs, or other secrets.
+
+## Model and geometry LOD
+
+### Primary Tripo input
+
+Use exactly:
+
+`public/models/evowild-s/source-lod2.glb`
+
+This is the canonical unrigged S shape source (~13,270 triangles).
+
+Reason: Tripo Auto Rig is being evaluated. It should create its own quadruped skeleton from clean canonical geometry rather than being confused with the existing EvoWild v5 rig.
+
+### Density fallback only
+
+If and only if LOD2 fails for an import/geometry-density reason, try:
+
+`public/models/evowild-s/race-lod4.glb`
+
+This is the unrigged lower-density S (~3,316 triangles).
+
+Do not use LOD4 merely because the LOD2 quadruped skeleton looks bad. A bad skeleton is a T0 failure, not permission to hide the problem.
+
+### Comparison reference
+
+Use:
 
 `public/models/evowild-s/focus-rigged-v5.glb`
 
-Do not substitute a Vibe Modeling asset.
+only as the current EvoWild near-camera motion reference.
 
-## T0 — import / rig compatibility
+Do not Auto Rig this first. It already contains the existing 19-bone v5 rig and would confound the Tripo rigging test.
 
-1. Obtain the locked GLB from the repository.
-2. Open Tripo Studio and import/upload that GLB.
-3. Before spending rigging credits, run Tripo's riggability / rig check when available. Record whether Tripo recognizes the asset as riggable and whether it recommends `quadruped`.
-4. If the check passes, run Auto Rig using the quadruped path. Do not use biped merely to force success.
-5. Inspect the actual rigged model before generating motion.
-6. Confirm all four limbs remain distinct, head / neck / tail remain present, left/right joint orientation is sane, and no destructive topology/orientation change prevents comparison.
-7. Record T0 evidence in `docs/reviews/tripo-s-motion-bench-review.md`.
+Do not substitute:
 
-If import or rigging is broken, set T0 to `REJECT_IMPORT` and stop.
+- `focus-rigged-v5-headfix.glb`
+- v31
+- current Vibe Modeling/B1 assets
 
-## T1 — Text to Motion, one sprint only
+## T0 — Auto Rig / export compatibility
 
-Only if T0 passes, use Tripo Studio's **Create Your Own Animation / AI Animation (Text to Motion)** flow.
+1. Fetch latest remote branch before work.
+2. Upload `source-lod2.glb` to Tripo Studio.
+3. Run rig-check / compatibility check if the Studio UI exposes it.
+4. Select the creature/non-humanoid rig path and `quadruped`.
+5. Do not force `biped`.
+6. Run Auto Rig.
+7. Inspect neutral pose and actual skeleton result.
+8. Confirm four limbs, joints, spine, neck, head and tail remain usable.
+9. Export the rigged result as GLB if available. FBX may also be preserved.
+10. Re-open/re-import the export before passing T0.
 
-Generate exactly **one** 5-second candidate first:
+Required repository output:
 
-`maximum-effort forward quadrupedal sprint, explosive long stride, strong shoulder and pelvis drive, stable forward travel`
+- `public/experiments/tripo-s/t0-rigged-lod2.glb`
+- optional untouched raw export under `art/motion/tripo-s/raw/`
+- `art/motion/tripo-s/review/t0-session.json`
+- updated `docs/reviews/tripo-s-motion-bench-review.md`
 
-Do not add camera, appearance, environment, lore, race-strategy or lighting words.
+If LOD2 fails specifically from density/import handling, record the failure and run one LOD4 fallback. Name it explicitly:
 
-Do not use Multi-stage Motion yet. Do not generate the other eleven clips yet.
+`public/experiments/tripo-s/t0-rigged-lod4-fallback.glb`
 
-The purpose of T1 is to answer one question only: does Tripo's generated custom motion survive on the locked EvoWild S rig well enough to justify expansion?
+T0 decision:
 
-## Export
+- `PASS_TO_T1`
+- `PASS_TO_T1_WITH_LOD4_FALLBACK`
+- `REJECT_IMPORT_OR_RIG`
 
-Export the real animated 3D result in the best reusable supported format.
+If rejected, stop.
 
-Prefer FBX with skeleton + the generated animation when the Studio export offers it; GLB is acceptable if it preserves the required animation data more reliably.
+## T1 — Text to Motion: steady straight run only
 
-Preserve an untouched copy under:
+Only after T0 passes.
 
-`art/motion/tripo-s/raw/`
+Use Tripo Studio's Text to Motion / Create Your Own Animation flow.
 
-If normalization is needed for EvoWild replay, write a separate artifact under:
+Generate exactly one 5-second candidate using this prompt:
 
-`art/motion/tripo-s/normalized/`
+`A quadruped creature runs straight forward at a steady racing speed. Powerful hind-leg propulsion, clear alternating foot contacts, stable athletic torso, minimal vertical bouncing, head facing forward. Natural grounded foot contact. Continuous run.`
 
-Never overwrite the raw export.
+Do not add:
 
-## Review evidence
+- maximum sprint
+- acceleration
+- turning
+- lateral movement
+- overtaking
+- fatigue
+- camera
+- appearance
+- environment
+- lore
+- Multi-stage Motion
 
-Replay the exported 3D animation, not only the Tripo viewport, and capture:
+The purpose is to isolate basic quadruped locomotion quality.
 
-- SIDE
-- LOW
-- CHASE
-- FRONT
+## T1 export
 
-Store evidence under:
+Prefer an animation-bearing GLB because the repository review page can replay it directly.
 
-`art/motion/tripo-s/review/`
+Required review asset:
 
-Then fill the T1 comparison table against Motion First v5.
+`public/experiments/tripo-s/t1-steady-run.glb`
 
-Required failure checks include foot skating, penetration/floating, reversed or collapsing knees, fore/hind phase coherence, shoulder/pelvis drive, spine behavior, head/neck follow-through, tail behavior, root-motion/cadence mismatch, export stability and replay stability.
+If Tripo's best untouched export is FBX, also preserve it under:
 
-Allowed T1 decisions:
+`art/motion/tripo-s/raw/t1-steady-run.fbx`
 
-- `EXPAND`
+Then create a separate GLB review copy without overwriting the raw FBX.
+
+Record conversion/normalization details in:
+
+`art/motion/tripo-s/review/t1-session.json`
+
+## T1 review automation
+
+Once `public/experiments/tripo-s/t1-steady-run.glb` is committed and pushed, CI must run the Tripo review page and produce:
+
+- `tripo-t1-side.png`
+- `tripo-t1-low.png`
+- `tripo-t1-chase.png`
+- `tripo-t1-front.png`
+- `tripo-t1-motion-review.webm`
+
+as GitHub Actions artifact:
+
+`tripo-s-motion-review`
+
+Do not ask the user to download and paste these back. The reviewer will fetch the artifact directly.
+
+Required failure checks:
+
+- foot skating
+- penetration / floating
+- reversed/collapsing knees or ankles
+- fore/hind phase coherence
+- root-motion/cadence mismatch
+- shoulder/pelvis drive
+- spine behavior
+- excessive torso bounce
+- head/neck stability
+- tail behavior
+- export stability
+- replay stability
+
+T1 decision:
+
+- `PASS_TO_T2`
 - `KEEP_AS_REFERENCE`
 - `REJECT`
 
-Stop after the T1 decision. Do not generate T2 unless the decision is explicitly `EXPAND`.
+Stop after T1 decision unless it is `PASS_TO_T2`.
 
-## T2 — only after T1 = EXPAND
+## T2 — acceleration
 
-At T2, test the existing four-motion matrix and three repetitions per motion.
+One candidate only first. Use the prompt from the bench spec.
 
-Only here may Multi-stage Motion be evaluated, first as a separate experimental candidate such as:
+Commit/export/review with the same repository-first rule before any T3 work.
 
-`steady run -> accelerate to maximum sprint -> slight lateral move while maintaining forward speed -> return to straight sprint`
+## T3 — lateral shift / overtake
 
-Do not replace the single-action T2 clips with one multi-stage clip; compare them separately.
+Test slight lateral shift before overtake attempt.
+
+Do not generate Multi-stage Motion yet.
+
+## T4 — Multi-stage Motion
+
+Only after T1–T3 have usable individual results.
+
+## T5 — runtime integration
+
+Only after the motion itself earns adoption.
 
 ## Completion report
 
-Report:
+Report only after push:
 
-- T0 rig-check result
-- T0 decision
-- T1 decision
-- exact exported artifact paths
-- exact review image/video paths
-- whether runtime normalization was required
+- input model and geometry LOD used
+- T0 result
+- T1 result
+- exact repository artifact paths
+- exact CI artifact name
+- Actions run ID
 - commit SHA
-- whether any paid credits were consumed
+- any normalization/conversion performed
+- credits consumed, if visible
+- whether paid credits were required
 
-Do not claim motion quality from the Tripo viewport alone; base the decision on the exported/replayed artifact.
+Do not report a pass from the Tripo viewport alone.
