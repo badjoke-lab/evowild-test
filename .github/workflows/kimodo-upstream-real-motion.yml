@@ -77,6 +77,21 @@ jobs:
             cp "$TMP/$CASE.meta.json" "$OUT/$CASE.meta.json"
           done
 
+      - name: Build safe transfer profiles
+        shell: bash
+        run: |
+          set -euo pipefail
+          SRC="experiments/kimodo-ardy/upstream-baselines"
+          OUT="experiments/kimodo-ardy/transfer-profiles"
+          mkdir -p "$OUT"
+          for CASE in 01_single_text_prompt 05_root_path 06_root_waypoints; do
+            python scripts/kimodo-ardy/build_transfer_profile.py \
+              --summary "$SRC/$CASE.summary.json" \
+              --meta "$SRC/$CASE.meta.json" \
+              --timeseries "$SRC/$CASE.timeseries.csv" \
+              --output "$OUT/$CASE.profile.json"
+          done
+
       - name: Write provenance
         shell: bash
         run: |
@@ -127,7 +142,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add experiments/kimodo-ardy/upstream-baselines
+          git add experiments/kimodo-ardy/upstream-baselines experiments/kimodo-ardy/transfer-profiles
           if git diff --cached --quiet; then
             echo "No baseline changes to commit."
             exit 0
