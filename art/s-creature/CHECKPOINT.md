@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe B1d-v2 actual-image review complete; REVISE; B1d-v3 signed tapered-bridge projection ready
+current_stage: experimental Vibe B1d-v3 signed tapered bridge projection rendered; REVIEW_PENDING / STOPPED
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-b1c-v2.blend
+current_model_file: output/S-vibe-b1d-v3.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute B1d-v3 independently from B1c-v2. Use signed boundary-tapered projection toward the same tapered shoulder-limb bridge; |ratio-1|>0.05; gain 0.35; max displacement 0.0042; topology/boundary fixed. Render five views and STOP. B2 remains blocked.
+next_action: Review B1d-v3 five views against B1d-v2/B1d-v1/B1c-v2 and approved S references. Decide KEEP/REVISE. B2 remains blocked.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -660,3 +660,12 @@ vibe_gate_b1d_v3_source: output/S-vibe-b1c-v2.blend
 vibe_gate_b1d_v3_method: signed boundary-tapered tapered-bridge projection; inside/outside deviations both corrected
 vibe_gate_b1d_v3_hard_limit: candidate 8..180; max displacement 0.0042; extent drift <=0.002 per axis; topology/boundary fixed
 vibe_gate_b2_status: BLOCKED
+
+vibe_gate_b1d_v3_status: REVIEW_PENDING
+vibe_gate_b1d_v3_scope: signed boundary-tapered tapered bridge projection; topology/boundary fixed
+vibe_gate_b1d_v3_renders:
+- output/review/vibe-b1d-v3/S_vibe_b1d_v3_side.png
+- output/review/vibe-b1d-v3/S_vibe_b1d_v3_front.png
+- output/review/vibe-b1d-v3/S_vibe_b1d_v3_front34.png
+- output/review/vibe-b1d-v3/S_vibe_b1d_v3_rear34.png
+- output/review/vibe-b1d-v3/S_vibe_b1d_v3_back.png
