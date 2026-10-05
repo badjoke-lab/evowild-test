@@ -1,0 +1,21 @@
+{
+  "gate": "T0",
+  "status": "NOT_RUN",
+  "input_path": "public/models/evowild-s/source-lod2.glb",
+  "geometry_lod": "LOD2",
+  "tripo_rig_model_version": "v2.5-20260210",
+  "rig_type": "quadruped",
+  "rig_check_result": null,
+  "fallback_used": false,
+  "output_glb": "public/experiments/tripo-s/t0-rigged-lod2.glb",
+  "raw_outputs": [],
+  "four_limbs_intact": null,
+  "joints_sane": null,
+  "head_neck_spine_tail_intact": null,
+  "orientation_usable": null,
+  "reopened_export_ok": null,
+  "credits_consumed": null,
+  "paid_credits_used": null,
+  "commit_sha": null,
+  "notes": null
+}
