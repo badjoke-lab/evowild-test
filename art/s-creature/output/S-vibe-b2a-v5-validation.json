@@ -1,0 +1,91 @@
+{
+  "lane": "exp/s-creature-vibe-modeling",
+  "gate": "B2a-v5-preunion-forelimb-root-rebuild",
+  "source": "S-vibe-a4-v2.blend",
+  "decision": "REVIEW_PENDING",
+  "method": "add two buried proximal rings to each forelimb, then B0-style join + voxel remesh",
+  "voxel_size": 0.025,
+  "new_root_spec": {
+    "embed_m2": {
+      "abs_x": 0.078,
+      "y": -0.09,
+      "z": 1.05,
+      "lateral_radius": 0.09,
+      "sagittal_radius": 0.12
+    },
+    "transition_m1": {
+      "abs_x": 0.098,
+      "y": -0.06,
+      "z": 1.02,
+      "lateral_radius": 0.08,
+      "sagittal_radius": 0.108
+    }
+  },
+  "rebuilt_forelimb_vertex_count_each": 72,
+  "source_stations_0_to_6_unchanged": true,
+  "non_forelimb_source_geometry_unchanged_before_union": true,
+  "baseline_union_bbox_min": [
+    -0.2080792486667633,
+    -0.7199999690055847,
+    0.04089080169796944
+  ],
+  "baseline_union_bbox_max": [
+    0.2080792486667633,
+    1.659999966621399,
+    1.4000000953674316
+  ],
+  "rebuilt_union_bbox_min": [
+    -0.2080792486667633,
+    -0.7199999690055847,
+    0.04089080169796944
+  ],
+  "rebuilt_union_bbox_max": [
+    0.2080792486667633,
+    1.659999966621399,
+    1.4000000953674316
+  ],
+  "preunion_bbox_max_drift": 0.0,
+  "output_body_object": "S_B2a_v5_continuous_body",
+  "output_body_vertex_count": 5728,
+  "output_body_polygon_count": 5726,
+  "continuous_nonmanifold_edge_count": 0,
+  "output_bbox_min": [
+    -0.20604567229747772,
+    -0.7199999690055847,
+    0.04373600333929062
+  ],
+  "output_bbox_max": [
+    0.20645402371883392,
+    1.6521023511886597,
+    1.3978015184402466
+  ],
+  "output_bbox_max_drift": 0.007897615432739258,
+  "preserved_meshes": [
+    "S_fore_toe_L_-1",
+    "S_fore_toe_L_0",
+    "S_fore_toe_L_1",
+    "S_fore_toe_R_-1",
+    "S_fore_toe_R_0",
+    "S_fore_toe_R_1",
+    "S_hind_toe_L_-1",
+    "S_hind_toe_L_0",
+    "S_hind_toe_L_1",
+    "S_hind_toe_R_-1",
+    "S_hind_toe_R_0",
+    "S_hind_toe_R_1",
+    "S_reference_crest_v11"
+  ],
+  "preserved_geometry_hash": "bd8a446cff9dd98f85bbb33c378fc73327b1545576a654d4e0f178d00ab81dd8",
+  "preserved_geometry_unchanged": true,
+  "gate_a_source_overwritten": false,
+  "status": "REVIEW_PENDING",
+  "rendered_views": [
+    "side",
+    "front",
+    "front34",
+    "rear34",
+    "back"
+  ],
+  "render_preserved_geometry_unchanged": true,
+  "render_nonmanifold_edge_count": 0
+}

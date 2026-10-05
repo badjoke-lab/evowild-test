@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe B2a-v4 REVISE; post-B0 guide family closed; B2a-v5 pre-union forelimb-root rebuild ready
+current_stage: experimental Vibe B2a-v5 pre-union forelimb-root rebuild rendered; REVIEW_PENDING / STOPPED
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-a4-v2.blend
+current_model_file: output/S-vibe-b2a-v5.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute B2a-v5 from accepted Gate-A A4-v2. Rebuild only S_forelimb_L/R with two buried proximal transition rings while keeping original stations0..6 exact, then regenerate 0.025 continuity body and render five views. Do not start B2b.
+next_action: Review B2a-v5 five views against B2a-v4/B1c-v2/B0-v025 and approved S references. Decide KEEP/REVISE. Do not start B2b.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -748,3 +748,12 @@ vibe_gate_b2a_post_b0_guide_status: CLOSED
 vibe_gate_b2a_v5_source: output/S-vibe-a4-v2.blend
 vibe_gate_b2a_v5_method: add two proximal forelimb transition rings pre-union; keep original stations0..6 exact; regenerate B0-style voxel continuity 0.025
 vibe_gate_b2b_status: BLOCKED
+
+vibe_gate_b2a_v5_status: REVIEW_PENDING
+vibe_gate_b2a_v5_scope: pre-union forelimb root topology rebuild + same 0.025 voxel continuity
+vibe_gate_b2a_v5_renders:
+- output/review/vibe-b2a-v5/S_vibe_b2a_v5_side.png
+- output/review/vibe-b2a-v5/S_vibe_b2a_v5_front.png
+- output/review/vibe-b2a-v5/S_vibe_b2a_v5_front34.png
+- output/review/vibe-b2a-v5/S_vibe_b2a_v5_rear34.png
+- output/review/vibe-b2a-v5/S_vibe_b2a_v5_back.png
