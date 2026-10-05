@@ -2,7 +2,18 @@
 
 Branch: `exp/tripo-s-motion-bench-20261003`
 
-Status: `T0_NOT_RUN`
+Status: `T0_BLOCKED_AUTHENTICATION`
+
+## 2026-10-05 execution attempt
+
+- Latest remote checked out and fast-forward verified: `3d19579df88f4bb52ffd929595d98e4f8a5bf72a`.
+- Session evidence: `art/motion/tripo-s/review/t0-session.json`.
+- Exact LOD2 input parsed locally: valid GLB v2 header/length, 156,000 bytes, one mesh, **12,940 triangles**, zero skins, zero animation clips. The spec's approximate 13,270 count differs from the actual file; the prescribed path was retained unchanged.
+- Tripo Studio was signed out. Google was selected through secure browser authentication, but the Tripo tab became unavailable. A fresh target-origin check still showed `Sign up/Log in`; another click on the selected Google control again lost the tab.
+- **T0 not executed; no PASS or rig-quality rejection recorded.** Upload, rigging, export and re-import have not occurred. This is an access blocker, not evidence of an incompatible rig.
+- T1 not generated; T2 not started. No density fallback and no conversion/normalization performed. No generation requests submitted; no credits spent by this attempt; account balance unavailable.
+- CI currently skips both Tripo tests because the real T1 GLB is absent. A successful build is not motion-review evidence; `tripo-s-motion-review` is not expected yet.
+- Resume with authenticated Tripo Studio, run T0 on the locked LOD2 input, then exactly one T1 only if T0 passes. Stop after T1 pending external review. Never substitute the existing EvoWild rig for a Tripo output.
 
 ## Model lock
 
@@ -70,7 +81,7 @@ Allowed:
 
 Reason: `UNSET`
 
-Exact next action: `RUN_T0_ON_SOURCE_LOD2`
+Exact next action: `RESTORE_TRIPO_AUTHENTICATION_THEN_RUN_T0_ON_SOURCE_LOD2`
 
 ## T1 — steady straight run
 
