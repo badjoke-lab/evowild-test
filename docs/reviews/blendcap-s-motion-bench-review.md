@@ -2,7 +2,7 @@
 
 Branch: `exp/blendcap-s-motion-bench-20261003`
 
-Status: `GATE0_NOT_RUN`
+Status: `GATE2_PASS / GATE3_PENDING`
 
 Base main: `d25553169e4406f5af660fc5559e075163aac6ff`
 
@@ -57,7 +57,7 @@ Blender add-on register: `PASS`
 
 Blender add-on unregister: `PASS`
 
-Required model access: `NOT DOWNLOADED — SAM License acceptance required before accessing model materials`
+Required model access: `PASS — required model materials downloaded successfully in isolated Gate 1 workflow`
 
 Gate 0 decision: `PASS_CPU_TEST`
 
@@ -72,7 +72,7 @@ Reason: `Pinned source, Blender 4.2.23, disk, Python 3.12, S asset, and headless
 
 ## Gate 1 — video -> BVH
 
-Status: `DETECTOR_PREVIEW_PASS / FULL_CAPTURE_PENDING`
+Status: `PASS_REAL_BVH`
 
 Input source: `Public-domain U.S. Marine Corps Sakura Sprint 5K B-Roll (DVIDS 1001990)`
 
@@ -88,33 +88,59 @@ Target continuity: `PASS — one dominant runner tracked by YOLO11 bounding box 
 
 Preview visual review: `PASS — bounding box stays on the intended black-shirt / pink-shorts runner as he approaches camera`
 
-BVH generated: `NO — SAM 3D Body full capture not run yet`
+BVH generated: `YES`
 
-BVH path: `UNSET`
+Full-capture evidence: GitHub Actions run `37212143343`
 
-Tracking failures observed: `none at detector-preview stage except first sampled frame`
+Capture settings: `10 SAM samples across 90 input frames; capture-skip 8; no hands; fixed 50mm focal estimate`
 
-Decision: `PROCEED_TO_FULL_CAPTURE`
+Dense output: `81 frames at 30 fps / 2.66664 seconds`
+
+CPU capture time: `15:00 wall clock`
+
+Peak resident memory: `~5.97 GB`
+
+BVH artifact: `output.bvh / 118,645 bytes / 54 body joints`
+
+Tracking overlay: `PASS visual continuity on intended runner`
+
+Tracking cleanup: `clean-tracking + grounding + footskate cleanup; 113 frame-foot pairs modified`
+
+Tracking failures observed: `initial detector miss only; no recovered previous-bbox samples reported by full capture`
+
+Decision: `PASS_TO_DECOMPOSITION`
 
 ## Gate 2 — motion decomposition
 
-Status: `NOT_RUN`
+Status: `PASS_DECOMPOSITION`
 
-Root travel usable: `UNSET`
+Evidence: GitHub Actions run `37260085555`
 
-Pelvis drive usable: `UNSET`
+S rig inspected: `19 bones / existing EvoWild_S_Run_V5 action / frame range 1-25`
 
-COM rise/fall usable: `UNSET`
+Explicit S body mapping:
 
-Torso pitch/roll usable: `UNSET`
+- source hips / pelvis signal -> `pelvis`
+- source torso pitch/roll -> `spine` + `chest`
+- delayed upper-body pitch -> `neck` + `head`
+- source vertical oscillation -> small root/object-space vertical offset only
+- existing S fore/hind limb animation remains authoritative
 
-Launch timing usable: `UNSET`
+Root travel usable: `NO as literal world-speed input` — monocular/camera-relative forward translation is not trusted as race locomotion distance.
 
-Cadence envelope usable: `UNSET`
+Pelvis drive usable: `YES` — captured pelvis pitch range 3.63 deg; roll range 4.73 deg.
+
+COM rise/fall usable: `YES WITH LOW GAIN` — hips vertical range 0.1783 source units.
+
+Torso pitch/roll usable: `YES WITH LOW GAIN` — average torso pitch range 2.2765 deg; roll range 2.54365 deg.
+
+Launch timing usable: `NO` — this clip is an approach/run sample, not a launch/start clip.
+
+Cadence envelope usable: `YES AS TIMING REFERENCE` — left/right leg pitch proxy both estimate ~23 frames / 0.7667 s / 1.304 cycles per second. Existing S V5 action is 25 frames, close enough for a first hybrid comparison without replacing the quadruped limb cycle.
 
 Direct human limb mapping used: `NO`
 
-Notes: `UNSET`
+Notes: `Gate 2 decision READY_FOR_EXPLICIT_HYBRID_MAPPING. Human limbs remain excluded. Gate 3 will layer only low-gain body signals over the existing S V5 quadruped animation.`
 
 ## Gate 3 — S hybrid render
 
@@ -153,4 +179,4 @@ Allowed values:
 
 Reason: `UNSET`
 
-Exact next action: `RUN_GATE1_SHORT_CPU_SAM_CAPTURE_THEN_CONVERT_REAL_NPZ_TO_BVH`
+Exact next action: `BUILD_GATE3_LOW_GAIN_BODY_SIGNAL_HYBRID_AND_RENDER_BASELINE_VS_HYBRID_SIDE_LOW_CHASE_FRONT`
