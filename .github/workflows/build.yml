@@ -30,6 +30,10 @@ jobs:
             npx playwright test tests/race-quality.spec.js \
               --grep "four morph race uses all six-frame|battle readability|dense-pack labels avoid overlap" \
               --workers=1
+          elif [[ "$BRANCH" == feat/2p5d-survivor-pea-motion-v2-* ]]; then
+            npx playwright test tests/race-quality.spec.js \
+              --grep "four morph race uses all six-frame|P E A grounded-stride v2" \
+              --workers=1
           elif [[ "$BRANCH" == "feat/2p5d-four-morph-quality-integration-20260925" || "$BRANCH" == feat/2p5d-survivor-* ]]; then
             npx playwright test tests/race-quality.spec.js tests/2p5d-selection.spec.js --workers=1
           else
