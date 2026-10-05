@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe B1c-v2 actual-image review complete; REVISE; B1c-v3 cap-only shaping ready
+current_stage: experimental Vibe B1c-v3 upper shoulder-cap Z-only shaping rendered; REVIEW_PENDING / STOPPED
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-b1c-v2.blend
+current_model_file: output/S-vibe-b1c-v3.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute B1c-v3 from B1c-v2. X/Y exact fixed; Z-only downward residual reduction in the upper shoulder-root cap mask; lambda 0.65; 2 passes; max extra Z drop 0.004. Render five views and STOP. B2 remains blocked.
+next_action: Review B1c-v3 five views against B1c-v2/B1c-v1 and approved S references. Decide KEEP/REVISE. B2 remains blocked.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -604,3 +604,12 @@ vibe_gate_b1c_v3_source: output/S-vibe-b1c-v2.blend
 vibe_gate_b1c_v3_exact_edit: X/Y exact fixed; cap-local Z-only downward residual reduction; threshold 0.0015; lambda 0.65; 2 passes
 vibe_gate_b1c_v3_hard_limit: max extra Z drop 0.004; topology exact; extents unchanged; non-manifold 0
 vibe_gate_b2_status: BLOCKED
+
+vibe_gate_b1c_v3_status: REVIEW_PENDING
+vibe_gate_b1c_v3_scope: upper shoulder-root cap; Z down only; X/Y and topology fixed
+vibe_gate_b1c_v3_renders:
+- output/review/vibe-b1c-v3/S_vibe_b1c_v3_side.png
+- output/review/vibe-b1c-v3/S_vibe_b1c_v3_front.png
+- output/review/vibe-b1c-v3/S_vibe_b1c_v3_front34.png
+- output/review/vibe-b1c-v3/S_vibe_b1c_v3_rear34.png
+- output/review/vibe-b1c-v3/S_vibe_b1c_v3_back.png
