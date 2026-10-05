@@ -1,0 +1,74 @@
+name: S creature Gate C v8 Cue Band visibility
+
+on:
+  push:
+    branches: [feat/s-creature-model]
+    paths: [.github/workflows/s-creature-gate-c-v8.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  gate-c-v8:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/s-creature-model
+          fetch-depth: 0
+      - run: command -v xvfb-run
+      - run: |
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - env: {LIBGL_ALWAYS_SOFTWARE: "1"}
+        run: /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/gate_c_v8_cue_band.py
+      - env: {LIBGL_ALWAYS_SOFTWARE: "1"}
+        run: xvfb-run -a /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-gateC-v8.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/render_s_gate_c_v8.py
+      - run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('art/s-creature'); r=json.loads((root/'output/S-gateC-v8.json').read_text())
+          assert r['gate']=='C' and r['pass']=='v8'
+          assert r['existing_coordinates_unchanged'] and r['existing_topology_unchanged']
+          assert r['existing_modifiers_unchanged'] and r['existing_material_assignments_unchanged']
+          assert r['eye_transforms_unchanged'] and len(r['cue_band_objects'])==8
+          assert r['rendered_views']==['SIDE','FRONT','FRONT34','REAR34','BACK']
+          for stem in ('side','front','front34','rear34','back'):
+              assert (root/f'output/review/gate-c-v8/S_gateC_{stem}.png').stat().st_size>0
+          PY
+      - run: |
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+          root=Path('art/s-creature'); r=json.loads((root/'output/S-gateC-v8.json').read_text())
+          p=root/'CHECKPOINT.md'; s=p.read_text()
+          s=re.sub(r'^current_stage:.*$', 'current_stage: S Gate C v8 Cue Band visibility preview saved and five views rendered; REVIEW_PENDING / STOPPED', s, count=1, flags=re.M)
+          s=re.sub(r'^current_model_file:.*$', 'current_model_file: output/S-gateC-v8.blend', s, count=1, flags=re.M)
+          s=re.sub(r'^next_action:.*$', 'next_action: Review Gate C v8 Cue Band only. Do not add body pattern before decision.', s, count=1, flags=re.M)
+          s=re.sub(r'^modeling_status:.*$', 'modeling_status: STOPPED', s, count=1, flags=re.M)
+          s+='\n\ngate_c_v8_done: Existing Cue Band objects enlarged/repositioned for readability; base geometry and v6 eye transforms locked; five views rendered.\ngate_c_v8_acceptance: REVIEW_PENDING\n'
+          p.write_text(s)
+          hp=root/'HANDOFF_STATE.json'; h=json.loads(hp.read_text())
+          h['stage']='S-gate-C-v8-review'; h['current_stage']='S Gate C v8 Cue Band visibility preview saved and five views rendered; REVIEW_PENDING / STOPPED'
+          h['current_model_file']='output/S-gateC-v8.blend'; h['source_model_file']='output/S-gateC-v7.blend'
+          h['next_action']='Review Gate C v8 Cue Band only. Do not add body pattern before decision.'
+          h['gate_c_status']='REVIEW_PENDING'; h['modeling_status']='STOPPED'
+          h['review_renders']=[f'output/review/gate-c-v8/S_gateC_{x}.png' for x in ('side','front','front34','rear34','back')]
+          h['quality_issues']=['Gate C v8 Cue Band acceptance pending review']
+          hp.write_text(json.dumps(h,indent=2)+'\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: S-Gate-C-v8
+          path: |
+            art/s-creature/output/S-gateC-v8.blend
+            art/s-creature/output/S-gateC-v8.json
+            art/s-creature/output/review/gate-c-v8/
+      - run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add art/s-creature/output/S-gateC-v8.blend art/s-creature/output/S-gateC-v8.json art/s-creature/output/review/gate-c-v8/ art/s-creature/CHECKPOINT.md art/s-creature/HANDOFF_STATE.json
+          git commit -m 'art: save S Gate C v8 Cue Band visibility and stop for review'
+          git push origin HEAD:feat/s-creature-model

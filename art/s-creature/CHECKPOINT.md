@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S Gate C v7 Cue Band preview saved and five views rendered; REVIEW_PENDING / STOPPED
+current_stage: S Gate C v7 reviewed REVISE; Gate C v8 Cue Band visibility correction ready
 branch: feat/s-creature-model
 current_model_file: output/S-gateC-v7.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review Gate C v7 Cue Band only. Do not add body pattern before decision.
+next_action: Execute Gate C v8 Cue Band transform-only correction from S-gateC-v7.blend. Enlarge and expose the existing band/pads slightly; render five views and stop. No pattern.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -137,7 +137,7 @@ gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
 gate_a_status: PASS
-modeling_status: STOPPED
+modeling_status: READY_FOR_GATE_C_V8
 gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
 gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
@@ -441,3 +441,8 @@ gate_c_v7_rule: Cue Band preview only. Add new detail objects around the skull; 
 gate_c_v7_done: Compact Cue Band preview added as new detail objects; all existing geometry/modifiers/material assignments and v6 eye transforms locked; five views rendered.
 gate_c_v7_acceptance: REVIEW_PENDING
 gate_c_v7_base_geometry_sha256: a037893c093cc3db45e386a80c5258e12083515f2a4a48fc228c986eb64ad92c
+
+gate_c_v7_decision: REVISE
+gate_c_v7_reason: Cue Band components are too small/hidden. SIDE and FRONT34 reduce to a few dark dots and FRONT barely reads a head-mounted device. The device needs modestly stronger silhouette/readability without covering the eyes or merging with the crest.
+gate_c_v7_keep: component count, dark/navy/cyan color direction, compact skull-fitting placement.
+gate_c_v8_rule: transform-only correction on the eight existing Cue Band objects. No new objects, no eye/body/crest changes.
