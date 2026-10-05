@@ -44,6 +44,24 @@ jobs:
 
           sha256sum "$TMP"/*.npz "$TMP"/*.meta.json
 
+      - name: Inspect upstream NPZ schema
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          import numpy as np
+
+          tmp = Path(os.environ["RUNNER_TEMP"]) / "kimodo-upstream"
+          for path in sorted(tmp.glob("*.npz")):
+              print(f"===== {path.name} =====")
+              with np.load(path, allow_pickle=False) as z:
+                  print("keys:", z.files)
+                  for key in z.files:
+                      arr = np.asarray(z[key])
+                      print(key, "shape=", arr.shape, "dtype=", arr.dtype)
+          PY
+
       - name: Extract real Kimodo motion signals
         shell: bash
         run: |
