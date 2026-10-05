@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "upstream_repository": "nv-tlabs/kimodo",
+  "upstream_commit": "58e781898b3d7e328a676a75d3e338c45dce3ad9",
+  "note": "Official pre-generated Kimodo SOMA examples; validates EvoWild signal extraction on real Kimodo output without claiming a new custom generation.",
+  "cases": [
+    {
+      "case": "01_single_text_prompt",
+      "motion_sha256": "37b6f13ed9c9f55696a9f9c896e8770fbdbd622864b08cd075e4eaf3a6a21f95",
+      "motion_bytes": 217398,
+      "meta_sha256": "0e70cb9f8edf7faecc736da8af2258ed6f4eb6fb25f04a0a19c87e9c3333227a",
+      "source_motion": "https://github.com/nv-tlabs/kimodo/blob/58e781898b3d7e328a676a75d3e338c45dce3ad9/kimodo/assets/demo/examples/kimodo-soma-rp/01_single_text_prompt/motion.npz",
+      "source_meta": "https://github.com/nv-tlabs/kimodo/blob/58e781898b3d7e328a676a75d3e338c45dce3ad9/kimodo/assets/demo/examples/kimodo-soma-rp/01_single_text_prompt/meta.json"
+    },
+    {
+      "case": "05_root_path",
+      "motion_sha256": "f5878d7958c62f19163d5fc95b4111e8b4180590291bfb1ad5f2fa9ece0930e6",
+      "motion_bytes": 433998,
+      "meta_sha256": "2d1a6868ef70af6b02e0ffb27aa56177b695072dbdd903975ba45fa4099a70b7",
+      "source_motion": "https://github.com/nv-tlabs/kimodo/blob/58e781898b3d7e328a676a75d3e338c45dce3ad9/kimodo/assets/demo/examples/kimodo-soma-rp/05_root_path/motion.npz",
+      "source_meta": "https://github.com/nv-tlabs/kimodo/blob/58e781898b3d7e328a676a75d3e338c45dce3ad9/kimodo/assets/demo/examples/kimodo-soma-rp/05_root_path/meta.json"
+    },
+    {
+      "case": "06_root_waypoints",
+      "motion_sha256": "b9612c98041e35317fb89ed8821bb977abe044e5bc04e2232d6ba587dbeccb20",
+      "motion_bytes": 262162,
+      "meta_sha256": "d4f4ec4b7f0f4700e39089e345c2eecdf0140cf6b74f19ce024336734407ca1f",
+      "source_motion": "https://github.com/nv-tlabs/kimodo/blob/58e781898b3d7e328a676a75d3e338c45dce3ad9/kimodo/assets/demo/examples/kimodo-soma-rp/06_root_waypoints/motion.npz",
+      "source_meta": "https://github.com/nv-tlabs/kimodo/blob/58e781898b3d7e328a676a75d3e338c45dce3ad9/kimodo/assets/demo/examples/kimodo-soma-rp/06_root_waypoints/meta.json"
+    }
+  ]
+}
