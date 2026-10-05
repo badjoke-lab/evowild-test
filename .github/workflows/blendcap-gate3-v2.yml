@@ -1,0 +1,77 @@
+name: blendcap-gate3-hybrid-v2
+
+on:
+  push:
+    branches:
+      - exp/blendcap-s-motion-bench-20261003
+    paths:
+      - ".github/workflows/blendcap-gate3-v2.yml"
+      - "scripts/blendcap/gate3_hybrid_render_v2.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: blendcap-gate3-hybrid-v2
+  cancel-in-progress: true
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout experiment
+        uses: actions/checkout@v4
+
+      - name: Install render tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libegl1 libgl1 libgl1-mesa-dri
+
+      - name: Download Gate 2 decomposition artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p artifacts/blendcap-gate3-v2/gate2
+          gh run download 37260085555             --repo badjoke-lab/evowild-test             --name blendcap-gate2-decomposition             --dir artifacts/blendcap-gate3-v2/gate2
+          test -s artifacts/blendcap-gate3-v2/gate2/signals.json
+
+      - name: Install portable Blender 4.2.23
+        env:
+          BLENDER_URL: https://download.blender.org/release/Blender4.2/blender-4.2.23-linux-x64.tar.xz
+        run: |
+          curl --fail --location --retry 3 "$BLENDER_URL" -o "$RUNNER_TEMP/blender.tar.xz"
+          tar -xf "$RUNNER_TEMP/blender.tar.xz" -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/blender-4.2.23-linux-x64" >> "$GITHUB_PATH"
+
+      - name: Render baseline and contact-compensated hybrid v2
+        run: |
+          mkdir -p artifacts/blendcap-gate3-v2/output
+          blender --background             --python scripts/blendcap/gate3_hybrid_render_v2.py             --             public/models/evowild-s/focus-rigged-v5.glb             artifacts/blendcap-gate3-v2/gate2/signals.json             artifacts/blendcap-gate3-v2/output             2>&1 | tee artifacts/blendcap-gate3-v2/output/blender.log
+          test -s artifacts/blendcap-gate3-v2/output/gate3-metrics.json
+
+      - name: Build per-view comparison sheets
+        run: |
+          for mode in SIDE LOW CHASE FRONT; do
+            lower="$(echo "$mode" | tr 'A-Z' 'a-z')"
+            ffmpeg -hide_banner -y               -framerate 1 -i "artifacts/blendcap-gate3-v2/output/renders/$mode/baseline/%02d.png"               -vf "scale=320:-2,tile=3x1" -frames:v 1               "artifacts/blendcap-gate3-v2/output/${lower}-baseline.jpg"
+
+            ffmpeg -hide_banner -y               -framerate 1 -i "artifacts/blendcap-gate3-v2/output/renders/$mode/hybrid/%02d.png"               -vf "scale=320:-2,tile=3x1" -frames:v 1               "artifacts/blendcap-gate3-v2/output/${lower}-hybrid.jpg"
+
+            ffmpeg -hide_banner -y               -i "artifacts/blendcap-gate3-v2/output/${lower}-baseline.jpg"               -i "artifacts/blendcap-gate3-v2/output/${lower}-hybrid.jpg"               -filter_complex "vstack=inputs=2" -frames:v 1 -update 1               "artifacts/blendcap-gate3-v2/output/${lower}-comparison.jpg"
+          done
+
+      - name: Inventory
+        run: |
+          cat artifacts/blendcap-gate3-v2/output/gate3-metrics.json
+          find artifacts/blendcap-gate3-v2/output -type f -printf '%P %s bytes\n'             | sort             | tee artifacts/blendcap-gate3-v2/output/inventory.txt
+
+      - name: Upload Gate 3 v2 comparison
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blendcap-gate3-hybrid-v2
+          path: artifacts/blendcap-gate3-v2/output/
+          if-no-files-found: error
