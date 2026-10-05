@@ -1,0 +1,77 @@
+name: S creature Vibe lane Gate B1c v3 upper cap
+on:
+  push:
+    branches: [exp/s-creature-vibe-modeling]
+    paths:
+      - .github/workflows/s-creature-vibe-b1c-v3.yml
+      - art/s-creature/blender/refine_s_vibe_b1c_v3.py
+      - art/s-creature/blender/render_s_vibe_b1c_v3.py
+permissions:
+  contents: write
+concurrency:
+  group: s-creature-vibe-b1c-v3
+  cancel-in-progress: false
+jobs:
+  vibe-b1c-v3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: exp/s-creature-vibe-modeling
+          fetch-depth: 0
+      - name: Verify B1c-v3 source
+        run: |
+          test -f art/s-creature/output/S-vibe-b1c-v2.blend
+          test "$(git branch --show-current)" = "exp/s-creature-vibe-modeling"
+      - name: Install Blender libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+      - name: Download Blender
+        run: |
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Apply B1c-v3 cap-only shaping
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-vibe-b1c-v2.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/refine_s_vibe_b1c_v3.py
+      - name: Render five B1c-v3 views
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-vibe-b1c-v3.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/render_s_vibe_b1c_v3.py
+      - name: Verify B1c-v3 hard scope
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('art/s-creature')
+          r=json.loads((root/'output/S-vibe-b1c-v3-validation.json').read_text())
+          assert r['gate']=='B1c-v3-upper-cap-z-only-shaping'
+          assert r['max_extra_z_drop'] <= 0.004
+          assert all(v <= 1e-9 for v in r['whole_body_extent_drift'].values())
+          assert r['all_body_xy_unchanged']
+          assert r['non_manifold_edge_count']==0
+          assert r['render_non_manifold_edge_count']==0
+          assert r['outside_and_boundary_geometry_unchanged']
+          assert r['preserved_geometry_unchanged']
+          assert r['topology_unchanged_from_b1c_v2']
+          assert r['render_fixed_geometry_unchanged']
+          for stem in ('side','front','front34','rear34','back'):
+              assert (root/f'output/review/vibe-b1c-v3/S_vibe_b1c_v3_{stem}.png').stat().st_size>0
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: S-vibe-B1c-v3-review
+          path: |
+            art/s-creature/output/S-vibe-b1c-v3.blend
+            art/s-creature/output/S-vibe-b1c-v3-validation.json
+            art/s-creature/output/review/vibe-b1c-v3/
+          if-no-files-found: error
+      - name: Commit B1c-v3 result
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add art/s-creature/output/S-vibe-b1c-v3.blend art/s-creature/output/S-vibe-b1c-v3-validation.json art/s-creature/output/review/vibe-b1c-v3/ art/s-creature/CHECKPOINT.md art/s-creature/HANDOFF_STATE.json
+          git commit -m 'art: save Vibe B1c-v3 upper-cap review'
+          git push origin HEAD:exp/s-creature-vibe-modeling
