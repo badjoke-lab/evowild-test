@@ -21,7 +21,7 @@
     <section class="hud hud-top">
       <div class="brand">
         <strong>SIMPLIFIED RACE LANE</strong>
-        <span>18 runners · S / P / E / A · simplified 3D · motion quality preserved</span>
+        <span id="entryReadout">ENTRY Runner 01 · S · Pulse · FIT ×1.000</span>
       </div>
       <div class="race-readout">
         <span id="raceState">RUNNING</span>
@@ -35,6 +35,16 @@
       <div class="control-block course-control">
         <label class="label" for="courseSelect">COURSE</label>
         <select id="courseSelect" aria-label="Race course"></select>
+      </div>
+
+      <div class="control-block entry-control">
+        <label class="label" for="entryCreatureSelect">ENTRY</label>
+        <select id="entryCreatureSelect" aria-label="Race entry creature"></select>
+      </div>
+
+      <div class="control-block entry-control">
+        <label class="label" for="entryAgentSelect">AGENT</label>
+        <select id="entryAgentSelect" aria-label="Race entry agent"></select>
       </div>
 
       <div class="control-block">

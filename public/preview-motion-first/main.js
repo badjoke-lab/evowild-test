@@ -15,6 +15,9 @@ const positionEl = document.querySelector("#positionReadout");
 const cameraEl = document.querySelector("#cameraReadout");
 const runnerSelect = document.querySelector("#runnerSelect");
 const courseSelect = document.querySelector("#courseSelect");
+const entryCreatureSelect = document.querySelector("#entryCreatureSelect");
+const entryAgentSelect = document.querySelector("#entryAgentSelect");
+const entryReadoutEl = document.querySelector("#entryReadout");
 const pauseButton = document.querySelector("#pauseButton");
 const restartButton = document.querySelector("#restartButton");
 const resultPanel = document.querySelector("#resultPanel");
@@ -102,6 +105,37 @@ const WORLD_END = Math.max(1800, RACE_DISTANCE + 200);
 const SIMULATION_RATE = SIMPLIFIED_RACE_PAGE
   ? Math.min(4, Math.max(1, Number(params.get("simRate")) || 1))
   : 1;
+const ENTRY_AGENT_PROFILES = {
+  "balanced-v1": {
+    key: "balanced-v1",
+    id: "AGENT-01",
+    name: "Pulse",
+    strategy: "BALANCED",
+    intent: { PUSH: 1.00, CONSERVE: 1.00 }
+  },
+  "attack-v1": {
+    key: "attack-v1",
+    id: "AGENT-02",
+    name: "Surge",
+    strategy: "ATTACK",
+    intent: { PUSH: 1.08, CONSERVE: 0.92 }
+  },
+  "control-v1": {
+    key: "control-v1",
+    id: "AGENT-03",
+    name: "Anchor",
+    strategy: "CONTROL",
+    intent: { PUSH: 0.94, CONSERVE: 1.08 }
+  }
+};
+const parsedEntryRunner = Number.parseInt(params.get("entry") || "0", 10);
+const ENTRY_RUNNER_ID = Number.isInteger(parsedEntryRunner)
+  ? Math.min(RUNNER_COUNT - 1, Math.max(0, parsedEntryRunner))
+  : 0;
+const REQUESTED_ENTRY_AGENT_KEY = params.get("entryAgent") || "balanced-v1";
+const ENTRY_AGENT_PROFILE =
+  ENTRY_AGENT_PROFILES[REQUESTED_ENTRY_AGENT_KEY] ||
+  ENTRY_AGENT_PROFILES["balanced-v1"];
 const FINISH_REVIEW_MODE =
   SIMPLIFIED_RACE_PAGE && params.get("finishReview") === "1";
 const FULL_DIRECTOR_REVIEW_MODE =
@@ -169,6 +203,61 @@ function initializeCourseUi() {
   canvas.dataset.courseSelectorOptions = Object.keys(RACE_COURSE_PROFILES).join(",");
 }
 
+function applyEntryAgentProfile(runner) {
+  if (!runner?.agent) return;
+  runner.agent.entityId = ENTRY_AGENT_PROFILE.id;
+  runner.agent.entityName = ENTRY_AGENT_PROFILE.name;
+  runner.agent.profileKey = ENTRY_AGENT_PROFILE.key;
+  runner.agent.strategy = ENTRY_AGENT_PROFILE.strategy;
+  runner.agent.intent = { ...ENTRY_AGENT_PROFILE.intent };
+}
+
+function initializeRaceEntryUi() {
+  if (!SIMPLIFIED_RACE_PAGE) return;
+
+  const entryRunner = runners[ENTRY_RUNNER_ID] || runners[0];
+  applyEntryAgentProfile(entryRunner);
+
+  if (entryCreatureSelect) {
+    entryCreatureSelect.replaceChildren();
+    runners.forEach((runner) => {
+      const option = document.createElement("option");
+      option.value = String(runner.id);
+      option.textContent =
+        `${runner.name} · ${runner.morph} / ${MORPHS[runner.morph].label}`;
+      entryCreatureSelect.append(option);
+    });
+    entryCreatureSelect.value = String(entryRunner.id);
+  }
+
+  if (entryAgentSelect) {
+    entryAgentSelect.replaceChildren();
+    Object.values(ENTRY_AGENT_PROFILES).forEach((profile) => {
+      const option = document.createElement("option");
+      option.value = profile.key;
+      option.textContent =
+        `${profile.id} · ${profile.name} / ${profile.strategy}`;
+      entryAgentSelect.append(option);
+    });
+    entryAgentSelect.value = ENTRY_AGENT_PROFILE.key;
+  }
+
+  const paceFit =
+    RACE_COURSE_PROFILE.morphPaceFit?.[entryRunner.morph] ?? 1;
+  if (entryReadoutEl) {
+    entryReadoutEl.textContent =
+      `ENTRY ${entryRunner.name} · ${entryRunner.morph} · ${ENTRY_AGENT_PROFILE.name} · FIT ×${paceFit.toFixed(3)}`;
+  }
+
+  canvas.dataset.entryReady = "1";
+  canvas.dataset.entryRunnerId = String(entryRunner.id);
+  canvas.dataset.entryRunnerMorph = entryRunner.morph;
+  canvas.dataset.entryAgentId = ENTRY_AGENT_PROFILE.id;
+  canvas.dataset.entryAgentName = ENTRY_AGENT_PROFILE.name;
+  canvas.dataset.entryAgentStrategy = ENTRY_AGENT_PROFILE.strategy;
+  canvas.dataset.entryCourseFit = paceFit.toFixed(3);
+}
+
 const AGENT_COMPATIBILITY = {
   S: { PUSH: 1.00, CONSERVE: 0.70 },
   P: { PUSH: 0.94, CONSERVE: 0.76 },
@@ -179,6 +268,11 @@ const AGENT_COMPATIBILITY = {
 function createRunnerAgentState(id) {
   return {
     id: `AGENT-${String(id + 1).padStart(2, "0")}`,
+    entityId: `AGENT-${String(id + 1).padStart(2, "0")}`,
+    entityName: "Field Agent",
+    profileKey: "balanced-v1",
+    strategy: "FIELD",
+    intent: { PUSH: 1.00, CONSERVE: 1.00 },
     version: 1,
     command: "NEUTRAL",
     commandIssuedAt: -999,
@@ -3698,7 +3792,7 @@ function resetRace() {
   finished = false;
   paused = false;
   raceDirector.camera = "PACK";
-  raceDirector.focusId = 0;
+  raceDirector.focusId = ENTRY_RUNNER_ID;
   raceDirector.reason = "START";
   raceDirector.holdUntil = 0;
   raceDirector.lastLeaderId = 0;
@@ -3726,8 +3820,10 @@ function resetRace() {
     : "[]";
   canvas.dataset.directorFullShotCount = FULL_DIRECTOR_REVIEW_MODE ? "1" : "0";
   previousAppliedCamera = "PACK";
-  agentTargetRunner = 0;
-  if (agentTargetSelect) agentTargetSelect.value = "0";
+  selectedRunner = ENTRY_RUNNER_ID;
+  runnerSelect.value = String(ENTRY_RUNNER_ID);
+  agentTargetRunner = ENTRY_RUNNER_ID;
+  if (agentTargetSelect) agentTargetSelect.value = String(ENTRY_RUNNER_ID);
   startSequenceElapsed = 0;
   raceStarted = !START_SEQUENCE_ENABLED;
   pauseButton.textContent = "PAUSE";
@@ -3749,7 +3845,7 @@ function resetRace() {
     startSequenceLabelEl.textContent = START_SEQUENCE_ENABLED ? "READY" : "";
   }
   canvas.dataset.agentModel = "command-only-creature-resolved";
-  canvas.dataset.agentTargetRunner = "0";
+  canvas.dataset.agentTargetRunner = String(ENTRY_RUNNER_ID);
   canvas.dataset.agentCommand = "NEUTRAL";
   canvas.dataset.agentRunnerId = "";
   canvas.dataset.agentCommandUntil = "";
@@ -4033,7 +4129,14 @@ function resolveAgentCommand(runner, dt) {
   }
 
   const command = agent.command;
-  const compat = AGENT_COMPATIBILITY[runner.morph]?.[command] ?? 0;
+  const creatureCompatibility =
+    AGENT_COMPATIBILITY[runner.morph]?.[command] ?? 0;
+  const agentIntent = agent.intent?.[command] ?? 1;
+  const compat = THREE.MathUtils.clamp(
+    creatureCompatibility * agentIntent,
+    0,
+    1.12
+  );
   const staminaFactor = THREE.MathUtils.clamp(runner.stamina, 0, 1);
   const fatiguePenalty = THREE.MathUtils.clamp(1 - runner.fatigue * 0.72, 0.25, 1);
   const pressurePenalty =
@@ -4107,8 +4210,9 @@ function showAgentFeedback(runner, command) {
   agentFeedbackEl.dataset.tone = "neutral";
 
   if (agentFeedbackMetaEl) {
-    agentFeedbackMetaEl.textContent = 
-      `${runner.agent.id} → ${runner.name}`;
+    const agentIdentity = runner.agent.entityId || runner.agent.id;
+    agentFeedbackMetaEl.textContent =
+      `${agentIdentity} → ${runner.name}`;
   }
   if (agentFeedbackCommandEl) agentFeedbackCommandEl.textContent = command;
   if (agentFeedbackResultEl) {
@@ -5830,7 +5934,7 @@ function updateHud(dt) {
             ? agentTarget.agent.lastResult === "NEUTRAL"
               ? "No active command"
               : `Last: ${agentTarget.agent.lastResult}`
-            : `${agentTarget.agent.id} v${agentTarget.agent.version} · ${agentTarget.agent.lastResult}`;
+            : `${agentTarget.agent.entityId || agentTarget.agent.id} · ${agentTarget.agent.strategy} · ${agentTarget.agent.lastResult}`;
       }
       agentCommandButtons.forEach((button) => {
         button.classList.toggle(
@@ -5853,6 +5957,12 @@ function updateHud(dt) {
         agentTarget.agent.fatigueFactor.toFixed(3);
       canvas.dataset.agentFocusEffectiveFactor =
         agentTarget.agent.effectiveFactor.toFixed(3);
+      canvas.dataset.agentFocusEntityId =
+        agentTarget.agent.entityId || agentTarget.agent.id;
+      canvas.dataset.agentFocusStrategy =
+        agentTarget.agent.strategy || "FIELD";
+      canvas.dataset.agentFocusProfile =
+        agentTarget.agent.profileKey || "balanced-v1";
       canvas.dataset.agentBalanceModel = "fatigue-tradeoff-v1";
       canvas.dataset.agentBalanceReview = AGENT_BALANCE_REVIEW_MODE ? "1" : "0";
       canvas.dataset.agentModel = "command-only-creature-resolved";
@@ -5931,9 +6041,13 @@ function renderRaceResults(finalOrder) {
       rank: index + 1,
       id: runner.id,
       morph: runner.morph,
-      time: Number(runner.finishTime.toFixed(3))
+      time: Number(runner.finishTime.toFixed(3)),
+      isEntry: runner.id === ENTRY_RUNNER_ID
     }))
   );
+  const entryRank =
+    finalOrder.findIndex((runner) => runner.id === ENTRY_RUNNER_ID) + 1;
+  canvas.dataset.entryFinalRank = String(entryRank);
 
   if (winnerNameEl) {
     winnerNameEl.textContent =
@@ -5959,6 +6073,13 @@ function renderRaceResults(finalOrder) {
       const morph = document.createElement("small");
       morph.textContent = runner.morph;
       runnerCell.append(name, morph);
+      if (runner.id === ENTRY_RUNNER_ID) {
+        row.classList.add("entry-result");
+        const marker = document.createElement("small");
+        marker.className = "entry-result-marker";
+        marker.textContent = "YOUR ENTRY";
+        runnerCell.append(marker);
+      }
 
       const time = document.createElement("span");
       time.className = "result-time";
@@ -6003,22 +6124,38 @@ function finishCheck() {
   }
 }
 
+function reloadRaceSetupParam(key, value) {
+  const next = new URLSearchParams(window.location.search);
+  next.set(key, value);
+  next.delete("finishReview");
+  next.delete("fullDirectorReview");
+  next.delete("agentBalanceReview");
+  next.delete("positioningReview");
+  next.delete("proxyReviewRunner");
+  next.delete("visualSwap");
+  next.delete("visualSwapRunner");
+  next.delete("simRate");
+  window.location.search = next.toString();
+}
+
 if (courseSelect) {
   courseSelect.addEventListener("change", () => {
     const selectedCourse = courseSelect.value;
     if (!RACE_COURSE_PROFILES[selectedCourse]) return;
+    reloadRaceSetupParam("course", selectedCourse);
+  });
+}
 
-    const next = new URLSearchParams(window.location.search);
-    next.set("course", selectedCourse);
-    next.delete("finishReview");
-    next.delete("fullDirectorReview");
-    next.delete("agentBalanceReview");
-    next.delete("positioningReview");
-    next.delete("proxyReviewRunner");
-    next.delete("visualSwap");
-    next.delete("visualSwapRunner");
-    next.delete("simRate");
-    window.location.search = next.toString();
+if (entryCreatureSelect) {
+  entryCreatureSelect.addEventListener("change", () => {
+    reloadRaceSetupParam("entry", entryCreatureSelect.value);
+  });
+}
+
+if (entryAgentSelect) {
+  entryAgentSelect.addEventListener("change", () => {
+    if (!ENTRY_AGENT_PROFILES[entryAgentSelect.value]) return;
+    reloadRaceSetupParam("entryAgent", entryAgentSelect.value);
   });
 }
 
@@ -6245,6 +6382,7 @@ async function boot() {
   await prepareRaceVisualSwapAsset();
   initializeCourseUi();
   createRunners();
+  initializeRaceEntryUi();
   resetRace();
 
   if (SIMPLIFIED_RACE_PAGE) {
@@ -6274,6 +6412,9 @@ async function boot() {
     canvas.dataset.courseFatigueA =
       String(RACE_COURSE_PROFILE.fatigueBuildFit.A);
     canvas.dataset.simulationRate = String(SIMULATION_RATE);
+    canvas.dataset.entryRunnerId = String(ENTRY_RUNNER_ID);
+    canvas.dataset.entryAgentId = ENTRY_AGENT_PROFILE.id;
+    canvas.dataset.entryAgentStrategy = ENTRY_AGENT_PROFILE.strategy;
 
     if (
       Number.isInteger(PROXY_REVIEW_RUNNER) &&
