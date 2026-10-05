@@ -1,0 +1,77 @@
+{
+  "project": "EvoWild Run",
+  "bench": "Tripo S Motion Bench",
+  "version": "0.2",
+  "branch": "exp/tripo-s-motion-bench-20261003",
+  "current_main_reference": "475e1ff6c1e047b227fa400215714994edc40368",
+  "evidence_policy": "repository_first_no_manual_chat_handoff",
+  "model_policy": {
+    "tripo_primary_input": {
+      "path": "public/models/evowild-s/source-lod2.glb",
+      "geometry_lod": "LOD2",
+      "rigged": false,
+      "approx_triangles": 13270,
+      "role": "canonical_unrigged_shape_for_tripo_auto_rig"
+    },
+    "tripo_density_fallback": {
+      "path": "public/models/evowild-s/race-lod4.glb",
+      "geometry_lod": "LOD4",
+      "rigged": false,
+      "approx_triangles": 3316,
+      "allowed_only_for": "clear_import_or_geometry_density_failure"
+    },
+    "evowild_motion_reference": {
+      "path": "public/models/evowild-s/focus-rigged-v5.glb",
+      "rigged": true,
+      "bone_count": 19,
+      "role": "current_near_camera_motion_comparison_reference_not_primary_tripo_input"
+    },
+    "forbidden_primary_inputs": [
+      "public/models/evowild-s/focus-rigged-v5-headfix.glb",
+      "public/models/evowild-s/focus-rigged-v31.glb",
+      "current Vibe Modeling B1 assets"
+    ]
+  },
+  "current_gate": "T0_AUTO_RIG_COMPATIBILITY",
+  "levels": [
+    {
+      "id": "T0",
+      "name": "auto_rig_export_compatibility"
+    },
+    {
+      "id": "T1",
+      "name": "steady_straight_run",
+      "duration_seconds": 5
+    },
+    {
+      "id": "T2",
+      "name": "acceleration"
+    },
+    {
+      "id": "T3",
+      "name": "lateral_shift_and_overtake"
+    },
+    {
+      "id": "T4",
+      "name": "multi_stage_motion"
+    },
+    {
+      "id": "T5",
+      "name": "evowild_runtime_integration"
+    }
+  ],
+  "t1_prompt": "A quadruped creature runs straight forward at a steady racing speed. Powerful hind-leg propulsion, clear alternating foot contacts, stable athletic torso, minimal vertical bouncing, head facing forward. Natural grounded foot contact. Continuous run.",
+  "required_review_asset": "public/experiments/tripo-s/t1-steady-run.glb",
+  "review_views": [
+    "SIDE",
+    "LOW",
+    "CHASE",
+    "FRONT"
+  ],
+  "ci_artifact_name": "tripo-s-motion-review",
+  "t1_decisions": [
+    "PASS_TO_T2",
+    "KEEP_AS_REFERENCE",
+    "REJECT"
+  ]
+}

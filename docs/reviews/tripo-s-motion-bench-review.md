@@ -1,0 +1,167 @@
+# Tripo S Motion Bench — Review Ledger v0.2
+
+Branch: `exp/tripo-s-motion-bench-20261003`
+
+Status: `T0_NOT_RUN`
+
+## Model lock
+
+Primary Tripo Auto Rig input:
+
+`public/models/evowild-s/source-lod2.glb`
+
+Geometry level: `LOD2`
+
+Rig state: `UNRIGGED`
+
+Approx triangles: `13270`
+
+Fallback only for clear import/density failure:
+
+`public/models/evowild-s/race-lod4.glb`
+
+Geometry level: `LOD4`
+
+Rig state: `UNRIGGED`
+
+Approx triangles: `3316`
+
+Existing EvoWild comparison reference:
+
+`public/models/evowild-s/focus-rigged-v5.glb`
+
+Role: current 19-bone near-camera Motion First reference, **not** primary Tripo Auto Rig input.
+
+## T0 — Auto Rig / export compatibility
+
+Input used: `UNSET`
+
+Geometry LOD used: `UNSET`
+
+Import result: `UNSET`
+
+Rig check result: `UNSET`
+
+Recommended/selected rig type: `UNSET`
+
+Tripo creature/non-humanoid rig path used: `UNSET`
+
+Four limbs intact: `UNSET`
+
+Joint direction sane: `UNSET`
+
+Head / neck / spine / tail intact: `UNSET`
+
+Scale/orientation usable: `UNSET`
+
+Rigged export re-opened successfully: `UNSET`
+
+Primary repository artifact: `UNSET`
+
+Fallback attempted: `NO`
+
+T0 decision: `UNSET`
+
+Allowed:
+
+- `PASS_TO_T1`
+- `PASS_TO_T1_WITH_LOD4_FALLBACK`
+- `REJECT_IMPORT_OR_RIG`
+
+Reason: `UNSET`
+
+Exact next action: `RUN_T0_ON_SOURCE_LOD2`
+
+## T1 — steady straight run
+
+Generator: `Tripo Studio Text to Motion / Create Your Own Animation`
+
+Duration target: `5s`
+
+Prompt:
+
+`A quadruped creature runs straight forward at a steady racing speed. Powerful hind-leg propulsion, clear alternating foot contacts, stable athletic torso, minimal vertical bouncing, head facing forward. Natural grounded foot contact. Continuous run.`
+
+Raw artifact: `UNSET`
+
+Review GLB:
+
+`public/experiments/tripo-s/t1-steady-run.glb`
+
+Normalization required: `UNSET`
+
+CI artifact: `tripo-s-motion-review`
+
+Actions run: `UNSET`
+
+### T1 measurements
+
+| Check | EvoWild focus-rigged-v5 reference | Tripo T1 | Note |
+|---|---|---|---|
+| stance foot skating | baseline | UNSET | UNSET |
+| penetration / floating | baseline | UNSET | UNSET |
+| fore/hind phase coherence | baseline | UNSET | UNSET |
+| joint reversal / collapse | baseline | UNSET | UNSET |
+| root / cadence match | baseline | UNSET | UNSET |
+| shoulder / chest drive | baseline | UNSET | UNSET |
+| pelvis drive | baseline | UNSET | UNSET |
+| spinal compression / extension | baseline | UNSET | UNSET |
+| torso vertical bounce | baseline | UNSET | UNSET |
+| head / neck stability | baseline | UNSET | UNSET |
+| tail behavior | baseline | UNSET | UNSET |
+| SIDE readability | baseline | UNSET | UNSET |
+| LOW readability | baseline | UNSET | UNSET |
+| CHASE readability | baseline | UNSET | UNSET |
+| FRONT readability | baseline | UNSET | UNSET |
+| export / replay stability | baseline | UNSET | UNSET |
+
+T1 decision: `UNSET`
+
+Allowed:
+
+- `PASS_TO_T2`
+- `KEEP_AS_REFERENCE`
+- `REJECT`
+
+Reason: `UNSET`
+
+## T2 — acceleration
+
+Status: `BLOCKED_BY_T1`
+
+Prompt:
+
+`The quadruped continues a steady forward racing run, then smoothly accelerates into a fast sprint while staying grounded. Cadence increases naturally, hind-leg propulsion becomes stronger, torso remains athletic and stable, head stays forward.`
+
+Decision: `UNSET`
+
+## T3 — lateral shift / overtake
+
+Status: `BLOCKED_BY_T2`
+
+Order:
+
+1. slight lateral shift while maintaining forward speed
+2. overtake attempt without stopping forward locomotion
+
+Decision: `UNSET`
+
+## T4 — Multi-stage Motion
+
+Status: `BLOCKED_BY_T3`
+
+Target:
+
+`steady run -> accelerate -> slight lateral shift -> overtake attempt -> return to straight sprint`
+
+Decision: `UNSET`
+
+## T5 — EvoWild runtime integration
+
+Status: `BLOCKED`
+
+Candidate architecture:
+
+`Tripo motion -> contact correction -> speed/cadence mapping -> race-state blending -> Three.js runtime`
+
+Final decision: `UNSET`
