@@ -1,6 +1,6 @@
 {
   "space": "https://nvidia-kimodo.hf.space",
-  "status": "loaded",
+  "status": "error",
   "http_status": 200,
   "title": "Viser",
   "url": "https://nvidia-kimodo.hf.space/",
@@ -390,402 +390,7 @@
       "href": "https://github.com/nv-tlabs/kimodo"
     }
   ],
-  "after_start": {
-    "body_text": "Kimodo\nDocumentation\nProject Page\nGithub\nKimodo\nGenerate\nVisualize\nInstructions\nModel Selection\n\nModel\n\nModel: Kimodo-SOMA-RP-v1\n\nLoad model\nExamples\n\nExample\n\nLoad Example\nGenerate\n\nTotal duration: 5.0 (sec)\n\nSOMA layer\n\nModel Parameters\nPost Processing\nGenerate\nConstraints\nExports",
-    "buttons": [
-      "",
-      "",
-      "Save Canvas",
-      "Reset View",
-      "\n  \n  \n  \n  \n  \n\n\n\nGenerate",
-      "\n  \n  \n  \n\n\n\nVisualize",
-      "\n  \n  \n  \n  \n\n\n\nInstructions",
-      "Load model",
-      "Load Example",
-      "",
-      "",
-      "",
-      "",
-      "Generate",
-      "Enter Editing Mode",
-      "Snap to Constraint",
-      "Reset Constraint",
-      "Undo Move",
-      "Clear All Constraints",
-      "Download",
-      "",
-      "",
-      "0.5x",
-      "1x",
-      "2x"
-    ],
-    "prompt_match_count": 0,
-    "prompt_fragments": [],
-    "after_prompt_double_click": null,
-    "inputs": [
-      {
-        "i": 0,
-        "type": "checkbox",
-        "value": "on",
-        "placeholder": "",
-        "aria": "Switch to dark mode",
-        "parent_text": ""
-      },
-      {
-        "i": 1,
-        "type": "text",
-        "value": "wss://nvidia-kimodo.hf.space",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 2,
-        "type": "checkbox",
-        "value": "on",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": "Orbit Origin Tool"
-      },
-      {
-        "i": 3,
-        "type": "checkbox",
-        "value": "on",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": "Dev Settings"
-      },
-      {
-        "i": 4,
-        "type": "checkbox",
-        "value": "on",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": "Dark Mode"
-      },
-      {
-        "i": 5,
-        "type": "checkbox",
-        "value": "on",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": "WebGL Stats"
-      },
-      {
-        "i": 6,
-        "type": "checkbox",
-        "value": "on",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": "Show Viser Logo"
-      },
-      {
-        "i": 7,
-        "type": "checkbox",
-        "value": "on",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": "Log Camera to Console"
-      },
-      {
-        "i": 8,
-        "type": "checkbox",
-        "value": "on",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": "Show Orbit Crosshair"
-      },
-      {
-        "i": 9,
-        "type": "text",
-        "value": "Adaptive",
-        "placeholder": "Adaptive",
-        "aria": null,
-        "parent_text": "Device Pixel Ratio"
-      },
-      {
-        "i": 10,
-        "type": "hidden",
-        "value": "",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": "Dark ModeWebGL StatsShow Viser LogoLog Camera to ConsoleShow Orbit CrosshairDevice Pixel Ratio"
-      },
-      {
-        "i": 11,
-        "type": "text",
-        "value": "SOMA Human Body",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 12,
-        "type": "hidden",
-        "value": "SOMA Human Body",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": "Model"
-      },
-      {
-        "i": 13,
-        "type": "text",
-        "value": "01_single_text_prompt",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 14,
-        "type": "hidden",
-        "value": "01_single_text_prompt",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": "Example"
-      },
-      {
-        "i": 15,
-        "type": "checkbox",
-        "value": "on",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 16,
-        "type": "text",
-        "value": "42",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 17,
-        "type": "hidden",
-        "value": "100",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": "21000"
-      },
-      {
-        "i": 18,
-        "type": "text",
-        "value": "100",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 19,
-        "type": "checkbox",
-        "value": "on",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 20,
-        "type": "hidden",
-        "value": "2",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": "05"
-      },
-      {
-        "i": 21,
-        "type": "text",
-        "value": "2",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 22,
-        "type": "hidden",
-        "value": "2",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": "05"
-      },
-      {
-        "i": 23,
-        "type": "text",
-        "value": "2",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 24,
-        "type": "checkbox",
-        "value": "on",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 25,
-        "type": "text",
-        "value": "0.04",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 26,
-        "type": "text",
-        "value": "Local",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 27,
-        "type": "hidden",
-        "value": "Local",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": "Gizmo space"
-      },
-      {
-        "i": 28,
-        "type": "checkbox",
-        "value": "on",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 29,
-        "type": "checkbox",
-        "value": "on",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 30,
-        "type": "text",
-        "value": "output",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 31,
-        "type": "text",
-        "value": "NPZ",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 32,
-        "type": "hidden",
-        "value": "NPZ",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": "Format"
-      },
-      {
-        "i": 33,
-        "type": "text",
-        "value": "30",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 34,
-        "type": "checkbox",
-        "value": "on",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 35,
-        "type": "hidden",
-        "value": "1",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": "01"
-      },
-      {
-        "i": 36,
-        "type": "text",
-        "value": "1",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 37,
-        "type": "checkbox",
-        "value": "on",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 38,
-        "type": "hidden",
-        "value": "45",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": "3090"
-      },
-      {
-        "i": 39,
-        "type": "text",
-        "value": "45",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 40,
-        "type": "checkbox",
-        "value": "on",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 41,
-        "type": "checkbox",
-        "value": "on",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 42,
-        "type": "checkbox",
-        "value": "on",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 43,
-        "type": "checkbox",
-        "value": "on",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": ""
-      },
-      {
-        "i": 44,
-        "type": "checkbox",
-        "value": "on",
-        "placeholder": "",
-        "aria": null,
-        "parent_text": "Light mode"
-      }
-    ],
-    "textareas": []
-  },
+  "error": "TimeoutError: locator.dblclick: Timeout 30000ms exceeded.\nCall log:\n  - waiting for getByText(/A person walks forward/i).first()\n    - locator resolved to <span class=\"mantine-List-itemLabel\">…</span>\n  - attempting dblclick action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not visible\n    - retrying dblclick action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is not visible\n    - retrying dblclick action\n      - waiting 100ms\n    24 × waiting for element to be visible, enabled and stable\n       - element is not visible\n     - retrying dblclick action\n       - waiting 500ms\n",
   "console": [
     {
       "type": "log",
@@ -801,23 +406,23 @@
     },
     {
       "type": "warning",
-      "text": "[GroupMarkerNotSet(crbug.com/242999)!:A070200004250000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader (about:flags#enable-unsafe-swiftshader) flag to opt in to lower security guarantees for trusted content."
+      "text": "[GroupMarkerNotSet(crbug.com/242999)!:A070200024080000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader (about:flags#enable-unsafe-swiftshader) flag to opt in to lower security guarantees for trusted content."
     },
     {
       "type": "warning",
-      "text": "[.WebGL-0x314c00691b00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+      "text": "[.WebGL-0x3af403144000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
     },
     {
       "type": "warning",
-      "text": "[.WebGL-0x314c00691b00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+      "text": "[.WebGL-0x3af403144000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
     },
     {
       "type": "warning",
-      "text": "[.WebGL-0x314c00691b00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+      "text": "[.WebGL-0x3af403144000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
     },
     {
       "type": "warning",
-      "text": "[.WebGL-0x314c00691b00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+      "text": "[.WebGL-0x3af403144000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
     },
     {
       "type": "log",
@@ -825,35 +430,15 @@
     },
     {
       "type": "log",
-      "text": "[Performance] Setting DPR to 0.8400000000000001; FPS=5/14"
+      "text": "[Performance] Setting DPR to 0.8400000000000001; FPS=4/10"
     },
     {
       "type": "log",
-      "text": "[Performance] Setting DPR to 0.6800000000000002; FPS=7/14"
+      "text": "[Performance] Setting DPR to 0.6800000000000002; FPS=6/10"
     },
     {
       "type": "log",
-      "text": "[Performance] Setting DPR to 0.52; FPS=8/14"
-    },
-    {
-      "type": "log",
-      "text": "[Performance] Setting DPR to 0.3600000000000001; FPS=11/14"
-    },
-    {
-      "type": "log",
-      "text": "Removing scene node: /character0/simple_skinned"
-    },
-    {
-      "type": "log",
-      "text": "[Performance] Setting DPR to 0.20000000000000007; FPS=26/26"
-    },
-    {
-      "type": "log",
-      "text": "746e86f5-e0b9-4ece-bd54-ce1a94014a02 false"
-    },
-    {
-      "type": "log",
-      "text": "[Performance] Setting DPR to 0.2; FPS=15/63"
+      "text": "[Performance] Setting DPR to 0.52; FPS=8/10"
     }
   ]
 }
