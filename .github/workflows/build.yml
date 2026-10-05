@@ -22,7 +22,11 @@ jobs:
         shell: bash
         run: |
           BRANCH="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
-          if [[ "$BRANCH" == "feat/2p5d-four-morph-quality-integration-20260925" || "$BRANCH" == feat/2p5d-survivor-* ]]; then
+          if [[ "$BRANCH" == feat/2p5d-survivor-fair-start-* ]]; then
+            npx playwright test tests/2p5d-selection.spec.js tests/race-quality.spec.js \
+              --grep "four morph race uses all six-frame|battle readability|traffic sees nearby rivals|lane decision chooses real clearance|default start is logically level" \
+              --workers=1
+          elif [[ "$BRANCH" == "feat/2p5d-four-morph-quality-integration-20260925" || "$BRANCH" == feat/2p5d-survivor-* ]]; then
             npx playwright test tests/race-quality.spec.js tests/2p5d-selection.spec.js --workers=1
           else
             npm run test:e2e
