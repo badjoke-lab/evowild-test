@@ -1,0 +1,10 @@
+{
+  "text": "A person sprints forward quickly at a steady pace.",
+  "duration": 6.0,
+  "model": "Kimodo-SOMA-RP-v1",
+  "source": "NVIDIA official public Kimodo Hugging Face Space",
+  "space": "https://nvidia-kimodo.hf.space",
+  "model_license": "NVIDIA Open Model License",
+  "generation_mode": "text-only",
+  "seed": 42
+}
