@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe B2a-v3 actual-image review complete; REVISE; B2a-v4 local root reconstruction ready
+current_stage: experimental Vibe B2a-v4 local forelimb-root reconstruction rendered; REVIEW_PENDING / STOPPED
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-b1c-v2.blend
+current_model_file: output/S-vibe-b2a-v4.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute B2a-v4 independently from B1c-v2. Rebuild one local refined root patch and project strongly toward the station-1->0->1 guide with boundary taper; max local displacement 0.012. Render five views and STOP. Do not start B2b.
+next_action: Review B2a-v4 five views against B2a-v3/B2a-v2/B1c-v2 and approved S references. Decide KEEP/REVISE. Do not start B2b.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -732,3 +732,12 @@ vibe_gate_b2a_v4_source: output/S-vibe-b1c-v2.blend
 vibe_gate_b2a_v4_method: one local subdivision + boundary-tapered strong station-1->0->1 reconstruction
 vibe_gate_b2a_v4_hard_limit: new vertices 20..500; candidates 30..240; max displacement <=0.012; q error after <=85% before; extent drift <=0.002 per axis
 vibe_gate_b2b_status: BLOCKED
+
+vibe_gate_b2a_v4_status: REVIEW_PENDING
+vibe_gate_b2a_v4_scope: one local subdivision + strong boundary-tapered three-station root reconstruction
+vibe_gate_b2a_v4_renders:
+- output/review/vibe-b2a-v4/S_vibe_b2a_v4_side.png
+- output/review/vibe-b2a-v4/S_vibe_b2a_v4_front.png
+- output/review/vibe-b2a-v4/S_vibe_b2a_v4_front34.png
+- output/review/vibe-b2a-v4/S_vibe_b2a_v4_rear34.png
+- output/review/vibe-b2a-v4/S_vibe_b2a_v4_back.png
