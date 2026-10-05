@@ -66,6 +66,34 @@ jobs:
               i, text: e.textContent, href: e.href
             })));
             result.status = 'loaded';
+
+            const startButton = page.getByRole('button', { name: 'Start Demo', exact: true });
+            if (await startButton.count()) {
+              await startButton.click();
+              await page.waitForTimeout(12000);
+              result.after_start = {
+                body_text: (await page.locator('body').innerText()).slice(0, 50000),
+                buttons: await page.locator('button').allTextContents(),
+                inputs: await page.locator('input').evaluateAll(els => els.map((e, i) => ({
+                  i,
+                  type: e.type,
+                  value: e.value,
+                  placeholder: e.placeholder,
+                  aria: e.getAttribute('aria-label'),
+                  parent_text: (e.parentElement?.parentElement?.innerText || '').slice(0, 500)
+                }))),
+                textareas: await page.locator('textarea').evaluateAll(els => els.map((e, i) => ({
+                  i,
+                  value: e.value,
+                  placeholder: e.placeholder,
+                  aria: e.getAttribute('aria-label'),
+                  parent_text: (e.parentElement?.parentElement?.innerText || '').slice(0, 500)
+                })))
+              };
+            } else {
+              result.after_start = { error: 'Start Demo button not found' };
+            }
+
             await page.screenshot({ path: 'experiments/kimodo-ardy/space-probe/ui.png', fullPage: true });
           } catch (e) {
             result.status = 'error';
