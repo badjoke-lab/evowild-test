@@ -87,7 +87,7 @@ assert interior, 'empty B1d-v3 interior'
 
 initial=[co.copy() for co in before]
 guide_metrics={}
-candidates=[]
+raw_candidates=[]
 
 for i in sorted(interior):
     p=initial[i]
@@ -106,7 +106,23 @@ for i in sorted(interior):
     w=boundary_weight(p)
     guide_metrics[i]=(t,radius,dist,ratio,center,w)
     if w>0.0 and abs(ratio-1.0)>RATIO_ERROR_THRESHOLD:
-        candidates.append(i)
+        raw_candidates.append(i)
+
+# The first run proved the signed criterion is too broad (368 vertices).
+# Preserve the hypothesis but bound the edit to the strongest deviations,
+# balanced by side so one shoulder cannot dominate.
+TOP_PER_SIDE=60
+pos=sorted(
+    [i for i in raw_candidates if initial[i].x>=0],
+    key=lambda i:abs(guide_metrics[i][3]-1.0),
+    reverse=True
+)[:TOP_PER_SIDE]
+neg=sorted(
+    [i for i in raw_candidates if initial[i].x<0],
+    key=lambda i:abs(guide_metrics[i][3]-1.0),
+    reverse=True
+)[:TOP_PER_SIDE]
+candidates=sorted(pos+neg)
 
 assert MIN_CANDIDATES <= len(candidates) <= MAX_CANDIDATES, f'B1d-v3 candidate count {len(candidates)} outside [{MIN_CANDIDATES},{MAX_CANDIDATES}]'
 
@@ -215,7 +231,10 @@ report={
  'support_vertex_count':len(support),
  'boundary_vertex_count':len(boundary),
  'interior_vertex_count':len(interior),
+ 'raw_candidate_vertex_count':len(raw_candidates),
  'candidate_vertex_count':len(candidates),
+ 'selected_positive_count':len(pos),
+ 'selected_negative_count':len(neg),
  'inside_candidate_count':inside_count,
  'outside_candidate_count':outside_count,
  'changed_vertex_count':changed,
