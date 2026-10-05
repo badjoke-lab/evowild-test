@@ -10,6 +10,20 @@ Current main reference at v0.2 rewrite: `475e1ff6c1e047b227fa400215714994edc4036
 
 Determine whether Tripo Auto Rig + Text to Motion can produce reusable race locomotion for EvoWild S without weakening grounded contact, gait phase, body mechanics, export stability, or runtime control.
 
+## Critical target distinction
+
+This bench does **not** define the final S morphology.
+
+The current Tripo primary input `public/models/evowild-s/source-lod2.glb` is the older Hunyuan-derived S family currently present on main. It is used here as a **motion/rig feasibility carrier only** because it is a clean unrigged quadruped-family mesh already available to the runtime.
+
+A T0/T1 pass on that asset proves only that Tripo can rig/animate that carrier well enough to justify deeper testing. It does **not** prove that the final EvoWild S shape is correct, and it does **not** authorize the Hunyuan source-lod2 silhouette as the final S target.
+
+Final S morphology authority remains in the dedicated S modeling lane, led by `art/s-creature/S_MODELING_IMAGE_LOCK.md` and its approved reference set. The current Vibe lane has an accepted Gate-A silhouette family but Gate-B anatomical massing remains open; therefore there is no production-final S mesh yet.
+
+No Tripo motion result may be promoted to production-final S animation until it is rerun or retargeted onto a morphology-approved, rig-ready S asset.
+
+If the primary “S-type Modeling Image v1.0” is not repository-accessible to the reviewer, no automated lane may claim final morphology conformance from repository evidence alone. That missing authority must be resolved before final S visual acceptance.
+
 This lane is isolated. It must not modify the active Vibe Modeling, Motion First, UniMate, 2.5D, Sakura, Sprite, or Hunyuan production lanes.
 
 ## Repository-first evidence rule
