@@ -30,7 +30,12 @@ scene.render.image_settings.file_format = "PNG"
 scene.render.film_transparent = False
 scene.render.fps = 30
 
-scene.world.color = (0.055, 0.065, 0.075)\nscene.display.shading.light = "STUDIO"\nscene.display.shading.color_type = "MATERIAL"\nscene.display.shading.show_shadows = True\nscene.display.shading.show_cavity = True\nscene.display.shading.cavity_type = "WORLD"
+scene.world.color = (0.055, 0.065, 0.075)
+scene.display.shading.light = "STUDIO"
+scene.display.shading.color_type = "MATERIAL"
+scene.display.shading.show_shadows = True
+scene.display.shading.show_cavity = True
+scene.display.shading.cavity_type = "WORLD"
 
 arm = next((o for o in scene.objects if o.type == "ARMATURE"), None)
 if arm is None:
