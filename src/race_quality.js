@@ -43,6 +43,10 @@ const BATTLE_REVIEW_MODE = new URLSearchParams(location.search).get("battleRevie
 const TRAFFIC_REVIEW_MODE = new URLSearchParams(location.search).get("trafficReview") === "1";
 const LANE_REVIEW_MODE = new URLSearchParams(location.search).get("laneReview") === "1";
 const MOTION_REVIEW_MODE = new URLSearchParams(location.search).get("motionReview") === "1";
+const MOTION_REVIEW_FRAME = Math.max(
+  -1,
+  Math.min(5, Number(new URLSearchParams(location.search).get("motionFrame") ?? -1))
+);
 const FIELD_SIZE = 18;
 const SELECTED_ID = Math.max(
   1,
@@ -1175,6 +1179,7 @@ function drawRacers() {
       -20,
       r.distance-finishSpread+(r.startVisualOffset||0)*startFormationFactor
     );
+    if(MOTION_REVIEW_MODE && r.id!==SELECTED_ID) continue;
     const x=screenXForMeters(visualDistance);
     if(x<-220 || x>width+260) continue;
     const lane=clamp(r.lane+(r.depthBias||0),0,3);
@@ -1190,9 +1195,11 @@ function drawRacers() {
     const scale=laneScale(item.lane);
     const meta=MORPH_META[r.morph] ?? MORPH_META.S;
     const frames=spriteFrames.get(r.morph);
-    const baseW = width<700
-      ? clamp(width*.13,78,108)
-      : clamp(width*.078,104,128);
+    const baseW = MOTION_REVIEW_MODE && r.id===SELECTED_ID
+      ? (width<700 ? clamp(width*.42,170,240) : clamp(width*.23,250,340))
+      : width<700
+        ? clamp(width*.13,78,108)
+        : clamp(width*.078,104,128);
     const spriteW=baseW*scale*(selectedRacer?1.04:1)*meta.width;
     const sampleFrame=frames?.[0];
     const sourceAspect=sampleFrame
@@ -1205,9 +1212,11 @@ function drawRacers() {
     const cadence=(9.5+clamp(r.speed/34,0,1)*9.5)*meta.cadence;
     const frameFloat=elapsed/1000*cadence+r.phaseOffset;
     const cyclePosition=((frameFloat%RUN_FRAMES.length)+RUN_FRAMES.length)%RUN_FRAMES.length;
-    const frameIndex=r.morph==="S"
-      ? Math.floor(cyclePosition)
-      : peaFrameIndex(r.morph,cyclePosition);
+    const frameIndex=MOTION_REVIEW_MODE && r.id===SELECTED_ID && MOTION_REVIEW_FRAME>=0
+      ? MOTION_REVIEW_FRAME
+      : r.morph==="S"
+        ? Math.floor(cyclePosition)
+        : peaFrameIndex(r.morph,cyclePosition);
     const frame=RUN_FRAMES[frameIndex];
 
     const slope=terrainSlope(item.visualDistance);
@@ -1386,6 +1395,15 @@ function drawForeground() {
 
 function updateCamera() {
   const focus=selected();
+  if(MOTION_REVIEW_MODE){
+    const targetPPM=width<700?5.2:6.8;
+    pixelsPerMeter=lerp(pixelsPerMeter,targetPPM,.16);
+    cameraMeters=lerp(cameraMeters,focus.distance+2.0,.18);
+    stage.dataset.pixelsPerMeter=pixelsPerMeter.toFixed(2);
+    stage.dataset.packSpan="0.00";
+    stage.dataset.cameraSubject="motion-review-isolated";
+    return;
+  }
   const live=racers.filter(r=>!r.finished);
   const byFocusDistance = (a,b) =>
     Math.abs(a.distance-focus.distance)-Math.abs(b.distance-focus.distance);
@@ -1680,6 +1698,7 @@ stage.dataset.trafficReview=TRAFFIC_REVIEW_MODE?"1":"0";
 stage.dataset.laneReview=LANE_REVIEW_MODE?"1":"0";
 stage.dataset.motionReview=MOTION_REVIEW_MODE?"1":"0";
 stage.dataset.reviewSelectedId=String(SELECTED_ID);
+stage.dataset.motionReviewFrame=String(MOTION_REVIEW_FRAME);
 stage.dataset.laneDecisionModel="clearance-score-with-hysteresis";
 stage.dataset.trafficModel="continuous-lane-proximity";
 stage.dataset.startModel="logical-level-visual-grid-decay";
