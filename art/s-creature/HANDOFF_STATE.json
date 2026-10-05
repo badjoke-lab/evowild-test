@@ -9,12 +9,12 @@
     "E",
     "A"
   ],
-  "stage": "S-rig-v2-pose-test-ready",
-  "current_stage": "S rig v1 reviewed KEEP; controlled deformation pose test ready",
+  "stage": "S-rig-v2-pose-review",
+  "current_stage": "S rig v2 controlled deformation pose rendered; REVIEW_PENDING / STOPPED",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
-  "current_model_file": "output/S-rig-v1.blend",
-  "source_model_file": "output/S-gateC-v9.blend",
+  "current_model_file": "output/S-rig-v2-pose.blend",
+  "source_model_file": "output/S-rig-v1.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
     "S_MORPHOLOGY_RESET_PLAN.md",
@@ -50,7 +50,7 @@
     "Tail and all toe geometry unchanged from v2",
     "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Execute S rig v2 single-pose deformation test from output/S-rig-v1.blend; render five views and STOP.",
+  "next_action": "Review deformation pose; no animation clip before decision.",
   "quality_issues": [
     "skinning deformation under pose not yet validated"
   ],
@@ -66,14 +66,14 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "PASS",
-  "modeling_status": "READY_FOR_RIG_V2_POSE_TEST",
+  "modeling_status": "STOPPED_FOR_RIG_POSE_REVIEW",
   "cage_vertex_count": 800,
   "review_renders": [
-    "output/review/rig-v1/S_rig_side.png",
-    "output/review/rig-v1/S_rig_front.png",
-    "output/review/rig-v1/S_rig_front34.png",
-    "output/review/rig-v1/S_rig_rear34.png",
-    "output/review/rig-v1/S_rig_back.png"
+    "output/review/rig-v2-pose/S_rig_pose_side.png",
+    "output/review/rig-v2-pose/S_rig_pose_front.png",
+    "output/review/rig-v2-pose/S_rig_pose_front34.png",
+    "output/review/rig-v2-pose/S_rig_pose_rear34.png",
+    "output/review/rig-v2-pose/S_rig_pose_back.png"
   ],
   "geometry_sha256": "a037893c093cc3db45e386a80c5258e12083515f2a4a48fc228c986eb64ad92c",
   "geometry_unchanged_during_render": true,
@@ -135,8 +135,9 @@
   "production_readiness_report": "output/S-gateC-v10-production-readiness.json",
   "rig_prep_strategy": "KEEP_MULTI_OBJECT_SHARED_ARMATURE",
   "rig_source_model": "output/S-gateC-v9.blend",
-  "rig_status": "KEEP_V1_READY_FOR_POSE_TEST",
+  "rig_status": "POSE_REVIEW_PENDING",
   "rig_report": "output/S-rig-v1.json",
   "rig_v1_decision": "KEEP",
-  "rig_v2_scope": "single static pose only; no Action"
+  "rig_v2_scope": "single static pose only; no Action",
+  "rig_pose_report": "output/S-rig-v2-pose.json"
 }

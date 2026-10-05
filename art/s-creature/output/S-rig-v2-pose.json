@@ -1,0 +1,104 @@
+{
+  "stage": "rig",
+  "pass": "v2-pose",
+  "status": "REVIEW_PENDING",
+  "source": "S-rig-v1.blend",
+  "scope": "single static armature pose only",
+  "base_geometry_sha256": "a037893c093cc3db45e386a80c5258e12083515f2a4a48fc228c986eb64ad92c",
+  "base_coordinates_unchanged": true,
+  "action_count": 0,
+  "keyframes_created": false,
+  "pose_spec_degrees": {
+    "fore_upper.L": 12,
+    "fore_lower.L": -28,
+    "fore_foot.L": 10,
+    "fore_upper.R": -10,
+    "fore_lower.R": 22,
+    "fore_foot.R": -8,
+    "hind_upper.L": -12,
+    "hind_lower.L": 24,
+    "hind_foot.L": -10,
+    "hind_upper.R": 10,
+    "hind_lower.R": -20,
+    "hind_foot.R": 8,
+    "neck": 6,
+    "head": -8,
+    "tail.01": 6,
+    "tail.02": 8,
+    "tail.03": 10
+  },
+  "evaluated_bounds": {
+    "S_rebuild_core_head_crest_neck_torso_tail": {
+      "min": [
+        -0.25275683403015137,
+        -0.8543737530708313,
+        0.5298611521720886
+      ],
+      "max": [
+        0.1314574033021927,
+        1.709121584892273,
+        1.3327614068984985
+      ]
+    },
+    "S_forelimb_L": {
+      "min": [
+        -0.25835224986076355,
+        -0.36751773953437805,
+        0.2417364865541458
+      ],
+      "max": [
+        0.03182539343833923,
+        0.255511611700058,
+        1.085448980331421
+      ]
+    },
+    "S_forelimb_R": {
+      "min": [
+        -0.03182542324066162,
+        -0.20838849246501923,
+        -0.032199710607528687
+      ],
+      "max": [
+        0.25835224986076355,
+        0.16076335310935974,
+        1.063719391822815
+      ]
+    },
+    "S_hindlimb_L": {
+      "min": [
+        -0.2844421863555908,
+        0.322473406791687,
+        0.2626003623008728
+      ],
+      "max": [
+        0.04835181310772896,
+        1.029621958732605,
+        1.1201703548431396
+      ]
+    },
+    "S_hindlimb_R": {
+      "min": [
+        -0.048351746052503586,
+        0.4034877121448517,
+        -0.06703633069992065
+      ],
+      "max": [
+        0.2844422459602356,
+        0.9487826824188232,
+        1.0856940746307373
+      ]
+    }
+  },
+  "limitations": [
+    "Single stress pose only; animation timing/gait not tested",
+    "Weights remain first-pass until deformation review"
+  ],
+  "rendered_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "base_geometry_unchanged_during_render": true
+}
