@@ -1,0 +1,116 @@
+name: Kimodo Upstream Real Motion Baseline
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - exp/kimodo-ardy-motion-feasibility-20261004
+    paths:
+      - ".github/workflows/kimodo-upstream-real-motion.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  analyze-upstream-examples:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: exp/kimodo-ardy-motion-feasibility-20261004
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install analysis dependency
+        run: python -m pip install --disable-pip-version-check numpy
+
+      - name: Download pinned official Kimodo example motions
+        shell: bash
+        run: |
+          set -euo pipefail
+          UPSTREAM="58e781898b3d7e328a676a75d3e338c45dce3ad9"
+          BASE="https://raw.githubusercontent.com/nv-tlabs/kimodo/$UPSTREAM/kimodo/assets/demo/examples/kimodo-soma-rp"
+          TMP="$RUNNER_TEMP/kimodo-upstream"
+          mkdir -p "$TMP"
+
+          for CASE in 01_single_text_prompt 05_root_path 06_root_waypoints; do
+            curl -fL --retry 3 "$BASE/$CASE/motion.npz" -o "$TMP/$CASE.npz"
+            curl -fL --retry 3 "$BASE/$CASE/meta.json" -o "$TMP/$CASE.meta.json"
+          done
+
+          sha256sum "$TMP"/*.npz "$TMP"/*.meta.json
+
+      - name: Extract real Kimodo motion signals
+        shell: bash
+        run: |
+          set -euo pipefail
+          TMP="$RUNNER_TEMP/kimodo-upstream"
+          OUT="experiments/kimodo-ardy/upstream-baselines"
+          mkdir -p "$OUT"
+
+          for CASE in 01_single_text_prompt 05_root_path 06_root_waypoints; do
+            python scripts/kimodo-ardy/extract_motion_signals.py "$TMP/$CASE.npz" --summary "$OUT/$CASE.summary.json" --timeseries "$OUT/$CASE.timeseries.csv"
+            cp "$TMP/$CASE.meta.json" "$OUT/$CASE.meta.json"
+          done
+
+      - name: Write provenance
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          upstream = "58e781898b3d7e328a676a75d3e338c45dce3ad9"
+          tmp = Path(os.environ["RUNNER_TEMP"]) / "kimodo-upstream"
+          out = Path("experiments/kimodo-ardy/upstream-baselines")
+
+          cases = []
+          for case in ("01_single_text_prompt", "05_root_path", "06_root_waypoints"):
+              npz = tmp / f"{case}.npz"
+              meta = tmp / f"{case}.meta.json"
+              cases.append({
+                  "case": case,
+                  "motion_sha256": hashlib.sha256(npz.read_bytes()).hexdigest(),
+                  "motion_bytes": npz.stat().st_size,
+                  "meta_sha256": hashlib.sha256(meta.read_bytes()).hexdigest(),
+                  "source_motion": f"https://github.com/nv-tlabs/kimodo/blob/{upstream}/kimodo/assets/demo/examples/kimodo-soma-rp/{case}/motion.npz",
+                  "source_meta": f"https://github.com/nv-tlabs/kimodo/blob/{upstream}/kimodo/assets/demo/examples/kimodo-soma-rp/{case}/meta.json",
+              })
+
+          payload = {
+              "schema_version": 1,
+              "upstream_repository": "nv-tlabs/kimodo",
+              "upstream_commit": upstream,
+              "note": "Official pre-generated Kimodo SOMA examples; validates EvoWild signal extraction on real Kimodo output without claiming a new custom generation.",
+              "cases": cases,
+          }
+          (out / "provenance.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+          PY
+
+      - name: Show compact summaries
+        shell: bash
+        run: |
+          for f in experiments/kimodo-ardy/upstream-baselines/*.summary.json; do
+            echo "===== $f ====="
+            cat "$f"
+          done
+
+      - name: Commit reproducible real-motion baseline results
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add experiments/kimodo-ardy/upstream-baselines
+          if git diff --cached --quiet; then
+            echo "No baseline changes to commit."
+            exit 0
+          fi
+          git commit -m "Record real Kimodo upstream motion baselines"
+          git push origin HEAD:exp/kimodo-ardy-motion-feasibility-20261004
