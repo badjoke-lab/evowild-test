@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_B1C_V2_READY",
-  "current_stage": "B1c-v1 reviewed REVISE; refined local topology kept; B1c-v2 ridge suppression ready",
+  "stage": "VIBE_EXPERIMENT_B1C_V2_REVIEW",
+  "current_stage": "B1c-v2 high-curvature shoulder-root ridge suppression rendered; review pending; modeling stopped",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
-  "current_model_file": "output/S-vibe-b1c-v1.blend",
+  "current_model_file": "output/S-vibe-b1c-v2.blend",
   "source_model_file": "output/S-vibe-b0-v025.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Execute B1c-v2 from B1c-v1. Keep topology unchanged. Move only high-curvature/residual vertices inside the refined shoulder-root patch; boundary fixed; residual >0.0025; lambda 0.35; 2 passes; max additional displacement 0.0035. Render five views and STOP. B2 remains blocked.",
+  "next_action": "Review B1c-v2 against B1c-v1, B0-v025 and approved S references. Decide KEEP/REVISE. B2 remains blocked.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -60,19 +60,17 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "ACCEPTED",
-  "modeling_status": "READY_FOR_B1C_V2",
+  "modeling_status": "STOPPED",
   "cage_vertex_count": 760,
   "review_renders": [
-    "output/review/vibe-b1c-v1/S_vibe_b1c_v1_side.png",
-    "output/review/vibe-b1c-v1/S_vibe_b1c_v1_front.png",
-    "output/review/vibe-b1c-v1/S_vibe_b1c_v1_front34.png",
-    "output/review/vibe-b1c-v1/S_vibe_b1c_v1_rear34.png",
-    "output/review/vibe-b1c-v1/S_vibe_b1c_v1_back.png"
+    "output/review/vibe-b1c-v2/S_vibe_b1c_v2_side.png",
+    "output/review/vibe-b1c-v2/S_vibe_b1c_v2_front.png",
+    "output/review/vibe-b1c-v2/S_vibe_b1c_v2_front34.png",
+    "output/review/vibe-b1c-v2/S_vibe_b1c_v2_rear34.png",
+    "output/review/vibe-b1c-v2/S_vibe_b1c_v2_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
-  "editable_next": [
-    "interior vertices of existing B1c refined shoulder-root patch with residual > 0.0025"
-  ],
+  "editable_next": [],
   "keep_fixed_next": [
     "all topology",
     "all vertices outside B1c support",
