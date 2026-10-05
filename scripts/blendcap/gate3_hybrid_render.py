@@ -22,7 +22,7 @@ bpy.ops.object.delete(use_global=False)
 bpy.ops.import_scene.gltf(filepath=str(asset_path))
 
 scene = bpy.context.scene
-scene.render.engine = "BLENDER_EEVEE_NEXT"
+scene.render.engine = "BLENDER_WORKBENCH"
 scene.render.resolution_x = 640
 scene.render.resolution_y = 360
 scene.render.resolution_percentage = 100
@@ -30,7 +30,7 @@ scene.render.image_settings.file_format = "PNG"
 scene.render.film_transparent = False
 scene.render.fps = 30
 
-scene.world.color = (0.055, 0.065, 0.075)
+scene.world.color = (0.055, 0.065, 0.075)\nscene.display.shading.light = "STUDIO"\nscene.display.shading.color_type = "MATERIAL"\nscene.display.shading.show_shadows = True\nscene.display.shading.show_cavity = True\nscene.display.shading.cavity_type = "WORLD"
 
 arm = next((o for o in scene.objects if o.type == "ARMATURE"), None)
 if arm is None:
