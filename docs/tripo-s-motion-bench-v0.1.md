@@ -63,8 +63,10 @@ Tripo Auto Rig creates a new skeleton and skin binding. Testing Auto Rig on the 
 
 Tripo settings:
 
-- rig model/version: use the current non-humanoid/creature rig path exposed by Studio
+- rig model/version: `v2.5-20260210` when Studio/API exposes the version explicitly
+- rig family: non-humanoid / creature
 - rig type: `quadruped`
+- output preference: `GLB` for repository/Web review
 - do not force `biped`
 
 ### Tripo fallback Auto Rig input — Geometry LOD4
