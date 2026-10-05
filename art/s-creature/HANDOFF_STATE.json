@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_B2A_V3_REVIEW",
-  "current_stage": "B2a-v3 three-station proximal forelimb root rendered; review pending; modeling stopped",
+  "stage": "VIBE_EXPERIMENT_B2A_V4_READY",
+  "current_stage": "B2a-v3 reviewed REVISE; B2a-v4 local root reconstruction ready",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
-  "current_model_file": "output/S-vibe-b2a-v3.blend",
+  "current_model_file": "output/S-vibe-b1c-v2.blend",
   "source_model_file": "output/S-vibe-b0-v025.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Review B2a-v3 against B2a-v2/B2a-v1/B1c-v2 and approved S references. Decide KEEP/REVISE. Do not start B2b.",
+  "next_action": "Execute B2a-v4 independently from B1c-v2: one local subdivision, expanded anchored support, strong boundary-tapered station-1->0->1 projection, max local displacement 0.012. Render five views and STOP. Do not start B2b.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -60,7 +60,7 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "ACCEPTED",
-  "modeling_status": "STOPPED",
+  "modeling_status": "READY_FOR_B2A_V4",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/vibe-b2a-v3/S_vibe_b2a_v3_side.png",
@@ -516,7 +516,7 @@
   "b1_deferred_issue": "proximal forelimb root / station0-to-station1 continuity",
   "b1d_v3_decision": "REVISE",
   "b1d_v3_review": "S_VIBE_B1D_V3_REVIEW.md",
-  "b2a_status": "REVIEW_PENDING",
+  "b2a_status": "READY",
   "b2a_v1": {
     "source": "output/S-vibe-b1c-v2.blend",
     "target": "proximal forelimb root station0->1 only",
@@ -653,6 +653,55 @@
         20,
         240
       ],
+      "extent_drift_per_axis": 0.002,
+      "non_manifold_edges": 0
+    },
+    "stop_after": "five-view render + validation + actual-image review"
+  },
+  "b2a_v3_decision": "REVISE",
+  "b2a_v3_review": "S_VIBE_B2A_V3_REVIEW.md",
+  "b2a_v4": {
+    "source": "output/S-vibe-b1c-v2.blend",
+    "support": {
+      "abs_x": [
+        0.045,
+        0.225
+      ],
+      "y": [
+        -0.105,
+        0.095
+      ],
+      "z": [
+        0.76,
+        1.09
+      ]
+    },
+    "topology": {
+      "type": "one support-contained subdivision",
+      "subdivision_inset": 0.007,
+      "max_subdiv_edges": 360,
+      "cuts": 1
+    },
+    "guide": "same station-1 -> station0 -> station1 piecewise tapered elliptical guide as B2a-v3",
+    "method": {
+      "q_error_threshold": 0.08,
+      "q_min": 0.35,
+      "q_max": 2.2,
+      "gain": 0.8,
+      "max_local_displacement": 0.012,
+      "boundary_taper": true,
+      "max_per_side": 120
+    },
+    "hard_limits": {
+      "new_vertices": [
+        20,
+        500
+      ],
+      "candidate_count": [
+        30,
+        240
+      ],
+      "q_error_ratio_max": 0.85,
       "extent_drift_per_axis": 0.002,
       "non_manifold_edges": 0
     },
