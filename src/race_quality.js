@@ -79,10 +79,57 @@ const MORPH_SEQUENCE = Array.from(
 );
 const MORPH_META = {
   S: { cadence:1.00, width:1.00, lift:1.00 },
-  P: { cadence:0.90, width:1.08, lift:0.62 },
-  E: { cadence:0.96, width:1.02, lift:0.52 },
-  A: { cadence:1.13, width:1.06, lift:0.82 }
+  P: { cadence:0.94, width:1.08, lift:0.62 },
+  E: { cadence:0.97, width:1.02, lift:0.52 },
+  A: { cadence:1.02, width:1.06, lift:0.82 }
 };
+
+const PEA_MOTION_V2 = {
+  P: {
+    durations:[0.76,1.18,0.82,0.82,1.26,1.16],
+    transform:{
+      CONTACT:{ sx:1.00, sy:1.01, lean:-0.004, lift: 0.000 },
+      PUSH:   { sx:1.06, sy:0.98, lean: 0.018, lift:-0.006 },
+      LIFT:   { sx:1.02, sy:0.99, lean: 0.014, lift:-0.020 },
+      FLIGHT: { sx:1.08, sy:0.96, lean: 0.018, lift:-0.052 },
+      REACH:  { sx:1.07, sy:0.97, lean: 0.010, lift:-0.030 },
+      LAND:   { sx:1.00, sy:1.02, lean:-0.006, lift:-0.004 }
+    }
+  },
+  E: {
+    durations:[0.82,0.98,0.78,1.08,1.36,0.98],
+    transform:{
+      CONTACT:{ sx:1.00, sy:1.00, lean:-0.004, lift: 0.000 },
+      PUSH:   { sx:1.03, sy:0.99, lean: 0.010, lift:-0.006 },
+      LIFT:   { sx:1.02, sy:1.00, lean: 0.008, lift:-0.018 },
+      FLIGHT: { sx:1.08, sy:0.98, lean: 0.006, lift:-0.044 },
+      REACH:  { sx:1.10, sy:0.98, lean: 0.004, lift:-0.026 },
+      LAND:   { sx:0.99, sy:1.01, lean:-0.006, lift:-0.003 }
+    }
+  },
+  A: {
+    durations:[0.72,1.12,0.74,1.14,1.28,1.00],
+    transform:{
+      CONTACT:{ sx:1.00, sy:0.99, lean: 0.004, lift: 0.000 },
+      PUSH:   { sx:1.07, sy:0.96, lean: 0.022, lift:-0.008 },
+      LIFT:   { sx:1.04, sy:0.97, lean: 0.018, lift:-0.024 },
+      FLIGHT: { sx:1.12, sy:0.94, lean: 0.020, lift:-0.060 },
+      REACH:  { sx:1.10, sy:0.95, lean: 0.014, lift:-0.035 },
+      LAND:   { sx:0.99, sy:1.00, lean:-0.006, lift:-0.004 }
+    }
+  }
+};
+
+function peaFrameIndex(morph, cyclePosition) {
+  const profile = PEA_MOTION_V2[morph];
+  if (!profile) return Math.floor(cyclePosition) % RUN_FRAMES.length;
+  let cursor = 0;
+  for (let index = 0; index < profile.durations.length; index++) {
+    cursor += profile.durations[index];
+    if (cyclePosition < cursor) return index;
+  }
+  return profile.durations.length - 1;
+}
 
 const AGENT_COMMAND_DURATION_MS = 8000;
 const AGENT_FEEDBACK_HOLD_MS = 2400;
@@ -178,10 +225,32 @@ function extractConnectedFrame(image, col, row) {
     }
   }
 
+  let minX = fw;
+  let maxX = -1;
+  let minY = fh;
+  let maxY = -1;
+  let footY = -1;
+  const footMinX = fw * 0.18;
+  const footMaxX = fw * 0.88;
+
   for (let i = 0; i < count; i++) {
-    if (!visited[i]) alpha[i * 4 + 3] = 0;
+    if (!visited[i]) {
+      alpha[i * 4 + 3] = 0;
+      continue;
+    }
+    const x = i % fw;
+    const y = Math.floor(i / fw);
+    minX = Math.min(minX, x);
+    maxX = Math.max(maxX, x);
+    minY = Math.min(minY, y);
+    maxY = Math.max(maxY, y);
+    if (x >= footMinX && x <= footMaxX) footY = Math.max(footY, y);
   }
   c.putImageData(pixels, 0, 0);
+  canvas.__motionMetrics = {
+    minX, maxX, minY, maxY,
+    footYNorm: footY >= 0 ? footY / Math.max(1, fh - 1) : 0.98
+  };
   return canvas;
 }
 
@@ -189,10 +258,14 @@ for (const morph of ["S","P","E","A"]) {
   const image = new Image();
   image.decoding = "async";
   image.onload = () => {
-    spriteFrames.set(
-      morph,
-      RUN_FRAMES.map((frame) => extractConnectedFrame(image, frame.col, frame.row))
-    );
+    const frames = RUN_FRAMES.map((frame) => extractConnectedFrame(image, frame.col, frame.row));
+    spriteFrames.set(morph, frames);
+    if (morph !== "S") {
+      const feet = frames.map((frame) => frame.__motionMetrics?.footYNorm ?? 0.98);
+      const spread = Math.max(...feet) - Math.min(...feet);
+      stage.dataset[`${morph.toLowerCase()}FootSpreadRaw`] = spread.toFixed(3);
+      stage.dataset[`${morph.toLowerCase()}GroundAnchor`] = "auto-foot-v2";
+    }
     readySheets++;
     stage.dataset.runSheetsReady = String(readySheets);
     stage.dataset.runSheetCleanup = "connected-body-alpha";
@@ -1120,7 +1193,10 @@ function drawRacers() {
 
     const cadence=(9.5+clamp(r.speed/34,0,1)*9.5)*meta.cadence;
     const frameFloat=elapsed/1000*cadence+r.phaseOffset;
-    const frameIndex=((Math.floor(frameFloat)%RUN_FRAMES.length)+RUN_FRAMES.length)%RUN_FRAMES.length;
+    const cyclePosition=((frameFloat%RUN_FRAMES.length)+RUN_FRAMES.length)%RUN_FRAMES.length;
+    const frameIndex=r.morph==="S"
+      ? Math.floor(cyclePosition)
+      : peaFrameIndex(r.morph,cyclePosition);
     const frame=RUN_FRAMES[frameIndex];
 
     const slope=terrainSlope(item.visualDistance);
@@ -1155,23 +1231,35 @@ function drawRacers() {
 
     const frameCanvas=frames?.[frameIndex];
     if(frameCanvas){
-      const footAdjust=frame.y*spriteH*.12*meta.lift;
+      const peaProfile=PEA_MOTION_V2[r.morph];
+      const phaseTransform=peaProfile?.transform?.[frame.phase] ?? { sx:1, sy:1, lean:0, lift:0 };
+      const drawW=spriteW*phaseTransform.sx;
+      const drawH=spriteH*phaseTransform.sy;
+      const footNorm=frameCanvas.__motionMetrics?.footYNorm ?? 0.98;
+      const groundCorrection=r.morph==="S" ? 0 : (0.98-footNorm)*drawH;
+      const legacyLift=r.morph==="S" ? frame.y*drawH*.12*meta.lift : 0;
+      const phaseLift=r.morph==="S" ? 0 : phaseTransform.lift*drawH;
+      const footAdjust=groundCorrection+legacyLift+phaseLift;
 
       ctx.save();
-      ctx.translate(item.x,item.y-spriteH*.48);
-      ctx.rotate(lean);
+      ctx.translate(item.x,item.y-drawH*.48);
+      ctx.rotate(lean+phaseTransform.lean);
       if(selectedRacer){
         ctx.shadowColor="rgba(126,226,255,.85)";
-        ctx.shadowBlur=clamp(spriteW*.08,4,18);
+        ctx.shadowBlur=clamp(drawW*.08,4,18);
       } else if(battleRival){
         ctx.shadowColor="rgba(255,220,130,.88)";
-        ctx.shadowBlur=clamp(spriteW*.075,4,16);
+        ctx.shadowBlur=clamp(drawW*.075,4,16);
       }
-      ctx.drawImage(frameCanvas,-spriteW/2,-spriteH/2+footAdjust,spriteW,spriteH);
+      ctx.drawImage(frameCanvas,-drawW/2,-drawH/2+footAdjust,drawW,drawH);
       ctx.restore();
 
       stage.dataset[`${r.morph.toLowerCase()}Animated`] = "true";
       stage.dataset[`${r.morph.toLowerCase()}Frame`] = String(frameIndex);
+      if(r.morph!=="S"){
+        stage.dataset[`${r.morph.toLowerCase()}MotionProfile`] = "grounded-stride-v2";
+        stage.dataset[`${r.morph.toLowerCase()}FootAdjust`] = footAdjust.toFixed(2);
+      }
     }
 
     const raceRank=rankOf(r);
@@ -1539,6 +1627,7 @@ function resetRace(){
   stage.dataset.agentFeedbackRunner="";
   stage.dataset.agentFeedbackCommand="";
   stage.dataset.agentFeedbackResult="";
+stage.dataset.peaMotionVersion="grounded-stride-v2";
   stage.dataset.battleVisible="0";
   stage.dataset.battleState="CLEAR";
   stage.dataset.battleRivalId="";
