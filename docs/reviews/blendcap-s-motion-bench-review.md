@@ -144,28 +144,54 @@ Notes: `Gate 2 decision READY_FOR_EXPLICIT_HYBRID_MAPPING. Human limbs remain ex
 
 ## Gate 3 — S hybrid render
 
-Status: `NOT_RUN`
+Status: `V1_REVISE / V2_RUNNING`
 
-SIDE artifact: `UNSET`
+V1 evidence: GitHub Actions run `37261156501`
 
-LOW artifact: `UNSET`
+V1 hypothesis: low-gain BlendCap body motion layered over the existing S V5 quadruped limb animation, with no direct human-limb mapping.
 
-CHASE artifact: `UNSET`
+V1 SIDE artifact: `side-comparison.jpg`
 
-FRONT artifact: `UNSET`
+V1 LOW artifact: `low-comparison.jpg`
+
+V1 CHASE artifact: `chase-comparison.jpg`
+
+V1 FRONT artifact: `front-comparison.jpg`
+
+V1 visual review:
+
+- SIDE: BlendCap body layer is visible, but the strongest visible change is whole-body/foot vertical displacement rather than clearly improved trunk dynamics.
+- LOW: contact position changes are easy to see; the layer is not yet contact-neutral.
+- CHASE / FRONT: the body-dynamics gain is too subtle to justify the contact perturbation.
+- V1 maximum foot world displacement is 0.05004 on a 2.0-unit creature, about 2.50% of creature height; maximum vertical foot displacement is 0.02793.
+- Therefore V1 is not accepted as a runtime hybrid.
+
+V1 decision: `REVISE`
+
+V2 exact hypothesis: remove direct captured root-vertical transfer, preserve existing S V5 world-space locomotion, keep only low-gain pelvis/spine/chest/neck/head rotations, and compensate the baseline stance foot vertically after the body layer is applied.
+
+V2 workflow: `blendcap-gate3-hybrid-v2`
+
+SIDE artifact: `PENDING_V2`
+
+LOW artifact: `PENDING_V2`
+
+CHASE artifact: `PENDING_V2`
+
+FRONT artifact: `PENDING_V2`
 
 | Check | Motion First baseline | BlendCap hybrid | Result |
 |---|---|---|---|
-| stance skating | UNSET | UNSET | UNSET |
-| penetration / float | UNSET | UNSET | UNSET |
-| fore/hind phase | UNSET | UNSET | UNSET |
-| root/cadence match | UNSET | UNSET | UNSET |
-| pelvis drive | UNSET | UNSET | UNSET |
-| torso contribution | UNSET | UNSET | UNSET |
-| spine compression/extension | UNSET | UNSET | UNSET |
-| neck/head follow-through | UNSET | UNSET | UNSET |
-| launch posture | UNSET | UNSET | UNSET |
-| high-speed readability | UNSET | UNSET | UNSET |
+| stance skating | existing V5 baseline | V1 static review only | V2 must preserve baseline stance height |
+| penetration / float | baseline reference | V1 changed foot height up to 0.02793 | REVISE V1 |
+| fore/hind phase | existing V5 authoritative | unchanged by BlendCap | KEEP V5 |
+| root/cadence match | existing race/root motion | captured root translation rejected | KEEP race root |
+| pelvis drive | V5 baseline | V1 body layer visible | CONTINUE V2 |
+| torso contribution | V5 baseline | V1 subtle | CONTINUE V2 |
+| spine compression/extension | V5 baseline | low-gain rotational proxy only | CONTINUE V2 |
+| neck/head follow-through | V5 baseline | low-gain signal present | CONTINUE V2 |
+| launch posture | not tested by source clip | not tested | DEFER |
+| high-speed readability | existing V5 baseline | static Gate 3 review insufficient | ANIMATED REVIEW REQUIRED |
 
 ## Final decision
 
@@ -179,4 +205,4 @@ Allowed values:
 
 Reason: `UNSET`
 
-Exact next action: `BUILD_GATE3_LOW_GAIN_BODY_SIGNAL_HYBRID_AND_RENDER_BASELINE_VS_HYBRID_SIDE_LOW_CHASE_FRONT`
+Exact next action: `COMPLETE_GATE3_V2_CONTACT_COMPENSATED_RENDER_THEN_RUN_SHORT_SIDE_LOW_ANIMATED_REVIEW_IF_V2_STATIC_PASS`
