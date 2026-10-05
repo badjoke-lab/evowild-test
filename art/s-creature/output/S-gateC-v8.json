@@ -1,0 +1,133 @@
+{
+  "gate": "C",
+  "pass": "v8",
+  "status": "REVIEW_PENDING",
+  "source": "S-gateC-v7.blend",
+  "scope": "Cue Band transforms only",
+  "source_geometry_sha256": "a037893c093cc3db45e386a80c5258e12083515f2a4a48fc228c986eb64ad92c",
+  "base_geometry_sha256": "a037893c093cc3db45e386a80c5258e12083515f2a4a48fc228c986eb64ad92c",
+  "existing_coordinates_unchanged": true,
+  "existing_topology_unchanged": true,
+  "existing_modifiers_unchanged": true,
+  "existing_material_assignments_unchanged": true,
+  "eye_transforms_unchanged": true,
+  "cue_band_objects": [
+    "S_cue_band_top",
+    "S_cue_band_L",
+    "S_cue_band_R",
+    "S_cue_pad_L",
+    "S_cue_pad_R",
+    "S_cue_light_L",
+    "S_cue_light_R",
+    "S_cue_receiver"
+  ],
+  "old_transforms": {
+    "S_cue_band_top": {
+      "location": [
+        0.0,
+        -0.6420000195503235,
+        1.3049999475479126
+      ],
+      "scale": [
+        0.05999999865889549,
+        0.029999999329447746,
+        0.008999999612569809
+      ]
+    },
+    "S_cue_band_L": {
+      "location": [
+        -0.061000000685453415,
+        -0.6499999761581421,
+        1.2860000133514404
+      ],
+      "scale": [
+        0.009999999776482582,
+        0.052000001072883606,
+        0.014000000432133675
+      ]
+    },
+    "S_cue_band_R": {
+      "location": [
+        0.061000000685453415,
+        -0.6499999761581421,
+        1.2860000133514404
+      ],
+      "scale": [
+        0.009999999776482582,
+        0.052000001072883606,
+        0.014000000432133675
+      ]
+    },
+    "S_cue_pad_L": {
+      "location": [
+        -0.0689999982714653,
+        -0.6100000143051147,
+        1.281999945640564
+      ],
+      "scale": [
+        0.014000000432133675,
+        0.023000000044703484,
+        0.017000000923871994
+      ]
+    },
+    "S_cue_pad_R": {
+      "location": [
+        0.0689999982714653,
+        -0.6100000143051147,
+        1.281999945640564
+      ],
+      "scale": [
+        0.014000000432133675,
+        0.023000000044703484,
+        0.017000000923871994
+      ]
+    },
+    "S_cue_light_L": {
+      "location": [
+        -0.08100000023841858,
+        -0.6079999804496765,
+        1.2829999923706055
+      ],
+      "scale": [
+        0.006000000052154064,
+        0.004000000189989805,
+        0.006000000052154064
+      ]
+    },
+    "S_cue_light_R": {
+      "location": [
+        0.08100000023841858,
+        -0.6079999804496765,
+        1.2829999923706055
+      ],
+      "scale": [
+        0.006000000052154064,
+        0.004000000189989805,
+        0.006000000052154064
+      ]
+    },
+    "S_cue_receiver": {
+      "location": [
+        0.0,
+        -0.5860000252723694,
+        1.3140000104904175
+      ],
+      "scale": [
+        0.024000000208616257,
+        0.017999999225139618,
+        0.010999999940395355
+      ]
+    }
+  },
+  "no_pattern": true,
+  "no_animation": true,
+  "no_armature": true,
+  "rendered_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "base_geometry_unchanged_during_render": true
+}
