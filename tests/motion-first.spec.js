@@ -1978,3 +1978,85 @@ test("Motion First heavy 1200 course v1 gives Power a distinct home course", asy
     path: "test-results/visuals/motion-first-heavy-1200-v1.png"
   });
 });
+
+
+test("Motion First Race Entry v1 binds Creature and Agent selection to gameplay", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(90000);
+
+  await page.goto(
+    "/evowild-test/preview-motion-first-race/index.html?skipStart=1&course=heavy-1200-v1",
+    { waitUntil: "networkidle" }
+  );
+
+  const scene = page.locator("#scene");
+  await expect(scene).toHaveAttribute("data-entry-ready", "1");
+  await expect(page.locator("#entryCreatureSelect")).toHaveValue("0");
+  await expect(page.locator("#entryAgentSelect")).toHaveValue("balanced-v1");
+
+  // Pick the known Power runner through the actual Race Entry UI.
+  await page.locator("#entryCreatureSelect").selectOption("5");
+  await page.waitForURL(/entry=5/);
+  await expect(scene).toHaveAttribute("data-entry-runner-id", "5");
+  await expect(scene).toHaveAttribute("data-entry-runner-morph", "P");
+  await expect(page.locator("#runnerSelect")).toHaveValue("5");
+  await expect(page.locator("#agentTargetSelect")).toHaveValue("5");
+
+  await page.locator("#entryAgentSelect").selectOption("attack-v1");
+  await page.waitForURL(/entryAgent=attack-v1/);
+  await expect(scene).toHaveAttribute("data-entry-agent-id", "AGENT-02");
+  await expect(scene).toHaveAttribute("data-entry-agent-strategy", "ATTACK");
+  await expect(page.locator("#entryReadout")).toContainText("Runner 06");
+  await expect(page.locator("#entryReadout")).toContainText("Surge");
+
+  // Agent identity does not change Creature base stats. It changes command
+  // intent, which the Creature compatibility/state resolver must still execute.
+  await page.getByRole("button", { name: "PUSH", exact: true }).click();
+  await page.waitForTimeout(300);
+  const attackResponse = Number(
+    await scene.getAttribute("data-agent-focus-response")
+  );
+  await expect(scene).toHaveAttribute("data-agent-focus-entity-id", "AGENT-02");
+  await expect(scene).toHaveAttribute("data-agent-focus-strategy", "ATTACK");
+
+  await page.goto(
+    "/evowild-test/preview-motion-first-race/index.html?skipStart=1&course=heavy-1200-v1&entry=5&entryAgent=control-v1",
+    { waitUntil: "networkidle" }
+  );
+  await page.getByRole("button", { name: "PUSH", exact: true }).click();
+  await page.waitForTimeout(300);
+  const controlResponse = Number(
+    await page.locator("#scene").getAttribute("data-agent-focus-response")
+  );
+  expect(attackResponse).toBeGreaterThan(controlResponse + 0.05);
+
+  // Run the selected entry through the real field and prove it remains a normal
+  // competitor rather than a special-case player object.
+  await page.goto(
+    "/evowild-test/preview-motion-first-race/index.html?skipStart=1&course=heavy-1200-v1&entry=5&entryAgent=attack-v1&simRate=4",
+    { waitUntil: "networkidle" }
+  );
+  await expect(page.locator("#raceState")).toHaveText("FINISHED", {
+    timeout: 35000
+  });
+
+  const finalScene = page.locator("#scene");
+  await expect(finalScene).toHaveAttribute("data-entry-final-rank", "1");
+  const classification = JSON.parse(
+    (await finalScene.getAttribute("data-final-classification")) || "[]"
+  );
+  const entryResult = classification.find((row) => row.id === 5);
+  expect(entryResult?.isEntry).toBeTruthy();
+  expect(entryResult?.rank).toBe(1);
+  await expect(page.locator(".entry-result-marker")).toHaveText("YOUR ENTRY");
+
+  console.log(
+    "RACE_ENTRY_V1",
+    JSON.stringify({ attackResponse, controlResponse, entryResult })
+  );
+
+  await finalScene.screenshot({
+    path: "test-results/visuals/motion-first-race-entry-v1.png"
+  });
+});
