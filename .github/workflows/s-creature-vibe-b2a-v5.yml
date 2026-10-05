@@ -1,0 +1,78 @@
+name: S creature Vibe lane Gate B2a v5 preunion root rebuild
+on:
+  push:
+    branches: [exp/s-creature-vibe-modeling]
+    paths:
+      - .github/workflows/s-creature-vibe-b2a-v5.yml
+      - art/s-creature/blender/refine_s_vibe_b2a_v5.py
+      - art/s-creature/blender/render_s_vibe_b2a_v5.py
+permissions:
+  contents: write
+concurrency:
+  group: s-creature-vibe-b2a-v5
+  cancel-in-progress: false
+jobs:
+  vibe-b2a-v5:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: exp/s-creature-vibe-modeling
+          fetch-depth: 0
+      - name: Verify B2a-v5 source
+        run: |
+          test -f art/s-creature/output/S-vibe-a4-v2.blend
+          test "$(git branch --show-current)" = "exp/s-creature-vibe-modeling"
+      - name: Install Blender libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+      - name: Download Blender
+        run: |
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Rebuild forelimb root before continuity union
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-vibe-a4-v2.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/refine_s_vibe_b2a_v5.py
+      - name: Render five B2a-v5 views
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-vibe-b2a-v5.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/render_s_vibe_b2a_v5.py
+      - name: Verify B2a-v5 hard scope
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('art/s-creature')
+          r=json.loads((root/'output/S-vibe-b2a-v5-validation.json').read_text())
+          assert r['gate']=='B2a-v5-preunion-forelimb-root-rebuild'
+          assert r['rebuilt_forelimb_vertex_count_each']==72
+          assert r['source_stations_0_to_6_unchanged']
+          assert r['non_forelimb_source_geometry_unchanged_before_union']
+          assert r['continuous_nonmanifold_edge_count']==0
+          assert r['render_nonmanifold_edge_count']==0
+          assert r['preunion_bbox_max_drift'] <= 0.030 + 1e-9
+          assert r['output_bbox_max_drift'] <= 0.030 + 1e-9
+          assert r['preserved_geometry_unchanged']
+          assert r['render_preserved_geometry_unchanged']
+          for stem in ('side','front','front34','rear34','back'):
+              assert (root/f'output/review/vibe-b2a-v5/S_vibe_b2a_v5_{stem}.png').stat().st_size>0
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: S-vibe-B2a-v5-review
+          path: |
+            art/s-creature/output/S-vibe-b2a-v5.blend
+            art/s-creature/output/S-vibe-b2a-v5-validation.json
+            art/s-creature/output/review/vibe-b2a-v5/
+          if-no-files-found: error
+      - name: Commit B2a-v5 result
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add art/s-creature/output/S-vibe-b2a-v5.blend art/s-creature/output/S-vibe-b2a-v5-validation.json art/s-creature/output/review/vibe-b2a-v5/ art/s-creature/CHECKPOINT.md art/s-creature/HANDOFF_STATE.json
+          git commit -m 'art: save Vibe B2a-v5 preunion root rebuild review'
+          git pull --rebase origin exp/s-creature-vibe-modeling
+          git push origin HEAD:exp/s-creature-vibe-modeling
