@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_B2A_V4_REVIEW",
-  "current_stage": "B2a-v4 local forelimb-root reconstruction rendered; review pending; modeling stopped",
+  "stage": "VIBE_EXPERIMENT_B2A_V5_READY",
+  "current_stage": "B2a-v4 REVISE; post-B0 guide family closed; B2a-v5 pre-union forelimb-root rebuild ready",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
-  "current_model_file": "output/S-vibe-b2a-v4.blend",
+  "current_model_file": "output/S-vibe-a4-v2.blend",
   "source_model_file": "output/S-vibe-b0-v025.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Review B2a-v4 against B2a-v3/B2a-v2/B1c-v2 and approved S references. Decide KEEP/REVISE. Do not start B2b.",
+  "next_action": "Execute B2a-v5 from A4-v2: rebuild S_forelimb_L/R with two buried proximal transition rings, keep original stations0..6 exact, regenerate continuity at voxel 0.025, render five views, STOP. Do not start B2b.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -60,7 +60,7 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "ACCEPTED",
-  "modeling_status": "STOPPED",
+  "modeling_status": "READY_FOR_B2A_V5",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/vibe-b2a-v4/S_vibe_b2a_v4_side.png",
@@ -516,7 +516,7 @@
   "b1_deferred_issue": "proximal forelimb root / station0-to-station1 continuity",
   "b1d_v3_decision": "REVISE",
   "b1d_v3_review": "S_VIBE_B1D_V3_REVIEW.md",
-  "b2a_status": "REVIEW_PENDING",
+  "b2a_status": "READY",
   "b2a_v1": {
     "source": "output/S-vibe-b1c-v2.blend",
     "target": "proximal forelimb root station0->1 only",
@@ -704,6 +704,51 @@
       "q_error_ratio_max": 0.85,
       "extent_drift_per_axis": 0.002,
       "non_manifold_edges": 0
+    },
+    "stop_after": "five-view render + validation + actual-image review"
+  },
+  "b2a_v4_decision": "REVISE",
+  "b2a_v4_review": "S_VIBE_B2A_V4_REVIEW.md",
+  "b2a_post_b0_guide_status": "CLOSED",
+  "b2a_v5": {
+    "source": "output/S-vibe-a4-v2.blend",
+    "editable": [
+      "S_forelimb_L",
+      "S_forelimb_R"
+    ],
+    "keep_exact": [
+      "source forelimb stations0..6",
+      "all toes",
+      "core",
+      "crest",
+      "hindlimbs",
+      "tail",
+      "all other source geometry"
+    ],
+    "new_rings": {
+      "embed_m2": {
+        "abs_x": 0.078,
+        "y": -0.09,
+        "z": 1.05,
+        "lateral_radius": 0.09,
+        "sagittal_radius": 0.12
+      },
+      "transition_m1": {
+        "abs_x": 0.098,
+        "y": -0.06,
+        "z": 1.02,
+        "lateral_radius": 0.08,
+        "sagittal_radius": 0.108
+      }
+    },
+    "continuity": {
+      "method": "join core + four limbs then voxel remesh",
+      "voxel_size": 0.025
+    },
+    "hard_limits": {
+      "rebuilt_forelimb_vertices_each": 72,
+      "continuous_non_manifold_edges": 0,
+      "bbox_drift_per_axis": 0.03
     },
     "stop_after": "five-view render + validation + actual-image review"
   }
