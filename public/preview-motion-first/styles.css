@@ -832,3 +832,31 @@ button:disabled {
 .course-control select {
   min-width: 164px;
 }
+
+
+.entry-control select {
+  min-width: 168px;
+}
+
+.result-list li.entry-result {
+  background: rgba(106, 170, 255, .10);
+  box-shadow: inset 2px 0 0 rgba(106, 170, 255, .72);
+}
+
+.entry-result-marker {
+  color: #9bc8ff !important;
+  font-size: 7px !important;
+  letter-spacing: .08em;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .entry-control {
+    flex: 1 1 220px;
+  }
+
+  .entry-control select {
+    min-width: 0;
+    width: 100%;
+  }
+}
