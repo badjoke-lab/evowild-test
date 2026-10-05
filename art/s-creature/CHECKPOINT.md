@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe B2a-v1 proximal forelimb-root massing rendered; REVIEW_PENDING / STOPPED
+current_stage: experimental Vibe B2a-v1 actual-image review complete; REVISE; B2a-v2 local-root refinement ready
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-b2a-v1.blend
+current_model_file: output/S-vibe-b1c-v2.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review B2a-v1 five views against B1c-v2 and approved S references. Decide KEEP/REVISE. Do not start B2b hindlimb before explicit decision.
+next_action: Execute B2a-v2 independently from B1c-v2. One support-contained local subdivision in proximal forelimb station0->1, then same accepted A3a elliptical guide. Max local displacement 0.0040. Render five views and STOP. Do not start B2b.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -690,3 +690,11 @@ vibe_gate_b2a_v1_renders:
 - output/review/vibe-b2a-v1/S_vibe_b2a_v1_front34.png
 - output/review/vibe-b2a-v1/S_vibe_b2a_v1_rear34.png
 - output/review/vibe-b2a-v1/S_vibe_b2a_v1_back.png
+
+vibe_gate_b2a_v1_decision: REVISE
+vibe_gate_b2a_v1_review: S_VIBE_B2A_V1_REVIEW.md
+vibe_gate_b2a_v1_reason: 29 vertices moved near the 0.005 cap but SIDE/FRONT34 triangular root remained.
+vibe_gate_b2a_v2_source: output/S-vibe-b1c-v2.blend
+vibe_gate_b2a_v2_method: one support-contained local subdivision + same A3a station0-to-station1 tapered elliptical guide
+vibe_gate_b2a_v2_hard_limit: new vertices 20..500; max local displacement 0.0040; extent drift <=0.002 per axis; non-manifold 0
+vibe_gate_b2b_status: BLOCKED
