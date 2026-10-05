@@ -9,8 +9,8 @@
     "E",
     "A"
   ],
-  "stage": "S-gate-C-v10-audit-complete",
-  "current_stage": "S Gate C v10 production-readiness audit complete; rig-prep strategy required",
+  "stage": "S-rig-v1-ready",
+  "current_stage": "S production audit complete; rig-source v1 execution ready",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
   "current_model_file": "output/S-gateC-v9.blend",
@@ -50,9 +50,9 @@
     "Tail and all toe geometry unchanged from v2",
     "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Use output/S-gateC-v10-production-readiness.json to choose and execute the rig-prep path. Do not change visual design.",
+  "next_action": "Build derived S-rig-v1 from output/S-gateC-v9.blend with one shared armature; static rest-pose render and STOP.",
   "quality_issues": [
-    "production topology / rig readiness not yet audited"
+    "production armature/weights not yet validated"
   ],
   "blockers": [],
   "accepted": true,
@@ -66,7 +66,7 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "PASS",
-  "modeling_status": "STOPPED_AFTER_AUDIT",
+  "modeling_status": "READY_FOR_RIG_V1",
   "cage_vertex_count": 800,
   "review_renders": [
     "output/review/gate-c-v9/S_gateC_side.png",
@@ -132,5 +132,7 @@
   "gate_c_v9_decision": "KEEP",
   "surface_pattern_decision": "M1_SOLID_NO_ADDED_PATTERN",
   "gate_c_v10_scope": "read-only production topology/rig readiness audit",
-  "production_readiness_report": "output/S-gateC-v10-production-readiness.json"
+  "production_readiness_report": "output/S-gateC-v10-production-readiness.json",
+  "rig_prep_strategy": "KEEP_MULTI_OBJECT_SHARED_ARMATURE",
+  "rig_source_model": "output/S-gateC-v9.blend"
 }
