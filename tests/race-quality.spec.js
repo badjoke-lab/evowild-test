@@ -391,6 +391,7 @@ test("2.5D P E A grounded-stride v2 exposes six distinct live phases", async ({ 
     await expect(stage).toHaveAttribute(`data-${morph.toLowerCase()}-motion-profile`, "grounded-stride-v2");
     await expect(stage).toHaveAttribute(`data-${morph.toLowerCase()}-ground-anchor`, "auto-foot-v2");
     await expect(stage).toHaveAttribute("data-pea-motion-version", "grounded-stride-v2");
+    await expect(stage).toHaveAttribute("data-pea-anchor-version", "alpha-bbox-x-v3");
     await expect(stage).toHaveAttribute("data-camera-subject", "motion-review-isolated");
 
     const rawFootSpread = Number(await stage.getAttribute(`data-${morph.toLowerCase()}-foot-spread-raw`));
@@ -417,6 +418,18 @@ test("2.5D P E A grounded-stride v2 exposes six distinct live phases", async ({ 
       await expect(stage).toHaveAttribute("data-selected-run-frame", String(frame), { timeout: 8000 });
       await expect(stage).toHaveAttribute("data-motion-review-frame", String(frame));
       await expect(stage).toHaveAttribute("data-camera-subject", "motion-review-isolated");
+      await expect(stage).toHaveAttribute("data-pea-anchor-version", "alpha-bbox-x-v3");
+      const horizontalAdjust = Number(
+        await stage.getAttribute(`data-${morph.toLowerCase()}-horizontal-adjust`)
+      );
+      const centerX = Number(
+        await stage.getAttribute(`data-${morph.toLowerCase()}-frame-center-x`)
+      );
+      expect(Number.isFinite(horizontalAdjust)).toBe(true);
+      expect(Math.abs(horizontalAdjust)).toBeLessThan(90);
+      expect(Number.isFinite(centerX)).toBe(true);
+      expect(centerX).toBeGreaterThan(0.15);
+      expect(centerX).toBeLessThan(0.85);
       await stage.screenshot({
         path: `artifacts/2p5d-survivor/pea-v2-${morph.toLowerCase()}-frame-${frame}-${testInfo.project.name}.png`
       });
