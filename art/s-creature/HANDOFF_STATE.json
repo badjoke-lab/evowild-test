@@ -9,8 +9,8 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_B1E_V1_READY",
-  "current_stage": "B1d-v2 reviewed REVISE; B1e-v1 expanded-support seam blend ready",
+  "stage": "VIBE_EXPERIMENT_B1D_V3_READY",
+  "current_stage": "B1d-v2 reviewed REVISE; B1d-v3 signed tapered-bridge projection ready",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
   "current_model_file": "output/S-vibe-b1c-v2.blend",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Execute B1e-v1 from B1c-v2. Edit old support boundary + one-ring only, anchored by expanded outer support. Topology fixed; lambda 0.25; 2 passes; max displacement 0.0035. Render five views and STOP. B2 remains blocked.",
+  "next_action": "Execute B1d-v3 independently from B1c-v2. Signed boundary-tapered projection toward same tapered bridge; |ratio-1|>0.05; gain 0.35; max displacement 0.0042. Render five views and STOP. B2 remains blocked.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -60,7 +60,7 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "ACCEPTED",
-  "modeling_status": "READY_FOR_B1E_V1",
+  "modeling_status": "READY_FOR_B1D_V3",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/vibe-b1d-v2/S_vibe_b1d_v2_side.png",
@@ -70,7 +70,9 @@
     "output/review/vibe-b1d-v2/S_vibe_b1d_v2_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
-  "editable_next": [],
+  "editable_next": [
+    "B1c refined shoulder-root support interior with signed bridge deviation > 5%"
+  ],
   "keep_fixed_next": [
     "support boundary",
     "outside-support body",
@@ -484,6 +486,27 @@
       "editable_count": [
         40,
         260
+      ],
+      "extent_drift_per_axis": 0.002,
+      "non_manifold_edges": 0
+    },
+    "stop_after": "five-view render + validation + actual-image review"
+  },
+  "b1d_v3": {
+    "source": "output/S-vibe-b1c-v2.blend",
+    "target": "remaining vertical/angular shoulder-root join",
+    "guide": "same tapered shoulder-to-upper-limb capsule as B1d-v2",
+    "method": {
+      "projection": "signed inward/outward toward guide surface",
+      "ratio_error_threshold": 0.05,
+      "gain": 0.35,
+      "max_displacement": 0.0042,
+      "boundary_taper": true
+    },
+    "hard_limits": {
+      "candidate_count": [
+        8,
+        180
       ],
       "extent_drift_per_axis": 0.002,
       "non_manifold_edges": 0
