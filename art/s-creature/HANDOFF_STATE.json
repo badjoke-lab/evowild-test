@@ -9,8 +9,8 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_B1C_V1_REVIEW",
-  "current_stage": "B1c-v1 local shoulder-root resurface rendered; review pending; modeling stopped",
+  "stage": "VIBE_EXPERIMENT_B1C_V2_READY",
+  "current_stage": "B1c-v1 reviewed REVISE; refined local topology kept; B1c-v2 ridge suppression ready",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
   "current_model_file": "output/S-vibe-b1c-v1.blend",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Review B1c-v1 against B0-v025, B1b-v2/v4 and approved S references. Decide KEEP/REVISE. B2 remains blocked.",
+  "next_action": "Execute B1c-v2 from B1c-v1. Keep topology unchanged. Move only high-curvature/residual vertices inside the refined shoulder-root patch; boundary fixed; residual >0.0025; lambda 0.35; 2 passes; max additional displacement 0.0035. Render five views and STOP. B2 remains blocked.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -60,7 +60,7 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "ACCEPTED",
-  "modeling_status": "STOPPED",
+  "modeling_status": "READY_FOR_B1C_V2",
   "cage_vertex_count": 760,
   "review_renders": [
     "output/review/vibe-b1c-v1/S_vibe_b1c_v1_side.png",
@@ -70,13 +70,16 @@
     "output/review/vibe-b1c-v1/S_vibe_b1c_v1_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
-  "editable_next": [],
+  "editable_next": [
+    "interior vertices of existing B1c refined shoulder-root patch with residual > 0.0025"
+  ],
   "keep_fixed_next": [
-    "all non-mask body vertices",
+    "all topology",
+    "all vertices outside B1c support",
+    "B1c support boundary",
     "crest",
-    "all toes",
-    "topology",
-    "vertex count"
+    "toes",
+    "whole-body extents"
   ],
   "review_basis": "Actual B1b-v2 five original PNGs and matched-camera B0-v025 / B1b-v1 comparisons, plus repository 00/01/02 S references.",
   "v6_decision": "REVISE",
@@ -289,6 +292,32 @@
     "hard_limits": {
       "local_displacement": 0.004,
       "extent_drift_per_axis": 0.003,
+      "non_manifold_edges": 0
+    },
+    "stop_after": "five-view render + validation + actual-image review"
+  },
+  "b1c_v1_decision": "REVISE",
+  "b1c_v1_topology_basis": "KEEP",
+  "b1c_v1_review": "S_VIBE_B1C_V1_REVIEW.md",
+  "b1c_v2": {
+    "source": "output/S-vibe-b1c-v1.blend",
+    "target": "remaining high-curvature shoulder-root ridge / triangular cap",
+    "method": {
+      "type": "residual-gated XYZ fairing",
+      "residual_threshold": 0.0025,
+      "lambda": 0.35,
+      "passes": 2,
+      "max_additional_displacement": 0.0035
+    },
+    "fixed": [
+      "topology",
+      "outside-support vertices",
+      "support boundary vertices",
+      "crest",
+      "toes"
+    ],
+    "hard_limits": {
+      "extent_drift_per_axis": 0.002,
       "non_manifold_edges": 0
     },
     "stop_after": "five-view render + validation + actual-image review"
