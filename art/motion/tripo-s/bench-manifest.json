@@ -73,5 +73,11 @@
     "PASS_TO_T2",
     "KEEP_AS_REFERENCE",
     "REJECT"
-  ]
+  ],
+  "tripo_rig_config": {
+    "model_version": "v2.5-20260210",
+    "rig_family": "non_humanoid_creature",
+    "rig_type": "quadruped",
+    "output_preference": "glb"
+  }
 }
