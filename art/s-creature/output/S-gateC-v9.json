@@ -1,0 +1,22 @@
+{
+  "gate": "C",
+  "pass": "v9",
+  "status": "REVIEW_PENDING",
+  "source": "S-gateC-v8.blend",
+  "scope": "Cue Band transforms only",
+  "base_geometry_sha256": "a037893c093cc3db45e386a80c5258e12083515f2a4a48fc228c986eb64ad92c",
+  "existing_coordinates_unchanged": true,
+  "existing_topology_unchanged": true,
+  "existing_modifiers_unchanged": true,
+  "existing_material_assignments_unchanged": true,
+  "eye_transforms_unchanged": true,
+  "no_pattern": true,
+  "rendered_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "base_geometry_unchanged_during_render": true
+}

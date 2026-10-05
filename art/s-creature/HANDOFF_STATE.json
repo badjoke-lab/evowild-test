@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "S-gate-C-v9-ready",
-  "current_stage": "S Gate C v8 reviewed REVISE; Gate C v9 forehead-band correction ready",
+  "stage": "S-gate-C-v9-review",
+  "current_stage": "S Gate C v9 forehead-band preview saved and five views rendered; REVIEW_PENDING / STOPPED",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
-  "current_model_file": "output/S-gateC-v8.blend",
+  "current_model_file": "output/S-gateC-v9.blend",
   "source_model_file": "output/S-gateC-v8.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -50,7 +50,7 @@
     "Tail and all toe geometry unchanged from v2",
     "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Execute Gate C v9 from output/S-gateC-v8.blend; Cue Band transforms only; render five views and STOP.",
+  "next_action": "Review Gate C v9 Cue Band only. Do not add body pattern before decision.",
   "quality_issues": [
     "band body buried under crest root",
     "cue lights too far lateral and read as extra eyes"
@@ -67,14 +67,14 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "PASS",
-  "modeling_status": "READY_FOR_GATE_C_V9",
+  "modeling_status": "STOPPED",
   "cage_vertex_count": 800,
   "review_renders": [
-    "output/review/gate-c-v8/S_gateC_side.png",
-    "output/review/gate-c-v8/S_gateC_front.png",
-    "output/review/gate-c-v8/S_gateC_front34.png",
-    "output/review/gate-c-v8/S_gateC_rear34.png",
-    "output/review/gate-c-v8/S_gateC_back.png"
+    "output/review/gate-c-v9/S_gateC_side.png",
+    "output/review/gate-c-v9/S_gateC_front.png",
+    "output/review/gate-c-v9/S_gateC_front34.png",
+    "output/review/gate-c-v9/S_gateC_rear34.png",
+    "output/review/gate-c-v9/S_gateC_back.png"
   ],
   "geometry_sha256": "a037893c093cc3db45e386a80c5258e12083515f2a4a48fc228c986eb64ad92c",
   "geometry_unchanged_during_render": true,
@@ -112,7 +112,7 @@
   "gate_b_accepted_model": "output/S-gateB-v4.blend",
   "gate_b_v4_decision": "KEEP",
   "gate_b_tail_root_decision": "KEEP_AS_IS",
-  "gate_c_status": "REVISE_V8_READY_FOR_V9",
+  "gate_c_status": "REVIEW_PENDING",
   "gate_c_v1_scope": "modifier-only surface preview on core + four limb meshes",
   "gate_c_v1_decision": "KEEP",
   "gate_c_v2_scope": "proximal limb rings 0-1 only; existing modifiers retained",
