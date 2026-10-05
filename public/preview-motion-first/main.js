@@ -40,6 +40,7 @@ const agentFeedbackEl = document.querySelector("#agentFeedback");
 const agentFeedbackMetaEl = document.querySelector("#agentFeedbackMeta");
 const agentFeedbackCommandEl = document.querySelector("#agentFeedbackCommand");
 const agentFeedbackResultEl = document.querySelector("#agentFeedbackResult");
+const agentAutoButton = document.querySelector("#agentAutoButton");
 const agentCommandButtons = [...document.querySelectorAll("[data-agent-command]")];
 const cameraButtons = [...document.querySelectorAll(".cam")];
 
@@ -136,6 +137,8 @@ const REQUESTED_ENTRY_AGENT_KEY = params.get("entryAgent") || "balanced-v1";
 const ENTRY_AGENT_PROFILE =
   ENTRY_AGENT_PROFILES[REQUESTED_ENTRY_AGENT_KEY] ||
   ENTRY_AGENT_PROFILES["balanced-v1"];
+const INITIAL_AGENT_AUTO_ENABLED =
+  SIMPLIFIED_RACE_PAGE && params.get("agentAuto") === "1";
 const FINISH_REVIEW_MODE =
   SIMPLIFIED_RACE_PAGE && params.get("finishReview") === "1";
 const FULL_DIRECTOR_REVIEW_MODE =
@@ -274,6 +277,12 @@ function createRunnerAgentState(id) {
     strategy: "FIELD",
     intent: { PUSH: 1.00, CONSERVE: 1.00 },
     version: 1,
+    autoNextDecisionAt: 0,
+    autoCommandCount: 0,
+    autoPushCount: 0,
+    autoConserveCount: 0,
+    autoHistory: [],
+    lastCommandSource: "NONE",
     command: "NEUTRAL",
     commandIssuedAt: -999,
     commandUntil: -999,
@@ -3849,6 +3858,11 @@ function resetRace() {
   canvas.dataset.agentCommand = "NEUTRAL";
   canvas.dataset.agentRunnerId = "";
   canvas.dataset.agentCommandUntil = "";
+  canvas.dataset.entryAgentAuto = agentAutoEnabled ? "1" : "0";
+  canvas.dataset.entryAgentAutoCommandCount = "0";
+  canvas.dataset.entryAgentAutoPushCount = "0";
+  canvas.dataset.entryAgentAutoConserveCount = "0";
+  canvas.dataset.entryAgentAutoHistory = "";
   canvas.dataset.resultReady = "0";
   canvas.dataset.winnerDeclared = "0";
   canvas.dataset.winnerId = "";
@@ -3902,6 +3916,12 @@ function resetRace() {
     runner.agent.commandIssuedAt = -999;
     runner.agent.commandUntil = -999;
     runner.agent.response = 0;
+    runner.agent.autoNextDecisionAt = 0;
+    runner.agent.autoCommandCount = 0;
+    runner.agent.autoPushCount = 0;
+    runner.agent.autoConserveCount = 0;
+    runner.agent.autoHistory = [];
+    runner.agent.lastCommandSource = "NONE";
     runner.agent.lastResult = "NEUTRAL";
     runner.agent.commandFactor = 1;
     runner.agent.fatigueFactor = 1 - runner.fatigue * 0.08;
@@ -4249,8 +4269,20 @@ function updateAgentFeedback() {
   canvas.dataset.agentFeedbackResult = result;
 }
 
-function issueAgentCommand(runner, command) {
+function issueAgentCommand(runner, command, source = "MANUAL") {
   if (!runner?.agent || !["PUSH", "CONSERVE", "CLEAR"].includes(command)) return;
+
+  runner.agent.lastCommandSource = source;
+  if (source === "AUTO") {
+    runner.agent.autoCommandCount += 1;
+    if (command === "PUSH") runner.agent.autoPushCount += 1;
+    if (command === "CONSERVE") runner.agent.autoConserveCount += 1;
+    runner.agent.autoHistory.push({
+      t: Number(raceTime.toFixed(2)),
+      command
+    });
+    if (runner.agent.autoHistory.length > 16) runner.agent.autoHistory.shift();
+  }
 
   if (command === "CLEAR") {
     runner.agent.command = "NEUTRAL";
@@ -4271,8 +4303,93 @@ function issueAgentCommand(runner, command) {
   showAgentFeedback(runner, command);
 }
 
+function chooseEntryAgentAutoCommand(runner) {
+  const progress = THREE.MathUtils.clamp(
+    Math.max(0, runner.distance) / RACE_DISTANCE,
+    0,
+    1
+  );
+  const strategy = runner.agent?.strategy || "BALANCED";
+
+  if (strategy === "ATTACK") {
+    if (runner.fatigue >= 0.58 || runner.stamina <= 0.30) return "CONSERVE";
+    if (progress < 0.18) return "PUSH";
+    if (progress >= 0.58) return "PUSH";
+    if (runner.pressure >= 0.62 && runner.stamina >= 0.50) return "PUSH";
+    return "NEUTRAL";
+  }
+
+  if (strategy === "CONTROL") {
+    if (progress < 0.58) return "CONSERVE";
+    if (runner.fatigue >= 0.42 || runner.stamina <= 0.42) return "CONSERVE";
+    if (progress >= 0.84 && runner.stamina >= 0.40) return "PUSH";
+    return "NEUTRAL";
+  }
+
+  if (runner.fatigue >= 0.48 || runner.stamina <= 0.40) return "CONSERVE";
+  if (progress < 0.22) return "CONSERVE";
+  if (progress >= 0.76 && runner.stamina >= 0.42) return "PUSH";
+  return "NEUTRAL";
+}
+
+function syncAgentAutoUi() {
+  if (agentAutoButton) {
+    agentAutoButton.textContent = agentAutoEnabled ? "AUTO ON" : "AUTO OFF";
+    agentAutoButton.classList.toggle("active", agentAutoEnabled);
+    agentAutoButton.setAttribute("aria-pressed", agentAutoEnabled ? "true" : "false");
+  }
+  if (agentTargetSelect) {
+    agentTargetSelect.disabled = agentAutoEnabled;
+  }
+  canvas.dataset.entryAgentAuto = agentAutoEnabled ? "1" : "0";
+}
+
+function setAgentAutoEnabled(enabled) {
+  agentAutoEnabled = Boolean(enabled);
+  const entryRunner = runners[ENTRY_RUNNER_ID];
+  if (entryRunner?.agent) {
+    entryRunner.agent.autoNextDecisionAt = raceTime;
+  }
+  if (agentAutoEnabled) {
+    agentTargetRunner = ENTRY_RUNNER_ID;
+    if (agentTargetSelect) agentTargetSelect.value = String(ENTRY_RUNNER_ID);
+  }
+  syncAgentAutoUi();
+}
+
+function updateEntryAgentAutomation(runner) {
+  if (
+    !agentAutoEnabled ||
+    runner.id !== ENTRY_RUNNER_ID ||
+    !raceStarted ||
+    finished ||
+    runner.finishTime !== null
+  ) {
+    return;
+  }
+
+  const agent = runner.agent;
+  if (!agent || raceTime < agent.autoNextDecisionAt) return;
+  agent.autoNextDecisionAt = raceTime + 0.75;
+
+  const desired = chooseEntryAgentAutoCommand(runner);
+  const active = agent.command;
+
+  if (desired === "NEUTRAL") {
+    if (active !== "NEUTRAL") {
+      issueAgentCommand(runner, "CLEAR", "AUTO");
+    }
+    return;
+  }
+
+  if (active !== desired) {
+    issueAgentCommand(runner, desired, "AUTO");
+  }
+}
+
 function updateRunner(runner, dt) {
   const cfg = runner.cfg;
+  updateEntryAgentAutomation(runner);
   runner.pressure = computeRunnerPressure(runner);
   runner.creatureState = deriveCreatureState(runner);
   const progress = THREE.MathUtils.clamp(runner.distance / RACE_DISTANCE, 0, 1);
@@ -5366,6 +5483,7 @@ function rankings() {
 
 let selectedRunner = 0;
 let agentTargetRunner = 0;
+let agentAutoEnabled = INITIAL_AGENT_AUTO_ENABLED;
 let agentFeedbackRunner = -1;
 let agentFeedbackCommand = "NEUTRAL";
 let agentFeedbackUntil = -999;
@@ -5963,9 +6081,26 @@ function updateHud(dt) {
         agentTarget.agent.strategy || "FIELD";
       canvas.dataset.agentFocusProfile =
         agentTarget.agent.profileKey || "balanced-v1";
+      canvas.dataset.agentFocusCommandSource =
+        agentTarget.agent.lastCommandSource || "NONE";
       canvas.dataset.agentBalanceModel = "fatigue-tradeoff-v1";
       canvas.dataset.agentBalanceReview = AGENT_BALANCE_REVIEW_MODE ? "1" : "0";
       canvas.dataset.agentModel = "command-only-creature-resolved";
+    }
+
+    const entryAgent = runners[ENTRY_RUNNER_ID]?.agent;
+    if (entryAgent) {
+      canvas.dataset.entryAgentAuto = agentAutoEnabled ? "1" : "0";
+      canvas.dataset.entryAgentAutoCommandCount =
+        String(entryAgent.autoCommandCount || 0);
+      canvas.dataset.entryAgentAutoPushCount =
+        String(entryAgent.autoPushCount || 0);
+      canvas.dataset.entryAgentAutoConserveCount =
+        String(entryAgent.autoConserveCount || 0);
+      canvas.dataset.entryAgentAutoHistory =
+        (entryAgent.autoHistory || [])
+          .map((item) => `${item.t}:${item.command}`)
+          .join(",");
     }
 
     const positioningDecisionCounts = runners.map(
@@ -6170,9 +6305,17 @@ agentCommandButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const runner = runners[agentTargetRunner];
     if (!runner || !raceStarted || finished) return;
-    issueAgentCommand(runner, button.dataset.agentCommand);
+    if (agentAutoEnabled) setAgentAutoEnabled(false);
+    issueAgentCommand(runner, button.dataset.agentCommand, "MANUAL");
   });
 });
+
+if (agentAutoButton) {
+  agentAutoButton.addEventListener("click", () => {
+    if (finished) return;
+    setAgentAutoEnabled(!agentAutoEnabled);
+  });
+}
 
 cameraButtons.forEach((button) => {
   button.addEventListener("click", () => {
@@ -6384,6 +6527,7 @@ async function boot() {
   createRunners();
   initializeRaceEntryUi();
   resetRace();
+  syncAgentAutoUi();
 
   if (SIMPLIFIED_RACE_PAGE) {
     canvas.dataset.simplifiedRace = "1";
