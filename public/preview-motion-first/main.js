@@ -112,6 +112,7 @@ const ENTRY_AGENT_PROFILES = {
     id: "AGENT-01",
     name: "Pulse",
     strategy: "BALANCED",
+    strategyDefinition: "CONSERVE opening, neutral middle, PUSH final",
     intent: { PUSH: 1.00, CONSERVE: 1.00 }
   },
   "attack-v1": {
@@ -119,6 +120,7 @@ const ENTRY_AGENT_PROFILES = {
     id: "AGENT-02",
     name: "Surge",
     strategy: "ATTACK",
+    strategyDefinition: "PUSH opening, react to pressure, PUSH from 58%",
     intent: { PUSH: 1.08, CONSERVE: 0.92 }
   },
   "control-v1": {
@@ -126,6 +128,7 @@ const ENTRY_AGENT_PROFILES = {
     id: "AGENT-03",
     name: "Anchor",
     strategy: "CONTROL",
+    strategyDefinition: "CONSERVE to 58%, PUSH only in late phase",
     intent: { PUSH: 0.94, CONSERVE: 1.08 }
   }
 };
@@ -212,6 +215,7 @@ function applyEntryAgentProfile(runner) {
   runner.agent.entityName = ENTRY_AGENT_PROFILE.name;
   runner.agent.profileKey = ENTRY_AGENT_PROFILE.key;
   runner.agent.strategy = ENTRY_AGENT_PROFILE.strategy;
+  runner.agent.strategyDefinition = ENTRY_AGENT_PROFILE.strategyDefinition;
   runner.agent.intent = { ...ENTRY_AGENT_PROFILE.intent };
 }
 
@@ -258,6 +262,8 @@ function initializeRaceEntryUi() {
   canvas.dataset.entryAgentId = ENTRY_AGENT_PROFILE.id;
   canvas.dataset.entryAgentName = ENTRY_AGENT_PROFILE.name;
   canvas.dataset.entryAgentStrategy = ENTRY_AGENT_PROFILE.strategy;
+  canvas.dataset.entryAgentStrategyDefinition =
+    ENTRY_AGENT_PROFILE.strategyDefinition;
   canvas.dataset.entryCourseFit = paceFit.toFixed(3);
 }
 
@@ -275,6 +281,7 @@ function createRunnerAgentState(id) {
     entityName: "Field Agent",
     profileKey: "balanced-v1",
     strategy: "FIELD",
+    strategyDefinition: "Manual command only",
     intent: { PUSH: 1.00, CONSERVE: 1.00 },
     version: 1,
     autoNextDecisionAt: 0,
