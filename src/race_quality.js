@@ -60,7 +60,7 @@ const LANES = Array.from({ length: FIELD_SIZE }, (_, i) => LANE_PATTERN[i % LANE
 const START_VISUAL_OFFSETS = (() => {
   const laneRows = [0,0,0,0];
   return LANES.map((lane) => {
-    const laneIndex = clamp(Math.round(lane),0,3);
+    const laneIndex = Math.max(0, Math.min(3, Math.round(lane)));
     const row = laneRows[laneIndex]++;
     return -row * 3.2;
   });
