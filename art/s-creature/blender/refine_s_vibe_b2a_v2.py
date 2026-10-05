@@ -31,6 +31,7 @@ XMIN,XMAX=0.055,0.215
 YMIN,YMAX=-0.075,0.085
 ZMIN,ZMAX=0.780,1.060
 SUPPORT_EPS=1e-5
+SUBDIV_INSET=0.005
 
 Q_ERROR_THRESHOLD=0.10
 Q_MIN=0.45
@@ -70,6 +71,17 @@ def inside_local(co,eps=0.0):
     _,_,_,_,t=side_segment(co)
     return -eps<=t<=1.0+eps
 
+def inside_subdiv_core(co):
+    ax=abs(co.x)
+    if not (
+        (XMIN+SUBDIV_INSET)<=ax<=(XMAX-SUBDIV_INSET) and
+        (YMIN+SUBDIV_INSET)<=co.y<=(YMAX-SUBDIV_INSET) and
+        (ZMIN+SUBDIV_INSET)<=co.z<=(ZMAX-SUBDIV_INSET)
+    ):
+        return False
+    _,_,_,_,t=side_segment(co)
+    return 0.0<=t<=1.0
+
 def guide_metrics(co):
     sign,s0,s1,axis,t=side_segment(co)
     center=s0+axis*t
@@ -102,7 +114,7 @@ eligible=[]
 affected_source_faces=set()
 for e in list(bm.edges):
     v0,v1=e.verts
-    if not (inside_local(v0.co) and inside_local(v1.co)):
+    if not (inside_subdiv_core(v0.co) and inside_subdiv_core(v1.co)):
         continue
     if v0.co.x*v1.co.x<=0:
         continue
@@ -254,7 +266,7 @@ report={
  'station0':{'abs_x':S0_X,'y':S0_Y,'z':S0_Z,'lateral_radius':S0_LR,'sagittal_radius':S0_SR},
  'station1':{'abs_x':S1_X,'y':S1_Y,'z':S1_Z,'lateral_radius':S1_LR,'sagittal_radius':S1_SR},
  'support':{'abs_x_min':XMIN,'abs_x_max':XMAX,'y_min':YMIN,'y_max':YMAX,'z_min':ZMIN,'z_max':ZMAX,'station_t':[0,1]},
- 'parameters':{'subdivision_cuts':1,'q_error_threshold':Q_ERROR_THRESHOLD,'q_min':Q_MIN,'q_max':Q_MAX,
+ 'parameters':{'subdivision_cuts':1,'subdivision_inset':SUBDIV_INSET,'q_error_threshold':Q_ERROR_THRESHOLD,'q_min':Q_MIN,'q_max':Q_MAX,
                'gain':GAIN,'max_local_displacement':MAX_LOCAL_DISP},
  'source_vertex_count':src_vert_count,
  'source_polygon_count':src_poly_count,
