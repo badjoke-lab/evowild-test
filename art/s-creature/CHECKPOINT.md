@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe B1d-v2 tapered shoulder-limb bridge rendered; REVIEW_PENDING / STOPPED
+current_stage: experimental Vibe B1d-v2 actual-image review complete; REVISE; B1e-v1 support-seam blend ready
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-b1d-v2.blend
+current_model_file: output/S-vibe-b1c-v2.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review B1d-v2 five views against B1d-v1/B1c-v2/B0-v025 and approved S references. Decide KEEP/REVISE. B2 remains blocked.
+next_action: Execute B1e-v1 from B1c-v2. Move only the old B1c support boundary plus one-ring neighbors inside an expanded anchored support. Topology fixed; lambda 0.25; 2 passes; max displacement 0.0035. Render five views and STOP. B2 remains blocked.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -645,3 +645,11 @@ vibe_gate_b1d_v2_renders:
 - output/review/vibe-b1d-v2/S_vibe_b1d_v2_front34.png
 - output/review/vibe-b1d-v2/S_vibe_b1d_v2_rear34.png
 - output/review/vibe-b1d-v2/S_vibe_b1d_v2_back.png
+
+vibe_gate_b1d_v2_decision: REVISE
+vibe_gate_b1d_v2_review: S_VIBE_B1D_V2_REVIEW.md
+vibe_gate_b1e_v1_source: output/S-vibe-b1c-v2.blend
+vibe_gate_b1e_v1_target: persistent old-support seam / triangular shoulder-root edge
+vibe_gate_b1e_v1_method: old boundary + one-ring XYZ seam blend inside expanded fixed support
+vibe_gate_b1e_v1_hard_limit: editable 40..260; max displacement <=0.0035; extent drift <=0.002 per axis
+vibe_gate_b2_status: BLOCKED
