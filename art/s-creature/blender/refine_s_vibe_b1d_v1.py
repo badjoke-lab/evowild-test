@@ -27,7 +27,7 @@ RY=0.105
 RZ=0.095
 Q_THRESHOLD=1.04
 GAIN=0.55
-MAX_DISP=0.005
+MAX_DISP=0.0049
 MAX_EXTENT_DRIFT=0.002
 
 before=[v.co.copy() for v in mesh.vertices]
