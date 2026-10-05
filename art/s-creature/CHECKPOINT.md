@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe B1c-v3 REVISE; micro-shaping closed; B1d-v1 anatomical shoulder-guide projection ready
+current_stage: experimental Vibe B1d-v1 anatomical shoulder-guide projection rendered; REVIEW_PENDING / STOPPED
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-b1c-v2.blend
+current_model_file: output/S-vibe-b1d-v1.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute B1d-v1 from B1c-v2. Keep refined topology and support boundary fixed. Pull only ellipsoid-outside shoulder-root vertices toward mirrored anatomical shoulder guide; gain 0.55; max displacement 0.005. Render five views and STOP. B2 remains blocked.
+next_action: Review B1d-v1 five views against B1c-v2/B0-v025 and approved S references. Decide KEEP/REVISE. B2 remains blocked.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -620,3 +620,12 @@ vibe_gate_b1d_v1_source: output/S-vibe-b1c-v2.blend
 vibe_gate_b1d_v1_method: mirrored anatomical shoulder-guide ellipsoid projection; outside-only; gain 0.55
 vibe_gate_b1d_v1_hard_limit: max displacement 0.005; extent drift <=0.002 per axis; boundary/topology fixed
 vibe_gate_b2_status: BLOCKED
+
+vibe_gate_b1d_v1_status: REVIEW_PENDING
+vibe_gate_b1d_v1_scope: refined shoulder-root patch; outside-only anatomical guide projection
+vibe_gate_b1d_v1_renders:
+- output/review/vibe-b1d-v1/S_vibe_b1d_v1_side.png
+- output/review/vibe-b1d-v1/S_vibe_b1d_v1_front.png
+- output/review/vibe-b1d-v1/S_vibe_b1d_v1_front34.png
+- output/review/vibe-b1d-v1/S_vibe_b1d_v1_rear34.png
+- output/review/vibe-b1d-v1/S_vibe_b1d_v1_back.png

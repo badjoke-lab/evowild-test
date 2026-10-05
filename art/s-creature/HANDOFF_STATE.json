@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_B1D_V1_READY",
-  "current_stage": "B1c-v3 REVISE; micro-shaping exhausted; B1d-v1 anatomical shoulder-guide projection ready",
+  "stage": "VIBE_EXPERIMENT_B1D_V1_REVIEW",
+  "current_stage": "B1d-v1 anatomical shoulder-guide projection rendered; review pending; modeling stopped",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
-  "current_model_file": "output/S-vibe-b1c-v2.blend",
+  "current_model_file": "output/S-vibe-b1d-v1.blend",
   "source_model_file": "output/S-vibe-b0-v025.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Execute B1d-v1 from B1c-v2. Preserve refined topology/support boundary. Pull only guide-outside shoulder-root vertices toward mirrored ellipsoid; gain 0.55; max displacement 0.005. Render five views and STOP. B2 remains blocked.",
+  "next_action": "Review B1d-v1 against B1c-v2/B0-v025 and approved S references. Decide KEEP/REVISE. B2 remains blocked.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -60,19 +60,17 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "ACCEPTED",
-  "modeling_status": "READY_FOR_B1D_V1",
+  "modeling_status": "STOPPED",
   "cage_vertex_count": 760,
   "review_renders": [
-    "output/review/vibe-b1c-v3/S_vibe_b1c_v3_side.png",
-    "output/review/vibe-b1c-v3/S_vibe_b1c_v3_front.png",
-    "output/review/vibe-b1c-v3/S_vibe_b1c_v3_front34.png",
-    "output/review/vibe-b1c-v3/S_vibe_b1c_v3_rear34.png",
-    "output/review/vibe-b1c-v3/S_vibe_b1c_v3_back.png"
+    "output/review/vibe-b1d-v1/S_vibe_b1d_v1_side.png",
+    "output/review/vibe-b1d-v1/S_vibe_b1d_v1_front.png",
+    "output/review/vibe-b1d-v1/S_vibe_b1d_v1_front34.png",
+    "output/review/vibe-b1d-v1/S_vibe_b1d_v1_rear34.png",
+    "output/review/vibe-b1d-v1/S_vibe_b1d_v1_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
-  "editable_next": [
-    "support-interior shoulder-root vertices outside anatomical guide"
-  ],
+  "editable_next": [],
   "keep_fixed_next": [
     "support boundary",
     "outside-support body",
