@@ -1202,7 +1202,7 @@ function drawRacers() {
   }
 
   const placedLabelBoxes=[];
-  const labelShifts=width<700 ? [0,-20,20,-40,40] : [0,-18,18,-36,36];
+  const labelShifts=width<700 ? [0,-20,20,-40,40,-60,60] : [0,-18,18,-36,36,-54,54];
   labelRequests
     .sort((a,b)=>b.priority-a.priority)
     .forEach((label) => {
@@ -1238,10 +1238,21 @@ function drawRacers() {
       ctx.fillText(label.txt,label.x,chosenY);
     });
 
+  let labelOverlapCount=0;
+  for(let i=0;i<placedLabelBoxes.length;i++){
+    for(let j=i+1;j<placedLabelBoxes.length;j++){
+      const a=placedLabelBoxes[i], b=placedLabelBoxes[j];
+      if(a.left<b.right && a.right>b.left && a.top<b.bottom && a.bottom>b.top){
+        labelOverlapCount++;
+      }
+    }
+  }
+
   stage.dataset.visibleRacers=String(list.length);
   stage.dataset.visibleLabels=String(visibleLabelCount);
   stage.dataset.labelLayout="priority-collision-avoidance";
   stage.dataset.labelCollisionAdjustments=String(labelCollisionAdjustments);
+  stage.dataset.labelOverlapCount=String(labelOverlapCount);
   stage.dataset.startFormationFactor=startFormationFactor.toFixed(3);
   stage.dataset.visualDepthStagger="enabled";
   stage.dataset.finishSpreadMeters="1.35";
