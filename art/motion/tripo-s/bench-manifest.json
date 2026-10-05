@@ -80,6 +80,6 @@
     "rig_type": "quadruped",
     "output_preference": "glb"
   },
-  "execution_status": "T0_BLOCKED_AUTHENTICATION",
+  "execution_status": "T0_BLOCKED_BROWSER_WEBGL",
   "latest_session_record": "art/motion/tripo-s/review/t0-session.json"
 }

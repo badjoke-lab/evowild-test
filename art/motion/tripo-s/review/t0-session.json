@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "recorded_at_utc": "2026-10-05T14:29:12.864059+00:00",
-  "base_commit": "3d19579df88f4bb52ffd929595d98e4f8a5bf72a",
+  "recorded_at_utc": "2026-10-05T14:44:47.860895+00:00",
+  "base_commit": "ac078d8511706289fc4a10e29c9e0096e4bc8123",
   "branch": "exp/tripo-s-motion-bench-20261003",
   "gate": "T0",
-  "execution_status": "BLOCKED_AUTHENTICATION",
+  "execution_status": "BLOCKED_BROWSER_WEBGL",
   "decision": null,
   "input_geometry": {
     "path": "public/models/evowild-s/source-lod2.glb",
@@ -18,7 +18,7 @@
     "animation_count": 0
   },
   "geometry_lod": "LOD2",
-  "input_uploaded": false,
+  "input_uploaded": null,
   "tripo_rig_model_version_requested": "v2.5-20260210",
   "tripo_rig_type_requested": "quadruped",
   "tripo_rig_model_version_used": null,
@@ -30,16 +30,28 @@
   "generation_requests_submitted": 0,
   "credits_consumed_by_this_attempt": 0,
   "paid_credits_used": false,
-  "credit_balance_visible": false,
+  "credit_balance_visible": true,
   "t1_status": "NOT_RUN_BLOCKED_BY_T0",
   "t2_status": "NOT_STARTED",
   "browser_observations": [
-    "Tripo Studio displayed Sign up/Log in.",
-    "Secure authentication selected Google; this confirms method selection only, not successful login.",
-    "After Google selection, original Tripo tab became unavailable (Unknown CDP tab).",
-    "Fresh target-origin verification still displayed Sign up/Log in.",
-    "Retrying the selected Google control also made the Tripo tab unavailable. No signed-in state was verified."
+    "Signed-in target page displayed Hi, badjoke.lab! and 200 credits.",
+    "Completed initial workspace questionnaire: Game Assets / Creatures & Animals / Personal Creator. Closed upgrade offer without purchase.",
+    "Selected exact source-lod2.glb via the supported browser file chooser. Find the Best Angle dialog opened, but its model preview remained blank.",
+    "Tripo console reported THREE.WebGLRenderer: A WebGL context could not be created; GL_VENDOR = Disabled, GL_RENDERER = Disabled; Error creating WebGL context.",
+    "Clicking Confirm did not close the angle dialog or create a visible model asset.",
+    "Performed one page reload. The file-chooser retry timed out and reset the browser control kernel. After reconnecting to the same tab, the Tripo page displayed Something went wrong / Please try again later.",
+    "Final page remained signed in with a displayed balance of 200 credits. No Auto Rig or animation generation was submitted."
   ],
-  "next_action": "Restore authenticated Tripo Studio access, then upload the exact source-lod2.glb and execute T0. If T0 passes, generate exactly one T1 candidate and stop; do not start T2.",
-  "ci_note": "No real T1 GLB exists. The two Tripo review tests are intentionally skipped; CI success cannot pass T0 or T1, and no tripo-s-motion-review artifact is expected."
+  "next_action": "Restore a supported WebGL-capable execution surface for Tripo Studio; then retry T0 using the exact source-lod2.glb. Do not switch to LOD4 for this browser-level renderer failure. After a genuine T0 pass, generate exactly one T1 and stop.",
+  "ci_note": "No real T1 GLB exists. The two Tripo review tests are intentionally skipped; CI success cannot pass T0 or T1, and no tripo-s-motion-review artifact is expected.",
+  "previous_attempt_commit": "ac078d8511706289fc4a10e29c9e0096e4bc8123",
+  "authentication_verified": true,
+  "input_file_selected": true,
+  "upload_persisted_to_tripo_assets_verified": false,
+  "credits_before": 200,
+  "credits_after": 200,
+  "evidence_paths": [
+    "art/motion/tripo-s/review/t0-webgl-console-excerpt.txt",
+    "art/motion/tripo-s/review/t0-webgl-blocked-20261005.jpg"
+  ]
 }

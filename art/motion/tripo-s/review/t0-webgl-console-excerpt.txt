@@ -1,0 +1,7 @@
+Observed via supported browser developer logs on 2026-10-05 at 14:42:20 UTC, before page reload.
+
+THREE.WebGLRenderer: A WebGL context could not be created. Reason:  Could not create a WebGL context, VENDOR = 0xffff, DEVICE = 0xffff, GL_VENDOR = Disabled, GL_RENDERER = Disabled, Sandboxed = yes, Optimus = no, AMD switchable = no, Reset notification strategy = 0x0000, ErrorMessage = BindToCurrentSequence failed: .
+THREE.WebGLRenderer: Error creating WebGL context.
+
+After one reload/retry, the visible page displayed: Something went wrong / Please try again later.
+No import or quadruped-rig quality decision can be made from this execution-surface failure.

@@ -2,9 +2,20 @@
 
 Branch: `exp/tripo-s-motion-bench-20261003`
 
-Status: `T0_BLOCKED_AUTHENTICATION`
+Status: `T0_BLOCKED_BROWSER_WEBGL`
 
-## 2026-10-05 execution attempt
+## 2026-10-05 authenticated retry
+
+- Authentication blocker resolved: signed-in `badjoke.lab` page confirmed, displayed credits **200 -> 200**.
+- Latest remote verified: `ac078d8511706289fc4a10e29c9e0096e4bc8123`.
+- Exact LOD2 file selected through Tripo Studio Rig upload. The `Find the Best Angle` preview stayed blank; `Confirm` did not advance. Upload persistence to Assets is **unverified**.
+- Tripo console: `THREE.WebGLRenderer: Error creating WebGL context.` The detailed error identified `GL_VENDOR = Disabled` and `GL_RENDERER = Disabled`.
+- One reload/retry ended at `Something went wrong / Please try again later`. This is a browser execution blocker, not a rig rejection or model-density failure.
+- T0 has **no decision**: Auto Rig not submitted, rig type/version not actually used, no export or re-import. T1 and T2 not started. No credits consumed, purchase, conversion, or LOD4 fallback.
+- Durable evidence: `art/motion/tripo-s/review/t0-session.json`, `t0-webgl-console-excerpt.txt`, and `t0-webgl-blocked-20261005.jpg` in the same review directory.
+- Resume requires a supported WebGL-capable Tripo Studio execution surface. Do not request another login or manual download/re-upload as a solution to this renderer failure. Run T0 first, one T1 only if T0 passes, and stop after T1.
+
+## 2026-10-05 initial execution attempt (superseded blocker)
 
 - Latest remote checked out and fast-forward verified: `3d19579df88f4bb52ffd929595d98e4f8a5bf72a`.
 - Session evidence: `art/motion/tripo-s/review/t0-session.json`.
@@ -81,7 +92,7 @@ Allowed:
 
 Reason: `UNSET`
 
-Exact next action: `RESTORE_TRIPO_AUTHENTICATION_THEN_RUN_T0_ON_SOURCE_LOD2`
+Exact next action: `RESTORE_WEBGL_CAPABLE_EXECUTION_THEN_RUN_T0_ON_SOURCE_LOD2`
 
 ## T1 — steady straight run
 
