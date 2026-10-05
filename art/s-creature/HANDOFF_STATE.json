@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "VIBE_EXPERIMENT_B2A_V1_READY",
-  "current_stage": "Gate B1 closed on B1c-v2 working source; B2a-v1 proximal forelimb-root massing ready",
+  "stage": "VIBE_EXPERIMENT_B2A_V1_REVIEW",
+  "current_stage": "B2a-v1 proximal forelimb-root massing rendered; review pending; modeling stopped",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
-  "current_model_file": "output/S-vibe-b1c-v2.blend",
+  "current_model_file": "output/S-vibe-b2a-v1.blend",
   "source_model_file": "output/S-vibe-b0-v025.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Execute B2a-v1 from B1c-v2 using accepted A3a station0->1 centers/radii as a tapered elliptical root guide. Max displacement 0.0050. Render five views and STOP. Do not start B2b.",
+  "next_action": "Review B2a-v1 against B1c-v2 and approved S references. Decide KEEP/REVISE. Do not start B2b hindlimb before explicit decision.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -60,14 +60,14 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "ACCEPTED",
-  "modeling_status": "READY_FOR_B2A_V1",
+  "modeling_status": "STOPPED",
   "cage_vertex_count": 760,
   "review_renders": [
-    "output/review/vibe-b1d-v3/S_vibe_b1d_v3_side.png",
-    "output/review/vibe-b1d-v3/S_vibe_b1d_v3_front.png",
-    "output/review/vibe-b1d-v3/S_vibe_b1d_v3_front34.png",
-    "output/review/vibe-b1d-v3/S_vibe_b1d_v3_rear34.png",
-    "output/review/vibe-b1d-v3/S_vibe_b1d_v3_back.png"
+    "output/review/vibe-b2a-v1/S_vibe_b2a_v1_side.png",
+    "output/review/vibe-b2a-v1/S_vibe_b2a_v1_front.png",
+    "output/review/vibe-b2a-v1/S_vibe_b2a_v1_front34.png",
+    "output/review/vibe-b2a-v1/S_vibe_b2a_v1_rear34.png",
+    "output/review/vibe-b2a-v1/S_vibe_b2a_v1_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
   "editable_next": [],
@@ -516,7 +516,7 @@
   "b1_deferred_issue": "proximal forelimb root / station0-to-station1 continuity",
   "b1d_v3_decision": "REVISE",
   "b1d_v3_review": "S_VIBE_B1D_V3_REVIEW.md",
-  "b2a_status": "READY",
+  "b2a_status": "REVIEW_PENDING",
   "b2a_v1": {
     "source": "output/S-vibe-b1c-v2.blend",
     "target": "proximal forelimb root station0->1 only",

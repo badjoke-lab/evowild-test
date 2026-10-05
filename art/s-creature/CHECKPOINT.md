@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe Gate B1 closed on B1c-v2 working source; B2a-v1 proximal forelimb-root massing ready
+current_stage: experimental Vibe B2a-v1 proximal forelimb-root massing rendered; REVIEW_PENDING / STOPPED
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-b1c-v2.blend
+current_model_file: output/S-vibe-b2a-v1.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute B2a-v1 from B1c-v2. Reshape only proximal forelimb station0->1 with accepted A3a elliptical center/radius guide. Boundary/outside support fixed; max displacement 0.0050. Render five views and STOP. Do not start B2b.
+next_action: Review B2a-v1 five views against B1c-v2 and approved S references. Decide KEEP/REVISE. Do not start B2b hindlimb before explicit decision.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -681,3 +681,12 @@ vibe_gate_b2a_v1_source: output/S-vibe-b1c-v2.blend
 vibe_gate_b2a_v1_target: proximal forelimb root station0->1 only
 vibe_gate_b2a_v1_method: signed tapered elliptical A3a station0/1 guide; gain 0.45; max displacement 0.0050
 vibe_gate_b2b_status: BLOCKED
+
+vibe_gate_b2a_v1_status: REVIEW_PENDING
+vibe_gate_b2a_v1_scope: proximal forelimb station0-to-station1 root massing only
+vibe_gate_b2a_v1_renders:
+- output/review/vibe-b2a-v1/S_vibe_b2a_v1_side.png
+- output/review/vibe-b2a-v1/S_vibe_b2a_v1_front.png
+- output/review/vibe-b2a-v1/S_vibe_b2a_v1_front34.png
+- output/review/vibe-b2a-v1/S_vibe_b2a_v1_rear34.png
+- output/review/vibe-b2a-v1/S_vibe_b2a_v1_back.png
