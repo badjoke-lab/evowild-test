@@ -1,4 +1,5 @@
 name: Kimodo Upstream Real Motion Baseline
+# rerun-marker: legacy-npz-root-support
 
 on:
   workflow_dispatch:
