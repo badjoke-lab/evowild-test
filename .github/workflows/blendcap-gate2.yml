@@ -1,0 +1,113 @@
+name: blendcap-gate2-decomposition
+
+on:
+  push:
+    branches:
+      - exp/blendcap-s-motion-bench-20261003
+    paths:
+      - ".github/workflows/blendcap-gate2.yml"
+      - "scripts/blendcap/extract_gate2_signals.py"
+      - "scripts/blendcap/gate2_inspect_s_rig.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  decompose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout experiment
+        uses: actions/checkout@v4
+
+      - name: Download accepted Gate 1 artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p artifacts/blendcap-gate2/gate1
+          gh run download 37212143343             --repo badjoke-lab/evowild-test             --name blendcap-gate1-full-capture             --dir artifacts/blendcap-gate2/gate1
+          test -s artifacts/blendcap-gate2/gate1/output.bvh
+          test -s artifacts/blendcap-gate2/gate1/overlay-contact.jpg
+
+      - name: Extract body-level motion signals
+        run: |
+          python3 scripts/blendcap/extract_gate2_signals.py             artifacts/blendcap-gate2/gate1/output.bvh             --output artifacts/blendcap-gate2/signals.json             | tee artifacts/blendcap-gate2/signals-summary.txt
+
+      - name: Install portable Blender 4.2.23
+        env:
+          BLENDER_URL: https://download.blender.org/release/Blender4.2/blender-4.2.23-linux-x64.tar.xz
+        run: |
+          curl --fail --location --retry 3 "$BLENDER_URL" -o "$RUNNER_TEMP/blender.tar.xz"
+          tar -xf "$RUNNER_TEMP/blender.tar.xz" -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/blender-4.2.23-linux-x64" >> "$GITHUB_PATH"
+
+      - name: Inspect locked S runtime rig
+        run: |
+          blender --background             --python scripts/blendcap/gate2_inspect_s_rig.py             --             public/models/evowild-s/focus-rigged-v5.glb             artifacts/blendcap-gate2/s-rig.json             2>&1 | tee artifacts/blendcap-gate2/s-rig.log
+          test -s artifacts/blendcap-gate2/s-rig.json
+
+      - name: Build Gate 2 compatibility report
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          s = json.loads(Path("artifacts/blendcap-gate2/signals.json").read_text())
+          r = json.loads(Path("artifacts/blendcap-gate2/s-rig.json").read_text())
+
+          names = []
+          for arm in r.get("armatures", []):
+              names.extend(b["name"] for b in arm.get("bones", []))
+
+          lower = {n.lower(): n for n in names}
+          def match(words):
+              out=[]
+              for name in names:
+                  low=name.lower()
+                  if any(w in low for w in words):
+                      out.append(name)
+              return out
+
+          mapping = {
+              "root_candidates": match(["root", "master", "body"]),
+              "pelvis_candidates": match(["pelvis", "hip", "hips", "rump"]),
+              "torso_candidates": match(["spine", "chest", "torso", "body"]),
+              "neck_candidates": match(["neck"]),
+              "head_candidates": match(["head"]),
+              "tail_candidates": match(["tail"]),
+              "forelimb_candidates": match(["front", "fore", "shoulder"]),
+              "hindlimb_candidates": match(["back", "hind", "thigh"]),
+          }
+
+          report = {
+              "gate": "BlendCap Gate 2 decomposition",
+              "source_gate1_run": 37212143343,
+              "source_bvh_frames": s["frame_count"],
+              "source_fps": s["fps"],
+              "source_duration_seconds": s["duration_seconds"],
+              "source_forward_axis": s["forward_axis"],
+              "s_rig_bone_count": len(names),
+              "s_rig_bones": names,
+              "s_actions": r.get("actions", []),
+              "candidate_mapping": mapping,
+              "transferable_signals": s["transfer_policy"]["allowed"],
+              "forbidden_direct_mapping": s["transfer_policy"]["forbidden"],
+              "decision": "READY_FOR_EXPLICIT_HYBRID_MAPPING"
+                  if (mapping["pelvis_candidates"] or mapping["torso_candidates"]) else
+                  "NEEDS_MANUAL_BONE_MAPPING",
+          }
+          Path("artifacts/blendcap-gate2/compatibility.json").write_text(
+              json.dumps(report, indent=2)
+          )
+          print(json.dumps(report, indent=2))
+          PY
+
+      - name: Upload Gate 2 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blendcap-gate2-decomposition
+          path: artifacts/blendcap-gate2/
+          if-no-files-found: error
