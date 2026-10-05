@@ -1,0 +1,48 @@
+name: S creature Gate C v10 production audit
+on:
+  push:
+    branches: [feat/s-creature-model]
+    paths: [.github/workflows/s-creature-gate-c-v10-audit.yml]
+permissions: {contents: write}
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: feat/s-creature-model, fetch-depth: 0}
+      - run: |
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - run: /tmp/blender-4.3.2-linux-x64/blender -b --python-exit-code 1 --python art/s-creature/blender/gate_c_v10_production_audit.py
+      - run: |
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+          root=Path('art/s-creature'); r=json.loads((root/'output/S-gateC-v10-production-readiness.json').read_text())
+          assert r['status']=='AUDIT_COMPLETE'
+          assert r['surface_pattern_decision']=='M1_SOLID_NO_ADDED_PATTERN'
+          assert r['cage_mesh_count']>1
+          p=root/'CHECKPOINT.md'; s=p.read_text()
+          s=re.sub(r'^current_stage:.*$','current_stage: S Gate C v10 production-readiness audit complete; rig-prep strategy required',s,count=1,flags=re.M)
+          s=re.sub(r'^next_action:.*$','next_action: Use S-gateC-v10-production-readiness.json to choose and execute the rig-prep path. Do not change visual design.',s,count=1,flags=re.M)
+          s=re.sub(r'^modeling_status:.*$','modeling_status: STOPPED_AFTER_AUDIT',s,count=1,flags=re.M)
+          s+='\n\ngate_c_v10_audit_done: Production topology/rig readiness audited from S-gateC-v9 without geometry changes.\n'
+          p.write_text(s)
+          hp=root/'HANDOFF_STATE.json'; h=json.loads(hp.read_text())
+          h['stage']='S-gate-C-v10-audit-complete'; h['current_stage']='S Gate C v10 production-readiness audit complete; rig-prep strategy required'
+          h['next_action']='Use output/S-gateC-v10-production-readiness.json to choose and execute the rig-prep path. Do not change visual design.'
+          h['gate_c_status']='PRODUCTION_AUDIT_COMPLETE'; h['modeling_status']='STOPPED_AFTER_AUDIT'
+          h['production_readiness_report']='output/S-gateC-v10-production-readiness.json'
+          hp.write_text(json.dumps(h,indent=2)+'\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: S-Gate-C-v10-production-audit
+          path: art/s-creature/output/S-gateC-v10-production-readiness.json
+      - run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add art/s-creature/output/S-gateC-v10-production-readiness.json art/s-creature/CHECKPOINT.md art/s-creature/HANDOFF_STATE.json
+          git commit -m 'art: record S Gate C v10 production readiness audit'
+          git push origin HEAD:feat/s-creature-model
