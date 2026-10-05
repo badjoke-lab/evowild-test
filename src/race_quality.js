@@ -1081,6 +1081,8 @@ function drawRacers() {
   let minEdge=Infinity;
   let maxEdge=-Infinity;
   let visibleLabelCount=0;
+  let labelCollisionAdjustments=0;
+  const labelRequests=[];
   for(const r of racers){
     const finishSpread = raceState==="finished" && r.finishPlace
       ? (r.finishPlace-1)*1.35
@@ -1175,21 +1177,19 @@ function drawRacers() {
     const raceRank=rankOf(r);
     const showLabel=selectedRacer || battleRival || raceRank<=2;
     if(showLabel){
-      visibleLabelCount++;
-      const labelYOffset=battleRival ? (width<700?22:16) : 0;
-      const labelY=item.y-spriteH*.66-labelYOffset;
-      ctx.font=`800 ${width<700?9:11}px ui-monospace, Menlo, monospace`;
-      ctx.textAlign="center";
       const txt=selectedRacer
         ? `YOU · ${r.morph}${String(r.id).padStart(2,"0")}`
         : battleRival
           ? `RIVAL · ${r.morph}${String(r.id).padStart(2,"0")}`
           : `#${raceRank} ${r.morph}${String(r.id).padStart(2,"0")}`;
-      const tw=ctx.measureText(txt).width+10;
-      ctx.fillStyle=selectedRacer?"rgba(8,41,56,.94)":"rgba(3,10,15,.76)";
-      ctx.fillRect(item.x-tw/2,labelY-12,tw,15);
-      ctx.fillStyle=selectedRacer?"#9ce9fb":"#eef9ff";
-      ctx.fillText(txt,item.x,labelY);
+      labelRequests.push({
+        x:item.x,
+        baseY:item.y-spriteH*.66-(battleRival?(width<700?22:16):0),
+        txt,
+        selectedRacer,
+        battleRival,
+        priority:selectedRacer?3:battleRival?2:1
+      });
     }
 
     if(selectedRacer){
@@ -1201,8 +1201,47 @@ function drawRacers() {
     }
   }
 
+  const placedLabelBoxes=[];
+  const labelShifts=width<700 ? [0,-20,20,-40,40] : [0,-18,18,-36,36];
+  labelRequests
+    .sort((a,b)=>b.priority-a.priority)
+    .forEach((label) => {
+      ctx.font=`800 ${width<700?9:11}px ui-monospace, Menlo, monospace`;
+      ctx.textAlign="center";
+      const tw=ctx.measureText(label.txt).width+10;
+      let chosenY=label.baseY;
+      let chosenBox=null;
+      for(const shift of labelShifts){
+        const y=label.baseY+shift;
+        const box={left:label.x-tw/2-3,right:label.x+tw/2+3,top:y-14,bottom:y+4};
+        const overlaps=placedLabelBoxes.some((other)=>
+          box.left<other.right && box.right>other.left &&
+          box.top<other.bottom && box.bottom>other.top
+        );
+        if(!overlaps){
+          chosenY=y;
+          chosenBox=box;
+          if(shift!==0) labelCollisionAdjustments++;
+          break;
+        }
+      }
+      if(!chosenBox){
+        if(label.priority<2) return;
+        chosenBox={left:label.x-tw/2-3,right:label.x+tw/2+3,top:chosenY-14,bottom:chosenY+4};
+        labelCollisionAdjustments++;
+      }
+      placedLabelBoxes.push(chosenBox);
+      visibleLabelCount++;
+      ctx.fillStyle=label.selectedRacer?"rgba(8,41,56,.94)":"rgba(3,10,15,.82)";
+      ctx.fillRect(label.x-tw/2,chosenY-12,tw,15);
+      ctx.fillStyle=label.selectedRacer?"#9ce9fb":label.battleRival?"#ffe1a0":"#eef9ff";
+      ctx.fillText(label.txt,label.x,chosenY);
+    });
+
   stage.dataset.visibleRacers=String(list.length);
   stage.dataset.visibleLabels=String(visibleLabelCount);
+  stage.dataset.labelLayout="priority-collision-avoidance";
+  stage.dataset.labelCollisionAdjustments=String(labelCollisionAdjustments);
   stage.dataset.startFormationFactor=startFormationFactor.toFixed(3);
   stage.dataset.visualDepthStagger="enabled";
   stage.dataset.finishSpreadMeters="1.35";
