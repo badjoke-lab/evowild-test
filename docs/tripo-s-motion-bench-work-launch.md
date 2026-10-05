@@ -80,3 +80,14 @@ Report only:
 - any conversion/normalization performed
 
 Do not claim PASS from the Tripo viewport.
+
+
+## Repository review automation already prepared
+
+Before external Tripo execution, the branch already contains:
+
+- `tripo-motion-review.html`
+- `src/tripo_motion_review.js`
+- `tests/tripo-motion-review.spec.js`
+
+The test intentionally skips while `public/experiments/tripo-s/t1-steady-run.glb` is absent. Once Work commits that real T1 GLB, the same branch CI will render the four required views and continuous review video automatically.
