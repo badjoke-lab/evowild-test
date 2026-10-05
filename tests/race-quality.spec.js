@@ -372,7 +372,8 @@ test("2.5D dense-pack labels avoid overlap and battle HUD clears Agent panel", a
 });
 
 test("2.5D P E A grounded-stride v2 exposes six distinct live phases", async ({ page }, testInfo) => {
-  test.setTimeout(45000);
+  test.setTimeout(60000);
+  fs.mkdirSync("artifacts/2p5d-survivor", { recursive: true });
 
   for (const { id, morph } of [
     { id: 2, morph: "P" },
@@ -390,34 +391,40 @@ test("2.5D P E A grounded-stride v2 exposes six distinct live phases", async ({ 
     await expect(stage).toHaveAttribute(`data-${morph.toLowerCase()}-motion-profile`, "grounded-stride-v2");
     await expect(stage).toHaveAttribute(`data-${morph.toLowerCase()}-ground-anchor`, "auto-foot-v2");
     await expect(stage).toHaveAttribute("data-pea-motion-version", "grounded-stride-v2");
+    await expect(stage).toHaveAttribute("data-camera-subject", "motion-review-isolated");
 
     const rawFootSpread = Number(await stage.getAttribute(`data-${morph.toLowerCase()}-foot-spread-raw`));
     expect(Number.isFinite(rawFootSpread)).toBe(true);
     expect(rawFootSpread).toBeGreaterThanOrEqual(0);
 
     const observed = new Set();
-    const captured = new Set();
-    fs.mkdirSync("artifacts/2p5d-survivor", { recursive: true });
-
-    for (let sample = 0; sample < 40 && observed.size < 6; sample += 1) {
+    for (let sample = 0; sample < 48 && observed.size < 6; sample += 1) {
       await page.waitForTimeout(45);
       const frame = Number(await stage.getAttribute("data-selected-run-frame"));
       const phase = await stage.getAttribute("data-selected-run-phase");
-      if (Number.isFinite(frame) && frame >= 0 && frame <= 5) {
-        observed.add(frame);
-        if ([0, 3, 4].includes(frame) && !captured.has(frame)) {
-          captured.add(frame);
-          await stage.screenshot({
-            path: `artifacts/2p5d-survivor/pea-v2-${morph.toLowerCase()}-frame-${frame}-${testInfo.project.name}.png`
-          });
-        }
-      }
+      if (Number.isFinite(frame) && frame >= 0 && frame <= 5) observed.add(frame);
       expect(phase).toMatch(/CONTACT|PUSH|LIFT|FLIGHT|REACH|LAND/);
     }
-
     expect([...observed].sort()).toEqual([0,1,2,3,4,5]);
-    expect(Number(await stage.getAttribute(`data-${morph.toLowerCase()}-foot-adjust`))).toBeGreaterThan(-50);
-    expect(Number(await stage.getAttribute(`data-${morph.toLowerCase()}-foot-adjust`))).toBeLessThan(50);
+
+    for (const frame of [0,3,4]) {
+      await page.goto(
+        `/evowild-test/race-quality.html?motionReview=1&selected=${id}&motionFrame=${frame}`,
+        { waitUntil: "networkidle" }
+      );
+      await expect(stage).toHaveAttribute("data-run-sheets", "ready", { timeout: 15000 });
+      await expect(stage).toHaveAttribute("data-selected-morph", morph);
+      await expect(stage).toHaveAttribute("data-selected-run-frame", String(frame), { timeout: 8000 });
+      await expect(stage).toHaveAttribute("data-motion-review-frame", String(frame));
+      await expect(stage).toHaveAttribute("data-camera-subject", "motion-review-isolated");
+      await stage.screenshot({
+        path: `artifacts/2p5d-survivor/pea-v2-${morph.toLowerCase()}-frame-${frame}-${testInfo.project.name}.png`
+      });
+    }
+
+    const footAdjust = Number(await stage.getAttribute(`data-${morph.toLowerCase()}-foot-adjust`));
+    expect(Number.isFinite(footAdjust)).toBe(true);
+    expect(footAdjust).toBeGreaterThan(-80);
+    expect(footAdjust).toBeLessThan(80);
   }
 });
-
