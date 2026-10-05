@@ -1,5 +1,8 @@
 name: build
 
+permissions:
+  contents: write
+
 on:
   push:
     branches: ["main", "feat/**", "fix/**"]
@@ -29,6 +32,119 @@ jobs:
           name: pea-run-sheet-v3-candidates
           path: artifacts/pea-run-sheet-v3/*
           if-no-files-found: error
+      - name: Materialize reviewed P E A v3 sheets on branch
+        if: ${{ startsWith(github.head_ref, 'feat/2p5d-survivor-pea-assets-v3-') || startsWith(github.ref_name, 'feat/2p5d-survivor-pea-assets-v3-') }}
+        shell: bash
+        run: |
+          BRANCH="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
+          git fetch origin "$BRANCH"
+          git checkout -B "$BRANCH" "origin/$BRANCH"
+          if git ls-tree -r --name-only HEAD | grep -q '^public/concept/p-run-sheet-v3.webp
+      - run: npx playwright install --with-deps chromium
+      - name: Run E2E suite
+        shell: bash
+        run: |
+          BRANCH="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
+          if [[ "$BRANCH" == feat/2p5d-survivor-fair-start-* ]]; then
+            npx playwright test tests/2p5d-selection.spec.js tests/race-quality.spec.js \
+              --grep "four morph race uses all six-frame|battle readability|traffic sees nearby rivals|lane decision chooses real clearance|default start is logically level" \
+              --workers=1
+          elif [[ "$BRANCH" == feat/2p5d-survivor-pack-readability-* ]]; then
+            npx playwright test tests/race-quality.spec.js \
+              --grep "four morph race uses all six-frame|battle readability|dense-pack labels avoid overlap" \
+              --workers=1
+          elif [[ "$BRANCH" == feat/2p5d-survivor-pea-motion-v2-* ]]; then
+            npx playwright test tests/race-quality.spec.js \
+              --grep "four morph race uses all six-frame|P E A grounded-stride v2" \
+              --workers=1
+          elif [[ "$BRANCH" == feat/2p5d-survivor-pea-assets-v3-* ]]; then
+            npx playwright test tests/race-quality.spec.js \
+              --grep "four morph race uses all six-frame" \
+              --workers=1
+          elif [[ "$BRANCH" == "feat/2p5d-four-morph-quality-integration-20260925" || "$BRANCH" == feat/2p5d-survivor-* ]]; then
+            npx playwright test tests/race-quality.spec.js tests/2p5d-selection.spec.js --workers=1
+          else
+            npm run test:e2e
+          fi
+      - name: Upload 2.5D survivor visuals
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: 2p5d-survivor-visuals
+          path: artifacts/2p5d-survivor/*.png
+          if-no-files-found: warn
+      - name: Capture Motion First visuals
+        if: ${{ github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && !startsWith(github.head_ref, 'feat/2p5d-survivor-') && !startsWith(github.ref_name, 'feat/2p5d-survivor-') }}
+        env:
+          MOTION_FIRST_CAPTURE: "1"
+        shell: bash
+        run: |
+          BRANCH="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
+          if [[ "$BRANCH" == feat/simplified-race-full-director-review-v* ]]; then
+            MOTION_FIRST_FULL_RACE_REVIEW=1 \
+              npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
+              --grep "Phase F full-race AUTO director review"
+          elif [[ "$BRANCH" == feat/simplified-race-gameplay-integration-v* ]]; then
+            npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
+              --grep "gameplay integration v1"
+          elif [[ "$BRANCH" == feat/simplified-race-course-balance-v* ]]; then
+            npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
+              --grep "balanced 1600 course v1"
+          elif [[ "$BRANCH" == feat/simplified-race-course-profiles-v* ]]; then
+            npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
+              --grep "course profiles v1"
+          elif [[ "$BRANCH" == feat/simplified-race-course-ui-v* ]]; then
+            npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
+              --grep "course selector v1"
+          elif [[ "$BRANCH" == feat/simplified-race-heavy-course-v* ]]; then
+            npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
+              --grep "heavy 1200 course v1"
+          elif [[ "$BRANCH" == feat/simplified-race-lod-v* || "$BRANCH" == feat/simplified-race-director-v* || "$BRANCH" == feat/simplified-race-speed-v* || "$BRANCH" == feat/simplified-race-side-readability-v* || "$BRANCH" == feat/simplified-race-motion-readability-v* || "$BRANCH" == feat/simplified-race-accel-director-v* || "$BRANCH" == feat/simplified-race-overtake-director-v* || "$BRANCH" == feat/simplified-race-finish-review-v* || "$BRANCH" == feat/simplified-race-environment-v* || "$BRANCH" == feat/simplified-race-results-v* || "$BRANCH" == feat/simplified-race-start-v* || "$BRANCH" == feat/simplified-race-agent-v* || "$BRANCH" == feat/simplified-race-creature-state-v* || "$BRANCH" == feat/simplified-race-agent-feedback-v* || "$BRANCH" == feat/simplified-race-visual-swap-v* || "$BRANCH" == feat/simplified-race-agent-balance-v* || "$BRANCH" == feat/simplified-race-positioning-v* ]]; then
+            npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
+              --grep "Phase E simplified race|Phase F AUTO director|Race Agent v1|Creature State v1|Agent feedback v1|Visual Swap Gate v1|Agent strategy balance v1|positioning v1"
+          else
+            npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1
+          fi
+      - name: Upload Motion First race visuals
+        if: ${{ always() && github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && !startsWith(github.head_ref, 'feat/2p5d-survivor-') && !startsWith(github.ref_name, 'feat/2p5d-survivor-') }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: motion-first-race-visuals
+          path: test-results/visuals/*
+          if-no-files-found: warn
+
+      - name: Capture Sakura NPR camera visuals
+        if: ${{ github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && !startsWith(github.head_ref, 'feat/2p5d-survivor-') && !startsWith(github.ref_name, 'feat/2p5d-survivor-') }}
+        env:
+          SAKURA_NPR_CAPTURE: "1"
+        run: npx playwright test tests/sakura-npr.spec.js --project=desktop-chromium --workers=1
+      - name: Upload mobile visual screenshots
+        if: ${{ always() && github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && !startsWith(github.head_ref, 'feat/2p5d-survivor-') && !startsWith(github.ref_name, 'feat/2p5d-survivor-') }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-race-visuals
+          path: test-results/visuals/*
+          if-no-files-found: warn
+
+      - name: Upload S sprite-gen PoC artifacts
+        if: ${{ always() && github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && !startsWith(github.head_ref, 'feat/2p5d-survivor-') && !startsWith(github.ref_name, 'feat/2p5d-survivor-') }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: spritegen-s-poc
+          path: artifacts/spritegen-s/*
+          if-no-files-found: error
+; then
+            echo "v3 runtime sheets already materialized"
+            exit 0
+          fi
+          cp artifacts/pea-run-sheet-v3/p-run-sheet-v3.webp public/concept/p-run-sheet-v3.webp
+          cp artifacts/pea-run-sheet-v3/e-run-sheet-v3.webp public/concept/e-run-sheet-v3.webp
+          cp artifacts/pea-run-sheet-v3/a-run-sheet-v3.webp public/concept/a-run-sheet-v3.webp
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/concept/p-run-sheet-v3.webp public/concept/e-run-sheet-v3.webp public/concept/a-run-sheet-v3.webp
+          git commit -m "assets: add P E A v3 runtime sheets [skip ci]"
+          git push origin HEAD:"$BRANCH"
       - run: npx playwright install --with-deps chromium
       - name: Run E2E suite
         shell: bash
