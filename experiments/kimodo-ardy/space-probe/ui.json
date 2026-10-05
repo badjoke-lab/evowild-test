@@ -4,16 +4,444 @@
   "http_status": 200,
   "title": "Viser",
   "url": "https://nvidia-kimodo.hf.space/",
-  "body_text": "",
-  "buttons": [],
-  "inputs": [],
+  "body_text": "Kimodo\nDocumentation\nProject Page\nGithub\nKimodo\nGenerate\nVisualize\nInstructions\nModel Selection\n\nModel\n\nModel: Kimodo-SOMA-RP-v1\n\nLoad model\nExamples\n\nExample\n\nLoad Example\nGenerate\n\nTotal duration: 6.0 (sec)\n\nSOMA layer\n\nModel Parameters\nPost Processing\nGenerate\nConstraints\nExports\nWelcome to Kimodo Demo\nWelcome to Kimodo Demo\n\nYou have been granted a 5-minute demo session. Your session timer has started.\n\nClick the button below to begin!\n\nStart Demo",
+  "buttons": [
+    "",
+    "",
+    "Save Canvas",
+    "Reset View",
+    "\n  \n  \n  \n  \n  \n\n\n\nGenerate",
+    "\n  \n  \n  \n\n\n\nVisualize",
+    "\n  \n  \n  \n  \n\n\n\nInstructions",
+    "Load model",
+    "Load Example",
+    "",
+    "",
+    "",
+    "",
+    "Generate",
+    "Enter Editing Mode",
+    "Snap to Constraint",
+    "Reset Constraint",
+    "Undo Move",
+    "Clear All Constraints",
+    "Download",
+    "",
+    "",
+    "0.5x",
+    "1x",
+    "2x",
+    "",
+    "Start Demo"
+  ],
+  "inputs": [
+    {
+      "i": 0,
+      "type": "checkbox",
+      "value": "on",
+      "placeholder": "",
+      "aria": "Switch to dark mode"
+    },
+    {
+      "i": 1,
+      "type": "text",
+      "value": "wss://nvidia-kimodo.hf.space",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 2,
+      "type": "checkbox",
+      "value": "on",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 3,
+      "type": "checkbox",
+      "value": "on",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 4,
+      "type": "checkbox",
+      "value": "on",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 5,
+      "type": "checkbox",
+      "value": "on",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 6,
+      "type": "checkbox",
+      "value": "on",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 7,
+      "type": "checkbox",
+      "value": "on",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 8,
+      "type": "checkbox",
+      "value": "on",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 9,
+      "type": "text",
+      "value": "Adaptive",
+      "placeholder": "Adaptive",
+      "aria": null
+    },
+    {
+      "i": 10,
+      "type": "hidden",
+      "value": "",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 11,
+      "type": "text",
+      "value": "SOMA Human Body",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 12,
+      "type": "hidden",
+      "value": "SOMA Human Body",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 13,
+      "type": "text",
+      "value": "01_single_text_prompt",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 14,
+      "type": "hidden",
+      "value": "01_single_text_prompt",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 15,
+      "type": "checkbox",
+      "value": "on",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 16,
+      "type": "text",
+      "value": "42",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 17,
+      "type": "hidden",
+      "value": "100",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 18,
+      "type": "text",
+      "value": "100",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 19,
+      "type": "checkbox",
+      "value": "on",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 20,
+      "type": "hidden",
+      "value": "2",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 21,
+      "type": "text",
+      "value": "2",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 22,
+      "type": "hidden",
+      "value": "2",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 23,
+      "type": "text",
+      "value": "2",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 24,
+      "type": "checkbox",
+      "value": "on",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 25,
+      "type": "text",
+      "value": "0.04",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 26,
+      "type": "text",
+      "value": "Local",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 27,
+      "type": "hidden",
+      "value": "Local",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 28,
+      "type": "checkbox",
+      "value": "on",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 29,
+      "type": "checkbox",
+      "value": "on",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 30,
+      "type": "text",
+      "value": "output",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 31,
+      "type": "text",
+      "value": "NPZ",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 32,
+      "type": "hidden",
+      "value": "NPZ",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 33,
+      "type": "text",
+      "value": "30",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 34,
+      "type": "checkbox",
+      "value": "on",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 35,
+      "type": "hidden",
+      "value": "1",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 36,
+      "type": "text",
+      "value": "1",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 37,
+      "type": "checkbox",
+      "value": "on",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 38,
+      "type": "hidden",
+      "value": "45",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 39,
+      "type": "text",
+      "value": "45",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 40,
+      "type": "checkbox",
+      "value": "on",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 41,
+      "type": "checkbox",
+      "value": "on",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 42,
+      "type": "checkbox",
+      "value": "on",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 43,
+      "type": "checkbox",
+      "value": "on",
+      "placeholder": "",
+      "aria": null
+    },
+    {
+      "i": 44,
+      "type": "checkbox",
+      "value": "on",
+      "placeholder": "",
+      "aria": null
+    }
+  ],
   "textareas": [],
   "selects": [],
-  "links": [],
+  "links": [
+    {
+      "i": 0,
+      "text": "",
+      "href": "https://www.nvidia.com/"
+    },
+    {
+      "i": 1,
+      "text": "Documentation",
+      "href": "https://research.nvidia.com/labs/sil/projects/kimodo/docs/interactive_demo/index.html"
+    },
+    {
+      "i": 2,
+      "text": "Project Page",
+      "href": "https://research.nvidia.com/labs/sil/projects/kimodo/"
+    },
+    {
+      "i": 3,
+      "text": "Github",
+      "href": "https://github.com/nv-tlabs/kimodo"
+    },
+    {
+      "i": 4,
+      "text": "Documentation",
+      "href": "https://research.nvidia.com/labs/sil/projects/kimodo/docs/interactive_demo/index.html"
+    },
+    {
+      "i": 5,
+      "text": "Project Page",
+      "href": "https://research.nvidia.com/labs/sil/projects/kimodo/"
+    },
+    {
+      "i": 6,
+      "text": "Github",
+      "href": "https://github.com/nv-tlabs/kimodo"
+    }
+  ],
   "console": [
     {
-      "type": "pageerror",
-      "text": "RangeError: Invalid language tag: en-US@posix"
+      "type": "log",
+      "text": "Detected chrome version 140"
+    },
+    {
+      "type": "log",
+      "text": "Connecting to: wss://nvidia-kimodo.hf.space with protocol: viser-v1.0.16"
+    },
+    {
+      "type": "warning",
+      "text": "[GroupMarkerNotSet(crbug.com/242999)!:A070200054050000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader (about:flags#enable-unsafe-swiftshader) flag to opt in to lower security guarantees for trusted content."
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x328c006a5b00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x328c006a5b00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "log",
+      "text": "Connected! wss://nvidia-kimodo.hf.space"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x328c006a5b00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x328c006a5b00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+    },
+    {
+      "type": "log",
+      "text": "Detected chrome version 140"
+    },
+    {
+      "type": "log",
+      "text": "[Performance] Setting DPR to 0.8400000000000001; FPS=5/31"
+    },
+    {
+      "type": "log",
+      "text": "[Performance] Setting DPR to 0.6800000000000002; FPS=6/31"
+    },
+    {
+      "type": "log",
+      "text": "[Performance] Setting DPR to 0.52; FPS=8/31"
+    },
+    {
+      "type": "log",
+      "text": "[Performance] Setting DPR to 0.3600000000000001; FPS=10/31"
     }
   ]
 }
