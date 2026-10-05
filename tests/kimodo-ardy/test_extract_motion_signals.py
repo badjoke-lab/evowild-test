@@ -46,7 +46,8 @@ def synthetic_motion(fps: float = 30.0, seconds: float = 4.0):
 
 
 def main():
-    summary, series = module.analyze_motion(synthetic_motion())
+    base = synthetic_motion()
+    summary, series = module.analyze_motion(base)
 
     assert summary["frames"] == 120
     assert abs(summary["fps"] - 30.0) < 1e-9
@@ -61,6 +62,17 @@ def main():
 
     assert len(series["frame"]) == 120
     assert np.max(np.abs(series["turn_rate_rad_s"])) < 1e-6
+
+    legacy_posed = np.zeros((120, 30, 3), dtype=np.float64)
+    legacy_posed[:, 0, :] = base["root_positions"]
+    legacy = {
+        "posed_joints": legacy_posed,
+        "global_root_heading": base["global_root_heading"],
+        "foot_contacts": base["foot_contacts"],
+    }
+    legacy_summary, _ = module.analyze_motion(legacy, fps_override=30.0)
+    assert legacy_summary["root_source"] == "posed_joints[:,0,:]"
+    assert abs(legacy_summary["mean_speed_mps"] - 3.0) < 0.05
 
     with tempfile.TemporaryDirectory() as td:
         out = Path(td) / "series.csv"
