@@ -1,0 +1,108 @@
+{
+  "lane": "exp/s-creature-vibe-modeling",
+  "gate": "B2a-v2-local-refined-proximal-forelimb-root",
+  "source": "S-vibe-b1c-v2.blend",
+  "decision": "REVIEW_PENDING",
+  "body_object": "S_B0_continuous_body_v025",
+  "method": "one fully-contained local subdivision + accepted A3a tapered elliptical station0-to-station1 guide",
+  "station0": {
+    "abs_x": 0.115,
+    "y": -0.03,
+    "z": 0.985,
+    "lateral_radius": 0.068,
+    "sagittal_radius": 0.095
+  },
+  "station1": {
+    "abs_x": 0.148,
+    "y": 0.035,
+    "z": 0.845,
+    "lateral_radius": 0.056,
+    "sagittal_radius": 0.07
+  },
+  "support": {
+    "abs_x_min": 0.055,
+    "abs_x_max": 0.215,
+    "y_min": -0.075,
+    "y_max": 0.085,
+    "z_min": 0.78,
+    "z_max": 1.06,
+    "station_t": [
+      0,
+      1
+    ]
+  },
+  "parameters": {
+    "subdivision_cuts": 1,
+    "subdivision_inset": 0.005,
+    "q_error_threshold": 0.1,
+    "q_min": 0.45,
+    "q_max": 1.9,
+    "gain": 0.3,
+    "max_local_displacement": 0.004
+  },
+  "source_vertex_count": 5940,
+  "source_polygon_count": 6010,
+  "source_edge_count": 11948,
+  "result_vertex_count": 6432,
+  "result_polygon_count": 6555,
+  "result_edge_count": 12985,
+  "eligible_subdivided_edge_count": 374,
+  "affected_source_face_count": 228,
+  "new_vertex_count": 492,
+  "local_vertex_count_after_subdivision": 770,
+  "candidate_vertex_count": 74,
+  "changed_local_vertex_count": 74,
+  "max_local_displacement": 0.004000008151972785,
+  "mean_local_displacement": 0.0003369689738466263,
+  "mean_abs_q_error_before": 0.27924545445769716,
+  "mean_abs_q_error_after": 0.23299263505383827,
+  "whole_body_extent_before": {
+    "x": [
+      -0.20604567229747772,
+      0.20645402371883392
+    ],
+    "y": [
+      -0.7199999690055847,
+      1.6521023511886597
+    ],
+    "z": [
+      0.04373600333929062,
+      1.3978015184402466
+    ]
+  },
+  "whole_body_extent_after": {
+    "x": [
+      -0.20604567229747772,
+      0.20645402371883392
+    ],
+    "y": [
+      -0.7199999690055847,
+      1.6521023511886597
+    ],
+    "z": [
+      0.04373600333929062,
+      1.3978015184402466
+    ]
+  },
+  "whole_body_extent_drift": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0
+  },
+  "non_manifold_edge_count": 0,
+  "outside_local_vertex_count": 5662,
+  "fixed_geometry_hash": "08eb7b503f21daa6566508d5dee464bacfafb9146edfb178176c365420c91eb9",
+  "outside_local_original_geometry_unchanged": true,
+  "preserved_geometry_unchanged": true,
+  "topology_change_scope": "fully-contained same-side station0-to-station1 forelimb-root faces only",
+  "status": "REVIEW_PENDING",
+  "rendered_views": [
+    "side",
+    "front",
+    "front34",
+    "rear34",
+    "back"
+  ],
+  "render_fixed_geometry_unchanged": true,
+  "render_non_manifold_edge_count": 0
+}
