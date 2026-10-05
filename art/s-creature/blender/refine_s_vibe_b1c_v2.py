@@ -94,6 +94,14 @@ for _ in range(PASSES):
         mesh.vertices[i].co=p
     mesh.update()
 
+# Final deterministic clamp relative to B1c-v1 source, preserving the
+# original displacement budget even after multiple passes and float roundoff.
+for i in sorted(interior):
+    d=mesh.vertices[i].co-initial[i]
+    if d.length>MAX_DISP and d.length>0:
+        mesh.vertices[i].co=initial[i]+d.normalized()*MAX_DISP
+mesh.update()
+
 # Hard fixed: all outside support + support boundary exact.
 fixed=set(range(vert_count))-interior
 for i in fixed:
@@ -119,7 +127,7 @@ vals=list(disp.values())
 max_disp=max(vals) if vals else 0.0
 mean_disp=sum(vals)/len(vals) if vals else 0.0
 changed=sum(1 for d in vals if d>1e-10)
-assert max_disp<=MAX_DISP+1e-9
+assert max_disp<=MAX_DISP+1e-7, f'max additional displacement {max_disp} > {MAX_DISP}'
 
 src_ext={
  'x':(min(v.x for v in before),max(v.x for v in before)),
