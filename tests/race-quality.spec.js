@@ -303,3 +303,32 @@ test("2.5D lane decision chooses real clearance and holds the line", async ({ pa
   });
 });
 
+test("2.5D default start is logically level while visual formation decays", async ({ page }, testInfo) => {
+  await page.goto("/evowild-test/race-quality.html", { waitUntil: "networkidle" });
+  const stage = page.locator("#stage");
+
+  await expect(stage).toHaveAttribute("data-start-model", "logical-level-visual-grid-decay");
+  expect(Number(await stage.getAttribute("data-start-logical-spread"))).toBe(0);
+  expect(Number(await stage.getAttribute("data-start-visual-spread"))).toBeGreaterThan(9);
+
+  await expect.poll(async () => {
+    const value = Number(await stage.getAttribute("data-start-formation-factor"));
+    return Number.isFinite(value) ? value : -1;
+  }, { timeout: 3000 }).toBeGreaterThan(0);
+
+  fs.mkdirSync("artifacts/2p5d-survivor", { recursive: true });
+  await stage.screenshot({
+    path: `artifacts/2p5d-survivor/2p5d-survivor-fair-start-grid-${testInfo.project.name}.png`
+  });
+
+  await expect(stage).toHaveAttribute("data-race-state", "running", { timeout: 8000 });
+  await page.waitForTimeout(2800);
+
+  const formation = Number(await stage.getAttribute("data-start-formation-factor"));
+  expect(formation).toBeLessThanOrEqual(0.01);
+
+  await stage.screenshot({
+    path: `artifacts/2p5d-survivor/2p5d-survivor-fair-start-settled-${testInfo.project.name}.png`
+  });
+});
+

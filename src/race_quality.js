@@ -57,6 +57,14 @@ const NAMES = [
   "Tarin","Ossa","Brink","Nyx","Arden","Vale","Kest","Orin","Tess","Moro"
 ];
 const LANES = Array.from({ length: FIELD_SIZE }, (_, i) => LANE_PATTERN[i % LANE_PATTERN.length]);
+const START_VISUAL_OFFSETS = (() => {
+  const laneRows = [0,0,0,0];
+  return LANES.map((lane) => {
+    const laneIndex = Math.max(0, Math.min(3, Math.round(lane)));
+    const row = laneRows[laneIndex]++;
+    return -row * 3.2;
+  });
+})();
 const CRUISE = Array.from({ length: FIELD_SIZE }, (_, i) => {
   const base = CRUISE_PATTERN[i % CRUISE_PATTERN.length];
   return base * (1 + ((i % 5) - 2) * 0.003);
@@ -285,7 +293,7 @@ function makeRacers() {
           ? i===0 ? 100 : i===1 ? 105 : 62 - (i-2)*1.6
           : LANE_REVIEW_MODE
             ? i===0 ? 100 : i===1 ? 104 : i===2 ? 103 : 62 - (i-3)*1.4
-            : Math.floor(i / 4) * 4.4 + (i % 4) * 0.28,
+            : 0,
     speed:0,
     cruise:CRUISE[i],
     accel:ACCEL[i],
@@ -294,6 +302,9 @@ function makeRacers() {
     pressure:0,
     creatureState:"FRESH",
     agent:createAgentState(i),
+    startVisualOffset:(FINISH_REVIEW_MODE || BATTLE_REVIEW_MODE || TRAFFIC_REVIEW_MODE || LANE_REVIEW_MODE)
+      ? 0
+      : START_VISUAL_OFFSETS[i],
     depthBias:[-0.14,0.10,-0.08,0.14,0.04][Math.floor(i/4)%5],
     lane:BATTLE_REVIEW_MODE && i<2
       ? 1
@@ -334,6 +345,14 @@ function makeRacers() {
   }));
 }
 let racers = makeRacers();
+const INITIAL_LOGICAL_DISTANCE_SPREAD = (() => {
+  const values = racers.map((r) => r.distance);
+  return Math.max(...values)-Math.min(...values);
+})();
+const INITIAL_VISUAL_OFFSET_SPREAD = (() => {
+  const values = racers.map((r) => r.startVisualOffset || 0);
+  return Math.max(...values)-Math.min(...values);
+})();
 let agentTargetIndex = 0;
 let agentFeedbackRunnerId = -1;
 let agentFeedbackCommand = "NEUTRAL";
@@ -1053,6 +1072,12 @@ function drawCourseLandmarks() {
 
 function drawRacers() {
   const list=[];
+  const startFormationFactor =
+    raceState==="countdown"
+      ? 1
+      : raceState==="running"
+        ? clamp(1-elapsed/2400,0,1)
+        : 0;
   let minEdge=Infinity;
   let maxEdge=-Infinity;
   let visibleLabelCount=0;
@@ -1060,7 +1085,10 @@ function drawRacers() {
     const finishSpread = raceState==="finished" && r.finishPlace
       ? (r.finishPlace-1)*1.35
       : 0;
-    const visualDistance=Math.max(0,r.distance-finishSpread);
+    const visualDistance=Math.max(
+      -20,
+      r.distance-finishSpread+(r.startVisualOffset||0)*startFormationFactor
+    );
     const x=screenXForMeters(visualDistance);
     if(x<-220 || x>width+260) continue;
     const lane=clamp(r.lane+(r.depthBias||0),0,3);
@@ -1175,6 +1203,7 @@ function drawRacers() {
 
   stage.dataset.visibleRacers=String(list.length);
   stage.dataset.visibleLabels=String(visibleLabelCount);
+  stage.dataset.startFormationFactor=startFormationFactor.toFixed(3);
   stage.dataset.visualDepthStagger="enabled";
   stage.dataset.finishSpreadMeters="1.35";
   stage.dataset.fieldMinX=Number.isFinite(minEdge)?minEdge.toFixed(1):"";
@@ -1501,6 +1530,9 @@ stage.dataset.trafficReview=TRAFFIC_REVIEW_MODE?"1":"0";
 stage.dataset.laneReview=LANE_REVIEW_MODE?"1":"0";
 stage.dataset.laneDecisionModel="clearance-score-with-hysteresis";
 stage.dataset.trafficModel="continuous-lane-proximity";
+stage.dataset.startModel="logical-level-visual-grid-decay";
+stage.dataset.startLogicalSpread=INITIAL_LOGICAL_DISTANCE_SPREAD.toFixed(2);
+stage.dataset.startVisualSpread=INITIAL_VISUAL_OFFSET_SPREAD.toFixed(2);
 stage.dataset.battleVisible="0";
 stage.dataset.battleState="CLEAR";
 stage.dataset.battleRivalId="";
