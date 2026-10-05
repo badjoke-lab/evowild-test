@@ -16,6 +16,7 @@ permissions:
 
 env:
   UNIMATE_COMMIT: 2c5b384715aa63d8639b1ed7eb74bfe614570c7a
+  BENCH_OBJECT: evos
 
 jobs:
   preprocess:
@@ -25,7 +26,7 @@ jobs:
       - name: Checkout EvoWild bench
         uses: actions/checkout@v4
 
-      - name: Install Blender and Python dependencies
+      - name: Install Blender and preprocessing dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y blender ffmpeg python3-pip
@@ -43,11 +44,12 @@ jobs:
         env:
           PYTHONPATH: /tmp/UniMate:/tmp/Motion:/home/runner/.local/lib/python3.12/site-packages:/usr/lib/python3/dist-packages
         run: |
-          mkdir -p "$GITHUB_WORKSPACE/.unimate-preflight"
+          mkdir -p "$GITHUB_WORKSPACE/.unimate-preflight" "$GITHUB_WORKSPACE/.unimate-input"
+          cp "$GITHUB_WORKSPACE/public/models/evowild-s/focus-rigged-v5.glb" "$GITHUB_WORKSPACE/.unimate-input/${BENCH_OBJECT}.glb"
           cd /tmp/UniMate
-          blender -b -P data_process/mesh_animation/preprocess_char.py --             --char_path="$GITHUB_WORKSPACE/public/models/evowild-s/focus-rigged-v5.glb"             --output_dir="$GITHUB_WORKSPACE/.unimate-preflight"             --face_r=hind_R_upper             --face_l=hind_L_upper             --formats=glb             --keep_intermediate
+          blender -b -P data_process/mesh_animation/preprocess_char.py --             --char_path="$GITHUB_WORKSPACE/.unimate-input/${BENCH_OBJECT}.glb"             --output_dir="$GITHUB_WORKSPACE/.unimate-preflight"             --face_r=hind_R_upper             --face_l=hind_L_upper             --formats=glb             --keep_intermediate
 
-      - name: Summarize topology
+      - name: Assert topology and facing
         run: |
           python3 - <<'PY'
           import json
@@ -56,18 +58,35 @@ jobs:
 
           root = Path(".unimate-preflight")
           cond = np.load(root / "cond.npy", allow_pickle=True).item()
-          if len(cond) != 1:
-              raise SystemExit(f"expected one object type, got {list(cond)}")
-          name, c = next(iter(cond.items()))
+          if list(cond) != ["evos"]:
+              raise SystemExit(f"unexpected object type(s): {list(cond)}")
+          c = cond["evos"]
+          names = [str(x) for x in c["joint_names"]]
+          required = {
+              "pelvis", "spine", "chest", "neck", "head", "tail",
+              "hind_L_upper", "hind_R_upper", "hind_L_lower", "hind_R_lower",
+              "hind_L_foot", "hind_R_foot", "fore_L_upper", "fore_R_upper",
+              "fore_L_lower", "fore_R_lower", "fore_L_foot", "fore_R_foot",
+          }
+          missing = sorted(required - set(names))
+          if missing:
+              raise SystemExit(f"missing required joints: {missing}")
+          face = c.get("face_joint_idxs", {})
+          if int(face.get("r_hip", -1)) < 0 or int(face.get("l_hip", -1)) < 0:
+              raise SystemExit(f"facing pair unresolved: {face}")
+          motion_files = sorted(p.name for p in (root / "motions").glob("*.npz"))
+          canonical = sorted(p.name for p in root.glob("*_canonical.glb"))
+          if not motion_files or not canonical:
+              raise SystemExit(f"missing preprocess outputs motions={motion_files} canonical={canonical}")
           summary = {
-              "object_type": name,
+              "object_type": "evos",
               "joint_count": len(c["parents"]),
-              "joint_names": [str(x) for x in c.get("joint_names", [])],
+              "joint_names": names,
               "clean_joint_names": [str(x) for x in c.get("clean_joint_names", [])],
-              "face_joint_idxs": c.get("face_joint_idxs"),
+              "face_joint_idxs": face,
               "kinematic_chains": c.get("kinematic_chains"),
-              "motion_files": sorted(p.name for p in (root / "motions").glob("*.npz")),
-              "canonical_glbs": sorted(p.name for p in root.glob("*_canonical.glb")),
+              "motion_files": motion_files,
+              "canonical_glbs": canonical,
           }
           def conv(x):
               if hasattr(x, "tolist"):
@@ -110,16 +129,16 @@ jobs:
 
       - name: Install CPU inference dependencies
         run: |
-          python3 -m pip install --break-system-packages --extra-index-url https://download.pytorch.org/whl/cpu             torch==2.5.1
-          python3 -m pip install --break-system-packages             numpy==2.2.6             transformers==5.16.1 sentencepiece==0.2.1             torch-geometric==2.7.0 torchdiffeq==0.2.5 einops==0.8.2             accelerate==1.14.0 tyro==1.0.12 rich==14.3.3 loguru==0.7.3 tqdm==4.67.3             matplotlib==3.10.8 imageio==2.37.3 imageio-ffmpeg==0.6.0
+          python3 -m pip install --break-system-packages --extra-index-url https://download.pytorch.org/whl/cpu torch==2.5.1
+          python3 -m pip install --break-system-packages             numpy==2.2.6 transformers==5.16.1 sentencepiece==0.2.1             torch-geometric==2.7.0 torchdiffeq==0.2.5 einops==0.8.2             accelerate==1.14.0 tyro==1.0.12 rich==14.3.3 loguru==0.7.3 tqdm==4.67.3             matplotlib==3.10.8 imageio==2.37.3 imageio-ffmpeg==0.6.0
 
       - name: Download recommended UniMate v2 checkpoint
         run: |
           mkdir -p .unimate-exp/checkpoints
-          curl -L --fail --retry 5             -o .unimate-exp/config.json             https://huggingface.co/Linzhan/UniMate/resolve/main/unimate_uniml3d_f60_v2/config.json
-          curl -L --fail --retry 5             -o .unimate-exp/dataset_stats.npy             https://huggingface.co/Linzhan/UniMate/resolve/main/unimate_uniml3d_f60_v2/dataset_stats.npy
-          curl -L --fail --retry 5             -o .unimate-exp/checkpoints/checkpoint_step_100000.pt             https://huggingface.co/Linzhan/UniMate/resolve/main/unimate_uniml3d_f60_v2/checkpoints/checkpoint_step_100000.pt
-          ls -lh .unimate-exp .unimate-exp/checkpoints
+          curl -L --fail --retry 5 -o .unimate-exp/config.json             https://huggingface.co/Linzhan/UniMate/resolve/main/unimate_uniml3d_f60_v2/config.json
+          curl -L --fail --retry 5 -o .unimate-exp/dataset_stats.npy             https://huggingface.co/Linzhan/UniMate/resolve/main/unimate_uniml3d_f60_v2/dataset_stats.npy
+          curl -L --fail --retry 5 -o .unimate-exp/checkpoints/checkpoint_step_100000.pt             https://huggingface.co/Linzhan/UniMate/resolve/main/unimate_uniml3d_f60_v2/checkpoints/checkpoint_step_100000.pt
+          test "$(stat -c%s .unimate-exp/checkpoints/checkpoint_step_100000.pt)" -gt 1000000000
 
       - name: Patch inference config for isolated EvoWild topology
         run: |
@@ -139,7 +158,7 @@ jobs:
           PY
           cat > .unimate-cases.json <<'JSON'
           {
-            "focus-rigged-v5-steady-run": "An object runs forward at a steady athletic pace with coordinated four-limb locomotion."
+            "evos-steady_run": "An object runs forward at a steady athletic pace with coordinated four-limb locomotion."
           }
           JSON
 
@@ -153,8 +172,8 @@ jobs:
 
       - name: Verify generated motion
         run: |
-          find .unimate-smoke -maxdepth 3 -type f -printf '%p %s bytes\n'
-          test "$(find .unimate-smoke/motions -name '*.npy' | wc -l)" -ge 1
+          find .unimate-smoke -maxdepth 4 -type f -printf '%p %s bytes\n'
+          test "$(find .unimate-smoke -type f \( -name '*.npy' -o -name '*.npz' \) | wc -l)" -ge 1
 
       - name: Upload generated smoke motion
         uses: actions/upload-artifact@v4
