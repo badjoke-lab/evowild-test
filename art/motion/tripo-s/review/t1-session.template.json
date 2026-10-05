@@ -1,0 +1,17 @@
+{
+  "gate": "T1",
+  "status": "BLOCKED_BY_T0",
+  "input_rigged_model": null,
+  "prompt": "A quadruped creature runs straight forward at a steady racing speed. Powerful hind-leg propulsion, clear alternating foot contacts, stable athletic torso, minimal vertical bouncing, head facing forward. Natural grounded foot contact. Continuous run.",
+  "duration_target_seconds": 5,
+  "raw_outputs": [],
+  "normalized_outputs": [],
+  "review_glb": "public/experiments/tripo-s/t1-steady-run.glb",
+  "actions_run_id": null,
+  "ci_artifact_name": "tripo-s-motion-review",
+  "credits_consumed": null,
+  "paid_credits_used": null,
+  "normalization_performed": null,
+  "commit_sha": null,
+  "notes": null
+}
