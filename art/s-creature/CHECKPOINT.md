@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S Gate C v5 reviewed REVISE; Gate C v6 restrained-eye correction ready
+current_stage: S Gate C v6 restrained-eye preview saved and five views rendered; REVIEW_PENDING / STOPPED
 branch: feat/s-creature-model
-current_model_file: output/S-gateC-v5.blend
+current_model_file: output/S-gateC-v6.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute Gate C v6 eye-marker correction only from S-gateC-v5.blend. Reduce eye size and lateral protrusion, flatten against head, render five views and stop.
+next_action: Review Gate C v6 eye markers only. Do not add Cue Band/pattern before decision.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -137,7 +137,7 @@ gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
 gate_a_status: PASS
-modeling_status: READY_FOR_GATE_C_V6
+modeling_status: STOPPED
 gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
 gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
@@ -426,3 +426,8 @@ gate_c_v5_decision: REVISE
 gate_c_v5_reason: SIDE is restrained, but FRONT shows two cyan bead-like orbs protruding laterally from the head. This exceeds the locked small/restrained eye mass and reads too mascot-like.
 gate_c_v5_keep: cyan eye color direction and symmetric head placement.
 gate_c_v6_rule: eye objects only. Preserve all existing cage geometry, topology, modifiers and material assignments. Reduce eye radius/scale and lateral offset; flatten markers against the head.
+
+
+gate_c_v6_done: Existing eye markers reduced, moved inward and flattened; all cage geometry/modifiers/material assignments locked; five views rendered.
+gate_c_v6_acceptance: REVIEW_PENDING
+gate_c_v6_base_geometry_sha256: a037893c093cc3db45e386a80c5258e12083515f2a4a48fc228c986eb64ad92c
