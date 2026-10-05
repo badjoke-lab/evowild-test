@@ -1,0 +1,92 @@
+name: Kimodo Official Space UI Probe
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - exp/kimodo-ardy-motion-feasibility-20261004
+    paths:
+      - ".github/workflows/kimodo-space-ui-probe.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  probe-ui:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: exp/kimodo-ardy-motion-feasibility-20261004
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Playwright
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+
+      - name: Inspect public Kimodo Space UI
+        shell: bash
+        run: |
+          mkdir -p experiments/kimodo-ardy/space-probe
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import { chromium } from '@playwright/test';
+
+          const out = 'experiments/kimodo-ardy/space-probe/ui.json';
+          const result = { space: 'https://nvidia-kimodo.hf.space', status: 'unknown' };
+          const browser = await chromium.launch({ headless: true });
+          const page = await browser.newPage({ viewport: { width: 1440, height: 1100 } });
+          const consoleLines = [];
+          page.on('console', msg => consoleLines.push({ type: msg.type(), text: msg.text() }));
+          page.on('pageerror', err => consoleLines.push({ type: 'pageerror', text: String(err) }));
+          try {
+            const response = await page.goto(result.space, { waitUntil: 'domcontentloaded', timeout: 90000 });
+            result.http_status = response?.status() ?? null;
+            await page.waitForTimeout(25000);
+            result.title = await page.title();
+            result.url = page.url();
+            result.body_text = (await page.locator('body').innerText()).slice(0, 40000);
+            result.buttons = await page.locator('button').allTextContents();
+            result.inputs = await page.locator('input').evaluateAll(els => els.map((e, i) => ({
+              i, type: e.type, value: e.value, placeholder: e.placeholder, aria: e.getAttribute('aria-label')
+            })));
+            result.textareas = await page.locator('textarea').evaluateAll(els => els.map((e, i) => ({
+              i, value: e.value, placeholder: e.placeholder, aria: e.getAttribute('aria-label')
+            })));
+            result.selects = await page.locator('select').evaluateAll(els => els.map((e, i) => ({
+              i, value: e.value, options: [...e.options].map(o => o.textContent)
+            })));
+            result.links = await page.locator('a').evaluateAll(els => els.slice(0, 100).map((e, i) => ({
+              i, text: e.textContent, href: e.href
+            })));
+            result.status = 'loaded';
+            await page.screenshot({ path: 'experiments/kimodo-ardy/space-probe/ui.png', fullPage: true });
+          } catch (e) {
+            result.status = 'error';
+            result.error = String(e);
+          } finally {
+            result.console = consoleLines.slice(-200);
+            fs.writeFileSync(out, JSON.stringify(result, null, 2) + '\n');
+            console.log(fs.readFileSync(out, 'utf8'));
+            await browser.close();
+          }
+          NODE
+
+      - name: Commit UI probe
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add experiments/kimodo-ardy/space-probe/ui.json experiments/kimodo-ardy/space-probe/ui.png
+          if git diff --cached --quiet; then
+            echo "No UI probe changes."
+            exit 0
+          fi
+          git commit -m "Record official Kimodo Space UI probe"
+          git push origin HEAD:exp/kimodo-ardy-motion-feasibility-20261004
