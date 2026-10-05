@@ -9,12 +9,12 @@
     "E",
     "A"
   ],
-  "stage": "S-gate-C-v8-review",
-  "current_stage": "S Gate C v8 Cue Band visibility preview saved and five views rendered; REVIEW_PENDING / STOPPED",
+  "stage": "S-gate-C-v9-ready",
+  "current_stage": "S Gate C v8 reviewed REVISE; Gate C v9 forehead-band correction ready",
   "branch": "feat/s-creature-model",
   "base_checkpoint_commit": "70bf73b78e2a35bf642741d278e914707155edf1",
   "current_model_file": "output/S-gateC-v8.blend",
-  "source_model_file": "output/S-gateC-v7.blend",
+  "source_model_file": "output/S-gateC-v8.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
     "S_MORPHOLOGY_RESET_PLAN.md",
@@ -50,9 +50,10 @@
     "Tail and all toe geometry unchanged from v2",
     "Saved S-rebuild-v3.blend; rendered SIDE / FRONT / FRONT34 / REAR34 / BACK only; verified unchanged geometry; stopped at Gate A"
   ],
-  "next_action": "Review Gate C v8 Cue Band only. Do not add body pattern before decision.",
+  "next_action": "Execute Gate C v9 from output/S-gateC-v8.blend; Cue Band transforms only; render five views and STOP.",
   "quality_issues": [
-    "Gate C v8 Cue Band acceptance pending review"
+    "band body buried under crest root",
+    "cue lights too far lateral and read as extra eyes"
   ],
   "blockers": [],
   "accepted": true,
@@ -66,7 +67,7 @@
   ],
   "v12_role": "technical donor/checkpoint only; no geometry reused",
   "gate_a_status": "PASS",
-  "modeling_status": "STOPPED",
+  "modeling_status": "READY_FOR_GATE_C_V9",
   "cage_vertex_count": 800,
   "review_renders": [
     "output/review/gate-c-v8/S_gateC_side.png",
@@ -111,7 +112,7 @@
   "gate_b_accepted_model": "output/S-gateB-v4.blend",
   "gate_b_v4_decision": "KEEP",
   "gate_b_tail_root_decision": "KEEP_AS_IS",
-  "gate_c_status": "REVIEW_PENDING",
+  "gate_c_status": "REVISE_V8_READY_FOR_V9",
   "gate_c_v1_scope": "modifier-only surface preview on core + four limb meshes",
   "gate_c_v1_decision": "KEEP",
   "gate_c_v2_scope": "proximal limb rings 0-1 only; existing modifiers retained",
@@ -126,5 +127,7 @@
   "gate_c_v6_decision": "KEEP",
   "gate_c_v7_scope": "new Cue Band detail objects only",
   "gate_c_v7_decision": "REVISE",
-  "gate_c_v8_scope": "Cue Band object transforms only"
+  "gate_c_v8_scope": "Cue Band object transforms only",
+  "gate_c_v8_decision": "REVISE",
+  "gate_c_v9_scope": "Cue Band transforms only"
 }

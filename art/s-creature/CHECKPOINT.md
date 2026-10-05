@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: S Gate C v8 Cue Band visibility preview saved and five views rendered; REVIEW_PENDING / STOPPED
+current_stage: S Gate C v8 reviewed REVISE; Gate C v9 forehead-band correction ready
 branch: feat/s-creature-model
 current_model_file: output/S-gateC-v8.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review Gate C v8 Cue Band only. Do not add body pattern before decision.
+next_action: Execute Gate C v9 Cue Band transform-only correction from S-gateC-v8.blend. Move the main band forward to the forehead and tuck cue lights into side pads; render five views and stop.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -137,7 +137,7 @@ gate_a_output: output/S-rebuild-v3.blend
 v12_role: rejected morphology baseline; technical donor/checkpoint only
 
 gate_a_status: PASS
-modeling_status: STOPPED
+modeling_status: READY_FOR_GATE_C_V9
 gate_a_source: output/S-rebuild-v2.blend; no v12 geometry used
 gate_a_cage_vertices: 760
 gate_a_done: Lowered six-plate crest envelope; outward/rearward fan instead of upright prongs or arch; posterior cranium broadened, muzzle retained; Effective neck shortened with lower forward carriage and stronger base flare into withers and chest; Compact withers/thorax strengthened, narrow rising waist retained and light pelvis elevated; Fore upper segment shortened, elbow raised; hind knee forward and hock rearward with sharper chain angles; Tail and all toe geometry unchanged from v2
@@ -450,3 +450,8 @@ gate_c_v8_rule: transform-only correction on the eight existing Cue Band objects
 
 gate_c_v8_done: Existing Cue Band objects enlarged/repositioned for readability; base geometry and v6 eye transforms locked; five views rendered.
 gate_c_v8_acceptance: REVIEW_PENDING
+
+gate_c_v8_decision: REVISE
+gate_c_v8_reason: Band body remains visually buried under the crest root, while FRONT reads as four cyan points because cue lights sit too far outside the eye markers.
+gate_c_v8_keep: overall device size, dark/navy palette, component count.
+gate_c_v9_rule: Cue Band transform-only. Move top/side band forward on the forehead and move cue lights inward onto the side pads.
