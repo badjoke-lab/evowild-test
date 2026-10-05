@@ -40,7 +40,8 @@ jobs:
           const out = 'experiments/kimodo-ardy/space-probe/ui.json';
           const result = { space: 'https://nvidia-kimodo.hf.space', status: 'unknown' };
           const browser = await chromium.launch({ headless: true });
-          const page = await browser.newPage({ viewport: { width: 1440, height: 1100 } });
+          const context = await browser.newContext({ locale: 'en-US', viewport: { width: 1440, height: 1100 } });
+          const page = await context.newPage();
           const consoleLines = [];
           page.on('console', msg => consoleLines.push({ type: msg.type(), text: msg.text() }));
           page.on('pageerror', err => consoleLines.push({ type: 'pageerror', text: String(err) }));
