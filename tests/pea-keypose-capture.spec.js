@@ -1,10 +1,13 @@
 import { test, expect } from "@playwright/test";
 import fs from "node:fs";
+import path from "node:path";
 
 test("capture P E A canonical gait keyposes with transparent background", async ({ page }) => {
   test.setTimeout(120000);
   await page.setViewportSize({ width: 768, height: 512 });
-  fs.mkdirSync("artifacts/pea-keypose-capture/raw", { recursive: true });
+  const workspace = process.env.GITHUB_WORKSPACE || process.cwd();
+  const rawDir = path.join(workspace, "artifacts", "pea-keypose-capture", "raw");
+  fs.mkdirSync(rawDir, { recursive: true });
 
   for (const morph of ["P", "E", "A"]) {
     for (let phase = 0; phase < 12; phase += 1) {
@@ -22,10 +25,13 @@ test("capture P E A canonical gait keyposes with transparent background", async 
       await page.waitForTimeout(180);
       const dataUrl = await canvas.evaluate((node) => node.toDataURL("image/png"));
       const payload = dataUrl.replace(/^data:image\/png;base64,/, "");
-      fs.writeFileSync(
-        `artifacts/pea-keypose-capture/raw/${morph.toLowerCase()}-${phase}.png`,
-        Buffer.from(payload, "base64")
-      );
+      const outputPath = path.join(rawDir, `${morph.toLowerCase()}-${phase}.png`);
+      const buffer = Buffer.from(payload, "base64");
+      expect(buffer.length).toBeGreaterThan(1000);
+      fs.writeFileSync(outputPath, buffer);
+      expect(fs.existsSync(outputPath)).toBe(true);
     }
   }
+  const captures = fs.readdirSync(rawDir).filter((name) => name.endsWith(".png"));
+  expect(captures).toHaveLength(36);
 });
