@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 from pathlib import Path
+import os
 from PIL import Image, ImageChops, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
-RAW = ROOT / "artifacts" / "pea-keypose-capture" / "raw"
+RAW = Path(os.environ.get("PEA_KEYPOSE_RAW_DIR", "/tmp/pea-keypose-capture/raw"))
 OUT = ROOT / "artifacts" / "pea-keypose-capture"
 PHASES = ["CONTACT", "MID_CP", "PUSH", "MID_PL", "LIFT", "MID_LF", "FLIGHT", "MID_FR", "REACH", "MID_RL", "LAND", "MID_LC"]
 CELL = 256
