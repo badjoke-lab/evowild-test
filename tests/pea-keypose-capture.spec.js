@@ -9,7 +9,7 @@ test("capture P E A canonical gait keyposes with transparent background", async 
   for (const morph of ["P", "E", "A"]) {
     for (let phase = 0; phase < 6; phase += 1) {
       await page.goto(
-        `/evowild-test/preview-motion-first/?motion=1&morph=${morph}&spriteCapture=1&spritePhase=${phase}`,
+        `/evowild-test/preview-motion-first/index.html?motion=1&morph=${morph}&spriteCapture=1&spritePhase=${phase}`,
         { waitUntil: "networkidle" }
       );
       const canvas = page.locator("#scene");
