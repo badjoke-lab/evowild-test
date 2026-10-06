@@ -234,7 +234,8 @@ for name,coords in other_fixed.items():
 
 before_min_y=min(p.y for p in body_before if p.z>=0.84)
 after_min_y=min(v.co.y for v in body.data.vertices if v.co.z>=0.84)
-forward_extension=before_min_y-after_min_y
+global_high_min_y_delta=before_min_y-after_min_y
+forward_extension=max(body_before[i].y-body.data.vertices[i].co.y for i in editable)
 assert forward_extension >= 0.10, forward_extension
 
 dominants=[m for m in meta if m['kind']=='dominant']
@@ -264,6 +265,7 @@ report={
     'other_meshes_unchanged':True,
     'body_nonmanifold_edge_count':0,
     'head_forward_extension':forward_extension,
+    'global_high_min_y_delta':global_high_min_y_delta,
     'crest_object':crest.name,
     'crest_blade_count':len(blade_specs),
     'dominant_blade_count':2,
