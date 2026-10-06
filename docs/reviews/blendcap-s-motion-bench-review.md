@@ -2,7 +2,7 @@
 
 Branch: `exp/blendcap-s-motion-bench-20261003`
 
-Status: `GATE2_PASS / GATE3_V3_RUNNING`
+Status: `COMPLETE / KEEP_AS_REFERENCE`
 
 Base main: `d25553169e4406f5af660fc5559e075163aac6ff`
 
@@ -144,7 +144,7 @@ Notes: `Gate 2 decision READY_FOR_EXPLICIT_HYBRID_MAPPING. Human limbs remain ex
 
 ## Gate 3 — S hybrid render
 
-Status: `V1_REVISE / V2_REVISE / V3_RUNNING`
+Status: `V1_REVISE / V2_REVISE / V3_REVIEWED`
 
 V1 evidence: GitHub Actions run `37261156501`
 
@@ -198,7 +198,24 @@ V3 exact hypothesis: keep the same low-gain pelvis/spine/chest/neck/head BlendCa
 
 V3 workflow: `blendcap-gate3-v3-animated-review`
 
-V3 decision: `RUNNING`
+V3 evidence: GitHub Actions run `37456624549`
+
+V3 SIDE artifact: `side-comparison.mp4 + side-animated-strip-comparison.jpg`
+
+V3 LOW artifact: `low-comparison.mp4 + low-animated-strip-comparison.jpg`
+
+V3 measured result:
+
+- selected stance foot world displacement after XYZ lock: `5.96e-08` — effectively zero
+- max remaining foot world displacement: `0.0602865` = `3.01% of creature height`
+- max vertical foot displacement: `0.0595018`
+- max whole-armature horizontal correction required to hold the stance foot: `0.0682054` = `3.41% of creature height`
+- max whole-armature total correction: `0.0797918`
+- SIDE / LOW review: stance contact is preserved, but the compensation moves the entire creature laterally/forward-back to enforce that contact; the captured body-layer benefit remains visually small relative to the baseline V5 gait
+
+V3 decision: `NO_RUNTIME_GAIN`
+
+Gate 3 conclusion: a technically valid BlendCap-derived body signal can be layered over the S V5 quadruped gait, but preserving stance contact requires global correction large enough to compromise race-root stability. The visible body-dynamics gain is not material enough to justify that tradeoff. No v4 will be attempted in this lane.
 
 | Check | Motion First baseline | BlendCap hybrid | Result |
 |---|---|---|---|
@@ -215,7 +232,7 @@ V3 decision: `RUNNING`
 
 ## Final decision
 
-Decision: `NOT_RUN`
+Decision: `KEEP_AS_REFERENCE`
 
 Allowed values:
 
@@ -223,6 +240,6 @@ Allowed values:
 - `KEEP_AS_REFERENCE`
 - `REJECT`
 
-Reason: `UNSET`
+Reason: `BlendCap successfully produced a real BVH and useful pelvis/torso timing signals, but three hybrid passes did not produce a material runtime improvement over EvoWild S V5 without introducing contact/root perturbation. Retain the capture/decomposition workflow and motion signals as reference data only; do not merge the body layer into Motion First runtime.`
 
-Exact next action: `COMPLETE_GATE3_V3_XYZ_STANCE_LOCK_REVIEW_THEN_FINAL_DECISION`
+Exact next action: `ARCHIVE_REFERENCE_ONLY / NO_RUNTIME_MERGE`
