@@ -61,3 +61,22 @@ These anchors are not substitutes for looking at the image. They exist to preven
 The Tripo/Hunyuan carrier meshes are not morphology authorities.
 
 A successful rig or animation test proves only technical motion feasibility. Production S animation must ultimately be retargeted/retested on a morphology-approved S asset.
+
+
+## Visual correction locked 2026-10-06
+
+The exact primary image is now present in the repository and has been byte-verified.
+
+Do not rely on earlier prose where it conflicts with the image. In particular, the approved image visibly requires:
+
+- two dominant elongated blade-like head crests, clearly separated in front/back views;
+- a narrow wedge-like head and long dark neck;
+- strong shoulder/chest mass followed by a deeply tucked narrow waist;
+- a streamlined but substantial pelvis / upper hindquarter;
+- very long light limbs with different fore/hind joint rhythm;
+- compact specialized split racing feet;
+- a long layered blade/feather tail.
+
+Older notes that prohibited paired tall crest blades, described generic multi-toed feet, or described the approved tail as short are superseded.
+
+Every review must inspect the image itself. Written interpretation is never allowed to overrule it.
