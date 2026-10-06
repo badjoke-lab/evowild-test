@@ -2530,10 +2530,12 @@ test("Motion First Race Agent Ownership Transfer v1 preserves creator and proven
   await expect(page.locator("#agentOwnerReadout")).toHaveText(
     "CREATOR badjoke-lab · OWNER LOCAL-PLAYER"
   );
+  await expect(page.locator("#agentTransferButton")).toBeDisabled();
 
   await expect(page.locator("#raceState")).toHaveText("FINISHED", {
     timeout: 35000
   });
+  await expect(page.locator("#agentTransferButton")).toBeEnabled();
 
   let stored = await page.evaluate(() => {
     const raw = window.localStorage.getItem("evowild.motionFirst.agentHistory.v1");
@@ -2602,6 +2604,14 @@ test("Motion First Race Agent Ownership Transfer v1 preserves creator and proven
   expect(transferred.ownershipHistory).toHaveLength(2);
   expect(transferred.raceHistory).toHaveLength(2);
   expect(transferred.raceHistory.map((race) => race.ownerAtRace)).toEqual([
+    "LOCAL-PLAYER",
+    "RIVAL-ALPHA"
+  ]);
+  expect(transferred.winResultHistory.map((row) => row.ownerAtRace)).toEqual([
+    "LOCAL-PLAYER",
+    "RIVAL-ALPHA"
+  ]);
+  expect(transferred.compatibilityHistory.map((row) => row.ownerAtRace)).toEqual([
     "LOCAL-PLAYER",
     "RIVAL-ALPHA"
   ]);
