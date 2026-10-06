@@ -1,2 +1,2 @@
-trigger=2026-10-06T11:44:30Z
-purpose=rerun after fixing preprocess download handling
+trigger=2026-10-06T11:49:00Z
+purpose=Pixal3D-only rerun after state_path fix; preserve generation previews before GLB extraction
