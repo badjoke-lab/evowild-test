@@ -1,19 +1,19 @@
-name: S authority R0-A2 v1
+name: S authority R0-A2 v2
 on:
   push:
     branches: [exp/s-creature-vibe-modeling]
     paths:
-      - .github/workflows/s-authority-r0-a2-v1.yml
-      - art/s-creature/S_AUTHORITY_R0_A2_V1_PLAN.md
-      - art/s-creature/blender/refine_s_authority_r0_a2_v1.py
-      - art/s-creature/blender/render_s_authority_r0_a2_v1.py
+      - .github/workflows/s-authority-r0-a2-v2.yml
+      - art/s-creature/S_AUTHORITY_R0_A2_V2_PLAN.md
+      - art/s-creature/blender/refine_s_authority_r0_a2_v2.py
+      - art/s-creature/blender/render_s_authority_r0_a2_v2.py
 permissions:
   contents: write
 concurrency:
-  group: s-authority-r0-a2-v1
+  group: s-authority-r0-a2-v2
   cancel-in-progress: true
 jobs:
-  r0-a2-v1:
+  r0-a2-v2:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -44,19 +44,19 @@ jobs:
       - name: Execute R0-A2 body mass reset
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
-        run: /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-authority-r0-v2.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/refine_s_authority_r0_a2_v1.py
+        run: /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-authority-r0-v2.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/refine_s_authority_r0_a2_v2.py
       - name: Render required five views and stop
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
-        run: /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-authority-r0-a2-v1.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/render_s_authority_r0_a2_v1.py
+        run: /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-authority-r0-a2-v2.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/render_s_authority_r0_a2_v2.py
       - name: Verify R0-A2 hard scope
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
           root=Path('art/s-creature')
-          r=json.loads((root/'output/S-authority-r0-a2-v1-validation.json').read_text())
-          assert r['gate']=='R0-A2-v1-authority-body-mass'
+          r=json.loads((root/'output/S-authority-r0-a2-v2-validation.json').read_text())
+          assert r['gate']=='R0-A2-v2-authority-body-mass'
           assert r['authority_sha256']=='93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6'
           assert r['a1_geometry_unchanged']
           assert r['crest_geometry_unchanged']
@@ -64,29 +64,29 @@ jobs:
           assert r['body_topology_unchanged']
           assert r['body_nonmanifold_edge_count']==0
           assert r['camera_transforms_unchanged']
-          assert r['max_displacement']<=0.19
-          assert r['shoulder_width_ratio']>=1.10
-          assert r['waist_width_ratio']<=0.94
-          assert r['pelvis_width_ratio']>=1.08
-          assert r['waist_floor_raise']>=0.025
+          assert r['max_displacement']<=0.16
+          assert 1.12<=r['shoulder_width_ratio']<=1.34
+          assert 0.78<=r['waist_width_ratio']<=0.94
+          assert 1.10<=r['pelvis_width_ratio']<=1.32
+          assert r['outer_root_max_displacement']<=0.065
           assert r['rendered_views']==['side','front','front34','rear34','back']
           assert r['status']=='REVIEW_PENDING'
           for stem in r['rendered_views']:
-              p=root/f'output/review/authority-r0-a2-v1/S_authority_r0_a2_v1_{stem}.png'
+              p=root/f'output/review/authority-r0-a2-v2/S_authority_r0_a2_v2_{stem}.png'
               assert p.stat().st_size>0
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: S-authority-R0-A2-v1-review
+          name: S-authority-R0-A2-v2-review
           path: |
-            art/s-creature/output/S-authority-r0-a2-v1.blend
-            art/s-creature/output/S-authority-r0-a2-v1-validation.json
-            art/s-creature/output/review/authority-r0-a2-v1/
+            art/s-creature/output/S-authority-r0-a2-v2.blend
+            art/s-creature/output/S-authority-r0-a2-v2-validation.json
+            art/s-creature/output/review/authority-r0-a2-v2/
           if-no-files-found: error
       - name: Commit R0-A2 review result
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add art/s-creature/output/S-authority-r0-a2-v1.blend art/s-creature/output/S-authority-r0-a2-v1-validation.json art/s-creature/output/review/authority-r0-a2-v1/ art/s-creature/CHECKPOINT.md art/s-creature/HANDOFF_STATE.json
-          git commit -m 'art: save authority R0-A2 v1 review'
+          git add art/s-creature/output/S-authority-r0-a2-v2.blend art/s-creature/output/S-authority-r0-a2-v2-validation.json art/s-creature/output/review/authority-r0-a2-v2/ art/s-creature/CHECKPOINT.md art/s-creature/HANDOFF_STATE.json
+          git commit -m 'art: save authority R0-A2 v2 review'
           git push origin HEAD:exp/s-creature-vibe-modeling
