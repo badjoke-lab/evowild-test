@@ -60,3 +60,8 @@ Required decision after exact-time SIDE / LOW A/B review:
 - `REJECT` if the difference is negligible or looks artificial.
 
 No production merge before visual review.
+
+
+V2 status marker: `EXACT_TIME_REVIEW_READY`
+
+The review harness now uses two model loads total, pauses at exact simulation times (0.5 / 1.6 / 4.2 s), and captures both SIDE and LOW while paused. This removes the wall-clock/FPS timing ambiguity and the previous four-pass timeout.
