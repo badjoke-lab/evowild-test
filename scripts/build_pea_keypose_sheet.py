@@ -61,7 +61,7 @@ def make_sheet(morph):
     frames = []
     metrics = []
     for i, phase in enumerate(PHASES):
-        frame, metric = normalized_frame(RAW / f"{morph.lower()}-{i}.png")
+        frame, metric = normalized_frame(source_frame_path(morph, i))
         frames.append(frame)
         metrics.append({"phase": phase, **metric})
 
