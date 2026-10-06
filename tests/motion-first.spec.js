@@ -2348,3 +2348,120 @@ test("Motion First Race Agent Version Evolution v1 preserves v1 and appends v2",
     path: "test-results/visuals/motion-first-agent-version-v1.png"
   });
 });
+
+
+test("Motion First Agent Version Evaluation v1 compares matched courses before judging", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(135000);
+
+  const makeUrl = (course) =>
+    `/evowild-test/preview-motion-first-race/index.html?skipStart=1&course=${course}&entry=5&entryAgent=attack-v1&agentAuto=1&simRate=4`;
+
+  await page.goto(makeUrl("heavy-1200-v1"), { waitUntil: "networkidle" });
+  await page.evaluate(() => {
+    window.localStorage.removeItem("evowild.motionFirst.agentHistory.v1");
+  });
+  await page.reload({ waitUntil: "networkidle" });
+  await expect(page.locator("#raceState")).toHaveText("FINISHED", {
+    timeout: 35000
+  });
+
+  await page.goto(makeUrl("sprint-800-v1"), { waitUntil: "networkidle" });
+  await expect(page.locator("#raceState")).toHaveText("FINISHED", {
+    timeout: 25000
+  });
+
+  const v1Scene = page.locator("#scene");
+  await expect(v1Scene).toHaveAttribute("data-entry-agent-version", "1");
+  await expect(v1Scene).toHaveAttribute("data-entry-agent-race-count", "2");
+  await expect(v1Scene).toHaveAttribute("data-entry-agent-current-version-race-count", "2");
+  await expect(v1Scene).toHaveAttribute("data-entry-agent-can-evolve", "1");
+
+  await page.locator("#agentEvolveButton").click();
+  await page.waitForLoadState("networkidle");
+
+  const v2SprintScene = page.locator("#scene");
+  await expect(v2SprintScene).toHaveAttribute("data-entry-agent-version", "2");
+  await expect(v2SprintScene).toHaveAttribute(
+    "data-entry-agent-version-evaluation-status",
+    "NEED_MORE_DATA"
+  );
+  await expect(page.locator("#raceState")).toHaveText("FINISHED", {
+    timeout: 25000
+  });
+  await expect(v2SprintScene).toHaveAttribute(
+    "data-entry-agent-version-evaluation-matches",
+    "1"
+  );
+  await expect(v2SprintScene).toHaveAttribute(
+    "data-entry-agent-version-evaluation-status",
+    "NEED_MORE_DATA"
+  );
+
+  await page.goto(makeUrl("heavy-1200-v1"), { waitUntil: "networkidle" });
+  await expect(page.locator("#raceState")).toHaveText("FINISHED", {
+    timeout: 35000
+  });
+
+  const finalScene = page.locator("#scene");
+  await expect(finalScene).toHaveAttribute("data-entry-agent-version", "2");
+  await expect(finalScene).toHaveAttribute("data-entry-agent-race-count", "4");
+  await expect(finalScene).toHaveAttribute(
+    "data-entry-agent-current-version-race-count",
+    "2"
+  );
+  await expect(finalScene).toHaveAttribute(
+    "data-entry-agent-version-evaluation-matches",
+    "2"
+  );
+
+  const evaluation = JSON.parse(
+    (await finalScene.getAttribute("data-entry-agent-version-evaluation")) || "{}"
+  );
+  expect(evaluation.baselineVersion).toBe(1);
+  expect(evaluation.candidateVersion).toBe(2);
+  expect(evaluation.matchedConditions).toBe(2);
+  expect(new Set(evaluation.pairs.map((pair) => pair.courseId))).toEqual(
+    new Set(["heavy-1200-v1", "sprint-800-v1"])
+  );
+
+  let expectedStatus = "HOLD";
+  if (evaluation.avgTimeDeltaPct <= -0.5 && evaluation.avgRankDelta <= -0.5) {
+    expectedStatus = "PROMOTE";
+  } else if (
+    evaluation.avgTimeDeltaPct >= 0.5 &&
+    evaluation.avgRankDelta >= 0.5
+  ) {
+    expectedStatus = "REJECT";
+  }
+  expect(evaluation.status).toBe(expectedStatus);
+  await expect(finalScene).toHaveAttribute(
+    "data-entry-agent-version-evaluation-status",
+    expectedStatus
+  );
+  await expect(page.locator("#agentVersionEvalReadout")).toContainText(
+    `EVAL v1→v2: ${expectedStatus}`
+  );
+
+  const stored = await page.evaluate(() => {
+    const raw = window.localStorage.getItem("evowild.motionFirst.agentHistory.v1");
+    return raw ? JSON.parse(raw)["AGENT-02"] : null;
+  });
+  expect(stored.agentId).toBe("AGENT-02");
+  expect(stored.currentVersion).toBe(2);
+  expect(stored.raceHistory.filter((row) => row.version === 1)).toHaveLength(2);
+  expect(stored.raceHistory.filter((row) => row.version === 2)).toHaveLength(2);
+  expect(stored.versionEvaluations).toHaveLength(1);
+  expect(stored.versionEvaluations[0].status).toBe(expectedStatus);
+  expect(stored.versionEvaluations[0].matchedConditions).toBe(2);
+
+  console.log(
+    "AGENT_VERSION_EVALUATION_V1",
+    JSON.stringify({ evaluation, expectedStatus, races: stored.raceHistory })
+  );
+
+  await finalScene.screenshot({
+    path: "test-results/visuals/motion-first-agent-version-eval-v1.png"
+  });
+});
