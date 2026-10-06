@@ -933,3 +933,40 @@ button:disabled {
   border-color: rgba(255,214,138,.20);
   color: #ffd68a;
 }
+
+
+.agent-owner-readout {
+  margin-top: 7px;
+  color: rgba(255,255,255,.45);
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: .06em;
+}
+
+.agent-owner-row {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto;
+  gap: 6px;
+  margin-top: 5px;
+}
+
+.agent-owner-row input {
+  min-width: 0;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 6px;
+  background: rgba(255,255,255,.04);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+
+.agent-owner-row button {
+  min-height: 28px;
+  padding: 0 9px;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .05em;
+}
