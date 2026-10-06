@@ -2,7 +2,7 @@
 
 Branch: `exp/blendcap-s-motion-bench-20261003`
 
-Status: `GATE2_PASS / GATE3_PENDING`
+Status: `GATE2_PASS / GATE3_V3_RUNNING`
 
 Base main: `d25553169e4406f5af660fc5559e075163aac6ff`
 
@@ -144,7 +144,7 @@ Notes: `Gate 2 decision READY_FOR_EXPLICIT_HYBRID_MAPPING. Human limbs remain ex
 
 ## Gate 3 — S hybrid render
 
-Status: `V1_REVISE / V2_RUNNING`
+Status: `V1_REVISE / V2_REVISE / V3_RUNNING`
 
 V1 evidence: GitHub Actions run `37261156501`
 
@@ -172,13 +172,33 @@ V2 exact hypothesis: remove direct captured root-vertical transfer, preserve exi
 
 V2 workflow: `blendcap-gate3-hybrid-v2`
 
-SIDE artifact: `PENDING_V2`
+V2 static evidence: GitHub Actions run `37261490834`
 
-LOW artifact: `PENDING_V2`
+V2 animated evidence: GitHub Actions run `37261738844`
 
-CHASE artifact: `PENDING_V2`
+SIDE artifact: `side-comparison.jpg + side-comparison.mp4`
 
-FRONT artifact: `PENDING_V2`
+LOW artifact: `low-comparison.jpg + low-comparison.mp4`
+
+CHASE artifact: `chase-comparison.jpg`
+
+FRONT artifact: `front-comparison.jpg`
+
+V2 measured result:
+
+- static max foot world displacement: `0.0444463` on 2.0-unit creature
+- animated max foot world displacement: `0.0704338` = `3.52% of creature height`
+- animated max vertical foot displacement: `0.0595018`
+- chosen stance-foot Z is corrected, but horizontal/world-space stance drift remains
+- SIDE/LOW body change is visible but not strong enough to justify the remaining contact perturbation
+
+V2 decision: `REVISE`
+
+V3 exact hypothesis: keep the same low-gain pelvis/spine/chest/neck/head BlendCap layer, but restore the selected baseline stance foot in full world-space XYZ after the body layer. Measure the resulting whole-armature horizontal correction; if contact preservation requires visible horizontal/root jitter or body improvement remains marginal, stop runtime integration and choose `KEEP_AS_REFERENCE`.
+
+V3 workflow: `blendcap-gate3-v3-animated-review`
+
+V3 decision: `RUNNING`
 
 | Check | Motion First baseline | BlendCap hybrid | Result |
 |---|---|---|---|
@@ -205,4 +225,4 @@ Allowed values:
 
 Reason: `UNSET`
 
-Exact next action: `COMPLETE_GATE3_V2_CONTACT_COMPENSATED_RENDER_THEN_RUN_SHORT_SIDE_LOW_ANIMATED_REVIEW_IF_V2_STATIC_PASS`
+Exact next action: `COMPLETE_GATE3_V3_XYZ_STANCE_LOCK_REVIEW_THEN_FINAL_DECISION`
