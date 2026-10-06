@@ -190,6 +190,14 @@ jobs:
           cp .unimate-post/review/metrics.json public/unimate-bench/smoke/metrics.json
           ls -lh public/unimate-bench/smoke
 
+      - name: Upload durable smoke review bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: unimate-s-smoke-review
+          path: public/unimate-bench/smoke/
+          if-no-files-found: error
+          retention-days: 14
+
       - name: Commit smoke outputs to experiment branch
         run: |
           git config user.name "github-actions[bot]"
