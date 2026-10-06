@@ -1,0 +1,2 @@
+trigger=2026-10-06T11:42:00Z
+purpose=rerun TRELLIS2 and Pixal3D on primary_clean_v1 after ZeroGPU quota reset
