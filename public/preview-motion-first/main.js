@@ -855,11 +855,13 @@ function updateHunyuanSprintPose(runner, lateralVelocity, dt) {
   if (MOTION_REVIEW_MODE && REVIEW_MORPH === "S") {
     canvas.dataset.sRuntime = activeSAsset?.id || "procedural-fallback";
     canvas.dataset.sRuntimeAnimated = ud.mixer ? "1" : "0";
-    canvas.dataset.kimodoLaunchReview = KIMODO_LAUNCH_REVIEW ? "1" : "0";
-    canvas.dataset.kimodoLaunchEnvelope =
-      kimodoEnvelope === null ? "baseline" : kimodoEnvelope.toFixed(4);
-    canvas.dataset.sAccelLeanTarget = accelLeanTarget.toFixed(4);
-    canvas.dataset.sAccelLean = (ud.accelLean ?? 0).toFixed(4);
+    if (ud.index === 0) {
+      canvas.dataset.kimodoLaunchReview = KIMODO_LAUNCH_REVIEW ? "1" : "0";
+      canvas.dataset.kimodoLaunchEnvelope =
+        kimodoEnvelope === null ? "baseline" : kimodoEnvelope.toFixed(4);
+      canvas.dataset.sAccelLeanTarget = accelLeanTarget.toFixed(4);
+      canvas.dataset.sAccelLean = (ud.accelLean ?? 0).toFixed(4);
+    }
   }
 }
 
