@@ -74,7 +74,9 @@ async function captureVariant(browser, view, kimodo) {
     envelope: await scene.getAttribute("data-kimodo-launch-envelope"),
     review: await scene.getAttribute("data-kimodo-launch-review"),
     playback: Number(await scene.getAttribute("data-s-playback-rate")),
-    seconds: await scene.getAttribute("data-kimodo-launch-seconds")
+    seconds: await scene.getAttribute("data-kimodo-launch-seconds"),
+    drive: await scene.getAttribute("data-kimodo-launch-drive"),
+    neckPitchDeg: Number(await scene.getAttribute("data-kimodo-neck-pitch-deg"))
   };
   await scene.screenshot({
     path: `${OUT}/${view.toLowerCase()}-${label}-early.png`
@@ -88,7 +90,9 @@ async function captureVariant(browser, view, kimodo) {
     envelope: await scene.getAttribute("data-kimodo-launch-envelope"),
     review: await scene.getAttribute("data-kimodo-launch-review"),
     playback: Number(await scene.getAttribute("data-s-playback-rate")),
-    seconds: await scene.getAttribute("data-kimodo-launch-seconds")
+    seconds: await scene.getAttribute("data-kimodo-launch-seconds"),
+    drive: await scene.getAttribute("data-kimodo-launch-drive"),
+    neckPitchDeg: Number(await scene.getAttribute("data-kimodo-neck-pitch-deg"))
   };
   await scene.screenshot({
     path: `${OUT}/${view.toLowerCase()}-${label}-mid.png`
@@ -102,7 +106,9 @@ async function captureVariant(browser, view, kimodo) {
     envelope: await scene.getAttribute("data-kimodo-launch-envelope"),
     review: await scene.getAttribute("data-kimodo-launch-review"),
     playback: Number(await scene.getAttribute("data-s-playback-rate")),
-    seconds: await scene.getAttribute("data-kimodo-launch-seconds")
+    seconds: await scene.getAttribute("data-kimodo-launch-seconds"),
+    drive: await scene.getAttribute("data-kimodo-launch-drive"),
+    neckPitchDeg: Number(await scene.getAttribute("data-kimodo-neck-pitch-deg"))
   };
   await scene.screenshot({
     path: `${OUT}/${view.toLowerCase()}-${label}-late.png`
@@ -153,7 +159,15 @@ test("Kimodo launch timing review preserves S gait runtime and changes only post
   // Kimodo changes the launch lean timing, not the baked S gait playback rule.
   expect(Math.abs(kimodoSide.early.playback - baselineSide.early.playback)).toBeLessThan(0.12);
 
-  // By the middle of the launch, the faster Kimodo establishment envelope
-  // should have returned the visual launch lean toward neutral sooner.
-  expect(kimodoSide.mid.leanTarget).toBeLessThan(baselineSide.mid.leanTarget);
+  // V2 preserves the accepted root-lean target and uses Kimodo only for
+  // non-contact neck/head/tail timing.
+  expect(Math.abs(kimodoSide.early.leanTarget - baselineSide.early.leanTarget)).toBeLessThan(0.002);
+  expect(Math.abs(kimodoSide.mid.leanTarget - baselineSide.mid.leanTarget)).toBeLessThan(0.002);
+  expect(Math.abs(kimodoSide.late.leanTarget - baselineSide.late.leanTarget)).toBeLessThan(0.002);
+
+  expect(Number(kimodoSide.early.drive)).toBeGreaterThan(Number(kimodoSide.mid.drive));
+  expect(Number(kimodoSide.mid.drive)).toBeGreaterThan(0);
+  expect(Number(kimodoSide.late.drive)).toBeLessThan(0.001);
+  expect(kimodoSide.early.neckPitchDeg).toBeGreaterThan(2);
+  expect(kimodoSide.early.neckPitchDeg).toBeLessThan(7.1);
 });
