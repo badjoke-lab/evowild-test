@@ -1,0 +1,192 @@
+name: UniMate S Priority Parallel Bench
+
+on:
+  push:
+    branches:
+      - exp/unimate-s-motion-bench-20261001
+    paths:
+      - ".github/workflows/unimate-s-priority-parallel.yml"
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+env:
+  SOURCE_RUN_ID: "37260023741"
+  UNIMATE_COMMIT: 2c5b384715aa63d8639b1ed7eb74bfe614570c7a
+
+jobs:
+  generate:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - case: fast_gallop
+            prompt: "An object performs a fast powerful gallop or bounding run with strong cyclic propulsion."
+            seed: 202610071
+          - case: max_sprint
+            prompt: "An object sprints forward at maximum effort with rapid forceful strides and full-body drive."
+            seed: 202610072
+          - case: launch
+            prompt: "An object lowers its body, launches explosively, and accelerates forward into a fast run."
+            seed: 202610073
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout experiment branch
+        uses: actions/checkout@v4
+
+      - name: Download proven S preflight topology
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          rm -rf .unimate-pre
+          mkdir -p .unimate-pre
+          gh run download "$SOURCE_RUN_ID" --repo "$GITHUB_REPOSITORY" -n unimate-s-preflight -D .unimate-pre
+          test -f .unimate-pre/cond.npy
+          test "$(find .unimate-pre -maxdepth 2 -name '*_canonical.glb' | wc -l)" -eq 1
+
+      - name: Checkout pinned UniMate and Motion
+        run: |
+          git clone https://github.com/Friedrich-M/UniMate.git /tmp/UniMate
+          git -C /tmp/UniMate checkout "$UNIMATE_COMMIT"
+          git clone https://github.com/inbar-2344/Motion.git /tmp/Motion
+
+      - name: Install CPU inference dependencies
+        run: |
+          python3 -m pip install --break-system-packages --extra-index-url https://download.pytorch.org/whl/cpu torch==2.5.1
+          python3 -m pip install --break-system-packages             numpy==2.2.6 transformers==5.16.1 sentencepiece==0.2.1             torch-geometric==2.7.0 torchdiffeq==0.2.5 einops==0.8.2             accelerate==1.14.0 tyro==1.0.12 rich==14.3.3 loguru==0.7.3 tqdm==4.67.3             matplotlib==3.10.8 imageio==2.37.3 imageio-ffmpeg==0.6.0
+
+      - name: Download UniMate v2 checkpoint
+        run: |
+          mkdir -p .unimate-exp/checkpoints
+          curl -L --fail --retry 5 -o .unimate-exp/config.json             https://huggingface.co/Linzhan/UniMate/resolve/main/unimate_uniml3d_f60_v2/config.json
+          curl -L --fail --retry 5 -o .unimate-exp/dataset_stats.npy             https://huggingface.co/Linzhan/UniMate/resolve/main/unimate_uniml3d_f60_v2/dataset_stats.npy
+          curl -L --fail --retry 5 -o .unimate-exp/checkpoints/checkpoint_step_100000.pt             https://huggingface.co/Linzhan/UniMate/resolve/main/unimate_uniml3d_f60_v2/checkpoints/checkpoint_step_100000.pt
+          test "$(stat -c%s .unimate-exp/checkpoints/checkpoint_step_100000.pt)" -gt 1000000000
+
+      - name: Configure case
+        env:
+          CASE_NAME: ${{ matrix.case }}
+          CASE_PROMPT: ${{ matrix.prompt }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          p = ".unimate-exp/config.json"
+          with open(p) as f:
+              c = json.load(f)
+          c["objaverse"]["path"] = os.path.abspath(".unimate-pre")
+          c["objaverse"]["objects_num"] = -1
+          c["objaverse"]["filter_object"] = False
+          c["dataset"]["dataset_list"] = ["objaverse"]
+          c.setdefault("sampling", {})["device"] = "cpu"
+          with open(p, "w") as f:
+              json.dump(c, f, indent=2)
+          case = os.environ["CASE_NAME"]
+          prompt = os.environ["CASE_PROMPT"]
+          with open(".unimate-case.json", "w") as f:
+              json.dump({f"evos-{case}": prompt}, f, indent=2)
+          PY
+
+      - name: Generate one priority motion
+        env:
+          PYTHONPATH: /tmp/UniMate:/tmp/Motion
+          TOKENIZERS_PARALLELISM: "false"
+        run: |
+          cd /tmp/UniMate
+          /usr/bin/time -v python3 -m unimate.inference.sample             --exp_dir="$GITHUB_WORKSPACE/.unimate-exp"             --model_path="$GITHUB_WORKSPACE/.unimate-exp/checkpoints/checkpoint_step_100000.pt"             --test_cases_json="$GITHUB_WORKSPACE/.unimate-case.json"             --num_repetitions=1             --batch_size=1             --seed=${{ matrix.seed }}             --output_dir="$GITHUB_WORKSPACE/.unimate-priority"             --only_save_motion
+
+      - name: Measure motion and build contact sheet
+        env:
+          PYTHONPATH: /tmp/UniMate:/tmp/Motion
+          CASE_NAME: ${{ matrix.case }}
+          CASE_PROMPT: ${{ matrix.prompt }}
+        run: |
+          mkdir -p .unimate-priority/review
+          python3 - <<'PY'
+          import json, os, sys
+          from pathlib import Path
+          import numpy as np
+          import matplotlib
+          matplotlib.use("Agg")
+          import matplotlib.pyplot as plt
+
+          sys.path.insert(0, "/tmp/UniMate")
+          sys.path.insert(0, "/tmp/Motion")
+          from unimate.utils.motion_utils import recover_unimate_joint_pos_from_rot
+
+          case = os.environ["CASE_NAME"]
+          prompt = os.environ["CASE_PROMPT"]
+          motion_path = next(Path(".unimate-priority/motions").glob("*.npy"))
+          x = np.load(motion_path)
+          cond = np.load(".unimate-pre/cond.npy", allow_pickle=True).item()["evos"]
+          parents = np.asarray(cond["parents"], dtype=int)
+          offsets = np.asarray(cond["tpos_offsets"], dtype=float)
+          names = [str(n) for n in cond["joint_names"]]
+          idx = {n:i for i,n in enumerate(names)}
+          pos = recover_unimate_joint_pos_from_rot(x, parents, offsets)
+          root = pos[:,0]
+          feet = ["fore_L_foot","fore_R_foot","hind_L_foot","hind_R_foot"]
+          fm = {}
+          for n in feet:
+              p = pos[:,idx[n]]
+              h = p[:,1]
+              v = np.linalg.norm(np.diff(p, axis=0), axis=1)*30.0
+              span = float(np.ptp(h))
+              low = h <= h.min()+max(1e-6,0.10*span)
+              moving=np.r_[v,v[-1] if len(v) else 0.0]
+              fm[n] = {
+                  "vertical_span": span,
+                  "low_frames": int(low.sum()),
+                  "mean_speed_when_low": float(moving[low].mean()) if low.any() else None,
+                  "max_speed_when_low": float(moving[low].max()) if low.any() else None
+              }
+          metrics = {
+              "case": case,
+              "prompt": prompt,
+              "seed": int("${{ matrix.seed }}"),
+              "frames": int(x.shape[0]),
+              "fps": 30,
+              "joints": int(x.shape[1]),
+              "root_xz_net_travel": float(np.linalg.norm(root[-1,[0,2]]-root[0,[0,2]])),
+              "root_xz_path_length": float(np.linalg.norm(np.diff(root[:,[0,2]],axis=0),axis=1).sum()),
+              "root_vertical_span": float(np.ptp(root[:,1])),
+              "feet": fm
+          }
+          Path(f".unimate-priority/review/{case}-metrics.json").write_text(json.dumps(metrics, indent=2))
+          print(json.dumps(metrics, indent=2))
+
+          centered=pos-root[:,None,:]
+          mins=centered.min(axis=(0,1)); maxs=centered.max(axis=(0,1))
+          center=(mins+maxs)/2; radius=max(float(np.max(maxs-mins))/2*1.25,0.1)
+          frames=[0,10,20,30,40,50,59]
+          fig=plt.figure(figsize=(21,3.2))
+          for k,f in enumerate(frames,1):
+              ax=fig.add_subplot(1,7,k,projection="3d")
+              q=centered[f]
+              for j,p in enumerate(parents):
+                  if p>=0:
+                      ax.plot([q[p,0],q[j,0]],[q[p,2],q[j,2]],[q[p,1],q[j,1]],lw=2)
+              ax.scatter(q[:,0],q[:,2],q[:,1],s=10)
+              ax.set_xlim(center[0]-radius,center[0]+radius)
+              ax.set_ylim(center[2]-radius,center[2]+radius)
+              ax.set_zlim(center[1]-radius,center[1]+radius)
+              ax.view_init(elev=14,azim=-72)
+              ax.set_title(f"{case} f{f}")
+              ax.set_xticks([]);ax.set_yticks([]);ax.set_zticks([])
+          plt.tight_layout()
+          fig.savefig(f".unimate-priority/review/{case}-contact.png",dpi=150)
+          plt.close(fig)
+          PY
+
+      - name: Upload priority result
+        uses: actions/upload-artifact@v4
+        with:
+          name: unimate-priority-${{ matrix.case }}
+          path: |
+            .unimate-priority/motions/*.npy
+            .unimate-priority/review/*
+          if-no-files-found: error
+          retention-days: 14
