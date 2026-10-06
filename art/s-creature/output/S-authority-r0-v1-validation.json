@@ -1,8 +1,8 @@
 {
   "lane": "exp/s-creature-vibe-modeling",
   "gate": "R0-A1-v1-authority-head-crest-neck",
-  "status": "REVIEW_PENDING",
-  "decision": "REVIEW_PENDING",
+  "status": "REVIEW_COMPLETE",
+  "decision": "REVISE",
   "authority_image": "references/00_s_type_modeling_image_v1.png",
   "authority_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
   "source": "S-vibe-b2a-v5.blend",
@@ -66,7 +66,7 @@
         0.108,
         0.02
       ],
-      "roll_deg": -24.0,
+      "roll_deg": -24,
       "centers": [
         [
           -0.052000001072883606,
@@ -148,7 +148,7 @@
         0.108,
         0.02
       ],
-      "roll_deg": 24.0,
+      "roll_deg": 24,
       "centers": [
         [
           0.052000001072883606,
@@ -230,7 +230,7 @@
         0.06,
         0.014
       ],
-      "roll_deg": -18.0,
+      "roll_deg": -18,
       "centers": [
         [
           -0.05999999865889549,
@@ -312,7 +312,7 @@
         0.06,
         0.014
       ],
-      "roll_deg": 18.0,
+      "roll_deg": 18,
       "centers": [
         [
           0.05999999865889549,
@@ -394,7 +394,7 @@
         0.043,
         0.01
       ],
-      "roll_deg": -14.0,
+      "roll_deg": -14,
       "centers": [
         [
           -0.0560000017285347,
@@ -476,7 +476,7 @@
         0.043,
         0.01
       ],
-      "roll_deg": 14.0,
+      "roll_deg": 14,
       "centers": [
         [
           0.0560000017285347,
@@ -544,5 +544,8 @@
     "rear34",
     "back"
   ],
-  "modeling_status": "STOPPED"
+  "modeling_status": "STOPPED",
+  "review": "S_AUTHORITY_R0_A1_V1_REVIEW.md",
+  "review_reason": "Two-blade direction is correct, but dominant crest is too steep/high and too narrow/ear-like in front/back; head is too needle-like; neck retains a mid-neck tubular bulge.",
+  "next": "R0-A1 v2 from clean S-vibe-b2a-v5 donor; R0-A2 blocked."
 }
