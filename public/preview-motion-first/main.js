@@ -393,6 +393,19 @@ function sampleKimodoLaunchEnvelope(seconds) {
     alpha
   );
 }
+
+function sampleKimodoLaunchDrive(seconds) {
+  // Use the slope of the generated speed-establishment envelope, not the
+  // humanoid pose itself. Limit the effect to the launch window so a later
+  // source-curve bump cannot create a second creature launch.
+  const dt = 0.18;
+  const before = sampleKimodoLaunchEnvelope(Math.max(0, seconds - dt));
+  const after = sampleKimodoLaunchEnvelope(seconds + dt);
+  const rate = Math.max(0, (after - before) / (2 * dt));
+  const normalized = THREE.MathUtils.clamp(rate / 0.72, 0, 1);
+  const lateFade = 1 - THREE.MathUtils.smoothstep(seconds, 1.5, 2.5);
+  return normalized * lateFade;
+}
 const PROXY_REVIEW_RUNNER_PARAM = params.get("proxyReviewRunner");
 const PROXY_REVIEW_RUNNER =
   PROXY_REVIEW_RUNNER_PARAM === null
@@ -823,6 +836,11 @@ function createHunyuanSprintCreature(index) {
     turnLean: 0,
     accelLean: 0,
     kimodoLaunchStartTime: null,
+    kimodoBones: {
+      neck: model.getObjectByName("neck"),
+      head: model.getObjectByName("head"),
+      tail: model.getObjectByName("tail")
+    },
     strideLength: S_GAIT.minStrideWorld,
     maxStanceSlip: 0
   };
@@ -851,10 +869,13 @@ function updateHunyuanSprintPose(runner, lateralVelocity, dt) {
   const kimodoEnvelope = KIMODO_LAUNCH_REVIEW
     ? sampleKimodoLaunchEnvelope(kimodoReviewSeconds)
     : null;
-  const accelLeanTarget =
-    kimodoEnvelope === null
-      ? baselineAccelLeanTarget
-      : (1 - kimodoEnvelope) * 1.2;
+  const kimodoDrive = KIMODO_LAUNCH_REVIEW
+    ? sampleKimodoLaunchDrive(kimodoReviewSeconds)
+    : 0;
+
+  // V2 keeps the accepted S root-lean behavior exactly unchanged. Kimodo is
+  // now only a timing source for non-contact neck/head/tail follow-through.
+  const accelLeanTarget = baselineAccelLeanTarget;
 
   ud.accelLean = THREE.MathUtils.damp(
     ud.accelLean ?? 0,
@@ -883,6 +904,15 @@ function updateHunyuanSprintPose(runner, lateralVelocity, dt) {
     ud.mixer.timeScale = THREE.MathUtils.clamp(playback, 0.28, 1.22);
     ud.mixer.update(dt);
     canvas.dataset.sPlaybackRate = ud.mixer.timeScale.toFixed(3);
+
+    if (KIMODO_LAUNCH_REVIEW) {
+      const neckPitch = THREE.MathUtils.degToRad(7.0) * kimodoDrive;
+      const headCounterPitch = THREE.MathUtils.degToRad(-3.5) * kimodoDrive;
+      const tailPitch = THREE.MathUtils.degToRad(-5.0) * kimodoDrive;
+      ud.kimodoBones.neck?.rotateX(neckPitch);
+      ud.kimodoBones.head?.rotateX(headCounterPitch);
+      ud.kimodoBones.tail?.rotateX(tailPitch);
+    }
   }
 
   if (MOTION_REVIEW_MODE && REVIEW_MORPH === "S") {
@@ -894,6 +924,10 @@ function updateHunyuanSprintPose(runner, lateralVelocity, dt) {
         kimodoEnvelope === null ? "baseline" : kimodoEnvelope.toFixed(4);
       canvas.dataset.kimodoLaunchSeconds =
         kimodoEnvelope === null ? "baseline" : kimodoReviewSeconds.toFixed(3);
+      canvas.dataset.kimodoLaunchDrive =
+        kimodoEnvelope === null ? "baseline" : kimodoDrive.toFixed(4);
+      canvas.dataset.kimodoNeckPitchDeg =
+        kimodoEnvelope === null ? "0.000" : (7.0 * kimodoDrive).toFixed(3);
       canvas.dataset.sAccelLeanTarget = accelLeanTarget.toFixed(4);
       canvas.dataset.sAccelLean = (ud.accelLean ?? 0).toFixed(4);
     }
