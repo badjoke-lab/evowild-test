@@ -47,11 +47,26 @@ jobs:
             npx playwright test tests/race-quality.spec.js \
               --grep "P E A grounded-stride v2" \
               --workers=1
+          elif [[ "$BRANCH" == feat/2p5d-survivor-pea-keypose-capture-* ]]; then
+            npx playwright test tests/pea-keypose-capture.spec.js --project=desktop-chromium --workers=1
           elif [[ "$BRANCH" == "feat/2p5d-four-morph-quality-integration-20260925" || "$BRANCH" == feat/2p5d-survivor-* ]]; then
             npx playwright test tests/race-quality.spec.js tests/2p5d-selection.spec.js --workers=1
           else
             npm run test:e2e
           fi
+      - name: Build P E A Motion First keypose sheets
+        if: ${{ startsWith(github.head_ref, 'feat/2p5d-survivor-pea-keypose-capture-') || startsWith(github.ref_name, 'feat/2p5d-survivor-pea-keypose-capture-') }}
+        shell: bash
+        run: |
+          python3 -m pip install --disable-pip-version-check pillow
+          python3 scripts/build_pea_keypose_sheet.py
+      - name: Upload P E A Motion First keypose candidates
+        if: ${{ always() && (startsWith(github.head_ref, 'feat/2p5d-survivor-pea-keypose-capture-') || startsWith(github.ref_name, 'feat/2p5d-survivor-pea-keypose-capture-')) }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: pea-mf-keypose-candidates
+          path: artifacts/pea-keypose-capture/*
+          if-no-files-found: error
       - name: Upload 2.5D survivor visuals
         if: always()
         uses: actions/upload-artifact@v4
