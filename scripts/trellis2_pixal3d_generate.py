@@ -137,12 +137,12 @@ def save_returned_files(result, out_dir, client=None, base_url=None):
     return list(dict.fromkeys(copied))
 
 
-def client_for(space):
+def client_for(space, download_files=False):
     token = os.environ.get("HF_TOKEN", "").strip() or None
     params = inspect.signature(Client).parameters
     kwargs = {"verbose": True}
     if "download_files" in params:
-        kwargs["download_files"] = False
+        kwargs["download_files"] = download_files
     if token:
         if "hf_token" in params:
             kwargs["hf_token"] = token
@@ -155,9 +155,10 @@ def client_for(space):
 
 def run_pixal3d(seed, resolution, out_dir):
     session_id = str(uuid.uuid4())
-    client = client_for("TencentARC/Pixal3D")
+    pre_client = client_for("TencentARC/Pixal3D", download_files=True)
+    client = client_for("TencentARC/Pixal3D", download_files=False)
 
-    pre = client.predict(
+    pre = pre_client.predict(
         image=handle_file(str(INPUT)),
         api_name="/preprocess",
     )
@@ -198,9 +199,10 @@ def run_pixal3d(seed, resolution, out_dir):
 
 
 def run_trellis2(seed, resolution, out_dir):
-    client = client_for("microsoft/TRELLIS.2")
+    pre_client = client_for("microsoft/TRELLIS.2", download_files=True)
+    client = client_for("microsoft/TRELLIS.2", download_files=False)
 
-    pre = client.predict(
+    pre = pre_client.predict(
         input=handle_file(str(INPUT)),
         api_name="/preprocess_image",
     )
