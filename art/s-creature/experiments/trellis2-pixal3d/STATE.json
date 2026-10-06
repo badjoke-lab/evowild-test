@@ -4,8 +4,8 @@
   "branch": "exp/trellis2-pixal3d-s-bench-20261004",
   "parent_branch": "exp/s-creature-vibe-modeling",
   "parent_commit": "07d87340345031d68834552f10561107a1560b88",
-  "status": "BLOCKED_EXTERNAL",
-  "stage": "T1_CLEAN_INPUT_GENERATION",
+  "status": "ACTIVE",
+  "stage": "T2_TRELLIS2_RAW_MESH_REPAIR_BENCH",
   "baseline": {
     "decision": "REVISE",
     "model": "art/s-creature/output/S-vibe-b1a-v2.blend",
@@ -14,39 +14,33 @@
   "input_status": {
     "original": "art/s-creature/references/01_s_body_primary.png",
     "prepared": "art/s-creature/experiments/trellis2-pixal3d/prepared/primary_clean_v1.png",
-    "preparation_run": 37140483264,
     "preparation_decision": "USE_CLEAN_INPUT_FOR_VALID_MORPHOLOGY_BENCH"
   },
-  "engines": [
-    {
-      "name": "microsoft/TRELLIS.2",
-      "endpoint": "REACHABLE",
-      "original_input_generation": "SUCCESS",
-      "successful_run": 37139670274,
-      "artifact_id": 11279339856,
-      "artifact_size_bytes": 10748536,
-      "morphology_decision": "NOT_VALID_FOR_T1",
-      "reason": "Generation used the unclean reference crop containing non-creature reference content; repeat with primary_clean_v1 before judging morphology.",
-      "clean_input_status": "WAITING_FREE_ZEROGPU_RESET",
-      "last_observed_quota_message": "90s requested vs 12s left"
+  "trellis2": {
+    "t1_decision": "T1_KEEP",
+    "source_run": 37458478227,
+    "artifact_id": 11410387650,
+    "persisted_commit": "7372a3210e3d63beae5326bb34002c2574ac9144",
+    "decision_doc": "art/s-creature/experiments/trellis2-pixal3d/T1_TRELLIS2_DECISION.md",
+    "candidate_dir": "art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000",
+    "raw_mesh": {
+      "decision": "REJECT_RAW_REPAIR_REQUIRED",
+      "vertices": 209427,
+      "faces": 298794,
+      "connected_components": 5807,
+      "watertight": false,
+      "is_volume": false,
+      "boundary_edges": 114128,
+      "nonmanifold_edges_gt2_faces": 0,
+      "duplicate_vertex_positions_rounded_1e_8": 60123
     },
-    {
-      "name": "TencentARC/Pixal3D",
-      "endpoint": "REACHABLE",
-      "hf_space_clean_input_status": "WAITING_FREE_ZEROGPU_RESET",
-      "last_observed_quota_message": "30s requested vs 12s left",
-      "dedicated_proxy_probe": "SUCCESS",
-      "dedicated_proxy_run": 37141162720,
-      "dedicated_instances_reported": 4,
-      "dedicated_instance_generation": "BLOCKED",
-      "dedicated_generation_run": 37141284981,
-      "blocker": "All four official gradio.live instances timed out from GitHub Actions; no reachable instance for automated upload/generation."
-    }
-  ],
-  "last_completed_run": {
-    "id": 37141284981,
-    "conclusion": "failure",
-    "reason": "No reachable official Pixal3D dedicated instance from GitHub Actions."
+    "next_action": "Run weld/component-consolidation bench without decimation; re-audit before deciding whether PixelArtistry/retopo is required."
+  },
+  "pixal3d": {
+    "t1_decision": "PENDING",
+    "last_clean_attempt_run": 37459333081,
+    "blocker": "Free ZeroGPU quota is exhausted after clean-input generation attempts; no valid persisted candidate yet.",
+    "integration_status": "state_path handling fixed for next free retry"
   },
   "constraints": [
     "experiment branch only",
@@ -54,12 +48,8 @@
     "no Vibe B1b transition from this lane",
     "free/public execution only",
     "no paid GPU jobs",
-    "no manual morphology edit before T1 decision"
+    "no manual morphology edit before T1 decision",
+    "do not enter rig/motion with raw TRELLIS2 mesh"
   ],
-  "next_action": [
-    "Do not judge the original TRELLIS.2 candidate as T1; it used an unclean source.",
-    "Retry TRELLIS.2 and Pixal3D with primary_clean_v1 after the free ZeroGPU quota resets.",
-    "If Pixal3D dedicated instances become reachable before quota reset, run the clean-input candidate there.",
-    "Once clean candidates exist, render the same five review views and compare against B1a-v2."
-  ]
+  "next_action": "T2: weld duplicate positions and consolidate topology on TRELLIS2 candidate, then compare mesh audit before/after. Pixal3D remains parallel pending free quota."
 }
