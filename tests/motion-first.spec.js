@@ -2224,3 +2224,127 @@ test("Motion First Race Agent entity history v1 persists identity and results", 
     path: "test-results/visuals/motion-first-agent-history-v1.png"
   });
 });
+
+
+test("Motion First Race Agent Version Evolution v1 preserves v1 and appends v2", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(100000);
+
+  const raceUrl =
+    "/evowild-test/preview-motion-first-race/index.html?skipStart=1&course=heavy-1200-v1&entry=5&entryAgent=attack-v1&agentAuto=1&simRate=4";
+
+  await page.goto(raceUrl, { waitUntil: "networkidle" });
+  await page.evaluate(() => {
+    window.localStorage.removeItem("evowild.motionFirst.agentHistory.v1");
+  });
+  await page.reload({ waitUntil: "networkidle" });
+
+  const scene = page.locator("#scene");
+  await expect(scene).toHaveAttribute("data-entry-agent-id", "AGENT-02");
+  await expect(scene).toHaveAttribute("data-entry-agent-version", "1");
+  await expect(scene).toHaveAttribute("data-entry-agent-active-version", "1");
+  await expect(scene).toHaveAttribute("data-entry-agent-can-evolve", "0");
+  await expect(page.locator("#agentEvolveButton")).toBeDisabled();
+
+  await expect(page.locator("#raceState")).toHaveText("FINISHED", {
+    timeout: 35000
+  });
+
+  await expect(scene).toHaveAttribute("data-entry-agent-race-count", "1");
+  await expect(scene).toHaveAttribute("data-entry-agent-current-version-race-count", "1");
+  await expect(scene).toHaveAttribute("data-entry-agent-can-evolve", "1");
+  await expect(page.locator("#agentVersionReadout")).toHaveText(
+    "v1: 1 RACES · 1 WINS"
+  );
+  await expect(page.locator("#agentEvolveButton")).toBeEnabled();
+  await expect(page.locator("#agentEvolveButton")).toHaveText("EVOLVE v2");
+
+  const v1Stored = await page.evaluate(() => {
+    const raw = window.localStorage.getItem("evowild.motionFirst.agentHistory.v1");
+    return raw ? JSON.parse(raw)["AGENT-02"] : null;
+  });
+  expect(v1Stored).toBeTruthy();
+  expect(v1Stored.currentVersion).toBe(1);
+  expect(v1Stored.raceHistory).toHaveLength(1);
+  expect(v1Stored.raceHistory[0].version).toBe(1);
+  expect(v1Stored.versionHistory.map((row) => row.version)).toEqual([1]);
+
+  await page.locator("#agentEvolveButton").click();
+  await page.waitForLoadState("networkidle");
+
+  const evolvedScene = page.locator("#scene");
+  await expect(evolvedScene).toHaveAttribute("data-entry-agent-id", "AGENT-02");
+  await expect(evolvedScene).toHaveAttribute("data-entry-agent-version", "2");
+  await expect(evolvedScene).toHaveAttribute("data-entry-agent-active-version", "2");
+  await expect(evolvedScene).toHaveAttribute("data-entry-agent-version-history-count", "2");
+  await expect(evolvedScene).toHaveAttribute("data-entry-agent-race-count", "1");
+  await expect(evolvedScene).toHaveAttribute("data-entry-agent-current-version-race-count", "0");
+  await expect(evolvedScene).toHaveAttribute("data-entry-agent-can-evolve", "0");
+  await expect(page.locator("#agentHistoryReadout")).toHaveText(
+    "AGENT-02 v2 · 1 RACES · 1 WINS"
+  );
+  await expect(page.locator("#agentVersionReadout")).toHaveText(
+    "v2: 0 RACES · 0 WINS"
+  );
+  await expect(page.locator("#agentEvolveButton")).toHaveText("MAX VERSION");
+  await expect(page.locator("#agentEvolveButton")).toBeDisabled();
+  await expect(evolvedScene).toHaveAttribute(
+    "data-entry-agent-strategy-definition",
+    "PUSH opening, recover at 46% fatigue, PUSH from 64%"
+  );
+
+  await expect(page.locator("#raceState")).toHaveText("FINISHED", {
+    timeout: 35000
+  });
+
+  await expect(evolvedScene).toHaveAttribute("data-entry-agent-race-count", "2");
+  await expect(evolvedScene).toHaveAttribute("data-entry-agent-current-version-race-count", "1");
+  await expect(page.locator("#agentVersionReadout")).toContainText("v2: 1 RACES");
+
+  const evolvedStored = await page.evaluate(() => {
+    const raw = window.localStorage.getItem("evowild.motionFirst.agentHistory.v1");
+    return raw ? JSON.parse(raw)["AGENT-02"] : null;
+  });
+  expect(evolvedStored.agentId).toBe("AGENT-02");
+  expect(evolvedStored.currentVersion).toBe(2);
+  expect(evolvedStored.versionHistory).toHaveLength(2);
+  expect(evolvedStored.versionHistory.map((row) => row.version)).toEqual([1, 2]);
+  expect(evolvedStored.versionHistory[1].evolvedFrom).toBe(1);
+  expect(evolvedStored.versionHistory[1].priorVersionRaces).toBe(1);
+  expect(evolvedStored.raceHistory).toHaveLength(2);
+  expect(evolvedStored.raceHistory.map((row) => row.version)).toEqual([1, 2]);
+  expect(evolvedStored.winResultHistory.map((row) => row.version)).toEqual([1, 2]);
+  expect(evolvedStored.compatibilityHistory.map((row) => row.version)).toEqual([1, 2]);
+  expect(evolvedStored.raceHistory[0].strategyDefinition).not.toBe(
+    evolvedStored.raceHistory[1].strategyDefinition
+  );
+  expect(evolvedStored.raceHistory[0].commandHistory).not.toEqual(
+    evolvedStored.raceHistory[1].commandHistory
+  );
+  expect(evolvedStored.raceHistory[0].time).not.toBe(
+    evolvedStored.raceHistory[1].time
+  );
+
+  const summary = JSON.parse(
+    (await evolvedScene.getAttribute("data-entry-agent-version-summary")) || "{}"
+  );
+  expect(summary["1"].races).toBe(1);
+  expect(summary["2"].races).toBe(1);
+
+  console.log(
+    "AGENT_VERSION_EVOLUTION_V1",
+    JSON.stringify({
+      agentId: evolvedStored.agentId,
+      currentVersion: evolvedStored.currentVersion,
+      versionHistory: evolvedStored.versionHistory,
+      v1: evolvedStored.raceHistory[0],
+      v2: evolvedStored.raceHistory[1],
+      summary
+    })
+  );
+
+  await evolvedScene.screenshot({
+    path: "test-results/visuals/motion-first-agent-version-v1.png"
+  });
+});
