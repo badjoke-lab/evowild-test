@@ -2631,3 +2631,99 @@ test("Motion First Race Agent Ownership Transfer v1 preserves creator and proven
     path: "test-results/visuals/motion-first-agent-ownership-v1.png"
   });
 });
+
+
+test("Motion First Agent-Creature Compatibility v1 records static and observed pair fit", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(90000);
+
+  const makeUrl = (entry) =>
+    `/evowild-test/preview-motion-first-race/index.html?skipStart=1&course=sprint-800-v1&entry=${entry}&entryAgent=attack-v1&agentAuto=1&simRate=4`;
+
+  await page.goto(makeUrl(0), { waitUntil: "networkidle" });
+  await page.evaluate(() => {
+    window.localStorage.removeItem("evowild.motionFirst.agentHistory.v1");
+  });
+  await page.reload({ waitUntil: "networkidle" });
+
+  const sScene = page.locator("#scene");
+  await expect(sScene).toHaveAttribute("data-entry-agent-id", "AGENT-02");
+  await expect(sScene).toHaveAttribute("data-entry-runner-morph", "S");
+  await expect(sScene).toHaveAttribute("data-entry-agent-creature-compat-morph", "S");
+  await expect(sScene).toHaveAttribute("data-entry-agent-creature-compat-score", "0.949");
+  await expect(sScene).toHaveAttribute("data-entry-agent-creature-push-compat", "1.080");
+  await expect(sScene).toHaveAttribute("data-entry-agent-creature-conserve-compat", "0.644");
+  await expect(page.locator("#agentCompatibilityReadout")).toContainText("PAIR S 95%");
+
+  await expect(page.locator("#raceState")).toHaveText("FINISHED", {
+    timeout: 25000
+  });
+  await expect(sScene).toHaveAttribute("data-entry-agent-creature-compat-history-count", "1");
+
+  let ledger = await page.evaluate(() => {
+    const raw = window.localStorage.getItem("evowild.motionFirst.agentHistory.v1");
+    return raw ? JSON.parse(raw)["AGENT-02"] : null;
+  });
+  expect(ledger.compatibilityHistory).toHaveLength(1);
+  const sCompat = ledger.compatibilityHistory[0];
+  expect(sCompat.agentId).toBe("AGENT-02");
+  expect(sCompat.strategy).toBe("ATTACK");
+  expect(sCompat.morph).toBe("S");
+  expect(sCompat.pairScore).toBe(0.949);
+  expect(sCompat.pushCompatibility).toBe(1.08);
+  expect(sCompat.conserveCompatibility).toBe(0.644);
+  expect(sCompat.observedMeanResponse).toBeGreaterThan(0.3);
+  expect(sCompat.responseSeconds).toBeGreaterThan(1);
+  expect(sCompat.pushResponseSeconds).toBeGreaterThan(1);
+
+  await page.goto(makeUrl(5), { waitUntil: "networkidle" });
+  const pScene = page.locator("#scene");
+  await expect(pScene).toHaveAttribute("data-entry-runner-morph", "P");
+  await expect(pScene).toHaveAttribute("data-entry-agent-creature-compat-morph", "P");
+  await expect(pScene).toHaveAttribute("data-entry-agent-creature-compat-score", "0.920");
+  await expect(pScene).toHaveAttribute("data-entry-agent-creature-push-compat", "1.015");
+  await expect(pScene).toHaveAttribute("data-entry-agent-creature-conserve-compat", "0.699");
+  await expect(page.locator("#agentCompatibilityReadout")).toContainText("PAIR P 92%");
+
+  await expect(page.locator("#raceState")).toHaveText("FINISHED", {
+    timeout: 25000
+  });
+  await expect(pScene).toHaveAttribute("data-entry-agent-creature-compat-history-count", "1");
+
+  ledger = await page.evaluate(() => {
+    const raw = window.localStorage.getItem("evowild.motionFirst.agentHistory.v1");
+    return raw ? JSON.parse(raw)["AGENT-02"] : null;
+  });
+  expect(ledger.compatibilityHistory).toHaveLength(2);
+  const pCompat = ledger.compatibilityHistory[1];
+  expect(pCompat.morph).toBe("P");
+  expect(pCompat.pairScore).toBe(0.92);
+  expect(pCompat.pushCompatibility).toBe(1.015);
+  expect(pCompat.conserveCompatibility).toBe(0.699);
+  expect(pCompat.observedMeanResponse).toBeGreaterThan(0.3);
+  expect(pCompat.responseSeconds).toBeGreaterThan(1);
+
+  expect(sCompat.pairScore).toBeGreaterThan(pCompat.pairScore);
+  expect(sCompat.pushCompatibility).toBeGreaterThan(pCompat.pushCompatibility);
+  expect(Math.abs(sCompat.observedMeanResponse - pCompat.observedMeanResponse))
+    .toBeGreaterThan(0.005);
+
+  const observed = Number(
+    await pScene.getAttribute("data-entry-agent-creature-observed-mean")
+  );
+  expect(observed).toBeCloseTo(pCompat.observedMeanResponse, 3);
+
+  console.log(
+    "AGENT_CREATURE_COMPAT_V1",
+    JSON.stringify({
+      agentId: ledger.agentId,
+      S: sCompat,
+      P: pCompat
+    })
+  );
+
+  await pScene.screenshot({
+    path: "test-results/visuals/motion-first-agent-creature-compat-v1.png"
+  });
+});
