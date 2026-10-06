@@ -1,0 +1,43 @@
+name: Kimodo Acceleration Source Comparison
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - exp/kimodo-ardy-motion-feasibility-20261004
+    paths:
+      - "scripts/kimodo-ardy/compare_external_launch_profiles.py"
+      - ".github/workflows/kimodo-accel-source-comparison.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: exp/kimodo-ardy-motion-feasibility-20261004
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --disable-pip-version-check numpy
+      - name: Compare steady sprint and explicit acceleration
+        run: |
+          python scripts/kimodo-ardy/compare_external_launch_profiles.py             --a experiments/kimodo-ardy/space-generated/sprint-v1/timeseries.csv             --b experiments/kimodo-ardy/space-generated/accel-v1/timeseries.csv             --a-label steady-sprint-v1             --b-label explicit-acceleration-v1             --output experiments/kimodo-ardy/space-generated/accel-v1/vs-steady-sprint.json
+
+          python scripts/kimodo-ardy/compare_launch_profiles.py             experiments/kimodo-ardy/space-generated/accel-v1/timeseries.csv             --output experiments/kimodo-ardy/space-generated/accel-v1/vs-current-evowild-launch.json
+
+      - name: Commit comparisons
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add experiments/kimodo-ardy/space-generated/accel-v1/vs-steady-sprint.json
+          git add experiments/kimodo-ardy/space-generated/accel-v1/vs-current-evowild-launch.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Compare explicit Kimodo acceleration source"
+          git push origin HEAD:exp/kimodo-ardy-motion-feasibility-20261004
