@@ -8,6 +8,7 @@ async function captureLaunch(page, candidate) {
     skipStart: "1",
     kimodoLaunch: candidate ? "1" : "0",
     kimodoLaunchBlend: "0.55",
+    kimodoLaunchFreeze: "2.1",
     proxyReviewRunner: "0"
   });
   await page.goto(
@@ -20,9 +21,8 @@ async function captureLaunch(page, candidate) {
 
   await page.waitForFunction(() => {
     const scene = document.querySelector("#scene");
-    return Number(scene?.dataset.kimodoLaunchRaceTime || 0) >= 1.80;
+    return scene?.dataset.kimodoLaunchFrozen === "1";
   });
-  await page.locator("#pauseButton").click({ force: true });
   await page.waitForTimeout(250);
 
   const scene = page.locator("#scene");
@@ -36,7 +36,9 @@ async function captureLaunch(page, candidate) {
     physicalSpeedRatio: Number(el.dataset.kimodoLaunchPhysicalSpeedRatio),
     bodyPitch: Number(el.dataset.kimodoLaunchBodyPitch),
     pitchBias: Number(el.dataset.kimodoLaunchPitchBias),
-    maxStanceSlip: Number(el.dataset.kimodoLaunchMaxStanceSlip)
+    maxStanceSlip: Number(el.dataset.kimodoLaunchMaxStanceSlip),
+    frozen: el.dataset.kimodoLaunchFrozen,
+    freezeTime: Number(el.dataset.kimodoLaunchFreezeTime)
   }));
 
   fs.mkdirSync(outDir, { recursive: true });
@@ -73,11 +75,16 @@ test("Kimodo launch envelope changes S presentation without changing race physic
 
   expect(baseline.mode).toBe("baseline");
   expect(candidate.mode).toBe("candidate");
+  expect(baseline.frozen).toBe("1");
+  expect(candidate.frozen).toBe("1");
+  expect(baseline.freezeTime).toBeCloseTo(2.1, 6);
+  expect(candidate.freezeTime).toBeCloseTo(2.1, 6);
+  expect(baseline.raceTime).toBeCloseTo(candidate.raceTime, 6);
   expect(baseline.physics).toBe("unchanged");
   expect(candidate.physics).toBe("unchanged");
   expect(baseline.appliedLead).toBe(0);
   expect(candidate.appliedLead).toBeGreaterThan(0.05);
-  expect(Math.abs(candidate.physicalSpeedRatio - baseline.physicalSpeedRatio)).toBeLessThan(0.04);
+  expect(Math.abs(candidate.physicalSpeedRatio - baseline.physicalSpeedRatio)).toBeLessThan(0.0001);
   expect(Math.abs(baseline.pitchBias)).toBeLessThan(0.0001);
   expect(candidate.pitchBias).toBeLessThan(-0.002);
   expect(Number.isFinite(baseline.bodyPitch)).toBeTruthy();
