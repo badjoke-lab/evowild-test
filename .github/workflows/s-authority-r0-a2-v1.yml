@@ -11,7 +11,7 @@ permissions:
   contents: write
 concurrency:
   group: s-authority-r0-a2-v1
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   r0-a2-v1:
     runs-on: ubuntu-latest
@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: exp/s-creature-vibe-modeling
-          fetch-depth: 0
+          fetch-depth: 1
       - name: Verify authority and accepted R0-A1 source
         run: |
           test -f art/s-creature/references/00_s_type_modeling_image_v1.png
@@ -89,5 +89,4 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add art/s-creature/output/S-authority-r0-a2-v1.blend art/s-creature/output/S-authority-r0-a2-v1-validation.json art/s-creature/output/review/authority-r0-a2-v1/ art/s-creature/CHECKPOINT.md art/s-creature/HANDOFF_STATE.json
           git commit -m 'art: save authority R0-A2 v1 review'
-          git pull --rebase origin exp/s-creature-vibe-modeling
           git push origin HEAD:exp/s-creature-vibe-modeling
