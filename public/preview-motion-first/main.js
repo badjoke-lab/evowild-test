@@ -18,6 +18,11 @@ const courseSelect = document.querySelector("#courseSelect");
 const entryCreatureSelect = document.querySelector("#entryCreatureSelect");
 const entryAgentSelect = document.querySelector("#entryAgentSelect");
 const entryReadoutEl = document.querySelector("#entryReadout");
+const entryCompareButton = document.querySelector("#entryCompareButton");
+const entryComparisonPanelEl = document.querySelector("#entryComparisonPanel");
+const entryComparisonBodyEl = document.querySelector("#entryComparisonBody");
+const entryComparisonSummaryEl = document.querySelector("#entryComparisonSummary");
+const entryComparisonCloseButton = document.querySelector("#entryComparisonClose");
 const pauseButton = document.querySelector("#pauseButton");
 const restartButton = document.querySelector("#restartButton");
 const resultPanel = document.querySelector("#resultPanel");
@@ -850,6 +855,181 @@ function applyEntryAgentProfile(runner) {
   runner.agent.intent = { ...versionSpec.intent };
 }
 
+function buildEntryComparisonRows() {
+  if (!SIMPLIFIED_RACE_PAGE || !runners.length) return [];
+
+  const record = getEntryAgentEntityRecord();
+  const activeVersion = record.activeVersion || record.currentVersion;
+  const versionSpec = getAgentVersionSpec(ENTRY_AGENT_PROFILE, activeVersion);
+  const comparisonAgent = {
+    entityId: ENTRY_AGENT_PROFILE.id,
+    strategy: ENTRY_AGENT_PROFILE.strategy,
+    version: activeVersion,
+    intent: { ...versionSpec.intent }
+  };
+
+  return runners
+    .map((runner) => {
+      const courseFit =
+        RACE_COURSE_PROFILE.morphPaceFit?.[runner.morph] ?? 1;
+      const pair =
+        getAgentCreatureCompatibilitySnapshot(comparisonAgent, runner.morph);
+      const fitIndex = courseFit * pair.score;
+
+      const history = record.raceHistory.filter(
+        (race) => race.runnerId === runner.id
+      );
+      const wins = history.filter((race) => race.rank === 1).length;
+      const avgRank = history.length
+        ? average(history.map((race) => race.rank))
+        : null;
+
+      const observedRows = record.compatibilityHistory.filter(
+        (row) =>
+          row.agentId === ENTRY_AGENT_PROFILE.id &&
+          row.morph === runner.morph &&
+          row.version === activeVersion &&
+          Number.isFinite(row.observedMeanResponse)
+      );
+      const observedMean = observedRows.length
+        ? average(observedRows.map((row) => row.observedMeanResponse))
+        : null;
+
+      return {
+        id: runner.id,
+        name: runner.name,
+        morph: runner.morph,
+        morphLabel: MORPHS[runner.morph].label,
+        courseFit,
+        pairFit: pair.score,
+        observedMean,
+        fitIndex,
+        races: history.length,
+        wins,
+        avgRank
+      };
+    })
+    .sort((a, b) => {
+      const fitDelta = b.fitIndex - a.fitIndex;
+      if (Math.abs(fitDelta) > 1e-9) return fitDelta;
+
+      if (a.races || b.races) {
+        const aRank = a.avgRank ?? Number.POSITIVE_INFINITY;
+        const bRank = b.avgRank ?? Number.POSITIVE_INFINITY;
+        if (aRank !== bRank) return aRank - bRank;
+        if (a.wins !== b.wins) return b.wins - a.wins;
+      }
+      return a.id - b.id;
+    });
+}
+
+function renderEntryComparison() {
+  if (!SIMPLIFIED_RACE_PAGE || !entryComparisonBodyEl) return;
+
+  const rows = buildEntryComparisonRows();
+  entryComparisonBodyEl.replaceChildren();
+
+  rows.forEach((row, index) => {
+    const tr = document.createElement("tr");
+    tr.dataset.runnerId = String(row.id);
+    tr.dataset.morph = row.morph;
+    tr.dataset.fitIndex = row.fitIndex.toFixed(3);
+    tr.dataset.rank = String(index + 1);
+    if (row.id === ENTRY_RUNNER_ID) tr.classList.add("selected");
+
+    const candidate = document.createElement("td");
+    candidate.className = "entry-compare-candidate";
+    const candidateButton = document.createElement("button");
+    candidateButton.type = "button";
+    candidateButton.dataset.entryCandidate = String(row.id);
+
+    const candidateName = document.createElement("strong");
+    candidateName.textContent = row.name;
+    const candidateMorph = document.createElement("small");
+    candidateMorph.textContent = `${row.morph} / ${row.morphLabel}`;
+    candidateButton.append(candidateName, candidateMorph);
+    candidateButton.addEventListener("click", () => {
+      reloadRaceSetupParam("entry", String(row.id));
+    });
+    candidate.append(candidateButton);
+
+    const course = document.createElement("td");
+    course.textContent = `×${row.courseFit.toFixed(3)}`;
+
+    const pair = document.createElement("td");
+    pair.textContent = `${Math.round(row.pairFit * 100)}%`;
+
+    const observed = document.createElement("td");
+    observed.textContent =
+      row.observedMean === null
+        ? "—"
+        : `${Math.round(row.observedMean * 100)}%`;
+
+    const history = document.createElement("td");
+    history.textContent = row.races
+      ? `${row.races}R · ${row.wins}W · AVG ${row.avgRank.toFixed(1)}`
+      : "NO HISTORY";
+
+    const indexCell = document.createElement("td");
+    indexCell.className = "entry-compare-index";
+    indexCell.textContent = row.fitIndex.toFixed(3);
+
+    tr.append(candidate, course, pair, observed, history, indexCell);
+    entryComparisonBodyEl.append(tr);
+  });
+
+  const best = rows[0];
+  if (entryComparisonSummaryEl && best) {
+    entryComparisonSummaryEl.textContent =
+      `BEST FIT: ${best.name} · ${best.morph} · INDEX ${best.fitIndex.toFixed(3)} · heuristic only`;
+  }
+
+  canvas.dataset.entryComparisonReady =
+    rows.length === RUNNER_COUNT ? "1" : "0";
+  canvas.dataset.entryComparisonRowCount = String(rows.length);
+  canvas.dataset.entryComparisonBestRunner = best ? String(best.id) : "";
+  canvas.dataset.entryComparisonBestMorph = best?.morph || "";
+  canvas.dataset.entryComparisonBestIndex =
+    best ? best.fitIndex.toFixed(3) : "";
+  canvas.dataset.entryComparisonRanking = JSON.stringify(
+    rows.map((row, index) => ({
+      rank: index + 1,
+      id: row.id,
+      morph: row.morph,
+      courseFit: Number(row.courseFit.toFixed(3)),
+      pairFit: Number(row.pairFit.toFixed(3)),
+      observedMean:
+        row.observedMean === null
+          ? null
+          : Number(row.observedMean.toFixed(3)),
+      races: row.races,
+      wins: row.wins,
+      avgRank:
+        row.avgRank === null ? null : Number(row.avgRank.toFixed(3)),
+      fitIndex: Number(row.fitIndex.toFixed(3))
+    }))
+  );
+}
+
+function setEntryComparisonOpen(open) {
+  if (!entryComparisonPanelEl) return;
+  const next = Boolean(open);
+  entryComparisonPanelEl.classList.toggle("hidden", !next);
+  entryComparisonPanelEl.setAttribute(
+    "aria-hidden",
+    next ? "false" : "true"
+  );
+  if (entryCompareButton) {
+    entryCompareButton.classList.toggle("active", next);
+    entryCompareButton.setAttribute(
+      "aria-expanded",
+      next ? "true" : "false"
+    );
+  }
+  canvas.dataset.entryComparisonOpen = next ? "1" : "0";
+  if (next) renderEntryComparison();
+}
+
 function initializeRaceEntryUi() {
   if (!SIMPLIFIED_RACE_PAGE) return;
 
@@ -900,6 +1080,7 @@ function initializeRaceEntryUi() {
   canvas.dataset.entryCourseFit = paceFit.toFixed(3);
   syncEntryAgentHistoryUi();
   syncEntryAgentCreatureCompatibilityUi();
+  renderEntryComparison();
 }
 
 const AGENT_COMPATIBILITY = {
@@ -7043,6 +7224,21 @@ function reloadRaceSetupParam(key, value) {
   next.delete("visualSwapRunner");
   next.delete("simRate");
   window.location.search = next.toString();
+}
+
+if (entryCompareButton) {
+  entryCompareButton.addEventListener("click", () => {
+    const isOpen =
+      entryComparisonPanelEl &&
+      !entryComparisonPanelEl.classList.contains("hidden");
+    setEntryComparisonOpen(!isOpen);
+  });
+}
+
+if (entryComparisonCloseButton) {
+  entryComparisonCloseButton.addEventListener("click", () => {
+    setEntryComparisonOpen(false);
+  });
 }
 
 if (courseSelect) {
