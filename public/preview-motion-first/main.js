@@ -574,6 +574,10 @@ function normalizeAgentOwnerId(value) {
 
 function transferEntryAgentOwnership(nextOwnerValue) {
   if (!SIMPLIFIED_RACE_PAGE) return false;
+  if (raceStarted && !finished) {
+    canvas.dataset.entryAgentTransferResult = "RACE_IN_PROGRESS";
+    return false;
+  }
 
   const nextOwner = normalizeAgentOwnerId(nextOwnerValue);
   const record = getEntryAgentEntityRecord();
@@ -689,7 +693,8 @@ function recordEntryAgentRace(finalOrder) {
     won: rank === 1,
     time: raceRecord.time,
     courseId: raceRecord.courseId,
-    version: raceRecord.version
+    version: raceRecord.version,
+    ownerAtRace: raceRecord.ownerAtRace
   };
   const compatibilityRecord = {
     raceId: raceRecord.raceId,
@@ -699,6 +704,7 @@ function recordEntryAgentRace(finalOrder) {
       (RACE_COURSE_PROFILE.morphPaceFit?.[entryRunner.morph] ?? 1).toFixed(3)
     ),
     version: raceRecord.version,
+    ownerAtRace: raceRecord.ownerAtRace,
     rank,
     time: raceRecord.time
   };
@@ -6685,6 +6691,9 @@ function updateHud(dt) {
         );
         button.disabled = finished || !raceStarted;
       });
+      if (agentTransferButton) {
+        agentTransferButton.disabled = raceStarted && !finished;
+      }
 
       canvas.dataset.agentTargetRunner = String(agentTarget.id);
       canvas.dataset.agentFocusCommand = agentTarget.agent.command;
