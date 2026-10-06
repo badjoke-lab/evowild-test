@@ -970,3 +970,13 @@ button:disabled {
   font-weight: 900;
   letter-spacing: .05em;
 }
+
+
+.agent-compatibility-readout {
+  margin-top: 7px;
+  color: rgba(138,255,191,.76);
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: .045em;
+  font-variant-numeric: tabular-nums;
+}
