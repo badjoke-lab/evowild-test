@@ -2874,3 +2874,104 @@ test("Motion First Race Entry Selection Support v1 ranks all 18 and uses real hi
     path: "test-results/visuals/motion-first-entry-support-v1.png"
   });
 });
+
+
+test("Motion First Race Agent Selection Support v1 compares all three Agents and real history", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(90000);
+
+  const compareUrl =
+    "/evowild-test/preview-motion-first-race/index.html?course=heavy-1200-v1&entry=5&entryAgent=attack-v1";
+
+  await page.goto(compareUrl, { waitUntil: "networkidle" });
+  await page.evaluate(() => {
+    window.localStorage.removeItem("evowild.motionFirst.agentHistory.v1");
+  });
+  await page.reload({ waitUntil: "networkidle" });
+
+  const scene = page.locator("#scene");
+  await expect(scene).toHaveAttribute("data-entry-agent-comparison-ready", "1");
+  await expect(scene).toHaveAttribute("data-entry-agent-comparison-row-count", "3");
+  await expect(scene).toHaveAttribute("data-entry-agent-comparison-best-key", "attack-v1");
+  await expect(scene).toHaveAttribute("data-entry-agent-comparison-best-id", "AGENT-02");
+  await expect(scene).toHaveAttribute("data-entry-agent-comparison-best-index", "0.962");
+
+  const initialRanking = JSON.parse(
+    (await scene.getAttribute("data-entry-agent-comparison-ranking")) || "[]"
+  );
+  expect(initialRanking).toHaveLength(3);
+  expect(initialRanking.map((row) => row.id).sort()).toEqual([
+    "AGENT-01",
+    "AGENT-02",
+    "AGENT-03"
+  ]);
+  expect(initialRanking[0]).toMatchObject({
+    rank: 1,
+    key: "attack-v1",
+    id: "AGENT-02",
+    strategy: "ATTACK",
+    activeVersion: 1,
+    pairFit: 0.92,
+    observedMean: null,
+    races: 0,
+    wins: 0,
+    avgRank: null,
+    evaluationStatus: "NOT_STARTED",
+    fitIndex: 0.962
+  });
+
+  await page.locator("#entryCompareButton").click();
+  await expect(page.locator("#entryAgentComparison .entry-agent-option")).toHaveCount(3);
+  const firstAgent = page.locator("#entryAgentComparison .entry-agent-option").first();
+  await expect(firstAgent).toHaveAttribute("data-agent-id", "AGENT-02");
+  await expect(firstAgent).toContainText("SURGE", { ignoreCase: true });
+  await expect(firstAgent).toContainText("NO HISTORY");
+
+  // Run the selected Agent/Creature pair once so comparison reflects real history.
+  await page.goto(
+    "/evowild-test/preview-motion-first-race/index.html?skipStart=1&course=heavy-1200-v1&entry=5&entryAgent=attack-v1&agentAuto=1&simRate=4",
+    { waitUntil: "networkidle" }
+  );
+  await expect(page.locator("#raceState")).toHaveText("FINISHED", {
+    timeout: 35000
+  });
+  await expect(page.locator("#scene")).toHaveAttribute("data-entry-final-rank", "1");
+
+  await page.goto(compareUrl, { waitUntil: "networkidle" });
+  const historyScene = page.locator("#scene");
+  const historyRanking = JSON.parse(
+    (await historyScene.getAttribute("data-entry-agent-comparison-ranking")) || "[]"
+  );
+  expect(historyRanking).toHaveLength(3);
+  expect(historyRanking[0].id).toBe("AGENT-02");
+  expect(historyRanking[0].races).toBe(1);
+  expect(historyRanking[0].wins).toBe(1);
+  expect(historyRanking[0].avgRank).toBe(1);
+  expect(historyRanking[0].observedMean).toBeGreaterThan(0.3);
+  expect(historyRanking[0].fitIndex).toBe(0.962);
+
+  await page.locator("#entryCompareButton").click();
+  const surgeCard = page.locator('[data-entry-agent-candidate="attack-v1"]');
+  await expect(surgeCard).toContainText("1R · 1W · AVG 1.0");
+  await expect(surgeCard).not.toContainText("OBS —");
+
+  // Card selection uses the same Agent selection path as the dropdown.
+  await page.locator('[data-entry-agent-candidate="control-v1"]').click();
+  await page.waitForURL(/entryAgent=control-v1/);
+  await expect(page.locator("#entryAgentSelect")).toHaveValue("control-v1");
+  await expect(page.locator("#scene")).toHaveAttribute("data-entry-agent-id", "AGENT-03");
+
+  console.log(
+    "RACE_AGENT_SELECTION_SUPPORT_V1",
+    JSON.stringify({
+      initialBest: initialRanking[0],
+      historyBest: historyRanking[0]
+    })
+  );
+
+  await page.locator("#entryCompareButton").click();
+  await page.locator("#app").screenshot({
+    path: "test-results/visuals/motion-first-agent-selection-support-v1.png"
+  });
+});
