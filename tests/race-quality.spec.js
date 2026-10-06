@@ -445,3 +445,47 @@ test("2.5D P E A grounded-stride v2 exposes six distinct live phases", async ({ 
     expect(footAdjust).toBeLessThan(80);
   }
 });
+
+test("2.5D P E A mf12 direct-gait review cycles all twelve frames", async ({ page }, testInfo) => {
+  test.setTimeout(70000);
+  fs.mkdirSync("artifacts/2p5d-survivor", { recursive: true });
+
+  for (const { id, morph } of [
+    { id: 2, morph: "P" },
+    { id: 3, morph: "E" },
+    { id: 4, morph: "A" }
+  ]) {
+    await page.goto(
+      `/evowild-test/race-quality.html?peaSprite=mf12&motionReview=1&selected=${id}`,
+      { waitUntil: "networkidle" }
+    );
+    const stage = page.locator("#stage");
+
+    await expect(stage).toHaveAttribute("data-pea-sprite-mode", "mf12-direct-gait");
+    await expect(stage).toHaveAttribute("data-run-sheets", "ready", { timeout: 15000 });
+    await expect(stage).toHaveAttribute(`data-${morph.toLowerCase()}-sheet-layout`, "4x3");
+    await expect(stage).toHaveAttribute("data-selected-morph", morph, { timeout: 8000 });
+    await expect(stage).toHaveAttribute(
+      `data-${morph.toLowerCase()}-motion-profile`,
+      "mf12-direct-gait-v1"
+    );
+
+    const seen = new Set();
+    const captured = new Set();
+    for (let sample = 0; sample < 120 && seen.size < 12; sample += 1) {
+      await page.waitForTimeout(32);
+      const frame = Number(await stage.getAttribute("data-selected-run-frame"));
+      if (Number.isFinite(frame) && frame >= 0 && frame < 12) {
+        seen.add(frame);
+        if (!captured.has(frame)) {
+          captured.add(frame);
+          await stage.screenshot({
+            path: `artifacts/2p5d-survivor/mf12-${morph.toLowerCase()}-${String(frame).padStart(2,"0")}-${testInfo.project.name}.png`
+          });
+        }
+      }
+    }
+    expect([...seen].sort((a,b)=>a-b)).toEqual([0,1,2,3,4,5,6,7,8,9,10,11]);
+  }
+});
+
