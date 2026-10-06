@@ -11,16 +11,33 @@ CELL = 256
 SHEET_W = CELL * 4
 SHEET_H = CELL * 3
 
-def alpha_bbox(img):
+def remove_chroma(img):
     rgba = img.convert("RGBA")
+    out = []
+    for r, g, b, _ in rgba.getdata():
+        dominance = g - max(r, b)
+        if g >= 245 and r <= 18 and b <= 18:
+            a = 0
+        elif dominance >= 150:
+            a = 0
+        elif dominance >= 70:
+            a = round(255 * (150 - dominance) / 80)
+        else:
+            a = 255
+        out.append((r, g, b, a))
+    rgba.putdata(out)
+    return rgba
+
+def alpha_bbox(img):
+    rgba = remove_chroma(img)
     alpha = rgba.getchannel("A")
     # Ignore very faint antialiasing noise.
     mask = alpha.point(lambda a: 255 if a > 10 else 0)
     return mask.getbbox()
 
 def normalized_frame(path):
-    img = Image.open(path).convert("RGBA")
-    bbox = alpha_bbox(img)
+    img = remove_chroma(Image.open(path))
+    bbox = img.getchannel("A").point(lambda a: 255 if a > 10 else 0).getbbox()
     if not bbox:
         raise RuntimeError(f"no visible pixels in {path}")
     crop = img.crop(bbox)
