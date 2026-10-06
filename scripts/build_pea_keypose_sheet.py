@@ -11,6 +11,12 @@ CELL = 256
 SHEET_W = CELL * 4
 SHEET_H = CELL * 3
 
+def source_frame_path(morph, index):
+    path = RAW / f"{morph.lower()}-{index}.png"
+    if not path.exists():
+        raise FileNotFoundError(f"missing direct gait capture: {path}")
+    return path
+
 def remove_chroma(img):
     rgba = img.convert("RGBA")
     out = []
