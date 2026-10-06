@@ -1,0 +1,111 @@
+{
+  "source": "art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/S-trellis2-clean-seed0000.glb",
+  "operation": {
+    "position_round_digits": 8,
+    "coordinates_moved": false,
+    "degenerate_faces_removed": 0,
+    "duplicate_faces_removed": 11,
+    "small_components_removed_from_maincomponent": 26,
+    "largest_component_face_fraction": 0.8864493629155608
+  },
+  "welded_all": {
+    "label": "exact_position_weld_all_components",
+    "vertices": 149304,
+    "faces": 298783,
+    "connected_components": 27,
+    "component_face_counts_desc": [
+      264856,
+      5414,
+      5042,
+      4566,
+      3946,
+      3844,
+      2720,
+      1462,
+      1426,
+      1242,
+      1106,
+      1078,
+      1072,
+      920,
+      60,
+      18,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "watertight": false,
+    "winding_consistent": true,
+    "is_volume": false,
+    "euler_number": -14,
+    "bounds": [
+      [
+        -0.11367853,
+        -0.18599136,
+        -0.50018311
+      ],
+      [
+        0.07907392,
+        0.17251669,
+        0.50033069
+      ]
+    ],
+    "extents": [
+      0.19275245000000002,
+      0.35850804999999997,
+      1.0005138
+    ],
+    "boundary_edges": 17,
+    "nonmanifold_edges_gt2_faces": 90,
+    "edge_face_count_histogram": {
+      "1": 17,
+      "2": 447994,
+      "3": 16,
+      "4": 74
+    }
+  },
+  "maincomponent": {
+    "label": "largest_connected_component_after_weld",
+    "vertices": 132330,
+    "faces": 264856,
+    "connected_components": 1,
+    "component_face_counts_desc": [
+      264856
+    ],
+    "watertight": false,
+    "winding_consistent": true,
+    "is_volume": false,
+    "euler_number": -42,
+    "bounds": [
+      [
+        -0.07412764,
+        -0.18599136,
+        -0.14727354
+      ],
+      [
+        0.07907392,
+        0.17251669,
+        0.50033069
+      ]
+    ],
+    "extents": [
+      0.15320156000000001,
+      0.35850804999999997,
+      0.64760423
+    ],
+    "boundary_edges": 0,
+    "nonmanifold_edges_gt2_faces": 56,
+    "edge_face_count_histogram": {
+      "2": 397172,
+      "4": 56
+    }
+  }
+}
