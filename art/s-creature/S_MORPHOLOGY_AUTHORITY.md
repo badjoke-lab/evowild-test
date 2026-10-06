@@ -16,11 +16,14 @@ Source identity:
 ## Authority order
 
 1. `00_s_type_modeling_image_v1.png` — final global S morphology authority.
-2. `01_s_body_primary.png`, `02_s_silhouette.png`, and the remaining part sheets — diagnostic/supporting references only.
-3. Written proportion ranges — drift guards only.
-4. Existing meshes/renders — implementation candidates, never authority.
+2. Cropped/body/silhouette/part references — diagnostic/supporting only.
+3. Written interpretation — explanatory only.
+4. Numeric proportion ranges — drift guards only.
+5. Existing meshes/renders — implementation candidates, never authority.
 
-If any lower-level reference conflicts with the primary image, the primary image wins.
+**If any lower-level item conflicts with the primary image, the primary image wins.**
+
+This includes older written claims about crest count/shape, foot type, tail length, or other anatomy.
 
 ## Review rule
 
@@ -34,9 +37,24 @@ Every morphology gate must compare at least:
 - REAR34
 - BACK
 
-against the primary authority image.
+against the exact primary image.
 
-A gate must be rejected if a hard-fail trait appears even when local topology/validation passes.
+A gate is rejected if any view contradicts the approved overall design, even when topology, Blender validation, or CI passes.
+
+## Mandatory visible anchors from the approved image
+
+Reviewers must preserve these obvious image-level anchors:
+
+- two dominant elongated blade-like head crests;
+- narrow wedge-like head and long dark neck;
+- strong shoulder/chest mass followed by a deeply tucked narrow waist;
+- streamlined but substantial pelvis/upper hindquarter;
+- very long light limbs with distinct fore/hind joint rhythm;
+- specialized compact split racing feet;
+- long layered blade/feather tail;
+- overall low-mass, high-speed racing silhouette.
+
+These anchors are not substitutes for looking at the image. They exist to prevent reviewers from silently reverting to older incompatible prose.
 
 ## Separation from motion tests
 
