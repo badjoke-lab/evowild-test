@@ -2727,3 +2727,37 @@ test("Motion First Agent-Creature Compatibility v1 records static and observed p
     path: "test-results/visuals/motion-first-agent-creature-compat-v1.png"
   });
 });
+
+
+test("Motion First Race Entry pre-race focus v2 keeps YOUR ENTRY locked during countdown", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(30000);
+
+  await page.goto(
+    "/evowild-test/preview-motion-first-race/index.html?course=heavy-1200-v1&entry=5&entryAgent=attack-v1",
+    { waitUntil: "networkidle" }
+  );
+
+  const scene = page.locator("#scene");
+  await expect(scene).toHaveAttribute("data-start-sequence", "1");
+  await expect(page.locator("#raceState")).toHaveText("READY");
+  await expect(page.locator("#runnerSelect")).toHaveValue("5");
+  await expect(page.locator("#agentTargetSelect")).toHaveValue("5");
+  await expect(page.locator("#runnerName")).toContainText("Runner 06");
+  await expect(scene).toHaveAttribute("data-director-focus", "5");
+  await expect(scene).toHaveAttribute("data-director-reason", "PRE_RACE_ENTRY");
+
+  // The old bug appeared after the director's first updates: the UI snapped
+  // back to Runner 01 even though YOUR ENTRY and Agent target were Runner 06.
+  await page.waitForTimeout(1200);
+  await expect(page.locator("#runnerSelect")).toHaveValue("5");
+  await expect(page.locator("#agentTargetSelect")).toHaveValue("5");
+  await expect(page.locator("#runnerName")).toContainText("Runner 06");
+  await expect(scene).toHaveAttribute("data-director-focus", "5");
+  await expect(scene).toHaveAttribute("data-director-reason", "PRE_RACE_ENTRY");
+
+  await scene.screenshot({
+    path: "test-results/visuals/motion-first-entry-focus-v2.png"
+  });
+});
