@@ -51,6 +51,8 @@ const SIMPLIFIED_GAIT_PAGE = window.location.pathname.includes("/preview-motion-
 const SIMPLIFIED_RACE_PAGE = window.location.pathname.includes("/preview-motion-first-race/");
 const KIMODO_LAUNCH_VISUAL =
   SIMPLIFIED_RACE_PAGE && params.get("kimodoLaunch") === "1";
+const KIMODO_LAUNCH_SOURCE =
+  params.get("kimodoLaunchSource") === "accel" ? "accel" : "sprint";
 const KIMODO_LAUNCH_BLEND = THREE.MathUtils.clamp(
   Number(params.get("kimodoLaunchBlend") ?? 0.55),
   0,
@@ -4241,13 +4243,15 @@ function updateRunner(runner, dt) {
     const visual = computeKimodoLaunchVisualDrive(
       raceTime,
       physicalSpeedRatio,
-      KIMODO_LAUNCH_VISUAL ? KIMODO_LAUNCH_BLEND : 0
+      KIMODO_LAUNCH_VISUAL ? KIMODO_LAUNCH_BLEND : 0,
+      KIMODO_LAUNCH_SOURCE
     );
     runner.kimodoLaunchVisualDrive = visual.appliedLead;
 
     if (runner.id === 0) {
       canvas.dataset.kimodoLaunchMode =
         KIMODO_LAUNCH_VISUAL ? "candidate" : "baseline";
+      canvas.dataset.kimodoLaunchSource = visual.source;
       canvas.dataset.kimodoLaunchPhysics = "unchanged";
       canvas.dataset.kimodoLaunchRaceTime = raceTime.toFixed(3);
       canvas.dataset.kimodoLaunchEnvelope = visual.envelope.toFixed(4);
