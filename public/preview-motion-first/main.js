@@ -36,6 +36,7 @@ const pressureReadoutEl = document.querySelector("#pressureReadout");
 const creatureStateReadoutEl = document.querySelector("#creatureStateReadout");
 const agentResponseReadoutEl = document.querySelector("#agentResponseReadout");
 const agentResultEl = document.querySelector("#agentResult");
+const agentHistoryReadoutEl = document.querySelector("#agentHistoryReadout");
 const agentFeedbackEl = document.querySelector("#agentFeedback");
 const agentFeedbackMetaEl = document.querySelector("#agentFeedbackMeta");
 const agentFeedbackCommandEl = document.querySelector("#agentFeedbackCommand");
@@ -111,6 +112,9 @@ const ENTRY_AGENT_PROFILES = {
     key: "balanced-v1",
     id: "AGENT-01",
     name: "Pulse",
+    creator: "badjoke-lab",
+    currentOwner: "LOCAL-PLAYER",
+    version: 1,
     strategy: "BALANCED",
     strategyDefinition: "CONSERVE opening, neutral middle, PUSH final",
     intent: { PUSH: 1.00, CONSERVE: 1.00 }
@@ -119,6 +123,9 @@ const ENTRY_AGENT_PROFILES = {
     key: "attack-v1",
     id: "AGENT-02",
     name: "Surge",
+    creator: "badjoke-lab",
+    currentOwner: "LOCAL-PLAYER",
+    version: 1,
     strategy: "ATTACK",
     strategyDefinition: "PUSH opening, react to pressure, PUSH from 58%",
     intent: { PUSH: 1.08, CONSERVE: 0.92 }
@@ -127,11 +134,195 @@ const ENTRY_AGENT_PROFILES = {
     key: "control-v1",
     id: "AGENT-03",
     name: "Anchor",
+    creator: "badjoke-lab",
+    currentOwner: "LOCAL-PLAYER",
+    version: 1,
     strategy: "CONTROL",
     strategyDefinition: "CONSERVE to 58%, PUSH only in late phase",
     intent: { PUSH: 0.94, CONSERVE: 1.08 }
   }
 };
+const AGENT_HISTORY_STORAGE_KEY = "evowild.motionFirst.agentHistory.v1";
+
+function defaultAgentEntityRecord(profile) {
+  return {
+    agentId: profile.id,
+    name: profile.name,
+    creator: profile.creator,
+    currentOwner: profile.currentOwner,
+    currentVersion: profile.version,
+    strategy: profile.strategy,
+    strategyDefinition: profile.strategyDefinition,
+    versionHistory: [
+      {
+        version: profile.version,
+        strategy: profile.strategy,
+        strategyDefinition: profile.strategyDefinition
+      }
+    ],
+    ownershipHistory: [
+      {
+        owner: profile.currentOwner,
+        source: "prototype-initial-owner"
+      }
+    ],
+    raceHistory: [],
+    winResultHistory: [],
+    compatibilityHistory: []
+  };
+}
+
+function loadAgentEntityLedger() {
+  const seed = Object.fromEntries(
+    Object.values(ENTRY_AGENT_PROFILES).map((profile) => [
+      profile.id,
+      defaultAgentEntityRecord(profile)
+    ])
+  );
+  if (!SIMPLIFIED_RACE_PAGE) return seed;
+
+  try {
+    const raw = window.localStorage.getItem(AGENT_HISTORY_STORAGE_KEY);
+    if (!raw) return seed;
+    const parsed = JSON.parse(raw);
+    Object.values(ENTRY_AGENT_PROFILES).forEach((profile) => {
+      const stored = parsed?.[profile.id];
+      if (!stored) return;
+      seed[profile.id] = {
+        ...defaultAgentEntityRecord(profile),
+        ...stored,
+        agentId: profile.id,
+        name: profile.name,
+        creator: profile.creator,
+        currentOwner: stored.currentOwner || profile.currentOwner,
+        currentVersion: profile.version,
+        strategy: profile.strategy,
+        strategyDefinition: profile.strategyDefinition,
+        versionHistory: Array.isArray(stored.versionHistory)
+          ? stored.versionHistory
+          : defaultAgentEntityRecord(profile).versionHistory,
+        ownershipHistory: Array.isArray(stored.ownershipHistory)
+          ? stored.ownershipHistory
+          : defaultAgentEntityRecord(profile).ownershipHistory,
+        raceHistory: Array.isArray(stored.raceHistory) ? stored.raceHistory : [],
+        winResultHistory: Array.isArray(stored.winResultHistory)
+          ? stored.winResultHistory
+          : [],
+        compatibilityHistory: Array.isArray(stored.compatibilityHistory)
+          ? stored.compatibilityHistory
+          : []
+      };
+    });
+    return seed;
+  } catch {
+    return seed;
+  }
+}
+
+let agentEntityLedger = loadAgentEntityLedger();
+let agentHistoryRecordedForRace = false;
+
+function saveAgentEntityLedger() {
+  if (!SIMPLIFIED_RACE_PAGE) return;
+  try {
+    window.localStorage.setItem(
+      AGENT_HISTORY_STORAGE_KEY,
+      JSON.stringify(agentEntityLedger)
+    );
+  } catch {
+    // Storage persistence is non-critical to race execution.
+  }
+}
+
+function getEntryAgentEntityRecord() {
+  return (
+    agentEntityLedger[ENTRY_AGENT_PROFILE.id] ||
+    defaultAgentEntityRecord(ENTRY_AGENT_PROFILE)
+  );
+}
+
+function syncEntryAgentHistoryUi() {
+  if (!SIMPLIFIED_RACE_PAGE) return;
+  const record = getEntryAgentEntityRecord();
+  const races = record.raceHistory.length;
+  const wins = record.winResultHistory.filter((result) => result.rank === 1).length;
+
+  if (agentHistoryReadoutEl) {
+    agentHistoryReadoutEl.textContent =
+      `${record.agentId} v${record.currentVersion} · ${races} RACES · ${wins} WINS`;
+  }
+
+  canvas.dataset.entryAgentCreator = record.creator;
+  canvas.dataset.entryAgentCurrentOwner = record.currentOwner;
+  canvas.dataset.entryAgentVersion = String(record.currentVersion);
+  canvas.dataset.entryAgentRaceCount = String(races);
+  canvas.dataset.entryAgentWinCount = String(wins);
+  canvas.dataset.entryAgentVersionHistoryCount =
+    String(record.versionHistory.length);
+  canvas.dataset.entryAgentOwnershipHistoryCount =
+    String(record.ownershipHistory.length);
+  canvas.dataset.entryAgentCompatibilityHistoryCount =
+    String(record.compatibilityHistory.length);
+  canvas.dataset.entryAgentLastRace =
+    races > 0 ? JSON.stringify(record.raceHistory[races - 1]) : "";
+}
+
+function recordEntryAgentRace(finalOrder) {
+  if (
+    !SIMPLIFIED_RACE_PAGE ||
+    agentHistoryRecordedForRace ||
+    !finalOrder.length
+  ) {
+    return;
+  }
+
+  const entryRunner = runners[ENTRY_RUNNER_ID];
+  const rank =
+    finalOrder.findIndex((runner) => runner.id === ENTRY_RUNNER_ID) + 1;
+  if (!entryRunner || rank <= 0 || !Number.isFinite(entryRunner.finishTime)) return;
+
+  const record = getEntryAgentEntityRecord();
+  const raceRecord = {
+    raceId: `race-${Date.now()}`,
+    courseId: RACE_COURSE_PROFILE.id,
+    distance: RACE_DISTANCE,
+    runnerId: entryRunner.id,
+    morph: entryRunner.morph,
+    rank,
+    fieldSize: RUNNER_COUNT,
+    time: Number(entryRunner.finishTime.toFixed(3)),
+    strategy: ENTRY_AGENT_PROFILE.strategy,
+    version: ENTRY_AGENT_PROFILE.version,
+    auto: agentAutoEnabled,
+    commandHistory: [...(entryRunner.agent?.autoHistory || [])]
+  };
+  const resultRecord = {
+    raceId: raceRecord.raceId,
+    rank,
+    won: rank === 1,
+    time: raceRecord.time,
+    courseId: raceRecord.courseId
+  };
+  const compatibilityRecord = {
+    raceId: raceRecord.raceId,
+    morph: entryRunner.morph,
+    courseId: RACE_COURSE_PROFILE.id,
+    coursePaceFit: Number(
+      (RACE_COURSE_PROFILE.morphPaceFit?.[entryRunner.morph] ?? 1).toFixed(3)
+    ),
+    rank,
+    time: raceRecord.time
+  };
+
+  record.raceHistory.push(raceRecord);
+  record.winResultHistory.push(resultRecord);
+  record.compatibilityHistory.push(compatibilityRecord);
+  agentEntityLedger[record.agentId] = record;
+  agentHistoryRecordedForRace = true;
+  saveAgentEntityLedger();
+  syncEntryAgentHistoryUi();
+}
+
 const parsedEntryRunner = Number.parseInt(params.get("entry") || "0", 10);
 const ENTRY_RUNNER_ID = Number.isInteger(parsedEntryRunner)
   ? Math.min(RUNNER_COUNT - 1, Math.max(0, parsedEntryRunner))
@@ -213,6 +404,9 @@ function applyEntryAgentProfile(runner) {
   if (!runner?.agent) return;
   runner.agent.entityId = ENTRY_AGENT_PROFILE.id;
   runner.agent.entityName = ENTRY_AGENT_PROFILE.name;
+  runner.agent.creator = ENTRY_AGENT_PROFILE.creator;
+  runner.agent.currentOwner = ENTRY_AGENT_PROFILE.currentOwner;
+  runner.agent.version = ENTRY_AGENT_PROFILE.version;
   runner.agent.profileKey = ENTRY_AGENT_PROFILE.key;
   runner.agent.strategy = ENTRY_AGENT_PROFILE.strategy;
   runner.agent.strategyDefinition = ENTRY_AGENT_PROFILE.strategyDefinition;
@@ -265,6 +459,7 @@ function initializeRaceEntryUi() {
   canvas.dataset.entryAgentStrategyDefinition =
     ENTRY_AGENT_PROFILE.strategyDefinition;
   canvas.dataset.entryCourseFit = paceFit.toFixed(3);
+  syncEntryAgentHistoryUi();
 }
 
 const AGENT_COMPATIBILITY = {
@@ -3799,6 +3994,7 @@ function createRunners() {
 
 function resetRace() {
   raceTime = FINISH_REVIEW_MODE ? 5.0 : 0;
+  agentHistoryRecordedForRace = false;
   agentFeedbackRunner = -1;
   agentFeedbackCommand = "NEUTRAL";
   agentFeedbackUntil = -999;
@@ -6190,6 +6386,7 @@ function renderRaceResults(finalOrder) {
   const entryRank =
     finalOrder.findIndex((runner) => runner.id === ENTRY_RUNNER_ID) + 1;
   canvas.dataset.entryFinalRank = String(entryRank);
+  recordEntryAgentRace(finalOrder);
 
   if (winnerNameEl) {
     winnerNameEl.textContent =
