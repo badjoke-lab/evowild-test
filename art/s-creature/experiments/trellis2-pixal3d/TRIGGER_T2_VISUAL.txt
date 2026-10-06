@@ -1,0 +1,4 @@
+trigger=2026-10-06T12:18:00Z
+source=t2-weld maincomponent
+compare=t2-meshfix repaired
+views=side,front,front34,rear34,back
