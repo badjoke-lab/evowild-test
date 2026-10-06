@@ -51,8 +51,13 @@ jobs:
               --grep "P E A grounded-stride v2" \
               --workers=1
           elif [[ "$BRANCH" == feat/2p5d-survivor-pea-keypose-capture-* ]]; then
-            rm -rf /tmp/pea-keypose-capture
-            npx playwright test tests/pea-keypose-capture.spec.js --project=desktop-chromium --workers=1
+            if [[ -f public/concept/p-run-sheet-mf12-v1.webp && -f public/concept/e-run-sheet-mf12-v1.webp && -f public/concept/a-run-sheet-mf12-v1.webp ]]; then
+              npx playwright test tests/race-quality.spec.js --project=desktop-chromium --workers=1 \
+                --grep "P E A mf12 direct-gait review cycles all twelve frames"
+            else
+              rm -rf /tmp/pea-keypose-capture
+              npx playwright test tests/pea-keypose-capture.spec.js --project=desktop-chromium --workers=1
+            fi
           elif [[ "$BRANCH" == "feat/2p5d-four-morph-quality-integration-20260925" || "$BRANCH" == feat/2p5d-survivor-* ]]; then
             npx playwright test tests/race-quality.spec.js tests/2p5d-selection.spec.js --workers=1
           else
@@ -62,6 +67,10 @@ jobs:
         if: ${{ startsWith(github.head_ref, 'feat/2p5d-survivor-pea-keypose-capture-') || startsWith(github.ref_name, 'feat/2p5d-survivor-pea-keypose-capture-') }}
         shell: bash
         run: |
+          if [[ -f public/concept/p-run-sheet-mf12-v1.webp && -f public/concept/e-run-sheet-mf12-v1.webp && -f public/concept/a-run-sheet-mf12-v1.webp ]]; then
+            echo "mf12 sheets already materialized; runtime review only"
+            exit 0
+          fi
           python3 -m pip install --disable-pip-version-check pillow
           python3 scripts/build_pea_keypose_sheet.py
       - name: Upload P E A Motion First keypose candidates
@@ -70,12 +79,16 @@ jobs:
         with:
           name: pea-mf-keypose-candidates
           path: artifacts/pea-keypose-capture/*
-          if-no-files-found: error
+          if-no-files-found: warn
       - name: Materialize P E A mf12 candidate sheets on branch
         if: ${{ startsWith(github.head_ref, 'feat/2p5d-survivor-pea-keypose-capture-') || startsWith(github.ref_name, 'feat/2p5d-survivor-pea-keypose-capture-') }}
         shell: bash
         run: |
           BRANCH="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
+          if [[ -f public/concept/p-run-sheet-mf12-v1.webp && -f public/concept/e-run-sheet-mf12-v1.webp && -f public/concept/a-run-sheet-mf12-v1.webp ]]; then
+            echo "mf12 candidate sheets already materialized"
+            exit 0
+          fi
           cp artifacts/pea-keypose-capture/p-run-sheet-mf12-v1.webp /tmp/p-run-sheet-mf12-v1.webp
           cp artifacts/pea-keypose-capture/e-run-sheet-mf12-v1.webp /tmp/e-run-sheet-mf12-v1.webp
           cp artifacts/pea-keypose-capture/a-run-sheet-mf12-v1.webp /tmp/a-run-sheet-mf12-v1.webp
