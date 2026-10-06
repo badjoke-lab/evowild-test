@@ -4538,6 +4538,7 @@ function resetRace() {
   canvas.dataset.directorShotHistory = "";
   canvas.dataset.directorCutCount = "0";
   canvas.dataset.directorReason = "START";
+  canvas.dataset.directorFocus = String(ENTRY_RUNNER_ID);
   canvas.dataset.finishReview = FINISH_REVIEW_MODE ? "1" : "0";
   canvas.dataset.fullDirectorReview = FULL_DIRECTOR_REVIEW_MODE ? "1" : "0";
   canvas.dataset.directorFullShotLog = FULL_DIRECTOR_REVIEW_MODE
@@ -6311,6 +6312,14 @@ function setDirectorShot(cameraMode, focusId, reason, holdSeconds) {
 
 function updateSimplifiedRaceDirector() {
   if (!SIMPLIFIED_RACE_PAGE || requestedCamera !== "AUTO" || runners.length === 0) return;
+
+  if (!raceStarted) {
+    raceDirector.focusId = ENTRY_RUNNER_ID;
+    setDirectorFocus(ENTRY_RUNNER_ID);
+    canvas.dataset.directorReason = "PRE_RACE_ENTRY";
+    canvas.dataset.directorCamera = raceDirector.camera;
+    return;
+  }
 
   const order = rankings();
   const declaredWinner = runners
