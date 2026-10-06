@@ -20,10 +20,12 @@ test("capture P E A canonical gait keyposes with transparent background", async 
       await expect(canvas).toHaveAttribute("data-sprite-capture-world", "hidden");
       await expect(canvas).toHaveAttribute("data-sprite-capture-camera", "SIDE_LOCKED");
       await page.waitForTimeout(180);
-      await canvas.screenshot({
-        path: `artifacts/pea-keypose-capture/raw/${morph.toLowerCase()}-${phase}.png`,
-        omitBackground: true
-      });
+      const dataUrl = await canvas.evaluate((node) => node.toDataURL("image/png"));
+      const payload = dataUrl.replace(/^data:image\/png;base64,/, "");
+      fs.writeFileSync(
+        `artifacts/pea-keypose-capture/raw/${morph.toLowerCase()}-${phase}.png`,
+        Buffer.from(payload, "base64")
+      );
     }
   }
 });
