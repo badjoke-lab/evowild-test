@@ -871,12 +871,14 @@ const A_GAIT = {
 };
 
 const scene = new THREE.Scene();
-scene.background = SPRITE_CAPTURE_MODE ? null : new THREE.Color(0x92a7b3);
+scene.background = SPRITE_CAPTURE_MODE
+  ? new THREE.Color(0x00ff00)
+  : new THREE.Color(0x92a7b3);
 scene.fog = SPRITE_CAPTURE_MODE ? null : new THREE.Fog(0x92a7b3, 55, 230);
 
 const renderer = new THREE.WebGLRenderer({
   canvas,
-  alpha: SPRITE_CAPTURE_MODE,
+  alpha: false,
   preserveDrawingBuffer: SPRITE_CAPTURE_MODE,
   // In the 18-runner simplified race, frame continuity has priority over edge
   // smoothing. The browser stretches the lower internal resolution back to
@@ -891,7 +893,7 @@ const renderPixelRatio = SIMPLIFIED_RACE_PAGE
     : Math.min(window.devicePixelRatio || 1, 1.5);
 renderer.setPixelRatio(renderPixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight, false);
-if (SPRITE_CAPTURE_MODE) renderer.setClearColor(0x000000, 0);
+if (SPRITE_CAPTURE_MODE) renderer.setClearColor(0x00ff00, 1);
 canvas.dataset.renderPixelRatio = String(renderPixelRatio);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = SIMPLIFIED_RACE_PAGE
@@ -6881,7 +6883,8 @@ async function boot() {
       canvas.dataset.spriteCapturePhase = String(SPRITE_CAPTURE_PHASE_INDEX);
       canvas.dataset.spriteCaptureCycle =
         SPRITE_CAPTURE_PHASES[SPRITE_CAPTURE_PHASE_INDEX].toFixed(3);
-      canvas.dataset.spriteCaptureAlpha = "1";
+      canvas.dataset.spriteCaptureAlpha = "0";
+      canvas.dataset.spriteCaptureChroma = "#00ff00";
     } else {
       updateCreaturePose(focus, 0, 0);
     }
