@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: experimental Vibe B2a-v5 pre-union forelimb-root rebuild rendered; REVIEW_PENDING / STOPPED
+current_stage: exact-authority reset required; current B2a-v5 baseline rejected; R0-A1 next
 branch: exp/s-creature-vibe-modeling
 current_model_file: output/S-vibe-b2a-v5.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Review B2a-v5 five views against B2a-v4/B1c-v2/B0-v025 and approved S references. Decide KEEP/REVISE. Do not start B2b.
+next_action: Stop B2a. Build output/S-authority-r0-v1.blend starting with R0-A1 head + paired dominant crest + neck line against references/00_s_type_modeling_image_v1.png. Render SIDE/FRONT/FRONT34/REAR34/BACK and stop for review. Do not start R0-A2 before acceptance.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -757,3 +757,13 @@ vibe_gate_b2a_v5_renders:
 - output/review/vibe-b2a-v5/S_vibe_b2a_v5_front34.png
 - output/review/vibe-b2a-v5/S_vibe_b2a_v5_rear34.png
 - output/review/vibe-b2a-v5/S_vibe_b2a_v5_back.png
+
+
+authority_reset_2026_10_06:
+- exact primary image now repository-resident: references/00_s_type_modeling_image_v1.png
+- verified SHA-256: 93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6
+- S_AUTHORITY_RESET_REVIEW.md decision: REJECT_CURRENT_BASELINE
+- B2a-v5 local forelimb-root work is stopped
+- prior A1 crest acceptance and A4 short-tail acceptance are invalidated as final-authority approvals
+- next output: output/S-authority-r0-v1.blend
+- next gate: R0-A1 only
