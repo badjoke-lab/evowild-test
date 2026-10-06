@@ -174,9 +174,26 @@ def run_pixal3d(seed, resolution, out_dir):
         **DEFAULTS,
     )
 
+    (out_dir / "generation.json").write_text(
+        json.dumps(jsonable(gen), indent=2) + "\n",
+        encoding="utf-8",
+    )
+    preview_dir = out_dir / "previews"
+    preview_dir.mkdir(parents=True, exist_ok=True)
+    preview_files = save_returned_files(
+        gen, preview_dir, client, "https://tencentarc-pixal3d.hf.space"
+    )
+
     state_path = gen[0] if isinstance(gen, (tuple, list)) else gen
     if isinstance(state_path, dict):
-        state_path = state_path.get("path") or state_path.get("value") or state_path
+        state_path = (
+            state_path.get("state_path")
+            or state_path.get("path")
+            or state_path.get("value")
+            or state_path
+        )
+
+    (out_dir / "state-path.txt").write_text(str(state_path) + "\n", encoding="utf-8")
 
     glb = client.predict(
         state_path=state_path,
@@ -193,6 +210,7 @@ def run_pixal3d(seed, resolution, out_dir):
         "session_id": session_id,
         "preprocess_return": jsonable(pre),
         "generate_return": jsonable(gen),
+        "preview_files": preview_files,
         "extract_return": jsonable(glb),
         "saved_files": save_returned_files(glb, out_dir, client, "https://tencentarc-pixal3d.hf.space"),
     }
