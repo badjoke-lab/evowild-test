@@ -2,15 +2,6 @@ name: Kimodo Launch Visual A-B
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - exp/kimodo-ardy-motion-feasibility-20261004
-    paths:
-      - "public/preview-motion-first/main.js"
-      - "public/preview-motion-first/kimodo-launch-profile.js"
-      - "tests/kimodo-ardy/test_kimodo_launch_profile.mjs"
-      - "tests/kimodo-launch-visual.spec.js"
-      - ".github/workflows/kimodo-launch-visual-ab.yml"
 
 permissions:
   contents: write
