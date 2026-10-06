@@ -21,6 +21,7 @@ const entryReadoutEl = document.querySelector("#entryReadout");
 const entryCompareButton = document.querySelector("#entryCompareButton");
 const entryComparisonPanelEl = document.querySelector("#entryComparisonPanel");
 const entryComparisonBodyEl = document.querySelector("#entryComparisonBody");
+const entryAgentComparisonEl = document.querySelector("#entryAgentComparison");
 const entryComparisonSummaryEl = document.querySelector("#entryComparisonSummary");
 const entryComparisonCloseButton = document.querySelector("#entryComparisonClose");
 const pauseButton = document.querySelector("#pauseButton");
@@ -923,8 +924,166 @@ function buildEntryComparisonRows() {
     });
 }
 
+function buildEntryAgentComparisonRows() {
+  if (!SIMPLIFIED_RACE_PAGE || !runners.length) return [];
+
+  const entryRunner = runners[ENTRY_RUNNER_ID] || runners[0];
+  const courseFit =
+    RACE_COURSE_PROFILE.morphPaceFit?.[entryRunner.morph] ?? 1;
+
+  return Object.values(ENTRY_AGENT_PROFILES)
+    .map((profile) => {
+      const record =
+        agentEntityLedger[profile.id] || defaultAgentEntityRecord(profile);
+      const activeVersion = record.activeVersion || record.currentVersion;
+      const versionSpec = getAgentVersionSpec(profile, activeVersion);
+      const comparisonAgent = {
+        entityId: profile.id,
+        strategy: profile.strategy,
+        version: activeVersion,
+        intent: { ...versionSpec.intent }
+      };
+      const pair =
+        getAgentCreatureCompatibilitySnapshot(comparisonAgent, entryRunner.morph);
+      const fitIndex = courseFit * pair.score;
+
+      const history = record.raceHistory.filter(
+        (race) => race.runnerId === entryRunner.id
+      );
+      const wins = history.filter((race) => race.rank === 1).length;
+      const avgRank = history.length
+        ? average(history.map((race) => race.rank))
+        : null;
+
+      const observedRows = record.compatibilityHistory.filter(
+        (row) =>
+          row.agentId === profile.id &&
+          row.morph === entryRunner.morph &&
+          row.version === activeVersion &&
+          Number.isFinite(row.observedMeanResponse)
+      );
+      const observedMean = observedRows.length
+        ? average(observedRows.map((row) => row.observedMeanResponse))
+        : null;
+
+      const evaluation =
+        record.currentVersion > 1
+          ? getCurrentAgentVersionEvaluation(record)
+          : null;
+
+      return {
+        key: profile.key,
+        id: profile.id,
+        name: profile.name,
+        strategy: profile.strategy,
+        activeVersion,
+        pairFit: pair.score,
+        observedMean,
+        fitIndex,
+        races: history.length,
+        wins,
+        avgRank,
+        evaluationStatus: evaluation?.status || "NOT_STARTED"
+      };
+    })
+    .sort((a, b) => {
+      const fitDelta = b.fitIndex - a.fitIndex;
+      if (Math.abs(fitDelta) > 1e-9) return fitDelta;
+
+      if (a.races || b.races) {
+        const aRank = a.avgRank ?? Number.POSITIVE_INFINITY;
+        const bRank = b.avgRank ?? Number.POSITIVE_INFINITY;
+        if (aRank !== bRank) return aRank - bRank;
+        if (a.wins !== b.wins) return b.wins - a.wins;
+      }
+
+      return a.id.localeCompare(b.id);
+    });
+}
+
+function renderEntryAgentComparison() {
+  if (!SIMPLIFIED_RACE_PAGE || !entryAgentComparisonEl) return;
+
+  const rows = buildEntryAgentComparisonRows();
+  entryAgentComparisonEl.replaceChildren();
+
+  rows.forEach((row, index) => {
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "entry-agent-option";
+    card.dataset.entryAgentCandidate = row.key;
+    card.dataset.agentId = row.id;
+    card.dataset.fitIndex = row.fitIndex.toFixed(3);
+    card.dataset.rank = String(index + 1);
+    if (row.key === ENTRY_AGENT_PROFILE.key) card.classList.add("selected");
+
+    const title = document.createElement("span");
+    title.className = "entry-agent-option-title";
+    title.textContent =
+      `${row.id} · ${row.name} · v${row.activeVersion}`;
+
+    const strategy = document.createElement("strong");
+    strategy.textContent = row.strategy;
+
+    const fit = document.createElement("span");
+    fit.textContent =
+      `PAIR ${Math.round(row.pairFit * 100)}% · INDEX ${row.fitIndex.toFixed(3)}`;
+
+    const observed = document.createElement("span");
+    observed.textContent =
+      row.observedMean === null
+        ? "OBS —"
+        : `OBS ${Math.round(row.observedMean * 100)}%`;
+
+    const history = document.createElement("span");
+    history.textContent = row.races
+      ? `${row.races}R · ${row.wins}W · AVG ${row.avgRank.toFixed(1)}`
+      : "NO HISTORY";
+
+    const evaluation = document.createElement("small");
+    evaluation.textContent = `EVAL ${row.evaluationStatus}`;
+
+    card.append(title, strategy, fit, observed, history, evaluation);
+    card.addEventListener("click", () => {
+      reloadRaceSetupParam("entryAgent", row.key);
+    });
+    entryAgentComparisonEl.append(card);
+  });
+
+  const best = rows[0];
+  canvas.dataset.entryAgentComparisonReady =
+    rows.length === Object.keys(ENTRY_AGENT_PROFILES).length ? "1" : "0";
+  canvas.dataset.entryAgentComparisonRowCount = String(rows.length);
+  canvas.dataset.entryAgentComparisonBestKey = best?.key || "";
+  canvas.dataset.entryAgentComparisonBestId = best?.id || "";
+  canvas.dataset.entryAgentComparisonBestIndex =
+    best ? best.fitIndex.toFixed(3) : "";
+  canvas.dataset.entryAgentComparisonRanking = JSON.stringify(
+    rows.map((row, index) => ({
+      rank: index + 1,
+      key: row.key,
+      id: row.id,
+      strategy: row.strategy,
+      activeVersion: row.activeVersion,
+      pairFit: Number(row.pairFit.toFixed(3)),
+      observedMean:
+        row.observedMean === null
+          ? null
+          : Number(row.observedMean.toFixed(3)),
+      races: row.races,
+      wins: row.wins,
+      avgRank:
+        row.avgRank === null ? null : Number(row.avgRank.toFixed(3)),
+      evaluationStatus: row.evaluationStatus,
+      fitIndex: Number(row.fitIndex.toFixed(3))
+    }))
+  );
+}
+
 function renderEntryComparison() {
   if (!SIMPLIFIED_RACE_PAGE || !entryComparisonBodyEl) return;
+
+  renderEntryAgentComparison();
 
   const rows = buildEntryComparisonRows();
   entryComparisonBodyEl.replaceChildren();

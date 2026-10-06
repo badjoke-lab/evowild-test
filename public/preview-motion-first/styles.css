@@ -1116,3 +1116,60 @@ button:disabled {
     padding: 6px 7px;
   }
 }
+
+
+.entry-agent-comparison {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.015);
+}
+
+.entry-agent-option {
+  display: grid;
+  gap: 3px;
+  min-height: 86px;
+  padding: 8px 10px;
+  text-align: left;
+  border-radius: 10px;
+}
+
+.entry-agent-option.selected {
+  border-color: rgba(155,200,255,.48);
+  background: rgba(155,200,255,.11);
+}
+
+.entry-agent-option-title {
+  color: rgba(255,255,255,.52);
+  font-size: 7px;
+  font-weight: 850;
+  letter-spacing: .06em;
+}
+
+.entry-agent-option strong {
+  color: #fff;
+  font-size: 10px;
+  letter-spacing: .06em;
+}
+
+.entry-agent-option span:not(.entry-agent-option-title) {
+  color: rgba(255,255,255,.66);
+  font-size: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.entry-agent-option small {
+  color: rgba(138,255,191,.68);
+  font-size: 7px;
+  letter-spacing: .05em;
+}
+
+@media (max-width: 720px) {
+  .entry-agent-comparison {
+    grid-template-columns: 1fr;
+    max-height: 220px;
+    overflow: auto;
+  }
+}
