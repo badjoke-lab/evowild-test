@@ -1,0 +1,114 @@
+{
+  "source": "art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-weld/S-trellis2-clean-seed0000-maincomponent.glb",
+  "method": "pymeshfix.MeshFix.repair",
+  "repair_kwargs": {
+    "joincomp": false,
+    "remove_smallest_components": false
+  },
+  "source_audit": {
+    "label": "welded_largest_component",
+    "vertices": 132330,
+    "faces": 264856,
+    "connected_components": 1,
+    "component_face_counts_desc": [
+      264856
+    ],
+    "boundary_edges": 0,
+    "nonmanifold_edges_gt2_faces": 56,
+    "edge_face_count_histogram": {
+      "2": 397172,
+      "4": 56
+    },
+    "watertight": false,
+    "winding_consistent": true,
+    "is_volume": false,
+    "euler_number": -42,
+    "area": 0.4055317872464187,
+    "bounds": [
+      [
+        -0.07412763684988022,
+        -0.18599136173725128,
+        -0.14727354049682617
+      ],
+      [
+        0.07907392084598541,
+        0.17251668870449066,
+        0.5003306865692139
+      ]
+    ],
+    "extents": [
+      0.15320155769586563,
+      0.35850805044174194,
+      0.64760422706604
+    ]
+  },
+  "repaired_audit": {
+    "label": "pymeshfix_repaired",
+    "vertices": 131752,
+    "faces": 263544,
+    "connected_components": 1,
+    "component_face_counts_desc": [
+      263544
+    ],
+    "boundary_edges": 0,
+    "nonmanifold_edges_gt2_faces": 0,
+    "edge_face_count_histogram": {
+      "2": 395316
+    },
+    "watertight": true,
+    "winding_consistent": true,
+    "is_volume": true,
+    "euler_number": -20,
+    "area": 0.40539410617323385,
+    "bounds": [
+      [
+        -0.07412800192832947,
+        -0.18599100410938263,
+        -0.14727400243282318
+      ],
+      [
+        0.07907400280237198,
+        0.17251700162887573,
+        0.5003309845924377
+      ]
+    ],
+    "extents": [
+      0.15320200473070145,
+      0.35850800573825836,
+      0.6476049870252609
+    ]
+  },
+  "drift": {
+    "samples_per_direction": 20000,
+    "source_bbox_diagonal": 0.7559034160696598,
+    "source_to_repaired_nn": {
+      "mean": 0.0019917346443043674,
+      "p50": 0.0020356535329897818,
+      "p95": 0.0034595736657339394,
+      "p99": 0.004192911644168745,
+      "max": 0.00883229748890312,
+      "mean_over_source_bbox_diagonal": 0.0026349062617820216,
+      "p95_over_source_bbox_diagonal": 0.004576740350932776,
+      "p99_over_source_bbox_diagonal": 0.005546888074629827,
+      "max_over_source_bbox_diagonal": 0.011684425947995961
+    },
+    "repaired_to_source_nn": {
+      "mean": 0.0020009541759964515,
+      "p50": 0.002043713210909742,
+      "p95": 0.003482594573226881,
+      "p99": 0.004270888862370675,
+      "max": 0.006524359356384313,
+      "mean_over_source_bbox_diagonal": 0.0026471029677316007,
+      "p95_over_source_bbox_diagonal": 0.004607195177572719,
+      "p99_over_source_bbox_diagonal": 0.005650045722213132,
+      "max_over_source_bbox_diagonal": 0.008631207661830523
+    },
+    "symmetric_mean_over_diagonal": 0.002641004614756811,
+    "symmetric_p95_over_diagonal": 0.004591967764252748
+  },
+  "automatic_gate": {
+    "topology_pass": true,
+    "low_drift_candidate": true,
+    "note": "Automatic metrics are not visual morphology approval."
+  }
+}
