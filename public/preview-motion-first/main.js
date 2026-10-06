@@ -362,7 +362,15 @@ const KIMODO_SPRINT_LAUNCH_ENVELOPE = [
 ];
 const KIMODO_SPRINT_SOURCE_DURATION = 5.966666666666667;
 let kimodoLaunchReviewEpoch = null;
+let launchTimingPauseAt = null;
 
+if (LAUNCH_TIMING_REVIEW) {
+  window.__pauseLaunchTimingReviewAt = (seconds) => {
+    const value = Number(seconds);
+    launchTimingPauseAt = Number.isFinite(value) ? Math.max(0, value) : null;
+    canvas.dataset.launchTimingPausedAt = "";
+  };
+}
 if (KIMODO_LAUNCH_REVIEW) {
   window.__resetKimodoLaunchReview = () => {
     kimodoLaunchReviewEpoch = raceTime;
@@ -6743,6 +6751,19 @@ function animate() {
         finishCheck();
         simulationAccumulator -= SIMULATION_STEP;
         simulationSteps += 1;
+
+        if (
+          LAUNCH_TIMING_REVIEW &&
+          launchTimingPauseAt !== null &&
+          raceTime + 1e-9 >= launchTimingPauseAt
+        ) {
+          paused = true;
+          launchTimingPauseAt = null;
+          simulationAccumulator = 0;
+          canvas.dataset.launchTimingPausedAt = raceTime.toFixed(3);
+          pauseButton.textContent = "RESUME";
+          break;
+        }
       }
 
       canvas.dataset.raceTime = raceTime.toFixed(3);
