@@ -1,0 +1,47 @@
+name: S authority exact-source review preview
+on:
+  push:
+    branches: [exp/s-creature-vibe-modeling]
+    paths:
+      - .github/workflows/s-authority-review-preview.yml
+permissions:
+  contents: write
+concurrency:
+  group: s-authority-review-preview
+  cancel-in-progress: false
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: exp/s-creature-vibe-modeling
+          fetch-depth: 0
+      - name: Verify exact authority
+        run: |
+          echo "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png" | sha256sum -c -
+          test "$(wc -c < art/s-creature/references/00_s_type_modeling_image_v1.png)" -eq 1982782
+      - name: Build review-only JPEG
+        run: |
+          python -m pip install --quiet pillow
+          python - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          src=Path('art/s-creature/references/00_s_type_modeling_image_v1.png')
+          out=Path('art/s-creature/output/review/authority-source/00_s_type_modeling_image_v1_preview.jpg')
+          out.parent.mkdir(parents=True,exist_ok=True)
+          im=Image.open(src).convert('RGB')
+          im.thumbnail((1200,1200),Image.Resampling.LANCZOS)
+          im.save(out,'JPEG',quality=90,optimize=True)
+          print(im.size,out.stat().st_size)
+          assert out.stat().st_size < 900000
+          PY
+      - name: Commit review preview
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add art/s-creature/output/review/authority-source/00_s_type_modeling_image_v1_preview.jpg
+          git commit -m 'art: add review-only preview of exact S authority'
+          git pull --rebase origin exp/s-creature-vibe-modeling
+          git push origin HEAD:exp/s-creature-vibe-modeling
