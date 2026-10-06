@@ -26,7 +26,7 @@ jobs:
           set -euo pipefail
           B64_DIR="art/s-creature/references/.s-authority-parts"
           HEX_DIR="art/s-creature/references/.s-authority-tail-hex"
-          BIN_TAIL="art/s-creature/references/.s-authority-tail-bin/tail-final.bin"
+          BIN_DIR="art/s-creature/references/.s-authority-tail-bin"
           OUT="art/s-creature/references/00_s_type_modeling_image_v1.png"
           TMP_HEX="/tmp/s-authority-tail.hex"
           TMP_BIN="/tmp/s-authority-tail.bin"
@@ -35,7 +35,7 @@ jobs:
           cat "$HEX_DIR"/tail-*.hex > "$TMP_HEX"
           xxd -r -p "$TMP_HEX" > "$TMP_BIN"
           cat "$TMP_BIN" >> "$OUT"
-          cat "$BIN_TAIL" >> "$OUT"
+          cat "$BIN_DIR"/part-*.bin >> "$OUT"
 
           EXPECTED="93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6"
           ACTUAL="$(sha256sum "$OUT" | awk '{print $1}')"
