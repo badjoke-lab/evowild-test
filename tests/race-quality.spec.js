@@ -445,3 +445,66 @@ test("2.5D P E A grounded-stride v2 exposes six distinct live phases", async ({ 
     expect(footAdjust).toBeLessThan(80);
   }
 });
+
+test("2.5D P E A subframe smoothing feathers high-detail six-frame art", async ({ page }, testInfo) => {
+  test.setTimeout(60000);
+  fs.mkdirSync("artifacts/2p5d-survivor", { recursive: true });
+
+  for (const { id, morph } of [
+    { id: 2, morph: "P" },
+    { id: 3, morph: "E" },
+    { id: 4, morph: "A" }
+  ]) {
+    await page.goto(
+      `/evowild-test/race-quality.html?motionReview=1&selected=${id}`,
+      { waitUntil: "networkidle" }
+    );
+    const stage = page.locator("#stage");
+
+    await expect(stage).toHaveAttribute("data-run-sheets", "ready", { timeout: 15000 });
+    await expect(stage).toHaveAttribute("data-race-state", "running", { timeout: 8000 });
+    await expect(stage).toHaveAttribute("data-selected-morph", morph);
+    await expect(stage).toHaveAttribute("data-pea-subframe-version", "phase-feather-v1");
+    await expect(stage).toHaveAttribute(
+      `data-${morph.toLowerCase()}-art-source`,
+      "high-detail-6f"
+    );
+
+    await page.waitForFunction(
+      ({ key }) => {
+        const stage = document.querySelector("#stage");
+        const value = Number(stage?.dataset[key]);
+        return Number.isFinite(value) && value > 0.12 && value < 0.92;
+      },
+      { key: `${morph.toLowerCase()}SubframeBlend` },
+      { timeout: 8000 }
+    );
+
+    const state = await stage.evaluate((node, lower) => ({
+      blend: Number(node.dataset[`${lower}SubframeBlend`]),
+      progress: Number(node.dataset[`${lower}PhaseProgress`]),
+      frame: Number(node.dataset[`${lower}Frame`]),
+      nextFrame: Number(node.dataset[`${lower}NextFrame`])
+    }), morph.toLowerCase());
+
+    expect(state.blend).toBeGreaterThan(0.1);
+    expect(state.blend).toBeLessThan(0.95);
+    expect(state.progress).toBeGreaterThan(0.70);
+    expect(state.frame).toBeGreaterThanOrEqual(0);
+    expect(state.frame).toBeLessThanOrEqual(5);
+    expect(state.nextFrame).toBe((state.frame + 1) % 6);
+
+    await stage.screenshot({
+      path: `artifacts/2p5d-survivor/pea-subframe-${morph.toLowerCase()}-${testInfo.project.name}.png`
+    });
+  }
+
+  await page.goto(
+    "/evowild-test/race-quality.html?motionReview=1&selected=1",
+    { waitUntil: "networkidle" }
+  );
+  const stage = page.locator("#stage");
+  await expect(stage).toHaveAttribute("data-selected-morph", "S");
+  expect(await stage.getAttribute("data-s-subframe-blend")).toBeNull();
+});
+\n
