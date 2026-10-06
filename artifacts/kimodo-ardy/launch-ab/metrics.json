@@ -1,0 +1,26 @@
+{
+  "baseline": {
+    "mode": "baseline",
+    "physics": "unchanged",
+    "raceTime": 2.2,
+    "envelope": 0.7935,
+    "rawLead": 0.4492,
+    "appliedLead": 0,
+    "physicalSpeedRatio": 0.3443,
+    "bodyPitch": -0.056979716099486766,
+    "pitchBias": 0,
+    "maxStanceSlip": 0.0015138662779246026
+  },
+  "candidate": {
+    "mode": "candidate",
+    "physics": "unchanged",
+    "raceTime": 2.2,
+    "envelope": 0.7935,
+    "rawLead": 0.4492,
+    "appliedLead": 0.2471,
+    "physicalSpeedRatio": 0.3443,
+    "bodyPitch": -0.080993186967275,
+    "pitchBias": -0.00988200312857504,
+    "maxStanceSlip": 0.0019198040686081441
+  }
+}
