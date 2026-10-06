@@ -18,7 +18,8 @@ test("capture P E A canonical gait keyposes with transparent background", async 
       await expect(canvas).toHaveAttribute("data-sprite-capture-ready", "1", { timeout: 15000 });
       await expect(canvas).toHaveAttribute("data-sprite-capture-morph", morph);
       await expect(canvas).toHaveAttribute("data-sprite-capture-phase", String(phase));
-      await expect(canvas).toHaveAttribute("data-sprite-capture-alpha", "1");
+      await expect(canvas).toHaveAttribute("data-sprite-capture-alpha", "0");
+      await expect(canvas).toHaveAttribute("data-sprite-capture-chroma", "#00ff00");
       await expect(canvas).toHaveAttribute("data-sprite-capture-world", "hidden");
       await expect(canvas).toHaveAttribute("data-sprite-capture-camera", "SIDE_LOCKED");
       await page.waitForTimeout(180);
