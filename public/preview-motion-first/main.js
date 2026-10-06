@@ -38,6 +38,7 @@ const agentResponseReadoutEl = document.querySelector("#agentResponseReadout");
 const agentResultEl = document.querySelector("#agentResult");
 const agentHistoryReadoutEl = document.querySelector("#agentHistoryReadout");
 const agentVersionReadoutEl = document.querySelector("#agentVersionReadout");
+const agentVersionEvalReadoutEl = document.querySelector("#agentVersionEvalReadout");
 const agentEvolveButton = document.querySelector("#agentEvolveButton");
 const agentFeedbackEl = document.querySelector("#agentFeedback");
 const agentFeedbackMetaEl = document.querySelector("#agentFeedbackMeta");
@@ -216,7 +217,8 @@ function defaultAgentEntityRecord(profile) {
     ],
     raceHistory: [],
     winResultHistory: [],
-    compatibilityHistory: []
+    compatibilityHistory: [],
+    versionEvaluations: []
   };
 }
 
@@ -267,6 +269,9 @@ function loadAgentEntityLedger() {
           : [],
         compatibilityHistory: Array.isArray(stored.compatibilityHistory)
           ? stored.compatibilityHistory
+          : [],
+        versionEvaluations: Array.isArray(stored.versionEvaluations)
+          ? stored.versionEvaluations
           : []
       };
     });
@@ -295,6 +300,129 @@ function getEntryAgentEntityRecord() {
   return (
     agentEntityLedger[ENTRY_AGENT_PROFILE.id] ||
     defaultAgentEntityRecord(ENTRY_AGENT_PROFILE)
+  );
+}
+
+function average(values) {
+  if (!values.length) return 0;
+  return values.reduce((sum, value) => sum + value, 0) / values.length;
+}
+
+function buildAgentVersionEvaluation(record, baselineVersion, candidateVersion) {
+  const baselineRaces = record.raceHistory.filter(
+    (race) => race.version === baselineVersion
+  );
+  const candidateRaces = record.raceHistory.filter(
+    (race) => race.version === candidateVersion
+  );
+
+  const keyFor = (race) =>
+    `${race.courseId}|${race.morph}|${race.fieldSize}`;
+  const group = (races) => {
+    const map = new Map();
+    races.forEach((race) => {
+      const key = keyFor(race);
+      if (!map.has(key)) map.set(key, []);
+      map.get(key).push(race);
+    });
+    return map;
+  };
+
+  const baselineByKey = group(baselineRaces);
+  const candidateByKey = group(candidateRaces);
+  const pairs = [];
+
+  baselineByKey.forEach((baselineRows, key) => {
+    const candidateRows = candidateByKey.get(key);
+    if (!candidateRows?.length) return;
+
+    const baselineTime = average(baselineRows.map((race) => race.time));
+    const candidateTime = average(candidateRows.map((race) => race.time));
+    const baselineRank = average(baselineRows.map((race) => race.rank));
+    const candidateRank = average(candidateRows.map((race) => race.rank));
+    const sample = baselineRows[0];
+
+    pairs.push({
+      key,
+      courseId: sample.courseId,
+      morph: sample.morph,
+      fieldSize: sample.fieldSize,
+      baselineTime: Number(baselineTime.toFixed(3)),
+      candidateTime: Number(candidateTime.toFixed(3)),
+      timeDeltaPct: Number(
+        (((candidateTime - baselineTime) / baselineTime) * 100).toFixed(3)
+      ),
+      baselineRank: Number(baselineRank.toFixed(3)),
+      candidateRank: Number(candidateRank.toFixed(3)),
+      rankDelta: Number((candidateRank - baselineRank).toFixed(3))
+    });
+  });
+
+  const avgTimeDeltaPct = pairs.length
+    ? Number(average(pairs.map((pair) => pair.timeDeltaPct)).toFixed(3))
+    : 0;
+  const avgRankDelta = pairs.length
+    ? Number(average(pairs.map((pair) => pair.rankDelta)).toFixed(3))
+    : 0;
+
+  let status = "NEED_MORE_DATA";
+  if (pairs.length >= 2) {
+    if (avgTimeDeltaPct <= -0.5 && avgRankDelta <= -0.5) {
+      status = "PROMOTE";
+    } else if (avgTimeDeltaPct >= 0.5 && avgRankDelta >= 0.5) {
+      status = "REJECT";
+    } else {
+      status = "HOLD";
+    }
+  }
+
+  return {
+    baselineVersion,
+    candidateVersion,
+    status,
+    requiredMatches: 2,
+    matchedConditions: pairs.length,
+    avgTimeDeltaPct,
+    avgRankDelta,
+    pairs
+  };
+}
+
+function updateAgentVersionEvaluation(record) {
+  if (!record || record.currentVersion <= 1) return null;
+
+  const baselineVersion = record.currentVersion - 1;
+  const candidateVersion = record.currentVersion;
+  const evaluation = buildAgentVersionEvaluation(
+    record,
+    baselineVersion,
+    candidateVersion
+  );
+  const key =
+    `${evaluation.baselineVersion}->${evaluation.candidateVersion}`;
+  const existingIndex = record.versionEvaluations.findIndex(
+    (row) => row.key === key
+  );
+  const storedEvaluation = {
+    key,
+    ...evaluation,
+    updatedAfterRaceCount: record.raceHistory.length
+  };
+
+  if (existingIndex >= 0) {
+    record.versionEvaluations[existingIndex] = storedEvaluation;
+  } else {
+    record.versionEvaluations.push(storedEvaluation);
+  }
+  return storedEvaluation;
+}
+
+function getCurrentAgentVersionEvaluation(record) {
+  if (!record || record.currentVersion <= 1) return null;
+  const key = `${record.currentVersion - 1}->${record.currentVersion}`;
+  return (
+    record.versionEvaluations.find((row) => row.key === key) ||
+    buildAgentVersionEvaluation(record, record.currentVersion - 1, record.currentVersion)
   );
 }
 
@@ -328,6 +456,24 @@ function syncEntryAgentHistoryUi() {
       nextVersion <= maxVersion ? `EVOLVE v${nextVersion}` : "MAX VERSION";
   }
 
+  const versionEvaluation = getCurrentAgentVersionEvaluation(record);
+  if (agentVersionEvalReadoutEl) {
+    if (!versionEvaluation) {
+      agentVersionEvalReadoutEl.textContent = "EVAL: NOT STARTED";
+      agentVersionEvalReadoutEl.dataset.status = "NOT_STARTED";
+    } else if (versionEvaluation.status === "NEED_MORE_DATA") {
+      agentVersionEvalReadoutEl.textContent =
+        `EVAL v${versionEvaluation.baselineVersion}→v${versionEvaluation.candidateVersion}: NEED ${versionEvaluation.requiredMatches} MATCHES · ${versionEvaluation.matchedConditions}/${versionEvaluation.requiredMatches}`;
+      agentVersionEvalReadoutEl.dataset.status = "NEED_MORE_DATA";
+    } else {
+      const signTime = versionEvaluation.avgTimeDeltaPct > 0 ? "+" : "";
+      const signRank = versionEvaluation.avgRankDelta > 0 ? "+" : "";
+      agentVersionEvalReadoutEl.textContent =
+        `EVAL v${versionEvaluation.baselineVersion}→v${versionEvaluation.candidateVersion}: ${versionEvaluation.status} · ΔTIME ${signTime}${versionEvaluation.avgTimeDeltaPct.toFixed(2)}% · ΔRANK ${signRank}${versionEvaluation.avgRankDelta.toFixed(2)}`;
+      agentVersionEvalReadoutEl.dataset.status = versionEvaluation.status;
+    }
+  }
+
   const versionSummary = {};
   record.versionHistory.forEach((versionRow) => {
     const rows = record.raceHistory.filter(
@@ -353,6 +499,16 @@ function syncEntryAgentHistoryUi() {
   canvas.dataset.entryAgentMaxVersion = String(maxVersion);
   canvas.dataset.entryAgentCanEvolve = canEvolve ? "1" : "0";
   canvas.dataset.entryAgentVersionSummary = JSON.stringify(versionSummary);
+  canvas.dataset.entryAgentVersionEvaluationStatus =
+    versionEvaluation?.status || "NOT_STARTED";
+  canvas.dataset.entryAgentVersionEvaluationMatches =
+    String(versionEvaluation?.matchedConditions || 0);
+  canvas.dataset.entryAgentVersionEvaluationTimeDeltaPct =
+    String(versionEvaluation?.avgTimeDeltaPct || 0);
+  canvas.dataset.entryAgentVersionEvaluationRankDelta =
+    String(versionEvaluation?.avgRankDelta || 0);
+  canvas.dataset.entryAgentVersionEvaluation =
+    versionEvaluation ? JSON.stringify(versionEvaluation) : "";
   canvas.dataset.entryAgentOwnershipHistoryCount =
     String(record.ownershipHistory.length);
   canvas.dataset.entryAgentCompatibilityHistoryCount =
@@ -393,6 +549,7 @@ function evolveEntryAgentVersion() {
     });
   }
 
+  updateAgentVersionEvaluation(record);
   agentEntityLedger[record.agentId] = record;
   saveAgentEntityLedger();
   syncEntryAgentHistoryUi();
@@ -455,6 +612,7 @@ function recordEntryAgentRace(finalOrder) {
   record.raceHistory.push(raceRecord);
   record.winResultHistory.push(resultRecord);
   record.compatibilityHistory.push(compatibilityRecord);
+  updateAgentVersionEvaluation(record);
   agentEntityLedger[record.agentId] = record;
   agentHistoryRecordedForRace = true;
   saveAgentEntityLedger();
