@@ -1,0 +1,48 @@
+name: Finalize TRELLIS2 T1 candidate
+
+on:
+  push:
+    branches:
+      - exp/trellis2-pixal3d-s-bench-20261004
+    paths:
+      - "art/s-creature/experiments/trellis2-pixal3d/TRIGGER_TRELLIS2_FINALIZE.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install audit dependencies
+        run: python -m pip install --quiet pillow trimesh numpy
+
+      - name: Download successful TRELLIS2 artifact
+        run: |
+          rm -rf /tmp/trellis2-t1
+          mkdir -p /tmp/trellis2-t1
+          gh run download 37458478227             --repo badjoke-lab/evowild-test             --name s-trellis2-clean-seed-0000             --dir /tmp/trellis2-t1
+
+      - name: Finalize review evidence and mesh audit
+        run: python scripts/trellis2_t1_finalize.py --artifact-dir /tmp/trellis2-t1
+
+      - name: Commit candidate evidence to experiment branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000
+          git commit -m "exp: persist TRELLIS2 clean-input T1 candidate"
+          git push origin HEAD:exp/trellis2-pixal3d-s-bench-20261004
