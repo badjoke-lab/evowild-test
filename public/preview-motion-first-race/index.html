@@ -40,6 +40,7 @@
       <div class="control-block entry-control">
         <label class="label" for="entryCreatureSelect">ENTRY</label>
         <select id="entryCreatureSelect" aria-label="Race entry creature"></select>
+        <button id="entryCompareButton" aria-expanded="false">COMPARE</button>
       </div>
 
       <div class="control-block entry-control">
@@ -84,6 +85,32 @@
         <span><small>POS</small><strong id="positionReadout">1 / 18</strong></span>
         <span><small>CAM</small><strong id="cameraReadout">CHASE</strong></span>
       </div>
+    </section>
+
+    <section class="entry-comparison-panel hidden" id="entryComparisonPanel" aria-hidden="true" aria-label="Race Entry comparison">
+      <div class="entry-comparison-heading">
+        <div>
+          <small>RACE ENTRY SUPPORT · FIT INDEX = COURSE × PAIR</small>
+          <strong id="entryComparisonSummary">BEST FIT: —</strong>
+        </div>
+        <button id="entryComparisonClose" aria-label="Close Race Entry comparison">CLOSE</button>
+      </div>
+      <div class="entry-comparison-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>ENTRY</th>
+              <th>COURSE</th>
+              <th>PAIR</th>
+              <th>OBS</th>
+              <th>HISTORY</th>
+              <th>FIT INDEX</th>
+            </tr>
+          </thead>
+          <tbody id="entryComparisonBody"></tbody>
+        </table>
+      </div>
+      <p>FIT INDEX is a selection heuristic, not a win probability. History is for the selected Agent and exact runner.</p>
     </section>
 
     <section class="agent-panel" id="agentPanel" aria-label="Race Agent commands">

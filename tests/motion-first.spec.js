@@ -2761,3 +2761,116 @@ test("Motion First Race Entry pre-race focus v2 keeps YOUR ENTRY locked during c
     path: "test-results/visuals/motion-first-entry-focus-v2.png"
   });
 });
+
+
+test("Motion First Race Entry Selection Support v1 ranks all 18 and uses real history", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(90000);
+
+  const compareUrl =
+    "/evowild-test/preview-motion-first-race/index.html?course=heavy-1200-v1&entry=0&entryAgent=attack-v1";
+
+  await page.goto(compareUrl, { waitUntil: "networkidle" });
+  await page.evaluate(() => {
+    window.localStorage.removeItem("evowild.motionFirst.agentHistory.v1");
+  });
+  await page.reload({ waitUntil: "networkidle" });
+
+  const scene = page.locator("#scene");
+  await expect(scene).toHaveAttribute("data-entry-comparison-ready", "1");
+  await expect(scene).toHaveAttribute("data-entry-comparison-row-count", "18");
+  await expect(scene).toHaveAttribute("data-entry-comparison-best-runner", "1");
+  await expect(scene).toHaveAttribute("data-entry-comparison-best-morph", "P");
+  await expect(scene).toHaveAttribute("data-entry-comparison-best-index", "0.962");
+
+  const initialRanking = JSON.parse(
+    (await scene.getAttribute("data-entry-comparison-ranking")) || "[]"
+  );
+  expect(initialRanking).toHaveLength(18);
+  expect(initialRanking[0]).toMatchObject({
+    rank: 1,
+    id: 1,
+    morph: "P",
+    courseFit: 1.045,
+    pairFit: 0.92,
+    races: 0,
+    wins: 0,
+    avgRank: null,
+    fitIndex: 0.962
+  });
+  expect(new Set(initialRanking.map((row) => row.id)).size).toBe(18);
+
+  await page.locator("#entryCompareButton").click();
+  await expect(scene).toHaveAttribute("data-entry-comparison-open", "1");
+  await expect(page.locator("#entryComparisonPanel")).toHaveAttribute(
+    "aria-hidden",
+    "false"
+  );
+  await expect(page.locator("#entryComparisonBody tr")).toHaveCount(18);
+  await expect(page.locator("#entryComparisonSummary")).toContainText(
+    "BEST FIT: Runner 02 · P · INDEX 0.962"
+  );
+  await expect(page.locator("#entryComparisonPanel")).toContainText(
+    "heuristic only"
+  );
+
+  const firstRow = page.locator("#entryComparisonBody tr").first();
+  await expect(firstRow).toHaveAttribute("data-runner-id", "1");
+  await expect(firstRow).toHaveAttribute("data-morph", "P");
+  await expect(firstRow).toContainText("NO HISTORY");
+
+  // Prove a table selection uses the same Race Entry path as the dropdown.
+  await page.locator('[data-entry-candidate="5"]').click();
+  await page.waitForURL(/entry=5/);
+  await expect(page.locator("#entryCreatureSelect")).toHaveValue("5");
+  await expect(page.locator("#scene")).toHaveAttribute("data-entry-runner-id", "5");
+
+  // Run the selected P Creature once to create real Agent/Creature history.
+  await page.goto(
+    "/evowild-test/preview-motion-first-race/index.html?skipStart=1&course=heavy-1200-v1&entry=5&entryAgent=attack-v1&agentAuto=1&simRate=4",
+    { waitUntil: "networkidle" }
+  );
+  await expect(page.locator("#raceState")).toHaveText("FINISHED", {
+    timeout: 35000
+  });
+  await expect(page.locator("#scene")).toHaveAttribute("data-entry-final-rank", "1");
+
+  // Return to the comparison. All P runners keep the same fit index, but the
+  // runner with real history wins the tie-break and exposes its observed fit.
+  await page.goto(compareUrl, { waitUntil: "networkidle" });
+  const historyScene = page.locator("#scene");
+  await expect(historyScene).toHaveAttribute("data-entry-comparison-ready", "1");
+  await expect(historyScene).toHaveAttribute("data-entry-comparison-best-runner", "5");
+  await expect(historyScene).toHaveAttribute("data-entry-comparison-best-morph", "P");
+
+  const historyRanking = JSON.parse(
+    (await historyScene.getAttribute("data-entry-comparison-ranking")) || "[]"
+  );
+  expect(historyRanking).toHaveLength(18);
+  expect(historyRanking[0].id).toBe(5);
+  expect(historyRanking[0].morph).toBe("P");
+  expect(historyRanking[0].races).toBe(1);
+  expect(historyRanking[0].wins).toBe(1);
+  expect(historyRanking[0].avgRank).toBe(1);
+  expect(historyRanking[0].observedMean).toBeGreaterThan(0.3);
+  expect(historyRanking[0].fitIndex).toBe(0.962);
+
+  await page.locator("#entryCompareButton").click();
+  const historyFirstRow = page.locator("#entryComparisonBody tr").first();
+  await expect(historyFirstRow).toHaveAttribute("data-runner-id", "5");
+  await expect(historyFirstRow).toContainText("1R · 1W · AVG 1.0");
+  await expect(historyFirstRow.locator("td").nth(3)).not.toHaveText("—");
+
+  console.log(
+    "RACE_ENTRY_SELECTION_SUPPORT_V1",
+    JSON.stringify({
+      initialBest: initialRanking[0],
+      historyBest: historyRanking[0]
+    })
+  );
+
+  await page.locator("#app").screenshot({
+    path: "test-results/visuals/motion-first-entry-support-v1.png"
+  });
+});
