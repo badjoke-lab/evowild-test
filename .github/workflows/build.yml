@@ -119,6 +119,17 @@ jobs:
           name: pea-hd12-phase-transfer-v1
           path: artifacts/pea-hd12-phase-transfer-v1/*
           if-no-files-found: error
+      - name: Generate P E A distal-limb phase-transfer v2
+        if: ${{ startsWith(github.head_ref, 'feat/2p5d-survivor-pea-keypose-capture-') || startsWith(github.ref_name, 'feat/2p5d-survivor-pea-keypose-capture-') }}
+        shell: bash
+        run: python3 scripts/pea_hd12_phase_transfer_v2.py
+      - name: Upload P E A distal-limb phase-transfer v2
+        if: ${{ always() && (startsWith(github.head_ref, 'feat/2p5d-survivor-pea-keypose-capture-') || startsWith(github.ref_name, 'feat/2p5d-survivor-pea-keypose-capture-')) }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: pea-hd12-phase-transfer-v2
+          path: artifacts/pea-hd12-phase-transfer-v2/*
+          if-no-files-found: error
       - name: Upload 2.5D survivor visuals
         if: always()
         uses: actions/upload-artifact@v4
