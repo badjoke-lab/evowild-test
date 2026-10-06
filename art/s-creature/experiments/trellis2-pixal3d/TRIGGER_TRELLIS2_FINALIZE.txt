@@ -1,3 +1,4 @@
-trigger=2026-10-06T11:56:00Z
+trigger=2026-10-06T12:00:00Z
 source_run=37458478227
 artifact=s-trellis2-clean-seed-0000
+reason=rerun after adding networkx
