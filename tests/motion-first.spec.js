@@ -2456,12 +2456,53 @@ test("Motion First Agent Version Evaluation v1 compares matched courses before j
   expect(stored.versionEvaluations[0].status).toBe(expectedStatus);
   expect(stored.versionEvaluations[0].matchedConditions).toBe(2);
 
-  console.log(
-    "AGENT_VERSION_EVALUATION_V1",
-    JSON.stringify({ evaluation, expectedStatus, races: stored.raceHistory })
+  const expectedActiveVersion = expectedStatus === "PROMOTE" ? 2 : 1;
+  expect(stored.activeVersion).toBe(expectedActiveVersion);
+  await expect(finalScene).toHaveAttribute(
+    "data-entry-agent-active-version",
+    String(expectedActiveVersion)
   );
 
-  await finalScene.screenshot({
+  await page.goto(
+    "/evowild-test/preview-motion-first-race/index.html?course=heavy-1200-v1&entry=5&entryAgent=attack-v1",
+    { waitUntil: "networkidle" }
+  );
+  const reloadedScene = page.locator("#scene");
+  await expect(reloadedScene).toHaveAttribute("data-entry-agent-version", "2");
+  await expect(reloadedScene).toHaveAttribute(
+    "data-entry-agent-active-version",
+    String(expectedActiveVersion)
+  );
+
+  if (expectedActiveVersion === 1) {
+    await expect(page.locator("#agentHistoryReadout")).toHaveText(
+      "AGENT-02 LATEST v2 · ACTIVE v1 · 4 RACES"
+    );
+    await expect(reloadedScene).toHaveAttribute(
+      "data-entry-agent-strategy-definition",
+      "PUSH opening, react to pressure, PUSH from 58%"
+    );
+  } else {
+    await expect(page.locator("#agentHistoryReadout")).toHaveText(
+      "AGENT-02 v2 · 4 RACES · 4 WINS"
+    );
+    await expect(reloadedScene).toHaveAttribute(
+      "data-entry-agent-strategy-definition",
+      "PUSH opening, recover at 46% fatigue, PUSH from 64%"
+    );
+  }
+
+  console.log(
+    "AGENT_VERSION_EVALUATION_V1",
+    JSON.stringify({
+      evaluation,
+      expectedStatus,
+      expectedActiveVersion,
+      races: stored.raceHistory
+    })
+  );
+
+  await reloadedScene.screenshot({
     path: "test-results/visuals/motion-first-agent-version-eval-v1.png"
   });
 });

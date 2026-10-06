@@ -200,6 +200,7 @@ function defaultAgentEntityRecord(profile) {
     creator: profile.creator,
     currentOwner: profile.currentOwner,
     currentVersion: profile.version,
+    activeVersion: profile.version,
     strategy: profile.strategy,
     strategyDefinition: profile.strategyDefinition,
     versionHistory: [
@@ -248,6 +249,26 @@ function loadAgentEntityLedger() {
         currentVersion: Math.min(
           getAgentMaxVersion(profile),
           Math.max(profile.version, Number(stored.currentVersion) || profile.version)
+        ),
+        activeVersion: Math.min(
+          getAgentMaxVersion(profile),
+          Math.max(
+            profile.version,
+            Number(stored.activeVersion) ||
+              (() => {
+                const latestVersion = Math.min(
+                  getAgentMaxVersion(profile),
+                  Math.max(profile.version, Number(stored.currentVersion) || profile.version)
+                );
+                const evalKey = `${latestVersion - 1}->${latestVersion}`;
+                const evaluation = Array.isArray(stored.versionEvaluations)
+                  ? stored.versionEvaluations.find((row) => row.key === evalKey)
+                  : null;
+                return evaluation?.status === "PROMOTE"
+                  ? latestVersion
+                  : Math.max(profile.version, latestVersion - 1);
+              })()
+          )
         ),
         strategy: profile.strategy,
         strategyDefinition: getAgentVersionSpec(
@@ -414,6 +435,18 @@ function updateAgentVersionEvaluation(record) {
   } else {
     record.versionEvaluations.push(storedEvaluation);
   }
+
+  if (storedEvaluation.status === "PROMOTE") {
+    record.activeVersion = candidateVersion;
+  } else if (
+    storedEvaluation.status === "HOLD" ||
+    storedEvaluation.status === "REJECT"
+  ) {
+    record.activeVersion = baselineVersion;
+  } else {
+    record.activeVersion = candidateVersion;
+  }
+
   return storedEvaluation;
 }
 
@@ -434,7 +467,9 @@ function syncEntryAgentHistoryUi() {
 
   if (agentHistoryReadoutEl) {
     agentHistoryReadoutEl.textContent =
-      `${record.agentId} v${record.currentVersion} · ${races} RACES · ${wins} WINS`;
+      record.activeVersion === record.currentVersion
+        ? `${record.agentId} v${record.currentVersion} · ${races} RACES · ${wins} WINS`
+        : `${record.agentId} LATEST v${record.currentVersion} · ACTIVE v${record.activeVersion} · ${races} RACES`;
   }
 
   const versionRaces = record.raceHistory.filter(
@@ -488,6 +523,7 @@ function syncEntryAgentHistoryUi() {
   canvas.dataset.entryAgentCreator = record.creator;
   canvas.dataset.entryAgentCurrentOwner = record.currentOwner;
   canvas.dataset.entryAgentVersion = String(record.currentVersion);
+  canvas.dataset.entryAgentActiveVersion = String(record.activeVersion);
   canvas.dataset.entryAgentRaceCount = String(races);
   canvas.dataset.entryAgentWinCount = String(wins);
   canvas.dataset.entryAgentVersionHistoryCount =
@@ -535,6 +571,7 @@ function evolveEntryAgentVersion() {
 
   const spec = getAgentVersionSpec(ENTRY_AGENT_PROFILE, nextVersion);
   record.currentVersion = nextVersion;
+  record.activeVersion = nextVersion;
   record.strategy = ENTRY_AGENT_PROFILE.strategy;
   record.strategyDefinition = spec.strategyDefinition;
   if (!record.versionHistory.some((row) => row.version === nextVersion)) {
@@ -699,7 +736,7 @@ function initializeCourseUi() {
 function applyEntryAgentProfile(runner) {
   if (!runner?.agent) return;
   const record = getEntryAgentEntityRecord();
-  const activeVersion = record.currentVersion;
+  const activeVersion = record.activeVersion || record.currentVersion;
   const versionSpec = getAgentVersionSpec(ENTRY_AGENT_PROFILE, activeVersion);
 
   runner.agent.entityId = ENTRY_AGENT_PROFILE.id;
