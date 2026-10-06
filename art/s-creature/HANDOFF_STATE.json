@@ -516,7 +516,7 @@
   "b1_deferred_issue": "proximal forelimb root / station0-to-station1 continuity",
   "b1d_v3_decision": "REVISE",
   "b1d_v3_review": "S_VIBE_B1D_V3_REVIEW.md",
-  "b2a_status": "REVIEW_PENDING",
+  "b2a_status": "STOPPED_BY_AUTHORITY_RESET",
   "b2a_v1": {
     "source": "output/S-vibe-b1c-v2.blend",
     "target": "proximal forelimb root station0->1 only",
@@ -564,7 +564,7 @@
     },
     "stop_after": "five-view render + validation + actual-image review"
   },
-  "b2b_status": "BLOCKED",
+  "b2b_status": "BLOCKED_BY_AUTHORITY_RESET",
   "b2a_v1_decision": "REVISE",
   "b2a_v1_review": "S_VIBE_B2A_V1_REVIEW.md",
   "b2a_v2": {
@@ -751,5 +751,39 @@
       "bbox_drift_per_axis": 0.03
     },
     "stop_after": "five-view render + validation + actual-image review"
+  },
+  "authority_image": {
+    "path": "art/s-creature/references/00_s_type_modeling_image_v1.png",
+    "width": 1448,
+    "height": 1086,
+    "bytes": 1982782,
+    "sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+    "priority": "HIGHEST"
+  },
+  "authority_reset": {
+    "status": "ACTIVE",
+    "decision": "REJECT_CURRENT_BASELINE",
+    "review": "S_AUTHORITY_RESET_REVIEW.md",
+    "rejected_current_model": "output/S-vibe-b2a-v5.blend",
+    "invalidated_final_authority_acceptances": [
+      "A1 crest",
+      "A4 short tail",
+      "A5/global derived acceptance"
+    ],
+    "next_model": "output/S-authority-r0-v1.blend",
+    "next_gate": "R0-A1",
+    "next_scope": "head + paired dominant crest + neck line only",
+    "required_views": [
+      "SIDE",
+      "FRONT",
+      "FRONT34",
+      "REAR34",
+      "BACK"
+    ],
+    "block": [
+      "B2a continuation",
+      "B2b",
+      "Gate B micro-fairing before R0-A6"
+    ]
   }
 }
