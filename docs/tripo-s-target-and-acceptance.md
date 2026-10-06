@@ -290,3 +290,28 @@ Therefore, until the primary approved image is repository-accessible or the auth
 **no automated/repository-only process may claim final S morphology conformance.**
 
 It may only claim conformance to the repository-accessible references and written lock.
+
+
+## Authority correction 2026-10-06
+
+The exact approved S authority image is now repository-resident on the dedicated modeling branch:
+
+`art/s-creature/references/00_s_type_modeling_image_v1.png`
+
+Verified identity:
+
+- 1448 × 1086 PNG
+- 1,982,782 bytes
+- SHA-256 `93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6`
+
+Any earlier prose in this document that conflicts with that image is superseded.
+
+The approved image visibly uses:
+
+- two dominant elongated blade-like head crests;
+- compact split racing feet;
+- a long layered blade/feather tail.
+
+Therefore old text that prohibited paired tall crest blades, implied a generic multi-toed foot, or described the approved S tail as short must not be used for final morphology judgement.
+
+This does not change T0/T1 scope: the current Tripo carrier remains a technical rig/motion feasibility carrier only. Final adoption still requires retarget/retest on a morphology-approved S asset.
