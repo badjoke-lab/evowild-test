@@ -22,7 +22,10 @@ jobs:
         shell: bash
         run: |
           BRANCH="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
-          if [[ "$BRANCH" == feat/simplified-race-entry-v* ]]; then
+          if [[ "$BRANCH" == feat/simplified-race-agent-auto-v* ]]; then
+            npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
+              --grep "Race Agent v1|Agent strategy balance v1|Race Entry v1|Agent Auto Strategy v1|heavy 1200 course v1"
+          elif [[ "$BRANCH" == feat/simplified-race-entry-v* ]]; then
             npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
               --grep "Phase E simplified race|Race Agent v1|Agent strategy balance v1|positioning v1|course selector v1|heavy 1200 course v1|Race Entry v1"
           elif [[ "$BRANCH" == feat/2p5d-survivor-fair-start-* ]]; then
@@ -79,6 +82,9 @@ jobs:
           elif [[ "$BRANCH" == feat/simplified-race-heavy-course-v* ]]; then
             npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
               --grep "heavy 1200 course v1"
+          elif [[ "$BRANCH" == feat/simplified-race-agent-auto-v* ]]; then
+            npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
+              --grep "Agent Auto Strategy v1"
           elif [[ "$BRANCH" == feat/simplified-race-entry-v* ]]; then
             npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
               --grep "Race Entry v1"
@@ -110,7 +116,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Upload S sprite-gen PoC artifacts
-        if: ${{ always() && github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && !startsWith(github.head_ref, 'feat/2p5d-survivor-') && !startsWith(github.ref_name, 'feat/2p5d-survivor-') && !startsWith(github.head_ref, 'feat/simplified-race-entry-v') && !startsWith(github.ref_name, 'feat/simplified-race-entry-v') }}
+        if: ${{ always() && github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && !startsWith(github.head_ref, 'feat/2p5d-survivor-') && !startsWith(github.ref_name, 'feat/2p5d-survivor-') && !startsWith(github.head_ref, 'feat/simplified-race-entry-v') && !startsWith(github.ref_name, 'feat/simplified-race-entry-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-auto-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-auto-v') }}
         uses: actions/upload-artifact@v4
         with:
           name: spritegen-s-poc
