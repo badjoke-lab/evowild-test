@@ -7,7 +7,7 @@ test("capture P E A canonical gait keyposes with transparent background", async 
   fs.mkdirSync("artifacts/pea-keypose-capture/raw", { recursive: true });
 
   for (const morph of ["P", "E", "A"]) {
-    for (let phase = 0; phase < 6; phase += 1) {
+    for (let phase = 0; phase < 12; phase += 1) {
       await page.goto(
         `/evowild-test/preview-motion-first/index.html?motion=1&morph=${morph}&spriteCapture=1&spritePhase=${phase}`,
         { waitUntil: "networkidle" }
