@@ -141,3 +141,37 @@ Only after Gate B:
 At every modeling step, ask: “Does this move the silhouette toward S-type Modeling Image v1.0?”
 
 If not, do not keep the edit.
+
+
+## v2.0 authority override — exact repository image
+
+The highest authority is now the exact repository file:
+
+`art/s-creature/references/00_s_type_modeling_image_v1.png`
+
+Verified identity:
+
+- 1448 × 1086 PNG
+- 1,982,782 bytes
+- SHA-256 `93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6`
+
+If anything earlier in this file conflicts with that image, ignore the older sentence and follow the image.
+
+Visible anchors that must be preserved:
+
+- two dominant elongated blade-like head crests, separated in FRONT/BACK;
+- narrow wedge-like head;
+- long dark neck;
+- strong shoulder/chest mass followed by a deep waist tuck;
+- streamlined pelvis / upper hindquarter;
+- very long light limbs with distinct fore/hind chains;
+- compact split racing feet;
+- long layered blade/feather tail.
+
+Therefore the following older interpretations are explicitly superseded:
+
+- “paired tall crest blades are a hard fail” — false for the approved image;
+- “generic multi-toed feet” as the target — too vague / wrong;
+- “short S tail” — wrong for the approved image.
+
+Review must still use SIDE / FRONT / FRONT34 / REAR34 / BACK, but the exact approved image is the deciding authority.
