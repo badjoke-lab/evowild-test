@@ -40,6 +40,9 @@ const agentHistoryReadoutEl = document.querySelector("#agentHistoryReadout");
 const agentVersionReadoutEl = document.querySelector("#agentVersionReadout");
 const agentVersionEvalReadoutEl = document.querySelector("#agentVersionEvalReadout");
 const agentEvolveButton = document.querySelector("#agentEvolveButton");
+const agentOwnerReadoutEl = document.querySelector("#agentOwnerReadout");
+const agentOwnerInputEl = document.querySelector("#agentOwnerInput");
+const agentTransferButton = document.querySelector("#agentTransferButton");
 const agentFeedbackEl = document.querySelector("#agentFeedback");
 const agentFeedbackMetaEl = document.querySelector("#agentFeedbackMeta");
 const agentFeedbackCommandEl = document.querySelector("#agentFeedbackCommand");
@@ -471,6 +474,13 @@ function syncEntryAgentHistoryUi() {
         ? `${record.agentId} v${record.currentVersion} · ${races} RACES · ${wins} WINS`
         : `${record.agentId} LATEST v${record.currentVersion} · ACTIVE v${record.activeVersion} · ${races} RACES`;
   }
+  if (agentOwnerReadoutEl) {
+    agentOwnerReadoutEl.textContent =
+      `CREATOR ${record.creator} · OWNER ${record.currentOwner}`;
+  }
+  if (agentOwnerInputEl && document.activeElement !== agentOwnerInputEl) {
+    agentOwnerInputEl.value = record.currentOwner;
+  }
 
   const versionRaces = record.raceHistory.filter(
     (race) => race.version === record.currentVersion
@@ -547,10 +557,56 @@ function syncEntryAgentHistoryUi() {
     versionEvaluation ? JSON.stringify(versionEvaluation) : "";
   canvas.dataset.entryAgentOwnershipHistoryCount =
     String(record.ownershipHistory.length);
+  canvas.dataset.entryAgentOwnershipHistory =
+    JSON.stringify(record.ownershipHistory);
   canvas.dataset.entryAgentCompatibilityHistoryCount =
     String(record.compatibilityHistory.length);
   canvas.dataset.entryAgentLastRace =
     races > 0 ? JSON.stringify(record.raceHistory[races - 1]) : "";
+}
+
+function normalizeAgentOwnerId(value) {
+  const normalized = String(value || "").trim().toUpperCase();
+  return /^[A-Z0-9][A-Z0-9_-]{2,31}$/.test(normalized)
+    ? normalized
+    : null;
+}
+
+function transferEntryAgentOwnership(nextOwnerValue) {
+  if (!SIMPLIFIED_RACE_PAGE) return false;
+
+  const nextOwner = normalizeAgentOwnerId(nextOwnerValue);
+  const record = getEntryAgentEntityRecord();
+  if (!nextOwner || nextOwner === record.currentOwner) {
+    canvas.dataset.entryAgentTransferResult =
+      !nextOwner ? "INVALID_OWNER" : "NO_CHANGE";
+    syncEntryAgentHistoryUi();
+    return false;
+  }
+
+  const previousOwner = record.currentOwner;
+  record.currentOwner = nextOwner;
+  record.ownershipHistory.push({
+    from: previousOwner,
+    to: nextOwner,
+    owner: nextOwner,
+    version: record.activeVersion || record.currentVersion,
+    racesAtTransfer: record.raceHistory.length,
+    source: "local-prototype-transfer"
+  });
+
+  agentEntityLedger[record.agentId] = record;
+  saveAgentEntityLedger();
+
+  const entryRunner = runners[ENTRY_RUNNER_ID];
+  if (entryRunner?.agent) {
+    entryRunner.agent.currentOwner = nextOwner;
+  }
+
+  canvas.dataset.entryAgentTransferResult = "TRANSFERRED";
+  canvas.dataset.entryAgentLastTransfer = `${previousOwner}->${nextOwner}`;
+  syncEntryAgentHistoryUi();
+  return true;
 }
 
 function evolveEntryAgentVersion() {
@@ -623,6 +679,7 @@ function recordEntryAgentRace(finalOrder) {
     strategyDefinition:
       entryRunner.agent?.strategyDefinition || ENTRY_AGENT_PROFILE.strategyDefinition,
     version: entryRunner.agent?.version || getEntryAgentEntityRecord().currentVersion,
+    ownerAtRace: record.currentOwner,
     auto: agentAutoEnabled,
     commandHistory: [...(entryRunner.agent?.autoHistory || [])]
   };
@@ -6891,6 +6948,12 @@ if (agentEvolveButton) {
     if (evolveEntryAgentVersion()) {
       window.location.reload();
     }
+  });
+}
+
+if (agentTransferButton) {
+  agentTransferButton.addEventListener("click", () => {
+    transferEntryAgentOwnership(agentOwnerInputEl?.value);
   });
 }
 
