@@ -74,3 +74,43 @@ Because the donor body is already a continuous union, the proximal limb root sur
 Render SIDE / FRONT / FRONT34 / REAR34 / BACK and stop.
 
 Decision must be based on actual images against the exact authority. Do not start R0-A3 before R0-A2 acceptance.
+
+
+## Numeric execution lock
+
+Coordinate convention: front = negative Y.
+
+A2 body envelope:
+
+- Y: -0.16 .. 1.14
+- Z: >= 0.66
+- every R0-A1 vertex (source-space Y <= -0.18 and Z >= 0.84) remains exact;
+- all vertices outside the A2 envelope remain exact.
+
+Mass fields:
+
+- shoulder / anterior thorax center Y = 0.05, support -0.16 .. 0.36;
+- waist center Y = 0.52, support 0.26 .. 0.78;
+- pelvis / upper hindquarter center Y = 0.88, support 0.62 .. 1.14.
+
+Target deformation:
+
+- shoulder lateral scale: up to +42%;
+- shoulder ventral deepening: up to 0.105;
+- shoulder dorsal lift: up to 0.035;
+- waist lateral scale: down to 74%;
+- waist ventral tuck: raise by up to 0.145 while preserving dorsal line;
+- pelvis lateral scale: up to +34%;
+- pelvis ventral deepening: up to 0.055;
+- pelvis dorsal lift: up to 0.045.
+
+Hard limits:
+
+- body topology and vertex count unchanged;
+- non-manifold edge count remains 0;
+- max body displacement <= 0.19;
+- R0-A1 head/neck body coordinates exact;
+- accepted crest mesh exact;
+- all toe meshes exact;
+- review cameras exact;
+- render only SIDE / FRONT / FRONT34 / REAR34 / BACK and stop.
