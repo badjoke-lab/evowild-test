@@ -340,10 +340,13 @@ const FULL_DIRECTOR_REVIEW_MODE =
 const SIMPLIFIED_LANE = SIMPLIFIED_GAIT_PAGE || SIMPLIFIED_RACE_PAGE;
 const MOTION_REVIEW_MODE = params.get("motion") === "1" || SIMPLIFIED_GAIT_PAGE;
 const REVIEW_MORPH = (params.get("morph") || "S").toUpperCase();
-const KIMODO_LAUNCH_REVIEW =
-  params.get("kimodoLaunch") === "1" &&
+const LAUNCH_TIMING_REVIEW =
+  params.get("launchTimingReview") === "1" &&
   MOTION_REVIEW_MODE &&
   REVIEW_MORPH === "S";
+const KIMODO_LAUNCH_REVIEW =
+  params.get("kimodoLaunch") === "1" &&
+  LAUNCH_TIMING_REVIEW;
 
 const KIMODO_SPRINT_LAUNCH_ENVELOPE = [
   0.07225362957858801, 0.07225362957858801, 0.14650437173974648,
@@ -6860,7 +6863,7 @@ async function boot() {
     focus.targetLane = 4;
     focus.laneX = 0;
     focus.distance = 80;
-    focus.speed = focus.cfg.baseSpeed;
+    focus.speed = LAUNCH_TIMING_REVIEW ? 0 : focus.cfg.baseSpeed;
     focus.targetSpeed = focus.cfg.baseSpeed;
     focus.nextLaneDecision = Number.POSITIVE_INFINITY;
     focus.group.position.set(0, 0, focus.distance);
@@ -6877,7 +6880,8 @@ async function boot() {
     }
     updateCreaturePose(focus, 0, 0);
 
-    raceTime = 6;
+    raceTime = LAUNCH_TIMING_REVIEW ? 0 : 6;
+    canvas.dataset.launchTimingReview = LAUNCH_TIMING_REVIEW ? "1" : "0";
     requestedCamera = "SIDE";
     actualCamera = "SIDE";
     cameraButtons.forEach((button) => {
