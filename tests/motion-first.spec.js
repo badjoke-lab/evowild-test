@@ -2870,7 +2870,7 @@ test("Motion First Race Entry Selection Support v1 ranks all 18 and uses real hi
     })
   );
 
-  await historyScene.screenshot({
+  await page.locator("#app").screenshot({
     path: "test-results/visuals/motion-first-entry-support-v1.png"
   });
 });
