@@ -7,13 +7,15 @@ async function captureLaunch(page, candidate) {
   const query = new URLSearchParams({
     skipStart: "1",
     kimodoLaunch: candidate ? "1" : "0",
-    kimodoLaunchBlend: "0.55"
+    kimodoLaunchBlend: "0.55",
+    proxyReviewRunner: "0"
   });
   await page.goto(
     `/evowild-test/preview-motion-first-race/index.html?${query.toString()}`,
     { waitUntil: "networkidle" }
   );
   await expect(page.locator("#scene")).toBeVisible();
+  await page.locator("#runnerSelect").selectOption("0");
   await page.getByRole("button", { name: "SIDE", exact: true }).click({ force: true });
 
   await page.waitForFunction(() => {
@@ -38,9 +40,18 @@ async function captureLaunch(page, candidate) {
   }));
 
   fs.mkdirSync(outDir, { recursive: true });
+  const stem = candidate ? "candidate-kimodo" : "baseline";
   await scene.screenshot({
-    path: `${outDir}/${candidate ? "candidate-kimodo" : "baseline"}-side.png`
+    path: `${outDir}/${stem}-side.png`
   });
+
+  await page.getByRole("button", { name: "LOW", exact: true }).click({ force: true });
+  await expect(page.locator("#cameraReadout")).toHaveText("LOW");
+  await page.waitForTimeout(220);
+  await scene.screenshot({
+    path: `${outDir}/${stem}-low.png`
+  });
+
   return metrics;
 }
 
