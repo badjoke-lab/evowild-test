@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: exact-authority reset required; current B2a-v5 baseline rejected; R0-A1 next
+current_stage: authority reset R0-A1 v1 head + paired dominant crest + neck rendered; REVIEW_PENDING / STOPPED
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-vibe-b2a-v5.blend
+current_model_file: output/S-authority-r0-v1.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Stop B2a. Build output/S-authority-r0-v1.blend starting with R0-A1 head + paired dominant crest + neck line against references/00_s_type_modeling_image_v1.png. Render SIDE/FRONT/FRONT34/REAR34/BACK and stop for review. Do not start R0-A2 before acceptance.
+next_action: Compare R0-A1 v1 SIDE/FRONT/FRONT34/REAR34/BACK directly with references/00_s_type_modeling_image_v1.png and decide KEEP/REVISE/REJECT. Do not start R0-A2 before acceptance.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -767,3 +767,14 @@ authority_reset_2026_10_06:
 - prior A1 crest acceptance and A4 short-tail acceptance are invalidated as final-authority approvals
 - next output: output/S-authority-r0-v1.blend
 - next gate: R0-A1 only
+
+authority_r0_a1_v1_status: REVIEW_PENDING / STOPPED
+authority_r0_a1_v1_scope: head + paired dominant crest + secondary crest + neck line only
+authority_r0_a1_v1_model: output/S-authority-r0-v1.blend
+authority_r0_a1_v1_renders:
+- output/review/authority-r0-a1-v1/S_authority_r0_a1_v1_side.png
+- output/review/authority-r0-a1-v1/S_authority_r0_a1_v1_front.png
+- output/review/authority-r0-a1-v1/S_authority_r0_a1_v1_front34.png
+- output/review/authority-r0-a1-v1/S_authority_r0_a1_v1_rear34.png
+- output/review/authority-r0-a1-v1/S_authority_r0_a1_v1_back.png
+authority_r0_a2_status: BLOCKED_PENDING_R0_A1_REVIEW
