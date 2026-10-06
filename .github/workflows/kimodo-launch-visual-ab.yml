@@ -29,7 +29,7 @@ jobs:
           node-version: "22"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install --no-audit --no-fund
 
       - name: Validate pure launch profile
         run: node tests/kimodo-ardy/test_kimodo_launch_profile.mjs
