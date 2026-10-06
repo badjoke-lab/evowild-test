@@ -23,7 +23,8 @@ async function captureVariant(browser, view, kimodo) {
   const q = new URLSearchParams({
     motion: "1",
     morph: "S",
-    launchTimingReview: "1"
+    launchTimingReview: "1",
+    launchTimingHold: "1"
   });
   if (kimodo) q.set("kimodoLaunch", "1");
 
@@ -40,8 +41,10 @@ async function captureVariant(browser, view, kimodo) {
 
   await page.getByRole("button", { name: view, exact: true }).click({ force: true });
   await expect(page.locator("#cameraReadout")).toHaveText(view);
+  await expect(scene).toHaveAttribute("data-launch-timing-hold", "1");
+  await page.getByRole("button", { name: "RESUME", exact: true }).click({ force: true });
 
-  await page.waitForTimeout(900);
+  await page.waitForTimeout(500);
   const early = {
     leanTarget: Number(await scene.getAttribute("data-s-accel-lean-target")),
     lean: Number(await scene.getAttribute("data-s-accel-lean")),
@@ -50,7 +53,7 @@ async function captureVariant(browser, view, kimodo) {
     playback: Number(await scene.getAttribute("data-s-playback-rate"))
   };
 
-  await page.waitForTimeout(1700);
+  await page.waitForTimeout(1100);
   const mid = {
     leanTarget: Number(await scene.getAttribute("data-s-accel-lean-target")),
     lean: Number(await scene.getAttribute("data-s-accel-lean")),
