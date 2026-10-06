@@ -22,7 +22,10 @@ jobs:
         shell: bash
         run: |
           BRANCH="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
-          if [[ "$BRANCH" == feat/simplified-race-agent-ownership-v* ]]; then
+          if [[ "$BRANCH" == feat/simplified-race-agent-creature-compat-v* ]]; then
+            npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
+              --grep "Agent-Creature Compatibility v1|Race Agent entity history v1"
+          elif [[ "$BRANCH" == feat/simplified-race-agent-ownership-v* ]]; then
             npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
               --grep "Race Agent entity history v1|Race Agent Ownership Transfer v1"
           elif [[ "$BRANCH" == feat/simplified-race-agent-version-active-v* ]]; then
@@ -78,7 +81,10 @@ jobs:
         shell: bash
         run: |
           BRANCH="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
-          if [[ "$BRANCH" == feat/simplified-race-agent-ownership-v* ]]; then
+          if [[ "$BRANCH" == feat/simplified-race-agent-creature-compat-v* ]]; then
+            npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
+              --grep "Agent-Creature Compatibility v1"
+          elif [[ "$BRANCH" == feat/simplified-race-agent-ownership-v* ]]; then
             npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
               --grep "Race Agent Ownership Transfer v1"
           elif [[ "$BRANCH" == feat/simplified-race-full-director-review-v* ]]; then
@@ -146,7 +152,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Upload S sprite-gen PoC artifacts
-        if: ${{ always() && github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && !startsWith(github.head_ref, 'feat/2p5d-survivor-') && !startsWith(github.ref_name, 'feat/2p5d-survivor-') && !startsWith(github.head_ref, 'feat/simplified-race-entry-v') && !startsWith(github.ref_name, 'feat/simplified-race-entry-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-auto-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-auto-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-history-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-history-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-ownership-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-ownership-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-version-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-version-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-version-eval-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-version-eval-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-version-active-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-version-active-v') }}
+        if: ${{ always() && github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && !startsWith(github.head_ref, 'feat/2p5d-survivor-') && !startsWith(github.ref_name, 'feat/2p5d-survivor-') && !startsWith(github.head_ref, 'feat/simplified-race-entry-v') && !startsWith(github.ref_name, 'feat/simplified-race-entry-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-auto-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-auto-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-history-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-history-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-ownership-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-ownership-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-creature-compat-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-creature-compat-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-version-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-version-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-version-eval-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-version-eval-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-version-active-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-version-active-v') }}
         uses: actions/upload-artifact@v4
         with:
           name: spritegen-s-poc
