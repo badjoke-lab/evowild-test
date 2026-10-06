@@ -56,6 +56,9 @@ async function captureVariant(browser, view, kimodo) {
     playback: Number(await scene.getAttribute("data-s-playback-rate")),
     seconds: await scene.getAttribute("data-kimodo-launch-seconds")
   };
+  await scene.screenshot({
+    path: `${OUT}/${view.toLowerCase()}-${label}-early.png`
+  });
 
   await page.waitForTimeout(1100);
   const mid = {
@@ -66,6 +69,9 @@ async function captureVariant(browser, view, kimodo) {
     playback: Number(await scene.getAttribute("data-s-playback-rate")),
     seconds: await scene.getAttribute("data-kimodo-launch-seconds")
   };
+  await scene.screenshot({
+    path: `${OUT}/${view.toLowerCase()}-${label}-mid.png`
+  });
 
   await page.waitForTimeout(2500);
 
@@ -93,8 +99,13 @@ test("Kimodo launch timing review preserves S gait runtime and changes only post
 
   const baselineSide = await captureVariant(browser, "SIDE", false);
   const kimodoSide = await captureVariant(browser, "SIDE", true);
-  await captureVariant(browser, "LOW", false);
-  await captureVariant(browser, "LOW", true);
+  const baselineLow = await captureVariant(browser, "LOW", false);
+  const kimodoLow = await captureVariant(browser, "LOW", true);
+
+  fs.writeFileSync(
+    `${OUT}/telemetry.json`,
+    JSON.stringify({ baselineSide, kimodoSide, baselineLow, kimodoLow }, null, 2)
+  );
 
   expect(baselineSide.early.review).toBe("0");
   expect(kimodoSide.early.review).toBe("1");
