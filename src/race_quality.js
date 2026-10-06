@@ -43,6 +43,7 @@ const BATTLE_REVIEW_MODE = new URLSearchParams(location.search).get("battleRevie
 const TRAFFIC_REVIEW_MODE = new URLSearchParams(location.search).get("trafficReview") === "1";
 const LANE_REVIEW_MODE = new URLSearchParams(location.search).get("laneReview") === "1";
 const MOTION_REVIEW_MODE = new URLSearchParams(location.search).get("motionReview") === "1";
+const PEA_MF12_REVIEW_MODE = new URLSearchParams(location.search).get("peaSprite") === "mf12";
 const MOTION_REVIEW_FRAME = Math.max(
   -1,
   Math.min(5, Number(new URLSearchParams(location.search).get("motionFrame") ?? -1))
@@ -60,6 +61,7 @@ stage.dataset.cameraPolicy = "selected-plus-nearby";
 stage.dataset.peaMotionVersion = "grounded-stride-v2";
 stage.dataset.peaAnchorVersion = "alpha-bbox-x-v3";
 stage.dataset.aSheetLayout = "2x3";
+stage.dataset.peaSpriteMode = PEA_MF12_REVIEW_MODE ? "mf12-direct-gait" : "current-high-detail-6";
 const LANE_PATTERN = [1, 2, 0, 3, 1, 3, 0, 2];
 const CRUISE_PATTERN = [36.8,34.7,35.9,34.9,36.1,35.2,35.6,34.8];
 const ACCEL_PATTERN = [15.0,13.4,14.3,13.6,14.0,13.5,13.9,13.4];
@@ -178,11 +180,50 @@ const SHEET_LAYOUTS = {
   E: { cols:3, rows:2, coords:[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1]] },
   A: { cols:2, rows:3, coords:[[0,0],[1,0],[0,1],[1,1],[0,2],[1,2]] }
 };
+const MF12_PHASES = [
+  "CONTACT","MID_CP","PUSH","MID_PL",
+  "LIFT","MID_LF","FLIGHT","MID_FR",
+  "REACH","MID_RL","LAND","MID_LC"
+];
+const MF12_LAYOUT = {
+  cols:4,
+  rows:3,
+  coords:Array.from({length:12}, (_,i)=>[i%4,Math.floor(i/4)])
+};
 
 const spriteSheets = new Map();
 const spriteFrames = new Map();
 let readySheets = 0;
 let failedSheets = 0;
+
+function extractPreservedFrame(image, col, row, cols=4, rows=3) {
+  const fw = Math.floor(image.naturalWidth / cols);
+  const fh = Math.floor(image.naturalHeight / rows);
+  const canvas = document.createElement("canvas");
+  canvas.width = fw;
+  canvas.height = fh;
+  const c = canvas.getContext("2d", { willReadFrequently: true });
+  c.clearRect(0,0,fw,fh);
+  c.drawImage(image,col*fw,row*fh,fw,fh,0,0,fw,fh);
+
+  const pixels=c.getImageData(0,0,fw,fh);
+  const data=pixels.data;
+  let minX=fw,maxX=-1,minY=fh,maxY=-1,footY=-1;
+  for(let i=0;i<fw*fh;i++){
+    if(data[i*4+3]<=12) continue;
+    const x=i%fw;
+    const y=Math.floor(i/fw);
+    minX=Math.min(minX,x); maxX=Math.max(maxX,x);
+    minY=Math.min(minY,y); maxY=Math.max(maxY,y);
+    footY=Math.max(footY,y);
+  }
+  canvas.__motionMetrics={
+    minX,maxX,minY,maxY,
+    centerXNorm:maxX>=minX?((minX+maxX)*0.5)/Math.max(1,fw-1):0.5,
+    footYNorm:footY>=0?footY/Math.max(1,fh-1):0.98
+  };
+  return canvas;
+}
 
 function extractConnectedFrame(image, col, row, cols=3, rows=2) {
   const fw = Math.floor(image.naturalWidth / cols);
@@ -280,11 +321,17 @@ for (const morph of ["S","P","E","A"]) {
   const image = new Image();
   image.decoding = "async";
   image.onload = () => {
-    const layout = SHEET_LAYOUTS[morph] ?? SHEET_LAYOUTS.S;
-    const frames = RUN_FRAMES.map((frame,index) => {
-      const [col,row] = layout.coords[index] ?? [frame.col,frame.row];
-      return extractConnectedFrame(image,col,row,layout.cols,layout.rows);
-    });
+    const useMf12 = PEA_MF12_REVIEW_MODE && morph !== "S";
+    const layout = useMf12 ? MF12_LAYOUT : (SHEET_LAYOUTS[morph] ?? SHEET_LAYOUTS.S);
+    const frames = useMf12
+      ? MF12_PHASES.map((_,index) => {
+          const [col,row] = layout.coords[index];
+          return extractPreservedFrame(image,col,row,layout.cols,layout.rows);
+        })
+      : RUN_FRAMES.map((frame,index) => {
+          const [col,row] = layout.coords[index] ?? [frame.col,frame.row];
+          return extractConnectedFrame(image,col,row,layout.cols,layout.rows);
+        });
     spriteFrames.set(morph, frames);
     stage.dataset[`${morph.toLowerCase()}SheetLayout`] = `${layout.cols}x${layout.rows}`;
     if (morph !== "S") {
@@ -307,7 +354,8 @@ for (const morph of ["S","P","E","A"]) {
     stage.dataset.runSheetsFailed = String(failedSheets);
     ui.assetStatus.textContent = morph + " run cycle failed";
   };
-  image.src = BASE + "concept/" + morph.toLowerCase() + "-run-sheet.webp";
+  image.src = BASE + "concept/" + morph.toLowerCase() +
+    (PEA_MF12_REVIEW_MODE && morph !== "S" ? "-run-sheet-mf12-v1.webp" : "-run-sheet.webp");
   spriteSheets.set(morph, image);
 }
 
@@ -1230,12 +1278,17 @@ function drawRacers() {
     const cadence=(9.5+clamp(r.speed/34,0,1)*9.5)*meta.cadence;
     const frameFloat=elapsed/1000*cadence+r.phaseOffset;
     const cyclePosition=((frameFloat%RUN_FRAMES.length)+RUN_FRAMES.length)%RUN_FRAMES.length;
-    const frameIndex=MOTION_REVIEW_MODE && r.id===SELECTED_ID && MOTION_REVIEW_FRAME>=0
+    const useMf12=PEA_MF12_REVIEW_MODE && r.morph!=="S";
+    const frameIndex=MOTION_REVIEW_MODE && r.id===SELECTED_ID && MOTION_REVIEW_FRAME>=0 && !useMf12
       ? MOTION_REVIEW_FRAME
-      : r.morph==="S"
-        ? Math.floor(cyclePosition)
-        : peaFrameIndex(r.morph,cyclePosition);
-    const frame=RUN_FRAMES[frameIndex];
+      : useMf12
+        ? Math.floor(cyclePosition*2)%12
+        : r.morph==="S"
+          ? Math.floor(cyclePosition)
+          : peaFrameIndex(r.morph,cyclePosition);
+    const frame=useMf12
+      ? { phase:MF12_PHASES[frameIndex], y:0 }
+      : RUN_FRAMES[frameIndex];
 
     const slope=terrainSlope(item.visualDistance);
     const lean=clamp(slope*.022,-.045,.045);
@@ -1270,17 +1323,19 @@ function drawRacers() {
     const frameCanvas=frames?.[frameIndex];
     if(frameCanvas){
       const peaProfile=PEA_MOTION_V2[r.morph];
-      const phaseTransform=peaProfile?.transform?.[frame.phase] ?? { sx:1, sy:1, lean:0, lift:0 };
+      const phaseTransform=useMf12
+        ? { sx:1, sy:1, lean:0, lift:0 }
+        : peaProfile?.transform?.[frame.phase] ?? { sx:1, sy:1, lean:0, lift:0 };
       const drawW=spriteW*phaseTransform.sx;
       const drawH=spriteH*phaseTransform.sy;
       const footNorm=frameCanvas.__motionMetrics?.footYNorm ?? 0.98;
       const centerXNorm=frameCanvas.__motionMetrics?.centerXNorm ?? 0.5;
-      const groundCorrection=r.morph==="S" ? 0 : (0.98-footNorm)*drawH;
-      const horizontalCorrection=r.morph==="S"
+      const groundCorrection=(r.morph==="S" || useMf12) ? 0 : (0.98-footNorm)*drawH;
+      const horizontalCorrection=(r.morph==="S" || useMf12)
         ? 0
         : clamp((0.5-centerXNorm)*drawW,-drawW*.18,drawW*.18);
       const legacyLift=r.morph==="S" ? frame.y*drawH*.12*meta.lift : 0;
-      const phaseLift=r.morph==="S" ? 0 : phaseTransform.lift*drawH;
+      const phaseLift=(r.morph==="S" || useMf12) ? 0 : phaseTransform.lift*drawH;
       const footAdjust=groundCorrection+legacyLift+phaseLift;
 
       ctx.save();
@@ -1299,7 +1354,8 @@ function drawRacers() {
       stage.dataset[`${r.morph.toLowerCase()}Animated`] = "true";
       stage.dataset[`${r.morph.toLowerCase()}Frame`] = String(frameIndex);
       if(r.morph!=="S"){
-        stage.dataset[`${r.morph.toLowerCase()}MotionProfile`] = "grounded-stride-v2";
+        stage.dataset[`${r.morph.toLowerCase()}MotionProfile`] =
+          useMf12 ? "mf12-direct-gait-v1" : "grounded-stride-v2";
         stage.dataset[`${r.morph.toLowerCase()}FootAdjust`] = footAdjust.toFixed(2);
         stage.dataset[`${r.morph.toLowerCase()}HorizontalAdjust`] = horizontalCorrection.toFixed(2);
         stage.dataset[`${r.morph.toLowerCase()}FrameCenterX`] = centerXNorm.toFixed(3);
