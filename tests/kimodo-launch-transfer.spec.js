@@ -22,7 +22,8 @@ async function captureVariant(browser, view, kimodo) {
 
   const q = new URLSearchParams({
     motion: "1",
-    morph: "S"
+    morph: "S",
+    launchTimingReview: "1"
   });
   if (kimodo) q.set("kimodoLaunch", "1");
 
@@ -35,6 +36,7 @@ async function captureVariant(browser, view, kimodo) {
   await expect(scene).toBeVisible();
   await expect(scene).toHaveAttribute("data-s-asset-ready", "1");
   await expect(scene).toHaveAttribute("data-s-runtime-animated", "1");
+  await expect(scene).toHaveAttribute("data-launch-timing-review", "1");
 
   await page.getByRole("button", { name: view, exact: true }).click({ force: true });
   await expect(page.locator("#cameraReadout")).toHaveText(view);
