@@ -1,0 +1,201 @@
+name: UniMate S Smoke Postprocess
+
+on:
+  push:
+    branches:
+      - exp/unimate-s-motion-bench-20261001
+    paths:
+      - ".github/workflows/unimate-s-postprocess.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+env:
+  SOURCE_RUN_ID: "37260023741"
+  UNIMATE_COMMIT: 2c5b384715aa63d8639b1ed7eb74bfe614570c7a
+
+jobs:
+  postprocess:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout bench branch
+        uses: actions/checkout@v4
+        with:
+          ref: exp/unimate-s-motion-bench-20261001
+          fetch-depth: 0
+
+      - name: Download successful smoke artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          rm -rf .unimate-preflight .unimate-smoke
+          mkdir -p .unimate-preflight .unimate-smoke
+          gh run download "$SOURCE_RUN_ID" --repo "$GITHUB_REPOSITORY" -n unimate-s-preflight -D .unimate-preflight
+          gh run download "$SOURCE_RUN_ID" --repo "$GITHUB_REPOSITORY" -n unimate-s-cpu-smoke -D .unimate-smoke
+          find .unimate-preflight .unimate-smoke -maxdepth 4 -type f -printf '%p %s bytes\n'
+
+      - name: Install Blender and review dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y blender ffmpeg python3-pip
+          python3 -m pip install --user --break-system-packages numpy==1.26.4 loguru matplotlib imageio imageio-ffmpeg
+
+      - name: Checkout pinned UniMate and Motion
+        run: |
+          git clone https://github.com/Friedrich-M/UniMate.git /tmp/UniMate
+          git -C /tmp/UniMate checkout "$UNIMATE_COMMIT"
+          git clone https://github.com/inbar-2344/Motion.git /tmp/Motion
+          test -f /tmp/Motion/Animation.py
+          test -f /tmp/Motion/Quaternions.py
+
+      - name: Convert generated feature motion to animated S GLB
+        env:
+          PYTHONPATH: /tmp/UniMate:/tmp/Motion:/home/runner/.local/lib/python3.12/site-packages:/usr/lib/python3/dist-packages
+        run: |
+          MOTION="$(find "$GITHUB_WORKSPACE/.unimate-smoke" -type f -name '*.npy' -print -quit)"
+          CHAR="$(find "$GITHUB_WORKSPACE/.unimate-preflight" -maxdepth 2 -type f -name '*_canonical.glb' -print -quit)"
+          COND="$GITHUB_WORKSPACE/.unimate-preflight/cond.npy"
+          test -n "$MOTION"
+          test -n "$CHAR"
+          test -f "$COND"
+          mkdir -p "$GITHUB_WORKSPACE/.unimate-post/animated"
+          cd /tmp/UniMate
+          blender -b -P data_process/mesh_animation/animate_motion.py --             --dataset_type=objaverse             --char_path="$CHAR"             --cond_path="$COND"             --anim_path="$MOTION"             --output_dir="$GITHUB_WORKSPACE/.unimate-post/animated"             --anim_mode=fk             --extra_bones_strategy=keep
+          find "$GITHUB_WORKSPACE/.unimate-post/animated" -type f -printf '%p %s bytes\n'
+
+      - name: Build skeleton review video and motion metrics
+        env:
+          PYTHONPATH: /tmp/UniMate:/tmp/Motion
+        run: |
+          mkdir -p .unimate-post/review
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          import numpy as np
+
+          repo = Path(os.environ["GITHUB_WORKSPACE"])
+          motion_path = next((repo / ".unimate-smoke").rglob("*.npy"))
+          cond = np.load(repo / ".unimate-preflight/cond.npy", allow_pickle=True).item()
+          c = cond["evos"]
+          x = np.load(motion_path)
+          parents = np.asarray(c["parents"], dtype=int)
+          offsets = np.asarray(c["tpos_offsets"], dtype=float)
+
+          import sys
+          sys.path.insert(0, "/tmp/UniMate")
+          sys.path.insert(0, "/tmp/Motion")
+          from unimate.utils.motion_utils import recover_unimate_joint_pos_from_rot
+
+          pos = recover_unimate_joint_pos_from_rot(x, parents, offsets)
+          names = [str(n) for n in c["joint_names"]]
+          idx = {n:i for i,n in enumerate(names)}
+          feet = ["fore_L_foot","fore_R_foot","hind_L_foot","hind_R_foot"]
+          root = pos[:,0]
+          root_step = np.linalg.norm(np.diff(root[:,[0,2]], axis=0), axis=1)
+          root_travel = float(np.linalg.norm(root[-1,[0,2]] - root[0,[0,2]]))
+          path_length = float(root_step.sum())
+          height_span = float(root[:,1].max() - root[:,1].min())
+
+          foot_metrics = {}
+          for n in feet:
+              p = pos[:,idx[n]]
+              h = p[:,1]
+              v = np.linalg.norm(np.diff(p, axis=0), axis=1) * 30.0
+              low = h <= (h.min() + max(1e-6, 0.10*(h.max()-h.min())))
+              moving = np.r_[v, v[-1] if len(v) else 0.0]
+              foot_metrics[n] = {
+                  "y_min": float(h.min()),
+                  "y_max": float(h.max()),
+                  "low_frames": int(low.sum()),
+                  "mean_speed_when_low": float(moving[low].mean()) if low.any() else None,
+                  "max_speed_when_low": float(moving[low].max()) if low.any() else None,
+              }
+
+          metrics = {
+              "source_run_id": 37260023741,
+              "motion_file": motion_path.name,
+              "frames": int(x.shape[0]),
+              "fps": 30,
+              "joints": int(x.shape[1]),
+              "root_xz_net_travel": root_travel,
+              "root_xz_path_length": path_length,
+              "root_vertical_span": height_span,
+              "foot_metrics": foot_metrics,
+              "note": "Contact metrics are diagnostics only; PASS/REJECT requires visual review of the animated asset."
+          }
+          out = repo / ".unimate-post/review/metrics.json"
+          out.write_text(json.dumps(metrics, indent=2))
+          print(json.dumps(metrics, indent=2))
+
+          import matplotlib
+          matplotlib.use("Agg")
+          import matplotlib.pyplot as plt
+          from matplotlib.animation import FuncAnimation, FFMpegWriter
+
+          # Body-centered 3D review: preserve limb motion while keeping the runner visible.
+          centered = pos - root[:,None,:]
+          mins = centered.min(axis=(0,1))
+          maxs = centered.max(axis=(0,1))
+          span = np.maximum(maxs-mins, 1e-3)
+          center = (mins+maxs)/2
+          radius = float(span.max()/2 * 1.25)
+
+          fig = plt.figure(figsize=(8,8))
+          ax = fig.add_subplot(111, projection="3d")
+          ax.set_xlim(center[0]-radius, center[0]+radius)
+          ax.set_ylim(center[2]-radius, center[2]+radius)
+          ax.set_zlim(center[1]-radius, center[1]+radius)
+          ax.set_xlabel("X")
+          ax.set_ylabel("Z")
+          ax.set_zlabel("Y")
+          ax.view_init(elev=14, azim=-72)
+          ax.set_title("UniMate EvoWild S smoke — steady run (body-centered)")
+          lines = []
+          for j,p in enumerate(parents):
+              if p < 0:
+                  continue
+              line, = ax.plot([],[],[], linewidth=3)
+              lines.append((j,p,line))
+          pts = ax.scatter([],[],[], s=18)
+
+          def update(f):
+              q = centered[f]
+              for j,p,line in lines:
+                  line.set_data([q[p,0],q[j,0]], [q[p,2],q[j,2]])
+                  line.set_3d_properties([q[p,1],q[j,1]])
+              pts._offsets3d = (q[:,0], q[:,2], q[:,1])
+              ax.set_title(f"UniMate EvoWild S smoke — steady run | frame {f+1}/{len(q_all)}")
+              return [z[2] for z in lines] + [pts]
+
+          q_all = centered
+          ani = FuncAnimation(fig, update, frames=len(centered), interval=1000/30, blit=False)
+          ani.save(repo / ".unimate-post/review/evos-steady-run-skeleton.mp4",
+                   writer=FFMpegWriter(fps=30, bitrate=2500))
+          plt.close(fig)
+          PY
+
+      - name: Stage durable review outputs
+        run: |
+          rm -rf public/unimate-bench/smoke
+          mkdir -p public/unimate-bench/smoke
+          cp .unimate-preflight/cond.npy public/unimate-bench/smoke/cond.npy
+          cp "$(find .unimate-smoke -type f -name '*.npy' -print -quit)" public/unimate-bench/smoke/evos-steady-run.npy
+          cp "$(find .unimate-post/animated -type f -name '*.glb' -print -quit)" public/unimate-bench/smoke/evos-steady-run.glb
+          cp .unimate-post/review/evos-steady-run-skeleton.mp4 public/unimate-bench/smoke/evos-steady-run-skeleton.mp4
+          cp .unimate-post/review/metrics.json public/unimate-bench/smoke/metrics.json
+          ls -lh public/unimate-bench/smoke
+
+      - name: Commit smoke outputs to experiment branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/unimate-bench/smoke
+          if git diff --cached --quiet; then
+            echo "No output changes."
+            exit 0
+          fi
+          git commit -m "test: add generated UniMate S smoke artifacts"
+          git push origin HEAD:exp/unimate-s-motion-bench-20261001
