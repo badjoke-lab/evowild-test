@@ -42,13 +42,33 @@ async function captureVariant(browser, view, kimodo) {
   await page.getByRole("button", { name: view, exact: true }).click({ force: true });
   await expect(page.locator("#cameraReadout")).toHaveText(view);
   await expect(scene).toHaveAttribute("data-launch-timing-hold", "1");
+
+  const pauseAt = async (targetSeconds) => {
+    await page.evaluate((target) => {
+      window.__pauseLaunchTimingReviewAt?.(target);
+    }, targetSeconds);
+    await page.getByRole("button", { name: "RESUME", exact: true }).click({ force: true });
+    await expect.poll(
+      async () => Number(await scene.getAttribute("data-launch-timing-paused-at")),
+      { timeout: 15000 }
+    ).toBeGreaterThanOrEqual(targetSeconds);
+  };
+
   if (kimodo) {
     await page.evaluate(() => window.__resetKimodoLaunchReview?.());
   }
-  await page.getByRole("button", { name: "RESUME", exact: true }).click({ force: true });
 
-  await page.waitForTimeout(500);
+  await page.evaluate((target) => {
+    window.__pauseLaunchTimingReviewAt?.(target);
+  }, 0.5);
+  await page.getByRole("button", { name: "RESUME", exact: true }).click({ force: true });
+  await expect.poll(
+    async () => Number(await scene.getAttribute("data-launch-timing-paused-at")),
+    { timeout: 15000 }
+  ).toBeGreaterThanOrEqual(0.5);
+
   const early = {
+    simTime: Number(await scene.getAttribute("data-race-time")),
     leanTarget: Number(await scene.getAttribute("data-s-accel-lean-target")),
     lean: Number(await scene.getAttribute("data-s-accel-lean")),
     envelope: await scene.getAttribute("data-kimodo-launch-envelope"),
@@ -60,8 +80,9 @@ async function captureVariant(browser, view, kimodo) {
     path: `${OUT}/${view.toLowerCase()}-${label}-early.png`
   });
 
-  await page.waitForTimeout(1100);
+  await pauseAt(1.6);
   const mid = {
+    simTime: Number(await scene.getAttribute("data-race-time")),
     leanTarget: Number(await scene.getAttribute("data-s-accel-lean-target")),
     lean: Number(await scene.getAttribute("data-s-accel-lean")),
     envelope: await scene.getAttribute("data-kimodo-launch-envelope"),
@@ -73,8 +94,16 @@ async function captureVariant(browser, view, kimodo) {
     path: `${OUT}/${view.toLowerCase()}-${label}-mid.png`
   });
 
-  await page.waitForTimeout(2500);
-
+  await pauseAt(4.2);
+  const late = {
+    simTime: Number(await scene.getAttribute("data-race-time")),
+    leanTarget: Number(await scene.getAttribute("data-s-accel-lean-target")),
+    lean: Number(await scene.getAttribute("data-s-accel-lean")),
+    envelope: await scene.getAttribute("data-kimodo-launch-envelope"),
+    review: await scene.getAttribute("data-kimodo-launch-review"),
+    playback: Number(await scene.getAttribute("data-s-playback-rate")),
+    seconds: await scene.getAttribute("data-kimodo-launch-seconds")
+  };
   await scene.screenshot({
     path: `${OUT}/${view.toLowerCase()}-${label}-late.png`
   });
@@ -88,7 +117,7 @@ async function captureVariant(browser, view, kimodo) {
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
 
-  return { early, mid };
+  return { early, mid, late };
 }
 
 test("Kimodo launch timing review preserves S gait runtime and changes only posture timing", async ({ browser }, testInfo) => {
@@ -114,6 +143,9 @@ test("Kimodo launch timing review preserves S gait runtime and changes only post
   expect(Number(kimodoSide.early.envelope)).toBeLessThan(1);
   expect(Number(kimodoSide.mid.envelope)).toBeGreaterThan(Number(kimodoSide.early.envelope));
   expect(Number(kimodoSide.mid.seconds)).toBeGreaterThan(Number(kimodoSide.early.seconds));
+  expect(Math.abs(baselineSide.early.simTime - kimodoSide.early.simTime)).toBeLessThan(0.03);
+  expect(Math.abs(baselineSide.mid.simTime - kimodoSide.mid.simTime)).toBeLessThan(0.03);
+  expect(Math.abs(baselineSide.late.simTime - kimodoSide.late.simTime)).toBeLessThan(0.03);
 
   expect(Number.isFinite(baselineSide.early.playback)).toBeTruthy();
   expect(Number.isFinite(kimodoSide.early.playback)).toBeTruthy();
