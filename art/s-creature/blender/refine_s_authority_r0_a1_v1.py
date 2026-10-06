@@ -46,6 +46,10 @@ def in_a1_support(co):
 editable=[i for i,co in enumerate(body_before) if in_a1_support(co)]
 fixed=[i for i,co in enumerate(body_before) if not in_a1_support(co)]
 assert 100 <= len(editable) <= 15000, len(editable)
+support_min_y=min(body_before[i].y for i in editable)
+HEAD_SPLIT=support_min_y+0.25
+NECK_BACK=-0.18
+assert support_min_y < HEAD_SPLIT < NECK_BACK
 
 # Snapshot every non-body mesh. Old crest is the only object allowed to be replaced.
 old_crests=[o for o in cage.objects if o.type=='MESH' and o.name.startswith('S_reference_crest')]
@@ -71,22 +75,24 @@ for i in editable:
     v=body.data.vertices[i]
     p=v.co.copy()
 
-    if p.y <= -0.62:
-        # Longer, lower wedge head. Strongest forward extension is at the snout.
-        frontness=clamp((-0.62-p.y)/0.45)
-        p.y -= 0.17*(frontness**1.15)
-        p.z -= 0.060 + 0.050*frontness
+    if p.y <= HEAD_SPLIT:
+        # Longer, lower wedge head. Normalize against the donor's actual
+        # forward extent instead of assuming the obsolete -1.0 Gate-A range.
+        denom=max(HEAD_SPLIT-support_min_y,1e-6)
+        frontness=clamp((HEAD_SPLIT-p.y)/denom)
+        p.y -= 0.165*(frontness**1.10)
+        p.z -= 0.050 + 0.055*frontness
         p.x *= 1.0 - 0.10*frontness
     else:
         # Neck: lower upper line, broaden/deepen mid-neck, taper back to the
         # untouched shoulder boundary at y=-0.18.
-        u=clamp((p.y+0.62)/0.44)
+        u=clamp((p.y-HEAD_SPLIT)/(NECK_BACK-HEAD_SPLIT))
         env=math.sin(math.pi*u)
-        old_cz=1.280 + (1.005-1.280)*u
-        p.x *= 1.0 + 0.25*env
-        p.z = old_cz + (p.z-old_cz)*(1.0+0.18*env)
-        p.z -= 0.055*(1.0-u) + 0.018*env
-        p.y -= 0.030*(1.0-u)*env
+        old_cz=1.285 + (1.005-1.285)*u
+        p.x *= 1.0 + 0.28*env
+        p.z = old_cz + (p.z-old_cz)*(1.0+0.20*env)
+        p.z -= 0.050*(1.0-u) + 0.020*env
+        p.y -= 0.032*(1.0-u)*env
 
     d=(p-v.co).length
     if d>1e-12:
@@ -112,24 +118,24 @@ bpy.data.objects.remove(old_crest,do_unlink=True)
 # Primary blades own the silhouette; secondaries remain short at the skull base.
 blade_specs=[
     dict(name='dominant_L',
-         root=(-0.052,-0.690,1.315),ctrl=(-0.072,-0.335,1.555),tip=(-0.080,0.105,1.710),
+         root=(-0.052,-0.535,1.300),ctrl=(-0.074,-0.185,1.555),tip=(-0.082,0.235,1.725),
          widths=(0.060,0.108,0.020),thickness=(0.009,0.008,0.002),roll_deg=-24.0,kind='dominant'),
     dict(name='dominant_R',
-         root=( 0.052,-0.690,1.315),ctrl=( 0.072,-0.335,1.555),tip=( 0.080,0.105,1.710),
+         root=( 0.052,-0.535,1.300),ctrl=( 0.074,-0.185,1.555),tip=( 0.082,0.235,1.725),
          widths=(0.060,0.108,0.020),thickness=(0.009,0.008,0.002),roll_deg= 24.0,kind='dominant'),
 
     dict(name='secondary_upper_L',
-         root=(-0.060,-0.675,1.285),ctrl=(-0.070,-0.455,1.405),tip=(-0.074,-0.185,1.505),
+         root=(-0.060,-0.550,1.275),ctrl=(-0.070,-0.360,1.405),tip=(-0.074,-0.090,1.500),
          widths=(0.043,0.060,0.014),thickness=(0.007,0.006,0.002),roll_deg=-18.0,kind='secondary'),
     dict(name='secondary_upper_R',
-         root=( 0.060,-0.675,1.285),ctrl=( 0.070,-0.455,1.405),tip=( 0.074,-0.185,1.505),
+         root=( 0.060,-0.550,1.275),ctrl=( 0.070,-0.360,1.405),tip=( 0.074,-0.090,1.500),
          widths=(0.043,0.060,0.014),thickness=(0.007,0.006,0.002),roll_deg= 18.0,kind='secondary'),
 
     dict(name='secondary_low_L',
-         root=(-0.056,-0.705,1.255),ctrl=(-0.064,-0.535,1.335),tip=(-0.068,-0.315,1.395),
+         root=(-0.056,-0.565,1.250),ctrl=(-0.064,-0.430,1.330),tip=(-0.068,-0.225,1.390),
          widths=(0.032,0.043,0.010),thickness=(0.006,0.005,0.0018),roll_deg=-14.0,kind='secondary'),
     dict(name='secondary_low_R',
-         root=( 0.056,-0.705,1.255),ctrl=( 0.064,-0.535,1.335),tip=( 0.068,-0.315,1.395),
+         root=( 0.056,-0.565,1.250),ctrl=( 0.064,-0.430,1.330),tip=( 0.068,-0.225,1.390),
          widths=(0.032,0.043,0.010),thickness=(0.006,0.005,0.0018),roll_deg= 14.0,kind='secondary'),
 ]
 
@@ -254,7 +260,9 @@ report={
     'source_role':'technical donor only; globally rejected morphology',
     'output':'S-authority-r0-v1.blend',
     'editable':['head body vertices in support','neck body vertices in support','crest replacement'],
-    'body_support':'source-coordinate y <= -0.18 and z >= 0.84',
+    'body_support':'source-coordinate y <= -0.18 and z >= 0.84; head split derived from donor support_min_y + 0.25',
+    'support_min_y':support_min_y,
+    'head_split_y':HEAD_SPLIT,
     'hard_fixed':['all body vertices outside support','body topology','torso','limbs outside support','feet','all toes','tail','review cameras','all other mesh objects'],
     'body_vertex_count':body_count,
     'editable_body_vertex_count':len(editable),
