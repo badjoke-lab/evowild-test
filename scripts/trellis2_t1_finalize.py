@@ -79,28 +79,43 @@ def mesh_audit(glb_path: Path):
     rounded = np.round(np.asarray(mesh.vertices), 8)
     duplicate_vertices = int(len(rounded) - len(np.unique(rounded, axis=0)))
 
-    components = mesh.split(only_watertight=False)
-    comp = sorted(
-        [
-            {
-                "vertices": int(len(c.vertices)),
-                "faces": int(len(c.faces)),
-                "watertight": bool(c.is_watertight),
-                "bounds": np.asarray(c.bounds).tolist(),
-                "extents": np.asarray(c.extents).tolist(),
-            }
-            for c in components
-        ],
-        key=lambda x: x["faces"],
-        reverse=True,
-    )
+    # Fast face-component count without materializing hundreds of thousands
+    # of submeshes. The standard trimesh split path is too expensive for CI.
+    nfaces = len(mesh.faces)
+    parent = np.arange(nfaces, dtype=np.int32)
+    rank = np.zeros(nfaces, dtype=np.uint8)
+
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    def union(a, b):
+        ra, rb = find(int(a)), find(int(b))
+        if ra == rb:
+            return
+        if rank[ra] < rank[rb]:
+            parent[ra] = rb
+        elif rank[ra] > rank[rb]:
+            parent[rb] = ra
+        else:
+            parent[rb] = ra
+            rank[ra] += 1
+
+    for a, b in np.asarray(mesh.face_adjacency):
+        union(a, b)
+
+    roots = np.fromiter((find(i) for i in range(nfaces)), dtype=np.int32, count=nfaces)
+    _, comp_counts = np.unique(roots, return_counts=True)
+    comp_counts = np.sort(comp_counts)[::-1]
 
     return {
         "source_glb": glb_path.name,
         "vertices": int(len(mesh.vertices)),
         "faces": int(len(mesh.faces)),
-        "connected_components": int(len(components)),
-        "components": comp,
+        "connected_components": int(len(comp_counts)),
+        "component_face_counts_desc": [int(x) for x in comp_counts[:32]],
         "watertight": bool(mesh.is_watertight),
         "winding_consistent": bool(mesh.is_winding_consistent),
         "is_volume": bool(mesh.is_volume),
