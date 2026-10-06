@@ -872,3 +872,34 @@ button:disabled {
   letter-spacing: .07em;
   font-variant-numeric: tabular-nums;
 }
+
+
+.agent-version-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.agent-version-row span {
+  color: rgba(255,255,255,.52);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  font-variant-numeric: tabular-nums;
+}
+
+.agent-version-row button {
+  min-height: 26px;
+  padding: 0 9px;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .05em;
+}
+
+.agent-version-row button:not(:disabled) {
+  border-color: rgba(155,200,255,.42);
+  background: rgba(155,200,255,.12);
+  color: #9bc8ff;
+}
