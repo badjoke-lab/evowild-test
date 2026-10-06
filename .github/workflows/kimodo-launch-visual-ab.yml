@@ -1,0 +1,57 @@
+name: Kimodo Launch Visual A-B
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - exp/kimodo-ardy-motion-feasibility-20261004
+    paths:
+      - "public/preview-motion-first/main.js"
+      - "public/preview-motion-first/kimodo-launch-profile.js"
+      - "tests/kimodo-ardy/test_kimodo_launch_profile.mjs"
+      - "tests/kimodo-launch-visual.spec.js"
+      - ".github/workflows/kimodo-launch-visual-ab.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  validate-and-capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: exp/kimodo-ardy-motion-feasibility-20261004
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate pure launch profile
+        run: node tests/kimodo-ardy/test_kimodo_launch_profile.mjs
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Capture baseline vs Kimodo visual launch
+        env:
+          KIMODO_LAUNCH_AB_CAPTURE: "1"
+        run: npx playwright test tests/kimodo-launch-visual.spec.js --project=desktop-chromium
+
+      - name: Commit A-B evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/kimodo-ardy/launch-ab
+          if git diff --cached --quiet; then
+            echo "No evidence changes."
+            exit 0
+          fi
+          git commit -m "Record Kimodo launch visual A-B evidence"
+          git push origin HEAD:exp/kimodo-ardy-motion-feasibility-20261004

@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { clone as cloneSkeleton } from "three/addons/utils/SkeletonUtils.js";
+import { computeKimodoLaunchVisualDrive } from "./kimodo-launch-profile.js";
 
 const canvas = document.querySelector("#scene");
 const loading = document.querySelector("#loading");
@@ -48,6 +49,13 @@ const params = new URLSearchParams(window.location.search);
 const INSPECT_MODE = params.get("inspect") === "1";
 const SIMPLIFIED_GAIT_PAGE = window.location.pathname.includes("/preview-motion-first-gait/");
 const SIMPLIFIED_RACE_PAGE = window.location.pathname.includes("/preview-motion-first-race/");
+const KIMODO_LAUNCH_VISUAL =
+  SIMPLIFIED_RACE_PAGE && params.get("kimodoLaunch") === "1";
+const KIMODO_LAUNCH_BLEND = THREE.MathUtils.clamp(
+  Number(params.get("kimodoLaunchBlend") ?? 0.55),
+  0,
+  1
+);
 
 const RACE_COURSE_PROFILES = {
   "sprint-800-v1": {
@@ -3454,9 +3462,16 @@ function updateSimplifiedRaceProxyCanonicalPose(runner, dt) {
   motionRunner.targetSpeed = runner.targetSpeed;
   motionRunner.distance = runner.distance;
   motionRunner.phaseBias = runner.phaseBias;
+  motionRunner.kimodoLaunchVisualDrive = runner.kimodoLaunchVisualDrive || 0;
 
   if (runner.morph === "S") {
     updateSprintPose(motionRunner, runner.renderLateralVelocity || 0, dt);
+    if (runner.id === 0) {
+      canvas.dataset.kimodoLaunchBodyPitch =
+        String(proxyUd.bodyMaster.rotation.x);
+      canvas.dataset.kimodoLaunchMaxStanceSlip =
+        String(proxyUd.maxStanceSlip || 0);
+    }
   } else if (runner.morph === "P") {
     updatePowerPose(motionRunner, runner.renderLateralVelocity || 0, dt);
   } else if (runner.morph === "E") {
@@ -4210,6 +4225,32 @@ function updateRunner(runner, dt) {
   const accelRate = cfg.accel * (runner.targetSpeed >= runner.speed ? 1 : 0.62);
   runner.speed = THREE.MathUtils.damp(runner.speed, runner.targetSpeed, accelRate, dt);
 
+  if (runner.morph === "S") {
+    const physicalSpeedRatio = THREE.MathUtils.clamp(
+      runner.speed / Math.max(cfg.baseSpeed, 1),
+      0,
+      1.2
+    );
+    const visual = computeKimodoLaunchVisualDrive(
+      raceTime,
+      physicalSpeedRatio,
+      KIMODO_LAUNCH_VISUAL ? KIMODO_LAUNCH_BLEND : 0
+    );
+    runner.kimodoLaunchVisualDrive = visual.appliedLead;
+
+    if (runner.id === 0) {
+      canvas.dataset.kimodoLaunchMode =
+        KIMODO_LAUNCH_VISUAL ? "candidate" : "baseline";
+      canvas.dataset.kimodoLaunchPhysics = "unchanged";
+      canvas.dataset.kimodoLaunchRaceTime = raceTime.toFixed(3);
+      canvas.dataset.kimodoLaunchEnvelope = visual.envelope.toFixed(4);
+      canvas.dataset.kimodoLaunchRawLead = visual.rawLead.toFixed(4);
+      canvas.dataset.kimodoLaunchAppliedLead = visual.appliedLead.toFixed(4);
+      canvas.dataset.kimodoLaunchPhysicalSpeedRatio =
+        physicalSpeedRatio.toFixed(4);
+    }
+  }
+
   const previousDistance = runner.distance;
   if (!finished) runner.distance += runner.speed * dt;
 
@@ -4344,7 +4385,14 @@ function updateSprintPose(runner, lateralVelocity, dt) {
     THREE.MathUtils.lerp(S_GAIT.minStrideWorld, S_GAIT.maxStrideWorld, speedRatio);
 
   const accelError = (runner.targetSpeed - runner.speed) / Math.max(cfg.baseSpeed, 1);
-  ud.accelLean = THREE.MathUtils.damp(ud.accelLean, accelError * 1.45, 8.5, dt);
+  const kimodoLaunchDrive =
+    KIMODO_LAUNCH_VISUAL ? runner.kimodoLaunchVisualDrive || 0 : 0;
+  ud.accelLean = THREE.MathUtils.damp(
+    ud.accelLean,
+    accelError * 1.45 + kimodoLaunchDrive * 0.52,
+    8.5,
+    dt
+  );
   ud.turnLean = THREE.MathUtils.damp(
     ud.turnLean,
     THREE.MathUtils.clamp(-lateralVelocity * cfg.laneLean * 0.16, -0.22, 0.22),
@@ -4389,17 +4437,20 @@ function updateSprintPose(runner, lateralVelocity, dt) {
 
   ud.bodyMaster.rotation.x =
     -0.082 * speedRatio -
-    ud.accelLean * 0.11 +
+    ud.accelLean * 0.11 -
+    kimodoLaunchDrive * 0.040 +
     contactPitch;
   ud.bodyMaster.rotation.z = ud.turnLean;
 
   ud.chestPivot.rotation.x =
     -spineWave * 0.125 * speedRatio -
-    foreCatch * 0.050 +
+    foreCatch * 0.050 -
+    kimodoLaunchDrive * 0.030 +
     suspension * 0.024;
   ud.pelvisPivot.rotation.x =
     spineWave * 0.165 * speedRatio +
-    rearDrive * 0.060 -
+    rearDrive * 0.060 +
+    kimodoLaunchDrive * 0.024 -
     suspension * 0.028;
   ud.chestPivot.rotation.y = -Math.sin(phase * 0.5) * 0.016 * speedRatio;
   ud.pelvisPivot.rotation.y = Math.sin(phase * 0.5) * 0.024 * speedRatio;
