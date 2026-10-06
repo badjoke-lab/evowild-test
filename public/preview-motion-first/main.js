@@ -340,6 +340,38 @@ const FULL_DIRECTOR_REVIEW_MODE =
 const SIMPLIFIED_LANE = SIMPLIFIED_GAIT_PAGE || SIMPLIFIED_RACE_PAGE;
 const MOTION_REVIEW_MODE = params.get("motion") === "1" || SIMPLIFIED_GAIT_PAGE;
 const REVIEW_MORPH = (params.get("morph") || "S").toUpperCase();
+const KIMODO_LAUNCH_REVIEW =
+  params.get("kimodoLaunch") === "1" &&
+  MOTION_REVIEW_MODE &&
+  REVIEW_MORPH === "S";
+
+const KIMODO_SPRINT_LAUNCH_ENVELOPE = [
+  0.07225362957858801, 0.07225362957858801, 0.14650437173974648,
+  0.24248040701179635, 0.3498072309753495, 0.5166831226580241,
+  0.5342212097340723, 0.6684344121911941, 0.7202867774932302,
+  0.7202867774932302, 0.7408702401846188, 0.7560634647489939,
+  0.8430514204992784, 0.8430514204992784, 1.0, 1.0,
+  1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+  1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
+];
+const KIMODO_SPRINT_SOURCE_DURATION = 5.966666666666667;
+
+function sampleKimodoLaunchEnvelope(seconds) {
+  const t01 = THREE.MathUtils.clamp(
+    seconds / KIMODO_SPRINT_SOURCE_DURATION,
+    0,
+    1
+  );
+  const scaled = t01 * (KIMODO_SPRINT_LAUNCH_ENVELOPE.length - 1);
+  const i0 = Math.floor(scaled);
+  const i1 = Math.min(KIMODO_SPRINT_LAUNCH_ENVELOPE.length - 1, i0 + 1);
+  const alpha = scaled - i0;
+  return THREE.MathUtils.lerp(
+    KIMODO_SPRINT_LAUNCH_ENVELOPE[i0],
+    KIMODO_SPRINT_LAUNCH_ENVELOPE[i1],
+    alpha
+  );
+}
 const PROXY_REVIEW_RUNNER_PARAM = params.get("proxyReviewRunner");
 const PROXY_REVIEW_RUNNER =
   PROXY_REVIEW_RUNNER_PARAM === null
@@ -782,7 +814,21 @@ function updateHunyuanSprintPose(runner, lateralVelocity, dt) {
   const speedRatio = THREE.MathUtils.clamp(runner.speed / Math.max(cfg.baseSpeed, 1), 0, 1.2);
   const accelError = (runner.targetSpeed - runner.speed) / Math.max(cfg.baseSpeed, 1);
 
-  ud.accelLean = THREE.MathUtils.damp(ud.accelLean ?? 0, accelError * 1.2, 8.5, dt);
+  const baselineAccelLeanTarget = accelError * 1.2;
+  const kimodoEnvelope = KIMODO_LAUNCH_REVIEW
+    ? sampleKimodoLaunchEnvelope(raceTime)
+    : null;
+  const accelLeanTarget =
+    kimodoEnvelope === null
+      ? baselineAccelLeanTarget
+      : (1 - kimodoEnvelope) * 1.2;
+
+  ud.accelLean = THREE.MathUtils.damp(
+    ud.accelLean ?? 0,
+    accelLeanTarget,
+    8.5,
+    dt
+  );
   ud.turnLean = THREE.MathUtils.damp(
     ud.turnLean ?? 0,
     THREE.MathUtils.clamp(-lateralVelocity * cfg.laneLean * 0.13, -0.18, 0.18),
@@ -809,6 +855,11 @@ function updateHunyuanSprintPose(runner, lateralVelocity, dt) {
   if (MOTION_REVIEW_MODE && REVIEW_MORPH === "S") {
     canvas.dataset.sRuntime = activeSAsset?.id || "procedural-fallback";
     canvas.dataset.sRuntimeAnimated = ud.mixer ? "1" : "0";
+    canvas.dataset.kimodoLaunchReview = KIMODO_LAUNCH_REVIEW ? "1" : "0";
+    canvas.dataset.kimodoLaunchEnvelope =
+      kimodoEnvelope === null ? "baseline" : kimodoEnvelope.toFixed(4);
+    canvas.dataset.sAccelLeanTarget = accelLeanTarget.toFixed(4);
+    canvas.dataset.sAccelLean = (ud.accelLean ?? 0).toFixed(4);
   }
 }
 
