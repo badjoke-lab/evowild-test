@@ -42,6 +42,9 @@ async function captureVariant(browser, view, kimodo) {
   await page.getByRole("button", { name: view, exact: true }).click({ force: true });
   await expect(page.locator("#cameraReadout")).toHaveText(view);
   await expect(scene).toHaveAttribute("data-launch-timing-hold", "1");
+  if (kimodo) {
+    await page.evaluate(() => window.__resetKimodoLaunchReview?.());
+  }
   await page.getByRole("button", { name: "RESUME", exact: true }).click({ force: true });
 
   await page.waitForTimeout(500);
@@ -50,7 +53,8 @@ async function captureVariant(browser, view, kimodo) {
     lean: Number(await scene.getAttribute("data-s-accel-lean")),
     envelope: await scene.getAttribute("data-kimodo-launch-envelope"),
     review: await scene.getAttribute("data-kimodo-launch-review"),
-    playback: Number(await scene.getAttribute("data-s-playback-rate"))
+    playback: Number(await scene.getAttribute("data-s-playback-rate")),
+    seconds: await scene.getAttribute("data-kimodo-launch-seconds")
   };
 
   await page.waitForTimeout(1100);
@@ -59,7 +63,8 @@ async function captureVariant(browser, view, kimodo) {
     lean: Number(await scene.getAttribute("data-s-accel-lean")),
     envelope: await scene.getAttribute("data-kimodo-launch-envelope"),
     review: await scene.getAttribute("data-kimodo-launch-review"),
-    playback: Number(await scene.getAttribute("data-s-playback-rate"))
+    playback: Number(await scene.getAttribute("data-s-playback-rate")),
+    seconds: await scene.getAttribute("data-kimodo-launch-seconds")
   };
 
   await page.waitForTimeout(2500);
@@ -95,7 +100,9 @@ test("Kimodo launch timing review preserves S gait runtime and changes only post
   expect(kimodoSide.early.review).toBe("1");
   expect(baselineSide.early.envelope).toBe("baseline");
   expect(Number(kimodoSide.early.envelope)).toBeGreaterThan(0);
+  expect(Number(kimodoSide.early.envelope)).toBeLessThan(1);
   expect(Number(kimodoSide.mid.envelope)).toBeGreaterThan(Number(kimodoSide.early.envelope));
+  expect(Number(kimodoSide.mid.seconds)).toBeGreaterThan(Number(kimodoSide.early.seconds));
 
   expect(Number.isFinite(baselineSide.early.playback)).toBeTruthy();
   expect(Number.isFinite(kimodoSide.early.playback)).toBeTruthy();
