@@ -2925,7 +2925,7 @@ test("Motion First Race Agent Selection Support v1 compares all three Agents and
   await expect(page.locator("#entryAgentComparison .entry-agent-option")).toHaveCount(3);
   const firstAgent = page.locator("#entryAgentComparison .entry-agent-option").first();
   await expect(firstAgent).toHaveAttribute("data-agent-id", "AGENT-02");
-  await expect(firstAgent).toContainText("SURGE", { ignoreCase: true });
+  await expect(firstAgent).toContainText("Surge");
   await expect(firstAgent).toContainText("NO HISTORY");
 
   // Run the selected Agent/Creature pair once so comparison reflects real history.
