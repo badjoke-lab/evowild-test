@@ -76,3 +76,5 @@ Targets:
 Render SIDE / FRONT / FRONT34 / REAR34 / BACK and stop.
 
 R0-A3 remains blocked.
+
+execution_trigger: v2 workflow armed after path-filter correction.
