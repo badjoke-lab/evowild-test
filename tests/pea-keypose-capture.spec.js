@@ -5,8 +5,7 @@ import path from "node:path";
 test("capture P E A canonical gait keyposes with transparent background", async ({ page }) => {
   test.setTimeout(120000);
   await page.setViewportSize({ width: 768, height: 512 });
-  const workspace = process.env.GITHUB_WORKSPACE || process.cwd();
-  const rawDir = path.join(workspace, "artifacts", "pea-keypose-capture", "raw");
+  const rawDir = process.env.PEA_KEYPOSE_RAW_DIR || "/tmp/pea-keypose-capture/raw";
   fs.mkdirSync(rawDir, { recursive: true });
 
   for (const morph of ["P", "E", "A"]) {
