@@ -1,0 +1,73 @@
+name: blendcap-gate3-v3-animated-review
+
+on:
+  push:
+    branches:
+      - exp/blendcap-s-motion-bench-20261003
+    paths:
+      - ".github/workflows/blendcap-gate3-v3-animated.yml"
+      - "scripts/blendcap/gate3_hybrid_animation_v3.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: blendcap-gate3-v3-animated
+  cancel-in-progress: true
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install render tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libegl1 libgl1 libgl1-mesa-dri
+
+      - name: Download Gate 2 signals
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p artifacts/blendcap-gate3-v3-anim/gate2
+          gh run download 37260085555             --repo badjoke-lab/evowild-test             --name blendcap-gate2-decomposition             --dir artifacts/blendcap-gate3-v3-anim/gate2
+          test -s artifacts/blendcap-gate3-v3-anim/gate2/signals.json
+
+      - name: Install Blender 4.2.23
+        env:
+          BLENDER_URL: https://download.blender.org/release/Blender4.2/blender-4.2.23-linux-x64.tar.xz
+        run: |
+          curl --fail --location --retry 3 "$BLENDER_URL" -o "$RUNNER_TEMP/blender.tar.xz"
+          tar -xf "$RUNNER_TEMP/blender.tar.xz" -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/blender-4.2.23-linux-x64" >> "$GITHUB_PATH"
+
+      - name: Render animated review sequence
+        run: |
+          mkdir -p artifacts/blendcap-gate3-v3-anim/output
+          blender --background             --python scripts/blendcap/gate3_hybrid_animation_v3.py             --             public/models/evowild-s/focus-rigged-v5.glb             artifacts/blendcap-gate3-v3-anim/gate2/signals.json             artifacts/blendcap-gate3-v3-anim/output             2>&1 | tee artifacts/blendcap-gate3-v3-anim/output/blender.log
+
+      - name: Encode baseline-vs-hybrid review movies
+        run: |
+          for mode in SIDE LOW; do
+            lower="$(echo "$mode" | tr 'A-Z' 'a-z')"
+            ffmpeg -hide_banner -y -framerate 10               -i "artifacts/blendcap-gate3-v3-anim/output/renders/$mode/baseline/%02d.png"               -c:v libx264 -pix_fmt yuv420p -crf 18               "artifacts/blendcap-gate3-v3-anim/output/${lower}-baseline.mp4"
+            ffmpeg -hide_banner -y -framerate 10               -i "artifacts/blendcap-gate3-v3-anim/output/renders/$mode/hybrid/%02d.png"               -c:v libx264 -pix_fmt yuv420p -crf 18               "artifacts/blendcap-gate3-v3-anim/output/${lower}-hybrid.mp4"
+            ffmpeg -hide_banner -y               -i "artifacts/blendcap-gate3-v3-anim/output/${lower}-baseline.mp4"               -i "artifacts/blendcap-gate3-v3-anim/output/${lower}-hybrid.mp4"               -filter_complex "hstack=inputs=2"               -c:v libx264 -pix_fmt yuv420p -crf 18               "artifacts/blendcap-gate3-v3-anim/output/${lower}-comparison.mp4"
+
+            ffmpeg -hide_banner -y               -framerate 10 -i "artifacts/blendcap-gate3-v3-anim/output/renders/$mode/baseline/%02d.png"               -vf "select='not(mod(n,4))',scale=240:-2,tile=6x1"               -frames:v 1 -update 1               "artifacts/blendcap-gate3-v3-anim/output/${lower}-baseline-strip.jpg"
+            ffmpeg -hide_banner -y               -framerate 10 -i "artifacts/blendcap-gate3-v3-anim/output/renders/$mode/hybrid/%02d.png"               -vf "select='not(mod(n,4))',scale=240:-2,tile=6x1"               -frames:v 1 -update 1               "artifacts/blendcap-gate3-v3-anim/output/${lower}-hybrid-strip.jpg"
+            ffmpeg -hide_banner -y               -i "artifacts/blendcap-gate3-v3-anim/output/${lower}-baseline-strip.jpg"               -i "artifacts/blendcap-gate3-v3-anim/output/${lower}-hybrid-strip.jpg"               -filter_complex "vstack=inputs=2" -frames:v 1 -update 1               "artifacts/blendcap-gate3-v3-anim/output/${lower}-animated-strip-comparison.jpg"
+          done
+
+      - name: Upload animated review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blendcap-gate3-v3-animated-review
+          path: artifacts/blendcap-gate3-v3-anim/output/
+          if-no-files-found: error
