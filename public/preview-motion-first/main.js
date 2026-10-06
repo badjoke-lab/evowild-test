@@ -6120,6 +6120,15 @@ function setDirectorShot(cameraMode, focusId, reason, holdSeconds) {
 function updateSimplifiedRaceDirector() {
   if (!SIMPLIFIED_RACE_PAGE || requestedCamera !== "AUTO" || runners.length === 0) return;
 
+  if (!raceStarted) {
+    raceDirector.focusId = ENTRY_RUNNER_ID;
+    if (selectedRunner !== ENTRY_RUNNER_ID) {
+      setDirectorFocus(ENTRY_RUNNER_ID);
+    }
+    canvas.dataset.directorReason = "PRE_RACE_ENTRY";
+    return;
+  }
+
   const order = rankings();
   const declaredWinner = runners
     .filter((runner) => Number.isFinite(runner.finishTime))
