@@ -1,6 +1,11 @@
-name: TRELLIS2 Pixal3D T1 generation smoke
+name: TRELLIS2 Pixal3D T1 clean-input generation
 
 on:
+  push:
+    branches:
+      - exp/trellis2-pixal3d-s-bench-20261004
+    paths:
+      - "art/s-creature/experiments/trellis2-pixal3d/TRIGGER_T1_CLEAN_INPUT.txt"
   workflow_dispatch:
 
 permissions:
@@ -9,12 +14,12 @@ permissions:
 jobs:
   generate:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 45
     strategy:
       fail-fast: false
       max-parallel: 1
       matrix:
-        engine: [pixal3d, trellis2]
+        engine: [trellis2, pixal3d]
     env:
       HF_TOKEN: ${{ secrets.HF_TOKEN }}
     steps:
@@ -24,16 +29,24 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install Gradio client
-        run: python -m pip install --upgrade gradio_client
+      - name: Install clients
+        run: python -m pip install --upgrade gradio_client pillow
 
-      - name: Generate one 1024 candidate
-        run: python scripts/trellis2_pixal3d_generate.py --engine ${{ matrix.engine }} --seed 0 --resolution 1024
+      - name: Prepare locked clean S input
+        run: python scripts/prepare_trellis2_pixal3d_inputs.py
+
+      - name: Generate one 1024 clean-input candidate
+        run: >
+          python scripts/trellis2_pixal3d_generate.py
+          --engine ${{ matrix.engine }}
+          --seed 0
+          --resolution 1024
+          --input art/s-creature/experiments/trellis2-pixal3d/prepared/primary_clean_v1.png
 
       - name: Upload candidate or failure report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: s-${{ matrix.engine }}-seed-0000
+          name: s-${{ matrix.engine }}-clean-seed-0000
           path: art/s-creature/experiments/trellis2-pixal3d/raw/${{ matrix.engine }}/seed-0000/
           if-no-files-found: error
