@@ -347,6 +347,9 @@ const LAUNCH_TIMING_REVIEW =
 const KIMODO_LAUNCH_REVIEW =
   params.get("kimodoLaunch") === "1" &&
   LAUNCH_TIMING_REVIEW;
+const LAUNCH_TIMING_HOLD =
+  params.get("launchTimingHold") === "1" &&
+  LAUNCH_TIMING_REVIEW;
 
 const KIMODO_SPRINT_LAUNCH_ENVELOPE = [
   0.07225362957858801, 0.07225362957858801, 0.14650437173974648,
@@ -6892,10 +6895,16 @@ async function boot() {
       paused = true;
       pauseButton.textContent = "RESUME";
       raceStateEl.textContent = "INSPECT";
+    } else if (LAUNCH_TIMING_HOLD) {
+      paused = true;
+      pauseButton.textContent = "RESUME";
+      raceStateEl.textContent = "MOTION REVIEW";
+      canvas.dataset.launchTimingHold = "1";
     } else {
       paused = false;
       pauseButton.textContent = "PAUSE";
       raceStateEl.textContent = "MOTION REVIEW";
+      canvas.dataset.launchTimingHold = "0";
     }
   }
 
