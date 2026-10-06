@@ -903,3 +903,33 @@ button:disabled {
   background: rgba(155,200,255,.12);
   color: #9bc8ff;
 }
+
+
+.agent-version-eval {
+  margin-top: 6px;
+  padding: 6px 8px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 8px;
+  background: rgba(255,255,255,.025);
+  color: rgba(255,255,255,.48);
+  font-size: 7px;
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: .045em;
+}
+
+.agent-version-eval[data-status="PROMOTE"] {
+  border-color: rgba(138,255,191,.24);
+  color: #8affbf;
+}
+
+.agent-version-eval[data-status="REJECT"] {
+  border-color: rgba(255,140,140,.24);
+  color: #ff9a9a;
+}
+
+.agent-version-eval[data-status="HOLD"],
+.agent-version-eval[data-status="NEED_MORE_DATA"] {
+  border-color: rgba(255,214,138,.20);
+  color: #ffd68a;
+}
