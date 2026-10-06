@@ -801,6 +801,7 @@ function createHunyuanSprintCreature(index) {
     phase: index * 0.61,
     turnLean: 0,
     accelLean: 0,
+    kimodoLaunchStartTime: null,
     strideLength: S_GAIT.minStrideWorld,
     maxStanceSlip: 0
   };
@@ -815,8 +816,15 @@ function updateHunyuanSprintPose(runner, lateralVelocity, dt) {
   const accelError = (runner.targetSpeed - runner.speed) / Math.max(cfg.baseSpeed, 1);
 
   const baselineAccelLeanTarget = accelError * 1.2;
+  if (KIMODO_LAUNCH_REVIEW && ud.kimodoLaunchStartTime === null) {
+    ud.kimodoLaunchStartTime = raceTime;
+  }
+  const kimodoReviewSeconds =
+    KIMODO_LAUNCH_REVIEW && ud.kimodoLaunchStartTime !== null
+      ? Math.max(0, raceTime - ud.kimodoLaunchStartTime)
+      : 0;
   const kimodoEnvelope = KIMODO_LAUNCH_REVIEW
-    ? sampleKimodoLaunchEnvelope(raceTime)
+    ? sampleKimodoLaunchEnvelope(kimodoReviewSeconds)
     : null;
   const accelLeanTarget =
     kimodoEnvelope === null
@@ -859,6 +867,8 @@ function updateHunyuanSprintPose(runner, lateralVelocity, dt) {
       canvas.dataset.kimodoLaunchReview = KIMODO_LAUNCH_REVIEW ? "1" : "0";
       canvas.dataset.kimodoLaunchEnvelope =
         kimodoEnvelope === null ? "baseline" : kimodoEnvelope.toFixed(4);
+      canvas.dataset.kimodoLaunchSeconds =
+        kimodoEnvelope === null ? "baseline" : kimodoReviewSeconds.toFixed(3);
       canvas.dataset.sAccelLeanTarget = accelLeanTarget.toFixed(4);
       canvas.dataset.sAccelLean = (ud.accelLean ?? 0).toFixed(4);
     }
