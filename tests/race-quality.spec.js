@@ -507,4 +507,4 @@ test("2.5D P E A subframe smoothing feathers high-detail six-frame art", async (
   await expect(stage).toHaveAttribute("data-selected-morph", "S");
   expect(await stage.getAttribute("data-s-subframe-blend")).toBeNull();
 });
-\n
+
