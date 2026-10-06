@@ -76,21 +76,27 @@ jobs:
           path: artifacts/pea-keypose-capture/*
           if-no-files-found: error
       - name: Materialize P E A mf12 candidate sheets on branch
-        if: ${{ github.event_name == 'push' && startsWith(github.ref_name, 'feat/2p5d-survivor-pea-keypose-capture-') }}
+        if: ${{ startsWith(github.head_ref, 'feat/2p5d-survivor-pea-keypose-capture-') || startsWith(github.ref_name, 'feat/2p5d-survivor-pea-keypose-capture-') }}
         shell: bash
         run: |
-          cp artifacts/pea-keypose-capture/p-run-sheet-mf12-v1.webp public/concept/p-run-sheet-mf12-v1.webp
-          cp artifacts/pea-keypose-capture/e-run-sheet-mf12-v1.webp public/concept/e-run-sheet-mf12-v1.webp
-          cp artifacts/pea-keypose-capture/a-run-sheet-mf12-v1.webp public/concept/a-run-sheet-mf12-v1.webp
-          if git diff --quiet -- public/concept/p-run-sheet-mf12-v1.webp public/concept/e-run-sheet-mf12-v1.webp public/concept/a-run-sheet-mf12-v1.webp; then
+          BRANCH="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
+          cp artifacts/pea-keypose-capture/p-run-sheet-mf12-v1.webp /tmp/p-run-sheet-mf12-v1.webp
+          cp artifacts/pea-keypose-capture/e-run-sheet-mf12-v1.webp /tmp/e-run-sheet-mf12-v1.webp
+          cp artifacts/pea-keypose-capture/a-run-sheet-mf12-v1.webp /tmp/a-run-sheet-mf12-v1.webp
+          git fetch origin "$BRANCH"
+          git checkout -B "$BRANCH" "origin/$BRANCH"
+          cp /tmp/p-run-sheet-mf12-v1.webp public/concept/p-run-sheet-mf12-v1.webp
+          cp /tmp/e-run-sheet-mf12-v1.webp public/concept/e-run-sheet-mf12-v1.webp
+          cp /tmp/a-run-sheet-mf12-v1.webp public/concept/a-run-sheet-mf12-v1.webp
+          git add public/concept/p-run-sheet-mf12-v1.webp public/concept/e-run-sheet-mf12-v1.webp public/concept/a-run-sheet-mf12-v1.webp
+          if git diff --cached --quiet; then
             echo "mf12 candidate sheets already current"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/concept/p-run-sheet-mf12-v1.webp public/concept/e-run-sheet-mf12-v1.webp public/concept/a-run-sheet-mf12-v1.webp
           git commit -m "assets: materialize P E A mf12 review sheets"
-          git push origin HEAD:"$GITHUB_REF_NAME"
+          git push origin HEAD:"$BRANCH"
       - name: Upload 2.5D survivor visuals
         if: always()
         uses: actions/upload-artifact@v4
