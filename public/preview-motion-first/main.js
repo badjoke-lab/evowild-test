@@ -3469,6 +3469,8 @@ function updateSimplifiedRaceProxyCanonicalPose(runner, dt) {
     if (runner.id === 0) {
       canvas.dataset.kimodoLaunchBodyPitch =
         String(proxyUd.bodyMaster.rotation.x);
+      canvas.dataset.kimodoLaunchPitchBias =
+        String(-(motionRunner.kimodoLaunchVisualDrive || 0) * 0.040);
       canvas.dataset.kimodoLaunchMaxStanceSlip =
         String(proxyUd.maxStanceSlip || 0);
     }
