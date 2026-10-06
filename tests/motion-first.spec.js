@@ -2506,3 +2506,33 @@ test("Motion First Agent Version Evaluation v1 compares matched courses before j
     path: "test-results/visuals/motion-first-agent-version-eval-v1.png"
   });
 });
+
+
+test("Motion First Race Entry pre-race focus v1 keeps YOUR ENTRY selected during countdown", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(30000);
+
+  await page.goto(
+    "/evowild-test/preview-motion-first-race/index.html?course=heavy-1200-v1&entry=5&entryAgent=attack-v1",
+    { waitUntil: "networkidle" }
+  );
+
+  const scene = page.locator("#scene");
+  await expect(page.locator("#raceState")).toHaveText("COUNTDOWN");
+  await expect(page.locator("#runnerSelect")).toHaveValue("5");
+  await expect(page.locator("#agentTargetSelect")).toHaveValue("5");
+  await expect(page.locator("#runnerName")).toContainText("Runner 06");
+  await expect(scene).toHaveAttribute("data-director-focus", "5");
+  await expect(scene).toHaveAttribute("data-director-reason", "PRE_RACE_ENTRY");
+
+  await page.waitForTimeout(1200);
+  await expect(page.locator("#raceState")).toHaveText("COUNTDOWN");
+  await expect(page.locator("#runnerSelect")).toHaveValue("5");
+  await expect(page.locator("#runnerName")).toContainText("Runner 06");
+  await expect(scene).toHaveAttribute("data-director-focus", "5");
+
+  await scene.screenshot({
+    path: "test-results/visuals/motion-first-entry-focus-v1.png"
+  });
+});
