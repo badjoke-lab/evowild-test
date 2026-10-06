@@ -53,9 +53,24 @@ const params = new URLSearchParams(window.location.search);
 const SPRITE_CAPTURE_MODE = params.get("spriteCapture") === "1";
 const SPRITE_CAPTURE_PHASE_INDEX = Math.max(
   0,
-  Math.min(5, Number.parseInt(params.get("spritePhase") || "0", 10) || 0)
+  Math.min(11, Number.parseInt(params.get("spritePhase") || "0", 10) || 0)
 );
-const SPRITE_CAPTURE_PHASES = [0.02, 0.18, 0.34, 0.50, 0.67, 0.84];
+// Twelve direct samples from the canonical gait. Even indices are the six
+// semantic key poses; odd indices are real in-between gait states, not image interpolation.
+const SPRITE_CAPTURE_PHASES = [
+  0.02, 0.10,
+  0.18, 0.26,
+  0.34, 0.42,
+  0.50, 0.585,
+  0.67, 0.755,
+  0.84, 0.93
+];
+const SPRITE_CAPTURE_COLORS = {
+  P: 0x8f2527,
+  E: 0xe4dcc8,
+  A: 0x173f82,
+  S: 0x7fd7ef
+};
 const INSPECT_MODE = params.get("inspect") === "1";
 const SIMPLIFIED_GAIT_PAGE = window.location.pathname.includes("/preview-motion-first-gait/");
 const SIMPLIFIED_RACE_PAGE = window.location.pathname.includes("/preview-motion-first-race/");
@@ -3915,7 +3930,10 @@ function createRunners() {
 
   for (let i = 0; i < RUNNER_COUNT; i += 1) {
     const morph = morphKeys[i % morphKeys.length];
-    const creature = createCreature(morph, COLORS[i % COLORS.length], i);
+    const creatureColor = SPRITE_CAPTURE_MODE
+      ? (SPRITE_CAPTURE_COLORS[morph] ?? COLORS[i % COLORS.length])
+      : COLORS[i % COLORS.length];
+    const creature = createCreature(morph, creatureColor, i);
     let raceProxy = null;
     if (SIMPLIFIED_RACE_PAGE) {
       applySimplifiedRaceVariation(creature, morph, i);
