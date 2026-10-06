@@ -1,0 +1,8 @@
+{
+  "motion_sha256": "7bd6c8a658467b1a1c09565570a6e38839d51fb964d147d1adc2e9edeed41018",
+  "motion_bytes": 1168798,
+  "generated_via": "https://nvidia-kimodo.hf.space",
+  "checkpoint_display": "Kimodo-SOMA-RP-v1",
+  "prompt": "A person accelerates smoothly from a run into a full sprint.",
+  "note": "Generated in NVIDIA official public Kimodo demo; isolated feasibility artifact, not production EvoWild motion."
+}
