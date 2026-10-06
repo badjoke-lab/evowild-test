@@ -9,8 +9,8 @@
     "E",
     "A"
   ],
-  "stage": "AUTHORITY_R0_A1_V2_REVIEW",
-  "current_stage": "R0-A1 v2 broader head + lower paired dominant crest + secondary crest + monotonic neck taper rendered; review pending; modeling stopped",
+  "stage": "AUTHORITY_R0_A2_NEXT",
+  "current_stage": "R0-A1 v2 accepted; R0-A2 shoulder/thorax + waist + pelvis next",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
   "current_model_file": "output/S-authority-r0-v2.blend",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Review the five R0-A1 v2 renders directly against references/00_s_type_modeling_image_v1.png. Decide KEEP/REVISE/REJECT. Do not start R0-A2 before acceptance.",
+  "next_action": "Execute R0-A2 only from accepted S-authority-r0-v2.blend. Hard-lock R0-A1 head/crest/neck; edit shoulder/thorax, waist tuck and pelvis mass only.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -70,13 +70,20 @@
     "output/review/authority-r0-a1-v2/S_authority_r0_a1_v2_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
-  "editable_next": [],
+  "editable_next": [
+    "shoulder/thorax mass",
+    "waist tuck",
+    "pelvis/hindquarter mass"
+  ],
   "keep_fixed_next": [
-    "support boundary",
-    "outside-support body",
-    "topology",
-    "crest",
-    "toes"
+    "R0-A1 head",
+    "paired dominant crest",
+    "secondary crest",
+    "neck line",
+    "distal limbs",
+    "feet/toes",
+    "tail",
+    "body topology"
   ],
   "review_basis": "Actual B1b-v2 five original PNGs and matched-camera B0-v025 / B1b-v1 comparisons, plus repository 00/01/02 S references.",
   "v6_decision": "REVISE",
@@ -761,7 +768,7 @@
     "priority": "HIGHEST"
   },
   "authority_reset": {
-    "status": "R0_A1_V2_REVIEW_PENDING",
+    "status": "R0_A1_ACCEPTED_R0_A2_NEXT",
     "decision": "REJECT_CURRENT_BASELINE",
     "review": "S_AUTHORITY_RESET_REVIEW.md",
     "rejected_current_model": "output/S-vibe-b2a-v5.blend",
@@ -771,7 +778,7 @@
       "A5/global derived acceptance"
     ],
     "next_model": "output/S-authority-r0-v1.blend",
-    "next_gate": "R0-A1 v2 review",
+    "next_gate": "R0-A2",
     "next_scope": "head + paired dominant crest + neck line only",
     "required_views": [
       "SIDE",
@@ -796,14 +803,17 @@
     "plan": "S_AUTHORITY_R0_A1_V1_PLAN.md",
     "review": "S_AUTHORITY_R0_A1_V1_REVIEW.md"
   },
-  "r0_a2_status": "BLOCKED_PENDING_R0_A1_REVIEW",
+  "r0_a2_status": "NEXT",
   "r0_a1_v2": {
     "source": "output/S-vibe-b2a-v5.blend",
     "source_role": "clean technical donor only; unaccepted v1 not used as geometry input",
     "output": "output/S-authority-r0-v2.blend",
     "scope": "broader head wedge + lower/longer two dominant crest blades + lowered secondary crest + monotonic neck taper only",
-    "decision": "REVIEW_PENDING",
-    "status": "STOPPED_AFTER_FIVE_VIEW_RENDER",
-    "plan": "S_AUTHORITY_R0_A1_V2_PLAN.md"
-  }
+    "decision": "KEEP",
+    "status": "ACCEPTED",
+    "plan": "S_AUTHORITY_R0_A1_V2_PLAN.md",
+    "review": "S_AUTHORITY_R0_A1_V2_REVIEW.md"
+  },
+  "r0_a1_status": "ACCEPTED",
+  "r0_a1_accepted_model": "output/S-authority-r0-v2.blend"
 }
