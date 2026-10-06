@@ -41,6 +41,7 @@ const agentVersionReadoutEl = document.querySelector("#agentVersionReadout");
 const agentVersionEvalReadoutEl = document.querySelector("#agentVersionEvalReadout");
 const agentEvolveButton = document.querySelector("#agentEvolveButton");
 const agentOwnerReadoutEl = document.querySelector("#agentOwnerReadout");
+const agentCompatibilityReadoutEl = document.querySelector("#agentCompatibilityReadout");
 const agentOwnerInputEl = document.querySelector("#agentOwnerInput");
 const agentTransferButton = document.querySelector("#agentTransferButton");
 const agentFeedbackEl = document.querySelector("#agentFeedback");
@@ -696,8 +697,30 @@ function recordEntryAgentRace(finalOrder) {
     version: raceRecord.version,
     ownerAtRace: raceRecord.ownerAtRace
   };
+  const pairCompatibility = getAgentCreatureCompatibilitySnapshot(
+    entryRunner.agent,
+    entryRunner.morph
+  );
+  const observedMeanResponse =
+    entryRunner.agent.compatResponseDuration > 0
+      ? entryRunner.agent.compatResponseIntegral /
+        entryRunner.agent.compatResponseDuration
+      : 0;
+  const observedPushResponse =
+    entryRunner.agent.compatPushResponseDuration > 0
+      ? entryRunner.agent.compatPushResponseIntegral /
+        entryRunner.agent.compatPushResponseDuration
+      : 0;
+  const observedConserveResponse =
+    entryRunner.agent.compatConserveResponseDuration > 0
+      ? entryRunner.agent.compatConserveResponseIntegral /
+        entryRunner.agent.compatConserveResponseDuration
+      : 0;
+
   const compatibilityRecord = {
     raceId: raceRecord.raceId,
+    agentId: entryRunner.agent.entityId || entryRunner.agent.id,
+    strategy: entryRunner.agent.strategy,
     morph: entryRunner.morph,
     courseId: RACE_COURSE_PROFILE.id,
     coursePaceFit: Number(
@@ -705,6 +728,19 @@ function recordEntryAgentRace(finalOrder) {
     ),
     version: raceRecord.version,
     ownerAtRace: raceRecord.ownerAtRace,
+    pairScore: Number(pairCompatibility.score.toFixed(3)),
+    pushCompatibility: Number(pairCompatibility.push.toFixed(3)),
+    conserveCompatibility: Number(pairCompatibility.conserve.toFixed(3)),
+    observedMeanResponse: Number(observedMeanResponse.toFixed(3)),
+    observedPushResponse: Number(observedPushResponse.toFixed(3)),
+    observedConserveResponse: Number(observedConserveResponse.toFixed(3)),
+    responseSeconds: Number(entryRunner.agent.compatResponseDuration.toFixed(3)),
+    pushResponseSeconds: Number(
+      entryRunner.agent.compatPushResponseDuration.toFixed(3)
+    ),
+    conserveResponseSeconds: Number(
+      entryRunner.agent.compatConserveResponseDuration.toFixed(3)
+    ),
     rank,
     time: raceRecord.time
   };
@@ -717,6 +753,7 @@ function recordEntryAgentRace(finalOrder) {
   agentHistoryRecordedForRace = true;
   saveAgentEntityLedger();
   syncEntryAgentHistoryUi();
+  syncEntryAgentCreatureCompatibilityUi();
 }
 
 const parsedEntryRunner = Number.parseInt(params.get("entry") || "0", 10);
@@ -862,6 +899,7 @@ function initializeRaceEntryUi() {
     String(entryRunner.agent.version);
   canvas.dataset.entryCourseFit = paceFit.toFixed(3);
   syncEntryAgentHistoryUi();
+  syncEntryAgentCreatureCompatibilityUi();
 }
 
 const AGENT_COMPATIBILITY = {
@@ -870,6 +908,73 @@ const AGENT_COMPATIBILITY = {
   E: { PUSH: 0.76, CONSERVE: 1.00 },
   A: { PUSH: 0.88, CONSERVE: 0.90 }
 };
+
+function getAgentCreatureCompatibilitySnapshot(agent, morph) {
+  const base = AGENT_COMPATIBILITY[morph] || { PUSH: 0, CONSERVE: 0 };
+  const intent = agent?.intent || { PUSH: 1, CONSERVE: 1 };
+  const push = THREE.MathUtils.clamp(base.PUSH * (intent.PUSH ?? 1), 0, 1.12);
+  const conserve = THREE.MathUtils.clamp(
+    base.CONSERVE * (intent.CONSERVE ?? 1),
+    0,
+    1.12
+  );
+  const strategy = agent?.strategy || "BALANCED";
+  const weights =
+    strategy === "ATTACK"
+      ? { PUSH: 0.70, CONSERVE: 0.30 }
+      : strategy === "CONTROL"
+        ? { PUSH: 0.30, CONSERVE: 0.70 }
+        : { PUSH: 0.50, CONSERVE: 0.50 };
+  const score = push * weights.PUSH + conserve * weights.CONSERVE;
+
+  return {
+    morph,
+    strategy,
+    version: agent?.version || 1,
+    push,
+    conserve,
+    score
+  };
+}
+
+function syncEntryAgentCreatureCompatibilityUi() {
+  if (!SIMPLIFIED_RACE_PAGE) return;
+  const runner = runners[ENTRY_RUNNER_ID];
+  if (!runner?.agent) return;
+
+  const snapshot = getAgentCreatureCompatibilitySnapshot(
+    runner.agent,
+    runner.morph
+  );
+  const record = getEntryAgentEntityRecord();
+  const historyRows = record.compatibilityHistory.filter(
+    (row) =>
+      row.morph === runner.morph &&
+      row.agentId === (runner.agent.entityId || runner.agent.id) &&
+      row.version === runner.agent.version
+  );
+  const observedRows = historyRows.filter(
+    (row) => Number.isFinite(row.observedMeanResponse)
+  );
+  const observedMean = observedRows.length
+    ? average(observedRows.map((row) => row.observedMeanResponse))
+    : null;
+
+  if (agentCompatibilityReadoutEl) {
+    agentCompatibilityReadoutEl.textContent =
+      `PAIR ${runner.morph} ${Math.round(snapshot.score * 100)}% · PUSH ${Math.round(snapshot.push * 100)}% · CONSERVE ${Math.round(snapshot.conserve * 100)}%` +
+      (observedMean === null ? "" : ` · OBS ${Math.round(observedMean * 100)}%`);
+  }
+
+  canvas.dataset.entryAgentCreatureCompatMorph = runner.morph;
+  canvas.dataset.entryAgentCreatureCompatScore = snapshot.score.toFixed(3);
+  canvas.dataset.entryAgentCreaturePushCompat = snapshot.push.toFixed(3);
+  canvas.dataset.entryAgentCreatureConserveCompat = snapshot.conserve.toFixed(3);
+  canvas.dataset.entryAgentCreatureCompatHistoryCount =
+    String(historyRows.length);
+  canvas.dataset.entryAgentCreatureObservedMean =
+    observedMean === null ? "" : observedMean.toFixed(3);
+}
 
 function createRunnerAgentState(id) {
   return {
@@ -886,6 +991,12 @@ function createRunnerAgentState(id) {
     autoPushCount: 0,
     autoConserveCount: 0,
     autoHistory: [],
+    compatResponseIntegral: 0,
+    compatResponseDuration: 0,
+    compatPushResponseIntegral: 0,
+    compatPushResponseDuration: 0,
+    compatConserveResponseIntegral: 0,
+    compatConserveResponseDuration: 0,
     lastCommandSource: "NONE",
     command: "NEUTRAL",
     commandIssuedAt: -999,
@@ -4526,6 +4637,12 @@ function resetRace() {
     runner.agent.autoPushCount = 0;
     runner.agent.autoConserveCount = 0;
     runner.agent.autoHistory = [];
+    runner.agent.compatResponseIntegral = 0;
+    runner.agent.compatResponseDuration = 0;
+    runner.agent.compatPushResponseIntegral = 0;
+    runner.agent.compatPushResponseDuration = 0;
+    runner.agent.compatConserveResponseIntegral = 0;
+    runner.agent.compatConserveResponseDuration = 0;
     runner.agent.lastCommandSource = "NONE";
     runner.agent.lastResult = "NEUTRAL";
     runner.agent.commandFactor = 1;
@@ -4774,6 +4891,18 @@ function resolveAgentCommand(runner, dt) {
     ? 0
     : compat * staminaFactor * fatiguePenalty * pressurePenalty;
   agent.response = response;
+
+  if (command === "PUSH" || command === "CONSERVE") {
+    agent.compatResponseIntegral += response * dt;
+    agent.compatResponseDuration += dt;
+    if (command === "PUSH") {
+      agent.compatPushResponseIntegral += response * dt;
+      agent.compatPushResponseDuration += dt;
+    } else {
+      agent.compatConserveResponseIntegral += response * dt;
+      agent.compatConserveResponseDuration += dt;
+    }
+  }
 
   const staminaDrainFit =
     RACE_COURSE_PROFILE.staminaDrainFit?.[runner.morph] ?? 1;
