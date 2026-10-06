@@ -28,7 +28,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install audit dependencies
-        run: python -m pip install --quiet pillow trimesh numpy
+        run: python -m pip install --quiet pillow trimesh numpy networkx
 
       - name: Download successful TRELLIS2 artifact
         run: |
