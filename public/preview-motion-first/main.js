@@ -361,6 +361,13 @@ const KIMODO_SPRINT_LAUNCH_ENVELOPE = [
   1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
 ];
 const KIMODO_SPRINT_SOURCE_DURATION = 5.966666666666667;
+let kimodoLaunchReviewEpoch = null;
+
+if (KIMODO_LAUNCH_REVIEW) {
+  window.__resetKimodoLaunchReview = () => {
+    kimodoLaunchReviewEpoch = raceTime;
+  };
+}
 
 function sampleKimodoLaunchEnvelope(seconds) {
   const t01 = THREE.MathUtils.clamp(
@@ -825,9 +832,13 @@ function updateHunyuanSprintPose(runner, lateralVelocity, dt) {
   if (KIMODO_LAUNCH_REVIEW && ud.kimodoLaunchStartTime === null) {
     ud.kimodoLaunchStartTime = raceTime;
   }
+  const kimodoStartTime =
+    kimodoLaunchReviewEpoch !== null
+      ? kimodoLaunchReviewEpoch
+      : ud.kimodoLaunchStartTime;
   const kimodoReviewSeconds =
-    KIMODO_LAUNCH_REVIEW && ud.kimodoLaunchStartTime !== null
-      ? Math.max(0, raceTime - ud.kimodoLaunchStartTime)
+    KIMODO_LAUNCH_REVIEW && kimodoStartTime !== null
+      ? Math.max(0, raceTime - kimodoStartTime)
       : 0;
   const kimodoEnvelope = KIMODO_LAUNCH_REVIEW
     ? sampleKimodoLaunchEnvelope(kimodoReviewSeconds)
