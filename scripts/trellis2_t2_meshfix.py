@@ -113,8 +113,8 @@ if "remove_smallest_components" in sig.parameters:
 mf.repair(**kwargs)
 
 repaired = trimesh.Trimesh(
-    vertices=np.asarray(mf.v),
-    faces=np.asarray(mf.f),
+    vertices=np.asarray(mf.points),
+    faces=np.asarray(mf.faces),
     process=False,
 )
 repaired.remove_unreferenced_vertices()
