@@ -2506,3 +2506,118 @@ test("Motion First Agent Version Evaluation v1 compares matched courses before j
     path: "test-results/visuals/motion-first-agent-version-eval-v1.png"
   });
 });
+
+
+test("Motion First Race Agent Ownership Transfer v1 preserves creator and provenance", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(90000);
+
+  const raceUrl =
+    "/evowild-test/preview-motion-first-race/index.html?skipStart=1&course=heavy-1200-v1&entry=5&entryAgent=attack-v1&agentAuto=1&simRate=4";
+
+  await page.goto(raceUrl, { waitUntil: "networkidle" });
+  await page.evaluate(() => {
+    window.localStorage.removeItem("evowild.motionFirst.agentHistory.v1");
+  });
+  await page.reload({ waitUntil: "networkidle" });
+
+  const scene = page.locator("#scene");
+  await expect(scene).toHaveAttribute("data-entry-agent-id", "AGENT-02");
+  await expect(scene).toHaveAttribute("data-entry-agent-creator", "badjoke-lab");
+  await expect(scene).toHaveAttribute("data-entry-agent-current-owner", "LOCAL-PLAYER");
+  await expect(scene).toHaveAttribute("data-entry-agent-ownership-history-count", "1");
+  await expect(page.locator("#agentOwnerReadout")).toHaveText(
+    "CREATOR badjoke-lab · OWNER LOCAL-PLAYER"
+  );
+
+  await expect(page.locator("#raceState")).toHaveText("FINISHED", {
+    timeout: 35000
+  });
+
+  let stored = await page.evaluate(() => {
+    const raw = window.localStorage.getItem("evowild.motionFirst.agentHistory.v1");
+    return raw ? JSON.parse(raw)["AGENT-02"] : null;
+  });
+  expect(stored.raceHistory).toHaveLength(1);
+  expect(stored.raceHistory[0].ownerAtRace).toBe("LOCAL-PLAYER");
+  expect(stored.creator).toBe("badjoke-lab");
+
+  // Invalid owner IDs are rejected and do not mutate provenance.
+  await page.locator("#agentOwnerInput").fill("x");
+  await page.locator("#agentTransferButton").click();
+  await expect(scene).toHaveAttribute("data-entry-agent-transfer-result", "INVALID_OWNER");
+  await expect(scene).toHaveAttribute("data-entry-agent-current-owner", "LOCAL-PLAYER");
+  await expect(scene).toHaveAttribute("data-entry-agent-ownership-history-count", "1");
+
+  // Transfer the same Agent ID; creator and all race/version history remain intact.
+  await page.locator("#agentOwnerInput").fill("RIVAL-ALPHA");
+  await page.locator("#agentTransferButton").click();
+  await expect(scene).toHaveAttribute("data-entry-agent-transfer-result", "TRANSFERRED");
+  await expect(scene).toHaveAttribute("data-entry-agent-last-transfer", "LOCAL-PLAYER->RIVAL-ALPHA");
+  await expect(scene).toHaveAttribute("data-entry-agent-current-owner", "RIVAL-ALPHA");
+  await expect(scene).toHaveAttribute("data-entry-agent-ownership-history-count", "2");
+  await expect(page.locator("#agentOwnerReadout")).toHaveText(
+    "CREATOR badjoke-lab · OWNER RIVAL-ALPHA"
+  );
+
+  stored = await page.evaluate(() => {
+    const raw = window.localStorage.getItem("evowild.motionFirst.agentHistory.v1");
+    return raw ? JSON.parse(raw)["AGENT-02"] : null;
+  });
+  expect(stored.agentId).toBe("AGENT-02");
+  expect(stored.creator).toBe("badjoke-lab");
+  expect(stored.currentOwner).toBe("RIVAL-ALPHA");
+  expect(stored.raceHistory).toHaveLength(1);
+  expect(stored.versionHistory.length).toBeGreaterThanOrEqual(1);
+  expect(stored.ownershipHistory).toHaveLength(2);
+  expect(stored.ownershipHistory[1]).toMatchObject({
+    from: "LOCAL-PLAYER",
+    to: "RIVAL-ALPHA",
+    owner: "RIVAL-ALPHA",
+    racesAtTransfer: 1,
+    source: "local-prototype-transfer"
+  });
+
+  // A new page load must retain the new owner, then the next race must be
+  // attributed to that owner rather than rewriting the earlier result.
+  await page.goto(raceUrl, { waitUntil: "networkidle" });
+  const reloadedScene = page.locator("#scene");
+  await expect(reloadedScene).toHaveAttribute("data-entry-agent-current-owner", "RIVAL-ALPHA");
+  await expect(reloadedScene).toHaveAttribute("data-entry-agent-ownership-history-count", "2");
+  await expect(page.locator("#agentOwnerReadout")).toHaveText(
+    "CREATOR badjoke-lab · OWNER RIVAL-ALPHA"
+  );
+  await expect(page.locator("#raceState")).toHaveText("FINISHED", {
+    timeout: 35000
+  });
+
+  const transferred = await page.evaluate(() => {
+    const raw = window.localStorage.getItem("evowild.motionFirst.agentHistory.v1");
+    return raw ? JSON.parse(raw)["AGENT-02"] : null;
+  });
+  expect(transferred.agentId).toBe("AGENT-02");
+  expect(transferred.creator).toBe("badjoke-lab");
+  expect(transferred.currentOwner).toBe("RIVAL-ALPHA");
+  expect(transferred.ownershipHistory).toHaveLength(2);
+  expect(transferred.raceHistory).toHaveLength(2);
+  expect(transferred.raceHistory.map((race) => race.ownerAtRace)).toEqual([
+    "LOCAL-PLAYER",
+    "RIVAL-ALPHA"
+  ]);
+
+  console.log(
+    "AGENT_OWNERSHIP_TRANSFER_V1",
+    JSON.stringify({
+      agentId: transferred.agentId,
+      creator: transferred.creator,
+      currentOwner: transferred.currentOwner,
+      ownershipHistory: transferred.ownershipHistory,
+      raceOwners: transferred.raceHistory.map((race) => race.ownerAtRace)
+    })
+  );
+
+  await reloadedScene.screenshot({
+    path: "test-results/visuals/motion-first-agent-ownership-v1.png"
+  });
+});
