@@ -50,6 +50,12 @@ const LANE_WIDTH = 2.55;
 const TRACK_WIDTH = LANE_COUNT * LANE_WIDTH + 5;
 const RUNNER_COUNT = 18;
 const params = new URLSearchParams(window.location.search);
+const SPRITE_CAPTURE_MODE = params.get("spriteCapture") === "1";
+const SPRITE_CAPTURE_PHASE_INDEX = Math.max(
+  0,
+  Math.min(5, Number.parseInt(params.get("spritePhase") || "0", 10) || 0)
+);
+const SPRITE_CAPTURE_PHASES = [0.02, 0.18, 0.34, 0.50, 0.67, 0.84];
 const INSPECT_MODE = params.get("inspect") === "1";
 const SIMPLIFIED_GAIT_PAGE = window.location.pathname.includes("/preview-motion-first-gait/");
 const SIMPLIFIED_RACE_PAGE = window.location.pathname.includes("/preview-motion-first-race/");
@@ -338,7 +344,8 @@ const FINISH_REVIEW_MODE =
 const FULL_DIRECTOR_REVIEW_MODE =
   SIMPLIFIED_RACE_PAGE && params.get("fullDirectorReview") === "1";
 const SIMPLIFIED_LANE = SIMPLIFIED_GAIT_PAGE || SIMPLIFIED_RACE_PAGE;
-const MOTION_REVIEW_MODE = params.get("motion") === "1" || SIMPLIFIED_GAIT_PAGE;
+const MOTION_REVIEW_MODE =
+  params.get("motion") === "1" || SIMPLIFIED_GAIT_PAGE || SPRITE_CAPTURE_MODE;
 const REVIEW_MORPH = (params.get("morph") || "S").toUpperCase();
 const PROXY_REVIEW_RUNNER_PARAM = params.get("proxyReviewRunner");
 const PROXY_REVIEW_RUNNER =
@@ -849,11 +856,13 @@ const A_GAIT = {
 };
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x92a7b3);
-scene.fog = new THREE.Fog(0x92a7b3, 55, 230);
+scene.background = SPRITE_CAPTURE_MODE ? null : new THREE.Color(0x92a7b3);
+scene.fog = SPRITE_CAPTURE_MODE ? null : new THREE.Fog(0x92a7b3, 55, 230);
 
 const renderer = new THREE.WebGLRenderer({
   canvas,
+  alpha: SPRITE_CAPTURE_MODE,
+  preserveDrawingBuffer: SPRITE_CAPTURE_MODE,
   // In the 18-runner simplified race, frame continuity has priority over edge
   // smoothing. The browser stretches the lower internal resolution back to
   // the full canvas size.
@@ -867,6 +876,7 @@ const renderPixelRatio = SIMPLIFIED_RACE_PAGE
     : Math.min(window.devicePixelRatio || 1, 1.5);
 renderer.setPixelRatio(renderPixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight, false);
+if (SPRITE_CAPTURE_MODE) renderer.setClearColor(0x000000, 0);
 canvas.dataset.renderPixelRatio = String(renderPixelRatio);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = SIMPLIFIED_RACE_PAGE
@@ -5955,6 +5965,27 @@ function updateCamera(dt) {
   const focus = runners[selectedRunner];
   const focusPos = focus.group.position;
 
+  if (SPRITE_CAPTURE_MODE) {
+    const powerReview = focus.morph === "P";
+    const endureReview = focus.morph === "E";
+    const agilityReview = focus.morph === "A";
+    camera.position.set(
+      focusPos.x + (powerReview ? 8.9 : endureReview ? 8.5 : agilityReview ? 7.4 : 8.0),
+      powerReview ? 3.15 : endureReview ? 2.90 : agilityReview ? 2.45 : 3.0,
+      focusPos.z
+    );
+    cameraLook.set(
+      focusPos.x,
+      powerReview ? 1.48 : endureReview ? 1.36 : agilityReview ? 1.16 : 1.55,
+      focusPos.z
+    );
+    camera.fov = powerReview ? 43 : endureReview ? 42 : agilityReview ? 42 : 42;
+    camera.updateProjectionMatrix();
+    camera.lookAt(cameraLook);
+    canvas.dataset.spriteCaptureCamera = "SIDE_LOCKED";
+    return;
+  }
+
   let targetFov = 58;
   const raceSpeedRatio = SIMPLIFIED_RACE_PAGE
     ? THREE.MathUtils.clamp(focus.speed / 25, 0, 1)
@@ -6723,8 +6754,12 @@ function animate() {
 }
 
 async function boot() {
-  addWorld();
-  applySimplifiedRaceWorldMaterials();
+  if (!SPRITE_CAPTURE_MODE) {
+    addWorld();
+    applySimplifiedRaceWorldMaterials();
+  } else {
+    canvas.dataset.spriteCaptureWorld = "hidden";
+  }
   await prepareHunyuanSAsset();
   await prepareRaceVisualSwapAsset();
   initializeCourseUi();
@@ -6801,7 +6836,9 @@ async function boot() {
     focus.targetSpeed = focus.cfg.baseSpeed;
     focus.nextLaneDecision = Number.POSITIVE_INFINITY;
     focus.group.position.set(0, 0, focus.distance);
-    focus.group.userData.phase = 1.18;
+    focus.group.userData.phase = SPRITE_CAPTURE_MODE
+      ? SPRITE_CAPTURE_PHASES[SPRITE_CAPTURE_PHASE_INDEX] * TAU - focus.phaseBias
+      : 1.18;
 
     if (focus.morph === "S") {
       focus.group.userData.strideLength = S_GAIT.maxStrideWorld;
@@ -6812,7 +6849,24 @@ async function boot() {
     } else if (focus.morph === "A") {
       focus.group.userData.strideLength = A_GAIT.maxStrideWorld;
     }
-    updateCreaturePose(focus, 0, 0);
+    if (SPRITE_CAPTURE_MODE) {
+      focus.group.traverse((node) => {
+        if (node.geometry?.type === "CircleGeometry") node.visible = false;
+      });
+      for (let i = 0; i < 30; i += 1) {
+        focus.group.userData.phase =
+          SPRITE_CAPTURE_PHASES[SPRITE_CAPTURE_PHASE_INDEX] * TAU - focus.phaseBias;
+        updateCreaturePose(focus, 0, 1 / 60);
+      }
+      canvas.dataset.spriteCapture = "1";
+      canvas.dataset.spriteCaptureMorph = focus.morph;
+      canvas.dataset.spriteCapturePhase = String(SPRITE_CAPTURE_PHASE_INDEX);
+      canvas.dataset.spriteCaptureCycle =
+        SPRITE_CAPTURE_PHASES[SPRITE_CAPTURE_PHASE_INDEX].toFixed(3);
+      canvas.dataset.spriteCaptureAlpha = "1";
+    } else {
+      updateCreaturePose(focus, 0, 0);
+    }
 
     raceTime = 6;
     requestedCamera = "SIDE";
@@ -6821,7 +6875,12 @@ async function boot() {
       button.classList.toggle("active", button.dataset.camera === "SIDE");
     });
 
-    if (INSPECT_MODE) {
+    if (SPRITE_CAPTURE_MODE) {
+      paused = true;
+      pauseButton.textContent = "RESUME";
+      raceStateEl.textContent = "SPRITE CAPTURE";
+      canvas.dataset.spriteCaptureReady = "1";
+    } else if (INSPECT_MODE) {
       paused = true;
       pauseButton.textContent = "RESUME";
       raceStateEl.textContent = "INSPECT";
