@@ -5,7 +5,7 @@
   "parent_branch": "exp/s-creature-vibe-modeling",
   "parent_commit": "07d87340345031d68834552f10561107a1560b88",
   "status": "ACTIVE",
-  "stage": "T2_TRELLIS2_RAW_MESH_REPAIR_BENCH",
+  "stage": "T2_TRELLIS2_NONMANIFOLD_REPAIR_BENCH",
   "baseline": {
     "decision": "REVISE",
     "model": "art/s-creature/output/S-vibe-b1a-v2.blend",
@@ -34,7 +34,24 @@
       "nonmanifold_edges_gt2_faces": 0,
       "duplicate_vertex_positions_rounded_1e_8": 60123
     },
-    "next_action": "Run weld/component-consolidation bench without decimation; re-audit before deciding whether PixelArtistry/retopo is required."
+    "next_action": "Repair the remaining 56 non-manifold edges on the welded largest component with a minimal-change mesh repair bench; measure topology and geometric drift before any decimation.",
+    "t2_weld": {
+      "run": 37461252570,
+      "decision": "KEEP_AS_REPAIR_INPUT",
+      "coordinates_moved": false,
+      "source_vertices": 209427,
+      "welded_vertices": 149304,
+      "welded_faces": 298783,
+      "welded_components": 27,
+      "maincomponent_vertices": 132330,
+      "maincomponent_faces": 264856,
+      "maincomponent_face_fraction": 0.8864493629155608,
+      "maincomponent_boundary_edges": 0,
+      "maincomponent_nonmanifold_edges_gt2_faces": 56,
+      "maincomponent_watertight": false,
+      "maincomponent_is_volume": false,
+      "result_dir": "art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-weld"
+    }
   },
   "pixal3d": {
     "t1_decision": "PENDING",
@@ -51,5 +68,5 @@
     "no manual morphology edit before T1 decision",
     "do not enter rig/motion with raw TRELLIS2 mesh"
   ],
-  "next_action": "T2: weld duplicate positions and consolidate topology on TRELLIS2 candidate, then compare mesh audit before/after. Pixal3D remains parallel pending free quota."
+  "next_action": "T2: test minimal non-manifold repair on the exact-weld largest component. Pixal3D remains pending because free ZeroGPU quota is exhausted."
 }
