@@ -980,3 +980,139 @@ button:disabled {
   letter-spacing: .045em;
   font-variant-numeric: tabular-nums;
 }
+
+
+.entry-comparison-panel {
+  position: absolute;
+  z-index: 18;
+  left: 50%;
+  bottom: 84px;
+  width: min(860px, calc(100vw - 36px));
+  max-height: min(62vh, 560px);
+  transform: translateX(-50%);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 14px;
+  background: rgba(7,11,14,.94);
+  box-shadow: 0 22px 64px rgba(0,0,0,.48);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.entry-comparison-panel.hidden {
+  display: none;
+}
+
+.entry-comparison-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255,255,255,.09);
+}
+
+.entry-comparison-heading > div {
+  display: grid;
+  gap: 3px;
+}
+
+.entry-comparison-heading small {
+  color: rgba(255,255,255,.42);
+  font-size: 7px;
+  font-weight: 850;
+  letter-spacing: .10em;
+}
+
+.entry-comparison-heading strong {
+  color: #9bc8ff;
+  font-size: 11px;
+  letter-spacing: .05em;
+}
+
+.entry-comparison-scroll {
+  max-height: min(48vh, 430px);
+  overflow: auto;
+}
+
+.entry-comparison-panel table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.entry-comparison-panel th,
+.entry-comparison-panel td {
+  padding: 7px 9px;
+  border-bottom: 1px solid rgba(255,255,255,.055);
+  text-align: right;
+  white-space: nowrap;
+  font-size: 8px;
+}
+
+.entry-comparison-panel th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: rgba(13,18,22,.98);
+  color: rgba(255,255,255,.42);
+  font-size: 7px;
+  letter-spacing: .08em;
+}
+
+.entry-comparison-panel th:first-child,
+.entry-comparison-panel td:first-child {
+  text-align: left;
+}
+
+.entry-comparison-panel tr.selected {
+  background: rgba(155,200,255,.10);
+}
+
+.entry-compare-candidate button {
+  display: grid;
+  min-width: 130px;
+  min-height: 34px;
+  padding: 5px 8px;
+  text-align: left;
+}
+
+.entry-compare-candidate button strong {
+  font-size: 9px;
+}
+
+.entry-compare-candidate button small {
+  color: rgba(255,255,255,.46);
+  font-size: 7px;
+}
+
+.entry-compare-index {
+  color: #8affbf;
+  font-weight: 900;
+}
+
+.entry-comparison-panel p {
+  margin: 0;
+  padding: 8px 14px 10px;
+  color: rgba(255,255,255,.36);
+  font-size: 7px;
+  line-height: 1.45;
+}
+
+#entryCompareButton.active {
+  border-color: rgba(155,200,255,.48);
+  background: rgba(155,200,255,.14);
+  color: #9bc8ff;
+}
+
+@media (max-width: 720px) {
+  .entry-comparison-panel {
+    bottom: 112px;
+    width: calc(100vw - 20px);
+  }
+
+  .entry-comparison-panel th,
+  .entry-comparison-panel td {
+    padding: 6px 7px;
+  }
+}
