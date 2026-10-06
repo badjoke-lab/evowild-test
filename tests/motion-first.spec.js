@@ -2135,3 +2135,92 @@ test("Motion First Agent Auto Strategy v1 executes distinct plans and changes ra
     path: "test-results/visuals/motion-first-agent-auto-v1.png"
   });
 });
+
+
+test("Motion First Race Agent entity history v1 persists identity and results", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(75000);
+
+  const raceUrl =
+    "/evowild-test/preview-motion-first-race/index.html?skipStart=1&course=heavy-1200-v1&entry=5&entryAgent=attack-v1&agentAuto=1&simRate=4";
+
+  await page.goto(raceUrl, { waitUntil: "networkidle" });
+  await page.evaluate(() => {
+    window.localStorage.removeItem("evowild.motionFirst.agentHistory.v1");
+  });
+  await page.reload({ waitUntil: "networkidle" });
+
+  const scene = page.locator("#scene");
+  await expect(scene).toHaveAttribute("data-entry-agent-id", "AGENT-02");
+  await expect(scene).toHaveAttribute("data-entry-agent-creator", "badjoke-lab");
+  await expect(scene).toHaveAttribute("data-entry-agent-current-owner", "LOCAL-PLAYER");
+  await expect(scene).toHaveAttribute("data-entry-agent-version", "1");
+  await expect(scene).toHaveAttribute("data-entry-agent-version-history-count", "1");
+  await expect(scene).toHaveAttribute("data-entry-agent-ownership-history-count", "1");
+  await expect(scene).toHaveAttribute("data-entry-agent-race-count", "0");
+  await expect(scene).toHaveAttribute("data-entry-agent-win-count", "0");
+  await expect(page.locator("#agentHistoryReadout")).toHaveText(
+    "AGENT-02 v1 · 0 RACES · 0 WINS"
+  );
+
+  await expect(page.locator("#raceState")).toHaveText("FINISHED", {
+    timeout: 35000
+  });
+
+  await expect(scene).toHaveAttribute("data-entry-agent-race-count", "1");
+  await expect(scene).toHaveAttribute("data-entry-agent-win-count", "1");
+  await expect(scene).toHaveAttribute("data-entry-agent-compatibility-history-count", "1");
+  await expect(page.locator("#agentHistoryReadout")).toHaveText(
+    "AGENT-02 v1 · 1 RACES · 1 WINS"
+  );
+
+  const stored = await page.evaluate(() => {
+    const raw = window.localStorage.getItem("evowild.motionFirst.agentHistory.v1");
+    return raw ? JSON.parse(raw) : null;
+  });
+  const surge = stored?.["AGENT-02"];
+  expect(surge).toBeTruthy();
+  expect(surge.creator).toBe("badjoke-lab");
+  expect(surge.currentOwner).toBe("LOCAL-PLAYER");
+  expect(surge.currentVersion).toBe(1);
+  expect(surge.versionHistory).toHaveLength(1);
+  expect(surge.ownershipHistory).toHaveLength(1);
+  expect(surge.raceHistory).toHaveLength(1);
+  expect(surge.winResultHistory).toHaveLength(1);
+  expect(surge.compatibilityHistory).toHaveLength(1);
+  expect(surge.raceHistory[0].courseId).toBe("heavy-1200-v1");
+  expect(surge.raceHistory[0].runnerId).toBe(5);
+  expect(surge.raceHistory[0].morph).toBe("P");
+  expect(surge.raceHistory[0].rank).toBe(1);
+  expect(surge.winResultHistory[0].won).toBeTruthy();
+  expect(surge.compatibilityHistory[0].coursePaceFit).toBe(1.045);
+
+  // Prove the entity ledger survives a new page load rather than existing only
+  // in the race runtime.
+  await page.goto(
+    "/evowild-test/preview-motion-first-race/index.html?course=heavy-1200-v1&entry=5&entryAgent=attack-v1",
+    { waitUntil: "networkidle" }
+  );
+  const reloadedScene = page.locator("#scene");
+  await expect(reloadedScene).toHaveAttribute("data-entry-agent-race-count", "1");
+  await expect(reloadedScene).toHaveAttribute("data-entry-agent-win-count", "1");
+  await expect(reloadedScene).toHaveAttribute("data-entry-agent-compatibility-history-count", "1");
+  await expect(page.locator("#agentHistoryReadout")).toHaveText(
+    "AGENT-02 v1 · 1 RACES · 1 WINS"
+  );
+
+  console.log(
+    "AGENT_ENTITY_HISTORY_V1",
+    JSON.stringify({
+      agentId: surge.agentId,
+      races: surge.raceHistory.length,
+      wins: surge.winResultHistory.filter((row) => row.won).length,
+      compatibility: surge.compatibilityHistory[0]
+    })
+  );
+
+  await reloadedScene.screenshot({
+    path: "test-results/visuals/motion-first-agent-history-v1.png"
+  });
+});
