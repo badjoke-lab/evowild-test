@@ -1,0 +1,165 @@
+{
+  "lane": "exp/s-creature-vibe-modeling",
+  "gate": "R0-A3-v1-authority-limb-rhythm",
+  "status": "REVIEW_PENDING",
+  "decision": "REVIEW_PENDING",
+  "authority_image": "references/00_s_type_modeling_image_v1.png",
+  "authority_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "source": "S-authority-r0-a2-v2.blend",
+  "accepted_prior_gates": [
+    "R0-A1",
+    "R0-A2"
+  ],
+  "output": "S-authority-r0-a3-v1.blend",
+  "scope": "forelimb + hindlimb segment radial rhythm only",
+  "support": {
+    "z": [
+      0.12,
+      0.84
+    ],
+    "outer_high_zone_abs_x_min": 0.11,
+    "chain_max_distance": 0.1
+  },
+  "profiles": {
+    "fore": [
+      [
+        [
+          0.155,
+          0.04,
+          0.82
+        ],
+        1.45
+      ],
+      [
+        [
+          0.168,
+          0.105,
+          0.68
+        ],
+        1.25
+      ],
+      [
+        [
+          0.163,
+          -0.03,
+          0.52
+        ],
+        1.38
+      ],
+      [
+        [
+          0.155,
+          -0.17,
+          0.34
+        ],
+        1.08
+      ],
+      [
+        [
+          0.15,
+          -0.235,
+          0.2
+        ],
+        1.22
+      ],
+      [
+        [
+          0.15,
+          -0.255,
+          0.12
+        ],
+        1.05
+      ]
+    ],
+    "hind": [
+      [
+        [
+          0.155,
+          0.74,
+          0.82
+        ],
+        1.55
+      ],
+      [
+        [
+          0.175,
+          0.665,
+          0.73
+        ],
+        1.28
+      ],
+      [
+        [
+          0.169,
+          0.82,
+          0.568
+        ],
+        1.42
+      ],
+      [
+        [
+          0.16,
+          1.02,
+          0.34
+        ],
+        1.1
+      ],
+      [
+        [
+          0.153,
+          1.07,
+          0.22
+        ],
+        1.24
+      ],
+      [
+        [
+          0.15,
+          0.99,
+          0.12
+        ],
+        1.05
+      ]
+    ]
+  },
+  "hard_fixed": [
+    "R0-A1 geometry",
+    "R0-A2 body mass outside limb support",
+    "all separate toe meshes",
+    "contact body region z<0.12",
+    "tail",
+    "cameras",
+    "body topology"
+  ],
+  "body_vertex_count": 5728,
+  "eligible_counts": {
+    "fore_L": 474,
+    "fore_R": 475,
+    "hind_L": 531,
+    "hind_R": 534
+  },
+  "moved_vertex_count": 2014,
+  "max_displacement": 0.054303056759310034,
+  "mean_displacement": 0.012332740529853089,
+  "upper_radial_ratio": {
+    "fore": 1.3136847737688322,
+    "hind": 1.3720632627894613
+  },
+  "foot_locked_vertex_count": 160,
+  "outside_support_unchanged": true,
+  "separate_meshes_unchanged": true,
+  "crest_geometry_unchanged": true,
+  "toe_geometry_unchanged": true,
+  "body_topology_unchanged": true,
+  "body_nonmanifold_edge_count": 0,
+  "camera_transforms_unchanged": true,
+  "stop_rule": "render SIDE/FRONT/FRONT34/REAR34/BACK and STOP; R0-A4 blocked pending R0-A3 review",
+  "rendered_views": [
+    "side",
+    "front",
+    "front34",
+    "rear34",
+    "back"
+  ],
+  "modeling_status": "STOPPED"
+}

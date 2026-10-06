@@ -9,11 +9,11 @@
     "E",
     "A"
   ],
-  "stage": "AUTHORITY_R0_A3_NEXT",
-  "current_stage": "R0-A2 v2 accepted; R0-A3 fore/hind limb segment rhythm next",
+  "stage": "AUTHORITY_R0_A3_V1_REVIEW",
+  "current_stage": "R0-A3 v1 fore/hind limb segment rhythm rendered; review pending; modeling stopped",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
-  "current_model_file": "output/S-authority-r0-a2-v2.blend",
+  "current_model_file": "output/S-authority-r0-a3-v1.blend",
   "source_model_file": "output/S-vibe-b0-v025.blend",
   "primary_references": [
     "S_MODELING_IMAGE_LOCK.md",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Execute R0-A3 only from accepted output/S-authority-r0-a2-v2.blend. Hard-lock R0-A1 and R0-A2 geometry; edit fore/hind limb segment rhythm only. Feet/toes and tail remain fixed.",
+  "next_action": "Review R0-A3 v1 five views directly against references/00_s_type_modeling_image_v1.png. Decide KEEP/REVISE/REJECT. Do not start R0-A4 before acceptance.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -63,17 +63,14 @@
   "modeling_status": "STOPPED",
   "cage_vertex_count": 760,
   "review_renders": [
-    "output/review/authority-r0-a2-v2/S_authority_r0_a2_v2_side.png",
-    "output/review/authority-r0-a2-v2/S_authority_r0_a2_v2_front.png",
-    "output/review/authority-r0-a2-v2/S_authority_r0_a2_v2_front34.png",
-    "output/review/authority-r0-a2-v2/S_authority_r0_a2_v2_rear34.png",
-    "output/review/authority-r0-a2-v2/S_authority_r0_a2_v2_back.png"
+    "output/review/authority-r0-a3-v1/S_authority_r0_a3_v1_side.png",
+    "output/review/authority-r0-a3-v1/S_authority_r0_a3_v1_front.png",
+    "output/review/authority-r0-a3-v1/S_authority_r0_a3_v1_front34.png",
+    "output/review/authority-r0-a3-v1/S_authority_r0_a3_v1_rear34.png",
+    "output/review/authority-r0-a3-v1/S_authority_r0_a3_v1_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
-  "editable_next": [
-    "forelimb segment rhythm",
-    "hindlimb segment rhythm"
-  ],
+  "editable_next": [],
   "keep_fixed_next": [
     "R0-A1 head/crest/neck",
     "R0-A2 shoulder/thorax/waist/pelvis",
@@ -764,7 +761,7 @@
     "priority": "HIGHEST"
   },
   "authority_reset": {
-    "status": "R0_A2_ACCEPTED_R0_A3_NEXT",
+    "status": "R0_A3_V1_REVIEW_PENDING",
     "decision": "REJECT_CURRENT_BASELINE",
     "review": "S_AUTHORITY_RESET_REVIEW.md",
     "rejected_current_model": "output/S-vibe-b2a-v5.blend",
@@ -774,7 +771,7 @@
       "A5/global derived acceptance"
     ],
     "next_model": "output/S-authority-r0-v1.blend",
-    "next_gate": "R0-A3",
+    "next_gate": "R0-A3 v1 review",
     "next_scope": "head + paired dominant crest + neck line only",
     "required_views": [
       "SIDE",
@@ -826,5 +823,14 @@
     "decision": "KEEP",
     "status": "ACCEPTED_R0_A2",
     "review": "S_AUTHORITY_R0_A2_V2_REVIEW.md"
-  }
+  },
+  "r0_a3_v1": {
+    "source": "output/S-authority-r0-a2-v2.blend",
+    "output": "output/S-authority-r0-a3-v1.blend",
+    "scope": "fore/hind limb segment radial rhythm only",
+    "decision": "REVIEW_PENDING",
+    "status": "STOPPED_AFTER_FIVE_VIEW_RENDER",
+    "plan": "S_AUTHORITY_R0_A3_V1_PLAN.md"
+  },
+  "r0_a4_status": "BLOCKED_PENDING_R0_A3_REVIEW"
 }
