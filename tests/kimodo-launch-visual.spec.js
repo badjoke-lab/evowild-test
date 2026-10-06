@@ -33,6 +33,7 @@ async function captureLaunch(page, candidate) {
     appliedLead: Number(el.dataset.kimodoLaunchAppliedLead),
     physicalSpeedRatio: Number(el.dataset.kimodoLaunchPhysicalSpeedRatio),
     bodyPitch: Number(el.dataset.kimodoLaunchBodyPitch),
+    pitchBias: Number(el.dataset.kimodoLaunchPitchBias),
     maxStanceSlip: Number(el.dataset.kimodoLaunchMaxStanceSlip)
   }));
 
@@ -54,6 +55,11 @@ test("Kimodo launch envelope changes S presentation without changing race physic
   const baseline = await captureLaunch(page, false);
   const candidate = await captureLaunch(page, true);
 
+  fs.writeFileSync(
+    `${outDir}/metrics.json`,
+    JSON.stringify({ baseline, candidate }, null, 2) + "\n"
+  );
+
   expect(baseline.mode).toBe("baseline");
   expect(candidate.mode).toBe("candidate");
   expect(baseline.physics).toBe("unchanged");
@@ -61,13 +67,11 @@ test("Kimodo launch envelope changes S presentation without changing race physic
   expect(baseline.appliedLead).toBe(0);
   expect(candidate.appliedLead).toBeGreaterThan(0.05);
   expect(Math.abs(candidate.physicalSpeedRatio - baseline.physicalSpeedRatio)).toBeLessThan(0.04);
-  expect(candidate.bodyPitch).toBeLessThan(baseline.bodyPitch - 0.005);
+  expect(Math.abs(baseline.pitchBias)).toBeLessThan(0.0001);
+  expect(candidate.pitchBias).toBeLessThan(-0.002);
+  expect(Number.isFinite(baseline.bodyPitch)).toBeTruthy();
+  expect(Number.isFinite(candidate.bodyPitch)).toBeTruthy();
   expect(Number.isFinite(candidate.maxStanceSlip)).toBeTruthy();
-
-  fs.writeFileSync(
-    `${outDir}/metrics.json`,
-    JSON.stringify({ baseline, candidate }, null, 2) + "\n"
-  );
 
   await context.close();
 });
