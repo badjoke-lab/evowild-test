@@ -1,6 +1,6 @@
 # P/E/A MF12 Direct-Gait Review
 
-Status: RUNTIME_REVIEW_PENDING
+Status: RUNTIME_REVIEW_RUNNING
 
 ## Purpose
 
@@ -35,3 +35,11 @@ Normal `race-quality.html` continues to use the existing high-detail six-frame
 P/E/A assets. S is unchanged in both modes.
 
 Promotion is forbidden until the isolated race-size review passes.
+
+
+## Visual gate update
+
+- Direct-gait 12-frame motion donor: KEEP for runtime review.
+- Low-poly donor appearance: REJECT as final P/E/A art.
+- Production P/E/A assets remain unchanged.
+- Next gate: race-size runtime readability only.
