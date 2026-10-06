@@ -20,26 +20,39 @@ jobs:
           ref: ${{ github.ref_name }}
           fetch-depth: 0
 
-      - name: Decode and verify exact approved source bytes
+      - name: Reconstruct and verify exact approved S authority PNG
         shell: bash
         run: |
           set -euo pipefail
-          PARTS="art/s-creature/references/.s-authority-parts"
+          B64_DIR="art/s-creature/references/.s-authority-parts"
+          HEX_DIR="art/s-creature/references/.s-authority-tail-hex"
+          BIN_TAIL="art/s-creature/references/.s-authority-tail-bin/tail-final.bin"
           OUT="art/s-creature/references/00_s_type_modeling_image_v1.png"
-          cat "$PARTS"/part-*.b64 | base64 --decode > "$OUT"
+          TMP_HEX="/tmp/s-authority-tail.hex"
+          TMP_BIN="/tmp/s-authority-tail.bin"
+
+          cat "$B64_DIR"/part-*.b64 | base64 --decode > "$OUT"
+          cat "$HEX_DIR"/tail-*.hex > "$TMP_HEX"
+          xxd -r -p "$TMP_HEX" > "$TMP_BIN"
+          cat "$TMP_BIN" >> "$OUT"
+          cat "$BIN_TAIL" >> "$OUT"
+
           EXPECTED="93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6"
           ACTUAL="$(sha256sum "$OUT" | awk '{print $1}')"
+          SIZE="$(wc -c < "$OUT")"
           echo "S authority sha256=$ACTUAL"
+          echo "S authority bytes=$SIZE"
           test "$ACTUAL" = "$EXPECTED"
+          test "$SIZE" -eq 1982782
 
-      - name: Commit canonical authority image
+      - name: Commit canonical authority image and remove staging
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add art/s-creature/references/00_s_type_modeling_image_v1.png
-          git rm -r art/s-creature/references/.s-authority-parts
+          git rm -r             art/s-creature/references/.s-authority-parts             art/s-creature/references/.s-authority-tail-parts             art/s-creature/references/.s-authority-tail-hex             art/s-creature/references/.s-authority-tail-bin
           git rm art/s-creature/references/.s-authority-ready
           git commit -m "art: lock exact approved S modeling image v1"
           git push origin HEAD:"${GITHUB_REF_NAME}"
