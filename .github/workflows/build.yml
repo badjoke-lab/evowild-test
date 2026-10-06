@@ -1,5 +1,8 @@
 name: build
 
+permissions:
+  contents: write
+
 on:
   push:
     branches: ["main", "feat/**", "fix/**"]
@@ -48,7 +51,12 @@ jobs:
               --grep "P E A grounded-stride v2" \
               --workers=1
           elif [[ "$BRANCH" == feat/2p5d-survivor-pea-keypose-capture-* ]]; then
-            npx playwright test tests/pea-keypose-capture.spec.js --project=desktop-chromium --workers=1
+            if [[ -f public/concept/p-run-sheet-mf12-v1.webp && -f public/concept/e-run-sheet-mf12-v1.webp && -f public/concept/a-run-sheet-mf12-v1.webp ]]; then
+              npx playwright test tests/race-quality.spec.js --project=desktop-chromium --workers=1 \
+                --grep "P E A mf12 direct-gait review cycles all twelve frames"
+            else
+              npx playwright test tests/pea-keypose-capture.spec.js --project=desktop-chromium --workers=1
+            fi
           elif [[ "$BRANCH" == "feat/2p5d-four-morph-quality-integration-20260925" || "$BRANCH" == feat/2p5d-survivor-* ]]; then
             npx playwright test tests/race-quality.spec.js tests/2p5d-selection.spec.js --workers=1
           else
@@ -67,6 +75,22 @@ jobs:
           name: pea-mf-keypose-candidates
           path: artifacts/pea-keypose-capture/*
           if-no-files-found: error
+      - name: Materialize P E A mf12 candidate sheets on branch
+        if: ${{ github.event_name == 'push' && startsWith(github.ref_name, 'feat/2p5d-survivor-pea-keypose-capture-') }}
+        shell: bash
+        run: |
+          cp artifacts/pea-keypose-capture/p-run-sheet-mf12-v1.webp public/concept/p-run-sheet-mf12-v1.webp
+          cp artifacts/pea-keypose-capture/e-run-sheet-mf12-v1.webp public/concept/e-run-sheet-mf12-v1.webp
+          cp artifacts/pea-keypose-capture/a-run-sheet-mf12-v1.webp public/concept/a-run-sheet-mf12-v1.webp
+          if git diff --quiet -- public/concept/p-run-sheet-mf12-v1.webp public/concept/e-run-sheet-mf12-v1.webp public/concept/a-run-sheet-mf12-v1.webp; then
+            echo "mf12 candidate sheets already current"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/concept/p-run-sheet-mf12-v1.webp public/concept/e-run-sheet-mf12-v1.webp public/concept/a-run-sheet-mf12-v1.webp
+          git commit -m "assets: materialize P E A mf12 review sheets"
+          git push origin HEAD:"$GITHUB_REF_NAME"
       - name: Upload 2.5D survivor visuals
         if: always()
         uses: actions/upload-artifact@v4
