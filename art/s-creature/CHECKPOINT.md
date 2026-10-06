@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: authority reset R0-A2 v2 central-weighted shoulder/tuck/pelvis rendered; REVIEW_PENDING / STOPPED
+current_stage: authority reset R0-A2 v2 ACCEPTED; R0-A3 fore/hind limb segment rhythm next
 branch: exp/s-creature-vibe-modeling
 current_model_file: output/S-authority-r0-a2-v2.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Compare R0-A2 v2 SIDE/FRONT/FRONT34/REAR34/BACK directly with references/00_s_type_modeling_image_v1.png and decide KEEP/REVISE/REJECT. Do not start R0-A3 before acceptance.
+next_action: Execute R0-A3 only from accepted output/S-authority-r0-a2-v2.blend. Hard-lock head/crest/neck and R0-A2 body mass; edit fore/hind limb segment rhythm only. Feet/toes and tail remain fixed.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -827,3 +827,9 @@ authority_r0_a2_v2_renders:
 - output/review/authority-r0-a2-v2/S_authority_r0_a2_v2_rear34.png
 - output/review/authority-r0-a2-v2/S_authority_r0_a2_v2_back.png
 authority_r0_a3_status: BLOCKED_PENDING_R0_A2_REVIEW
+
+
+authority_r0_a2_v2_decision: KEEP / ACCEPT
+authority_r0_a2_v2_review: S_AUTHORITY_R0_A2_V2_REVIEW.md
+authority_r0_a2_accepted_model: output/S-authority-r0-a2-v2.blend
+authority_r0_a3_status: NEXT
