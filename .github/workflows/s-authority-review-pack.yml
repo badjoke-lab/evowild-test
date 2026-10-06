@@ -1,0 +1,27 @@
+name: S authority review pack
+on:
+  push:
+    branches: [exp/s-creature-vibe-modeling]
+    paths:
+      - .github/workflows/s-authority-review-pack.yml
+permissions:
+  contents: read
+jobs:
+  pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: exp/s-creature-vibe-modeling
+      - name: Verify review pack
+        run: |
+          test -f art/s-creature/references/00_s_type_modeling_image_v1.png
+          test -f art/s-creature/output/review/authority-r0-a1-v1/S_authority_r0_a1_v1_side.png
+          echo "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png" | sha256sum -c -
+      - uses: actions/upload-artifact@v4
+        with:
+          name: S-authority-review-pack
+          path: |
+            art/s-creature/references/00_s_type_modeling_image_v1.png
+            art/s-creature/output/review/authority-r0-a1-v1/
+          if-no-files-found: error
