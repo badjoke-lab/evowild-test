@@ -1,0 +1,130 @@
+{
+  "lane": "exp/s-creature-vibe-modeling",
+  "gate": "R0-A2-v1-authority-body-mass",
+  "status": "REVIEW_PENDING",
+  "decision": "REVIEW_PENDING",
+  "authority_image": "references/00_s_type_modeling_image_v1.png",
+  "authority_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "source": "S-authority-r0-v2.blend",
+  "accepted_prior_gate": "R0-A1 v2",
+  "output": "S-authority-r0-a2-v1.blend",
+  "scope": "shoulder/anterior thorax + waist tuck + pelvis/upper hindquarter only",
+  "a2_envelope": {
+    "y": [
+      -0.16,
+      1.14
+    ],
+    "z_min": 0.66
+  },
+  "mass_fields": {
+    "shoulder": {
+      "support_y": [
+        -0.16,
+        0.36
+      ],
+      "center_y": 0.05,
+      "max_lateral_gain": 0.42,
+      "max_ventral_deepen": 0.105,
+      "max_dorsal_lift": 0.035
+    },
+    "waist": {
+      "support_y": [
+        0.26,
+        0.78
+      ],
+      "center_y": 0.52,
+      "max_lateral_reduction": 0.26,
+      "max_ventral_tuck": 0.145
+    },
+    "pelvis": {
+      "support_y": [
+        0.62,
+        1.14
+      ],
+      "center_y": 0.88,
+      "max_lateral_gain": 0.34,
+      "max_ventral_deepen": 0.055,
+      "max_dorsal_lift": 0.045
+    }
+  },
+  "hard_fixed": [
+    "accepted R0-A1 head/neck",
+    "accepted crest mesh",
+    "body topology",
+    "outside A2 envelope",
+    "distal limbs outside envelope",
+    "all toe meshes",
+    "tail beyond envelope",
+    "review cameras"
+  ],
+  "body_vertex_count": 5728,
+  "editable_vertex_count": 3166,
+  "moved_vertex_count": 3166,
+  "max_displacement": 0.12993465192158804,
+  "mean_displacement": 0.03363670077303849,
+  "a1_locked_vertex_count": 714,
+  "a1_geometry_unchanged": true,
+  "crest_geometry_unchanged": true,
+  "other_meshes_unchanged": true,
+  "body_topology_unchanged": true,
+  "body_nonmanifold_edge_count": 0,
+  "camera_transforms_unchanged": true,
+  "weights_meta": {
+    "shoulder_nonzero": 1467,
+    "waist_nonzero": 1250,
+    "pelvis_nonzero": 1288
+  },
+  "before_stats": {
+    "shoulder": {
+      "max_abs_x": 0.20279809832572937,
+      "min_z": 0.7213584780693054,
+      "max_z": 1.1323174238204956,
+      "count": 1020
+    },
+    "waist": {
+      "max_abs_x": 0.2048642486333847,
+      "min_z": 0.6604288816452026,
+      "max_z": 1.1048941612243652,
+      "count": 465
+    },
+    "pelvis": {
+      "max_abs_x": 0.20467963814735413,
+      "min_z": 0.7790061831474304,
+      "max_z": 1.1233388185501099,
+      "count": 613
+    }
+  },
+  "after_stats": {
+    "shoulder": {
+      "max_abs_x": 0.28720808029174805,
+      "min_z": 0.7201838493347168,
+      "max_z": 1.1497634649276733,
+      "count": 834
+    },
+    "waist": {
+      "max_abs_x": 0.17688468098640442,
+      "min_z": 0.7372384071350098,
+      "max_z": 1.1053675413131714,
+      "count": 465
+    },
+    "pelvis": {
+      "max_abs_x": 0.2428501397371292,
+      "min_z": 0.7563693523406982,
+      "max_z": 1.1440149545669556,
+      "count": 613
+    }
+  },
+  "shoulder_width_ratio": 1.416226693755488,
+  "waist_width_ratio": 0.8634238631990339,
+  "pelvis_width_ratio": 1.1864890026935417,
+  "waist_floor_raise": 0.07680952548980713,
+  "stop_rule": "render SIDE/FRONT/FRONT34/REAR34/BACK and STOP; R0-A3 blocked pending actual-image review",
+  "rendered_views": [
+    "side",
+    "front",
+    "front34",
+    "rear34",
+    "back"
+  ],
+  "modeling_status": "STOPPED"
+}

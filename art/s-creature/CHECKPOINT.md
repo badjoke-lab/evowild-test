@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: authority reset R0-A1 v2 ACCEPTED; R0-A2 shoulder/thorax + waist + pelvis next
+current_stage: authority reset R0-A2 v1 shoulder/thorax + waist tuck + pelvis mass rendered; REVIEW_PENDING / STOPPED
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-authority-r0-v2.blend (R0-A1 accepted)
+current_model_file: output/S-authority-r0-a2-v1.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute R0-A2 only from accepted output/S-authority-r0-v2.blend. Rebuild shoulder/thorax mass, deep waist tuck and pelvis/hindquarter mass against exact authority; hard-lock head/crest/neck and do not edit legs/feet/tail.
+next_action: Compare R0-A2 v1 SIDE/FRONT/FRONT34/REAR34/BACK directly with references/00_s_type_modeling_image_v1.png and decide KEEP/REVISE/REJECT. Do not start R0-A3 before acceptance.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -798,3 +798,14 @@ authority_r0_a2_status: BLOCKED_PENDING_R0_A1_REVIEW
 authority_r0_a1_v2_decision: KEEP / ACCEPT
 authority_r0_a1_v2_review: S_AUTHORITY_R0_A1_V2_REVIEW.md
 authority_r0_a2_status: NEXT
+
+authority_r0_a2_v1_status: REVIEW_PENDING / STOPPED
+authority_r0_a2_v1_scope: shoulder/anterior thorax + waist tuck + pelvis/upper hindquarter only
+authority_r0_a2_v1_model: output/S-authority-r0-a2-v1.blend
+authority_r0_a2_v1_renders:
+- output/review/authority-r0-a2-v1/S_authority_r0_a2_v1_side.png
+- output/review/authority-r0-a2-v1/S_authority_r0_a2_v1_front.png
+- output/review/authority-r0-a2-v1/S_authority_r0_a2_v1_front34.png
+- output/review/authority-r0-a2-v1/S_authority_r0_a2_v1_rear34.png
+- output/review/authority-r0-a2-v1/S_authority_r0_a2_v1_back.png
+authority_r0_a3_status: BLOCKED_PENDING_R0_A2_REVIEW
