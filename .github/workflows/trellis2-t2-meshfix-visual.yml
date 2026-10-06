@@ -1,0 +1,60 @@
+name: TRELLIS2 T2 MeshFix visual review
+
+on:
+  push:
+    branches:
+      - exp/trellis2-pixal3d-s-bench-20261004
+    paths:
+      - "art/s-creature/experiments/trellis2-pixal3d/TRIGGER_T2_VISUAL.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Blender libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+
+      - name: Download Blender 4.3.2
+        run: |
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+
+      - name: Render source and repaired five views
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: >
+          /tmp/blender-4.3.2-linux-x64/blender
+          -b
+          -t 4
+          --python-exit-code 1
+          --python art/s-creature/blender/render_trellis2_t2_meshfix.py
+
+      - name: Verify ten renders
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          d=Path('art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-meshfix/review')
+          for prefix in ('weld_source','meshfix_repaired'):
+              for view in ('side','front','front34','rear34','back'):
+                  p=d/f'{prefix}_{view}.png'
+                  assert p.exists() and p.stat().st_size>1000, p
+          PY
+
+      - name: Commit T2 visual evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-meshfix/review
+          git commit -m "exp: persist TRELLIS2 T2 MeshFix visual review"
+          git push origin HEAD:exp/trellis2-pixal3d-s-bench-20261004
