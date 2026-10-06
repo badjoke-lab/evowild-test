@@ -1,0 +1,41 @@
+{
+  "source_run_id": 37260023741,
+  "motion_file": "evos-steady_run-rep_0-0.npy",
+  "frames": 60,
+  "fps": 30,
+  "joints": 18,
+  "root_xz_net_travel": 0.1512071568326772,
+  "root_xz_path_length": 0.35230112344737063,
+  "root_vertical_span": 0.04367715120315552,
+  "foot_metrics": {
+    "fore_L_foot": {
+      "y_min": 0.048088622766539996,
+      "y_max": 0.32777846814980405,
+      "low_frames": 5,
+      "mean_speed_when_low": 0.4338618204902236,
+      "max_speed_when_low": 0.6405976148637772
+    },
+    "fore_R_foot": {
+      "y_min": -0.06208074561085257,
+      "y_max": 0.2368349624919225,
+      "low_frames": 6,
+      "mean_speed_when_low": 0.41126091322686814,
+      "max_speed_when_low": 1.0008187295230044
+    },
+    "hind_L_foot": {
+      "y_min": 0.7266196815049821,
+      "y_max": 0.7789057958663956,
+      "low_frames": 5,
+      "mean_speed_when_low": 0.08371717194751592,
+      "max_speed_when_low": 0.262759286232895
+    },
+    "hind_R_foot": {
+      "y_min": 0.69695466374402,
+      "y_max": 0.7615305457555731,
+      "low_frames": 5,
+      "mean_speed_when_low": 0.5634247276421676,
+      "max_speed_when_low": 1.2950545226257217
+    }
+  },
+  "note": "Contact metrics are diagnostics only; PASS/REJECT requires visual review of the animated asset."
+}
