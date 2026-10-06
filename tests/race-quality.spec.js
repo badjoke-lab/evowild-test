@@ -470,22 +470,22 @@ test("2.5D P E A subframe smoothing feathers high-detail six-frame art", async (
       "high-detail-6f"
     );
 
-    await page.waitForFunction(
-      ({ key }) => {
+    const stateHandle = await page.waitForFunction(
+      ({ lower }) => {
         const stage = document.querySelector("#stage");
-        const value = Number(stage?.dataset[key]);
-        return Number.isFinite(value) && value > 0.12 && value < 0.92;
+        const blend = Number(stage?.dataset[`${lower}SubframeBlend`]);
+        if (!Number.isFinite(blend) || blend <= 0.12 || blend >= 0.92) return null;
+        return {
+          blend,
+          progress: Number(stage.dataset[`${lower}PhaseProgress`]),
+          frame: Number(stage.dataset[`${lower}Frame`]),
+          nextFrame: Number(stage.dataset[`${lower}NextFrame`])
+        };
       },
-      { key: `${morph.toLowerCase()}SubframeBlend` },
+      { lower: morph.toLowerCase() },
       { timeout: 8000 }
     );
-
-    const state = await stage.evaluate((node, lower) => ({
-      blend: Number(node.dataset[`${lower}SubframeBlend`]),
-      progress: Number(node.dataset[`${lower}PhaseProgress`]),
-      frame: Number(node.dataset[`${lower}Frame`]),
-      nextFrame: Number(node.dataset[`${lower}NextFrame`])
-    }), morph.toLowerCase());
+    const state = await stateHandle.jsonValue();
 
     expect(state.blend).toBeGreaterThan(0.1);
     expect(state.blend).toBeLessThan(0.95);
