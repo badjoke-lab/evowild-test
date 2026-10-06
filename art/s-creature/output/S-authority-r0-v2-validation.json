@@ -1,8 +1,8 @@
 {
   "lane": "exp/s-creature-vibe-modeling",
   "gate": "R0-A1-v2-authority-head-crest-neck",
-  "status": "REVIEW_PENDING",
-  "decision": "REVIEW_PENDING",
+  "status": "ACCEPTED_R0_A1",
+  "decision": "KEEP",
   "authority_image": "references/00_s_type_modeling_image_v1.png",
   "authority_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
   "source": "S-vibe-b2a-v5.blend",
@@ -78,7 +78,7 @@
         0.125,
         0.018
       ],
-      "roll_deg": -40.0,
+      "roll_deg": -40,
       "centers": [
         [
           -0.054999999701976776,
@@ -160,7 +160,7 @@
         0.125,
         0.018
       ],
-      "roll_deg": 40.0,
+      "roll_deg": 40,
       "centers": [
         [
           0.054999999701976776,
@@ -242,7 +242,7 @@
         0.06,
         0.012
       ],
-      "roll_deg": -32.0,
+      "roll_deg": -32,
       "centers": [
         [
           -0.057999998331069946,
@@ -324,7 +324,7 @@
         0.06,
         0.012
       ],
-      "roll_deg": 32.0,
+      "roll_deg": 32,
       "centers": [
         [
           0.057999998331069946,
@@ -406,7 +406,7 @@
         0.043,
         0.009
       ],
-      "roll_deg": -24.0,
+      "roll_deg": -24,
       "centers": [
         [
           -0.05400000140070915,
@@ -488,7 +488,7 @@
         0.043,
         0.009
       ],
-      "roll_deg": 24.0,
+      "roll_deg": 24,
       "centers": [
         [
           0.05400000140070915,
@@ -556,5 +556,8 @@
     "rear34",
     "back"
   ],
-  "modeling_status": "STOPPED"
+  "modeling_status": "STOPPED",
+  "review": "S_AUTHORITY_R0_A1_V2_REVIEW.md",
+  "accepted_scope": "R0-A1 head + paired dominant crest + secondary crest + neck line",
+  "next": "R0-A2 shoulder/thorax + waist + pelvis mass; R0-A1 geometry hard-locked."
 }
