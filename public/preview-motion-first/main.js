@@ -56,6 +56,11 @@ const KIMODO_LAUNCH_BLEND = THREE.MathUtils.clamp(
   0,
   1
 );
+const KIMODO_LAUNCH_FREEZE_TIME = Number(params.get("kimodoLaunchFreeze"));
+const KIMODO_LAUNCH_FREEZE_ENABLED =
+  SIMPLIFIED_RACE_PAGE &&
+  Number.isFinite(KIMODO_LAUNCH_FREEZE_TIME) &&
+  KIMODO_LAUNCH_FREEZE_TIME > 0;
 
 const RACE_COURSE_PROFILES = {
   "sprint-800-v1": {
@@ -6232,6 +6237,20 @@ function animate() {
         finishCheck();
         simulationAccumulator -= SIMULATION_STEP;
         simulationSteps += 1;
+
+        if (
+          KIMODO_LAUNCH_FREEZE_ENABLED &&
+          raceTime + 1e-9 >= KIMODO_LAUNCH_FREEZE_TIME
+        ) {
+          paused = true;
+          simulationAccumulator = 0;
+          canvas.dataset.kimodoLaunchFrozen = "1";
+          canvas.dataset.kimodoLaunchFreezeTime =
+            KIMODO_LAUNCH_FREEZE_TIME.toFixed(3);
+          pauseButton.textContent = "RESUME";
+          raceStateEl.textContent = "PAUSED";
+          break;
+        }
       }
 
       canvas.dataset.raceTime = raceTime.toFixed(3);
