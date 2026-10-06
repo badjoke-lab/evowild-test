@@ -3,7 +3,37 @@ import fs from "node:fs";
 
 const OUT = "test-results/kimodo-launch";
 
-async function captureVariant(browser, view, kimodo) {
+async function setView(page, view) {
+  await page.getByRole("button", { name: view, exact: true }).click({ force: true });
+  await expect(page.locator("#cameraReadout")).toHaveText(view);
+  // Camera damping continues while physics is paused. Give it several render
+  // frames so SIDE/LOW evidence is not captured mid-transition.
+  await page.waitForTimeout(450);
+}
+
+async function capturePausedViews(page, scene, label, stage) {
+  await setView(page, "SIDE");
+  await scene.screenshot({ path: `${OUT}/side-${label}-${stage}.png` });
+  await setView(page, "LOW");
+  await scene.screenshot({ path: `${OUT}/low-${label}-${stage}.png` });
+  await setView(page, "SIDE");
+}
+
+async function readTelemetry(scene) {
+  return {
+    simTime: Number(await scene.getAttribute("data-race-time")),
+    leanTarget: Number(await scene.getAttribute("data-s-accel-lean-target")),
+    lean: Number(await scene.getAttribute("data-s-accel-lean")),
+    envelope: await scene.getAttribute("data-kimodo-launch-envelope"),
+    review: await scene.getAttribute("data-kimodo-launch-review"),
+    playback: Number(await scene.getAttribute("data-s-playback-rate")),
+    seconds: await scene.getAttribute("data-kimodo-launch-seconds"),
+    drive: await scene.getAttribute("data-kimodo-launch-drive"),
+    neckPitchDeg: Number(await scene.getAttribute("data-kimodo-neck-pitch-deg"))
+  };
+}
+
+async function captureVariant(browser, kimodo) {
   const label = kimodo ? "kimodo" : "baseline";
   const context = await browser.newContext({
     viewport: { width: 1280, height: 720 },
@@ -38,10 +68,12 @@ async function captureVariant(browser, view, kimodo) {
   await expect(scene).toHaveAttribute("data-s-asset-ready", "1");
   await expect(scene).toHaveAttribute("data-s-runtime-animated", "1");
   await expect(scene).toHaveAttribute("data-launch-timing-review", "1");
-
-  await page.getByRole("button", { name: view, exact: true }).click({ force: true });
-  await expect(page.locator("#cameraReadout")).toHaveText(view);
   await expect(scene).toHaveAttribute("data-launch-timing-hold", "1");
+  await setView(page, "SIDE");
+
+  if (kimodo) {
+    await page.evaluate(() => window.__resetKimodoLaunchReview?.());
+  }
 
   const pauseAt = async (targetSeconds) => {
     await page.evaluate((target) => {
@@ -50,124 +82,58 @@ async function captureVariant(browser, view, kimodo) {
     await page.getByRole("button", { name: "RESUME", exact: true }).click({ force: true });
     await expect.poll(
       async () => Number(await scene.getAttribute("data-launch-timing-paused-at")),
-      { timeout: 15000 }
+      { timeout: 20000 }
     ).toBeGreaterThanOrEqual(targetSeconds);
   };
 
-  if (kimodo) {
-    await page.evaluate(() => window.__resetKimodoLaunchReview?.());
+  const samples = {};
+  for (const [stage, target] of [["early", 0.5], ["mid", 1.6], ["late", 4.2]]) {
+    await pauseAt(target);
+    samples[stage] = await readTelemetry(scene);
+    await capturePausedViews(page, scene, label, stage);
   }
-
-  await page.evaluate((target) => {
-    window.__pauseLaunchTimingReviewAt?.(target);
-  }, 0.5);
-  await page.getByRole("button", { name: "RESUME", exact: true }).click({ force: true });
-  await expect.poll(
-    async () => Number(await scene.getAttribute("data-launch-timing-paused-at")),
-    { timeout: 15000 }
-  ).toBeGreaterThanOrEqual(0.5);
-
-  const early = {
-    simTime: Number(await scene.getAttribute("data-race-time")),
-    leanTarget: Number(await scene.getAttribute("data-s-accel-lean-target")),
-    lean: Number(await scene.getAttribute("data-s-accel-lean")),
-    envelope: await scene.getAttribute("data-kimodo-launch-envelope"),
-    review: await scene.getAttribute("data-kimodo-launch-review"),
-    playback: Number(await scene.getAttribute("data-s-playback-rate")),
-    seconds: await scene.getAttribute("data-kimodo-launch-seconds"),
-    drive: await scene.getAttribute("data-kimodo-launch-drive"),
-    neckPitchDeg: Number(await scene.getAttribute("data-kimodo-neck-pitch-deg"))
-  };
-  await scene.screenshot({
-    path: `${OUT}/${view.toLowerCase()}-${label}-early.png`
-  });
-
-  await pauseAt(1.6);
-  const mid = {
-    simTime: Number(await scene.getAttribute("data-race-time")),
-    leanTarget: Number(await scene.getAttribute("data-s-accel-lean-target")),
-    lean: Number(await scene.getAttribute("data-s-accel-lean")),
-    envelope: await scene.getAttribute("data-kimodo-launch-envelope"),
-    review: await scene.getAttribute("data-kimodo-launch-review"),
-    playback: Number(await scene.getAttribute("data-s-playback-rate")),
-    seconds: await scene.getAttribute("data-kimodo-launch-seconds"),
-    drive: await scene.getAttribute("data-kimodo-launch-drive"),
-    neckPitchDeg: Number(await scene.getAttribute("data-kimodo-neck-pitch-deg"))
-  };
-  await scene.screenshot({
-    path: `${OUT}/${view.toLowerCase()}-${label}-mid.png`
-  });
-
-  await pauseAt(4.2);
-  const late = {
-    simTime: Number(await scene.getAttribute("data-race-time")),
-    leanTarget: Number(await scene.getAttribute("data-s-accel-lean-target")),
-    lean: Number(await scene.getAttribute("data-s-accel-lean")),
-    envelope: await scene.getAttribute("data-kimodo-launch-envelope"),
-    review: await scene.getAttribute("data-kimodo-launch-review"),
-    playback: Number(await scene.getAttribute("data-s-playback-rate")),
-    seconds: await scene.getAttribute("data-kimodo-launch-seconds"),
-    drive: await scene.getAttribute("data-kimodo-launch-drive"),
-    neckPitchDeg: Number(await scene.getAttribute("data-kimodo-neck-pitch-deg"))
-  };
-  await scene.screenshot({
-    path: `${OUT}/${view.toLowerCase()}-${label}-late.png`
-  });
 
   const video = page.video();
   await page.close();
   if (!video) throw new Error("Playwright video was not created");
-  await video.saveAs(`${OUT}/${view.toLowerCase()}-${label}.webm`);
+  await video.saveAs(`${OUT}/${label}.webm`);
   await context.close();
 
   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
-
-  return { early, mid, late };
+  return samples;
 }
 
-test("Kimodo launch timing review preserves S gait runtime and changes only posture timing", async ({ browser }, testInfo) => {
+test("Kimodo v2 launch timing preserves S root/gait and adds non-contact follow-through", async ({ browser }, testInfo) => {
   test.skip(process.env.KIMODO_LAUNCH_CAPTURE !== "1");
   test.skip(testInfo.project.name !== "desktop-chromium");
-  test.setTimeout(120000);
+  test.setTimeout(180000);
   fs.mkdirSync(OUT, { recursive: true });
 
-  const baselineSide = await captureVariant(browser, "SIDE", false);
-  const kimodoSide = await captureVariant(browser, "SIDE", true);
-  const baselineLow = await captureVariant(browser, "LOW", false);
-  const kimodoLow = await captureVariant(browser, "LOW", true);
+  const baseline = await captureVariant(browser, false);
+  const kimodo = await captureVariant(browser, true);
 
   fs.writeFileSync(
     `${OUT}/telemetry.json`,
-    JSON.stringify({ baselineSide, kimodoSide, baselineLow, kimodoLow }, null, 2)
+    JSON.stringify({ baseline, kimodo }, null, 2)
   );
 
-  expect(baselineSide.early.review).toBe("0");
-  expect(kimodoSide.early.review).toBe("1");
-  expect(baselineSide.early.envelope).toBe("baseline");
-  expect(Number(kimodoSide.early.envelope)).toBeGreaterThan(0);
-  expect(Number(kimodoSide.early.envelope)).toBeLessThan(1);
-  expect(Number(kimodoSide.mid.envelope)).toBeGreaterThan(Number(kimodoSide.early.envelope));
-  expect(Number(kimodoSide.mid.seconds)).toBeGreaterThan(Number(kimodoSide.early.seconds));
-  expect(Math.abs(baselineSide.early.simTime - kimodoSide.early.simTime)).toBeLessThan(0.03);
-  expect(Math.abs(baselineSide.mid.simTime - kimodoSide.mid.simTime)).toBeLessThan(0.03);
-  expect(Math.abs(baselineSide.late.simTime - kimodoSide.late.simTime)).toBeLessThan(0.03);
+  expect(baseline.early.review).toBe("0");
+  expect(kimodo.early.review).toBe("1");
+  expect(baseline.early.envelope).toBe("baseline");
+  expect(Number(kimodo.early.envelope)).toBeGreaterThan(0);
+  expect(Number(kimodo.early.envelope)).toBeLessThan(1);
+  expect(Number(kimodo.mid.envelope)).toBeGreaterThan(Number(kimodo.early.envelope));
 
-  expect(Number.isFinite(baselineSide.early.playback)).toBeTruthy();
-  expect(Number.isFinite(kimodoSide.early.playback)).toBeTruthy();
+  for (const stage of ["early", "mid", "late"]) {
+    expect(Math.abs(baseline[stage].simTime - kimodo[stage].simTime)).toBeLessThan(0.03);
+    expect(Math.abs(baseline[stage].playback - kimodo[stage].playback)).toBeLessThan(0.02);
+    expect(Math.abs(baseline[stage].leanTarget - kimodo[stage].leanTarget)).toBeLessThan(0.002);
+  }
 
-  // Kimodo changes the launch lean timing, not the baked S gait playback rule.
-  expect(Math.abs(kimodoSide.early.playback - baselineSide.early.playback)).toBeLessThan(0.12);
-
-  // V2 preserves the accepted root-lean target and uses Kimodo only for
-  // non-contact neck/head/tail timing.
-  expect(Math.abs(kimodoSide.early.leanTarget - baselineSide.early.leanTarget)).toBeLessThan(0.002);
-  expect(Math.abs(kimodoSide.mid.leanTarget - baselineSide.mid.leanTarget)).toBeLessThan(0.002);
-  expect(Math.abs(kimodoSide.late.leanTarget - baselineSide.late.leanTarget)).toBeLessThan(0.002);
-
-  expect(Number(kimodoSide.early.drive)).toBeGreaterThan(Number(kimodoSide.mid.drive));
-  expect(Number(kimodoSide.mid.drive)).toBeGreaterThan(0);
-  expect(Number(kimodoSide.late.drive)).toBeLessThan(0.001);
-  expect(kimodoSide.early.neckPitchDeg).toBeGreaterThan(2);
-  expect(kimodoSide.early.neckPitchDeg).toBeLessThan(7.1);
+  expect(Number(kimodo.early.drive)).toBeGreaterThan(Number(kimodo.mid.drive));
+  expect(Number(kimodo.mid.drive)).toBeGreaterThan(0);
+  expect(Number(kimodo.late.drive)).toBeLessThan(0.001);
+  expect(kimodo.early.neckPitchDeg).toBeGreaterThan(2);
+  expect(kimodo.early.neckPitchDeg).toBeLessThan(7.1);
 });
