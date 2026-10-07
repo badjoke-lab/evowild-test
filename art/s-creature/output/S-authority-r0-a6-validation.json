@@ -1,8 +1,8 @@
 {
   "lane": "exp/s-creature-vibe-modeling",
   "gate": "R0-A6-full-body-authority-review",
-  "status": "REVIEW_PENDING",
-  "decision": "REVIEW_PENDING",
+  "status": "ACCEPTED_R0_MORPHOLOGY",
+  "decision": "KEEP",
   "source": "S-authority-r0-a5-v2.blend",
   "authority_image": "references/00_s_type_modeling_image_v1.png",
   "accepted_prior_gates": [
@@ -44,5 +44,6 @@
   ],
   "modeling_status": "STOPPED",
   "scope": "review only; no geometry edits",
-  "next": "actual-image full-body comparison against authority"
+  "next": "R1-A1 junction/surface continuity while locking R0 morphology.",
+  "review": "S_AUTHORITY_R0_A6_REVIEW.md"
 }
