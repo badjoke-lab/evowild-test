@@ -39,7 +39,7 @@ def build(summary: dict, meta: dict, ts: dict):
 
     return {
         "schema_version": 1,
-        "source_text": meta.get("text") or meta.get("texts"),
+        "source_text": meta.get("text") or meta.get("texts") or meta.get("prompt"),
         "source_duration_s": summary.get("duration_s"),
         "source_heading_method": summary.get("heading_source"),
         "transfer_policy": {
