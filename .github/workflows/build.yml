@@ -5,6 +5,9 @@ on:
     branches: ["main", "feat/**", "fix/**"]
   pull_request:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,6 +19,8 @@ jobs:
       - run: npm install
       - name: Generate P candidate from existing mf12 motion
         if: ${{ startsWith(github.head_ref, 'feat/2p5d-p-mf12-flow-transfer-') || startsWith(github.ref_name, 'feat/2p5d-p-mf12-flow-transfer-') }}
+        env:
+          P_PROMOTE_CANDIDATE: "1"
         shell: bash
         run: |
           python3 -m pip install --disable-pip-version-check pillow numpy opencv-python-headless
@@ -76,7 +81,7 @@ jobs:
               --grep "Phase E simplified race|Race Agent v1|Agent strategy balance v1|positioning v1|course selector v1|heavy 1200 course v1|Race Entry v1"
           elif [[ "$BRANCH" == feat/2p5d-p-mf12-flow-transfer-* ]]; then
             npx playwright test tests/race-quality.spec.js --workers=1 \
-              --grep "P mf12 transfer review uses existing motion|P mf12 v1 candidate reads in full-field race"
+              --grep "mixed-frame run cycles|production P uses twelve-frame|production P twelve-frame cycle reads in full-field race"
           elif [[ "$BRANCH" == feat/2p5d-survivor-fair-start-* ]]; then
             npx playwright test tests/2p5d-selection.spec.js tests/race-quality.spec.js \
               --grep "four morph race uses all six-frame|battle readability|traffic sees nearby rivals|lane decision chooses real clearance|default start is logically level" \
@@ -98,6 +103,19 @@ jobs:
           else
             npm run test:e2e
           fi
+      - name: Materialize promoted P 12-frame sheet on branch
+        if: ${{ github.event_name == 'push' && startsWith(github.ref_name, 'feat/2p5d-p-mf12-flow-transfer-') }}
+        shell: bash
+        run: |
+          if git diff --quiet -- public/concept/p-run-sheet.webp; then
+            echo "P production sheet already materialized"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/concept/p-run-sheet.webp
+          git commit -m "art: promote P to mf12 12-frame run sheet"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
       - name: Upload 2.5D survivor visuals
         if: always()
         uses: actions/upload-artifact@v4
