@@ -1,8 +1,8 @@
 {
   "lane": "exp/s-creature-vibe-modeling",
   "gate": "R0-A5-v1-authority-long-layered-tail",
-  "status": "REVIEW_PENDING",
-  "decision": "REVIEW_PENDING",
+  "status": "REVISE",
+  "decision": "REVISE",
   "authority_image": "references/00_s_type_modeling_image_v1.png",
   "authority_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
   "source": "S-authority-r0-a4-v3.blend",
@@ -37,17 +37,17 @@
     {
       "name": "S_tail_blade_center",
       "root": [
-        0.0,
+        0,
         1.16,
         1.015
       ],
       "ctrl": [
-        0.0,
+        0,
         1.58,
         1.07
       ],
       "tip": [
-        0.0,
+        0,
         2.2,
         1.105
       ],
@@ -64,62 +64,62 @@
       "roll_deg": 0,
       "centers": [
         [
-          0.0,
+          0,
           1.159999966621399,
           1.0149999856948853
         ],
         [
-          0.0,
+          0,
           1.2380164861679077,
           1.0248347520828247
         ],
         [
-          0.0,
+          0,
           1.3193389177322388,
           1.0343388319015503
         ],
         [
-          0.0,
+          0,
           1.4039669036865234,
           1.0435123443603516
         ],
         [
-          0.0,
+          0,
           1.4919008016586304,
           1.0523552894592285
         ],
         [
-          0.0,
+          0,
           1.5831406116485596,
           1.0608677864074707
         ],
         [
-          0.0,
+          0,
           1.6776859760284424,
           1.0690497159957886
         ],
         [
-          0.0,
+          0,
           1.7755372524261475,
           1.076900839805603
         ],
         [
-          0.0,
+          0,
           1.8766942024230957,
           1.0844215154647827
         ],
         [
-          0.0,
+          0,
           1.9811570644378662,
           1.091611623764038
         ],
         [
-          0.0,
+          0,
           2.08892560005188,
           1.0984710454940796
         ],
         [
-          0.0,
+          0,
           2.200000047683716,
           1.1050000190734863
         ]
@@ -697,5 +697,7 @@
     "rear34",
     "back"
   ],
-  "modeling_status": "STOPPED"
+  "modeling_status": "STOPPED",
+  "review": "S_AUTHORITY_R0_A5_V1_REVIEW.md",
+  "next": "R0-A5 v2 from accepted S-authority-r0-a4-v3.blend; R0-A6 blocked."
 }
