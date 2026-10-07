@@ -71,7 +71,7 @@ for i in editable:
     p.x *= 1.0-0.50*e
 
     target_cz=0.970-0.190*t
-    p.z = p.z + (target_cz-p.z)*(0.52*e)
+    p.z = p.z + (target_cz-p.z)*(0.72*e) - 0.020*e
 
     d=(p-p0).length
     if d>1e-12:
