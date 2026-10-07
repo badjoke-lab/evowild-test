@@ -146,13 +146,37 @@ Decision: **KEEP C1 v2 AS THE ISOLATED KIMODO CANDIDATE**.
 
 This still does not authorize production enablement. The candidate remains behind `kimodoLaunch=1`; when the flag is used without an explicit source, it now selects the dedicated acceleration source. `kimodoLaunchSource=sprint` remains only for controlled comparison.
 
+## Full 18-runner pack gate
+
+The C1 v2 acceleration candidate was then tested in the normal 18-runner simplified race, without proxy isolation.
+
+Workflow:
+
+- GitHub Actions run `37634497798`: **SUCCESS**
+- evidence commit: `dddc12bfe4815bdeca3d37850927103559b8242a`
+- evidence: `artifacts/kimodo-ardy/pack-ab/`
+
+At both deterministic checkpoints, baseline and candidate had identical race physics:
+
+| Time | Physical speed ratio | Candidate visual lead | Runner count | Camera |
+| --- | ---: | ---: | ---: | --- |
+| 2.7 s | 0.4955 / 0.4955 | 0.1910 | 18 / 18 | PACK |
+| 3.1 s | 0.6176 / 0.6176 | 0.1423 | 18 / 18 | PACK |
+
+Visual review of the full-pack captures shows no pack-level silhouette anomaly, spacing break, or obvious S outlier caused by the Kimodo-derived body mechanics. The difference is intentionally subtle at this camera scale; the isolated SIDE/LOW gate is where the launch-shape change is readable.
+
+Decision: **PACK SAFETY GATE PASS**.
+
+This means the candidate is safe enough to keep as an isolated presentation experiment. It does not mean Kimodo improves the whole race by itself, and it does not authorize default enablement.
+
 ## Next gate
 
-Kimodo C1 v2 is complete as an isolated acceleration-presentation candidate.
+Kimodo C1 v2 has now cleared both isolated SIDE/LOW review and the full-pack safety gate.
 
-Next:
+Next work moves to **ARDY A1**:
 
-1. test the v2 candidate in full 18-runner pack context to ensure the S launch remains readable without becoming visually anomalous;
-2. keep all race physics and quadruped contact semantics unchanged;
-3. proceed to the separate ARDY lane for real-time target-velocity / steering transition research;
-4. do not promote either system to production unless it survives the corresponding visual and runtime gates.
+1. pin the released ARDY upstream/checkpoint contract and NPZ schema;
+2. validate EvoWild's extractor against an ARDY-compatible fixture without changing production motion;
+3. test real ARDY target-velocity / steering transitions only when a suitable CUDA inference path is available;
+4. do not incur paid GPU compute automatically;
+5. do not promote Kimodo or ARDY to production unless the corresponding runtime/visual gates pass.
