@@ -116,3 +116,42 @@ Execution order:
 Do not spend rig credits if rig-check recommends another body type.
 
 This fallback does not solve T1. The public Tripo v3 docs currently document rig-check, rig and retarget, but not the new Studio Text to Motion / Multi-stage Motion flow. T1 therefore still requires a WebGL-capable Studio execution surface unless a documented API appears.
+
+
+## 2026-10-07 execution route update
+
+Primary execution route is now **desktop-local Work**, not the cloud browser.
+
+Reason:
+
+- the authenticated cloud Work browser reproduced a hard WebGL-context failure in Tripo Studio;
+- ChatGPT desktop Work can operate locally with user-approved local files/apps;
+- the desktop built-in browser runs on the user's machine;
+- when an existing Chrome profile/session is preferable, use the supported Chrome path from the desktop app.
+
+### Preferred route
+
+1. Open the ChatGPT desktop app on the user's Mac.
+2. Open this project in **Work**.
+3. Use local Work, not Cloud Work, for the Tripo browser step.
+4. Open the desktop built-in browser (`Command+Shift+B`) and navigate to Tripo Studio.
+5. Sign in in the browser if needed; never put credentials in chat.
+6. Open/clone the repository locally and checkout:
+   `exp/tripo-s-motion-bench-20261003`
+7. Read this file and the bench/review specs.
+8. Run T0 in Tripo Studio with:
+   - `public/models/evowild-s/source-lod2.glb`
+   - model/version `v2.5-20260210`
+   - rig type `quadruped`
+9. If T0 passes, run exactly one T1 steady-run Text to Motion generation.
+10. Export the real results locally and let Work place them in the repository paths, commit, and push.
+11. Stop after T1 and wait for repository/Actions review.
+
+### Fallback route
+
+If the local desktop browser still cannot render Tripo:
+
+- T0 falls back to the existing GitHub Actions API route in `docs/tripo-t0-api-fallback.md`.
+- T1 remains blocked until a WebGL-capable local browser/Chrome path is available or Tripo exposes Text to Motion via API.
+
+Do not retry the known-broken cloud browser path.
