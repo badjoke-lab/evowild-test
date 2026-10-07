@@ -9,8 +9,8 @@
     "E",
     "A"
   ],
-  "stage": "AUTHORITY_R0_A6_NEXT",
-  "current_stage": "R0-A5 v2 accepted; R0-A6 full-body authority review next",
+  "stage": "AUTHORITY_R0_A6_REVIEW",
+  "current_stage": "R0-A6 full-body five-view authority review rendered; review pending; modeling stopped",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
   "current_model_file": "output/S-authority-r0-a5-v2.blend",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Render and review full-body SIDE/FRONT/FRONT34/REAR34/BACK from accepted output/S-authority-r0-a5-v2.blend. No geometry edits in R0-A6.",
+  "next_action": "Review R0-A6 SIDE/FRONT/FRONT34/REAR34/BACK directly against references/00_s_type_modeling_image_v1.png and decide R0 package KEEP/REVISE/REJECT.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -63,11 +63,11 @@
   "modeling_status": "STOPPED",
   "cage_vertex_count": 760,
   "review_renders": [
-    "output/review/authority-r0-a5-v2/S_authority_r0_a5_v2_side.png",
-    "output/review/authority-r0-a5-v2/S_authority_r0_a5_v2_front.png",
-    "output/review/authority-r0-a5-v2/S_authority_r0_a5_v2_front34.png",
-    "output/review/authority-r0-a5-v2/S_authority_r0_a5_v2_rear34.png",
-    "output/review/authority-r0-a5-v2/S_authority_r0_a5_v2_back.png"
+    "output/review/authority-r0-a6/S_authority_r0_a6_side.png",
+    "output/review/authority-r0-a6/S_authority_r0_a6_front.png",
+    "output/review/authority-r0-a6/S_authority_r0_a6_front34.png",
+    "output/review/authority-r0-a6/S_authority_r0_a6_rear34.png",
+    "output/review/authority-r0-a6/S_authority_r0_a6_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
   "editable_next": [],
@@ -873,5 +873,11 @@
     "decision": "KEEP",
     "status": "ACCEPTED_R0_A5",
     "review": "S_AUTHORITY_R0_A5_V2_REVIEW.md"
+  },
+  "r0_a6": {
+    "source": "output/S-authority-r0-a5-v2.blend",
+    "decision": "REVIEW_PENDING",
+    "status": "STOPPED_AFTER_FIVE_VIEW_RENDER",
+    "plan": "S_AUTHORITY_R0_A6_PLAN.md"
   }
 }

@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: authority reset R0-A5 v2 accepted; R0-A6 full-body authority review next
+current_stage: R0-A6 full-body five-view authority review rendered; REVIEW_PENDING / STOPPED
 branch: exp/s-creature-vibe-modeling
 current_model_file: output/S-authority-r0-a5-v2.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Execute R0-A6 five-view full-body authority review from accepted output/S-authority-r0-a5-v2.blend. No geometry edits.
+next_action: Compare R0-A6 SIDE/FRONT/FRONT34/REAR34/BACK directly with references/00_s_type_modeling_image_v1.png and decide whether R0 morphology package is accepted.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -919,3 +919,11 @@ authority_r0_a5_v2_decision: KEEP / ACCEPT R0-A5
 authority_r0_a5_v2_review: S_AUTHORITY_R0_A5_V2_REVIEW.md
 authority_r0_a5_v2_accepted_model: output/S-authority-r0-a5-v2.blend
 authority_r0_a6_status: NEXT
+
+authority_r0_a6_status: REVIEW_PENDING / STOPPED
+authority_r0_a6_renders:
+- output/review/authority-r0-a6/S_authority_r0_a6_side.png
+- output/review/authority-r0-a6/S_authority_r0_a6_front.png
+- output/review/authority-r0-a6/S_authority_r0_a6_front34.png
+- output/review/authority-r0-a6/S_authority_r0_a6_rear34.png
+- output/review/authority-r0-a6/S_authority_r0_a6_back.png

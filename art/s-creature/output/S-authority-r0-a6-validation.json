@@ -1,0 +1,48 @@
+{
+  "lane": "exp/s-creature-vibe-modeling",
+  "gate": "R0-A6-full-body-authority-review",
+  "status": "REVIEW_PENDING",
+  "decision": "REVIEW_PENDING",
+  "source": "S-authority-r0-a5-v2.blend",
+  "authority_image": "references/00_s_type_modeling_image_v1.png",
+  "accepted_prior_gates": [
+    {
+      "file": "S-authority-r0-v2-validation.json",
+      "status": "ACCEPTED_R0_A1",
+      "decision": "KEEP"
+    },
+    {
+      "file": "S-authority-r0-a2-v2-validation.json",
+      "status": "ACCEPTED_R0_A2",
+      "decision": "KEEP"
+    },
+    {
+      "file": "S-authority-r0-a3-v2-validation.json",
+      "status": "ACCEPTED_R0_A3",
+      "decision": "KEEP"
+    },
+    {
+      "file": "S-authority-r0-a4-v3-validation.json",
+      "status": "ACCEPTED_R0_A4",
+      "decision": "KEEP"
+    },
+    {
+      "file": "S-authority-r0-a5-v2-validation.json",
+      "status": "ACCEPTED_R0_A5",
+      "decision": "KEEP"
+    }
+  ],
+  "geometry_hash_before": "9604a149a3bc7686efc6d7c8c7821c582be7fe8bdf2ae3ffd20d0d7a5fa6e24a",
+  "geometry_hash_after": "9604a149a3bc7686efc6d7c8c7821c582be7fe8bdf2ae3ffd20d0d7a5fa6e24a",
+  "geometry_unchanged": true,
+  "rendered_views": [
+    "side",
+    "front",
+    "front34",
+    "rear34",
+    "back"
+  ],
+  "modeling_status": "STOPPED",
+  "scope": "review only; no geometry edits",
+  "next": "actual-image full-body comparison against authority"
+}
