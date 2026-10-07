@@ -1,0 +1,2 @@
+trigger=2026-10-07T13:22:00Z
+purpose=run pinned PixelArtistry LODTailor worker on MeshFix watertight source at 60k tris
