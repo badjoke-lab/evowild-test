@@ -1,0 +1,77 @@
+name: S authority R0-A3 v2
+on:
+  push:
+    branches: [exp/s-creature-vibe-modeling]
+    paths:
+      - .github/workflows/s-authority-r0-a3-v2.yml
+      - art/s-creature/S_AUTHORITY_R0_A3_V2_PLAN.md
+      - art/s-creature/blender/refine_s_authority_r0_a3_v2.py
+      - art/s-creature/blender/render_s_authority_r0_a3_v2.py
+permissions:
+  contents: write
+concurrency:
+  group: s-authority-r0-a3-v2
+  cancel-in-progress: true
+jobs:
+  r0-a3-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: exp/s-creature-vibe-modeling
+          fetch-depth: 1
+      - name: Verify source
+        run: |
+          test -f art/s-creature/output/S-authority-r0-a2-v2.blend
+          python -c "import json; r=json.load(open('art/s-creature/output/S-authority-r0-a2-v2-validation.json')); assert r['status']=='ACCEPTED_R0_A2' and r['decision']=='KEEP'"
+      - name: Install Blender
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Edit R0-A3 v2
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-authority-r0-a2-v2.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/refine_s_authority_r0_a3_v2.py
+      - name: Render R0-A3 v2
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-authority-r0-a3-v2.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/render_s_authority_r0_a3_v2.py
+      - name: Verify
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('art/s-creature')
+          r=json.loads((root/'output/S-authority-r0-a3-v2-validation.json').read_text())
+          assert r['gate']=='R0-A3-v2-authority-anisotropic-limb-rhythm'
+          assert r['outside_support_unchanged'] and r['separate_meshes_unchanged']
+          assert r['toe_geometry_unchanged'] and r['body_topology_unchanged']
+          assert r['body_nonmanifold_edge_count']==0 and r['max_displacement']<=0.055
+          d=r['directional_metrics']
+          assert 1.12<=d['upper_lateral_mean']['fore']<=1.30
+          assert 1.15<=d['upper_lateral_mean']['hind']<=1.34
+          assert d['joint_sagittal_mean']['fore']>=1.18
+          assert d['joint_sagittal_mean']['hind']>=1.18
+          assert d['distal_lateral_mean']['fore']<=1.02
+          assert d['distal_lateral_mean']['hind']<=1.02
+          assert r['rendered_views']==['side','front','front34','rear34','back']
+          for stem in r['rendered_views']:
+              assert (root/f'output/review/authority-r0-a3-v2/S_authority_r0_a3_v2_{stem}.png').stat().st_size>0
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: S-authority-R0-A3-v2-review
+          path: |
+            art/s-creature/output/S-authority-r0-a3-v2.blend
+            art/s-creature/output/S-authority-r0-a3-v2-validation.json
+            art/s-creature/output/review/authority-r0-a3-v2/
+      - name: Commit result
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add art/s-creature/output/S-authority-r0-a3-v2.blend art/s-creature/output/S-authority-r0-a3-v2-validation.json art/s-creature/output/review/authority-r0-a3-v2/ art/s-creature/CHECKPOINT.md art/s-creature/HANDOFF_STATE.json
+          git commit -m 'art: save authority R0-A3 v2 review'
+          git push origin HEAD:exp/s-creature-vibe-modeling
