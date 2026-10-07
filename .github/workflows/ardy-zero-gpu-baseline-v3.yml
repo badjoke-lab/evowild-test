@@ -1,0 +1,107 @@
+name: ARDY ZeroGPU Real Baseline v3
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - exp/kimodo-ardy-motion-feasibility-20261004
+    paths:
+      - "scripts/kimodo-ardy/fetch_ardy_zero_gpu.py"
+      - ".github/workflows/ardy-zero-gpu-baseline-v3.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  generate-and-analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: exp/kimodo-ardy-motion-feasibility-20261004
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install client and analysis dependencies
+        run: python -m pip install --disable-pip-version-check gradio_client numpy
+
+      - name: Generate real ARDY Core motion on public ZeroGPU host
+        run: |
+          rm -rf /tmp/ardy-real
+          python scripts/kimodo-ardy/fetch_ardy_zero_gpu.py \
+            --output-dir /tmp/ardy-real \
+            --prompt "A person accelerates smoothly from a run into a full sprint." \
+            --duration 1.5 \
+            --seed 42
+
+      - name: Analyze real ARDY NPZ
+        run: |
+          OUT=experiments/kimodo-ardy/ardy-space-generated/accel-v1
+          mkdir -p "$OUT"
+          cp /tmp/ardy-real/motion.npz "$OUT/motion.npz"
+          cp /tmp/ardy-real/metadata.json "$OUT/metadata.json"
+          cp /tmp/ardy-real/request.json "$OUT/request.json"
+          cp /tmp/ardy-real/space-api.json "$OUT/space-api.json"
+
+          python scripts/kimodo-ardy/extract_motion_signals.py \
+            "$OUT/motion.npz" \
+            --summary "$OUT/summary.json" \
+            --timeseries "$OUT/timeseries.csv"
+
+          python scripts/kimodo-ardy/build_transfer_profile.py \
+            --summary "$OUT/summary.json" \
+            --meta "$OUT/metadata.json" \
+            --timeseries "$OUT/timeseries.csv" \
+            --output "$OUT/transfer-profile.json"
+
+      - name: Write provenance
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          out=Path("experiments/kimodo-ardy/ardy-space-generated/accel-v1")
+          meta=json.loads((out/"metadata.json").read_text())
+          req=json.loads((out/"request.json").read_text())
+          payload={
+            "schema_version":1,
+            "inference_host":req["space"],
+            "host_classification":"third_party_zero_gpu",
+            "upstream_repository":"nv-tlabs/ardy",
+            "upstream_commit":"693f74d13b3d04a0a22ce127ee79c929dd89756b",
+            "official_checkpoint":meta.get("model") or req["authoritative_model_source"],
+            "motion_sha256":hashlib.sha256((out/"motion.npz").read_bytes()).hexdigest(),
+            "motion_bytes":(out/"motion.npz").stat().st_size,
+            "prompt":req["prompt"],
+            "seed":req["seed_requested"],
+            "note":"Third-party CozyClay ZeroGPU host using the official NVIDIA ARDY Core checkpoint with a public Llama mirror; compatibility evidence only."
+          }
+          (out/"provenance.json").write_text(json.dumps(payload,indent=2)+"\n")
+          print(json.dumps(payload,indent=2))
+          PY
+
+      - name: Validate finite real-motion signals
+        run: |
+          python - <<'PY'
+          import json, math
+          from pathlib import Path
+          p=Path("experiments/kimodo-ardy/ardy-space-generated/accel-v1/summary.json")
+          s=json.loads(p.read_text())
+          for key in ("duration_s","mean_speed_mps","max_speed_mps","mean_abs_accel_mps2"):
+              v=float(s[key])
+              assert math.isfinite(v), (key,v)
+          assert s["frames"] >= 20
+          assert s["fps"] > 0
+          print("ARDY real NPZ compatibility: PASS")
+          PY
+
+      - name: Commit real ARDY compatibility evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add experiments/kimodo-ardy/ardy-space-generated/accel-v1
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Record real ARDY ZeroGPU compatibility baseline"
+          git push origin HEAD:exp/kimodo-ardy-motion-feasibility-20261004
