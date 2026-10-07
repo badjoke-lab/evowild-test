@@ -71,9 +71,14 @@
   },
   "pixal3d": {
     "t1_decision": "PENDING",
-    "last_clean_attempt_run": 37459333081,
-    "blocker": "Free ZeroGPU quota is exhausted after clean-input generation attempts; no valid persisted candidate yet.",
-    "integration_status": "state_path handling fixed for next free retry"
+    "last_clean_attempt_run": 37628492477,
+    "generation_stage": "SUCCESS",
+    "glb_extraction": "BLOCKED_EXTERNAL",
+    "blocker": "Official Pixal3D /extract_glb_api requests 240s of GPU time, which the current ZeroGPU endpoint rejects because the requested duration exceeds the platform maximum.",
+    "blocker_error": "The requested GPU duration (240s) is larger than the maximum allowed",
+    "partial_artifact_id": 11484699634,
+    "integration_status": "preprocess download and state_path handling fixed; failure is now upstream endpoint policy rather than local client code",
+    "next_action": "Keep TRELLIS2 moving through T2. For Pixal3D, do not burn quota repeating the same official extraction call; test only a free endpoint/path that can legally extract a GLB within the platform limit."
   },
   "constraints": [
     "experiment branch only",
@@ -84,5 +89,5 @@
     "no manual morphology edit before T1 decision",
     "do not enter rig/motion with raw TRELLIS2 mesh"
   ],
-  "next_action": "Run the pinned PixelArtistry LODTailor Blender worker at 60k triangles with voxel rebuild disabled, then audit watertightness, drift and five-view morphology before deformation testing. Pixal3D remains pending on a valid clean-input candidate."
+  "next_action": "TRELLIS2: complete the pinned PixelArtistry LODTailor 60k rerun, persist audit and five-view evidence, then decide whether to enter deformation/rig suitability. Pixal3D is externally blocked at GLB extraction."
 }
