@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import json
 import shutil
+import time
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -81,7 +82,29 @@ def main() -> int:
     args = ap.parse_args()
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
-    client = Client(args.space, verbose=False)
+
+    # Sleeping Spaces can take longer than gradio_client's normal config probe.
+    # Wake the public app first, then allow a longer HTTP timeout for config/API.
+    if args.space == "VIDraft/CozyClay":
+        wake_url = "https://vidraft-cozyclay.hf.space/"
+        wake_errors = []
+        for attempt in range(3):
+            try:
+                with urllib.request.urlopen(wake_url, timeout=60) as response:
+                    print("Space wake status:", response.status)
+                break
+            except Exception as exc:
+                wake_errors.append(str(exc))
+                if attempt == 2:
+                    print("Space wake probe failed; Client will still retry:", wake_errors)
+                else:
+                    time.sleep(5)
+
+    client = Client(
+        args.space,
+        verbose=False,
+        httpx_kwargs={"timeout": 60.0},
+    )
 
     try:
         api = client.view_api(print_info=False, return_format="dict")
