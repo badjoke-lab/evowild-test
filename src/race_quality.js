@@ -38,14 +38,16 @@ const battleMetaEl = document.querySelector("#battleMeta");
 const agentCommandButtons = [...document.querySelectorAll("[data-agent-command]")];
 
 const BASE = import.meta.env.BASE_URL || "/";
-const FINISH_REVIEW_MODE = new URLSearchParams(location.search).get("finishReview") === "1";
-const BATTLE_REVIEW_MODE = new URLSearchParams(location.search).get("battleReview") === "1";
-const TRAFFIC_REVIEW_MODE = new URLSearchParams(location.search).get("trafficReview") === "1";
-const LANE_REVIEW_MODE = new URLSearchParams(location.search).get("laneReview") === "1";
-const MOTION_REVIEW_MODE = new URLSearchParams(location.search).get("motionReview") === "1";
+const QUERY = new URLSearchParams(location.search);
+const FINISH_REVIEW_MODE = QUERY.get("finishReview") === "1";
+const BATTLE_REVIEW_MODE = QUERY.get("battleReview") === "1";
+const TRAFFIC_REVIEW_MODE = QUERY.get("trafficReview") === "1";
+const LANE_REVIEW_MODE = QUERY.get("laneReview") === "1";
+const MOTION_REVIEW_MODE = QUERY.get("motionReview") === "1";
+const P_FLOW_REVIEW_MODE = QUERY.get("pFlowReview") === "1";
 const MOTION_REVIEW_FRAME = Math.max(
   -1,
-  Math.min(5, Number(new URLSearchParams(location.search).get("motionFrame") ?? -1))
+  Math.min(P_FLOW_REVIEW_MODE ? 11 : 5, Number(QUERY.get("motionFrame") ?? -1))
 );
 const FIELD_SIZE = 18;
 const SELECTED_ID = Math.max(
@@ -60,6 +62,8 @@ stage.dataset.cameraPolicy = "selected-plus-nearby";
 stage.dataset.peaMotionVersion = "grounded-stride-v2";
 stage.dataset.peaAnchorVersion = "alpha-bbox-x-v3";
 stage.dataset.aSheetLayout = "2x3";
+stage.dataset.pFlowReview = P_FLOW_REVIEW_MODE ? "1" : "0";
+stage.dataset.pFlowSource = P_FLOW_REVIEW_MODE ? "mf12-motion-field-transfer-v1" : "production";
 const LANE_PATTERN = [1, 2, 0, 3, 1, 3, 0, 2];
 const CRUISE_PATTERN = [36.8,34.7,35.9,34.9,36.1,35.2,35.6,34.8];
 const ACCEL_PATTERN = [15.0,13.4,14.3,13.6,14.0,13.5,13.9,13.4];
@@ -172,6 +176,21 @@ const RUN_FRAMES = [
   { phase:"LAND",    col:2, row:1, y:-0.16 }
 ];
 
+const P_FLOW_FRAMES = [
+  { phase:"CONTACT", col:0, row:0, y:0.00 },
+  { phase:"MID_CP",  col:1, row:0, y:0.00 },
+  { phase:"PUSH",    col:2, row:0, y:0.00 },
+  { phase:"MID_PL",  col:3, row:0, y:-0.08 },
+  { phase:"LIFT",    col:0, row:1, y:-0.18 },
+  { phase:"MID_LF",  col:1, row:1, y:-0.32 },
+  { phase:"FLIGHT",  col:2, row:1, y:-0.42 },
+  { phase:"MID_FR",  col:3, row:1, y:-0.31 },
+  { phase:"REACH",   col:0, row:2, y:-0.17 },
+  { phase:"MID_RL",  col:1, row:2, y:-0.08 },
+  { phase:"LAND",    col:2, row:2, y:-0.16 },
+  { phase:"MID_LC",  col:3, row:2, y:-0.05 }
+];
+
 const SHEET_LAYOUTS = {
   S: { cols:3, rows:2, coords:[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1]] },
   P: { cols:3, rows:2, coords:[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1]] },
@@ -280,13 +299,18 @@ for (const morph of ["S","P","E","A"]) {
   const image = new Image();
   image.decoding = "async";
   image.onload = () => {
-    const layout = SHEET_LAYOUTS[morph] ?? SHEET_LAYOUTS.S;
-    const frames = RUN_FRAMES.map((frame,index) => {
+    const usePFlow = morph === "P" && P_FLOW_REVIEW_MODE;
+    const layout = usePFlow
+      ? { cols:4, rows:3, coords:P_FLOW_FRAMES.map((frame) => [frame.col,frame.row]) }
+      : (SHEET_LAYOUTS[morph] ?? SHEET_LAYOUTS.S);
+    const frameDefs = usePFlow ? P_FLOW_FRAMES : RUN_FRAMES;
+    const frames = frameDefs.map((frame,index) => {
       const [col,row] = layout.coords[index] ?? [frame.col,frame.row];
       return extractConnectedFrame(image,col,row,layout.cols,layout.rows);
     });
     spriteFrames.set(morph, frames);
     stage.dataset[`${morph.toLowerCase()}SheetLayout`] = `${layout.cols}x${layout.rows}`;
+    if (usePFlow) stage.dataset.pFlowFrameCount = String(frames.length);
     if (morph !== "S") {
       const feet = frames.map((frame) => frame.__motionMetrics?.footYNorm ?? 0.98);
       const spread = Math.max(...feet) - Math.min(...feet);
@@ -307,7 +331,9 @@ for (const morph of ["S","P","E","A"]) {
     stage.dataset.runSheetsFailed = String(failedSheets);
     ui.assetStatus.textContent = morph + " run cycle failed";
   };
-  image.src = BASE + "concept/" + morph.toLowerCase() + "-run-sheet.webp";
+  image.src = morph === "P" && P_FLOW_REVIEW_MODE
+    ? BASE + "concept/p-run-sheet-mf12-flow-transfer-v1.webp"
+    : BASE + "concept/" + morph.toLowerCase() + "-run-sheet.webp";
   spriteSheets.set(morph, image);
 }
 
@@ -1227,15 +1253,23 @@ function drawRacers() {
     minEdge=Math.min(minEdge,item.x-spriteW*.52);
     maxEdge=Math.max(maxEdge,item.x+spriteW*.52);
 
-    const cadence=(9.5+clamp(r.speed/34,0,1)*9.5)*meta.cadence;
+    const usePFlow = r.morph === "P" && P_FLOW_REVIEW_MODE;
+    const cycleLength = usePFlow ? P_FLOW_FRAMES.length : RUN_FRAMES.length;
+    const cadence=(9.5+clamp(r.speed/34,0,1)*9.5)*meta.cadence*(usePFlow?2:1);
     const frameFloat=elapsed/1000*cadence+r.phaseOffset;
-    const cyclePosition=((frameFloat%RUN_FRAMES.length)+RUN_FRAMES.length)%RUN_FRAMES.length;
+    const cyclePosition=((frameFloat%cycleLength)+cycleLength)%cycleLength;
     const frameIndex=MOTION_REVIEW_MODE && r.id===SELECTED_ID && MOTION_REVIEW_FRAME>=0
       ? MOTION_REVIEW_FRAME
-      : r.morph==="S"
+      : usePFlow
         ? Math.floor(cyclePosition)
-        : peaFrameIndex(r.morph,cyclePosition);
-    const frame=RUN_FRAMES[frameIndex];
+        : r.morph==="S"
+          ? Math.floor(cyclePosition)
+          : peaFrameIndex(r.morph,cyclePosition);
+    const frame=(usePFlow ? P_FLOW_FRAMES : RUN_FRAMES)[frameIndex];
+    if (usePFlow && r.id===SELECTED_ID) {
+      stage.dataset.pFlowFrame = String(frameIndex);
+      stage.dataset.pFlowPhase = frame.phase;
+    }
 
     const slope=terrainSlope(item.visualDistance);
     const lean=clamp(slope*.022,-.045,.045);
@@ -1269,7 +1303,7 @@ function drawRacers() {
 
     const frameCanvas=frames?.[frameIndex];
     if(frameCanvas){
-      const peaProfile=PEA_MOTION_V2[r.morph];
+      const peaProfile=usePFlow ? null : PEA_MOTION_V2[r.morph];
       const phaseTransform=peaProfile?.transform?.[frame.phase] ?? { sx:1, sy:1, lean:0, lift:0 };
       const drawW=spriteW*phaseTransform.sx;
       const drawH=spriteH*phaseTransform.sy;
