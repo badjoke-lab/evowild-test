@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: authority reset R0-A3 v1 reviewed REVISE; R0-A3 v2 next from accepted R0-A2 v2 source
+current_stage: authority reset R0-A3 v2 anisotropic limb section shaping rendered; REVIEW_PENDING / STOPPED
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-authority-r0-a2-v2.blend
+current_model_file: output/S-authority-r0-a3-v2.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Build R0-A3 v2 from output/S-authority-r0-a2-v2.blend using anisotropic limb-section shaping. Preserve feet/toes and accepted body; render five views and stop. R0-A4 remains blocked.
+next_action: Compare R0-A3 v2 five views directly with references/00_s_type_modeling_image_v1.png. Decide KEEP/REVISE/REJECT. Do not start R0-A4 feet before acceptance.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -849,3 +849,14 @@ authority_r0_a3_v1_decision: REVISE
 authority_r0_a3_v1_review: S_AUTHORITY_R0_A3_V1_REVIEW.md
 authority_r0_a3_v2_source: output/S-authority-r0-a2-v2.blend
 authority_r0_a3_v2_rule: no v1 accumulation; replace isotropic joint bulbs with directional anisotropic section shaping.
+
+authority_r0_a3_v2_status: REVIEW_PENDING / STOPPED
+authority_r0_a3_v2_scope: anisotropic fore/hind limb section shaping only; feet/toes fixed
+authority_r0_a3_v2_model: output/S-authority-r0-a3-v2.blend
+authority_r0_a3_v2_renders:
+- output/review/authority-r0-a3-v2/S_authority_r0_a3_v2_side.png
+- output/review/authority-r0-a3-v2/S_authority_r0_a3_v2_front.png
+- output/review/authority-r0-a3-v2/S_authority_r0_a3_v2_front34.png
+- output/review/authority-r0-a3-v2/S_authority_r0_a3_v2_rear34.png
+- output/review/authority-r0-a3-v2/S_authority_r0_a3_v2_back.png
+authority_r0_a4_status: BLOCKED_PENDING_R0_A3_REVIEW
