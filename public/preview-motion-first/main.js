@@ -129,6 +129,12 @@ const PROXY_REVIEW_RUNNER =
   PROXY_REVIEW_RUNNER_PARAM === null
     ? null
     : Number.parseInt(PROXY_REVIEW_RUNNER_PARAM, 10);
+const PROXY_REVIEW_CAMERA_PARAM =
+  (params.get("proxyReviewCamera") || "SIDE").toUpperCase();
+const PROXY_REVIEW_CAMERA =
+  ["SIDE", "LOW", "CHASE", "FRONT"].includes(PROXY_REVIEW_CAMERA_PARAM)
+    ? PROXY_REVIEW_CAMERA_PARAM
+    : "SIDE";
 const VISUAL_SWAP_MORPH = (params.get("visualSwap") || "").toUpperCase();
 const VISUAL_SWAP_RUNNER_PARAM = params.get("visualSwapRunner");
 const VISUAL_SWAP_RUNNER =
@@ -6374,12 +6380,16 @@ async function boot() {
     ) {
       selectedRunner = PROXY_REVIEW_RUNNER;
       runnerSelect.value = String(PROXY_REVIEW_RUNNER);
-      requestedCamera = "SIDE";
-      actualCamera = "SIDE";
+      requestedCamera = PROXY_REVIEW_CAMERA;
+      actualCamera = PROXY_REVIEW_CAMERA;
       cameraButtons.forEach((button) => {
-        button.classList.toggle("active", button.dataset.camera === "SIDE");
+        button.classList.toggle(
+          "active",
+          button.dataset.camera === PROXY_REVIEW_CAMERA
+        );
       });
       canvas.dataset.proxyReviewFocus = String(PROXY_REVIEW_RUNNER);
+      canvas.dataset.proxyReviewCamera = PROXY_REVIEW_CAMERA;
     }
   }
 
