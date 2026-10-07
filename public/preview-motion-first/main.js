@@ -1073,8 +1073,6 @@ function renderEntryAgentComparison() {
       strategy: row.strategy,
       activeVersion: row.activeVersion,
       pairFit: Number(row.pairFit.toFixed(3)),
-      paceBias: Number(row.paceBias.toFixed(3)),
-      projectedPace: Number(row.projectedPace.toFixed(3)),
       observedMean:
         row.observedMean === null
           ? null
@@ -1084,8 +1082,7 @@ function renderEntryAgentComparison() {
       avgRank:
         row.avgRank === null ? null : Number(row.avgRank.toFixed(3)),
       evaluationStatus: row.evaluationStatus,
-      fitIndex: Number(row.fitIndex.toFixed(3)),
-      raceIndex: Number(row.raceIndex.toFixed(3))
+      fitIndex: Number(row.fitIndex.toFixed(3))
     }))
   );
 }
