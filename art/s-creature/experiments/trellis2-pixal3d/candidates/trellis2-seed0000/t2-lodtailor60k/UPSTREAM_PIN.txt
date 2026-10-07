@@ -1,0 +1,4 @@
+component=LODTailor-The-Mesh-Trimmer-ComfyuiNode/decimate_only.py
+commit=3d25b7d4aa382fa5dac210eb5d8d0eadc4a4f183
+voxel_rebuild=false
+target_tris=60000

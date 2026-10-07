@@ -1,0 +1,128 @@
+{
+  "source": "art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-meshfix/S-trellis2-clean-seed0000-maincomponent-meshfix.glb",
+  "output": "art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-lodtailor60k/S-trellis2-clean-seed0000-maincomponent-meshfix-lod60k.glb",
+  "upstream_component": "LODTailor-The-Mesh-Trimmer-ComfyuiNode/decimate_only.py",
+  "upstream_commit": "3d25b7d4aa382fa5dac210eb5d8d0eadc4a4f183",
+  "settings": {
+    "target_tris": 60000,
+    "passes": 3,
+    "tolerance": 1.05,
+    "voxel_rebuild": false,
+    "triangulate": true,
+    "seal_distance": 0.0001,
+    "seal_keep_trying": true
+  },
+  "source_audit": {
+    "label": "meshfix_source",
+    "vertices": 131752,
+    "faces": 263544,
+    "connected_components": 1,
+    "component_face_counts_desc": [
+      263544
+    ],
+    "boundary_edges": 0,
+    "nonmanifold_edges_gt2_faces": 0,
+    "watertight": true,
+    "winding_consistent": true,
+    "is_volume": true,
+    "euler_number": -20,
+    "area": 0.40539410617323385,
+    "bounds": [
+      [
+        -0.07412800192832947,
+        -0.18599100410938263,
+        -0.14727400243282318
+      ],
+      [
+        0.07907400280237198,
+        0.17251700162887573,
+        0.5003309845924377
+      ]
+    ],
+    "extents": [
+      0.15320200473070145,
+      0.35850800573825836,
+      0.6476049870252609
+    ]
+  },
+  "lod_audit": {
+    "label": "lodtailor_60k",
+    "vertices": 179938,
+    "faces": 60000,
+    "connected_components": 59969,
+    "component_face_counts_desc": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "boundary_edges": 179938,
+    "nonmanifold_edges_gt2_faces": 0,
+    "watertight": false,
+    "winding_consistent": true,
+    "is_volume": false,
+    "euler_number": 59969,
+    "area": 0.40551198688255186,
+    "bounds": [
+      [
+        -0.0741562619805336,
+        -0.1859845668077469,
+        -0.14730671048164368
+      ],
+      [
+        0.0790770947933197,
+        0.1725030392408371,
+        0.5003309845924377
+      ]
+    ],
+    "extents": [
+      0.1532333567738533,
+      0.358487606048584,
+      0.6476376950740814
+    ]
+  },
+  "drift": {
+    "samples_per_direction": 20000,
+    "source_bbox_diagonal": 0.7559041365490186,
+    "source_to_lod": {
+      "mean": 0.002000342814725415,
+      "p95": 0.003454540759096269,
+      "p99": 0.00418828495173329,
+      "max": 0.0065289086575660545,
+      "mean_over_source_bbox_diagonal": 0.002646291663196498,
+      "p95_over_source_bbox_diagonal": 0.004570077860491044,
+      "p99_over_source_bbox_diagonal": 0.005540762048021535,
+      "max_over_source_bbox_diagonal": 0.008637217792421315
+    },
+    "lod_to_source": {
+      "mean": 0.0020049650840544436,
+      "p95": 0.0034870476296573008,
+      "p99": 0.004248335220945652,
+      "max": 0.0061713810298896065,
+      "mean_over_source_bbox_diagonal": 0.002652406551454857,
+      "p95_over_source_bbox_diagonal": 0.004613081819576964,
+      "p99_over_source_bbox_diagonal": 0.005620203694533107,
+      "max_over_source_bbox_diagonal": 0.008164237674454646
+    },
+    "symmetric_mean_over_diagonal": 0.002649349107325678,
+    "symmetric_p95_over_diagonal": 0.004591579840034004
+  },
+  "automatic_gate": {
+    "topology_pass": false,
+    "target_count_pass": true,
+    "low_drift_candidate": true,
+    "note": "Automatic metrics are not visual morphology or deformation approval."
+  }
+}
