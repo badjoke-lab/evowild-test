@@ -7,6 +7,7 @@ async function captureAt(page, candidate, freezeTime, camera) {
   const query = new URLSearchParams({
     skipStart: "1",
     proxyReviewRunner: "0",
+    proxyReviewCamera: camera,
     kimodoLaunch: candidate ? "1" : "0",
     kimodoLaunchSource: "accel",
     kimodoLaunchBlend: "0.55",
@@ -19,8 +20,8 @@ async function captureAt(page, candidate, freezeTime, camera) {
   );
   await expect(page.locator("#scene")).toBeVisible();
   await expect(page.locator("#loading")).toHaveClass(/hidden/);
-  await page.locator("#runnerSelect").selectOption("0");
-  await page.getByRole("button", { name: camera, exact: true }).click({ force: true });
+  await expect(page.locator("#runnerSelect")).toHaveValue("0");
+  await expect(page.locator("#scene")).toHaveAttribute("data-proxy-review-camera", camera);
   await expect(page.locator("#cameraReadout")).toHaveText(camera);
 
   await page.waitForFunction(() =>
