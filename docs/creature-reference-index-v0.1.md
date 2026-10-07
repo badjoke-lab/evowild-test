@@ -1,6 +1,14 @@
 # EvoWild Creature Reference Index v0.1
 
-This file is the repository entry point for creature visual references used by the Motion First lane.
+This file is the repository-wide canonical entry point for creature visual references used by every implementation lane, including 2.5D, Motion First, 3D, sprite generation, and asset regeneration.
+
+## Hard precedence
+
+The full creature reference sheet and the per-morph concept assets define S / P / E / A identity. They outrank donor geometry, generated candidates, animation convenience, and lane-specific experiments.
+
+A motion donor may provide gait or pose information only. It does not authorize redesigning a morph.
+
+For 2.5D work, also read [2.5D Creature Reference Lock](./2p5d-creature-reference-lock.md).
 
 ## Core concept assets
 
@@ -134,4 +142,4 @@ The device must adapt to head variation without changing its function.
 - [Motion First Creature Standard](./motion-first-creature-standard-v0.1.md)
 - [Motion First Development Plan](./motion-first-development-plan-v0.1.md)
 
-Any Motion First creature implementation should start from this index and the linked files before editing geometry or gait.
+Any creature implementation in this repository must start from this index and the linked files before editing geometry, artwork, gait, rigging, animation, or production assets.
