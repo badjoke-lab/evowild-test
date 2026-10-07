@@ -31,28 +31,37 @@ jobs:
       - name: Generate real ARDY Core motion on public ZeroGPU host
         run: |
           rm -rf /tmp/ardy-real
-          python scripts/kimodo-ardy/fetch_ardy_zero_gpu.py             --output-dir /tmp/ardy-real             --prompt "A person accelerates smoothly from a run into a full sprint."             --duration 4.0             --diffusion-steps 4             --cfg-weight 2.0             --seed 42
+          python scripts/kimodo-ardy/fetch_ardy_zero_gpu.py \
+            --output-dir /tmp/ardy-real \
+            --prompt "A person accelerates smoothly from a run into a full sprint." \
+            --duration 4.0 \
+            --seed 42
 
       - name: Analyze real ARDY NPZ
         run: |
           OUT=experiments/kimodo-ardy/ardy-space-generated/accel-v1
           mkdir -p "$OUT"
           cp /tmp/ardy-real/motion.npz "$OUT/motion.npz"
-          cp /tmp/ardy-real/motion.bvh "$OUT/motion.bvh"
           cp /tmp/ardy-real/metadata.json "$OUT/metadata.json"
           cp /tmp/ardy-real/request.json "$OUT/request.json"
           cp /tmp/ardy-real/space-api.json "$OUT/space-api.json"
 
-          python scripts/kimodo-ardy/extract_motion_signals.py             "$OUT/motion.npz"             --summary "$OUT/summary.json"             --timeseries "$OUT/timeseries.csv"
+          python scripts/kimodo-ardy/extract_motion_signals.py \
+            "$OUT/motion.npz" \
+            --summary "$OUT/summary.json" \
+            --timeseries "$OUT/timeseries.csv"
 
-          python scripts/kimodo-ardy/build_transfer_profile.py             --summary "$OUT/summary.json"             --meta "$OUT/metadata.json"             --timeseries "$OUT/timeseries.csv"             --output "$OUT/transfer-profile.json"
+          python scripts/kimodo-ardy/build_transfer_profile.py \
+            --summary "$OUT/summary.json" \
+            --meta "$OUT/metadata.json" \
+            --timeseries "$OUT/timeseries.csv" \
+            --output "$OUT/transfer-profile.json"
 
       - name: Write provenance
         run: |
           python - <<'PY'
           import hashlib, json
           from pathlib import Path
-
           out=Path("experiments/kimodo-ardy/ardy-space-generated/accel-v1")
           meta=json.loads((out/"metadata.json").read_text())
           req=json.loads((out/"request.json").read_text())
