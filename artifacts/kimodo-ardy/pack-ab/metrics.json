@@ -1,0 +1,50 @@
+{
+  "2.7": {
+    "baseline": {
+      "mode": "baseline",
+      "source": "accel",
+      "physics": "unchanged",
+      "raceTime": 2.7,
+      "physicalSpeedRatio": 0.4955,
+      "appliedLead": 0,
+      "runnerCount": 18,
+      "proxyRunnerCount": 18,
+      "camera": "PACK"
+    },
+    "candidate": {
+      "mode": "candidate",
+      "source": "accel",
+      "physics": "unchanged",
+      "raceTime": 2.7,
+      "physicalSpeedRatio": 0.4955,
+      "appliedLead": 0.191,
+      "runnerCount": 18,
+      "proxyRunnerCount": 18,
+      "camera": "PACK"
+    }
+  },
+  "3.1": {
+    "baseline": {
+      "mode": "baseline",
+      "source": "accel",
+      "physics": "unchanged",
+      "raceTime": 3.1,
+      "physicalSpeedRatio": 0.6176,
+      "appliedLead": 0,
+      "runnerCount": 18,
+      "proxyRunnerCount": 18,
+      "camera": "PACK"
+    },
+    "candidate": {
+      "mode": "candidate",
+      "source": "accel",
+      "physics": "unchanged",
+      "raceTime": 3.1,
+      "physicalSpeedRatio": 0.6176,
+      "appliedLead": 0.1423,
+      "runnerCount": 18,
+      "proxyRunnerCount": 18,
+      "camera": "PACK"
+    }
+  }
+}
