@@ -1,2 +1,2 @@
-trigger=2026-10-07T13:22:00Z
-purpose=run pinned PixelArtistry LODTailor worker on MeshFix watertight source at 60k tris
+trigger=2026-10-07T13:35:30Z
+purpose=rerun pinned PixelArtistry LODTailor 60k bench after persistence race fix
