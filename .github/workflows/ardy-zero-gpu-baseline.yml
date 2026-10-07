@@ -66,8 +66,8 @@ jobs:
             "motion_sha256":hashlib.sha256((out/"motion.npz").read_bytes()).hexdigest(),
             "motion_bytes":(out/"motion.npz").stat().st_size,
             "prompt":req["prompt"],
-            "seed":req["seed_returned"],
-            "note":"Third-party inference host using an official NVIDIA ARDY checkpoint; compatibility evidence only, not an authoritative NVIDIA runtime benchmark."
+            "seed":req["seed_requested"],
+            "note":"Third-party CozyClay ZeroGPU host using the official NVIDIA ARDY Core checkpoint with a public Llama mirror; compatibility evidence only, not an authoritative NVIDIA runtime benchmark."
           }
           (out/"provenance.json").write_text(json.dumps(payload,indent=2)+"\n")
           print(json.dumps(payload,indent=2))
