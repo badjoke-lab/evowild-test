@@ -5,6 +5,9 @@ on:
     branches: ["main", "feat/**", "fix/**"]
   pull_request:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,9 +17,24 @@ jobs:
         with:
           node-version: 22
       - run: npm install
+      - name: Generate P candidate from existing mf12 motion
+        if: ${{ startsWith(github.head_ref, 'feat/2p5d-p-mf12-flow-transfer-') || startsWith(github.ref_name, 'feat/2p5d-p-mf12-flow-transfer-') }}
+        env:
+          P_PROMOTE_CANDIDATE: "1"
+        shell: bash
+        run: |
+          python3 -m pip install --disable-pip-version-check pillow numpy opencv-python-headless
+          python3 scripts/build_p_mf12_flow_transfer_v1.py
       - run: npm run build
       - name: Verify 2.5D pages are in production build
         run: test -f dist/race-2_5d.html && test -f dist/race-quality.html
+      - name: Upload P mf12 motion-transfer candidate
+        if: ${{ always() && (startsWith(github.head_ref, 'feat/2p5d-p-mf12-flow-transfer-') || startsWith(github.ref_name, 'feat/2p5d-p-mf12-flow-transfer-')) }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: p-mf12-flow-transfer-v1
+          path: artifacts/p-mf12-flow-transfer-v1/*
+          if-no-files-found: error
       - run: npx playwright install --with-deps chromium
       - name: Run E2E suite
         shell: bash
@@ -61,6 +79,9 @@ jobs:
           elif [[ "$BRANCH" == feat/simplified-race-entry-v* ]]; then
             npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
               --grep "Phase E simplified race|Race Agent v1|Agent strategy balance v1|positioning v1|course selector v1|heavy 1200 course v1|Race Entry v1"
+          elif [[ "$BRANCH" == feat/2p5d-p-mf12-flow-transfer-* ]]; then
+            npx playwright test tests/race-quality.spec.js --workers=1 \
+              --grep "mixed-frame run cycles|production P uses twelve-frame|production P twelve-frame cycle reads in full-field race"
           elif [[ "$BRANCH" == feat/2p5d-survivor-fair-start-* ]]; then
             npx playwright test tests/2p5d-selection.spec.js tests/race-quality.spec.js \
               --grep "four morph race uses all six-frame|battle readability|traffic sees nearby rivals|lane decision chooses real clearance|default start is logically level" \
@@ -82,6 +103,19 @@ jobs:
           else
             npm run test:e2e
           fi
+      - name: Materialize promoted P 12-frame sheet on branch
+        if: ${{ github.event_name == 'push' && startsWith(github.ref_name, 'feat/2p5d-p-mf12-flow-transfer-') }}
+        shell: bash
+        run: |
+          if git diff --quiet -- public/concept/p-run-sheet.webp; then
+            echo "P production sheet already materialized"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/concept/p-run-sheet.webp
+          git commit -m "art: promote P to mf12 12-frame run sheet"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
       - name: Upload 2.5D survivor visuals
         if: always()
         uses: actions/upload-artifact@v4
@@ -90,7 +124,7 @@ jobs:
           path: artifacts/2p5d-survivor/*.png
           if-no-files-found: warn
       - name: Capture Motion First visuals
-        if: ${{ github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && !startsWith(github.head_ref, 'feat/2p5d-survivor-') && !startsWith(github.ref_name, 'feat/2p5d-survivor-') }}
+        if: ${{ github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && !startsWith(github.head_ref, 'feat/2p5d-survivor-') && !startsWith(github.ref_name, 'feat/2p5d-survivor-') && !startsWith(github.head_ref, 'feat/2p5d-p-mf12-flow-transfer-') && !startsWith(github.ref_name, 'feat/2p5d-p-mf12-flow-transfer-') }}
         env:
           MOTION_FIRST_CAPTURE: "1"
         shell: bash
@@ -169,7 +203,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Capture Sakura NPR camera visuals
-        if: ${{ github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && !startsWith(github.head_ref, 'feat/2p5d-survivor-') && !startsWith(github.ref_name, 'feat/2p5d-survivor-') }}
+        if: ${{ github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && !startsWith(github.head_ref, 'feat/2p5d-survivor-') && !startsWith(github.ref_name, 'feat/2p5d-survivor-') && !startsWith(github.head_ref, 'feat/2p5d-p-mf12-flow-transfer-') && !startsWith(github.ref_name, 'feat/2p5d-p-mf12-flow-transfer-') }}
         env:
           SAKURA_NPR_CAPTURE: "1"
         run: npx playwright test tests/sakura-npr.spec.js --project=desktop-chromium --workers=1
@@ -182,7 +216,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Upload S sprite-gen PoC artifacts
-        if: ${{ always() && github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && !startsWith(github.head_ref, 'feat/2p5d-survivor-') && !startsWith(github.ref_name, 'feat/2p5d-survivor-') && !startsWith(github.head_ref, 'feat/simplified-race-entry-v') && !startsWith(github.ref_name, 'feat/simplified-race-entry-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-auto-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-auto-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-history-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-history-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-ownership-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-ownership-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-creature-compat-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-creature-compat-v') && !startsWith(github.head_ref, 'feat/simplified-race-entry-focus-v') && !startsWith(github.ref_name, 'feat/simplified-race-entry-focus-v') && !startsWith(github.head_ref, 'feat/simplified-race-entry-support-v') && !startsWith(github.ref_name, 'feat/simplified-race-entry-support-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-selection-support-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-selection-support-v') && !startsWith(github.head_ref, 'feat/simplified-race-entry-pace-v') && !startsWith(github.ref_name, 'feat/simplified-race-entry-pace-v') && !startsWith(github.head_ref, 'feat/simplified-race-entry-stamina-v') && !startsWith(github.ref_name, 'feat/simplified-race-entry-stamina-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-version-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-version-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-version-eval-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-version-eval-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-version-active-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-version-active-v') }}
+        if: ${{ always() && github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && !startsWith(github.head_ref, 'feat/2p5d-survivor-') && !startsWith(github.ref_name, 'feat/2p5d-survivor-') && !startsWith(github.head_ref, 'feat/simplified-race-entry-v') && !startsWith(github.ref_name, 'feat/simplified-race-entry-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-auto-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-auto-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-history-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-history-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-ownership-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-ownership-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-creature-compat-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-creature-compat-v') && !startsWith(github.head_ref, 'feat/simplified-race-entry-focus-v') && !startsWith(github.ref_name, 'feat/simplified-race-entry-focus-v') && !startsWith(github.head_ref, 'feat/simplified-race-entry-support-v') && !startsWith(github.ref_name, 'feat/simplified-race-entry-support-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-selection-support-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-selection-support-v') && !startsWith(github.head_ref, 'feat/simplified-race-entry-pace-v') && !startsWith(github.ref_name, 'feat/simplified-race-entry-pace-v') && !startsWith(github.head_ref, 'feat/simplified-race-entry-stamina-v') && !startsWith(github.ref_name, 'feat/simplified-race-entry-stamina-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-version-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-version-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-version-eval-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-version-eval-v') && !startsWith(github.head_ref, 'feat/simplified-race-agent-version-active-v') && !startsWith(github.ref_name, 'feat/simplified-race-agent-version-active-v') && !startsWith(github.head_ref, 'feat/2p5d-p-mf12-flow-transfer-') && !startsWith(github.ref_name, 'feat/2p5d-p-mf12-flow-transfer-') }}
         uses: actions/upload-artifact@v4
         with:
           name: spritegen-s-poc

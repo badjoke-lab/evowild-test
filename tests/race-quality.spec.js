@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 
-test("four morph race uses all six-frame sheets in fixed-step race", async ({ page }, testInfo) => {
+test("four morph race uses mixed-frame run cycles in fixed-step race", async ({ page }, testInfo) => {
   await page.goto("/evowild-test/race-quality.html", { waitUntil: "networkidle" });
   const stage = page.locator("#stage");
 
@@ -29,7 +29,7 @@ test("four morph race uses all six-frame sheets in fixed-step race", async ({ pa
   await expect(stage).toHaveAttribute("data-p-animated", "true");
   await expect(stage).toHaveAttribute("data-e-animated", "true");
   await expect(stage).toHaveAttribute("data-a-animated", "true");
-  await expect(stage).toHaveAttribute("data-p-frame", /[0-5]/);
+  await expect(stage).toHaveAttribute("data-p-frame", /^(?:[0-9]|1[01])$/);
   await expect(stage).toHaveAttribute("data-e-frame", /[0-5]/);
   await expect(stage).toHaveAttribute("data-a-frame", /[0-5]/);
   await expect(stage).toHaveAttribute("data-camera-roll", /-?\d+\.\d+/);
@@ -371,12 +371,11 @@ test("2.5D dense-pack labels avoid overlap and battle HUD clears Agent panel", a
   });
 });
 
-test("2.5D P E A grounded-stride v2 exposes six distinct live phases", async ({ page }, testInfo) => {
+test("2.5D E A grounded-stride v2 exposes six distinct live phases", async ({ page }, testInfo) => {
   test.setTimeout(60000);
   fs.mkdirSync("artifacts/2p5d-survivor", { recursive: true });
 
   for (const { id, morph } of [
-    { id: 2, morph: "P" },
     { id: 3, morph: "E" },
     { id: 4, morph: "A" }
   ]) {
@@ -445,3 +444,101 @@ test("2.5D P E A grounded-stride v2 exposes six distinct live phases", async ({ 
     expect(footAdjust).toBeLessThan(80);
   }
 });
+
+test("2.5D P mf12 transfer review uses existing motion across twelve runtime frames", async ({ page }, testInfo) => {
+  test.setTimeout(90000);
+  fs.mkdirSync("artifacts/2p5d-survivor", { recursive: true });
+
+  const stage = page.locator("#stage");
+  const observed = [];
+
+  for (let frame = 0; frame < 12; frame += 1) {
+    await page.goto(
+      `/evowild-test/race-quality.html?motionReview=1&selected=2&pFlowReview=1&motionFrame=${frame}`,
+      { waitUntil: "networkidle" }
+    );
+
+    await expect(stage).toHaveAttribute("data-run-sheets", "ready", { timeout: 15000 });
+    await expect(stage).toHaveAttribute("data-selected-morph", "P");
+    await expect(stage).toHaveAttribute("data-p-flow-review", "1");
+    await expect(stage).toHaveAttribute("data-p-flow-source", "mf12-motion-field-transfer-v1");
+    await expect(stage).toHaveAttribute("data-p-sheet-layout", "4x3");
+    await expect(stage).toHaveAttribute("data-p-flow-frame-count", "12");
+    await expect(stage).toHaveAttribute("data-p-flow-frame", String(frame), { timeout: 8000 });
+
+    const phase = await stage.getAttribute("data-p-flow-phase");
+    expect(phase).toMatch(/CONTACT|MID_CP|PUSH|MID_PL|LIFT|MID_LF|FLIGHT|MID_FR|REACH|MID_RL|LAND|MID_LC/);
+    observed.push(Number(await stage.getAttribute("data-p-flow-frame")));
+
+    await stage.screenshot({
+      path: `artifacts/2p5d-survivor/p-mf12-flow-frame-${String(frame).padStart(2,"0")}-${testInfo.project.name}.png`
+    });
+  }
+
+  expect(observed).toEqual([0,1,2,3,4,5,6,7,8,9,10,11]);
+});
+
+test("2.5D production P twelve-frame cycle reads in full-field race", async ({ page }, testInfo) => {
+  test.setTimeout(60000);
+  fs.mkdirSync("artifacts/2p5d-survivor", { recursive: true });
+
+  await page.goto("/evowild-test/race-quality.html?selected=2", { waitUntil: "networkidle" });
+  const stage = page.locator("#stage");
+
+  await expect(stage).toHaveAttribute("data-run-sheets", "ready", { timeout: 15000 });
+  await expect(stage).toHaveAttribute("data-p-flow-review", "0");
+  await expect(stage).toHaveAttribute("data-p-flow-source", "production-mf12-transfer-v1");
+  await expect(stage).toHaveAttribute("data-p-motion-version", "mf12-transfer-v1-production");
+  await expect(stage).toHaveAttribute("data-p-sheet-layout", "4x3");
+  await expect(stage).toHaveAttribute("data-p-flow-frame-count", "12");
+  await expect(stage).toHaveAttribute("data-race-state", "running", { timeout: 8000 });
+
+  const observed = new Set();
+  for (let i = 0; i < 60 && observed.size < 8; i += 1) {
+    await page.waitForTimeout(55);
+    const frame = Number(await stage.getAttribute("data-p-flow-frame"));
+    if (Number.isFinite(frame) && frame >= 0 && frame < 12) observed.add(frame);
+  }
+  expect(observed.size).toBeGreaterThanOrEqual(6);
+
+  const visible = Number(await stage.getAttribute("data-visible-racers"));
+  expect(visible).toBeGreaterThanOrEqual(3);
+
+  await stage.screenshot({
+    path: `artifacts/2p5d-survivor/p-production-mf12-full-field-early-${testInfo.project.name}.png`
+  });
+
+  await page.waitForTimeout(3200);
+  await stage.screenshot({
+    path: `artifacts/2p5d-survivor/p-production-mf12-full-field-mid-${testInfo.project.name}.png`
+  });
+});
+
+test("2.5D production P uses twelve-frame mf12 transfer cycle", async ({ page }, testInfo) => {
+  test.setTimeout(60000);
+  fs.mkdirSync("artifacts/2p5d-survivor", { recursive: true });
+
+  await page.goto("/evowild-test/race-quality.html?motionReview=1&selected=2", { waitUntil: "networkidle" });
+  const stage = page.locator("#stage");
+
+  await expect(stage).toHaveAttribute("data-run-sheets", "ready", { timeout: 15000 });
+  await expect(stage).toHaveAttribute("data-selected-morph", "P");
+  await expect(stage).toHaveAttribute("data-p-flow-review", "0");
+  await expect(stage).toHaveAttribute("data-p-flow-source", "production-mf12-transfer-v1");
+  await expect(stage).toHaveAttribute("data-p-motion-version", "mf12-transfer-v1-production");
+  await expect(stage).toHaveAttribute("data-p-sheet-layout", "4x3");
+  await expect(stage).toHaveAttribute("data-p-flow-frame-count", "12");
+
+  const observed = new Set();
+  for (let sample = 0; sample < 80 && observed.size < 12; sample += 1) {
+    await page.waitForTimeout(45);
+    const frame = Number(await stage.getAttribute("data-p-flow-frame"));
+    if (Number.isFinite(frame) && frame >= 0 && frame < 12) observed.add(frame);
+  }
+  expect([...observed].sort((a,b)=>a-b)).toEqual([0,1,2,3,4,5,6,7,8,9,10,11]);
+
+  await stage.screenshot({
+    path: `artifacts/2p5d-survivor/p-production-mf12-${testInfo.project.name}.png`
+  });
+});
+
