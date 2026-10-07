@@ -34,7 +34,7 @@ jobs:
           python scripts/kimodo-ardy/fetch_ardy_zero_gpu.py \
             --output-dir /tmp/ardy-real \
             --prompt "A person accelerates smoothly from a run into a full sprint." \
-            --duration 1.5 \
+            --duration 1.0 \
             --seed 42
 
       - name: Analyze real ARDY NPZ
