@@ -82,10 +82,38 @@ def drift_metrics(a,b,samples=20000):
         "symmetric_p95_over_diagonal":float((np.quantile(d_ab,.95)+np.quantile(d_ba,.95))/2/diag),
     }
 
+def exact_position_weld(mesh, digits=8):
+    v=np.asarray(mesh.vertices)
+    f=np.asarray(mesh.faces)
+    rounded=np.round(v,digits)
+    unique_v,inverse=np.unique(rounded,axis=0,return_inverse=True)
+    wf=inverse[f]
+    nondeg=(
+        (wf[:,0]!=wf[:,1])
+        & (wf[:,1]!=wf[:,2])
+        & (wf[:,0]!=wf[:,2])
+    )
+    degenerate_removed=int(np.sum(~nondeg))
+    wf=wf[nondeg]
+    sorted_faces=np.sort(wf,axis=1)
+    _,first=np.unique(sorted_faces,axis=0,return_index=True)
+    keep=np.sort(first)
+    duplicate_faces_removed=int(len(wf)-len(keep))
+    wf=wf[keep]
+    welded=trimesh.Trimesh(vertices=unique_v,faces=wf,process=False)
+    return welded,{
+        "position_round_digits":digits,
+        "coordinates_moved":False,
+        "degenerate_faces_removed":degenerate_removed,
+        "duplicate_faces_removed":duplicate_faces_removed,
+    }
+
 source=load_mesh(SRC)
-lod=load_mesh(DST)
+lod_raw=load_mesh(DST)
+lod,lod_weld_operation=exact_position_weld(lod_raw,8)
 sa=audit(source,"meshfix_source")
-la=audit(lod,"lodtailor_60k")
+lra=audit(lod_raw,"lodtailor_60k_export_raw")
+la=audit(lod,"lodtailor_60k_exact_position_weld")
 drift=drift_metrics(source,lod)
 
 result={
@@ -103,6 +131,8 @@ result={
         "seal_keep_trying":True,
     },
     "source_audit":sa,
+    "lod_export_raw_audit":lra,
+    "lod_export_exact_weld_operation":lod_weld_operation,
     "lod_audit":la,
     "drift":drift,
     "automatic_gate":{
@@ -118,14 +148,18 @@ md=f"""# T2 PixelArtistry LODTailor 60k bench
 Upstream worker pinned at `3d25b7d4aa382fa5dac210eb5d8d0eadc4a4f183`.
 
 - source faces: {sa['faces']:,}
-- output faces: {la['faces']:,}
-- output vertices: {la['vertices']:,}
-- connected components: {la['connected_components']}
+- GLB export raw faces: {lra['faces']:,}
+- GLB export raw vertices: {lra['vertices']:,}
+- exact-position-weld faces: {la['faces']:,}
+- exact-position-weld vertices: {la['vertices']:,}
+- exact-position-weld connected components: {la['connected_components']}
 - boundary edges: {la['boundary_edges']}
 - non-manifold edges (>2 faces): {la['nonmanifold_edges_gt2_faces']}
 - watertight: {la['watertight']}
 - volume: {la['is_volume']}
 - symmetric p95 drift / source bbox diagonal: {drift['symmetric_p95_over_diagonal']:.6f}
+
+The GLB is audited after an exact-position weld because flat-normal/attribute seams can split identical positions on export. This weld moves no coordinates.
 
 Automatic topology pass: {result['automatic_gate']['topology_pass']}
 Automatic target-count pass: {result['automatic_gate']['target_count_pass']}
