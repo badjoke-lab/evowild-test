@@ -1,0 +1,82 @@
+name: TRELLIS2 T2 PixelArtistry LODTailor 60k
+
+on:
+  push:
+    branches:
+      - exp/trellis2-pixal3d-s-bench-20261004
+    paths:
+      - "art/s-creature/experiments/trellis2-pixal3d/TRIGGER_T2_LODTAILOR60K.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  lodtailor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: exp/trellis2-pixal3d-s-bench-20261004
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install audit dependencies
+        run: python -m pip install --quiet trimesh numpy scipy networkx
+
+      - name: Install Blender libraries
+        run: sudo apt-get update -qq && sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+
+      - name: Download Blender 4.3.2
+        run: |
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+
+      - name: Fetch pinned LODTailor worker
+        run: |
+          curl -L --fail --retry 3             https://raw.githubusercontent.com/Mstafa-awad/LODTailor-The-Mesh-Trimmer-ComfyuiNode/3d25b7d4aa382fa5dac210eb5d8d0eadc4a4f183/decimate_only.py             -o /tmp/lodtailor_decimate_only.py
+          grep -q "ULTRA-FAST DECIMATION PIPELINE" /tmp/lodtailor_decimate_only.py
+
+      - name: Run exact LODTailor Blender worker at 60k
+        run: |
+          mkdir -p art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-lodtailor60k
+          /tmp/blender-4.3.2-linux-x64/blender -b --python /tmp/lodtailor_decimate_only.py --             --input art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-meshfix/S-trellis2-clean-seed0000-maincomponent-meshfix.glb             --output art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-lodtailor60k/S-trellis2-clean-seed0000-maincomponent-meshfix-lod60k.glb             --tris 60000             --passes 3             --tolerance 1.05             --intermediate-ratio 0.50             --last-ratio 0.25             --final-ratio 0.20             --triangulate             --seal-distance 0.0001             --seal-max-steps 20             --seal-keep-trying
+
+      - name: Audit 60k output
+        run: python scripts/trellis2_t2_lodtailor60k_audit.py
+
+      - name: Render source and 60k five views
+        run: /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/render_trellis2_t2_lodtailor60k.py
+
+      - name: Verify visual evidence
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          d=Path("art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-lodtailor60k/review")
+          for prefix in ("meshfix_source","lodtailor_60k"):
+              for view in ("side","front","front34","rear34","back"):
+                  p=d/f"{prefix}_{view}.png"
+                  assert p.is_file() and p.stat().st_size>10000, p
+          print("10 renders verified")
+          PY
+
+      - name: Record upstream pin
+        run: |
+          cat > art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-lodtailor60k/UPSTREAM_PIN.txt <<'EOF'
+          component=LODTailor-The-Mesh-Trimmer-ComfyuiNode/decimate_only.py
+          commit=3d25b7d4aa382fa5dac210eb5d8d0eadc4a4f183
+          voxel_rebuild=false
+          target_tris=60000
+          EOF
+
+      - name: Commit T2 LODTailor evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-lodtailor60k
+          git commit -m "exp: persist PixelArtistry LODTailor 60k bench"
+          git push origin HEAD:exp/trellis2-pixal3d-s-bench-20261004
