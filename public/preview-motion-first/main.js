@@ -1173,6 +1173,8 @@ function renderEntryComparison() {
       morph: row.morph,
       courseFit: Number(row.courseFit.toFixed(3)),
       pairFit: Number(row.pairFit.toFixed(3)),
+      paceBias: Number(row.paceBias.toFixed(3)),
+      projectedPace: Number(row.projectedPace.toFixed(3)),
       observedMean:
         row.observedMean === null
           ? null
@@ -1181,7 +1183,8 @@ function renderEntryComparison() {
       wins: row.wins,
       avgRank:
         row.avgRank === null ? null : Number(row.avgRank.toFixed(3)),
-      fitIndex: Number(row.fitIndex.toFixed(3))
+      fitIndex: Number(row.fitIndex.toFixed(3)),
+      raceIndex: Number(row.raceIndex.toFixed(3))
     }))
   );
 }
