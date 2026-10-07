@@ -90,7 +90,7 @@
     <section class="entry-comparison-panel hidden" id="entryComparisonPanel" aria-hidden="true" aria-label="Race Entry comparison">
       <div class="entry-comparison-heading">
         <div>
-          <small>RACE ENTRY SUPPORT · FIT INDEX = COURSE × PAIR</small>
+          <small>RACE ENTRY SUPPORT · RACE INDEX = COURSE × PAIR × PACE</small>
           <strong id="entryComparisonSummary">BEST FIT: —</strong>
         </div>
         <button id="entryComparisonClose" aria-label="Close Race Entry comparison">CLOSE</button>
@@ -103,15 +103,16 @@
               <th>ENTRY</th>
               <th>COURSE</th>
               <th>PAIR</th>
+              <th>PACE</th>
               <th>OBS</th>
               <th>HISTORY</th>
-              <th>FIT INDEX</th>
+              <th>RACE / FIT</th>
             </tr>
           </thead>
           <tbody id="entryComparisonBody"></tbody>
         </table>
       </div>
-      <p>FIT INDEX is a selection heuristic, not a win probability. History is for the selected Agent and exact runner.</p>
+      <p>RACE INDEX is a selection heuristic using actual per-runner pace bias. It is not a win probability. FIT remains Course × Pair; history is shown separately.</p>
     </section>
 
     <section class="agent-panel" id="agentPanel" aria-label="Race Agent commands">
