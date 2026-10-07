@@ -11,6 +11,11 @@ on:
         options:
           - check
           - rig
+  push:
+    branches:
+      - exp/tripo-s-motion-bench-20261003
+    paths:
+      - art/motion/tripo-s/control/t0-api-trigger.json
 
 permissions:
   contents: write
@@ -25,6 +30,23 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Resolve requested mode
+        id: mode
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          DISPATCH_MODE: ${{ inputs.mode }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            MODE="$DISPATCH_MODE"
+          else
+            MODE="$(node -e "const j=require('./art/motion/tripo-s/control/t0-api-trigger.json'); process.stdout.write(j.mode)")"
+          fi
+          case "$MODE" in
+            check|rig) ;;
+            *) echo "Invalid mode: $MODE" >&2; exit 1 ;;
+          esac
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+          echo "Resolved T0 mode: $MODE"
       - name: Verify API key is configured
         env:
           TRIPO_API_KEY: ${{ secrets.TRIPO_API_KEY }}
@@ -36,19 +58,19 @@ jobs:
       - name: Run Tripo T0 API path
         env:
           TRIPO_API_KEY: ${{ secrets.TRIPO_API_KEY }}
-          TRIPO_T0_MODE: ${{ inputs.mode }}
+          TRIPO_T0_MODE: ${{ steps.mode.outputs.mode }}
         run: node scripts/tripo-t0-api.mjs
       - name: Upload T0 API evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tripo-t0-api-${{ inputs.mode }}
+          name: tripo-t0-api-${{ steps.mode.outputs.mode }}
           path: |
             artifacts/tripo-t0-api/*
             public/experiments/tripo-s/t0-rigged-lod2.glb
           if-no-files-found: warn
       - name: Commit successful rig output
-        if: ${{ success() && inputs.mode == 'rig' }}
+        if: ${{ success() && steps.mode.outputs.mode == 'rig' }}
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
