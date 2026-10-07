@@ -779,6 +779,72 @@ const FULL_DIRECTOR_REVIEW_MODE =
 const SIMPLIFIED_LANE = SIMPLIFIED_GAIT_PAGE || SIMPLIFIED_RACE_PAGE;
 const MOTION_REVIEW_MODE = params.get("motion") === "1" || SIMPLIFIED_GAIT_PAGE;
 const REVIEW_MORPH = (params.get("morph") || "S").toUpperCase();
+const LAUNCH_TIMING_REVIEW =
+  params.get("launchTimingReview") === "1" &&
+  MOTION_REVIEW_MODE &&
+  REVIEW_MORPH === "S";
+const KIMODO_LAUNCH_REVIEW =
+  params.get("kimodoLaunch") === "1" &&
+  LAUNCH_TIMING_REVIEW;
+const LAUNCH_TIMING_HOLD =
+  params.get("launchTimingHold") === "1" &&
+  LAUNCH_TIMING_REVIEW;
+
+const KIMODO_SPRINT_LAUNCH_ENVELOPE = [
+  0.07225362957858801, 0.07225362957858801, 0.14650437173974648,
+  0.24248040701179635, 0.3498072309753495, 0.5166831226580241,
+  0.5342212097340723, 0.6684344121911941, 0.7202867774932302,
+  0.7202867774932302, 0.7408702401846188, 0.7560634647489939,
+  0.8430514204992784, 0.8430514204992784, 1.0, 1.0,
+  1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+  1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
+];
+const KIMODO_SPRINT_SOURCE_DURATION = 5.966666666666667;
+let kimodoLaunchReviewEpoch = null;
+let launchTimingPauseAt = null;
+
+if (LAUNCH_TIMING_REVIEW) {
+  window.__pauseLaunchTimingReviewAt = (seconds) => {
+    const value = Number(seconds);
+    launchTimingPauseAt = Number.isFinite(value) ? Math.max(0, value) : null;
+    canvas.dataset.launchTimingPausedAt = "";
+  };
+}
+if (KIMODO_LAUNCH_REVIEW) {
+  window.__resetKimodoLaunchReview = () => {
+    kimodoLaunchReviewEpoch = raceTime;
+  };
+}
+
+function sampleKimodoLaunchEnvelope(seconds) {
+  const t01 = THREE.MathUtils.clamp(
+    seconds / KIMODO_SPRINT_SOURCE_DURATION,
+    0,
+    1
+  );
+  const scaled = t01 * (KIMODO_SPRINT_LAUNCH_ENVELOPE.length - 1);
+  const i0 = Math.floor(scaled);
+  const i1 = Math.min(KIMODO_SPRINT_LAUNCH_ENVELOPE.length - 1, i0 + 1);
+  const alpha = scaled - i0;
+  return THREE.MathUtils.lerp(
+    KIMODO_SPRINT_LAUNCH_ENVELOPE[i0],
+    KIMODO_SPRINT_LAUNCH_ENVELOPE[i1],
+    alpha
+  );
+}
+
+function sampleKimodoLaunchDrive(seconds) {
+  // Use the slope of the generated speed-establishment envelope, not the
+  // humanoid pose itself. Limit the effect to the launch window so a later
+  // source-curve bump cannot create a second creature launch.
+  const dt = 0.18;
+  const before = sampleKimodoLaunchEnvelope(Math.max(0, seconds - dt));
+  const after = sampleKimodoLaunchEnvelope(seconds + dt);
+  const rate = Math.max(0, (after - before) / (2 * dt));
+  const normalized = THREE.MathUtils.clamp(rate / 0.72, 0, 1);
+  const lateFade = 1 - THREE.MathUtils.smoothstep(seconds, 1.5, 2.5);
+  return normalized * lateFade;
+}
 const PROXY_REVIEW_RUNNER_PARAM = params.get("proxyReviewRunner");
 const PROXY_REVIEW_RUNNER =
   PROXY_REVIEW_RUNNER_PARAM === null
@@ -1664,6 +1730,12 @@ function createHunyuanSprintCreature(index) {
     phase: index * 0.61,
     turnLean: 0,
     accelLean: 0,
+    kimodoLaunchStartTime: null,
+    kimodoBones: {
+      neck: model.getObjectByName("neck"),
+      head: model.getObjectByName("head"),
+      tail: model.getObjectByName("tail")
+    },
     strideLength: S_GAIT.minStrideWorld,
     maxStanceSlip: 0
   };
@@ -1677,7 +1749,35 @@ function updateHunyuanSprintPose(runner, lateralVelocity, dt) {
   const speedRatio = THREE.MathUtils.clamp(runner.speed / Math.max(cfg.baseSpeed, 1), 0, 1.2);
   const accelError = (runner.targetSpeed - runner.speed) / Math.max(cfg.baseSpeed, 1);
 
-  ud.accelLean = THREE.MathUtils.damp(ud.accelLean ?? 0, accelError * 1.2, 8.5, dt);
+  const baselineAccelLeanTarget = accelError * 1.2;
+  if (KIMODO_LAUNCH_REVIEW && ud.kimodoLaunchStartTime === null) {
+    ud.kimodoLaunchStartTime = raceTime;
+  }
+  const kimodoStartTime =
+    kimodoLaunchReviewEpoch !== null
+      ? kimodoLaunchReviewEpoch
+      : ud.kimodoLaunchStartTime;
+  const kimodoReviewSeconds =
+    KIMODO_LAUNCH_REVIEW && kimodoStartTime !== null
+      ? Math.max(0, raceTime - kimodoStartTime)
+      : 0;
+  const kimodoEnvelope = KIMODO_LAUNCH_REVIEW
+    ? sampleKimodoLaunchEnvelope(kimodoReviewSeconds)
+    : null;
+  const kimodoDrive = KIMODO_LAUNCH_REVIEW
+    ? sampleKimodoLaunchDrive(kimodoReviewSeconds)
+    : 0;
+
+  // V2 keeps the accepted S root-lean behavior exactly unchanged. Kimodo is
+  // now only a timing source for non-contact neck/head/tail follow-through.
+  const accelLeanTarget = baselineAccelLeanTarget;
+
+  ud.accelLean = THREE.MathUtils.damp(
+    ud.accelLean ?? 0,
+    accelLeanTarget,
+    8.5,
+    dt
+  );
   ud.turnLean = THREE.MathUtils.damp(
     ud.turnLean ?? 0,
     THREE.MathUtils.clamp(-lateralVelocity * cfg.laneLean * 0.13, -0.18, 0.18),
@@ -1699,11 +1799,33 @@ function updateHunyuanSprintPose(runner, lateralVelocity, dt) {
     ud.mixer.timeScale = THREE.MathUtils.clamp(playback, 0.28, 1.22);
     ud.mixer.update(dt);
     canvas.dataset.sPlaybackRate = ud.mixer.timeScale.toFixed(3);
+
+    if (KIMODO_LAUNCH_REVIEW) {
+      const neckPitch = THREE.MathUtils.degToRad(7.0) * kimodoDrive;
+      const headCounterPitch = THREE.MathUtils.degToRad(-3.5) * kimodoDrive;
+      const tailPitch = THREE.MathUtils.degToRad(-5.0) * kimodoDrive;
+      ud.kimodoBones.neck?.rotateX(neckPitch);
+      ud.kimodoBones.head?.rotateX(headCounterPitch);
+      ud.kimodoBones.tail?.rotateX(tailPitch);
+    }
   }
 
   if (MOTION_REVIEW_MODE && REVIEW_MORPH === "S") {
     canvas.dataset.sRuntime = activeSAsset?.id || "procedural-fallback";
     canvas.dataset.sRuntimeAnimated = ud.mixer ? "1" : "0";
+    if (ud.index === 0) {
+      canvas.dataset.kimodoLaunchReview = KIMODO_LAUNCH_REVIEW ? "1" : "0";
+      canvas.dataset.kimodoLaunchEnvelope =
+        kimodoEnvelope === null ? "baseline" : kimodoEnvelope.toFixed(4);
+      canvas.dataset.kimodoLaunchSeconds =
+        kimodoEnvelope === null ? "baseline" : kimodoReviewSeconds.toFixed(3);
+      canvas.dataset.kimodoLaunchDrive =
+        kimodoEnvelope === null ? "baseline" : kimodoDrive.toFixed(4);
+      canvas.dataset.kimodoNeckPitchDeg =
+        kimodoEnvelope === null ? "0.000" : (7.0 * kimodoDrive).toFixed(3);
+      canvas.dataset.sAccelLeanTarget = accelLeanTarget.toFixed(4);
+      canvas.dataset.sAccelLean = (ud.accelLean ?? 0).toFixed(4);
+    }
   }
 }
 
@@ -7651,6 +7773,19 @@ function animate() {
         finishCheck();
         simulationAccumulator -= SIMULATION_STEP;
         simulationSteps += 1;
+
+        if (
+          LAUNCH_TIMING_REVIEW &&
+          launchTimingPauseAt !== null &&
+          raceTime + 1e-9 >= launchTimingPauseAt
+        ) {
+          paused = true;
+          launchTimingPauseAt = null;
+          simulationAccumulator = 0;
+          canvas.dataset.launchTimingPausedAt = raceTime.toFixed(3);
+          pauseButton.textContent = "RESUME";
+          break;
+        }
       }
 
       canvas.dataset.raceTime = raceTime.toFixed(3);
@@ -7785,7 +7920,7 @@ async function boot() {
     focus.targetLane = 4;
     focus.laneX = 0;
     focus.distance = 80;
-    focus.speed = focus.cfg.baseSpeed;
+    focus.speed = LAUNCH_TIMING_REVIEW ? 0 : focus.cfg.baseSpeed;
     focus.targetSpeed = focus.cfg.baseSpeed;
     focus.nextLaneDecision = Number.POSITIVE_INFINITY;
     focus.group.position.set(0, 0, focus.distance);
@@ -7802,7 +7937,8 @@ async function boot() {
     }
     updateCreaturePose(focus, 0, 0);
 
-    raceTime = 6;
+    raceTime = LAUNCH_TIMING_REVIEW ? 0 : 6;
+    canvas.dataset.launchTimingReview = LAUNCH_TIMING_REVIEW ? "1" : "0";
     requestedCamera = "SIDE";
     actualCamera = "SIDE";
     cameraButtons.forEach((button) => {
@@ -7813,10 +7949,16 @@ async function boot() {
       paused = true;
       pauseButton.textContent = "RESUME";
       raceStateEl.textContent = "INSPECT";
+    } else if (LAUNCH_TIMING_HOLD) {
+      paused = true;
+      pauseButton.textContent = "RESUME";
+      raceStateEl.textContent = "MOTION REVIEW";
+      canvas.dataset.launchTimingHold = "1";
     } else {
       paused = false;
       pauseButton.textContent = "PAUSE";
       raceStateEl.textContent = "MOTION REVIEW";
+      canvas.dataset.launchTimingHold = "0";
     }
   }
 

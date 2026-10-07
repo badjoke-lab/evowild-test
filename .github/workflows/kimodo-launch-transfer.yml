@@ -1,0 +1,92 @@
+name: kimodo-s-launch-transfer
+
+on:
+  push:
+    branches:
+      - exp/kimodo-s-launch-transfer-20261006
+    paths:
+      - ".github/workflows/kimodo-launch-transfer.yml"
+      - "public/preview-motion-first/main.js"
+      - "tests/kimodo-launch-transfer.spec.js"
+      - "docs/kimodo-s-launch-transfer-v0.1.md"
+      - "docs/reviews/kimodo-s-launch-transfer-review.md"
+      - "experiments/kimodo-launch-transfer/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kimodo-s-launch-transfer
+  cancel-in-progress: true
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install
+        run: |
+          npm install
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Build
+        run: npm run build
+
+      - name: Capture exact-time baseline and Kimodo v2 review
+        env:
+          KIMODO_LAUNCH_CAPTURE: "1"
+        run: |
+          npx playwright test tests/kimodo-launch-transfer.spec.js \
+            --project=desktop-chromium --workers=1
+
+      - name: Build comparison evidence
+        run: |
+          mkdir -p artifacts/kimodo-launch-transfer
+
+          ffmpeg -hide_banner -y \
+            -i test-results/kimodo-launch/baseline.webm \
+            -i test-results/kimodo-launch/kimodo.webm \
+            -filter_complex "hstack=inputs=2" \
+            -c:v libx264 -pix_fmt yuv420p -crf 18 \
+            artifacts/kimodo-launch-transfer/side-sequence-baseline-vs-kimodo.mp4
+
+          for mode in side low; do
+            for stage in early mid late; do
+              ffmpeg -hide_banner -y \
+                -i "test-results/kimodo-launch/${mode}-baseline-${stage}.png" \
+                -i "test-results/kimodo-launch/${mode}-kimodo-${stage}.png" \
+                -filter_complex "hstack=inputs=2" \
+                -frames:v 1 -update 1 \
+                "artifacts/kimodo-launch-transfer/${mode}-${stage}-comparison.png"
+            done
+          done
+
+          cp test-results/kimodo-launch/telemetry.json \
+            artifacts/kimodo-launch-transfer/
+          cp experiments/kimodo-launch-transfer/sprint-v1-launch-envelope.json \
+            artifacts/kimodo-launch-transfer/
+
+          find artifacts/kimodo-launch-transfer -maxdepth 1 -type f \
+            -printf '%f %s bytes\n' | sort \
+            | tee artifacts/kimodo-launch-transfer/inventory.txt
+
+      - name: Upload comparison
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kimodo-s-launch-transfer-review
+          path: |
+            artifacts/kimodo-launch-transfer/
+            test-results/kimodo-launch/
+          if-no-files-found: error
