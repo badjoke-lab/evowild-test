@@ -174,7 +174,12 @@ def main():
     sheet = Image.new("RGBA", (CELL * 4, CELL * 3), (0, 0, 0, 0))
     for i, frame in enumerate(frames):
         sheet.alpha_composite(frame, ((i % 4) * CELL, (i // 4) * CELL))
-    sheet.save(OUT / "p-run-sheet-mf12-flow-transfer-v1.webp", "WEBP", lossless=True, method=6)
+    candidate_path = OUT / "p-run-sheet-mf12-flow-transfer-v1.webp"
+    sheet.save(candidate_path, "WEBP", lossless=True, method=6)
+
+    public_candidate = ROOT / "public" / "concept" / "p-run-sheet-mf12-flow-transfer-v1.webp"
+    public_candidate.parent.mkdir(parents=True, exist_ok=True)
+    sheet.save(public_candidate, "WEBP", lossless=True, method=6)
 
     make_review(frames)
 
