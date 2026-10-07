@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 from pathlib import Path
 import json
+import os
+import shutil
 import cv2
 import numpy as np
 from PIL import Image, ImageDraw
@@ -154,6 +156,29 @@ def make_review(frames):
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
+    promote = os.environ.get("P_PROMOTE_CANDIDATE") == "1"
+
+    source_image = Image.open(SOURCE).convert("RGBA")
+    if source_image.size == (CELL * 4, CELL * 3):
+        # The candidate has already been materialized on the branch. Do not
+        # regenerate motion or recursively reinterpret the 12-frame sheet.
+        existing = OUT / "p-run-sheet-mf12-flow-transfer-v1.webp"
+        source_image.save(existing, "WEBP", lossless=True, method=6)
+        public_candidate = ROOT / "public" / "concept" / "p-run-sheet-mf12-flow-transfer-v1.webp"
+        source_image.save(public_candidate, "WEBP", lossless=True, method=6)
+        report = {
+            "appearance_source": "public/concept/p-run-sheet.webp",
+            "motion_source": "art/2p5d/motion-donors/p-mf12-v1.webp",
+            "new_motion_created": False,
+            "frame_blending": False,
+            "production_modified": promote,
+            "already_materialized": True,
+            "method": "existing promoted 12-frame P sheet reused without regeneration"
+        }
+        (OUT / "report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
+        print(json.dumps(report, indent=2))
+        return
+
     source = split_sheet(SOURCE, 3, 2, 6)
     donor = split_sheet(DONOR, 4, 3, 12)
 
@@ -180,6 +205,8 @@ def main():
     public_candidate = ROOT / "public" / "concept" / "p-run-sheet-mf12-flow-transfer-v1.webp"
     public_candidate.parent.mkdir(parents=True, exist_ok=True)
     sheet.save(public_candidate, "WEBP", lossless=True, method=6)
+    if promote:
+        sheet.save(SOURCE, "WEBP", lossless=True, method=6)
 
     make_review(frames)
 
