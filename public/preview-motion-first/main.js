@@ -875,7 +875,11 @@ function buildEntryComparisonRows() {
         RACE_COURSE_PROFILE.morphPaceFit?.[runner.morph] ?? 1;
       const pair =
         getAgentCreatureCompatibilitySnapshot(comparisonAgent, runner.morph);
+      const paceBias = runner.speedBias;
+      const projectedPace =
+        runner.cfg.baseSpeed * paceBias * courseFit;
       const fitIndex = courseFit * pair.score;
+      const raceIndex = fitIndex * paceBias;
 
       const history = record.raceHistory.filter(
         (race) => race.runnerId === runner.id
@@ -903,16 +907,19 @@ function buildEntryComparisonRows() {
         morphLabel: MORPHS[runner.morph].label,
         courseFit,
         pairFit: pair.score,
+        paceBias,
+        projectedPace,
         observedMean,
         fitIndex,
+        raceIndex,
         races: history.length,
         wins,
         avgRank
       };
     })
     .sort((a, b) => {
-      const fitDelta = b.fitIndex - a.fitIndex;
-      if (Math.abs(fitDelta) > 1e-9) return fitDelta;
+      const raceDelta = b.raceIndex - a.raceIndex;
+      if (Math.abs(raceDelta) > 1e-9) return raceDelta;
 
       if (a.races || b.races) {
         const aRank = a.avgRank ?? Number.POSITIVE_INFINITY;
@@ -1066,6 +1073,8 @@ function renderEntryAgentComparison() {
       strategy: row.strategy,
       activeVersion: row.activeVersion,
       pairFit: Number(row.pairFit.toFixed(3)),
+      paceBias: Number(row.paceBias.toFixed(3)),
+      projectedPace: Number(row.projectedPace.toFixed(3)),
       observedMean:
         row.observedMean === null
           ? null
@@ -1075,7 +1084,8 @@ function renderEntryAgentComparison() {
       avgRank:
         row.avgRank === null ? null : Number(row.avgRank.toFixed(3)),
       evaluationStatus: row.evaluationStatus,
-      fitIndex: Number(row.fitIndex.toFixed(3))
+      fitIndex: Number(row.fitIndex.toFixed(3)),
+      raceIndex: Number(row.raceIndex.toFixed(3))
     }))
   );
 }
@@ -1093,6 +1103,8 @@ function renderEntryComparison() {
     tr.dataset.runnerId = String(row.id);
     tr.dataset.morph = row.morph;
     tr.dataset.fitIndex = row.fitIndex.toFixed(3);
+    tr.dataset.raceIndex = row.raceIndex.toFixed(3);
+    tr.dataset.paceBias = row.paceBias.toFixed(3);
     tr.dataset.rank = String(index + 1);
     if (row.id === ENTRY_RUNNER_ID) tr.classList.add("selected");
 
@@ -1118,6 +1130,10 @@ function renderEntryComparison() {
     const pair = document.createElement("td");
     pair.textContent = `${Math.round(row.pairFit * 100)}%`;
 
+    const pace = document.createElement("td");
+    pace.textContent =
+      `×${row.paceBias.toFixed(3)} · ${row.projectedPace.toFixed(1)}m/s`;
+
     const observed = document.createElement("td");
     observed.textContent =
       row.observedMean === null
@@ -1131,16 +1147,17 @@ function renderEntryComparison() {
 
     const indexCell = document.createElement("td");
     indexCell.className = "entry-compare-index";
-    indexCell.textContent = row.fitIndex.toFixed(3);
+    indexCell.textContent =
+      `${row.raceIndex.toFixed(3)} / ${row.fitIndex.toFixed(3)}`;
 
-    tr.append(candidate, course, pair, observed, history, indexCell);
+    tr.append(candidate, course, pair, pace, observed, history, indexCell);
     entryComparisonBodyEl.append(tr);
   });
 
   const best = rows[0];
   if (entryComparisonSummaryEl && best) {
     entryComparisonSummaryEl.textContent =
-      `BEST FIT: ${best.name} · ${best.morph} · INDEX ${best.fitIndex.toFixed(3)} · heuristic only`;
+      `BEST RACE INDEX: ${best.name} · ${best.morph} · ${best.raceIndex.toFixed(3)} · heuristic only`;
   }
 
   canvas.dataset.entryComparisonReady =
@@ -1150,6 +1167,8 @@ function renderEntryComparison() {
   canvas.dataset.entryComparisonBestMorph = best?.morph || "";
   canvas.dataset.entryComparisonBestIndex =
     best ? best.fitIndex.toFixed(3) : "";
+  canvas.dataset.entryComparisonBestRaceIndex =
+    best ? best.raceIndex.toFixed(3) : "";
   canvas.dataset.entryComparisonRanking = JSON.stringify(
     rows.map((row, index) => ({
       rank: index + 1,
@@ -1223,7 +1242,7 @@ function initializeRaceEntryUi() {
     RACE_COURSE_PROFILE.morphPaceFit?.[entryRunner.morph] ?? 1;
   if (entryReadoutEl) {
     entryReadoutEl.textContent =
-      `ENTRY ${entryRunner.name} · ${entryRunner.morph} · ${ENTRY_AGENT_PROFILE.name} · FIT ×${paceFit.toFixed(3)}`;
+      `ENTRY ${entryRunner.name} · ${entryRunner.morph} · ${ENTRY_AGENT_PROFILE.name} · COURSE ×${paceFit.toFixed(3)} · PACE ×${entryRunner.speedBias.toFixed(3)}`;
   }
 
   canvas.dataset.entryReady = "1";
@@ -1237,6 +1256,9 @@ function initializeRaceEntryUi() {
   canvas.dataset.entryAgentActiveVersion =
     String(entryRunner.agent.version);
   canvas.dataset.entryCourseFit = paceFit.toFixed(3);
+  canvas.dataset.entryPaceBias = entryRunner.speedBias.toFixed(3);
+  canvas.dataset.entryProjectedPace =
+    (entryRunner.cfg.baseSpeed * entryRunner.speedBias * paceFit).toFixed(3);
   syncEntryAgentHistoryUi();
   syncEntryAgentCreatureCompatibilityUi();
   renderEntryComparison();
