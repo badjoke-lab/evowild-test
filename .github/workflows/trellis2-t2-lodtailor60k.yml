@@ -73,10 +73,18 @@ jobs:
           target_tris=60000
           EOF
 
+      - name: Upload T2 LODTailor evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: trellis2-t2-lodtailor60k
+          path: art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-lodtailor60k/
+          if-no-files-found: error
+
       - name: Commit T2 LODTailor evidence
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-lodtailor60k
           git commit -m "exp: persist PixelArtistry LODTailor 60k bench"
+          git pull --rebase origin exp/trellis2-pixal3d-s-bench-20261004
           git push origin HEAD:exp/trellis2-pixal3d-s-bench-20261004
