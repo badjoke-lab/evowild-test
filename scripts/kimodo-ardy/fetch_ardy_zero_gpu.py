@@ -71,7 +71,7 @@ def _copy_result(client: Client, value: Any, dest: Path) -> None:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--space", default="cs686/ardy-motion-api")
+    ap.add_argument("--space", default="VIDraft/CozyClay")
     ap.add_argument("--prompt", default="A person accelerates smoothly from a run into a full sprint.")
     ap.add_argument("--duration", type=float, default=4.0)
     ap.add_argument("--diffusion-steps", type=int, default=4)
@@ -92,23 +92,26 @@ def main() -> int:
         encoding="utf-8",
     )
 
-    result = client.predict(
-        args.prompt,
-        args.duration,
-        args.diffusion_steps,
-        args.cfg_weight,
-        args.seed,
-        False,
-        api_name="/generate_blender",
+    request_json = json.dumps(
+        {
+            "prompt": args.prompt,
+            "duration": args.duration,
+            "seed": args.seed,
+        }
     )
-    if not isinstance(result, (list, tuple)) or len(result) < 4:
-        raise RuntimeError(f"Unexpected /generate_blender result: {result!r}")
+    result = client.predict(request_json, api_name="/generate_motion")
+    if not isinstance(result, (list, tuple)) or len(result) < 2:
+        raise RuntimeError(f"Unexpected /generate_motion result: {result!r}")
 
-    print("raw generate_blender result:", repr(result))
-    bvh, npz, metadata, returned_seed = result[:4]
-    _copy_result(client, bvh, args.output_dir / "motion.bvh")
+    print("raw generate_motion result:", repr(result))
+    npz, report = result[:2]
     _copy_result(client, npz, args.output_dir / "motion.npz")
-    _copy_result(client, metadata, args.output_dir / "metadata.json")
+    if not isinstance(report, dict):
+        report = {"raw_report": report}
+    (args.output_dir / "metadata.json").write_text(
+        json.dumps(report, indent=2, default=str) + "\n",
+        encoding="utf-8",
+    )
 
     request = {
         "space": args.space,
@@ -116,11 +119,9 @@ def main() -> int:
         "authoritative_model_source": "nvidia/ARDY-Core-RP-20FPS-Horizon40",
         "prompt": args.prompt,
         "duration_requested_s": args.duration,
-        "diffusion_steps": args.diffusion_steps,
-        "cfg_weight": args.cfg_weight,
         "seed_requested": args.seed,
-        "seed_returned": int(returned_seed),
-        "api_name": "/generate_blender",
+        "api_name": "/generate_motion",
+        "host_note": "CozyClay replaces the gated Llama base with a public mirror while retaining the official ARDY Core checkpoint; compatibility evidence only.",
     }
     (args.output_dir / "request.json").write_text(
         json.dumps(request, indent=2) + "\n",
