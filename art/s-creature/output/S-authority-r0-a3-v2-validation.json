@@ -1,8 +1,8 @@
 {
   "lane": "exp/s-creature-vibe-modeling",
   "gate": "R0-A3-v2-authority-anisotropic-limb-rhythm",
-  "status": "REVIEW_PENDING",
-  "decision": "REVIEW_PENDING",
+  "status": "ACCEPTED_R0_A3",
+  "decision": "KEEP",
   "authority_image": "references/00_s_type_modeling_image_v1.png",
   "authority_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
   "source": "S-authority-r0-a2-v2.blend",
@@ -63,15 +63,15 @@
         0.15,
         -0.235,
         0.2,
-        1.0,
+        1,
         1.14
       ],
       [
         0.15,
         -0.255,
         0.12,
-        1.0,
-        1.0
+        1,
+        1
       ]
     ],
     "hind": [
@@ -107,15 +107,15 @@
         0.153,
         1.07,
         0.22,
-        1.0,
+        1,
         1.14
       ],
       [
         0.15,
         0.99,
         0.12,
-        1.0,
-        1.0
+        1,
+        1
       ]
     ]
   },
@@ -175,5 +175,8 @@
     "rear34",
     "back"
   ],
-  "modeling_status": "STOPPED"
+  "modeling_status": "STOPPED",
+  "review": "S_AUTHORITY_R0_A3_V2_REVIEW.md",
+  "accepted_scope": "R0-A3 fore/hind anisotropic limb segment rhythm",
+  "next": "R0-A4 split racing feet; R0-A5 tail blocked."
 }
