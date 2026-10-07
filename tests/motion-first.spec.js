@@ -2780,9 +2780,10 @@ test("Motion First Race Entry Selection Support v1 ranks all 18 and uses real hi
   const scene = page.locator("#scene");
   await expect(scene).toHaveAttribute("data-entry-comparison-ready", "1");
   await expect(scene).toHaveAttribute("data-entry-comparison-row-count", "18");
-  await expect(scene).toHaveAttribute("data-entry-comparison-best-runner", "1");
+  await expect(scene).toHaveAttribute("data-entry-comparison-best-runner", "5");
   await expect(scene).toHaveAttribute("data-entry-comparison-best-morph", "P");
   await expect(scene).toHaveAttribute("data-entry-comparison-best-index", "0.962");
+  await expect(scene).toHaveAttribute("data-entry-comparison-best-race-index", "0.974");
 
   const initialRanking = JSON.parse(
     (await scene.getAttribute("data-entry-comparison-ranking")) || "[]"
@@ -2790,15 +2791,27 @@ test("Motion First Race Entry Selection Support v1 ranks all 18 and uses real hi
   expect(initialRanking).toHaveLength(18);
   expect(initialRanking[0]).toMatchObject({
     rank: 1,
-    id: 1,
+    id: 5,
     morph: "P",
     courseFit: 1.045,
     pairFit: 0.92,
+    paceBias: 1.013,
     races: 0,
     wins: 0,
     avgRank: null,
-    fitIndex: 0.962
+    fitIndex: 0.962,
+    raceIndex: 0.974
   });
+  expect(initialRanking[0].projectedPace).toBeGreaterThan(23.0);
+
+  const runner02 = initialRanking.find((row) => row.id === 1);
+  const runner06 = initialRanking.find((row) => row.id === 5);
+  expect(runner02).toBeTruthy();
+  expect(runner06).toBeTruthy();
+  expect(runner06.morph).toBe(runner02.morph);
+  expect(runner06.fitIndex).toBe(runner02.fitIndex);
+  expect(runner06.paceBias).toBeGreaterThan(runner02.paceBias);
+  expect(runner06.raceIndex).toBeGreaterThan(runner02.raceIndex);
   expect(new Set(initialRanking.map((row) => row.id)).size).toBe(18);
 
   await page.locator("#entryCompareButton").click();
@@ -2809,15 +2822,19 @@ test("Motion First Race Entry Selection Support v1 ranks all 18 and uses real hi
   );
   await expect(page.locator("#entryComparisonBody tr")).toHaveCount(18);
   await expect(page.locator("#entryComparisonSummary")).toContainText(
-    "BEST FIT: Runner 02 · P · INDEX 0.962"
+    "BEST RACE INDEX: Runner 06 · P · 0.974"
   );
   await expect(page.locator("#entryComparisonPanel")).toContainText(
     "heuristic only"
   );
 
   const firstRow = page.locator("#entryComparisonBody tr").first();
-  await expect(firstRow).toHaveAttribute("data-runner-id", "1");
+  await expect(firstRow).toHaveAttribute("data-runner-id", "5");
   await expect(firstRow).toHaveAttribute("data-morph", "P");
+  await expect(firstRow).toHaveAttribute("data-pace-bias", "1.013");
+  await expect(firstRow).toHaveAttribute("data-race-index", "0.974");
+  await expect(firstRow).toContainText("×1.013");
+  await expect(firstRow).toContainText("23.1m/s");
   await expect(firstRow).toContainText("NO HISTORY");
 
   // Prove a table selection uses the same Race Entry path as the dropdown.
@@ -2836,8 +2853,9 @@ test("Motion First Race Entry Selection Support v1 ranks all 18 and uses real hi
   });
   await expect(page.locator("#scene")).toHaveAttribute("data-entry-final-rank", "1");
 
-  // Return to the comparison. All P runners keep the same fit index, but the
-  // runner with real history wins the tie-break and exposes its observed fit.
+  // Return to the comparison. Runner 06 remains first because its real
+  // speedBias produces the strongest RACE INDEX; history is displayed
+  // separately rather than changing the numeric capability score.
   await page.goto(compareUrl, { waitUntil: "networkidle" });
   const historyScene = page.locator("#scene");
   await expect(historyScene).toHaveAttribute("data-entry-comparison-ready", "1");
@@ -2855,12 +2873,14 @@ test("Motion First Race Entry Selection Support v1 ranks all 18 and uses real hi
   expect(historyRanking[0].avgRank).toBe(1);
   expect(historyRanking[0].observedMean).toBeGreaterThan(0.3);
   expect(historyRanking[0].fitIndex).toBe(0.962);
+  expect(historyRanking[0].paceBias).toBe(1.013);
+  expect(historyRanking[0].raceIndex).toBe(0.974);
 
   await page.locator("#entryCompareButton").click();
   const historyFirstRow = page.locator("#entryComparisonBody tr").first();
   await expect(historyFirstRow).toHaveAttribute("data-runner-id", "5");
   await expect(historyFirstRow).toContainText("1R · 1W · AVG 1.0");
-  await expect(historyFirstRow.locator("td").nth(3)).not.toHaveText("—");
+  await expect(historyFirstRow.locator("td").nth(4)).not.toHaveText("—");
 
   console.log(
     "RACE_ENTRY_SELECTION_SUPPORT_V1",
