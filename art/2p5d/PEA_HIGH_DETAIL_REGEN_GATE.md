@@ -1,3 +1,14 @@
+# Canonical reference precedence
+
+Before any P/E/A regeneration, read:
+
+- `docs/creature-reference-index-v0.1.md`
+- `docs/2p5d-creature-reference-lock.md`
+- `docs/references/evowild-creature-reference-sheet-20260921.jpg`
+- the same morph's `public/concept/<MORPH>.webp`
+
+The canonical morph design is locked. Motion First mf12 defines motion only. A generated candidate with a different body, head, crest/horn family, tail, armor/surface language, palette, or species identity is an automatic REJECT even if its animation is smoother.
+
 # P/E/A High-Detail Motion Regeneration Gate
 
 Status: RASTER_PHASE_TRANSFER_REJECTED / ASSET_REGENERATION_REQUIRED
