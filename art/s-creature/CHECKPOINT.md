@@ -1,6 +1,6 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: authority reset R0-A4 v3 split hoof/blade feet rendered; REVIEW_PENDING / STOPPED
+current_stage: authority reset R0-A4 v3 accepted; R0-A5 long layered tail next
 branch: exp/s-creature-vibe-modeling
 current_model_file: output/S-authority-r0-a4-v3.blend
 
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Compare R0-A4 v3 five views directly with references/00_s_type_modeling_image_v1.png. Decide KEEP/REVISE/REJECT. Do not start R0-A5 before acceptance.
+next_action: Build R0-A5 long layered blade/feather tail from accepted output/S-authority-r0-a4-v3.blend. Hard-lock A1-A4. Render five views and stop.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -899,3 +899,9 @@ authority_r0_a5_status: BLOCKED_PENDING_R0_A4_REVIEW
 authority_r0_a4_v3_status: REVIEW_PENDING / STOPPED
 authority_r0_a4_v3_model: output/S-authority-r0-a4-v3.blend
 authority_r0_a5_status: BLOCKED_PENDING_R0_A4_REVIEW
+
+
+authority_r0_a4_v3_decision: KEEP / ACCEPT R0-A4
+authority_r0_a4_v3_review: S_AUTHORITY_R0_A4_V3_REVIEW.md
+authority_r0_a4_v3_accepted_model: output/S-authority-r0-a4-v3.blend
+authority_r0_a5_status: NEXT
