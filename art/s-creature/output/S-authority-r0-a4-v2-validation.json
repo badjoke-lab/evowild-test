@@ -1,0 +1,143 @@
+{
+  "lane": "exp/s-creature-vibe-modeling",
+  "gate": "R0-A4-v2-authority-integrated-split-racing-feet",
+  "status": "REVIEW_PENDING",
+  "decision": "REVIEW_PENDING",
+  "authority_image": "references/00_s_type_modeling_image_v1.png",
+  "authority_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "source": "S-authority-r0-a3-v2.blend",
+  "source_role": "accepted R0-A3 source; R0-A4 v1 not used as geometry input",
+  "accepted_prior_gates": [
+    "R0-A1",
+    "R0-A2",
+    "R0-A3"
+  ],
+  "output": "S-authority-r0-a4-v2.blend",
+  "scope": "replace generic toe appendages with integrated split racing feet only",
+  "removed_generic_toes": [
+    "S_fore_toe_L_-1",
+    "S_fore_toe_L_0",
+    "S_fore_toe_L_1",
+    "S_fore_toe_R_-1",
+    "S_fore_toe_R_0",
+    "S_fore_toe_R_1",
+    "S_hind_toe_L_-1",
+    "S_hind_toe_L_0",
+    "S_hind_toe_L_1",
+    "S_hind_toe_R_-1",
+    "S_hind_toe_R_0",
+    "S_hind_toe_R_1"
+  ],
+  "removed_generic_toe_count": 12,
+  "new_foot_object_count": 16,
+  "new_foot_objects": [
+    "S_racing_foot_v2_fore_L_base",
+    "S_racing_foot_v2_fore_L_prong_A",
+    "S_racing_foot_v2_fore_L_prong_B",
+    "S_racing_foot_v2_fore_L_rear_spur",
+    "S_racing_foot_v2_fore_R_base",
+    "S_racing_foot_v2_fore_R_prong_A",
+    "S_racing_foot_v2_fore_R_prong_B",
+    "S_racing_foot_v2_fore_R_rear_spur",
+    "S_racing_foot_v2_hind_L_base",
+    "S_racing_foot_v2_hind_L_prong_A",
+    "S_racing_foot_v2_hind_L_prong_B",
+    "S_racing_foot_v2_hind_L_rear_spur",
+    "S_racing_foot_v2_hind_R_base",
+    "S_racing_foot_v2_hind_R_prong_A",
+    "S_racing_foot_v2_hind_R_prong_B",
+    "S_racing_foot_v2_hind_R_rear_spur"
+  ],
+  "foot_meta": [
+    {
+      "family": "fore",
+      "side": "L",
+      "attachment": [
+        -0.15,
+        -0.268,
+        0.06
+      ],
+      "base_length": 0.058,
+      "dominant_prong_length": 0.165,
+      "dominant_tip_separation": 0.06399999628122885,
+      "dominant_tip_min_z": 0.012,
+      "rear_spur_length": 0.048,
+      "rear_spur_length_ratio": 0.2909090909090909
+    },
+    {
+      "family": "fore",
+      "side": "R",
+      "attachment": [
+        0.15,
+        -0.268,
+        0.06
+      ],
+      "base_length": 0.058,
+      "dominant_prong_length": 0.165,
+      "dominant_tip_separation": 0.06399999628122885,
+      "dominant_tip_min_z": 0.012,
+      "rear_spur_length": 0.048,
+      "rear_spur_length_ratio": 0.2909090909090909
+    },
+    {
+      "family": "hind",
+      "side": "L",
+      "attachment": [
+        -0.15,
+        0.97,
+        0.06
+      ],
+      "base_length": 0.058,
+      "dominant_prong_length": 0.155,
+      "dominant_tip_separation": 0.06399999628122885,
+      "dominant_tip_min_z": 0.012,
+      "rear_spur_length": 0.048,
+      "rear_spur_length_ratio": 0.3096774193548387
+    },
+    {
+      "family": "hind",
+      "side": "R",
+      "attachment": [
+        0.15,
+        0.97,
+        0.06
+      ],
+      "base_length": 0.058,
+      "dominant_prong_length": 0.155,
+      "dominant_tip_separation": 0.06399999628122885,
+      "dominant_tip_min_z": 0.012,
+      "rear_spur_length": 0.048,
+      "rear_spur_length_ratio": 0.3096774193548387
+    }
+  ],
+  "objects_per_foot": 4,
+  "dominant_prongs_per_foot": 2,
+  "base_objects_per_foot": 1,
+  "rear_stabilizers_per_foot": 1,
+  "hard_fixed": [
+    "entire continuous body",
+    "accepted R0-A1/R0-A2/R0-A3 geometry",
+    "crest",
+    "tail",
+    "body topology",
+    "review cameras",
+    "all retained non-toe meshes"
+  ],
+  "body_geometry_unchanged": true,
+  "body_topology_unchanged": true,
+  "retained_meshes_unchanged": true,
+  "crest_geometry_unchanged": true,
+  "tail_geometry_unchanged": true,
+  "camera_transforms_unchanged": true,
+  "generic_toe_objects_remaining": 0,
+  "v1_review": "S_AUTHORITY_R0_A4_V1_REVIEW.md",
+  "stop_rule": "render SIDE/FRONT/FRONT34/REAR34/BACK and STOP; R0-A5 blocked pending R0-A4 v2 review",
+  "rendered_views": [
+    "side",
+    "front",
+    "front34",
+    "rear34",
+    "back"
+  ],
+  "modeling_status": "STOPPED"
+}
