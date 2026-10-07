@@ -1,0 +1,7 @@
+{
+  "space": "nvidia/Kimodo",
+  "status": "error",
+  "error_type": "ValueError",
+  "error": "Could not get Gradio config from: https://nvidia-kimodo.hf.space",
+  "traceback": "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/gradio_client/client.py\", line 976, in _get_config\n    config = json.loads(result.group(1))  # type: ignore\n                        ^^^^^^^^^^^^\nAttributeError: 'NoneType' object has no attribute 'group'\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<stdin>\", line 15, in <module>\n  File \"/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/gradio_client/client.py\", line 170, in __init__\n    self.config = self._get_config()\n                  ^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages/gradio_client/client.py\", line 978, in _get_config\n    raise ValueError(\nValueError: Could not get Gradio config from: https://nvidia-kimodo.hf.space\n"
+}

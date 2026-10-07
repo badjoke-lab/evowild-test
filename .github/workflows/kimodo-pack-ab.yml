@@ -1,0 +1,41 @@
+name: Kimodo Full Pack A-B
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - exp/kimodo-ardy-motion-feasibility-20261004
+    paths:
+      - "tests/kimodo-pack-visual.spec.js"
+      - ".github/workflows/kimodo-pack-ab.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: exp/kimodo-ardy-motion-feasibility-20261004
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - name: Capture full-pack A-B
+        env:
+          KIMODO_PACK_AB: "1"
+        run: npx playwright test tests/kimodo-pack-visual.spec.js --project=desktop-chromium
+      - name: Commit pack A-B evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/kimodo-ardy/pack-ab
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Record Kimodo full-pack A-B evidence"
+          git push origin HEAD:exp/kimodo-ardy-motion-feasibility-20261004

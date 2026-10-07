@@ -1,0 +1,36 @@
+{
+  "frames": 180,
+  "fps": 30.0,
+  "fps_source": "cli",
+  "duration_s": 5.966666666666667,
+  "root_source": "root_positions",
+  "heading_source": "root_global_rotation",
+  "horizontal_distance_m": 10.715210523632564,
+  "mean_speed_mps": 1.7885085365745765,
+  "median_speed_mps": 2.2363290922525536,
+  "max_speed_mps": 3.7081975020799187,
+  "mean_abs_accel_mps2": 2.2225739593955502,
+  "max_abs_accel_mps2": 9.727269108392617,
+  "mean_abs_turn_rate_deg_s": 17.315421932113075,
+  "max_abs_turn_rate_deg_s": 70.04017172101442,
+  "vertical_root_std_m": 0.03049782677506483,
+  "vertical_root_dominant_hz": 2.6666666666666665,
+  "foot_contacts": {
+    "available": true,
+    "assumed_order": [
+      "left_heel",
+      "left_toe",
+      "right_heel",
+      "right_toe"
+    ],
+    "left_stance_ratio": 0.4722222222222222,
+    "right_stance_ratio": 0.5388888888888889,
+    "left_contact_onsets": 7,
+    "right_contact_onsets": 11,
+    "combined_step_rate_hz": 3.016759776536313,
+    "left_stride_rate_hz": 1.1731843575418994,
+    "right_stride_rate_hz": 1.8435754189944134,
+    "median_left_stance_s": 0.13333333333333333,
+    "median_right_stance_s": 0.13333333333333333
+  }
+}

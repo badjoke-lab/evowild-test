@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "inference_host": "VIDraft/CozyClay",
+  "host_classification": "third_party_zero_gpu",
+  "upstream_repository": "nv-tlabs/ardy",
+  "upstream_commit": "693f74d13b3d04a0a22ce127ee79c929dd89756b",
+  "official_checkpoint": "ARDY-Core-RP-20FPS-Horizon40",
+  "motion_sha256": "2f8379ad1c2e6a973547a7fe264025618e47200c8bb29ccafcbabb6787362ca0",
+  "motion_bytes": 48656,
+  "prompt": "A person accelerates smoothly from a run into a full sprint.",
+  "seed": 42,
+  "note": "Third-party CozyClay ZeroGPU host using the official NVIDIA ARDY Core checkpoint with a public Llama mirror; compatibility evidence only."
+}

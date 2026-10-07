@@ -1,0 +1,165 @@
+name: Kimodo Official Space UI Probe
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - exp/kimodo-ardy-motion-feasibility-20261004
+    paths:
+      - ".github/workflows/kimodo-space-ui-probe.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  probe-ui:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: exp/kimodo-ardy-motion-feasibility-20261004
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Playwright
+        run: |
+          npm install --no-save --ignore-scripts @playwright/test@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Inspect public Kimodo Space UI
+        shell: bash
+        run: |
+          mkdir -p experiments/kimodo-ardy/space-probe
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import { chromium } from '@playwright/test';
+
+          const out = 'experiments/kimodo-ardy/space-probe/ui.json';
+          const result = { space: 'https://nvidia-kimodo.hf.space', status: 'unknown' };
+          const browser = await chromium.launch({ headless: true });
+          const context = await browser.newContext({ locale: 'en-US', viewport: { width: 1440, height: 1100 } });
+          const page = await context.newPage();
+          const consoleLines = [];
+          page.on('console', msg => consoleLines.push({ type: msg.type(), text: msg.text() }));
+          page.on('pageerror', err => consoleLines.push({ type: 'pageerror', text: String(err) }));
+          try {
+            const response = await page.goto(result.space, { waitUntil: 'domcontentloaded', timeout: 90000 });
+            result.http_status = response?.status() ?? null;
+            await page.waitForTimeout(25000);
+            result.title = await page.title();
+            result.url = page.url();
+            result.body_text = (await page.locator('body').innerText()).slice(0, 40000);
+            result.buttons = await page.locator('button').allTextContents();
+            result.inputs = await page.locator('input').evaluateAll(els => els.map((e, i) => ({
+              i, type: e.type, value: e.value, placeholder: e.placeholder, aria: e.getAttribute('aria-label')
+            })));
+            result.textareas = await page.locator('textarea').evaluateAll(els => els.map((e, i) => ({
+              i, value: e.value, placeholder: e.placeholder, aria: e.getAttribute('aria-label')
+            })));
+            result.selects = await page.locator('select').evaluateAll(els => els.map((e, i) => ({
+              i, value: e.value, options: [...e.options].map(o => o.textContent)
+            })));
+            result.links = await page.locator('a').evaluateAll(els => els.slice(0, 100).map((e, i) => ({
+              i, text: e.textContent, href: e.href
+            })));
+            result.status = 'loaded';
+
+            const startButton = page.getByRole('button', { name: 'Start Demo', exact: true });
+            if (await startButton.count()) {
+              await startButton.click();
+              await page.waitForTimeout(12000);
+
+              const gotIt = page.getByRole('button', { name: "Got it (don't remind me again)", exact: true });
+              if (await gotIt.count()) {
+                await gotIt.click();
+                await page.waitForTimeout(1500);
+              }
+
+              const bodyTextAfterLoad = (await page.locator('body').innerText()).slice(0, 60000);
+              const promptLocator = page.getByText(/A person walks forward/i);
+              const promptCount = await promptLocator.count();
+              const promptFragments = [];
+              for (let i = 0; i < Math.min(promptCount, 10); i++) {
+                const el = promptLocator.nth(i);
+                promptFragments.push({
+                  tag: await el.evaluate(e => e.tagName),
+                  text: (await el.innerText().catch(() => '')),
+                  html: (await el.evaluate(e => e.outerHTML)).slice(0, 12000),
+                  box: await el.boundingBox()
+                });
+              }
+
+              let afterDblclick = null;
+              if (promptCount > 0) {
+                await promptLocator.first().dblclick();
+                await page.waitForTimeout(1500);
+                afterDblclick = {
+                  body_text: (await page.locator('body').innerText()).slice(0, 60000),
+                  inputs: await page.locator('input').evaluateAll(els => els.map((e, i) => ({
+                    i, type: e.type, value: e.value, placeholder: e.placeholder,
+                    aria: e.getAttribute('aria-label'),
+                    parent_text: (e.parentElement?.parentElement?.innerText || '').slice(0, 1000),
+                    outer_html: e.outerHTML.slice(0, 3000)
+                  }))),
+                  textareas: await page.locator('textarea').evaluateAll(els => els.map((e, i) => ({
+                    i, value: e.value, placeholder: e.placeholder, aria: e.getAttribute('aria-label'),
+                    parent_text: (e.parentElement?.parentElement?.innerText || '').slice(0, 1000),
+                    outer_html: e.outerHTML.slice(0, 3000)
+                  })))
+                };
+              }
+
+              result.after_start = {
+                body_text: bodyTextAfterLoad,
+                buttons: await page.locator('button').allTextContents(),
+                prompt_match_count: promptCount,
+                prompt_fragments: promptFragments,
+                after_prompt_double_click: afterDblclick,
+                inputs: await page.locator('input').evaluateAll(els => els.map((e, i) => ({
+                  i,
+                  type: e.type,
+                  value: e.value,
+                  placeholder: e.placeholder,
+                  aria: e.getAttribute('aria-label'),
+                  parent_text: (e.parentElement?.parentElement?.innerText || '').slice(0, 500)
+                }))),
+                textareas: await page.locator('textarea').evaluateAll(els => els.map((e, i) => ({
+                  i,
+                  value: e.value,
+                  placeholder: e.placeholder,
+                  aria: e.getAttribute('aria-label'),
+                  parent_text: (e.parentElement?.parentElement?.innerText || '').slice(0, 500)
+                })))
+              };
+            } else {
+              result.after_start = { error: 'Start Demo button not found' };
+            }
+
+            await page.screenshot({ path: 'experiments/kimodo-ardy/space-probe/ui.png', fullPage: true });
+          } catch (e) {
+            result.status = 'error';
+            result.error = String(e);
+          } finally {
+            result.console = consoleLines.slice(-200);
+            fs.writeFileSync(out, JSON.stringify(result, null, 2) + '\n');
+            console.log(fs.readFileSync(out, 'utf8'));
+            await browser.close();
+          }
+          NODE
+
+      - name: Commit UI probe
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add experiments/kimodo-ardy/space-probe/ui.json experiments/kimodo-ardy/space-probe/ui.png
+          if git diff --cached --quiet; then
+            echo "No UI probe changes."
+            exit 0
+          fi
+          git commit -m "Record official Kimodo Space UI probe"
+          git push origin HEAD:exp/kimodo-ardy-motion-feasibility-20261004

@@ -1,0 +1,58 @@
+{
+  "2.1": {
+    "baseline": {
+      "mode": "baseline",
+      "source": "accel",
+      "physics": "unchanged",
+      "raceTime": 2.1,
+      "envelope": 0.1943,
+      "rawLead": 0,
+      "appliedLead": 0,
+      "physicalSpeedRatio": 0.3153,
+      "bodyPitch": -0.0705774571920415,
+      "pitchBias": 0,
+      "maxStanceSlip": 0.0015138662779246026
+    },
+    "candidate": {
+      "mode": "candidate",
+      "source": "accel",
+      "physics": "unchanged",
+      "raceTime": 2.1,
+      "envelope": 0.1943,
+      "rawLead": 0,
+      "appliedLead": 0,
+      "physicalSpeedRatio": 0.3153,
+      "bodyPitch": -0.07057729840874581,
+      "pitchBias": 0,
+      "maxStanceSlip": 0.0019198040686081441
+    }
+  },
+  "2.7": {
+    "baseline": {
+      "mode": "baseline",
+      "source": "accel",
+      "physics": "unchanged",
+      "raceTime": 2.7,
+      "envelope": 0.8428,
+      "rawLead": 0.3473,
+      "appliedLead": 0,
+      "physicalSpeedRatio": 0.4955,
+      "bodyPitch": -0.04167344762508551,
+      "pitchBias": 0,
+      "maxStanceSlip": 0.002279746809721317
+    },
+    "candidate": {
+      "mode": "candidate",
+      "source": "accel",
+      "physics": "unchanged",
+      "raceTime": 2.7,
+      "envelope": 0.8428,
+      "rawLead": 0.3473,
+      "appliedLead": 0.191,
+      "physicalSpeedRatio": 0.4955,
+      "bodyPitch": -0.060228199811277944,
+      "pitchBias": -0.007640545821213023,
+      "maxStanceSlip": 0.003120323807214831
+    }
+  }
+}

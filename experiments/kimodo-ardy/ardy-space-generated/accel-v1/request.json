@@ -1,0 +1,10 @@
+{
+  "space": "VIDraft/CozyClay",
+  "host_classification": "third_party_zero_gpu",
+  "authoritative_model_source": "nvidia/ARDY-Core-RP-20FPS-Horizon40",
+  "prompt": "A person accelerates smoothly from a run into a full sprint.",
+  "duration_requested_s": 1.0,
+  "seed_requested": 42,
+  "api_name": "/generate_motion",
+  "host_note": "CozyClay replaces the gated Llama base with a public mirror while retaining the official ARDY Core checkpoint; compatibility evidence only."
+}

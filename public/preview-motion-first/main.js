@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { clone as cloneSkeleton } from "three/addons/utils/SkeletonUtils.js";
+import { computeKimodoLaunchVisualDrive } from "./kimodo-launch-profile.js";
 
 const canvas = document.querySelector("#scene");
 const loading = document.querySelector("#loading");
@@ -66,6 +67,20 @@ const params = new URLSearchParams(window.location.search);
 const INSPECT_MODE = params.get("inspect") === "1";
 const SIMPLIFIED_GAIT_PAGE = window.location.pathname.includes("/preview-motion-first-gait/");
 const SIMPLIFIED_RACE_PAGE = window.location.pathname.includes("/preview-motion-first-race/");
+const KIMODO_LAUNCH_VISUAL =
+  SIMPLIFIED_RACE_PAGE && params.get("kimodoLaunch") === "1";
+const KIMODO_LAUNCH_SOURCE =
+  params.get("kimodoLaunchSource") === "sprint" ? "sprint" : "accel";
+const KIMODO_LAUNCH_BLEND = THREE.MathUtils.clamp(
+  Number(params.get("kimodoLaunchBlend") ?? 0.55),
+  0,
+  1
+);
+const KIMODO_LAUNCH_FREEZE_TIME = Number(params.get("kimodoLaunchFreeze"));
+const KIMODO_LAUNCH_FREEZE_ENABLED =
+  SIMPLIFIED_RACE_PAGE &&
+  Number.isFinite(KIMODO_LAUNCH_FREEZE_TIME) &&
+  KIMODO_LAUNCH_FREEZE_TIME > 0;
 
 const RACE_COURSE_PROFILES = {
   "sprint-800-v1": {
@@ -784,6 +799,12 @@ const PROXY_REVIEW_RUNNER =
   PROXY_REVIEW_RUNNER_PARAM === null
     ? null
     : Number.parseInt(PROXY_REVIEW_RUNNER_PARAM, 10);
+const PROXY_REVIEW_CAMERA_PARAM =
+  (params.get("proxyReviewCamera") || "SIDE").toUpperCase();
+const PROXY_REVIEW_CAMERA =
+  ["SIDE", "LOW", "CHASE", "FRONT"].includes(PROXY_REVIEW_CAMERA_PARAM)
+    ? PROXY_REVIEW_CAMERA_PARAM
+    : "SIDE";
 const VISUAL_SWAP_MORPH = (params.get("visualSwap") || "").toUpperCase();
 const VISUAL_SWAP_RUNNER_PARAM = params.get("visualSwapRunner");
 const VISUAL_SWAP_RUNNER =
@@ -4654,9 +4675,23 @@ function updateSimplifiedRaceProxyCanonicalPose(runner, dt) {
   motionRunner.targetSpeed = runner.targetSpeed;
   motionRunner.distance = runner.distance;
   motionRunner.phaseBias = runner.phaseBias;
+  motionRunner.kimodoLaunchVisualDrive = runner.kimodoLaunchVisualDrive || 0;
 
   if (runner.morph === "S") {
     updateSprintPose(motionRunner, runner.renderLateralVelocity || 0, dt);
+    if (runner.id === 0) {
+      canvas.dataset.kimodoLaunchBodyPitch =
+        String(proxyUd.bodyMaster.rotation.x);
+      canvas.dataset.kimodoLaunchPitchBias =
+        String(-(motionRunner.kimodoLaunchVisualDrive || 0) * 0.040);
+      canvas.dataset.kimodoLaunchBodyStretch =
+        String(
+          Math.abs(proxyUd.chestPivot.position.z - S_GAIT.chestBaseZ) +
+          Math.abs(proxyUd.pelvisPivot.position.z - S_GAIT.pelvisBaseZ)
+        );
+      canvas.dataset.kimodoLaunchMaxStanceSlip =
+        String(proxyUd.maxStanceSlip || 0);
+    }
   } else if (runner.morph === "P") {
     updatePowerPose(motionRunner, runner.renderLateralVelocity || 0, dt);
   } else if (runner.morph === "E") {
@@ -5577,6 +5612,34 @@ function updateRunner(runner, dt) {
   const accelRate = cfg.accel * (runner.targetSpeed >= runner.speed ? 1 : 0.62);
   runner.speed = THREE.MathUtils.damp(runner.speed, runner.targetSpeed, accelRate, dt);
 
+  if (runner.morph === "S") {
+    const physicalSpeedRatio = THREE.MathUtils.clamp(
+      runner.speed / Math.max(cfg.baseSpeed, 1),
+      0,
+      1.2
+    );
+    const visual = computeKimodoLaunchVisualDrive(
+      raceTime,
+      physicalSpeedRatio,
+      KIMODO_LAUNCH_VISUAL ? KIMODO_LAUNCH_BLEND : 0,
+      KIMODO_LAUNCH_SOURCE
+    );
+    runner.kimodoLaunchVisualDrive = visual.appliedLead;
+
+    if (runner.id === 0) {
+      canvas.dataset.kimodoLaunchMode =
+        KIMODO_LAUNCH_VISUAL ? "candidate" : "baseline";
+      canvas.dataset.kimodoLaunchSource = visual.source;
+      canvas.dataset.kimodoLaunchPhysics = "unchanged";
+      canvas.dataset.kimodoLaunchRaceTime = raceTime.toFixed(3);
+      canvas.dataset.kimodoLaunchEnvelope = visual.envelope.toFixed(4);
+      canvas.dataset.kimodoLaunchRawLead = visual.rawLead.toFixed(4);
+      canvas.dataset.kimodoLaunchAppliedLead = visual.appliedLead.toFixed(4);
+      canvas.dataset.kimodoLaunchPhysicalSpeedRatio =
+        physicalSpeedRatio.toFixed(4);
+    }
+  }
+
   const previousDistance = runner.distance;
   if (!finished) runner.distance += runner.speed * dt;
 
@@ -5711,7 +5774,14 @@ function updateSprintPose(runner, lateralVelocity, dt) {
     THREE.MathUtils.lerp(S_GAIT.minStrideWorld, S_GAIT.maxStrideWorld, speedRatio);
 
   const accelError = (runner.targetSpeed - runner.speed) / Math.max(cfg.baseSpeed, 1);
-  ud.accelLean = THREE.MathUtils.damp(ud.accelLean, accelError * 1.45, 8.5, dt);
+  const kimodoLaunchDrive =
+    KIMODO_LAUNCH_VISUAL ? runner.kimodoLaunchVisualDrive || 0 : 0;
+  ud.accelLean = THREE.MathUtils.damp(
+    ud.accelLean,
+    accelError * 1.45 + kimodoLaunchDrive * 0.52,
+    8.5,
+    dt
+  );
   ud.turnLean = THREE.MathUtils.damp(
     ud.turnLean,
     THREE.MathUtils.clamp(-lateralVelocity * cfg.laneLean * 0.16, -0.22, 0.22),
@@ -5735,8 +5805,13 @@ function updateSprintPose(runner, lateralVelocity, dt) {
 
   // Longitudinal body deformation is essential: the runner must not read as
   // a rigid hull with four animated sticks.
-  const longStretch = (spineExtend - 0.5) * 0.34 * speedRatio;
-  const verticalCompression = load * 0.070 * speedRatio;
+  const launchStretchBias = kimodoLaunchDrive * 0.20;
+  const longStretch =
+    (spineExtend - 0.5) * 0.34 * speedRatio +
+    launchStretchBias;
+  const verticalCompression =
+    load * 0.070 * speedRatio +
+    kimodoLaunchDrive * 0.020;
 
   ud.chestPivot.position.z = S_GAIT.chestBaseZ + longStretch * 0.46;
   ud.pelvisPivot.position.z = S_GAIT.pelvisBaseZ - longStretch * 0.62;
@@ -5756,17 +5831,20 @@ function updateSprintPose(runner, lateralVelocity, dt) {
 
   ud.bodyMaster.rotation.x =
     -0.082 * speedRatio -
-    ud.accelLean * 0.11 +
+    ud.accelLean * 0.11 -
+    kimodoLaunchDrive * 0.040 +
     contactPitch;
   ud.bodyMaster.rotation.z = ud.turnLean;
 
   ud.chestPivot.rotation.x =
     -spineWave * 0.125 * speedRatio -
-    foreCatch * 0.050 +
+    foreCatch * 0.050 -
+    kimodoLaunchDrive * 0.030 +
     suspension * 0.024;
   ud.pelvisPivot.rotation.x =
     spineWave * 0.165 * speedRatio +
-    rearDrive * 0.060 -
+    rearDrive * 0.060 +
+    kimodoLaunchDrive * 0.024 -
     suspension * 0.028;
   ud.chestPivot.rotation.y = -Math.sin(phase * 0.5) * 0.016 * speedRatio;
   ud.pelvisPivot.rotation.y = Math.sin(phase * 0.5) * 0.024 * speedRatio;
@@ -5778,9 +5856,15 @@ function updateSprintPose(runner, lateralVelocity, dt) {
     const strideRoot = Math.sin(localCycle * TAU);
     const liftRoot = Math.max(0, -Math.sin(localCycle * TAU));
 
+    const launchRootScale = leg.fore
+      ? 1 + kimodoLaunchDrive * 0.08
+      : 1 + kimodoLaunchDrive * 0.28;
     leg.hip.position.z =
       (leg.fore ? 0.26 : -0.25) +
-      strideRoot * (leg.fore ? 0.095 : 0.120) * speedRatio;
+      strideRoot *
+        (leg.fore ? 0.095 : 0.120) *
+        speedRatio *
+        launchRootScale;
     leg.hip.position.y =
       (leg.fore ? -0.12 : -0.10) +
       liftRoot * 0.035 * speedRatio -
@@ -7651,6 +7735,20 @@ function animate() {
         finishCheck();
         simulationAccumulator -= SIMULATION_STEP;
         simulationSteps += 1;
+
+        if (
+          KIMODO_LAUNCH_FREEZE_ENABLED &&
+          raceTime + 1e-9 >= KIMODO_LAUNCH_FREEZE_TIME
+        ) {
+          paused = true;
+          simulationAccumulator = 0;
+          canvas.dataset.kimodoLaunchFrozen = "1";
+          canvas.dataset.kimodoLaunchFreezeTime =
+            KIMODO_LAUNCH_FREEZE_TIME.toFixed(3);
+          pauseButton.textContent = "RESUME";
+          raceStateEl.textContent = "PAUSED";
+          break;
+        }
       }
 
       canvas.dataset.raceTime = raceTime.toFixed(3);
@@ -7759,12 +7857,16 @@ async function boot() {
     ) {
       selectedRunner = PROXY_REVIEW_RUNNER;
       runnerSelect.value = String(PROXY_REVIEW_RUNNER);
-      requestedCamera = "SIDE";
-      actualCamera = "SIDE";
+      requestedCamera = PROXY_REVIEW_CAMERA;
+      actualCamera = PROXY_REVIEW_CAMERA;
       cameraButtons.forEach((button) => {
-        button.classList.toggle("active", button.dataset.camera === "SIDE");
+        button.classList.toggle(
+          "active",
+          button.dataset.camera === PROXY_REVIEW_CAMERA
+        );
       });
       canvas.dataset.proxyReviewFocus = String(PROXY_REVIEW_RUNNER);
+      canvas.dataset.proxyReviewCamera = PROXY_REVIEW_CAMERA;
     }
   }
 

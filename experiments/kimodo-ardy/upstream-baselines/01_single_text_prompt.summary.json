@@ -1,0 +1,36 @@
+{
+  "frames": 150,
+  "fps": 30.0,
+  "fps_source": "default_30hz",
+  "duration_s": 4.966666666666667,
+  "root_source": "posed_joints[:,0,:]",
+  "heading_source": "soma30_hip_axis",
+  "horizontal_distance_m": 9.542372868765106,
+  "mean_speed_mps": 1.909013426963883,
+  "median_speed_mps": 1.9627266382461355,
+  "max_speed_mps": 4.512892400203013,
+  "mean_abs_accel_mps2": 3.3530415598161873,
+  "max_abs_accel_mps2": 12.74384883875131,
+  "mean_abs_turn_rate_deg_s": 36.55617251835584,
+  "max_abs_turn_rate_deg_s": 180.36364321655765,
+  "vertical_root_std_m": 0.11438369043884314,
+  "vertical_root_dominant_hz": 0.4,
+  "foot_contacts": {
+    "available": true,
+    "assumed_order": [
+      "left_heel",
+      "left_toe",
+      "right_heel",
+      "right_toe"
+    ],
+    "left_stance_ratio": 0.5133333333333333,
+    "right_stance_ratio": 0.42,
+    "left_contact_onsets": 5,
+    "right_contact_onsets": 6,
+    "combined_step_rate_hz": 2.214765100671141,
+    "left_stride_rate_hz": 1.006711409395973,
+    "right_stride_rate_hz": 1.2080536912751678,
+    "median_left_stance_s": 0.43333333333333335,
+    "median_right_stance_s": 0.21666666666666667
+  }
+}

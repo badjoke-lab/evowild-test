@@ -1,0 +1,71 @@
+name: Kimodo ARDY Feasibility Tooling
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - exp/kimodo-ardy-motion-feasibility-20261004
+    paths:
+      - "scripts/kimodo-ardy/**"
+      - "tests/kimodo-ardy/**"
+      - "experiments/kimodo-ardy/**"
+      - ".github/workflows/kimodo-ardy-feasibility.yml"
+
+jobs:
+  validate-tooling:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install analysis dependency
+        run: python -m pip install --disable-pip-version-check numpy
+
+      - name: Compile Python helpers
+        run: |
+          python -m py_compile scripts/kimodo-ardy/check_environment.py
+          python -m py_compile scripts/kimodo-ardy/extract_motion_signals.py
+          python -m py_compile scripts/kimodo-ardy/make_kimodo_constraints.py
+          python -m py_compile scripts/kimodo-ardy/build_transfer_profile.py
+
+      - name: Run synthetic signal tests
+        run: |
+          python tests/kimodo-ardy/test_extract_motion_signals.py
+          python tests/kimodo-ardy/test_build_transfer_profile.py
+
+      - name: Validate generated Kimodo constraint files
+        run: |
+          mkdir -p /tmp/kimodo-constraints
+          for mode in straight accel decel curve lane-change; do
+            python scripts/kimodo-ardy/make_kimodo_constraints.py --mode "$mode" --duration 3 --fps 30 --speed 3.5 --output "/tmp/kimodo-constraints/$mode.json"
+          done
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          for path in Path("/tmp/kimodo-constraints").glob("*.json"):
+              data = json.loads(path.read_text())
+              assert len(data) == 1
+              item = data[0]
+              assert item["type"] == "root2d"
+              assert len(item["frame_indices"]) == 90
+              assert len(item["smooth_root_2d"]) == 90
+              assert len(item["global_root_heading"]) == 90
+          print("constraint validation: PASS")
+          PY
+
+      - name: Probe environment without requiring hosted GPU
+        shell: bash
+        run: |
+          set +e
+          python scripts/kimodo-ardy/check_environment.py > /tmp/environment.json
+          rc=$?
+          set -e
+          cat /tmp/environment.json
+          if [[ "$rc" -ne 0 && "$rc" -ne 2 ]]; then
+            echo "unexpected environment probe exit code: $rc" >&2
+            exit "$rc"
+          fi

@@ -1,0 +1,54 @@
+name: Kimodo Launch Profile Comparison
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - exp/kimodo-ardy-motion-feasibility-20261004
+    paths:
+      - "scripts/kimodo-ardy/compare_launch_profiles.py"
+      - "tests/kimodo-ardy/test_compare_launch_profiles.py"
+      - ".github/workflows/kimodo-launch-profile-compare.yml"
+      - "experiments/kimodo-ardy/space-generated/sprint-v1/timeseries.csv"
+
+permissions:
+  contents: write
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: exp/kimodo-ardy-motion-feasibility-20261004
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install analysis dependency
+        run: python -m pip install --disable-pip-version-check numpy
+
+      - name: Test comparison math
+        run: python tests/kimodo-ardy/test_compare_launch_profiles.py
+
+      - name: Compare current EvoWild launch against generated Kimodo sprint
+        run: |
+          python scripts/kimodo-ardy/compare_launch_profiles.py \
+            experiments/kimodo-ardy/space-generated/sprint-v1/timeseries.csv \
+            --output experiments/kimodo-ardy/space-generated/sprint-v1/launch-comparison.json
+
+      - name: Commit comparison result
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add experiments/kimodo-ardy/space-generated/sprint-v1/launch-comparison.json
+          if git diff --cached --quiet; then
+            echo "No comparison changes."
+            exit 0
+          fi
+          git commit -m "Compare Kimodo sprint with EvoWild launch profile"
+          git push origin HEAD:exp/kimodo-ardy-motion-feasibility-20261004
