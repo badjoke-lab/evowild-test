@@ -14,15 +14,15 @@ jobs:
         with:
           node-version: 22
       - run: npm install
-      - run: npm run build
-      - name: Verify 2.5D pages are in production build
-        run: test -f dist/race-2_5d.html && test -f dist/race-quality.html
       - name: Generate P candidate from existing mf12 motion
         if: ${{ startsWith(github.head_ref, 'feat/2p5d-p-mf12-flow-transfer-') || startsWith(github.ref_name, 'feat/2p5d-p-mf12-flow-transfer-') }}
         shell: bash
         run: |
           python3 -m pip install --disable-pip-version-check pillow numpy opencv-python-headless
           python3 scripts/build_p_mf12_flow_transfer_v1.py
+      - run: npm run build
+      - name: Verify 2.5D pages are in production build
+        run: test -f dist/race-2_5d.html && test -f dist/race-quality.html
       - name: Upload P mf12 motion-transfer candidate
         if: ${{ always() && (startsWith(github.head_ref, 'feat/2p5d-p-mf12-flow-transfer-') || startsWith(github.ref_name, 'feat/2p5d-p-mf12-flow-transfer-')) }}
         uses: actions/upload-artifact@v4
