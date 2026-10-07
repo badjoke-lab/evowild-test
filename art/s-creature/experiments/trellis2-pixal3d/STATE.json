@@ -5,7 +5,7 @@
   "parent_branch": "exp/s-creature-vibe-modeling",
   "parent_commit": "07d87340345031d68834552f10561107a1560b88",
   "status": "ACTIVE",
-  "stage": "T2_TRELLIS2_NONMANIFOLD_REPAIR_BENCH",
+  "stage": "T2_PIXELARTISTRY_LODTAILOR60K",
   "baseline": {
     "decision": "REVISE",
     "model": "art/s-creature/output/S-vibe-b1a-v2.blend",
@@ -34,7 +34,7 @@
       "nonmanifold_edges_gt2_faces": 0,
       "duplicate_vertex_positions_rounded_1e_8": 60123
     },
-    "next_action": "Repair the remaining 56 non-manifold edges on the welded largest component with a minimal-change mesh repair bench; measure topology and geometric drift before any decimation.",
+    "next_action": "Run the pinned PixelArtistry LODTailor Blender worker at 60k triangles with voxel rebuild disabled, then audit watertightness, drift and five-view morphology before deformation testing.",
     "t2_weld": {
       "run": 37461252570,
       "decision": "KEEP_AS_REPAIR_INPUT",
@@ -51,6 +51,22 @@
       "maincomponent_watertight": false,
       "maincomponent_is_volume": false,
       "result_dir": "art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-weld"
+    },
+    "t2_meshfix": {
+      "run": 37461785616,
+      "visual_run": 37462229720,
+      "decision": "KEEP_AS_WATERTIGHT_SOURCE",
+      "vertices": 131752,
+      "faces": 263544,
+      "connected_components": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges_gt2_faces": 0,
+      "watertight": true,
+      "is_volume": true,
+      "symmetric_p95_drift_over_bbox_diagonal": 0.004591967764252748,
+      "visual_five_view": "PASS_NO_VISIBLE_REPAIR_REGRESSION",
+      "decision_doc": "art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-meshfix/T2_MESHFIX_DECISION.md",
+      "note": "Intermediate T2 keep only; face count and deformation topology still unvalidated."
     }
   },
   "pixal3d": {
@@ -68,5 +84,5 @@
     "no manual morphology edit before T1 decision",
     "do not enter rig/motion with raw TRELLIS2 mesh"
   ],
-  "next_action": "T2: test minimal non-manifold repair on the exact-weld largest component. Pixal3D remains pending because free ZeroGPU quota is exhausted."
+  "next_action": "Run the pinned PixelArtistry LODTailor Blender worker at 60k triangles with voxel rebuild disabled, then audit watertightness, drift and five-view morphology before deformation testing. Pixal3D remains pending on a valid clean-input candidate."
 }
