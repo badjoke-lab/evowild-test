@@ -9,8 +9,8 @@
     "E",
     "A"
   ],
-  "stage": "AUTHORITY_R0_A6_REVIEW",
-  "current_stage": "R0-A6 full-body five-view authority review rendered; review pending; modeling stopped",
+  "stage": "R1_A1_NEXT",
+  "current_stage": "R0 morphology accepted; R1-A1 surface/junction continuity next",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
   "current_model_file": "output/S-authority-r0-a5-v2.blend",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Review R0-A6 SIDE/FRONT/FRONT34/REAR34/BACK directly against references/00_s_type_modeling_image_v1.png and decide R0 package KEEP/REVISE/REJECT.",
+  "next_action": "Run R1-A1 local surface continuity refinement at shoulder/proximal forelimb and pelvis/proximal hindlimb while preserving R0 authority silhouette.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -70,9 +70,18 @@
     "output/review/authority-r0-a6/S_authority_r0_a6_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
-  "editable_next": [],
+  "editable_next": [
+    "shoulder/proximal forelimb surface continuity",
+    "pelvis/proximal hindlimb surface continuity"
+  ],
   "keep_fixed_next": [
-    "all R0-A1 through R0-A5 geometry"
+    "R0 head/crest/neck",
+    "R0 torso silhouette outside junction supports",
+    "distal limbs",
+    "split feet",
+    "tail",
+    "all separate blade meshes",
+    "cameras"
   ],
   "review_basis": "Actual B1b-v2 five original PNGs and matched-camera B0-v025 / B1b-v1 comparisons, plus repository 00/01/02 S references.",
   "v6_decision": "REVISE",
@@ -876,8 +885,9 @@
   },
   "r0_a6": {
     "source": "output/S-authority-r0-a5-v2.blend",
-    "decision": "REVIEW_PENDING",
-    "status": "STOPPED_AFTER_FIVE_VIEW_RENDER",
-    "plan": "S_AUTHORITY_R0_A6_PLAN.md"
-  }
+    "decision": "KEEP",
+    "status": "ACCEPTED_R0_MORPHOLOGY",
+    "review": "S_AUTHORITY_R0_A6_REVIEW.md"
+  },
+  "r1_a1_status": "NEXT"
 }
