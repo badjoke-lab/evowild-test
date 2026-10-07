@@ -878,6 +878,10 @@ function buildEntryComparisonRows() {
       const paceBias = runner.speedBias;
       const projectedPace =
         runner.cfg.baseSpeed * paceBias * courseFit;
+      const staminaBias = runner.staminaBias;
+      const staminaDrainFit =
+        RACE_COURSE_PROFILE.staminaDrainFit?.[runner.morph] ?? 1;
+      const staminaDrainIndex = staminaDrainFit / staminaBias;
       const fitIndex = courseFit * pair.score;
       const raceIndex = fitIndex * paceBias;
 
@@ -909,6 +913,8 @@ function buildEntryComparisonRows() {
         pairFit: pair.score,
         paceBias,
         projectedPace,
+        staminaBias,
+        staminaDrainIndex,
         observedMean,
         fitIndex,
         raceIndex,
@@ -1102,6 +1108,8 @@ function renderEntryComparison() {
     tr.dataset.fitIndex = row.fitIndex.toFixed(3);
     tr.dataset.raceIndex = row.raceIndex.toFixed(3);
     tr.dataset.paceBias = row.paceBias.toFixed(3);
+    tr.dataset.staminaBias = row.staminaBias.toFixed(3);
+    tr.dataset.staminaDrainIndex = row.staminaDrainIndex.toFixed(3);
     tr.dataset.rank = String(index + 1);
     if (row.id === ENTRY_RUNNER_ID) tr.classList.add("selected");
 
@@ -1131,6 +1139,10 @@ function renderEntryComparison() {
     pace.textContent =
       `×${row.paceBias.toFixed(3)} · ${row.projectedPace.toFixed(1)}m/s`;
 
+    const stamina = document.createElement("td");
+    stamina.textContent =
+      `×${row.staminaBias.toFixed(3)} · drain ×${row.staminaDrainIndex.toFixed(3)}`;
+
     const observed = document.createElement("td");
     observed.textContent =
       row.observedMean === null
@@ -1147,7 +1159,7 @@ function renderEntryComparison() {
     indexCell.textContent =
       `${row.raceIndex.toFixed(3)} / ${row.fitIndex.toFixed(3)}`;
 
-    tr.append(candidate, course, pair, pace, observed, history, indexCell);
+    tr.append(candidate, course, pair, pace, stamina, observed, history, indexCell);
     entryComparisonBodyEl.append(tr);
   });
 
@@ -1175,6 +1187,8 @@ function renderEntryComparison() {
       pairFit: Number(row.pairFit.toFixed(3)),
       paceBias: Number(row.paceBias.toFixed(3)),
       projectedPace: Number(row.projectedPace.toFixed(3)),
+      staminaBias: Number(row.staminaBias.toFixed(3)),
+      staminaDrainIndex: Number(row.staminaDrainIndex.toFixed(3)),
       observedMean:
         row.observedMean === null
           ? null
@@ -1242,7 +1256,7 @@ function initializeRaceEntryUi() {
     RACE_COURSE_PROFILE.morphPaceFit?.[entryRunner.morph] ?? 1;
   if (entryReadoutEl) {
     entryReadoutEl.textContent =
-      `ENTRY ${entryRunner.name} · ${entryRunner.morph} · ${ENTRY_AGENT_PROFILE.name} · COURSE ×${paceFit.toFixed(3)} · PACE ×${entryRunner.speedBias.toFixed(3)}`;
+      `ENTRY ${entryRunner.name} · ${entryRunner.morph} · ${ENTRY_AGENT_PROFILE.name} · COURSE ×${paceFit.toFixed(3)} · PACE ×${entryRunner.speedBias.toFixed(3)} · STAM ×${entryRunner.staminaBias.toFixed(3)}`;
   }
 
   canvas.dataset.entryReady = "1";
@@ -1259,6 +1273,12 @@ function initializeRaceEntryUi() {
   canvas.dataset.entryPaceBias = entryRunner.speedBias.toFixed(3);
   canvas.dataset.entryProjectedPace =
     (entryRunner.cfg.baseSpeed * entryRunner.speedBias * paceFit).toFixed(3);
+  canvas.dataset.entryStaminaBias = entryRunner.staminaBias.toFixed(3);
+  canvas.dataset.entryStaminaDrainIndex =
+    (
+      (RACE_COURSE_PROFILE.staminaDrainFit?.[entryRunner.morph] ?? 1) /
+      entryRunner.staminaBias
+    ).toFixed(3);
   syncEntryAgentHistoryUi();
   syncEntryAgentCreatureCompatibilityUi();
   renderEntryComparison();
@@ -5296,6 +5316,10 @@ function resolveAgentCommand(runner, dt) {
         : -0.0015;
   }
 
+  const individualStaminaEfficiency =
+    THREE.MathUtils.clamp(runner.staminaBias ?? 1, 0.85, 1.15);
+  staminaDrain /= individualStaminaEfficiency;
+
   runner.stamina = THREE.MathUtils.clamp(runner.stamina - staminaDrain * dt, 0, 1);
   runner.fatigue = THREE.MathUtils.clamp(runner.fatigue + fatigueDelta * dt, 0, 1);
   runner.creatureState = deriveCreatureState(runner);
@@ -7199,6 +7223,9 @@ function updateHud(dt) {
       canvas.dataset.agentFocusCommand = agentTarget.agent.command;
       canvas.dataset.agentFocusResponse = agentTarget.agent.response.toFixed(3);
       canvas.dataset.agentFocusStamina = agentTarget.stamina.toFixed(3);
+      canvas.dataset.agentFocusStaminaPrecise = agentTarget.stamina.toFixed(6);
+      canvas.dataset.agentFocusStaminaBias =
+        (agentTarget.staminaBias ?? 1).toFixed(3);
       canvas.dataset.agentFocusFatigue = agentTarget.fatigue.toFixed(3);
       canvas.dataset.agentFocusPressure = agentTarget.pressure.toFixed(3);
       canvas.dataset.agentFocusCreatureState = agentTarget.creatureState;
@@ -7217,6 +7244,7 @@ function updateHud(dt) {
       canvas.dataset.agentFocusCommandSource =
         agentTarget.agent.lastCommandSource || "NONE";
       canvas.dataset.agentBalanceModel = "fatigue-tradeoff-v1";
+      canvas.dataset.individualStaminaModel = "efficiency-v1";
       canvas.dataset.agentBalanceReview = AGENT_BALANCE_REVIEW_MODE ? "1" : "0";
       canvas.dataset.agentModel = "command-only-creature-resolved";
     }
