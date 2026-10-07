@@ -1,8 +1,8 @@
 {
   "lane": "exp/s-creature-vibe-modeling",
   "gate": "R0-A4-v2-authority-integrated-split-racing-feet",
-  "status": "REVIEW_PENDING",
-  "decision": "REVIEW_PENDING",
+  "status": "REVISE",
+  "decision": "REVISE",
   "authority_image": "references/00_s_type_modeling_image_v1.png",
   "authority_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
   "source": "S-authority-r0-a3-v2.blend",
@@ -139,5 +139,7 @@
     "rear34",
     "back"
   ],
-  "modeling_status": "STOPPED"
+  "modeling_status": "STOPPED",
+  "review": "S_AUTHORITY_R0_A4_V2_REVIEW.md",
+  "next": "R0-A4 v3 from accepted S-authority-r0-a3-v2.blend; R0-A5 blocked."
 }
