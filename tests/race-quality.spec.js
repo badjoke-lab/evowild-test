@@ -455,14 +455,14 @@ test("2.5D P mf12 transfer review uses existing motion across twelve runtime fra
 
   for (let frame = 0; frame < 12; frame += 1) {
     await page.goto(
-      `/evowild-test/race-quality.html?motionReview=1&selected=2&pFlowReview=1&motionFrame=${frame}`,
+      `/evowild-test/race-quality.html?motionReview=1&selected=2&pFlowReview=2&motionFrame=${frame}`,
       { waitUntil: "networkidle" }
     );
 
     await expect(stage).toHaveAttribute("data-run-sheets", "ready", { timeout: 15000 });
     await expect(stage).toHaveAttribute("data-selected-morph", "P");
     await expect(stage).toHaveAttribute("data-p-flow-review", "1");
-    await expect(stage).toHaveAttribute("data-p-flow-source", "mf12-motion-field-transfer-v1");
+    await expect(stage).toHaveAttribute("data-p-flow-source", "mf12-motion-field-transfer-v2");
     await expect(stage).toHaveAttribute("data-p-sheet-layout", "4x3");
     await expect(stage).toHaveAttribute("data-p-flow-frame-count", "12");
     await expect(stage).toHaveAttribute("data-p-flow-frame", String(frame), { timeout: 8000 });
@@ -472,7 +472,7 @@ test("2.5D P mf12 transfer review uses existing motion across twelve runtime fra
     observed.push(Number(await stage.getAttribute("data-p-flow-frame")));
 
     await stage.screenshot({
-      path: `artifacts/2p5d-survivor/p-mf12-flow-frame-${String(frame).padStart(2,"0")}-${testInfo.project.name}.png`
+      path: `artifacts/2p5d-survivor/p-mf12-flow-v2-frame-${String(frame).padStart(2,"0")}-${testInfo.project.name}.png`
     });
   }
 
