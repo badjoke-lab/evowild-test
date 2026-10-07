@@ -44,11 +44,11 @@ const BATTLE_REVIEW_MODE = QUERY.get("battleReview") === "1";
 const TRAFFIC_REVIEW_MODE = QUERY.get("trafficReview") === "1";
 const LANE_REVIEW_MODE = QUERY.get("laneReview") === "1";
 const MOTION_REVIEW_MODE = QUERY.get("motionReview") === "1";
-const P_FLOW_REVIEW_VERSION = QUERY.get("pFlowReview") || "0";
+const P_FLOW_REVIEW_VERSION = QUERY.get("pFlowReview") || "production";
 const P_FLOW_REVIEW_MODE = P_FLOW_REVIEW_VERSION === "1" || P_FLOW_REVIEW_VERSION === "2";
 const MOTION_REVIEW_FRAME = Math.max(
   -1,
-  Math.min(P_FLOW_REVIEW_MODE ? 11 : 5, Number(QUERY.get("motionFrame") ?? -1))
+  Math.min(11, Number(QUERY.get("motionFrame") ?? -1))
 );
 const FIELD_SIZE = 18;
 const SELECTED_ID = Math.max(
@@ -64,11 +64,12 @@ stage.dataset.peaMotionVersion = "grounded-stride-v2";
 stage.dataset.peaAnchorVersion = "alpha-bbox-x-v3";
 stage.dataset.aSheetLayout = "2x3";
 stage.dataset.pFlowReview = P_FLOW_REVIEW_MODE ? "1" : "0";
+stage.dataset.pMotionVersion = "mf12-transfer-v1-production";
 stage.dataset.pFlowSource = P_FLOW_REVIEW_VERSION === "2"
   ? "mf12-motion-field-transfer-v2"
   : P_FLOW_REVIEW_VERSION === "1"
     ? "mf12-motion-field-transfer-v1"
-    : "production";
+    : "production-mf12-transfer-v1";
 const LANE_PATTERN = [1, 2, 0, 3, 1, 3, 0, 2];
 const CRUISE_PATTERN = [36.8,34.7,35.9,34.9,36.1,35.2,35.6,34.8];
 const ACCEL_PATTERN = [15.0,13.4,14.3,13.6,14.0,13.5,13.9,13.4];
@@ -304,7 +305,7 @@ for (const morph of ["S","P","E","A"]) {
   const image = new Image();
   image.decoding = "async";
   image.onload = () => {
-    const usePFlow = morph === "P" && P_FLOW_REVIEW_MODE;
+    const usePFlow = morph === "P";
     const layout = usePFlow
       ? { cols:4, rows:3, coords:P_FLOW_FRAMES.map((frame) => [frame.col,frame.row]) }
       : (SHEET_LAYOUTS[morph] ?? SHEET_LAYOUTS.S);
@@ -336,11 +337,13 @@ for (const morph of ["S","P","E","A"]) {
     stage.dataset.runSheetsFailed = String(failedSheets);
     ui.assetStatus.textContent = morph + " run cycle failed";
   };
-  image.src = morph === "P" && P_FLOW_REVIEW_MODE
+  image.src = morph === "P"
     ? BASE + "concept/" + (
         P_FLOW_REVIEW_VERSION === "2"
           ? "p-run-sheet-mf12-flow-transfer-v2.webp"
-          : "p-run-sheet-mf12-flow-transfer-v1.webp"
+          : P_FLOW_REVIEW_VERSION === "1"
+            ? "p-run-sheet-mf12-flow-transfer-v1.webp"
+            : "p-run-sheet.webp"
       )
     : BASE + "concept/" + morph.toLowerCase() + "-run-sheet.webp";
   spriteSheets.set(morph, image);
@@ -1262,13 +1265,16 @@ function drawRacers() {
     minEdge=Math.min(minEdge,item.x-spriteW*.52);
     maxEdge=Math.max(maxEdge,item.x+spriteW*.52);
 
-    const usePFlow = r.morph === "P" && P_FLOW_REVIEW_MODE;
+    const usePFlow = r.morph === "P";
     const cycleLength = usePFlow ? P_FLOW_FRAMES.length : RUN_FRAMES.length;
     const cadence=(9.5+clamp(r.speed/34,0,1)*9.5)*meta.cadence*(usePFlow?2:1);
     const frameFloat=elapsed/1000*cadence+r.phaseOffset;
     const cyclePosition=((frameFloat%cycleLength)+cycleLength)%cycleLength;
-    const frameIndex=MOTION_REVIEW_MODE && r.id===SELECTED_ID && MOTION_REVIEW_FRAME>=0
-      ? MOTION_REVIEW_FRAME
+    const requestedReviewFrame = MOTION_REVIEW_FRAME >= 0
+      ? Math.min(MOTION_REVIEW_FRAME, cycleLength - 1)
+      : -1;
+    const frameIndex=MOTION_REVIEW_MODE && r.id===SELECTED_ID && requestedReviewFrame>=0
+      ? requestedReviewFrame
       : usePFlow
         ? Math.floor(cyclePosition)
         : r.morph==="S"
