@@ -1,8 +1,8 @@
 {
   "lane": "exp/s-creature-vibe-modeling",
   "gate": "R0-A5-v2-authority-trailing-layered-tail",
-  "status": "REVIEW_PENDING",
-  "decision": "REVIEW_PENDING",
+  "status": "ACCEPTED_R0_A5",
+  "decision": "KEEP",
   "authority_image": "references/00_s_type_modeling_image_v1.png",
   "authority_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
   "source": "S-authority-r0-a4-v3.blend",
@@ -39,17 +39,17 @@
     {
       "name": "S_tail_v2_center",
       "root": [
-        0.0,
+        0,
         1.16,
         1.005
       ],
       "ctrl": [
-        0.0,
+        0,
         1.56,
         0.94
       ],
       "tip": [
-        0.0,
+        0,
         2.18,
         0.82
       ],
@@ -66,62 +66,62 @@
       "roll_deg": 0,
       "centers": [
         [
-          0.0,
+          0,
           1.159999966621399,
           1.0049999952316284
         ],
         [
-          0.0,
+          0,
           1.2345454692840576,
           0.9927272796630859
         ],
         [
-          0.0,
+          0,
           1.3127272129058838,
           0.9795454144477844
         ],
         [
-          0.0,
+          0,
           1.394545316696167,
           0.9654545187950134
         ],
         [
-          0.0,
+          0,
           1.4800000190734863,
           0.9504545331001282
         ],
         [
-          0.0,
+          0,
           1.5690908432006836,
           0.9345454573631287
         ],
         [
-          0.0,
+          0,
           1.6618181467056274,
           0.9177272319793701
         ],
         [
-          0.0,
+          0,
           1.7581818103790283,
           0.8999999761581421
         ],
         [
-          0.0,
+          0,
           1.8581817150115967,
           0.8813636302947998
         ],
         [
-          0.0,
+          0,
           1.9618182182312012,
           0.8618181943893433
         ],
         [
-          0.0,
+          0,
           2.0690910816192627,
           0.8413636684417725
         ],
         [
-          0.0,
+          0,
           2.180000066757202,
           0.8199999928474426
         ]
@@ -691,5 +691,8 @@
     "rear34",
     "back"
   ],
-  "modeling_status": "STOPPED"
+  "modeling_status": "STOPPED",
+  "review": "S_AUTHORITY_R0_A5_V2_REVIEW.md",
+  "accepted_scope": "R0-A5 long trailing layered tail morphology",
+  "next": "R0-A6 full-body five-view authority review; no geometry edits."
 }
