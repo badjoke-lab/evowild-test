@@ -18,6 +18,7 @@ async function captureAt(page, candidate, freezeTime, camera) {
     { waitUntil: "networkidle" }
   );
   await expect(page.locator("#scene")).toBeVisible();
+  await expect(page.locator("#loading")).toHaveClass(/hidden/);
   await page.locator("#runnerSelect").selectOption("0");
   await page.getByRole("button", { name: camera, exact: true }).click({ force: true });
   await expect(page.locator("#cameraReadout")).toHaveText(camera);
