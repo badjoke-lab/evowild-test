@@ -2796,6 +2796,8 @@ test("Motion First Race Entry Selection Support v1 ranks all 18 and uses real hi
     courseFit: 1.045,
     pairFit: 0.92,
     paceBias: 1.013,
+    staminaBias: 1.020,
+    staminaDrainIndex: 0.883,
     races: 0,
     wins: 0,
     avgRank: null,
@@ -2812,6 +2814,9 @@ test("Motion First Race Entry Selection Support v1 ranks all 18 and uses real hi
   expect(runner06.fitIndex).toBe(runner02.fitIndex);
   expect(runner06.paceBias).toBeGreaterThan(runner02.paceBias);
   expect(runner06.raceIndex).toBeGreaterThan(runner02.raceIndex);
+  // Same P morph, but Runner 02 trades lower pace for better stamina efficiency.
+  expect(runner02.staminaBias).toBeGreaterThan(runner06.staminaBias);
+  expect(runner02.staminaDrainIndex).toBeLessThan(runner06.staminaDrainIndex);
   expect(new Set(initialRanking.map((row) => row.id)).size).toBe(18);
 
   await page.locator("#entryCompareButton").click();
@@ -2835,6 +2840,8 @@ test("Motion First Race Entry Selection Support v1 ranks all 18 and uses real hi
   await expect(firstRow).toHaveAttribute("data-race-index", "0.974");
   await expect(firstRow).toContainText("×1.013");
   await expect(firstRow).toContainText("23.1m/s");
+  await expect(firstRow).toContainText("×1.020");
+  await expect(firstRow).toContainText("drain ×0.883");
   await expect(firstRow).toContainText("NO HISTORY");
 
   // Prove a table selection uses the same Race Entry path as the dropdown.
@@ -2880,7 +2887,7 @@ test("Motion First Race Entry Selection Support v1 ranks all 18 and uses real hi
   const historyFirstRow = page.locator("#entryComparisonBody tr").first();
   await expect(historyFirstRow).toHaveAttribute("data-runner-id", "5");
   await expect(historyFirstRow).toContainText("1R · 1W · AVG 1.0");
-  await expect(historyFirstRow.locator("td").nth(4)).not.toHaveText("—");
+  await expect(historyFirstRow.locator("td").nth(5)).not.toHaveText("—");
 
   console.log(
     "RACE_ENTRY_SELECTION_SUPPORT_V1",
@@ -2994,4 +3001,73 @@ test("Motion First Race Agent Selection Support v1 compares all three Agents and
   await page.locator("#app").screenshot({
     path: "test-results/visuals/motion-first-agent-selection-support-v1.png"
   });
+});
+
+
+test("Motion First individual stamina v1 makes staminaBias affect real drain", async ({ page }, testInfo) => {
+  test.skip(process.env.MOTION_FIRST_CAPTURE !== "1");
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(45000);
+
+  await page.goto(
+    "/evowild-test/preview-motion-first-race/index.html?skipStart=1&course=heavy-1200-v1&entry=0&entryAgent=attack-v1&simRate=4",
+    { waitUntil: "networkidle" }
+  );
+
+  const scene = page.locator("#scene");
+  await expect(scene).toHaveAttribute("data-individual-stamina-model", "efficiency-v1");
+  await page.waitForFunction(() => {
+    const value = Number(document.querySelector("#scene")?.dataset.raceTime || 0);
+    return value >= 24;
+  }, null, { timeout: 20000 });
+
+  await page.locator("#pauseButton").click();
+  await expect(page.locator("#raceState")).toHaveText("PAUSED");
+
+  // Runner 02 and Runner 06 are both P morphs on the same course with no
+  // active command. Runner 02 has the higher staminaBias, so it must retain
+  // more stamina even though Runner 06 has the higher paceBias.
+  await page.locator("#agentTargetSelect").selectOption("1");
+  await expect(scene).toHaveAttribute("data-agent-focus-stamina-bias", "1.032");
+  const runner02Stamina = Number(
+    await scene.getAttribute("data-agent-focus-stamina-precise")
+  );
+
+  await page.locator("#agentTargetSelect").selectOption("5");
+  await expect(scene).toHaveAttribute("data-agent-focus-stamina-bias", "1.020");
+  const runner06Stamina = Number(
+    await scene.getAttribute("data-agent-focus-stamina-precise")
+  );
+
+  expect(runner02Stamina).toBeGreaterThan(runner06Stamina);
+
+  const ranking = JSON.parse(
+    (await scene.getAttribute("data-entry-comparison-ranking")) || "[]"
+  );
+  const runner02 = ranking.find((row) => row.id === 1);
+  const runner06 = ranking.find((row) => row.id === 5);
+  expect(runner02.staminaBias).toBe(1.032);
+  expect(runner06.staminaBias).toBe(1.02);
+  expect(runner02.staminaDrainIndex).toBe(0.872);
+  expect(runner06.staminaDrainIndex).toBe(0.883);
+  expect(runner06.paceBias).toBeGreaterThan(runner02.paceBias);
+  expect(runner02Stamina).toBeGreaterThan(runner06Stamina);
+
+  console.log(
+    "INDIVIDUAL_STAMINA_V1",
+    JSON.stringify({
+      runner02: {
+        staminaBias: runner02.staminaBias,
+        drainIndex: runner02.staminaDrainIndex,
+        stamina: runner02Stamina,
+        paceBias: runner02.paceBias
+      },
+      runner06: {
+        staminaBias: runner06.staminaBias,
+        drainIndex: runner06.staminaDrainIndex,
+        stamina: runner06Stamina,
+        paceBias: runner06.paceBias
+      }
+    })
+  );
 });
