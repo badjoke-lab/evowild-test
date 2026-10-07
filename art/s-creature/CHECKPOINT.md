@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: authority reset R0-A3 v2 accepted; R0-A4 split racing feet next
+current_stage: authority reset R0-A4 v1 split racing feet rendered; REVIEW_PENDING / STOPPED
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-authority-r0-a3-v2.blend
+current_model_file: output/S-authority-r0-a4-v1.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Build R0-A4 split racing feet from accepted output/S-authority-r0-a3-v2.blend. Hard-lock A1/A2/A3, replace generic three-toe final morphology only, render five views and stop.
+next_action: Compare R0-A4 v1 SIDE/FRONT/FRONT34/REAR34/BACK directly with references/00_s_type_modeling_image_v1.png and decide KEEP/REVISE/REJECT. Do not start R0-A5 tail before acceptance.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -867,3 +867,14 @@ authority_r0_a3_v2_review: S_AUTHORITY_R0_A3_V2_REVIEW.md
 authority_r0_a3_v2_accepted_model: output/S-authority-r0-a3-v2.blend
 authority_r0_a4_status: NEXT
 authority_r0_a5_status: BLOCKED_PENDING_R0_A4
+
+authority_r0_a4_v1_status: REVIEW_PENDING / STOPPED
+authority_r0_a4_v1_scope: generic toe replacement -> split racing feet only
+authority_r0_a4_v1_model: output/S-authority-r0-a4-v1.blend
+authority_r0_a4_v1_renders:
+- output/review/authority-r0-a4-v1/S_authority_r0_a4_v1_side.png
+- output/review/authority-r0-a4-v1/S_authority_r0_a4_v1_front.png
+- output/review/authority-r0-a4-v1/S_authority_r0_a4_v1_front34.png
+- output/review/authority-r0-a4-v1/S_authority_r0_a4_v1_rear34.png
+- output/review/authority-r0-a4-v1/S_authority_r0_a4_v1_back.png
+authority_r0_a5_status: BLOCKED_PENDING_R0_A4_REVIEW
