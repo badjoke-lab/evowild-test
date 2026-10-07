@@ -52,7 +52,7 @@ const SIMPLIFIED_RACE_PAGE = window.location.pathname.includes("/preview-motion-
 const KIMODO_LAUNCH_VISUAL =
   SIMPLIFIED_RACE_PAGE && params.get("kimodoLaunch") === "1";
 const KIMODO_LAUNCH_SOURCE =
-  params.get("kimodoLaunchSource") === "accel" ? "accel" : "sprint";
+  params.get("kimodoLaunchSource") === "sprint" ? "sprint" : "accel";
 const KIMODO_LAUNCH_BLEND = THREE.MathUtils.clamp(
   Number(params.get("kimodoLaunchBlend") ?? 0.55),
   0,
@@ -3478,6 +3478,11 @@ function updateSimplifiedRaceProxyCanonicalPose(runner, dt) {
         String(proxyUd.bodyMaster.rotation.x);
       canvas.dataset.kimodoLaunchPitchBias =
         String(-(motionRunner.kimodoLaunchVisualDrive || 0) * 0.040);
+      canvas.dataset.kimodoLaunchBodyStretch =
+        String(
+          Math.abs(proxyUd.chestPivot.position.z - S_GAIT.chestBaseZ) +
+          Math.abs(proxyUd.pelvisPivot.position.z - S_GAIT.pelvisBaseZ)
+        );
       canvas.dataset.kimodoLaunchMaxStanceSlip =
         String(proxyUd.maxStanceSlip || 0);
     }
@@ -4427,8 +4432,13 @@ function updateSprintPose(runner, lateralVelocity, dt) {
 
   // Longitudinal body deformation is essential: the runner must not read as
   // a rigid hull with four animated sticks.
-  const longStretch = (spineExtend - 0.5) * 0.34 * speedRatio;
-  const verticalCompression = load * 0.070 * speedRatio;
+  const launchStretchBias = kimodoLaunchDrive * 0.20;
+  const longStretch =
+    (spineExtend - 0.5) * 0.34 * speedRatio +
+    launchStretchBias;
+  const verticalCompression =
+    load * 0.070 * speedRatio +
+    kimodoLaunchDrive * 0.020;
 
   ud.chestPivot.position.z = S_GAIT.chestBaseZ + longStretch * 0.46;
   ud.pelvisPivot.position.z = S_GAIT.pelvisBaseZ - longStretch * 0.62;
@@ -4473,9 +4483,15 @@ function updateSprintPose(runner, lateralVelocity, dt) {
     const strideRoot = Math.sin(localCycle * TAU);
     const liftRoot = Math.max(0, -Math.sin(localCycle * TAU));
 
+    const launchRootScale = leg.fore
+      ? 1 + kimodoLaunchDrive * 0.08
+      : 1 + kimodoLaunchDrive * 0.28;
     leg.hip.position.z =
       (leg.fore ? 0.26 : -0.25) +
-      strideRoot * (leg.fore ? 0.095 : 0.120) * speedRatio;
+      strideRoot *
+        (leg.fore ? 0.095 : 0.120) *
+        speedRatio *
+        launchRootScale;
     leg.hip.position.y =
       (leg.fore ? -0.12 : -0.10) +
       liftRoot * 0.035 * speedRatio -
