@@ -9,8 +9,8 @@
     "E",
     "A"
   ],
-  "stage": "AUTHORITY_R0_A4_V3_REVIEW",
-  "current_stage": "R0-A4 v3 split hoof/blade feet rendered; review pending; modeling stopped",
+  "stage": "AUTHORITY_R0_A5_NEXT",
+  "current_stage": "R0-A4 v3 accepted; R0-A5 long layered tail next",
   "branch": "exp/s-creature-vibe-modeling",
   "base_checkpoint_commit": "1ce8ca8f4d806c1c4e530923aac55b270b32195a",
   "current_model_file": "output/S-authority-r0-a4-v3.blend",
@@ -39,7 +39,7 @@
     "Saved output/S-rebuild-v1.blend and rendered SIDE / FRONT / FRONT34 / REAR34 / BACK",
     "Verified render did not change geometry; stopped modeling for Gate A review"
   ],
-  "next_action": "Review R0-A4 v3 five views directly against references/00_s_type_modeling_image_v1.png. Decide KEEP/REVISE/REJECT. Do not start R0-A5 before acceptance.",
+  "next_action": "Build R0-A5 long layered blade/feather tail from accepted output/S-authority-r0-a4-v3.blend. Hard-lock A1-A4, render five views and stop.",
   "quality_issues": [
     "Front/back crest reads as tall horn-like prongs instead of layered rear-swept cranial plates",
     "Neck is too long, thin and tube-like",
@@ -70,13 +70,15 @@
     "output/review/authority-r0-a4-v3/S_authority_r0_a4_v3_back.png"
   ],
   "process_lock": "AI free-form modeling prohibited; Gate A split A1-A5; declare landmarks/target/keep_fixed/review cameras before geometry edits",
-  "editable_next": [],
+  "editable_next": [
+    "tail structure only"
+  ],
   "keep_fixed_next": [
     "R0-A1 head/crest/neck",
     "R0-A2 body mass",
-    "R0-A3 limb segment rhythm above foot boundary",
-    "tail",
-    "body topology outside foot support",
+    "R0-A3 limb rhythm",
+    "R0-A4 split feet",
+    "body topology",
     "cameras"
   ],
   "review_basis": "Actual B1b-v2 five original PNGs and matched-camera B0-v025 / B1b-v1 comparisons, plus repository 00/01/02 S references.",
@@ -841,7 +843,7 @@
     "status": "ACCEPTED_R0_A3",
     "review": "S_AUTHORITY_R0_A3_V2_REVIEW.md"
   },
-  "r0_a5_status": "BLOCKED_PENDING_R0_A4_REVIEW",
+  "r0_a5_status": "NEXT",
   "r0_a4_v1": {
     "source": "output/S-authority-r0-a3-v2.blend",
     "output": "output/S-authority-r0-a4-v1.blend",
@@ -859,9 +861,8 @@
   "r0_a4_v3": {
     "source": "output/S-authority-r0-a3-v2.blend",
     "output": "output/S-authority-r0-a4-v3.blend",
-    "scope": "split hoof/blade feet",
-    "decision": "REVIEW_PENDING",
-    "status": "STOPPED_AFTER_FIVE_VIEW_RENDER",
-    "plan": "S_AUTHORITY_R0_A4_V3_PLAN.md"
+    "decision": "KEEP",
+    "status": "ACCEPTED_R0_A4",
+    "review": "S_AUTHORITY_R0_A4_V3_REVIEW.md"
   }
 }
