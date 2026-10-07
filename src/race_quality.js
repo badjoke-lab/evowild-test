@@ -44,7 +44,8 @@ const BATTLE_REVIEW_MODE = QUERY.get("battleReview") === "1";
 const TRAFFIC_REVIEW_MODE = QUERY.get("trafficReview") === "1";
 const LANE_REVIEW_MODE = QUERY.get("laneReview") === "1";
 const MOTION_REVIEW_MODE = QUERY.get("motionReview") === "1";
-const P_FLOW_REVIEW_MODE = QUERY.get("pFlowReview") === "1";
+const P_FLOW_REVIEW_VERSION = QUERY.get("pFlowReview") || "0";
+const P_FLOW_REVIEW_MODE = P_FLOW_REVIEW_VERSION === "1" || P_FLOW_REVIEW_VERSION === "2";
 const MOTION_REVIEW_FRAME = Math.max(
   -1,
   Math.min(P_FLOW_REVIEW_MODE ? 11 : 5, Number(QUERY.get("motionFrame") ?? -1))
@@ -63,7 +64,11 @@ stage.dataset.peaMotionVersion = "grounded-stride-v2";
 stage.dataset.peaAnchorVersion = "alpha-bbox-x-v3";
 stage.dataset.aSheetLayout = "2x3";
 stage.dataset.pFlowReview = P_FLOW_REVIEW_MODE ? "1" : "0";
-stage.dataset.pFlowSource = P_FLOW_REVIEW_MODE ? "mf12-motion-field-transfer-v1" : "production";
+stage.dataset.pFlowSource = P_FLOW_REVIEW_VERSION === "2"
+  ? "mf12-motion-field-transfer-v2"
+  : P_FLOW_REVIEW_VERSION === "1"
+    ? "mf12-motion-field-transfer-v1"
+    : "production";
 const LANE_PATTERN = [1, 2, 0, 3, 1, 3, 0, 2];
 const CRUISE_PATTERN = [36.8,34.7,35.9,34.9,36.1,35.2,35.6,34.8];
 const ACCEL_PATTERN = [15.0,13.4,14.3,13.6,14.0,13.5,13.9,13.4];
@@ -332,7 +337,11 @@ for (const morph of ["S","P","E","A"]) {
     ui.assetStatus.textContent = morph + " run cycle failed";
   };
   image.src = morph === "P" && P_FLOW_REVIEW_MODE
-    ? BASE + "concept/p-run-sheet-mf12-flow-transfer-v1.webp"
+    ? BASE + "concept/" + (
+        P_FLOW_REVIEW_VERSION === "2"
+          ? "p-run-sheet-mf12-flow-transfer-v2.webp"
+          : "p-run-sheet-mf12-flow-transfer-v1.webp"
+      )
     : BASE + "concept/" + morph.toLowerCase() + "-run-sheet.webp";
   spriteSheets.set(morph, image);
 }
