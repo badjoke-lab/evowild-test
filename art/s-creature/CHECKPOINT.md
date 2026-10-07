@@ -1,8 +1,8 @@
 # EvoWild Run — S-type recovery checkpoint
 
-current_stage: authority reset R0-A4 v1 split racing feet rendered; REVIEW_PENDING / STOPPED
+current_stage: authority reset R0-A4 v1 reviewed REVISE; R0-A4 v2 next
 branch: exp/s-creature-vibe-modeling
-current_model_file: output/S-authority-r0-a4-v1.blend
+current_model_file: output/S-authority-r0-a3-v2.blend
 
 done:
 - Opened the saved S-blockout-v2.blend directly.
@@ -29,7 +29,7 @@ done:
 
 - Applied v11 explicit-local thorax correction from v7 clean baseline. Manual Y/Z fairing touched active vertices only; all non-active vertices and all X coordinates remained unchanged.
 
-next_action: Compare R0-A4 v1 SIDE/FRONT/FRONT34/REAR34/BACK directly with references/00_s_type_modeling_image_v1.png and decide KEEP/REVISE/REJECT. Do not start R0-A5 tail before acceptance.
+next_action: Build R0-A4 v2 from accepted output/S-authority-r0-a3-v2.blend with larger integrated split racing feet. Do not use v1 geometry as input. Render five views and stop.
 
 quality_issues:
 - v6 is REVISE: the central-only chest lift created a visible horizontal smile-crease/shelf in front and front34. The lower-neck width remains accepted; the remaining correction must be broader and shallower across the anterior thorax.
@@ -878,3 +878,9 @@ authority_r0_a4_v1_renders:
 - output/review/authority-r0-a4-v1/S_authority_r0_a4_v1_rear34.png
 - output/review/authority-r0-a4-v1/S_authority_r0_a4_v1_back.png
 authority_r0_a5_status: BLOCKED_PENDING_R0_A4_REVIEW
+
+
+authority_r0_a4_v1_decision: REVISE
+authority_r0_a4_v1_review: S_AUTHORITY_R0_A4_V1_REVIEW.md
+authority_r0_a4_v2_status: NEXT
+authority_r0_a5_status: BLOCKED_PENDING_R0_A4
