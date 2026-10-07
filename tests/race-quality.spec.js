@@ -455,14 +455,14 @@ test("2.5D P mf12 transfer review uses existing motion across twelve runtime fra
 
   for (let frame = 0; frame < 12; frame += 1) {
     await page.goto(
-      `/evowild-test/race-quality.html?motionReview=1&selected=2&pFlowReview=2&motionFrame=${frame}`,
+      `/evowild-test/race-quality.html?motionReview=1&selected=2&pFlowReview=1&motionFrame=${frame}`,
       { waitUntil: "networkidle" }
     );
 
     await expect(stage).toHaveAttribute("data-run-sheets", "ready", { timeout: 15000 });
     await expect(stage).toHaveAttribute("data-selected-morph", "P");
     await expect(stage).toHaveAttribute("data-p-flow-review", "1");
-    await expect(stage).toHaveAttribute("data-p-flow-source", "mf12-motion-field-transfer-v2");
+    await expect(stage).toHaveAttribute("data-p-flow-source", "mf12-motion-field-transfer-v1");
     await expect(stage).toHaveAttribute("data-p-sheet-layout", "4x3");
     await expect(stage).toHaveAttribute("data-p-flow-frame-count", "12");
     await expect(stage).toHaveAttribute("data-p-flow-frame", String(frame), { timeout: 8000 });
@@ -472,10 +472,45 @@ test("2.5D P mf12 transfer review uses existing motion across twelve runtime fra
     observed.push(Number(await stage.getAttribute("data-p-flow-frame")));
 
     await stage.screenshot({
-      path: `artifacts/2p5d-survivor/p-mf12-flow-v2-frame-${String(frame).padStart(2,"0")}-${testInfo.project.name}.png`
+      path: `artifacts/2p5d-survivor/p-mf12-flow-frame-${String(frame).padStart(2,"0")}-${testInfo.project.name}.png`
     });
   }
 
   expect(observed).toEqual([0,1,2,3,4,5,6,7,8,9,10,11]);
+});
+
+test("2.5D P mf12 v1 candidate reads in full-field race", async ({ page }, testInfo) => {
+  test.setTimeout(60000);
+  fs.mkdirSync("artifacts/2p5d-survivor", { recursive: true });
+
+  await page.goto("/evowild-test/race-quality.html?pFlowReview=1&selected=2", { waitUntil: "networkidle" });
+  const stage = page.locator("#stage");
+
+  await expect(stage).toHaveAttribute("data-run-sheets", "ready", { timeout: 15000 });
+  await expect(stage).toHaveAttribute("data-p-flow-review", "1");
+  await expect(stage).toHaveAttribute("data-p-flow-source", "mf12-motion-field-transfer-v1");
+  await expect(stage).toHaveAttribute("data-p-sheet-layout", "4x3");
+  await expect(stage).toHaveAttribute("data-p-flow-frame-count", "12");
+  await expect(stage).toHaveAttribute("data-race-state", "running", { timeout: 8000 });
+
+  const observed = new Set();
+  for (let i = 0; i < 60 && observed.size < 8; i += 1) {
+    await page.waitForTimeout(55);
+    const frame = Number(await stage.getAttribute("data-p-flow-frame"));
+    if (Number.isFinite(frame) && frame >= 0 && frame < 12) observed.add(frame);
+  }
+  expect(observed.size).toBeGreaterThanOrEqual(6);
+
+  const visible = Number(await stage.getAttribute("data-visible-racers"));
+  expect(visible).toBeGreaterThanOrEqual(3);
+
+  await stage.screenshot({
+    path: `artifacts/2p5d-survivor/p-mf12-v1-full-field-early-${testInfo.project.name}.png`
+  });
+
+  await page.waitForTimeout(3200);
+  await stage.screenshot({
+    path: `artifacts/2p5d-survivor/p-mf12-v1-full-field-mid-${testInfo.project.name}.png`
+  });
 });
 
