@@ -1,0 +1,32 @@
+{
+  "input": "art/s-creature/experiments/authority-rebuild-20261009/S-authority-trellis-v1.glb",
+  "s_type_reference_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "model": "art/s-creature/experiments/authority-rebuild-20261009/r5-crest-lamina/S-authority-crest-lamina-r5.glb",
+  "blend": "art/s-creature/experiments/authority-rebuild-20261009/r5-crest-lamina/S-authority-crest-lamina-r5.blend",
+  "donor_body_faces_before": 294077,
+  "removed_generated_spear_faces": 17937,
+  "added_new_crest_and_temporal_parts": 8,
+  "part_names": [
+    "PRIMARY_LAMINA_L",
+    "ROOT_SUPPORT_L",
+    "SECONDARY_LAMINA_L",
+    "PRIMARY_LAMINA_R",
+    "ROOT_SUPPORT_R",
+    "SECONDARY_LAMINA_R",
+    "TEMPORAL_SCULPT_L",
+    "TEMPORAL_SCULPT_R"
+  ],
+  "applied_to_existing_reference_glb_only": true,
+  "R4_neck_replacement_reverted": true,
+  "original_head_and_neck_unchanged_except_spear_cut": true,
+  "donor_body_is_non_watertight_and_not_animation_approved": true,
+  "production_morphology_approved": false,
+  "game_ready": false,
+  "render_views": [
+    "side",
+    "front",
+    "front34",
+    "rear34",
+    "back"
+  ]
+}
