@@ -1,0 +1,100 @@
+name: EvoWild S TRELLIS QEM recovery (isolated)
+
+on:
+  push:
+    branches:
+      - exp/s-trellis-qem-recovery-20261008
+    paths:
+      - ".github/workflows/s-trellis-qem-recovery.yml"
+      - "scripts/trellis2_t2_qem_recovery.py"
+      - "art/s-creature/blender/render_trellis2_t2_qem_recovery.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  qem-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install QEM and audit libraries
+        run: python -m pip install --quiet trimesh==4.11.1 fast-simplification scipy numpy Pillow
+      - name: Run all isolated QEM trials
+        run: python scripts/trellis2_t2_qem_recovery.py
+      - name: Check candidate and install Blender
+        id: candidate
+        shell: bash
+        run: |
+          p=art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-recovery/S-trellis2-meshfix-qem-best.glb
+          if [ -s "$p" ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Blender render dependencies
+        if: steps.candidate.outputs.available == 'true'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+      - name: Install Blender 4.3.2
+        if: steps.candidate.outputs.available == 'true'
+        run: |
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Render original and recovered 5-view evidence
+        if: steps.candidate.outputs.available == 'true'
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/render_trellis2_t2_qem_recovery.py
+      - name: Make real-render comparison contact sheet
+        if: steps.candidate.outputs.available == 'true'
+        run: |
+          python - <<'PY'
+          from PIL import Image, ImageDraw
+          from pathlib import Path
+          base=Path('art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-recovery/review')
+          views=['side','front','front34','rear34','back']
+          prefixes=['meshfix_source','qem_best']
+          w,h=440,470
+          contact=Image.new('RGB',(w*5,h*2),(250,250,250))
+          draw=ImageDraw.Draw(contact)
+          for row,label in enumerate(prefixes):
+            for col,view in enumerate(views):
+              p=base/f'{label}_{view}.png'
+              im=Image.open(p).convert('RGB')
+              im.thumbnail((w-14,h-40))
+              x=col*w+(w-im.width)//2
+              y=row*h+28+(h-35-im.height)//2
+              contact.paste(im,(x,y))
+              draw.text((col*w+10,row*h+8),f'{label.upper()} / {view.upper()}',fill=(15,15,15))
+          out=base/'QEM-vs-source-five-view-contact.jpg'
+          contact.save(out,quality=92)
+          print(out, out.stat().st_size)
+          PY
+      - name: Upload audit and actual outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evowild-s-trellis-qem-test
+          path: art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-recovery/
+          if-no-files-found: warn
+      - name: Commit all experiment evidence to the same branch
+        if: always()
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-recovery || true
+          if git diff --cached --quiet; then
+            echo "No output evidence to commit"
+          else
+            git commit -m "exp: persist TRELLIS S QEM geometry audit and five-view renders"
+            git pull --rebase origin exp/s-trellis-qem-recovery-20261008
+            git push origin HEAD:exp/s-trellis-qem-recovery-20261008
+          fi
