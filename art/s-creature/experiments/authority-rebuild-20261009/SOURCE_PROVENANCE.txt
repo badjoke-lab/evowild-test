@@ -1,0 +1,4 @@
+origin=https://raw.githubusercontent.com/badjoke-lab/evowild-test/exp/s-creature-vibe-modeling/art/s-creature/references/00_s_type_modeling_image_v1.png
+sha256=93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6
+original_px=1448x1086
+preview_only=true
