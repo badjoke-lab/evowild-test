@@ -2,7 +2,7 @@
 """One authority-driven S creature generation attempt. No paid GPU or fallback loops."""
 import hashlib, io, json, os, shutil, sys, traceback, urllib.request
 from pathlib import Path
-from PIL import Image, ImageDraw
+from PIL import Image
 
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/"art/s-creature/experiments/authority-rebuild-20261009"
@@ -29,9 +29,6 @@ try:
     orig=Image.open(io.BytesIO(raw)).convert("RGB")
     if orig.size!=(1448,1086):raise RuntimeError("AUTHORITY_DIMENSIONS_MISMATCH")
     crop=orig.crop(tuple(report["input_crop_xyxy"]))
-    # Remove only the panel's top-left caption; creature is below/right of this area.
-    # This is a fixed rectangle, not generated/inpainted content.
-    ImageDraw.Draw(crop).rectangle([0,0,116,47],fill=(243,245,245))
     sq=max(crop.width,crop.height)
     image=Image.new("RGB",(sq,sq),(242,244,245))
     image.paste(crop,((sq-crop.width)//2,(sq-crop.height)//2))
