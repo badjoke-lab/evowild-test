@@ -1,0 +1,67 @@
+{
+  "model": "S-fullbody-authority-A0.glb",
+  "native_blend": "S-fullbody-authority-A0.blend",
+  "authoritative_image_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "technique": "Entirely new parametric whole-body silhouette cage, not a TRELLIS-derived edit",
+  "base_3d_imported": false,
+  "whole_body_created": true,
+  "main_body_connectivity": "single centerline loft from muzzle to pelvis",
+  "part_count": 32,
+  "names": [
+    "S_A0_CONTINUOUS_SKULL_NECK_THORAX_PELVIS",
+    "S_A0_FORELEG_L",
+    "S_A0_HINDLEG_L",
+    "S_A0_FRONT_SPLIT_TOE_L_-1",
+    "S_A0_HIND_SPLIT_TOE_L_-1",
+    "S_A0_FRONT_SPLIT_TOE_L_1",
+    "S_A0_HIND_SPLIT_TOE_L_1",
+    "S_A0_FORELEG_R",
+    "S_A0_HINDLEG_R",
+    "S_A0_FRONT_SPLIT_TOE_R_-1",
+    "S_A0_HIND_SPLIT_TOE_R_-1",
+    "S_A0_FRONT_SPLIT_TOE_R_1",
+    "S_A0_HIND_SPLIT_TOE_R_1",
+    "S_A0_CORE_TAIL",
+    "S_A0_MAIN_CRANIAL_LAMINA_L",
+    "S_A0_SECONDARY_CRANIAL_LAMINA_L",
+    "S_A0_MAIN_CRANIAL_LAMINA_R",
+    "S_A0_SECONDARY_CRANIAL_LAMINA_R",
+    "S_A0_WHITE_DORSAL_SHELL",
+    "S_A0_WHITE_RUMP_SHELL",
+    "S_A0_SHOULDER_WHITE_L",
+    "S_A0_HIP_WHITE_L",
+    "S_A0_SHOULDER_WHITE_R",
+    "S_A0_HIP_WHITE_R",
+    "S_A0_TAIL_LAYER_0_L",
+    "S_A0_TAIL_LAYER_0_R",
+    "S_A0_TAIL_LAYER_1_L",
+    "S_A0_TAIL_LAYER_1_R",
+    "S_A0_TAIL_LAYER_2_L",
+    "S_A0_TAIL_LAYER_2_R",
+    "S_A0_TAIL_LAYER_3_L",
+    "S_A0_TAIL_LAYER_3_R"
+  ],
+  "notes": "Armor, limbs and cranial lamina are separate intersecting objects. No combined watertight skin mesh.",
+  "morphology_review": "PENDING_REAL_RENDER_REVIEW",
+  "accepted_for_rig": false,
+  "accepted_for_game": false,
+  "views": [
+    "side",
+    "front",
+    "front34",
+    "rear34",
+    "back"
+  ],
+  "bounding_box": [
+    [
+      -0.3615398406982422,
+      -1.3899999856948853,
+      0.03567863255739212
+    ],
+    [
+      0.3615398406982422,
+      1.7905144691467285,
+      2.5848019123077393
+    ]
+  ]
+}
