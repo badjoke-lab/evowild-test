@@ -5,6 +5,7 @@ on:
       - exp/s-authority-shape-20261009
     paths:
       - ".github/workflows/s-authority-trellis-v1.yml"
+      - "scripts/s_authority_trellis_single_v1.py"
   workflow_dispatch:
 permissions:
   contents: write
