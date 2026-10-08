@@ -55,9 +55,11 @@ def make_material():
 
 def setup_scene(objs):
     scene=bpy.context.scene
-    scene.render.engine="BLENDER_EEVEE_NEXT"
-    scene.render.resolution_x=1024
-    scene.render.resolution_y=1024
+    scene.render.engine="BLENDER_WORKBENCH"
+    scene.display.shading.light="STUDIO"
+    scene.display.shading.color_type="MATERIAL"
+    scene.render.resolution_x=640
+    scene.render.resolution_y=640
     scene.render.resolution_percentage=100
     scene.render.image_settings.file_format="PNG"
     scene.render.film_transparent=False
