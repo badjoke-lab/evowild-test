@@ -94,7 +94,7 @@ jobs:
           set -e
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-recovery || true
+          git add art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-recovery art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair || true
           if git diff --cached --quiet; then
             echo "No output evidence to commit"
           else
