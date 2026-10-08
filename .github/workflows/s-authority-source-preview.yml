@@ -1,0 +1,51 @@
+name: S authority source preview (isolated)
+on:
+  push:
+    branches:
+      - exp/s-authority-shape-20261009
+    paths:
+      - .github/workflows/s-authority-source-preview.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify original authority and create review sized image
+        run: |
+          pip -q install Pillow
+          python - <<'PY'
+          import io, hashlib, urllib.request
+          from pathlib import Path
+          from PIL import Image
+          url='https://raw.githubusercontent.com/badjoke-lab/evowild-test/exp/s-creature-vibe-modeling/art/s-creature/references/00_s_type_modeling_image_v1.png'
+          data=urllib.request.urlopen(url,timeout=25).read()
+          digest=hashlib.sha256(data).hexdigest()
+          assert digest=='93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6', digest
+          source=Image.open(io.BytesIO(data)).convert('RGB')
+          assert source.size==(1448,1086), source.size
+          source.thumbnail((1086,816))
+          out=Path('art/s-creature/experiments/authority-rebuild-20261009')
+          out.mkdir(parents=True,exist_ok=True)
+          source.save(out/'reference-authority-preview.jpg',quality=78,optimize=True)
+          (out/'SOURCE_PROVENANCE.txt').write_text(f'origin={url}\nsha256={digest}\noriginal_px=1448x1086\npreview_only=true\n')
+          print('authority verified and thumb produced',source.size,(out/'reference-authority-preview.jpg').stat().st_size)
+          PY
+      - name: Save reference evidence on current experiment branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add art/s-creature/experiments/authority-rebuild-20261009
+          if ! git diff --cached --quiet; then
+            git commit -m "exp: persist verified S authority review thumbnail"
+            git pull --rebase origin exp/s-authority-shape-20261009
+            git push origin HEAD:exp/s-authority-shape-20261009
+          fi
