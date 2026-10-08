@@ -1,0 +1,80 @@
+name: Recover approved-input S 3D result from completed run
+on:
+  push:
+    branches:
+      - exp/s-authority-shape-20261009
+    paths:
+      - ".github/workflows/s-authority-recover-artifact.yml"
+  workflow_dispatch:
+permissions:
+  actions: read
+  contents: write
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Download completed correct-input 3D and rendered evidence (no regeneration)
+        uses: actions/download-artifact@v4
+        with:
+          name: evowild-s-authority-trellis-v1
+          run-id: 37799572375
+          github-token: ${{ github.token }}
+          repository: badjoke-lab/evowild-test
+          path: /tmp/s-authority-result
+      - name: Verify corrected source, model and five actual renders, then restore
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, shutil
+          from pathlib import Path
+          root=Path('/tmp/s-authority-result')
+          out=Path('art/s-creature/experiments/authority-rebuild-20261009')
+          paths=list(root.rglob('*'))
+          def get(name):
+            matches=[p for p in paths if p.is_file() and p.name==name]
+            if len(matches)!=1:raise RuntimeError(f'expected exactly one {name}: {matches}')
+            return matches[0]
+          meta=json.loads(get('T1_AUTHORITY_GENERATION.json').read_text())
+          assert meta['status']=='MODEL_GENERATED_UNREVIEWED',meta['status']
+          assert meta['verified_reference_sha256']=='93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6'
+          # This is the altered-crest image's known bad checksum; never persist it as valid.
+          assert meta['image_sha256']!='2bc3cc90d1439c5b11a025116ac3f8451c0a80b1a8fa1e6b6025ee83aba10185'
+          model=get('S-authority-trellis-v1.glb')
+          actual=hashlib.sha256(model.read_bytes()).hexdigest()
+          assert actual==meta['model_sha256'],(actual,meta['model_sha256'])
+          assert model.stat().st_size<80_000_000
+          viewnames=['side','front','front34','rear34','back']
+          for view in viewnames:
+            p=get(f'authority_trellis_v1_{view}.png')
+            assert p.stat().st_size>3000,p
+          contact=get('authority_trellis_v1_five_view_contact.jpg')
+          out.mkdir(parents=True,exist_ok=True)
+          (out/'review').mkdir(exist_ok=True)
+          for name in ['T1_AUTHORITY_GENERATION.json','authority-front34-clean-v1.png','S-authority-trellis-v1.glb']:
+            shutil.copy2(get(name),out/name)
+          for name in [f'authority_trellis_v1_{v}.png' for v in viewnames]+['authority_trellis_v1_five_view_contact.jpg','render-meta.json']:
+            shutil.copy2(get(name),out/'review'/name)
+          (out/'RESULT_PROVENANCE.md').write_text(
+            '# S authority-based generated 3D candidate (unapproved)\n\n'
+            '- Generation workflow run: 37799572375\n'
+            '- This rescue copied pre-existing GitHub Actions artifacts. No new inference.\n'
+            '- Input is a crop from exact approved S-type source, SHA256 verified.\n'
+            '- The run was internally successful but branch push failed due to concurrent commits.\n'
+            '- Model GLB SHA256 verified against original generation report.\n'
+            '- Five Workbench renders: SIDE, FRONT, FRONT34, REAR34, BACK.\n'
+            '- This model is NOT approved for morphology, topology, rig or gameplay.\n'
+            '- Compare against repository authority image before progressing.\n'
+          )
+          print('RECOVERED',meta['model_bytes'],meta['model_sha256'])
+          PY
+      - name: Commit actual candidate to experiment branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add art/s-creature/experiments/authority-rebuild-20261009
+          git commit -m 'exp: recover correct-reference S 3D model and 5-view real renders'
+          git pull --rebase origin exp/s-authority-shape-20261009
+          git push origin HEAD:exp/s-authority-shape-20261009
