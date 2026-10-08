@@ -8,6 +8,7 @@ import traceback
 import numpy as np
 import trimesh
 import pymeshfix
+import inspect
 from scipy.spatial import cKDTree
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -54,9 +55,16 @@ try:
             trial["qem_raw"]=audit(reduced)
             fixer=pymeshfix.MeshFix(np.asarray(reduced.vertices,dtype=np.float64),
                                     np.asarray(reduced.faces,dtype=np.int32))
-            fixer.repair(verbose=False,joincomp=True)
-            repaired=trimesh.Trimesh(vertices=np.asarray(fixer.v),
-                                      faces=np.asarray(fixer.f),process=False)
+            signature=inspect.signature(fixer.repair)
+            kwargs={}
+            if 'verbose' in signature.parameters: kwargs['verbose']=False
+            if 'joincomp' in signature.parameters: kwargs['joincomp']=False
+            if 'remove_smallest_components' in signature.parameters:
+                kwargs['remove_smallest_components']=False
+            fixer.repair(**kwargs)
+            repaired=trimesh.Trimesh(vertices=np.asarray(fixer.points),
+                                      faces=np.asarray(fixer.faces),process=False)
+            repaired.remove_unreferenced_vertices()
             # MeshFix sometimes outputs globally reversed but consistently wound faces.
             if repaired.is_watertight and repaired.is_winding_consistent and repaired.volume<0:
                 repaired.invert()
