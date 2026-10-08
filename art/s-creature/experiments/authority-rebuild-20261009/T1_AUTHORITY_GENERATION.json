@@ -15,17 +15,17 @@
   "source_constraints": "exact authority illustration crop, no creature repainting",
   "game_ready": false,
   "verified_reference_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
-  "image_sha256": "2bc3cc90d1439c5b11a025116ac3f8451c0a80b1a8fa1e6b6025ee83aba10185",
+  "image_sha256": "b45b0d2419c2b5b590fd81a4c757c27f80a88bced074ae7b4aeb8d37f982b6db",
   "input_pixel_dims": [
     1024,
     1024
   ],
-  "input_bytes": 573831,
+  "input_bytes": 598011,
   "generator_auth_mode": "env HF_TOKEN",
   "return_paths": [
-    "/home/runner/work/evowild-test/evowild-test/art/s-creature/experiments/authority-rebuild-20261009/raw-return/sample_2026-10-08T171831.880.glb"
+    "/home/runner/work/evowild-test/evowild-test/art/s-creature/experiments/authority-rebuild-20261009/raw-return/sample_2026-10-08T171908.691.glb"
   ],
   "model": "art/s-creature/experiments/authority-rebuild-20261009/S-authority-trellis-v1.glb",
-  "model_bytes": 11023360,
-  "model_sha256": "a31415e901ffdca1aa7552811f2052af5d921f2474b4e13e00f03ddcc80c6d26"
+  "model_bytes": 10953840,
+  "model_sha256": "59b24b4851821e43397bb62d4a3f2d31523d11960dab34634e8288dcd2e3af9f"
 }
