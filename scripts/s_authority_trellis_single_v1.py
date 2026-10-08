@@ -48,7 +48,7 @@ try:
     g.INPUT=INPUT
     rawdir=OUT/"raw-return"
     rawdir.mkdir(parents=True,exist_ok=True)
-    ret=g.run_trellis2(seed=0,resolution=1024,out_dir=rawdir)
+    ret=g.run_trellis2(seed=0,resolution='1024',out_dir=rawdir)
     glbs=[Path(x) for x in ret.get("saved_files",[]) if str(x).lower().endswith(".glb") and Path(x).is_file()]
     report["return_paths"]=[str(x) for x in glbs]
     if not glbs:raise RuntimeError("TRELLIS_API_NO_GLB_OUTPUT")
