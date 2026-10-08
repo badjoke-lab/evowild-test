@@ -1,0 +1,27 @@
+{
+  "status": "FAILED",
+  "engine": "microsoft/TRELLIS.2",
+  "seed": 0,
+  "resolution": 1024,
+  "input_name": "art/s-creature/experiments/authority-rebuild-20261009/authority-front34-clean-v1.png",
+  "reference_url": "https://raw.githubusercontent.com/badjoke-lab/evowild-test/exp/s-creature-vibe-modeling/art/s-creature/references/00_s_type_modeling_image_v1.png",
+  "reference_sha256_expected": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "input_crop_xyxy": [
+    1128,
+    78,
+    1442,
+    525
+  ],
+  "source_constraints": "exact authority illustration crop, no creature repainting",
+  "game_ready": false,
+  "verified_reference_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "image_sha256": "2bc3cc90d1439c5b11a025116ac3f8451c0a80b1a8fa1e6b6025ee83aba10185",
+  "input_pixel_dims": [
+    1024,
+    1024
+  ],
+  "input_bytes": 573831,
+  "generator_auth_mode": "env HF_TOKEN",
+  "error": "AppError: Value: 1024 (type: <class 'int'>) is not in the list of choices: ['512', '1024', '1536']",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/runner/work/evowild-test/evowild-test/scripts/s_authority_trellis_single_v1.py\", line 51, in <module>\n    ret=g.run_trellis2(seed=0,resolution=1024,out_dir=rawdir)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/evowild-test/evowild-test/scripts/trellis2_pixal3d_generate.py\", line 228, in run_trellis2\n    gen = client.predict(\n          ^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/gradio_client/client.py\", line 606, in predict\n    ).result()\n      ^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/gradio_client/client.py\", line 1707, in result\n    return super().result(timeout=timeout)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/concurrent/futures/_base.py\", line 456, in result\n    return self.__get_result()\n           ^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/concurrent/futures/_base.py\", line 401, in __get_result\n    raise self._exception\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/concurrent/futures/thread.py\", line 59, in run\n    result = self.fn(*self.args, **self.kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/gradio_client/client.py\", line 1233, in _inner\n    predictions = _predict(*data, **kwargs)\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/gradio_client/client.py\", line 1356, in _predict\n    raise AppError(message=message, **result)\ngradio_client.exceptions.AppError: Value: 1024 (type: <class 'int'>) is not in the list of choices: ['512', '1024', '1536']\n"
+}
