@@ -1,0 +1,26 @@
+{
+  "input": "art/s-creature/experiments/authority-rebuild-20261009/S-authority-trellis-v1.glb",
+  "model": "art/s-creature/experiments/authority-rebuild-20261009/r3-crest/S-authority-crest-r3.glb",
+  "blend": "art/s-creature/experiments/authority-rebuild-20261009/r3-crest/S-authority-crest-r3.blend",
+  "pre_body_faces": 294077,
+  "removed_old_spear_faces": 17937,
+  "crest_objects": [
+    "CREST_MAIN_L",
+    "CREST_SECONDARY_L",
+    "CREST_MAIN_R",
+    "CREST_SECONDARY_R"
+  ],
+  "crest_geometry": "two independently modeled main swept blade volumes and two secondary volumes",
+  "outside_crest_edit_scope": "no body vertices modified, only face removal in fixed head-top ROI",
+  "source_topology_bad": true,
+  "body_geometry_unapproved": true,
+  "crest_morphology_unapproved": true,
+  "game_ready": false,
+  "views": [
+    "side",
+    "front",
+    "front34",
+    "rear34",
+    "back"
+  ]
+}
