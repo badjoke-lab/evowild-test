@@ -1,0 +1,165 @@
+{
+  "source_file": "art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-meshfix/S-trellis2-clean-seed0000-maincomponent-meshfix.glb",
+  "algorithm": "trimesh simplify_quadric_decimation / fast-simplification, NOT LODTailor",
+  "source_is_authoritative_morphology": false,
+  "input_reference_note": "TRELLIS seed0 used older 01_s_body_primary.png; 00_s_type_modeling_image_v1.png remains the higher authority",
+  "approved_for_game": false,
+  "trials": [
+    {
+      "target_faces": 120000,
+      "mesh": {
+        "faces": 120000,
+        "vertices": 59980,
+        "connected_bodies": 1,
+        "watertight": false,
+        "winding_consistent": true,
+        "is_volume": false,
+        "euler_number": -4,
+        "area": 0.4057602526773051,
+        "volume": 0.00046051333622028654,
+        "bounds": [
+          [
+            -0.07409399747848511,
+            -0.1859933121754823,
+            -0.14730671375517787
+          ],
+          [
+            0.07907400280237198,
+            0.17252640511043393,
+            0.5003309845924377
+          ]
+        ],
+        "extents": [
+          0.1531680002808571,
+          0.35851971728591625,
+          0.6476376983476156
+        ]
+      },
+      "drift": {
+        "sample_count_per_surface": 30000,
+        "source_bbox_diagonal": 0.7559041365490186,
+        "mean_over_diag": 0.0022500547252895632,
+        "p95_over_diag": 0.003873278335924588,
+        "p99_over_diag": 0.004650249539938336,
+        "approx_max_over_diag": 0.007117828721994079
+      },
+      "topology_pass": false,
+      "drift_candidate_pass": true,
+      "keep_for_visual_review": false
+    },
+    {
+      "target_faces": 80000,
+      "mesh": {
+        "faces": 80000,
+        "vertices": 39980,
+        "connected_bodies": 1,
+        "watertight": false,
+        "winding_consistent": true,
+        "is_volume": false,
+        "euler_number": -8,
+        "area": 0.4060717431222636,
+        "volume": 0.0004602883503962444,
+        "bounds": [
+          [
+            -0.07422683529442586,
+            -0.1859427157824904,
+            -0.14726600050926208
+          ],
+          [
+            0.07909513509882589,
+            0.17256773434595848,
+            0.5003319531870737
+          ]
+        ],
+        "extents": [
+          0.15332197039325174,
+          0.35851045012844884,
+          0.6475979536963358
+        ]
+      },
+      "drift": {
+        "sample_count_per_surface": 30000,
+        "source_bbox_diagonal": 0.7559041365490186,
+        "mean_over_diag": 0.00225528126646465,
+        "p95_over_diag": 0.0038793253909414284,
+        "p99_over_diag": 0.004666076975184989,
+        "approx_max_over_diag": 0.007185286214789942
+      },
+      "topology_pass": false,
+      "drift_candidate_pass": true,
+      "keep_for_visual_review": false
+    },
+    {
+      "target_faces": 60000,
+      "mesh": {
+        "faces": 60000,
+        "vertices": 29980,
+        "connected_bodies": 1,
+        "watertight": false,
+        "winding_consistent": true,
+        "is_volume": false,
+        "euler_number": -9,
+        "area": 0.40633830774618607,
+        "volume": 0.00046015484490203484,
+        "bounds": [
+          [
+            -0.07422683529442586,
+            -0.1859427157824904,
+            -0.14726600050926208
+          ],
+          [
+            0.07909513509882589,
+            0.17257278058664072,
+            0.5001820799893999
+          ]
+        ],
+        "extents": [
+          0.15332197039325174,
+          0.3585154963691311,
+          0.647448080498662
+        ]
+      },
+      "drift": {
+        "sample_count_per_surface": 30000,
+        "source_bbox_diagonal": 0.7559041365490186,
+        "mean_over_diag": 0.0022447949394891705,
+        "p95_over_diag": 0.0038750510980623642,
+        "p99_over_diag": 0.0046435021221289475,
+        "approx_max_over_diag": 0.007405366513440296
+      },
+      "topology_pass": false,
+      "drift_candidate_pass": true,
+      "keep_for_visual_review": false
+    }
+  ],
+  "selected": null,
+  "outcome": "REJECT_QEM_TOPOLOGY_OR_DRIFT",
+  "source": {
+    "faces": 263544,
+    "vertices": 131752,
+    "connected_bodies": 1,
+    "watertight": true,
+    "winding_consistent": true,
+    "is_volume": true,
+    "euler_number": -20,
+    "area": 0.40539410617323385,
+    "volume": 0.0004607651546240038,
+    "bounds": [
+      [
+        -0.07412800192832947,
+        -0.18599100410938263,
+        -0.14727400243282318
+      ],
+      [
+        0.07907400280237198,
+        0.17251700162887573,
+        0.5003309845924377
+      ]
+    ],
+    "extents": [
+      0.15320200473070145,
+      0.35850800573825836,
+      0.6476049870252609
+    ]
+  }
+}
