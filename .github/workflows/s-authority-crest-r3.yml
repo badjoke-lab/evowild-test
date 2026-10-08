@@ -1,0 +1,76 @@
+name: S-authority R3 crest rebuild real GLB 5-view
+on:
+  push:
+    branches:
+      - exp/s-authority-shape-20261009
+    paths:
+      - ".github/workflows/s-authority-crest-r3.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Blender OS libs
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+      - name: Blender 4.3.2 pinned
+        run: |
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Build new editable 3D dual-blade crest + render actual model
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/rebuild_s_authority_crest_r3.py
+      - name: Compare new and old views directly
+        run: |
+          python3 -m pip install --quiet Pillow
+          python3 - <<'PY'
+          from PIL import Image, ImageDraw
+          from pathlib import Path
+          src=Path('art/s-creature/experiments/authority-rebuild-20261009')
+          output=src/'r3-crest/review'
+          original=src/'review'
+          views=['side','front','front34','rear34','back']
+          cellw,cellh=400,430
+          out=Image.new('RGB',(cellw*5,cellh*2),(247,247,247))
+          d=ImageDraw.Draw(out)
+          for row,(tag,folder,prefix) in enumerate([
+              ('BEFORE R2',src/'r2-crest/review','S_authority_crest_r2_'),
+              ('AFTER R3',output,'S_authority_crest_r3_')
+          ]):
+            for col,view in enumerate(views):
+              p=folder/(prefix+view+'.png')
+              assert p.exists() and p.stat().st_size>10000,p
+              im=Image.open(p).convert('RGB')
+              im.thumbnail((cellw-12,cellh-34))
+              x=col*cellw+(cellw-im.width)//2
+              y=row*cellh+24+(cellh-28-im.height)//2
+              out.paste(im,(x,y))
+              d.text((col*cellw+10,row*cellh+6),f'{tag} / {view.upper()}',fill=(15,15,15))
+          target=output/'S_crest_R3_vs_R2_five_views.jpg'
+          out.save(target,quality=91,optimize=True)
+          print('SAVED',target,target.stat().st_size)
+          PY
+      - name: Upload real model, editable blend and image evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evowild-s-crest-r3-model-and-five-views
+          path: art/s-creature/experiments/authority-rebuild-20261009/r3-crest/
+          if-no-files-found: warn
+      - name: Commit experiment only, never production
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add art/s-creature/experiments/authority-rebuild-20261009/r3-crest/
+          git commit -m 'exp: persist actual S dual-crest R3 GLB blend and 10 review renders'
+          git pull --rebase origin exp/s-authority-shape-20261009
+          git push origin HEAD:exp/s-authority-shape-20261009
