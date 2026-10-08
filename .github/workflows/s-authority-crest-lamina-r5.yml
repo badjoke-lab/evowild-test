@@ -1,4 +1,4 @@
-name: EvoWild S head-neck integrated R5 real model
+name: EvoWild S crest-only R5 real model
 on:
   push:
     branches:
@@ -9,13 +9,20 @@ on:
 permissions:
   contents: write
 jobs:
-  r4:
+  r5:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/rebuild_s_authority_crest_lamina_r5.py
+            /art/s-creature/experiments/authority-rebuild-20261009/S-authority-trellis-v1.glb
+            /art/s-creature/experiments/authority-rebuild-20261009/r3-crest/review/
+            /art/s-creature/experiments/authority-rebuild-20261009/r5-crest-lamina/
+            /.github/workflows/s-authority-crest-lamina-r5.yml
       - name: Install Blender runtime libraries
         run: |
           sudo apt-get update -qq
