@@ -1,0 +1,196 @@
+{
+  "experiment": "single QEM + MeshFix repair rescue",
+  "input": "art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-meshfix/S-trellis2-clean-seed0000-maincomponent-meshfix.glb",
+  "scope": "geometry viability only; no morphology/rig/game approval",
+  "trials": [
+    {
+      "target": 120000,
+      "qem_raw": {
+        "faces": 120000,
+        "vertices": 59980,
+        "components": 1,
+        "watertight": false,
+        "winding_consistent": true,
+        "is_volume": false,
+        "euler": -4,
+        "bounds": [
+          [
+            -0.07409399747848511,
+            -0.1859933121754823,
+            -0.14730671375517787
+          ],
+          [
+            0.07907400280237198,
+            0.17252640511043393,
+            0.5003309845924377
+          ]
+        ]
+      },
+      "repaired": {
+        "faces": 119900,
+        "vertices": 59932,
+        "components": 1,
+        "watertight": true,
+        "winding_consistent": true,
+        "is_volume": true,
+        "euler": -18,
+        "bounds": [
+          [
+            -0.07409399747848511,
+            -0.1859930008649826,
+            -0.14730699360370636
+          ],
+          [
+            0.07907400280237198,
+            0.17252600193023682,
+            0.5003309845924377
+          ]
+        ]
+      },
+      "drift_vs_original": {
+        "p95_over_diag": 0.003901925155071649,
+        "p99_over_diag": 0.004692372631447878,
+        "max_sampled_over_diag": 0.00863850346005326,
+        "samples_each": 30000
+      },
+      "topology_drift_gate": true
+    },
+    {
+      "target": 80000,
+      "qem_raw": {
+        "faces": 80000,
+        "vertices": 39980,
+        "components": 1,
+        "watertight": false,
+        "winding_consistent": true,
+        "is_volume": false,
+        "euler": -8,
+        "bounds": [
+          [
+            -0.07422683529442586,
+            -0.1859427157824904,
+            -0.14726600050926208
+          ],
+          [
+            0.07909513509882589,
+            0.17256773434595848,
+            0.5003319531870737
+          ]
+        ]
+      },
+      "repaired": {
+        "faces": 79916,
+        "vertices": 39940,
+        "components": 1,
+        "watertight": true,
+        "winding_consistent": true,
+        "is_volume": true,
+        "euler": -18,
+        "bounds": [
+          [
+            -0.0742269977927208,
+            -0.18594299256801605,
+            -0.14726600050926208
+          ],
+          [
+            0.07909499853849411,
+            0.17256799340248108,
+            0.5003319978713989
+          ]
+        ]
+      },
+      "drift_vs_original": {
+        "p95_over_diag": 0.0038813106787843553,
+        "p99_over_diag": 0.0046390805082717505,
+        "max_sampled_over_diag": 0.0076436264967337355,
+        "samples_each": 30000
+      },
+      "topology_drift_gate": true
+    },
+    {
+      "target": 60000,
+      "qem_raw": {
+        "faces": 60000,
+        "vertices": 29980,
+        "components": 1,
+        "watertight": false,
+        "winding_consistent": true,
+        "is_volume": false,
+        "euler": -9,
+        "bounds": [
+          [
+            -0.07422683529442586,
+            -0.1859427157824904,
+            -0.14726600050926208
+          ],
+          [
+            0.07909513509882589,
+            0.17257278058664072,
+            0.5001820799893999
+          ]
+        ]
+      },
+      "repaired": {
+        "faces": 59932,
+        "vertices": 29948,
+        "components": 1,
+        "watertight": true,
+        "winding_consistent": true,
+        "is_volume": true,
+        "euler": -18,
+        "bounds": [
+          [
+            -0.0742269977927208,
+            -0.18594299256801605,
+            -0.14726600050926208
+          ],
+          [
+            0.07909499853849411,
+            0.1725730001926422,
+            0.5001819729804993
+          ]
+        ]
+      },
+      "drift_vs_original": {
+        "p95_over_diag": 0.0038932440986127782,
+        "p99_over_diag": 0.004697791484178812,
+        "max_sampled_over_diag": 0.00862839330443394,
+        "samples_each": 30000
+      },
+      "topology_drift_gate": true
+    }
+  ],
+  "outcome": "CANDIDATE_RENDER_REQUIRED",
+  "selected": {
+    "target": 60000,
+    "final_faces": 59932,
+    "model": "art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb",
+    "drift": {
+      "p95_over_diag": 0.0038932440986127782,
+      "p99_over_diag": 0.004697791484178812,
+      "max_sampled_over_diag": 0.00862839330443394,
+      "samples_each": 30000
+    }
+  },
+  "source": {
+    "faces": 263544,
+    "vertices": 131752,
+    "components": 1,
+    "watertight": true,
+    "winding_consistent": true,
+    "is_volume": true,
+    "euler": -20,
+    "bounds": [
+      [
+        -0.07412800192832947,
+        -0.18599100410938263,
+        -0.14727400243282318
+      ],
+      [
+        0.07907400280237198,
+        0.17251700162887573,
+        0.5003309845924377
+      ]
+    ]
+  }
+}
