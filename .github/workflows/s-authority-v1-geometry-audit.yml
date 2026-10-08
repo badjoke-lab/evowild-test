@@ -1,0 +1,67 @@
+name: Inspect S authority v1 crest and rig geometry
+on:
+  push:
+    branches:
+      - exp/s-authority-shape-20261009
+    paths:
+      - ".github/workflows/s-authority-v1-geometry-audit.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install mesh audit dependencies
+        run: python -m pip install --quiet trimesh scipy networkx numpy
+      - name: Inspect existing GLB, especially whether central crest can be detached safely
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          import numpy as np, trimesh
+          base=Path('art/s-creature/experiments/authority-rebuild-20261009')
+          p=base/'S-authority-trellis-v1.glb'
+          scene=trimesh.load(p,force='scene')
+          mesh=scene.to_geometry()
+          geom=[]
+          for name,g in scene.geometry.items():
+            geom.append({'name':name,'faces':len(g.faces),'vertices':len(g.vertices),
+                         'bounds':np.round(g.bounds,5).tolist()})
+          geom.sort(key=lambda x:x['faces'],reverse=True)
+          comps=mesh.split(only_watertight=False)
+          body=[]
+          for i,c in enumerate(comps):
+            body.append({'id':i,'faces':len(c.faces),'vertices':len(c.vertices),
+                         'bounds':np.round(c.bounds,5).tolist(),
+                         'watertight':bool(c.is_watertight)})
+          body.sort(key=lambda x:x['faces'],reverse=True)
+          v=np.asarray(mesh.vertices)
+          # glTF source is Y-up; Blender import converts to Z-up.
+          y=v[:,1]; front=v[:,2]
+          roi=v[(y>np.quantile(y,.92)) & (front>np.quantile(front,.55))]
+          report={'source':str(p),'mesh_faces':len(mesh.faces),'mesh_vertices':len(mesh.vertices),
+                  'geometry_count':len(scene.geometry),'largest_geometry':geom[:25],
+                  'component_count':len(comps),'largest_components':body[:35],
+                  'watertight':bool(mesh.is_watertight),
+                  'is_volume':bool(mesh.is_volume),
+                  'glb_up_axis':'Y','roi_high_near_front_xyz_bounds':np.round(np.array([roi.min(axis=0),roi.max(axis=0)]),5).tolist() if len(roi) else None,
+                  'review':'The v1 FRONT review shows one central spear instead of two separate crest blades. This audit is structural, not visual approval.'}
+          (base/'T1_GEOMETRY_AUDIT.json').write_text(json.dumps(report,indent=2)+'\n')
+          print(json.dumps({'components':len(comps),'geometry':len(scene.geometry),'mesh_faces':len(mesh.faces),'largest':body[:8],'roi':report['roi_high_near_front_xyz_bounds']},indent=2))
+          PY
+      - name: Commit audit result
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add art/s-creature/experiments/authority-rebuild-20261009/T1_GEOMETRY_AUDIT.json
+          git commit -m "exp: inspect S v1 crest components before mesh editing"
+          git pull --rebase origin exp/s-authority-shape-20261009
+          git push origin HEAD:exp/s-authority-shape-20261009
