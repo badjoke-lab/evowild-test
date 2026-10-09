@@ -1,0 +1,52 @@
+{
+  "status": "MESH_CREATED_NEEDS_VISUAL_REVIEW",
+  "source_image_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "camera_inputs": [
+    "SIDE",
+    "FRONT",
+    "FRONT34"
+  ],
+  "held_out_camera": "BACK",
+  "axes": "x lateral, y forward negative, z vertical",
+  "grid": [
+    110,
+    244,
+    184
+  ],
+  "base_two_view_voxels": 618942,
+  "third_view_retained_voxels": 471867,
+  "third_view_retention_fraction": 0.7623767655127621,
+  "connected_body_fraction": 0.9911113134193097,
+  "top_components_voxels": [
+    479015,
+    1893,
+    729,
+    405,
+    387,
+    276,
+    185,
+    170,
+    94,
+    52,
+    42,
+    34
+  ],
+  "pre_simplification": {
+    "faces": 227152,
+    "vertices": 113562,
+    "is_volume": true
+  },
+  "qem_result": "REJECT_QEM_TOPOLOGY",
+  "mesh_faces": 227152,
+  "mesh_vertices": 113562,
+  "watertight": true,
+  "signed_volume_positive": true,
+  "body_components": 1,
+  "train_side_iou": 0.8602928939923448,
+  "train_front_iou": 0.9121349138457778,
+  "mesh_glb": "art/s-creature/experiments/authority-visualhull/hull-v2-three-view/S-authority-visualhull-3view-v2.glb",
+  "mesh_sha256": "95f2dff2445e2146814e65bb5fc91c436fbeb47739aeb2cfb35d0a6bfb02dbda",
+  "game_approved": false,
+  "animation_approved": false,
+  "note": "This is a visual hull from three artistic images; occluded geometry and material details remain undetermined."
+}

@@ -1,0 +1,19 @@
+{
+  "original_mesh": "art/s-creature/experiments/authority-visualhull/hull-v2-three-view/S-authority-visualhull-3view-v2.glb",
+  "corrected_blend": "art/s-creature/experiments/authority-visualhull/hull-v2-three-view/upright/S-authority-3view-upright-v2.blend",
+  "corrected_glb": "art/s-creature/experiments/authority-visualhull/hull-v2-three-view/upright/S-authority-3view-upright-v2.glb",
+  "before_extents_xyz": [
+    0.9919266700744629,
+    2.5581421852111816,
+    3.3600001335144043
+  ],
+  "after_extents_xyz": [
+    0.9919266700744629,
+    3.3600003719329834,
+    2.5581421852111816
+  ],
+  "glTF_import_orientation_correction_degrees_x": -90,
+  "smooth_face_normals_for_visual_review_only": true,
+  "production_ready": false,
+  "morphology_approved": false
+}
