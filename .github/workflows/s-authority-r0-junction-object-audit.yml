@@ -1,0 +1,48 @@
+name: EvoWild S R0 anatomical junction object audit
+on:
+  push:
+    branches:
+      - exp/s-authority-r1-a1-trial-20261009
+    paths:
+      - .github/workflows/s-authority-r0-junction-object-audit.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/audit_s_authority_r0_junction_objects.py
+            /art/s-creature/output/S-authority-r0-a5-v2.blend
+            /art/s-creature/output/review/authority-r1-a1-trial/
+            /.github/workflows/s-authority-r0-junction-object-audit.yml
+      - name: Install exact Blender 4.3.2 on free runner
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Read-only inspect actual accepted geometry ownership
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-authority-r0-a5-v2.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/audit_s_authority_r0_junction_objects.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-S-R0-junction-geometry-object-map
+          path: art/s-creature/output/review/authority-r1-a1-trial/R0_JUNCTION_OBJECT_MAP.json
+          if-no-files-found: warn
+      - name: Commit read-only audit only to experiment branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/output/review/authority-r1-a1-trial/R0_JUNCTION_OBJECT_MAP.json
+          git commit -m 'audit: save R0 shoulder and pelvic mesh owner map'
+          git pull --rebase origin exp/s-authority-r1-a1-trial-20261009
+          git push origin HEAD:exp/s-authority-r1-a1-trial-20261009
