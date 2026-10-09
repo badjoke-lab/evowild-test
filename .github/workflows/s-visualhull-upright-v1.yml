@@ -1,0 +1,75 @@
+name: EvoWild S visual hull corrected upright 3D review
+on:
+  push:
+    branches:
+      - exp/s-authority-visualhull-20261009
+    paths:
+      - ".github/workflows/s-visualhull-upright-v1.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  upright:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/reorient_s_visualhull_upright.py
+            /art/s-creature/experiments/authority-visualhull/
+            /.github/workflows/s-visualhull-upright-v1.yml
+      - name: Blender system requirements
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+      - name: Install Blender 4.3.2
+        run: |
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Correct actual model orientation and produce five real renders
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/reorient_s_visualhull_upright.py
+      - name: Compare the full canonical views to the correctly oriented 3D
+        run: |
+          python3 -m pip install -q Pillow
+          python3 - <<'PY'
+          from PIL import Image,ImageDraw
+          from pathlib import Path
+          b=Path("art/s-creature/experiments/authority-visualhull")
+          r=b/"hull-v1/upright-v1/review"
+          views=["side","front","front34","back"]
+          w,h=430,470
+          sheet=Image.new("RGB",(w*4,h*2),(247,247,247))
+          d=ImageDraw.Draw(sheet)
+          for i,n in enumerate(views):
+            for j,(kind,p) in enumerate([
+              ("LOCKED ARTWORK",b/(n+"_crop.png")),
+              ("ACTUAL UPRIGHT 3D",r/("S_visualhull_upright_"+n+".png"))]):
+              assert p.is_file() and p.stat().st_size>7000,p
+              im=Image.open(p).convert("RGB")
+              im.thumbnail((w-14,h-38))
+              sheet.paste(im,(i*w+(w-im.width)//2,j*h+28+(h-32-im.height)//2))
+              d.text((i*w+12,j*h+10),kind+" "+n.upper(),fill=(14,14,14))
+          out=r/"S_upright_3D_vs_authority_4views.jpg"
+          sheet.save(out,quality=91,optimize=True)
+          print("REAL_4VIEW_COMPARE",out,out.stat().st_size)
+          PY
+      - name: Upload actual corrected model and evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: EvoWild-S-upright-visualhull-v1
+          path: art/s-creature/experiments/authority-visualhull/hull-v1/upright-v1/
+          if-no-files-found: warn
+      - name: Commit only experimental corrected real model
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add art/s-creature/experiments/authority-visualhull/hull-v1/upright-v1/
+          git commit -m "exp: archive corrected upright S hull 3D and four-view evidence"
+          git pull --rebase origin exp/s-authority-visualhull-20261009
+          git push origin HEAD:exp/s-authority-visualhull-20261009
