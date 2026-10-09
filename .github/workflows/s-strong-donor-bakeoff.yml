@@ -1,0 +1,117 @@
+name: EvoWild S candidate donor bakeoff — R5 vs TRELLIS2 QEM
+on:
+  push:
+    branches: [exp/s-strong-donor-evaluation-20261010]
+    paths: [.github/workflows/s-strong-donor-bakeoff.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  donor-bakeoff:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/review_s_strong_donors_20261010.py
+            /art/s-creature/experiments/authority-rebuild-20261009/r5-crest-lamina/S-authority-crest-lamina-r5.glb
+            /art/s-creature/experiments/authority-rebuild-20261009/reference-authority-preview.jpg
+            /art/s-creature/experiments/authority-rebuild-20261009/SOURCE_PROVENANCE.txt
+            /art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb
+            /art/s-creature/experiments/strong-donor-evaluation-20261010/
+            /.github/workflows/s-strong-donor-bakeoff.yml
+      - name: Verify original source preview provenance before comparisons
+        run: |
+          test -s art/s-creature/experiments/authority-rebuild-20261009/reference-authority-preview.jpg
+          grep -F 'sha256=93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6' art/s-creature/experiments/authority-rebuild-20261009/SOURCE_PROVENANCE.txt
+      - name: Install Blender 4.3.2 on CPU runner
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Actually render both original donor geometries with identical cameras
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/review_s_strong_donors_20261010.py
+      - name: Make verified authority/QEM/R5 4-view evidence contact sheet
+        run: |
+          python3 -m pip install -q Pillow
+          python3 - <<'PY'
+          from PIL import Image,ImageDraw,ImageOps
+          import json
+          from pathlib import Path
+          root=Path('art/s-creature/experiments')
+          out=root/'strong-donor-evaluation-20261010'
+          review=out/'review'
+          summary=json.loads((out/'DONOR_AUDIT.json').read_text())
+          for candidate in ('QEM','R5'):
+            c=summary['candidates'][candidate]
+            assert c['total_faces']>20000 and c['total_vertices']>9000,c
+            assert c['file_sha256'] and len(c['file_sha256'])==64
+            for view in ('side','front','front34','rear34','back'):
+              p=review/f'S_{candidate}_equal_camera_{view}.png'
+              assert p.is_file() and p.stat().st_size>10000,p
+          preview=root/'authority-rebuild-20261009/reference-authority-preview.jpg'
+          img=Image.open(preview).convert('RGB')
+          # The 1086px-wide preview is a resized copy of the SHA-verified
+          # 1448px canonical 4-view art. Do not invent a fifth art angle.
+          scale=img.width/1448
+          assert 0.70<scale<.80,(img.size,scale)
+          panels={
+            'side':(15,74,763,510),
+            'front':(766,74,949,510),
+            'front34':(1128,74,1445,510),
+            'back':(952,74,1126,510)
+          }
+          rowtags=[('CANONICAL ART PREVIEW',None),('TRELLIS2 QEM','QEM'),('R5 CREST LAMINA','R5')]
+          cols=list(panels)
+          W,H=460,460
+          sheet=Image.new('RGB',(W*4,H*3),(244,245,247))
+          d=ImageDraw.Draw(sheet)
+          for col,view in enumerate(cols):
+            crop=panels[view]
+            actual=(tuple(round(v*scale) for v in crop))
+            art=img.crop(actual)
+            for row,(label,source) in enumerate(rowtags):
+              if source is None:
+                im=art
+              else:
+                im=Image.open(review/f'S_{source}_equal_camera_{view}.png').convert('RGB')
+              im=ImageOps.contain(im,(W-16,H-45))
+              x=col*W+(W-im.width)//2
+              y=row*H+29+(H-37-im.height)//2
+              sheet.paste(im,(x,y))
+              d.text((col*W+10,row*H+9),label+' | '+view.upper(),fill=(14,17,20))
+          dest=review/'SOURCE_vs_QEM_vs_R5_same_camera_four_views.jpg'
+          sheet.save(dest,quality=92,optimize=True)
+          # Fifth rear3/4 has no primary artwork equivalent; compare two donors
+          # honestly without labeling it a canonical reference.
+          rear=Image.new('RGB',(W*2,H),(244,245,247))
+          rd=ImageDraw.Draw(rear)
+          for i,candidate in enumerate(('QEM','R5')):
+            im=Image.open(review/f'S_{candidate}_equal_camera_rear34.png').convert('RGB')
+            im=ImageOps.contain(im,(W-16,H-45))
+            rear.paste(im,(i*W+(W-im.width)//2,30+(H-40-im.height)//2))
+            rd.text((i*W+10,9),'REAR34 | '+candidate,fill=(15,17,20))
+          rear.save(review/'QEM_vs_R5_same_camera_rear34.jpg',quality=92,optimize=True)
+          print('VERIFIED_EQUAL_CAMERA_EVIDENCE',dest,dest.stat().st_size)
+          PY
+      - name: Upload all evidence even if final commit step fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: EvoWild-S-strong-donor-bakeoff-real-meshes
+          path: art/s-creature/experiments/strong-donor-evaluation-20261010/
+          if-no-files-found: warn
+      - name: Save actual contact sheet, 3D scene and topology QA to isolated branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/strong-donor-evaluation-20261010/
+          git commit -m 'exp: immutable R5 and QEM identical-camera 3D donor evaluation'
+          git pull --rebase origin exp/s-strong-donor-evaluation-20261010
+          git push origin HEAD:exp/s-strong-donor-evaluation-20261010
