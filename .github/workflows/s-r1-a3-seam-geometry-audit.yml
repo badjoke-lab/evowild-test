@@ -1,0 +1,60 @@
+name: EvoWild S R1-A3 real shoulder seam geometry audit
+on:
+  push:
+    branches: [exp/s-authority-r1-a1-trial-20261009]
+    paths: [.github/workflows/s-r1-a3-seam-geometry-audit.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  real-shoulder-mesh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/audit_s_r1_a3_seam_edges.py
+            /art/s-creature/output/S-authority-r1-a2-scapula-v2.blend
+            /art/s-creature/output/review/authority-r1-a3-seam/
+            /.github/workflows/s-r1-a3-seam-geometry-audit.yml
+      - name: Blender 4.3.2 CPU runtime
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Analyze physical shoulder crease angles and render actual orange edge evidence
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-authority-r1-a2-scapula-v2.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/audit_s_r1_a3_seam_edges.py
+      - name: Verify read-only audit
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          out=Path('art/s-creature/output/review/authority-r1-a3-seam')
+          s=json.loads((out/'SEAM_EDGE_AUDIT.json').read_text())
+          assert s['original_body_geometry_unchanged'] is True
+          assert s['audited_body_vertices']==5728
+          assert s['sharp_edge_count']>=10,s['sharp_edge_count']
+          for v in ['front34','rear34','side']:
+            assert (out/f'S_R1_A3_seam_edges_{v}.png').stat().st_size>15000
+          print('EDGE_AUDIT_PASS',s['side_statistics'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evowild-r1a3-shoulder-real-seam-audit
+          path: art/s-creature/output/review/authority-r1-a3-seam/
+          if-no-files-found: warn
+      - name: Commit read-only seam evidence to isolated branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/output/review/authority-r1-a3-seam/
+          git commit -m 'audit: actual S shoulder high-dihedral crease mapping and 3 angle renders'
+          git pull --rebase origin exp/s-authority-r1-a1-trial-20261009
+          git push origin HEAD:exp/s-authority-r1-a1-trial-20261009
