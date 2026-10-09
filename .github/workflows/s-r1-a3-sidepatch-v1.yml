@@ -1,0 +1,104 @@
+name: EvoWild S R1-A3 shoulder side-surface actual mesh trial
+on:
+  push:
+    branches: [exp/s-authority-r1-a1-trial-20261009]
+    paths: [.github/workflows/s-r1-a3-sidepatch-v1.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-s-r1a3-sidepatch-v1
+  cancel-in-progress: false
+jobs:
+  side-surface:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/sculpt_s_r1_a3_sidepatch_v1.py
+            /art/s-creature/output/S-authority-r1-a2-scapula-v2.blend
+            /art/s-creature/output/review/authority-r1-a2-scapula-v2/
+            /art/s-creature/output/review/authority-r1-a3-sidepatch-v1/
+            /.github/workflows/s-r1-a3-sidepatch-v1.yml
+      - name: Pin Blender 4.3.2 for actual model sculpt
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Execute actual bounded 3D shoulder/chest surface reconstruction
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-authority-r1-a2-scapula-v2.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/sculpt_s_r1_a3_sidepatch_v1.py
+      - name: Verify actual mesh, source stability and compare five orthographic model renders
+        run: |
+          python3 -m pip install -q Pillow numpy
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw,ImageOps
+          import json,numpy as np
+          root=Path('art/s-creature/output')
+          base=root/'review/authority-r1-a2-scapula-v2'
+          rev=root/'review/authority-r1-a3-sidepatch-v1'
+          info=json.loads((rev/'R1_A3_SIDEPATCH_QA.json').read_text())
+          assert info['original_body_topology_unchanged'] and info['other_parts_unchanged'] and info['cameras_unchanged']
+          assert info['nonmanifold_edge_count']==0
+          assert info['body_vertex_count']==5728 and info['body_polygon_count']==6376
+          assert info['changed_vertex_count']>=50 and info['changed_vertex_count']<800
+          assert (root/'S-authority-r1-a3-sidepatch-v1.blend').stat().st_size>50000
+          views=['side','front','front34','rear34','back']
+          width,height=410,455
+          sheet=Image.new('RGB',(width*5,height*2),(244,245,246))
+          draw=ImageDraw.Draw(sheet)
+          local={}
+          for col,v in enumerate(views):
+            src=base/f'S_scapula_v2_{v}.png'
+            dst=rev/f'S_R1_A3_sidepatch_v1_{v}.png'
+            for row,(lab,filename) in enumerate([('BEFORE R1-A2 v2',src),('AFTER R1-A3',dst)]):
+              assert filename.is_file() and filename.stat().st_size>10000,filename
+              im=Image.open(filename).convert('RGB')
+              im.thumbnail((398,410))
+              sheet.paste(im,(col*width+(width-im.width)//2,row*height+29+(416-im.height)//2))
+              draw.text((col*width+10,row*height+8),lab+' / '+v.upper(),fill=(13,15,17))
+          sheet.save(rev/'R1A2v2_vs_R1A3_actual_fiveview.jpg',quality=92,optimize=True)
+          views=['front34','rear34','side']
+          boxes={'front34':(283,205,747,549),'rear34':(268,198,758,555),'side':(268,194,754,553)}
+          zoom=Image.new('RGB',(560*2,390*3),(244,245,246))
+          dz=ImageDraw.Draw(zoom)
+          for row,v in enumerate(views):
+            a=Image.open(base/f'S_scapula_v2_{v}.png').convert('RGB')
+            b=Image.open(rev/f'S_R1_A3_sidepatch_v1_{v}.png').convert('RGB')
+            assert a.size==b.size
+            for col,(lab,im) in enumerate([('BEFORE v2',a.crop(boxes[v])),('A3 ACTUAL MESH',b.crop(boxes[v]))]):
+              im=ImageOps.contain(im,(543,353))
+              zoom.paste(im,(col*560+(560-im.width)//2,row*390+30+(352-im.height)//2))
+              dz.text((col*560+10,row*390+9),lab+' / '+v.upper(),fill=(13,15,17))
+            ap=np.asarray(a.crop(boxes[v]),dtype=np.int16)
+            bp=np.asarray(b.crop(boxes[v]),dtype=np.int16)
+            difference=np.max(np.abs(ap-bp),axis=2)
+            local[v]={'fraction_pixels_delta_at_least_14':float((difference>=14).mean()),
+                      'max_rgb_difference':int(difference.max())}
+          zoom.save(rev/'R1A2v2_vs_R1A3_actual_joint_closeup.jpg',quality=93,optimize=True)
+          (rev/'R1_A3_PIXEL_QA.json').write_text(json.dumps(local,indent=2)+'\n')
+          print('R1A3_REAL_FIVEVIEW_AND_LOCAL_CHANGE',info['changed_vertex_count'],info['before_shoulder_crease'],info['after_shoulder_crease'],local)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evowild-S-R1A3-actual-anatomical-side-surface
+          path: |
+            art/s-creature/output/S-authority-r1-a3-sidepatch-v1.blend
+            art/s-creature/output/review/authority-r1-a3-sidepatch-v1/
+          if-no-files-found: warn
+      - name: Commit isolated actual model and image evidence, never production
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/output/S-authority-r1-a3-sidepatch-v1.blend art/s-creature/output/review/authority-r1-a3-sidepatch-v1/
+          git commit -m 'exp: S shoulder-chest physical surface reconstruction with real five-view evidence'
+          git pull --rebase origin exp/s-authority-r1-a1-trial-20261009
+          git push origin HEAD:exp/s-authority-r1-a1-trial-20261009
