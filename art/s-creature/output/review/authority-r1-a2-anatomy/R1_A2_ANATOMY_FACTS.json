@@ -1,0 +1,49 @@
+{
+  "status": "REAL_GEOMETRY_SAVED_VISUAL_REVIEW_PENDING",
+  "source_file": "output/S-authority-r1-a1-v3-patch.blend",
+  "output_file": "output/S-authority-r1-a2-anatomy-v1.blend",
+  "method": "Four signed shoulder/hip muscle-plane displacements, mirrored left/right, compact ellipsoidal field; no global smooth or subdivision",
+  "body_vertices_before": 5728,
+  "body_vertices_after": 5728,
+  "body_faces_before": 6376,
+  "body_faces_after": 6376,
+  "changed_body_vertices": 1249,
+  "unchanged_body_vertices": 4479,
+  "max_vertex_displacement": 0.02886971276847724,
+  "hard_displacement_cap": 0.03,
+  "field_vertex_hits": {
+    "shoulder_pectoralis_root_left": 119,
+    "shoulder_scapular_apex_left": 229,
+    "hip_gluteal_sweep_left": 244,
+    "hip_femoral_transition_left": 156,
+    "shoulder_pectoralis_root_right": 117,
+    "shoulder_scapular_apex_right": 225,
+    "hip_femoral_transition_right": 156,
+    "hip_gluteal_sweep_right": 248
+  },
+  "field_peak_weights": {
+    "shoulder_pectoralis_root_left": 0.9902270991374128,
+    "shoulder_scapular_apex_left": 0.9931482950893176,
+    "hip_gluteal_sweep_left": 0.9999038349671818,
+    "hip_femoral_transition_left": 0.9992787414956407,
+    "shoulder_pectoralis_root_right": 0.9911547245251668,
+    "shoulder_scapular_apex_right": 0.9928539100979246,
+    "hip_femoral_transition_right": 0.9986179987069854,
+    "hip_gluteal_sweep_right": 0.99993794057887
+  },
+  "body_topology_unchanged": true,
+  "other_crests_feet_tail_unchanged": true,
+  "locked_cameras_unchanged": true,
+  "nonmanifold_edges": 0,
+  "original_body_signature": "15c03e1946bb9971f9749915f4d7b4a704cfd3fc4ac446d180a4dfa277947969",
+  "new_body_signature": "cee0bb7143d19b7ad5a19870e88bc767a5f9eb3882d3a6bbbbea0aa22e694ecc",
+  "rig_ready": false,
+  "game_asset_approved": false,
+  "views_rendered": [
+    "side",
+    "front",
+    "front34",
+    "rear34",
+    "back"
+  ]
+}

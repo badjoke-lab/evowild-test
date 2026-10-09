@@ -1,0 +1,17 @@
+{
+  "front34": {
+    "pixels_above_rgb_delta_14": 1400,
+    "fraction_above_14": 0.011864205691428958,
+    "max_abs_channel_diff": 74
+  },
+  "rear34": {
+    "pixels_above_rgb_delta_14": 1167,
+    "fraction_above_14": 0.008831341803954807,
+    "max_abs_channel_diff": 65
+  },
+  "side": {
+    "pixels_above_rgb_delta_14": 1294,
+    "fraction_above_14": 0.009850041866483977,
+    "max_abs_channel_diff": 94
+  }
+}
