@@ -1,0 +1,23 @@
+{
+  "source": "output/S-authority-r0-a5-v2.blend",
+  "output_native_project": "output/S-authority-R1-anatomical-sculpt-setup.blend",
+  "original_body_exactly_unchanged": true,
+  "candidate_geometry_initially_identical": true,
+  "original_topology_sha256": "243028cd1b334eb9d5be3a4f9907e060bb286742081f329792015e284ce0bfbf",
+  "region_fore_nonzero_vertices": 911,
+  "region_hind_nonzero_vertices": 943,
+  "fore_overlay_faces": 851,
+  "hind_overlay_faces": 925,
+  "body_mask_attribute": ".sculpt_mask",
+  "fore_group": "R1_FORE_ROOT_EDITABLE",
+  "hind_group": "R1_HIND_ROOT_EDITABLE",
+  "rendered_views": [
+    "side",
+    "front",
+    "front34",
+    "rear34",
+    "back"
+  ],
+  "geometry_edit_performed": false,
+  "note": "Orange/blue surfaces are diagnostic overlays only. R0 morphology is unchanged, future sculpt not done. This is not a completed creature."
+}
