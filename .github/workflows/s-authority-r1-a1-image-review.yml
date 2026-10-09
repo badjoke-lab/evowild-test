@@ -1,0 +1,45 @@
+name: EvoWild S R1-A1 actual detail image review
+on:
+  push:
+    branches:
+      - exp/s-authority-r1-a1-trial-20261009
+    paths:
+      - ".github/workflows/s-authority-r1-a1-image-review.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  crop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /scripts/s_authority_r1a1_image_detail_review.py
+            /art/s-creature/output/review/authority-r0-a6/
+            /art/s-creature/output/review/authority-r1-a1-trial/
+            /.github/workflows/s-authority-r1-a1-image-review.yml
+      - name: Make magnified side / front34 / rear34 real-image comparisons
+        run: |
+          python3 -m pip install --quiet numpy Pillow
+          python3 scripts/s_authority_r1a1_image_detail_review.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-R1-A1-real-local-comparisons
+          path: |
+            art/s-creature/output/review/authority-r1-a1-trial/R1_A1_three_region_actual_zoom_comparison.jpg
+            art/s-creature/output/review/authority-r1-a1-trial/R1_A1_image_delta_QA.json
+          if-no-files-found: warn
+      - name: Commit detail evidence to isolated branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/output/review/authority-r1-a1-trial/R1_A1_three_region_actual_zoom_comparison.jpg art/s-creature/output/review/authority-r1-a1-trial/R1_A1_image_delta_QA.json
+          git commit -m "review: archive actual region closeups R0 vs R1-A1"
+          git pull --rebase origin exp/s-authority-r1-a1-trial-20261009
+          git push origin HEAD:exp/s-authority-r1-a1-trial-20261009
