@@ -1,0 +1,22 @@
+
+Running 8 tests using 1 worker
+
+(node:4997) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [desktop-chromium] › tests/gamestudio-3d.spec.js:13:1 › Game Studio 3D boots offline with 18 articulated proxies and unchanged color buffers (4.5s)
+  ✓  2 [desktop-chromium] › tests/gamestudio-3d.spec.js:31:1 › Game Studio 3D typing and native controls do not trigger global shortcuts (8.0s)
+  ✓  3 [desktop-chromium] › tests/gamestudio-3d.spec.js:51:1 › Game Studio 3D manual views retain focus and fit touch controls (12.4s)
+  ✓  4 [desktop-chromium] › tests/gamestudio-3d.spec.js:68:1 › Game Studio 3D secondary panels remain reachable without covering the race by default (3.7s)
+(node:5256) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  5 [android-chromium] › tests/gamestudio-3d.spec.js:13:1 › Game Studio 3D boots offline with 18 articulated proxies and unchanged color buffers (4.4s)
+  ✓  6 [android-chromium] › tests/gamestudio-3d.spec.js:31:1 › Game Studio 3D typing and native controls do not trigger global shortcuts (6.9s)
+  ✓  7 [android-chromium] › tests/gamestudio-3d.spec.js:51:1 › Game Studio 3D manual views retain focus and fit touch controls (10.0s)
+  ✓  8 [android-chromium] › tests/gamestudio-3d.spec.js:68:1 › Game Studio 3D secondary panels remain reachable without covering the race by default (5.4s)
+
+  8 passed (57.8s)
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

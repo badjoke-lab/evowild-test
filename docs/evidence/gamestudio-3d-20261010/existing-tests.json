@@ -1,0 +1,485 @@
+{
+  "config": {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/evowild-test/node_modules/.bin/playwright",
+      "test",
+      "--config=playwright.gamestudio-3d.config.js",
+      "--project=desktop-chromium",
+      "--grep",
+      "Phase E simplified race deploys|public start sequence|AUTO director reacts|Race Agent v1 commands|gameplay integration v1 completes|course selector v1 switches|Race Entry v1 binds|pre-race focus v2"
+    ],
+    "configFile": "/workspace/evowild-test/playwright.gamestudio-3d.config.js",
+    "rootDir": "/workspace/evowild-test/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/workspace/evowild-test/test-results/gamestudio-3d",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "desktop-chromium",
+        "name": "desktop-chromium",
+        "testDir": "/workspace/evowild-test/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "gamestudio-3d.spec.js",
+          "motion-first.spec.js"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "/workspace/evowild-test/test-results/gamestudio-3d",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "android-chromium",
+        "name": "android-chromium",
+        "testDir": "/workspace/evowild-test/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "gamestudio-3d.spec.js",
+          "motion-first.spec.js"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/workspace/evowild-test/test-results/gamestudio-3d",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "desktop-chromium",
+        "testDir": "/workspace/evowild-test/tests",
+        "snapshotDir": "/workspace/evowild-test/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "gamestudio-3d.spec.js",
+          "motion-first.spec.js"
+        ],
+        "timeout": 45000,
+        "use": {
+          "baseURL": "http://127.0.0.1:4173",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "executablePath": "/usr/bin/chromium",
+            "args": [
+              "--no-sandbox",
+              "--enable-unsafe-swiftshader"
+            ]
+          },
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.8078.4 Safari/537.36",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "screen": {
+            "width": 1920,
+            "height": 1080
+          },
+          "deviceScaleFactor": 1,
+          "isMobile": false,
+          "hasTouch": false,
+          "defaultBrowserType": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "desktop-chromium"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/gamestudio-3d-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.0",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run dev -- --host 127.0.0.1 --port 4173 --strictPort",
+      "port": 4173,
+      "reuseExistingServer": true
+    }
+  },
+  "suites": [
+    {
+      "title": "motion-first.spec.js",
+      "file": "motion-first.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Motion First Phase E simplified race deploys 18 animated runners without Hunyuan assets",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 65000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-chromium",
+              "projectName": "desktop-chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 52508,
+                  "error": {
+                    "message": "Error: Failed to load resource: the server responded with a status of 404 (Not Found)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"Failed to load resource: the server responded with a status of 404 (Not Found)\",\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                    "stack": "Error: Failed to load resource: the server responded with a status of 404 (Not Found)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"Failed to load resource: the server responded with a status of 404 (Not Found)\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at /workspace/evowild-test/tests/motion-first.spec.js:726:51",
+                    "location": {
+                      "file": "/workspace/evowild-test/tests/motion-first.spec.js",
+                      "column": 51,
+                      "line": 726
+                    },
+                    "snippet": "  724 |   expect(highDetailAssetRequests).toEqual([]);\n  725 |   expect(pageErrors, pageErrors.join(\"\\n\")).toEqual([]);\n> 726 |   expect(consoleErrors, consoleErrors.join(\"\\n\")).toEqual([]);\n      |                                                   ^\n  727 | });\n  728 |\n  729 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/evowild-test/tests/motion-first.spec.js",
+                        "column": 51,
+                        "line": 726
+                      },
+                      "message": "Error: Failed to load resource: the server responded with a status of 404 (Not Found)\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"Failed to load resource: the server responded with a status of 404 (Not Found)\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  724 |   expect(highDetailAssetRequests).toEqual([]);\n  725 |   expect(pageErrors, pageErrors.join(\"\\n\")).toEqual([]);\n> 726 |   expect(consoleErrors, consoleErrors.join(\"\\n\")).toEqual([]);\n      |                                                   ^\n  727 | });\n  728 |\n  729 |\n    at /workspace/evowild-test/tests/motion-first.spec.js:726:51"
+                    }
+                  ],
+                  "stdout": [
+                    {
+                      "text": "SIMPLIFIED_RACE_PERF {\"fpsReadout\":20,\"averageFps\":20.254169976171184,\"p95FrameMs\":66.70000000000073,\"frames\":51,\"averageWorkMs\":1.857692307692307,\"p95WorkMs\":4.2,\"workSamples\":52,\"renderPixelRatio\":\"0.75\",\"renderCalls\":\"29\",\"renderTriangles\":\"36940\",\"fullRunnerCount\":\"0\",\"fullRunnerBudget\":\"0\",\"proxyRunnerCount\":\"18\",\"simulationSteps\":\"4\",\"poseUpdateMode\":\"canonical-instanced-all\",\"perfPoseMs\":\"0.400\",\"perfSyncMs\":\"0.600\",\"perfRenderMs\":\"0.400\",\"perfOtherMs\":\"0.400\",\"perfTotalWorkMs\":\"1.800\"}\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T16:50:07.053Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/workspace/evowild-test/test-results/gamestudio-3d/motion-first-Motion-First--d5c82-ners-without-Hunyuan-assets-desktop-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/workspace/evowild-test/test-results/gamestudio-3d/motion-first-Motion-First--d5c82-ners-without-Hunyuan-assets-desktop-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/evowild-test/tests/motion-first.spec.js",
+                    "column": 51,
+                    "line": 726
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "f1f6f620220ab7327eba-f741ae142d0f7d660093",
+          "file": "motion-first.spec.js",
+          "line": 506,
+          "column": 1
+        },
+        {
+          "title": "Motion First Phase E simplified race public start sequence",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 18000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-chromium",
+              "projectName": "desktop-chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13073,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T16:51:02.926Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f1f6f620220ab7327eba-671a2f8e6daf874caf6d",
+          "file": "motion-first.spec.js",
+          "line": 730,
+          "column": 1
+        },
+        {
+          "title": "Motion First Phase F AUTO director reacts to race state and preserves speed cues",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-chromium",
+              "projectName": "desktop-chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 76321,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "DIRECTOR_SHOT_HISTORY ACCELERATION:LOW,LEAD_DUEL:SIDE,PACK_COMPRESSION:PACK,RACE_FLOW:SIDE\n"
+                    },
+                    {
+                      "text": "DIRECTOR_EXTENDED_SHOT_HISTORY ACCELERATION:LOW,LEAD_DUEL:SIDE,PACK_COMPRESSION:PACK,RACE_FLOW:SIDE,RACE_FLOW:PACK,OVERTAKE_ATTEMPT:SIDE,LEAD_CHANGE:CHASE,RACE_FLOW:SIDE,BREAKAWAY:LOW,OVERTAKE_ATTEMPT:SIDE,RACE_FLOW:CHASE\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T16:51:16.619Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f1f6f620220ab7327eba-1f6af8e4915c67949332",
+          "file": "motion-first.spec.js",
+          "line": 813,
+          "column": 1
+        },
+        {
+          "title": "Motion First Race Agent v1 commands are creature-resolved",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-chromium",
+              "projectName": "desktop-chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10968,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T16:52:32.962Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f1f6f620220ab7327eba-139d53e371cd4b0386f9",
+          "file": "motion-first.spec.js",
+          "line": 1318,
+          "column": 1
+        },
+        {
+          "title": "Motion First gameplay integration v1 completes 1600m with Agent and traffic systems active",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 150000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-chromium",
+              "projectName": "desktop-chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 80234,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "GAMEPLAY_INTEGRATION_V1 {\"raceTime\":76.95,\"classification\":[{\"rank\":1,\"id\":4,\"morph\":\"S\",\"time\":72.449,\"isEntry\":false},{\"rank\":2,\"id\":2,\"morph\":\"E\",\"time\":72.606,\"isEntry\":false},{\"rank\":3,\"id\":7,\"morph\":\"A\",\"time\":72.889,\"isEntry\":false},{\"rank\":4,\"id\":5,\"morph\":\"P\",\"time\":73.553,\"isEntry\":false},{\"rank\":5,\"id\":3,\"morph\":\"A\",\"time\":73.836,\"isEntry\":false},{\"rank\":6,\"id\":10,\"morph\":\"E\",\"time\":74.139,\"isEntry\":false},{\"rank\":7,\"id\":11,\"morph\":\"A\",\"time\":74.335,\"isEntry\":false},{\"rank\":8,\"id\":0,\"morph\":\"S\",\"time\":74.6,\"isEntry\":true},{\"rank\":9,\"id\":15,\"morph\":\"A\",\"time\":74.862,\"isEntry\":false},{\"rank\":10,\"id\":16,\"morph\":\"S\",\"time\":75.071,\"isEntry\":false},{\"rank\":11,\"id\":1,\"morph\":\"P\",\"time\":75.48,\"isEntry\":false},{\"rank\":12,\"id\":9,\"morph\":\"P\",\"time\":75.824,\"isEntry\":false},{\"rank\":13,\"id\":17,\"morph\":\"P\",\"time\":75.919,\"isEntry\":false},{\"rank\":14,\"id\":14,\"morph\":\"E\",\"time\":76.365,\"isEntry\":false},{\"rank\":15,\"id\":12,\"morph\":\"S\",\"time\":76.554,\"isEntry\":false},{\"rank\":16,\"id\":13,\"morph\":\"P\",\"time\":76.652,\"isEntry\":false},{\"rank\":17,\"id\":6,\"morph\":\"E\",\"time\":76.818,\"isEntry\":false},{\"rank\":18,\"id\":8,\"morph\":\"S\",\"time\":76.939,\"isEntry\":false}],\"totalDecisions\":6,\"maxDecisions\":2,\"congestedRunnerCount\":12,\"worstTrafficFactor\":0.86,\"renderCalls\":29,\"agentStamina\":0.824,\"agentFatigue\":0.053}\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T16:52:43.942Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f1f6f620220ab7327eba-0c51b5478fe3156e889d",
+          "file": "motion-first.spec.js",
+          "line": 1665,
+          "column": 1
+        },
+        {
+          "title": "Motion First course selector v1 switches the race profile and distance labels",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-chromium",
+              "projectName": "desktop-chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5119,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T16:54:04.223Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f1f6f620220ab7327eba-fdc6a08ca9ca47217d84",
+          "file": "motion-first.spec.js",
+          "line": 1878,
+          "column": 1
+        },
+        {
+          "title": "Motion First Race Entry v1 binds Creature and Agent selection to gameplay",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-chromium",
+              "projectName": "desktop-chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 24152,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "RACE_ENTRY_V1 {\"attackResponse\":1.004,\"controlResponse\":0.874,\"entryResult\":{\"rank\":1,\"id\":5,\"morph\":\"P\",\"time\":54.453,\"isEntry\":true}}\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T16:54:09.353Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f1f6f620220ab7327eba-37610a8700dc9d3da805",
+          "file": "motion-first.spec.js",
+          "line": 1983,
+          "column": 1
+        },
+        {
+          "title": "Motion First Race Entry pre-race focus v2 keeps YOUR ENTRY locked during countdown",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-chromium",
+              "projectName": "desktop-chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5222,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T16:54:33.529Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f1f6f620220ab7327eba-3f2dc49bcde239b310a7",
+          "file": "motion-first.spec.js",
+          "line": 2732,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-09T16:50:06.321Z",
+    "duration": 272594.192,
+    "expected": 7,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

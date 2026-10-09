@@ -1,0 +1,63 @@
+
+Running 8 tests using 1 worker
+
+(node:5691) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+SIMPLIFIED_RACE_PERF {"fpsReadout":20,"averageFps":20.254169976171184,"p95FrameMs":66.70000000000073,"frames":51,"averageWorkMs":1.857692307692307,"p95WorkMs":4.2,"workSamples":52,"renderPixelRatio":"0.75","renderCalls":"29","renderTriangles":"36940","fullRunnerCount":"0","fullRunnerBudget":"0","proxyRunnerCount":"18","simulationSteps":"4","poseUpdateMode":"canonical-instanced-all","perfPoseMs":"0.400","perfSyncMs":"0.600","perfRenderMs":"0.400","perfOtherMs":"0.400","perfTotalWorkMs":"1.800"}
+  ✘  1 [desktop-chromium] › tests/motion-first.spec.js:506:1 › Motion First Phase E simplified race deploys 18 animated runners without Hunyuan assets (52.5s)
+(node:5887) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  2 [desktop-chromium] › tests/motion-first.spec.js:730:1 › Motion First Phase E simplified race public start sequence (13.1s)
+DIRECTOR_SHOT_HISTORY ACCELERATION:LOW,LEAD_DUEL:SIDE,PACK_COMPRESSION:PACK,RACE_FLOW:SIDE
+DIRECTOR_EXTENDED_SHOT_HISTORY ACCELERATION:LOW,LEAD_DUEL:SIDE,PACK_COMPRESSION:PACK,RACE_FLOW:SIDE,RACE_FLOW:PACK,OVERTAKE_ATTEMPT:SIDE,LEAD_CHANGE:CHASE,RACE_FLOW:SIDE,BREAKAWAY:LOW,OVERTAKE_ATTEMPT:SIDE,RACE_FLOW:CHASE
+  ✓  3 [desktop-chromium] › tests/motion-first.spec.js:813:1 › Motion First Phase F AUTO director reacts to race state and preserves speed cues (1.3m)
+  ✓  4 [desktop-chromium] › tests/motion-first.spec.js:1318:1 › Motion First Race Agent v1 commands are creature-resolved (11.0s)
+GAMEPLAY_INTEGRATION_V1 {"raceTime":76.95,"classification":[{"rank":1,"id":4,"morph":"S","time":72.449,"isEntry":false},{"rank":2,"id":2,"morph":"E","time":72.606,"isEntry":false},{"rank":3,"id":7,"morph":"A","time":72.889,"isEntry":false},{"rank":4,"id":5,"morph":"P","time":73.553,"isEntry":false},{"rank":5,"id":3,"morph":"A","time":73.836,"isEntry":false},{"rank":6,"id":10,"morph":"E","time":74.139,"isEntry":false},{"rank":7,"id":11,"morph":"A","time":74.335,"isEntry":false},{"rank":8,"id":0,"morph":"S","time":74.6,"isEntry":true},{"rank":9,"id":15,"morph":"A","time":74.862,"isEntry":false},{"rank":10,"id":16,"morph":"S","time":75.071,"isEntry":false},{"rank":11,"id":1,"morph":"P","time":75.48,"isEntry":false},{"rank":12,"id":9,"morph":"P","time":75.824,"isEntry":false},{"rank":13,"id":17,"morph":"P","time":75.919,"isEntry":false},{"rank":14,"id":14,"morph":"E","time":76.365,"isEntry":false},{"rank":15,"id":12,"morph":"S","time":76.554,"isEntry":false},{"rank":16,"id":13,"morph":"P","time":76.652,"isEntry":false},{"rank":17,"id":6,"morph":"E","time":76.818,"isEntry":false},{"rank":18,"id":8,"morph":"S","time":76.939,"isEntry":false}],"totalDecisions":6,"maxDecisions":2,"congestedRunnerCount":12,"worstTrafficFactor":0.86,"renderCalls":29,"agentStamina":0.824,"agentFatigue":0.053}
+  ✓  5 [desktop-chromium] › tests/motion-first.spec.js:1665:1 › Motion First gameplay integration v1 completes 1600m with Agent and traffic systems active (1.3m)
+  ✓  6 [desktop-chromium] › tests/motion-first.spec.js:1878:1 › Motion First course selector v1 switches the race profile and distance labels (5.1s)
+RACE_ENTRY_V1 {"attackResponse":1.004,"controlResponse":0.874,"entryResult":{"rank":1,"id":5,"morph":"P","time":54.453,"isEntry":true}}
+  ✓  7 [desktop-chromium] › tests/motion-first.spec.js:1983:1 › Motion First Race Entry v1 binds Creature and Agent selection to gameplay (24.2s)
+  ✓  8 [desktop-chromium] › tests/motion-first.spec.js:2732:1 › Motion First Race Entry pre-race focus v2 keeps YOUR ENTRY locked during countdown (5.2s)
+
+
+  1) [desktop-chromium] › tests/motion-first.spec.js:506:1 › Motion First Phase E simplified race deploys 18 animated runners without Hunyuan assets 
+
+    Error: Failed to load resource: the server responded with a status of 404 (Not Found)
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    + ]
+
+      724 |   expect(highDetailAssetRequests).toEqual([]);
+      725 |   expect(pageErrors, pageErrors.join("\n")).toEqual([]);
+    > 726 |   expect(consoleErrors, consoleErrors.join("\n")).toEqual([]);
+          |                                                   ^
+      727 | });
+      728 |
+      729 |
+        at /workspace/evowild-test/tests/motion-first.spec.js:726:51
+
+    Error Context: test-results/gamestudio-3d/motion-first-Motion-First--d5c82-ners-without-Hunyuan-assets-desktop-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/gamestudio-3d/motion-first-Motion-First--d5c82-ners-without-Hunyuan-assets-desktop-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/gamestudio-3d/motion-first-Motion-First--d5c82-ners-without-Hunyuan-assets-desktop-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [desktop-chromium] › tests/motion-first.spec.js:506:1 › Motion First Phase E simplified race deploys 18 animated runners without Hunyuan assets 
+  7 passed (4.5m)
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

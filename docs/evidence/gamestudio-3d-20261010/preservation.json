@@ -1,0 +1,27 @@
+{
+  "base": "610d42800180ed31f174a097fc2eb96c27ecd0ab",
+  "source": [
+    {
+      "name": "designs and race profiles",
+      "sha256": "cb12935729d5f5c449d3e8169b12c2f4b3ec31e0f2bd5d3e7086942f2962c5c1",
+      "unchanged": true
+    },
+    {
+      "name": "articulated proxy and canonical pose adapter",
+      "sha256": "b4801fef549b51c1c1dad3600c7aeb352e1ca8818f35a39e90f1c5018dba34e9",
+      "unchanged": true
+    },
+    {
+      "name": "race state, simulation and gait",
+      "sha256": "894085f7a96393c6d9b6df4990c2dcad1b3f7ed86e43c26b04712f736c36f80b",
+      "unchanged": true
+    },
+    {
+      "name": "camera and director",
+      "sha256": "c2c8b50c6039a9c8c1f1e5d7af3d3c0dd89511d3a009ad1bca157973b42e51c3",
+      "unchanged": true
+    }
+  ],
+  "protectedAssetsChecked": 20,
+  "unchanged": true
+}

@@ -1,0 +1,23 @@
+{
+  "failures": [
+    {
+      "url": "https://unpkg.com/three@0.181.0/build/three.module.js",
+      "error": {
+        "errorText": "net::ERR_TUNNEL_CONNECTION_FAILED"
+      }
+    },
+    {
+      "url": "https://unpkg.com/three@0.181.0/examples/jsm/loaders/GLTFLoader.js",
+      "error": {
+        "errorText": "net::ERR_TUNNEL_CONNECTION_FAILED"
+      }
+    },
+    {
+      "url": "https://unpkg.com/three@0.181.0/examples/jsm/utils/SkeletonUtils.js",
+      "error": {
+        "errorText": "net::ERR_TUNNEL_CONNECTION_FAILED"
+      }
+    }
+  ],
+  "dataset": {}
+}

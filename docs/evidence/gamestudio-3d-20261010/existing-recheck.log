@@ -1,0 +1,14 @@
+
+Running 1 test using 1 worker
+
+(node:7174) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+SIMPLIFIED_RACE_PERF {"fpsReadout":21,"averageFps":20.258997378245148,"p95FrameMs":66.69999999999982,"frames":51,"averageWorkMs":1.7423076923076921,"p95WorkMs":2.3,"workSamples":52,"renderPixelRatio":"0.75","renderCalls":"29","renderTriangles":"36940","fullRunnerCount":"0","fullRunnerBudget":"0","proxyRunnerCount":"18","simulationSteps":"4","poseUpdateMode":"canonical-instanced-all","perfPoseMs":"0.300","perfSyncMs":"0.600","perfRenderMs":"0.400","perfOtherMs":"0.500","perfTotalWorkMs":"1.800"}
+  ✓  1 [desktop-chromium] › tests/motion-first.spec.js:506:1 › Motion First Phase E simplified race deploys 18 animated runners without Hunyuan assets (46.0s)
+
+  1 passed (47.3s)
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

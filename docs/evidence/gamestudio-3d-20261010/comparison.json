@@ -1,0 +1,853 @@
+{
+  "method": "FPS uses wall-clock RAF intervals with video and identical read-only probe enabled. Foot clearance is min transformed foot/toe bounding-box Y above TRACK Y=0, not the grass plane at -0.12. Original samples relative to the grass plane are rebased using referenceSurfaceY. Stance drift is horizontal displacement from first sampled rendered foot center within the same stance cycle; every-render-frame supplemental samples still yield a LOWER BOUND, not full contact validation. Video times are approximate (page performance clock). No claim of physical Android performance.",
+  "runs": {
+    "before/desktop": {
+      "environment": {
+        "phase": "before",
+        "sourceCommit": "610d42800180ed31f174a097fc2eb96c27ecd0ab",
+        "node": "v24.19.0",
+        "browser": "151.0.7922.173",
+        "platform": "linux",
+        "architecture": "x64",
+        "transportBridge": "Official npm three@0.181.0 files served in place of blocked unpkg requests; app code unchanged.",
+        "instrumentation": "Read-only module probe at 10 Hz; RAF wall-clock FPS. Video recording enabled. Headless software GPU, not physical Android.",
+        "cameras": [
+          "SIDE",
+          "LOW",
+          "CHASE",
+          "FRONT"
+        ],
+        "sampleSeconds": 5,
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "viewport": [
+          1280,
+          720
+        ],
+        "dpr": 1,
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+        "footReferenceSurfaceY": -0.12,
+        "footCalibrationNote": "Video probe samples used the grass reference plane. Final contact results use track Y=0; see comparison.json and supplemental contact frames."
+      },
+      "errors": [],
+      "ui": {
+        "boxes": [
+          {
+            "selector": "brand",
+            "x": 18,
+            "y": 16,
+            "width": 429.578125,
+            "height": 57
+          },
+          {
+            "selector": "race-readout",
+            "x": 899.671875,
+            "y": 27,
+            "width": 362.328125,
+            "height": 35
+          },
+          {
+            "selector": "control-block course-control",
+            "x": 213.796875,
+            "y": 586,
+            "width": 237.484375,
+            "height": 52
+          },
+          {
+            "selector": "control-block entry-control",
+            "x": 465.28125,
+            "y": 586,
+            "width": 316.9375,
+            "height": 52
+          },
+          {
+            "selector": "control-block entry-control",
+            "x": 796.21875,
+            "y": 586,
+            "width": 269.96875,
+            "height": 52
+          },
+          {
+            "selector": "control-block",
+            "x": 165.734375,
+            "y": 652,
+            "width": 410.0625,
+            "height": 52
+          },
+          {
+            "selector": "control-block runner-control",
+            "x": 589.796875,
+            "y": 652,
+            "width": 212.453125,
+            "height": 52
+          },
+          {
+            "selector": "control-block compact",
+            "x": 816.25,
+            "y": 652,
+            "width": 112,
+            "height": 52
+          },
+          {
+            "selector": "control-block actions",
+            "x": 942.25,
+            "y": 652,
+            "width": 172,
+            "height": 52
+          },
+          {
+            "selector": "focusCard",
+            "x": 18,
+            "y": 86,
+            "width": 288.265625,
+            "height": 54
+          },
+          {
+            "selector": "agentPanel",
+            "x": 18,
+            "y": 158,
+            "width": 265,
+            "height": 305.4375
+          }
+        ],
+        "coveredFraction": 0.24269097222222222,
+        "horizontalOverflow": false
+      },
+      "inputCheck": {
+        "beforePaused": false,
+        "afterPaused": true,
+        "beforeCamera": "FRONT",
+        "afterCamera": "CHASE",
+        "value": "PLAYER2"
+      },
+      "cameras": [
+        {
+          "camera": "SIDE",
+          "requestedFocus": 9,
+          "frames": 87,
+          "fps": 17.285226098704598,
+          "p95FrameMs": 66.80000000000018,
+          "videoStartSeconds": 4.989400000000139,
+          "videoEndSeconds": 10.036100000000094
+        },
+        {
+          "camera": "LOW",
+          "requestedFocus": 13,
+          "frames": 95,
+          "fps": 18.8746721767464,
+          "p95FrameMs": 66.70000000000073,
+          "videoStartSeconds": 12.59240000000014,
+          "videoEndSeconds": 17.63090000000014
+        },
+        {
+          "camera": "CHASE",
+          "requestedFocus": 13,
+          "frames": 100,
+          "fps": 19.73788094110216,
+          "p95FrameMs": 66.70000000000073,
+          "videoStartSeconds": 20.102200000000185,
+          "videoEndSeconds": 25.183100000000092
+        },
+        {
+          "camera": "FRONT",
+          "requestedFocus": 2,
+          "frames": 93,
+          "fps": 18.47731065723595,
+          "p95FrameMs": 66.70000000000073,
+          "videoStartSeconds": 27.535600000000095,
+          "videoEndSeconds": 32.582300000000046
+        }
+      ],
+      "calls": [
+        29
+      ],
+      "triangles": [
+        36940
+      ],
+      "colorVersionDelta": {
+        "chest": 503,
+        "pelvis": 503,
+        "neck": 503,
+        "head": 503,
+        "muzzle": 503,
+        "crest": 503,
+        "tail": 503,
+        "tailBlade": 503,
+        "cue": 503,
+        "upperLeg": 503,
+        "lowerLeg": 503,
+        "cannon": 503,
+        "foot": 503,
+        "toe": 503,
+        "shadow": 503
+      },
+      "contactMethod": "Every rendered frame, 6 s, 18 runners; baseline main.js from 610d42800180ed31f174a097fc2eb96c27ecd0ab; identical current UI and local Three.js 0.181.0 for both phases. No video, no simulation mutation. Clearance is transformed box bound, not a collision solver.",
+      "contacts": {
+        "S": {
+          "stanceSamples": 554,
+          "driftSamples": 119,
+          "minClearance": -0.4059919452208609,
+          "medianClearance": 0.0032570818812852897,
+          "p95Clearance": 0.2903249698257358,
+          "p95SampledDrift": 0.35224523410382963,
+          "maxSampledDrift": 0.3975096166377087
+        },
+        "P": {
+          "stanceSamples": 776,
+          "driftSamples": 181,
+          "minClearance": -0.46042397407364133,
+          "medianClearance": -0.14955407979593832,
+          "p95Clearance": 0.15426759135271956,
+          "p95SampledDrift": 0.30281605896167607,
+          "maxSampledDrift": 0.3484145452105404
+        },
+        "E": {
+          "stanceSamples": 505,
+          "driftSamples": 140,
+          "minClearance": -0.4057731010062527,
+          "medianClearance": -0.10996144074272535,
+          "p95Clearance": 0.11998356189564255,
+          "p95SampledDrift": 0.13617521194744786,
+          "maxSampledDrift": 0.16004077824170004
+        },
+        "A": {
+          "stanceSamples": 468,
+          "driftSamples": 43,
+          "minClearance": -0.45161778963290644,
+          "medianClearance": -0.1213777152014141,
+          "p95Clearance": 0.11217566985296537,
+          "p95SampledDrift": 0.2036349662350359,
+          "maxSampledDrift": 0.23304389614296944
+        }
+      }
+    },
+    "before/android": {
+      "environment": {
+        "phase": "before",
+        "sourceCommit": "610d42800180ed31f174a097fc2eb96c27ecd0ab",
+        "node": "v24.19.0",
+        "browser": "151.0.7922.173",
+        "platform": "linux",
+        "architecture": "x64",
+        "transportBridge": "Official npm three@0.181.0 files served in place of blocked unpkg requests; app code unchanged.",
+        "instrumentation": "Read-only module probe at 10 Hz; RAF wall-clock FPS. Video recording enabled. Headless software GPU, not physical Android.",
+        "cameras": [
+          "SIDE",
+          "LOW",
+          "CHASE",
+          "FRONT"
+        ],
+        "sampleSeconds": 5,
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "viewport": [
+          412,
+          839
+        ],
+        "dpr": 2.625,
+        "userAgent": "Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.8078.4 Mobile Safari/537.36",
+        "footReferenceSurfaceY": -0.12,
+        "footCalibrationNote": "Video probe samples used the grass reference plane. Final contact results use track Y=0; see comparison.json and supplemental contact frames."
+      },
+      "errors": [],
+      "ui": {
+        "boxes": [
+          {
+            "selector": "brand",
+            "x": 10,
+            "y": 10,
+            "width": 170.53125,
+            "height": 52
+          },
+          {
+            "selector": "race-readout",
+            "x": 194.53125,
+            "y": 10,
+            "width": 207.46875,
+            "height": 46
+          },
+          {
+            "selector": "control-block course-control",
+            "x": 10,
+            "y": 575,
+            "width": 392,
+            "height": 46
+          },
+          {
+            "selector": "control-block entry-control",
+            "x": 10,
+            "y": 627,
+            "width": 392,
+            "height": 46
+          },
+          {
+            "selector": "control-block entry-control",
+            "x": 10,
+            "y": 679,
+            "width": 392,
+            "height": 46
+          },
+          {
+            "selector": "control-block",
+            "x": 10,
+            "y": 731,
+            "width": 391.640625,
+            "height": 46
+          },
+          {
+            "selector": "control-block runner-control",
+            "x": 10,
+            "y": 783,
+            "width": 236.40625,
+            "height": 46
+          },
+          {
+            "selector": "control-block actions",
+            "x": 252.40625,
+            "y": 783,
+            "width": 149.59375,
+            "height": 46
+          },
+          {
+            "selector": "focusCard",
+            "x": 10,
+            "y": 64,
+            "width": 392,
+            "height": 54
+          },
+          {
+            "selector": "agentPanel",
+            "x": 10,
+            "y": 122,
+            "width": 392,
+            "height": 305.4375
+          }
+        ],
+        "coveredFraction": 0.7316615943622204,
+        "horizontalOverflow": false
+      },
+      "inputCheck": {
+        "beforePaused": false,
+        "afterPaused": true,
+        "beforeCamera": "FRONT",
+        "afterCamera": "CHASE",
+        "value": "PLAYER2"
+      },
+      "cameras": [
+        {
+          "camera": "SIDE",
+          "requestedFocus": 9,
+          "frames": 107,
+          "fps": 21.25926367447498,
+          "p95FrameMs": 50.100000000000364,
+          "videoStartSeconds": 4.827800000000047,
+          "videoEndSeconds": 9.855100000000093
+        },
+        {
+          "camera": "LOW",
+          "requestedFocus": 13,
+          "frames": 120,
+          "fps": 23.763317359103333,
+          "p95FrameMs": 66.69999999999891,
+          "videoStartSeconds": 12.762200000000187,
+          "videoEndSeconds": 17.8125
+        },
+        {
+          "camera": "CHASE",
+          "requestedFocus": 13,
+          "frames": 112,
+          "fps": 22.106426654034433,
+          "p95FrameMs": 66.70000000000073,
+          "videoStartSeconds": 20.257700000000185,
+          "videoEndSeconds": 25.322200000000187
+        },
+        {
+          "camera": "FRONT",
+          "requestedFocus": 17,
+          "frames": 108,
+          "fps": 21.528954450313964,
+          "p95FrameMs": 66.70000000000073,
+          "videoStartSeconds": 27.803300000000046,
+          "videoEndSeconds": 32.82370000000019
+        }
+      ],
+      "calls": [
+        29
+      ],
+      "triangles": [
+        36940
+      ],
+      "colorVersionDelta": {
+        "chest": 574,
+        "pelvis": 574,
+        "neck": 574,
+        "head": 574,
+        "muzzle": 574,
+        "crest": 574,
+        "tail": 574,
+        "tailBlade": 574,
+        "cue": 574,
+        "upperLeg": 574,
+        "lowerLeg": 574,
+        "cannon": 574,
+        "foot": 574,
+        "toe": 574,
+        "shadow": 574
+      },
+      "contactMethod": "Every rendered frame, 6 s, 18 runners; baseline main.js from 610d42800180ed31f174a097fc2eb96c27ecd0ab; identical current UI and local Three.js 0.181.0 for both phases. No video, no simulation mutation. Clearance is transformed box bound, not a collision solver.",
+      "contacts": {
+        "S": {
+          "stanceSamples": 662,
+          "driftSamples": 226,
+          "minClearance": -0.4143919503740814,
+          "medianClearance": 0.012235039431817474,
+          "p95Clearance": 0.3058026971709419,
+          "p95SampledDrift": 0.3322968590430227,
+          "maxSampledDrift": 0.4120096759628258
+        },
+        "P": {
+          "stanceSamples": 928,
+          "driftSamples": 335,
+          "minClearance": -0.468855858709249,
+          "medianClearance": -0.15461611164700875,
+          "p95Clearance": 0.15194264629658527,
+          "p95SampledDrift": 0.29123108918617957,
+          "maxSampledDrift": 0.35142998433060685
+        },
+        "E": {
+          "stanceSamples": 590,
+          "driftSamples": 229,
+          "minClearance": -0.4096756304357428,
+          "medianClearance": -0.10467432302920959,
+          "p95Clearance": 0.11357358158262609,
+          "p95SampledDrift": 0.14797568349626278,
+          "maxSampledDrift": 0.1672187878041008
+        },
+        "A": {
+          "stanceSamples": 524,
+          "driftSamples": 87,
+          "minClearance": -0.45214950358249695,
+          "medianClearance": -0.13071420040249696,
+          "p95Clearance": 0.10916250012979334,
+          "p95SampledDrift": 0.2041960060495937,
+          "maxSampledDrift": 0.23304326213428805
+        }
+      }
+    },
+    "after/desktop": {
+      "environment": {
+        "phase": "after",
+        "sourceCommit": "610d42800180ed31f174a097fc2eb96c27ecd0ab",
+        "node": "v24.19.0",
+        "browser": "151.0.7922.173",
+        "platform": "linux",
+        "architecture": "x64",
+        "transportBridge": null,
+        "instrumentation": "Read-only module probe at 10 Hz; RAF wall-clock FPS. Video recording enabled. Headless software GPU, not physical Android.",
+        "cameras": [
+          "SIDE",
+          "LOW",
+          "CHASE",
+          "FRONT"
+        ],
+        "sampleSeconds": 5,
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "viewport": [
+          1280,
+          720
+        ],
+        "dpr": 1,
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+        "footReferenceSurfaceY": -0.12,
+        "footCalibrationNote": "Video probe samples used the grass reference plane. Final contact results use track Y=0; see comparison.json and supplemental contact frames."
+      },
+      "errors": [],
+      "ui": {
+        "boxes": [
+          {
+            "selector": "brand",
+            "x": 18,
+            "y": 16,
+            "width": 429.578125,
+            "height": 57
+          },
+          {
+            "selector": "race-readout",
+            "x": 899.671875,
+            "y": 27,
+            "width": 362.328125,
+            "height": 35
+          },
+          {
+            "selector": "control-block course-control",
+            "x": 213.796875,
+            "y": 586,
+            "width": 237.484375,
+            "height": 52
+          },
+          {
+            "selector": "control-block entry-control",
+            "x": 465.28125,
+            "y": 586,
+            "width": 316.9375,
+            "height": 52
+          },
+          {
+            "selector": "control-block entry-control",
+            "x": 796.21875,
+            "y": 586,
+            "width": 269.96875,
+            "height": 52
+          },
+          {
+            "selector": "control-block camera-control",
+            "x": 165.734375,
+            "y": 652,
+            "width": 410.0625,
+            "height": 52
+          },
+          {
+            "selector": "control-block runner-control",
+            "x": 589.796875,
+            "y": 652,
+            "width": 212.453125,
+            "height": 52
+          },
+          {
+            "selector": "control-block compact",
+            "x": 816.25,
+            "y": 652,
+            "width": 112,
+            "height": 52
+          },
+          {
+            "selector": "control-block actions",
+            "x": 942.25,
+            "y": 652,
+            "width": 172,
+            "height": 52
+          },
+          {
+            "selector": "focusCard",
+            "x": 18,
+            "y": 86,
+            "width": 282.40625,
+            "height": 54
+          },
+          {
+            "selector": "agentPanel",
+            "x": 18,
+            "y": 158,
+            "width": 265,
+            "height": 226
+          }
+        ],
+        "coveredFraction": 0.21954861111111112,
+        "horizontalOverflow": false
+      },
+      "inputCheck": {
+        "beforePaused": false,
+        "afterPaused": false,
+        "beforeCamera": "FRONT",
+        "afterCamera": "FRONT",
+        "value": "PLAYER 2"
+      },
+      "cameras": [
+        {
+          "camera": "SIDE",
+          "requestedFocus": 9,
+          "frames": 94,
+          "fps": 18.614598597964275,
+          "p95FrameMs": 66.70000000000073,
+          "videoStartSeconds": 5.124200000000187,
+          "videoEndSeconds": 10.186800000000046
+        },
+        {
+          "camera": "LOW",
+          "requestedFocus": 13,
+          "frames": 93,
+          "fps": 18.538821887770357,
+          "p95FrameMs": 66.70000000000073,
+          "videoStartSeconds": 12.757300000000047,
+          "videoEndSeconds": 17.782100000000092
+        },
+        {
+          "camera": "CHASE",
+          "requestedFocus": 13,
+          "frames": 88,
+          "fps": 17.36933522816991,
+          "p95FrameMs": 66.70000000000073,
+          "videoStartSeconds": 20.2865,
+          "videoEndSeconds": 25.3585
+        },
+        {
+          "camera": "FRONT",
+          "requestedFocus": 17,
+          "frames": 102,
+          "fps": 20.332901425296523,
+          "p95FrameMs": 66.69999999999709,
+          "videoStartSeconds": 27.737200000000186,
+          "videoEndSeconds": 32.76770000000019
+        }
+      ],
+      "calls": [
+        29
+      ],
+      "triangles": [
+        36940
+      ],
+      "colorVersionDelta": {
+        "chest": 0,
+        "pelvis": 0,
+        "neck": 0,
+        "head": 0,
+        "muzzle": 0,
+        "crest": 0,
+        "tail": 0,
+        "tailBlade": 0,
+        "cue": 0,
+        "upperLeg": 0,
+        "lowerLeg": 0,
+        "cannon": 0,
+        "foot": 0,
+        "toe": 0,
+        "shadow": 0
+      },
+      "contactMethod": "Every rendered frame, 6 s, 18 runners; baseline main.js from 610d42800180ed31f174a097fc2eb96c27ecd0ab; identical current UI and local Three.js 0.181.0 for both phases. No video, no simulation mutation. Clearance is transformed box bound, not a collision solver.",
+      "contacts": {
+        "S": {
+          "stanceSamples": 596,
+          "driftSamples": 161,
+          "minClearance": -0.41160040320205127,
+          "medianClearance": 0.011535462193212442,
+          "p95Clearance": 0.2883679694038056,
+          "p95SampledDrift": 0.34100305177700907,
+          "maxSampledDrift": 0.3849043527809516
+        },
+        "P": {
+          "stanceSamples": 809,
+          "driftSamples": 222,
+          "minClearance": -0.4696104888805448,
+          "medianClearance": -0.16107035088567304,
+          "p95Clearance": 0.15037742726984815,
+          "p95SampledDrift": 0.29601943754969334,
+          "maxSampledDrift": 0.34851558193259685
+        },
+        "E": {
+          "stanceSamples": 525,
+          "driftSamples": 164,
+          "minClearance": -0.40795532419967645,
+          "medianClearance": -0.10855921162983359,
+          "p95Clearance": 0.12018560090290975,
+          "p95SampledDrift": 0.13725188261804783,
+          "maxSampledDrift": 0.1600408021860908
+        },
+        "A": {
+          "stanceSamples": 495,
+          "driftSamples": 59,
+          "minClearance": -0.4530214087326315,
+          "medianClearance": -0.1268247830948331,
+          "p95Clearance": 0.116424265272488,
+          "p95SampledDrift": 0.22412996591244952,
+          "maxSampledDrift": 0.23818019886327135
+        }
+      }
+    },
+    "after/android": {
+      "environment": {
+        "phase": "after",
+        "sourceCommit": "610d42800180ed31f174a097fc2eb96c27ecd0ab",
+        "node": "v24.19.0",
+        "browser": "151.0.7922.173",
+        "platform": "linux",
+        "architecture": "x64",
+        "transportBridge": null,
+        "instrumentation": "Read-only module probe at 10 Hz; RAF wall-clock FPS. Video recording enabled. Headless software GPU, not physical Android.",
+        "cameras": [
+          "SIDE",
+          "LOW",
+          "CHASE",
+          "FRONT"
+        ],
+        "sampleSeconds": 5,
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "viewport": [
+          412,
+          839
+        ],
+        "dpr": 2.625,
+        "userAgent": "Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.8078.4 Mobile Safari/537.36",
+        "footReferenceSurfaceY": -0.12,
+        "footCalibrationNote": "Video probe samples used the grass reference plane. Final contact results use track Y=0; see comparison.json and supplemental contact frames."
+      },
+      "errors": [],
+      "ui": {
+        "boxes": [
+          {
+            "selector": "brand",
+            "x": 10,
+            "y": 10,
+            "width": 170.53125,
+            "height": 52
+          },
+          {
+            "selector": "race-readout",
+            "x": 194.53125,
+            "y": 10,
+            "width": 207.46875,
+            "height": 46
+          },
+          {
+            "selector": "control-block camera-control",
+            "x": 10,
+            "y": 715,
+            "width": 392,
+            "height": 54
+          },
+          {
+            "selector": "control-block runner-control",
+            "x": 68.75,
+            "y": 775,
+            "width": 183.25,
+            "height": 54
+          },
+          {
+            "selector": "control-block actions",
+            "x": 258,
+            "y": 775,
+            "width": 144,
+            "height": 54
+          },
+          {
+            "selector": "",
+            "x": 10,
+            "y": 775,
+            "width": 52.75,
+            "height": 44
+          },
+          {
+            "selector": "focusCard",
+            "x": 10,
+            "y": 64,
+            "width": 392,
+            "height": 54
+          },
+          {
+            "selector": "agentPanel",
+            "x": 10,
+            "y": 122,
+            "width": 133.59375,
+            "height": 46
+          }
+        ],
+        "coveredFraction": 0.2552738465811125,
+        "horizontalOverflow": false
+      },
+      "inputCheck": {
+        "beforePaused": false,
+        "afterPaused": false,
+        "beforeCamera": "FRONT",
+        "afterCamera": "FRONT",
+        "value": "PLAYER 2"
+      },
+      "cameras": [
+        {
+          "camera": "SIDE",
+          "requestedFocus": 9,
+          "frames": 118,
+          "fps": 23.4447954540939,
+          "p95FrameMs": 50.100000000000364,
+          "videoStartSeconds": 5.05509999999986,
+          "videoEndSeconds": 10.093099999999861
+        },
+        {
+          "camera": "LOW",
+          "requestedFocus": 13,
+          "frames": 110,
+          "fps": 21.85488357307478,
+          "p95FrameMs": 66.69999999999891,
+          "videoStartSeconds": 12.52859999999986,
+          "videoEndSeconds": 17.56359999999986
+        },
+        {
+          "camera": "CHASE",
+          "requestedFocus": 13,
+          "frames": 112,
+          "fps": 22.178657003108967,
+          "p95FrameMs": 50.10000000000218,
+          "videoStartSeconds": 19.953399999999906,
+          "videoEndSeconds": 25.008399999999906
+        },
+        {
+          "camera": "FRONT",
+          "requestedFocus": 2,
+          "frames": 116,
+          "fps": 23.124152778885264,
+          "p95FrameMs": 50.10000000000218,
+          "videoStartSeconds": 27.042899999999907,
+          "videoEndSeconds": 32.06259999999986
+        }
+      ],
+      "calls": [
+        29
+      ],
+      "triangles": [
+        36940
+      ],
+      "colorVersionDelta": {
+        "chest": 0,
+        "pelvis": 0,
+        "neck": 0,
+        "head": 0,
+        "muzzle": 0,
+        "crest": 0,
+        "tail": 0,
+        "tailBlade": 0,
+        "cue": 0,
+        "upperLeg": 0,
+        "lowerLeg": 0,
+        "cannon": 0,
+        "foot": 0,
+        "toe": 0,
+        "shadow": 0
+      },
+      "contactMethod": "Every rendered frame, 6 s, 18 runners; baseline main.js from 610d42800180ed31f174a097fc2eb96c27ecd0ab; identical current UI and local Three.js 0.181.0 for both phases. No video, no simulation mutation. Clearance is transformed box bound, not a collision solver.",
+      "contacts": {
+        "S": {
+          "stanceSamples": 740,
+          "driftSamples": 304,
+          "minClearance": -0.4115948984039348,
+          "medianClearance": 0.010795219703953807,
+          "p95Clearance": 0.29968773594035547,
+          "p95SampledDrift": 0.3188575048710711,
+          "maxSampledDrift": 0.39750961510746374
+        },
+        "P": {
+          "stanceSamples": 1021,
+          "driftSamples": 431,
+          "minClearance": -0.4642985926928178,
+          "medianClearance": -0.1556760802934174,
+          "p95Clearance": 0.15441478757857507,
+          "p95SampledDrift": 0.2802125274538885,
+          "maxSampledDrift": 0.3514299829178855
+        },
+        "E": {
+          "stanceSamples": 661,
+          "driftSamples": 301,
+          "minClearance": -0.4096763546477997,
+          "medianClearance": -0.10971033687109266,
+          "p95Clearance": 0.11138306909407653,
+          "p95SampledDrift": 0.12674233686312356,
+          "maxSampledDrift": 0.16721881913103853
+        },
+        "A": {
+          "stanceSamples": 614,
+          "driftSamples": 175,
+          "minClearance": -0.4521688953465403,
+          "medianClearance": -0.13785497612532313,
+          "p95Clearance": 0.11183255685487983,
+          "p95SampledDrift": 0.20070794861847374,
+          "maxSampledDrift": 0.21564001810031658
+        }
+      }
+    }
+  }
+}

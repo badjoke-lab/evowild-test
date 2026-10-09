@@ -4668,7 +4668,14 @@ function updateSimplifiedRaceProxyCanonicalPose(runner, dt) {
 
 function setProxyInstance(mesh, index, part, color) {
   mesh.setMatrixAt(index, part.matrixWorld);
-  mesh.setColorAt(index, color);
+  // Matrices animate; palette entries normally do not. Track each slot so
+  // review filters or a changed visible roster still invalidate the color.
+  const colors = mesh.userData.proxyColors ||= [];
+  if (!colors[index]?.equals(color)) {
+    mesh.setColorAt(index, color);
+    colors[index] = color.clone();
+    mesh.userData.proxyColorsDirty = true;
+  }
 }
 
 function syncSimplifiedRaceProxyInstances() {
@@ -4759,7 +4766,10 @@ function syncSimplifiedRaceProxyInstances() {
   Object.entries(simplifiedRaceProxyPool).forEach(([key, mesh]) => {
     mesh.count = counts[key];
     mesh.instanceMatrix.needsUpdate = true;
-    if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+    if (mesh.instanceColor && mesh.userData.proxyColorsDirty) {
+      mesh.instanceColor.needsUpdate = true;
+      mesh.userData.proxyColorsDirty = false;
+    }
   });
 
   canvas.dataset.raceProxyInstanceCount = String(counts.pelvis);
@@ -7540,6 +7550,15 @@ restartButton.addEventListener("click", () => {
 });
 
 window.addEventListener("keydown", (event) => {
+  // Native controls own their keys (including Space on buttons/selects).
+  // Holding a shortcut or typing an owner name must not toggle the race.
+  if (
+    event.defaultPrevented || event.repeat || event.isComposing ||
+    event.ctrlKey || event.metaKey || event.altKey ||
+    event.target instanceof Element && event.target.closest(
+      'input, textarea, select, button, summary, [contenteditable]:not([contenteditable="false"])'
+    )
+  ) return;
   const keys = {
     Digit1: "AUTO",
     Digit2: "CHASE",
@@ -7622,7 +7641,8 @@ function animate() {
   // Keep race speed independent from render FPS. Race physics and gait phase
   // stay fixed at 60 Hz; articulated transforms are solved only for frames
   // that can actually be shown.
-  const rawDt = Math.min(clock.getDelta(), 0.12);
+  const wallDt = clock.getDelta();
+  const rawDt = Math.min(wallDt, 0.12);
   const cameraDt = Math.min(rawDt, 0.05);
   const poseDt = Math.max(rawDt, 1 / 240);
 
@@ -7691,7 +7711,8 @@ function animate() {
     });
   }
 
-  updateHud(rawDt);
+  // FPS reports real elapsed time, including stalls; simulation retains its cap.
+  updateHud(wallDt);
   const renderStartedAt = SIMPLIFIED_RACE_PAGE ? performance.now() : 0;
   renderer.render(scene, camera);
   if (SIMPLIFIED_RACE_PAGE) {

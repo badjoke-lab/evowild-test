@@ -3,18 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:," />
   <title>EvoWild Run — Simplified 18-Runner Race</title>
   <link rel="stylesheet" href="../preview-motion-first/styles.css" />
+  <link rel="stylesheet" href="./evaluation.css" />
   <script type="importmap">
     {
       "imports": {
-        "three": "https://unpkg.com/three@0.181.0/build/three.module.js",
-        "three/addons/": "https://unpkg.com/three@0.181.0/examples/jsm/"
+        "three": "../preview-motion-first/vendor/three/build/three.module.js",
+        "three/addons/": "../preview-motion-first/vendor/three/examples/jsm/"
       }
     }
   </script>
 </head>
-<body>
+<body class="race-evaluation">
   <main id="app">
     <canvas id="scene" aria-label="EvoWild Run simplified 18-runner race test"></canvas>
 
@@ -32,23 +34,28 @@
     </section>
 
     <section class="hud hud-bottom">
-      <div class="control-block course-control">
-        <label class="label" for="courseSelect">COURSE</label>
-        <select id="courseSelect" aria-label="Race course"></select>
-      </div>
+      <details class="race-setup" id="raceSetup" open>
+        <summary>SETUP</summary>
+        <div class="setup-controls">
+          <div class="control-block course-control">
+            <label class="label" for="courseSelect">COURSE</label>
+            <select id="courseSelect" aria-label="Race course"></select>
+          </div>
 
-      <div class="control-block entry-control">
-        <label class="label" for="entryCreatureSelect">ENTRY</label>
-        <select id="entryCreatureSelect" aria-label="Race entry creature"></select>
-        <button id="entryCompareButton" aria-expanded="false">COMPARE</button>
-      </div>
+          <div class="control-block entry-control">
+            <label class="label" for="entryCreatureSelect">ENTRY</label>
+            <select id="entryCreatureSelect" aria-label="Race entry creature"></select>
+            <button id="entryCompareButton" aria-expanded="false">COMPARE</button>
+          </div>
 
-      <div class="control-block entry-control">
-        <label class="label" for="entryAgentSelect">AGENT</label>
-        <select id="entryAgentSelect" aria-label="Race entry agent"></select>
-      </div>
+          <div class="control-block entry-control">
+            <label class="label" for="entryAgentSelect">AGENT</label>
+            <select id="entryAgentSelect" aria-label="Race entry agent"></select>
+          </div>
+        </div>
+      </details>
 
-      <div class="control-block">
+      <div class="control-block camera-control">
         <span class="label">CAMERA</span>
         <div class="camera-buttons" role="group" aria-label="Camera view">
           <button class="cam active" data-camera="AUTO">AUTO</button>
@@ -116,7 +123,8 @@
       <p>RACE INDEX is a selection heuristic using actual per-runner pace bias. STAMINA shows individual efficiency and effective course drain separately; it is not folded into RACE INDEX. This is not a win probability.</p>
     </section>
 
-    <section class="agent-panel" id="agentPanel" aria-label="Race Agent commands">
+    <details class="agent-panel" id="agentPanel" aria-label="Race Agent commands" open>
+      <summary>AGENT COMMANDS</summary>
       <div class="agent-heading">
         <span>RACE AGENT · v1</span>
         <label class="agent-target-label" for="agentTargetSelect">
@@ -139,20 +147,23 @@
       </div>
       <div class="agent-result" id="agentResult">No active command</div>
       <div class="agent-compatibility-readout" id="agentCompatibilityReadout">PAIR S 85% · PUSH 100% · CONSERVE 70%</div>
-      <div class="agent-history-readout" id="agentHistoryReadout">AGENT-01 v1 · 0 RACES · 0 WINS</div>
-      <div class="agent-version-row">
-        <span id="agentVersionReadout">v1: 0 RACES · 0 WINS</span>
-        <button id="agentEvolveButton" disabled>EVOLVE v2</button>
-      </div>
-      <div class="agent-version-eval" id="agentVersionEvalReadout" data-status="NOT_STARTED">
-        EVAL: NOT STARTED
-      </div>
-      <div class="agent-owner-readout" id="agentOwnerReadout">CREATOR badjoke-lab · OWNER LOCAL-PLAYER</div>
-      <div class="agent-owner-row">
-        <input id="agentOwnerInput" aria-label="New Agent owner" maxlength="32" value="LOCAL-PLAYER" />
-        <button id="agentTransferButton">TRANSFER</button>
-      </div>
-    </section>
+      <details id="agentDetails">
+        <summary>HISTORY &amp; OWNERSHIP</summary>
+        <div class="agent-history-readout" id="agentHistoryReadout">AGENT-01 v1 · 0 RACES · 0 WINS</div>
+        <div class="agent-version-row">
+          <span id="agentVersionReadout">v1: 0 RACES · 0 WINS</span>
+          <button id="agentEvolveButton" disabled>EVOLVE v2</button>
+        </div>
+        <div class="agent-version-eval" id="agentVersionEvalReadout" data-status="NOT_STARTED">
+          EVAL: NOT STARTED
+        </div>
+        <div class="agent-owner-readout" id="agentOwnerReadout">CREATOR badjoke-lab · OWNER LOCAL-PLAYER</div>
+        <div class="agent-owner-row">
+          <input id="agentOwnerInput" aria-label="New Agent owner" maxlength="32" value="LOCAL-PLAYER" />
+          <button id="agentTransferButton">TRANSFER</button>
+        </div>
+      </details>
+    </details>
 
     <div class="agent-feedback hidden" id="agentFeedback" aria-live="polite" data-tone="neutral">
       <span class="agent-feedback-orb" aria-hidden="true"></span>
@@ -183,6 +194,14 @@
     <div class="loading" id="loading">building 18 simplified runners…</div>
   </main>
 
+  <script>
+    // Secondary panels start collapsed on small screens; preserve user choices
+    // thereafter, including during orientation changes.
+    if (matchMedia('(max-width: 900px)').matches) {
+      document.querySelector('#raceSetup').open = false;
+      document.querySelector('#agentPanel').open = false;
+    }
+  </script>
   <script type="module" src="../preview-motion-first/main.js"></script>
 </body>
 </html>

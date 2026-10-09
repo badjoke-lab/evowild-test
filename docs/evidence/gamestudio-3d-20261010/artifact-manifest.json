@@ -1,0 +1,299 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 12612,
+      "sha256": "06f25d672a06751eb42a628c032051f564fbc74ef18ef63e1e016ff03e34254d"
+    },
+    {
+      "path": "after/android/chase.png",
+      "bytes": 351820,
+      "sha256": "d996fbb3e5de5aa9874d1006a30e999e5d245e6baa62a6fa4d7ce8f7e233f224"
+    },
+    {
+      "path": "after/android/contact-frames.json.gz",
+      "bytes": 407749,
+      "sha256": "6fb08051c308f9fb31e608466afa138f22ef10a07c4f936151ca421cfc625565"
+    },
+    {
+      "path": "after/android/front.png",
+      "bytes": 392033,
+      "sha256": "73ffd7b1a0b60542ef2cd445aa1f65c0111a5939739ee34ed329a047dc249b5f"
+    },
+    {
+      "path": "after/android/low.png",
+      "bytes": 241732,
+      "sha256": "89c97013fe888c7e4d67c76418a51e5cd80a18b482b0f26636976defba02d1e8"
+    },
+    {
+      "path": "after/android/raw.json.gz",
+      "bytes": 1124031,
+      "sha256": "16785e11a4ac5e16b85803ece59dfbf2d6edfc27a27ccbef842b35183bf529fe"
+    },
+    {
+      "path": "after/android/side-low-chase-front.webm",
+      "bytes": 3474536,
+      "sha256": "cdaaa20fb5daa4151197a9f3cd826c0cef4add15133e590b7b9c13e1f58aee19"
+    },
+    {
+      "path": "after/android/side.png",
+      "bytes": 383257,
+      "sha256": "87eef613c8b8f5259a9b6b68d76dcb7a3ea7242c101d01593157465e60744087"
+    },
+    {
+      "path": "after/asset-audit.json",
+      "bytes": 70732,
+      "sha256": "1f1ab1fcff3eaf0bacccfbe0930bbf9f8bfdc25ada54bdbd3b3dbcfc8e7ef60f"
+    },
+    {
+      "path": "after/capture.log",
+      "bytes": 763,
+      "sha256": "78f8d99343cc69bffd8e1f65a9284e7aa2708a3fca79acc35b1775f260d970e5"
+    },
+    {
+      "path": "after/desktop/chase.png",
+      "bytes": 188526,
+      "sha256": "be4c77c56121fb9cfad6a4306844260a670fa1f86dd62556c3d8f78585cf54ab"
+    },
+    {
+      "path": "after/desktop/contact-frames.json.gz",
+      "bytes": 332237,
+      "sha256": "65d704b3688839d78900d092c51602a1d3c61f82c129105cb31c03827315b79f"
+    },
+    {
+      "path": "after/desktop/front.png",
+      "bytes": 195227,
+      "sha256": "6c144b011770fbc646c091a4536809db68811a48a47becd4666960eee17179e2"
+    },
+    {
+      "path": "after/desktop/isolated-A-LOW.png",
+      "bytes": 93785,
+      "sha256": "a795ef74b7f44389874d20ad251d223b1268fd000f794a3d0c2a0c342e05f965"
+    },
+    {
+      "path": "after/desktop/isolated-A-SIDE.png",
+      "bytes": 126484,
+      "sha256": "ff40e1c69e99c326724bfb8e3115c0814a9d5d77c0b05723f669c51d0cc9fe44"
+    },
+    {
+      "path": "after/desktop/isolated-E-LOW.png",
+      "bytes": 101816,
+      "sha256": "529c0a501726840fd69ff4bbf7eceb380143cc959d8ae53ca815839dafaec072"
+    },
+    {
+      "path": "after/desktop/isolated-E-SIDE.png",
+      "bytes": 128249,
+      "sha256": "6fc3e27f2e116599b2e14a923269b4dc5e566a60a88ce37684708a5beb171210"
+    },
+    {
+      "path": "after/desktop/isolated-P-LOW.png",
+      "bytes": 107193,
+      "sha256": "842fca1c6bcf45514606c0bbf24996bd0d70be567f94ddb38eba7528bc0c6301"
+    },
+    {
+      "path": "after/desktop/isolated-P-SIDE.png",
+      "bytes": 136699,
+      "sha256": "17aa5306300b3cf5cc0d578accc2d3f9fc60fc6b460cd3c33066889f6da1c3b1"
+    },
+    {
+      "path": "after/desktop/isolated-S-LOW.png",
+      "bytes": 97546,
+      "sha256": "0b1676a39873deb16c9596e49530e2def649b4b643ec5727d1a3b84618e426a8"
+    },
+    {
+      "path": "after/desktop/isolated-S-SIDE.png",
+      "bytes": 137811,
+      "sha256": "29e5becac88e7c30ce2bf0da7c7faf5ff4afc570870a95a8a90594ead50484ef"
+    },
+    {
+      "path": "after/desktop/low.png",
+      "bytes": 195179,
+      "sha256": "300a4be9ce3d440a3bdc6fcb0a6998ba48d7f4313b2a27aa265463da258f2a74"
+    },
+    {
+      "path": "after/desktop/raw.json.gz",
+      "bytes": 1131179,
+      "sha256": "4dd65688afabf18e17290b5b3a990e50ef989b36d4804c286c8f5b6e9cfbeaf4"
+    },
+    {
+      "path": "after/desktop/side-low-chase-front.webm",
+      "bytes": 9513901,
+      "sha256": "2f4b8eb52b0081a5f1b3c761b66cbb7685948c434efb50772ff72652f297604b"
+    },
+    {
+      "path": "after/desktop/side.png",
+      "bytes": 204769,
+      "sha256": "03cd98f7ad0c77b4d220e2e9dac88ee486109d8e8f2f3ed3daa2887306372a6b"
+    },
+    {
+      "path": "after/desktop/video-review-contact-sheet.jpg",
+      "bytes": 110372,
+      "sha256": "f2d77e9b0092c8154fe11981dfe8995a6e2fd96d579140e6f1e8be16bbfdc53b"
+    },
+    {
+      "path": "before/android/chase.png",
+      "bytes": 433393,
+      "sha256": "07342533779409dd845769fc411e0b3df07ec477c9416490502aee4e727b80fe"
+    },
+    {
+      "path": "before/android/contact-frames.json.gz",
+      "bytes": 365211,
+      "sha256": "5c5f406ef1bdaf11ea75b1197bc0e9130826a6ac4a055a794eaf853908cf86a6"
+    },
+    {
+      "path": "before/android/front.png",
+      "bytes": 374467,
+      "sha256": "b6926f004b4869eb5e02972348eddeca24f176e027171b122f1cdef237581835"
+    },
+    {
+      "path": "before/android/low.png",
+      "bytes": 359622,
+      "sha256": "8751c50b9d17f1b60ad9a6b96590df8145e3679b9e9a57d7b01ac9ca97b3ff84"
+    },
+    {
+      "path": "before/android/raw.json.gz",
+      "bytes": 1151167,
+      "sha256": "35d0fde66e214a3a2b626dd6eb5b7429308bedead324eeba6cc08665246deb30"
+    },
+    {
+      "path": "before/android/side-low-chase-front.webm",
+      "bytes": 3837794,
+      "sha256": "b306cf2393178f55c84fc4175fa84d9e7ae073566134598bb82e3f2f543ac4e0"
+    },
+    {
+      "path": "before/android/side.png",
+      "bytes": 480998,
+      "sha256": "ba653a5e2238484de6090f71bee9378be2cde486aae72d99ece9a6e005f44a22"
+    },
+    {
+      "path": "before/asset-audit.json",
+      "bytes": 70732,
+      "sha256": "1f1ab1fcff3eaf0bacccfbe0930bbf9f8bfdc25ada54bdbd3b3dbcfc8e7ef60f"
+    },
+    {
+      "path": "before/capture.log",
+      "bytes": 760,
+      "sha256": "041888346102131de988dfe916de65b893778c2c282ff64fe5056039a32cf6e6"
+    },
+    {
+      "path": "before/desktop/chase.png",
+      "bytes": 181839,
+      "sha256": "dc617406b6d45486d9ac895885a3e450b425b852ec041b21f21bb8b829479aaf"
+    },
+    {
+      "path": "before/desktop/contact-frames.json.gz",
+      "bytes": 315387,
+      "sha256": "e35113f3b721ac59399d1475b00c8cea038f363e01dd559231998987c2c3f7f3"
+    },
+    {
+      "path": "before/desktop/front.png",
+      "bytes": 241789,
+      "sha256": "a184c15837499cffec78842fa8a969fb0760515b6db9e73cc9719285f86e0f05"
+    },
+    {
+      "path": "before/desktop/low.png",
+      "bytes": 194063,
+      "sha256": "e18b8b94532ec2af9ed8f055c5aabdb9f1df4046a4bd9e6a12947b46b936eacf"
+    },
+    {
+      "path": "before/desktop/raw.json.gz",
+      "bytes": 1131306,
+      "sha256": "87d88e5db4589dbb8f404da60e83866cf06f758dd542dc1aaaab6cf31feb36fc"
+    },
+    {
+      "path": "before/desktop/side-low-chase-front.webm",
+      "bytes": 9141642,
+      "sha256": "cca5254cdc99971675e5bd23fc7c91e91e5029605d548b7e5dd5a0bab070e40e"
+    },
+    {
+      "path": "before/desktop/side.png",
+      "bytes": 212122,
+      "sha256": "1a79a0070176d672746361b3d75fe9deae272e72645cfc020a313565ca7316d2"
+    },
+    {
+      "path": "before/stock-boot-failure.json",
+      "bytes": 561,
+      "sha256": "96c5a38dc5e879b82b99cf18082d20832de4550f6702dbabf0bf4091ce7bd97f"
+    },
+    {
+      "path": "before/stock-boot-failure.png",
+      "bytes": 6791,
+      "sha256": "682f7d97e7e5c048da93c83fabfae6495d79adec66ee93594f5371d34aac3026"
+    },
+    {
+      "path": "build.log",
+      "bytes": 1866,
+      "sha256": "f0f8807a3647ecc9d75bc69bbc30064bc603780cebaadca5012efba4890b80d6"
+    },
+    {
+      "path": "comparison.json",
+      "bytes": 26576,
+      "sha256": "110f18b469fc9ede4cd500d247443d8ad1699eb44293255f1ff650808559f44f"
+    },
+    {
+      "path": "contact-review.log",
+      "bytes": 138,
+      "sha256": "f25cd8d7fb98690f04dc9d68c41c0b1ae1eae6e21d8e404d15a37c6b4fab2f07"
+    },
+    {
+      "path": "existing-recheck.json",
+      "bytes": 5920,
+      "sha256": "f431745a1216d13bb4c9144a4098de31d0190078f6f4f6486fff1b3cdbf84dba"
+    },
+    {
+      "path": "existing-recheck.log",
+      "bytes": 1088,
+      "sha256": "22593dd75b4ec92711d252c5f04cf6d51d804d163aad97a432c81709ad5ffb70"
+    },
+    {
+      "path": "existing-tests.json",
+      "bytes": 19986,
+      "sha256": "f0339c092a81265943c32bfaff644758a691682e1913230b5e26a47b212f9398"
+    },
+    {
+      "path": "existing-tests.log",
+      "bytes": 6011,
+      "sha256": "c6f02706dd4c65aabde3cd7cdc84efc55fa265b9ab082e931e6659e595505c6a"
+    },
+    {
+      "path": "favicon-failure-trace.zip",
+      "bytes": 41562506,
+      "sha256": "b82b754fbdd8bdb5e1b4997e21a552f7c01b4cc1fd4e2105ec1c75eb528474da"
+    },
+    {
+      "path": "media.json",
+      "bytes": 1103,
+      "sha256": "d40981f049b0676ff69cecf3692b11b35cf4bd5c6c1f1b599d1d9d37c0db2e37"
+    },
+    {
+      "path": "preservation.json",
+      "bytes": 803,
+      "sha256": "c8559c33b192417290f5152abd28f9e0541ffcfbf3d44377ab24381a26d56d27"
+    },
+    {
+      "path": "production-tests.json",
+      "bytes": 14166,
+      "sha256": "e03059ab4de78ad8d5334d4d3196ac4c7d5750887ed577ebe55666a89792bfbe"
+    },
+    {
+      "path": "production-tests.log",
+      "bytes": 1816,
+      "sha256": "5c212fcf9b3b9a482dc582f150a2568c9fc706e3ddd8ed6a67e574c73e7907a5"
+    },
+    {
+      "path": "tests.json",
+      "bytes": 14308,
+      "sha256": "66bdd7c6e12035a1946376b96cee4ad21f6ef90b7edd769a19497042cd1b3aa6"
+    },
+    {
+      "path": "tests.log",
+      "bytes": 1815,
+      "sha256": "ea7425c8e734633b9fd5db8856ddd097b27868fddae157dac81bca76022fb174"
+    },
+    {
+      "path": "validation.json",
+      "bytes": 1545,
+      "sha256": "5ccd4f1d4c1e5759b9665e592db14a774481347f61c7bb72e60a81d13840db81"
+    }
+  ]
+}

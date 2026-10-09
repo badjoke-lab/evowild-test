@@ -1,0 +1,62 @@
+[
+  {
+    "path": "after/android/side-low-chase-front.webm",
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "vp9",
+        "width": 412,
+        "height": 838
+      }
+    ],
+    "format": {
+      "duration": "35.640000"
+    }
+  },
+  {
+    "path": "after/desktop/side-low-chase-front.webm",
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "vp9",
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "format": {
+      "duration": "36.520000"
+    }
+  },
+  {
+    "path": "before/android/side-low-chase-front.webm",
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "vp9",
+        "width": 412,
+        "height": 838
+      }
+    ],
+    "format": {
+      "duration": "35.480000"
+    }
+  },
+  {
+    "path": "before/desktop/side-low-chase-front.webm",
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "vp9",
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "format": {
+      "duration": "35.680000"
+    }
+  }
+]

@@ -1,0 +1,58 @@
+{
+  "baseline": "610d42800180ed31f174a097fc2eb96c27ecd0ab",
+  "branch": "exp/gamestudio-3d-20261010",
+  "additionalTests": {
+    "initialDevelopmentRun": {
+      "passed": 8,
+      "failed": 0,
+      "log": "tests.log"
+    },
+    "finalProductionBuildRun": {
+      "passed": 8,
+      "failed": 0,
+      "log": "production-tests.log",
+      "covers": [
+        "offline boot",
+        "18 SPEA proxies",
+        "static color buffers",
+        "color change invalidation",
+        "native input and repeated shortcuts",
+        "manual cameras/focus",
+        "touch control bounds",
+        "pause/restart",
+        "secondary controls",
+        "resize after mobile panel collapse"
+      ]
+    }
+  },
+  "existingRegressionSelection": {
+    "initialRun": {
+      "passed": 7,
+      "failed": 1,
+      "log": "existing-tests.log",
+      "failure": "Unspecified favicon produced /favicon.ico HTTP 404; all runtime assertions passed."
+    },
+    "correctedRecheck": {
+      "passed": 1,
+      "failed": 0,
+      "log": "existing-recheck.log"
+    },
+    "finalUniquePassingScenarios": 8,
+    "scope": "Targeted selection, not the entire repository suite."
+  },
+  "build": {
+    "passed": true,
+    "log": "build.log",
+    "warnings": [
+      "Existing Vite chunks above 500 kB."
+    ]
+  },
+  "preservation": "preservation.json",
+  "limits": [
+    "Physical Android not tested",
+    "Headless SwiftShader, not hardware GPU performance",
+    "No creature or motion improvement claim",
+    "No 2.5D comparison",
+    "No asset promotion or merge"
+  ]
+}

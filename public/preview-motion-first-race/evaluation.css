@@ -1,0 +1,82 @@
+/* Layout only: the shared creature renderer and race rules are unchanged. */
+.race-evaluation summary {
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 10px 0;
+  color: #d7e8f0;
+}
+.race-evaluation :is(button, select, input, summary):focus-visible {
+  outline: 2px solid #8affbf;
+  outline-offset: 3px;
+}
+.race-evaluation .race-setup {
+  display: contents;
+}
+.race-evaluation .race-setup > summary {
+  display: none;
+}
+/* A panel closed on mobile must remain reachable after a desktop resize. */
+.race-evaluation .race-setup:not([open]) { display: block; pointer-events: auto; }
+.race-evaluation .race-setup:not([open]) > summary {
+  display: block;
+  padding: 13px 10px;
+  border: 1px solid #ffffff30;
+  border-radius: 8px;
+  background: #111c22;
+}
+.race-evaluation .setup-controls {
+  display: flex;
+  gap: 14px;
+}
+.race-evaluation .agent-panel > summary { padding: 0; }
+.race-evaluation .agent-panel[open] > summary { margin-bottom: 10px; }
+.race-evaluation #agentDetails { margin-top: 6px; border-top: 1px solid #ffffff20; }
+.race-evaluation #agentDetails > summary { padding-bottom: 2px; }
+
+@media (max-width: 900px) {
+  .race-evaluation .agent-panel {
+    max-height: 48dvh;
+    overflow-y: auto;
+    right: auto;
+    width: 280px;
+  }
+  .race-evaluation .agent-panel:not([open]) { width: auto; }
+  .race-evaluation .agent-panel > summary { min-height: 22px; }
+  .race-evaluation .race-setup {
+    display: block;
+    pointer-events: auto;
+  }
+  .race-evaluation .race-setup > summary {
+    display: block;
+    border: 1px solid #ffffff30;
+    border-radius: 8px;
+    background: #111c22;
+    padding: 13px 10px;
+    min-height: 44px;
+  }
+  .race-evaluation .setup-controls {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: #111c22;
+    border-radius: 12px;
+    padding: 8px;
+  }
+  .race-evaluation .hud-bottom { gap: 6px; bottom: 10px; }
+  .race-evaluation .control-block { min-height: 44px; padding: 4px 6px; gap: 6px; }
+  .race-evaluation :is(button, select) { min-height: 44px; }
+  .race-evaluation .camera-control { order: -1; width: 100%; }
+  .race-evaluation .camera-control > .label { display: none; }
+  .race-evaluation .camera-buttons { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); width: 100%; }
+  .race-evaluation .camera-buttons button { padding: 0 3px; }
+  .race-evaluation .runner-control { flex: 1; min-width: 0; }
+  .race-evaluation .runner-control select { min-width: 0; width: 100%; padding-left: 5px; }
+  .race-evaluation .runner-control > .label { display: none; }
+  .race-evaluation .actions button { padding: 0 7px; }
+  .race-evaluation .hud-bottom > .compact { display: none; }
+}

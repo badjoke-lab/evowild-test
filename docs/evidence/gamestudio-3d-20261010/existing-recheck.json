@@ -1,0 +1,197 @@
+{
+  "config": {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/evowild-test/node_modules/.bin/playwright",
+      "test",
+      "--config=playwright.gamestudio-3d.config.js",
+      "--project=desktop-chromium",
+      "--grep",
+      "Phase E simplified race deploys"
+    ],
+    "configFile": "/workspace/evowild-test/playwright.gamestudio-3d.config.js",
+    "rootDir": "/workspace/evowild-test/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/workspace/evowild-test/test-results/gamestudio-3d",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "desktop-chromium",
+        "name": "desktop-chromium",
+        "testDir": "/workspace/evowild-test/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "gamestudio-3d.spec.js",
+          "motion-first.spec.js"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "/workspace/evowild-test/test-results/gamestudio-3d",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "android-chromium",
+        "name": "android-chromium",
+        "testDir": "/workspace/evowild-test/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "gamestudio-3d.spec.js",
+          "motion-first.spec.js"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/workspace/evowild-test/test-results/gamestudio-3d",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "desktop-chromium",
+        "testDir": "/workspace/evowild-test/tests",
+        "snapshotDir": "/workspace/evowild-test/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "gamestudio-3d.spec.js",
+          "motion-first.spec.js"
+        ],
+        "timeout": 45000,
+        "use": {
+          "baseURL": "http://127.0.0.1:4173",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "executablePath": "/usr/bin/chromium",
+            "args": [
+              "--no-sandbox",
+              "--enable-unsafe-swiftshader"
+            ]
+          },
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.8078.4 Safari/537.36",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "screen": {
+            "width": 1920,
+            "height": 1080
+          },
+          "deviceScaleFactor": 1,
+          "isMobile": false,
+          "hasTouch": false,
+          "defaultBrowserType": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "desktop-chromium"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/gamestudio-3d-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.0",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run dev -- --host 127.0.0.1 --port 4173 --strictPort",
+      "port": 4173,
+      "reuseExistingServer": true
+    }
+  },
+  "suites": [
+    {
+      "title": "motion-first.spec.js",
+      "file": "motion-first.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Motion First Phase E simplified race deploys 18 animated runners without Hunyuan assets",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 65000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-chromium",
+              "projectName": "desktop-chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 46042,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "SIMPLIFIED_RACE_PERF {\"fpsReadout\":21,\"averageFps\":20.258997378245148,\"p95FrameMs\":66.69999999999982,\"frames\":51,\"averageWorkMs\":1.7423076923076921,\"p95WorkMs\":2.3,\"workSamples\":52,\"renderPixelRatio\":\"0.75\",\"renderCalls\":\"29\",\"renderTriangles\":\"36940\",\"fullRunnerCount\":\"0\",\"fullRunnerBudget\":\"0\",\"proxyRunnerCount\":\"18\",\"simulationSteps\":\"4\",\"poseUpdateMode\":\"canonical-instanced-all\",\"perfPoseMs\":\"0.300\",\"perfSyncMs\":\"0.600\",\"perfRenderMs\":\"0.400\",\"perfOtherMs\":\"0.500\",\"perfTotalWorkMs\":\"1.800\"}\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T16:56:17.421Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f1f6f620220ab7327eba-f741ae142d0f7d660093",
+          "file": "motion-first.spec.js",
+          "line": 506,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-09T16:56:16.846Z",
+    "duration": 47321.193999999996,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
