@@ -84,7 +84,7 @@ for key,source in SOURCE.items():
     # reports Y=0.647 body height and Z=0.359 body length. The original
     # source audit is Z-up. Rotate only in review scene to reconcile axes.
     if key=="QEM" and span.y>span.z*1.3:
-        correction=Matrix.Rotation(3.141592653589793/2,4,"X")
+        correction=Matrix.Rotation(-3.141592653589793/2,4,"X")
         for o in meshes:
             o.matrix_world=correction@o.matrix_world
         bpy.context.view_layer.update()
@@ -92,7 +92,7 @@ for key,source in SOURCE.items():
         lo=Vector([min(p[i] for p in verts) for i in range(3)])
         hi=Vector([max(p[i] for p in verts) for i in range(3)])
         span=hi-lo
-        axis_correction="QEM +90deg X, applied to review scene transforms only"
+        axis_correction="QEM -90deg X, applied to review scene transforms only"
         if span.z<span.y:
             raise RuntimeError("QEM correction still not upright "+str(list(span)))
     # Only review-space transform; never touch the source GLB geometry.
