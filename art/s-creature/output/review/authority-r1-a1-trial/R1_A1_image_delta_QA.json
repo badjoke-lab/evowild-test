@@ -1,0 +1,54 @@
+{
+  "source": "existing real R0 and R1 unchanged-camera Blender five-view PNGs",
+  "meaning": "pixel differences only; do not interpret as improvement without visual review",
+  "diagnostics": {
+    "front34": {
+      "pixel_dimensions": [
+        1024,
+        768
+      ],
+      "crop": [
+        340,
+        300,
+        675,
+        480
+      ],
+      "changed_pixels_threshold_14": 263,
+      "changed_fraction": 0.0003344217936197917,
+      "max_pixel_difference": 48,
+      "mean_pixel_difference": 0.04251734415690104
+    },
+    "rear34": {
+      "pixel_dimensions": [
+        1024,
+        768
+      ],
+      "crop": [
+        346,
+        299,
+        697,
+        479
+      ],
+      "changed_pixels_threshold_14": 74,
+      "changed_fraction": 9.409586588541667e-05,
+      "max_pixel_difference": 48,
+      "mean_pixel_difference": 0.023162841796875
+    },
+    "side": {
+      "pixel_dimensions": [
+        1024,
+        768
+      ],
+      "crop": [
+        303,
+        288,
+        690,
+        468
+      ],
+      "changed_pixels_threshold_14": 249,
+      "changed_fraction": 0.000316619873046875,
+      "max_pixel_difference": 57,
+      "mean_pixel_difference": 0.03579076131184896
+    }
+  }
+}
