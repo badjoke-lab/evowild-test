@@ -1,0 +1,48 @@
+name: EvoWild S shoulder-spike read-only vertex survey
+on:
+  push:
+    branches:
+      - exp/s-authority-r1-a1-trial-20261009
+    paths:
+      - .github/workflows/s-r1-a2-scapular-survey.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  survey:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/audit_s_r1_a2_scapular_spike.py
+            /art/s-creature/output/S-authority-r1-a2-anatomy-v1.blend
+            /art/s-creature/output/review/authority-r1-a2-anatomy/
+            /.github/workflows/s-r1-a2-scapular-survey.yml
+      - name: Blender runtime
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Read actual S vertices without altering geometry
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-authority-r1-a2-anatomy-v1.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/audit_s_r1_a2_scapular_spike.py
+      - name: Upload measurable evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evowild-S-R1A2-apex-actual-vertex-survey
+          path: art/s-creature/output/review/authority-r1-a2-anatomy/R1_A2_SCAPULAR_APEX_SURVEY.json
+      - name: Commit evidence only
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/output/review/authority-r1-a2-anatomy/R1_A2_SCAPULAR_APEX_SURVEY.json
+          git commit -m 'audit: R1-A2 scapular roof apex vertex survey'
+          git pull --rebase origin exp/s-authority-r1-a1-trial-20261009
+          git push origin HEAD:exp/s-authority-r1-a1-trial-20261009
