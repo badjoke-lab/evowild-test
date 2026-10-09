@@ -1,0 +1,14 @@
+{
+  "front34": {
+    "changed_pixels_14": 338,
+    "fraction": 0.002450696055684455
+  },
+  "rear34": {
+    "changed_pixels_14": 169,
+    "fraction": 0.0011491673636468724
+  },
+  "side": {
+    "changed_pixels_14": 154,
+    "fraction": 0.001026502426278462
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "source": "output/S-authority-r1-a2-anatomy-v1.blend",
+  "candidate": "output/S-authority-r1-a2-scapula-v2.blend",
+  "geometry_edit": "bounded 3D measured paired scapular spike height correction toward surrounding thorax roof",
+  "actual_survey": "output/review/authority-r1-a2-anatomy/R1_A2_SCAPULAR_APEX_SURVEY.json",
+  "apex_before_after": {
+    "L": {
+      "original_xyz": [
+        -0.111212,
+        -0.012649,
+        1.146477
+      ],
+      "edited_xyz": [
+        -0.1112121194601059,
+        -0.012648805044591427,
+        1.100000023841858
+      ],
+      "delta_z": -0.04647697615814206
+    },
+    "R": {
+      "original_xyz": [
+        0.112724,
+        -0.012773,
+        1.145319
+      ],
+      "edited_xyz": [
+        0.11272352188825607,
+        -0.012773151509463787,
+        1.100000023841858
+      ],
+      "delta_z": -0.045318976158142066
+    }
+  },
+  "modified_vertices": 50,
+  "per_side_vertex_count": {
+    "L": 25,
+    "R": 25
+  },
+  "max_applied_displacement": 0.0464771964485724,
+  "original_body_vertex_count": 5728,
+  "body_vertex_count_after": 5728,
+  "original_body_face_count": 6376,
+  "body_face_count_after": 6376,
+  "all_xy_body_coords_unchanged": true,
+  "non_roi_vertices_unchanged": true,
+  "all_other_meshes_unchanged": true,
+  "all_five_cameras_unchanged": true,
+  "nonmanifold_edges": 0,
+  "production_approved": false,
+  "rig_approved": false,
+  "gate": "ACTUAL_IMAGE_REVIEW_REQUIRED",
+  "actual_render_views": [
+    "side",
+    "front",
+    "front34",
+    "rear34",
+    "back"
+  ]
+}
