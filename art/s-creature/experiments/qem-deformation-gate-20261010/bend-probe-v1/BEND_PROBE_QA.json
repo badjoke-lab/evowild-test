@@ -1,0 +1,99 @@
+{
+  "source_glb_sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "original_verts": 29948,
+  "posed_verts": 29948,
+  "source_faces": 59932,
+  "posed_faces": 59932,
+  "source_topology_unchanged": true,
+  "same_geometry_no_lowpoly_substitution": true,
+  "source_coordinates_unchanged": true,
+  "deformation_method": "candidate ankle/hock bend in sagittal YZ plane via local smooth vertex weights on a duplicate real mesh; NOT skeletal skinning",
+  "candidate_pivots": {
+    "FORE_L": {
+      "xyz": [
+        -0.34450848400592804,
+        -0.6334032416343689,
+        0.6393528580665588
+      ],
+      "samples": 672,
+      "bend_degrees": 14.0,
+      "region_y_bounds": [
+        -1.83,
+        -0.34
+      ],
+      "status": "KINEMATIC_PROBE_CANDIDATE_NOT_ANATOMICAL_APPROVAL"
+    },
+    "FORE_R": {
+      "xyz": [
+        0.29960985481739044,
+        -0.43797242641448975,
+        0.6400321424007416
+      ],
+      "samples": 310,
+      "bend_degrees": -14.0,
+      "region_y_bounds": [
+        -1.83,
+        -0.34
+      ],
+      "status": "KINEMATIC_PROBE_CANDIDATE_NOT_ANATOMICAL_APPROVAL"
+    },
+    "HIND_L": {
+      "xyz": [
+        -0.3760637789964676,
+        1.8079724311828613,
+        0.7219271957874298
+      ],
+      "samples": 850,
+      "bend_degrees": -12.0,
+      "region_y_bounds": [
+        1.03,
+        2.31
+      ],
+      "status": "KINEMATIC_PROBE_CANDIDATE_NOT_ANATOMICAL_APPROVAL"
+    },
+    "HIND_R": {
+      "xyz": [
+        0.35460135340690613,
+        1.9458796977996826,
+        0.7047430276870728
+      ],
+      "samples": 662,
+      "bend_degrees": 12.0,
+      "region_y_bounds": [
+        1.03,
+        2.31
+      ],
+      "status": "KINEMATIC_PROBE_CANDIDATE_NOT_ANATOMICAL_APPROVAL"
+    }
+  },
+  "active_limb_region_vertex_counts": {
+    "FORE_L": 2433,
+    "FORE_R": 1311,
+    "HIND_L": 2175,
+    "HIND_R": 1817
+  },
+  "moved_vertices": 7660,
+  "max_world_vertex_displacement": 0.254935724889591,
+  "affected_faces": 15698,
+  "flipped_faces": 2,
+  "face_collapse": 0,
+  "face_area_less_than_half": 239,
+  "face_area_greater_than_double": 1,
+  "area_ratio_p5": 0.9140246005996988,
+  "area_ratio_p95": 1.0675333521294497,
+  "nonmanifold_edges": 0,
+  "watertight_mesh_topology": true,
+  "mechanical_probe_gate": "FAIL_FACIAL_COLLAPSE_OR_DISTORTION",
+  "joint_anatomy_verified": false,
+  "armature_created": false,
+  "skinning_tested": false,
+  "game_run_tested": false,
+  "production_approved": false,
+  "views_rendered": [
+    "side",
+    "front",
+    "front34",
+    "rear34",
+    "back"
+  ]
+}
