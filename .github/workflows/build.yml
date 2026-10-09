@@ -22,7 +22,10 @@ jobs:
         shell: bash
         run: |
           BRANCH="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
-          if [[ "$BRANCH" == feat/simplified-race-entry-stamina-v* ]]; then
+          if [[ "$BRANCH" == exp/simplified-race-cross-course-balance-audit-* ]]; then
+            npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
+              --grep "cross-course individual balance audit v1"
+          elif [[ "$BRANCH" == feat/simplified-race-entry-stamina-v* ]]; then
             npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \
               --grep "Race Entry Selection Support v1|individual stamina v1"
           elif [[ "$BRANCH" == feat/simplified-race-entry-pace-v* ]]; then
@@ -90,7 +93,7 @@ jobs:
           path: artifacts/2p5d-survivor/*.png
           if-no-files-found: warn
       - name: Capture Motion First visuals
-        if: ${{ github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && !startsWith(github.head_ref, 'feat/2p5d-survivor-') && !startsWith(github.ref_name, 'feat/2p5d-survivor-') }}
+        if: ${{ !startsWith(github.head_ref, 'exp/simplified-race-cross-course-balance-audit-') && !startsWith(github.ref_name, 'exp/simplified-race-cross-course-balance-audit-') && github.head_ref != 'feat/2p5d-four-morph-quality-integration-20260925' && github.ref_name != 'feat/2p5d-four-morph-quality-integration-20260925' && !startsWith(github.head_ref, 'feat/2p5d-survivor-') && !startsWith(github.ref_name, 'feat/2p5d-survivor-') }}
         env:
           MOTION_FIRST_CAPTURE: "1"
         shell: bash
