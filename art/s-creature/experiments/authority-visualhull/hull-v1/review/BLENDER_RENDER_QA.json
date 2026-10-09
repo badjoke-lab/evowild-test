@@ -1,0 +1,30 @@
+{
+  "model": "art/s-creature/experiments/authority-visualhull/hull-v1/S-authority-visualhull-v1.glb",
+  "mesh_objects": 1,
+  "extents_xyz": [
+    1.0299029350280762,
+    2.645028591156006,
+    3.359999895095825
+  ],
+  "bounding_box": [
+    [
+      -0.5149514675140381,
+      -2.6075143814086914,
+      -1.6474008560180664
+    ],
+    [
+      0.5149514675140381,
+      0.03751428425312042,
+      1.7125990390777588
+    ]
+  ],
+  "render_views": [
+    "side",
+    "front",
+    "front34",
+    "rear34",
+    "back"
+  ],
+  "lighting": "BLENDER_WORKBENCH",
+  "morphology_approved": false
+}

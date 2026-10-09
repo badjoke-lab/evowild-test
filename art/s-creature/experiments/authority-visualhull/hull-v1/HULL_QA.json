@@ -1,0 +1,92 @@
+{
+  "authority_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "source_masks": [
+    "side_mask.png",
+    "front_mask.png"
+  ],
+  "held_out_views": [
+    "back_mask.png",
+    "front34_mask.png"
+  ],
+  "axes": "Blender: X lateral, Y nose-to-tail, Z vertical",
+  "grid": [
+    104,
+    228,
+    176
+  ],
+  "grid_range": {
+    "x": [
+      -0.51,
+      0.51
+    ],
+    "y": [
+      -1.64,
+      1.72
+    ],
+    "z": [
+      -0.03,
+      2.6
+    ]
+  },
+  "input_voxels": 520086,
+  "kept_voxels": 520358,
+  "main_component_fraction": 0.9998424410114518,
+  "component_sizes": [
+    {
+      "label": 1,
+      "voxels": 520358
+    },
+    {
+      "label": 2,
+      "voxels": 44
+    },
+    {
+      "label": 3,
+      "voxels": 38
+    }
+  ],
+  "raw_hull": {
+    "vertices": 156043,
+    "faces": 312134,
+    "body_count": 1,
+    "watertight": true,
+    "extents": [
+      1.029902920126915,
+      3.3599999621510506,
+      2.645028591156006
+    ],
+    "bounds": [
+      [
+        -0.5149514569182998,
+        -1.6474008825736426,
+        -0.037514284079415455
+      ],
+      [
+        0.5149514632086152,
+        1.712599079577408,
+        2.6075143070765905
+      ]
+    ],
+    "qem_error": "QEM topology damage; keeping raw hull"
+  },
+  "decimated": false,
+  "output_file": "art/s-creature/experiments/authority-visualhull/hull-v1/S-authority-visualhull-v1.glb",
+  "output_sha256": "7540caa92fa78eed6d6a1bfcb27e4f5d827af7b699c43d4c8e1f9390fd720fbe",
+  "output_bytes": 5618944,
+  "actual_mesh": {
+    "vertices": 156043,
+    "faces": 312134,
+    "watertight": true,
+    "winding_consistent": true,
+    "body_count": 1,
+    "is_volume": false
+  },
+  "metrics": {
+    "side_training_mask_iou": 0.9977946111803625,
+    "front_training_mask_iou": 0.9998618402873722,
+    "note": "Training 2D mask IOUs measure fitted projections, not visual quality or true 3D accuracy"
+  },
+  "review": "UNAPPROVED_SILHOUETTE_CAGE; PENDING real five-view render and held-out view review",
+  "skinning_approved": false,
+  "production_approved": false
+}
