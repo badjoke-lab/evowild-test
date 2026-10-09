@@ -1,0 +1,44 @@
+name: Format comparison evidence
+
+on:
+  push:
+    branches:
+      - exp/format-compare-20261010
+    paths:
+      - tests/race-format-compare.spec.js
+      - .github/workflows/format-comparison.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: evowild-format-comparison
+  cancel-in-progress: true
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      RACE_FORMAT_COMPARE: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Capture real 2.5D and 3D on desktop and Android emulation
+        run: npx playwright test tests/race-format-compare.spec.js --project=desktop-chromium --project=android-chromium --workers=1
+      - name: Upload test evidence even if a format fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: format-comparison-evidence
+          path: |
+            test-results/format-comparison/
+            test-results/**/trace.zip
+          retention-days: 7
+          if-no-files-found: warn
