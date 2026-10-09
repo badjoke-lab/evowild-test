@@ -86,8 +86,9 @@ if not (100<=len(selected)<=2800):
 ret=bmesh.ops.subdivide_edges(bm,edges=selected,cuts=1,use_grid_fill=True)
 bm.verts.ensure_lookup_table()
 new_vertices=[v for v in bm.verts if v not in original]
-if not (100<=len(new_vertices)<=6000):
-    raise RuntimeError(f"unsafe new vertex count {len(new_vertices)}")
+off_roi_new=sum(rw(v.co)<.025 for v in new_vertices)
+if not (100<=len(new_vertices)<=9000) or off_roi_new>len(new_vertices)*.22:
+    raise RuntimeError(f"unsafe new vertices: total={len(new_vertices)} outside_target={off_roi_new}")
 # High-angle guided local surface correction: unlike previous four Taubin
 # cycles this rebuild introduces NEW quad control vertices within the patch.
 # No negative Taubin expansion, no global Laplacian modifier.
@@ -176,6 +177,7 @@ report={
  "original_vertex_count":count_before,
  "original_face_count":faces_before,
  "new_vertex_count":len(new_vertices),
+ "new_vertices_near_roi_boundary":off_roi_new,
  "new_mesh_vertex_count":len(mesh.vertices),
  "new_face_count":len(mesh.polygons),
  "replaced_edge_count":len(selected),
