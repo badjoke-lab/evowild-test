@@ -3141,3 +3141,64 @@ test("Motion First cross-course individual balance audit v1", async ({ page }, t
   expect(results.find((row) => row.course === "heavy-1200-v1")?.winner.morph).toBe("P");
   expect(results.find((row) => row.course === "endurance-2400-v1")?.winner.morph).toBe("E");
 });
+
+
+test("Motion First AGILITY positioning v1 exploits a smaller safe opening", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(30000);
+
+  const tightUrl = (morph) =>
+    `/evowild-test/preview-motion-first-race/index.html?skipStart=1&positioningReview=1&positioningReviewTight=1&positioningReviewMorph=${morph}`;
+
+  // Standard S: the adjacent lane is safe, but the improvement is too small
+  // for the standard positioning thresholds, so it should hold lane 4.
+  await page.goto(tightUrl("S"), { waitUntil: "networkidle" });
+  let scene = page.locator("#scene");
+  await expect(scene).toHaveAttribute("data-positioning-review-subject-morph", "S");
+  await expect(scene).toHaveAttribute("data-positioning-review-tight", "1");
+  await expect(scene).toHaveAttribute("data-positioning-profile", "standard-v1");
+  await page.waitForTimeout(700);
+  await expect(scene).toHaveAttribute("data-positioning-decision-count", "0");
+  await expect(scene).toHaveAttribute("data-positioning-runner-target-lane", "4");
+  await expect(scene).toHaveAttribute("data-positioning-trait-hold-seconds", "3.200");
+  await expect(scene).toHaveAttribute("data-positioning-trait-retry-distance", "45.000");
+
+  // A: exact same safe geometry, but lower lateral shift cost and smaller
+  // meaningful-gain thresholds let AGILITY exploit the lane-3 opening.
+  await page.goto(tightUrl("A"), { waitUntil: "networkidle" });
+  scene = page.locator("#scene");
+  await expect(scene).toHaveAttribute("data-positioning-review-subject-morph", "A");
+  await expect(scene).toHaveAttribute("data-positioning-profile", "agility-v1");
+  await expect(scene).toHaveAttribute("data-positioning-trait-hold-seconds", "2.200");
+  await expect(scene).toHaveAttribute("data-positioning-trait-retry-distance", "32.000");
+
+  await expect.poll(async () =>
+    Number(await scene.getAttribute("data-positioning-decision-count")),
+    { timeout: 4000 }
+  ).toBeGreaterThan(0);
+
+  await expect(scene).toHaveAttribute("data-positioning-runner-target-lane", "3");
+
+  const decision = await scene.evaluate((node) => ({
+    currentGap: Number(node.dataset.positioningDecisionCurrentGap),
+    chosenGap: Number(node.dataset.positioningDecisionChosenGap),
+    chosenRear: Number(node.dataset.positioningDecisionChosenRear),
+    scoreGain: Number(node.dataset.positioningDecisionScoreGain),
+    holdRemaining: Number(node.dataset.positioningHoldRemaining)
+  }));
+
+  expect(decision.currentGap).toBeGreaterThan(4.0);
+  expect(decision.currentGap).toBeLessThan(6.0);
+  expect(decision.chosenGap).toBeGreaterThan(decision.currentGap + 1.35);
+  expect(decision.chosenGap).toBeLessThan(decision.currentGap + 3.0);
+  expect(decision.chosenRear).toBeGreaterThanOrEqual(4.5);
+  expect(decision.scoreGain).toBeGreaterThanOrEqual(0.8);
+  expect(decision.holdRemaining).toBeGreaterThan(0.5);
+  expect(decision.holdRemaining).toBeLessThanOrEqual(2.2);
+
+  console.log("AGILITY_POSITIONING_V1", JSON.stringify(decision));
+
+  await page.locator("#app").screenshot({
+    path: "test-results/visuals/motion-first-agility-positioning-v1.png"
+  });
+});
