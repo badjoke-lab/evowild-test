@@ -1,0 +1,162 @@
+{
+  "authority": "art/s-creature/references/00_s_type_modeling_image_v1.png",
+  "authority_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "evaluation": "actual 3D equal camera + equal vertical scale, full-body and provenance gate",
+  "common_ortho_scale": 3.3525790739059445,
+  "camera_directions": [
+    "side",
+    "front",
+    "front34",
+    "rear34",
+    "back"
+  ],
+  "height_normalization": 2.55,
+  "candidates": {
+    "R5": {
+      "file": "experiments/authority-rebuild-20261009/r5-crest-lamina/S-authority-crest-lamina-r5.glb",
+      "file_sha256": "1d917a059fd77052c974a9dde7d40e65f80722fb08e52817b5852bf2d5abddcd",
+      "bytes": 10316208,
+      "mesh_object_count": 9,
+      "total_vertices": 194739,
+      "total_faces": 276444,
+      "mesh_stats": [
+        {
+          "name": "DONOR_body_nonproduction",
+          "vertices": 194571,
+          "polygons": 276140,
+          "boundary_edges": 104118,
+          "nonmanifold_edges": 104118
+        },
+        {
+          "name": "PRIMARY_LAMINA_L",
+          "vertices": 32,
+          "polygons": 60,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0
+        },
+        {
+          "name": "PRIMARY_LAMINA_R",
+          "vertices": 32,
+          "polygons": 60,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0
+        },
+        {
+          "name": "TEMPORAL_SCULPT_L",
+          "vertices": 16,
+          "polygons": 28,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0
+        },
+        {
+          "name": "ROOT_SUPPORT_L",
+          "vertices": 16,
+          "polygons": 28,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0
+        },
+        {
+          "name": "ROOT_SUPPORT_R",
+          "vertices": 16,
+          "polygons": 28,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0
+        },
+        {
+          "name": "SECONDARY_LAMINA_L",
+          "vertices": 20,
+          "polygons": 36,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0
+        },
+        {
+          "name": "SECONDARY_LAMINA_R",
+          "vertices": 20,
+          "polygons": 36,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0
+        },
+        {
+          "name": "TEMPORAL_SCULPT_R",
+          "vertices": 16,
+          "polygons": 28,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0
+        }
+      ],
+      "total_boundary_edges": 104118,
+      "total_nonmanifold_edges": 104118,
+      "original_world_extent": [
+        0.19586941599845886,
+        1.0007975101470947,
+        0.8601730465888977
+      ],
+      "normalization_uniform_scale": 2.964519767402943,
+      "axis_correction": "NONE",
+      "normalized_bbox": {
+        "min": [
+          -0.2903293967247009,
+          -1.483441948890686,
+          1.1920928955078125e-07
+        ],
+        "max": [
+          0.29032936692237854,
+          1.4834420680999756,
+          2.5500001907348633
+        ]
+      },
+      "status": "UNAPPROVED visual shape donor; nonwatertight fragmented base",
+      "provenance": "TRELLIS-derived body plus rebuilt paired laminar crests"
+    },
+    "QEM": {
+      "file": "experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb",
+      "file_sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+      "bytes": 1079360,
+      "mesh_object_count": 1,
+      "total_vertices": 29948,
+      "total_faces": 59932,
+      "mesh_stats": [
+        {
+          "name": "geometry_0",
+          "vertices": 29948,
+          "polygons": 59932,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0
+        }
+      ],
+      "total_boundary_edges": 0,
+      "total_nonmanifold_edges": 0,
+      "original_world_extent": [
+        0.1533219963312149,
+        0.35851600766181946,
+        0.6474480628967285
+      ],
+      "normalization_uniform_scale": 3.9385398553686595,
+      "axis_correction": "QEM +90deg X, applied to review scene transforms only",
+      "normalized_bbox": {
+        "min": [
+          -0.30193236470222473,
+          -0.7060146927833557,
+          2.398575418283144e-07
+        ],
+        "max": [
+          0.3019323945045471,
+          0.7060146927833557,
+          2.5500001907348633
+        ]
+      },
+      "status": "UNAPPROVED single watertight mesh; joint deformability untested",
+      "provenance": "TRELLIS2 image-to-3D candidate plus MeshFix/QEM reduction"
+    }
+  },
+  "notes": [
+    "All mesh vertices/polygons are original from real GLBs; scene review transforms only.",
+    "Equal z-height does not solve different poses or camera orientation uncertainty.",
+    "Mesh closure does not establish creature design likeness, deformability or rig readiness.",
+    "Source PNG authority must be compared before design acceptance."
+  ],
+  "selected_for_production": null,
+  "selected_for_anatomy_test": null,
+  "production_ready": false,
+  "animation_ready": false
+}
