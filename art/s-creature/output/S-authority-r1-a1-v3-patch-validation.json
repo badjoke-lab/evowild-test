@@ -1,0 +1,41 @@
+{
+  "status": "REVIEW_PENDING",
+  "source": "S-authority-r0-a5-v2.blend",
+  "candidate": "S-authority-r1-a1-v3-patch.blend",
+  "scope": "restricted shoulder/proximal foreleg and pelvis/proximal hindleg anatomical quad-patch remodel",
+  "technique": "restricted quad-to-triangle local diagonal retopology with high-dihedral weighted normal-direction vertex sculpt; no subdivision",
+  "modified_original_vertices": 2400,
+  "original_vertex_count": 5728,
+  "original_face_count": 5726,
+  "new_vertex_count": 0,
+  "retopologized_quad_face_count": 650,
+  "new_vertices_near_roi_boundary": 0,
+  "new_mesh_vertex_count": 5728,
+  "new_face_count": 6376,
+  "replaced_edge_count": 650,
+  "active_sculpt_vertices": 2400,
+  "sculpt_iterations": 16,
+  "original_max_displacement": 0.04200000468917589,
+  "new_vertex_max_displacement": 0.0,
+  "max_allowed_displacement": 0.042,
+  "outside_support_old_vertices_unchanged": true,
+  "separate_crest_tail_foot_meshes_bit_exact": true,
+  "cameras_exact": true,
+  "nonmanifold_edge_count": 0,
+  "original_angles": {
+    "count": 4971,
+    "gt_60": 272,
+    "gt_90": 71,
+    "p90": 44.18783028822204
+  },
+  "repaired_angles": {
+    "count": 5621,
+    "gt_60": 35,
+    "gt_90": 16,
+    "p90": 24.951702151337496
+  },
+  "smooth_shaded_patch_faces": 3202,
+  "bbox_max_drift": 0.00699731707572937,
+  "production_gate": "NOT_APPROVED_PENDING_REAL_FIVE_VIEW",
+  "rigging_ready": false
+}
