@@ -2,7 +2,9 @@ name: EvoWild S R1-A1 v2 anatomical topology patch
 on:
   push:
     branches: [exp/s-authority-r1-a1-trial-20261009]
-    paths: [.github/workflows/s-authority-r1-a1-v2-patch.yml]
+    paths:
+      - .github/workflows/s-authority-r1-a1-v2-patch.yml
+      - art/s-creature/blender/sculpt_s_authority_r1_a1_v2_patch.py
   workflow_dispatch:
 permissions:
   contents: write
