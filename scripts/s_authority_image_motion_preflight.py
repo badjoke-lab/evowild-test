@@ -82,8 +82,9 @@ def run(root: Path, out: Path) -> None:
       "s_production_approved":False,
       "rigging_allowed":False,
       "h3_motion_allowed":False,
-      "next_geometry_gate":"REBUILD_SCAPULA_THORAX_FORELEG_QUAD_LOOPS_AND_REVIEW_FIVE_VIEWS",
-      "note":"Only identity and file availability are machine verified; likeness has not passed artistic review. Do not promote old source-lod2.glb."
+      "next_geometry_gate":"R0_R1_LEGACY_EXPERIMENT_ONLY_REJECTED_R1A3",
+      "primary_next_stage":"QEM_CANDIDATE_DEFORMATION_FEASIBILITY_ON_SEPARATE_DONOR_BRANCH",
+      "note":"Historical R0/R1 reference comparison only. Later QEM donor selection is evaluated separately; this report does not approve or rank the QEM model. Do not promote old source-lod2.glb."
     }
     (out/"S_AUTHORITY_GATE_STATUS.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(f"AUTHORITY_OK {digest} / FIVE_VIEW_ROWS={len(ROWS)} / DO_NOT_PROMOTE")
