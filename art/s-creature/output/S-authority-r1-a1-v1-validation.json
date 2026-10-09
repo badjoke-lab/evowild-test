@@ -1,0 +1,76 @@
+{
+  "lane": "exp/s-creature-vibe-modeling",
+  "gate": "R1-A1-v1-junction-continuity",
+  "status": "REVIEW_PENDING",
+  "decision": "REVIEW_PENDING_ACTUAL_IMAGES",
+  "source": "S-authority-r0-a5-v2.blend",
+  "r0_status": "ACCEPTED_R0_MORPHOLOGY",
+  "output": "S-authority-r1-a1-v1.blend",
+  "scope": "localized shoulder/proximal-forelimb + pelvis/proximal-hindlimb surface continuity",
+  "method": {
+    "type": "weighted Taubin",
+    "lambda": 0.38,
+    "mu": -0.4,
+    "cycles": 4,
+    "max_displacement_cap": 0.025
+  },
+  "editable_vertex_count": 1854,
+  "max_displacement": 0.014328061010773155,
+  "mean_displacement": 0.0008801312506195899,
+  "roughness_before_mean": 0.0036505465562651153,
+  "roughness_after_mean": 0.0030109569739434536,
+  "roughness_before_max": 0.03534796914315838,
+  "roughness_after_max": 0.0353459697814767,
+  "roughness_mean_ratio": 0.8247962127139593,
+  "bbox_before": [
+    [
+      -0.2266107201576233,
+      -0.8749999403953552,
+      0.04373600333929062
+    ],
+    [
+      0.22766277194023132,
+      1.9621022939682007,
+      1.3480029106140137
+    ]
+  ],
+  "bbox_after": [
+    [
+      -0.22661076486110687,
+      -0.8749999403953552,
+      0.04373600333929062
+    ],
+    [
+      0.22768603265285492,
+      1.9621022939682007,
+      1.3480029106140137
+    ]
+  ],
+  "bbox_max_drift": 2.326071262359619e-05,
+  "outside_support_unchanged": true,
+  "separate_meshes_unchanged": true,
+  "body_topology_unchanged": true,
+  "body_nonmanifold_edge_count": 0,
+  "camera_transforms_unchanged": true,
+  "hard_fixed": [
+    "all body outside supports",
+    "head/neck",
+    "distal limbs",
+    "split feet",
+    "crest",
+    "tail blades",
+    "body topology",
+    "cameras"
+  ],
+  "stop_rule": "render five views and STOP; R1-A2 blocked pending review",
+  "rendered_views": [
+    "side",
+    "front",
+    "front34",
+    "rear34",
+    "back"
+  ],
+  "render_geometry_sha256_before": "1dc7989ab7bd9d475219c3649398bb708f16ac9a2f385066024656f6de72f484",
+  "render_geometry_sha256_after": "1dc7989ab7bd9d475219c3649398bb708f16ac9a2f385066024656f6de72f484",
+  "render_geometry_unchanged": true
+}
