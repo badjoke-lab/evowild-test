@@ -5,6 +5,7 @@ on:
       - exp/s-qem-joint-survey-20261010
     paths:
       - art/s-creature/blender/s_qem_joint_survey.py
+      - art/s-creature/references/00_s_type_modeling_image_v1.png
       - .github/workflows/s-qem-joint-survey.yml
   workflow_dispatch:
 permissions:
