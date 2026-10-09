@@ -1,0 +1,14 @@
+{
+  "front34": {
+    "fraction_pixels_delta_at_least_14": 0.001823125501202887,
+    "max_rgb_difference": 57
+  },
+  "rear34": {
+    "fraction_pixels_delta_at_least_14": 0.0005716572343223003,
+    "max_rgb_difference": 83
+  },
+  "side": {
+    "fraction_pixels_delta_at_least_14": 0.000745096690624391,
+    "max_rgb_difference": 19
+  }
+}
