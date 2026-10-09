@@ -5,8 +5,8 @@ The accepted and experimental geometry are not edited.
 """
 import bpy,json,math
 from pathlib import Path
-ROOT=Path(bpy.path.abspath("//")).resolve()
-OUT=ROOT/"art/s-creature/output/review/authority-r1-a2-anatomy"
+ROOT=Path(__file__).resolve().parents[1]
+OUT=ROOT/"output/review/authority-r1-a2-anatomy"
 OUT.mkdir(parents=True,exist_ok=True)
 body=bpy.data.objects["S_B2a_v5_continuous_body"]
 verts=body.data.vertices
