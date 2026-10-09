@@ -1,0 +1,116 @@
+name: EvoWild S Authority R1-A1 surface continuity trial
+
+on:
+  push:
+    branches:
+      - exp/s-authority-r1-a1-trial-20261009
+    paths:
+      - .github/workflows/s-authority-r1-a1-trial.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: s-authority-r1-a1-trial-20261009
+  cancel-in-progress: false
+
+jobs:
+  r1a1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/refine_s_authority_r1_a1_v1.py
+            /art/s-creature/blender/render_s_authority_r1_a1_trial.py
+            /art/s-creature/output/S-authority-r0-a5-v2.blend
+            /art/s-creature/output/review/authority-r0-a6/
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/S_AUTHORITY_R0_A6_REVIEW.md
+            /art/s-creature/S_AUTHORITY_R1_A1_V1_PLAN.md
+            /.github/workflows/s-authority-r1-a1-trial.yml
+      - name: Verify precisely accepted source and locked R1 plan
+        run: |
+          test -s art/s-creature/output/S-authority-r0-a5-v2.blend
+          test -s art/s-creature/output/review/authority-r0-a6/S_authority_r0_a6_front34.png
+          grep -F "KEEP / ACCEPT R0 MORPHOLOGY PACKAGE" art/s-creature/S_AUTHORITY_R0_A6_REVIEW.md
+          python3 - <<'PY'
+          import hashlib
+          p="art/s-creature/references/00_s_type_modeling_image_v1.png"
+          assert hashlib.sha256(open(p,"rb").read()).hexdigest()=="93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6"
+          print("AUTHORITY_SHA_MATCH")
+          PY
+      - name: Install Blender 4.3.2 CPU dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Apply only locked localized joint-surface smoothing to accepted R0
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "1"
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-authority-r0-a5-v2.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/refine_s_authority_r1_a1_v1.py
+      - name: Render actual unchanged-shader R1 result in all five locked cameras
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "1"
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-authority-r1-a1-v1.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/render_s_authority_r1_a1_trial.py
+      - name: Verify fixed geometry and create original-vs-R1 contact sheet
+        run: |
+          python3 -m pip install -q Pillow
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          root=Path("art/s-creature/output")
+          val=json.loads((root/"S-authority-r1-a1-v1-validation.json").read_text())
+          for k in ["outside_support_unchanged","separate_meshes_unchanged","body_topology_unchanged","camera_transforms_unchanged","render_geometry_unchanged"]:
+            assert val[k] is True,(k,val.get(k))
+          assert val["body_nonmanifold_edge_count"]==0
+          assert val["editable_vertex_count"]>200
+          assert 0<val["max_displacement"]<=.02500001
+          assert val["bbox_max_drift"]<=.01500001
+          assert val["roughness_after_mean"]<val["roughness_before_mean"]
+          views=["side","front","front34","rear34","back"]
+          w,h=410,460
+          canvas=Image.new("RGB",(w*5,h*2),(244,245,246))
+          draw=ImageDraw.Draw(canvas)
+          for row,(title,prefix,folder) in enumerate([
+            ("ACCEPTED R0","S_authority_r0_a6_",root/"review/authority-r0-a6"),
+            ("R1-A1 TRIAL","S_authority_r1_a1_",root/"review/authority-r1-a1-trial")
+          ]):
+            for col,v in enumerate(views):
+              p=folder/(prefix+v+".png")
+              assert p.is_file() and p.stat().st_size>10000,p
+              im=Image.open(p).convert("RGB")
+              im.thumbnail((w-16,h-35))
+              canvas.paste(im,(col*w+(w-im.width)//2,row*h+30+(h-35-im.height)//2))
+              draw.text((col*w+11,row*h+8),title+" / "+v.upper(),fill=(15,17,20))
+          output=root/"review/authority-r1-a1-trial/S_R0_vs_R1A1_real_fiveview.jpg"
+          canvas.save(output,quality=91,optimize=True)
+          print("VALIDATION_OK",val["editable_vertex_count"],val["max_displacement"],val["roughness_mean_ratio"],output,output.stat().st_size)
+          PY
+      - name: Store real Blender asset and review evidence even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: EvoWild-authority-R1-A1-model-and-5view
+          path: |
+            art/s-creature/output/S-authority-r1-a1-v1.blend
+            art/s-creature/output/S-authority-r1-a1-v1-validation.json
+            art/s-creature/output/review/authority-r1-a1-trial/
+          if-no-files-found: warn
+      - name: Commit only on isolated experimental branch
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add art/s-creature/output/S-authority-r1-a1-v1.blend art/s-creature/output/S-authority-r1-a1-v1-validation.json art/s-creature/output/review/authority-r1-a1-trial/
+          git commit -m "exp: R1-A1 controlled joint surfacing and true five-view screenshots"
+          git pull --rebase origin exp/s-authority-r1-a1-trial-20261009
+          git push origin HEAD:exp/s-authority-r1-a1-trial-20261009
