@@ -1,0 +1,111 @@
+name: EvoWild S R1-A2 anatomy planes real Blender test
+on:
+  push:
+    branches:
+      - exp/s-authority-r1-a1-trial-20261009
+    paths:
+      - .github/workflows/s-authority-r1-a2-anatomy-v1.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-r1a2-anatomy-v1
+  cancel-in-progress: false
+jobs:
+  anatomical-plane-sculpt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/sculpt_s_authority_r1_a2_anatomy_v1.py
+            /art/s-creature/output/S-authority-r1-a1-v3-patch.blend
+            /art/s-creature/output/review/authority-r1-a1-v3-topology/
+            /art/s-creature/output/review/authority-r1-a2-anatomy/
+            /.github/workflows/s-authority-r1-a2-anatomy-v1.yml
+      - name: Install Blender CPU dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Sculpt actual four signed shoulder and hip anatomical shape planes
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-authority-r1-a1-v3-patch.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/sculpt_s_authority_r1_a2_anatomy_v1.py
+      - name: Audit geometry and generate five actual rendered same-camera comparisons
+        run: |
+          python3 -m pip install -q pillow numpy
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image,ImageDraw,ImageOps
+          import numpy as np
+          root=Path('art/s-creature/output')
+          out=root/'review/authority-r1-a2-anatomy'
+          info=json.loads((out/'R1_A2_ANATOMY_FACTS.json').read_text())
+          assert info['body_topology_unchanged'] and info['locked_cameras_unchanged'] and info['other_crests_feet_tail_unchanged']
+          assert info['nonmanifold_edges']==0
+          assert 70<info['changed_body_vertices']<2300
+          assert 0.003<info['max_vertex_displacement']<0.0301
+          assert info['body_vertices_before']==info['body_vertices_after']==5728
+          assert info['body_faces_before']==info['body_faces_after']==6376
+          assert not info['rig_ready'] and not info['game_asset_approved']
+          assert (root/'S-authority-r1-a2-anatomy-v1.blend').stat().st_size>50000
+          dirs=['side','front','front34','rear34','back']
+          w,h=400,455
+          result=Image.new('RGB',(w*5,h*2),(245,245,246))
+          d=ImageDraw.Draw(result)
+          for col,v in enumerate(dirs):
+            src=root/'review/authority-r1-a1-v3-topology'/f'S_R1_A1_v3_{v}.png'
+            dst=out/f'S_R1_A2_anatomy_v1_{v}.png'
+            for row,(label,p) in enumerate([('R1A1 v3 BEFORE',src),('R1A2 ANATOMY',dst)]):
+              assert p.is_file() and p.stat().st_size>15000,(label,p)
+              im=Image.open(p).convert('RGB')
+              im.thumbnail((390,415))
+              result.paste(im,(col*w+(w-im.width)//2,row*h+29+(420-im.height)//2))
+              d.text((col*w+8,row*h+8),label+' / '+v.upper(),fill=(12,14,16))
+          path=out/'R1A1v3_vs_R1A2_anatomy_fiveview.jpg'
+          result.save(path,quality=92,optimize=True)
+          # Actual unchanged-camera closeups of shoulder and pelvis
+          views=['front34','rear34','side']
+          zoom=Image.new('RGB',(2*550,3*360),(244,245,246))
+          crops={'front34':(304,258,730,535),'rear34':(295,247,746,540),'side':(278,245,731,535)}
+          local={}
+          for row,v in enumerate(views):
+            before=Image.open(root/'review/authority-r1-a1-v3-topology'/f'S_R1_A1_v3_{v}.png').convert('RGB')
+            after=Image.open(out/f'S_R1_A2_anatomy_v1_{v}.png').convert('RGB')
+            assert before.size==after.size
+            bbox=crops[v]
+            for col,(lab,im) in enumerate([('BEFORE v3',before.crop(bbox)),('AFTER A2',after.crop(bbox))]):
+              im=ImageOps.contain(im,(530,325))
+              zoom.paste(im,(col*550+(550-im.width)//2,row*360+30+(326-im.height)//2))
+              ImageDraw.Draw(zoom).text((col*550+12,row*360+8),lab+' / '+v.upper(),fill=(12,14,16))
+            a=np.asarray(before.crop(bbox),dtype=np.int16)
+            b=np.asarray(after.crop(bbox),dtype=np.int16)
+            px=np.max(np.abs(a-b),axis=2)
+            local[v]={'pixels_above_rgb_delta_14':int((px>=14).sum()),'fraction_above_14':float((px>=14).mean()),'max_abs_channel_diff':int(px.max())}
+          zoom.save(out/'R1A1v3_vs_R1A2_real_joint_closeup.jpg',quality=93,optimize=True)
+          (out/'ACTUAL_IMAGE_DIFF.json').write_text(json.dumps(local,indent=2)+'\n')
+          print('SUCCESS_5VIEW_ACTUAL',info['changed_body_vertices'],info['field_vertex_hits'],local)
+          PY
+      - name: Upload real 3D model plus actual five-view evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evowild-s-r1-a2-anatomical-sculpt-v1
+          path: |
+            art/s-creature/output/S-authority-r1-a2-anatomy-v1.blend
+            art/s-creature/output/review/authority-r1-a2-anatomy/
+          if-no-files-found: warn
+      - name: Commit only to experimental branch, not production
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add --sparse art/s-creature/output/S-authority-r1-a2-anatomy-v1.blend art/s-creature/output/review/authority-r1-a2-anatomy/
+          git commit -m 'exp: actual S R1-A2 shoulder/hip anatomical plane geometry and five views'
+          git pull --rebase origin exp/s-authority-r1-a1-trial-20261009
+          git push origin HEAD:exp/s-authority-r1-a1-trial-20261009
