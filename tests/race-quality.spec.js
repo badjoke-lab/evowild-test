@@ -61,6 +61,11 @@ test("2.5D Race Agent commands are creature-resolved and morph-dependent", async
   await page.waitForTimeout(500);
   await expect(stage).toHaveAttribute("data-agent-focus-command", "PUSH");
   const sPushResponse = Number(await stage.getAttribute("data-agent-focus-response"));
+  const sState = await stage.evaluate(node => ({
+    stamina: Number(node.dataset.agentFocusStamina),
+    fatigue: Number(node.dataset.agentFocusFatigue),
+    pressure: Number(node.dataset.agentFocusPressure)
+  }));
   const sFatigue = Number(await stage.getAttribute("data-agent-focus-fatigue"));
   const sStaminaAfter = Number(await stage.getAttribute("data-agent-focus-stamina"));
   expect(sPushResponse).toBeGreaterThan(0.6);
@@ -76,8 +81,22 @@ test("2.5D Race Agent commands are creature-resolved and morph-dependent", async
   await page.getByRole("button", { name: "PUSH", exact: true }).click();
   await page.waitForTimeout(350);
   const ePushResponse = Number(await stage.getAttribute("data-agent-focus-response"));
+  const eState = await stage.evaluate(node => ({
+    stamina: Number(node.dataset.agentFocusStamina),
+    fatigue: Number(node.dataset.agentFocusFatigue),
+    pressure: Number(node.dataset.agentFocusPressure)
+  }));
   expect(ePushResponse).toBeGreaterThan(0);
-  expect(ePushResponse).toBeLessThan(sPushResponse);
+  // S is pressured in the opening pack; E is not. Compare morph compatibility
+  // after accounting for the measured creature state, rather than raw responses.
+  const compatibility = (response, state) => response / (
+    state.stamina * Math.max(0.25, 1 - state.fatigue * 0.72) * (1 - state.pressure * 0.38)
+  );
+  const sCompatibility = compatibility(sPushResponse, sState);
+  const eCompatibility = compatibility(ePushResponse, eState);
+  expect(sCompatibility).toBeCloseTo(1.00, 1);
+  expect(eCompatibility).toBeCloseTo(0.76, 1);
+  expect(eCompatibility).toBeLessThan(sCompatibility);
 
   await page.getByRole("button", { name: "CONSERVE", exact: true }).click();
   await page.waitForTimeout(100);

@@ -1,0 +1,834 @@
+{
+  "config": {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/evowild-test/node_modules/.bin/playwright",
+      "test",
+      "--config",
+      "playwright.gamestudio.config.js",
+      "tests/gamestudio-2p5d.spec.js"
+    ],
+    "configFile": "/workspace/evowild-test/playwright.gamestudio.config.js",
+    "rootDir": "/workspace/evowild-test/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "android-chromium",
+        "name": "android-chromium",
+        "testDir": "/workspace/evowild-test/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "desktop-chromium",
+        "name": "desktop-chromium",
+        "testDir": "/workspace/evowild-test/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "name": "android-chromium",
+        "testDir": "/workspace/evowild-test/tests",
+        "snapshotDir": "/workspace/evowild-test/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 30000,
+        "use": {
+          "baseURL": "http://127.0.0.1:4173",
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "video": "on",
+          "launchOptions": {
+            "executablePath": "/usr/bin/chromium",
+            "args": [
+              "--enable-unsafe-swiftshader"
+            ]
+          },
+          "userAgent": "Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.8078.4 Mobile Safari/537.36",
+          "viewport": {
+            "width": 412,
+            "height": 839
+          },
+          "screen": {
+            "width": 412,
+            "height": 915
+          },
+          "deviceScaleFactor": 2.625,
+          "isMobile": true,
+          "hasTouch": true,
+          "defaultBrowserType": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "android-chromium"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "name": "desktop-chromium",
+        "testDir": "/workspace/evowild-test/tests",
+        "snapshotDir": "/workspace/evowild-test/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 30000,
+        "use": {
+          "baseURL": "http://127.0.0.1:4173",
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "video": "on",
+          "launchOptions": {
+            "executablePath": "/usr/bin/chromium",
+            "args": [
+              "--enable-unsafe-swiftshader"
+            ]
+          },
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.8078.4 Safari/537.36",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "screen": {
+            "width": 1920,
+            "height": 1080
+          },
+          "deviceScaleFactor": 1,
+          "isMobile": false,
+          "hasTouch": false,
+          "defaultBrowserType": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "desktop-chromium"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/tests.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.0",
+    "workers": 2,
+    "webServer": {
+      "command": "npm run dev -- --host 127.0.0.1 --port 4173",
+      "port": 4173,
+      "reuseExistingServer": false
+    }
+  },
+  "suites": [
+    {
+      "title": "gamestudio-2p5d.spec.js",
+      "file": "gamestudio-2p5d.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Game Studio deterministic 18-runner and dense-pack evidence",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-chromium",
+              "projectName": "android-chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10425,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T15:56:35.187Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-f37d9-ner-and-dense-pack-evidence-android-chromium/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ff5231223b1ced9de45d-a0bf62731c1f02ac9377",
+          "file": "gamestudio-2p5d.spec.js",
+          "line": 37,
+          "column": 1
+        },
+        {
+          "title": "Game Studio shipped sprite sheets retain transparency and all six distinct slots",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-chromium",
+              "projectName": "android-chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2416,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T15:56:46.215Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-2aec0--and-all-six-distinct-slots-android-chromium/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ff5231223b1ced9de45d-ac67a66198d12f512d3a",
+          "file": "gamestudio-2p5d.spec.js",
+          "line": 58,
+          "column": 1
+        },
+        {
+          "title": "Game Studio all four morphs show all six live phases and pinned runtime frames",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-chromium",
+              "projectName": "android-chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 46377,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T15:56:48.680Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-11389-s-and-pinned-runtime-frames-android-chromium/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ff5231223b1ced9de45d-c29fe4d96d62bab5ac06",
+          "file": "gamestudio-2p5d.spec.js",
+          "line": 122,
+          "column": 1
+        },
+        {
+          "title": "Game Studio controls remain reachable and preserve race through pause, target command and reset",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-chromium",
+              "projectName": "android-chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7651,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T15:57:35.086Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-9af16-se-target-command-and-reset-android-chromium/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ff5231223b1ced9de45d-2d440d996fa14cb62c34",
+          "file": "gamestudio-2p5d.spec.js",
+          "line": 150,
+          "column": 1
+        },
+        {
+          "title": "Game Studio touch targets and keyboard focus are clear",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-chromium",
+              "projectName": "android-chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4018,
+                  "error": {
+                    "message": "Error: agentTargetSelect\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m44\u001b[39m\nReceived:    \u001b[31m24\u001b[39m",
+                    "stack": "Error: agentTargetSelect\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m44\u001b[39m\nReceived:    \u001b[31m24\u001b[39m\n    at /workspace/evowild-test/tests/gamestudio-2p5d.spec.js:184:40",
+                    "location": {
+                      "file": "/workspace/evowild-test/tests/gamestudio-2p5d.spec.js",
+                      "column": 40,
+                      "line": 184
+                    },
+                    "snippet": "  182 |   for (const control of data.controls) {\n  183 |     expect(control.width, control.id).toBeGreaterThanOrEqual(44);\n> 184 |     expect(control.height, control.id).toBeGreaterThanOrEqual(44);\n      |                                        ^\n  185 |     expect(control.x, control.id).toBeGreaterThanOrEqual(0);\n  186 |     expect(control.y + control.height, control.id).toBeLessThanOrEqual(data.viewport.height);\n  187 |   }"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/evowild-test/tests/gamestudio-2p5d.spec.js",
+                        "column": 40,
+                        "line": 184
+                      },
+                      "message": "Error: agentTargetSelect\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m44\u001b[39m\nReceived:    \u001b[31m24\u001b[39m\n\n  182 |   for (const control of data.controls) {\n  183 |     expect(control.width, control.id).toBeGreaterThanOrEqual(44);\n> 184 |     expect(control.height, control.id).toBeGreaterThanOrEqual(44);\n      |                                        ^\n  185 |     expect(control.x, control.id).toBeGreaterThanOrEqual(0);\n  186 |     expect(control.y + control.height, control.id).toBeLessThanOrEqual(data.viewport.height);\n  187 |   }\n    at /workspace/evowild-test/tests/gamestudio-2p5d.spec.js:184:40"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T15:57:42.757Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-171ab-nd-keyboard-focus-are-clear-android-chromium/test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-171ab-nd-keyboard-focus-are-clear-android-chromium/video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-171ab-nd-keyboard-focus-are-clear-android-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-171ab-nd-keyboard-focus-are-clear-android-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/evowild-test/tests/gamestudio-2p5d.spec.js",
+                    "column": 40,
+                    "line": 184
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "ff5231223b1ced9de45d-2962a5576f40dcd457ab",
+          "file": "gamestudio-2p5d.spec.js",
+          "line": 177,
+          "column": 1
+        },
+        {
+          "title": "Game Studio reduced motion removes only nonessential feedback animation",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-chromium",
+              "projectName": "android-chromium",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4660,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"\u001b[7mnon\u001b[27me\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7magent-feedback-puls\u001b[27me\"\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"\u001b[7mnon\u001b[27me\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7magent-feedback-puls\u001b[27me\"\u001b[39m\n    at /workspace/evowild-test/tests/gamestudio-2p5d.spec.js:208:104",
+                    "location": {
+                      "file": "/workspace/evowild-test/tests/gamestudio-2p5d.spec.js",
+                      "column": 104,
+                      "line": 208
+                    },
+                    "snippet": "  206 |   await expect(page.locator(\"#agentFeedback\")).toBeVisible();\n  207 |   await page.screenshot({ path: evidence(testInfo, \"reduced-motion-feedback.png\") });\n> 208 |   expect(await page.locator(\".agent-feedback-orb\").evaluate(el => getComputedStyle(el).animationName)).toBe(\"none\");\n      |                                                                                                        ^\n  209 |   const distance = await stage.getAttribute(\"data-selected-distance\");\n  210 |   await expect(stage).not.toHaveAttribute(\"data-selected-distance\", distance);\n  211 | });"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/evowild-test/tests/gamestudio-2p5d.spec.js",
+                        "column": 104,
+                        "line": 208
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"\u001b[7mnon\u001b[27me\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7magent-feedback-puls\u001b[27me\"\u001b[39m\n\n  206 |   await expect(page.locator(\"#agentFeedback\")).toBeVisible();\n  207 |   await page.screenshot({ path: evidence(testInfo, \"reduced-motion-feedback.png\") });\n> 208 |   expect(await page.locator(\".agent-feedback-orb\").evaluate(el => getComputedStyle(el).animationName)).toBe(\"none\");\n      |                                                                                                        ^\n  209 |   const distance = await stage.getAttribute(\"data-selected-distance\");\n  210 |   await expect(stage).not.toHaveAttribute(\"data-selected-distance\", distance);\n  211 | });\n    at /workspace/evowild-test/tests/gamestudio-2p5d.spec.js:208:104"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T15:57:47.686Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-77b02-ssential-feedback-animation-android-chromium/test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-77b02-ssential-feedback-animation-android-chromium/video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-77b02-ssential-feedback-animation-android-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-77b02-ssential-feedback-animation-android-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/evowild-test/tests/gamestudio-2p5d.spec.js",
+                    "column": 104,
+                    "line": 208
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "ff5231223b1ced9de45d-6295cf2c5a81de37517c",
+          "file": "gamestudio-2p5d.spec.js",
+          "line": 200,
+          "column": 1
+        },
+        {
+          "title": "Game Studio deterministic 18-runner and dense-pack evidence",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-chromium",
+              "projectName": "desktop-chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 10025,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T15:56:35.135Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-f37d9-ner-and-dense-pack-evidence-desktop-chromium/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ff5231223b1ced9de45d-5ccc98ffab35594f7b81",
+          "file": "gamestudio-2p5d.spec.js",
+          "line": 37,
+          "column": 1
+        },
+        {
+          "title": "Game Studio shipped sprite sheets retain transparency and all six distinct slots",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-chromium",
+              "projectName": "desktop-chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1862,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T15:56:45.727Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-2aec0--and-all-six-distinct-slots-desktop-chromium/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ff5231223b1ced9de45d-1dbc03f0111113418f91",
+          "file": "gamestudio-2p5d.spec.js",
+          "line": 58,
+          "column": 1
+        },
+        {
+          "title": "Game Studio all four morphs show all six live phases and pinned runtime frames",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-chromium",
+              "projectName": "desktop-chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 43368,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T15:56:47.602Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-11389-s-and-pinned-runtime-frames-desktop-chromium/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ff5231223b1ced9de45d-675d3caed19fe115fbd6",
+          "file": "gamestudio-2p5d.spec.js",
+          "line": 122,
+          "column": 1
+        },
+        {
+          "title": "Game Studio controls remain reachable and preserve race through pause, target command and reset",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-chromium",
+              "projectName": "desktop-chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 7070,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T15:57:30.982Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-9af16-se-target-command-and-reset-desktop-chromium/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ff5231223b1ced9de45d-55aa9b26f62455d9932b",
+          "file": "gamestudio-2p5d.spec.js",
+          "line": 150,
+          "column": 1
+        },
+        {
+          "title": "Game Studio touch targets and keyboard focus are clear",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-chromium",
+              "projectName": "desktop-chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 3919,
+                  "error": {
+                    "message": "Error: agentTargetSelect\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m44\u001b[39m\nReceived:    \u001b[31m28\u001b[39m",
+                    "stack": "Error: agentTargetSelect\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m44\u001b[39m\nReceived:    \u001b[31m28\u001b[39m\n    at /workspace/evowild-test/tests/gamestudio-2p5d.spec.js:184:40",
+                    "location": {
+                      "file": "/workspace/evowild-test/tests/gamestudio-2p5d.spec.js",
+                      "column": 40,
+                      "line": 184
+                    },
+                    "snippet": "  182 |   for (const control of data.controls) {\n  183 |     expect(control.width, control.id).toBeGreaterThanOrEqual(44);\n> 184 |     expect(control.height, control.id).toBeGreaterThanOrEqual(44);\n      |                                        ^\n  185 |     expect(control.x, control.id).toBeGreaterThanOrEqual(0);\n  186 |     expect(control.y + control.height, control.id).toBeLessThanOrEqual(data.viewport.height);\n  187 |   }"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/evowild-test/tests/gamestudio-2p5d.spec.js",
+                        "column": 40,
+                        "line": 184
+                      },
+                      "message": "Error: agentTargetSelect\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m44\u001b[39m\nReceived:    \u001b[31m28\u001b[39m\n\n  182 |   for (const control of data.controls) {\n  183 |     expect(control.width, control.id).toBeGreaterThanOrEqual(44);\n> 184 |     expect(control.height, control.id).toBeGreaterThanOrEqual(44);\n      |                                        ^\n  185 |     expect(control.x, control.id).toBeGreaterThanOrEqual(0);\n  186 |     expect(control.y + control.height, control.id).toBeLessThanOrEqual(data.viewport.height);\n  187 |   }\n    at /workspace/evowild-test/tests/gamestudio-2p5d.spec.js:184:40"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T15:57:38.084Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-171ab-nd-keyboard-focus-are-clear-desktop-chromium/test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-171ab-nd-keyboard-focus-are-clear-desktop-chromium/video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-171ab-nd-keyboard-focus-are-clear-desktop-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-171ab-nd-keyboard-focus-are-clear-desktop-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/evowild-test/tests/gamestudio-2p5d.spec.js",
+                    "column": 40,
+                    "line": 184
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "ff5231223b1ced9de45d-049b0b3ed56a12459a9c",
+          "file": "gamestudio-2p5d.spec.js",
+          "line": 177,
+          "column": 1
+        },
+        {
+          "title": "Game Studio reduced motion removes only nonessential feedback animation",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-chromium",
+              "projectName": "desktop-chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 4630,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"\u001b[7mnon\u001b[27me\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7magent-feedback-puls\u001b[27me\"\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"\u001b[7mnon\u001b[27me\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7magent-feedback-puls\u001b[27me\"\u001b[39m\n    at /workspace/evowild-test/tests/gamestudio-2p5d.spec.js:208:104",
+                    "location": {
+                      "file": "/workspace/evowild-test/tests/gamestudio-2p5d.spec.js",
+                      "column": 104,
+                      "line": 208
+                    },
+                    "snippet": "  206 |   await expect(page.locator(\"#agentFeedback\")).toBeVisible();\n  207 |   await page.screenshot({ path: evidence(testInfo, \"reduced-motion-feedback.png\") });\n> 208 |   expect(await page.locator(\".agent-feedback-orb\").evaluate(el => getComputedStyle(el).animationName)).toBe(\"none\");\n      |                                                                                                        ^\n  209 |   const distance = await stage.getAttribute(\"data-selected-distance\");\n  210 |   await expect(stage).not.toHaveAttribute(\"data-selected-distance\", distance);\n  211 | });"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/evowild-test/tests/gamestudio-2p5d.spec.js",
+                        "column": 104,
+                        "line": 208
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"\u001b[7mnon\u001b[27me\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7magent-feedback-puls\u001b[27me\"\u001b[39m\n\n  206 |   await expect(page.locator(\"#agentFeedback\")).toBeVisible();\n  207 |   await page.screenshot({ path: evidence(testInfo, \"reduced-motion-feedback.png\") });\n> 208 |   expect(await page.locator(\".agent-feedback-orb\").evaluate(el => getComputedStyle(el).animationName)).toBe(\"none\");\n      |                                                                                                        ^\n  209 |   const distance = await stage.getAttribute(\"data-selected-distance\");\n  210 |   await expect(stage).not.toHaveAttribute(\"data-selected-distance\", distance);\n  211 | });\n    at /workspace/evowild-test/tests/gamestudio-2p5d.spec.js:208:104"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-09T15:57:42.853Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-77b02-ssential-feedback-animation-desktop-chromium/test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-77b02-ssential-feedback-animation-desktop-chromium/video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-77b02-ssential-feedback-animation-desktop-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/workspace/evowild-test/artifacts/gamestudio-2p5d/before/test-results/gamestudio-2p5d-Game-Studi-77b02-ssential-feedback-animation-desktop-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/evowild-test/tests/gamestudio-2p5d.spec.js",
+                    "column": 104,
+                    "line": 208
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "ff5231223b1ced9de45d-3645babc1fbcb0b2500f",
+          "file": "gamestudio-2p5d.spec.js",
+          "line": 200,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-09T15:56:33.913Z",
+    "duration": 79457.851,
+    "expected": 8,
+    "skipped": 0,
+    "unexpected": 4,
+    "flaky": 0
+  }
+}

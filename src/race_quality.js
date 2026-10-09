@@ -474,7 +474,7 @@ function populateAgentTargets() {
   racers.forEach((r, index) => {
     const option = document.createElement("option");
     option.value = String(index);
-    option.textContent = `${r.name} · ${r.morph}`;
+    option.textContent = `${r.morph}${String(r.id).padStart(2, "0")} · ${r.name}${r.id === SELECTED_ID ? " · YOU" : ""}`;
     agentTargetSelect.append(option);
   });
   agentTargetSelect.value = String(agentTargetIndex);
@@ -1599,7 +1599,9 @@ function updateUI(now){
         : `${agentTarget.agent.id} v${agentTarget.agent.version} · ${agentTarget.agent.lastResult}`;
     }
     agentCommandButtons.forEach((button) => {
-      button.classList.toggle("active", button.dataset.agentCommand === agentTarget.agent.command);
+      const active = button.dataset.agentCommand === agentTarget.agent.command;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-pressed", String(active));
       button.disabled = raceState !== "running";
     });
     stage.dataset.agentModel = "command-only-creature-resolved";
@@ -1669,6 +1671,7 @@ function resetRace(){
   previousRank=FIELD_SIZE;
   paused=false;
   ui.pause.textContent="Pause";
+  ui.pause.setAttribute("aria-pressed", "false");
   ui.countdown.hidden=false;
   ui.countdown.textContent="3";
   stage.dataset.raceState="countdown";
@@ -1693,6 +1696,7 @@ stage.dataset.peaMotionVersion="grounded-stride-v2";
 ui.pause.addEventListener("click",()=>{
   paused=!paused;
   ui.pause.textContent=paused?"Resume":"Pause";
+  ui.pause.setAttribute("aria-pressed", String(paused));
 });
 ui.reset.addEventListener("click",resetRace);
 

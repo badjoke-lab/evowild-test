@@ -1,0 +1,358 @@
+{
+  "sheets": [
+    {
+      "morph": "S",
+      "source": "http://127.0.0.1:4173/evowild-test/concept/s-run-sheet.webp",
+      "width": 768,
+      "height": 512,
+      "layout": "3x2",
+      "slot": {
+        "width": 256,
+        "height": 256
+      },
+      "frames": [
+        {
+          "phase": "CONTACT",
+          "opaque": 11902,
+          "transparent": 53531,
+          "bbox": {
+            "left": 12,
+            "right": 246,
+            "top": 52,
+            "bottom": 219
+          },
+          "hash": "9295bd2fa6114c42b6dea3adb1912c5107ab0f6d802a50413dfab624262325ff"
+        },
+        {
+          "phase": "PUSH",
+          "opaque": 10630,
+          "transparent": 54823,
+          "bbox": {
+            "left": 16,
+            "right": 247,
+            "top": 48,
+            "bottom": 220
+          },
+          "hash": "fdfdc013880bccf7a70a09ba0415eb15bf32a96c464f6383ebb6f3e3bcf40c0f"
+        },
+        {
+          "phase": "LIFT",
+          "opaque": 10739,
+          "transparent": 54696,
+          "bbox": {
+            "left": 17,
+            "right": 244,
+            "top": 41,
+            "bottom": 220
+          },
+          "hash": "7553fd84592e165a4334f1f426bc8b233fb0ca273d665878c186047511371a47"
+        },
+        {
+          "phase": "FLIGHT",
+          "opaque": 11274,
+          "transparent": 54154,
+          "bbox": {
+            "left": 12,
+            "right": 250,
+            "top": 29,
+            "bottom": 180
+          },
+          "hash": "a25e235b07d87b0e76ba88322b3abdb5b5012e02c03ef9cf34dd27ecd497441a"
+        },
+        {
+          "phase": "REACH",
+          "opaque": 11646,
+          "transparent": 53809,
+          "bbox": {
+            "left": 18,
+            "right": 255,
+            "top": 32,
+            "bottom": 204
+          },
+          "hash": "5a58e2a71e0a25d9fa11e7e0650371458d9dc8b59dcfd87f9b7b26ad392076db"
+        },
+        {
+          "phase": "LAND",
+          "opaque": 10628,
+          "transparent": 54786,
+          "bbox": {
+            "left": 0,
+            "right": 241,
+            "top": 38,
+            "bottom": 204
+          },
+          "hash": "794dad6557ad5c087e146e50f6b5fd39eab048c35c5193a9db7a07da5923b5aa"
+        }
+      ]
+    },
+    {
+      "morph": "P",
+      "source": "http://127.0.0.1:4173/evowild-test/concept/p-run-sheet.webp",
+      "width": 768,
+      "height": 512,
+      "layout": "3x2",
+      "slot": {
+        "width": 256,
+        "height": 256
+      },
+      "frames": [
+        {
+          "phase": "CONTACT",
+          "opaque": 18644,
+          "transparent": 44416,
+          "bbox": {
+            "left": 5,
+            "right": 255,
+            "top": 80,
+            "bottom": 223
+          },
+          "hash": "0e676cbdb66f08d0a32a2a01d5fdb5f8d4460fc0e1f3d201dbf35d0d119da456"
+        },
+        {
+          "phase": "PUSH",
+          "opaque": 16789,
+          "transparent": 46597,
+          "bbox": {
+            "left": 11,
+            "right": 249,
+            "top": 73,
+            "bottom": 225
+          },
+          "hash": "90465a33cf7441b277f528236855fd591df5b2d858e9aef37f80e3c802236e64"
+        },
+        {
+          "phase": "LIFT",
+          "opaque": 16540,
+          "transparent": 46760,
+          "bbox": {
+            "left": 7,
+            "right": 245,
+            "top": 72,
+            "bottom": 225
+          },
+          "hash": "bd481268948e7df1821eabcf56d6ef59128a551e8521da2b57d87bee39d049e8"
+        },
+        {
+          "phase": "FLIGHT",
+          "opaque": 16188,
+          "transparent": 47304,
+          "bbox": {
+            "left": 3,
+            "right": 255,
+            "top": 33,
+            "bottom": 163
+          },
+          "hash": "984462c41df411fd317e0f832c6344755c507694835cb8147c6010d7508e7def"
+        },
+        {
+          "phase": "REACH",
+          "opaque": 15944,
+          "transparent": 47574,
+          "bbox": {
+            "left": 0,
+            "right": 255,
+            "top": 39,
+            "bottom": 177
+          },
+          "hash": "690d536d33e1a6b1c09a59d5a7f81e9c11470082b45a5eb4f11d563c72a0b883"
+        },
+        {
+          "phase": "LAND",
+          "opaque": 16889,
+          "transparent": 46490,
+          "bbox": {
+            "left": 0,
+            "right": 245,
+            "top": 36,
+            "bottom": 181
+          },
+          "hash": "0ea96d90885711ab7e1f9cd751b3be199c99abb02be52cb3a57324b5d67461a3"
+        }
+      ]
+    },
+    {
+      "morph": "E",
+      "source": "http://127.0.0.1:4173/evowild-test/concept/e-run-sheet.webp",
+      "width": 768,
+      "height": 512,
+      "layout": "3x2",
+      "slot": {
+        "width": 256,
+        "height": 256
+      },
+      "frames": [
+        {
+          "phase": "CONTACT",
+          "opaque": 10869,
+          "transparent": 49518,
+          "bbox": {
+            "left": 11,
+            "right": 251,
+            "top": 32,
+            "bottom": 229
+          },
+          "hash": "38fff565764a12a63edb81500a629b25c67dda5b0459cab31568d95e887d6e98"
+        },
+        {
+          "phase": "PUSH",
+          "opaque": 10412,
+          "transparent": 50513,
+          "bbox": {
+            "left": 6,
+            "right": 238,
+            "top": 26,
+            "bottom": 225
+          },
+          "hash": "c2b1edba9e6d91dca91082f43bfb8cfb675f08644496f8bd28999b50d5c26771"
+        },
+        {
+          "phase": "LIFT",
+          "opaque": 10422,
+          "transparent": 49823,
+          "bbox": {
+            "left": 10,
+            "right": 242,
+            "top": 21,
+            "bottom": 226
+          },
+          "hash": "f3fd1edc9e30d9de361478a5852457a238656c2ce2ee4445480baf06db5d141a"
+        },
+        {
+          "phase": "FLIGHT",
+          "opaque": 10085,
+          "transparent": 51111,
+          "bbox": {
+            "left": 11,
+            "right": 255,
+            "top": 22,
+            "bottom": 177
+          },
+          "hash": "f70fe070e970f62693f156074f33dd9910886218eefa9a55cee6a3b704a5efcf"
+        },
+        {
+          "phase": "REACH",
+          "opaque": 10250,
+          "transparent": 50165,
+          "bbox": {
+            "left": 0,
+            "right": 255,
+            "top": 19,
+            "bottom": 214
+          },
+          "hash": "60b25ad5738f96e6b04cdd1a3993999708549a82b4e2396042b444eee18d1e43"
+        },
+        {
+          "phase": "LAND",
+          "opaque": 10281,
+          "transparent": 50370,
+          "bbox": {
+            "left": 0,
+            "right": 245,
+            "top": 25,
+            "bottom": 216
+          },
+          "hash": "4da57b0abdcdcc0a1440b0e0f01ee6453d14f99008b57819fc271520acdcb677"
+        }
+      ]
+    },
+    {
+      "morph": "A",
+      "source": "http://127.0.0.1:4173/evowild-test/concept/a-run-sheet.webp",
+      "width": 768,
+      "height": 512,
+      "layout": "2x3",
+      "slot": {
+        "width": 384,
+        "height": 170
+      },
+      "frames": [
+        {
+          "phase": "CONTACT",
+          "opaque": 16225,
+          "transparent": 44846,
+          "bbox": {
+            "left": 9,
+            "right": 383,
+            "top": 22,
+            "bottom": 169
+          },
+          "hash": "1e0d476ca01aef65b64cf8989e6976daf4adb9214e11de39bb5d9e080d063142"
+        },
+        {
+          "phase": "PUSH",
+          "opaque": 14351,
+          "transparent": 46800,
+          "bbox": {
+            "left": 7,
+            "right": 377,
+            "top": 17,
+            "bottom": 167
+          },
+          "hash": "3648c283502df89739d4ceddffa4256273e0cd202597087a320c153e416e1d24"
+        },
+        {
+          "phase": "LIFT",
+          "opaque": 13931,
+          "transparent": 47060,
+          "bbox": {
+            "left": 11,
+            "right": 382,
+            "top": 0,
+            "bottom": 165
+          },
+          "hash": "ff40150caafe3bef6c0ab2526c417703399aa13b34c048c755268f577005f76d"
+        },
+        {
+          "phase": "FLIGHT",
+          "opaque": 14913,
+          "transparent": 46109,
+          "bbox": {
+            "left": 4,
+            "right": 377,
+            "top": 19,
+            "bottom": 151
+          },
+          "hash": "6a9445957c8ee906993d6afe81a94d71765c78b6187093eb10a0324131c97f41"
+        },
+        {
+          "phase": "REACH",
+          "opaque": 15708,
+          "transparent": 45012,
+          "bbox": {
+            "left": 11,
+            "right": 376,
+            "top": 8,
+            "bottom": 152
+          },
+          "hash": "aff570caa276b154f30445562c0b6bef67a003b5eb03b41b715a79e19b658523"
+        },
+        {
+          "phase": "LAND",
+          "opaque": 14497,
+          "transparent": 46658,
+          "bbox": {
+            "left": 7,
+            "right": 368,
+            "top": 7,
+            "bottom": 152
+          },
+          "hash": "be148d2eefa35b6a77ae4b71813a3e9cbd1c0b7114880d665aa9442c7f55d9d4"
+        }
+      ]
+    }
+  ],
+  "sourceHashes": {
+    "docs/references/evowild-creature-reference-sheet-20260921.jpg": "7a839503e5845d1220180d344260cd6d9e7bfe7ec6ea259bd57e22eb803aca81",
+    "docs/creature-reference-index-v0.1.md": "435309d348aa05411e61d4cf0f5c594ff617736465587e9758f2016168523dc0",
+    "docs/2p5d-creature-reference-lock.md": "195e479963a2f655df6af50a02e855a5f187e55ee96d1a7004874b68ebce3e80",
+    "public/concept/S.webp": "90bad183ef3bd4e4d4e00ec0d838cc9db65f83024f98849980c1530f4e2646fd",
+    "public/concept/s-run-sheet.webp": "00f8c00b04ac16837f4f73fea221be0d5f711504b9476b4fda31f6e638446698",
+    "public/concept/P.webp": "d57a1552bf9358cc060156ec72b41753441f771fdef3a87cfba2567261217bfe",
+    "public/concept/p-run-sheet.webp": "14994d779655ace3460291da07df28c3bd8ebd9a95aaa816a603f5b0f6cc495b",
+    "public/concept/E.webp": "c223e1628f3c277fe9b4fd6d639882a3462e80df6deb554bec9967fe94283b28",
+    "public/concept/e-run-sheet.webp": "d2104a06d49f04708c7ecc9aff26d13816c1d03a6933ef2c1dd365bd940815fc",
+    "public/concept/A.webp": "2d5b3aea702918e276e77cdddab424123c098f8cbf65ad99deedbafe8ffe3097",
+    "public/concept/a-run-sheet.webp": "6b28d9890adbf3d0376442f1a49f78bbcaf519ce258f653fec63b7a08feed7d7"
+  },
+  "note": "Raw shipped slots, one common scale; no art or runtime anchor changes. Bounding boxes include source artifacts. Identity and gait require visual review."
+}

@@ -1,0 +1,12 @@
+{
+  "baseCommit": "610d42800180ed31f174a097fc2eb96c27ecd0ab",
+  "command": "npx playwright test --config /workspace/.cloud-setup/evowild-test/playwright.config.mjs tests/race.spec.js tests/race2_5d.spec.js tests/race-quality.spec.js tests/2p5d-selection.spec.js --reporter=line",
+  "passed": 22,
+  "failed": 7,
+  "skipped": 1,
+  "failures": [
+    "favicon.ico 404: selection desktop/android, primary race desktop/android, race2_5d desktop",
+    "raw S/E PUSH comparison: desktop/android"
+  ],
+  "originalTraces": "/workspace/.cloud-setup/evowild-test/baseline/test-results"
+}

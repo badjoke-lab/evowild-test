@@ -4,3 +4,11 @@ dist
 
 .spritegen-venv
 artifacts/spritegen-s
+
+# Generated local model and Playwright evidence; reviewed evidence lives in docs/evidence.
+/public/models/evowild-s.obj
+/public/models/evowild-s.mtl
+/test-results/
+/playwright-report/
+/artifacts/gamestudio-2p5d/
+/artifacts/2p5d-survivor/

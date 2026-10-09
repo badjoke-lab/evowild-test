@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#071018" />
+  <link rel="icon" href="data:," />
   <title>EvoWild Run — Four Morph Race Integration</title>
   <link rel="stylesheet" href="/src/race_quality.css" />
 </head>
@@ -17,8 +18,8 @@
 
     <header class="hud top">
       <div>
-        <span class="eyebrow">EVOWILD RUN / 2.5D INTEGRATION PROOF</span>
-        <strong>4 MORPH / 6-FRAME RACE</strong>
+        <span class="eyebrow">EVOWILD RUN / SURVIVOR RACE</span>
+        <strong>18 RUNNERS / 4 MORPHS</strong>
       </div>
       <div class="readout">
         <span id="rank">18 / 18</span>
@@ -41,7 +42,7 @@
     <section class="hud agent-control" id="agentControl" aria-label="Race Agent commands">
       <div class="agent-control-heading">
         <span>RACE AGENT · v1</span>
-        <label for="agentTargetSelect">TARGET
+        <label for="agentTargetSelect" title="Commands affect this runner. YOU remains the camera subject.">TARGET
           <select id="agentTargetSelect" aria-label="Agent target runner"></select>
         </label>
       </div>
@@ -53,9 +54,9 @@
         <span><small>RESPONSE</small><strong id="agentResponse">NEUTRAL</strong></span>
       </div>
       <div class="agent-control-actions" role="group" aria-label="Agent command">
-        <button type="button" data-agent-command="PUSH">PUSH</button>
-        <button type="button" data-agent-command="CONSERVE">CONSERVE</button>
-        <button type="button" data-agent-command="CLEAR">CLEAR</button>
+        <button type="button" data-agent-command="PUSH" aria-pressed="false" title="Ask the target runner for speed at a stamina cost">PUSH</button>
+        <button type="button" data-agent-command="CONSERVE" aria-pressed="false" title="Ask the target runner to preserve stamina">CONSERVE</button>
+        <button type="button" data-agent-command="CLEAR" aria-pressed="false" title="Clear the target runner's active command">CLEAR</button>
       </div>
       <div class="agent-control-result" id="agentResult">No active command</div>
     </section>
@@ -90,7 +91,7 @@
     </section>
 
     <div class="controls">
-      <button id="pause" type="button">Pause</button>
+      <button id="pause" type="button" aria-pressed="false">Pause</button>
       <button id="reset" type="button">Reset</button>
     </div>
 
