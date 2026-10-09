@@ -1,0 +1,116 @@
+{
+  "source_sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "source_GLb_unchanged": true,
+  "source_vertices": 29948,
+  "rigged_mesh_vertices": 29948,
+  "rigged_mesh_faces": 59932,
+  "armature_bones": 5,
+  "real_armature_modifier": true,
+  "skin_weight_groups": [
+    "ROOT_TORSO",
+    "FORE_L_LOWER_LIMB",
+    "FORE_R_LOWER_LIMB",
+    "HIND_L_LOWER_LIMB",
+    "HIND_R_LOWER_LIMB"
+  ],
+  "bone_regions_weighted_vertex_count": {
+    "FORE_L": 2425,
+    "FORE_R": 1302,
+    "HIND_L": 2175,
+    "HIND_R": 1817
+  },
+  "max_skin_weights": {
+    "FORE_L": 1.0,
+    "FORE_R": 1.0,
+    "HIND_L": 1.0,
+    "HIND_R": 1.0
+  },
+  "candidate_pivots_from_real_QEM": {
+    "FORE_L": {
+      "xyz": [
+        -0.34450848400592804,
+        -0.6334032416343689,
+        0.6393528580665588
+      ],
+      "samples": 672,
+      "bend_degrees": 14.0,
+      "region_y_bounds": [
+        -1.83,
+        -0.34
+      ],
+      "status": "KINEMATIC_PROBE_CANDIDATE_NOT_ANATOMICAL_APPROVAL"
+    },
+    "FORE_R": {
+      "xyz": [
+        0.29960985481739044,
+        -0.43797242641448975,
+        0.6400321424007416
+      ],
+      "samples": 310,
+      "bend_degrees": -14.0,
+      "region_y_bounds": [
+        -1.83,
+        -0.34
+      ],
+      "status": "KINEMATIC_PROBE_CANDIDATE_NOT_ANATOMICAL_APPROVAL"
+    },
+    "HIND_L": {
+      "xyz": [
+        -0.3760637789964676,
+        1.8079724311828613,
+        0.7219271957874298
+      ],
+      "samples": 850,
+      "bend_degrees": -12.0,
+      "region_y_bounds": [
+        1.03,
+        2.31
+      ],
+      "status": "KINEMATIC_PROBE_CANDIDATE_NOT_ANATOMICAL_APPROVAL"
+    },
+    "HIND_R": {
+      "xyz": [
+        0.35460135340690613,
+        1.9458796977996826,
+        0.7047430276870728
+      ],
+      "samples": 662,
+      "bend_degrees": 12.0,
+      "region_y_bounds": [
+        1.03,
+        2.31
+      ],
+      "status": "KINEMATIC_PROBE_CANDIDATE_NOT_ANATOMICAL_APPROVAL"
+    }
+  },
+  "pose8_degrees_requested": {
+    "FORE_L": 4.2,
+    "FORE_R": -4.2,
+    "HIND_L": -3.6,
+    "HIND_R": 3.6
+  },
+  "animation_keyframes": [
+    1,
+    8,
+    16
+  ],
+  "fps": 24,
+  "original_rest_max_coordinate_error": 0.0,
+  "evaluated_moved_vertices_at_frame8": 7579,
+  "max_evaluated_vertex_displacement": 0.07665406213338921,
+  "triangles_flipped": 0,
+  "triangles_near_collapse": 0,
+  "area_less_than_half": 0,
+  "area_more_than_double": 0,
+  "area_quantiles_p5_p95": [
+    0.9922143503162288,
+    1.0070440192116155
+  ],
+  "gate": "PASS_LIMITED_ARMATURE_SKINNING",
+  "joint_landmarks_anatomically_approved": false,
+  "full_limbs_rigged": false,
+  "race_run_cycle_validated": false,
+  "game_asset_approved": false,
+  "review_requires_actual_5view": true,
+  "blender_file": "S-QEM-armature-weighted-16-frame-test.blend"
+}
