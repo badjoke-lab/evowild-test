@@ -1,0 +1,53 @@
+name: EvoWild S exact-authority morphology/motion preflight
+on:
+  push:
+    branches:
+      - exp/s-authority-motion-preflight-20261010
+    paths:
+      - scripts/s_authority_image_motion_preflight.py
+      - .github/workflows/s-authority-motion-preflight.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-s-authority-motion-preflight
+  cancel-in-progress: false
+jobs:
+  five-view-authority:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /scripts/s_authority_image_motion_preflight.py
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/output/review/authority-r0-a6/
+            /art/s-creature/output/review/authority-r1-a2-scapula-v2/
+            /art/s-creature/output/review/authority-r1-a3-sidepatch-v1/
+            /.github/workflows/s-authority-motion-preflight.yml
+      - name: Install image review dependency
+        run: python3 -m pip install --quiet Pillow==11.3.0
+      - name: Verify exact primary artwork and build actual 5-view comparison
+        run: |
+          python3 -m py_compile scripts/s_authority_image_motion_preflight.py
+          python3 scripts/s_authority_image_motion_preflight.py
+      - name: Upload exact artwork and model review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evowild-s-authority-vs-r0-r1a2-r1a3-fiveview
+          path: |
+            art/s-creature/output/review/authority-motion-preflight/
+          if-no-files-found: warn
+      - name: Save comparison image and gate status to isolated branch only
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/output/review/authority-motion-preflight/
+          git diff --cached --quiet && exit 0
+          git commit -m 'review: store exact S authority alongside actual R0 and R1 five-view renders'
+          git push origin HEAD:exp/s-authority-motion-preflight-20261010
