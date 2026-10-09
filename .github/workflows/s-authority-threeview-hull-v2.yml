@@ -1,0 +1,83 @@
+name: EvoWild S three-view visual hull constrained test
+on:
+  push:
+    branches:
+      - exp/s-authority-visualhull-20261009
+    paths:
+      - ".github/workflows/s-authority-threeview-hull-v2.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  threeview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /scripts/s_authority_threeview_hull.py
+            /art/s-creature/blender/render_s_threeview_hull_v2.py
+            /art/s-creature/experiments/authority-visualhull/
+            /.github/workflows/s-authority-threeview-hull-v2.yml
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install image/mesh numerical environment
+        run: python -m pip install -q "numpy<2" "opencv-python-headless==4.10.0.84" "scipy<1.17" scikit-image "trimesh==4.11.1" fast-simplification pillow
+      - name: Carve real S 3D constrained by side front and front-3/4 masks
+        run: python scripts/s_authority_threeview_hull.py
+      - name: Install Blender system requirements
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+      - name: Download Blender 4.3.2
+        run: |
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Make corrected physical five-view renders of constrained model
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/render_s_threeview_hull_v2.py
+      - name: Make reference vs mesh comparison including held-out BACK
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          base=Path("art/s-creature/experiments/authority-visualhull")
+          dst=base/"hull-v2-three-view/upright/review"
+          names=["side","front","front34","back"]
+          w,h=430,470
+          o=Image.new("RGB",(w*4,h*2),(244,246,248))
+          d=ImageDraw.Draw(o)
+          for i,name in enumerate(names):
+            for row,(label,p) in enumerate([
+              ("LOCKED DESIGN",base/(name+"_crop.png")),
+              ("REAL 3-VIEW HULL",dst/f"S_threeview_v2_{name}.png")
+            ]):
+              assert p.is_file() and p.stat().st_size>4000,p
+              im=Image.open(p).convert("RGB")
+              im.thumbnail((w-18,h-39))
+              o.paste(im,(i*w+(w-im.width)//2,row*h+28+(h-34-im.height)//2))
+              d.text((i*w+10,row*h+9),f"{label} / {name.upper()}",(15,17,19))
+          p=dst/"S_threeview_reference_versus_mesh.jpg"
+          o.save(p,quality=92,optimize=True)
+          print("THREE_VIEW_REAL_4ANGLE_QA",p,p.stat().st_size)
+          PY
+      - name: Upload real 3D candidate and evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: S-threeview-source-constrained-actual-GLB
+          path: art/s-creature/experiments/authority-visualhull/hull-v2-three-view/
+          if-no-files-found: warn
+      - name: Save output only to isolated S experiment
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add art/s-creature/experiments/authority-visualhull/hull-v2-three-view/
+          git commit -m "exp: record S three-view 3D reconstruction and held-out rear view images"
+          git pull --rebase origin exp/s-authority-visualhull-20261009
+          git push origin HEAD:exp/s-authority-visualhull-20261009
