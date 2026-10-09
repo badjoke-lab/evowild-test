@@ -1,6 +1,6 @@
 """S-type R1-A1 v3: restricted diagonal retopology and geometric crease correction.
 
-SOURCE: accepted S-authority-r0-a5-v3.blend. NOT the rejected R1A1v1.
+SOURCE: accepted S-authority-r0-a5-v2.blend. NOT the rejected R1A1v1.
 This is a single bounded trial; no production promotion.
 Existing R0 head/crest/limb shafts/feet/tail and 5 cameras are locked.
 """
@@ -164,7 +164,7 @@ max_box_drift=max(abs(box0[k][i]-box1[k][i]) for i in range(3) for k in range(2)
 if max_box_drift>.028:raise RuntimeError(f"bbox drift {max_box_drift}")
 report={
  "status":"REVIEW_PENDING",
- "source":"S-authority-r0-a5-v3.blend",
+ "source":"S-authority-r0-a5-v2.blend",
  "candidate":"S-authority-r1-a1-v3-patch.blend",
  "scope":"restricted shoulder/proximal foreleg and pelvis/proximal hindleg anatomical quad-patch remodel",
  "technique":"restricted quad-to-triangle local diagonal retopology with high-dihedral weighted normal-direction vertex sculpt; no subdivision",
