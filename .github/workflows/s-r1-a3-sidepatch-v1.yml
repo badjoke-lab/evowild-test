@@ -2,7 +2,9 @@ name: EvoWild S R1-A3 shoulder side-surface actual mesh trial
 on:
   push:
     branches: [exp/s-authority-r1-a1-trial-20261009]
-    paths: [.github/workflows/s-r1-a3-sidepatch-v1.yml]
+    paths:
+      - .github/workflows/s-r1-a3-sidepatch-v1.yml
+      - art/s-creature/blender/sculpt_s_r1_a3_sidepatch_v1.py
   workflow_dispatch:
 permissions:
   contents: write
