@@ -1,0 +1,109 @@
+name: EvoWild S measured scapula correction R1-A2 v2
+on:
+  push:
+    branches:
+      - exp/s-authority-r1-a1-trial-20261009
+    paths:
+      - .github/workflows/s-r1-a2-scapula-v2.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-scapula-r1a2v2
+  cancel-in-progress: false
+jobs:
+  actual-scapular-sculpt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/sculpt_s_r1_a2_scapular_v2.py
+            /art/s-creature/output/S-authority-r1-a2-anatomy-v1.blend
+            /art/s-creature/output/review/authority-r1-a2-anatomy/
+            /art/s-creature/output/review/authority-r1-a2-scapula-v2/
+            /.github/workflows/s-r1-a2-scapula-v2.yml
+      - name: Install Blender 4.3.2 exact
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Apply measured scapular apex sculpt on actual S 3D
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-authority-r1-a2-anatomy-v1.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/sculpt_s_r1_a2_scapular_v2.py
+      - name: Validate measured apex movement and make real unchanged-camera screenshots
+        run: |
+          python3 -m pip install --quiet Pillow numpy
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw, ImageOps
+          import json,numpy as np
+          root=Path('art/s-creature/output')
+          src=root/'review/authority-r1-a2-anatomy'
+          dest=root/'review/authority-r1-a2-scapula-v2'
+          audit=json.loads((dest/'R1_A2_SCAPULA_V2_GEOMETRY.json').read_text())
+          for name in ['all_xy_body_coords_unchanged','non_roi_vertices_unchanged','all_other_meshes_unchanged','all_five_cameras_unchanged']:
+            assert audit[name],(name,audit[name])
+          assert audit['nonmanifold_edges']==0 and 24<=audit['modified_vertices']<700
+          assert 0.020<=audit['max_applied_displacement']<=.05001
+          assert (root/'S-authority-r1-a2-scapula-v2.blend').stat().st_size>50000
+          views=['side','front','front34','rear34','back']
+          w,h=400,455
+          contact=Image.new('RGB',(w*5,h*2),(243,245,247))
+          draw=ImageDraw.Draw(contact)
+          for i,v in enumerate(views):
+            for j,(label,p) in enumerate([
+              ('A2 BEFORE',src/f'S_R1_A2_anatomy_v1_{v}.png'),
+              ('A2 SCAPULA v2',dest/f'S_scapula_v2_{v}.png')
+            ]):
+              assert p.is_file() and p.stat().st_size>15000,p
+              im=Image.open(p).convert('RGB')
+              im.thumbnail((390,413))
+              contact.paste(im,(i*w+(w-im.width)//2,j*h+27+(419-im.height)//2))
+              draw.text((i*w+10,j*h+10),label+' '+v.upper(),(16,18,20))
+          sheet=dest/'R1_A2_v1_vs_scapula_v2_fiveview.jpg'
+          contact.save(sheet,quality=92,optimize=True)
+          # Detail crop has exact original resolution; no inpaint / rendering simulation.
+          views=['front34','rear34','side']
+          bbox={'front34':(295,220,726,540),'rear34':(290,210,737,539),'side':(278,205,734,534)}
+          result=Image.new('RGB',(1080,3*345),(244,246,248))
+          d=ImageDraw.Draw(result)
+          pixel={}
+          for j,v in enumerate(views):
+            old=Image.open(src/f'S_R1_A2_anatomy_v1_{v}.png').convert('RGB')
+            new=Image.open(dest/f'S_scapula_v2_{v}.png').convert('RGB')
+            assert old.size==new.size
+            for i,(label,im) in enumerate([('A2 v1 BEFORE',old.crop(bbox[v])),('v2 ACTUAL SCULPT',new.crop(bbox[v]))]):
+              im=ImageOps.contain(im,(525,310))
+              result.paste(im,(i*540+(540-im.width)//2,j*345+28+(315-im.height)//2))
+              d.text((i*540+12,j*345+8),label+' '+v.upper(),fill=(15,17,19))
+            a=np.asarray(old.crop(bbox[v]),dtype=np.int16)
+            b=np.asarray(new.crop(bbox[v]),dtype=np.int16)
+            delta=np.abs(a-b).max(axis=2)
+            pixel[v]={'changed_pixels_14':int((delta>=14).sum()),'fraction':float((delta>=14).mean())}
+          result.save(dest/'R1_A2_scapula_v2_actual_closeup.jpg',quality=94,optimize=True)
+          (dest/'V2_IMAGE_QA.json').write_text(json.dumps(pixel,indent=2)+'\n')
+          print('SCAPULA_V2_ACTUAL_VERIFIED',audit['modified_vertices'],audit['apex_before_after'],pixel)
+          PY
+      - name: Upload Blender file and five real-render images
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: EvoWild-S-measured-scapula-R1A2v2
+          path: |
+            art/s-creature/output/S-authority-r1-a2-scapula-v2.blend
+            art/s-creature/output/review/authority-r1-a2-scapula-v2/
+          if-no-files-found: warn
+      - name: Commit isolated model only
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/output/S-authority-r1-a2-scapula-v2.blend art/s-creature/output/review/authority-r1-a2-scapula-v2/
+          git commit -m 'exp: measured S scapular spike morphology correction and real five views'
+          git pull --rebase origin exp/s-authority-r1-a1-trial-20261009
+          git push origin HEAD:exp/s-authority-r1-a1-trial-20261009
