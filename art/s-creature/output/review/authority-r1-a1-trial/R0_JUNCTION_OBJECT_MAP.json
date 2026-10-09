@@ -1,0 +1,574 @@
+{
+  "source": "S-authority-r0-a5-v2.blend",
+  "read_only": true,
+  "accepted_R0_kept_unchanged": true,
+  "object_count": 21,
+  "continuous_body_vertex_count": 5728,
+  "object_evidence": [
+    {
+      "object": "S_B2a_v5_continuous_body",
+      "vertices": 5728,
+      "polygons": 5726,
+      "bbox_world_xyz": [
+        [
+          -0.2266107201576233,
+          -0.8749999403953552,
+          0.04373600333929062
+        ],
+        [
+          0.22766277194023132,
+          1.9621022939682007,
+          1.3480029106140137
+        ]
+      ],
+      "inside_fore_support_vertices": 962,
+      "inside_hind_support_vertices": 1011,
+      "body_surface_vertex_proximity": {
+        "sample_count": 1432,
+        "near_to_body_vertices": "SELF"
+      },
+      "is_continuous_body": true
+    },
+    {
+      "object": "S_authority_r0_a1_v2_crest",
+      "vertices": 264,
+      "polygons": 252,
+      "bbox_world_xyz": [
+        [
+          -0.16541223227977753,
+          -0.5710092782974243,
+          1.2044767141342163
+        ],
+        [
+          0.16541223227977753,
+          0.3885551393032074,
+          1.6095168590545654
+        ]
+      ],
+      "inside_fore_support_vertices": 0,
+      "inside_hind_support_vertices": 0,
+      "body_surface_vertex_proximity": {
+        "sample_count": 264,
+        "min_nearest_body_vertex": 0.003756481921300292,
+        "mean_nearest_body_vertex": 0.16681984036712852,
+        "fraction_near_lt_0p025": 0.20454545454545456,
+        "fraction_near_lt_0p05": 0.3371212121212121
+      },
+      "is_continuous_body": false
+    },
+    {
+      "object": "S_racing_foot_v3_fore_L_prong_A",
+      "vertices": 16,
+      "polygons": 14,
+      "bbox_world_xyz": [
+        [
+          -0.18739260733127594,
+          -0.4063335955142975,
+          0.005621409974992275
+        ],
+        [
+          -0.1510423719882965,
+          -0.2534692585468292,
+          0.09556244313716888
+        ]
+      ],
+      "inside_fore_support_vertices": 0,
+      "inside_hind_support_vertices": 0,
+      "body_surface_vertex_proximity": {
+        "sample_count": 16,
+        "min_nearest_body_vertex": 0.006203579716384411,
+        "mean_nearest_body_vertex": 0.05731847329298034,
+        "fraction_near_lt_0p025": 0.375,
+        "fraction_near_lt_0p05": 0.5
+      },
+      "is_continuous_body": false
+    },
+    {
+      "object": "S_racing_foot_v3_fore_L_prong_B",
+      "vertices": 16,
+      "polygons": 14,
+      "bbox_world_xyz": [
+        [
+          -0.14895763993263245,
+          -0.4063335955142975,
+          0.005621409043669701
+        ],
+        [
+          -0.11260740458965302,
+          -0.2534692585468292,
+          0.09556244313716888
+        ]
+      ],
+      "inside_fore_support_vertices": 0,
+      "inside_hind_support_vertices": 0,
+      "body_surface_vertex_proximity": {
+        "sample_count": 16,
+        "min_nearest_body_vertex": 0.006173642352223396,
+        "mean_nearest_body_vertex": 0.058080204646103084,
+        "fraction_near_lt_0p025": 0.4375,
+        "fraction_near_lt_0p05": 0.5
+      },
+      "is_continuous_body": false
+    },
+    {
+      "object": "S_racing_foot_v3_fore_L_rear_spur",
+      "vertices": 12,
+      "polygons": 10,
+      "bbox_world_xyz": [
+        [
+          -0.15900000929832458,
+          -0.27302035689353943,
+          0.02209477126598358
+        ],
+        [
+          -0.14100000262260437,
+          -0.2230481654405594,
+          0.06752819567918777
+        ]
+      ],
+      "inside_fore_support_vertices": 0,
+      "inside_hind_support_vertices": 0,
+      "body_surface_vertex_proximity": {
+        "sample_count": 12,
+        "min_nearest_body_vertex": 0.004761661868542433,
+        "mean_nearest_body_vertex": 0.018167895614169538,
+        "fraction_near_lt_0p025": 0.6666666666666666,
+        "fraction_near_lt_0p05": 1.0
+      },
+      "is_continuous_body": false
+    },
+    {
+      "object": "S_racing_foot_v3_fore_R_prong_A",
+      "vertices": 16,
+      "polygons": 14,
+      "bbox_world_xyz": [
+        [
+          0.11260740458965302,
+          -0.4063335955142975,
+          0.005621409043669701
+        ],
+        [
+          0.14895763993263245,
+          -0.2534692585468292,
+          0.09556244313716888
+        ]
+      ],
+      "inside_fore_support_vertices": 0,
+      "inside_hind_support_vertices": 0,
+      "body_surface_vertex_proximity": {
+        "sample_count": 16,
+        "min_nearest_body_vertex": 0.006203602533787489,
+        "mean_nearest_body_vertex": 0.05731848382856697,
+        "fraction_near_lt_0p025": 0.375,
+        "fraction_near_lt_0p05": 0.5
+      },
+      "is_continuous_body": false
+    },
+    {
+      "object": "S_racing_foot_v3_fore_R_prong_B",
+      "vertices": 16,
+      "polygons": 14,
+      "bbox_world_xyz": [
+        [
+          0.1510423719882965,
+          -0.4063335955142975,
+          0.005621409974992275
+        ],
+        [
+          0.18739260733127594,
+          -0.2534692585468292,
+          0.09556244313716888
+        ]
+      ],
+      "inside_fore_support_vertices": 0,
+      "inside_hind_support_vertices": 0,
+      "body_surface_vertex_proximity": {
+        "sample_count": 16,
+        "min_nearest_body_vertex": 0.006173637695610523,
+        "mean_nearest_body_vertex": 0.05808021337725222,
+        "fraction_near_lt_0p025": 0.4375,
+        "fraction_near_lt_0p05": 0.5
+      },
+      "is_continuous_body": false
+    },
+    {
+      "object": "S_racing_foot_v3_fore_R_rear_spur",
+      "vertices": 12,
+      "polygons": 10,
+      "bbox_world_xyz": [
+        [
+          0.14100000262260437,
+          -0.27302035689353943,
+          0.02209477126598358
+        ],
+        [
+          0.15900000929832458,
+          -0.2230481654405594,
+          0.06752819567918777
+        ]
+      ],
+      "inside_fore_support_vertices": 0,
+      "inside_hind_support_vertices": 0,
+      "body_surface_vertex_proximity": {
+        "sample_count": 12,
+        "min_nearest_body_vertex": 0.0047616600058972836,
+        "mean_nearest_body_vertex": 0.01816789313064267,
+        "fraction_near_lt_0p025": 0.6666666666666666,
+        "fraction_near_lt_0p05": 1.0
+      },
+      "is_continuous_body": false
+    },
+    {
+      "object": "S_racing_foot_v3_hind_L_prong_A",
+      "vertices": 16,
+      "polygons": 14,
+      "bbox_world_xyz": [
+        [
+          -0.1873800903558731,
+          0.8385199904441833,
+          0.005635275971144438
+        ],
+        [
+          -0.1510423719882965,
+          0.9845307469367981,
+          0.09556244313716888
+        ]
+      ],
+      "inside_fore_support_vertices": 0,
+      "inside_hind_support_vertices": 0,
+      "body_surface_vertex_proximity": {
+        "sample_count": 16,
+        "min_nearest_body_vertex": 0.0031009770464152098,
+        "mean_nearest_body_vertex": 0.05668287513253745,
+        "fraction_near_lt_0p025": 0.4375,
+        "fraction_near_lt_0p05": 0.5
+      },
+      "is_continuous_body": false
+    },
+    {
+      "object": "S_racing_foot_v3_hind_L_prong_B",
+      "vertices": 16,
+      "polygons": 14,
+      "bbox_world_xyz": [
+        [
+          -0.14895763993263245,
+          0.8385199904441833,
+          0.005635276436805725
+        ],
+        [
+          -0.11261992156505585,
+          0.9845307469367981,
+          0.09556244313716888
+        ]
+      ],
+      "inside_fore_support_vertices": 0,
+      "inside_hind_support_vertices": 0,
+      "body_surface_vertex_proximity": {
+        "sample_count": 16,
+        "min_nearest_body_vertex": 0.0038906314875930548,
+        "mean_nearest_body_vertex": 0.05742391057719942,
+        "fraction_near_lt_0p025": 0.5,
+        "fraction_near_lt_0p05": 0.5
+      },
+      "is_continuous_body": false
+    },
+    {
+      "object": "S_racing_foot_v3_hind_L_rear_spur",
+      "vertices": 12,
+      "polygons": 10,
+      "bbox_world_xyz": [
+        [
+          -0.15900000929832458,
+          0.9649796485900879,
+          0.02209477312862873
+        ],
+        [
+          -0.14100000262260437,
+          1.0149518251419067,
+          0.06752820312976837
+        ]
+      ],
+      "inside_fore_support_vertices": 0,
+      "inside_hind_support_vertices": 0,
+      "body_surface_vertex_proximity": {
+        "sample_count": 12,
+        "min_nearest_body_vertex": 0.006162117701023817,
+        "mean_nearest_body_vertex": 0.017581005852359038,
+        "fraction_near_lt_0p025": 0.6666666666666666,
+        "fraction_near_lt_0p05": 1.0
+      },
+      "is_continuous_body": false
+    },
+    {
+      "object": "S_racing_foot_v3_hind_R_prong_A",
+      "vertices": 16,
+      "polygons": 14,
+      "bbox_world_xyz": [
+        [
+          0.11261992156505585,
+          0.8385199904441833,
+          0.005635276436805725
+        ],
+        [
+          0.14895763993263245,
+          0.9845307469367981,
+          0.09556244313716888
+        ]
+      ],
+      "inside_fore_support_vertices": 0,
+      "inside_hind_support_vertices": 0,
+      "body_surface_vertex_proximity": {
+        "sample_count": 16,
+        "min_nearest_body_vertex": 0.0030833063647150993,
+        "mean_nearest_body_vertex": 0.05673438380472362,
+        "fraction_near_lt_0p025": 0.4375,
+        "fraction_near_lt_0p05": 0.5
+      },
+      "is_continuous_body": false
+    },
+    {
+      "object": "S_racing_foot_v3_hind_R_prong_B",
+      "vertices": 16,
+      "polygons": 14,
+      "bbox_world_xyz": [
+        [
+          0.1510423719882965,
+          0.8385199904441833,
+          0.005635275971144438
+        ],
+        [
+          0.1873800903558731,
+          0.9845307469367981,
+          0.09556244313716888
+        ]
+      ],
+      "inside_fore_support_vertices": 0,
+      "inside_hind_support_vertices": 0,
+      "body_surface_vertex_proximity": {
+        "sample_count": 16,
+        "min_nearest_body_vertex": 0.003910727333277464,
+        "mean_nearest_body_vertex": 0.057411528163356707,
+        "fraction_near_lt_0p025": 0.5,
+        "fraction_near_lt_0p05": 0.5
+      },
+      "is_continuous_body": false
+    },
+    {
+      "object": "S_racing_foot_v3_hind_R_rear_spur",
+      "vertices": 12,
+      "polygons": 10,
+      "bbox_world_xyz": [
+        [
+          0.14100000262260437,
+          0.9649796485900879,
+          0.02209477312862873
+        ],
+        [
+          0.15900000929832458,
+          1.0149518251419067,
+          0.06752820312976837
+        ]
+      ],
+      "inside_fore_support_vertices": 0,
+      "inside_hind_support_vertices": 0,
+      "body_surface_vertex_proximity": {
+        "sample_count": 12,
+        "min_nearest_body_vertex": 0.006173849571496248,
+        "mean_nearest_body_vertex": 0.017577977385371923,
+        "fraction_near_lt_0p025": 0.6666666666666666,
+        "fraction_near_lt_0p05": 1.0
+      },
+      "is_continuous_body": false
+    },
+    {
+      "object": "S_tail_v2_center",
+      "vertices": 48,
+      "polygons": 46,
+      "bbox_world_xyz": [
+        [
+          -0.006000000052154064,
+          1.1548672914505005,
+          0.8101822137832642
+        ],
+        [
+          0.006000000052154064,
+          2.1819002628326416,
+          1.0365856885910034
+        ]
+      ],
+      "inside_fore_support_vertices": 0,
+      "inside_hind_support_vertices": 0,
+      "body_surface_vertex_proximity": {
+        "sample_count": 48,
+        "min_nearest_body_vertex": 0.0021149171516299248,
+        "mean_nearest_body_vertex": 0.057216149512290336,
+        "fraction_near_lt_0p025": 0.20833333333333334,
+        "fraction_near_lt_0p05": 0.6458333333333334
+      },
+      "is_continuous_body": false
+    },
+    {
+      "object": "S_tail_v2_lower_L",
+      "vertices": 48,
+      "polygons": 46,
+      "bbox_world_xyz": [
+        [
+          -0.06370414048433304,
+          1.2260488271713257,
+          0.6325974464416504
+        ],
+        [
+          -0.00462239608168602,
+          1.9230608940124512,
+          0.9794794917106628
+        ]
+      ],
+      "inside_fore_support_vertices": 0,
+      "inside_hind_support_vertices": 0,
+      "body_surface_vertex_proximity": {
+        "sample_count": 48,
+        "min_nearest_body_vertex": 0.014383682981133461,
+        "mean_nearest_body_vertex": 0.11376561816238488,
+        "fraction_near_lt_0p025": 0.14583333333333334,
+        "fraction_near_lt_0p05": 0.25
+      },
+      "is_continuous_body": false
+    },
+    {
+      "object": "S_tail_v2_lower_R",
+      "vertices": 48,
+      "polygons": 46,
+      "bbox_world_xyz": [
+        [
+          0.00462239608168602,
+          1.2260488271713257,
+          0.6325974464416504
+        ],
+        [
+          0.06370414048433304,
+          1.9230608940124512,
+          0.9794794917106628
+        ]
+      ],
+      "inside_fore_support_vertices": 0,
+      "inside_hind_support_vertices": 0,
+      "body_surface_vertex_proximity": {
+        "sample_count": 48,
+        "min_nearest_body_vertex": 0.014181321486830711,
+        "mean_nearest_body_vertex": 0.11413271342947458,
+        "fraction_near_lt_0p025": 0.14583333333333334,
+        "fraction_near_lt_0p05": 0.25
+      },
+      "is_continuous_body": false
+    },
+    {
+      "object": "S_tail_v2_mid_L",
+      "vertices": 48,
+      "polygons": 46,
+      "bbox_world_xyz": [
+        [
+          -0.07894547283649445,
+          1.1820862293243408,
+          0.7518786191940308
+        ],
+        [
+          -0.002268735785037279,
+          2.0224945545196533,
+          1.0176254510879517
+        ]
+      ],
+      "inside_fore_support_vertices": 0,
+      "inside_hind_support_vertices": 0,
+      "body_surface_vertex_proximity": {
+        "sample_count": 48,
+        "min_nearest_body_vertex": 0.004245004151016474,
+        "mean_nearest_body_vertex": 0.05324681864779753,
+        "fraction_near_lt_0p025": 0.4375,
+        "fraction_near_lt_0p05": 0.5416666666666666
+      },
+      "is_continuous_body": false
+    },
+    {
+      "object": "S_tail_v2_mid_R",
+      "vertices": 48,
+      "polygons": 46,
+      "bbox_world_xyz": [
+        [
+          0.002268735785037279,
+          1.1820862293243408,
+          0.7518786191940308
+        ],
+        [
+          0.07894547283649445,
+          2.0224945545196533,
+          1.0176254510879517
+        ]
+      ],
+      "inside_fore_support_vertices": 0,
+      "inside_hind_support_vertices": 0,
+      "body_surface_vertex_proximity": {
+        "sample_count": 48,
+        "min_nearest_body_vertex": 0.004332908894866705,
+        "mean_nearest_body_vertex": 0.053480639995541424,
+        "fraction_near_lt_0p025": 0.4375,
+        "fraction_near_lt_0p05": 0.5416666666666666
+      },
+      "is_continuous_body": false
+    },
+    {
+      "object": "S_tail_v2_upper_L",
+      "vertices": 48,
+      "polygons": 46,
+      "bbox_world_xyz": [
+        [
+          -0.06571909040212631,
+          1.1389092206954956,
+          0.9353651404380798
+        ],
+        [
+          0.0004828791134059429,
+          2.101468086242676,
+          1.0758663415908813
+        ]
+      ],
+      "inside_fore_support_vertices": 0,
+      "inside_hind_support_vertices": 0,
+      "body_surface_vertex_proximity": {
+        "sample_count": 48,
+        "min_nearest_body_vertex": 0.0061769490130245686,
+        "mean_nearest_body_vertex": 0.0823418837680947,
+        "fraction_near_lt_0p025": 0.125,
+        "fraction_near_lt_0p05": 0.3125
+      },
+      "is_continuous_body": false
+    },
+    {
+      "object": "S_tail_v2_upper_R",
+      "vertices": 48,
+      "polygons": 46,
+      "bbox_world_xyz": [
+        [
+          -0.0004828791134059429,
+          1.1389092206954956,
+          0.9353651404380798
+        ],
+        [
+          0.06571909040212631,
+          2.101468086242676,
+          1.0758663415908813
+        ]
+      ],
+      "inside_fore_support_vertices": 0,
+      "inside_hind_support_vertices": 0,
+      "body_surface_vertex_proximity": {
+        "sample_count": 48,
+        "min_nearest_body_vertex": 0.006066251080483198,
+        "mean_nearest_body_vertex": 0.08254507513872038,
+        "fraction_near_lt_0p025": 0.125,
+        "fraction_near_lt_0p05": 0.3125
+      },
+      "is_continuous_body": false
+    }
+  ],
+  "note": "BBox and nearest vertex distance classify ownership and proximity; do not infer exact intersections without a BVH surface test."
+}
