@@ -1,0 +1,75 @@
+name: EvoWild S R1-A1 recover verified output (no rerender)
+on:
+  push:
+    branches:
+      - exp/s-authority-r1-a1-trial-20261009
+    paths:
+      - .github/workflows/s-authority-r1-a1-recover.yml
+  workflow_dispatch:
+permissions:
+  actions: read
+  contents: write
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/output/S-authority-r0-a5-v2.blend
+            /art/s-creature/output/review/authority-r0-a6/
+            /art/s-creature/output/S-authority-r1-a1-v1.blend
+            /art/s-creature/output/S-authority-r1-a1-v1-validation.json
+            /art/s-creature/output/review/authority-r1-a1-trial/
+            /.github/workflows/s-authority-r1-a1-recover.yml
+      - name: Download ONLY completed run output, no Blender/generation
+        uses: actions/download-artifact@v4
+        with:
+          name: EvoWild-authority-R1-A1-model-and-5view
+          run-id: 37944170915
+          github-token: ${{ github.token }}
+          repository: badjoke-lab/evowild-test
+          path: /tmp/evowild-r1a1-recovered
+      - name: Verify unchanged-surrounding geometry audit and copy real assets
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,shutil
+          src=Path('/tmp/evowild-r1a1-recovered')
+          dest=Path('art/s-creature/output')
+          vals=json.loads((src/'S-authority-r1-a1-v1-validation.json').read_text())
+          assert vals['rendered_views']==['side','front','front34','rear34','back']
+          assert vals['render_geometry_unchanged'] is True
+          assert vals['outside_support_unchanged'] is True
+          assert vals['separate_meshes_unchanged'] is True
+          assert vals['camera_transforms_unchanged'] is True
+          assert vals['body_topology_unchanged'] is True
+          assert vals['body_nonmanifold_edge_count']==0
+          assert 0<vals['max_displacement']<=.02500001
+          assert vals['roughness_after_mean']<vals['roughness_before_mean']
+          names=[
+            'S-authority-r1-a1-v1.blend',
+            'S-authority-r1-a1-v1-validation.json',
+            'review/authority-r1-a1-trial/S_R0_vs_R1A1_real_fiveview.jpg',
+          ]+[f'review/authority-r1-a1-trial/S_authority_r1_a1_{v}.png'
+             for v in ('side','front','front34','rear34','back')]
+          for name in names:
+            p=src/name
+            assert p.is_file() and p.stat().st_size>1000,(name,p)
+            (dest/name).parent.mkdir(parents=True,exist_ok=True)
+            shutil.copy2(p,dest/name)
+          print("RECOVERY_VERIFIED",vals["editable_vertex_count"],vals["max_displacement"],vals["roughness_mean_ratio"])
+          PY
+      - name: Save same audited results, never touch accepted source
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/output/S-authority-r1-a1-v1.blend art/s-creature/output/S-authority-r1-a1-v1-validation.json art/s-creature/output/review/authority-r1-a1-trial/
+          git diff --cached --stat
+          git commit -m 'exp: restore validated R1-A1 shoulder/hip refinement and five real renders'
+          git pull --rebase origin exp/s-authority-r1-a1-trial-20261009
+          git push origin HEAD:exp/s-authority-r1-a1-trial-20261009
