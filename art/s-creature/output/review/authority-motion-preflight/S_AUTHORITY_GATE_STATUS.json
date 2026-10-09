@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-09T16:59:18.164482+00:00",
+  "generated_at_utc": "2026-10-09T17:04:11.738513+00:00",
   "highest_authority": {
     "path": "art/s-creature/references/00_s_type_modeling_image_v1.png",
     "sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
@@ -34,6 +34,7 @@
   "s_production_approved": false,
   "rigging_allowed": false,
   "h3_motion_allowed": false,
-  "next_geometry_gate": "REBUILD_SCAPULA_THORAX_FORELEG_QUAD_LOOPS_AND_REVIEW_FIVE_VIEWS",
-  "note": "Only identity and file availability are machine verified; likeness has not passed artistic review. Do not promote old source-lod2.glb."
+  "next_geometry_gate": "R0_R1_LEGACY_EXPERIMENT_ONLY_REJECTED_R1A3",
+  "primary_next_stage": "QEM_CANDIDATE_DEFORMATION_FEASIBILITY_ON_SEPARATE_DONOR_BRANCH",
+  "note": "Historical R0/R1 reference comparison only. Later QEM donor selection is evaluated separately; this report does not approve or rank the QEM model. Do not promote old source-lod2.glb."
 }
