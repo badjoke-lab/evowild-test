@@ -3071,3 +3071,62 @@ test("Motion First individual stamina v1 makes staminaBias affect real drain", a
     })
   );
 });
+
+
+test("Motion First cross-course individual balance audit v1", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(180000);
+
+  const courses = [
+    "sprint-800-v1",
+    "heavy-1200-v1",
+    "balanced-1600-v1",
+    "endurance-2400-v1"
+  ];
+  const results = [];
+
+  for (const course of courses) {
+    const url =
+      `/evowild-test/preview-motion-first-race/index.html?skipStart=1&course=${course}&entry=0&entryAgent=balanced-v1&simRate=4`;
+    await page.goto(url, { waitUntil: "networkidle" });
+    const scene = page.locator("#scene");
+    await expect(scene).toHaveAttribute("data-result-ready", "1", {
+      timeout: 50000
+    });
+
+    const classification = JSON.parse(
+      (await scene.getAttribute("data-final-classification")) || "[]"
+    );
+    expect(classification).toHaveLength(18);
+    expect(classification.map((row) => row.rank)).toEqual(
+      Array.from({ length: 18 }, (_, i) => i + 1)
+    );
+
+    const winner = classification[0];
+    const second = classification[1];
+    results.push({
+      course,
+      winner,
+      second,
+      margin: Number((second.time - winner.time).toFixed(3)),
+      top5: classification.slice(0, 5)
+    });
+  }
+
+  const winnerIds = results.map((row) => row.winner.id);
+  const winnerMorphs = results.map((row) => row.winner.morph);
+  const summary = {
+    winnerIds,
+    winnerMorphs,
+    uniqueWinnerIds: [...new Set(winnerIds)],
+    uniqueWinnerMorphs: [...new Set(winnerMorphs)],
+    results
+  };
+
+  console.log("CROSS_COURSE_BALANCE_AUDIT_V1", JSON.stringify(summary));
+
+  // Audit gate only: prove all four deterministic course runs completed.
+  // Diversity is intentionally not asserted here; this lane measures the
+  // current imbalance before any coefficient change is allowed.
+  expect(results).toHaveLength(4);
+});
