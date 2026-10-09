@@ -1,0 +1,108 @@
+{
+  "authority_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "source_qem_sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "source_mesh_unchanged": true,
+  "vertices": 29948,
+  "triangles": 59932,
+  "normalization_height": 2.55,
+  "original_span_xyz": [
+    0.1533219963312149,
+    0.647447943687439,
+    0.35851597785949707
+  ],
+  "normalized_bbox_xyz": {
+    "min": [
+      -0.5452631711959839,
+      -2.302536725997925,
+      0.0
+    ],
+    "max": [
+      0.5452631115913391,
+      2.3025364875793457,
+      2.5500001907348633
+    ]
+  },
+  "fore_vs_hind_split_y": "median surface sample coordinate, NOT anatomy",
+  "probe_landmarks": [
+    {
+      "label": "FORE_L",
+      "status": "CANDIDATE_REGION_UNVERIFIED",
+      "foot_xyz": [
+        0.4158697724342346,
+        -0.8527147769927979,
+        0.021096110343933105
+      ],
+      "middle_xyz": [
+        0.09073968231678009,
+        -0.6697133183479309,
+        1.342122197151184
+      ],
+      "low_z_count": 1004,
+      "middle_surface_count": 990,
+      "warning": "surface samples are not approved knee/elbow/hock locations"
+    },
+    {
+      "label": "FORE_R",
+      "status": "CANDIDATE_REGION_UNVERIFIED",
+      "foot_xyz": [
+        -0.41421961784362793,
+        -1.2730443477630615,
+        0.02517879009246826
+      ],
+      "middle_xyz": [
+        -0.11556284129619598,
+        -1.354946494102478,
+        1.6887075901031494
+      ],
+      "low_z_count": 1859,
+      "middle_surface_count": 1406,
+      "warning": "surface samples are not approved knee/elbow/hock locations"
+    },
+    {
+      "label": "HIND_L",
+      "status": "CANDIDATE_REGION_UNVERIFIED",
+      "foot_xyz": [
+        0.42054277658462524,
+        2.076226234436035,
+        0.02327972650527954
+      ],
+      "middle_xyz": [
+        0.29618513584136963,
+        1.9043915271759033,
+        0.8556201457977295
+      ],
+      "low_z_count": 1026,
+      "middle_surface_count": 816,
+      "warning": "surface samples are not approved knee/elbow/hock locations"
+    },
+    {
+      "label": "HIND_R",
+      "status": "CANDIDATE_REGION_UNVERIFIED",
+      "foot_xyz": [
+        -0.43794742226600647,
+        1.964280128479004,
+        0.0156477689743042
+      ],
+      "middle_xyz": [
+        -0.34931665658950806,
+        1.7701473236083984,
+        0.7997823357582092
+      ],
+      "low_z_count": 1296,
+      "middle_surface_count": 766,
+      "warning": "surface samples are not approved knee/elbow/hock locations"
+    }
+  ],
+  "review_views": [
+    "side",
+    "front",
+    "front34",
+    "rear34",
+    "back"
+  ],
+  "gate": "JOINT_LANDMARKS_REQUIRE_VISUAL_VALIDATION",
+  "full_rig_ready": false,
+  "deformation_proven": false,
+  "morphology_approved": false,
+  "note": "Markers and guide material exist only in review .blend and renders; source GLB is unchanged."
+}
