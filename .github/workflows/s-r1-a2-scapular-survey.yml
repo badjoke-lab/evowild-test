@@ -5,6 +5,7 @@ on:
       - exp/s-authority-r1-a1-trial-20261009
     paths:
       - .github/workflows/s-r1-a2-scapular-survey.yml
+      - art/s-creature/blender/audit_s_r1_a2_scapular_spike.py
   workflow_dispatch:
 permissions:
   contents: write
