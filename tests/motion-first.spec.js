@@ -3202,3 +3202,89 @@ test("Motion First AGILITY positioning v1 exploits a smaller safe opening", asyn
     path: "test-results/visuals/motion-first-agility-positioning-v1.png"
   });
 });
+
+
+test("Motion First Visual Swap regression v2 preserves complete race state", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chromium");
+  test.setTimeout(140000);
+
+  await page.addInitScript(() => {
+    window.localStorage.removeItem("evowild.motionFirst.agentHistory.v1");
+  });
+
+  const runRace = async (extra = "") => {
+    const url =
+      "/evowild-test/preview-motion-first-race/index.html?skipStart=1&course=balanced-1600-v1&entry=0&entryAgent=balanced-v1&simRate=4" +
+      extra;
+    await page.goto(url, { waitUntil: "networkidle" });
+    const scene = page.locator("#scene");
+    await expect(scene).toHaveAttribute("data-result-ready", "1", {
+      timeout: 55000
+    });
+
+    const classification = JSON.parse(
+      (await scene.getAttribute("data-final-classification")) || "[]"
+    );
+    expect(classification).toHaveLength(18);
+
+    return {
+      classification,
+      winnerId: Number(await scene.getAttribute("data-winner-id")),
+      winningTime: Number(await scene.getAttribute("data-winning-time")),
+      visualReady: await scene.getAttribute("data-visual-swap-ready"),
+      visualMode: await scene.getAttribute("data-visual-swap-mode"),
+      visualCount: Number(await scene.getAttribute("data-visual-swap-runner-count")),
+      proxyCount: Number(await scene.getAttribute("data-proxy-runner-count")),
+      clipCount: Number(await scene.getAttribute("data-visual-swap-clip-count")),
+      renderCalls: Number(await scene.getAttribute("data-render-calls"))
+    };
+  };
+
+  const baseline = await runRace();
+  expect(baseline.visualReady).toBe("0");
+  expect(baseline.visualMode).toBe("proxy");
+  expect(baseline.visualCount).toBe(0);
+  expect(baseline.proxyCount).toBe(18);
+
+  const swapped = await runRace("&visualSwap=S&visualSwapRunner=0");
+  expect(swapped.visualReady).toBe("1");
+  expect(swapped.visualMode).toBe("external-native-clip");
+  expect(swapped.visualCount).toBe(1);
+  expect(swapped.proxyCount).toBe(17);
+  expect(swapped.clipCount).toBeGreaterThan(0);
+  expect(swapped.renderCalls).toBeLessThan(100);
+
+  // Visual replacement must not mutate race state or simulation outcome.
+  expect(swapped.winnerId).toBe(baseline.winnerId);
+  expect(swapped.winningTime).toBeCloseTo(baseline.winningTime, 3);
+  expect(swapped.classification.map((row) => row.id)).toEqual(
+    baseline.classification.map((row) => row.id)
+  );
+  expect(swapped.classification.map((row) => row.morph)).toEqual(
+    baseline.classification.map((row) => row.morph)
+  );
+  swapped.classification.forEach((row, index) => {
+    expect(row.time).toBeCloseTo(baseline.classification[index].time, 3);
+  });
+
+  console.log(
+    "VISUAL_SWAP_REGRESSION_V2",
+    JSON.stringify({
+      baseline: {
+        winnerId: baseline.winnerId,
+        winningTime: baseline.winningTime,
+        proxyCount: baseline.proxyCount,
+        visualCount: baseline.visualCount
+      },
+      swapped: {
+        winnerId: swapped.winnerId,
+        winningTime: swapped.winningTime,
+        proxyCount: swapped.proxyCount,
+        visualCount: swapped.visualCount,
+        clipCount: swapped.clipCount,
+        renderCalls: swapped.renderCalls
+      },
+      classificationIds: swapped.classification.map((row) => row.id)
+    })
+  );
+});
