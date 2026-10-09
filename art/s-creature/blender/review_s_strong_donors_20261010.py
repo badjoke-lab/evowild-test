@@ -71,6 +71,21 @@ for key,source in SOURCE.items():
     span=hi-lo
     if min(span)<=0 or span.z<.05 or span.y<.05:
         raise ValueError(f"unexpected donor dimensions: {key} {list(span)}")
+    axis_correction="NONE"
+    # QEM GLB is authored with a different glTF up-axis transform: importer
+    # reports Y=0.647 body height and Z=0.359 body length. The original
+    # source audit is Z-up. Rotate only in review scene to reconcile axes.
+    if key=="QEM" and span.y>span.z*1.3:
+        correction=Matrix.Rotation(3.141592653589793/2,4,"X")
+        for o in added:
+            if o.parent is None:o.matrix_world=correction@o.matrix_world
+        verts=[o.matrix_world@v.co for o in meshes for v in o.data.vertices]
+        lo=Vector([min(p[i] for p in verts) for i in range(3)])
+        hi=Vector([max(p[i] for p in verts) for i in range(3)])
+        span=hi-lo
+        axis_correction="QEM +90deg X, applied to review scene transforms only"
+        if span.z<span.y:
+            raise RuntimeError("QEM correction still not upright "+str(list(span)))
     # Only review-space transform; never touch the source GLB geometry.
     s=2.55/span.z
     transform=Matrix.Translation(Vector((-(lo.x+hi.x)*s/2,-(lo.y+hi.y)*s/2,-lo.z*s)))@Matrix.Scale(s,4)
@@ -110,6 +125,7 @@ for key,source in SOURCE.items():
       "total_nonmanifold_edges":sum(z["nonmanifold_edges"] for z in stats),
       "original_world_extent":list(span),
       "normalization_uniform_scale":s,
+      "axis_correction":axis_correction,
       "normalized_bbox":normalized_bbox[key],
       "status":source["status"],"provenance":source["generation"],
     }
