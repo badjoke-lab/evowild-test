@@ -1,0 +1,42 @@
+{
+  "method": "fixed camera identical-resolution actual Blender render local crops",
+  "meaning": "measures visual magnitude only, not artistic approval",
+  "stats": {
+    "front34": {
+      "crop_xyxy": [
+        332,
+        286,
+        689,
+        492
+      ],
+      "pixels_changed_threshold_14": 5692,
+      "fraction_changed_threshold_14": 0.07739794947105055,
+      "max_rgb_difference": 149,
+      "mean_absolute_max_channel_difference": 3.651994778493922
+    },
+    "rear34": {
+      "crop_xyxy": [
+        330,
+        280,
+        717,
+        495
+      ],
+      "pixels_changed_threshold_14": 3222,
+      "fraction_changed_threshold_14": 0.03872363439697134,
+      "max_rgb_difference": 90,
+      "mean_absolute_max_channel_difference": 2.051859864190854
+    },
+    "side": {
+      "crop_xyxy": [
+        292,
+        276,
+        708,
+        505
+      ],
+      "pixels_changed_threshold_14": 4275,
+      "fraction_changed_threshold_14": 0.044875293920053745,
+      "max_rgb_difference": 130,
+      "mean_absolute_max_channel_difference": 2.285826755122607
+    }
+  }
+}
