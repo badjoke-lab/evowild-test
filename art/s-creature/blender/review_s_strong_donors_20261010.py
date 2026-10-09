@@ -65,6 +65,14 @@ for key,source in SOURCE.items():
         # Preserve source mesh topology. Move collection reference only.
         for c in list(o.users_collection):c.objects.unlink(o)
         newcol.objects.link(o)
+    # Detach imported glTF mesh nodes from their parent empties while
+    # retaining exact world-space geometry. Parent-space object transforms
+    # otherwise suppress or double-apply explicit normalization rotations.
+    for o in meshes:
+        world=o.matrix_world.copy()
+        o.parent=None
+        o.matrix_world=world
+    bpy.context.view_layer.update()
     verts=[o.matrix_world@v.co for o in meshes for v in o.data.vertices]
     lo=Vector([min(p[i] for p in verts) for i in range(3)])
     hi=Vector([max(p[i] for p in verts) for i in range(3)])
@@ -77,8 +85,9 @@ for key,source in SOURCE.items():
     # source audit is Z-up. Rotate only in review scene to reconcile axes.
     if key=="QEM" and span.y>span.z*1.3:
         correction=Matrix.Rotation(3.141592653589793/2,4,"X")
-        for o in added:
-            if o.parent is None:o.matrix_world=correction@o.matrix_world
+        for o in meshes:
+            o.matrix_world=correction@o.matrix_world
+        bpy.context.view_layer.update()
         verts=[o.matrix_world@v.co for o in meshes for v in o.data.vertices]
         lo=Vector([min(p[i] for p in verts) for i in range(3)])
         hi=Vector([max(p[i] for p in verts) for i in range(3)])
@@ -89,8 +98,9 @@ for key,source in SOURCE.items():
     # Only review-space transform; never touch the source GLB geometry.
     s=2.55/span.z
     transform=Matrix.Translation(Vector((-(lo.x+hi.x)*s/2,-(lo.y+hi.y)*s/2,-lo.z*s)))@Matrix.Scale(s,4)
-    for o in added:
-        if o.parent is None:o.matrix_world=transform@o.matrix_world
+    for o in meshes:
+        o.matrix_world=transform@o.matrix_world
+    bpy.context.view_layer.update()
     # Actual geometric world-space dimensions now, not inferred camera bounds.
     pp=[o.matrix_world@v.co for o in meshes for v in o.data.vertices]
     lower=Vector([min(p[i] for p in pp) for i in range(3)])
@@ -159,8 +169,7 @@ for key in ("R5","QEM"):
 for key in objects:
     for o in objects[key]:
         o.hide_render=False
-        if o.parent is None:
-            o.matrix_world=Matrix.Translation(Vector((-2.0 if key=="R5" else 2.0,0,0)))@o.matrix_world
+        o.matrix_world=Matrix.Translation(Vector((-2.0 if key=="R5" else 2.0,0,0)))@o.matrix_world
 bpy.ops.wm.save_as_mainfile(filepath=str(OUT/"S-strong-donor-side-by-side-review.blend"),compress=True)
 result={
  "authority":"art/s-creature/references/00_s_type_modeling_image_v1.png",
