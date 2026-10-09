@@ -3125,8 +3125,19 @@ test("Motion First cross-course individual balance audit v1", async ({ page }, t
 
   console.log("CROSS_COURSE_BALANCE_AUDIT_V1", JSON.stringify(summary));
 
-  // Audit gate only: prove all four deterministic course runs completed.
-  // Diversity is intentionally not asserted here; this lane measures the
-  // current imbalance before any coefficient change is allowed.
   expect(results).toHaveLength(4);
+  expect(summary.uniqueWinnerIds.length).toBeGreaterThanOrEqual(3);
+  expect(summary.uniqueWinnerMorphs.length).toBeGreaterThanOrEqual(3);
+
+  const winnerCounts = winnerIds.reduce((acc, id) => {
+    acc[id] = (acc[id] || 0) + 1;
+    return acc;
+  }, {});
+  expect(Math.max(...Object.values(winnerCounts))).toBeLessThanOrEqual(2);
+
+  // Preserve the currently validated course identities without forcing the
+  // BALANCED course to a specific morph.
+  expect(results.find((row) => row.course === "sprint-800-v1")?.winner.morph).toBe("S");
+  expect(results.find((row) => row.course === "heavy-1200-v1")?.winner.morph).toBe("P");
+  expect(results.find((row) => row.course === "endurance-2400-v1")?.winner.morph).toBe("E");
 });
