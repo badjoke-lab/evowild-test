@@ -1,0 +1,83 @@
+name: EvoWild S QEM actual 3D leg-bend gate
+on:
+  push:
+    branches: [exp/s-qem-deformation-gate-20261010]
+    paths: [.github/workflows/s-qem-real-leg-bend-probe.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  preserved-QEM-bend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 36
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_qem_lower_limb_bend_probe.py
+            /art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb
+            /art/s-creature/experiments/qem-deformation-gate-20261010/S-QEM-pre-rig-source-review.blend
+            /art/s-creature/experiments/qem-deformation-gate-20261010/bend-probe-v1/
+            /.github/workflows/s-qem-real-leg-bend-probe.yml
+      - name: Blender 4.3.2 CPU dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Probe all four actual QEM limb surfaces and render 10 source / posed real images
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/S-QEM-pre-rig-source-review.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_lower_limb_bend_probe.py
+      - name: Verify unchanged source and compare five joint-probe views
+        run: |
+          python3 -m pip install -q Pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          import json
+          out=Path('art/s-creature/experiments/qem-deformation-gate-20261010/bend-probe-v1')
+          rev=out/'review'
+          d=json.loads((out/'BEND_PROBE_QA.json').read_text())
+          assert d['source_glb_sha256']=='e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f'
+          assert d['source_topology_unchanged'] and d['source_coordinates_unchanged']
+          assert d['same_geometry_no_lowpoly_substitution']
+          assert d['original_verts']==d['posed_verts']==29948
+          assert d['source_faces']==d['posed_faces']==59932
+          assert d['nonmanifold_edges']==0 and d['watertight_mesh_topology']
+          assert not d['armature_created'] and not d['skinning_tested'] and not d['production_approved']
+          if not (out/'S-QEM-real-geometry-bend-probe-v1.blend').stat().st_size>50000:
+            raise AssertionError("No real Blender 3D output")
+          views=['side','front','front34','rear34','back']
+          w,h=430,445
+          sheet=Image.new('RGB',(w*5,h*2),(245,246,248))
+          draw=ImageDraw.Draw(sheet)
+          for i,v in enumerate(views):
+            for j,(tag,p) in enumerate([
+              ('SOURCE QEM',rev/f'QEM_before_{v}.png'),
+              ('BEND TEST COPY',rev/f'QEM_bend_probe_{v}.png')]):
+              assert p.stat().st_size>11000,p
+              im=Image.open(p).convert('RGB')
+              im.thumbnail((w-12,h-40))
+              sheet.paste(im,(w*i+(w-im.width)//2,j*h+30+(h-35-im.height)//2))
+              draw.text((i*w+10,j*h+9),tag+' / '+v.upper(),(13,15,17))
+          dst=rev/'QEM_before_vs_lower_limb_bend_fiveview.jpg'
+          sheet.save(dst,quality=92,optimize=True)
+          print('ACTUAL_QEM_BEND_FIVE_VIEW_READY',d['mechanical_probe_gate'],d['moved_vertices'],d['flipped_faces'],d['face_collapse'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-S-QEM-real-3D-bend-probe-with-failure-proof
+          path: art/s-creature/experiments/qem-deformation-gate-20261010/bend-probe-v1/
+          if-no-files-found: warn
+      - name: Save actual before/after meshes and strict deformation audit
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/qem-deformation-gate-20261010/bend-probe-v1/
+          git commit -m 'exp: actual QEM limb bend probe geometry QA and 10 real five-view renders'
+          git pull --rebase origin exp/s-qem-deformation-gate-20261010
+          git push origin HEAD:exp/s-qem-deformation-gate-20261010
