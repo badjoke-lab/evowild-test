@@ -114,7 +114,56 @@ for side in (-1,1):
                "actual_modified":len(raw),"mean_lateral_shift":sum(raw)/max(len(raw),1),
                "max_abs_lateral_shift":max((abs(v) for v in raw),default=0),
                "coefficients":[float(v) for v in coeff]}
-M.update()
+# Safety-preserving line search: use the strongest *actual geometric* surface
+# reconstruction that passes all original face area/orientation constraints.
+# Do not relax face validity and never rerun an unsafe deformation unchanged.
+candidate_shifts=list(changed)
+touched={i for i,_,_ in candidate_shifts}
+affected_faces=[p for p in M.polygons if any(i in touched for i in p.vertices)]
+def normal_area(P):
+    n=Vector()
+    for j,p in enumerate(P):
+        q=P[(j+1)%len(P)]
+        n.x+=(p.y-q.y)*(p.z+q.z)
+        n.y+=(p.z-q.z)*(p.x+q.x)
+        n.z+=(p.x-q.x)*(p.y+q.y)
+    return n
+base_normals={}
+for face in affected_faces:
+    a=[before[i] for i in face.vertices]
+    base_normals[face.index]=normal_area(a)
+factor_used=None
+safety_trials=[]
+for factor in (1.,.85,.70,.55,.42,.32,.24,.17):
+    for i,tag,dx in candidate_shifts:
+        side=-1 if tag=="L" else 1
+        M.vertices[i].co.x=before[i].x+side*dx*factor
+    M.update()
+    invalid_count=0
+    worst_ratio=1.
+    for face in affected_faces:
+        n0=base_normals[face.index]
+        n1=normal_area([M.vertices[i].co for i in face.vertices])
+        if n0.length<1e-7 or n1.length<1e-7:
+            invalid_count+=1
+            continue
+        ratio=n1.length/n0.length
+        worst_ratio=max(worst_ratio,ratio,1/max(ratio,1e-12))
+        if n0.dot(n1)<.20*n0.length*n1.length or ratio<.48 or ratio>1.8:
+            invalid_count+=1
+    trial_angles=angle_stats()
+    safety_trials.append({"factor":factor,"invalid_faces":invalid_count,
+       "worst_area_ratio_deviation":worst_ratio,
+       "crease_gt45":trial_angles["over_45"]})
+    if invalid_count==0 and trial_angles["nonmanifold"]==0 and trial_angles["over_45"]<=startangles["over_45"]+6:
+        factor_used=factor
+        break
+if factor_used is None:
+    raise RuntimeError(f"ALL_SHOULDER_PATCH_STRENGTHS_REJECTED {safety_trials}")
+changed=[(i,tag,dx*factor_used) for i,tag,dx in candidate_shifts]
+for tag in ("L","R"):
+    fits[tag]["max_abs_lateral_shift"]*=factor_used
+    fits[tag]["mean_lateral_shift"]*=factor_used
 if not (25<=fits["L"]["actual_modified"]<400 and 25<=fits["R"]["actual_modified"]<400):
     raise RuntimeError("Unbounded or ineffective shoulder reconstruction: "+repr(fits))
 modified={i for i,_,_ in changed}
@@ -169,6 +218,7 @@ report={
  "changes":[{"vertex_index":i,"side":tag,"x_delta":round(delta,7)} for i,tag,delta in changed],
  "changed_vertex_count":len(changed),"affected_polygon_count":blended,
  "per_side_fit":fits,"maximum_displacement_cap":MAX_DELTA,
+ "accepted_line_search_factor":factor_used,"safety_trials":safety_trials,
  "before_shoulder_crease":startangles,"after_shoulder_crease":afterangles,
  "body_vertex_count":len(M.vertices),"body_polygon_count":len(M.polygons),
  "original_body_topology_unchanged":True,"other_parts_unchanged":True,
