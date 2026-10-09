@@ -71,11 +71,16 @@ for e in bm.edges:
     for v in e.verts:sharp[v]=max(sharp[v],score)
 # Local face splits change the topology in two small support volumes.
 # Re-topologize quads only around the actual region, not arbitrary outer body.
-selected=[e for e in bm.edges
+candidate_edges=[e for e in bm.edges
           if len(e.link_faces)==2
           and rw((e.verts[0].co+e.verts[1].co)/2)>.55
           and rw(e.verts[0].co)>.42
           and rw(e.verts[1].co)>.42]
+# The joint zones contain >4k edges, but only the sharpest 1600
+# are needed for the local topology test; do not indiscriminately split all.
+selected=sorted(candidate_edges,
+  key=lambda e:max(sharp.get(e.verts[0],0.),sharp.get(e.verts[1],0.))
+     *rw((e.verts[0].co+e.verts[1].co)/2),reverse=True)[:1600]
 if not (100<=len(selected)<=2800):
     raise RuntimeError(f"unsafe retopology edge budget {len(selected)}")
 ret=bmesh.ops.subdivide_edges(bm,edges=selected,cuts=1,use_grid_fill=True)
