@@ -7344,7 +7344,13 @@ function updateHud(dt) {
     canvas.dataset.positioningWorstTrafficFactor =
       Math.min(...positioningMinTrafficFactors).toFixed(3);
 
-    const positioningRunner = runners[0];
+    const positioningRunner =
+      (POSITIONING_REVIEW_MODE
+        ? runners.find(
+            (runner) =>
+              String(runner.id) === canvas.dataset.positioningReviewSubject
+          )
+        : null) || runners[0];
     if (positioningRunner) {
       canvas.dataset.positioningModel = "clearance-score-with-hysteresis";
       canvas.dataset.positioningReview = POSITIONING_REVIEW_MODE ? "1" : "0";
