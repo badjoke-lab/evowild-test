@@ -19,7 +19,7 @@ jobs:
           sparse-checkout-cone-mode: false
           sparse-checkout: |
             /art/s-creature/blender/sculpt_s_authority_r1_a1_v3_patch.py
-            /art/s-creature/output/S-authority-r0-a5-v3.blend
+            /art/s-creature/output/S-authority-r0-a5-v2.blend
             /art/s-creature/output/review/authority-r0-a6/
             /art/s-creature/output/review/authority-r1-a1-v3-topology/
             /.github/workflows/s-authority-r1-a1-v3-patch.yml
@@ -31,7 +31,7 @@ jobs:
           tar -xf /tmp/blender.tar.xz -C /tmp
       - name: Real local quad patch reconstruction and five old-locked cameras
         run: |
-          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-authority-r0-a5-v3.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/sculpt_s_authority_r1_a1_v3_patch.py
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/output/S-authority-r0-a5-v2.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/sculpt_s_authority_r1_a1_v3_patch.py
       - name: Validate retopology invariants and make R0 / new actual five-view comparison
         run: |
           python3 -m pip install --quiet pillow
