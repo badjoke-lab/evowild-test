@@ -2,7 +2,7 @@
   "authority": "art/s-creature/references/00_s_type_modeling_image_v1.png",
   "authority_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
   "evaluation": "actual 3D equal camera + equal vertical scale, full-body and provenance gate",
-  "common_ortho_scale": 3.3525790739059445,
+  "common_ortho_scale": 5.203732461929321,
   "camera_directions": [
     "side",
     "front",
@@ -128,20 +128,20 @@
       "total_nonmanifold_edges": 0,
       "original_world_extent": [
         0.1533219963312149,
-        0.35851600766181946,
-        0.6474480628967285
+        0.647447943687439,
+        0.35851597785949707
       ],
-      "normalization_uniform_scale": 3.9385398553686595,
-      "axis_correction": "QEM +90deg X, applied to review scene transforms only",
+      "normalization_uniform_scale": 7.112653709953615,
+      "axis_correction": "NONE",
       "normalized_bbox": {
         "min": [
-          -0.30193236470222473,
-          -0.7060146927833557,
-          2.398575418283144e-07
+          -0.5452631711959839,
+          -2.302536725997925,
+          0.0
         ],
         "max": [
-          0.3019323945045471,
-          0.7060146927833557,
+          0.5452631115913391,
+          2.3025364875793457,
           2.5500001907348633
         ]
       },
