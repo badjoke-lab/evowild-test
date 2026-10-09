@@ -1,0 +1,44 @@
+{
+  "schema": "evowild-s-donor-gate/2026-10-10",
+  "authority": {
+    "path": "art/s-creature/references/00_s_type_modeling_image_v1.png",
+    "sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6"
+  },
+  "decision": "QEM_CONDITIONAL_PRIMARY_FOR_DEFORMATION_FEASIBILITY_NOT_PRODUCTION",
+  "primary": {
+    "path": "art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb",
+    "sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+    "source_glb_immutable": true,
+    "faces": 59932,
+    "vertices": 29948,
+    "mesh_objects": 1,
+    "boundary_edges": 0,
+    "nonmanifold_edges": 0,
+    "rigged": false,
+    "visually_approved": false
+  },
+  "secondary": {
+    "path": "art/s-creature/experiments/authority-rebuild-20261009/r5-crest-lamina/S-authority-crest-lamina-r5.glb",
+    "sha256": "1d917a059fd77052c974a9dde7d40e65f80722fb08e52817b5852bf2d5abddcd",
+    "purpose": "visual-anatomical reference only",
+    "mesh_objects": 9,
+    "faces": 276444,
+    "nonmanifold_edges": 104118
+  },
+  "rejected_sources": [
+    "art/s-creature/output/S-authority-r1-a3-sidepatch-v1.blend",
+    "art/s-creature/experiments/fullbody-authority-a0/S-fullbody-authority-A0.glb"
+  ],
+  "next_gate": "joint-landmark-proof_then_actual_leg-bend-deformation",
+  "requirements": [
+    "preserve_shape_GLBS",
+    "same_five_view_render_before_after",
+    "demonstrate_joint_no_collapse",
+    "reference_approval_before_full-rig",
+    "no_auto_switch_to_R0_lowpoly"
+  ],
+  "production_branch_untouched": true,
+  "production_creature_count": 0,
+  "source_qa": "art/s-creature/experiments/strong-donor-evaluation-20261010/DONOR_AUDIT.json",
+  "morphology_status": "NOT_APPROVED"
+}
