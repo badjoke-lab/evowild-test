@@ -2,7 +2,9 @@ name: EvoWild S candidate donor bakeoff — R5 vs TRELLIS2 QEM
 on:
   push:
     branches: [exp/s-strong-donor-evaluation-20261010]
-    paths: [.github/workflows/s-strong-donor-bakeoff.yml]
+    paths:
+      - .github/workflows/s-strong-donor-bakeoff.yml
+      - art/s-creature/blender/review_s_strong_donors_20261010.py
   workflow_dispatch:
 permissions:
   contents: write
