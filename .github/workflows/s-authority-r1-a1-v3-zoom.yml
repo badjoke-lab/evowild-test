@@ -1,0 +1,42 @@
+name: EvoWild S R1-A1 v3 real joint closeup QA
+on:
+  push:
+    branches: [exp/s-authority-r1-a1-trial-20261009]
+    paths: [.github/workflows/s-authority-r1-a1-v3-zoom.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  zoom:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /scripts/s_authority_r1a1_v3_closeup_review.py
+            /art/s-creature/output/review/authority-r0-a6/
+            /art/s-creature/output/review/authority-r1-a1-v3-topology/
+            /.github/workflows/s-authority-r1-a1-v3-zoom.yml
+      - name: Create fixed-size closeups and measured pixel change
+        run: |
+          python3 -m pip install -q pillow numpy
+          python3 scripts/s_authority_r1a1_v3_closeup_review.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-S-R1A1-v3-real-closeup
+          path: |
+            art/s-creature/output/review/authority-r1-a1-v3-topology/S_R0_vs_R1A1v3_shoulder_pelvis_real_closeup.jpg
+            art/s-creature/output/review/authority-r1-a1-v3-topology/S_R1A1v3_pixels_QA.json
+      - name: Commit proof to isolated experiment branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/output/review/authority-r1-a1-v3-topology/S_R0_vs_R1A1v3_shoulder_pelvis_real_closeup.jpg art/s-creature/output/review/authority-r1-a1-v3-topology/S_R1A1v3_pixels_QA.json
+          git commit -m "review: add real closeups of S R1-A1 v3 anatomy"
+          git pull --rebase origin exp/s-authority-r1-a1-trial-20261009
+          git push origin HEAD:exp/s-authority-r1-a1-trial-20261009
