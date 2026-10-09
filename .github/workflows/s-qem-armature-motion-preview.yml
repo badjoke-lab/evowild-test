@@ -1,0 +1,70 @@
+name: EvoWild S QEM real 16-frame armature motion preview
+on:
+  push:
+    branches: [exp/s-qem-deformation-gate-20261010]
+    paths: [.github/workflows/s-qem-armature-motion-preview.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  actual-frames:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/render_s_qem_actual_armature_16frame_preview.py
+            /art/s-creature/experiments/qem-deformation-gate-20261010/armature-test-v1/S-QEM-armature-weighted-16-frame-test.blend
+            /art/s-creature/experiments/qem-deformation-gate-20261010/armature-test-v1/ARMATURE_TEST_QA.json
+            /art/s-creature/experiments/qem-deformation-gate-20261010/armature-test-v1/motion-preview-16-frames/
+            /.github/workflows/s-qem-armature-motion-preview.yml
+      - name: Install Blender 4.3.2
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Render ALL 16 actual Blender armature frames
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/armature-test-v1/S-QEM-armature-weighted-16-frame-test.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/render_s_qem_actual_armature_16frame_preview.py
+      - name: Encode 16 physically-rendered frames into a small slow-motion GIF
+        run: |
+          python3 -m pip install -q Pillow
+          python3 - <<'PY'
+          from PIL import Image,ImageOps
+          from pathlib import Path
+          import json
+          p=Path('art/s-creature/experiments/qem-deformation-gate-20261010/armature-test-v1/motion-preview-16-frames')
+          frames=[]
+          for i in range(1,17):
+            f=p/f'S_QEM_real_armature_frame_{i:02d}.png'
+            assert f.is_file() and f.stat().st_size>14000,f
+            im=Image.open(f).convert('RGB')
+            im.thumbnail((760,570),Image.Resampling.LANCZOS)
+            frames.append(im)
+          preview=p/'S_QEM_real_armature_16_frame_pose_test.gif'
+          frames[0].save(preview,format='GIF',append_images=frames[1:],
+              duration=83,loop=0,optimize=True)
+          assert preview.stat().st_size>20000
+          meta=json.loads((p/'PREVIEW_DESCRIPTION.json').read_text())
+          assert meta['rendered_frames']==list(range(1,17))
+          print('ACTUAL_RENDER_FRAME_GIF',str(preview),preview.stat().st_size)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-QEM-actual-armature-16-frame-GIF
+          path: art/s-creature/experiments/qem-deformation-gate-20261010/armature-test-v1/motion-preview-16-frames/
+          if-no-files-found: warn
+      - name: Commit only existing animated QEM model frame exports
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/qem-deformation-gate-20261010/armature-test-v1/motion-preview-16-frames/
+          git commit -m 'exp: archive actual QEM armature 16-frame previews and 3D-derived GIF'
+          git pull --rebase origin exp/s-qem-deformation-gate-20261010
+          git push origin HEAD:exp/s-qem-deformation-gate-20261010
