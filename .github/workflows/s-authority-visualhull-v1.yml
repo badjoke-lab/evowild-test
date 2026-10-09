@@ -1,0 +1,83 @@
+name: EvoWild S image constrained real 3D hull v1
+on:
+  push:
+    branches:
+      - exp/s-authority-visualhull-20261009
+    paths:
+      - ".github/workflows/s-authority-visualhull-v1.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  hull:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /scripts/s_authority_build_visualhull.py
+            /art/s-creature/blender/render_s_authority_visualhull_v1.py
+            /art/s-creature/experiments/authority-visualhull/
+            /.github/workflows/s-authority-visualhull-v1.yml
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install 3D numerical meshing and image tools
+        run: python -m pip install --quiet "numpy<2" "opencv-python-headless==4.10.0.84" "scipy<1.17" "scikit-image" "trimesh==4.11.1" fast-simplification pillow
+      - name: Generate physical 3D hull constrained by two real design views
+        run: python scripts/s_authority_build_visualhull.py
+      - name: Blender headless dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+      - name: Pin Blender 4.3.2
+        run: |
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Make FIVE real view renders of mesh
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/render_s_authority_visualhull_v1.py
+      - name: Compare actual 3D views with locked side/front/back/threequarter references
+        run: |
+          python - <<'PY'
+          from PIL import Image,ImageDraw
+          from pathlib import Path
+          base=Path('art/s-creature/experiments/authority-visualhull')
+          out=base/'hull-v1/review'
+          views=['side','front','front34','back']
+          w,h=410,450
+          sheet=Image.new("RGB",(w*4,h*2),(248,248,248))
+          d=ImageDraw.Draw(sheet)
+          for ci,name in enumerate(views):
+            for row,(tag,p) in enumerate([
+              ("APPROVED SOURCE",base/(name+"_crop.png")),
+              ("ACTUAL 3D HULL",out/f"S_visualhull_v1_{name}.png")
+            ]):
+              assert p.is_file() and p.stat().st_size>4000,p
+              im=Image.open(p).convert("RGB")
+              im.thumbnail((w-20,h-40))
+              sheet.paste(im,(ci*w+(w-im.width)//2,row*h+30+(h-36-im.height)//2))
+              d.text((ci*w+10,row*h+8),tag+" — "+name.upper(),(10,12,14))
+          p=out/'S_authority_reference_vs_visualhull_four_views.jpg'
+          sheet.save(p,quality=92,optimize=True)
+          print('REAL_CONSTRAINT_CHECK',p,p.stat().st_size)
+          PY
+      - name: Archive actual meshes, original masks and comparisons
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: S-reference-locked-visualhull-v1-3D
+          path: art/s-creature/experiments/authority-visualhull/hull-v1/
+          if-no-files-found: warn
+      - name: Save all results on isolated research branch only
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add art/s-creature/experiments/authority-visualhull/hull-v1/
+          git commit -m "exp: source-constrained real S visual-hull GLB blend and 5 direction comparison"
+          git pull --rebase origin exp/s-authority-visualhull-20261009
+          git push origin HEAD:exp/s-authority-visualhull-20261009
