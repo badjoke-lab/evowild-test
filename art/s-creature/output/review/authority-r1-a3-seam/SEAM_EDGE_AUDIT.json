@@ -1,0 +1,3832 @@
+{
+  "source": "S-authority-r1-a2-scapula-v2.blend",
+  "audited_body_vertices": 5728,
+  "audited_body_polygons": 6376,
+  "original_body_geometry_unchanged": true,
+  "QA_what_is_orange": "actual mesh edges above 37-degree dihedral in upper chest/shoulder zone, NOT a geometry sculpt",
+  "roi": {
+    "x_abs": [
+      0.072,
+      0.222
+    ],
+    "y": [
+      -0.245,
+      0.153
+    ],
+    "z": [
+      0.765,
+      1.149
+    ]
+  },
+  "side_statistics": {
+    "LEFT": {
+      "edges": 726,
+      "over_37": 4,
+      "over_60": 0,
+      "over_90": 0,
+      "p90": 19.9836
+    },
+    "RIGHT": {
+      "edges": 725,
+      "over_37": 5,
+      "over_60": 0,
+      "over_90": 0,
+      "p90": 19.0869
+    },
+    "CENTRAL": {
+      "edges": 598,
+      "over_37": 8,
+      "over_60": 0,
+      "over_90": 0,
+      "p90": 22.7211
+    }
+  },
+  "sharp_edge_count": 9,
+  "top_edges": [
+    {
+      "edge_index": 4879,
+      "v": [
+        4094,
+        4108
+      ],
+      "xyz_mid": [
+        0.12783032655715942,
+        0.006433788686990738,
+        1.1019318103790283
+      ],
+      "angle_deg": 52.824,
+      "length": 0.025791,
+      "faces": [
+        3992,
+        3991
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 9218,
+      "v": [
+        1327,
+        1346
+      ],
+      "xyz_mid": [
+        -0.12770086526870728,
+        0.006367815658450127,
+        1.1013160943984985
+      ],
+      "angle_deg": 51.1699,
+      "length": 0.026999,
+      "faces": [
+        1249,
+        1248
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 4688,
+      "v": [
+        3727,
+        3729
+      ],
+      "xyz_mid": [
+        0.1594211757183075,
+        -0.044415127485990524,
+        1.104973554611206
+      ],
+      "angle_deg": 49.7728,
+      "length": 0.02163,
+      "faces": [
+        3636,
+        3608
+      ],
+      "vertex_valences": [
+        5,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 10419,
+      "v": [
+        3729,
+        3732
+      ],
+      "xyz_mid": [
+        0.1611730456352234,
+        -0.025120345875620842,
+        1.1025621891021729
+      ],
+      "angle_deg": 49.5998,
+      "length": 0.019751,
+      "faces": [
+        3640,
+        3610
+      ],
+      "vertex_valences": [
+        4,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 3237,
+      "v": [
+        829,
+        832
+      ],
+      "xyz_mid": [
+        -0.16100899875164032,
+        -0.025434408336877823,
+        1.1026571989059448
+      ],
+      "angle_deg": 48.0741,
+      "length": 0.019364,
+      "faces": [
+        748,
+        747
+      ],
+      "vertex_valences": [
+        4,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 8950,
+      "v": [
+        827,
+        829
+      ],
+      "xyz_mid": [
+        -0.15908503532409668,
+        -0.0444604717195034,
+        1.1048851013183594
+      ],
+      "angle_deg": 46.8517,
+      "length": 0.021648,
+      "faces": [
+        746,
+        745
+      ],
+      "vertex_valences": [
+        5,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 1788,
+      "v": [
+        3726,
+        3727
+      ],
+      "xyz_mid": [
+        0.15314292907714844,
+        -0.06256578862667084,
+        1.0949366092681885
+      ],
+      "angle_deg": 43.8544,
+      "length": 0.026922,
+      "faces": [
+        3632,
+        3606
+      ],
+      "vertex_valences": [
+        4,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 6106,
+      "v": [
+        826,
+        827
+      ],
+      "xyz_mid": [
+        -0.15271270275115967,
+        -0.06238662078976631,
+        1.094917893409729
+      ],
+      "angle_deg": 43.4479,
+      "length": 0.026312,
+      "faces": [
+        761,
+        744
+      ],
+      "vertex_valences": [
+        4,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 4669,
+      "v": [
+        3689,
+        3690
+      ],
+      "xyz_mid": [
+        0.07331344485282898,
+        -0.1658145785331726,
+        1.1201305389404297
+      ],
+      "angle_deg": 39.9501,
+      "length": 0.019836,
+      "faces": [
+        3566,
+        3565
+      ],
+      "vertex_valences": [
+        5,
+        3
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 8951,
+      "v": [
+        827,
+        828
+      ],
+      "xyz_mid": [
+        -0.1510055661201477,
+        -0.050215184688568115,
+        1.106430172920227
+      ],
+      "angle_deg": 34.8843,
+      "length": 0.011334,
+      "faces": [
+        762,
+        746
+      ],
+      "vertex_valences": [
+        5,
+        3
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 4687,
+      "v": [
+        3727,
+        3728
+      ],
+      "xyz_mid": [
+        0.15134724974632263,
+        -0.05020435154438019,
+        1.1064419746398926
+      ],
+      "angle_deg": 34.5867,
+      "length": 0.011501,
+      "faces": [
+        3608,
+        3607
+      ],
+      "vertex_valences": [
+        5,
+        3
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 10417,
+      "v": [
+        3714,
+        3728
+      ],
+      "xyz_mid": [
+        0.13927331566810608,
+        -0.04493778944015503,
+        1.1061838865280151
+      ],
+      "angle_deg": 33.8554,
+      "length": 0.016816,
+      "faces": [
+        3609,
+        3607
+      ],
+      "vertex_valences": [
+        4,
+        3
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 7725,
+      "v": [
+        3716,
+        4108
+      ],
+      "xyz_mid": [
+        0.14006389677524567,
+        -0.0017625028267502785,
+        1.100992202758789
+      ],
+      "angle_deg": 33.7724,
+      "length": 0.012274,
+      "faces": [
+        4009,
+        3992
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 374,
+      "v": [
+        828,
+        846
+      ],
+      "xyz_mid": [
+        -0.1387687623500824,
+        -0.04473260045051575,
+        1.106298804283142
+      ],
+      "angle_deg": 33.6567,
+      "length": 0.017588,
+      "faces": [
+        763,
+        762
+      ],
+      "vertex_valences": [
+        3,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 10409,
+      "v": [
+        3698,
+        3714
+      ],
+      "xyz_mid": [
+        0.11853112280368805,
+        -0.04161209613084793,
+        1.104322910308838
+      ],
+      "angle_deg": 33.3024,
+      "length": 0.025431,
+      "faces": [
+        3594,
+        3593
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 8867,
+      "v": [
+        676,
+        677
+      ],
+      "xyz_mid": [
+        -0.20506802201271057,
+        -0.043665364384651184,
+        0.8181037902832031
+      ],
+      "angle_deg": 33.1554,
+      "length": 0.018243,
+      "faces": [
+        617,
+        598
+      ],
+      "vertex_valences": [
+        3,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 10357,
+      "v": [
+        3625,
+        3626
+      ],
+      "xyz_mid": [
+        0.20483534038066864,
+        -0.04381396621465683,
+        0.817674994468689
+      ],
+      "angle_deg": 32.4991,
+      "length": 0.018284,
+      "faces": [
+        3510,
+        3500
+      ],
+      "vertex_valences": [
+        3,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 6131,
+      "v": [
+        846,
+        865
+      ],
+      "xyz_mid": [
+        -0.11749118566513062,
+        -0.04126206040382385,
+        1.1043052673339844
+      ],
+      "angle_deg": 32.2246,
+      "length": 0.025787,
+      "faces": [
+        789,
+        788
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 4678,
+      "v": [
+        3703,
+        3705
+      ],
+      "xyz_mid": [
+        0.10444161295890808,
+        -0.16620329022407532,
+        1.0308126211166382
+      ],
+      "angle_deg": 31.9939,
+      "length": 0.02759,
+      "faces": [
+        6056,
+        3584
+      ],
+      "vertex_valences": [
+        5,
+        7
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 307,
+      "v": [
+        677,
+        678
+      ],
+      "xyz_mid": [
+        -0.20377042889595032,
+        -0.0426335409283638,
+        0.8416111469268799
+      ],
+      "angle_deg": 31.6829,
+      "length": 0.029136,
+      "faces": [
+        618,
+        599
+      ],
+      "vertex_valences": [
+        4,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 4450,
+      "v": [
+        3244,
+        3250
+      ],
+      "xyz_mid": [
+        0.09380840510129929,
+        -0.2038736343383789,
+        1.0530977249145508
+      ],
+      "angle_deg": 31.6284,
+      "length": 0.016059,
+      "faces": [
+        3582,
+        3113
+      ],
+      "vertex_valences": [
+        5,
+        3
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 1962,
+      "v": [
+        4093,
+        4094
+      ],
+      "xyz_mid": [
+        0.11483190953731537,
+        0.01418360136449337,
+        1.0987861156463623
+      ],
+      "angle_deg": 31.1681,
+      "length": 0.014109,
+      "faces": [
+        3991,
+        3976
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 5858,
+      "v": [
+        302,
+        339
+      ],
+      "xyz_mid": [
+        -0.09389710426330566,
+        -0.2036561816930771,
+        1.0532923936843872
+      ],
+      "angle_deg": 31.0945,
+      "length": 0.015757,
+      "faces": [
+        770,
+        270
+      ],
+      "vertex_valences": [
+        3,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 8954,
+      "v": [
+        835,
+        837
+      ],
+      "xyz_mid": [
+        -0.10432399809360504,
+        -0.16670551896095276,
+        1.0315356254577637
+      ],
+      "angle_deg": 30.9753,
+      "length": 0.026423,
+      "faces": [
+        5748,
+        751
+      ],
+      "vertex_valences": [
+        5,
+        7
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 9224,
+      "v": [
+        1346,
+        1360
+      ],
+      "xyz_mid": [
+        -0.09751053899526596,
+        0.009320829063653946,
+        1.1036375761032104
+      ],
+      "angle_deg": 30.8207,
+      "length": 0.033972,
+      "faces": [
+        1264,
+        1262
+      ],
+      "vertex_valences": [
+        4,
+        6
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 1740,
+      "v": [
+        3626,
+        3627
+      ],
+      "xyz_mid": [
+        0.20372126996517181,
+        -0.04262973368167877,
+        0.841492772102356
+      ],
+      "angle_deg": 30.7428,
+      "length": 0.029773,
+      "faces": [
+        3511,
+        3501
+      ],
+      "vertex_valences": [
+        4,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 6346,
+      "v": [
+        1345,
+        1346
+      ],
+      "xyz_mid": [
+        -0.11429931223392487,
+        0.014569306746125221,
+        1.0980017185211182
+      ],
+      "angle_deg": 30.328,
+      "length": 0.015746,
+      "faces": [
+        1262,
+        1248
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 603,
+      "v": [
+        848,
+        1327
+      ],
+      "xyz_mid": [
+        -0.13992974162101746,
+        -0.0018649531994014978,
+        1.1004034280776978
+      ],
+      "angle_deg": 29.9463,
+      "length": 0.01258,
+      "faces": [
+        1249,
+        1230
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 364,
+      "v": [
+        813,
+        829
+      ],
+      "xyz_mid": [
+        -0.16823767125606537,
+        -0.034610312432050705,
+        1.0944517850875854
+      ],
+      "angle_deg": 29.3582,
+      "length": 0.022454,
+      "faces": [
+        747,
+        745
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 3235,
+      "v": [
+        825,
+        826
+      ],
+      "xyz_mid": [
+        -0.1501920223236084,
+        -0.07673205435276031,
+        1.0766103267669678
+      ],
+      "angle_deg": 29.0544,
+      "length": 0.020529,
+      "faces": [
+        760,
+        743
+      ],
+      "vertex_valences": [
+        6,
+        4
+      ],
+      "face_sides": [
+        4,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 10416,
+      "v": [
+        3725,
+        3726
+      ],
+      "xyz_mid": [
+        0.1505034863948822,
+        -0.0772457867860794,
+        1.076230525970459
+      ],
+      "angle_deg": 28.6528,
+      "length": 0.020981,
+      "faces": [
+        6083,
+        3605
+      ],
+      "vertex_valences": [
+        6,
+        4
+      ],
+      "face_sides": [
+        3,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 10433,
+      "v": [
+        3729,
+        3755
+      ],
+      "xyz_mid": [
+        0.16834333539009094,
+        -0.03435368090867996,
+        1.094491720199585
+      ],
+      "angle_deg": 28.5864,
+      "length": 0.022177,
+      "faces": [
+        3640,
+        3636
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 10604,
+      "v": [
+        4081,
+        4094
+      ],
+      "xyz_mid": [
+        0.09841903299093246,
+        0.009294942021369934,
+        1.1037089824676514
+      ],
+      "angle_deg": 28.2702,
+      "length": 0.033522,
+      "faces": [
+        3977,
+        3976
+      ],
+      "vertex_valences": [
+        6,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 4671,
+      "v": [
+        3689,
+        3693
+      ],
+      "xyz_mid": [
+        0.07483269274234772,
+        -0.14848938584327698,
+        1.1074872016906738
+      ],
+      "angle_deg": 28.2003,
+      "length": 0.026715,
+      "faces": [
+        3570,
+        3569
+      ],
+      "vertex_valences": [
+        5,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 6336,
+      "v": [
+        1312,
+        1327
+      ],
+      "xyz_mid": [
+        -0.14925819635391235,
+        0.0008655737619847059,
+        1.094860553741455
+      ],
+      "angle_deg": 27.9344,
+      "length": 0.020434,
+      "faces": [
+        1230,
+        1229
+      ],
+      "vertex_valences": [
+        3,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 7531,
+      "v": [
+        3716,
+        3732
+      ],
+      "xyz_mid": [
+        0.14915192127227783,
+        -0.01182528119534254,
+        1.1008367538452148
+      ],
+      "angle_deg": 27.7134,
+      "length": 0.020651,
+      "faces": [
+        4009,
+        3611
+      ],
+      "vertex_valences": [
+        4,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 593,
+      "v": [
+        832,
+        1312
+      ],
+      "xyz_mid": [
+        -0.15804599225521088,
+        -0.009430058300495148,
+        1.0953524112701416
+      ],
+      "angle_deg": 27.6501,
+      "length": 0.0174,
+      "faces": [
+        1230,
+        1214
+      ],
+      "vertex_valences": [
+        5,
+        3
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 4889,
+      "v": [
+        4108,
+        4128
+      ],
+      "xyz_mid": [
+        0.1488647311925888,
+        0.0016305844765156507,
+        1.0951921939849854
+      ],
+      "angle_deg": 27.3536,
+      "length": 0.020945,
+      "faces": [
+        4009,
+        4008
+      ],
+      "vertex_valences": [
+        4,
+        3
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 6349,
+      "v": [
+        1330,
+        1347
+      ],
+      "xyz_mid": [
+        -0.121836356818676,
+        0.038233719766139984,
+        1.075232744216919
+      ],
+      "angle_deg": 27.0854,
+      "length": 0.032066,
+      "faces": [
+        1251,
+        1250
+      ],
+      "vertex_valences": [
+        4,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 8883,
+      "v": [
+        692,
+        694
+      ],
+      "xyz_mid": [
+        -0.14929506182670593,
+        -0.13582399487495422,
+        0.9761010408401489
+      ],
+      "angle_deg": 26.9952,
+      "length": 0.019822,
+      "faces": [
+        712,
+        623
+      ],
+      "vertex_valences": [
+        5,
+        5
+      ],
+      "face_sides": [
+        4,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 7734,
+      "v": [
+        3732,
+        4128
+      ],
+      "xyz_mid": [
+        0.15795275568962097,
+        -0.008432193659245968,
+        1.0950367450714111
+      ],
+      "angle_deg": 26.9658,
+      "length": 0.018455,
+      "faces": [
+        4009,
+        4007
+      ],
+      "vertex_valences": [
+        5,
+        3
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 4697,
+      "v": [
+        3727,
+        3751
+      ],
+      "xyz_mid": [
+        0.16188901662826538,
+        -0.05468050763010979,
+        1.0948569774627686
+      ],
+      "angle_deg": 26.9039,
+      "length": 0.025007,
+      "faces": [
+        3636,
+        3632
+      ],
+      "vertex_valences": [
+        5,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 8866,
+      "v": [
+        676,
+        684
+      ],
+      "xyz_mid": [
+        -0.20743951201438904,
+        -0.036177992820739746,
+        0.8050613403320312
+      ],
+      "angle_deg": 26.8381,
+      "length": 0.016523,
+      "faces": [
+        621,
+        598
+      ],
+      "vertex_valences": [
+        3,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 7466,
+      "v": [
+        3599,
+        3601
+      ],
+      "xyz_mid": [
+        0.14929582178592682,
+        -0.13579748570919037,
+        0.9760904312133789
+      ],
+      "angle_deg": 26.6638,
+      "length": 0.01989,
+      "faces": [
+        6052,
+        3615
+      ],
+      "vertex_valences": [
+        5,
+        5
+      ],
+      "face_sides": [
+        3,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 376,
+      "v": [
+        832,
+        848
+      ],
+      "xyz_mid": [
+        -0.14871755242347717,
+        -0.012160584330558777,
+        1.1008952856063843
+      ],
+      "angle_deg": 26.3511,
+      "length": 0.021274,
+      "faces": [
+        1230,
+        764
+      ],
+      "vertex_valences": [
+        5,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 11893,
+      "v": [
+        4080,
+        4084
+      ],
+      "xyz_mid": [
+        0.08013550937175751,
+        0.028859451413154602,
+        1.1055563688278198
+      ],
+      "angle_deg": 26.3192,
+      "length": 0.025525,
+      "faces": [
+        6167,
+        3966
+      ],
+      "vertex_valences": [
+        5,
+        5
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 3154,
+      "v": [
+        666,
+        672
+      ],
+      "xyz_mid": [
+        -0.19387096166610718,
+        -0.06391511857509613,
+        0.8982318639755249
+      ],
+      "angle_deg": 26.3107,
+      "length": 0.016467,
+      "faces": [
+        616,
+        590
+      ],
+      "vertex_valences": [
+        3,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 10361,
+      "v": [
+        3625,
+        3633
+      ],
+      "xyz_mid": [
+        0.2070176750421524,
+        -0.03591824322938919,
+        0.8042498826980591
+      ],
+      "angle_deg": 26.1814,
+      "length": 0.017326,
+      "faces": [
+        3510,
+        3509
+      ],
+      "vertex_valences": [
+        3,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 363,
+      "v": [
+        809,
+        827
+      ],
+      "xyz_mid": [
+        -0.1615103781223297,
+        -0.05475544184446335,
+        1.0945698022842407
+      ],
+      "angle_deg": 26.1187,
+      "length": 0.025194,
+      "faces": [
+        745,
+        744
+      ],
+      "vertex_valences": [
+        4,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 365,
+      "v": [
+        828,
+        830
+      ],
+      "xyz_mid": [
+        -0.14963963627815247,
+        -0.04033970087766647,
+        1.1076242923736572
+      ],
+      "angle_deg": 26.0252,
+      "length": 0.012388,
+      "faces": [
+        763,
+        746
+      ],
+      "vertex_valences": [
+        3,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 7527,
+      "v": [
+        3724,
+        3725
+      ],
+      "xyz_mid": [
+        0.14690405130386353,
+        -0.09058453887701035,
+        1.0603556632995605
+      ],
+      "angle_deg": 25.5035,
+      "length": 0.021406,
+      "faces": [
+        6082,
+        3604
+      ],
+      "vertex_valences": [
+        7,
+        6
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 361,
+      "v": [
+        824,
+        825
+      ],
+      "xyz_mid": [
+        -0.1466335952281952,
+        -0.08949905633926392,
+        1.0610692501068115
+      ],
+      "angle_deg": 25.4332,
+      "length": 0.02063,
+      "faces": [
+        5754,
+        742
+      ],
+      "vertex_valences": [
+        6,
+        6
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 11472,
+      "v": [
+        834,
+        837
+      ],
+      "xyz_mid": [
+        -0.10439754277467728,
+        -0.16427704691886902,
+        1.0214401483535767
+      ],
+      "angle_deg": 25.4233,
+      "length": 0.025362,
+      "faces": [
+        5746,
+        751
+      ],
+      "vertex_valences": [
+        5,
+        7
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 7474,
+      "v": [
+        3516,
+        3613
+      ],
+      "xyz_mid": [
+        0.1924239844083786,
+        -0.04317315295338631,
+        0.791504979133606
+      ],
+      "angle_deg": 25.3804,
+      "length": 0.019666,
+      "faces": [
+        3509,
+        3489
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 6023,
+      "v": [
+        671,
+        672
+      ],
+      "xyz_mid": [
+        -0.19738522171974182,
+        -0.05568176507949829,
+        0.8845466375350952
+      ],
+      "angle_deg": 25.1576,
+      "length": 0.018563,
+      "faces": [
+        615,
+        594
+      ],
+      "vertex_valences": [
+        4,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 3493,
+      "v": [
+        1329,
+        1330
+      ],
+      "xyz_mid": [
+        -0.1454278826713562,
+        0.039635997265577316,
+        1.0553395748138428
+      ],
+      "angle_deg": 25.0848,
+      "length": 0.029966,
+      "faces": [
+        1236,
+        1233
+      ],
+      "vertex_valences": [
+        5,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 4673,
+      "v": [
+        3693,
+        3672
+      ],
+      "xyz_mid": [
+        0.07404191046953201,
+        -0.12401741743087769,
+        1.0996425151824951
+      ],
+      "angle_deg": 24.985,
+      "length": 0.024707,
+      "faces": [
+        3572,
+        3571
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 11782,
+      "v": [
+        3702,
+        3705
+      ],
+      "xyz_mid": [
+        0.10456152260303497,
+        -0.16387709975242615,
+        1.020801067352295
+      ],
+      "angle_deg": 24.7921,
+      "length": 0.026091,
+      "faces": [
+        6056,
+        3583
+      ],
+      "vertex_valences": [
+        5,
+        7
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 11580,
+      "v": [
+        1359,
+        1363
+      ],
+      "xyz_mid": [
+        -0.07903055846691132,
+        0.028964048251509666,
+        1.1051987409591675
+      ],
+      "angle_deg": 24.7412,
+      "length": 0.02555,
+      "faces": [
+        5854,
+        1267
+      ],
+      "vertex_valences": [
+        5,
+        5
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 3174,
+      "v": [
+        625,
+        706
+      ],
+      "xyz_mid": [
+        -0.1923849880695343,
+        -0.043202586472034454,
+        0.7918481230735779
+      ],
+      "angle_deg": 24.7178,
+      "length": 0.019165,
+      "faces": [
+        632,
+        621
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 11787,
+      "v": [
+        3691,
+        3694
+      ],
+      "xyz_mid": [
+        0.093985915184021,
+        -0.12234736979007721,
+        1.0713531970977783
+      ],
+      "angle_deg": 24.4064,
+      "length": 0.027533,
+      "faces": [
+        6061,
+        3589
+      ],
+      "vertex_valences": [
+        6,
+        5
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 11480,
+      "v": [
+        824,
+        843
+      ],
+      "xyz_mid": [
+        -0.13454580307006836,
+        -0.09078425168991089,
+        1.0615088939666748
+      ],
+      "angle_deg": 24.3641,
+      "length": 0.026219,
+      "faces": [
+        5754,
+        759
+      ],
+      "vertex_valences": [
+        6,
+        5
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 10610,
+      "v": [
+        4095,
+        4110
+      ],
+      "xyz_mid": [
+        0.1258476972579956,
+        0.03340006247162819,
+        1.0763657093048096
+      ],
+      "angle_deg": 24.24,
+      "length": 0.033086,
+      "faces": [
+        3995,
+        3993
+      ],
+      "vertex_valences": [
+        5,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 7425,
+      "v": [
+        3516,
+        3520
+      ],
+      "xyz_mid": [
+        0.19332411885261536,
+        -0.030848046764731407,
+        0.7746413946151733
+      ],
+      "angle_deg": 24.067,
+      "length": 0.022245,
+      "faces": [
+        3508,
+        3392
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 8879,
+      "v": [
+        623,
+        684
+      ],
+      "xyz_mid": [
+        -0.20809879899024963,
+        -0.024402715265750885,
+        0.7906941175460815
+      ],
+      "angle_deg": 24.0243,
+      "length": 0.023329,
+      "faces": [
+        1119,
+        620
+      ],
+      "vertex_valences": [
+        3,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 11888,
+      "v": [
+        4020,
+        3983
+      ],
+      "xyz_mid": [
+        0.17823544144630432,
+        0.13253559172153473,
+        0.8349505066871643
+      ],
+      "angle_deg": 23.9035,
+      "length": 0.034324,
+      "faces": [
+        6162,
+        3889
+      ],
+      "vertex_valences": [
+        5,
+        5
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 3288,
+      "v": [
+        934,
+        938
+      ],
+      "xyz_mid": [
+        -0.21902774274349213,
+        0.04927435517311096,
+        0.8304768800735474
+      ],
+      "angle_deg": 23.8542,
+      "length": 0.022344,
+      "faces": [
+        850,
+        849
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 2772,
+      "v": [
+        5640,
+        5644
+      ],
+      "xyz_mid": [
+        0.21897222101688385,
+        0.050502970814704895,
+        0.8299680948257446
+      ],
+      "angle_deg": 23.7797,
+      "length": 0.022333,
+      "faces": [
+        5611,
+        5610
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 8877,
+      "v": [
+        676,
+        706
+      ],
+      "xyz_mid": [
+        -0.1980968713760376,
+        -0.04584331810474396,
+        0.804316520690918
+      ],
+      "angle_deg": 23.752,
+      "length": 0.01765,
+      "faces": [
+        621,
+        617
+      ],
+      "vertex_valences": [
+        3,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 3252,
+      "v": [
+        858,
+        859
+      ],
+      "xyz_mid": [
+        -0.09266719222068787,
+        -0.1402406394481659,
+        1.0718588829040527
+      ],
+      "angle_deg": 23.5819,
+      "length": 0.017187,
+      "faces": [
+        781,
+        780
+      ],
+      "vertex_valences": [
+        4,
+        6
+      ],
+      "face_sides": [
+        3,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 11474,
+      "v": [
+        835,
+        838
+      ],
+      "xyz_mid": [
+        -0.09850096702575684,
+        -0.1683214008808136,
+        1.0425779819488525
+      ],
+      "angle_deg": 23.5468,
+      "length": 0.024762,
+      "faces": [
+        5748,
+        753
+      ],
+      "vertex_valences": [
+        5,
+        6
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 11783,
+      "v": [
+        3703,
+        3706
+      ],
+      "xyz_mid": [
+        0.0985695868730545,
+        -0.1673176884651184,
+        1.0417239665985107
+      ],
+      "angle_deg": 23.5195,
+      "length": 0.025998,
+      "faces": [
+        6057,
+        3584
+      ],
+      "vertex_valences": [
+        5,
+        6
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 3138,
+      "v": [
+        625,
+        629
+      ],
+      "xyz_mid": [
+        -0.1934933066368103,
+        -0.03118114545941353,
+        0.7753733992576599
+      ],
+      "angle_deg": 23.4695,
+      "length": 0.021785,
+      "faces": [
+        620,
+        569
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 8965,
+      "v": [
+        863,
+        864
+      ],
+      "xyz_mid": [
+        -0.10354726761579514,
+        -0.06172505021095276,
+        1.0913350582122803
+      ],
+      "angle_deg": 23.4252,
+      "length": 0.019172,
+      "faces": [
+        802,
+        787
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 4675,
+      "v": [
+        3696,
+        3697
+      ],
+      "xyz_mid": [
+        0.10491500794887543,
+        -0.061503954231739044,
+        1.091001272201538
+      ],
+      "angle_deg": 23.3894,
+      "length": 0.019443,
+      "faces": [
+        3592,
+        3575
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 6324,
+      "v": [
+        1305,
+        1306
+      ],
+      "xyz_mid": [
+        -0.18114686012268066,
+        0.002383418381214142,
+        1.049065113067627
+      ],
+      "angle_deg": 23.265,
+      "length": 0.01833,
+      "faces": [
+        1212,
+        1206
+      ],
+      "vertex_valences": [
+        4,
+        3
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 11407,
+      "v": [
+        5635,
+        5640
+      ],
+      "xyz_mid": [
+        0.22018834948539734,
+        0.02750531956553459,
+        0.8292027711868286
+      ],
+      "angle_deg": 23.0532,
+      "length": 0.023996,
+      "faces": [
+        5605,
+        5604
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 3481,
+      "v": [
+        1304,
+        1305
+      ],
+      "xyz_mid": [
+        -0.18536759912967682,
+        0.011332109570503235,
+        1.0289490222930908
+      ],
+      "angle_deg": 23.051,
+      "length": 0.026537,
+      "faces": [
+        1211,
+        1205
+      ],
+      "vertex_valences": [
+        5,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 393,
+      "v": [
+        864,
+        879
+      ],
+      "xyz_mid": [
+        -0.08738537132740021,
+        -0.05847015231847763,
+        1.1002954244613647
+      ],
+      "angle_deg": 22.9795,
+      "length": 0.033699,
+      "faces": [
+        803,
+        802
+      ],
+      "vertex_valences": [
+        4,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 7528,
+      "v": [
+        3713,
+        3727
+      ],
+      "xyz_mid": [
+        0.1437598615884781,
+        -0.05487658083438873,
+        1.1021686792373657
+      ],
+      "angle_deg": 22.9759,
+      "length": 0.023779,
+      "faces": [
+        3607,
+        3606
+      ],
+      "vertex_valences": [
+        4,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 1773,
+      "v": [
+        3677,
+        3697
+      ],
+      "xyz_mid": [
+        0.08842131495475769,
+        -0.057963527739048004,
+        1.1001086235046387
+      ],
+      "angle_deg": 22.8958,
+      "length": 0.034288,
+      "faces": [
+        3576,
+        3575
+      ],
+      "vertex_valences": [
+        5,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 4634,
+      "v": [
+        3613,
+        3625
+      ],
+      "xyz_mid": [
+        0.19800350069999695,
+        -0.04594509303569794,
+        0.8040185570716858
+      ],
+      "angle_deg": 22.8613,
+      "length": 0.017186,
+      "faces": [
+        3509,
+        3500
+      ],
+      "vertex_valences": [
+        4,
+        3
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 7484,
+      "v": [
+        3524,
+        3633
+      ],
+      "xyz_mid": [
+        0.20730102062225342,
+        -0.023598194122314453,
+        0.7891339659690857
+      ],
+      "angle_deg": 22.8483,
+      "length": 0.024295,
+      "faces": [
+        3912,
+        3508
+      ],
+      "vertex_valences": [
+        3,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 7529,
+      "v": [
+        3728,
+        3730
+      ],
+      "xyz_mid": [
+        0.1498240828514099,
+        -0.04013242945075035,
+        1.1072123050689697
+      ],
+      "angle_deg": 22.766,
+      "length": 0.012723,
+      "faces": [
+        3609,
+        3608
+      ],
+      "vertex_valences": [
+        3,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 415,
+      "v": [
+        929,
+        934
+      ],
+      "xyz_mid": [
+        -0.2205926775932312,
+        0.026395810768008232,
+        0.8307044506072998
+      ],
+      "angle_deg": 22.7464,
+      "length": 0.023785,
+      "faces": [
+        845,
+        844
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 1783,
+      "v": [
+        3702,
+        3718
+      ],
+      "xyz_mid": [
+        0.10575763136148453,
+        -0.16641385853290558,
+        1.0113766193389893
+      ],
+      "angle_deg": 22.7211,
+      "length": 0.021027,
+      "faces": [
+        6063,
+        3583
+      ],
+      "vertex_valences": [
+        5,
+        6
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 11788,
+      "v": [
+        3710,
+        3695
+      ],
+      "xyz_mid": [
+        0.10685384273529053,
+        -0.09875242412090302,
+        1.0694279670715332
+      ],
+      "angle_deg": 22.6264,
+      "length": 0.032678,
+      "faces": [
+        6062,
+        3590
+      ],
+      "vertex_valences": [
+        7,
+        5
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 8957,
+      "v": [
+        827,
+        845
+      ],
+      "xyz_mid": [
+        -0.1430446356534958,
+        -0.054679229855537415,
+        1.1021008491516113
+      ],
+      "angle_deg": 22.3309,
+      "length": 0.024044,
+      "faces": [
+        762,
+        761
+      ],
+      "vertex_valences": [
+        5,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 11796,
+      "v": [
+        3724,
+        3711
+      ],
+      "xyz_mid": [
+        0.1348920613527298,
+        -0.09230156242847443,
+        1.0604528188705444
+      ],
+      "angle_deg": 22.3307,
+      "length": 0.025886,
+      "faces": [
+        6070,
+        3604
+      ],
+      "vertex_valences": [
+        7,
+        5
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 11785,
+      "v": [
+        3706,
+        3691
+      ],
+      "xyz_mid": [
+        0.09813198447227478,
+        -0.1448555588722229,
+        1.056246042251587
+      ],
+      "angle_deg": 22.2456,
+      "length": 0.0276,
+      "faces": [
+        6059,
+        3587
+      ],
+      "vertex_valences": [
+        6,
+        6
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 7717,
+      "v": [
+        4080,
+        4093
+      ],
+      "xyz_mid": [
+        0.10291475057601929,
+        0.02144601196050644,
+        1.0990712642669678
+      ],
+      "angle_deg": 22.0323,
+      "length": 0.02507,
+      "faces": [
+        3979,
+        3976
+      ],
+      "vertex_valences": [
+        5,
+        4
+      ],
+      "face_sides": [
+        3,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 3159,
+      "v": [
+        670,
+        671
+      ],
+      "xyz_mid": [
+        -0.19731485843658447,
+        -0.05226190760731697,
+        0.8695540428161621
+      ],
+      "angle_deg": 22.0232,
+      "length": 0.012262,
+      "faces": [
+        614,
+        593
+      ],
+      "vertex_valences": [
+        3,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 3236,
+      "v": [
+        829,
+        830
+      ],
+      "xyz_mid": [
+        -0.15771909058094025,
+        -0.03458498418331146,
+        1.1060792207717896
+      ],
+      "angle_deg": 22.0025,
+      "length": 0.011918,
+      "faces": [
+        748,
+        746
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 312,
+      "v": [
+        693,
+        696
+      ],
+      "xyz_mid": [
+        -0.1563642919063568,
+        -0.11356239020824432,
+        0.9482914209365845
+      ],
+      "angle_deg": 21.8997,
+      "length": 0.021383,
+      "faces": [
+        625,
+        608
+      ],
+      "vertex_valences": [
+        3,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 3155,
+      "v": [
+        666,
+        667
+      ],
+      "xyz_mid": [
+        -0.18985722959041595,
+        -0.07027427107095718,
+        0.9099632501602173
+      ],
+      "angle_deg": 21.8377,
+      "length": 0.01425,
+      "faces": [
+        609,
+        590
+      ],
+      "vertex_valences": [
+        3,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 6127,
+      "v": [
+        841,
+        859
+      ],
+      "xyz_mid": [
+        -0.10214750468730927,
+        -0.1277371495962143,
+        1.0675619840621948
+      ],
+      "angle_deg": 21.8208,
+      "length": 0.035574,
+      "faces": [
+        5756,
+        783
+      ],
+      "vertex_valences": [
+        6,
+        6
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 3225,
+      "v": [
+        798,
+        802
+      ],
+      "xyz_mid": [
+        -0.17256709933280945,
+        -0.09773966670036316,
+        1.011091947555542
+      ],
+      "angle_deg": 21.8049,
+      "length": 0.022856,
+      "faces": [
+        5732,
+        719
+      ],
+      "vertex_valences": [
+        6,
+        5
+      ],
+      "face_sides": [
+        3,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 4701,
+      "v": [
+        3731,
+        3759
+      ],
+      "xyz_mid": [
+        0.17665940523147583,
+        -0.013651544228196144,
+        1.070183277130127
+      ],
+      "angle_deg": 21.7441,
+      "length": 0.020566,
+      "faces": [
+        4036,
+        3639
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 4896,
+      "v": [
+        4144,
+        4145
+      ],
+      "xyz_mid": [
+        0.18195389211177826,
+        0.0037813365925103426,
+        1.0477840900421143
+      ],
+      "angle_deg": 21.6596,
+      "length": 0.018824,
+      "faces": [
+        4035,
+        4034
+      ],
+      "vertex_valences": [
+        4,
+        3
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 6109,
+      "v": [
+        818,
+        834
+      ],
+      "xyz_mid": [
+        -0.1058405339717865,
+        -0.16650350391864777,
+        1.0116620063781738
+      ],
+      "angle_deg": 21.6234,
+      "length": 0.020796,
+      "faces": [
+        5746,
+        749
+      ],
+      "vertex_valences": [
+        6,
+        5
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 385,
+      "v": [
+        845,
+        864
+      ],
+      "xyz_mid": [
+        -0.11744771897792816,
+        -0.054686225950717926,
+        1.0982623100280762
+      ],
+      "angle_deg": 21.5987,
+      "length": 0.027995,
+      "faces": [
+        788,
+        787
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 11481,
+      "v": [
+        838,
+        858
+      ],
+      "xyz_mid": [
+        -0.09680680185556412,
+        -0.15188772976398468,
+        1.057724952697754
+      ],
+      "angle_deg": 21.563,
+      "length": 0.020449,
+      "faces": [
+        5755,
+        779
+      ],
+      "vertex_valences": [
+        6,
+        4
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 6030,
+      "v": [
+        699,
+        700
+      ],
+      "xyz_mid": [
+        -0.17784124612808228,
+        -0.08256895840167999,
+        0.9083155393600464
+      ],
+      "angle_deg": 21.4824,
+      "length": 0.019822,
+      "faces": [
+        627,
+        609
+      ],
+      "vertex_valences": [
+        4,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 1980,
+      "v": [
+        4118,
+        4121
+      ],
+      "xyz_mid": [
+        0.12672674655914307,
+        0.1489376425743103,
+        1.059492588043213
+      ],
+      "angle_deg": 21.4326,
+      "length": 0.025552,
+      "faces": [
+        4003,
+        4002
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 9216,
+      "v": [
+        1338,
+        1341
+      ],
+      "xyz_mid": [
+        -0.12673085927963257,
+        0.14900434017181396,
+        1.0596473217010498
+      ],
+      "angle_deg": 21.3981,
+      "length": 0.025671,
+      "faces": [
+        1258,
+        1244
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 11479,
+      "v": [
+        823,
+        842
+      ],
+      "xyz_mid": [
+        -0.12889398634433746,
+        -0.10612043738365173,
+        1.0518102645874023
+      ],
+      "angle_deg": 21.3932,
+      "length": 0.030568,
+      "faces": [
+        5753,
+        758
+      ],
+      "vertex_valences": [
+        6,
+        6
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 366,
+      "v": [
+        817,
+        831
+      ],
+      "xyz_mid": [
+        -0.17665866017341614,
+        -0.014472386799752712,
+        1.0704371929168701
+      ],
+      "angle_deg": 21.3054,
+      "length": 0.020627,
+      "faces": [
+        1213,
+        734
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 10388,
+      "v": [
+        3676,
+        3677
+      ],
+      "xyz_mid": [
+        0.07711246609687805,
+        -0.06704391539096832,
+        1.0989036560058594
+      ],
+      "angle_deg": 21.221,
+      "length": 0.016728,
+      "faces": [
+        3575,
+        3551
+      ],
+      "vertex_valences": [
+        3,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 1785,
+      "v": [
+        3705,
+        3720
+      ],
+      "xyz_mid": [
+        0.12202540040016174,
+        -0.1490640789270401,
+        1.0189645290374756
+      ],
+      "angle_deg": 21.1852,
+      "length": 0.030075,
+      "faces": [
+        6066,
+        6065
+      ],
+      "vertex_valences": [
+        7,
+        7
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 3259,
+      "v": [
+        878,
+        879
+      ],
+      "xyz_mid": [
+        -0.07660216838121414,
+        -0.0677594542503357,
+        1.099120855331421
+      ],
+      "angle_deg": 21.1078,
+      "length": 0.016852,
+      "faces": [
+        802,
+        801
+      ],
+      "vertex_valences": [
+        3,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 6357,
+      "v": [
+        1359,
+        1360
+      ],
+      "xyz_mid": [
+        -0.08542560040950775,
+        0.016751762479543686,
+        1.1037335395812988
+      ],
+      "angle_deg": 21.0458,
+      "length": 0.01635,
+      "faces": [
+        1267,
+        1262
+      ],
+      "vertex_valences": [
+        5,
+        6
+      ],
+      "face_sides": [
+        3,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 8963,
+      "v": [
+        860,
+        874
+      ],
+      "xyz_mid": [
+        -0.07612113654613495,
+        -0.12516537308692932,
+        1.0984517335891724
+      ],
+      "angle_deg": 20.8122,
+      "length": 0.025209,
+      "faces": [
+        797,
+        784
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 6291,
+      "v": [
+        1074,
+        1240
+      ],
+      "xyz_mid": [
+        -0.20058289170265198,
+        0.11666329205036163,
+        0.7898406982421875
+      ],
+      "angle_deg": 20.7961,
+      "length": 0.024825,
+      "faces": [
+        1153,
+        1142
+      ],
+      "vertex_valences": [
+        4,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 4676,
+      "v": [
+        3678,
+        3698
+      ],
+      "xyz_mid": [
+        0.09104162454605103,
+        -0.03878282755613327,
+        1.1041810512542725
+      ],
+      "angle_deg": 20.7942,
+      "length": 0.029999,
+      "faces": [
+        3577,
+        3576
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 8961,
+      "v": [
+        854,
+        871
+      ],
+      "xyz_mid": [
+        -0.07213699072599411,
+        -0.17540408670902252,
+        1.1241405010223389
+      ],
+      "angle_deg": 20.781,
+      "length": 0.026444,
+      "faces": [
+        793,
+        778
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 10358,
+      "v": [
+        3610,
+        3627
+      ],
+      "xyz_mid": [
+        0.19534996151924133,
+        -0.047722529619932175,
+        0.8513220548629761
+      ],
+      "angle_deg": 20.7601,
+      "length": 0.022264,
+      "faces": [
+        3502,
+        3501
+      ],
+      "vertex_valences": [
+        5,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 7519,
+      "v": [
+        3697,
+        3713
+      ],
+      "xyz_mid": [
+        0.11861127614974976,
+        -0.0547524094581604,
+        1.0981206893920898
+      ],
+      "angle_deg": 20.7009,
+      "length": 0.027519,
+      "faces": [
+        3593,
+        3592
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 10348,
+      "v": [
+        3600,
+        3603
+      ],
+      "xyz_mid": [
+        0.15642663836479187,
+        -0.1127871498465538,
+        0.9470682740211487
+      ],
+      "angle_deg": 20.598,
+      "length": 0.022696,
+      "faces": [
+        3481,
+        3480
+      ],
+      "vertex_valences": [
+        3,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 7538,
+      "v": [
+        3740,
+        3744
+      ],
+      "xyz_mid": [
+        0.1728203296661377,
+        -0.09803155064582825,
+        1.0113577842712402
+      ],
+      "angle_deg": 20.5588,
+      "length": 0.022506,
+      "faces": [
+        3626,
+        3625
+      ],
+      "vertex_valences": [
+        6,
+        5
+      ],
+      "face_sides": [
+        3,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 3173,
+      "v": [
+        678,
+        703
+      ],
+      "xyz_mid": [
+        -0.19522102177143097,
+        -0.04760271683335304,
+        0.8501888513565063
+      ],
+      "angle_deg": 20.5476,
+      "length": 0.022807,
+      "faces": [
+        619,
+        618
+      ],
+      "vertex_valences": [
+        5,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 4626,
+      "v": [
+        3613,
+        3614
+      ],
+      "xyz_mid": [
+        0.19000515341758728,
+        -0.05202753096818924,
+        0.8090803623199463
+      ],
+      "angle_deg": 20.5383,
+      "length": 0.020421,
+      "faces": [
+        3500,
+        3490
+      ],
+      "vertex_valences": [
+        4,
+        5
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 3243,
+      "v": [
+        843,
+        844
+      ],
+      "xyz_mid": [
+        -0.12742042541503906,
+        -0.07722391188144684,
+        1.0759940147399902
+      ],
+      "angle_deg": 20.5364,
+      "length": 0.021677,
+      "faces": [
+        786,
+        760
+      ],
+      "vertex_valences": [
+        5,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 4681,
+      "v": [
+        3696,
+        3712
+      ],
+      "xyz_mid": [
+        0.11767139285802841,
+        -0.06919090449810028,
+        1.0834087133407593
+      ],
+      "angle_deg": 20.5164,
+      "length": 0.025599,
+      "faces": [
+        3592,
+        3591
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 8931,
+      "v": [
+        792,
+        794
+      ],
+      "xyz_mid": [
+        -0.15217997133731842,
+        -0.13375991582870483,
+        0.9933269023895264
+      ],
+      "angle_deg": 20.5025,
+      "length": 0.017995,
+      "faces": [
+        5729,
+        712
+      ],
+      "vertex_valences": [
+        5,
+        6
+      ],
+      "face_sides": [
+        3,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 1792,
+      "v": [
+        3734,
+        3736
+      ],
+      "xyz_mid": [
+        0.1522504836320877,
+        -0.1337014138698578,
+        0.993388295173645
+      ],
+      "angle_deg": 20.4923,
+      "length": 0.017921,
+      "faces": [
+        3616,
+        3615
+      ],
+      "vertex_valences": [
+        5,
+        6
+      ],
+      "face_sides": [
+        3,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 6130,
+      "v": [
+        862,
+        863
+      ],
+      "xyz_mid": [
+        -0.1012345403432846,
+        -0.07861775159835815,
+        1.0827174186706543
+      ],
+      "angle_deg": 20.4442,
+      "length": 0.020253,
+      "faces": [
+        800,
+        786
+      ],
+      "vertex_valences": [
+        5,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 4631,
+      "v": [
+        3619,
+        3620
+      ],
+      "xyz_mid": [
+        0.1982138454914093,
+        -0.05149436742067337,
+        0.8708008527755737
+      ],
+      "angle_deg": 20.4149,
+      "length": 0.012706,
+      "faces": [
+        3503,
+        3495
+      ],
+      "vertex_valences": [
+        3,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 3260,
+      "v": [
+        865,
+        880
+      ],
+      "xyz_mid": [
+        -0.08992794156074524,
+        -0.038915783166885376,
+        1.1041655540466309
+      ],
+      "angle_deg": 20.2839,
+      "length": 0.029731,
+      "faces": [
+        804,
+        803
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 11484,
+      "v": [
+        842,
+        862
+      ],
+      "xyz_mid": [
+        -0.10834527015686035,
+        -0.09566189348697662,
+        1.0710878372192383
+      ],
+      "angle_deg": 20.2747,
+      "length": 0.030348,
+      "faces": [
+        5758,
+        785
+      ],
+      "vertex_valences": [
+        6,
+        5
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 7451,
+      "v": [
+        3569,
+        3570
+      ],
+      "xyz_mid": [
+        0.10147897154092789,
+        -0.16754013299942017,
+        0.9896862506866455
+      ],
+      "angle_deg": 20.25,
+      "length": 0.018704,
+      "faces": [
+        3464,
+        3446
+      ],
+      "vertex_valences": [
+        8,
+        5
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 8964,
+      "v": [
+        844,
+        863
+      ],
+      "xyz_mid": [
+        -0.11650218069553375,
+        -0.06897100806236267,
+        1.0838953256607056
+      ],
+      "angle_deg": 20.2261,
+      "length": 0.025904,
+      "faces": [
+        787,
+        786
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 1772,
+      "v": [
+        3695,
+        3696
+      ],
+      "xyz_mid": [
+        0.10199803858995438,
+        -0.07873004674911499,
+        1.0821164846420288
+      ],
+      "angle_deg": 20.1481,
+      "length": 0.02116,
+      "faces": [
+        3591,
+        3574
+      ],
+      "vertex_valences": [
+        5,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 3172,
+      "v": [
+        698,
+        699
+      ],
+      "xyz_mid": [
+        -0.18227751553058624,
+        -0.07509289681911469,
+        0.892509400844574
+      ],
+      "angle_deg": 20.14,
+      "length": 0.016341,
+      "faces": [
+        626,
+        616
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 8938,
+      "v": [
+        808,
+        809
+      ],
+      "xyz_mid": [
+        -0.17139866948127747,
+        -0.056393712759017944,
+        1.0735325813293457
+      ],
+      "angle_deg": 20.1185,
+      "length": 0.02194,
+      "faces": [
+        730,
+        726
+      ],
+      "vertex_valences": [
+        5,
+        4
+      ],
+      "face_sides": [
+        4,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 3171,
+      "v": [
+        698,
+        705
+      ],
+      "xyz_mid": [
+        -0.1844390332698822,
+        -0.06804068386554718,
+        0.8783048391342163
+      ],
+      "angle_deg": 20.1066,
+      "length": 0.01583,
+      "faces": [
+        631,
+        615
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 8905,
+      "v": [
+        740,
+        741
+      ],
+      "xyz_mid": [
+        -0.08228607475757599,
+        -0.18602336943149567,
+        0.9818642139434814
+      ],
+      "angle_deg": 19.9836,
+      "length": 0.022531,
+      "faces": [
+        654,
+        653
+      ],
+      "vertex_valences": [
+        5,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 368,
+      "v": [
+        820,
+        837
+      ],
+      "xyz_mid": [
+        -0.12179946899414062,
+        -0.14972984790802002,
+        1.0195975303649902
+      ],
+      "angle_deg": 19.9419,
+      "length": 0.030799,
+      "faces": [
+        754,
+        752
+      ],
+      "vertex_valences": [
+        7,
+        7
+      ],
+      "face_sides": [
+        3,
+        3
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 1800,
+      "v": [
+        3750,
+        3751
+      ],
+      "xyz_mid": [
+        0.17164310812950134,
+        -0.05626377463340759,
+        1.0737272500991821
+      ],
+      "angle_deg": 19.8984,
+      "length": 0.022165,
+      "faces": [
+        6085,
+        3635
+      ],
+      "vertex_valences": [
+        5,
+        4
+      ],
+      "face_sides": [
+        3,
+        4
+      ],
+      "central_shoulder_seam": true
+    },
+    {
+      "edge_index": 574,
+      "v": [
+        1272,
+        1277
+      ],
+      "xyz_mid": [
+        -0.16800862550735474,
+        0.14309537410736084,
+        0.8457159399986267
+      ],
+      "angle_deg": 19.8262,
+      "length": 0.008353,
+      "faces": [
+        1178,
+        1177
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    },
+    {
+      "edge_index": 7729,
+      "v": [
+        4116,
+        4118
+      ],
+      "xyz_mid": [
+        0.13274282217025757,
+        0.12475673854351044,
+        1.059648036956787
+      ],
+      "angle_deg": 19.8259,
+      "length": 0.024554,
+      "faces": [
+        4001,
+        4000
+      ],
+      "vertex_valences": [
+        4,
+        4
+      ],
+      "face_sides": [
+        4,
+        4
+      ],
+      "central_shoulder_seam": false
+    }
+  ],
+  "render_views": [
+    "FRONT34",
+    "REAR34",
+    "SIDE"
+  ]
+}
