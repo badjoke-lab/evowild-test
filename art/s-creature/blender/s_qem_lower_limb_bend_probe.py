@@ -114,6 +114,7 @@ for i,(a,b) in enumerate(zip(source.data.polygons,posed.data.polygons)):
     if tuple(a.vertices)!=tuple(b.vertices):raise RuntimeError(f"Source topology changed at face {i}")
 
 # All affected triangles are measured, not silently treated as deformation safe.
+moved_set=set(int(i) for i in moved_idx)
 face_distortion=[]
 flipped=[]
 area_shrink=[]
@@ -121,7 +122,7 @@ area_expand=[]
 near_collapse=[]
 for face in source.data.polygons:
     ix=list(face.vertices)
-    if not any(j in moved_idx for j in ix):continue
+    if not any(j in moved_set for j in ix):continue
     if len(ix)!=3:raise RuntimeError("QEM expected triangulated surface")
     a0,a1,a2=xyz[ix]
     b0,b1,b2=new_xyz[ix]
