@@ -75,7 +75,7 @@ jobs:
           draw=ImageDraw.Draw(zoom)
           for col,v in enumerate(("SIDE","REAR34")):
               for row,k in enumerate(variants):
-                  fn=p/"review"/f"S_S_QEM_TAIL_CLOSE_{k}_{v}.png"
+                  fn=p/"review"/f"S_QEM_TAIL_CLOSE_{k}_{v}.png"
                   assert fn.stat().st_size>10000
                   im=Image.open(fn).convert("RGB")
                   im.thumbnail((W-16,H-34))
