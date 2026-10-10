@@ -399,7 +399,32 @@ for f in render_frames:
     scene.frame_set(f)
     scene.render.filepath=str(REV/("S_QEM_REAL_MULTICYCLE_F%02d.png"%f))
     bpy.ops.render.render(write_still=True)
+# Five real cameras at the SAME world position for original and live rig;
+# these are evidence images, NOT an automatic authority-image design PASS.
+look_at=Vector((0,0,1.275))
+directions={
+ "SIDE":Vector((1,0,0)),
+ "FRONT":Vector((0,-1,0)),
+ "FRONT34":Vector((1,-1,0)).normalized(),
+ "REAR34":Vector((1,1,0)).normalized(),
+ "BACK":Vector((0,1,0))
+}
+for view,dr in directions.items():
+    cam.location=look_at+dr*9
+    cam.rotation_euler=(look_at-cam.location).to_track_quat("-Z","Y").to_euler()
+    scene.frame_set(1)
+    src.hide_render=False
+    dst.hide_render=True
+    scene.render.filepath=str(REV/f"QEM_V3_SOURCE_{view}.png")
+    bpy.ops.render.render(write_still=True)
+    scene.frame_set(13)
+    src.hide_render=True
+    dst.hide_render=False
+    scene.render.filepath=str(REV/f"QEM_V3_IK_POSE_{view}.png")
+    bpy.ops.render.render(write_still=True)
 scene.frame_set(33)
+src.hide_render=True
+dst.hide_render=False
 bpy.ops.wm.save_as_mainfile(filepath=str(OUT/"S-QEM-13bone-stride-ladder-v3.blend"),compress=True)
 print("QEM_REAL_STRIDE_LADDER_FINAL",json.dumps({
  "result":winning["gate"],"stride":winning["candidate_stride"],
