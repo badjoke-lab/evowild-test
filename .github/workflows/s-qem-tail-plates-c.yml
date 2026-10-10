@@ -51,8 +51,8 @@ jobs:
           d=json.loads((p/"SEWN_TAIL_PLATES_C_QA.json").read_text())
           assert d["original_source_preserved"] and d["previous_A_source_preserved"]
           assert d["source_vertex_count"]==29948 and d["source_faces"]==59932
-          assert d["variant_B_vertex_count"]>29948
-          assert d["variant_B_triangles"]>59932
+          assert d["variant_C_vertex_count"]>29948
+          assert d["variant_C_triangles"]>59932
           assert d["plate_count_requested"]==3
           assert not d["S_type_complete"] and not d["game_approved"]
           assert (p/"S-QEM-tail-sewn-plates-C-TRIAL.blend").stat().st_size>50000
@@ -73,7 +73,7 @@ jobs:
           ref=Image.open("art/s-creature/references/00_s_type_modeling_image_v1.png").convert("RGB")
           ref.thumbnail((1400,1000))
           ref.save(p/"review"/"LOCKED_S_AUTHORITY_PREVIEW.jpg",quality=90)
-          print("REAL_CONNECTED_QEM_TAIL_B",d["geometry_gate"],
+          print("REAL_SEWN_QEM_TAIL_C",d["geometry_gate"],
                 "components",d["mesh_connected_components"],
                 "nonmanifold",d["nonmanifold_or_boundary_edges"],
                 "segments",[x["selected_region_faces"] for x in d["plate_groups"]])
