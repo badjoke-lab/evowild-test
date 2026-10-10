@@ -1,0 +1,19 @@
+{
+  "experiment": "original_qem_tail_morph_a",
+  "authoritative_design": "art/s-creature/references/00_s_type_modeling_image_v1.png",
+  "authoritative_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "source_glb_sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "shape_key_extension": 0.4,
+  "topology_changed": false,
+  "original_vertices": 29948,
+  "original_faces": 59932,
+  "local_triangle_gate": "PASS",
+  "design_gate": "REJECT",
+  "design_observation": "Tail is longer but remains a single nonsegmented rod instead of authoritative layered armored tail",
+  "motion_after_shape_change": "NOT_TESTED",
+  "production_asset_approved": false,
+  "main_merge_allowed": false,
+  "full_s_creature_complete": false,
+  "human_design_approval": false,
+  "review": "art/s-creature/experiments/qem-deformation-gate-20261010/TAIL_MORPH_A_ACTUAL_VISUAL_REVIEW.md"
+}
