@@ -72,7 +72,8 @@ for pb in arm.pose.bones:
     pb.rotation_euler = (0, 0, 0)
     pb.location = (0, 0, 0)
     pb.scale = (1, 1, 1)
-    pb.constraints.clear()
+    for old_constraint in list(pb.constraints):
+        pb.constraints.remove(old_constraint)
 bpy.context.scene.frame_set(1)
 bpy.context.view_layer.update()
 before_ik_mesh = None
