@@ -1,0 +1,97 @@
+name: EvoWild S actual QEM sewn tail plates C
+on:
+  push:
+    branches: [exp/s-qem-tail-plates-c-20261010]
+    paths:
+      - .github/workflows/s-qem-tail-plates-c.yml
+      - art/s-creature/blender/s_qem_tail_sewn_plates_c.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-s-qem-tail-plates-c
+  cancel-in-progress: false
+jobs:
+  actual-qem-tail-morphology:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_qem_tail_sewn_plates_c.py
+            /art/s-creature/experiments/qem-deformation-gate-20261010/tail-morph-a-v1/S-QEM-real-tail-morph-a-v1.blend
+            /art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/qem-deformation-gate-20261010/tail-integrated-plates-c-v1/
+            /.github/workflows/s-qem-tail-plates-c.yml
+      - name: Exact SHA of locked S reference and original QEM
+        run: |
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+          echo 'e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f  art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb' | sha256sum --check -
+      - name: Install Blender
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Real QEM BMesh-connected tail plates and 10 genuine five-view renders
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/tail-morph-a-v1/S-QEM-real-tail-morph-a-v1.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_tail_sewn_plates_c.py
+      - name: Validate source count and prepare original before-after contact sheet
+        run: |
+          python3 -m pip install -q pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          from PIL import Image, ImageDraw
+          p=Path("art/s-creature/experiments/qem-deformation-gate-20261010/tail-integrated-plates-c-v1")
+          d=json.loads((p/"SEWN_TAIL_PLATES_C_QA.json").read_text())
+          assert d["original_source_preserved"] and d["previous_A_source_preserved"]
+          assert d["source_vertex_count"]==29948 and d["source_faces"]==59932
+          assert d["variant_B_vertex_count"]>29948
+          assert d["variant_B_triangles"]>59932
+          assert d["plate_count_requested"]==3
+          assert not d["S_type_complete"] and not d["game_approved"]
+          assert (p/"S-QEM-tail-sewn-plates-C-TRIAL.blend").stat().st_size>50000
+          views=["SIDE","FRONT","FRONT34","REAR34","BACK"]
+          variants=["SOURCE","TAIL_A","SEWN_PLATES_C"]
+          W,H=390,325
+          sheet=Image.new("RGB",(W*5,H*3),(238,240,243))
+          draw=ImageDraw.Draw(sheet)
+          for i,v in enumerate(views):
+              for j,k in enumerate(variants):
+                  q=p/"review"/f"REAL_QEM_{k}_{v}.png"
+                  assert q.stat().st_size>10000,q
+                  im=Image.open(q).convert("RGB")
+                  im.thumbnail((W-12,H-28))
+                  sheet.paste(im,(i*W+(W-im.width)//2,j*H+25+(H-25-im.height)//2))
+                  draw.text((i*W+8,j*H+5),f"{k} / {v}",(14,17,20))
+          sheet.save(p/"review"/"REAL_QEM_TAIL_A_VS_SEWN_PLATES_C_FIVE_VIEW.jpg",quality=92,optimize=True)
+          ref=Image.open("art/s-creature/references/00_s_type_modeling_image_v1.png").convert("RGB")
+          ref.thumbnail((1400,1000))
+          ref.save(p/"review"/"LOCKED_S_AUTHORITY_PREVIEW.jpg",quality=90)
+          print("REAL_CONNECTED_QEM_TAIL_B",d["geometry_gate"],
+                "components",d["mesh_connected_components"],
+                "nonmanifold",d["nonmanifold_or_boundary_edges"],
+                "segments",[x["selected_region_faces"] for x in d["plate_groups"]])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-original-QEM-sewn-tail-C
+          path: art/s-creature/experiments/qem-deformation-gate-20261010/tail-integrated-plates-c-v1/
+          if-no-files-found: warn
+      - name: Persist real Blender, images, numerical geometry even if morphological gate FAIL
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/qem-deformation-gate-20261010/tail-integrated-plates-c-v1/
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit: preserve QEM three sewn tail skin plates and actual manifold QA'
+            git pull --rebase origin exp/s-qem-tail-plates-c-20261010
+            git push origin HEAD:exp/s-qem-tail-plates-c-20261010
+          fi
