@@ -1,0 +1,74 @@
+name: EvoWild S QEM 13-bone actual full-frame and foot-contact QA
+on:
+  push:
+    branches: [exp/s-qem-deformation-gate-20261010]
+    paths:
+      - .github/workflows/s-qem-13bone-foot-contact-preview.yml
+      - art/s-creature/blender/s_qem_13bone_frame_contact_audit.py
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  frame-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 38
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_qem_13bone_frame_contact_audit.py
+            /art/s-creature/experiments/qem-deformation-gate-20261010/three-segment-armature-v1/13_BONE_REAL_ARMATURE_QA.json
+            /art/s-creature/experiments/qem-deformation-gate-20261010/three-segment-armature-v1/S-QEM-real-13-bone-joint-chain-test.blend
+            /art/s-creature/experiments/qem-deformation-gate-20261010/three-segment-armature-v1/contact-motion-review/
+            /.github/workflows/s-qem-13bone-foot-contact-preview.yml
+      - name: Blender 4.3.2 for exact stored 13-bone rig playback
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Render actual 16 keyed skeleton frames and measure each real foot contact patch
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/three-segment-armature-v1/S-QEM-real-13-bone-joint-chain-test.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_13bone_frame_contact_audit.py
+      - name: Encode real 16 frame GIF and validate original foot vertices
+        run: |
+          python3 -m pip install -q pillow
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image
+          r=Path('art/s-creature/experiments/qem-deformation-gate-20261010/three-segment-armature-v1/contact-motion-review')
+          d=json.loads((r/'REAL_FOOT_CONTACT_AUDIT.json').read_text())
+          assert d['source_geometry_unchanged'] and d['armature_bone_count']==13
+          assert d['frames']==list(range(1,17))
+          assert not d['IK_contact_solver_implemented'] and not d['running_gait_implemented'] and not d['production_approved']
+          assert all(v['selected_vertices']>=50 for v in d['original_contact_vertices_by_foot'].values())
+          imgs=[]
+          for i in range(1,17):
+            p=r/f'QEM_13BONE_actual_frame_{i:02d}.png'
+            assert p.stat().st_size>11000,p
+            im=Image.open(p).convert('RGB')
+            im.thumbnail((760,570))
+            imgs.append(im)
+          gif=r/'QEM_13BONE_true_skeletal_test_16frame.gif'
+          imgs[0].save(gif,format='GIF',append_images=imgs[1:],duration=85,loop=0,optimize=True)
+          assert gif.stat().st_size>15000
+          print('FOUR_FOOT_REAL_MOTION_AUDIT',d['max_horizontal_foot_drift_per_foot'],d['max_delta_lowest_z_per_foot'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-S-13bone-real-foot-contact-audit-GIF
+          path: art/s-creature/experiments/qem-deformation-gate-20261010/three-segment-armature-v1/contact-motion-review/
+          if-no-files-found: warn
+      - name: Commit measured contact and animated 13-bone pose only to isolated experimental branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/qem-deformation-gate-20261010/three-segment-armature-v1/contact-motion-review/
+          git commit -m 'audit: real four foot contacts and 16 keyed QEM 13 bone skeleton motion frames'
+          git pull --rebase origin exp/s-qem-deformation-gate-20261010
+          git push origin HEAD:exp/s-qem-deformation-gate-20261010
