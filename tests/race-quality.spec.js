@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 
-test("four morph race uses all six-frame sheets in fixed-step race", async ({ page }, testInfo) => {
+test("four morph race uses the authored morph sheets in fixed-step race", async ({ page }, testInfo) => {
   await page.goto("/evowild-test/race-quality.html", { waitUntil: "networkidle" });
   const stage = page.locator("#stage");
 
@@ -29,7 +29,8 @@ test("four morph race uses all six-frame sheets in fixed-step race", async ({ pa
   await expect(stage).toHaveAttribute("data-p-animated", "true");
   await expect(stage).toHaveAttribute("data-e-animated", "true");
   await expect(stage).toHaveAttribute("data-a-animated", "true");
-  await expect(stage).toHaveAttribute("data-p-frame", /[0-5]/);
+  await expect(stage).toHaveAttribute("data-p-frame", /^(?:[0-9]|1[01])$/);
+  await expect(stage).toHaveAttribute("data-p-frame-count", "12");
   await expect(stage).toHaveAttribute("data-e-frame", /[0-5]/);
   await expect(stage).toHaveAttribute("data-a-frame", /[0-5]/);
   await expect(stage).toHaveAttribute("data-camera-roll", /-?\d+\.\d+/);
@@ -371,7 +372,7 @@ test("2.5D dense-pack labels avoid overlap and battle HUD clears Agent panel", a
   });
 });
 
-test("2.5D P E A grounded-stride v2 exposes six distinct live phases", async ({ page }, testInfo) => {
+test("2.5D P E A expose their authored live phases and ground anchors", async ({ page }, testInfo) => {
   test.setTimeout(60000);
   fs.mkdirSync("artifacts/2p5d-survivor", { recursive: true });
 
@@ -388,13 +389,14 @@ test("2.5D P E A grounded-stride v2 exposes six distinct live phases", async ({ 
     await expect(stage).toHaveAttribute("data-run-sheets", "ready", { timeout: 15000 });
     await expect(stage).toHaveAttribute("data-race-state", "running", { timeout: 8000 });
     await expect(stage).toHaveAttribute("data-selected-morph", morph);
-    await expect(stage).toHaveAttribute(`data-${morph.toLowerCase()}-motion-profile`, "grounded-stride-v2");
-    await expect(stage).toHaveAttribute(`data-${morph.toLowerCase()}-ground-anchor`, "auto-foot-v2");
+    const frameCount = morph === "P" ? 12 : 6;
+    await expect(stage).toHaveAttribute(`data-${morph.toLowerCase()}-motion-profile`, morph === "P" ? "canonical-p-12" : "grounded-stride-v2");
+    await expect(stage).toHaveAttribute(`data-${morph.toLowerCase()}-ground-anchor`, morph === "P" ? "authored-baseline-296-of-320" : "auto-foot-v2");
     await expect(stage).toHaveAttribute("data-pea-motion-version", "grounded-stride-v2");
     await expect(stage).toHaveAttribute("data-pea-anchor-version", "alpha-bbox-x-v3");
     await expect(stage).toHaveAttribute(
       `data-${morph.toLowerCase()}-sheet-layout`,
-      morph === "A" ? "2x3" : "3x2"
+      morph === "A" ? "2x3" : morph === "P" ? "4x3" : "3x2"
     );
     await expect(stage).toHaveAttribute("data-camera-subject", "motion-review-isolated");
 
@@ -403,16 +405,16 @@ test("2.5D P E A grounded-stride v2 exposes six distinct live phases", async ({ 
     expect(rawFootSpread).toBeGreaterThanOrEqual(0);
 
     const observed = new Set();
-    for (let sample = 0; sample < 48 && observed.size < 6; sample += 1) {
-      await page.waitForTimeout(45);
+    for (let sample = 0; sample < 120 && observed.size < frameCount; sample += 1) {
+      await page.waitForTimeout(17);
       const frame = Number(await stage.getAttribute("data-selected-run-frame"));
       const phase = await stage.getAttribute("data-selected-run-phase");
-      if (Number.isFinite(frame) && frame >= 0 && frame <= 5) observed.add(frame);
+      if (Number.isFinite(frame) && frame >= 0 && frame < frameCount) observed.add(frame);
       expect(phase).toMatch(/CONTACT|PUSH|LIFT|FLIGHT|REACH|LAND/);
     }
-    expect([...observed].sort()).toEqual([0,1,2,3,4,5]);
+    expect([...observed].sort((a,b) => a-b)).toEqual(Array.from({ length:frameCount }, (_,i) => i));
 
-    for (const frame of [0,3,4]) {
+    for (const frame of morph === "P" ? [0,6,8,11] : [0,3,4]) {
       await page.goto(
         `/evowild-test/race-quality.html?motionReview=1&selected=${id}&motionFrame=${frame}`,
         { waitUntil: "networkidle" }

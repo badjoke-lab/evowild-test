@@ -1,0 +1,333 @@
+{
+  "config": {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/evowild-test/node_modules/.bin/playwright",
+      "test",
+      "--config",
+      "work/p-canonical/baseline.config.mjs",
+      "--grep",
+      "Race Agent commands are creature-resolved"
+    ],
+    "configFile": "/workspace/evowild-test/work/p-canonical/baseline.config.mjs",
+    "rootDir": "/workspace/evowild-test/work/p-canonical",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/workspace/evowild-test/work/p-canonical/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "android-chromium",
+        "name": "android-chromium",
+        "testDir": "/workspace/evowild-test/work/p-canonical",
+        "testIgnore": [],
+        "testMatch": [
+          "baseline.spec.js"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/workspace/evowild-test/work/p-canonical/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "desktop-chromium",
+        "name": "desktop-chromium",
+        "testDir": "/workspace/evowild-test/work/p-canonical",
+        "testIgnore": [],
+        "testMatch": [
+          "baseline.spec.js"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/workspace/evowild-test/work/p-canonical/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "name": "android-chromium",
+        "testDir": "/workspace/evowild-test/work/p-canonical",
+        "snapshotDir": "/workspace/evowild-test/work/p-canonical",
+        "testIgnore": [],
+        "testMatch": "baseline.spec.js",
+        "timeout": 30000,
+        "use": {
+          "baseURL": "http://127.0.0.1:4173",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "executablePath": "/usr/bin/chromium",
+            "args": [
+              "--no-sandbox"
+            ]
+          },
+          "userAgent": "Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.8078.4 Mobile Safari/537.36",
+          "viewport": {
+            "width": 412,
+            "height": 839
+          },
+          "screen": {
+            "width": 412,
+            "height": 915
+          },
+          "deviceScaleFactor": 2.625,
+          "isMobile": true,
+          "hasTouch": true,
+          "defaultBrowserType": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "android-chromium"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/workspace/evowild-test/work/p-canonical/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "name": "desktop-chromium",
+        "testDir": "/workspace/evowild-test/work/p-canonical",
+        "snapshotDir": "/workspace/evowild-test/work/p-canonical",
+        "testIgnore": [],
+        "testMatch": "baseline.spec.js",
+        "timeout": 30000,
+        "use": {
+          "baseURL": "http://127.0.0.1:4173",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "executablePath": "/usr/bin/chromium",
+            "args": [
+              "--no-sandbox"
+            ]
+          },
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.8078.4 Safari/537.36",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "screen": {
+            "width": 1920,
+            "height": 1080
+          },
+          "deviceScaleFactor": 1,
+          "isMobile": false,
+          "hasTouch": false,
+          "defaultBrowserType": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "desktop-chromium"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "work/p-canonical/baseline-tests.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.0",
+    "workers": 2,
+    "webServer": {
+      "command": "npm run dev -- --host 127.0.0.1 --port 4173",
+      "port": 4173,
+      "reuseExistingServer": false
+    }
+  },
+  "suites": [
+    {
+      "title": "baseline.spec.js",
+      "file": "baseline.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "2.5D Race Agent commands are creature-resolved and morph-dependent",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "android-chromium",
+              "projectName": "android-chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 9950,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: < \u001b[32m0.612\u001b[39m\nReceived:   \u001b[31m0.731\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: < \u001b[32m0.612\u001b[39m\nReceived:   \u001b[31m0.731\u001b[39m\n    at /workspace/evowild-test/work/p-canonical/baseline.spec.js:81:25",
+                    "location": {
+                      "file": "/workspace/evowild-test/work/p-canonical/baseline.spec.js",
+                      "column": 25,
+                      "line": 81
+                    },
+                    "snippet": "  79 |   const ePushResponse = Number(await stage.getAttribute(\"data-agent-focus-response\"));\n  80 |   expect(ePushResponse).toBeGreaterThan(0);\n> 81 |   expect(ePushResponse).toBeLessThan(sPushResponse);\n     |                         ^\n  82 |\n  83 |   await page.getByRole(\"button\", { name: \"CONSERVE\", exact: true }).click();\n  84 |   await page.waitForTimeout(100);"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/evowild-test/work/p-canonical/baseline.spec.js",
+                        "column": 25,
+                        "line": 81
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: < \u001b[32m0.612\u001b[39m\nReceived:   \u001b[31m0.731\u001b[39m\n\n  79 |   const ePushResponse = Number(await stage.getAttribute(\"data-agent-focus-response\"));\n  80 |   expect(ePushResponse).toBeGreaterThan(0);\n> 81 |   expect(ePushResponse).toBeLessThan(sPushResponse);\n     |                         ^\n  82 |\n  83 |   await page.getByRole(\"button\", { name: \"CONSERVE\", exact: true }).click();\n  84 |   await page.waitForTimeout(100);\n    at /workspace/evowild-test/work/p-canonical/baseline.spec.js:81:25"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T16:27:43.294Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/workspace/evowild-test/work/p-canonical/test-results/baseline-2-5D-Race-Agent-c-fa8a2-esolved-and-morph-dependent-android-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/workspace/evowild-test/work/p-canonical/test-results/baseline-2-5D-Race-Agent-c-fa8a2-esolved-and-morph-dependent-android-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/evowild-test/work/p-canonical/baseline.spec.js",
+                    "column": 25,
+                    "line": 81
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "baebd2168b197d5b0eef-5d1e3e71615602a4a9c0",
+          "file": "baseline.spec.js",
+          "line": 48,
+          "column": 1
+        },
+        {
+          "title": "2.5D Race Agent commands are creature-resolved and morph-dependent",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop-chromium",
+              "projectName": "desktop-chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 9487,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: < \u001b[32m0.612\u001b[39m\nReceived:   \u001b[31m0.737\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: < \u001b[32m0.612\u001b[39m\nReceived:   \u001b[31m0.737\u001b[39m\n    at /workspace/evowild-test/work/p-canonical/baseline.spec.js:81:25",
+                    "location": {
+                      "file": "/workspace/evowild-test/work/p-canonical/baseline.spec.js",
+                      "column": 25,
+                      "line": 81
+                    },
+                    "snippet": "  79 |   const ePushResponse = Number(await stage.getAttribute(\"data-agent-focus-response\"));\n  80 |   expect(ePushResponse).toBeGreaterThan(0);\n> 81 |   expect(ePushResponse).toBeLessThan(sPushResponse);\n     |                         ^\n  82 |\n  83 |   await page.getByRole(\"button\", { name: \"CONSERVE\", exact: true }).click();\n  84 |   await page.waitForTimeout(100);"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/evowild-test/work/p-canonical/baseline.spec.js",
+                        "column": 25,
+                        "line": 81
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: < \u001b[32m0.612\u001b[39m\nReceived:   \u001b[31m0.737\u001b[39m\n\n  79 |   const ePushResponse = Number(await stage.getAttribute(\"data-agent-focus-response\"));\n  80 |   expect(ePushResponse).toBeGreaterThan(0);\n> 81 |   expect(ePushResponse).toBeLessThan(sPushResponse);\n     |                         ^\n  82 |\n  83 |   await page.getByRole(\"button\", { name: \"CONSERVE\", exact: true }).click();\n  84 |   await page.waitForTimeout(100);\n    at /workspace/evowild-test/work/p-canonical/baseline.spec.js:81:25"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-10T16:27:43.211Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/workspace/evowild-test/work/p-canonical/test-results/baseline-2-5D-Race-Agent-c-fa8a2-esolved-and-morph-dependent-desktop-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/workspace/evowild-test/work/p-canonical/test-results/baseline-2-5D-Race-Agent-c-fa8a2-esolved-and-morph-dependent-desktop-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/evowild-test/work/p-canonical/baseline.spec.js",
+                    "column": 25,
+                    "line": 81
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "baebd2168b197d5b0eef-0fa55dcee28725de3503",
+          "file": "baseline.spec.js",
+          "line": 48,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-10T16:27:41.292Z",
+    "duration": 12916.698999999999,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

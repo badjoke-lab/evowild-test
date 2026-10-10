@@ -45,7 +45,7 @@ const LANE_REVIEW_MODE = new URLSearchParams(location.search).get("laneReview") 
 const MOTION_REVIEW_MODE = new URLSearchParams(location.search).get("motionReview") === "1";
 const MOTION_REVIEW_FRAME = Math.max(
   -1,
-  Math.min(5, Number(new URLSearchParams(location.search).get("motionFrame") ?? -1))
+  Math.min(11, Math.floor(Number(new URLSearchParams(location.search).get("motionFrame") ?? -1)))
 );
 const FIELD_SIZE = 18;
 const SELECTED_ID = Math.max(
@@ -97,15 +97,10 @@ const MORPH_META = {
 
 const PEA_MOTION_V2 = {
   P: {
-    durations:[0.76,1.18,0.82,0.82,1.26,1.16],
-    transform:{
-      CONTACT:{ sx:1.00, sy:1.01, lean:-0.004, lift: 0.000 },
-      PUSH:   { sx:1.06, sy:0.98, lean: 0.018, lift:-0.006 },
-      LIFT:   { sx:1.02, sy:0.99, lean: 0.014, lift:-0.020 },
-      FLIGHT: { sx:1.08, sy:0.96, lean: 0.018, lift:-0.052 },
-      REACH:  { sx:1.07, sy:0.97, lean: 0.010, lift:-0.030 },
-      LAND:   { sx:1.00, sy:1.02, lean:-0.006, lift:-0.004 }
-    }
+    // Twelve authored poses, with longer load/landing and brief suspension.
+    // Sum remains six cycle units. P's cadence below gives ~0.45s at full speed.
+    durations:[0.50,0.58,0.60,0.45,0.40,0.28,0.26,0.38,0.52,0.58,0.70,0.75],
+    transform:{} // Preserve canonical proportions; lift is already in the artwork.
   },
   E: {
     durations:[0.82,0.98,0.78,1.08,1.36,0.98],
@@ -172,9 +167,25 @@ const RUN_FRAMES = [
   { phase:"LAND",    col:2, row:1, y:-0.16 }
 ];
 
+const P_RUN_FRAMES = [
+  { phase:"CONTACT",         flight:0,    contact:true },
+  { phase:"CONTACT_TO_PUSH", flight:0,    contact:true },
+  { phase:"PUSH",            flight:0,    contact:true },
+  { phase:"PUSH_TO_LIFT",    flight:0.05, contact:true },
+  { phase:"LIFT",            flight:0.15, contact:false },
+  { phase:"LIFT_TO_FLIGHT",  flight:0.70, contact:false },
+  { phase:"FLIGHT",          flight:1,    contact:false },
+  { phase:"FLIGHT_TO_REACH", flight:0.60, contact:false },
+  { phase:"REACH",           flight:0.20, contact:false },
+  { phase:"REACH_TO_LAND",   flight:0.10, contact:true },
+  { phase:"LAND",            flight:0,    contact:true },
+  { phase:"LAND_TO_CONTACT", flight:0,    contact:true }
+];
+const runFramesFor = morph => morph === "P" ? P_RUN_FRAMES : RUN_FRAMES;
+
 const SHEET_LAYOUTS = {
   S: { cols:3, rows:2, coords:[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1]] },
-  P: { cols:3, rows:2, coords:[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1]] },
+  P: { cols:4, rows:3, coords:Array.from({ length:12 }, (_,i) => [i%4,Math.floor(i/4)]) },
   E: { cols:3, rows:2, coords:[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1]] },
   A: { cols:2, rows:3, coords:[[0,0],[1,0],[0,1],[1,1],[0,2],[1,2]] }
 };
@@ -281,17 +292,18 @@ for (const morph of ["S","P","E","A"]) {
   image.decoding = "async";
   image.onload = () => {
     const layout = SHEET_LAYOUTS[morph] ?? SHEET_LAYOUTS.S;
-    const frames = RUN_FRAMES.map((frame,index) => {
+    const frames = runFramesFor(morph).map((frame,index) => {
       const [col,row] = layout.coords[index] ?? [frame.col,frame.row];
       return extractConnectedFrame(image,col,row,layout.cols,layout.rows);
     });
     spriteFrames.set(morph, frames);
     stage.dataset[`${morph.toLowerCase()}SheetLayout`] = `${layout.cols}x${layout.rows}`;
+    stage.dataset[`${morph.toLowerCase()}FrameCount`] = String(frames.length);
     if (morph !== "S") {
       const feet = frames.map((frame) => frame.__motionMetrics?.footYNorm ?? 0.98);
       const spread = Math.max(...feet) - Math.min(...feet);
       stage.dataset[`${morph.toLowerCase()}FootSpreadRaw`] = spread.toFixed(3);
-      stage.dataset[`${morph.toLowerCase()}GroundAnchor`] = "auto-foot-v2";
+      stage.dataset[`${morph.toLowerCase()}GroundAnchor`] = morph === "P" ? "authored-baseline-296-of-320" : "auto-foot-v2";
     }
     readySheets++;
     stage.dataset.runSheetsReady = String(readySheets);
@@ -1227,23 +1239,23 @@ function drawRacers() {
     minEdge=Math.min(minEdge,item.x-spriteW*.52);
     maxEdge=Math.max(maxEdge,item.x+spriteW*.52);
 
-    const cadence=(9.5+clamp(r.speed/34,0,1)*9.5)*meta.cadence;
+    const cadence=(9.5+clamp(r.speed/34,0,1)*9.5)*meta.cadence*(r.morph==="P" ? 0.75 : 1);
     const frameFloat=elapsed/1000*cadence+r.phaseOffset;
     const cyclePosition=((frameFloat%RUN_FRAMES.length)+RUN_FRAMES.length)%RUN_FRAMES.length;
     const frameIndex=MOTION_REVIEW_MODE && r.id===SELECTED_ID && MOTION_REVIEW_FRAME>=0
-      ? MOTION_REVIEW_FRAME
+      ? Math.min(MOTION_REVIEW_FRAME,runFramesFor(r.morph).length-1)
       : r.morph==="S"
         ? Math.floor(cyclePosition)
         : peaFrameIndex(r.morph,cyclePosition);
-    const frame=RUN_FRAMES[frameIndex];
+    const frame=runFramesFor(r.morph)[frameIndex];
 
     const slope=terrainSlope(item.visualDistance);
     const lean=clamp(slope*.022,-.045,.045);
 
-    const flight =
+    const flight = frame.flight ?? (
       frame.phase==="FLIGHT" ? 1 :
       frame.phase==="REACH" ? .55 :
-      frame.phase==="LIFT" ? .28 : 0;
+      frame.phase==="LIFT" ? .28 : 0);
     const shadowW=spriteW*(.40-flight*.09);
     const shadowH=Math.max(3,spriteH*(.05-flight*.012));
     ctx.save();
@@ -1254,7 +1266,7 @@ function drawRacers() {
     ctx.fill();
     ctx.restore();
 
-    const contactKick=frame.phase==="LAND"||frame.phase==="CONTACT"||frame.phase==="PUSH";
+    const contactKick=frame.contact ?? (frame.phase==="LAND"||frame.phase==="CONTACT"||frame.phase==="PUSH");
     if(r.speed>16&&contactKick){
       ctx.save();
       ctx.globalAlpha=.14;
@@ -1273,8 +1285,10 @@ function drawRacers() {
       const phaseTransform=peaProfile?.transform?.[frame.phase] ?? { sx:1, sy:1, lean:0, lift:0 };
       const drawW=spriteW*phaseTransform.sx;
       const drawH=spriteH*phaseTransform.sy;
-      const footNorm=frameCanvas.__motionMetrics?.footYNorm ?? 0.98;
-      const centerXNorm=frameCanvas.__motionMetrics?.centerXNorm ?? 0.5;
+      // P is packed with a shared 296/320 baseline and centered slots. Using
+      // each pose's lowest toe here would pin airborne feet back to the ground.
+      const footNorm=r.morph==="P" ? 296/320 : (frameCanvas.__motionMetrics?.footYNorm ?? 0.98);
+      const centerXNorm=r.morph==="P" ? 0.5 : (frameCanvas.__motionMetrics?.centerXNorm ?? 0.5);
       const groundCorrection=r.morph==="S" ? 0 : (0.98-footNorm)*drawH;
       const horizontalCorrection=r.morph==="S"
         ? 0
@@ -1299,7 +1313,7 @@ function drawRacers() {
       stage.dataset[`${r.morph.toLowerCase()}Animated`] = "true";
       stage.dataset[`${r.morph.toLowerCase()}Frame`] = String(frameIndex);
       if(r.morph!=="S"){
-        stage.dataset[`${r.morph.toLowerCase()}MotionProfile`] = "grounded-stride-v2";
+        stage.dataset[`${r.morph.toLowerCase()}MotionProfile`] = r.morph==="P" ? "canonical-p-12" : "grounded-stride-v2";
         stage.dataset[`${r.morph.toLowerCase()}FootAdjust`] = footAdjust.toFixed(2);
         stage.dataset[`${r.morph.toLowerCase()}HorizontalAdjust`] = horizontalCorrection.toFixed(2);
         stage.dataset[`${r.morph.toLowerCase()}FrameCenterX`] = centerXNorm.toFixed(3);

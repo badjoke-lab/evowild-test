@@ -1,0 +1,314 @@
+{
+  "date": "2026-10-11",
+  "baseCommit": "cde1bd7c8a26637d587aafd6d1d8cc4da8fb0315",
+  "build": {
+    "command": "npm run build",
+    "result": "pass",
+    "warning": "Existing >500kB main bundle warning"
+  },
+  "diffCheck": "pass",
+  "assetChecks": "12 unique alpha-transparent complete slots; contact bottom=295; flight bottom=271; all live indices 0..11 and wrap 11->0; fixed baseline; S/E/A remain six frames",
+  "visualDecision": "KEEP: visibly closer to canonical P; residual toe/wrist/tail-tip/crest and foot-continuity differences documented",
+  "suite": {
+    "passed": 24,
+    "failed": 2,
+    "skipped": 0,
+    "durationMs": 184595.22600000002
+  },
+  "tests": [
+    {
+      "name": "canonical P decodes twelve complete transparent poses with authored flight clearance",
+      "project": "android-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "canonical P twelve runtime poses, cycle wrap and normal race visual evidence",
+      "project": "android-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "canonical P decodes twelve complete transparent poses with authored flight clearance",
+      "project": "desktop-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "canonical P twelve runtime poses, cycle wrap and normal race visual evidence",
+      "project": "desktop-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "four morph race uses the authored morph sheets in fixed-step race",
+      "project": "android-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "2.5D Race Agent commands are creature-resolved and morph-dependent",
+      "project": "android-chromium",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "error": "Error: expect(received).toBeLessThan(expected)\n\nExpected: < 0.613\nReceived:   0.742"
+        }
+      ]
+    },
+    {
+      "name": "2.5D race finalizes all 18 runners and exposes classification",
+      "project": "android-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "2.5D Creature State pressure changes Agent response",
+      "project": "android-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "2.5D Agent feedback shows command then creature result",
+      "project": "android-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "2.5D battle readability shows overtake attempt and completion",
+      "project": "android-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "2.5D traffic sees nearby rivals during fractional lane movement",
+      "project": "android-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "2.5D lane decision chooses real clearance and holds the line",
+      "project": "android-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "2.5D default start is logically level while visual formation decays",
+      "project": "android-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "2.5D dense-pack labels avoid overlap and battle HUD clears Agent panel",
+      "project": "android-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "2.5D P E A expose their authored live phases and ground anchors",
+      "project": "android-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "four morph race uses the authored morph sheets in fixed-step race",
+      "project": "desktop-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "2.5D Race Agent commands are creature-resolved and morph-dependent",
+      "project": "desktop-chromium",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "error": "Error: expect(received).toBeLessThan(expected)\n\nExpected: < 0.613\nReceived:   0.738"
+        }
+      ]
+    },
+    {
+      "name": "2.5D race finalizes all 18 runners and exposes classification",
+      "project": "desktop-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "2.5D Creature State pressure changes Agent response",
+      "project": "desktop-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "2.5D Agent feedback shows command then creature result",
+      "project": "desktop-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "2.5D battle readability shows overtake attempt and completion",
+      "project": "desktop-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "2.5D traffic sees nearby rivals during fractional lane movement",
+      "project": "desktop-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "2.5D lane decision chooses real clearance and holds the line",
+      "project": "desktop-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "2.5D default start is logically level while visual formation decays",
+      "project": "desktop-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "2.5D dense-pack labels avoid overlap and battle HUD clears Agent panel",
+      "project": "desktop-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "name": "2.5D P E A expose their authored live phases and ground anchors",
+      "project": "desktop-chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed"
+        }
+      ]
+    }
+  ],
+  "baseline": {
+    "passed": 0,
+    "failed": 2,
+    "method": "Route src/race_quality.js to the original origin/main source (BASE_URL substituted for standalone browser module), and route concept/p-run-sheet.webp to the archived old sheet. No branch switch or production rewrite.",
+    "failure": "Existing S-vs-E raw PUSH response ordering assertion; S and E have different live pressure/stamina states.",
+    "new": {
+      "android": {
+        "s": 0.613,
+        "e": 0.742
+      },
+      "desktop": {
+        "s": 0.613,
+        "e": 0.738
+      }
+    },
+    "original": {
+      "android": {
+        "s": 0.612,
+        "e": 0.731
+      },
+      "desktop": {
+        "s": 0.612,
+        "e": 0.737
+      }
+    },
+    "conclusion": "The same assertion fails on both original and corrected renderer, on both viewports; unrelated to P art. Agent behavior and this assertion left unchanged."
+  },
+  "commands": [
+    "P_CANONICAL_EVIDENCE_DIR=docs/evidence/p-canonical-20261011 npx playwright test tests/p-canonical.spec.js tests/race-quality.spec.js --config work/p-canonical/playwright.config.mjs",
+    "npx playwright test --config work/p-canonical/baseline.config.mjs --grep \"Race Agent commands are creature-resolved\""
+  ],
+  "localConfig": "Inherited playwright.config.js projects/server; Chromium executable /usr/bin/chromium, --no-sandbox, workers=2; output placed in work/p-canonical."
+}

@@ -1,0 +1,125 @@
+{
+  "frames": [
+    {
+      "i": 0,
+      "left": 24,
+      "right": 391,
+      "top": 43,
+      "bottom": 295,
+      "clear": 87141,
+      "opaque": 45979,
+      "hash": "6a299def06d3959e84253927a52788241f7a058ab5d7f2f30343789061ae26ee"
+    },
+    {
+      "i": 1,
+      "left": 25,
+      "right": 390,
+      "top": 45,
+      "bottom": 295,
+      "clear": 87068,
+      "opaque": 46052,
+      "hash": "60bbfe3c7c20071a3a47e17ff428991d56f385a43cf5b0318bc820118d8e75fb"
+    },
+    {
+      "i": 2,
+      "left": 27,
+      "right": 388,
+      "top": 49,
+      "bottom": 295,
+      "clear": 89536,
+      "opaque": 43584,
+      "hash": "e99a51a6896afadcf40bc5b5540cbed8ee7d4153c0ef4d4d02f319d4e147de77"
+    },
+    {
+      "i": 3,
+      "left": 25,
+      "right": 390,
+      "top": 46,
+      "bottom": 295,
+      "clear": 89028,
+      "opaque": 44092,
+      "hash": "41ade6600172dadb2d9c83fd3c73412735d573fdc17edfb683a2028192474dbc"
+    },
+    {
+      "i": 4,
+      "left": 24,
+      "right": 392,
+      "top": 46,
+      "bottom": 295,
+      "clear": 91435,
+      "opaque": 41685,
+      "hash": "7703b56e9b41b5221cf256d0d6aea6e4d9900407357a6d78ce07756ad1177ec0"
+    },
+    {
+      "i": 5,
+      "left": 25,
+      "right": 391,
+      "top": 44,
+      "bottom": 279,
+      "clear": 92332,
+      "opaque": 40788,
+      "hash": "4688ec9243dfb9968383021bfb11852454a181d167d8ee6d97b2a8f09e7f6759"
+    },
+    {
+      "i": 6,
+      "left": 25,
+      "right": 391,
+      "top": 46,
+      "bottom": 271,
+      "clear": 95074,
+      "opaque": 38046,
+      "hash": "7ce23c9d3c1b77a688355286405423b01ea2c417f4e40893399b4ed40c10eb33"
+    },
+    {
+      "i": 7,
+      "left": 24,
+      "right": 392,
+      "top": 36,
+      "bottom": 283,
+      "clear": 91267,
+      "opaque": 41853,
+      "hash": "36c64561ed606ec5eb0edbd490f510a2b0eb79208ab12b47df52bc2e674b39d6"
+    },
+    {
+      "i": 8,
+      "left": 21,
+      "right": 395,
+      "top": 55,
+      "bottom": 291,
+      "clear": 90544,
+      "opaque": 42576,
+      "hash": "89f15bb88beeda66525e47b348da2b62ec5b79fe108958325bbc53090f7505af"
+    },
+    {
+      "i": 9,
+      "left": 20,
+      "right": 395,
+      "top": 57,
+      "bottom": 295,
+      "clear": 86845,
+      "opaque": 46275,
+      "hash": "e106b269b444b22b3e71493f4e8e085c6f95892c10c5de80d86bd2d7745d7bac"
+    },
+    {
+      "i": 10,
+      "left": 20,
+      "right": 396,
+      "top": 50,
+      "bottom": 295,
+      "clear": 86444,
+      "opaque": 46676,
+      "hash": "84b5848ed7c81d82f67005422c8c25d08c0a62c5918db59ae0e051921ffc7679"
+    },
+    {
+      "i": 11,
+      "left": 22,
+      "right": 394,
+      "top": 49,
+      "bottom": 295,
+      "clear": 92958,
+      "opaque": 40162,
+      "hash": "500b8519a559fe32b58e515c9b895c56cf4f6b7fc470a5ae8ae4516de24a2b34"
+    }
+  ],
+  "sha256": "da5985a90420e4f92a1cdfe9c6cc5b8ac65d1fc8dd3c8467b58fef1680432249"
+}
