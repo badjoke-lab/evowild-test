@@ -1,0 +1,85 @@
+name: EvoWild S QEM 3-cycle contact with proven visible mesh root parenting
+on:
+  push:
+    branches: [exp/s-qem-threecycle-parented-20261010]
+    paths:
+      - .github/workflows/s-qem-ik-threecycle-parented-v2.yml
+      - art/s-creature/blender/s_qem_ik_threecycle_parented_v2.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-s-qem-threecycle-contact
+  cancel-in-progress: false
+jobs:
+  real-multicycle-ik-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_qem_ik_threecycle_parented_v2.py
+            /art/s-creature/experiments/qem-deformation-gate-20261010/ik-contact-v1/REAL_IK_CONTACT_QA.json
+            /art/s-creature/experiments/qem-deformation-gate-20261010/ik-contact-v1/S-QEM-real-13bone-IK-contact-v1.blend
+            /art/s-creature/experiments/qem-deformation-gate-20261010/rootmotion-contact-v2c/ROOT_MOTION_CONTACT_QA.json
+            /art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb
+            /art/s-creature/experiments/qem-deformation-gate-20261010/threecycle-ik-gait-v2-parented/
+            /.github/workflows/s-qem-ik-threecycle-parented-v2.yml
+      - name: Install Blender 4.3.2 for exact source rig evaluation
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Solve 3 actual keyframed cycles and 48 intermediate frames, preserve failures
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/ik-contact-v1/S-QEM-real-13bone-IK-contact-v1.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_ik_threecycle_parented_v2.py
+      - name: Validate source preservation and package genuine rendered contact cycle
+        run: |
+          python3 -m pip install -q pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          from PIL import Image
+          p=Path('art/s-creature/experiments/qem-deformation-gate-20261010/threecycle-ik-gait-v2-parented')
+          d=json.loads((p/'REAL_THREE_CYCLE_IK_QA.json').read_text())
+          assert d['source_geometry_preserved']
+          assert d['vertex_count']==29948 and d['triangle_count']==59932 and d['deform_bones']==13
+          assert d['cycle_count']==3 and d['integer_frames']==49 and d['halfway_frames']==48
+          assert not d['fully_running_race_gait'] and not d['game_production_approved']
+          assert (p/'S-QEM-13bone-threecycle-parented-v2.blend').stat().st_size>50000
+          frames=[]
+          for i in range(1,18):
+              f=p/'review'/f'S_QEM_REAL_MULTICYCLE_F{i:02d}.png'
+              assert f.stat().st_size>10000,f
+              im=Image.open(f).convert('RGB')
+              im.thumbnail((800,600))
+              frames.append(im)
+          gif=p/'review'/'S_QEM_13BONE_REAL_IK_ONE_OF_THREE_CYCLES.gif'
+          frames[0].save(gif,format='GIF',append_images=frames[1:],duration=110,loop=0,optimize=True)
+          assert gif.stat().st_size>20000
+          for i in (25,33,41,49):
+              assert (p/'review'/f'S_QEM_REAL_MULTICYCLE_F{i:02d}.png').stat().st_size>10000
+          print('REAL_THREE_CYCLE_GATE',d['selected']['gate'],d['selected']['criteria'])
+          # Intentional: numerical FAIL is archived, never concealed as CI failure.
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-QEM-13bone-actual-threecycle-IK-QA
+          path: art/s-creature/experiments/qem-deformation-gate-20261010/threecycle-ik-gait-v2-parented/
+          if-no-files-found: warn
+      - name: Commit reviewable original model, real QA and Blender renders only to experimental branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/qem-deformation-gate-20261010/threecycle-ik-gait-v2-parented/
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit: archive actual 3-cycle original-QEM IK contact with subframe and seam truth'
+            git pull --rebase origin exp/s-qem-threecycle-parented-20261010
+            git push origin HEAD:exp/s-qem-threecycle-parented-20261010
+          fi
