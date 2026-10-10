@@ -1,0 +1,141 @@
+{
+  "authority_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "donor_sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "original_source_unchanged": true,
+  "source_mesh_vertices": 29948,
+  "source_triangles": 59932,
+  "variant_mesh_vertices": 29948,
+  "variant_triangles": 59932,
+  "target_regions": [
+    "central rear dorsal topline only, strictly excluding long crest and foot regions"
+  ],
+  "topline_vertices_with_weight": 1368,
+  "abdomen_vertices_with_weight": 0,
+  "candidates": [
+    {
+      "peak_amplitude": 0.22,
+      "belly_lowering_max": 0.0,
+      "width_increase_max": 0.0,
+      "affected_vertices": 1631,
+      "source_peak_ROI_zmax": 1.8315154314041138,
+      "derived_peak_ROI_zmax": 1.6786260604858398,
+      "source_vs_variant_world_error": 2.384185791015625e-07,
+      "crest_freeze_max_error": 2.384185791015625e-07,
+      "foot_freeze_max_error": 2.384185791015625e-07,
+      "face_quality": {
+        "face_flipped": 420,
+        "face_collapsed": 0,
+        "area_less_half": 459,
+        "area_more_double": 3,
+        "min_ratio": 0.02075058920791276,
+        "max_ratio": 2.67318518574049
+      },
+      "local_skin_quality_PASS": false
+    },
+    {
+      "peak_amplitude": 0.18,
+      "belly_lowering_max": 0.0,
+      "width_increase_max": 0.0,
+      "affected_vertices": 1630,
+      "source_peak_ROI_zmax": 1.8315154314041138,
+      "derived_peak_ROI_zmax": 1.7064241170883179,
+      "source_vs_variant_world_error": 2.384185791015625e-07,
+      "crest_freeze_max_error": 2.384185791015625e-07,
+      "foot_freeze_max_error": 2.384185791015625e-07,
+      "face_quality": {
+        "face_flipped": 192,
+        "face_collapsed": 0,
+        "area_less_half": 543,
+        "area_more_double": 2,
+        "min_ratio": 0.021125079037182606,
+        "max_ratio": 2.281820428598217
+      },
+      "local_skin_quality_PASS": false
+    },
+    {
+      "peak_amplitude": 0.14,
+      "belly_lowering_max": 0.0,
+      "width_increase_max": 0.0,
+      "affected_vertices": 1626,
+      "source_peak_ROI_zmax": 1.8315154314041138,
+      "derived_peak_ROI_zmax": 1.734222173690796,
+      "source_vs_variant_world_error": 2.384185791015625e-07,
+      "crest_freeze_max_error": 2.384185791015625e-07,
+      "foot_freeze_max_error": 2.384185791015625e-07,
+      "face_quality": {
+        "face_flipped": 11,
+        "face_collapsed": 0,
+        "area_less_half": 454,
+        "area_more_double": 0,
+        "min_ratio": 0.016418955779290294,
+        "max_ratio": 1.906146850667741
+      },
+      "local_skin_quality_PASS": false
+    },
+    {
+      "peak_amplitude": 0.1,
+      "belly_lowering_max": 0.0,
+      "width_increase_max": 0.0,
+      "affected_vertices": 1620,
+      "source_peak_ROI_zmax": 1.8315154314041138,
+      "derived_peak_ROI_zmax": 1.762020230293274,
+      "source_vs_variant_world_error": 2.384185791015625e-07,
+      "crest_freeze_max_error": 2.384185791015625e-07,
+      "foot_freeze_max_error": 2.384185791015625e-07,
+      "face_quality": {
+        "face_flipped": 1,
+        "face_collapsed": 0,
+        "area_less_half": 194,
+        "area_more_double": 0,
+        "min_ratio": 0.26186781376815893,
+        "max_ratio": 1.5570473518684929
+      },
+      "local_skin_quality_PASS": false
+    },
+    {
+      "peak_amplitude": 0.06,
+      "belly_lowering_max": 0.0,
+      "width_increase_max": 0.0,
+      "affected_vertices": 1614,
+      "source_peak_ROI_zmax": 1.8315154314041138,
+      "derived_peak_ROI_zmax": 1.7898181676864624,
+      "source_vs_variant_world_error": 2.384185791015625e-07,
+      "crest_freeze_max_error": 2.384185791015625e-07,
+      "foot_freeze_max_error": 2.384185791015625e-07,
+      "face_quality": {
+        "face_flipped": 0,
+        "face_collapsed": 0,
+        "area_less_half": 1,
+        "area_more_double": 0,
+        "min_ratio": 0.442612055949354,
+        "max_ratio": 1.2572332816728684
+      },
+      "local_skin_quality_PASS": false
+    }
+  ],
+  "selected": {
+    "peak_amplitude": 0.06,
+    "belly_lowering_max": 0.0,
+    "width_increase_max": 0.0,
+    "affected_vertices": 1614,
+    "source_peak_ROI_zmax": 1.8315154314041138,
+    "derived_peak_ROI_zmax": 1.7898181676864624,
+    "source_vs_variant_world_error": 2.384185791015625e-07,
+    "crest_freeze_max_error": 2.384185791015625e-07,
+    "foot_freeze_max_error": 2.384185791015625e-07,
+    "face_quality": {
+      "face_flipped": 0,
+      "face_collapsed": 0,
+      "area_less_half": 1,
+      "area_more_double": 0,
+      "min_ratio": 0.442612055949354,
+      "max_ratio": 1.2572332816728684
+    },
+    "local_skin_quality_PASS": false
+  },
+  "geometry_gate": "FAIL_TRIANGLE_DEFORMATION",
+  "S_visual_design_gate": "REVIEW_REQUIRED_NOT_APPROVED",
+  "rig_revalidated_after_change": false,
+  "fully_running_race_gait": false,
+  "approved_for_game": false
+}
