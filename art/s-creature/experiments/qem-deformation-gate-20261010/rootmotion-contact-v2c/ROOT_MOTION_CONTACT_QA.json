@@ -1,0 +1,1928 @@
+{
+  "gate": "PASS_LIMITED_ROOT_MOTION_IK",
+  "experiment": "actual_QEM_13bone_root_world_motion_ground_lock_v2",
+  "original_glb_sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "original_qem_unchanged": true,
+  "original_vertices": 29948,
+  "original_faces": 59932,
+  "bone_count": 13,
+  "body_travel_world_units": 0.024,
+  "body_height_reference": 2.55,
+  "stride_lift_world_units": 0.026,
+  "frame_count": 17,
+  "frames": {
+    "1": {
+      "root_world_y": -0.0,
+      "foot_contacts": {
+        "FORE_L": {
+          "state": "STANCE",
+          "min_z": 0.002389725064858794,
+          "desired_patch_xy": [
+            -0.4144111963268978,
+            -1.2917916167016124
+          ],
+          "actual_patch_xy": [
+            -0.41441115649307475,
+            -1.2917916167016124
+          ],
+          "stance_world_horizontal_error": 3.983382307337635e-08,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            -0.4110619127750397,
+            -1.1177735328674316,
+            0.045000091195106506
+          ],
+          "landing_offset_y": -0.0
+        },
+        "FORE_R": {
+          "state": "SWING",
+          "min_z": 0.005327270366251469,
+          "desired_patch_xy": [
+            0.4184033630472241,
+            -0.862024153362621
+          ],
+          "actual_patch_xy": [
+            0.41840331427978744,
+            -0.8620240850882097
+          ],
+          "stance_world_horizontal_error": 8.390267043697697e-08,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            0.3296097218990326,
+            -0.8260729908943176,
+            0.0449993722140789
+          ],
+          "landing_offset_y": -0.0
+        },
+        "HIND_L": {
+          "state": "SWING",
+          "min_z": 0.0009999052854254842,
+          "desired_patch_xy": [
+            -0.4332313914897994,
+            1.9692564327728572
+          ],
+          "actual_patch_xy": [
+            -0.4332313724045683,
+            1.9692564269004784
+          ],
+          "stance_world_horizontal_error": 1.996824673155414e-08,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            -0.4161827862262726,
+            2.008545398712158,
+            0.04579037055373192
+          ],
+          "landing_offset_y": -0.0
+        },
+        "HIND_R": {
+          "state": "STANCE",
+          "min_z": 0.0033854085486382246,
+          "desired_patch_xy": [
+            0.41994830685973966,
+            2.083514538387324
+          ],
+          "actual_patch_xy": [
+            0.41994829825906943,
+            2.08351469039917
+          ],
+          "stance_world_horizontal_error": 1.5225495980476838e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            0.3186894357204437,
+            2.1172962188720703,
+            0.04500025138258934
+          ],
+          "landing_offset_y": -0.0
+        }
+      },
+      "skinning": {
+        "flipped": 0,
+        "collapsed": 0,
+        "below_half": 0,
+        "above_double": 0,
+        "moved_vertices": 4489,
+        "max_displacement": 0.0014059599811041728
+      }
+    },
+    "2": {
+      "root_world_y": -0.001500000013038516,
+      "foot_contacts": {
+        "FORE_L": {
+          "state": "STANCE",
+          "min_z": 0.0023897592909634113,
+          "desired_patch_xy": [
+            -0.4144111963268978,
+            -1.2917916167016124
+          ],
+          "actual_patch_xy": [
+            -0.41441121911690904,
+            -1.2917916167016124
+          ],
+          "stance_world_horizontal_error": 2.2790011211526462e-08,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            -0.41106194257736206,
+            -1.1192735433578491,
+            0.0450000986456871
+          ],
+          "landing_offset_y": -0.0
+        },
+        "FORE_R": {
+          "state": "SWING",
+          "min_z": 0.015274059027433395,
+          "desired_patch_xy": [
+            0.4184033630472241,
+            -0.8648358789568115
+          ],
+          "actual_patch_xy": [
+            0.418403173937942,
+            -0.8648368040720622
+          ],
+          "stance_world_horizontal_error": 9.44246020755524e-07,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            0.32984012365341187,
+            -0.8290799856185913,
+            0.05908876657485962
+          ],
+          "landing_offset_y": -0.000515625
+        },
+        "HIND_L": {
+          "state": "SWING",
+          "min_z": 0.01094976905733347,
+          "desired_patch_xy": [
+            -0.4332313914897994,
+            1.9664447071786666
+          ],
+          "actual_patch_xy": [
+            -0.43323140382179487,
+            1.9664446544177427
+          ],
+          "stance_world_horizontal_error": 5.418296040503233e-08,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            -0.41626977920532227,
+            2.0047109127044678,
+            0.05306112766265869
+          ],
+          "landing_offset_y": -0.000515625
+        },
+        "HIND_R": {
+          "state": "STANCE",
+          "min_z": 0.0033856474328786135,
+          "desired_patch_xy": [
+            0.41994830685973966,
+            2.083514538387324
+          ],
+          "actual_patch_xy": [
+            0.41994827585732375,
+            2.08351456078907
+          ],
+          "stance_world_horizontal_error": 3.8249026221757205e-08,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            0.3186894357204437,
+            2.1157960891723633,
+            0.045000337064266205
+          ],
+          "landing_offset_y": -0.0
+        }
+      },
+      "skinning": {
+        "flipped": 0,
+        "collapsed": 0,
+        "below_half": 0,
+        "above_double": 0,
+        "moved_vertices": 7394,
+        "max_displacement": 0.022761585141872393
+      }
+    },
+    "3": {
+      "root_world_y": -0.003000000026077032,
+      "foot_contacts": {
+        "FORE_L": {
+          "state": "STANCE",
+          "min_z": 0.0023897590581327677,
+          "desired_patch_xy": [
+            -0.4144111963268978,
+            -1.2917916167016124
+          ],
+          "actual_patch_xy": [
+            -0.41441121901951583,
+            -1.2917916167016124
+          ],
+          "stance_world_horizontal_error": 2.2692618006914245e-08,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            -0.41106194257736206,
+            -1.1207735538482666,
+            0.045000094920396805
+          ],
+          "landing_offset_y": -0.0
+        },
+        "FORE_R": {
+          "state": "SWING",
+          "min_z": 0.023707613348960876,
+          "desired_patch_xy": [
+            0.4184033630472241,
+            -0.8681417940497402
+          ],
+          "actual_patch_xy": [
+            0.4184032180092552,
+            -0.8681431802836331
+          ],
+          "stance_world_horizontal_error": 1.393800709658001e-06,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            0.33000800013542175,
+            -0.8328834176063538,
+            0.07085711508989334
+          ],
+          "landing_offset_y": -0.001875
+        },
+        "HIND_L": {
+          "state": "SWING",
+          "min_z": 0.01938471570611,
+          "desired_patch_xy": [
+            -0.4332313914897994,
+            1.963138792085738
+          ],
+          "actual_patch_xy": [
+            -0.43323136286195274,
+            1.9631386478546218
+          ],
+          "stance_world_horizontal_error": 1.4704478390248836e-07,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            -0.4163829982280731,
+            2.0004897117614746,
+            0.06310470402240753
+          ],
+          "landing_offset_y": -0.001875
+        },
+        "HIND_R": {
+          "state": "STANCE",
+          "min_z": 0.003385616233572364,
+          "desired_patch_xy": [
+            0.41994830685973966,
+            2.083514538387324
+          ],
+          "actual_patch_xy": [
+            0.41994831166011376,
+            2.0835147656050306
+          ],
+          "stance_world_horizontal_error": 2.2726840894803378e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            0.3186894655227661,
+            2.1142961978912354,
+            0.045000310987234116
+          ],
+          "landing_offset_y": -0.0
+        }
+      },
+      "skinning": {
+        "flipped": 0,
+        "collapsed": 0,
+        "below_half": 0,
+        "above_double": 0,
+        "moved_vertices": 7473,
+        "max_displacement": 0.041517294972627176
+      }
+    },
+    "4": {
+      "root_world_y": -0.0044999998062849045,
+      "foot_contacts": {
+        "FORE_L": {
+          "state": "STANCE",
+          "min_z": 0.002389854285866022,
+          "desired_patch_xy": [
+            -0.4144111963268978,
+            -1.2917916167016124
+          ],
+          "actual_patch_xy": [
+            -0.41441119856694164,
+            -1.291791735910902
+          ],
+          "stance_world_horizontal_error": 1.1923033385638298e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            -0.41106194257736206,
+            -1.1222736835479736,
+            0.045000191777944565
+          ],
+          "landing_offset_y": -0.0
+        },
+        "FORE_R": {
+          "state": "SWING",
+          "min_z": 0.02934284508228302,
+          "desired_patch_xy": [
+            0.4184033630472241,
+            -0.8713643055576886
+          ],
+          "actual_patch_xy": [
+            0.4184031376332948,
+            -0.8713658473708413
+          ],
+          "stance_world_horizontal_error": 1.5582038497509164e-06,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            0.33010271191596985,
+            -0.8369719386100769,
+            0.0787111446261406
+          ],
+          "landing_offset_y": -0.003796875
+        },
+        "HIND_L": {
+          "state": "SWING",
+          "min_z": 0.025020765140652657,
+          "desired_patch_xy": [
+            -0.4332313914897994,
+            1.9599162805777894
+          ],
+          "actual_patch_xy": [
+            -0.43323138591103955,
+            1.9599160437513454
+          ],
+          "stance_world_horizontal_error": 2.3689214242845194e-07,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            -0.4164673984050751,
+            1.996203899383545,
+            0.07031554728746414
+          ],
+          "landing_offset_y": -0.003796875
+        },
+        "HIND_R": {
+          "state": "STANCE",
+          "min_z": 0.0033853761851787567,
+          "desired_patch_xy": [
+            0.41994830685973966,
+            2.083514538387324
+          ],
+          "actual_patch_xy": [
+            0.4199483274613451,
+            2.08351471440104
+          ],
+          "stance_world_horizontal_error": 1.7721527694449752e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            0.3186894655227661,
+            2.1127963066101074,
+            0.045000169426202774
+          ],
+          "landing_offset_y": -0.0
+        }
+      },
+      "skinning": {
+        "flipped": 0,
+        "collapsed": 0,
+        "below_half": 0,
+        "above_double": 0,
+        "moved_vertices": 7498,
+        "max_displacement": 0.05398428962536096
+      }
+    },
+    "5": {
+      "root_world_y": -0.006000000052154064,
+      "foot_contacts": {
+        "FORE_L": {
+          "state": "STANCE",
+          "min_z": 0.0023896866478025913,
+          "desired_patch_xy": [
+            -0.4144111963268978,
+            -1.2917916167016124
+          ],
+          "actual_patch_xy": [
+            -0.41441124434175053,
+            -1.291791735910902
+          ],
+          "stance_world_horizontal_error": 1.2851568307204558e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            -0.41106194257736206,
+            -1.1237735748291016,
+            0.04500000551342964
+          ],
+          "landing_offset_y": -0.0
+        },
+        "FORE_R": {
+          "state": "SWING",
+          "min_z": 0.03132142499089241,
+          "desired_patch_xy": [
+            0.4184033630472241,
+            -0.874024153362621
+          ],
+          "actual_patch_xy": [
+            0.4184030512968699,
+            -0.8740258278268757
+          ],
+          "stance_world_horizontal_error": 1.703237747233708e-06,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            0.3301208019256592,
+            -0.8409050107002258,
+            0.08158770948648453
+          ],
+          "landing_offset_y": -0.006
+        },
+        "HIND_L": {
+          "state": "SWING",
+          "min_z": 0.026999812573194504,
+          "desired_patch_xy": [
+            -0.4332313914897994,
+            1.9572564327728572
+          ],
+          "actual_patch_xy": [
+            -0.4332313769556619,
+            1.9572564645353796
+          ],
+          "stance_world_horizontal_error": 3.4929915281595136e-08,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            -0.4165113568305969,
+            1.9922785758972168,
+            0.07319296896457672
+          ],
+          "landing_offset_y": -0.006
+        },
+        "HIND_R": {
+          "state": "STANCE",
+          "min_z": 0.0033854672219604254,
+          "desired_patch_xy": [
+            0.41994830685973966,
+            2.083514538387324
+          ],
+          "actual_patch_xy": [
+            0.4199483306615945,
+            2.0835143591733587
+          ],
+          "stance_world_horizontal_error": 1.8078764809465854e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            0.3186894655227661,
+            2.1112959384918213,
+            0.04500020667910576
+          ],
+          "landing_offset_y": -0.0
+        }
+      },
+      "skinning": {
+        "flipped": 0,
+        "collapsed": 0,
+        "below_half": 0,
+        "above_double": 0,
+        "moved_vertices": 7508,
+        "max_displacement": 0.05871175239715843
+      }
+    },
+    "6": {
+      "root_world_y": -0.007499999832361937,
+      "foot_contacts": {
+        "FORE_L": {
+          "state": "STANCE",
+          "min_z": 0.002389853121712804,
+          "desired_patch_xy": [
+            -0.4144111963268978,
+            -1.2917916167016124
+          ],
+          "actual_patch_xy": [
+            -0.41441119856694164,
+            -1.291791735910902
+          ],
+          "stance_world_horizontal_error": 1.1923033385638298e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            -0.41106194257736206,
+            -1.1252737045288086,
+            0.04500022530555725
+          ],
+          "landing_offset_y": -0.0
+        },
+        "FORE_R": {
+          "state": "SWING",
+          "min_z": 0.029342129826545715,
+          "desired_patch_xy": [
+            0.4184033630472241,
+            -0.8757705555576887
+          ],
+          "actual_patch_xy": [
+            0.4184030249263301,
+            -0.8757723754102533
+          ],
+          "stance_world_horizontal_error": 1.8509967844392795e-06,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            0.33006471395492554,
+            -0.8443533182144165,
+            0.07905679941177368
+          ],
+          "landing_offset_y": -0.008203125
+        },
+        "HIND_L": {
+          "state": "SWING",
+          "min_z": 0.025020670145750046,
+          "desired_patch_xy": [
+            -0.4332313914897994,
+            1.9555100305777895
+          ],
+          "actual_patch_xy": [
+            -0.43323132248934854,
+            1.9555097924077451
+          ],
+          "stance_world_horizontal_error": 2.4796377204167463e-07,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            -0.4165126383304596,
+            1.9890462160110474,
+            0.07133159786462784
+          ],
+          "landing_offset_y": -0.008203125
+        },
+        "HIND_R": {
+          "state": "STANCE",
+          "min_z": 0.003385665826499462,
+          "desired_patch_xy": [
+            0.41994830685973966,
+            2.083514538387324
+          ],
+          "actual_patch_xy": [
+            0.4199483080598332,
+            2.0835145575888205
+          ],
+          "stance_world_horizontal_error": 1.9238962762946947e-08,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            0.3186894655227661,
+            2.1097962856292725,
+            0.04500044137239456
+          ],
+          "landing_offset_y": -0.0
+        }
+      },
+      "skinning": {
+        "flipped": 0,
+        "collapsed": 0,
+        "below_half": 0,
+        "above_double": 0,
+        "moved_vertices": 7499,
+        "max_displacement": 0.05517859914933673
+      }
+    },
+    "7": {
+      "root_world_y": -0.008999999612569809,
+      "foot_contacts": {
+        "FORE_L": {
+          "state": "STANCE",
+          "min_z": 0.002389720641076565,
+          "desired_patch_xy": [
+            -0.4144111963268978,
+            -1.2917916167016124
+          ],
+          "actual_patch_xy": [
+            -0.41441114977294324,
+            -1.291791735910902
+          ],
+          "stance_world_horizontal_error": 1.2797705029518802e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            -0.4110619127750397,
+            -1.1267735958099365,
+            0.04500003159046173
+          ],
+          "landing_offset_y": -0.0
+        },
+        "FORE_R": {
+          "state": "SWING",
+          "min_z": 0.023706194013357162,
+          "desired_patch_xy": [
+            0.4184033630472241,
+            -0.8763917940497402
+          ],
+          "actual_patch_xy": [
+            0.4184031896518938,
+            -0.876393550453764
+          ],
+          "stance_world_horizontal_error": 1.7649422186861633e-06,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            0.3299422562122345,
+            -0.8471113443374634,
+            0.07136161625385284
+          ],
+          "landing_offset_y": -0.010125
+        },
+        "HIND_L": {
+          "state": "SWING",
+          "min_z": 0.019384121522307396,
+          "desired_patch_xy": [
+            -0.4332313914897994,
+            1.9548887920857378
+          ],
+          "actual_patch_xy": [
+            -0.4332313449511974,
+            1.9548886826472918
+          ],
+          "stance_world_horizontal_error": 1.1892272682128665e-07,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            -0.4164699614048004,
+            1.9867137670516968,
+            0.06498559564352036
+          ],
+          "landing_offset_y": -0.010125
+        },
+        "HIND_R": {
+          "state": "STANCE",
+          "min_z": 0.003385667223483324,
+          "desired_patch_xy": [
+            0.41994830685973966,
+            2.083514538387324
+          ],
+          "actual_patch_xy": [
+            0.4199483078598176,
+            2.08351456078907
+          ],
+          "stance_world_horizontal_error": 2.2424057849825232e-08,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            0.3186894655227661,
+            2.1082963943481445,
+            0.04500047117471695
+          ],
+          "landing_offset_y": -0.0
+        }
+      },
+      "skinning": {
+        "flipped": 0,
+        "collapsed": 0,
+        "below_half": 0,
+        "above_double": 0,
+        "moved_vertices": 7471,
+        "max_displacement": 0.04387525739036434
+      }
+    },
+    "8": {
+      "root_world_y": -0.010499999858438969,
+      "foot_contacts": {
+        "FORE_L": {
+          "state": "STANCE",
+          "min_z": 0.0023897921200841665,
+          "desired_patch_xy": [
+            -0.4144111963268978,
+            -1.2917916167016124
+          ],
+          "actual_patch_xy": [
+            -0.41441137319296795,
+            -1.2917916774749756
+          ],
+          "stance_world_horizontal_error": 1.8701606465514013e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            -0.41106200218200684,
+            -1.128273606300354,
+            0.04500008374452591
+          ],
+          "landing_offset_y": -0.0
+        },
+        "FORE_R": {
+          "state": "SWING",
+          "min_z": 0.015273010358214378,
+          "desired_patch_xy": [
+            0.4184033630472241,
+            -0.8758046289568114
+          ],
+          "actual_patch_xy": [
+            0.4184032248728203,
+            -0.8758057695446593
+          ],
+          "stance_world_horizontal_error": 1.1489268055450679e-06,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            0.3297664225101471,
+            -0.8490762114524841,
+            0.05939144268631935
+          ],
+          "landing_offset_y": -0.011484375
+        },
+        "HIND_L": {
+          "state": "SWING",
+          "min_z": 0.010948858223855495,
+          "desired_patch_xy": [
+            -0.4332313914897994,
+            1.9554759571786666
+          ],
+          "actual_patch_xy": [
+            -0.4332313321787736,
+            1.9554756750614184
+          ],
+          "stance_world_horizontal_error": 2.882844767437528e-07,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            -0.4163805842399597,
+            1.985376000404358,
+            0.05504026636481285
+          ],
+          "landing_offset_y": -0.011484375
+        },
+        "HIND_R": {
+          "state": "STANCE",
+          "min_z": 0.0033858902752399445,
+          "desired_patch_xy": [
+            0.41994830685973966,
+            2.083514538387324
+          ],
+          "actual_patch_xy": [
+            0.4199482714569809,
+            2.0835147656050306
+          ],
+          "stance_world_horizontal_error": 2.2995921691363149e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            0.3186894357204437,
+            2.1067965030670166,
+            0.04500053450465202
+          ],
+          "landing_offset_y": -0.0
+        }
+      },
+      "skinning": {
+        "flipped": 0,
+        "collapsed": 0,
+        "below_half": 0,
+        "above_double": 0,
+        "moved_vertices": 7388,
+        "max_displacement": 0.02663217428264338
+      }
+    },
+    "9": {
+      "root_world_y": -0.012000000104308128,
+      "foot_contacts": {
+        "FORE_L": {
+          "state": "STANCE",
+          "min_z": 0.0023897835053503513,
+          "desired_patch_xy": [
+            -0.4144111963268978,
+            -1.2917916167016124
+          ],
+          "actual_patch_xy": [
+            -0.4144112029496361,
+            -1.2917913782830333
+          ],
+          "stance_world_horizontal_error": 2.385105438412054e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            -0.41106194257736206,
+            -1.129773497581482,
+            0.04500014707446098
+          ],
+          "landing_offset_y": -0.0
+        },
+        "FORE_R": {
+          "state": "STANCE",
+          "min_z": 0.005329160485416651,
+          "desired_patch_xy": [
+            0.4184033630472241,
+            -0.874024153362621
+          ],
+          "actual_patch_xy": [
+            0.41840336286660396,
+            -0.8740235581542506
+          ],
+          "stance_world_horizontal_error": 5.952083977738567e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            0.3295559585094452,
+            -0.8502002954483032,
+            0.0445999912917614
+          ],
+          "landing_offset_y": -0.012
+        },
+        "HIND_L": {
+          "state": "STANCE",
+          "min_z": 0.0010001844493672252,
+          "desired_patch_xy": [
+            -0.4332313914897994,
+            1.9572564327728572
+          ],
+          "actual_patch_xy": [
+            -0.4332314224665975,
+            1.957256472169472
+          ],
+          "stance_world_horizontal_error": 5.011641731555549e-08,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            -0.41625678539276123,
+            1.985053300857544,
+            0.04317694902420044
+          ],
+          "landing_offset_y": -0.012
+        },
+        "HIND_R": {
+          "state": "STANCE",
+          "min_z": 0.003385560354217887,
+          "desired_patch_xy": [
+            0.41994830685973966,
+            2.083514538387324
+          ],
+          "actual_patch_xy": [
+            0.4199483316616724,
+            2.0835149272176245
+          ],
+          "stance_world_horizontal_error": 3.896205055919209e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            0.3186894953250885,
+            2.1052963733673096,
+            0.04500027000904083
+          ],
+          "landing_offset_y": -0.0
+        }
+      },
+      "skinning": {
+        "flipped": 0,
+        "collapsed": 0,
+        "below_half": 0,
+        "above_double": 0,
+        "moved_vertices": 7135,
+        "max_displacement": 0.01282604276909321
+      }
+    },
+    "10": {
+      "root_world_y": -0.013500000350177288,
+      "foot_contacts": {
+        "FORE_L": {
+          "state": "SWING",
+          "min_z": 0.01233961246907711,
+          "desired_patch_xy": [
+            -0.4144111963268978,
+            -1.295118967295803
+          ],
+          "actual_patch_xy": [
+            -0.41441117149162915,
+            -1.2951188784798766
+          ],
+          "stance_world_horizontal_error": 9.222287867380513e-08,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            -0.4123866856098175,
+            -1.134224772453308,
+            0.054150376468896866
+          ],
+          "landing_offset_y": -0.00103125
+        },
+        "FORE_R": {
+          "state": "STANCE",
+          "min_z": 0.005329554434865713,
+          "desired_patch_xy": [
+            0.4184033630472241,
+            -0.874024153362621
+          ],
+          "actual_patch_xy": [
+            0.4184034849658157,
+            -0.874023436055039
+          ],
+          "stance_world_horizontal_error": 7.275948805300193e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            0.3295571804046631,
+            -0.8517007231712341,
+            0.04459431767463684
+          ],
+          "landing_offset_y": -0.012
+        },
+        "HIND_L": {
+          "state": "STANCE",
+          "min_z": 0.0010000391630455852,
+          "desired_patch_xy": [
+            -0.4332313914897994,
+            1.9572564327728572
+          ],
+          "actual_patch_xy": [
+            -0.4332313070743542,
+            1.9572566753537783
+          ],
+          "stance_world_horizontal_error": 2.5684912046168363e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            -0.41625651717185974,
+            1.983554482460022,
+            0.043199896812438965
+          ],
+          "landing_offset_y": -0.012
+        },
+        "HIND_R": {
+          "state": "SWING",
+          "min_z": 0.013262218795716763,
+          "desired_patch_xy": [
+            0.41994830685973966,
+            2.0801871877931335
+          ],
+          "actual_patch_xy": [
+            0.4199479818344116,
+            2.080181205832718
+          ],
+          "stance_world_horizontal_error": 5.990783911640435e-06,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            0.31872594356536865,
+            2.1009345054626465,
+            0.05850872024893761
+          ],
+          "landing_offset_y": -0.00103125
+        }
+      },
+      "skinning": {
+        "flipped": 0,
+        "collapsed": 0,
+        "below_half": 0,
+        "above_double": 0,
+        "moved_vertices": 15667,
+        "max_displacement": 0.025817330162312285
+      }
+    },
+    "11": {
+      "root_world_y": -0.014999999664723873,
+      "foot_contacts": {
+        "FORE_L": {
+          "state": "SWING",
+          "min_z": 0.020774615928530693,
+          "desired_patch_xy": [
+            -0.4144111963268978,
+            -1.2997842573887317
+          ],
+          "actual_patch_xy": [
+            -0.4144112649891112,
+            -1.2997841254558438
+          ],
+          "stance_world_horizontal_error": 1.4873058349137787e-07,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            -0.41330042481422424,
+            -1.140151858329773,
+            0.06199750304222107
+          ],
+          "landing_offset_y": -0.00375
+        },
+        "FORE_R": {
+          "state": "STANCE",
+          "min_z": 0.005329959560185671,
+          "desired_patch_xy": [
+            0.4184033630472241,
+            -0.874024153362621
+          ],
+          "actual_patch_xy": [
+            0.4184034714193055,
+            -0.8740231257496458
+          ],
+          "stance_world_horizontal_error": 1.033311634862951e-06,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            0.3295583128929138,
+            -0.8532010912895203,
+            0.04458894208073616
+          ],
+          "landing_offset_y": -0.012
+        },
+        "HIND_L": {
+          "state": "STANCE",
+          "min_z": 0.0010001248447224498,
+          "desired_patch_xy": [
+            -0.4332313914897994,
+            1.9572564327728572
+          ],
+          "actual_patch_xy": [
+            -0.43323139354513196,
+            1.9572565931404753
+          ],
+          "stance_world_horizontal_error": 1.6038078849625126e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            -0.416256308555603,
+            1.982055902481079,
+            0.043223097920417786
+          ],
+          "landing_offset_y": -0.012
+        },
+        "HIND_R": {
+          "state": "SWING",
+          "min_z": 0.02157503552734852,
+          "desired_patch_xy": [
+            0.41994830685973966,
+            2.075521897700205
+          ],
+          "actual_patch_xy": [
+            0.4199474907961468,
+            2.0755066799637456
+          ],
+          "stance_world_horizontal_error": 1.5239601790582221e-05,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            0.3187786936759949,
+            2.095366954803467,
+            0.07830724865198135
+          ],
+          "landing_offset_y": -0.00375
+        }
+      },
+      "skinning": {
+        "flipped": 0,
+        "collapsed": 0,
+        "below_half": 0,
+        "above_double": 0,
+        "moved_vertices": 15740,
+        "max_displacement": 0.0605399062484723
+      }
+    },
+    "12": {
+      "root_world_y": -0.016499999910593033,
+      "foot_contacts": {
+        "FORE_L": {
+          "state": "SWING",
+          "min_z": 0.026410464197397232,
+          "desired_patch_xy": [
+            -0.4144111963268978,
+            -1.30492864389668
+          ],
+          "actual_patch_xy": [
+            -0.4144112840781804,
+            -1.304928166803971
+          ],
+          "stance_world_horizontal_error": 4.850955995325186e-07,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            -0.41373857855796814,
+            -1.1466724872589111,
+            0.06731827557086945
+          ],
+          "landing_offset_y": -0.00759375
+        },
+        "FORE_R": {
+          "state": "STANCE",
+          "min_z": 0.005330582614988089,
+          "desired_patch_xy": [
+            0.4184033630472241,
+            -0.874024153362621
+          ],
+          "actual_patch_xy": [
+            0.4184034591371363,
+            -0.8740232615759879
+          ],
+          "stance_world_horizontal_error": 8.96948532632768e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            0.32955944538116455,
+            -0.8547016382217407,
+            0.04458346962928772
+          ],
+          "landing_offset_y": -0.012
+        },
+        "HIND_L": {
+          "state": "STANCE",
+          "min_z": 0.0010003186762332916,
+          "desired_patch_xy": [
+            -0.4332313914897994,
+            1.9572564327728572
+          ],
+          "actual_patch_xy": [
+            -0.43323146812434266,
+            1.9572566782899679
+          ],
+          "stance_world_horizontal_error": 2.5719934844330773e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            -0.4162560701370239,
+            1.9805572032928467,
+            0.043246377259492874
+          ],
+          "landing_offset_y": -0.012
+        },
+        "HIND_R": {
+          "state": "SWING",
+          "min_z": 0.027093850076198578,
+          "desired_patch_xy": [
+            0.41994830685973966,
+            2.070377511192256
+          ],
+          "actual_patch_xy": [
+            0.41994696075484256,
+            2.0703560817961724
+          ],
+          "stance_world_horizontal_error": 2.1471632795679935e-05,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            0.31881704926490784,
+            2.088988780975342,
+            0.09200888872146606
+          ],
+          "landing_offset_y": -0.00759375
+        }
+      },
+      "skinning": {
+        "flipped": 0,
+        "collapsed": 0,
+        "below_half": 0,
+        "above_double": 0,
+        "moved_vertices": 15766,
+        "max_displacement": 0.0835820034332791
+      }
+    },
+    "13": {
+      "root_world_y": -0.017999999225139618,
+      "foot_contacts": {
+        "FORE_L": {
+          "state": "SWING",
+          "min_z": 0.028389805927872658,
+          "desired_patch_xy": [
+            -0.4144111963268978,
+            -1.3097916167016124
+          ],
+          "actual_patch_xy": [
+            -0.4144112000278398,
+            -1.3097912712034836
+          ],
+          "stance_world_horizontal_error": 3.4551795026803083e-07,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            -0.41366979479789734,
+            -1.1530020236968994,
+            0.06927811354398727
+          ],
+          "landing_offset_y": -0.012
+        },
+        "FORE_R": {
+          "state": "STANCE",
+          "min_z": 0.005331146996468306,
+          "desired_patch_xy": [
+            0.4184033630472241,
+            -0.874024153362621
+          ],
+          "actual_patch_xy": [
+            0.41840349164876073,
+            -0.8740230430256236
+          ],
+          "stance_world_horizontal_error": 1.1177596355659232e-06,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            0.3295605778694153,
+            -0.8562020063400269,
+            0.044577911496162415
+          ],
+          "landing_offset_y": -0.012
+        },
+        "HIND_L": {
+          "state": "STANCE",
+          "min_z": 0.0010000093607231975,
+          "desired_patch_xy": [
+            -0.4332313914897994,
+            1.9572564327728572
+          ],
+          "actual_patch_xy": [
+            -0.43323132865534625,
+            1.9572561233501715
+          ],
+          "stance_world_horizontal_error": 3.1573813029904455e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            -0.4162558317184448,
+            1.9790585041046143,
+            0.043269529938697815
+          ],
+          "landing_offset_y": -0.012
+        },
+        "HIND_R": {
+          "state": "SWING",
+          "min_z": 0.028914563357830048,
+          "desired_patch_xy": [
+            0.41994830685973966,
+            2.0655145383873244
+          ],
+          "actual_patch_xy": [
+            0.4199468789484677,
+            2.06548473738984
+          ],
+          "stance_world_horizontal_error": 2.983518697219094e-05,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            0.3188342750072479,
+            2.08259654045105,
+            0.09838499873876572
+          ],
+          "landing_offset_y": -0.012
+        }
+      },
+      "skinning": {
+        "flipped": 0,
+        "collapsed": 0,
+        "below_half": 0,
+        "above_double": 0,
+        "moved_vertices": 15760,
+        "max_displacement": 0.09465595093328182
+      }
+    },
+    "14": {
+      "root_world_y": -0.019500000402331352,
+      "foot_contacts": {
+        "FORE_L": {
+          "state": "SWING",
+          "min_z": 0.026410415768623352,
+          "desired_patch_xy": [
+            -0.4144111963268978,
+            -1.3137411438966802
+          ],
+          "actual_patch_xy": [
+            -0.4144112185325498,
+            -1.3137409184493272
+          ],
+          "stance_world_horizontal_error": 2.2653829689148058e-07,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            -0.41309982538223267,
+            -1.1585053205490112,
+            0.06755905598402023
+          ],
+          "landing_offset_y": -0.01640625
+        },
+        "FORE_R": {
+          "state": "STANCE",
+          "min_z": 0.00533183803781867,
+          "desired_patch_xy": [
+            0.4184033630472241,
+            -0.874024153362621
+          ],
+          "actual_patch_xy": [
+            0.4184034663619417,
+            -0.8740227428349582
+          ],
+          "stance_world_horizontal_error": 1.4143062675207568e-06,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            0.329561710357666,
+            -0.857702374458313,
+            0.04457246512174606
+          ],
+          "landing_offset_y": -0.012
+        },
+        "HIND_L": {
+          "state": "STANCE",
+          "min_z": 0.0010001695482060313,
+          "desired_patch_xy": [
+            -0.4332313914897994,
+            1.9572564327728572
+          ],
+          "actual_patch_xy": [
+            -0.43323133643624817,
+            1.9572563805603629
+          ],
+          "stance_world_horizontal_error": 7.587514787894923e-08,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            -0.41625556349754333,
+            1.9775598049163818,
+            0.04329292103648186
+          ],
+          "landing_offset_y": -0.012
+        },
+        "HIND_R": {
+          "state": "SWING",
+          "min_z": 0.026980770751833916,
+          "desired_patch_xy": [
+            0.41994830685973966,
+            2.0615650111922563
+          ],
+          "actual_patch_xy": [
+            0.4199470415611395,
+            2.06153799623451
+          ],
+          "stance_world_horizontal_error": 2.704457288599648e-05,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            0.31883156299591064,
+            2.0768165588378906,
+            0.09510156512260437
+          ],
+          "landing_offset_y": -0.01640625
+        }
+      },
+      "skinning": {
+        "flipped": 0,
+        "collapsed": 0,
+        "below_half": 0,
+        "above_double": 0,
+        "moved_vertices": 15721,
+        "max_displacement": 0.09099351547877842
+      }
+    },
+    "15": {
+      "root_world_y": -0.020999999716877937,
+      "foot_contacts": {
+        "FORE_L": {
+          "state": "SWING",
+          "min_z": 0.020774558186531067,
+          "desired_patch_xy": [
+            -0.4144111963268978,
+            -1.3162842573887317
+          ],
+          "actual_patch_xy": [
+            -0.41441143435590405,
+            -1.3162842311111151
+          ],
+          "stance_world_horizontal_error": 2.3947509460494973e-07,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            -0.41207408905029297,
+            -1.1627124547958374,
+            0.062408942729234695
+          ],
+          "landing_offset_y": -0.02025
+        },
+        "FORE_R": {
+          "state": "STANCE",
+          "min_z": 0.005332495551556349,
+          "desired_patch_xy": [
+            0.4184033630472241,
+            -0.874024153362621
+          ],
+          "actual_patch_xy": [
+            0.418403509349534,
+            -0.8740225156148275
+          ],
+          "stance_world_horizontal_error": 1.6442695037558987e-06,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            0.32956284284591675,
+            -0.8592027425765991,
+            0.0445667989552021
+          ],
+          "landing_offset_y": -0.012
+        },
+        "HIND_L": {
+          "state": "STANCE",
+          "min_z": 0.0010001212358474731,
+          "desired_patch_xy": [
+            -0.4332313914897994,
+            1.9572564327728572
+          ],
+          "actual_patch_xy": [
+            -0.433231391049371,
+            1.9572566518642631
+          ],
+          "stance_world_horizontal_error": 2.1909184859144983e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            -0.416255384683609,
+            1.976061224937439,
+            0.043316423892974854
+          ],
+          "landing_offset_y": -0.012
+        },
+        "HIND_R": {
+          "state": "SWING",
+          "min_z": 0.021472351625561714,
+          "desired_patch_xy": [
+            0.41994830685973966,
+            2.059021897700205
+          ],
+          "actual_patch_xy": [
+            0.4199470119588327,
+            2.0589991535916425
+          ],
+          "stance_world_horizontal_error": 2.2780940337308442e-05,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            0.31881198287010193,
+            2.0722153186798096,
+            0.083778515458107
+          ],
+          "landing_offset_y": -0.02025
+        }
+      },
+      "skinning": {
+        "flipped": 0,
+        "collapsed": 0,
+        "below_half": 0,
+        "above_double": 0,
+        "moved_vertices": 15457,
+        "max_displacement": 0.07485467585239035
+      }
+    },
+    "16": {
+      "root_world_y": -0.02250000089406967,
+      "foot_contacts": {
+        "FORE_L": {
+          "state": "SWING",
+          "min_z": 0.012339373119175434,
+          "desired_patch_xy": [
+            -0.4144111963268978,
+            -1.317056467295803
+          ],
+          "actual_patch_xy": [
+            -0.4144114938631556,
+            -1.3170563099431056
+          ],
+          "stance_world_horizontal_error": 3.365823763321833e-07,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            -0.41068726778030396,
+            -1.1652954816818237,
+            0.0545990988612175
+          ],
+          "landing_offset_y": -0.02296875
+        },
+        "FORE_R": {
+          "state": "STANCE",
+          "min_z": 0.005333295091986656,
+          "desired_patch_xy": [
+            0.4184033630472241,
+            -0.874024153362621
+          ],
+          "actual_patch_xy": [
+            0.4184035964084394,
+            -0.8740224245822791
+          ],
+          "stance_world_horizontal_error": 1.7444594943070734e-06,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            0.32956406474113464,
+            -0.8607031106948853,
+            0.044561296701431274
+          ],
+          "landing_offset_y": -0.012
+        },
+        "HIND_L": {
+          "state": "STANCE",
+          "min_z": 0.001000061514787376,
+          "desired_patch_xy": [
+            -0.4332313914897994,
+            1.9572564327728572
+          ],
+          "actual_patch_xy": [
+            -0.43323137460671035,
+            1.9572567417116589
+          ],
+          "stance_world_horizontal_error": 3.093997767639848e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            -0.4162551760673523,
+            1.9745625257492065,
+            0.04333982989192009
+          ],
+          "landing_offset_y": -0.012
+        },
+        "HIND_R": {
+          "state": "SWING",
+          "min_z": 0.013105894438922405,
+          "desired_patch_xy": [
+            0.41994830685973966,
+            2.0582496877931336
+          ],
+          "actual_patch_xy": [
+            0.4199475067973937,
+            2.0582321602226106
+          ],
+          "stance_world_horizontal_error": 1.7545820818516243e-05,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            0.31877589225769043,
+            2.0691921710968018,
+            0.06576783955097198
+          ],
+          "landing_offset_y": -0.02296875
+        }
+      },
+      "skinning": {
+        "flipped": 0,
+        "collapsed": 0,
+        "below_half": 0,
+        "above_double": 0,
+        "moved_vertices": 15712,
+        "max_displacement": 0.047326344308262804
+      }
+    },
+    "17": {
+      "root_world_y": -0.024000000208616257,
+      "foot_contacts": {
+        "FORE_L": {
+          "state": "SWING",
+          "min_z": 0.002389692235738039,
+          "desired_patch_xy": [
+            -0.4144111963268978,
+            -1.3157916167016124
+          ],
+          "actual_patch_xy": [
+            -0.4144114562693764,
+            -1.3157915032767002
+          ],
+          "stance_world_horizontal_error": 2.836111825563489e-07,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            -0.40909770131111145,
+            -1.166008472442627,
+            0.04530399292707443
+          ],
+          "landing_offset_y": -0.024
+        },
+        "FORE_R": {
+          "state": "STANCE",
+          "min_z": 0.005334262270480394,
+          "desired_patch_xy": [
+            0.4184033630472241,
+            -0.874024153362621
+          ],
+          "actual_patch_xy": [
+            0.41840356516115595,
+            -0.8740223505280235
+          ],
+          "stance_world_horizontal_error": 1.814128613794808e-06,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            0.3295651972293854,
+            -0.8622034788131714,
+            0.044556066393852234
+          ],
+          "landing_offset_y": -0.012
+        },
+        "HIND_L": {
+          "state": "STANCE",
+          "min_z": 0.0010003595380112529,
+          "desired_patch_xy": [
+            -0.4332313914897994,
+            1.9572564327728572
+          ],
+          "actual_patch_xy": [
+            -0.433231425109168,
+            1.9572568409548605
+          ],
+          "stance_world_horizontal_error": 4.0956417051738684e-07,
+          "stance_gate": "PASS",
+          "ik_world_target": [
+            -0.4162549674510956,
+            1.9730641841888428,
+            0.043363843113183975
+          ],
+          "landing_offset_y": -0.012
+        },
+        "HIND_R": {
+          "state": "SWING",
+          "min_z": 0.0033431744668632746,
+          "desired_patch_xy": [
+            0.41994830685973966,
+            2.059514538387324
+          ],
+          "actual_patch_xy": [
+            0.41994804523935253,
+            2.0595113639063483
+          ],
+          "stance_world_horizontal_error": 3.1852432706296378e-06,
+          "stance_gate": "NOT_STANCE",
+          "ik_world_target": [
+            0.31873267889022827,
+            2.0681214332580566,
+            0.04424595087766647
+          ],
+          "landing_offset_y": -0.024
+        }
+      },
+      "skinning": {
+        "flipped": 0,
+        "collapsed": 0,
+        "below_half": 0,
+        "above_double": 0,
+        "moved_vertices": 15695,
+        "max_displacement": 0.03024964158954813
+      }
+    }
+  },
+  "replay": {
+    "1": {
+      "FORE_L": {
+        "min_z": 0.002389725064858794,
+        "patch_drift": 3.983382307337635e-08
+      },
+      "FORE_R": {
+        "min_z": 0.005327270366251469,
+        "patch_drift": 8.390267043697697e-08
+      },
+      "HIND_L": {
+        "min_z": 0.0009999052854254842,
+        "patch_drift": 1.996824673155414e-08
+      },
+      "HIND_R": {
+        "min_z": 0.0033854085486382246,
+        "patch_drift": 1.5225495980476838e-07
+      }
+    },
+    "2": {
+      "FORE_L": {
+        "min_z": 0.0023897592909634113,
+        "patch_drift": 2.2790011211526462e-08
+      },
+      "FORE_R": {
+        "min_z": 0.015274059027433395,
+        "patch_drift": 9.44246020755524e-07
+      },
+      "HIND_L": {
+        "min_z": 0.01094976905733347,
+        "patch_drift": 5.418296040503233e-08
+      },
+      "HIND_R": {
+        "min_z": 0.0033856474328786135,
+        "patch_drift": 3.8249026221757205e-08
+      }
+    },
+    "3": {
+      "FORE_L": {
+        "min_z": 0.0023897590581327677,
+        "patch_drift": 2.2692618006914245e-08
+      },
+      "FORE_R": {
+        "min_z": 0.023707613348960876,
+        "patch_drift": 1.393800709658001e-06
+      },
+      "HIND_L": {
+        "min_z": 0.01938471570611,
+        "patch_drift": 1.4704478390248836e-07
+      },
+      "HIND_R": {
+        "min_z": 0.003385616233572364,
+        "patch_drift": 2.2726840894803378e-07
+      }
+    },
+    "4": {
+      "FORE_L": {
+        "min_z": 0.002389854285866022,
+        "patch_drift": 1.1923033385638298e-07
+      },
+      "FORE_R": {
+        "min_z": 0.02934284508228302,
+        "patch_drift": 1.5582038497509164e-06
+      },
+      "HIND_L": {
+        "min_z": 0.025020765140652657,
+        "patch_drift": 2.3689214242845194e-07
+      },
+      "HIND_R": {
+        "min_z": 0.0033853761851787567,
+        "patch_drift": 1.7721527694449752e-07
+      }
+    },
+    "5": {
+      "FORE_L": {
+        "min_z": 0.0023896866478025913,
+        "patch_drift": 1.2851568307204558e-07
+      },
+      "FORE_R": {
+        "min_z": 0.03132142499089241,
+        "patch_drift": 1.703237747233708e-06
+      },
+      "HIND_L": {
+        "min_z": 0.026999812573194504,
+        "patch_drift": 3.4929915281595136e-08
+      },
+      "HIND_R": {
+        "min_z": 0.0033854672219604254,
+        "patch_drift": 1.8078764809465854e-07
+      }
+    },
+    "6": {
+      "FORE_L": {
+        "min_z": 0.002389853121712804,
+        "patch_drift": 1.1923033385638298e-07
+      },
+      "FORE_R": {
+        "min_z": 0.029342129826545715,
+        "patch_drift": 1.8509967844392795e-06
+      },
+      "HIND_L": {
+        "min_z": 0.025020670145750046,
+        "patch_drift": 2.4796377204167463e-07
+      },
+      "HIND_R": {
+        "min_z": 0.003385665826499462,
+        "patch_drift": 1.9238962762946947e-08
+      }
+    },
+    "7": {
+      "FORE_L": {
+        "min_z": 0.002389720641076565,
+        "patch_drift": 1.2797705029518802e-07
+      },
+      "FORE_R": {
+        "min_z": 0.023706194013357162,
+        "patch_drift": 1.7649422186861633e-06
+      },
+      "HIND_L": {
+        "min_z": 0.019384121522307396,
+        "patch_drift": 1.1892272682128665e-07
+      },
+      "HIND_R": {
+        "min_z": 0.003385667223483324,
+        "patch_drift": 2.2424057849825232e-08
+      }
+    },
+    "8": {
+      "FORE_L": {
+        "min_z": 0.0023897921200841665,
+        "patch_drift": 1.8701606465514013e-07
+      },
+      "FORE_R": {
+        "min_z": 0.015273010358214378,
+        "patch_drift": 1.1489268055450679e-06
+      },
+      "HIND_L": {
+        "min_z": 0.010948858223855495,
+        "patch_drift": 2.882844767437528e-07
+      },
+      "HIND_R": {
+        "min_z": 0.0033858902752399445,
+        "patch_drift": 2.2995921691363149e-07
+      }
+    },
+    "9": {
+      "FORE_L": {
+        "min_z": 0.0023897835053503513,
+        "patch_drift": 2.385105438412054e-07
+      },
+      "FORE_R": {
+        "min_z": 0.005329160485416651,
+        "patch_drift": 5.952083977738567e-07
+      },
+      "HIND_L": {
+        "min_z": 0.0010001844493672252,
+        "patch_drift": 5.011641731555549e-08
+      },
+      "HIND_R": {
+        "min_z": 0.003385560354217887,
+        "patch_drift": 3.896205055919209e-07
+      }
+    },
+    "10": {
+      "FORE_L": {
+        "min_z": 0.01233961246907711,
+        "patch_drift": 9.222287867380513e-08
+      },
+      "FORE_R": {
+        "min_z": 0.005329554434865713,
+        "patch_drift": 7.275948805300193e-07
+      },
+      "HIND_L": {
+        "min_z": 0.0010000391630455852,
+        "patch_drift": 2.5684912046168363e-07
+      },
+      "HIND_R": {
+        "min_z": 0.013262218795716763,
+        "patch_drift": 5.990783911640435e-06
+      }
+    },
+    "11": {
+      "FORE_L": {
+        "min_z": 0.020774615928530693,
+        "patch_drift": 1.4873058349137787e-07
+      },
+      "FORE_R": {
+        "min_z": 0.005329959560185671,
+        "patch_drift": 1.033311634862951e-06
+      },
+      "HIND_L": {
+        "min_z": 0.0010001248447224498,
+        "patch_drift": 1.6038078849625126e-07
+      },
+      "HIND_R": {
+        "min_z": 0.02157503552734852,
+        "patch_drift": 1.5239601790582221e-05
+      }
+    },
+    "12": {
+      "FORE_L": {
+        "min_z": 0.026410464197397232,
+        "patch_drift": 4.850955995325186e-07
+      },
+      "FORE_R": {
+        "min_z": 0.005330582614988089,
+        "patch_drift": 8.96948532632768e-07
+      },
+      "HIND_L": {
+        "min_z": 0.0010003186762332916,
+        "patch_drift": 2.5719934844330773e-07
+      },
+      "HIND_R": {
+        "min_z": 0.027093850076198578,
+        "patch_drift": 2.1471632795679935e-05
+      }
+    },
+    "13": {
+      "FORE_L": {
+        "min_z": 0.028389805927872658,
+        "patch_drift": 3.4551795026803083e-07
+      },
+      "FORE_R": {
+        "min_z": 0.005331146996468306,
+        "patch_drift": 1.1177596355659232e-06
+      },
+      "HIND_L": {
+        "min_z": 0.0010000093607231975,
+        "patch_drift": 3.1573813029904455e-07
+      },
+      "HIND_R": {
+        "min_z": 0.028914563357830048,
+        "patch_drift": 2.983518697219094e-05
+      }
+    },
+    "14": {
+      "FORE_L": {
+        "min_z": 0.026410415768623352,
+        "patch_drift": 2.2653829689148058e-07
+      },
+      "FORE_R": {
+        "min_z": 0.00533183803781867,
+        "patch_drift": 1.4143062675207568e-06
+      },
+      "HIND_L": {
+        "min_z": 0.0010001695482060313,
+        "patch_drift": 7.587514787894923e-08
+      },
+      "HIND_R": {
+        "min_z": 0.026980770751833916,
+        "patch_drift": 2.704457288599648e-05
+      }
+    },
+    "15": {
+      "FORE_L": {
+        "min_z": 0.020774558186531067,
+        "patch_drift": 2.3947509460494973e-07
+      },
+      "FORE_R": {
+        "min_z": 0.005332495551556349,
+        "patch_drift": 1.6442695037558987e-06
+      },
+      "HIND_L": {
+        "min_z": 0.0010001212358474731,
+        "patch_drift": 2.1909184859144983e-07
+      },
+      "HIND_R": {
+        "min_z": 0.021472351625561714,
+        "patch_drift": 2.2780940337308442e-05
+      }
+    },
+    "16": {
+      "FORE_L": {
+        "min_z": 0.012339373119175434,
+        "patch_drift": 3.365823763321833e-07
+      },
+      "FORE_R": {
+        "min_z": 0.005333295091986656,
+        "patch_drift": 1.7444594943070734e-06
+      },
+      "HIND_L": {
+        "min_z": 0.001000061514787376,
+        "patch_drift": 3.093997767639848e-07
+      },
+      "HIND_R": {
+        "min_z": 0.013105894438922405,
+        "patch_drift": 1.7545820818516243e-05
+      }
+    },
+    "17": {
+      "FORE_L": {
+        "min_z": 0.002389692235738039,
+        "patch_drift": 2.836111825563489e-07
+      },
+      "FORE_R": {
+        "min_z": 0.005334262270480394,
+        "patch_drift": 1.814128613794808e-06
+      },
+      "HIND_L": {
+        "min_z": 0.0010003595380112529,
+        "patch_drift": 4.0956417051738684e-07
+      },
+      "HIND_R": {
+        "min_z": 0.0033431744668632746,
+        "patch_drift": 3.1852432706296378e-06
+      }
+    }
+  },
+  "fail_ground": [],
+  "fail_replay": [],
+  "fail_skin": [],
+  "swing_peaks": {
+    "FORE_L": 0.028389805927872658,
+    "FORE_R": 0.03132142499089241,
+    "HIND_L": 0.026999812573194504,
+    "HIND_R": 0.028914563357830048
+  },
+  "swing_penetration": [],
+  "gates": {
+    "stance_contact_with_moving_root": true,
+    "keyframed_replay": true,
+    "all_17_frames_safe_mesh": true,
+    "all_four_swing_peaks_above_0_012": true,
+    "swing_no_ground_penetration": true,
+    "nonzero_armature_root_motion": true,
+    "original_13_bone_mesh_preserved": true
+  },
+  "race_gait": false,
+  "physics_validated": false,
+  "final_shape_approved": false,
+  "production_asset": false,
+  "scope_note": "A 17-frame world-space stance root-motion test with paired leg swing. It does not certify full gallop gait, cadence, cycle seams, impacts or a game-ready creature."
+}
