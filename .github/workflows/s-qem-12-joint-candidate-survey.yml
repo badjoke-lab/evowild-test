@@ -1,0 +1,69 @@
+name: EvoWild S QEM real 12 joint candidate survey
+on:
+  push:
+    branches: [exp/s-qem-deformation-gate-20261010]
+    paths: [.github/workflows/s-qem-12-joint-candidate-survey.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  actual-joints:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_qem_survey_upper_lower_joint_candidates.py
+            /art/s-creature/experiments/qem-deformation-gate-20261010/S-QEM-pre-rig-source-review.blend
+            /art/s-creature/experiments/qem-deformation-gate-20261010/joint-anatomy-survey-v2/
+            /.github/workflows/s-qem-12-joint-candidate-survey.yml
+      - name: Install Blender 4.3.2 CPU
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Survey original QEM 12 anatomical candidate points and render overlays
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/S-QEM-pre-rig-source-review.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_survey_upper_lower_joint_candidates.py
+      - name: Verify 12 points and build 5-view contact sheet
+        run: |
+          python3 -m pip install -q Pillow
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          p=Path("art/s-creature/experiments/qem-deformation-gate-20261010/joint-anatomy-survey-v2")
+          d=json.loads((p/"JOINT_CANDIDATE_SURVEY.json").read_text())
+          assert d['original_mesh_untouched'] and d['marker_count']==12
+          assert all(z['source_region_vertex_count']>=20 for z in d['joint_candidates'].values())
+          out=Image.new("RGB",(430*5,440),(245,246,247))
+          dr=ImageDraw.Draw(out)
+          for x,v in enumerate(("side","front","front34","rear34","back")):
+            f=p/f"QEM_joint_candidates_{v}.png"
+            assert f.stat().st_size>15000,f
+            pic=Image.open(f).convert("RGB")
+            pic.thumbnail((412,408))
+            out.paste(pic,(430*x+(430-pic.width)//2,28+(412-pic.height)//2))
+            dr.text((x*430+10,9),"QEM JOINT CANDIDATES / "+v.upper(),fill=(14,16,19))
+          out.save(p/"QEM_REAL_12_joint_candidates_fiveview.jpg",quality=92,optimize=True)
+          print("12 REAL JOINT CANDIDATES VERIFIED")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evowild-QEM-real-12-joint-landmark-candidates
+          path: art/s-creature/experiments/qem-deformation-gate-20261010/joint-anatomy-survey-v2/
+          if-no-files-found: warn
+      - name: Commit real joint survey without editing source GLB
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/qem-deformation-gate-20261010/joint-anatomy-survey-v2/
+          git commit -m 'audit: 12 original-QEM mesh joint candidates and actual five view markers'
+          git pull --rebase origin exp/s-qem-deformation-gate-20261010
+          git push origin HEAD:exp/s-qem-deformation-gate-20261010
