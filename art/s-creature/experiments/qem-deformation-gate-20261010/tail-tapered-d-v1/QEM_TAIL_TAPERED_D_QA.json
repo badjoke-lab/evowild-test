@@ -1,0 +1,306 @@
+{
+  "authoritative_image_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "donor_sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "original_source_preserved": true,
+  "sewn_C_base_preserved": true,
+  "original_mesh_vertices": 29948,
+  "original_mesh_faces": 59932,
+  "derived_C_and_D_vertices": 30029,
+  "derived_C_and_D_triangles": 60094,
+  "C_topology_manifold": "PASS_VERIFIED_C",
+  "cap_vertex_candidates": 136,
+  "cap_vertex_groups": [
+    36,
+    44,
+    54
+  ],
+  "scan": [
+    {
+      "blade_growth": 0.22,
+      "displacement_peak_world": 0.2835993944947381,
+      "max_evaluation_difference": 3.4877307442116035e-07,
+      "face_quality": {
+        "flips_vs_C": 3,
+        "collapsed": 0,
+        "smaller_than_half_C_area": 2,
+        "larger_than_twice_C_area": 78,
+        "min_ratio": 0.4114482885003664,
+        "max_ratio": 13.758179519084853
+      },
+      "plate_shapes": [
+        {
+          "plate": "ROOT",
+          "top_vertex_count": 36,
+          "source_y_range": [
+            1.7905280590057373,
+            2.0521607398986816
+          ],
+          "max_growth_y": 0.253,
+          "max_growth_z": 0.1276
+        },
+        {
+          "plate": "MID",
+          "top_vertex_count": 44,
+          "source_y_range": [
+            2.080437183380127,
+            2.420273780822754
+          ],
+          "max_growth_y": 0.253,
+          "max_growth_z": 0.1276
+        },
+        {
+          "plate": "TIP",
+          "top_vertex_count": 54,
+          "source_y_range": [
+            2.4450273513793945,
+            2.7388432025909424
+          ],
+          "max_growth_y": 0.253,
+          "max_growth_z": 0.1276
+        }
+      ],
+      "topology_unchanged_from_manifold_C": true,
+      "deformation_gate_PASS": false
+    },
+    {
+      "blade_growth": 0.17,
+      "displacement_peak_world": 0.2195531953571644,
+      "max_evaluation_difference": 3.56228706088757e-07,
+      "face_quality": {
+        "flips_vs_C": 3,
+        "collapsed": 0,
+        "smaller_than_half_C_area": 3,
+        "larger_than_twice_C_area": 26,
+        "min_ratio": 0.3733235348382101,
+        "max_ratio": 11.14409591741132
+      },
+      "plate_shapes": [
+        {
+          "plate": "ROOT",
+          "top_vertex_count": 36,
+          "source_y_range": [
+            1.7905280590057373,
+            2.0521607398986816
+          ],
+          "max_growth_y": 0.1955,
+          "max_growth_z": 0.09860000000000001
+        },
+        {
+          "plate": "MID",
+          "top_vertex_count": 44,
+          "source_y_range": [
+            2.080437183380127,
+            2.420273780822754
+          ],
+          "max_growth_y": 0.1955,
+          "max_growth_z": 0.09860000000000001
+        },
+        {
+          "plate": "TIP",
+          "top_vertex_count": 54,
+          "source_y_range": [
+            2.4450273513793945,
+            2.7388432025909424
+          ],
+          "max_growth_y": 0.1955,
+          "max_growth_z": 0.09860000000000001
+        }
+      ],
+      "topology_unchanged_from_manifold_C": true,
+      "deformation_gate_PASS": false
+    },
+    {
+      "blade_growth": 0.13,
+      "displacement_peak_world": 0.16948298275245588,
+      "max_evaluation_difference": 3.452301027273563e-07,
+      "face_quality": {
+        "flips_vs_C": 3,
+        "collapsed": 0,
+        "smaller_than_half_C_area": 5,
+        "larger_than_twice_C_area": 7,
+        "min_ratio": 0.07945411354488928,
+        "max_ratio": 9.06846092428402
+      },
+      "plate_shapes": [
+        {
+          "plate": "ROOT",
+          "top_vertex_count": 36,
+          "source_y_range": [
+            1.7905280590057373,
+            2.0521607398986816
+          ],
+          "max_growth_y": 0.1495,
+          "max_growth_z": 0.0754
+        },
+        {
+          "plate": "MID",
+          "top_vertex_count": 44,
+          "source_y_range": [
+            2.080437183380127,
+            2.420273780822754
+          ],
+          "max_growth_y": 0.1495,
+          "max_growth_z": 0.0754
+        },
+        {
+          "plate": "TIP",
+          "top_vertex_count": 54,
+          "source_y_range": [
+            2.4450273513793945,
+            2.7388432025909424
+          ],
+          "max_growth_y": 0.1495,
+          "max_growth_z": 0.0754
+        }
+      ],
+      "topology_unchanged_from_manifold_C": true,
+      "deformation_gate_PASS": false
+    },
+    {
+      "blade_growth": 0.09,
+      "displacement_peak_world": 0.1229304716851573,
+      "max_evaluation_difference": 3.566793753684294e-07,
+      "face_quality": {
+        "flips_vs_C": 0,
+        "collapsed": 0,
+        "smaller_than_half_C_area": 7,
+        "larger_than_twice_C_area": 4,
+        "min_ratio": 0.2704020996280736,
+        "max_ratio": 7.019891790512227
+      },
+      "plate_shapes": [
+        {
+          "plate": "ROOT",
+          "top_vertex_count": 36,
+          "source_y_range": [
+            1.7905280590057373,
+            2.0521607398986816
+          ],
+          "max_growth_y": 0.1035,
+          "max_growth_z": 0.052199999999999996
+        },
+        {
+          "plate": "MID",
+          "top_vertex_count": 44,
+          "source_y_range": [
+            2.080437183380127,
+            2.420273780822754
+          ],
+          "max_growth_y": 0.1035,
+          "max_growth_z": 0.052199999999999996
+        },
+        {
+          "plate": "TIP",
+          "top_vertex_count": 54,
+          "source_y_range": [
+            2.4450273513793945,
+            2.7388432025909424
+          ],
+          "max_growth_y": 0.1035,
+          "max_growth_z": 0.052199999999999996
+        }
+      ],
+      "topology_unchanged_from_manifold_C": true,
+      "deformation_gate_PASS": false
+    },
+    {
+      "blade_growth": 0.05,
+      "displacement_peak_world": 0.08030772867530823,
+      "max_evaluation_difference": 3.528594971768939e-07,
+      "face_quality": {
+        "flips_vs_C": 0,
+        "collapsed": 0,
+        "smaller_than_half_C_area": 6,
+        "larger_than_twice_C_area": 1,
+        "min_ratio": 0.3459652218273754,
+        "max_ratio": 5.031218710204834
+      },
+      "plate_shapes": [
+        {
+          "plate": "ROOT",
+          "top_vertex_count": 36,
+          "source_y_range": [
+            1.7905280590057373,
+            2.0521607398986816
+          ],
+          "max_growth_y": 0.057499999999999996,
+          "max_growth_z": 0.028999999999999998
+        },
+        {
+          "plate": "MID",
+          "top_vertex_count": 44,
+          "source_y_range": [
+            2.080437183380127,
+            2.420273780822754
+          ],
+          "max_growth_y": 0.057499999999999996,
+          "max_growth_z": 0.028999999999999998
+        },
+        {
+          "plate": "TIP",
+          "top_vertex_count": 54,
+          "source_y_range": [
+            2.4450273513793945,
+            2.7388432025909424
+          ],
+          "max_growth_y": 0.057499999999999996,
+          "max_growth_z": 0.028999999999999998
+        }
+      ],
+      "topology_unchanged_from_manifold_C": true,
+      "deformation_gate_PASS": false
+    }
+  ],
+  "selected": {
+    "blade_growth": 0.05,
+    "displacement_peak_world": 0.08030772867530823,
+    "max_evaluation_difference": 3.528594971768939e-07,
+    "face_quality": {
+      "flips_vs_C": 0,
+      "collapsed": 0,
+      "smaller_than_half_C_area": 6,
+      "larger_than_twice_C_area": 1,
+      "min_ratio": 0.3459652218273754,
+      "max_ratio": 5.031218710204834
+    },
+    "plate_shapes": [
+      {
+        "plate": "ROOT",
+        "top_vertex_count": 36,
+        "source_y_range": [
+          1.7905280590057373,
+          2.0521607398986816
+        ],
+        "max_growth_y": 0.057499999999999996,
+        "max_growth_z": 0.028999999999999998
+      },
+      {
+        "plate": "MID",
+        "top_vertex_count": 44,
+        "source_y_range": [
+          2.080437183380127,
+          2.420273780822754
+        ],
+        "max_growth_y": 0.057499999999999996,
+        "max_growth_z": 0.028999999999999998
+      },
+      {
+        "plate": "TIP",
+        "top_vertex_count": 54,
+        "source_y_range": [
+          2.4450273513793945,
+          2.7388432025909424
+        ],
+        "max_growth_y": 0.057499999999999996,
+        "max_growth_z": 0.028999999999999998
+      }
+    ],
+    "topology_unchanged_from_manifold_C": true,
+    "deformation_gate_PASS": false
+  },
+  "gate": "FAIL_TAPERED_CAP_DEFORMATION",
+  "authority_visual_gate": "NOT_APPROVED_PENDING_REAL_FIVE_VIEW",
+  "self_intersection_check": "NOT_RUN",
+  "new_skin_weights": "NOT_RUN",
+  "game_approved": false
+}
