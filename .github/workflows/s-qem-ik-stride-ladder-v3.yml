@@ -5,6 +5,7 @@ on:
     paths:
       - .github/workflows/s-qem-ik-stride-ladder-v3.yml
       - art/s-creature/blender/s_qem_ik_stride_ladder_v3.py
+      - art/s-creature/references/00_s_type_modeling_image_v1.png
   workflow_dispatch:
 permissions:
   contents: write
@@ -29,6 +30,10 @@ jobs:
             /art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb
             /art/s-creature/experiments/qem-deformation-gate-20261010/stride-ladder-ik-v3/
             /.github/workflows/s-qem-ik-stride-ladder-v3.yml
+      - name: Verify original locked S design image bytes
+        run: |
+          test -s art/s-creature/references/00_s_type_modeling_image_v1.png
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
       - name: Install Blender 4.3.2 for exact source rig evaluation
         run: |
           sudo apt-get update -qq
