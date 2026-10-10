@@ -1,0 +1,128 @@
+{
+  "canonical_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "donor_glb_sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "source_unchanged": true,
+  "C_manifold_base_unchanged": true,
+  "donor_verts": 29948,
+  "donor_tris": 59932,
+  "C_verts": 30029,
+  "C_tris": 60094,
+  "new_E_supported_topology": {
+    "components": 1,
+    "component_sizes": [
+      30514
+    ],
+    "boundary": 0,
+    "nonmanifold_or_boundary": 0,
+    "vertices": 30514,
+    "triangles": 61064
+  },
+  "plate_cap_vertices": 136,
+  "support_refined_edges": 485,
+  "all_candidates": [
+    {
+      "sweep": 0.1,
+      "qa": {
+        "flips": 51,
+        "collapses": 0,
+        "under_half": 42,
+        "over_double": 12,
+        "min_area_ratio": 0.09197342761126698,
+        "max_area_ratio": 10.791143000143665
+      },
+      "peak_vertex_displacement": 0.08902127489960171,
+      "max_coordinate_error": 3.5678212517709085e-07,
+      "passes_triangle_gate": false
+    },
+    {
+      "sweep": 0.07,
+      "qa": {
+        "flips": 35,
+        "collapses": 0,
+        "under_half": 32,
+        "over_double": 11,
+        "min_area_ratio": 0.11644355227284268,
+        "max_area_ratio": 10.405369965115847
+      },
+      "peak_vertex_displacement": 0.06370544189206713,
+      "max_coordinate_error": 3.5721357072304727e-07,
+      "passes_triangle_gate": false
+    },
+    {
+      "sweep": 0.05,
+      "qa": {
+        "flips": 34,
+        "collapses": 0,
+        "under_half": 18,
+        "over_double": 7,
+        "min_area_ratio": 0.09844321206938664,
+        "max_area_ratio": 10.153401590675799
+      },
+      "peak_vertex_displacement": 0.04731695249341114,
+      "max_coordinate_error": 3.563743344869863e-07,
+      "passes_triangle_gate": false
+    },
+    {
+      "sweep": 0.035,
+      "qa": {
+        "flips": 33,
+        "collapses": 0,
+        "under_half": 18,
+        "over_double": 5,
+        "min_area_ratio": 0.09625292261670498,
+        "max_area_ratio": 9.967194445232153
+      },
+      "peak_vertex_displacement": 0.03655465696776871,
+      "max_coordinate_error": 3.557892402916707e-07,
+      "passes_triangle_gate": false
+    },
+    {
+      "sweep": 0.02,
+      "qa": {
+        "flips": 33,
+        "collapses": 0,
+        "under_half": 15,
+        "over_double": 5,
+        "min_area_ratio": 0.1891897415795353,
+        "max_area_ratio": 9.79386523281976
+      },
+      "peak_vertex_displacement": 0.027726514830411237,
+      "max_coordinate_error": 3.5664592745732193e-07,
+      "passes_triangle_gate": false
+    },
+    {
+      "sweep": 0.01,
+      "qa": {
+        "flips": 33,
+        "collapses": 0,
+        "under_half": 15,
+        "over_double": 5,
+        "min_area_ratio": 0.27489735287338884,
+        "max_area_ratio": 9.686649731267833
+      },
+      "peak_vertex_displacement": 0.023715013419336777,
+      "max_coordinate_error": 3.565918826886616e-07,
+      "passes_triangle_gate": false
+    }
+  ],
+  "selected": {
+    "sweep": 0.01,
+    "qa": {
+      "flips": 33,
+      "collapses": 0,
+      "under_half": 15,
+      "over_double": 5,
+      "min_area_ratio": 0.27489735287338884,
+      "max_area_ratio": 9.686649731267833
+    },
+    "peak_vertex_displacement": 0.023715013419336777,
+    "max_coordinate_error": 3.565918826886616e-07,
+    "passes_triangle_gate": false
+  },
+  "topology_gate": "PASS_MANIFOLD_ONE_COMPONENT",
+  "subdivided_mesh_deformation_gate": "FAIL",
+  "visual_S_design_gate": "NOT_APPROVED_REQUIRES_VISUAL_REVIEW",
+  "self_intersection_validation": "NOT_TESTED",
+  "rig_and_gait_on_changed_geometry": "NOT_TESTED",
+  "game_ready": false
+}
