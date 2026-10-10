@@ -1,0 +1,69 @@
+{
+  "variant": "local tail-length shape-key A only",
+  "original_glb_sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "reference_png_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "source_unchanged": true,
+  "original_mesh_vertex_count": 29948,
+  "variant_mesh_vertex_count": 29948,
+  "original_triangles": 59932,
+  "variant_triangles": 59932,
+  "changed_region_vertices": 671,
+  "original_tail_tip_y": 2.179281234741211,
+  "sweep": "posterior Y lengthening and slight distal vertical taper only",
+  "candidate_scan": [
+    {
+      "requested_extension": 0.56,
+      "observed_tail_tip_gain_y": 0.5572586059570312,
+      "modified_vertices": 771,
+      "strong_influence_vertices": 359,
+      "max_coordinate_consistency_error": 2.96214294426278e-07,
+      "face_quality": {
+        "flipped": 0,
+        "collapsed": 0,
+        "area_lt_half": 0,
+        "area_gt_double": 436,
+        "min_ratio": 0.9953320987881457,
+        "max_ratio": 2.156116393580353
+      },
+      "topology_safe": false
+    },
+    {
+      "requested_extension": 0.4,
+      "observed_tail_tip_gain_y": 0.3980417251586914,
+      "modified_vertices": 764,
+      "strong_influence_vertices": 359,
+      "max_coordinate_consistency_error": 2.9736984163974967e-07,
+      "face_quality": {
+        "flipped": 0,
+        "collapsed": 0,
+        "area_lt_half": 0,
+        "area_gt_double": 0,
+        "min_ratio": 0.9963492070178933,
+        "max_ratio": 1.8240594035262554
+      },
+      "topology_safe": true
+    }
+  ],
+  "selected": {
+    "requested_extension": 0.4,
+    "observed_tail_tip_gain_y": 0.3980417251586914,
+    "modified_vertices": 764,
+    "strong_influence_vertices": 359,
+    "max_coordinate_consistency_error": 2.9736984163974967e-07,
+    "face_quality": {
+      "flipped": 0,
+      "collapsed": 0,
+      "area_lt_half": 0,
+      "area_gt_double": 0,
+      "min_ratio": 0.9963492070178933,
+      "max_ratio": 1.8240594035262554
+    },
+    "topology_safe": true
+  },
+  "geometry_gate": "PASS_LOCAL_SHAPE_KEY_TRIANGLES",
+  "reference_shape_gate": "NOT_APPROVED_VISUAL_REVIEW_PENDING",
+  "full_tail_segmented": false,
+  "motion_rig_validated_for_changed_shape": false,
+  "game_production_approved": false,
+  "note": "This is an original-QEM tail-local edit trial, not an approved S-type silhouette or substitute asset. Original donor retained."
+}
