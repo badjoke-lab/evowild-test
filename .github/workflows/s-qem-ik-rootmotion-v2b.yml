@@ -1,0 +1,80 @@
+name: EvoWild S QEM actual IK moving-root contact V2b
+on:
+  push:
+    branches: [exp/s-qem-rootmotion-contact-20261010]
+    paths:
+      - .github/workflows/s-qem-ik-rootmotion-v2b.yml
+      - art/s-creature/blender/s_qem_ik_rootmotion_v2b.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-qem-ik-rootmotion-v2b
+  cancel-in-progress: false
+jobs:
+  actual-moving-root:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_qem_ik_rootmotion_v2b.py
+            /art/s-creature/experiments/qem-deformation-gate-20261010/ik-contact-v1/REAL_IK_CONTACT_QA.json
+            /art/s-creature/experiments/qem-deformation-gate-20261010/ik-contact-v1/S-QEM-real-13bone-IK-contact-v1.blend
+            /art/s-creature/experiments/qem-deformation-gate-20261010/rootmotion-contact-v2b/
+            /.github/workflows/s-qem-ik-rootmotion-v2b.yml
+      - name: Install Blender 4.3.2
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Move true armature root, keep stance feet fixed in world coordinates and audit mesh
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/ik-contact-v1/S-QEM-real-13bone-IK-contact-v1.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_ik_rootmotion_v2b.py
+      - name: Package actual 17 frame renderer and save numeric PASS or FAIL
+        run: |
+          python3 -m pip install -q pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          from PIL import Image
+          p=Path('art/s-creature/experiments/qem-deformation-gate-20261010/rootmotion-contact-v2b')
+          d=json.loads((p/'ROOT_MOTION_CONTACT_QA.json').read_text())
+          assert d['original_qem_unchanged'] and d['bone_count']==13
+          assert d['original_vertices']==29948 and d['original_faces']==59932
+          assert d['frame_count']==17 and len(d['frames'])==17 and len(d['replay'])==17
+          assert not d['race_gait'] and not d['production_asset']
+          assert (p/'S-QEM-real-13bone-rootmotion-v2bb.blend').stat().st_size>50000
+          images=[]
+          for i in range(1,18):
+              f=p/'review'/f'QEM_ROOT_IK_REAL_{i:02d}.png'
+              assert f.stat().st_size>10000, f
+              im=Image.open(f).convert('RGB')
+              im.thumbnail((800,600))
+              images.append(im)
+          gif=p/'review'/'QEM_ROOT_IK_REAL_17frame.gif'
+          images[0].save(gif,format='GIF',append_images=images[1:],duration=110,loop=0,optimize=True)
+          assert gif.stat().st_size>15000
+          print('REAL_ROOT_MOTION_RESULT',d['gate'],d['gates'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-real-QEM-IK-moving-root-contact-v2b
+          path: art/s-creature/experiments/qem-deformation-gate-20261010/rootmotion-contact-v2b/
+          if-no-files-found: warn
+      - name: Preserve actual moving-root QA and Blender source only to isolated experiment
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/qem-deformation-gate-20261010/rootmotion-contact-v2b/
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit: archive QEM actual IK moving-root contact metrics and 17 genuine frames'
+            git pull --rebase origin exp/s-qem-rootmotion-contact-20261010
+            git push origin HEAD:exp/s-qem-rootmotion-contact-20261010
+          fi
