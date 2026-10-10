@@ -1,0 +1,367 @@
+{
+  "source": "S-QEM-pre-rig-source-review.blend derived from immutable QEM GLB",
+  "source_sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "original_mesh_untouched": true,
+  "source_vertex_count": 29948,
+  "marker_count": 12,
+  "joint_candidates": {
+    "L_FORE_SHOULDER": {
+      "surface_vertex_index": 8171,
+      "xyz": [
+        -0.19276714324951172,
+        -0.5371477603912354,
+        1.3036142587661743
+      ],
+      "median_region_xyz": [
+        -0.18690630793571472,
+        -0.5426886081695557,
+        1.3048375844955444
+      ],
+      "source_region_vertex_count": 457,
+      "region": {
+        "y": [
+          -1.04,
+          -0.36
+        ],
+        "z": [
+          1.16,
+          1.7
+        ],
+        "absolute_x": [
+          0.13,
+          0.53
+        ]
+      },
+      "approved": false
+    },
+    "L_FORE_ELBOW": {
+      "surface_vertex_index": 3954,
+      "xyz": [
+        -0.33381107449531555,
+        -0.5666013956069946,
+        0.8836690187454224
+      ],
+      "median_region_xyz": [
+        -0.30809882283210754,
+        -0.5561953783035278,
+        0.8843517303466797
+      ],
+      "source_region_vertex_count": 983,
+      "region": {
+        "y": [
+          -1.1,
+          -0.34
+        ],
+        "z": [
+          0.61,
+          1.14
+        ],
+        "absolute_x": [
+          0.15,
+          0.55
+        ]
+      },
+      "approved": false
+    },
+    "L_FORE_WRIST": {
+      "surface_vertex_index": 1267,
+      "xyz": [
+        -0.4110615849494934,
+        -0.8877730369567871,
+        0.3746732473373413
+      ],
+      "median_region_xyz": [
+        -0.3856409788131714,
+        -0.8854544162750244,
+        0.3721126914024353
+      ],
+      "source_region_vertex_count": 533,
+      "region": {
+        "y": [
+          -1.53,
+          -0.55
+        ],
+        "z": [
+          0.2,
+          0.53
+        ],
+        "absolute_x": [
+          0.15,
+          0.58
+        ]
+      },
+      "approved": false
+    },
+    "L_HIND_HIP": {
+      "surface_vertex_index": 5313,
+      "xyz": [
+        -0.28401535749435425,
+        1.1251150369644165,
+        1.4452627897262573
+      ],
+      "median_region_xyz": [
+        -0.23048553615808487,
+        1.1388211250305176,
+        1.439569115638733
+      ],
+      "source_region_vertex_count": 1236,
+      "region": {
+        "y": [
+          0.8,
+          1.57
+        ],
+        "z": [
+          1.24,
+          1.92
+        ],
+        "absolute_x": [
+          0.13,
+          0.5
+        ]
+      },
+      "approved": false
+    },
+    "L_HIND_STIFLE": {
+      "surface_vertex_index": 5888,
+      "xyz": [
+        -0.2752525806427002,
+        1.3629194498062134,
+        1.0338313579559326
+      ],
+      "median_region_xyz": [
+        -0.31748752295970917,
+        1.3912527561187744,
+        1.0569083094596863
+      ],
+      "source_region_vertex_count": 1104,
+      "region": {
+        "y": [
+          1.12,
+          1.89
+        ],
+        "z": [
+          0.86,
+          1.26
+        ],
+        "absolute_x": [
+          0.14,
+          0.53
+        ]
+      },
+      "approved": false
+    },
+    "L_HIND_HOCK": {
+      "surface_vertex_index": 1111,
+      "xyz": [
+        -0.41617560386657715,
+        1.8485074043273926,
+        0.6589019894599915
+      ],
+      "median_region_xyz": [
+        -0.3807474672794342,
+        1.854254424571991,
+        0.6762533187866211
+      ],
+      "source_region_vertex_count": 886,
+      "region": {
+        "y": [
+          1.57,
+          2.25
+        ],
+        "z": [
+          0.38,
+          0.84
+        ],
+        "absolute_x": [
+          0.15,
+          0.57
+        ]
+      },
+      "approved": false
+    },
+    "R_FORE_SHOULDER": {
+      "surface_vertex_index": 25114,
+      "xyz": [
+        0.22015798091888428,
+        -0.5164285898208618,
+        1.2949084043502808
+      ],
+      "median_region_xyz": [
+        0.2042398527264595,
+        -0.49826282262802124,
+        1.2806368470191956
+      ],
+      "source_region_vertex_count": 190,
+      "region": {
+        "y": [
+          -1.04,
+          -0.36
+        ],
+        "z": [
+          1.16,
+          1.7
+        ],
+        "absolute_x": [
+          0.13,
+          0.53
+        ]
+      },
+      "approved": false
+    },
+    "R_FORE_ELBOW": {
+      "surface_vertex_index": 26884,
+      "xyz": [
+        0.2979561984539032,
+        -0.42256999015808105,
+        0.9136559367179871
+      ],
+      "median_region_xyz": [
+        0.25935937464237213,
+        -0.44535887241363525,
+        0.919008195400238
+      ],
+      "source_region_vertex_count": 546,
+      "region": {
+        "y": [
+          -1.1,
+          -0.34
+        ],
+        "z": [
+          0.61,
+          1.14
+        ],
+        "absolute_x": [
+          0.15,
+          0.55
+        ]
+      },
+      "approved": false
+    },
+    "R_FORE_WRIST": {
+      "surface_vertex_index": 27608,
+      "xyz": [
+        0.3296074867248535,
+        -0.5960690975189209,
+        0.26740729808807373
+      ],
+      "median_region_xyz": [
+        0.34943756461143494,
+        -0.5979822874069214,
+        0.278303861618042
+      ],
+      "source_region_vertex_count": 175,
+      "region": {
+        "y": [
+          -1.53,
+          -0.55
+        ],
+        "z": [
+          0.2,
+          0.53
+        ],
+        "absolute_x": [
+          0.15,
+          0.58
+        ]
+      },
+      "approved": false
+    },
+    "R_HIND_HIP": {
+      "surface_vertex_index": 26569,
+      "xyz": [
+        0.2911209166049957,
+        1.1690213680267334,
+        1.4498859643936157
+      ],
+      "median_region_xyz": [
+        0.21686480194330215,
+        1.1776668429374695,
+        1.4338860511779785
+      ],
+      "source_region_vertex_count": 990,
+      "region": {
+        "y": [
+          0.8,
+          1.57
+        ],
+        "z": [
+          1.24,
+          1.92
+        ],
+        "absolute_x": [
+          0.13,
+          0.5
+        ]
+      },
+      "approved": false
+    },
+    "R_HIND_STIFLE": {
+      "surface_vertex_index": 26241,
+      "xyz": [
+        0.26023775339126587,
+        1.4408172369003296,
+        1.046890139579773
+      ],
+      "median_region_xyz": [
+        0.29652297496795654,
+        1.466252088546753,
+        1.056246817111969
+      ],
+      "source_region_vertex_count": 1130,
+      "region": {
+        "y": [
+          1.12,
+          1.89
+        ],
+        "z": [
+          0.86,
+          1.26
+        ],
+        "absolute_x": [
+          0.14,
+          0.53
+        ]
+      },
+      "approved": false
+    },
+    "R_HIND_HOCK": {
+      "surface_vertex_index": 27374,
+      "xyz": [
+        0.3186895549297333,
+        1.9572954177856445,
+        0.6458076238632202
+      ],
+      "median_region_xyz": [
+        0.35856665670871735,
+        1.9685583710670471,
+        0.6746423244476318
+      ],
+      "source_region_vertex_count": 742,
+      "region": {
+        "y": [
+          1.57,
+          2.25
+        ],
+        "z": [
+          0.38,
+          0.84
+        ],
+        "absolute_x": [
+          0.15,
+          0.57
+        ]
+      },
+      "approved": false
+    }
+  },
+  "views": [
+    "side",
+    "front",
+    "front34",
+    "rear34",
+    "back"
+  ],
+  "position_status": "GEOMETRY_DERIVED_CANDIDATES_NOT_ANATOMICAL_APPROVAL",
+  "physical_joint_bend_not_run_here": true,
+  "game_ready": false
+}
