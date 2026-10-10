@@ -1,0 +1,103 @@
+{
+  "original_source": "S-trellis2-qem-repair-best.glb",
+  "source_glb_sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "design_png_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "original_source_preserved": true,
+  "previous_A_source_preserved": true,
+  "source_vertex_count": 29948,
+  "source_faces": 59932,
+  "variant_C_vertex_count": 30029,
+  "variant_C_triangles": 60094,
+  "new_vertex_count": 81,
+  "new_triangle_count": 162,
+  "pretri_faces": 60013,
+  "plate_count_requested": 3,
+  "plate_groups": [
+    {
+      "name": "PLATE_01_ROOT",
+      "band_y": [
+        1.7,
+        1.92
+      ],
+      "candidate_faces": 96,
+      "connected_candidate_islands": [
+        52,
+        44
+      ],
+      "selected_region_faces": 52,
+      "boundary_edge_count": 24,
+      "duplicated_top_vertices": 39,
+      "side_wall_quads": 24,
+      "world_displacement": [
+        -0.045,
+        0.1,
+        0.175
+      ]
+    },
+    {
+      "name": "PLATE_02_MID",
+      "band_y": [
+        2.0,
+        2.22
+      ],
+      "candidate_faces": 112,
+      "connected_candidate_islands": [
+        60,
+        45,
+        2,
+        2,
+        1,
+        1,
+        1
+      ],
+      "selected_region_faces": 60,
+      "boundary_edge_count": 24,
+      "duplicated_top_vertices": 43,
+      "side_wall_quads": 24,
+      "world_displacement": [
+        0.05,
+        0.145,
+        0.22
+      ]
+    },
+    {
+      "name": "PLATE_03_TIP",
+      "band_y": [
+        2.3,
+        2.54
+      ],
+      "candidate_faces": 182,
+      "connected_candidate_islands": [
+        81,
+        78,
+        11,
+        7,
+        2,
+        2,
+        1
+      ],
+      "selected_region_faces": 81,
+      "boundary_edge_count": 33,
+      "duplicated_top_vertices": 58,
+      "side_wall_quads": 33,
+      "world_displacement": [
+        -0.027,
+        0.19,
+        0.175
+      ]
+    }
+  ],
+  "connected_component_sizes": [
+    30029
+  ],
+  "mesh_connected_components": 1,
+  "boundary_edges": 0,
+  "nonmanifold_or_boundary_edges": 0,
+  "degenerate_faces": 0,
+  "geometry_gate": "PASS_SEWN_MANIFOLD_PLATES",
+  "visual_design_gate": "NOT_APPROVED_PENDING_HUMAN_REAL_FIVE_VIEW",
+  "source_rig_revalidation": "NOT_RUN_ON_CHANGED_TOPOLOGY",
+  "color_material": "NOT_IMPLEMENTED",
+  "S_type_complete": false,
+  "game_approved": false
+}
