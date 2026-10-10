@@ -19,7 +19,7 @@ jobs:
           sparse-checkout-cone-mode: false
           sparse-checkout: |
             /art/s-creature/blender/s_qem_torso_face_localization.py
-            /art/s-creature/experiments/qem-deformation-gate-20261010/torso-face-audit-20261011/S-QEM-torso-face-audit-TRIAL.blend
+            /art/s-creature/experiments/qem-deformation-gate-20261010/torso-profile-b-v1/S-QEM-real-torso-profile-B-TRIAL.blend
             /art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb
             /art/s-creature/references/00_s_type_modeling_image_v1.png
             /art/s-creature/experiments/qem-deformation-gate-20261010/torso-face-audit-20261011/
@@ -36,7 +36,7 @@ jobs:
           tar -xf /tmp/blender.tar.xz -C /tmp
       - name: Run actual QEM surface morph and all 10 Blender renders
         run: |
-          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/torso-face-audit-20261011/S-QEM-torso-face-audit-TRIAL.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_torso_face_localization.py
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/torso-profile-b-v1/S-QEM-real-torso-profile-B-TRIAL.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_torso_face_localization.py
       - name: Assemble five-view exact-source comparative evidence
         run: |
           python3 -m pip install -q pillow
