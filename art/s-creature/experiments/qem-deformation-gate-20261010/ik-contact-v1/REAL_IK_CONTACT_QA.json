@@ -1,0 +1,1431 @@
+{
+  "experiment": "actual_QEM_13_bone_four_foot_ik_contact_v1",
+  "input_blend": "/home/runner/work/evowild-test/evowild-test/art/s-creature/experiments/qem-deformation-gate-20261010/three-segment-armature-v1/S-QEM-real-13-bone-joint-chain-test.blend",
+  "original_glb_sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "vertices": 29948,
+  "faces": 59932,
+  "deform_bones": 13,
+  "ik_targets": [
+    "FORE_L",
+    "FORE_R",
+    "HIND_L",
+    "HIND_R"
+  ],
+  "ik_solver": "Blender IK constraint, 3-bone chains, evaluated-foot-patch error feedback",
+  "root_motion": false,
+  "race_gait": false,
+  "approved_production": false,
+  "original_source_mesh_modified": false,
+  "rest_skinning_error_before_ik": 2.384185791015625e-07,
+  "initial_ik_rest_max_coordinate_change": 3.7550926208496094e-06,
+  "swing_step_length": 0.02,
+  "swing_lift": 0.026,
+  "contact_gate_bounds": {
+    "min_z": [
+      -0.002,
+      0.006
+    ],
+    "max_stance_horizontal_drift": 0.01,
+    "min_swing_peak_lift": 0.012
+  },
+  "frame_data": {
+    "1": {
+      "feet": {
+        "FORE_L": {
+          "state": "STANCE",
+          "min_world_z": 0.0023897597566246986,
+          "horizontal_drift_from_original_patch": 2.288740441613868e-08,
+          "mean_patch_z": 0.02701162120777797,
+          "contact_patch_vertex_count": 306,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            -0.41106194257736206,
+            -1.1177735328674316,
+            0.04500003531575203
+          ],
+          "contact_gate": "PASS"
+        },
+        "FORE_R": {
+          "state": "SWING",
+          "min_world_z": 0.005327356047928333,
+          "horizontal_drift_from_original_patch": 9.448919318494052e-08,
+          "mean_patch_z": 0.023212496834722433,
+          "contact_patch_vertex_count": 165,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            0.3296096920967102,
+            -0.8260729908943176,
+            0.04499943181872368
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "HIND_L": {
+          "state": "SWING",
+          "min_world_z": 0.0009998806053772569,
+          "horizontal_drift_from_original_patch": 5.525675205143289e-08,
+          "mean_patch_z": 0.017070724427002696,
+          "contact_patch_vertex_count": 203,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            -0.41618281602859497,
+            2.008545398712158,
+            0.04579024761915207
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "HIND_R": {
+          "state": "STANCE",
+          "min_world_z": 0.003385490272194147,
+          "horizontal_drift_from_original_patch": 1.8058394787080907e-07,
+          "mean_patch_z": 0.021595926102150807,
+          "contact_patch_vertex_count": 149,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            0.31868940591812134,
+            2.117295980453491,
+            0.045000214129686356
+          ],
+          "contact_gate": "PASS"
+        }
+      },
+      "skinning": {
+        "flipped_faces": 0,
+        "collapsed_faces": 0,
+        "area_below_half": 0,
+        "area_above_double": 0,
+        "moved_vertices": 4489,
+        "max_displacement": 0.0014058369787787047
+      }
+    },
+    "2": {
+      "feet": {
+        "FORE_L": {
+          "state": "STANCE",
+          "min_world_z": 0.0023897597566246986,
+          "horizontal_drift_from_original_patch": 2.288740441613868e-08,
+          "mean_patch_z": 0.02701162120777797,
+          "contact_patch_vertex_count": 306,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            -0.41106194257736206,
+            -1.1177735328674316,
+            0.04500003531575203
+          ],
+          "contact_gate": "PASS"
+        },
+        "FORE_R": {
+          "state": "SWING",
+          "min_world_z": 0.015264337882399559,
+          "horizontal_drift_from_original_patch": 0.007657966866006031,
+          "mean_patch_z": 0.03837407860114719,
+          "contact_patch_vertex_count": 165,
+          "intended_lift": 0.009949769241492334,
+          "ik_target_world": [
+            0.32982146739959717,
+            -0.8324729204177856,
+            0.058875832706689835
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "HIND_L": {
+          "state": "SWING",
+          "min_world_z": 0.010950981639325619,
+          "horizontal_drift_from_original_patch": 0.007653353837314595,
+          "mean_patch_z": 0.025679685982870938,
+          "contact_patch_vertex_count": 203,
+          "intended_lift": 0.009949769241492334,
+          "ik_target_world": [
+            -0.41631224751472473,
+            2.001628875732422,
+            0.053441762924194336
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "HIND_R": {
+          "state": "STANCE",
+          "min_world_z": 0.003385490272194147,
+          "horizontal_drift_from_original_patch": 1.8058394787080907e-07,
+          "mean_patch_z": 0.021595926102150807,
+          "contact_patch_vertex_count": 149,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            0.31868940591812134,
+            2.117295980453491,
+            0.045000214129686356
+          ],
+          "contact_gate": "PASS"
+        }
+      },
+      "skinning": {
+        "flipped_faces": 0,
+        "collapsed_faces": 0,
+        "area_below_half": 0,
+        "area_above_double": 0,
+        "moved_vertices": 7378,
+        "max_displacement": 0.023649300393425048
+      }
+    },
+    "3": {
+      "feet": {
+        "FORE_L": {
+          "state": "STANCE",
+          "min_world_z": 0.0023897597566246986,
+          "horizontal_drift_from_original_patch": 2.288740441613868e-08,
+          "mean_patch_z": 0.02701162120777797,
+          "contact_patch_vertex_count": 306,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            -0.41106194257736206,
+            -1.1177735328674316,
+            0.04500003531575203
+          ],
+          "contact_gate": "PASS"
+        },
+        "FORE_R": {
+          "state": "SWING",
+          "min_world_z": 0.02369285374879837,
+          "horizontal_drift_from_original_patch": 0.014148336507078208,
+          "mean_patch_z": 0.05092673656163794,
+          "contact_patch_vertex_count": 165,
+          "intended_lift": 0.018384776310850233,
+          "ik_target_world": [
+            0.32998761534690857,
+            -0.8380042910575867,
+            0.07035645842552185
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "HIND_L": {
+          "state": "SWING",
+          "min_world_z": 0.01938541606068611,
+          "horizontal_drift_from_original_patch": 0.014141809176987446,
+          "mean_patch_z": 0.03762639441476961,
+          "contact_patch_vertex_count": 203,
+          "intended_lift": 0.018384776310850233,
+          "ik_target_world": [
+            -0.4164539873600006,
+            1.9958914518356323,
+            0.06436213105916977
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "HIND_R": {
+          "state": "STANCE",
+          "min_world_z": 0.003385490272194147,
+          "horizontal_drift_from_original_patch": 1.8058394787080907e-07,
+          "mean_patch_z": 0.021595926102150807,
+          "contact_patch_vertex_count": 149,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            0.31868940591812134,
+            2.117295980453491,
+            0.045000214129686356
+          ],
+          "contact_gate": "PASS"
+        }
+      },
+      "skinning": {
+        "flipped_faces": 0,
+        "collapsed_faces": 0,
+        "area_below_half": 0,
+        "area_above_double": 0,
+        "moved_vertices": 7467,
+        "max_displacement": 0.042990953371718696
+      }
+    },
+    "4": {
+      "feet": {
+        "FORE_L": {
+          "state": "STANCE",
+          "min_world_z": 0.0023897597566246986,
+          "horizontal_drift_from_original_patch": 2.288740441613868e-08,
+          "mean_patch_z": 0.02701162120777797,
+          "contact_patch_vertex_count": 306,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            -0.41106194257736206,
+            -1.1177735328674316,
+            0.04500003531575203
+          ],
+          "contact_gate": "PASS"
+        },
+        "FORE_R": {
+          "state": "SWING",
+          "min_world_z": 0.029325835406780243,
+          "horizontal_drift_from_original_patch": 0.018484678108024257,
+          "mean_patch_z": 0.05918244742082827,
+          "contact_patch_vertex_count": 165,
+          "intended_lift": 0.024020867845293455,
+          "ik_target_world": [
+            0.3300929367542267,
+            -0.8417468070983887,
+            0.07790365070104599
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "HIND_L": {
+          "state": "SWING",
+          "min_world_z": 0.025020699948072433,
+          "horizontal_drift_from_original_patch": 0.01847764012875775,
+          "mean_patch_z": 0.04550334142309985,
+          "contact_patch_vertex_count": 203,
+          "intended_lift": 0.024020867845293455,
+          "ik_target_world": [
+            -0.41653841733932495,
+            1.9920220375061035,
+            0.07156826555728912
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "HIND_R": {
+          "state": "STANCE",
+          "min_world_z": 0.003385490272194147,
+          "horizontal_drift_from_original_patch": 1.8058394787080907e-07,
+          "mean_patch_z": 0.021595926102150807,
+          "contact_patch_vertex_count": 149,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            0.31868940591812134,
+            2.117295980453491,
+            0.045000214129686356
+          ],
+          "contact_gate": "PASS"
+        }
+      },
+      "skinning": {
+        "flipped_faces": 0,
+        "collapsed_faces": 0,
+        "area_below_half": 0,
+        "area_above_double": 0,
+        "moved_vertices": 7488,
+        "max_displacement": 0.055605630412836324
+      }
+    },
+    "5": {
+      "feet": {
+        "FORE_L": {
+          "state": "STANCE",
+          "min_world_z": 0.0023897597566246986,
+          "horizontal_drift_from_original_patch": 2.288740441613868e-08,
+          "mean_patch_z": 0.02701162120777797,
+          "contact_patch_vertex_count": 306,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            -0.41106194257736206,
+            -1.1177735328674316,
+            0.04500003531575203
+          ],
+          "contact_gate": "PASS"
+        },
+        "FORE_R": {
+          "state": "SWING",
+          "min_world_z": 0.03130406141281128,
+          "horizontal_drift_from_original_patch": 0.020007330054287117,
+          "mean_patch_z": 0.06205867736628561,
+          "contact_patch_vertex_count": 165,
+          "intended_lift": 0.026,
+          "ik_target_world": [
+            0.3301289677619934,
+            -0.8430689573287964,
+            0.08053236454725266
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "HIND_L": {
+          "state": "SWING",
+          "min_world_z": 0.026999428868293762,
+          "horizontal_drift_from_original_patch": 0.02000056346650117,
+          "mean_patch_z": 0.048244814860996944,
+          "contact_patch_vertex_count": 203,
+          "intended_lift": 0.026,
+          "ik_target_world": [
+            -0.41656753420829773,
+            1.990655779838562,
+            0.07407908141613007
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "HIND_R": {
+          "state": "STANCE",
+          "min_world_z": 0.003385490272194147,
+          "horizontal_drift_from_original_patch": 1.8058394787080907e-07,
+          "mean_patch_z": 0.021595926102150807,
+          "contact_patch_vertex_count": 149,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            0.31868940591812134,
+            2.117295980453491,
+            0.045000214129686356
+          ],
+          "contact_gate": "PASS"
+        }
+      },
+      "skinning": {
+        "flipped_faces": 0,
+        "collapsed_faces": 0,
+        "area_below_half": 0,
+        "area_above_double": 0,
+        "moved_vertices": 7496,
+        "max_displacement": 0.059981909130070205
+      }
+    },
+    "6": {
+      "feet": {
+        "FORE_L": {
+          "state": "STANCE",
+          "min_world_z": 0.0023897597566246986,
+          "horizontal_drift_from_original_patch": 2.288740441613868e-08,
+          "mean_patch_z": 0.02701162120777797,
+          "contact_patch_vertex_count": 306,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            -0.41106194257736206,
+            -1.1177735328674316,
+            0.04500003531575203
+          ],
+          "contact_gate": "PASS"
+        },
+        "FORE_R": {
+          "state": "SWING",
+          "min_world_z": 0.029325835406780243,
+          "horizontal_drift_from_original_patch": 0.018484678108024257,
+          "mean_patch_z": 0.05918244742082827,
+          "contact_patch_vertex_count": 165,
+          "intended_lift": 0.024020867845293455,
+          "ik_target_world": [
+            0.3300929367542267,
+            -0.8417468070983887,
+            0.07790365070104599
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "HIND_L": {
+          "state": "SWING",
+          "min_world_z": 0.025020699948072433,
+          "horizontal_drift_from_original_patch": 0.01847764012875775,
+          "mean_patch_z": 0.04550334142309985,
+          "contact_patch_vertex_count": 203,
+          "intended_lift": 0.024020867845293455,
+          "ik_target_world": [
+            -0.41653841733932495,
+            1.9920220375061035,
+            0.07156826555728912
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "HIND_R": {
+          "state": "STANCE",
+          "min_world_z": 0.003385490272194147,
+          "horizontal_drift_from_original_patch": 1.8058394787080907e-07,
+          "mean_patch_z": 0.021595926102150807,
+          "contact_patch_vertex_count": 149,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            0.31868940591812134,
+            2.117295980453491,
+            0.045000214129686356
+          ],
+          "contact_gate": "PASS"
+        }
+      },
+      "skinning": {
+        "flipped_faces": 0,
+        "collapsed_faces": 0,
+        "area_below_half": 0,
+        "area_above_double": 0,
+        "moved_vertices": 7488,
+        "max_displacement": 0.055605630412836324
+      }
+    },
+    "7": {
+      "feet": {
+        "FORE_L": {
+          "state": "STANCE",
+          "min_world_z": 0.0023897597566246986,
+          "horizontal_drift_from_original_patch": 2.288740441613868e-08,
+          "mean_patch_z": 0.02701162120777797,
+          "contact_patch_vertex_count": 306,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            -0.41106194257736206,
+            -1.1177735328674316,
+            0.04500003531575203
+          ],
+          "contact_gate": "PASS"
+        },
+        "FORE_R": {
+          "state": "SWING",
+          "min_world_z": 0.02369285374879837,
+          "horizontal_drift_from_original_patch": 0.014148336507078208,
+          "mean_patch_z": 0.05092673656163794,
+          "contact_patch_vertex_count": 165,
+          "intended_lift": 0.018384776310850236,
+          "ik_target_world": [
+            0.32998761534690857,
+            -0.8380042910575867,
+            0.07035645842552185
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "HIND_L": {
+          "state": "SWING",
+          "min_world_z": 0.01938541606068611,
+          "horizontal_drift_from_original_patch": 0.014141809176987446,
+          "mean_patch_z": 0.03762639441476961,
+          "contact_patch_vertex_count": 203,
+          "intended_lift": 0.018384776310850236,
+          "ik_target_world": [
+            -0.4164539873600006,
+            1.9958914518356323,
+            0.06436213105916977
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "HIND_R": {
+          "state": "STANCE",
+          "min_world_z": 0.003385490272194147,
+          "horizontal_drift_from_original_patch": 1.8058394787080907e-07,
+          "mean_patch_z": 0.021595926102150807,
+          "contact_patch_vertex_count": 149,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            0.31868940591812134,
+            2.117295980453491,
+            0.045000214129686356
+          ],
+          "contact_gate": "PASS"
+        }
+      },
+      "skinning": {
+        "flipped_faces": 0,
+        "collapsed_faces": 0,
+        "area_below_half": 0,
+        "area_above_double": 0,
+        "moved_vertices": 7467,
+        "max_displacement": 0.042990953371718696
+      }
+    },
+    "8": {
+      "feet": {
+        "FORE_L": {
+          "state": "STANCE",
+          "min_world_z": 0.0023897597566246986,
+          "horizontal_drift_from_original_patch": 2.288740441613868e-08,
+          "mean_patch_z": 0.02701162120777797,
+          "contact_patch_vertex_count": 306,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            -0.41106194257736206,
+            -1.1177735328674316,
+            0.04500003531575203
+          ],
+          "contact_gate": "PASS"
+        },
+        "FORE_R": {
+          "state": "SWING",
+          "min_world_z": 0.015264337882399559,
+          "horizontal_drift_from_original_patch": 0.007657966866006031,
+          "mean_patch_z": 0.03837407860114719,
+          "contact_patch_vertex_count": 165,
+          "intended_lift": 0.009949769241492337,
+          "ik_target_world": [
+            0.32982146739959717,
+            -0.8324729204177856,
+            0.058875832706689835
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "HIND_L": {
+          "state": "SWING",
+          "min_world_z": 0.010950981639325619,
+          "horizontal_drift_from_original_patch": 0.007653353837314595,
+          "mean_patch_z": 0.025679685982870938,
+          "contact_patch_vertex_count": 203,
+          "intended_lift": 0.009949769241492337,
+          "ik_target_world": [
+            -0.41631224751472473,
+            2.001628875732422,
+            0.053441762924194336
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "HIND_R": {
+          "state": "STANCE",
+          "min_world_z": 0.003385490272194147,
+          "horizontal_drift_from_original_patch": 1.8058394787080907e-07,
+          "mean_patch_z": 0.021595926102150807,
+          "contact_patch_vertex_count": 149,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            0.31868940591812134,
+            2.117295980453491,
+            0.045000214129686356
+          ],
+          "contact_gate": "PASS"
+        }
+      },
+      "skinning": {
+        "flipped_faces": 0,
+        "collapsed_faces": 0,
+        "area_below_half": 0,
+        "area_above_double": 0,
+        "moved_vertices": 7378,
+        "max_displacement": 0.023649300393425048
+      }
+    },
+    "9": {
+      "feet": {
+        "FORE_L": {
+          "state": "SWING",
+          "min_world_z": 0.0023897597566246986,
+          "horizontal_drift_from_original_patch": 2.288740441613868e-08,
+          "mean_patch_z": 0.02701162120777797,
+          "contact_patch_vertex_count": 306,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            -0.41106194257736206,
+            -1.1177735328674316,
+            0.04500003531575203
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "FORE_R": {
+          "state": "STANCE",
+          "min_world_z": 0.005327356047928333,
+          "horizontal_drift_from_original_patch": 9.448919318494052e-08,
+          "mean_patch_z": 0.023212496834722433,
+          "contact_patch_vertex_count": 165,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            0.3296096920967102,
+            -0.8260729908943176,
+            0.04499943181872368
+          ],
+          "contact_gate": "PASS"
+        },
+        "HIND_L": {
+          "state": "STANCE",
+          "min_world_z": 0.0009998806053772569,
+          "horizontal_drift_from_original_patch": 5.525675205143289e-08,
+          "mean_patch_z": 0.017070724427002696,
+          "contact_patch_vertex_count": 203,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            -0.41618281602859497,
+            2.008545398712158,
+            0.04579024761915207
+          ],
+          "contact_gate": "PASS"
+        },
+        "HIND_R": {
+          "state": "SWING",
+          "min_world_z": 0.003385490272194147,
+          "horizontal_drift_from_original_patch": 1.8058394787080907e-07,
+          "mean_patch_z": 0.021595926102150807,
+          "contact_patch_vertex_count": 149,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            0.31868940591812134,
+            2.117295980453491,
+            0.045000214129686356
+          ],
+          "contact_gate": "NOT_STANCE"
+        }
+      },
+      "skinning": {
+        "flipped_faces": 0,
+        "collapsed_faces": 0,
+        "area_below_half": 0,
+        "area_above_double": 0,
+        "moved_vertices": 4489,
+        "max_displacement": 0.0014058369787787047
+      }
+    },
+    "10": {
+      "feet": {
+        "FORE_L": {
+          "state": "SWING",
+          "min_world_z": 0.012339654378592968,
+          "horizontal_drift_from_original_patch": 0.007653812956971131,
+          "mean_patch_z": 0.03944726515975264,
+          "contact_patch_vertex_count": 306,
+          "intended_lift": 0.009949769241492334,
+          "ik_target_world": [
+            -0.41208577156066895,
+            -1.1250865459442139,
+            0.053962014615535736
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "FORE_R": {
+          "state": "STANCE",
+          "min_world_z": 0.005327356047928333,
+          "horizontal_drift_from_original_patch": 9.448919318494052e-08,
+          "mean_patch_z": 0.023212496834722433,
+          "contact_patch_vertex_count": 165,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            0.3296096920967102,
+            -0.8260729908943176,
+            0.04499943181872368
+          ],
+          "contact_gate": "PASS"
+        },
+        "HIND_L": {
+          "state": "STANCE",
+          "min_world_z": 0.0009998806053772569,
+          "horizontal_drift_from_original_patch": 5.525675205143289e-08,
+          "mean_patch_z": 0.017070724427002696,
+          "contact_patch_vertex_count": 203,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            -0.41618281602859497,
+            2.008545398712158,
+            0.04579024761915207
+          ],
+          "contact_gate": "PASS"
+        },
+        "HIND_R": {
+          "state": "SWING",
+          "min_world_z": 0.013235900551080704,
+          "horizontal_drift_from_original_patch": 0.0076616906718920885,
+          "mean_patch_z": 0.036032871786980024,
+          "contact_patch_vertex_count": 149,
+          "intended_lift": 0.009949769241492334,
+          "ik_target_world": [
+            0.3187497556209564,
+            2.109910011291504,
+            0.059058889746665955
+          ],
+          "contact_gate": "NOT_STANCE"
+        }
+      },
+      "skinning": {
+        "flipped_faces": 0,
+        "collapsed_faces": 0,
+        "area_below_half": 0,
+        "area_above_double": 0,
+        "moved_vertices": 12978,
+        "max_displacement": 0.02915808032534037
+      }
+    },
+    "11": {
+      "feet": {
+        "FORE_L": {
+          "state": "SWING",
+          "min_world_z": 0.020774606615304947,
+          "horizontal_drift_from_original_patch": 0.014141852559607435,
+          "mean_patch_z": 0.049921507508877444,
+          "contact_patch_vertex_count": 306,
+          "intended_lift": 0.018384776310850233,
+          "ik_target_world": [
+            -0.41290658712387085,
+            -1.131351113319397,
+            0.061572860926389694
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "FORE_R": {
+          "state": "STANCE",
+          "min_world_z": 0.005327356047928333,
+          "horizontal_drift_from_original_patch": 9.448919318494052e-08,
+          "mean_patch_z": 0.023212496834722433,
+          "contact_patch_vertex_count": 165,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            0.3296096920967102,
+            -0.8260729908943176,
+            0.04499943181872368
+          ],
+          "contact_gate": "PASS"
+        },
+        "HIND_L": {
+          "state": "STANCE",
+          "min_world_z": 0.0009998806053772569,
+          "horizontal_drift_from_original_patch": 5.525675205143289e-08,
+          "mean_patch_z": 0.017070724427002696,
+          "contact_patch_vertex_count": 203,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            -0.41618281602859497,
+            2.008545398712158,
+            0.04579024761915207
+          ],
+          "contact_gate": "PASS"
+        },
+        "HIND_R": {
+          "state": "SWING",
+          "min_world_z": 0.02142927423119545,
+          "horizontal_drift_from_original_patch": 0.014168290611529914,
+          "mean_patch_z": 0.05525237926900787,
+          "contact_patch_vertex_count": 149,
+          "intended_lift": 0.018384776310850233,
+          "ik_target_world": [
+            0.3188212215900421,
+            2.103830337524414,
+            0.07826115190982819
+          ],
+          "contact_gate": "NOT_STANCE"
+        }
+      },
+      "skinning": {
+        "flipped_faces": 0,
+        "collapsed_faces": 0,
+        "area_below_half": 0,
+        "area_above_double": 0,
+        "moved_vertices": 13047,
+        "max_displacement": 0.06352076636699523
+      }
+    },
+    "12": {
+      "feet": {
+        "FORE_L": {
+          "state": "SWING",
+          "min_world_z": 0.026410682126879692,
+          "horizontal_drift_from_original_patch": 0.01847767362411437,
+          "mean_patch_z": 0.056887647106610484,
+          "contact_patch_vertex_count": 306,
+          "intended_lift": 0.024020867845293455,
+          "ik_target_world": [
+            -0.4134340286254883,
+            -1.1355680227279663,
+            0.06666471809148788
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "FORE_R": {
+          "state": "STANCE",
+          "min_world_z": 0.005327356047928333,
+          "horizontal_drift_from_original_patch": 9.448919318494052e-08,
+          "mean_patch_z": 0.023212496834722433,
+          "contact_patch_vertex_count": 165,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            0.3296096920967102,
+            -0.8260729908943176,
+            0.04499943181872368
+          ],
+          "contact_gate": "PASS"
+        },
+        "HIND_L": {
+          "state": "STANCE",
+          "min_world_z": 0.0009998806053772569,
+          "horizontal_drift_from_original_patch": 5.525675205143289e-08,
+          "mean_patch_z": 0.017070724427002696,
+          "contact_patch_vertex_count": 203,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            -0.41618281602859497,
+            2.008545398712158,
+            0.04579024761915207
+          ],
+          "contact_gate": "PASS"
+        },
+        "HIND_R": {
+          "state": "SWING",
+          "min_world_z": 0.0268549844622612,
+          "horizontal_drift_from_original_patch": 0.018513663744405086,
+          "mean_patch_z": 0.06787017430335084,
+          "contact_patch_vertex_count": 149,
+          "intended_lift": 0.024020867845293455,
+          "ik_target_world": [
+            0.3188716471195221,
+            2.099705696105957,
+            0.0909433364868164
+          ],
+          "contact_gate": "NOT_STANCE"
+        }
+      },
+      "skinning": {
+        "flipped_faces": 0,
+        "collapsed_faces": 0,
+        "area_below_half": 0,
+        "area_above_double": 0,
+        "moved_vertices": 13073,
+        "max_displacement": 0.0846615442146944
+      }
+    },
+    "13": {
+      "feet": {
+        "FORE_L": {
+          "state": "SWING",
+          "min_world_z": 0.028389889746904373,
+          "horizontal_drift_from_original_patch": 0.020000184283604765,
+          "mean_patch_z": 0.05932803018615137,
+          "contact_patch_vertex_count": 306,
+          "intended_lift": 0.026,
+          "ik_target_world": [
+            -0.41361552476882935,
+            -1.1370543241500854,
+            0.0684540644288063
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "FORE_R": {
+          "state": "STANCE",
+          "min_world_z": 0.005327356047928333,
+          "horizontal_drift_from_original_patch": 9.448919318494052e-08,
+          "mean_patch_z": 0.023212496834722433,
+          "contact_patch_vertex_count": 165,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            0.3296096920967102,
+            -0.8260729908943176,
+            0.04499943181872368
+          ],
+          "contact_gate": "PASS"
+        },
+        "HIND_L": {
+          "state": "STANCE",
+          "min_world_z": 0.0009998806053772569,
+          "horizontal_drift_from_original_patch": 5.525675205143289e-08,
+          "mean_patch_z": 0.017070724427002696,
+          "contact_patch_vertex_count": 203,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            -0.41618281602859497,
+            2.008545398712158,
+            0.04579024761915207
+          ],
+          "contact_gate": "PASS"
+        },
+        "HIND_R": {
+          "state": "SWING",
+          "min_world_z": 0.028656959533691406,
+          "horizontal_drift_from_original_patch": 0.02004506949103339,
+          "mean_patch_z": 0.07266397389189509,
+          "contact_patch_vertex_count": 149,
+          "intended_lift": 0.026,
+          "ik_target_world": [
+            0.31888699531555176,
+            2.0982513427734375,
+            0.09577629715204239
+          ],
+          "contact_gate": "NOT_STANCE"
+        }
+      },
+      "skinning": {
+        "flipped_faces": 0,
+        "collapsed_faces": 0,
+        "area_below_half": 0,
+        "area_above_double": 0,
+        "moved_vertices": 13079,
+        "max_displacement": 0.09245193216858189
+      }
+    },
+    "14": {
+      "feet": {
+        "FORE_L": {
+          "state": "SWING",
+          "min_world_z": 0.026410682126879692,
+          "horizontal_drift_from_original_patch": 0.01847767362411437,
+          "mean_patch_z": 0.056887647106610484,
+          "contact_patch_vertex_count": 306,
+          "intended_lift": 0.024020867845293455,
+          "ik_target_world": [
+            -0.4134340286254883,
+            -1.1355680227279663,
+            0.06666471809148788
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "FORE_R": {
+          "state": "STANCE",
+          "min_world_z": 0.005327356047928333,
+          "horizontal_drift_from_original_patch": 9.448919318494052e-08,
+          "mean_patch_z": 0.023212496834722433,
+          "contact_patch_vertex_count": 165,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            0.3296096920967102,
+            -0.8260729908943176,
+            0.04499943181872368
+          ],
+          "contact_gate": "PASS"
+        },
+        "HIND_L": {
+          "state": "STANCE",
+          "min_world_z": 0.0009998806053772569,
+          "horizontal_drift_from_original_patch": 5.525675205143289e-08,
+          "mean_patch_z": 0.017070724427002696,
+          "contact_patch_vertex_count": 203,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            -0.41618281602859497,
+            2.008545398712158,
+            0.04579024761915207
+          ],
+          "contact_gate": "PASS"
+        },
+        "HIND_R": {
+          "state": "SWING",
+          "min_world_z": 0.0268549844622612,
+          "horizontal_drift_from_original_patch": 0.018513663744405086,
+          "mean_patch_z": 0.06787017430335084,
+          "contact_patch_vertex_count": 149,
+          "intended_lift": 0.024020867845293455,
+          "ik_target_world": [
+            0.3188716471195221,
+            2.099705696105957,
+            0.0909433364868164
+          ],
+          "contact_gate": "NOT_STANCE"
+        }
+      },
+      "skinning": {
+        "flipped_faces": 0,
+        "collapsed_faces": 0,
+        "area_below_half": 0,
+        "area_above_double": 0,
+        "moved_vertices": 13073,
+        "max_displacement": 0.0846615442146944
+      }
+    },
+    "15": {
+      "feet": {
+        "FORE_L": {
+          "state": "SWING",
+          "min_world_z": 0.020774606615304947,
+          "horizontal_drift_from_original_patch": 0.014141852559607435,
+          "mean_patch_z": 0.049921507508877444,
+          "contact_patch_vertex_count": 306,
+          "intended_lift": 0.018384776310850236,
+          "ik_target_world": [
+            -0.41290658712387085,
+            -1.131351113319397,
+            0.061572860926389694
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "FORE_R": {
+          "state": "STANCE",
+          "min_world_z": 0.005327356047928333,
+          "horizontal_drift_from_original_patch": 9.448919318494052e-08,
+          "mean_patch_z": 0.023212496834722433,
+          "contact_patch_vertex_count": 165,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            0.3296096920967102,
+            -0.8260729908943176,
+            0.04499943181872368
+          ],
+          "contact_gate": "PASS"
+        },
+        "HIND_L": {
+          "state": "STANCE",
+          "min_world_z": 0.0009998806053772569,
+          "horizontal_drift_from_original_patch": 5.525675205143289e-08,
+          "mean_patch_z": 0.017070724427002696,
+          "contact_patch_vertex_count": 203,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            -0.41618281602859497,
+            2.008545398712158,
+            0.04579024761915207
+          ],
+          "contact_gate": "PASS"
+        },
+        "HIND_R": {
+          "state": "SWING",
+          "min_world_z": 0.02142927423119545,
+          "horizontal_drift_from_original_patch": 0.014168290611529914,
+          "mean_patch_z": 0.05525237926900787,
+          "contact_patch_vertex_count": 149,
+          "intended_lift": 0.018384776310850236,
+          "ik_target_world": [
+            0.3188212215900421,
+            2.103830337524414,
+            0.07826115190982819
+          ],
+          "contact_gate": "NOT_STANCE"
+        }
+      },
+      "skinning": {
+        "flipped_faces": 0,
+        "collapsed_faces": 0,
+        "area_below_half": 0,
+        "area_above_double": 0,
+        "moved_vertices": 13047,
+        "max_displacement": 0.06352076636699523
+      }
+    },
+    "16": {
+      "feet": {
+        "FORE_L": {
+          "state": "SWING",
+          "min_world_z": 0.012339654378592968,
+          "horizontal_drift_from_original_patch": 0.007653812956971131,
+          "mean_patch_z": 0.03944726515975264,
+          "contact_patch_vertex_count": 306,
+          "intended_lift": 0.009949769241492337,
+          "ik_target_world": [
+            -0.41208577156066895,
+            -1.1250865459442139,
+            0.053962014615535736
+          ],
+          "contact_gate": "NOT_STANCE"
+        },
+        "FORE_R": {
+          "state": "STANCE",
+          "min_world_z": 0.005327356047928333,
+          "horizontal_drift_from_original_patch": 9.448919318494052e-08,
+          "mean_patch_z": 0.023212496834722433,
+          "contact_patch_vertex_count": 165,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            0.3296096920967102,
+            -0.8260729908943176,
+            0.04499943181872368
+          ],
+          "contact_gate": "PASS"
+        },
+        "HIND_L": {
+          "state": "STANCE",
+          "min_world_z": 0.0009998806053772569,
+          "horizontal_drift_from_original_patch": 5.525675205143289e-08,
+          "mean_patch_z": 0.017070724427002696,
+          "contact_patch_vertex_count": 203,
+          "intended_lift": 0.0,
+          "ik_target_world": [
+            -0.41618281602859497,
+            2.008545398712158,
+            0.04579024761915207
+          ],
+          "contact_gate": "PASS"
+        },
+        "HIND_R": {
+          "state": "SWING",
+          "min_world_z": 0.013235900551080704,
+          "horizontal_drift_from_original_patch": 0.0076616906718920885,
+          "mean_patch_z": 0.036032871786980024,
+          "contact_patch_vertex_count": 149,
+          "intended_lift": 0.009949769241492337,
+          "ik_target_world": [
+            0.3187497556209564,
+            2.109910011291504,
+            0.059058889746665955
+          ],
+          "contact_gate": "NOT_STANCE"
+        }
+      },
+      "skinning": {
+        "flipped_faces": 0,
+        "collapsed_faces": 0,
+        "area_below_half": 0,
+        "area_above_double": 0,
+        "moved_vertices": 12978,
+        "max_displacement": 0.02915808032534037
+      }
+    }
+  },
+  "replay_data": {
+    "1": {
+      "FORE_L": {
+        "low": 0.0023897597566246986,
+        "drift": 2.288740441613868e-08
+      },
+      "FORE_R": {
+        "low": 0.005327356047928333,
+        "drift": 9.448919318494052e-08
+      },
+      "HIND_L": {
+        "low": 0.0009998806053772569,
+        "drift": 5.525675205143289e-08
+      },
+      "HIND_R": {
+        "low": 0.003385490272194147,
+        "drift": 1.8058394787080907e-07
+      }
+    },
+    "2": {
+      "FORE_L": {
+        "low": 0.0023897597566246986,
+        "drift": 2.288740441613868e-08
+      },
+      "FORE_R": {
+        "low": 0.015264337882399559,
+        "drift": 0.007657966866006031
+      },
+      "HIND_L": {
+        "low": 0.010950981639325619,
+        "drift": 0.007653353837314595
+      },
+      "HIND_R": {
+        "low": 0.003385490272194147,
+        "drift": 1.8058394787080907e-07
+      }
+    },
+    "3": {
+      "FORE_L": {
+        "low": 0.0023897597566246986,
+        "drift": 2.288740441613868e-08
+      },
+      "FORE_R": {
+        "low": 0.02369285374879837,
+        "drift": 0.014148336507078208
+      },
+      "HIND_L": {
+        "low": 0.01938541606068611,
+        "drift": 0.014141809176987446
+      },
+      "HIND_R": {
+        "low": 0.003385490272194147,
+        "drift": 1.8058394787080907e-07
+      }
+    },
+    "4": {
+      "FORE_L": {
+        "low": 0.0023897597566246986,
+        "drift": 2.288740441613868e-08
+      },
+      "FORE_R": {
+        "low": 0.029325835406780243,
+        "drift": 0.018484678108024257
+      },
+      "HIND_L": {
+        "low": 0.025020699948072433,
+        "drift": 0.01847764012875775
+      },
+      "HIND_R": {
+        "low": 0.003385490272194147,
+        "drift": 1.8058394787080907e-07
+      }
+    },
+    "5": {
+      "FORE_L": {
+        "low": 0.0023897597566246986,
+        "drift": 2.288740441613868e-08
+      },
+      "FORE_R": {
+        "low": 0.03130406141281128,
+        "drift": 0.020007330054287117
+      },
+      "HIND_L": {
+        "low": 0.026999428868293762,
+        "drift": 0.02000056346650117
+      },
+      "HIND_R": {
+        "low": 0.003385490272194147,
+        "drift": 1.8058394787080907e-07
+      }
+    },
+    "6": {
+      "FORE_L": {
+        "low": 0.0023897597566246986,
+        "drift": 2.288740441613868e-08
+      },
+      "FORE_R": {
+        "low": 0.029325835406780243,
+        "drift": 0.018484678108024257
+      },
+      "HIND_L": {
+        "low": 0.025020699948072433,
+        "drift": 0.01847764012875775
+      },
+      "HIND_R": {
+        "low": 0.003385490272194147,
+        "drift": 1.8058394787080907e-07
+      }
+    },
+    "7": {
+      "FORE_L": {
+        "low": 0.0023897597566246986,
+        "drift": 2.288740441613868e-08
+      },
+      "FORE_R": {
+        "low": 0.02369285374879837,
+        "drift": 0.014148336507078208
+      },
+      "HIND_L": {
+        "low": 0.01938541606068611,
+        "drift": 0.014141809176987446
+      },
+      "HIND_R": {
+        "low": 0.003385490272194147,
+        "drift": 1.8058394787080907e-07
+      }
+    },
+    "8": {
+      "FORE_L": {
+        "low": 0.0023897597566246986,
+        "drift": 2.288740441613868e-08
+      },
+      "FORE_R": {
+        "low": 0.015264337882399559,
+        "drift": 0.007657966866006031
+      },
+      "HIND_L": {
+        "low": 0.010950981639325619,
+        "drift": 0.007653353837314595
+      },
+      "HIND_R": {
+        "low": 0.003385490272194147,
+        "drift": 1.8058394787080907e-07
+      }
+    },
+    "9": {
+      "FORE_L": {
+        "low": 0.0023897597566246986,
+        "drift": 2.288740441613868e-08
+      },
+      "FORE_R": {
+        "low": 0.005327356047928333,
+        "drift": 9.448919318494052e-08
+      },
+      "HIND_L": {
+        "low": 0.0009998806053772569,
+        "drift": 5.525675205143289e-08
+      },
+      "HIND_R": {
+        "low": 0.003385490272194147,
+        "drift": 1.8058394787080907e-07
+      }
+    },
+    "10": {
+      "FORE_L": {
+        "low": 0.012339654378592968,
+        "drift": 0.007653812956971131
+      },
+      "FORE_R": {
+        "low": 0.005327356047928333,
+        "drift": 9.448919318494052e-08
+      },
+      "HIND_L": {
+        "low": 0.0009998806053772569,
+        "drift": 5.525675205143289e-08
+      },
+      "HIND_R": {
+        "low": 0.013235900551080704,
+        "drift": 0.0076616906718920885
+      }
+    },
+    "11": {
+      "FORE_L": {
+        "low": 0.020774606615304947,
+        "drift": 0.014141852559607435
+      },
+      "FORE_R": {
+        "low": 0.005327356047928333,
+        "drift": 9.448919318494052e-08
+      },
+      "HIND_L": {
+        "low": 0.0009998806053772569,
+        "drift": 5.525675205143289e-08
+      },
+      "HIND_R": {
+        "low": 0.02142927423119545,
+        "drift": 0.014168290611529914
+      }
+    },
+    "12": {
+      "FORE_L": {
+        "low": 0.026410682126879692,
+        "drift": 0.01847767362411437
+      },
+      "FORE_R": {
+        "low": 0.005327356047928333,
+        "drift": 9.448919318494052e-08
+      },
+      "HIND_L": {
+        "low": 0.0009998806053772569,
+        "drift": 5.525675205143289e-08
+      },
+      "HIND_R": {
+        "low": 0.0268549844622612,
+        "drift": 0.018513663744405086
+      }
+    },
+    "13": {
+      "FORE_L": {
+        "low": 0.028389889746904373,
+        "drift": 0.020000184283604765
+      },
+      "FORE_R": {
+        "low": 0.005327356047928333,
+        "drift": 9.448919318494052e-08
+      },
+      "HIND_L": {
+        "low": 0.0009998806053772569,
+        "drift": 5.525675205143289e-08
+      },
+      "HIND_R": {
+        "low": 0.028656959533691406,
+        "drift": 0.02004506949103339
+      }
+    },
+    "14": {
+      "FORE_L": {
+        "low": 0.026410682126879692,
+        "drift": 0.01847767362411437
+      },
+      "FORE_R": {
+        "low": 0.005327356047928333,
+        "drift": 9.448919318494052e-08
+      },
+      "HIND_L": {
+        "low": 0.0009998806053772569,
+        "drift": 5.525675205143289e-08
+      },
+      "HIND_R": {
+        "low": 0.0268549844622612,
+        "drift": 0.018513663744405086
+      }
+    },
+    "15": {
+      "FORE_L": {
+        "low": 0.020774606615304947,
+        "drift": 0.014141852559607435
+      },
+      "FORE_R": {
+        "low": 0.005327356047928333,
+        "drift": 9.448919318494052e-08
+      },
+      "HIND_L": {
+        "low": 0.0009998806053772569,
+        "drift": 5.525675205143289e-08
+      },
+      "HIND_R": {
+        "low": 0.02142927423119545,
+        "drift": 0.014168290611529914
+      }
+    },
+    "16": {
+      "FORE_L": {
+        "low": 0.012339654378592968,
+        "drift": 0.007653812956971131
+      },
+      "FORE_R": {
+        "low": 0.005327356047928333,
+        "drift": 9.448919318494052e-08
+      },
+      "HIND_L": {
+        "low": 0.0009998806053772569,
+        "drift": 5.525675205143289e-08
+      },
+      "HIND_R": {
+        "low": 0.013235900551080704,
+        "drift": 0.0076616906718920885
+      }
+    }
+  },
+  "swing_peak_min_z": {
+    "FORE_L": 0.028389889746904373,
+    "FORE_R": 0.03130406141281128,
+    "HIND_L": 0.026999428868293762,
+    "HIND_R": 0.028656959533691406
+  },
+  "stance_failures": [],
+  "replay_failures": [],
+  "geometry_fail_frames": [],
+  "gate_checks": {
+    "stance_patch_contact": true,
+    "baked_replay_stance_contact": true,
+    "all_frame_triangle_quality": true,
+    "swing_clearance": true,
+    "not_trivial_zero_motion": true,
+    "original_source_preserved": true,
+    "thirteen_original_deform_bones": true
+  },
+  "gate": "PASS_LIMITED_IK_CONTACT",
+  "note": "Stance contact / brief swing rehearsal ONLY; not a physically-based gait, rooted race cycle or final S shape approval."
+}
