@@ -260,7 +260,7 @@ if chosen is None:
     chosen=scans[-1]
     chosen_vertices=actual.copy()
 assign_shape(chosen_vertices)
-assert qa(evaluated(out))==chosen["qa"]
+assert qa(evaluated(out))==chosen["face_quality"]
 assert hashlib.sha256(evaluated(src).tobytes()).hexdigest()==srcsig
 assert hashlib.sha256(evaluated(C).tobytes()).hexdigest()==original_C_hash
 report={
