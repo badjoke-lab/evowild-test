@@ -1,0 +1,98 @@
+name: EvoWild S QEM 13-bone actual joint chain skinning
+on:
+  push:
+    branches: [exp/s-qem-deformation-gate-20261010]
+    paths:
+      - .github/workflows/s-qem-real-13bone-joint-test.yml
+      - art/s-creature/blender/s_qem_real_13bone_joint_rig_test.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-qem-real-13bone-test
+  cancel-in-progress: false
+jobs:
+  real-13-bone:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_qem_real_13bone_joint_rig_test.py
+            /art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb
+            /art/s-creature/experiments/qem-deformation-gate-20261010/S-QEM-pre-rig-source-review.blend
+            /art/s-creature/experiments/qem-deformation-gate-20261010/joint-anatomy-survey-v2/JOINT_CANDIDATE_SURVEY.json
+            /art/s-creature/experiments/qem-deformation-gate-20261010/three-segment-armature-v1/
+            /.github/workflows/s-qem-real-13bone-joint-test.yml
+      - name: Install Blender 4.3.2
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Real 13-bone armature with four 3-link leg chains and motion-probe renders
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/S-QEM-pre-rig-source-review.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_real_13bone_joint_rig_test.py
+      - name: Verify source preserved, 13 actual armature bones and 15 real screenshots
+        run: |
+          python3 -m pip install -q Pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          import json
+          p=Path("art/s-creature/experiments/qem-deformation-gate-20261010/three-segment-armature-v1")
+          r=p/"review"
+          d=json.loads((p/"13_BONE_REAL_ARMATURE_QA.json").read_text())
+          assert d["source_preserved_unchanged"] and d["input_geometry_changed"] is False
+          assert d["source_vertices"]==d["deformed_vertices"]==29948
+          assert d["source_faces"]==d["deformed_faces"]==59932
+          assert d["armature_bone_count"]==13 and d["real_skinning_modifier"]
+          assert d["frames_keyed"]==[1,8,16]
+          assert d["rest_pose_max_coordinate_error"]<1e-4
+          assert not d["production_approved"] and not d["anatomical_joints_verified"]
+          assert (p/"S-QEM-real-13-bone-joint-chain-test.blend").stat().st_size>50000
+          vs=["side","front","front34","rear34","back"]
+          W,H=420,442
+          sheet=Image.new("RGB",(W*5,H*2),(244,245,247))
+          draw=ImageDraw.Draw(sheet)
+          for i,v in enumerate(vs):
+            for j,(lab,f) in enumerate([
+              ("SOURCE QEM",r/f"QEM_13bone_SOURCE_{v}.png"),
+              ("13-BONE FRAME8",r/f"QEM_13bone_POSE8_{v}.png")
+            ]):
+              assert f.stat().st_size>11000,f
+              im=Image.open(f).convert("RGB")
+              im.thumbnail((W-14,H-38))
+              sheet.paste(im,(i*W+(W-im.width)//2,j*H+26+(H-34-im.height)//2))
+              draw.text((i*W+10,j*H+7),lab+" / "+v.upper(),(13,15,17))
+          sheet.save(r/"QEM_13_bone_joint_before_after_real_fiveview.jpg",quality=93,optimize=True)
+          strip=Image.new("RGB",(W*5,H),(244,245,247))
+          t=ImageDraw.Draw(strip)
+          for i,f in enumerate([1,5,8,12,16]):
+            path=r/f"QEM_13bone_FRAME_{f:02d}.png"
+            assert path.stat().st_size>11000,path
+            im=Image.open(path).convert("RGB")
+            im.thumbnail((W-14,H-38))
+            strip.paste(im,(i*W+(W-im.width)//2,26+(H-34-im.height)//2))
+            t.text((i*W+10,7),f"13BONE ACTUAL F{f:02d}",(13,15,17))
+          strip.save(r/"QEM_13_bone_real_five_frame_strip.jpg",quality=92,optimize=True)
+          print("13_BONE_REAL_MESH_RENDERS_READY",d["rig_gate"],d["frame8_metrics"])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-S-QEM-real-13bone-joint-chain
+          path: art/s-creature/experiments/qem-deformation-gate-20261010/three-segment-armature-v1/
+          if-no-files-found: warn
+      - name: Commit isolated actual skeletal mesh and 5-view evidence
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/qem-deformation-gate-20261010/three-segment-armature-v1/
+          git commit -m 'exp: actual 13 bone four-legged QEM joint chain rig and five view deformation proof'
+          git pull --rebase origin exp/s-qem-deformation-gate-20261010
+          git push origin HEAD:exp/s-qem-deformation-gate-20261010
