@@ -5931,6 +5931,55 @@ function updateSprintPose(runner, lateralVelocity, dt) {
   }
 }
 
+// P proxy stance: inspect the actually instanced sole/toe boxes, not the IK target.
+// The dimensions are the half-extents of proxyFootGeometry / proxyToeGeometry.
+// Only the P race proxy has footPart/toes; full-detail P and other morphs keep
+// their original solver. No geometry, proportions, or materials are replaced.
+function measurePowerProxyContact(leg) {
+  if (!leg.footPart) return null;
+  const parts = [leg.footPart, ...(leg.toes || [])];
+  let bottomY = Infinity;
+  for (let i = 0; i < parts.length; i += 1) {
+    const part = parts[i];
+    part.updateWorldMatrix(true, false);
+    const m = part.matrixWorld.elements;
+    const hx = i === 0 ? 0.080 : 0.0375;
+    const hy = i === 0 ? 0.0325 : 0.0275;
+    const hz = i === 0 ? 0.150 : 0.140;
+    const low = m[13] - Math.abs(m[1]) * hx
+      - Math.abs(m[5]) * hy - Math.abs(m[9]) * hz;
+    bottomY = Math.min(bottomY, low);
+  }
+  return {
+    bottomY,
+    centerZ: leg.footPart.matrixWorld.elements[14]
+  };
+}
+
+function groundPowerProxyStance(leg, targetY, targetZ, footPitch, turnLean) {
+  // Preserve the first planted foot-center world Z through this stance.
+  // Keep each correction bounded; if IK cannot reach, leave an honest residual
+  // for measurement rather than moving/detaching the foot geometry.
+  let y = targetY;
+  let z = targetZ;
+  let contact = measurePowerProxyContact(leg);
+  if (!contact) return;
+  if (!Number.isFinite(leg.renderedStanceAnchorZ)) {
+    leg.renderedStanceAnchorZ = contact.centerZ;
+  }
+  for (let pass = 0; pass < 3; pass += 1) {
+    const dy = -contact.bottomY;
+    const dz = leg.renderedStanceAnchorZ - contact.centerZ;
+    if (Math.abs(dy) < 0.005 && Math.abs(dz) < 0.008) break;
+    y += THREE.MathUtils.clamp(dy, -0.20, 0.20);
+    z += THREE.MathUtils.clamp(dz, -0.20, 0.20);
+    solveSprintLeg(leg, y, z, footPitch, turnLean);
+    contact = measurePowerProxyContact(leg);
+  }
+  leg.renderedSoleHeight = contact.bottomY;
+  leg.renderedStanceSlipZ = Math.abs(contact.centerZ - leg.renderedStanceAnchorZ);
+}
+
 function updatePowerPose(runner, lateralVelocity, dt) {
   const ud = runner.group.userData;
   const cfg = runner.cfg;
@@ -6040,11 +6089,16 @@ function updatePowerPose(runner, lateralVelocity, dt) {
       if (!leg.stanceActive) {
         leg.stanceActive = true;
         leg.stanceAnchor = worldStridePoint;
+        leg.renderedStanceAnchorZ = NaN;
       }
-      const slip = Math.abs(worldStridePoint - leg.stanceAnchor);
+      // Lock the world-space target during stance instead of merely measuring
+      // its drift. The proxy's actual rendered contact is grounded below.
+      if (leg.footPart) targetZ = leg.stanceAnchor - runner.distance;
+      const slip = Math.abs(runner.distance + targetZ - leg.stanceAnchor);
       ud.maxStanceSlip = Math.max(ud.maxStanceSlip || 0, slip);
     } else {
       leg.stanceActive = false;
+      leg.renderedStanceAnchorZ = NaN;
       const u = (localCycle - stanceDuration) / (1 - stanceDuration);
 
       const advance = u < 0.52
@@ -6067,6 +6121,17 @@ function updatePowerPose(runner, lateralVelocity, dt) {
     }
 
     solveSprintLeg(leg, targetY, targetZ, footPitch, ud.turnLean);
+    if (localCycle < stanceDuration && leg.footPart) {
+      groundPowerProxyStance(leg, targetY, targetZ, footPitch, ud.turnLean);
+      // The rendered residual, not a mathematical target, is the relevant
+      // stance-motion diagnostic for the race proxy.
+      ud.maxRenderedStanceSlip = Math.max(
+        ud.maxRenderedStanceSlip || 0, leg.renderedStanceSlipZ || 0
+      );
+      ud.maxRenderedSolePenetration = Math.max(
+        ud.maxRenderedSolePenetration || 0, -(leg.renderedSoleHeight || 0)
+      );
+    }
   });
 
   // Heavy head: neck absorbs load, but does not bob like the torso.
