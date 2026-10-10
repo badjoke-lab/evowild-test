@@ -1,0 +1,102 @@
+name: EvoWild S original QEM swept tail lamina D audit
+on:
+  push:
+    branches: [exp/s-qem-tail-tapered-d-20261010]
+    paths:
+      - .github/workflows/s-qem-tail-tapered-d.yml
+      - art/s-creature/blender/s_qem_tail_tapered_d.py
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  actual-qem-swept-lamina:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_qem_tail_tapered_d.py
+            /art/s-creature/experiments/qem-deformation-gate-20261010/tail-integrated-plates-c-v1/S-QEM-tail-sewn-plates-C-TRIAL.blend
+            /art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/qem-deformation-gate-20261010/tail-tapered-d-v1/
+            /.github/workflows/s-qem-tail-tapered-d.yml
+      - name: Validate authority, exact source SHA and full C Blender input
+        run: |
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+          echo 'e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f  art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb' | sha256sum --check -
+          test -s art/s-creature/experiments/qem-deformation-gate-20261010/tail-integrated-plates-c-v1/S-QEM-tail-sewn-plates-C-TRIAL.blend
+      - name: Install Blender 4.3.2
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Bake D trial and render genuine five views plus four actual tail close-ups
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/tail-integrated-plates-c-v1/S-QEM-tail-sewn-plates-C-TRIAL.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_tail_tapered_d.py
+      - name: Archive real D trial comparatives without promoting to S design
+        run: |
+          python3 -m pip install -q pillow
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          p=Path("art/s-creature/experiments/qem-deformation-gate-20261010/tail-tapered-d-v1")
+          d=json.loads((p/"QEM_TAIL_TAPERED_D_QA.json").read_text())
+          assert d["original_source_preserved"] and d["sewn_C_base_preserved"]
+          assert d["original_mesh_vertices"]==29948 and d["original_mesh_faces"]==59932
+          assert d["derived_C_and_D_vertices"]==30029 and d["derived_C_and_D_triangles"]==60094
+          assert not d["game_approved"] and d["new_skin_weights"]=="NOT_RUN"
+          assert (p/"S-QEM-tail-tapered-laminae-D-TRIAL.blend").stat().st_size>50000
+          views=["SIDE","FRONT","FRONT34","REAR34","BACK"]
+          variants=["SEWN_C","TAPERED_D"]
+          W,H=392,325
+          sheet=Image.new("RGB",(5*W,2*H),(237,239,241))
+          draw=ImageDraw.Draw(sheet)
+          for i,v in enumerate(views):
+              for row,k in enumerate(variants):
+                  fn=p/"review"/f"QEM_TAIL_{k}_{v}.png"
+                  assert fn.stat().st_size>10000
+                  im=Image.open(fn).convert("RGB")
+                  im.thumbnail((W-10,H-30))
+                  sheet.paste(im,(W*i+(W-im.width)//2,H*row+26+(H-26-im.height)//2))
+                  draw.text((W*i+7,H*row+7),f"{k}/{v}",(15,18,24))
+          sheet.save(p/"review"/"REAL_QEM_SWEPT_D_FIVE_VIEW_COMPARE.jpg",quality=92,optimize=True)
+          W,H=670,510
+          zoom=Image.new("RGB",(W*2,H*2),(237,239,241))
+          draw=ImageDraw.Draw(zoom)
+          for col,v in enumerate(("SIDE","REAR34")):
+              for row,k in enumerate(variants):
+                  fn=p/"review"/f"QEM_TAIL_CLOSE_{k}_{v}.png"
+                  assert fn.stat().st_size>10000
+                  im=Image.open(fn).convert("RGB")
+                  im.thumbnail((W-16,H-34))
+                  zoom.paste(im,(W*col+(W-im.width)//2,H*row+28+(H-28-im.height)//2))
+                  draw.text((W*col+10,H*row+6),f"CLOSE {k}/{v}",(15,18,24))
+          zoom.save(p/"review"/"REAL_QEM_SWEPT_D_TAIL_DETAIL.jpg",quality=92,optimize=True)
+          ref=Image.open("art/s-creature/references/00_s_type_modeling_image_v1.png").convert("RGB")
+          ref.thumbnail((1400,1000))
+          ref.save(p/"review"/"LOCKED_S_AUTHORITY_PREVIEW.jpg",quality=90)
+          print("D_TAIL_QA",d["gate"],d["selected"])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-QEM-swept-integrated-tail-D
+          path: art/s-creature/experiments/qem-deformation-gate-20261010/tail-tapered-d-v1/
+          if-no-files-found: warn
+      - name: Commit real mesh, all original renders and QA only on isolated experimental branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/qem-deformation-gate-20261010/tail-tapered-d-v1/
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit: archive true-QEM sewn swept tail D visual and triangle QA'
+            git pull --rebase origin exp/s-qem-tail-tapered-d-20261010
+            git push origin HEAD:exp/s-qem-tail-tapered-d-20261010
+          fi
