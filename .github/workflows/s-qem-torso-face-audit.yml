@@ -1,0 +1,85 @@
+name: EvoWild S QEM real torso failing-face localization
+on:
+  push:
+    branches: [exp/s-qem-torso-face-audit-20261011]
+    paths:
+      - .github/workflows/s-qem-torso-face-audit.yml
+      - art/s-creature/blender/s_qem_torso_face_localization.py
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  original-qem-torso-a:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_qem_torso_face_localization.py
+            /art/s-creature/experiments/qem-deformation-gate-20261010/torso-face-audit-20261011/S-QEM-torso-face-audit-TRIAL.blend
+            /art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/qem-deformation-gate-20261010/torso-face-audit-20261011/
+            /.github/workflows/s-qem-torso-face-audit.yml
+      - name: Lock original S design and source QEM hashes
+        run: |
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+          echo 'e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f  art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb' | sha256sum --check -
+      - name: Prepare Blender
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Run actual QEM surface morph and all 10 Blender renders
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/torso-face-audit-20261011/S-QEM-torso-face-audit-TRIAL.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_torso_face_localization.py
+      - name: Assemble five-view exact-source comparative evidence
+        run: |
+          python3 -m pip install -q pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+          import json
+          p=Path("art/s-creature/experiments/qem-deformation-gate-20261010/torso-face-audit-20261011")
+          d=json.loads((p/"TORSO_FACE_ID_LOCALIZATION.json").read_text())
+          assert d["source_unchanged"]
+          assert d["original_vertices"]==29948 and d["original_triangles"]==59932
+          assert d["inspected"]==13 and not d["production_approved"]
+          assert (p/"S-QEM-torso-face-audit-TRIAL.blend").stat().st_size>50000
+          views=["SIDE","FRONT","FRONT34","REAR34","BACK"]
+          W,H=378,320
+          sheet=Image.new("RGB",(5*W,2*H),(235,237,241))
+          draw=ImageDraw.Draw(sheet)
+          for i,v in enumerate(views):
+              for row,part in enumerate(("SOURCE","SELECTED")):
+                  f=p/"review"/f"QEM_TORSO_FACE_{part}_{v}.png"
+                  assert f.stat().st_size>10000,f
+                  im=Image.open(f).convert("RGB")
+                  im.thumbnail((W-12,H-30))
+                  sheet.paste(im,(i*W+(W-im.width)//2,row*H+26+(H-26-im.height)//2))
+                  draw.text((i*W+6,row*H+5),f"{part} / {v}",(17,19,22))
+          sheet.save(p/"review"/"QEM_TORSO_FACE_DIAG_FIVE_VIEW.jpg",quality=92,optimize=True)
+          print("REAL_QEM_TORSO_FACE_AUDIT",d["selected"]["gate"],d["selected"]["amplitude"],d["any_pass"])
+
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-original-QEM-torso-face-location
+          path: art/s-creature/experiments/qem-deformation-gate-20261010/torso-face-audit-20261011/
+          if-no-files-found: warn
+      - name: Commit source-preserved torso variant and real five-view evidence to experiment
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/qem-deformation-gate-20261010/torso-face-audit-20261011/
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit: real original-QEM torso profile variant A with five-view and mesh QA'
+            git pull --rebase origin exp/s-qem-torso-face-audit-20261011
+            git push origin HEAD:exp/s-qem-torso-face-audit-20261011
+          fi
