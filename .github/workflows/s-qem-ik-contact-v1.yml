@@ -1,0 +1,84 @@
+name: EvoWild S real-QEM four-foot IK/contact V1
+on:
+  push:
+    branches: [exp/s-qem-ik-contact-20261010]
+    paths:
+      - .github/workflows/s-qem-ik-contact-v1.yml
+      - art/s-creature/blender/s_qem_ik_ground_contact_v1.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-qem-ik-contact-v1
+  cancel-in-progress: false
+jobs:
+  ik-contact-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_qem_ik_ground_contact_v1.py
+            /art/s-creature/experiments/qem-deformation-gate-20261010/three-segment-armature-v1/13_BONE_REAL_ARMATURE_QA.json
+            /art/s-creature/experiments/qem-deformation-gate-20261010/three-segment-armature-v1/S-QEM-real-13-bone-joint-chain-test.blend
+            /art/s-creature/experiments/qem-deformation-gate-20261010/ik-contact-v1/
+            /art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb
+            /.github/workflows/s-qem-ik-contact-v1.yml
+      - name: Install Blender 4.3.2 headless
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Execute actual 13-bone IK and 16-frame mesh/contact evaluation
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/three-segment-armature-v1/S-QEM-real-13-bone-joint-chain-test.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_ik_ground_contact_v1.py
+      - name: Verify real source and package real 16-frame preview
+        run: |
+          python3 -m pip install -q pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          from PIL import Image
+          p=Path("art/s-creature/experiments/qem-deformation-gate-20261010/ik-contact-v1")
+          d=json.loads((p/"REAL_IK_CONTACT_QA.json").read_text())
+          assert d["vertices"]==29948 and d["faces"]==59932 and d["deform_bones"]==13
+          assert not d["original_source_mesh_modified"] and not d["approved_production"]
+          assert not d["root_motion"] and not d["race_gait"]
+          assert len(d["frame_data"])==16 and len(d["replay_data"])==16
+          assert (p/"S-QEM-real-13bone-IK-contact-v1.blend").stat().st_size>50000
+          imgs=[]
+          for i in range(1,17):
+              f=p/"review"/f"QEM_IK_REAL_{i:02d}.png"
+              assert f.stat().st_size>11000, f
+              im=Image.open(f).convert("RGB")
+              im.thumbnail((800,600))
+              imgs.append(im)
+          gif=p/"review"/"QEM_IK_REAL_16_frame_motion.gif"
+          imgs[0].save(gif,format="GIF",append_images=imgs[1:],duration=110,loop=0,optimize=True)
+          assert gif.stat().st_size>15000
+          print("IK_GATE", d["gate"], "CHECKS", d["gate_checks"])
+          # The visual/contact gate itself may FAIL. Always preserve its actual evidence.
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-S-QEM-actual-IK-contact-v1-evidence
+          path: art/s-creature/experiments/qem-deformation-gate-20261010/ik-contact-v1/
+          if-no-files-found: warn
+      - name: Save genuine blend, numerical QA and real render on experimental branch only
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/qem-deformation-gate-20261010/ik-contact-v1/
+          if git diff --cached --quiet; then
+            echo "No changes to persist"
+          else
+            git commit -m 'audit: archive actual 13-bone QEM IK stance/swing and evaluated ground-contact evidence'
+            git pull --rebase origin exp/s-qem-ik-contact-20261010
+            git push origin HEAD:exp/s-qem-ik-contact-20261010
+          fi
