@@ -56,7 +56,7 @@ peak*=1.-smooth((np.abs(x)-.20)/.20)
 belly=np.zeros_like(peak)  # Isolate topline; A belly/width caused quality fail.
 width=np.zeros_like(peak)
 assert int(np.count_nonzero(peak>.02))>200
-assert int(np.count_nonzero(belly>.02))>100
+assert int(np.count_nonzero(belly>.02))==0  # B isolates crest-safe dorsal region
 
 def evaluated():
     bpy.context.view_layer.update()
