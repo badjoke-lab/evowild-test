@@ -48,7 +48,7 @@ jobs:
           assert d['original_vertices']==29948 and d['original_faces']==59932
           assert d['frame_count']==17 and len(d['frames'])==17 and len(d['replay'])==17
           assert not d['race_gait'] and not d['production_asset']
-          assert (p/'S-QEM-real-13bone-rootmotion-v2bb.blend').stat().st_size>50000
+          assert (p/'S-QEM-real-13bone-rootmotion-v2b.blend').stat().st_size>50000
           images=[]
           for i in range(1,18):
               f=p/'review'/f'QEM_ROOT_IK_REAL_{i:02d}.png'
