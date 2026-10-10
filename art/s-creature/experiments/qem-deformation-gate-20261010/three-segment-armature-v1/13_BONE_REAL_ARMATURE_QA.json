@@ -1,0 +1,251 @@
+{
+  "input_original_GLb_sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "source_preserved_unchanged": true,
+  "source_vertices": 29948,
+  "source_faces": 59932,
+  "deformed_vertices": 29948,
+  "deformed_faces": 59932,
+  "armature_bone_count": 13,
+  "real_skinning_modifier": true,
+  "joint_candidate_survey": "joint-anatomy-survey-v2/JOINT_CANDIDATE_SURVEY.json",
+  "joint_candidate_positions": {
+    "FORE_L": [
+      [
+        -0.19276714324951172,
+        -0.5371477603912354,
+        1.3036142587661743
+      ],
+      [
+        -0.33381107449531555,
+        -0.5666013956069946,
+        0.8836690187454224
+      ],
+      [
+        -0.4110615849494934,
+        -0.8877730369567871,
+        0.3746732473373413
+      ],
+      [
+        -0.4110615849494934,
+        -1.1177730560302734,
+        0.04500000178813934
+      ]
+    ],
+    "FORE_R": [
+      [
+        0.22015798091888428,
+        -0.5164285898208618,
+        1.2949084043502808
+      ],
+      [
+        0.2979561984539032,
+        -0.42256999015808105,
+        0.9136559367179871
+      ],
+      [
+        0.3296074867248535,
+        -0.5960690975189209,
+        0.26740729808807373
+      ],
+      [
+        0.3296074867248535,
+        -0.8260691165924072,
+        0.04500000178813934
+      ]
+    ],
+    "HIND_L": [
+      [
+        -0.28401535749435425,
+        1.1251150369644165,
+        1.4452627897262573
+      ],
+      [
+        -0.2752525806427002,
+        1.3629194498062134,
+        1.0338313579559326
+      ],
+      [
+        -0.41617560386657715,
+        1.8485074043273926,
+        0.6589019894599915
+      ],
+      [
+        -0.41617560386657715,
+        2.008507490158081,
+        0.04500000178813934
+      ]
+    ],
+    "HIND_R": [
+      [
+        0.2911209166049957,
+        1.1690213680267334,
+        1.4498859643936157
+      ],
+      [
+        0.26023775339126587,
+        1.4408172369003296,
+        1.046890139579773
+      ],
+      [
+        0.3186895549297333,
+        1.9572954177856445,
+        0.6458076238632202
+      ],
+      [
+        0.3186895549297333,
+        2.117295503616333,
+        0.04500000178813934
+      ]
+    ]
+  },
+  "weight_counts_per_bone": {
+    "FORE_L": {
+      "UPPER": 2473,
+      "MIDDLE": 1602,
+      "LOWER": 1485
+    },
+    "FORE_R": {
+      "UPPER": 1554,
+      "MIDDLE": 1176,
+      "LOWER": 729
+    },
+    "HIND_L": {
+      "UPPER": 2767,
+      "MIDDLE": 1666,
+      "LOWER": 1669
+    },
+    "HIND_R": {
+      "UPPER": 2526,
+      "MIDDLE": 1612,
+      "LOWER": 1244
+    }
+  },
+  "max_limb_weights": {
+    "FORE_L": 1.0,
+    "FORE_R": 1.0,
+    "HIND_L": 1.0,
+    "HIND_R": 1.0
+  },
+  "attempted_local_bone_angles_deg": {
+    "FORE_L": [
+      10.0,
+      -17.0,
+      11.0
+    ],
+    "FORE_R": [
+      -10.0,
+      17.0,
+      -11.0
+    ],
+    "HIND_L": [
+      -8.0,
+      15.0,
+      -11.0
+    ],
+    "HIND_R": [
+      8.0,
+      -15.0,
+      11.0
+    ]
+  },
+  "actual_local_bone_angles_deg": {
+    "FORE_L": [
+      5.5,
+      -9.35,
+      6.05
+    ],
+    "FORE_R": [
+      -5.5,
+      9.35,
+      -6.05
+    ],
+    "HIND_L": [
+      -4.4,
+      8.25,
+      -6.05
+    ],
+    "HIND_R": [
+      4.4,
+      -8.25,
+      6.05
+    ]
+  },
+  "strength_candidates": [
+    {
+      "strength": 1.0,
+      "flipped_faces": 0,
+      "collapsed_faces": 0,
+      "area_below_half": 7,
+      "area_above_double": 3,
+      "moved_vertices": 16299,
+      "max_move": 0.09325672135163854,
+      "ratio_p5": 0.9298557378675641,
+      "ratio_p95": 1.0760585706510584
+    },
+    {
+      "strength": 0.85,
+      "flipped_faces": 0,
+      "collapsed_faces": 0,
+      "area_below_half": 6,
+      "area_above_double": 3,
+      "moved_vertices": 16287,
+      "max_move": 0.07863669550938102,
+      "ratio_p5": 0.9399064886138984,
+      "ratio_p95": 1.0641339772990637
+    },
+    {
+      "strength": 0.7,
+      "flipped_faces": 0,
+      "collapsed_faces": 0,
+      "area_below_half": 4,
+      "area_above_double": 0,
+      "moved_vertices": 16267,
+      "max_move": 0.06424749159127202,
+      "ratio_p5": 0.9501436365810786,
+      "ratio_p95": 1.0523940285223081
+    },
+    {
+      "strength": 0.55,
+      "flipped_faces": 0,
+      "collapsed_faces": 0,
+      "area_below_half": 0,
+      "area_above_double": 0,
+      "moved_vertices": 16246,
+      "max_move": 0.0500873044842753,
+      "ratio_p5": 0.9604962245493321,
+      "ratio_p95": 1.0409777285092563
+    }
+  ],
+  "selected_strength": 0.55,
+  "frame8_metrics": {
+    "strength": 0.55,
+    "flipped_faces": 0,
+    "collapsed_faces": 0,
+    "area_below_half": 0,
+    "area_above_double": 0,
+    "moved_vertices": 16246,
+    "max_move": 0.0500873044842753,
+    "ratio_p5": 0.9604962245493321,
+    "ratio_p95": 1.0409777285092563
+  },
+  "rest_pose_max_coordinate_error": 2.384185791015625e-07,
+  "frames_keyed": [
+    1,
+    8,
+    16
+  ],
+  "rendered_sample_frames": [
+    1,
+    5,
+    8,
+    12,
+    16
+  ],
+  "rig_gate": "PASS_LIMITED_MULTI_JOINT_SKINNING",
+  "anatomical_joints_verified": false,
+  "ground_contacts_verified": false,
+  "full_quadruped_gait_verified": false,
+  "production_approved": false,
+  "input_geometry_changed": false,
+  "notes": "Actual upper/middle/lower parented bone chains and evaluated mesh; 12 surface candidates not final anatomy; no simplified replacement."
+}
