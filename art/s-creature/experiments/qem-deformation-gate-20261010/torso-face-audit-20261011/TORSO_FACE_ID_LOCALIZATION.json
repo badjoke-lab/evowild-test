@@ -1,0 +1,294 @@
+{
+  "reference_png_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "original_glb_sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "source_unchanged": true,
+  "original_vertices": 29948,
+  "original_triangles": 59932,
+  "inspected": 13,
+  "scan": [
+    {
+      "amplitude": 0.06,
+      "key_value": 1.0,
+      "inverted_face_count": 0,
+      "under_half_area_count": 1,
+      "over_twice_area_count": 0,
+      "bad_face_ids": [
+        20958
+      ],
+      "worst_area_ratio": 0.442612055949354,
+      "max_area_ratio": 1.2572332816728684,
+      "offenders": [
+        {
+          "polygon_id": 20958,
+          "vertex_ids": [
+            12566,
+            13507,
+            12944
+          ],
+          "source_centroid_world": [
+            -0.10278259217739105,
+            0.7311759193738302,
+            1.7003153959910076
+          ],
+          "current_centroid_world": [
+            -0.10278259217739105,
+            0.7311758796374003,
+            1.6433237791061401
+          ],
+          "source_vertices_world": [
+            [
+              -0.1173161119222641,
+              0.770150899887085,
+              1.7056498527526855
+            ],
+            [
+              -0.08634762465953827,
+              0.6856312155723572,
+              1.6928471326828003
+            ],
+            [
+              -0.10468403995037079,
+              0.7377456426620483,
+              1.7024492025375366
+            ]
+          ],
+          "new_vertices_world": [
+            [
+              -0.1173161119222641,
+              0.770150899887085,
+              1.6494696140289307
+            ],
+            [
+              -0.08634762465953827,
+              0.6856311559677124,
+              1.6358646154403687
+            ],
+            [
+              -0.10468403995037079,
+              0.7377455830574036,
+              1.644637107849121
+            ]
+          ],
+          "source_double_area": 0.0001699103487958062,
+          "current_double_area": 7.520436880758363e-05,
+          "area_ratio": 0.442612055949354,
+          "inverted": false,
+          "edge_lengths_source": [
+            0.09092048108754537,
+            0.05607439150004081,
+            0.0349272687154838
+          ],
+          "vertex_group_names": [
+            [],
+            [],
+            []
+          ]
+        }
+      ],
+      "affected_vertices": 1614,
+      "crest_frozen_max_error": 2.669762502188819e-07,
+      "feet_frozen_max_error": 2.682209014892578e-07,
+      "gate": "FAIL_TRIANGLE"
+    },
+    {
+      "amplitude": 0.05,
+      "key_value": 0.8333333134651184,
+      "inverted_face_count": 0,
+      "under_half_area_count": 0,
+      "over_twice_area_count": 0,
+      "bad_face_ids": [],
+      "worst_area_ratio": 0.5116539111677315,
+      "max_area_ratio": 1.1944786101768925,
+      "offenders": [],
+      "affected_vertices": 1611,
+      "crest_frozen_max_error": 2.669762502188819e-07,
+      "feet_frozen_max_error": 2.682209014892578e-07,
+      "gate": "PASS_TRIANGLE_ONLY"
+    },
+    {
+      "amplitude": 0.045,
+      "key_value": 0.75,
+      "inverted_face_count": 0,
+      "under_half_area_count": 0,
+      "over_twice_area_count": 0,
+      "bad_face_ids": [],
+      "worst_area_ratio": 0.5521887279578074,
+      "max_area_ratio": 1.1656401406779981,
+      "offenders": [],
+      "affected_vertices": 1607,
+      "crest_frozen_max_error": 2.669762502188819e-07,
+      "feet_frozen_max_error": 2.682209014892578e-07,
+      "gate": "PASS_TRIANGLE_ONLY"
+    },
+    {
+      "amplitude": 0.04,
+      "key_value": 0.6666666865348816,
+      "inverted_face_count": 0,
+      "under_half_area_count": 0,
+      "over_twice_area_count": 0,
+      "bad_face_ids": [],
+      "worst_area_ratio": 0.5957325976258339,
+      "max_area_ratio": 1.1383131312908472,
+      "offenders": [],
+      "affected_vertices": 1604,
+      "crest_frozen_max_error": 2.669762502188819e-07,
+      "feet_frozen_max_error": 2.682209014892578e-07,
+      "gate": "PASS_TRIANGLE_ONLY"
+    },
+    {
+      "amplitude": 0.035,
+      "key_value": 0.5833333134651184,
+      "inverted_face_count": 0,
+      "under_half_area_count": 0,
+      "over_twice_area_count": 0,
+      "bad_face_ids": [],
+      "worst_area_ratio": 0.6416636276392386,
+      "max_area_ratio": 1.1130244917058714,
+      "offenders": [],
+      "affected_vertices": 1603,
+      "crest_frozen_max_error": 2.669762502188819e-07,
+      "feet_frozen_max_error": 2.682209014892578e-07,
+      "gate": "PASS_TRIANGLE_ONLY"
+    },
+    {
+      "amplitude": 0.03,
+      "key_value": 0.5,
+      "inverted_face_count": 0,
+      "under_half_area_count": 0,
+      "over_twice_area_count": 0,
+      "bad_face_ids": [],
+      "worst_area_ratio": 0.6894405553917858,
+      "max_area_ratio": 1.089768508134054,
+      "offenders": [],
+      "affected_vertices": 1601,
+      "crest_frozen_max_error": 1.2013700229374393e-07,
+      "feet_frozen_max_error": 2.682209014892578e-07,
+      "gate": "PASS_TRIANGLE_ONLY"
+    },
+    {
+      "amplitude": 0.025,
+      "key_value": 0.4166666567325592,
+      "inverted_face_count": 0,
+      "under_half_area_count": 0,
+      "over_twice_area_count": 0,
+      "bad_face_ids": [],
+      "worst_area_ratio": 0.7387320019910806,
+      "max_area_ratio": 1.0734841152841796,
+      "offenders": [],
+      "affected_vertices": 1596,
+      "crest_frozen_max_error": 5.960464477539063e-08,
+      "feet_frozen_max_error": 2.384185791015625e-07,
+      "gate": "PASS_TRIANGLE_ONLY"
+    },
+    {
+      "amplitude": 0.02,
+      "key_value": 0.3333333432674408,
+      "inverted_face_count": 0,
+      "under_half_area_count": 0,
+      "over_twice_area_count": 0,
+      "bad_face_ids": [],
+      "worst_area_ratio": 0.789247161713911,
+      "max_area_ratio": 1.0586350469287478,
+      "offenders": [],
+      "affected_vertices": 1591,
+      "crest_frozen_max_error": 5.960464477539063e-08,
+      "feet_frozen_max_error": 2.384185791015625e-07,
+      "gate": "PASS_TRIANGLE_ONLY"
+    },
+    {
+      "amplitude": 0.015,
+      "key_value": 0.25,
+      "inverted_face_count": 0,
+      "under_half_area_count": 0,
+      "over_twice_area_count": 0,
+      "bad_face_ids": [],
+      "worst_area_ratio": 0.8408097482257534,
+      "max_area_ratio": 1.0437996483506808,
+      "offenders": [],
+      "affected_vertices": 1583,
+      "crest_frozen_max_error": 5.960464477539063e-08,
+      "feet_frozen_max_error": 2.384185791015625e-07,
+      "gate": "PASS_TRIANGLE_ONLY"
+    },
+    {
+      "amplitude": 0.01,
+      "key_value": 0.1666666716337204,
+      "inverted_face_count": 0,
+      "under_half_area_count": 0,
+      "over_twice_area_count": 0,
+      "bad_face_ids": [],
+      "worst_area_ratio": 0.8932109693750264,
+      "max_area_ratio": 1.0291084162351967,
+      "offenders": [],
+      "affected_vertices": 1563,
+      "crest_frozen_max_error": 5.960464477539063e-08,
+      "feet_frozen_max_error": 1.1920928955078125e-07,
+      "gate": "PASS_TRIANGLE_ONLY"
+    },
+    {
+      "amplitude": 0.0075,
+      "key_value": 0.125,
+      "inverted_face_count": 0,
+      "under_half_area_count": 0,
+      "over_twice_area_count": 0,
+      "bad_face_ids": [],
+      "worst_area_ratio": 0.9197212143734349,
+      "max_area_ratio": 1.0218348961248636,
+      "offenders": [],
+      "affected_vertices": 1549,
+      "crest_frozen_max_error": 0.0,
+      "feet_frozen_max_error": 0.0,
+      "gate": "PASS_TRIANGLE_ONLY"
+    },
+    {
+      "amplitude": 0.005,
+      "key_value": 0.0833333358168602,
+      "inverted_face_count": 0,
+      "under_half_area_count": 0,
+      "over_twice_area_count": 0,
+      "bad_face_ids": [],
+      "worst_area_ratio": 0.9463338777037752,
+      "max_area_ratio": 1.0144696388193575,
+      "offenders": [],
+      "affected_vertices": 1534,
+      "crest_frozen_max_error": 0.0,
+      "feet_frozen_max_error": 0.0,
+      "gate": "PASS_TRIANGLE_ONLY"
+    },
+    {
+      "amplitude": 0.002,
+      "key_value": 0.03333333507180214,
+      "inverted_face_count": 0,
+      "under_half_area_count": 0,
+      "over_twice_area_count": 0,
+      "bad_face_ids": [],
+      "worst_area_ratio": 0.9784744935407842,
+      "max_area_ratio": 1.005786027127152,
+      "offenders": [],
+      "affected_vertices": 1481,
+      "crest_frozen_max_error": 0.0,
+      "feet_frozen_max_error": 0.0,
+      "gate": "PASS_TRIANGLE_ONLY"
+    }
+  ],
+  "selected": {
+    "amplitude": 0.05,
+    "key_value": 0.8333333134651184,
+    "inverted_face_count": 0,
+    "under_half_area_count": 0,
+    "over_twice_area_count": 0,
+    "bad_face_ids": [],
+    "worst_area_ratio": 0.5116539111677315,
+    "max_area_ratio": 1.1944786101768925,
+    "offenders": [],
+    "affected_vertices": 1611,
+    "crest_frozen_max_error": 2.669762502188819e-07,
+    "feet_frozen_max_error": 2.682209014892578e-07,
+    "gate": "PASS_TRIANGLE_ONLY"
+  },
+  "any_pass": true,
+  "max_passing_tested_amplitude": 0.05,
+  "mechanical_joint_quality": "NOT_TESTED",
+  "visual_morphology_gate": "REVIEW_PENDING_NOT_APPROVED",
+  "production_approved": false
+}
