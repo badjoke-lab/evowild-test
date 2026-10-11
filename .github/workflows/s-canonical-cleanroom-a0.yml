@@ -1,0 +1,107 @@
+name: EvoWild S genuine new complete cleanroom 3D silhouette A0
+on:
+  push:
+    branches: [exp/s-canonical-fullbody-rebuild-20261011]
+    paths:
+      - .github/workflows/s-canonical-cleanroom-a0.yml
+      - art/s-creature/blender/s_canonical_cleanroom_blockout_20261011.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-S-canonical-cleanroom-a0
+  cancel-in-progress: false
+jobs:
+  make-entire-new-S-body-for-visual-rejection-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_canonical_cleanroom_blockout_20261011.py
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/a0-full-silhouette/
+            /.github/workflows/s-canonical-cleanroom-a0.yml
+      - name: Check literal user approved 1448x1086 original S reference
+        run: |
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+          python3 - <<'PY'
+          from pathlib import Path
+          assert Path("art/s-creature/references/00_s_type_modeling_image_v1.png").stat().st_size==1982782
+          PY
+      - name: Install actual Blender 4.3.2
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Make totally new full-body 3D from scratch, no old S candidate imported
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/s_canonical_cleanroom_blockout_20261011.py
+      - name: Preserve original source side-by-side actual five-view and real mesh proof
+        run: |
+          python3 -m pip install -q pillow
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          from PIL import Image,ImageDraw,ImageOps
+          root=Path("art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/a0-full-silhouette")
+          ref=Path("art/s-creature/references/00_s_type_modeling_image_v1.png")
+          assert hashlib.sha256(ref.read_bytes()).hexdigest()=="93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6"
+          d=json.loads((root/"A0_REAL_FULLBODY_CLEANROOM_QA.json").read_text())
+          assert d["canonical_image_packed_into_actual_blend"]
+          assert d["prior_failed_creature_geometry_used"] is False
+          assert d["mesh_object_count"]>=30 and d["total_physical_3D_vertices"]>4000
+          assert d["separated_primary_cranial_blade_count"]==2
+          assert d["split_contact_prong_count"]==8 and d["tail_long_multi_armor_lamina_count"]==6
+          assert d["visual_morphology_pass"]=="REVIEW_PENDING"
+          assert not d["approved_for_rig_animation_game"]
+          assert (root/"S-fullbody-canonical-cleanroom-A0-UNAPPROVED.blend").stat().st_size>100000
+          assert (root/"S-fullbody-canonical-cleanroom-A0-UNAPPROVED.glb").stat().st_size>100000
+          W,H=420,345
+          sheet=Image.new("RGB",(5*W,H),(238,239,241))
+          draw=ImageDraw.Draw(sheet)
+          for i,v in enumerate(d["views_rendered"]):
+              f=root/"review"/f"S_CLEANROOM_A0_ACTUAL_3D_{v}.png"
+              assert f.stat().st_size>15000,f
+              im=Image.open(f).convert("RGB")
+              im.thumbnail((W-10,H-28))
+              sheet.paste(im,(i*W+(W-im.width)//2,26+(H-26-im.height)//2))
+              draw.text((i*W+8,5),f"NEW REAL 3D / {v}",fill=(15,17,21))
+          sheet.save(root/"review"/"ACTUAL_CANONICAL_CLEANROOM_A0_FIVE_VIEW.jpg",quality=94,optimize=True)
+          origin=Image.open(ref).convert("RGB")
+          oW,oH=origin.size
+          canonical=origin.crop((int(oW*.018),int(oH*.070),int(oW*.525),int(oH*.476)))
+          W,H=690,515
+          comp=Image.new("RGB",(2*W,H),(237,239,241))
+          draw=ImageDraw.Draw(comp)
+          for col,(title,im) in enumerate([
+             ("EXACT CANONICAL S PNG (NOT GENERATED)",canonical),
+             ("FROM-SCRATCH ACTUAL 3D A0 - UNAPPROVED",
+               Image.open(root/"review"/"S_CLEANROOM_A0_ACTUAL_3D_SIDE.png").convert("RGB"))]):
+              im.thumbnail((W-12,H-36))
+              comp.paste(im,(col*W+(W-im.width)//2,30+(H-30-im.height)//2))
+              draw.text((col*W+7,6),title,fill=(17,19,21))
+          comp.save(root/"review"/"ORIGINAL_S_REFERENCE_VS_NEW_A0_REAL_3D.jpg",quality=94,optimize=True)
+          print("REAL_NEW_S_A0_3D",d["total_physical_3D_vertices"],d["total_physical_3D_polygons"],
+                d["cleanroom_original_model_source"],"modeling_design_approved?",d["visual_morphology_pass"])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-S-cleanroom-actual-3D-fullbody-A0
+          path: art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/a0-full-silhouette/
+          if-no-files-found: warn
+      - name: Persist REAL Blender GLB, original-locked five views and unapproved QA on experiment branch only
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/a0-full-silhouette/
+          if ! git diff --cached --quiet; then
+            git commit -m 'exp: preserve real new canonical-only S complete silhouette A0 (NOT approved)'
+            git pull --rebase origin exp/s-canonical-fullbody-rebuild-20261011
+            git push origin HEAD:exp/s-canonical-fullbody-rebuild-20261011
+          fi
