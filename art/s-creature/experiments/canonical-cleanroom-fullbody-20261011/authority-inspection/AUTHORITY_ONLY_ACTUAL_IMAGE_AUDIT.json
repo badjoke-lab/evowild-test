@@ -1,0 +1,68 @@
+{
+  "source_file": "art/s-creature/references/00_s_type_modeling_image_v1.png",
+  "source_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "original_png_pixels": [
+    1448,
+    1086
+  ],
+  "variants_are_unmodified_crops_and_JPEG_preview_of_exact_source": true,
+  "never_replace_source_image": true,
+  "visual_regions": {
+    "FULL_DESIGN_SHEET": {
+      "source_bounds": [
+        0,
+        0,
+        1448,
+        1086
+      ],
+      "preview_size": [
+        1013,
+        760
+      ],
+      "preview_sha256": "eea3789672fb9bb8e4e82a7c6977ab44ec9dc7b8e17c27739560a7887a0fbd07",
+      "preview_bytes": 139680
+    },
+    "TOP_LEFT_REFERENCE": {
+      "source_bounds": [
+        0,
+        0,
+        724,
+        575
+      ],
+      "preview_size": [
+        724,
+        575
+      ],
+      "preview_sha256": "535d290d8293b3e0b164dcea29ff74bcd2cfd1d0849aca6cca07dceb2df139d0",
+      "preview_bytes": 67229
+    },
+    "TOP_RIGHT_REFERENCE": {
+      "source_bounds": [
+        724,
+        0,
+        1448,
+        575
+      ],
+      "preview_size": [
+        724,
+        575
+      ],
+      "preview_sha256": "ad8a1bb5c804624fac3dae5c3e6a7a817077ebb776eeb9cb370235baf91055f6",
+      "preview_bytes": 58915
+    },
+    "LOWER_DESIGN_SHEET": {
+      "source_bounds": [
+        0,
+        505,
+        1448,
+        1086
+      ],
+      "preview_size": [
+        1200,
+        481
+      ],
+      "preview_sha256": "90dd48da133d193b141c809ed5b5fb22b128146dbe58d2478a9ba0d5f5918179",
+      "preview_bytes": 97367
+    }
+  }
+}
