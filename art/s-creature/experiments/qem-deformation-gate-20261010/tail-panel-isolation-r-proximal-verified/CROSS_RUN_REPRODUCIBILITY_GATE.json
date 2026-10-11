@@ -1,0 +1,13 @@
+{
+  "original_SHA256_rounded_6dp": "ee349175201deb205800dc1b19eaebe38001295beb3a2ae373d9776c5cd7d104",
+  "fresh_SHA256_rounded_6dp": "ee349175201deb205800dc1b19eaebe38001295beb3a2ae373d9776c5cd7d104",
+  "hash_equal": true,
+  "original_BVH_intersections": 34,
+  "fresh_BVH_intersections": 34,
+  "intersection_count_equal": true,
+  "both_original_sources_unchanged": true,
+  "reproducible_shape_and_collision": true,
+  "technical_blade_gate": "FAIL_TOPOLOGY_OR_INTERSECTION",
+  "visual_S_canonical_approved": false,
+  "game_ready": false
+}
