@@ -1,0 +1,94 @@
+name: P canonical v6 joined-anatomy evidence
+
+on:
+  push:
+    branches:
+      - fix/3d-p-canonical-model-20261011
+    paths:
+      - scripts/modeling/*-v5.*
+      - src/p-canonical-review.js
+      - .github/workflows/p-canonical-v6.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: p-canonical-v6-model-review
+  cancel-in-progress: true
+
+jobs:
+  model-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install JS dependencies and Chromium
+        run: |
+          npm install
+          npm install --no-save gltf-validator@2.0.0-dev.3.10
+          python3 -m pip install Pillow
+          npx playwright install --with-deps chromium
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          node -e "const { chromium }=require('@playwright/test');require('fs').appendFileSync(process.env.GITHUB_ENV,'CHROMIUM_PATH='+chromium.executablePath()+'\n')"
+      - name: Fetch pinned Blender 4.3.2
+        run: |
+          curl -fL --retry 4 --retry-delay 5 \
+            https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz \
+            -o "$RUNNER_TEMP/blender-4.3.2.tar.xz"
+          tar -xJf "$RUNNER_TEMP/blender-4.3.2.tar.xz" -C "$RUNNER_TEMP"
+          echo "BLENDER_EXECUTABLE=$RUNNER_TEMP/blender-4.3.2-linux-x64/blender" >> "$GITHUB_ENV"
+      - name: Generate a NEW P v6 GLB, keeping v1-v5 and P.webp unchanged
+        run: |
+          "$BLENDER_EXECUTABLE" -b -t 4 --python scripts/modeling/build-canonical-p-v6.py -- --no-render \
+            > "$RUNNER_TEMP/pv6-blender.log" 2>&1 || { tail -n 150 "$RUNNER_TEMP/pv6-blender.log"; exit 1; }
+          tail -n 15 "$RUNNER_TEMP/pv6-blender.log"
+          cp "$RUNNER_TEMP/pv6-blender.log" docs/evidence/p-canonical-3d-v6-20261012/blender-build.log
+          node scripts/modeling/finalize-p-v6.mjs
+          node scripts/modeling/validate-p-v6.mjs
+          test -s public/models/evowild-p/p-canonical-v6.glb
+          node -e "const a=require('fs').statSync('public/models/evowild-p/p-canonical-v6.glb');if(a.size<250000)process.exit(1);console.log('GLB bytes',a.size)"
+      - name: Build and capture real v6 model renders
+        run: |
+          set -o pipefail
+          npm run build 2>&1 | tee docs/evidence/p-canonical-3d-v6-20261012/build.log
+          npm run dev -- --host 127.0.0.1 --port 4173 > "$RUNNER_TEMP/pv6-vite.log" 2>&1 &
+          echo $! > "$RUNNER_TEMP/pv6-server.pid"
+          curl -f --retry 25 --retry-delay 2 --retry-connrefused \
+            http://127.0.0.1:4173/evowild-test/p-canonical-review.html > /dev/null
+          node scripts/modeling/capture-p-review-v6.mjs
+          python3 scripts/modeling/package-p-evidence-v6.py
+          test -s docs/evidence/p-canonical-3d-v6-20261012/SIDE.png
+          test -s docs/evidence/p-canonical-3d-v6-20261012/FRONT.png
+          test -s docs/evidence/p-canonical-3d-v6-20261012/FRONT34.png
+          test -s docs/evidence/p-canonical-3d-v6-20261012/REAR34.png
+          test -s docs/evidence/p-canonical-3d-v6-20261012/BACK.png
+          test -s docs/evidence/p-canonical-3d-v6-20261012/running-review.mp4
+      - name: Commit real GLB and reproducible evidence only
+        run: |
+          git diff --exit-code -- public/concept/P.webp public/models/evowild-p/p-canonical-v1.glb public/models/evowild-p/p-canonical-v2.glb public/models/evowild-p/p-canonical-v3.glb public/models/evowild-p/p-canonical-v4.glb public/models/evowild-p/p-canonical-v5.glb
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/models/evowild-p/p-canonical-v6.glb \
+            public/models/evowild-p/manifest-v6.json \
+            docs/evidence/p-canonical-3d-v6-20261012
+          git diff --cached --check
+          if ! git diff --cached --quiet; then
+            git commit -m "model(p): capture canonical v5 joined GLB and five-view evidence [review pending]"
+            git push origin HEAD:fix/3d-p-canonical-model-20261011
+          fi
+      - name: Upload v6 evidence even if commit is blocked
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p-canonical-v6-model-and-renders
+          path: |
+            public/models/evowild-p/p-canonical-v6.glb
+            public/models/evowild-p/manifest-v6.json
+            docs/evidence/p-canonical-3d-v6-20261012/*
+          if-no-files-found: warn
