@@ -1,0 +1,119 @@
+name: EvoWild S ONE actual source 3-view shape attempt on public free ZeroGPU
+on:
+  push:
+    branches: [exp/s-hunyuan2-multiview-source-test-20261012]
+    paths: [.github/workflows/s-hunyuan2mv-one-public-free-generation.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-S-3view-one-public-ZeroGPU-experiment
+  cancel-in-progress: false
+jobs:
+  exactly-one-free-multiview-inference:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      HF_TOKEN: ""
+      HUGGING_FACE_HUB_TOKEN: ""
+      HF_HUB_DISABLE_TELEMETRY: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_hunyuan2mv_run_one_free_shape.py
+            /art/s-creature/blender/s_hunyuan2mv_result_render.py
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/hunyuan2mv-original-source-20261012/
+            /.github/workflows/s-hunyuan2mv-one-public-free-generation.yml
+      - name: Source authority; no generated replacement source and no GPU bill
+        run: |
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+          test -z "$HF_TOKEN"
+          test -z "$HUGGING_FACE_HUB_TOKEN"
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/hunyuan2mv-original-source-20261012')
+          a=json.loads((p/'PUBLIC_FREE_HUNYUAN2MV_API_PREFLIGHT.json').read_text())
+          assert a['usable_shape_endpoint_found']
+          assert not a['paid_job_requested'] and not a['GPU_generation_requested'] and not a['auth_token_used']
+          b=json.loads((p/'SOURCE_MULTIVIEW_INPUTS_AUDIT.json').read_text())
+          assert b['right_view'] is None
+          assert all(v['authoritative_png_sha256']==b['original_png_SHA256'] for v in b['front_back_left'].values())
+          PY
+      - name: Exactly one no-token shape generation attempt on PUBLIC ZeroGPU Space
+        run: |
+          python3 -m pip install -q gradio_client
+          python3 art/s-creature/blender/s_hunyuan2mv_run_one_free_shape.py
+      - name: Validate actual returned artifact; if absent preserve reason and stop without pretending success
+        id: output-check
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/hunyuan2mv-original-source-20261012')
+          d=json.loads((p/'ONE_PUBLIC_ZERO_GPU_REAL_SHAPE_ATTEMPT.json').read_text())
+          if d['generated']:
+              assert (p/d['candidate_file']).stat().st_size>12000
+              with open('/tmp/evowild_mv2_generated','w') as f:f.write('true')
+          else:
+              with open('/tmp/evowild_mv2_generated','w') as f:f.write('false')
+          print('TRUTHFUL_3D_GENERATED?',d['generated'],'failure',d.get('error_type'),d.get('error_message'))
+          PY
+          echo "generated=$(cat /tmp/evowild_mv2_generated)" >> "$GITHUB_OUTPUT"
+      - name: Install Blender 4.3.2 only if genuine model was returned
+        if: steps.output-check.outputs.generated == 'true'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Render actual candidate in Blender all 5 angles only if it exists
+        if: steps.output-check.outputs.generated == 'true'
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/s_hunyuan2mv_result_render.py
+      - name: Prepare direct original-reference vs actual Blender comparison if possible
+        if: steps.output-check.outputs.generated == 'true'
+        run: |
+          python3 -m pip install -q pillow
+          python3 - <<'PY'
+          from PIL import Image,ImageDraw
+          from pathlib import Path
+          import json
+          p=Path('art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/hunyuan2mv-original-source-20261012')
+          W,H=410,332
+          sheet=Image.new('RGB',(5*W,2*H),(235,237,240))
+          draw=ImageDraw.Draw(sheet)
+          source=Image.open('art/s-creature/references/00_s_type_modeling_image_v1.png').convert('RGB')
+          cropped={'SIDE':(28,73,760,507),'FRONT':(764,90,946,507),'BACK':(948,90,1129,507),'FRONT34':(1131,80,1433,507),'REAR34':None}
+          for col,v in enumerate(('SIDE','FRONT','FRONT34','REAR34','BACK')):
+              for row,label in enumerate(('SOURCE','REAL_3D')):
+                  rect=cropped[v]
+                  if row==0:
+                      if rect is None:continue
+                      im=source.crop(rect)
+                  else:im=Image.open(p/'actual-blender-review'/('REAL_MV2_SOURCE_S_'+v+'.png')).convert('RGB')
+                  im.thumbnail((W-12,H-31))
+                  sheet.paste(im,(col*W+(W-im.width)//2,row*H+26+(H-26-im.height)//2))
+                  draw.text((col*W+8,row*H+5),label+'/'+v,fill=(15,20,24))
+          sheet.save(p/'actual-blender-review'/'REAL_FREE_MULTIVIEW_S_SOURCE_VS_MODEL_5VIEW.jpg',quality=93,optimize=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild S one actual public free MultiView 3D trial and truthfully measured model or error
+          path: art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/hunyuan2mv-original-source-20261012/
+          if-no-files-found: warn
+      - name: Persist literal result whether model was generated or failed, no promotion to main
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/hunyuan2mv-original-source-20261012/
+          if ! git diff --cached --quiet; then
+            git commit -m 'exp: real three-view S Hunyuan2-mv free one-time trial, preserve actual output or failure'
+            git pull --rebase origin exp/s-hunyuan2-multiview-source-test-20261012
+            git push origin HEAD:exp/s-hunyuan2-multiview-source-test-20261012
+          fi
