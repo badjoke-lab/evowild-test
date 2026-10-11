@@ -1,0 +1,118 @@
+name: EvoWild S actual QEM expanded sewn root aperture W
+on:
+  push:
+    branches: [exp/s-qem-root-aperture-w-20261011]
+    paths:
+      - .github/workflows/s-qem-true-root-aperture-w.yml
+      - art/s-creature/blender/s_qem_tail_root_aperture_w.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-S-real-QEM-root-aperture-w
+  cancel-in-progress: false
+jobs:
+  two-tail-blades-full-root-retopology:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_qem_tail_root_aperture_w.py
+            /art/s-creature/experiments/qem-deformation-gate-20261010/tail-core-regularized-m-v1/S-QEM-true-one-piece-tail-core-M-TRIAL.blend
+            /art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/qem-deformation-gate-20261010/tail-integrated-aperture-w-*/
+            /.github/workflows/s-qem-true-root-aperture-w.yml
+      - name: Verify immutable sole S authority image and real QEM donor hash
+        run: |
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+          echo 'e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f  art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb' | sha256sum --check -
+      - name: Install actual Blender 4.3.2 (not raster asset generation)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Rebuild ORIGINAL M-QEM skin seam and two REAL support loops for proximal blade
+        run: |
+          Q_V_CASE=PROXIMAL_RIGHT /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/tail-core-regularized-m-v1/S-QEM-true-one-piece-tail-core-M-TRIAL.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_tail_root_aperture_w.py
+      - name: Independently rebuild ORIGINAL M-QEM skin seam and two REAL support loops for distal blade
+        run: |
+          Q_V_CASE=DISTAL_RIGHT /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/tail-core-regularized-m-v1/S-QEM-true-one-piece-tail-core-M-TRIAL.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_tail_root_aperture_w.py
+      - name: Validate actual Blender saves, run QA and package five-view evidence
+        run: |
+          python3 -m pip install -q pillow
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          root=Path("art/s-creature/experiments/qem-deformation-gate-20261010")
+          collected={}
+          for name in ("PROXIMAL_RIGHT","DISTAL_RIGHT"):
+              p=root/("tail-integrated-aperture-w-"+name.lower())
+              d=json.loads((p/"REAL_QEM_W_APERTURE_TOPOLOGY_QA.json").read_text())
+              assert d["source_mesh_unchanged"] and d["original_M_mesh_unchanged"]
+              assert d["original_QEM_counts"]==[29948,59932]
+              assert d["M_base_counts"]==[31948,63932]
+              assert d["panel"]==name
+              assert 1<=d["candidates_tested"]<=24
+              assert d["selected"]["QA"]==d["selected_actual_qa_repeated"]
+              assert d["game_production"]=="REJECT_NOT_APPROVED"
+              assert d["maximum_allowed_resection_faces"]==260
+              assert d["selected"]["root_and_ring_mesh"]["patch_faces"]<=260
+              assert (p/("S-QEM-real-"+name+"-expanded-aperture-W-TRIAL.blend")).stat().st_size>50000
+              collected[name]={"technical_gate":d["technical_gate"],
+                 "previous_Q_BVH_intersections":d["previous_single_Q_nonshared_tail_intersections"],
+                 "previous_U_best_intersections":d["previous_U_best_intersections"],
+                 "previous_V_best_intersections":d["previous_V_best_intersections"],
+                 "best_new_root_topology":d["selected"]["root_and_ring_mesh"],
+                 "new_BVH_intersections":d["selected"]["QA"]["self_intersections"],
+                 "all_new_ring_topology_pass":d["selected"]["QA"]["topology_pass"],
+                 "actual_vertices":d["selected"]["QA"]["vertices"],
+                 "actual_triangles":d["selected"]["QA"]["triangles"],
+                 "candidates_tested":d["candidates_tested"]}
+              W,H=390,298
+              sheet=Image.new("RGB",(5*W,2*H),(236,239,243))
+              pen=ImageDraw.Draw(sheet)
+              for col,view in enumerate(("SIDE","FRONT","FRONT34","REAR34","BACK")):
+                  for row,tag in enumerate(("M_BASE","NEW_V")):
+                      f=p/"review"/f"REAL_QEM_{name}_{tag}_{view}.png"
+                      assert f.stat().st_size>10000,f
+                      im=Image.open(f).convert("RGB")
+                      im.thumbnail((W-10,H-31))
+                      sheet.paste(im,(col*W+(W-im.width)//2,row*H+26+(H-26-im.height)//2))
+                      pen.text((col*W+6,row*H+6),f"{tag} / {view}",(18,20,22))
+              sheet.save(p/"review"/("REAL_QEM_"+name+"_V_FIVE_VIEW_COMPARE.jpg"),quality=93,optimize=True)
+          p=root/"tail-integrated-aperture-w-summary"
+          p.mkdir(parents=True,exist_ok=True)
+          (p/"ACTUAL_QEM_TWO_ROOT_APERTURE_W_COMPARE.json").write_text(json.dumps({
+              "user_reference_SHA256":"93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+              "immutable_QEM_donor_preserved":True,
+              "method":"physically widened but bounded original QEM skin patch resection and 2 new root-support loops",
+              "cases":collected,
+              "S_morph_approved":False,
+              "skin_gait_approved":False,
+              "main_modified":False
+          },indent=2)+"\n")
+          print("EVO_S_REAL_QEM_W_TWO_RETOPOLOGY",collected)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-real-QEM-resected-source-root-apertures-W
+          path: art/s-creature/experiments/qem-deformation-gate-20261010/tail-integrated-aperture-w-*/
+          if-no-files-found: warn
+      - name: Commit actual failed or successful physical 3D trials only to separate experiment
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/qem-deformation-gate-20261010/tail-integrated-aperture-w-*/
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit: actual original-QEM expanded root apertures rebuilt W; preserve 48 Blender candidate results'
+            git pull --rebase origin exp/s-qem-root-aperture-w-20261011
+            git push origin HEAD:exp/s-qem-root-aperture-w-20261011
+          fi
