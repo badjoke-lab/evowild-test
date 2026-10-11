@@ -310,11 +310,11 @@ for name,vec in (("SIDE",Vector((1,0,0))),
     camera.data.ortho_scale=2.95
     camera.location=p+vec*6
     camera.rotation_euler=(p-camera.location).to_track_quat("-Z","Y").to_euler()
-    for title,obj in (("BASE_M",M),("ARMOR_O",out)):
+    for title,obj in (("BASE_M",M),("SINGLE_Q",out)):
         for x in (src,original_a,M,out):x.hide_render=(x!=obj)
         scene.render.filepath=str(REVIEW/f"REAL_QEM_CLOSE_{title}_{name}.png")
         bpy.ops.render.render(write_still=True)
 for ob in (src,original_a,M):ob.hide_render=True
 out.hide_render=False
-bpy.ops.wm.save_as_mainfile(filepath=str(OUT/"S-QEM-single-panel-Q-"+NAME+".blend"),compress=True)
+bpy.ops.wm.save_as_mainfile(filepath=str(OUT/("S-QEM-single-panel-Q-"+NAME+".blend")),compress=True)
 print("O_FINAL_GATE",result["geometry_gate"],"real_blades",len(plate_specs))
