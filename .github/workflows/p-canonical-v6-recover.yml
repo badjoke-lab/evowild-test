@@ -20,7 +20,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh run download 38150382570 --name p-canonical-v6-model-and-renders --dir .
+          mkdir -p "$RUNNER_TEMP/pv6-restore"
+          gh run download 38150382570 --name p-canonical-v6-model-and-renders --dir "$RUNNER_TEMP/pv6-restore"
+          cp -a "$RUNNER_TEMP/pv6-restore/public/models/evowild-p/p-canonical-v6.glb" public/models/evowild-p/
+          cp -a "$RUNNER_TEMP/pv6-restore/public/models/evowild-p/manifest-v6.json" public/models/evowild-p/
+          cp -a "$RUNNER_TEMP/pv6-restore/docs/evidence/p-canonical-3d-v6-20261012/." docs/evidence/p-canonical-3d-v6-20261012/
           test -s public/models/evowild-p/p-canonical-v6.glb
           test -s public/models/evowild-p/manifest-v6.json
           test -s docs/evidence/p-canonical-3d-v6-20261012/SIDE.png
