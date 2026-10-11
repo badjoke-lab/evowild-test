@@ -1,0 +1,89 @@
+{
+  "authoritative_S_reference_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "original_QEM_donor_sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "original_QEM_untouched": true,
+  "original_M_untouched": true,
+  "original_QEM_vertices": 29948,
+  "original_QEM_triangles": 59932,
+  "M_core_vertices": 31948,
+  "M_core_triangles": 63932,
+  "new_S_skin_connected_armor_plate_count": 1,
+  "isolation_panel": "DISTAL_RIGHT",
+  "blades": [
+    {
+      "candidate_face_count": 43,
+      "patch_faces": 43,
+      "root_boundary_vertices": 21,
+      "other_islands": [],
+      "name": "DISTAL_RIGHT",
+      "root_center_world": [
+        0.07781343162059784,
+        2.697526454925537,
+        1.479902982711792
+      ],
+      "tip_world": [
+        0.20798631012439728,
+        3.337526321411133,
+        1.6244350671768188
+      ],
+      "shell_side": 1,
+      "sweep_length": 0.64,
+      "lateral_clearance": 0.15,
+      "blade_half_width": 0.11,
+      "ring_count": 10,
+      "ring_boundary_vertices": 21
+    }
+  ],
+  "topology": {
+    "vertices": 32147,
+    "triangles": 64330,
+    "components": 1,
+    "largest_components": [
+      32147
+    ],
+    "boundary_edges": 0,
+    "nonmanifold_or_boundary_edges": 0,
+    "degenerate_faces": 0,
+    "minimum_double_triangle_area": 1.691078997981613e-06,
+    "maximum_double_triangle_area": 0.008805657523218149
+  },
+  "tail_roi_self_intersection": {
+    "tested_roi_faces": 6406,
+    "nonshared_polygon_intersections": 7,
+    "first_60_polygon_pairs": [
+      [
+        60452,
+        62899
+      ],
+      [
+        60453,
+        60525
+      ],
+      [
+        60453,
+        60548
+      ],
+      [
+        60525,
+        62756
+      ],
+      [
+        60525,
+        64127
+      ],
+      [
+        60548,
+        64127
+      ],
+      [
+        62899,
+        64127
+      ]
+    ]
+  },
+  "geometry_gate": "FAIL_TOPOLOGY_OR_INTERSECTION",
+  "canonical_S_visual_review": "NOT_APPROVED_REQUIRES_ACTUAL_VISUAL_INSPECTION",
+  "armature_transferred": false,
+  "foot_contact_3_cycle_verified": false,
+  "production_game_approved": false
+}

@@ -1,0 +1,60 @@
+{
+  "reference": "art/s-creature/references/00_s_type_modeling_image_v1.png",
+  "source_QEM_preserved": true,
+  "tested_individually": {
+    "PROXIMAL_RIGHT": {
+      "topology": {
+        "vertices": 32117,
+        "triangles": 64270,
+        "components": 1,
+        "largest_components": [
+          32117
+        ],
+        "boundary_edges": 0,
+        "nonmanifold_or_boundary_edges": 0,
+        "degenerate_faces": 0,
+        "minimum_double_triangle_area": 1.691078997981613e-06,
+        "maximum_double_triangle_area": 0.008805657523218149
+      },
+      "intersections": 101,
+      "technical_gate": "FAIL_TOPOLOGY_OR_INTERSECTION"
+    },
+    "MID_LEFT": {
+      "topology": {
+        "vertices": 32232,
+        "triangles": 64500,
+        "components": 1,
+        "largest_components": [
+          32232
+        ],
+        "boundary_edges": 0,
+        "nonmanifold_or_boundary_edges": 0,
+        "degenerate_faces": 0,
+        "minimum_double_triangle_area": 1.691078997981613e-06,
+        "maximum_double_triangle_area": 0.008805657523218149
+      },
+      "intersections": 25,
+      "technical_gate": "FAIL_TOPOLOGY_OR_INTERSECTION"
+    },
+    "DISTAL_RIGHT": {
+      "topology": {
+        "vertices": 32147,
+        "triangles": 64330,
+        "components": 1,
+        "largest_components": [
+          32147
+        ],
+        "boundary_edges": 0,
+        "nonmanifold_or_boundary_edges": 0,
+        "degenerate_faces": 0,
+        "minimum_double_triangle_area": 1.691078997981613e-06,
+        "maximum_double_triangle_area": 0.008805657523218149
+      },
+      "intersections": 7,
+      "technical_gate": "FAIL_TOPOLOGY_OR_INTERSECTION"
+    }
+  },
+  "O_all_three_intersection_pairs": 185,
+  "design_approved": false,
+  "production_ready": false
+}
