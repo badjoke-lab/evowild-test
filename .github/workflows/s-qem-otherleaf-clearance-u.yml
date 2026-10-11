@@ -1,0 +1,110 @@
+name: EvoWild S actual QEM original proximal and distal leaf root U
+on:
+  push:
+    branches: [exp/s-qem-otherleaf-clearance-u-20261011]
+    paths:
+      - .github/workflows/s-qem-otherleaf-clearance-u.yml
+      - art/s-creature/blender/s_qem_otherleaf_clearance_u.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-QEM-otherleaf-clearance-u
+  cancel-in-progress: false
+jobs:
+  original-real-QEM-two-remaining-leaf-first-rings:
+    runs-on: ubuntu-latest
+    timeout-minutes: 58
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_qem_otherleaf_clearance_u.py
+            /art/s-creature/experiments/qem-deformation-gate-20261010/tail-panel-isolation-q-proximal_right/S-QEM-single-panel-Q-PROXIMAL_RIGHT.blend
+            /art/s-creature/experiments/qem-deformation-gate-20261010/tail-panel-isolation-q-distal_right/S-QEM-single-panel-Q-DISTAL_RIGHT.blend
+            /art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/qem-deformation-gate-20261010/tail-otherleaf-clearance-u-*/
+            /.github/workflows/s-qem-otherleaf-clearance-u.yml
+      - name: Lock original canon S image and untouched QEM donor SHA
+        run: |
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+          echo 'e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f  art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb' | sha256sum --check -
+      - name: Download real Blender 4.3.2
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Test actual QEM root proximal separately and distal independently
+        run: |
+          Q_REMAINING_CASE=PROXIMAL_RIGHT /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/tail-panel-isolation-q-proximal_right/S-QEM-single-panel-Q-PROXIMAL_RIGHT.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_otherleaf_clearance_u.py
+          Q_REMAINING_CASE=DISTAL_RIGHT /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/tail-panel-isolation-q-distal_right/S-QEM-single-panel-Q-DISTAL_RIGHT.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_otherleaf_clearance_u.py
+      - name: Review actual meshes, create cross-experiment five-view and machine-readable QA
+        run: |
+          python3 -m pip install -q pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          import json
+          b=Path("art/s-creature/experiments/qem-deformation-gate-20261010")
+          items={}
+          for name,expected in (("PROXIMAL_RIGHT",34),("DISTAL_RIGHT",152)):
+              p=b/("tail-otherleaf-clearance-u-"+name.lower())
+              d=json.loads((p/"REAL_QEM_OTHERLEAF_U_QA.json").read_text())
+              assert d["source_M_and_original_Q_preserved"] and not d["production_creature"]
+              assert d["individual_panel"]==name and d["expected_original_collision_count"]==expected
+              assert len(d["Q_actual_five_collision_polygon_pairs"])==expected
+              assert d["tested_local_deformation_variants"]>=1
+              assert d["Q_topology"]["boundary_edges"]==0
+              assert (p/("S-QEM-"+name+"-first-ring-clearance-U-TRIAL.blend")).stat().st_size>50000
+              items[name]={"original_collision_count":expected,
+                "after_collision_count":d["selected"]["replay_BVH_pairs"],
+                "face_quality":d["selected"]["replay_face_quality"],
+                "technical_pass":d["technical_pass"],
+                "geometry_gate":d["geometry_gate"],
+                "best_local_outward_shift":d["selected"]["outward_negative_X_shift"],
+                "best_vertical_ratio":d["selected"]["Z_ratio"]}
+          result=b/"tail-otherleaf-clearance-u-summary"
+          result.mkdir(parents=True,exist_ok=True)
+          (result/"REAL_QEM_OTHERLEAF_U_COMPARISON.json").write_text(json.dumps({
+              "canonical_reference":"art/s-creature/references/00_s_type_modeling_image_v1.png",
+              "previous_midleft_S":{"before_collisions":5,"after_collisions":0,"technical_pass":True},
+              "remaining_leaves":items,
+              "original_mesh_preserved":True,
+              "S_type_3D_complete":False,
+              "game_integrated":False
+          },indent=2)+"\n")
+          W,H=455,340
+          sheet=Image.new("RGB",(2*W,2*H),(237,239,241))
+          draw=ImageDraw.Draw(sheet)
+          for col,name in enumerate(("PROXIMAL_RIGHT","DISTAL_RIGHT")):
+              p=b/("tail-otherleaf-clearance-u-"+name.lower())/"review"
+              for row,which in enumerate(("BASE_Q","ROOT_S")):
+                  fn=p/f"REAL_QEM_OTHERLEAF_{which}_SIDE.png"
+                  assert fn.stat().st_size>10000,fn
+                  im=Image.open(fn).convert("RGB")
+                  im.thumbnail((W-12,H-31))
+                  sheet.paste(im,(col*W+(W-im.width)//2,row*H+27+(H-27-im.height)//2))
+                  draw.text((col*W+8,row*H+6),f"{name} / {which} real side",(14,17,22))
+          sheet.save(result/"REAL_QEM_PROXIMAL_DISTAL_U_SIDE.jpg",quality=93,optimize=True)
+          print("REAL_QEM_U_REMAINING_TWO_S",items)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-actual-QEM-two-remaining-tail-root-candidates-U
+          path: art/s-creature/experiments/qem-deformation-gate-20261010/tail-otherleaf-clearance-u-*/
+          if-no-files-found: warn
+      - name: Archive true Blender and exact QA only in isolated experimental branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/qem-deformation-gate-20261010/tail-otherleaf-clearance-u-*/
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit: genuine QEM proximal/distal first-ring U geometry clearance with 2 physical Blender variants'
+            git pull --rebase origin exp/s-qem-otherleaf-clearance-u-20261011
+            git push origin HEAD:exp/s-qem-otherleaf-clearance-u-20261011
+          fi
