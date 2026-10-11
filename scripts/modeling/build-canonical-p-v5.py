@@ -203,6 +203,10 @@ assert old in rig
 rig=rig.replace(old,new).replace('p-canonical-v4','p-canonical-v5').replace('manifest-v4','manifest-v5')
 rig=rig.replace("scene.cycles.samples=48","scene.cycles.samples=24")
 rig=rig.replace("'fore':.60,'hind':.36","'fore':.53,'hind':.32")
+# Author from frame zero: otherwise glTF starts at 1/30 s and Three.js adds
+# a one-frame hold to every nominal 0.8-second cycle.
+rig=rig.replace('scene.frame_start=1;scene.frame_end=25','scene.frame_start=0;scene.frame_end=24')
+rig=rig.replace('range(1,26)','range(0,25)').replace('phase=(frame-1)/24','phase=frame/24')
 rig=rig.replace("'v4 forelimb rounded anatomical study; production HOLD'","'v5 joined-anatomy review candidate; production HOLD'")
 rig=rig.replace("'Blender 4.3.2 / deterministic contour lofts and anatomical surface panels'","'Blender 4.3.2 / voxel-unified sculpted anatomical skin with blended weights'")
 exec(compile(rig,'<v5-rig-export-review>','exec'))
