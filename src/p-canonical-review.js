@@ -23,7 +23,7 @@ for(const b of document.querySelectorAll('[data-view]'))b.onclick=()=>setView(b.
 motionButton.onclick=()=>setRunning(!running);
 window.addEventListener('resize',()=>{resize();render();});resize();setView(currentView);
 const base=import.meta.env.BASE_URL;
-const assetVersion=params.get('model')==='v3'?'v3':params.get('model')==='v2'?'v2':'v1';
+const assetVersion=params.get('model')==='v4'?'v4':params.get('model')==='v3'?'v3':params.get('model')==='v2'?'v2':'v1';
 const url=params.get('previous')==='1'?`${base}docs/evidence/p-canonical-3d-20261011/previous-proxy.glb`:`${base}models/evowild-p/p-canonical-${assetVersion}.glb`;
 try{
  const gltf=await new GLTFLoader().loadAsync(url);model=gltf.scene;model.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});scene.add(model);
