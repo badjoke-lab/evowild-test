@@ -1,0 +1,57 @@
+name: Recapture real P v6 model
+on:
+  push:
+    branches:
+      - fix/3d-p-canonical-model-20261011
+    paths:
+      - .github/workflows/p-canonical-v6-recapture.yml
+permissions:
+  contents: write
+jobs:
+  recapture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prepare browser and video tools
+        run: |
+          npm install
+          python3 -m pip install Pillow
+          npx playwright install --with-deps chromium
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          node -e "const { chromium }=require('@playwright/test');require('fs').appendFileSync(process.env.GITHUB_ENV,'CHROMIUM_PATH='+chromium.executablePath()+'\n')"
+      - name: Render actual v6 GLB and 4 real animation cycles
+        run: |
+          test -s public/models/evowild-p/p-canonical-v6.glb
+          npm --ignore-scripts run build
+          npm run dev -- --host 127.0.0.1 --port 4173 > "$RUNNER_TEMP/v6-vite.log" 2>&1 &
+          curl -f --retry 25 --retry-delay 2 --retry-connrefused http://127.0.0.1:4173/evowild-test/p-canonical-review.html > /dev/null
+          node scripts/modeling/capture-p-review-v6.mjs
+          python3 scripts/modeling/package-p-evidence-v6.py
+          test -s docs/evidence/p-canonical-3d-v6-20261012/comparison-canonical-v5-v6.png
+          test -s docs/evidence/p-canonical-3d-v6-20261012/running-review.mp4
+      - name: Commit evidence, preserving P v6 binary and previous models
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/evidence/p-canonical-3d-v6-20261012
+          git diff --cached --check
+          if ! git diff --cached --quiet; then
+            git commit -m "review(p): recapture actual v6 GLB in five views and four run cycles"
+            git fetch origin refs/heads/$GITHUB_REF_NAME
+            git rebase FETCH_HEAD
+            git push origin HEAD:$GITHUB_REF_NAME
+          fi
+      - name: Upload original v6 review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p-v6-corrected-renders
+          path: docs/evidence/p-canonical-3d-v6-20261012/
+          if-no-files-found: warn

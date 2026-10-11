@@ -5,9 +5,8 @@ on:
     branches:
       - fix/3d-p-canonical-model-20261011
     paths:
-      - scripts/modeling/*-v5.*
-      - src/p-canonical-review.js
-      - .github/workflows/p-canonical-v6.yml
+      - scripts/modeling/build-canonical-p-v6.py
+      - scripts/modeling/validate-p-v6.mjs
 
 permissions:
   contents: write
@@ -80,6 +79,8 @@ jobs:
           git diff --cached --check
           if ! git diff --cached --quiet; then
             git commit -m "model(p): capture canonical v5 joined GLB and five-view evidence [review pending]"
+            git fetch origin refs/heads/fix/3d-p-canonical-model-20261011
+            git rebase FETCH_HEAD
             git push origin HEAD:fix/3d-p-canonical-model-20261011
           fi
       - name: Upload v6 evidence even if commit is blocked

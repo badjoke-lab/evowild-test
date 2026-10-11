@@ -8,7 +8,7 @@ fs.mkdirSync(dest,{recursive:true});
 const offline=process.argv.includes('--offline');
 const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true,args:['--no-sandbox','--disable-dev-shm-usage','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
 const errors=[],failedRequests=[],responses=[];
-async function open(options={},version='v5'){
+async function open(options={},version='v6'){
  const context=await browser.newContext(options);const page=await context.newPage();
  page.on('pageerror',e=>errors.push(String(e)));page.on('requestfailed',r=>failedRequests.push({url:r.url(),error:r.failure()?.errorText}));
  page.on('response',r=>{if(r.status()>=400)responses.push({url:r.url(),status:r.status()});});
@@ -23,7 +23,10 @@ async function open(options={},version='v5'){
    return route.fulfill({path:file,contentType:type});
  });
  await page.goto(`http://127.0.0.1:4173/evowild-test/p-canonical-review.html?model=${version}`);
- await page.waitForFunction(()=>window.pReview?.ready===true);return {context,page};
+ await page.waitForFunction(()=>window.pReview?.ready===true);
+ const label=await page.locator('#status').textContent();
+ if(!label.includes('P '+version))throw Error('Wrong model loaded: expected '+version+' got '+label);
+ return {context,page};
 }
 const {page,context}=await open({viewport:{width:1200,height:900},deviceScaleFactor:1});
 const stats={browser:await browser.version(),transport:offline?'Playwright local-file route':'Vite HTTP',desktop:{},mobile:{},run:{cycleSeconds:.8,cyclesPerView:4,framesPerView:96,views:['SIDE','FRONT34']},errors,failedRequests,responses};
