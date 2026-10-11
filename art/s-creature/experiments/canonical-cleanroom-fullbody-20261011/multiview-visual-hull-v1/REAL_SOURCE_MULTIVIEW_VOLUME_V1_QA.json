@@ -1,0 +1,136 @@
+{
+  "immutable_source_image_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "image_source": "art/s-creature/references/00_s_type_modeling_image_v1.png",
+  "source_extracted_orthogonal_views": [
+    "SIDE",
+    "FRONT",
+    "BACK"
+  ],
+  "source_FRONT34_constrained_in_geometry": false,
+  "old_external_filled_mask_v0_corrected": true,
+  "SIDE_open_space_below_belly_fraction": 1.0,
+  "all_pixels_original_not_AI_generated": true,
+  "original_QEM_TRELLIS_R0_R5_A0_meshes_imported": false,
+  "geometry_kind": "TRUE 3D source-ink-derived visual hull preserving between-legs negative space; still technical scaffold",
+  "axis_centers_from_exact_original_sheet_native_pixels": {
+    "SIDE_Y_world_from_image_X_pixel": "(pixelX-332)/110",
+    "Z_world_from_SIDE_pixel_Y": "(504-pixelY)/110",
+    "FRONT_X_world_from_image_X": "(pixelX-856)/110",
+    "BACK_X_world_from_image_X": "(pixelX-1036)/110",
+    "FRONT_BACK_y_registration": "504-110*Z*0.925",
+    "posterior_tail_width_taper_explicit_hypothesis": true
+  },
+  "side_source_foreground_info": {
+    "mask_size_xy": [
+      732,
+      434
+    ],
+    "original_connected_nonfill_foreground_pixels": 62273,
+    "source_ink_main_component_pixels": 62273,
+    "final_mask_foreground_pixels": 68586,
+    "white_enclosed_holes_filled_only": [
+      536,
+      317,
+      622,
+      56,
+      17,
+      151,
+      165,
+      26,
+      1794,
+      17,
+      106,
+      597,
+      302,
+      47,
+      65,
+      1103,
+      258,
+      30,
+      104
+    ],
+    "ground_baseline_removed_pixel_rows": 8,
+    "between_legs_air_open_fraction": 1.0,
+    "V0_external_contour_fill_rejected": true
+  },
+  "front_source_foreground_info": {
+    "mask_size_xy": [
+      182,
+      417
+    ],
+    "original_connected_nonfill_foreground_pixels": 18825,
+    "source_ink_main_component_pixels": 18825,
+    "final_mask_foreground_pixels": 21415,
+    "white_enclosed_holes_filled_only": [
+      309,
+      111,
+      695,
+      17,
+      60,
+      17,
+      65,
+      785,
+      349,
+      182
+    ],
+    "ground_baseline_removed_pixel_rows": 7,
+    "between_legs_air_open_fraction": null,
+    "V0_external_contour_fill_rejected": true
+  },
+  "back_source_foreground_info": {
+    "mask_size_xy": [
+      181,
+      417
+    ],
+    "original_connected_nonfill_foreground_pixels": 18730,
+    "source_ink_main_component_pixels": 18730,
+    "final_mask_foreground_pixels": 19198,
+    "white_enclosed_holes_filled_only": [
+      41,
+      17,
+      22,
+      44,
+      159,
+      46,
+      17,
+      36,
+      30,
+      17,
+      17,
+      22
+    ],
+    "ground_baseline_removed_pixel_rows": 7,
+    "between_legs_air_open_fraction": null,
+    "V0_external_contour_fill_rejected": true
+  },
+  "grid_shape_XYZ": [
+    105,
+    272,
+    178
+  ],
+  "real_occupancy_voxels": 297960,
+  "connected_occupancy_groups_remaining": 2,
+  "actual_mesh_3d_vertices": 103358,
+  "actual_mesh_triangles": 206724,
+  "actual_mesh_3d_bbox": [
+    [
+      -0.6671634062267913,
+      -2.4058323087112967,
+      0.046591763737357184
+    ],
+    [
+      0.6364969016358373,
+      3.679554791888222,
+      3.862389754002322
+    ]
+  ],
+  "numerical_projection_self_consistency_with_segmented_SIDE_mask_not_visual_fidelity": 0.9781832606108687,
+  "numerical_projection_self_consistency_with_segmented_FRONT_BACK_masks_not_visual_fidelity": 0.9768755516328332,
+  "relative_old_A0_geometry_imported": false,
+  "canonical_design_visual_approved": false,
+  "actual_3D_armor_parts_approved": false,
+  "face_materials_and_eye_detail_approved": false,
+  "rigged": false,
+  "animated": false,
+  "production_asset": false
+}
