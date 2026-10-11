@@ -1,0 +1,27 @@
+{
+  "authoring": "Blender 4.3.2 / deterministic contour lofts and anatomical surface panels",
+  "reference": [
+    "public/concept/P.webp",
+    "docs/references/evowild-creature-reference-sheet-20260921.jpg"
+  ],
+  "coordinates": "GLB: +Y up, -X forward; origin at ground under torso",
+  "asset": "public/models/evowild-p/p-canonical-v4.glb",
+  "animation": "P_Power_Run_Study_0p8s",
+  "bones": 17,
+  "triangles": 60152,
+  "materials": 10,
+  "status": "v4 forelimb rounded anatomical study; production HOLD",
+  "views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "reference_uncertainty": "Only one small canonical P three-quarter image; exact frontal/rear topology is inferred, not reference-certified.",
+  "bytes": 2155896,
+  "sha256": "84a5d26ffd5542bc6177e672be0211a8178273c6232aedc803c760f59d9d9d60",
+  "packaging": "glTF Transform 4.3.0 dedup/prune; identity mesh parent normalized to scene root",
+  "externalURIs": [],
+  "runtimeScope": "isolated shape and minimal motion review; production HOLD"
+}
