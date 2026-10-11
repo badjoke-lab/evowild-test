@@ -1,0 +1,192 @@
+{
+  "baselineCommit": "c771ad323d0ad8bbcad7bebf222bfe642b130106",
+  "sourceCommit": "af12b3a3b72b34c1bd35b918a0f7f6b7ca81d4a5",
+  "artifactCommit": "b4d885b8809607f5598c77f3bd6c6b84e3eb07ef",
+  "branch": "fix/3d-p-canonical-model-20261011",
+  "decision": "REVISE",
+  "production": "HOLD",
+  "actions": {
+    "runId": 38146442491,
+    "result": "success",
+    "url": "https://github.com/badjoke-lab/evowild-test/actions/runs/38146442491"
+  },
+  "model": {
+    "authoring": "Blender 4.3.2 / voxel-unified sculpted anatomical skin with blended weights",
+    "reference": [
+      "public/concept/P.webp",
+      "docs/references/evowild-creature-reference-sheet-20260921.jpg"
+    ],
+    "coordinates": "GLB: +Y up, -X forward; origin at ground under torso",
+    "asset": "public/models/evowild-p/p-canonical-v5.glb",
+    "animation": "P_Power_Run_Study_0p8s",
+    "bones": 17,
+    "triangles": 73448,
+    "materials": 10,
+    "status": "v5 joined-anatomy review candidate; production HOLD",
+    "views": [
+      "SIDE",
+      "FRONT",
+      "FRONT34",
+      "REAR34",
+      "BACK"
+    ],
+    "reference_uncertainty": "Only one small canonical P three-quarter image; exact frontal/rear topology is inferred, not reference-certified.",
+    "bytes": 2604556,
+    "sha256": "07cb11db521956de5e8e82d0871977b2fb7a9e56b67934789f74b54710efc820",
+    "packaging": "glTF Transform 4.3.0 dedup/prune; identity mesh parent normalized to scene root",
+    "externalURIs": [],
+    "runtimeScope": "isolated shape and minimal motion review; production HOLD"
+  },
+  "build": {
+    "local": "PASS",
+    "actions": "PASS",
+    "warning": "Vite chunk >500kB"
+  },
+  "gltfIssues": {
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 0,
+    "numHints": 0,
+    "messages": [],
+    "truncated": false
+  },
+  "browser": {
+    "version": "156.0.8078.4",
+    "desktopViews": [
+      "SIDE",
+      "FRONT",
+      "FRONT34",
+      "REAR34",
+      "BACK"
+    ],
+    "mobileViews": [
+      "SIDE",
+      "FRONT34"
+    ],
+    "errors": [],
+    "failedRequests": [],
+    "httpErrors": [],
+    "transport": "Vite HTTP"
+  },
+  "topology": {
+    "method": "voxel union + relaxation + continuous-surface relief sculpt + decimation",
+    "voxelMetres": 0.026,
+    "components": [
+      24074
+    ],
+    "vertices": 24074,
+    "faces": 29875,
+    "boundaryEdges": 0,
+    "nonManifoldEdges": 0,
+    "covers": [
+      "chest",
+      "left/right scapula",
+      "left/right upper arm",
+      "forearms",
+      "neck",
+      "abdomen",
+      "hind limbs"
+    ],
+    "disconnectedMuscleShells": 0,
+    "blendedVertices": 13046
+  },
+  "video": {
+    "source": "96 separately evaluated GLB frames per view; no encoder frame-loop filter",
+    "cyclesPerView": 4,
+    "cycleSeconds": 0.8,
+    "programs": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1200,
+        "height": 900,
+        "r_frame_rate": "30/1",
+        "nb_read_frames": "192"
+      }
+    ],
+    "format": {
+      "duration": "6.400000"
+    }
+  },
+  "skinMotion": {
+    "durationSeconds": 0.800000011920929,
+    "maxLoopEndpointVertexDeltaMetres": 0,
+    "cyclesInVideoPerView": 3.999999940395356,
+    "ground": {
+      "FL": {
+        "stanceMinY": 0.009999468584837074,
+        "stanceMaxY": 0.00999969557769303,
+        "meanStanceVelocityX": 1.0685489444076295
+      },
+      "FR": {
+        "stanceMinY": 0.009999589722796827,
+        "stanceMaxY": 0.009999801251544317,
+        "meanStanceVelocityX": 1.0685484047753238
+      },
+      "HL": {
+        "stanceMinY": 0.00999991479990768,
+        "stanceMaxY": 0.010000302653272562,
+        "meanStanceVelocityX": 0.6451609626524357
+      },
+      "HR": {
+        "stanceMinY": 0.009999652159193791,
+        "stanceMaxY": 0.00999987977777454,
+        "meanStanceVelocityX": 0.6451615235146564
+      }
+    }
+  },
+  "visualInspection": {
+    "individualViewsOpened": [
+      "SIDE",
+      "FRONT",
+      "FRONT34",
+      "REAR34",
+      "BACK"
+    ],
+    "comparisonOpened": true,
+    "decodedVideoSheetOpened": true,
+    "method": "Actual PNG inspection plus 32 decoded MP4 frames and full MP4 frame-count/decode validation; no claim of real-device or 18-runner performance approval"
+  },
+  "protectedAssetHashes": {
+    "public/concept/P.webp": "d57a1552bf9358cc060156ec72b41753441f771fdef3a87cfba2567261217bfe",
+    "public/models/evowild-p/p-canonical-v1.glb": "120b1c3a21314d2fd377b4304a447e81115b171820e9ffc44ed11a47d64be59e",
+    "public/models/evowild-p/p-canonical-v2.glb": "86059b33e92fb3ad1c680155452ce574d84884451afafd5564ad74840d554f8a",
+    "public/models/evowild-p/p-canonical-v3.glb": "cc81bb2b8c06cee38a3efd2c2c784988d2b0b51f29e931598ecd7a5c24d2369d",
+    "public/models/evowild-p/p-canonical-v4.glb": "84a5d26ffd5542bc6177e672be0211a8178273c6232aedc803c760f59d9d9d60"
+  },
+  "fileSha256": {
+    "SIDE.png": "213335eefe9bf1779ed5dcb6313e305dc2379eebcdba3daf2d5fc05bbdf1f57b",
+    "FRONT.png": "9a1e2e53847d9508bc962b5751a371c64cbffb673a47af9f16760f66056b7a95",
+    "FRONT34.png": "7949b7faed9b4153b14c2e1ffd81a66efe1010e83a510a7797a3e7d56a1d5da8",
+    "REAR34.png": "a8bfc524969d3adc1117d33a53a5636fcb59bf8396051a052cbb01ce5485840d",
+    "BACK.png": "fffc80e21b260b96b0e12661d29bcd25984e10890549998831290c8ff834555b",
+    "comparison-canonical-v4-v5.png": "ecf32e0a09810280e1f126b52c33867e86e4eb51afe40b38e1b7a6b28e7a3ba7",
+    "five-views.png": "10154968e0c4a066865b4b4d45ca6e49ebc591632ec36bcdc078abb046b2d0dc",
+    "running-review.mp4": "b12c05842e9819bc61dc0de90474d2b5c17dc7e128c27e72296656e3ab5aa0b5",
+    "video-decoded-contact-sheet.png": "a24014f27dc28614de1d5b076b5432817863ee06455c92f43ee0660ff1b3ca25"
+  },
+  "commonCI": {
+    "runId": 38146442470,
+    "conclusion": "failure",
+    "webBuild": "success",
+    "E2E": {
+      "passed": 30,
+      "failed": 3,
+      "skipped": 81
+    },
+    "failures": [
+      "race-quality.spec.js:80 S/E response comparison desktop + Android",
+      "motion-first.spec.js:3196 AGILITY holdRemaining"
+    ],
+    "changedByThisTask": false,
+    "url": "https://github.com/badjoke-lab/evowild-test/actions/runs/38146442470",
+    "baseline": {
+      "commit": "c771ad323d0ad8bbcad7bebf222bfe642b130106",
+      "runId": 38112369449,
+      "sameThreeFailures": true,
+      "passed": 30,
+      "failed": 3,
+      "skipped": 81
+    }
+  }
+}
