@@ -1358,6 +1358,10 @@ function drawRacers() {
         stage.dataset.pRunPosition=r.pRunPosition.toFixed(6);
         stage.dataset.pCadenceModel=P_STRIDE_DISTANCE_TRIAL?"integrated-distance-trial":"integrated-fixed-step";
         stage.dataset.pCalibratedCycleMetres=P_CALIBRATION_METRES.toFixed(3);
+        if(MOTION_REVIEW_MODE)stage.dataset.pRenderedDrawWidth=(
+          (width<700 ? clamp(width*.42,170,240) : clamp(width*.23,250,340))*
+          scale*1.04*MORPH_META.P.width
+        ).toFixed(4);
       }
       stage.dataset.selectedRunFrame=String(frameIndex);
       stage.dataset.selectedRunPhase=frame.phase;
