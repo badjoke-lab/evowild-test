@@ -1,0 +1,108 @@
+name: EvoWild S direct original pixels to true 3D NEGATIVE-SPACE hull V1
+on:
+  push:
+    branches: [exp/s-source-pixel-contour-20261011]
+    paths:
+      - .github/workflows/s-original-3view-hull-v1-negative-space.yml
+      - art/s-creature/blender/s_source_multiview_visual_hull_v1_negative_space.py
+      - art/s-creature/blender/s_source_multiview_visual_hull_blender_v1.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-S-actual-original-multiview-shape-v1
+  cancel-in-progress: false
+jobs:
+  generate-real-volume-from-original-pixels:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_source_multiview_visual_hull_v1_negative_space.py
+            /art/s-creature/blender/s_source_multiview_visual_hull_blender_v1.py
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/canonical-4view-pixel-trace-v1/
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/multiview-visual-hull-v1/
+            /.github/workflows/s-original-3view-hull-v1-negative-space.yml
+      - name: Strict sole S original art authority SHA
+        run: |
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+      - name: Construct actual 3D triangle volume from SIDE and FRONT/BACK contour pixels
+        run: |
+          python3 -m pip install -q "numpy<3" pillow opencv-python-headless scipy scikit-image
+          python3 art/s-creature/blender/s_source_multiview_visual_hull_v1_negative_space.py
+      - name: Install actual Blender 4.3.2
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Import true 3D volume into Blender and render all five actual views
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/s_source_multiview_visual_hull_blender_v1.py
+      - name: Preserve side/front/back 3D-vs-exact-source view comparisons
+        run: |
+          python3 -m pip install -q pillow
+          python3 - <<'PY'
+          from PIL import Image,ImageDraw
+          from pathlib import Path
+          import json
+          base=Path("art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/multiview-visual-hull-v1")
+          d=json.loads((base/"REAL_SOURCE_MULTIVIEW_VOLUME_V1_QA.json").read_text())
+          assert d["original_QEM_TRELLIS_R0_R5_A0_meshes_imported"] is False
+          assert d["actual_mesh_3d_vertices"]>2000
+          assert d["actual_mesh_triangles"]>3000
+          assert d["old_external_filled_mask_v0_corrected"]
+          assert d["SIDE_open_space_below_belly_fraction"]>.60
+          assert d["source_extracted_orthogonal_views"]==["SIDE","FRONT","BACK"]
+          assert d["numerical_projection_self_consistency_with_segmented_SIDE_mask_not_visual_fidelity"]>.40
+          assert d["numerical_projection_self_consistency_with_segmented_FRONT_BACK_masks_not_visual_fidelity"]>.35
+          assert (base/"S-ORIGINAL-SOURCE-3VIEW-VOLUME-V1-UNAPPROVED.blend").stat().st_size>70000
+          assert (base/"S-ORIGINAL-SOURCE-3VIEW-VOLUME-V1-UNAPPROVED.glb").stat().st_size>70000
+          original=Image.open("art/s-creature/references/00_s_type_modeling_image_v1.png").convert("RGB")
+          rois={"SIDE":(28,73,760,507),
+                "FRONT":(764,90,946,507),
+                "BACK":(948,90,1129,507),
+                "FRONT34":(1131,80,1433,507)}
+          w,h=440,355
+          grid=Image.new("RGB",(4*w,2*h),(238,240,241))
+          draw=ImageDraw.Draw(grid)
+          for col,v in enumerate(rois):
+              orig=original.crop(rois[v])
+              real=Image.open(base/"review"/("REAL_SOURCE_VOLUME_V1_"+v+".png")).convert("RGB")
+              for row,(title,im) in enumerate(((f"CANONICAL {v} SOURCE",orig),(f"REAL SOURCE-CARVED 3D V0 {v}",real))):
+                  im.thumbnail((w-15,h-34))
+                  grid.paste(im,(col*w+(w-im.width)//2,row*h+28+(h-28-im.height)//2))
+                  draw.text((col*w+5,row*h+6),title,fill=(18,20,22))
+          grid.save(base/"review"/"REAL_CANONICAL_S_SOURCE_VS_VOLUME_V1_4VIEWS.jpg",quality=93,optimize=True)
+          w,h=412,320
+          sheet=Image.new("RGB",(5*w,h),(235,237,239))
+          pen=ImageDraw.Draw(sheet)
+          for i,v in enumerate(("SIDE","FRONT","FRONT34","REAR34","BACK")):
+              im=Image.open(base/"review"/("REAL_SOURCE_VOLUME_V1_"+v+".png")).convert("RGB")
+              im.thumbnail((w-10,h-28))
+              sheet.paste(im,(i*w+(w-im.width)//2,27+(h-27-im.height)//2))
+              pen.text((i*w+6,6),"TRUE VOLUME "+v,fill=(12,16,22))
+          sheet.save(base/"review"/"REAL_SOURCE_CARVED_VOLUME_V1_5VIEW.jpg",quality=94,optimize=True)
+          print("3D_SOURCE_PRESERVATION",d["actual_mesh_3d_vertices"],d["actual_mesh_triangles"],d["numerical_projection_self_consistency_with_segmented_SIDE_mask_not_visual_fidelity"],d["numerical_projection_self_consistency_with_segmented_FRONT_BACK_masks_not_visual_fidelity"])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-true-source-ink-3D-no-ground-slab-v1
+          path: art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/multiview-visual-hull-v1/
+          if-no-files-found: warn
+      - name: Persist measured actual 3D Blender GLB and strict original-image comparison
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/multiview-visual-hull-v1/
+          if ! git diff --cached --quiet; then
+            git commit -m 'exp: save actual Blender original-S-pixel constrained 3D source-ink mesh without false ground slab; NOT design accepted'
+            git pull --rebase origin exp/s-source-pixel-contour-20261011
+            git push origin HEAD:exp/s-source-pixel-contour-20261011
+          fi
