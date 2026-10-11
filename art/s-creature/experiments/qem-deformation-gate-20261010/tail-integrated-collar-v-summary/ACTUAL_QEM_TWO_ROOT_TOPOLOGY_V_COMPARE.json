@@ -1,0 +1,70 @@
+{
+  "user_reference_SHA256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "immutable_QEM_donor_preserved": true,
+  "method": "physical integrated QEM patch rebuild and 2 new root-support loops",
+  "cases": {
+    "PROXIMAL_RIGHT": {
+      "technical_gate": "FAIL",
+      "previous_Q_BVH_intersections": 34,
+      "previous_U_best_intersections": 24,
+      "best_new_root_topology": {
+        "patch_faces": 40,
+        "seam_edges": 18,
+        "ring_count": 13,
+        "root_world": [
+          0.08275005966424942,
+          1.850301742553711,
+          1.6143962144851685
+        ],
+        "tip_world": [
+          0.2577516436576843,
+          2.4403016567230225,
+          1.8083857297897339
+        ],
+        "y_margin": 0.0,
+        "angular_margin": 0.0,
+        "collar_clearance": 0.018,
+        "full_blade_transition_t": 0.1,
+        "outer_sweep_multiplier": 1.0
+      },
+      "new_BVH_intersections": 56,
+      "all_new_ring_topology_pass": true,
+      "actual_vertices": 32171,
+      "actual_triangles": 64378,
+      "candidates_tested": 24
+    },
+    "DISTAL_RIGHT": {
+      "technical_gate": "FAIL",
+      "previous_Q_BVH_intersections": 152,
+      "previous_U_best_intersections": 119,
+      "best_new_root_topology": {
+        "patch_faces": 79,
+        "seam_edges": 35,
+        "ring_count": 13,
+        "root_world": [
+          0.07697983086109161,
+          2.6872081756591797,
+          1.4764260053634644
+        ],
+        "tip_world": [
+          0.20715270936489105,
+          3.3272080421447754,
+          1.6209580898284912
+        ],
+        "y_margin": 0.025,
+        "angular_margin": 0.12,
+        "collar_clearance": 0.035,
+        "full_blade_transition_t": 0.14,
+        "outer_sweep_multiplier": 1.0
+      },
+      "new_BVH_intersections": 108,
+      "all_new_ring_topology_pass": true,
+      "actual_vertices": 32381,
+      "actual_triangles": 64798,
+      "candidates_tested": 24
+    }
+  },
+  "S_morph_approved": false,
+  "skin_gait_approved": false,
+  "main_modified": false
+}
