@@ -1,0 +1,47 @@
+{
+  "source_vs_A0": {
+    "from_actual_GitHub_committed_original": "ORIGINAL_S_REFERENCE_VS_NEW_A0_REAL_3D.jpg",
+    "source_SHA256": "8ab2a90b0ccb49efabb6362fbf48bee0d200c170000d8680fc2972732186b021",
+    "source_dimensions": [
+      1380,
+      515
+    ],
+    "inspection_dimensions": [
+      1280,
+      478
+    ],
+    "inspection_JPEG_SHA256": "077943044a8b2a3c4d671073ee91bfb3a8c3f929ce54b649d537030359677ec8",
+    "inspection_bytes": 56935,
+    "content_encoded_for_image_inspection_only": true
+  },
+  "A0_5_view": {
+    "from_actual_GitHub_committed_original": "ACTUAL_CANONICAL_CLEANROOM_A0_FIVE_VIEW.jpg",
+    "source_SHA256": "88bdcaf36c82ce88ec3c09deeeec5b791f8cbfb4cbac01dc62a69b6b99ccce8b",
+    "source_dimensions": [
+      2100,
+      345
+    ],
+    "inspection_dimensions": [
+      1600,
+      263
+    ],
+    "inspection_JPEG_SHA256": "a5eda18b92624f7c7a93adac954d2433b4dca9b80249c8f031f95f29330491ba",
+    "inspection_bytes": 28260,
+    "content_encoded_for_image_inspection_only": true
+  },
+  "A0_side": {
+    "from_actual_GitHub_committed_original": "S_CLEANROOM_A0_ACTUAL_3D_SIDE.png",
+    "source_SHA256": "05b4a5028e1d9f6bde6b5f1a209f313835f1dafa8000892260d90fd34bad559e",
+    "source_dimensions": [
+      1280,
+      960
+    ],
+    "inspection_dimensions": [
+      900,
+      675
+    ],
+    "inspection_JPEG_SHA256": "8f79708d284753be29997c34299567453bc8dad48088b45a730ae0e9867db190",
+    "inspection_bytes": 20914,
+    "content_encoded_for_image_inspection_only": true
+  }
+}
