@@ -1,0 +1,80 @@
+name: EvoWild S 3 genuine reference views + zero-cost MultiView API preflight
+on:
+  push:
+    branches: [exp/s-hunyuan2-multiview-source-test-20261012]
+    paths:
+      - .github/workflows/s-hunyuan2mv-free-preflight.yml
+      - art/s-creature/blender/s_hunyuan2mv_prepare_canonical_inputs.py
+      - art/s-creature/blender/s_hunyuan2mv_space_preflight.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-s-mv2-no-gpu-preflight
+  cancel-in-progress: false
+jobs:
+  prepare-source-and-test-public-api-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      HF_HUB_DISABLE_TELEMETRY: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_hunyuan2mv_prepare_canonical_inputs.py
+            /art/s-creature/blender/s_hunyuan2mv_space_preflight.py
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/multiview-visual-hull-v1/SIDE_TRUE_V1_NEGATIVE_SPACE_MASK.png
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/multiview-visual-hull-v1/FRONT_TRUE_V1_NEGATIVE_SPACE_MASK.png
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/multiview-visual-hull-v1/BACK_TRUE_V1_NEGATIVE_SPACE_MASK.png
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/hunyuan2mv-original-source-20261012/
+            /.github/workflows/s-hunyuan2mv-free-preflight.yml
+      - name: Confirm exactly user-approved S 3D source sheet
+        run: |
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+      - name: Prepare actual source front-back-left transparent views
+        run: |
+          python3 -m pip install -q pillow numpy
+          python3 art/s-creature/blender/s_hunyuan2mv_prepare_canonical_inputs.py
+      - name: Probe ONLY public free Space API, NO generation or token
+        env:
+          HF_TOKEN: ""
+        run: |
+          python3 -m pip install -q gradio_client
+          python3 art/s-creature/blender/s_hunyuan2mv_space_preflight.py
+      - name: Verify no fabricated other view and no paid job
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          p=Path("art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/hunyuan2mv-original-source-20261012")
+          a=json.loads((p/"SOURCE_MULTIVIEW_INPUTS_AUDIT.json").read_text())
+          b=json.loads((p/"PUBLIC_FREE_HUNYUAN2MV_API_PREFLIGHT.json").read_text())
+          assert a["original_png_SHA256"]=="93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6"
+          assert not b["auth_token_used"] and not b["GPU_generation_requested"] and not b["paid_job_requested"]
+          assert a["right_view"] is None
+          for slot,md in a["front_back_left"].items():
+              f=p/("SOURCE_REAL_"+slot.upper()+"_ORTHO_RGBA.png")
+              assert hashlib.sha256(f.read_bytes()).hexdigest()==md["output_sha256"]
+          assert (p/"SOURCE_ORIGINAL_3_REAL_VIEWS_INPUT_AUDIT.jpg").stat().st_size>25000
+          print("FREE_MULTI_VIEW_EXTERNAL_API_POSSIBLE?",b["usable_shape_endpoint_found"])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild S exact authoritative 3 orthographic view preparation + free public API check
+          path: art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/hunyuan2mv-original-source-20261012/
+          if-no-files-found: warn
+      - name: Preserve input proof/API preflight only, no GPU usage
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/hunyuan2mv-original-source-20261012/
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit: exact canonical S three real input PNGs and no-cost HF multiview API preflight'
+            git pull --rebase origin exp/s-hunyuan2-multiview-source-test-20261012
+            git push origin HEAD:exp/s-hunyuan2-multiview-source-test-20261012
+          fi
