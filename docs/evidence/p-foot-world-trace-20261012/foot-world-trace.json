@@ -1,0 +1,4578 @@
+{
+  "source": "live deterministic Playwright game renderer; 12 real RGBA P atlas phases",
+  "screenPxScale": "actual renderer width and pixels-per-metre",
+  "methodologicalLimit": "World support-band proxy; not a semantic toe detector, cannot prove zero foot slip at phase boundaries or frame transitions.",
+  "notes": "Both modes use the same sprite frames and actual world distance. Tests can confirm phase-clock behavior but not fix stance slip.",
+  "bands": [
+    [
+      {
+        "left": 83,
+        "right": 123,
+        "centre": 103
+      },
+      {
+        "left": 227,
+        "right": 287,
+        "centre": 257
+      },
+      {
+        "left": 345,
+        "right": 369,
+        "centre": 357
+      }
+    ],
+    [
+      {
+        "left": 88,
+        "right": 115,
+        "centre": 101.5
+      },
+      {
+        "left": 268,
+        "right": 329,
+        "centre": 298.5
+      }
+    ],
+    [
+      {
+        "left": 113,
+        "right": 158,
+        "centre": 135.5
+      },
+      {
+        "left": 270,
+        "right": 328,
+        "centre": 299
+      }
+    ],
+    [
+      {
+        "left": 51,
+        "right": 105,
+        "centre": 78
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      {
+        "left": 121,
+        "right": 174,
+        "centre": 147.5
+      },
+      {
+        "left": 258,
+        "right": 311,
+        "centre": 284.5
+      },
+      {
+        "left": 328,
+        "right": 378,
+        "centre": 353
+      }
+    ],
+    [
+      {
+        "left": 93,
+        "right": 138,
+        "centre": 115.5
+      },
+      {
+        "left": 256,
+        "right": 311,
+        "centre": 283.5
+      }
+    ],
+    [
+      {
+        "left": 245,
+        "right": 302,
+        "centre": 273.5
+      }
+    ]
+  ],
+  "runs": [
+    {
+      "mode": "default",
+      "renderPolicy": "integrated-fixed-step",
+      "sampleCount": 200,
+      "samePoseSupportHolds": 37,
+      "meanAbsProjectedHoldTravelPx": 7.219027027027037,
+      "maxAbsProjectedHoldTravelPx": 8.160000000000116,
+      "p90AbsProjectedHoldTravelPx": 8.159999999999922,
+      "note": "Support-band x measured from actual RGBA ground-row alpha. World coordinate combines root distance and frame band centre. Does not track a persistent anatomical toe across phase changes.",
+      "samples": [
+        {
+          "distance": 149.31,
+          "phase": 4,
+          "phasePosition": 20.597256,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 150.25,
+          "phase": 6,
+          "phasePosition": 21.006012,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 151.21,
+          "phase": 7,
+          "phasePosition": 21.4177,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 152.67,
+          "phase": 8,
+          "phasePosition": 22.040732,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 153.67,
+          "phase": 9,
+          "phasePosition": 22.459752,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 353,
+          "supportWorldX": 169.01056225254524
+        },
+        {
+          "distance": 154.68,
+          "phase": 10,
+          "phasePosition": 22.881706,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 162.66767206942873
+        },
+        {
+          "distance": 155.19,
+          "phase": 10,
+          "phasePosition": 23.093782,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 163.17767206942872
+        },
+        {
+          "distance": 156.22,
+          "phase": 11,
+          "phasePosition": 23.520135,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 273.5,
+          "supportWorldX": 163.14970225890838
+        },
+        {
+          "distance": 157.26,
+          "phase": 11,
+          "phasePosition": 23.949421,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 273.5,
+          "supportWorldX": 164.18970225890837
+        },
+        {
+          "distance": 158.32,
+          "phase": 0,
+          "phasePosition": 24.381639,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 357,
+          "supportWorldX": 174.0837501767534
+        },
+        {
+          "distance": 159.4,
+          "phase": 1,
+          "phasePosition": 24.816791,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 298.5,
+          "supportWorldX": 168.9746267852093
+        },
+        {
+          "distance": 160.49,
+          "phase": 2,
+          "phasePosition": 25.254875,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 299,
+          "supportWorldX": 170.1175252757353
+        },
+        {
+          "distance": 161.6,
+          "phase": 2,
+          "phasePosition": 25.695892,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 299,
+          "supportWorldX": 171.22752527573527
+        },
+        {
+          "distance": 162.72,
+          "phase": 3,
+          "phasePosition": 26.139843,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 78,
+          "supportWorldX": 148.96639246323528
+        },
+        {
+          "distance": 163.85,
+          "phase": 4,
+          "phasePosition": 26.586167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 165,
+          "phase": 6,
+          "phasePosition": 27.032667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 166.17,
+          "phase": 7,
+          "phasePosition": 27.479167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 167.35,
+          "phase": 8,
+          "phasePosition": 27.925667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 167.94,
+          "phase": 8,
+          "phasePosition": 28.148917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 169.73,
+          "phase": 10,
+          "phasePosition": 28.818667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 177.71767206942872
+        },
+        {
+          "distance": 170.93,
+          "phase": 10,
+          "phasePosition": 29.265167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 178.91767206942873
+        },
+        {
+          "distance": 172.12,
+          "phase": 11,
+          "phasePosition": 29.711667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 273.5,
+          "supportWorldX": 179.04970225890838
+        },
+        {
+          "distance": 173.32,
+          "phase": 0,
+          "phasePosition": 30.158167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 357,
+          "supportWorldX": 189.0837501767534
+        },
+        {
+          "distance": 174.51,
+          "phase": 1,
+          "phasePosition": 30.604667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 298.5,
+          "supportWorldX": 184.08462678520925
+        },
+        {
+          "distance": 175.7,
+          "phase": 1,
+          "phasePosition": 31.051167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 298.5,
+          "supportWorldX": 185.27462678520925
+        },
+        {
+          "distance": 176.9,
+          "phase": 2,
+          "phasePosition": 31.497667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 299,
+          "supportWorldX": 186.5275252757353
+        },
+        {
+          "distance": 178.09,
+          "phase": 3,
+          "phasePosition": 31.944167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 78,
+          "supportWorldX": 164.33639246323528
+        },
+        {
+          "distance": 179.29,
+          "phase": 3,
+          "phasePosition": 32.390667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 78,
+          "supportWorldX": 165.53639246323527
+        },
+        {
+          "distance": 180.48,
+          "phase": 5,
+          "phasePosition": 32.837167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 181.68,
+          "phase": 6,
+          "phasePosition": 33.283667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 182.28,
+          "phase": 7,
+          "phasePosition": 33.506917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 183.47,
+          "phase": 8,
+          "phasePosition": 33.953417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 184.67,
+          "phase": 9,
+          "phasePosition": 34.399917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 353,
+          "supportWorldX": 200.01056225254524
+        },
+        {
+          "distance": 185.86,
+          "phase": 10,
+          "phasePosition": 34.846417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 193.84767206942874
+        },
+        {
+          "distance": 187.06,
+          "phase": 10,
+          "phasePosition": 35.292917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 195.04767206942873
+        },
+        {
+          "distance": 188.85,
+          "phase": 11,
+          "phasePosition": 35.962667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 273.5,
+          "supportWorldX": 195.77970225890837
+        },
+        {
+          "distance": 190.04,
+          "phase": 0,
+          "phasePosition": 36.409167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 357,
+          "supportWorldX": 205.8037501767534
+        },
+        {
+          "distance": 191.24,
+          "phase": 1,
+          "phasePosition": 36.855667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 298.5,
+          "supportWorldX": 200.81462678520927
+        },
+        {
+          "distance": 192.43,
+          "phase": 2,
+          "phasePosition": 37.302167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 299,
+          "supportWorldX": 202.0575252757353
+        },
+        {
+          "distance": 193.63,
+          "phase": 2,
+          "phasePosition": 37.748667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 299,
+          "supportWorldX": 203.25752527573528
+        },
+        {
+          "distance": 194.82,
+          "phase": 3,
+          "phasePosition": 38.195167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 78,
+          "supportWorldX": 181.06639246323527
+        },
+        {
+          "distance": 196.01,
+          "phase": 4,
+          "phasePosition": 38.641667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 196.61,
+          "phase": 5,
+          "phasePosition": 38.864917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 197.81,
+          "phase": 7,
+          "phasePosition": 39.311417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 199,
+          "phase": 8,
+          "phasePosition": 39.757917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 200.19,
+          "phase": 9,
+          "phasePosition": 40.204417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 353,
+          "supportWorldX": 215.53056225254525
+        },
+        {
+          "distance": 201.39,
+          "phase": 9,
+          "phasePosition": 40.650917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 353,
+          "supportWorldX": 216.73056225254524
+        },
+        {
+          "distance": 202.58,
+          "phase": 10,
+          "phasePosition": 41.097417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 210.56767206942874
+        },
+        {
+          "distance": 203.77,
+          "phase": 11,
+          "phasePosition": 41.543917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 273.5,
+          "supportWorldX": 210.6997022589084
+        },
+        {
+          "distance": 204.97,
+          "phase": 11,
+          "phasePosition": 41.990417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 273.5,
+          "supportWorldX": 211.89970225890838
+        },
+        {
+          "distance": 206.16,
+          "phase": 0,
+          "phasePosition": 42.436917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 357,
+          "supportWorldX": 221.9237501767534
+        },
+        {
+          "distance": 207.95,
+          "phase": 1,
+          "phasePosition": 43.106668,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 298.5,
+          "supportWorldX": 217.52462678520925
+        },
+        {
+          "distance": 209.14,
+          "phase": 2,
+          "phasePosition": 43.553168,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 299,
+          "supportWorldX": 218.76752527573527
+        },
+        {
+          "distance": 210.33,
+          "phase": 3,
+          "phasePosition": 43.999668,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 78,
+          "supportWorldX": 196.5763924632353
+        },
+        {
+          "distance": 210.93,
+          "phase": 3,
+          "phasePosition": 44.222918,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 78,
+          "supportWorldX": 197.1763924632353
+        },
+        {
+          "distance": 212.12,
+          "phase": 4,
+          "phasePosition": 44.669418,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 213.31,
+          "phase": 6,
+          "phasePosition": 45.115918,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 214.5,
+          "phase": 7,
+          "phasePosition": 45.562418,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 215.69,
+          "phase": 8,
+          "phasePosition": 46.008918,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 216.88,
+          "phase": 9,
+          "phasePosition": 46.455418,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 353,
+          "supportWorldX": 232.22056225254525
+        },
+        {
+          "distance": 218.07,
+          "phase": 10,
+          "phasePosition": 46.901918,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 226.05767206942872
+        },
+        {
+          "distance": 219.26,
+          "phase": 10,
+          "phasePosition": 47.348418,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 227.24767206942872
+        },
+        {
+          "distance": 220.45,
+          "phase": 11,
+          "phasePosition": 47.794918,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 273.5,
+          "supportWorldX": 227.37970225890837
+        },
+        {
+          "distance": 221.64,
+          "phase": 0,
+          "phasePosition": 48.241418,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 357,
+          "supportWorldX": 237.4037501767534
+        },
+        {
+          "distance": 222.83,
+          "phase": 1,
+          "phasePosition": 48.687918,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 298.5,
+          "supportWorldX": 232.4046267852093
+        },
+        {
+          "distance": 224.02,
+          "phase": 1,
+          "phasePosition": 49.134418,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 298.5,
+          "supportWorldX": 233.5946267852093
+        },
+        {
+          "distance": 225.2,
+          "phase": 2,
+          "phasePosition": 49.580918,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 299,
+          "supportWorldX": 234.82752527573527
+        },
+        {
+          "distance": 226.39,
+          "phase": 3,
+          "phasePosition": 50.027418,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 78,
+          "supportWorldX": 212.63639246323527
+        },
+        {
+          "distance": 227.58,
+          "phase": 4,
+          "phasePosition": 50.473918,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 228.77,
+          "phase": 5,
+          "phasePosition": 50.920418,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 229.95,
+          "phase": 7,
+          "phasePosition": 51.366918,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 231.14,
+          "phase": 8,
+          "phasePosition": 51.813418,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 232.33,
+          "phase": 9,
+          "phasePosition": 52.259918,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 353,
+          "supportWorldX": 247.67056225254527
+        },
+        {
+          "distance": 233.51,
+          "phase": 9,
+          "phasePosition": 52.706418,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 353,
+          "supportWorldX": 248.85056225254525
+        },
+        {
+          "distance": 234.7,
+          "phase": 10,
+          "phasePosition": 53.152918,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 242.68767206942871
+        },
+        {
+          "distance": 235.88,
+          "phase": 11,
+          "phasePosition": 53.599418,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 273.5,
+          "supportWorldX": 242.80970225890837
+        },
+        {
+          "distance": 237.07,
+          "phase": 0,
+          "phasePosition": 54.045918,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 357,
+          "supportWorldX": 252.8337501767534
+        },
+        {
+          "distance": 238.25,
+          "phase": 0,
+          "phasePosition": 54.492418,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 357,
+          "supportWorldX": 254.0137501767534
+        },
+        {
+          "distance": 239.44,
+          "phase": 1,
+          "phasePosition": 54.938918,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 298.5,
+          "supportWorldX": 249.01462678520926
+        },
+        {
+          "distance": 240.03,
+          "phase": 1,
+          "phasePosition": 55.162168,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 298.5,
+          "supportWorldX": 249.6046267852093
+        },
+        {
+          "distance": 241.2,
+          "phase": 2,
+          "phasePosition": 55.608668,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 299,
+          "supportWorldX": 250.82752527573527
+        },
+        {
+          "distance": 242.35,
+          "phase": 3,
+          "phasePosition": 56.055168,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 78,
+          "supportWorldX": 228.59639246323528
+        },
+        {
+          "distance": 243.49,
+          "phase": 4,
+          "phasePosition": 56.501668,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 245.2,
+          "phase": 6,
+          "phasePosition": 57.171418,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 246.35,
+          "phase": 7,
+          "phasePosition": 57.617918,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 247.49,
+          "phase": 8,
+          "phasePosition": 58.064418,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 248.63,
+          "phase": 9,
+          "phasePosition": 58.510918,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 353,
+          "supportWorldX": 263.9705622525452
+        },
+        {
+          "distance": 249.78,
+          "phase": 10,
+          "phasePosition": 58.957418,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 257.7676720694287
+        },
+        {
+          "distance": 250.92,
+          "phase": 11,
+          "phasePosition": 59.403918,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 273.5,
+          "supportWorldX": 257.84970225890834
+        },
+        {
+          "distance": 252.06,
+          "phase": 11,
+          "phasePosition": 59.850418,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 273.5,
+          "supportWorldX": 258.9897022589084
+        },
+        {
+          "distance": 253.2,
+          "phase": 0,
+          "phasePosition": 60.296918,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 357,
+          "supportWorldX": 268.96375017675336
+        },
+        {
+          "distance": 253.77,
+          "phase": 0,
+          "phasePosition": 60.520168,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 357,
+          "supportWorldX": 269.5337501767534
+        },
+        {
+          "distance": 254.91,
+          "phase": 1,
+          "phasePosition": 60.966668,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 298.5,
+          "supportWorldX": 264.4846267852093
+        },
+        {
+          "distance": 256.06,
+          "phase": 2,
+          "phasePosition": 61.413168,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 299,
+          "supportWorldX": 265.6875252757353
+        },
+        {
+          "distance": 257.2,
+          "phase": 3,
+          "phasePosition": 61.859668,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 78,
+          "supportWorldX": 243.44639246323527
+        },
+        {
+          "distance": 258.34,
+          "phase": 3,
+          "phasePosition": 62.306168,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 78,
+          "supportWorldX": 244.58639246323526
+        },
+        {
+          "distance": 259.48,
+          "phase": 5,
+          "phasePosition": 62.752668,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 260.62,
+          "phase": 6,
+          "phasePosition": 63.199168,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 261.76,
+          "phase": 7,
+          "phasePosition": 63.645668,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 263.47,
+          "phase": 9,
+          "phasePosition": 64.315418,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 353,
+          "supportWorldX": 278.81056225254525
+        },
+        {
+          "distance": 264.61,
+          "phase": 9,
+          "phasePosition": 64.761917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 353,
+          "supportWorldX": 279.95056225254524
+        },
+        {
+          "distance": 265.76,
+          "phase": 10,
+          "phasePosition": 65.208417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 273.74767206942875
+        },
+        {
+          "distance": 266.9,
+          "phase": 11,
+          "phasePosition": 65.654917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 273.5,
+          "supportWorldX": 273.82970225890836
+        },
+        {
+          "distance": 267.47,
+          "phase": 11,
+          "phasePosition": 65.878167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 273.5,
+          "supportWorldX": 274.3997022589084
+        },
+        {
+          "distance": 268.61,
+          "phase": 0,
+          "phasePosition": 66.324667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 357,
+          "supportWorldX": 284.3737501767534
+        },
+        {
+          "distance": 269.75,
+          "phase": 1,
+          "phasePosition": 66.771167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 298.5,
+          "supportWorldX": 279.32462678520926
+        },
+        {
+          "distance": 270.89,
+          "phase": 2,
+          "phasePosition": 67.217667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 299,
+          "supportWorldX": 280.5175252757353
+        },
+        {
+          "distance": 272.03,
+          "phase": 2,
+          "phasePosition": 67.664167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 299,
+          "supportWorldX": 281.6575252757353
+        },
+        {
+          "distance": 273.17,
+          "phase": 3,
+          "phasePosition": 68.110667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 78,
+          "supportWorldX": 259.4163924632353
+        },
+        {
+          "distance": 274.32,
+          "phase": 4,
+          "phasePosition": 68.557167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 275.46,
+          "phase": 6,
+          "phasePosition": 69.003667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 276.6,
+          "phase": 7,
+          "phasePosition": 69.450167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 277.74,
+          "phase": 8,
+          "phasePosition": 69.896667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 278.88,
+          "phase": 9,
+          "phasePosition": 70.343167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 353,
+          "supportWorldX": 294.2205622525452
+        },
+        {
+          "distance": 280.02,
+          "phase": 9,
+          "phasePosition": 70.789667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 353,
+          "supportWorldX": 295.3605622525452
+        },
+        {
+          "distance": 281.17,
+          "phase": 10,
+          "phasePosition": 71.236167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 289.15767206942877
+        },
+        {
+          "distance": 282.31,
+          "phase": 11,
+          "phasePosition": 71.682667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 273.5,
+          "supportWorldX": 289.2397022589084
+        },
+        {
+          "distance": 283.45,
+          "phase": 0,
+          "phasePosition": 72.129167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 357,
+          "supportWorldX": 299.21375017675336
+        },
+        {
+          "distance": 284.59,
+          "phase": 0,
+          "phasePosition": 72.575667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 357,
+          "supportWorldX": 300.35375017675335
+        },
+        {
+          "distance": 285.74,
+          "phase": 1,
+          "phasePosition": 73.022167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 298.5,
+          "supportWorldX": 295.31462678520927
+        },
+        {
+          "distance": 286.88,
+          "phase": 2,
+          "phasePosition": 73.468667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 299,
+          "supportWorldX": 296.5075252757353
+        },
+        {
+          "distance": 288.02,
+          "phase": 3,
+          "phasePosition": 73.915167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 78,
+          "supportWorldX": 274.26639246323526
+        },
+        {
+          "distance": 289.17,
+          "phase": 3,
+          "phasePosition": 74.361667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 78,
+          "supportWorldX": 275.4163924632353
+        },
+        {
+          "distance": 290.31,
+          "phase": 5,
+          "phasePosition": 74.808167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 291.45,
+          "phase": 6,
+          "phasePosition": 75.254667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 292.6,
+          "phase": 8,
+          "phasePosition": 75.701167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 293.74,
+          "phase": 8,
+          "phasePosition": 76.147667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 294.31,
+          "phase": 9,
+          "phasePosition": 76.370917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 353,
+          "supportWorldX": 309.6505622525452
+        },
+        {
+          "distance": 295.46,
+          "phase": 10,
+          "phasePosition": 76.817417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 303.44767206942873
+        },
+        {
+          "distance": 296.6,
+          "phase": 10,
+          "phasePosition": 77.263917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 304.5876720694288
+        },
+        {
+          "distance": 297.75,
+          "phase": 11,
+          "phasePosition": 77.710417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 273.5,
+          "supportWorldX": 304.6797022589084
+        },
+        {
+          "distance": 299.47,
+          "phase": 0,
+          "phasePosition": 78.380167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 357,
+          "supportWorldX": 315.2337501767534
+        },
+        {
+          "distance": 300.61,
+          "phase": 1,
+          "phasePosition": 78.826667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 298.5,
+          "supportWorldX": 310.1846267852093
+        },
+        {
+          "distance": 301.76,
+          "phase": 2,
+          "phasePosition": 79.273167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 299,
+          "supportWorldX": 311.3875252757353
+        },
+        {
+          "distance": 302.91,
+          "phase": 2,
+          "phasePosition": 79.719667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 299,
+          "supportWorldX": 312.53752527573533
+        },
+        {
+          "distance": 304.05,
+          "phase": 3,
+          "phasePosition": 80.166167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 78,
+          "supportWorldX": 290.2963924632353
+        },
+        {
+          "distance": 305.2,
+          "phase": 4,
+          "phasePosition": 80.612667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 306.35,
+          "phase": 6,
+          "phasePosition": 81.059167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 307.49,
+          "phase": 7,
+          "phasePosition": 81.505667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 308.07,
+          "phase": 8,
+          "phasePosition": 81.728917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 309.21,
+          "phase": 8,
+          "phasePosition": 82.175417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 310.36,
+          "phase": 9,
+          "phasePosition": 82.621917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 353,
+          "supportWorldX": 325.70056225254524
+        },
+        {
+          "distance": 311.51,
+          "phase": 10,
+          "phasePosition": 83.068417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 319.49767206942875
+        },
+        {
+          "distance": 312.66,
+          "phase": 11,
+          "phasePosition": 83.514917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 273.5,
+          "supportWorldX": 319.5897022589084
+        },
+        {
+          "distance": 313.8,
+          "phase": 11,
+          "phasePosition": 83.961417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 273.5,
+          "supportWorldX": 320.7297022589084
+        },
+        {
+          "distance": 314.95,
+          "phase": 0,
+          "phasePosition": 84.407917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 357,
+          "supportWorldX": 330.71375017675336
+        },
+        {
+          "distance": 316.1,
+          "phase": 1,
+          "phasePosition": 84.854417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 298.5,
+          "supportWorldX": 325.6746267852093
+        },
+        {
+          "distance": 317.82,
+          "phase": 2,
+          "phasePosition": 85.524167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 299,
+          "supportWorldX": 327.4475252757353
+        },
+        {
+          "distance": 318.97,
+          "phase": 3,
+          "phasePosition": 85.970667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 78,
+          "supportWorldX": 305.2163924632353
+        },
+        {
+          "distance": 320.12,
+          "phase": 4,
+          "phasePosition": 86.417167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 321.27,
+          "phase": 5,
+          "phasePosition": 86.863667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 321.84,
+          "phase": 6,
+          "phasePosition": 87.086917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 322.99,
+          "phase": 7,
+          "phasePosition": 87.533417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 324.14,
+          "phase": 8,
+          "phasePosition": 87.979917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 325.29,
+          "phase": 9,
+          "phasePosition": 88.426417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 353,
+          "supportWorldX": 340.63056225254525
+        },
+        {
+          "distance": 326.44,
+          "phase": 10,
+          "phasePosition": 88.872917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 334.42767206942875
+        },
+        {
+          "distance": 327.59,
+          "phase": 10,
+          "phasePosition": 89.319417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 335.57767206942873
+        },
+        {
+          "distance": 328.74,
+          "phase": 11,
+          "phasePosition": 89.765917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 273.5,
+          "supportWorldX": 335.6697022589084
+        },
+        {
+          "distance": 329.89,
+          "phase": 0,
+          "phasePosition": 90.212417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 357,
+          "supportWorldX": 345.65375017675336
+        },
+        {
+          "distance": 331.04,
+          "phase": 1,
+          "phasePosition": 90.658917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 298.5,
+          "supportWorldX": 340.6146267852093
+        },
+        {
+          "distance": 332.19,
+          "phase": 1,
+          "phasePosition": 91.105417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 298.5,
+          "supportWorldX": 341.76462678520926
+        },
+        {
+          "distance": 333.33,
+          "phase": 2,
+          "phasePosition": 91.551917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 299,
+          "supportWorldX": 342.9575252757353
+        },
+        {
+          "distance": 334.48,
+          "phase": 3,
+          "phasePosition": 91.998417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 78,
+          "supportWorldX": 320.7263924632353
+        },
+        {
+          "distance": 335.63,
+          "phase": 4,
+          "phasePosition": 92.444917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 336.78,
+          "phase": 5,
+          "phasePosition": 92.891417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 337.93,
+          "phase": 7,
+          "phasePosition": 93.337917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 339.08,
+          "phase": 8,
+          "phasePosition": 93.784417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 340.23,
+          "phase": 9,
+          "phasePosition": 94.230917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 353,
+          "supportWorldX": 355.57056225254524
+        },
+        {
+          "distance": 341.38,
+          "phase": 9,
+          "phasePosition": 94.677417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 353,
+          "supportWorldX": 356.7205622525452
+        },
+        {
+          "distance": 342.53,
+          "phase": 10,
+          "phasePosition": 95.123917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 350.5176720694287
+        },
+        {
+          "distance": 343.67,
+          "phase": 11,
+          "phasePosition": 95.570417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 273.5,
+          "supportWorldX": 350.5997022589084
+        },
+        {
+          "distance": 344.82,
+          "phase": 0,
+          "phasePosition": 96.016917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 357,
+          "supportWorldX": 360.58375017675337
+        },
+        {
+          "distance": 345.97,
+          "phase": 0,
+          "phasePosition": 96.463417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 357,
+          "supportWorldX": 361.7337501767534
+        },
+        {
+          "distance": 347.12,
+          "phase": 1,
+          "phasePosition": 96.909917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 298.5,
+          "supportWorldX": 356.69462678520927
+        },
+        {
+          "distance": 348.27,
+          "phase": 2,
+          "phasePosition": 97.356417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 299,
+          "supportWorldX": 357.8975252757353
+        },
+        {
+          "distance": 349.41,
+          "phase": 3,
+          "phasePosition": 97.802917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 78,
+          "supportWorldX": 335.6563924632353
+        },
+        {
+          "distance": 349.99,
+          "phase": 3,
+          "phasePosition": 98.026167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 78,
+          "supportWorldX": 336.2363924632353
+        },
+        {
+          "distance": 351.13,
+          "phase": 4,
+          "phasePosition": 98.472667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 352.28,
+          "phase": 5,
+          "phasePosition": 98.919167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 354,
+          "phase": 7,
+          "phasePosition": 99.588917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 355.15,
+          "phase": 8,
+          "phasePosition": 100.035417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 356.29,
+          "phase": 9,
+          "phasePosition": 100.481917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 353,
+          "supportWorldX": 371.63056225254525
+        },
+        {
+          "distance": 357.44,
+          "phase": 10,
+          "phasePosition": 100.928417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 365.42767206942875
+        },
+        {
+          "distance": 358.58,
+          "phase": 10,
+          "phasePosition": 101.374917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 366.56767206942874
+        },
+        {
+          "distance": 359.73,
+          "phase": 11,
+          "phasePosition": 101.821417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 273.5,
+          "supportWorldX": 366.6597022589084
+        },
+        {
+          "distance": 360.87,
+          "phase": 0,
+          "phasePosition": 102.267917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 357,
+          "supportWorldX": 376.6337501767534
+        },
+        {
+          "distance": 362.02,
+          "phase": 1,
+          "phasePosition": 102.714417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 298.5,
+          "supportWorldX": 371.59462678520924
+        },
+        {
+          "distance": 363.16,
+          "phase": 1,
+          "phasePosition": 103.160917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 298.5,
+          "supportWorldX": 372.7346267852093
+        },
+        {
+          "distance": 363.73,
+          "phase": 2,
+          "phasePosition": 103.384167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 299,
+          "supportWorldX": 373.3575252757353
+        },
+        {
+          "distance": 364.88,
+          "phase": 3,
+          "phasePosition": 103.830667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 78,
+          "supportWorldX": 351.1263924632353
+        },
+        {
+          "distance": 366.02,
+          "phase": 3,
+          "phasePosition": 104.277167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 78,
+          "supportWorldX": 352.26639246323526
+        },
+        {
+          "distance": 367.17,
+          "phase": 5,
+          "phasePosition": 104.723667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 368.31,
+          "phase": 6,
+          "phasePosition": 105.170167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 369.45,
+          "phase": 7,
+          "phasePosition": 105.616667,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 370.59,
+          "phase": 8,
+          "phasePosition": 106.063167,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 372.31,
+          "phase": 9,
+          "phasePosition": 106.732917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 353,
+          "supportWorldX": 387.6505622525452
+        },
+        {
+          "distance": 373.45,
+          "phase": 10,
+          "phasePosition": 107.179417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 283.5,
+          "supportWorldX": 381.43767206942874
+        },
+        {
+          "distance": 374.59,
+          "phase": 11,
+          "phasePosition": 107.625917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 273.5,
+          "supportWorldX": 381.51970225890835
+        },
+        {
+          "distance": 375.73,
+          "phase": 0,
+          "phasePosition": 108.072417,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 357,
+          "supportWorldX": 391.4937501767534
+        },
+        {
+          "distance": 376.87,
+          "phase": 0,
+          "phasePosition": 108.518917,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-fixed-step",
+          "supportX": 357,
+          "supportWorldX": 392.6337501767534
+        }
+      ],
+      "holds": [
+        {
+          "phase": 11,
+          "worldTravelMetres": 0.5099999999999909,
+          "projectedTravelPx": 3.4679999999999382,
+          "phaseDistance": 0.2120759999999997
+        },
+        {
+          "phase": 12,
+          "worldTravelMetres": 1.039999999999992,
+          "projectedTravelPx": 7.071999999999946,
+          "phaseDistance": 0.42928600000000117
+        },
+        {
+          "phase": 3,
+          "worldTravelMetres": 1.1099999999999852,
+          "projectedTravelPx": 7.5479999999999,
+          "phaseDistance": 0.4410170000000022
+        },
+        {
+          "phase": 11,
+          "worldTravelMetres": 1.200000000000017,
+          "projectedTravelPx": 8.160000000000116,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 2,
+          "worldTravelMetres": 1.1899999999999977,
+          "projectedTravelPx": 8.091999999999985,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 4,
+          "worldTravelMetres": 1.1999999999999886,
+          "projectedTravelPx": 8.159999999999922,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 11,
+          "worldTravelMetres": 1.1999999999999886,
+          "projectedTravelPx": 8.159999999999922,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 3,
+          "worldTravelMetres": 1.1999999999999886,
+          "projectedTravelPx": 8.159999999999922,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 10,
+          "worldTravelMetres": 1.1999999999999886,
+          "projectedTravelPx": 8.159999999999922,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 12,
+          "worldTravelMetres": 1.1999999999999886,
+          "projectedTravelPx": 8.159999999999922,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 4,
+          "worldTravelMetres": 0.5999999999999943,
+          "projectedTravelPx": 4.079999999999961,
+          "phaseDistance": 0.22325000000000017
+        },
+        {
+          "phase": 11,
+          "worldTravelMetres": 1.1899999999999977,
+          "projectedTravelPx": 8.091999999999985,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 2,
+          "worldTravelMetres": 1.1899999999999977,
+          "projectedTravelPx": 8.091999999999985,
+          "phaseDistance": 0.44649999999999324
+        },
+        {
+          "phase": 10,
+          "worldTravelMetres": 1.1799999999999784,
+          "projectedTravelPx": 8.023999999999853,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 1,
+          "worldTravelMetres": 1.1800000000000068,
+          "projectedTravelPx": 8.024000000000045,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 2,
+          "worldTravelMetres": 0.5900000000000318,
+          "projectedTravelPx": 4.012000000000216,
+          "phaseDistance": 0.22325000000000017
+        },
+        {
+          "phase": 12,
+          "worldTravelMetres": 1.1400000000000432,
+          "projectedTravelPx": 7.752000000000294,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 1,
+          "worldTravelMetres": 0.57000000000005,
+          "projectedTravelPx": 3.87600000000034,
+          "phaseDistance": 0.22325000000000017
+        },
+        {
+          "phase": 4,
+          "worldTravelMetres": 1.1399999999999864,
+          "projectedTravelPx": 7.751999999999907,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 10,
+          "worldTravelMetres": 1.1399999999999864,
+          "projectedTravelPx": 7.751999999999907,
+          "phaseDistance": 0.44649900000000287
+        },
+        {
+          "phase": 12,
+          "worldTravelMetres": 0.57000000000005,
+          "projectedTravelPx": 3.87600000000034,
+          "phaseDistance": 0.22325000000000728
+        },
+        {
+          "phase": 3,
+          "worldTravelMetres": 1.1399999999999864,
+          "projectedTravelPx": 7.751999999999907,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 10,
+          "worldTravelMetres": 1.1399999999999864,
+          "projectedTravelPx": 7.751999999999907,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 1,
+          "worldTravelMetres": 1.1399999999999864,
+          "projectedTravelPx": 7.751999999999907,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 4,
+          "worldTravelMetres": 1.150000000000034,
+          "projectedTravelPx": 7.820000000000232,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 11,
+          "worldTravelMetres": 1.1400000000000432,
+          "projectedTravelPx": 7.752000000000294,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 3,
+          "worldTravelMetres": 1.150000000000034,
+          "projectedTravelPx": 7.820000000000232,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 12,
+          "worldTravelMetres": 1.1399999999999864,
+          "projectedTravelPx": 7.751999999999907,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 11,
+          "worldTravelMetres": 1.1499999999999773,
+          "projectedTravelPx": 7.819999999999845,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 2,
+          "worldTravelMetres": 1.1499999999999773,
+          "projectedTravelPx": 7.819999999999845,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 10,
+          "worldTravelMetres": 1.1499999999999773,
+          "projectedTravelPx": 7.819999999999845,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 1,
+          "worldTravelMetres": 1.150000000000034,
+          "projectedTravelPx": 7.820000000000232,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 4,
+          "worldTravelMetres": 0.5799999999999841,
+          "projectedTravelPx": 3.9439999999998916,
+          "phaseDistance": 0.22325000000000728
+        },
+        {
+          "phase": 11,
+          "worldTravelMetres": 1.1399999999999864,
+          "projectedTravelPx": 7.751999999999907,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 2,
+          "worldTravelMetres": 1.1400000000000432,
+          "projectedTravelPx": 7.752000000000294,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 4,
+          "worldTravelMetres": 1.1399999999999864,
+          "projectedTravelPx": 7.751999999999907,
+          "phaseDistance": 0.44650000000000034
+        },
+        {
+          "phase": 1,
+          "worldTravelMetres": 1.1399999999999864,
+          "projectedTravelPx": 7.751999999999907,
+          "phaseDistance": 0.44650000000000034
+        }
+      ]
+    },
+    {
+      "mode": "distance",
+      "renderPolicy": "integrated-distance-trial",
+      "sampleCount": 200,
+      "samePoseSupportHolds": 38,
+      "meanAbsProjectedHoldTravelPx": 7.327894736842088,
+      "maxAbsProjectedHoldTravelPx": 8.160000000000116,
+      "p90AbsProjectedHoldTravelPx": 8.092000000000178,
+      "note": "Support-band x measured from actual RGBA ground-row alpha. World coordinate combines root distance and frame band centre. Does not track a persistent anatomical toe across phase changes.",
+      "samples": [
+        {
+          "distance": 149.31,
+          "phase": 0,
+          "phasePosition": 12.418263,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 357,
+          "supportWorldX": 165.0737501767534
+        },
+        {
+          "distance": 150.25,
+          "phase": 1,
+          "phasePosition": 12.789274,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 159.82462678520926
+        },
+        {
+          "distance": 151.21,
+          "phase": 1,
+          "phasePosition": 13.16615,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 160.7846267852093
+        },
+        {
+          "distance": 152.67,
+          "phase": 2,
+          "phasePosition": 13.742464,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 299,
+          "supportWorldX": 162.29752527573527
+        },
+        {
+          "distance": 153.67,
+          "phase": 3,
+          "phasePosition": 14.134005,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 78,
+          "supportWorldX": 139.91639246323527
+        },
+        {
+          "distance": 154.68,
+          "phase": 4,
+          "phasePosition": 14.531412,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 155.19,
+          "phase": 5,
+          "phasePosition": 14.732315,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 156.22,
+          "phase": 6,
+          "phasePosition": 15.13852,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 157.26,
+          "phase": 7,
+          "phasePosition": 15.550592,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 158.32,
+          "phase": 8,
+          "phasePosition": 15.968529,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 159.4,
+          "phase": 9,
+          "phasePosition": 16.392332,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 353,
+          "supportWorldX": 174.74056225254526
+        },
+        {
+          "distance": 160.49,
+          "phase": 10,
+          "phasePosition": 16.822,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 283.5,
+          "supportWorldX": 168.47767206942873
+        },
+        {
+          "distance": 161.6,
+          "phase": 10,
+          "phasePosition": 17.257535,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 283.5,
+          "supportWorldX": 169.58767206942872
+        },
+        {
+          "distance": 162.72,
+          "phase": 11,
+          "phasePosition": 17.698935,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 273.5,
+          "supportWorldX": 169.64970225890838
+        },
+        {
+          "distance": 163.85,
+          "phase": 0,
+          "phasePosition": 18.146201,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 357,
+          "supportWorldX": 179.6137501767534
+        },
+        {
+          "distance": 165,
+          "phase": 0,
+          "phasePosition": 18.599333,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 357,
+          "supportWorldX": 180.7637501767534
+        },
+        {
+          "distance": 166.17,
+          "phase": 1,
+          "phasePosition": 19.058331,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 175.74462678520928
+        },
+        {
+          "distance": 167.35,
+          "phase": 2,
+          "phasePosition": 19.523194,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 299,
+          "supportWorldX": 176.97752527573527
+        },
+        {
+          "distance": 167.94,
+          "phase": 2,
+          "phasePosition": 19.757825,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 299,
+          "supportWorldX": 177.56752527573528
+        },
+        {
+          "distance": 169.73,
+          "phase": 4,
+          "phasePosition": 20.463394,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 170.93,
+          "phase": 5,
+          "phasePosition": 20.933841,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 172.12,
+          "phase": 7,
+          "phasePosition": 21.404337,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 173.32,
+          "phase": 8,
+          "phasePosition": 21.874878,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 174.51,
+          "phase": 9,
+          "phasePosition": 22.34546,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 353,
+          "supportWorldX": 189.85056225254525
+        },
+        {
+          "distance": 175.7,
+          "phase": 10,
+          "phasePosition": 22.816079,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 283.5,
+          "supportWorldX": 183.68767206942871
+        },
+        {
+          "distance": 176.9,
+          "phase": 10,
+          "phasePosition": 23.28673,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 283.5,
+          "supportWorldX": 184.88767206942873
+        },
+        {
+          "distance": 178.09,
+          "phase": 11,
+          "phasePosition": 23.757408,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 273.5,
+          "supportWorldX": 185.01970225890838
+        },
+        {
+          "distance": 179.29,
+          "phase": 0,
+          "phasePosition": 24.228109,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 357,
+          "supportWorldX": 195.0537501767534
+        },
+        {
+          "distance": 180.48,
+          "phase": 1,
+          "phasePosition": 24.698828,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 190.05462678520928
+        },
+        {
+          "distance": 181.68,
+          "phase": 1,
+          "phasePosition": 25.169559,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 191.25462678520927
+        },
+        {
+          "distance": 182.28,
+          "phase": 2,
+          "phasePosition": 25.404928,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 299,
+          "supportWorldX": 191.90752527573528
+        },
+        {
+          "distance": 183.47,
+          "phase": 3,
+          "phasePosition": 25.875668,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 78,
+          "supportWorldX": 169.71639246323528
+        },
+        {
+          "distance": 184.67,
+          "phase": 3,
+          "phasePosition": 26.346409,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 78,
+          "supportWorldX": 170.91639246323527
+        },
+        {
+          "distance": 185.86,
+          "phase": 5,
+          "phasePosition": 26.817144,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 187.06,
+          "phase": 6,
+          "phasePosition": 27.287869,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 188.85,
+          "phase": 8,
+          "phasePosition": 27.993925,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 190.04,
+          "phase": 9,
+          "phasePosition": 28.4646,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 353,
+          "supportWorldX": 205.38056225254525
+        },
+        {
+          "distance": 191.24,
+          "phase": 10,
+          "phasePosition": 28.935247,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 283.5,
+          "supportWorldX": 199.22767206942873
+        },
+        {
+          "distance": 192.43,
+          "phase": 11,
+          "phasePosition": 29.40586,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 273.5,
+          "supportWorldX": 199.35970225890838
+        },
+        {
+          "distance": 193.63,
+          "phase": 11,
+          "phasePosition": 29.876433,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 273.5,
+          "supportWorldX": 200.55970225890837
+        },
+        {
+          "distance": 194.82,
+          "phase": 0,
+          "phasePosition": 30.346962,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 357,
+          "supportWorldX": 210.5837501767534
+        },
+        {
+          "distance": 196.01,
+          "phase": 1,
+          "phasePosition": 30.817442,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 205.58462678520925
+        },
+        {
+          "distance": 196.61,
+          "phase": 1,
+          "phasePosition": 31.052662,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 206.18462678520928
+        },
+        {
+          "distance": 197.81,
+          "phase": 2,
+          "phasePosition": 31.523058,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 299,
+          "supportWorldX": 207.43752527573528
+        },
+        {
+          "distance": 199,
+          "phase": 3,
+          "phasePosition": 31.993393,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 78,
+          "supportWorldX": 185.24639246323528
+        },
+        {
+          "distance": 200.19,
+          "phase": 4,
+          "phasePosition": 32.463661,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 201.39,
+          "phase": 5,
+          "phasePosition": 32.933858,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 202.58,
+          "phase": 7,
+          "phasePosition": 33.40398,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 203.77,
+          "phase": 8,
+          "phasePosition": 33.874022,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 204.97,
+          "phase": 9,
+          "phasePosition": 34.343981,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 353,
+          "supportWorldX": 220.31056225254525
+        },
+        {
+          "distance": 206.16,
+          "phase": 10,
+          "phasePosition": 34.813851,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 283.5,
+          "supportWorldX": 214.14767206942872
+        },
+        {
+          "distance": 207.95,
+          "phase": 11,
+          "phasePosition": 35.518483,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 273.5,
+          "supportWorldX": 214.87970225890837
+        },
+        {
+          "distance": 209.14,
+          "phase": 11,
+          "phasePosition": 35.988118,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 273.5,
+          "supportWorldX": 216.06970225890836
+        },
+        {
+          "distance": 210.33,
+          "phase": 0,
+          "phasePosition": 36.457651,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 357,
+          "supportWorldX": 226.09375017675342
+        },
+        {
+          "distance": 210.93,
+          "phase": 1,
+          "phasePosition": 36.69238,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 220.50462678520927
+        },
+        {
+          "distance": 212.12,
+          "phase": 1,
+          "phasePosition": 37.161757,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 221.69462678520927
+        },
+        {
+          "distance": 213.31,
+          "phase": 2,
+          "phasePosition": 37.631026,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 299,
+          "supportWorldX": 222.93752527573528
+        },
+        {
+          "distance": 214.5,
+          "phase": 3,
+          "phasePosition": 38.100185,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 78,
+          "supportWorldX": 200.74639246323528
+        },
+        {
+          "distance": 215.69,
+          "phase": 4,
+          "phasePosition": 38.569231,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 216.88,
+          "phase": 6,
+          "phasePosition": 39.038162,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 218.07,
+          "phase": 7,
+          "phasePosition": 39.506976,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 219.26,
+          "phase": 8,
+          "phasePosition": 39.975672,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 220.45,
+          "phase": 9,
+          "phasePosition": 40.444248,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 353,
+          "supportWorldX": 235.79056225254524
+        },
+        {
+          "distance": 221.64,
+          "phase": 10,
+          "phasePosition": 40.912702,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 283.5,
+          "supportWorldX": 229.6276720694287
+        },
+        {
+          "distance": 222.83,
+          "phase": 10,
+          "phasePosition": 41.381035,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 283.5,
+          "supportWorldX": 230.81767206942874
+        },
+        {
+          "distance": 224.02,
+          "phase": 11,
+          "phasePosition": 41.849246,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 273.5,
+          "supportWorldX": 230.9497022589084
+        },
+        {
+          "distance": 225.2,
+          "phase": 0,
+          "phasePosition": 42.317333,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 357,
+          "supportWorldX": 240.9637501767534
+        },
+        {
+          "distance": 226.39,
+          "phase": 1,
+          "phasePosition": 42.785298,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 235.96462678520925
+        },
+        {
+          "distance": 227.58,
+          "phase": 2,
+          "phasePosition": 43.25314,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 299,
+          "supportWorldX": 237.2075252757353
+        },
+        {
+          "distance": 228.77,
+          "phase": 2,
+          "phasePosition": 43.720859,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 299,
+          "supportWorldX": 238.3975252757353
+        },
+        {
+          "distance": 229.95,
+          "phase": 3,
+          "phasePosition": 44.188457,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 78,
+          "supportWorldX": 216.19639246323527
+        },
+        {
+          "distance": 231.14,
+          "phase": 4,
+          "phasePosition": 44.655934,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 232.33,
+          "phase": 6,
+          "phasePosition": 45.123292,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 233.51,
+          "phase": 7,
+          "phasePosition": 45.590532,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 234.7,
+          "phase": 8,
+          "phasePosition": 46.057655,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 235.88,
+          "phase": 9,
+          "phasePosition": 46.524665,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 353,
+          "supportWorldX": 251.22056225254525
+        },
+        {
+          "distance": 237.07,
+          "phase": 10,
+          "phasePosition": 46.991562,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 283.5,
+          "supportWorldX": 245.05767206942872
+        },
+        {
+          "distance": 238.25,
+          "phase": 11,
+          "phasePosition": 47.45835,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 273.5,
+          "supportWorldX": 245.17970225890838
+        },
+        {
+          "distance": 239.44,
+          "phase": 11,
+          "phasePosition": 47.92503,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 273.5,
+          "supportWorldX": 246.36970225890838
+        },
+        {
+          "distance": 240.03,
+          "phase": 0,
+          "phasePosition": 48.158331,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 357,
+          "supportWorldX": 255.7937501767534
+        },
+        {
+          "distance": 241.2,
+          "phase": 1,
+          "phasePosition": 48.618554,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 250.77462678520925
+        },
+        {
+          "distance": 242.35,
+          "phase": 1,
+          "phasePosition": 49.070768,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 251.92462678520928
+        },
+        {
+          "distance": 243.49,
+          "phase": 2,
+          "phasePosition": 49.521281,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 299,
+          "supportWorldX": 253.1175252757353
+        },
+        {
+          "distance": 245.2,
+          "phase": 3,
+          "phasePosition": 50.19688,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 78,
+          "supportWorldX": 231.44639246323527
+        },
+        {
+          "distance": 246.35,
+          "phase": 4,
+          "phasePosition": 50.647172,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 247.49,
+          "phase": 6,
+          "phasePosition": 51.097383,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 248.63,
+          "phase": 7,
+          "phasePosition": 51.547516,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 249.78,
+          "phase": 8,
+          "phasePosition": 51.997576,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 250.92,
+          "phase": 9,
+          "phasePosition": 52.447569,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 353,
+          "supportWorldX": 266.26056225254524
+        },
+        {
+          "distance": 252.06,
+          "phase": 10,
+          "phasePosition": 52.897497,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 283.5,
+          "supportWorldX": 260.04767206942876
+        },
+        {
+          "distance": 253.2,
+          "phase": 10,
+          "phasePosition": 53.347367,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 283.5,
+          "supportWorldX": 261.18767206942874
+        },
+        {
+          "distance": 253.77,
+          "phase": 11,
+          "phasePosition": 53.572281,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 273.5,
+          "supportWorldX": 260.69970225890836
+        },
+        {
+          "distance": 254.91,
+          "phase": 0,
+          "phasePosition": 54.022071,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 357,
+          "supportWorldX": 270.6737501767534
+        },
+        {
+          "distance": 256.06,
+          "phase": 0,
+          "phasePosition": 54.471815,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 357,
+          "supportWorldX": 271.8237501767534
+        },
+        {
+          "distance": 257.2,
+          "phase": 1,
+          "phasePosition": 54.921517,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 266.77462678520925
+        },
+        {
+          "distance": 258.34,
+          "phase": 2,
+          "phasePosition": 55.371183,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 299,
+          "supportWorldX": 267.9675252757353
+        },
+        {
+          "distance": 259.48,
+          "phase": 3,
+          "phasePosition": 55.820818,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 78,
+          "supportWorldX": 245.7263924632353
+        },
+        {
+          "distance": 260.62,
+          "phase": 3,
+          "phasePosition": 56.270427,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 78,
+          "supportWorldX": 246.8663924632353
+        },
+        {
+          "distance": 261.76,
+          "phase": 5,
+          "phasePosition": 56.720015,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 263.47,
+          "phase": 7,
+          "phasePosition": 57.394369,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 264.61,
+          "phase": 8,
+          "phasePosition": 57.843929,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 265.76,
+          "phase": 9,
+          "phasePosition": 58.293485,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 353,
+          "supportWorldX": 281.1005622525452
+        },
+        {
+          "distance": 266.9,
+          "phase": 9,
+          "phasePosition": 58.743045,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 353,
+          "supportWorldX": 282.2405622525452
+        },
+        {
+          "distance": 267.47,
+          "phase": 10,
+          "phasePosition": 58.967827,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 283.5,
+          "supportWorldX": 275.4576720694288
+        },
+        {
+          "distance": 268.61,
+          "phase": 11,
+          "phasePosition": 59.417401,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 273.5,
+          "supportWorldX": 275.5397022589084
+        },
+        {
+          "distance": 269.75,
+          "phase": 11,
+          "phasePosition": 59.866989,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 273.5,
+          "supportWorldX": 276.6797022589084
+        },
+        {
+          "distance": 270.89,
+          "phase": 0,
+          "phasePosition": 60.316599,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 357,
+          "supportWorldX": 286.65375017675336
+        },
+        {
+          "distance": 272.03,
+          "phase": 1,
+          "phasePosition": 60.766233,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 281.60462678520923
+        },
+        {
+          "distance": 273.17,
+          "phase": 2,
+          "phasePosition": 61.215898,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 299,
+          "supportWorldX": 282.7975252757353
+        },
+        {
+          "distance": 274.32,
+          "phase": 2,
+          "phasePosition": 61.665597,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 299,
+          "supportWorldX": 283.9475252757353
+        },
+        {
+          "distance": 275.46,
+          "phase": 3,
+          "phasePosition": 62.115336,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 78,
+          "supportWorldX": 261.70639246323526
+        },
+        {
+          "distance": 276.6,
+          "phase": 4,
+          "phasePosition": 62.565118,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 277.74,
+          "phase": 6,
+          "phasePosition": 63.014948,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 278.88,
+          "phase": 7,
+          "phasePosition": 63.46483,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 280.02,
+          "phase": 8,
+          "phasePosition": 63.914768,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 281.17,
+          "phase": 9,
+          "phasePosition": 64.364765,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 353,
+          "supportWorldX": 296.51056225254524
+        },
+        {
+          "distance": 282.31,
+          "phase": 10,
+          "phasePosition": 64.814826,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 283.5,
+          "supportWorldX": 290.29767206942876
+        },
+        {
+          "distance": 283.45,
+          "phase": 10,
+          "phasePosition": 65.264952,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 283.5,
+          "supportWorldX": 291.43767206942874
+        },
+        {
+          "distance": 284.59,
+          "phase": 11,
+          "phasePosition": 65.715148,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 273.5,
+          "supportWorldX": 291.51970225890835
+        },
+        {
+          "distance": 285.74,
+          "phase": 0,
+          "phasePosition": 66.165416,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 357,
+          "supportWorldX": 301.5037501767534
+        },
+        {
+          "distance": 286.88,
+          "phase": 1,
+          "phasePosition": 66.615759,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 296.45462678520926
+        },
+        {
+          "distance": 288.02,
+          "phase": 1,
+          "phasePosition": 67.06618,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 297.59462678520924
+        },
+        {
+          "distance": 289.17,
+          "phase": 2,
+          "phasePosition": 67.51668,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 299,
+          "supportWorldX": 298.7975252757353
+        },
+        {
+          "distance": 290.31,
+          "phase": 3,
+          "phasePosition": 67.967262,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 78,
+          "supportWorldX": 276.5563924632353
+        },
+        {
+          "distance": 291.45,
+          "phase": 4,
+          "phasePosition": 68.417927,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 292.6,
+          "phase": 5,
+          "phasePosition": 68.868677,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 293.74,
+          "phase": 7,
+          "phasePosition": 69.319513,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 294.31,
+          "phase": 7,
+          "phasePosition": 69.544964,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 295.46,
+          "phase": 8,
+          "phasePosition": 69.995931,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 296.6,
+          "phase": 9,
+          "phasePosition": 70.446985,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 353,
+          "supportWorldX": 311.94056225254525
+        },
+        {
+          "distance": 297.75,
+          "phase": 10,
+          "phasePosition": 70.898128,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 283.5,
+          "supportWorldX": 305.73767206942875
+        },
+        {
+          "distance": 299.47,
+          "phase": 11,
+          "phasePosition": 71.575008,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 273.5,
+          "supportWorldX": 306.3997022589084
+        },
+        {
+          "distance": 300.61,
+          "phase": 0,
+          "phasePosition": 72.026371,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 357,
+          "supportWorldX": 316.3737501767534
+        },
+        {
+          "distance": 301.76,
+          "phase": 0,
+          "phasePosition": 72.477821,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 357,
+          "supportWorldX": 317.52375017675337
+        },
+        {
+          "distance": 302.91,
+          "phase": 1,
+          "phasePosition": 72.929357,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 312.4846267852093
+        },
+        {
+          "distance": 304.05,
+          "phase": 2,
+          "phasePosition": 73.380979,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 299,
+          "supportWorldX": 313.6775252757353
+        },
+        {
+          "distance": 305.2,
+          "phase": 3,
+          "phasePosition": 73.832685,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 78,
+          "supportWorldX": 291.44639246323527
+        },
+        {
+          "distance": 306.35,
+          "phase": 3,
+          "phasePosition": 74.284473,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 78,
+          "supportWorldX": 292.5963924632353
+        },
+        {
+          "distance": 307.49,
+          "phase": 5,
+          "phasePosition": 74.736341,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 308.07,
+          "phase": 5,
+          "phasePosition": 74.962304,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 309.21,
+          "phase": 7,
+          "phasePosition": 75.414289,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 310.36,
+          "phase": 8,
+          "phasePosition": 75.866348,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 311.51,
+          "phase": 9,
+          "phasePosition": 76.318479,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 353,
+          "supportWorldX": 326.8505622525452
+        },
+        {
+          "distance": 312.66,
+          "phase": 9,
+          "phasePosition": 76.770679,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 353,
+          "supportWorldX": 328.00056225254525
+        },
+        {
+          "distance": 313.8,
+          "phase": 10,
+          "phasePosition": 77.222945,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 283.5,
+          "supportWorldX": 321.78767206942877
+        },
+        {
+          "distance": 314.95,
+          "phase": 11,
+          "phasePosition": 77.675273,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 273.5,
+          "supportWorldX": 321.87970225890837
+        },
+        {
+          "distance": 316.1,
+          "phase": 0,
+          "phasePosition": 78.12766,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 357,
+          "supportWorldX": 331.8637501767534
+        },
+        {
+          "distance": 317.82,
+          "phase": 1,
+          "phasePosition": 78.806343,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 327.39462678520925
+        },
+        {
+          "distance": 318.97,
+          "phase": 2,
+          "phasePosition": 79.258861,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 299,
+          "supportWorldX": 328.59752527573534
+        },
+        {
+          "distance": 320.12,
+          "phase": 2,
+          "phasePosition": 79.711424,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 299,
+          "supportWorldX": 329.7475252757353
+        },
+        {
+          "distance": 321.27,
+          "phase": 3,
+          "phasePosition": 80.164027,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 78,
+          "supportWorldX": 307.51639246323526
+        },
+        {
+          "distance": 321.84,
+          "phase": 3,
+          "phasePosition": 80.390343,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 78,
+          "supportWorldX": 308.08639246323526
+        },
+        {
+          "distance": 322.99,
+          "phase": 5,
+          "phasePosition": 80.842999,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 324.14,
+          "phase": 6,
+          "phasePosition": 81.295684,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 325.29,
+          "phase": 8,
+          "phasePosition": 81.748394,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 326.44,
+          "phase": 9,
+          "phasePosition": 82.201124,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 353,
+          "supportWorldX": 341.7805622525452
+        },
+        {
+          "distance": 327.59,
+          "phase": 9,
+          "phasePosition": 82.653869,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 353,
+          "supportWorldX": 342.9305622525452
+        },
+        {
+          "distance": 328.74,
+          "phase": 10,
+          "phasePosition": 83.106623,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 283.5,
+          "supportWorldX": 336.72767206942876
+        },
+        {
+          "distance": 329.89,
+          "phase": 11,
+          "phasePosition": 83.559381,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 273.5,
+          "supportWorldX": 336.81970225890836
+        },
+        {
+          "distance": 331.04,
+          "phase": 0,
+          "phasePosition": 84.012139,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 357,
+          "supportWorldX": 346.8037501767534
+        },
+        {
+          "distance": 332.19,
+          "phase": 0,
+          "phasePosition": 84.464892,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 357,
+          "supportWorldX": 347.9537501767534
+        },
+        {
+          "distance": 333.33,
+          "phase": 1,
+          "phasePosition": 84.917633,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 342.90462678520925
+        },
+        {
+          "distance": 334.48,
+          "phase": 2,
+          "phasePosition": 85.370358,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 299,
+          "supportWorldX": 344.1075252757353
+        },
+        {
+          "distance": 335.63,
+          "phase": 3,
+          "phasePosition": 85.823061,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 78,
+          "supportWorldX": 321.8763924632353
+        },
+        {
+          "distance": 336.78,
+          "phase": 3,
+          "phasePosition": 86.275737,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 78,
+          "supportWorldX": 323.02639246323525
+        },
+        {
+          "distance": 337.93,
+          "phase": 5,
+          "phasePosition": 86.728382,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 339.08,
+          "phase": 6,
+          "phasePosition": 87.180989,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 340.23,
+          "phase": 7,
+          "phasePosition": 87.633554,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 341.38,
+          "phase": 8,
+          "phasePosition": 88.086072,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 342.53,
+          "phase": 9,
+          "phasePosition": 88.538537,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 353,
+          "supportWorldX": 357.8705622525452
+        },
+        {
+          "distance": 343.67,
+          "phase": 10,
+          "phasePosition": 88.990945,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 283.5,
+          "supportWorldX": 351.65767206942877
+        },
+        {
+          "distance": 344.82,
+          "phase": 11,
+          "phasePosition": 89.443291,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 273.5,
+          "supportWorldX": 351.74970225890837
+        },
+        {
+          "distance": 345.97,
+          "phase": 11,
+          "phasePosition": 89.89557,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 273.5,
+          "supportWorldX": 352.8997022589084
+        },
+        {
+          "distance": 347.12,
+          "phase": 0,
+          "phasePosition": 90.347778,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 357,
+          "supportWorldX": 362.8837501767534
+        },
+        {
+          "distance": 348.27,
+          "phase": 1,
+          "phasePosition": 90.79991,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 357.84462678520924
+        },
+        {
+          "distance": 349.41,
+          "phase": 2,
+          "phasePosition": 91.251963,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 299,
+          "supportWorldX": 359.03752527573533
+        },
+        {
+          "distance": 349.99,
+          "phase": 2,
+          "phasePosition": 91.477958,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 299,
+          "supportWorldX": 359.6175252757353
+        },
+        {
+          "distance": 351.13,
+          "phase": 3,
+          "phasePosition": 91.929882,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 78,
+          "supportWorldX": 337.3763924632353
+        },
+        {
+          "distance": 352.28,
+          "phase": 3,
+          "phasePosition": 92.381717,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 78,
+          "supportWorldX": 338.52639246323525
+        },
+        {
+          "distance": 354,
+          "phase": 6,
+          "phasePosition": 93.059293,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 355.15,
+          "phase": 7,
+          "phasePosition": 93.510887,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 356.29,
+          "phase": 8,
+          "phasePosition": 93.962379,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 357.44,
+          "phase": 9,
+          "phasePosition": 94.413767,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 353,
+          "supportWorldX": 372.7805622525452
+        },
+        {
+          "distance": 358.58,
+          "phase": 10,
+          "phasePosition": 94.865047,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 283.5,
+          "supportWorldX": 366.56767206942874
+        },
+        {
+          "distance": 359.73,
+          "phase": 10,
+          "phasePosition": 95.316217,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 283.5,
+          "supportWorldX": 367.7176720694288
+        },
+        {
+          "distance": 360.87,
+          "phase": 11,
+          "phasePosition": 95.767274,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 273.5,
+          "supportWorldX": 367.7997022589084
+        },
+        {
+          "distance": 362.02,
+          "phase": 0,
+          "phasePosition": 96.218217,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 357,
+          "supportWorldX": 377.78375017675336
+        },
+        {
+          "distance": 363.16,
+          "phase": 1,
+          "phasePosition": 96.669043,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 372.7346267852093
+        },
+        {
+          "distance": 363.73,
+          "phase": 1,
+          "phasePosition": 96.894412,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 298.5,
+          "supportWorldX": 373.3046267852093
+        },
+        {
+          "distance": 364.88,
+          "phase": 2,
+          "phasePosition": 97.345062,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 299,
+          "supportWorldX": 374.5075252757353
+        },
+        {
+          "distance": 366.02,
+          "phase": 2,
+          "phasePosition": 97.795591,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 299,
+          "supportWorldX": 375.6475252757353
+        },
+        {
+          "distance": 367.17,
+          "phase": 3,
+          "phasePosition": 98.246,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 78,
+          "supportWorldX": 353.4163924632353
+        },
+        {
+          "distance": 368.31,
+          "phase": 4,
+          "phasePosition": 98.696288,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 369.45,
+          "phase": 6,
+          "phasePosition": 99.146454,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 370.59,
+          "phase": 7,
+          "phasePosition": 99.596498,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": null,
+          "supportWorldX": null
+        },
+        {
+          "distance": 372.31,
+          "phase": 9,
+          "phasePosition": 100.271337,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 353,
+          "supportWorldX": 387.6505622525452
+        },
+        {
+          "distance": 373.45,
+          "phase": 9,
+          "phasePosition": 100.721078,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 353,
+          "supportWorldX": 388.7905622525452
+        },
+        {
+          "distance": 374.59,
+          "phase": 10,
+          "phasePosition": 101.170699,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 283.5,
+          "supportWorldX": 382.57767206942873
+        },
+        {
+          "distance": 375.73,
+          "phase": 11,
+          "phasePosition": 101.6202,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 273.5,
+          "supportWorldX": 382.6597022589084
+        },
+        {
+          "distance": 376.87,
+          "phase": 0,
+          "phasePosition": 102.069584,
+          "pixelsPerMetre": 6.8,
+          "drawWidth": 299.2785,
+          "shownModel": "integrated-distance-trial",
+          "supportX": 357,
+          "supportWorldX": 392.6337501767534
+        }
+      ],
+      "holds": [
+        {
+          "phase": 2,
+          "worldTravelMetres": 0.9600000000000364,
+          "projectedTravelPx": 6.528000000000247,
+          "phaseDistance": 0.3768759999999993
+        },
+        {
+          "phase": 11,
+          "worldTravelMetres": 1.1099999999999852,
+          "projectedTravelPx": 7.5479999999999,
+          "phaseDistance": 0.43553500000000156
+        },
+        {
+          "phase": 1,
+          "worldTravelMetres": 1.1500000000000057,
+          "projectedTravelPx": 7.8200000000000385,
+          "phaseDistance": 0.4531320000000001
+        },
+        {
+          "phase": 3,
+          "worldTravelMetres": 0.5900000000000034,
+          "projectedTravelPx": 4.012000000000023,
+          "phaseDistance": 0.23463100000000026
+        },
+        {
+          "phase": 11,
+          "worldTravelMetres": 1.200000000000017,
+          "projectedTravelPx": 8.160000000000116,
+          "phaseDistance": 0.47065100000000015
+        },
+        {
+          "phase": 2,
+          "worldTravelMetres": 1.1999999999999886,
+          "projectedTravelPx": 8.159999999999922,
+          "phaseDistance": 0.4707310000000007
+        },
+        {
+          "phase": 4,
+          "worldTravelMetres": 1.1999999999999886,
+          "projectedTravelPx": 8.159999999999922,
+          "phaseDistance": 0.4707410000000003
+        },
+        {
+          "phase": 12,
+          "worldTravelMetres": 1.1999999999999886,
+          "projectedTravelPx": 8.159999999999922,
+          "phaseDistance": 0.47057299999999813
+        },
+        {
+          "phase": 2,
+          "worldTravelMetres": 0.6000000000000227,
+          "projectedTravelPx": 4.080000000000155,
+          "phaseDistance": 0.23522000000000176
+        },
+        {
+          "phase": 12,
+          "worldTravelMetres": 1.1899999999999977,
+          "projectedTravelPx": 8.091999999999985,
+          "phaseDistance": 0.4696349999999967
+        },
+        {
+          "phase": 2,
+          "worldTravelMetres": 1.1899999999999977,
+          "projectedTravelPx": 8.091999999999985,
+          "phaseDistance": 0.4693770000000015
+        },
+        {
+          "phase": 11,
+          "worldTravelMetres": 1.1900000000000261,
+          "projectedTravelPx": 8.092000000000178,
+          "phaseDistance": 0.4683329999999941
+        },
+        {
+          "phase": 3,
+          "worldTravelMetres": 1.1899999999999977,
+          "projectedTravelPx": 8.091999999999985,
+          "phaseDistance": 0.46771899999999533
+        },
+        {
+          "phase": 12,
+          "worldTravelMetres": 1.1899999999999977,
+          "projectedTravelPx": 8.091999999999985,
+          "phaseDistance": 0.46667999999999665
+        },
+        {
+          "phase": 2,
+          "worldTravelMetres": 1.150000000000034,
+          "projectedTravelPx": 7.820000000000232,
+          "phaseDistance": 0.4522139999999979
+        },
+        {
+          "phase": 11,
+          "worldTravelMetres": 1.1399999999999864,
+          "projectedTravelPx": 7.751999999999907,
+          "phaseDistance": 0.4498699999999971
+        },
+        {
+          "phase": 1,
+          "worldTravelMetres": 1.1499999999999773,
+          "projectedTravelPx": 7.819999999999845,
+          "phaseDistance": 0.4497440000000026
+        },
+        {
+          "phase": 4,
+          "worldTravelMetres": 1.1399999999999864,
+          "projectedTravelPx": 7.751999999999907,
+          "phaseDistance": 0.44960899999999526
+        },
+        {
+          "phase": 10,
+          "worldTravelMetres": 1.1399999999999864,
+          "projectedTravelPx": 7.751999999999907,
+          "phaseDistance": 0.4495600000000053
+        },
+        {
+          "phase": 12,
+          "worldTravelMetres": 1.1399999999999864,
+          "projectedTravelPx": 7.751999999999907,
+          "phaseDistance": 0.44958799999999854
+        },
+        {
+          "phase": 3,
+          "worldTravelMetres": 1.1499999999999773,
+          "projectedTravelPx": 7.819999999999845,
+          "phaseDistance": 0.4496989999999954
+        },
+        {
+          "phase": 11,
+          "worldTravelMetres": 1.1399999999999864,
+          "projectedTravelPx": 7.751999999999907,
+          "phaseDistance": 0.45012599999999736
+        },
+        {
+          "phase": 2,
+          "worldTravelMetres": 1.1399999999999864,
+          "projectedTravelPx": 7.751999999999907,
+          "phaseDistance": 0.45042100000000573
+        },
+        {
+          "phase": 1,
+          "worldTravelMetres": 1.1499999999999773,
+          "projectedTravelPx": 7.819999999999845,
+          "phaseDistance": 0.45145000000000834
+        },
+        {
+          "phase": 4,
+          "worldTravelMetres": 1.150000000000034,
+          "projectedTravelPx": 7.820000000000232,
+          "phaseDistance": 0.45178800000000763
+        },
+        {
+          "phase": 10,
+          "worldTravelMetres": 1.150000000000034,
+          "projectedTravelPx": 7.820000000000232,
+          "phaseDistance": 0.4522000000000048
+        },
+        {
+          "phase": 3,
+          "worldTravelMetres": 1.1499999999999773,
+          "projectedTravelPx": 7.819999999999845,
+          "phaseDistance": 0.45256299999999783
+        },
+        {
+          "phase": 4,
+          "worldTravelMetres": 0.5699999999999932,
+          "projectedTravelPx": 3.8759999999999537,
+          "phaseDistance": 0.22631599999999708
+        },
+        {
+          "phase": 10,
+          "worldTravelMetres": 1.1499999999999773,
+          "projectedTravelPx": 7.819999999999845,
+          "phaseDistance": 0.4527450000000073
+        },
+        {
+          "phase": 1,
+          "worldTravelMetres": 1.1499999999999773,
+          "projectedTravelPx": 7.819999999999845,
+          "phaseDistance": 0.4527530000000013
+        },
+        {
+          "phase": 4,
+          "worldTravelMetres": 1.1499999999999773,
+          "projectedTravelPx": 7.819999999999845,
+          "phaseDistance": 0.45267600000001096
+        },
+        {
+          "phase": 12,
+          "worldTravelMetres": 1.150000000000034,
+          "projectedTravelPx": 7.820000000000232,
+          "phaseDistance": 0.4522790000000043
+        },
+        {
+          "phase": 3,
+          "worldTravelMetres": 0.5799999999999841,
+          "projectedTravelPx": 3.9439999999998916,
+          "phaseDistance": 0.2259949999999975
+        },
+        {
+          "phase": 4,
+          "worldTravelMetres": 1.1499999999999773,
+          "projectedTravelPx": 7.819999999999845,
+          "phaseDistance": 0.45183499999998844
+        },
+        {
+          "phase": 11,
+          "worldTravelMetres": 1.150000000000034,
+          "projectedTravelPx": 7.820000000000232,
+          "phaseDistance": 0.4511699999999905
+        },
+        {
+          "phase": 2,
+          "worldTravelMetres": 0.5699999999999932,
+          "projectedTravelPx": 3.8759999999999537,
+          "phaseDistance": 0.2253690000000006
+        },
+        {
+          "phase": 3,
+          "worldTravelMetres": 1.1399999999999864,
+          "projectedTravelPx": 7.751999999999907,
+          "phaseDistance": 0.45052900000000307
+        },
+        {
+          "phase": 10,
+          "worldTravelMetres": 1.1399999999999864,
+          "projectedTravelPx": 7.751999999999907,
+          "phaseDistance": 0.44974100000000305
+        }
+      ]
+    }
+  ],
+  "errors": []
+}
