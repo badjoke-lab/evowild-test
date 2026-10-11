@@ -1,0 +1,19 @@
+{
+  "workspace": "art/p-creature/workspaces/P-v6-canonical-sculpt-review.blend",
+  "reference": "public/concept/P.webp",
+  "reference_sha256": "d57a1552bf9358cc060156ec72b41753441f771fdef3a87cfba2567261217bfe",
+  "source_glb": "public/models/evowild-p/p-canonical-v6.glb",
+  "source_glb_sha256": "b21685fc6e0cb2c70cb42bb693cbad96f8fb659a6d3f0587220e7e06cc5da036",
+  "blend_sha256": "9f75426fb7f962735e3301a290988756318051c64e97515d503dc1498112f991",
+  "blend_bytes": 2776972,
+  "mesh_objects": 2,
+  "cameras": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "packed_reference": true,
+  "status": "EDITABLE_WORKSPACE_ONLY / REVIEW_PENDING / NO_MODEL_QUALITY_GAIN_CLAIM"
+}
