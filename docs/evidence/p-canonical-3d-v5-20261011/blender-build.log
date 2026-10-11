@@ -1,9 +1,9 @@
 INFO Draco mesh compression is available, use library at /home/runner/work/_temp/blender-4.3.2-linux-x64/4.3/python/lib/python3.11/site-packages/libextern_draco.so
-14:17:04 | INFO: Starting glTF 2.0 export
-14:17:04 | INFO: Extracting primitive: P continuous thorax
-14:17:04 | WARNING: The active Vertex Color will not be exported, as it is not used in the node tree of the material
-14:17:04 | INFO: Primitives created: 10
-14:17:05 | INFO: Finished glTF 2.0 export in 0.2143878936767578 s
+15:14:53 | INFO: Starting glTF 2.0 export
+15:14:53 | INFO: Extracting primitive: P continuous thorax
+15:14:53 | WARNING: The active Vertex Color will not be exported, as it is not used in the node tree of the material
+15:14:53 | INFO: Primitives created: 10
+15:14:53 | INFO: Finished glTF 2.0 export in 0.17954158782958984 s
 
 Info: Saved "p-canonical-v5.blend"
 CANONICAL_P_COMPLETE {"authoring": "Blender 4.3.2 / voxel-unified sculpted anatomical skin with blended weights", "reference": ["public/concept/P.webp", "docs/references/evowild-creature-reference-sheet-20260921.jpg"], "coordinates": "GLB: +Y up, -X forward; origin at ground under torso", "asset": "public/models/evowild-p/p-canonical-v5.glb", "animation": "P_Power_Run_Study_0p8s", "bones": 17, "triangles": 73448, "materials": 10, "status": "v5 joined-anatomy review candidate; production HOLD", "views": ["SIDE", "FRONT", "FRONT34", "REAR34", "BACK"], "reference_uncertainty": "Only one small canonical P three-quarter image; exact frontal/rear topology is inferred, not reference-certified."}
