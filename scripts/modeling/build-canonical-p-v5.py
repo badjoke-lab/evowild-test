@@ -73,6 +73,7 @@ pectoral=[(-1.25,.12,1.96),(-1.18,.35,1.79),(-.98,.49,1.58),(-.73,.40,1.40),(-.5
 # sweep and the shallow axillary fold. All displacements operate on the SAME mesh.
 # This deliberately avoids inset shell edges or independent sphere-like muscles.
 anatomy.data.update()
+sculpt_normals=[v.normal.copy() for v in anatomy.data.vertices]
 for v in anatomy.data.vertices:
     x,y,z=v.co; ay=abs(y); side=1 if y>=0 else -1
     lateral=ss(.18,.46,ay)
@@ -95,7 +96,11 @@ for v in anatomy.data.vertices:
     v.co.x -= .095*breast*gauss(ay,.30,.18)
     v.co.x += .055*breast*gauss(y,0,.065)
     pd=path_distance(Vector((x,ay,z)),pectoral)
-    v.co -= v.normal*(.055*math.exp(-(pd/.055)**2))
+    v.co -= sculpt_normals[v.index]*(.028*math.exp(-(pd/.085)**2))
+
+relax=anatomy.modifiers.new('Soften sculpt sampling at the pectoral crease','SMOOTH')
+relax.factor=.45;relax.iterations=3
+bpy.ops.object.modifier_apply(modifier=relax.name)
 
 # Reduce the uniform voxel tessellation without changing the connected surface.
 dec=anatomy.modifiers.new('Review mesh reduction','DECIMATE');dec.ratio=.68
