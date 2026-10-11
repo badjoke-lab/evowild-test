@@ -1,0 +1,109 @@
+{
+  "highest_authority_original_png": "art/s-creature/references/00_s_type_modeling_image_v1.png",
+  "original_png_SHA256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "method": "CROP + ALPHA (actual source ink) + RESCALE, no generated art",
+  "space": "tencent/Hunyuan3D-2mv",
+  "public_ZeroGPU_only": true,
+  "no_paid_GPU_no_subscription": true,
+  "no_user_token_embedded": true,
+  "source_public_GitHub": true,
+  "license_not_yet_cleared_for_commercial_game": true,
+  "front_back_left": {
+    "front": {
+      "authoritative_png_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+      "original_view": "FRONT",
+      "original_full_png_crop": [
+        764,
+        90,
+        946,
+        507
+      ],
+      "source_alpha_mask": "experiments/canonical-cleanroom-fullbody-20261011/multiview-visual-hull-v1/FRONT_TRUE_V1_NEGATIVE_SPACE_MASK.png",
+      "original_foreground_bbox_in_crop": [
+        16,
+        19,
+        163,
+        410
+      ],
+      "original_subject_dims": [
+        147,
+        391
+      ],
+      "normalized_output": "SOURCE_REAL_FRONT_ORTHO_RGBA.png",
+      "normalized_size": [
+        175,
+        466
+      ],
+      "transparent_background": true,
+      "source_3D_geometry_generated": false,
+      "new_other_angle_synthesized": false,
+      "readable_foot_contact_still_review_required": true,
+      "output_sha256": "d46b34bebecad9b8df74107816889105759d8e75ef7e039dc6b56ac020e1d5ae"
+    },
+    "back": {
+      "authoritative_png_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+      "original_view": "BACK",
+      "original_full_png_crop": [
+        948,
+        90,
+        1129,
+        507
+      ],
+      "source_alpha_mask": "experiments/canonical-cleanroom-fullbody-20261011/multiview-visual-hull-v1/BACK_TRUE_V1_NEGATIVE_SPACE_MASK.png",
+      "original_foreground_bbox_in_crop": [
+        34,
+        19,
+        158,
+        410
+      ],
+      "original_subject_dims": [
+        124,
+        391
+      ],
+      "normalized_output": "SOURCE_REAL_BACK_ORTHO_RGBA.png",
+      "normalized_size": [
+        148,
+        466
+      ],
+      "transparent_background": true,
+      "source_3D_geometry_generated": false,
+      "new_other_angle_synthesized": false,
+      "readable_foot_contact_still_review_required": true,
+      "output_sha256": "fd581642d96e2ae14a897c3d8b9e79be03e0f589aff0d1181efd70e93e3c5c0d"
+    },
+    "left": {
+      "authoritative_png_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+      "original_view": "SIDE",
+      "original_full_png_crop": [
+        28,
+        73,
+        760,
+        507
+      ],
+      "source_alpha_mask": "experiments/canonical-cleanroom-fullbody-20261011/multiview-visual-hull-v1/SIDE_TRUE_V1_NEGATIVE_SPACE_MASK.png",
+      "original_foreground_bbox_in_crop": [
+        40,
+        3,
+        719,
+        426
+      ],
+      "original_subject_dims": [
+        679,
+        423
+      ],
+      "normalized_output": "SOURCE_REAL_LEFT_ORTHO_RGBA.png",
+      "normalized_size": [
+        466,
+        290
+      ],
+      "transparent_background": true,
+      "source_3D_geometry_generated": false,
+      "new_other_angle_synthesized": false,
+      "readable_foot_contact_still_review_required": true,
+      "output_sha256": "149345c7c11cf46b1b599af5e47b34ead148e0a5508e32ce318defb1969db164"
+    }
+  },
+  "right_view": null,
+  "model_design_acceptance": "UNTESTED",
+  "game_asset": false
+}
