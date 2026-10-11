@@ -1,0 +1,83 @@
+name: EvoWild S real original QEM remaining leaves forensic T
+on:
+  push:
+    branches: [exp/s-qem-remaining-tail-root-audit-t-20261011]
+    paths:
+      - .github/workflows/s-qem-remaining-leaf-forensic-t.yml
+      - art/s-creature/blender/s_qem_remaining_leaf_fingerprint_t.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-remaining-QEM-leaf-t
+  cancel-in-progress: false
+jobs:
+  actual-real-QEM-two-remaining-tail-collisions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 42
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_qem_remaining_leaf_fingerprint_t.py
+            /art/s-creature/experiments/qem-deformation-gate-20261010/tail-panel-isolation-q-proximal_right/S-QEM-single-panel-Q-PROXIMAL_RIGHT.blend
+            /art/s-creature/experiments/qem-deformation-gate-20261010/tail-panel-isolation-q-distal_right/S-QEM-single-panel-Q-DISTAL_RIGHT.blend
+            /art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/qem-deformation-gate-20261010/tail-remaining-forensic-t-*/
+            /.github/workflows/s-qem-remaining-leaf-forensic-t.yml
+      - name: Enforce canonical S design and real donor QEM SHA
+        run: |
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+          echo 'e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f  art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb' | sha256sum --check -
+      - name: Install actual Blender 4.3.2
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Measure root/tip blade geometry collisions independently
+        run: |
+          TAIL_PANEL=PROXIMAL_RIGHT /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/tail-panel-isolation-q-proximal_right/S-QEM-single-panel-Q-PROXIMAL_RIGHT.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_remaining_leaf_fingerprint_t.py
+          TAIL_PANEL=DISTAL_RIGHT /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/tail-panel-isolation-q-distal_right/S-QEM-single-panel-Q-DISTAL_RIGHT.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_remaining_leaf_fingerprint_t.py
+      - name: Validate both real Q collision series, write machine-readable cross comparison
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path("art/s-creature/experiments/qem-deformation-gate-20261010")
+          data={}
+          for name,expected in (("PROXIMAL_RIGHT",34),("DISTAL_RIGHT",152)):
+              d=json.loads((p/("tail-remaining-forensic-t-"+name.lower())/"REAL_QEM_T_REMAINING_LEAF_COLLISION_MAP.json").read_text())
+              assert d["original_QEM_and_M_untouched"] and d["baseline_actual_collision_pairs"]==expected
+              assert d["target"]==name and not d["mesh_modifications"]
+              assert sum(d["collisions_by_root_mid_tip"].values())==expected
+              data[name]={"collisions":expected,"by_tail_section":d["collisions_by_root_mid_tip"]}
+          out=p/"tail-remaining-forensic-t-summary"
+          out.mkdir(parents=True,exist_ok=True)
+          (out/"ORIGINAL_S_QEM_REMAINING_ROOTS_LOCATION.json").write_text(json.dumps({
+              "source_ref":"art/s-creature/references/00_s_type_modeling_image_v1.png",
+              "rootleaf_midleaf_S_collisions":0,
+              "remaining_Q":data,
+              "original_QEM_unchanged":True,"production_ready":False
+          },indent=2)+"\n")
+          print("REMAINING_QEM_COLLISION_SUMMARY",data)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-original-QEM-remaining-root-and-tip-face-map
+          path: art/s-creature/experiments/qem-deformation-gate-20261010/tail-remaining-forensic-t-*/
+          if-no-files-found: warn
+      - name: Commit only original QEM forensic coords into isolated branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/qem-deformation-gate-20261010/tail-remaining-forensic-t-*/
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit: preserve actual QEM proximal/distal self-intersection face locations after midleaf technical PASS'
+            git pull --rebase origin exp/s-qem-remaining-tail-root-audit-t-20261011
+            git push origin HEAD:exp/s-qem-remaining-tail-root-audit-t-20261011
+          fi
