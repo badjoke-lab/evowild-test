@@ -23,11 +23,12 @@ for(const b of document.querySelectorAll('[data-view]'))b.onclick=()=>setView(b.
 motionButton.onclick=()=>setRunning(!running);
 window.addEventListener('resize',()=>{resize();render();});resize();setView(currentView);
 const base=import.meta.env.BASE_URL;
-const url=params.get('previous')==='1'?`${base}docs/evidence/p-canonical-3d-20261011/previous-proxy.glb`:`${base}models/evowild-p/p-canonical-v1.glb`;
+const assetVersion=params.get('model')==='v2'?'v2':'v1';
+const url=params.get('previous')==='1'?`${base}docs/evidence/p-canonical-3d-20261011/previous-proxy.glb`:`${base}models/evowild-p/p-canonical-${assetVersion}.glb`;
 try{
  const gltf=await new GLTFLoader().loadAsync(url);model=gltf.scene;model.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});scene.add(model);
  if(gltf.animations.length){mixer=new THREE.AnimationMixer(model);model.userData.runClip=gltf.animations[0];}
- motionButton.disabled=!mixer;status.textContent=params.get('previous')==='1'?'Previous race proxy / rest geometry':'New P / canonical palette';
+ motionButton.disabled=!mixer;status.textContent=params.get('previous')==='1'?'Previous race proxy / rest geometry':`Canonical P ${assetVersion} / modeling review`;
  window.pReview={ready:true,setView,setTime,setRunning,render,model,silhouette:(value)=>{scene.overrideMaterial=value?new THREE.MeshBasicMaterial({color:0x172029}):null;floor.visible=!value;scene.background=new THREE.Color(value?'#ffffff':'#788892');render();},stats:()=>({view:currentView,triangles:renderer.info.render.triangles,drawCalls:renderer.info.render.calls,animations:gltf.animations.map(c=>c.name),bounds:new THREE.Box3().setFromObject(model).toJSON?.()})};
  setView(currentView);
 }catch(e){status.textContent=`Model load failed: ${e.message}`;window.pReview={ready:false,error:String(e)};throw e;}
