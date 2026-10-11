@@ -1,0 +1,72 @@
+{
+  "date_utc": "2026-10-11",
+  "canonical_reference": {
+    "path": "art/s-creature/references/00_s_type_modeling_image_v1.png",
+    "sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6"
+  },
+  "immutable_qem_glb_sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "untouched_original_qem": {
+    "vertices": 29948,
+    "triangles": 59932
+  },
+  "experiments": [
+    {
+      "name": "K",
+      "function": "original source tail cut root selection",
+      "removed_original_faces": 0,
+      "selected_root_boundary_edges": 24,
+      "technical_gate": "PASS_DISCOVERY",
+      "canonical_S_morph_gate": "NOT_TESTED"
+    },
+    {
+      "name": "L",
+      "function": "complete original tail replacement",
+      "removed_original_faces": 632,
+      "derived_vertices": 31948,
+      "derived_triangles": 63932,
+      "one_connected": true,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "tail_self_intersection_pairs": 333,
+      "technical_gate": "FAIL_COLLISION",
+      "canonical_S_morph_gate": "REJECT"
+    },
+    {
+      "name": "M",
+      "function": "root-preserving angular downstream regularized single tube",
+      "removed_original_faces": 632,
+      "derived_vertices": 31948,
+      "derived_triangles": 63932,
+      "one_connected": true,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "tail_self_intersection_pairs": 0,
+      "technical_gate": "PASS_TAIL_ROI_ONLY",
+      "canonical_S_morph_gate": "REJECT"
+    },
+    {
+      "name": "N",
+      "function": "multi-angular molded dorsal/lower feather canopy",
+      "removed_original_faces": 632,
+      "derived_vertices": 31948,
+      "derived_triangles": 63932,
+      "one_connected": true,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "tail_self_intersection_pairs": 0,
+      "technical_gate": "PASS_TAIL_ROI_ONLY",
+      "canonical_S_morph_gate": "REJECT"
+    }
+  ],
+  "tail_self_intersection_roi": "face centroid y>1.45, z>1.08, abs(x)<0.60; BVH nonshared triangle vertices",
+  "preferred_technical_tail_base": "M",
+  "technical_tail_variant_not_a_production_asset": true,
+  "reference_shape_approved": false,
+  "full_body_s_geometry_approved": false,
+  "inherited_old_13bone_skinning_approved": false,
+  "inherited_old_97frame_gait_approved": false,
+  "game_main_integration_allowed": false,
+  "production_S_creatures_completed": 0,
+  "next_required_step": "New connected multi-plate topology designed from canonical SIDE, BACK, 3/4 and TAIL close-up; independent self-intersection, silhouette and motion gates.",
+  "review_document": "art/s-creature/experiments/qem-deformation-gate-20261010/QEM_TRUE_SINGLE_ROOT_TAIL_K_TO_N_20261011.md"
+}
