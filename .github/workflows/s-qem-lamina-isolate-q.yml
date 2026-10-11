@@ -1,0 +1,99 @@
+name: EvoWild S original-QEM isolated armor blades Q
+on:
+  push:
+    branches: [exp/s-qem-lamina-isolation-q-20261011]
+    paths:
+      - .github/workflows/s-qem-lamina-isolate-q.yml
+      - art/s-creature/blender/s_qem_tail_single_plate_q.py
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  original-qem-one-plate-at-a-time:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_qem_tail_single_plate_q.py
+            /art/s-creature/experiments/qem-deformation-gate-20261010/tail-core-regularized-m-v1/S-QEM-true-one-piece-tail-core-M-TRIAL.blend
+            /art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/qem-deformation-gate-20261010/tail-panel-isolation-q-*/
+            /.github/workflows/s-qem-lamina-isolate-q.yml
+      - name: Lock real canonical S design and source QEM
+        run: |
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+          echo 'e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f  art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb' | sha256sum --check -
+      - name: Install real Blender
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Build three real QEM seam-attached leaves INDIVIDUALLY
+        run: |
+          for blade in PROXIMAL_RIGHT MID_LEFT DISTAL_RIGHT; do
+            echo "===== ORIGINAL QEM REAL FEATHER $blade ====="
+            Q_PANEL_NAME="$blade" /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/tail-core-regularized-m-v1/S-QEM-true-one-piece-tail-core-M-TRIAL.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_tail_single_plate_q.py
+          done
+      - name: Verify all original mesh QA and package isolated real views
+        run: |
+          python3 -m pip install -q pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          import json
+          root=Path("art/s-creature/experiments/qem-deformation-gate-20261010")
+          report={}
+          for name in ("PROXIMAL_RIGHT","MID_LEFT","DISTAL_RIGHT"):
+              folder=root/("tail-panel-isolation-q-"+name.lower())
+              d=json.loads((folder/"REAL_QEM_Q_SINGLE_ARMOR_PANEL_QA.json").read_text())
+              assert d["original_QEM_untouched"] and d["original_M_untouched"]
+              assert d["original_QEM_vertices"]==29948 and d["M_core_vertices"]==31948
+              assert d["new_S_skin_connected_armor_plate_count"]==1 and d["isolation_panel"]==name
+              assert (folder/f"S-QEM-single-panel-Q-{name}.blend").stat().st_size>50000
+              assert not d["production_game_approved"]
+              report[name]={"topology":d["topology"],
+                            "intersections":d["tail_roi_self_intersection"]["nonshared_polygon_intersections"],
+                            "technical_gate":d["geometry_gate"]}
+          folder=root/"tail-panel-isolation-q-summary"
+          folder.mkdir(parents=True,exist_ok=True)
+          (folder/"THREE_REAL_TAIL_LEAVES_Q_REPORT.json").write_text(json.dumps({
+              "reference":"art/s-creature/references/00_s_type_modeling_image_v1.png",
+              "source_QEM_preserved":True,
+              "tested_individually":report,
+              "O_all_three_intersection_pairs":185,
+              "design_approved":False,"production_ready":False},indent=2)+"\n")
+          W,H=530,400
+          sheet=Image.new("RGB",(W*3,H*2),(236,238,241))
+          d=ImageDraw.Draw(sheet)
+          for col,name in enumerate(("PROXIMAL_RIGHT","MID_LEFT","DISTAL_RIGHT")):
+              p=root/("tail-panel-isolation-q-"+name.lower())/"review"
+              for row,part in enumerate(("BASE_M","SINGLE_Q")):
+                  im=Image.open(p/f"REAL_QEM_{part}_SIDE.png").convert("RGB")
+                  im.thumbnail((W-12,H-30))
+                  sheet.paste(im,(W*col+(W-im.width)//2,H*row+25+(H-25-im.height)//2))
+                  d.text((W*col+7,H*row+6),name+" "+part,(14,17,21))
+          sheet.save(folder/"REAL_QEM_ISOLATED_THREE_LEAVES_Q.jpg",quality=93,optimize=True)
+          print("Q_SINGLE_LEAF_AUDIT",report)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-original-QEM-separate-three-blades-Q
+          path: art/s-creature/experiments/qem-deformation-gate-20261010/tail-panel-isolation-q-*/
+          if-no-files-found: warn
+      - name: Commit all three actual Blender and numerical results to experiment
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/qem-deformation-gate-20261010/tail-panel-isolation-q-*/
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit: individual original-QEM sewn blades isolate true collision origin'
+            git pull --rebase origin exp/s-qem-lamina-isolation-q-20261011
+            git push origin HEAD:exp/s-qem-lamina-isolation-q-20261011
+          fi
