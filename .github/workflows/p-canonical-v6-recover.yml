@@ -1,0 +1,46 @@
+name: Restore P v6 completed evidence
+on:
+  push:
+    branches:
+      - fix/3d-p-canonical-model-20261011
+    paths:
+      - .github/workflows/p-canonical-v6-recover.yml
+permissions:
+  contents: write
+  actions: read
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Restore already-rendered v6 GLB and 5-view evidence
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download 38150382570 --name p-canonical-v6-model-and-renders --dir .
+          test -s public/models/evowild-p/p-canonical-v6.glb
+          test -s public/models/evowild-p/manifest-v6.json
+          test -s docs/evidence/p-canonical-3d-v6-20261012/SIDE.png
+          test -s docs/evidence/p-canonical-3d-v6-20261012/FRONT.png
+          test -s docs/evidence/p-canonical-3d-v6-20261012/FRONT34.png
+          test -s docs/evidence/p-canonical-3d-v6-20261012/REAR34.png
+          test -s docs/evidence/p-canonical-3d-v6-20261012/BACK.png
+          test -s docs/evidence/p-canonical-3d-v6-20261012/running-review.mp4
+          node --input-type=module -e 'import fs from "node:fs"; import crypto from "node:crypto"; const m=JSON.parse(fs.readFileSync("public/models/evowild-p/manifest-v6.json")); const b=fs.readFileSync(m.asset); if(b.length!==m.bytes||crypto.createHash("sha256").update(b).digest("hex")!==m.sha256) process.exit(1); const gltf=JSON.parse(fs.readFileSync("docs/evidence/p-canonical-3d-v6-20261012/gltf-validation.json")); if(gltf.issues.numErrors!==0||gltf.issues.numWarnings!==0) process.exit(1); console.log("Verified v6 actual GLB bytes",b.length);'
+      - name: Commit restored evidence without rewriting any existing version
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/models/evowild-p/p-canonical-v6.glb \
+            public/models/evowild-p/manifest-v6.json \
+            docs/evidence/p-canonical-3d-v6-20261012
+          git diff --cached --check
+          if ! git diff --cached --quiet; then
+            git commit -m 'model(p): restore validated v6 GLB and existing 5-view evidence [review pending]'
+            git fetch origin refs/heads/$GITHUB_REF_NAME
+            git rebase FETCH_HEAD
+            git push origin HEAD:$GITHUB_REF_NAME
+          fi
