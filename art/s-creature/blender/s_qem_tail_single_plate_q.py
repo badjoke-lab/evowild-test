@@ -15,7 +15,7 @@ ROOT=Path(__file__).resolve().parents[1]
 BASE=ROOT/"experiments/qem-deformation-gate-20261010"
 NAME=os.environ.get("Q_PANEL_NAME","")
 assert NAME in ("PROXIMAL_RIGHT","MID_LEFT","DISTAL_RIGHT"),NAME
-OUT=BASE/("tail-panel-isolation-q-"+NAME.lower())
+OUT=BASE/("tail-panel-isolation-q-"+NAME.lower()+("-repeat" if os.environ.get("Q_REPEAT") else ""))
 REVIEW=OUT/"review"
 REVIEW.mkdir(parents=True,exist_ok=True)
 REF=ROOT/"references/00_s_type_modeling_image_v1.png"
@@ -83,11 +83,11 @@ def islands(fs):
                     if g in rest:
                         rest.remove(g);group.add(g);stack.append(g)
         out.append(group)
-    return sorted(out,key=len,reverse=True)
+    return sorted(out,key=lambda fs:(-len(fs),min(f.index for f in fs)))
 def winding_loop(fs):
     fs=set(fs)
     links=[]
-    for f in fs:
+    for f in sorted(fs,key=lambda f:f.index):
         v=list(f.verts)
         for i in range(len(v)):
             a,b=v[i],v[(i+1)%len(v)]
@@ -99,7 +99,7 @@ def winding_loop(fs):
         if a in succ:return [],len(links),"multiple_next"
         succ[a]=b
     if len(links)<8:return [],len(links),"too_short"
-    ordered=[links[0][0]]
+    ordered=[min(succ,key=lambda v:v.index)]
     seen=set(ordered)
     cur=ordered[0]
     while True:
@@ -164,7 +164,7 @@ for plan,patch,loop,scan in choices:
         cumulative.append(cumulative[-1]+edge)
     angles=[2*math.pi*q/perimeter for q in cumulative]
     oldverts={v for f in patch for v in f.verts}
-    for f in list(patch):bm.faces.remove(f)
+    for f in sorted(patch,key=lambda f:f.index):bm.faces.remove(f)
     prev=loop
     lengths=[.07,.13,.22,.34,.47,.60,.73,.84,.92,.965]
     for t in lengths:
@@ -192,7 +192,7 @@ for plan,patch,loop,scan in choices:
     tip=bm.verts.new(inv@tip_world)
     for i in range(n):
         bm.faces.new((prev[i],prev[(i+1)%n],tip))
-    for v in oldverts:
+    for v in sorted(oldverts,key=lambda v:v.index):
         if v.is_valid and len(v.link_faces)==0:bm.verts.remove(v)
     scan.update({"name":plan["name"],"root_center_world":list(root_center),
         "tip_world":list(tip_world),
@@ -265,6 +265,8 @@ result={
  "authoritative_S_reference_sha256":REF_SHA,
  "original_QEM_donor_sha256":DONOR_SHA,
  "original_QEM_untouched":True,"original_M_untouched":True,
+ "reproducible_root_loop_start":"minimum_original_BMesh_vertex_index",
+ "actual_geometry_SHA256_rounded_6dp":hashlib.sha256(np.round(actual,6).tobytes()).hexdigest(),
  "original_QEM_vertices":29948,"original_QEM_triangles":59932,
  "M_core_vertices":31948,"M_core_triangles":63932,
  "new_S_skin_connected_armor_plate_count":len(plate_specs),
