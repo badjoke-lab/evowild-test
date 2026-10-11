@@ -1,0 +1,401 @@
+{
+  "canonical_S_design_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "original_QEM_GLb_sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "source_QEM_unchanged": true,
+  "M_source_unchanged": true,
+  "mesh_topology_exactly_preserved": true,
+  "body_shape_change_is_real_QEM_vertex_edit": true,
+  "original_vertices": 29948,
+  "original_triangles": 59932,
+  "M_and_candidate_vertices": 31948,
+  "M_and_candidate_triangles": 63932,
+  "shoulder_hip_real_QEM_ROI_center_yz": [
+    [
+      -0.73,
+      1.49
+    ],
+    [
+      1.0,
+      1.42
+    ]
+  ],
+  "candidate_count": 8,
+  "all_candidates": [
+    {
+      "shoulder_strength": 0.04,
+      "hip_strength": 0.04,
+      "body_face_quality": {
+        "flipped_face_normal": 0,
+        "degenerate_face": 0,
+        "face_area_under_0p5": 0,
+        "face_area_above_2": 1,
+        "min_ratio": 0.8761751678769664,
+        "max_ratio": 2.934972468495458
+      },
+      "M_torso_BVH_pairs": 0,
+      "candidate_torso_BVH_pairs": 0,
+      "new_body_intersecting_pair_count": 0,
+      "max_evaluated_vertex_shift": 0.03965405056724113,
+      "changed_vertex_count_at_0p003": 13587,
+      "max_head_foot_tail_protected_region_displacement": 1.0612305292346988e-06,
+      "shoulder_x_width_increment": 0.04210233166813859,
+      "hip_x_width_increment": 0.06304105669260018,
+      "world_region_metrics": {
+        "SHOULDER": {
+          "count": 1967,
+          "x_5_to_95_spread": 0.5475854605436326,
+          "z_5_to_95_spread": 0.5291418075561523
+        },
+        "HIP": {
+          "count": 3502,
+          "x_5_to_95_spread": 0.6451107770204543,
+          "z_5_to_95_spread": 0.597208672761917
+        },
+        "WAIST": {
+          "count": 2191,
+          "x_5_to_95_spread": 0.47878918796777725,
+          "z_5_to_95_spread": 0.4878275990486145
+        }
+      },
+      "numerical_candidate_PASS": false
+    },
+    {
+      "shoulder_strength": 0.06,
+      "hip_strength": 0.055,
+      "body_face_quality": {
+        "flipped_face_normal": 0,
+        "degenerate_face": 0,
+        "face_area_under_0p5": 0,
+        "face_area_above_2": 1,
+        "min_ratio": 0.8319308778493774,
+        "max_ratio": 3.693849828923443
+      },
+      "M_torso_BVH_pairs": 0,
+      "candidate_torso_BVH_pairs": 0,
+      "new_body_intersecting_pair_count": 0,
+      "max_evaluated_vertex_shift": 0.054524349799936034,
+      "changed_vertex_count_at_0p003": 14579,
+      "max_head_foot_tail_protected_region_displacement": 1.4308218817898993e-06,
+      "shoulder_x_width_increment": 0.06433966234326371,
+      "hip_x_width_increment": 0.08600795418024065,
+      "world_region_metrics": {
+        "SHOULDER": {
+          "count": 1938,
+          "x_5_to_95_spread": 0.5698227912187577,
+          "z_5_to_95_spread": 0.5300587534904477
+        },
+        "HIP": {
+          "count": 3499,
+          "x_5_to_95_spread": 0.6680776745080947,
+          "z_5_to_95_spread": 0.6076571941375732
+        },
+        "WAIST": {
+          "count": 2190,
+          "x_5_to_95_spread": 0.4819855712354183,
+          "z_5_to_95_spread": 0.4895896255969998
+        }
+      },
+      "numerical_candidate_PASS": false
+    },
+    {
+      "shoulder_strength": 0.08,
+      "hip_strength": 0.07,
+      "body_face_quality": {
+        "flipped_face_normal": 0,
+        "degenerate_face": 0,
+        "face_area_under_0p5": 0,
+        "face_area_above_2": 1,
+        "min_ratio": 0.786199320338978,
+        "max_ratio": 4.456960953169742
+      },
+      "M_torso_BVH_pairs": 0,
+      "candidate_torso_BVH_pairs": 0,
+      "new_body_intersecting_pair_count": 0,
+      "max_evaluated_vertex_shift": 0.0693946202673893,
+      "changed_vertex_count_at_0p003": 15271,
+      "max_head_foot_tail_protected_region_displacement": 1.847984313717782e-06,
+      "shoulder_x_width_increment": 0.08666706308722505,
+      "hip_x_width_increment": 0.10825137943029406,
+      "world_region_metrics": {
+        "SHOULDER": {
+          "count": 1910,
+          "x_5_to_95_spread": 0.592150191962719,
+          "z_5_to_95_spread": 0.5347746431827543
+        },
+        "HIP": {
+          "count": 3497,
+          "x_5_to_95_spread": 0.6903210997581481,
+          "z_5_to_95_spread": 0.6178501367568969
+        },
+        "WAIST": {
+          "count": 2189,
+          "x_5_to_95_spread": 0.4850800096988678,
+          "z_5_to_95_spread": 0.49050662517547594
+        }
+      },
+      "numerical_candidate_PASS": false
+    },
+    {
+      "shoulder_strength": 0.1,
+      "hip_strength": 0.085,
+      "body_face_quality": {
+        "flipped_face_normal": 0,
+        "degenerate_face": 0,
+        "face_area_under_0p5": 0,
+        "face_area_above_2": 9,
+        "min_ratio": 0.7335900035058802,
+        "max_ratio": 5.222008386064179
+      },
+      "M_torso_BVH_pairs": 0,
+      "candidate_torso_BVH_pairs": 0,
+      "new_body_intersecting_pair_count": 0,
+      "max_evaluated_vertex_shift": 0.08628610631865678,
+      "changed_vertex_count_at_0p003": 15718,
+      "max_head_foot_tail_protected_region_displacement": 2.3276357876976293e-06,
+      "shoulder_x_width_increment": 0.1102343045175076,
+      "hip_x_width_increment": 0.13227171748876565,
+      "world_region_metrics": {
+        "SHOULDER": {
+          "count": 1886,
+          "x_5_to_95_spread": 0.6157174333930016,
+          "z_5_to_95_spread": 0.5371325016021729
+        },
+        "HIP": {
+          "count": 3497,
+          "x_5_to_95_spread": 0.7143414378166197,
+          "z_5_to_95_spread": 0.6290593862533571
+        },
+        "WAIST": {
+          "count": 2188,
+          "x_5_to_95_spread": 0.4886030212044716,
+          "z_5_to_95_spread": 0.4915152013301849
+        }
+      },
+      "numerical_candidate_PASS": false
+    },
+    {
+      "shoulder_strength": 0.12,
+      "hip_strength": 0.1,
+      "body_face_quality": {
+        "flipped_face_normal": 0,
+        "degenerate_face": 0,
+        "face_area_under_0p5": 0,
+        "face_area_above_2": 50,
+        "min_ratio": 0.6814562515598319,
+        "max_ratio": 5.988225650764822
+      },
+      "M_torso_BVH_pairs": 0,
+      "candidate_torso_BVH_pairs": 0,
+      "new_body_intersecting_pair_count": 0,
+      "max_evaluated_vertex_shift": 0.10354336499383322,
+      "changed_vertex_count_at_0p003": 16122,
+      "max_head_foot_tail_protected_region_displacement": 2.732240768596273e-06,
+      "shoulder_x_width_increment": 0.13215013518929486,
+      "hip_x_width_increment": 0.15437799096107463,
+      "world_region_metrics": {
+        "SHOULDER": {
+          "count": 1861,
+          "x_5_to_95_spread": 0.6376332640647888,
+          "z_5_to_95_spread": 0.5411962270736694
+        },
+        "HIP": {
+          "count": 3490,
+          "x_5_to_95_spread": 0.7364477112889287,
+          "z_5_to_95_spread": 0.6365610778331756
+        },
+        "WAIST": {
+          "count": 2187,
+          "x_5_to_95_spread": 0.49200497269630417,
+          "z_5_to_95_spread": 0.49461535215377816
+        }
+      },
+      "numerical_candidate_PASS": false
+    },
+    {
+      "shoulder_strength": 0.14,
+      "hip_strength": 0.11,
+      "body_face_quality": {
+        "flipped_face_normal": 0,
+        "degenerate_face": 0,
+        "face_area_under_0p5": 0,
+        "face_area_above_2": 136,
+        "min_ratio": 0.6297488739506506,
+        "max_ratio": 6.499856866188374
+      },
+      "M_torso_BVH_pairs": 0,
+      "candidate_torso_BVH_pairs": 0,
+      "new_body_intersecting_pair_count": 0,
+      "max_evaluated_vertex_shift": 0.12080055263818978,
+      "changed_vertex_count_at_0p003": 16400,
+      "max_head_foot_tail_protected_region_displacement": 2.9327665806156502e-06,
+      "shoulder_x_width_increment": 0.1546533398330212,
+      "hip_x_width_increment": 0.16976409703493123,
+      "world_region_metrics": {
+        "SHOULDER": {
+          "count": 1826,
+          "x_5_to_95_spread": 0.6601364687085152,
+          "z_5_to_95_spread": 0.5446537435054779
+        },
+        "HIP": {
+          "count": 3487,
+          "x_5_to_95_spread": 0.7518338173627853,
+          "z_5_to_95_spread": 0.6425981760025024
+        },
+        "WAIST": {
+          "count": 2186,
+          "x_5_to_95_spread": 0.4948223866522312,
+          "z_5_to_95_spread": 0.49592888355255127
+        }
+      },
+      "numerical_candidate_PASS": false
+    },
+    {
+      "shoulder_strength": 0.16,
+      "hip_strength": 0.12,
+      "body_face_quality": {
+        "flipped_face_normal": 0,
+        "degenerate_face": 0,
+        "face_area_under_0p5": 0,
+        "face_area_above_2": 269,
+        "min_ratio": 0.5786263233084902,
+        "max_ratio": 7.0116196633379975
+      },
+      "M_torso_BVH_pairs": 0,
+      "candidate_torso_BVH_pairs": 0,
+      "new_body_intersecting_pair_count": 0,
+      "max_evaluated_vertex_shift": 0.13805781131337252,
+      "changed_vertex_count_at_0p003": 16614,
+      "max_head_foot_tail_protected_region_displacement": 3.20717855420417e-06,
+      "shoulder_x_width_increment": 0.1732512690126895,
+      "hip_x_width_increment": 0.18526935130357747,
+      "world_region_metrics": {
+        "SHOULDER": {
+          "count": 1785,
+          "x_5_to_95_spread": 0.6787343978881835,
+          "z_5_to_95_spread": 0.5484225273132324
+        },
+        "HIP": {
+          "count": 3483,
+          "x_5_to_95_spread": 0.7673390716314316,
+          "z_5_to_95_spread": 0.649188482761383
+        },
+        "WAIST": {
+          "count": 2184,
+          "x_5_to_95_spread": 0.4978931948542595,
+          "z_5_to_95_spread": 0.4951479196548463
+        }
+      },
+      "numerical_candidate_PASS": false
+    },
+    {
+      "shoulder_strength": 0.18,
+      "hip_strength": 0.13,
+      "body_face_quality": {
+        "flipped_face_normal": 0,
+        "degenerate_face": 0,
+        "face_area_under_0p5": 0,
+        "face_area_above_2": 510,
+        "min_ratio": 0.5281534734824577,
+        "max_ratio": 7.523503887764728
+      },
+      "M_torso_BVH_pairs": 0,
+      "candidate_torso_BVH_pairs": 0,
+      "new_body_intersecting_pair_count": 0,
+      "max_evaluated_vertex_shift": 0.15531501197533557,
+      "changed_vertex_count_at_0p003": 16764,
+      "max_head_foot_tail_protected_region_displacement": 3.4452309648080886e-06,
+      "shoulder_x_width_increment": 0.19562120810151096,
+      "hip_x_width_increment": 0.19974787235260016,
+      "world_region_metrics": {
+        "SHOULDER": {
+          "count": 1755,
+          "x_5_to_95_spread": 0.7011043369770049,
+          "z_5_to_95_spread": 0.551525318622589
+        },
+        "HIP": {
+          "count": 3480,
+          "x_5_to_95_spread": 0.7818175926804543,
+          "z_5_to_95_spread": 0.655978149175644
+        },
+        "WAIST": {
+          "count": 2182,
+          "x_5_to_95_spread": 0.5007660843431949,
+          "z_5_to_95_spread": 0.49623024463653564
+        }
+      },
+      "numerical_candidate_PASS": false
+    }
+  ],
+  "selected": {
+    "shoulder_strength": 0.04,
+    "hip_strength": 0.04,
+    "body_face_quality": {
+      "flipped_face_normal": 0,
+      "degenerate_face": 0,
+      "face_area_under_0p5": 0,
+      "face_area_above_2": 1,
+      "min_ratio": 0.8761751678769664,
+      "max_ratio": 2.934972468495458
+    },
+    "M_torso_BVH_pairs": 0,
+    "candidate_torso_BVH_pairs": 0,
+    "new_body_intersecting_pair_count": 0,
+    "max_evaluated_vertex_shift": 0.03965405056724113,
+    "changed_vertex_count_at_0p003": 13587,
+    "max_head_foot_tail_protected_region_displacement": 1.0612305292346988e-06,
+    "shoulder_x_width_increment": 0.04210233166813859,
+    "hip_x_width_increment": 0.06304105669260018,
+    "world_region_metrics": {
+      "SHOULDER": {
+        "count": 1967,
+        "x_5_to_95_spread": 0.5475854605436326,
+        "z_5_to_95_spread": 0.5291418075561523
+      },
+      "HIP": {
+        "count": 3502,
+        "x_5_to_95_spread": 0.6451107770204543,
+        "z_5_to_95_spread": 0.597208672761917
+      },
+      "WAIST": {
+        "count": 2191,
+        "x_5_to_95_spread": 0.47878918796777725,
+        "z_5_to_95_spread": 0.4878275990486145
+      }
+    },
+    "numerical_candidate_PASS": false
+  },
+  "replay_face_quality": {
+    "flipped_face_normal": 0,
+    "degenerate_face": 0,
+    "face_area_under_0p5": 0,
+    "face_area_above_2": 1,
+    "min_ratio": 0.8761751678769664,
+    "max_ratio": 2.934972468495458
+  },
+  "replay_BVH_body_intersections": 0,
+  "replay_integrity": true,
+  "original_M_body_BVH_intersections": 0,
+  "original_M_body_dims": {
+    "SHOULDER": {
+      "count": 2018,
+      "x_5_to_95_spread": 0.505483128875494,
+      "z_5_to_95_spread": 0.5280035853385923
+    },
+    "HIP": {
+      "count": 3508,
+      "x_5_to_95_spread": 0.5820697203278541,
+      "z_5_to_95_spread": 0.5694067299365997
+    },
+    "WAIST": {
+      "count": 2196,
+      "x_5_to_95_spread": 0.47356582060456276,
+      "z_5_to_95_spread": 0.4854350686073303
+    }
+  },
+  "limited_3D_geometry_gate": "FAIL",
+  "canonical_S_silhouette_gate": "REVIEW_PENDING_NOT_APPROVED",
+  "canonical_S_head_crest_armor_feathers_complete": false,
+  "new_blender_rig_validated": false,
+  "gait_real_running_passed": false,
+  "production_S_approved": false
+}
