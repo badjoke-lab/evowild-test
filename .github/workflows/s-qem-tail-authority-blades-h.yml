@@ -1,0 +1,124 @@
+name: EvoWild S original-QEM three swept authority-tail blades H
+on:
+  push:
+    branches: [exp/s-qem-tail-authority-blades-h-20261011]
+    paths:
+      - .github/workflows/s-qem-tail-authority-blades-h.yml
+      - art/s-creature/blender/s_qem_tail_authority_blades_h.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-s-qem-reference-tail-h
+  cancel-in-progress: false
+jobs:
+  reference-driven-3d-tail:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_qem_tail_authority_blades_h.py
+            /art/s-creature/experiments/qem-deformation-gate-20261010/tail-morph-a-v1/S-QEM-real-tail-morph-a-v1.blend
+            /art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/qem-deformation-gate-20261010/tail-authority-blades-h-v1/
+            /.github/workflows/s-qem-tail-authority-blades-h.yml
+      - name: Verify user's exact highest authority and preserved QEM
+        run: |
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+          echo 'e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f  art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb' | sha256sum --check -
+      - name: Install real Blender 4.3.2
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Build continuous tapered feather surface from original QEM skin and render
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/tail-morph-a-v1/S-QEM-real-tail-morph-a-v1.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_tail_authority_blades_h.py
+      - name: Package exact authority beside real 3D output and immutable QA
+        run: |
+          python3 -m pip install -q pillow
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          from PIL import Image, ImageDraw, ImageOps
+          p=Path("art/s-creature/experiments/qem-deformation-gate-20261010/tail-authority-blades-h-v1")
+          j=json.loads((p/"QEM_H_REAL_TAIL_BLADES_QA.json").read_text())
+          assert j["source_original_preserved"] and j["original_A_trial_preserved"]
+          assert j["original_source_counts"]=={"vertices":29948,"triangles":59932}
+          assert j["blade_count"]>=3
+          assert j["derived_tail_counts"]["vertices"]>29948
+          assert j["gate"]["game_production"]=="REJECT_NOT_APPROVED"
+          assert (p/"S-QEM-real-connected-tail-blades-H-TRIAL.blend").stat().st_size>50000
+          ref=Image.open("art/s-creature/references/00_s_type_modeling_image_v1.png").convert("RGB")
+          w,h=ref.size
+          # Crops from the ORIGINAL DESIGN file verified above. Never repaint,
+          # invent or treat our crop as a replacement authority.
+          main=ref.crop((int(w*.018),int(h*.07),int(w*.525),int(h*.476)))
+          tail=ref.crop((int(w*.746),int(h*.61),int(w*.995),int(h*.871)))
+          for name,im in (("EXACT_REFERENCE_SIDE_CROP",main),("EXACT_REFERENCE_TAIL_CLOSEUP",tail)):
+              im.save(p/"review"/f"{name}.jpg",quality=91)
+          views=["SIDE","FRONT","FRONT34","REAR34","BACK"]
+          row_order=["ORIGINAL_A","BLADES_H"]
+          cw,ch=405,312
+          sheet=Image.new("RGB",(5*cw,2*ch),(236,238,241))
+          draw=ImageDraw.Draw(sheet)
+          for i,view in enumerate(views):
+              for row,which in enumerate(row_order):
+                  fn=p/"review"/f"REAL_S_QEM_TAIL_{which}_{view}.png"
+                  assert fn.stat().st_size>15000,fn
+                  im=Image.open(fn).convert("RGB")
+                  im.thumbnail((cw-12,ch-29))
+                  sheet.paste(im,(cw*i+(cw-im.width)//2,ch*row+25+(ch-25-im.height)//2))
+                  draw.text((cw*i+8,ch*row+5),f"{which} / {view}",(17,18,21))
+          sheet.save(p/"review"/"REAL_QEM_TAIL_H_FIVE_VIEW_COMPARE.jpg",quality=92,optimize=True)
+          cw,ch=600,455
+          detail=Image.new("RGB",(3*cw,2*ch),(236,238,241))
+          draw=ImageDraw.Draw(detail)
+          for i,view in enumerate(("SIDE","REAR34","BACK")):
+              for row,which in enumerate(row_order):
+                  fn=p/"review"/f"REAL_S_QEM_TAIL_DETAIL_{which}_{view}.png"
+                  assert fn.stat().st_size>15000,fn
+                  im=Image.open(fn).convert("RGB")
+                  im.thumbnail((cw-12,ch-32))
+                  detail.paste(im,(cw*i+(cw-im.width)//2,ch*row+27+(ch-27-im.height)//2))
+                  draw.text((cw*i+8,ch*row+6),f"{which} / {view} real tail close-up",(17,18,21))
+          detail.save(p/"review"/"REAL_QEM_TAIL_H_DETAIL_COMPARE.jpg",quality=92,optimize=True)
+          # 3 panels: reference (real, scaled) / original mesh / G revision.
+          cw,ch=610,480
+          sheet=Image.new("RGB",(3*cw,ch),(236,238,241))
+          draw=ImageDraw.Draw(sheet)
+          for i,(title,im) in enumerate([
+              ("LOCKED ORIGINAL S-TYPE DESIGN",main),
+              ("REAL QEM PREVIOUS TAIL A",Image.open(p/"review"/"REAL_S_QEM_TAIL_ORIGINAL_A_SIDE.png").convert("RGB")),
+              ("REAL QEM NEW LAMINA TRIAL G",Image.open(p/"review"/"REAL_S_QEM_TAIL_BLADES_H_SIDE.png").convert("RGB"))]):
+              im.thumbnail((cw-12,ch-32))
+              sheet.paste(im,(cw*i+(cw-im.width)//2,27+(ch-27-im.height)//2))
+              draw.text((cw*i+7,7),title,(15,16,20))
+          sheet.save(p/"review"/"REFERENCE_VS_REAL_QEM_TAIL_H.jpg",quality=92,optimize=True)
+          print("QEM_G_GEOMETRY_GATE",j["gate"])
+          print("QEM_G_MANIFOLD",j["topology"])
+          print("QEM_G_SELFCOLLISION",j["tail_self_collision_bvh"]["status"])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S-type-real-reference-connected-tail-H
+          path: art/s-creature/experiments/qem-deformation-gate-20261010/tail-authority-blades-h-v1/
+          if-no-files-found: warn
+      - name: Commit unapproved real 3D trial and full failure/success evidence only to experiment branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/qem-deformation-gate-20261010/tail-authority-blades-h-v1/
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit: archived three broad QEM swept blade H geometry and original-reference visual gate'
+            git pull --rebase origin exp/s-qem-tail-authority-blades-h-20261011
+            git push origin HEAD:exp/s-qem-tail-authority-blades-h-20261011
+          fi
