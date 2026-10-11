@@ -73,6 +73,8 @@ scene.render.engine='BLENDER_EEVEE_NEXT'
 scene.render.resolution_x=1280;scene.render.resolution_y=800
 scene.render.resolution_percentage=100
 scene.render.image_settings.file_format='PNG'
+if scene.world is None:
+    scene.world=bpy.data.worlds.new('P sculpt neutral workspace world')
 scene.world.color=(.13,.13,.13)
 # Record the owner of this blend and what it is NOT.
 scene['approval']='REVIEW_PENDING; P v6 shape is REVISE'
