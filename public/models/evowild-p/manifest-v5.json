@@ -19,8 +19,8 @@
     "BACK"
   ],
   "reference_uncertainty": "Only one small canonical P three-quarter image; exact frontal/rear topology is inferred, not reference-certified.",
-  "bytes": 2604592,
-  "sha256": "4dcead1089ab23d2a70a7e751a11d2b69eb95eacedea6db38bba27affadc5bbd",
+  "bytes": 2604556,
+  "sha256": "07cb11db521956de5e8e82d0871977b2fb7a9e56b67934789f74b54710efc820",
   "packaging": "glTF Transform 4.3.0 dedup/prune; identity mesh parent normalized to scene root",
   "externalURIs": [],
   "runtimeScope": "isolated shape and minimal motion review; production HOLD"

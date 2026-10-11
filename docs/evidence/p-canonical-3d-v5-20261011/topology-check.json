@@ -5,7 +5,7 @@
     24074
   ],
   "vertices": 24074,
-  "faces": 29899,
+  "faces": 29875,
   "boundaryEdges": 0,
   "nonManifoldEdges": 0,
   "covers": [
@@ -18,5 +18,5 @@
     "hind limbs"
   ],
   "disconnectedMuscleShells": 0,
-  "blendedVertices": 13194
+  "blendedVertices": 13046
 }

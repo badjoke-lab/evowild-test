@@ -10,24 +10,42 @@
   "ikReachClips": 0,
   "stanceSamples": [
     {
-      "frame": 1,
+      "frame": 0,
       "limb": "FL",
       "ankleZ": 0.3,
       "clipped": false
     },
     {
-      "frame": 1,
+      "frame": 0,
       "limb": "HL",
       "ankleZ": 0.32,
       "clipped": false
     },
     {
-      "frame": 1,
+      "frame": 0,
       "limb": "FR",
       "ankleZ": 0.3,
       "clipped": false
     },
     {
+      "frame": 0,
+      "limb": "HR",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 1,
+      "limb": "FL",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 1,
+      "limb": "HL",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
       "frame": 1,
       "limb": "HR",
       "ankleZ": 0.32,
@@ -67,12 +85,6 @@
       "frame": 3,
       "limb": "HR",
       "ankleZ": 0.32,
-      "clipped": false
-    },
-    {
-      "frame": 4,
-      "limb": "FL",
-      "ankleZ": 0.3,
       "clipped": false
     },
     {
@@ -155,6 +167,12 @@
     },
     {
       "frame": 10,
+      "limb": "FR",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 10,
       "limb": "HR",
       "ankleZ": 0.32,
       "clipped": false
@@ -190,9 +208,9 @@
       "clipped": false
     },
     {
-      "frame": 12,
-      "limb": "HR",
-      "ankleZ": 0.32,
+      "frame": 13,
+      "limb": "FL",
+      "ankleZ": 0.3,
       "clipped": false
     },
     {
@@ -229,12 +247,6 @@
       "frame": 15,
       "limb": "FL",
       "ankleZ": 0.3,
-      "clipped": false
-    },
-    {
-      "frame": 15,
-      "limb": "HL",
-      "ankleZ": 0.32,
       "clipped": false
     },
     {
@@ -328,6 +340,12 @@
       "clipped": false
     },
     {
+      "frame": 22,
+      "limb": "HR",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
       "frame": 23,
       "limb": "FL",
       "ankleZ": 0.3,
@@ -353,36 +371,18 @@
     },
     {
       "frame": 24,
-      "limb": "FR",
-      "ankleZ": 0.3,
-      "clipped": false
-    },
-    {
-      "frame": 24,
-      "limb": "HR",
-      "ankleZ": 0.32,
-      "clipped": false
-    },
-    {
-      "frame": 25,
-      "limb": "FL",
-      "ankleZ": 0.3,
-      "clipped": false
-    },
-    {
-      "frame": 25,
       "limb": "HL",
       "ankleZ": 0.32,
       "clipped": false
     },
     {
-      "frame": 25,
+      "frame": 24,
       "limb": "FR",
       "ankleZ": 0.3,
       "clipped": false
     },
     {
-      "frame": 25,
+      "frame": 24,
       "limb": "HR",
       "ankleZ": 0.32,
       "clipped": false
