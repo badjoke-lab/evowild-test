@@ -1,0 +1,47 @@
+name: P reference sculpt workspace
+on:
+  push:
+    branches:
+      - fix/3d-p-canonical-model-20261011
+    paths:
+      - .github/workflows/p-sculpt-workspace.yml
+permissions:
+  contents: write
+jobs:
+  author:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Prepare pinned Blender 4.3.2
+        run: |
+          curl -fL --retry 4 --retry-delay 5 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o "$RUNNER_TEMP/blender.tar.xz"
+          tar -xJf "$RUNNER_TEMP/blender.tar.xz" -C "$RUNNER_TEMP"
+          echo "BLENDER_EXECUTABLE=$RUNNER_TEMP/blender-4.3.2-linux-x64/blender" >> "$GITHUB_ENV"
+      - name: Create editable v6 model + canonical image workspace
+        run: |
+          "$BLENDER_EXECUTABLE" -b -t 4 --python scripts/modeling/create-p-sculpt-workspace.py
+          "$BLENDER_EXECUTABLE" -b -t 4 --python scripts/modeling/check-p-sculpt-workspace.py
+          test -s art/p-creature/workspaces/P-v6-canonical-sculpt-review.blend
+      - name: Commit genuine Blender workspace
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add art/p-creature/workspaces/P-v6-canonical-sculpt-review.blend art/p-creature/workspaces/P-v6-canonical-sculpt-review.json
+          git diff --cached --check
+          if ! git diff --cached --quiet; then
+            git commit -m "art(p): save editable v6 Blender workspace with packed P reference [shape HOLD]"
+            git fetch origin refs/heads/$GITHUB_REF_NAME
+            git rebase FETCH_HEAD
+            git push origin HEAD:$GITHUB_REF_NAME
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p-canonical-v6-sculpt-workspace
+          path: |
+            art/p-creature/workspaces/P-v6-canonical-sculpt-review.blend
+            art/p-creature/workspaces/P-v6-canonical-sculpt-review.json
+          if-no-files-found: warn
