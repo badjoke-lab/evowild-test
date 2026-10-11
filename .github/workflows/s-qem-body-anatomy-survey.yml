@@ -1,0 +1,71 @@
+name: EvoWild S original-QEM anatomical cross-sections
+on:
+  push:
+    branches: [exp/s-qem-authority-body-mass-20261011]
+    paths:
+      - .github/workflows/s-qem-body-anatomy-survey.yml
+      - art/s-creature/blender/s_qem_anatomy_survey_20261011.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: s-qem-real-source-anatomy-survey
+  cancel-in-progress: false
+jobs:
+  inspect-actual-QEM-anatomical-positions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_qem_anatomy_survey_20261011.py
+            /art/s-creature/experiments/qem-deformation-gate-20261010/tail-core-regularized-m-v1/S-QEM-true-one-piece-tail-core-M-TRIAL.blend
+            /art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/qem-deformation-gate-20261010/body-authority-survey-20261011/
+            /.github/workflows/s-qem-body-anatomy-survey.yml
+      - name: Confirm actual immutable original S drawing and source geometry
+        run: |
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+          echo 'e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f  art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb' | sha256sum --check -
+      - name: Install Blender
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Inspect true QEM anatomy in Blender
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/tail-core-regularized-m-v1/S-QEM-true-one-piece-tail-core-M-TRIAL.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_anatomy_survey_20261011.py
+      - name: Confirm source unchanged
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("art/s-creature/experiments/qem-deformation-gate-20261010/body-authority-survey-20261011/ORIGINAL_QEM_S_BODY_REAL_COORDINATE_SURVEY.json")
+          d=json.loads(p.read_text())
+          assert d["M_evaluated_vertices"]==31948
+          assert d["source_QEM_not_edited"]
+          assert len(d["per_Y_cross_sections"])>10
+          assert all(v["count"]>100 for k,v in d["proposed_anatomy_ROIs"].items() if k not in ("HEAD_CREATURE",))
+          print("Actual QEM shoulder, thorax, hip",d["proposed_anatomy_ROIs"])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-real-original-QEM-anatomy-cross-section-survey
+          path: art/s-creature/experiments/qem-deformation-gate-20261010/body-authority-survey-20261011/
+          if-no-files-found: warn
+      - name: Save authentic QEM full-body anatomy ROI survey only in experiment
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/qem-deformation-gate-20261010/body-authority-survey-20261011/
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit: actual original QEM S shoulder thorax haunch coordinates before geometry changes'
+            git pull --rebase origin exp/s-qem-authority-body-mass-20261011
+            git push origin HEAD:exp/s-qem-authority-body-mass-20261011
+          fi
