@@ -166,6 +166,10 @@ const RUN_FRAMES = [
   { phase:"LAND",    col:2, row:1, y:-0.16 }
 ];
 
+// P distance-locked phase clock is research-only until real rendered toe
+// tracking proves reduced slip and no loss of the authored pose sequence.
+const P_STRIDE_DISTANCE_TRIAL = new URLSearchParams(location.search).get("pStrideClock")==="distance";
+const P_CALIBRATION_METRES = 34*6/((9.5+9.5)*.94*.75);
 const P_RUN_FRAMES = [
   { phase:"CONTACT",         flight:0,    contact:true },
   { phase:"CONTACT_TO_PUSH", flight:0,    contact:true },
@@ -892,7 +896,9 @@ function updateRace(dtMs) {
     // rewrites the entire phase history whenever speed changes, causing a
     // backwards jump or a skipped pose during acceleration / deceleration.
     if (r.morph === "P") {
-      const cadence=(9.5+clamp(r.speed/34,0,1)*9.5)*MORPH_META.P.cadence*.75;
+      const cadence = P_STRIDE_DISTANCE_TRIAL
+        ? Math.max(0,r.speed)*6/P_CALIBRATION_METRES
+        : (9.5+clamp(r.speed/34,0,1)*9.5)*MORPH_META.P.cadence*.75;
       r.pRunPosition += cadence*dt;
     }
 
@@ -1350,7 +1356,8 @@ function drawRacers() {
     if(selectedRacer){
       if(r.morph==="P") {
         stage.dataset.pRunPosition=r.pRunPosition.toFixed(6);
-        stage.dataset.pCadenceModel="integrated-fixed-step";
+        stage.dataset.pCadenceModel=P_STRIDE_DISTANCE_TRIAL?"integrated-distance-trial":"integrated-fixed-step";
+        stage.dataset.pCalibratedCycleMetres=P_CALIBRATION_METRES.toFixed(3);
       }
       stage.dataset.selectedRunFrame=String(frameIndex);
       stage.dataset.selectedRunPhase=frame.phase;

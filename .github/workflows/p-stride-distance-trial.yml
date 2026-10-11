@@ -1,0 +1,32 @@
+name: P 2.5D distance-stride research
+on:
+  push:
+    branches:
+      - fix/2p5d-p-canonical-20261011
+    paths:
+      - src/race_quality.js
+      - tests/p-stride-distance-trial.spec.js
+      - .github/workflows/p-stride-distance-trial.yml
+jobs:
+  trial:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install
+      - run: npm --ignore-scripts run build
+      - run: npx playwright install --with-deps chromium
+      - name: Measure P stride-distance trial in desktop and Android emulation
+        run: npx playwright test tests/p-stride-distance-trial.spec.js
+      - name: Attach browser test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p-2p5d-distance-phase-trial
+          path: |
+            test-results/
+            playwright-report/
+          if-no-files-found: ignore
