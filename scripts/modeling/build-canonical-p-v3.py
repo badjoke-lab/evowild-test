@@ -338,5 +338,5 @@ for name,loc in views.items():
 # Source .blend is reproducible from this script, kept in work to avoid a large duplicate deliverable.
 bpy.ops.wm.save_as_mainfile(filepath=str(ROOT/'work/p-canonical-v3/p-canonical-v3.blend'))
 info={'authoring':'Blender 4.3.2 / deterministic contour lofts and anatomical surface panels','reference':['public/concept/P.webp','docs/references/evowild-creature-reference-sheet-20260921.jpg'],'coordinates':'GLB: +Y up, -X forward; origin at ground under torso','asset':'public/models/evowild-p/p-canonical-v3.glb','animation':'P_Power_Run_Study_0p8s','bones':len(arm.data.bones),'triangles':sum(len(p.vertices)-2 for p in body.data.polygons),'materials':len(body.data.materials),'status':'v3 compact anatomy review; production HOLD','views':list(views),'reference_uncertainty':'Only one small canonical P three-quarter image; exact frontal/rear topology is inferred, not reference-certified.'}
-(OUT/'manifest-v2.json').write_text(json.dumps(info,indent=2)+'\n')
+(OUT/'manifest-v3.json').write_text(json.dumps(info,indent=2)+'\n')
 print('CANONICAL_P_COMPLETE',json.dumps(info))

@@ -5,7 +5,7 @@ on:
     branches:
       - fix/3d-p-canonical-model-20261011
     paths:
-      - scripts/modeling/build-canonical-p-v2.py
+      - scripts/modeling/build-canonical-p-v3.py
       - .github/workflows/p-canonical-v3.yml
 
 permissions:
@@ -42,21 +42,21 @@ jobs:
           echo "BLENDER_EXECUTABLE=$RUNNER_TEMP/blender-4.3.2-linux-x64/blender" >> "$GITHUB_ENV"
       - name: Generate a NEW P v3 GLB, keeping v1 unchanged
         run: |
-          "$BLENDER_EXECUTABLE" -b -t 4 --python scripts/modeling/build-canonical-p-v2.py -- --no-render \
-            > "$RUNNER_TEMP/pv2-blender.log" 2>&1 || { tail -n 150 "$RUNNER_TEMP/pv2-blender.log"; exit 1; }
-          tail -n 15 "$RUNNER_TEMP/pv2-blender.log"
-          node scripts/modeling/finalize-p-v2.mjs
+          "$BLENDER_EXECUTABLE" -b -t 4 --python scripts/modeling/build-canonical-p-v3.py -- --no-render \
+            > "$RUNNER_TEMP/pv3-blender.log" 2>&1 || { tail -n 150 "$RUNNER_TEMP/pv3-blender.log"; exit 1; }
+          tail -n 15 "$RUNNER_TEMP/pv3-blender.log"
+          node scripts/modeling/finalize-p-v3.mjs
           test -s public/models/evowild-p/p-canonical-v3.glb
           node -e "const a=require('fs').statSync('public/models/evowild-p/p-canonical-v3.glb');if(a.size<250000)process.exit(1);console.log('GLB bytes',a.size)"
-      - name: Build and capture real v2 model renders
+      - name: Build and capture real v3 model renders
         run: |
           npm run build
-          npm run dev -- --host 127.0.0.1 --port 4173 > "$RUNNER_TEMP/pv2-vite.log" 2>&1 &
-          echo $! > "$RUNNER_TEMP/pv2-server.pid"
+          npm run dev -- --host 127.0.0.1 --port 4173 > "$RUNNER_TEMP/pv3-vite.log" 2>&1 &
+          echo $! > "$RUNNER_TEMP/pv3-server.pid"
           curl -f --retry 25 --retry-delay 2 --retry-connrefused \
             http://127.0.0.1:4173/evowild-test/p-canonical-review.html > /dev/null
-          node scripts/modeling/capture-p-review-v2.mjs
-          node scripts/modeling/package-p-evidence-v2.mjs
+          node scripts/modeling/capture-p-review-v3.mjs
+          node scripts/modeling/package-p-evidence-v3.mjs
           test -s docs/evidence/p-canonical-3d-v3-20261011/SIDE.png
           test -s docs/evidence/p-canonical-3d-v3-20261011/FRONT.png
           test -s docs/evidence/p-canonical-3d-v3-20261011/FRONT34.png
@@ -68,20 +68,20 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add public/models/evowild-p/p-canonical-v3.glb \
-            public/models/evowild-p/manifest-v2.json \
+            public/models/evowild-p/manifest-v3.json \
             docs/evidence/p-canonical-3d-v3-20261011
           git diff --cached --check
           if ! git diff --cached --quiet; then
-            git commit -m "model(p): capture canonical v2 GLB and five-view evidence [review pending]"
+            git commit -m "model(p): capture canonical v3 GLB and five-view evidence [review pending]"
             git push origin HEAD:fix/3d-p-canonical-model-20261011
           fi
-      - name: Upload v2 evidence even if commit is blocked
+      - name: Upload v3 evidence even if commit is blocked
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: p-canonical-v3-model-and-renders
           path: |
             public/models/evowild-p/p-canonical-v3.glb
-            public/models/evowild-p/manifest-v2.json
+            public/models/evowild-p/manifest-v3.json
             docs/evidence/p-canonical-3d-v3-20261011/*
           if-no-files-found: warn

@@ -30,10 +30,10 @@ function html(title,rows){
 }
 await page.setContent(html('P shape review / canonical · v1 · v2 · v3',comparison));
 await page.evaluate(()=>Promise.all([...document.images].map(i=>i.decode())));
-await page.screenshot({path:dest+'/comparison-v1-v2.png',fullPage:true});
+await page.screenshot({path:dest+'/comparison-v1-v2-v3.png',fullPage:true});
 const rows=['SIDE','FRONT34'].flatMap(view=>[0,6,12,18].map(f=>[view+' / '+(f/30).toFixed(1)+'s',dest+'/run-'+view+'-'+String(f).padStart(2,'0')+'.png']));
 await page.setContent(html('P v3 / minimal running study',rows));
 await page.evaluate(()=>Promise.all([...document.images].map(i=>i.decode())));
 await page.screenshot({path:dest+'/running-contact-sheet.png',fullPage:true});
 await browser.close();
-console.log('P v2 review evidence packaged');
+console.log('P v3 review evidence packaged');

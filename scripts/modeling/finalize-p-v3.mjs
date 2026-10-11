@@ -23,7 +23,7 @@ const rest=b.subarray(20+jsonLength),header=Buffer.alloc(20);b.copy(header,0,0,2
 fs.writeFileSync(asset,Buffer.concat([header,encoded,rest]));
 console.log('Finalized',asset,fs.statSync(asset).size,'bytes');
 
-const manifestPath='public/models/evowild-p/manifest-v2.json';
+const manifestPath='public/models/evowild-p/manifest-v3.json';
 const manifest=JSON.parse(fs.readFileSync(manifestPath,'utf8'));
 Object.assign(manifest,{bytes:fs.statSync(asset).size,sha256:createHash('sha256').update(fs.readFileSync(asset)).digest('hex'),packaging:'glTF Transform 4.3.0 dedup/prune; identity mesh parent normalized to scene root',materials:gltf.materials.length,externalURIs:[...gltf.buffers,...(gltf.images||[])].filter(x=>x.uri).map(x=>x.uri),runtimeScope:'isolated shape and minimal motion review; production HOLD'});
 fs.writeFileSync(manifestPath,JSON.stringify(manifest,null,2)+'\n');
