@@ -1,0 +1,51 @@
+{
+  "reference": "art/s-creature/references/00_s_type_modeling_image_v1.png",
+  "reference_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "reference_crop_boxes_pixels": {
+    "SIDE": [
+      18,
+      75,
+      756,
+      512
+    ],
+    "FRONT": [
+      766,
+      81,
+      949,
+      513
+    ],
+    "FRONT34": [
+      1127,
+      81,
+      1433,
+      513
+    ],
+    "BACK": [
+      951,
+      81,
+      1124,
+      513
+    ]
+  },
+  "paired_detail_crop_boxes_pixels": {
+    "FRONT": [
+      485,
+      360,
+      947,
+      660
+    ],
+    "FRONT34": [
+      480,
+      335,
+      1100,
+      720
+    ],
+    "BACK": [
+      495,
+      360,
+      940,
+      670
+    ]
+  },
+  "comparison_method": "Exact image crops + proportional resize for sheet layout only. No painting, generative image edits, or geometry overlays. BASE/H0 camera and full-frame dimensions identical."
+}

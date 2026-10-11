@@ -1,0 +1,54 @@
+{
+  "source_blend_sha256": "6651109695536db026d9b52fe10c3fa829cab82915cda1955a5f56eedcec4345",
+  "source_commit": "99a9e454b048336f8383b1ec6ebdcb9e41a44c77",
+  "reference_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "reference_bytes": 1982782,
+  "base_vertices_retained": 38802,
+  "shape_key_changed_vertices": 13540,
+  "max_vertex_displacement": 0.04319409246238815,
+  "protected_distal_leg_vertices_unchanged": true,
+  "protected_head_vertices_unchanged": true,
+  "protected_tail_vertices_unchanged": true,
+  "armor_panels": 17,
+  "edge_fit_events": [],
+  "review_materials": "Same neutral slate display applied to baseline and revised; white geometry is H0 armor. No source texture or new head/leg/tail detail.",
+  "render_camera": {
+    "center": [
+      -0.03550000116229057,
+      0.03500000014901161,
+      -0.03539999946951866
+    ],
+    "ortho_scale": 2.1600000858306885,
+    "resolution": [
+      1440,
+      1080
+    ],
+    "views": {
+      "SIDE": [
+        1,
+        0,
+        0
+      ],
+      "FRONT": [
+        0,
+        -1,
+        0
+      ],
+      "FRONT34": [
+        1,
+        -1,
+        0
+      ],
+      "REAR34": [
+        1,
+        1,
+        0
+      ],
+      "BACK": [
+        0,
+        1,
+        0
+      ]
+    }
+  }
+}

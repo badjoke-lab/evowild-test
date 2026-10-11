@@ -1,0 +1,22 @@
+{
+  "technical_file_checks": {
+    "saved_blend_reopened": true,
+    "original_basis_coordinates_exact": true,
+    "original_polygon_vertex_indices_exact": true,
+    "H0_shape_key_value_is_one": true,
+    "all_17_armor_objects_visible": true,
+    "no_armatures": true,
+    "no_animation_actions": true,
+    "distal_legs_z_le_minus_0_25_unchanged": true,
+    "head_y_le_minus_0_61_unchanged": true,
+    "upper_crests_z_ge_0_28_unchanged": true,
+    "distal_tail_y_ge_0_495_unchanged": true,
+    "reference_sha256_matches": true,
+    "original_blend_sha256_matches": true,
+    "original_glb_sha256_matches": true,
+    "saved_status_is_REJECT": true
+  },
+  "technical_checks_are_not_visual_acceptance": true,
+  "visual_decision": "REJECT",
+  "remaining_geometry_quality": "Armor overlap, small exposed patches, bulky shoulder planes and broad haunch shell are not cleared. No production validation."
+}
