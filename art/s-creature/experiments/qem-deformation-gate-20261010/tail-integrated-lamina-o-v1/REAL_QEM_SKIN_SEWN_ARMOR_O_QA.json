@@ -1,0 +1,348 @@
+{
+  "authoritative_S_reference_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "original_QEM_donor_sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "original_QEM_untouched": true,
+  "original_M_untouched": true,
+  "original_QEM_vertices": 29948,
+  "original_QEM_triangles": 59932,
+  "M_core_vertices": 31948,
+  "M_core_triangles": 63932,
+  "new_S_skin_connected_armor_plate_count": 3,
+  "blades": [
+    {
+      "candidate_face_count": 58,
+      "patch_faces": 40,
+      "root_boundary_vertices": 18,
+      "other_islands": [
+        18
+      ],
+      "name": "PROXIMAL_RIGHT",
+      "root_center_world": [
+        0.08275004476308823,
+        1.850301742553711,
+        1.614396572113037
+      ],
+      "tip_world": [
+        0.25775161385536194,
+        2.4403016567230225,
+        1.8083860874176025
+      ],
+      "shell_side": 1,
+      "sweep_length": 0.59,
+      "lateral_clearance": 0.19,
+      "blade_half_width": 0.13,
+      "ring_count": 10,
+      "ring_boundary_vertices": 18
+    },
+    {
+      "candidate_face_count": 41,
+      "patch_faces": 41,
+      "root_boundary_vertices": 29,
+      "other_islands": [],
+      "name": "MID_LEFT",
+      "root_center_world": [
+        -0.024984117597341537,
+        2.237795352935791,
+        1.572738766670227
+      ],
+      "tip_world": [
+        -0.18193799257278442,
+        2.917795419692993,
+        1.760860800743103
+      ],
+      "shell_side": -1,
+      "sweep_length": 0.68,
+      "lateral_clearance": 0.18,
+      "blade_half_width": 0.14,
+      "ring_count": 10,
+      "ring_boundary_vertices": 29
+    },
+    {
+      "candidate_face_count": 43,
+      "patch_faces": 43,
+      "root_boundary_vertices": 21,
+      "other_islands": [],
+      "name": "DISTAL_RIGHT",
+      "root_center_world": [
+        0.07781342417001724,
+        2.6975269317626953,
+        1.4799028635025024
+      ],
+      "tip_world": [
+        0.20798629522323608,
+        3.337526798248291,
+        1.6244349479675293
+      ],
+      "shell_side": 1,
+      "sweep_length": 0.64,
+      "lateral_clearance": 0.15,
+      "blade_half_width": 0.11,
+      "ring_count": 10,
+      "ring_boundary_vertices": 21
+    }
+  ],
+  "topology": {
+    "vertices": 32600,
+    "triangles": 65236,
+    "components": 1,
+    "largest_components": [
+      32600
+    ],
+    "boundary_edges": 0,
+    "nonmanifold_or_boundary_edges": 0,
+    "degenerate_faces": 0,
+    "minimum_double_triangle_area": 1.691078997981613e-06,
+    "maximum_double_triangle_area": 0.008805657523218149
+  },
+  "tail_roi_self_intersection": {
+    "tested_roi_faces": 7312,
+    "nonshared_polygon_intersections": 185,
+    "first_60_polygon_pairs": [
+      [
+        38222,
+        56989
+      ],
+      [
+        38222,
+        64588
+      ],
+      [
+        38237,
+        64579
+      ],
+      [
+        42914,
+        43050
+      ],
+      [
+        42915,
+        42938
+      ],
+      [
+        42915,
+        43049
+      ],
+      [
+        42915,
+        64560
+      ],
+      [
+        42915,
+        64573
+      ],
+      [
+        42936,
+        43052
+      ],
+      [
+        42936,
+        64622
+      ],
+      [
+        42937,
+        43051
+      ],
+      [
+        42939,
+        43028
+      ],
+      [
+        42939,
+        61954
+      ],
+      [
+        42939,
+        64560
+      ],
+      [
+        42939,
+        64570
+      ],
+      [
+        43027,
+        64630
+      ],
+      [
+        43028,
+        64582
+      ],
+      [
+        43049,
+        61909
+      ],
+      [
+        43050,
+        61908
+      ],
+      [
+        43050,
+        61909
+      ],
+      [
+        43051,
+        61908
+      ],
+      [
+        43051,
+        61931
+      ],
+      [
+        43052,
+        61931
+      ],
+      [
+        56988,
+        64588
+      ],
+      [
+        56989,
+        61686
+      ],
+      [
+        56989,
+        62077
+      ],
+      [
+        57905,
+        64622
+      ],
+      [
+        59961,
+        64558
+      ],
+      [
+        59986,
+        64106
+      ],
+      [
+        59986,
+        64134
+      ],
+      [
+        59986,
+        64135
+      ],
+      [
+        59986,
+        64835
+      ],
+      [
+        59986,
+        64864
+      ],
+      [
+        60404,
+        60428
+      ],
+      [
+        60404,
+        64596
+      ],
+      [
+        60427,
+        60501
+      ],
+      [
+        60427,
+        64595
+      ],
+      [
+        60428,
+        60500
+      ],
+      [
+        60428,
+        62780
+      ],
+      [
+        60428,
+        62804
+      ],
+      [
+        60428,
+        64605
+      ],
+      [
+        60428,
+        64664
+      ],
+      [
+        60428,
+        64668
+      ],
+      [
+        60429,
+        62778
+      ],
+      [
+        60429,
+        62779
+      ],
+      [
+        60429,
+        62851
+      ],
+      [
+        60429,
+        62852
+      ],
+      [
+        60429,
+        64662
+      ],
+      [
+        60429,
+        64663
+      ],
+      [
+        60429,
+        64676
+      ],
+      [
+        60451,
+        60522
+      ],
+      [
+        60451,
+        62804
+      ],
+      [
+        60451,
+        64599
+      ],
+      [
+        60451,
+        64606
+      ],
+      [
+        60452,
+        62804
+      ],
+      [
+        60453,
+        62804
+      ],
+      [
+        60453,
+        64658
+      ],
+      [
+        60499,
+        64595
+      ],
+      [
+        60499,
+        64604
+      ],
+      [
+        60499,
+        64605
+      ]
+    ]
+  },
+  "geometry_gate": "FAIL_TOPOLOGY_OR_INTERSECTION",
+  "canonical_S_visual_review": "NOT_APPROVED_REQUIRES_ACTUAL_VISUAL_INSPECTION",
+  "armature_transferred": false,
+  "foot_contact_3_cycle_verified": false,
+  "production_game_approved": false
+}
