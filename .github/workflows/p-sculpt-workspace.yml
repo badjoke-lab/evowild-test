@@ -5,6 +5,8 @@ on:
       - fix/3d-p-canonical-model-20261011
     paths:
       - .github/workflows/p-sculpt-workspace.yml
+      - scripts/modeling/create-p-sculpt-workspace.py
+      - scripts/modeling/check-p-sculpt-workspace.py
 permissions:
   contents: write
 jobs:
