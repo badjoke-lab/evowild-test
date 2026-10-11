@@ -16,7 +16,7 @@
         "minimum_double_triangle_area": 1.691078997981613e-06,
         "maximum_double_triangle_area": 0.008805657523218149
       },
-      "intersections": 101,
+      "intersections": 34,
       "technical_gate": "FAIL_TOPOLOGY_OR_INTERSECTION"
     },
     "MID_LEFT": {
@@ -31,9 +31,9 @@
         "nonmanifold_or_boundary_edges": 0,
         "degenerate_faces": 0,
         "minimum_double_triangle_area": 1.691078997981613e-06,
-        "maximum_double_triangle_area": 0.008805657523218149
+        "maximum_double_triangle_area": 0.00883010909572478
       },
-      "intersections": 25,
+      "intersections": 5,
       "technical_gate": "FAIL_TOPOLOGY_OR_INTERSECTION"
     },
     "DISTAL_RIGHT": {
@@ -50,7 +50,7 @@
         "minimum_double_triangle_area": 1.691078997981613e-06,
         "maximum_double_triangle_area": 0.008805657523218149
       },
-      "intersections": 7,
+      "intersections": 152,
       "technical_gate": "FAIL_TOPOLOGY_OR_INTERSECTION"
     }
   },

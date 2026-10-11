@@ -3,6 +3,8 @@
   "original_QEM_donor_sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
   "original_QEM_untouched": true,
   "original_M_untouched": true,
+  "reproducible_root_loop_start": "minimum_original_BMesh_vertex_index",
+  "actual_geometry_SHA256_rounded_6dp": "b5e0cdc2d15a79e3f15d6dcfff686fd053651e2d5844cae2e2479aeb96055130",
   "original_QEM_vertices": 29948,
   "original_QEM_triangles": 59932,
   "M_core_vertices": 31948,
@@ -17,14 +19,14 @@
       "other_islands": [],
       "name": "MID_LEFT",
       "root_center_world": [
-        -0.024984117597341537,
-        2.237795352935791,
-        1.572738766670227
+        -0.024984115734696388,
+        2.23779559135437,
+        1.5727390050888062
       ],
       "tip_world": [
         -0.18193799257278442,
-        2.917795419692993,
-        1.760860800743103
+        2.9177956581115723,
+        1.7608610391616821
       ],
       "shell_side": -1,
       "sweep_length": 0.68,
@@ -45,111 +47,31 @@
     "nonmanifold_or_boundary_edges": 0,
     "degenerate_faces": 0,
     "minimum_double_triangle_area": 1.691078997981613e-06,
-    "maximum_double_triangle_area": 0.008805657523218149
+    "maximum_double_triangle_area": 0.00883010909572478
   },
   "tail_roi_self_intersection": {
     "tested_roi_faces": 6576,
-    "nonshared_polygon_intersections": 25,
+    "nonshared_polygon_intersections": 5,
     "first_60_polygon_pairs": [
       [
-        38222,
-        62314
+        60009,
+        62057
       ],
       [
-        38222,
-        64227
-      ],
-      [
-        38249,
-        64247
-      ],
-      [
-        56988,
-        64227
-      ],
-      [
-        59986,
-        62068
-      ],
-      [
-        59986,
-        64234
-      ],
-      [
-        61686,
-        62314
-      ],
-      [
-        61686,
-        64227
-      ],
-      [
-        61701,
-        63948
-      ],
-      [
-        61701,
-        63976
-      ],
-      [
-        61701,
-        63977
-      ],
-      [
-        61701,
-        64266
-      ],
-      [
-        61701,
-        64295
+        60009,
+        64233
       ],
       [
         62057,
-        64213
+        62069
       ],
       [
-        62068,
-        64235
+        62069,
+        64233
       ],
       [
-        62077,
-        62314
-      ],
-      [
-        62077,
-        64227
-      ],
-      [
-        63938,
-        64213
-      ],
-      [
-        63939,
-        64213
-      ],
-      [
-        63948,
-        64229
-      ],
-      [
-        63976,
-        64229
-      ],
-      [
-        64213,
-        64247
-      ],
-      [
-        64213,
-        64257
-      ],
-      [
-        64229,
-        64266
-      ],
-      [
-        64229,
-        64267
+        64233,
+        64236
       ]
     ]
   },
