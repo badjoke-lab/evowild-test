@@ -5,7 +5,8 @@ attempt; failure logs must be preserved rather than hiding the result.
 """
 from pathlib import Path
 from datetime import datetime,timezone
-import os,hashlib,json,traceback,shutil
+import os,hashlib,json,traceback,shutil,re,requests
+from urllib.parse import urljoin
 from gradio_client import Client,handle_file
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -69,14 +70,42 @@ try:
     report["api_return_types"]=[type(x).__name__ for x in result] if isinstance(result,(tuple,list)) else [type(result).__name__]
     if not isinstance(result,(tuple,list)) or len(result)!=4:
         raise RuntimeError("Shape endpoint did not return expected 4 values")
-    generated=result[0]
-    filepath=(generated.get("path") or generated.get("name")) if isinstance(generated,dict) else str(generated)
-    source=Path(filepath)
-    if not source.is_file():
-        raise RuntimeError("Shape endpoint returned file not downloaded by client: "+filepath[:190])
-    assert 12000<source.stat().st_size<100000000,source.stat().st_size
+    report["api_result_file_update_shape"]=repr(result[0])[:1600]
+    report["api_result_iframe_prefix"]=str(result[1])[:700]
+    def scan_file(item):
+        if isinstance(item,dict):
+            for key in ("path","value","name","url"):
+                x=item.get(key)
+                if x:
+                    ans=scan_file(x)
+                    if ans:return ans
+            return None
+        if isinstance(item,str) and (item.endswith(".glb") or item.endswith(".obj")):
+            return item
+        return None
+    filepath=scan_file(result[0])
     target=out/"HUNYUAN2MV_ORIGINAL_S_THREE_VIEW_SHAPE_ONE_TRIAL_UNAPPROVED.glb"
-    shutil.copyfile(source,target)
+    if filepath and Path(filepath).is_file():
+        shutil.copyfile(filepath,target)
+        report["source_mesh_transfer"]="gradio_client_fully_downloaded_local_file"
+    else:
+        # Public Space returns gr.update(value=server_path) and an iframe
+        # pointing at its public STATIC /UUID/white_mesh.html. This alternate
+        # retrieval is explicit: never fabricate GLB from a screenshot.
+        html=str(result[1])
+        m=re.search(r'(/static/[a-zA-Z0-9-]+/white_mesh.html)',html)
+        if not m:
+            raise RuntimeError("No local GLB and no actual public Space mesh iframe found.")
+        url=urljoin("https://tencent-hunyuan3d-2mv.hf.space",m.group(1).replace("white_mesh.html","white_mesh.glb"))
+        response=requests.get(url,timeout=60)
+        report["public_mesh_url"]=url
+        report["public_mesh_http_status"]=response.status_code
+        response.raise_for_status()
+        if not response.content.startswith(b"glTF"):
+            raise RuntimeError("Source is not a GLB binary. HTTP content prefix="+repr(response.content[:60]))
+        target.write_bytes(response.content)
+        report["source_mesh_transfer"]="public Space /static UUID actual glb, no user token"
+    assert 12000<target.stat().st_size<100000000,target.stat().st_size
     report["generated"]=True
     report["candidate_file"]=target.name
     report["candidate_byte_size"]=target.stat().st_size
