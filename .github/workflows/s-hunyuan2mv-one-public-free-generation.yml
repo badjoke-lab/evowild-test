@@ -1,8 +1,8 @@
-name: EvoWild S ONE actual source 3-view shape attempt on public free ZeroGPU
+name: EvoWild S source 3-view public ZeroGPU shape output retrieval fix
 on:
   push:
     branches: [exp/s-hunyuan2-multiview-source-test-20261012]
-    paths: [.github/workflows/s-hunyuan2mv-one-public-free-generation.yml]
+    paths: [.github/workflows/s-hunyuan2mv-one-public-free-generation.yml, art/s-creature/blender/s_hunyuan2mv_run_one_free_shape.py]
   workflow_dispatch:
 permissions:
   contents: write
@@ -45,7 +45,8 @@ jobs:
           PY
       - name: Exactly one no-token shape generation attempt on PUBLIC ZeroGPU Space
         run: |
-          python3 -m pip install -q gradio_client
+          cp art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/hunyuan2mv-original-source-20261012/ONE_PUBLIC_ZERO_GPU_REAL_SHAPE_ATTEMPT.json art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/hunyuan2mv-original-source-20261012/FIRST_FILE_RESPONSE_PARSE_FAILURE_AUDIT.json
+          python3 -m pip install -q gradio_client requests
           python3 art/s-creature/blender/s_hunyuan2mv_run_one_free_shape.py
       - name: Validate actual returned artifact; if absent preserve reason and stop without pretending success
         id: output-check
