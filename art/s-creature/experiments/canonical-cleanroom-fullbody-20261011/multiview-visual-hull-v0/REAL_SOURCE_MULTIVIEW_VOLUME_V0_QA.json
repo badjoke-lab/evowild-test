@@ -1,0 +1,83 @@
+{
+  "immutable_source_image_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "image_source": "art/s-creature/references/00_s_type_modeling_image_v1.png",
+  "source_extracted_orthogonal_views": [
+    "SIDE",
+    "FRONT",
+    "BACK"
+  ],
+  "source_FRONT34_constrained_in_geometry": false,
+  "all_pixels_original_not_AI_generated": true,
+  "original_QEM_TRELLIS_R0_R5_A0_meshes_imported": false,
+  "geometry_kind": "TRUE 3D source-constrained multiview visual hull; prototype silhouette scaffold",
+  "axis_centers_from_exact_original_sheet_native_pixels": {
+    "SIDE_Y_world_from_image_X_pixel": "(pixelX-332)/110",
+    "Z_world_from_SIDE_pixel_Y": "(504-pixelY)/110",
+    "FRONT_X_world_from_image_X": "(pixelX-856)/110",
+    "BACK_X_world_from_image_X": "(pixelX-1036)/110",
+    "FRONT_BACK_y_registration": "504-110*Z*0.925",
+    "posterior_tail_width_taper_explicit_hypothesis": true
+  },
+  "side_source_foreground_info": {
+    "mask_size_xy": [
+      732,
+      434
+    ],
+    "source_foreground_pixels": 125670,
+    "post_surgical_hole_fill_pixels": 126332,
+    "source_hole_fill_regions": [
+      75
+    ],
+    "ground_pixel_crop_rows": 8
+  },
+  "front_source_foreground_info": {
+    "mask_size_xy": [
+      182,
+      417
+    ],
+    "source_foreground_pixels": 27428,
+    "post_surgical_hole_fill_pixels": 27445,
+    "source_hole_fill_regions": [],
+    "ground_pixel_crop_rows": 7
+  },
+  "back_source_foreground_info": {
+    "mask_size_xy": [
+      181,
+      417
+    ],
+    "source_foreground_pixels": 26427,
+    "post_surgical_hole_fill_pixels": 26437,
+    "source_hole_fill_regions": [],
+    "ground_pixel_crop_rows": 7
+  },
+  "grid_shape_XYZ": [
+    105,
+    272,
+    178
+  ],
+  "real_occupancy_voxels": 712884,
+  "connected_occupancy_groups_remaining": 1,
+  "actual_mesh_3d_vertices": 93490,
+  "actual_mesh_triangles": 186976,
+  "actual_mesh_3d_bbox": [
+    [
+      -0.6671634062267913,
+      -2.4058323087112967,
+      0.046591763737357184
+    ],
+    [
+      0.6364969016358373,
+      3.7558568566164467,
+      3.862389754002322
+    ]
+  ],
+  "numeric_source_side_silhouette_IoU": 0.9948812894794162,
+  "numeric_source_front_back_union_silhouette_IoU": 0.9968296345736692,
+  "relative_old_A0_geometry_imported": false,
+  "canonical_design_visual_approved": false,
+  "actual_3D_armor_parts_approved": false,
+  "face_materials_and_eye_detail_approved": false,
+  "rigged": false,
+  "animated": false,
+  "production_asset": false
+}
