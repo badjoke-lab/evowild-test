@@ -1,0 +1,98 @@
+name: EvoWild S original QEM midleft surgical root mesh correction S
+on:
+  push:
+    branches: [exp/s-qem-midleaf-rootrepair-s-20261011]
+    paths:
+      - .github/workflows/s-qem-midleaf-rootclear-s.yml
+      - art/s-creature/blender/s_qem_midleaf_root_clearance_s.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-midleaf-rootclear-s
+  cancel-in-progress: false
+jobs:
+  true-QEM-midleaf-collision-root-repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_qem_midleaf_root_clearance_s.py
+            /art/s-creature/experiments/qem-deformation-gate-20261010/tail-panel-isolation-q-mid_left/S-QEM-single-panel-Q-MID_LEFT.blend
+            /art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/qem-deformation-gate-20261010/midleaf-rootclearance-s-v1/
+            /.github/workflows/s-qem-midleaf-rootclear-s.yml
+      - name: Enforce one user-authorized S design and real original QEM
+        run: |
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+          echo 'e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f  art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb' | sha256sum --check -
+      - name: Install actual Blender 4.3.2
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Test 35 actual original-QEM first-ring local offsets and save true Blender
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/tail-panel-isolation-q-mid_left/S-QEM-single-panel-Q-MID_LEFT.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_midleaf_root_clearance_s.py
+      - name: Package 5 actual Blender views, close-ups and QA
+        run: |
+          python3 -m pip install -q pillow
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          p=Path("art/s-creature/experiments/qem-deformation-gate-20261010/midleaf-rootclearance-s-v1")
+          d=json.loads((p/"REAL_QEM_MIDLEAF_ROOT_S_QA.json").read_text())
+          assert d["source_M_and_original_Q_preserved"]
+          assert d["Q_mid_input_evaluated_SHA256_six_dp"]=="b5e0cdc2d15a79e3f15d6dcfff686fd053651e2d5844cae2e2479aeb96055130"
+          assert len(d["Q_actual_five_collision_polygon_pairs"])==5
+          assert d["tested_local_deformation_variants"]>0
+          assert not d["production_creature"] and d["design_S_reference_match"]!="APPROVED"
+          assert (p/"S-QEM-MIDLEFT-first-ring-root-repair-S-TRIAL.blend").stat().st_size>50000
+          w,h=410,320
+          sheet=Image.new("RGB",(5*w,2*h),(233,236,240))
+          ddraw=ImageDraw.Draw(sheet)
+          for col,view in enumerate(("SIDE","FRONT","FRONT34","REAR34","BACK")):
+              for row,kind in enumerate(("BASE_Q","ROOT_S")):
+                  f=p/"review"/f"REAL_QEM_MIDLEAF_{kind}_{view}.png"
+                  assert f.stat().st_size>10000,f
+                  im=Image.open(f).convert("RGB")
+                  im.thumbnail((w-12,h-32))
+                  sheet.paste(im,(col*w+(w-im.width)//2,row*h+26+(h-26-im.height)//2))
+                  ddraw.text((col*w+8,row*h+4),f"{kind} / {view}",(15,18,21))
+          sheet.save(p/"review"/"ACTUAL_QEM_MIDLEAF_S_FIVE_VIEW.jpg",quality=94,optimize=True)
+          w,h=620,480
+          sheet=Image.new("RGB",(2*w,2*h),(233,236,240))
+          ddraw=ImageDraw.Draw(sheet)
+          for col,view in enumerate(("SIDE","REAR34")):
+              for row,kind in enumerate(("BASE_Q","ROOT_S")):
+                  f=p/"review"/f"REAL_QEM_MIDLEAF_CLOSE_{kind}_{view}.png"
+                  im=Image.open(f).convert("RGB")
+                  im.thumbnail((w-12,h-32))
+                  sheet.paste(im,(col*w+(w-im.width)//2,row*h+26+(h-26-im.height)//2))
+                  ddraw.text((col*w+8,row*h+4),f"{kind} / {view} close",(15,18,21))
+          sheet.save(p/"review"/"ACTUAL_QEM_MIDLEAF_S_ROOT_DETAIL.jpg",quality=94,optimize=True)
+          print("SURGICAL_REAL_QEM_MIDLEAF_ROOT",d["geometry_gate"],d["selected"]["replay_BVH_pairs"],d["Q_topology"])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-S-QEM-real-midleaf-35-rootclearance-attempts
+          path: art/s-creature/experiments/qem-deformation-gate-20261010/midleaf-rootclearance-s-v1/
+          if-no-files-found: warn
+      - name: Commit real Blender evidence and all quantitative failures if any
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/qem-deformation-gate-20261010/midleaf-rootclearance-s-v1/
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit: original QEM mid-left true first-ring clearance S, geometry BVH and five real views'
+            git pull --rebase origin exp/s-qem-midleaf-rootrepair-s-20261011
+            git push origin HEAD:exp/s-qem-midleaf-rootrepair-s-20261011
+          fi
