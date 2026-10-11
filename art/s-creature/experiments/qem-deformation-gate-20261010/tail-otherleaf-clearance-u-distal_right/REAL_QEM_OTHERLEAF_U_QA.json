@@ -1,0 +1,5699 @@
+{
+  "canonical_reference_SHA256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "donor_original_QEM_SHA256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "source_M_and_original_Q_preserved": true,
+  "Q_input_evaluated_SHA256_six_dp": "af9694eaf540167fe3ae2ad04fd772cde6a3ff81fcbb8353114f1dcb5860fdf2",
+  "individual_panel": "DISTAL_RIGHT",
+  "Q_actual_five_collision_polygon_pairs": [
+    [
+      60405,
+      62778
+    ],
+    [
+      60405,
+      62779
+    ],
+    [
+      60405,
+      64146
+    ],
+    [
+      60405,
+      64147
+    ],
+    [
+      60427,
+      62778
+    ],
+    [
+      60427,
+      64124
+    ],
+    [
+      60428,
+      64122
+    ],
+    [
+      60429,
+      60522
+    ],
+    [
+      60429,
+      60523
+    ],
+    [
+      60429,
+      60524
+    ],
+    [
+      60429,
+      60525
+    ],
+    [
+      60429,
+      60546
+    ],
+    [
+      60429,
+      62780
+    ],
+    [
+      60429,
+      64126
+    ],
+    [
+      60429,
+      64135
+    ],
+    [
+      60429,
+      64136
+    ],
+    [
+      60429,
+      64137
+    ],
+    [
+      60429,
+      64138
+    ],
+    [
+      60429,
+      64148
+    ],
+    [
+      60451,
+      60476
+    ],
+    [
+      60451,
+      60477
+    ],
+    [
+      60451,
+      60499
+    ],
+    [
+      60451,
+      60500
+    ],
+    [
+      60451,
+      60501
+    ],
+    [
+      60451,
+      60522
+    ],
+    [
+      60451,
+      60523
+    ],
+    [
+      60451,
+      60524
+    ],
+    [
+      60451,
+      60546
+    ],
+    [
+      60451,
+      64130
+    ],
+    [
+      60451,
+      64131
+    ],
+    [
+      60451,
+      64132
+    ],
+    [
+      60451,
+      64133
+    ],
+    [
+      60451,
+      64134
+    ],
+    [
+      60451,
+      64135
+    ],
+    [
+      60451,
+      64136
+    ],
+    [
+      60451,
+      64137
+    ],
+    [
+      60451,
+      64138
+    ],
+    [
+      60452,
+      60475
+    ],
+    [
+      60452,
+      64128
+    ],
+    [
+      60453,
+      64126
+    ],
+    [
+      60453,
+      64136
+    ],
+    [
+      60475,
+      64126
+    ],
+    [
+      60475,
+      64135
+    ],
+    [
+      60476,
+      60499
+    ],
+    [
+      60476,
+      64126
+    ],
+    [
+      60476,
+      64131
+    ],
+    [
+      60476,
+      64134
+    ],
+    [
+      60477,
+      64134
+    ],
+    [
+      60499,
+      64130
+    ],
+    [
+      60499,
+      64134
+    ],
+    [
+      60500,
+      64134
+    ],
+    [
+      60522,
+      64125
+    ],
+    [
+      60522,
+      64129
+    ],
+    [
+      60523,
+      64125
+    ],
+    [
+      60523,
+      64128
+    ],
+    [
+      60524,
+      64125
+    ],
+    [
+      60524,
+      64127
+    ],
+    [
+      60525,
+      62780
+    ],
+    [
+      60525,
+      62781
+    ],
+    [
+      60525,
+      64125
+    ],
+    [
+      60546,
+      62778
+    ],
+    [
+      60546,
+      62780
+    ],
+    [
+      60546,
+      62781
+    ],
+    [
+      60546,
+      64125
+    ],
+    [
+      60546,
+      64126
+    ],
+    [
+      60546,
+      64146
+    ],
+    [
+      60546,
+      64148
+    ],
+    [
+      60547,
+      62778
+    ],
+    [
+      60547,
+      62780
+    ],
+    [
+      60547,
+      64146
+    ],
+    [
+      60547,
+      64148
+    ],
+    [
+      62732,
+      62778
+    ],
+    [
+      62732,
+      64146
+    ],
+    [
+      62733,
+      62778
+    ],
+    [
+      62733,
+      64146
+    ],
+    [
+      62755,
+      62778
+    ],
+    [
+      62755,
+      64145
+    ],
+    [
+      62755,
+      64146
+    ],
+    [
+      62755,
+      64147
+    ],
+    [
+      62756,
+      62778
+    ],
+    [
+      62756,
+      64145
+    ],
+    [
+      62756,
+      64146
+    ],
+    [
+      62756,
+      64147
+    ],
+    [
+      62757,
+      62779
+    ],
+    [
+      62757,
+      64147
+    ],
+    [
+      62778,
+      62780
+    ],
+    [
+      62778,
+      62875
+    ],
+    [
+      62778,
+      64121
+    ],
+    [
+      62778,
+      64122
+    ],
+    [
+      62778,
+      64139
+    ],
+    [
+      62778,
+      64140
+    ],
+    [
+      62778,
+      64141
+    ],
+    [
+      62778,
+      64142
+    ],
+    [
+      62778,
+      64144
+    ],
+    [
+      62778,
+      64147
+    ],
+    [
+      62778,
+      64148
+    ],
+    [
+      62779,
+      64122
+    ],
+    [
+      62779,
+      64144
+    ],
+    [
+      62779,
+      64145
+    ],
+    [
+      62779,
+      64148
+    ],
+    [
+      62780,
+      62874
+    ],
+    [
+      62780,
+      64137
+    ],
+    [
+      62780,
+      64138
+    ],
+    [
+      62780,
+      64139
+    ],
+    [
+      62780,
+      64140
+    ],
+    [
+      62780,
+      64146
+    ],
+    [
+      62781,
+      64137
+    ],
+    [
+      62781,
+      64138
+    ],
+    [
+      62826,
+      62828
+    ],
+    [
+      62826,
+      64134
+    ],
+    [
+      62826,
+      64155
+    ],
+    [
+      62828,
+      64154
+    ],
+    [
+      62874,
+      64148
+    ],
+    [
+      62875,
+      64146
+    ],
+    [
+      64121,
+      64146
+    ],
+    [
+      64121,
+      64147
+    ],
+    [
+      64122,
+      64124
+    ],
+    [
+      64122,
+      64146
+    ],
+    [
+      64124,
+      64148
+    ],
+    [
+      64125,
+      64135
+    ],
+    [
+      64125,
+      64136
+    ],
+    [
+      64125,
+      64137
+    ],
+    [
+      64125,
+      64138
+    ],
+    [
+      64125,
+      64148
+    ],
+    [
+      64126,
+      64128
+    ],
+    [
+      64126,
+      64129
+    ],
+    [
+      64126,
+      64137
+    ],
+    [
+      64126,
+      64138
+    ],
+    [
+      64127,
+      64136
+    ],
+    [
+      64127,
+      64137
+    ],
+    [
+      64128,
+      64135
+    ],
+    [
+      64128,
+      64136
+    ],
+    [
+      64129,
+      64134
+    ],
+    [
+      64129,
+      64135
+    ],
+    [
+      64130,
+      64134
+    ],
+    [
+      64131,
+      64134
+    ],
+    [
+      64132,
+      64134
+    ],
+    [
+      64134,
+      64153
+    ],
+    [
+      64139,
+      64146
+    ],
+    [
+      64139,
+      64148
+    ],
+    [
+      64140,
+      64146
+    ],
+    [
+      64140,
+      64148
+    ],
+    [
+      64141,
+      64146
+    ],
+    [
+      64142,
+      64146
+    ],
+    [
+      64143,
+      64145
+    ],
+    [
+      64143,
+      64146
+    ],
+    [
+      64143,
+      64147
+    ],
+    [
+      64144,
+      64146
+    ],
+    [
+      64144,
+      64147
+    ],
+    [
+      64145,
+      64147
+    ],
+    [
+      64146,
+      64148
+    ],
+    [
+      64153,
+      64155
+    ]
+  ],
+  "Q_topology": {
+    "verts": 32147,
+    "tris": 64330,
+    "boundary_edges": 0,
+    "bad_edge_winding": 0
+  },
+  "local_near_first_ring_vertices_weight_gt_0_22": 31,
+  "critical_new_vertex_weights": {
+    "31951": 0.8788197091783347,
+    "31952": 0.9726072043187066,
+    "31953": 0.891488739591505
+  },
+  "tested_local_deformation_variants": 45,
+  "expected_original_collision_count": 152,
+  "all_candidates": [
+    {
+      "outward_negative_X_shift": 0.006,
+      "Z_ratio": 0.0,
+      "real_BVH_nonshared_overlap_pairs": 125,
+      "remaining_overlap_face_IDs": [
+        [
+          60427,
+          62733
+        ],
+        [
+          60427,
+          64121
+        ],
+        [
+          60428,
+          62733
+        ],
+        [
+          60428,
+          64121
+        ],
+        [
+          60428,
+          64122
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          60525
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64126
+        ],
+        [
+          60429,
+          64135
+        ],
+        [
+          60429,
+          64136
+        ],
+        [
+          60429,
+          64137
+        ],
+        [
+          60451,
+          60476
+        ],
+        [
+          60451,
+          60477
+        ],
+        [
+          60451,
+          60499
+        ],
+        [
+          60451,
+          60500
+        ],
+        [
+          60451,
+          60501
+        ],
+        [
+          60451,
+          60522
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 0,
+        "smallest_ratio": 0.8855204959123552,
+        "largest_ratio": 1.3192358207545536
+      },
+      "face_quality_PASS": true,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.005835637450218201
+    },
+    {
+      "outward_negative_X_shift": 0.006,
+      "Z_ratio": 0.35,
+      "real_BVH_nonshared_overlap_pairs": 123,
+      "remaining_overlap_face_IDs": [
+        [
+          60427,
+          62733
+        ],
+        [
+          60427,
+          64121
+        ],
+        [
+          60428,
+          62733
+        ],
+        [
+          60428,
+          64121
+        ],
+        [
+          60428,
+          64122
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          60525
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64126
+        ],
+        [
+          60429,
+          64135
+        ],
+        [
+          60429,
+          64136
+        ],
+        [
+          60429,
+          64137
+        ],
+        [
+          60451,
+          60476
+        ],
+        [
+          60451,
+          60477
+        ],
+        [
+          60451,
+          60499
+        ],
+        [
+          60451,
+          60500
+        ],
+        [
+          60451,
+          60522
+        ],
+        [
+          60451,
+          60523
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 0,
+        "smallest_ratio": 0.9533274610921165,
+        "largest_ratio": 1.352916589902078
+      },
+      "face_quality_PASS": true,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.006182766475233582
+    },
+    {
+      "outward_negative_X_shift": 0.006,
+      "Z_ratio": -0.35,
+      "real_BVH_nonshared_overlap_pairs": 119,
+      "remaining_overlap_face_IDs": [
+        [
+          60427,
+          62733
+        ],
+        [
+          60427,
+          64141
+        ],
+        [
+          60428,
+          62733
+        ],
+        [
+          60428,
+          64121
+        ],
+        [
+          60428,
+          64122
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          60525
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64126
+        ],
+        [
+          60429,
+          64135
+        ],
+        [
+          60429,
+          64136
+        ],
+        [
+          60429,
+          64137
+        ],
+        [
+          60451,
+          60476
+        ],
+        [
+          60451,
+          60477
+        ],
+        [
+          60451,
+          60499
+        ],
+        [
+          60451,
+          60500
+        ],
+        [
+          60451,
+          60501
+        ],
+        [
+          60451,
+          60522
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 0,
+        "smallest_ratio": 0.6445353990102409,
+        "largest_ratio": 1.291733591386849
+      },
+      "face_quality_PASS": true,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.006182766475233582,
+      "replay_BVH_pairs": 119,
+      "replay_face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 0,
+        "smallest_ratio": 0.6445353990102409,
+        "largest_ratio": 1.291733591386849
+      },
+      "replay_PASS": false
+    },
+    {
+      "outward_negative_X_shift": 0.006,
+      "Z_ratio": 0.7,
+      "real_BVH_nonshared_overlap_pairs": 127,
+      "remaining_overlap_face_IDs": [
+        [
+          60427,
+          62733
+        ],
+        [
+          60427,
+          64121
+        ],
+        [
+          60428,
+          62733
+        ],
+        [
+          60428,
+          64121
+        ],
+        [
+          60428,
+          64122
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          60525
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64126
+        ],
+        [
+          60429,
+          64135
+        ],
+        [
+          60429,
+          64136
+        ],
+        [
+          60429,
+          64137
+        ],
+        [
+          60451,
+          60476
+        ],
+        [
+          60451,
+          60477
+        ],
+        [
+          60451,
+          60499
+        ],
+        [
+          60451,
+          60500
+        ],
+        [
+          60451,
+          60522
+        ],
+        [
+          60451,
+          60523
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 0,
+        "smallest_ratio": 0.9573381863098662,
+        "largest_ratio": 1.460700054150429
+      },
+      "face_quality_PASS": true,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.00712330245440931
+    },
+    {
+      "outward_negative_X_shift": 0.006,
+      "Z_ratio": -0.7,
+      "real_BVH_nonshared_overlap_pairs": 121,
+      "remaining_overlap_face_IDs": [
+        [
+          60427,
+          64141
+        ],
+        [
+          60428,
+          64122
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64126
+        ],
+        [
+          60429,
+          64135
+        ],
+        [
+          60429,
+          64136
+        ],
+        [
+          60429,
+          64137
+        ],
+        [
+          60451,
+          60476
+        ],
+        [
+          60451,
+          60477
+        ],
+        [
+          60451,
+          60499
+        ],
+        [
+          60451,
+          60500
+        ],
+        [
+          60451,
+          60501
+        ],
+        [
+          60451,
+          60522
+        ],
+        [
+          60451,
+          64130
+        ],
+        [
+          60451,
+          64131
+        ],
+        [
+          60451,
+          64132
+        ],
+        [
+          60451,
+          64133
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 2,
+        "area_over_double_face_count": 0,
+        "smallest_ratio": 0.3754039673944543,
+        "largest_ratio": 1.2708111033107747
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.00712330245440931
+    },
+    {
+      "outward_negative_X_shift": 0.01,
+      "Z_ratio": 0.0,
+      "real_BVH_nonshared_overlap_pairs": 129,
+      "remaining_overlap_face_IDs": [
+        [
+          60427,
+          62779
+        ],
+        [
+          60427,
+          64141
+        ],
+        [
+          60427,
+          64147
+        ],
+        [
+          60428,
+          60547
+        ],
+        [
+          60428,
+          62732
+        ],
+        [
+          60428,
+          62733
+        ],
+        [
+          60428,
+          64121
+        ],
+        [
+          60428,
+          64122
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60428,
+          64140
+        ],
+        [
+          60428,
+          64141
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64126
+        ],
+        [
+          60429,
+          64135
+        ],
+        [
+          60429,
+          64136
+        ],
+        [
+          60429,
+          64137
+        ],
+        [
+          60451,
+          60476
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 0,
+        "smallest_ratio": 0.8779357649544987,
+        "largest_ratio": 1.5368788029451432
+      },
+      "face_quality_PASS": true,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.009726062417030334
+    },
+    {
+      "outward_negative_X_shift": 0.01,
+      "Z_ratio": 0.35,
+      "real_BVH_nonshared_overlap_pairs": 125,
+      "remaining_overlap_face_IDs": [
+        [
+          60427,
+          62733
+        ],
+        [
+          60427,
+          62779
+        ],
+        [
+          60427,
+          64141
+        ],
+        [
+          60427,
+          64147
+        ],
+        [
+          60428,
+          60547
+        ],
+        [
+          60428,
+          62732
+        ],
+        [
+          60428,
+          62733
+        ],
+        [
+          60428,
+          64121
+        ],
+        [
+          60428,
+          64122
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60428,
+          64140
+        ],
+        [
+          60428,
+          64141
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          60525
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64126
+        ],
+        [
+          60429,
+          64135
+        ],
+        [
+          60429,
+          64136
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 0,
+        "smallest_ratio": 0.9224435333401605,
+        "largest_ratio": 1.5887303574402918
+      },
+      "face_quality_PASS": true,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.01030458453776202
+    },
+    {
+      "outward_negative_X_shift": 0.01,
+      "Z_ratio": -0.35,
+      "real_BVH_nonshared_overlap_pairs": 131,
+      "remaining_overlap_face_IDs": [
+        [
+          60427,
+          62732
+        ],
+        [
+          60427,
+          62779
+        ],
+        [
+          60427,
+          64141
+        ],
+        [
+          60427,
+          64147
+        ],
+        [
+          60428,
+          60547
+        ],
+        [
+          60428,
+          62732
+        ],
+        [
+          60428,
+          62733
+        ],
+        [
+          60428,
+          64121
+        ],
+        [
+          60428,
+          64122
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60428,
+          64140
+        ],
+        [
+          60428,
+          64141
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64126
+        ],
+        [
+          60429,
+          64134
+        ],
+        [
+          60429,
+          64135
+        ],
+        [
+          60429,
+          64136
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 1,
+        "area_over_double_face_count": 0,
+        "smallest_ratio": 0.44574077689736347,
+        "largest_ratio": 1.500155016039963
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.01030458453776202
+    },
+    {
+      "outward_negative_X_shift": 0.01,
+      "Z_ratio": 0.7,
+      "real_BVH_nonshared_overlap_pairs": 125,
+      "remaining_overlap_face_IDs": [
+        [
+          60427,
+          62733
+        ],
+        [
+          60427,
+          62779
+        ],
+        [
+          60427,
+          64121
+        ],
+        [
+          60427,
+          64141
+        ],
+        [
+          60427,
+          64147
+        ],
+        [
+          60428,
+          60547
+        ],
+        [
+          60428,
+          62732
+        ],
+        [
+          60428,
+          62733
+        ],
+        [
+          60428,
+          64121
+        ],
+        [
+          60428,
+          64122
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60428,
+          64140
+        ],
+        [
+          60428,
+          64141
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          60525
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64126
+        ],
+        [
+          60429,
+          64135
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 0,
+        "smallest_ratio": 0.9300531808788747,
+        "largest_ratio": 1.7769580321357645
+      },
+      "face_quality_PASS": true,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.01187219354473412
+    },
+    {
+      "outward_negative_X_shift": 0.01,
+      "Z_ratio": -0.7,
+      "real_BVH_nonshared_overlap_pairs": 132,
+      "remaining_overlap_face_IDs": [
+        [
+          60427,
+          62732
+        ],
+        [
+          60427,
+          64140
+        ],
+        [
+          60427,
+          64141
+        ],
+        [
+          60427,
+          64147
+        ],
+        [
+          60428,
+          60547
+        ],
+        [
+          60428,
+          62732
+        ],
+        [
+          60428,
+          62733
+        ],
+        [
+          60428,
+          64121
+        ],
+        [
+          60428,
+          64122
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60428,
+          64140
+        ],
+        [
+          60428,
+          64141
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64126
+        ],
+        [
+          60429,
+          64134
+        ],
+        [
+          60429,
+          64135
+        ],
+        [
+          60429,
+          64136
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 2,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 1,
+        "area_over_double_face_count": 0,
+        "smallest_ratio": 0.20201594422791297,
+        "largest_ratio": 1.4796778550568157
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.01187219354473412
+    },
+    {
+      "outward_negative_X_shift": 0.014,
+      "Z_ratio": 0.0,
+      "real_BVH_nonshared_overlap_pairs": 125,
+      "remaining_overlap_face_IDs": [
+        [
+          60427,
+          62732
+        ],
+        [
+          60427,
+          64140
+        ],
+        [
+          60427,
+          64141
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          60547
+        ],
+        [
+          60428,
+          62732
+        ],
+        [
+          60428,
+          62733
+        ],
+        [
+          60428,
+          64121
+        ],
+        [
+          60428,
+          64122
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60428,
+          64140
+        ],
+        [
+          60428,
+          64141
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64126
+        ],
+        [
+          60429,
+          64134
+        ],
+        [
+          60429,
+          64135
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 0,
+        "smallest_ratio": 0.8565749869104858,
+        "largest_ratio": 1.75671442651065
+      },
+      "face_quality_PASS": true,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.013616502285003662
+    },
+    {
+      "outward_negative_X_shift": 0.014,
+      "Z_ratio": 0.35,
+      "real_BVH_nonshared_overlap_pairs": 120,
+      "remaining_overlap_face_IDs": [
+        [
+          60427,
+          62732
+        ],
+        [
+          60427,
+          62733
+        ],
+        [
+          60427,
+          64141
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          60547
+        ],
+        [
+          60428,
+          62732
+        ],
+        [
+          60428,
+          62733
+        ],
+        [
+          60428,
+          64121
+        ],
+        [
+          60428,
+          64122
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60428,
+          64140
+        ],
+        [
+          60428,
+          64141
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64126
+        ],
+        [
+          60429,
+          64135
+        ],
+        [
+          60429,
+          64136
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 0,
+        "smallest_ratio": 0.8917685427749322,
+        "largest_ratio": 1.8247813601625669
+      },
+      "face_quality_PASS": true,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.014426416665117783
+    },
+    {
+      "outward_negative_X_shift": 0.014,
+      "Z_ratio": -0.35,
+      "real_BVH_nonshared_overlap_pairs": 127,
+      "remaining_overlap_face_IDs": [
+        [
+          60427,
+          60547
+        ],
+        [
+          60427,
+          62732
+        ],
+        [
+          60427,
+          62779
+        ],
+        [
+          60427,
+          64140
+        ],
+        [
+          60427,
+          64147
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          60547
+        ],
+        [
+          60428,
+          62732
+        ],
+        [
+          60428,
+          64121
+        ],
+        [
+          60428,
+          64122
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60428,
+          64140
+        ],
+        [
+          60428,
+          64141
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64126
+        ],
+        [
+          60429,
+          64134
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 1,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 1,
+        "area_over_double_face_count": 0,
+        "smallest_ratio": 0.3468598969777715,
+        "largest_ratio": 1.715025235207228
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.014426416665117783
+    },
+    {
+      "outward_negative_X_shift": 0.014,
+      "Z_ratio": 0.7,
+      "real_BVH_nonshared_overlap_pairs": 115,
+      "remaining_overlap_face_IDs": [
+        [
+          60427,
+          62732
+        ],
+        [
+          60427,
+          62733
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64141
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          60547
+        ],
+        [
+          60428,
+          62732
+        ],
+        [
+          60428,
+          62733
+        ],
+        [
+          60428,
+          64121
+        ],
+        [
+          60428,
+          64122
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60428,
+          64140
+        ],
+        [
+          60428,
+          64141
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          60525
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64126
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 2,
+        "smallest_ratio": 0.9038039150014355,
+        "largest_ratio": 2.18879472972844
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.01662102848050693
+    },
+    {
+      "outward_negative_X_shift": 0.014,
+      "Z_ratio": -0.7,
+      "real_BVH_nonshared_overlap_pairs": 132,
+      "remaining_overlap_face_IDs": [
+        [
+          60427,
+          60547
+        ],
+        [
+          60427,
+          62779
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60427,
+          64140
+        ],
+        [
+          60427,
+          64147
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          60547
+        ],
+        [
+          60428,
+          62732
+        ],
+        [
+          60428,
+          64121
+        ],
+        [
+          60428,
+          64122
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60428,
+          64140
+        ],
+        [
+          60428,
+          64141
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64126
+        ],
+        [
+          60429,
+          64134
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 2,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 0,
+        "smallest_ratio": 0.5645960652973062,
+        "largest_ratio": 1.7016539856025472
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.01662102848050693
+    },
+    {
+      "outward_negative_X_shift": 0.02,
+      "Z_ratio": 0.0,
+      "real_BVH_nonshared_overlap_pairs": 118,
+      "remaining_overlap_face_IDs": [
+        [
+          60427,
+          60547
+        ],
+        [
+          60427,
+          62732
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60427,
+          64140
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          60547
+        ],
+        [
+          60428,
+          62732
+        ],
+        [
+          60428,
+          64121
+        ],
+        [
+          60428,
+          64122
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60428,
+          64140
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64126
+        ],
+        [
+          60429,
+          64134
+        ],
+        [
+          60429,
+          64135
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 1,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 1,
+        "smallest_ratio": 0.8269351229987353,
+        "largest_ratio": 2.089055877348101
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.019452154636383057
+    },
+    {
+      "outward_negative_X_shift": 0.02,
+      "Z_ratio": 0.35,
+      "real_BVH_nonshared_overlap_pairs": 120,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          60428
+        ],
+        [
+          60405,
+          64124
+        ],
+        [
+          60427,
+          60547
+        ],
+        [
+          60427,
+          62732
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64140
+        ],
+        [
+          60427,
+          64141
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          60547
+        ],
+        [
+          60428,
+          62732
+        ],
+        [
+          60428,
+          64121
+        ],
+        [
+          60428,
+          64122
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60428,
+          64140
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64126
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 4,
+        "smallest_ratio": 0.8462002253247065,
+        "largest_ratio": 2.280918903430614
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.02060919720468062
+    },
+    {
+      "outward_negative_X_shift": 0.02,
+      "Z_ratio": -0.35,
+      "real_BVH_nonshared_overlap_pairs": 122,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          64141
+        ],
+        [
+          60427,
+          60547
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60427,
+          64140
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          60547
+        ],
+        [
+          60428,
+          62732
+        ],
+        [
+          60428,
+          64121
+        ],
+        [
+          60428,
+          64122
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60428,
+          64140
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64126
+        ],
+        [
+          60429,
+          64134
+        ],
+        [
+          60429,
+          64135
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 2,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 1,
+        "smallest_ratio": 0.5120534026824193,
+        "largest_ratio": 2.0449435781639225
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.02060919720468062
+    },
+    {
+      "outward_negative_X_shift": 0.02,
+      "Z_ratio": 0.7,
+      "real_BVH_nonshared_overlap_pairs": 119,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          60428
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60405,
+          64124
+        ],
+        [
+          60427,
+          62732
+        ],
+        [
+          60427,
+          62733
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64140
+        ],
+        [
+          60427,
+          64141
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          60547
+        ],
+        [
+          60428,
+          62732
+        ],
+        [
+          60428,
+          64121
+        ],
+        [
+          60428,
+          64122
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60428,
+          64140
+        ],
+        [
+          60428,
+          64141
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 6,
+        "smallest_ratio": 0.8665714918715789,
+        "largest_ratio": 2.8765665515222065
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.02374434314242569
+    },
+    {
+      "outward_negative_X_shift": 0.02,
+      "Z_ratio": -0.7,
+      "real_BVH_nonshared_overlap_pairs": 118,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          64141
+        ],
+        [
+          60427,
+          60547
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          60547
+        ],
+        [
+          60428,
+          64122
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64126
+        ],
+        [
+          60429,
+          64134
+        ],
+        [
+          60429,
+          64135
+        ],
+        [
+          60429,
+          64136
+        ],
+        [
+          60451,
+          60476
+        ],
+        [
+          60451,
+          64129
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 2,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 2,
+        "smallest_ratio": 0.766418892493281,
+        "largest_ratio": 2.1376615397404644
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.02374434314242569
+    },
+    {
+      "outward_negative_X_shift": 0.028,
+      "Z_ratio": 0.0,
+      "real_BVH_nonshared_overlap_pairs": 118,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          60428
+        ],
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60405,
+          64123
+        ],
+        [
+          60405,
+          64124
+        ],
+        [
+          60405,
+          64141
+        ],
+        [
+          60427,
+          60547
+        ],
+        [
+          60427,
+          62732
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60427,
+          64140
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          64121
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 1,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 5,
+        "smallest_ratio": 0.7577854207077507,
+        "largest_ratio": 2.685151447946477
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.027233019471168518
+    },
+    {
+      "outward_negative_X_shift": 0.028,
+      "Z_ratio": 0.35,
+      "real_BVH_nonshared_overlap_pairs": 128,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          60428
+        ],
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60405,
+          64123
+        ],
+        [
+          60427,
+          60547
+        ],
+        [
+          60427,
+          62732
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60427,
+          64140
+        ],
+        [
+          60427,
+          64141
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          60547
+        ],
+        [
+          60428,
+          64121
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60428,
+          64140
+        ],
+        [
+          60429,
+          60453
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 6,
+        "smallest_ratio": 0.7863947366213893,
+        "largest_ratio": 3.087164413250753
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.028852847394830135
+    },
+    {
+      "outward_negative_X_shift": 0.028,
+      "Z_ratio": -0.35,
+      "real_BVH_nonshared_overlap_pairs": 120,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          60428
+        ],
+        [
+          60405,
+          62732
+        ],
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60405,
+          64123
+        ],
+        [
+          60405,
+          64124
+        ],
+        [
+          60405,
+          64141
+        ],
+        [
+          60427,
+          60546
+        ],
+        [
+          60427,
+          60547
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64134
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 2,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 5,
+        "smallest_ratio": 0.7263994268442089,
+        "largest_ratio": 2.773676046634841
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.028852847394830135
+    },
+    {
+      "outward_negative_X_shift": 0.028,
+      "Z_ratio": 0.7,
+      "real_BVH_nonshared_overlap_pairs": 129,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          60428
+        ],
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60405,
+          64123
+        ],
+        [
+          60427,
+          60547
+        ],
+        [
+          60427,
+          62732
+        ],
+        [
+          60427,
+          62733
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60427,
+          64140
+        ],
+        [
+          60427,
+          64141
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          60547
+        ],
+        [
+          60428,
+          62732
+        ],
+        [
+          60428,
+          64121
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60428,
+          64140
+        ],
+        [
+          60429,
+          60453
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 8,
+        "smallest_ratio": 0.816863189169695,
+        "largest_ratio": 3.8281740111669817
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.03324213753044324
+    },
+    {
+      "outward_negative_X_shift": 0.028,
+      "Z_ratio": -0.7,
+      "real_BVH_nonshared_overlap_pairs": 121,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          62732
+        ],
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          64140
+        ],
+        [
+          60405,
+          64141
+        ],
+        [
+          60405,
+          64145
+        ],
+        [
+          60427,
+          60546
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64138
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64126
+        ],
+        [
+          60429,
+          64134
+        ],
+        [
+          60429,
+          64135
+        ],
+        [
+          60429,
+          64136
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 4,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 6,
+        "smallest_ratio": 0.6733318682281897,
+        "largest_ratio": 3.3136544258933105
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.03324213753044324
+    },
+    {
+      "outward_negative_X_shift": 0.04,
+      "Z_ratio": 0.0,
+      "real_BVH_nonshared_overlap_pairs": 124,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          62732
+        ],
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60405,
+          64141
+        ],
+        [
+          60427,
+          60546
+        ],
+        [
+          60427,
+          60547
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60429,
+          60453
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64127
+        ],
+        [
+          60429,
+          64128
+        ],
+        [
+          60429,
+          64134
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 1,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 8,
+        "smallest_ratio": 0.6541853746961281,
+        "largest_ratio": 3.9364175983032625
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.03890429437160492
+    },
+    {
+      "outward_negative_X_shift": 0.04,
+      "Z_ratio": 0.35,
+      "real_BVH_nonshared_overlap_pairs": 124,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60405,
+          64141
+        ],
+        [
+          60427,
+          60547
+        ],
+        [
+          60427,
+          62732
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60427,
+          64140
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          62781
+        ],
+        [
+          60429,
+          62802
+        ],
+        [
+          60429,
+          64127
+        ],
+        [
+          60429,
+          64128
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 9,
+        "smallest_ratio": 0.6993372267295199,
+        "largest_ratio": 4.342640695827502
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.04121834096394455
+    },
+    {
+      "outward_negative_X_shift": 0.04,
+      "Z_ratio": -0.35,
+      "real_BVH_nonshared_overlap_pairs": 120,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          62732
+        ],
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60405,
+          64140
+        ],
+        [
+          60405,
+          64141
+        ],
+        [
+          60405,
+          64145
+        ],
+        [
+          60427,
+          60546
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64138
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60428,
+          60524
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          64137
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64134
+        ],
+        [
+          60429,
+          64135
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 4,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 6,
+        "smallest_ratio": 0.6154823468614578,
+        "largest_ratio": 4.225431108632268
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.04121834096394455
+    },
+    {
+      "outward_negative_X_shift": 0.04,
+      "Z_ratio": 0.7,
+      "real_BVH_nonshared_overlap_pairs": 122,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60427,
+          60547
+        ],
+        [
+          60427,
+          62732
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60427,
+          64140
+        ],
+        [
+          60427,
+          64141
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          62781
+        ],
+        [
+          60429,
+          62802
+        ],
+        [
+          60429,
+          64128
+        ],
+        [
+          60429,
+          64135
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 10,
+        "smallest_ratio": 0.7386535177836953,
+        "largest_ratio": 5.286169011455275
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.04748874243926164
+    },
+    {
+      "outward_negative_X_shift": 0.04,
+      "Z_ratio": -0.7,
+      "real_BVH_nonshared_overlap_pairs": 116,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          60547
+        ],
+        [
+          60405,
+          62732
+        ],
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          64139
+        ],
+        [
+          60405,
+          64140
+        ],
+        [
+          60405,
+          64141
+        ],
+        [
+          60405,
+          64145
+        ],
+        [
+          60427,
+          60546
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64138
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60428,
+          60524
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          64137
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64134
+        ],
+        [
+          60429,
+          64135
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 4,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 7,
+        "smallest_ratio": 0.5344012772427398,
+        "largest_ratio": 5.092648871895743
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.04748874243926164
+    },
+    {
+      "outward_negative_X_shift": 0.055,
+      "Z_ratio": 0.0,
+      "real_BVH_nonshared_overlap_pairs": 126,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          62732
+        ],
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60405,
+          64141
+        ],
+        [
+          60427,
+          60546
+        ],
+        [
+          60427,
+          60547
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64138
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60428,
+          60524
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          64137
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          62781
+        ],
+        [
+          60429,
+          62802
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 1,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 9,
+        "smallest_ratio": 0.5250159105501662,
+        "largest_ratio": 5.531477650486527
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.05349339544773102
+    },
+    {
+      "outward_negative_X_shift": 0.055,
+      "Z_ratio": 0.35,
+      "real_BVH_nonshared_overlap_pairs": 124,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          62732
+        ],
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60405,
+          64141
+        ],
+        [
+          60427,
+          60547
+        ],
+        [
+          60427,
+          62732
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60427,
+          64140
+        ],
+        [
+          60428,
+          60524
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          64137
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          62781
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 11,
+        "smallest_ratio": 0.596850320706382,
+        "largest_ratio": 5.941727577608567
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.05667522480282812
+    },
+    {
+      "outward_negative_X_shift": 0.055,
+      "Z_ratio": -0.35,
+      "real_BVH_nonshared_overlap_pairs": 126,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          60547
+        ],
+        [
+          60405,
+          62732
+        ],
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60405,
+          64139
+        ],
+        [
+          60405,
+          64140
+        ],
+        [
+          60405,
+          64141
+        ],
+        [
+          60405,
+          64145
+        ],
+        [
+          60427,
+          60546
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64138
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60428,
+          60524
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          64137
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          62781
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 4,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 2,
+        "area_over_double_face_count": 10,
+        "smallest_ratio": 0.4878321302445415,
+        "largest_ratio": 6.058748829808708
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.05667522480282812
+    },
+    {
+      "outward_negative_X_shift": 0.055,
+      "Z_ratio": 0.7,
+      "real_BVH_nonshared_overlap_pairs": 124,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60427,
+          60547
+        ],
+        [
+          60427,
+          62732
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60427,
+          64140
+        ],
+        [
+          60427,
+          64141
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          62781
+        ],
+        [
+          60429,
+          62802
+        ],
+        [
+          60429,
+          64128
+        ],
+        [
+          60429,
+          64135
+        ],
+        [
+          60429,
+          64136
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 10,
+        "smallest_ratio": 0.6412874182744216,
+        "largest_ratio": 7.129462414219481
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.06529703886006985
+    },
+    {
+      "outward_negative_X_shift": 0.055,
+      "Z_ratio": -0.7,
+      "real_BVH_nonshared_overlap_pairs": 116,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          60547
+        ],
+        [
+          60405,
+          62732
+        ],
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60405,
+          64139
+        ],
+        [
+          60405,
+          64140
+        ],
+        [
+          60405,
+          64145
+        ],
+        [
+          60427,
+          60525
+        ],
+        [
+          60427,
+          60546
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64138
+        ],
+        [
+          60428,
+          60523
+        ],
+        [
+          60428,
+          60524
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          64136
+        ],
+        [
+          60428,
+          64137
+        ],
+        [
+          60429,
+          60522
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64134
+        ],
+        [
+          60429,
+          64135
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 5,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 8,
+        "area_over_double_face_count": 10,
+        "smallest_ratio": 0.36323431384320204,
+        "largest_ratio": 7.323787686156763
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.06529703886006985
+    },
+    {
+      "outward_negative_X_shift": 0.075,
+      "Z_ratio": 0.0,
+      "real_BVH_nonshared_overlap_pairs": 125,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          60547
+        ],
+        [
+          60405,
+          62732
+        ],
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60405,
+          64140
+        ],
+        [
+          60405,
+          64141
+        ],
+        [
+          60427,
+          60546
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64138
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60428,
+          60524
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          64137
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          62781
+        ],
+        [
+          60429,
+          62802
+        ],
+        [
+          60429,
+          64135
+        ],
+        [
+          60429,
+          64136
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 2,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 4,
+        "area_over_double_face_count": 13,
+        "smallest_ratio": 0.3540159952907365,
+        "largest_ratio": 7.676886966423945
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.07294553518295288
+    },
+    {
+      "outward_negative_X_shift": 0.075,
+      "Z_ratio": 0.35,
+      "real_BVH_nonshared_overlap_pairs": 127,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          62732
+        ],
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60405,
+          64141
+        ],
+        [
+          60427,
+          60546
+        ],
+        [
+          60427,
+          60547
+        ],
+        [
+          60427,
+          62732
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60427,
+          64140
+        ],
+        [
+          60428,
+          60524
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          64137
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          62781
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 1,
+        "area_over_double_face_count": 15,
+        "smallest_ratio": 0.47849669244125376,
+        "largest_ratio": 8.093413657434843
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.07728440794289809
+    },
+    {
+      "outward_negative_X_shift": 0.075,
+      "Z_ratio": -0.35,
+      "real_BVH_nonshared_overlap_pairs": 127,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          60547
+        ],
+        [
+          60405,
+          62732
+        ],
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60405,
+          64139
+        ],
+        [
+          60405,
+          64140
+        ],
+        [
+          60405,
+          64141
+        ],
+        [
+          60405,
+          64145
+        ],
+        [
+          60427,
+          60525
+        ],
+        [
+          60427,
+          60546
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64138
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60428,
+          60523
+        ],
+        [
+          60428,
+          60524
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          64136
+        ],
+        [
+          60428,
+          64137
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60429,
+          60523
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 4,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 8,
+        "area_over_double_face_count": 14,
+        "smallest_ratio": 0.32017557877120567,
+        "largest_ratio": 8.513652039657329
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.07728440794289809
+    },
+    {
+      "outward_negative_X_shift": 0.075,
+      "Z_ratio": 0.7,
+      "real_BVH_nonshared_overlap_pairs": 127,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60427,
+          60547
+        ],
+        [
+          60427,
+          62732
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60427,
+          64140
+        ],
+        [
+          60428,
+          60524
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          64137
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60429,
+          60523
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          62781
+        ],
+        [
+          60429,
+          62802
+        ],
+        [
+          60429,
+          64128
+        ],
+        [
+          60429,
+          64136
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 22,
+        "smallest_ratio": 0.5124730710044524,
+        "largest_ratio": 9.60147533845053
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.08904136979491559
+    },
+    {
+      "outward_negative_X_shift": 0.075,
+      "Z_ratio": -0.7,
+      "real_BVH_nonshared_overlap_pairs": 115,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          60546
+        ],
+        [
+          60405,
+          60547
+        ],
+        [
+          60405,
+          62732
+        ],
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60405,
+          64138
+        ],
+        [
+          60405,
+          64139
+        ],
+        [
+          60405,
+          64140
+        ],
+        [
+          60405,
+          64145
+        ],
+        [
+          60427,
+          60525
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64138
+        ],
+        [
+          60428,
+          60522
+        ],
+        [
+          60428,
+          60523
+        ],
+        [
+          60428,
+          60524
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          64135
+        ],
+        [
+          60428,
+          64136
+        ],
+        [
+          60428,
+          64137
+        ],
+        [
+          60429,
+          62780
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 5,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 15,
+        "area_over_double_face_count": 14,
+        "smallest_ratio": 0.15500793140513508,
+        "largest_ratio": 10.302725092540271
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.08904136979491559
+    },
+    {
+      "outward_negative_X_shift": 0.105,
+      "Z_ratio": 0.0,
+      "real_BVH_nonshared_overlap_pairs": 127,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          60547
+        ],
+        [
+          60405,
+          62732
+        ],
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60405,
+          64139
+        ],
+        [
+          60405,
+          64140
+        ],
+        [
+          60405,
+          64141
+        ],
+        [
+          60427,
+          60546
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64138
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60428,
+          60524
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          64136
+        ],
+        [
+          60428,
+          64137
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          62781
+        ],
+        [
+          60429,
+          62802
+        ],
+        [
+          60429,
+          64149
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 3,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 5,
+        "area_over_double_face_count": 20,
+        "smallest_ratio": 0.11377883481109616,
+        "largest_ratio": 10.909412863853884
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.10212375223636627
+    },
+    {
+      "outward_negative_X_shift": 0.105,
+      "Z_ratio": 0.35,
+      "real_BVH_nonshared_overlap_pairs": 123,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          62732
+        ],
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60405,
+          64141
+        ],
+        [
+          60427,
+          60546
+        ],
+        [
+          60427,
+          60547
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64138
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60428,
+          60524
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          64137
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          62781
+        ],
+        [
+          60429,
+          62802
+        ],
+        [
+          60429,
+          64136
+        ],
+        [
+          60429,
+          64149
+        ],
+        [
+          60451,
+          62802
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 1,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 5,
+        "area_over_double_face_count": 31,
+        "smallest_ratio": 0.35998596210314204,
+        "largest_ratio": 11.336971850590668
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.10819818968531755
+    },
+    {
+      "outward_negative_X_shift": 0.105,
+      "Z_ratio": -0.35,
+      "real_BVH_nonshared_overlap_pairs": 134,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          60547
+        ],
+        [
+          60405,
+          62732
+        ],
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60405,
+          64139
+        ],
+        [
+          60405,
+          64140
+        ],
+        [
+          60405,
+          64141
+        ],
+        [
+          60405,
+          64145
+        ],
+        [
+          60427,
+          60525
+        ],
+        [
+          60427,
+          60546
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64138
+        ],
+        [
+          60428,
+          60523
+        ],
+        [
+          60428,
+          60524
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          64136
+        ],
+        [
+          60428,
+          64137
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          62781
+        ],
+        [
+          60429,
+          62802
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 7,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 9,
+        "area_over_double_face_count": 19,
+        "smallest_ratio": 0.1421116970288131,
+        "largest_ratio": 12.20375628598882
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.10819818968531755
+    },
+    {
+      "outward_negative_X_shift": 0.105,
+      "Z_ratio": 0.7,
+      "real_BVH_nonshared_overlap_pairs": 131,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          62732
+        ],
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60405,
+          64141
+        ],
+        [
+          60427,
+          60547
+        ],
+        [
+          60427,
+          62732
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64139
+        ],
+        [
+          60427,
+          64140
+        ],
+        [
+          60428,
+          60524
+        ],
+        [
+          60428,
+          60525
+        ],
+        [
+          60428,
+          60546
+        ],
+        [
+          60428,
+          64137
+        ],
+        [
+          60428,
+          64138
+        ],
+        [
+          60428,
+          64139
+        ],
+        [
+          60429,
+          60475
+        ],
+        [
+          60429,
+          60524
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          62781
+        ],
+        [
+          60429,
+          62802
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 3,
+        "area_over_double_face_count": 37,
+        "smallest_ratio": 0.3242459597907046,
+        "largest_ratio": 13.321658778433166
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.12465790648197846
+    },
+    {
+      "outward_negative_X_shift": 0.105,
+      "Z_ratio": -0.7,
+      "real_BVH_nonshared_overlap_pairs": 137,
+      "remaining_overlap_face_IDs": [
+        [
+          60405,
+          60546
+        ],
+        [
+          60405,
+          60547
+        ],
+        [
+          60405,
+          62757
+        ],
+        [
+          60405,
+          62778
+        ],
+        [
+          60405,
+          64138
+        ],
+        [
+          60405,
+          64139
+        ],
+        [
+          60405,
+          64145
+        ],
+        [
+          60427,
+          60524
+        ],
+        [
+          60427,
+          60525
+        ],
+        [
+          60427,
+          62778
+        ],
+        [
+          60427,
+          64137
+        ],
+        [
+          60427,
+          64138
+        ],
+        [
+          60428,
+          60523
+        ],
+        [
+          60428,
+          60524
+        ],
+        [
+          60428,
+          64136
+        ],
+        [
+          60429,
+          62780
+        ],
+        [
+          60429,
+          64126
+        ],
+        [
+          60452,
+          60475
+        ],
+        [
+          60452,
+          60476
+        ],
+        [
+          60452,
+          62802
+        ]
+      ],
+      "face_quality": {
+        "new_inverted_face_count": 14,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 16,
+        "area_over_double_face_count": 18,
+        "smallest_ratio": 0.09932111499179057,
+        "largest_ratio": 14.774168880260518
+      },
+      "face_quality_PASS": false,
+      "collision_clear_PASS": false,
+      "technical_both_PASS": false,
+      "max_real_vertex_movement": 0.12465790648197846
+    }
+  ],
+  "selected": {
+    "outward_negative_X_shift": 0.006,
+    "Z_ratio": -0.35,
+    "real_BVH_nonshared_overlap_pairs": 119,
+    "remaining_overlap_face_IDs": [
+      [
+        60427,
+        62733
+      ],
+      [
+        60427,
+        64141
+      ],
+      [
+        60428,
+        62733
+      ],
+      [
+        60428,
+        64121
+      ],
+      [
+        60428,
+        64122
+      ],
+      [
+        60429,
+        60522
+      ],
+      [
+        60429,
+        60523
+      ],
+      [
+        60429,
+        60524
+      ],
+      [
+        60429,
+        60525
+      ],
+      [
+        60429,
+        62780
+      ],
+      [
+        60429,
+        64126
+      ],
+      [
+        60429,
+        64135
+      ],
+      [
+        60429,
+        64136
+      ],
+      [
+        60429,
+        64137
+      ],
+      [
+        60451,
+        60476
+      ],
+      [
+        60451,
+        60477
+      ],
+      [
+        60451,
+        60499
+      ],
+      [
+        60451,
+        60500
+      ],
+      [
+        60451,
+        60501
+      ],
+      [
+        60451,
+        60522
+      ]
+    ],
+    "face_quality": {
+      "new_inverted_face_count": 0,
+      "degenerate_face_count": 0,
+      "area_under_half_face_count": 0,
+      "area_over_double_face_count": 0,
+      "smallest_ratio": 0.6445353990102409,
+      "largest_ratio": 1.291733591386849
+    },
+    "face_quality_PASS": true,
+    "collision_clear_PASS": false,
+    "technical_both_PASS": false,
+    "max_real_vertex_movement": 0.006182766475233582,
+    "replay_BVH_pairs": 119,
+    "replay_face_quality": {
+      "new_inverted_face_count": 0,
+      "degenerate_face_count": 0,
+      "area_under_half_face_count": 0,
+      "area_over_double_face_count": 0,
+      "smallest_ratio": 0.6445353990102409,
+      "largest_ratio": 1.291733591386849
+    },
+    "replay_PASS": false
+  },
+  "final_replayed_actual_pairs": [
+    [
+      60427,
+      62733
+    ],
+    [
+      60427,
+      64141
+    ],
+    [
+      60428,
+      62733
+    ],
+    [
+      60428,
+      64121
+    ],
+    [
+      60428,
+      64122
+    ],
+    [
+      60429,
+      60522
+    ],
+    [
+      60429,
+      60523
+    ],
+    [
+      60429,
+      60524
+    ],
+    [
+      60429,
+      60525
+    ],
+    [
+      60429,
+      62780
+    ],
+    [
+      60429,
+      64126
+    ],
+    [
+      60429,
+      64135
+    ],
+    [
+      60429,
+      64136
+    ],
+    [
+      60429,
+      64137
+    ],
+    [
+      60451,
+      60476
+    ],
+    [
+      60451,
+      60477
+    ],
+    [
+      60451,
+      60499
+    ],
+    [
+      60451,
+      60500
+    ],
+    [
+      60451,
+      60501
+    ],
+    [
+      60451,
+      60522
+    ],
+    [
+      60451,
+      64130
+    ],
+    [
+      60451,
+      64131
+    ],
+    [
+      60451,
+      64132
+    ],
+    [
+      60451,
+      64133
+    ],
+    [
+      60451,
+      64134
+    ],
+    [
+      60452,
+      60475
+    ],
+    [
+      60452,
+      64128
+    ],
+    [
+      60453,
+      64126
+    ],
+    [
+      60475,
+      64126
+    ],
+    [
+      60475,
+      64135
+    ],
+    [
+      60476,
+      64126
+    ],
+    [
+      60476,
+      64134
+    ],
+    [
+      60477,
+      64134
+    ],
+    [
+      60499,
+      64130
+    ],
+    [
+      60499,
+      64134
+    ],
+    [
+      60500,
+      64134
+    ],
+    [
+      60522,
+      64125
+    ],
+    [
+      60522,
+      64129
+    ],
+    [
+      60523,
+      64128
+    ],
+    [
+      60524,
+      62802
+    ],
+    [
+      60524,
+      64128
+    ],
+    [
+      60525,
+      62781
+    ],
+    [
+      60525,
+      64124
+    ],
+    [
+      60546,
+      62781
+    ],
+    [
+      60546,
+      64124
+    ],
+    [
+      60546,
+      64149
+    ],
+    [
+      60547,
+      62781
+    ],
+    [
+      60547,
+      64124
+    ],
+    [
+      60547,
+      64148
+    ],
+    [
+      62732,
+      62778
+    ],
+    [
+      62733,
+      62778
+    ],
+    [
+      62733,
+      64122
+    ],
+    [
+      62733,
+      64123
+    ],
+    [
+      62733,
+      64124
+    ],
+    [
+      62755,
+      62778
+    ],
+    [
+      62755,
+      64144
+    ],
+    [
+      62755,
+      64146
+    ],
+    [
+      62755,
+      64147
+    ],
+    [
+      62756,
+      62778
+    ],
+    [
+      62756,
+      62779
+    ],
+    [
+      62756,
+      64142
+    ],
+    [
+      62756,
+      64147
+    ],
+    [
+      62757,
+      62779
+    ],
+    [
+      62757,
+      64121
+    ],
+    [
+      62757,
+      64147
+    ],
+    [
+      62778,
+      62780
+    ],
+    [
+      62778,
+      64121
+    ],
+    [
+      62778,
+      64122
+    ],
+    [
+      62778,
+      64140
+    ],
+    [
+      62778,
+      64141
+    ],
+    [
+      62778,
+      64142
+    ],
+    [
+      62778,
+      64144
+    ],
+    [
+      62778,
+      64147
+    ],
+    [
+      62779,
+      64121
+    ],
+    [
+      62779,
+      64122
+    ],
+    [
+      62779,
+      64144
+    ],
+    [
+      62780,
+      62874
+    ],
+    [
+      62780,
+      62875
+    ],
+    [
+      62780,
+      64146
+    ],
+    [
+      62780,
+      64162
+    ],
+    [
+      62781,
+      64137
+    ],
+    [
+      62781,
+      64138
+    ],
+    [
+      62781,
+      64139
+    ],
+    [
+      62802,
+      64137
+    ],
+    [
+      62826,
+      62828
+    ],
+    [
+      62826,
+      64134
+    ],
+    [
+      62826,
+      64155
+    ],
+    [
+      62828,
+      64154
+    ],
+    [
+      62874,
+      64148
+    ],
+    [
+      62875,
+      64147
+    ],
+    [
+      64121,
+      64123
+    ],
+    [
+      64121,
+      64124
+    ],
+    [
+      64121,
+      64144
+    ],
+    [
+      64121,
+      64146
+    ],
+    [
+      64121,
+      64147
+    ],
+    [
+      64122,
+      64124
+    ],
+    [
+      64122,
+      64147
+    ],
+    [
+      64123,
+      64141
+    ],
+    [
+      64124,
+      64138
+    ],
+    [
+      64124,
+      64139
+    ],
+    [
+      64124,
+      64140
+    ],
+    [
+      64126,
+      64128
+    ],
+    [
+      64126,
+      64129
+    ],
+    [
+      64128,
+      64135
+    ],
+    [
+      64128,
+      64136
+    ],
+    [
+      64129,
+      64134
+    ],
+    [
+      64129,
+      64135
+    ],
+    [
+      64130,
+      64134
+    ],
+    [
+      64131,
+      64134
+    ],
+    [
+      64132,
+      64134
+    ],
+    [
+      64134,
+      64153
+    ],
+    [
+      64137,
+      64149
+    ],
+    [
+      64138,
+      64149
+    ],
+    [
+      64140,
+      64148
+    ],
+    [
+      64142,
+      64144
+    ],
+    [
+      64142,
+      64146
+    ],
+    [
+      64142,
+      64147
+    ],
+    [
+      64144,
+      64147
+    ],
+    [
+      64153,
+      64155
+    ]
+  ],
+  "final_replayed_geometry_quality": {
+    "new_inverted_face_count": 0,
+    "degenerate_face_count": 0,
+    "area_under_half_face_count": 0,
+    "area_over_double_face_count": 0,
+    "smallest_ratio": 0.6445353990102409,
+    "largest_ratio": 1.291733591386849
+  },
+  "technical_pass": false,
+  "geometry_gate": "FAIL",
+  "design_S_reference_match": "UNAPPROVED_PENDING_VISUAL_REVIEW",
+  "rig_new_skin_weights": "NOT_VERIFIED",
+  "gait_97frames": "NOT_VERIFIED",
+  "production_creature": false
+}

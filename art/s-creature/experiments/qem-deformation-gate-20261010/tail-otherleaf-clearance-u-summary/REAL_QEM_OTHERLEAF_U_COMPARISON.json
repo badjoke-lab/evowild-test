@@ -1,0 +1,45 @@
+{
+  "canonical_reference": "art/s-creature/references/00_s_type_modeling_image_v1.png",
+  "previous_midleft_S": {
+    "before_collisions": 5,
+    "after_collisions": 0,
+    "technical_pass": true
+  },
+  "remaining_leaves": {
+    "PROXIMAL_RIGHT": {
+      "original_collision_count": 34,
+      "after_collision_count": 24,
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 0,
+        "smallest_ratio": 0.7265617026061502,
+        "largest_ratio": 1.918304272734587
+      },
+      "technical_pass": false,
+      "geometry_gate": "FAIL",
+      "best_local_outward_shift": 0.01,
+      "best_vertical_ratio": 0.7
+    },
+    "DISTAL_RIGHT": {
+      "original_collision_count": 152,
+      "after_collision_count": 119,
+      "face_quality": {
+        "new_inverted_face_count": 0,
+        "degenerate_face_count": 0,
+        "area_under_half_face_count": 0,
+        "area_over_double_face_count": 0,
+        "smallest_ratio": 0.6445353990102409,
+        "largest_ratio": 1.291733591386849
+      },
+      "technical_pass": false,
+      "geometry_gate": "FAIL",
+      "best_local_outward_shift": 0.006,
+      "best_vertical_ratio": -0.35
+    }
+  },
+  "original_mesh_preserved": true,
+  "S_type_3D_complete": false,
+  "game_integrated": false
+}
