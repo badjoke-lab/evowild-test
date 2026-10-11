@@ -1,0 +1,50 @@
+name: P 2.5D world support band trace
+on:
+  push:
+    branches:
+      - fix/2p5d-p-canonical-20261011
+    paths:
+      - .github/workflows/p-foot-world-trace.yml
+permissions:
+  contents: write
+jobs:
+  trace:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prepare Vite and Chromium
+        run: |
+          npm install
+          npm --ignore-scripts run build
+          npx playwright install --with-deps chromium
+      - name: Measure real P source contact pixel motion in isolated running scene
+        run: npx playwright test tests/p-foot-world-trace.spec.js --project=desktop-chromium
+      - name: Save actual measurement
+        if: always()
+        run: |
+          if [ -s docs/evidence/p-foot-world-trace-20261012/foot-world-trace.json ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add docs/evidence/p-foot-world-trace-20261012/
+            git diff --cached --check
+            if ! git diff --cached --quiet; then
+              git commit -m "audit(p): record actual world support-band drift for 2.5D clock modes"
+              git fetch origin refs/heads/$GITHUB_REF_NAME
+              git rebase FETCH_HEAD
+              git push origin HEAD:$GITHUB_REF_NAME
+            fi
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p-foot-world-trace
+          path: |
+            docs/evidence/p-foot-world-trace-20261012/
+            test-results/
+          if-no-files-found: warn
