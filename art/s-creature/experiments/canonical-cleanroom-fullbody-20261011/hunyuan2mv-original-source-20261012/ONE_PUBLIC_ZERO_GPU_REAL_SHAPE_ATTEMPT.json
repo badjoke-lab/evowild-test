@@ -1,0 +1,39 @@
+{
+  "source_authority_SHA256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "provider": "tencent/Hunyuan3D-2mv",
+  "purpose": "ONE exploratory noncommercial source multiview shape test ONLY",
+  "using_public_ZeroGPU_without_HF_TOKEN": true,
+  "user_paid_GPU_jobs_created": 0,
+  "gradio_auth_token_supplied": false,
+  "GPU_generation_attempts": 1,
+  "inputs": {
+    "front": "SOURCE_REAL_FRONT_ORTHO_RGBA.png",
+    "back": "SOURCE_REAL_BACK_ORTHO_RGBA.png",
+    "left": "SOURCE_REAL_LEFT_ORTHO_RGBA.png"
+  },
+  "synthetic_unavailable_RIGHT": null,
+  "license_commercial_reuse_cleared": false,
+  "canonical_shape_approved": false,
+  "main_updated": false,
+  "time_start": "2026-10-11T16:15:16.713101+00:00",
+  "generated": false,
+  "api_return_types": [
+    "dict",
+    "str",
+    "dict",
+    "int"
+  ],
+  "error_type": "TypeError",
+  "error_message": "argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'NoneType'",
+  "traceback_last_8_lines": [
+    "  File \"/home/runner/work/evowild-test/evowild-test/art/s-creature/blender/s_hunyuan2mv_run_one_free_shape.py\", line 74, in <module>",
+    "    source=Path(filepath)",
+    "           ^^^^^^^^^^^^^^",
+    "  File \"/usr/lib/python3.12/pathlib.py\", line 1164, in __init__",
+    "    super().__init__(*args)",
+    "  File \"/usr/lib/python3.12/pathlib.py\", line 373, in __init__",
+    "    raise TypeError(",
+    "TypeError: argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'NoneType'"
+  ],
+  "time_finished": "2026-10-11T16:15:26.784849+00:00"
+}
