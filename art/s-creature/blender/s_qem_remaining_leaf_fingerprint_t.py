@@ -52,7 +52,7 @@ for ia,ib in tree.overlap(tree):
 pairs.sort()
 assert len(pairs)==prior_count,(PANEL,len(pairs),prior_count)
 treeM=KDTree(len(mxyz))
-for i,x in enumerate(mxyz):treeM.insert(Vector(x),i)
+for i,mvertex in enumerate(mxyz):treeM.insert(Vector(mvertex),i)
 treeM.balance()
 dist=np.array([treeM.find(Vector(pt))[2] for pt in v])
 detailed=[]
