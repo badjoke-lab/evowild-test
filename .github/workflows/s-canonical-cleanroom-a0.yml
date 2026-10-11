@@ -86,7 +86,7 @@ jobs:
               draw.text((col*W+7,6),title,fill=(17,19,21))
           comp.save(root/"review"/"ORIGINAL_S_REFERENCE_VS_NEW_A0_REAL_3D.jpg",quality=94,optimize=True)
           print("REAL_NEW_S_A0_3D",d["total_physical_3D_vertices"],d["total_physical_3D_polygons"],
-                d["cleanroom_original_model_source"],"modeling_design_approved?",d["visual_morphology_pass"])
+                d["full_cleanroom_geometry_source"],"modeling_design_approved?",d["visual_morphology_pass"])
           PY
       - uses: actions/upload-artifact@v4
         if: always()
