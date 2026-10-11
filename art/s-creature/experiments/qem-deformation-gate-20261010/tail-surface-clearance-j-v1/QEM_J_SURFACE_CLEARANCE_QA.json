@@ -1,0 +1,2121 @@
+{
+  "canonical_S_authority_SHA256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "original_QEM_donor_SHA256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "source_QEM_unchanged": true,
+  "source_H_variant_unchanged": true,
+  "H_real_mesh_vertices": 30540,
+  "H_real_mesh_triangles": 61116,
+  "J_real_mesh_vertices": 30540,
+  "J_real_mesh_triangles": 61116,
+  "origin_tail_intersections_A": 0,
+  "H_new_tail_intersections_at_start": 824,
+  "local_original_QEM_distance_weight_vertices": 586,
+  "candidates": [
+    {
+      "up": 0.2,
+      "outward_spread": 0.22,
+      "nonshared_triangle_intersections": 836,
+      "intersection_change_from_H": 12,
+      "max_vertex_displacement": 0.29607914394161383,
+      "face_quality": {
+        "inverted": 1,
+        "collapsed": 0,
+        "area_lt_half": 0,
+        "area_gt_double": 332,
+        "min_ratio": 0.7820078754026587,
+        "max_ratio": 8.711887512919764
+      },
+      "triangle_gate_pass": false,
+      "candidate_clearance_gate_pass": false,
+      "first_intersection_face_pairs": [
+        [
+          42557,
+          57043
+        ],
+        [
+          42557,
+          57037
+        ],
+        [
+          41283,
+          57037
+        ],
+        [
+          41283,
+          57038
+        ],
+        [
+          41283,
+          57033
+        ],
+        [
+          57050,
+          60508
+        ],
+        [
+          57050,
+          60597
+        ],
+        [
+          41281,
+          41735
+        ],
+        [
+          41281,
+          57050
+        ],
+        [
+          41281,
+          41742
+        ],
+        [
+          57052,
+          60643
+        ],
+        [
+          57052,
+          60509
+        ],
+        [
+          41738,
+          42482
+        ],
+        [
+          41738,
+          60597
+        ],
+        [
+          41739,
+          60597
+        ],
+        [
+          41740,
+          42482
+        ],
+        [
+          57043,
+          60643
+        ],
+        [
+          57037,
+          60510
+        ],
+        [
+          41279,
+          42948
+        ],
+        [
+          41279,
+          42945
+        ]
+      ]
+    },
+    {
+      "up": 0.2,
+      "outward_spread": 0.15,
+      "nonshared_triangle_intersections": 841,
+      "intersection_change_from_H": 17,
+      "max_vertex_displacement": 0.24931371608186256,
+      "face_quality": {
+        "inverted": 1,
+        "collapsed": 0,
+        "area_lt_half": 0,
+        "area_gt_double": 283,
+        "min_ratio": 0.7506729912893818,
+        "max_ratio": 6.730897724531968
+      },
+      "triangle_gate_pass": false,
+      "candidate_clearance_gate_pass": false,
+      "first_intersection_face_pairs": [
+        [
+          42557,
+          57043
+        ],
+        [
+          42557,
+          57037
+        ],
+        [
+          41283,
+          57037
+        ],
+        [
+          41283,
+          57038
+        ],
+        [
+          41283,
+          57033
+        ],
+        [
+          41278,
+          42940
+        ],
+        [
+          41279,
+          42948
+        ],
+        [
+          41279,
+          42945
+        ],
+        [
+          41279,
+          42943
+        ],
+        [
+          42553,
+          42938
+        ],
+        [
+          41280,
+          42949
+        ],
+        [
+          42948,
+          60507
+        ],
+        [
+          42948,
+          60640
+        ],
+        [
+          57050,
+          60508
+        ],
+        [
+          57050,
+          60597
+        ],
+        [
+          41281,
+          41735
+        ],
+        [
+          41281,
+          57050
+        ],
+        [
+          41281,
+          41742
+        ],
+        [
+          39692,
+          42555
+        ],
+        [
+          39692,
+          60507
+        ]
+      ]
+    },
+    {
+      "up": 0.2,
+      "outward_spread": 0.09,
+      "nonshared_triangle_intersections": 846,
+      "intersection_change_from_H": 22,
+      "max_vertex_displacement": 0.21903573403888635,
+      "face_quality": {
+        "inverted": 1,
+        "collapsed": 0,
+        "area_lt_half": 0,
+        "area_gt_double": 236,
+        "min_ratio": 0.7163787602050501,
+        "max_ratio": 6.457010220655082
+      },
+      "triangle_gate_pass": false,
+      "candidate_clearance_gate_pass": false,
+      "first_intersection_face_pairs": [
+        [
+          42557,
+          57043
+        ],
+        [
+          42557,
+          57037
+        ],
+        [
+          41283,
+          57037
+        ],
+        [
+          41283,
+          57038
+        ],
+        [
+          41283,
+          57033
+        ],
+        [
+          41278,
+          42940
+        ],
+        [
+          41279,
+          42948
+        ],
+        [
+          41279,
+          42945
+        ],
+        [
+          41279,
+          42943
+        ],
+        [
+          42553,
+          42938
+        ],
+        [
+          41280,
+          42949
+        ],
+        [
+          42948,
+          60507
+        ],
+        [
+          42948,
+          60640
+        ],
+        [
+          57050,
+          60508
+        ],
+        [
+          57050,
+          60597
+        ],
+        [
+          41281,
+          41735
+        ],
+        [
+          41281,
+          57050
+        ],
+        [
+          41281,
+          41742
+        ],
+        [
+          39692,
+          60507
+        ],
+        [
+          39692,
+          42555
+        ]
+      ]
+    },
+    {
+      "up": 0.2,
+      "outward_spread": 0.04,
+      "nonshared_triangle_intersections": 845,
+      "intersection_change_from_H": 21,
+      "max_vertex_displacement": 0.20390107935274537,
+      "face_quality": {
+        "inverted": 1,
+        "collapsed": 0,
+        "area_lt_half": 1,
+        "area_gt_double": 212,
+        "min_ratio": 0.3499805007325619,
+        "max_ratio": 6.360598279766369
+      },
+      "triangle_gate_pass": false,
+      "candidate_clearance_gate_pass": false,
+      "first_intersection_face_pairs": [
+        [
+          42557,
+          57043
+        ],
+        [
+          42557,
+          57037
+        ],
+        [
+          41283,
+          57037
+        ],
+        [
+          41283,
+          57038
+        ],
+        [
+          41283,
+          57033
+        ],
+        [
+          41278,
+          42940
+        ],
+        [
+          41279,
+          42948
+        ],
+        [
+          41279,
+          42947
+        ],
+        [
+          41279,
+          42944
+        ],
+        [
+          41279,
+          42942
+        ],
+        [
+          42553,
+          42938
+        ],
+        [
+          41280,
+          42949
+        ],
+        [
+          42948,
+          60507
+        ],
+        [
+          42948,
+          60640
+        ],
+        [
+          57050,
+          60508
+        ],
+        [
+          57050,
+          60597
+        ],
+        [
+          41281,
+          41735
+        ],
+        [
+          41281,
+          57050
+        ],
+        [
+          41281,
+          41742
+        ],
+        [
+          39692,
+          60507
+        ]
+      ]
+    },
+    {
+      "up": 0.15,
+      "outward_spread": 0.22,
+      "nonshared_triangle_intersections": 857,
+      "intersection_change_from_H": 33,
+      "max_vertex_displacement": 0.2648826782769184,
+      "face_quality": {
+        "inverted": 1,
+        "collapsed": 0,
+        "area_lt_half": 0,
+        "area_gt_double": 296,
+        "min_ratio": 0.7406304892502821,
+        "max_ratio": 7.300027659270902
+      },
+      "triangle_gate_pass": false,
+      "candidate_clearance_gate_pass": false,
+      "first_intersection_face_pairs": [
+        [
+          42557,
+          57043
+        ],
+        [
+          42557,
+          57037
+        ],
+        [
+          41283,
+          57037
+        ],
+        [
+          41283,
+          57038
+        ],
+        [
+          41283,
+          57033
+        ],
+        [
+          57050,
+          60508
+        ],
+        [
+          57050,
+          60597
+        ],
+        [
+          41281,
+          41735
+        ],
+        [
+          41281,
+          57050
+        ],
+        [
+          41281,
+          41742
+        ],
+        [
+          57052,
+          60643
+        ],
+        [
+          41738,
+          42482
+        ],
+        [
+          41738,
+          60597
+        ],
+        [
+          41739,
+          60597
+        ],
+        [
+          41740,
+          42482
+        ],
+        [
+          57043,
+          60643
+        ],
+        [
+          57037,
+          60510
+        ],
+        [
+          41279,
+          42948
+        ],
+        [
+          41279,
+          42945
+        ],
+        [
+          41279,
+          42943
+        ]
+      ]
+    },
+    {
+      "up": 0.15,
+      "outward_spread": 0.15,
+      "nonshared_triangle_intersections": 847,
+      "intersection_change_from_H": 23,
+      "max_vertex_displacement": 0.21132274558244357,
+      "face_quality": {
+        "inverted": 0,
+        "collapsed": 0,
+        "area_lt_half": 0,
+        "area_gt_double": 236,
+        "min_ratio": 0.813595391691439,
+        "max_ratio": 5.64257746988434
+      },
+      "triangle_gate_pass": false,
+      "candidate_clearance_gate_pass": false,
+      "first_intersection_face_pairs": [
+        [
+          42557,
+          57043
+        ],
+        [
+          42557,
+          57037
+        ],
+        [
+          41283,
+          57037
+        ],
+        [
+          41283,
+          57038
+        ],
+        [
+          41283,
+          57033
+        ],
+        [
+          41278,
+          42940
+        ],
+        [
+          41279,
+          42948
+        ],
+        [
+          41279,
+          42945
+        ],
+        [
+          41279,
+          42943
+        ],
+        [
+          42553,
+          42938
+        ],
+        [
+          41280,
+          42949
+        ],
+        [
+          42948,
+          60507
+        ],
+        [
+          42948,
+          60640
+        ],
+        [
+          57050,
+          60508
+        ],
+        [
+          57050,
+          60597
+        ],
+        [
+          41281,
+          41735
+        ],
+        [
+          41281,
+          57050
+        ],
+        [
+          41281,
+          41742
+        ],
+        [
+          39692,
+          60507
+        ],
+        [
+          39692,
+          42555
+        ]
+      ]
+    },
+    {
+      "up": 0.15,
+      "outward_spread": 0.09,
+      "nonshared_triangle_intersections": 853,
+      "intersection_change_from_H": 29,
+      "max_vertex_displacement": 0.17457556117598003,
+      "face_quality": {
+        "inverted": 1,
+        "collapsed": 0,
+        "area_lt_half": 0,
+        "area_gt_double": 183,
+        "min_ratio": 0.7710707636411097,
+        "max_ratio": 5.111794969051555
+      },
+      "triangle_gate_pass": false,
+      "candidate_clearance_gate_pass": false,
+      "first_intersection_face_pairs": [
+        [
+          42557,
+          57043
+        ],
+        [
+          42557,
+          57037
+        ],
+        [
+          41283,
+          57037
+        ],
+        [
+          41283,
+          57038
+        ],
+        [
+          41283,
+          57033
+        ],
+        [
+          41278,
+          42940
+        ],
+        [
+          41279,
+          42948
+        ],
+        [
+          41279,
+          42945
+        ],
+        [
+          41279,
+          42943
+        ],
+        [
+          42553,
+          42938
+        ],
+        [
+          41280,
+          42949
+        ],
+        [
+          42948,
+          60507
+        ],
+        [
+          42948,
+          60640
+        ],
+        [
+          57050,
+          60508
+        ],
+        [
+          57050,
+          60597
+        ],
+        [
+          41281,
+          41735
+        ],
+        [
+          41281,
+          57050
+        ],
+        [
+          41281,
+          41742
+        ],
+        [
+          39692,
+          60507
+        ],
+        [
+          39692,
+          42555
+        ]
+      ]
+    },
+    {
+      "up": 0.15,
+      "outward_spread": 0.04,
+      "nonshared_triangle_intersections": 856,
+      "intersection_change_from_H": 32,
+      "max_vertex_displacement": 0.15516321708178507,
+      "face_quality": {
+        "inverted": 1,
+        "collapsed": 0,
+        "area_lt_half": 2,
+        "area_gt_double": 134,
+        "min_ratio": 0.48188391142246956,
+        "max_ratio": 4.992623436549882
+      },
+      "triangle_gate_pass": false,
+      "candidate_clearance_gate_pass": false,
+      "first_intersection_face_pairs": [
+        [
+          42557,
+          57043
+        ],
+        [
+          42557,
+          57037
+        ],
+        [
+          41283,
+          57037
+        ],
+        [
+          41283,
+          57038
+        ],
+        [
+          41283,
+          57033
+        ],
+        [
+          41278,
+          42940
+        ],
+        [
+          41279,
+          42948
+        ],
+        [
+          41279,
+          42947
+        ],
+        [
+          41279,
+          42944
+        ],
+        [
+          42553,
+          42938
+        ],
+        [
+          41280,
+          42949
+        ],
+        [
+          42948,
+          60507
+        ],
+        [
+          42948,
+          60640
+        ],
+        [
+          57050,
+          60508
+        ],
+        [
+          57050,
+          60597
+        ],
+        [
+          41281,
+          41735
+        ],
+        [
+          41281,
+          57050
+        ],
+        [
+          41281,
+          41742
+        ],
+        [
+          39692,
+          60507
+        ],
+        [
+          39692,
+          42555
+        ]
+      ]
+    },
+    {
+      "up": 0.1,
+      "outward_spread": 0.22,
+      "nonshared_triangle_intersections": 863,
+      "intersection_change_from_H": 39,
+      "max_vertex_displacement": 0.24013089174881774,
+      "face_quality": {
+        "inverted": 1,
+        "collapsed": 0,
+        "area_lt_half": 0,
+        "area_gt_double": 232,
+        "min_ratio": 0.5762327552523979,
+        "max_ratio": 5.917057573949787
+      },
+      "triangle_gate_pass": false,
+      "candidate_clearance_gate_pass": false,
+      "first_intersection_face_pairs": [
+        [
+          42557,
+          57037
+        ],
+        [
+          41283,
+          57037
+        ],
+        [
+          41283,
+          57038
+        ],
+        [
+          41283,
+          57033
+        ],
+        [
+          57050,
+          60508
+        ],
+        [
+          57050,
+          60597
+        ],
+        [
+          41281,
+          41735
+        ],
+        [
+          41281,
+          57050
+        ],
+        [
+          41281,
+          41742
+        ],
+        [
+          57052,
+          60643
+        ],
+        [
+          41738,
+          42482
+        ],
+        [
+          41738,
+          60597
+        ],
+        [
+          41739,
+          60597
+        ],
+        [
+          41740,
+          42482
+        ],
+        [
+          57043,
+          60643
+        ],
+        [
+          57037,
+          60643
+        ],
+        [
+          57037,
+          60510
+        ],
+        [
+          41279,
+          42948
+        ],
+        [
+          41279,
+          42945
+        ],
+        [
+          41279,
+          42943
+        ]
+      ]
+    },
+    {
+      "up": 0.1,
+      "outward_spread": 0.15,
+      "nonshared_triangle_intersections": 854,
+      "intersection_change_from_H": 30,
+      "max_vertex_displacement": 0.17932460712749695,
+      "face_quality": {
+        "inverted": 0,
+        "collapsed": 0,
+        "area_lt_half": 0,
+        "area_gt_double": 164,
+        "min_ratio": 0.7489695047290637,
+        "max_ratio": 4.576671422624505
+      },
+      "triangle_gate_pass": false,
+      "candidate_clearance_gate_pass": false,
+      "first_intersection_face_pairs": [
+        [
+          41279,
+          42948
+        ],
+        [
+          41279,
+          42945
+        ],
+        [
+          41279,
+          42943
+        ],
+        [
+          42557,
+          57043
+        ],
+        [
+          42557,
+          57037
+        ],
+        [
+          42553,
+          42938
+        ],
+        [
+          41283,
+          57037
+        ],
+        [
+          41283,
+          57038
+        ],
+        [
+          41283,
+          57033
+        ],
+        [
+          41278,
+          42940
+        ],
+        [
+          41280,
+          42949
+        ],
+        [
+          42948,
+          60507
+        ],
+        [
+          42948,
+          60640
+        ],
+        [
+          57050,
+          60508
+        ],
+        [
+          57050,
+          60597
+        ],
+        [
+          41281,
+          41735
+        ],
+        [
+          41281,
+          57050
+        ],
+        [
+          41281,
+          41742
+        ],
+        [
+          39692,
+          60507
+        ],
+        [
+          39692,
+          42555
+        ]
+      ]
+    },
+    {
+      "up": 0.1,
+      "outward_spread": 0.09,
+      "nonshared_triangle_intersections": 840,
+      "intersection_change_from_H": 16,
+      "max_vertex_displacement": 0.13407698714110972,
+      "face_quality": {
+        "inverted": 0,
+        "collapsed": 0,
+        "area_lt_half": 0,
+        "area_gt_double": 89,
+        "min_ratio": 0.7285605887037042,
+        "max_ratio": 3.7838801757645553
+      },
+      "triangle_gate_pass": false,
+      "candidate_clearance_gate_pass": false,
+      "first_intersection_face_pairs": [
+        [
+          41279,
+          42948
+        ],
+        [
+          41279,
+          42945
+        ],
+        [
+          41279,
+          42943
+        ],
+        [
+          42557,
+          57043
+        ],
+        [
+          42557,
+          57037
+        ],
+        [
+          42553,
+          42938
+        ],
+        [
+          41283,
+          57037
+        ],
+        [
+          41283,
+          57038
+        ],
+        [
+          41283,
+          57033
+        ],
+        [
+          41278,
+          42940
+        ],
+        [
+          41280,
+          42949
+        ],
+        [
+          42948,
+          60507
+        ],
+        [
+          42948,
+          60640
+        ],
+        [
+          57050,
+          60508
+        ],
+        [
+          57050,
+          60597
+        ],
+        [
+          41281,
+          41735
+        ],
+        [
+          41281,
+          57050
+        ],
+        [
+          41281,
+          41742
+        ],
+        [
+          39692,
+          60507
+        ],
+        [
+          39692,
+          42555
+        ]
+      ]
+    },
+    {
+      "up": 0.1,
+      "outward_spread": 0.04,
+      "nonshared_triangle_intersections": 847,
+      "intersection_change_from_H": 23,
+      "max_vertex_displacement": 0.10759012899006168,
+      "face_quality": {
+        "inverted": 0,
+        "collapsed": 0,
+        "area_lt_half": 0,
+        "area_gt_double": 34,
+        "min_ratio": 0.5481036813627924,
+        "max_ratio": 3.625543803091239
+      },
+      "triangle_gate_pass": false,
+      "candidate_clearance_gate_pass": false,
+      "first_intersection_face_pairs": [
+        [
+          41279,
+          42948
+        ],
+        [
+          41279,
+          42947
+        ],
+        [
+          41279,
+          42944
+        ],
+        [
+          42557,
+          57043
+        ],
+        [
+          42557,
+          57037
+        ],
+        [
+          42553,
+          42938
+        ],
+        [
+          41283,
+          57037
+        ],
+        [
+          41283,
+          57038
+        ],
+        [
+          41283,
+          57033
+        ],
+        [
+          41278,
+          42940
+        ],
+        [
+          41280,
+          42949
+        ],
+        [
+          42948,
+          60640
+        ],
+        [
+          57050,
+          60508
+        ],
+        [
+          57050,
+          60597
+        ],
+        [
+          41281,
+          41735
+        ],
+        [
+          41281,
+          57050
+        ],
+        [
+          41281,
+          41742
+        ],
+        [
+          39692,
+          60507
+        ],
+        [
+          39692,
+          42555
+        ],
+        [
+          39692,
+          60641
+        ]
+      ]
+    },
+    {
+      "up": 0.06,
+      "outward_spread": 0.22,
+      "nonshared_triangle_intersections": 850,
+      "intersection_change_from_H": 26,
+      "max_vertex_displacement": 0.22641297122130274,
+      "face_quality": {
+        "inverted": 1,
+        "collapsed": 0,
+        "area_lt_half": 1,
+        "area_gt_double": 195,
+        "min_ratio": 0.34214893791488127,
+        "max_ratio": 6.1859447746098075
+      },
+      "triangle_gate_pass": false,
+      "candidate_clearance_gate_pass": false,
+      "first_intersection_face_pairs": [
+        [
+          42557,
+          57037
+        ],
+        [
+          41283,
+          57037
+        ],
+        [
+          41283,
+          57038
+        ],
+        [
+          41283,
+          57033
+        ],
+        [
+          57052,
+          60643
+        ],
+        [
+          57043,
+          60643
+        ],
+        [
+          57037,
+          60643
+        ],
+        [
+          57037,
+          60510
+        ],
+        [
+          41738,
+          42482
+        ],
+        [
+          41738,
+          60597
+        ],
+        [
+          41740,
+          42482
+        ],
+        [
+          57050,
+          60508
+        ],
+        [
+          57050,
+          60597
+        ],
+        [
+          41281,
+          41735
+        ],
+        [
+          41281,
+          57050
+        ],
+        [
+          41281,
+          41742
+        ],
+        [
+          41739,
+          60597
+        ],
+        [
+          41279,
+          42948
+        ],
+        [
+          41279,
+          42945
+        ],
+        [
+          41279,
+          42943
+        ]
+      ]
+    },
+    {
+      "up": 0.06,
+      "outward_spread": 0.15,
+      "nonshared_triangle_intersections": 836,
+      "intersection_change_from_H": 12,
+      "max_vertex_displacement": 0.1604908193218764,
+      "face_quality": {
+        "inverted": 1,
+        "collapsed": 0,
+        "area_lt_half": 0,
+        "area_gt_double": 115,
+        "min_ratio": 0.5368666606122211,
+        "max_ratio": 4.387651034839033
+      },
+      "triangle_gate_pass": false,
+      "candidate_clearance_gate_pass": false,
+      "first_intersection_face_pairs": [
+        [
+          57050,
+          60508
+        ],
+        [
+          57050,
+          60597
+        ],
+        [
+          41281,
+          41735
+        ],
+        [
+          41281,
+          57050
+        ],
+        [
+          41281,
+          41742
+        ],
+        [
+          42557,
+          57043
+        ],
+        [
+          42557,
+          57037
+        ],
+        [
+          41283,
+          57037
+        ],
+        [
+          41283,
+          57038
+        ],
+        [
+          41283,
+          57033
+        ],
+        [
+          57052,
+          60643
+        ],
+        [
+          41738,
+          42482
+        ],
+        [
+          41738,
+          60597
+        ],
+        [
+          41739,
+          60597
+        ],
+        [
+          41740,
+          42482
+        ],
+        [
+          57043,
+          60643
+        ],
+        [
+          57037,
+          60510
+        ],
+        [
+          41279,
+          42948
+        ],
+        [
+          41279,
+          42945
+        ],
+        [
+          41279,
+          42943
+        ]
+      ]
+    },
+    {
+      "up": 0.06,
+      "outward_spread": 0.09,
+      "nonshared_triangle_intersections": 839,
+      "intersection_change_from_H": 15,
+      "max_vertex_displacement": 0.10759473428571377,
+      "face_quality": {
+        "inverted": 0,
+        "collapsed": 0,
+        "area_lt_half": 0,
+        "area_gt_double": 39,
+        "min_ratio": 0.7891234013925895,
+        "max_ratio": 2.866165057047963
+      },
+      "triangle_gate_pass": false,
+      "candidate_clearance_gate_pass": false,
+      "first_intersection_face_pairs": [
+        [
+          41279,
+          42948
+        ],
+        [
+          41279,
+          42945
+        ],
+        [
+          41279,
+          42943
+        ],
+        [
+          41280,
+          43005
+        ],
+        [
+          41280,
+          42949
+        ],
+        [
+          42948,
+          60640
+        ],
+        [
+          57050,
+          60508
+        ],
+        [
+          57050,
+          60597
+        ],
+        [
+          41281,
+          41735
+        ],
+        [
+          41281,
+          57050
+        ],
+        [
+          41281,
+          41742
+        ],
+        [
+          57052,
+          60643
+        ],
+        [
+          57052,
+          60509
+        ],
+        [
+          39692,
+          60507
+        ],
+        [
+          39692,
+          42555
+        ],
+        [
+          39692,
+          41280
+        ],
+        [
+          39692,
+          60641
+        ],
+        [
+          42557,
+          57043
+        ],
+        [
+          42557,
+          57037
+        ],
+        [
+          57043,
+          60643
+        ]
+      ]
+    },
+    {
+      "up": 0.06,
+      "outward_spread": 0.04,
+      "nonshared_triangle_intersections": 832,
+      "intersection_change_from_H": 8,
+      "max_vertex_displacement": 0.07194181135663846,
+      "face_quality": {
+        "inverted": 0,
+        "collapsed": 0,
+        "area_lt_half": 0,
+        "area_gt_double": 7,
+        "min_ratio": 0.7226207465500687,
+        "max_ratio": 2.5330888259632887
+      },
+      "triangle_gate_pass": false,
+      "candidate_clearance_gate_pass": false,
+      "first_intersection_face_pairs": [
+        [
+          41279,
+          42948
+        ],
+        [
+          41279,
+          42947
+        ],
+        [
+          41279,
+          42944
+        ],
+        [
+          41280,
+          43005
+        ],
+        [
+          42948,
+          60640
+        ],
+        [
+          57050,
+          60508
+        ],
+        [
+          57050,
+          60597
+        ],
+        [
+          41281,
+          41735
+        ],
+        [
+          41281,
+          57050
+        ],
+        [
+          41281,
+          41742
+        ],
+        [
+          57052,
+          60643
+        ],
+        [
+          39692,
+          60507
+        ],
+        [
+          39692,
+          42555
+        ],
+        [
+          39692,
+          41280
+        ],
+        [
+          39692,
+          60641
+        ],
+        [
+          42557,
+          57043
+        ],
+        [
+          42557,
+          57037
+        ],
+        [
+          57043,
+          60643
+        ],
+        [
+          41738,
+          60643
+        ],
+        [
+          41738,
+          42482
+        ]
+      ]
+    },
+    {
+      "up": 0.035,
+      "outward_spread": 0.22,
+      "nonshared_triangle_intersections": 873,
+      "intersection_change_from_H": 49,
+      "max_vertex_displacement": 0.22110594308432624,
+      "face_quality": {
+        "inverted": 2,
+        "collapsed": 0,
+        "area_lt_half": 2,
+        "area_gt_double": 174,
+        "min_ratio": 0.20027030461056192,
+        "max_ratio": 6.410833477612745
+      },
+      "triangle_gate_pass": false,
+      "candidate_clearance_gate_pass": false,
+      "first_intersection_face_pairs": [
+        [
+          60498,
+          60811
+        ],
+        [
+          41271,
+          60811
+        ],
+        [
+          41271,
+          60106
+        ],
+        [
+          60499,
+          60811
+        ],
+        [
+          60499,
+          60517
+        ],
+        [
+          42491,
+          60499
+        ],
+        [
+          42557,
+          57044
+        ],
+        [
+          42557,
+          57042
+        ],
+        [
+          42557,
+          57037
+        ],
+        [
+          42557,
+          57041
+        ],
+        [
+          42557,
+          57036
+        ],
+        [
+          41283,
+          57037
+        ],
+        [
+          41283,
+          57038
+        ],
+        [
+          41283,
+          57033
+        ],
+        [
+          57052,
+          60643
+        ],
+        [
+          57043,
+          60643
+        ],
+        [
+          57037,
+          60643
+        ],
+        [
+          57037,
+          60510
+        ],
+        [
+          57041,
+          60643
+        ],
+        [
+          57036,
+          60643
+        ]
+      ]
+    },
+    {
+      "up": 0.035,
+      "outward_spread": 0.15,
+      "nonshared_triangle_intersections": 847,
+      "intersection_change_from_H": 23,
+      "max_vertex_displacement": 0.15291274510830685,
+      "face_quality": {
+        "inverted": 1,
+        "collapsed": 0,
+        "area_lt_half": 2,
+        "area_gt_double": 98,
+        "min_ratio": 0.407765466879401,
+        "max_ratio": 4.569206000645022
+      },
+      "triangle_gate_pass": false,
+      "candidate_clearance_gate_pass": false,
+      "first_intersection_face_pairs": [
+        [
+          57050,
+          60508
+        ],
+        [
+          57050,
+          60597
+        ],
+        [
+          41281,
+          41735
+        ],
+        [
+          41281,
+          57050
+        ],
+        [
+          41281,
+          41742
+        ],
+        [
+          42557,
+          57043
+        ],
+        [
+          42557,
+          57037
+        ],
+        [
+          41283,
+          57037
+        ],
+        [
+          41283,
+          57038
+        ],
+        [
+          41283,
+          57033
+        ],
+        [
+          57052,
+          60643
+        ],
+        [
+          41738,
+          42482
+        ],
+        [
+          41738,
+          60597
+        ],
+        [
+          41739,
+          60597
+        ],
+        [
+          41740,
+          42482
+        ],
+        [
+          57043,
+          60643
+        ],
+        [
+          57037,
+          60510
+        ],
+        [
+          41279,
+          42948
+        ],
+        [
+          41279,
+          42945
+        ],
+        [
+          41279,
+          42943
+        ]
+      ]
+    },
+    {
+      "up": 0.035,
+      "outward_spread": 0.09,
+      "nonshared_triangle_intersections": 840,
+      "intersection_change_from_H": 16,
+      "max_vertex_displacement": 0.09592513422437413,
+      "face_quality": {
+        "inverted": 0,
+        "collapsed": 0,
+        "area_lt_half": 0,
+        "area_gt_double": 24,
+        "min_ratio": 0.6798918726030063,
+        "max_ratio": 3.0089214730911484
+      },
+      "triangle_gate_pass": false,
+      "candidate_clearance_gate_pass": false,
+      "first_intersection_face_pairs": [
+        [
+          41279,
+          42948
+        ],
+        [
+          41279,
+          42945
+        ],
+        [
+          41279,
+          42943
+        ],
+        [
+          42948,
+          60640
+        ],
+        [
+          41280,
+          43005
+        ],
+        [
+          57050,
+          60508
+        ],
+        [
+          57050,
+          60597
+        ],
+        [
+          41281,
+          41735
+        ],
+        [
+          41281,
+          57050
+        ],
+        [
+          41281,
+          41742
+        ],
+        [
+          57052,
+          60643
+        ],
+        [
+          57052,
+          60509
+        ],
+        [
+          39692,
+          60507
+        ],
+        [
+          39692,
+          42555
+        ],
+        [
+          39692,
+          41280
+        ],
+        [
+          39692,
+          60641
+        ],
+        [
+          42557,
+          57043
+        ],
+        [
+          42557,
+          57037
+        ],
+        [
+          57043,
+          60643
+        ],
+        [
+          41740,
+          42482
+        ]
+      ]
+    },
+    {
+      "up": 0.035,
+      "outward_spread": 0.04,
+      "nonshared_triangle_intersections": 841,
+      "intersection_change_from_H": 17,
+      "max_vertex_displacement": 0.05292096702843778,
+      "face_quality": {
+        "inverted": 0,
+        "collapsed": 0,
+        "area_lt_half": 0,
+        "area_gt_double": 0,
+        "min_ratio": 0.8617025773923822,
+        "max_ratio": 1.8970007999085134
+      },
+      "triangle_gate_pass": true,
+      "candidate_clearance_gate_pass": false,
+      "first_intersection_face_pairs": [
+        [
+          41279,
+          42948
+        ],
+        [
+          41279,
+          42947
+        ],
+        [
+          42948,
+          60640
+        ],
+        [
+          41280,
+          43005
+        ],
+        [
+          57050,
+          60508
+        ],
+        [
+          57050,
+          60597
+        ],
+        [
+          41281,
+          41735
+        ],
+        [
+          41281,
+          57050
+        ],
+        [
+          41281,
+          41742
+        ],
+        [
+          57052,
+          60643
+        ],
+        [
+          39692,
+          60507
+        ],
+        [
+          39692,
+          42555
+        ],
+        [
+          39692,
+          41280
+        ],
+        [
+          39692,
+          60641
+        ],
+        [
+          42557,
+          57043
+        ],
+        [
+          42557,
+          57037
+        ],
+        [
+          57043,
+          60643
+        ],
+        [
+          41740,
+          42482
+        ],
+        [
+          41742,
+          60597
+        ],
+        [
+          41738,
+          60643
+        ]
+      ],
+      "replayed_real_intersections": 841,
+      "replayed_face_quality": {
+        "inverted": 0,
+        "collapsed": 0,
+        "area_lt_half": 0,
+        "area_gt_double": 0,
+        "min_ratio": 0.8617025773923822,
+        "max_ratio": 1.8970007999085134
+      },
+      "replayed_technical_pass": false
+    }
+  ],
+  "selected": {
+    "up": 0.035,
+    "outward_spread": 0.04,
+    "nonshared_triangle_intersections": 841,
+    "intersection_change_from_H": 17,
+    "max_vertex_displacement": 0.05292096702843778,
+    "face_quality": {
+      "inverted": 0,
+      "collapsed": 0,
+      "area_lt_half": 0,
+      "area_gt_double": 0,
+      "min_ratio": 0.8617025773923822,
+      "max_ratio": 1.8970007999085134
+    },
+    "triangle_gate_pass": true,
+    "candidate_clearance_gate_pass": false,
+    "first_intersection_face_pairs": [
+      [
+        41279,
+        42948
+      ],
+      [
+        41279,
+        42947
+      ],
+      [
+        42948,
+        60640
+      ],
+      [
+        41280,
+        43005
+      ],
+      [
+        57050,
+        60508
+      ],
+      [
+        57050,
+        60597
+      ],
+      [
+        41281,
+        41735
+      ],
+      [
+        41281,
+        57050
+      ],
+      [
+        41281,
+        41742
+      ],
+      [
+        57052,
+        60643
+      ],
+      [
+        39692,
+        60507
+      ],
+      [
+        39692,
+        42555
+      ],
+      [
+        39692,
+        41280
+      ],
+      [
+        39692,
+        60641
+      ],
+      [
+        42557,
+        57043
+      ],
+      [
+        42557,
+        57037
+      ],
+      [
+        57043,
+        60643
+      ],
+      [
+        41740,
+        42482
+      ],
+      [
+        41742,
+        60597
+      ],
+      [
+        41738,
+        60643
+      ]
+    ],
+    "replayed_real_intersections": 841,
+    "replayed_face_quality": {
+      "inverted": 0,
+      "collapsed": 0,
+      "area_lt_half": 0,
+      "area_gt_double": 0,
+      "min_ratio": 0.8617025773923822,
+      "max_ratio": 1.8970007999085134
+    },
+    "replayed_technical_pass": false
+  },
+  "topology_unchanged_from_one_manifold_H": true,
+  "numeric_technical_clearance_gate": "FAIL",
+  "design_reference_silhouette_gate": "NOT_APPROVED_PENDING_REAL_REVIEW",
+  "self_intersection_method": "BVHTree tested triangle intersections discounting only faces that share vertices; same ROI H and J",
+  "rig_on_J": "NOT_TESTED",
+  "animation_on_J": "NOT_TESTED",
+  "game_production": "REJECT_NOT_APPROVED"
+}
