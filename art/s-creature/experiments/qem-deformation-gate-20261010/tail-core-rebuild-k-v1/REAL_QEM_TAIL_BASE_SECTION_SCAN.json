@@ -1,0 +1,3775 @@
+{
+  "authority_sha": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "original_donor_sha": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "original_vertices": 29948,
+  "original_triangles": 59932,
+  "candidate_count": 64,
+  "top_candidates": [
+    {
+      "y_cut": 1.5,
+      "z_floor": 1.12,
+      "xmax": 0.3,
+      "all_candidate_components": 5,
+      "tip_component_faces": 710,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.501281976699829,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541499376296997,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.4730446338653564,
+        "ymax": 1.5350812673568726,
+        "zmin": 1.5398468971252441,
+        "zmax": 1.6660964488983154,
+        "xmin": -0.061133261770009995,
+        "xmax": 0.07727186381816864
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14552,
+        14614,
+        14757,
+        14775,
+        15057,
+        15267,
+        15594,
+        15782,
+        16145,
+        16432
+      ]
+    },
+    {
+      "y_cut": 1.5,
+      "z_floor": 1.12,
+      "xmax": 0.42,
+      "all_candidate_components": 5,
+      "tip_component_faces": 710,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.501281976699829,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541499376296997,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.4730446338653564,
+        "ymax": 1.5350812673568726,
+        "zmin": 1.5398468971252441,
+        "zmax": 1.6660964488983154,
+        "xmin": -0.061133261770009995,
+        "xmax": 0.07727186381816864
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14552,
+        14614,
+        14757,
+        14775,
+        15057,
+        15267,
+        15594,
+        15782,
+        16145,
+        16432
+      ]
+    },
+    {
+      "y_cut": 1.5,
+      "z_floor": 1.22,
+      "xmax": 0.3,
+      "all_candidate_components": 3,
+      "tip_component_faces": 710,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.501281976699829,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541499376296997,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.4730446338653564,
+        "ymax": 1.5350812673568726,
+        "zmin": 1.5398468971252441,
+        "zmax": 1.6660964488983154,
+        "xmin": -0.061133261770009995,
+        "xmax": 0.07727186381816864
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14552,
+        14614,
+        14757,
+        14775,
+        15057,
+        15267,
+        15594,
+        15782,
+        16145,
+        16432
+      ]
+    },
+    {
+      "y_cut": 1.5,
+      "z_floor": 1.22,
+      "xmax": 0.42,
+      "all_candidate_components": 3,
+      "tip_component_faces": 710,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.501281976699829,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541499376296997,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.4730446338653564,
+        "ymax": 1.5350812673568726,
+        "zmin": 1.5398468971252441,
+        "zmax": 1.6660964488983154,
+        "xmin": -0.061133261770009995,
+        "xmax": 0.07727186381816864
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14552,
+        14614,
+        14757,
+        14775,
+        15057,
+        15267,
+        15594,
+        15782,
+        16145,
+        16432
+      ]
+    },
+    {
+      "y_cut": 1.5,
+      "z_floor": 1.32,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 710,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.501281976699829,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541499376296997,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.4730446338653564,
+        "ymax": 1.5350812673568726,
+        "zmin": 1.5398468971252441,
+        "zmax": 1.6660964488983154,
+        "xmin": -0.061133261770009995,
+        "xmax": 0.07727186381816864
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14552,
+        14614,
+        14757,
+        14775,
+        15057,
+        15267,
+        15594,
+        15782,
+        16145,
+        16432
+      ]
+    },
+    {
+      "y_cut": 1.5,
+      "z_floor": 1.32,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 710,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.501281976699829,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541499376296997,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.4730446338653564,
+        "ymax": 1.5350812673568726,
+        "zmin": 1.5398468971252441,
+        "zmax": 1.6660964488983154,
+        "xmin": -0.061133261770009995,
+        "xmax": 0.07727186381816864
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14552,
+        14614,
+        14757,
+        14775,
+        15057,
+        15267,
+        15594,
+        15782,
+        16145,
+        16432
+      ]
+    },
+    {
+      "y_cut": 1.5,
+      "z_floor": 1.42,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 710,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.501281976699829,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541499376296997,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.4730446338653564,
+        "ymax": 1.5350812673568726,
+        "zmin": 1.5398468971252441,
+        "zmax": 1.6660964488983154,
+        "xmin": -0.061133261770009995,
+        "xmax": 0.07727186381816864
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14552,
+        14614,
+        14757,
+        14775,
+        15057,
+        15267,
+        15594,
+        15782,
+        16145,
+        16432
+      ]
+    },
+    {
+      "y_cut": 1.5,
+      "z_floor": 1.42,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 710,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.501281976699829,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541499376296997,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.4730446338653564,
+        "ymax": 1.5350812673568726,
+        "zmin": 1.5398468971252441,
+        "zmax": 1.6660964488983154,
+        "xmin": -0.061133261770009995,
+        "xmax": 0.07727186381816864
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14552,
+        14614,
+        14757,
+        14775,
+        15057,
+        15267,
+        15594,
+        15782,
+        16145,
+        16432
+      ]
+    },
+    {
+      "y_cut": 1.58,
+      "z_floor": 1.12,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 632,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.5800971984863281,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416676998138428,
+      "boundary_edges": 24,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        24
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5500746965408325,
+        "ymax": 1.6162508726119995,
+        "zmin": 1.5418312549591064,
+        "zmax": 1.6572980880737305,
+        "xmin": -0.05900657922029495,
+        "xmax": 0.07723630964756012
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14607,
+        14624,
+        14893,
+        14970,
+        14999,
+        15208,
+        15471,
+        16074,
+        16290,
+        16587
+      ]
+    },
+    {
+      "y_cut": 1.58,
+      "z_floor": 1.12,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 632,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.5800971984863281,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416676998138428,
+      "boundary_edges": 24,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        24
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5500746965408325,
+        "ymax": 1.6162508726119995,
+        "zmin": 1.5418312549591064,
+        "zmax": 1.6572980880737305,
+        "xmin": -0.05900657922029495,
+        "xmax": 0.07723630964756012
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14607,
+        14624,
+        14893,
+        14970,
+        14999,
+        15208,
+        15471,
+        16074,
+        16290,
+        16587
+      ]
+    },
+    {
+      "y_cut": 1.58,
+      "z_floor": 1.22,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 632,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.5800971984863281,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416676998138428,
+      "boundary_edges": 24,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        24
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5500746965408325,
+        "ymax": 1.6162508726119995,
+        "zmin": 1.5418312549591064,
+        "zmax": 1.6572980880737305,
+        "xmin": -0.05900657922029495,
+        "xmax": 0.07723630964756012
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14607,
+        14624,
+        14893,
+        14970,
+        14999,
+        15208,
+        15471,
+        16074,
+        16290,
+        16587
+      ]
+    },
+    {
+      "y_cut": 1.58,
+      "z_floor": 1.22,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 632,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.5800971984863281,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416676998138428,
+      "boundary_edges": 24,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        24
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5500746965408325,
+        "ymax": 1.6162508726119995,
+        "zmin": 1.5418312549591064,
+        "zmax": 1.6572980880737305,
+        "xmin": -0.05900657922029495,
+        "xmax": 0.07723630964756012
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14607,
+        14624,
+        14893,
+        14970,
+        14999,
+        15208,
+        15471,
+        16074,
+        16290,
+        16587
+      ]
+    },
+    {
+      "y_cut": 1.58,
+      "z_floor": 1.32,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 632,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.5800971984863281,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416676998138428,
+      "boundary_edges": 24,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        24
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5500746965408325,
+        "ymax": 1.6162508726119995,
+        "zmin": 1.5418312549591064,
+        "zmax": 1.6572980880737305,
+        "xmin": -0.05900657922029495,
+        "xmax": 0.07723630964756012
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14607,
+        14624,
+        14893,
+        14970,
+        14999,
+        15208,
+        15471,
+        16074,
+        16290,
+        16587
+      ]
+    },
+    {
+      "y_cut": 1.58,
+      "z_floor": 1.32,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 632,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.5800971984863281,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416676998138428,
+      "boundary_edges": 24,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        24
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5500746965408325,
+        "ymax": 1.6162508726119995,
+        "zmin": 1.5418312549591064,
+        "zmax": 1.6572980880737305,
+        "xmin": -0.05900657922029495,
+        "xmax": 0.07723630964756012
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14607,
+        14624,
+        14893,
+        14970,
+        14999,
+        15208,
+        15471,
+        16074,
+        16290,
+        16587
+      ]
+    },
+    {
+      "y_cut": 1.58,
+      "z_floor": 1.42,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 632,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.5800971984863281,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416676998138428,
+      "boundary_edges": 24,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        24
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5500746965408325,
+        "ymax": 1.6162508726119995,
+        "zmin": 1.5418312549591064,
+        "zmax": 1.6572980880737305,
+        "xmin": -0.05900657922029495,
+        "xmax": 0.07723630964756012
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14607,
+        14624,
+        14893,
+        14970,
+        14999,
+        15208,
+        15471,
+        16074,
+        16290,
+        16587
+      ]
+    },
+    {
+      "y_cut": 1.58,
+      "z_floor": 1.42,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 632,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.5800971984863281,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416676998138428,
+      "boundary_edges": 24,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        24
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5500746965408325,
+        "ymax": 1.6162508726119995,
+        "zmin": 1.5418312549591064,
+        "zmax": 1.6572980880737305,
+        "xmin": -0.05900657922029495,
+        "xmax": 0.07723630964756012
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14607,
+        14624,
+        14893,
+        14970,
+        14999,
+        15208,
+        15471,
+        16074,
+        16290,
+        16587
+      ]
+    },
+    {
+      "y_cut": 1.64,
+      "z_floor": 1.12,
+      "xmax": 0.3,
+      "all_candidate_components": 3,
+      "tip_component_faces": 562,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.6408369541168213,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416914224624634,
+      "boundary_edges": 26,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        26
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5992658138275146,
+        "ymax": 1.6897672414779663,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.6560817956924438,
+        "xmin": -0.05683010444045067,
+        "xmax": 0.0787939727306366
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14699,
+        14759,
+        14805,
+        15033,
+        15106,
+        15153,
+        15541,
+        15587,
+        16324
+      ]
+    },
+    {
+      "y_cut": 1.64,
+      "z_floor": 1.12,
+      "xmax": 0.42,
+      "all_candidate_components": 3,
+      "tip_component_faces": 562,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.6408369541168213,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416914224624634,
+      "boundary_edges": 26,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        26
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5992658138275146,
+        "ymax": 1.6897672414779663,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.6560817956924438,
+        "xmin": -0.05683010444045067,
+        "xmax": 0.0787939727306366
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14699,
+        14759,
+        14805,
+        15033,
+        15106,
+        15153,
+        15541,
+        15587,
+        16324
+      ]
+    },
+    {
+      "y_cut": 1.64,
+      "z_floor": 1.22,
+      "xmax": 0.3,
+      "all_candidate_components": 3,
+      "tip_component_faces": 562,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.6408369541168213,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416914224624634,
+      "boundary_edges": 26,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        26
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5992658138275146,
+        "ymax": 1.6897672414779663,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.6560817956924438,
+        "xmin": -0.05683010444045067,
+        "xmax": 0.0787939727306366
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14699,
+        14759,
+        14805,
+        15033,
+        15106,
+        15153,
+        15541,
+        15587,
+        16324
+      ]
+    },
+    {
+      "y_cut": 1.64,
+      "z_floor": 1.22,
+      "xmax": 0.42,
+      "all_candidate_components": 3,
+      "tip_component_faces": 562,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.6408369541168213,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416914224624634,
+      "boundary_edges": 26,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        26
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5992658138275146,
+        "ymax": 1.6897672414779663,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.6560817956924438,
+        "xmin": -0.05683010444045067,
+        "xmax": 0.0787939727306366
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14699,
+        14759,
+        14805,
+        15033,
+        15106,
+        15153,
+        15541,
+        15587,
+        16324
+      ]
+    },
+    {
+      "y_cut": 1.64,
+      "z_floor": 1.32,
+      "xmax": 0.3,
+      "all_candidate_components": 3,
+      "tip_component_faces": 562,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.6408369541168213,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416914224624634,
+      "boundary_edges": 26,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        26
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5992658138275146,
+        "ymax": 1.6897672414779663,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.6560817956924438,
+        "xmin": -0.05683010444045067,
+        "xmax": 0.0787939727306366
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14699,
+        14759,
+        14805,
+        15033,
+        15106,
+        15153,
+        15541,
+        15587,
+        16324
+      ]
+    },
+    {
+      "y_cut": 1.64,
+      "z_floor": 1.32,
+      "xmax": 0.42,
+      "all_candidate_components": 3,
+      "tip_component_faces": 562,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.6408369541168213,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416914224624634,
+      "boundary_edges": 26,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        26
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5992658138275146,
+        "ymax": 1.6897672414779663,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.6560817956924438,
+        "xmin": -0.05683010444045067,
+        "xmax": 0.0787939727306366
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14699,
+        14759,
+        14805,
+        15033,
+        15106,
+        15153,
+        15541,
+        15587,
+        16324
+      ]
+    },
+    {
+      "y_cut": 1.64,
+      "z_floor": 1.42,
+      "xmax": 0.3,
+      "all_candidate_components": 3,
+      "tip_component_faces": 562,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.6408369541168213,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416914224624634,
+      "boundary_edges": 26,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        26
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5992658138275146,
+        "ymax": 1.6897672414779663,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.6560817956924438,
+        "xmin": -0.05683010444045067,
+        "xmax": 0.0787939727306366
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14699,
+        14759,
+        14805,
+        15033,
+        15106,
+        15153,
+        15541,
+        15587,
+        16324
+      ]
+    },
+    {
+      "y_cut": 1.64,
+      "z_floor": 1.42,
+      "xmax": 0.42,
+      "all_candidate_components": 3,
+      "tip_component_faces": 562,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.6408369541168213,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416914224624634,
+      "boundary_edges": 26,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        26
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5992658138275146,
+        "ymax": 1.6897672414779663,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.6560817956924438,
+        "xmin": -0.05683010444045067,
+        "xmax": 0.0787939727306366
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14699,
+        14759,
+        14805,
+        15033,
+        15106,
+        15153,
+        15541,
+        15587,
+        16324
+      ]
+    },
+    {
+      "y_cut": 1.7,
+      "z_floor": 1.12,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 511,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.7023305892944336,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541859745979309,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.666501760482788,
+        "ymax": 1.7479557991027832,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.653122901916504,
+        "xmin": -0.055379122495651245,
+        "xmax": 0.08038009703159332
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14730,
+        14785,
+        14894,
+        15022,
+        15033,
+        15238,
+        15620,
+        16204,
+        17095
+      ]
+    },
+    {
+      "y_cut": 1.7,
+      "z_floor": 1.12,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 511,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.7023305892944336,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541859745979309,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.666501760482788,
+        "ymax": 1.7479557991027832,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.653122901916504,
+        "xmin": -0.055379122495651245,
+        "xmax": 0.08038009703159332
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14730,
+        14785,
+        14894,
+        15022,
+        15033,
+        15238,
+        15620,
+        16204,
+        17095
+      ]
+    },
+    {
+      "y_cut": 1.7,
+      "z_floor": 1.22,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 511,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.7023305892944336,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541859745979309,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.666501760482788,
+        "ymax": 1.7479557991027832,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.653122901916504,
+        "xmin": -0.055379122495651245,
+        "xmax": 0.08038009703159332
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14730,
+        14785,
+        14894,
+        15022,
+        15033,
+        15238,
+        15620,
+        16204,
+        17095
+      ]
+    },
+    {
+      "y_cut": 1.7,
+      "z_floor": 1.22,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 511,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.7023305892944336,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541859745979309,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.666501760482788,
+        "ymax": 1.7479557991027832,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.653122901916504,
+        "xmin": -0.055379122495651245,
+        "xmax": 0.08038009703159332
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14730,
+        14785,
+        14894,
+        15022,
+        15033,
+        15238,
+        15620,
+        16204,
+        17095
+      ]
+    },
+    {
+      "y_cut": 1.7,
+      "z_floor": 1.32,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 511,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.7023305892944336,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541859745979309,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.666501760482788,
+        "ymax": 1.7479557991027832,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.653122901916504,
+        "xmin": -0.055379122495651245,
+        "xmax": 0.08038009703159332
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14730,
+        14785,
+        14894,
+        15022,
+        15033,
+        15238,
+        15620,
+        16204,
+        17095
+      ]
+    },
+    {
+      "y_cut": 1.7,
+      "z_floor": 1.32,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 511,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.7023305892944336,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541859745979309,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.666501760482788,
+        "ymax": 1.7479557991027832,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.653122901916504,
+        "xmin": -0.055379122495651245,
+        "xmax": 0.08038009703159332
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14730,
+        14785,
+        14894,
+        15022,
+        15033,
+        15238,
+        15620,
+        16204,
+        17095
+      ]
+    }
+  ],
+  "all_candidates": [
+    {
+      "y_cut": 1.5,
+      "z_floor": 1.12,
+      "xmax": 0.3,
+      "all_candidate_components": 5,
+      "tip_component_faces": 710,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.501281976699829,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541499376296997,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.4730446338653564,
+        "ymax": 1.5350812673568726,
+        "zmin": 1.5398468971252441,
+        "zmax": 1.6660964488983154,
+        "xmin": -0.061133261770009995,
+        "xmax": 0.07727186381816864
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14552,
+        14614,
+        14757,
+        14775,
+        15057,
+        15267,
+        15594,
+        15782,
+        16145,
+        16432
+      ]
+    },
+    {
+      "y_cut": 1.5,
+      "z_floor": 1.12,
+      "xmax": 0.42,
+      "all_candidate_components": 5,
+      "tip_component_faces": 710,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.501281976699829,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541499376296997,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.4730446338653564,
+        "ymax": 1.5350812673568726,
+        "zmin": 1.5398468971252441,
+        "zmax": 1.6660964488983154,
+        "xmin": -0.061133261770009995,
+        "xmax": 0.07727186381816864
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14552,
+        14614,
+        14757,
+        14775,
+        15057,
+        15267,
+        15594,
+        15782,
+        16145,
+        16432
+      ]
+    },
+    {
+      "y_cut": 1.5,
+      "z_floor": 1.22,
+      "xmax": 0.3,
+      "all_candidate_components": 3,
+      "tip_component_faces": 710,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.501281976699829,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541499376296997,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.4730446338653564,
+        "ymax": 1.5350812673568726,
+        "zmin": 1.5398468971252441,
+        "zmax": 1.6660964488983154,
+        "xmin": -0.061133261770009995,
+        "xmax": 0.07727186381816864
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14552,
+        14614,
+        14757,
+        14775,
+        15057,
+        15267,
+        15594,
+        15782,
+        16145,
+        16432
+      ]
+    },
+    {
+      "y_cut": 1.5,
+      "z_floor": 1.22,
+      "xmax": 0.42,
+      "all_candidate_components": 3,
+      "tip_component_faces": 710,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.501281976699829,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541499376296997,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.4730446338653564,
+        "ymax": 1.5350812673568726,
+        "zmin": 1.5398468971252441,
+        "zmax": 1.6660964488983154,
+        "xmin": -0.061133261770009995,
+        "xmax": 0.07727186381816864
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14552,
+        14614,
+        14757,
+        14775,
+        15057,
+        15267,
+        15594,
+        15782,
+        16145,
+        16432
+      ]
+    },
+    {
+      "y_cut": 1.5,
+      "z_floor": 1.32,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 710,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.501281976699829,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541499376296997,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.4730446338653564,
+        "ymax": 1.5350812673568726,
+        "zmin": 1.5398468971252441,
+        "zmax": 1.6660964488983154,
+        "xmin": -0.061133261770009995,
+        "xmax": 0.07727186381816864
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14552,
+        14614,
+        14757,
+        14775,
+        15057,
+        15267,
+        15594,
+        15782,
+        16145,
+        16432
+      ]
+    },
+    {
+      "y_cut": 1.5,
+      "z_floor": 1.32,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 710,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.501281976699829,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541499376296997,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.4730446338653564,
+        "ymax": 1.5350812673568726,
+        "zmin": 1.5398468971252441,
+        "zmax": 1.6660964488983154,
+        "xmin": -0.061133261770009995,
+        "xmax": 0.07727186381816864
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14552,
+        14614,
+        14757,
+        14775,
+        15057,
+        15267,
+        15594,
+        15782,
+        16145,
+        16432
+      ]
+    },
+    {
+      "y_cut": 1.5,
+      "z_floor": 1.42,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 710,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.501281976699829,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541499376296997,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.4730446338653564,
+        "ymax": 1.5350812673568726,
+        "zmin": 1.5398468971252441,
+        "zmax": 1.6660964488983154,
+        "xmin": -0.061133261770009995,
+        "xmax": 0.07727186381816864
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14552,
+        14614,
+        14757,
+        14775,
+        15057,
+        15267,
+        15594,
+        15782,
+        16145,
+        16432
+      ]
+    },
+    {
+      "y_cut": 1.5,
+      "z_floor": 1.42,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 710,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.501281976699829,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541499376296997,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.4730446338653564,
+        "ymax": 1.5350812673568726,
+        "zmin": 1.5398468971252441,
+        "zmax": 1.6660964488983154,
+        "xmin": -0.061133261770009995,
+        "xmax": 0.07727186381816864
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14552,
+        14614,
+        14757,
+        14775,
+        15057,
+        15267,
+        15594,
+        15782,
+        16145,
+        16432
+      ]
+    },
+    {
+      "y_cut": 1.58,
+      "z_floor": 1.12,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 632,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.5800971984863281,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416676998138428,
+      "boundary_edges": 24,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        24
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5500746965408325,
+        "ymax": 1.6162508726119995,
+        "zmin": 1.5418312549591064,
+        "zmax": 1.6572980880737305,
+        "xmin": -0.05900657922029495,
+        "xmax": 0.07723630964756012
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14607,
+        14624,
+        14893,
+        14970,
+        14999,
+        15208,
+        15471,
+        16074,
+        16290,
+        16587
+      ]
+    },
+    {
+      "y_cut": 1.58,
+      "z_floor": 1.12,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 632,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.5800971984863281,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416676998138428,
+      "boundary_edges": 24,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        24
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5500746965408325,
+        "ymax": 1.6162508726119995,
+        "zmin": 1.5418312549591064,
+        "zmax": 1.6572980880737305,
+        "xmin": -0.05900657922029495,
+        "xmax": 0.07723630964756012
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14607,
+        14624,
+        14893,
+        14970,
+        14999,
+        15208,
+        15471,
+        16074,
+        16290,
+        16587
+      ]
+    },
+    {
+      "y_cut": 1.58,
+      "z_floor": 1.22,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 632,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.5800971984863281,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416676998138428,
+      "boundary_edges": 24,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        24
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5500746965408325,
+        "ymax": 1.6162508726119995,
+        "zmin": 1.5418312549591064,
+        "zmax": 1.6572980880737305,
+        "xmin": -0.05900657922029495,
+        "xmax": 0.07723630964756012
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14607,
+        14624,
+        14893,
+        14970,
+        14999,
+        15208,
+        15471,
+        16074,
+        16290,
+        16587
+      ]
+    },
+    {
+      "y_cut": 1.58,
+      "z_floor": 1.22,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 632,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.5800971984863281,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416676998138428,
+      "boundary_edges": 24,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        24
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5500746965408325,
+        "ymax": 1.6162508726119995,
+        "zmin": 1.5418312549591064,
+        "zmax": 1.6572980880737305,
+        "xmin": -0.05900657922029495,
+        "xmax": 0.07723630964756012
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14607,
+        14624,
+        14893,
+        14970,
+        14999,
+        15208,
+        15471,
+        16074,
+        16290,
+        16587
+      ]
+    },
+    {
+      "y_cut": 1.58,
+      "z_floor": 1.32,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 632,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.5800971984863281,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416676998138428,
+      "boundary_edges": 24,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        24
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5500746965408325,
+        "ymax": 1.6162508726119995,
+        "zmin": 1.5418312549591064,
+        "zmax": 1.6572980880737305,
+        "xmin": -0.05900657922029495,
+        "xmax": 0.07723630964756012
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14607,
+        14624,
+        14893,
+        14970,
+        14999,
+        15208,
+        15471,
+        16074,
+        16290,
+        16587
+      ]
+    },
+    {
+      "y_cut": 1.58,
+      "z_floor": 1.32,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 632,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.5800971984863281,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416676998138428,
+      "boundary_edges": 24,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        24
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5500746965408325,
+        "ymax": 1.6162508726119995,
+        "zmin": 1.5418312549591064,
+        "zmax": 1.6572980880737305,
+        "xmin": -0.05900657922029495,
+        "xmax": 0.07723630964756012
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14607,
+        14624,
+        14893,
+        14970,
+        14999,
+        15208,
+        15471,
+        16074,
+        16290,
+        16587
+      ]
+    },
+    {
+      "y_cut": 1.58,
+      "z_floor": 1.42,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 632,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.5800971984863281,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416676998138428,
+      "boundary_edges": 24,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        24
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5500746965408325,
+        "ymax": 1.6162508726119995,
+        "zmin": 1.5418312549591064,
+        "zmax": 1.6572980880737305,
+        "xmin": -0.05900657922029495,
+        "xmax": 0.07723630964756012
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14607,
+        14624,
+        14893,
+        14970,
+        14999,
+        15208,
+        15471,
+        16074,
+        16290,
+        16587
+      ]
+    },
+    {
+      "y_cut": 1.58,
+      "z_floor": 1.42,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 632,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.5800971984863281,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416676998138428,
+      "boundary_edges": 24,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        24
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5500746965408325,
+        "ymax": 1.6162508726119995,
+        "zmin": 1.5418312549591064,
+        "zmax": 1.6572980880737305,
+        "xmin": -0.05900657922029495,
+        "xmax": 0.07723630964756012
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14607,
+        14624,
+        14893,
+        14970,
+        14999,
+        15208,
+        15471,
+        16074,
+        16290,
+        16587
+      ]
+    },
+    {
+      "y_cut": 1.64,
+      "z_floor": 1.12,
+      "xmax": 0.3,
+      "all_candidate_components": 3,
+      "tip_component_faces": 562,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.6408369541168213,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416914224624634,
+      "boundary_edges": 26,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        26
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5992658138275146,
+        "ymax": 1.6897672414779663,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.6560817956924438,
+        "xmin": -0.05683010444045067,
+        "xmax": 0.0787939727306366
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14699,
+        14759,
+        14805,
+        15033,
+        15106,
+        15153,
+        15541,
+        15587,
+        16324
+      ]
+    },
+    {
+      "y_cut": 1.64,
+      "z_floor": 1.12,
+      "xmax": 0.42,
+      "all_candidate_components": 3,
+      "tip_component_faces": 562,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.6408369541168213,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416914224624634,
+      "boundary_edges": 26,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        26
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5992658138275146,
+        "ymax": 1.6897672414779663,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.6560817956924438,
+        "xmin": -0.05683010444045067,
+        "xmax": 0.0787939727306366
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14699,
+        14759,
+        14805,
+        15033,
+        15106,
+        15153,
+        15541,
+        15587,
+        16324
+      ]
+    },
+    {
+      "y_cut": 1.64,
+      "z_floor": 1.22,
+      "xmax": 0.3,
+      "all_candidate_components": 3,
+      "tip_component_faces": 562,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.6408369541168213,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416914224624634,
+      "boundary_edges": 26,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        26
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5992658138275146,
+        "ymax": 1.6897672414779663,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.6560817956924438,
+        "xmin": -0.05683010444045067,
+        "xmax": 0.0787939727306366
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14699,
+        14759,
+        14805,
+        15033,
+        15106,
+        15153,
+        15541,
+        15587,
+        16324
+      ]
+    },
+    {
+      "y_cut": 1.64,
+      "z_floor": 1.22,
+      "xmax": 0.42,
+      "all_candidate_components": 3,
+      "tip_component_faces": 562,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.6408369541168213,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416914224624634,
+      "boundary_edges": 26,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        26
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5992658138275146,
+        "ymax": 1.6897672414779663,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.6560817956924438,
+        "xmin": -0.05683010444045067,
+        "xmax": 0.0787939727306366
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14699,
+        14759,
+        14805,
+        15033,
+        15106,
+        15153,
+        15541,
+        15587,
+        16324
+      ]
+    },
+    {
+      "y_cut": 1.64,
+      "z_floor": 1.32,
+      "xmax": 0.3,
+      "all_candidate_components": 3,
+      "tip_component_faces": 562,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.6408369541168213,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416914224624634,
+      "boundary_edges": 26,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        26
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5992658138275146,
+        "ymax": 1.6897672414779663,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.6560817956924438,
+        "xmin": -0.05683010444045067,
+        "xmax": 0.0787939727306366
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14699,
+        14759,
+        14805,
+        15033,
+        15106,
+        15153,
+        15541,
+        15587,
+        16324
+      ]
+    },
+    {
+      "y_cut": 1.64,
+      "z_floor": 1.32,
+      "xmax": 0.42,
+      "all_candidate_components": 3,
+      "tip_component_faces": 562,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.6408369541168213,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416914224624634,
+      "boundary_edges": 26,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        26
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5992658138275146,
+        "ymax": 1.6897672414779663,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.6560817956924438,
+        "xmin": -0.05683010444045067,
+        "xmax": 0.0787939727306366
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14699,
+        14759,
+        14805,
+        15033,
+        15106,
+        15153,
+        15541,
+        15587,
+        16324
+      ]
+    },
+    {
+      "y_cut": 1.64,
+      "z_floor": 1.42,
+      "xmax": 0.3,
+      "all_candidate_components": 3,
+      "tip_component_faces": 562,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.6408369541168213,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416914224624634,
+      "boundary_edges": 26,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        26
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5992658138275146,
+        "ymax": 1.6897672414779663,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.6560817956924438,
+        "xmin": -0.05683010444045067,
+        "xmax": 0.0787939727306366
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14699,
+        14759,
+        14805,
+        15033,
+        15106,
+        15153,
+        15541,
+        15587,
+        16324
+      ]
+    },
+    {
+      "y_cut": 1.64,
+      "z_floor": 1.42,
+      "xmax": 0.42,
+      "all_candidate_components": 3,
+      "tip_component_faces": 562,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.6408369541168213,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5416914224624634,
+      "boundary_edges": 26,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        26
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.5992658138275146,
+        "ymax": 1.6897672414779663,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.6560817956924438,
+        "xmin": -0.05683010444045067,
+        "xmax": 0.0787939727306366
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14699,
+        14759,
+        14805,
+        15033,
+        15106,
+        15153,
+        15541,
+        15587,
+        16324
+      ]
+    },
+    {
+      "y_cut": 1.7,
+      "z_floor": 1.12,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 511,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.7023305892944336,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541859745979309,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.666501760482788,
+        "ymax": 1.7479557991027832,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.653122901916504,
+        "xmin": -0.055379122495651245,
+        "xmax": 0.08038009703159332
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14730,
+        14785,
+        14894,
+        15022,
+        15033,
+        15238,
+        15620,
+        16204,
+        17095
+      ]
+    },
+    {
+      "y_cut": 1.7,
+      "z_floor": 1.12,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 511,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.7023305892944336,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541859745979309,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.666501760482788,
+        "ymax": 1.7479557991027832,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.653122901916504,
+        "xmin": -0.055379122495651245,
+        "xmax": 0.08038009703159332
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14730,
+        14785,
+        14894,
+        15022,
+        15033,
+        15238,
+        15620,
+        16204,
+        17095
+      ]
+    },
+    {
+      "y_cut": 1.7,
+      "z_floor": 1.22,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 511,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.7023305892944336,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541859745979309,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.666501760482788,
+        "ymax": 1.7479557991027832,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.653122901916504,
+        "xmin": -0.055379122495651245,
+        "xmax": 0.08038009703159332
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14730,
+        14785,
+        14894,
+        15022,
+        15033,
+        15238,
+        15620,
+        16204,
+        17095
+      ]
+    },
+    {
+      "y_cut": 1.7,
+      "z_floor": 1.22,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 511,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.7023305892944336,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541859745979309,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.666501760482788,
+        "ymax": 1.7479557991027832,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.653122901916504,
+        "xmin": -0.055379122495651245,
+        "xmax": 0.08038009703159332
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14730,
+        14785,
+        14894,
+        15022,
+        15033,
+        15238,
+        15620,
+        16204,
+        17095
+      ]
+    },
+    {
+      "y_cut": 1.7,
+      "z_floor": 1.32,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 511,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.7023305892944336,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541859745979309,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.666501760482788,
+        "ymax": 1.7479557991027832,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.653122901916504,
+        "xmin": -0.055379122495651245,
+        "xmax": 0.08038009703159332
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14730,
+        14785,
+        14894,
+        15022,
+        15033,
+        15238,
+        15620,
+        16204,
+        17095
+      ]
+    },
+    {
+      "y_cut": 1.7,
+      "z_floor": 1.32,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 511,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.7023305892944336,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541859745979309,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.666501760482788,
+        "ymax": 1.7479557991027832,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.653122901916504,
+        "xmin": -0.055379122495651245,
+        "xmax": 0.08038009703159332
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14730,
+        14785,
+        14894,
+        15022,
+        15033,
+        15238,
+        15620,
+        16204,
+        17095
+      ]
+    },
+    {
+      "y_cut": 1.7,
+      "z_floor": 1.42,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 511,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.7023305892944336,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541859745979309,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.666501760482788,
+        "ymax": 1.7479557991027832,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.653122901916504,
+        "xmin": -0.055379122495651245,
+        "xmax": 0.08038009703159332
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14730,
+        14785,
+        14894,
+        15022,
+        15033,
+        15238,
+        15620,
+        16204,
+        17095
+      ]
+    },
+    {
+      "y_cut": 1.7,
+      "z_floor": 1.42,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 511,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.7023305892944336,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.541859745979309,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.666501760482788,
+        "ymax": 1.7479557991027832,
+        "zmin": 1.5413049459457397,
+        "zmax": 1.653122901916504,
+        "xmin": -0.055379122495651245,
+        "xmax": 0.08038009703159332
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14697,
+        14730,
+        14785,
+        14894,
+        15022,
+        15033,
+        15238,
+        15620,
+        16204,
+        17095
+      ]
+    },
+    {
+      "y_cut": 1.76,
+      "z_floor": 1.12,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 464,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.760061502456665,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5422462224960327,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.7177057266235352,
+        "ymax": 1.7930927276611328,
+        "zmin": 1.5416605472564697,
+        "zmax": 1.6524899005889893,
+        "xmin": -0.05523687228560448,
+        "xmax": 0.0805792510509491
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14730,
+        14894,
+        15045,
+        15255,
+        15481,
+        16181,
+        16567,
+        16930,
+        17102,
+        17307
+      ]
+    },
+    {
+      "y_cut": 1.76,
+      "z_floor": 1.12,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 464,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.760061502456665,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5422462224960327,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.7177057266235352,
+        "ymax": 1.7930927276611328,
+        "zmin": 1.5416605472564697,
+        "zmax": 1.6524899005889893,
+        "xmin": -0.05523687228560448,
+        "xmax": 0.0805792510509491
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14730,
+        14894,
+        15045,
+        15255,
+        15481,
+        16181,
+        16567,
+        16930,
+        17102,
+        17307
+      ]
+    },
+    {
+      "y_cut": 1.76,
+      "z_floor": 1.22,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 464,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.760061502456665,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5422462224960327,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.7177057266235352,
+        "ymax": 1.7930927276611328,
+        "zmin": 1.5416605472564697,
+        "zmax": 1.6524899005889893,
+        "xmin": -0.05523687228560448,
+        "xmax": 0.0805792510509491
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14730,
+        14894,
+        15045,
+        15255,
+        15481,
+        16181,
+        16567,
+        16930,
+        17102,
+        17307
+      ]
+    },
+    {
+      "y_cut": 1.76,
+      "z_floor": 1.22,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 464,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.760061502456665,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5422462224960327,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.7177057266235352,
+        "ymax": 1.7930927276611328,
+        "zmin": 1.5416605472564697,
+        "zmax": 1.6524899005889893,
+        "xmin": -0.05523687228560448,
+        "xmax": 0.0805792510509491
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14730,
+        14894,
+        15045,
+        15255,
+        15481,
+        16181,
+        16567,
+        16930,
+        17102,
+        17307
+      ]
+    },
+    {
+      "y_cut": 1.76,
+      "z_floor": 1.32,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 464,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.760061502456665,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5422462224960327,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.7177057266235352,
+        "ymax": 1.7930927276611328,
+        "zmin": 1.5416605472564697,
+        "zmax": 1.6524899005889893,
+        "xmin": -0.05523687228560448,
+        "xmax": 0.0805792510509491
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14730,
+        14894,
+        15045,
+        15255,
+        15481,
+        16181,
+        16567,
+        16930,
+        17102,
+        17307
+      ]
+    },
+    {
+      "y_cut": 1.76,
+      "z_floor": 1.32,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 464,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.760061502456665,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5422462224960327,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.7177057266235352,
+        "ymax": 1.7930927276611328,
+        "zmin": 1.5416605472564697,
+        "zmax": 1.6524899005889893,
+        "xmin": -0.05523687228560448,
+        "xmax": 0.0805792510509491
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14730,
+        14894,
+        15045,
+        15255,
+        15481,
+        16181,
+        16567,
+        16930,
+        17102,
+        17307
+      ]
+    },
+    {
+      "y_cut": 1.76,
+      "z_floor": 1.42,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 464,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.760061502456665,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5422462224960327,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.7177057266235352,
+        "ymax": 1.7930927276611328,
+        "zmin": 1.5416605472564697,
+        "zmax": 1.6524899005889893,
+        "xmin": -0.05523687228560448,
+        "xmax": 0.0805792510509491
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14730,
+        14894,
+        15045,
+        15255,
+        15481,
+        16181,
+        16567,
+        16930,
+        17102,
+        17307
+      ]
+    },
+    {
+      "y_cut": 1.76,
+      "z_floor": 1.42,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 464,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.760061502456665,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5422462224960327,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.7177057266235352,
+        "ymax": 1.7930927276611328,
+        "zmin": 1.5416605472564697,
+        "zmax": 1.6524899005889893,
+        "xmin": -0.05523687228560448,
+        "xmax": 0.0805792510509491
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14730,
+        14894,
+        15045,
+        15255,
+        15481,
+        16181,
+        16567,
+        16930,
+        17102,
+        17307
+      ]
+    },
+    {
+      "y_cut": 1.82,
+      "z_floor": 1.12,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 395,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.8210265636444092,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.542331576347351,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.7901906967163086,
+        "ymax": 1.8492045402526855,
+        "zmin": 1.5418667793273926,
+        "zmax": 1.6523405313491821,
+        "xmin": -0.05392102897167206,
+        "xmax": 0.08109848201274872
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14764,
+        14828,
+        15115,
+        15308,
+        15601,
+        15740,
+        15856,
+        16018,
+        16225,
+        17310
+      ]
+    },
+    {
+      "y_cut": 1.82,
+      "z_floor": 1.12,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 395,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.8210265636444092,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.542331576347351,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.7901906967163086,
+        "ymax": 1.8492045402526855,
+        "zmin": 1.5418667793273926,
+        "zmax": 1.6523405313491821,
+        "xmin": -0.05392102897167206,
+        "xmax": 0.08109848201274872
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14764,
+        14828,
+        15115,
+        15308,
+        15601,
+        15740,
+        15856,
+        16018,
+        16225,
+        17310
+      ]
+    },
+    {
+      "y_cut": 1.82,
+      "z_floor": 1.22,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 395,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.8210265636444092,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.542331576347351,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.7901906967163086,
+        "ymax": 1.8492045402526855,
+        "zmin": 1.5418667793273926,
+        "zmax": 1.6523405313491821,
+        "xmin": -0.05392102897167206,
+        "xmax": 0.08109848201274872
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14764,
+        14828,
+        15115,
+        15308,
+        15601,
+        15740,
+        15856,
+        16018,
+        16225,
+        17310
+      ]
+    },
+    {
+      "y_cut": 1.82,
+      "z_floor": 1.22,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 395,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.8210265636444092,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.542331576347351,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.7901906967163086,
+        "ymax": 1.8492045402526855,
+        "zmin": 1.5418667793273926,
+        "zmax": 1.6523405313491821,
+        "xmin": -0.05392102897167206,
+        "xmax": 0.08109848201274872
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14764,
+        14828,
+        15115,
+        15308,
+        15601,
+        15740,
+        15856,
+        16018,
+        16225,
+        17310
+      ]
+    },
+    {
+      "y_cut": 1.82,
+      "z_floor": 1.32,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 395,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.8210265636444092,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.542331576347351,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.7901906967163086,
+        "ymax": 1.8492045402526855,
+        "zmin": 1.5418667793273926,
+        "zmax": 1.6523405313491821,
+        "xmin": -0.05392102897167206,
+        "xmax": 0.08109848201274872
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14764,
+        14828,
+        15115,
+        15308,
+        15601,
+        15740,
+        15856,
+        16018,
+        16225,
+        17310
+      ]
+    },
+    {
+      "y_cut": 1.82,
+      "z_floor": 1.32,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 395,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.8210265636444092,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.542331576347351,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.7901906967163086,
+        "ymax": 1.8492045402526855,
+        "zmin": 1.5418667793273926,
+        "zmax": 1.6523405313491821,
+        "xmin": -0.05392102897167206,
+        "xmax": 0.08109848201274872
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14764,
+        14828,
+        15115,
+        15308,
+        15601,
+        15740,
+        15856,
+        16018,
+        16225,
+        17310
+      ]
+    },
+    {
+      "y_cut": 1.82,
+      "z_floor": 1.42,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 395,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.8210265636444092,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.542331576347351,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.7901906967163086,
+        "ymax": 1.8492045402526855,
+        "zmin": 1.5418667793273926,
+        "zmax": 1.6523405313491821,
+        "xmin": -0.05392102897167206,
+        "xmax": 0.08109848201274872
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14764,
+        14828,
+        15115,
+        15308,
+        15601,
+        15740,
+        15856,
+        16018,
+        16225,
+        17310
+      ]
+    },
+    {
+      "y_cut": 1.82,
+      "z_floor": 1.42,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 395,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.8210265636444092,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.542331576347351,
+      "boundary_edges": 21,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        21
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.7901906967163086,
+        "ymax": 1.8492045402526855,
+        "zmin": 1.5418667793273926,
+        "zmax": 1.6523405313491821,
+        "xmin": -0.05392102897167206,
+        "xmax": 0.08109848201274872
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14764,
+        14828,
+        15115,
+        15308,
+        15601,
+        15740,
+        15856,
+        16018,
+        16225,
+        17310
+      ]
+    },
+    {
+      "y_cut": 1.88,
+      "z_floor": 1.12,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 336,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.88144850730896,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5444796085357666,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.8430662155151367,
+        "ymax": 1.918090581893921,
+        "zmin": 1.5428056716918945,
+        "zmax": 1.6615869998931885,
+        "xmin": -0.05394948273897171,
+        "xmax": 0.0846548080444336
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14788,
+        14861,
+        15006,
+        15010,
+        15205,
+        15590,
+        15829,
+        16019,
+        16613,
+        17042
+      ]
+    },
+    {
+      "y_cut": 1.88,
+      "z_floor": 1.12,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 336,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.88144850730896,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5444796085357666,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.8430662155151367,
+        "ymax": 1.918090581893921,
+        "zmin": 1.5428056716918945,
+        "zmax": 1.6615869998931885,
+        "xmin": -0.05394948273897171,
+        "xmax": 0.0846548080444336
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14788,
+        14861,
+        15006,
+        15010,
+        15205,
+        15590,
+        15829,
+        16019,
+        16613,
+        17042
+      ]
+    },
+    {
+      "y_cut": 1.88,
+      "z_floor": 1.22,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 336,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.88144850730896,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5444796085357666,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.8430662155151367,
+        "ymax": 1.918090581893921,
+        "zmin": 1.5428056716918945,
+        "zmax": 1.6615869998931885,
+        "xmin": -0.05394948273897171,
+        "xmax": 0.0846548080444336
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14788,
+        14861,
+        15006,
+        15010,
+        15205,
+        15590,
+        15829,
+        16019,
+        16613,
+        17042
+      ]
+    },
+    {
+      "y_cut": 1.88,
+      "z_floor": 1.22,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 336,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.88144850730896,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5444796085357666,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.8430662155151367,
+        "ymax": 1.918090581893921,
+        "zmin": 1.5428056716918945,
+        "zmax": 1.6615869998931885,
+        "xmin": -0.05394948273897171,
+        "xmax": 0.0846548080444336
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14788,
+        14861,
+        15006,
+        15010,
+        15205,
+        15590,
+        15829,
+        16019,
+        16613,
+        17042
+      ]
+    },
+    {
+      "y_cut": 1.88,
+      "z_floor": 1.32,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 336,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.88144850730896,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5444796085357666,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.8430662155151367,
+        "ymax": 1.918090581893921,
+        "zmin": 1.5428056716918945,
+        "zmax": 1.6615869998931885,
+        "xmin": -0.05394948273897171,
+        "xmax": 0.0846548080444336
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14788,
+        14861,
+        15006,
+        15010,
+        15205,
+        15590,
+        15829,
+        16019,
+        16613,
+        17042
+      ]
+    },
+    {
+      "y_cut": 1.88,
+      "z_floor": 1.32,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 336,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.88144850730896,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5444796085357666,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.8430662155151367,
+        "ymax": 1.918090581893921,
+        "zmin": 1.5428056716918945,
+        "zmax": 1.6615869998931885,
+        "xmin": -0.05394948273897171,
+        "xmax": 0.0846548080444336
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14788,
+        14861,
+        15006,
+        15010,
+        15205,
+        15590,
+        15829,
+        16019,
+        16613,
+        17042
+      ]
+    },
+    {
+      "y_cut": 1.88,
+      "z_floor": 1.42,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 336,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.88144850730896,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5444796085357666,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.8430662155151367,
+        "ymax": 1.918090581893921,
+        "zmin": 1.5428056716918945,
+        "zmax": 1.6615869998931885,
+        "xmin": -0.05394948273897171,
+        "xmax": 0.0846548080444336
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14788,
+        14861,
+        15006,
+        15010,
+        15205,
+        15590,
+        15829,
+        16019,
+        16613,
+        17042
+      ]
+    },
+    {
+      "y_cut": 1.88,
+      "z_floor": 1.42,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 336,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.88144850730896,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.5444796085357666,
+      "boundary_edges": 22,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        22
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.8430662155151367,
+        "ymax": 1.918090581893921,
+        "zmin": 1.5428056716918945,
+        "zmax": 1.6615869998931885,
+        "xmin": -0.05394948273897171,
+        "xmax": 0.0846548080444336
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14788,
+        14861,
+        15006,
+        15010,
+        15205,
+        15590,
+        15829,
+        16019,
+        16613,
+        17042
+      ]
+    },
+    {
+      "y_cut": 1.94,
+      "z_floor": 1.12,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 273,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.940516710281372,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.545167088508606,
+      "boundary_edges": 27,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        27
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.9147546291351318,
+        "ymax": 1.9721182584762573,
+        "zmin": 1.544228196144104,
+        "zmax": 1.672419548034668,
+        "xmin": -0.05291103571653366,
+        "xmax": 0.0890788733959198
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14818,
+        14902,
+        14905,
+        15123,
+        15218,
+        15341,
+        15879,
+        16572,
+        17159,
+        17293
+      ]
+    },
+    {
+      "y_cut": 1.94,
+      "z_floor": 1.12,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 273,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.940516710281372,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.545167088508606,
+      "boundary_edges": 27,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        27
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.9147546291351318,
+        "ymax": 1.9721182584762573,
+        "zmin": 1.544228196144104,
+        "zmax": 1.672419548034668,
+        "xmin": -0.05291103571653366,
+        "xmax": 0.0890788733959198
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14818,
+        14902,
+        14905,
+        15123,
+        15218,
+        15341,
+        15879,
+        16572,
+        17159,
+        17293
+      ]
+    },
+    {
+      "y_cut": 1.94,
+      "z_floor": 1.22,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 273,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.940516710281372,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.545167088508606,
+      "boundary_edges": 27,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        27
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.9147546291351318,
+        "ymax": 1.9721182584762573,
+        "zmin": 1.544228196144104,
+        "zmax": 1.672419548034668,
+        "xmin": -0.05291103571653366,
+        "xmax": 0.0890788733959198
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14818,
+        14902,
+        14905,
+        15123,
+        15218,
+        15341,
+        15879,
+        16572,
+        17159,
+        17293
+      ]
+    },
+    {
+      "y_cut": 1.94,
+      "z_floor": 1.22,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 273,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.940516710281372,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.545167088508606,
+      "boundary_edges": 27,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        27
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.9147546291351318,
+        "ymax": 1.9721182584762573,
+        "zmin": 1.544228196144104,
+        "zmax": 1.672419548034668,
+        "xmin": -0.05291103571653366,
+        "xmax": 0.0890788733959198
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14818,
+        14902,
+        14905,
+        15123,
+        15218,
+        15341,
+        15879,
+        16572,
+        17159,
+        17293
+      ]
+    },
+    {
+      "y_cut": 1.94,
+      "z_floor": 1.32,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 273,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.940516710281372,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.545167088508606,
+      "boundary_edges": 27,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        27
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.9147546291351318,
+        "ymax": 1.9721182584762573,
+        "zmin": 1.544228196144104,
+        "zmax": 1.672419548034668,
+        "xmin": -0.05291103571653366,
+        "xmax": 0.0890788733959198
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14818,
+        14902,
+        14905,
+        15123,
+        15218,
+        15341,
+        15879,
+        16572,
+        17159,
+        17293
+      ]
+    },
+    {
+      "y_cut": 1.94,
+      "z_floor": 1.32,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 273,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.940516710281372,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.545167088508606,
+      "boundary_edges": 27,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        27
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.9147546291351318,
+        "ymax": 1.9721182584762573,
+        "zmin": 1.544228196144104,
+        "zmax": 1.672419548034668,
+        "xmin": -0.05291103571653366,
+        "xmax": 0.0890788733959198
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14818,
+        14902,
+        14905,
+        15123,
+        15218,
+        15341,
+        15879,
+        16572,
+        17159,
+        17293
+      ]
+    },
+    {
+      "y_cut": 1.94,
+      "z_floor": 1.42,
+      "xmax": 0.3,
+      "all_candidate_components": 2,
+      "tip_component_faces": 273,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.940516710281372,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.545167088508606,
+      "boundary_edges": 27,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        27
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.9147546291351318,
+        "ymax": 1.9721182584762573,
+        "zmin": 1.544228196144104,
+        "zmax": 1.672419548034668,
+        "xmin": -0.05291103571653366,
+        "xmax": 0.0890788733959198
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14818,
+        14902,
+        14905,
+        15123,
+        15218,
+        15341,
+        15879,
+        16572,
+        17159,
+        17293
+      ]
+    },
+    {
+      "y_cut": 1.94,
+      "z_floor": 1.42,
+      "xmax": 0.42,
+      "all_candidate_components": 2,
+      "tip_component_faces": 273,
+      "tip_max_y": 2.175902843475342,
+      "tip_min_y": 1.940516710281372,
+      "tip_max_z": 1.749667763710022,
+      "tip_min_z": 1.545167088508606,
+      "boundary_edges": 27,
+      "boundary_loops": 1,
+      "loop_lengths": [
+        27
+      ],
+      "boundary_valences": [
+        2
+      ],
+      "first_loop_bounds": {
+        "ymin": 1.9147546291351318,
+        "ymax": 1.9721182584762573,
+        "zmin": 1.544228196144104,
+        "zmax": 1.672419548034668,
+        "xmin": -0.05291103571653366,
+        "xmax": 0.0890788733959198
+      },
+      "one_closed_seam": true,
+      "all_tip_vertex_indices_near_boundary": [
+        14818,
+        14902,
+        14905,
+        15123,
+        15218,
+        15341,
+        15879,
+        16572,
+        17159,
+        17293
+      ]
+    }
+  ],
+  "any_clean_single_root_seam": true,
+  "source_unchanged": true,
+  "asset_approved": false,
+  "build_criteria": "Locate a SINGLE loop connected to original tail before replacing core."
+}
