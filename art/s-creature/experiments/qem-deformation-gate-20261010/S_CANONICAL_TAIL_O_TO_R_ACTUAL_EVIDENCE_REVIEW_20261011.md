@@ -25,7 +25,7 @@ The numerical self-intersection tests are actual Blender BVHTree overlaps on a d
 - O real tail close-up (M vs O): `tail-integrated-lamina-o-v1/review/REAL_QEM_O_ARMOR_CLOSE_COMPARE.jpg`
 - Exact reference and O/M side-by-side: `tail-integrated-lamina-o-v1/review/CANONICAL_S_VS_REAL_QEM_ARMOR_O.jpg`
 - O 5 real views: `tail-integrated-lamina-o-v1/review/REAL_QEM_O_FIVE_VIEW_COMPARE.jpg`
-- P actual 15 mesh scans: `tail-lamina-clearance-p-v1/REAL_QEM_P_CLEARANCE_QA.json`
+- P actual 15 mesh scans (separate experiment branch): [P actual QA](https://github.com/badjoke-lab/evowild-test/blob/exp/s-qem-lamina-clearance-p-20261011/art/s-creature/experiments/qem-deformation-gate-20261010/tail-lamina-clearance-p-v1/REAL_QEM_P_CLEARANCE_QA.json)
 - Q side-by-side all three single-plate actual Blender views: `tail-panel-isolation-q-summary/REAL_QEM_ISOLATED_THREE_LEAVES_Q.jpg`
 - Q all three independent geometry numbers: `tail-panel-isolation-q-summary/THREE_REAL_TAIL_LEAVES_Q_REPORT.json`
 - R full fresh independent Blender: `tail-panel-isolation-r-proximal-verified/S-QEM-single-panel-Q-PROXIMAL_RIGHT.blend`
