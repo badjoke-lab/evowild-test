@@ -1,0 +1,261 @@
+{
+  "canonical_reference_path": "art/s-creature/references/00_s_type_modeling_image_v1.png",
+  "canonical_reference_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "original_donor_glb_sha256": "e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f",
+  "source_original_preserved": true,
+  "original_A_trial_preserved": true,
+  "original_source_counts": {
+    "vertices": 29948,
+    "triangles": 59932
+  },
+  "derived_tail_counts": {
+    "vertices": 30540,
+    "triangles": 61116
+  },
+  "original_skin_patch_selection": [
+    {
+      "zone": "BASE",
+      "candidate_faces": 96,
+      "island_face_counts": [
+        52,
+        44
+      ]
+    },
+    {
+      "zone": "MIDDLE",
+      "candidate_faces": 106,
+      "island_face_counts": [
+        60,
+        45,
+        1
+      ]
+    },
+    {
+      "zone": "DISTAL",
+      "candidate_faces": 164,
+      "island_face_counts": [
+        81,
+        78,
+        2,
+        2,
+        1
+      ]
+    }
+  ],
+  "swept_laminae_connected_to_existing_skin": [
+    {
+      "zone": "BASE",
+      "rank": 0,
+      "original_patch_faces": 52,
+      "root_world": [
+        0.018623290583491325,
+        1.810141921043396,
+        1.562889814376831
+      ],
+      "tip_world": [
+        -0.12137670814990997,
+        2.350142002105713,
+        1.6478898525238037
+      ],
+      "length": 0.54,
+      "root_boundary_edges": 24,
+      "new_loft_rings": 8,
+      "new_loft_vertices_requested": 193,
+      "new_loft_faces_requested": 216,
+      "method": "integrated manifold skin-hole loft; no separate objects"
+    },
+    {
+      "zone": "MIDDLE",
+      "rank": 0,
+      "original_patch_faces": 60,
+      "root_world": [
+        0.01097748801112175,
+        2.110985517501831,
+        1.5406159162521362
+      ],
+      "tip_world": [
+        0.20097748935222626,
+        2.850985527038574,
+        1.68561589717865
+      ],
+      "length": 0.74,
+      "root_boundary_edges": 24,
+      "new_loft_rings": 8,
+      "new_loft_vertices_requested": 193,
+      "new_loft_faces_requested": 216,
+      "method": "integrated manifold skin-hole loft; no separate objects"
+    },
+    {
+      "zone": "DISTAL",
+      "rank": 0,
+      "original_patch_faces": 81,
+      "root_world": [
+        0.015854964032769203,
+        2.375830888748169,
+        1.5596975088119507
+      ],
+      "tip_world": [
+        -0.17414502799510956,
+        3.255830764770508,
+        1.6546975374221802
+      ],
+      "length": 0.88,
+      "root_boundary_edges": 33,
+      "new_loft_rings": 8,
+      "new_loft_vertices_requested": 265,
+      "new_loft_faces_requested": 297,
+      "method": "integrated manifold skin-hole loft; no separate objects"
+    }
+  ],
+  "blade_count": 3,
+  "candidate_goal": "distinct broad swept blades with fewer root collisions than the six G twigs",
+  "topology": {
+    "vertices": 30540,
+    "triangles": 61116,
+    "components": 1,
+    "component_sizes": [
+      30540
+    ],
+    "boundary_edges": 0,
+    "nonmanifold_or_boundary_edges": 0,
+    "degenerate_faces": 0,
+    "min_double_face_area": 1.6911138538128591e-06,
+    "max_double_face_area": 0.014841974048620823
+  },
+  "tail_self_collision_bvh": {
+    "status": "MEASURED",
+    "tail_face_count": 2415,
+    "intersections_nonshared_vertex_faces": 824,
+    "first_30_polygon_pairs": [
+      [
+        57050,
+        60508
+      ],
+      [
+        57050,
+        60597
+      ],
+      [
+        41281,
+        41735
+      ],
+      [
+        41281,
+        57050
+      ],
+      [
+        41281,
+        41742
+      ],
+      [
+        57052,
+        60643
+      ],
+      [
+        42948,
+        60640
+      ],
+      [
+        39692,
+        42555
+      ],
+      [
+        39692,
+        60507
+      ],
+      [
+        39692,
+        60641
+      ],
+      [
+        39692,
+        41280
+      ],
+      [
+        41279,
+        42948
+      ],
+      [
+        41279,
+        42947
+      ],
+      [
+        41280,
+        43005
+      ],
+      [
+        42557,
+        57043
+      ],
+      [
+        42557,
+        57037
+      ],
+      [
+        57043,
+        60643
+      ],
+      [
+        41740,
+        42482
+      ],
+      [
+        41742,
+        60597
+      ],
+      [
+        41738,
+        60643
+      ],
+      [
+        41738,
+        42482
+      ],
+      [
+        41738,
+        60597
+      ],
+      [
+        41738,
+        42557
+      ],
+      [
+        42947,
+        60506
+      ],
+      [
+        57037,
+        60510
+      ],
+      [
+        42553,
+        42942
+      ],
+      [
+        42944,
+        60506
+      ],
+      [
+        42942,
+        60506
+      ],
+      [
+        42942,
+        60639
+      ],
+      [
+        41283,
+        57037
+      ]
+    ]
+  },
+  "gate": {
+    "one_connected_manifold_topology": "PASS",
+    "tail_self_collision": "FAIL_OR_UNVERIFIED",
+    "visual_match_to_canonical": "REVIEW_PENDING_NOT_APPROVED",
+    "rig_skinning": "NOT_TESTED_ON_NEW_GEOMETRY",
+    "3_cycle_gait": "NOT_TESTED_ON_NEW_GEOMETRY",
+    "game_production": "REJECT_NOT_APPROVED"
+  },
+  "method_limitations": "Original QEM branch repaired, not a certified match to S authority. New tails are actual connected swept 3D surfaces, but visual, intersection, material, rig, silhouette gates are independently required."
+}
