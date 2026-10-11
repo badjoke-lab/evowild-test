@@ -1,0 +1,27 @@
+{
+  "authoring": "Blender 4.3.2 / deterministic contour lofts and anatomical surface panels",
+  "reference": [
+    "public/concept/P.webp",
+    "docs/references/evowild-creature-reference-sheet-20260921.jpg"
+  ],
+  "coordinates": "GLB: +Y up, -X forward; origin at ground under torso",
+  "asset": "public/models/evowild-p/p-canonical-v2.glb",
+  "animation": "P_Power_Run_Study_0p8s",
+  "bones": 17,
+  "triangles": 56152,
+  "materials": 10,
+  "status": "shape-review candidate; not production KEEP",
+  "views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "reference_uncertainty": "Only one small canonical P three-quarter image; exact frontal/rear topology is inferred, not reference-certified.",
+  "bytes": 2020324,
+  "sha256": "86059b33e92fb3ad1c680155452ce574d84884451afafd5564ad74840d554f8a",
+  "packaging": "glTF Transform 4.3.0 dedup/prune; identity mesh parent normalized to scene root",
+  "externalURIs": [],
+  "runtimeScope": "isolated shape and minimal motion review; production HOLD"
+}
