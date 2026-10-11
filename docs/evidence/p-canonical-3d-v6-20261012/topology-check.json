@@ -1,0 +1,22 @@
+{
+  "method": "voxel union + relaxation + continuous-surface relief sculpt + decimation",
+  "voxelMetres": 0.026,
+  "components": [
+    24074
+  ],
+  "vertices": 24074,
+  "faces": 29668,
+  "boundaryEdges": 0,
+  "nonManifoldEdges": 0,
+  "covers": [
+    "chest",
+    "left/right scapula",
+    "left/right upper arm",
+    "forearms",
+    "neck",
+    "abdomen",
+    "hind limbs"
+  ],
+  "disconnectedMuscleShells": 0,
+  "blendedVertices": 13011
+}

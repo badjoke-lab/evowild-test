@@ -1,0 +1,391 @@
+{
+  "cycleSeconds": 0.8,
+  "frames": 25,
+  "stanceFraction": 0.62,
+  "strideMetres": {
+    "fore": 0.53,
+    "hind": 0.32
+  },
+  "scope": "minimal in-place review; not a production gait or race-contact pass",
+  "ikReachClips": 0,
+  "stanceSamples": [
+    {
+      "frame": 0,
+      "limb": "FL",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 0,
+      "limb": "HL",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 0,
+      "limb": "FR",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 0,
+      "limb": "HR",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 1,
+      "limb": "FL",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 1,
+      "limb": "HL",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 1,
+      "limb": "HR",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 2,
+      "limb": "FL",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 2,
+      "limb": "HL",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 2,
+      "limb": "HR",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 3,
+      "limb": "FL",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 3,
+      "limb": "HL",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 3,
+      "limb": "HR",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 4,
+      "limb": "HL",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 4,
+      "limb": "HR",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 5,
+      "limb": "HL",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 5,
+      "limb": "HR",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 6,
+      "limb": "HL",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 6,
+      "limb": "HR",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 7,
+      "limb": "HL",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 7,
+      "limb": "HR",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 8,
+      "limb": "HL",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 8,
+      "limb": "HR",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 9,
+      "limb": "HL",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 9,
+      "limb": "HR",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 10,
+      "limb": "HL",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 10,
+      "limb": "FR",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 10,
+      "limb": "HR",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 11,
+      "limb": "HL",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 11,
+      "limb": "FR",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 11,
+      "limb": "HR",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 12,
+      "limb": "HL",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 12,
+      "limb": "FR",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 13,
+      "limb": "FL",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 13,
+      "limb": "HL",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 13,
+      "limb": "FR",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 14,
+      "limb": "FL",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 14,
+      "limb": "HL",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 14,
+      "limb": "FR",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 15,
+      "limb": "FL",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 15,
+      "limb": "FR",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 16,
+      "limb": "FL",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 16,
+      "limb": "FR",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 17,
+      "limb": "FL",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 17,
+      "limb": "FR",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 18,
+      "limb": "FL",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 18,
+      "limb": "FR",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 19,
+      "limb": "FL",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 19,
+      "limb": "FR",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 20,
+      "limb": "FL",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 20,
+      "limb": "FR",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 21,
+      "limb": "FL",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 21,
+      "limb": "FR",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 22,
+      "limb": "FL",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 22,
+      "limb": "FR",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 22,
+      "limb": "HR",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 23,
+      "limb": "FL",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 23,
+      "limb": "FR",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 23,
+      "limb": "HR",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 24,
+      "limb": "FL",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 24,
+      "limb": "HL",
+      "ankleZ": 0.32,
+      "clipped": false
+    },
+    {
+      "frame": 24,
+      "limb": "FR",
+      "ankleZ": 0.3,
+      "clipped": false
+    },
+    {
+      "frame": 24,
+      "limb": "HR",
+      "ankleZ": 0.32,
+      "clipped": false
+    }
+  ]
+}

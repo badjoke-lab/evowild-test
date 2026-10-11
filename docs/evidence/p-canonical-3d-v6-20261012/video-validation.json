@@ -1,0 +1,18 @@
+{
+  "source": "96 separately evaluated GLB frames per view; no encoder frame-loop filter",
+  "cyclesPerView": 4,
+  "cycleSeconds": 0.8,
+  "programs": [],
+  "streams": [
+    {
+      "codec_name": "h264",
+      "width": 1200,
+      "height": 900,
+      "r_frame_rate": "30/1",
+      "nb_read_frames": "192"
+    }
+  ],
+  "format": {
+    "duration": "6.400000"
+  }
+}
