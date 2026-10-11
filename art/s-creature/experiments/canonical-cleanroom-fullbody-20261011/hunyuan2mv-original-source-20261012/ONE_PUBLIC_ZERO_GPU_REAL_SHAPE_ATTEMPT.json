@@ -15,25 +15,43 @@
   "license_commercial_reuse_cleared": false,
   "canonical_shape_approved": false,
   "main_updated": false,
-  "time_start": "2026-10-11T16:15:16.713101+00:00",
-  "generated": false,
+  "time_start": "2026-10-11T16:17:09.620294+00:00",
+  "generated": true,
   "api_return_types": [
     "dict",
     "str",
     "dict",
     "int"
   ],
-  "error_type": "TypeError",
-  "error_message": "argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'NoneType'",
-  "traceback_last_8_lines": [
-    "  File \"/home/runner/work/evowild-test/evowild-test/art/s-creature/blender/s_hunyuan2mv_run_one_free_shape.py\", line 74, in <module>",
-    "    source=Path(filepath)",
-    "           ^^^^^^^^^^^^^^",
-    "  File \"/usr/lib/python3.12/pathlib.py\", line 1164, in __init__",
-    "    super().__init__(*args)",
-    "  File \"/usr/lib/python3.12/pathlib.py\", line 373, in __init__",
-    "    raise TypeError(",
-    "TypeError: argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'NoneType'"
-  ],
-  "time_finished": "2026-10-11T16:15:26.784849+00:00"
+  "api_result_file_update_shape": "{'value': '/tmp/gradio/c12142a6bb7ebbdc1a8270e6c545394b3431cde6d460859e29aeca4776d9bd30/white_mesh.glb', '__type__': 'update'}",
+  "api_result_iframe_prefix": "\n        <div style='height: 690; width: 100%;'>\n        <iframe src=\"/static/09f706e7-ff15-411d-bd1b-1ff1b6e5c9b2/white_mesh.html\" height=\"690\" width=\"100%\" frameborder=\"0\"></iframe>\n        </div>\n    ",
+  "source_mesh_transfer": "gradio_client_fully_downloaded_local_file",
+  "candidate_file": "HUNYUAN2MV_ORIGINAL_S_THREE_VIEW_SHAPE_ONE_TRIAL_UNAPPROVED.glb",
+  "candidate_byte_size": 1644772,
+  "candidate_sha256": "c12142a6bb7ebbdc1a8270e6c545394b3431cde6d460859e29aeca4776d9bd30",
+  "space_generation_metadata": {
+    "model": {
+      "shapegen": "tencent/Hunyuan3D-2mv/hunyuan3d-dit-v2-mv-turbo",
+      "texgen": "tencent/Hunyuan3D-2"
+    },
+    "params": {
+      "caption": null,
+      "steps": 30,
+      "guidance_scale": 7.5,
+      "seed": 1240,
+      "octree_resolution": 196,
+      "check_box_rembg": false,
+      "num_chunks": 200000
+    },
+    "number_of_faces": 98156,
+    "number_of_vertices": 38802,
+    "time": {
+      "remove background": 7.152557373046875e-06,
+      "shape generation": 5.858899831771851,
+      "export to trimesh": 0.019804716110229492,
+      "total": 5.881408452987671
+    }
+  },
+  "space_seed": 1240,
+  "time_finished": "2026-10-11T16:17:19.547096+00:00"
 }

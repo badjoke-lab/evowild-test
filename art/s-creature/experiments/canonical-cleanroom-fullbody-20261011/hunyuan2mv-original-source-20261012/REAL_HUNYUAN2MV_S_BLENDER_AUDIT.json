@@ -1,0 +1,25 @@
+{
+  "canonical_SHA256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "actual_external_generated_GLb_sha256": "c12142a6bb7ebbdc1a8270e6c545394b3431cde6d460859e29aeca4776d9bd30",
+  "original_meshes_imported": false,
+  "new_GLb_mesh_objects": 1,
+  "actual_mesh_vertices": 38802,
+  "actual_mesh_faces": 77684,
+  "raw_world_dimensions_xyz": [
+    0.6105926036834717,
+    1.9292281866073608,
+    1.2730481624603271
+  ],
+  "five_actual_Blender_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "pose_alignment_calibrated": false,
+  "geometry_art_match": "REVIEW_PENDING",
+  "approved_S": "NO",
+  "gait_rig_pass": false,
+  "production_or_main": false
+}
