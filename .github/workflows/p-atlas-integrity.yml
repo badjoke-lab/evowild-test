@@ -1,0 +1,46 @@
+name: P atlas visual integrity audit
+on:
+  push:
+    branches:
+      - fix/2p5d-p-canonical-20261011
+    paths:
+      - .github/workflows/p-atlas-integrity.yml
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium
+        run: |
+          npm install
+          npx playwright install --with-deps chromium
+          node -e "const {chromium}=require('@playwright/test');require('fs').appendFileSync(process.env.GITHUB_ENV,'CHROMIUM_PATH='+chromium.executablePath()+'\n')"
+      - name: Audit P production RGBA atlas (no changes to art)
+        run: node scripts/audit-p-atlas-integrity.mjs
+      - name: Commit measured artifact evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/evidence/p-atlas-integrity-20261012/
+          git diff --cached --check
+          if ! git diff --cached --quiet; then
+            git commit -m "audit(p): capture visible P atlas color anomaly evidence"
+            git fetch origin refs/heads/$GITHUB_REF_NAME
+            git rebase FETCH_HEAD
+            git push origin HEAD:$GITHUB_REF_NAME
+          fi
+      - name: Preserve images if push rejected
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p-atlas-integrity-evidence
+          path: docs/evidence/p-atlas-integrity-20261012/
+          if-no-files-found: warn
