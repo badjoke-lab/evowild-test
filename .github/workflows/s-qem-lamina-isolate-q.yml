@@ -39,6 +39,8 @@ jobs:
             echo "===== ORIGINAL QEM REAL FEATHER $blade ====="
             Q_PANEL_NAME="$blade" /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/tail-core-regularized-m-v1/S-QEM-true-one-piece-tail-core-M-TRIAL.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_tail_single_plate_q.py
           done
+          echo "===== DETERMINISTIC REPEAT ROOT PANEL ====="
+          Q_PANEL_NAME=PROXIMAL_RIGHT Q_REPEAT=1 /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/tail-core-regularized-m-v1/S-QEM-true-one-piece-tail-core-M-TRIAL.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_tail_single_plate_q.py
       - name: Verify all original mesh QA and package isolated real views
         run: |
           python3 -m pip install -q pillow
@@ -59,6 +61,11 @@ jobs:
               report[name]={"topology":d["topology"],
                             "intersections":d["tail_roi_self_intersection"]["nonshared_polygon_intersections"],
                             "technical_gate":d["geometry_gate"]}
+          first=json.loads((root/"tail-panel-isolation-q-proximal_right"/"REAL_QEM_Q_SINGLE_ARMOR_PANEL_QA.json").read_text())
+          again=json.loads((root/"tail-panel-isolation-q-proximal_right-repeat"/"REAL_QEM_Q_SINGLE_ARMOR_PANEL_QA.json").read_text())
+          same_digest=(first["actual_geometry_SHA256_rounded_6dp"]==again["actual_geometry_SHA256_rounded_6dp"])
+          same_collision=(first["tail_roi_self_intersection"]["nonshared_polygon_intersections"]==again["tail_roi_self_intersection"]["nonshared_polygon_intersections"])
+          assert same_digest and same_collision,("non-deterministic-Q-root-geometry",first["actual_geometry_SHA256_rounded_6dp"],again["actual_geometry_SHA256_rounded_6dp"])
           folder=root/"tail-panel-isolation-q-summary"
           folder.mkdir(parents=True,exist_ok=True)
           (folder/"THREE_REAL_TAIL_LEAVES_Q_REPORT.json").write_text(json.dumps({
@@ -66,6 +73,8 @@ jobs:
               "source_QEM_preserved":True,
               "tested_individually":report,
               "O_all_three_intersection_pairs":185,
+              "root_panel_same_geometry_after_rerun":same_digest,
+              "root_panel_same_collision_count_after_rerun":same_collision,
               "design_approved":False,"production_ready":False},indent=2)+"\n")
           W,H=530,400
           sheet=Image.new("RGB",(W*3,H*2),(236,238,241))
