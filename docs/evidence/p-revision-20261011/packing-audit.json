@@ -1,0 +1,307 @@
+{
+  "sourceSize": [
+    1650,
+    953
+  ],
+  "sourceOrder": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "sharedScale": 1.0157367668097281,
+  "frameSize": [
+    416,
+    320
+  ],
+  "baseline": 296,
+  "headCueX": 330,
+  "clearance": [
+    0,
+    0,
+    0,
+    0,
+    8,
+    16,
+    24,
+    12,
+    4,
+    0,
+    0,
+    0
+  ],
+  "frames": [
+    {
+      "phase": 1,
+      "sourceSlot": 1,
+      "sourceBounds": [
+        35,
+        42,
+        386,
+        293
+      ],
+      "outputBounds": [
+        33,
+        41,
+        390,
+        296
+      ],
+      "cue": [
+        329.65783570886094,
+        86.88371394761475
+      ],
+      "clearance": 0,
+      "pixels": 40980
+    },
+    {
+      "phase": 2,
+      "sourceSlot": 2,
+      "sourceBounds": [
+        439,
+        42,
+        788,
+        293
+      ],
+      "outputBounds": [
+        24,
+        41,
+        378,
+        296
+      ],
+      "cue": [
+        329.93768177459157,
+        87.21044191859642
+      ],
+      "clearance": 0,
+      "pixels": 40809
+    },
+    {
+      "phase": 3,
+      "sourceSlot": 3,
+      "sourceBounds": [
+        855,
+        42,
+        1203,
+        293
+      ],
+      "outputBounds": [
+        27,
+        41,
+        380,
+        296
+      ],
+      "cue": [
+        330.12655953687994,
+        85.8341484512759
+      ],
+      "clearance": 0,
+      "pixels": 42058
+    },
+    {
+      "phase": 4,
+      "sourceSlot": 4,
+      "sourceBounds": [
+        1270,
+        47,
+        1614,
+        293
+      ],
+      "outputBounds": [
+        30,
+        46,
+        379,
+        296
+      ],
+      "cue": [
+        329.76621654628553,
+        89.23074775812137
+      ],
+      "clearance": 0,
+      "pixels": 35326
+    },
+    {
+      "phase": 5,
+      "sourceSlot": 5,
+      "sourceBounds": [
+        24,
+        371,
+        378,
+        602
+      ],
+      "outputBounds": [
+        22,
+        53,
+        382,
+        288
+      ],
+      "cue": [
+        330.20022034762303,
+        95.85942150527026
+      ],
+      "clearance": 8,
+      "pixels": 32787
+    },
+    {
+      "phase": 6,
+      "sourceSlot": 6,
+      "sourceBounds": [
+        444,
+        357,
+        788,
+        594
+      ],
+      "outputBounds": [
+        30,
+        39,
+        379,
+        280
+      ],
+      "cue": [
+        329.9773232277113,
+        83.7464462910541
+      ],
+      "clearance": 16,
+      "pixels": 34683
+    },
+    {
+      "phase": 7,
+      "sourceSlot": 7,
+      "sourceBounds": [
+        858,
+        359,
+        1201,
+        594
+      ],
+      "outputBounds": [
+        30,
+        34,
+        378,
+        273
+      ],
+      "cue": [
+        329.5927980739035,
+        78.39512892983005
+      ],
+      "clearance": 24,
+      "pixels": 39605
+    },
+    {
+      "phase": 8,
+      "sourceSlot": 8,
+      "sourceBounds": [
+        1271,
+        352,
+        1622,
+        597
+      ],
+      "outputBounds": [
+        31,
+        35,
+        388,
+        284
+      ],
+      "cue": [
+        330.2247655380703,
+        76.82578286440949
+      ],
+      "clearance": 12,
+      "pixels": 38716
+    },
+    {
+      "phase": 9,
+      "sourceSlot": 9,
+      "sourceBounds": [
+        36,
+        667,
+        391,
+        906
+      ],
+      "outputBounds": [
+        34,
+        49,
+        395,
+        292
+      ],
+      "cue": [
+        329.5584561155111,
+        93.94373405306547
+      ],
+      "clearance": 4,
+      "pixels": 39960
+    },
+    {
+      "phase": 10,
+      "sourceSlot": 10,
+      "sourceBounds": [
+        442,
+        675,
+        788,
+        906
+      ],
+      "outputBounds": [
+        28,
+        61,
+        379,
+        296
+      ],
+      "cue": [
+        329.6082883381789,
+        105.76887104465678
+      ],
+      "clearance": 0,
+      "pixels": 38717
+    },
+    {
+      "phase": 11,
+      "sourceSlot": 11,
+      "sourceBounds": [
+        854,
+        668,
+        1204,
+        907
+      ],
+      "outputBounds": [
+        28,
+        53,
+        384,
+        296
+      ],
+      "cue": [
+        330.2289316964434,
+        97.31446917523368
+      ],
+      "clearance": 0,
+      "pixels": 42176
+    },
+    {
+      "phase": 12,
+      "sourceSlot": 12,
+      "sourceBounds": [
+        1271,
+        664,
+        1623,
+        906
+      ],
+      "outputBounds": [
+        33,
+        50,
+        391,
+        296
+      ],
+      "cue": [
+        329.7832353097017,
+        93.626521132482
+      ],
+      "clearance": 0,
+      "pixels": 39617
+    }
+  ]
+}

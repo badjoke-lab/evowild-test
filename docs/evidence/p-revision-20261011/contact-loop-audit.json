@@ -1,0 +1,728 @@
+{
+  "old": {
+    "frames": [
+      {
+        "phase": 1,
+        "bounds": [
+          24,
+          43,
+          391,
+          295
+        ],
+        "clearance": 0,
+        "opaquePixels": 45979,
+        "headCue": [
+          335.4051724137931,
+          88.02586206896552
+        ],
+        "groundBands": [
+          [
+            242,
+            298
+          ]
+        ],
+        "hash": "6a299def06d3959e84253927a52788241f7a058ab5d7f2f30343789061ae26ee"
+      },
+      {
+        "phase": 2,
+        "bounds": [
+          25,
+          45,
+          390,
+          295
+        ],
+        "clearance": 0,
+        "opaquePixels": 46052,
+        "headCue": [
+          338.25,
+          89.06451612903226
+        ],
+        "groundBands": [
+          [
+            70,
+            85
+          ],
+          [
+            274,
+            335
+          ]
+        ],
+        "hash": "60bbfe3c7c20071a3a47e17ff428991d56f385a43cf5b0318bc820118d8e75fb"
+      },
+      {
+        "phase": 3,
+        "bounds": [
+          27,
+          49,
+          388,
+          295
+        ],
+        "clearance": 0,
+        "opaquePixels": 43584,
+        "headCue": [
+          333.60377358490564,
+          91.68867924528301
+        ],
+        "groundBands": [
+          [
+            32,
+            82
+          ],
+          [
+            305,
+            357
+          ]
+        ],
+        "hash": "e99a51a6896afadcf40bc5b5540cbed8ee7d4153c0ef4d4d02f319d4e147de77"
+      },
+      {
+        "phase": 4,
+        "bounds": [
+          25,
+          46,
+          390,
+          295
+        ],
+        "clearance": 0,
+        "opaquePixels": 44092,
+        "headCue": [
+          336.7244094488189,
+          89.06299212598425
+        ],
+        "groundBands": [
+          [
+            36,
+            65
+          ],
+          [
+            174,
+            219
+          ]
+        ],
+        "hash": "41ade6600172dadb2d9c83fd3c73412735d573fdc17edfb683a2028192474dbc"
+      },
+      {
+        "phase": 5,
+        "bounds": [
+          24,
+          46,
+          392,
+          295
+        ],
+        "clearance": 0,
+        "opaquePixels": 41685,
+        "headCue": [
+          338.76271186440675,
+          91.07627118644068
+        ],
+        "groundBands": [
+          [
+            59,
+            80
+          ]
+        ],
+        "hash": "7703b56e9b41b5221cf256d0d6aea6e4d9900407357a6d78ce07756ad1177ec0"
+      },
+      {
+        "phase": 6,
+        "bounds": [
+          25,
+          44,
+          391,
+          279
+        ],
+        "clearance": 16,
+        "opaquePixels": 40788,
+        "headCue": [
+          336.2926829268293,
+          85.96747967479675
+        ],
+        "groundBands": [],
+        "hash": "4688ec9243dfb9968383021bfb11852454a181d167d8ee6d97b2a8f09e7f6759"
+      },
+      {
+        "phase": 7,
+        "bounds": [
+          25,
+          46,
+          391,
+          271
+        ],
+        "clearance": 24,
+        "opaquePixels": 38046,
+        "headCue": [
+          335.5289256198347,
+          89.16528925619835
+        ],
+        "groundBands": [],
+        "hash": "7ce23c9d3c1b77a688355286405423b01ea2c417f4e40893399b4ed40c10eb33"
+      },
+      {
+        "phase": 8,
+        "bounds": [
+          24,
+          36,
+          392,
+          283
+        ],
+        "clearance": 12,
+        "opaquePixels": 41853,
+        "headCue": [
+          338.8582677165354,
+          80.39370078740157
+        ],
+        "groundBands": [],
+        "hash": "36c64561ed606ec5eb0edbd490f510a2b0eb79208ab12b47df52bc2e674b39d6"
+      },
+      {
+        "phase": 9,
+        "bounds": [
+          21,
+          55,
+          395,
+          291
+        ],
+        "clearance": 4,
+        "opaquePixels": 42576,
+        "headCue": [
+          341.75206611570246,
+          98.65289256198348
+        ],
+        "groundBands": [],
+        "hash": "89f15bb88beeda66525e47b348da2b62ec5b79fe108958325bbc53090f7505af"
+      },
+      {
+        "phase": 10,
+        "bounds": [
+          20,
+          57,
+          395,
+          295
+        ],
+        "clearance": 0,
+        "opaquePixels": 46275,
+        "headCue": [
+          341.4537037037037,
+          100.75
+        ],
+        "groundBands": [
+          [
+            59,
+            80
+          ],
+          [
+            340,
+            388
+          ]
+        ],
+        "hash": "e106b269b444b22b3e71493f4e8e085c6f95892c10c5de80d86bd2d7745d7bac"
+      },
+      {
+        "phase": 11,
+        "bounds": [
+          20,
+          50,
+          396,
+          295
+        ],
+        "clearance": 0,
+        "opaquePixels": 46676,
+        "headCue": [
+          342.3739837398374,
+          94.17073170731707
+        ],
+        "groundBands": [
+          [
+            276,
+            332
+          ]
+        ],
+        "hash": "84b5848ed7c81d82f67005422c8c25d08c0a62c5918db59ae0e051921ffc7679"
+      },
+      {
+        "phase": 12,
+        "bounds": [
+          22,
+          49,
+          394,
+          295
+        ],
+        "clearance": 0,
+        "opaquePixels": 40162,
+        "headCue": [
+          340.6981132075472,
+          93.39622641509433
+        ],
+        "groundBands": [
+          [
+            277,
+            332
+          ]
+        ],
+        "hash": "500b8519a559fe32b58e515c9b895c56cf4f6b7fc470a5ae8ae4516de24a2b34"
+      }
+    ],
+    "transitions": [
+      {
+        "from": 1,
+        "to": 2,
+        "silhouetteIoU": 0.7676853043428155,
+        "lowerBodyIoU": 0.5729102611404912,
+        "headCueDisplacement": 3.0285056136215083
+      },
+      {
+        "from": 2,
+        "to": 3,
+        "silhouetteIoU": 0.7344091639093671,
+        "lowerBodyIoU": 0.5389464776814047,
+        "headCueDisplacement": 5.336070835456692
+      },
+      {
+        "from": 3,
+        "to": 4,
+        "silhouetteIoU": 0.76066831335221,
+        "lowerBodyIoU": 0.6001651073197578,
+        "headCueDisplacement": 4.078308600828671
+      },
+      {
+        "from": 4,
+        "to": 5,
+        "silhouetteIoU": 0.6907535529142768,
+        "lowerBodyIoU": 0.45337664714494874,
+        "headCueDisplacement": 2.864955377080693
+      },
+      {
+        "from": 5,
+        "to": 6,
+        "silhouetteIoU": 0.7402304186360568,
+        "lowerBodyIoU": 0.4828172648369693,
+        "headCueDisplacement": 5.674574315480866
+      },
+      {
+        "from": 6,
+        "to": 7,
+        "silhouetteIoU": 0.8338179534299472,
+        "lowerBodyIoU": 0.6843591191417279,
+        "headCueDisplacement": 3.287751715517993
+      },
+      {
+        "from": 7,
+        "to": 8,
+        "silhouetteIoU": 0.6803507960209468,
+        "lowerBodyIoU": 0.505688713592233,
+        "headCueDisplacement": 9.38217901464218
+      },
+      {
+        "from": 8,
+        "to": 9,
+        "silhouetteIoU": 0.5666623369393776,
+        "lowerBodyIoU": 0.41560896570348366,
+        "headCueDisplacement": 18.48708071697588
+      },
+      {
+        "from": 9,
+        "to": 10,
+        "silhouetteIoU": 0.7636865298344515,
+        "lowerBodyIoU": 0.5323985368402717,
+        "headCueDisplacement": 2.118225610145893
+      },
+      {
+        "from": 10,
+        "to": 11,
+        "silhouetteIoU": 0.7923447743925954,
+        "lowerBodyIoU": 0.652031597782918,
+        "headCueDisplacement": 6.643318945527841
+      },
+      {
+        "from": 11,
+        "to": 12,
+        "silhouetteIoU": 0.7178635014836795,
+        "lowerBodyIoU": 0.4221114718119885,
+        "headCueDisplacement": 1.8461853884915609
+      },
+      {
+        "from": 12,
+        "to": 1,
+        "silhouetteIoU": 0.5928733889310084,
+        "lowerBodyIoU": 0.2820460814538374,
+        "headCueDisplacement": 7.540294122669075
+      }
+    ],
+    "wrap": {
+      "from": 12,
+      "to": 1,
+      "silhouetteIoU": 0.5928733889310084,
+      "lowerBodyIoU": 0.2820460814538374,
+      "headCueDisplacement": 7.540294122669075
+    }
+  },
+  "revised": {
+    "frames": [
+      {
+        "phase": 1,
+        "bounds": [
+          33,
+          42,
+          389,
+          295
+        ],
+        "clearance": 0,
+        "opaquePixels": 42561,
+        "headCue": [
+          330.0875,
+          86.85
+        ],
+        "groundBands": [
+          [
+            83,
+            123
+          ],
+          [
+            227,
+            287
+          ],
+          [
+            345,
+            369
+          ]
+        ],
+        "hash": "3e63b7e163c9e8b7c1d26e94d026a9695b18c132f6a1c5eb90ac9d2ecc9e5ece"
+      },
+      {
+        "phase": 2,
+        "bounds": [
+          24,
+          41,
+          377,
+          295
+        ],
+        "clearance": 0,
+        "opaquePixels": 42255,
+        "headCue": [
+          329.5978260869565,
+          87.25
+        ],
+        "groundBands": [
+          [
+            88,
+            115
+          ],
+          [
+            268,
+            329
+          ]
+        ],
+        "hash": "892059cdff2b7a961ba878e3cae0268d38fc22ef13366f3674179519d3147027"
+      },
+      {
+        "phase": 3,
+        "bounds": [
+          27,
+          41,
+          379,
+          295
+        ],
+        "clearance": 0,
+        "opaquePixels": 43507,
+        "headCue": [
+          329.7,
+          85.7875
+        ],
+        "groundBands": [
+          [
+            113,
+            158
+          ],
+          [
+            270,
+            328
+          ]
+        ],
+        "hash": "b47c919c59a535b50375d1ff182407e60db657cc94c05d50b856de43a826ccf4"
+      },
+      {
+        "phase": 4,
+        "bounds": [
+          30,
+          46,
+          378,
+          295
+        ],
+        "clearance": 0,
+        "opaquePixels": 36541,
+        "headCue": [
+          329.61538461538464,
+          89.35897435897436
+        ],
+        "groundBands": [
+          [
+            51,
+            105
+          ]
+        ],
+        "hash": "e23725179d7bc14950b55bebce7b7e68ef5b037e97d3515d6d461708e8141ada"
+      },
+      {
+        "phase": 5,
+        "bounds": [
+          22,
+          53,
+          381,
+          287
+        ],
+        "clearance": 8,
+        "opaquePixels": 34056,
+        "headCue": [
+          330.49397590361446,
+          95.78313253012048
+        ],
+        "groundBands": [],
+        "hash": "f7155c2edef9fd14a758d5d37f80ff8cb031748ebe4f20874bff5c30966e2991"
+      },
+      {
+        "phase": 6,
+        "bounds": [
+          30,
+          39,
+          378,
+          279
+        ],
+        "clearance": 16,
+        "opaquePixels": 35885,
+        "headCue": [
+          329.75531914893617,
+          83.7127659574468
+        ],
+        "groundBands": [],
+        "hash": "99df8dca5c37276b3a147fd7be93aa2bc2f68e71010087e2655414d940754d89"
+      },
+      {
+        "phase": 7,
+        "bounds": [
+          31,
+          34,
+          377,
+          271
+        ],
+        "clearance": 24,
+        "opaquePixels": 41012,
+        "headCue": [
+          329.275,
+          78.5625
+        ],
+        "groundBands": [],
+        "hash": "64f37e8d5da9e13b1220aa18fb60f193055094ba89655e69ad6837a974ce392a"
+      },
+      {
+        "phase": 8,
+        "bounds": [
+          32,
+          35,
+          387,
+          283
+        ],
+        "clearance": 12,
+        "opaquePixels": 40227,
+        "headCue": [
+          330.7362637362637,
+          76.93406593406593
+        ],
+        "groundBands": [],
+        "hash": "4917952ef85ccef3e7cd817fcd49b111690affa2429a4663fe9496cdee22c5fd"
+      },
+      {
+        "phase": 9,
+        "bounds": [
+          34,
+          49,
+          394,
+          291
+        ],
+        "clearance": 4,
+        "opaquePixels": 41518,
+        "headCue": [
+          329.7959183673469,
+          94.1734693877551
+        ],
+        "groundBands": [],
+        "hash": "f80c27b141fbb14b034b9f7b9c57aa39ca31861983006ea4dd1a1409f1a40b0a"
+      },
+      {
+        "phase": 10,
+        "bounds": [
+          28,
+          61,
+          378,
+          295
+        ],
+        "clearance": 0,
+        "opaquePixels": 40122,
+        "headCue": [
+          329.4623655913978,
+          105.90322580645162
+        ],
+        "groundBands": [
+          [
+            121,
+            174
+          ],
+          [
+            258,
+            311
+          ],
+          [
+            328,
+            378
+          ]
+        ],
+        "hash": "0a91b59ba720711a1d1e1cf5cb5c72d3507820016a63ba6ad9792bf6569f5438"
+      },
+      {
+        "phase": 11,
+        "bounds": [
+          29,
+          53,
+          383,
+          295
+        ],
+        "clearance": 0,
+        "opaquePixels": 43783,
+        "headCue": [
+          330.7173913043478,
+          97.27173913043478
+        ],
+        "groundBands": [
+          [
+            93,
+            138
+          ],
+          [
+            256,
+            311
+          ]
+        ],
+        "hash": "10df037643193282975f85542af687ad0ae419a5daf30303c1030918a542b3af"
+      },
+      {
+        "phase": 12,
+        "bounds": [
+          33,
+          50,
+          390,
+          295
+        ],
+        "clearance": 0,
+        "opaquePixels": 41118,
+        "headCue": [
+          330.26506024096386,
+          93.87951807228916
+        ],
+        "groundBands": [
+          [
+            245,
+            302
+          ]
+        ],
+        "hash": "d3aa247a56db834c70cbec34c1ebd1d718a5f2d0d2732a049b77132e3b1f5eb1"
+      }
+    ],
+    "transitions": [
+      {
+        "from": 1,
+        "to": 2,
+        "silhouetteIoU": 0.7047414226277813,
+        "lowerBodyIoU": 0.3984148195935671,
+        "headCueDisplacement": 0.6322820107478256
+      },
+      {
+        "from": 2,
+        "to": 3,
+        "silhouetteIoU": 0.8352664241386689,
+        "lowerBodyIoU": 0.6414321434271426,
+        "headCueDisplacement": 1.4660647183895514
+      },
+      {
+        "from": 3,
+        "to": 4,
+        "silhouetteIoU": 0.639555127706204,
+        "lowerBodyIoU": 0.2617895714215902,
+        "headCueDisplacement": 3.572476572368949
+      },
+      {
+        "from": 4,
+        "to": 5,
+        "silhouetteIoU": 0.763646356391616,
+        "lowerBodyIoU": 0.5951947263422673,
+        "headCueDisplacement": 6.483959504782302
+      },
+      {
+        "from": 5,
+        "to": 6,
+        "silhouetteIoU": 0.7357240352401042,
+        "lowerBodyIoU": 0.5778443113772455,
+        "headCueDisplacement": 12.092946828624939
+      },
+      {
+        "from": 6,
+        "to": 7,
+        "silhouetteIoU": 0.6277597849325798,
+        "lowerBodyIoU": 0.273120958652192,
+        "headCueDisplacement": 5.172614997974452
+      },
+      {
+        "from": 7,
+        "to": 8,
+        "silhouetteIoU": 0.8295011822992906,
+        "lowerBodyIoU": 0.6228292813251403,
+        "headCueDisplacement": 2.1879417757367348
+      },
+      {
+        "from": 8,
+        "to": 9,
+        "silhouetteIoU": 0.6124228258082333,
+        "lowerBodyIoU": 0.4871202113606341,
+        "headCueDisplacement": 17.26503057778681
+      },
+      {
+        "from": 9,
+        "to": 10,
+        "silhouetteIoU": 0.6628984621651899,
+        "lowerBodyIoU": 0.5046156700839635,
+        "headCueDisplacement": 11.734497990808784
+      },
+      {
+        "from": 10,
+        "to": 11,
+        "silhouetteIoU": 0.7298929963095067,
+        "lowerBodyIoU": 0.6365768978136436,
+        "headCueDisplacement": 8.72225038498791
+      },
+      {
+        "from": 11,
+        "to": 12,
+        "silhouetteIoU": 0.8441104281152936,
+        "lowerBodyIoU": 0.7124344338167232,
+        "headCueDisplacement": 3.4222459143417305
+      },
+      {
+        "from": 12,
+        "to": 1,
+        "silhouetteIoU": 0.8249007720155276,
+        "lowerBodyIoU": 0.7031662269129287,
+        "headCueDisplacement": 7.031760232531475
+      }
+    ],
+    "wrap": {
+      "from": 12,
+      "to": 1,
+      "silhouetteIoU": 0.8249007720155276,
+      "lowerBodyIoU": 0.7031662269129287,
+      "headCueDisplacement": 7.031760232531475
+    }
+  },
+  "scope": "Alpha bounds/contact bands and adjacent silhouettes. Not a biomechanical or world-space no-slip certificate.",
+  "hashes": {
+    "old": "da5985a90420e4f92a1cdfe9c6cc5b8ac65d1fc8dd3c8467b58fef1680432249",
+    "revised": "8c587c40bd25678bfdff5aa0644ac7552fc040b55247b050b18e7dbc0cfde7cc"
+  }
+}

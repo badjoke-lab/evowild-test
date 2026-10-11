@@ -1,0 +1,181 @@
+{
+  "baseCommit": "fba7fea36227e46d1e50d4b1cc04eb94ff60a6a3",
+  "remoteHeadFetchedBeforeCommit": "fba7fea36227e46d1e50d4b1cc04eb94ff60a6a3",
+  "branch": "fix/2p5d-p-canonical-20261011",
+  "decision": "KEEP as incremental branch replacement; REVISE outstanding gait/art details; not final polish approval",
+  "tests": {
+    "command": "P_CANONICAL_EVIDENCE_DIR=docs/evidence/p-revision-20261011/runtime node node_modules/@playwright/test/cli.js test tests/p-canonical.spec.js --config work/p-revision/playwright.config.mjs --reporter=json",
+    "stats": {
+      "startTime": "2026-10-11T13:53:20.065Z",
+      "duration": 112973.02900000001,
+      "expected": 4,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "testsModified": false,
+    "fullRegressionRerun": false
+  },
+  "build": {
+    "command": "npm --ignore-scripts run build",
+    "passed": true,
+    "warning": "Existing >500 kB main chunk; S prebuild generation intentionally not run"
+  },
+  "diffCheck": true,
+  "hashes": {
+    "public/concept/p-run-sheet.webp": "8c587c40bd25678bfdff5aa0644ac7552fc040b55247b050b18e7dbc0cfde7cc",
+    "docs/evidence/p-revision-20261011/generated-source.png": "bddd2a5f313fa37c26b003953f0118a715846f51d88c990e2b76d43d81cd704d",
+    "docs/evidence/p-revision-20261011/old-12-phase.webp": "da5985a90420e4f92a1cdfe9c6cc5b8ac65d1fc8dd3c8467b58fef1680432249"
+  },
+  "unchangedConceptAssetHashes": {
+    "public/concept/A.webp": "2d5b3aea702918e276e77cdddab424123c098f8cbf65ad99deedbafe8ffe3097",
+    "public/concept/E.webp": "c223e1628f3c277fe9b4fd6d639882a3462e80df6deb554bec9967fe94283b28",
+    "public/concept/P.webp": "d57a1552bf9358cc060156ec72b41753441f771fdef3a87cfba2567261217bfe",
+    "public/concept/S.webp": "90bad183ef3bd4e4d4e00ec0d838cc9db65f83024f98849980c1530f4e2646fd",
+    "public/concept/a-run-sheet.webp": "6b28d9890adbf3d0376442f1a49f78bbcaf519ce258f653fec63b7a08feed7d7",
+    "public/concept/e-run-sheet.webp": "d2104a06d49f04708c7ecc9aff26d13816c1d03a6933ef2c1dd365bd940815fc",
+    "public/concept/s-run-sheet.svg": "29e55b7a9faa8ea68fb012e5e1613b10ddf54bad659f04d55e5a869735535415",
+    "public/concept/s-run-sheet.webp": "00f8c00b04ac16837f4f73fea221be0d5f711504b9476b4fda31f6e638446698"
+  },
+  "videos": {
+    "race-18-desktop.mp4": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 1280,
+          "height": 720,
+          "r_frame_rate": "60/1",
+          "nb_frames": "360"
+        }
+      ],
+      "format": {
+        "duration": "6.000000"
+      }
+    },
+    "isolated-half-speed.mp4": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 1280,
+          "height": 720,
+          "r_frame_rate": "60/1",
+          "nb_frames": "719"
+        }
+      ],
+      "format": {
+        "duration": "11.983333"
+      }
+    },
+    "race-18-mobile.mp4": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 412,
+          "height": 840,
+          "r_frame_rate": "60/1",
+          "nb_frames": "240"
+        }
+      ],
+      "format": {
+        "duration": "4.000000"
+      }
+    },
+    "isolated-continuous.mp4": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 1280,
+          "height": 720,
+          "r_frame_rate": "60/1",
+          "nb_frames": "360"
+        }
+      ],
+      "format": {
+        "duration": "6.000000"
+      }
+    }
+  },
+  "captures": [
+    {
+      "name": "isolated-continuous",
+      "cycles": 13.314110166666666,
+      "seconds": 6,
+      "allTwelveFrames": true,
+      "fieldSize": [
+        18
+      ],
+      "visibleRacers": [
+        1
+      ],
+      "errors": []
+    },
+    {
+      "name": "race-18-desktop",
+      "cycles": 12.072577,
+      "seconds": 6,
+      "allTwelveFrames": true,
+      "fieldSize": [
+        18
+      ],
+      "visibleRacers": [
+        18
+      ],
+      "errors": []
+    },
+    {
+      "name": "race-18-mobile",
+      "cycles": 8.037110333333333,
+      "seconds": 4,
+      "allTwelveFrames": true,
+      "fieldSize": [
+        18
+      ],
+      "visibleRacers": [
+        18
+      ],
+      "errors": []
+    }
+  ],
+  "cadence": {
+    "minDelta": 0,
+    "maxDelta": 0.22298399999999674,
+    "largestForwardPhaseStep": 1,
+    "pauseStable": true,
+    "resetPosition": 0.87
+  },
+  "contact": {
+    "clearance": [
+      0,
+      0,
+      0,
+      0,
+      8,
+      16,
+      24,
+      12,
+      4,
+      0,
+      0,
+      0
+    ],
+    "oldWrap": {
+      "from": 12,
+      "to": 1,
+      "silhouetteIoU": 0.5928733889310084,
+      "lowerBodyIoU": 0.2820460814538374,
+      "headCueDisplacement": 7.540294122669075
+    },
+    "revisedWrap": {
+      "from": 12,
+      "to": 1,
+      "silhouetteIoU": 0.8249007720155276,
+      "lowerBodyIoU": 0.7031662269129287,
+      "headCueDisplacement": 7.031760232531475
+    },
+    "horizontalNoSlip": "NOT PASSED: no horizontal ground constraint; see contact-hold-travel.json"
+  }
+}

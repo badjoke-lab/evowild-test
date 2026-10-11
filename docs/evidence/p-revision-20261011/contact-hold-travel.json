@@ -1,0 +1,1608 @@
+{
+  "scope": "Root travel while the exact contact picture is held. No per-foot tracking; not a no-slip certificate. Positive travel exposes the missing horizontal ground constraint.",
+  "samples": [
+    {
+      "capture": "isolated-continuous",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 1.0,
+      "projectedTravelPx": 6.8
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 11,
+      "durationMs": 50,
+      "rootTravelMeters": 1.02,
+      "projectedTravelPx": 6.936
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 12,
+      "durationMs": 33,
+      "rootTravelMeters": 1.04,
+      "projectedTravelPx": 7.072
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 1,
+      "durationMs": 33,
+      "rootTravelMeters": 1.07,
+      "projectedTravelPx": 7.276
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 2,
+      "durationMs": 16,
+      "rootTravelMeters": 0.54,
+      "projectedTravelPx": 3.672
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 3,
+      "durationMs": 17,
+      "rootTravelMeters": 0.56,
+      "projectedTravelPx": 3.808
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 4,
+      "durationMs": 34,
+      "rootTravelMeters": 1.13,
+      "projectedTravelPx": 7.684
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 10,
+      "durationMs": 17,
+      "rootTravelMeters": 0.6,
+      "projectedTravelPx": 4.08
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 11,
+      "durationMs": 33,
+      "rootTravelMeters": 1.2,
+      "projectedTravelPx": 8.16
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 12,
+      "durationMs": 33,
+      "rootTravelMeters": 1.2,
+      "projectedTravelPx": 8.16
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 1,
+      "durationMs": 16,
+      "rootTravelMeters": 0.59,
+      "projectedTravelPx": 4.012
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 2,
+      "durationMs": 17,
+      "rootTravelMeters": 0.59,
+      "projectedTravelPx": 4.012
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 3,
+      "durationMs": 34,
+      "rootTravelMeters": 1.2,
+      "projectedTravelPx": 8.16
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 4,
+      "durationMs": 34,
+      "rootTravelMeters": 1.2,
+      "projectedTravelPx": 8.16
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 10,
+      "durationMs": 17,
+      "rootTravelMeters": 0.59,
+      "projectedTravelPx": 4.012
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 11,
+      "durationMs": 33,
+      "rootTravelMeters": 1.2,
+      "projectedTravelPx": 8.16
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 12,
+      "durationMs": 16,
+      "rootTravelMeters": 0.6,
+      "projectedTravelPx": 4.08
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 1,
+      "durationMs": 17,
+      "rootTravelMeters": 0.6,
+      "projectedTravelPx": 4.08
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 2,
+      "durationMs": 34,
+      "rootTravelMeters": 1.19,
+      "projectedTravelPx": 8.092
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 3,
+      "durationMs": 34,
+      "rootTravelMeters": 1.2,
+      "projectedTravelPx": 8.16
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 4,
+      "durationMs": 17,
+      "rootTravelMeters": 0.6,
+      "projectedTravelPx": 4.08
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 1.2,
+      "projectedTravelPx": 8.16
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 11,
+      "durationMs": 16,
+      "rootTravelMeters": 0.6,
+      "projectedTravelPx": 4.08
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 12,
+      "durationMs": 33,
+      "rootTravelMeters": 1.2,
+      "projectedTravelPx": 8.16
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 1,
+      "durationMs": 17,
+      "rootTravelMeters": 0.6,
+      "projectedTravelPx": 4.08
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 2,
+      "durationMs": 34,
+      "rootTravelMeters": 1.2,
+      "projectedTravelPx": 8.16
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 3,
+      "durationMs": 34,
+      "rootTravelMeters": 1.19,
+      "projectedTravelPx": 8.092
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 4,
+      "durationMs": 34,
+      "rootTravelMeters": 0.6,
+      "projectedTravelPx": 4.08
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 10,
+      "durationMs": 16,
+      "rootTravelMeters": 0.59,
+      "projectedTravelPx": 4.012
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 11,
+      "durationMs": 33,
+      "rootTravelMeters": 1.19,
+      "projectedTravelPx": 8.092
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 12,
+      "durationMs": 17,
+      "rootTravelMeters": 0.59,
+      "projectedTravelPx": 4.012
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 1,
+      "durationMs": 34,
+      "rootTravelMeters": 1.19,
+      "projectedTravelPx": 8.092
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 2,
+      "durationMs": 34,
+      "rootTravelMeters": 1.19,
+      "projectedTravelPx": 8.092
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 3,
+      "durationMs": 34,
+      "rootTravelMeters": 0.59,
+      "projectedTravelPx": 4.012
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 4,
+      "durationMs": 34,
+      "rootTravelMeters": 1.19,
+      "projectedTravelPx": 8.092
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 1.18,
+      "projectedTravelPx": 8.024
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 11,
+      "durationMs": 33,
+      "rootTravelMeters": 1.18,
+      "projectedTravelPx": 8.024
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 12,
+      "durationMs": 17,
+      "rootTravelMeters": 0.6,
+      "projectedTravelPx": 4.08
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 1,
+      "durationMs": 34,
+      "rootTravelMeters": 1.18,
+      "projectedTravelPx": 8.024
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 2,
+      "durationMs": 50,
+      "rootTravelMeters": 1.18,
+      "projectedTravelPx": 8.024
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 3,
+      "durationMs": 17,
+      "rootTravelMeters": 0.58,
+      "projectedTravelPx": 3.944
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 4,
+      "durationMs": 34,
+      "rootTravelMeters": 1.15,
+      "projectedTravelPx": 7.82
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 1.14,
+      "projectedTravelPx": 7.752
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 11,
+      "durationMs": 17,
+      "rootTravelMeters": 0.57,
+      "projectedTravelPx": 3.876
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 12,
+      "durationMs": 34,
+      "rootTravelMeters": 1.14,
+      "projectedTravelPx": 7.752
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 1,
+      "durationMs": 50,
+      "rootTravelMeters": 1.14,
+      "projectedTravelPx": 7.752
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 2,
+      "durationMs": 33,
+      "rootTravelMeters": 1.14,
+      "projectedTravelPx": 7.752
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 3,
+      "durationMs": 17,
+      "rootTravelMeters": 0.57,
+      "projectedTravelPx": 3.876
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 4,
+      "durationMs": 34,
+      "rootTravelMeters": 1.14,
+      "projectedTravelPx": 7.752
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 1.14,
+      "projectedTravelPx": 7.752
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 11,
+      "durationMs": 17,
+      "rootTravelMeters": 0.57,
+      "projectedTravelPx": 3.876
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 12,
+      "durationMs": 50,
+      "rootTravelMeters": 1.14,
+      "projectedTravelPx": 7.752
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 1,
+      "durationMs": 33,
+      "rootTravelMeters": 1.14,
+      "projectedTravelPx": 7.752
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 2,
+      "durationMs": 17,
+      "rootTravelMeters": 0.57,
+      "projectedTravelPx": 3.876
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 3,
+      "durationMs": 34,
+      "rootTravelMeters": 1.14,
+      "projectedTravelPx": 7.752
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 4,
+      "durationMs": 17,
+      "rootTravelMeters": 1.14,
+      "projectedTravelPx": 7.752
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 1.14,
+      "projectedTravelPx": 7.752
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 11,
+      "durationMs": 33,
+      "rootTravelMeters": 0.57,
+      "projectedTravelPx": 3.876
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 12,
+      "durationMs": 33,
+      "rootTravelMeters": 1.14,
+      "projectedTravelPx": 7.752
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 1,
+      "durationMs": 33,
+      "rootTravelMeters": 1.14,
+      "projectedTravelPx": 7.752
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 2,
+      "durationMs": 17,
+      "rootTravelMeters": 0.57,
+      "projectedTravelPx": 3.876
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 3,
+      "durationMs": 17,
+      "rootTravelMeters": 1.14,
+      "projectedTravelPx": 7.752
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 4,
+      "durationMs": 33,
+      "rootTravelMeters": 1.15,
+      "projectedTravelPx": 7.82
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 0.58,
+      "projectedTravelPx": 3.944
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 11,
+      "durationMs": 33,
+      "rootTravelMeters": 1.14,
+      "projectedTravelPx": 7.752
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 12,
+      "durationMs": 33,
+      "rootTravelMeters": 1.14,
+      "projectedTravelPx": 7.752
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 1,
+      "durationMs": 17,
+      "rootTravelMeters": 0.58,
+      "projectedTravelPx": 3.944
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 2,
+      "durationMs": 17,
+      "rootTravelMeters": 1.15,
+      "projectedTravelPx": 7.82
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 3,
+      "durationMs": 33,
+      "rootTravelMeters": 1.15,
+      "projectedTravelPx": 7.82
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 4,
+      "durationMs": 33,
+      "rootTravelMeters": 1.15,
+      "projectedTravelPx": 7.82
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 10,
+      "durationMs": 16,
+      "rootTravelMeters": 0.57,
+      "projectedTravelPx": 3.876
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 11,
+      "durationMs": 33,
+      "rootTravelMeters": 1.15,
+      "projectedTravelPx": 7.82
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 12,
+      "durationMs": 33,
+      "rootTravelMeters": 1.14,
+      "projectedTravelPx": 7.752
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 2,
+      "durationMs": 33,
+      "rootTravelMeters": 1.14,
+      "projectedTravelPx": 7.752
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 3,
+      "durationMs": 33,
+      "rootTravelMeters": 1.15,
+      "projectedTravelPx": 7.82
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 4,
+      "durationMs": 16,
+      "rootTravelMeters": 0.58,
+      "projectedTravelPx": 3.944
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 1.15,
+      "projectedTravelPx": 7.82
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 11,
+      "durationMs": 33,
+      "rootTravelMeters": 1.15,
+      "projectedTravelPx": 7.82
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 12,
+      "durationMs": 17,
+      "rootTravelMeters": 0.57,
+      "projectedTravelPx": 3.876
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 1,
+      "durationMs": 17,
+      "rootTravelMeters": 0.57,
+      "projectedTravelPx": 3.876
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 2,
+      "durationMs": 33,
+      "rootTravelMeters": 1.15,
+      "projectedTravelPx": 7.82
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 3,
+      "durationMs": 33,
+      "rootTravelMeters": 1.15,
+      "projectedTravelPx": 7.82
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 4,
+      "durationMs": 16,
+      "rootTravelMeters": 0.58,
+      "projectedTravelPx": 3.944
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 1.15,
+      "projectedTravelPx": 7.82
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 11,
+      "durationMs": 17,
+      "rootTravelMeters": 0.57,
+      "projectedTravelPx": 3.876
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 12,
+      "durationMs": 17,
+      "rootTravelMeters": 0.58,
+      "projectedTravelPx": 3.944
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 1,
+      "durationMs": 33,
+      "rootTravelMeters": 1.15,
+      "projectedTravelPx": 7.82
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 2,
+      "durationMs": 33,
+      "rootTravelMeters": 1.15,
+      "projectedTravelPx": 7.82
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 3,
+      "durationMs": 16,
+      "rootTravelMeters": 0.57,
+      "projectedTravelPx": 3.876
+    },
+    {
+      "capture": "isolated-continuous",
+      "phase": 4,
+      "durationMs": 50,
+      "rootTravelMeters": 1.15,
+      "projectedTravelPx": 7.82
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 11,
+      "durationMs": 50,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 12,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 1,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 2,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 3,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 4,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 11,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 12,
+      "durationMs": 33,
+      "rootTravelMeters": 0.93,
+      "projectedTravelPx": 9.672
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 1,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 2,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 3,
+      "durationMs": 16,
+      "rootTravelMeters": 0.46,
+      "projectedTravelPx": 4.784
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 4,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 11,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 12,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 1,
+      "durationMs": 16,
+      "rootTravelMeters": 0.46,
+      "projectedTravelPx": 4.784
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 2,
+      "durationMs": 33,
+      "rootTravelMeters": 0.93,
+      "projectedTravelPx": 9.672
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 3,
+      "durationMs": 50,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 4,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 11,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 12,
+      "durationMs": 17,
+      "rootTravelMeters": 0.46,
+      "projectedTravelPx": 4.784
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 1,
+      "durationMs": 50,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 2,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 3,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 4,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 10,
+      "durationMs": 17,
+      "rootTravelMeters": 0.46,
+      "projectedTravelPx": 4.784
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 11,
+      "durationMs": 50,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 12,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 1,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 2,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 3,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 4,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 11,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 12,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 1,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 2,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 3,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 4,
+      "durationMs": 17,
+      "rootTravelMeters": 0.45,
+      "projectedTravelPx": 4.68
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 0.9,
+      "projectedTravelPx": 9.36
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 11,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 12,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 1,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 2,
+      "durationMs": 17,
+      "rootTravelMeters": 0.45,
+      "projectedTravelPx": 4.68
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 3,
+      "durationMs": 50,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 4,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 11,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 12,
+      "durationMs": 17,
+      "rootTravelMeters": 0.46,
+      "projectedTravelPx": 4.784
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 1,
+      "durationMs": 34,
+      "rootTravelMeters": 0.46,
+      "projectedTravelPx": 4.784
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 2,
+      "durationMs": 34,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 3,
+      "durationMs": 34,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 4,
+      "durationMs": 34,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 10,
+      "durationMs": 17,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 11,
+      "durationMs": 50,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 12,
+      "durationMs": 34,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 1,
+      "durationMs": 34,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 2,
+      "durationMs": 34,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 3,
+      "durationMs": 34,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 4,
+      "durationMs": 34,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 10,
+      "durationMs": 34,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 11,
+      "durationMs": 34,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 12,
+      "durationMs": 34,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 1,
+      "durationMs": 34,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 2,
+      "durationMs": 34,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 3,
+      "durationMs": 34,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 4,
+      "durationMs": 17,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 10,
+      "durationMs": 34,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 11,
+      "durationMs": 34,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 12,
+      "durationMs": 34,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 1,
+      "durationMs": 34,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 2,
+      "durationMs": 17,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 3,
+      "durationMs": 50,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 4,
+      "durationMs": 34,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 10,
+      "durationMs": 34,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 11,
+      "durationMs": 34,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 1,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 2,
+      "durationMs": 50,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 9.464
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 3,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-desktop",
+      "phase": 4,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 9.568
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 11,
+      "durationMs": 50,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 12,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 1,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 2,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 3,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 4,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 11,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 12,
+      "durationMs": 33,
+      "rootTravelMeters": 0.93,
+      "projectedTravelPx": 7.626
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 1,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 2,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 3,
+      "durationMs": 16,
+      "rootTravelMeters": 0.46,
+      "projectedTravelPx": 3.772
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 4,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 11,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 12,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 1,
+      "durationMs": 16,
+      "rootTravelMeters": 0.46,
+      "projectedTravelPx": 3.772
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 2,
+      "durationMs": 33,
+      "rootTravelMeters": 0.93,
+      "projectedTravelPx": 7.626
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 3,
+      "durationMs": 50,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 4,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 11,
+      "durationMs": 17,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 12,
+      "durationMs": 34,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 1,
+      "durationMs": 50,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 2,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 3,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 4,
+      "durationMs": 33,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 10,
+      "durationMs": 34,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 11,
+      "durationMs": 50,
+      "rootTravelMeters": 0.92,
+      "projectedTravelPx": 7.544
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 12,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 1,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 2,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 3,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 4,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 11,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 12,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 1,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 2,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 3,
+      "durationMs": 17,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 4,
+      "durationMs": 34,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 0.9,
+      "projectedTravelPx": 7.38
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 11,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 12,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 1,
+      "durationMs": 17,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 2,
+      "durationMs": 34,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 3,
+      "durationMs": 50,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 4,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 10,
+      "durationMs": 33,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 11,
+      "durationMs": 17,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 12,
+      "durationMs": 34,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 1,
+      "durationMs": 34,
+      "rootTravelMeters": 0.46,
+      "projectedTravelPx": 3.772
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 2,
+      "durationMs": 34,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 3,
+      "durationMs": 34,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    },
+    {
+      "capture": "race-18-mobile",
+      "phase": 4,
+      "durationMs": 34,
+      "rootTravelMeters": 0.91,
+      "projectedTravelPx": 7.462
+    }
+  ]
+}

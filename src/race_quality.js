@@ -97,9 +97,8 @@ const MORPH_META = {
 
 const PEA_MOTION_V2 = {
   P: {
-    // Twelve authored poses, with longer load/landing and brief suspension.
-    // Sum remains six cycle units. P's cadence below gives ~0.45s at full speed.
-    durations:[0.50,0.58,0.60,0.45,0.40,0.28,0.26,0.38,0.52,0.58,0.70,0.75],
+    // 70% support, 30% low suspension/reach; six cycle units in total.
+    durations:[0.60,0.60,0.60,0.60,0.30,0.30,0.30,0.40,0.50,0.60,0.60,0.60],
     transform:{} // Preserve canonical proportions; lift is already in the artwork.
   },
   E: {
@@ -451,6 +450,7 @@ function makeRacers() {
                   ? 1.5
                   : LANES[i],
     phaseOffset:i*0.87,
+    pRunPosition:i*0.87,
     cooldown:(BATTLE_REVIEW_MODE && i===1) || (TRAFFIC_REVIEW_MODE && i<2) || (LANE_REVIEW_MODE && (i===1 || i===2)) ? 999999 : 0,
     laneHoldUntil:0,
     laneDecisionCount:0,
@@ -888,6 +888,14 @@ function updateRace(dtMs) {
     const step = r.accel*dt*(diff>=0 ? 1 : 1.45);
     r.speed += clamp(diff,-step,step);
 
+    // Integrate P cadence at the simulation step. elapsed * currentCadence
+    // rewrites the entire phase history whenever speed changes, causing a
+    // backwards jump or a skipped pose during acceleration / deceleration.
+    if (r.morph === "P") {
+      const cadence=(9.5+clamp(r.speed/34,0,1)*9.5)*MORPH_META.P.cadence*.75;
+      r.pRunPosition += cadence*dt;
+    }
+
     if (r.lane!==r.targetLane) {
       const dir = Math.sign(r.targetLane-r.lane);
       const laneStep = dt*1.9;
@@ -1240,7 +1248,7 @@ function drawRacers() {
     maxEdge=Math.max(maxEdge,item.x+spriteW*.52);
 
     const cadence=(9.5+clamp(r.speed/34,0,1)*9.5)*meta.cadence*(r.morph==="P" ? 0.75 : 1);
-    const frameFloat=elapsed/1000*cadence+r.phaseOffset;
+    const frameFloat=r.morph==="P" ? r.pRunPosition : elapsed/1000*cadence+r.phaseOffset;
     const cyclePosition=((frameFloat%RUN_FRAMES.length)+RUN_FRAMES.length)%RUN_FRAMES.length;
     const frameIndex=MOTION_REVIEW_MODE && r.id===SELECTED_ID && MOTION_REVIEW_FRAME>=0
       ? Math.min(MOTION_REVIEW_FRAME,runFramesFor(r.morph).length-1)
@@ -1340,6 +1348,10 @@ function drawRacers() {
     }
 
     if(selectedRacer){
+      if(r.morph==="P") {
+        stage.dataset.pRunPosition=r.pRunPosition.toFixed(6);
+        stage.dataset.pCadenceModel="integrated-fixed-step";
+      }
       stage.dataset.selectedRunFrame=String(frameIndex);
       stage.dataset.selectedRunPhase=frame.phase;
       stage.dataset.selectedMorph=r.morph;
