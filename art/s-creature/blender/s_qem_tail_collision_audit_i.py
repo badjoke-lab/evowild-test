@@ -16,7 +16,7 @@ OUT.mkdir(parents=True,exist_ok=True)
 ref=ROOT/"references/00_s_type_modeling_image_v1.png"
 glb=ROOT/"experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb"
 assert hashlib.sha256(ref.read_bytes()).hexdigest()=="93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6"
-assert hashlib.sha256(glb.read_bytes()).hexdigest()=="e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f6"
+assert hashlib.sha256(glb.read_bytes()).hexdigest()=="e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f"
 src=bpy.data.objects["QEM_IMMUTABLE_DONOR"]
 a=bpy.data.objects["S_QEM_TAIL_MORPH_TEST_A_NOT_APPROVED"]
 h=bpy.data.objects["S_QEM_REAL_TAIL_SWEPT_BLADES_H_DESIGN_TRIAL"]
