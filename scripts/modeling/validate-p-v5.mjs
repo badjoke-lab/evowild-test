@@ -1,0 +1,16 @@
+import fs from 'node:fs';
+import {createHash} from 'node:crypto';
+import validator from 'gltf-validator';
+const dest='docs/evidence/p-canonical-3d-v5-20261011';
+const file='public/models/evowild-p/p-canonical-v5.glb';
+const bytes=fs.readFileSync(file);
+const report=await validator.validateBytes(new Uint8Array(bytes),{uri:file,maxIssues:1000});
+fs.writeFileSync(`${dest}/gltf-validation.json`,JSON.stringify(report,null,2)+'\n');
+const gltf=JSON.parse(bytes.subarray(20,20+bytes.readUInt32LE(12)));
+if(report.issues.numErrors>0)throw Error(`GLB validation errors: ${report.issues.numErrors}`);
+if(!gltf.skins?.length||!gltf.animations?.length)throw Error('Missing rig/run clip');
+if([...gltf.buffers,...(gltf.images||[])].some(x=>x.uri))throw Error('External resource in GLB');
+const protectedPaths=['public/concept/P.webp',...['v1','v2','v3','v4'].map(v=>`public/models/evowild-p/p-canonical-${v}.glb`)];
+const sha=Object.fromEntries(protectedPaths.map(p=>[p,createHash('sha256').update(fs.readFileSync(p)).digest('hex')]));
+fs.writeFileSync(`${dest}/protected-asset-sha256.json`,JSON.stringify(sha,null,2)+'\n');
+console.log(`GLB PASS: ${bytes.length} bytes; errors ${report.issues.numErrors}, warnings ${report.issues.numWarnings}`);
