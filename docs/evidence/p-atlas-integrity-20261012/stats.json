@@ -1,0 +1,422 @@
+{
+  "imageSize": [
+    1664,
+    960
+  ],
+  "frames": [
+    {
+      "phase": 1,
+      "visibleAlphaPixels": 42561,
+      "suspectPixels": 2,
+      "fractionOfVisible": 0.000046991377082305394,
+      "detected": {
+        "magenta": 2,
+        "blue": 0,
+        "green": 0
+      },
+      "boundingBox": [
+        309,
+        184,
+        335,
+        232
+      ],
+      "verticalBins20px": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "phase": 2,
+      "visibleAlphaPixels": 42255,
+      "suspectPixels": 0,
+      "fractionOfVisible": 0,
+      "detected": {
+        "magenta": 0,
+        "blue": 0,
+        "green": 0
+      },
+      "boundingBox": null,
+      "verticalBins20px": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "phase": 3,
+      "visibleAlphaPixels": 43507,
+      "suspectPixels": 2,
+      "fractionOfVisible": 0.00004596961408508976,
+      "detected": {
+        "magenta": 2,
+        "blue": 0,
+        "green": 0
+      },
+      "boundingBox": [
+        272,
+        103,
+        377,
+        203
+      ],
+      "verticalBins20px": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "phase": 4,
+      "visibleAlphaPixels": 36541,
+      "suspectPixels": 0,
+      "fractionOfVisible": 0,
+      "detected": {
+        "magenta": 0,
+        "blue": 0,
+        "green": 0
+      },
+      "boundingBox": null,
+      "verticalBins20px": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "phase": 5,
+      "visibleAlphaPixels": 34056,
+      "suspectPixels": 3,
+      "fractionOfVisible": 0.00008809020436927414,
+      "detected": {
+        "magenta": 3,
+        "blue": 0,
+        "green": 0
+      },
+      "boundingBox": [
+        62,
+        115,
+        380,
+        234
+      ],
+      "verticalBins20px": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "phase": 6,
+      "visibleAlphaPixels": 35885,
+      "suspectPixels": 6,
+      "fractionOfVisible": 0.00016720078027030792,
+      "detected": {
+        "magenta": 6,
+        "blue": 0,
+        "green": 0
+      },
+      "boundingBox": [
+        75,
+        95,
+        190,
+        210
+      ],
+      "verticalBins20px": [
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "phase": 7,
+      "visibleAlphaPixels": 41012,
+      "suspectPixels": 13,
+      "fractionOfVisible": 0.0003169803959816639,
+      "detected": {
+        "magenta": 13,
+        "blue": 0,
+        "green": 0
+      },
+      "boundingBox": [
+        192,
+        165,
+        319,
+        207
+      ],
+      "verticalBins20px": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        6,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "phase": 8,
+      "visibleAlphaPixels": 40227,
+      "suspectPixels": 11,
+      "fractionOfVisible": 0.00027344818156959256,
+      "detected": {
+        "magenta": 11,
+        "blue": 0,
+        "green": 0
+      },
+      "boundingBox": [
+        215,
+        165,
+        336,
+        214
+      ],
+      "verticalBins20px": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        3,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "phase": 9,
+      "visibleAlphaPixels": 41518,
+      "suspectPixels": 7,
+      "fractionOfVisible": 0.0001686015704031986,
+      "detected": {
+        "magenta": 7,
+        "blue": 0,
+        "green": 0
+      },
+      "boundingBox": [
+        273,
+        219,
+        348,
+        242
+      ],
+      "verticalBins20px": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        5,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "phase": 10,
+      "visibleAlphaPixels": 40122,
+      "suspectPixels": 3,
+      "fractionOfVisible": 0.00007477194556602363,
+      "detected": {
+        "magenta": 3,
+        "blue": 0,
+        "green": 0
+      },
+      "boundingBox": [
+        280,
+        232,
+        330,
+        237
+      ],
+      "verticalBins20px": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "phase": 11,
+      "visibleAlphaPixels": 43783,
+      "suspectPixels": 3,
+      "fractionOfVisible": 0.0000685197451065482,
+      "detected": {
+        "magenta": 3,
+        "blue": 0,
+        "green": 0
+      },
+      "boundingBox": [
+        102,
+        213,
+        339,
+        239
+      ],
+      "verticalBins20px": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        2,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "phase": 12,
+      "visibleAlphaPixels": 41118,
+      "suspectPixels": 8,
+      "fractionOfVisible": 0.00019456199231480132,
+      "detected": {
+        "magenta": 8,
+        "blue": 0,
+        "green": 0
+      },
+      "boundingBox": [
+        89,
+        53,
+        344,
+        236
+      ],
+      "verticalBins20px": [
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        5,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "totalSuspect": 58,
+  "totalVisible": 482585,
+  "method": "RGBA alpha>12, conservative magenta/blue/green anomaly families; protect cyan eye box; not an anatomical or source-identity validator",
+  "caveat": "Counts can include legitimate cool/warm antialias pixels and miss dark streaks; review overlaid masks before cleaning."
+}
