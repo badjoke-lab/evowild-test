@@ -88,8 +88,6 @@ def make_mesh(case_id,y_margin,half_extra,transition_radial,transition_alpha,out
         while queue:
             f=queue.pop()
             for e in f.edges:
-                for link in f.link_loops:
-                    pass
                 for g in e.link_faces:
                     if g in remaining:
                         remaining.remove(g);group.add(g);queue.append(g)
