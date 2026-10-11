@@ -1,0 +1,65 @@
+name: EvoWild S original authority exact sheet inspection only
+on:
+  push:
+    branches: [exp/s-canonical-fullbody-rebuild-20261011]
+    paths: [.github/workflows/s-authority-exact-original-inspection.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  inspect-real-authority-not-new-picture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /.github/workflows/s-authority-exact-original-inspection.yml
+      - run: |
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+          python3 -m pip install -q pillow
+          python3 - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          import base64,json,hashlib,io
+          source=Path('art/s-creature/references/00_s_type_modeling_image_v1.png')
+          im=Image.open(source).convert('RGB')
+          assert im.size==(1448,1086)
+          dest=Path('art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/authority-inspection')
+          dest.mkdir(parents=True,exist_ok=True)
+          areas={
+            'FULL_DESIGN_SHEET':(0,0,1448,1086),
+            'TOP_LEFT_REFERENCE':(0,0,724,575),
+            'TOP_RIGHT_REFERENCE':(724,0,1448,575),
+            'LOWER_DESIGN_SHEET':(0,505,1448,1086)
+          }
+          reports={}
+          for name,box in areas.items():
+            crop=im.crop(box)
+            crop.thumbnail((1200,760))
+            buff=io.BytesIO()
+            crop.save(buff,format='JPEG',quality=73,subsampling=0,optimize=True)
+            payload=buff.getvalue()
+            (dest/(name+'.b64.txt')).write_text(base64.b64encode(payload).decode('ascii')+'\n')
+            reports[name]={'source_bounds':box,'preview_size':crop.size,'preview_sha256':hashlib.sha256(payload).hexdigest(),'preview_bytes':len(payload)}
+          (dest/'AUTHORITY_ONLY_ACTUAL_IMAGE_AUDIT.json').write_text(json.dumps({
+             'source_file':'art/s-creature/references/00_s_type_modeling_image_v1.png',
+             'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),
+             'original_png_pixels':im.size,
+             'variants_are_unmodified_crops_and_JPEG_preview_of_exact_source':True,
+             'never_replace_source_image':True,
+             'visual_regions':reports
+          },indent=2)+'\n')
+          print('TRUE_S_AUTHORITY_UNMODIFIED',reports)
+          PY
+      - name: Commit auditable reference viewing only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/authority-inspection/
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit: inspect original immutable S modeling sheet regions, not new concept art'
+            git pull --rebase origin exp/s-canonical-fullbody-rebuild-20261011
+            git push origin HEAD:exp/s-canonical-fullbody-rebuild-20261011
+          fi
