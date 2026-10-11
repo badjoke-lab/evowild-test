@@ -1,0 +1,68 @@
+name: EvoWild S A0 actual Blender visual review transport
+on:
+  push:
+    branches: [exp/s-canonical-fullbody-rebuild-20261011]
+    paths: [.github/workflows/s-canonical-a0-visual-review-export.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  export-source-and-actual-image-thumbnails-as-auditable-UTF8:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/a0-full-silhouette/review/
+      - name: Preserve exact original authority file identity
+        run: |
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+      - name: Create faithfully downscaled base64 image-text for independent real visual review
+        run: |
+          python3 -m pip install -q pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import base64,io,json,hashlib
+          root=Path("art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/a0-full-silhouette")
+          out=root/"review"/"source-image-inspection-transport"
+          out.mkdir(parents=True,exist_ok=True)
+          results={}
+          for target,file,width in [
+             ("source_vs_A0","ORIGINAL_S_REFERENCE_VS_NEW_A0_REAL_3D.jpg",1280),
+             ("A0_5_view","ACTUAL_CANONICAL_CLEANROOM_A0_FIVE_VIEW.jpg",1600),
+             ("A0_side","S_CLEANROOM_A0_ACTUAL_3D_SIDE.png",900)]:
+              path=root/"review"/file
+              original=path.read_bytes()
+              im=Image.open(io.BytesIO(original)).convert("RGB")
+              dims=im.size
+              im.thumbnail((width,850))
+              mem=io.BytesIO()
+              im.save(mem,format="JPEG",quality=76,subsampling=0,optimize=True)
+              payload=base64.b64encode(mem.getvalue()).decode("ascii")
+              (out/(target+".b64.txt")).write_text(payload+"\n")
+              results[target]={
+                  "from_actual_GitHub_committed_original":file,
+                  "source_SHA256":hashlib.sha256(original).hexdigest(),
+                  "source_dimensions":dims,
+                  "inspection_dimensions":im.size,
+                  "inspection_JPEG_SHA256":hashlib.sha256(mem.getvalue()).hexdigest(),
+                  "inspection_bytes":len(mem.getvalue()),
+                  "content_encoded_for_image_inspection_only":True
+              }
+          (out/"AUDIT.json").write_text(json.dumps(results,indent=2)+"\n")
+          print("A0_TRUE_IMAGE_REVIEW_EXPORT",results)
+          PY
+      - name: Push review transport evidence to isolated branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/a0-full-silhouette/review/source-image-inspection-transport/
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit: make exact existing A0 Blender renders directly inspectable without replacing reference'
+            git pull --rebase origin exp/s-canonical-fullbody-rebuild-20261011
+            git push origin HEAD:exp/s-canonical-fullbody-rebuild-20261011
+          fi
