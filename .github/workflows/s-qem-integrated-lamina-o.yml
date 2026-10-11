@@ -1,0 +1,111 @@
+name: EvoWild S true sewn armature-ready QEM armor laminae O
+on:
+  push:
+    branches: [exp/s-qem-integrated-lamina-o-20261011]
+    paths:
+      - .github/workflows/s-qem-integrated-lamina-o.yml
+      - art/s-creature/blender/s_qem_tail_sewn_lamina_o.py
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  real-QEM-attached-armor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_qem_tail_sewn_lamina_o.py
+            /art/s-creature/experiments/qem-deformation-gate-20261010/tail-core-regularized-m-v1/S-QEM-true-one-piece-tail-core-M-TRIAL.blend
+            /art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/qem-deformation-gate-20261010/tail-integrated-lamina-o-v1/
+            /.github/workflows/s-qem-integrated-lamina-o.yml
+      - name: Exact original S-Type authority and source immutable
+        run: |
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+          echo 'e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f  art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb' | sha256sum --check -
+      - name: Install actual Blender
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Replace real original M-skin face patches with sewn tapered armored feather leaves
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/tail-core-regularized-m-v1/S-QEM-true-one-piece-tail-core-M-TRIAL.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_tail_sewn_lamina_o.py
+      - name: Preserve actual five views, tail detail and canonical side-by-side
+        run: |
+          python3 -m pip install -q pillow
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          p=Path("art/s-creature/experiments/qem-deformation-gate-20261010/tail-integrated-lamina-o-v1")
+          d=json.loads((p/"REAL_QEM_SKIN_SEWN_ARMOR_O_QA.json").read_text())
+          assert d["original_QEM_untouched"] and d["original_M_untouched"]
+          assert d["original_QEM_vertices"]==29948 and d["original_QEM_triangles"]==59932
+          assert d["M_core_vertices"]==31948 and d["M_core_triangles"]==63932
+          assert d["new_S_skin_connected_armor_plate_count"]==3
+          assert not d["production_game_approved"] and not d["armature_transferred"]
+          assert (p/"S-QEM-original-connected-armor-laminae-O-TRIAL.blend").stat().st_size>50000
+          ref=Image.open("art/s-creature/references/00_s_type_modeling_image_v1.png").convert("RGB")
+          w,h=ref.size
+          canon=ref.crop((int(w*.018),int(h*.070),int(w*.525),int(h*.476)))
+          canon.save(p/"review"/"AUTHORITY_EXACT_REAL_SIDE_CROP.jpg",quality=93)
+          views=["SIDE","FRONT","FRONT34","REAR34","BACK"]
+          W,H=400,318
+          sheet=Image.new("RGB",(W*5,H*2),(234,236,239))
+          pen=ImageDraw.Draw(sheet)
+          for i,view in enumerate(views):
+              for j,key in enumerate(("BASE_M","ARMOR_O")):
+                  fn=p/"review"/f"REAL_QEM_{key}_{view}.png"
+                  assert fn.stat().st_size>10000,fn
+                  image=Image.open(fn).convert("RGB")
+                  image.thumbnail((W-12,H-31))
+                  sheet.paste(image,(W*i+(W-image.width)//2,H*j+28+(H-28-image.height)//2))
+                  pen.text((W*i+9,H*j+5),f"{key} / {view}",(14,15,20))
+          sheet.save(p/"review"/"REAL_QEM_O_FIVE_VIEW_COMPARE.jpg",quality=94,optimize=True)
+          W,H=605,490
+          detail=Image.new("RGB",(W*3,H*2),(234,236,239))
+          pen=ImageDraw.Draw(detail)
+          for i,view in enumerate(("SIDE","FRONT34","REAR34")):
+              for j,key in enumerate(("BASE_M","ARMOR_O")):
+                  fn=p/"review"/f"REAL_QEM_CLOSE_{key}_{view}.png"
+                  assert fn.stat().st_size>10000,fn
+                  image=Image.open(fn).convert("RGB")
+                  image.thumbnail((W-12,H-31))
+                  detail.paste(image,(W*i+(W-image.width)//2,H*j+29+(H-29-image.height)//2))
+                  pen.text((W*i+9,H*j+5),f"{key} / {view} CLOSE UP",(14,15,20))
+          detail.save(p/"review"/"REAL_QEM_O_ARMOR_CLOSE_COMPARE.jpg",quality=94,optimize=True)
+          side=Image.new("RGB",(3*W,H),(235,237,240))
+          pen=ImageDraw.Draw(side)
+          for i,(title,image) in enumerate((
+              ("CANONICAL S DESIGN",canon),
+              ("REAL QEM CORE M",Image.open(p/"review"/"REAL_QEM_BASE_M_SIDE.png").convert("RGB")),
+              ("REAL QEM SEWN O",Image.open(p/"review"/"REAL_QEM_ARMOR_O_SIDE.png").convert("RGB")))):
+              image.thumbnail((W-12,H-31))
+              side.paste(image,(W*i+(W-image.width)//2,28+(H-28-image.height)//2))
+              pen.text((W*i+8,6),title,(12,15,20))
+          side.save(p/"review"/"CANONICAL_S_VS_REAL_QEM_ARMOR_O.jpg",quality=94,optimize=True)
+          print("ACTUAL_SEWN_ARMOR_O",d["geometry_gate"],d["topology"],d["tail_roi_self_intersection"])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-original-QEM-sewn-volumetric-tail-O
+          path: art/s-creature/experiments/qem-deformation-gate-20261010/tail-integrated-lamina-o-v1/
+          if-no-files-found: warn
+      - name: Persist real source Blender and QA on isolated branch only
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/qem-deformation-gate-20261010/tail-integrated-lamina-o-v1/
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit: real sewn-QEM tail armor O topology, collisions and actual five-view renders'
+            git pull --rebase origin exp/s-qem-integrated-lamina-o-20261011
+            git push origin HEAD:exp/s-qem-integrated-lamina-o-20261011
+          fi
