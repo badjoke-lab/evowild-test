@@ -219,8 +219,16 @@ putworld(win_world)
 replay=getworld(candidate)
 replay_face=facemetrics(replay)
 replay_pairs=overlaps(replay)
-replay_ok=(replay_face==winner["body_face_quality"] and
-           len(replay_pairs)==winner["candidate_torso_BVH_pairs"])
+# Repeated Blender world->local->world transforms quantize f32 mesh
+# coordinates; require exact topology/defect counts and BVH, tolerant
+# float area extrema rather than comparing floating point JSON scalars.
+qkeys=("flipped_face_normal","degenerate_face","face_area_under_0p5","face_area_above_2")
+replay_ok=(all(replay_face[k]==winner["body_face_quality"][k] for k in qkeys)
+           and len(replay_pairs)==winner["candidate_torso_BVH_pairs"]
+           and abs(replay_face["min_ratio"]-winner["body_face_quality"]["min_ratio"])<.015
+           and abs(replay_face["max_ratio"]-winner["body_face_quality"]["max_ratio"])<.015)
+if not replay_ok:
+    print("BODY_V2_REPLAY_DIAGNOSTIC",replay_face,winner["body_face_quality"],len(replay_pairs),winner["candidate_torso_BVH_pairs"])
 assert replay_ok
 assert hashlib.sha256(getworld(orig).tobytes()).hexdigest()==source_sig
 assert hashlib.sha256(getworld(m).tobytes()).hexdigest()==m_sig
