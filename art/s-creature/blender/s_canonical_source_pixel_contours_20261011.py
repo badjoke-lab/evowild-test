@@ -85,7 +85,7 @@ def trace(region, name, sat_gate=.085, val_gate=.66):
     cv2.drawContours(overlay,[c],-1,(250,50,32),2)
     aa=cv2.addWeighted(rgb,.66,overlay,.34,0)
     for p in approx[::max(1,len(approx)//50)]:
-        cv2.circle(aa,(int(p[0][0]),int(p[0][1])),2,(255,26,24),-1)
+        cv2.circle(aa,(int(p[0]),int(p[1])),2,(255,26,24),-1)
     Image.fromarray(aa).save(OUT/(name+"_TRUE_SOURCE_CONTOUR_OVERLAY.png"))
     Image.fromarray(fill).save(OUT/(name+"_CORE_COMPONENT_MASK.png"))
     return extracted,Image.fromarray(aa)
