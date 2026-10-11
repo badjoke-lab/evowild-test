@@ -1,0 +1,241 @@
+{
+  "branch": "fix/3d-p-canonical-model-20261011",
+  "baseCommit": "cde1bd7c8a26637d587aafd6d1d8cc4da8fb0315",
+  "model": {
+    "authoring": "Blender 4.3.2 / deterministic contour lofts and anatomical surface panels",
+    "reference": [
+      "public/concept/P.webp",
+      "docs/references/evowild-creature-reference-sheet-20260921.jpg"
+    ],
+    "coordinates": "GLB: +Y up, -X forward; origin at ground under torso",
+    "asset": "public/models/evowild-p/p-canonical-v1.glb",
+    "animation": "P_Power_Run_Study_0p8s",
+    "bones": 17,
+    "triangles": 56104,
+    "materials": 10,
+    "status": "shape-review candidate; not production KEEP",
+    "views": [
+      "SIDE",
+      "FRONT",
+      "FRONT34",
+      "REAR34",
+      "BACK"
+    ],
+    "reference_uncertainty": "Only one small canonical P three-quarter image; exact frontal/rear topology is inferred, not reference-certified.",
+    "bytes": 2028228,
+    "sha256": "120b1c3a21314d2fd377b4304a447e81115b171820e9ffc44ed11a47d64be59e",
+    "packaging": "glTF Transform 4.3.0 dedup/prune; identity mesh parent normalized to scene root",
+    "externalURIs": [],
+    "runtimeScope": "isolated shape and minimal motion review; production HOLD"
+  },
+  "canonicalAndRuntimePreservation": [
+    {
+      "path": "public/concept/P.webp",
+      "sha256": "d57a1552bf9358cc060156ec72b41753441f771fdef3a87cfba2567261217bfe",
+      "unchangedFromBase": true
+    },
+    {
+      "path": "docs/references/evowild-creature-reference-sheet-20260921.jpg",
+      "sha256": "7a839503e5845d1220180d344260cd6d9e7bfe7ec6ea259bd57e22eb803aca81",
+      "unchangedFromBase": true
+    },
+    {
+      "path": "public/preview-motion-first/main.js",
+      "sha256": "93d7a59312f59a9eaf7a77baf3573dbb434f22ac044674d163f99d98eb58af02",
+      "unchangedFromBase": true
+    }
+  ],
+  "historicalEvidence": [
+    {
+      "sourceCommit": "b4f8456d50eeb4072b0aa1cd528a646479298500",
+      "sourcePath": "docs/evidence/gamestudio-3d-20261010/after/desktop/isolated-P-SIDE.png",
+      "copy": "previous-race-P-SIDE.png",
+      "byteIdentical": true,
+      "sha256": "17aa5306300b3cf5cc0d578accc2d3f9fc60fc6b460cd3c33066889f6da1c3b1"
+    },
+    {
+      "sourceCommit": "b4f8456d50eeb4072b0aa1cd528a646479298500",
+      "sourcePath": "docs/evidence/gamestudio-3d-20261010/after/desktop/isolated-P-LOW.png",
+      "copy": "previous-race-P-LOW.png",
+      "byteIdentical": true,
+      "sha256": "842fca1c6bcf45514606c0bbf24996bd0d70be567f94ddb38eba7528bc0c6301"
+    }
+  ],
+  "gltfValidation": {
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 0,
+    "numHints": 0,
+    "messages": [],
+    "truncated": false
+  },
+  "build": {
+    "command": "npm run build",
+    "result": "passed",
+    "warning": "Vite warns about existing/combined chunks above 500 kB; no build errors"
+  },
+  "visualDecision": {
+    "closerThanProxy": true,
+    "keep": "modeling/review candidate",
+    "production": "HOLD",
+    "limitations": [
+      "smooth barrel-like shoulder masses",
+      "coarse muzzle planes",
+      "round/mechanical elbows and rigid weights",
+      "inferred frontal/rear proportions and crest spacing",
+      "approximate tail folds and colour pattern",
+      "no production race gait/contact/performance approval"
+    ]
+  },
+  "captureMethod": "Actual GLB loaded by Three.js; five rest views and deterministic 30fps animation samples. No synthesized review imagery.",
+  "validationTools": {
+    "blender": "4.3.2",
+    "gltfTransform": "4.3.0",
+    "gltfValidator": "2.0.0-dev.3.10"
+  },
+  "filesChanged": [
+    "docs/evidence/p-canonical-3d-20261011/BACK.png",
+    "docs/evidence/p-canonical-3d-20261011/FRONT.png",
+    "docs/evidence/p-canonical-3d-20261011/FRONT34.png",
+    "docs/evidence/p-canonical-3d-20261011/README.md",
+    "docs/evidence/p-canonical-3d-20261011/REAR34.png",
+    "docs/evidence/p-canonical-3d-20261011/SIDE.png",
+    "docs/evidence/p-canonical-3d-20261011/browser-validation.json",
+    "docs/evidence/p-canonical-3d-20261011/changed-files.txt",
+    "docs/evidence/p-canonical-3d-20261011/comparison.html",
+    "docs/evidence/p-canonical-3d-20261011/comparison.png",
+    "docs/evidence/p-canonical-3d-20261011/gltf-validation.json",
+    "docs/evidence/p-canonical-3d-20261011/mobile-FRONT34.png",
+    "docs/evidence/p-canonical-3d-20261011/mobile-SIDE.png",
+    "docs/evidence/p-canonical-3d-20261011/mobile-run.png",
+    "docs/evidence/p-canonical-3d-20261011/new-silhouette-SIDE.png",
+    "docs/evidence/p-canonical-3d-20261011/previous-proxy-FRONT34.png",
+    "docs/evidence/p-canonical-3d-20261011/previous-proxy-SIDE.png",
+    "docs/evidence/p-canonical-3d-20261011/previous-proxy.glb",
+    "docs/evidence/p-canonical-3d-20261011/previous-race-P-LOW.png",
+    "docs/evidence/p-canonical-3d-20261011/previous-race-P-SIDE.png",
+    "docs/evidence/p-canonical-3d-20261011/previous-silhouette-SIDE.png",
+    "docs/evidence/p-canonical-3d-20261011/run-FRONT34-00.png",
+    "docs/evidence/p-canonical-3d-20261011/run-FRONT34-06.png",
+    "docs/evidence/p-canonical-3d-20261011/run-FRONT34-12.png",
+    "docs/evidence/p-canonical-3d-20261011/run-FRONT34-18.png",
+    "docs/evidence/p-canonical-3d-20261011/run-SIDE-00.png",
+    "docs/evidence/p-canonical-3d-20261011/run-SIDE-06.png",
+    "docs/evidence/p-canonical-3d-20261011/run-SIDE-12.png",
+    "docs/evidence/p-canonical-3d-20261011/run-SIDE-18.png",
+    "docs/evidence/p-canonical-3d-20261011/run-authoring-check.json",
+    "docs/evidence/p-canonical-3d-20261011/running-contact-sheet.png",
+    "docs/evidence/p-canonical-3d-20261011/running-review.mp4",
+    "docs/evidence/p-canonical-3d-20261011/verification.json",
+    "p-canonical-review.html",
+    "public/models/evowild-p/manifest.json",
+    "public/models/evowild-p/p-canonical-v1.glb",
+    "scripts/modeling/build-canonical-p.py",
+    "scripts/modeling/capture-p-review.mjs",
+    "scripts/modeling/export-previous-p.mjs",
+    "scripts/modeling/finalize-p.mjs",
+    "scripts/modeling/package-p-evidence.mjs",
+    "src/p-canonical-review.js",
+    "vite.config.js"
+  ],
+  "evidenceSha256": {
+    "BACK.png": "ccabd3788253f4cffbeb7ce7e8a323b1e8119db5b27060daa22b4106819dc7c1",
+    "FRONT.png": "af053f6ccdcc14506761bbc1cd8cb16616a19ecef8de236062b727db68ab590e",
+    "FRONT34.png": "ab4bf1fd71fd91230191285746a0641979e1199f30dca358c43ac34ea7c24a13",
+    "README.md": "bb1d72ac4783a188c0c9b94ee6b5c42047bf9e3725c6bdbab27fef0ffaa50f4f",
+    "REAR34.png": "1088f4334e3809f898423fd5d6fc5b7d34f392ecfe9af2810acd65f7f0a3c6a7",
+    "SIDE.png": "e6f5f25831d355fcf8b57cd2f919a17a15b06da0fc528ab9ec9356bbed432ebd",
+    "browser-validation.json": "e3c0c296c30ad74609fe4c8bf0a168444088965ce3febc1ffaaa26aa058cb42c",
+    "comparison.html": "9928ecd05b53b14727745d795486436c1c200945ace34238e84ad7490a4fd72c",
+    "comparison.png": "abca60e31161fb7ab9f620ea9e21f37f397aeb91884bba6b63e32433c22e2ada",
+    "gltf-validation.json": "7655818de35400979da1ca1958482013c13bea375d68b3d9718be890727a1e0f",
+    "mobile-FRONT34.png": "c1ef1c8f80a5c61e54a36840ecf25c25cc96e174068ec924b68a93f8e4e537cb",
+    "mobile-SIDE.png": "6fc17ab76fe24c35fdcdc474d6e6ba03f89415327e497a3c879a00bb6a6a5e27",
+    "mobile-run.png": "2bc0eaccdebf72be12ba2841f065e64bd2c3019b7c8d9ba2d9c7e2242b9976b7",
+    "new-silhouette-SIDE.png": "f1e43358bf9349f9702ef59b637e3101fffa5f3672825ef95df5d25d15980d7a",
+    "previous-proxy-FRONT34.png": "dec9a48055294c1c48d4cc8778ee9d7c1dc547accdeaa655e4c818bf8755e93c",
+    "previous-proxy-SIDE.png": "998205f5e6d481ed57383e00c525555fb148eb386b7f624c68fb0bdb7772e655",
+    "previous-proxy.glb": "ccff518efa0279bc4d186ffbe67dac2ad0d9a85649f4f84b5d4ae55c53d6c514",
+    "previous-race-P-LOW.png": "842fca1c6bcf45514606c0bbf24996bd0d70be567f94ddb38eba7528bc0c6301",
+    "previous-race-P-SIDE.png": "17aa5306300b3cf5cc0d578accc2d3f9fc60fc6b460cd3c33066889f6da1c3b1",
+    "previous-silhouette-SIDE.png": "5619a5bdff20881d08c4847b9657095fdaa7001d294ae6edb1b40a00946e39bc",
+    "run-FRONT34-00.png": "ee89c6fa39f5bfb38299f654449a9dff3fe4e27f6072d735c1eef772dcff4972",
+    "run-FRONT34-06.png": "178a50fd5da323aad0b30b91cd43e602a631ac1d980bb81ae6fe4dc0dce8a9f7",
+    "run-FRONT34-12.png": "23fcca68ce0287abda9c42c9f0e3ea5f474c784c1d6c1b6ae1e38c280847b184",
+    "run-FRONT34-18.png": "2fdd2076a479a4abc83dafffdfe940185ca0a91dbb5990116b6db05635457e36",
+    "run-SIDE-00.png": "9430188f338eae137653ba17d99f1140df866bde15689c088244ed8f26d87a83",
+    "run-SIDE-06.png": "a43f0a4d5d882cde70e7dd51804c14db87c046e9ce6a95f948f25b75d40df19e",
+    "run-SIDE-12.png": "9bc41d3416c23f5a7f5627e57aca7db4ee68be076c0931c254325ff15e22af2c",
+    "run-SIDE-18.png": "50dac323232d0139fb3d3d416f92991d9f529022815376a95dfb2d2a08eb7f81",
+    "run-authoring-check.json": "4cfff33690e26eca87ea4a6089c5feff85c2de8af0038fe4e21ce0dcf638df28",
+    "running-contact-sheet.png": "ff44bcb86037fcddf0bed67e7c01deab4d97d2206f63b44c01e848e5c40887b5",
+    "running-review.mp4": "43297dbf1670307233dfe532de1f5021cc258ff97c27fa0f563e5d248e35bb11"
+  },
+  "productionBuildSmoke": {
+    "errors": [],
+    "checks": [
+      {
+        "name": "desktop",
+        "stats": {
+          "view": "FRONT34",
+          "triangles": 56106,
+          "drawCalls": 11,
+          "animations": [
+            "P_Power_Run_Study_0p8s"
+          ],
+          "bounds": {
+            "min": [
+              -2.373402678503579,
+              0.00999993572848451,
+              -0.8787418711888674
+            ],
+            "max": [
+              2.284311621636772,
+              3.0321049759571608,
+              0.8782758427048695
+            ]
+          }
+        }
+      },
+      {
+        "name": "Pixel 7 emulation",
+        "stats": {
+          "view": "FRONT34",
+          "triangles": 56106,
+          "drawCalls": 11,
+          "animations": [
+            "P_Power_Run_Study_0p8s"
+          ],
+          "bounds": {
+            "min": [
+              -2.373402678503579,
+              0.00999993572848451,
+              -0.8787418711888674
+            ],
+            "max": [
+              2.284311621636772,
+              3.0321049759571608,
+              0.8782758427048695
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "video": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1200,
+        "height": 900,
+        "r_frame_rate": "30/1"
+      }
+    ],
+    "format": {
+      "duration": "6.366667",
+      "size": "1026049"
+    }
+  }
+}
