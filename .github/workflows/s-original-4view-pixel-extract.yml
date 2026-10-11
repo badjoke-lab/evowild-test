@@ -1,0 +1,63 @@
+name: EvoWild real S reference four orthographic source pixel trace
+on:
+  push:
+    branches: [exp/s-source-pixel-contour-20261011]
+    paths: [.github/workflows/s-original-4view-pixel-extract.yml, art/s-creature/blender/s_canonical_source_pixel_contours_20261011.py]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-true-S-source-four-view-contour
+  cancel-in-progress: false
+jobs:
+  extract-pixels-from-actual-approved-reference:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_canonical_source_pixel_contours_20261011.py
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/canonical-4view-pixel-trace-v1/
+      - name: Enforce unchanged sole authorized S drawing
+        run: |
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+      - name: OpenCV segmentation on original actual pixels (NOT generating reference)
+        run: |
+          python3 -m pip install -q "numpy<3" opencv-python-headless pillow
+          python3 art/s-creature/blender/s_canonical_source_pixel_contours_20261011.py
+      - name: Verify source-referenced contour data and real overlays
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/canonical-4view-pixel-trace-v1')
+          d=json.loads((p/'ACTUAL_CANONICAL_S_PIXEL_CONTOURS.json').read_text())
+          assert d["S_reference_sha256"]=='93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6'
+          assert d["source_views_real_not_inferred"]==["SIDE","FRONT","BACK","FRONT34"]
+          assert d["not_a_3D_creature"] and d["original_source_png_untouched"]
+          for name,item in d["source_panels"].items():
+            assert len(item["contour_native_pixels_XY"])>8
+            assert (p/(name+"_TRUE_SOURCE_CONTOUR_OVERLAY.png")).stat().st_size>10000
+          assert (p/"SOURCE_VS_ACTUAL_PIXEL_TRACE_FOUR_VIEWS.jpg").stat().st_size>25000
+          print("SOURCE_PIXELS_VERIFIED",[(n,v["contour_n_vertices"],v["main_component_native_box"]) for n,v in d["source_panels"].items()])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-unchanged-original-S-source-four-panel-contour
+          path: art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/canonical-4view-pixel-trace-v1/
+          if-no-files-found: warn
+      - name: Commit exact-source visual extraction and numeric contours, no main
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/canonical-4view-pixel-trace-v1/
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit: reproduce actual canonical S side/front/back/3-4 silhouette traces from real source PNG'
+            git pull --rebase origin exp/s-source-pixel-contour-20261011
+            git push origin HEAD:exp/s-source-pixel-contour-20261011
+          fi
