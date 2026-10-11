@@ -1,0 +1,105 @@
+name: EvoWild S true QEM shoulder and haunch authority anatomy v1
+on:
+  push:
+    branches: [exp/s-qem-authority-body-mass-20261011]
+    paths:
+      - .github/workflows/s-qem-real-body-mass-v1.yml
+      - art/s-creature/blender/s_qem_real_anatomical_volume_v1.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evo-s-true-body-geometry-authority-v1
+  cancel-in-progress: false
+jobs:
+  real-original-QEM-anatomy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_qem_real_anatomical_volume_v1.py
+            /art/s-creature/experiments/qem-deformation-gate-20261010/tail-core-regularized-m-v1/S-QEM-true-one-piece-tail-core-M-TRIAL.blend
+            /art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/qem-deformation-gate-20261010/body-mass-shoulder-haunch-v1/
+            /.github/workflows/s-qem-real-body-mass-v1.yml
+      - name: Enforce sole user-approved S modeling image and genuine QEM donor
+        run: |
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+          echo 'e440263d0204fcf33a4cc6fc5c84b5390d766d6ffb570abd4ac614cbc7cdc92f  art/s-creature/experiments/trellis2-pixal3d/candidates/trellis2-seed0000/t2-qem-repair/S-trellis2-qem-repair-best.glb' | sha256sum --check -
+      - name: Install real Blender 4.3.2
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Physically sculpt shoulder hip anatomical volume on TRUE QEM vertices with geometry gates
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b art/s-creature/experiments/qem-deformation-gate-20261010/tail-core-regularized-m-v1/S-QEM-true-one-piece-tail-core-M-TRIAL.blend -t 4 --python-exit-code 1 --python art/s-creature/blender/s_qem_real_anatomical_volume_v1.py
+      - name: Validate source preservation; real five-view and canonical S silhouette sheet
+        run: |
+          python3 -m pip install -q pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          import json
+          root=Path("art/s-creature/experiments/qem-deformation-gate-20261010/body-mass-shoulder-haunch-v1")
+          d=json.loads((root/"REAL_QEM_SHOULDER_HIP_MASS_QA.json").read_text())
+          assert d["source_QEM_unchanged"] and d["M_source_unchanged"]
+          assert d["mesh_topology_exactly_preserved"]
+          assert d["original_vertices"]==29948 and d["M_and_candidate_vertices"]==31948
+          assert d["original_triangles"]==59932 and d["M_and_candidate_triangles"]==63932
+          assert d["candidate_count"]==8
+          assert d["replay_integrity"]
+          assert not d["production_S_approved"] and not d["new_blender_rig_validated"]
+          assert (root/"S-QEM-genuine-body-anatomical-mass-v1-REVIEW.blend").stat().st_size>50000
+          W,H=400,307
+          sheet=Image.new("RGB",(5*W,2*H),(233,236,240))
+          draw=ImageDraw.Draw(sheet)
+          for col,view in enumerate(("SIDE","FRONT","FRONT34","REAR34","BACK")):
+              for row,tag in enumerate(("SOURCE_M","VOLUME_A")):
+                  fn=root/"review"/f"ACTUAL_QEM_{tag}_{view}.png"
+                  assert fn.stat().st_size>10000,fn
+                  im=Image.open(fn).convert("RGB")
+                  im.thumbnail((W-12,H-31))
+                  sheet.paste(im,(col*W+(W-im.width)//2,row*H+28+(H-28-im.height)//2))
+                  draw.text((col*W+8,row*H+5),f"{tag} / {view}",(14,17,22))
+          sheet.save(root/"review"/"ACTUAL_S_QEM_BODY_FIVE_VIEW_COMPARE.jpg",quality=94,optimize=True)
+          W,H=615,480
+          ref=Image.open("art/s-creature/references/00_s_type_modeling_image_v1.png").convert("RGB")
+          width,height=ref.size
+          ref=ref.crop((int(width*.018),int(height*.070),int(width*.525),int(height*.476)))
+          sheet=Image.new("RGB",(3*W,H),(234,236,240))
+          draw=ImageDraw.Draw(sheet)
+          for i,(title,img) in enumerate((
+            ("CANONICAL S - actual repo PNG",ref),
+            ("SOURCE M - real Blender",Image.open(root/"review"/"ACTUAL_QEM_SOURCE_M_SIDE.png").convert("RGB")),
+            ("ANATOMY V1 - real Blender",Image.open(root/"review"/"ACTUAL_QEM_VOLUME_A_SIDE.png").convert("RGB")))):
+              img.thumbnail((W-12,H-32))
+              sheet.paste(img,(i*W+(W-img.width)//2,28+(H-28-img.height)//2))
+              draw.text((i*W+10,7),title,(15,19,23))
+          sheet.save(root/"review"/"CANONICAL_S_VS_REAL_BODY_MASS_V1.jpg",quality=94,optimize=True)
+          print("ACTUAL_BODY_MASS_QA",d["limited_3D_geometry_gate"],
+                d["selected"]["shoulder_strength"],d["selected"]["hip_strength"],
+                d["selected"]["shoulder_x_width_increment"],d["selected"]["hip_x_width_increment"])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-original-QEM-S-body-anatomical-volume-v1
+          path: art/s-creature/experiments/qem-deformation-gate-20261010/body-mass-shoulder-haunch-v1/
+          if-no-files-found: warn
+      - name: Save full real-QEM Blender model, numerical QA and canonical five-view only on isolated branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/qem-deformation-gate-20261010/body-mass-shoulder-haunch-v1/
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit: real original-QEM S shoulder chest and hip body volume, actual Blender five-view authority comparison'
+            git pull --rebase origin exp/s-qem-authority-body-mass-20261011
+            git push origin HEAD:exp/s-qem-authority-body-mass-20261011
+          fi
