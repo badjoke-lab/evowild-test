@@ -1,0 +1,20 @@
+{
+  "source_ref": "art/s-creature/references/00_s_type_modeling_image_v1.png",
+  "rootleaf_midleaf_S_collisions": 0,
+  "remaining_Q": {
+    "PROXIMAL_RIGHT": {
+      "collisions": 34,
+      "by_tail_section": {
+        "ROOT_FIRST_RING": 34
+      }
+    },
+    "DISTAL_RIGHT": {
+      "collisions": 152,
+      "by_tail_section": {
+        "ROOT_FIRST_RING": 152
+      }
+    }
+  },
+  "original_QEM_unchanged": true,
+  "production_ready": false
+}
