@@ -1,0 +1,72 @@
+{
+  "user_reference_SHA256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "immutable_QEM_donor_preserved": true,
+  "method": "physically widened but bounded original QEM skin patch resection and 2 new root-support loops",
+  "cases": {
+    "PROXIMAL_RIGHT": {
+      "technical_gate": "FAIL",
+      "previous_Q_BVH_intersections": 34,
+      "previous_U_best_intersections": 24,
+      "previous_V_best_intersections": 56,
+      "best_new_root_topology": {
+        "patch_faces": 155,
+        "seam_edges": 53,
+        "ring_count": 13,
+        "root_world": [
+          0.07814190536737442,
+          1.873656988143921,
+          1.6068544387817383
+        ],
+        "tip_world": [
+          0.2531434893608093,
+          2.4636569023132324,
+          1.8008439540863037
+        ],
+        "y_margin": 0.14,
+        "angular_margin": 0.14,
+        "collar_clearance": 0.035,
+        "full_blade_transition_t": 0.18,
+        "outer_sweep_multiplier": 1.0
+      },
+      "new_BVH_intersections": 184,
+      "all_new_ring_topology_pass": true,
+      "actual_vertices": 32586,
+      "actual_triangles": 65208,
+      "candidates_tested": 24
+    },
+    "DISTAL_RIGHT": {
+      "technical_gate": "FAIL",
+      "previous_Q_BVH_intersections": 152,
+      "previous_U_best_intersections": 119,
+      "previous_V_best_intersections": 108,
+      "best_new_root_topology": {
+        "patch_faces": 137,
+        "seam_edges": 43,
+        "ring_count": 13,
+        "root_world": [
+          0.07366220653057098,
+          2.6878626346588135,
+          1.4883383512496948
+        ],
+        "tip_world": [
+          0.20383508503437042,
+          3.3278627395629883,
+          1.6328704357147217
+        ],
+        "y_margin": 0.065,
+        "angular_margin": 0.22,
+        "collar_clearance": 0.085,
+        "full_blade_transition_t": 0.18,
+        "outer_sweep_multiplier": 1.0
+      },
+      "new_BVH_intersections": 226,
+      "all_new_ring_topology_pass": true,
+      "actual_vertices": 32460,
+      "actual_triangles": 64956,
+      "candidates_tested": 24
+    }
+  },
+  "S_morph_approved": false,
+  "skin_gait_approved": false,
+  "main_modified": false
+}
