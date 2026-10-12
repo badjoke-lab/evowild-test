@@ -36,6 +36,26 @@ jobs:
           python3 -m pip install -q pillow numpy
           curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
           tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Copy original pixel art views without painting or generating new source
+        run: |
+          python3 - <<'PY'
+          from PIL import Image
+          import hashlib
+          from pathlib import Path
+          ref=Path('art/s-creature/references/00_s_type_modeling_image_v1.png')
+          assert hashlib.sha256(ref.read_bytes()).hexdigest()=='93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6'
+          im=Image.open(ref).convert('RGBA')
+          assert im.size==(1448,1086)
+          out=Path('art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/reference-panels')
+          out.mkdir(parents=True,exist_ok=True)
+          for view,box in {
+            'SIDE':(18,75,756,512),
+            'FRONT':(766,81,949,513),
+            'BACK':(951,81,1124,513),
+            'FRONT34':(1127,81,1433,513),
+          }.items():
+            im.crop(box).save(out/f'SOURCE_ORIGINAL_UNEDITED_CROP_{view}.png')
+          PY
       - name: Build genuine original S sculpt workstation with actual 4-view image guides
         run: |
           /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/s_sculpt_workspace_from_original_hunyuan.py
