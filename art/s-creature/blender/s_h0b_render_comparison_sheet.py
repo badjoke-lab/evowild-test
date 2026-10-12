@@ -52,7 +52,7 @@ for row,variant in enumerate(('BASE','H0b','H0b')):
     g.text((8,50+row*H),variant+'_CLAY',font=ft(18),fill=(20,23,29))
     for col,v in enumerate(views):
         im=Image.open(R/f'{variant}_{v}_CLAY.png').convert('RGB')
-        place(im,150+col*W,40+row*H,W,H-12)
+        place(im,gray,150+col*W,40+row*H,W,H-12)
 gray=gray.crop((0,0,gray.width,2*H+45))
 gray.save(R/'H0b_BASE_VS_SINGLE_COLOR_5VIEW.jpg',quality=93)
 qa=json.loads((OUT/'H0b_REAL_NATIVE_SURFACE_QA.json').read_text())
