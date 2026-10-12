@@ -28,7 +28,7 @@ canvas=Image.new('RGB',(W*5+195,4*H+60),(237,240,243))
 draw=ImageDraw.Draw(canvas)
 for col,v in enumerate(views):
     draw.text((205+col*W,6),v,font=ft(20),fill=(19,22,29))
-for row,variant in enumerate(('REFERENCE','BASE','H0_REJECT','H0b_TRIAL')):
+for row,variant in enumerate(('REFERENCE','BASE','H0_REJECT','H0b')):
     draw.text((9,58+row*H),variant,font=ft(18),
               fill=(156,44,42) if variant=='H0_REJECT' else (12,23,39))
     for col,v in enumerate(views):
