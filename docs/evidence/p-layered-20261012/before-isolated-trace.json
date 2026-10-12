@@ -1,0 +1,4048 @@
+{
+  "summary": {
+    "name": "before-isolated",
+    "url": "race-quality.html?selected=2&motionReview=1",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "fps": 60,
+    "seconds": 6,
+    "cycles": 13.310781333333333,
+    "traceIntervalMs": 33.333333333333336,
+    "traceSamples": 180,
+    "visibleRacers": [
+      1
+    ],
+    "errors": [],
+    "metric": "Legacy rightmost RGBA ground band during the same held frame; no persistent toe identity",
+    "anchorOrLegacyBandTravelPx": {
+      "n": 32,
+      "mean": 7.197374999999945,
+      "max": 8.159999999999922
+    },
+    "soleRasterTravelPx": {
+      "n": 0,
+      "mean": 0,
+      "max": 0
+    },
+    "footRasterCentroidTravelPx": {
+      "n": 0,
+      "mean": 0,
+      "max": 0
+    },
+    "laneDrift": {
+      "n": 0,
+      "mean": 0,
+      "max": 0
+    },
+    "observedStanceRasterSpanPx": {
+      "n": 0,
+      "mean": 0,
+      "max": 0
+    },
+    "maxReachError": null,
+    "maxBoneLengthError": null,
+    "maxBodyOffset": null,
+    "pRunners": null
+  },
+  "bands": [
+    [
+      103,
+      257,
+      357
+    ],
+    [
+      101.5,
+      298.5
+    ],
+    [
+      135.5,
+      299
+    ],
+    [
+      78
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      147.5,
+      284.5,
+      353
+    ],
+    [
+      115.5,
+      283.5
+    ],
+    [
+      273.5
+    ]
+  ],
+  "samples": [
+    {
+      "frame": 3,
+      "oldCycle": 3.3989965000000004,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 148.85,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 5,
+      "oldCycle": 3.466878,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 149.78,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 6,
+      "oldCycle": 3.535248166666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 150.73,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 8,
+      "oldCycle": 3.638720166666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 152.18,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 9,
+      "oldCycle": 3.7083126666666666,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 153.17,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 9,
+      "oldCycle": 3.7783936666666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 154.17,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 10,
+      "oldCycle": 3.813617666666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 154.68,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 10,
+      "oldCycle": 3.884432,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 155.7,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 11,
+      "oldCycle": 3.955735166666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 156.74,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 0,
+      "oldCycle": 4.0275273333333335,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 157.79,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 0,
+      "oldCycle": 4.099808166666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 158.86,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 1,
+      "oldCycle": 4.172577666666666,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 159.94,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 2,
+      "oldCycle": 4.245836166666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 161.04,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 3,
+      "oldCycle": 4.3195835,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 162.15,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 3,
+      "oldCycle": 4.3938195,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 163.28,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 6,
+      "oldCycle": 4.5054445,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 165,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 7,
+      "oldCycle": 4.579861166666666,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 166.17,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 8,
+      "oldCycle": 4.6542778333333334,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 167.35,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 8,
+      "oldCycle": 4.6914861666666665,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 167.94,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 9,
+      "oldCycle": 4.7659028333333335,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 169.14,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 10,
+      "oldCycle": 4.8403195000000006,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 170.33,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 11,
+      "oldCycle": 4.914736166666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 171.52,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 11,
+      "oldCycle": 4.989152833333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 172.72,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 0,
+      "oldCycle": 5.0635695,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 173.91,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 1,
+      "oldCycle": 5.137986166666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 175.11,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 2,
+      "oldCycle": 5.212402833333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 176.3,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 2,
+      "oldCycle": 5.2868195,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 177.5,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 3,
+      "oldCycle": 5.3984445,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 179.29,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 5,
+      "oldCycle": 5.472861166666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 180.48,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 6,
+      "oldCycle": 5.547277833333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 181.68,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 7,
+      "oldCycle": 5.584486166666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 182.28,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 8,
+      "oldCycle": 5.658902833333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 183.47,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 9,
+      "oldCycle": 5.7333195,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 184.67,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 10,
+      "oldCycle": 5.807736166666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 185.86,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 10,
+      "oldCycle": 5.8821528333333335,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 187.06,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 11,
+      "oldCycle": 5.9565695000000005,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 188.25,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 0,
+      "oldCycle": 6.0309861666666675,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 189.44,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 1,
+      "oldCycle": 6.105402833333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 190.64,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 1,
+      "oldCycle": 6.1798195,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 191.83,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 2,
+      "oldCycle": 6.2914445,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 193.63,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 3,
+      "oldCycle": 6.365861166666666,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 194.82,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 4,
+      "oldCycle": 6.440277833333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 196.01,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 5,
+      "oldCycle": 6.477486166666666,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 196.61,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 7,
+      "oldCycle": 6.551902833333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 197.81,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 8,
+      "oldCycle": 6.6263195,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 199,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 9,
+      "oldCycle": 6.700736166666666,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 200.19,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 9,
+      "oldCycle": 6.775152833333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 201.39,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 10,
+      "oldCycle": 6.8495695,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 202.58,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 11,
+      "oldCycle": 6.923986166666666,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 203.77,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 11,
+      "oldCycle": 6.9984028333333335,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 204.97,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 0,
+      "oldCycle": 7.0728195000000005,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 206.16,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 1,
+      "oldCycle": 7.184444666666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 207.95,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 2,
+      "oldCycle": 7.258861333333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 209.14,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 3,
+      "oldCycle": 7.333278,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 210.33,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 3,
+      "oldCycle": 7.370486333333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 210.93,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 4,
+      "oldCycle": 7.444903,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 212.12,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 6,
+      "oldCycle": 7.519319666666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 213.31,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 7,
+      "oldCycle": 7.593736333333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 214.5,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 8,
+      "oldCycle": 7.668153,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 215.69,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 9,
+      "oldCycle": 7.742569666666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 216.88,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 10,
+      "oldCycle": 7.816986333333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 218.07,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 10,
+      "oldCycle": 7.891403,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 219.26,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 11,
+      "oldCycle": 7.965819666666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 220.45,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 0,
+      "oldCycle": 8.077444666666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 222.23,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 1,
+      "oldCycle": 8.151861333333335,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 223.42,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 2,
+      "oldCycle": 8.226277999999999,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 224.61,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 2,
+      "oldCycle": 8.263486333333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 225.2,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 3,
+      "oldCycle": 8.337902999999999,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 226.39,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 4,
+      "oldCycle": 8.412319666666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 227.58,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 5,
+      "oldCycle": 8.486736333333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 228.77,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 7,
+      "oldCycle": 8.561153,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 229.95,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 8,
+      "oldCycle": 8.635569666666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 231.14,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 9,
+      "oldCycle": 8.709986333333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 232.33,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 9,
+      "oldCycle": 8.784403,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 233.51,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 10,
+      "oldCycle": 8.858819666666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 234.7,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 11,
+      "oldCycle": 8.970444666666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 236.48,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 0,
+      "oldCycle": 9.044861333333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 237.66,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 1,
+      "oldCycle": 9.119278,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 238.85,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 1,
+      "oldCycle": 9.156486333333334,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 239.44,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 2,
+      "oldCycle": 9.230903,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 240.62,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 3,
+      "oldCycle": 9.305319666666668,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 241.77,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 3,
+      "oldCycle": 9.379736333333334,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 242.92,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 5,
+      "oldCycle": 9.454153,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 244.06,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 6,
+      "oldCycle": 9.528569666666668,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 245.2,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 7,
+      "oldCycle": 9.602986333333334,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 246.35,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 8,
+      "oldCycle": 9.677403,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 247.49,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 9,
+      "oldCycle": 9.751819666666666,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 248.63,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 10,
+      "oldCycle": 9.863444666666666,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 250.35,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 11,
+      "oldCycle": 9.937861333333332,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 251.49,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 0,
+      "oldCycle": 10.012278,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 252.63,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 0,
+      "oldCycle": 10.049486333333332,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 253.2,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 1,
+      "oldCycle": 10.123903,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 254.34,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 1,
+      "oldCycle": 10.198319666666666,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 255.48,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 2,
+      "oldCycle": 10.272736333333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 256.63,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 3,
+      "oldCycle": 10.347153,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 257.77,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 4,
+      "oldCycle": 10.421569666666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 258.91,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 5,
+      "oldCycle": 10.495986333333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 260.05,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 7,
+      "oldCycle": 10.570403,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 261.19,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 8,
+      "oldCycle": 10.644819666666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 262.33,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 9,
+      "oldCycle": 10.756444666666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 264.04,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 10,
+      "oldCycle": 10.830861166666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 265.19,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 11,
+      "oldCycle": 10.905277833333335,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 266.33,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 11,
+      "oldCycle": 10.942486166666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 266.9,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 0,
+      "oldCycle": 11.016902833333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 268.04,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 0,
+      "oldCycle": 11.091319499999999,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 269.18,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 1,
+      "oldCycle": 11.165736166666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 270.32,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 2,
+      "oldCycle": 11.240152833333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 271.46,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 3,
+      "oldCycle": 11.3145695,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 272.6,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 3,
+      "oldCycle": 11.388986166666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 273.74,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 5,
+      "oldCycle": 11.463402833333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 274.89,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 6,
+      "oldCycle": 11.5378195,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 276.03,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 8,
+      "oldCycle": 11.6494445,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 277.74,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 9,
+      "oldCycle": 11.723861166666666,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 278.88,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 9,
+      "oldCycle": 11.798277833333332,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 280.02,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 10,
+      "oldCycle": 11.835486166666668,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 280.6,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 11,
+      "oldCycle": 11.909902833333334,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 281.74,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 11,
+      "oldCycle": 11.9843195,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 282.88,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 0,
+      "oldCycle": 12.058736166666668,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 284.02,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 1,
+      "oldCycle": 12.133152833333334,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 285.17,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 2,
+      "oldCycle": 12.2075695,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 286.31,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 2,
+      "oldCycle": 12.281986166666668,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 287.45,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 3,
+      "oldCycle": 12.356402833333334,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 288.59,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 4,
+      "oldCycle": 12.4308195,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 289.74,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 6,
+      "oldCycle": 12.5424445,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 291.45,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 8,
+      "oldCycle": 12.616861166666666,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 292.6,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 8,
+      "oldCycle": 12.691277833333332,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 293.74,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 9,
+      "oldCycle": 12.728486166666668,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 294.31,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 10,
+      "oldCycle": 12.802902833333334,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 295.46,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 10,
+      "oldCycle": 12.8773195,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 296.6,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 11,
+      "oldCycle": 12.951736166666668,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 297.75,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 0,
+      "oldCycle": 13.026152833333335,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 298.89,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 1,
+      "oldCycle": 13.100569499999999,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 300.04,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 1,
+      "oldCycle": 13.174986166666665,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 301.19,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 2,
+      "oldCycle": 13.249402833333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 302.33,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 3,
+      "oldCycle": 13.323819499999999,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 303.48,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 4,
+      "oldCycle": 13.435444500000001,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 305.2,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 6,
+      "oldCycle": 13.509861166666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 306.35,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 7,
+      "oldCycle": 13.584277833333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 307.49,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 8,
+      "oldCycle": 13.621486166666665,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 308.07,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 8,
+      "oldCycle": 13.695902833333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 309.21,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 9,
+      "oldCycle": 13.7703195,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 310.36,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 10,
+      "oldCycle": 13.844736166666666,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 311.51,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 11,
+      "oldCycle": 13.919152833333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 312.66,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 11,
+      "oldCycle": 13.9935695,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 313.8,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 0,
+      "oldCycle": 14.067986166666666,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 314.95,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 1,
+      "oldCycle": 14.142402833333334,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 316.1,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 2,
+      "oldCycle": 14.2168195,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 317.25,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 3,
+      "oldCycle": 14.328444500000002,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 318.97,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 4,
+      "oldCycle": 14.402861166666668,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 320.12,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 5,
+      "oldCycle": 14.477277833333334,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 321.27,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 6,
+      "oldCycle": 14.514486166666666,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 321.84,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 7,
+      "oldCycle": 14.588902833333334,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 322.99,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 8,
+      "oldCycle": 14.6633195,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 324.14,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 9,
+      "oldCycle": 14.737736166666666,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 325.29,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 10,
+      "oldCycle": 14.812152833333334,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 326.44,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 10,
+      "oldCycle": 14.8865695,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 327.59,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 11,
+      "oldCycle": 14.960986166666666,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 328.74,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 0,
+      "oldCycle": 15.035402833333334,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 329.89,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 1,
+      "oldCycle": 15.1098195,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 331.04,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 2,
+      "oldCycle": 15.221444499999999,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 332.76,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 2,
+      "oldCycle": 15.295861166666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 333.91,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 3,
+      "oldCycle": 15.370277833333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 335.06,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 4,
+      "oldCycle": 15.407486166666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 335.63,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 5,
+      "oldCycle": 15.481902833333335,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 336.78,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 7,
+      "oldCycle": 15.5563195,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 337.93,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 8,
+      "oldCycle": 15.630736166666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 339.08,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 9,
+      "oldCycle": 15.705152833333335,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 340.23,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 9,
+      "oldCycle": 15.779569500000001,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 341.38,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 10,
+      "oldCycle": 15.853986166666667,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 342.53,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 11,
+      "oldCycle": 15.928402833333335,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 343.67,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 0,
+      "oldCycle": 16.0028195,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 344.82,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 1,
+      "oldCycle": 16.1144445,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 346.54,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 1,
+      "oldCycle": 16.188861166666666,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 347.69,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 2,
+      "oldCycle": 16.263277833333333,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 348.84,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 3,
+      "oldCycle": 16.300486166666666,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 349.41,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 3,
+      "oldCycle": 16.374902833333334,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 350.56,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 4,
+      "oldCycle": 16.449319499999998,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 351.71,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 6,
+      "oldCycle": 16.523736166666666,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 352.85,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 7,
+      "oldCycle": 16.598152833333334,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 354,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    },
+    {
+      "frame": 8,
+      "oldCycle": 16.672569499999998,
+      "fieldSize": 18,
+      "visible": 1,
+      "renderer": "atlas-12",
+      "distance": 355.15,
+      "ppm": 6.8,
+      "drawWidth": 299.2785
+    }
+  ],
+  "frames": [
+    {
+      "index": 0,
+      "cycle": 3.3989965000000004,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 1,
+      "cycle": 3.4328760000000003,
+      "phase": 0.3333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 2,
+      "cycle": 3.466878,
+      "phase": 0.4166666666666667,
+      "visible": 1
+    },
+    {
+      "index": 3,
+      "cycle": 3.5010019999999997,
+      "phase": 0.5,
+      "visible": 1
+    },
+    {
+      "index": 4,
+      "cycle": 3.535248166666667,
+      "phase": 0.5,
+      "visible": 1
+    },
+    {
+      "index": 5,
+      "cycle": 3.5696166666666667,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 6,
+      "cycle": 3.638720166666667,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 7,
+      "cycle": 3.673455333333333,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 8,
+      "cycle": 3.7083126666666666,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 9,
+      "cycle": 3.7432920000000003,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 10,
+      "cycle": 3.7783936666666667,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 11,
+      "cycle": 3.813617666666667,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 12,
+      "cycle": 3.813617666666667,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 13,
+      "cycle": 3.8489636666666667,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 14,
+      "cycle": 3.884432,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 15,
+      "cycle": 3.9200225,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 16,
+      "cycle": 3.955735166666667,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 17,
+      "cycle": 3.991570166666667,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 18,
+      "cycle": 4.0275273333333335,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 19,
+      "cycle": 4.0636065,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 20,
+      "cycle": 4.099808166666667,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 21,
+      "cycle": 4.136131833333333,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 22,
+      "cycle": 4.172577666666666,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 23,
+      "cycle": 4.209145833333333,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 24,
+      "cycle": 4.245836166666667,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 25,
+      "cycle": 4.282648666666667,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 26,
+      "cycle": 4.3195835,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 27,
+      "cycle": 4.3566405,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 28,
+      "cycle": 4.3938195,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 29,
+      "cycle": 4.431027833333333,
+      "phase": 0.3333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 30,
+      "cycle": 4.5054445,
+      "phase": 0.5,
+      "visible": 1
+    },
+    {
+      "index": 31,
+      "cycle": 4.542652833333333,
+      "phase": 0.5,
+      "visible": 1
+    },
+    {
+      "index": 32,
+      "cycle": 4.579861166666666,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 33,
+      "cycle": 4.6170695,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 34,
+      "cycle": 4.6542778333333334,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 35,
+      "cycle": 4.6914861666666665,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 36,
+      "cycle": 4.6914861666666665,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 37,
+      "cycle": 4.7286945000000005,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 38,
+      "cycle": 4.7659028333333335,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 39,
+      "cycle": 4.803111166666667,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 40,
+      "cycle": 4.8403195000000006,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 41,
+      "cycle": 4.877527833333334,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 42,
+      "cycle": 4.914736166666667,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 43,
+      "cycle": 4.9519445,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 44,
+      "cycle": 4.989152833333333,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 45,
+      "cycle": 5.026361166666667,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 46,
+      "cycle": 5.0635695,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 47,
+      "cycle": 5.100777833333333,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 48,
+      "cycle": 5.137986166666667,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 49,
+      "cycle": 5.1751945,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 50,
+      "cycle": 5.212402833333333,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 51,
+      "cycle": 5.249611166666667,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 52,
+      "cycle": 5.2868195,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 53,
+      "cycle": 5.324027833333333,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 54,
+      "cycle": 5.3984445,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 55,
+      "cycle": 5.435652833333333,
+      "phase": 0.3333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 56,
+      "cycle": 5.472861166666667,
+      "phase": 0.4166666666666667,
+      "visible": 1
+    },
+    {
+      "index": 57,
+      "cycle": 5.5100695,
+      "phase": 0.5,
+      "visible": 1
+    },
+    {
+      "index": 58,
+      "cycle": 5.547277833333333,
+      "phase": 0.5,
+      "visible": 1
+    },
+    {
+      "index": 59,
+      "cycle": 5.584486166666667,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 60,
+      "cycle": 5.584486166666667,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 61,
+      "cycle": 5.6216945,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 62,
+      "cycle": 5.658902833333333,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 63,
+      "cycle": 5.696111166666667,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 64,
+      "cycle": 5.7333195,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 65,
+      "cycle": 5.770527833333333,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 66,
+      "cycle": 5.807736166666667,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 67,
+      "cycle": 5.8449445,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 68,
+      "cycle": 5.8821528333333335,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 69,
+      "cycle": 5.9193611666666675,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 70,
+      "cycle": 5.9565695000000005,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 71,
+      "cycle": 5.993777833333334,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 72,
+      "cycle": 6.0309861666666675,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 73,
+      "cycle": 6.0681945,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 74,
+      "cycle": 6.105402833333333,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 75,
+      "cycle": 6.142611166666666,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 76,
+      "cycle": 6.1798195,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 77,
+      "cycle": 6.217027833333333,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 78,
+      "cycle": 6.2914445,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 79,
+      "cycle": 6.328652833333333,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 80,
+      "cycle": 6.365861166666666,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 81,
+      "cycle": 6.4030695,
+      "phase": 0.3333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 82,
+      "cycle": 6.440277833333333,
+      "phase": 0.3333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 83,
+      "cycle": 6.477486166666666,
+      "phase": 0.4166666666666667,
+      "visible": 1
+    },
+    {
+      "index": 84,
+      "cycle": 6.477486166666666,
+      "phase": 0.4166666666666667,
+      "visible": 1
+    },
+    {
+      "index": 85,
+      "cycle": 6.5146945,
+      "phase": 0.5,
+      "visible": 1
+    },
+    {
+      "index": 86,
+      "cycle": 6.551902833333333,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 87,
+      "cycle": 6.589111166666666,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 88,
+      "cycle": 6.6263195,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 89,
+      "cycle": 6.663527833333333,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 90,
+      "cycle": 6.700736166666666,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 91,
+      "cycle": 6.7379445,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 92,
+      "cycle": 6.775152833333333,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 93,
+      "cycle": 6.812361166666666,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 94,
+      "cycle": 6.8495695,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 95,
+      "cycle": 6.886777833333333,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 96,
+      "cycle": 6.923986166666666,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 97,
+      "cycle": 6.9611945,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 98,
+      "cycle": 6.9984028333333335,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 99,
+      "cycle": 7.0356111666666665,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 100,
+      "cycle": 7.0728195000000005,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 101,
+      "cycle": 7.110028,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 102,
+      "cycle": 7.184444666666667,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 103,
+      "cycle": 7.221653,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 104,
+      "cycle": 7.258861333333333,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 105,
+      "cycle": 7.296069666666667,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 106,
+      "cycle": 7.333278,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 107,
+      "cycle": 7.370486333333333,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 108,
+      "cycle": 7.370486333333333,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 109,
+      "cycle": 7.407694666666667,
+      "phase": 0.3333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 110,
+      "cycle": 7.444903,
+      "phase": 0.3333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 111,
+      "cycle": 7.482111333333333,
+      "phase": 0.4166666666666667,
+      "visible": 1
+    },
+    {
+      "index": 112,
+      "cycle": 7.519319666666667,
+      "phase": 0.5,
+      "visible": 1
+    },
+    {
+      "index": 113,
+      "cycle": 7.556528,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 114,
+      "cycle": 7.593736333333333,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 115,
+      "cycle": 7.630944666666667,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 116,
+      "cycle": 7.668153,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 117,
+      "cycle": 7.705361333333333,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 118,
+      "cycle": 7.742569666666667,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 119,
+      "cycle": 7.779778,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 120,
+      "cycle": 7.816986333333333,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 121,
+      "cycle": 7.854194666666667,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 122,
+      "cycle": 7.891403,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 123,
+      "cycle": 7.9286113333333335,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 124,
+      "cycle": 7.965819666666667,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 125,
+      "cycle": 8.003028,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 126,
+      "cycle": 8.077444666666667,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 127,
+      "cycle": 8.114653,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 128,
+      "cycle": 8.151861333333335,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 129,
+      "cycle": 8.189069666666667,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 130,
+      "cycle": 8.226277999999999,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 131,
+      "cycle": 8.263486333333333,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 132,
+      "cycle": 8.263486333333333,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 133,
+      "cycle": 8.300694666666667,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 134,
+      "cycle": 8.337902999999999,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 135,
+      "cycle": 8.375111333333333,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 136,
+      "cycle": 8.412319666666667,
+      "phase": 0.3333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 137,
+      "cycle": 8.449527999999999,
+      "phase": 0.3333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 138,
+      "cycle": 8.486736333333333,
+      "phase": 0.4166666666666667,
+      "visible": 1
+    },
+    {
+      "index": 139,
+      "cycle": 8.523944666666667,
+      "phase": 0.5,
+      "visible": 1
+    },
+    {
+      "index": 140,
+      "cycle": 8.561153,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 141,
+      "cycle": 8.598361333333333,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 142,
+      "cycle": 8.635569666666667,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 143,
+      "cycle": 8.672778,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 144,
+      "cycle": 8.709986333333333,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 145,
+      "cycle": 8.747194666666667,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 146,
+      "cycle": 8.784403,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 147,
+      "cycle": 8.821611333333333,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 148,
+      "cycle": 8.858819666666667,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 149,
+      "cycle": 8.896028,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 150,
+      "cycle": 8.970444666666667,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 151,
+      "cycle": 9.007653,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 152,
+      "cycle": 9.044861333333333,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 153,
+      "cycle": 9.082069666666667,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 154,
+      "cycle": 9.119278,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 155,
+      "cycle": 9.156486333333334,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 156,
+      "cycle": 9.156486333333334,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 157,
+      "cycle": 9.193694666666667,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 158,
+      "cycle": 9.230903,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 159,
+      "cycle": 9.268111333333334,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 160,
+      "cycle": 9.305319666666668,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 161,
+      "cycle": 9.342528,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 162,
+      "cycle": 9.379736333333334,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 163,
+      "cycle": 9.416944666666668,
+      "phase": 0.3333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 164,
+      "cycle": 9.454153,
+      "phase": 0.4166666666666667,
+      "visible": 1
+    },
+    {
+      "index": 165,
+      "cycle": 9.491361333333334,
+      "phase": 0.4166666666666667,
+      "visible": 1
+    },
+    {
+      "index": 166,
+      "cycle": 9.528569666666668,
+      "phase": 0.5,
+      "visible": 1
+    },
+    {
+      "index": 167,
+      "cycle": 9.565778,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 168,
+      "cycle": 9.602986333333334,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 169,
+      "cycle": 9.640194666666668,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 170,
+      "cycle": 9.677403,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 171,
+      "cycle": 9.714611333333332,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 172,
+      "cycle": 9.751819666666666,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 173,
+      "cycle": 9.789028,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 174,
+      "cycle": 9.863444666666666,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 175,
+      "cycle": 9.900653,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 176,
+      "cycle": 9.937861333333332,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 177,
+      "cycle": 9.975069666666666,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 178,
+      "cycle": 10.012278,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 179,
+      "cycle": 10.049486333333332,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 180,
+      "cycle": 10.049486333333332,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 181,
+      "cycle": 10.086694666666666,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 182,
+      "cycle": 10.123903,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 183,
+      "cycle": 10.161111333333332,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 184,
+      "cycle": 10.198319666666666,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 185,
+      "cycle": 10.235528,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 186,
+      "cycle": 10.272736333333333,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 187,
+      "cycle": 10.309944666666667,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 188,
+      "cycle": 10.347153,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 189,
+      "cycle": 10.384361333333333,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 190,
+      "cycle": 10.421569666666667,
+      "phase": 0.3333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 191,
+      "cycle": 10.458778,
+      "phase": 0.4166666666666667,
+      "visible": 1
+    },
+    {
+      "index": 192,
+      "cycle": 10.495986333333333,
+      "phase": 0.4166666666666667,
+      "visible": 1
+    },
+    {
+      "index": 193,
+      "cycle": 10.533194666666667,
+      "phase": 0.5,
+      "visible": 1
+    },
+    {
+      "index": 194,
+      "cycle": 10.570403,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 195,
+      "cycle": 10.607611333333333,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 196,
+      "cycle": 10.644819666666667,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 197,
+      "cycle": 10.682028,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 198,
+      "cycle": 10.756444666666667,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 199,
+      "cycle": 10.793652833333333,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 200,
+      "cycle": 10.830861166666667,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 201,
+      "cycle": 10.868069499999999,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 202,
+      "cycle": 10.905277833333335,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 203,
+      "cycle": 10.942486166666667,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 204,
+      "cycle": 10.942486166666667,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 205,
+      "cycle": 10.9796945,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 206,
+      "cycle": 11.016902833333333,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 207,
+      "cycle": 11.054111166666667,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 208,
+      "cycle": 11.091319499999999,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 209,
+      "cycle": 11.128527833333335,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 210,
+      "cycle": 11.165736166666667,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 211,
+      "cycle": 11.202944500000001,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 212,
+      "cycle": 11.240152833333333,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 213,
+      "cycle": 11.277361166666667,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 214,
+      "cycle": 11.3145695,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 215,
+      "cycle": 11.351777833333335,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 216,
+      "cycle": 11.388986166666667,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 217,
+      "cycle": 11.426194500000001,
+      "phase": 0.3333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 218,
+      "cycle": 11.463402833333333,
+      "phase": 0.4166666666666667,
+      "visible": 1
+    },
+    {
+      "index": 219,
+      "cycle": 11.500611166666665,
+      "phase": 0.5,
+      "visible": 1
+    },
+    {
+      "index": 220,
+      "cycle": 11.5378195,
+      "phase": 0.5,
+      "visible": 1
+    },
+    {
+      "index": 221,
+      "cycle": 11.575027833333332,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 222,
+      "cycle": 11.6494445,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 223,
+      "cycle": 11.686652833333333,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 224,
+      "cycle": 11.723861166666666,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 225,
+      "cycle": 11.7610695,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 226,
+      "cycle": 11.798277833333332,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 227,
+      "cycle": 11.835486166666668,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 228,
+      "cycle": 11.835486166666668,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 229,
+      "cycle": 11.8726945,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 230,
+      "cycle": 11.909902833333334,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 231,
+      "cycle": 11.947111166666666,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 232,
+      "cycle": 11.9843195,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 233,
+      "cycle": 12.021527833333332,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 234,
+      "cycle": 12.058736166666668,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 235,
+      "cycle": 12.0959445,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 236,
+      "cycle": 12.133152833333334,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 237,
+      "cycle": 12.170361166666666,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 238,
+      "cycle": 12.2075695,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 239,
+      "cycle": 12.244777833333332,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 240,
+      "cycle": 12.281986166666668,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 241,
+      "cycle": 12.3191945,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 242,
+      "cycle": 12.356402833333334,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 243,
+      "cycle": 12.393611166666666,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 244,
+      "cycle": 12.4308195,
+      "phase": 0.3333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 245,
+      "cycle": 12.468027833333332,
+      "phase": 0.4166666666666667,
+      "visible": 1
+    },
+    {
+      "index": 246,
+      "cycle": 12.5424445,
+      "phase": 0.5,
+      "visible": 1
+    },
+    {
+      "index": 247,
+      "cycle": 12.579652833333334,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 248,
+      "cycle": 12.616861166666666,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 249,
+      "cycle": 12.6540695,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 250,
+      "cycle": 12.691277833333332,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 251,
+      "cycle": 12.728486166666668,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 252,
+      "cycle": 12.728486166666668,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 253,
+      "cycle": 12.7656945,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 254,
+      "cycle": 12.802902833333334,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 255,
+      "cycle": 12.840111166666667,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 256,
+      "cycle": 12.8773195,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 257,
+      "cycle": 12.914527833333333,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 258,
+      "cycle": 12.951736166666668,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 259,
+      "cycle": 12.9889445,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 260,
+      "cycle": 13.026152833333335,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 261,
+      "cycle": 13.063361166666667,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 262,
+      "cycle": 13.100569499999999,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 263,
+      "cycle": 13.137777833333333,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 264,
+      "cycle": 13.174986166666665,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 265,
+      "cycle": 13.2121945,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 266,
+      "cycle": 13.249402833333333,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 267,
+      "cycle": 13.286611166666667,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 268,
+      "cycle": 13.323819499999999,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 269,
+      "cycle": 13.361027833333333,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 270,
+      "cycle": 13.435444500000001,
+      "phase": 0.3333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 271,
+      "cycle": 13.472652833333333,
+      "phase": 0.4166666666666667,
+      "visible": 1
+    },
+    {
+      "index": 272,
+      "cycle": 13.509861166666667,
+      "phase": 0.5,
+      "visible": 1
+    },
+    {
+      "index": 273,
+      "cycle": 13.5470695,
+      "phase": 0.5,
+      "visible": 1
+    },
+    {
+      "index": 274,
+      "cycle": 13.584277833333333,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 275,
+      "cycle": 13.621486166666665,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 276,
+      "cycle": 13.621486166666665,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 277,
+      "cycle": 13.658694500000001,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 278,
+      "cycle": 13.695902833333333,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 279,
+      "cycle": 13.733111166666667,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 280,
+      "cycle": 13.7703195,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 281,
+      "cycle": 13.807527833333333,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 282,
+      "cycle": 13.844736166666666,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 283,
+      "cycle": 13.881944500000001,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 284,
+      "cycle": 13.919152833333333,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 285,
+      "cycle": 13.956361166666667,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 286,
+      "cycle": 13.9935695,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 287,
+      "cycle": 14.030777833333334,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 288,
+      "cycle": 14.067986166666666,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 289,
+      "cycle": 14.105194500000001,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 290,
+      "cycle": 14.142402833333334,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 291,
+      "cycle": 14.179611166666668,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 292,
+      "cycle": 14.2168195,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 293,
+      "cycle": 14.254027833333334,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 294,
+      "cycle": 14.328444500000002,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 295,
+      "cycle": 14.365652833333334,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 296,
+      "cycle": 14.402861166666668,
+      "phase": 0.3333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 297,
+      "cycle": 14.4400695,
+      "phase": 0.3333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 298,
+      "cycle": 14.477277833333334,
+      "phase": 0.4166666666666667,
+      "visible": 1
+    },
+    {
+      "index": 299,
+      "cycle": 14.514486166666666,
+      "phase": 0.5,
+      "visible": 1
+    },
+    {
+      "index": 300,
+      "cycle": 14.514486166666666,
+      "phase": 0.5,
+      "visible": 1
+    },
+    {
+      "index": 301,
+      "cycle": 14.551694500000002,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 302,
+      "cycle": 14.588902833333334,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 303,
+      "cycle": 14.626111166666666,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 304,
+      "cycle": 14.6633195,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 305,
+      "cycle": 14.700527833333332,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 306,
+      "cycle": 14.737736166666666,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 307,
+      "cycle": 14.774944499999998,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 308,
+      "cycle": 14.812152833333334,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 309,
+      "cycle": 14.849361166666666,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 310,
+      "cycle": 14.8865695,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 311,
+      "cycle": 14.923777833333332,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 312,
+      "cycle": 14.960986166666666,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 313,
+      "cycle": 14.998194499999999,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 314,
+      "cycle": 15.035402833333334,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 315,
+      "cycle": 15.072611166666666,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 316,
+      "cycle": 15.1098195,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 317,
+      "cycle": 15.147027833333333,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 318,
+      "cycle": 15.221444499999999,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 319,
+      "cycle": 15.258652833333334,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 320,
+      "cycle": 15.295861166666667,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 321,
+      "cycle": 15.3330695,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 322,
+      "cycle": 15.370277833333333,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 323,
+      "cycle": 15.407486166666667,
+      "phase": 0.3333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 324,
+      "cycle": 15.407486166666667,
+      "phase": 0.3333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 325,
+      "cycle": 15.444694499999999,
+      "phase": 0.3333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 326,
+      "cycle": 15.481902833333335,
+      "phase": 0.4166666666666667,
+      "visible": 1
+    },
+    {
+      "index": 327,
+      "cycle": 15.519111166666667,
+      "phase": 0.5,
+      "visible": 1
+    },
+    {
+      "index": 328,
+      "cycle": 15.5563195,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 329,
+      "cycle": 15.593527833333333,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 330,
+      "cycle": 15.630736166666667,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 331,
+      "cycle": 15.667944499999999,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 332,
+      "cycle": 15.705152833333335,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 333,
+      "cycle": 15.742361166666667,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 334,
+      "cycle": 15.779569500000001,
+      "phase": 0.75,
+      "visible": 1
+    },
+    {
+      "index": 335,
+      "cycle": 15.816777833333333,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 336,
+      "cycle": 15.853986166666667,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 337,
+      "cycle": 15.8911945,
+      "phase": 0.8333333333333334,
+      "visible": 1
+    },
+    {
+      "index": 338,
+      "cycle": 15.928402833333335,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 339,
+      "cycle": 15.965611166666667,
+      "phase": 0.9166666666666666,
+      "visible": 1
+    },
+    {
+      "index": 340,
+      "cycle": 16.0028195,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 341,
+      "cycle": 16.040027833333333,
+      "phase": 0,
+      "visible": 1
+    },
+    {
+      "index": 342,
+      "cycle": 16.1144445,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 343,
+      "cycle": 16.151652833333333,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 344,
+      "cycle": 16.188861166666666,
+      "phase": 0.08333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 345,
+      "cycle": 16.226069499999998,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 346,
+      "cycle": 16.263277833333333,
+      "phase": 0.16666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 347,
+      "cycle": 16.300486166666666,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 348,
+      "cycle": 16.300486166666666,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 349,
+      "cycle": 16.3376945,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 350,
+      "cycle": 16.374902833333334,
+      "phase": 0.25,
+      "visible": 1
+    },
+    {
+      "index": 351,
+      "cycle": 16.412111166666666,
+      "phase": 0.3333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 352,
+      "cycle": 16.449319499999998,
+      "phase": 0.3333333333333333,
+      "visible": 1
+    },
+    {
+      "index": 353,
+      "cycle": 16.486527833333334,
+      "phase": 0.4166666666666667,
+      "visible": 1
+    },
+    {
+      "index": 354,
+      "cycle": 16.523736166666666,
+      "phase": 0.5,
+      "visible": 1
+    },
+    {
+      "index": 355,
+      "cycle": 16.5609445,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 356,
+      "cycle": 16.598152833333334,
+      "phase": 0.5833333333333334,
+      "visible": 1
+    },
+    {
+      "index": 357,
+      "cycle": 16.635361166666666,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 358,
+      "cycle": 16.672569499999998,
+      "phase": 0.6666666666666666,
+      "visible": 1
+    },
+    {
+      "index": 359,
+      "cycle": 16.709777833333334,
+      "phase": 0.75,
+      "visible": 1
+    }
+  ]
+}

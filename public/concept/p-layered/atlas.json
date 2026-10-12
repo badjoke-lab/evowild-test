@@ -1,0 +1,140 @@
+{
+  "sources": [
+    "parts-source.png",
+    "lower-parts-source.png"
+  ],
+  "parts": {
+    "body": {
+      "crop": [
+        208,
+        8,
+        1119,
+        423
+      ],
+      "shoulder": [
+        806,
+        277
+      ],
+      "hip": [
+        423,
+        283
+      ],
+      "image": "body.png"
+    },
+    "fore-upper": {
+      "crop": [
+        361,
+        411,
+        195,
+        242
+      ],
+      "a": [
+        55,
+        24
+      ],
+      "b": [
+        154,
+        216
+      ],
+      "image": "fore-upper.png"
+    },
+    "fore-lower": {
+      "crop": [
+        244,
+        90,
+        282,
+        1093
+      ],
+      "a": [
+        125,
+        90
+      ],
+      "b": [
+        155,
+        1045
+      ],
+      "image": "fore-lower.png"
+    },
+    "fore-foot": {
+      "crop": [
+        973,
+        527,
+        262,
+        154
+      ],
+      "sole": [
+        189.88888888888889,
+        153
+      ],
+      "ankle": [
+        39,
+        25
+      ],
+      "width": 48,
+      "image": "fore-foot.png"
+    },
+    "hind-upper": {
+      "crop": [
+        362,
+        671,
+        248,
+        300
+      ],
+      "a": [
+        82,
+        38
+      ],
+      "b": [
+        184,
+        269
+      ],
+      "image": "hind-upper.png"
+    },
+    "hind-lower": {
+      "crop": [
+        821,
+        90,
+        318,
+        1093
+      ],
+      "a": [
+        110,
+        90
+      ],
+      "b": [
+        180,
+        1045
+      ],
+      "image": "hind-lower.png"
+    },
+    "hind-foot": {
+      "crop": [
+        988,
+        800,
+        268,
+        179
+      ],
+      "sole": [
+        183.33333333333334,
+        179
+      ],
+      "ankle": [
+        47,
+        33
+      ],
+      "width": 48,
+      "image": "hind-foot.png"
+    }
+  },
+  "body": {
+    "x": 34,
+    "y": 27,
+    "width": 350
+  },
+  "frame": {
+    "width": 416,
+    "height": 320,
+    "ground": 296
+  },
+  "notes": "Immutable torso plus six rigid cutouts; alpha-component extraction removes unrelated overlapping bounding-box pixels. No frame interpolation or per-frame art scaling."
+}

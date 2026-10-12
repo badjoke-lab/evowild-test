@@ -1,0 +1,233 @@
+{
+  "base": "9aeed9765fadc0ced0135fb51d7761fdb98756aa",
+  "branch": "fix/2p5d-p-canonical-20261011",
+  "reviewDate": "2026-10-12",
+  "productionPromotion": false,
+  "trialQuery": "race-quality.html?selected=2&pRig=1",
+  "unchangedOriginalConceptAssets": [
+    {
+      "path": "public/concept/A.webp",
+      "gitBlob": "897ca3f7cf75d615621cd4b37600340526fe94a1",
+      "unchanged": true
+    },
+    {
+      "path": "public/concept/E.webp",
+      "gitBlob": "d58c8bcd4aa5c7619652af9f2aed88a9052fcd7c",
+      "unchanged": true
+    },
+    {
+      "path": "public/concept/P.webp",
+      "gitBlob": "0673b45c71e629ab7c9ec943ca7d5b07fa0b6a08",
+      "unchanged": true
+    },
+    {
+      "path": "public/concept/S.webp",
+      "gitBlob": "bcf42a829466f17580e8ab5111e26997b20ddfce",
+      "unchanged": true
+    },
+    {
+      "path": "public/concept/a-run-sheet.webp",
+      "gitBlob": "7414afc654efe4e21e41628d119c7c561dac64d8",
+      "unchanged": true
+    },
+    {
+      "path": "public/concept/e-run-sheet.webp",
+      "gitBlob": "542b1b46503bc3dd1b42de33ea1df4ccb9edf4e7",
+      "unchanged": true
+    },
+    {
+      "path": "public/concept/p-run-sheet.webp",
+      "gitBlob": "a718ccc986d1d01f196c67a48b4fa29dde369f7c",
+      "unchanged": true
+    },
+    {
+      "path": "public/concept/s-run-sheet.svg",
+      "gitBlob": "3798db0152cca32a1c06d2c4de7847c8a1de9feb",
+      "unchanged": true
+    },
+    {
+      "path": "public/concept/s-run-sheet.webp",
+      "gitBlob": "0dc2c41f745af1b8cc8215f2a971aab78c6f347c",
+      "unchanged": true
+    }
+  ],
+  "runtimeAndScriptHashes": {
+    "src/p_layered.js": "9d830888e8c3b7e131fe9ac4a4779847f7aa8a8baa6eb618192891eccf57d443",
+    "src/race_quality.js": "e08aaeaacf4c15848f5262c97869aa600738080b962c19690d4f47f08d582c18",
+    "tests/p-layered.spec.js": "9e74ae22da5825e4e2d19bed262eca54e29aad6f090e27e511d8557d59dde7c5",
+    "public/concept/p-layered/atlas.json": "2cca4cc776e1d601d17aeb8aed1233a84dacd409bc5072db6ec36a5692395cd9",
+    "public/concept/p-layered/body.png": "bb61bd71bb9676b3a21becb548494fb3484519b0511357aae52bd4fb27cdfc24",
+    "public/concept/p-layered/fore-foot.png": "740f3fd43c1e6f120e72bd415399c98efe14da371e883759b6180a79f84c1aee",
+    "public/concept/p-layered/fore-lower.png": "6a2d06e701a42430fb46275e0d9bd3e3fad993ff1b66af173247cb15bd32b7e3",
+    "public/concept/p-layered/fore-upper.png": "682a9ea86d4c7f8153a3eac052ae076631db6b117021de6ae7c7b2afbe61a65e",
+    "public/concept/p-layered/hind-foot.png": "449b515868b8cb7385957dec8122cee0ee84374f656c8b880f8d986a9dde91d9",
+    "public/concept/p-layered/hind-lower.png": "a329409f519c66732b94a6fd8cf61793b78aa63f9bef58ac17b5efb860a1305f",
+    "public/concept/p-layered/hind-upper.png": "dba5b528a1a8b38dcc4f292b331aeef45cefb2a86651fd0f3a96c6854b9d9b24",
+    "scripts/capture-p-layered.mjs": "80fcab8e1e2787b04f393e24b33717becb2932847a05b100776ecef4a60d7538",
+    "scripts/measure-p-layered-loop.mjs": "1c0a1c9977d1e1206a2839333bd21378471d27e151ed077ebe96d710b1802b61",
+    "scripts/pack-p-layered.py": "bec1a7675efc214748def719a6fb138d48cae5a0eb69eeb94ef63a39cd5be264",
+    "scripts/plot-p-layered-evidence.py": "4be59c5a6c3fc37a9bb2ab40a990b0ca2d6a23d75a562a2481b65d7f70ca5227",
+    "scripts/preview-p-layered.mjs": "047801ba1bdfd722f3adc6ed1a216a22e0ad4a7350520a66a6accbcb6aa7745b"
+  },
+  "imageProvenance": {
+    "bodyUpperFeet": "parts-source.png; referenced image edit, candidate 3",
+    "lowerLimbs": "lower-parts-source.png; referenced image edit, candidate 5",
+    "rejected": "Candidates with large rounded muzzle, gray cut ends, or overly thin lower legs; no cross-frame interpolation"
+  },
+  "videos": [
+    {
+      "path": "docs/evidence/p-layered-20261012/before-after-motion.mp4",
+      "sha256": "7e9897b3a898effec5223053cd0f4438bdf5f2068cc27244330a9a16e30170bb",
+      "width": 960,
+      "height": 310,
+      "r_frame_rate": "60/1",
+      "duration": "6.000000",
+      "nb_frames": "360"
+    },
+    {
+      "path": "docs/evidence/p-layered-20261012/before-isolated.mp4",
+      "sha256": "d121229f31ddc5b9958f5d9abee594bd2886b5e86495eac7c995d0dc987b3aff",
+      "width": 1280,
+      "height": 720,
+      "r_frame_rate": "60/1",
+      "duration": "6.000000",
+      "nb_frames": "360"
+    },
+    {
+      "path": "docs/evidence/p-layered-20261012/layered-half-speed.mp4",
+      "sha256": "893de40d381576ac816c0163eee025d578edbb839473a3a4bc578cd7d6c78afd",
+      "width": 1280,
+      "height": 720,
+      "r_frame_rate": "60/1",
+      "duration": "11.983333",
+      "nb_frames": "719"
+    },
+    {
+      "path": "docs/evidence/p-layered-20261012/layered-isolated.mp4",
+      "sha256": "6cd6cf9b3f212d165a742d7fd702cea6fd5352bdeb676aa0f5cb63374615b85a",
+      "width": 1280,
+      "height": 720,
+      "r_frame_rate": "60/1",
+      "duration": "6.000000",
+      "nb_frames": "360"
+    },
+    {
+      "path": "docs/evidence/p-layered-20261012/race-18-desktop.mp4",
+      "sha256": "e6a79dd852fb04dd4d6fd49417fba0cc22dc747150847dae122a21e3988b7992",
+      "width": 1280,
+      "height": 720,
+      "r_frame_rate": "60/1",
+      "duration": "6.000000",
+      "nb_frames": "360"
+    },
+    {
+      "path": "docs/evidence/p-layered-20261012/race-18-mobile.mp4",
+      "sha256": "b1a7a1f555d4a902d64e5b2245109b7f4360b2bc9036a202eec22afe9bc864b0",
+      "width": 412,
+      "height": 840,
+      "r_frame_rate": "60/1",
+      "duration": "4.000000",
+      "nb_frames": "240"
+    }
+  ],
+  "independentTraceAudit": [
+    {
+      "name": "layered-isolated",
+      "independentlyRecomputedMaxBoneLengthError": 7.105427357601002e-14,
+      "allSoleAndCentroidMeasurementsFinite": true
+    },
+    {
+      "name": "race-18-desktop",
+      "independentlyRecomputedMaxBoneLengthError": 7.105427357601002e-14,
+      "allSoleAndCentroidMeasurementsFinite": true
+    },
+    {
+      "name": "race-18-mobile",
+      "independentlyRecomputedMaxBoneLengthError": 5.684341886080802e-14,
+      "allSoleAndCentroidMeasurementsFinite": true
+    }
+  ],
+  "loop": {
+    "units": "416x320 rig source pixels",
+    "epsilonCycle": 0.0001,
+    "exactEndpointMaxJointDelta": 0,
+    "exactEndpointDifferentChannels": 0,
+    "boundaries": [
+      {
+        "name": "6-to-7",
+        "phase": 0.5,
+        "maxJointTravelAcrossEpsilon": 0.11077851098132825
+      },
+      {
+        "name": "8-to-9",
+        "phase": 0.6666666666666666,
+        "maxJointTravelAcrossEpsilon": 0.16121310883278792
+      },
+      {
+        "name": "9-to-10",
+        "phase": 0.75,
+        "maxJointTravelAcrossEpsilon": 0.16329193007418624
+      },
+      {
+        "name": "12-to-1",
+        "phase": 1,
+        "maxJointTravelAcrossEpsilon": 0.11033180533975989
+      }
+    ],
+    "limitation": "Flat-ground stateless phase probe using the runtime painter. Live support anchoring and body-height history are measured separately in the video traces."
+  },
+  "rigRegression": {
+    "passed": 2,
+    "log": "rig-test-results.txt"
+  },
+  "legacyRegression": {
+    "passed": 4,
+    "result": "legacy-test-results.json"
+  },
+  "build": {
+    "passed": true,
+    "command": "npm --ignore-scripts run build",
+    "log": "build-results.txt",
+    "warning": "Existing main chunk exceeds 500 kB"
+  },
+  "limits": [
+    "Pixel 7 browser emulation, not physical-device performance",
+    "World foot raster is measured before scene occlusion",
+    "Legacy support-band proxy has no persistent toe identity",
+    "Overall anatomy and gait remain REVISE; default atlas unchanged"
+  ],
+  "evidenceSha256": {
+    "docs/evidence/p-layered-20261012/actual-motion-filmstrip.png": "e6112c186af16037e8249e2ef79f394e524acede8fdfc335557509ff0dff7e76",
+    "docs/evidence/p-layered-20261012/before-12-phase.webp": "8c587c40bd25678bfdff5aa0644ac7552fc040b55247b050b18e7dbc0cfde7cc",
+    "docs/evidence/p-layered-20261012/before-after-motion.mp4": "7e9897b3a898effec5223053cd0f4438bdf5f2068cc27244330a9a16e30170bb",
+    "docs/evidence/p-layered-20261012/before-isolated-later.png": "a172644ad2809944cdf2b395ffc2ecd2ba1e47db60b176ade50d4102d69e3efb",
+    "docs/evidence/p-layered-20261012/before-isolated-trace.json": "91430f2f3e05c6acc19698db2ccb847af2228f101406f1e31a8e732f20aac015",
+    "docs/evidence/p-layered-20261012/before-isolated.mp4": "d121229f31ddc5b9958f5d9abee594bd2886b5e86495eac7c995d0dc987b3aff",
+    "docs/evidence/p-layered-20261012/before-isolated.png": "bd28aaa369c2c627a1a2e859080df0a158fe546968e7f8f9e4287aa6c045c940",
+    "docs/evidence/p-layered-20261012/canonical-old-layered.png": "ec913c3b886541b0dd07d495ea002db944f2fe4988c4d79d49cd7236c1c606cc",
+    "docs/evidence/p-layered-20261012/foot-slip-comparison.png": "104e29a8e49dbd5bdac31178e07fa1c2a88db0831744d0abe864ce69728d9823",
+    "docs/evidence/p-layered-20261012/layered-12-phase.png": "82e71cd4a5e16ae063f8cc8b74e0244c29257f9821c73eef5989b5da5713a3fc",
+    "docs/evidence/p-layered-20261012/layered-12-phase.webp": "9b410fa0a470b28cbbbd996513ae753e587c625ca608792366a2a3c3e5badde3",
+    "docs/evidence/p-layered-20261012/layered-contact-sheet.png": "d359ba8aa4b2cacb06d229326ed02fc6be9079e8010b7d0b7751f81a11bf110e",
+    "docs/evidence/p-layered-20261012/layered-half-speed.mp4": "893de40d381576ac816c0163eee025d578edbb839473a3a4bc578cd7d6c78afd",
+    "docs/evidence/p-layered-20261012/layered-isolated-later.png": "538c1c088ce316cd4597a82e0cab2e1cf07b3640ae60397069d13fc6d7753fa9",
+    "docs/evidence/p-layered-20261012/layered-isolated-trace.json": "c5b7fe32e644f438896037a24325beaaba28bc478ccc365be134a87dd3fa8e20",
+    "docs/evidence/p-layered-20261012/layered-isolated.mp4": "6cd6cf9b3f212d165a742d7fd702cea6fd5352bdeb676aa0f5cb63374615b85a",
+    "docs/evidence/p-layered-20261012/layered-isolated.png": "d326e998038daebd1d82711d5328e5d4741571674accbe9ea5bd1060efbd1af5",
+    "docs/evidence/p-layered-20261012/legacy-test-results.json": "2867cb10341920acdf24d3fe0cec5d3ec72e915acea5325f3b9f37671785b0b1",
+    "docs/evidence/p-layered-20261012/loop-validation.json": "d2f390ed0c0cbd1bbaf61bccd924f8a2227ac53d27fe5ec2f3c36f9756c5df3a",
+    "docs/evidence/p-layered-20261012/lower-parts-source.png": "fc8bbd1cd95cbf14f23a947717b9a4e1ecb1dc29f6a03588eb3d3cef63f09300",
+    "docs/evidence/p-layered-20261012/parts-source.png": "df81048810b89104711be544af2c919b5fe6eb3629043a50eb40fe268821176f",
+    "docs/evidence/p-layered-20261012/phase-poses.json": "73e7e16989ed94a12e6c7f9b84aa2ef515fabf69d1dbb7817a4c1315cf6b2f64",
+    "docs/evidence/p-layered-20261012/race-18-desktop-later.png": "7014d6bfed862923c1b24585e493d1ff49e8e7602b77deaafcfc83259ff80fb3",
+    "docs/evidence/p-layered-20261012/race-18-desktop-trace.json": "954c7b94ecb731b5a56521434b156d9883eb9283d8138bbd545c69dcd8072979",
+    "docs/evidence/p-layered-20261012/race-18-desktop.mp4": "e6a79dd852fb04dd4d6fd49417fba0cc22dc747150847dae122a21e3988b7992",
+    "docs/evidence/p-layered-20261012/race-18-desktop.png": "50706d7fe1a481ed426fe8873ec55bff2933075970770371449e6243423564a2",
+    "docs/evidence/p-layered-20261012/race-18-mobile-later.png": "753354d5d917183039d7ee0e5c1e34a583996b71d47425a278ee05248f657631",
+    "docs/evidence/p-layered-20261012/race-18-mobile-trace.json": "7ff44c6a1acabe901b04477773d52d475ef42f73a8e455862dbf2b011b2aebfa",
+    "docs/evidence/p-layered-20261012/race-18-mobile.mp4": "b1a7a1f555d4a902d64e5b2245109b7f4360b2bc9036a202eec22afe9bc864b0",
+    "docs/evidence/p-layered-20261012/race-18-mobile.png": "9903765d8aba13642832c56525fb31be2e5a3f28c5fccb027b506b5415fbec02",
+    "docs/evidence/p-layered-20261012/run-validation.json": "1b0ba74f23658ce24d824823a9e234d02adc231fb5f37314edbc6811114fc5d9",
+    "docs/evidence/p-layered-20261012/transition-comparison.png": "b741440e2601c28adf25be23f92a05ba975c186892c04e1fbcb346a2fe205f6d"
+  }
+}

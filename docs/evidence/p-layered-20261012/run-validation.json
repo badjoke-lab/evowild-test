@@ -1,0 +1,196 @@
+[
+  {
+    "name": "before-isolated",
+    "url": "race-quality.html?selected=2&motionReview=1",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "fps": 60,
+    "seconds": 6,
+    "cycles": 13.310781333333333,
+    "traceIntervalMs": 33.333333333333336,
+    "traceSamples": 180,
+    "visibleRacers": [
+      1
+    ],
+    "errors": [],
+    "metric": "Legacy rightmost RGBA ground band during the same held frame; no persistent toe identity",
+    "anchorOrLegacyBandTravelPx": {
+      "n": 32,
+      "mean": 7.197374999999945,
+      "max": 8.159999999999922
+    },
+    "soleRasterTravelPx": {
+      "n": 0,
+      "mean": 0,
+      "max": 0
+    },
+    "footRasterCentroidTravelPx": {
+      "n": 0,
+      "mean": 0,
+      "max": 0
+    },
+    "laneDrift": {
+      "n": 0,
+      "mean": 0,
+      "max": 0
+    },
+    "observedStanceRasterSpanPx": {
+      "n": 0,
+      "mean": 0,
+      "max": 0
+    },
+    "maxReachError": null,
+    "maxBoneLengthError": null,
+    "maxBodyOffset": null,
+    "pRunners": null
+  },
+  {
+    "name": "layered-isolated",
+    "url": "race-quality.html?selected=2&motionReview=1&pRig=1&pRigReview=1",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "fps": 60,
+    "seconds": 6,
+    "cycles": 5.092116801439951,
+    "traceIntervalMs": 33.333333333333336,
+    "traceSamples": 180,
+    "visibleRacers": [
+      1
+    ],
+    "errors": [],
+    "metric": "Persistent foot ID + stance ID; world anchor and actual alpha foot-mask raster",
+    "anchorOrLegacyBandTravelPx": {
+      "n": 280,
+      "mean": 0,
+      "max": 0
+    },
+    "soleRasterTravelPx": {
+      "n": 280,
+      "mean": 0.34682078478677075,
+      "max": 3.060787661716564
+    },
+    "footRasterCentroidTravelPx": {
+      "n": 280,
+      "mean": 0.0147841492285549,
+      "max": 0.06302611627099852
+    },
+    "laneDrift": {
+      "n": 280,
+      "mean": 0,
+      "max": 0
+    },
+    "observedStanceRasterSpanPx": {
+      "n": 20,
+      "mean": 0.9801523778382257,
+      "max": 3.0800259446929896
+    },
+    "maxReachError": 0,
+    "maxBoneLengthError": 7.105427357601002e-14,
+    "maxBodyOffset": 31.576187367226012,
+    "pRunners": [
+      1
+    ]
+  },
+  {
+    "name": "race-18-desktop",
+    "url": "race-quality.html?selected=2&pRig=1&pRigReview=1",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "fps": 60,
+    "seconds": 6,
+    "cycles": 18.105858629953044,
+    "traceIntervalMs": 33.333333333333336,
+    "traceSamples": 180,
+    "visibleRacers": [
+      18
+    ],
+    "errors": [],
+    "metric": "Persistent foot ID + stance ID; world anchor and actual alpha foot-mask raster",
+    "anchorOrLegacyBandTravelPx": {
+      "n": 227,
+      "mean": 0,
+      "max": 0
+    },
+    "soleRasterTravelPx": {
+      "n": 227,
+      "mean": 0.23268505431758887,
+      "max": 0.8763755539107798
+    },
+    "footRasterCentroidTravelPx": {
+      "n": 227,
+      "mean": 0.024085130051001595,
+      "max": 0.12048967688119762
+    },
+    "laneDrift": {
+      "n": 227,
+      "mean": 0,
+      "max": 0
+    },
+    "observedStanceRasterSpanPx": {
+      "n": 71,
+      "mean": 0.42754190319335644,
+      "max": 1.0064360048083234
+    },
+    "maxReachError": 0,
+    "maxBoneLengthError": 7.105427357601002e-14,
+    "maxBodyOffset": 104.58847876989779,
+    "pRunners": [
+      5
+    ]
+  },
+  {
+    "name": "race-18-mobile",
+    "url": "race-quality.html?selected=2&pRig=1&pRigReview=1",
+    "viewport": {
+      "width": 412,
+      "height": 839
+    },
+    "fps": 60,
+    "seconds": 4,
+    "cycles": 11.74152719247665,
+    "traceIntervalMs": 33.333333333333336,
+    "traceSamples": 120,
+    "visibleRacers": [
+      18
+    ],
+    "errors": [],
+    "metric": "Persistent foot ID + stance ID; world anchor and actual alpha foot-mask raster",
+    "anchorOrLegacyBandTravelPx": {
+      "n": 157,
+      "mean": 0,
+      "max": 0
+    },
+    "soleRasterTravelPx": {
+      "n": 157,
+      "mean": 0.20745984386246097,
+      "max": 0.8829689384611827
+    },
+    "footRasterCentroidTravelPx": {
+      "n": 157,
+      "mean": 0.032039838569826035,
+      "max": 0.0725948408168846
+    },
+    "laneDrift": {
+      "n": 157,
+      "mean": 0,
+      "max": 0
+    },
+    "observedStanceRasterSpanPx": {
+      "n": 46,
+      "mean": 0.3657789211987907,
+      "max": 0.9487333514134364
+    },
+    "maxReachError": 0,
+    "maxBoneLengthError": 8.526512829121202e-14,
+    "maxBodyOffset": 170.207296638673,
+    "pRunners": [
+      5
+    ]
+  }
+]

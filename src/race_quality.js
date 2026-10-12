@@ -1,3 +1,5 @@
+import {loadPLayered,pLayeredReady,drawPLayered} from './p_layered.js';
+
 const canvas = document.querySelector("#raceCanvas");
 const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
 const stage = document.querySelector("#stage");
@@ -38,6 +40,15 @@ const battleMetaEl = document.querySelector("#battleMeta");
 const agentCommandButtons = [...document.querySelectorAll("[data-agent-command]")];
 
 const BASE = import.meta.env.BASE_URL || "/";
+// P-only trial: preserve the reviewed atlas path for an honest A/B comparison.
+const P_LAYERED_MODE=new URLSearchParams(location.search).get('pRig')==='1';
+const P_LAYERED_REVIEW=new URLSearchParams(location.search).get('pRigReview')==='1';
+if(P_LAYERED_MODE){
+  stage.dataset.pRigStatus='loading';
+  loadPLayered(BASE).then(()=>{stage.dataset.pRigStatus='ready';}).catch(error=>{
+    stage.dataset.pRigStatus='error';console.error(error);
+  });
+}
 const FINISH_REVIEW_MODE = new URLSearchParams(location.search).get("finishReview") === "1";
 const BATTLE_REVIEW_MODE = new URLSearchParams(location.search).get("battleReview") === "1";
 const TRAFFIC_REVIEW_MODE = new URLSearchParams(location.search).get("trafficReview") === "1";
@@ -1203,6 +1214,7 @@ function drawCourseLandmarks() {
 }
 
 function drawRacers() {
+  if(P_LAYERED_REVIEW)window.__pRigField={};
   const list=[];
   const startFormationFactor =
     raceState==="countdown"
@@ -1266,7 +1278,7 @@ function drawRacers() {
     const slope=terrainSlope(item.visualDistance);
     const lean=clamp(slope*.022,-.045,.045);
 
-    const flight = frame.flight ?? (
+    const flight = r.morph==='P'&&P_LAYERED_MODE ? 0 : frame.flight ?? (
       frame.phase==="FLIGHT" ? 1 :
       frame.phase==="REACH" ? .55 :
       frame.phase==="LIFT" ? .28 : 0);
@@ -1294,6 +1306,7 @@ function drawRacers() {
     }
 
     const frameCanvas=frames?.[frameIndex];
+    let pRigPose=null;
     if(frameCanvas){
       const peaProfile=PEA_MOTION_V2[r.morph];
       const phaseTransform=peaProfile?.transform?.[frame.phase] ?? { sx:1, sy:1, lean:0, lift:0 };
@@ -1311,6 +1324,37 @@ function drawRacers() {
       const phaseLift=r.morph==="S" ? 0 : phaseTransform.lift*drawH;
       const footAdjust=groundCorrection+legacyLift+phaseLift;
 
+      if(r.morph==='P'&&P_LAYERED_MODE&&pLayeredReady()){
+        pRigPose=drawPLayered(ctx,r,{
+          x:item.x,y:item.y,width:drawW,ppm:pixelsPerMeter,distance:item.visualDistance,
+          projectX:screenXForMeters,groundY:laneYAt,lane:item.lane,time:elapsed,
+          reviewPhase:MOTION_REVIEW_FRAME>=0?MOTION_REVIEW_FRAME/12:undefined,
+          debug:new URLSearchParams(location.search).get('pRigBones')==='1'
+        });
+        if(P_LAYERED_REVIEW){
+          window.__pRigField[r.id]={id:r.id,phase:pRigPose.phase,bodyOffset:pRigPose.bodyOffset,
+            feet:pRigPose.feet.map(({id,stance,reachError,boneLengthError})=>({id,stance,reachError,boneLengthError}))};
+        }
+        if(selectedRacer&&P_LAYERED_REVIEW){
+          window.__pRigReview={phase:pRigPose.phase,cycle:pRigPose.cycle,feet:pRigPose.feet,bodyOffset:pRigPose.bodyOffset,
+            scale:pRigPose.scale,rootX:item.x,rootY:item.y,distance:r.distance,
+            cameraMeters,pixelsPerMeter,screenAnchor:width<700?width*.5:width*.46,time:elapsed,fieldSize:racers.length};
+          window.__pRigFootRaster=(id,includeImage=false)=>{
+            const f=pRigPose.feet.find(f=>f.id===id),ox=Math.floor(f.screenX)-64,oy=Math.floor(f.screenY)-96;
+            const c=document.createElement('canvas');c.width=128;c.height=128;
+            const cx=c.getContext('2d',{willReadFrequently:true});cx.translate(-ox,-oy);pRigPose.paintFoot(cx,id);
+            const data=cx.getImageData(0,0,c.width,c.height).data;
+            let bottom=-1,left=c.width,right=-1,top=c.height,ax=0,ay=0,weight=0;
+            for(let k=0;k<data.length/4;k++){const alpha=data[k*4+3]/255;ax+=(k%c.width+.5)*alpha;ay+=(Math.floor(k/c.width)+.5)*alpha;weight+=alpha;}
+            for(let k=0;k<data.length/4;k++)if(data[k*4+3]>128){
+              const x=k%c.width,y=Math.floor(k/c.width);left=Math.min(left,x);right=Math.max(right,x);top=Math.min(top,y);bottom=Math.max(bottom,y);
+            }
+            let sum=0,n=0;
+            for(let y=Math.max(0,bottom-1);y<=bottom;y++)for(let x=left;x<=right;x++)if(data[(y*c.width+x)*4+3]>128){sum+=x+.5;n++;}
+            return {bounds:[left+ox,top+oy,right+ox,bottom+oy],solePixelX:n?sum/n+ox:null,solePixelY:bottom+.5+oy,centroidX:ax/weight+ox,centroidY:ay/weight+oy,png:includeImage?c.toDataURL():undefined};
+          };
+        }
+      }else{
       ctx.save();
       ctx.translate(item.x+horizontalCorrection,item.y-drawH*.48);
       ctx.rotate(lean+phaseTransform.lean);
@@ -1323,11 +1367,12 @@ function drawRacers() {
       }
       ctx.drawImage(frameCanvas,-drawW/2,-drawH/2+footAdjust,drawW,drawH);
       ctx.restore();
+      }
 
       stage.dataset[`${r.morph.toLowerCase()}Animated`] = "true";
       stage.dataset[`${r.morph.toLowerCase()}Frame`] = String(frameIndex);
       if(r.morph!=="S"){
-        stage.dataset[`${r.morph.toLowerCase()}MotionProfile`] = r.morph==="P" ? "canonical-p-12" : "grounded-stride-v2";
+        stage.dataset[`${r.morph.toLowerCase()}MotionProfile`] = r.morph==="P" ? (pRigPose?'canonical-p-layered-trial':"canonical-p-12") : "grounded-stride-v2";
         stage.dataset[`${r.morph.toLowerCase()}FootAdjust`] = footAdjust.toFixed(2);
         stage.dataset[`${r.morph.toLowerCase()}HorizontalAdjust`] = horizontalCorrection.toFixed(2);
         stage.dataset[`${r.morph.toLowerCase()}FrameCenterX`] = centerXNorm.toFixed(3);
@@ -1355,6 +1400,11 @@ function drawRacers() {
 
     if(selectedRacer){
       if(r.morph==="P") {
+        stage.dataset.pRenderer=pRigPose?'layered-world-stance':'atlas-12';
+        if(pRigPose){
+          stage.dataset.pRigCycle=String(pRigPose.cycle);
+          stage.dataset.pRigFeet=JSON.stringify(pRigPose.feet);
+        }
         stage.dataset.pRunPosition=r.pRunPosition.toFixed(6);
         stage.dataset.pCadenceModel=P_STRIDE_DISTANCE_TRIAL?"integrated-distance-trial":"integrated-fixed-step";
         stage.dataset.pCalibratedCycleMetres=P_CALIBRATION_METRES.toFixed(3);
