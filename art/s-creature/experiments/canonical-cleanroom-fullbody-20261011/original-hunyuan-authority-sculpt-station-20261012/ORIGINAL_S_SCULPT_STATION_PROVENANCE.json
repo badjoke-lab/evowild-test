@@ -1,0 +1,129 @@
+{
+  "SHA256_original_canonical_image": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "SHA256_source_Hunyuan_blend": "6651109695536db026d9b52fe10c3fa829cab82915cda1955a5f56eedcec4345",
+  "source_original_mesh_vertices": 38802,
+  "source_original_mesh_triangles": 77684,
+  "source_mesh_sha256_before": "c441bed26d18a97b80835495b9602ac430280a7b75a48633239732302117a6a4",
+  "source_mesh_sha256_after": "c441bed26d18a97b80835495b9602ac430280a7b75a48633239732302117a6a4",
+  "source_mesh_unchanged": true,
+  "original_face_topology_sha256_before": "17a6643839c31b2a496668a970f5d4050d6dce9a608fd933320721c751e20669",
+  "original_face_topology_sha256_after": "17a6643839c31b2a496668a970f5d4050d6dce9a608fd933320721c751e20669",
+  "original_face_topology_unchanged": true,
+  "number_of_extra_armor_meshes": 0,
+  "number_of_guide_image_planes": 4,
+  "source_guide_panels": {
+    "SIDE": {
+      "crop": [
+        18,
+        75,
+        756,
+        512
+      ],
+      "view": [
+        1,
+        0,
+        0
+      ],
+      "plane_m": [
+        2.3,
+        1.36
+      ]
+    },
+    "FRONT": {
+      "crop": [
+        766,
+        81,
+        949,
+        513
+      ],
+      "view": [
+        0,
+        -1,
+        0
+      ],
+      "plane_m": [
+        0.7,
+        1.43
+      ]
+    },
+    "BACK": {
+      "crop": [
+        951,
+        81,
+        1124,
+        513
+      ],
+      "view": [
+        0,
+        1,
+        0
+      ],
+      "plane_m": [
+        0.65,
+        1.43
+      ]
+    },
+    "FRONT34": {
+      "crop": [
+        1127,
+        81,
+        1433,
+        513
+      ],
+      "view": [
+        1,
+        -1,
+        0
+      ],
+      "plane_m": [
+        1.02,
+        1.44
+      ]
+    }
+  },
+  "reference_images_packed": [
+    {
+      "name": "00_S_TYPE_MODELING_IMAGE_V1__HIGHEST_AUTHORITY",
+      "packed": true
+    },
+    {
+      "name": "AUTHORITY_SOURCE_CROP_BACK",
+      "packed": true
+    },
+    {
+      "name": "AUTHORITY_SOURCE_CROP_FRONT",
+      "packed": true
+    },
+    {
+      "name": "AUTHORITY_SOURCE_CROP_FRONT34",
+      "packed": true
+    },
+    {
+      "name": "AUTHORITY_SOURCE_CROP_SIDE",
+      "packed": true
+    },
+    {
+      "name": "Render Result",
+      "packed": false
+    }
+  ],
+  "orthographic_camera_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "BACK",
+    "REAR34"
+  ],
+  "source_original_REAR34_art_exists": false,
+  "guide_registration_exact": false,
+  "editor_roi_vertex_counts": {
+    "SCULPT_ROI_SHOULDER_AND_CHEST": 9126,
+    "PRESERVE_HEAD_CREST": 3018,
+    "PRESERVE_PELVIS_AND_REAR": 16812
+  },
+  "sculpted_edited_geometry": false,
+  "original_creature_REVIEW_ONLY": true,
+  "game_approved": false,
+  "main_updated": false,
+  "S_type_completed_count": 0
+}
