@@ -11,7 +11,6 @@ import bpy,math,json,hashlib
 from mathutils import Vector,Matrix
 from pathlib import Path
 import numpy as np
-from PIL import Image
 ROOT=next(q for q in Path(__file__).resolve().parents
           if (q/'art/s-creature/references/00_s_type_modeling_image_v1.png').exists())
 EXP=ROOT/'art/s-creature/experiments/canonical-cleanroom-fullbody-20261011'
@@ -24,8 +23,7 @@ SHA='93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6'
 BASE='6651109695536db026d9b52fe10c3fa829cab82915cda1955a5f56eedcec4345'
 assert hashlib.sha256(REF.read_bytes()).hexdigest()==SHA
 assert hashlib.sha256(SOURCE.read_bytes()).hexdigest()==BASE
-original=Image.open(REF).convert('RGBA')
-assert original.size==(1448,1086)
+assert REF.stat().st_size==1982782
 bpy.ops.wm.open_mainfile(filepath=str(SOURCE))
 scene=bpy.context.scene
 bodyobjs=[o for o in scene.objects if o.type=='MESH']
@@ -55,11 +53,11 @@ def make_collection(name):
 allref=make_collection('AUTHORITY__ONLY_00_S_TYPE_MODELING_IMAGE_V1')
 cameras=make_collection('SCULPT_5_ORTHO_REVIEW_CAMERAS')
 for tag,info in panels.items():
-    crop=original.crop(tuple(info['crop']))
     path=PREV/('SOURCE_ORIGINAL_UNEDITED_CROP_'+tag+'.png')
-    crop.save(path)
-    assert crop.size[0]==info['crop'][2]-info['crop'][0]
+    assert path.is_file(),('Missing direct-PNG crop prepared with PIL in runner',path)
     img=bpy.data.images.load(str(path),check_existing=False)
+    assert img.size[0]==info['crop'][2]-info['crop'][0]
+    assert img.size[1]==info['crop'][3]-info['crop'][1]
     img.name='AUTHORITY_SOURCE_CROP_'+tag
     img.pack()
     view=Vector(info['view']).normalized()
@@ -167,7 +165,7 @@ scene.render.image_settings.file_format='PNG'
 bpy.ops.object.select_all(action='DESELECT')
 body.select_set(True)
 bpy.context.view_layer.objects.active=body
-for area in bpy.context.screen.areas:
+for area in bpy.context.screen.areas if bpy.context.screen else []:
     if area.type=='VIEW_3D':
         area.spaces.active.region_3d.view_perspective='ORTHO'
     elif area.type=='OUTLINER':
