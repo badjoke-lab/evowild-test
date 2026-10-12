@@ -1,0 +1,93 @@
+name: EvoWild S native-surface integrated shoulder H0b
+on:
+  push:
+    branches: [exp/s-h0b-integrated-shoulder-20261012]
+    paths:
+      - .github/workflows/s-h0b-integrated-original-skin-20261012.yml
+      - art/s-creature/blender/s_h0b_integrated_shoulder_sculpt.py
+      - art/s-creature/blender/s_h0b_render_comparison_sheet.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-S-original-Hunyuan-integrated-shoulder-H0b
+  cancel-in-progress: false
+jobs:
+  true-original-Hunyuan-surface-sculpt-and-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_h0b_integrated_shoulder_sculpt.py
+            /art/s-creature/blender/s_h0b_render_comparison_sheet.py
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/hunyuan2mv-original-source-20261012/HUNYUAN2MV_S_THREEVIEW_REAL_ASSET_UNAPPROVED.blend
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/h0b-integrated-shoulder-20261012/
+            /.github/workflows/s-h0b-integrated-original-skin-20261012.yml
+      - name: Check exact source image and actual source Blender hashes
+        run: |
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+          echo '6651109695536db026d9b52fe10c3fa829cab82915cda1955a5f56eedcec4345  art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/hunyuan2mv-original-source-20261012/HUNYUAN2MV_S_THREEVIEW_REAL_ASSET_UNAPPROVED.blend' | sha256sum --check -
+      - name: Install real Blender 4.3.2
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Edit genuine SOURCE skin only and render same camera five views
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/s_h0b_integrated_shoulder_sculpt.py
+      - name: Include actual rejected H0 same-camera images only for review
+        run: |
+          mkdir -p art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/h0b-integrated-shoulder-20261012/review
+          git fetch --depth=1 origin exp/s-h0-body-armor-pass1-20261012
+          for v in SIDE FRONT FRONT34 REAR34 BACK; do
+            git show FETCH_HEAD:art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/h0-body-armor-pass1/review/S_H0_$v.png > art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/h0b-integrated-shoulder-20261012/review/REJECTED_H0_$v.png
+          done
+      - name: Compose actual canonical S, baseline, rejected H0, new H0b and clay comparisons
+        run: |
+          python3 -m pip install -q pillow
+          python3 art/s-creature/blender/s_h0b_render_comparison_sheet.py
+      - name: Verify actual one-mesh source preservation, H1 blocked and required render
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/h0b-integrated-shoulder-20261012')
+          q=json.loads((p/'H0b_REAL_NATIVE_SURFACE_QA.json').read_text())
+          assert q['original_S_modeling_png_SHA256']=='93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6'
+          assert q['original_Hunyuan_blend_SHA256']=='6651109695536db026d9b52fe10c3fa829cab82915cda1955a5f56eedcec4345'
+          assert q['actual_Hunyuan_mesh_retained'] and q['edited_physical_mesh_objects']==1
+          assert q['additional_mesh_armor_objects']==0
+          assert q['hips_limbs_head_crest_tail_unchanged']
+          assert q['original_Hunyuan_vertices']==38802 and q['original_Hunyuan_triangles']==77684
+          assert not q['game_morphology_approved'] and not q['next_H1_leg_pass_permitted']
+          assert not q['accepted_as_new_H0_base']
+          assert (p/'S_H0b_original_Hunyuan_integrated_shoulder_TRIAL.blend').stat().st_size>300000
+          for v in ('SIDE','FRONT','FRONT34','REAR34','BACK'):
+              for a in ('BASE','H0b'):
+                  assert (p/'review'/f'{a}_{v}.png').stat().st_size>12000
+                  assert (p/'review'/f'{a}_{v}_CLAY.png').stat().st_size>12000
+          assert (p/'review'/'H0b_CANONICAL_VS_H0_VS_BASE_5VIEW.jpg').stat().st_size>90000
+          print('H0b_REAL_GEOMETRY',q['technical_mesh_gate'],q['native_body_edit_moved_vertices'],q['new_shoulder_ROI_intersections'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-S-original-Hunyuan-H0b-native-skin-shoulder
+          path: art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/h0b-integrated-shoulder-20261012/
+          if-no-files-found: warn
+      - name: Commit actual trial and its real review only to experimental branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/h0b-integrated-shoulder-20261012/
+          if ! git diff --cached --quiet; then
+            git commit -m 'exp: actual original Hunyuan integrated one-mesh H0b shoulder review; no floating armor'
+            git pull --rebase origin exp/s-h0b-integrated-shoulder-20261012
+            git push origin HEAD:exp/s-h0b-integrated-shoulder-20261012
+          fi
