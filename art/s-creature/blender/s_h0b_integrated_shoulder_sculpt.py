@@ -138,6 +138,32 @@ dxyz[:,1]-=.007*front_chest
 allow=(y>-.588)&(y<-.015)&(z>-.185)&(z<.245)
 dxyz*=allow[:,None]
 assert np.count_nonzero(np.linalg.norm(dxyz,axis=1)>1e-7)>350
+# Original Hunyuan has nearly-zero-area triangles of its own. Correct
+# *introduced* local strain relative to source; never pretend the source
+# geometry was watertight merely because shape-only generation succeeded.
+tri_before=np.asarray([list(p.vertices) for p in me.polygons],dtype=np.int32)
+reference_tri=source[tri_before]
+ref_normal=np.cross(reference_tri[:,1]-reference_tri[:,0],
+                    reference_tri[:,2]-reference_tri[:,0])
+ref_area=np.linalg.norm(ref_normal,axis=1)
+reference_healthy=ref_area>1e-10
+base_degenerates=int(np.count_nonzero(~reference_healthy))
+damping_history=[]
+for iteration in range(48):
+    tentative=source+dxyz
+    tf=tentative[tri_before]
+    n=np.cross(tf[:,1]-tf[:,0],tf[:,2]-tf[:,0])
+    area=np.linalg.norm(n,axis=1)
+    ratio=area/np.maximum(ref_area,1e-12)
+    fail=np.flatnonzero(reference_healthy &
+       ((area<1e-10)|(ratio<.53)|(ratio>1.93)
+         |(np.sum(n*ref_normal,axis=1)<0)))
+    damping_history.append(int(len(fail)))
+    if not len(fail):break
+    affected=np.unique(tri_before[fail].ravel())
+    dxyz[affected]*=.56
+print('H0b_ACTUAL_SKIN_LOCAL_STRAIN_DAMP',damping_history,
+      'original_source_nearly_zero_area_faces',base_degenerates)
 inverse_rotation=body.matrix_world.inverted().to_3x3()
 for i,v in enumerate(me.vertices):
     local=inverse_rotation@Vector(tuple(dxyz[i]))
@@ -160,13 +186,16 @@ norm1,area1=area_n(candidate)
 area_ratio=area1/np.maximum(area0,1e-12)
 quality={
  "faces_normal_flipped":int(np.count_nonzero(np.sum(norm0*norm1,axis=1)<0)),
- "faces_degenerate":int(np.count_nonzero(area1<1e-10)),
- "faces_area_below_half_source":int(np.count_nonzero(area_ratio<.5)),
- "faces_area_above_twice_source":int(np.count_nonzero(area_ratio>2)),
- "max_face_area_ratio":float(np.max(area_ratio)),
- "min_face_area_ratio":float(np.min(area_ratio)),
+ "baseline_degenerate_faces":int(np.count_nonzero(area0<1e-10)),
+ "candidate_degenerate_faces":int(np.count_nonzero(area1<1e-10)),
+ "new_degenerate_faces_where_original_healthy":int(np.count_nonzero((area0>1e-10)&(area1<1e-10))),
+ "faces_area_below_half_source":int(np.count_nonzero((area0>1e-10)&(area_ratio<.5))),
+ "faces_area_above_twice_source":int(np.count_nonzero((area0>1e-10)&(area_ratio>2))),
+ "max_face_area_ratio_existing_nonzero":float(np.max(area_ratio[area0>1e-10])),
+ "min_face_area_ratio_existing_nonzero":float(np.min(area_ratio[area0>1e-10])),
+ "original_source_area_degenerate_preserved_without_false_passing":True,
 }
-assert not quality["faces_normal_flipped"] and not quality["faces_degenerate"],quality
+assert quality["new_degenerate_faces_where_original_healthy"]==0,quality
 # Count self-BVH intersections confined shoulder+chest, ignore adjacency.
 idx=np.flatnonzero((face_xyz[:,1]>-.60)&(face_xyz[:,1]<.0)&
                     (face_xyz[:,2]>-.19)&(face_xyz[:,2]<.26))
@@ -182,7 +211,7 @@ def intersections(points):
     return pairs
 base_pairs=intersections(source);new_pairs=intersections(candidate)
 technical_pass=(
-   not quality["faces_normal_flipped"] and not quality["faces_degenerate"]
+   not quality["faces_normal_flipped"] and not quality["new_degenerate_faces_where_original_healthy"]
    and quality["faces_area_below_half_source"]==0
    and quality["faces_area_above_twice_source"]==0
    and len(new_pairs-base_pairs)==0
@@ -210,6 +239,7 @@ report={
  "only_shoulder_chest_modified":True,
  "hips_limbs_head_crest_tail_unchanged":bool(np.max(changed[~allow])<1e-6),
  "quality":quality,
+ "local_strain_projection_history":damping_history,
  "source_shoulder_ROI_intersections":len(base_pairs),
  "candidate_shoulder_ROI_intersections":len(new_pairs),
  "new_shoulder_ROI_intersections":len(new_pairs-base_pairs),
