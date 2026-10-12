@@ -1,0 +1,84 @@
+name: EvoWild S source-only Hunyuan professional sculpt preparation
+on:
+  push:
+    branches: [exp/s-hunyuan-art-directed-sculpt-20261012]
+    paths:
+      - .github/workflows/s-original-hunyuan-art-sculpt-station.yml
+      - art/s-creature/blender/s_sculpt_workspace_from_original_hunyuan.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-S-original-hunyuan-sculpt-station
+  cancel-in-progress: false
+jobs:
+  verify-real-Blender-original-geometry-and-four-reference-planes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /art/s-creature/blender/s_sculpt_workspace_from_original_hunyuan.py
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/hunyuan2mv-original-source-20261012/HUNYUAN2MV_S_THREEVIEW_REAL_ASSET_UNAPPROVED.blend
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/
+            /.github/workflows/s-original-hunyuan-art-sculpt-station.yml
+      - name: Exact user original and untouched best Hunyuan 3-view binary check
+        run: |
+          echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+          echo '6651109695536db026d9b52fe10c3fa829cab82915cda1955a5f56eedcec4345  art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/hunyuan2mv-original-source-20261012/HUNYUAN2MV_S_THREEVIEW_REAL_ASSET_UNAPPROVED.blend' | sha256sum --check -
+      - name: Install real Blender 4.3.2 and PIL
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1 libgl1-mesa-dri libglx-mesa0 libx11-6 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          python3 -m pip install -q pillow numpy
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Build genuine original S sculpt workstation with actual 4-view image guides
+        run: |
+          /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/s_sculpt_workspace_from_original_hunyuan.py
+      - name: Verify mesh unchanged, actual original source panels and 5 real view cameras
+        run: |
+          python3 - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          from PIL import Image
+          d=Path("art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012")
+          p=json.loads((d/"ORIGINAL_S_SCULPT_STATION_PROVENANCE.json").read_text())
+          assert p["source_mesh_unchanged"] and p["original_face_topology_unchanged"]
+          assert p["source_original_mesh_vertices"]==38802
+          assert p["source_original_mesh_triangles"]==77684
+          assert p["number_of_extra_armor_meshes"]==0
+          assert p["number_of_guide_image_planes"]==4
+          assert not p["guide_registration_exact"]
+          assert p["orthographic_camera_views"]==["SIDE","FRONT","FRONT34","BACK","REAR34"]
+          assert not p["source_original_REAR34_art_exists"]
+          assert not p["sculpted_edited_geometry"] and not p["game_approved"]
+          assert all(x["packed"] for x in p["reference_images_packed"]
+                     if x["name"].startswith("AUTHORITY_SOURCE_CROP_") or x["name"]=="00_S_TYPE_MODELING_IMAGE_V1__HIGHEST_AUTHORITY")
+          for k in ("SIDE","FRONT","BACK","FRONT34"):
+            f=d/"reference-panels"/f"SOURCE_ORIGINAL_UNEDITED_CROP_{k}.png"
+            assert Image.open(f).size==(p["source_guide_panels"][k]["crop"][2]-p["source_guide_panels"][k]["crop"][0],
+                                        p["source_guide_panels"][k]["crop"][3]-p["source_guide_panels"][k]["crop"][1])
+          assert (d/"S_ORIGINAL_HUNYUAN_ART_SCULPT_STATION__UNEDITED_BASE.blend").stat().st_size>300000
+          print("ART_SCULPT_STATION_VERIFIED_REAL_3D",p["source_original_mesh_vertices"],"unchanged",True,"original_packed_4_views",True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-S-artist-sculpt-station-original-unmodified-source-and-four-images
+          path: art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/
+          if-no-files-found: warn
+      - name: Push usable Blender sculpt workspace to experiment ONLY
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/
+          if ! git diff --cached --quiet; then
+            git commit -m 'prep: real S original Hunyuan untouched artist-editable blender with 4 canonical packed art planes, no shape claim'
+            git pull --rebase origin exp/s-hunyuan-art-directed-sculpt-20261012
+            git push origin HEAD:exp/s-hunyuan-art-directed-sculpt-20261012
+          fi
