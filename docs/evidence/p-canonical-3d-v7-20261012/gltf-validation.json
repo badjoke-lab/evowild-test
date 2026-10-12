@@ -1,0 +1,13 @@
+{
+  "asset": "public/models/evowild-p/p-canonical-v7.glb",
+  "sha256": "2fa731e4078b42b41dff705b886e28740f0ec9d73d8626958a7f0390ad9c3c4b",
+  "bytes": 1210600,
+  "errors": 0,
+  "warnings": 0,
+  "issues": [],
+  "meshes": 3,
+  "animations": 0,
+  "skins": 0,
+  "triangles": 47904,
+  "scope": "Static GLB integrity only. Does not approve canonical shape."
+}

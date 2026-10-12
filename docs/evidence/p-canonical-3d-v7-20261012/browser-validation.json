@@ -1,0 +1,90 @@
+{
+  "status": "PASS",
+  "scope": "Isolated static v7 GLB load/render, no gait or production approval",
+  "results": [
+    {
+      "device": "desktop",
+      "asset": "/public/models/evowild-p/p-canonical-v7.glb",
+      "sha256": "2fa731e4078b42b41dff705b886e28740f0ec9d73d8626958a7f0390ad9c3c4b",
+      "meshes": 13,
+      "vertices": 25316,
+      "animations": 0,
+      "bounds": {
+        "min": [
+          -2.0201637744903564,
+          0.009999659843742847,
+          -1.0183137655258179
+        ],
+        "max": [
+          1.8819445371627808,
+          3.2202179431915283,
+          1.0183137655258179
+        ]
+      },
+      "first": {
+        "triangles": 47904,
+        "calls": 13
+      },
+      "views": [
+        {
+          "view": "SIDE",
+          "triangles": 47904,
+          "calls": 13
+        },
+        {
+          "view": "FRONT",
+          "triangles": 47904,
+          "calls": 13
+        },
+        {
+          "view": "FRONT34",
+          "triangles": 47904,
+          "calls": 13
+        },
+        {
+          "view": "REAR34",
+          "triangles": 47904,
+          "calls": 13
+        },
+        {
+          "view": "BACK",
+          "triangles": 47904,
+          "calls": 13
+        }
+      ],
+      "errors": []
+    },
+    {
+      "device": "mobile",
+      "asset": "/public/models/evowild-p/p-canonical-v7.glb",
+      "sha256": "2fa731e4078b42b41dff705b886e28740f0ec9d73d8626958a7f0390ad9c3c4b",
+      "meshes": 13,
+      "vertices": 25316,
+      "animations": 0,
+      "bounds": {
+        "min": [
+          -2.0201637744903564,
+          0.009999659843742847,
+          -1.0183137655258179
+        ],
+        "max": [
+          1.8819445371627808,
+          3.2202179431915283,
+          1.0183137655258179
+        ]
+      },
+      "first": {
+        "triangles": 47904,
+        "calls": 13
+      },
+      "views": [
+        {
+          "view": "FRONT34",
+          "triangles": 47904,
+          "calls": 13
+        }
+      ],
+      "errors": []
+    }
+  ]
+}
