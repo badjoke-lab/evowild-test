@@ -1,0 +1,13 @@
+{
+  "version": "p-canonical-v7",
+  "status": "STATIC SHAPE REVISE / production HOLD",
+  "source": "art/p-creature/workspaces/P-v7-reference-retopology.blend",
+  "reference": "public/concept/P.webp",
+  "method": "reference-anchored shared polygon patch retopology and continuous surface sculpt",
+  "bytes": 1210600,
+  "triangles": 47904,
+  "meshes": 3,
+  "animations": 0,
+  "skins": 0,
+  "review": "docs/evidence/p-canonical-3d-v7-20261012/REVIEW.md"
+}

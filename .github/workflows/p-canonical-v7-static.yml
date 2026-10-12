@@ -1,0 +1,48 @@
+name: P v7 static asset verification
+on:
+  push:
+    branches: [fix/3d-p-canonical-model-20261011]
+    paths:
+      - .github/workflows/p-canonical-v7-static.yml
+      - scripts/modeling/validate-p-v7.mjs
+      - scripts/modeling/check-p-v7-browser.mjs
+      - public/models/evowild-p/p-canonical-v7.glb
+permissions:
+  contents: write
+jobs:
+  static-verification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Dependencies
+        run: |
+          npm install
+          npm install --no-save gltf-validator@2.0.0-dev.3.10
+          npx playwright install --with-deps chromium
+      - name: Validate exact submitted static GLB
+        run: node scripts/modeling/validate-p-v7.mjs
+      - name: Build without regenerating other morph assets
+        run: |
+          set -o pipefail
+          npx vite build 2>&1 | tee docs/evidence/p-canonical-3d-v7-20261012/build.log
+      - name: Desktop and mobile actual WebGL loads
+        run: node scripts/modeling/check-p-v7-browser.mjs
+      - name: Commit verification evidence only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/evidence/p-canonical-3d-v7-20261012/gltf-validation.json docs/evidence/p-canonical-3d-v7-20261012/build.log docs/evidence/p-canonical-3d-v7-20261012/browser-validation.json docs/evidence/p-canonical-3d-v7-20261012/browser-desktop.png docs/evidence/p-canonical-3d-v7-20261012/browser-mobile.png
+          git diff --cached --check
+          if ! git diff --cached --quiet; then
+            git commit -m 'test(p): verify submitted v7 static GLB on desktop and mobile [shape HOLD]'
+            git push origin HEAD:fix/3d-p-canonical-model-20261011
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p-v7-static-verification
+          path: docs/evidence/p-canonical-3d-v7-20261012

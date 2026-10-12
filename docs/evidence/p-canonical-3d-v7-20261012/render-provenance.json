@@ -1,0 +1,242 @@
+[
+  {
+    "version": "v6",
+    "view": "SIDE",
+    "image": "v6-SIDE.png",
+    "glbSHA256": "b21685fc6e0cb2c70cb42bb693cbad96f8fb659a6d3f0587220e7e06cc5da036",
+    "cameraLocation": [
+      0.0,
+      -10.0,
+      2.1500000953674316
+    ],
+    "cameraRotation": [
+      1.518843173980713,
+      -2.75565792406951e-10,
+      0.001999997068196535
+    ],
+    "orthoScale": 4.849999904632568,
+    "resolution": [
+      1100,
+      900
+    ],
+    "engine": "CYCLES",
+    "samples": 24,
+    "pose": "static rest"
+  },
+  {
+    "version": "v6",
+    "view": "FRONT",
+    "image": "v6-FRONT.png",
+    "glbSHA256": "b21685fc6e0cb2c70cb42bb693cbad96f8fb659a6d3f0587220e7e06cc5da036",
+    "cameraLocation": [
+      -10.0,
+      0.0,
+      2.1500000953674316
+    ],
+    "cameraRotation": [
+      1.5187392234802246,
+      5.803320846098359e-08,
+      -1.5707963705062866
+    ],
+    "orthoScale": 4.849999904632568,
+    "resolution": [
+      1100,
+      900
+    ],
+    "engine": "CYCLES",
+    "samples": 24,
+    "pose": "static rest"
+  },
+  {
+    "version": "v6",
+    "view": "FRONT34",
+    "image": "v6-FRONT34.png",
+    "glbSHA256": "b21685fc6e0cb2c70cb42bb693cbad96f8fb659a6d3f0587220e7e06cc5da036",
+    "cameraLocation": [
+      -6.0,
+      -10.0,
+      3.4000000953674316
+    ],
+    "cameraRotation": [
+      1.4200389385223389,
+      -5.84028647665491e-09,
+      -0.5389477014541626
+    ],
+    "orthoScale": 4.849999904632568,
+    "resolution": [
+      1100,
+      900
+    ],
+    "engine": "CYCLES",
+    "samples": 24,
+    "pose": "static rest"
+  },
+  {
+    "version": "v6",
+    "view": "REAR34",
+    "image": "v6-REAR34.png",
+    "glbSHA256": "b21685fc6e0cb2c70cb42bb693cbad96f8fb659a6d3f0587220e7e06cc5da036",
+    "cameraLocation": [
+      6.0,
+      -10.0,
+      3.4000000953674316
+    ],
+    "cameraRotation": [
+      1.4203007221221924,
+      -7.21899482414301e-08,
+      0.541888952255249
+    ],
+    "orthoScale": 4.849999904632568,
+    "resolution": [
+      1100,
+      900
+    ],
+    "engine": "CYCLES",
+    "samples": 24,
+    "pose": "static rest"
+  },
+  {
+    "version": "v6",
+    "view": "BACK",
+    "image": "v6-BACK.png",
+    "glbSHA256": "b21685fc6e0cb2c70cb42bb693cbad96f8fb659a6d3f0587220e7e06cc5da036",
+    "cameraLocation": [
+      10.0,
+      0.0,
+      2.1500000953674316
+    ],
+    "cameraRotation": [
+      1.518946647644043,
+      6.112968975457989e-08,
+      1.5707963705062866
+    ],
+    "orthoScale": 4.849999904632568,
+    "resolution": [
+      1100,
+      900
+    ],
+    "engine": "CYCLES",
+    "samples": 24,
+    "pose": "static rest"
+  },
+  {
+    "version": "v7",
+    "view": "SIDE",
+    "image": "SIDE.png",
+    "glbSHA256": "2fa731e4078b42b41dff705b886e28740f0ec9d73d8626958a7f0390ad9c3c4b",
+    "cameraLocation": [
+      0.0,
+      -10.0,
+      2.1500000953674316
+    ],
+    "cameraRotation": [
+      1.518843173980713,
+      -2.75565792406951e-10,
+      0.001999997068196535
+    ],
+    "orthoScale": 4.849999904632568,
+    "resolution": [
+      1100,
+      900
+    ],
+    "engine": "CYCLES",
+    "samples": 24,
+    "pose": "static rest"
+  },
+  {
+    "version": "v7",
+    "view": "FRONT",
+    "image": "FRONT.png",
+    "glbSHA256": "2fa731e4078b42b41dff705b886e28740f0ec9d73d8626958a7f0390ad9c3c4b",
+    "cameraLocation": [
+      -10.0,
+      0.0,
+      2.1500000953674316
+    ],
+    "cameraRotation": [
+      1.5187392234802246,
+      5.803320846098359e-08,
+      -1.5707963705062866
+    ],
+    "orthoScale": 4.849999904632568,
+    "resolution": [
+      1100,
+      900
+    ],
+    "engine": "CYCLES",
+    "samples": 24,
+    "pose": "static rest"
+  },
+  {
+    "version": "v7",
+    "view": "FRONT34",
+    "image": "FRONT34.png",
+    "glbSHA256": "2fa731e4078b42b41dff705b886e28740f0ec9d73d8626958a7f0390ad9c3c4b",
+    "cameraLocation": [
+      -6.0,
+      -10.0,
+      3.4000000953674316
+    ],
+    "cameraRotation": [
+      1.4200389385223389,
+      -5.84028647665491e-09,
+      -0.5389477014541626
+    ],
+    "orthoScale": 4.849999904632568,
+    "resolution": [
+      1100,
+      900
+    ],
+    "engine": "CYCLES",
+    "samples": 24,
+    "pose": "static rest"
+  },
+  {
+    "version": "v7",
+    "view": "REAR34",
+    "image": "REAR34.png",
+    "glbSHA256": "2fa731e4078b42b41dff705b886e28740f0ec9d73d8626958a7f0390ad9c3c4b",
+    "cameraLocation": [
+      6.0,
+      -10.0,
+      3.4000000953674316
+    ],
+    "cameraRotation": [
+      1.4203007221221924,
+      -7.21899482414301e-08,
+      0.541888952255249
+    ],
+    "orthoScale": 4.849999904632568,
+    "resolution": [
+      1100,
+      900
+    ],
+    "engine": "CYCLES",
+    "samples": 24,
+    "pose": "static rest"
+  },
+  {
+    "version": "v7",
+    "view": "BACK",
+    "image": "BACK.png",
+    "glbSHA256": "2fa731e4078b42b41dff705b886e28740f0ec9d73d8626958a7f0390ad9c3c4b",
+    "cameraLocation": [
+      10.0,
+      0.0,
+      2.1500000953674316
+    ],
+    "cameraRotation": [
+      1.518946647644043,
+      6.112968975457989e-08,
+      1.5707963705062866
+    ],
+    "orthoScale": 4.849999904632568,
+    "resolution": [
+      1100,
+      900
+    ],
+    "engine": "CYCLES",
+    "samples": 24,
+    "pose": "static rest"
+  }
+]
