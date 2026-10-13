@@ -1,0 +1,142 @@
+{
+  "result": "RENDERED_REAL_BASELINE_ONLY",
+  "source_sha256": {
+    "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/S_ORIGINAL_HUNYUAN_ART_SCULPT_STATION__UNEDITED_BASE.blend": "1f26bbd4485721a69d74c0c4c4da917dacf9341c15932785e42ba478c3f71c37",
+    "art/s-creature/references/00_s_type_modeling_image_v1.png": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6"
+  },
+  "blend_version": "4.3.2",
+  "mesh": "geometry_0",
+  "vertices": 38802,
+  "faces": 77684,
+  "bounds_world_xyz": [
+    [
+      -0.34407034516334534,
+      -0.9293437600135803,
+      -0.6719473600387573
+    ],
+    [
+      0.26652222871780396,
+      0.9998844265937805,
+      0.6011008024215698
+    ]
+  ],
+  "center": [
+    -0.035694945603609085,
+    -0.014832362532615662,
+    -0.050689585506916046
+  ],
+  "roi_definition_world_yz": [
+    [
+      -0.59,
+      -0.015
+    ],
+    [
+      -0.19,
+      0.25
+    ]
+  ],
+  "roi_vertices": 9126,
+  "roi_center": [
+    -0.035563431680202484,
+    -0.28316494822502136,
+    0.022050073370337486
+  ],
+  "views": [
+    {
+      "view": "SIDE",
+      "direction": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "crop": false,
+      "ortho_scale": 1.6784285306930542,
+      "image": "BASELINE_SIDE.png"
+    },
+    {
+      "view": "FRONT",
+      "direction": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "crop": false,
+      "ortho_scale": 1.4767357110977173,
+      "image": "BASELINE_FRONT.png"
+    },
+    {
+      "view": "FRONT34",
+      "direction": [
+        0.7071067690849304,
+        -0.7071067690849304,
+        0.0
+      ],
+      "crop": false,
+      "ortho_scale": 1.4767359495162964,
+      "image": "BASELINE_FRONT34.png"
+    },
+    {
+      "view": "REAR34",
+      "direction": [
+        0.7071067690849304,
+        0.7071067690849304,
+        0.0
+      ],
+      "crop": false,
+      "ortho_scale": 1.4767357110977173,
+      "image": "BASELINE_REAR34.png"
+    },
+    {
+      "view": "BACK",
+      "direction": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "crop": false,
+      "ortho_scale": 1.4767357110977173,
+      "image": "BASELINE_BACK.png"
+    }
+  ],
+  "details": [
+    {
+      "view": "SIDE",
+      "direction": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "crop": true,
+      "ortho_scale": 0.6155385971069336,
+      "image": "DETAIL_SIDE.png"
+    },
+    {
+      "view": "FRONT",
+      "direction": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "crop": true,
+      "ortho_scale": 0.6155385375022888,
+      "image": "DETAIL_FRONT.png"
+    },
+    {
+      "view": "FRONT34",
+      "direction": [
+        0.7071067690849304,
+        -0.7071067690849304,
+        0.0
+      ],
+      "crop": true,
+      "ortho_scale": 0.6155385375022888,
+      "image": "DETAIL_FRONT34.png"
+    }
+  ],
+  "render_only_material": true,
+  "geometry_unchanged": true,
+  "no_sculpt_performed": true,
+  "registration": "APPROXIMATE ONLY; reference is authority",
+  "reference_front34": "ILLUSTRATED",
+  "reference_rear34": "UNILLUSTRATED_CONTINUITY"
+}
