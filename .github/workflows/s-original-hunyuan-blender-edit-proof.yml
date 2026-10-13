@@ -1,0 +1,91 @@
+name: EvoWild S original Hunyuan actual Blender mesh edit proof
+on:
+  push:
+    branches: [exp/s-hunyuan-shoulder-sculpt-20261013]
+    paths:
+      - .github/workflows/s-original-hunyuan-blender-edit-proof.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  real-blend-read-edit-save-reload:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /.devcontainer/setup-blender-webdesktop.sh
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/S_ORIGINAL_HUNYUAN_ART_SCULPT_STATION__UNEDITED_BASE.blend
+            /.github/workflows/s-original-hunyuan-blender-edit-proof.yml
+      - name: Setup exact Blender 4.3.2 previously GUI-tested
+        run: bash .devcontainer/setup-blender-webdesktop.sh
+      - name: Run actual Blender file edit, save, reload, coordinate and original hash checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/evowild-s-vertex-proof
+          cat > /tmp/evowild-s-vertex-proof/prove.py <<'PY'
+          import bpy, hashlib, json
+          from pathlib import Path
+
+          root = Path.cwd()
+          out = Path('/tmp/evowild-s-vertex-proof')
+          src = root / 'art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/S_ORIGINAL_HUNYUAN_ART_SCULPT_STATION__UNEDITED_BASE.blend'
+          ref = root / 'art/s-creature/references/00_s_type_modeling_image_v1.png'
+          sha256 = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
+          protect = {str(p): sha256(p) for p in (src, ref)}
+          assert protect[str(ref)] == '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6'
+
+          bpy.ops.wm.open_mainfile(filepath=str(src))
+          assert bpy.app.version[:2] == (4, 3), bpy.app.version_string
+          original = {m.name: [tuple(v.co) for v in m.vertices] for m in bpy.data.meshes}
+          inventory = [{'name': m.name, 'vertices': len(m.vertices), 'faces': len(m.polygons)} for m in bpy.data.meshes]
+          assert original and sum(len(x) for x in original.values()) > 0, 'No real meshes in source'
+          mesh = max((m for m in bpy.data.meshes if m.vertices), key=lambda m: len(m.vertices))
+          name = mesh.name
+          before = list(mesh.vertices[0].co)
+          mesh.vertices[0].co.x += 0.001
+          mesh.update()
+          after = list(mesh.vertices[0].co)
+          assert after != before
+          bpy.context.preferences.filepaths.save_version = 0
+          dst = out / 'S_HUNYUAN_ONE_VERTEX_PROOF.blend'
+          bpy.ops.wm.save_as_mainfile(filepath=str(dst), check_existing=False)
+
+          bpy.ops.wm.open_mainfile(filepath=str(dst))
+          assert name in bpy.data.meshes
+          reloaded = list(bpy.data.meshes[name].vertices[0].co)
+          assert reloaded == after, (reloaded, after)
+          changes = []
+          for m in bpy.data.meshes:
+              assert m.name in original, ('unexpected mesh', m.name)
+              baseline = original[m.name]
+              assert len(m.vertices) == len(baseline), ('vertex count changed', m.name)
+              changes.extend([{'mesh': m.name, 'vertex': i} for i, v in enumerate(m.vertices) if tuple(v.co) != baseline[i]])
+          assert len(bpy.data.meshes) == len(original)
+          assert changes == [{'mesh': name, 'vertex': 0}], changes[:10]
+          for path, before_hash in protect.items():
+              assert sha256(Path(path)) == before_hash, ('protected original changed', path)
+
+          result = {
+              'result': 'PASS', 'blender_version': bpy.app.version_string,
+              'mesh_inventory': inventory, 'target_mesh': name,
+              'vertex_index': 0, 'before': before, 'after_edit': after,
+              'after_reload': reloaded, 'delta': [b-a for a,b in zip(before,reloaded)],
+              'changed_vertices': changes, 'protected_originals_unchanged': True,
+              'protected_sha256': protect, 'saved_file': dst.name, 'saved_bytes': dst.stat().st_size,
+          }
+          (out / 'verification.json').write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n')
+          print('EVOWILD_S_ACTUAL_BLENDER_MESH_EDIT_RELOAD_PASS', json.dumps(result), flush=True)
+          PY
+          /opt/evowild-blender/blender --background --factory-startup --python-exit-code 1 --python /tmp/evowild-s-vertex-proof/prove.py 2>&1 | tee /tmp/evowild-s-vertex-proof/blender.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evowild-s-real-original-hunyuan-blender-edit-proof
+          path: /tmp/evowild-s-vertex-proof/
+          if-no-files-found: warn
+          retention-days: 14
