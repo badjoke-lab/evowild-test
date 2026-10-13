@@ -1,0 +1,355 @@
+Info: Saved "S_HUNYUAN_SHOULDER_CHEST_SCULPT_V1.blend"
+SCULPT_SAVE_RELOAD_PASS {"result": "ACTUAL_NATIVE_MESH_SCULPT_SAVED_AND_RELOADED", "blender_version": "4.3.2", "source_commit": "f8c10657e75bde0105bffff932bb1976f3ff71c5", "mesh": "geometry_0", "object": "S_HUNYUAN_SHOULDER_CHEST_SCULPT_V1", "vertices": 38802, "faces": 77684, "changed_vertices": 8674, "max_displacement": 0.028257284313440323, "mean_changed_displacement": 0.012443486601114273, "affected_bounds": [[-0.23804812133312225, -0.5690863132476807, -0.38451775908470154], [0.16695356369018555, 0.025634517893195152, 0.2032327950000763]], "preserved_outside_roi": true, "topology_unchanged": true, "reload_exact_match": true, "protected_sha256": {"art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/S_ORIGINAL_HUNYUAN_ART_SCULPT_STATION__UNEDITED_BASE.blend": "1f26bbd4485721a69d74c0c4c4da917dacf9341c15932785e42ba478c3f71c37", "art/s-creature/references/00_s_type_modeling_image_v1.png": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6"}, "protected_unchanged": true, "output_blend": "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v1/S_HUNYUAN_SHOULDER_CHEST_SCULPT_V1.blend", "output_sha256": "13d911bbefed39ec602df35b812ce04d27815ac3a7afe3ec0205d77aa65fd212", "brush_peak_world_units": {"shoulder_lateral": 0.025, "pectoral_forward": 0.023, "upperarm_lateral": 0.022, "axilla_recess": 0.021, "chestfloor_down": 0.025, "waist_tuck_up": 0.023}, "image_registration": "Approximate; no claim of pixel alignment; REAR34 is continuity review only"}
+Blender 4.3.2
+Read blend: "/workspace/work/blender-proof/repo/art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/S_ORIGINAL_HUNYUAN_ART_SCULPT_STATION__UNEDITED_BASE.blend"
+Read blend: "/workspace/work/blender-proof/repo/art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v1/S_HUNYUAN_SHOULDER_CHEST_SCULPT_V1.blend"
+Fra:1 Mem:16.47M (Peak 16.47M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | S_HUNYUAN_SHOULDER_CHEST_SCULPT_V1
+Fra:1 Mem:23.06M (Peak 23.06M) | Time:00:00.06 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:22.82M (Peak 23.06M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:22.82M (Peak 23.06M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:22.82M (Peak 23.06M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:22.82M (Peak 23.06M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:22.90M (Peak 23.06M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:22.90M (Peak 23.06M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:22.90M (Peak 23.06M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:22.90M (Peak 23.06M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:22.90M (Peak 23.06M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:22.90M (Peak 23.06M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:22.90M (Peak 23.06M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:22.90M (Peak 23.06M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:22.90M (Peak 23.06M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:22.90M (Peak 23.06M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:24.09M (Peak 24.09M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:24.53M (Peak 24.53M) | Time:00:00.07 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:24.53M (Peak 24.53M) | Time:00:00.07 | Mem:0.45M, Peak:0.45M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:24.53M (Peak 24.53M) | Time:00:00.07 | Mem:0.45M, Peak:0.45M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:24.53M (Peak 24.53M) | Time:00:00.07 | Mem:2.82M, Peak:2.82M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:24.53M (Peak 24.53M) | Time:00:00.26 | Mem:5.65M, Peak:8.02M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:24.53M (Peak 24.53M) | Time:00:00.26 | Mem:5.65M, Peak:8.02M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:27.20M (Peak 27.20M) | Time:00:00.26 | Mem:5.65M, Peak:8.02M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:27.20M (Peak 27.20M) | Time:00:00.26 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:27.20M (Peak 27.20M) | Time:00:00.26 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:27.20M (Peak 27.20M) | Time:00:00.26 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:27.20M (Peak 27.20M) | Time:00:00.26 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:27.20M (Peak 27.20M) | Time:00:00.26 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:27.20M (Peak 27.20M) | Time:00:00.26 | Mem:8.39M, Peak:8.39M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:27.20M (Peak 27.20M) | Time:00:00.26 | Mem:8.39M, Peak:8.39M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:27.20M (Peak 27.20M) | Time:00:00.26 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:27.20M (Peak 27.20M) | Time:00:00.26 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:27.21M (Peak 27.21M) | Time:00:00.26 | Mem:8.31M, Peak:8.40M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:27.21M (Peak 27.21M) | Time:00:00.26 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:27.21M (Peak 27.21M) | Time:00:00.26 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:27.21M (Peak 27.21M) | Time:00:00.26 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Sample 0/48
+Fra:1 Mem:49.47M (Peak 49.47M) | Time:00:01.16 | Remaining:00:41.93 | Mem:30.65M, Peak:30.65M | Scene, ViewLayer | Sample 1/48
+Fra:1 Mem:49.47M (Peak 49.47M) | Time:00:21.17 | Remaining:00:09.50 | Mem:30.65M, Peak:30.65M | Scene, ViewLayer | Sample 33/48
+Fra:1 Mem:59.36M (Peak 79.13M) | Time:00:31.40 | Mem:30.65M, Peak:30.65M | Scene, ViewLayer | Sample 48/48
+Fra:1 Mem:59.36M (Peak 79.13M) | Time:00:31.40 | Mem:30.65M, Peak:30.65M | Scene, ViewLayer | Finished
+Saved: '/workspace/work/blender-proof/repo/art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v1/AFTER_SIDE.png'
+Time: 00:33.98 (Saving: 00:02.53)
+
+Fra:1 Mem:20.06M (Peak 20.06M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | S_HUNYUAN_SHOULDER_CHEST_SCULPT_V1
+Fra:1 Mem:23.10M (Peak 23.10M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:22.85M (Peak 23.10M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:22.85M (Peak 23.10M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:22.85M (Peak 23.10M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:22.85M (Peak 23.10M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:22.93M (Peak 23.10M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:22.93M (Peak 23.10M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:22.93M (Peak 23.10M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:22.93M (Peak 23.10M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:22.93M (Peak 23.10M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:22.93M (Peak 23.10M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:22.93M (Peak 23.10M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:22.93M (Peak 23.10M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:22.93M (Peak 23.10M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:22.93M (Peak 23.10M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:24.12M (Peak 24.12M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:24.56M (Peak 24.56M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:24.56M (Peak 24.56M) | Time:00:00.02 | Mem:0.45M, Peak:0.45M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:24.56M (Peak 24.56M) | Time:00:00.02 | Mem:0.45M, Peak:0.45M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:24.56M (Peak 24.56M) | Time:00:00.02 | Mem:2.82M, Peak:2.82M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:24.56M (Peak 24.56M) | Time:00:00.19 | Mem:5.40M, Peak:7.77M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:24.56M (Peak 24.56M) | Time:00:00.19 | Mem:5.40M, Peak:7.77M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:27.23M (Peak 27.23M) | Time:00:00.19 | Mem:5.40M, Peak:7.77M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:27.23M (Peak 27.23M) | Time:00:00.19 | Mem:8.07M, Peak:8.07M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:27.23M (Peak 27.23M) | Time:00:00.19 | Mem:8.07M, Peak:8.07M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:27.23M (Peak 27.23M) | Time:00:00.19 | Mem:8.07M, Peak:8.07M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:27.23M (Peak 27.23M) | Time:00:00.19 | Mem:8.07M, Peak:8.07M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:27.23M (Peak 27.23M) | Time:00:00.19 | Mem:8.07M, Peak:8.07M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:27.23M (Peak 27.23M) | Time:00:00.19 | Mem:8.15M, Peak:8.15M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:27.23M (Peak 27.23M) | Time:00:00.19 | Mem:8.15M, Peak:8.15M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:27.23M (Peak 27.23M) | Time:00:00.19 | Mem:8.15M, Peak:8.15M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:27.23M (Peak 27.23M) | Time:00:00.19 | Mem:8.15M, Peak:8.15M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:27.23M (Peak 27.23M) | Time:00:00.19 | Mem:8.07M, Peak:8.15M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:27.23M (Peak 27.23M) | Time:00:00.19 | Mem:8.15M, Peak:8.15M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:27.23M (Peak 27.23M) | Time:00:00.19 | Mem:8.15M, Peak:8.15M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:27.23M (Peak 27.23M) | Time:00:00.19 | Mem:8.15M, Peak:8.15M | Scene, ViewLayer | Sample 0/48
+Fra:1 Mem:49.49M (Peak 49.49M) | Time:00:00.82 | Remaining:00:29.97 | Mem:30.40M, Peak:30.40M | Scene, ViewLayer | Sample 1/48
+Fra:1 Mem:59.38M (Peak 79.16M) | Time:00:19.24 | Mem:30.40M, Peak:30.40M | Scene, ViewLayer | Sample 48/48
+Fra:1 Mem:59.38M (Peak 79.16M) | Time:00:19.24 | Mem:30.40M, Peak:30.40M | Scene, ViewLayer | Finished
+Saved: '/workspace/work/blender-proof/repo/art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v1/AFTER_FRONT.png'
+Time: 00:19.43 (Saving: 00:00.18)
+
+Fra:1 Mem:20.10M (Peak 20.10M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | S_HUNYUAN_SHOULDER_CHEST_SCULPT_V1
+Fra:1 Mem:23.13M (Peak 23.13M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:22.87M (Peak 23.13M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:22.87M (Peak 23.13M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:22.87M (Peak 23.13M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:22.87M (Peak 23.13M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:22.95M (Peak 23.13M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:22.95M (Peak 23.13M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:22.95M (Peak 23.13M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:22.95M (Peak 23.13M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:22.95M (Peak 23.13M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:22.95M (Peak 23.13M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:22.95M (Peak 23.13M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:22.95M (Peak 23.13M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:22.95M (Peak 23.13M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:22.95M (Peak 23.13M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:24.14M (Peak 24.14M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:24.58M (Peak 24.58M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:24.58M (Peak 24.58M) | Time:00:00.01 | Mem:0.45M, Peak:0.45M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:24.58M (Peak 24.58M) | Time:00:00.01 | Mem:0.45M, Peak:0.45M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:24.58M (Peak 24.58M) | Time:00:00.01 | Mem:2.82M, Peak:2.82M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:24.58M (Peak 24.58M) | Time:00:00.02 | Mem:5.65M, Peak:8.02M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:24.58M (Peak 24.58M) | Time:00:00.02 | Mem:5.65M, Peak:8.02M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:27.25M (Peak 27.25M) | Time:00:00.02 | Mem:5.65M, Peak:8.02M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:27.25M (Peak 27.25M) | Time:00:00.02 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:27.25M (Peak 27.25M) | Time:00:00.02 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:27.25M (Peak 27.25M) | Time:00:00.02 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:27.25M (Peak 27.25M) | Time:00:00.02 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:27.25M (Peak 27.25M) | Time:00:00.02 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:27.25M (Peak 27.25M) | Time:00:00.02 | Mem:8.39M, Peak:8.39M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:27.25M (Peak 27.25M) | Time:00:00.02 | Mem:8.39M, Peak:8.39M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:27.25M (Peak 27.25M) | Time:00:00.02 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:27.25M (Peak 27.25M) | Time:00:00.02 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:27.25M (Peak 27.25M) | Time:00:00.02 | Mem:8.31M, Peak:8.40M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:27.25M (Peak 27.25M) | Time:00:00.02 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:27.25M (Peak 27.25M) | Time:00:00.02 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:27.25M (Peak 27.25M) | Time:00:00.02 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Sample 0/48
+Fra:1 Mem:49.51M (Peak 49.51M) | Time:00:00.43 | Remaining:00:18.90 | Mem:30.65M, Peak:30.65M | Scene, ViewLayer | Sample 1/48
+Fra:1 Mem:59.40M (Peak 79.18M) | Time:00:20.00 | Mem:30.65M, Peak:30.65M | Scene, ViewLayer | Sample 48/48
+Fra:1 Mem:59.40M (Peak 79.18M) | Time:00:20.00 | Mem:30.65M, Peak:30.65M | Scene, ViewLayer | Finished
+Saved: '/workspace/work/blender-proof/repo/art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v1/AFTER_FRONT34.png'
+Time: 00:20.20 (Saving: 00:00.19)
+
+Fra:1 Mem:20.14M (Peak 20.14M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | S_HUNYUAN_SHOULDER_CHEST_SCULPT_V1
+Fra:1 Mem:23.17M (Peak 23.17M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:22.89M (Peak 23.17M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:22.89M (Peak 23.17M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:22.89M (Peak 23.17M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:22.89M (Peak 23.17M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:22.97M (Peak 23.17M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:22.97M (Peak 23.17M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:22.97M (Peak 23.17M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:22.97M (Peak 23.17M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:22.97M (Peak 23.17M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:22.97M (Peak 23.17M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:22.97M (Peak 23.17M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:22.97M (Peak 23.17M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:22.97M (Peak 23.17M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:22.97M (Peak 23.17M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:24.16M (Peak 24.16M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:24.60M (Peak 24.60M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:24.60M (Peak 24.60M) | Time:00:00.01 | Mem:0.45M, Peak:0.45M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:24.60M (Peak 24.60M) | Time:00:00.01 | Mem:0.45M, Peak:0.45M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:24.60M (Peak 24.60M) | Time:00:00.01 | Mem:2.82M, Peak:2.82M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:24.60M (Peak 24.60M) | Time:00:00.03 | Mem:5.65M, Peak:8.02M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:24.60M (Peak 24.60M) | Time:00:00.03 | Mem:5.65M, Peak:8.02M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:27.27M (Peak 27.27M) | Time:00:00.03 | Mem:5.65M, Peak:8.02M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:27.27M (Peak 27.27M) | Time:00:00.03 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:27.27M (Peak 27.27M) | Time:00:00.03 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:27.27M (Peak 27.27M) | Time:00:00.03 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:27.27M (Peak 27.27M) | Time:00:00.03 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:27.27M (Peak 27.27M) | Time:00:00.03 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:27.27M (Peak 27.27M) | Time:00:00.03 | Mem:8.39M, Peak:8.39M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:27.27M (Peak 27.27M) | Time:00:00.03 | Mem:8.39M, Peak:8.39M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:27.27M (Peak 27.27M) | Time:00:00.03 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:27.27M (Peak 27.27M) | Time:00:00.03 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:27.27M (Peak 27.27M) | Time:00:00.03 | Mem:8.31M, Peak:8.40M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:27.27M (Peak 27.27M) | Time:00:00.03 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:27.27M (Peak 27.27M) | Time:00:00.03 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:27.27M (Peak 27.27M) | Time:00:00.03 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Sample 0/48
+Fra:1 Mem:49.53M (Peak 49.53M) | Time:00:00.45 | Remaining:00:19.84 | Mem:30.65M, Peak:30.65M | Scene, ViewLayer | Sample 1/48
+Fra:1 Mem:59.42M (Peak 79.20M) | Time:00:20.05 | Mem:30.65M, Peak:30.65M | Scene, ViewLayer | Sample 48/48
+Fra:1 Mem:59.42M (Peak 79.20M) | Time:00:20.05 | Mem:30.65M, Peak:30.65M | Scene, ViewLayer | Finished
+Saved: '/workspace/work/blender-proof/repo/art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v1/AFTER_REAR34.png'
+Time: 00:20.23 (Saving: 00:00.17)
+
+Fra:1 Mem:20.17M (Peak 20.17M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | S_HUNYUAN_SHOULDER_CHEST_SCULPT_V1
+Fra:1 Mem:23.20M (Peak 23.20M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:22.90M (Peak 23.20M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:22.91M (Peak 23.20M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:22.91M (Peak 23.20M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:22.91M (Peak 23.20M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:22.99M (Peak 23.20M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:22.99M (Peak 23.20M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:22.99M (Peak 23.20M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:22.99M (Peak 23.20M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:22.99M (Peak 23.20M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:22.99M (Peak 23.20M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:22.99M (Peak 23.20M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:22.99M (Peak 23.20M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:22.99M (Peak 23.20M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:22.99M (Peak 23.20M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:24.17M (Peak 24.17M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:24.62M (Peak 24.62M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:24.62M (Peak 24.62M) | Time:00:00.02 | Mem:0.45M, Peak:0.45M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:24.62M (Peak 24.62M) | Time:00:00.02 | Mem:0.45M, Peak:0.45M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:24.62M (Peak 24.62M) | Time:00:00.02 | Mem:2.82M, Peak:2.82M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:24.62M (Peak 24.62M) | Time:00:00.04 | Mem:5.65M, Peak:8.02M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:24.62M (Peak 24.62M) | Time:00:00.04 | Mem:5.65M, Peak:8.02M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:27.28M (Peak 27.28M) | Time:00:00.04 | Mem:5.65M, Peak:8.02M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:27.28M (Peak 27.28M) | Time:00:00.04 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:27.28M (Peak 27.28M) | Time:00:00.04 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:27.28M (Peak 27.28M) | Time:00:00.04 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:27.28M (Peak 27.28M) | Time:00:00.04 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:27.28M (Peak 27.28M) | Time:00:00.04 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:27.28M (Peak 27.28M) | Time:00:00.04 | Mem:8.39M, Peak:8.39M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:27.28M (Peak 27.28M) | Time:00:00.04 | Mem:8.39M, Peak:8.39M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:27.29M (Peak 27.29M) | Time:00:00.04 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:27.29M (Peak 27.29M) | Time:00:00.04 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:27.29M (Peak 27.29M) | Time:00:00.04 | Mem:8.31M, Peak:8.40M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:27.29M (Peak 27.29M) | Time:00:00.04 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:27.29M (Peak 27.29M) | Time:00:00.04 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:27.29M (Peak 27.29M) | Time:00:00.04 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Sample 0/48
+Fra:1 Mem:49.55M (Peak 49.55M) | Time:00:00.42 | Remaining:00:17.44 | Mem:30.65M, Peak:30.65M | Scene, ViewLayer | Sample 1/48
+Fra:1 Mem:59.44M (Peak 79.22M) | Time:00:12.99 | Mem:30.65M, Peak:30.65M | Scene, ViewLayer | Sample 48/48
+Fra:1 Mem:59.44M (Peak 79.22M) | Time:00:12.99 | Mem:30.65M, Peak:30.65M | Scene, ViewLayer | Finished
+Saved: '/workspace/work/blender-proof/repo/art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v1/AFTER_BACK.png'
+Time: 00:13.21 (Saving: 00:00.21)
+
+Fra:1 Mem:20.20M (Peak 20.20M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | S_HUNYUAN_SHOULDER_CHEST_SCULPT_V1
+Fra:1 Mem:23.24M (Peak 23.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:22.92M (Peak 23.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:22.92M (Peak 23.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:22.92M (Peak 23.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:22.92M (Peak 23.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:23.01M (Peak 23.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:23.01M (Peak 23.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:23.01M (Peak 23.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:23.01M (Peak 23.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:23.01M (Peak 23.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:23.01M (Peak 23.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:23.01M (Peak 23.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:23.01M (Peak 23.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:23.01M (Peak 23.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:23.01M (Peak 23.24M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:24.19M (Peak 24.19M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:24.64M (Peak 24.64M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:24.64M (Peak 24.64M) | Time:00:00.00 | Mem:0.45M, Peak:0.45M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:24.64M (Peak 24.64M) | Time:00:00.00 | Mem:0.45M, Peak:0.45M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:24.64M (Peak 24.64M) | Time:00:00.00 | Mem:2.82M, Peak:2.82M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:24.64M (Peak 24.64M) | Time:00:00.05 | Mem:5.40M, Peak:7.77M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:24.64M (Peak 24.64M) | Time:00:00.05 | Mem:5.40M, Peak:7.77M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:27.30M (Peak 27.30M) | Time:00:00.05 | Mem:5.40M, Peak:7.77M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:27.30M (Peak 27.30M) | Time:00:00.05 | Mem:8.07M, Peak:8.07M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:27.30M (Peak 27.30M) | Time:00:00.05 | Mem:8.07M, Peak:8.07M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:27.30M (Peak 27.30M) | Time:00:00.05 | Mem:8.07M, Peak:8.07M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:27.30M (Peak 27.30M) | Time:00:00.05 | Mem:8.07M, Peak:8.07M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:27.30M (Peak 27.30M) | Time:00:00.05 | Mem:8.07M, Peak:8.07M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:27.30M (Peak 27.30M) | Time:00:00.05 | Mem:8.15M, Peak:8.15M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:27.30M (Peak 27.30M) | Time:00:00.05 | Mem:8.15M, Peak:8.15M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:27.30M (Peak 27.30M) | Time:00:00.05 | Mem:8.15M, Peak:8.15M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:27.30M (Peak 27.30M) | Time:00:00.05 | Mem:8.15M, Peak:8.15M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:27.31M (Peak 27.31M) | Time:00:00.05 | Mem:8.07M, Peak:8.15M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:27.31M (Peak 27.31M) | Time:00:00.05 | Mem:8.15M, Peak:8.15M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:27.31M (Peak 27.31M) | Time:00:00.05 | Mem:8.15M, Peak:8.15M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:27.31M (Peak 27.31M) | Time:00:00.05 | Mem:8.15M, Peak:8.15M | Scene, ViewLayer | Sample 0/48
+Fra:1 Mem:49.57M (Peak 49.57M) | Time:00:00.87 | Remaining:00:38.40 | Mem:30.40M, Peak:30.40M | Scene, ViewLayer | Sample 1/48
+Fra:1 Mem:49.57M (Peak 49.57M) | Time:00:26.40 | Remaining:00:11.97 | Mem:30.40M, Peak:30.40M | Scene, ViewLayer | Sample 33/48
+Fra:1 Mem:59.46M (Peak 79.23M) | Time:00:35.52 | Mem:30.40M, Peak:30.40M | Scene, ViewLayer | Sample 48/48
+Fra:1 Mem:59.46M (Peak 79.23M) | Time:00:35.52 | Mem:30.40M, Peak:30.40M | Scene, ViewLayer | Finished
+Saved: '/workspace/work/blender-proof/repo/art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v1/AFTER_DETAIL_SIDE.png'
+Time: 00:35.71 (Saving: 00:00.18)
+
+Fra:1 Mem:20.23M (Peak 20.23M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | S_HUNYUAN_SHOULDER_CHEST_SCULPT_V1
+Fra:1 Mem:23.27M (Peak 23.27M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:22.94M (Peak 23.27M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:22.94M (Peak 23.27M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:22.94M (Peak 23.27M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:22.94M (Peak 23.27M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:23.02M (Peak 23.27M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:23.02M (Peak 23.27M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:23.02M (Peak 23.27M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:23.02M (Peak 23.27M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:23.02M (Peak 23.27M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:23.02M (Peak 23.27M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:23.02M (Peak 23.27M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:23.02M (Peak 23.27M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:23.02M (Peak 23.27M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:23.02M (Peak 23.27M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:24.21M (Peak 24.21M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:24.65M (Peak 24.65M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:24.65M (Peak 24.65M) | Time:00:00.00 | Mem:0.45M, Peak:0.45M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:24.65M (Peak 24.65M) | Time:00:00.00 | Mem:0.45M, Peak:0.45M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:24.65M (Peak 24.65M) | Time:00:00.01 | Mem:2.82M, Peak:2.82M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:24.65M (Peak 24.65M) | Time:00:00.03 | Mem:5.65M, Peak:8.02M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:24.65M (Peak 24.65M) | Time:00:00.03 | Mem:5.65M, Peak:8.02M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:27.32M (Peak 27.32M) | Time:00:00.03 | Mem:5.65M, Peak:8.02M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:27.32M (Peak 27.32M) | Time:00:00.03 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:27.32M (Peak 27.32M) | Time:00:00.03 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:27.32M (Peak 27.32M) | Time:00:00.03 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:27.32M (Peak 27.32M) | Time:00:00.03 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:27.32M (Peak 27.32M) | Time:00:00.03 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:27.32M (Peak 27.32M) | Time:00:00.03 | Mem:8.39M, Peak:8.39M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:27.32M (Peak 27.32M) | Time:00:00.03 | Mem:8.39M, Peak:8.39M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:27.32M (Peak 27.32M) | Time:00:00.03 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:27.32M (Peak 27.32M) | Time:00:00.03 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:27.32M (Peak 27.32M) | Time:00:00.03 | Mem:8.31M, Peak:8.40M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:27.32M (Peak 27.32M) | Time:00:00.03 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:27.32M (Peak 27.32M) | Time:00:00.03 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:27.32M (Peak 27.32M) | Time:00:00.03 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Sample 0/48
+Fra:1 Mem:49.59M (Peak 49.59M) | Time:00:00.47 | Remaining:00:20.45 | Mem:30.65M, Peak:30.65M | Scene, ViewLayer | Sample 1/48
+Fra:1 Mem:59.48M (Peak 79.25M) | Time:00:22.29 | Mem:30.65M, Peak:30.65M | Scene, ViewLayer | Sample 48/48
+Fra:1 Mem:59.48M (Peak 79.25M) | Time:00:22.29 | Mem:30.65M, Peak:30.65M | Scene, ViewLayer | Finished
+Saved: '/workspace/work/blender-proof/repo/art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v1/AFTER_DETAIL_FRONT.png'
+Time: 00:22.55 (Saving: 00:00.25)
+
+Fra:1 Mem:20.26M (Peak 20.26M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Synchronizing object | S_HUNYUAN_SHOULDER_CHEST_SCULPT_V1
+Fra:1 Mem:23.30M (Peak 23.30M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Initializing
+Fra:1 Mem:22.96M (Peak 23.30M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:22.96M (Peak 23.30M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:22.96M (Peak 23.30M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:22.96M (Peak 23.30M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:23.04M (Peak 23.30M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Procedurals
+Fra:1 Mem:23.04M (Peak 23.30M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:23.04M (Peak 23.30M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:23.04M (Peak 23.30M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:23.04M (Peak 23.30M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:23.04M (Peak 23.30M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:23.04M (Peak 23.30M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:23.04M (Peak 23.30M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:23.04M (Peak 23.30M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:23.04M (Peak 23.30M) | Time:00:00.00 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:24.23M (Peak 24.23M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:24.67M (Peak 24.67M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:24.67M (Peak 24.67M) | Time:00:00.01 | Mem:0.45M, Peak:0.45M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:24.67M (Peak 24.67M) | Time:00:00.01 | Mem:0.45M, Peak:0.45M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:24.67M (Peak 24.67M) | Time:00:00.01 | Mem:2.82M, Peak:2.82M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:24.67M (Peak 24.67M) | Time:00:00.03 | Mem:5.65M, Peak:8.02M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:24.67M (Peak 24.67M) | Time:00:00.03 | Mem:5.65M, Peak:8.02M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:27.34M (Peak 27.34M) | Time:00:00.03 | Mem:5.65M, Peak:8.02M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:27.34M (Peak 27.34M) | Time:00:00.03 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:27.34M (Peak 27.34M) | Time:00:00.03 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:27.34M (Peak 27.34M) | Time:00:00.03 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:27.34M (Peak 27.34M) | Time:00:00.03 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:27.34M (Peak 27.34M) | Time:00:00.03 | Mem:8.31M, Peak:8.31M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:27.34M (Peak 27.34M) | Time:00:00.03 | Mem:8.39M, Peak:8.39M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:27.34M (Peak 27.34M) | Time:00:00.03 | Mem:8.39M, Peak:8.39M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:27.34M (Peak 27.34M) | Time:00:00.03 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:27.34M (Peak 27.34M) | Time:00:00.03 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:27.34M (Peak 27.34M) | Time:00:00.03 | Mem:8.31M, Peak:8.40M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:27.34M (Peak 27.34M) | Time:00:00.03 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:27.34M (Peak 27.34M) | Time:00:00.03 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:27.34M (Peak 27.34M) | Time:00:00.03 | Mem:8.40M, Peak:8.40M | Scene, ViewLayer | Sample 0/48
+Fra:1 Mem:49.60M (Peak 49.60M) | Time:00:01.21 | Remaining:00:55.08 | Mem:30.65M, Peak:30.65M | Scene, ViewLayer | Sample 1/48
+Fra:1 Mem:49.60M (Peak 49.60M) | Time:00:27.18 | Remaining:00:12.33 | Mem:30.65M, Peak:30.65M | Scene, ViewLayer | Sample 33/48
+Fra:1 Mem:59.49M (Peak 79.27M) | Time:00:39.05 | Mem:30.65M, Peak:30.65M | Scene, ViewLayer | Sample 48/48
+Fra:1 Mem:59.49M (Peak 79.27M) | Time:00:39.05 | Mem:30.65M, Peak:30.65M | Scene, ViewLayer | Finished
+Saved: '/workspace/work/blender-proof/repo/art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v1/AFTER_DETAIL_FRONT34.png'
+Time: 00:39.31 (Saving: 00:00.25)
+
+SCULPT_FIVE_VIEWS_AND_DETAILS_RENDERED
+
+Blender quit

@@ -1,0 +1,40 @@
+name: S Hunyuan shoulder chest sculpt V1
+on:
+  workflow_dispatch:
+  push:
+    branches: [exp/s-hunyuan-shoulder-sculpt-20261013]
+    paths:
+      - .github/workflows/s-hunyuan-shoulder-chest-sculpt-v1.yml
+      - art/s-creature/blender/s_hunyuan_shoulder_chest_sculpt_v1.py
+      - art/s-creature/blender/s_hunyuan_sculpt_review_render.py
+      - art/s-creature/blender/s_hunyuan_sculpt_before_v1.py
+permissions:
+  contents: read
+jobs:
+  sculpt-and-render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Blender 4.3.2
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libgl1 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl --fail --location --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          tar -xf /tmp/blender.tar.xz -C /tmp
+      - name: Render source, sculpt existing mesh, save, reload, render five directions
+        run: |
+          python3 -m pip install pillow
+          mkdir -p work
+          set -o pipefail
+          /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/s_hunyuan_sculpt_before_v1.py 2>&1 | tee work/before.log
+          /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/s_hunyuan_shoulder_chest_sculpt_v1.py 2>&1 | tee work/sculpt.log
+          /tmp/blender-4.3.2-linux-x64/blender -b -t 1 --python-exit-code 1 --python art/s-creature/blender/s_hunyuan_sculpt_quality.py 2>&1 | tee work/quality.log
+          python3 art/s-creature/blender/s_hunyuan_sculpt_contact_sheets.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S-Hunyuan-shoulder-chest-sculpt-V1
+          path: |
+            art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v1/
+            work/*.log

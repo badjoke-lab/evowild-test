@@ -1,0 +1,106 @@
+{
+  "AFTER_BACK.png": {
+    "bytes": 669803,
+    "sha256": "8f2254c935ac73b66f0ce5ab04a2a72fa641e7a6de057adf5c11006cc5758052"
+  },
+  "AFTER_DETAIL_FRONT.png": {
+    "bytes": 755040,
+    "sha256": "df24c2b9c112a8bd93c38e30c2f85215591b0916bf70d95d88ed7a6a66e979a2"
+  },
+  "AFTER_DETAIL_FRONT34.png": {
+    "bytes": 868383,
+    "sha256": "3957d84876d89f87f8b7d07dd1a9f259e6b0e951a4f9d9d80912fe9566cbc737"
+  },
+  "AFTER_DETAIL_SIDE.png": {
+    "bytes": 781948,
+    "sha256": "b860a648aa0590d40d247c8c21972c297439b9d79bc323fa2e63bae8c18d0d26"
+  },
+  "AFTER_FRONT.png": {
+    "bytes": 649249,
+    "sha256": "d7c707dfdc736097ebf2dec3a074a7220d5202b24da2420e7e3d176d1072e2f2"
+  },
+  "AFTER_FRONT34.png": {
+    "bytes": 751210,
+    "sha256": "4060935f3720299c32cf3f6c3e032dcf354729208cd0bbb8218672527d2a7c48"
+  },
+  "AFTER_REAR34.png": {
+    "bytes": 758500,
+    "sha256": "eccece31db1925c5ef14161bf56d772f85a745c45f8f4676b44cbc7bf563a184"
+  },
+  "AFTER_SIDE.png": {
+    "bytes": 673833,
+    "sha256": "3d8ae56d021fb803bdf9d3fe20c8dfad6ea8c7f1de7db1b39d785f9807aeac99"
+  },
+  "BEFORE_BACK.png": {
+    "bytes": 669549,
+    "sha256": "3607de7706a7e73a34270bda9657bb0a9744a21520b8afeb776bbeb3bc10566d"
+  },
+  "BEFORE_DETAIL_FRONT.png": {
+    "bytes": 752539,
+    "sha256": "959338ad32746e7fb5cbc69f5037676e4c87654267cfe374a85434f48d050f79"
+  },
+  "BEFORE_DETAIL_FRONT34.png": {
+    "bytes": 861117,
+    "sha256": "1c7a1745cd88d93d8aa40c3f7a0f4ff2fe9b30d56c01cb8872e9725400f1a984"
+  },
+  "BEFORE_DETAIL_SIDE.png": {
+    "bytes": 776499,
+    "sha256": "5ea95c4bd244ab4aa8cb927ed69e52debb4d3395193269c29c8f889d389a995e"
+  },
+  "BEFORE_FRONT.png": {
+    "bytes": 648471,
+    "sha256": "b8cab331ac0ba214355c44d77ac402bfcdce547d2aa7629cd670fd4b3c100cf8"
+  },
+  "BEFORE_FRONT34.png": {
+    "bytes": 750106,
+    "sha256": "d2212f14767d6b09fc2e4bce6f8ac38d460c3793132ec271e02ad1d23a87448c"
+  },
+  "BEFORE_REAR34.png": {
+    "bytes": 755740,
+    "sha256": "e61d727181cf952354330490b4e0b3761fe495a82cd0e797c9ca23d321c7a32c"
+  },
+  "BEFORE_SIDE.png": {
+    "bytes": 673535,
+    "sha256": "9d8cb59fee26064fbfc3b8f461b01a122e6a45f913d7c399cdacf6514345b0fe"
+  },
+  "FACE_QUALITY.json": {
+    "bytes": 116,
+    "sha256": "e8392b4a4740149f701267051d533d93bf8cb8d3bb99a38bfa44b8bb594b1013"
+  },
+  "FIVE_VIEW_BEFORE_AFTER.jpg": {
+    "bytes": 128581,
+    "sha256": "f8fd967bd6d17ab8b9457a3475ff206104baf82bb55c0dd8041130cf73305e79"
+  },
+  "REVIEW.md": {
+    "bytes": 4199,
+    "sha256": "e8bf881bd62aec7129aa91ddfd0704370eb0d3d42ff5189dade72c889f22d29e"
+  },
+  "SCULPT_VERIFICATION.json": {
+    "bytes": 1734,
+    "sha256": "b40f88342ad7b762e0c416499100e591a251bbc215f3469de2fee76144896f9a"
+  },
+  "SHOULDER_CHEST_BEFORE_AFTER.jpg": {
+    "bytes": 141611,
+    "sha256": "464c6b379c03b84e59f92657156fe79b01d95c85a65e377495b7d80d96e7e8d3"
+  },
+  "S_HUNYUAN_SHOULDER_CHEST_SCULPT_V1.blend": {
+    "bytes": 2778955,
+    "sha256": "13d911bbefed39ec602df35b812ce04d27815ac3a7afe3ec0205d77aa65fd212"
+  },
+  "baseline_execution.log": {
+    "bytes": 41139,
+    "sha256": "9921c1993801534b3bfe3651dc24a1bd734de9bcf0b1c1ed4a929d8f39dbc761"
+  },
+  "execution.log": {
+    "bytes": 42913,
+    "sha256": "7d5600d06be3ca3be6849139a710a1abe185976cceca40cc85777324c5fa8e77"
+  },
+  "face_quality_execution.log": {
+    "bytes": 365,
+    "sha256": "8123cbf69da8ac2af0051a3b57f599aff5f7403a195f5d8647f296bdbdc34841"
+  },
+  "vertex_delta.npz": {
+    "bytes": 225360,
+    "sha256": "951db66944b5d492ebc640a70fcf9502d31c7fdcc207deeabdec19f64c0de8b6"
+  }
+}

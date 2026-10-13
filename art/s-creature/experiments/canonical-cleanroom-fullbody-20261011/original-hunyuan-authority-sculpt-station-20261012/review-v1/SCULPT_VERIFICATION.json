@@ -1,0 +1,43 @@
+{
+  "result": "ACTUAL_NATIVE_MESH_SCULPT_SAVED_AND_RELOADED",
+  "blender_version": "4.3.2",
+  "source_commit": "f8c10657e75bde0105bffff932bb1976f3ff71c5",
+  "mesh": "geometry_0",
+  "object": "S_HUNYUAN_SHOULDER_CHEST_SCULPT_V1",
+  "vertices": 38802,
+  "faces": 77684,
+  "changed_vertices": 8674,
+  "max_displacement": 0.028257284313440323,
+  "mean_changed_displacement": 0.012443486601114273,
+  "affected_bounds": [
+    [
+      -0.23804812133312225,
+      -0.5690863132476807,
+      -0.38451775908470154
+    ],
+    [
+      0.16695356369018555,
+      0.025634517893195152,
+      0.2032327950000763
+    ]
+  ],
+  "preserved_outside_roi": true,
+  "topology_unchanged": true,
+  "reload_exact_match": true,
+  "protected_sha256": {
+    "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/S_ORIGINAL_HUNYUAN_ART_SCULPT_STATION__UNEDITED_BASE.blend": "1f26bbd4485721a69d74c0c4c4da917dacf9341c15932785e42ba478c3f71c37",
+    "art/s-creature/references/00_s_type_modeling_image_v1.png": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6"
+  },
+  "protected_unchanged": true,
+  "output_blend": "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v1/S_HUNYUAN_SHOULDER_CHEST_SCULPT_V1.blend",
+  "output_sha256": "13d911bbefed39ec602df35b812ce04d27815ac3a7afe3ec0205d77aa65fd212",
+  "brush_peak_world_units": {
+    "shoulder_lateral": 0.025,
+    "pectoral_forward": 0.023,
+    "upperarm_lateral": 0.022,
+    "axilla_recess": 0.021,
+    "chestfloor_down": 0.025,
+    "waist_tuck_up": 0.023
+  },
+  "image_registration": "Approximate; no claim of pixel alignment; REAR34 is continuity review only"
+}
