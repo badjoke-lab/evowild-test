@@ -66,7 +66,13 @@ v4 の構築ヘルパーや v6 の球体・ロフト・ボクセル合成を再�
 - [レンダリング来歴](render-provenance.json)：各方向のカメラ条件と読み込んだGLBのSHA-256。
 - [成果物ハッシュ](artifact-sha256.json)。
 - ローカル `npx vite build` 成功。Sモデルを生成する `prebuild` は実行していない。
-- Khronos GLB検証とデスクトップ/Pixel 7の実WebGL検証は、専用Actionsで同じ納品GLBを対象に実行し、結果をこのディレクトリへ保存する。
+- [専用Actions実行 38336043471](https://github.com/badjoke-lab/evowild-test/actions/runs/38336043471) は **SUCCESS**。対象は納品GLBと同じSHA-256 `2fa731e4078b42b41dff705b886e28740f0ec9d73d8626958a7f0390ad9c3c4b`。
+- [Khronos GLB検証](gltf-validation.json)：**0 errors / 0 warnings**、47,904三角形、1,210,600 bytes、アニメーション0・スキン0。
+- [ブラウザー検証](browser-validation.json)：デスクトップ5方向・Pixel 7 FRONT34で読み込みと実描画を確認。JSエラー0、全視点でモデル境界が画面内。最初のモバイル検証画像にあった見切れを修正し、再実行・実画像確認済み。
+- 実ブラウザー画像：[desktop](browser-desktop.png) / [Pixel 7](browser-mobile.png)。
+- [ビルドログ](build.log)：Vite build成功。大きなチャンクについての既存の警告は残る。
+- 一方、[リポジトリ全体のE2E実行 38275322666](https://github.com/badjoke-lab/evowild-test/actions/runs/38275322666) は **3件失敗**。`race-quality.spec.js:47` の2.5D morph-dependent判定（desktop/android）と `motion-first.spec.js:3146` のAGILITY positioning判定。3D限定の作業範囲なので該当実装・テストは変更していない。専用3D検証の成功を全体E2E成功とは報告しない。
+- [変更範囲の照合](protected-scope-check.json)：開始点の既存ファイルの変更0・削除0。追加はv7の制作物・実画像・専用検証のみ。
 
 ```sh
 blender -b -t 4 --python scripts/modeling/sculpt-canonical-p-v7.py

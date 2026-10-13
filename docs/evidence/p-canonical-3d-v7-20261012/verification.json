@@ -1,0 +1,35 @@
+{
+  "decision": "REVISE / production HOLD",
+  "staticGatePassed": false,
+  "motionStageEntered": false,
+  "video": null,
+  "reasonNoVideo": "Static canonical shape is insufficient; user required this gate before rig/gait",
+  "assetSHA256": "2fa731e4078b42b41dff705b886e28740f0ec9d73d8626958a7f0390ad9c3c4b",
+  "gltf": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "build": "PASS",
+  "browser": {
+    "desktopViews": 5,
+    "mobileViews": 1,
+    "jsErrors": 0,
+    "wholeModelInFrame": true,
+    "run": "https://github.com/badjoke-lab/evowild-test/actions/runs/38336043471"
+  },
+  "generalE2E": {
+    "failed": 3,
+    "run": "https://github.com/badjoke-lab/evowild-test/actions/runs/38275322666",
+    "scope": "2.5D race-quality desktop/android; Motion First AGILITY positioning"
+  },
+  "visualReview": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK",
+    "canonical-v6-v7 comparison",
+    "desktop WebGL",
+    "mobile WebGL"
+  ]
+}
