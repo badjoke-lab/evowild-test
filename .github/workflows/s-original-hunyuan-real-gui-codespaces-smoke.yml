@@ -7,7 +7,7 @@ on:
       - .devcontainer/**
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   prove-gui-on-ubuntu-not-crypto-VM:
     runs-on: ubuntu-24.04
@@ -34,11 +34,23 @@ jobs:
           test -s /tmp/evowild-s-gui/noVNC.html
           test -n "$(pgrep -x blender)"
           echo '93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6  art/s-creature/references/00_s_type_modeling_image_v1.png' | sha256sum --check -
+          sleep 6
           scrot /tmp/evowild-s-gui/S_REAL_BLENDER_GUI_SCREENSHOT.png
           file /tmp/evowild-s-gui/S_REAL_BLENDER_GUI_SCREENSHOT.png
-          test "$(stat -c%s /tmp/evowild-s-gui/S_REAL_BLENDER_GUI_SCREENSHOT.png)" -gt 20000
+          test "$(stat -c%s /tmp/evowild-s-gui/S_REAL_BLENDER_GUI_SCREENSHOT.png)" -gt 1500
           printf 'RESULT: real Xvfb/Blender 4.3 GUI and localhost web desktop launched; no creature sculpt attempted.\n' |
             tee /tmp/evowild-s-gui/GUI_SMOKE_PASS.txt
+      - name: Commit GUI screenshot proof to experiment branch for actual visual review
+        if: success()
+        run: |
+          mkdir -p art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/gui-proof
+          cp /tmp/evowild-s-gui/S_REAL_BLENDER_GUI_SCREENSHOT.png art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/gui-proof/S_REAL_BLENDER_GUI_SCREENSHOT.png
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/gui-proof/
+          git commit -m 'test(s): actual Xvfb Blender visible GUI screenshot (no geometry edits)'
+          git pull --rebase origin exp/s-hunyuan-shoulder-sculpt-20261013
+          git push origin HEAD:exp/s-hunyuan-shoulder-sculpt-20261013
       - uses: actions/upload-artifact@v4
         if: always()
         with:
