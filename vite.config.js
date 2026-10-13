@@ -3,6 +3,10 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   base: "/evowild-test/",
+  server: {
+    // Playwright trace snapshots are HTML, but never application source.
+    watch: { ignored: ["**/work/**", "**/test-results/**", "**/artifacts/**"] }
+  },
   build: {
     rollupOptions: {
       input: {

@@ -1,0 +1,173 @@
+[
+  {
+    "name": "isolated-continuous",
+    "url": "race-quality.html?selected=2&motionReview=1&pRig=1&pRigReview=1",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "fps": 60,
+    "seconds": 6,
+    "cycles": 5.557928308287648,
+    "traceIntervalMs": 33.333333333333336,
+    "traceSamples": 180,
+    "visibleRacers": [
+      1
+    ],
+    "errors": [],
+    "metric": "Persistent foot ID + stance ID; world anchor and actual alpha foot-mask raster",
+    "anchorOrLegacyBandTravelPx": {
+      "n": 192,
+      "mean": 0,
+      "max": 0
+    },
+    "soleRasterTravelPx": {
+      "n": 192,
+      "mean": 0.2603850443838344,
+      "max": 1.310147426853394
+    },
+    "footRasterCentroidTravelPx": {
+      "n": 192,
+      "mean": 0.03133234493598501,
+      "max": 0.1895614021434995
+    },
+    "laneDrift": {
+      "n": 192,
+      "mean": 0,
+      "max": 0
+    },
+    "observedStanceRasterSpanPx": {
+      "n": 22,
+      "mean": 0.708603116149716,
+      "max": 1.3160412556742818
+    },
+    "maxReachError": 0,
+    "maxBoneLengthError": 5.684341886080802e-14,
+    "allPWorldAnchorDrift": {
+      "n": 192,
+      "mean": 0,
+      "max": 0
+    },
+    "maxBodySink": 9.71538685460163,
+    "maxLaneLag": 0,
+    "flightFrames": 102,
+    "maxBodyOffset": 9.707570633223895,
+    "pRunners": [
+      1
+    ]
+  },
+  {
+    "name": "race-18-desktop",
+    "url": "race-quality.html?selected=2&pRig=1&pRigReview=1",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "fps": 60,
+    "seconds": 6,
+    "cycles": 19.68260091322034,
+    "traceIntervalMs": 33.333333333333336,
+    "traceSamples": 180,
+    "visibleRacers": [
+      18
+    ],
+    "errors": [],
+    "metric": "Persistent foot ID + stance ID; world anchor and actual alpha foot-mask raster",
+    "anchorOrLegacyBandTravelPx": {
+      "n": 131,
+      "mean": 0,
+      "max": 0
+    },
+    "soleRasterTravelPx": {
+      "n": 131,
+      "mean": 0.22828965453165945,
+      "max": 1.0715626369807285
+    },
+    "footRasterCentroidTravelPx": {
+      "n": 131,
+      "mean": 0.05134329902007156,
+      "max": 0.28081063162616166
+    },
+    "laneDrift": {
+      "n": 131,
+      "mean": 0,
+      "max": 0
+    },
+    "observedStanceRasterSpanPx": {
+      "n": 49,
+      "mean": 0.32203386296383063,
+      "max": 0.771571842460866
+    },
+    "maxReachError": 0,
+    "maxBoneLengthError": 5.684341886080802e-14,
+    "allPWorldAnchorDrift": {
+      "n": 659,
+      "mean": 0,
+      "max": 0
+    },
+    "maxBodySink": 17.737630313505278,
+    "maxLaneLag": 0.14191330909729016,
+    "flightFrames": 110,
+    "maxBodyOffset": 10.243266414477489,
+    "pRunners": [
+      5
+    ]
+  },
+  {
+    "name": "race-18-mobile",
+    "url": "race-quality.html?selected=2&pRig=1&pRigReview=1",
+    "viewport": {
+      "width": 412,
+      "height": 839
+    },
+    "fps": 60,
+    "seconds": 4,
+    "cycles": 12.794655214009538,
+    "traceIntervalMs": 33.333333333333336,
+    "traceSamples": 120,
+    "visibleRacers": [
+      18
+    ],
+    "errors": [],
+    "metric": "Persistent foot ID + stance ID; world anchor and actual alpha foot-mask raster",
+    "anchorOrLegacyBandTravelPx": {
+      "n": 95,
+      "mean": 0,
+      "max": 0
+    },
+    "soleRasterTravelPx": {
+      "n": 95,
+      "mean": 0.2281916671442689,
+      "max": 0.8709808787841228
+    },
+    "footRasterCentroidTravelPx": {
+      "n": 95,
+      "mean": 0.08550772051234441,
+      "max": 0.5088438898479517
+    },
+    "laneDrift": {
+      "n": 95,
+      "mean": 0,
+      "max": 0
+    },
+    "observedStanceRasterSpanPx": {
+      "n": 40,
+      "mean": 0.3161255607562935,
+      "max": 0.8709808787841228
+    },
+    "maxReachError": 0,
+    "maxBoneLengthError": 5.684341886080802e-14,
+    "allPWorldAnchorDrift": {
+      "n": 456,
+      "mean": 0,
+      "max": 0
+    },
+    "maxBodySink": 17.973136284921477,
+    "maxLaneLag": 0.1475108734766647,
+    "flightFrames": 64,
+    "maxBodyOffset": 10.748358523955162,
+    "pRunners": [
+      5
+    ]
+  }
+]

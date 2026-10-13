@@ -1,7 +1,7 @@
 import {test, expect} from '@playwright/test';
 
 test('P layered trial keeps four independent feet planted, pauses and resets in an 18-runner race', async ({page})=>{
-  test.setTimeout(90000);
+  test.setTimeout(45000);
   const time=new Date('2026-10-12T00:00:00Z');
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.clock.install({time});await page.clock.pauseAt(time);
@@ -10,33 +10,49 @@ test('P layered trial keeps four independent feet planted, pauses and resets in 
   await expect(stage).toHaveAttribute('data-run-sheets','ready');
   await expect(stage).toHaveAttribute('data-p-rig-status','ready');
   await page.clock.runFor(4600);
-  const samples=[];
-  for(let i=0;i<90;i++){
-    await page.clock.runFor(33);
-    samples.push(await page.evaluate(()=>({selected:window.__pRigReview,field:Object.values(window.__pRigField)})));
-  }
+  // Sample the actual renderer inside the page. Ninety clock/evaluate pairs
+  // plus thousands of traced expect calls previously exhausted CI's 90s.
+  await page.evaluate(()=>{
+    window.__pLayeredSamples=[];let last=-Infinity;
+    const collect=()=>{
+      const selected=window.__pRigReview;
+      if(selected&&selected.time-last>30){
+        last=selected.time;
+        window.__pLayeredSamples.push(structuredClone({selected,field:Object.values(window.__pRigField)}));
+      }
+      requestAnimationFrame(collect);
+    };
+    requestAnimationFrame(collect);
+  });
+  await page.clock.runFor(3000);
+  const samples=await page.evaluate(()=>window.__pLayeredSamples);
   await expect(stage).toHaveAttribute('data-field-size','18');
   await expect(stage).toHaveAttribute('data-visible-racers','18');
   await expect(stage).toHaveAttribute('data-p-renderer','layered-world-stance');
   expect(samples.at(-1).selected.cycle-samples[0].selected.cycle).toBeGreaterThan(3);
-  let contacts=0;
+  expect(samples.length).toBeGreaterThan(60);
+  let contacts=0,maxAnchorDrift=0,maxReach=0,maxBoneError=0,maxCompression=0,maxSink=0;
+  const footSets=new Set(),runnerCounts=new Set();
   for(let i=1;i<samples.length;i++){
     const {selected,field}=samples[i];
-    expect(selected.feet.map(f=>f.id).sort()).toEqual(['fore-far','fore-near','hind-far','hind-near']);
-    expect(field.length).toBeGreaterThan(1);
+    footSets.add(selected.feet.map(f=>f.id).sort().join(','));runnerCounts.add(field.length);
+    maxCompression=Math.max(maxCompression,...field.map(r=>r.bodyOffset));
+    maxSink=Math.max(maxSink,...field.map(r=>r.bodySink));
     for(const runner of field)for(const foot of runner.feet){
-      expect(foot.reachError).toBeLessThan(.001);
-      expect(foot.boneLengthError).toBeLessThan(.000001);
-    }
-    for(const foot of selected.feet){
-      const previous=samples[i-1].selected.feet.find(f=>f.id===foot.id);
-      if(foot.stance&&previous.stance&&foot.contactId===previous.contactId){
+      maxReach=Math.max(maxReach,foot.reachError);maxBoneError=Math.max(maxBoneError,foot.boneLengthError);
+      const previous=samples[i-1].field.find(r=>r.id===runner.id)?.feet.find(f=>f.id===foot.id);
+      if(previous&&foot.stance&&previous.stance&&foot.contactId===previous.contactId){
         contacts++;
-        expect(foot.worldX).toBe(previous.worldX);
-        expect(foot.worldLane).toBe(previous.worldLane);
+        maxAnchorDrift=Math.max(maxAnchorDrift,Math.abs(foot.worldX-previous.worldX),Math.abs(foot.worldLane-previous.worldLane));
       }
     }
   }
+  expect([...footSets]).toEqual(['fore-far,fore-near,hind-far,hind-near']);
+  expect([...runnerCounts]).toEqual([5]);
+  expect(maxAnchorDrift).toBe(0);expect(maxReach).toBeLessThan(.000001);
+  expect(maxBoneError).toBeLessThan(.000001);
+  expect(maxCompression).toBeLessThanOrEqual(12);expect(maxSink).toBeLessThanOrEqual(20);
+  expect(samples.some(s=>s.selected.feet.every(f=>!f.stance))).toBe(true);
   expect(contacts).toBeGreaterThan(20);
   // Dispatch the control under the intentionally paused browser clock; a
   // pointer click's animation-frame stability wait cannot advance that clock.

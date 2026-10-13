@@ -1,0 +1,24 @@
+import base from '../../playwright.config.js';
+import {chromium} from '@playwright/test';
+import fs from 'node:fs';
+import path from 'node:path';
+// Read-only local substitute for the exact npm version referenced by the
+// unchanged 3D pages. The execution environment cannot tunnel to unpkg.com.
+const launch=chromium.launch.bind(chromium);
+chromium.launch=async options=>{
+ const browser=await launch(options),newContext=browser.newContext.bind(browser);
+ browser.newContext=async options=>{
+  const context=await newContext(options);
+  await context.route('https://unpkg.com/three@0.181.0/**',async route=>{
+   const suffix=new URL(route.request().url()).pathname.split('/three@0.181.0/')[1];
+   const root=path.resolve('node_modules/three'),file=path.resolve(root,suffix);
+   if(!file.startsWith(root+path.sep)||!file.endsWith('.js'))throw Error('Unexpected CDN dependency path');
+   await route.fulfill({status:200,contentType:'application/javascript',headers:{'access-control-allow-origin':'*'},body:fs.readFileSync(file)});
+  });
+  return context;
+ };
+ return browser;
+};
+export default {...base,testDir:'../../tests',outputDir:'../../work/p-rig-v2/offline-full-e2e',workers:1,
+webServer:{command:'node node_modules/vite/bin/vite.js --host 127.0.0.1 --port 4173',port:4173,reuseExistingServer:true,cwd:process.cwd()},
+projects:base.projects.map(p=>({...p,use:{...p.use,launchOptions:{executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']}}}))};

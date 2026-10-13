@@ -1,0 +1,53 @@
+2026-10-12T14:42:40.0878008Z [36;1m  npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \[0m
+2026-10-12T14:42:40.0879575Z [36;1m  npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \[0m
+2026-10-12T14:42:40.0881458Z [36;1m  npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \[0m
+2026-10-12T14:42:40.0883000Z [36;1m  npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \[0m
+2026-10-12T14:42:40.0884577Z [36;1m  npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \[0m
+2026-10-12T14:42:40.0886338Z [36;1m  npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \[0m
+2026-10-12T14:42:40.0888634Z [36;1m  npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \[0m
+2026-10-12T14:42:40.0890268Z [36;1m  npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \[0m
+2026-10-12T14:42:40.0891995Z [36;1m  npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \[0m
+2026-10-12T14:42:40.0893673Z [36;1m  npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \[0m
+2026-10-12T14:42:40.0895348Z [36;1m  npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \[0m
+2026-10-12T14:42:40.0897474Z [36;1m  npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \[0m
+2026-10-12T14:42:40.0899092Z [36;1m  npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \[0m
+2026-10-12T14:42:40.0901049Z [36;1m  npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \[0m
+2026-10-12T14:42:40.0902843Z [36;1m  npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \[0m
+2026-10-12T14:42:40.0904661Z [36;1m  npx playwright test tests/motion-first.spec.js --project=desktop-chromium --workers=1 \[0m
+2026-10-12T14:42:40.0907001Z [36;1m  npx playwright test tests/2p5d-selection.spec.js tests/race-quality.spec.js \[0m
+2026-10-12T14:42:40.0909369Z [36;1m  npx playwright test tests/race-quality.spec.js \[0m
+2026-10-12T14:42:40.0911131Z [36;1m  npx playwright test tests/race-quality.spec.js \[0m
+2026-10-12T14:42:40.0912882Z [36;1m  npx playwright test tests/race-quality.spec.js \[0m
+2026-10-12T14:42:40.0914838Z [36;1m  npx playwright test tests/race-quality.spec.js tests/2p5d-selection.spec.js --workers=1[0m
+2026-10-12T14:42:42.1333163Z Running 124 tests using 2 workers
+2026-10-12T14:49:48.1521621Z   1) [android-chromium] › tests/p-layered.spec.js:3:1 › P layered trial keeps four independent feet planted, pauses and resets in an 18-runner race
+2026-10-12T14:49:48.1522840Z     Test timeout of 90000ms exceeded.
+2026-10-12T14:49:48.1523520Z     Error: page.evaluate: Test timeout of 90000ms exceeded.
+2026-10-12T14:49:48.1530185Z         at /home/runner/work/evowild-test/evowild-test/tests/p-layered.spec.js:16:29
+2026-10-12T14:49:48.1539969Z   2) [android-chromium] › tests/race-quality.spec.js:48:1 › 2.5D Race Agent commands are creature-resolved and morph-dependent
+2026-10-12T14:49:48.1540635Z     Error: expect(received).toBeLessThan(expected)
+2026-10-12T14:49:48.1541056Z     Expected: < 0.614
+2026-10-12T14:49:48.1541348Z     Received:   0.744
+2026-10-12T14:49:48.1545399Z         at /home/runner/work/evowild-test/evowild-test/tests/race-quality.spec.js:81:25
+2026-10-12T14:49:48.1552244Z   3) [desktop-chromium] › tests/motion-first.spec.js:3146:1 › Motion First AGILITY positioning v1 exploits a smaller safe opening
+2026-10-12T14:49:48.1552915Z     Error: expect(received).toBeGreaterThan(expected)
+2026-10-12T14:49:48.1553240Z     Expected: > 0.5
+2026-10-12T14:49:48.1553455Z     Received:   0
+2026-10-12T14:49:48.1558364Z         at /home/runner/work/evowild-test/evowild-test/tests/motion-first.spec.js:3196:34
+2026-10-12T14:49:48.1565477Z   4) [desktop-chromium] › tests/p-layered.spec.js:3:1 › P layered trial keeps four independent feet planted, pauses and resets in an 18-runner race
+2026-10-12T14:49:48.1566148Z     Test timeout of 90000ms exceeded.
+2026-10-12T14:49:48.1566883Z     Error: page.evaluate: Test timeout of 90000ms exceeded.
+2026-10-12T14:49:48.1570801Z         at /home/runner/work/evowild-test/evowild-test/tests/p-layered.spec.js:16:29
+2026-10-12T14:49:48.1576292Z   5) [desktop-chromium] › tests/race-quality.spec.js:48:1 › 2.5D Race Agent commands are creature-resolved and morph-dependent
+2026-10-12T14:49:48.1577431Z     Error: expect(received).toBeLessThan(expected)
+2026-10-12T14:49:48.1577746Z     Expected: < 0.614
+2026-10-12T14:49:48.1577965Z     Received:   0.743
+2026-10-12T14:49:48.1581270Z         at /home/runner/work/evowild-test/evowild-test/tests/race-quality.spec.js:81:25
+2026-10-12T14:49:48.1586757Z   5 failed
+2026-10-12T14:49:48.1587526Z     [android-chromium] › tests/p-layered.spec.js:3:1 › P layered trial keeps four independent feet planted, pauses and resets in an 18-runner race
+2026-10-12T14:49:48.1588591Z     [android-chromium] › tests/race-quality.spec.js:48:1 › 2.5D Race Agent commands are creature-resolved and morph-dependent
+2026-10-12T14:49:48.1589590Z     [desktop-chromium] › tests/motion-first.spec.js:3146:1 › Motion First AGILITY positioning v1 exploits a smaller safe opening
+2026-10-12T14:49:48.1590855Z     [desktop-chromium] › tests/p-layered.spec.js:3:1 › P layered trial keeps four independent feet planted, pauses and resets in an 18-runner race
+2026-10-12T14:49:48.1591925Z     [desktop-chromium] › tests/race-quality.spec.js:48:1 › 2.5D Race Agent commands are creature-resolved and morph-dependent
+2026-10-12T14:49:48.1592465Z   81 skipped
+2026-10-12T14:49:48.1592664Z   38 passed (7.1m)

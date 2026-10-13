@@ -1,0 +1,112 @@
+{
+  "units": "416x320 rig source pixels",
+  "body": {
+    "before": {
+      "width": 350,
+      "height": 132.30563002680964,
+      "shoulderHipSpan": 119.79445933869526
+    },
+    "after": {
+      "width": 316,
+      "height": 143.48260481712757,
+      "shoulderHipSpan": 94.99732381801962
+    }
+  },
+  "lowerLegs": {
+    "fore": {
+      "before": {
+        "boneLength": 91,
+        "alphaMidsectionWidth": 19.85774372279129
+      },
+      "after": {
+        "boneLength": 68,
+        "alphaMidsectionWidth": 26.45550941031237
+      }
+    },
+    "hind": {
+      "before": {
+        "boneLength": 89,
+        "alphaMidsectionWidth": 18.449457940436485
+      },
+      "after": {
+        "boneLength": 68,
+        "alphaMidsectionWidth": 24.164920973472576
+      }
+    }
+  },
+  "phaseClearance": [
+    {
+      "phase": 1,
+      "flight": false,
+      "alphaBottom": 295,
+      "clearance": 0
+    },
+    {
+      "phase": 2,
+      "flight": false,
+      "alphaBottom": 295,
+      "clearance": 0
+    },
+    {
+      "phase": 3,
+      "flight": false,
+      "alphaBottom": 295,
+      "clearance": 0
+    },
+    {
+      "phase": 4,
+      "flight": false,
+      "alphaBottom": 295,
+      "clearance": 0
+    },
+    {
+      "phase": 5,
+      "flight": true,
+      "alphaBottom": 274,
+      "clearance": 21
+    },
+    {
+      "phase": 6,
+      "flight": true,
+      "alphaBottom": 288,
+      "clearance": 7
+    },
+    {
+      "phase": 7,
+      "flight": false,
+      "alphaBottom": 295,
+      "clearance": 0
+    },
+    {
+      "phase": 8,
+      "flight": false,
+      "alphaBottom": 295,
+      "clearance": 0
+    },
+    {
+      "phase": 9,
+      "flight": false,
+      "alphaBottom": 295,
+      "clearance": 0
+    },
+    {
+      "phase": 10,
+      "flight": false,
+      "alphaBottom": 295,
+      "clearance": 0
+    },
+    {
+      "phase": 11,
+      "flight": true,
+      "alphaBottom": 267,
+      "clearance": 28
+    },
+    {
+      "phase": 12,
+      "flight": true,
+      "alphaBottom": 289,
+      "clearance": 6
+    }
+  ],
+  "jointCheckLimit": "Joint-comparison.png shows real raster crops at 4x. Organic covers hide cut ends, but black outline and material seams remain; not an automated seam-quality pass."
+}

@@ -1,4 +1,4 @@
-import {loadPLayered,pLayeredReady,drawPLayered} from './p_layered.js';
+import {loadPLayered,pLayeredReady,drawPLayered,constrainPLayeredLane} from './p_layered.js';
 
 const canvas = document.querySelector("#raceCanvas");
 const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
@@ -43,6 +43,7 @@ const BASE = import.meta.env.BASE_URL || "/";
 // P-only trial: preserve the reviewed atlas path for an honest A/B comparison.
 const P_LAYERED_MODE=new URLSearchParams(location.search).get('pRig')==='1';
 const P_LAYERED_REVIEW=new URLSearchParams(location.search).get('pRigReview')==='1';
+const P_LAYERED_BONES=new URLSearchParams(location.search).get('pRigBones')==='1';
 if(P_LAYERED_MODE){
   stage.dataset.pRigStatus='loading';
   loadPLayered(BASE).then(()=>{stage.dataset.pRigStatus='ready';}).catch(error=>{
@@ -917,8 +918,8 @@ function updateRace(dtMs) {
       const dir = Math.sign(r.targetLane-r.lane);
       const laneStep = dt*1.9;
       const next = r.lane + dir*laneStep;
-      if ((dir>0 && next>=r.targetLane)||(dir<0 && next<=r.targetLane)) r.lane=r.targetLane;
-      else r.lane=next;
+      const proposed=(dir>0&&next>=r.targetLane)||(dir<0&&next<=r.targetLane)?r.targetLane:next;
+      r.lane=proposed;
     }
 
     const effort = Math.max(0,r.speed/r.cruise-.95);
@@ -928,6 +929,11 @@ function updateRace(dtMs) {
     );
     r.creatureState = deriveCreatureState(r);
     r.distance += Math.max(0,r.speed)*dt;
+    if(r.morph==='P'&&P_LAYERED_MODE){
+      const formation=clamp(1-elapsed/2400,0,1);
+      const visualDistance=r.distance+(r.startVisualOffset||0)*formation;
+      r.lane=constrainPLayeredLane(r,r.lane,visualDistance,elapsed);
+    }
 
     if (r.distance>=RACE_METERS) {
       r.distance=RACE_METERS;
@@ -1278,7 +1284,17 @@ function drawRacers() {
     const slope=terrainSlope(item.visualDistance);
     const lean=clamp(slope*.022,-.045,.045);
 
-    const flight = r.morph==='P'&&P_LAYERED_MODE ? 0 : frame.flight ?? (
+    let pRigPose=null;
+    if(r.morph==='P'&&P_LAYERED_MODE&&pLayeredReady()){
+      pRigPose=drawPLayered(null,r,{
+        x:item.x,y:item.y,width:spriteW,ppm:pixelsPerMeter,distance:item.visualDistance,
+        widthForLane:targetLane=>baseW*laneScale(targetLane)*(selectedRacer?1.04:1)*meta.width,
+        projectX:screenXForMeters,groundY:laneYAt,lane:item.lane,time:elapsed,
+        reviewPhase:MOTION_REVIEW_FRAME>=0?MOTION_REVIEW_FRAME/12:undefined,debug:P_LAYERED_BONES
+      });
+      item.y=pRigPose.rootY;
+    }
+    const flight = pRigPose ? Number(pRigPose.flight) : frame.flight ?? (
       frame.phase==="FLIGHT" ? 1 :
       frame.phase==="REACH" ? .55 :
       frame.phase==="LIFT" ? .28 : 0);
@@ -1292,7 +1308,7 @@ function drawRacers() {
     ctx.fill();
     ctx.restore();
 
-    const contactKick=frame.contact ?? (frame.phase==="LAND"||frame.phase==="CONTACT"||frame.phase==="PUSH");
+    const contactKick=pRigPose ? pRigPose.feet.some(f=>f.stance&&f.phase>.20) : frame.contact ?? (frame.phase==="LAND"||frame.phase==="CONTACT"||frame.phase==="PUSH");
     if(r.speed>16&&contactKick){
       ctx.save();
       ctx.globalAlpha=.14;
@@ -1306,7 +1322,6 @@ function drawRacers() {
     }
 
     const frameCanvas=frames?.[frameIndex];
-    let pRigPose=null;
     if(frameCanvas){
       const peaProfile=PEA_MOTION_V2[r.morph];
       const phaseTransform=peaProfile?.transform?.[frame.phase] ?? { sx:1, sy:1, lean:0, lift:0 };
@@ -1324,19 +1339,19 @@ function drawRacers() {
       const phaseLift=r.morph==="S" ? 0 : phaseTransform.lift*drawH;
       const footAdjust=groundCorrection+legacyLift+phaseLift;
 
-      if(r.morph==='P'&&P_LAYERED_MODE&&pLayeredReady()){
-        pRigPose=drawPLayered(ctx,r,{
-          x:item.x,y:item.y,width:drawW,ppm:pixelsPerMeter,distance:item.visualDistance,
-          projectX:screenXForMeters,groundY:laneYAt,lane:item.lane,time:elapsed,
-          reviewPhase:MOTION_REVIEW_FRAME>=0?MOTION_REVIEW_FRAME/12:undefined,
-          debug:new URLSearchParams(location.search).get('pRigBones')==='1'
-        });
+      if(pRigPose){
+        pRigPose.paint(ctx);
         if(P_LAYERED_REVIEW){
           window.__pRigField[r.id]={id:r.id,phase:pRigPose.phase,bodyOffset:pRigPose.bodyOffset,
-            feet:pRigPose.feet.map(({id,stance,reachError,boneLengthError})=>({id,stance,reachError,boneLengthError}))};
+            bodySink:pRigPose.bodySink,bob:pRigPose.bob,flight:pRigPose.flight,
+            renderLane:pRigPose.renderLane,requestedLane:pRigPose.requestedLane,laneLag:pRigPose.laneLag,
+            feet:pRigPose.feet.map(({id,stance,reachError,boneLengthError,worldX,worldLane,contactId})=>
+              ({id,stance,reachError,boneLengthError,worldX,worldLane,contactId}))};
         }
         if(selectedRacer&&P_LAYERED_REVIEW){
           window.__pRigReview={phase:pRigPose.phase,cycle:pRigPose.cycle,feet:pRigPose.feet,bodyOffset:pRigPose.bodyOffset,
+            bodySink:pRigPose.bodySink,bob:pRigPose.bob,pitch:pRigPose.pitch,flight:pRigPose.flight,
+            renderLane:pRigPose.renderLane,requestedLane:pRigPose.requestedLane,laneLag:pRigPose.laneLag,
             scale:pRigPose.scale,rootX:item.x,rootY:item.y,distance:r.distance,
             cameraMeters,pixelsPerMeter,screenAnchor:width<700?width*.5:width*.46,time:elapsed,fieldSize:racers.length};
           window.__pRigFootRaster=(id,includeImage=false)=>{

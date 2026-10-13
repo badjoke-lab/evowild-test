@@ -1,0 +1,610 @@
+{
+  "base": "c648a95d61529df3501f8cd11dc65d0712b0fd7e",
+  "reviewDate": "2026-10-13",
+  "branch": "fix/2p5d-p-canonical-20261011",
+  "verdict": "REVISE",
+  "supportAnchorMethod": "KEEP",
+  "productionPromotion": false,
+  "protectedPublicFiles": [
+    {
+      "path": "public/concept/A.webp",
+      "gitBlob": "897ca3f7cf75d615621cd4b37600340526fe94a1",
+      "unchanged": true
+    },
+    {
+      "path": "public/concept/E.webp",
+      "gitBlob": "d58c8bcd4aa5c7619652af9f2aed88a9052fcd7c",
+      "unchanged": true
+    },
+    {
+      "path": "public/concept/P.webp",
+      "gitBlob": "0673b45c71e629ab7c9ec943ca7d5b07fa0b6a08",
+      "unchanged": true
+    },
+    {
+      "path": "public/concept/S.webp",
+      "gitBlob": "bcf42a829466f17580e8ab5111e26997b20ddfce",
+      "unchanged": true
+    },
+    {
+      "path": "public/concept/a-run-sheet.webp",
+      "gitBlob": "7414afc654efe4e21e41628d119c7c561dac64d8",
+      "unchanged": true
+    },
+    {
+      "path": "public/concept/e-run-sheet.webp",
+      "gitBlob": "542b1b46503bc3dd1b42de33ea1df4ccb9edf4e7",
+      "unchanged": true
+    },
+    {
+      "path": "public/concept/p-run-sheet.webp",
+      "gitBlob": "a718ccc986d1d01f196c67a48b4fa29dde369f7c",
+      "unchanged": true
+    },
+    {
+      "path": "public/concept/s-run-sheet.svg",
+      "gitBlob": "3798db0152cca32a1c06d2c4de7847c8a1de9feb",
+      "unchanged": true
+    },
+    {
+      "path": "public/concept/s-run-sheet.webp",
+      "gitBlob": "0dc2c41f745af1b8cc8215f2a971aab78c6f347c",
+      "unchanged": true
+    },
+    {
+      "path": "public/models/astra/s-v1.manifest.json",
+      "gitBlob": "25dd928920e8093d3d28f0c506d5c6b1d092d774",
+      "unchanged": true
+    },
+    {
+      "path": "public/models/evowild-s/focus-rigged-v31.glb",
+      "gitBlob": "c7babc48a4b4ef99980e74ff1a1c230380d08ec1",
+      "unchanged": true
+    },
+    {
+      "path": "public/models/evowild-s/focus-rigged-v5-headfix.glb",
+      "gitBlob": "3c8420062cdaef81536c38bfda74870b5348a429",
+      "unchanged": true
+    },
+    {
+      "path": "public/models/evowild-s/focus-rigged-v5-headfix.json",
+      "gitBlob": "577dbee5d48114a74b0b4d28811737c47f827ac5",
+      "unchanged": true
+    },
+    {
+      "path": "public/models/evowild-s/focus-rigged-v5.glb",
+      "gitBlob": "e122170b514214f7f65809d0655ebda7e85c14f8",
+      "unchanged": true
+    },
+    {
+      "path": "public/models/evowild-s/manifest.json",
+      "gitBlob": "8391e251b21086433f37da19bd2fb386fe57f5f1",
+      "unchanged": true
+    },
+    {
+      "path": "public/models/evowild-s/race-lod4-rigged-v31.glb",
+      "gitBlob": "b591ac6937413f09e89945fd3d31dbc695bbca66",
+      "unchanged": true
+    },
+    {
+      "path": "public/models/evowild-s/race-lod4-rigged-v5.glb",
+      "gitBlob": "0c2d6dc04245556c0c279753303bfdae3e082345",
+      "unchanged": true
+    },
+    {
+      "path": "public/models/evowild-s/race-lod4.glb",
+      "gitBlob": "655620ba759b7380d7d68bdcb47c7cdc3b97f9b7",
+      "unchanged": true
+    },
+    {
+      "path": "public/models/evowild-s/source-lod2.glb",
+      "gitBlob": "1e4a5c4143449a7a75d04b63cb56be5ee118ea03",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-gait-v2/assets/index-CZzqc1ZH.js",
+      "gitBlob": "2f0d0268e4535987b8e229b80c6ce8e37c48cf83",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-gait-v2/assets/index-DW0qOodR.css",
+      "gitBlob": "ec7d426fbeebd8454e18f4b970f24d973235aa4d",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-gait-v2/concept/A.webp",
+      "gitBlob": "897ca3f7cf75d615621cd4b37600340526fe94a1",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-gait-v2/concept/E.webp",
+      "gitBlob": "d58c8bcd4aa5c7619652af9f2aed88a9052fcd7c",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-gait-v2/concept/P.webp",
+      "gitBlob": "0673b45c71e629ab7c9ec943ca7d5b07fa0b6a08",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-gait-v2/concept/S.webp",
+      "gitBlob": "bcf42a829466f17580e8ab5111e26997b20ddfce",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-gait-v2/index.html",
+      "gitBlob": "10627540a14e83029149d0f109bbb409f10b677b",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-gait-v2/models/evowild-s-hunyuan2mv-lod2.glb",
+      "gitBlob": "1e4a5c4143449a7a75d04b63cb56be5ee118ea03",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-gait-v2/models/evowild-s-hunyuan2mv-lod3.glb",
+      "gitBlob": "96606afab5e8e841b7aa35464286f7a50507110c",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-gait-v2/models/evowild-s-hunyuan2mv-lod4-rigged-v2.glb",
+      "gitBlob": "123e7844b97bad16f7522d9fa4400c1dec98cc28",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-gait-v2/models/evowild-s-hunyuan2mv-lod4-rigged-v21.glb",
+      "gitBlob": "850ce133532adddaee37e8310586aa68d64a7985",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-gait-v2/models/evowild-s-hunyuan2mv-lod4-rigged.glb",
+      "gitBlob": "d159ede6fbb165aaeea25e66b0bb3d9323634ba3",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-gait-v2/models/evowild-s-hunyuan2mv-lod4.glb",
+      "gitBlob": "655620ba759b7380d7d68bdcb47c7cdc3b97f9b7",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-gait-v2/models/evowild-s-hunyuan2mv-rigged-v2.glb",
+      "gitBlob": "24391aba7bd28a160ce16010ee926e05b7643324",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-gait-v2/models/evowild-s-hunyuan2mv-rigged-v21.glb",
+      "gitBlob": "d920ec1227d248539c3e89b6f4aaab0d36abc1a1",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-gait-v2/models/evowild-s-hunyuan2mv-rigged.glb",
+      "gitBlob": "be7e501e5c72ead08a31040274564b4fdfc6e7b9",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-gait-v2/models/evowild-s.mtl",
+      "gitBlob": "034d486bac1c47cc550ec324640cfd9a0b38b03b",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-gait-v2/models/evowild-s.obj",
+      "gitBlob": "c127bced5942083cbdb033bce82c32a66061bc3d",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-gait-v2/version-v21.txt",
+      "gitBlob": "de12a080b317fb469ebbd46d5473968fc60ff89e",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-rig-v3/assets/index-CH8tIUfd.js",
+      "gitBlob": "471832be00d900a24afaaf52872f5bb0b2da1a55",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-rig-v3/assets/index-DW0qOodR.css",
+      "gitBlob": "ec7d426fbeebd8454e18f4b970f24d973235aa4d",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-rig-v3/concept/A.webp",
+      "gitBlob": "897ca3f7cf75d615621cd4b37600340526fe94a1",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-rig-v3/concept/E.webp",
+      "gitBlob": "d58c8bcd4aa5c7619652af9f2aed88a9052fcd7c",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-rig-v3/concept/P.webp",
+      "gitBlob": "0673b45c71e629ab7c9ec943ca7d5b07fa0b6a08",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-rig-v3/concept/S.webp",
+      "gitBlob": "bcf42a829466f17580e8ab5111e26997b20ddfce",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-rig-v3/index.html",
+      "gitBlob": "98cae1ce023fc984794f7f76c2957d042ffaf91a",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-rig-v3/models/evowild-s-hunyuan2mv-lod2.glb",
+      "gitBlob": "1e4a5c4143449a7a75d04b63cb56be5ee118ea03",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-rig-v3/models/evowild-s-hunyuan2mv-lod3.glb",
+      "gitBlob": "96606afab5e8e841b7aa35464286f7a50507110c",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-rig-v3/models/evowild-s-hunyuan2mv-lod4-rigged-v21.glb",
+      "gitBlob": "850ce133532adddaee37e8310586aa68d64a7985",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-rig-v3/models/evowild-s-hunyuan2mv-lod4-rigged-v3.glb",
+      "gitBlob": "d2aa5acbae30f94a034e478e23b709ec5f444fcd",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-rig-v3/models/evowild-s-hunyuan2mv-lod4-rigged-v31.glb",
+      "gitBlob": "b591ac6937413f09e89945fd3d31dbc695bbca66",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-rig-v3/models/evowild-s-hunyuan2mv-lod4.glb",
+      "gitBlob": "655620ba759b7380d7d68bdcb47c7cdc3b97f9b7",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-rig-v3/models/evowild-s-hunyuan2mv-rigged-v21.glb",
+      "gitBlob": "d920ec1227d248539c3e89b6f4aaab0d36abc1a1",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-rig-v3/models/evowild-s-hunyuan2mv-rigged-v3.glb",
+      "gitBlob": "f027c47c9a57913ae2ba3b731a3826458bc1c97b",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-rig-v3/models/evowild-s-hunyuan2mv-rigged-v31.glb",
+      "gitBlob": "c7babc48a4b4ef99980e74ff1a1c230380d08ec1",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-rig-v3/models/evowild-s-hunyuan2mv-rigged-v4.glb",
+      "gitBlob": "83c4264d717fb538ba551ba5093bcab6c5249b8b",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-rig-v3/models/evowild-s.mtl",
+      "gitBlob": "034d486bac1c47cc550ec324640cfd9a0b38b03b",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-rig-v3/models/evowild-s.obj",
+      "gitBlob": "c127bced5942083cbdb033bce82c32a66061bc3d",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d-rig-v3/version-v4.txt",
+      "gitBlob": "4a6d63070b51b68e8d154cf3e6142dda320a8b78",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d/assets/index-BOEivr9B.js",
+      "gitBlob": "ba0361dfb47a3fd3b52cf7d4c251ac76f96becc1",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d/assets/index-DW0qOodR.css",
+      "gitBlob": "ec7d426fbeebd8454e18f4b970f24d973235aa4d",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d/concept/A.webp",
+      "gitBlob": "897ca3f7cf75d615621cd4b37600340526fe94a1",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d/concept/E.webp",
+      "gitBlob": "d58c8bcd4aa5c7619652af9f2aed88a9052fcd7c",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d/concept/P.webp",
+      "gitBlob": "0673b45c71e629ab7c9ec943ca7d5b07fa0b6a08",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d/concept/S.webp",
+      "gitBlob": "bcf42a829466f17580e8ab5111e26997b20ddfce",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d/index.html",
+      "gitBlob": "bdce62b74b1a22d3698bd6a7c4c6ca6837777b24",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d/models/evowild-s-hunyuan2mv-lod2.glb",
+      "gitBlob": "1e4a5c4143449a7a75d04b63cb56be5ee118ea03",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d/models/evowild-s-hunyuan2mv-lod3.glb",
+      "gitBlob": "96606afab5e8e841b7aa35464286f7a50507110c",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d/models/evowild-s-hunyuan2mv-lod4-rigged.glb",
+      "gitBlob": "d159ede6fbb165aaeea25e66b0bb3d9323634ba3",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d/models/evowild-s-hunyuan2mv-lod4.glb",
+      "gitBlob": "655620ba759b7380d7d68bdcb47c7cdc3b97f9b7",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d/models/evowild-s-hunyuan2mv-rigged.glb",
+      "gitBlob": "be7e501e5c72ead08a31040274564b4fdfc6e7b9",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d/models/evowild-s.mtl",
+      "gitBlob": "034d486bac1c47cc550ec324640cfd9a0b38b03b",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d/models/evowild-s.obj",
+      "gitBlob": "c127bced5942083cbdb033bce82c32a66061bc3d",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-3d/version-animated-s.txt",
+      "gitBlob": "55231c241f68dd73a4c835db42f6466b5cadfdb6",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-motion-first-gait/index.html",
+      "gitBlob": "4bc1bf56513d12db8c9111d61062902897b4fc5b",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-motion-first-race/index.html",
+      "gitBlob": "7f993f98d4513b36e3e33d1d4c7d3b61f13790f5",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-motion-first/index.html",
+      "gitBlob": "c45fd9f5168cc2c2020a1c5edc8e8223f1b86d78",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-motion-first/main.js",
+      "gitBlob": "c2ec19e3cb20fa86631a4dbb8d7a2d0b6ea482a4",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-motion-first/styles.css",
+      "gitBlob": "24c31c8fc32b603c1c27737e8f1d83ab53826614",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-sakura-npr/THIRD_PARTY_NOTICES.md",
+      "gitBlob": "e5436f7373ecbf56a70a65fd205bf31c050f449a",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-sakura-npr/index.html",
+      "gitBlob": "992d517b433876aadcdd0d37c9a1fb577aa21aeb",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-sakura-npr/main.js",
+      "gitBlob": "927426d705ec2bcdd7e360cb5961fb8649e1667f",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-sakura-npr/styles.css",
+      "gitBlob": "2ebb9ab14f9ff98f9926c95bf1c11b1027b1e6b5",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-sakura-world/THIRD_PARTY_NOTICES.md",
+      "gitBlob": "2b5cca07a1c09439a1042710dd4e8afa30b0481e",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-sakura-world/index.html",
+      "gitBlob": "2a2d1f4d2042cd600d222d4e18069f73eb99f6fc",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-sakura-world/main.js",
+      "gitBlob": "e206e95c24bdf9cf44d8d7f9a8a030221620b023",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-sakura-world/styles.css",
+      "gitBlob": "9c83708c267a0ee6c1c26b414ce2f1c724ad3a56",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-spritegen-s/THIRD_PARTY_NOTICES.md",
+      "gitBlob": "80fa4d7300528cef18cfe2d7b0eb3a241f370690",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-spritegen-s/index.html",
+      "gitBlob": "9b27a0999daa8c3ef5c10dd4d57e48072e232162",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-spritegen-s/main.js",
+      "gitBlob": "700129c260687b601c68c4e471e46a6f824278e9",
+      "unchanged": true
+    },
+    {
+      "path": "public/preview-spritegen-s/styles.css",
+      "gitBlob": "5e2183241c2ffad32a279aa032d68ec569958c5f",
+      "unchanged": true
+    }
+  ],
+  "codeAndAssetSha256": {
+    "src/p_layered.js": "d244c6a758546202077c2bad8c9eb27875e9ab3ed63727a4347dc595aa5dd3d4",
+    "src/race_quality.js": "1c1697ae77e94a7727f661dfdc144fa4bb9a07fc643ae75037373d9777443103",
+    "tests/p-layered.spec.js": "36054dd0b5b9e619db8b36044e6fcaca592be8704f5479bcbac6d1b056e738ff",
+    "tests/race-quality.spec.js": "2c6096172fe6c2d36abe9ef42f6cff305bcbf71c7672dbbaf591545c44ac37f6",
+    "vite.config.js": "22a190ed14e4b44a98da4621fd4f9e14a0f5bc02f3d04f6f53db2a8779d458f0",
+    "playwright.config.js": "83fa1b63f391164e760dc122163fa52e9ff4b62775ba47ecbd6d690ecfc564be",
+    "public/favicon.ico": "9584f927e7d8bee03f040cb791371cfac4c96e500759721fa6eafdf2fc3c4ff0",
+    "public/concept/p-layered/atlas.json": "d662b20ff80266e635c8990ac3c355b0e999ed9f462f80bd98d58134511b661e",
+    "public/concept/p-layered/body.png": "38a6caf54d6e968024b323d4921d3c62126a54d11ce6ae0a57b329f9bb9bb945",
+    "public/concept/p-layered/fore-foot.png": "79408e76a0758b3887a6e10fd0099ad6adf8101cd9525829e29f301dc4b95cf5",
+    "public/concept/p-layered/fore-joint.png": "18d4b52062883af837a6a9429da25adaa223e6bb4a5032a486220be760cdb07f",
+    "public/concept/p-layered/fore-lower.png": "70dd42996d51c41b3f8055d89efdf902c90aaacae22c50f08b9e4a81cada1422",
+    "public/concept/p-layered/fore-upper.png": "106d8f38f5498579cbc09907ac92daea8cc4c8d5a39233d2b6fe7c2f259283e9",
+    "public/concept/p-layered/hind-foot.png": "2ff452794019e2c25ee06a11ccd325cd151f7b81074af132eea9d1805119271a",
+    "public/concept/p-layered/hind-joint.png": "97bb01eb81de0ac55afb72ef72feda9eb13c1be9591ad613520b52b10fe39289",
+    "public/concept/p-layered/hind-lower.png": "2793a7e05ac7ac48edf8ba9c58ef845d036131c651c1406794ce82db0150b1ce",
+    "public/concept/p-layered/hind-upper.png": "93818bd48bb40e500221a8810c31bdba4915efbcaaba6bafd64475a63ac285fe",
+    "scripts/audit-p-rig-v2.py": "c1800cb54be90223e245952640dcafa7f626f5ee8f8d15272e378600949cbe6f",
+    "scripts/capture-p-rig-v2.mjs": "acf9dab2db14eea50c48e9373e3ea7c525a9ff996840b6dbe4274384e5d03215",
+    "scripts/measure-p-rig-v2-loop.mjs": "8da3e1adbd146af5e3e1ba2a52091894e94df99f417b8cab2129f2ec12090b71",
+    "scripts/pack-p-rig-v2.py": "660acd304d616d256ee0c14b2caeb843212546ac0e768696b669d521efc93870",
+    "scripts/preview-p-rig-v2.mjs": "2b97efcd314e034d2f795838dd0eb9c41798ed60d5d2a1f74e877f58f0303134",
+    "scripts/probe-p-rig-v2.mjs": "4c217c3a399ac71969deca094958586dc882ae3ccbcc0a6255aad38f2ea65228"
+  },
+  "sourceEditReferences": [
+    "public/concept/P.webp",
+    "docs/evidence/p-layered-20261012/parts-source.png"
+  ],
+  "partSourceSha256": "14bd8f095dcb246fa35c29e590bc42e7694da1458084ca24867cdc9ad1176250",
+  "videos": [
+    {
+      "path": "docs/evidence/p-rig-v2-20261013/before-after-motion.mp4",
+      "sha256": "54051755cd21c374bc2861df1fdcc27feda698e8bba0e5faefc09fb18d424f99",
+      "width": 960,
+      "height": 310,
+      "r_frame_rate": "60/1",
+      "duration": "6.000000",
+      "nb_frames": "360"
+    },
+    {
+      "path": "docs/evidence/p-rig-v2-20261013/isolated-continuous.mp4",
+      "sha256": "185e56ce27a1cbb626dbbd3282e1af5e1c1eab86ceb2ea956bc1a6f66955a5a5",
+      "width": 1280,
+      "height": 720,
+      "r_frame_rate": "60/1",
+      "duration": "6.000000",
+      "nb_frames": "360"
+    },
+    {
+      "path": "docs/evidence/p-rig-v2-20261013/layered-half-speed.mp4",
+      "sha256": "c479fb8f1f9b6be59becac21532fd192b07624ab72706ffaf41f1a2bbaa9b67e",
+      "width": 1280,
+      "height": 720,
+      "r_frame_rate": "60/1",
+      "duration": "11.983333",
+      "nb_frames": "719"
+    },
+    {
+      "path": "docs/evidence/p-rig-v2-20261013/race-18-desktop.mp4",
+      "sha256": "d5284161ac292b5d46616d88c77b52086751516a8238510cf3e9090de6c3eeea",
+      "width": 1280,
+      "height": 720,
+      "r_frame_rate": "60/1",
+      "duration": "6.000000",
+      "nb_frames": "360"
+    },
+    {
+      "path": "docs/evidence/p-rig-v2-20261013/race-18-mobile.mp4",
+      "sha256": "f8f31327baa6e650195741dddff2976bb86124568098bbe3539741b4e2857899",
+      "width": 412,
+      "height": 840,
+      "r_frame_rate": "60/1",
+      "duration": "4.000000",
+      "nb_frames": "240"
+    }
+  ],
+  "independentSkeletonAudit": [
+    {
+      "case": "isolated-continuous",
+      "maxActualBoneLengthError": 7.105427357601002e-14,
+      "allRasterMeasurementsFinite": true
+    },
+    {
+      "case": "race-18-desktop",
+      "maxActualBoneLengthError": 5.684341886080802e-14,
+      "allRasterMeasurementsFinite": true
+    },
+    {
+      "case": "race-18-mobile",
+      "maxActualBoneLengthError": 4.263256414560601e-14,
+      "allRasterMeasurementsFinite": true
+    }
+  ],
+  "relatedE2E": {
+    "startTime": "2026-10-13T03:05:52.036Z",
+    "duration": 282223.158,
+    "expected": 28,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "motionFirstIsolation": {
+    "startTime": "2026-10-13T03:07:25.448Z",
+    "duration": 17941.879,
+    "expected": 1,
+    "skipped": 1,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "loop": {
+    "units": "416x320 rig source pixels",
+    "epsilonCycle": 0.0001,
+    "exactEndpointMaxJointDelta": 0,
+    "exactEndpointDifferentChannels": 0,
+    "boundaries": [
+      {
+        "name": "6-to-7",
+        "phase": 0.5,
+        "maxJointTravelAcrossEpsilon": 0.09656788136237579
+      },
+      {
+        "name": "8-to-9",
+        "phase": 0.6666666666666666,
+        "maxJointTravelAcrossEpsilon": 0.1852213580074633
+      },
+      {
+        "name": "9-to-10",
+        "phase": 0.75,
+        "maxJointTravelAcrossEpsilon": 0.10121730954573625
+      },
+      {
+        "name": "12-to-1",
+        "phase": 1,
+        "maxJointTravelAcrossEpsilon": 0.09673012856146106
+      }
+    ],
+    "limitation": "Flat-ground stateless phase probe using the runtime painter. Live support anchoring and body-height history are measured separately in the video traces."
+  },
+  "ci": {
+    "status": "source push pending; results will be appended",
+    "previousRun": 38264779614
+  },
+  "limits": [
+    "Pixel 7 emulation, not physical-device performance",
+    "Foot masks measured before scene occlusion",
+    "World-anchor zero does not mean identical sole raster pixels",
+    "Body compression and render-lane lag are separately recorded",
+    "Overall anatomy and gait remain REVISE"
+  ]
+}

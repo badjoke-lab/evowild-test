@@ -61,7 +61,16 @@ test("2.5D Race Agent commands are creature-resolved and morph-dependent", async
   await page.getByRole("button", { name: "PUSH", exact: true }).click();
   await page.waitForTimeout(500);
   await expect(stage).toHaveAttribute("data-agent-focus-command", "PUSH");
-  const sPushResponse = Number(await stage.getAttribute("data-agent-focus-response"));
+  const responseSnapshot=()=>stage.evaluate(node=>{
+    const d=node.dataset,response=Number(d.agentFocusResponse),stamina=Number(d.agentFocusStamina);
+    const fatigue=Number(d.agentFocusFatigue),pressure=Number(d.agentFocusPressure);
+    // PUSH is deliberately reduced by pressure. Different runners in traffic
+    // do not have equal pressure, so raw S/E responses cannot rank morphology.
+    const condition=stamina*Math.max(.25,1-.72*fatigue)*(1-.38*pressure);
+    return {response,compatibility:response/condition,pressure};
+  });
+  const sSnapshot=await responseSnapshot();
+  const sPushResponse=sSnapshot.response;
   const sFatigue = Number(await stage.getAttribute("data-agent-focus-fatigue"));
   const sStaminaAfter = Number(await stage.getAttribute("data-agent-focus-stamina"));
   expect(sPushResponse).toBeGreaterThan(0.6);
@@ -76,9 +85,12 @@ test("2.5D Race Agent commands are creature-resolved and morph-dependent", async
   await expect(stage).toHaveAttribute("data-agent-target-morph", "E");
   await page.getByRole("button", { name: "PUSH", exact: true }).click();
   await page.waitForTimeout(350);
-  const ePushResponse = Number(await stage.getAttribute("data-agent-focus-response"));
+  const eSnapshot=await responseSnapshot();
+  const ePushResponse=eSnapshot.response;
   expect(ePushResponse).toBeGreaterThan(0);
-  expect(ePushResponse).toBeLessThan(sPushResponse);
+  expect(sSnapshot.compatibility).toBeCloseTo(1.00,2);
+  expect(eSnapshot.compatibility).toBeCloseTo(.76,2);
+  expect(eSnapshot.compatibility).toBeLessThan(sSnapshot.compatibility);
 
   await page.getByRole("button", { name: "CONSERVE", exact: true }).click();
   await page.waitForTimeout(100);
