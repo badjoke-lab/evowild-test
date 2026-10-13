@@ -3,6 +3,7 @@ import bpy,json,sys,hashlib
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 E=ROOT/'docs/evidence/p-canonical-3d-v7-20261012'
+W=ROOT/'work/p-canonical-v7/rendered';W.mkdir(parents=True,exist_ok=True)
 views=['SIDE','FRONT','FRONT34','REAR34','BACK']
 versions=['v6','v7']
 if '--v7-only' in sys.argv:versions=['v7']
@@ -20,7 +21,7 @@ for version in versions:
     if '--preview' in sys.argv:scene.render.resolution_percentage=65;scene.cycles.samples=16
     for name in views:
         scene.camera=bpy.data.objects['CAM_'+name]
-        output=E/(('preview-' if '--preview' in sys.argv else '')+(version+'-' if version=='v6' else '')+name+'.png')
+        output=W/(('preview-' if '--preview' in sys.argv else '')+(version+'-' if version=='v6' else '')+name+'.png')
         scene.render.filepath=str(output)
         bpy.ops.render.render(write_still=True)
         records.append({'version':version,'view':name,'image':output.name,'glbSHA256':hashlib.sha256(asset.read_bytes()).hexdigest(),'cameraLocation':list(scene.camera.location),'cameraRotation':list(scene.camera.rotation_euler),'orthoScale':scene.camera.data.ortho_scale,'resolution':[scene.render.resolution_x,scene.render.resolution_y],'engine':scene.render.engine,'samples':scene.cycles.samples,'pose':'static rest'})

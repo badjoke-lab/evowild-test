@@ -4,12 +4,13 @@ from PIL import Image,ImageDraw,ImageFont
 import json,hashlib
 ROOT=Path(__file__).resolve().parents[2]
 E=ROOT/'docs/evidence/p-canonical-3d-v7-20261012'
+W=ROOT/'work/p-canonical-v7/rendered'
 VIEWS=['SIDE','FRONT','FRONT34','REAR34','BACK']
 fontpath='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
 font=ImageFont.truetype(fontpath,22);small=ImageFont.truetype(fontpath,16)
 for version in ['', 'v6-']:
     for view in VIEWS:
-        im=Image.open(E/f'{version}{view}.png').convert('RGB')
+        im=Image.open(W/f'{version}{view}.png').convert('RGB')
         im.save(E/f'{version}{view}.webp',quality=94,method=6)
 canvas=Image.new('RGB',(1650,1000),'#e2e7e9');d=ImageDraw.Draw(canvas)
 for i,view in enumerate(VIEWS):
@@ -47,4 +48,11 @@ canvas.save(E/'comparison-five-views.webp',quality=94,method=6)
 files=['public/concept/P.webp','art/p-creature/workspaces/P-v6-canonical-sculpt-review.blend','public/models/evowild-p/p-canonical-v6.glb','art/p-creature/workspaces/P-v7-reference-retopology.blend','public/models/evowild-p/p-canonical-v7.glb']
 hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in files}
 (E/'artifact-sha256.json').write_text(json.dumps(hashes,indent=2)+'\n')
+provenance=E/'render-provenance.json'
+data=json.loads(provenance.read_text())
+for d in data:
+    d['renderSourcePNG']=d.get('renderSourcePNG',d['image'])
+    d['image']=d['image'].replace('.png','.webp')
+    d['displayEncoding']='WebP quality 94, no geometry/image retouch'
+provenance.write_text(json.dumps(data,indent=2)+'\n')
 print('packaged',len(VIEWS),'actual v7 views and common-camera v6 comparisons')

@@ -2,7 +2,7 @@
   {
     "version": "v6",
     "view": "SIDE",
-    "image": "v6-SIDE.png",
+    "image": "v6-SIDE.webp",
     "glbSHA256": "b21685fc6e0cb2c70cb42bb693cbad96f8fb659a6d3f0587220e7e06cc5da036",
     "cameraLocation": [
       0.0,
@@ -21,12 +21,14 @@
     ],
     "engine": "CYCLES",
     "samples": 24,
-    "pose": "static rest"
+    "pose": "static rest",
+    "renderSourcePNG": "v6-SIDE.png",
+    "displayEncoding": "WebP quality 94, no geometry/image retouch"
   },
   {
     "version": "v6",
     "view": "FRONT",
-    "image": "v6-FRONT.png",
+    "image": "v6-FRONT.webp",
     "glbSHA256": "b21685fc6e0cb2c70cb42bb693cbad96f8fb659a6d3f0587220e7e06cc5da036",
     "cameraLocation": [
       -10.0,
@@ -45,12 +47,14 @@
     ],
     "engine": "CYCLES",
     "samples": 24,
-    "pose": "static rest"
+    "pose": "static rest",
+    "renderSourcePNG": "v6-FRONT.png",
+    "displayEncoding": "WebP quality 94, no geometry/image retouch"
   },
   {
     "version": "v6",
     "view": "FRONT34",
-    "image": "v6-FRONT34.png",
+    "image": "v6-FRONT34.webp",
     "glbSHA256": "b21685fc6e0cb2c70cb42bb693cbad96f8fb659a6d3f0587220e7e06cc5da036",
     "cameraLocation": [
       -6.0,
@@ -69,12 +73,14 @@
     ],
     "engine": "CYCLES",
     "samples": 24,
-    "pose": "static rest"
+    "pose": "static rest",
+    "renderSourcePNG": "v6-FRONT34.png",
+    "displayEncoding": "WebP quality 94, no geometry/image retouch"
   },
   {
     "version": "v6",
     "view": "REAR34",
-    "image": "v6-REAR34.png",
+    "image": "v6-REAR34.webp",
     "glbSHA256": "b21685fc6e0cb2c70cb42bb693cbad96f8fb659a6d3f0587220e7e06cc5da036",
     "cameraLocation": [
       6.0,
@@ -93,12 +99,14 @@
     ],
     "engine": "CYCLES",
     "samples": 24,
-    "pose": "static rest"
+    "pose": "static rest",
+    "renderSourcePNG": "v6-REAR34.png",
+    "displayEncoding": "WebP quality 94, no geometry/image retouch"
   },
   {
     "version": "v6",
     "view": "BACK",
-    "image": "v6-BACK.png",
+    "image": "v6-BACK.webp",
     "glbSHA256": "b21685fc6e0cb2c70cb42bb693cbad96f8fb659a6d3f0587220e7e06cc5da036",
     "cameraLocation": [
       10.0,
@@ -117,12 +125,14 @@
     ],
     "engine": "CYCLES",
     "samples": 24,
-    "pose": "static rest"
+    "pose": "static rest",
+    "renderSourcePNG": "v6-BACK.png",
+    "displayEncoding": "WebP quality 94, no geometry/image retouch"
   },
   {
     "version": "v7",
     "view": "SIDE",
-    "image": "SIDE.png",
+    "image": "SIDE.webp",
     "glbSHA256": "2fa731e4078b42b41dff705b886e28740f0ec9d73d8626958a7f0390ad9c3c4b",
     "cameraLocation": [
       0.0,
@@ -141,12 +151,14 @@
     ],
     "engine": "CYCLES",
     "samples": 24,
-    "pose": "static rest"
+    "pose": "static rest",
+    "renderSourcePNG": "SIDE.png",
+    "displayEncoding": "WebP quality 94, no geometry/image retouch"
   },
   {
     "version": "v7",
     "view": "FRONT",
-    "image": "FRONT.png",
+    "image": "FRONT.webp",
     "glbSHA256": "2fa731e4078b42b41dff705b886e28740f0ec9d73d8626958a7f0390ad9c3c4b",
     "cameraLocation": [
       -10.0,
@@ -165,12 +177,14 @@
     ],
     "engine": "CYCLES",
     "samples": 24,
-    "pose": "static rest"
+    "pose": "static rest",
+    "renderSourcePNG": "FRONT.png",
+    "displayEncoding": "WebP quality 94, no geometry/image retouch"
   },
   {
     "version": "v7",
     "view": "FRONT34",
-    "image": "FRONT34.png",
+    "image": "FRONT34.webp",
     "glbSHA256": "2fa731e4078b42b41dff705b886e28740f0ec9d73d8626958a7f0390ad9c3c4b",
     "cameraLocation": [
       -6.0,
@@ -189,12 +203,14 @@
     ],
     "engine": "CYCLES",
     "samples": 24,
-    "pose": "static rest"
+    "pose": "static rest",
+    "renderSourcePNG": "FRONT34.png",
+    "displayEncoding": "WebP quality 94, no geometry/image retouch"
   },
   {
     "version": "v7",
     "view": "REAR34",
-    "image": "REAR34.png",
+    "image": "REAR34.webp",
     "glbSHA256": "2fa731e4078b42b41dff705b886e28740f0ec9d73d8626958a7f0390ad9c3c4b",
     "cameraLocation": [
       6.0,
@@ -213,12 +229,14 @@
     ],
     "engine": "CYCLES",
     "samples": 24,
-    "pose": "static rest"
+    "pose": "static rest",
+    "renderSourcePNG": "REAR34.png",
+    "displayEncoding": "WebP quality 94, no geometry/image retouch"
   },
   {
     "version": "v7",
     "view": "BACK",
-    "image": "BACK.png",
+    "image": "BACK.webp",
     "glbSHA256": "2fa731e4078b42b41dff705b886e28740f0ec9d73d8626958a7f0390ad9c3c4b",
     "cameraLocation": [
       10.0,
@@ -237,6 +255,8 @@
     ],
     "engine": "CYCLES",
     "samples": 24,
-    "pose": "static rest"
+    "pose": "static rest",
+    "renderSourcePNG": "BACK.png",
+    "displayEncoding": "WebP quality 94, no geometry/image retouch"
   }
 ]
