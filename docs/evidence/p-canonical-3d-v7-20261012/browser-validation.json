@@ -23,33 +23,39 @@
       },
       "first": {
         "triangles": 47904,
-        "calls": 13
+        "calls": 13,
+        "inFrame": true
       },
       "views": [
         {
           "view": "SIDE",
           "triangles": 47904,
-          "calls": 13
+          "calls": 13,
+          "inFrame": true
         },
         {
           "view": "FRONT",
           "triangles": 47904,
-          "calls": 13
+          "calls": 13,
+          "inFrame": true
         },
         {
           "view": "FRONT34",
           "triangles": 47904,
-          "calls": 13
+          "calls": 13,
+          "inFrame": true
         },
         {
           "view": "REAR34",
           "triangles": 47904,
-          "calls": 13
+          "calls": 13,
+          "inFrame": true
         },
         {
           "view": "BACK",
           "triangles": 47904,
-          "calls": 13
+          "calls": 13,
+          "inFrame": true
         }
       ],
       "errors": []
@@ -75,13 +81,15 @@
       },
       "first": {
         "triangles": 47904,
-        "calls": 13
+        "calls": 13,
+        "inFrame": true
       },
       "views": [
         {
           "view": "FRONT34",
           "triangles": 47904,
-          "calls": 13
+          "calls": 13,
+          "inFrame": true
         }
       ],
       "errors": []
