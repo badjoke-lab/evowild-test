@@ -1,0 +1,8 @@
+2026-10-13T03:44:56.9971921Z   81 skipped
+2026-10-13T03:44:56.9972135Z   43 passed (7.2m)
+2026-10-13T04:00:44.4162560Z   1) [desktop-chromium] › tests/motion-first.spec.js:1735:1 › Motion First balanced 1600 course v1 does not lock any morph into one half of the field
+2026-10-13T04:00:44.4170809Z   2) [desktop-chromium] › tests/motion-first.spec.js:2732:1 › Motion First Race Entry pre-race focus v2 keeps YOUR ENTRY locked during countdown
+2026-10-13T04:00:44.4171437Z     Error: expect(locator).toHaveText(expected) failed
+2026-10-13T04:00:44.4192710Z   2 failed
+2026-10-13T04:00:44.4194008Z   1 skipped
+2026-10-13T04:00:44.4194123Z   36 passed (15.8m)

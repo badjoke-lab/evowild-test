@@ -597,8 +597,165 @@
     "limitation": "Flat-ground stateless phase probe using the runtime painter. Live support anchoring and body-height history are measured separately in the video traces."
   },
   "ci": {
-    "status": "source push pending; results will be appended",
-    "previousRun": 38264779614
+    "sourceCommit": "f0dcf1767362210b4832fbfffadf3c0eb011a5d5",
+    "runId": 38342561747,
+    "url": "https://github.com/badjoke-lab/evowild-test/actions/runs/38342561747",
+    "jobId": 115116605740,
+    "workflowConclusion": "failure",
+    "e2e": {
+      "conclusion": "success",
+      "passed": 43,
+      "skipped": 81,
+      "failed": 0
+    },
+    "extraMotionFirstCapture": {
+      "conclusion": "failure",
+      "passed": 36,
+      "skipped": 1,
+      "failed": 2,
+      "failedTests": [
+        "Motion First balanced 1600 course v1 does not lock any morph into one half of the field",
+        "Motion First Race Entry pre-race focus v2 keeps YOUR ENTRY locked during countdown"
+      ]
+    },
+    "steps": [
+      {
+        "name": "Set up job",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 1,
+        "started_at": "2026-10-13T03:37:12Z",
+        "completed_at": "2026-10-13T03:37:13Z"
+      },
+      {
+        "name": "Run actions/checkout@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 2,
+        "started_at": "2026-10-13T03:37:13Z",
+        "completed_at": "2026-10-13T03:37:18Z"
+      },
+      {
+        "name": "Run actions/setup-node@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 3,
+        "started_at": "2026-10-13T03:37:18Z",
+        "completed_at": "2026-10-13T03:37:18Z"
+      },
+      {
+        "name": "Run npm install",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 4,
+        "started_at": "2026-10-13T03:37:18Z",
+        "completed_at": "2026-10-13T03:37:24Z"
+      },
+      {
+        "name": "Run npm run build",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 5,
+        "started_at": "2026-10-13T03:37:24Z",
+        "completed_at": "2026-10-13T03:37:26Z"
+      },
+      {
+        "name": "Verify 2.5D pages are in production build",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 6,
+        "started_at": "2026-10-13T03:37:26Z",
+        "completed_at": "2026-10-13T03:37:26Z"
+      },
+      {
+        "name": "Run npx playwright install --with-deps chromium",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 7,
+        "started_at": "2026-10-13T03:37:26Z",
+        "completed_at": "2026-10-13T03:37:43Z"
+      },
+      {
+        "name": "Run E2E suite",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 8,
+        "started_at": "2026-10-13T03:37:43Z",
+        "completed_at": "2026-10-13T03:44:57Z"
+      },
+      {
+        "name": "Upload 2.5D survivor visuals",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 9,
+        "started_at": "2026-10-13T03:44:57Z",
+        "completed_at": "2026-10-13T03:44:58Z"
+      },
+      {
+        "name": "Capture Motion First visuals",
+        "status": "completed",
+        "conclusion": "failure",
+        "number": 10,
+        "started_at": "2026-10-13T03:44:58Z",
+        "completed_at": "2026-10-13T04:00:44Z"
+      },
+      {
+        "name": "Upload Motion First race visuals",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 11,
+        "started_at": "2026-10-13T04:00:44Z",
+        "completed_at": "2026-10-13T04:00:46Z"
+      },
+      {
+        "name": "Capture Sakura NPR camera visuals",
+        "status": "completed",
+        "conclusion": "skipped",
+        "number": 12,
+        "started_at": "2026-10-13T04:00:46Z",
+        "completed_at": "2026-10-13T04:00:46Z"
+      },
+      {
+        "name": "Upload mobile visual screenshots",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 13,
+        "started_at": "2026-10-13T04:00:46Z",
+        "completed_at": "2026-10-13T04:00:49Z"
+      },
+      {
+        "name": "Upload S sprite-gen PoC artifacts",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 14,
+        "started_at": "2026-10-13T04:00:49Z",
+        "completed_at": "2026-10-13T04:00:50Z"
+      },
+      {
+        "name": "Post Run actions/setup-node@v4",
+        "status": "completed",
+        "conclusion": "skipped",
+        "number": 27,
+        "started_at": "2026-10-13T04:00:50Z",
+        "completed_at": "2026-10-13T04:00:50Z"
+      },
+      {
+        "name": "Post Run actions/checkout@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 28,
+        "started_at": "2026-10-13T04:00:50Z",
+        "completed_at": "2026-10-13T04:00:50Z"
+      },
+      {
+        "name": "Complete job",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 29,
+        "started_at": "2026-10-13T04:00:50Z",
+        "completed_at": "2026-10-13T04:00:50Z"
+      }
+    ]
   },
   "limits": [
     "Pixel 7 emulation, not physical-device performance",
@@ -606,5 +763,111 @@
     "World-anchor zero does not mean identical sole raster pixels",
     "Body compression and render-lane lag are separately recorded",
     "Overall anatomy and gait remain REVISE"
+  ],
+  "bodyAllRenderFrames": [
+    {
+      "name": "isolated-continuous",
+      "observedRenderFrames": 375,
+      "maxBodyOffset": 10.000004808551012,
+      "maxBodySink": 10.01488999009931,
+      "maxLaneLag": 0.007007762193679934,
+      "maxReachError": 0,
+      "maxBoneLengthError": 5.684341886080802e-14,
+      "method": "All requestAnimationFrame samples in an independent deterministic replay; no screenshots. Same viewport, readiness gate, warm-up and duration as videos."
+    },
+    {
+      "name": "race-18-desktop",
+      "observedRenderFrames": 375,
+      "maxBodyOffset": 10.649233451749211,
+      "maxBodySink": 17.84471228893299,
+      "maxLaneLag": 0.14191330909729016,
+      "maxReachError": 0,
+      "maxBoneLengthError": 5.684341886080802e-14,
+      "method": "All requestAnimationFrame samples in an independent deterministic replay; no screenshots. Same viewport, readiness gate, warm-up and duration as videos."
+    },
+    {
+      "name": "race-18-mobile",
+      "observedRenderFrames": 250,
+      "maxBodyOffset": 12.326240965213344,
+      "maxBodySink": 17.973136284921477,
+      "maxLaneLag": 0.1475108734766647,
+      "maxReachError": 0,
+      "maxBoneLengthError": 7.105427357601002e-14,
+      "method": "All requestAnimationFrame samples in an independent deterministic replay; no screenshots. Same viewport, readiness gate, warm-up and duration as videos."
+    }
+  ],
+  "localFullSerial": {
+    "startTime": "2026-10-13T03:15:40.016Z",
+    "duration": 1255389.981,
+    "expected": 35,
+    "skipped": 81,
+    "unexpected": 8,
+    "flaky": 0
+  },
+  "localFullSerialLimits": "Exact Three.js 0.181.0 served locally for blocked unpkg; explicitly forced SwiftShader; legacy timing checks failed. Related 28 tests passed with native launch options.",
+  "evidenceSha256": {
+    "docs/evidence/p-rig-v2-20261013/2p5d-test-results.json": "13012064f248ca20132098233312b2751a0e27f3e146669f9c4486cc58f02d77",
+    "docs/evidence/p-rig-v2-20261013/actual-motion-filmstrip.png": "a8df3bd743fd677b98eda7764c44f519a9f6a75ca1e53e2d30548f11cfc258bc",
+    "docs/evidence/p-rig-v2-20261013/after-mobile-max-sink.png": "59d531b0d4a258fecffcbfb5c957daaa3d7cfedcfcb774df3f39e2af5b11ee08",
+    "docs/evidence/p-rig-v2-20261013/anatomy-measurements.json": "beeb6e200337bac7cbe8f068feee9290fbfe0f228c9a5e9699c493a178a5e38a",
+    "docs/evidence/p-rig-v2-20261013/before-after-motion.mp4": "54051755cd21c374bc2861df1fdcc27feda698e8bba0e5faefc09fb18d424f99",
+    "docs/evidence/p-rig-v2-20261013/before-mobile-max-sink.png": "d692f67b984677ef5440f9e51c12b506f8299cc0e9093bd21933dba4e6318df8",
+    "docs/evidence/p-rig-v2-20261013/body-60hz-validation.json": "a2a4a44713b0b7e455b30b0116a22da55b261d2f14fa9ef4fef4f0e238bf4096",
+    "docs/evidence/p-rig-v2-20261013/body-correction-comparison.png": "b4fdcb074ffa0396d31059db83f8dd7f40acf77886a32a4a1da37dfda948648f",
+    "docs/evidence/p-rig-v2-20261013/body-validation-harness.mjs.txt": "3c909db0c3691126d68aa387c0c17d9c5927e124702f2eb9b9b6c7dcacd14358",
+    "docs/evidence/p-rig-v2-20261013/build-results.txt": "df7abd4e6ffc45abb8c567fd4b3a111d1674e865348784e9941255530b113885",
+    "docs/evidence/p-rig-v2-20261013/canonical-old-new.png": "b5d0c90cf94771d3a85c0a7d33d7c68ace700e435e31d10e4b91a9f42f262592",
+    "docs/evidence/p-rig-v2-20261013/ci-after-summary.txt": "0d8db4a69c7a9eab930433b30bb03868bb32d2dac78d9f89f83e67afc17ef98a",
+    "docs/evidence/p-rig-v2-20261013/ci-before-failures.txt": "a053b6c667157801e797976d535e27a0d15d0f412102b232640f84b1516ef178",
+    "docs/evidence/p-rig-v2-20261013/ci-before.json": "2b613ccbe23b1584a9f752c65f43142b4c54f96b4b4b1040c0d679c7f19e509a",
+    "docs/evidence/p-rig-v2-20261013/ci-extra-3d-failures.txt": "389e917f8fce46b7137824cc611422f43e3301e61e8d37edbdc97c9b148db1bf",
+    "docs/evidence/p-rig-v2-20261013/ci-final.json": "7e893cd854ab9cbf75e774b646e114347abe439dbf901763242ffd90ed98a1e5",
+    "docs/evidence/p-rig-v2-20261013/foot-slip-comparison.png": "fed7e623961f0e2768bf0bff9de3f775bd63b74776c66d6f48e47a8f9d131946",
+    "docs/evidence/p-rig-v2-20261013/isolated-continuous-60hz-body-trace.json": "4feb89a5d78f5ff6def888b4ff7e161a2d19bab635a362d5c997d824f245a1a1",
+    "docs/evidence/p-rig-v2-20261013/isolated-continuous-later.png": "b257de84e74139ca0a1c89ade1d93914cca8dc091e3cb9320926b5f5df9816dc",
+    "docs/evidence/p-rig-v2-20261013/isolated-continuous-trace.json": "76c2ef1f8492789b827f93cefb9d32f00b562ffa4e56ea0acd78e96fe0c22769",
+    "docs/evidence/p-rig-v2-20261013/isolated-continuous.mp4": "185e56ce27a1cbb626dbbd3282e1af5e1c1eab86ceb2ea956bc1a6f66955a5a5",
+    "docs/evidence/p-rig-v2-20261013/isolated-continuous.png": "540875255d25658249ec622db76b267e728b844c94db70c9aab06190e1d32188",
+    "docs/evidence/p-rig-v2-20261013/joint-comparison.png": "8564f6019a62df2e2829d5f32da26e2eb04ecf0cfa1489fbf3cbdb794128d006",
+    "docs/evidence/p-rig-v2-20261013/lane-change-comparison.png": "13ef234cd7c51c0f7fa8a4b7039599580b696857883072887b59c5bf6a85774e",
+    "docs/evidence/p-rig-v2-20261013/layered-12-phase.png": "f6d54078bc3cce4255aafa62633eaca9f4eb62ebcb686dc39e5cb7b582c234bc",
+    "docs/evidence/p-rig-v2-20261013/layered-12-phase.webp": "7181bc25c4d306694efbe3fb133fa1278fc215833ce498f888ca1864c57ac9a4",
+    "docs/evidence/p-rig-v2-20261013/layered-contact-sheet.png": "f1b4a0d48a7cc355893be5eaaa2621aec366ca0c8dab7df4fe0a3e4dd6c90576",
+    "docs/evidence/p-rig-v2-20261013/layered-half-speed.mp4": "c479fb8f1f9b6be59becac21532fd192b07624ab72706ffaf41f1a2bbaa9b67e",
+    "docs/evidence/p-rig-v2-20261013/local-full-first-results.json": "2ca6225e7abaf846eb567e7cda22fa2e50b2cfe61d577ca8ac2a2683dc17c8a1",
+    "docs/evidence/p-rig-v2-20261013/local-full-serial-results.json": "cc0987825f37386f20887789aaf4dedbe68e8ddc08bcf22800e0aef0bde0e7a8",
+    "docs/evidence/p-rig-v2-20261013/local-validation-config.mjs.txt": "be19834bbc29b279dc7f451e39857f3e2b581c1fb9deb504d482200339c611d0",
+    "docs/evidence/p-rig-v2-20261013/loop-validation.json": "460aadfda8c30186d2bcb7fa252b2cf2b2f30cfd4893331711441965e133aca9",
+    "docs/evidence/p-rig-v2-20261013/motion-first-isolation.json": "cae55c9a3d7dd14d4b647b0cae0cb3a963909540ab0373598d82c4a88c642af9",
+    "docs/evidence/p-rig-v2-20261013/parts-source.png": "14bd8f095dcb246fa35c29e590bc42e7694da1458084ca24867cdc9ad1176250",
+    "docs/evidence/p-rig-v2-20261013/phase-poses.json": "4579ba465476a5209f7f1883c7f0b703bfb49ea4bffdf305c8aa9881ac35119b",
+    "docs/evidence/p-rig-v2-20261013/race-18-desktop-60hz-body-trace.json": "bab79ea749d0399fcee82e08c16e0ffd842005c5dc1e7c6ecf7653dbdbeaa6a8",
+    "docs/evidence/p-rig-v2-20261013/race-18-desktop-later.png": "0ff9138ed492d2b958770835e8da95aac387922d7fde3aa47a1520e64fbf60fb",
+    "docs/evidence/p-rig-v2-20261013/race-18-desktop-trace.json": "d44b33c7e6190c9a657771777bc6878c60a63fc6ab88434de97d61f29e4b44fe",
+    "docs/evidence/p-rig-v2-20261013/race-18-desktop.mp4": "d5284161ac292b5d46616d88c77b52086751516a8238510cf3e9090de6c3eeea",
+    "docs/evidence/p-rig-v2-20261013/race-18-desktop.png": "b668bdcba772722ff2ccd0c58d3fee2900d077eaaeb31f8b57300be3f88051ea",
+    "docs/evidence/p-rig-v2-20261013/race-18-mobile-60hz-body-trace.json": "7479a8b2ea5390f504d2f88938f98882817fb536179ba9d81ac375bd3801180f",
+    "docs/evidence/p-rig-v2-20261013/race-18-mobile-later.png": "4a45c487afacf1090f3eaa809b21bdf9a39aaec7d9e8c5fb0fe1254fd587b2b9",
+    "docs/evidence/p-rig-v2-20261013/race-18-mobile-trace.json": "c49c84c80f44f0ad3784775863feb77f8e0d7461f3f03c9274833a0ea9da2413",
+    "docs/evidence/p-rig-v2-20261013/race-18-mobile.mp4": "f8f31327baa6e650195741dddff2976bb86124568098bbe3539741b4e2857899",
+    "docs/evidence/p-rig-v2-20261013/race-18-mobile.png": "f3ac8e3fcb11fddbc2778da9ed7fa1711524d12da33c384e3eec8791b54f249f",
+    "docs/evidence/p-rig-v2-20261013/run-validation.json": "e3a2e110d2ad552b4dd0d998590436625121904e227ff860877aa127ccd3670b"
+  },
+  "allRenderFrameAnchorAudit": [
+    {
+      "case": "isolated-continuous",
+      "supportIntervals": 423,
+      "maxWorldCoordinateDrift": 0
+    },
+    {
+      "case": "race-18-desktop",
+      "supportIntervals": 1826,
+      "maxWorldCoordinateDrift": 0
+    },
+    {
+      "case": "race-18-mobile",
+      "supportIntervals": 1240,
+      "maxWorldCoordinateDrift": 0
+    }
   ]
 }

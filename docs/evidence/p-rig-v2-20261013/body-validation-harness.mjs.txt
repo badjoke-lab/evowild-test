@@ -1,0 +1,24 @@
+import fs from 'node:fs';
+import {chromium,devices} from '@playwright/test';
+const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox']});const summaries=[];
+try{
+ for(const spec of [{name:'isolated-continuous',seconds:6,query:'&motionReview=1'},{name:'race-18-desktop',seconds:6,query:''},{name:'race-18-mobile',seconds:4,query:'',mobile:true}]){
+  const context=await browser.newContext({...spec.mobile?devices['Pixel 7']:{viewport:{width:1280,height:720}},viewport:spec.mobile?{width:412,height:839}:{width:1280,height:720},deviceScaleFactor:1});
+  const page=await context.newPage(),stamp=new Date('2026-10-13T00:00:00Z');
+  await page.clock.install({time:stamp});await page.clock.pauseAt(stamp);
+  await page.goto('http://127.0.0.1:4173/evowild-test/race-quality.html?selected=2&pRig=1&pRigReview=1'+spec.query);
+  await page.waitForFunction(()=>{const d=document.querySelector('#stage').dataset;return d.pRigStatus==='ready'&&d.runSheets==='ready'});
+  await page.clock.runFor(4600);
+  await page.evaluate(()=>{
+   window.__allFrames=[];
+   const collect=()=>{const r=window.__pRigReview;if(r)window.__allFrames.push(structuredClone({time:r.time,cycle:r.cycle,field:Object.values(window.__pRigField)}));requestAnimationFrame(collect);};requestAnimationFrame(collect);
+  });
+  await page.clock.runFor(spec.seconds*1000);
+  const frames=await page.evaluate(()=>window.__allFrames),all=frames.flatMap(f=>f.field);
+  const summary={name:spec.name,observedRenderFrames:frames.length,maxBodyOffset:Math.max(...all.map(r=>r.bodyOffset)),maxBodySink:Math.max(...all.map(r=>r.bodySink)),maxLaneLag:Math.max(...all.map(r=>Math.abs(r.laneLag))),maxReachError:Math.max(...all.flatMap(r=>r.feet.map(f=>f.reachError))),maxBoneLengthError:Math.max(...all.flatMap(r=>r.feet.map(f=>f.boneLengthError))),method:'All requestAnimationFrame samples in an independent deterministic replay; no screenshots. Same viewport, readiness gate, warm-up and duration as videos.'};
+  summaries.push(summary);console.log(JSON.stringify(summary));
+  fs.writeFileSync(`docs/evidence/p-rig-v2-20261013/${spec.name}-60hz-body-trace.json`,JSON.stringify({summary,frames},null,2)+'\n');
+  await context.close();
+ }
+ fs.writeFileSync('docs/evidence/p-rig-v2-20261013/body-60hz-validation.json',JSON.stringify(summaries,null,2)+'\n');
+}finally{await browser.close()}

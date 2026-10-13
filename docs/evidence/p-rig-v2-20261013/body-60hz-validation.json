@@ -1,0 +1,32 @@
+[
+  {
+    "name": "isolated-continuous",
+    "observedRenderFrames": 375,
+    "maxBodyOffset": 10.000004808551012,
+    "maxBodySink": 10.01488999009931,
+    "maxLaneLag": 0.007007762193679934,
+    "maxReachError": 0,
+    "maxBoneLengthError": 5.684341886080802e-14,
+    "method": "All requestAnimationFrame samples in an independent deterministic replay; no screenshots. Same viewport, readiness gate, warm-up and duration as videos."
+  },
+  {
+    "name": "race-18-desktop",
+    "observedRenderFrames": 375,
+    "maxBodyOffset": 10.649233451749211,
+    "maxBodySink": 17.84471228893299,
+    "maxLaneLag": 0.14191330909729016,
+    "maxReachError": 0,
+    "maxBoneLengthError": 5.684341886080802e-14,
+    "method": "All requestAnimationFrame samples in an independent deterministic replay; no screenshots. Same viewport, readiness gate, warm-up and duration as videos."
+  },
+  {
+    "name": "race-18-mobile",
+    "observedRenderFrames": 250,
+    "maxBodyOffset": 12.326240965213344,
+    "maxBodySink": 17.973136284921477,
+    "maxLaneLag": 0.1475108734766647,
+    "maxReachError": 0,
+    "maxBoneLengthError": 7.105427357601002e-14,
+    "method": "All requestAnimationFrame samples in an independent deterministic replay; no screenshots. Same viewport, readiness gate, warm-up and duration as videos."
+  }
+]

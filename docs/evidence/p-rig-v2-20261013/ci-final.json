@@ -1,0 +1,161 @@
+{
+  "sourceCommit": "f0dcf1767362210b4832fbfffadf3c0eb011a5d5",
+  "runId": 38342561747,
+  "url": "https://github.com/badjoke-lab/evowild-test/actions/runs/38342561747",
+  "jobId": 115116605740,
+  "workflowConclusion": "failure",
+  "e2e": {
+    "conclusion": "success",
+    "passed": 43,
+    "skipped": 81,
+    "failed": 0
+  },
+  "extraMotionFirstCapture": {
+    "conclusion": "failure",
+    "passed": 36,
+    "skipped": 1,
+    "failed": 2,
+    "failedTests": [
+      "Motion First balanced 1600 course v1 does not lock any morph into one half of the field",
+      "Motion First Race Entry pre-race focus v2 keeps YOUR ENTRY locked during countdown"
+    ]
+  },
+  "steps": [
+    {
+      "name": "Set up job",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 1,
+      "started_at": "2026-10-13T03:37:12Z",
+      "completed_at": "2026-10-13T03:37:13Z"
+    },
+    {
+      "name": "Run actions/checkout@v4",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 2,
+      "started_at": "2026-10-13T03:37:13Z",
+      "completed_at": "2026-10-13T03:37:18Z"
+    },
+    {
+      "name": "Run actions/setup-node@v4",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 3,
+      "started_at": "2026-10-13T03:37:18Z",
+      "completed_at": "2026-10-13T03:37:18Z"
+    },
+    {
+      "name": "Run npm install",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 4,
+      "started_at": "2026-10-13T03:37:18Z",
+      "completed_at": "2026-10-13T03:37:24Z"
+    },
+    {
+      "name": "Run npm run build",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 5,
+      "started_at": "2026-10-13T03:37:24Z",
+      "completed_at": "2026-10-13T03:37:26Z"
+    },
+    {
+      "name": "Verify 2.5D pages are in production build",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 6,
+      "started_at": "2026-10-13T03:37:26Z",
+      "completed_at": "2026-10-13T03:37:26Z"
+    },
+    {
+      "name": "Run npx playwright install --with-deps chromium",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 7,
+      "started_at": "2026-10-13T03:37:26Z",
+      "completed_at": "2026-10-13T03:37:43Z"
+    },
+    {
+      "name": "Run E2E suite",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 8,
+      "started_at": "2026-10-13T03:37:43Z",
+      "completed_at": "2026-10-13T03:44:57Z"
+    },
+    {
+      "name": "Upload 2.5D survivor visuals",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 9,
+      "started_at": "2026-10-13T03:44:57Z",
+      "completed_at": "2026-10-13T03:44:58Z"
+    },
+    {
+      "name": "Capture Motion First visuals",
+      "status": "completed",
+      "conclusion": "failure",
+      "number": 10,
+      "started_at": "2026-10-13T03:44:58Z",
+      "completed_at": "2026-10-13T04:00:44Z"
+    },
+    {
+      "name": "Upload Motion First race visuals",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 11,
+      "started_at": "2026-10-13T04:00:44Z",
+      "completed_at": "2026-10-13T04:00:46Z"
+    },
+    {
+      "name": "Capture Sakura NPR camera visuals",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 12,
+      "started_at": "2026-10-13T04:00:46Z",
+      "completed_at": "2026-10-13T04:00:46Z"
+    },
+    {
+      "name": "Upload mobile visual screenshots",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 13,
+      "started_at": "2026-10-13T04:00:46Z",
+      "completed_at": "2026-10-13T04:00:49Z"
+    },
+    {
+      "name": "Upload S sprite-gen PoC artifacts",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 14,
+      "started_at": "2026-10-13T04:00:49Z",
+      "completed_at": "2026-10-13T04:00:50Z"
+    },
+    {
+      "name": "Post Run actions/setup-node@v4",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 27,
+      "started_at": "2026-10-13T04:00:50Z",
+      "completed_at": "2026-10-13T04:00:50Z"
+    },
+    {
+      "name": "Post Run actions/checkout@v4",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 28,
+      "started_at": "2026-10-13T04:00:50Z",
+      "completed_at": "2026-10-13T04:00:50Z"
+    },
+    {
+      "name": "Complete job",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 29,
+      "started_at": "2026-10-13T04:00:50Z",
+      "completed_at": "2026-10-13T04:00:50Z"
+    }
+  ]
+}

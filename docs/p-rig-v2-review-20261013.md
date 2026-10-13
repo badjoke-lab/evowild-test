@@ -41,6 +41,8 @@
 |18体PC|104.588|10.243|17.738|
 |18体モバイル|170.207|10.748|17.973|
 
+上表は動画と同時に採った約30Hzの観測点の最大値。追加の別実行では全requestAnimationFrameを記録し、単体375枚、PC375枚、モバイル250枚を観測した。仮想rAFは16ms間隔（約62.5Hz）で、録画の60fpsとは区別する。この全フレーム記録で最大補正は単体10.000、PC10.649、モバイル **12.326** リグpx。荷重上下動込みの最大はモバイル17.973で変わらなかった。30Hz観測の10.748を連続動作の絶対上限とは扱わない。[追加集計](evidence/p-rig-v2-20261013/body-60hz-validation.json) / [再測定ハーネス](evidence/p-rig-v2-20261013/body-validation-harness.mjs.txt)。
+
 単位は416×320のリグpx。補正は `bodyOffset`、荷重上下動込みは `bob + bodyOffset`。頭・尾の先端の絶対移動量や、レーン移動自体の画面移動ではない。通常レースはP全5体の最大値を記録した。
 
 ![レーン移動時の胴高比較](evidence/p-rig-v2-20261013/body-correction-comparison.png)
@@ -104,7 +106,13 @@ CSS px／約33.33msの観測。前回も今回も、同じ足ID・接地IDの支
 
 2.5D関連28件はすべて合格。[結果](evidence/p-rig-v2-20261013/2p5d-test-results.json)。[Motion First分離実行](evidence/p-rig-v2-20261013/motion-first-isolation.json) は1合格・Android対象外1件。ローカルの分離実行は同じ版のnpm依存を読み替えたもので、3Dソースの修正・検査条件の緩和ではない。`npm --ignore-scripts run build`、`git diff --check`も合格。既存の大きいmainチャンク警告は残る。
 
-<!-- FINAL_CI -->
+ローカル全体の再実行は外部CDNを同版npmへ読み替え、SwiftShaderを明示した条件で35合格・81スキップ・8失敗。[全結果](evidence/p-rig-v2-20261013/local-full-serial-results.json)。Pリグ2件・Agent2件・Motion Firstは合格。残ったのは従来Pシートの時刻制御テスト等のタイムアウト・リアルタイム観測差で、関連28件をネイティブ描画条件で実行した際には合格している。ローカル全体の完全合格とは報告しない。
+
+[実装コミットf0dcf17のGitHub Actions](https://github.com/badjoke-lab/evowild-test/actions/runs/38342561747) の **Run E2E suiteは43合格・81スキップ・0失敗**。PC/AndroidのPリグ、Agent比較、AGILITY保持時間を含む前回5件はこの全体E2Eで合格した。対象を絞るgrepや新しいskipは追加していない。
+
+**buildワークフロー全体はFAILURE。** その後の既存 `Capture Motion First visuals`（キャプチャ用追加3D検査）は36合格・1スキップ・2失敗。失敗はbalanced 1600 courseの形態順位バランスとRace Entry countdownの表示文字。2.5D Pの新素材・リグを使用しない3D検査で、3D実装の修正は本作業の禁止範囲なので変更していない。[CI集計とステップ](evidence/p-rig-v2-20261013/ci-final.json) / [ログ集計](evidence/p-rig-v2-20261013/ci-after-summary.txt) / [追加3D失敗詳細](evidence/p-rig-v2-20261013/ci-extra-3d-failures.txt)。ワークフロー全体の成功とは報告しない。
+
+最終の追記コミットは検証資料のみ。アプリ・素材・テスト・設定のハッシュは上記CI実装コミットと同一。
 
 ## 再現・変更範囲・残課題
 
