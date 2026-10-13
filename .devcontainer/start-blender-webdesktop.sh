@@ -32,6 +32,12 @@ if ! curl -fsS http://127.0.0.1:6080/vnc.html >/dev/null 2>&1; then
 fi
 MODEL="$PWD/art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/S_ORIGINAL_HUNYUAN_ART_SCULPT_STATION__UNEDITED_BASE.blend"
 test -s "$MODEL"
+# Save native Blender user preferences first, so the initial language/theme
+# Quick Setup wizard never obscures the actual model when browser opens.
+if [[ ! -s "$HOME/.config/blender/4.3/config/userpref.blend" ]]; then
+  /opt/evowild-blender/blender -b --python-expr "import bpy; bpy.ops.wm.save_userpref()" \
+    >> /tmp/evowild-s-gui/prefs.log 2>&1
+fi
 if ! pgrep -x blender >/dev/null; then
   # GUI application is real Blender, not a rendered web mockup.
   nohup /opt/evowild-blender/blender --disable-autoexec -W "$MODEL" \
@@ -44,6 +50,14 @@ for k in $(seq 1 45); do
   fi
   sleep 1
 done
+# Frame the already-selected real Hunyuan mesh; navigation only, zero
+# changes to vertices, topology, geometry or canonical illustration.
+WIN="$(DISPLAY=:99 xdotool search --onlyvisible --class Blender | head -n 1)"
+if [[ -n "$WIN" ]]; then
+  DISPLAY=:99 xdotool windowactivate --sync "$WIN" || true
+  DISPLAY=:99 xdotool mousemove --window "$WIN" 490 420 key --clearmodifiers KP_Decimal || true
+  sleep 5
+fi
 echo '=== Real GUI process and browser access status ==='
 echo "DISPLAY=$DISPLAY"
 DISPLAY=:99 glxinfo -B 2>/dev/null | grep -E 'OpenGL renderer|OpenGL version' || true
