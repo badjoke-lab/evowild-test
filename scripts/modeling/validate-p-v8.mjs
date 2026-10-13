@@ -1,0 +1,11 @@
+import fs from 'node:fs/promises';
+import crypto from 'node:crypto';
+import validator from 'gltf-validator';
+const path='public/models/evowild-p/p-canonical-v8.glb';
+const bytes=await fs.readFile(path);
+const result=await validator.validateBytes(new Uint8Array(bytes),{uri:path,maxIssues:200});
+const json=JSON.parse(bytes.subarray(20,20+bytes.readUInt32LE(12)).toString());
+const report={asset:path,sha256:crypto.createHash('sha256').update(bytes).digest('hex'),bytes:bytes.length,errors:result.issues.numErrors,warnings:result.issues.numWarnings,issues:result.issues.messages,meshes:json.meshes.length,animations:json.animations?.length??0,skins:json.skins?.length??0,triangles:json.meshes.flatMap(m=>m.primitives).reduce((n,p)=>n+json.accessors[p.indices].count/3,0),scope:'Static GLB integrity only. Does not approve canonical shape.'};
+await fs.writeFile('docs/evidence/p-canonical-3d-v8-20261013/gltf-validation.json',JSON.stringify(report,null,2)+'\n');
+if(report.errors||report.animations||report.skins)throw new Error(JSON.stringify(report));
+console.log(JSON.stringify(report));
