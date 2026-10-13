@@ -1,0 +1,151 @@
+{
+  "baseline": "eaf0d9f4bba027f6b72eba49f48d00d5d9d61225",
+  "controlCode": {
+    "gaitConstants": {
+      "unchanged": true,
+      "sha256": "f9e5b716ad1c9bc1f5b6e3b8939f3d30b1cd2a90631e1e8292d5dc9fd60eaea7"
+    },
+    "laneConstraint": {
+      "unchanged": true,
+      "sha256": "7ee646050c63af2332f9db703bf474c09dea7c506cffc4b6cda7510142eeda7a"
+    },
+    "bodyJointAndIK": {
+      "unchanged": true,
+      "sha256": "3b8e9488cf7b2da69cfcddf53720f959accb1eee722b237c335740997b25e08f"
+    },
+    "groundProjection": {
+      "unchanged": true,
+      "sha256": "5f58620dc868580e373b72e1c1fecdee958af53a5b0c728c8c2e72bfd75196cc"
+    },
+    "entirePoseAndContactPlanner": {
+      "unchanged": true,
+      "sha256": "fd4eb53c1e47a6873b3cd80371a392c163b8a76d305dd21b0bd5bf358fa48494"
+    }
+  },
+  "physicalCalibrationUnchanged": true,
+  "protectedExistingPublicFiles": {
+    "public/concept/A.webp": "2d5b3aea702918e276e77cdddab424123c098f8cbf65ad99deedbafe8ffe3097",
+    "public/concept/E.webp": "c223e1628f3c277fe9b4fd6d639882a3462e80df6deb554bec9967fe94283b28",
+    "public/concept/P.webp": "d57a1552bf9358cc060156ec72b41753441f771fdef3a87cfba2567261217bfe",
+    "public/concept/S.webp": "90bad183ef3bd4e4d4e00ec0d838cc9db65f83024f98849980c1530f4e2646fd",
+    "public/concept/a-run-sheet.webp": "6b28d9890adbf3d0376442f1a49f78bbcaf519ce258f653fec63b7a08feed7d7",
+    "public/concept/e-run-sheet.webp": "d2104a06d49f04708c7ecc9aff26d13816c1d03a6933ef2c1dd365bd940815fc",
+    "public/concept/p-layered/atlas.json": "d662b20ff80266e635c8990ac3c355b0e999ed9f462f80bd98d58134511b661e",
+    "public/concept/p-layered/body.png": "38a6caf54d6e968024b323d4921d3c62126a54d11ce6ae0a57b329f9bb9bb945",
+    "public/concept/p-layered/fore-foot.png": "79408e76a0758b3887a6e10fd0099ad6adf8101cd9525829e29f301dc4b95cf5",
+    "public/concept/p-layered/fore-joint.png": "18d4b52062883af837a6a9429da25adaa223e6bb4a5032a486220be760cdb07f",
+    "public/concept/p-layered/fore-lower.png": "70dd42996d51c41b3f8055d89efdf902c90aaacae22c50f08b9e4a81cada1422",
+    "public/concept/p-layered/fore-upper.png": "106d8f38f5498579cbc09907ac92daea8cc4c8d5a39233d2b6fe7c2f259283e9",
+    "public/concept/p-layered/hind-foot.png": "2ff452794019e2c25ee06a11ccd325cd151f7b81074af132eea9d1805119271a",
+    "public/concept/p-layered/hind-joint.png": "97bb01eb81de0ac55afb72ef72feda9eb13c1be9591ad613520b52b10fe39289",
+    "public/concept/p-layered/hind-lower.png": "2793a7e05ac7ac48edf8ba9c58ef845d036131c651c1406794ce82db0150b1ce",
+    "public/concept/p-layered/hind-upper.png": "93818bd48bb40e500221a8810c31bdba4915efbcaaba6bafd64475a63ac285fe",
+    "public/concept/p-run-sheet.webp": "8c587c40bd25678bfdff5aa0644ac7552fc040b55247b050b18e7dbc0cfde7cc",
+    "public/concept/s-run-sheet.svg": "29e55b7a9faa8ea68fb012e5e1613b10ddf54bad659f04d55e5a869735535415",
+    "public/concept/s-run-sheet.webp": "00f8c00b04ac16837f4f73fea221be0d5f711504b9476b4fda31f6e638446698",
+    "public/favicon.ico": "9584f927e7d8bee03f040cb791371cfac4c96e500759721fa6eafdf2fc3c4ff0",
+    "public/models/astra/s-v1.manifest.json": "4accf1d0aadf80e10a1afcc5ce9638c1a267f5f7cf0467861f1c16617c8ff07a",
+    "public/models/evowild-s/focus-rigged-v31.glb": "c98cb3b7302c4fcf99386a853bf91bf9102b5f432371aa83ee50713158e0f62f",
+    "public/models/evowild-s/focus-rigged-v5-headfix.glb": "c85f8394addafac6e7ac94d515587acd2921881bf3f8c9d5786f92f2c0745696",
+    "public/models/evowild-s/focus-rigged-v5-headfix.json": "7483b536b4e7abad27728b7d75ac9ba4406107fe6172431913c9142da939998c",
+    "public/models/evowild-s/focus-rigged-v5.glb": "e879cae6835f405f93787b96dfbcc1858ff540dadaf12988d549d56d922362a2",
+    "public/models/evowild-s/manifest.json": "f7769159aaec297934da8dd691a665ac4442d51905b5fc86d22034bb7187d45d",
+    "public/models/evowild-s/race-lod4-rigged-v31.glb": "2fa4a1797de2d4293b50d27d04b386de8006661d4e46d7d497ba12e96447bd80",
+    "public/models/evowild-s/race-lod4-rigged-v5.glb": "1b00f89339846ab71d92d3c200e2ab0c8bd8b9e1ee7a286fead4551d5b3b6401",
+    "public/models/evowild-s/race-lod4.glb": "9061053f382ec8568eee1fb95280852defe61bb5e2a197c1fb15e9d228a49cd6",
+    "public/models/evowild-s/source-lod2.glb": "ff68f2b02c36609f5f64a59b7490a5cf66be91f9b4b4da017a5e44901a583bdf",
+    "public/preview-3d-gait-v2/assets/index-CZzqc1ZH.js": "296060305bf43afc8f8b9acee1cde3bba5e3c0b8f2ca5478d77cf4d145563386",
+    "public/preview-3d-gait-v2/assets/index-DW0qOodR.css": "c870751f5d6b61ec18da8bda212fac51879af6e4360046777f81c004b1d3a3c7",
+    "public/preview-3d-gait-v2/concept/A.webp": "2d5b3aea702918e276e77cdddab424123c098f8cbf65ad99deedbafe8ffe3097",
+    "public/preview-3d-gait-v2/concept/E.webp": "c223e1628f3c277fe9b4fd6d639882a3462e80df6deb554bec9967fe94283b28",
+    "public/preview-3d-gait-v2/concept/P.webp": "d57a1552bf9358cc060156ec72b41753441f771fdef3a87cfba2567261217bfe",
+    "public/preview-3d-gait-v2/concept/S.webp": "90bad183ef3bd4e4d4e00ec0d838cc9db65f83024f98849980c1530f4e2646fd",
+    "public/preview-3d-gait-v2/index.html": "dc581336a496bc8d43f3a970a94dd4044b23c8365fc10bebeada8b1ceedba058",
+    "public/preview-3d-gait-v2/models/evowild-s-hunyuan2mv-lod2.glb": "ff68f2b02c36609f5f64a59b7490a5cf66be91f9b4b4da017a5e44901a583bdf",
+    "public/preview-3d-gait-v2/models/evowild-s-hunyuan2mv-lod3.glb": "94e55948709d78e0439857177babcb8b808d9fada1e73c1869b6d0c0b47b1a04",
+    "public/preview-3d-gait-v2/models/evowild-s-hunyuan2mv-lod4-rigged-v2.glb": "f458343344928f79ff2c0d78d326c74c7f18fd0b48312074bf255ffaf43dfd64",
+    "public/preview-3d-gait-v2/models/evowild-s-hunyuan2mv-lod4-rigged-v21.glb": "55c55f7ad57765f79759351ba7b3222ca575c9f97f68149647fc17f5f88ccb4e",
+    "public/preview-3d-gait-v2/models/evowild-s-hunyuan2mv-lod4-rigged.glb": "d1ea5d4eb84d231b1d1dfb97af997bb6645da99f0cd58b4529b6b050ba8c2bfc",
+    "public/preview-3d-gait-v2/models/evowild-s-hunyuan2mv-lod4.glb": "9061053f382ec8568eee1fb95280852defe61bb5e2a197c1fb15e9d228a49cd6",
+    "public/preview-3d-gait-v2/models/evowild-s-hunyuan2mv-rigged-v2.glb": "985c7cc5ad43948f8d36e827f1f0b82e93702fcb12f7a6d7ce1fe0c8668cf1bf",
+    "public/preview-3d-gait-v2/models/evowild-s-hunyuan2mv-rigged-v21.glb": "9728d6b7fdce8b61ef81fa9c3e05377ba6493963cb6cc2f8625433ccd44f06fb",
+    "public/preview-3d-gait-v2/models/evowild-s-hunyuan2mv-rigged.glb": "20c490824dd5004ef2524b1cc0aae53bece27faf689b71633201395b447486b7",
+    "public/preview-3d-gait-v2/models/evowild-s.mtl": "d03bd5d2b7655126d449c14cbb889ae4219731a9580447ef2810cf2158d8a230",
+    "public/preview-3d-gait-v2/models/evowild-s.obj": "e594c3208a3de032d16c5265587933b82d0ac820fd77edfa1f2b3bd5fb0f24ec",
+    "public/preview-3d-gait-v2/version-v21.txt": "765e9f0a41c0bbc29ac931ad83569d7863605a424f5e1003dcef2d0814ee7005",
+    "public/preview-3d-rig-v3/assets/index-CH8tIUfd.js": "314c19e290867004cb144142ab81eb1211bf8e49189ea1782383bf66397152da",
+    "public/preview-3d-rig-v3/assets/index-DW0qOodR.css": "c870751f5d6b61ec18da8bda212fac51879af6e4360046777f81c004b1d3a3c7",
+    "public/preview-3d-rig-v3/concept/A.webp": "2d5b3aea702918e276e77cdddab424123c098f8cbf65ad99deedbafe8ffe3097",
+    "public/preview-3d-rig-v3/concept/E.webp": "c223e1628f3c277fe9b4fd6d639882a3462e80df6deb554bec9967fe94283b28",
+    "public/preview-3d-rig-v3/concept/P.webp": "d57a1552bf9358cc060156ec72b41753441f771fdef3a87cfba2567261217bfe",
+    "public/preview-3d-rig-v3/concept/S.webp": "90bad183ef3bd4e4d4e00ec0d838cc9db65f83024f98849980c1530f4e2646fd",
+    "public/preview-3d-rig-v3/index.html": "2cc772848c5a3f81092b8a139293a499fae0148ede40707ee9d2a29d0f43a13a",
+    "public/preview-3d-rig-v3/models/evowild-s-hunyuan2mv-lod2.glb": "ff68f2b02c36609f5f64a59b7490a5cf66be91f9b4b4da017a5e44901a583bdf",
+    "public/preview-3d-rig-v3/models/evowild-s-hunyuan2mv-lod3.glb": "94e55948709d78e0439857177babcb8b808d9fada1e73c1869b6d0c0b47b1a04",
+    "public/preview-3d-rig-v3/models/evowild-s-hunyuan2mv-lod4-rigged-v21.glb": "55c55f7ad57765f79759351ba7b3222ca575c9f97f68149647fc17f5f88ccb4e",
+    "public/preview-3d-rig-v3/models/evowild-s-hunyuan2mv-lod4-rigged-v3.glb": "1b46b6089058e62a1bf1016ccafb027ccff3baabae04219b95a65db6524a1ca9",
+    "public/preview-3d-rig-v3/models/evowild-s-hunyuan2mv-lod4-rigged-v31.glb": "2fa4a1797de2d4293b50d27d04b386de8006661d4e46d7d497ba12e96447bd80",
+    "public/preview-3d-rig-v3/models/evowild-s-hunyuan2mv-lod4.glb": "9061053f382ec8568eee1fb95280852defe61bb5e2a197c1fb15e9d228a49cd6",
+    "public/preview-3d-rig-v3/models/evowild-s-hunyuan2mv-rigged-v21.glb": "9728d6b7fdce8b61ef81fa9c3e05377ba6493963cb6cc2f8625433ccd44f06fb",
+    "public/preview-3d-rig-v3/models/evowild-s-hunyuan2mv-rigged-v3.glb": "da6b9a4971723d9c43567cfd943f68ed6673a0d9d4029af6ec51b3682c7b906c",
+    "public/preview-3d-rig-v3/models/evowild-s-hunyuan2mv-rigged-v31.glb": "c98cb3b7302c4fcf99386a853bf91bf9102b5f432371aa83ee50713158e0f62f",
+    "public/preview-3d-rig-v3/models/evowild-s-hunyuan2mv-rigged-v4.glb": "0745802d8f0383f46b2a7425c460de9fdbe3af4cad410682ab991f2cc39056ce",
+    "public/preview-3d-rig-v3/models/evowild-s.mtl": "d03bd5d2b7655126d449c14cbb889ae4219731a9580447ef2810cf2158d8a230",
+    "public/preview-3d-rig-v3/models/evowild-s.obj": "e594c3208a3de032d16c5265587933b82d0ac820fd77edfa1f2b3bd5fb0f24ec",
+    "public/preview-3d-rig-v3/version-v4.txt": "18fb31554df8a7c30b0e1554a57de132b06060d12fb779b537e5d0ec50b183a5",
+    "public/preview-3d/assets/index-BOEivr9B.js": "4ef8dc78bc5e24189303785c8306563414d0b24ddc07c786a785ffb28eac0765",
+    "public/preview-3d/assets/index-DW0qOodR.css": "c870751f5d6b61ec18da8bda212fac51879af6e4360046777f81c004b1d3a3c7",
+    "public/preview-3d/concept/A.webp": "2d5b3aea702918e276e77cdddab424123c098f8cbf65ad99deedbafe8ffe3097",
+    "public/preview-3d/concept/E.webp": "c223e1628f3c277fe9b4fd6d639882a3462e80df6deb554bec9967fe94283b28",
+    "public/preview-3d/concept/P.webp": "d57a1552bf9358cc060156ec72b41753441f771fdef3a87cfba2567261217bfe",
+    "public/preview-3d/concept/S.webp": "90bad183ef3bd4e4d4e00ec0d838cc9db65f83024f98849980c1530f4e2646fd",
+    "public/preview-3d/index.html": "2e8616d16f32140da63de7637b9c7f7c9ac5363c31d461239c3ed141ca279683",
+    "public/preview-3d/models/evowild-s-hunyuan2mv-lod2.glb": "ff68f2b02c36609f5f64a59b7490a5cf66be91f9b4b4da017a5e44901a583bdf",
+    "public/preview-3d/models/evowild-s-hunyuan2mv-lod3.glb": "94e55948709d78e0439857177babcb8b808d9fada1e73c1869b6d0c0b47b1a04",
+    "public/preview-3d/models/evowild-s-hunyuan2mv-lod4-rigged.glb": "d1ea5d4eb84d231b1d1dfb97af997bb6645da99f0cd58b4529b6b050ba8c2bfc",
+    "public/preview-3d/models/evowild-s-hunyuan2mv-lod4.glb": "9061053f382ec8568eee1fb95280852defe61bb5e2a197c1fb15e9d228a49cd6",
+    "public/preview-3d/models/evowild-s-hunyuan2mv-rigged.glb": "20c490824dd5004ef2524b1cc0aae53bece27faf689b71633201395b447486b7",
+    "public/preview-3d/models/evowild-s.mtl": "d03bd5d2b7655126d449c14cbb889ae4219731a9580447ef2810cf2158d8a230",
+    "public/preview-3d/models/evowild-s.obj": "e594c3208a3de032d16c5265587933b82d0ac820fd77edfa1f2b3bd5fb0f24ec",
+    "public/preview-3d/version-animated-s.txt": "0f9f74b122cdc0c7fd5ce5f4ec81676258f445509dbe8b73a108f049e67e005d",
+    "public/preview-motion-first-gait/index.html": "1e60432bde28b0cdd0b2b706996924e867acc0205972d131bada4467ce717a38",
+    "public/preview-motion-first-race/index.html": "74221f96482f3dd44d3ae3e3ebc60800f7e7a3ac2d6bd20993872946e0dca5ce",
+    "public/preview-motion-first/index.html": "1f4ccd42d67fadcf48ab3293bfc399bb04ca1498f0b17b7fb47256bcbb988d5f",
+    "public/preview-motion-first/main.js": "93d7a59312f59a9eaf7a77baf3573dbb434f22ac044674d163f99d98eb58af02",
+    "public/preview-motion-first/styles.css": "bb7e08639a5ac87b0f07522db80a736dea5eb6653bf03c81afbbbc23da6db628",
+    "public/preview-sakura-npr/THIRD_PARTY_NOTICES.md": "31eb08e280ff9054378b337cc12fccba589117b03a4299e733dffdfa22c6f347",
+    "public/preview-sakura-npr/index.html": "b06ade12aca22911c3f6bbaf2fb50d4e4ece251ba7bf744bfa97b0b3fd0d980a",
+    "public/preview-sakura-npr/main.js": "5f5e4acd150a31d84d5430d08f0117ae23f940777b1e46f1bce86c8780666b55",
+    "public/preview-sakura-npr/styles.css": "0ff58fcd096e2a0a38fbc41d39be0372f95c1291c7eb153ddb323bc8fac3cb1d",
+    "public/preview-sakura-world/THIRD_PARTY_NOTICES.md": "11c2725244e4962b7d10e45ad7dcf6b76d9bb89488a9b77c93e6ab8355ab567b",
+    "public/preview-sakura-world/index.html": "85ca6bf017cb1a9aebbcd04f3188f67b09efb2a17b7667befdc077fe08e3012f",
+    "public/preview-sakura-world/main.js": "73fa580098c09255ddeebf95e2acb763ec72fe0b99011f23c9ab04ee3f2070b8",
+    "public/preview-sakura-world/styles.css": "2b1f5d521d8a4014be9c02547357a49925b77be15ab5772dbe8a79f19006130e",
+    "public/preview-spritegen-s/THIRD_PARTY_NOTICES.md": "e8466c2d571006aec071cd8c681e6a155f712355bbe3dc096cb6234b63154574",
+    "public/preview-spritegen-s/index.html": "e730995b463a5f9d7357c6f4ff2ef16749f60661e60ad5e3cac09d47ea7b8930",
+    "public/preview-spritegen-s/main.js": "0594c34e76647e79f5d70d09aa5c3bffbcb7cfcc8c49579dac4218ad7c29d4e0",
+    "public/preview-spritegen-s/styles.css": "edb869e040590430677c90c4f3128a9a6f03be2e39454ebc914e051b4b012040"
+  },
+  "lowerLegMeasurements": {
+    "fore": {
+      "v2": {
+        "boneLength": 68,
+        "alphaMidsectionWidth": 26.45550941031237
+      },
+      "v3": {
+        "boneLength": 68,
+        "alphaMidsectionWidth": 30.846219613264598
+      }
+    },
+    "hind": {
+      "v2": {
+        "boneLength": 68,
+        "alphaMidsectionWidth": 24.164920973472576
+      },
+      "v3": {
+        "boneLength": 68,
+        "alphaMidsectionWidth": 27.643979658360845
+      }
+    }
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "sources": [
+    "docs/evidence/p-rig-v2-20261013/parts-source.png"
+  ],
+  "parts": {
+    "body": {
+      "crop": [
+        66,
+        15,
+        1121,
+        509
+      ],
+      "shoulder": [
+        755,
+        340
+      ],
+      "hip": [
+        418,
+        364
+      ],
+      "image": "body.png"
+    },
+    "fore-upper": {
+      "crop": [
+        79,
+        552,
+        259,
+        312
+      ],
+      "a": [
+        120,
+        40
+      ],
+      "b": [
+        175,
+        284
+      ],
+      "image": "fore-upper.png"
+    },
+    "fore-lower": {
+      "crop": [
+        433,
+        559,
+        195,
+        297
+      ],
+      "a": [
+        85,
+        30
+      ],
+      "b": [
+        125,
+        280
+      ],
+      "image": "fore-lower.png"
+    },
+    "fore-foot": {
+      "crop": [
+        700,
+        711,
+        312,
+        173
+      ],
+      "sole": [
+        228.04545454545453,
+        172
+      ],
+      "ankle": [
+        67,
+        34
+      ],
+      "width": 46,
+      "image": "fore-foot.png"
+    },
+    "fore-joint": {
+      "crop": [
+        1014,
+        655,
+        176,
+        201
+      ],
+      "center": [
+        88,
+        100
+      ],
+      "width": 32,
+      "image": "fore-joint.png"
+    },
+    "hind-upper": {
+      "crop": [
+        89,
+        887,
+        291,
+        330
+      ],
+      "a": [
+        125,
+        55
+      ],
+      "b": [
+        228,
+        292
+      ],
+      "image": "hind-upper.png"
+    },
+    "hind-lower": {
+      "crop": [
+        447,
+        892,
+        206,
+        330
+      ],
+      "a": [
+        83,
+        35
+      ],
+      "b": [
+        122,
+        308
+      ],
+      "image": "hind-lower.png"
+    },
+    "hind-foot": {
+      "crop": [
+        700,
+        1002,
+        326,
+        227
+      ],
+      "sole": [
+        227.8,
+        226
+      ],
+      "ankle": [
+        68,
+        58
+      ],
+      "width": 46,
+      "image": "hind-foot.png"
+    },
+    "hind-joint": {
+      "crop": [
+        1041,
+        971,
+        158,
+        195
+      ],
+      "center": [
+        79,
+        96
+      ],
+      "width": 31,
+      "image": "hind-joint.png"
+    }
+  },
+  "body": {
+    "x": 50,
+    "y": 60,
+    "width": 316
+  },
+  "bones": {
+    "fore": [
+      70,
+      68
+    ],
+    "hind": [
+      70,
+      68
+    ]
+  },
+  "frame": {
+    "width": 416,
+    "height": 320,
+    "ground": 296
+  },
+  "notes": "Short stout authored P parts, organic joint covers, fixed calibrated bones. No raster warp or per-frame scaling."
+}

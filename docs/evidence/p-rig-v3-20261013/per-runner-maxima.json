@@ -1,0 +1,272 @@
+[
+  {
+    "view": "race-18-desktop",
+    "runner": 2,
+    "metric": "bodyOffset",
+    "value": 10.00002308741199,
+    "time": 8033.33333333339,
+    "renderLane": 0.007065027952194214,
+    "requestedLane": 0.007063418626785278
+  },
+  {
+    "view": "race-18-desktop",
+    "runner": 2,
+    "metric": "bodySink",
+    "value": 16.844744065207642,
+    "time": 6116.666666666689,
+    "renderLane": 0.8577716052532196,
+    "requestedLane": 0.8577716052532196
+  },
+  {
+    "view": "race-18-desktop",
+    "runner": 2,
+    "metric": "laneLag",
+    "value": -1.8596649169921875e-05,
+    "time": 3216.6666666666597,
+    "renderLane": 1.8747535049915314,
+    "requestedLane": 1.8747349083423615
+  },
+  {
+    "view": "race-18-desktop",
+    "runner": 6,
+    "metric": "bodyOffset",
+    "value": 10.649231689311549,
+    "time": 2350.000000000001,
+    "renderLane": 2.999999910593033,
+    "requestedLane": 2.999999910593033
+  },
+  {
+    "view": "race-18-desktop",
+    "runner": 6,
+    "metric": "bodySink",
+    "value": 10.657703710761705,
+    "time": 2350.000000000001,
+    "renderLane": 2.999999910593033,
+    "requestedLane": 2.999999910593033
+  },
+  {
+    "view": "race-18-desktop",
+    "runner": 6,
+    "metric": "laneLag",
+    "value": 0,
+    "time": 2066.66666666667,
+    "renderLane": 3,
+    "requestedLane": 3
+  },
+  {
+    "view": "race-18-desktop",
+    "runner": 10,
+    "metric": "bodyOffset",
+    "value": 10.000011808589619,
+    "time": 5500.000000000011,
+    "renderLane": 1.9323231875896454,
+    "requestedLane": 1.9323187172412872
+  },
+  {
+    "view": "race-18-desktop",
+    "runner": 10,
+    "metric": "bodySink",
+    "value": 10.012521388615445,
+    "time": 7466.666666666713,
+    "renderLane": 1.923662692308426,
+    "requestedLane": 1.923662692308426
+  },
+  {
+    "view": "race-18-desktop",
+    "runner": 10,
+    "metric": "laneLag",
+    "value": -4.470348358154297e-06,
+    "time": 5500.000000000011,
+    "renderLane": 1.9323231875896454,
+    "requestedLane": 1.9323187172412872
+  },
+  {
+    "view": "race-18-desktop",
+    "runner": 14,
+    "metric": "bodyOffset",
+    "value": 10.1858106737442,
+    "time": 2416.666666666667,
+    "renderLane": 2.999999910593033,
+    "requestedLane": 2.999999910593033
+  },
+  {
+    "view": "race-18-desktop",
+    "runner": 14,
+    "metric": "bodySink",
+    "value": 10.203799242730645,
+    "time": 2416.666666666667,
+    "renderLane": 2.999999910593033,
+    "requestedLane": 2.999999910593033
+  },
+  {
+    "view": "race-18-desktop",
+    "runner": 14,
+    "metric": "laneLag",
+    "value": 0,
+    "time": 2066.66666666667,
+    "renderLane": 3,
+    "requestedLane": 3
+  },
+  {
+    "view": "race-18-desktop",
+    "runner": 18,
+    "metric": "bodyOffset",
+    "value": 10.000025828234172,
+    "time": 7950.0000000000555,
+    "renderLane": 0.04140070080757141,
+    "requestedLane": 0.04140070080757141
+  },
+  {
+    "view": "race-18-desktop",
+    "runner": 18,
+    "metric": "bodySink",
+    "value": 15.95231051158958,
+    "time": 6650.000000000032,
+    "renderLane": 0.342353492975235,
+    "requestedLane": 0.342353492975235
+  },
+  {
+    "view": "race-18-desktop",
+    "runner": 18,
+    "metric": "laneLag",
+    "value": -3.594160079956055e-05,
+    "time": 5516.666666666678,
+    "renderLane": 1.8614830076694489,
+    "requestedLane": 1.8614470660686493
+  },
+  {
+    "view": "race-18-mobile",
+    "runner": 2,
+    "metric": "bodyOffset",
+    "value": 10.000037175577987,
+    "time": 2483.333333333333,
+    "renderLane": 1.8799485862255096,
+    "requestedLane": 1.8799271285533905
+  },
+  {
+    "view": "race-18-mobile",
+    "runner": 2,
+    "metric": "bodySink",
+    "value": 17.83732808936509,
+    "time": 5733.3333333333485,
+    "renderLane": 1.3471567332744598,
+    "requestedLane": 1.3471567332744598
+  },
+  {
+    "view": "race-18-mobile",
+    "runner": 2,
+    "metric": "laneLag",
+    "value": -2.1457672119140625e-05,
+    "time": 2483.333333333333,
+    "renderLane": 1.8799485862255096,
+    "requestedLane": 1.8799271285533905
+  },
+  {
+    "view": "race-18-mobile",
+    "runner": 6,
+    "metric": "bodyOffset",
+    "value": 12.326240757854364,
+    "time": 2283.333333333335,
+    "renderLane": 2.999999910593033,
+    "requestedLane": 2.999999910593033
+  },
+  {
+    "view": "race-18-mobile",
+    "runner": 6,
+    "metric": "bodySink",
+    "value": 12.328494656192296,
+    "time": 2283.333333333335,
+    "renderLane": 2.999999910593033,
+    "requestedLane": 2.999999910593033
+  },
+  {
+    "view": "race-18-mobile",
+    "runner": 6,
+    "metric": "laneLag",
+    "value": 0,
+    "time": 2066.66666666667,
+    "renderLane": 3,
+    "requestedLane": 3
+  },
+  {
+    "view": "race-18-mobile",
+    "runner": 10,
+    "metric": "bodyOffset",
+    "value": 10.00003732042137,
+    "time": 4566.666666666661,
+    "renderLane": 1.9333386719226837,
+    "requestedLane": 1.933331698179245
+  },
+  {
+    "view": "race-18-mobile",
+    "runner": 10,
+    "metric": "bodySink",
+    "value": 10.141400598667238,
+    "time": 4833.333333333332,
+    "renderLane": 1.927862673997879,
+    "requestedLane": 1.9278601706027985
+  },
+  {
+    "view": "race-18-mobile",
+    "runner": 10,
+    "metric": "laneLag",
+    "value": -1.4662742614746094e-05,
+    "time": 3666.6666666666556,
+    "renderLane": 1.9381049573421478,
+    "requestedLane": 1.938090294599533
+  },
+  {
+    "view": "race-18-mobile",
+    "runner": 14,
+    "metric": "bodyOffset",
+    "value": 10.748358190540827,
+    "time": 2666.6666666666647,
+    "renderLane": 2.999999910593033,
+    "requestedLane": 2.999999910593033
+  },
+  {
+    "view": "race-18-mobile",
+    "runner": 14,
+    "metric": "bodySink",
+    "value": 10.77905836829849,
+    "time": 2666.6666666666647,
+    "renderLane": 2.999999910593033,
+    "requestedLane": 2.999999910593033
+  },
+  {
+    "view": "race-18-mobile",
+    "runner": 14,
+    "metric": "laneLag",
+    "value": 0,
+    "time": 2066.66666666667,
+    "renderLane": 3,
+    "requestedLane": 3
+  },
+  {
+    "view": "race-18-mobile",
+    "runner": 18,
+    "metric": "bodyOffset",
+    "value": 10.000038320814099,
+    "time": 6016.666666666687,
+    "renderLane": 1.279803067445755,
+    "requestedLane": 1.279803067445755
+  },
+  {
+    "view": "race-18-mobile",
+    "runner": 18,
+    "metric": "bodySink",
+    "value": 17.796143438072107,
+    "time": 5533.333333333345,
+    "renderLane": 1.779675453901291,
+    "requestedLane": 1.779675453901291
+  },
+  {
+    "view": "race-18-mobile",
+    "runner": 18,
+    "metric": "laneLag",
+    "value": -9.834766387939453e-06,
+    "time": 4349.99999999999,
+    "renderLane": 2.056195467710495,
+    "requestedLane": 2.056185632944107
+  }
+]

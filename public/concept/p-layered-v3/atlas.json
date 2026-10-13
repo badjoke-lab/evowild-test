@@ -1,0 +1,251 @@
+{
+  "sources": [
+    "docs/evidence/p-rig-v3-20261013/parts-source.png",
+    "docs/evidence/p-rig-v3-20261013/near-paw-source.png",
+    "public/concept/p-layered/atlas.json"
+  ],
+  "parts": {
+    "body": {
+      "crop": [
+        66,
+        15,
+        1121,
+        509
+      ],
+      "shoulder": [
+        755,
+        340
+      ],
+      "hip": [
+        418,
+        364
+      ],
+      "image": "body.png"
+    },
+    "fore-upper": {
+      "crop": [
+        29,
+        37,
+        348,
+        387
+      ],
+      "image": "fore-upper.png",
+      "a": [
+        155,
+        50
+      ],
+      "b": [
+        240,
+        353
+      ]
+    },
+    "fore-lower": {
+      "crop": [
+        465,
+        37,
+        282,
+        379
+      ],
+      "image": "fore-lower.png",
+      "a": [
+        120,
+        40
+      ],
+      "b": [
+        186,
+        346
+      ]
+    },
+    "fore-foot": {
+      "crop": [
+        700,
+        711,
+        312,
+        173
+      ],
+      "sole": [
+        228.04545454545453,
+        172
+      ],
+      "ankle": [
+        67,
+        34
+      ],
+      "width": 46,
+      "image": "fore-foot.png"
+    },
+    "fore-joint": {
+      "crop": [
+        838,
+        154,
+        239,
+        208
+      ],
+      "image": "fore-joint.png",
+      "center": [
+        119,
+        104
+      ],
+      "width": 24
+    },
+    "hind-upper": {
+      "crop": [
+        26,
+        501,
+        398,
+        420
+      ],
+      "image": "hind-upper.png",
+      "a": [
+        165,
+        68
+      ],
+      "b": [
+        305,
+        380
+      ]
+    },
+    "hind-lower": {
+      "crop": [
+        493,
+        508,
+        278,
+        412
+      ],
+      "image": "hind-lower.png",
+      "a": [
+        107,
+        42
+      ],
+      "b": [
+        169,
+        377
+      ]
+    },
+    "hind-foot": {
+      "crop": [
+        700,
+        1002,
+        326,
+        227
+      ],
+      "sole": [
+        227.8,
+        226
+      ],
+      "ankle": [
+        68,
+        58
+      ],
+      "width": 46,
+      "image": "hind-foot.png"
+    },
+    "hind-joint": {
+      "crop": [
+        838,
+        636,
+        241,
+        223
+      ],
+      "image": "hind-joint.png",
+      "center": [
+        120,
+        111
+      ],
+      "width": 24
+    },
+    "fore-far-paw": {
+      "crop": [
+        1196,
+        161,
+        338,
+        222
+      ],
+      "image": "fore-far-paw.png",
+      "sole": [
+        281.3333333333333,
+        221
+      ],
+      "width": 46,
+      "ankle": [
+        106.86742424242425,
+        71.5
+      ]
+    },
+    "hind-far-paw": {
+      "crop": [
+        1183,
+        660,
+        366,
+        262
+      ],
+      "image": "hind-far-paw.png",
+      "sole": [
+        293.25,
+        261
+      ],
+      "width": 46,
+      "ankle": [
+        113.8426380368098,
+        72.38650306748468
+      ]
+    },
+    "fore-paw": {
+      "crop": [
+        1177,
+        146,
+        359,
+        243
+      ],
+      "image": "fore-paw.png",
+      "sole": [
+        279.3333333333333,
+        242
+      ],
+      "width": 46,
+      "ankle": [
+        94.02782634032636,
+        83.21153846153848
+      ]
+    },
+    "hind-paw": {
+      "crop": [
+        1183,
+        647,
+        357,
+        252
+      ],
+      "image": "hind-paw.png",
+      "sole": [
+        273.2142857142857,
+        251
+      ],
+      "width": 46,
+      "ankle": [
+        98.2185801928133,
+        67.02453987730058
+      ]
+    }
+  },
+  "body": {
+    "x": 50,
+    "y": 60,
+    "width": 316
+  },
+  "bones": {
+    "fore": [
+      70,
+      68
+    ],
+    "hind": [
+      70,
+      68
+    ]
+  },
+  "frame": {
+    "width": 416,
+    "height": 320,
+    "ground": 296
+  },
+  "notes": "v3 materials only. v2 body, foot-contact calibration, bones and frame retained. Authored slate joint skins and separate near/far paws; fixed runtime end-material blend. No per-frame warp or bone scaling."
+}

@@ -1,0 +1,142 @@
+{
+  "baseline": "eaf0d9f4bba027f6b72eba49f48d00d5d9d61225",
+  "verdict": "REVISE",
+  "supportMethod": "KEEP",
+  "standardAdoption": false,
+  "runtimeAndToolsSha256": {
+    "src/p_layered.js": "e0856efb815b0952cfa40d22f37c94ae77085c1d865a65bf298b85cfe6d8e42f",
+    "public/concept/p-layered-v3/atlas.json": "ddf157b89f189b19539fde6ec4ceab9f78730098517ab01638ee0eb95ee907a2",
+    "public/concept/p-layered-v3/body.png": "38a6caf54d6e968024b323d4921d3c62126a54d11ce6ae0a57b329f9bb9bb945",
+    "public/concept/p-layered-v3/fore-far-paw.png": "f75b41d82e795e8ca9be9182dbe22a30c6fe94c4c9aaab935e9603c6619d6207",
+    "public/concept/p-layered-v3/fore-foot.png": "79408e76a0758b3887a6e10fd0099ad6adf8101cd9525829e29f301dc4b95cf5",
+    "public/concept/p-layered-v3/fore-joint.png": "849e2ca2ca3317ce6eef1574ae1d333336d0792259020003d3d9d8223b80c299",
+    "public/concept/p-layered-v3/fore-lower.png": "79d8669b2ddab3b9c4593c4a4ccd237aaec161c169294147e5b8d52231f19c23",
+    "public/concept/p-layered-v3/fore-paw.png": "e42056c70b4423c61985153740ff2dbd0b1fec036504d844b190e1e90a4a4707",
+    "public/concept/p-layered-v3/fore-upper.png": "99c06febb2fc931f740671ecdbd1ae81e63bf2d4cb67830a2c0dcbd23be75e4d",
+    "public/concept/p-layered-v3/hind-far-paw.png": "6c05d64b813a882ccbaf05c8464fe814dd47fe0b2bc5384a11831a46efc00e9b",
+    "public/concept/p-layered-v3/hind-foot.png": "2ff452794019e2c25ee06a11ccd325cd151f7b81074af132eea9d1805119271a",
+    "public/concept/p-layered-v3/hind-joint.png": "7f61a20bbabfa8bdf814c7f56d165cebe76ffdd979581fa2c91fea873ea31d12",
+    "public/concept/p-layered-v3/hind-lower.png": "efeba95c64e205d99e20e43f8c9179a963a4976a4a271ef3f8a11ec9cca4787d",
+    "public/concept/p-layered-v3/hind-paw.png": "c2f25eb3c92c5f2223a4497c388a149d45f3f7e449c4d4115de63e80d28a29a7",
+    "public/concept/p-layered-v3/hind-upper.png": "2b6d7a39387a3d95a534ec7009911ec1633052ee146d3716ae42ff10844facda",
+    "scripts/audit-p-rig-v3.py": "9c83f0076d9fdd27ea4617707fa31e0cc24d55845cff8b3003b99595132a87b8",
+    "scripts/capture-p-rig-v3.mjs": "d284d3c2e6943290eb3a091de19a4e5372f0e780b22e1df0f29477d56a526939",
+    "scripts/finalize-p-rig-v3-evidence.py": "bcb17670ffe47b790f1e1b29e942d0324643c68ebb9d31df1d7114b55b3b7909",
+    "scripts/measure-p-rig-v3-loop.mjs": "264d2c59a43c81151009b7ab1a438c7a7986ffd2d57a3b59dee42bb30e776e6f",
+    "scripts/measure-p-rig-v3-raster.mjs": "79a166d7240cf7f3af987a16192181852e228f97a7fb6be19ffab1b3bb937dd7",
+    "scripts/pack-p-rig-v3.py": "a121d0c4366099117d7729bc05104c32f53b91576010504b80a7306975576e38",
+    "scripts/preview-p-rig-v3.mjs": "6b122eea3fe75855f210b3ea490c578e6b6bee1685e45db58c8f123797a32ffd"
+  },
+  "imageSha256": {
+    "parts-source.png": "7c22770ea917b06fc22dea8cac13d22ebb48a9d5d2bb20a54c69468b6a32d18b",
+    "actual-motion-filmstrip.png": "6efa85bd4ab338c8980a7a57c796fd12284e2fc1dc68f95ff1712a333edef327",
+    "joint-comparison.png": "452479607d177324b4adedb4ba8d8b29da98fd3bc6e389c2772df72003348ebe",
+    "layered-contact-sheet.png": "65fa4d72fbb222b4bd53dd0da253eda83242535f4ce8f4b9dd9f083f1b424eac",
+    "race-18-desktop-later.png": "f9f1580bb50dc9e78dffefeef37e530175c9ea2282c3b1ec1f64dcc8cf984a8a",
+    "layered-12-phase.png": "ccb58c1ed6f05e2800aa3f95a7ab46459af99641954fb589ecbb4a3e417cd047",
+    "isolated-continuous-later.png": "16bf3d337ed82fd12362f3ab33f1b4008e5da073704f99301d979b141ad660f5",
+    "race-18-desktop.png": "6eec1efc7632e3febd48c3821e3e1a6efd61dcc6eba6f347d400d4f9aff0a9c8",
+    "runtime-parts.png": "e2f187076fc36ae7629c1fea372ad09c7bb85603b80966df5903235ec95777b8",
+    "canonical-old-new.png": "16236af08ee003e996f7966ed8815ec4877b84c4f1387a7970346ce318c8656b",
+    "isolated-continuous.png": "db4e042a96398a06f527ac7eddbac34462829708a366b918622d464d2edd7b9d",
+    "race-18-mobile-later.png": "38f9e9c0f7db23450521265fb1593ea4032fb63d378d3368d4d0e1b57795f235",
+    "race-18-mobile.png": "0255ed10f79f7baaa159c7c258b7d51946bb51157c7e73f5fd83e138655a2451",
+    "12-phase-before-after.png": "f93d30f04aaba6c32115fd0c3bd1b8dd7beaf6bd43958be6357870b8b2ee1d66",
+    "forelimb-overlap-comparison.png": "d210b5501881917fbe377944eb1f4b9b6a5ed2f7cd0328be1ca1c670b81b6f5b",
+    "near-paw-source.png": "0708a47d2fd5b3d836e407da17e51a626b66efe3f162cc4cf0fc41cffce53478"
+  },
+  "videos": {
+    "isolated-continuous.mp4": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 1280,
+          "height": 720,
+          "r_frame_rate": "60/1",
+          "nb_frames": "360"
+        }
+      ],
+      "format": {
+        "duration": "6.000000"
+      }
+    },
+    "race-18-desktop.mp4": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 1280,
+          "height": 720,
+          "r_frame_rate": "60/1",
+          "nb_frames": "360"
+        }
+      ],
+      "format": {
+        "duration": "6.000000"
+      }
+    },
+    "race-18-mobile.mp4": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 412,
+          "height": 840,
+          "r_frame_rate": "60/1",
+          "nb_frames": "240"
+        }
+      ],
+      "format": {
+        "duration": "4.000000"
+      }
+    },
+    "before-after-motion.mp4": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 960,
+          "height": 310,
+          "r_frame_rate": "60/1",
+          "nb_frames": "360"
+        }
+      ],
+      "format": {
+        "duration": "6.000000"
+      }
+    },
+    "layered-half-speed.mp4": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 1280,
+          "height": 720,
+          "r_frame_rate": "60/1",
+          "nb_frames": "719"
+        }
+      ],
+      "format": {
+        "duration": "11.983333"
+      }
+    }
+  },
+  "protectedExistingPublicFiles": 101,
+  "localValidation": {
+    "build": "PASS (npm --ignore-scripts run build)",
+    "diffCheck": "PASS",
+    "loop": "PASS",
+    "1000PairedControlFrames": "IDENTICAL",
+    "all20SupportAnchors": "ZERO DRIFT",
+    "playwright": {
+      "startTime": "2026-10-13T12:09:07.325Z",
+      "duration": 200036.68300000002,
+      "expected": 24,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "runtime": "Chromium 151.0.7922.173; Node 24.19.0; PC 1280x720; Pixel7 emulation 412x839; deterministic frame capture, not real-time performance certification"
+}

@@ -1,0 +1,485 @@
+[
+  {
+    "name": "isolated-continuous",
+    "url": "race-quality.html?selected=2&motionReview=1&pRig=1&pRigReview=1",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "fps": 60,
+    "seconds": 6,
+    "cycles": 5.555036510661766,
+    "traceIntervalMs": 33.333333333333336,
+    "traceSamples": 180,
+    "visibleRacers": [
+      1
+    ],
+    "errors": [],
+    "metric": "Persistent foot ID + stance ID; world anchor and actual alpha foot-mask raster",
+    "anchorOrLegacyBandTravelPx": {
+      "n": 191,
+      "mean": 0,
+      "max": 0
+    },
+    "soleRasterTravelPx": {
+      "n": 191,
+      "mean": 0.48953873964783046,
+      "max": 4.4064807371295975
+    },
+    "footRasterCentroidTravelPx": {
+      "n": 191,
+      "mean": 0.03194223855010484,
+      "max": 0.16286245676034247
+    },
+    "laneDrift": {
+      "n": 191,
+      "mean": 0,
+      "max": 0
+    },
+    "observedStanceRasterSpanPx": {
+      "n": 22,
+      "mean": 1.1405466541152978,
+      "max": 4.497611827517893
+    },
+    "maxReachError": 0,
+    "maxBoneLengthError": 5.684341886080802e-14,
+    "allPWorldAnchorDrift": {
+      "n": 191,
+      "mean": 0,
+      "max": 0
+    },
+    "maxBodySink": 8.000533806320922,
+    "maxLaneLag": 0,
+    "flightFrames": 102,
+    "maxBodyOffset": 6.970933883414091,
+    "pRunners": [
+      1
+    ],
+    "allRenderedFrames": {
+      "count": 375,
+      "intervalMs": 16,
+      "maxBodyOffset": 10.000007293689038,
+      "maxBodySink": 10.014891886970947,
+      "maxLaneLag": 0.000012874603271484375,
+      "maxReachError": 0,
+      "maxBoneLengthError": 5.684341886080802e-14,
+      "worldAnchorDrift": {
+        "n": 423,
+        "mean": 0,
+        "max": 0
+      },
+      "contactFrames": {
+        "2/fore-far": {
+          "stanceFrames": 105,
+          "comparedIntervals": 99,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "2/hind-far": {
+          "stanceFrames": 121,
+          "comparedIntervals": 115,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "2/hind-near": {
+          "stanceFrames": 120,
+          "comparedIntervals": 114,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "2/fore-near": {
+          "stanceFrames": 100,
+          "comparedIntervals": 95,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "race-18-desktop",
+    "url": "race-quality.html?selected=2&pRig=1&pRigReview=1",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "fps": 60,
+    "seconds": 6,
+    "cycles": 19.543684619922594,
+    "traceIntervalMs": 33.333333333333336,
+    "traceSamples": 180,
+    "visibleRacers": [
+      18
+    ],
+    "errors": [],
+    "metric": "Persistent foot ID + stance ID; world anchor and actual alpha foot-mask raster",
+    "anchorOrLegacyBandTravelPx": {
+      "n": 142,
+      "mean": 0,
+      "max": 0
+    },
+    "soleRasterTravelPx": {
+      "n": 142,
+      "mean": 0.2327321581537346,
+      "max": 1.1208015770861481
+    },
+    "footRasterCentroidTravelPx": {
+      "n": 142,
+      "mean": 0.05441227466147946,
+      "max": 0.27241862083110124
+    },
+    "laneDrift": {
+      "n": 142,
+      "mean": 0,
+      "max": 0
+    },
+    "observedStanceRasterSpanPx": {
+      "n": 58,
+      "mean": 0.3489016932850841,
+      "max": 1.1208015770861481
+    },
+    "maxReachError": 0,
+    "maxBoneLengthError": 5.684341886080802e-14,
+    "allPWorldAnchorDrift": {
+      "n": 668,
+      "mean": 0,
+      "max": 0
+    },
+    "maxBodySink": 16.844744065207642,
+    "maxLaneLag": 0.000006973743438720703,
+    "flightFrames": 103,
+    "maxBodyOffset": 10.243264716903354,
+    "pRunners": [
+      5
+    ],
+    "allRenderedFrames": {
+      "count": 375,
+      "intervalMs": 16,
+      "maxBodyOffset": 10.649231689311549,
+      "maxBodySink": 16.844744065207642,
+      "maxLaneLag": 0.00003594160079956055,
+      "maxReachError": 0,
+      "maxBoneLengthError": 5.684341886080802e-14,
+      "worldAnchorDrift": {
+        "n": 1832,
+        "mean": 0,
+        "max": 0
+      },
+      "contactFrames": {
+        "2/fore-far": {
+          "stanceFrames": 116,
+          "comparedIntervals": 96,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "2/hind-far": {
+          "stanceFrames": 112,
+          "comparedIntervals": 93,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "2/hind-near": {
+          "stanceFrames": 109,
+          "comparedIntervals": 90,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "2/fore-near": {
+          "stanceFrames": 116,
+          "comparedIntervals": 96,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "6/fore-far": {
+          "stanceFrames": 112,
+          "comparedIntervals": 93,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "6/hind-far": {
+          "stanceFrames": 114,
+          "comparedIntervals": 96,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "6/hind-near": {
+          "stanceFrames": 113,
+          "comparedIntervals": 94,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "6/fore-near": {
+          "stanceFrames": 113,
+          "comparedIntervals": 95,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "10/fore-far": {
+          "stanceFrames": 110,
+          "comparedIntervals": 88,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "10/hind-far": {
+          "stanceFrames": 113,
+          "comparedIntervals": 91,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "10/hind-near": {
+          "stanceFrames": 114,
+          "comparedIntervals": 92,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "10/fore-near": {
+          "stanceFrames": 109,
+          "comparedIntervals": 87,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "14/fore-far": {
+          "stanceFrames": 112,
+          "comparedIntervals": 92,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "14/hind-far": {
+          "stanceFrames": 110,
+          "comparedIntervals": 90,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "14/hind-near": {
+          "stanceFrames": 108,
+          "comparedIntervals": 88,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "14/fore-near": {
+          "stanceFrames": 111,
+          "comparedIntervals": 91,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "18/fore-far": {
+          "stanceFrames": 110,
+          "comparedIntervals": 90,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "18/hind-far": {
+          "stanceFrames": 112,
+          "comparedIntervals": 91,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "18/hind-near": {
+          "stanceFrames": 111,
+          "comparedIntervals": 90,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "18/fore-near": {
+          "stanceFrames": 109,
+          "comparedIntervals": 89,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "race-18-mobile",
+    "url": "race-quality.html?selected=2&pRig=1&pRigReview=1",
+    "viewport": {
+      "width": 412,
+      "height": 839
+    },
+    "fps": 60,
+    "seconds": 4,
+    "cycles": 12.743291678173934,
+    "traceIntervalMs": 33.333333333333336,
+    "traceSamples": 120,
+    "visibleRacers": [
+      18
+    ],
+    "errors": [],
+    "metric": "Persistent foot ID + stance ID; world anchor and actual alpha foot-mask raster",
+    "anchorOrLegacyBandTravelPx": {
+      "n": 94,
+      "mean": 0,
+      "max": 0
+    },
+    "soleRasterTravelPx": {
+      "n": 94,
+      "mean": 0.2118623595451404,
+      "max": 0.6387774800186994
+    },
+    "footRasterCentroidTravelPx": {
+      "n": 94,
+      "mean": 0.07465147954328574,
+      "max": 0.3469435351151963
+    },
+    "laneDrift": {
+      "n": 94,
+      "mean": 0,
+      "max": 0
+    },
+    "observedStanceRasterSpanPx": {
+      "n": 39,
+      "mean": 0.28594510093190784,
+      "max": 0.6898894139588454
+    },
+    "maxReachError": 0,
+    "maxBoneLengthError": 5.684341886080802e-14,
+    "allPWorldAnchorDrift": {
+      "n": 452,
+      "mean": 0,
+      "max": 0
+    },
+    "maxBodySink": 17.83732808936509,
+    "maxLaneLag": 0.000014662742614746094,
+    "flightFrames": 65,
+    "maxBodyOffset": 10.748358190540827,
+    "pRunners": [
+      5
+    ],
+    "allRenderedFrames": {
+      "count": 250,
+      "intervalMs": 16,
+      "maxBodyOffset": 12.326240757854364,
+      "maxBodySink": 17.83732808936509,
+      "maxLaneLag": 0.000021457672119140625,
+      "maxReachError": 0,
+      "maxBoneLengthError": 5.684341886080802e-14,
+      "worldAnchorDrift": {
+        "n": 1231,
+        "mean": 0,
+        "max": 0
+      },
+      "contactFrames": {
+        "2/fore-far": {
+          "stanceFrames": 75,
+          "comparedIntervals": 63,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "2/hind-far": {
+          "stanceFrames": 77,
+          "comparedIntervals": 64,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "2/hind-near": {
+          "stanceFrames": 76,
+          "comparedIntervals": 63,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "2/fore-near": {
+          "stanceFrames": 77,
+          "comparedIntervals": 64,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "6/fore-far": {
+          "stanceFrames": 73,
+          "comparedIntervals": 61,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "6/hind-far": {
+          "stanceFrames": 72,
+          "comparedIntervals": 60,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "6/hind-near": {
+          "stanceFrames": 74,
+          "comparedIntervals": 63,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "6/fore-near": {
+          "stanceFrames": 75,
+          "comparedIntervals": 63,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "10/fore-far": {
+          "stanceFrames": 79,
+          "comparedIntervals": 64,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "10/hind-far": {
+          "stanceFrames": 74,
+          "comparedIntervals": 60,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "10/hind-near": {
+          "stanceFrames": 74,
+          "comparedIntervals": 60,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "10/fore-near": {
+          "stanceFrames": 77,
+          "comparedIntervals": 62,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "14/fore-far": {
+          "stanceFrames": 73,
+          "comparedIntervals": 60,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "14/hind-far": {
+          "stanceFrames": 75,
+          "comparedIntervals": 61,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "14/hind-near": {
+          "stanceFrames": 73,
+          "comparedIntervals": 59,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "14/fore-near": {
+          "stanceFrames": 74,
+          "comparedIntervals": 61,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "18/fore-far": {
+          "stanceFrames": 72,
+          "comparedIntervals": 59,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "18/hind-far": {
+          "stanceFrames": 76,
+          "comparedIntervals": 63,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "18/hind-near": {
+          "stanceFrames": 74,
+          "comparedIntervals": 61,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        },
+        "18/fore-near": {
+          "stanceFrames": 73,
+          "comparedIntervals": 60,
+          "maxWorldXDrift": 0,
+          "maxWorldLaneDrift": 0
+        }
+      }
+    }
+  }
+]

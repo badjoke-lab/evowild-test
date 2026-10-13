@@ -19,16 +19,33 @@ const states=new WeakMap();
 let atlas=null;
 
 export async function loadPLayered(base){
-  const response=await fetch(`${base}concept/p-layered/atlas.json`);
+  const directory=`${base}concept/p-layered-v3/`;
+  const response=await fetch(`${directory}atlas.json`);
   if(!response.ok)throw Error(`P layered atlas: ${response.status}`);
   atlas=await response.json();
   await Promise.all(Object.values(atlas.parts).map(async p=>{
-    const image=new Image();image.src=`${base}concept/p-layered/${p.image}`;
+    const image=new Image();image.src=`${directory}${p.image}`;
     await image.decode();p.bitmap=image;
+    // The cut end blends into the slate skin of the unoutlined connector.
+    // Source alpha stays intact: no see-through joint or altered silhouette.
+    // This fixed material blend never changes a pose or a bone length.
+    if(p.a&&p.b){
+      const upper=p.image.includes('-upper'),length=upper?70:68;
+      const dx=p.b[0]-p.a[0],dy=p.b[1]-p.a[1],distance=Math.hypot(dx,dy);
+      const ux=dx/distance,uy=dy/distance,sourcePerUnit=distance/length;
+      const point=upper?p.b:p.a,from=upper?-16:-4,to=upper?0:16;
+      const skin=document.createElement('canvas');skin.width=image.width;skin.height=image.height;
+      const sc=skin.getContext('2d');sc.drawImage(image,0,0);
+      const fade=sc.createLinearGradient(point[0]+ux*from*sourcePerUnit,point[1]+uy*from*sourcePerUnit,
+        point[0]+ux*to*sourcePerUnit,point[1]+uy*to*sourcePerUnit);
+      fade.addColorStop(0,upper?'transparent':'#434753');fade.addColorStop(1,upper?'#434753':'transparent');
+      sc.globalCompositeOperation='source-atop';sc.fillStyle=fade;sc.fillRect(0,0,skin.width,skin.height);
+      p.bitmap=skin;
+    }
     // Bake depth shading once. Applying a Canvas filter to large source
     // cutouts for every limb every frame stalled the software CI renderer.
     const far=document.createElement('canvas');far.width=image.width;far.height=image.height;
-    const context=far.getContext('2d');context.filter='brightness(0.78)';context.drawImage(image,0,0);
+    const context=far.getContext('2d');context.filter='brightness(0.68) saturate(0.8)';context.drawImage(p.bitmap,0,0);
     p.bitmapFar=far;
   }));
   return atlas;
@@ -228,14 +245,18 @@ export function drawPLayered(ctx,r,view){
   };
   const drawLimb=(target,c)=>{
     target.save();
+    // Rounded authored skin ends overlap without a separate outlined cuff.
+    jointCover(target,atlas.parts[`${c.limb.kind}-joint`],c);
     segment(target,atlas.parts[`${c.limb.kind}-upper`],c.j,c.knee,c.lengths[0],c.limb.far);
     segment(target,atlas.parts[`${c.limb.kind}-lower`],c.knee,c.ankle,c.lengths[1],c.limb.far);
-    jointCover(target,atlas.parts[`${c.limb.kind}-joint`],c);
-    foot(target,c.part,c.contact,c.angle,c.limb.far);target.restore();
+    foot(target,atlas.parts[`${c.limb.kind}-${c.limb.far?'far-paw':'paw'}`],c.contact,c.angle,c.limb.far);
+    target.restore();
   };
   const paint=target=>{
     target.save();target.translate(x,y);target.scale(scale,scale);target.translate(-208,-296);
-    commands.filter(c=>c.limb.far).forEach(c=>drawLimb(target,c));drawBody(target);
+    // Within the far side, the chest/forelimb is in front of the far thigh.
+    for(const id of ['hind-far','fore-far'])drawLimb(target,commands.find(c=>c.limb.id===id));
+    drawBody(target);
     commands.filter(c=>!c.limb.far).forEach(c=>{
       drawLimb(target,c);
       target.save();target.beginPath();target.arc(c.j.x,c.j.y,c.limb.kind==='fore'?29:26,0,TAU);target.clip();drawBody(target);target.restore();
@@ -252,6 +273,6 @@ export function drawPLayered(ctx,r,view){
     paintFoot:(target,id)=>{
       const c=commands.find(c=>c.limb.id===id);
       target.save();target.translate(x,y);target.scale(scale,scale);target.translate(-208,-296);
-      foot(target,c.part,c.contact,c.angle,c.limb.far);target.restore();
+      foot(target,atlas.parts[`${c.limb.kind}-${c.limb.far?'far-paw':'paw'}`],c.contact,c.angle,c.limb.far);target.restore();
     }};
 }

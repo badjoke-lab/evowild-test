@@ -1,0 +1,23 @@
+v3 isolated-continuous: frame 0/360
+v3 isolated-continuous: frame 120/360
+v3 isolated-continuous: frame 240/360
+{"name":"isolated-continuous","url":"race-quality.html?selected=2&motionReview=1&pRig=1&pRigReview=1","viewport":{"width":1280,"height":720},"fps":60,"seconds":6,"cycles":5.542542656858238,"traceIntervalMs":33.333333333333336,"traceSamples":180,"visibleRacers":[1],"errors":["Failed to load resource: the server responded with a status of 404 (Not Found)"],"metric":"Persistent foot ID + stance ID; world anchor and actual alpha foot-mask raster","anchorOrLegacyBandTravelPx":{"n":192,"mean":0,"max":0},"soleRasterTravelPx":{"n":192,"mean":0.4726407890962971,"max":3.2711468415218645},"footRasterCentroidTravelPx":{"n":192,"mean":0.03123082296643449,"max":0.16286245676034247},"laneDrift":{"n":192,"mean":0,"max":0},"observedStanceRasterSpanPx":{"n":22,"mean":1.0950093283981348,"max":3.2711468415218645},"maxReachError":0,"maxBoneLengthError":5.684341886080802e-14,"allPWorldAnchorDrift":{"n":192,"mean":0,"max":0},"maxBodySink":9.71538685460163,"maxLaneLag":0,"flightFrames":102,"maxBodyOffset":9.707570633223895,"pRunners":[1],"allRenderedFrames":{"count":375,"intervalMs":16,"maxBodyOffset":10.000007293689038,"maxBodySink":10.014891886970947,"maxLaneLag":0.000012874603271484375,"maxReachError":0,"maxBoneLengthError":5.684341886080802e-14,"worldAnchorDrift":{"n":423,"mean":0,"max":0},"contactFrames":{"2/fore-far":{"stanceFrames":105,"comparedIntervals":99,"maxWorldXDrift":0,"maxWorldLaneDrift":0},"2/hind-far":{"stanceFrames":121,"comparedIntervals":115,"maxWorldXDrift":0,"maxWorldLaneDrift":0},"2/hind-near":{"stanceFrames":120,"comparedIntervals":114,"maxWorldXDrift":0,"maxWorldLaneDrift":0},"2/fore-near":{"stanceFrames":100,"comparedIntervals":95,"maxWorldXDrift":0,"maxWorldLaneDrift":0}}}}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+1 !== 0
+
+    at file:///workspace/work/evowild-p/scripts/capture-p-rig-v3.mjs:110:10
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 1,
+  expected: 0,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

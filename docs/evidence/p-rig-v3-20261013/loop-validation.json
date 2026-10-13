@@ -1,0 +1,29 @@
+{
+  "units": "416x320 rig source pixels",
+  "epsilonCycle": 0.0001,
+  "exactEndpointMaxJointDelta": 0,
+  "exactEndpointDifferentChannels": 0,
+  "boundaries": [
+    {
+      "name": "6-to-7",
+      "phase": 0.5,
+      "maxJointTravelAcrossEpsilon": 0.09656788136237579
+    },
+    {
+      "name": "8-to-9",
+      "phase": 0.6666666666666666,
+      "maxJointTravelAcrossEpsilon": 0.1852213580074633
+    },
+    {
+      "name": "9-to-10",
+      "phase": 0.75,
+      "maxJointTravelAcrossEpsilon": 0.10121730954573625
+    },
+    {
+      "name": "12-to-1",
+      "phase": 1,
+      "maxJointTravelAcrossEpsilon": 0.09673012856146106
+    }
+  ],
+  "limitation": "Flat-ground stateless phase probe using the runtime painter. Live support anchoring and body-height history are measured separately in the video traces."
+}

@@ -1,0 +1,143 @@
+{
+  "identicalLiveContactTransforms": true,
+  "results": [
+    {
+      "version": "v2",
+      "name": "isolated-continuous",
+      "renderFrames": 375,
+      "intervalMs": 16,
+      "errors": [],
+      "solePx": {
+        "n": 423,
+        "mean": 0.30196555084333027,
+        "max": 5.815969975263217
+      },
+      "centroidPx": {
+        "n": 423,
+        "mean": 0.02406835612878486,
+        "max": 0.19504369436483565
+      },
+      "anchorPx": {
+        "n": 423,
+        "mean": 0,
+        "max": 0
+      },
+      "limitation": "Selected P02; both actual foot painters on identical live v3 contact transforms, before scene occlusion. Lowest-row switching is distinct from support-anchor movement."
+    },
+    {
+      "version": "v3",
+      "name": "isolated-continuous",
+      "renderFrames": 375,
+      "intervalMs": 16,
+      "errors": [],
+      "solePx": {
+        "n": 423,
+        "mean": 0.38256131995892884,
+        "max": 4.313371274135228
+      },
+      "centroidPx": {
+        "n": 423,
+        "mean": 0.02741005042254721,
+        "max": 0.17181219337508088
+      },
+      "anchorPx": {
+        "n": 423,
+        "mean": 0,
+        "max": 0
+      },
+      "limitation": "Selected P02; both actual foot painters on identical live v3 contact transforms, before scene occlusion. Lowest-row switching is distinct from support-anchor movement."
+    },
+    {
+      "version": "v2",
+      "name": "race-18-desktop",
+      "renderFrames": 375,
+      "intervalMs": 16,
+      "errors": [],
+      "solePx": {
+        "n": 375,
+        "mean": 0.2501831991524947,
+        "max": 1.0232039518393865
+      },
+      "centroidPx": {
+        "n": 375,
+        "mean": 0.06909916433867895,
+        "max": 0.3302305260664408
+      },
+      "anchorPx": {
+        "n": 375,
+        "mean": 0,
+        "max": 0
+      },
+      "limitation": "Selected P02; both actual foot painters on identical live v3 contact transforms, before scene occlusion. Lowest-row switching is distinct from support-anchor movement."
+    },
+    {
+      "version": "v3",
+      "name": "race-18-desktop",
+      "renderFrames": 375,
+      "intervalMs": 16,
+      "errors": [],
+      "solePx": {
+        "n": 375,
+        "mean": 0.263152194254131,
+        "max": 1.4044184800860513
+      },
+      "centroidPx": {
+        "n": 375,
+        "mean": 0.06092174150955811,
+        "max": 0.3010993344535333
+      },
+      "anchorPx": {
+        "n": 375,
+        "mean": 0,
+        "max": 0
+      },
+      "limitation": "Selected P02; both actual foot painters on identical live v3 contact transforms, before scene occlusion. Lowest-row switching is distinct from support-anchor movement."
+    },
+    {
+      "version": "v2",
+      "name": "race-18-mobile",
+      "renderFrames": 250,
+      "intervalMs": 16,
+      "errors": [],
+      "solePx": {
+        "n": 254,
+        "mean": 0.20518300061465639,
+        "max": 0.8709794972111853
+      },
+      "centroidPx": {
+        "n": 254,
+        "mean": 0.07974646951272968,
+        "max": 0.3672332798777399
+      },
+      "anchorPx": {
+        "n": 254,
+        "mean": 0,
+        "max": 0
+      },
+      "limitation": "Selected P02; both actual foot painters on identical live v3 contact transforms, before scene occlusion. Lowest-row switching is distinct from support-anchor movement."
+    },
+    {
+      "version": "v3",
+      "name": "race-18-mobile",
+      "renderFrames": 250,
+      "intervalMs": 16,
+      "errors": [],
+      "solePx": {
+        "n": 254,
+        "mean": 0.19732883963772696,
+        "max": 0.9034298738527683
+      },
+      "centroidPx": {
+        "n": 254,
+        "mean": 0.07063129947788416,
+        "max": 0.3772454534478307
+      },
+      "anchorPx": {
+        "n": 254,
+        "mean": 0,
+        "max": 0
+      },
+      "limitation": "Selected P02; both actual foot painters on identical live v3 contact transforms, before scene occlusion. Lowest-row switching is distinct from support-anchor movement."
+    }
+  ]
+}
