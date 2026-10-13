@@ -1,0 +1,77 @@
+name: EvoWild S original Hunyuan genuine baseline five-view rendering
+on:
+  push:
+    branches: [exp/s-hunyuan-shoulder-sculpt-20261013]
+    paths:
+      - .github/workflows/s-original-hunyuan-five-view-baseline.yml
+      - art/s-creature/blender/s_original_hunyuan_five_view_baseline.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-s-real-hunyuan-baseline
+  cancel-in-progress: false
+jobs:
+  render-untouched-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 38
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /.devcontainer/setup-blender-webdesktop.sh
+            /.github/workflows/s-original-hunyuan-five-view-baseline.yml
+            /art/s-creature/blender/s_original_hunyuan_five_view_baseline.py
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/S_ORIGINAL_HUNYUAN_ART_SCULPT_STATION__UNEDITED_BASE.blend
+      - name: Install real Blender 4.3.2, with reference SHA check
+        run: bash .devcontainer/setup-blender-webdesktop.sh
+      - name: Render actual source mesh, no fake shape or image generation
+        run: |
+          /opt/evowild-blender/blender --background --factory-startup --threads 4 --python-exit-code 1 --python art/s-creature/blender/s_original_hunyuan_five_view_baseline.py
+      - name: Make contact sheets from actual Blender PNG renders only
+        run: |
+          sudo apt-get install -y python3-pil
+          python3 - <<'PY'
+          from PIL import Image,ImageDraw,ImageFont
+          from pathlib import Path
+          p=Path('art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/baseline-five-view-20261014')
+          for outfile,prefix,names,tile in (
+            ('S_REAL_BASELINE_FIVE_VIEW.jpg','BASELINE_',['SIDE','FRONT','FRONT34','REAR34','BACK'],(540,405)),
+            ('S_REAL_SHOULDER_CHEST_CLOSEUPS.jpg','DETAIL_',['SIDE','FRONT','FRONT34'],(660,495)),
+          ):
+            sheet=Image.new('RGB',(tile[0]*len(names),tile[1]+46),'#eeeeee')
+            draw=ImageDraw.Draw(sheet)
+            for i,tag in enumerate(names):
+              f=p/(prefix+tag+'.png')
+              with Image.open(f) as source:
+                im=source.convert('RGB')
+                im.thumbnail(tile)
+                x=i*tile[0]+(tile[0]-im.width)//2
+                y=46+(tile[1]-im.height)//2
+                sheet.paste(im,(x,y))
+              draw.text((i*tile[0]+12,12),tag+(' (3D only)' if tag=='REAR34' else ''),fill='#111111')
+            sheet.save(p/outfile,quality=88,optimize=True)
+            print('RENDER_CONTACT_SHEET_SAVED',outfile,(p/outfile).stat().st_size)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evowild-s-original-hunyuan-five-view-baseline-raw-and-closeups
+          path: art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/baseline-five-view-20261014/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Push genuine review contact sheets and measurement JSON to experiment branch
+        if: success()
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          p='art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/baseline-five-view-20261014'
+          git add --sparse "$p/S_REAL_BASELINE_FIVE_VIEW.jpg" "$p/S_REAL_SHOULDER_CHEST_CLOSEUPS.jpg" "$p/BASELINE_GEOMETRY_REPORT.json"
+          if ! git diff --cached --quiet; then
+            git commit -m 'review(s): real unmodified Hunyuan 5-view and shoulder closeups (not sculpted)'
+            git pull --rebase origin exp/s-hunyuan-shoulder-sculpt-20261013
+            git push origin HEAD:exp/s-hunyuan-shoulder-sculpt-20261013
+          fi
