@@ -1,0 +1,98 @@
+{
+  "status": "PASS",
+  "scope": "Isolated static v8 GLB load/render, no gait or production approval",
+  "results": [
+    {
+      "device": "desktop",
+      "asset": "/public/models/evowild-p/p-canonical-v8.glb",
+      "sha256": "40058c8bae2818c61fdfd831f0ea061b8e2aa7650ad468df9870e8fd809d460e",
+      "meshes": 18,
+      "vertices": 27994,
+      "animations": 0,
+      "bounds": {
+        "min": [
+          -2.0201637744903564,
+          0.009999659843742847,
+          -1.1996955871582031
+        ],
+        "max": [
+          1.7828474044799805,
+          3.2202179431915283,
+          1.1996954679489136
+        ]
+      },
+      "first": {
+        "triangles": 49928,
+        "calls": 18,
+        "inFrame": true
+      },
+      "views": [
+        {
+          "view": "SIDE",
+          "triangles": 49928,
+          "calls": 18,
+          "inFrame": true
+        },
+        {
+          "view": "FRONT",
+          "triangles": 49928,
+          "calls": 18,
+          "inFrame": true
+        },
+        {
+          "view": "FRONT34",
+          "triangles": 49928,
+          "calls": 18,
+          "inFrame": true
+        },
+        {
+          "view": "REAR34",
+          "triangles": 49928,
+          "calls": 18,
+          "inFrame": true
+        },
+        {
+          "view": "BACK",
+          "triangles": 49928,
+          "calls": 18,
+          "inFrame": true
+        }
+      ],
+      "errors": []
+    },
+    {
+      "device": "mobile",
+      "asset": "/public/models/evowild-p/p-canonical-v8.glb",
+      "sha256": "40058c8bae2818c61fdfd831f0ea061b8e2aa7650ad468df9870e8fd809d460e",
+      "meshes": 18,
+      "vertices": 27994,
+      "animations": 0,
+      "bounds": {
+        "min": [
+          -2.0201637744903564,
+          0.009999659843742847,
+          -1.1996955871582031
+        ],
+        "max": [
+          1.7828474044799805,
+          3.2202179431915283,
+          1.1996954679489136
+        ]
+      },
+      "first": {
+        "triangles": 49928,
+        "calls": 18,
+        "inFrame": true
+      },
+      "views": [
+        {
+          "view": "FRONT34",
+          "triangles": 49928,
+          "calls": 18,
+          "inFrame": true
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

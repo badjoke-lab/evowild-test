@@ -1,27 +1,27 @@
-vite v7.3.7 building client environment for production...
+[36mvite v7.3.7 [32mbuilding client environment for production...[36m[39m
 transforming...
-✓ 22 modules transformed.
+[32m✓[39m 22 modules transformed.
 rendering chunks...
 computing gzip size...
-dist/race-lane5.html                              1.90 kB │ gzip:   0.87 kB
-dist/p-canonical-review.html                      2.04 kB │ gzip:   1.04 kB
-dist/race-2_5d.html                               3.06 kB │ gzip:   1.22 kB
-dist/index.html                                   3.65 kB │ gzip:   1.30 kB
-dist/race-quality.html                            4.16 kB │ gzip:   1.51 kB
-dist/assets/race_lane5-OeTLpWgh.css               3.67 kB │ gzip:   1.39 kB
-dist/assets/race2_5d-DefcRidv.css                 4.05 kB │ gzip:   1.58 kB
-dist/assets/main-CMZSGyjx.css                     4.76 kB │ gzip:   1.61 kB
-dist/assets/race_quality-CdPDXUyA.css            10.85 kB │ gzip:   2.83 kB
-dist/assets/modulepreload-polyfill-B5Qt9EMX.js    0.71 kB │ gzip:   0.40 kB
-dist/assets/race2_5d-JtDeRsQc.js                  9.41 kB │ gzip:   4.16 kB
-dist/assets/race_lane5-BZ0EtTVs.js               14.29 kB │ gzip:   6.14 kB
-dist/assets/main-Ds3BXTUe.js                     30.71 kB │ gzip:  11.84 kB
-dist/assets/race_quality-MJM96CVX.js             33.68 kB │ gzip:  12.60 kB
-dist/assets/p_canonical_review-y0jEXugy.js       48.18 kB │ gzip:  14.93 kB
-dist/assets/three.module-Dp7gwmqv.js            569.53 kB │ gzip: 147.68 kB
-
+[2mdist/[22m[32mrace-lane5.html                            [39m[1m[2m  1.90 kB[22m[1m[22m[2m │ gzip:   0.87 kB[22m
+[2mdist/[22m[32mp-canonical-review.html                    [39m[1m[2m  2.04 kB[22m[1m[22m[2m │ gzip:   1.04 kB[22m
+[2mdist/[22m[32mrace-2_5d.html                             [39m[1m[2m  3.06 kB[22m[1m[22m[2m │ gzip:   1.22 kB[22m
+[2mdist/[22m[32mindex.html                                 [39m[1m[2m  3.65 kB[22m[1m[22m[2m │ gzip:   1.30 kB[22m
+[2mdist/[22m[32mrace-quality.html                          [39m[1m[2m  4.16 kB[22m[1m[22m[2m │ gzip:   1.51 kB[22m
+[2mdist/[22m[2massets/[22m[35mrace_lane5-OeTLpWgh.css             [39m[1m[2m  3.67 kB[22m[1m[22m[2m │ gzip:   1.39 kB[22m
+[2mdist/[22m[2massets/[22m[35mrace2_5d-DefcRidv.css               [39m[1m[2m  4.05 kB[22m[1m[22m[2m │ gzip:   1.58 kB[22m
+[2mdist/[22m[2massets/[22m[35mmain-CMZSGyjx.css                   [39m[1m[2m  4.76 kB[22m[1m[22m[2m │ gzip:   1.61 kB[22m
+[2mdist/[22m[2massets/[22m[35mrace_quality-CdPDXUyA.css           [39m[1m[2m 10.85 kB[22m[1m[22m[2m │ gzip:   2.83 kB[22m
+[2mdist/[22m[2massets/[22m[36mmodulepreload-polyfill-B5Qt9EMX.js  [39m[1m[2m  0.71 kB[22m[1m[22m[2m │ gzip:   0.40 kB[22m
+[2mdist/[22m[2massets/[22m[36mrace2_5d-JtDeRsQc.js                [39m[1m[2m  9.41 kB[22m[1m[22m[2m │ gzip:   4.16 kB[22m
+[2mdist/[22m[2massets/[22m[36mrace_lane5-BZ0EtTVs.js              [39m[1m[2m 14.29 kB[22m[1m[22m[2m │ gzip:   6.14 kB[22m
+[2mdist/[22m[2massets/[22m[36mmain-Ds3BXTUe.js                    [39m[1m[2m 30.71 kB[22m[1m[22m[2m │ gzip:  11.84 kB[22m
+[2mdist/[22m[2massets/[22m[36mrace_quality-MJM96CVX.js            [39m[1m[2m 33.68 kB[22m[1m[22m[2m │ gzip:  12.60 kB[22m
+[2mdist/[22m[2massets/[22m[36mp_canonical_review-y0jEXugy.js      [39m[1m[2m 48.18 kB[22m[1m[22m[2m │ gzip:  14.93 kB[22m
+[2mdist/[22m[2massets/[22m[36mthree.module-Dp7gwmqv.js            [39m[1m[33m569.53 kB[39m[22m[2m │ gzip: 147.68 kB[22m
+[33m
 (!) Some chunks are larger than 500 kB after minification. Consider:
 - Using dynamic import() to code-split the application
 - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
-- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
-✓ built in 8.45s
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+[32m✓ built in 1.86s[39m
