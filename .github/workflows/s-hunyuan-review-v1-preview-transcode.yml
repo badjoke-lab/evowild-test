@@ -17,6 +17,7 @@ jobs:
           sparse-checkout-cone-mode: false
           sparse-checkout: |
             /.github/workflows/s-hunyuan-review-v1-preview-transcode.yml
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
             /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v1/FIVE_VIEW_BEFORE_AFTER.jpg
             /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v1/SHOULDER_CHEST_BEFORE_AFTER.jpg
       - name: Encode two existing actual Blender-render comparison images as small portable JPEG base64 text
@@ -44,6 +45,15 @@ jobs:
               assert len(bytes_)<850000, (name,len(bytes_))
               (out/(name+'.b64.txt')).write_text(base64.b64encode(bytes_).decode('ascii')+'\n')
               print('PREVIEW_CREATED',name,len(bytes_),im.size,hashlib.sha256(original.read_bytes()).hexdigest())
+          ref=Path('art/s-creature/references/00_s_type_modeling_image_v1.png')
+          assert hashlib.sha256(ref.read_bytes()).hexdigest()=='93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6'
+          with Image.open(ref) as original:
+              im=original.convert('RGB')
+              im.thumbnail((2048,1600))
+              buf=BytesIO()
+              im.save(buf,'JPEG',quality=87,optimize=True,subsampling=0)
+          (out/'CANONICAL_REFERENCE_FULL.b64.txt').write_text(base64.b64encode(buf.getvalue()).decode('ascii')+'\\n')
+          print('CANONICAL_REFERENCE_SAVED',len(buf.getvalue()),im.size)
           PY
       - name: Commit only preview-text; source artwork and renders unchanged
         run: |
