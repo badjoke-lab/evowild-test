@@ -1,0 +1,86 @@
+[
+  {
+    "index": 5,
+    "cycle": 0.9960813210962994,
+    "phase": 0.9960813210962995,
+    "visible": 1,
+    "flight": false
+  },
+  {
+    "index": 13,
+    "cycle": 1.0898352000379699,
+    "phase": 0.08983520003796985,
+    "visible": 1,
+    "flight": false
+  },
+  {
+    "index": 18,
+    "cycle": 1.1598007813377245,
+    "phase": 0.15980078133772446,
+    "visible": 1,
+    "flight": false
+  },
+  {
+    "index": 24,
+    "cycle": 1.247057856301562,
+    "phase": 0.24705785630156196,
+    "visible": 1,
+    "flight": false
+  },
+  {
+    "index": 29,
+    "cycle": 1.3379131611608148,
+    "phase": 0.3379131611608148,
+    "visible": 1,
+    "flight": true
+  },
+  {
+    "index": 34,
+    "cycle": 1.4163745630469688,
+    "phase": 0.41637456304696885,
+    "visible": 1,
+    "flight": true
+  },
+  {
+    "index": 40,
+    "cycle": 1.4964892735903303,
+    "phase": 0.49648927359033035,
+    "visible": 1,
+    "flight": false
+  },
+  {
+    "index": 45,
+    "cycle": 1.5766619200988166,
+    "phase": 0.5766619200988166,
+    "visible": 1,
+    "flight": false
+  },
+  {
+    "index": 51,
+    "cycle": 1.6728916994061644,
+    "phase": 0.6728916994061644,
+    "visible": 1,
+    "flight": false
+  },
+  {
+    "index": 55,
+    "cycle": 1.7530963378638402,
+    "phase": 0.7530963378638402,
+    "visible": 1,
+    "flight": false
+  },
+  {
+    "index": 61,
+    "cycle": 1.8333074283073463,
+    "phase": 0.8333074283073463,
+    "visible": 1,
+    "flight": true
+  },
+  {
+    "index": 66,
+    "cycle": 1.9135195730182109,
+    "phase": 0.9135195730182109,
+    "visible": 1,
+    "flight": true
+  }
+]

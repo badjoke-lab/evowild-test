@@ -1,0 +1,376 @@
+[
+  {
+    "name": "isolated-continuous",
+    "version": "v3",
+    "runner": 2,
+    "bodyOffset": {
+      "timeMs": 5150.000000000005,
+      "value": 10.000007293689038
+    },
+    "bodySink": {
+      "timeMs": 2599.9999999999986,
+      "value": 13.99292138953712
+    },
+    "laneLag": {
+      "timeMs": 6233.333333333358,
+      "value": 1.2874603271484375e-05
+    }
+  },
+  {
+    "name": "isolated-continuous",
+    "version": "v4",
+    "runner": 2,
+    "bodyOffset": {
+      "timeMs": 5150.000000000005,
+      "value": 10.000007293689038
+    },
+    "bodySink": {
+      "timeMs": 2599.9999999999986,
+      "value": 13.99292138953712
+    },
+    "laneLag": {
+      "timeMs": 6233.333333333358,
+      "value": 1.2874603271484375e-05
+    }
+  },
+  {
+    "name": "race-18-desktop",
+    "version": "v3",
+    "runner": 2,
+    "bodyOffset": {
+      "timeMs": 8033.33333333339,
+      "value": 10.00002308741199
+    },
+    "bodySink": {
+      "timeMs": 6116.666666666689,
+      "value": 16.844744065207642
+    },
+    "laneLag": {
+      "timeMs": 3216.6666666666597,
+      "value": 1.8596649169921875e-05
+    }
+  },
+  {
+    "name": "race-18-desktop",
+    "version": "v3",
+    "runner": 6,
+    "bodyOffset": {
+      "timeMs": 2350.000000000001,
+      "value": 10.649231689311549
+    },
+    "bodySink": {
+      "timeMs": 7483.33333333338,
+      "value": 13.986326780618972
+    },
+    "laneLag": {
+      "timeMs": 2066.66666666667,
+      "value": 0
+    }
+  },
+  {
+    "name": "race-18-desktop",
+    "version": "v3",
+    "runner": 10,
+    "bodyOffset": {
+      "timeMs": 5500.000000000011,
+      "value": 10.000011808589619
+    },
+    "bodySink": {
+      "timeMs": 7116.666666666707,
+      "value": 13.91971003242242
+    },
+    "laneLag": {
+      "timeMs": 5500.000000000011,
+      "value": 4.470348358154297e-06
+    }
+  },
+  {
+    "name": "race-18-desktop",
+    "version": "v3",
+    "runner": 14,
+    "bodyOffset": {
+      "timeMs": 2416.666666666667,
+      "value": 10.1858106737442
+    },
+    "bodySink": {
+      "timeMs": 5966.666666666686,
+      "value": 13.997648920643691
+    },
+    "laneLag": {
+      "timeMs": 2066.66666666667,
+      "value": 0
+    }
+  },
+  {
+    "name": "race-18-desktop",
+    "version": "v3",
+    "runner": 18,
+    "bodyOffset": {
+      "timeMs": 7950.0000000000555,
+      "value": 10.000025828234172
+    },
+    "bodySink": {
+      "timeMs": 6650.000000000032,
+      "value": 15.95231051158958
+    },
+    "laneLag": {
+      "timeMs": 5516.666666666678,
+      "value": 3.594160079956055e-05
+    }
+  },
+  {
+    "name": "race-18-desktop",
+    "version": "v4",
+    "runner": 2,
+    "bodyOffset": {
+      "timeMs": 8033.33333333339,
+      "value": 10.00002308741199
+    },
+    "bodySink": {
+      "timeMs": 6116.666666666689,
+      "value": 16.844744065207642
+    },
+    "laneLag": {
+      "timeMs": 3216.6666666666597,
+      "value": 1.8596649169921875e-05
+    }
+  },
+  {
+    "name": "race-18-desktop",
+    "version": "v4",
+    "runner": 6,
+    "bodyOffset": {
+      "timeMs": 2350.000000000001,
+      "value": 10.649231689311549
+    },
+    "bodySink": {
+      "timeMs": 7483.33333333338,
+      "value": 13.986326780618972
+    },
+    "laneLag": {
+      "timeMs": 2066.66666666667,
+      "value": 0
+    }
+  },
+  {
+    "name": "race-18-desktop",
+    "version": "v4",
+    "runner": 10,
+    "bodyOffset": {
+      "timeMs": 5500.000000000011,
+      "value": 10.000011808589619
+    },
+    "bodySink": {
+      "timeMs": 7116.666666666707,
+      "value": 13.91971003242242
+    },
+    "laneLag": {
+      "timeMs": 5500.000000000011,
+      "value": 4.470348358154297e-06
+    }
+  },
+  {
+    "name": "race-18-desktop",
+    "version": "v4",
+    "runner": 14,
+    "bodyOffset": {
+      "timeMs": 2416.666666666667,
+      "value": 10.1858106737442
+    },
+    "bodySink": {
+      "timeMs": 5966.666666666686,
+      "value": 13.997648920643691
+    },
+    "laneLag": {
+      "timeMs": 2066.66666666667,
+      "value": 0
+    }
+  },
+  {
+    "name": "race-18-desktop",
+    "version": "v4",
+    "runner": 18,
+    "bodyOffset": {
+      "timeMs": 7950.0000000000555,
+      "value": 10.000025828234172
+    },
+    "bodySink": {
+      "timeMs": 6650.000000000032,
+      "value": 15.95231051158958
+    },
+    "laneLag": {
+      "timeMs": 5516.666666666678,
+      "value": 3.594160079956055e-05
+    }
+  },
+  {
+    "name": "race-18-mobile",
+    "version": "v3",
+    "runner": 2,
+    "bodyOffset": {
+      "timeMs": 2483.333333333333,
+      "value": 10.000037175577987
+    },
+    "bodySink": {
+      "timeMs": 5733.3333333333485,
+      "value": 17.83732808936509
+    },
+    "laneLag": {
+      "timeMs": 2483.333333333333,
+      "value": 2.1457672119140625e-05
+    }
+  },
+  {
+    "name": "race-18-mobile",
+    "version": "v3",
+    "runner": 6,
+    "bodyOffset": {
+      "timeMs": 2283.333333333335,
+      "value": 12.326240757854364
+    },
+    "bodySink": {
+      "timeMs": 5850.000000000017,
+      "value": 13.967962032435697
+    },
+    "laneLag": {
+      "timeMs": 2066.66666666667,
+      "value": 0
+    }
+  },
+  {
+    "name": "race-18-mobile",
+    "version": "v3",
+    "runner": 10,
+    "bodyOffset": {
+      "timeMs": 4566.666666666661,
+      "value": 10.00003732042137
+    },
+    "bodySink": {
+      "timeMs": 5683.333333333348,
+      "value": 13.757403857485384
+    },
+    "laneLag": {
+      "timeMs": 3666.6666666666556,
+      "value": 1.4662742614746094e-05
+    }
+  },
+  {
+    "name": "race-18-mobile",
+    "version": "v3",
+    "runner": 14,
+    "bodyOffset": {
+      "timeMs": 2666.6666666666647,
+      "value": 10.748358190540827
+    },
+    "bodySink": {
+      "timeMs": 4833.333333333332,
+      "value": 13.994066573636387
+    },
+    "laneLag": {
+      "timeMs": 2066.66666666667,
+      "value": 0
+    }
+  },
+  {
+    "name": "race-18-mobile",
+    "version": "v3",
+    "runner": 18,
+    "bodyOffset": {
+      "timeMs": 6016.666666666687,
+      "value": 10.000038320814099
+    },
+    "bodySink": {
+      "timeMs": 5533.333333333345,
+      "value": 17.796143438072107
+    },
+    "laneLag": {
+      "timeMs": 4349.99999999999,
+      "value": 9.834766387939453e-06
+    }
+  },
+  {
+    "name": "race-18-mobile",
+    "version": "v4",
+    "runner": 2,
+    "bodyOffset": {
+      "timeMs": 2483.333333333333,
+      "value": 10.000037175577987
+    },
+    "bodySink": {
+      "timeMs": 5733.3333333333485,
+      "value": 17.83732808936509
+    },
+    "laneLag": {
+      "timeMs": 2483.333333333333,
+      "value": 2.1457672119140625e-05
+    }
+  },
+  {
+    "name": "race-18-mobile",
+    "version": "v4",
+    "runner": 6,
+    "bodyOffset": {
+      "timeMs": 2283.333333333335,
+      "value": 12.326240757854364
+    },
+    "bodySink": {
+      "timeMs": 5850.000000000017,
+      "value": 13.967962032435697
+    },
+    "laneLag": {
+      "timeMs": 2066.66666666667,
+      "value": 0
+    }
+  },
+  {
+    "name": "race-18-mobile",
+    "version": "v4",
+    "runner": 10,
+    "bodyOffset": {
+      "timeMs": 4566.666666666661,
+      "value": 10.00003732042137
+    },
+    "bodySink": {
+      "timeMs": 5683.333333333348,
+      "value": 13.757403857485384
+    },
+    "laneLag": {
+      "timeMs": 3666.6666666666556,
+      "value": 1.4662742614746094e-05
+    }
+  },
+  {
+    "name": "race-18-mobile",
+    "version": "v4",
+    "runner": 14,
+    "bodyOffset": {
+      "timeMs": 2666.6666666666647,
+      "value": 10.748358190540827
+    },
+    "bodySink": {
+      "timeMs": 4833.333333333332,
+      "value": 13.994066573636387
+    },
+    "laneLag": {
+      "timeMs": 2066.66666666667,
+      "value": 0
+    }
+  },
+  {
+    "name": "race-18-mobile",
+    "version": "v4",
+    "runner": 18,
+    "bodyOffset": {
+      "timeMs": 6016.666666666687,
+      "value": 10.000038320814099
+    },
+    "bodySink": {
+      "timeMs": 5533.333333333345,
+      "value": 17.796143438072107
+    },
+    "laneLag": {
+      "timeMs": 4349.99999999999,
+      "value": 9.834766387939453e-06
+    }
+  }
+]

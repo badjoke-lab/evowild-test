@@ -1,0 +1,11 @@
+{
+  "existingTest": "tests/p-layered.spec.js:54",
+  "threshold": 12,
+  "recordedTest": "23 passed / 1 failed (Android compression), no timeout",
+  "method": "All 250 requestAnimationFrame samples, same live race input applied to v3 and v4",
+  "v3Maximum": 12.326240757854364,
+  "v4Maximum": 12.326240757854364,
+  "newRegression": false,
+  "testThresholdChanged": false,
+  "status": "REVISE: inherited measured peak exceeds the existing test threshold; no statistical resampling used to hide it"
+}

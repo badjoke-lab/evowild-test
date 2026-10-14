@@ -19,29 +19,16 @@ const states=new WeakMap();
 let atlas=null;
 
 export async function loadPLayered(base){
-  const directory=`${base}concept/p-layered-v3/`;
+  const directory=`${base}concept/p-layered-v4/`;
   const response=await fetch(`${directory}atlas.json`);
   if(!response.ok)throw Error(`P layered atlas: ${response.status}`);
   atlas=await response.json();
   await Promise.all(Object.values(atlas.parts).map(async p=>{
-    const image=new Image();image.src=`${directory}${p.image}`;
+    const image=new Image();
+    // Reuse the approved foot resource, including the browser decode cache.
+    // New paint is confined to the torso and the four limb segments.
+    image.src=p.sole?`${base}${atlas.footAssetDirectory}${p.image}`:`${directory}${p.image}`;
     await image.decode();p.bitmap=image;
-    // The cut end blends into the slate skin of the unoutlined connector.
-    // Source alpha stays intact: no see-through joint or altered silhouette.
-    // This fixed material blend never changes a pose or a bone length.
-    if(p.a&&p.b){
-      const upper=p.image.includes('-upper'),length=upper?70:68;
-      const dx=p.b[0]-p.a[0],dy=p.b[1]-p.a[1],distance=Math.hypot(dx,dy);
-      const ux=dx/distance,uy=dy/distance,sourcePerUnit=distance/length;
-      const point=upper?p.b:p.a,from=upper?-16:-4,to=upper?0:16;
-      const skin=document.createElement('canvas');skin.width=image.width;skin.height=image.height;
-      const sc=skin.getContext('2d');sc.drawImage(image,0,0);
-      const fade=sc.createLinearGradient(point[0]+ux*from*sourcePerUnit,point[1]+uy*from*sourcePerUnit,
-        point[0]+ux*to*sourcePerUnit,point[1]+uy*to*sourcePerUnit);
-      fade.addColorStop(0,upper?'transparent':'#434753');fade.addColorStop(1,upper?'#434753':'transparent');
-      sc.globalCompositeOperation='source-atop';sc.fillStyle=fade;sc.fillRect(0,0,skin.width,skin.height);
-      p.bitmap=skin;
-    }
     // Bake depth shading once. Applying a Canvas filter to large source
     // cutouts for every limb every frame stalled the software CI renderer.
     const far=document.createElement('canvas');far.width=image.width;far.height=image.height;
@@ -66,8 +53,9 @@ export function constrainPLayeredLane(r,proposed,distance,time){
 }
 
 function joint(kind,bob,pitch){
-  const p=atlas.parts.body[kind==='fore'?'shoulder':'hip'];
-  const scale=atlas.body.width/atlas.parts.body.crop[2];
+  const calibration=atlas.parts.body.jointCalibration;
+  const p=calibration[kind==='fore'?'shoulder':'hip'];
+  const scale=atlas.body.width/calibration.width;
   const v=rotate({x:atlas.body.x+p[0]*scale-208,y:atlas.body.y+p[1]*scale-170},pitch);
   return {x:v.x+208,y:v.y+170+bob};
 }
@@ -94,14 +82,6 @@ function foot(ctx,part,point,angle,far=false){
   const scale=part.width/part.crop[2];
   ctx.save();ctx.translate(point.x,point.y);ctx.rotate(angle);ctx.scale(scale,scale);
   ctx.drawImage(far?part.bitmapFar:part.bitmap,-part.sole[0],-part.sole[1]);ctx.restore();
-}
-
-function jointCover(ctx,part,c){
-  if(!part)return;
-  const angle=Math.atan2(c.ankle.y-c.j.y,c.ankle.x-c.j.x)-Math.PI/2;
-  const scale=part.width/part.crop[2];
-  ctx.save();ctx.translate(c.knee.x,c.knee.y);ctx.rotate(angle);ctx.scale(scale,scale);
-  ctx.drawImage(c.limb.far?part.bitmapFar:part.bitmap,-part.center[0],-part.center[1]);ctx.restore();
 }
 
 function laneForY(groundY,distance,value){
@@ -193,13 +173,19 @@ export function drawPLayered(ctx,r,view){
     if(!stance&&f.stance){f.liftX=f.worldX;f.liftLane=f.lane;f.liftTargetLane=footLane;}
     let worldX=f.worldX,worldLane=f.lane,lift=0,angle=0;
     if(!stance){
-      const u=(local-DUTY)/(1-DUTY),ease=smooth(u);
+      const u=(local-DUTY)/(1-DUTY);
+      // Separate free forefeet in depth/time without moving any planted anchor.
+      // The offset and its derivative vanish at lift-off and landing.
+      const arc=Math.sin(Math.PI*u)**3;
+      const ease=smooth(u)+(limb.kind==='fore'?(limb.far?.065:-.025)*arc:0);
       const landing=rootDistance+(rest.x-208+lead+(1-u)*STRIDE*(1-DUTY))*metresPerUnit;
       worldX=mix(f.liftX??landing-STRIDE*metresPerUnit,landing,ease);
       const lateralRecovery=smooth(clamp(u/.30,0,1));
       worldLane=footLane+((f.liftLane??f.lane)-(f.liftTargetLane??footLane))*(1-lateralRecovery);
-      lift=(limb.kind==='fore'?64:62)*Math.sin(Math.PI*u);
-      angle=-.20*Math.sin(Math.PI*u);
+      lift=(limb.kind==='fore'?(limb.far?42:54):62)*Math.sin(Math.PI*u);
+      angle=limb.kind==='fore'
+        ? .12*Math.sin(Math.PI*u)-.18*Math.sin(TAU*u)
+        : -.20*Math.sin(Math.PI*u);
     }
     f.stance=stance;
     const screen={x:projectX(worldX),y:groundY(worldX,worldLane)-lift*scale};
@@ -245,10 +231,9 @@ export function drawPLayered(ctx,r,view){
   };
   const drawLimb=(target,c)=>{
     target.save();
-    // Rounded authored skin ends overlap without a separate outlined cuff.
-    jointCover(target,atlas.parts[`${c.limb.kind}-joint`],c);
-    segment(target,atlas.parts[`${c.limb.kind}-upper`],c.j,c.knee,c.lengths[0],c.limb.far);
+    // The sculpted upper segment overlaps the lower skin, with no flat tint.
     segment(target,atlas.parts[`${c.limb.kind}-lower`],c.knee,c.ankle,c.lengths[1],c.limb.far);
+    segment(target,atlas.parts[`${c.limb.kind}-upper`],c.j,c.knee,c.lengths[0],c.limb.far);
     foot(target,atlas.parts[`${c.limb.kind}-${c.limb.far?'far-paw':'paw'}`],c.contact,c.angle,c.limb.far);
     target.restore();
   };
@@ -257,10 +242,9 @@ export function drawPLayered(ctx,r,view){
     // Within the far side, the chest/forelimb is in front of the far thigh.
     for(const id of ['hind-far','fore-far'])drawLimb(target,commands.find(c=>c.limb.id===id));
     drawBody(target);
-    commands.filter(c=>!c.limb.far).forEach(c=>{
-      drawLimb(target,c);
-      target.save();target.beginPath();target.arc(c.j.x,c.j.y,c.limb.kind==='fore'?29:26,0,TAU);target.clip();drawBody(target);target.restore();
-    });
+    // Near shoulders and thighs own their full authored muscle silhouette.
+    // No circular body re-paint cuts across the muscle at its root.
+    commands.filter(c=>!c.limb.far).forEach(c=>drawLimb(target,c));
     if(debug)for(const f of feet){
       target.strokeStyle=f.stance?'#26ffaf':'#ffc45a';target.lineWidth=1.5;
       target.beginPath();target.moveTo(f.hip.x,f.hip.y);target.lineTo(f.knee.x,f.knee.y);target.lineTo(f.ankle.x,f.ankle.y);target.stroke();

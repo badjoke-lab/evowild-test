@@ -1,0 +1,2642 @@
+{
+  "method": "Both real controllers receive identical live race inputs; 16 ms rAF. All visible P feet rasterized separately before scene occlusion. Horizontal movement removes camera motion. Vertical residual movement subtracts the projected ground contact Y before differencing. No pixel tracking of the composited scene.",
+  "results": [
+    {
+      "name": "isolated-continuous",
+      "errors": [],
+      "comparisons": {
+        "supportPoseMaxDelta": 0,
+        "bodyOffsetMaxDelta": 0,
+        "renderLaneMaxDelta": 0,
+        "stanceRasterMaxDelta": 0,
+        "flightMismatch": 0
+      },
+      "versions": [
+        {
+          "version": "v3",
+          "frames": 375,
+          "feet": 4,
+          "solePx": {
+            "n": 423,
+            "mean": 0.38256131995892884,
+            "max": 4.313371274135228
+          },
+          "soleVerticalResidualDeltaPx": {
+            "n": 423,
+            "mean": 0.04491725768321513,
+            "max": 1
+          },
+          "centroidPx": {
+            "n": 423,
+            "mean": 0.02741005042254721,
+            "max": 0.17181219337508088
+          },
+          "worldAnchorMetres": {
+            "n": 423,
+            "mean": 0,
+            "max": 0
+          },
+          "worldLaneDrift": {
+            "n": 423,
+            "mean": 0,
+            "max": 0
+          },
+          "maxBodyOffset": 10.000007293689038,
+          "maxBodySink": 10.014891886970947,
+          "maxLaneLag": 0.000012874603271484375,
+          "maxBoneError": 5.684341886080802e-14,
+          "maxReachError": 0,
+          "byFoot": {
+            "2/fore-far": {
+              "soles": {
+                "n": 99,
+                "mean": 0.6602986870539657,
+                "max": 4.313371274135228
+              },
+              "anchors": {
+                "n": 99,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 99,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 99,
+                "mean": 0.0452903074099896,
+                "max": 0.15695585742519147
+              },
+              "verticalResiduals": {
+                "n": 99,
+                "mean": 0.1111111111111111,
+                "max": 1
+              }
+            },
+            "2/hind-far": {
+              "soles": {
+                "n": 115,
+                "mean": 0.3628884952810765,
+                "max": 1.4543455786237252
+              },
+              "anchors": {
+                "n": 115,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 115,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 115,
+                "mean": 0.04209912653183004,
+                "max": 0.17181219337508088
+              },
+              "verticalResiduals": {
+                "n": 115,
+                "mean": 0,
+                "max": 0
+              }
+            },
+            "2/hind-near": {
+              "soles": {
+                "n": 114,
+                "mean": 0.3170811615111736,
+                "max": 2.273259413857205
+              },
+              "anchors": {
+                "n": 114,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 114,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 114,
+                "mean": 0.010850918589231165,
+                "max": 0.03330381724044856
+              },
+              "verticalResiduals": {
+                "n": 114,
+                "mean": 0.05263157894736842,
+                "max": 1
+              }
+            },
+            "2/fore-near": {
+              "soles": {
+                "n": 95,
+                "mean": 0.1955204100493331,
+                "max": 0.6172203591879909
+              },
+              "anchors": {
+                "n": 95,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 95,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 95,
+                "mean": 0.010866385524375827,
+                "max": 0.036587635436887936
+              },
+              "verticalResiduals": {
+                "n": 95,
+                "mean": 0.021052631578947368,
+                "max": 1
+              }
+            }
+          }
+        },
+        {
+          "version": "v4",
+          "frames": 375,
+          "feet": 4,
+          "solePx": {
+            "n": 423,
+            "mean": 0.38256131995892884,
+            "max": 4.313371274135228
+          },
+          "soleVerticalResidualDeltaPx": {
+            "n": 423,
+            "mean": 0.04491725768321513,
+            "max": 1
+          },
+          "centroidPx": {
+            "n": 423,
+            "mean": 0.02741005042254721,
+            "max": 0.17181219337508088
+          },
+          "worldAnchorMetres": {
+            "n": 423,
+            "mean": 0,
+            "max": 0
+          },
+          "worldLaneDrift": {
+            "n": 423,
+            "mean": 0,
+            "max": 0
+          },
+          "maxBodyOffset": 10.000007293689038,
+          "maxBodySink": 10.014891886970947,
+          "maxLaneLag": 0.000012874603271484375,
+          "maxBoneError": 5.684341886080802e-14,
+          "maxReachError": 0,
+          "byFoot": {
+            "2/fore-far": {
+              "soles": {
+                "n": 99,
+                "mean": 0.6602986870539657,
+                "max": 4.313371274135228
+              },
+              "anchors": {
+                "n": 99,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 99,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 99,
+                "mean": 0.0452903074099896,
+                "max": 0.15695585742519147
+              },
+              "verticalResiduals": {
+                "n": 99,
+                "mean": 0.1111111111111111,
+                "max": 1
+              }
+            },
+            "2/hind-far": {
+              "soles": {
+                "n": 115,
+                "mean": 0.3628884952810765,
+                "max": 1.4543455786237252
+              },
+              "anchors": {
+                "n": 115,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 115,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 115,
+                "mean": 0.04209912653183004,
+                "max": 0.17181219337508088
+              },
+              "verticalResiduals": {
+                "n": 115,
+                "mean": 0,
+                "max": 0
+              }
+            },
+            "2/hind-near": {
+              "soles": {
+                "n": 114,
+                "mean": 0.3170811615111736,
+                "max": 2.273259413857205
+              },
+              "anchors": {
+                "n": 114,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 114,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 114,
+                "mean": 0.010850918589231165,
+                "max": 0.03330381724044856
+              },
+              "verticalResiduals": {
+                "n": 114,
+                "mean": 0.05263157894736842,
+                "max": 1
+              }
+            },
+            "2/fore-near": {
+              "soles": {
+                "n": 95,
+                "mean": 0.1955204100493331,
+                "max": 0.6172203591879909
+              },
+              "anchors": {
+                "n": 95,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 95,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 95,
+                "mean": 0.010866385524375827,
+                "max": 0.036587635436887936
+              },
+              "verticalResiduals": {
+                "n": 95,
+                "mean": 0.021052631578947368,
+                "max": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "race-18-desktop",
+      "errors": [],
+      "comparisons": {
+        "supportPoseMaxDelta": 0,
+        "bodyOffsetMaxDelta": 0,
+        "renderLaneMaxDelta": 0,
+        "stanceRasterMaxDelta": 0,
+        "flightMismatch": 0
+      },
+      "versions": [
+        {
+          "version": "v3",
+          "frames": 375,
+          "feet": 20,
+          "solePx": {
+            "n": 1832,
+            "mean": 0.2993155258735722,
+            "max": 1.8384748250280591
+          },
+          "soleVerticalResidualDeltaPx": {
+            "n": 1832,
+            "mean": 0.10589519650655022,
+            "max": 1
+          },
+          "centroidPx": {
+            "n": 1832,
+            "mean": 0.058779020002367,
+            "max": 0.388581369699775
+          },
+          "worldAnchorMetres": {
+            "n": 1832,
+            "mean": 0,
+            "max": 0
+          },
+          "worldLaneDrift": {
+            "n": 1832,
+            "mean": 0,
+            "max": 0
+          },
+          "maxBodyOffset": 10.649231689311549,
+          "maxBodySink": 16.844744065207642,
+          "maxLaneLag": 0.00003594160079956055,
+          "maxBoneError": 5.684341886080802e-14,
+          "maxReachError": 0,
+          "byFoot": {
+            "2/fore-far": {
+              "soles": {
+                "n": 96,
+                "mean": 0.3281125365514534,
+                "max": 1.4044184800860513
+              },
+              "anchors": {
+                "n": 96,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 96,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 96,
+                "mean": 0.10283431412645339,
+                "max": 0.3010993344535333
+              },
+              "verticalResiduals": {
+                "n": 96,
+                "mean": 0.19791666666666666,
+                "max": 1
+              }
+            },
+            "2/hind-far": {
+              "soles": {
+                "n": 93,
+                "mean": 0.2307540076908276,
+                "max": 0.8177661148227919
+              },
+              "anchors": {
+                "n": 93,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 93,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 93,
+                "mean": 0.10002883107928637,
+                "max": 0.27276495302753545
+              },
+              "verticalResiduals": {
+                "n": 93,
+                "mean": 0.021505376344086023,
+                "max": 1
+              }
+            },
+            "2/hind-near": {
+              "soles": {
+                "n": 90,
+                "mean": 0.2655845138295679,
+                "max": 0.9617482769484004
+              },
+              "anchors": {
+                "n": 90,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 90,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 90,
+                "mean": 0.02581162716944013,
+                "max": 0.06170583212099225
+              },
+              "verticalResiduals": {
+                "n": 90,
+                "mean": 0.1,
+                "max": 1
+              }
+            },
+            "2/fore-near": {
+              "soles": {
+                "n": 96,
+                "mean": 0.2272972955880365,
+                "max": 0.7800103923447742
+              },
+              "anchors": {
+                "n": 96,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 96,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 96,
+                "mean": 0.01403990806584906,
+                "max": 0.05740757048420159
+              },
+              "verticalResiduals": {
+                "n": 96,
+                "mean": 0.010416666666666666,
+                "max": 1
+              }
+            },
+            "10/fore-far": {
+              "soles": {
+                "n": 88,
+                "mean": 0.3594675318757221,
+                "max": 1.4406439042729957
+              },
+              "anchors": {
+                "n": 88,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 88,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 88,
+                "mean": 0.10863809941503971,
+                "max": 0.388581369699775
+              },
+              "verticalResiduals": {
+                "n": 88,
+                "mean": 0.14772727272727273,
+                "max": 1
+              }
+            },
+            "10/hind-far": {
+              "soles": {
+                "n": 91,
+                "mean": 0.36555138671396387,
+                "max": 1.6163284410904664
+              },
+              "anchors": {
+                "n": 91,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 91,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 91,
+                "mean": 0.09069574769403604,
+                "max": 0.25314012626390625
+              },
+              "verticalResiduals": {
+                "n": 91,
+                "mean": 0.04395604395604396,
+                "max": 1
+              }
+            },
+            "10/hind-near": {
+              "soles": {
+                "n": 92,
+                "mean": 0.1991966122016705,
+                "max": 0.6881610202759696
+              },
+              "anchors": {
+                "n": 92,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 92,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 92,
+                "mean": 0.0025577550928849693,
+                "max": 0.013514968890342502
+              },
+              "verticalResiduals": {
+                "n": 92,
+                "mean": 0,
+                "max": 0
+              }
+            },
+            "10/fore-near": {
+              "soles": {
+                "n": 87,
+                "mean": 0.18253303112694322,
+                "max": 0.5921540879786897
+              },
+              "anchors": {
+                "n": 87,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 87,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 87,
+                "mean": 0.0033688262584438407,
+                "max": 0.012120325024704913
+              },
+              "verticalResiduals": {
+                "n": 87,
+                "mean": 0,
+                "max": 0
+              }
+            },
+            "18/fore-far": {
+              "soles": {
+                "n": 90,
+                "mean": 0.28449746990090524,
+                "max": 1.0066794543398137
+              },
+              "anchors": {
+                "n": 90,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 90,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 90,
+                "mean": 0.11533582383482638,
+                "max": 0.33304848742377513
+              },
+              "verticalResiduals": {
+                "n": 90,
+                "mean": 0.1111111111111111,
+                "max": 1
+              }
+            },
+            "18/hind-far": {
+              "soles": {
+                "n": 91,
+                "mean": 0.2949051041112366,
+                "max": 1.255400382654078
+              },
+              "anchors": {
+                "n": 91,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 91,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 91,
+                "mean": 0.11358835469851672,
+                "max": 0.33051191093155663
+              },
+              "verticalResiduals": {
+                "n": 91,
+                "mean": 0.13186813186813187,
+                "max": 1
+              }
+            },
+            "18/hind-near": {
+              "soles": {
+                "n": 90,
+                "mean": 0.2529247162391426,
+                "max": 0.9239141608563264
+              },
+              "anchors": {
+                "n": 90,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 90,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 90,
+                "mean": 0.04202653554711208,
+                "max": 0.10481190326424415
+              },
+              "verticalResiduals": {
+                "n": 90,
+                "mean": 0.18888888888888888,
+                "max": 1
+              }
+            },
+            "18/fore-near": {
+              "soles": {
+                "n": 89,
+                "mean": 0.2575928728153968,
+                "max": 0.7789876925434548
+              },
+              "anchors": {
+                "n": 89,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 89,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 89,
+                "mean": 0.01639515616714255,
+                "max": 0.08267442858932546
+              },
+              "verticalResiduals": {
+                "n": 89,
+                "mean": 0,
+                "max": 0
+              }
+            },
+            "6/fore-far": {
+              "soles": {
+                "n": 93,
+                "mean": 0.3800710518792207,
+                "max": 1.582578596161464
+              },
+              "anchors": {
+                "n": 93,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 93,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 93,
+                "mean": 0.11694524252826406,
+                "max": 0.33190594332613693
+              },
+              "verticalResiduals": {
+                "n": 93,
+                "mean": 0.12903225806451613,
+                "max": 1
+              }
+            },
+            "6/hind-far": {
+              "soles": {
+                "n": 96,
+                "mean": 0.331236842968154,
+                "max": 1.061962408438284
+              },
+              "anchors": {
+                "n": 96,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 96,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 96,
+                "mean": 0.05342531523944988,
+                "max": 0.1576687187704691
+              },
+              "verticalResiduals": {
+                "n": 96,
+                "mean": 0.2916666666666667,
+                "max": 1
+              }
+            },
+            "6/hind-near": {
+              "soles": {
+                "n": 94,
+                "mean": 0.2612327397513029,
+                "max": 1.5061815645990448
+              },
+              "anchors": {
+                "n": 94,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 94,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 94,
+                "mean": 0.029373390951012594,
+                "max": 0.06652583702650638
+              },
+              "verticalResiduals": {
+                "n": 94,
+                "mean": 0.06382978723404255,
+                "max": 1
+              }
+            },
+            "6/fore-near": {
+              "soles": {
+                "n": 95,
+                "mean": 0.27631489043986684,
+                "max": 1.1838875145715964
+              },
+              "anchors": {
+                "n": 95,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 95,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 95,
+                "mean": 0.01667011849242933,
+                "max": 0.04761016657363561
+              },
+              "verticalResiduals": {
+                "n": 95,
+                "mean": 0.10526315789473684,
+                "max": 1
+              }
+            },
+            "14/fore-far": {
+              "soles": {
+                "n": 92,
+                "mean": 0.4625816929960295,
+                "max": 1.8384748250280591
+              },
+              "anchors": {
+                "n": 92,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 92,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 92,
+                "mean": 0.09131012350283152,
+                "max": 0.24620385891782892
+              },
+              "verticalResiduals": {
+                "n": 92,
+                "mean": 0.20652173913043478,
+                "max": 1
+              }
+            },
+            "14/hind-far": {
+              "soles": {
+                "n": 90,
+                "mean": 0.3420821529210076,
+                "max": 0.9055853397047476
+              },
+              "anchors": {
+                "n": 90,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 90,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 90,
+                "mean": 0.09056390728504843,
+                "max": 0.28847142700360534
+              },
+              "verticalResiduals": {
+                "n": 90,
+                "mean": 0.08888888888888889,
+                "max": 1
+              }
+            },
+            "14/hind-near": {
+              "soles": {
+                "n": 88,
+                "mean": 0.33572131045215203,
+                "max": 1.5015959934352152
+              },
+              "anchors": {
+                "n": 88,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 88,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 88,
+                "mean": 0.02801011810233872,
+                "max": 0.06317553959223657
+              },
+              "verticalResiduals": {
+                "n": 88,
+                "mean": 0.10227272727272728,
+                "max": 1
+              }
+            },
+            "14/fore-near": {
+              "soles": {
+                "n": 91,
+                "mean": 0.34713781213977896,
+                "max": 1.5288103321186084
+              },
+              "anchors": {
+                "n": 91,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 91,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 91,
+                "mean": 0.012875293192459192,
+                "max": 0.04613877017349064
+              },
+              "verticalResiduals": {
+                "n": 91,
+                "mean": 0.16483516483516483,
+                "max": 1
+              }
+            }
+          }
+        },
+        {
+          "version": "v4",
+          "frames": 375,
+          "feet": 20,
+          "solePx": {
+            "n": 1832,
+            "mean": 0.2993155258735722,
+            "max": 1.8384748250280591
+          },
+          "soleVerticalResidualDeltaPx": {
+            "n": 1832,
+            "mean": 0.10589519650655022,
+            "max": 1
+          },
+          "centroidPx": {
+            "n": 1832,
+            "mean": 0.058779020002367,
+            "max": 0.388581369699775
+          },
+          "worldAnchorMetres": {
+            "n": 1832,
+            "mean": 0,
+            "max": 0
+          },
+          "worldLaneDrift": {
+            "n": 1832,
+            "mean": 0,
+            "max": 0
+          },
+          "maxBodyOffset": 10.649231689311549,
+          "maxBodySink": 16.844744065207642,
+          "maxLaneLag": 0.00003594160079956055,
+          "maxBoneError": 7.105427357601002e-14,
+          "maxReachError": 0,
+          "byFoot": {
+            "2/fore-far": {
+              "soles": {
+                "n": 96,
+                "mean": 0.3281125365514534,
+                "max": 1.4044184800860513
+              },
+              "anchors": {
+                "n": 96,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 96,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 96,
+                "mean": 0.10283431412645339,
+                "max": 0.3010993344535333
+              },
+              "verticalResiduals": {
+                "n": 96,
+                "mean": 0.19791666666666666,
+                "max": 1
+              }
+            },
+            "2/hind-far": {
+              "soles": {
+                "n": 93,
+                "mean": 0.2307540076908276,
+                "max": 0.8177661148227919
+              },
+              "anchors": {
+                "n": 93,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 93,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 93,
+                "mean": 0.10002883107928637,
+                "max": 0.27276495302753545
+              },
+              "verticalResiduals": {
+                "n": 93,
+                "mean": 0.021505376344086023,
+                "max": 1
+              }
+            },
+            "2/hind-near": {
+              "soles": {
+                "n": 90,
+                "mean": 0.2655845138295679,
+                "max": 0.9617482769484004
+              },
+              "anchors": {
+                "n": 90,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 90,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 90,
+                "mean": 0.02581162716944013,
+                "max": 0.06170583212099225
+              },
+              "verticalResiduals": {
+                "n": 90,
+                "mean": 0.1,
+                "max": 1
+              }
+            },
+            "2/fore-near": {
+              "soles": {
+                "n": 96,
+                "mean": 0.2272972955880365,
+                "max": 0.7800103923447742
+              },
+              "anchors": {
+                "n": 96,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 96,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 96,
+                "mean": 0.01403990806584906,
+                "max": 0.05740757048420159
+              },
+              "verticalResiduals": {
+                "n": 96,
+                "mean": 0.010416666666666666,
+                "max": 1
+              }
+            },
+            "10/fore-far": {
+              "soles": {
+                "n": 88,
+                "mean": 0.3594675318757221,
+                "max": 1.4406439042729957
+              },
+              "anchors": {
+                "n": 88,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 88,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 88,
+                "mean": 0.10863809941503971,
+                "max": 0.388581369699775
+              },
+              "verticalResiduals": {
+                "n": 88,
+                "mean": 0.14772727272727273,
+                "max": 1
+              }
+            },
+            "10/hind-far": {
+              "soles": {
+                "n": 91,
+                "mean": 0.36555138671396387,
+                "max": 1.6163284410904664
+              },
+              "anchors": {
+                "n": 91,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 91,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 91,
+                "mean": 0.09069574769403604,
+                "max": 0.25314012626390625
+              },
+              "verticalResiduals": {
+                "n": 91,
+                "mean": 0.04395604395604396,
+                "max": 1
+              }
+            },
+            "10/hind-near": {
+              "soles": {
+                "n": 92,
+                "mean": 0.1991966122016705,
+                "max": 0.6881610202759696
+              },
+              "anchors": {
+                "n": 92,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 92,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 92,
+                "mean": 0.0025577550928849693,
+                "max": 0.013514968890342502
+              },
+              "verticalResiduals": {
+                "n": 92,
+                "mean": 0,
+                "max": 0
+              }
+            },
+            "10/fore-near": {
+              "soles": {
+                "n": 87,
+                "mean": 0.18253303112694322,
+                "max": 0.5921540879786897
+              },
+              "anchors": {
+                "n": 87,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 87,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 87,
+                "mean": 0.0033688262584438407,
+                "max": 0.012120325024704913
+              },
+              "verticalResiduals": {
+                "n": 87,
+                "mean": 0,
+                "max": 0
+              }
+            },
+            "18/fore-far": {
+              "soles": {
+                "n": 90,
+                "mean": 0.28449746990090524,
+                "max": 1.0066794543398137
+              },
+              "anchors": {
+                "n": 90,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 90,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 90,
+                "mean": 0.11533582383482638,
+                "max": 0.33304848742377513
+              },
+              "verticalResiduals": {
+                "n": 90,
+                "mean": 0.1111111111111111,
+                "max": 1
+              }
+            },
+            "18/hind-far": {
+              "soles": {
+                "n": 91,
+                "mean": 0.2949051041112366,
+                "max": 1.255400382654078
+              },
+              "anchors": {
+                "n": 91,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 91,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 91,
+                "mean": 0.11358835469851672,
+                "max": 0.33051191093155663
+              },
+              "verticalResiduals": {
+                "n": 91,
+                "mean": 0.13186813186813187,
+                "max": 1
+              }
+            },
+            "18/hind-near": {
+              "soles": {
+                "n": 90,
+                "mean": 0.2529247162391426,
+                "max": 0.9239141608563264
+              },
+              "anchors": {
+                "n": 90,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 90,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 90,
+                "mean": 0.04202653554711208,
+                "max": 0.10481190326424415
+              },
+              "verticalResiduals": {
+                "n": 90,
+                "mean": 0.18888888888888888,
+                "max": 1
+              }
+            },
+            "18/fore-near": {
+              "soles": {
+                "n": 89,
+                "mean": 0.2575928728153968,
+                "max": 0.7789876925434548
+              },
+              "anchors": {
+                "n": 89,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 89,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 89,
+                "mean": 0.01639515616714255,
+                "max": 0.08267442858932546
+              },
+              "verticalResiduals": {
+                "n": 89,
+                "mean": 0,
+                "max": 0
+              }
+            },
+            "6/fore-far": {
+              "soles": {
+                "n": 93,
+                "mean": 0.3800710518792207,
+                "max": 1.582578596161464
+              },
+              "anchors": {
+                "n": 93,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 93,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 93,
+                "mean": 0.11694524252826406,
+                "max": 0.33190594332613693
+              },
+              "verticalResiduals": {
+                "n": 93,
+                "mean": 0.12903225806451613,
+                "max": 1
+              }
+            },
+            "6/hind-far": {
+              "soles": {
+                "n": 96,
+                "mean": 0.331236842968154,
+                "max": 1.061962408438284
+              },
+              "anchors": {
+                "n": 96,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 96,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 96,
+                "mean": 0.05342531523944988,
+                "max": 0.1576687187704691
+              },
+              "verticalResiduals": {
+                "n": 96,
+                "mean": 0.2916666666666667,
+                "max": 1
+              }
+            },
+            "6/hind-near": {
+              "soles": {
+                "n": 94,
+                "mean": 0.2612327397513029,
+                "max": 1.5061815645990448
+              },
+              "anchors": {
+                "n": 94,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 94,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 94,
+                "mean": 0.029373390951012594,
+                "max": 0.06652583702650638
+              },
+              "verticalResiduals": {
+                "n": 94,
+                "mean": 0.06382978723404255,
+                "max": 1
+              }
+            },
+            "6/fore-near": {
+              "soles": {
+                "n": 95,
+                "mean": 0.27631489043986684,
+                "max": 1.1838875145715964
+              },
+              "anchors": {
+                "n": 95,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 95,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 95,
+                "mean": 0.01667011849242933,
+                "max": 0.04761016657363561
+              },
+              "verticalResiduals": {
+                "n": 95,
+                "mean": 0.10526315789473684,
+                "max": 1
+              }
+            },
+            "14/fore-far": {
+              "soles": {
+                "n": 92,
+                "mean": 0.4625816929960295,
+                "max": 1.8384748250280591
+              },
+              "anchors": {
+                "n": 92,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 92,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 92,
+                "mean": 0.09131012350283152,
+                "max": 0.24620385891782892
+              },
+              "verticalResiduals": {
+                "n": 92,
+                "mean": 0.20652173913043478,
+                "max": 1
+              }
+            },
+            "14/hind-far": {
+              "soles": {
+                "n": 90,
+                "mean": 0.3420821529210076,
+                "max": 0.9055853397047476
+              },
+              "anchors": {
+                "n": 90,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 90,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 90,
+                "mean": 0.09056390728504843,
+                "max": 0.28847142700360534
+              },
+              "verticalResiduals": {
+                "n": 90,
+                "mean": 0.08888888888888889,
+                "max": 1
+              }
+            },
+            "14/hind-near": {
+              "soles": {
+                "n": 88,
+                "mean": 0.33572131045215203,
+                "max": 1.5015959934352152
+              },
+              "anchors": {
+                "n": 88,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 88,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 88,
+                "mean": 0.02801011810233872,
+                "max": 0.06317553959223657
+              },
+              "verticalResiduals": {
+                "n": 88,
+                "mean": 0.10227272727272728,
+                "max": 1
+              }
+            },
+            "14/fore-near": {
+              "soles": {
+                "n": 91,
+                "mean": 0.34713781213977896,
+                "max": 1.5288103321186084
+              },
+              "anchors": {
+                "n": 91,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 91,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 91,
+                "mean": 0.012875293192459192,
+                "max": 0.04613877017349064
+              },
+              "verticalResiduals": {
+                "n": 91,
+                "mean": 0.16483516483516483,
+                "max": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "race-18-mobile",
+      "errors": [],
+      "comparisons": {
+        "supportPoseMaxDelta": 0,
+        "bodyOffsetMaxDelta": 0,
+        "renderLaneMaxDelta": 0,
+        "stanceRasterMaxDelta": 0,
+        "flightMismatch": 0
+      },
+      "versions": [
+        {
+          "version": "v3",
+          "frames": 250,
+          "feet": 20,
+          "solePx": {
+            "n": 1231,
+            "mean": 0.20659485398434535,
+            "max": 0.943112856336704
+          },
+          "soleVerticalResidualDeltaPx": {
+            "n": 1231,
+            "mean": 0.06498781478472786,
+            "max": 1
+          },
+          "centroidPx": {
+            "n": 1231,
+            "mean": 0.07637662245643471,
+            "max": 0.47711551113740996
+          },
+          "worldAnchorMetres": {
+            "n": 1231,
+            "mean": 0,
+            "max": 0
+          },
+          "worldLaneDrift": {
+            "n": 1231,
+            "mean": 0,
+            "max": 0
+          },
+          "maxBodyOffset": 12.326240757854364,
+          "maxBodySink": 17.83732808936509,
+          "maxLaneLag": 0.000021457672119140625,
+          "maxBoneError": 5.684341886080802e-14,
+          "maxReachError": 0,
+          "byFoot": {
+            "2/fore-far": {
+              "soles": {
+                "n": 63,
+                "mean": 0.22710408089663936,
+                "max": 0.9034298738527683
+              },
+              "anchors": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 63,
+                "mean": 0.12855781793759918,
+                "max": 0.35899479996844813
+              },
+              "verticalResiduals": {
+                "n": 63,
+                "mean": 0.15873015873015872,
+                "max": 1
+              }
+            },
+            "2/hind-far": {
+              "soles": {
+                "n": 64,
+                "mean": 0.18768135287008283,
+                "max": 0.6733355377351662
+              },
+              "anchors": {
+                "n": 64,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 64,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 64,
+                "mean": 0.07470430428035113,
+                "max": 0.3772454534478307
+              },
+              "verticalResiduals": {
+                "n": 64,
+                "mean": 0.078125,
+                "max": 1
+              }
+            },
+            "2/hind-near": {
+              "soles": {
+                "n": 63,
+                "mean": 0.20647758685338508,
+                "max": 0.6987094453908175
+              },
+              "anchors": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 63,
+                "mean": 0.03742019529907375,
+                "max": 0.08705504453156993
+              },
+              "verticalResiduals": {
+                "n": 63,
+                "mean": 0.047619047619047616,
+                "max": 1
+              }
+            },
+            "2/fore-near": {
+              "soles": {
+                "n": 64,
+                "mean": 0.16866052525071587,
+                "max": 0.4370849864289505
+              },
+              "anchors": {
+                "n": 64,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 64,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 64,
+                "mean": 0.042229058742651676,
+                "max": 0.09175789775406128
+              },
+              "verticalResiduals": {
+                "n": 64,
+                "mean": 0,
+                "max": 0
+              }
+            },
+            "10/fore-far": {
+              "soles": {
+                "n": 64,
+                "mean": 0.30284567663396816,
+                "max": 0.852720142695175
+              },
+              "anchors": {
+                "n": 64,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 64,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 64,
+                "mean": 0.13961945199296696,
+                "max": 0.47711551113740996
+              },
+              "verticalResiduals": {
+                "n": 64,
+                "mean": 0.15625,
+                "max": 1
+              }
+            },
+            "10/hind-far": {
+              "soles": {
+                "n": 60,
+                "mean": 0.1984546402433027,
+                "max": 0.5931128563366733
+              },
+              "anchors": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 60,
+                "mean": 0.11288436631712459,
+                "max": 0.35461915183546133
+              },
+              "verticalResiduals": {
+                "n": 60,
+                "mean": 0.05,
+                "max": 1
+              }
+            },
+            "10/hind-near": {
+              "soles": {
+                "n": 60,
+                "mean": 0.15984782969441957,
+                "max": 0.657484214878041
+              },
+              "anchors": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 60,
+                "mean": 0.036052242668389835,
+                "max": 0.07983252117967357
+              },
+              "verticalResiduals": {
+                "n": 60,
+                "mean": 0.05,
+                "max": 1
+              }
+            },
+            "10/fore-near": {
+              "soles": {
+                "n": 62,
+                "mean": 0.1978383108008302,
+                "max": 0.48464442754318715
+              },
+              "anchors": {
+                "n": 62,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 62,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 62,
+                "mean": 0.04015079430750928,
+                "max": 0.08449884693284221
+              },
+              "verticalResiduals": {
+                "n": 62,
+                "mean": 0.03225806451612903,
+                "max": 1
+              }
+            },
+            "18/fore-far": {
+              "soles": {
+                "n": 59,
+                "mean": 0.19357222472012175,
+                "max": 0.5475698190853309
+              },
+              "anchors": {
+                "n": 59,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 59,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 59,
+                "mean": 0.1496686997873165,
+                "max": 0.47637703708255336
+              },
+              "verticalResiduals": {
+                "n": 59,
+                "mean": 0.01694915254237288,
+                "max": 1
+              }
+            },
+            "18/hind-far": {
+              "soles": {
+                "n": 63,
+                "mean": 0.20226180766786764,
+                "max": 0.6591381837531562
+              },
+              "anchors": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 63,
+                "mean": 0.12207744515095306,
+                "max": 0.4546554233317573
+              },
+              "verticalResiduals": {
+                "n": 63,
+                "mean": 0.15873015873015872,
+                "max": 1
+              }
+            },
+            "18/hind-near": {
+              "soles": {
+                "n": 61,
+                "mean": 0.21289897835039018,
+                "max": 0.7440107108719918
+              },
+              "anchors": {
+                "n": 61,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 61,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 61,
+                "mean": 0.04074244430413632,
+                "max": 0.09154702765133026
+              },
+              "verticalResiduals": {
+                "n": 61,
+                "mean": 0.03278688524590164,
+                "max": 1
+              }
+            },
+            "18/fore-near": {
+              "soles": {
+                "n": 60,
+                "mean": 0.15667342059780345,
+                "max": 0.41533781657145086
+              },
+              "anchors": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 60,
+                "mean": 0.045409160513240024,
+                "max": 0.10167919352230385
+              },
+              "verticalResiduals": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              }
+            },
+            "6/fore-far": {
+              "soles": {
+                "n": 61,
+                "mean": 0.27320657965309425,
+                "max": 0.8141976652208246
+              },
+              "anchors": {
+                "n": 61,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 61,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 61,
+                "mean": 0.12230283229190195,
+                "max": 0.36302428583483626
+              },
+              "verticalResiduals": {
+                "n": 61,
+                "mean": 0.19672131147540983,
+                "max": 1
+              }
+            },
+            "6/hind-far": {
+              "soles": {
+                "n": 60,
+                "mean": 0.18039434746668875,
+                "max": 0.6259496284786613
+              },
+              "anchors": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 60,
+                "mean": 0.10463500183323154,
+                "max": 0.4384727320061324
+              },
+              "verticalResiduals": {
+                "n": 60,
+                "mean": 0.05,
+                "max": 1
+              }
+            },
+            "6/hind-near": {
+              "soles": {
+                "n": 63,
+                "mean": 0.21113865035428434,
+                "max": 0.7618045065243297
+              },
+              "anchors": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 63,
+                "mean": 0.022298248608123652,
+                "max": 0.052426053688304934
+              },
+              "verticalResiduals": {
+                "n": 63,
+                "mean": 0.06349206349206349,
+                "max": 1
+              }
+            },
+            "6/fore-near": {
+              "soles": {
+                "n": 63,
+                "mean": 0.1970741884478153,
+                "max": 0.5339878495605641
+              },
+              "anchors": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 63,
+                "mean": 0.02300623013202246,
+                "max": 0.04962457111447229
+              },
+              "verticalResiduals": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              }
+            },
+            "14/fore-far": {
+              "soles": {
+                "n": 60,
+                "mean": 0.2415779597820077,
+                "max": 0.943112856336704
+              },
+              "anchors": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 60,
+                "mean": 0.13839502597863615,
+                "max": 0.3349592903116635
+              },
+              "verticalResiduals": {
+                "n": 60,
+                "mean": 0.1,
+                "max": 1
+              }
+            },
+            "14/hind-far": {
+              "soles": {
+                "n": 61,
+                "mean": 0.22346085764194923,
+                "max": 0.7057957471378491
+              },
+              "anchors": {
+                "n": 61,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 61,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 61,
+                "mean": 0.10181677500734425,
+                "max": 0.3914504500378722
+              },
+              "verticalResiduals": {
+                "n": 61,
+                "mean": 0.09836065573770492,
+                "max": 1
+              }
+            },
+            "14/hind-near": {
+              "soles": {
+                "n": 59,
+                "mean": 0.1975662388160871,
+                "max": 0.6313229895684165
+              },
+              "anchors": {
+                "n": 59,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 59,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 59,
+                "mean": 0.02353797405763284,
+                "max": 0.04990822425961874
+              },
+              "verticalResiduals": {
+                "n": 59,
+                "mean": 0,
+                "max": 0
+              }
+            },
+            "14/fore-near": {
+              "soles": {
+                "n": 61,
+                "mean": 0.18870698548938106,
+                "max": 0.7635996749071192
+              },
+              "anchors": {
+                "n": 61,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 61,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 61,
+                "mean": 0.024440820548163246,
+                "max": 0.05590802608209363
+              },
+              "verticalResiduals": {
+                "n": 61,
+                "mean": 0,
+                "max": 0
+              }
+            }
+          }
+        },
+        {
+          "version": "v4",
+          "frames": 250,
+          "feet": 20,
+          "solePx": {
+            "n": 1231,
+            "mean": 0.20659485398434535,
+            "max": 0.943112856336704
+          },
+          "soleVerticalResidualDeltaPx": {
+            "n": 1231,
+            "mean": 0.06498781478472786,
+            "max": 1
+          },
+          "centroidPx": {
+            "n": 1231,
+            "mean": 0.07637662245643471,
+            "max": 0.47711551113740996
+          },
+          "worldAnchorMetres": {
+            "n": 1231,
+            "mean": 0,
+            "max": 0
+          },
+          "worldLaneDrift": {
+            "n": 1231,
+            "mean": 0,
+            "max": 0
+          },
+          "maxBodyOffset": 12.326240757854364,
+          "maxBodySink": 17.83732808936509,
+          "maxLaneLag": 0.000021457672119140625,
+          "maxBoneError": 5.684341886080802e-14,
+          "maxReachError": 0,
+          "byFoot": {
+            "2/fore-far": {
+              "soles": {
+                "n": 63,
+                "mean": 0.22710408089663936,
+                "max": 0.9034298738527683
+              },
+              "anchors": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 63,
+                "mean": 0.12855781793759918,
+                "max": 0.35899479996844813
+              },
+              "verticalResiduals": {
+                "n": 63,
+                "mean": 0.15873015873015872,
+                "max": 1
+              }
+            },
+            "2/hind-far": {
+              "soles": {
+                "n": 64,
+                "mean": 0.18768135287008283,
+                "max": 0.6733355377351662
+              },
+              "anchors": {
+                "n": 64,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 64,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 64,
+                "mean": 0.07470430428035113,
+                "max": 0.3772454534478307
+              },
+              "verticalResiduals": {
+                "n": 64,
+                "mean": 0.078125,
+                "max": 1
+              }
+            },
+            "2/hind-near": {
+              "soles": {
+                "n": 63,
+                "mean": 0.20647758685338508,
+                "max": 0.6987094453908175
+              },
+              "anchors": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 63,
+                "mean": 0.03742019529907375,
+                "max": 0.08705504453156993
+              },
+              "verticalResiduals": {
+                "n": 63,
+                "mean": 0.047619047619047616,
+                "max": 1
+              }
+            },
+            "2/fore-near": {
+              "soles": {
+                "n": 64,
+                "mean": 0.16866052525071587,
+                "max": 0.4370849864289505
+              },
+              "anchors": {
+                "n": 64,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 64,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 64,
+                "mean": 0.042229058742651676,
+                "max": 0.09175789775406128
+              },
+              "verticalResiduals": {
+                "n": 64,
+                "mean": 0,
+                "max": 0
+              }
+            },
+            "10/fore-far": {
+              "soles": {
+                "n": 64,
+                "mean": 0.30284567663396816,
+                "max": 0.852720142695175
+              },
+              "anchors": {
+                "n": 64,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 64,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 64,
+                "mean": 0.13961945199296696,
+                "max": 0.47711551113740996
+              },
+              "verticalResiduals": {
+                "n": 64,
+                "mean": 0.15625,
+                "max": 1
+              }
+            },
+            "10/hind-far": {
+              "soles": {
+                "n": 60,
+                "mean": 0.1984546402433027,
+                "max": 0.5931128563366733
+              },
+              "anchors": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 60,
+                "mean": 0.11288436631712459,
+                "max": 0.35461915183546133
+              },
+              "verticalResiduals": {
+                "n": 60,
+                "mean": 0.05,
+                "max": 1
+              }
+            },
+            "10/hind-near": {
+              "soles": {
+                "n": 60,
+                "mean": 0.15984782969441957,
+                "max": 0.657484214878041
+              },
+              "anchors": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 60,
+                "mean": 0.036052242668389835,
+                "max": 0.07983252117967357
+              },
+              "verticalResiduals": {
+                "n": 60,
+                "mean": 0.05,
+                "max": 1
+              }
+            },
+            "10/fore-near": {
+              "soles": {
+                "n": 62,
+                "mean": 0.1978383108008302,
+                "max": 0.48464442754318715
+              },
+              "anchors": {
+                "n": 62,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 62,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 62,
+                "mean": 0.04015079430750928,
+                "max": 0.08449884693284221
+              },
+              "verticalResiduals": {
+                "n": 62,
+                "mean": 0.03225806451612903,
+                "max": 1
+              }
+            },
+            "18/fore-far": {
+              "soles": {
+                "n": 59,
+                "mean": 0.19357222472012175,
+                "max": 0.5475698190853309
+              },
+              "anchors": {
+                "n": 59,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 59,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 59,
+                "mean": 0.1496686997873165,
+                "max": 0.47637703708255336
+              },
+              "verticalResiduals": {
+                "n": 59,
+                "mean": 0.01694915254237288,
+                "max": 1
+              }
+            },
+            "18/hind-far": {
+              "soles": {
+                "n": 63,
+                "mean": 0.20226180766786764,
+                "max": 0.6591381837531562
+              },
+              "anchors": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 63,
+                "mean": 0.12207744515095306,
+                "max": 0.4546554233317573
+              },
+              "verticalResiduals": {
+                "n": 63,
+                "mean": 0.15873015873015872,
+                "max": 1
+              }
+            },
+            "18/hind-near": {
+              "soles": {
+                "n": 61,
+                "mean": 0.21289897835039018,
+                "max": 0.7440107108719918
+              },
+              "anchors": {
+                "n": 61,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 61,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 61,
+                "mean": 0.04074244430413632,
+                "max": 0.09154702765133026
+              },
+              "verticalResiduals": {
+                "n": 61,
+                "mean": 0.03278688524590164,
+                "max": 1
+              }
+            },
+            "18/fore-near": {
+              "soles": {
+                "n": 60,
+                "mean": 0.15667342059780345,
+                "max": 0.41533781657145086
+              },
+              "anchors": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 60,
+                "mean": 0.045409160513240024,
+                "max": 0.10167919352230385
+              },
+              "verticalResiduals": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              }
+            },
+            "6/fore-far": {
+              "soles": {
+                "n": 61,
+                "mean": 0.27320657965309425,
+                "max": 0.8141976652208246
+              },
+              "anchors": {
+                "n": 61,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 61,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 61,
+                "mean": 0.12230283229190195,
+                "max": 0.36302428583483626
+              },
+              "verticalResiduals": {
+                "n": 61,
+                "mean": 0.19672131147540983,
+                "max": 1
+              }
+            },
+            "6/hind-far": {
+              "soles": {
+                "n": 60,
+                "mean": 0.18039434746668875,
+                "max": 0.6259496284786613
+              },
+              "anchors": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 60,
+                "mean": 0.10463500183323154,
+                "max": 0.4384727320061324
+              },
+              "verticalResiduals": {
+                "n": 60,
+                "mean": 0.05,
+                "max": 1
+              }
+            },
+            "6/hind-near": {
+              "soles": {
+                "n": 63,
+                "mean": 0.21113865035428434,
+                "max": 0.7618045065243297
+              },
+              "anchors": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 63,
+                "mean": 0.022298248608123652,
+                "max": 0.052426053688304934
+              },
+              "verticalResiduals": {
+                "n": 63,
+                "mean": 0.06349206349206349,
+                "max": 1
+              }
+            },
+            "6/fore-near": {
+              "soles": {
+                "n": 63,
+                "mean": 0.1970741884478153,
+                "max": 0.5339878495605641
+              },
+              "anchors": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 63,
+                "mean": 0.02300623013202246,
+                "max": 0.04962457111447229
+              },
+              "verticalResiduals": {
+                "n": 63,
+                "mean": 0,
+                "max": 0
+              }
+            },
+            "14/fore-far": {
+              "soles": {
+                "n": 60,
+                "mean": 0.2415779597820077,
+                "max": 0.943112856336704
+              },
+              "anchors": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 60,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 60,
+                "mean": 0.13839502597863615,
+                "max": 0.3349592903116635
+              },
+              "verticalResiduals": {
+                "n": 60,
+                "mean": 0.1,
+                "max": 1
+              }
+            },
+            "14/hind-far": {
+              "soles": {
+                "n": 61,
+                "mean": 0.22346085764194923,
+                "max": 0.7057957471378491
+              },
+              "anchors": {
+                "n": 61,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 61,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 61,
+                "mean": 0.10181677500734425,
+                "max": 0.3914504500378722
+              },
+              "verticalResiduals": {
+                "n": 61,
+                "mean": 0.09836065573770492,
+                "max": 1
+              }
+            },
+            "14/hind-near": {
+              "soles": {
+                "n": 59,
+                "mean": 0.1975662388160871,
+                "max": 0.6313229895684165
+              },
+              "anchors": {
+                "n": 59,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 59,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 59,
+                "mean": 0.02353797405763284,
+                "max": 0.04990822425961874
+              },
+              "verticalResiduals": {
+                "n": 59,
+                "mean": 0,
+                "max": 0
+              }
+            },
+            "14/fore-near": {
+              "soles": {
+                "n": 61,
+                "mean": 0.18870698548938106,
+                "max": 0.7635996749071192
+              },
+              "anchors": {
+                "n": 61,
+                "mean": 0,
+                "max": 0
+              },
+              "lanes": {
+                "n": 61,
+                "mean": 0,
+                "max": 0
+              },
+              "centroids": {
+                "n": 61,
+                "mean": 0.024440820548163246,
+                "max": 0.05590802608209363
+              },
+              "verticalResiduals": {
+                "n": 61,
+                "mean": 0,
+                "max": 0
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

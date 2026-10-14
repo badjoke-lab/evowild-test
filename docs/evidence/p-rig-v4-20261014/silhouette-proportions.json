@@ -1,0 +1,52 @@
+[
+  {
+    "name": "canonical",
+    "alphaBounds": {
+      "x": 2,
+      "y": 0,
+      "width": 205,
+      "height": 163
+    },
+    "heightToWidth": 0.7951219512195122
+  },
+  {
+    "name": "v3-rest",
+    "alphaBounds": {
+      "x": 50,
+      "y": 60,
+      "width": 316,
+      "height": 236
+    },
+    "heightToWidth": 0.7468354430379747
+  },
+  {
+    "name": "v3-run",
+    "alphaBounds": {
+      "x": 50,
+      "y": 60,
+      "width": 315,
+      "height": 236
+    },
+    "heightToWidth": 0.7492063492063492
+  },
+  {
+    "name": "v4-rest",
+    "alphaBounds": {
+      "x": 50,
+      "y": 60,
+      "width": 316,
+      "height": 236
+    },
+    "heightToWidth": 0.7468354430379747
+  },
+  {
+    "name": "v4-run",
+    "alphaBounds": {
+      "x": 50,
+      "y": 60,
+      "width": 315,
+      "height": 236
+    },
+    "heightToWidth": 0.7492063492063492
+  }
+]

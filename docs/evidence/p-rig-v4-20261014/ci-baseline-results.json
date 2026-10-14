@@ -1,0 +1,19 @@
+{
+  "sha": "6025245731c2484bfaab5e2817f06cc8e804716a",
+  "runId": 38396008468,
+  "url": "https://github.com/badjoke-lab/evowild-test/actions/runs/38396008468",
+  "conclusion": "failure",
+  "build": "success",
+  "e2e": {
+    "passed": 43,
+    "skipped": 81,
+    "failed": 0
+  },
+  "motionFirstCapture": {
+    "passed": 37,
+    "skipped": 1,
+    "failed": 1,
+    "failure": "tests/motion-first.spec.js:1735 balanced 1600 course field ordering; assertion at 1779",
+    "scope": "3D, unchanged"
+  }
+}

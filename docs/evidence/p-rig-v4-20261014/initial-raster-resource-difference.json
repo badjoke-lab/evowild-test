@@ -1,0 +1,73 @@
+{
+  "stage": "Initial duplicate URL experiment; superseded by shared v3 foot resource",
+  "comparisons": {
+    "supportPoseMaxDelta": 0,
+    "bodyOffsetMaxDelta": 0,
+    "renderLaneMaxDelta": 0,
+    "stanceRasterMaxDelta": 0.9090909090908781,
+    "flightMismatch": 0
+  },
+  "versions": [
+    {
+      "version": "v3",
+      "frames": 375,
+      "feet": 20,
+      "solePx": {
+        "n": 1832,
+        "mean": 0.29848144175834196,
+        "max": 1.8384748250280591
+      },
+      "centroidPx": {
+        "n": 1832,
+        "mean": 0.05875861045360958,
+        "max": 0.388581369699775
+      },
+      "worldAnchorMetres": {
+        "n": 1832,
+        "mean": 0,
+        "max": 0
+      },
+      "worldLaneDrift": {
+        "n": 1832,
+        "mean": 0,
+        "max": 0
+      },
+      "maxBodyOffset": 10.649231689311549,
+      "maxBodySink": 16.844744065207642,
+      "maxLaneLag": 3.594160079956055e-05,
+      "maxBoneError": 5.684341886080802e-14,
+      "maxReachError": 0
+    },
+    {
+      "version": "v4",
+      "frames": 375,
+      "feet": 20,
+      "solePx": {
+        "n": 1832,
+        "mean": 0.2993155258735722,
+        "max": 1.8384748250280591
+      },
+      "centroidPx": {
+        "n": 1832,
+        "mean": 0.058779020002367,
+        "max": 0.388581369699775
+      },
+      "worldAnchorMetres": {
+        "n": 1832,
+        "mean": 0,
+        "max": 0
+      },
+      "worldLaneDrift": {
+        "n": 1832,
+        "mean": 0,
+        "max": 0
+      },
+      "maxBodyOffset": 10.649231689311549,
+      "maxBodySink": 16.844744065207642,
+      "maxLaneLag": 3.594160079956055e-05,
+      "maxBoneError": 7.105427357601002e-14,
+      "maxReachError": 0
+    }
+  ],
+  "supportMoved": false
+}
