@@ -1,0 +1,100 @@
+{
+  "actualReimportMeshes": 2,
+  "views": [
+    {
+      "view": "SIDE",
+      "sourceGLB": "public/models/evowild-p/p-canonical-v7b-rescue.glb",
+      "GLBSHA256": "98fea45a796c70364ee0ea9302c7df5a6257a3dd3616da1c893e48c2c4dbaa46",
+      "render": "SIDE.png",
+      "engine": "CYCLES",
+      "samples": 12,
+      "cameraLocation": [
+        0.0,
+        -10.0,
+        2.1500000953674316
+      ],
+      "cameraRotation": [
+        1.518843173980713,
+        -2.75565792406951e-10,
+        0.001999997068196535
+      ],
+      "orthographicScale": 4.849999904632568
+    },
+    {
+      "view": "FRONT",
+      "sourceGLB": "public/models/evowild-p/p-canonical-v7b-rescue.glb",
+      "GLBSHA256": "98fea45a796c70364ee0ea9302c7df5a6257a3dd3616da1c893e48c2c4dbaa46",
+      "render": "FRONT.png",
+      "engine": "CYCLES",
+      "samples": 12,
+      "cameraLocation": [
+        -10.0,
+        0.0,
+        2.1500000953674316
+      ],
+      "cameraRotation": [
+        1.5187392234802246,
+        5.803320846098359e-08,
+        -1.5707963705062866
+      ],
+      "orthographicScale": 4.849999904632568
+    },
+    {
+      "view": "FRONT34",
+      "sourceGLB": "public/models/evowild-p/p-canonical-v7b-rescue.glb",
+      "GLBSHA256": "98fea45a796c70364ee0ea9302c7df5a6257a3dd3616da1c893e48c2c4dbaa46",
+      "render": "FRONT34.png",
+      "engine": "CYCLES",
+      "samples": 12,
+      "cameraLocation": [
+        -6.0,
+        -10.0,
+        3.4000000953674316
+      ],
+      "cameraRotation": [
+        1.4200389385223389,
+        -5.84028647665491e-09,
+        -0.5389477014541626
+      ],
+      "orthographicScale": 4.849999904632568
+    },
+    {
+      "view": "REAR34",
+      "sourceGLB": "public/models/evowild-p/p-canonical-v7b-rescue.glb",
+      "GLBSHA256": "98fea45a796c70364ee0ea9302c7df5a6257a3dd3616da1c893e48c2c4dbaa46",
+      "render": "REAR34.png",
+      "engine": "CYCLES",
+      "samples": 12,
+      "cameraLocation": [
+        6.0,
+        -10.0,
+        3.4000000953674316
+      ],
+      "cameraRotation": [
+        1.4203007221221924,
+        -7.21899482414301e-08,
+        0.541888952255249
+      ],
+      "orthographicScale": 4.849999904632568
+    },
+    {
+      "view": "BACK",
+      "sourceGLB": "public/models/evowild-p/p-canonical-v7b-rescue.glb",
+      "GLBSHA256": "98fea45a796c70364ee0ea9302c7df5a6257a3dd3616da1c893e48c2c4dbaa46",
+      "render": "BACK.png",
+      "engine": "CYCLES",
+      "samples": 12,
+      "cameraLocation": [
+        10.0,
+        0.0,
+        2.1500000953674316
+      ],
+      "cameraRotation": [
+        1.518946647644043,
+        6.112968975457989e-08,
+        1.5707963705062866
+      ],
+      "orthographicScale": 4.849999904632568
+    }
+  ]
+}
