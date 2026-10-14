@@ -118,6 +118,33 @@ try:
     result=inspect_mesh(copy)
     tail_stats['booleanResult']=result
     if result['components']==1 and result['nonManifold']==0 and result['boundary']==0:
+        # The exact Boolean weld appends tail loops without the body's painted
+        # vertex colors. Assign a deliberate tail palette on those new loops,
+        # or Blender exports a bright unpainted (white) tail.
+        painted=next((m for m in copy.data.materials if m.node_tree and
+          any(n.type=='VERTEX_COLOR' for n in m.node_tree.nodes)),None)
+        if painted is None:
+            painted=body.data.materials[0]
+        pigment=copy.data.color_attributes.get('P_v7_color')
+        assert pigment is not None, 'Boolean unexpectedly erased vertex-color channel'
+        loops_painted=0
+        for polygon in copy.data.polygons:
+            for li in polygon.loop_indices:
+                v=copy.data.vertices[copy.data.loops[li].vertex_index]
+                x,y,z=v.co
+                if x>1.03 and 1.25<z<1.95 and abs(y)<.38:
+                    # Dorsal crimson/lateral maroon/underside slate.
+                    upper=max(0.,min(1.,(z-1.43)/.25))
+                    rust=(.19,.038,.032)
+                    slate=(.065,.086,.117)
+                    color=tuple((1-upper)*slate[i]+upper*rust[i] for i in range(3))
+                    pigment.data[li].color=(*color,1.0)
+                    loops_painted+=1
+            polygon.material_index=0
+        copy.data.materials.clear()
+        copy.data.materials.append(painted)
+        tail_stats['tailColorLoopsPainted']=loops_painted
+        assert loops_painted>80,('tail paint coverage missing',loops_painted)
         # Keep the v7 editable body in the source, export the welded mesh.
         copy['relation']='static boolean of real v7b torso and corrected root'
         tail_stats['booleanJoined']=True
