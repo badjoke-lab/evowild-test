@@ -1,0 +1,61 @@
+name: P 3D v7b independent rescue static build
+on:
+  push:
+    branches:
+      - exp/p-3d-rescue-20261014
+    paths:
+      - .github/workflows/p-v7b-rescue.yml
+permissions:
+  contents: write
+jobs:
+  author-and-validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Install pinned Blender 4.3.2
+        run: |
+          curl -fL --retry 3 --retry-delay 5 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o "$RUNNER_TEMP/blender.tar.xz"
+          tar -xJf "$RUNNER_TEMP/blender.tar.xz" -C "$RUNNER_TEMP"
+          echo "BLENDER=$RUNNER_TEMP/blender-4.3.2-linux-x64/blender" >> "$GITHUB_ENV"
+          python3 -m pip install Pillow
+      - name: Sculpt from saved v7 Blender file and export static rescue GLB
+        run: |
+          "$BLENDER" -b -t 4 --python scripts/modeling/build-p-v7b-rescue.py
+          test -s art/p-creature/workspaces/P-v7b-rescue-static.blend
+          test -s public/models/evowild-p/p-canonical-v7b-rescue.glb
+          python3 -c "import json; x=json.load(open('docs/evidence/p-canonical-3d-v7b-rescue-20261014/AUTHORING.json')); assert x['sourceManifold']['components']==1 and x['sourceManifold']['nonManifold']==0; assert x['sculpt']['verticesTouched']>100"
+      - name: Reimport delivered GLB, render five views and package canonical comparison
+        run: |
+          "$BLENDER" -b -t 4 --python scripts/modeling/render-p-v7b-rescue.py
+          python3 scripts/modeling/package-p-v7b-rescue.py
+          test -s docs/evidence/p-canonical-3d-v7b-rescue-20261014/canonical-v7-v7b-comparison.webp
+          test -s docs/evidence/p-canonical-3d-v7b-rescue-20261014/five-views.webp
+      - name: Commit only genuine generated rescue assets to the isolated branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add art/p-creature/workspaces/P-v7b-rescue-static.blend \
+            public/models/evowild-p/p-canonical-v7b-rescue.glb \
+            public/models/evowild-p/manifest-v7b-rescue.json \
+            docs/evidence/p-canonical-3d-v7b-rescue-20261014/
+          git diff --cached --check
+          if ! git diff --cached --quiet; then
+            git commit -m "model(p): preserve generated standalone v7b GLB blend and five-view evidence [unapproved]"
+            git fetch origin "refs/heads/$GITHUB_REF_NAME"
+            git rebase FETCH_HEAD
+            git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          fi
+      - name: Preserve actual assets on build or push failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p-v7b-independent-rescue-raw-assets
+          path: |
+            art/p-creature/workspaces/P-v7b-rescue-static.blend
+            public/models/evowild-p/p-canonical-v7b-rescue.glb
+            public/models/evowild-p/manifest-v7b-rescue.json
+            docs/evidence/p-canonical-3d-v7b-rescue-20261014/
+          if-no-files-found: warn
