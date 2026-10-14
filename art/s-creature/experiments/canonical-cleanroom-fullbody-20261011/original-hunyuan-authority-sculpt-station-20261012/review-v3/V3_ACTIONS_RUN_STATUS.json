@@ -1,0 +1,63 @@
+{
+  "result": "API_READ_OK",
+  "target_sha": "c87267c6f5556a290be993853af652587fae2eba",
+  "observed_at": "2026-10-14T03:01:29.631492+00:00",
+  "runs": [
+    {
+      "id": 38503887704,
+      "run_number": 1,
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/badjoke-lab/evowild-test/actions/runs/38503887704",
+      "head_sha": "c87267c6f5556a290be993853af652587fae2eba",
+      "created_at": "2026-10-14T02:59:07Z",
+      "updated_at": "2026-10-14T03:01:16Z",
+      "jobs": [
+        {
+          "id": 115656831565,
+          "name": "diagnose-edit-save-render",
+          "status": "completed",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Install Blender 4.3.2 and image comparison dependencies",
+              "conclusion": "success"
+            },
+            {
+              "name": "Inspect V2 shoulder notch mesh and sculpt protected V3 candidate",
+              "conclusion": "success"
+            },
+            {
+              "name": "Four-way actual Blender render comparisons with official image",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/upload-artifact@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Commit unapproved V3 candidate and original Blender evidence to branch",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
