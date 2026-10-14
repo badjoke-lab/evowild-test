@@ -1,0 +1,63 @@
+name: S Hunyuan V3 Actions result evidence
+on:
+  push:
+    branches: [exp/s-hunyuan-shoulder-sculpt-20261013]
+    paths: [.github/workflows/s-hunyuan-v3-status-probe.yml]
+  workflow_dispatch:
+permissions:
+  actions: read
+  contents: write
+jobs:
+  collect-v3-result:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /.github/workflows/s-hunyuan-v3-status-probe.yml
+      - name: Wait for target V3 run to complete and report stage-by-stage result
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, os, urllib.request, time, datetime
+          repo=os.environ['GITHUB_REPOSITORY']
+          token=os.environ['GH_TOKEN']
+          base=f'https://api.github.com/repos/{repo}'
+          def get(url):
+              q=urllib.request.Request(url,headers={'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'})
+              with urllib.request.urlopen(q,timeout=35) as f:return json.load(f)
+          target_sha='c87267c6f5556a290be993853af652587fae2eba'
+          runs=[]
+          for attempt in range(42):
+              q=get(base+'/actions/workflows/s-hunyuan-shoulder-chest-sculpt-v3.yml/runs?branch=exp%2Fs-hunyuan-shoulder-sculpt-20261013&per_page=8')
+              runs=[r for r in q.get('workflow_runs',[]) if r.get('head_sha')==target_sha]
+              if runs and runs[0].get('status')=='completed':break
+              time.sleep(15)
+          found=[]
+          for r in runs:
+              entry={k:r.get(k) for k in ('id','run_number','status','conclusion','html_url','head_sha','created_at','updated_at')}
+              jobs=get(base+f"/actions/runs/{r['id']}/jobs?per_page=30").get('jobs',[])
+              entry['jobs']=[dict(id=j.get('id'),name=j.get('name'),status=j.get('status'),conclusion=j.get('conclusion'),steps=[dict(name=s.get('name'),conclusion=s.get('conclusion')) for s in j.get('steps',[])]) for j in jobs]
+              found.append(entry)
+          result={'result':'API_READ_OK','target_sha':target_sha,'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'runs':found}
+          p='art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v3/V3_ACTIONS_RUN_STATUS.json'
+          os.makedirs(os.path.dirname(p),exist_ok=True)
+          with open(p,'w') as f: json.dump(result,f,indent=2)
+          print(json.dumps(result))
+          PY
+      - name: Commit status-only evidence
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          p='art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v3/V3_ACTIONS_RUN_STATUS.json'
+          git add --sparse "$p"
+          git diff --cached --quiet && exit 0
+          git commit -m 'ci(s): V3 Blender real execution status and step conclusions'
+          git pull --rebase origin exp/s-hunyuan-shoulder-sculpt-20261013
+          git push origin HEAD:exp/s-hunyuan-shoulder-sculpt-20261013
