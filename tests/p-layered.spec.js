@@ -10,13 +10,13 @@ test('P layered trial keeps four independent feet planted, pauses and resets in 
   await expect(stage).toHaveAttribute('data-run-sheets','ready');
   await expect(stage).toHaveAttribute('data-p-rig-status','ready');
   await page.clock.runFor(4600);
-  // Sample the actual renderer inside the page. Ninety clock/evaluate pairs
+  // Sample the actual renderer inside the page. Every animation frame is sampled on both devices. Clock/evaluate pairs
   // plus thousands of traced expect calls previously exhausted CI's 90s.
   await page.evaluate(()=>{
     window.__pLayeredSamples=[];let last=-Infinity;
     const collect=()=>{
       const selected=window.__pRigReview;
-      if(selected&&selected.time-last>30){
+      if(selected&&selected.time>last){
         last=selected.time;
         window.__pLayeredSamples.push(structuredClone({selected,field:Object.values(window.__pRigField)}));
       }

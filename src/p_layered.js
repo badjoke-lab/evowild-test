@@ -19,7 +19,7 @@ const states=new WeakMap();
 let atlas=null;
 
 export async function loadPLayered(base){
-  const directory=`${base}concept/p-layered-v4/`;
+  const directory=`${base}concept/p-layered-v5/`;
   const response=await fetch(`${directory}atlas.json`);
   if(!response.ok)throw Error(`P layered atlas: ${response.status}`);
   atlas=await response.json();
@@ -52,12 +52,18 @@ export function constrainPLayeredLane(r,proposed,distance,time){
   return clamp(pose.renderLane-depthBias,0,3);
 }
 
-function joint(kind,bob,pitch){
-  const calibration=atlas.parts.body.jointCalibration;
-  const p=calibration[kind==='fore'?'shoulder':'hip'];
-  const scale=atlas.body.width/calibration.width;
-  const v=rotate({x:atlas.body.x+p[0]*scale-208,y:atlas.body.y+p[1]*scale-170},pitch);
-  return {x:v.x+208,y:v.y+170+bob};
+function spine(phase,bob,neutral=false){
+  // Separate loading responses: hind push rotates the pelvis, fore impact
+  // depresses the chest. Rigid painted segments overlap without skin warping.
+  const wave=neutral?0:Math.sin(TAU*phase), flex=neutral?0:Math.sin(TAU*(phase-.18));
+  return {shoulder:{x:250+2*flex,y:146+bob+3*wave},
+    hip:{x:179-2*flex,y:164+bob-3*wave},
+    chestAngle:neutral?0:.045*wave,pelvisAngle:neutral?0:-.055*wave};
+}
+function joint(kind,bob,pitch,trunk){
+  const key=kind==='fore'?'shoulder':'hip';
+  if(trunk)return {...trunk[key]};
+  const [x,y]=atlas.rig[key];return {x,y};
 }
 
 function solve(a,b,l1,l2,bend){
@@ -115,6 +121,7 @@ export function drawPLayered(ctx,r,view){
     ? 8*Math.sin(Math.PI*half/supportPart)**2
     : -14*Math.sin(Math.PI*(half-supportPart)/(1-supportPart))**2;
   const pitch=neutral?0:.030*Math.sin(TAU*(phase-.12));
+  const trunk=spine(phase,bob,neutral);
   const previousLane=state.renderLane;
   let renderLane=reviewPhase!==undefined?lane
     : previousLane+clamp(lane-previousLane,-2.8*dt,2.8*dt);
@@ -125,7 +132,7 @@ export function drawPLayered(ctx,r,view){
   for(const limb of LIMBS){
     const local=fract(cycle+limb.offset),f=state.feet.get(limb.id);
     if(neutral||reviewPhase!==undefined||!f?.stance||local>=DUTY||Math.floor(cycle+limb.offset)!==f.cycleId)continue;
-    const j=joint(limb.kind,bob,pitch),part=atlas.parts[`${limb.kind}-foot`];
+    const j=joint(limb.kind,bob,pitch,trunk),part=atlas.parts[`${limb.kind}-foot`];
     const angle=Math.atan2(groundY(f.worldX+.05,f.lane)-groundY(f.worldX-.05,f.lane),.1*ppm);
     const fs=part.width/part.crop[2];
     const off=rotate({x:(part.ankle[0]-part.sole[0])*fs,y:(part.ankle[1]-part.sole[1])*fs},angle);
@@ -154,14 +161,18 @@ export function drawPLayered(ctx,r,view){
   for(const limb of LIMBS){
     const local=neutral?(limb.kind==='fore'?.12:.20)+(limb.far?.02:0):fract(cycle+limb.offset);
     const stance=local<DUTY,cycleId=Math.floor(cycle+limb.offset);
-    const j=joint(limb.kind,bob,pitch),rest=joint(limb.kind,0,0);
+    const j=joint(limb.kind,bob,pitch,trunk),rest=joint(limb.kind,0,0);
     const footLane=clamp(renderLane+(limb.far?-.015:.015),0,3);
-    const lead=STRIDE*DUTY*.5;
+    const physicalFoot=atlas.parts[`${limb.kind}-foot`];
+    const soleOffset=(physicalFoot.ankle[0]-physicalFoot.sole[0])*physicalFoot.width/physicalFoot.crop[2];
+    // Center the ANKLE excursion on the fixed-length limb before touchdown.
+    // Once planted, worldX and lane remain immutable for this contact ID.
+    const lead=STRIDE*DUTY*.5-soleOffset;
     let f=state.feet.get(limb.id);
     if(!f||reviewPhase!==undefined){
       f={stance,cycleId,contactId:0,worldX:rootDistance+(rest.x-208+lead-local*STRIDE)*metresPerUnit,lane:footLane};
       if(!stance){
-        f.liftX=rootDistance+(rest.x-208-lead-(local-DUTY)*STRIDE)*metresPerUnit;
+        f.liftX=rootDistance+(rest.x-208+lead-STRIDE*DUTY-(local-DUTY)*STRIDE)*metresPerUnit;
         f.liftTargetLane=footLane;
       }
       state.feet.set(limb.id,f);
@@ -201,22 +212,32 @@ export function drawPLayered(ctx,r,view){
       // ankle target before IK; it neither clips a bone nor moves a contact.
       const reach=lengths[0]+lengths[1]-8,dx=ankle.x-j.x;
       const lowest=j.y+Math.sqrt(Math.max(0,reach*reach-dx*dx));
-      recoveryLiftAdjustment=Math.max(0,ankle.y-lowest);
+      const landingWeight=smooth(clamp(((local-DUTY)/(1-DUTY)-.80)/.20,0,1));
+      recoveryLiftAdjustment=Math.max(0,ankle.y-lowest)*(1-landingWeight);
       ankle.y-=recoveryLiftAdjustment;contact.y-=recoveryLiftAdjustment;
       screen.y-=recoveryLiftAdjustment*scale;lift+=recoveryLiftAdjustment;
     }
-    commands.push({limb,j,ankle,contact,angle,lengths,part});
+    commands.push({limb,j,ankle,contact,angle,lengths,part,landingWeight:stance?1:smooth(clamp(((local-DUTY)/(1-DUTY)-.80)/.20,0,1))});
     feet.push({id:limb.id,stance,phase:local,contactId:f.contactId,worldX,worldLane,
       screenX:screen.x,screenY:screen.y,lift,angle,ankle,recoveryLiftAdjustment});
   }
-  const required=Math.max(0,...commands.filter(c=>feet.find(f=>f.id===c.limb.id).stance).map(c=>{
+  const required=Math.max(0,...commands.filter(c=>c.landingWeight>0).map(c=>{
     const reach=c.lengths[0]+c.lengths[1]-3,dx=c.ankle.x-c.j.x;
-    return c.ankle.y-c.j.y-Math.sqrt(Math.max(0,reach*reach-dx*dx));
+    return (c.ankle.y-c.j.y-Math.sqrt(Math.max(0,reach*reach-dx*dx)))*c.landingWeight;
   }));
   const bodyOffset=Math.max(required,(state.bodyOffset??required)*Math.exp(-dt*28));
   state.bodyOffset=bodyOffset;
   for(const c of commands){
     c.j.y+=bodyOffset;
+    const f=feet.find(f=>f.id===c.limb.id);
+    if(!f.stance){
+      // Final free-foot clearance after the shared torso load response.
+      // Only a swinging target can move; supported contacts never enter here.
+      const reach=c.lengths[0]+c.lengths[1]-1,dx=c.ankle.x-c.j.x;
+      const extra=Math.max(0,c.ankle.y-c.j.y-Math.sqrt(Math.max(0,reach*reach-dx*dx)));
+      c.ankle.y-=extra;c.contact.y-=extra;f.screenY-=extra*scale;
+      f.lift+=extra;f.recoveryLiftAdjustment+=extra;
+    }
     const ik=solve(c.j,c.ankle,...c.lengths,c.limb.kind==='fore'?1:-1);c.knee=ik.knee;
     const boneLengthError=Math.max(
       Math.abs(Math.hypot(c.j.x-c.knee.x,c.j.y-c.knee.y)-c.lengths[0]),
@@ -225,9 +246,15 @@ export function drawPLayered(ctx,r,view){
   }
 
   const drawBody=target=>{
-    target.save();target.translate(208,170+bob+bodyOffset);target.rotate(pitch);target.translate(-208,-170);
-    const p=atlas.parts.body;
-    target.drawImage(p.bitmap,atlas.body.x,atlas.body.y,atlas.body.width,atlas.body.width*p.crop[3]/p.crop[2]);target.restore();
+    const paintPart=(name,point,angle)=>{
+      const p=atlas.parts[name];target.save();target.translate(point.x,point.y+bodyOffset);
+      target.rotate(angle);target.scale(p.scale,p.scale);
+      target.drawImage(p.bitmap,-p.pivot[0],-p.pivot[1]);target.restore();
+    };
+    const middle={x:(trunk.shoulder.x+trunk.hip.x)/2,y:(trunk.shoulder.y+trunk.hip.y)/2-12};
+    paintPart('lumbar',middle,Math.atan2(trunk.shoulder.y-trunk.hip.y,trunk.shoulder.x-trunk.hip.x));
+    paintPart('pelvis',trunk.hip,trunk.pelvisAngle);
+    paintPart('chest',trunk.shoulder,trunk.chestAngle);
   };
   const drawLimb=(target,c)=>{
     target.save();
@@ -252,7 +279,7 @@ export function drawPLayered(ctx,r,view){
     target.restore();
   };
   if(ctx)paint(ctx);
-  return {phase,cycle:state.cycle,bob,pitch,bodyOffset,feet,scale,commands,paint,flight,
+  return {spine:trunk,phase,cycle:state.cycle,bob,pitch,bodyOffset,feet,scale,commands,paint,flight,
     renderLane,laneLag:lane-renderLane,rootY:y,bodySink:bob+bodyOffset,requestedLane:lane,
     paintFoot:(target,id)=>{
       const c=commands.find(c=>c.limb.id===id);

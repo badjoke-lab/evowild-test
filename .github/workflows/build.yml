@@ -2,7 +2,7 @@ name: build
 
 on:
   push:
-    branches: ["main", "feat/**", "fix/**"]
+    branches: ["main", "feat/**", "fix/**", "exp/2p5d-p-v5-silhouette-spine-20261015"]
   pull_request:
 
 jobs:

@@ -1,0 +1,258 @@
+{
+  "sources": [
+    "docs/evidence/p-rig-v5-20261015/parts-source.png",
+    "public/concept/p-layered-v4/atlas.json"
+  ],
+  "parts": {
+    "fore-upper": {
+      "crop": [
+        493,
+        488,
+        377,
+        371
+      ],
+      "image": "fore-upper.png",
+      "a": [
+        100,
+        88
+      ],
+      "b": [
+        290,
+        304
+      ]
+    },
+    "fore-lower": {
+      "crop": [
+        967,
+        600,
+        300,
+        259
+      ],
+      "image": "fore-lower.png",
+      "a": [
+        72,
+        57
+      ],
+      "b": [
+        233,
+        216
+      ]
+    },
+    "fore-foot": {
+      "crop": [
+        700,
+        711,
+        312,
+        173
+      ],
+      "sole": [
+        228.04545454545453,
+        172
+      ],
+      "ankle": [
+        67,
+        34
+      ],
+      "width": 46,
+      "image": "fore-foot.png"
+    },
+    "hind-upper": {
+      "crop": [
+        106,
+        843,
+        395,
+        395
+      ],
+      "image": "hind-upper.png",
+      "a": [
+        135,
+        65
+      ],
+      "b": [
+        286,
+        341
+      ]
+    },
+    "hind-lower": {
+      "crop": [
+        545,
+        887,
+        336,
+        340
+      ],
+      "image": "hind-lower.png",
+      "a": [
+        75,
+        45
+      ],
+      "b": [
+        245,
+        298
+      ]
+    },
+    "hind-foot": {
+      "crop": [
+        700,
+        1002,
+        326,
+        227
+      ],
+      "sole": [
+        227.8,
+        226
+      ],
+      "ankle": [
+        68,
+        58
+      ],
+      "width": 46,
+      "image": "hind-foot.png"
+    },
+    "fore-far-paw": {
+      "crop": [
+        1196,
+        161,
+        338,
+        222
+      ],
+      "image": "fore-far-paw.png",
+      "sole": [
+        281.3333333333333,
+        221
+      ],
+      "width": 46,
+      "ankle": [
+        106.86742424242425,
+        71.5
+      ]
+    },
+    "hind-far-paw": {
+      "crop": [
+        1183,
+        660,
+        366,
+        262
+      ],
+      "image": "hind-far-paw.png",
+      "sole": [
+        293.25,
+        261
+      ],
+      "width": 46,
+      "ankle": [
+        113.8426380368098,
+        72.38650306748468
+      ]
+    },
+    "fore-paw": {
+      "crop": [
+        1177,
+        146,
+        359,
+        243
+      ],
+      "image": "fore-paw.png",
+      "sole": [
+        279.3333333333333,
+        242
+      ],
+      "width": 46,
+      "ankle": [
+        94.02782634032636,
+        83.21153846153848
+      ]
+    },
+    "hind-paw": {
+      "crop": [
+        1183,
+        647,
+        357,
+        252
+      ],
+      "image": "hind-paw.png",
+      "sole": [
+        273.2142857142857,
+        251
+      ],
+      "width": 46,
+      "ankle": [
+        98.2185801928133,
+        67.02453987730058
+      ]
+    },
+    "pelvis": {
+      "crop": [
+        28,
+        159,
+        660,
+        341
+      ],
+      "image": "pelvis.png",
+      "pivot": [
+        515,
+        180
+      ],
+      "scale": 0.235
+    },
+    "lumbar": {
+      "crop": [
+        703,
+        182,
+        393,
+        285
+      ],
+      "image": "lumbar.png",
+      "pivot": [
+        195,
+        143
+      ],
+      "scale": 0.245
+    },
+    "chest": {
+      "crop": [
+        1111,
+        12,
+        650,
+        493
+      ],
+      "image": "chest.png",
+      "pivot": [
+        205,
+        330
+      ],
+      "scale": 0.255
+    }
+  },
+  "body": {
+    "x": 50,
+    "y": 60,
+    "width": 316
+  },
+  "bones": {
+    "fore": [
+      70,
+      68
+    ],
+    "hind": [
+      70,
+      68
+    ]
+  },
+  "frame": {
+    "width": 416,
+    "height": 320,
+    "ground": 296
+  },
+  "notes": "v5 experimental rigid chest, lumbar and pelvis. Uniform scale per authored part; unchanged 70/68 limb bones and v3 soles.",
+  "footAssetDirectory": "concept/p-layered-v3/",
+  "rig": {
+    "shoulder": [
+      250,
+      146
+    ],
+    "hip": [
+      179,
+      164
+    ]
+  }
+}
