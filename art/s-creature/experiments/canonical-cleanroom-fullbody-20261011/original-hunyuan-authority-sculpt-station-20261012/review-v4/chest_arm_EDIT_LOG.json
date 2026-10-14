@@ -1,0 +1,14 @@
+{
+  "stage": "chest_arm",
+  "mode": "EDIT via bmesh.from_edit_mesh",
+  "method": "feathered polygon surface-to-oblique-plane projection",
+  "gaussian": false,
+  "changed_vertices": 2082,
+  "max_move": 0.021231015111407476,
+  "factor": 0.8,
+  "new_flipped_faces": 0,
+  "new_degenerate_faces": 0,
+  "minimum_valid_face_area_ratio": 0.4959115186883396,
+  "added_mesh_objects": 0,
+  "retained": true
+}

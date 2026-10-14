@@ -1,0 +1,149 @@
+{
+  "generated_utc": "2026-10-14T16:04:01.722965+00:00",
+  "files": {
+    ".gitignore": {
+      "sha256": "8b36f5e901c242c26969dd41f1ef82e855eb5213e5206ea8269bbf96ed192900",
+      "bytes": 87
+    },
+    "CANONICAL_CROP_BACK.png": {
+      "sha256": "ec5de570beb0d2bc8681b7c85470ce033d92f265cd7fca86ffd3796d7ad15377",
+      "bytes": 80070
+    },
+    "CANONICAL_CROP_FRONT.png": {
+      "sha256": "ecaedf33b917454185a31d66b213bd4779c4791d201cb47db4351030ebfd5823",
+      "bytes": 78633
+    },
+    "CANONICAL_CROP_FRONT34.png": {
+      "sha256": "11311ed482414ab9483ec2c48db1d7dbd06f9e0373205a8ceb890be0728d0ae2",
+      "bytes": 165171
+    },
+    "CANONICAL_CROP_SIDE.png": {
+      "sha256": "cf7bb0215b19282b461b91d09a1151fbe55156e72d609053aeca7fdafe6eefcd",
+      "bytes": 385963
+    },
+    "CANONICAL_V3_V4.jpg": {
+      "sha256": "5293384945d51caf94f748a53e4bed7e484124021cd7ef882880aa1a441c87f3",
+      "bytes": 182652
+    },
+    "CANONICAL_V3_V4_SHOULDER_DETAIL.jpg": {
+      "sha256": "aa9c8a1f7da9108a0a4d6eec520c9a6a33af347dd8b2512597eb75d25d4f0d62",
+      "bytes": 207222
+    },
+    "REFERENCE_CROPS.json": {
+      "sha256": "726b38a839ae8078b3a8530a7b7b334fbcecd4044ed43596fb03637b306b2699",
+      "bytes": 456
+    },
+    "S_HUNYUAN_SHOULDER_CHEST_SCULPT_V4.blend": {
+      "sha256": "38efa5c29e5ac7b1a6a6afba1256d498763e0f8d3b8e7435d9b38b4b183e879e",
+      "bytes": 4624610
+    },
+    "V3_BACK.png": {
+      "sha256": "ad9e725618ac871718e993f76cb24e69643a07aa59cc7a393b8fe1fad931f604",
+      "bytes": 838497
+    },
+    "V3_DETAIL_FRONT.png": {
+      "sha256": "f59a212e52233db9f69b8f1eb8ff757b014f1bf3ae1a30ddfb673cf87209018d",
+      "bytes": 963649
+    },
+    "V3_DETAIL_FRONT34.png": {
+      "sha256": "f264638cc0e06ae35c28830231737ff48d18335b7f805270586574f38d73e33c",
+      "bytes": 1139086
+    },
+    "V3_DETAIL_SIDE.png": {
+      "sha256": "a62443b842ec5541a75c96a8ddd77f4bb290b483d519ae92b6520b320f6be7d8",
+      "bytes": 1027011
+    },
+    "V3_FRONT.png": {
+      "sha256": "e5a6c5bc3d8aa07b8d31ef23397d1b46f5f07a39345683b348552f06f7421c41",
+      "bytes": 811320
+    },
+    "V3_FRONT34.png": {
+      "sha256": "0464bb7aa31160b904165fd5206bd901cdf69b8775039feff6816cf8bbed1633",
+      "bytes": 949777
+    },
+    "V3_REAR34.png": {
+      "sha256": "597043f5f1f171a565051438bf85685ecb5ce54126031731f62593ef0dbc8b32",
+      "bytes": 956987
+    },
+    "V3_SIDE.png": {
+      "sha256": "b279a6dcad386fcd5b84e9035181005f6ba20101377bb912a88a3f546001db29",
+      "bytes": 844861
+    },
+    "V3_TO_V4_DELTA.npz": {
+      "sha256": "bbe4f4c50ef3e199c4c39a1d8d512397f01a22abe1aca685e47a6df73e32c232",
+      "bytes": 222006
+    },
+    "V3_V4_FIVE_VIEW.jpg": {
+      "sha256": "bac9a0ca7e3f91055ae2cb7cb2efc08fd60215e281d7aa4de26b20a375e6640a",
+      "bytes": 122374
+    },
+    "V3_V4_SHOULDER_CHEST_UPPERARM.jpg": {
+      "sha256": "9369ad08700fe74c2c131caf04eb930452c8a0756574e66155d664cb869f632c",
+      "bytes": 129176
+    },
+    "V4_BACK.png": {
+      "sha256": "0d1e7cb379f472fa250fea799a514c884619f8289ea125be056f96c885a5fc7e",
+      "bytes": 838574
+    },
+    "V4_DETAIL_FRONT.png": {
+      "sha256": "42baff81cf3731d0c1ca277df27c43dc2a4f54561ffa87be70768574ea5450ac",
+      "bytes": 967923
+    },
+    "V4_DETAIL_FRONT34.png": {
+      "sha256": "11f37c935a7b8bb0b813a045bc8e1c9beb3cb1b424ba94fa7f763ae308b225d9",
+      "bytes": 1142373
+    },
+    "V4_DETAIL_SIDE.png": {
+      "sha256": "f9e69fb891bfd50ad85715fd30aba10d5d33fb32fcd69c7b182bd1bfc1bbf31b",
+      "bytes": 1024833
+    },
+    "V4_FRONT.png": {
+      "sha256": "9db3b5ebf4c9c5f7f774bf7400a580163cda72320a660afd4c8a534eb5f1f761",
+      "bytes": 813668
+    },
+    "V4_FRONT34.png": {
+      "sha256": "f2cbbe2fa2b4d854b299381f4b71da6177a1ce628c0ce1c78b2a5e406095ad25",
+      "bytes": 950911
+    },
+    "V4_REAR34.png": {
+      "sha256": "c0e24a770b5109d000a867db19ec307332febd6bd465a3a544f101fcdc655fb5",
+      "bytes": 957489
+    },
+    "V4_REVIEW.md": {
+      "sha256": "94ee97d8edc8793863ae809e361739f04119cbab727ef75b626d35c53c514801",
+      "bytes": 6391
+    },
+    "V4_SIDE.png": {
+      "sha256": "ce59ea500a017e9bc2f4d88e6eda851dccff05e29dfb1a9499c3e0dcbdd17d5d",
+      "bytes": 844211
+    },
+    "V4_TECHNICAL_VERIFICATION.json": {
+      "sha256": "8a368f765d5f9a4d34ead5268cde91126646bd724752c756fc2d5265b768130f",
+      "bytes": 4989
+    },
+    "chest_arm_EDIT_LOG.json": {
+      "sha256": "4a7a7df538fe278b9bfb833a6aac6172cf21cb1c88f593e6a94dd5c1b7efc02c",
+      "bytes": 398
+    },
+    "refine_EDIT_LOG.json": {
+      "sha256": "7d7b151c57089dc4cba94cbebf27c42a0f261d8e3cb9f9ba8c21c8e43610d398",
+      "bytes": 508
+    },
+    "relax_EDIT_LOG.json": {
+      "sha256": "75fdd628e125f7114651323751342b01c0a221a2baa107016a721dfb8853b084",
+      "bytes": 334
+    },
+    "shoulder_EDIT_LOG.json": {
+      "sha256": "48ba5739decc8f92e28b716844558270e2c0e38b61cdaedd8787a20606c2dc42",
+      "bytes": 395
+    },
+    "shoulder_shear_EDIT_LOG.json": {
+      "sha256": "271d3d4c111959fc2072d647afaf0813b30e502734a24278c2814a0575dc5c6d",
+      "bytes": 408
+    },
+    "upper_overlap_EDIT_LOG.json": {
+      "sha256": "da37a4e027f8141f384a471c00f1a410645fd0e473fe7cee5755005d656c2462",
+      "bytes": 402
+    }
+  }
+}

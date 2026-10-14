@@ -1,0 +1,14 @@
+{
+  "stage": "shoulder",
+  "mode": "EDIT via bmesh.from_edit_mesh",
+  "method": "feathered polygon surface-to-oblique-plane projection",
+  "gaussian": false,
+  "changed_vertices": 2308,
+  "max_move": 0.0417441725730896,
+  "factor": 0.8,
+  "new_flipped_faces": 0,
+  "new_degenerate_faces": 0,
+  "minimum_valid_face_area_ratio": 0.3365158613552124,
+  "added_mesh_objects": 0,
+  "retained": true
+}

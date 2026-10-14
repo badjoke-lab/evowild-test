@@ -1,0 +1,12 @@
+{
+  "stage": "transition_relax",
+  "mode": "EDIT",
+  "method": "12 paired neighboring-vertex Taubin relaxation passes, local feathered ROI",
+  "gaussian": false,
+  "changed_vertices": 8591,
+  "max_move": 0.001841286855732869,
+  "factor": 0.1677721600000001,
+  "new_flipped_faces": 0,
+  "new_degenerate_faces": 0,
+  "retained": true
+}

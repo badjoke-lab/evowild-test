@@ -1,0 +1,3 @@
+# Local checkpoints; accepted delta is published in V3_TO_V4_DELTA.npz.
+*.npy
+*.blend1

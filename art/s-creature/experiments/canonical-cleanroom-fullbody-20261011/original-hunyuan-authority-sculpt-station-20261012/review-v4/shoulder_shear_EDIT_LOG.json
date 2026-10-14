@@ -1,0 +1,14 @@
+{
+  "stage": "shoulder_shear",
+  "mode": "EDIT via bmesh.from_edit_mesh",
+  "method": "feathered polygon tangential shoulder shear",
+  "gaussian": false,
+  "changed_vertices": 2725,
+  "max_move": 0.017920002341270447,
+  "factor": 0.6400000000000001,
+  "new_flipped_faces": 0,
+  "new_degenerate_faces": 0,
+  "minimum_valid_face_area_ratio": 0.7835317477540042,
+  "added_mesh_objects": 0,
+  "retained": true
+}

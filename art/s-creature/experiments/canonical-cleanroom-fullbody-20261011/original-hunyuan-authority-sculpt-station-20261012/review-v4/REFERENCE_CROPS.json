@@ -1,0 +1,34 @@
+{
+  "source": "art/s-creature/references/00_s_type_modeling_image_v1.png",
+  "source_size": [
+    1448,
+    1086
+  ],
+  "boxes": {
+    "SIDE": [
+      60,
+      73,
+      750,
+      507
+    ],
+    "FRONT": [
+      796,
+      102,
+      926,
+      507
+    ],
+    "BACK": [
+      977,
+      102,
+      1108,
+      507
+    ],
+    "FRONT34": [
+      1143,
+      89,
+      1426,
+      506
+    ]
+  },
+  "method": "pixel crop only; no repainting or resampling"
+}
