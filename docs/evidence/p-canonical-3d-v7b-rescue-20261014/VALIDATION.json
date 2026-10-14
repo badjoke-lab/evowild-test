@@ -4,9 +4,9 @@
   "shape": "REVIEW_PENDING",
   "canonicalSHA256": "d57a1552bf9358cc060156ec72b41753441f771fdef3a87cfba2567261217bfe",
   "originalV7BlendSHA256": "bddd334bd35976dc51a5d07aa5d45e6076ba150de5681c0aa0b2449d3a5be887",
-  "newBlendSHA256": "b1863c61b462fd19f220e7df86f7b34b1a3f8df452e44bb7fbb2c8dcefd2f327",
-  "newGLBSHA256": "98fea45a796c70364ee0ea9302c7df5a6257a3dd3616da1c893e48c2c4dbaa46",
-  "bytes": 1210460,
+  "newBlendSHA256": "184cb5bad3781524ab47b02055c76d92f0e8f3b88fb550465a967d10f96f4687",
+  "newGLBSHA256": "3a590313760c92e67bbc85a46bb0137517b94196bb2dba01279127c723908144",
+  "bytes": 1208156,
   "sculpt": {
     "verticesTouched": 2770,
     "maxVertexOffset": 0.16267281736249836
@@ -21,7 +21,8 @@
       "components": 1,
       "boundary": 0,
       "nonManifold": 0
-    }
+    },
+    "tailColorLoopsPainted": 2664
   },
   "sourceManifold": {
     "vertices": 13698,

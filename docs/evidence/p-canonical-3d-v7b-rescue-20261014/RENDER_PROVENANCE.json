@@ -4,7 +4,7 @@
     {
       "view": "SIDE",
       "sourceGLB": "public/models/evowild-p/p-canonical-v7b-rescue.glb",
-      "GLBSHA256": "98fea45a796c70364ee0ea9302c7df5a6257a3dd3616da1c893e48c2c4dbaa46",
+      "GLBSHA256": "3a590313760c92e67bbc85a46bb0137517b94196bb2dba01279127c723908144",
       "render": "SIDE.png",
       "engine": "CYCLES",
       "samples": 12,
@@ -23,7 +23,7 @@
     {
       "view": "FRONT",
       "sourceGLB": "public/models/evowild-p/p-canonical-v7b-rescue.glb",
-      "GLBSHA256": "98fea45a796c70364ee0ea9302c7df5a6257a3dd3616da1c893e48c2c4dbaa46",
+      "GLBSHA256": "3a590313760c92e67bbc85a46bb0137517b94196bb2dba01279127c723908144",
       "render": "FRONT.png",
       "engine": "CYCLES",
       "samples": 12,
@@ -42,7 +42,7 @@
     {
       "view": "FRONT34",
       "sourceGLB": "public/models/evowild-p/p-canonical-v7b-rescue.glb",
-      "GLBSHA256": "98fea45a796c70364ee0ea9302c7df5a6257a3dd3616da1c893e48c2c4dbaa46",
+      "GLBSHA256": "3a590313760c92e67bbc85a46bb0137517b94196bb2dba01279127c723908144",
       "render": "FRONT34.png",
       "engine": "CYCLES",
       "samples": 12,
@@ -61,7 +61,7 @@
     {
       "view": "REAR34",
       "sourceGLB": "public/models/evowild-p/p-canonical-v7b-rescue.glb",
-      "GLBSHA256": "98fea45a796c70364ee0ea9302c7df5a6257a3dd3616da1c893e48c2c4dbaa46",
+      "GLBSHA256": "3a590313760c92e67bbc85a46bb0137517b94196bb2dba01279127c723908144",
       "render": "REAR34.png",
       "engine": "CYCLES",
       "samples": 12,
@@ -80,7 +80,7 @@
     {
       "view": "BACK",
       "sourceGLB": "public/models/evowild-p/p-canonical-v7b-rescue.glb",
-      "GLBSHA256": "98fea45a796c70364ee0ea9302c7df5a6257a3dd3616da1c893e48c2c4dbaa46",
+      "GLBSHA256": "3a590313760c92e67bbc85a46bb0137517b94196bb2dba01279127c723908144",
       "render": "BACK.png",
       "engine": "CYCLES",
       "samples": 12,
