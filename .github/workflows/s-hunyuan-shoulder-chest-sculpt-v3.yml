@@ -1,0 +1,137 @@
+name: EvoWild S V3 real Blender notch-repair and four-way visual gate
+on:
+  push:
+    branches: [exp/s-hunyuan-shoulder-sculpt-20261013]
+    paths:
+      - .github/workflows/s-hunyuan-shoulder-chest-sculpt-v3.yml
+      - art/s-creature/blender/s_hunyuan_shoulder_chest_v3_corrective.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-s-hunyuan-v3-single-run
+  cancel-in-progress: false
+jobs:
+  diagnose-edit-save-render:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /.github/workflows/s-hunyuan-shoulder-chest-sculpt-v3.yml
+            /art/s-creature/blender/s_hunyuan_shoulder_chest_v3_corrective.py
+            /art/s-creature/blender/s_hunyuan_sculpt_review_render.py
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/S_ORIGINAL_HUNYUAN_ART_SCULPT_STATION__UNEDITED_BASE.blend
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v1/
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v2/
+      - name: Install Blender 4.3.2 and image comparison dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends libegl1 libgl1 libgl1-mesa-dri libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6 python3-pil
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender-v3.tar.xz
+          tar -xf /tmp/blender-v3.tar.xz -C /tmp
+          /tmp/blender-4.3.2-linux-x64/blender --version | head -n 2
+      - name: Inspect V2 shoulder notch mesh and sculpt protected V3 candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/evowild-v3
+          /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/s_hunyuan_shoulder_chest_v3_corrective.py 2>&1 | tee /tmp/evowild-v3/sculpt.log
+          grep -q 'V3_ACTUAL_NATIVE_MESH_EDIT_RELOAD_PASS' /tmp/evowild-v3/sculpt.log
+          grep -q 'V3_REAL_FIVE_VIEW_AND_DETAIL_RENDER_PASS' /tmp/evowild-v3/sculpt.log
+      - name: Four-way actual Blender render comparisons with official image
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from PIL import Image,ImageDraw,ImageFont
+          from pathlib import Path
+          from io import BytesIO
+          import base64,hashlib,json
+          root=Path('art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012')
+          p1=root/'review-v1';p2=root/'review-v2';out=root/'review-v3'
+          font=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',19)
+          views=['SIDE','FRONT','FRONT34','REAR34','BACK']
+          def contact(tags,detail,filename,w):
+              h=int(w*.8);th=34
+              rows=['BASE','V1','V2','V3']
+              frame=Image.new('RGB',(w*len(tags),(h+th)*len(rows)),(231,233,238))
+              draw=ImageDraw.Draw(frame)
+              for ir,row in enumerate(rows):
+                  for ic,tag in enumerate(tags):
+                      prefix='DETAIL_' if detail else ''
+                      path=(p1/('BEFORE_'+prefix+tag+'.png') if row=='BASE' else
+                            p1/('AFTER_'+prefix+tag+'.png') if row=='V1' else
+                            p2/('V2_'+prefix+tag+'.png') if row=='V2' else
+                            out/('V3_'+prefix+tag+'.png'))
+                      assert path.is_file(),str(path)
+                      with Image.open(path) as im:
+                          shot=im.convert('RGB');shot.thumbnail((w,h))
+                          xx=ic*w+(w-shot.width)//2
+                          yy=ir*(h+th)+th+(h-shot.height)//2
+                          frame.paste(shot,(xx,yy))
+                      draw.text((ic*w+10,ir*(h+th)+6),row+' / '+tag,fill=(10,19,32),font=font)
+              frame.save(out/filename,quality=85,optimize=True)
+          contact(views,False,'BASE_V1_V2_V3_FIVE_VIEW.jpg',400)
+          contact(['SIDE','FRONT','FRONT34'],True,'BASE_V1_V2_V3_SHOULDER_DETAIL.jpg',580)
+          ref=Path('art/s-creature/references/00_s_type_modeling_image_v1.png')
+          assert hashlib.sha256(ref.read_bytes()).hexdigest()=='93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6'
+          crops={'SIDE':(18,75,756,512),'FRONT':(766,81,949,513),'FRONT34':(1127,81,1433,513)}
+          ww,hh=620,470
+          paper=Image.new('RGB',(3*ww,2*(hh+32)),(245,246,249))
+          draw=ImageDraw.Draw(paper)
+          with Image.open(ref) as im:
+              src=im.convert('RGB')
+              for j,(tag,rect) in enumerate(crops.items()):
+                  cut=src.crop(rect);cut.thumbnail((ww,hh))
+                  paper.paste(cut,(j*ww+(ww-cut.width)//2,32+(hh-cut.height)//2))
+                  with Image.open(out/('V3_'+tag+'.png')) as rendered:
+                      shot=rendered.convert('RGB');shot.thumbnail((ww,hh))
+                      paper.paste(shot,(j*ww+(ww-shot.width)//2,hh+64+(hh-shot.height)//2))
+                  draw.text((j*ww+10,6),'CANONICAL / '+tag,fill='#14263a',font=font)
+                  draw.text((j*ww+10,hh+38),'V3 REAL / '+tag,fill='#14263a',font=font)
+          paper.save(out/'CANONICAL_V3_SIDE_FRONT_34.jpg',quality=85,optimize=True)
+          (out/'V3_REVIEW.md').write_text(
+              '# EvoWild S Hunyuan V3 candidate\n\n'
+              'Independent V3 visual review pending. Technical PASS is not visual KEEP.\n'
+              'V3 forked from genuine V1 to avoid narrow recess / selective face repair in V2.\n'
+              'Genuine actual Blender renders matched for cameras, lighting and materials.\n'
+              'Normal/degeneracy tests cannot guarantee absence of self intersections.\n'
+              'Canonical panel alignment approximate only. No rig or animation.\n'
+              'See diagnostic JSON for suspicious V2 face changes; does not prove actual cause of black mark.\n'
+          )
+          preview=out/'chat-review-preview';preview.mkdir(exist_ok=True)
+          for name in ['BASE_V1_V2_V3_FIVE_VIEW.jpg','BASE_V1_V2_V3_SHOULDER_DETAIL.jpg','CANONICAL_V3_SIDE_FRONT_34.jpg']:
+              with Image.open(out/name) as im:
+                  small=im.convert('RGB');small.thumbnail((2050,1700))
+                  buffer=BytesIO();small.save(buffer,format='JPEG',quality=77,optimize=True)
+              assert len(buffer.getvalue())<850000,(name,len(buffer.getvalue()))
+              (preview/(name+'.b64.txt')).write_text(base64.b64encode(buffer.getvalue()).decode('ascii')+'\n')
+          print('V3_REAL_FOUR_WAY_AND_CANONICAL_COMPARE_PASS',flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-S-Hunyuan-V3-Genuine-Mesh-Diagnostic-and-Renders
+          path: |
+            art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v3/
+            /tmp/evowild-v3/sculpt.log
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Commit unapproved V3 candidate and original Blender evidence to branch
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          target='art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v3'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse "$target"
+          if ! git diff --cached --quiet; then
+            git commit -m 'sculpt(s): unapproved V3 notch-repair candidate real mesh and four-way review'
+            git pull --rebase origin exp/s-hunyuan-shoulder-sculpt-20261013
+            git push origin HEAD:exp/s-hunyuan-shoulder-sculpt-20261013
+          fi
