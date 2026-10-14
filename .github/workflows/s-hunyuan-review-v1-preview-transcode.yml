@@ -1,0 +1,56 @@
+name: EvoWild S V1 contact sheet accessible preview
+on:
+  push:
+    branches: [exp/s-hunyuan-shoulder-sculpt-20261013]
+    paths:
+      - .github/workflows/s-hunyuan-review-v1-preview-transcode.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  make-small-image-preview-as-text:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /.github/workflows/s-hunyuan-review-v1-preview-transcode.yml
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v1/FIVE_VIEW_BEFORE_AFTER.jpg
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v1/SHOULDER_CHEST_BEFORE_AFTER.jpg
+      - name: Encode two existing actual Blender-render comparison images as small portable JPEG base64 text
+        shell: bash
+        run: |
+          python3 -m pip install --quiet --break-system-packages pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          from io import BytesIO
+          import base64, hashlib
+          root=Path('art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v1')
+          out=root/'chat-review-preview'
+          out.mkdir(parents=True,exist_ok=True)
+          for name in ('FIVE_VIEW_BEFORE_AFTER','SHOULDER_CHEST_BEFORE_AFTER'):
+              original=root/(name+'.jpg')
+              assert original.is_file() and original.stat().st_size>20000
+              with Image.open(original) as img:
+                  assert img.format=='JPEG'
+                  im=img.convert('RGB')
+                  im.thumbnail((2048,1600))
+                  buf=BytesIO()
+                  im.save(buf,'JPEG',quality=82,optimize=True,subsampling=0)
+              bytes_=buf.getvalue()
+              assert len(bytes_)<850000, (name,len(bytes_))
+              (out/(name+'.b64.txt')).write_text(base64.b64encode(bytes_).decode('ascii')+'\n')
+              print('PREVIEW_CREATED',name,len(bytes_),im.size,hashlib.sha256(original.read_bytes()).hexdigest())
+          PY
+      - name: Commit only preview-text; source artwork and renders unchanged
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v1/chat-review-preview/
+          git diff --cached --quiet && exit 0
+          git commit -m 'review(s): add lightweight base64 preview of existing V1 Blender comparison renders'
+          git pull --rebase origin exp/s-hunyuan-shoulder-sculpt-20261013
+          git push origin HEAD:exp/s-hunyuan-shoulder-sculpt-20261013
