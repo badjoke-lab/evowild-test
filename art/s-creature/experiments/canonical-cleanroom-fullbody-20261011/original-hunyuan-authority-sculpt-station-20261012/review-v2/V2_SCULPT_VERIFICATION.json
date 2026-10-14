@@ -1,0 +1,31 @@
+{
+  "result": "ACTUAL_V2_NATIVE_MESH_SCULPT_SAVED_AND_RELOADED",
+  "blender_version": "4.3.2",
+  "source_commit": "3e54d59555d1f5a17f38ee9c7f2846b41bf9fd71",
+  "source_mesh": "geometry_0",
+  "vertices": 38802,
+  "faces": 77684,
+  "changed_vertices": 12504,
+  "max_displacement": 0.021824679693795507,
+  "input_shoulder_width_quantile_world": 0.3921665698289871,
+  "v2_shoulder_width_quantile_world": 0.3819809854030609,
+  "shoulder_width_change_world": -0.010185584425926208,
+  "front_width_region_count": 1961,
+  "face_normals_reversed": 0,
+  "old_degenerate_faces": 2,
+  "v2_degenerate_faces": 2,
+  "topology_preserved": true,
+  "roi_preserved_outside": true,
+  "reload_exact_match": true,
+  "local_face_repair_rounds": 8,
+  "local_face_repair_vertex_count": 26,
+  "protected_input_hashes_unchanged": true,
+  "protected_sha256": {
+    "art/s-creature/references/00_s_type_modeling_image_v1.png": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+    "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/S_ORIGINAL_HUNYUAN_ART_SCULPT_STATION__UNEDITED_BASE.blend": "1f26bbd4485721a69d74c0c4c4da917dacf9341c15932785e42ba478c3f71c37",
+    "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v1/S_HUNYUAN_SHOULDER_CHEST_SCULPT_V1.blend": "13d911bbefed39ec602df35b812ce04d27815ac3a7afe3ec0205d77aa65fd212"
+  },
+  "output_sha256": "05171a0f0652517a28bb615525f0d4d707ff4bafbe5ac63e87dcd7ef0ce4fc02",
+  "output_file": "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v2/S_HUNYUAN_SHOULDER_CHEST_SCULPT_V2.blend",
+  "morphology_gate": "UNREVIEWED; NO AUTOMATIC_KEEP"
+}
