@@ -71,8 +71,47 @@ D[:,2]= .006*ridge-.003*ridge_recess+.005*humerus+.008*chest_taper-.005*pectoral
 D*=mask[:,None]
 assert np.isfinite(D).all()
 inv=body.matrix_world.inverted()
-for v,p in zip(mesh.vertices,world+D):
-    v.co=inv@Vector(p)
+
+# Geometry validity is a PRE-SAVE GATE. Evaluate actual single-precision mesh
+# coordinates, not idealized float64 field values. Local adaptive damping only
+# affects vertices of failing triangles; preserve the rest of the V2 sculpt.
+local_delta=np.zeros_like(before)
+affected=np.where(mask>0)[0]
+for i in affected:
+    local_delta[i]=np.asarray((inv@Vector(world[i]+D[i]))[:],dtype=np.float64)-before[i]
+
+def candidate_vertices():
+    xyz=before+local_delta
+    # Blender mesh coordinate serialization uses 32-bit floats.
+    return xyz.astype(np.float32).astype(np.float64)
+def normals_and_lengths(vertices):
+    edges1=vertices[triangles[:,1]]-vertices[triangles[:,0]]
+    edges2=vertices[triangles[:,2]]-vertices[triangles[:,0]]
+    normals=np.cross(edges1,edges2)
+    return normals,np.linalg.norm(normals,axis=1)
+
+initial_normals,initial_len=normals_and_lengths(before)
+allowed_degenerate=int(np.count_nonzero(initial_len<=1e-12))
+damping_iterations=0
+damped_vertices=set()
+for attempt in range(18):
+    proposed=candidate_vertices()
+    trial_normals,trial_len=normals_and_lengths(proposed)
+    both_valid=(initial_len>1e-12)&(trial_len>1e-12)
+    reversed_ids=np.where(both_valid&(np.sum(initial_normals*trial_normals,axis=1)<0))[0]
+    new_degenerate_ids=np.where((initial_len>1e-12)&(trial_len<=1e-12))[0]
+    bad_faces=np.union1d(reversed_ids,new_degenerate_ids)
+    if len(bad_faces)==0:break
+    bad_vertices=np.unique(triangles[bad_faces].ravel())
+    # Half only displacements responsible for local face collapse/flip.
+    local_delta[bad_vertices]*=.5
+    damped_vertices.update(int(i) for i in bad_vertices)
+    damping_iterations+=1
+else:
+    raise AssertionError("V2 locally damped mesh still fails triangle validity gate")
+
+for i in affected:
+    mesh.vertices[int(i)].co=Vector(proposed[i])
 mesh.update()
 body.name='S_HUNYUAN_SHOULDER_CHEST_SCULPT_V2'
 body['sculpt_revision']='V2 oblique shoulder/pectoral plane and frontal-width reduction'
@@ -85,7 +124,7 @@ body=bpy.data.objects['S_HUNYUAN_SHOULDER_CHEST_SCULPT_V2']
 mesh=body.data
 after=np.asarray([v.co[:] for v in mesh.vertices],dtype=np.float64)
 assert np.array_equal(triangles,np.asarray([p.vertices[:] for p in mesh.polygons],dtype=np.int32))
-expected=np.asarray([(inv@Vector(p))[:] for p in world+D])
+expected=proposed
 assert np.allclose(after,expected,atol=1e-7,rtol=0)
 assert len(after)==len(before)
 delta=after-before
@@ -129,7 +168,7 @@ report=dict(
  front_width_region_count=int(front_region.sum()),
  face_normals_reversed=reversed_faces,old_degenerate_faces=old_degen,
  v2_degenerate_faces=new_degen,
- topology_preserved=True,roi_preserved_outside=True,reload_exact_match=True,
+ topology_preserved=True,roi_preserved_outside=True,reload_exact_match=True,local_face_repair_rounds=damping_iterations,local_face_repair_vertex_count=len(damped_vertices),
  protected_input_hashes_unchanged=True,protected_sha256=protected,
  output_sha256=sha(V2),output_file=str(V2.relative_to(ROOT)),
  morphology_gate='UNREVIEWED; NO AUTOMATIC_KEEP')
