@@ -5,6 +5,7 @@ on:
       - exp/p-3d-rescue-20261014
     paths:
       - .github/workflows/p-v7b-rescue.yml
+      - scripts/modeling/build-p-v7b-rescue.py
 permissions:
   contents: write
 jobs:
