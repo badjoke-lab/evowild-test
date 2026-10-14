@@ -1,0 +1,138 @@
+name: EvoWild S real Hunyuan V2 sculpt + real 5 views + canonical compare
+on:
+  push:
+    branches: [exp/s-hunyuan-shoulder-sculpt-20261013]
+    paths:
+      - .github/workflows/s-hunyuan-shoulder-chest-sculpt-v2.yml
+      - art/s-creature/blender/s_hunyuan_shoulder_chest_sculpt_v2.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-s-actual-hunyuan-v2
+  cancel-in-progress: false
+jobs:
+  edit-save-render-and-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /.github/workflows/s-hunyuan-shoulder-chest-sculpt-v2.yml
+            /art/s-creature/blender/s_hunyuan_shoulder_chest_sculpt_v2.py
+            /art/s-creature/blender/s_hunyuan_sculpt_review_render.py
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/S_ORIGINAL_HUNYUAN_ART_SCULPT_STATION__UNEDITED_BASE.blend
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v1/
+      - name: Install real Blender 4.3.2
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends libegl1 libgl1 libgl1-mesa-dri libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6 python3-pil
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/evowild-blender.tar.xz
+          tar -xf /tmp/evowild-blender.tar.xz -C /tmp
+          /tmp/blender-4.3.2-linux-x64/blender --version | head -n 2
+      - name: Sculpt actual V1 source mesh in Blender and verify geometry before any output promotion
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/evowild-v2
+          /tmp/blender-4.3.2-linux-x64/blender -b -t 4 --python-exit-code 1 --python art/s-creature/blender/s_hunyuan_shoulder_chest_sculpt_v2.py 2>&1 | tee /tmp/evowild-v2/sculpt.log
+          grep -q 'S_REAL_NATIVE_V2_SAVE_RELOAD_PASS' /tmp/evowild-v2/sculpt.log
+          grep -q 'S_V2_REAL_FIVE_VIEW_AND_DETAIL_RENDER_PASS' /tmp/evowild-v2/sculpt.log
+      - name: Compare BASE, V1 and V2 real render images; include exact canonical crops
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw, ImageFont
+          from io import BytesIO
+          import base64,hashlib,json
+          root=Path('art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012')
+          before=root/'review-v1';out=root/'review-v2'
+          font='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
+          f=ImageFont.truetype(font,22)
+          tag5=['SIDE','FRONT','FRONT34','REAR34','BACK']
+          def sheet(tags,detailed,filename,w):
+              h=int(w*.8);title=40
+              source_prefix='DETAIL_' if detailed else ''
+              rows=['BASE','V1','V2']
+              image=Image.new('RGB',(len(tags)*w,len(rows)*(h+title)),(236,239,243))
+              draw=ImageDraw.Draw(image)
+              for i,row in enumerate(rows):
+                for j,tag in enumerate(tags):
+                  name=(('BEFORE_' if row=='BASE' else 'AFTER_')+source_prefix+tag+'.png') if row!='V2' else ('V2_'+source_prefix+tag+'.png')
+                  p=(before if row!='V2' else out)/name
+                  assert p.is_file(),p
+                  with Image.open(p) as src:
+                    im=src.convert('RGB');im.thumbnail((w,h))
+                    left=j*w+(w-im.width)//2
+                    top=i*(h+title)+title+(h-im.height)//2
+                    image.paste(im,(left,top))
+                  draw.text((j*w+11,i*(h+title)+7),row+' / '+tag,fill=(15,26,40),font=f)
+              image.save(out/filename,quality=87,optimize=True)
+              return image
+          sheet(tag5,False,'BASE_V1_V2_REAL_FIVE_VIEW.jpg',420)
+          sheet(['SIDE','FRONT','FRONT34'],True,'BASE_V1_V2_SHOULDER_DETAIL.jpg',570)
+          ref=Path('art/s-creature/references/00_s_type_modeling_image_v1.png')
+          assert hashlib.sha256(ref.read_bytes()).hexdigest()=='93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6'
+          crops={'SIDE':(18,75,756,512),'FRONT':(766,81,949,513),'FRONT34':(1127,81,1433,513)}
+          cw,ch=640,490
+          canvas=Image.new('RGB',(3*cw,2*(ch+40)),(244,246,249))
+          draw=ImageDraw.Draw(canvas)
+          with Image.open(ref) as source:
+            original=source.convert('RGB')
+            for j,(tag,rect) in enumerate(crops.items()):
+              art=original.crop(rect)
+              art.thumbnail((cw,ch))
+              canvas.paste(art,(j*cw+(cw-art.width)//2,40+(ch-art.height)//2))
+              with Image.open(out/('V2_'+tag+'.png')) as rr:
+                render=rr.convert('RGB')
+                render.thumbnail((cw,ch))
+                canvas.paste(render,(j*cw+(cw-render.width)//2,ch+80+(ch-render.height)//2))
+              draw.text((j*cw+12,6),'CANONICAL ART / '+tag,fill='#14263a',font=f)
+              draw.text((j*cw+12,ch+46),'V2 REAL BLENDER / '+tag,fill='#14263a',font=f)
+          canvas.save(out/'CANONICAL_VS_V2_UNREGISTERED.jpg',quality=87,optimize=True)
+          info=json.loads((out/'V2_SCULPT_VERIFICATION.json').read_text())
+          note='# S Hunyuan V2 genuine sculpt review\n\n'
+          note+='Sculpture: REAL bpy edited existing Hunyuan mesh. Not approved. Compare actual photos in this directory.\n\n'
+          note+='Canonical illustration SHA256 93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6. Render to illustration registration is approximate; do not treat side-by-side pixel differences as calibrated.\n\n'
+          note+='Input V1 / current V2 are separate preserved .blend files. No rigging, animation, game deployment, or main merge.\n\n'
+          note+='Numerical quality checks: 38,802 vertices, 77,684 faces; zero reversed face normals, no newly degenerate faces. These are not a substitute for artist visual approval, and do not prove absence of self-intersections.\n\n'
+          note+='Front width quantiles (region y -0.53..-0.29, z -0.08..0.14): V1='+str(info['input_shoulder_width_quantile_world'])+', V2='+str(info['v2_shoulder_width_quantile_world'])+'.\n\n'
+          note+='Outcome: VISUAL_REVIEW_REQUIRED (do not autopromote to KEEP).\n'
+          (out/'V2_REVIEW.md').write_text(note)
+          previews=out/'chat-review-preview';previews.mkdir(exist_ok=True)
+          for filename in ('BASE_V1_V2_REAL_FIVE_VIEW.jpg','BASE_V1_V2_SHOULDER_DETAIL.jpg','CANONICAL_VS_V2_UNREGISTERED.jpg'):
+              with Image.open(out/filename) as im:
+                  pic=im.convert('RGB');pic.thumbnail((2000,1600))
+                  b=BytesIO();pic.save(b,'JPEG',quality=78,optimize=True)
+              assert len(b.getvalue())<850000,(filename,len(b.getvalue()))
+              (previews/(filename+'.b64.txt')).write_text(base64.b64encode(b.getvalue()).decode('ascii')+'\n')
+          print('V2_THREE_WAY_AND_CANONICAL_COMPARISON_COMPLETE',info['changed_vertices'],info['shoulder_width_change_world'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-S-real-Hunyuan-V2-mesh-and-five-view-evidence
+          path: |
+            art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v2/
+            /tmp/evowild-v2/sculpt.log
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Commit actual V2 sculpt and all real review images to experiment branch
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          dir='art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v2'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse "$dir"
+          if ! git diff --cached --quiet; then
+            git commit -m 'sculpt(s): real V2 Hunyuan front silhouette and oblique shoulder planes with tri-view proof'
+            git pull --rebase origin exp/s-hunyuan-shoulder-sculpt-20261013
+            git push origin HEAD:exp/s-hunyuan-shoulder-sculpt-20261013
+          fi
