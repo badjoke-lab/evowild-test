@@ -1,0 +1,33 @@
+{
+  "path": "LAYER_PILOT_FRONT34.png",
+  "seconds": 15.05,
+  "engine": "CYCLES",
+  "samples": 24,
+  "resolution": [
+    1000,
+    800
+  ],
+  "camera_location": [
+    3.533421039581299,
+    -3.537646770477295,
+    -0.03542327508330345
+  ],
+  "camera_rotation": [
+    1.5707963705062866,
+    -1.490736281084537e-07,
+    0.7853981256484985
+  ],
+  "ortho_scale": 1.7981805476041761,
+  "target": [
+    -0.002112755086272955,
+    -0.0021127539221197367,
+    -0.03542327508330345
+  ],
+  "lights": {
+    "KEY": 350.0,
+    "FILL": 100.0,
+    "RIM": 250.0
+  },
+  "clay_material_override": "V4_REVIEW_CLAY",
+  "source_file_not_written": true
+}

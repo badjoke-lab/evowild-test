@@ -1,0 +1,26 @@
+{
+  "file": "S_HUNYUAN_SHOULDER_LAYER_PILOT.blend",
+  "sha256": "4342cede67662bb28066bcd5e00c7ac1a2527e25d0b4c7a01fb96ca1567d4627",
+  "mesh_fingerprint_before": "bd1a73404f0885af9f5fd831f87e88792726fe5894e09cd000e46408e997d4e4",
+  "mesh_fingerprint_after_reload": "bd1a73404f0885af9f5fd831f87e88792726fe5894e09cd000e46408e997d4e4",
+  "coordinates_and_face_loops_reload_exact": true,
+  "vertices": 40957,
+  "polygons": 79363,
+  "mesh_objects": 1,
+  "mesh_datablocks": 1,
+  "unused_buffer_datablocks_removed": 18,
+  "native_blender_validation_on_copies": {
+    "stage1_validate_changed_copy": false,
+    "candidate_validate_changed_copy": false
+  },
+  "blender_version": "4.3.2",
+  "dirty_after_reload": false,
+  "protected_hashes_unchanged": true,
+  "packed_images": [
+    "00_s_type_modeling_image_v1.png",
+    "CANONICAL_CROP_BACK.png",
+    "CANONICAL_CROP_FRONT.png",
+    "CANONICAL_CROP_FRONT34.png",
+    "CANONICAL_CROP_SIDE.png"
+  ]
+}

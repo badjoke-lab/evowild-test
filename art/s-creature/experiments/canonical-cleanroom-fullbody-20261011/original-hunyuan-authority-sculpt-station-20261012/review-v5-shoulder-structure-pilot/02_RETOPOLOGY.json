@@ -1,0 +1,8 @@
+{
+  "operation": "replace lateral face region with connected inset return and constrained faceted deltoid",
+  "source_faces_removed": 1271,
+  "perimeter_vertices_preserved": 103,
+  "vertices": 38326,
+  "faces": 76629,
+  "side": "positive X only"
+}

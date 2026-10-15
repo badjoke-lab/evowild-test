@@ -1,0 +1,29 @@
+{
+  "decision": "LOCAL_KEEP_FOR_SHOULDER_IMPROVEMENT",
+  "reviewer": "same working assistant, not independent",
+  "views_checked": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "matched_cycles": [
+    "SIDE",
+    "FRONT",
+    "FRONT34"
+  ],
+  "visual_evidence": "RIGHT_FINAL_DETAIL_*.png compared to STAGE1_MATCHED_DETAIL_*.png and original authority image",
+  "observed_improvement": [
+    "oblique faceted sheet now has a visible thin posterior/lower return rather than an uninterrupted flat mound",
+    "plate tapers into pectoral root",
+    "short recessed junction separates plate and proximal upper arm",
+    "frontal shoulder volume narrower with no superior shear"
+  ],
+  "limits": [
+    "local shoulder improvement only",
+    "faceting remains coarse compared with illustration",
+    "no global S morphology approval"
+  ],
+  "authorize_next": "apply same localized connected-mesh design to opposite shoulder, then inspect and validate"
+}

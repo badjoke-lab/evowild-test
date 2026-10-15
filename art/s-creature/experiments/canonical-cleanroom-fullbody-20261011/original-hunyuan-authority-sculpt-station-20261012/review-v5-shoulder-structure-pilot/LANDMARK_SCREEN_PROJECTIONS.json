@@ -1,0 +1,186 @@
+{
+  "SIDE": {
+    "source_capture": "00_BASELINE_SCREEN_SIDE.png",
+    "window": [
+      2594,
+      1508
+    ],
+    "region": [
+      0,
+      154,
+      2143,
+      1301
+    ],
+    "landmarks": {
+      "superior_shoulder": {
+        "source_vertex": 34325,
+        "source_position": [
+          0.1418973058462143,
+          -0.348967045545578,
+          0.09618420153856277
+        ],
+        "pixel": [
+          1062.1290283203125,
+          346.37066650390625
+        ]
+      },
+      "posterior_ridge": {
+        "source_vertex": 36092,
+        "source_position": [
+          0.1502533107995987,
+          -0.2261110544204712,
+          0.05815853551030159
+        ],
+        "pixel": [
+          1352.341064453125,
+          436.19537353515625
+        ]
+      },
+      "pectoral_boundary": {
+        "source_vertex": 34097,
+        "source_position": [
+          0.10125061124563217,
+          -0.4532492458820343,
+          -0.0559629462659359
+        ],
+        "pixel": [
+          815.7921752929688,
+          705.774658203125
+        ]
+      },
+      "upper_arm": {
+        "source_vertex": 36629,
+        "source_position": [
+          0.12461962550878525,
+          -0.25241824984550476,
+          -0.15938201546669006
+        ],
+        "pixel": [
+          1290.1978759765625,
+          950.0726013183594
+        ]
+      },
+      "shoulder_center": {
+        "source_vertex": 37889,
+        "source_position": [
+          0.1321605145931244,
+          -0.37233057618141174,
+          -0.01790693961083889
+        ],
+        "pixel": [
+          1006.9393310546875,
+          615.8782958984375
+        ]
+      },
+      "inferior_plate_tip": {
+        "source_vertex": 37305,
+        "source_position": [
+          0.12337435781955719,
+          -0.2964399456977844,
+          -0.11374609172344208
+        ],
+        "pixel": [
+          1186.209228515625,
+          842.2707824707031
+        ]
+      }
+    },
+    "window_logical": [
+      1297,
+      754
+    ],
+    "coordinate_note": "Region projection uses framebuffer pixels; top origin uses raw screenshot physical height, not macOS logical window height."
+  },
+  "FRONT34": {
+    "source_capture": "00_BASELINE_SCREEN_FRONT34.png",
+    "window": [
+      2594,
+      1508
+    ],
+    "region": [
+      0,
+      154,
+      2143,
+      1301
+    ],
+    "landmarks": {
+      "superior_shoulder": {
+        "source_vertex": 34325,
+        "source_position": [
+          0.1418973058462143,
+          -0.348967045545578,
+          0.09618420153856277
+        ],
+        "pixel": [
+          1360.3519287109375,
+          346.37066650390625
+        ]
+      },
+      "posterior_ridge": {
+        "source_vertex": 36092,
+        "source_position": [
+          0.1502533107995987,
+          -0.2261110544204712,
+          0.05815853551030159
+        ],
+        "pixel": [
+          1579.5201416015625,
+          436.19549560546875
+        ]
+      },
+      "pectoral_boundary": {
+        "source_vertex": 34097,
+        "source_position": [
+          0.10125061124563217,
+          -0.4532492458820343,
+          -0.0559629462659359
+        ],
+        "pixel": [
+          1118.271728515625,
+          705.774658203125
+        ]
+      },
+      "upper_arm": {
+        "source_vertex": 36629,
+        "source_position": [
+          0.12461962550878525,
+          -0.25241824984550476,
+          -0.15938201546669006
+        ],
+        "pixel": [
+          1492.76123046875,
+          950.0726623535156
+        ]
+      },
+      "shoulder_center": {
+        "source_vertex": 37889,
+        "source_position": [
+          0.1321605145931244,
+          -0.37233057618141174,
+          -0.01790693961083889
+        ],
+        "pixel": [
+          1305.0631103515625,
+          615.8782958984375
+        ]
+      },
+      "inferior_plate_tip": {
+        "source_vertex": 37305,
+        "source_position": [
+          0.12337435781955719,
+          -0.2964399456977844,
+          -0.11374609172344208
+        ],
+        "pixel": [
+          1417.150146484375,
+          842.2708435058594
+        ]
+      }
+    },
+    "window_logical": [
+      1297,
+      754
+    ],
+    "coordinate_note": "Region projection uses framebuffer pixels; top origin uses raw screenshot physical height, not macOS logical window height."
+  }
+}

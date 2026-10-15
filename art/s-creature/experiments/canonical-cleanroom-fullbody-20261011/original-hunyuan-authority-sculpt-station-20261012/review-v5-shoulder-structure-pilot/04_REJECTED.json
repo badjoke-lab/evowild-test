@@ -1,0 +1,1 @@
+{"decision": "REJECT_REVERT", "reason": "Inset creates new nonadjacent surface intersections: baseline 7, trial 221. No mirror."}

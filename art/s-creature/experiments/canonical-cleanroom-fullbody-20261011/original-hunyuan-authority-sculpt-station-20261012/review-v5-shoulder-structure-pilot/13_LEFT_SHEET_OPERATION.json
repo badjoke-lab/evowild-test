@@ -1,0 +1,72 @@
+{
+  "operation": "base narrowing .018; curved oblique knife perimeter; anatomical facets and thin connected return .001-.012",
+  "side": -1,
+  "source_patch_faces_removed": 1137,
+  "boundary_vertices": 196,
+  "base_vertices_shaped": 1992,
+  "vertices": 40957,
+  "faces": 79363,
+  "leaf_yz": [
+    [
+      -0.448,
+      -0.025
+    ],
+    [
+      -0.437,
+      0.021
+    ],
+    [
+      -0.409,
+      0.063
+    ],
+    [
+      -0.363,
+      0.102
+    ],
+    [
+      -0.31,
+      0.132
+    ],
+    [
+      -0.28,
+      0.137
+    ],
+    [
+      -0.256,
+      0.112
+    ],
+    [
+      -0.245,
+      0.073
+    ],
+    [
+      -0.257,
+      0.022
+    ],
+    [
+      -0.28,
+      -0.043
+    ],
+    [
+      -0.305,
+      -0.101
+    ],
+    [
+      -0.326,
+      -0.139
+    ],
+    [
+      -0.345,
+      -0.142
+    ],
+    [
+      -0.391,
+      -0.108
+    ],
+    [
+      -0.428,
+      -0.065
+    ]
+  ],
+  "topology_preserved": false
+}

@@ -1,0 +1,39 @@
+{
+  "operation": "one-side base narrowing .018; planar knife leaf perimeter; replace patch interior with constrained facets and thin connected return",
+  "source_patch_faces_removed": 654,
+  "boundary_vertices": 151,
+  "base_vertices_shaped": 1998,
+  "vertices": 39091,
+  "faces": 77907,
+  "leaf_yz": [
+    [
+      -0.422,
+      0.002
+    ],
+    [
+      -0.377,
+      0.076
+    ],
+    [
+      -0.286,
+      0.125
+    ],
+    [
+      -0.246,
+      0.087
+    ],
+    [
+      -0.283,
+      0.012
+    ],
+    [
+      -0.349,
+      -0.085
+    ],
+    [
+      -0.393,
+      -0.051
+    ]
+  ],
+  "topology_preserved": false
+}

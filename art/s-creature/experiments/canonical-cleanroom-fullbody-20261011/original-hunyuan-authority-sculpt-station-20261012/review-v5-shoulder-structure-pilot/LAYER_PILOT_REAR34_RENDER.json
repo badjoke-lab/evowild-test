@@ -1,0 +1,33 @@
+{
+  "path": "LAYER_PILOT_REAR34.png",
+  "seconds": 7.52,
+  "engine": "CYCLES",
+  "samples": 24,
+  "resolution": [
+    1000,
+    800
+  ],
+  "camera_location": [
+    3.501584529876709,
+    3.5694832801818848,
+    -0.03542328253388405
+  ],
+  "camera_rotation": [
+    1.5707963705062866,
+    -3.893860878179112e-08,
+    2.356194496154785
+  ],
+  "ortho_scale": 1.798180368861647,
+  "target": [
+    -0.033949270844459534,
+    0.03394925966858864,
+    -0.03542328253388405
+  ],
+  "lights": {
+    "KEY": 350.0,
+    "FILL": 100.0,
+    "RIM": 250.0
+  },
+  "clay_material_override": "V4_REVIEW_CLAY",
+  "source_file_not_written": true
+}

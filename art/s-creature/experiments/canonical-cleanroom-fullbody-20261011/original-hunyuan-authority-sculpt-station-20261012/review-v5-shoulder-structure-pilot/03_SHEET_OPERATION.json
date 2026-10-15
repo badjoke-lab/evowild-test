@@ -1,0 +1,38 @@
+{
+  "operation": "one-side base narrowing, planar knife boundaries, face-region inset .0045 and connected sheet lift .014-.022",
+  "base_vertices_shaped": 1998,
+  "sheet_cap_vertices": 438,
+  "vertices": 39355,
+  "faces": 78229,
+  "leaf_yz": [
+    [
+      -0.422,
+      0.002
+    ],
+    [
+      -0.377,
+      0.076
+    ],
+    [
+      -0.286,
+      0.125
+    ],
+    [
+      -0.246,
+      0.087
+    ],
+    [
+      -0.283,
+      0.012
+    ],
+    [
+      -0.349,
+      -0.085
+    ],
+    [
+      -0.393,
+      -0.051
+    ]
+  ],
+  "topology_preserved": false
+}

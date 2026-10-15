@@ -1,0 +1,494 @@
+{
+  "art/s-creature/blender/s_hunyuan_shoulder_pilot_chest_arm.py": {
+    "bytes": 1446,
+    "sha256": "96acfe0a07918e5819a49353fa44997c4ef96151bfccc6cb1bc32d2f0e21cc3a"
+  },
+  "art/s-creature/blender/s_hunyuan_shoulder_pilot_comparisons.py": {
+    "bytes": 3935,
+    "sha256": "9a5df2a7a69ddd14d7cb0fa3a42db54bee7d788912bae9fbb2d0e6433eda91a4"
+  },
+  "art/s-creature/blender/s_hunyuan_shoulder_pilot_connected_sheet.py": {
+    "bytes": 4748,
+    "sha256": "e43147b8237ac25af02cc73e66a8baafd4b288e9347992d7dc5779723365a827"
+  },
+  "art/s-creature/blender/s_hunyuan_shoulder_pilot_render.py": {
+    "bytes": 2801,
+    "sha256": "3021014bb4f4e84a33ee4961cbe9f1ab3fd23623a6942895a86d392e78724c36"
+  },
+  "art/s-creature/blender/s_hunyuan_shoulder_pilot_retopology.py": {
+    "bytes": 4491,
+    "sha256": "24087455d7ae4fea151f24593553e78eed9ae09e94f5aec9af422a7f1d08d0a2"
+  },
+  "art/s-creature/blender/s_hunyuan_shoulder_pilot_save_verify.py": {
+    "bytes": 3359,
+    "sha256": "fe4f6c5c3eb763430de38ee3ded5dd91bf3ad1e336884f44422eda448ba49914"
+  },
+  "art/s-creature/blender/s_hunyuan_shoulder_pilot_sheet.py": {
+    "bytes": 2853,
+    "sha256": "aaafc47645c8ab73f4c5860b2c39dda8bfd95cce52b83cad50645a53f47b7a50"
+  },
+  "art/s-creature/blender/s_hunyuan_shoulder_pilot_taper.py": {
+    "bytes": 1101,
+    "sha256": "ea0c4b97767770b9db18cdbabf5a01f1d0cdded36b6e9eac43d61833ac30690a"
+  },
+  "art/s-creature/blender/s_hunyuan_shoulder_pilot_verify.py": {
+    "bytes": 4064,
+    "sha256": "d4631ac9e3cab4bcda330383a0124ee166c6724c80ae27601854b0045ea0610a"
+  },
+  "art/s-creature/blender/s_hunyuan_shoulder_structure_pilot.py": {
+    "bytes": 3553,
+    "sha256": "02abe611bc8863e2a54803e1f3f8f4156747d2af1680ae3ab238fd36adab97e1"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/02_REJECTED.json": {
+    "bytes": 124,
+    "sha256": "750317891f2eb7250d258916e42c6299b8487d5e92a88c5cfc04101c63fc0123"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/02_RETOPOLOGY.json": {
+    "bytes": 247,
+    "sha256": "b14a2e7557138d3332904f2e31503b0368cba4ece8646ac13dd8f1c6bfdb9b33"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/03_REVIEW.json": {
+    "bytes": 162,
+    "sha256": "8b340d7322d113cdd159505742482771e598f8951bf369bdeda9730fec480aaf"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/03_SHEET_OPERATION.json": {
+    "bytes": 554,
+    "sha256": "af351374b0ce2d6a9eb27bf929ae7dd29e3bd787d8800d9170f466cc680e6219"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/04_REJECTED.json": {
+    "bytes": 129,
+    "sha256": "d2d2f4dbc8397672dec661819987fe4e059cf1a3bdcef5021a2b395a8ab3d1bb"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/04_SHEET_OPERATION.json": {
+    "bytes": 594,
+    "sha256": "8bf94327ef6d725f3730b941d6a55cba3925f31ac4ca3c3a567ee2e6fe32b2b3"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/05_CONNECTED_SHEET_OPERATION.json": {
+    "bytes": 613,
+    "sha256": "f331ace33daf3b3165891b0abff5b285dbcf018e10755a04fd515865cbacbf1a"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/06_CHEST_ARM_OPERATION.json": {
+    "bytes": 174,
+    "sha256": "fb506621a3a70942a806ee5c7205502e48ce5342557bd9bb5e081f7457b7b173"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/07_08_REJECTED.json": {
+    "bytes": 186,
+    "sha256": "c827dae350138f05424d4f3d2acd0fa336d622b445bceeee576ad8c206bae96f"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/07_CURVED_SHEET_OPERATION.json": {
+    "bytes": 924,
+    "sha256": "448bd936a69880d1b2fd61f10f7d878bb0c163c1898303b196a31626d8c79ef3"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/08_BROAD_FACETS_OPERATION.json": {
+    "bytes": 924,
+    "sha256": "448bd936a69880d1b2fd61f10f7d878bb0c163c1898303b196a31626d8c79ef3"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/09_ANATOMICAL_SHEET_OPERATION.json": {
+    "bytes": 917,
+    "sha256": "b0cbdfbe0ce5ffb38f133fc9f61d455df63925df1f407a11f46f1debc9dd3bf1"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/10_ANATOMY_OPERATION.json": {
+    "bytes": 187,
+    "sha256": "b05a35f5f8dcd0a7a69184a21ec7ebcb0d38426b98e001c4351c8f5010b17f9f"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/11_FRONTAL_TAPER_OPERATION.json": {
+    "bytes": 139,
+    "sha256": "654ae27de153f90c13dc014eb28689d79bd436c3a1e814a4af9e969fb184286c"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/11_REJECTED.json": {
+    "bytes": 146,
+    "sha256": "0438158db678f280739fcafab0bba4b181afba2d41c59427615fe9e189e632c0"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/12_VOLUME_TAPER_OPERATION.json": {
+    "bytes": 150,
+    "sha256": "ebbf571adc4617e2a3575e29f9aaabcfe7871d56035de7b84b20336bfee8ca5b"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/13_LEFT_SHEET_OPERATION.json": {
+    "bytes": 918,
+    "sha256": "12d07c0b3982dfccf1e60efe7aa274506e918f0cf5052f03f56e5f82c5dd35fa"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/14_LEFT_ANATOMY_OPERATION.json": {
+    "bytes": 188,
+    "sha256": "17c914fb4d44fe42a673669ac9bf015c4403a94114170b991457064b79151c51"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/15_LEFT_VOLUME_TAPER_OPERATION.json": {
+    "bytes": 151,
+    "sha256": "fcad6689f4783e869b80b57c8e86e9a45c78be4099befae298be4e3d0d1d6a5c"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/CANONICAL_STAGE1_LAYER_FIVE_VIEWS.jpg": {
+    "bytes": 289322,
+    "sha256": "f5026505bd88cb2cc6252c25f15180c912d294cb1c1e42b7760a305e0a12ba3e"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/CANONICAL_STAGE1_LAYER_PILOT.jpg": {
+    "bytes": 549196,
+    "sha256": "e02dd672f774cd913d6c2cebb110603b07898fb5bbc519ea0d1093f6122a2710"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/CANONICAL_STAGE1_RIGHT_FINAL.jpg": {
+    "bytes": 550027,
+    "sha256": "dece9a046a2ec0d0adbb66dea6882cfb72edb8579f95a4ffb6c5f7165a57f37c"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/FINAL_GEOMETRY_VERIFICATION.json": {
+    "bytes": 12678,
+    "sha256": "5fa3887496a890b45751202e53a8c6d3e2a7313a3ebbdeac57e34b516fbc6db1"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/LANDMARKS_SIDE.json": {
+    "bytes": 1634,
+    "sha256": "fc214b37e63fa22ad3bae7e892a2063476241b253ec9342b645406ebbd541068"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/LANDMARK_SCREEN_PROJECTIONS.json": {
+    "bytes": 4270,
+    "sha256": "87cf5cf31c741a4360f3a4ff8ea1f83af3e0f05111a6e6d51c9f04a7ddbb6eb0"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/LAYER_PILOT_BACK.png": {
+    "bytes": 837960,
+    "sha256": "a0ed5dda28549e4ba93bf06702cec787572e41c3c7fa4f4f8e48193083b00821"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/LAYER_PILOT_BACK_RENDER.json": {
+    "bytes": 615,
+    "sha256": "dbae2460ffbec582f700da996353d621fa7be6028bb28702cfb5959a79f7e03a"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/LAYER_PILOT_DETAIL_FRONT.png": {
+    "bytes": 963784,
+    "sha256": "90e54c1f7a9da46dff0c882e672619456ddd7e0a9dfda32f4d596f23d6712b0b"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/LAYER_PILOT_DETAIL_FRONT34.png": {
+    "bytes": 1139504,
+    "sha256": "ba1b5000b74a6b6f63403e0db672c11c8dcf9591fdaa4a1bdc35191b8546f631"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/LAYER_PILOT_DETAIL_FRONT34_RENDER.json": {
+    "bytes": 624,
+    "sha256": "ade833309f7916d3677aebcfadf2148d9002bc4fb6ba7ad701240ea9d8bac80a"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/LAYER_PILOT_DETAIL_FRONT_RENDER.json": {
+    "bytes": 590,
+    "sha256": "183995bc527a04f2ac23d414b2ce2c0ecd09e24cde22932d726e0aedc0c0ff6b"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/LAYER_PILOT_DETAIL_LEFT_FRONT34.png": {
+    "bytes": 1109922,
+    "sha256": "bc0803969c60cc2a3b0658ca9429af144b92155198b223168c41afb0849d509d"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/LAYER_PILOT_DETAIL_LEFT_FRONT34_RENDER.json": {
+    "bytes": 630,
+    "sha256": "b9b8338135db29153ba025bd4855bd9a6555da0f05b50570ceeb6e57c7cb7e6f"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/LAYER_PILOT_DETAIL_SIDE.png": {
+    "bytes": 1032522,
+    "sha256": "5ee70e2d6ec6de3467e137dc0b64b48bfade83ca3d95fce028aaa674d56f0369"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/LAYER_PILOT_DETAIL_SIDE_RENDER.json": {
+    "bytes": 602,
+    "sha256": "19087589aaf3480d084eee6b54904829c51930094683a33fad13088c4c0f621a"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/LAYER_PILOT_FRONT.png": {
+    "bytes": 813615,
+    "sha256": "a4e45c84159951b28c8611f871b2b6b06293a7a5e9d5ad4d49d0605f6374f5cc"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/LAYER_PILOT_FRONT34.png": {
+    "bytes": 949136,
+    "sha256": "b19d29ff10ff5782e38e5739fe2df0a2a5c250263753bbac13c0627f9cd0e213"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/LAYER_PILOT_FRONT34_RENDER.json": {
+    "bytes": 633,
+    "sha256": "c89b6231edc4b2c013341ace6dede63fcd7dd77af18522036b4580ce705958e4"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/LAYER_PILOT_FRONT_RENDER.json": {
+    "bytes": 584,
+    "sha256": "f6a41e209aa7ab051573e76540b2681c69d30408ef7655e50b1744d5120e7a1b"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/LAYER_PILOT_REAR34.png": {
+    "bytes": 958083,
+    "sha256": "f5acc987723c0628e0fcc341adba3a112973370b3918a32e6d2337f6a68c54c3"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/LAYER_PILOT_REAR34_RENDER.json": {
+    "bytes": 626,
+    "sha256": "56ac83d7eeda18c057fd4b359d3cd3dace3a8360d6b423355ddb49d1ea656fe8"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/LAYER_PILOT_SIDE.png": {
+    "bytes": 845935,
+    "sha256": "c492d3588899ddb3020760aad2c22204f7ee9b7d1f97c86a834852a3da9a0206"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/LAYER_PILOT_SIDE_RENDER.json": {
+    "bytes": 594,
+    "sha256": "9090f209d56063b1d7b5c2c5b1f688140185ac7dedf707dadcd8c8b2baf849d7"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/ONE_SIDE_ART_GATE.json": {
+    "bytes": 974,
+    "sha256": "eeaf2b7b50fe5dfb8decae057a2b793e57995f6948188e40574af1c08817cc7a"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/PROTECTED_BEFORE.json": {
+    "bytes": 1357,
+    "sha256": "a4eb024534296abcca6a92ca6de506ac8d08aa55a9a7ee9ad58353250c0a4cfa"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/REVIEW.md": {
+    "bytes": 6687,
+    "sha256": "30145495de39f0e05bf9f665f3cbd9cc0648c1f377a4868f1fb8d327886e2737"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/RIGHT_FINAL_DETAIL_FRONT.png": {
+    "bytes": 965727,
+    "sha256": "1eeebe1f660b931830010f96873044fbd5b0dd6be8ff4e2f356dea8933fb3949"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/RIGHT_FINAL_DETAIL_FRONT34.png": {
+    "bytes": 1145456,
+    "sha256": "b77686d2f9dc6f62157ea3cce7f2960d32f55633504650d8a66e11fe087a1401"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/RIGHT_FINAL_DETAIL_SIDE.png": {
+    "bytes": 1032719,
+    "sha256": "9062441b2813b6d89d900be5d2d37b1f001b468d3168ea58fd8776de4176eaf4"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/SAVE_RELOAD_VERIFIED.json": {
+    "bytes": 940,
+    "sha256": "c96100f0d66f56b4b5bf4dd7ef5b8fb69da385574ee0c006477e2d2b4c28d5cd"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/STAGE1_LANDMARKS_FRONT34.jpg": {
+    "bytes": 404562,
+    "sha256": "b17d861d1567750258cebc382ef4eb0cdaa04b9443743d1b481c5f9a2ff0febe"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/STAGE1_LANDMARKS_SIDE.jpg": {
+    "bytes": 370896,
+    "sha256": "b3d34b8d08f6c84a33aa0f6b2a708bab14f37c5ea9dbd6a2e271f1ab76484b05"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/STAGE1_MATCHED_DETAIL_FRONT.png": {
+    "bytes": 967899,
+    "sha256": "1ea33b5ed743183e6df118606f016f8b2c06538351f1d2bcedfbc92df55c94a4"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/STAGE1_MATCHED_DETAIL_FRONT34.png": {
+    "bytes": 1142207,
+    "sha256": "738e34be0d82bb880e93ec532b73332b9e190ecbd47ccfc09521b9f7c31b68e5"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/STAGE1_MATCHED_DETAIL_FRONT34_RENDER.json": {
+    "bytes": 626,
+    "sha256": "2cfdc26c91b98ea1f7d9f9c29bd1d8e1ed6f55b59462c300e13b4a7450d78962"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/STAGE1_MATCHED_DETAIL_FRONT_RENDER.json": {
+    "bytes": 592,
+    "sha256": "2629abb435d450b0b04c82af0f7e276c9d8a9c9e730e5f6102f756992deb5de6"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/STAGE1_MATCHED_DETAIL_SIDE.png": {
+    "bytes": 1024840,
+    "sha256": "c210274b3a7e7b7fa4b83a078de256b94882218e7d83bf6076ac19ebaf586e2b"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/STAGE1_MATCHED_DETAIL_SIDE_RENDER.json": {
+    "bytes": 604,
+    "sha256": "f782216e4e4eaef4b9f9e25c5f474adf02ffef6f2b16841db6fa5dbec33edb3a"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/S_HUNYUAN_SHOULDER_LAYER_PILOT.blend": {
+    "bytes": 4749014,
+    "sha256": "4342cede67662bb28066bcd5e00c7ac1a2527e25d0b4c7a01fb96ca1567d4627"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/S_HUNYUAN_SHOULDER_LAYER_RIGHT_FINAL.blend": {
+    "bytes": 8439024,
+    "sha256": "f5f705532cca97fe76aa83f5342456a5d79620c8815ade4c6e12ae972a067b37"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/VIEWPORT_CAPTURE_MANIFEST.json": {
+    "bytes": 15015,
+    "sha256": "773d425b828cb808abc9dbd5efcef31716a7660a1eb5b808e9b737a53f7f6865"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/00_BASELINE_SCREEN_FRONT.jpg": {
+    "bytes": 266077,
+    "sha256": "5d17ac6d4544da366c517f7739e541f2ace6559b39ec26b72e932fb6003ac0af"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/00_BASELINE_SCREEN_FRONT34.jpg": {
+    "bytes": 325266,
+    "sha256": "8614ec1365a18293f153d5770546dcf4c7c4e020663acfe6a8d569fd475cf2d0"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/00_BASELINE_SCREEN_SIDE.jpg": {
+    "bytes": 299566,
+    "sha256": "c673b8f08cfa139cf50a68fb2451d32511631a6b263c92ef3a82bbf1e12f7fdf"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/01_REGION_SCREEN_FRONT34.jpg": {
+    "bytes": 631138,
+    "sha256": "62a2060b0f72df0c21e869ef1355da274aa3979e887d45619bc2a51e5c1436e3"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/02_RETOPOLOGY_SCREEN_FRONT.jpg": {
+    "bytes": 269053,
+    "sha256": "f2f705e8e6305c425d996432a00a29d2043712484e134f8bbb03ed9cec047abf"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/02_RETOPOLOGY_SCREEN_FRONT34.jpg": {
+    "bytes": 329945,
+    "sha256": "ff252f8541135544376a0542ede8ee71020b26766b6d14758ead410ad3b77510"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/02_RETOPOLOGY_SCREEN_SIDE.jpg": {
+    "bytes": 302735,
+    "sha256": "2edfb8634cd6e723b654dbfd7a00390ee732c6e1271e6655a337489f45e7bbd5"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/03_SHEET_SCREEN_FRONT.jpg": {
+    "bytes": 267795,
+    "sha256": "a413ef7d25c7a84f838e3eec3b7cc336bdc57864c6f3ac5c0ebd9289ebbf7ac7"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/03_SHEET_SCREEN_FRONT34.jpg": {
+    "bytes": 331503,
+    "sha256": "64d66237f1b1d1a92183f387ab6b953ddfc3f3453e5d713fb47113149ca0e3ac"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/03_SHEET_SCREEN_SIDE.jpg": {
+    "bytes": 309000,
+    "sha256": "ab912ca3856585ea1c044cb73db26ee7234f3d2b3db8b1a50d01536fe80e7b17"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/04_TAPERED_SHEET_SCREEN_FRONT.jpg": {
+    "bytes": 267839,
+    "sha256": "c370d4ac5594b34b8f4f10c2ab859714c9719a9583fb3a709a824384f3f87239"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/04_TAPERED_SHEET_SCREEN_FRONT34.jpg": {
+    "bytes": 329606,
+    "sha256": "221020e3dc0585894a4e7d99ab97b9390233342795c51a75f7b839c5bc83b44e"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/04_TAPERED_SHEET_SCREEN_SIDE.jpg": {
+    "bytes": 306825,
+    "sha256": "0769a02dedf41189ba7e52684381054297f3df8566c00ccdef365416f39c1b10"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/05_CONNECTED_SHEET_SCREEN_FRONT.jpg": {
+    "bytes": 266801,
+    "sha256": "5d306b540dbab8e5378f4566e064feb44b38efeb5995a9b1c6ff0af44f50363b"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/05_CONNECTED_SHEET_SCREEN_FRONT34.jpg": {
+    "bytes": 328892,
+    "sha256": "d2eba7e1de867ca83620dac3d59c069370b33d73b7f9e350f71e5de9fa38c422"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/05_CONNECTED_SHEET_SCREEN_SIDE.jpg": {
+    "bytes": 306180,
+    "sha256": "64c260178e831f2b21618337b5fc8fb90d73ab6cf7bbb011f427a83a5a7e441f"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/06_CHEST_ARM_SCREEN_FRONT.jpg": {
+    "bytes": 267218,
+    "sha256": "ac91b1f0cf06f72dd9021f0a30701fec1db54797e6c3ecbad2631a2a0e88c57b"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/06_CHEST_ARM_SCREEN_FRONT34.jpg": {
+    "bytes": 330543,
+    "sha256": "bd300d3c8c9698dfa6b595af48728a13f9e70cb69f74deedb64e275d2a812210"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/06_CHEST_ARM_SCREEN_SIDE.jpg": {
+    "bytes": 307743,
+    "sha256": "da7814edcec5b6aafa8ac0f8af4e6969da2472aea9e25766755678412ae8307d"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/07_CURVED_SHEET_SCREEN_FRONT.jpg": {
+    "bytes": 266643,
+    "sha256": "fceab067385e5462f1b20010206e90eb88bf118f2238fd7dce25fc5d39ad463b"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/07_CURVED_SHEET_SCREEN_FRONT34.jpg": {
+    "bytes": 329217,
+    "sha256": "52ea3d545eb73a930de5e0ef717354d69aff38d9e103f370d320138faa9a30e5"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/07_CURVED_SHEET_SCREEN_SIDE.jpg": {
+    "bytes": 306693,
+    "sha256": "a30d7899e48c35fcbdffdda185165d54d195c954ab0d59b29f2371bde483506d"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/08_BROAD_FACETS_SCREEN_FRONT.jpg": {
+    "bytes": 267467,
+    "sha256": "f003508c8c77f452ea990456d5a6717450aa2266c3bc454169ad5a9b92ef7a16"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/08_BROAD_FACETS_SCREEN_FRONT34.jpg": {
+    "bytes": 329862,
+    "sha256": "4ee2edd1d2f3fad495a14501d00590c42dd491cca4bde360e28fb9d5fbbd9b5b"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/08_BROAD_FACETS_SCREEN_SIDE.jpg": {
+    "bytes": 306632,
+    "sha256": "21c7a12acd7a0fce49855c2e2e0b4c910cd5c1dd4431e0a5946d31d7ab964df6"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/09_ANATOMICAL_SHEET_SCREEN_FRONT.jpg": {
+    "bytes": 266737,
+    "sha256": "6cef284955eef9fde5739195b2fc90d611ee03fa3977331aa5a31e8d4a60aa3e"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/09_ANATOMICAL_SHEET_SCREEN_FRONT34.jpg": {
+    "bytes": 327389,
+    "sha256": "495d8eb13e454bd1c91a4452988e4c251bdfea1c5dd9edadad365771b2245aca"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/09_ANATOMICAL_SHEET_SCREEN_SIDE.jpg": {
+    "bytes": 304480,
+    "sha256": "ae74ce1beb0187d8d1420d45ed303912e0ee4cc484752aa5decf8bee8d4a8f62"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/10_ANATOMY_SCREEN_FRONT.jpg": {
+    "bytes": 267693,
+    "sha256": "49c5e4cbdb914b3927a8bc605f41ef7c747374379ef071c3bba67e7734e4224f"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/10_ANATOMY_SCREEN_FRONT34.jpg": {
+    "bytes": 328044,
+    "sha256": "d7c4a3ff3a4a90d8fc677e48ebe21ca8de913ad11d9b100157cfc66aa8d8d173"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/10_ANATOMY_SCREEN_SIDE.jpg": {
+    "bytes": 305613,
+    "sha256": "e884301b4c40294db66eadc134fb70d82b6ae91f1c14847ae3efd8cdfb6892f4"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/11_FRONTAL_TAPER_SCREEN_FRONT.jpg": {
+    "bytes": 268387,
+    "sha256": "4586a3718ff16c79792f5d768d562de0d3d1dd966763f706d9910b3f74cfd5b9"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/11_FRONTAL_TAPER_SCREEN_FRONT34.jpg": {
+    "bytes": 328533,
+    "sha256": "29d82ea088ca198392fd3866bf5593c95e811e172ac0eea0caab69f8cfe83036"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/11_FRONTAL_TAPER_SCREEN_SIDE.jpg": {
+    "bytes": 307011,
+    "sha256": "b4a0f08da1120524ca76f2bbfd425fec238de23cb3ecc31d25c7362958710ea0"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/12_VOLUME_TAPER_SCREEN_BACK.jpg": {
+    "bytes": 272146,
+    "sha256": "f15e1714187cc85204b04a24b9e6df2f1730a3ed837cc5a44f66ab8e48e760b8"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/12_VOLUME_TAPER_SCREEN_FRONT.jpg": {
+    "bytes": 265813,
+    "sha256": "3ccef7c850789501b3d7e3e6dc5a40b869445f8d9d6aa37ce3c34aa9d16d2166"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/12_VOLUME_TAPER_SCREEN_FRONT34.jpg": {
+    "bytes": 325919,
+    "sha256": "2f4fa781c4a5176cc807296b5484c73c1fa9064fd8f11a8f0e142084115aa1b0"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/12_VOLUME_TAPER_SCREEN_REAR34.jpg": {
+    "bytes": 321470,
+    "sha256": "929f4743b949eb7140f9e6678de32b33bfd81c7d987cbcf41db7b03b67b876eb"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/12_VOLUME_TAPER_SCREEN_SIDE.jpg": {
+    "bytes": 303762,
+    "sha256": "1021d8a7d5fc0fd692f2eba3cdbed5b1f8e62134635ab20278b19b7791b3cd01"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/13_LEFT_SHEET_SCREEN_FRONT.jpg": {
+    "bytes": 265965,
+    "sha256": "c54ad5721dd5a62621b380ae280a070a65f05a5836b7dc37586a5f9b594e00e0"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/13_LEFT_SHEET_SCREEN_LEFT_FRONT34.jpg": {
+    "bytes": 313049,
+    "sha256": "7a6a50bb6154e31ab0d645bb6f3f64c83e649c9d01729f84e5a13d20e27736e9"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/13_LEFT_SHEET_SCREEN_LEFT_SIDE.jpg": {
+    "bytes": 287640,
+    "sha256": "6f300ceff67041bd69f2637bddc2b10e0d2d0383e5c44459643cf0e409b2c34d"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/14_LEFT_ANATOMY_SCREEN_FRONT.jpg": {
+    "bytes": 266402,
+    "sha256": "e35dd162347fedbc63bf5eba281d8a543d8cb4f681397c5925359e7e4d79d990"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/14_LEFT_ANATOMY_SCREEN_LEFT_FRONT34.jpg": {
+    "bytes": 313531,
+    "sha256": "2505e13d86d145c32d411f8028a50cb0e0579155014eb53c5a79e8a1742ae05c"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/14_LEFT_ANATOMY_SCREEN_LEFT_SIDE.jpg": {
+    "bytes": 288188,
+    "sha256": "def27ded2a538565071bd0c0b795b2ae26fe46326a0c77423ed3972a3d9cbf02"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/15_LEFT_VOLUME_TAPER_SCREEN_FRONT.jpg": {
+    "bytes": 266581,
+    "sha256": "3979d549ff710ff368b88d46c42e645c31f08b04a54bdfca14524d2c288d7d26"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/15_LEFT_VOLUME_TAPER_SCREEN_LEFT_FRONT34.jpg": {
+    "bytes": 313171,
+    "sha256": "60d321820db781e2bb18c7d34180de7f3eb1a8c2e5cd1b1d4e751525a6a8a94c"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/15_LEFT_VOLUME_TAPER_SCREEN_LEFT_SIDE.jpg": {
+    "bytes": 287786,
+    "sha256": "92ea6971f0653dcac9eea907a6f18843842a3c0379f90764a8b385df7281904a"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/16_FINAL_SCREEN_FRONT.jpg": {
+    "bytes": 266962,
+    "sha256": "1370a270ddf9c49082fc2926b81a3177bb19da42770041412fd70ca878abf9bb"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/16_FINAL_SCREEN_FRONT34.jpg": {
+    "bytes": 323869,
+    "sha256": "ce4e76d25198c44578bc3e1dedbd498ea263a2f78fe0c3bd56cfb4aa0f8ad636"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/16_FINAL_SCREEN_SIDE.jpg": {
+    "bytes": 303705,
+    "sha256": "1caacb227cbc2522a64bbd373dcd4c654dfbc03ce019afddb7ac73f0d8604c05"
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-shoulder-structure-pilot/viewport-evidence/17_RELOADED_SCREEN_FRONT34.jpg": {
+    "bytes": 327754,
+    "sha256": "48e3fa78c8fd1ff4ad64ecf4a42413ba4a0c27c7f35c4f1709a22e8742e7e5b3"
+  }
+}
