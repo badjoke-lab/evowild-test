@@ -5,7 +5,7 @@ Does not save source files. Removes preview backup only after exact restoration.
 """
 import bpy, bmesh, numpy as np
 from pathlib import Path
-STATION=Path(__file__).resolve().parents[1]/'experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012'
+STATION=Path(bpy.data.filepath).resolve().parents[6]/'art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012'
 OUT=STATION/'review-v5'
 filename=Path(bpy.data.filepath).resolve()
 assert filename.parent==OUT and filename.name=='S_HUNYUAN_SHOULDER_CHEST_SCULPT_V5_WORKING.blend'
