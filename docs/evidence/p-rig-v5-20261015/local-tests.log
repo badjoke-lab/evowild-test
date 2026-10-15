@@ -1,0 +1,41 @@
+
+Running 24 tests using 1 worker
+
+(node:3369) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/24] [android-chromium] › tests/p-layered.spec.js:3:1 › P layered trial keeps four independent feet planted, pauses and resets in an 18-runner race
+[2/24] [android-chromium] › tests/race-quality.spec.js:4:1 › four morph race uses the authored morph sheets in fixed-step race
+[3/24] [android-chromium] › tests/race-quality.spec.js:48:1 › 2.5D Race Agent commands are creature-resolved and morph-dependent
+[4/24] [android-chromium] › tests/race-quality.spec.js:100:1 › 2.5D race finalizes all 18 runners and exposes classification
+[5/24] [android-chromium] › tests/race-quality.spec.js:138:1 › 2.5D Creature State pressure changes Agent response
+[6/24] [android-chromium] › tests/race-quality.spec.js:194:1 › 2.5D Agent feedback shows command then creature result
+[7/24] [android-chromium] › tests/race-quality.spec.js:223:1 › 2.5D battle readability shows overtake attempt and completion
+[8/24] [android-chromium] › tests/race-quality.spec.js:259:1 › 2.5D traffic sees nearby rivals during fractional lane movement
+[9/24] [android-chromium] › tests/race-quality.spec.js:287:1 › 2.5D lane decision chooses real clearance and holds the line
+[10/24] [android-chromium] › tests/race-quality.spec.js:319:1 › 2.5D default start is logically level while visual formation decays
+[11/24] [android-chromium] › tests/race-quality.spec.js:348:1 › 2.5D dense-pack labels avoid overlap and battle HUD clears Agent panel
+[12/24] [android-chromium] › tests/race-quality.spec.js:387:1 › 2.5D P E A expose their authored live phases and ground anchors
+(node:3909) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[13/24] [desktop-chromium] › tests/p-layered.spec.js:3:1 › P layered trial keeps four independent feet planted, pauses and resets in an 18-runner race
+[14/24] [desktop-chromium] › tests/race-quality.spec.js:4:1 › four morph race uses the authored morph sheets in fixed-step race
+[15/24] [desktop-chromium] › tests/race-quality.spec.js:48:1 › 2.5D Race Agent commands are creature-resolved and morph-dependent
+[16/24] [desktop-chromium] › tests/race-quality.spec.js:100:1 › 2.5D race finalizes all 18 runners and exposes classification
+[17/24] [desktop-chromium] › tests/race-quality.spec.js:138:1 › 2.5D Creature State pressure changes Agent response
+[18/24] [desktop-chromium] › tests/race-quality.spec.js:194:1 › 2.5D Agent feedback shows command then creature result
+[19/24] [desktop-chromium] › tests/race-quality.spec.js:223:1 › 2.5D battle readability shows overtake attempt and completion
+[20/24] [desktop-chromium] › tests/race-quality.spec.js:259:1 › 2.5D traffic sees nearby rivals during fractional lane movement
+[21/24] [desktop-chromium] › tests/race-quality.spec.js:287:1 › 2.5D lane decision chooses real clearance and holds the line
+[22/24] [desktop-chromium] › tests/race-quality.spec.js:319:1 › 2.5D default start is logically level while visual formation decays
+[23/24] [desktop-chromium] › tests/race-quality.spec.js:348:1 › 2.5D dense-pack labels avoid overlap and battle HUD clears Agent panel
+[24/24] [desktop-chromium] › tests/race-quality.spec.js:387:1 › 2.5D P E A expose their authored live phases and ground anchors
+  24 passed (3.1m)
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

@@ -1,0 +1,50 @@
+[
+  {
+    "phase": 1,
+    "maxJointDelta": 33.71795778309249
+  },
+  {
+    "phase": 2,
+    "maxJointDelta": 33.71795778309249
+  },
+  {
+    "phase": 3,
+    "maxJointDelta": 33.717957783092345
+  },
+  {
+    "phase": 4,
+    "maxJointDelta": 33.89895081829905
+  },
+  {
+    "phase": 5,
+    "maxJointDelta": 37.06551956550536
+  },
+  {
+    "phase": 6,
+    "maxJointDelta": 39.07506629473083
+  },
+  {
+    "phase": 7,
+    "maxJointDelta": 34.82359971686576
+  },
+  {
+    "phase": 8,
+    "maxJointDelta": 41.20730343716168
+  },
+  {
+    "phase": 9,
+    "maxJointDelta": 40.42636056038491
+  },
+  {
+    "phase": 10,
+    "maxJointDelta": 33.71795778309249
+  },
+  {
+    "phase": 11,
+    "maxJointDelta": 33.717957783092345
+  },
+  {
+    "phase": 12,
+    "maxJointDelta": 33.717957783092515
+  }
+]

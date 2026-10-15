@@ -1,0 +1,239 @@
+{
+  "units": "416x320 rig pixels; neutral anatomical attachment points before load correction",
+  "v4": {
+    "shoulder": [
+      262.8278322925959,
+      155.84299732381803
+    ],
+    "hip": [
+      167.83050847457628,
+      162.60838537020516
+    ],
+    "torsoLength": 95.23792316091249,
+    "shoulderHeight": 140.15700267618197,
+    "hipHeight": 133.39161462979484,
+    "foreBones": [
+      70,
+      68
+    ],
+    "hindBones": [
+      70,
+      68
+    ]
+  },
+  "v5": {
+    "shoulder": [
+      250,
+      146
+    ],
+    "hip": [
+      179,
+      164
+    ],
+    "torsoLength": 73.24616030891995,
+    "shoulderHeight": 150,
+    "hipHeight": 132,
+    "foreBones": [
+      70,
+      68
+    ],
+    "hindBones": [
+      70,
+      68
+    ]
+  },
+  "v5Phases": [
+    {
+      "phase": 1,
+      "shoulderX": 248.19034589506796,
+      "shoulderY": 148,
+      "hipX": 180.80965410493204,
+      "hipY": 166,
+      "shoulderHeight": 148,
+      "hipHeight": 130,
+      "torsoLength": 69.74351314722604,
+      "shoulderAboveHip": 18,
+      "chestAngle": 0,
+      "pelvisAngle": 0,
+      "loadBob": 2.0000000000000027,
+      "reachCorrection": 0,
+      "flight": false
+    },
+    {
+      "phase": 2,
+      "shoulderX": 248.85857286463113,
+      "shoulderY": 154.7084927710202,
+      "hipX": 180.14142713536887,
+      "hipY": 169.7084927710202,
+      "shoulderHeight": 141.2915072289798,
+      "hipHeight": 126.29150722897981,
+      "torsoLength": 70.33524093352256,
+      "shoulderAboveHip": 15.0,
+      "chestAngle": 0.02249999999999998,
+      "pelvisAngle": -0.027499999999999976,
+      "loadBob": 7.208492771020175,
+      "reachCorrection": 0,
+      "flight": false
+    },
+    {
+      "phase": 3,
+      "shoulderX": 249.83264431333538,
+      "shoulderY": 155.34304276282825,
+      "hipX": 179.16735568666462,
+      "hipY": 168.14689034012162,
+      "shoulderHeight": 140.65695723717175,
+      "hipHeight": 127.85310965987838,
+      "torsoLength": 71.8158863307642,
+      "shoulderAboveHip": 12.803847577293368,
+      "chestAngle": 0.038971143170299746,
+      "pelvisAngle": -0.04763139720814413,
+      "loadBob": 6.744966551474926,
+      "reachCorrection": 0,
+      "flight": false
+    },
+    {
+      "phase": 4,
+      "shoulderX": 250.85155858313016,
+      "shoulderY": 150.42884956125383,
+      "hipX": 178.14844141686984,
+      "hipY": 162.42884956125383,
+      "shoulderHeight": 145.57115043874617,
+      "hipHeight": 133.57115043874617,
+      "torsoLength": 73.68679152800028,
+      "shoulderAboveHip": 12.0,
+      "chestAngle": 0.045,
+      "pelvisAngle": -0.055,
+      "loadBob": 1.4288495612538405,
+      "reachCorrection": 0,
+      "flight": false
+    },
+    {
+      "phase": 5,
+      "shoulderX": 251.64229841826742,
+      "shoulderY": 142.1211868664583,
+      "hipX": 177.35770158173258,
+      "hipY": 154.92503444375166,
+      "shoulderHeight": 153.8788131335417,
+      "hipHeight": 141.07496555624834,
+      "torsoLength": 75.37996975290639,
+      "shoulderAboveHip": 12.803847577293368,
+      "chestAngle": 0.03897114317029975,
+      "pelvisAngle": -0.04763139720814414,
+      "loadBob": -6.476889344895027,
+      "reachCorrection": 0,
+      "flight": true
+    },
+    {
+      "phase": 6,
+      "shoulderX": 251.992985718499,
+      "shoulderY": 148.60226206726955,
+      "hipX": 177.007014281501,
+      "hipY": 163.60226206726955,
+      "shoulderHeight": 147.39773793273045,
+      "hipHeight": 132.39773793273045,
+      "torsoLength": 76.47153661559496,
+      "shoulderAboveHip": 15.0,
+      "chestAngle": 0.02249999999999998,
+      "pelvisAngle": -0.027499999999999976,
+      "loadBob": -3.499999999999962,
+      "reachCorrection": 4.602262067269533,
+      "flight": true
+    },
+    {
+      "phase": 7,
+      "shoulderX": 251.80965410493204,
+      "shoulderY": 150.65390765185595,
+      "hipX": 177.19034589506796,
+      "hipY": 168.65390765185595,
+      "shoulderHeight": 145.34609234814405,
+      "hipHeight": 127.34609234814404,
+      "torsoLength": 76.75963234486397,
+      "shoulderAboveHip": 18,
+      "chestAngle": 5.5109105961630896e-18,
+      "pelvisAngle": -6.735557395310442e-18,
+      "loadBob": 2.0000000000000027,
+      "reachCorrection": 2.6539076518559597,
+      "flight": false
+    },
+    {
+      "phase": 8,
+      "shoulderX": 251.14142713536887,
+      "shoulderY": 151.7084927710202,
+      "hipX": 177.85857286463113,
+      "hipY": 172.7084927710202,
+      "shoulderHeight": 144.2915072289798,
+      "hipHeight": 123.29150722897981,
+      "torsoLength": 76.2323863595138,
+      "shoulderAboveHip": 21.0,
+      "chestAngle": -0.022500000000000023,
+      "pelvisAngle": 0.02750000000000003,
+      "loadBob": 7.208492771020183,
+      "reachCorrection": 0,
+      "flight": false
+    },
+    {
+      "phase": 9,
+      "shoulderX": 250.16735568666462,
+      "shoulderY": 150.14689034012162,
+      "hipX": 178.83264431333538,
+      "hipY": 173.34304276282825,
+      "shoulderHeight": 145.85310965987838,
+      "hipHeight": 122.65695723717175,
+      "torsoLength": 75.01134936750323,
+      "shoulderAboveHip": 23.196152422706632,
+      "chestAngle": -0.038971143170299705,
+      "pelvisAngle": 0.047631397208144084,
+      "loadBob": 6.744966551474939,
+      "reachCorrection": 0,
+      "flight": false
+    },
+    {
+      "phase": 10,
+      "shoulderX": 249.14844141686984,
+      "shoulderY": 145.09663810989377,
+      "hipX": 179.85155858313016,
+      "hipY": 169.09663810989377,
+      "shoulderHeight": 150.90336189010623,
+      "hipHeight": 126.90336189010623,
+      "torsoLength": 73.3352437131905,
+      "shoulderAboveHip": 24.0,
+      "chestAngle": -0.045,
+      "pelvisAngle": 0.055,
+      "loadBob": 1.4288495612538405,
+      "reachCorrection": 0.6677885486399475,
+      "flight": false
+    },
+    {
+      "phase": 11,
+      "shoulderX": 248.35770158173258,
+      "shoulderY": 136.9250344437516,
+      "hipX": 180.64229841826742,
+      "hipY": 160.12118686645823,
+      "shoulderHeight": 159.0749655562484,
+      "hipHeight": 135.87881313354177,
+      "torsoLength": 71.57819020349751,
+      "shoulderAboveHip": 23.196152422706632,
+      "chestAngle": -0.03897114317029972,
+      "pelvisAngle": 0.0476313972081441,
+      "loadBob": -6.476889344895095,
+      "reachCorrection": 0,
+      "flight": true
+    },
+    {
+      "phase": 12,
+      "shoulderX": 248.007014281501,
+      "shoulderY": 140.99999999999997,
+      "hipX": 180.992985718499,
+      "hipY": 161.99999999999997,
+      "shoulderHeight": 155.00000000000003,
+      "hipHeight": 134.00000000000003,
+      "torsoLength": 70.22734527406577,
+      "shoulderAboveHip": 21.0,
+      "chestAngle": -0.022500000000000055,
+      "pelvisAngle": 0.027500000000000066,
+      "loadBob": -3.5000000000000266,
+      "reachCorrection": 0,
+      "flight": true
+    }
+  ]
+}

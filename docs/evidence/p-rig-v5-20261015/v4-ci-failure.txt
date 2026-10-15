@@ -1,0 +1,9 @@
+2026-10-14T03:03:38.1989520Z   81 skipped
+2026-10-14T03:03:38.1989949Z   43 passed (8.7m)
+2026-10-14T03:21:14.8147461Z   1) [desktop-chromium] › tests/motion-first.spec.js:1735:1 › Motion First balanced 1600 course v1 does not lock any morph into one half of the field 
+2026-10-14T03:21:14.8150522Z     > 1779 |     expect(bottomHalfMorphs.has(morph)).toBeTruthy();
+2026-10-14T03:21:14.8152616Z         at /home/runner/work/evowild-test/evowild-test/tests/motion-first.spec.js:1779:41
+2026-10-14T03:21:14.8159434Z   1 failed
+2026-10-14T03:21:14.8160296Z     [desktop-chromium] › tests/motion-first.spec.js:1735:1 › Motion First balanced 1600 course v1 does not lock any morph into one half of the field 
+2026-10-14T03:21:14.8161468Z   37 passed (17.6m)
+2026-10-14T03:21:22.8481779Z Artifact spritegen-s-poc has been successfully uploaded! Final size is 478594 bytes. Artifact ID is 11867728585

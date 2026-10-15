@@ -1,0 +1,169 @@
+{
+  "total_count": 1,
+  "jobs": [
+    {
+      "id": 115655493972,
+      "run_id": 38503464926,
+      "workflow_name": "build",
+      "head_branch": "fix/2p5d-p-canonical-20261011",
+      "run_url": "https://api.github.com/repos/badjoke-lab/evowild-test/actions/runs/38503464926",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUirsMM8AAAAa7ZrJVA",
+      "head_sha": "6c0c79868b14023bba58db6d2fcd5a15cc678f1f",
+      "url": "https://api.github.com/repos/badjoke-lab/evowild-test/actions/jobs/115655493972",
+      "html_url": "https://github.com/badjoke-lab/evowild-test/actions/runs/38503464926/job/115655493972",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-10-14T02:54:11Z",
+      "started_at": "2026-10-14T02:54:12Z",
+      "completed_at": "2026-10-14T03:21:24Z",
+      "name": "build",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-14T02:54:13Z",
+          "completed_at": "2026-10-14T02:54:14Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-14T02:54:14Z",
+          "completed_at": "2026-10-14T02:54:24Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-14T02:54:24Z",
+          "completed_at": "2026-10-14T02:54:24Z"
+        },
+        {
+          "name": "Run npm install",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-14T02:54:24Z",
+          "completed_at": "2026-10-14T02:54:31Z"
+        },
+        {
+          "name": "Run npm run build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-14T02:54:31Z",
+          "completed_at": "2026-10-14T02:54:33Z"
+        },
+        {
+          "name": "Verify 2.5D pages are in production build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-14T02:54:33Z",
+          "completed_at": "2026-10-14T02:54:33Z"
+        },
+        {
+          "name": "Run npx playwright install --with-deps chromium",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-14T02:54:33Z",
+          "completed_at": "2026-10-14T02:54:55Z"
+        },
+        {
+          "name": "Run E2E suite",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-14T02:54:55Z",
+          "completed_at": "2026-10-14T03:03:38Z"
+        },
+        {
+          "name": "Upload 2.5D survivor visuals",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-14T03:03:38Z",
+          "completed_at": "2026-10-14T03:03:39Z"
+        },
+        {
+          "name": "Capture Motion First visuals",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 10,
+          "started_at": "2026-10-14T03:03:39Z",
+          "completed_at": "2026-10-14T03:21:14Z"
+        },
+        {
+          "name": "Upload Motion First race visuals",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-14T03:21:14Z",
+          "completed_at": "2026-10-14T03:21:18Z"
+        },
+        {
+          "name": "Capture Sakura NPR camera visuals",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 12,
+          "started_at": "2026-10-14T03:21:18Z",
+          "completed_at": "2026-10-14T03:21:18Z"
+        },
+        {
+          "name": "Upload mobile visual screenshots",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-14T03:21:18Z",
+          "completed_at": "2026-10-14T03:21:22Z"
+        },
+        {
+          "name": "Upload S sprite-gen PoC artifacts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-14T03:21:22Z",
+          "completed_at": "2026-10-14T03:21:22Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 27,
+          "started_at": "2026-10-14T03:21:22Z",
+          "completed_at": "2026-10-14T03:21:22Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 28,
+          "started_at": "2026-10-14T03:21:22Z",
+          "completed_at": "2026-10-14T03:21:23Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 29,
+          "started_at": "2026-10-14T03:21:23Z",
+          "completed_at": "2026-10-14T03:21:23Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/badjoke-lab/evowild-test/check-runs/115655493972",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000444650,
+      "runner_name": "GitHub Actions 1000444650",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

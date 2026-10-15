@@ -1,0 +1,104 @@
+[
+  {
+    "path": "docs/evidence/p-rig-v5-20261015/before/isolated-continuous.mp4",
+    "sha256": "0e5d93f6bfa2b3a0db7a7a9ed6e7e4a0e9bdb91fcc14dc9c5baf299e6672c622",
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "width": 1280,
+        "height": 720,
+        "avg_frame_rate": "60/1",
+        "nb_frames": "360"
+      }
+    ],
+    "format": {
+      "duration": "6.000000"
+    }
+  },
+  {
+    "path": "docs/evidence/p-rig-v5-20261015/before-after-motion.mp4",
+    "sha256": "918883e29071d7e0034b4b9ef36f49167c1e2ab1368ece4aa929681bd38adcf4",
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "width": 960,
+        "height": 310,
+        "avg_frame_rate": "60/1",
+        "nb_frames": "360"
+      }
+    ],
+    "format": {
+      "duration": "6.000000"
+    }
+  },
+  {
+    "path": "docs/evidence/p-rig-v5-20261015/isolated-continuous.mp4",
+    "sha256": "9895ccec5e7380b00b27081c30ff1402b921d3fcaeff931ee6b38fc468980c81",
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "width": 1280,
+        "height": 720,
+        "avg_frame_rate": "60/1",
+        "nb_frames": "360"
+      }
+    ],
+    "format": {
+      "duration": "6.000000"
+    }
+  },
+  {
+    "path": "docs/evidence/p-rig-v5-20261015/layered-half-speed.mp4",
+    "sha256": "19cb028073d4bdf815c44bee0d440df311d30990a6bdedebef085f140a70a761",
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "width": 1280,
+        "height": 720,
+        "avg_frame_rate": "60/1",
+        "nb_frames": "719"
+      }
+    ],
+    "format": {
+      "duration": "11.983333"
+    }
+  },
+  {
+    "path": "docs/evidence/p-rig-v5-20261015/race-18-desktop.mp4",
+    "sha256": "a6df457f9552511b01bffa2482d08e1a4c69bffb137031697315361008fae517",
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "width": 1280,
+        "height": 720,
+        "avg_frame_rate": "60/1",
+        "nb_frames": "360"
+      }
+    ],
+    "format": {
+      "duration": "6.000000"
+    }
+  },
+  {
+    "path": "docs/evidence/p-rig-v5-20261015/race-18-mobile.mp4",
+    "sha256": "6df63c06eef8ec4f04dc920ec27a35d539ed136444e86ee71c3b328612c74f79",
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "width": 412,
+        "height": 840,
+        "avg_frame_rate": "60/1",
+        "nb_frames": "240"
+      }
+    ],
+    "format": {
+      "duration": "4.000000"
+    }
+  }
+]

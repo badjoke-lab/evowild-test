@@ -1,0 +1,70 @@
+1) [desktop-chromium] › tests/motion-first.spec.js:1735:1 › Motion First balanced 1600 course v1 does not lock any morph into one half of the field 
+2026-10-14T17:22:04.5560322Z 
+2026-10-14T17:22:04.5560457Z     Error: expect(received).toBeTruthy()
+2026-10-14T17:22:04.5560592Z 
+2026-10-14T17:22:04.5560649Z     Received: false
+2026-10-14T17:22:04.5560726Z 
+2026-10-14T17:22:04.5560851Z       1777 |   for (const morph of morphs) {
+2026-10-14T17:22:04.5561240Z       1778 |     expect(topHalfMorphs.has(morph)).toBeTruthy();
+2026-10-14T17:22:04.5561606Z     > 1779 |     expect(bottomHalfMorphs.has(morph)).toBeTruthy();
+2026-10-14T17:22:04.5561920Z            |                                         ^
+2026-10-14T17:22:04.5562177Z       1780 |   }
+2026-10-14T17:22:04.5562341Z       1781 |
+2026-10-14T17:22:04.5562613Z       1782 |   const averages = morphs.map((morph) => stats[morph].average);
+2026-10-14T17:22:04.5563074Z         at /home/runner/work/evowild-test/evowild-test/tests/motion-first.spec.js:1779:41
+2026-10-14T17:22:04.5563334Z 
+2026-10-14T17:22:04.5563807Z     Error Context: test-results/motion-first-Motion-First--27e47--into-one-half-of-the-field-desktop-chromium/error-context.md
+2026-10-14T17:22:04.5564217Z 
+2026-10-14T17:22:04.5565166Z     attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+2026-10-14T17:22:04.5565806Z     test-results/motion-first-Motion-First--27e47--into-one-half-of-the-field-desktop-chromium/trace.zip
+2026-10-14T17:22:04.5566242Z     Usage:
+2026-10-14T17:22:04.5566338Z 
+2026-10-14T17:22:04.5566664Z         npx playwright show-trace test-results/motion-first-Motion-First--27e47--into-one-half-of-the-field-desktop-chromium/trace.zip
+2026-10-14T17:22:04.5566973Z 
+2026-10-14T17:22:04.5567195Z     ────────────────────────────────────────────────────────────────────────────────────────────────
+2026-10-14T17:22:04.5567352Z 
+2026-10-14T17:22:04.5567852Z   2) [desktop-chromium] › tests/motion-first.spec.js:2732:1 › Motion First Race Entry pre-race focus v2 keeps YOUR ENTRY locked during countdown 
+2026-10-14T17:22:04.5568160Z 
+2026-10-14T17:22:04.5568267Z     Error: expect(locator).toHaveText(expected) failed
+2026-10-14T17:22:04.5568396Z 
+2026-10-14T17:22:04.5568470Z     Locator:  locator('#raceState')
+2026-10-14T17:22:04.5568698Z     Expected: "READY"
+2026-10-14T17:22:04.5569014Z     Received: "RUNNING"
+2026-10-14T17:22:04.5569232Z     Timeout:  5000ms
+2026-10-14T17:22:04.5569358Z 
+2026-10-14T17:22:04.5569441Z     Call log:
+2026-10-14T17:22:04.5569815Z       - Expect "toHaveText" locator('#raceState') with timeout 5000ms
+2026-10-14T17:22:04.5583193Z       - waiting for locator('#raceState')
+2026-10-14T17:22:04.5583891Z         7 × locator resolved to <span id="raceState">COUNTDOWN</span>
+2026-10-14T17:22:04.5584219Z           - unexpected value "COUNTDOWN"
+2026-10-14T17:22:04.5586019Z         - locator resolved to <span id="raceState">GO</span>
+2026-10-14T17:22:04.5586351Z         - unexpected value "GO"
+2026-10-14T17:22:04.5586749Z         5 × locator resolved to <span id="raceState">RUNNING</span>
+2026-10-14T17:22:04.5587070Z           - unexpected value "RUNNING"
+2026-10-14T17:22:04.5587227Z 
+2026-10-14T17:22:04.5587232Z 
+2026-10-14T17:22:04.5587371Z       2742 |   const scene = page.locator("#scene");
+2026-10-14T17:22:04.5587768Z       2743 |   await expect(scene).toHaveAttribute("data-start-sequence", "1");
+2026-10-14T17:22:04.5588471Z     > 2744 |   await expect(page.locator("#raceState")).toHaveText("READY");
+2026-10-14T17:22:04.5588825Z            |                                            ^
+2026-10-14T17:22:04.5589174Z       2745 |   await expect(page.locator("#runnerSelect")).toHaveValue("5");
+2026-10-14T17:22:04.5589625Z       2746 |   await expect(page.locator("#agentTargetSelect")).toHaveValue("5");
+2026-10-14T17:22:04.5590096Z       2747 |   await expect(page.locator("#runnerName")).toContainText("Runner 06");
+2026-10-14T17:22:04.5590609Z         at /home/runner/work/evowild-test/evowild-test/tests/motion-first.spec.js:2744:44
+2026-10-14T17:22:04.5590892Z 
+2026-10-14T17:22:04.5591287Z     Error Context: test-results/motion-first-Motion-First--c3ac5-TRY-locked-during-countdown-desktop-chromium/error-context.md
+2026-10-14T17:22:04.5591580Z 
+2026-10-14T17:22:04.5591845Z     attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+2026-10-14T17:22:04.5592270Z     test-results/motion-first-Motion-First--c3ac5-TRY-locked-during-countdown-desktop-chromium/trace.zip
+2026-10-14T17:22:04.5592562Z     Usage:
+2026-10-14T17:22:04.5592631Z 
+2026-10-14T17:22:04.5592916Z         npx playwright show-trace test-results/motion-first-Motion-First--c3ac5-TRY-locked-during-countdown-desktop-chromium/trace.zip
+2026-10-14T17:22:04.5593215Z 
+2026-10-14T17:22:04.5593416Z     ────────────────────────────────────────────────────────────────────────────────────────────────
+2026-10-14T17:22:04.5593574Z 
+2026-10-14T17:22:04.5593623Z   2 failed
+2026-10-14T17:22:04.5594032Z     [desktop-chromium] › tests/motion-first.spec.js:1735:1 › Motion First balanced 1600 course v1 does not lock any morph into one half of the field 
+2026-10-14T17:22:04.5594836Z     [desktop-chromium] › tests/motion-first.spec.js:2732:1 › Motion First Race Entry pre-race focus v2 keeps YOUR ENTRY locked during countdown 
+2026-10-14T17:22:04.5595158Z   1 skipped
+2026-10-14T17:22:04.5595280Z   36 passed (15.9m)
+2026-10-14T17:22:04.5788060Z 

@@ -1,0 +1,27 @@
+{
+  "url": "https://github.com/badjoke-lab/evowild-test/actions/runs/38602638790",
+  "testedCommit": "8baec5ae76580c52625f1c90747883356ca5918c",
+  "conclusion": "failure",
+  "e2e": {
+    "passed": 43,
+    "skipped": 81,
+    "failed": 0
+  },
+  "motionFirst": {
+    "passed": 36,
+    "skipped": 1,
+    "failed": 2
+  },
+  "failures": [
+    {
+      "test": "motion-first.spec.js:1735",
+      "assertion": 1779,
+      "classification": "Existing v4 balanced1600 ranking-distribution failure; 3D out of scope"
+    },
+    {
+      "test": "motion-first.spec.js:2732",
+      "assertion": 2744,
+      "classification": "3D READY expectation observed COUNTDOWN then RUNNING; timing failure, root cause not independently reproduced"
+    }
+  ]
+}
