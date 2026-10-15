@@ -1,0 +1,79 @@
+name: EvoWild S V5 pre-sculpt V4 real compressed-face diagnostic
+on:
+  push:
+    branches: [exp/s-hunyuan-shoulder-sculpt-20261013]
+    paths:
+      - .github/workflows/s-hunyuan-v5-surface-diagnostic.yml
+      - art/s-creature/blender/s_hunyuan_v5_surface_diagnostic.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-s-hunyuan-v5-face-diagnostics
+  cancel-in-progress: false
+jobs:
+  real-blender-mesh-anomaly-map:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /.github/workflows/s-hunyuan-v5-surface-diagnostic.yml
+            /art/s-creature/blender/s_hunyuan_v5_surface_diagnostic.py
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v3/S_HUNYUAN_SHOULDER_CHEST_SCULPT_V3.blend
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v4/S_HUNYUAN_SHOULDER_CHEST_SCULPT_V4.blend
+      - name: Prepare Blender 4.3.2
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends libegl1 libgl1 libgl1-mesa-dri libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6 python3-pil
+          curl -L --fail --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender-v5.tar.xz
+          tar -xf /tmp/blender-v5.tar.xz -C /tmp
+      - name: Calculate real face-area ratios and render 3-direction anomaly map
+        shell: bash
+        run: |
+          set -euo pipefail
+          /tmp/blender-4.3.2-linux-x64/blender --background --factory-startup --threads 4 --python-exit-code 1 --python art/s-creature/blender/s_hunyuan_v5_surface_diagnostic.py | tee /tmp/evowild-v5-diagnostic.log
+          grep -q S_V5_V4_REAL_SURFACE_DIAGNOSTIC_PASS /tmp/evowild-v5-diagnostic.log
+      - name: Make annotated three-view face-distortion contact sheet
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from PIL import Image,ImageDraw,ImageFont
+          from pathlib import Path
+          p=Path('art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-diagnostic')
+          w,h=720,540
+          canvas=Image.new('RGB',(w*3,h+70),(245,246,249))
+          draw=ImageDraw.Draw(canvas)
+          for i,tag in enumerate(('SIDE','FRONT','FRONT34')):
+              with Image.open(p/('V4_FACE_DISTORTION_'+tag+'.png')) as src:
+                  im=src.convert('RGB');im.thumbnail((w,h))
+                  canvas.paste(im,(w*i+(w-im.width)//2,70+(h-im.height)//2))
+              draw.text((i*w+16,16),tag+' / actual V4 face quality',fill=(10,15,27))
+          draw.text((16,h+57),'Red: V4 face area <45% of V3   Orange: <75%   Purple: face normal turned >25 degrees',fill=(25,25,30))
+          canvas.save(p/'V4_FACE_DISTORTION_3_VIEW.jpg',quality=87,optimize=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: EvoWild-S-V5-pre-sculpt-actual-V4-face-distortion-evidence
+          path: |
+            art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-diagnostic/
+            /tmp/evowild-v5-diagnostic.log
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Preserve diagnostic evidence to same experiment branch
+        if: success()
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          p=art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-diagnostic
+          git add --sparse "$p"
+          git diff --cached --quiet && exit 0
+          git commit -m "review(s): V4 geometry compression map for interactive S V5 sculpt"
+          git pull --rebase origin exp/s-hunyuan-shoulder-sculpt-20261013
+          git push origin HEAD:exp/s-hunyuan-shoulder-sculpt-20261013
