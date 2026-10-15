@@ -8,7 +8,7 @@ import bpy, bmesh, hashlib, json
 import numpy as np
 from pathlib import Path
 
-ROOT=Path(__file__).resolve().parents[3]
+ROOT=Path(bpy.data.filepath).resolve().parents[6]
 STATION=ROOT/'art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012'
 REF=ROOT/'art/s-creature/references/00_s_type_modeling_image_v1.png'
 V4=STATION/'review-v4/S_HUNYUAN_SHOULDER_CHEST_SCULPT_V4.blend'
