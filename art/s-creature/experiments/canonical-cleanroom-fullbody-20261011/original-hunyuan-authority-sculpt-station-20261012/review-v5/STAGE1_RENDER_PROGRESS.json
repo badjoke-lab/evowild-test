@@ -1,0 +1,38 @@
+{
+  "remaining": [],
+  "completed": [
+    {
+      "tag": "SIDE",
+      "detail": false
+    },
+    {
+      "tag": "FRONT",
+      "detail": false
+    },
+    {
+      "tag": "FRONT34",
+      "detail": false
+    },
+    {
+      "tag": "REAR34",
+      "detail": false
+    },
+    {
+      "tag": "BACK",
+      "detail": false
+    },
+    {
+      "tag": "SIDE",
+      "detail": true
+    },
+    {
+      "tag": "FRONT",
+      "detail": true
+    },
+    {
+      "tag": "FRONT34",
+      "detail": true
+    }
+  ],
+  "status": "COMPLETE"
+}

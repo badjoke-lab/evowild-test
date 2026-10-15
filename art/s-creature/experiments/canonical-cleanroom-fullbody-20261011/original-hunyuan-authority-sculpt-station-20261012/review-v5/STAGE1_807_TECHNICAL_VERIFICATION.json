@@ -1,0 +1,56 @@
+{
+  "technical_result": "PASS",
+  "stage": "STAGE1_TRANSITION_REPAIR_ONLY",
+  "artistic_decision": "REVISE",
+  "final_v5_created": false,
+  "save_reload_exact": true,
+  "blender_version": "4.3.2",
+  "live_mcp": true,
+  "vertices": 38802,
+  "triangles": 77684,
+  "changed_from_v4": 807,
+  "max_move": 0.0036746955011039972,
+  "outside_roi_changed": 0,
+  "topology_identical_v4": true,
+  "new_reversed_faces_relative_v4": 0,
+  "new_degenerate_faces": 0,
+  "minimum_v3_area_ratio_before": 0.2506820839971658,
+  "minimum_v3_area_ratio_after": 0.3229360437628389,
+  "severe_face_count_before": 40,
+  "severe_face_count_after": 23,
+  "hotspots": [
+    {
+      "face": 65666,
+      "before": 0.2506820839971658,
+      "after": 0.3229360437628389
+    },
+    {
+      "face": 65664,
+      "before": 0.2600024609809855,
+      "after": 0.34018889361397137
+    },
+    {
+      "face": 12157,
+      "before": 0.2900692266468029,
+      "after": 0.35530571919042203
+    },
+    {
+      "face": 12159,
+      "before": 0.2953606197933243,
+      "after": 0.36040605891025085
+    }
+  ],
+  "boundary_edges": 0,
+  "nonmanifold_edges": 0,
+  "front_width_before": 0.3628591526299715,
+  "front_width_after": 0.3628591526299715,
+  "protected_sha256": {
+    "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v3/S_HUNYUAN_SHOULDER_CHEST_SCULPT_V3.blend": "820f6ade08f626db7d163dade691fd03e6fa54aa75e8d43ae38ef617252623ec",
+    "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v4/S_HUNYUAN_SHOULDER_CHEST_SCULPT_V4.blend": "38efa5c29e5ac7b1a6a6afba1256d498763e0f8d3b8e7435d9b38b4b183e879e",
+    "art/s-creature/references/00_s_type_modeling_image_v1.png": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6"
+  },
+  "stage1_blend_sha256": "96b1bbc709f1db0dcd559540e28bd79d3863cfcc73ea2a5d916a020108a91f53",
+  "working_blend_sha256": "5d1a8abf9f8c5afd7b2c13b2ce87ea704921b750209334c89d22fceece78b0f2",
+  "coordinates_sha256": "09fab7fabaecdbf13bf28ec6f8c6ddad9d81759a037f98d8994ff872265f47f2",
+  "self_intersections": "not exhaustively tested"
+}

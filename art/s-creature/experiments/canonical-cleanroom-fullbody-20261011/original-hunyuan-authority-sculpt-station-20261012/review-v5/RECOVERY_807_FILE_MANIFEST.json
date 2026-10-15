@@ -1,0 +1,130 @@
+{
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/S_HUNYUAN_SHOULDER_CHEST_SCULPT_V5_STAGE1.blend": {
+    "sha256": "96b1bbc709f1db0dcd559540e28bd79d3863cfcc73ea2a5d916a020108a91f53",
+    "bytes": 4622366
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/STAGE1_EXPECTED_COORDS.npy": {
+    "sha256": "d1841c03ebc463819ba1f8db1a26e0db48d76a1d12bf0f9341718214f0c38170",
+    "bytes": 465752
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/STAGE1_807_ACCEPTANCE.json": {
+    "sha256": "c5f741227b10ff6aefff74e0e4a20e4ca3192d4b80fb0ae24b9823694da4a7cd",
+    "bytes": 452
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/STAGE1_807_TECHNICAL_VERIFICATION.json": {
+    "sha256": "674ff586bee45c76870e25a5994241a9fb5c16d8e004326a569b69af88311069",
+    "bytes": 2176
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/STAGE1_RENDER_PROGRESS.json": {
+    "sha256": "67ff730dbe52cef74ee3260bac9fa53f5339aa1efadd8516021152537d3f164e",
+    "bytes": 521
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/STAGE2_REJECTED_PREFLIGHT.json": {
+    "sha256": "736ccd50e587ff45c80a23918465ad941e9750a843250f9a0f90d2d42f81c8cf",
+    "bytes": 11201
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/STAGE2_REJECTED_PROPOSAL.npz": {
+    "sha256": "e138094508adff3068dc5284f2b20a0c6eaf04b84704bf089448bc7e26585502",
+    "bytes": 6687
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/V4_TO_V5_STAGE1_DELTA.npz": {
+    "sha256": "eccbd78b51bef09d56f6c3a5c833fbff3d1f64f7c861478f2c1edecdaf57b72b",
+    "bytes": 19307
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/RECOVERY_807_REVIEW.md": {
+    "sha256": "2a8a8487d7a8e0687c1160e38b808d061cedb5841934cf0b679eaa7a1dae8459",
+    "bytes": 4331
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/V5_STAGE1_BACK.png": {
+    "sha256": "05d8eee208315ef728075301205adaf28029660b57ce752c69d3cc2a2b6be5e5",
+    "bytes": 838656
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/V5_STAGE1_DETAIL_FRONT.png": {
+    "sha256": "93e50c97103227e69e86bb794b2d0416fc80c085a8d8ee086f3f14691a5ea70e",
+    "bytes": 967885
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/V5_STAGE1_DETAIL_FRONT34.png": {
+    "sha256": "ea94b24adee23ac84fab7ee89e00864164fd5b9bfc9edee6f6a6375546fd642d",
+    "bytes": 1142193
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/V5_STAGE1_DETAIL_SIDE.png": {
+    "sha256": "61441bf9bc9c8b8eff9ee1569ee84388f7d43105e103787d15b7dd505bfe58ad",
+    "bytes": 1024826
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/V5_STAGE1_FRONT.png": {
+    "sha256": "76facf23446a69b25f21ec3ea6a442eb578e8f5dd936b95d536d60387e3bfb40",
+    "bytes": 813149
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/V5_STAGE1_FRONT34.png": {
+    "sha256": "514bd1ee8eac0fd4a78d44b4e66d5df6d764d86ba3cbe03860ae1f6c04cf0789",
+    "bytes": 950872
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/V5_STAGE1_REAR34.png": {
+    "sha256": "20812bedbcc6c87e44a03bc98f56f85d770727ce43b0a347c1843e4ebc781606",
+    "bytes": 957805
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/V5_STAGE1_SIDE.png": {
+    "sha256": "d8f9eb283ca842baef5a28f2c6e7936e3aa53544ce61718a8b28858051c5e531",
+    "bytes": 844251
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/CANONICAL_V4_V5_STAGE1_DETAIL.jpg": {
+    "sha256": "38348918ac818735672248c9e0d4252730d1da446eee3593e893641b2ad07139",
+    "bytes": 208081
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/V4_V5_STAGE1_FIVE_VIEW.jpg": {
+    "sha256": "b58450406eaee3d13f468bde13190b32a186954f3b477bc6c3dde39ff08459b0",
+    "bytes": 123968
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/V4_V5_STAGE1_SHOULDER_DETAIL.jpg": {
+    "sha256": "55aa582b2a8c74e05ee3606c1b3dd37af944128ff92ce3d6fe19f9c97d6f33d0",
+    "bytes": 130101
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/807_PREVIEW_FRONT.png": {
+    "sha256": "a6cb448023ecbee1cba129eacd9a87b9c3236c17e426bfb71eb9e5a46aa9652b",
+    "bytes": 253378
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/807_PREVIEW_FRONT34.png": {
+    "sha256": "1466a84d74f1f4a37a8c53acdaf18f833f25556d33eea404cd6c6e38dfd2c521",
+    "bytes": 479535
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/807_PREVIEW_SIDE.png": {
+    "sha256": "95178d15213647b958de4d52d6829ca690bd9b7fa1ab257b16047d324579121c",
+    "bytes": 322018
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/V4_BEFORE_FRONT.png": {
+    "sha256": "13601955e8ce592bc0b7daa71acd71c24789ec8f6162ac19f82ba68b84dfb11f",
+    "bytes": 253107
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/V4_BEFORE_FRONT34.png": {
+    "sha256": "0cbc8b810804432fa2f21ae8fe3aee1aeb6a3ad329d81085320f377c8a89910c",
+    "bytes": 479088
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/V4_BEFORE_SIDE.png": {
+    "sha256": "8bc881bfa6f6f559235ab5f5b6090cbc0806c3318ab22c11a764797588e5e44d",
+    "bytes": 321842
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/STAGE1_CHECK_LEFT_SIDE.png": {
+    "sha256": "fa6ac8b60eff2fdfb75d9f763a8a6c7b7daf0455cca171076a444c45854a686a",
+    "bytes": 327766
+  },
+  "art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5/STAGE1_CHECK_REAR34.png": {
+    "sha256": "b23faa5dff16731ee14fd2fd74aead46f3c70778ef6efab63983ff26228678c6",
+    "bytes": 445338
+  },
+  "art/s-creature/blender/s_hunyuan_v5_stage1_render.py": {
+    "sha256": "144f8bc6a06f3a24338556988d33e59094f8cce99ad8061ffe491d81c59d49d9",
+    "bytes": 4146
+  },
+  "art/s-creature/blender/s_hunyuan_v5_stage1_verify.py": {
+    "sha256": "5992c995ba450b3df52298cace09e81d179f8f2d7db8f995b9cbdc4ee2403fda",
+    "bytes": 4174
+  },
+  "art/s-creature/blender/s_hunyuan_v5_stage1_comparisons.py": {
+    "sha256": "dad03a2daa4786e2220d74ecea7f435a6abf1db0bc7560f9405f6a62f19b4811",
+    "bytes": 2139
+  },
+  "art/s-creature/blender/s_hunyuan_v5_stage2_oblique_preview.py": {
+    "sha256": "3851a934aff2c9502b8392cdc9157c6969bc6be5ca15af8a83862be38daa259b",
+    "bytes": 3736
+  }
+}
