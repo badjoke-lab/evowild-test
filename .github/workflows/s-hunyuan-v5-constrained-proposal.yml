@@ -1,0 +1,64 @@
+name: EvoWild S V5 bounded local repair proposals on actual Blender mesh
+on:
+  push:
+    branches: [exp/s-hunyuan-shoulder-sculpt-20261013]
+    paths:
+      - .github/workflows/s-hunyuan-v5-constrained-proposal.yml
+      - art/s-creature/blender/s_hunyuan_v5_constrained_local_recovery_proposals.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: evowild-s-hunyuan-v5-bounded-proposals
+  cancel-in-progress: false
+jobs:
+  test-local-recovery-on-real-v4:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /.github/workflows/s-hunyuan-v5-constrained-proposal.yml
+            /art/s-creature/blender/s_hunyuan_v5_constrained_local_recovery_proposals.py
+            /art/s-creature/references/00_s_type_modeling_image_v1.png
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v3/S_HUNYUAN_SHOULDER_CHEST_SCULPT_V3.blend
+            /art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v4/S_HUNYUAN_SHOULDER_CHEST_SCULPT_V4.blend
+      - name: Install Blender 4.3.2
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends libegl1 libgl1 libgl1-mesa-dri libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6
+          curl -fL --retry 3 https://download.blender.org/release/Blender4.3/blender-4.3.2-linux-x64.tar.xz -o /tmp/blender-v5-proposal.tar.xz
+          tar -xf /tmp/blender-v5-proposal.tar.xz -C /tmp
+      - name: Search safe candidates without modifying V3 or V4 .blend
+        shell: bash
+        run: |
+          set -euo pipefail
+          /tmp/blender-4.3.2-linux-x64/blender --background --factory-startup --threads 4 --python-exit-code 1 --python art/s-creature/blender/s_hunyuan_v5_constrained_local_recovery_proposals.py 2>&1 | tee /tmp/evowild-v5-proposal-search.log
+          grep -q V5_CONSTRAINED_PROPOSAL_SEARCH_DONE /tmp/evowild-v5-proposal-search.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evowild-s-v5-actual-v4-bounded-local-recovery-candidate-search
+          path: |
+            art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-proposals/
+            /tmp/evowild-v5-proposal-search.log
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Commit mathematical candidate results only; no .blend or sculpt approval
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          p=art/s-creature/experiments/canonical-cleanroom-fullbody-20261011/original-hunyuan-authority-sculpt-station-20261012/review-v5-proposals
+          git add --sparse "$p"
+          if ! git diff --cached --quiet; then
+            git commit -m "diagnostic(s): bounded V5 shoulder recovery candidates from real V3/V4 meshes"
+            git pull --rebase origin exp/s-hunyuan-shoulder-sculpt-20261013
+            git push origin HEAD:exp/s-hunyuan-shoulder-sculpt-20261013
+          fi
