@@ -142,10 +142,12 @@ else:
     # It references only the current bpy.data.filepath and geometry_0.
     renderer=(ROOT/'art/s-creature/blender/s_hunyuan_v5_stage1_render.py').read_text()
     renderer=renderer.replace("elif VERSION!='V5_STAGE1':", "elif VERSION not in ('V5_STAGE1','V5_STAGE2_CANDIDATE'):")
+    renderer=renderer.replace("base=np.load(OUT.parent/'review-v4/V3_BASE_COORDS.npy').astype(np.float32)", "base=__V3_BASE_COORDS.astype(np.float32)")
+    assert "base=__V3_BASE_COORDS.astype(np.float32)" in renderer
     assert "VERSION not in ('V5_STAGE1','V5_STAGE2_CANDIDATE')" in renderer
     for tag in ('SIDE','FRONT','FRONT34'):
         # render exact same 1000x800 ortho/CPU scene as Stage1 detail
-        exec(compile(renderer,'same-camera-V5-stage1-render.py','exec'),{'TAG':tag,'DETAIL':True,'VERSION':'V5_STAGE2_CANDIDATE'})
+        exec(compile(renderer,'same-camera-V5-stage1-render.py','exec'),{'TAG':tag,'DETAIL':True,'VERSION':'V5_STAGE2_CANDIDATE','__V3_BASE_COORDS':v3})
         assert (O/('V5_STAGE2_CANDIDATE_DETAIL_'+tag+'.png')).is_file()
     report['rendered_detail_views']=['SIDE','FRONT','FRONT34']
 assert {str(p.relative_to(ROOT)):sha(p) for p in (V3,V4,ST1,REF)}==protected
