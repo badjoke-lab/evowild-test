@@ -1,0 +1,11 @@
+{
+  "rollback_exact_pilot_geometry": true,
+  "mesh_fingerprint": "bd1a73404f0885af9f5fd831f87e88792726fe5894e09cd000e46408e997d4e4",
+  "protected_files_unchanged": 73,
+  "revision_b_edit_discarded": true,
+  "working_file_on_disk_is_pristine_pilot_copy": true,
+  "five_view_render": false,
+  "opposite_side_edit": false,
+  "saved_edited_blend": false,
+  "commit_push": false
+}

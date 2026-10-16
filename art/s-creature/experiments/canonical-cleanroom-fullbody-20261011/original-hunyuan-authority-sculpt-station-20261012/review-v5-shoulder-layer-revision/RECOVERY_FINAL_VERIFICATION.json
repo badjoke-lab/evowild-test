@@ -1,0 +1,21 @@
+{
+  "recovery_reopen_fingerprint_exact_pilot": true,
+  "fingerprint": "bd1a73404f0885af9f5fd831f87e88792726fe5894e09cd000e46408e997d4e4",
+  "recovered_file": "S_HUNYUAN_SHOULDER_LAYER_REVISION_A_RECOVERED_BASE.blend",
+  "recovered_sha256": "4342cede67662bb28066bcd5e00c7ac1a2527e25d0b4c7a01fb96ca1567d4627",
+  "protected_files_unchanged": true,
+  "geometry": {
+    "vertices": 40957,
+    "edges": 122991,
+    "triangles": 81994,
+    "connected_components": 7,
+    "nonmanifold_edges": 0,
+    "loose_vertices": 0,
+    "degenerate_triangles_area_lt_1e_minus_12": 2,
+    "inconsistent_winding_edges": 0,
+    "signed_volume": 0.0789148959283914,
+    "nonadjacent_bvh_contacts": 7
+  },
+  "revision_a_preview_discarded": true,
+  "new_sculpt_operations_lost_in_crash": 0
+}

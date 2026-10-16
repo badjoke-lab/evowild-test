@@ -1,0 +1,14 @@
+{
+  "CONTROL_CHEST_TRANSITION": {
+    "vertices": 50,
+    "faces": 42
+  },
+  "CONTROL_OBLIQUE_SHOULDER": {
+    "vertices": 60,
+    "faces": 52
+  },
+  "CONTROL_UPPER_ARM": {
+    "vertices": 60,
+    "faces": 50
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "technical_pass": true,
+  "art_decision": "REVISE_REJECTED",
+  "baseline": {
+    "vertices": 40957,
+    "edges": 122991,
+    "triangles": 81994,
+    "connected_components": 7,
+    "nonmanifold_edges": 0,
+    "loose_vertices": 0,
+    "degenerate_triangles_area_lt_1e_minus_12": 2,
+    "inconsistent_winding_edges": 0,
+    "signed_volume": 0.0789148959283914,
+    "nonadjacent_bvh_contacts": 7
+  },
+  "candidate": {
+    "vertices": 40716,
+    "edges": 122268,
+    "triangles": 81512,
+    "connected_components": 7,
+    "nonmanifold_edges": 0,
+    "loose_vertices": 0,
+    "degenerate_triangles_area_lt_1e_minus_12": 2,
+    "inconsistent_winding_edges": 0,
+    "signed_volume": 0.07907155591625674,
+    "nonadjacent_bvh_contacts": 7
+  },
+  "outside_right_shoulder_roi_exact": true,
+  "opposite_side_exact": true,
+  "new_bvh_candidates": 0,
+  "native_validation_changes": false,
+  "protected_files_sha_unchanged": true,
+  "protected_file_count": 73,
+  "post_rebuild_section_samples": [
+    {
+      "y": -0.335,
+      "z": -0.195,
+      "x": 0.09052062034606934,
+      "normal": [
+        0.8225094676017761,
+        -0.5168247222900391,
+        -0.23742476105690002
+      ]
+    },
+    {
+      "y": -0.335,
+      "z": -0.18,
+      "x": 0.09523153305053711,
+      "normal": [
+        0.8461174368858337,
+        -0.5011458992958069,
+        -0.18148882687091827
+      ]
+    },
+    {
+      "y": -0.335,
+      "z": -0.165,
+      "x": 0.0948953628540039,
+      "normal": [
+        0.9557353854179382,
+        -0.264600545167923,
+        -0.12867195904254913
+      ]
+    },
+    {
+      "y": -0.335,
+      "z": -0.15,
+      "x": 0.09560108184814453,
+      "normal": [
+        0.9917946457862854,
+        -0.013983489945530891,
+        0.12707361578941345
+      ]
+    },
+    {
+      "y": -0.335,
+      "z": -0.14,
+      "x": 0.09560155868530273,
+      "normal": [
+        0.9917804002761841,
+        -0.013983288779854774,
+        -0.1271856129169464
+      ]
+    },
+    {
+      "y": -0.335,
+      "z": -0.13,
+      "x": 0.09688395261764526,
+      "normal": [
+        0.9917804002761841,
+        -0.013983288779854774,
+        -0.1271856129169464
+      ]
+    },
+    {
+      "y": -0.335,
+      "z": -0.12,
+      "x": 0.09761524200439453,
+      "normal": [
+        0.9908776879310608,
+        0.04064128175377846,
+        -0.12849026918411255
+      ]
+    }
+  ],
+  "reason": "V recess is reduced but the new long shoulder-to-arm plane swallows the separate upper-arm mass; upper overlap reads as an attached small flap; front lower silhouette is too angular. This is not a canonical artistic improvement.",
+  "viewport_conditions": {
+    "views": [
+      "SIDE",
+      "FRONT",
+      "FRONT34"
+    ],
+    "target": [
+      -0.035,
+      -0.345,
+      -0.055
+    ],
+    "distance": 0.63,
+    "orthographic": true,
+    "studio_solid": true,
+    "cavity": false,
+    "same_before_after": true
+  },
+  "edited_blend_saved": false,
+  "opposite_side_expanded": false,
+  "five_view_render_run": false,
+  "commit_push_performed": false,
+  "bvh_limit": "Surface overlap candidate test excluding adjacent triangles; not exhaustive intersection proof."
+}
