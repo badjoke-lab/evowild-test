@@ -3,6 +3,11 @@
 This lane continues the saved 2026-10-17 model. The three original Blender files
 are immutable inputs; no earlier model geometry is imported and no rebuild is run.
 
+**Current decision: REVISE.** Five-view review and a focused shoulder/hip sculpt
+are complete. See [quality review](QUALITY_REVIEW.md),
+[reference comparison](comparisons/REFERENCE_COMPARISON.png), and
+[revised working model](S_ZERO_CANDIDATE_REVISED_R1.blend).
+
 - Original lane: `exp/s-fullbody-zero-rebuild-20261017`
 - Preservation/review branch: `exp/s-fullbody-zero-verify-20261017`
 - Base commit: `cde1bd7c8a26637d587aafd6d1d8cc4da8fb0315`

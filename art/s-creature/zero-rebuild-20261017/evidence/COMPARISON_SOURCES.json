@@ -1,0 +1,76 @@
+{
+  "method": "Real Blender renders and unaltered reference crops. Uniform image resize and labels only.",
+  "reference_crops": {
+    "SIDE": [
+      30,
+      72,
+      755,
+      514
+    ],
+    "FRONT": [
+      765,
+      86,
+      948,
+      513
+    ],
+    "FRONT34": [
+      1130,
+      83,
+      1434,
+      513
+    ],
+    "BACK": [
+      950,
+      86,
+      1125,
+      513
+    ]
+  },
+  "detail_crops": [
+    [
+      "SIDE",
+      [
+        325,
+        315,
+        640,
+        570
+      ],
+      "SHOULDER / UPPER ARM"
+    ],
+    [
+      "FRONT34",
+      [
+        350,
+        300,
+        700,
+        610
+      ],
+      "SHOULDER / 3D CONNECTION"
+    ],
+    [
+      "SIDE",
+      [
+        670,
+        315,
+        900,
+        600
+      ],
+      "PELVIS / THIGH"
+    ]
+  ],
+  "source_sha256": {
+    "zero-rebuild-20261017/renders/candidate_review/SIDE.png": "e8b3f8c774bad5e00bdbe0a91513f54965347c52f9a2cf3336720cc5e82162d3",
+    "zero-rebuild-20261017/renders/candidate_review/FRONT.png": "d4a9df94ad1c3ddaadcccd2671475a9eecd4609d0fbab655b9f84d00d8779ff6",
+    "zero-rebuild-20261017/renders/candidate_review/FRONT34.png": "b9a8462162d7d01d2927ab9b77406423f87d45184f9d535931b42dae67ca403b",
+    "zero-rebuild-20261017/renders/candidate_review/REAR34.png": "acc834db630a0d60b5244c247f040091a1cdf1a66cdff2a0f5d2d82cdfce8c19",
+    "zero-rebuild-20261017/renders/candidate_review/BACK.png": "a69194bc8f2e46032eed1ecc5badb30a074971dca9f5bc0f1397664789bd5988",
+    "references/00_s_type_modeling_image_v1.png": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+    "zero-rebuild-20261017/renders/revised_r1/SIDE.png": "99cd139360608fa7a178ad57aa77bf9e724e913823df1b20f4c49d30468b4280",
+    "zero-rebuild-20261017/renders/revised_r1/FRONT.png": "d985eae7e62b6fd6e78897fe8c0e328f2ae2565d2c4c56fc23bd6872d3ab28b1",
+    "zero-rebuild-20261017/renders/revised_r1/FRONT34.png": "bf750405461c6d8075e8f3cb66842fbbf27814b1a7b589be2195a9766045dc8a",
+    "zero-rebuild-20261017/renders/revised_r1/REAR34.png": "4e61abd4ae24faf3468fe7c9ca8ba89dcb9195cf0db0d3ad3694e53b3da11804",
+    "zero-rebuild-20261017/renders/revised_r1/BACK.png": "12f7326203b3985297c7eb0573434cf67580b0441d2348325e4d8b38ccdb06ed",
+    "zero-rebuild-20261017/renders/refined/SIDE.png": "096505f06f6b0bc60420a606ba7306c0f665085f5ac85fa236ad062e93c96e82",
+    "zero-rebuild-20261017/renders/refined/FRONT34.png": "2ee101a68bdb679a18662a2cd7b455ec007eb9d29ce3c47efe82d4af1db3582d"
+  }
+}
