@@ -1,0 +1,208 @@
+{
+  "original_branch": "exp/s-fullbody-zero-rebuild-20261017",
+  "base": "cde1bd7c8a26637d587aafd6d1d8cc4da8fb0315",
+  "protection_branch": "exp/s-fullbody-zero-verify-20261017",
+  "existing_branch_tips": [
+    "exp/s-anatomy-structural-redesign-20261016 c86a3fe84e49c73a51cba41e136f434b171db8e1",
+    "exp/s-fullbody-zero-rebuild-20261017 cde1bd7c8a26637d587aafd6d1d8cc4da8fb0315",
+    "exp/s-fullbody-zero-verify-20261017 cde1bd7c8a26637d587aafd6d1d8cc4da8fb0315",
+    "exp/s-hunyuan-shoulder-sculpt-20261013 375dab9fabd35c7302705b7828e47dd54c3054d8"
+  ],
+  "files": [
+    {
+      "path": "art/s-creature/references/00_s_type_modeling_image_v1.png",
+      "bytes": 1982782,
+      "sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "image_decodes": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/S_ZERO_BLOCKOUT.blend",
+      "bytes": 1171877,
+      "sha256": "eb1b959264916d7512893c6c419ae2a056333b49b4165145b2b88f7ae518e502"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE.blend",
+      "bytes": 1224567,
+      "sha256": "fac25ffe586cacd294c4d0b9f7ab4ae71f93595a3f70fcfa9354c5b44cbef29d"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/S_ZERO_REFINED.blend",
+      "bytes": 1178832,
+      "sha256": "24f1b61d23c6eda67e3d9dbb39ce96c99ac11b6dbf375fffb9fc782dff4dcba5"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/BLOCKOUT_VIEWPORT_FRONT.png",
+      "bytes": 648953,
+      "sha256": "197192c4b9bdf7113742ce20faa6420e04376b76c37002719c3a60487cdf280a",
+      "dimensions": [
+        1200,
+        900
+      ],
+      "image_decodes": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/BLOCKOUT_VIEWPORT_FRONT34.png",
+      "bytes": 1044611,
+      "sha256": "24696e3876b8ea9f4118ff0322c0df23a01bf7942e631660377da368a425e86d",
+      "dimensions": [
+        1200,
+        900
+      ],
+      "image_decodes": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/BLOCKOUT_VIEWPORT_SIDE.png",
+      "bytes": 746484,
+      "sha256": "00c1af0b66d0ff9e9750cb96b9e8b6faf7ce9e093ba9ae1589544a17ae9b436e",
+      "dimensions": [
+        1200,
+        900
+      ],
+      "image_decodes": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/CANDIDATE_CHANGES.json",
+      "bytes": 455,
+      "sha256": "d9e53daceb6310588f08cfbfc1ad1bfb42a79f270f56e8a707f0e2b11bb6c319"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REFERENCE_SHA256.json",
+      "bytes": 269,
+      "sha256": "5a4406ff74faea01a5b34933ba54f6ada6a8e49cc5b00dc432d73ae3ca34b4d6"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_FRONT.png",
+      "bytes": 682666,
+      "sha256": "2f90689bfc26f0a6e4351c3e6c46c92cbd87d665fc44fb311af612b0dda3aecc",
+      "dimensions": [
+        1200,
+        900
+      ],
+      "image_decodes": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_FRONT34.png",
+      "bytes": 1076508,
+      "sha256": "e54465dfaf15602a147aa0388bcf6fd9c1df29435b5bc9c7c0ce9f6b333e4e5f",
+      "dimensions": [
+        1200,
+        900
+      ],
+      "image_decodes": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_SIDE.png",
+      "bytes": 768001,
+      "sha256": "59427391cffcfe2aa8490353b8632b7772b8767d18aa78db730cab14e2da9bc1",
+      "dimensions": [
+        1200,
+        900
+      ],
+      "image_decodes": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REFINEMENT_CHANGES.json",
+      "bytes": 950,
+      "sha256": "5e6a239d566fd3b220651d7a3d7e1562a74a8b9115f54714d3ba9aa0aafa3b79"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_blockout.json",
+      "bytes": 2264,
+      "sha256": "df5213c9444b498cfe68548ac41f587ea76e7b53dcbc30dec5162516c296560d"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_refined.json",
+      "bytes": 2259,
+      "sha256": "59a6b923c4220753279585eb81004b63d623c90484016943e0ae0a14d289f224"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_SAVED_ORIGINALS.log",
+      "bytes": 371,
+      "sha256": "7b313fa0596e39bad88b854cb3284efb50d8a88ad5a9360ea25ba0131343b518"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/blockout/FRONT.png",
+      "bytes": 1079650,
+      "sha256": "78839d273230a07b5ef077ccae199d235c2e1b447dd85959a687cec6acc9d30b",
+      "dimensions": [
+        1200,
+        900
+      ],
+      "image_decodes": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/blockout/FRONT34.png",
+      "bytes": 1207614,
+      "sha256": "e13fc684788d1f922c6c1be182766a5fa5ca3b472a037188f9fe59b6e50c5d64",
+      "dimensions": [
+        1200,
+        900
+      ],
+      "image_decodes": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/blockout/SIDE.png",
+      "bytes": 1174130,
+      "sha256": "5bbc82d33ad50b7ba9e01766ee500c45b085813bc9266868605b8398c0625bf1",
+      "dimensions": [
+        1200,
+        900
+      ],
+      "image_decodes": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/refined/FRONT.png",
+      "bytes": 1108290,
+      "sha256": "3fa3274f8c831903781e8c4383e8de4d25aa8436e1b8aefe5cb7effdc82e94c6",
+      "dimensions": [
+        1200,
+        900
+      ],
+      "image_decodes": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/refined/FRONT34.png",
+      "bytes": 1230762,
+      "sha256": "2ee101a68bdb679a18662a2cd7b455ec007eb9d29ce3c47efe82d4af1db3582d",
+      "dimensions": [
+        1200,
+        900
+      ],
+      "image_decodes": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/refined/SIDE.png",
+      "bytes": 1192372,
+      "sha256": "096505f06f6b0bc60420a606ba7306c0f665085f5ac85fa236ad062e93c96e82",
+      "dimensions": [
+        1200,
+        900
+      ],
+      "image_decodes": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/01_build_blockout.py",
+      "bytes": 15614,
+      "sha256": "cb78e91e984e56b442703c795c94630f0efdb3c26466f50b10837c7c93140d12"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/02_refine.py",
+      "bytes": 8096,
+      "sha256": "9ebd15de0f9ecf6e9d0af42b16aceb41889839b48fb9ed1e5c5d0fc87ce7d4dd"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/03_candidate.py",
+      "bytes": 8206,
+      "sha256": "46f4ef1ac3c382814523d079c411d49268a462dc3ee9ae999076efd2d1139af3"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/render_saved_stage.py",
+      "bytes": 1134,
+      "sha256": "6b583876e240ed1604a8c4afcc90f80d34d20e121027ea28cdbe99fc5ba9546d"
+    }
+  ]
+}

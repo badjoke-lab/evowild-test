@@ -1,0 +1,48 @@
+{
+  "stage": "REFINED",
+  "inspected_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34"
+  ],
+  "findings": [
+    "Buried ivory anatomy",
+    "Parallel frontal crown",
+    "Undersized split toes"
+  ],
+  "modified_objects": [
+    "DELTOID_N",
+    "SCAPULA_N",
+    "RIB_SHELL_N",
+    "LOWER_RIB_N",
+    "PELVIS_N",
+    "THIGH_SHELL_N",
+    "CHEEK_N",
+    "BROW_N",
+    "NECK_TENDON_N",
+    "NAPE_IVORY_N",
+    "DELTOID_F",
+    "SCAPULA_F",
+    "RIB_SHELL_F",
+    "LOWER_RIB_F",
+    "PELVIS_F",
+    "THIGH_SHELL_F",
+    "CHEEK_F",
+    "BROW_F",
+    "NECK_TENDON_F",
+    "NAPE_IVORY_F",
+    "CROWN_MAIN_N",
+    "CROWN_IVORY_RIDGE_N",
+    "CROWN_BLUE_N",
+    "CROWN_MAIN_F",
+    "CROWN_IVORY_RIDGE_F",
+    "CROWN_BLUE_F",
+    "BRACHIAL_FORE_NEAR",
+    "CANNON_RIDGE_FORE_NEAR",
+    "BRACHIAL_FORE_FAR",
+    "CANNON_RIDGE_FORE_FAR",
+    "CANNON_RIDGE_HIND_NEAR",
+    "CANNON_RIDGE_HIND_FAR"
+  ],
+  "body_reused": "Only newly built S_ZERO_BLOCKOUT geometry"
+}

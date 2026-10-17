@@ -1,0 +1,7871 @@
+{
+  "utc": "2026-10-17T02:09:25.554902+00:00",
+  "read_only": true,
+  "files": [
+    {
+      "file": "S_ZERO_BLOCKOUT.blend",
+      "bytes": 1171877,
+      "sha256": "eb1b959264916d7512893c6c419ae2a056333b49b4165145b2b88f7ae518e502",
+      "sha256_after": "eb1b959264916d7512893c6c419ae2a056333b49b4165145b2b88f7ae518e502",
+      "opened": true,
+      "blender": "4.3.2",
+      "stage": "BLOCKOUT",
+      "collection_objects": 120,
+      "mesh_objects": 119,
+      "vertices": 35356,
+      "faces": 35916,
+      "armatures": [],
+      "actions": [],
+      "cameras": [
+        "CAM_BACK",
+        "CAM_FRONT",
+        "CAM_FRONT34",
+        "CAM_REAR34",
+        "CAM_SIDE"
+      ],
+      "external_images": [],
+      "meshes": [
+        {
+          "name": "ANKLE_FIN_FORE_FAR",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "ANKLE_FIN_FORE_NEAR",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "ANKLE_FIN_HIND_FAR",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "ANKLE_FIN_HIND_NEAR",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "BRACHIAL_FORE_FAR",
+          "vertices": 52,
+          "faces": 50,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            52
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "BRACHIAL_FORE_NEAR",
+          "vertices": 52,
+          "faces": 50,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            52
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "BROW_F",
+          "vertices": 52,
+          "faces": 50,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            52
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "BROW_N",
+          "vertices": 52,
+          "faces": 50,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            52
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CANNON_RIDGE_FORE_FAR",
+          "vertices": 52,
+          "faces": 50,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            52
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CANNON_RIDGE_FORE_NEAR",
+          "vertices": 52,
+          "faces": 50,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            52
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CANNON_RIDGE_HIND_FAR",
+          "vertices": 52,
+          "faces": 50,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            52
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CANNON_RIDGE_HIND_NEAR",
+          "vertices": 52,
+          "faces": 50,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            52
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CHEEK_F",
+          "vertices": 52,
+          "faces": 50,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            52
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CHEEK_N",
+          "vertices": 52,
+          "faces": 50,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            52
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CROWN_BLUE_F",
+          "vertices": 14,
+          "faces": 18,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            14
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CROWN_BLUE_N",
+          "vertices": 14,
+          "faces": 18,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            14
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CROWN_IVORY_RIDGE_F",
+          "vertices": 20,
+          "faces": 27,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            20
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CROWN_IVORY_RIDGE_N",
+          "vertices": 20,
+          "faces": 27,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            20
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CROWN_MAIN_F",
+          "vertices": 22,
+          "faces": 30,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            22
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CROWN_MAIN_N",
+          "vertices": 22,
+          "faces": 30,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            22
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_DOT_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_DOT_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_FACE_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_FACE_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_FRAME_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_FRAME_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_RIM_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_RIM_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_ROUND_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_ROUND_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_SIGNAL_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_SIGNAL_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DELTOID_F",
+          "vertices": 82,
+          "faces": 80,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            82
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DELTOID_N",
+          "vertices": 82,
+          "faces": 80,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            82
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_BLUE_0_-1",
+          "vertices": 8,
+          "faces": 9,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            8
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_BLUE_0_1",
+          "vertices": 8,
+          "faces": 9,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            8
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_BLUE_1_-1",
+          "vertices": 8,
+          "faces": 9,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            8
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_BLUE_1_1",
+          "vertices": 8,
+          "faces": 9,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            8
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_BLUE_2_-1",
+          "vertices": 8,
+          "faces": 9,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            8
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_BLUE_2_1",
+          "vertices": 8,
+          "faces": 9,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            8
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_CREST_0_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_CREST_0_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_CREST_1_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_CREST_1_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_CREST_2_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_CREST_2_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_MANTLE",
+          "vertices": 350,
+          "faces": 360,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            350
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "EYE_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "EYE_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "EYE_SOCKET_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "EYE_SOCKET_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "LOWER_RIB_F",
+          "vertices": 72,
+          "faces": 70,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            72
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "LOWER_RIB_N",
+          "vertices": 72,
+          "faces": 70,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            72
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "NAPE_FIN_F",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "NAPE_FIN_N",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "NECK_TENDON_F",
+          "vertices": 62,
+          "faces": 60,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            62
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "NECK_TENDON_N",
+          "vertices": 62,
+          "faces": 60,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            62
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "PELVIS_F",
+          "vertices": 82,
+          "faces": 80,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            82
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "PELVIS_N",
+          "vertices": 82,
+          "faces": 80,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            82
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "RIB_SHELL_F",
+          "vertices": 72,
+          "faces": 70,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            72
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "RIB_SHELL_N",
+          "vertices": 72,
+          "faces": 70,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            72
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "SCAPULA_F",
+          "vertices": 72,
+          "faces": 70,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            72
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "SCAPULA_N",
+          "vertices": 72,
+          "faces": 70,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            72
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "S_ZERO_BODY_CONTINUOUS",
+          "vertices": 27534,
+          "faces": 27532,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            27534
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_0_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_0_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_1_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_1_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_2_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_2_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_3_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_3_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_4_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_4_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_5_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_5_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_6_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_6_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_0_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_0_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_1_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_1_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_2_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_2_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_3_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_3_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_4_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_4_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_5_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_5_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_6_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_6_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_TIP",
+          "vertices": 112,
+          "faces": 120,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            112
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "THIGH_SHELL_F",
+          "vertices": 62,
+          "faces": 60,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            62
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "THIGH_SHELL_N",
+          "vertices": 62,
+          "faces": 60,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            62
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_FORE_FAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_FORE_FAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_FORE_NEAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_FORE_NEAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_HIND_FAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_HIND_FAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_HIND_NEAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_HIND_NEAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_FORE_FAR_-1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_FORE_FAR_1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_FORE_NEAR_-1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_FORE_NEAR_1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_HIND_FAR_-1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_HIND_FAR_1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_HIND_NEAR_-1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_HIND_NEAR_1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_FORE_FAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_FORE_FAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_FORE_NEAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_FORE_NEAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_HIND_FAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_HIND_FAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_HIND_NEAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_HIND_NEAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "file": "S_ZERO_REFINED.blend",
+      "bytes": 1178832,
+      "sha256": "24f1b61d23c6eda67e3d9dbb39ce96c99ac11b6dbf375fffb9fc782dff4dcba5",
+      "sha256_after": "24f1b61d23c6eda67e3d9dbb39ce96c99ac11b6dbf375fffb9fc782dff4dcba5",
+      "opened": true,
+      "blender": "4.3.2",
+      "stage": "REFINED",
+      "collection_objects": 142,
+      "mesh_objects": 141,
+      "vertices": 36346,
+      "faces": 37291,
+      "armatures": [],
+      "actions": [],
+      "cameras": [
+        "CAM_BACK",
+        "CAM_FRONT",
+        "CAM_FRONT34",
+        "CAM_REAR34",
+        "CAM_SIDE"
+      ],
+      "external_images": [],
+      "meshes": [
+        {
+          "name": "ANKLE_FIN_FORE_FAR",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "ANKLE_FIN_FORE_NEAR",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "ANKLE_FIN_HIND_FAR",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "ANKLE_FIN_HIND_NEAR",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "BRACHIAL_FORE_FAR",
+          "vertices": 62,
+          "faces": 70,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            62
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "BRACHIAL_FORE_NEAR",
+          "vertices": 62,
+          "faces": 70,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            62
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "BROW_F",
+          "vertices": 62,
+          "faces": 70,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            62
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "BROW_N",
+          "vertices": 62,
+          "faces": 70,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            62
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CANNON_RIDGE_FORE_FAR",
+          "vertices": 62,
+          "faces": 70,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            62
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CANNON_RIDGE_FORE_NEAR",
+          "vertices": 62,
+          "faces": 70,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            62
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CANNON_RIDGE_HIND_FAR",
+          "vertices": 62,
+          "faces": 70,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            62
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CANNON_RIDGE_HIND_NEAR",
+          "vertices": 62,
+          "faces": 70,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            62
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CHEEK_F",
+          "vertices": 62,
+          "faces": 70,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            62
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CHEEK_N",
+          "vertices": 62,
+          "faces": 70,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            62
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CROWN_BLUE_F",
+          "vertices": 14,
+          "faces": 18,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            14
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CROWN_BLUE_N",
+          "vertices": 14,
+          "faces": 18,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            14
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CROWN_IVORY_RIDGE_F",
+          "vertices": 20,
+          "faces": 27,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            20
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CROWN_IVORY_RIDGE_N",
+          "vertices": 20,
+          "faces": 27,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            20
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CROWN_MAIN_F",
+          "vertices": 22,
+          "faces": 30,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            22
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CROWN_MAIN_N",
+          "vertices": 22,
+          "faces": 30,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            22
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_DOT_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_DOT_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_FACE_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_FACE_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_FRAME_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_FRAME_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_RIM_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_RIM_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_ROUND_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_ROUND_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_SIGNAL_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_SIGNAL_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DELTOID_F",
+          "vertices": 98,
+          "faces": 112,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            98
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DELTOID_N",
+          "vertices": 98,
+          "faces": 112,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            98
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_BLUE_0_-1",
+          "vertices": 8,
+          "faces": 9,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            8
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_BLUE_0_1",
+          "vertices": 8,
+          "faces": 9,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            8
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_BLUE_1_-1",
+          "vertices": 8,
+          "faces": 9,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            8
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_BLUE_1_1",
+          "vertices": 8,
+          "faces": 9,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            8
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_BLUE_2_-1",
+          "vertices": 8,
+          "faces": 9,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            8
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_BLUE_2_1",
+          "vertices": 8,
+          "faces": 9,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            8
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_CREST_0_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_CREST_0_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_CREST_1_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_CREST_1_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_CREST_2_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_CREST_2_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_MANTLE",
+          "vertices": 350,
+          "faces": 360,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            350
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "ELBOW_SPUR_FORE_FAR",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "ELBOW_SPUR_FORE_NEAR",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "ELBOW_SPUR_HIND_FAR",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "ELBOW_SPUR_HIND_NEAR",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "EYE_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "EYE_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "EYE_SOCKET_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "EYE_SOCKET_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "FOREHEAD_MEDIAN",
+          "vertices": 16,
+          "faces": 21,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            16
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "LOWER_RIB_F",
+          "vertices": 86,
+          "faces": 98,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            86
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "LOWER_RIB_N",
+          "vertices": 86,
+          "faces": 98,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            86
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "MOUTH_SEAM_-1",
+          "vertices": 58,
+          "faces": 64,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            58
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "MOUTH_SEAM_1",
+          "vertices": 58,
+          "faces": 64,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            58
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "NAPE_FIN_F",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "NAPE_FIN_N",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "NAPE_IVORY_F",
+          "vertices": 74,
+          "faces": 84,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            74
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "NAPE_IVORY_N",
+          "vertices": 74,
+          "faces": 84,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            74
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "NECK_TENDON_F",
+          "vertices": 74,
+          "faces": 84,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            74
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "NECK_TENDON_N",
+          "vertices": 74,
+          "faces": 84,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            74
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "NOSE_CAP",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "PELVIS_F",
+          "vertices": 86,
+          "faces": 98,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            86
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "PELVIS_N",
+          "vertices": 98,
+          "faces": 112,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            98
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "RIB_SHELL_F",
+          "vertices": 86,
+          "faces": 98,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            86
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "RIB_SHELL_N",
+          "vertices": 86,
+          "faces": 98,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            86
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "SCAPULA_F",
+          "vertices": 86,
+          "faces": 98,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            86
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "SCAPULA_N",
+          "vertices": 86,
+          "faces": 98,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            86
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "S_ZERO_BODY_CONTINUOUS",
+          "vertices": 27534,
+          "faces": 27532,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            27534
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_0_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_0_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_1_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_1_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_2_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_2_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_3_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_3_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_4_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_4_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_5_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_5_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_6_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_6_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_0_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_0_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_1_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_1_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_2_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_2_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_3_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_3_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_4_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_4_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_5_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_5_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_6_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_6_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_0_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_0_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_1_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_1_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_2_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_2_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_3_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_3_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_4_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_4_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_5_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_5_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_TIP",
+          "vertices": 112,
+          "faces": 120,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            112
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "THIGH_SHELL_F",
+          "vertices": 74,
+          "faces": 84,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            74
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "THIGH_SHELL_N",
+          "vertices": 74,
+          "faces": 84,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            74
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_FORE_FAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_FORE_FAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_FORE_NEAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_FORE_NEAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_HIND_FAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_HIND_FAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_HIND_NEAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_HIND_NEAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_FORE_FAR_-1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_FORE_FAR_1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_FORE_NEAR_-1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_FORE_NEAR_1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_HIND_FAR_-1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_HIND_FAR_1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_HIND_NEAR_-1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_HIND_NEAR_1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_FORE_FAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_FORE_FAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_FORE_NEAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_FORE_NEAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_HIND_FAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_HIND_FAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_HIND_NEAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_HIND_NEAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "file": "S_ZERO_CANDIDATE.blend",
+      "bytes": 1224567,
+      "sha256": "fac25ffe586cacd294c4d0b9f7ab4ae71f93595a3f70fcfa9354c5b44cbef29d",
+      "sha256_after": "fac25ffe586cacd294c4d0b9f7ab4ae71f93595a3f70fcfa9354c5b44cbef29d",
+      "opened": true,
+      "blender": "4.3.2",
+      "stage": "CANDIDATE",
+      "collection_objects": 151,
+      "mesh_objects": 150,
+      "vertices": 41302,
+      "faces": 42386,
+      "armatures": [],
+      "actions": [],
+      "cameras": [
+        "CAM_BACK",
+        "CAM_FRONT",
+        "CAM_FRONT34",
+        "CAM_REAR34",
+        "CAM_SIDE"
+      ],
+      "external_images": [],
+      "meshes": [
+        {
+          "name": "ANKLE_FIN_FORE_FAR",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "ANKLE_FIN_FORE_NEAR",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "ANKLE_FIN_HIND_FAR",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "ANKLE_FIN_HIND_NEAR",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "BRACHIAL_FORE_FAR",
+          "vertices": 210,
+          "faces": 224,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            210
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "BRACHIAL_FORE_NEAR",
+          "vertices": 210,
+          "faces": 224,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            210
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CANNON_RIDGE_FORE_FAR",
+          "vertices": 132,
+          "faces": 140,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            132
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CANNON_RIDGE_FORE_NEAR",
+          "vertices": 132,
+          "faces": 140,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            132
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CANNON_RIDGE_HIND_FAR",
+          "vertices": 132,
+          "faces": 140,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            132
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CANNON_RIDGE_HIND_NEAR",
+          "vertices": 132,
+          "faces": 140,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            132
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CHEEK_F",
+          "vertices": 210,
+          "faces": 224,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            210
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CHEEK_N",
+          "vertices": 210,
+          "faces": 224,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            210
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CROWN_BLUE_F",
+          "vertices": 14,
+          "faces": 18,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            14
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CROWN_BLUE_N",
+          "vertices": 14,
+          "faces": 18,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            14
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CROWN_IVORY_RIDGE_F",
+          "vertices": 162,
+          "faces": 170,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            162
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CROWN_IVORY_RIDGE_N",
+          "vertices": 162,
+          "faces": 170,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            162
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CROWN_MAIN_F",
+          "vertices": 22,
+          "faces": 30,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            22
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CROWN_MAIN_N",
+          "vertices": 22,
+          "faces": 30,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            22
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_DOT_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_DOT_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_FACE_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_FACE_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_FRAME_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_FRAME_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_RIM_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_RIM_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_ROUND_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_ROUND_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_SIGNAL_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "CUE_SIGNAL_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DELTOID_F",
+          "vertices": 338,
+          "faces": 352,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            338
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DELTOID_N",
+          "vertices": 338,
+          "faces": 352,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            338
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_BLUE_0_-1",
+          "vertices": 8,
+          "faces": 9,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            8
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_BLUE_0_1",
+          "vertices": 8,
+          "faces": 9,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            8
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_BLUE_1_-1",
+          "vertices": 8,
+          "faces": 9,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            8
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_BLUE_1_1",
+          "vertices": 8,
+          "faces": 9,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            8
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_BLUE_2_-1",
+          "vertices": 8,
+          "faces": 9,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            8
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_BLUE_2_1",
+          "vertices": 8,
+          "faces": 9,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            8
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_CREST_0_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_CREST_0_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_CREST_1_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_CREST_1_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_CREST_2_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_CREST_2_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "DORSAL_MANTLE",
+          "vertices": 350,
+          "faces": 360,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            350
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "ELBOW_SPUR_FORE_FAR",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "ELBOW_SPUR_FORE_NEAR",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "EYE_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "EYE_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "EYE_SOCKET_F",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "EYE_SOCKET_N",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "FOREHEAD_MEDIAN",
+          "vertices": 274,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            274
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "HOOF_FACE_FORE_FAR_-1",
+          "vertices": 72,
+          "faces": 80,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            72
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "HOOF_FACE_FORE_FAR_1",
+          "vertices": 72,
+          "faces": 80,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            72
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "HOOF_FACE_FORE_NEAR_-1",
+          "vertices": 72,
+          "faces": 80,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            72
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "HOOF_FACE_FORE_NEAR_1",
+          "vertices": 72,
+          "faces": 80,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            72
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "HOOF_FACE_HIND_FAR_-1",
+          "vertices": 72,
+          "faces": 80,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            72
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "HOOF_FACE_HIND_FAR_1",
+          "vertices": 72,
+          "faces": 80,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            72
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "HOOF_FACE_HIND_NEAR_-1",
+          "vertices": 72,
+          "faces": 80,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            72
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "HOOF_FACE_HIND_NEAR_1",
+          "vertices": 72,
+          "faces": 80,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            72
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "HOOF_SIGNAL_FORE_FAR_-1",
+          "vertices": 58,
+          "faces": 64,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            58
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "HOOF_SIGNAL_FORE_FAR_1",
+          "vertices": 58,
+          "faces": 64,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            58
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "HOOF_SIGNAL_FORE_NEAR_-1",
+          "vertices": 58,
+          "faces": 64,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            58
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "HOOF_SIGNAL_FORE_NEAR_1",
+          "vertices": 58,
+          "faces": 64,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            58
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "HOOF_SIGNAL_HIND_FAR_-1",
+          "vertices": 58,
+          "faces": 64,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            58
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "HOOF_SIGNAL_HIND_FAR_1",
+          "vertices": 58,
+          "faces": 64,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            58
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "HOOF_SIGNAL_HIND_NEAR_-1",
+          "vertices": 58,
+          "faces": 64,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            58
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "HOOF_SIGNAL_HIND_NEAR_1",
+          "vertices": 58,
+          "faces": 64,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            58
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "LOWER_RIB_F",
+          "vertices": 274,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            274
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "LOWER_RIB_N",
+          "vertices": 274,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            274
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "MOUTH_SEAM_-1",
+          "vertices": 58,
+          "faces": 64,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            58
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "MOUTH_SEAM_1",
+          "vertices": 58,
+          "faces": 64,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            58
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "NAPE_FIN_F",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "NAPE_FIN_N",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "NAPE_IVORY_F",
+          "vertices": 274,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            274
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "NAPE_IVORY_N",
+          "vertices": 274,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            274
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "NECK_TENDON_F",
+          "vertices": 158,
+          "faces": 168,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            158
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "NECK_TENDON_N",
+          "vertices": 158,
+          "faces": 168,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            158
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "NOSE_CAP",
+          "vertices": 266,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            266
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "PELVIS_F",
+          "vertices": 274,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            274
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "PELVIS_N",
+          "vertices": 338,
+          "faces": 352,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            338
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "RIB_SHELL_F",
+          "vertices": 274,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            274
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "RIB_SHELL_N",
+          "vertices": 274,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            274
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "SACRAL_MANTLE",
+          "vertices": 210,
+          "faces": 224,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            210
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "SCAPULA_F",
+          "vertices": 274,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            274
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "SCAPULA_N",
+          "vertices": 274,
+          "faces": 288,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            274
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "S_ZERO_BODY_CONTINUOUS",
+          "vertices": 27534,
+          "faces": 27532,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            27534
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_0_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_0_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_1_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_1_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_2_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_2_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_3_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_3_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_4_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_4_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_5_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_5_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_6_-1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLADE_6_1",
+          "vertices": 12,
+          "faces": 15,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            12
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_0_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_0_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_1_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_1_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_2_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_2_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_3_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_3_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_4_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_4_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_5_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_5_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_6_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_BLUE_6_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_0_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_0_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_1_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_1_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_2_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_2_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_3_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_3_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_4_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_IVORY_4_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TAIL_TIP",
+          "vertices": 112,
+          "faces": 120,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            112
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_FORE_FAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_FORE_FAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_FORE_NEAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_FORE_NEAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_HIND_FAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_HIND_FAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_HIND_NEAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_CYAN_HIND_NEAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_FORE_FAR_-1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_FORE_FAR_1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_FORE_NEAR_-1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_FORE_NEAR_1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_HIND_FAR_-1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_HIND_FAR_1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_HIND_NEAR_-1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_HIND_NEAR_1",
+          "vertices": 102,
+          "faces": 110,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            102
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_FORE_FAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_FORE_FAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_FORE_NEAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_FORE_NEAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_HIND_FAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_HIND_FAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_HIND_NEAR_-1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "TOE_IVORY_HIND_NEAR_1",
+          "vertices": 10,
+          "faces": 12,
+          "boundary_edges": 0,
+          "nonmanifold_edges": 0,
+          "loose_vertices": 0,
+          "degenerate_faces": 0,
+          "components": [
+            10
+          ],
+          "vertex_groups": [],
+          "modifiers": [],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      ]
+    }
+  ]
+}

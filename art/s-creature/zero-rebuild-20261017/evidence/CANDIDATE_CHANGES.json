@@ -1,0 +1,13 @@
+{
+  "stage": "CANDIDATE",
+  "trigger": "REFINED showed ray projection folds and excessive frontal crown bow",
+  "changes": [
+    "Closed loft volumes for shoulder, scapula, ribs, pelvis, upper arms",
+    "Separate limb-following cannon ridges; removed cross-limb membranes",
+    "Narrow frontal crown; narrow white crown ridge",
+    "Continuous forehead shield",
+    "Deeper swept tail fronds",
+    "Split toe front caps"
+  ],
+  "no_old_geometry": true
+}
