@@ -1,0 +1,36 @@
+{
+  "candidate_decision": "REVISE",
+  "revised_r1_decision": "REVISE",
+  "production_keep": false,
+  "reviewed_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "original_candidate_sha256": "fac25ffe586cacd294c4d0b9f7ab4ae71f93595a3f70fcfa9354c5b44cbef29d",
+  "revised_r1_sha256": "f8e8a80360ee5886d485a17610cf62a9387d10cdb09e4801a055be99bf8d8a4f",
+  "changed_meshes": 6,
+  "unchanged_meshes": 144,
+  "accepted_local_improvements": [
+    "Shoulder to upper-arm white volume is visibly continuous in SIDE and both three-quarter views",
+    "Pelvis lower boundary has less body intrusion"
+  ],
+  "remaining_visual_issues": [
+    "Rounded applied shell volumes and visible separate-part steps",
+    "Front crown transverse shape",
+    "Tubular lower limbs and rounded split feet",
+    "Repeated flat tail layers and exposed core"
+  ],
+  "remaining_structural_issues": [
+    "Separate intersecting shells",
+    "No joint-oriented retopology",
+    "No armature, weights or animation",
+    "Staggered pose needs rig-rest and contact definition"
+  ],
+  "gait_tested": false,
+  "pc_runtime_tested": false,
+  "mobile_runtime_tested": false,
+  "report": "QUALITY_REVIEW.md"
+}

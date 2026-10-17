@@ -1,0 +1,26 @@
+{
+  "decision": "REVISE",
+  "source": "S_ZERO_CANDIDATE.blend",
+  "source_sha256": "fac25ffe586cacd294c4d0b9f7ab4ae71f93595a3f70fcfa9354c5b44cbef29d",
+  "inspected_real_renders": ["SIDE", "FRONT", "FRONT34", "REAR34", "BACK"],
+  "reference": "../references/00_s_type_modeling_image_v1.png",
+  "reference_sha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "findings": {
+    "head_and_two_crowns": "Small head, paired swept crowns and restrained eyes retained. Front crown sections are too thin and nearly parallel compared with the PNG. Forehead is overly smooth. Cue Band remains secondary.",
+    "shoulder_chest_upper_arm": "REFINED's large folded shoulder projection is removed. CANDIDATE still has round applied shoulder volumes, a dark interruption before the upper-arm white region, and irregular emergence through the underlying body. Upper arm reads as an isolated white island in SIDE/REAR34.",
+    "torso_and_waist": "Athletic waist tuck exists. Dorsal and lower rib strips look detached and cylindrical in places instead of integrated anatomical planes.",
+    "pelvis_and_hindlimbs": "REFINED's major folded hip surface is replaced by a coherent closed volume. Lower pelvis boundary is still partially buried and irregular; dark proximal thigh pokes through the light region in BACK/REAR34. Rearward hock structure is present.",
+    "limbs_and_feet": "Four continuous limb chains and long tapered lower limbs are present. Lower limbs still look tubular; split feet are rounded and insufficiently wedge-shaped. Staggered stance differs between sides by design.",
+    "tail": "Distinct root, thin curved core and paired blades retained. Rear views expose repeated flat blade shapes and a bare central rod; the reference tail is more integrated and layered.",
+    "silhouette_and_volume": "S identity is recognizable, with narrow waist, small head, long legs and swept crowns. Front crown and shoulder/pelvic surfacing still differ materially from the modeling PNG. Five views expose limitations missed by SIDE alone.",
+    "mesh_connectivity": "Main body is one connected closed mesh. All 150 individual meshes are closed under the recorded audit, but the assembled body includes overlapping separate shells. No boundary edge is not proof of an intersection-free assembly.",
+    "rigging": "No armature, animation or vertex weights. Intersecting shells, unoptimized voxel body topology, separate attachments and asymmetric rest pose require a deformation/retopology pass before rigging. Static renders cannot certify gait."
+  },
+  "r1_scope": [
+    "Reshape existing deltoid and brachial vertices to form a continuous shoulder-to-upper-arm white mass",
+    "Adjust existing pelvis outer surface to reduce buried lower edges and excessive round lateral bulk",
+    "Keep original core body, head, crowns, tail, lower limbs and feet unchanged in this focused revision",
+    "Render all five views again with identical cameras and studio"
+  ],
+  "production_keep": false
+}

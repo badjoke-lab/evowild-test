@@ -1,0 +1,91 @@
+{
+  "source": "/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R1.blend",
+  "label": "revised_r1",
+  "records": [
+    {
+      "name": "DELTOID_N",
+      "body_intersecting_face_pairs": 168,
+      "min_vertex_to_body_distance": 0.00024158119049388915,
+      "nonadjacent_self_overlap_pairs": 0
+    },
+    {
+      "name": "DELTOID_F",
+      "body_intersecting_face_pairs": 158,
+      "min_vertex_to_body_distance": 0.00018974416889250278,
+      "nonadjacent_self_overlap_pairs": 0
+    },
+    {
+      "name": "BRACHIAL_FORE_NEAR",
+      "body_intersecting_face_pairs": 142,
+      "min_vertex_to_body_distance": 0.0001348294026684016,
+      "nonadjacent_self_overlap_pairs": 0
+    },
+    {
+      "name": "BRACHIAL_FORE_FAR",
+      "body_intersecting_face_pairs": 119,
+      "min_vertex_to_body_distance": 0.00019621873798314482,
+      "nonadjacent_self_overlap_pairs": 0
+    },
+    {
+      "name": "PELVIS_N",
+      "body_intersecting_face_pairs": 215,
+      "min_vertex_to_body_distance": 0.0001061932198354043,
+      "nonadjacent_self_overlap_pairs": 0
+    },
+    {
+      "name": "PELVIS_F",
+      "body_intersecting_face_pairs": 187,
+      "min_vertex_to_body_distance": 0.0006435849936679006,
+      "nonadjacent_self_overlap_pairs": 0
+    },
+    {
+      "name": "SCAPULA_N",
+      "body_intersecting_face_pairs": 88,
+      "min_vertex_to_body_distance": 0.0014873770996928215,
+      "nonadjacent_self_overlap_pairs": 0
+    },
+    {
+      "name": "SCAPULA_F",
+      "body_intersecting_face_pairs": 88,
+      "min_vertex_to_body_distance": 0.0016636973014101386,
+      "nonadjacent_self_overlap_pairs": 0
+    },
+    {
+      "name": "RIB_SHELL_N",
+      "body_intersecting_face_pairs": 156,
+      "min_vertex_to_body_distance": 0.00021727988496422768,
+      "nonadjacent_self_overlap_pairs": 0
+    },
+    {
+      "name": "RIB_SHELL_F",
+      "body_intersecting_face_pairs": 156,
+      "min_vertex_to_body_distance": 0.00010603728878777474,
+      "nonadjacent_self_overlap_pairs": 0
+    },
+    {
+      "name": "LOWER_RIB_N",
+      "body_intersecting_face_pairs": 95,
+      "min_vertex_to_body_distance": 3.806847598752938e-05,
+      "nonadjacent_self_overlap_pairs": 0
+    },
+    {
+      "name": "LOWER_RIB_F",
+      "body_intersecting_face_pairs": 88,
+      "min_vertex_to_body_distance": 0.00015237256593536586,
+      "nonadjacent_self_overlap_pairs": 0
+    },
+    {
+      "name": "DORSAL_MANTLE",
+      "body_intersecting_face_pairs": 363,
+      "min_vertex_to_body_distance": 0.0003741996188182384,
+      "nonadjacent_self_overlap_pairs": 0
+    },
+    {
+      "name": "SACRAL_MANTLE",
+      "body_intersecting_face_pairs": 106,
+      "min_vertex_to_body_distance": 9.572218550601974e-05,
+      "nonadjacent_self_overlap_pairs": 0
+    }
+  ],
+  "interpretation": "BVH triangle overlap is a diagnostic, not a complete robust self-intersection proof. Separate overlapping shell meshes remain separate during skin deformation. Zero boundary edges alone does not certify assembly."
+}

@@ -1,0 +1,15 @@
+{
+  "original_artifacts_unchanged": 26,
+  "prior_local_branch_tips_unchanged": true,
+  "matched_camera_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "same_render_settings": true,
+  "blender_version": "4.3.2",
+  "source_original_sha256": "fac25ffe586cacd294c4d0b9f7ab4ae71f93595a3f70fcfa9354c5b44cbef29d",
+  "revision_sha256": "f8e8a80360ee5886d485a17610cf62a9387d10cdb09e4801a055be99bf8d8a4f"
+}
