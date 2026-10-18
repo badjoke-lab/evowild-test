@@ -1,0 +1,59 @@
+{
+  "model_sha256": "8533fc33a2d43d498618a5f449b675a25bf7d7126d72eee3b936db843f0c11ad",
+  "model_bytes": 1278843,
+  "views": {
+    "SIDE": {
+      "r3_camera_and_studio_match": true,
+      "sha256": "1300162ee23e0e9c361c08efeb30b4a083945f5a4397963d231aa0a0ceb0aaee",
+      "rgb_equal_to_reviewed_E": true
+    },
+    "FRONT": {
+      "r3_camera_and_studio_match": true,
+      "sha256": "7589b36a8dc607a0d25b2167e82e1e484126d22f6cf9b50d1b0e638cb8cf76fe",
+      "rgb_equal_to_reviewed_E": true
+    },
+    "FRONT34": {
+      "r3_camera_and_studio_match": true,
+      "sha256": "ef4bf5e52bdae10024f346a6e24a1ee51167598bafcf441e63d1a01417cfe5da",
+      "rgb_equal_to_reviewed_E": true
+    },
+    "REAR34": {
+      "r3_camera_and_studio_match": true,
+      "sha256": "04bd90a2f77a0accc69b610cbd12eb1f5725d7119acdc2ead9762f58bf808cfe"
+    },
+    "BACK": {
+      "r3_camera_and_studio_match": true,
+      "sha256": "ee9f6d994ef16bbaa59a2a575e9845ad85bd5b5f36fdc543194e22c5db7c7fe3"
+    }
+  },
+  "viewport_images": [
+    "SIDE",
+    "FRONT",
+    "FRONT34"
+  ],
+  "protected_artifacts_unchanged": 209,
+  "changed_meshes": [
+    "CROWN_BLUE_F",
+    "CROWN_BLUE_N",
+    "CROWN_IVORY_RIDGE_F",
+    "CROWN_IVORY_RIDGE_N",
+    "CROWN_MAIN_F",
+    "CROWN_MAIN_N"
+  ],
+  "unchanged_meshes": 138,
+  "side_outline_checks": {
+    "CROWN_MAIN_F": {
+      "preserved_xz_contour_vertices_above_root": 8,
+      "tolerance": 1e-06
+    },
+    "CROWN_MAIN_N": {
+      "preserved_xz_contour_vertices_above_root": 8,
+      "tolerance": 1e-06
+    }
+  },
+  "no_nonadjacent_self_overlap_candidates_in_crowns": true,
+  "overall": "REVISE",
+  "production_keep": false,
+  "rig_gait_pc_mobile_validation": false,
+  "limits": "Image similarity review and mesh integrity are distinct from rigging and runtime acceptance."
+}

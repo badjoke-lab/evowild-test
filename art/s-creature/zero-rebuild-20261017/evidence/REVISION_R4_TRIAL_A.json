@@ -1,0 +1,359 @@
+{
+  "source": "verification/S_ZERO_R4_WORKING_COPY.blend",
+  "output": "verification/S_ZERO_R4_TRIAL_A.blend",
+  "sha256": "38e1abfd7460e343d211352a10066d45388d8e1597ade265f2207a7ba0a8c560",
+  "sections": [
+    [
+      0,
+      0.08,
+      0.1
+    ],
+    [
+      0.1,
+      0.115,
+      0.1
+    ],
+    [
+      0.25,
+      0.17,
+      0.112
+    ],
+    [
+      0.45,
+      0.239,
+      0.137
+    ],
+    [
+      0.55,
+      0.233,
+      0.155
+    ],
+    [
+      0.75,
+      0.211,
+      0.177
+    ],
+    [
+      1,
+      0.185,
+      0.185
+    ]
+  ],
+  "changes": [
+    {
+      "name": "CROWN_MAIN_N",
+      "before_vertices_faces": [
+        22,
+        30
+      ],
+      "after_vertices_faces": [
+        322,
+        480
+      ],
+      "max_displacement_after_subdivision": 0.0597829570368886,
+      "original_side_outline_xz": [
+        [
+          -2.190000057220459,
+          2.190000057220459
+        ],
+        [
+          -1.9800000190734863,
+          2.430000066757202
+        ],
+        [
+          -1.649999976158142,
+          2.640000104904175
+        ],
+        [
+          -1.1799999475479126,
+          2.8299999237060547
+        ],
+        [
+          -0.6200000047683716,
+          3.0
+        ],
+        [
+          -0.07999999821186066,
+          3.109999895095825
+        ],
+        [
+          -0.699999988079071,
+          2.890000104904175
+        ],
+        [
+          -1.25,
+          2.6700000762939453
+        ],
+        [
+          -1.690000057220459,
+          2.4200000762939453
+        ],
+        [
+          -1.9800000190734863,
+          2.2300000190734863
+        ]
+      ],
+      "before": "44fe6de65a69b56f2ee608ea4f6de1aef0259c536987c401af97bb9d117a9cc5",
+      "after": "e89dda396f481f8194adf6087c36a3e75ba6ad27312c6018addc83886c547c36"
+    },
+    {
+      "name": "CROWN_BLUE_N",
+      "before_vertices_faces": [
+        14,
+        18
+      ],
+      "after_vertices_faces": [
+        194,
+        288
+      ],
+      "max_displacement_after_subdivision": 0.05123323364782832,
+      "original_side_outline_xz": null,
+      "before": "4f7234d20f1213b34a7ce471b56dcf0952c994d442e1bc52f41db87ec856ee33",
+      "after": "bc54038b968539d577e2779ecdd92132c6dd01edf40186f833a33b3fa8e4cf0a"
+    },
+    {
+      "name": "CROWN_MAIN_F",
+      "before_vertices_faces": [
+        22,
+        30
+      ],
+      "after_vertices_faces": [
+        322,
+        480
+      ],
+      "max_displacement_after_subdivision": 0.0597829570368886,
+      "original_side_outline_xz": [
+        [
+          -2.190000057220459,
+          2.190000057220459
+        ],
+        [
+          -1.9800000190734863,
+          2.430000066757202
+        ],
+        [
+          -1.649999976158142,
+          2.640000104904175
+        ],
+        [
+          -1.1799999475479126,
+          2.8299999237060547
+        ],
+        [
+          -0.6200000047683716,
+          3.0
+        ],
+        [
+          -0.07999999821186066,
+          3.109999895095825
+        ],
+        [
+          -0.699999988079071,
+          2.890000104904175
+        ],
+        [
+          -1.25,
+          2.6700000762939453
+        ],
+        [
+          -1.690000057220459,
+          2.4200000762939453
+        ],
+        [
+          -1.9800000190734863,
+          2.2300000190734863
+        ]
+      ],
+      "before": "b3b9d488918f967be7aeab57ae5f7ccdc85c69b4ed27005248b3de6b3402b692",
+      "after": "e05be76f45d69749c24b982c410f5a90b8e5c819b12d7e2165d7bcdee2c6cdaa"
+    },
+    {
+      "name": "CROWN_BLUE_F",
+      "before_vertices_faces": [
+        14,
+        18
+      ],
+      "after_vertices_faces": [
+        194,
+        288
+      ],
+      "max_displacement_after_subdivision": 0.05123323364782832,
+      "original_side_outline_xz": null,
+      "before": "1042eee131901f320ea7364e6b2dfd22c8c084c5a85168338be511090556607f",
+      "after": "ba2cce711cf5e0448836c878b86ac6f131dcb419d1c3cf9b369f1f73f4ac31f4"
+    },
+    {
+      "name": "CROWN_IVORY_RIDGE_N",
+      "before_vertices_faces": [
+        162,
+        170
+      ],
+      "after_vertices_faces": [
+        162,
+        170
+      ],
+      "max_displacement_after_subdivision": 0.08120773986201901,
+      "original_side_outline_xz": null,
+      "before": "8e65e5b92c39d38c119b085ecba3ae09097e1e2702b618a57e32de36e7b1113b",
+      "after": "8d3f1ce96152bf7eab3e664e544f7a6709f1d3930dd48d372623becfb644d08f"
+    },
+    {
+      "name": "CROWN_IVORY_RIDGE_F",
+      "before_vertices_faces": [
+        162,
+        170
+      ],
+      "after_vertices_faces": [
+        162,
+        170
+      ],
+      "max_displacement_after_subdivision": 0.08120774559621716,
+      "original_side_outline_xz": null,
+      "before": "81eed9e140b1defc1d5c67b10989dfc88fa4de5bdd176eb53e70d3f79ca09444",
+      "after": "7696323ff7f95657d932244b5eb25a6eabc4b44728746f19d3f09c023bfe4e7e"
+    }
+  ],
+  "unchanged_meshes": [
+    "ANKLE_FIN_FORE_FAR",
+    "ANKLE_FIN_FORE_NEAR",
+    "ANKLE_FIN_HIND_FAR",
+    "ANKLE_FIN_HIND_NEAR",
+    "CANNON_RIDGE_FORE_FAR",
+    "CANNON_RIDGE_FORE_NEAR",
+    "CANNON_RIDGE_HIND_FAR",
+    "CANNON_RIDGE_HIND_NEAR",
+    "CHEEK_F",
+    "CHEEK_N",
+    "CUE_DOT_F",
+    "CUE_DOT_N",
+    "CUE_FACE_F",
+    "CUE_FACE_N",
+    "CUE_FRAME_F",
+    "CUE_FRAME_N",
+    "CUE_RIM_F",
+    "CUE_RIM_N",
+    "CUE_ROUND_F",
+    "CUE_ROUND_N",
+    "CUE_SIGNAL_F",
+    "CUE_SIGNAL_N",
+    "DORSAL_BLUE_0_-1",
+    "DORSAL_BLUE_0_1",
+    "DORSAL_BLUE_1_-1",
+    "DORSAL_BLUE_1_1",
+    "DORSAL_BLUE_2_-1",
+    "DORSAL_BLUE_2_1",
+    "DORSAL_CREST_0_-1",
+    "DORSAL_CREST_0_1",
+    "DORSAL_CREST_1_-1",
+    "DORSAL_CREST_1_1",
+    "DORSAL_CREST_2_-1",
+    "DORSAL_CREST_2_1",
+    "DORSAL_MANTLE",
+    "ELBOW_SPUR_FORE_FAR",
+    "ELBOW_SPUR_FORE_NEAR",
+    "EYE_F",
+    "EYE_N",
+    "EYE_SOCKET_F",
+    "EYE_SOCKET_N",
+    "FOREHEAD_MEDIAN",
+    "HOOF_FACE_FORE_FAR_-1",
+    "HOOF_FACE_FORE_FAR_1",
+    "HOOF_FACE_FORE_NEAR_-1",
+    "HOOF_FACE_FORE_NEAR_1",
+    "HOOF_FACE_HIND_FAR_-1",
+    "HOOF_FACE_HIND_FAR_1",
+    "HOOF_FACE_HIND_NEAR_-1",
+    "HOOF_FACE_HIND_NEAR_1",
+    "HOOF_SIGNAL_FORE_FAR_-1",
+    "HOOF_SIGNAL_FORE_FAR_1",
+    "HOOF_SIGNAL_FORE_NEAR_-1",
+    "HOOF_SIGNAL_FORE_NEAR_1",
+    "HOOF_SIGNAL_HIND_FAR_-1",
+    "HOOF_SIGNAL_HIND_FAR_1",
+    "HOOF_SIGNAL_HIND_NEAR_-1",
+    "HOOF_SIGNAL_HIND_NEAR_1",
+    "LOWER_RIB_F",
+    "LOWER_RIB_N",
+    "MOUTH_SEAM_-1",
+    "MOUTH_SEAM_1",
+    "NAPE_FIN_F",
+    "NAPE_FIN_N",
+    "NAPE_IVORY_F",
+    "NAPE_IVORY_N",
+    "NECK_TENDON_F",
+    "NECK_TENDON_N",
+    "NOSE_CAP",
+    "PELVIS_F",
+    "PELVIS_N",
+    "RIB_SHELL_F",
+    "RIB_SHELL_N",
+    "SACRAL_MANTLE",
+    "S_ZERO_BODY_CONTINUOUS",
+    "TAIL_BLADE_0_-1",
+    "TAIL_BLADE_0_1",
+    "TAIL_BLADE_1_-1",
+    "TAIL_BLADE_1_1",
+    "TAIL_BLADE_2_-1",
+    "TAIL_BLADE_2_1",
+    "TAIL_BLADE_3_-1",
+    "TAIL_BLADE_3_1",
+    "TAIL_BLADE_4_-1",
+    "TAIL_BLADE_4_1",
+    "TAIL_BLADE_5_-1",
+    "TAIL_BLADE_5_1",
+    "TAIL_BLADE_6_-1",
+    "TAIL_BLADE_6_1",
+    "TAIL_BLUE_0_-1",
+    "TAIL_BLUE_0_1",
+    "TAIL_BLUE_1_-1",
+    "TAIL_BLUE_1_1",
+    "TAIL_BLUE_2_-1",
+    "TAIL_BLUE_2_1",
+    "TAIL_BLUE_3_-1",
+    "TAIL_BLUE_3_1",
+    "TAIL_BLUE_4_-1",
+    "TAIL_BLUE_4_1",
+    "TAIL_BLUE_5_-1",
+    "TAIL_BLUE_5_1",
+    "TAIL_BLUE_6_-1",
+    "TAIL_BLUE_6_1",
+    "TAIL_IVORY_0_-1",
+    "TAIL_IVORY_0_1",
+    "TAIL_IVORY_1_-1",
+    "TAIL_IVORY_1_1",
+    "TAIL_IVORY_2_-1",
+    "TAIL_IVORY_2_1",
+    "TAIL_IVORY_3_-1",
+    "TAIL_IVORY_3_1",
+    "TAIL_IVORY_4_-1",
+    "TAIL_IVORY_4_1",
+    "TAIL_TIP",
+    "TOE_CYAN_FORE_FAR_-1",
+    "TOE_CYAN_FORE_FAR_1",
+    "TOE_CYAN_FORE_NEAR_-1",
+    "TOE_CYAN_FORE_NEAR_1",
+    "TOE_CYAN_HIND_FAR_-1",
+    "TOE_CYAN_HIND_FAR_1",
+    "TOE_CYAN_HIND_NEAR_-1",
+    "TOE_CYAN_HIND_NEAR_1",
+    "TOE_FORE_FAR_-1",
+    "TOE_FORE_FAR_1",
+    "TOE_FORE_NEAR_-1",
+    "TOE_FORE_NEAR_1",
+    "TOE_HIND_FAR_-1",
+    "TOE_HIND_FAR_1",
+    "TOE_HIND_NEAR_-1",
+    "TOE_HIND_NEAR_1",
+    "TOE_IVORY_FORE_FAR_-1",
+    "TOE_IVORY_FORE_FAR_1",
+    "TOE_IVORY_FORE_NEAR_-1",
+    "TOE_IVORY_FORE_NEAR_1",
+    "TOE_IVORY_HIND_FAR_-1",
+    "TOE_IVORY_HIND_FAR_1",
+    "TOE_IVORY_HIND_NEAR_-1",
+    "TOE_IVORY_HIND_NEAR_1"
+  ],
+  "scope": "Existing paired main, blue and ivory crown meshes only. Subdivision without smoothing then vertex displacement.",
+  "root_displacement": "Up to -0.018 X and -0.045 Z, fading to zero at t=0.22; no head/body mesh changed.",
+  "decision": "PENDING actual SIDE FRONT FRONT34 render review"
+}

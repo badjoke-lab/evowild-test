@@ -1,0 +1,80 @@
+{
+  "method": "Actual unretouched renders; crop, proportional resize, labels only.",
+  "reference_crops": {
+    "SIDE": [
+      35,
+      70,
+      755,
+      513
+    ],
+    "FRONT": [
+      765,
+      86,
+      948,
+      513
+    ],
+    "FRONT34": [
+      1130,
+      83,
+      1434,
+      513
+    ]
+  },
+  "close_crops": {
+    "SIDE": [
+      [
+        50,
+        70,
+        400,
+        255
+      ],
+      [
+        70,
+        100,
+        600,
+        365
+      ]
+    ],
+    "FRONT": [
+      [
+        817,
+        103,
+        906,
+        250
+      ],
+      [
+        525,
+        30,
+        675,
+        380
+      ]
+    ],
+    "FRONT34": [
+      [
+        1140,
+        85,
+        1300,
+        255
+      ],
+      [
+        280,
+        35,
+        700,
+        380
+      ]
+    ]
+  },
+  "source_sha256": {
+    "references/00_s_type_modeling_image_v1.png": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+    "zero-rebuild-20261017/renders/revised_r3/SIDE.png": "38110ab88b7dce58d020df70552246f7e0c2dbba0ad115c9d2ce2857012eedff",
+    "zero-rebuild-20261017/renders/r4_trial_e/SIDE.png": "36d8da3f6cfa45283bca0b24470bbaf6ef879f85b9cfdf44414c328135886b41",
+    "zero-rebuild-20261017/renders/revised_r3/FRONT.png": "c8d40ef48d63e5670d8d02c7a443cd491baf73b4f709b755f5902c7de65461dc",
+    "zero-rebuild-20261017/renders/r4_trial_e/FRONT.png": "613fa4143ebb82d4137fd96c8b0abca8844b4b8218f92bb75d4cf7c2210bb691",
+    "zero-rebuild-20261017/renders/revised_r3/FRONT34.png": "178764ff942e2973f98a30a32ed3571c31d3f01529d23707edd4965ee4fcc83d",
+    "zero-rebuild-20261017/renders/r4_trial_e/FRONT34.png": "e5e32278cf6da5dc768f918eb41f75ed214a804a2beb40074ba21c02f6d6d926"
+  },
+  "outputs": [
+    "comparisons/R4_TRIAL_E_REFERENCE_R3_COMPARISON.png",
+    "comparisons/R4_TRIAL_E_CROWN_COMPARISON.png"
+  ]
+}

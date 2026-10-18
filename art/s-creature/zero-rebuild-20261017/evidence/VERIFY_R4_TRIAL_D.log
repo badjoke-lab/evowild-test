@@ -1,0 +1,21 @@
+Blender 4.3.2 (hash 32f5fdce0a0a built 2024-12-17 02:17:19)
+Traceback (most recent call last):
+  File "/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/scripts/31_verify_r4.py", line 92, in <module>
+    hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in [SOURCE,TARGET]}
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/scripts/31_verify_r4.py", line 92, in <dictcomp>
+    hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in [SOURCE,TARGET]}
+                                  ^^^^^^^^^^^^^^
+  File "/Applications/Blender.app/Contents/Resources/4.3/python/lib/python3.11/pathlib.py", line 1050, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/Applications/Blender.app/Contents/Resources/4.3/python/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R4_TRIAL_D.blend'
+
+Error: script failed, file: 'art/s-creature/zero-rebuild-20261017/scripts/31_verify_r4.py', exiting.
+BlenderMCP addon registered
+BlenderMCP addon unregistered
+
+Blender quit

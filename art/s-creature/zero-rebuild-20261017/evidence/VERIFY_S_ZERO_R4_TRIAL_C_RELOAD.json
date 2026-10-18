@@ -1,0 +1,2057 @@
+{
+  "blender": "4.3.2",
+  "reopened": "verification/S_ZERO_R4_TRIAL_C.blend",
+  "file_sha256": {
+    "S_ZERO_CANDIDATE_REVISED_R3.blend": "b3e1b1820c3019a7b466b81e06276d8585fdeb25ec425ac2a6219e55bd06a916",
+    "S_ZERO_R4_TRIAL_C.blend": "2c479e08986238fc41fc67835586983381aef71a81f3ce5c73a2244b5ca0ae77"
+  },
+  "mesh_count": 144,
+  "vertices": 41163,
+  "faces": 42990,
+  "changed_meshes": [
+    "CROWN_BLUE_F",
+    "CROWN_BLUE_N",
+    "CROWN_IVORY_RIDGE_F",
+    "CROWN_IVORY_RIDGE_N",
+    "CROWN_MAIN_F",
+    "CROWN_MAIN_N"
+  ],
+  "unchanged_meshes": [
+    "ANKLE_FIN_FORE_FAR",
+    "ANKLE_FIN_FORE_NEAR",
+    "ANKLE_FIN_HIND_FAR",
+    "ANKLE_FIN_HIND_NEAR",
+    "CANNON_RIDGE_FORE_FAR",
+    "CANNON_RIDGE_FORE_NEAR",
+    "CANNON_RIDGE_HIND_FAR",
+    "CANNON_RIDGE_HIND_NEAR",
+    "CHEEK_F",
+    "CHEEK_N",
+    "CUE_DOT_F",
+    "CUE_DOT_N",
+    "CUE_FACE_F",
+    "CUE_FACE_N",
+    "CUE_FRAME_F",
+    "CUE_FRAME_N",
+    "CUE_RIM_F",
+    "CUE_RIM_N",
+    "CUE_ROUND_F",
+    "CUE_ROUND_N",
+    "CUE_SIGNAL_F",
+    "CUE_SIGNAL_N",
+    "DORSAL_BLUE_0_-1",
+    "DORSAL_BLUE_0_1",
+    "DORSAL_BLUE_1_-1",
+    "DORSAL_BLUE_1_1",
+    "DORSAL_BLUE_2_-1",
+    "DORSAL_BLUE_2_1",
+    "DORSAL_CREST_0_-1",
+    "DORSAL_CREST_0_1",
+    "DORSAL_CREST_1_-1",
+    "DORSAL_CREST_1_1",
+    "DORSAL_CREST_2_-1",
+    "DORSAL_CREST_2_1",
+    "DORSAL_MANTLE",
+    "ELBOW_SPUR_FORE_FAR",
+    "ELBOW_SPUR_FORE_NEAR",
+    "EYE_F",
+    "EYE_N",
+    "EYE_SOCKET_F",
+    "EYE_SOCKET_N",
+    "FOREHEAD_MEDIAN",
+    "HOOF_FACE_FORE_FAR_-1",
+    "HOOF_FACE_FORE_FAR_1",
+    "HOOF_FACE_FORE_NEAR_-1",
+    "HOOF_FACE_FORE_NEAR_1",
+    "HOOF_FACE_HIND_FAR_-1",
+    "HOOF_FACE_HIND_FAR_1",
+    "HOOF_FACE_HIND_NEAR_-1",
+    "HOOF_FACE_HIND_NEAR_1",
+    "HOOF_SIGNAL_FORE_FAR_-1",
+    "HOOF_SIGNAL_FORE_FAR_1",
+    "HOOF_SIGNAL_FORE_NEAR_-1",
+    "HOOF_SIGNAL_FORE_NEAR_1",
+    "HOOF_SIGNAL_HIND_FAR_-1",
+    "HOOF_SIGNAL_HIND_FAR_1",
+    "HOOF_SIGNAL_HIND_NEAR_-1",
+    "HOOF_SIGNAL_HIND_NEAR_1",
+    "LOWER_RIB_F",
+    "LOWER_RIB_N",
+    "MOUTH_SEAM_-1",
+    "MOUTH_SEAM_1",
+    "NAPE_FIN_F",
+    "NAPE_FIN_N",
+    "NAPE_IVORY_F",
+    "NAPE_IVORY_N",
+    "NECK_TENDON_F",
+    "NECK_TENDON_N",
+    "NOSE_CAP",
+    "PELVIS_F",
+    "PELVIS_N",
+    "RIB_SHELL_F",
+    "RIB_SHELL_N",
+    "SACRAL_MANTLE",
+    "S_ZERO_BODY_CONTINUOUS",
+    "TAIL_BLADE_0_-1",
+    "TAIL_BLADE_0_1",
+    "TAIL_BLADE_1_-1",
+    "TAIL_BLADE_1_1",
+    "TAIL_BLADE_2_-1",
+    "TAIL_BLADE_2_1",
+    "TAIL_BLADE_3_-1",
+    "TAIL_BLADE_3_1",
+    "TAIL_BLADE_4_-1",
+    "TAIL_BLADE_4_1",
+    "TAIL_BLADE_5_-1",
+    "TAIL_BLADE_5_1",
+    "TAIL_BLADE_6_-1",
+    "TAIL_BLADE_6_1",
+    "TAIL_BLUE_0_-1",
+    "TAIL_BLUE_0_1",
+    "TAIL_BLUE_1_-1",
+    "TAIL_BLUE_1_1",
+    "TAIL_BLUE_2_-1",
+    "TAIL_BLUE_2_1",
+    "TAIL_BLUE_3_-1",
+    "TAIL_BLUE_3_1",
+    "TAIL_BLUE_4_-1",
+    "TAIL_BLUE_4_1",
+    "TAIL_BLUE_5_-1",
+    "TAIL_BLUE_5_1",
+    "TAIL_BLUE_6_-1",
+    "TAIL_BLUE_6_1",
+    "TAIL_IVORY_0_-1",
+    "TAIL_IVORY_0_1",
+    "TAIL_IVORY_1_-1",
+    "TAIL_IVORY_1_1",
+    "TAIL_IVORY_2_-1",
+    "TAIL_IVORY_2_1",
+    "TAIL_IVORY_3_-1",
+    "TAIL_IVORY_3_1",
+    "TAIL_IVORY_4_-1",
+    "TAIL_IVORY_4_1",
+    "TAIL_TIP",
+    "TOE_CYAN_FORE_FAR_-1",
+    "TOE_CYAN_FORE_FAR_1",
+    "TOE_CYAN_FORE_NEAR_-1",
+    "TOE_CYAN_FORE_NEAR_1",
+    "TOE_CYAN_HIND_FAR_-1",
+    "TOE_CYAN_HIND_FAR_1",
+    "TOE_CYAN_HIND_NEAR_-1",
+    "TOE_CYAN_HIND_NEAR_1",
+    "TOE_FORE_FAR_-1",
+    "TOE_FORE_FAR_1",
+    "TOE_FORE_NEAR_-1",
+    "TOE_FORE_NEAR_1",
+    "TOE_HIND_FAR_-1",
+    "TOE_HIND_FAR_1",
+    "TOE_HIND_NEAR_-1",
+    "TOE_HIND_NEAR_1",
+    "TOE_IVORY_FORE_FAR_-1",
+    "TOE_IVORY_FORE_FAR_1",
+    "TOE_IVORY_FORE_NEAR_-1",
+    "TOE_IVORY_FORE_NEAR_1",
+    "TOE_IVORY_HIND_FAR_-1",
+    "TOE_IVORY_HIND_FAR_1",
+    "TOE_IVORY_HIND_NEAR_-1",
+    "TOE_IVORY_HIND_NEAR_1"
+  ],
+  "noncrown_geometry_topology_material_slots_color_attributes_transforms_unchanged": true,
+  "studio_cameras_lights_materials_world_color_management_unchanged": true,
+  "source_sections": {
+    "CROWN_MAIN_F": {
+      "2.2": {
+        "x_span": 0.04374980926513672,
+        "y_span": 0.0022866055369377136,
+        "y_min": 0.11530975997447968,
+        "y_max": 0.11759636551141739
+      },
+      "2.28": {
+        "x_span": 0.2100822925567627,
+        "y_span": 0.02057957649230957,
+        "y_min": 0.11778777837753296,
+        "y_max": 0.13836735486984253
+      },
+      "2.42": {
+        "x_span": 0.3083120584487915,
+        "y_span": 0.050844088196754456,
+        "y_min": 0.1221243143081665,
+        "y_max": 0.17296840250492096
+      },
+      "2.6": {
+        "x_span": 0.3396570682525635,
+        "y_span": 0.07353204488754272,
+        "y_min": 0.1276998519897461,
+        "y_max": 0.20123189687728882
+      },
+      "2.82": {
+        "x_span": 0.35057878494262695,
+        "y_span": 0.0568576455116272,
+        "y_min": 0.1408129185438156,
+        "y_max": 0.1976705640554428
+      },
+      "3.02": {
+        "x_span": 0.20156234502792358,
+        "y_span": 0.016980305314064026,
+        "y_min": 0.15404540300369263,
+        "y_max": 0.17102570831775665
+      },
+      "3.08": {
+        "x_span": 0.0671873390674591,
+        "y_span": 0.0056600868701934814,
+        "y_min": 0.1580151468515396,
+        "y_max": 0.1636752337217331
+      }
+    },
+    "CROWN_MAIN_N": {
+      "2.2": {
+        "x_span": 0.04374980926513672,
+        "y_span": 0.0022866055369377136,
+        "y_min": -0.11759636551141739,
+        "y_max": -0.11530975997447968
+      },
+      "2.28": {
+        "x_span": 0.2100822925567627,
+        "y_span": 0.02057957649230957,
+        "y_min": -0.13836735486984253,
+        "y_max": -0.11778777837753296
+      },
+      "2.42": {
+        "x_span": 0.3083120584487915,
+        "y_span": 0.050844088196754456,
+        "y_min": -0.17296840250492096,
+        "y_max": -0.1221243143081665
+      },
+      "2.6": {
+        "x_span": 0.3396570682525635,
+        "y_span": 0.07353204488754272,
+        "y_min": -0.20123189687728882,
+        "y_max": -0.1276998519897461
+      },
+      "2.82": {
+        "x_span": 0.35057878494262695,
+        "y_span": 0.0568576455116272,
+        "y_min": -0.1976705640554428,
+        "y_max": -0.1408129185438156
+      },
+      "3.02": {
+        "x_span": 0.20156234502792358,
+        "y_span": 0.016980305314064026,
+        "y_min": -0.17102570831775665,
+        "y_max": -0.15404540300369263
+      },
+      "3.08": {
+        "x_span": 0.0671873390674591,
+        "y_span": 0.0056600868701934814,
+        "y_min": -0.1636752337217331,
+        "y_max": -0.1580151468515396
+      }
+    }
+  },
+  "target_sections": {
+    "CROWN_MAIN_F": {
+      "2.2": {
+        "x_span": 0.1714026927947998,
+        "y_span": 0.006023965775966644,
+        "y_min": 0.09169351309537888,
+        "y_max": 0.09771747887134552
+      },
+      "2.28": {
+        "x_span": 0.21814608573913574,
+        "y_span": 0.02211843430995941,
+        "y_min": 0.09623417258262634,
+        "y_max": 0.11835260689258575
+      },
+      "2.42": {
+        "x_span": 0.30826878547668457,
+        "y_span": 0.05860617011785507,
+        "y_min": 0.10688301175832748,
+        "y_max": 0.16548918187618256
+      },
+      "2.6": {
+        "x_span": 0.339657187461853,
+        "y_span": 0.0834512710571289,
+        "y_min": 0.1352490335702896,
+        "y_max": 0.21870030462741852
+      },
+      "2.82": {
+        "x_span": 0.3505786657333374,
+        "y_span": 0.05471816658973694,
+        "y_min": 0.16257669031620026,
+        "y_max": 0.2172948569059372
+      },
+      "3.02": {
+        "x_span": 0.20156216621398926,
+        "y_span": 0.014731958508491516,
+        "y_min": 0.18005062639713287,
+        "y_max": 0.1947825849056244
+      },
+      "3.08": {
+        "x_span": 0.06718750298023224,
+        "y_span": 0.004734337329864502,
+        "y_min": 0.18352651596069336,
+        "y_max": 0.18826085329055786
+      }
+    },
+    "CROWN_MAIN_N": {
+      "2.2": {
+        "x_span": 0.1714026927947998,
+        "y_span": 0.006023965775966644,
+        "y_min": -0.09771747887134552,
+        "y_max": -0.09169351309537888
+      },
+      "2.28": {
+        "x_span": 0.21814608573913574,
+        "y_span": 0.02211843430995941,
+        "y_min": -0.11835260689258575,
+        "y_max": -0.09623417258262634
+      },
+      "2.42": {
+        "x_span": 0.30826878547668457,
+        "y_span": 0.05860617011785507,
+        "y_min": -0.16548918187618256,
+        "y_max": -0.10688301175832748
+      },
+      "2.6": {
+        "x_span": 0.339657187461853,
+        "y_span": 0.08345119655132294,
+        "y_min": -0.21870030462741852,
+        "y_max": -0.13524910807609558
+      },
+      "2.82": {
+        "x_span": 0.3505786657333374,
+        "y_span": 0.05471816658973694,
+        "y_min": -0.2172948569059372,
+        "y_max": -0.16257669031620026
+      },
+      "3.02": {
+        "x_span": 0.20156216621398926,
+        "y_span": 0.014731958508491516,
+        "y_min": -0.1947825849056244,
+        "y_max": -0.18005062639713287
+      },
+      "3.08": {
+        "x_span": 0.06718750298023224,
+        "y_span": 0.004734337329864502,
+        "y_min": -0.18826085329055786,
+        "y_max": -0.18352651596069336
+      }
+    }
+  },
+  "meshes": [
+    {
+      "name": "ANKLE_FIN_FORE_FAR",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "ANKLE_FIN_FORE_NEAR",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "ANKLE_FIN_HIND_FAR",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "ANKLE_FIN_HIND_NEAR",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "CANNON_RIDGE_FORE_FAR",
+      "vertices": 132,
+      "faces": 140,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "CANNON_RIDGE_FORE_NEAR",
+      "vertices": 132,
+      "faces": 140,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "CANNON_RIDGE_HIND_FAR",
+      "vertices": 132,
+      "faces": 140,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "CANNON_RIDGE_HIND_NEAR",
+      "vertices": 132,
+      "faces": 140,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "CHEEK_F",
+      "vertices": 210,
+      "faces": 224,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "CHEEK_N",
+      "vertices": 210,
+      "faces": 224,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "CROWN_BLUE_F",
+      "vertices": 290,
+      "faces": 576,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "nonadjacent_self_overlap_candidates": 0,
+      "overlap_pairs": [],
+      "absolute_volume": 0.000640573497946533
+    },
+    {
+      "name": "CROWN_BLUE_N",
+      "vertices": 290,
+      "faces": 576,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "nonadjacent_self_overlap_candidates": 0,
+      "overlap_pairs": [],
+      "absolute_volume": 0.0006405740608324971
+    },
+    {
+      "name": "CROWN_IVORY_RIDGE_F",
+      "vertices": 162,
+      "faces": 170,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "nonadjacent_self_overlap_candidates": 0,
+      "overlap_pairs": [],
+      "absolute_volume": 0.0003870719808840944
+    },
+    {
+      "name": "CROWN_IVORY_RIDGE_N",
+      "vertices": 162,
+      "faces": 170,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "nonadjacent_self_overlap_candidates": 0,
+      "overlap_pairs": [],
+      "absolute_volume": 0.00038572305898332363
+    },
+    {
+      "name": "CROWN_MAIN_F",
+      "vertices": 482,
+      "faces": 960,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "nonadjacent_self_overlap_candidates": 23,
+      "overlap_pairs": [
+        [
+          43,
+          212
+        ],
+        [
+          43,
+          215
+        ],
+        [
+          43,
+          216
+        ],
+        [
+          43,
+          219
+        ],
+        [
+          43,
+          220
+        ],
+        [
+          43,
+          221
+        ],
+        [
+          210,
+          310
+        ],
+        [
+          210,
+          311
+        ],
+        [
+          212,
+          309
+        ],
+        [
+          261,
+          311
+        ],
+        [
+          262,
+          311
+        ],
+        [
+          263,
+          311
+        ],
+        [
+          265,
+          309
+        ],
+        [
+          265,
+          310
+        ],
+        [
+          266,
+          310
+        ],
+        [
+          267,
+          310
+        ],
+        [
+          268,
+          310
+        ],
+        [
+          268,
+          311
+        ],
+        [
+          269,
+          310
+        ],
+        [
+          269,
+          311
+        ],
+        [
+          715,
+          764
+        ],
+        [
+          723,
+          764
+        ],
+        [
+          724,
+          764
+        ]
+      ],
+      "absolute_volume": 0.005873292677896849
+    },
+    {
+      "name": "CROWN_MAIN_N",
+      "vertices": 482,
+      "faces": 960,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "nonadjacent_self_overlap_candidates": 23,
+      "overlap_pairs": [
+        [
+          46,
+          311
+        ],
+        [
+          46,
+          312
+        ],
+        [
+          210,
+          311
+        ],
+        [
+          210,
+          312
+        ],
+        [
+          216,
+          314
+        ],
+        [
+          217,
+          314
+        ],
+        [
+          218,
+          313
+        ],
+        [
+          218,
+          314
+        ],
+        [
+          221,
+          314
+        ],
+        [
+          222,
+          314
+        ],
+        [
+          223,
+          314
+        ],
+        [
+          257,
+          311
+        ],
+        [
+          260,
+          311
+        ],
+        [
+          261,
+          311
+        ],
+        [
+          264,
+          311
+        ],
+        [
+          264,
+          312
+        ],
+        [
+          265,
+          312
+        ],
+        [
+          266,
+          312
+        ],
+        [
+          267,
+          312
+        ],
+        [
+          267,
+          313
+        ],
+        [
+          707,
+          750
+        ],
+        [
+          743,
+          750
+        ],
+        [
+          748,
+          750
+        ]
+      ],
+      "absolute_volume": 0.005873293051814505
+    },
+    {
+      "name": "CUE_DOT_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "CUE_DOT_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "CUE_FACE_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "CUE_FACE_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "CUE_FRAME_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "CUE_FRAME_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "CUE_RIM_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "CUE_RIM_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "CUE_ROUND_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "CUE_ROUND_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "CUE_SIGNAL_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "CUE_SIGNAL_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "DORSAL_BLUE_0_-1",
+      "vertices": 8,
+      "faces": 9,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "DORSAL_BLUE_0_1",
+      "vertices": 8,
+      "faces": 9,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "DORSAL_BLUE_1_-1",
+      "vertices": 8,
+      "faces": 9,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "DORSAL_BLUE_1_1",
+      "vertices": 8,
+      "faces": 9,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "DORSAL_BLUE_2_-1",
+      "vertices": 8,
+      "faces": 9,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "DORSAL_BLUE_2_1",
+      "vertices": 8,
+      "faces": 9,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "DORSAL_CREST_0_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "DORSAL_CREST_0_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "DORSAL_CREST_1_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "DORSAL_CREST_1_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "DORSAL_CREST_2_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "DORSAL_CREST_2_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "DORSAL_MANTLE",
+      "vertices": 350,
+      "faces": 360,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "ELBOW_SPUR_FORE_FAR",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "ELBOW_SPUR_FORE_NEAR",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "EYE_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "EYE_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "EYE_SOCKET_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "EYE_SOCKET_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "FOREHEAD_MEDIAN",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "HOOF_FACE_FORE_FAR_-1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "HOOF_FACE_FORE_FAR_1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "HOOF_FACE_FORE_NEAR_-1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "HOOF_FACE_FORE_NEAR_1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "HOOF_FACE_HIND_FAR_-1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "HOOF_FACE_HIND_FAR_1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "HOOF_FACE_HIND_NEAR_-1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "HOOF_FACE_HIND_NEAR_1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "HOOF_SIGNAL_FORE_FAR_-1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "HOOF_SIGNAL_FORE_FAR_1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "HOOF_SIGNAL_FORE_NEAR_-1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "HOOF_SIGNAL_FORE_NEAR_1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "HOOF_SIGNAL_HIND_FAR_-1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "HOOF_SIGNAL_HIND_FAR_1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "HOOF_SIGNAL_HIND_NEAR_-1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "HOOF_SIGNAL_HIND_NEAR_1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "LOWER_RIB_F",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "LOWER_RIB_N",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "MOUTH_SEAM_-1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "MOUTH_SEAM_1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "NAPE_FIN_F",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "NAPE_FIN_N",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "NAPE_IVORY_F",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "NAPE_IVORY_N",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "NECK_TENDON_F",
+      "vertices": 158,
+      "faces": 168,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "NECK_TENDON_N",
+      "vertices": 158,
+      "faces": 168,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "NOSE_CAP",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "PELVIS_F",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "PELVIS_N",
+      "vertices": 338,
+      "faces": 352,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "RIB_SHELL_F",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "RIB_SHELL_N",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "SACRAL_MANTLE",
+      "vertices": 210,
+      "faces": 224,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "S_ZERO_BODY_CONTINUOUS",
+      "vertices": 27567,
+      "faces": 26888,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLADE_0_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLADE_0_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLADE_1_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLADE_1_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLADE_2_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLADE_2_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLADE_3_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLADE_3_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLADE_4_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLADE_4_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLADE_5_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLADE_5_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLADE_6_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLADE_6_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLUE_0_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLUE_0_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLUE_1_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLUE_1_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLUE_2_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLUE_2_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLUE_3_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLUE_3_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLUE_4_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLUE_4_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLUE_5_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLUE_5_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLUE_6_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_BLUE_6_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_IVORY_0_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_IVORY_0_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_IVORY_1_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_IVORY_1_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_IVORY_2_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_IVORY_2_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_IVORY_3_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_IVORY_3_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_IVORY_4_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_IVORY_4_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TAIL_TIP",
+      "vertices": 112,
+      "faces": 120,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_CYAN_FORE_FAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_CYAN_FORE_FAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_CYAN_FORE_NEAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_CYAN_FORE_NEAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_CYAN_HIND_FAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_CYAN_HIND_FAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_CYAN_HIND_NEAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_CYAN_HIND_NEAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_FORE_FAR_-1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_FORE_FAR_1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_FORE_NEAR_-1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_FORE_NEAR_1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_HIND_FAR_-1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_HIND_FAR_1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_HIND_NEAR_-1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_HIND_NEAR_1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_IVORY_FORE_FAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_IVORY_FORE_FAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_IVORY_FORE_NEAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_IVORY_FORE_NEAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_IVORY_HIND_FAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_IVORY_HIND_FAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_IVORY_HIND_NEAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    },
+    {
+      "name": "TOE_IVORY_HIND_NEAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0
+    }
+  ],
+  "protected_file_sha256": {
+    "QUALITY_REVIEW.md": "79ad95c227232c8a683fa81c8bb3518a8dffcef6af5a5af3b7504fa765239b2b",
+    "S_ZERO_CANDIDATE_REVISED_R2.blend": "3406e12f54670ca397eb31825721aa08e36fbc46a0bc68e2dcfbcbaae0c09662",
+    "S_ZERO_CANDIDATE.blend": "fac25ffe586cacd294c4d0b9f7ab4ae71f93595a3f70fcfa9354c5b44cbef29d",
+    "S_ZERO_CANDIDATE_REVISED_R3.blend": "b3e1b1820c3019a7b466b81e06276d8585fdeb25ec425ac2a6219e55bd06a916",
+    "S_ZERO_CANDIDATE_REVISED_R1.blend": "f8e8a80360ee5886d485a17610cf62a9387d10cdb09e4801a055be99bf8d8a4f",
+    "S_ZERO_REFINED.blend": "24f1b61d23c6eda67e3d9dbb39ce96c99ac11b6dbf375fffb9fc782dff4dcba5",
+    "README.md": "e2cff30784c529cd3a0f80e7147966b1a7228f2616cdc7404ffe5e6b73069ee2",
+    "R3_QUALITY_REVIEW.md": "966251c70391e9276307f092b8567302ae095dad89377d18b39f7aa720d117b5",
+    "R2_QUALITY_REVIEW.md": "5429c24b55f9688054dc98bc6a4e1d45b475cdaef4a10545fd5e4e220be79c76",
+    "S_ZERO_BLOCKOUT.blend": "eb1b959264916d7512893c6c419ae2a056333b49b4165145b2b88f7ae518e502",
+    "comparisons/SHOULDER_HIP_PROGRESS.png": "b9a716ec6ce225c06f1e3d12f94949e5795d3ef28f312988cb7d1a89e97de475",
+    "comparisons/REVISED_R1_FIVE_VIEWS.png": "2ae621a9a12039de72f353b7edd37ed5fa05d2acdcdf929f743f1ae26d830718",
+    "comparisons/REVISED_R3_FIVE_VIEWS.png": "9afe15f40b064a44f09b909ed9db611152504347115eb6930ae2eade9e65703f",
+    "comparisons/R3_TRIAL_A_REFERENCE_R2_COMPARISON.png": "23b0f66fe28a4cac85e8932ea703d7f70b28f19f9e9b5f0ffcfb3fcfe3c81e33",
+    "comparisons/REVISED_R2_R1_FIVE_VIEW_COMPARISON.png": "9ff1060fb6a8cfa7331e0f4956035c42585b3265c5b6381fd0e87cac55cc4c12",
+    "comparisons/R3_TRIAL_A_FOOT_DETAILS.png": "8b9a5fdd91789c236cce0cee2854a66c82ec76220861d3581adcac2f1bc2eac6",
+    "comparisons/STATIC_128PX_PREVIEW.png": "857cb66f3770a2ee8fdfe41fb7276148bd8f6c8422b9a1cbae700aa8e885ede5",
+    "comparisons/BEFORE_AFTER_FIVE_VIEWS.png": "f776be4478899530d70e65d6770c112dd4c6cbbab320ec16eeb3ba785d95ff4e",
+    "comparisons/R2_TRIAL_B_REFERENCE_R1_COMPARISON.png": "f26405178467b75600ec201108c3a5ece8a9b23cd1bdf22fc7d75a77ae6b29d1",
+    "comparisons/REVISED_R3_FOOT_DETAILS.png": "388220296627b2f0a8473537150597f296ef16c901722c060397778ba0910582",
+    "comparisons/REVISED_R2_FIVE_VIEWS.png": "2abf4a1bb668720a54df3c2102ce3b739abbf20f5cad450f43941b9e91c05db7",
+    "comparisons/R3_TRIAL_B_FOOT_DETAILS.png": "ee23ec4686e24bcfd1b613dacdd6cf4c3cf9256c9779cae9432e2c2cbcb80261",
+    "comparisons/REFERENCE_COMPARISON.png": "4b0445f01e5ada5f1bd92ccadfabeb90e92b89b1c935c96c82feac0bc4291f9a",
+    "comparisons/REVISED_R2_DETAILS.png": "0819e84f81dd61ef604f17acd064704e57050889471514abe5741486abe9733c",
+    "comparisons/R2_TRIAL_A_DETAILS.png": "e07aedfcd69b2289436de57dfd6975aded7881451872c558636fc3d213cffda6",
+    "comparisons/R2_TRIAL_A_REFERENCE_R1_COMPARISON.png": "1ac9810a17d11e9187b8f5b41107e5b6914d2f259958cf18c9921c2b5f3c2bdd",
+    "comparisons/REVISED_R3_REFERENCE_R2_COMPARISON.png": "8ff911785ebfc57558cb2385796f52df4100d51e8daa884deedabec78d227524",
+    "comparisons/R3_TRIAL_B_REFERENCE_R2_COMPARISON.png": "d1060913d0e9c4e59528dc82175ffa1c771beeab85a2d7567f12c94d79486b44",
+    "comparisons/REVISED_R3_R2_FIVE_VIEW_COMPARISON.png": "92938c34112c0b6a82d0e36943b476adb31065f6c57a9bcfcd9049ecfcf24dd3",
+    "comparisons/REVISED_R2_REFERENCE_R1_COMPARISON.png": "519c6a9df5b8e25f3077eedafa3f15ba027e1c7607e0405c146791b951db128a",
+    "comparisons/REVISED_R3_FOOT_CLOSE_COMPARISON.png": "a99496f8b2c60b8d02d8e0cfe79d14c2c03e68407697ea1d60688ae84c9aedac",
+    "comparisons/REVISED_R3_STATIC_128PX.png": "a36233047dcc0cc763c1ea506d524e27290c3bada3fa8e8869863d3381a42176",
+    "comparisons/CANDIDATE_FIVE_VIEWS.png": "45e641a0dc64f9ef594e3435888f468067cb429d2c38496dafaf321ba161173f",
+    "comparisons/R2_TRIAL_B_DETAILS.png": "625f64abe14da023be779bad9e0a77b475d9a8e7362b935f83916f4f71b6960c",
+    "renders/r2_recovery/SIDE.png": "e9a67bd14367fe5652cb6d1b0f9f8eaf6faff6df652222c876aa65abe28fd42f",
+    "renders/r2_recovery/FRONT34.png": "78c82a01ad94475f18bee37461cf0f07f6ece5bc2a83a2b6536196a163809f9b",
+    "renders/r2_recovery/REAR34.png": "2ecaff18a75663ebf8b4f821d46eb896fd8a8101960a03d61030787f7f3232b5",
+    "renders/r2_recovery/BACK.png": "47f2848e3dfcdc7a8e1eb099f6a233a77499b80bd8f49a9c2c8848b3bd18ff37",
+    "renders/r2_recovery/FRONT.png": "9dfbe0b3da4a73a0593115310ad90fdb1da47bac8860f16e891fe94d859cba6a",
+    "renders/r3_trial_a/SIDE.png": "ce3cccb71cb17e14de1cf454af7a537d09e3ebff1db0719f769f33c2e1d554f8",
+    "renders/r3_trial_a/FRONT34.png": "698a7315da844ed4285efeabeef3f2b13dc9bc68a31d6ce1dcfb76e144def54b",
+    "renders/r3_trial_a/FRONT.png": "99d1d18f9b663563a9fcb213ed53c754dd437509933bd71d508685facc3957c9",
+    "renders/r3_trial_b_close/SIDE.png": "bc29a928582f396845dc7877466747439abf23363e84ccf9537ae7cd824e29cd",
+    "renders/r3_trial_b_close/FRONT34.png": "4bbecc1011321c13f9e8ee413636e8adcd382621baa9486bb5b038309c8f0504",
+    "renders/revised_r1/SIDE.png": "99cd139360608fa7a178ad57aa77bf9e724e913823df1b20f4c49d30468b4280",
+    "renders/revised_r1/FRONT34.png": "bf750405461c6d8075e8f3cb66842fbbf27814b1a7b589be2195a9766045dc8a",
+    "renders/revised_r1/REAR34.png": "4e61abd4ae24faf3468fe7c9ca8ba89dcb9195cf0db0d3ad3694e53b3da11804",
+    "renders/revised_r1/BACK.png": "12f7326203b3985297c7eb0573434cf67580b0441d2348325e4d8b38ccdb06ed",
+    "renders/revised_r1/FRONT.png": "d985eae7e62b6fd6e78897fe8c0e328f2ae2565d2c4c56fc23bd6872d3ab28b1",
+    "renders/r2_foot_close/SIDE.png": "b22c24bf749ea74f111ad428521dd0804f13c01cb17304d9b1865b83b6a046a1",
+    "renders/r2_foot_close/FRONT34.png": "7ce78ee1d512e4001a0f4e35787674cdb84d71c2762c17ec48c6e0d643aef76a",
+    "renders/r2_trial_a/SIDE.png": "773fede033bd5428bbccead3f0d358efeae6ffeeefc461cc6bc1a2ac95b79f07",
+    "renders/r2_trial_a/FRONT34.png": "c9c25c2e63c9221a1643449d3e7806e994828de385e0284b8f7bcc9616362809",
+    "renders/r2_trial_a/FRONT.png": "85e7e739a6de6c3b8a1c7db7372fa385b723a078a07fe04c0cb702359bdaf9ed",
+    "renders/revised_r3_close/SIDE.png": "91675d5a4e59920890a37af3a641dace6e48dc0168589126201439cf22359035",
+    "renders/revised_r3_close/FRONT34.png": "cfead44d115e8b7fef5105bfeee57b5391ce6b6ee39805f1990d99976599413e",
+    "renders/candidate_review/SIDE.png": "e8b3f8c774bad5e00bdbe0a91513f54965347c52f9a2cf3336720cc5e82162d3",
+    "renders/candidate_review/FRONT34.png": "b9a8462162d7d01d2927ab9b77406423f87d45184f9d535931b42dae67ca403b",
+    "renders/candidate_review/REAR34.png": "acc834db630a0d60b5244c247f040091a1cdf1a66cdff2a0f5d2d82cdfce8c19",
+    "renders/candidate_review/BACK.png": "a69194bc8f2e46032eed1ecc5badb30a074971dca9f5bc0f1397664789bd5988",
+    "renders/candidate_review/FRONT.png": "d4a9df94ad1c3ddaadcccd2671475a9eecd4609d0fbab655b9f84d00d8779ff6",
+    "renders/blockout/SIDE.png": "5bbc82d33ad50b7ba9e01766ee500c45b085813bc9266868605b8398c0625bf1",
+    "renders/blockout/FRONT34.png": "e13fc684788d1f922c6c1be182766a5fa5ca3b472a037188f9fe59b6e50c5d64",
+    "renders/blockout/FRONT.png": "78839d273230a07b5ef077ccae199d235c2e1b447dd85959a687cec6acc9d30b",
+    "renders/refined/SIDE.png": "096505f06f6b0bc60420a606ba7306c0f665085f5ac85fa236ad062e93c96e82",
+    "renders/refined/FRONT34.png": "2ee101a68bdb679a18662a2cd7b455ec007eb9d29ce3c47efe82d4af1db3582d",
+    "renders/refined/FRONT.png": "3fa3274f8c831903781e8c4383e8de4d25aa8436e1b8aefe5cb7effdc82e94c6",
+    "renders/r3_trial_b/SIDE.png": "dfba48c17265a6344dfefb7b7cc41ea46ac652d21e34a89cf307306ac1dbea10",
+    "renders/r3_trial_b/FRONT34.png": "bcf285172e360b09661c6b7fb453e3f1193a3621bc79f6745a7c52924d78805f",
+    "renders/r3_trial_b/FRONT.png": "2b0f39da99f7fde0d47396dfcd05f3031a89e8a77f3f19e5d8cc001ea38f6dc4",
+    "renders/revised_r2/SIDE.png": "d1dd6308221aea2ab5fa1a66cd52240f09a2e47bcf385c262269ae86b0817735",
+    "renders/revised_r2/FRONT34.png": "2888af3133401694d9e049798dd6a745363ee8394e8c29ce048c72a7527e528f",
+    "renders/revised_r2/REAR34.png": "33aacab757858fd35aa6f9422ce60af6e4daf73559d505b1a5cf1593c3d2945f",
+    "renders/revised_r2/BACK.png": "576314a8db688662f7a45a1631fddc29ec59ae1745e06fbcf39393630b44c4e8",
+    "renders/revised_r2/FRONT.png": "49dd200c28f3b219f8fe3a47b0d92f4d335eb445e6d6fc87a3ff31ca31a17a91",
+    "renders/r2_trial_b/SIDE.png": "42daaacc0b093872ee620b58919c54118cc291bf0840bd8271ecb7ba57d08fb9",
+    "renders/r2_trial_b/FRONT34.png": "b86349016892b52e7cafce2e91bb54edfab2e0dc41a2375af520ac9632b336dc",
+    "renders/r2_trial_b/FRONT.png": "65c7e97e6cb6d26b2fd45be17f323a4bf88e2e89f9ad873835780a76b14a2f12",
+    "renders/revised_r3/SIDE.png": "38110ab88b7dce58d020df70552246f7e0c2dbba0ad115c9d2ce2857012eedff",
+    "renders/revised_r3/FRONT34.png": "178764ff942e2973f98a30a32ed3571c31d3f01529d23707edd4965ee4fcc83d",
+    "renders/revised_r3/REAR34.png": "666274e43b61221af87c5b9347005cd3defb32346ff8c9d081ce04b4bf519225",
+    "renders/revised_r3/BACK.png": "a9d1d655543e046144dc879b8b46251833172861c1829f93892a953fb1528e0b",
+    "renders/revised_r3/FRONT.png": "c8d40ef48d63e5670d8d02c7a443cd491baf73b4f709b755f5902c7de65461dc",
+    "evidence/REMOTE_r2_assets.json": "123cf431e8492c2911e31eaf4f18537e982cee89712a244838c5c5ff3e06d63d",
+    "evidence/CANDIDATE_CHANGES.json": "d9e53daceb6310588f08cfbfc1ad1bfb42a79f270f56e8a707f0e2b11bb6c319",
+    "evidence/R2_NETWORK_RETRY.json": "43c83e74cf0bd8c9689be6e7a4c89fdf8812eb179ec423568ff6b80eeda348f3",
+    "evidence/COMPARISON_r3_trial_b.json": "4b4f42bbb26d8eb5f4a7456154bd793de7254598de046bc6d89ac82b8680bab7",
+    "evidence/RENDER_candidate_review.log": "b0cb31f1c1d0e82f7994ad1bff7fc86fc5484c952297a24ea5f748532cee53cf",
+    "evidence/COMPARISON_SOURCES.json": "87e8d31dfea13be87a6cb35b8653642ba9957fc3e2ee6a80ca60bb6a02a63c68",
+    "evidence/RENDER_r3_trial_b.json": "4259615abc37456211b12b3f727eb6c20ce7752d918b7f46717b7fde3f9a18d4",
+    "evidence/COMPARISON_r2_trial_b.json": "17e131ad4aa717af2a8f0e5b7d3f42cae64f2ff43ec7958be575d6dc632cf93d",
+    "evidence/VERIFY_S_ZERO_CANDIDATE_REVISED_R3_RELOAD.json": "22a59560cd3112b7a5a07ee2b8911d0ec06e342c1d0d6a5cbf1eeb24cbdab5f1",
+    "evidence/RENDER_revised_r3_close.log": "a364d3a9a406e5a9d272e05b7be6789fd07f507d9d3cd029022e306ad12d5a5d",
+    "evidence/REFINED_VIEWPORT_FRONT34.png": "e54465dfaf15602a147aa0388bcf6fd9c1df29435b5bc9c7c0ce9f6b333e4e5f",
+    "evidence/MCP_R3_SAVE_COMPLETED.json": "93ee897089f94815c558bbabf5dd5951b3f156b75ac11cc05ebb20a328ba4fcd",
+    "evidence/RENDER_r2_trial_a_unsandboxed.log": "ec5ad732abcf7b7bb1d625ddb586512889a40139929b9ee395983bd231733dbd",
+    "evidence/R3_RECOVERY_START.json": "7c67efc3eeaef59efe9676022bac796a555896afa9406eb5a95095d0582299e0",
+    "evidence/RENDER_r2_trial_b.json": "a69b5a3c4166b08928d96608e71db21eb917bcd27879ec3974d22bd97c1e6f59",
+    "evidence/VERIFY_r3_trial_b_resolved.log": "8b92da52228de6208a3d7d7f50a60e84e1398fc19602229cb1c87fb28e25b504",
+    "evidence/R3_UPLOAD_MANIFEST.json": "6ff198bd21167e8c4865de9784ceca7379e60a36a1f35f6e3e7ee741f6b2eb99",
+    "evidence/VERIFY_S_ZERO_CANDIDATE_REVISED_R1.json": "048644b66cc25cd3440853fe2a79ef51f80402bbfabb570f70bc4b227fabdea3",
+    "evidence/VERIFY_r3_trial_b_diagnostic.log": "5d0147a42320b65fa6065c3cf7106a29f0a509423b1deed2fecaf3f030ff961c",
+    "evidence/MCP_R3_SAVE.json": "282d679a4cc0523c34de931614c9d0f613a8d5182ee22b052652858ce67e40bc",
+    "evidence/RENDER_r3_trial_b_close.log": "85c03ecfbadbc51e6dc313a9aea80067695b7d8bbccf0b1362015f2558c74c99",
+    "evidence/R3_FINAL_LOCAL_CHECKS.json": "7d5c0b9715e051a6610ce4499bc4d41245226ae8b8f6e5d522e798e7e5debd35",
+    "evidence/VERIFY_r3_trial_b.log": "11035e0d791e95699f1e563e878acd9fd0c6c1f1f6c380446ecb75cb092a9e96",
+    "evidence/REFERENCE_SHA256.json": "5a4406ff74faea01a5b34933ba54f6ada6a8e49cc5b00dc432d73ae3ca34b4d6",
+    "evidence/REVISION_R1.json": "17db0adb3bc4c7bd0263a0f0b9d7999940090907451dfcb71002485efdfaea68",
+    "evidence/RENDER_revised_r1.json": "5dfb28384ccd00acbd957819f967941df5895db1706a31d11f764ef51168d1d3",
+    "evidence/REVISION_R3_TRIAL_A.json": "7339cccb2c407390625900273134b12b7b6f149a39ffc1487c2b0903d0e7f4b2",
+    "evidence/MCP_R3_TRIAL_B.json": "63958a0f3a7da2c75704f9e2c403ee9a20d7f1d06505d6d2fe8f26453c750a43",
+    "evidence/FINAL_REVIEW.json": "b95cbfa9e634d0e15cab325afc8e976565f153bff6916bdfe3d56ebae5bf711d",
+    "evidence/RENDER_r3_trial_a.log": "5296b74dca3c8852426632296c3c108802fe4d9ee78763d29fec41e5e55ebd2d",
+    "evidence/SCULPT_R3_REVIEW.json": "7d184b67d4ae5dd291860b897713b34aac0650bf5dd145a06f5986685563d0f5",
+    "evidence/RENDER_candidate_review.json": "890201d025511c22dc0484b3fa3114c0e8835812dd7bf86419469c5ac5bb9632",
+    "evidence/R2_UPLOAD_MANIFEST.json": "35d2161b78715a691106ba0f75543143c5c3908278ef9ca7cf9737f65694e0e6",
+    "evidence/RENDER_refined.json": "59a6b923c4220753279585eb81004b63d623c90484016943e0ae0a14d289f224",
+    "evidence/REVISION_R2_TRIAL_A.json": "d059bb2011b5c6bb0c85024b42374bae963a269f5cf74d16dcb432a8263b15e2",
+    "evidence/RENDER_r3_trial_b.log": "f806853d29c14521dbeb5be0421ebca4e1fc201c217f5c6a02a644d1fac2938d",
+    "evidence/R3_R2_REPRODUCTION_CHECK.json": "1da784b49fc36ed5eeb17632ee9f2f2c68861bce71cb544d1340294e74c2ca57",
+    "evidence/REVISION_R2_TRIAL_B.json": "39ccb0d7a8095b8bfe8e55b5464c446321e520dfd8a897f85e55363919283e28",
+    "evidence/R2_SAVE.json": "f8237f4bc56b12d3798aac11e19850ab0089f2157d39e7059ca05dbeec8d779b",
+    "evidence/COMPARISON_revised_r3.json": "04afd758f75d02202640bad8560cef82dae4d01d12aa6145547982f0ef77249e",
+    "evidence/RENDER_revised_r1.log": "9c6626a9392340c9b181b98a7fb32138a54c3f2b690c82b7c550bd44d699e065",
+    "evidence/RENDER_revised_r3.log": "332b4dd0711272ddea5fcb3d0f4da3528bdc214e94ce1824799452a8928d6546",
+    "evidence/RENDER_blockout.json": "df5213c9444b498cfe68548ac41f587ea76e7b53dcbc30dec5162516c296560d",
+    "evidence/RENDER_revised_r3.json": "451962bc56c7bd733066b24049f03323556e7a14d66494d6f1cf6b9d4ee7bbe1",
+    "evidence/STRUCTURE_revised_r1.json": "f87e0976cb6efa18feffe9a949f9efc1cbe326c8cd9301a8571024a98588d132",
+    "evidence/VERIFY_SAVED_ORIGINALS.json": "8c255b460044a21b4b130a7204e8e4548fbdf323f3be2d26c46917b0607df910",
+    "evidence/REMOTE_PRESERVATION.json": "a5e8fbb54801d825f2539e6ce4b873a0f0230761bde3f1da6c1e34f3ece60862",
+    "evidence/RENDER_revised_r2.log": "11d1640c9882bbf25269f2a76dc0d4abf14025284dd745472160f71d93f25be0",
+    "evidence/REFINED_VIEWPORT_SIDE.png": "59427391cffcfe2aa8490353b8632b7772b8767d18aa78db730cab14e2da9bc1",
+    "evidence/BLOCKOUT_VIEWPORT_FRONT.png": "197192c4b9bdf7113742ce20faa6420e04376b76c37002719c3a60487cdf280a",
+    "evidence/REVISION_R3_TRIAL_B.json": "6795e7c73d712f4cc684e5894ff712f4625261cc71e566e47dace22730df1431",
+    "evidence/RENDER_revised_r2.json": "d7855a7e9dc5dfe7272c889887f1b3d29b5451d7f633eb304c7a83bfd48c5b14",
+    "evidence/REMOTE_missing_images.json": "d80bd30dcfacaa157fafaebe737aa956a3982d140803c3a72a86d04eb1513387",
+    "evidence/MCP_R3_TRIAL_A.json": "fdd2578da03a7ccfc5ccc1b8c35badee04e0d222a769bd867b055a5f90787df8",
+    "evidence/VERIFY_revised_r3.log": "b96eac97aeef2ae4edcae0b89e6ded82f273e4281de03c32dc7b71929d4e8a27",
+    "evidence/VERIFY_REVISED_R1.log": "8d16488f3372dae0a1570a0d4c89cf2e7757edb1fb0d05d1d863f005dfe46ec7",
+    "evidence/VERIFY_SAVED_ORIGINALS_UNSANDBOXED.log": "d0879131ddbc261be9fa059de44318430b49dc2167d76181f2badb56a4396de6",
+    "evidence/COMPARISON_revised_r2.json": "45e3eb85a46c44cc0ff0975661c0bb01114515c728b73fd6079b1bdd1e46273e",
+    "evidence/RENDER_r2_recovery.json": "4da11e0bd336391b67a95e8516146136b3248d7c656c01aa81b863cb90b930c6",
+    "evidence/RENDER_r2_foot_close.json": "5fe094238c0c32fa5c71a3a888c179bbcb1665fb3ced1f12954659c6246d9180",
+    "evidence/BLOCKOUT_VIEWPORT_FRONT34.png": "24696e3876b8ea9f4118ff0322c0df23a01bf7942e631660377da368a425e86d",
+    "evidence/R3_GIT_OBJECT_UPLOAD.json": "458849e9e414ddf628ae1f05476def6ed30b68e4f58df71fbaed7ec1b613bd64",
+    "evidence/RENDER_r2_trial_a.json": "6e46955ab692abee609a1632e1ae732114aa2c6c285755f30bc74f9cb268a531",
+    "evidence/RENDER_r2_trial_a_restored.log": "5b1fd07b1d09c9445ed0d324585f670f81ab593ef3de0c26c253b0b290391ea2",
+    "evidence/SCULPT_R3_FINAL_REVIEW.json": "ff21fed3032f235ce7b30d274c87ebcb5dabb91089551ee65bda3fc5b598cb48",
+    "evidence/CANDIDATE_REVIEW.json": "48947ba3c3eff7ce37315837c60e1c4a4aece24afedd1b4dc234775597aa8697",
+    "evidence/R3_SAVE.json": "4b16b11d8eb11bbc49bbe224739ce0a236e97383becb500be17763919cccb017",
+    "evidence/RENDER_r2_foot_close.log": "94b4e03092b1a5386302baeba2b9d7025b8bba442e692d08c9b7e9e0c50d2a5f",
+    "evidence/BLOCKOUT_VIEWPORT_SIDE.png": "00c1af0b66d0ff9e9750cb96b9e8b6faf7ce9e093ba9ae1589544a17ae9b436e",
+    "evidence/VERIFY_SAVED_ORIGINALS.log": "7b313fa0596e39bad88b854cb3284efb50d8a88ad5a9360ea25ba0131343b518",
+    "evidence/RENDER_r2_trial_b.log": "66796d84b4b805d3cd95a0c6ca01cca8655d2f193698f946fcac7dad15ef41ae",
+    "evidence/SCULPT_R2_REVIEW.json": "4d9ee47f5287d4b8bd3bb5e1ac8fbde39b19262ace9d1715248a6d365414dfdb",
+    "evidence/REVISION_R1.log": "9ae84580e8f689b1618e307530b8a6f167f0cdfea05a10941549713284f96a5b",
+    "evidence/R3_OPENED_R2.json": "001e58187ed0630d744ac744d1e097cc51726462e0879c74a3880b918cf23b75",
+    "evidence/COMPARISON_r2_trial_a.json": "accb4f0d5063fddb9b07b934126dc255c16026500d43e20f1cf9c00a1bc8f95d",
+    "evidence/FINAL_R2_LOCAL_CHECKS.json": "a73971b69a30370e940cd175282ff3c11403d3ca3971cf6c4572bfb55861028a",
+    "evidence/RENDER_r3_trial_b_close.json": "d05b77889814b34781b01ad8f932e628f7ee2f3c04f5185fda78d4ce2e3cb4bd",
+    "evidence/RENDER_r2_trial_a.log": "7b313fa0596e39bad88b854cb3284efb50d8a88ad5a9360ea25ba0131343b518",
+    "evidence/REFINEMENT_CHANGES.json": "5e6a239d566fd3b220651d7a3d7e1562a74a8b9115f54714d3ba9aa0aafa3b79",
+    "evidence/REFINED_VIEWPORT_FRONT.png": "2f90689bfc26f0a6e4351c3e6c46c92cbd87d665fc44fb311af612b0dda3aecc",
+    "evidence/VERIFY_R2_RELOAD.json": "fb81c96bdb483324db2ed9fa0499ce7167041f5c0332ebe9f9e4ddbd1b4628c9",
+    "evidence/RENDER_r3_trial_a.json": "bf9c72cd2b5edafe48f1dc809534114a561215a277ea7e67db33429f7885e3b1",
+    "evidence/FINAL_LOCAL_CHECKS.json": "15745c584c7685d332d0935ceddb5d220f2c20767b12239251bfd55f2cbc48eb",
+    "evidence/STRUCTURE_candidate_review.log": "a1b37ba8a4c7a73f563871ab90314fc6ac2c651a8b0ce09fa430a8641e01780a",
+    "evidence/STRUCTURE_candidate_review.json": "55b1c729433d90b8cd007632d264627de1c7936d1197f745d5aa1530f6e4b8fa",
+    "evidence/ORIGINAL_ARTIFACTS.json": "d0cf399ed5bba8056b9a8bee953dfa82820f17be8a07124985d2fac2e05b54bf",
+    "evidence/RENDER_revised_r3_close.json": "9b001a320af921f475405af24b3a099b22e8260ade496ecb2382062a77cd8632",
+    "evidence/R2_START_STATE.json": "1dedaf598cf5fb38c914ce449620aeb943fa0d1f18e032f5ce0eb123d92755bf",
+    "evidence/VERIFY_S_ZERO_R3_TRIAL_B_RELOAD.json": "330ef9266e7563ad710cadf05db3d052d48848d07fe16f7ae332c637ed2e2493",
+    "evidence/STUDIO_DIAGNOSTIC_S_ZERO_R3_TRIAL_B.json": "c7de41a734687c6e85d61d4fd8b1d5d705a251a2ac905ffba63857cae830039c",
+    "evidence/COMPARISON_r3_trial_a.json": "e187be3fc4724777e067e57188b4b80e8eae1eaf512d610b54a5adfe17c32bc1",
+    "verification/S_ZERO_R3_WORKING_COPY.blend": "3406e12f54670ca397eb31825721aa08e36fbc46a0bc68e2dcfbcbaae0c09662",
+    "verification/S_ZERO_R2_TRIAL_A.blend": "595d3dacaad93cf9d1faa800354b65fd9dce36b50aed5ec9028c52dfaecaf970",
+    "verification/S_ZERO_R2_TRIAL_B.blend": "949684364ab7d6f76b2e680b8c16b1539d06bd7738d69f16c6ec9cf5dc51be53",
+    "verification/S_ZERO_CANDIDATE_REVIEW.blend": "fac25ffe586cacd294c4d0b9f7ab4ae71f93595a3f70fcfa9354c5b44cbef29d",
+    "verification/S_ZERO_R3_TRIAL_B.blend": "3d80a6775d466b56a3f876430819cd64a41337a3bb086c8cfa333a48fd5e3c9e",
+    "verification/S_ZERO_R2_WORKING_COPY.blend": "f8e8a80360ee5886d485a17610cf62a9387d10cdb09e4801a055be99bf8d8a4f",
+    "verification/S_ZERO_R3_TRIAL_A.blend": "286aba61e558faaf4bcbfd2be96489e2ac2559c208c363938a39fed29f38ad76",
+    "scripts/26_finalize_r3_evidence.py": "7ba52b2c76bd480042f586cd591cd874773335b6a4361d8f9e120aab96ce5dc1",
+    "scripts/21_render_foot_details.py": "8da9ed3aced5c83e037e6476f7bce1500cd71d7b193adb95a7c548fd75d4484d",
+    "scripts/render_saved_stage.py": "6b583876e240ed1604a8c4afcc90f80d34d20e121027ea28cdbe99fc5ba9546d",
+    "scripts/06_verify_github.py": "b0ed7679d842047e2c0753caaa02283a0bb5ea05288b149731ce6a925cfef6f2",
+    "scripts/25_verify_remote_r3.py": "6402c3d3bc227985b614ea966739b9dc5aae697974a68e0077e6b8c799413252",
+    "scripts/13_refine_r2_interface.py": "7487081419369ca7827e12ee343661ae38b3736f7c1df0b4f0837b8954da7c0d",
+    "scripts/23_verify_r3.py": "2240b8b14179328e64e91a6d3ee53619d63d1057be2ab9bc31da108be6b70321",
+    "scripts/14_verify_r2.py": "dd60123c37991f8c96f340cd394858e0638eadb3efb54bce0283a11cf0bca178",
+    "scripts/19_sculpt_r3_feet.py": "583f81a54a45b7ce9389c8e06d913a12903e20c3ca4f60a93cbbdf673d25f25e",
+    "scripts/07_structure_audit.py": "cd3da68be3ae5cdceba973bb584158e3164c87ffed6561083c11f8464cdb7343",
+    "scripts/01_build_blockout.py": "cb78e91e984e56b442703c795c94630f0efdb3c26466f50b10837c7c93140d12",
+    "scripts/12_compare_r2.py": "4aa67ca70f3d716ea5d1fd4f9edf27e9b8cfb63cf7a654422c9efc2b34809c95",
+    "scripts/24_save_reviewed_r3.py": "7070d232dfc5fb40d776729471c8aa2c95024227cf7a5f0c37254908f3d5d2a1",
+    "scripts/27_publish_r3_git_objects.py": "365199d6816b93df9a0ea37823cb8f303cecf239b87744846796dcc7e9b4f2af",
+    "scripts/18_blender_mcp_client.py": "445ec6822bd0790d8ba80d6d098f15a99596d8ec1327ee0c9a341b9f37469ed0",
+    "scripts/08_revise_connections.py": "75198acdde76e0b6bf00061fa2dafadfba799507caa6c53314f991561c293b0c",
+    "scripts/05_review_render.py": "a4ad5c112a3a7e58dc1bdb34716a2b17653c5c196a92254393bd05ca1927b6ec",
+    "scripts/04_verify_saved.py": "fd6db70ed49c3b951005bdb5f8de769de4015195300f8d36b211c666563cead2",
+    "scripts/16_check_r2_evidence.py": "8d47acf9f6bccd9f5cf558fe80db9ab66e8cc44012bc3b445aba2e3e683efbf9",
+    "scripts/09_build_comparisons.py": "4bfddc0708ae2f66621c7179a0c3d2116b1afcc6c1462ed99405f9e7a41b9d1f",
+    "scripts/22_refine_r3_heel_ankle.py": "d171d8acd7ae744d2ef9fdad436537fc0690de7e353ae21edf3c1f3218d33fe3",
+    "scripts/15_save_reviewed_r2.py": "2e020cf4c094586493e311f92d62c7e58951941a0a83f0cd5b479d564ccb3875",
+    "scripts/02_refine.py": "9ebd15de0f9ecf6e9d0af42b16aceb41889839b48fb9ed1e5c5d0fc87ce7d4dd",
+    "scripts/20_compare_r3.py": "161038bbe1105b45da3445afc2e7e422426a8f7195e786264c33127aea57df9b",
+    "scripts/17_verify_remote_r2.py": "e78c211bb692acfad62af806844227288f6feb919c2239029067698e45b92756",
+    "scripts/03_candidate.py": "46f4ef1ac3c382814523d079c411d49268a462dc3ee9ae999076efd2d1139af3",
+    "scripts/10_preserve_small_uploads.py": "a4b2a147c3f8ca8bff6612fd7850c54d62d79a1c357371a34447f303dfa02f00",
+    "scripts/11_sculpt_r2.py": "d9e08cb0a8952646dd0d50cbe0e40508e54a4b45578e0c9d9cdabb65f519b4b4"
+  },
+  "armatures": [],
+  "actions": [],
+  "limits": "Separate detail shells and embedded roots are not welded topology or proof of rig suitability. BVH is a candidate test only. No gait or PC/mobile runtime validation. Overall REVISE."
+}

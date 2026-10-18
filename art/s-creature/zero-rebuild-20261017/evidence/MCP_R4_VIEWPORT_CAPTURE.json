@@ -1,0 +1,215 @@
+{
+  "source": "S_ZERO_CANDIDATE_REVISED_R4.blend",
+  "source_sha256": "8533fc33a2d43d498618a5f449b675a25bf7d7126d72eee3b936db843f0c11ad",
+  "actual_live_viewport": true,
+  "display": "Solid material colors, studio cavity; not Cycles or retouched image.",
+  "views": {
+    "SIDE": {
+      "success": true,
+      "width": 1400,
+      "height": 816,
+      "filepath": "/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/renders/revised_r4_viewport/SIDE.png",
+      "method": "offscreen",
+      "file": "/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R4.blend",
+      "scene": "S_ZERO_STUDIO",
+      "scene_count": 1,
+      "view": {
+        "file": "/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R4.blend",
+        "scene": "S_ZERO_STUDIO",
+        "view_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            1.4500000476837158
+          ],
+          [
+            0.0,
+            -3.029462618542311e-07,
+            0.9999999403953552,
+            -2.5699996948242188
+          ],
+          [
+            0.0,
+            -0.9999999403953552,
+            -3.029462618542311e-07,
+            7.785718594277569e-07
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_matrix": [
+          [
+            0.5241090059280396,
+            0.0,
+            0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            0.8985805511474609,
+            0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -0.0020000000949949026,
+            -0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "width": 1400,
+        "height": 816
+      },
+      "sha256": "f706fca4fc1152da00f13522b40b68c9ed694ddbbf5576208cb180291c63ff17"
+    },
+    "FRONT": {
+      "success": true,
+      "width": 1400,
+      "height": 816,
+      "filepath": "/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/renders/revised_r4_viewport/FRONT.png",
+      "method": "offscreen",
+      "file": "/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R4.blend",
+      "scene": "S_ZERO_STUDIO",
+      "scene_count": 1,
+      "view": {
+        "file": "/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R4.blend",
+        "scene": "S_ZERO_STUDIO",
+        "view_matrix": [
+          [
+            -2.220446049250313e-16,
+            -1.0,
+            0.0,
+            -3.2196468772920724e-16
+          ],
+          [
+            0.0,
+            -2.220446049250313e-16,
+            1.0,
+            -2.569999933242798
+          ],
+          [
+            -1.0,
+            0.0,
+            -2.220446049250313e-16,
+            -1.4500000476837158
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_matrix": [
+          [
+            0.5241090059280396,
+            0.0,
+            0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            0.8985805511474609,
+            0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -0.0020000000949949026,
+            -0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "width": 1400,
+        "height": 816
+      },
+      "sha256": "8f227c59fdcd938b397bf50544675820a2a515cf3eb6dad97a1fea5da6f2282b"
+    },
+    "FRONT34": {
+      "success": true,
+      "width": 1400,
+      "height": 816,
+      "filepath": "/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/renders/revised_r4_viewport/FRONT34.png",
+      "method": "offscreen",
+      "file": "/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R4.blend",
+      "scene": "S_ZERO_STUDIO",
+      "scene_count": 1,
+      "view": {
+        "file": "/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R4.blend",
+        "scene": "S_ZERO_STUDIO",
+        "view_matrix": [
+          [
+            0.4788520336151123,
+            -0.8778955936431885,
+            -2.264550857944414e-08,
+            0.6943355202674866
+          ],
+          [
+            0.0524538978934288,
+            0.028611263260245323,
+            0.9982132911682129,
+            -2.489349842071533
+          ],
+          [
+            -0.8763270974159241,
+            -0.47799643874168396,
+            0.059749651700258255,
+            -1.424230933189392
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_matrix": [
+          [
+            0.5241090059280396,
+            0.0,
+            0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            0.8985805511474609,
+            0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -0.0020000000949949026,
+            -0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "width": 1400,
+        "height": 816
+      },
+      "sha256": "acd7252d6a562ab9b686cfa1a5e09926178405f07c7aeb40c5156a4bcd0dca70"
+    }
+  }
+}

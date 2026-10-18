@@ -1,0 +1,37 @@
+{
+  "reference": "../references/00_s_type_modeling_image_v1.png",
+  "reviewed_images": [
+    "comparisons/R4_START_CROWN_COMPARISON.png",
+    "comparisons/R4_TRIAL_A_CROWN_COMPARISON.png",
+    "comparisons/R4_TRIAL_B_CROWN_COMPARISON.png",
+    "comparisons/R4_TRIAL_C_CROWN_COMPARISON.png",
+    "comparisons/R4_TRIAL_D_CROWN_COMPARISON.png",
+    "comparisons/R4_TRIAL_E_CROWN_COMPARISON.png"
+  ],
+  "initial_differences": {
+    "root": "R3 begins as a small separate-looking lateral tip near the Cue Band; the reference has a broader transition from the forehead.",
+    "mid": "R3 has a bowed narrow frontal strip and rounded ivory rail; reference has taper and distinct oblique faces.",
+    "tip": "R3 upper section stays bowed and its two edges do not converge together; reference is a sharply tapered blade. The long side line must be preserved."
+  },
+  "trials": {
+    "A": "REVISE: too abrupt mid-height flare; cross-face overlap candidates.",
+    "B": "REVISE: narrower controlled profile, but rear-fan overlap candidates remain.",
+    "C": "REVISE: corresponding front/back fan still fails across the concave crown interior.",
+    "D": "REVISE shading: retained contour with concave interior retopology has no detected overlap candidates; incidental triangular shading remains.",
+    "E": "Retain as R4 checkpoint: D geometry, interpolated normals and sharp edges above 35 degrees reduce incidental triangle shading."
+  },
+  "visual_findings": {
+    "SIDE": "Long upper contour and tip retained. Root is seated lower and inward. Dark surface still has minor waviness and differs from the drawn plane breaks.",
+    "FRONT": "Root narrows into forehead, mid-height expands before tapering to the tip. Broadening is modest; blue anterior face and reference facet hierarchy still missing.",
+    "FRONT34": "Root is closer to forehead and the ivory edge is a shallower bevel. Two blades remain separate with retained long silhouettes. Head-to-crown seam remains visible."
+  },
+  "working_checkpoint_decision": "RETAIN_TRIAL_E_AS_R4",
+  "overall": "REVISE",
+  "production_keep": false,
+  "human_sculpting_requested": false,
+  "limitations": [
+    "Root is embedded, not welded into protected head mesh.",
+    "Front blue face and designed longitudinal plane transitions are incomplete.",
+    "No rigging suitability, gait, PC/mobile runtime or production promotion established."
+  ]
+}

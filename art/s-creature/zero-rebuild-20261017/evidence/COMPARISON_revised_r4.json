@@ -1,0 +1,87 @@
+{
+  "method": "Actual unretouched renders; crop, proportional resize, labels only.",
+  "reference_crops": {
+    "SIDE": [
+      35,
+      70,
+      755,
+      513
+    ],
+    "FRONT": [
+      765,
+      86,
+      948,
+      513
+    ],
+    "FRONT34": [
+      1130,
+      83,
+      1434,
+      513
+    ]
+  },
+  "close_crops": {
+    "SIDE": [
+      [
+        50,
+        70,
+        400,
+        255
+      ],
+      [
+        70,
+        100,
+        600,
+        365
+      ]
+    ],
+    "FRONT": [
+      [
+        817,
+        103,
+        906,
+        250
+      ],
+      [
+        525,
+        30,
+        675,
+        380
+      ]
+    ],
+    "FRONT34": [
+      [
+        1140,
+        85,
+        1300,
+        255
+      ],
+      [
+        280,
+        35,
+        700,
+        380
+      ]
+    ]
+  },
+  "source_sha256": {
+    "references/00_s_type_modeling_image_v1.png": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+    "zero-rebuild-20261017/renders/revised_r3/SIDE.png": "38110ab88b7dce58d020df70552246f7e0c2dbba0ad115c9d2ce2857012eedff",
+    "zero-rebuild-20261017/renders/revised_r4/SIDE.png": "1300162ee23e0e9c361c08efeb30b4a083945f5a4397963d231aa0a0ceb0aaee",
+    "zero-rebuild-20261017/renders/revised_r3/FRONT.png": "c8d40ef48d63e5670d8d02c7a443cd491baf73b4f709b755f5902c7de65461dc",
+    "zero-rebuild-20261017/renders/revised_r4/FRONT.png": "7589b36a8dc607a0d25b2167e82e1e484126d22f6cf9b50d1b0e638cb8cf76fe",
+    "zero-rebuild-20261017/renders/revised_r3/FRONT34.png": "178764ff942e2973f98a30a32ed3571c31d3f01529d23707edd4965ee4fcc83d",
+    "zero-rebuild-20261017/renders/revised_r4/FRONT34.png": "ef4bf5e52bdae10024f346a6e24a1ee51167598bafcf441e63d1a01417cfe5da",
+    "zero-rebuild-20261017/renders/revised_r4/REAR34.png": "04bd90a2f77a0accc69b610cbd12eb1f5725d7119acdc2ead9762f58bf808cfe",
+    "zero-rebuild-20261017/renders/revised_r4/BACK.png": "ee9f6d994ef16bbaa59a2a575e9845ad85bd5b5f36fdc543194e22c5db7c7fe3",
+    "zero-rebuild-20261017/renders/revised_r3/REAR34.png": "666274e43b61221af87c5b9347005cd3defb32346ff8c9d081ce04b4bf519225",
+    "zero-rebuild-20261017/renders/revised_r3/BACK.png": "a9d1d655543e046144dc879b8b46251833172861c1829f93892a953fb1528e0b"
+  },
+  "outputs": [
+    "comparisons/REVISED_R4_REFERENCE_R3_COMPARISON.png",
+    "comparisons/REVISED_R4_CROWN_COMPARISON.png",
+    "comparisons/REVISED_R4_FIVE_VIEWS.png",
+    "comparisons/REVISED_R4_R3_FIVE_VIEW_COMPARISON.png",
+    "comparisons/REVISED_R4_STATIC_128PX.png"
+  ]
+}

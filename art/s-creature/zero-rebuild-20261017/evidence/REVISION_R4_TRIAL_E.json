@@ -1,0 +1,14 @@
+{
+  "source": "verification/S_ZERO_R4_TRIAL_D.blend",
+  "output": "verification/S_ZERO_R4_TRIAL_E.blend",
+  "source_sha256": "951d8be8c4676893d00dcf37b74740171438db624dca91402f117d00930a2b31",
+  "output_sha256": "6eaf79fd5d4b2f60b045f387f914a4815851d3b615c30d5bb5e2756fa9326821",
+  "changed_shading_meshes": [
+    "CROWN_MAIN_N",
+    "CROWN_BLUE_N",
+    "CROWN_MAIN_F",
+    "CROWN_BLUE_F"
+  ],
+  "geometry_changed_from_D": false,
+  "reason": "D exposes incidental triangulation in SIDE and FRONT34; preserve sculpt and interpolate normals, with sharp edges over 35 degrees."
+}
