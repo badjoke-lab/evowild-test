@@ -1,0 +1,2190 @@
+{
+  "utc": "2026-10-18T15:56:19.154721+00:00",
+  "repository": "badjoke-lab/evowild-test",
+  "branch": "exp/s-fullbody-zero-verify-20261017",
+  "commit": "c3301192231b1722fd945a63fd73285382cd6289",
+  "branch_head_matches": true,
+  "tree_checks": [
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/QUALITY_REVIEW.md",
+      "bytes": 11763,
+      "git_blob_sha": "ecb84f76110cb3a042761d97d46b547825171c88",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/R2_QUALITY_REVIEW.md",
+      "bytes": 7984,
+      "git_blob_sha": "8098ee908e57aa8b98ccde26bfabd785747ddf15",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/R3_QUALITY_REVIEW.md",
+      "bytes": 8967,
+      "git_blob_sha": "e8cc34d51e2227ca5acfe48a5607ce0347e3b871",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/R4_QUALITY_REVIEW.md",
+      "bytes": 9753,
+      "git_blob_sha": "e9c762ed152a6d285bccdc1277ae206f0c245c7f",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/README.md",
+      "bytes": 2618,
+      "git_blob_sha": "cd7af7fe492500da9dfd2bda0dfebe031c2e1f68",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/S_ZERO_BLOCKOUT.blend",
+      "bytes": 1171877,
+      "git_blob_sha": "aaf27a67495eeb6aeda492e8bbd056e27a3ce1e3",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE.blend",
+      "bytes": 1224567,
+      "git_blob_sha": "84157b304cb8ef187eadf4cd1161dc795eefd21a",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R1.blend",
+      "bytes": 1212726,
+      "git_blob_sha": "6a2009282a49a119021569d3a05131de160aa5fa",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R2.blend",
+      "bytes": 1259118,
+      "git_blob_sha": "f0d9b68b836c27252362d26ce4587c41ca422a13",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R3.blend",
+      "bytes": 1239953,
+      "git_blob_sha": "580af6f592191533617abfc3c2ff4ae68c64e72f",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R4.blend",
+      "bytes": 1278843,
+      "git_blob_sha": "280968d4624fdcc9a382b06390f7767596a83b31",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/S_ZERO_REFINED.blend",
+      "bytes": 1178832,
+      "git_blob_sha": "104d493f83db60c03110aebfb8ef20bab0bf8418",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/BEFORE_AFTER_FIVE_VIEWS.png",
+      "bytes": 2085866,
+      "git_blob_sha": "81ba166a891ea151e3535de6d6d0554192f39133",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/CANDIDATE_FIVE_VIEWS.png",
+      "bytes": 1237306,
+      "git_blob_sha": "140d5815d85fac19c00f7038016c11c9acc32e8c",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_A_DETAILS.png",
+      "bytes": 1002020,
+      "git_blob_sha": "344e9f50ecde3706de6c00b425c74761d3ce0084",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_A_REFERENCE_R1_COMPARISON.png",
+      "bytes": 1389891,
+      "git_blob_sha": "68da63f7db81d109aa8f23f20c175602bbbd07ce",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_B_DETAILS.png",
+      "bytes": 997228,
+      "git_blob_sha": "83784fc7e7c7ed7bdbcace52112e10a4e3827447",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_B_REFERENCE_R1_COMPARISON.png",
+      "bytes": 1386660,
+      "git_blob_sha": "7917ae3daa6b9c7ddef6cc6c723c405ecad2bca3",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R3_TRIAL_A_FOOT_DETAILS.png",
+      "bytes": 808368,
+      "git_blob_sha": "6b45b4bbcf7065358c5e5268d2ff812c690d6483",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R3_TRIAL_A_REFERENCE_R2_COMPARISON.png",
+      "bytes": 1287362,
+      "git_blob_sha": "5986fb9c762633799c15d6b3694c0a6889573452",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R3_TRIAL_B_FOOT_DETAILS.png",
+      "bytes": 807550,
+      "git_blob_sha": "7248ca6fb4d01a7fe123539f1cfadcd39a8cab3b",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R3_TRIAL_B_REFERENCE_R2_COMPARISON.png",
+      "bytes": 1292557,
+      "git_blob_sha": "6febc94a620ab4b60a27b0725a7f93418fb6502f",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R4_START_CROWN_COMPARISON.png",
+      "bytes": 801349,
+      "git_blob_sha": "7643c71502a60dc90f3e179f8ef4478e27c82888",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R4_TRIAL_A_CROWN_COMPARISON.png",
+      "bytes": 1260146,
+      "git_blob_sha": "8be3d0b43341e9c36308d2686ac286e1b36442d4",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R4_TRIAL_A_REFERENCE_R3_COMPARISON.png",
+      "bytes": 1286400,
+      "git_blob_sha": "186ed2e9da15d208cb0e5a22cfb410bc5a40c584",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R4_TRIAL_B_CROWN_COMPARISON.png",
+      "bytes": 1263724,
+      "git_blob_sha": "ef019f4e108315a53295881b5656a98af2463d21",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R4_TRIAL_B_REFERENCE_R3_COMPARISON.png",
+      "bytes": 1290643,
+      "git_blob_sha": "a88153836d03eb4c5dc317e434e70e5c20395f66",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R4_TRIAL_C_CROWN_COMPARISON.png",
+      "bytes": 1262455,
+      "git_blob_sha": "8a6cee6ac3c5cca07fe692eef83bd9969b66688e",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R4_TRIAL_C_REFERENCE_R3_COMPARISON.png",
+      "bytes": 1290044,
+      "git_blob_sha": "3b9fbfeaca8cdb63628d0fa6c18ae08406c59f27",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R4_TRIAL_D_CROWN_COMPARISON.png",
+      "bytes": 1263936,
+      "git_blob_sha": "229f1965cad7a33cec56ed7e64801f36f7233978",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R4_TRIAL_D_REFERENCE_R3_COMPARISON.png",
+      "bytes": 1293404,
+      "git_blob_sha": "fb3af6afbdf8f82511860b1d523e629efc6812c3",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R4_TRIAL_E_CROWN_COMPARISON.png",
+      "bytes": 1259668,
+      "git_blob_sha": "1ed211a55f5a6cc25ec72417ddeb3d9fd4fa4694",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R4_TRIAL_E_REFERENCE_R3_COMPARISON.png",
+      "bytes": 1291937,
+      "git_blob_sha": "dc6184e3df364fe78575d14ff985ab59c2063fae",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REFERENCE_COMPARISON.png",
+      "bytes": 1726679,
+      "git_blob_sha": "1bd62b2da19d898456b4b9397810b02d747ed56e",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R1_FIVE_VIEWS.png",
+      "bytes": 1241809,
+      "git_blob_sha": "9ebb7aa1a8ec722d67af62679e4ff5c37d22c679",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R2_DETAILS.png",
+      "bytes": 997373,
+      "git_blob_sha": "e6077a837aed133a8c9a0452ac2f24f7c4e5b865",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R2_FIVE_VIEWS.png",
+      "bytes": 1241678,
+      "git_blob_sha": "76a585dd33016ad3118971f11856637945bfd35e",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R2_R1_FIVE_VIEW_COMPARISON.png",
+      "bytes": 2082243,
+      "git_blob_sha": "cbab660321af0ff0c82401896386c47189fbacd1",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R2_REFERENCE_R1_COMPARISON.png",
+      "bytes": 1387546,
+      "git_blob_sha": "3372b38582286aea521259f2ed475df532d16ff8",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R3_FIVE_VIEWS.png",
+      "bytes": 1225921,
+      "git_blob_sha": "30b5e3722320f4e68b2ab6c0138e7e8bb392ac28",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R3_FOOT_CLOSE_COMPARISON.png",
+      "bytes": 1163038,
+      "git_blob_sha": "617ffe4489c35e794f2fd63a898a872696dc2170",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R3_FOOT_DETAILS.png",
+      "bytes": 807304,
+      "git_blob_sha": "fdf036be6e81932bfa723913eb71dbb7a8684874",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R3_R2_FIVE_VIEW_COMPARISON.png",
+      "bytes": 1846984,
+      "git_blob_sha": "241cb0794d4ad977af2de18fa958bc6e65cb7c01",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R3_REFERENCE_R2_COMPARISON.png",
+      "bytes": 1293425,
+      "git_blob_sha": "09fe79d867a593fcee3f415dc4189b3daaf74adf",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R3_STATIC_128PX.png",
+      "bytes": 155581,
+      "git_blob_sha": "9dc8f8da7102ff12d65da7196027925687961b06",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R4_CROWN_COMPARISON.png",
+      "bytes": 1261796,
+      "git_blob_sha": "766e599932b90137a0625d88aaa45f06eeba7381",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R4_FIVE_VIEWS.png",
+      "bytes": 1205346,
+      "git_blob_sha": "50a6d20826de952ede00ec12d9f70bc28425859a",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R4_R3_FIVE_VIEW_COMPARISON.png",
+      "bytes": 1879375,
+      "git_blob_sha": "b86ada8ec0a1998f19e8b59a3bad946e2839881d",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R4_REFERENCE_R3_COMPARISON.png",
+      "bytes": 1293876,
+      "git_blob_sha": "0f0a4259a13df5f1ca273953b733067738775b39",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R4_STATIC_128PX.png",
+      "bytes": 154589,
+      "git_blob_sha": "1a98ded42eca0559e94ea07b694db173e7aac369",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/SHOULDER_HIP_PROGRESS.png",
+      "bytes": 1286135,
+      "git_blob_sha": "5433c74950f9fce455db20cb4036879e3d02026d",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/STATIC_128PX_PREVIEW.png",
+      "bytes": 52429,
+      "git_blob_sha": "658cf94b7adf6162dcd6fae647b926f04828fdbf",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/BLOCKOUT_VIEWPORT_FRONT.png",
+      "bytes": 648953,
+      "git_blob_sha": "7ea6ff9ac52658bd1d4dcae550e5dcc2685366ef",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/BLOCKOUT_VIEWPORT_FRONT34.png",
+      "bytes": 1044611,
+      "git_blob_sha": "02dc2243cb352f7064b92ecee29cdfb24ff36489",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/BLOCKOUT_VIEWPORT_SIDE.png",
+      "bytes": 746484,
+      "git_blob_sha": "8ec9451cbab8d1f7f838664c9892684b9f75fff9",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/CANDIDATE_CHANGES.json",
+      "bytes": 455,
+      "git_blob_sha": "8317460565810c3a52634e2316eb21d1d3c08477",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/CANDIDATE_REVIEW.json",
+      "bytes": 3005,
+      "git_blob_sha": "867b2de5b91fc6e95d899ce2049132640dfe9d64",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_SOURCES.json",
+      "bytes": 2472,
+      "git_blob_sha": "71d015795bcc29310da237a738b7debc367c85b8",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_r2_trial_a.json",
+      "bytes": 1614,
+      "git_blob_sha": "73a8bc85b89e479d000d60cc6d88439b7a19a93f",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_r2_trial_b.json",
+      "bytes": 1614,
+      "git_blob_sha": "46546cdef27f3fe9ba53c4f867dcac3fdb3ca6d3",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_r3_trial_a.json",
+      "bytes": 1655,
+      "git_blob_sha": "f89c2e92737bdf8b2f275d119cab09aafa8679a3",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_r3_trial_b.json",
+      "bytes": 1655,
+      "git_blob_sha": "f8bc44ce5c14f80376c86fb34c1edacffff29920",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_r4_trial_a.json",
+      "bytes": 1827,
+      "git_blob_sha": "d19aa1907d8168be2d77adc3e26199b9107e98bc",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_r4_trial_b.json",
+      "bytes": 1827,
+      "git_blob_sha": "e8e0a36554235dc3d8ffb26a48ae16e57584d94f",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_r4_trial_c.json",
+      "bytes": 1827,
+      "git_blob_sha": "1f2fd48f0f18a85225f9cf67a5c318e2bdc0bae1",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_r4_trial_d.json",
+      "bytes": 1827,
+      "git_blob_sha": "53c859243aabedcbcff805379f2bcfba48531b0a",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_r4_trial_e.json",
+      "bytes": 1827,
+      "git_blob_sha": "4b75cca78d101e3747f7dcbb894f9dfadb4cebfb",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_revised_r2.json",
+      "bytes": 2118,
+      "git_blob_sha": "b57bd607084ea7eae0b772f207c9ddd548cb7cd8",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_revised_r3.json",
+      "bytes": 2311,
+      "git_blob_sha": "779345508460d4c3a3b1d3ae7c9f47f90ad93c46",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_revised_r4.json",
+      "bytes": 2481,
+      "git_blob_sha": "661fc68fd5657159e529df99c3b6eff37a7073eb",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/FINAL_LOCAL_CHECKS.json",
+      "bytes": 431,
+      "git_blob_sha": "27f80581d7249bca55d1cd3f6c7e16543ff9f876",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/FINAL_R2_LOCAL_CHECKS.json",
+      "bytes": 7525,
+      "git_blob_sha": "21466387dbf743d499d9896d8f652c708e46dc03",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/FINAL_REVIEW.json",
+      "bytes": 1198,
+      "git_blob_sha": "e9619b53c518187583debef6353d8cd58e37d021",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/MCP_R3_SAVE.json",
+      "bytes": 693,
+      "git_blob_sha": "2d60a2f576fe36fb769e9951a10719f8214fa8bb",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/MCP_R3_SAVE_COMPLETED.json",
+      "bytes": 257,
+      "git_blob_sha": "8c5554af37a732906669fc33452c2e5c5f123006",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/MCP_R3_TRIAL_A.json",
+      "bytes": 187,
+      "git_blob_sha": "79e32d4973d3ec95dba2c3c586f114463969f792",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/MCP_R3_TRIAL_B.json",
+      "bytes": 178,
+      "git_blob_sha": "1c7e6e3918a5a33b2e0d2e4e2fea9f6d471c11b0",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/MCP_R4_OPEN.json",
+      "bytes": 25600,
+      "git_blob_sha": "d65819a4def8cc5f93312487771924e0a92460dd",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/MCP_R4_SAVE.json",
+      "bytes": 223,
+      "git_blob_sha": "9a67002f5dbde79eef683e822b5cd80c052ab216",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/MCP_R4_TRIAL_A.json",
+      "bytes": 175,
+      "git_blob_sha": "e445a9503fe5ef95445eb73bf952234f49488be8",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/MCP_R4_TRIAL_B.json",
+      "bytes": 175,
+      "git_blob_sha": "3a1256f0caec7feb4f7b9f2e395616f340cb0b04",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/MCP_R4_TRIAL_C.json",
+      "bytes": 175,
+      "git_blob_sha": "737cbb23b067668456f9927ddfcf5723ff7da268",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/MCP_R4_TRIAL_D.json",
+      "bytes": 1056,
+      "git_blob_sha": "b3b4129cf795c18a43d444f4fe9fd966790cefb5",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/MCP_R4_TRIAL_D_RETRY.json",
+      "bytes": 175,
+      "git_blob_sha": "0eb0ef3abd9987ee9f3e2ac2e12f9fe9d5595b4e",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/MCP_R4_TRIAL_E.json",
+      "bytes": 208,
+      "git_blob_sha": "3a631086e50c242930ceedaa3a332fd9da36abcd",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/MCP_R4_VIEWPORT_CAPTURE.json",
+      "bytes": 5498,
+      "git_blob_sha": "2dceccf1f1e418b51c514a4e6ff7c896af1d5190",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/MCP_R4_VIEWPORT_RESPONSE.json",
+      "bytes": 375,
+      "git_blob_sha": "7014afde9b02bb733399a7835cb349eb4eb672a0",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/ORIGINAL_ARTIFACTS.json",
+      "bytes": 6946,
+      "git_blob_sha": "afdfbe5043395a71445dc5241cd43ffd77823837",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/R2_NETWORK_RETRY.json",
+      "bytes": 1266,
+      "git_blob_sha": "994d29e8d7ee88f1b9e2e42aed3454b858f93731",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/R2_SAVE.json",
+      "bytes": 304,
+      "git_blob_sha": "05d51901de76ef28808ef5d3ba20c6eb2de14699",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/R2_START_STATE.json",
+      "bytes": 15166,
+      "git_blob_sha": "b1d92f3f3e7d44acde47b522589907c03782e311",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/R2_UPLOAD_MANIFEST.json",
+      "bytes": 1851,
+      "git_blob_sha": "83c1e59567432d9af750675f74eea4652a2ff354",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/R3_FINAL_LOCAL_CHECKS.json",
+      "bytes": 2688,
+      "git_blob_sha": "4b374e632c0bed0f237c9e53523d919e732395af",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/R3_OPENED_R2.json",
+      "bytes": 114645,
+      "git_blob_sha": "81a4d987b18811d2fc0c09a4ed984cd6b65271ab",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/R3_R2_REPRODUCTION_CHECK.json",
+      "bytes": 494,
+      "git_blob_sha": "ef5eca57be20429232160f58ae3e957f34ead590",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/R3_RECOVERY_START.json",
+      "bytes": 47022,
+      "git_blob_sha": "4712907d5bdb47bd7a03e49e6b5ae84d5ec84c06",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/R3_SAVE.json",
+      "bytes": 429,
+      "git_blob_sha": "9218d0dc380090f8e81736b8fb7aa5fef1e3b119",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/R3_UPLOAD_MANIFEST.json",
+      "bytes": 17319,
+      "git_blob_sha": "8fe155f5e6d0cd2185bd44cf2f22e7a8912cc981",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/R4_ARTIFACT_MANIFEST.json",
+      "bytes": 23406,
+      "git_blob_sha": "1a93eebb154fe15ce3c244b5116a51e1fa3ca765",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/R4_FINAL_LOCAL_CHECKS.json",
+      "bytes": 1785,
+      "git_blob_sha": "4e41b037eedefdb3abd917b2456f3ff3f21f6ebc",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/R4_OPENED_R3.json",
+      "bytes": 79131,
+      "git_blob_sha": "4118200928589577233110c303fd67935d3fa57b",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/R4_RECOVERY_START.json",
+      "bytes": 33157,
+      "git_blob_sha": "3e9908a3677c3eb2b901eff921d1972ac36753e9",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/R4_SAVE.json",
+      "bytes": 429,
+      "git_blob_sha": "4cf5ce05a730042bcc27d1fed8bd769160c17f11",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REFERENCE_SHA256.json",
+      "bytes": 269,
+      "git_blob_sha": "4a2c940fecf50a9a325ca8be952da5932c7546f6",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_FRONT.png",
+      "bytes": 682666,
+      "git_blob_sha": "a98eb7ece8b4fac6166d8ff9855afa3ed062caa8",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_FRONT34.png",
+      "bytes": 1076508,
+      "git_blob_sha": "35adbf0f662f6207e8538d2a7388e0ab1ff6d8f3",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_SIDE.png",
+      "bytes": 768001,
+      "git_blob_sha": "69b60d227f38a0a14ecae413c40ccf2258a70f28",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REFINEMENT_CHANGES.json",
+      "bytes": 950,
+      "git_blob_sha": "62acadb4cc6e988ee446d72a703ac53258b98757",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REMOTE_PRESERVATION.json",
+      "bytes": 8100,
+      "git_blob_sha": "daf7b7be5e6480e34763b614a628c5dd1030f5e9",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REMOTE_missing_images.json",
+      "bytes": 6218,
+      "git_blob_sha": "df8e5daa8b9eaea1ab730b7a2ab72559941e7b87",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REMOTE_r2_assets.json",
+      "bytes": 9079,
+      "git_blob_sha": "1cc72f38b8e2ff42c872f8c281abca59ea960d91",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_blockout.json",
+      "bytes": 2264,
+      "git_blob_sha": "28686a58d9efa26b2783aa842e72e76c93cdcf88",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_candidate_review.json",
+      "bytes": 3960,
+      "git_blob_sha": "976baf90cf2d12da7dc8c51d169ae919e73e618e",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_candidate_review.log",
+      "bytes": 102549,
+      "git_blob_sha": "52969c624643ba4ca32b69999f831b284bb2ab8d",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r2_foot_close.json",
+      "bytes": 1844,
+      "git_blob_sha": "eafac81dfd2059436c865f33040147f7d63f830e",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r2_foot_close.log",
+      "bytes": 40454,
+      "git_blob_sha": "a27473c1e3415fd8e5d07c1c71db6ed9d27bb6fd",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r2_recovery.json",
+      "bytes": 3927,
+      "git_blob_sha": "c110b7e42cb2d3f68442f56457b270efb5a7e773",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r2_trial_a.json",
+      "bytes": 2453,
+      "git_blob_sha": "c229b53d5942d816c6e7b3c1080b5d473381114c",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r2_trial_a.log",
+      "bytes": 371,
+      "git_blob_sha": "bfb35055288b43f26146e863dcc8af124daa1b49",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r2_trial_a_restored.log",
+      "bytes": 64424,
+      "git_blob_sha": "6f855aa1ed4901ecb89dd5cb25a958261c2c9a5f",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r2_trial_a_unsandboxed.log",
+      "bytes": 533,
+      "git_blob_sha": "b1ecb5dd0329cdb3c58da04011bf978a440564c2",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r2_trial_b.json",
+      "bytes": 2452,
+      "git_blob_sha": "3c601a90532cec833aeb61b1752a6187ba410da4",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r2_trial_b.log",
+      "bytes": 72122,
+      "git_blob_sha": "fe1eb47eb2567f938dc53703aa9806e8e1184b77",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r3_trial_a.json",
+      "bytes": 2452,
+      "git_blob_sha": "f71174443fd1a780f8d01e33a4e835a0b8281460",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r3_trial_a.log",
+      "bytes": 60323,
+      "git_blob_sha": "5ea30af3e4edcf40c16d08d57c3479bb44b6338d",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r3_trial_b.json",
+      "bytes": 2451,
+      "git_blob_sha": "f9c4562322243ff606357688bee3b1f314279cbc",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r3_trial_b.log",
+      "bytes": 61142,
+      "git_blob_sha": "fa8f671e175ad8624107ac10f8b3857a833f3e39",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r3_trial_b_close.json",
+      "bytes": 1853,
+      "git_blob_sha": "65bd1ca0d07be98bda7102e6a982b2d8db642a79",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r3_trial_b_close.log",
+      "bytes": 37427,
+      "git_blob_sha": "c5bf5a3b2409da50c61adae90fb61c067f0a1ec0",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r4_trial_a.json",
+      "bytes": 2450,
+      "git_blob_sha": "4d28f7ced52ee9dc509a260a270fd089c0b727a0",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r4_trial_a.log",
+      "bytes": 371,
+      "git_blob_sha": "bfb35055288b43f26146e863dcc8af124daa1b49",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r4_trial_a_retry.log",
+      "bytes": 65467,
+      "git_blob_sha": "8d098c08091674ef6975d745da80c6fafc2288ff",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r4_trial_b.json",
+      "bytes": 2453,
+      "git_blob_sha": "a114ee1a8b525f691b124ca28663d2e668d2752a",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r4_trial_b.log",
+      "bytes": 74521,
+      "git_blob_sha": "51aa23c854a3459c2b39a3d61403bb0ac4141cea",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r4_trial_c.json",
+      "bytes": 2453,
+      "git_blob_sha": "b2ef0a82f0c0314113f2e340e99443f62a38d7cc",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r4_trial_c.log",
+      "bytes": 65348,
+      "git_blob_sha": "01b89abb0edceb7e6a3b55e5ee0923ad667dbfc2",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r4_trial_d.json",
+      "bytes": 2453,
+      "git_blob_sha": "28b673f74da54b0c57495d54611d67befa4f6b7c",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r4_trial_d.log",
+      "bytes": 60392,
+      "git_blob_sha": "9b2ebc8cc6097c557c462a720c408752494af8e4",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r4_trial_e.json",
+      "bytes": 2453,
+      "git_blob_sha": "0b81caa0bba6a92a2eec6abf9cbf1df6302635f5",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r4_trial_e.log",
+      "bytes": 61319,
+      "git_blob_sha": "45e4f9f191c65172f65e4b08ffbab6f82f2f3b2d",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_refined.json",
+      "bytes": 2259,
+      "git_blob_sha": "4ff4f6e491b2a547e92af1f8bd271f5cbe4ff869",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r1.json",
+      "bytes": 3923,
+      "git_blob_sha": "8e559e54296ff8f017267a15c112c96a8fed385d",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r1.log",
+      "bytes": 109886,
+      "git_blob_sha": "40f1d35137eb98747594cf8dbc5b7d8d23aba753",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r2.json",
+      "bytes": 3920,
+      "git_blob_sha": "cf901eb44323ca136dd0ce786e373eb9407a5a0a",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r2.log",
+      "bytes": 106098,
+      "git_blob_sha": "b4e507900faadc8e788f2113b979a542ccc3d14d",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r3.json",
+      "bytes": 3919,
+      "git_blob_sha": "673df7b30be12845081b12eef6e40245207f7d6c",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r3.log",
+      "bytes": 102470,
+      "git_blob_sha": "0a0487ec08e4c39d648f7394e1b3b179245cfea3",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r3_close.json",
+      "bytes": 1846,
+      "git_blob_sha": "ef31c66d8523eb624bffa4c5b48259aac557fcd3",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r3_close.log",
+      "bytes": 37842,
+      "git_blob_sha": "61bcd43498ca5515b822efce86d30663cf71d2ff",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r4.json",
+      "bytes": 3922,
+      "git_blob_sha": "8a57b3c6e8c36fa36a5970199ffc4c8a03b9e4e7",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r4.log",
+      "bytes": 102083,
+      "git_blob_sha": "143de4feed1ef784158c6b13ae2b8d52afafb1a5",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R1.json",
+      "bytes": 6203,
+      "git_blob_sha": "9c3b0842733374344381609c8d945c7f658db037",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R1.log",
+      "bytes": 456,
+      "git_blob_sha": "ce62231b7ffaa4b4fbbd41dfc2f7474b1b806493",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R2_TRIAL_A.json",
+      "bytes": 32837,
+      "git_blob_sha": "483065cc3deab2ea7c766dad0562027c4809f1a5",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R2_TRIAL_B.json",
+      "bytes": 716,
+      "git_blob_sha": "166eef4f40f76c94bebc42ee43d6379f463253aa",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R3_TRIAL_A.json",
+      "bytes": 16369,
+      "git_blob_sha": "b2f30d290b5e775cf0011df555464649154da94c",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R3_TRIAL_B.json",
+      "bytes": 5680,
+      "git_blob_sha": "b78341deb59bd994c0dcc640dbcc4b2faac520b1",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R4_TRIAL_A.json",
+      "bytes": 8373,
+      "git_blob_sha": "2d35d18e145df35a31090dce10a5f2d06da730ce",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R4_TRIAL_B.json",
+      "bytes": 8378,
+      "git_blob_sha": "e9227f1cd27921c9facce461fb43157fff27597b",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R4_TRIAL_C.json",
+      "bytes": 8378,
+      "git_blob_sha": "f5b8c8bf5f0d67902048267cc4847cb513a221c2",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R4_TRIAL_D.json",
+      "bytes": 8378,
+      "git_blob_sha": "594634daa45cc7d606898f5fbfcf24bcbc1cc1d3",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R4_TRIAL_E.json",
+      "bytes": 577,
+      "git_blob_sha": "6146a6897e3505f5b090a54b7d879ad283d73bb0",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/SCULPT_R2_REVIEW.json",
+      "bytes": 2077,
+      "git_blob_sha": "481ecbf4835f6cee89d9b799514ff37440bf86d2",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/SCULPT_R3_FINAL_REVIEW.json",
+      "bytes": 1066,
+      "git_blob_sha": "dfa3a2e39f8350849d037c7be74faf3ac9ae925d",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/SCULPT_R3_REVIEW.json",
+      "bytes": 1633,
+      "git_blob_sha": "af2411aebe34be4781664fb47628a6f6e5506b50",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/SCULPT_R4_REVIEW.json",
+      "bytes": 2386,
+      "git_blob_sha": "60e101b4d66c050ac999925b7775b37c00546ab5",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/STRUCTURE_candidate_review.json",
+      "bytes": 3036,
+      "git_blob_sha": "17743c0807b2b399a8cfadcbee7dc44b62407a4d",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/STRUCTURE_candidate_review.log",
+      "bytes": 3298,
+      "git_blob_sha": "10e4697fb7115f68ed5fc981f0c9b2af6b9d6abe",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/STRUCTURE_revised_r1.json",
+      "bytes": 3028,
+      "git_blob_sha": "9a8fdcddb1665446296e6327cdca8cb5ba89fac0",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/STUDIO_DIAGNOSTIC_S_ZERO_R3_TRIAL_B.json",
+      "bytes": 95519,
+      "git_blob_sha": "c7da57bb6545729d17353b47a96b93389a2df095",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_R2_RELOAD.json",
+      "bytes": 57235,
+      "git_blob_sha": "9fbf243243edcab4f7e8f84bbda47b1a9d84bb1c",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_R4_FINAL.log",
+      "bytes": 452,
+      "git_blob_sha": "2af61acf9ca4691454670e0123354231d2834e19",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_R4_TRIAL_A.log",
+      "bytes": 541,
+      "git_blob_sha": "bf6217490191a5b69eeef8b3523a367b18809243",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_R4_TRIAL_B.log",
+      "bytes": 539,
+      "git_blob_sha": "53d711b88a309449e9baf1e578edf602f04863fa",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_R4_TRIAL_C.log",
+      "bytes": 497,
+      "git_blob_sha": "f27c4303379398213a02d9c13466c9b550e4cc17",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_R4_TRIAL_D.log",
+      "bytes": 1440,
+      "git_blob_sha": "54bcef507b8a703414cbc136683b785315664ffc",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_R4_TRIAL_D_RETRY.log",
+      "bytes": 455,
+      "git_blob_sha": "15e7451dcaf226436b98f706f2ea1387d94638a0",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_R4_TRIAL_E.log",
+      "bytes": 455,
+      "git_blob_sha": "aed3ea6fc413af99b63e7b117ce44a4efc088044",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_REVISED_R1.log",
+      "bytes": 466,
+      "git_blob_sha": "8837857ce43f471c73562c27dd24310ceaef3f89",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_SAVED_ORIGINALS.json",
+      "bytes": 178960,
+      "git_blob_sha": "b3bd5309d39e44355d1013b071b41d139f25c1a1",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_SAVED_ORIGINALS.log",
+      "bytes": 371,
+      "git_blob_sha": "bfb35055288b43f26146e863dcc8af124daa1b49",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_SAVED_ORIGINALS_UNSANDBOXED.log",
+      "bytes": 878,
+      "git_blob_sha": "951430c1a0f4e7a7beb6509d7d8c120c1c31a9d2",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_S_ZERO_CANDIDATE_REVISED_R1.json",
+      "bytes": 65614,
+      "git_blob_sha": "6ad0f15f6399dc55fc4c26327df7b07f4ce8f3db",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_S_ZERO_CANDIDATE_REVISED_R3_RELOAD.json",
+      "bytes": 101628,
+      "git_blob_sha": "69d16d12ef88f4ab87ab5ec70c2ccd281c645996",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_S_ZERO_CANDIDATE_REVISED_R4_RELOAD.json",
+      "bytes": 61860,
+      "git_blob_sha": "74710ba891719c6a8029b0b69a915143ec8c4b27",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_S_ZERO_R3_TRIAL_B_RELOAD.json",
+      "bytes": 101621,
+      "git_blob_sha": "b579db84f3dc78cb471f15f1c9800593456f05db",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_S_ZERO_R4_TRIAL_A_RELOAD.json",
+      "bytes": 67512,
+      "git_blob_sha": "634b4f0e3e96372365b6cefa6d1304f0e8a913ce",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_S_ZERO_R4_TRIAL_B_RELOAD.json",
+      "bytes": 62918,
+      "git_blob_sha": "f672b094ed8a345901f824f0875900601edc9104",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_S_ZERO_R4_TRIAL_C_RELOAD.json",
+      "bytes": 63911,
+      "git_blob_sha": "02aa04097e01c85c12a46c8fd0d33def3cf0ae9d",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_S_ZERO_R4_TRIAL_D_RELOAD.json",
+      "bytes": 61608,
+      "git_blob_sha": "1b68c2ff4e49f6ebdc00bb593206d55745ceca33",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_S_ZERO_R4_TRIAL_E_RELOAD.json",
+      "bytes": 61608,
+      "git_blob_sha": "6bae45608352f3913e0348eb620bffd61797a4a4",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_r3_trial_b.log",
+      "bytes": 752,
+      "git_blob_sha": "6feed04d8dd1904193dd33eb39a928c4f8d5c3b9",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_r3_trial_b_diagnostic.log",
+      "bytes": 784,
+      "git_blob_sha": "b18d5fad7080eb0600d459fa44979bcabea7a3e5",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_r3_trial_b_resolved.log",
+      "bytes": 470,
+      "git_blob_sha": "72ab62260cdd7182f1ee0421ebe56263c1efb66c",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_revised_r3.log",
+      "bytes": 467,
+      "git_blob_sha": "35670fe375ec85cd90ddfda8a14fffd125b63394",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/blockout/FRONT.png",
+      "bytes": 1079650,
+      "git_blob_sha": "ddf2190e74133f5b6e9e913e2881d34680a5b13a",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/blockout/FRONT34.png",
+      "bytes": 1207614,
+      "git_blob_sha": "d1d878e0da15794237bb1cd89d2627fc94586ada",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/blockout/SIDE.png",
+      "bytes": 1174130,
+      "git_blob_sha": "5fa556bc9758133046d00ae12650a35c3c307194",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/candidate_review/BACK.png",
+      "bytes": 1097980,
+      "git_blob_sha": "61c575dceeb283909883b92e537a90c4c770fe83",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/candidate_review/FRONT.png",
+      "bytes": 1083192,
+      "git_blob_sha": "4f7806dd4238a63e3c6960ac95eb53dd0a9c7c0a",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/candidate_review/FRONT34.png",
+      "bytes": 1210307,
+      "git_blob_sha": "78a21fca06702a64ad6dd130562d92f7e8186307",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/candidate_review/REAR34.png",
+      "bytes": 1251813,
+      "git_blob_sha": "37ba52ed2a4f72e4fa67842af37dfa52c23ff4a9",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/candidate_review/SIDE.png",
+      "bytes": 1189405,
+      "git_blob_sha": "68be52dc6e1774e1c809161d2349f0df2b4a8a8c",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r2_foot_close/FRONT34.png",
+      "bytes": 837115,
+      "git_blob_sha": "0abf1fbcd36e4f9bd9409d7496cc7a6bf824658f",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r2_foot_close/SIDE.png",
+      "bytes": 817608,
+      "git_blob_sha": "26cd3c14f224daaf1016a92c5499be2a142f0c9a",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r2_recovery/BACK.png",
+      "bytes": 1102685,
+      "git_blob_sha": "88717bd81e2a27d25348ae408f33ac0178a2d95f",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r2_recovery/FRONT.png",
+      "bytes": 1086897,
+      "git_blob_sha": "eee34b236349229782535dd6e60fb608e9b109c6",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r2_recovery/FRONT34.png",
+      "bytes": 1208345,
+      "git_blob_sha": "fb0737f85eb4893bc45abd17ca8fc929cf46a721",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r2_recovery/REAR34.png",
+      "bytes": 1250886,
+      "git_blob_sha": "32c588ba26edefec03cea346cf70ec91cdb38bea",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r2_recovery/SIDE.png",
+      "bytes": 1187904,
+      "git_blob_sha": "bd504e76ff46007d97de6b642582fe4ff55249c5",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r2_trial_a/FRONT.png",
+      "bytes": 1089319,
+      "git_blob_sha": "b3e8d671d85d8387bd3226db974c7931da1620be",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r2_trial_a/FRONT34.png",
+      "bytes": 1210042,
+      "git_blob_sha": "a3291c6414aeb03f840839e6aa8af54a286bae78",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r2_trial_a/SIDE.png",
+      "bytes": 1186474,
+      "git_blob_sha": "4c6398b54f1cad6b6fc520932d0a759726ec549e",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r2_trial_b/FRONT.png",
+      "bytes": 1086900,
+      "git_blob_sha": "84a2250965710911cd9426fc1228b10b2e4607ef",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r2_trial_b/FRONT34.png",
+      "bytes": 1208348,
+      "git_blob_sha": "d6ea8873e769f13f7e2475c421921ed2dd962937",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r2_trial_b/SIDE.png",
+      "bytes": 1187907,
+      "git_blob_sha": "66dd7642d7f5fc787f3140ce4b1c566c0d07a997",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r3_trial_a/FRONT.png",
+      "bytes": 1087971,
+      "git_blob_sha": "497dcc5a684b675d237596f822c2102861811f46",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r3_trial_a/FRONT34.png",
+      "bytes": 1212252,
+      "git_blob_sha": "e942da42025f1e88ea49c5482b78969fe8e02bcd",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r3_trial_a/SIDE.png",
+      "bytes": 1186025,
+      "git_blob_sha": "832916ffbcdc8db57d9bff8ea6d688e194f33585",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r3_trial_b/FRONT.png",
+      "bytes": 1087880,
+      "git_blob_sha": "3d77e427c36ec2b77cd41feda4ec0f17b92e0210",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r3_trial_b/FRONT34.png",
+      "bytes": 1211091,
+      "git_blob_sha": "ee7c9aae423ff3f305de2c10fb494a7b4796e699",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r3_trial_b/SIDE.png",
+      "bytes": 1186377,
+      "git_blob_sha": "288cd017a254de94e3360fe804c85d5cc18a1d9d",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r3_trial_b_close/FRONT34.png",
+      "bytes": 862471,
+      "git_blob_sha": "a50930cda90c1d79e6e78ba29d41d53dbc6da2b1",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r3_trial_b_close/SIDE.png",
+      "bytes": 821556,
+      "git_blob_sha": "6ffd055621d0b0d5b85ca6fd8ac3e0d25f7fe2be",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r4_trial_a/FRONT.png",
+      "bytes": 1089349,
+      "git_blob_sha": "66089b293a17a6852edb86623b5a45fcfc9a6f29",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r4_trial_a/FRONT34.png",
+      "bytes": 1211634,
+      "git_blob_sha": "44bb1454125169ed0901aae822d50b05e7cf5123",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r4_trial_a/SIDE.png",
+      "bytes": 1183063,
+      "git_blob_sha": "5fdb8d80ab2bf00684e63543efdcb4187ca8d502",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r4_trial_b/FRONT.png",
+      "bytes": 1087201,
+      "git_blob_sha": "1745cc84a81f88a4551faf517ba88fda0fc420b4",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r4_trial_b/FRONT34.png",
+      "bytes": 1208695,
+      "git_blob_sha": "1d9d6cb8d9d4029372d8a63ebfa880603bfbd1b1",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r4_trial_b/SIDE.png",
+      "bytes": 1185071,
+      "git_blob_sha": "12f20388108ba6fd6410c881393b698af63fb218",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r4_trial_c/FRONT.png",
+      "bytes": 1087114,
+      "git_blob_sha": "ab1fcabed912e79a2e158ed5f9a2e3b734481a01",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r4_trial_c/FRONT34.png",
+      "bytes": 1208831,
+      "git_blob_sha": "9c4fcef84d83c84dc9e9d1b0583dedf782a68f1c",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r4_trial_c/SIDE.png",
+      "bytes": 1185437,
+      "git_blob_sha": "e26c783408a6ca1e8d8e06f7ace389c06f668724",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r4_trial_d/FRONT.png",
+      "bytes": 1087682,
+      "git_blob_sha": "eca68cf8eb29f9782dd4af16a88c189525cf4b03",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r4_trial_d/FRONT34.png",
+      "bytes": 1209626,
+      "git_blob_sha": "ccaa6544d7c471da8af540d78046f0370c995358",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r4_trial_d/SIDE.png",
+      "bytes": 1185393,
+      "git_blob_sha": "60b5d0fa049edc29fa9171ad22bb63a78dc4e9ce",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r4_trial_e/FRONT.png",
+      "bytes": 1086691,
+      "git_blob_sha": "9e83fa374c76f21b8bdcb0a6f50ed4a76242e52b",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r4_trial_e/FRONT34.png",
+      "bytes": 1208321,
+      "git_blob_sha": "e2e00029adf858eed7f6640a605ab00d405778a1",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r4_trial_e/SIDE.png",
+      "bytes": 1183287,
+      "git_blob_sha": "abf300923469d01fda019781f1907e91b9f3b7d2",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/refined/FRONT.png",
+      "bytes": 1108290,
+      "git_blob_sha": "2b451d84daeb4507dcb9bc44ad2ca19627609fc8",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/refined/FRONT34.png",
+      "bytes": 1230762,
+      "git_blob_sha": "86eba520a44ac9382c827746532441d2f59b25b4",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/refined/SIDE.png",
+      "bytes": 1192372,
+      "git_blob_sha": "71c55f94efece4705a0dcbc495881bc520ee84ba",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r1/BACK.png",
+      "bytes": 1100590,
+      "git_blob_sha": "7d959c325c32388524f9d6219bed7e1a755ba73c",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r1/FRONT.png",
+      "bytes": 1085912,
+      "git_blob_sha": "5321e81f74db0c027c18a540bc28e513de254b2d",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r1/FRONT34.png",
+      "bytes": 1211205,
+      "git_blob_sha": "e614414c6e278609a68a61db0e540e83718c6f27",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r1/REAR34.png",
+      "bytes": 1252982,
+      "git_blob_sha": "15b0e0fc73ccaa807b3d55523693d3bce8374cce",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r1/SIDE.png",
+      "bytes": 1189526,
+      "git_blob_sha": "fda9ba76e473c7971bb37b57d5ee7f96a89453a9",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r2/BACK.png",
+      "bytes": 1102685,
+      "git_blob_sha": "a96498f1ed6ca803f2c0ed0066b42dde043620bf",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r2/FRONT.png",
+      "bytes": 1086897,
+      "git_blob_sha": "b2c9bed2a716c7177558cccccd41e957c767d3b7",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r2/FRONT34.png",
+      "bytes": 1208345,
+      "git_blob_sha": "9e96591386fb228c09e243588ecef38f7047a1a1",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r2/REAR34.png",
+      "bytes": 1250886,
+      "git_blob_sha": "02e1ad0b89176cb9699c8bb820024cac808ebc3f",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r2/SIDE.png",
+      "bytes": 1187904,
+      "git_blob_sha": "36bc684cdb74d461aa404f61525027328d75f41f",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r3/BACK.png",
+      "bytes": 1099826,
+      "git_blob_sha": "14da3e965a93856f4a735c20da53b3c7f00956a4",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r3/FRONT.png",
+      "bytes": 1087877,
+      "git_blob_sha": "555de0a58549538b0c5c3bce7856ac931bf44f88",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r3/FRONT34.png",
+      "bytes": 1211088,
+      "git_blob_sha": "fcd44600455584841f679b55d99d752ecef4b311",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r3/REAR34.png",
+      "bytes": 1247446,
+      "git_blob_sha": "0717a9d470610d7eedab4f75240770d2045fee61",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r3/SIDE.png",
+      "bytes": 1186374,
+      "git_blob_sha": "99db0eaec018e00812f9a3d25a39c2f0cb35eca4",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r3_close/FRONT34.png",
+      "bytes": 862468,
+      "git_blob_sha": "5cd0c698994361fa797a3f35daa90e0f242fcaec",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r3_close/SIDE.png",
+      "bytes": 821553,
+      "git_blob_sha": "c84f83d00acf4d95a4c0f7f0d8ce6e01f6d18eb4",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r4/BACK.png",
+      "bytes": 1099695,
+      "git_blob_sha": "8c0271639139f50343e8c908b1bba2965b5e0a20",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r4/FRONT.png",
+      "bytes": 1086688,
+      "git_blob_sha": "a1e642067199df4164ee32606ccd0ae82f97a4c3",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r4/FRONT34.png",
+      "bytes": 1208318,
+      "git_blob_sha": "2b2dd32400051cd0a18d65a62f2aa30fdb592dc4",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r4/REAR34.png",
+      "bytes": 1243924,
+      "git_blob_sha": "a2e15d2c529e9ad174e05cf9d255cca0da63af93",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r4/SIDE.png",
+      "bytes": 1183284,
+      "git_blob_sha": "25b462205673923db227c86665ada644c6161d8a",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r4_viewport/FRONT.png",
+      "bytes": 151458,
+      "git_blob_sha": "972d7047bdfeb20b01172f44a704cdc39c18ef07",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r4_viewport/FRONT34.png",
+      "bytes": 324750,
+      "git_blob_sha": "59f7d2727ce78e1f2f1e51e71673376660b5618a",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r4_viewport/SIDE.png",
+      "bytes": 321803,
+      "git_blob_sha": "a664a3d6e1656b109dc96e653a716b504429e9b4",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/01_build_blockout.py",
+      "bytes": 15614,
+      "git_blob_sha": "21e76a9b57c1188f3441251b36211e4f2482055d",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/02_refine.py",
+      "bytes": 8096,
+      "git_blob_sha": "b18a804f685842c85137e983a322654138fa49df",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/03_candidate.py",
+      "bytes": 8206,
+      "git_blob_sha": "be0f7de9b340a0c9f1b6e461873ddaa7cc3b2303",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/04_verify_saved.py",
+      "bytes": 3559,
+      "git_blob_sha": "b1d1e30778981e9f73cf5663eb8244263157ebfe",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/05_review_render.py",
+      "bytes": 2336,
+      "git_blob_sha": "e7a5c1e2fbaa799b38c84967ebcae0dbb59032f7",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/06_verify_github.py",
+      "bytes": 3041,
+      "git_blob_sha": "392b41a09c8e5a80b326d7043800538bc2b837d9",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/07_structure_audit.py",
+      "bytes": 1866,
+      "git_blob_sha": "ea4f49529d088f55d9e7f0ff28c3d52abe826fb9",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/08_revise_connections.py",
+      "bytes": 5385,
+      "git_blob_sha": "d43ce15efd152bc2d0e66078b7160b5eb1db5e47",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/09_build_comparisons.py",
+      "bytes": 4570,
+      "git_blob_sha": "f77de4a669dfd9fd1c8f5faef7ce9cbb5141f496",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/10_preserve_small_uploads.py",
+      "bytes": 4647,
+      "git_blob_sha": "6e3feca9a860906e74a203b94d9421d735c6d4d5",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/11_sculpt_r2.py",
+      "bytes": 8279,
+      "git_blob_sha": "29b6639fc90ee2cdded272bb3edf0291c3446f3a",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/12_compare_r2.py",
+      "bytes": 3199,
+      "git_blob_sha": "ea79d4c42755ff87a2c7fdd1b0d517ad7d34ba6b",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/13_refine_r2_interface.py",
+      "bytes": 5260,
+      "git_blob_sha": "75815c202882d3a8d08425e5562cc4e6eb76964b",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/14_verify_r2.py",
+      "bytes": 7073,
+      "git_blob_sha": "262dece4c09112627a6ed2577bf845c3547a1028",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/15_save_reviewed_r2.py",
+      "bytes": 1711,
+      "git_blob_sha": "5c60829b9b762a489f1cb9870e6779338e257672",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/16_check_r2_evidence.py",
+      "bytes": 3338,
+      "git_blob_sha": "79719a88a988258242670f0e96d18397f9131d87",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/17_verify_remote_r2.py",
+      "bytes": 3190,
+      "git_blob_sha": "f1352a02426924355c2e46ad5899c0dcca618d3c",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/18_blender_mcp_client.py",
+      "bytes": 1366,
+      "git_blob_sha": "f88f9b63b9762f360d2fc20ef278c4163f41fbd2",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/19_sculpt_r3_feet.py",
+      "bytes": 8795,
+      "git_blob_sha": "3dc8e80f11155044a6b9c4cf369dc17a8c255f33",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/20_compare_r3.py",
+      "bytes": 4228,
+      "git_blob_sha": "df8630a58028cd3c30a316be2b8da448feaec96d",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/21_render_foot_details.py",
+      "bytes": 2547,
+      "git_blob_sha": "018e720cc58edfd15496133c29052d31fb632cfa",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/22_refine_r3_heel_ankle.py",
+      "bytes": 4189,
+      "git_blob_sha": "05b33407c05491ec03a51e423079a6a5b46a23b6",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/23_verify_r3.py",
+      "bytes": 9449,
+      "git_blob_sha": "8bf109f67afaecf9321cf1f0cbfbb8915dd824ab",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/24_save_reviewed_r3.py",
+      "bytes": 2472,
+      "git_blob_sha": "66948517bcd8d8d9340100339d08ada306d41bc6",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/25_verify_remote_r3.py",
+      "bytes": 3757,
+      "git_blob_sha": "95c4f7eb9023fb783e93a59ceea3dada36e3433f",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/26_finalize_r3_evidence.py",
+      "bytes": 4076,
+      "git_blob_sha": "93b9af6eddc9b32b20e337183eee1ea41c0cdf91",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/28_inspect_r4.py",
+      "bytes": 1649,
+      "git_blob_sha": "90a06d6021dc4d8fd41b760800e2dad1905aafe6",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/29_sculpt_r4_crown.py",
+      "bytes": 11445,
+      "git_blob_sha": "97046daa935f1dfd6f433e058de799728655bc11",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/30_compare_r4.py",
+      "bytes": 3722,
+      "git_blob_sha": "f1b915629ee16c9653689e366d60f433db4eb0fb",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/31_verify_r4.py",
+      "bytes": 8249,
+      "git_blob_sha": "27fff3fa3586085377893da83e019030ff15547e",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/32_refine_r4_crown.py",
+      "bytes": 453,
+      "git_blob_sha": "6ca356c82acadf8d6d4f1ad6409427b5720d3adf",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/33_capture_r4_viewport.py",
+      "bytes": 2123,
+      "git_blob_sha": "03ba56c9488d7851062f68b41ad349af55b5c276",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/34_refine_r4_shell.py",
+      "bytes": 446,
+      "git_blob_sha": "45a75851511bd0c414b96dafd5cce00a37040012",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/35_refine_r4_concave_sections.py",
+      "bytes": 541,
+      "git_blob_sha": "44da69ae33369139c4b9a251943ef6ce08a767ac",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/36_save_reviewed_r4.py",
+      "bytes": 2390,
+      "git_blob_sha": "cf8f51f69c9e5b8634017feb60884a574ad275b6",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/37_finish_r4_surfaces.py",
+      "bytes": 1849,
+      "git_blob_sha": "3fd168b53bd2a7f96bdc1d7bd376451f2006c340",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/38_finalize_r4_evidence.py",
+      "bytes": 2879,
+      "git_blob_sha": "9886843abe37ba016a0daedc2d3fa55ea606120a",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/39_verify_remote_r4.py",
+      "bytes": 3798,
+      "git_blob_sha": "bd13fe331e4ca7ba6b3129e44835796f5a45a8be",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/40_publish_r4_git_objects.py",
+      "bytes": 5565,
+      "git_blob_sha": "2af677be97d03fe9af65a741da5771192ea91bbd",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/render_saved_stage.py",
+      "bytes": 1134,
+      "git_blob_sha": "616170c7cd5614cfa743ed4ced3faf12e523fbd7",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_CANDIDATE_REVIEW.blend",
+      "bytes": 1224567,
+      "git_blob_sha": "84157b304cb8ef187eadf4cd1161dc795eefd21a",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R2_TRIAL_A.blend",
+      "bytes": 1203278,
+      "git_blob_sha": "f14bd12d3ce48370552f78eaa185d39b125b3101",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R2_TRIAL_B.blend",
+      "bytes": 1259034,
+      "git_blob_sha": "b261e23f64f8c162be5731cb5c0fadb10f2a8fb1",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R2_WORKING_COPY.blend",
+      "bytes": 1212726,
+      "git_blob_sha": "6a2009282a49a119021569d3a05131de160aa5fa",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R3_TRIAL_A.blend",
+      "bytes": 1242648,
+      "git_blob_sha": "fa5abdf75a158a552fc9cb90eca48cb1c7a8a997",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R3_TRIAL_B.blend",
+      "bytes": 1240655,
+      "git_blob_sha": "783819e78d1625ce808f1e9e63198547839d3e21",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R3_WORKING_COPY.blend",
+      "bytes": 1259118,
+      "git_blob_sha": "f0d9b68b836c27252362d26ce4587c41ca422a13",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R4_TRIAL_A.blend",
+      "bytes": 1269184,
+      "git_blob_sha": "08295ec1f02be439153ed4bed38cdd8d59040768",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R4_TRIAL_B.blend",
+      "bytes": 1268432,
+      "git_blob_sha": "3f7f60eef359f4ddc545c6b4a9161bf39e50ef88",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R4_TRIAL_C.blend",
+      "bytes": 1285050,
+      "git_blob_sha": "2c5db46d899ace723bf57636d4017a5de4c89363",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R4_TRIAL_D.blend",
+      "bytes": 1279032,
+      "git_blob_sha": "5dc5bb4ee9ec53f2eff6581e0b65d531a9e560ff",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R4_TRIAL_E.blend",
+      "bytes": 1279093,
+      "git_blob_sha": "4fd3935f1e55d674e799f07c0cf0f10b718fd8a5",
+      "matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R4_WORKING_COPY.blend",
+      "bytes": 1239953,
+      "git_blob_sha": "580af6f592191533617abfc3c2ff4ae68c64e72f",
+      "matches_local": true
+    }
+  ],
+  "download_checks": [
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R4.blend",
+      "bytes": 1278843,
+      "sha256": "8533fc33a2d43d498618a5f449b675a25bf7d7126d72eee3b936db843f0c11ad",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R4.blend"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/R4_QUALITY_REVIEW.md",
+      "bytes": 9753,
+      "sha256": "a5da9a5de89a5204d8e9644a5e9bd90c11538a0dd1ab01a1ee2a42b98aa4bd5d",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/R4_QUALITY_REVIEW.md"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_S_ZERO_CANDIDATE_REVISED_R4_RELOAD.json",
+      "bytes": 61860,
+      "sha256": "eda3e8c854193571a4d55002610550d5ca25908526392ec2593925bf9c9d91cb",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/evidence/VERIFY_S_ZERO_CANDIDATE_REVISED_R4_RELOAD.json"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/SCULPT_R4_REVIEW.json",
+      "bytes": 2386,
+      "sha256": "92d606086246267438b2e964aeb807f9e21ce5d977a89ee167766c47b5bba18a",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/evidence/SCULPT_R4_REVIEW.json"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/R4_SAVE.json",
+      "bytes": 429,
+      "sha256": "482cc863dc89bc5c5a36718c1f4936f8b7eb2a5286f07c0d50f7fad182e41b94",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/evidence/R4_SAVE.json"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/R4_FINAL_LOCAL_CHECKS.json",
+      "bytes": 1785,
+      "sha256": "953e140f593e7ae64312530b56a19bc50d862f5bf4051f6e0d58712d87cec6ce",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/evidence/R4_FINAL_LOCAL_CHECKS.json"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r4/SIDE.png",
+      "bytes": 1183284,
+      "sha256": "1300162ee23e0e9c361c08efeb30b4a083945f5a4397963d231aa0a0ceb0aaee",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/renders/revised_r4/SIDE.png"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r4/FRONT.png",
+      "bytes": 1086688,
+      "sha256": "7589b36a8dc607a0d25b2167e82e1e484126d22f6cf9b50d1b0e638cb8cf76fe",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/renders/revised_r4/FRONT.png"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r4/FRONT34.png",
+      "bytes": 1208318,
+      "sha256": "ef4bf5e52bdae10024f346a6e24a1ee51167598bafcf441e63d1a01417cfe5da",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/renders/revised_r4/FRONT34.png"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r4/REAR34.png",
+      "bytes": 1243924,
+      "sha256": "04bd90a2f77a0accc69b610cbd12eb1f5725d7119acdc2ead9762f58bf808cfe",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/renders/revised_r4/REAR34.png"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r4/BACK.png",
+      "bytes": 1099695,
+      "sha256": "ee9f6d994ef16bbaa59a2a575e9845ad85bd5b5f36fdc543194e22c5db7c7fe3",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/renders/revised_r4/BACK.png"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r4_viewport/SIDE.png",
+      "bytes": 321803,
+      "sha256": "f706fca4fc1152da00f13522b40b68c9ed694ddbbf5576208cb180291c63ff17",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/renders/revised_r4_viewport/SIDE.png"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r4_viewport/FRONT.png",
+      "bytes": 151458,
+      "sha256": "8f227c59fdcd938b397bf50544675820a2a515cf3eb6dad97a1fea5da6f2282b",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/renders/revised_r4_viewport/FRONT.png"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r4_viewport/FRONT34.png",
+      "bytes": 324750,
+      "sha256": "acd7252d6a562ab9b686cfa1a5e09926178405f07c7aeb40c5156a4bcd0dca70",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/renders/revised_r4_viewport/FRONT34.png"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R4_CROWN_COMPARISON.png",
+      "bytes": 1261796,
+      "sha256": "a137fa76f78246334d2fae032b8378a15aef6bca48a8973ca588bf0821a36f0b",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R4_CROWN_COMPARISON.png"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R4_FIVE_VIEWS.png",
+      "bytes": 1205346,
+      "sha256": "6d292dce797d6f0de34c3ce296f2898d1ea53e61589fba3c1f87a90aa86ef91f",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R4_FIVE_VIEWS.png"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R4_R3_FIVE_VIEW_COMPARISON.png",
+      "bytes": 1879375,
+      "sha256": "3abd396a54d93bc43ed2b55e68226a208c3922452e02f59af484bb6e532d8cf8",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R4_R3_FIVE_VIEW_COMPARISON.png"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R4_REFERENCE_R3_COMPARISON.png",
+      "bytes": 1293876,
+      "sha256": "e5bd68f0ccf1dc3ea33d118785d66201a0a91ccd1c9dbc222e3cb75c1fbef1f7",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R4_REFERENCE_R3_COMPARISON.png"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R4_STATIC_128PX.png",
+      "bytes": 154589,
+      "sha256": "2c237305e9961f5daf72c0ddf1418b3395251f6699b3eda614062ec27c9d0e75",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R4_STATIC_128PX.png"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/28_inspect_r4.py",
+      "bytes": 1649,
+      "sha256": "cf051b90f23a4f8f74189b6b210f8d067eacfc05f131db34bb106421321b0612",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/scripts/28_inspect_r4.py"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/29_sculpt_r4_crown.py",
+      "bytes": 11445,
+      "sha256": "ce8bf1c4997836a5cad336a3e15337b7963eeb7345d8d20bdbf71f49db3ffd55",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/scripts/29_sculpt_r4_crown.py"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/30_compare_r4.py",
+      "bytes": 3722,
+      "sha256": "d2a97ce24cef0436a921062d0ab6bce26c4db6be4e16c9c9e2afecbecaf1e453",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/scripts/30_compare_r4.py"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/31_verify_r4.py",
+      "bytes": 8249,
+      "sha256": "9bbef9b0814b78b95115d25f8d6c8724295a2a7245b29c200251aa05f1ee6dc4",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/scripts/31_verify_r4.py"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/32_refine_r4_crown.py",
+      "bytes": 453,
+      "sha256": "c4ee231933fcaed52b69796ed0025a1f4297ed58c6fc75a6c543a0dc4c3c93e4",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/scripts/32_refine_r4_crown.py"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/33_capture_r4_viewport.py",
+      "bytes": 2123,
+      "sha256": "9a8043c55755a930c7a1c6882d0edc6c0ae32e8bad541dd49c7eca798a4c11f4",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/scripts/33_capture_r4_viewport.py"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/34_refine_r4_shell.py",
+      "bytes": 446,
+      "sha256": "731722b3f31c93c3df559fee7c5d76e1e8a280e01a0a30f2ee35339d986926fe",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/scripts/34_refine_r4_shell.py"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/35_refine_r4_concave_sections.py",
+      "bytes": 541,
+      "sha256": "3d1cdad88cfdd37783d65012ec30d2e1f95d852a8cc43a9371e9d8919e3f701b",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/scripts/35_refine_r4_concave_sections.py"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/36_save_reviewed_r4.py",
+      "bytes": 2390,
+      "sha256": "fe6c64730a63cb8b512b5d81d0475b44698b72249c5adf82c972853d530c9247",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/scripts/36_save_reviewed_r4.py"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/37_finish_r4_surfaces.py",
+      "bytes": 1849,
+      "sha256": "12ed2fa7f7fc15ac78e3b0c03db724dc2a80c2bd41b8bba351130edac1d0b92b",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/scripts/37_finish_r4_surfaces.py"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/38_finalize_r4_evidence.py",
+      "bytes": 2879,
+      "sha256": "3179dfe3ab7ab5012a1de4fa84a282d1acca8832522aa01b521c92ef9dbd4b27",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/scripts/38_finalize_r4_evidence.py"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/39_verify_remote_r4.py",
+      "bytes": 3798,
+      "sha256": "0478fb2b19a49c70d6945d9858db13beafb84a7ee5b82da13b0cb4f5bbff6f0d",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/scripts/39_verify_remote_r4.py"
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/40_publish_r4_git_objects.py",
+      "bytes": 5565,
+      "sha256": "06238f4b746f29ceb3b853eacb79ec8e3e27c2b291cd28c67570b2ddcc498f78",
+      "download_matches_local": true,
+      "method": "GitHub Git blob API; downloaded and saved",
+      "url": "https://github.com/badjoke-lab/evowild-test/blob/c3301192231b1722fd945a63fd73285382cd6289/art/s-creature/zero-rebuild-20261017/scripts/40_publish_r4_git_objects.py"
+    }
+  ],
+  "download_directory": "/var/folders/z1/4gp63jwd74n1_6d8h2tgl5_c0000gn/T/evowild-r4-github-_9nuwxjx",
+  "pending_artifacts": [],
+  "force_push_used": false
+}
