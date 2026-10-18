@@ -1,0 +1,14 @@
+{
+  "operation": "individual raw download verification",
+  "failure": "Command '['gh', 'api', 'repos/badjoke-lab/evowild-test/contents/art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_B_REFERENCE_R1_COMPARISON.png?ref=19d233bfa97822f387e3fc17f2b4b8d386d12d6d', '-H', 'Accept: application/vnd.github.raw']' timed out after 75 seconds",
+  "verified_before_retry": 19,
+  "pending_at_retry": [
+    "art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_B_REFERENCE_R1_COMPARISON.png",
+    "art/s-creature/zero-rebuild-20261017/renders/r2_trial_b/FRONT.png",
+    "art/s-creature/zero-rebuild-20261017/renders/r2_trial_b/FRONT34.png",
+    "art/s-creature/zero-rebuild-20261017/renders/r2_trial_b/SIDE.png"
+  ],
+  "retry_policy": "Check existing remote blob; download only if already uploaded. No resend of verified artifacts.",
+  "second_raw_download_timeout": "Command '['gh', 'api', 'repos/badjoke-lab/evowild-test/contents/art/s-creature/zero-rebuild-20261017/renders/r2_trial_b/FRONT.png?ref=d61c2bb50a1450c01472174c4bb8aedc91eb0bd0', '-H', 'Accept: application/vnd.github.raw']' timed out after 75 seconds",
+  "resolution": "Change verification transport to Git blob API; base64 decode and compare exact bytes. Existing uploaded blobs are not resent."
+}

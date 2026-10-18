@@ -1,0 +1,9 @@
+Blender 4.3.2 (hash 32f5fdce0a0a built 2024-12-17 02:17:19)
+Read blend: "/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R2_TRIAL_A.blend"
+OSError: Python file "/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/scripts/05_review_render.py" could not be opened: No such file or directory
+
+Error: script failed, file: 'art/s-creature/zero-rebuild-20261017/scripts/05_review_render.py', exiting.
+BlenderMCP addon registered
+BlenderMCP addon unregistered
+
+Blender quit

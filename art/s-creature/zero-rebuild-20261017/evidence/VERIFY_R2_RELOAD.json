@@ -1,0 +1,2374 @@
+{
+  "blender": "4.3.2",
+  "reopened": "S_ZERO_CANDIDATE_REVISED_R2.blend",
+  "r1_sha256": "f8e8a80360ee5886d485a17610cf62a9387d10cdb09e4801a055be99bf8d8a4f",
+  "r2_sha256": "3406e12f54670ca397eb31825721aa08e36fbc46a0bc68e2dcfbcbaae0c09662",
+  "mesh_count": 144,
+  "vertices": 39691,
+  "faces": 40014,
+  "unchanged_meshes": [
+    "ANKLE_FIN_FORE_FAR",
+    "ANKLE_FIN_FORE_NEAR",
+    "ANKLE_FIN_HIND_FAR",
+    "ANKLE_FIN_HIND_NEAR",
+    "CANNON_RIDGE_FORE_FAR",
+    "CANNON_RIDGE_FORE_NEAR",
+    "CANNON_RIDGE_HIND_FAR",
+    "CANNON_RIDGE_HIND_NEAR",
+    "CHEEK_F",
+    "CHEEK_N",
+    "CUE_DOT_F",
+    "CUE_DOT_N",
+    "CUE_FACE_F",
+    "CUE_FACE_N",
+    "CUE_FRAME_F",
+    "CUE_FRAME_N",
+    "CUE_RIM_F",
+    "CUE_RIM_N",
+    "CUE_ROUND_F",
+    "CUE_ROUND_N",
+    "CUE_SIGNAL_F",
+    "CUE_SIGNAL_N",
+    "DORSAL_BLUE_0_-1",
+    "DORSAL_BLUE_0_1",
+    "DORSAL_BLUE_1_-1",
+    "DORSAL_BLUE_1_1",
+    "DORSAL_BLUE_2_-1",
+    "DORSAL_BLUE_2_1",
+    "DORSAL_CREST_0_-1",
+    "DORSAL_CREST_0_1",
+    "DORSAL_CREST_1_-1",
+    "DORSAL_CREST_1_1",
+    "DORSAL_CREST_2_-1",
+    "DORSAL_CREST_2_1",
+    "DORSAL_MANTLE",
+    "ELBOW_SPUR_FORE_FAR",
+    "ELBOW_SPUR_FORE_NEAR",
+    "EYE_F",
+    "EYE_N",
+    "EYE_SOCKET_F",
+    "EYE_SOCKET_N",
+    "FOREHEAD_MEDIAN",
+    "HOOF_FACE_FORE_FAR_-1",
+    "HOOF_FACE_FORE_FAR_1",
+    "HOOF_FACE_FORE_NEAR_-1",
+    "HOOF_FACE_FORE_NEAR_1",
+    "HOOF_FACE_HIND_FAR_-1",
+    "HOOF_FACE_HIND_FAR_1",
+    "HOOF_FACE_HIND_NEAR_-1",
+    "HOOF_FACE_HIND_NEAR_1",
+    "HOOF_SIGNAL_FORE_FAR_-1",
+    "HOOF_SIGNAL_FORE_FAR_1",
+    "HOOF_SIGNAL_FORE_NEAR_-1",
+    "HOOF_SIGNAL_FORE_NEAR_1",
+    "HOOF_SIGNAL_HIND_FAR_-1",
+    "HOOF_SIGNAL_HIND_FAR_1",
+    "HOOF_SIGNAL_HIND_NEAR_-1",
+    "HOOF_SIGNAL_HIND_NEAR_1",
+    "LOWER_RIB_F",
+    "LOWER_RIB_N",
+    "MOUTH_SEAM_-1",
+    "MOUTH_SEAM_1",
+    "NAPE_FIN_F",
+    "NAPE_FIN_N",
+    "NAPE_IVORY_F",
+    "NAPE_IVORY_N",
+    "NECK_TENDON_F",
+    "NECK_TENDON_N",
+    "NOSE_CAP",
+    "PELVIS_F",
+    "PELVIS_N",
+    "RIB_SHELL_F",
+    "RIB_SHELL_N",
+    "SACRAL_MANTLE",
+    "TAIL_BLADE_0_-1",
+    "TAIL_BLADE_0_1",
+    "TAIL_BLADE_1_-1",
+    "TAIL_BLADE_1_1",
+    "TAIL_BLADE_2_-1",
+    "TAIL_BLADE_2_1",
+    "TAIL_BLADE_3_-1",
+    "TAIL_BLADE_3_1",
+    "TAIL_BLADE_4_-1",
+    "TAIL_BLADE_4_1",
+    "TAIL_BLADE_5_-1",
+    "TAIL_BLADE_5_1",
+    "TAIL_BLADE_6_-1",
+    "TAIL_BLADE_6_1",
+    "TAIL_BLUE_0_-1",
+    "TAIL_BLUE_0_1",
+    "TAIL_BLUE_1_-1",
+    "TAIL_BLUE_1_1",
+    "TAIL_BLUE_2_-1",
+    "TAIL_BLUE_2_1",
+    "TAIL_BLUE_3_-1",
+    "TAIL_BLUE_3_1",
+    "TAIL_BLUE_4_-1",
+    "TAIL_BLUE_4_1",
+    "TAIL_BLUE_5_-1",
+    "TAIL_BLUE_5_1",
+    "TAIL_BLUE_6_-1",
+    "TAIL_BLUE_6_1",
+    "TAIL_IVORY_0_-1",
+    "TAIL_IVORY_0_1",
+    "TAIL_IVORY_1_-1",
+    "TAIL_IVORY_1_1",
+    "TAIL_IVORY_2_-1",
+    "TAIL_IVORY_2_1",
+    "TAIL_IVORY_3_-1",
+    "TAIL_IVORY_3_1",
+    "TAIL_IVORY_4_-1",
+    "TAIL_IVORY_4_1",
+    "TAIL_TIP",
+    "TOE_CYAN_FORE_FAR_-1",
+    "TOE_CYAN_FORE_FAR_1",
+    "TOE_CYAN_FORE_NEAR_-1",
+    "TOE_CYAN_FORE_NEAR_1",
+    "TOE_CYAN_HIND_FAR_-1",
+    "TOE_CYAN_HIND_FAR_1",
+    "TOE_CYAN_HIND_NEAR_-1",
+    "TOE_CYAN_HIND_NEAR_1",
+    "TOE_FORE_FAR_-1",
+    "TOE_FORE_FAR_1",
+    "TOE_FORE_NEAR_-1",
+    "TOE_FORE_NEAR_1",
+    "TOE_HIND_FAR_-1",
+    "TOE_HIND_FAR_1",
+    "TOE_HIND_NEAR_-1",
+    "TOE_HIND_NEAR_1",
+    "TOE_IVORY_FORE_FAR_-1",
+    "TOE_IVORY_FORE_FAR_1",
+    "TOE_IVORY_FORE_NEAR_-1",
+    "TOE_IVORY_FORE_NEAR_1",
+    "TOE_IVORY_HIND_FAR_-1",
+    "TOE_IVORY_HIND_FAR_1",
+    "TOE_IVORY_HIND_NEAR_-1",
+    "TOE_IVORY_HIND_NEAR_1"
+  ],
+  "changed_meshes": [
+    "CROWN_BLUE_F",
+    "CROWN_BLUE_N",
+    "CROWN_IVORY_RIDGE_F",
+    "CROWN_IVORY_RIDGE_N",
+    "CROWN_MAIN_F",
+    "CROWN_MAIN_N",
+    "S_ZERO_BODY_CONTINUOUS"
+  ],
+  "merged_into_body": [
+    "BRACHIAL_FORE_FAR",
+    "BRACHIAL_FORE_NEAR",
+    "DELTOID_F",
+    "DELTOID_N",
+    "SCAPULA_F",
+    "SCAPULA_N"
+  ],
+  "untouched_body_vertex_count": 21497,
+  "crown_xz_coordinates_exactly_unchanged": true,
+  "crown_frontal_sections_r1": {
+    "CROWN_MAIN_N": {
+      "2.4": {
+        "min_y": -0.17322984124693705,
+        "max_y": -0.13159884055584065,
+        "width": 0.041631000691096404
+      },
+      "2.64": {
+        "min_y": -0.19993679822508403,
+        "max_y": -0.15056893831803633,
+        "width": 0.0493678599070477
+      },
+      "2.84": {
+        "min_y": -0.19826592513343103,
+        "max_y": -0.154616114910868,
+        "width": 0.043649810222563035
+      }
+    },
+    "CROWN_MAIN_F": {
+      "2.4": {
+        "min_y": 0.13159884055584065,
+        "max_y": 0.17322984124693705,
+        "width": 0.041631000691096404
+      },
+      "2.64": {
+        "min_y": 0.15056893831803633,
+        "max_y": 0.19993679822508403,
+        "width": 0.0493678599070477
+      },
+      "2.84": {
+        "min_y": 0.154616114910868,
+        "max_y": 0.19826592513343103,
+        "width": 0.043649810222563035
+      }
+    }
+  },
+  "crown_frontal_sections_r2": {
+    "CROWN_MAIN_N": {
+      "2.4": {
+        "min_y": -0.16888349458701124,
+        "max_y": -0.12150481102669482,
+        "width": 0.04737868356031642
+      },
+      "2.64": {
+        "min_y": -0.20499492026315508,
+        "max_y": -0.12893887189797468,
+        "width": 0.0760560483651804
+      },
+      "2.84": {
+        "min_y": -0.1952098912511381,
+        "max_y": -0.1421361664343984,
+        "width": 0.05307372481673972
+      }
+    },
+    "CROWN_MAIN_F": {
+      "2.4": {
+        "min_y": 0.12150481102669482,
+        "max_y": 0.16888349458701124,
+        "width": 0.04737868356031642
+      },
+      "2.64": {
+        "min_y": 0.12893887189797468,
+        "max_y": 0.20499492026315508,
+        "width": 0.0760560483651804
+      },
+      "2.84": {
+        "min_y": 0.1421361664343984,
+        "max_y": 0.1952098912511381,
+        "width": 0.05307372481673972
+      }
+    }
+  },
+  "studio_lights_cameras_world_color_management_unchanged": true,
+  "studio_snapshot": {
+    "Ground": {
+      "type": "MESH",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh_sha256": "4dd211b5fdd2f20ede5349dfcafdd8f92cbe95b8cbc4934a721502657ac5e29a"
+    },
+    "Key": {
+      "type": "LIGHT",
+      "matrix": [
+        [
+          0.800000011920929,
+          0.44396400451660156,
+          -0.403603732585907,
+          -3.0
+        ],
+        [
+          -0.6000000238418579,
+          0.5919520258903503,
+          -0.5381382703781128,
+          -4.0
+        ],
+        [
+          1.9982165255783002e-08,
+          0.6726728677749634,
+          0.7399400472640991,
+          7.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "energy": 1300.0,
+      "shape": "DISK",
+      "size": 5.0
+    },
+    "Fill": {
+      "type": "LIGHT",
+      "matrix": [
+        [
+          -0.9701425433158875,
+          0.12574879825115204,
+          -0.20739027857780457,
+          -1.0
+        ],
+        [
+          -0.2425355464220047,
+          -0.5029956698417664,
+          0.8295612335205078,
+          4.0
+        ],
+        [
+          -8.196152379014165e-08,
+          0.8550921678543091,
+          0.5184760093688965,
+          4.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "energy": 1000.0,
+      "shape": "DISK",
+      "size": 4.0
+    },
+    "Rim": {
+      "type": "LIGHT",
+      "matrix": [
+        [
+          -0.447213739156723,
+          -0.6344165205955505,
+          0.6304883360862732,
+          4.0
+        ],
+        [
+          0.8944271206855774,
+          -0.3172083795070648,
+          0.31524428725242615,
+          2.0
+        ],
+        [
+          2.136569587918302e-09,
+          0.7049074769020081,
+          0.7092992663383484,
+          6.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "energy": 1600.0,
+      "shape": "DISK",
+      "size": 3.0
+    },
+    "CAM_SIDE": {
+      "type": "CAMERA",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.029999999329447746
+        ],
+        [
+          0.0,
+          -1.6292068494294654e-07,
+          -1.0,
+          -12.0
+        ],
+        [
+          0.0,
+          1.0,
+          -1.6292068494294654e-07,
+          1.559999942779541
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projection": "ORTHO",
+      "ortho_scale": 5.650000095367432,
+      "lens": 50.0
+    },
+    "CAM_FRONT": {
+      "type": "CAMERA",
+      "matrix": [
+        [
+          -4.371138828673793e-08,
+          -4.371138828673793e-08,
+          -1.0,
+          -11.970000267028809
+        ],
+        [
+          -1.0,
+          1.910685676922942e-15,
+          4.371138828673793e-08,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          -4.371138828673793e-08,
+          1.559999942779541
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projection": "ORTHO",
+      "ortho_scale": 4.650000095367432,
+      "lens": 50.0
+    },
+    "CAM_FRONT34": {
+      "type": "CAMERA",
+      "matrix": [
+        [
+          0.4788520932197571,
+          0.05245398357510567,
+          -0.8763271570205688,
+          -10.485926628112793
+        ],
+        [
+          -0.8778955936431885,
+          0.0286113228648901,
+          -0.4779965877532959,
+          -5.735959529876709
+        ],
+        [
+          5.4220777201408055e-08,
+          0.9982134103775024,
+          0.05974971503019333,
+          2.2769949436187744
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projection": "ORTHO",
+      "ortho_scale": 4.650000095367432,
+      "lens": 50.0
+    },
+    "CAM_REAR34": {
+      "type": "CAMERA",
+      "matrix": [
+        [
+          0.628337025642395,
+          -0.054180122911930084,
+          0.7760522365570068,
+          9.342625617980957
+        ],
+        [
+          0.7779412269592285,
+          0.04376092180609703,
+          -0.6268112659454346,
+          -7.5217366218566895
+        ],
+        [
+          -4.951031939981476e-08,
+          0.9975718259811401,
+          0.06964556127786636,
+          2.3957486152648926
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projection": "ORTHO",
+      "ortho_scale": 4.650000095367432,
+      "lens": 50.0
+    },
+    "CAM_BACK": {
+      "type": "CAMERA",
+      "matrix": [
+        [
+          -4.371138828673793e-08,
+          4.371138828673793e-08,
+          1.0,
+          12.029999732971191
+        ],
+        [
+          1.0,
+          1.910685676922942e-15,
+          4.371138828673793e-08,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          -4.371138828673793e-08,
+          1.559999942779541
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projection": "ORTHO",
+      "ortho_scale": 4.650000095367432,
+      "lens": 50.0
+    },
+    "color_management": {
+      "view_transform": "AgX",
+      "look": "None",
+      "exposure": 0.0,
+      "gamma": 1.0
+    },
+    "world": [
+      {
+        "type": "BACKGROUND",
+        "inputs": {
+          "Color": [
+            0.3199999928474426,
+            0.38999998569488525,
+            0.47999998927116394,
+            1.0
+          ],
+          "Strength": 0.6499999761581421,
+          "Weight": 0.0
+        }
+      },
+      {
+        "type": "OUTPUT_WORLD",
+        "inputs": {}
+      }
+    ]
+  },
+  "body_nonadjacent_self_overlap_candidates": 0,
+  "protected_file_sha256": {
+    "art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE.blend": "fac25ffe586cacd294c4d0b9f7ab4ae71f93595a3f70fcfa9354c5b44cbef29d",
+    "art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R1.blend": "f8e8a80360ee5886d485a17610cf62a9387d10cdb09e4801a055be99bf8d8a4f",
+    "art/s-creature/zero-rebuild-20261017/S_ZERO_REFINED.blend": "24f1b61d23c6eda67e3d9dbb39ce96c99ac11b6dbf375fffb9fc782dff4dcba5",
+    "art/s-creature/zero-rebuild-20261017/README.md": "e2cff30784c529cd3a0f80e7147966b1a7228f2616cdc7404ffe5e6b73069ee2",
+    "art/s-creature/zero-rebuild-20261017/S_ZERO_BLOCKOUT.blend": "eb1b959264916d7512893c6c419ae2a056333b49b4165145b2b88f7ae518e502",
+    "art/s-creature/zero-rebuild-20261017/comparisons/SHOULDER_HIP_PROGRESS.png": "b9a716ec6ce225c06f1e3d12f94949e5795d3ef28f312988cb7d1a89e97de475",
+    "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R1_FIVE_VIEWS.png": "2ae621a9a12039de72f353b7edd37ed5fa05d2acdcdf929f743f1ae26d830718",
+    "art/s-creature/zero-rebuild-20261017/comparisons/STATIC_128PX_PREVIEW.png": "857cb66f3770a2ee8fdfe41fb7276148bd8f6c8422b9a1cbae700aa8e885ede5",
+    "art/s-creature/zero-rebuild-20261017/comparisons/BEFORE_AFTER_FIVE_VIEWS.png": "f776be4478899530d70e65d6770c112dd4c6cbbab320ec16eeb3ba785d95ff4e",
+    "art/s-creature/zero-rebuild-20261017/comparisons/REFERENCE_COMPARISON.png": "4b0445f01e5ada5f1bd92ccadfabeb90e92b89b1c935c96c82feac0bc4291f9a",
+    "art/s-creature/zero-rebuild-20261017/comparisons/CANDIDATE_FIVE_VIEWS.png": "45e641a0dc64f9ef594e3435888f468067cb429d2c38496dafaf321ba161173f",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/SIDE.png": "99cd139360608fa7a178ad57aa77bf9e724e913823df1b20f4c49d30468b4280",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/FRONT34.png": "bf750405461c6d8075e8f3cb66842fbbf27814b1a7b589be2195a9766045dc8a",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/REAR34.png": "4e61abd4ae24faf3468fe7c9ca8ba89dcb9195cf0db0d3ad3694e53b3da11804",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/BACK.png": "12f7326203b3985297c7eb0573434cf67580b0441d2348325e4d8b38ccdb06ed",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/FRONT.png": "d985eae7e62b6fd6e78897fe8c0e328f2ae2565d2c4c56fc23bd6872d3ab28b1",
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/SIDE.png": "e8b3f8c774bad5e00bdbe0a91513f54965347c52f9a2cf3336720cc5e82162d3",
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/FRONT34.png": "b9a8462162d7d01d2927ab9b77406423f87d45184f9d535931b42dae67ca403b",
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/REAR34.png": "acc834db630a0d60b5244c247f040091a1cdf1a66cdff2a0f5d2d82cdfce8c19",
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/BACK.png": "a69194bc8f2e46032eed1ecc5badb30a074971dca9f5bc0f1397664789bd5988",
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/FRONT.png": "d4a9df94ad1c3ddaadcccd2671475a9eecd4609d0fbab655b9f84d00d8779ff6",
+    "art/s-creature/zero-rebuild-20261017/renders/blockout/SIDE.png": "5bbc82d33ad50b7ba9e01766ee500c45b085813bc9266868605b8398c0625bf1",
+    "art/s-creature/zero-rebuild-20261017/renders/blockout/FRONT34.png": "e13fc684788d1f922c6c1be182766a5fa5ca3b472a037188f9fe59b6e50c5d64",
+    "art/s-creature/zero-rebuild-20261017/renders/blockout/FRONT.png": "78839d273230a07b5ef077ccae199d235c2e1b447dd85959a687cec6acc9d30b",
+    "art/s-creature/zero-rebuild-20261017/renders/refined/SIDE.png": "096505f06f6b0bc60420a606ba7306c0f665085f5ac85fa236ad062e93c96e82",
+    "art/s-creature/zero-rebuild-20261017/renders/refined/FRONT34.png": "2ee101a68bdb679a18662a2cd7b455ec007eb9d29ce3c47efe82d4af1db3582d",
+    "art/s-creature/zero-rebuild-20261017/renders/refined/FRONT.png": "3fa3274f8c831903781e8c4383e8de4d25aa8436e1b8aefe5cb7effdc82e94c6",
+    "art/s-creature/zero-rebuild-20261017/evidence/CANDIDATE_CHANGES.json": "d9e53daceb6310588f08cfbfc1ad1bfb42a79f270f56e8a707f0e2b11bb6c319",
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_candidate_review.log": "b0cb31f1c1d0e82f7994ad1bff7fc86fc5484c952297a24ea5f748532cee53cf",
+    "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_SOURCES.json": "87e8d31dfea13be87a6cb35b8653642ba9957fc3e2ee6a80ca60bb6a02a63c68",
+    "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_FRONT34.png": "e54465dfaf15602a147aa0388bcf6fd9c1df29435b5bc9c7c0ce9f6b333e4e5f",
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_S_ZERO_CANDIDATE_REVISED_R1.json": "048644b66cc25cd3440853fe2a79ef51f80402bbfabb570f70bc4b227fabdea3",
+    "art/s-creature/zero-rebuild-20261017/evidence/REFERENCE_SHA256.json": "5a4406ff74faea01a5b34933ba54f6ada6a8e49cc5b00dc432d73ae3ca34b4d6",
+    "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R1.json": "17db0adb3bc4c7bd0263a0f0b9d7999940090907451dfcb71002485efdfaea68",
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r1.json": "5dfb28384ccd00acbd957819f967941df5895db1706a31d11f764ef51168d1d3",
+    "art/s-creature/zero-rebuild-20261017/evidence/FINAL_REVIEW.json": "b95cbfa9e634d0e15cab325afc8e976565f153bff6916bdfe3d56ebae5bf711d",
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_candidate_review.json": "890201d025511c22dc0484b3fa3114c0e8835812dd7bf86419469c5ac5bb9632",
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_refined.json": "59a6b923c4220753279585eb81004b63d623c90484016943e0ae0a14d289f224",
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r1.log": "9c6626a9392340c9b181b98a7fb32138a54c3f2b690c82b7c550bd44d699e065",
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_blockout.json": "df5213c9444b498cfe68548ac41f587ea76e7b53dcbc30dec5162516c296560d",
+    "art/s-creature/zero-rebuild-20261017/evidence/STRUCTURE_revised_r1.json": "f87e0976cb6efa18feffe9a949f9efc1cbe326c8cd9301a8571024a98588d132",
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_SAVED_ORIGINALS.json": "8c255b460044a21b4b130a7204e8e4548fbdf323f3be2d26c46917b0607df910",
+    "art/s-creature/zero-rebuild-20261017/evidence/REMOTE_PRESERVATION.json": "a5e8fbb54801d825f2539e6ce4b873a0f0230761bde3f1da6c1e34f3ece60862",
+    "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_SIDE.png": "59427391cffcfe2aa8490353b8632b7772b8767d18aa78db730cab14e2da9bc1",
+    "art/s-creature/zero-rebuild-20261017/evidence/BLOCKOUT_VIEWPORT_FRONT.png": "197192c4b9bdf7113742ce20faa6420e04376b76c37002719c3a60487cdf280a",
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_REVISED_R1.log": "8d16488f3372dae0a1570a0d4c89cf2e7757edb1fb0d05d1d863f005dfe46ec7",
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_SAVED_ORIGINALS_UNSANDBOXED.log": "d0879131ddbc261be9fa059de44318430b49dc2167d76181f2badb56a4396de6",
+    "art/s-creature/zero-rebuild-20261017/evidence/BLOCKOUT_VIEWPORT_FRONT34.png": "24696e3876b8ea9f4118ff0322c0df23a01bf7942e631660377da368a425e86d",
+    "art/s-creature/zero-rebuild-20261017/evidence/CANDIDATE_REVIEW.json": "48947ba3c3eff7ce37315837c60e1c4a4aece24afedd1b4dc234775597aa8697",
+    "art/s-creature/zero-rebuild-20261017/evidence/BLOCKOUT_VIEWPORT_SIDE.png": "00c1af0b66d0ff9e9750cb96b9e8b6faf7ce9e093ba9ae1589544a17ae9b436e",
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_SAVED_ORIGINALS.log": "7b313fa0596e39bad88b854cb3284efb50d8a88ad5a9360ea25ba0131343b518",
+    "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R1.log": "9ae84580e8f689b1618e307530b8a6f167f0cdfea05a10941549713284f96a5b",
+    "art/s-creature/zero-rebuild-20261017/evidence/REFINEMENT_CHANGES.json": "5e6a239d566fd3b220651d7a3d7e1562a74a8b9115f54714d3ba9aa0aafa3b79",
+    "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_FRONT.png": "2f90689bfc26f0a6e4351c3e6c46c92cbd87d665fc44fb311af612b0dda3aecc",
+    "art/s-creature/zero-rebuild-20261017/evidence/FINAL_LOCAL_CHECKS.json": "15745c584c7685d332d0935ceddb5d220f2c20767b12239251bfd55f2cbc48eb",
+    "art/s-creature/zero-rebuild-20261017/evidence/STRUCTURE_candidate_review.log": "a1b37ba8a4c7a73f563871ab90314fc6ac2c651a8b0ce09fa430a8641e01780a",
+    "art/s-creature/zero-rebuild-20261017/evidence/STRUCTURE_candidate_review.json": "55b1c729433d90b8cd007632d264627de1c7936d1197f745d5aa1530f6e4b8fa",
+    "art/s-creature/zero-rebuild-20261017/evidence/ORIGINAL_ARTIFACTS.json": "d0cf399ed5bba8056b9a8bee953dfa82820f17be8a07124985d2fac2e05b54bf",
+    "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_CANDIDATE_REVIEW.blend": "fac25ffe586cacd294c4d0b9f7ab4ae71f93595a3f70fcfa9354c5b44cbef29d",
+    "art/s-creature/zero-rebuild-20261017/scripts/render_saved_stage.py": "6b583876e240ed1604a8c4afcc90f80d34d20e121027ea28cdbe99fc5ba9546d",
+    "art/s-creature/zero-rebuild-20261017/scripts/06_verify_github.py": "b0ed7679d842047e2c0753caaa02283a0bb5ea05288b149731ce6a925cfef6f2",
+    "art/s-creature/zero-rebuild-20261017/scripts/07_structure_audit.py": "cd3da68be3ae5cdceba973bb584158e3164c87ffed6561083c11f8464cdb7343",
+    "art/s-creature/zero-rebuild-20261017/scripts/01_build_blockout.py": "cb78e91e984e56b442703c795c94630f0efdb3c26466f50b10837c7c93140d12",
+    "art/s-creature/zero-rebuild-20261017/scripts/08_revise_connections.py": "75198acdde76e0b6bf00061fa2dafadfba799507caa6c53314f991561c293b0c",
+    "art/s-creature/zero-rebuild-20261017/scripts/05_review_render.py": "a4ad5c112a3a7e58dc1bdb34716a2b17653c5c196a92254393bd05ca1927b6ec",
+    "art/s-creature/zero-rebuild-20261017/scripts/04_verify_saved.py": "fd6db70ed49c3b951005bdb5f8de769de4015195300f8d36b211c666563cead2",
+    "art/s-creature/zero-rebuild-20261017/scripts/09_build_comparisons.py": "4bfddc0708ae2f66621c7179a0c3d2116b1afcc6c1462ed99405f9e7a41b9d1f",
+    "art/s-creature/zero-rebuild-20261017/scripts/02_refine.py": "9ebd15de0f9ecf6e9d0af42b16aceb41889839b48fb9ed1e5c5d0fc87ce7d4dd",
+    "art/s-creature/zero-rebuild-20261017/scripts/03_candidate.py": "46f4ef1ac3c382814523d079c411d49268a462dc3ee9ae999076efd2d1139af3"
+  },
+  "meshes": [
+    {
+      "name": "ANKLE_FIN_FORE_FAR",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "ANKLE_FIN_FORE_NEAR",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "ANKLE_FIN_HIND_FAR",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "ANKLE_FIN_HIND_NEAR",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "CANNON_RIDGE_FORE_FAR",
+      "vertices": 132,
+      "faces": 140,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        132
+      ]
+    },
+    {
+      "name": "CANNON_RIDGE_FORE_NEAR",
+      "vertices": 132,
+      "faces": 140,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        132
+      ]
+    },
+    {
+      "name": "CANNON_RIDGE_HIND_FAR",
+      "vertices": 132,
+      "faces": 140,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        132
+      ]
+    },
+    {
+      "name": "CANNON_RIDGE_HIND_NEAR",
+      "vertices": 132,
+      "faces": 140,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        132
+      ]
+    },
+    {
+      "name": "CHEEK_F",
+      "vertices": 210,
+      "faces": 224,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        210
+      ]
+    },
+    {
+      "name": "CHEEK_N",
+      "vertices": 210,
+      "faces": 224,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        210
+      ]
+    },
+    {
+      "name": "CROWN_BLUE_F",
+      "vertices": 14,
+      "faces": 18,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        14
+      ]
+    },
+    {
+      "name": "CROWN_BLUE_N",
+      "vertices": 14,
+      "faces": 18,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        14
+      ]
+    },
+    {
+      "name": "CROWN_IVORY_RIDGE_F",
+      "vertices": 162,
+      "faces": 170,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        162
+      ]
+    },
+    {
+      "name": "CROWN_IVORY_RIDGE_N",
+      "vertices": 162,
+      "faces": 170,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        162
+      ]
+    },
+    {
+      "name": "CROWN_MAIN_F",
+      "vertices": 22,
+      "faces": 30,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        22
+      ]
+    },
+    {
+      "name": "CROWN_MAIN_N",
+      "vertices": 22,
+      "faces": 30,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        22
+      ]
+    },
+    {
+      "name": "CUE_DOT_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_DOT_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_FACE_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_FACE_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_FRAME_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_FRAME_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_RIM_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_RIM_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_ROUND_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_ROUND_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_SIGNAL_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_SIGNAL_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "DORSAL_BLUE_0_-1",
+      "vertices": 8,
+      "faces": 9,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        8
+      ]
+    },
+    {
+      "name": "DORSAL_BLUE_0_1",
+      "vertices": 8,
+      "faces": 9,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        8
+      ]
+    },
+    {
+      "name": "DORSAL_BLUE_1_-1",
+      "vertices": 8,
+      "faces": 9,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        8
+      ]
+    },
+    {
+      "name": "DORSAL_BLUE_1_1",
+      "vertices": 8,
+      "faces": 9,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        8
+      ]
+    },
+    {
+      "name": "DORSAL_BLUE_2_-1",
+      "vertices": 8,
+      "faces": 9,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        8
+      ]
+    },
+    {
+      "name": "DORSAL_BLUE_2_1",
+      "vertices": 8,
+      "faces": 9,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        8
+      ]
+    },
+    {
+      "name": "DORSAL_CREST_0_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "DORSAL_CREST_0_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "DORSAL_CREST_1_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "DORSAL_CREST_1_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "DORSAL_CREST_2_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "DORSAL_CREST_2_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "DORSAL_MANTLE",
+      "vertices": 350,
+      "faces": 360,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        350
+      ]
+    },
+    {
+      "name": "ELBOW_SPUR_FORE_FAR",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "ELBOW_SPUR_FORE_NEAR",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "EYE_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "EYE_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "EYE_SOCKET_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "EYE_SOCKET_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "FOREHEAD_MEDIAN",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        274
+      ]
+    },
+    {
+      "name": "HOOF_FACE_FORE_FAR_-1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        72
+      ]
+    },
+    {
+      "name": "HOOF_FACE_FORE_FAR_1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        72
+      ]
+    },
+    {
+      "name": "HOOF_FACE_FORE_NEAR_-1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        72
+      ]
+    },
+    {
+      "name": "HOOF_FACE_FORE_NEAR_1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        72
+      ]
+    },
+    {
+      "name": "HOOF_FACE_HIND_FAR_-1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        72
+      ]
+    },
+    {
+      "name": "HOOF_FACE_HIND_FAR_1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        72
+      ]
+    },
+    {
+      "name": "HOOF_FACE_HIND_NEAR_-1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        72
+      ]
+    },
+    {
+      "name": "HOOF_FACE_HIND_NEAR_1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        72
+      ]
+    },
+    {
+      "name": "HOOF_SIGNAL_FORE_FAR_-1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        58
+      ]
+    },
+    {
+      "name": "HOOF_SIGNAL_FORE_FAR_1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        58
+      ]
+    },
+    {
+      "name": "HOOF_SIGNAL_FORE_NEAR_-1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        58
+      ]
+    },
+    {
+      "name": "HOOF_SIGNAL_FORE_NEAR_1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        58
+      ]
+    },
+    {
+      "name": "HOOF_SIGNAL_HIND_FAR_-1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        58
+      ]
+    },
+    {
+      "name": "HOOF_SIGNAL_HIND_FAR_1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        58
+      ]
+    },
+    {
+      "name": "HOOF_SIGNAL_HIND_NEAR_-1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        58
+      ]
+    },
+    {
+      "name": "HOOF_SIGNAL_HIND_NEAR_1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        58
+      ]
+    },
+    {
+      "name": "LOWER_RIB_F",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        274
+      ]
+    },
+    {
+      "name": "LOWER_RIB_N",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        274
+      ]
+    },
+    {
+      "name": "MOUTH_SEAM_-1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        58
+      ]
+    },
+    {
+      "name": "MOUTH_SEAM_1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        58
+      ]
+    },
+    {
+      "name": "NAPE_FIN_F",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "NAPE_FIN_N",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "NAPE_IVORY_F",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        274
+      ]
+    },
+    {
+      "name": "NAPE_IVORY_N",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        274
+      ]
+    },
+    {
+      "name": "NECK_TENDON_F",
+      "vertices": 158,
+      "faces": 168,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        158
+      ]
+    },
+    {
+      "name": "NECK_TENDON_N",
+      "vertices": 158,
+      "faces": 168,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        158
+      ]
+    },
+    {
+      "name": "NOSE_CAP",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "PELVIS_F",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        274
+      ]
+    },
+    {
+      "name": "PELVIS_N",
+      "vertices": 338,
+      "faces": 352,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        338
+      ]
+    },
+    {
+      "name": "RIB_SHELL_F",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        274
+      ]
+    },
+    {
+      "name": "RIB_SHELL_N",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        274
+      ]
+    },
+    {
+      "name": "SACRAL_MANTLE",
+      "vertices": 210,
+      "faces": 224,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        210
+      ]
+    },
+    {
+      "name": "S_ZERO_BODY_CONTINUOUS",
+      "vertices": 27567,
+      "faces": 26888,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        27567
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_0_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_0_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_1_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_1_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_2_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_2_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_3_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_3_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_4_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_4_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_5_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_5_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_6_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_6_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_0_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_0_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_1_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_1_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_2_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_2_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_3_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_3_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_4_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_4_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_5_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_5_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_6_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_6_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_IVORY_0_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_IVORY_0_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_IVORY_1_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_IVORY_1_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_IVORY_2_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_IVORY_2_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_IVORY_3_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_IVORY_3_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_IVORY_4_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_IVORY_4_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_TIP",
+      "vertices": 112,
+      "faces": 120,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        112
+      ]
+    },
+    {
+      "name": "TOE_CYAN_FORE_FAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TOE_CYAN_FORE_FAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TOE_CYAN_FORE_NEAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TOE_CYAN_FORE_NEAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TOE_CYAN_HIND_FAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TOE_CYAN_HIND_FAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TOE_CYAN_HIND_NEAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TOE_CYAN_HIND_NEAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TOE_FORE_FAR_-1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        102
+      ]
+    },
+    {
+      "name": "TOE_FORE_FAR_1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        102
+      ]
+    },
+    {
+      "name": "TOE_FORE_NEAR_-1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        102
+      ]
+    },
+    {
+      "name": "TOE_FORE_NEAR_1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        102
+      ]
+    },
+    {
+      "name": "TOE_HIND_FAR_-1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        102
+      ]
+    },
+    {
+      "name": "TOE_HIND_FAR_1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        102
+      ]
+    },
+    {
+      "name": "TOE_HIND_NEAR_-1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        102
+      ]
+    },
+    {
+      "name": "TOE_HIND_NEAR_1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        102
+      ]
+    },
+    {
+      "name": "TOE_IVORY_FORE_FAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TOE_IVORY_FORE_FAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TOE_IVORY_FORE_NEAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TOE_IVORY_FORE_NEAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TOE_IVORY_HIND_FAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TOE_IVORY_HIND_FAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TOE_IVORY_HIND_NEAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TOE_IVORY_HIND_NEAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    }
+  ],
+  "armatures": [],
+  "actions": [],
+  "decision": "REVISE overall; retain local improvement as working R2; no production promotion",
+  "limits": "Closed manifold is not rig-ready. Boolean seam/ngon topology requires retopology. BVH is not a complete intersection proof. Gait and runtime untested."
+}

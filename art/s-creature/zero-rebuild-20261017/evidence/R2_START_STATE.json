@@ -1,0 +1,310 @@
+{
+  "head": "1c33ebb594e61ee24d9a28af09594ae24c88d19c",
+  "remote_head": "2a273da4e3cc7a9c6318941d64db0c58ba4608cb",
+  "branches": [
+    "refs/heads/exp/s-anatomy-structural-redesign-20261016 c86a3fe84e49c73a51cba41e136f434b171db8e1",
+    "refs/heads/exp/s-fullbody-zero-rebuild-20261017 cde1bd7c8a26637d587aafd6d1d8cc4da8fb0315",
+    "refs/heads/exp/s-fullbody-zero-verify-20261017 1c33ebb594e61ee24d9a28af09594ae24c88d19c",
+    "refs/heads/exp/s-hunyuan-shoulder-sculpt-20261013 375dab9fabd35c7302705b7828e47dd54c3054d8"
+  ],
+  "protected_artifacts": {
+    "art/s-creature/zero-rebuild-20261017/QUALITY_REVIEW.md": {
+      "bytes": 10019,
+      "sha256": "cb26d6887a11a360e3e7e88b14f2bcc8b41809e413734f9ef9dced434c337b27"
+    },
+    "art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE.blend": {
+      "bytes": 1224567,
+      "sha256": "fac25ffe586cacd294c4d0b9f7ab4ae71f93595a3f70fcfa9354c5b44cbef29d"
+    },
+    "art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R1.blend": {
+      "bytes": 1212726,
+      "sha256": "f8e8a80360ee5886d485a17610cf62a9387d10cdb09e4801a055be99bf8d8a4f"
+    },
+    "art/s-creature/zero-rebuild-20261017/S_ZERO_REFINED.blend": {
+      "bytes": 1178832,
+      "sha256": "24f1b61d23c6eda67e3d9dbb39ce96c99ac11b6dbf375fffb9fc782dff4dcba5"
+    },
+    "art/s-creature/zero-rebuild-20261017/README.md": {
+      "bytes": 2618,
+      "sha256": "e2cff30784c529cd3a0f80e7147966b1a7228f2616cdc7404ffe5e6b73069ee2"
+    },
+    "art/s-creature/zero-rebuild-20261017/S_ZERO_BLOCKOUT.blend": {
+      "bytes": 1171877,
+      "sha256": "eb1b959264916d7512893c6c419ae2a056333b49b4165145b2b88f7ae518e502"
+    },
+    "art/s-creature/zero-rebuild-20261017/comparisons/SHOULDER_HIP_PROGRESS.png": {
+      "bytes": 1286135,
+      "sha256": "b9a716ec6ce225c06f1e3d12f94949e5795d3ef28f312988cb7d1a89e97de475"
+    },
+    "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R1_FIVE_VIEWS.png": {
+      "bytes": 1241809,
+      "sha256": "2ae621a9a12039de72f353b7edd37ed5fa05d2acdcdf929f743f1ae26d830718"
+    },
+    "art/s-creature/zero-rebuild-20261017/comparisons/STATIC_128PX_PREVIEW.png": {
+      "bytes": 52429,
+      "sha256": "857cb66f3770a2ee8fdfe41fb7276148bd8f6c8422b9a1cbae700aa8e885ede5"
+    },
+    "art/s-creature/zero-rebuild-20261017/comparisons/BEFORE_AFTER_FIVE_VIEWS.png": {
+      "bytes": 2085866,
+      "sha256": "f776be4478899530d70e65d6770c112dd4c6cbbab320ec16eeb3ba785d95ff4e"
+    },
+    "art/s-creature/zero-rebuild-20261017/comparisons/REFERENCE_COMPARISON.png": {
+      "bytes": 1726679,
+      "sha256": "4b0445f01e5ada5f1bd92ccadfabeb90e92b89b1c935c96c82feac0bc4291f9a"
+    },
+    "art/s-creature/zero-rebuild-20261017/comparisons/CANDIDATE_FIVE_VIEWS.png": {
+      "bytes": 1237306,
+      "sha256": "45e641a0dc64f9ef594e3435888f468067cb429d2c38496dafaf321ba161173f"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/SIDE.png": {
+      "bytes": 1189526,
+      "sha256": "99cd139360608fa7a178ad57aa77bf9e724e913823df1b20f4c49d30468b4280"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/FRONT34.png": {
+      "bytes": 1211205,
+      "sha256": "bf750405461c6d8075e8f3cb66842fbbf27814b1a7b589be2195a9766045dc8a"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/REAR34.png": {
+      "bytes": 1252982,
+      "sha256": "4e61abd4ae24faf3468fe7c9ca8ba89dcb9195cf0db0d3ad3694e53b3da11804"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/BACK.png": {
+      "bytes": 1100590,
+      "sha256": "12f7326203b3985297c7eb0573434cf67580b0441d2348325e4d8b38ccdb06ed"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/FRONT.png": {
+      "bytes": 1085912,
+      "sha256": "d985eae7e62b6fd6e78897fe8c0e328f2ae2565d2c4c56fc23bd6872d3ab28b1"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/SIDE.png": {
+      "bytes": 1189405,
+      "sha256": "e8b3f8c774bad5e00bdbe0a91513f54965347c52f9a2cf3336720cc5e82162d3"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/FRONT34.png": {
+      "bytes": 1210307,
+      "sha256": "b9a8462162d7d01d2927ab9b77406423f87d45184f9d535931b42dae67ca403b"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/REAR34.png": {
+      "bytes": 1251813,
+      "sha256": "acc834db630a0d60b5244c247f040091a1cdf1a66cdff2a0f5d2d82cdfce8c19"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/BACK.png": {
+      "bytes": 1097980,
+      "sha256": "a69194bc8f2e46032eed1ecc5badb30a074971dca9f5bc0f1397664789bd5988"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/FRONT.png": {
+      "bytes": 1083192,
+      "sha256": "d4a9df94ad1c3ddaadcccd2671475a9eecd4609d0fbab655b9f84d00d8779ff6"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/blockout/SIDE.png": {
+      "bytes": 1174130,
+      "sha256": "5bbc82d33ad50b7ba9e01766ee500c45b085813bc9266868605b8398c0625bf1"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/blockout/FRONT34.png": {
+      "bytes": 1207614,
+      "sha256": "e13fc684788d1f922c6c1be182766a5fa5ca3b472a037188f9fe59b6e50c5d64"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/blockout/FRONT.png": {
+      "bytes": 1079650,
+      "sha256": "78839d273230a07b5ef077ccae199d235c2e1b447dd85959a687cec6acc9d30b"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/refined/SIDE.png": {
+      "bytes": 1192372,
+      "sha256": "096505f06f6b0bc60420a606ba7306c0f665085f5ac85fa236ad062e93c96e82"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/refined/FRONT34.png": {
+      "bytes": 1230762,
+      "sha256": "2ee101a68bdb679a18662a2cd7b455ec007eb9d29ce3c47efe82d4af1db3582d"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/refined/FRONT.png": {
+      "bytes": 1108290,
+      "sha256": "3fa3274f8c831903781e8c4383e8de4d25aa8436e1b8aefe5cb7effdc82e94c6"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/CANDIDATE_CHANGES.json": {
+      "bytes": 455,
+      "sha256": "d9e53daceb6310588f08cfbfc1ad1bfb42a79f270f56e8a707f0e2b11bb6c319"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_candidate_review.log": {
+      "bytes": 102549,
+      "sha256": "b0cb31f1c1d0e82f7994ad1bff7fc86fc5484c952297a24ea5f748532cee53cf"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_SOURCES.json": {
+      "bytes": 2472,
+      "sha256": "87e8d31dfea13be87a6cb35b8653642ba9957fc3e2ee6a80ca60bb6a02a63c68"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_FRONT34.png": {
+      "bytes": 1076508,
+      "sha256": "e54465dfaf15602a147aa0388bcf6fd9c1df29435b5bc9c7c0ce9f6b333e4e5f"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_S_ZERO_CANDIDATE_REVISED_R1.json": {
+      "bytes": 65614,
+      "sha256": "048644b66cc25cd3440853fe2a79ef51f80402bbfabb570f70bc4b227fabdea3"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/REFERENCE_SHA256.json": {
+      "bytes": 269,
+      "sha256": "5a4406ff74faea01a5b34933ba54f6ada6a8e49cc5b00dc432d73ae3ca34b4d6"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R1.json": {
+      "bytes": 6203,
+      "sha256": "17db0adb3bc4c7bd0263a0f0b9d7999940090907451dfcb71002485efdfaea68"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r1.json": {
+      "bytes": 3923,
+      "sha256": "5dfb28384ccd00acbd957819f967941df5895db1706a31d11f764ef51168d1d3"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/FINAL_REVIEW.json": {
+      "bytes": 1198,
+      "sha256": "b95cbfa9e634d0e15cab325afc8e976565f153bff6916bdfe3d56ebae5bf711d"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_candidate_review.json": {
+      "bytes": 3960,
+      "sha256": "890201d025511c22dc0484b3fa3114c0e8835812dd7bf86419469c5ac5bb9632"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_refined.json": {
+      "bytes": 2259,
+      "sha256": "59a6b923c4220753279585eb81004b63d623c90484016943e0ae0a14d289f224"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r1.log": {
+      "bytes": 109886,
+      "sha256": "9c6626a9392340c9b181b98a7fb32138a54c3f2b690c82b7c550bd44d699e065"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_blockout.json": {
+      "bytes": 2264,
+      "sha256": "df5213c9444b498cfe68548ac41f587ea76e7b53dcbc30dec5162516c296560d"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/STRUCTURE_revised_r1.json": {
+      "bytes": 3028,
+      "sha256": "f87e0976cb6efa18feffe9a949f9efc1cbe326c8cd9301a8571024a98588d132"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_SAVED_ORIGINALS.json": {
+      "bytes": 178960,
+      "sha256": "8c255b460044a21b4b130a7204e8e4548fbdf323f3be2d26c46917b0607df910"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/REMOTE_PRESERVATION.json": {
+      "bytes": 8100,
+      "sha256": "a5e8fbb54801d825f2539e6ce4b873a0f0230761bde3f1da6c1e34f3ece60862"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_SIDE.png": {
+      "bytes": 768001,
+      "sha256": "59427391cffcfe2aa8490353b8632b7772b8767d18aa78db730cab14e2da9bc1"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/BLOCKOUT_VIEWPORT_FRONT.png": {
+      "bytes": 648953,
+      "sha256": "197192c4b9bdf7113742ce20faa6420e04376b76c37002719c3a60487cdf280a"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_REVISED_R1.log": {
+      "bytes": 466,
+      "sha256": "8d16488f3372dae0a1570a0d4c89cf2e7757edb1fb0d05d1d863f005dfe46ec7"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_SAVED_ORIGINALS_UNSANDBOXED.log": {
+      "bytes": 878,
+      "sha256": "d0879131ddbc261be9fa059de44318430b49dc2167d76181f2badb56a4396de6"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/BLOCKOUT_VIEWPORT_FRONT34.png": {
+      "bytes": 1044611,
+      "sha256": "24696e3876b8ea9f4118ff0322c0df23a01bf7942e631660377da368a425e86d"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/CANDIDATE_REVIEW.json": {
+      "bytes": 3005,
+      "sha256": "48947ba3c3eff7ce37315837c60e1c4a4aece24afedd1b4dc234775597aa8697"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/BLOCKOUT_VIEWPORT_SIDE.png": {
+      "bytes": 746484,
+      "sha256": "00c1af0b66d0ff9e9750cb96b9e8b6faf7ce9e093ba9ae1589544a17ae9b436e"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_SAVED_ORIGINALS.log": {
+      "bytes": 371,
+      "sha256": "7b313fa0596e39bad88b854cb3284efb50d8a88ad5a9360ea25ba0131343b518"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R1.log": {
+      "bytes": 456,
+      "sha256": "9ae84580e8f689b1618e307530b8a6f167f0cdfea05a10941549713284f96a5b"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/REFINEMENT_CHANGES.json": {
+      "bytes": 950,
+      "sha256": "5e6a239d566fd3b220651d7a3d7e1562a74a8b9115f54714d3ba9aa0aafa3b79"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_FRONT.png": {
+      "bytes": 682666,
+      "sha256": "2f90689bfc26f0a6e4351c3e6c46c92cbd87d665fc44fb311af612b0dda3aecc"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/FINAL_LOCAL_CHECKS.json": {
+      "bytes": 431,
+      "sha256": "15745c584c7685d332d0935ceddb5d220f2c20767b12239251bfd55f2cbc48eb"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/STRUCTURE_candidate_review.log": {
+      "bytes": 3298,
+      "sha256": "a1b37ba8a4c7a73f563871ab90314fc6ac2c651a8b0ce09fa430a8641e01780a"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/STRUCTURE_candidate_review.json": {
+      "bytes": 3036,
+      "sha256": "55b1c729433d90b8cd007632d264627de1c7936d1197f745d5aa1530f6e4b8fa"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/ORIGINAL_ARTIFACTS.json": {
+      "bytes": 6946,
+      "sha256": "d0cf399ed5bba8056b9a8bee953dfa82820f17be8a07124985d2fac2e05b54bf"
+    },
+    "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_CANDIDATE_REVIEW.blend": {
+      "bytes": 1224567,
+      "sha256": "fac25ffe586cacd294c4d0b9f7ab4ae71f93595a3f70fcfa9354c5b44cbef29d"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/render_saved_stage.py": {
+      "bytes": 1134,
+      "sha256": "6b583876e240ed1604a8c4afcc90f80d34d20e121027ea28cdbe99fc5ba9546d"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/06_verify_github.py": {
+      "bytes": 3041,
+      "sha256": "b0ed7679d842047e2c0753caaa02283a0bb5ea05288b149731ce6a925cfef6f2"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/07_structure_audit.py": {
+      "bytes": 1866,
+      "sha256": "cd3da68be3ae5cdceba973bb584158e3164c87ffed6561083c11f8464cdb7343"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/01_build_blockout.py": {
+      "bytes": 15614,
+      "sha256": "cb78e91e984e56b442703c795c94630f0efdb3c26466f50b10837c7c93140d12"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/08_revise_connections.py": {
+      "bytes": 5385,
+      "sha256": "75198acdde76e0b6bf00061fa2dafadfba799507caa6c53314f991561c293b0c"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/05_review_render.py": {
+      "bytes": 2336,
+      "sha256": "a4ad5c112a3a7e58dc1bdb34716a2b17653c5c196a92254393bd05ca1927b6ec"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/04_verify_saved.py": {
+      "bytes": 3559,
+      "sha256": "fd6db70ed49c3b951005bdb5f8de769de4015195300f8d36b211c666563cead2"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/09_build_comparisons.py": {
+      "bytes": 4570,
+      "sha256": "4bfddc0708ae2f66621c7179a0c3d2116b1afcc6c1462ed99405f9e7a41b9d1f"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/02_refine.py": {
+      "bytes": 8096,
+      "sha256": "9ebd15de0f9ecf6e9d0af42b16aceb41889839b48fb9ed1e5c5d0fc87ce7d4dd"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/03_candidate.py": {
+      "bytes": 8206,
+      "sha256": "46f4ef1ac3c382814523d079c411d49268a462dc3ee9ae999076efd2d1139af3"
+    }
+  },
+  "missing_remote_images": [
+    "art/s-creature/zero-rebuild-20261017/comparisons/BEFORE_AFTER_FIVE_VIEWS.png",
+    "art/s-creature/zero-rebuild-20261017/comparisons/CANDIDATE_FIVE_VIEWS.png",
+    "art/s-creature/zero-rebuild-20261017/comparisons/REFERENCE_COMPARISON.png",
+    "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R1_FIVE_VIEWS.png",
+    "art/s-creature/zero-rebuild-20261017/comparisons/SHOULDER_HIP_PROGRESS.png",
+    "art/s-creature/zero-rebuild-20261017/comparisons/STATIC_128PX_PREVIEW.png",
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/BACK.png",
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/FRONT.png",
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/FRONT34.png",
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/REAR34.png",
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/SIDE.png",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/BACK.png",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/FRONT.png",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/FRONT34.png",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/REAR34.png",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/SIDE.png"
+  ]
+}

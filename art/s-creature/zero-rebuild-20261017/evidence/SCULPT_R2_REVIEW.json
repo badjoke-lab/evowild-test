@@ -1,0 +1,19 @@
+{
+  "reference": "../references/00_s_type_modeling_image_v1.png",
+  "source": "S_ZERO_CANDIDATE_REVISED_R1.blend",
+  "inspected_r1_views": ["SIDE", "FRONT", "FRONT34", "REAR34", "BACK"],
+  "inspected_trial_a_views": ["SIDE", "FRONT", "FRONT34"],
+  "trial_a_decision": "REVISE: actual welded shoulder continuity improved, but jagged material edges and excessive frontal crown spread prevented acceptance as-is.",
+  "reverted_trial_a_choices": ["Excessive crown lateral spread replaced from exact R1 coordinates with a smaller lens-section deformation", "Hard transferred material edges replaced by local interpolation on the same continuous shoulder mesh"],
+  "inspected_trial_b_views": ["SIDE", "FRONT", "FRONT34"],
+  "trial_b_findings": {
+    "SIDE": "Shoulder-to-upper-arm overlap ledge is reduced and the shoulder/scapula flows into the chest surface. Small head, slender waist, long legs and swept crown profile remain. Shoulder mass still has overly smooth/oval planes relative to the reference.",
+    "FRONT": "Each crown now shows a midsection face width and tip taper rather than two thin near-parallel lines. Trial A spread has been reduced. Shoulder width is less bulbous and integrated into the arm. White/graphite boundary is smoother but too soft for final reference matching.",
+    "FRONT34": "Separate upper-arm cap is replaced by a continuous welded transition. Crown retains two rear-flowing blades and Cue Band clearance. Shoulder surface, white/dark design boundary and local seam fairing still require refinement."
+  },
+  "retain_local_improvement": true,
+  "overall_decision": "REVISE",
+  "production_keep": false,
+  "remaining": ["Refine shoulder/chest planes and white/graphite boundary to canonical facet language", "Resolve unchanged hip intersections", "Wedge-shaped directional toes", "Organic overlapping tail layers", "Joint retopology and rigging", "Gait and PC/mobile runtime validation"],
+  "image_method": "Actual Cycles renders with matching R1 camera matrices, lighting, seed and color management; no image generation or geometry retouch."
+}

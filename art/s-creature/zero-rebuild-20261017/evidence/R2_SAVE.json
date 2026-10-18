@@ -1,0 +1,9 @@
+{
+  "source_trial": "verification/S_ZERO_R2_TRIAL_B.blend",
+  "output": "S_ZERO_CANDIDATE_REVISED_R2.blend",
+  "sha256": "3406e12f54670ca397eb31825721aa08e36fbc46a0bc68e2dcfbcbaae0c09662",
+  "bytes": 1259118,
+  "decision": "REVISE",
+  "local_improvement_retained": true,
+  "production_promoted": false
+}

@@ -1,0 +1,12 @@
+{
+  "source_trial": "verification/S_ZERO_R2_TRIAL_A.blend",
+  "output": "verification/S_ZERO_R2_TRIAL_B.blend",
+  "trial_a_decision": "REVISE: frontal crown too wide; jagged white/graphite join after actual union",
+  "crown_adjustment": "R1 original coordinates, delta Y sin(pi*t)^1.35 * (0.005 + 0.065*(0.5-q)); X/Z unchanged",
+  "body_geometry_changed_from_trial_a": false,
+  "material_transition_boundary_vertices": 945,
+  "material_transition_faces": 2044,
+  "palette": "Same original pearl/ivory/slate/graphite linear colors",
+  "method": "Local per-corner color interpolation on continuous welded shoulder geometry only",
+  "output_sha256": "949684364ab7d6f76b2e680b8c16b1539d06bd7738d69f16c6ec9cf5dc51be53"
+}

@@ -1,0 +1,137 @@
+{
+  "repository": "badjoke-lab/evowild-test",
+  "branch": "exp/s-fullbody-zero-verify-20261017",
+  "mode": "missing-images",
+  "verified": [
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/BEFORE_AFTER_FIVE_VIEWS.png",
+      "bytes": 2085866,
+      "commit": "41c9709fc60106bf6aae591566f8a54ea6c11059",
+      "git_blob_sha": "81ba166a891ea151e3535de6d6d0554192f39133",
+      "sha256": "f776be4478899530d70e65d6770c112dd4c6cbbab320ec16eeb3ba785d95ff4e",
+      "downloaded_matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/CANDIDATE_FIVE_VIEWS.png",
+      "bytes": 1237306,
+      "commit": "c4972fbe1708586f72d165df353b21a9b4cf4b33",
+      "git_blob_sha": "140d5815d85fac19c00f7038016c11c9acc32e8c",
+      "sha256": "45e641a0dc64f9ef594e3435888f468067cb429d2c38496dafaf321ba161173f",
+      "downloaded_matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REFERENCE_COMPARISON.png",
+      "bytes": 1726679,
+      "commit": "bb8bc32934dafd387d321c28e6e52c66c73d4b6d",
+      "git_blob_sha": "1bd62b2da19d898456b4b9397810b02d747ed56e",
+      "sha256": "4b0445f01e5ada5f1bd92ccadfabeb90e92b89b1c935c96c82feac0bc4291f9a",
+      "downloaded_matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R1_FIVE_VIEWS.png",
+      "bytes": 1241809,
+      "commit": "a4aba87e769a0de03461c9812ecb69fd87a15c92",
+      "git_blob_sha": "9ebb7aa1a8ec722d67af62679e4ff5c37d22c679",
+      "sha256": "2ae621a9a12039de72f353b7edd37ed5fa05d2acdcdf929f743f1ae26d830718",
+      "downloaded_matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/SHOULDER_HIP_PROGRESS.png",
+      "bytes": 1286135,
+      "commit": "b209bfe9bbeefe8a03e4fe162c2c348a8c3b8def",
+      "git_blob_sha": "5433c74950f9fce455db20cb4036879e3d02026d",
+      "sha256": "b9a716ec6ce225c06f1e3d12f94949e5795d3ef28f312988cb7d1a89e97de475",
+      "downloaded_matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/STATIC_128PX_PREVIEW.png",
+      "bytes": 52429,
+      "commit": "660bbbe22b7a4b44a09c5e63b6301521b9c3d5d6",
+      "git_blob_sha": "658cf94b7adf6162dcd6fae647b926f04828fdbf",
+      "sha256": "857cb66f3770a2ee8fdfe41fb7276148bd8f6c8422b9a1cbae700aa8e885ede5",
+      "downloaded_matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/candidate_review/BACK.png",
+      "bytes": 1097980,
+      "commit": "a8a189ae2a581145299f2a88039192386b4f7b9b",
+      "git_blob_sha": "61c575dceeb283909883b92e537a90c4c770fe83",
+      "sha256": "a69194bc8f2e46032eed1ecc5badb30a074971dca9f5bc0f1397664789bd5988",
+      "downloaded_matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/candidate_review/FRONT.png",
+      "bytes": 1083192,
+      "commit": "f4b572fa16de27296ad1bf87c92f1fbb8c8e9564",
+      "git_blob_sha": "4f7806dd4238a63e3c6960ac95eb53dd0a9c7c0a",
+      "sha256": "d4a9df94ad1c3ddaadcccd2671475a9eecd4609d0fbab655b9f84d00d8779ff6",
+      "downloaded_matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/candidate_review/FRONT34.png",
+      "bytes": 1210307,
+      "commit": "f8213796bbb242b56684f6ffdc146864cba5d718",
+      "git_blob_sha": "78a21fca06702a64ad6dd130562d92f7e8186307",
+      "sha256": "b9a8462162d7d01d2927ab9b77406423f87d45184f9d535931b42dae67ca403b",
+      "downloaded_matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/candidate_review/REAR34.png",
+      "bytes": 1251813,
+      "commit": "ce3c0e36213437f962a74b77cb1a16e8af6117bf",
+      "git_blob_sha": "37ba52ed2a4f72e4fa67842af37dfa52c23ff4a9",
+      "sha256": "acc834db630a0d60b5244c247f040091a1cdf1a66cdff2a0f5d2d82cdfce8c19",
+      "downloaded_matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/candidate_review/SIDE.png",
+      "bytes": 1189405,
+      "commit": "7e05b696bfaa9a85b0b5bb654da29011f4008c19",
+      "git_blob_sha": "68be52dc6e1774e1c809161d2349f0df2b4a8a8c",
+      "sha256": "e8b3f8c774bad5e00bdbe0a91513f54965347c52f9a2cf3336720cc5e82162d3",
+      "downloaded_matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r1/BACK.png",
+      "bytes": 1100590,
+      "commit": "15d4adac26091fbe0bea6d11e993b438e0f6d950",
+      "git_blob_sha": "7d959c325c32388524f9d6219bed7e1a755ba73c",
+      "sha256": "12f7326203b3985297c7eb0573434cf67580b0441d2348325e4d8b38ccdb06ed",
+      "downloaded_matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r1/FRONT.png",
+      "bytes": 1085912,
+      "commit": "7f14656e41c7908a2922ad423da8e9f4832e148f",
+      "git_blob_sha": "5321e81f74db0c027c18a540bc28e513de254b2d",
+      "sha256": "d985eae7e62b6fd6e78897fe8c0e328f2ae2565d2c4c56fc23bd6872d3ab28b1",
+      "downloaded_matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r1/FRONT34.png",
+      "bytes": 1211205,
+      "commit": "ac8603aabc8ff1753c6a4094e1c47f2053a0596c",
+      "git_blob_sha": "e614414c6e278609a68a61db0e540e83718c6f27",
+      "sha256": "bf750405461c6d8075e8f3cb66842fbbf27814b1a7b589be2195a9766045dc8a",
+      "downloaded_matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r1/REAR34.png",
+      "bytes": 1252982,
+      "commit": "ea502023f6897f237d39ce26d97527a7c73542ce",
+      "git_blob_sha": "15b0e0fc73ccaa807b3d55523693d3bce8374cce",
+      "sha256": "4e61abd4ae24faf3468fe7c9ca8ba89dcb9195cf0db0d3ad3694e53b3da11804",
+      "downloaded_matches_local": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r1/SIDE.png",
+      "bytes": 1189526,
+      "commit": "7ade90891f1e31cf81c7fc3e1947e08f6b46def8",
+      "git_blob_sha": "fda9ba76e473c7971bb37b57d5ee7f96a89453a9",
+      "sha256": "99cd139360608fa7a178ad57aa77bf9e724e913823df1b20f4c49d30468b4280",
+      "downloaded_matches_local": true
+    }
+  ],
+  "pending": [],
+  "last_verified_head": "7ade90891f1e31cf81c7fc3e1947e08f6b46def8"
+}

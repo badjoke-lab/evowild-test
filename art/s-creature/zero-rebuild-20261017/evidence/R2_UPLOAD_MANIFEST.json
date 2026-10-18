@@ -1,0 +1,27 @@
+{
+  "paths": [
+    "art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R2.blend",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r2/BACK.png",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r2/FRONT.png",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r2/FRONT34.png",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r2/REAR34.png",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r2/SIDE.png",
+    "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R2_DETAILS.png",
+    "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R2_FIVE_VIEWS.png",
+    "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R2_R1_FIVE_VIEW_COMPARISON.png",
+    "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R2_REFERENCE_R1_COMPARISON.png",
+    "art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_A_DETAILS.png",
+    "art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_A_REFERENCE_R1_COMPARISON.png",
+    "art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_B_DETAILS.png",
+    "art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_B_REFERENCE_R1_COMPARISON.png",
+    "art/s-creature/zero-rebuild-20261017/renders/r2_trial_a/FRONT.png",
+    "art/s-creature/zero-rebuild-20261017/renders/r2_trial_a/FRONT34.png",
+    "art/s-creature/zero-rebuild-20261017/renders/r2_trial_a/SIDE.png",
+    "art/s-creature/zero-rebuild-20261017/renders/r2_trial_b/FRONT.png",
+    "art/s-creature/zero-rebuild-20261017/renders/r2_trial_b/FRONT34.png",
+    "art/s-creature/zero-rebuild-20261017/renders/r2_trial_b/SIDE.png",
+    "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R2_TRIAL_A.blend",
+    "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R2_TRIAL_B.blend",
+    "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R2_WORKING_COPY.blend"
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "method": "Unretouched render pixels, reference crops, uniform resizing and labels only.",
+  "reference_crops": {
+    "SIDE": [
+      30,
+      72,
+      755,
+      514
+    ],
+    "FRONT": [
+      765,
+      86,
+      948,
+      513
+    ],
+    "FRONT34": [
+      1130,
+      83,
+      1434,
+      513
+    ]
+  },
+  "detail_crops": [
+    [
+      "SIDE",
+      [
+        335,
+        315,
+        605,
+        570
+      ],
+      "SHOULDER / CHEST / ARM"
+    ],
+    [
+      "FRONT34",
+      [
+        390,
+        290,
+        675,
+        560
+      ],
+      "SHOULDER / CHEST / ARM"
+    ],
+    [
+      "FRONT",
+      [
+        500,
+        60,
+        700,
+        360
+      ],
+      "FRONTAL CROWN"
+    ]
+  ],
+  "source_sha256": {
+    "references/00_s_type_modeling_image_v1.png": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+    "zero-rebuild-20261017/renders/revised_r1/SIDE.png": "99cd139360608fa7a178ad57aa77bf9e724e913823df1b20f4c49d30468b4280",
+    "zero-rebuild-20261017/renders/revised_r2/SIDE.png": "d1dd6308221aea2ab5fa1a66cd52240f09a2e47bcf385c262269ae86b0817735",
+    "zero-rebuild-20261017/renders/revised_r1/FRONT.png": "d985eae7e62b6fd6e78897fe8c0e328f2ae2565d2c4c56fc23bd6872d3ab28b1",
+    "zero-rebuild-20261017/renders/revised_r2/FRONT.png": "49dd200c28f3b219f8fe3a47b0d92f4d335eb445e6d6fc87a3ff31ca31a17a91",
+    "zero-rebuild-20261017/renders/revised_r1/FRONT34.png": "bf750405461c6d8075e8f3cb66842fbbf27814b1a7b589be2195a9766045dc8a",
+    "zero-rebuild-20261017/renders/revised_r2/FRONT34.png": "2888af3133401694d9e049798dd6a745363ee8394e8c29ce048c72a7527e528f",
+    "zero-rebuild-20261017/renders/revised_r2/REAR34.png": "33aacab757858fd35aa6f9422ce60af6e4daf73559d505b1a5cf1593c3d2945f",
+    "zero-rebuild-20261017/renders/revised_r2/BACK.png": "576314a8db688662f7a45a1631fddc29ec59ae1745e06fbcf39393630b44c4e8",
+    "zero-rebuild-20261017/renders/revised_r1/REAR34.png": "4e61abd4ae24faf3468fe7c9ca8ba89dcb9195cf0db0d3ad3694e53b3da11804",
+    "zero-rebuild-20261017/renders/revised_r1/BACK.png": "12f7326203b3985297c7eb0573434cf67580b0441d2348325e4d8b38ccdb06ed"
+  }
+}
