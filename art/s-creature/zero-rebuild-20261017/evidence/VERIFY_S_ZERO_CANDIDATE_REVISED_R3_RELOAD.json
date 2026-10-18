@@ -1,0 +1,3678 @@
+{
+  "blender": "4.3.2",
+  "reopened": "S_ZERO_CANDIDATE_REVISED_R3.blend",
+  "file_sha256": {
+    "S_ZERO_CANDIDATE_REVISED_R2.blend": "3406e12f54670ca397eb31825721aa08e36fbc46a0bc68e2dcfbcbaae0c09662",
+    "S_ZERO_CANDIDATE_REVISED_R3.blend": "b3e1b1820c3019a7b466b81e06276d8585fdeb25ec425ac2a6219e55bd06a916"
+  },
+  "mesh_count": 144,
+  "vertices": 39691,
+  "faces": 40014,
+  "changed_meshes": [
+    "ANKLE_FIN_FORE_FAR",
+    "ANKLE_FIN_FORE_NEAR",
+    "ANKLE_FIN_HIND_FAR",
+    "ANKLE_FIN_HIND_NEAR",
+    "HOOF_FACE_FORE_FAR_-1",
+    "HOOF_FACE_FORE_FAR_1",
+    "HOOF_FACE_FORE_NEAR_-1",
+    "HOOF_FACE_FORE_NEAR_1",
+    "HOOF_FACE_HIND_FAR_-1",
+    "HOOF_FACE_HIND_FAR_1",
+    "HOOF_FACE_HIND_NEAR_-1",
+    "HOOF_FACE_HIND_NEAR_1",
+    "HOOF_SIGNAL_FORE_FAR_-1",
+    "HOOF_SIGNAL_FORE_FAR_1",
+    "HOOF_SIGNAL_FORE_NEAR_-1",
+    "HOOF_SIGNAL_FORE_NEAR_1",
+    "HOOF_SIGNAL_HIND_FAR_-1",
+    "HOOF_SIGNAL_HIND_FAR_1",
+    "HOOF_SIGNAL_HIND_NEAR_-1",
+    "HOOF_SIGNAL_HIND_NEAR_1",
+    "TOE_CYAN_FORE_FAR_-1",
+    "TOE_CYAN_FORE_FAR_1",
+    "TOE_CYAN_FORE_NEAR_-1",
+    "TOE_CYAN_FORE_NEAR_1",
+    "TOE_CYAN_HIND_FAR_-1",
+    "TOE_CYAN_HIND_FAR_1",
+    "TOE_CYAN_HIND_NEAR_-1",
+    "TOE_CYAN_HIND_NEAR_1",
+    "TOE_FORE_FAR_-1",
+    "TOE_FORE_FAR_1",
+    "TOE_FORE_NEAR_-1",
+    "TOE_FORE_NEAR_1",
+    "TOE_HIND_FAR_-1",
+    "TOE_HIND_FAR_1",
+    "TOE_HIND_NEAR_-1",
+    "TOE_HIND_NEAR_1",
+    "TOE_IVORY_FORE_FAR_-1",
+    "TOE_IVORY_FORE_FAR_1",
+    "TOE_IVORY_FORE_NEAR_-1",
+    "TOE_IVORY_FORE_NEAR_1",
+    "TOE_IVORY_HIND_FAR_-1",
+    "TOE_IVORY_HIND_FAR_1",
+    "TOE_IVORY_HIND_NEAR_-1",
+    "TOE_IVORY_HIND_NEAR_1"
+  ],
+  "unchanged_meshes": [
+    "CANNON_RIDGE_FORE_FAR",
+    "CANNON_RIDGE_FORE_NEAR",
+    "CANNON_RIDGE_HIND_FAR",
+    "CANNON_RIDGE_HIND_NEAR",
+    "CHEEK_F",
+    "CHEEK_N",
+    "CROWN_BLUE_F",
+    "CROWN_BLUE_N",
+    "CROWN_IVORY_RIDGE_F",
+    "CROWN_IVORY_RIDGE_N",
+    "CROWN_MAIN_F",
+    "CROWN_MAIN_N",
+    "CUE_DOT_F",
+    "CUE_DOT_N",
+    "CUE_FACE_F",
+    "CUE_FACE_N",
+    "CUE_FRAME_F",
+    "CUE_FRAME_N",
+    "CUE_RIM_F",
+    "CUE_RIM_N",
+    "CUE_ROUND_F",
+    "CUE_ROUND_N",
+    "CUE_SIGNAL_F",
+    "CUE_SIGNAL_N",
+    "DORSAL_BLUE_0_-1",
+    "DORSAL_BLUE_0_1",
+    "DORSAL_BLUE_1_-1",
+    "DORSAL_BLUE_1_1",
+    "DORSAL_BLUE_2_-1",
+    "DORSAL_BLUE_2_1",
+    "DORSAL_CREST_0_-1",
+    "DORSAL_CREST_0_1",
+    "DORSAL_CREST_1_-1",
+    "DORSAL_CREST_1_1",
+    "DORSAL_CREST_2_-1",
+    "DORSAL_CREST_2_1",
+    "DORSAL_MANTLE",
+    "ELBOW_SPUR_FORE_FAR",
+    "ELBOW_SPUR_FORE_NEAR",
+    "EYE_F",
+    "EYE_N",
+    "EYE_SOCKET_F",
+    "EYE_SOCKET_N",
+    "FOREHEAD_MEDIAN",
+    "LOWER_RIB_F",
+    "LOWER_RIB_N",
+    "MOUTH_SEAM_-1",
+    "MOUTH_SEAM_1",
+    "NAPE_FIN_F",
+    "NAPE_FIN_N",
+    "NAPE_IVORY_F",
+    "NAPE_IVORY_N",
+    "NECK_TENDON_F",
+    "NECK_TENDON_N",
+    "NOSE_CAP",
+    "PELVIS_F",
+    "PELVIS_N",
+    "RIB_SHELL_F",
+    "RIB_SHELL_N",
+    "SACRAL_MANTLE",
+    "S_ZERO_BODY_CONTINUOUS",
+    "TAIL_BLADE_0_-1",
+    "TAIL_BLADE_0_1",
+    "TAIL_BLADE_1_-1",
+    "TAIL_BLADE_1_1",
+    "TAIL_BLADE_2_-1",
+    "TAIL_BLADE_2_1",
+    "TAIL_BLADE_3_-1",
+    "TAIL_BLADE_3_1",
+    "TAIL_BLADE_4_-1",
+    "TAIL_BLADE_4_1",
+    "TAIL_BLADE_5_-1",
+    "TAIL_BLADE_5_1",
+    "TAIL_BLADE_6_-1",
+    "TAIL_BLADE_6_1",
+    "TAIL_BLUE_0_-1",
+    "TAIL_BLUE_0_1",
+    "TAIL_BLUE_1_-1",
+    "TAIL_BLUE_1_1",
+    "TAIL_BLUE_2_-1",
+    "TAIL_BLUE_2_1",
+    "TAIL_BLUE_3_-1",
+    "TAIL_BLUE_3_1",
+    "TAIL_BLUE_4_-1",
+    "TAIL_BLUE_4_1",
+    "TAIL_BLUE_5_-1",
+    "TAIL_BLUE_5_1",
+    "TAIL_BLUE_6_-1",
+    "TAIL_BLUE_6_1",
+    "TAIL_IVORY_0_-1",
+    "TAIL_IVORY_0_1",
+    "TAIL_IVORY_1_-1",
+    "TAIL_IVORY_1_1",
+    "TAIL_IVORY_2_-1",
+    "TAIL_IVORY_2_1",
+    "TAIL_IVORY_3_-1",
+    "TAIL_IVORY_3_1",
+    "TAIL_IVORY_4_-1",
+    "TAIL_IVORY_4_1",
+    "TAIL_TIP"
+  ],
+  "all_object_names_vertices_faces_connectivity_material_slots_preserved": true,
+  "body_including_r2_shoulder_coordinates_and_color_attributes_exactly_unchanged": true,
+  "all_crown_meshes_exactly_unchanged": true,
+  "studio_cameras_lights_world_materials_color_management_unchanged": true,
+  "studio_snapshot": {
+    "Ground": {
+      "type": "MESH",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "sha256": "4dd211b5fdd2f20ede5349dfcafdd8f92cbe95b8cbc4934a721502657ac5e29a",
+        "topology_sha256": "c9e4390b3975bea786d4689d2249f46ec1ce34254db64b933e4b9711da052cf4",
+        "vertices": 4,
+        "faces": 1,
+        "materials": [
+          "Studio matte"
+        ]
+      }
+    },
+    "Key": {
+      "type": "LIGHT",
+      "matrix": [
+        [
+          0.800000011920929,
+          0.44396400451660156,
+          -0.403603732585907,
+          -3.0
+        ],
+        [
+          -0.6000000238418579,
+          0.5919520258903503,
+          -0.5381382703781128,
+          -4.0
+        ],
+        [
+          1.9982165255783002e-08,
+          0.6726728677749634,
+          0.7399400472640991,
+          7.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "energy": 1300.0,
+      "shape": "DISK",
+      "size": 5.0
+    },
+    "Fill": {
+      "type": "LIGHT",
+      "matrix": [
+        [
+          -0.9701425433158875,
+          0.12574879825115204,
+          -0.20739027857780457,
+          -1.0
+        ],
+        [
+          -0.2425355464220047,
+          -0.5029956698417664,
+          0.8295612335205078,
+          4.0
+        ],
+        [
+          -8.196152379014165e-08,
+          0.8550921678543091,
+          0.5184760093688965,
+          4.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "energy": 1000.0,
+      "shape": "DISK",
+      "size": 4.0
+    },
+    "Rim": {
+      "type": "LIGHT",
+      "matrix": [
+        [
+          -0.447213739156723,
+          -0.6344165205955505,
+          0.6304883360862732,
+          4.0
+        ],
+        [
+          0.8944271206855774,
+          -0.3172083795070648,
+          0.31524428725242615,
+          2.0
+        ],
+        [
+          2.136569587918302e-09,
+          0.7049074769020081,
+          0.7092992663383484,
+          6.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "energy": 1600.0,
+      "shape": "DISK",
+      "size": 3.0
+    },
+    "CAM_SIDE": {
+      "type": "CAMERA",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.029999999329447746
+        ],
+        [
+          0.0,
+          -1.6292068494294654e-07,
+          -1.0,
+          -12.0
+        ],
+        [
+          0.0,
+          1.0,
+          -1.6292068494294654e-07,
+          1.559999942779541
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projection": "ORTHO",
+      "ortho_scale": 5.650000095367432,
+      "lens": 50.0
+    },
+    "CAM_FRONT": {
+      "type": "CAMERA",
+      "matrix": [
+        [
+          -4.371138828673793e-08,
+          -4.371138828673793e-08,
+          -1.0,
+          -11.970000267028809
+        ],
+        [
+          -1.0,
+          1.910685676922942e-15,
+          4.371138828673793e-08,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          -4.371138828673793e-08,
+          1.559999942779541
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projection": "ORTHO",
+      "ortho_scale": 4.650000095367432,
+      "lens": 50.0
+    },
+    "CAM_FRONT34": {
+      "type": "CAMERA",
+      "matrix": [
+        [
+          0.4788520932197571,
+          0.05245398357510567,
+          -0.8763271570205688,
+          -10.485926628112793
+        ],
+        [
+          -0.8778955936431885,
+          0.0286113228648901,
+          -0.4779965877532959,
+          -5.735959529876709
+        ],
+        [
+          5.4220777201408055e-08,
+          0.9982134103775024,
+          0.05974971503019333,
+          2.2769949436187744
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projection": "ORTHO",
+      "ortho_scale": 4.650000095367432,
+      "lens": 50.0
+    },
+    "CAM_REAR34": {
+      "type": "CAMERA",
+      "matrix": [
+        [
+          0.628337025642395,
+          -0.054180122911930084,
+          0.7760522365570068,
+          9.342625617980957
+        ],
+        [
+          0.7779412269592285,
+          0.04376092180609703,
+          -0.6268112659454346,
+          -7.5217366218566895
+        ],
+        [
+          -4.951031939981476e-08,
+          0.9975718259811401,
+          0.06964556127786636,
+          2.3957486152648926
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projection": "ORTHO",
+      "ortho_scale": 4.650000095367432,
+      "lens": 50.0
+    },
+    "CAM_BACK": {
+      "type": "CAMERA",
+      "matrix": [
+        [
+          -4.371138828673793e-08,
+          4.371138828673793e-08,
+          1.0,
+          12.029999732971191
+        ],
+        [
+          1.0,
+          1.910685676922942e-15,
+          4.371138828673793e-08,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          -4.371138828673793e-08,
+          1.559999942779541
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projection": "ORTHO",
+      "ortho_scale": 4.650000095367432,
+      "lens": 50.0
+    },
+    "color_management": [
+      "AgX",
+      "None",
+      0.0,
+      1.0
+    ],
+    "world": {
+      "nodes": {
+        "Background": {
+          "type": "BACKGROUND",
+          "inputs": {
+            "Color": [
+              0.3199999928474426,
+              0.38999998569488525,
+              0.47999998927116394,
+              1.0
+            ],
+            "Strength": 0.6499999761581421,
+            "Weight": 0.0
+          }
+        },
+        "World Output": {
+          "type": "OUTPUT_WORLD",
+          "inputs": {}
+        }
+      },
+      "links": [
+        [
+          "Background",
+          "Background",
+          "World Output",
+          "Surface"
+        ]
+      ]
+    },
+    "materials": {
+      "S | blue grey facet": {
+        "diffuse": [
+          0.3400000035762787,
+          0.4300000071525574,
+          0.5699999928474426,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.3400000035762787,
+                  0.4300000071525574,
+                  0.5699999928474426,
+                  1.0
+                ],
+                "Metallic": 0.15000000596046448,
+                "Roughness": 0.4399999976158142,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | cobalt recess": {
+        "diffuse": [
+          0.017999999225139618,
+          0.23000000417232513,
+          0.5199999809265137,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.017999999225139618,
+                  0.23000000417232513,
+                  0.5199999809265137,
+                  1.0
+                ],
+                "Metallic": 0.3199999928474426,
+                "Roughness": 0.3199999928474426,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | cue cyan": {
+        "diffuse": [
+          0.02500000037252903,
+          0.6600000262260437,
+          0.949999988079071,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.02500000037252903,
+                  0.6600000262260437,
+                  0.949999988079071,
+                  1.0
+                ],
+                "Metallic": 0.25,
+                "Roughness": 0.30000001192092896,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  0.02500000037252903,
+                  0.6600000262260437,
+                  0.949999988079071,
+                  1.0
+                ],
+                "Emission Strength": 0.5,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | cue warm alloy": {
+        "diffuse": [
+          0.5199999809265137,
+          0.3499999940395355,
+          0.12999999523162842,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.5199999809265137,
+                  0.3499999940395355,
+                  0.12999999523162842,
+                  1.0
+                ],
+                "Metallic": 0.699999988079071,
+                "Roughness": 0.2800000011920929,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | graphite dermis": {
+        "diffuse": [
+          0.03500000014901161,
+          0.04600000008940697,
+          0.06700000166893005,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.03500000014901161,
+                  0.04600000008940697,
+                  0.06700000166893005,
+                  1.0
+                ],
+                "Metallic": 0.11999999731779099,
+                "Roughness": 0.47999998927116394,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | ivory facet": {
+        "diffuse": [
+          0.8600000143051147,
+          0.8799999952316284,
+          0.8999999761581421,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.8600000143051147,
+                  0.8799999952316284,
+                  0.8999999761581421,
+                  1.0
+                ],
+                "Metallic": 0.07999999821186066,
+                "Roughness": 0.41999998688697815,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | pearl shell": {
+        "diffuse": [
+          0.6899999976158142,
+          0.7599999904632568,
+          0.8399999737739563,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.6899999976158142,
+                  0.7599999904632568,
+                  0.8399999737739563,
+                  1.0
+                ],
+                "Metallic": 0.12999999523162842,
+                "Roughness": 0.3799999952316284,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | R2 welded shoulder transition": {
+        "diffuse": [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.800000011920929,
+                  0.800000011920929,
+                  0.800000011920929,
+                  1.0
+                ],
+                "Metallic": 0.11999999731779099,
+                "Roughness": 0.41999998688697815,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            },
+            "Color Attribute": {
+              "type": "VERTEX_COLOR",
+              "inputs": {}
+            }
+          },
+          "links": [
+            [
+              "Color Attribute",
+              "Color",
+              "Principled BSDF",
+              "Base Color"
+            ],
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | slate tendons": {
+        "diffuse": [
+          0.08500000089406967,
+          0.1080000028014183,
+          0.15000000596046448,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.08500000089406967,
+                  0.1080000028014183,
+                  0.15000000596046448,
+                  1.0
+                ],
+                "Metallic": 0.18000000715255737,
+                "Roughness": 0.47999998927116394,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | socket": {
+        "diffuse": [
+          0.006000000052154064,
+          0.012000000104308128,
+          0.019999999552965164,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.006000000052154064,
+                  0.012000000104308128,
+                  0.019999999552965164,
+                  1.0
+                ],
+                "Metallic": 0.10000000149011612,
+                "Roughness": 0.3400000035762787,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "Studio matte": {
+        "diffuse": [
+          0.1899999976158142,
+          0.23000000417232513,
+          0.2800000011920929,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.1899999976158142,
+                  0.23000000417232513,
+                  0.2800000011920929,
+                  1.0
+                ],
+                "Metallic": 0.0,
+                "Roughness": 0.8999999761581421,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "meshes": [
+    {
+      "name": "ANKLE_FIN_FORE_FAR",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "ANKLE_FIN_FORE_NEAR",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "ANKLE_FIN_HIND_FAR",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "ANKLE_FIN_HIND_NEAR",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "CANNON_RIDGE_FORE_FAR",
+      "vertices": 132,
+      "faces": 140,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        132
+      ]
+    },
+    {
+      "name": "CANNON_RIDGE_FORE_NEAR",
+      "vertices": 132,
+      "faces": 140,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        132
+      ]
+    },
+    {
+      "name": "CANNON_RIDGE_HIND_FAR",
+      "vertices": 132,
+      "faces": 140,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        132
+      ]
+    },
+    {
+      "name": "CANNON_RIDGE_HIND_NEAR",
+      "vertices": 132,
+      "faces": 140,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        132
+      ]
+    },
+    {
+      "name": "CHEEK_F",
+      "vertices": 210,
+      "faces": 224,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        210
+      ]
+    },
+    {
+      "name": "CHEEK_N",
+      "vertices": 210,
+      "faces": 224,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        210
+      ]
+    },
+    {
+      "name": "CROWN_BLUE_F",
+      "vertices": 14,
+      "faces": 18,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        14
+      ]
+    },
+    {
+      "name": "CROWN_BLUE_N",
+      "vertices": 14,
+      "faces": 18,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        14
+      ]
+    },
+    {
+      "name": "CROWN_IVORY_RIDGE_F",
+      "vertices": 162,
+      "faces": 170,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        162
+      ]
+    },
+    {
+      "name": "CROWN_IVORY_RIDGE_N",
+      "vertices": 162,
+      "faces": 170,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        162
+      ]
+    },
+    {
+      "name": "CROWN_MAIN_F",
+      "vertices": 22,
+      "faces": 30,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        22
+      ]
+    },
+    {
+      "name": "CROWN_MAIN_N",
+      "vertices": 22,
+      "faces": 30,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        22
+      ]
+    },
+    {
+      "name": "CUE_DOT_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_DOT_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_FACE_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_FACE_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_FRAME_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_FRAME_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_RIM_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_RIM_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_ROUND_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_ROUND_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_SIGNAL_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "CUE_SIGNAL_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "DORSAL_BLUE_0_-1",
+      "vertices": 8,
+      "faces": 9,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        8
+      ]
+    },
+    {
+      "name": "DORSAL_BLUE_0_1",
+      "vertices": 8,
+      "faces": 9,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        8
+      ]
+    },
+    {
+      "name": "DORSAL_BLUE_1_-1",
+      "vertices": 8,
+      "faces": 9,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        8
+      ]
+    },
+    {
+      "name": "DORSAL_BLUE_1_1",
+      "vertices": 8,
+      "faces": 9,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        8
+      ]
+    },
+    {
+      "name": "DORSAL_BLUE_2_-1",
+      "vertices": 8,
+      "faces": 9,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        8
+      ]
+    },
+    {
+      "name": "DORSAL_BLUE_2_1",
+      "vertices": 8,
+      "faces": 9,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        8
+      ]
+    },
+    {
+      "name": "DORSAL_CREST_0_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "DORSAL_CREST_0_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "DORSAL_CREST_1_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "DORSAL_CREST_1_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "DORSAL_CREST_2_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "DORSAL_CREST_2_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "DORSAL_MANTLE",
+      "vertices": 350,
+      "faces": 360,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        350
+      ]
+    },
+    {
+      "name": "ELBOW_SPUR_FORE_FAR",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "ELBOW_SPUR_FORE_NEAR",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "EYE_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "EYE_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "EYE_SOCKET_F",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "EYE_SOCKET_N",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "FOREHEAD_MEDIAN",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        274
+      ]
+    },
+    {
+      "name": "HOOF_FACE_FORE_FAR_-1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        72
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "HOOF_FACE_FORE_FAR_1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        72
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "HOOF_FACE_FORE_NEAR_-1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        72
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "HOOF_FACE_FORE_NEAR_1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        72
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "HOOF_FACE_HIND_FAR_-1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        72
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "HOOF_FACE_HIND_FAR_1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        72
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "HOOF_FACE_HIND_NEAR_-1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        72
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "HOOF_FACE_HIND_NEAR_1",
+      "vertices": 72,
+      "faces": 80,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        72
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "HOOF_SIGNAL_FORE_FAR_-1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        58
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "HOOF_SIGNAL_FORE_FAR_1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        58
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "HOOF_SIGNAL_FORE_NEAR_-1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        58
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "HOOF_SIGNAL_FORE_NEAR_1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        58
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "HOOF_SIGNAL_HIND_FAR_-1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        58
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "HOOF_SIGNAL_HIND_FAR_1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        58
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "HOOF_SIGNAL_HIND_NEAR_-1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        58
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "HOOF_SIGNAL_HIND_NEAR_1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        58
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "LOWER_RIB_F",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        274
+      ]
+    },
+    {
+      "name": "LOWER_RIB_N",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        274
+      ]
+    },
+    {
+      "name": "MOUTH_SEAM_-1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        58
+      ]
+    },
+    {
+      "name": "MOUTH_SEAM_1",
+      "vertices": 58,
+      "faces": 64,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        58
+      ]
+    },
+    {
+      "name": "NAPE_FIN_F",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "NAPE_FIN_N",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "NAPE_IVORY_F",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        274
+      ]
+    },
+    {
+      "name": "NAPE_IVORY_N",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        274
+      ]
+    },
+    {
+      "name": "NECK_TENDON_F",
+      "vertices": 158,
+      "faces": 168,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        158
+      ]
+    },
+    {
+      "name": "NECK_TENDON_N",
+      "vertices": 158,
+      "faces": 168,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        158
+      ]
+    },
+    {
+      "name": "NOSE_CAP",
+      "vertices": 266,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        266
+      ]
+    },
+    {
+      "name": "PELVIS_F",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        274
+      ]
+    },
+    {
+      "name": "PELVIS_N",
+      "vertices": 338,
+      "faces": 352,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        338
+      ]
+    },
+    {
+      "name": "RIB_SHELL_F",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        274
+      ]
+    },
+    {
+      "name": "RIB_SHELL_N",
+      "vertices": 274,
+      "faces": 288,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        274
+      ]
+    },
+    {
+      "name": "SACRAL_MANTLE",
+      "vertices": 210,
+      "faces": 224,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        210
+      ]
+    },
+    {
+      "name": "S_ZERO_BODY_CONTINUOUS",
+      "vertices": 27567,
+      "faces": 26888,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        27567
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TAIL_BLADE_0_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_0_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_1_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_1_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_2_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_2_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_3_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_3_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_4_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_4_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_5_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_5_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_6_-1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLADE_6_1",
+      "vertices": 12,
+      "faces": 15,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        12
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_0_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_0_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_1_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_1_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_2_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_2_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_3_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_3_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_4_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_4_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_5_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_5_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_6_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_BLUE_6_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_IVORY_0_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_IVORY_0_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_IVORY_1_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_IVORY_1_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_IVORY_2_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_IVORY_2_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_IVORY_3_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_IVORY_3_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_IVORY_4_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_IVORY_4_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ]
+    },
+    {
+      "name": "TAIL_TIP",
+      "vertices": 112,
+      "faces": 120,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        112
+      ]
+    },
+    {
+      "name": "TOE_CYAN_FORE_FAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_CYAN_FORE_FAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_CYAN_FORE_NEAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_CYAN_FORE_NEAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_CYAN_HIND_FAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_CYAN_HIND_FAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_CYAN_HIND_NEAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_CYAN_HIND_NEAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_FORE_FAR_-1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        102
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_FORE_FAR_1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        102
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_FORE_NEAR_-1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        102
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_FORE_NEAR_1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        102
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_HIND_FAR_-1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        102
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_HIND_FAR_1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        102
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_HIND_NEAR_-1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        102
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_HIND_NEAR_1",
+      "vertices": 102,
+      "faces": 110,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        102
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_IVORY_FORE_FAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_IVORY_FORE_FAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_IVORY_FORE_NEAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_IVORY_FORE_NEAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_IVORY_HIND_FAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_IVORY_HIND_FAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_IVORY_HIND_NEAR_-1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    },
+    {
+      "name": "TOE_IVORY_HIND_NEAR_1",
+      "vertices": 10,
+      "faces": 12,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0,
+      "loose_vertices": 0,
+      "components": [
+        10
+      ],
+      "nonadjacent_self_overlap_candidates": 0
+    }
+  ],
+  "toe_soles": {
+    "TOE_FORE_FAR_-1": {
+      "r2_min_z": 0.0081708412617445,
+      "r3_min_z": -0.01600000075995922,
+      "sole_faces": 15,
+      "sole_area_model_units2": 0.009178783278912306,
+      "ground_clearance_model_units": 0.0019999992400407778
+    },
+    "TOE_FORE_FAR_1": {
+      "r2_min_z": 0.0081708412617445,
+      "r3_min_z": -0.01600000075995922,
+      "sole_faces": 15,
+      "sole_area_model_units2": 0.009178782347589731,
+      "ground_clearance_model_units": 0.0019999992400407778
+    },
+    "TOE_FORE_NEAR_-1": {
+      "r2_min_z": 0.008170832879841328,
+      "r3_min_z": -0.01600000075995922,
+      "sole_faces": 15,
+      "sole_area_model_units2": 0.009178778156638145,
+      "ground_clearance_model_units": 0.0019999992400407778
+    },
+    "TOE_FORE_NEAR_1": {
+      "r2_min_z": 0.008170832879841328,
+      "r3_min_z": -0.01600000075995922,
+      "sole_faces": 15,
+      "sole_area_model_units2": 0.009178778156638145,
+      "ground_clearance_model_units": 0.0019999992400407778
+    },
+    "TOE_HIND_FAR_-1": {
+      "r2_min_z": 0.0081708412617445,
+      "r3_min_z": -0.01600000075995922,
+      "sole_faces": 15,
+      "sole_area_model_units2": 0.009178782347589731,
+      "ground_clearance_model_units": 0.0019999992400407778
+    },
+    "TOE_HIND_FAR_1": {
+      "r2_min_z": 0.0081708412617445,
+      "r3_min_z": -0.01600000075995922,
+      "sole_faces": 15,
+      "sole_area_model_units2": 0.009178780484944582,
+      "ground_clearance_model_units": 0.0019999992400407778
+    },
+    "TOE_HIND_NEAR_-1": {
+      "r2_min_z": 0.0081708412617445,
+      "r3_min_z": -0.01600000075995922,
+      "sole_faces": 15,
+      "sole_area_model_units2": 0.009178781416267157,
+      "ground_clearance_model_units": 0.0019999992400407778
+    },
+    "TOE_HIND_NEAR_1": {
+      "r2_min_z": 0.0081708412617445,
+      "r3_min_z": -0.01600000075995922,
+      "sole_faces": 15,
+      "sole_area_model_units2": 0.009178781416267157,
+      "ground_clearance_model_units": 0.0019999992400407778
+    }
+  },
+  "unassigned_materials_before": {
+    "S | blue grey facet.001": 0,
+    "S | cobalt recess.001": 0,
+    "S | graphite dermis.001": 0,
+    "S | ivory facet.001": 0,
+    "S | pearl shell.001": 0
+  },
+  "unassigned_materials_after": {},
+  "protected_file_sha256": {
+    "art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R2.blend": "3406e12f54670ca397eb31825721aa08e36fbc46a0bc68e2dcfbcbaae0c09662",
+    "art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE.blend": "fac25ffe586cacd294c4d0b9f7ab4ae71f93595a3f70fcfa9354c5b44cbef29d",
+    "art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R1.blend": "f8e8a80360ee5886d485a17610cf62a9387d10cdb09e4801a055be99bf8d8a4f",
+    "art/s-creature/zero-rebuild-20261017/S_ZERO_REFINED.blend": "24f1b61d23c6eda67e3d9dbb39ce96c99ac11b6dbf375fffb9fc782dff4dcba5",
+    "art/s-creature/zero-rebuild-20261017/README.md": "e2cff30784c529cd3a0f80e7147966b1a7228f2616cdc7404ffe5e6b73069ee2",
+    "art/s-creature/zero-rebuild-20261017/R2_QUALITY_REVIEW.md": "5429c24b55f9688054dc98bc6a4e1d45b475cdaef4a10545fd5e4e220be79c76",
+    "art/s-creature/zero-rebuild-20261017/S_ZERO_BLOCKOUT.blend": "eb1b959264916d7512893c6c419ae2a056333b49b4165145b2b88f7ae518e502",
+    "art/s-creature/zero-rebuild-20261017/comparisons/SHOULDER_HIP_PROGRESS.png": "b9a716ec6ce225c06f1e3d12f94949e5795d3ef28f312988cb7d1a89e97de475",
+    "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R1_FIVE_VIEWS.png": "2ae621a9a12039de72f353b7edd37ed5fa05d2acdcdf929f743f1ae26d830718",
+    "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R2_R1_FIVE_VIEW_COMPARISON.png": "9ff1060fb6a8cfa7331e0f4956035c42585b3265c5b6381fd0e87cac55cc4c12",
+    "art/s-creature/zero-rebuild-20261017/comparisons/STATIC_128PX_PREVIEW.png": "857cb66f3770a2ee8fdfe41fb7276148bd8f6c8422b9a1cbae700aa8e885ede5",
+    "art/s-creature/zero-rebuild-20261017/comparisons/BEFORE_AFTER_FIVE_VIEWS.png": "f776be4478899530d70e65d6770c112dd4c6cbbab320ec16eeb3ba785d95ff4e",
+    "art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_B_REFERENCE_R1_COMPARISON.png": "f26405178467b75600ec201108c3a5ece8a9b23cd1bdf22fc7d75a77ae6b29d1",
+    "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R2_FIVE_VIEWS.png": "2abf4a1bb668720a54df3c2102ce3b739abbf20f5cad450f43941b9e91c05db7",
+    "art/s-creature/zero-rebuild-20261017/comparisons/REFERENCE_COMPARISON.png": "4b0445f01e5ada5f1bd92ccadfabeb90e92b89b1c935c96c82feac0bc4291f9a",
+    "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R2_DETAILS.png": "0819e84f81dd61ef604f17acd064704e57050889471514abe5741486abe9733c",
+    "art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_A_DETAILS.png": "e07aedfcd69b2289436de57dfd6975aded7881451872c558636fc3d213cffda6",
+    "art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_A_REFERENCE_R1_COMPARISON.png": "1ac9810a17d11e9187b8f5b41107e5b6914d2f259958cf18c9921c2b5f3c2bdd",
+    "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R2_REFERENCE_R1_COMPARISON.png": "519c6a9df5b8e25f3077eedafa3f15ba027e1c7607e0405c146791b951db128a",
+    "art/s-creature/zero-rebuild-20261017/comparisons/CANDIDATE_FIVE_VIEWS.png": "45e641a0dc64f9ef594e3435888f468067cb429d2c38496dafaf321ba161173f",
+    "art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_B_DETAILS.png": "625f64abe14da023be779bad9e0a77b475d9a8e7362b935f83916f4f71b6960c",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/SIDE.png": "99cd139360608fa7a178ad57aa77bf9e724e913823df1b20f4c49d30468b4280",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/FRONT34.png": "bf750405461c6d8075e8f3cb66842fbbf27814b1a7b589be2195a9766045dc8a",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/REAR34.png": "4e61abd4ae24faf3468fe7c9ca8ba89dcb9195cf0db0d3ad3694e53b3da11804",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/BACK.png": "12f7326203b3985297c7eb0573434cf67580b0441d2348325e4d8b38ccdb06ed",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/FRONT.png": "d985eae7e62b6fd6e78897fe8c0e328f2ae2565d2c4c56fc23bd6872d3ab28b1",
+    "art/s-creature/zero-rebuild-20261017/renders/r2_trial_a/SIDE.png": "773fede033bd5428bbccead3f0d358efeae6ffeeefc461cc6bc1a2ac95b79f07",
+    "art/s-creature/zero-rebuild-20261017/renders/r2_trial_a/FRONT34.png": "c9c25c2e63c9221a1643449d3e7806e994828de385e0284b8f7bcc9616362809",
+    "art/s-creature/zero-rebuild-20261017/renders/r2_trial_a/FRONT.png": "85e7e739a6de6c3b8a1c7db7372fa385b723a078a07fe04c0cb702359bdaf9ed",
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/SIDE.png": "e8b3f8c774bad5e00bdbe0a91513f54965347c52f9a2cf3336720cc5e82162d3",
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/FRONT34.png": "b9a8462162d7d01d2927ab9b77406423f87d45184f9d535931b42dae67ca403b",
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/REAR34.png": "acc834db630a0d60b5244c247f040091a1cdf1a66cdff2a0f5d2d82cdfce8c19",
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/BACK.png": "a69194bc8f2e46032eed1ecc5badb30a074971dca9f5bc0f1397664789bd5988",
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/FRONT.png": "d4a9df94ad1c3ddaadcccd2671475a9eecd4609d0fbab655b9f84d00d8779ff6",
+    "art/s-creature/zero-rebuild-20261017/renders/blockout/SIDE.png": "5bbc82d33ad50b7ba9e01766ee500c45b085813bc9266868605b8398c0625bf1",
+    "art/s-creature/zero-rebuild-20261017/renders/blockout/FRONT34.png": "e13fc684788d1f922c6c1be182766a5fa5ca3b472a037188f9fe59b6e50c5d64",
+    "art/s-creature/zero-rebuild-20261017/renders/blockout/FRONT.png": "78839d273230a07b5ef077ccae199d235c2e1b447dd85959a687cec6acc9d30b",
+    "art/s-creature/zero-rebuild-20261017/renders/refined/SIDE.png": "096505f06f6b0bc60420a606ba7306c0f665085f5ac85fa236ad062e93c96e82",
+    "art/s-creature/zero-rebuild-20261017/renders/refined/FRONT34.png": "2ee101a68bdb679a18662a2cd7b455ec007eb9d29ce3c47efe82d4af1db3582d",
+    "art/s-creature/zero-rebuild-20261017/renders/refined/FRONT.png": "3fa3274f8c831903781e8c4383e8de4d25aa8436e1b8aefe5cb7effdc82e94c6",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r2/SIDE.png": "d1dd6308221aea2ab5fa1a66cd52240f09a2e47bcf385c262269ae86b0817735",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r2/FRONT34.png": "2888af3133401694d9e049798dd6a745363ee8394e8c29ce048c72a7527e528f",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r2/REAR34.png": "33aacab757858fd35aa6f9422ce60af6e4daf73559d505b1a5cf1593c3d2945f",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r2/BACK.png": "576314a8db688662f7a45a1631fddc29ec59ae1745e06fbcf39393630b44c4e8",
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r2/FRONT.png": "49dd200c28f3b219f8fe3a47b0d92f4d335eb445e6d6fc87a3ff31ca31a17a91",
+    "art/s-creature/zero-rebuild-20261017/renders/r2_trial_b/SIDE.png": "42daaacc0b093872ee620b58919c54118cc291bf0840bd8271ecb7ba57d08fb9",
+    "art/s-creature/zero-rebuild-20261017/renders/r2_trial_b/FRONT34.png": "b86349016892b52e7cafce2e91bb54edfab2e0dc41a2375af520ac9632b336dc",
+    "art/s-creature/zero-rebuild-20261017/renders/r2_trial_b/FRONT.png": "65c7e97e6cb6d26b2fd45be17f323a4bf88e2e89f9ad873835780a76b14a2f12",
+    "art/s-creature/zero-rebuild-20261017/evidence/REMOTE_r2_assets.json": "123cf431e8492c2911e31eaf4f18537e982cee89712a244838c5c5ff3e06d63d",
+    "art/s-creature/zero-rebuild-20261017/evidence/CANDIDATE_CHANGES.json": "d9e53daceb6310588f08cfbfc1ad1bfb42a79f270f56e8a707f0e2b11bb6c319",
+    "art/s-creature/zero-rebuild-20261017/evidence/R2_NETWORK_RETRY.json": "43c83e74cf0bd8c9689be6e7a4c89fdf8812eb179ec423568ff6b80eeda348f3",
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_candidate_review.log": "b0cb31f1c1d0e82f7994ad1bff7fc86fc5484c952297a24ea5f748532cee53cf",
+    "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_SOURCES.json": "87e8d31dfea13be87a6cb35b8653642ba9957fc3e2ee6a80ca60bb6a02a63c68",
+    "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_r2_trial_b.json": "17e131ad4aa717af2a8f0e5b7d3f42cae64f2ff43ec7958be575d6dc632cf93d",
+    "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_FRONT34.png": "e54465dfaf15602a147aa0388bcf6fd9c1df29435b5bc9c7c0ce9f6b333e4e5f",
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r2_trial_a_unsandboxed.log": "ec5ad732abcf7b7bb1d625ddb586512889a40139929b9ee395983bd231733dbd",
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r2_trial_b.json": "a69b5a3c4166b08928d96608e71db21eb917bcd27879ec3974d22bd97c1e6f59",
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_S_ZERO_CANDIDATE_REVISED_R1.json": "048644b66cc25cd3440853fe2a79ef51f80402bbfabb570f70bc4b227fabdea3",
+    "art/s-creature/zero-rebuild-20261017/evidence/REFERENCE_SHA256.json": "5a4406ff74faea01a5b34933ba54f6ada6a8e49cc5b00dc432d73ae3ca34b4d6",
+    "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R1.json": "17db0adb3bc4c7bd0263a0f0b9d7999940090907451dfcb71002485efdfaea68",
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r1.json": "5dfb28384ccd00acbd957819f967941df5895db1706a31d11f764ef51168d1d3",
+    "art/s-creature/zero-rebuild-20261017/evidence/FINAL_REVIEW.json": "b95cbfa9e634d0e15cab325afc8e976565f153bff6916bdfe3d56ebae5bf711d",
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_candidate_review.json": "890201d025511c22dc0484b3fa3114c0e8835812dd7bf86419469c5ac5bb9632",
+    "art/s-creature/zero-rebuild-20261017/evidence/R2_UPLOAD_MANIFEST.json": "35d2161b78715a691106ba0f75543143c5c3908278ef9ca7cf9737f65694e0e6",
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_refined.json": "59a6b923c4220753279585eb81004b63d623c90484016943e0ae0a14d289f224",
+    "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R2_TRIAL_A.json": "d059bb2011b5c6bb0c85024b42374bae963a269f5cf74d16dcb432a8263b15e2",
+    "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R2_TRIAL_B.json": "39ccb0d7a8095b8bfe8e55b5464c446321e520dfd8a897f85e55363919283e28",
+    "art/s-creature/zero-rebuild-20261017/evidence/R2_SAVE.json": "f8237f4bc56b12d3798aac11e19850ab0089f2157d39e7059ca05dbeec8d779b",
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r1.log": "9c6626a9392340c9b181b98a7fb32138a54c3f2b690c82b7c550bd44d699e065",
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_blockout.json": "df5213c9444b498cfe68548ac41f587ea76e7b53dcbc30dec5162516c296560d",
+    "art/s-creature/zero-rebuild-20261017/evidence/STRUCTURE_revised_r1.json": "f87e0976cb6efa18feffe9a949f9efc1cbe326c8cd9301a8571024a98588d132",
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_SAVED_ORIGINALS.json": "8c255b460044a21b4b130a7204e8e4548fbdf323f3be2d26c46917b0607df910",
+    "art/s-creature/zero-rebuild-20261017/evidence/REMOTE_PRESERVATION.json": "a5e8fbb54801d825f2539e6ce4b873a0f0230761bde3f1da6c1e34f3ece60862",
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r2.log": "11d1640c9882bbf25269f2a76dc0d4abf14025284dd745472160f71d93f25be0",
+    "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_SIDE.png": "59427391cffcfe2aa8490353b8632b7772b8767d18aa78db730cab14e2da9bc1",
+    "art/s-creature/zero-rebuild-20261017/evidence/BLOCKOUT_VIEWPORT_FRONT.png": "197192c4b9bdf7113742ce20faa6420e04376b76c37002719c3a60487cdf280a",
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r2.json": "d7855a7e9dc5dfe7272c889887f1b3d29b5451d7f633eb304c7a83bfd48c5b14",
+    "art/s-creature/zero-rebuild-20261017/evidence/REMOTE_missing_images.json": "d80bd30dcfacaa157fafaebe737aa956a3982d140803c3a72a86d04eb1513387",
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_REVISED_R1.log": "8d16488f3372dae0a1570a0d4c89cf2e7757edb1fb0d05d1d863f005dfe46ec7",
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_SAVED_ORIGINALS_UNSANDBOXED.log": "d0879131ddbc261be9fa059de44318430b49dc2167d76181f2badb56a4396de6",
+    "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_revised_r2.json": "45e3eb85a46c44cc0ff0975661c0bb01114515c728b73fd6079b1bdd1e46273e",
+    "art/s-creature/zero-rebuild-20261017/evidence/BLOCKOUT_VIEWPORT_FRONT34.png": "24696e3876b8ea9f4118ff0322c0df23a01bf7942e631660377da368a425e86d",
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r2_trial_a.json": "6e46955ab692abee609a1632e1ae732114aa2c6c285755f30bc74f9cb268a531",
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r2_trial_a_restored.log": "5b1fd07b1d09c9445ed0d324585f670f81ab593ef3de0c26c253b0b290391ea2",
+    "art/s-creature/zero-rebuild-20261017/evidence/CANDIDATE_REVIEW.json": "48947ba3c3eff7ce37315837c60e1c4a4aece24afedd1b4dc234775597aa8697",
+    "art/s-creature/zero-rebuild-20261017/evidence/BLOCKOUT_VIEWPORT_SIDE.png": "00c1af0b66d0ff9e9750cb96b9e8b6faf7ce9e093ba9ae1589544a17ae9b436e",
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_SAVED_ORIGINALS.log": "7b313fa0596e39bad88b854cb3284efb50d8a88ad5a9360ea25ba0131343b518",
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r2_trial_b.log": "66796d84b4b805d3cd95a0c6ca01cca8655d2f193698f946fcac7dad15ef41ae",
+    "art/s-creature/zero-rebuild-20261017/evidence/SCULPT_R2_REVIEW.json": "4d9ee47f5287d4b8bd3bb5e1ac8fbde39b19262ace9d1715248a6d365414dfdb",
+    "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R1.log": "9ae84580e8f689b1618e307530b8a6f167f0cdfea05a10941549713284f96a5b",
+    "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_r2_trial_a.json": "accb4f0d5063fddb9b07b934126dc255c16026500d43e20f1cf9c00a1bc8f95d",
+    "art/s-creature/zero-rebuild-20261017/evidence/FINAL_R2_LOCAL_CHECKS.json": "a73971b69a30370e940cd175282ff3c11403d3ca3971cf6c4572bfb55861028a",
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r2_trial_a.log": "7b313fa0596e39bad88b854cb3284efb50d8a88ad5a9360ea25ba0131343b518",
+    "art/s-creature/zero-rebuild-20261017/evidence/REFINEMENT_CHANGES.json": "5e6a239d566fd3b220651d7a3d7e1562a74a8b9115f54714d3ba9aa0aafa3b79",
+    "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_FRONT.png": "2f90689bfc26f0a6e4351c3e6c46c92cbd87d665fc44fb311af612b0dda3aecc",
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_R2_RELOAD.json": "fb81c96bdb483324db2ed9fa0499ce7167041f5c0332ebe9f9e4ddbd1b4628c9",
+    "art/s-creature/zero-rebuild-20261017/evidence/FINAL_LOCAL_CHECKS.json": "15745c584c7685d332d0935ceddb5d220f2c20767b12239251bfd55f2cbc48eb",
+    "art/s-creature/zero-rebuild-20261017/evidence/STRUCTURE_candidate_review.log": "a1b37ba8a4c7a73f563871ab90314fc6ac2c651a8b0ce09fa430a8641e01780a",
+    "art/s-creature/zero-rebuild-20261017/evidence/STRUCTURE_candidate_review.json": "55b1c729433d90b8cd007632d264627de1c7936d1197f745d5aa1530f6e4b8fa",
+    "art/s-creature/zero-rebuild-20261017/evidence/ORIGINAL_ARTIFACTS.json": "d0cf399ed5bba8056b9a8bee953dfa82820f17be8a07124985d2fac2e05b54bf",
+    "art/s-creature/zero-rebuild-20261017/evidence/R2_START_STATE.json": "1dedaf598cf5fb38c914ce449620aeb943fa0d1f18e032f5ce0eb123d92755bf",
+    "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R2_TRIAL_A.blend": "595d3dacaad93cf9d1faa800354b65fd9dce36b50aed5ec9028c52dfaecaf970",
+    "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R2_TRIAL_B.blend": "949684364ab7d6f76b2e680b8c16b1539d06bd7738d69f16c6ec9cf5dc51be53",
+    "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_CANDIDATE_REVIEW.blend": "fac25ffe586cacd294c4d0b9f7ab4ae71f93595a3f70fcfa9354c5b44cbef29d",
+    "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R2_WORKING_COPY.blend": "f8e8a80360ee5886d485a17610cf62a9387d10cdb09e4801a055be99bf8d8a4f",
+    "art/s-creature/zero-rebuild-20261017/scripts/render_saved_stage.py": "6b583876e240ed1604a8c4afcc90f80d34d20e121027ea28cdbe99fc5ba9546d",
+    "art/s-creature/zero-rebuild-20261017/scripts/06_verify_github.py": "b0ed7679d842047e2c0753caaa02283a0bb5ea05288b149731ce6a925cfef6f2",
+    "art/s-creature/zero-rebuild-20261017/scripts/13_refine_r2_interface.py": "7487081419369ca7827e12ee343661ae38b3736f7c1df0b4f0837b8954da7c0d",
+    "art/s-creature/zero-rebuild-20261017/scripts/14_verify_r2.py": "dd60123c37991f8c96f340cd394858e0638eadb3efb54bce0283a11cf0bca178",
+    "art/s-creature/zero-rebuild-20261017/scripts/07_structure_audit.py": "cd3da68be3ae5cdceba973bb584158e3164c87ffed6561083c11f8464cdb7343",
+    "art/s-creature/zero-rebuild-20261017/scripts/01_build_blockout.py": "cb78e91e984e56b442703c795c94630f0efdb3c26466f50b10837c7c93140d12",
+    "art/s-creature/zero-rebuild-20261017/scripts/12_compare_r2.py": "4aa67ca70f3d716ea5d1fd4f9edf27e9b8cfb63cf7a654422c9efc2b34809c95",
+    "art/s-creature/zero-rebuild-20261017/scripts/08_revise_connections.py": "75198acdde76e0b6bf00061fa2dafadfba799507caa6c53314f991561c293b0c",
+    "art/s-creature/zero-rebuild-20261017/scripts/05_review_render.py": "a4ad5c112a3a7e58dc1bdb34716a2b17653c5c196a92254393bd05ca1927b6ec",
+    "art/s-creature/zero-rebuild-20261017/scripts/04_verify_saved.py": "fd6db70ed49c3b951005bdb5f8de769de4015195300f8d36b211c666563cead2",
+    "art/s-creature/zero-rebuild-20261017/scripts/16_check_r2_evidence.py": "8d47acf9f6bccd9f5cf558fe80db9ab66e8cc44012bc3b445aba2e3e683efbf9",
+    "art/s-creature/zero-rebuild-20261017/scripts/09_build_comparisons.py": "4bfddc0708ae2f66621c7179a0c3d2116b1afcc6c1462ed99405f9e7a41b9d1f",
+    "art/s-creature/zero-rebuild-20261017/scripts/15_save_reviewed_r2.py": "2e020cf4c094586493e311f92d62c7e58951941a0a83f0cd5b479d564ccb3875",
+    "art/s-creature/zero-rebuild-20261017/scripts/02_refine.py": "9ebd15de0f9ecf6e9d0af42b16aceb41889839b48fb9ed1e5c5d0fc87ce7d4dd",
+    "art/s-creature/zero-rebuild-20261017/scripts/17_verify_remote_r2.py": "e78c211bb692acfad62af806844227288f6feb919c2239029067698e45b92756",
+    "art/s-creature/zero-rebuild-20261017/scripts/03_candidate.py": "46f4ef1ac3c382814523d079c411d49268a462dc3ee9ae999076efd2d1139af3",
+    "art/s-creature/zero-rebuild-20261017/scripts/10_preserve_small_uploads.py": "a4b2a147c3f8ca8bff6612fd7850c54d62d79a1c357371a34447f303dfa02f00",
+    "art/s-creature/zero-rebuild-20261017/scripts/11_sculpt_r2.py": "d9e08cb0a8952646dd0d50cbe0e40508e54a4b45578e0c9d9cdabb65f519b4b4"
+  },
+  "armatures": [],
+  "actions": [],
+  "limits": "BVH candidates are not a complete proof. Separate detail shells remain; no retopology, rig, gait or PC/mobile runtime validation. No production promotion."
+}

@@ -1,0 +1,12 @@
+{
+  "source": "verification/S_ZERO_R3_TRIAL_B.blend",
+  "source_sha256": "3d80a6775d466b56a3f876430819cd64a41337a3bb086c8cfa333a48fd5e3c9e",
+  "model": "S_ZERO_CANDIDATE_REVISED_R3.blend",
+  "sha256": "b3e1b1820c3019a7b466b81e06276d8585fdeb25ec425ac2a6219e55bd06a916",
+  "bytes": 1239953,
+  "reopened_in_live_blender": true,
+  "blender": "4.3.2",
+  "overall": "REVISE",
+  "working_checkpoint": "R3",
+  "production_keep": false
+}

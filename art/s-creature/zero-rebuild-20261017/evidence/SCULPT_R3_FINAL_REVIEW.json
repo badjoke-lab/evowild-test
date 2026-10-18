@@ -1,0 +1,28 @@
+{
+  "overall": "REVISE",
+  "working_checkpoint_decision": "RETAIN_R3",
+  "production_keep": false,
+  "canonical_reference": "../references/00_s_type_modeling_image_v1.png",
+  "five_views_viewed": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "comparisons_viewed": [
+    "REVISED_R3_FIVE_VIEWS.png",
+    "REVISED_R3_REFERENCE_R2_COMPARISON.png",
+    "REVISED_R3_STATIC_128PX.png",
+    "R3_TRIAL_B_FOOT_DETAILS.png"
+  ],
+  "same_morph": "Preserves R2 S identity, stance, body/shoulder/crown/tail; full canonical match remains REVISE.",
+  "silhouette": "Small head, slender waist, long limbs, twin crown and tail retained at full size and static 128px; foot wedges are locally clearer.",
+  "motion_gait": "NOT_TESTED; no rig/actions",
+  "pc_mobile_runtime": "NOT_TESTED; no production integration",
+  "limits": [
+    "Foot/core junction and white-blue panel continuity need more sculpting/retopology.",
+    "Crown frontal root, shoulder/pelvis planes and tail thickness/layering remain R2."
+  ],
+  "quality_review": "R3_QUALITY_REVIEW.md"
+}

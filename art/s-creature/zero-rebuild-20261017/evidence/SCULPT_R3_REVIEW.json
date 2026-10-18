@@ -1,0 +1,42 @@
+{
+  "overall": "REVISE",
+  "production_keep": false,
+  "working_checkpoint_decision": "RETAIN_TRIAL_B_AS_R3",
+  "viewed": [
+    "r2_recovery/SIDE",
+    "r2_recovery/FRONT",
+    "r2_recovery/FRONT34",
+    "r2_recovery/REAR34",
+    "r2_recovery/BACK",
+    "r3_trial_a/SIDE",
+    "r3_trial_a/FRONT",
+    "r3_trial_a/FRONT34",
+    "r3_trial_b/SIDE",
+    "r3_trial_b/FRONT",
+    "r3_trial_b/FRONT34",
+    "r2_foot_close/SIDE",
+    "r2_foot_close/FRONT34",
+    "r3_trial_b_close/SIDE",
+    "r3_trial_b_close/FRONT34"
+  ],
+  "reference": "../references/00_s_type_modeling_image_v1.png",
+  "reviews": [
+    {
+      "trial": "A",
+      "decision": "REVISE",
+      "observed": "Forward split wedge and flat sole improve R2 rounded/floating toes; posterior foot remains too rectangular."
+    },
+    {
+      "trial": "B",
+      "decision": "RETAIN_AS_WORKING_R3",
+      "observed": "Heel relief and narrower root reduce rear block; shortened existing ankle fins sit nearer the foot. Split tapered outline and sole contact retained."
+    }
+  ],
+  "preserved": "R2 shoulder continuity, crown silhouette and cross sections, body/pose/head/Cue Band/pelvis/tail geometry, palette and studio unchanged.",
+  "remaining": [
+    "Toe/ankle is still separate detail geometry from the continuous body; the junction needs future topology work.",
+    "Foot panels remain faceted and the local white/blue boundary is not a final canonical surface solution.",
+    "Crown frontal root, shoulder/pelvis plane design and tail thickness/layer connections still need revision.",
+    "No rig, motion/gait or PC/mobile runtime checks; no production promotion."
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "checks": [
+    {
+      "view": "SIDE",
+      "pixels_identical": true
+    },
+    {
+      "view": "FRONT",
+      "pixels_identical": true
+    },
+    {
+      "view": "FRONT34",
+      "pixels_identical": true
+    },
+    {
+      "view": "REAR34",
+      "pixels_identical": true
+    },
+    {
+      "view": "BACK",
+      "pixels_identical": true
+    }
+  ],
+  "method": "Reopened immutable R2, rendered again with Cycles CPU, 32 samples, seed 17, same five cameras; exact RGB pixel comparison"
+}

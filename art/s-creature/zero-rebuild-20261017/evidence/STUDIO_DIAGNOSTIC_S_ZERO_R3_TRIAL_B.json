@@ -1,0 +1,3634 @@
+{
+  "before": {
+    "Ground": {
+      "type": "MESH",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "sha256": "4dd211b5fdd2f20ede5349dfcafdd8f92cbe95b8cbc4934a721502657ac5e29a",
+        "topology_sha256": "c9e4390b3975bea786d4689d2249f46ec1ce34254db64b933e4b9711da052cf4",
+        "vertices": 4,
+        "faces": 1,
+        "materials": [
+          "Studio matte"
+        ]
+      }
+    },
+    "Key": {
+      "type": "LIGHT",
+      "matrix": [
+        [
+          0.800000011920929,
+          0.44396400451660156,
+          -0.403603732585907,
+          -3.0
+        ],
+        [
+          -0.6000000238418579,
+          0.5919520258903503,
+          -0.5381382703781128,
+          -4.0
+        ],
+        [
+          1.9982165255783002e-08,
+          0.6726728677749634,
+          0.7399400472640991,
+          7.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "energy": 1300.0,
+      "shape": "DISK",
+      "size": 5.0
+    },
+    "Fill": {
+      "type": "LIGHT",
+      "matrix": [
+        [
+          -0.9701425433158875,
+          0.12574879825115204,
+          -0.20739027857780457,
+          -1.0
+        ],
+        [
+          -0.2425355464220047,
+          -0.5029956698417664,
+          0.8295612335205078,
+          4.0
+        ],
+        [
+          -8.196152379014165e-08,
+          0.8550921678543091,
+          0.5184760093688965,
+          4.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "energy": 1000.0,
+      "shape": "DISK",
+      "size": 4.0
+    },
+    "Rim": {
+      "type": "LIGHT",
+      "matrix": [
+        [
+          -0.447213739156723,
+          -0.6344165205955505,
+          0.6304883360862732,
+          4.0
+        ],
+        [
+          0.8944271206855774,
+          -0.3172083795070648,
+          0.31524428725242615,
+          2.0
+        ],
+        [
+          2.136569587918302e-09,
+          0.7049074769020081,
+          0.7092992663383484,
+          6.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "energy": 1600.0,
+      "shape": "DISK",
+      "size": 3.0
+    },
+    "CAM_SIDE": {
+      "type": "CAMERA",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.029999999329447746
+        ],
+        [
+          0.0,
+          -1.6292068494294654e-07,
+          -1.0,
+          -12.0
+        ],
+        [
+          0.0,
+          1.0,
+          -1.6292068494294654e-07,
+          1.559999942779541
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projection": "ORTHO",
+      "ortho_scale": 5.650000095367432,
+      "lens": 50.0
+    },
+    "CAM_FRONT": {
+      "type": "CAMERA",
+      "matrix": [
+        [
+          -4.371138828673793e-08,
+          -4.371138828673793e-08,
+          -1.0,
+          -11.970000267028809
+        ],
+        [
+          -1.0,
+          1.910685676922942e-15,
+          4.371138828673793e-08,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          -4.371138828673793e-08,
+          1.559999942779541
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projection": "ORTHO",
+      "ortho_scale": 4.650000095367432,
+      "lens": 50.0
+    },
+    "CAM_FRONT34": {
+      "type": "CAMERA",
+      "matrix": [
+        [
+          0.4788520932197571,
+          0.05245398357510567,
+          -0.8763271570205688,
+          -10.485926628112793
+        ],
+        [
+          -0.8778955936431885,
+          0.0286113228648901,
+          -0.4779965877532959,
+          -5.735959529876709
+        ],
+        [
+          5.4220777201408055e-08,
+          0.9982134103775024,
+          0.05974971503019333,
+          2.2769949436187744
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projection": "ORTHO",
+      "ortho_scale": 4.650000095367432,
+      "lens": 50.0
+    },
+    "CAM_REAR34": {
+      "type": "CAMERA",
+      "matrix": [
+        [
+          0.628337025642395,
+          -0.054180122911930084,
+          0.7760522365570068,
+          9.342625617980957
+        ],
+        [
+          0.7779412269592285,
+          0.04376092180609703,
+          -0.6268112659454346,
+          -7.5217366218566895
+        ],
+        [
+          -4.951031939981476e-08,
+          0.9975718259811401,
+          0.06964556127786636,
+          2.3957486152648926
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projection": "ORTHO",
+      "ortho_scale": 4.650000095367432,
+      "lens": 50.0
+    },
+    "CAM_BACK": {
+      "type": "CAMERA",
+      "matrix": [
+        [
+          -4.371138828673793e-08,
+          4.371138828673793e-08,
+          1.0,
+          12.029999732971191
+        ],
+        [
+          1.0,
+          1.910685676922942e-15,
+          4.371138828673793e-08,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          -4.371138828673793e-08,
+          1.559999942779541
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projection": "ORTHO",
+      "ortho_scale": 4.650000095367432,
+      "lens": 50.0
+    },
+    "color_management": [
+      "AgX",
+      "None",
+      0.0,
+      1.0
+    ],
+    "world": {
+      "nodes": {
+        "Background": {
+          "type": "BACKGROUND",
+          "inputs": {
+            "Color": [
+              0.3199999928474426,
+              0.38999998569488525,
+              0.47999998927116394,
+              1.0
+            ],
+            "Strength": 0.6499999761581421,
+            "Weight": 0.0
+          }
+        },
+        "World Output": {
+          "type": "OUTPUT_WORLD",
+          "inputs": {}
+        }
+      },
+      "links": [
+        [
+          "Background",
+          "Background",
+          "World Output",
+          "Surface"
+        ]
+      ]
+    },
+    "materials": {
+      "S | blue grey facet": {
+        "diffuse": [
+          0.3400000035762787,
+          0.4300000071525574,
+          0.5699999928474426,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.3400000035762787,
+                  0.4300000071525574,
+                  0.5699999928474426,
+                  1.0
+                ],
+                "Metallic": 0.15000000596046448,
+                "Roughness": 0.4399999976158142,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | blue grey facet.001": {
+        "diffuse": [
+          0.3400000035762787,
+          0.4300000071525574,
+          0.5699999928474426,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.3400000035762787,
+                  0.4300000071525574,
+                  0.5699999928474426,
+                  1.0
+                ],
+                "Metallic": 0.15000000596046448,
+                "Roughness": 0.4399999976158142,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | cobalt recess": {
+        "diffuse": [
+          0.017999999225139618,
+          0.23000000417232513,
+          0.5199999809265137,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.017999999225139618,
+                  0.23000000417232513,
+                  0.5199999809265137,
+                  1.0
+                ],
+                "Metallic": 0.3199999928474426,
+                "Roughness": 0.3199999928474426,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | cobalt recess.001": {
+        "diffuse": [
+          0.017999999225139618,
+          0.23000000417232513,
+          0.5199999809265137,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.017999999225139618,
+                  0.23000000417232513,
+                  0.5199999809265137,
+                  1.0
+                ],
+                "Metallic": 0.3199999928474426,
+                "Roughness": 0.3199999928474426,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | cue cyan": {
+        "diffuse": [
+          0.02500000037252903,
+          0.6600000262260437,
+          0.949999988079071,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.02500000037252903,
+                  0.6600000262260437,
+                  0.949999988079071,
+                  1.0
+                ],
+                "Metallic": 0.25,
+                "Roughness": 0.30000001192092896,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  0.02500000037252903,
+                  0.6600000262260437,
+                  0.949999988079071,
+                  1.0
+                ],
+                "Emission Strength": 0.5,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | cue warm alloy": {
+        "diffuse": [
+          0.5199999809265137,
+          0.3499999940395355,
+          0.12999999523162842,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.5199999809265137,
+                  0.3499999940395355,
+                  0.12999999523162842,
+                  1.0
+                ],
+                "Metallic": 0.699999988079071,
+                "Roughness": 0.2800000011920929,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | graphite dermis": {
+        "diffuse": [
+          0.03500000014901161,
+          0.04600000008940697,
+          0.06700000166893005,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.03500000014901161,
+                  0.04600000008940697,
+                  0.06700000166893005,
+                  1.0
+                ],
+                "Metallic": 0.11999999731779099,
+                "Roughness": 0.47999998927116394,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | graphite dermis.001": {
+        "diffuse": [
+          0.03500000014901161,
+          0.04600000008940697,
+          0.06700000166893005,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.03500000014901161,
+                  0.04600000008940697,
+                  0.06700000166893005,
+                  1.0
+                ],
+                "Metallic": 0.11999999731779099,
+                "Roughness": 0.47999998927116394,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | ivory facet": {
+        "diffuse": [
+          0.8600000143051147,
+          0.8799999952316284,
+          0.8999999761581421,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.8600000143051147,
+                  0.8799999952316284,
+                  0.8999999761581421,
+                  1.0
+                ],
+                "Metallic": 0.07999999821186066,
+                "Roughness": 0.41999998688697815,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | ivory facet.001": {
+        "diffuse": [
+          0.8600000143051147,
+          0.8799999952316284,
+          0.8999999761581421,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.8600000143051147,
+                  0.8799999952316284,
+                  0.8999999761581421,
+                  1.0
+                ],
+                "Metallic": 0.07999999821186066,
+                "Roughness": 0.41999998688697815,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | pearl shell": {
+        "diffuse": [
+          0.6899999976158142,
+          0.7599999904632568,
+          0.8399999737739563,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.6899999976158142,
+                  0.7599999904632568,
+                  0.8399999737739563,
+                  1.0
+                ],
+                "Metallic": 0.12999999523162842,
+                "Roughness": 0.3799999952316284,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | pearl shell.001": {
+        "diffuse": [
+          0.6899999976158142,
+          0.7599999904632568,
+          0.8399999737739563,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.6899999976158142,
+                  0.7599999904632568,
+                  0.8399999737739563,
+                  1.0
+                ],
+                "Metallic": 0.12999999523162842,
+                "Roughness": 0.3799999952316284,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | R2 welded shoulder transition": {
+        "diffuse": [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.800000011920929,
+                  0.800000011920929,
+                  0.800000011920929,
+                  1.0
+                ],
+                "Metallic": 0.11999999731779099,
+                "Roughness": 0.41999998688697815,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            },
+            "Color Attribute": {
+              "type": "VERTEX_COLOR",
+              "inputs": {}
+            }
+          },
+          "links": [
+            [
+              "Color Attribute",
+              "Color",
+              "Principled BSDF",
+              "Base Color"
+            ],
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | slate tendons": {
+        "diffuse": [
+          0.08500000089406967,
+          0.1080000028014183,
+          0.15000000596046448,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.08500000089406967,
+                  0.1080000028014183,
+                  0.15000000596046448,
+                  1.0
+                ],
+                "Metallic": 0.18000000715255737,
+                "Roughness": 0.47999998927116394,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | socket": {
+        "diffuse": [
+          0.006000000052154064,
+          0.012000000104308128,
+          0.019999999552965164,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.006000000052154064,
+                  0.012000000104308128,
+                  0.019999999552965164,
+                  1.0
+                ],
+                "Metallic": 0.10000000149011612,
+                "Roughness": 0.3400000035762787,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "Studio matte": {
+        "diffuse": [
+          0.1899999976158142,
+          0.23000000417232513,
+          0.2800000011920929,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.1899999976158142,
+                  0.23000000417232513,
+                  0.2800000011920929,
+                  1.0
+                ],
+                "Metallic": 0.0,
+                "Roughness": 0.8999999761581421,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "after": {
+    "Ground": {
+      "type": "MESH",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "sha256": "4dd211b5fdd2f20ede5349dfcafdd8f92cbe95b8cbc4934a721502657ac5e29a",
+        "topology_sha256": "c9e4390b3975bea786d4689d2249f46ec1ce34254db64b933e4b9711da052cf4",
+        "vertices": 4,
+        "faces": 1,
+        "materials": [
+          "Studio matte"
+        ]
+      }
+    },
+    "Key": {
+      "type": "LIGHT",
+      "matrix": [
+        [
+          0.800000011920929,
+          0.44396400451660156,
+          -0.403603732585907,
+          -3.0
+        ],
+        [
+          -0.6000000238418579,
+          0.5919520258903503,
+          -0.5381382703781128,
+          -4.0
+        ],
+        [
+          1.9982165255783002e-08,
+          0.6726728677749634,
+          0.7399400472640991,
+          7.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "energy": 1300.0,
+      "shape": "DISK",
+      "size": 5.0
+    },
+    "Fill": {
+      "type": "LIGHT",
+      "matrix": [
+        [
+          -0.9701425433158875,
+          0.12574879825115204,
+          -0.20739027857780457,
+          -1.0
+        ],
+        [
+          -0.2425355464220047,
+          -0.5029956698417664,
+          0.8295612335205078,
+          4.0
+        ],
+        [
+          -8.196152379014165e-08,
+          0.8550921678543091,
+          0.5184760093688965,
+          4.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "energy": 1000.0,
+      "shape": "DISK",
+      "size": 4.0
+    },
+    "Rim": {
+      "type": "LIGHT",
+      "matrix": [
+        [
+          -0.447213739156723,
+          -0.6344165205955505,
+          0.6304883360862732,
+          4.0
+        ],
+        [
+          0.8944271206855774,
+          -0.3172083795070648,
+          0.31524428725242615,
+          2.0
+        ],
+        [
+          2.136569587918302e-09,
+          0.7049074769020081,
+          0.7092992663383484,
+          6.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "energy": 1600.0,
+      "shape": "DISK",
+      "size": 3.0
+    },
+    "CAM_SIDE": {
+      "type": "CAMERA",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.029999999329447746
+        ],
+        [
+          0.0,
+          -1.6292068494294654e-07,
+          -1.0,
+          -12.0
+        ],
+        [
+          0.0,
+          1.0,
+          -1.6292068494294654e-07,
+          1.559999942779541
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projection": "ORTHO",
+      "ortho_scale": 5.650000095367432,
+      "lens": 50.0
+    },
+    "CAM_FRONT": {
+      "type": "CAMERA",
+      "matrix": [
+        [
+          -4.371138828673793e-08,
+          -4.371138828673793e-08,
+          -1.0,
+          -11.970000267028809
+        ],
+        [
+          -1.0,
+          1.910685676922942e-15,
+          4.371138828673793e-08,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          -4.371138828673793e-08,
+          1.559999942779541
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projection": "ORTHO",
+      "ortho_scale": 4.650000095367432,
+      "lens": 50.0
+    },
+    "CAM_FRONT34": {
+      "type": "CAMERA",
+      "matrix": [
+        [
+          0.4788520932197571,
+          0.05245398357510567,
+          -0.8763271570205688,
+          -10.485926628112793
+        ],
+        [
+          -0.8778955936431885,
+          0.0286113228648901,
+          -0.4779965877532959,
+          -5.735959529876709
+        ],
+        [
+          5.4220777201408055e-08,
+          0.9982134103775024,
+          0.05974971503019333,
+          2.2769949436187744
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projection": "ORTHO",
+      "ortho_scale": 4.650000095367432,
+      "lens": 50.0
+    },
+    "CAM_REAR34": {
+      "type": "CAMERA",
+      "matrix": [
+        [
+          0.628337025642395,
+          -0.054180122911930084,
+          0.7760522365570068,
+          9.342625617980957
+        ],
+        [
+          0.7779412269592285,
+          0.04376092180609703,
+          -0.6268112659454346,
+          -7.5217366218566895
+        ],
+        [
+          -4.951031939981476e-08,
+          0.9975718259811401,
+          0.06964556127786636,
+          2.3957486152648926
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projection": "ORTHO",
+      "ortho_scale": 4.650000095367432,
+      "lens": 50.0
+    },
+    "CAM_BACK": {
+      "type": "CAMERA",
+      "matrix": [
+        [
+          -4.371138828673793e-08,
+          4.371138828673793e-08,
+          1.0,
+          12.029999732971191
+        ],
+        [
+          1.0,
+          1.910685676922942e-15,
+          4.371138828673793e-08,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          -4.371138828673793e-08,
+          1.559999942779541
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projection": "ORTHO",
+      "ortho_scale": 4.650000095367432,
+      "lens": 50.0
+    },
+    "color_management": [
+      "AgX",
+      "None",
+      0.0,
+      1.0
+    ],
+    "world": {
+      "nodes": {
+        "Background": {
+          "type": "BACKGROUND",
+          "inputs": {
+            "Color": [
+              0.3199999928474426,
+              0.38999998569488525,
+              0.47999998927116394,
+              1.0
+            ],
+            "Strength": 0.6499999761581421,
+            "Weight": 0.0
+          }
+        },
+        "World Output": {
+          "type": "OUTPUT_WORLD",
+          "inputs": {}
+        }
+      },
+      "links": [
+        [
+          "Background",
+          "Background",
+          "World Output",
+          "Surface"
+        ]
+      ]
+    },
+    "materials": {
+      "S | blue grey facet": {
+        "diffuse": [
+          0.3400000035762787,
+          0.4300000071525574,
+          0.5699999928474426,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.3400000035762787,
+                  0.4300000071525574,
+                  0.5699999928474426,
+                  1.0
+                ],
+                "Metallic": 0.15000000596046448,
+                "Roughness": 0.4399999976158142,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | cobalt recess": {
+        "diffuse": [
+          0.017999999225139618,
+          0.23000000417232513,
+          0.5199999809265137,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.017999999225139618,
+                  0.23000000417232513,
+                  0.5199999809265137,
+                  1.0
+                ],
+                "Metallic": 0.3199999928474426,
+                "Roughness": 0.3199999928474426,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | cue cyan": {
+        "diffuse": [
+          0.02500000037252903,
+          0.6600000262260437,
+          0.949999988079071,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.02500000037252903,
+                  0.6600000262260437,
+                  0.949999988079071,
+                  1.0
+                ],
+                "Metallic": 0.25,
+                "Roughness": 0.30000001192092896,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  0.02500000037252903,
+                  0.6600000262260437,
+                  0.949999988079071,
+                  1.0
+                ],
+                "Emission Strength": 0.5,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | cue warm alloy": {
+        "diffuse": [
+          0.5199999809265137,
+          0.3499999940395355,
+          0.12999999523162842,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.5199999809265137,
+                  0.3499999940395355,
+                  0.12999999523162842,
+                  1.0
+                ],
+                "Metallic": 0.699999988079071,
+                "Roughness": 0.2800000011920929,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | graphite dermis": {
+        "diffuse": [
+          0.03500000014901161,
+          0.04600000008940697,
+          0.06700000166893005,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.03500000014901161,
+                  0.04600000008940697,
+                  0.06700000166893005,
+                  1.0
+                ],
+                "Metallic": 0.11999999731779099,
+                "Roughness": 0.47999998927116394,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | ivory facet": {
+        "diffuse": [
+          0.8600000143051147,
+          0.8799999952316284,
+          0.8999999761581421,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.8600000143051147,
+                  0.8799999952316284,
+                  0.8999999761581421,
+                  1.0
+                ],
+                "Metallic": 0.07999999821186066,
+                "Roughness": 0.41999998688697815,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | pearl shell": {
+        "diffuse": [
+          0.6899999976158142,
+          0.7599999904632568,
+          0.8399999737739563,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.6899999976158142,
+                  0.7599999904632568,
+                  0.8399999737739563,
+                  1.0
+                ],
+                "Metallic": 0.12999999523162842,
+                "Roughness": 0.3799999952316284,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | R2 welded shoulder transition": {
+        "diffuse": [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.800000011920929,
+                  0.800000011920929,
+                  0.800000011920929,
+                  1.0
+                ],
+                "Metallic": 0.11999999731779099,
+                "Roughness": 0.41999998688697815,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            },
+            "Color Attribute": {
+              "type": "VERTEX_COLOR",
+              "inputs": {}
+            }
+          },
+          "links": [
+            [
+              "Color Attribute",
+              "Color",
+              "Principled BSDF",
+              "Base Color"
+            ],
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | slate tendons": {
+        "diffuse": [
+          0.08500000089406967,
+          0.1080000028014183,
+          0.15000000596046448,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.08500000089406967,
+                  0.1080000028014183,
+                  0.15000000596046448,
+                  1.0
+                ],
+                "Metallic": 0.18000000715255737,
+                "Roughness": 0.47999998927116394,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "S | socket": {
+        "diffuse": [
+          0.006000000052154064,
+          0.012000000104308128,
+          0.019999999552965164,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.006000000052154064,
+                  0.012000000104308128,
+                  0.019999999552965164,
+                  1.0
+                ],
+                "Metallic": 0.10000000149011612,
+                "Roughness": 0.3400000035762787,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      },
+      "Studio matte": {
+        "diffuse": [
+          0.1899999976158142,
+          0.23000000417232513,
+          0.2800000011920929,
+          1.0
+        ],
+        "nodes": {
+          "nodes": {
+            "Principled BSDF": {
+              "type": "BSDF_PRINCIPLED",
+              "inputs": {
+                "Base Color": [
+                  0.1899999976158142,
+                  0.23000000417232513,
+                  0.2800000011920929,
+                  1.0
+                ],
+                "Metallic": 0.0,
+                "Roughness": 0.8999999761581421,
+                "IOR": 1.5,
+                "Alpha": 1.0,
+                "Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Weight": 0.0,
+                "Diffuse Roughness": 0.0,
+                "Subsurface Weight": 0.0,
+                "Subsurface Radius": [
+                  1.0,
+                  0.20000000298023224,
+                  0.10000000149011612
+                ],
+                "Subsurface Scale": 0.05000000074505806,
+                "Subsurface IOR": 1.399999976158142,
+                "Subsurface Anisotropy": 0.0,
+                "Specular IOR Level": 0.5,
+                "Specular Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Anisotropic": 0.0,
+                "Anisotropic Rotation": 0.0,
+                "Tangent": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Transmission Weight": 0.0,
+                "Coat Weight": 0.0,
+                "Coat Roughness": 0.029999999329447746,
+                "Coat IOR": 1.5,
+                "Coat Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Coat Normal": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Sheen Weight": 0.0,
+                "Sheen Roughness": 0.5,
+                "Sheen Tint": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Color": [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "Emission Strength": 0.0,
+                "Thin Film Thickness": 0.0,
+                "Thin Film IOR": 1.3300000429153442
+              }
+            },
+            "Material Output": {
+              "type": "OUTPUT_MATERIAL",
+              "inputs": {
+                "Displacement": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "Thickness": 0.0
+              }
+            }
+          },
+          "links": [
+            [
+              "Principled BSDF",
+              "BSDF",
+              "Material Output",
+              "Surface"
+            ]
+          ]
+        }
+      }
+    }
+  }
+}

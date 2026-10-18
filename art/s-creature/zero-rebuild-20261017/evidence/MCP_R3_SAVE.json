@@ -1,0 +1,4 @@
+{
+  "status": "error",
+  "message": "{\"exception_type\": \"AttributeError\", \"message\": \"'NoneType' object has no attribute 'areas'\", \"traceback\": \"Traceback (most recent call last):\\n  File \\\"/Users/lyla/Library/Application Support/Blender/4.3/scripts/addons/blender_mcp.py\\\", line 2248, in execute_code\\n    exec(code, namespace)\\n  File \\\"<string>\\\", line 1, in <module>\\n  File \\\"/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/scripts/24_save_reviewed_r3.py\\\", line 27, in <module>\\n    for area in bpy.context.screen.areas:\\n                ^^^^^^^^^^^^^^^^^^^^^^^^\\nAttributeError: 'NoneType' object has no attribute 'areas'\\n\"}"
+}

@@ -1,0 +1,554 @@
+{
+  "source": "S_ZERO_CANDIDATE_REVISED_R2.blend",
+  "source_sha256": "3406e12f54670ca397eb31825721aa08e36fbc46a0bc68e2dcfbcbaae0c09662",
+  "working_copy_sha256": "3406e12f54670ca397eb31825721aa08e36fbc46a0bc68e2dcfbcbaae0c09662",
+  "output": "verification/S_ZERO_R3_TRIAL_A.blend",
+  "output_sha256": "286aba61e558faaf4bcbfd2be96489e2ac2559c208c363938a39fed29f38ad76",
+  "method": "Existing foot vertices reshaped; topology and object set retained. No source generator executed.",
+  "scope": "8 split toes and 32 existing surface details only. Body, ankles, crown, tail and studio untouched.",
+  "sections": [
+    [
+      0.05,
+      0.188,
+      0.028,
+      0.025,
+      0.042
+    ],
+    [
+      0.033,
+      0.203,
+      -0.008,
+      0.033,
+      0.043
+    ],
+    [
+      0.007,
+      0.193,
+      -0.016,
+      0.043,
+      0.049
+    ],
+    [
+      -0.025,
+      0.171,
+      -0.016,
+      0.045,
+      0.054
+    ],
+    [
+      -0.062,
+      0.142,
+      -0.016,
+      0.044,
+      0.057
+    ],
+    [
+      -0.101,
+      0.111,
+      -0.016,
+      0.04,
+      0.059
+    ],
+    [
+      -0.14,
+      0.079,
+      -0.016,
+      0.034,
+      0.059
+    ],
+    [
+      -0.175,
+      0.052,
+      -0.016,
+      0.028,
+      0.058
+    ],
+    [
+      -0.21,
+      0.028,
+      -0.016,
+      0.019,
+      0.056
+    ],
+    [
+      -0.234,
+      0.012,
+      -0.016,
+      0.01,
+      0.054
+    ]
+  ],
+  "cross_section": [
+    [
+      1,
+      0.28
+    ],
+    [
+      0.86,
+      0
+    ],
+    [
+      0.28,
+      0
+    ],
+    [
+      -0.28,
+      0
+    ],
+    [
+      -0.86,
+      0
+    ],
+    [
+      -1,
+      0.28
+    ],
+    [
+      -0.74,
+      0.82
+    ],
+    [
+      -0.28,
+      1
+    ],
+    [
+      0.28,
+      1
+    ],
+    [
+      0.74,
+      0.82
+    ]
+  ],
+  "changes": [
+    {
+      "name": "TOE_FORE_NEAR_-1",
+      "vertices": 102,
+      "moved": 102,
+      "max_displacement": 0.14767136740814224,
+      "before": "ee0a739aacb68eef5a881c194c5d1d8220f1e7fbf3274714488af5de37d9d733",
+      "after": "ba5523cefd7124f459b14e624a156b5f68dce996833135c29b15e0cc05a0e88e"
+    },
+    {
+      "name": "HOOF_FACE_FORE_NEAR_-1",
+      "vertices": 72,
+      "moved": 72,
+      "max_displacement": 0.035223262752060995,
+      "before": "c2fa771f69a2e5076bf9a62e1f081658c0ce43879938efbcffdd921716ef65af",
+      "after": "162929fe64481e0b1d408c9c52c6fe8fd4eb6ce0a9e1179cb7ddccfa4ea1c819"
+    },
+    {
+      "name": "HOOF_SIGNAL_FORE_NEAR_-1",
+      "vertices": 58,
+      "moved": 58,
+      "max_displacement": 0.042490065640915835,
+      "before": "6441fe5ffe43fc3d623fb9bc2d673e6b8bf8978b04cb8c8562294fb84ffaccb5",
+      "after": "4615b3a34820bd5a9460c7fd2ad8e77e7c7413bbda30d5d3a55883276cf70f4b"
+    },
+    {
+      "name": "TOE_IVORY_FORE_NEAR_-1",
+      "vertices": 10,
+      "moved": 10,
+      "max_displacement": 0.08813601937749546,
+      "before": "5eb0ce05efca6f07dbee3506334f320073591392c3d2b2c04311521599a8c5f7",
+      "after": "e244f42a2b2b906268f0b08fb362deb3d4c0122d7823b6a94556b18033f35351"
+    },
+    {
+      "name": "TOE_CYAN_FORE_NEAR_-1",
+      "vertices": 10,
+      "moved": 10,
+      "max_displacement": 0.05250963351428961,
+      "before": "14687f6e99b64aa3c7f732ec434f378f21018d412fe40062902c737e8f024d9e",
+      "after": "82139bf239b0c1a923604497153cad863563d5e36ce6481419296ba5cba7a877"
+    },
+    {
+      "name": "TOE_FORE_NEAR_1",
+      "vertices": 102,
+      "moved": 102,
+      "max_displacement": 0.14767136740814224,
+      "before": "c403b6c35353b80e88a152afafe6f6597601c599ceef68871864df44bd9966df",
+      "after": "3d328ab5d678f641237880721e73aeb061a3eda2d8d1761ee5ee73bd0aa0484c"
+    },
+    {
+      "name": "HOOF_FACE_FORE_NEAR_1",
+      "vertices": 72,
+      "moved": 72,
+      "max_displacement": 0.035223262752060995,
+      "before": "dbccba6dfe828d7b69da48e8e65e5e3876baf9bf6f53ca6db3dc83cf67161b04",
+      "after": "ad6eed3c9b1f79051d76188ae97ff2e22ea396770fca582fa45b23d44f3420f0"
+    },
+    {
+      "name": "HOOF_SIGNAL_FORE_NEAR_1",
+      "vertices": 58,
+      "moved": 58,
+      "max_displacement": 0.04192529139840759,
+      "before": "b6067c3be41c02a41cb1a861a471aef9131b380602e983a7c2417376c6ba8540",
+      "after": "f8274837c4a84622654df5e7548be62d4e431b4e92a4bc402d021ae2847928bb"
+    },
+    {
+      "name": "TOE_IVORY_FORE_NEAR_1",
+      "vertices": 10,
+      "moved": 10,
+      "max_displacement": 0.08810852231186284,
+      "before": "5f9ce5314828625bbd3e4e93cd186bbe8560c72db4edab903fc2f1eb40631e7a",
+      "after": "fb524a0cba39dffff401ac9a4fd445a599cb0f823c227f12b8e356876b832934"
+    },
+    {
+      "name": "TOE_CYAN_FORE_NEAR_1",
+      "vertices": 10,
+      "moved": 10,
+      "max_displacement": 0.052268809487875906,
+      "before": "e3801fb53e63e4257a831545671c60ffcfa7d6d0c67a4c2cfe0c7e412d380676",
+      "after": "f98b55b8b83117384d9a31d5da91ba7f41932e2d7ba623795235fa854c36bd1a"
+    },
+    {
+      "name": "TOE_FORE_FAR_-1",
+      "vertices": 102,
+      "moved": 102,
+      "max_displacement": 0.14767134582731906,
+      "before": "83d467eacb8394d1f3b37c2f08b80a6bae67060ada96e3c2125b733b9d435456",
+      "after": "37decd3f13d37c0cd74b602bd3524ea48d67ecb3bb9ee6aafffad25279d42c1e"
+    },
+    {
+      "name": "HOOF_FACE_FORE_FAR_-1",
+      "vertices": 72,
+      "moved": 72,
+      "max_displacement": 0.035223262752060995,
+      "before": "6601798310485f52af012fc5cc0598a28a94e09e8e02dfa3750e363bd9498c7a",
+      "after": "1812dc03d6a70f9ed1839244ed9757841035d70388a6427a9f7038fa94f7475f"
+    },
+    {
+      "name": "HOOF_SIGNAL_FORE_FAR_-1",
+      "vertices": 58,
+      "moved": 58,
+      "max_displacement": 0.04249018156958082,
+      "before": "d358e5bc9283c27e9bd919a4e3aca577642038e032ef7219567d52ff5b2cd1ce",
+      "after": "1c4c2de5b15031740cedcc8405e7caf46dd4fcf7ceb2cf87c70129b31d545a11"
+    },
+    {
+      "name": "TOE_IVORY_FORE_FAR_-1",
+      "vertices": 10,
+      "moved": 10,
+      "max_displacement": 0.0881085995959174,
+      "before": "cfc060acfc645f68e042255095c03b3f6bb2e855c28d44dd36ca69ceafe02b8c",
+      "after": "cda4281f432b3b3b710b1ea53f71cef234f90f7d540570992c3f2a464d93951d"
+    },
+    {
+      "name": "TOE_CYAN_FORE_FAR_-1",
+      "vertices": 10,
+      "moved": 10,
+      "max_displacement": 0.052268816343606736,
+      "before": "0a702a0cea9034414246c79e3ee5cd2202543db075cc3f0f8baee8378151f66e",
+      "after": "0169633d4d0386e65fe8f108a47491c92facd09f8b4bd15c40fb0ab887459849"
+    },
+    {
+      "name": "TOE_FORE_FAR_1",
+      "vertices": 102,
+      "moved": 102,
+      "max_displacement": 0.14767134326521197,
+      "before": "0e6e7dffd3781cfeb3cd4ae7ef5ce6f16a70bddd5952d91bee35b5b131597cba",
+      "after": "e32ad132b091b7f0593d877f9b86428840687fb6fef7bd2a994b6cd7bf8e90be"
+    },
+    {
+      "name": "HOOF_FACE_FORE_FAR_1",
+      "vertices": 72,
+      "moved": 72,
+      "max_displacement": 0.035223262752060995,
+      "before": "c5152e367760c3a505fb35e0e38c21985a88c70a9a5ee0a9e53f611d33afb66a",
+      "after": "5c064296d19c822227c7b9b2e9824d9d15dd05645330eda7d8f0ab4f232c8dbb"
+    },
+    {
+      "name": "HOOF_SIGNAL_FORE_FAR_1",
+      "vertices": 58,
+      "moved": 58,
+      "max_displacement": 0.04192540854300474,
+      "before": "34440949245f4a842e27f478afa2c9a9bc6e279417bc7a4a7c3cb38d8516d978",
+      "after": "e09fbeb5c8427d82ebd06f3309b0136711a73fb23b97e849c907a8861d2657e0"
+    },
+    {
+      "name": "TOE_IVORY_FORE_FAR_1",
+      "vertices": 10,
+      "moved": 10,
+      "max_displacement": 0.08813609598732852,
+      "before": "9e0728a54cd3e7385c97c3e6530401da32c5ec8911a3dd41d55271a11ad2adb6",
+      "after": "64d3fae8974b39f5ded5844ba3552c8a7d832ee7d04c840375b15605e0d8bf53"
+    },
+    {
+      "name": "TOE_CYAN_FORE_FAR_1",
+      "vertices": 10,
+      "moved": 10,
+      "max_displacement": 0.052509629253438966,
+      "before": "2236063cd6ae0dee6e663081dfda14af2bc5592cd42628522f90454032e650e4",
+      "after": "0bf43495a482ac5dac007b9ed492204e8c301dfb0e7c0cc65f604cbb1bf9c360"
+    },
+    {
+      "name": "TOE_HIND_NEAR_-1",
+      "vertices": 102,
+      "moved": 102,
+      "max_displacement": 0.14767129911812932,
+      "before": "15eff1881a4282a3f53a6a1a0ff920ad39fa043277efb630632203e709704527",
+      "after": "6646e3aa45f4efbf713aeec793f702661d5eec84506fdd1c7a0128c05c34d0dd"
+    },
+    {
+      "name": "HOOF_FACE_HIND_NEAR_-1",
+      "vertices": 72,
+      "moved": 72,
+      "max_displacement": 0.03522314872698808,
+      "before": "ab37c0c4d8d550a6320d24e77afbfdf891185ebae3c9e4ae8026ac51391c1fb8",
+      "after": "61bfb923a18073172f42e3b86ea263dd1fce0cb6bf9e06ca1a92b1bac887dd83"
+    },
+    {
+      "name": "HOOF_SIGNAL_HIND_NEAR_-1",
+      "vertices": 58,
+      "moved": 58,
+      "max_displacement": 0.042490065640915835,
+      "before": "19e047fd07dd5d87c106e36fc81daa4f61802773013882872a6eb7baffaca9f5",
+      "after": "9be2a5fb2b6d477e6bd039d85ede2b5e8d3134aa9663ea0f7f53911192a7b034"
+    },
+    {
+      "name": "TOE_IVORY_HIND_NEAR_-1",
+      "vertices": 10,
+      "moved": 10,
+      "max_displacement": 0.0881359929602962,
+      "before": "be864c06e535ad656bbe0ea4a1eca32480a45da3dd4a01af317f591fa64cb9d1",
+      "after": "43137e388a1b0e4ded6f34d5bdc9bad8ee891b0961afeb5ad85531decc2c8d91"
+    },
+    {
+      "name": "TOE_CYAN_HIND_NEAR_-1",
+      "vertices": 10,
+      "moved": 10,
+      "max_displacement": 0.052509629253438966,
+      "before": "2ef4e46c6fbf59d848e97239965d917f6b2b1b7955c9b8e6854d8dbf81e0dfdd",
+      "after": "b35305b8243370f6b484b92ebad900c8cb2ba9b1c1debd56f0284bc8eeb2f5cb"
+    },
+    {
+      "name": "TOE_HIND_NEAR_1",
+      "vertices": 102,
+      "moved": 102,
+      "max_displacement": 0.14767130168023718,
+      "before": "5857f6ba54fe7e32c5ba3a54896574011e0deb06dc53ef50cc57d9d8209a2471",
+      "after": "78daf1c414fc62828ccc29ba65941e28b5bc624db4134a171c26e08a58a38d56"
+    },
+    {
+      "name": "HOOF_FACE_HIND_NEAR_1",
+      "vertices": 72,
+      "moved": 72,
+      "max_displacement": 0.03522314872698808,
+      "before": "17d18647ffceba7b894ff41236ab7480ed1dff851f67bdc39e20ae98bb0b7f1c",
+      "after": "38a0c432a0ebd284f497c17c45856892e2c2386f1bc07b803fd65c0bfbc48b43"
+    },
+    {
+      "name": "HOOF_SIGNAL_HIND_NEAR_1",
+      "vertices": 58,
+      "moved": 58,
+      "max_displacement": 0.04192529139840759,
+      "before": "a98ff9f1ad6d078381d8fd09e8c8e984a1eabedcef749512bc9a32b36e614bad",
+      "after": "a5c2db87cbb6dd91a03e4f5d82e0e3ce756bb5ba3443fb374ee64fed52db2a6e"
+    },
+    {
+      "name": "TOE_IVORY_HIND_NEAR_1",
+      "vertices": 10,
+      "moved": 10,
+      "max_displacement": 0.08810849653673299,
+      "before": "bf4df6b31395357ff751bf5dde27229340bd3503d05c11d3609742215856d64f",
+      "after": "ad1a6f2cb9b634e968c8d256e409f877c0ae728a55057554987121b56cc60f59"
+    },
+    {
+      "name": "TOE_CYAN_HIND_NEAR_1",
+      "vertices": 10,
+      "moved": 10,
+      "max_displacement": 0.052268816343606736,
+      "before": "b410f5e088d2abbbf28fb7200b85bff9b54795e728009ca0f7396b1532f6a82f",
+      "after": "db549bb4fdd4c819b5de2b897239e7d1d05e6cb49c8dce798987b2f556b6cc2b"
+    },
+    {
+      "name": "TOE_HIND_FAR_-1",
+      "vertices": 102,
+      "moved": 102,
+      "max_displacement": 0.14767136110141799,
+      "before": "2c51b267d5838c21b9390cb87d62c2e72ca2422ffaa4520096a943114842f380",
+      "after": "716f57c36df1a4fec0772cba84d27e942660caa20af4beefa037862c690d3652"
+    },
+    {
+      "name": "HOOF_FACE_HIND_FAR_-1",
+      "vertices": 72,
+      "moved": 72,
+      "max_displacement": 0.03522329032872157,
+      "before": "566bfd51f729264c5010c9d647d784d77981cc57386172b19bb7a69f4d2150b6",
+      "after": "078c0ca12f2100272cf552f96e29251521613a68e7dcee9198902a5f5062af21"
+    },
+    {
+      "name": "HOOF_SIGNAL_HIND_FAR_-1",
+      "vertices": 58,
+      "moved": 58,
+      "max_displacement": 0.042490126773205475,
+      "before": "79f52c2e720b60c552d8f9c2081cdce2a89bedfcbfd59f1010d71b99d4ed92fe",
+      "after": "94b6b1b1e101759af3da4839094a0880a1869a7dc25f9cd7e1373e2c809b3902"
+    },
+    {
+      "name": "TOE_IVORY_HIND_FAR_-1",
+      "vertices": 10,
+      "moved": 10,
+      "max_displacement": 0.08810854938761184,
+      "before": "7647b56de47efbdb72cacd5300498bcd5a94eb2643f58d65640147a38bd1be85",
+      "after": "f2c72d30d42c31bcef78fe32f69b2dccf59731c1c76ab656d7269c373180b62d"
+    },
+    {
+      "name": "TOE_CYAN_HIND_FAR_-1",
+      "vertices": 10,
+      "moved": 10,
+      "max_displacement": 0.052268816343606736,
+      "before": "520ce9fff08621b08d26784152dbc0cb70d464cc4837c67417cfbc75e446f990",
+      "after": "b50c6316d32d8fa06f1a99aa6243e23123d1bdff90385680387debde8d17d014"
+    },
+    {
+      "name": "TOE_HIND_FAR_1",
+      "vertices": 102,
+      "moved": 102,
+      "max_displacement": 0.14767135853931115,
+      "before": "b9b580adbfe5d3709a084649d2bbfc1661e88ce59a0a6d0883a3394fd43c3a46",
+      "after": "c25a6f6448a6c61c501f9acb702f197693ccc4658966e89ab6a6f295ae0c91b4"
+    },
+    {
+      "name": "HOOF_FACE_HIND_FAR_1",
+      "vertices": 72,
+      "moved": 72,
+      "max_displacement": 0.03522329032872157,
+      "before": "015d8a24cd7a45097317240f34a976c26be730c14eb2fa71d4354bea3a3a0dea",
+      "after": "76baf9cb0ad41de2d10faee2db2c02e043b1e34deef3b6f7d60999dc45699046"
+    },
+    {
+      "name": "HOOF_SIGNAL_HIND_FAR_1",
+      "vertices": 58,
+      "moved": 58,
+      "max_displacement": 0.04192535300847188,
+      "before": "b1e872c533204d573c078b21e408c3337a1d201aa560a0dbe56ded8d0d12a09c",
+      "after": "8510d3c92f28cb108762ae28f52693a1b905bb9ffb3fd529f27a8400816ecb00"
+    },
+    {
+      "name": "TOE_IVORY_HIND_FAR_1",
+      "vertices": 10,
+      "moved": 10,
+      "max_displacement": 0.0881360457946868,
+      "before": "93f1f410d01795b6f216170e37effe17e7b7b6f1bb8c0caea578c7f27fd44432",
+      "after": "434d48cc000223cfdc5aee5a87a9221bae7a3ea8a395c4498cf79c169358b283"
+    },
+    {
+      "name": "TOE_CYAN_HIND_FAR_1",
+      "vertices": 10,
+      "moved": 10,
+      "max_displacement": 0.052509629253438966,
+      "before": "1e096dea5f565b2ea41cbfd7174f6b80c7d3ce6dbe48508e1eb6bd07dbd057ba",
+      "after": "1a49bfed8836da6b7d3440ba4e6e3cedc2654c9444d8a9f3fc89a6f5534015f7"
+    }
+  ],
+  "unchanged_meshes": [
+    "ANKLE_FIN_FORE_FAR",
+    "ANKLE_FIN_FORE_NEAR",
+    "ANKLE_FIN_HIND_FAR",
+    "ANKLE_FIN_HIND_NEAR",
+    "CANNON_RIDGE_FORE_FAR",
+    "CANNON_RIDGE_FORE_NEAR",
+    "CANNON_RIDGE_HIND_FAR",
+    "CANNON_RIDGE_HIND_NEAR",
+    "CHEEK_F",
+    "CHEEK_N",
+    "CROWN_BLUE_F",
+    "CROWN_BLUE_N",
+    "CROWN_IVORY_RIDGE_F",
+    "CROWN_IVORY_RIDGE_N",
+    "CROWN_MAIN_F",
+    "CROWN_MAIN_N",
+    "CUE_DOT_F",
+    "CUE_DOT_N",
+    "CUE_FACE_F",
+    "CUE_FACE_N",
+    "CUE_FRAME_F",
+    "CUE_FRAME_N",
+    "CUE_RIM_F",
+    "CUE_RIM_N",
+    "CUE_ROUND_F",
+    "CUE_ROUND_N",
+    "CUE_SIGNAL_F",
+    "CUE_SIGNAL_N",
+    "DORSAL_BLUE_0_-1",
+    "DORSAL_BLUE_0_1",
+    "DORSAL_BLUE_1_-1",
+    "DORSAL_BLUE_1_1",
+    "DORSAL_BLUE_2_-1",
+    "DORSAL_BLUE_2_1",
+    "DORSAL_CREST_0_-1",
+    "DORSAL_CREST_0_1",
+    "DORSAL_CREST_1_-1",
+    "DORSAL_CREST_1_1",
+    "DORSAL_CREST_2_-1",
+    "DORSAL_CREST_2_1",
+    "DORSAL_MANTLE",
+    "ELBOW_SPUR_FORE_FAR",
+    "ELBOW_SPUR_FORE_NEAR",
+    "EYE_F",
+    "EYE_N",
+    "EYE_SOCKET_F",
+    "EYE_SOCKET_N",
+    "FOREHEAD_MEDIAN",
+    "LOWER_RIB_F",
+    "LOWER_RIB_N",
+    "MOUTH_SEAM_-1",
+    "MOUTH_SEAM_1",
+    "NAPE_FIN_F",
+    "NAPE_FIN_N",
+    "NAPE_IVORY_F",
+    "NAPE_IVORY_N",
+    "NECK_TENDON_F",
+    "NECK_TENDON_N",
+    "NOSE_CAP",
+    "PELVIS_F",
+    "PELVIS_N",
+    "RIB_SHELL_F",
+    "RIB_SHELL_N",
+    "SACRAL_MANTLE",
+    "S_ZERO_BODY_CONTINUOUS",
+    "TAIL_BLADE_0_-1",
+    "TAIL_BLADE_0_1",
+    "TAIL_BLADE_1_-1",
+    "TAIL_BLADE_1_1",
+    "TAIL_BLADE_2_-1",
+    "TAIL_BLADE_2_1",
+    "TAIL_BLADE_3_-1",
+    "TAIL_BLADE_3_1",
+    "TAIL_BLADE_4_-1",
+    "TAIL_BLADE_4_1",
+    "TAIL_BLADE_5_-1",
+    "TAIL_BLADE_5_1",
+    "TAIL_BLADE_6_-1",
+    "TAIL_BLADE_6_1",
+    "TAIL_BLUE_0_-1",
+    "TAIL_BLUE_0_1",
+    "TAIL_BLUE_1_-1",
+    "TAIL_BLUE_1_1",
+    "TAIL_BLUE_2_-1",
+    "TAIL_BLUE_2_1",
+    "TAIL_BLUE_3_-1",
+    "TAIL_BLUE_3_1",
+    "TAIL_BLUE_4_-1",
+    "TAIL_BLUE_4_1",
+    "TAIL_BLUE_5_-1",
+    "TAIL_BLUE_5_1",
+    "TAIL_BLUE_6_-1",
+    "TAIL_BLUE_6_1",
+    "TAIL_IVORY_0_-1",
+    "TAIL_IVORY_0_1",
+    "TAIL_IVORY_1_-1",
+    "TAIL_IVORY_1_1",
+    "TAIL_IVORY_2_-1",
+    "TAIL_IVORY_2_1",
+    "TAIL_IVORY_3_-1",
+    "TAIL_IVORY_3_1",
+    "TAIL_IVORY_4_-1",
+    "TAIL_IVORY_4_1",
+    "TAIL_TIP"
+  ],
+  "floor_z": -0.018,
+  "sole_z": -0.016,
+  "decision": "PENDING visual review"
+}

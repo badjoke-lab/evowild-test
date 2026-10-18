@@ -1,0 +1,231 @@
+{
+  "source": "verification/S_ZERO_R3_TRIAL_A.blend",
+  "source_sha256": "286aba61e558faaf4bcbfd2be96489e2ac2559c208c363938a39fed29f38ad76",
+  "output": "verification/S_ZERO_R3_TRIAL_B.blend",
+  "output_sha256": "3d80a6775d466b56a3f876430819cd64a41337a3bb086c8cfa333a48fd5e3c9e",
+  "trigger": "Trial A improves wedge/contact but posterior foot block is too full; far-fore ankle fin was on the cannon.",
+  "method": "Existing vertices only: rear-foot lateral taper, heel sole relief, reposition/shorten four existing ankle fins.",
+  "changes": [
+    {
+      "name": "TOE_FORE_NEAR_-1",
+      "moved_vertices": 41,
+      "max_displacement": 0.035263153573934926
+    },
+    {
+      "name": "TOE_IVORY_FORE_NEAR_-1",
+      "moved_vertices": 1,
+      "max_displacement": 0.004763724637703439
+    },
+    {
+      "name": "TOE_CYAN_FORE_NEAR_-1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "HOOF_FACE_FORE_NEAR_-1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "HOOF_SIGNAL_FORE_NEAR_-1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "TOE_FORE_NEAR_1",
+      "moved_vertices": 41,
+      "max_displacement": 0.035263153573934926
+    },
+    {
+      "name": "TOE_IVORY_FORE_NEAR_1",
+      "moved_vertices": 1,
+      "max_displacement": 0.004763724637703439
+    },
+    {
+      "name": "TOE_CYAN_FORE_NEAR_1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "HOOF_FACE_FORE_NEAR_1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "HOOF_SIGNAL_FORE_NEAR_1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "ANKLE_FIN_FORE_NEAR",
+      "moved_vertices": 10,
+      "max_displacement": 0.05282802621694122
+    },
+    {
+      "name": "TOE_FORE_FAR_-1",
+      "moved_vertices": 41,
+      "max_displacement": 0.035263153573934926
+    },
+    {
+      "name": "TOE_IVORY_FORE_FAR_-1",
+      "moved_vertices": 1,
+      "max_displacement": 0.004763718337308834
+    },
+    {
+      "name": "TOE_CYAN_FORE_FAR_-1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "HOOF_FACE_FORE_FAR_-1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "HOOF_SIGNAL_FORE_FAR_-1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "TOE_FORE_FAR_1",
+      "moved_vertices": 41,
+      "max_displacement": 0.035263153573934926
+    },
+    {
+      "name": "TOE_IVORY_FORE_FAR_1",
+      "moved_vertices": 1,
+      "max_displacement": 0.00476370334997303
+    },
+    {
+      "name": "TOE_CYAN_FORE_FAR_1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "HOOF_FACE_FORE_FAR_1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "HOOF_SIGNAL_FORE_FAR_1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "ANKLE_FIN_FORE_FAR",
+      "moved_vertices": 10,
+      "max_displacement": 0.21926879073151617
+    },
+    {
+      "name": "TOE_HIND_NEAR_-1",
+      "moved_vertices": 41,
+      "max_displacement": 0.03526314532060789
+    },
+    {
+      "name": "TOE_IVORY_HIND_NEAR_-1",
+      "moved_vertices": 1,
+      "max_displacement": 0.004763731129010377
+    },
+    {
+      "name": "TOE_CYAN_HIND_NEAR_-1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "HOOF_FACE_HIND_NEAR_-1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "HOOF_SIGNAL_HIND_NEAR_-1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "TOE_HIND_NEAR_1",
+      "moved_vertices": 41,
+      "max_displacement": 0.03526314532060789
+    },
+    {
+      "name": "TOE_IVORY_HIND_NEAR_1",
+      "moved_vertices": 1,
+      "max_displacement": 0.004763731129010377
+    },
+    {
+      "name": "TOE_CYAN_HIND_NEAR_1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "HOOF_FACE_HIND_NEAR_1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "HOOF_SIGNAL_HIND_NEAR_1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "ANKLE_FIN_HIND_NEAR",
+      "moved_vertices": 10,
+      "max_displacement": 0.07293009864893513
+    },
+    {
+      "name": "TOE_HIND_FAR_-1",
+      "moved_vertices": 41,
+      "max_displacement": 0.035263153573934926
+    },
+    {
+      "name": "TOE_IVORY_HIND_FAR_-1",
+      "moved_vertices": 1,
+      "max_displacement": 0.004763724637703439
+    },
+    {
+      "name": "TOE_CYAN_HIND_FAR_-1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "HOOF_FACE_HIND_FAR_-1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "HOOF_SIGNAL_HIND_FAR_-1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "TOE_HIND_FAR_1",
+      "moved_vertices": 41,
+      "max_displacement": 0.035263153573934926
+    },
+    {
+      "name": "TOE_IVORY_HIND_FAR_1",
+      "moved_vertices": 1,
+      "max_displacement": 0.004763724637703439
+    },
+    {
+      "name": "TOE_CYAN_HIND_FAR_1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "HOOF_FACE_HIND_FAR_1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "HOOF_SIGNAL_HIND_FAR_1",
+      "moved_vertices": 0,
+      "max_displacement": 0.0
+    },
+    {
+      "name": "ANKLE_FIN_HIND_FAR",
+      "moved_vertices": 10,
+      "max_displacement": 0.08740023758284578
+    }
+  ],
+  "decision": "PENDING visual review"
+}

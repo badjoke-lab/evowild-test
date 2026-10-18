@@ -1,0 +1,79 @@
+{
+  "source": "S_ZERO_CANDIDATE_REVISED_R3.blend",
+  "source_sha256": "b3e1b1820c3019a7b466b81e06276d8585fdeb25ec425ac2a6219e55bd06a916",
+  "blender": "4.3.2",
+  "engine": "CYCLES",
+  "samples": 32,
+  "seed": 17,
+  "resolution": [
+    900,
+    900
+  ],
+  "method": "Same studio and camera orientations; temporary camera translated/zoomed onto near forefoot; model not saved.",
+  "views": {
+    "SIDE": {
+      "file": "renders/revised_r3_close/SIDE.png",
+      "sha256": "91675d5a4e59920890a37af3a641dace6e48dc0168589126201439cf22359035",
+      "camera_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -0.5099999904632568
+        ],
+        [
+          0.0,
+          -1.6292068494294654e-07,
+          -1.0,
+          -12.289999961853027
+        ],
+        [
+          0.0,
+          1.0,
+          -1.6292068494294654e-07,
+          0.20500004291534424
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ortho_scale": 0.6700000166893005,
+      "seconds": 14.393460988998413
+    },
+    "FRONT34": {
+      "file": "renders/revised_r3_close/FRONT34.png",
+      "sha256": "cfead44d115e8b7fef5105bfeee57b5391ce6b6ee39805f1990d99976599413e",
+      "camera_matrix": [
+        [
+          0.4788520932197571,
+          0.05245398357510567,
+          -0.8763271570205688,
+          -11.02592658996582
+        ],
+        [
+          -0.8778955936431885,
+          0.0286113228648901,
+          -0.4779965877532959,
+          -6.025959491729736
+        ],
+        [
+          5.4220777201408055e-08,
+          0.9982134103775024,
+          0.05974971503019333,
+          0.9219950437545776
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ortho_scale": 0.6700000166893005,
+      "seconds": 24.5576171875
+    }
+  }
+}

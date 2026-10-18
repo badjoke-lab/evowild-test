@@ -1,0 +1,81 @@
+{
+  "r3_sha256": "b3e1b1820c3019a7b466b81e06276d8585fdeb25ec425ac2a6219e55bd06a916",
+  "render_checks": [
+    {
+      "render": "renders/revised_r3/SIDE.png",
+      "same_camera_as_r2": true,
+      "saved_r3_source_verified": true
+    },
+    {
+      "render": "renders/revised_r3/FRONT.png",
+      "same_camera_as_r2": true,
+      "saved_r3_source_verified": true
+    },
+    {
+      "render": "renders/revised_r3/FRONT34.png",
+      "same_camera_as_r2": true,
+      "saved_r3_source_verified": true
+    },
+    {
+      "render": "renders/revised_r3/REAR34.png",
+      "same_camera_as_r2": true,
+      "saved_r3_source_verified": true
+    },
+    {
+      "render": "renders/revised_r3/BACK.png",
+      "same_camera_as_r2": true,
+      "saved_r3_source_verified": true
+    },
+    {
+      "render": "renders/revised_r3_close/SIDE.png",
+      "same_camera_as_r2": true,
+      "saved_r3_source_verified": true
+    },
+    {
+      "render": "renders/revised_r3_close/FRONT34.png",
+      "same_camera_as_r2": true,
+      "saved_r3_source_verified": true
+    }
+  ],
+  "reviewed_trial_to_saved_r3_pixels": [
+    {
+      "final": "revised_r3",
+      "view": "SIDE",
+      "rgb_pixels_equal_to_reviewed_trial_b": true
+    },
+    {
+      "final": "revised_r3",
+      "view": "FRONT",
+      "rgb_pixels_equal_to_reviewed_trial_b": true
+    },
+    {
+      "final": "revised_r3",
+      "view": "FRONT34",
+      "rgb_pixels_equal_to_reviewed_trial_b": true
+    },
+    {
+      "final": "revised_r3_close",
+      "view": "SIDE",
+      "rgb_pixels_equal_to_reviewed_trial_b": true
+    },
+    {
+      "final": "revised_r3_close",
+      "view": "FRONT34",
+      "rgb_pixels_equal_to_reviewed_trial_b": true
+    }
+  ],
+  "protected_files_verified": 123,
+  "changed_mesh_count": 44,
+  "unchanged_mesh_count": 100,
+  "macro_comparison": "comparisons/REVISED_R3_FOOT_CLOSE_COMPARISON.png",
+  "macro_source_sha256": {
+    "references/00_s_type_modeling_image_v1.png": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+    "zero-rebuild-20261017/renders/r2_foot_close/SIDE.png": "b22c24bf749ea74f111ad428521dd0804f13c01cb17304d9b1865b83b6a046a1",
+    "zero-rebuild-20261017/renders/revised_r3_close/SIDE.png": "91675d5a4e59920890a37af3a641dace6e48dc0168589126201439cf22359035",
+    "zero-rebuild-20261017/renders/r2_foot_close/FRONT34.png": "7ce78ee1d512e4001a0f4e35787674cdb84d71c2762c17ec48c6e0d643aef76a",
+    "zero-rebuild-20261017/renders/revised_r3_close/FRONT34.png": "cfead44d115e8b7fef5105bfeee57b5391ce6b6ee39805f1990d99976599413e"
+  },
+  "comparison_method": "Real pixels, cropping, proportional resizing, labels; no shape retouching.",
+  "overall": "REVISE",
+  "production_keep": false
+}

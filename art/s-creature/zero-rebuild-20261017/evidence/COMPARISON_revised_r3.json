@@ -1,0 +1,72 @@
+{
+  "method": "Unretouched real render pixels; crops, proportional resizing and labels only.",
+  "reference_crops": {
+    "SIDE": [
+      30,
+      72,
+      755,
+      514
+    ],
+    "FRONT": [
+      765,
+      86,
+      948,
+      513
+    ],
+    "FRONT34": [
+      1130,
+      83,
+      1434,
+      513
+    ]
+  },
+  "detail_crops": [
+    [
+      "SIDE",
+      [
+        220,
+        670,
+        565,
+        805
+      ]
+    ],
+    [
+      "FRONT",
+      [
+        490,
+        740,
+        710,
+        875
+      ]
+    ],
+    [
+      "FRONT34",
+      [
+        260,
+        730,
+        700,
+        895
+      ]
+    ]
+  ],
+  "source_sha256": {
+    "references/00_s_type_modeling_image_v1.png": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+    "zero-rebuild-20261017/renders/r2_recovery/SIDE.png": "e9a67bd14367fe5652cb6d1b0f9f8eaf6faff6df652222c876aa65abe28fd42f",
+    "zero-rebuild-20261017/renders/revised_r3/SIDE.png": "38110ab88b7dce58d020df70552246f7e0c2dbba0ad115c9d2ce2857012eedff",
+    "zero-rebuild-20261017/renders/r2_recovery/FRONT.png": "9dfbe0b3da4a73a0593115310ad90fdb1da47bac8860f16e891fe94d859cba6a",
+    "zero-rebuild-20261017/renders/revised_r3/FRONT.png": "c8d40ef48d63e5670d8d02c7a443cd491baf73b4f709b755f5902c7de65461dc",
+    "zero-rebuild-20261017/renders/r2_recovery/FRONT34.png": "78c82a01ad94475f18bee37461cf0f07f6ece5bc2a83a2b6536196a163809f9b",
+    "zero-rebuild-20261017/renders/revised_r3/FRONT34.png": "178764ff942e2973f98a30a32ed3571c31d3f01529d23707edd4965ee4fcc83d",
+    "zero-rebuild-20261017/renders/revised_r3/REAR34.png": "666274e43b61221af87c5b9347005cd3defb32346ff8c9d081ce04b4bf519225",
+    "zero-rebuild-20261017/renders/revised_r3/BACK.png": "a9d1d655543e046144dc879b8b46251833172861c1829f93892a953fb1528e0b",
+    "zero-rebuild-20261017/renders/r2_recovery/REAR34.png": "2ecaff18a75663ebf8b4f821d46eb896fd8a8101960a03d61030787f7f3232b5",
+    "zero-rebuild-20261017/renders/r2_recovery/BACK.png": "47f2848e3dfcdc7a8e1eb099f6a233a77499b80bd8f49a9c2c8848b3bd18ff37"
+  },
+  "outputs": [
+    "comparisons/REVISED_R3_REFERENCE_R2_COMPARISON.png",
+    "comparisons/REVISED_R3_FOOT_DETAILS.png",
+    "comparisons/REVISED_R3_FIVE_VIEWS.png",
+    "comparisons/REVISED_R3_R2_FIVE_VIEW_COMPARISON.png",
+    "comparisons/REVISED_R3_STATIC_128PX.png"
+  ]
+}

@@ -1,0 +1,1062 @@
+{
+  "remote_head": "d361c8345f93174d977646dd707ae6f7530afdd9",
+  "backup": "/private/tmp/evowild-r3-recovery-20261018/pre-recovery-artifacts.tar",
+  "protected_artifacts": {
+    "art/s-creature/zero-rebuild-20261017/QUALITY_REVIEW.md": {
+      "bytes": 11102,
+      "sha256": "62d8ed17a9e71b6c6f50ac0ed035912b1091d4a8fa497504dac2341a9a3e1c03"
+    },
+    "art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R2.blend": {
+      "bytes": 1259118,
+      "sha256": "3406e12f54670ca397eb31825721aa08e36fbc46a0bc68e2dcfbcbaae0c09662"
+    },
+    "art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE.blend": {
+      "bytes": 1224567,
+      "sha256": "fac25ffe586cacd294c4d0b9f7ab4ae71f93595a3f70fcfa9354c5b44cbef29d"
+    },
+    "art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R1.blend": {
+      "bytes": 1212726,
+      "sha256": "f8e8a80360ee5886d485a17610cf62a9387d10cdb09e4801a055be99bf8d8a4f"
+    },
+    "art/s-creature/zero-rebuild-20261017/S_ZERO_REFINED.blend": {
+      "bytes": 1178832,
+      "sha256": "24f1b61d23c6eda67e3d9dbb39ce96c99ac11b6dbf375fffb9fc782dff4dcba5"
+    },
+    "art/s-creature/zero-rebuild-20261017/README.md": {
+      "bytes": 2618,
+      "sha256": "e2cff30784c529cd3a0f80e7147966b1a7228f2616cdc7404ffe5e6b73069ee2"
+    },
+    "art/s-creature/zero-rebuild-20261017/R2_QUALITY_REVIEW.md": {
+      "bytes": 7984,
+      "sha256": "5429c24b55f9688054dc98bc6a4e1d45b475cdaef4a10545fd5e4e220be79c76"
+    },
+    "art/s-creature/zero-rebuild-20261017/S_ZERO_BLOCKOUT.blend": {
+      "bytes": 1171877,
+      "sha256": "eb1b959264916d7512893c6c419ae2a056333b49b4165145b2b88f7ae518e502"
+    },
+    "art/s-creature/zero-rebuild-20261017/comparisons/SHOULDER_HIP_PROGRESS.png": {
+      "bytes": 1286135,
+      "sha256": "b9a716ec6ce225c06f1e3d12f94949e5795d3ef28f312988cb7d1a89e97de475"
+    },
+    "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R1_FIVE_VIEWS.png": {
+      "bytes": 1241809,
+      "sha256": "2ae621a9a12039de72f353b7edd37ed5fa05d2acdcdf929f743f1ae26d830718"
+    },
+    "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R2_R1_FIVE_VIEW_COMPARISON.png": {
+      "bytes": 2082243,
+      "sha256": "9ff1060fb6a8cfa7331e0f4956035c42585b3265c5b6381fd0e87cac55cc4c12"
+    },
+    "art/s-creature/zero-rebuild-20261017/comparisons/STATIC_128PX_PREVIEW.png": {
+      "bytes": 52429,
+      "sha256": "857cb66f3770a2ee8fdfe41fb7276148bd8f6c8422b9a1cbae700aa8e885ede5"
+    },
+    "art/s-creature/zero-rebuild-20261017/comparisons/BEFORE_AFTER_FIVE_VIEWS.png": {
+      "bytes": 2085866,
+      "sha256": "f776be4478899530d70e65d6770c112dd4c6cbbab320ec16eeb3ba785d95ff4e"
+    },
+    "art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_B_REFERENCE_R1_COMPARISON.png": {
+      "bytes": 1386660,
+      "sha256": "f26405178467b75600ec201108c3a5ece8a9b23cd1bdf22fc7d75a77ae6b29d1"
+    },
+    "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R2_FIVE_VIEWS.png": {
+      "bytes": 1241678,
+      "sha256": "2abf4a1bb668720a54df3c2102ce3b739abbf20f5cad450f43941b9e91c05db7"
+    },
+    "art/s-creature/zero-rebuild-20261017/comparisons/REFERENCE_COMPARISON.png": {
+      "bytes": 1726679,
+      "sha256": "4b0445f01e5ada5f1bd92ccadfabeb90e92b89b1c935c96c82feac0bc4291f9a"
+    },
+    "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R2_DETAILS.png": {
+      "bytes": 997373,
+      "sha256": "0819e84f81dd61ef604f17acd064704e57050889471514abe5741486abe9733c"
+    },
+    "art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_A_DETAILS.png": {
+      "bytes": 1002020,
+      "sha256": "e07aedfcd69b2289436de57dfd6975aded7881451872c558636fc3d213cffda6"
+    },
+    "art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_A_REFERENCE_R1_COMPARISON.png": {
+      "bytes": 1389891,
+      "sha256": "1ac9810a17d11e9187b8f5b41107e5b6914d2f259958cf18c9921c2b5f3c2bdd"
+    },
+    "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R2_REFERENCE_R1_COMPARISON.png": {
+      "bytes": 1387546,
+      "sha256": "519c6a9df5b8e25f3077eedafa3f15ba027e1c7607e0405c146791b951db128a"
+    },
+    "art/s-creature/zero-rebuild-20261017/comparisons/CANDIDATE_FIVE_VIEWS.png": {
+      "bytes": 1237306,
+      "sha256": "45e641a0dc64f9ef594e3435888f468067cb429d2c38496dafaf321ba161173f"
+    },
+    "art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_B_DETAILS.png": {
+      "bytes": 997228,
+      "sha256": "625f64abe14da023be779bad9e0a77b475d9a8e7362b935f83916f4f71b6960c"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/SIDE.png": {
+      "bytes": 1189526,
+      "sha256": "99cd139360608fa7a178ad57aa77bf9e724e913823df1b20f4c49d30468b4280"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/FRONT34.png": {
+      "bytes": 1211205,
+      "sha256": "bf750405461c6d8075e8f3cb66842fbbf27814b1a7b589be2195a9766045dc8a"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/REAR34.png": {
+      "bytes": 1252982,
+      "sha256": "4e61abd4ae24faf3468fe7c9ca8ba89dcb9195cf0db0d3ad3694e53b3da11804"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/BACK.png": {
+      "bytes": 1100590,
+      "sha256": "12f7326203b3985297c7eb0573434cf67580b0441d2348325e4d8b38ccdb06ed"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r1/FRONT.png": {
+      "bytes": 1085912,
+      "sha256": "d985eae7e62b6fd6e78897fe8c0e328f2ae2565d2c4c56fc23bd6872d3ab28b1"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/r2_trial_a/SIDE.png": {
+      "bytes": 1186474,
+      "sha256": "773fede033bd5428bbccead3f0d358efeae6ffeeefc461cc6bc1a2ac95b79f07"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/r2_trial_a/FRONT34.png": {
+      "bytes": 1210042,
+      "sha256": "c9c25c2e63c9221a1643449d3e7806e994828de385e0284b8f7bcc9616362809"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/r2_trial_a/FRONT.png": {
+      "bytes": 1089319,
+      "sha256": "85e7e739a6de6c3b8a1c7db7372fa385b723a078a07fe04c0cb702359bdaf9ed"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/SIDE.png": {
+      "bytes": 1189405,
+      "sha256": "e8b3f8c774bad5e00bdbe0a91513f54965347c52f9a2cf3336720cc5e82162d3"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/FRONT34.png": {
+      "bytes": 1210307,
+      "sha256": "b9a8462162d7d01d2927ab9b77406423f87d45184f9d535931b42dae67ca403b"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/REAR34.png": {
+      "bytes": 1251813,
+      "sha256": "acc834db630a0d60b5244c247f040091a1cdf1a66cdff2a0f5d2d82cdfce8c19"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/BACK.png": {
+      "bytes": 1097980,
+      "sha256": "a69194bc8f2e46032eed1ecc5badb30a074971dca9f5bc0f1397664789bd5988"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/candidate_review/FRONT.png": {
+      "bytes": 1083192,
+      "sha256": "d4a9df94ad1c3ddaadcccd2671475a9eecd4609d0fbab655b9f84d00d8779ff6"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/blockout/SIDE.png": {
+      "bytes": 1174130,
+      "sha256": "5bbc82d33ad50b7ba9e01766ee500c45b085813bc9266868605b8398c0625bf1"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/blockout/FRONT34.png": {
+      "bytes": 1207614,
+      "sha256": "e13fc684788d1f922c6c1be182766a5fa5ca3b472a037188f9fe59b6e50c5d64"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/blockout/FRONT.png": {
+      "bytes": 1079650,
+      "sha256": "78839d273230a07b5ef077ccae199d235c2e1b447dd85959a687cec6acc9d30b"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/refined/SIDE.png": {
+      "bytes": 1192372,
+      "sha256": "096505f06f6b0bc60420a606ba7306c0f665085f5ac85fa236ad062e93c96e82"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/refined/FRONT34.png": {
+      "bytes": 1230762,
+      "sha256": "2ee101a68bdb679a18662a2cd7b455ec007eb9d29ce3c47efe82d4af1db3582d"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/refined/FRONT.png": {
+      "bytes": 1108290,
+      "sha256": "3fa3274f8c831903781e8c4383e8de4d25aa8436e1b8aefe5cb7effdc82e94c6"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r2/SIDE.png": {
+      "bytes": 1187904,
+      "sha256": "d1dd6308221aea2ab5fa1a66cd52240f09a2e47bcf385c262269ae86b0817735"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r2/FRONT34.png": {
+      "bytes": 1208345,
+      "sha256": "2888af3133401694d9e049798dd6a745363ee8394e8c29ce048c72a7527e528f"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r2/REAR34.png": {
+      "bytes": 1250886,
+      "sha256": "33aacab757858fd35aa6f9422ce60af6e4daf73559d505b1a5cf1593c3d2945f"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r2/BACK.png": {
+      "bytes": 1102685,
+      "sha256": "576314a8db688662f7a45a1631fddc29ec59ae1745e06fbcf39393630b44c4e8"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/revised_r2/FRONT.png": {
+      "bytes": 1086897,
+      "sha256": "49dd200c28f3b219f8fe3a47b0d92f4d335eb445e6d6fc87a3ff31ca31a17a91"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/r2_trial_b/SIDE.png": {
+      "bytes": 1187907,
+      "sha256": "42daaacc0b093872ee620b58919c54118cc291bf0840bd8271ecb7ba57d08fb9"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/r2_trial_b/FRONT34.png": {
+      "bytes": 1208348,
+      "sha256": "b86349016892b52e7cafce2e91bb54edfab2e0dc41a2375af520ac9632b336dc"
+    },
+    "art/s-creature/zero-rebuild-20261017/renders/r2_trial_b/FRONT.png": {
+      "bytes": 1086900,
+      "sha256": "65c7e97e6cb6d26b2fd45be17f323a4bf88e2e89f9ad873835780a76b14a2f12"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/REMOTE_r2_assets.json": {
+      "bytes": 9079,
+      "sha256": "123cf431e8492c2911e31eaf4f18537e982cee89712a244838c5c5ff3e06d63d"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/CANDIDATE_CHANGES.json": {
+      "bytes": 455,
+      "sha256": "d9e53daceb6310588f08cfbfc1ad1bfb42a79f270f56e8a707f0e2b11bb6c319"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/R2_NETWORK_RETRY.json": {
+      "bytes": 1266,
+      "sha256": "43c83e74cf0bd8c9689be6e7a4c89fdf8812eb179ec423568ff6b80eeda348f3"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_candidate_review.log": {
+      "bytes": 102549,
+      "sha256": "b0cb31f1c1d0e82f7994ad1bff7fc86fc5484c952297a24ea5f748532cee53cf"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_SOURCES.json": {
+      "bytes": 2472,
+      "sha256": "87e8d31dfea13be87a6cb35b8653642ba9957fc3e2ee6a80ca60bb6a02a63c68"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_r2_trial_b.json": {
+      "bytes": 1614,
+      "sha256": "17e131ad4aa717af2a8f0e5b7d3f42cae64f2ff43ec7958be575d6dc632cf93d"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_FRONT34.png": {
+      "bytes": 1076508,
+      "sha256": "e54465dfaf15602a147aa0388bcf6fd9c1df29435b5bc9c7c0ce9f6b333e4e5f"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r2_trial_a_unsandboxed.log": {
+      "bytes": 533,
+      "sha256": "ec5ad732abcf7b7bb1d625ddb586512889a40139929b9ee395983bd231733dbd"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r2_trial_b.json": {
+      "bytes": 2452,
+      "sha256": "a69b5a3c4166b08928d96608e71db21eb917bcd27879ec3974d22bd97c1e6f59"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_S_ZERO_CANDIDATE_REVISED_R1.json": {
+      "bytes": 65614,
+      "sha256": "048644b66cc25cd3440853fe2a79ef51f80402bbfabb570f70bc4b227fabdea3"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/REFERENCE_SHA256.json": {
+      "bytes": 269,
+      "sha256": "5a4406ff74faea01a5b34933ba54f6ada6a8e49cc5b00dc432d73ae3ca34b4d6"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R1.json": {
+      "bytes": 6203,
+      "sha256": "17db0adb3bc4c7bd0263a0f0b9d7999940090907451dfcb71002485efdfaea68"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r1.json": {
+      "bytes": 3923,
+      "sha256": "5dfb28384ccd00acbd957819f967941df5895db1706a31d11f764ef51168d1d3"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/FINAL_REVIEW.json": {
+      "bytes": 1198,
+      "sha256": "b95cbfa9e634d0e15cab325afc8e976565f153bff6916bdfe3d56ebae5bf711d"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_candidate_review.json": {
+      "bytes": 3960,
+      "sha256": "890201d025511c22dc0484b3fa3114c0e8835812dd7bf86419469c5ac5bb9632"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/R2_UPLOAD_MANIFEST.json": {
+      "bytes": 1851,
+      "sha256": "35d2161b78715a691106ba0f75543143c5c3908278ef9ca7cf9737f65694e0e6"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_refined.json": {
+      "bytes": 2259,
+      "sha256": "59a6b923c4220753279585eb81004b63d623c90484016943e0ae0a14d289f224"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R2_TRIAL_A.json": {
+      "bytes": 32837,
+      "sha256": "d059bb2011b5c6bb0c85024b42374bae963a269f5cf74d16dcb432a8263b15e2"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R2_TRIAL_B.json": {
+      "bytes": 716,
+      "sha256": "39ccb0d7a8095b8bfe8e55b5464c446321e520dfd8a897f85e55363919283e28"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/R2_SAVE.json": {
+      "bytes": 304,
+      "sha256": "f8237f4bc56b12d3798aac11e19850ab0089f2157d39e7059ca05dbeec8d779b"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r1.log": {
+      "bytes": 109886,
+      "sha256": "9c6626a9392340c9b181b98a7fb32138a54c3f2b690c82b7c550bd44d699e065"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_blockout.json": {
+      "bytes": 2264,
+      "sha256": "df5213c9444b498cfe68548ac41f587ea76e7b53dcbc30dec5162516c296560d"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/STRUCTURE_revised_r1.json": {
+      "bytes": 3028,
+      "sha256": "f87e0976cb6efa18feffe9a949f9efc1cbe326c8cd9301a8571024a98588d132"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_SAVED_ORIGINALS.json": {
+      "bytes": 178960,
+      "sha256": "8c255b460044a21b4b130a7204e8e4548fbdf323f3be2d26c46917b0607df910"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/REMOTE_PRESERVATION.json": {
+      "bytes": 8100,
+      "sha256": "a5e8fbb54801d825f2539e6ce4b873a0f0230761bde3f1da6c1e34f3ece60862"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r2.log": {
+      "bytes": 106098,
+      "sha256": "11d1640c9882bbf25269f2a76dc0d4abf14025284dd745472160f71d93f25be0"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_SIDE.png": {
+      "bytes": 768001,
+      "sha256": "59427391cffcfe2aa8490353b8632b7772b8767d18aa78db730cab14e2da9bc1"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/BLOCKOUT_VIEWPORT_FRONT.png": {
+      "bytes": 648953,
+      "sha256": "197192c4b9bdf7113742ce20faa6420e04376b76c37002719c3a60487cdf280a"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r2.json": {
+      "bytes": 3920,
+      "sha256": "d7855a7e9dc5dfe7272c889887f1b3d29b5451d7f633eb304c7a83bfd48c5b14"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/REMOTE_missing_images.json": {
+      "bytes": 6218,
+      "sha256": "d80bd30dcfacaa157fafaebe737aa956a3982d140803c3a72a86d04eb1513387"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_REVISED_R1.log": {
+      "bytes": 466,
+      "sha256": "8d16488f3372dae0a1570a0d4c89cf2e7757edb1fb0d05d1d863f005dfe46ec7"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_SAVED_ORIGINALS_UNSANDBOXED.log": {
+      "bytes": 878,
+      "sha256": "d0879131ddbc261be9fa059de44318430b49dc2167d76181f2badb56a4396de6"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_revised_r2.json": {
+      "bytes": 2118,
+      "sha256": "45e3eb85a46c44cc0ff0975661c0bb01114515c728b73fd6079b1bdd1e46273e"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/BLOCKOUT_VIEWPORT_FRONT34.png": {
+      "bytes": 1044611,
+      "sha256": "24696e3876b8ea9f4118ff0322c0df23a01bf7942e631660377da368a425e86d"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r2_trial_a.json": {
+      "bytes": 2453,
+      "sha256": "6e46955ab692abee609a1632e1ae732114aa2c6c285755f30bc74f9cb268a531"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r2_trial_a_restored.log": {
+      "bytes": 64424,
+      "sha256": "5b1fd07b1d09c9445ed0d324585f670f81ab593ef3de0c26c253b0b290391ea2"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/CANDIDATE_REVIEW.json": {
+      "bytes": 3005,
+      "sha256": "48947ba3c3eff7ce37315837c60e1c4a4aece24afedd1b4dc234775597aa8697"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/BLOCKOUT_VIEWPORT_SIDE.png": {
+      "bytes": 746484,
+      "sha256": "00c1af0b66d0ff9e9750cb96b9e8b6faf7ce9e093ba9ae1589544a17ae9b436e"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_SAVED_ORIGINALS.log": {
+      "bytes": 371,
+      "sha256": "7b313fa0596e39bad88b854cb3284efb50d8a88ad5a9360ea25ba0131343b518"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r2_trial_b.log": {
+      "bytes": 72122,
+      "sha256": "66796d84b4b805d3cd95a0c6ca01cca8655d2f193698f946fcac7dad15ef41ae"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/SCULPT_R2_REVIEW.json": {
+      "bytes": 2077,
+      "sha256": "4d9ee47f5287d4b8bd3bb5e1ac8fbde39b19262ace9d1715248a6d365414dfdb"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R1.log": {
+      "bytes": 456,
+      "sha256": "9ae84580e8f689b1618e307530b8a6f167f0cdfea05a10941549713284f96a5b"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_r2_trial_a.json": {
+      "bytes": 1614,
+      "sha256": "accb4f0d5063fddb9b07b934126dc255c16026500d43e20f1cf9c00a1bc8f95d"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/FINAL_R2_LOCAL_CHECKS.json": {
+      "bytes": 7525,
+      "sha256": "a73971b69a30370e940cd175282ff3c11403d3ca3971cf6c4572bfb55861028a"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/RENDER_r2_trial_a.log": {
+      "bytes": 371,
+      "sha256": "7b313fa0596e39bad88b854cb3284efb50d8a88ad5a9360ea25ba0131343b518"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/REFINEMENT_CHANGES.json": {
+      "bytes": 950,
+      "sha256": "5e6a239d566fd3b220651d7a3d7e1562a74a8b9115f54714d3ba9aa0aafa3b79"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_FRONT.png": {
+      "bytes": 682666,
+      "sha256": "2f90689bfc26f0a6e4351c3e6c46c92cbd87d665fc44fb311af612b0dda3aecc"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_R2_RELOAD.json": {
+      "bytes": 57235,
+      "sha256": "fb81c96bdb483324db2ed9fa0499ce7167041f5c0332ebe9f9e4ddbd1b4628c9"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/FINAL_LOCAL_CHECKS.json": {
+      "bytes": 431,
+      "sha256": "15745c584c7685d332d0935ceddb5d220f2c20767b12239251bfd55f2cbc48eb"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/STRUCTURE_candidate_review.log": {
+      "bytes": 3298,
+      "sha256": "a1b37ba8a4c7a73f563871ab90314fc6ac2c651a8b0ce09fa430a8641e01780a"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/STRUCTURE_candidate_review.json": {
+      "bytes": 3036,
+      "sha256": "55b1c729433d90b8cd007632d264627de1c7936d1197f745d5aa1530f6e4b8fa"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/ORIGINAL_ARTIFACTS.json": {
+      "bytes": 6946,
+      "sha256": "d0cf399ed5bba8056b9a8bee953dfa82820f17be8a07124985d2fac2e05b54bf"
+    },
+    "art/s-creature/zero-rebuild-20261017/evidence/R2_START_STATE.json": {
+      "bytes": 15166,
+      "sha256": "1dedaf598cf5fb38c914ce449620aeb943fa0d1f18e032f5ce0eb123d92755bf"
+    },
+    "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R2_TRIAL_A.blend": {
+      "bytes": 1203278,
+      "sha256": "595d3dacaad93cf9d1faa800354b65fd9dce36b50aed5ec9028c52dfaecaf970"
+    },
+    "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R2_TRIAL_B.blend": {
+      "bytes": 1259034,
+      "sha256": "949684364ab7d6f76b2e680b8c16b1539d06bd7738d69f16c6ec9cf5dc51be53"
+    },
+    "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_CANDIDATE_REVIEW.blend": {
+      "bytes": 1224567,
+      "sha256": "fac25ffe586cacd294c4d0b9f7ab4ae71f93595a3f70fcfa9354c5b44cbef29d"
+    },
+    "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R2_WORKING_COPY.blend": {
+      "bytes": 1212726,
+      "sha256": "f8e8a80360ee5886d485a17610cf62a9387d10cdb09e4801a055be99bf8d8a4f"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/render_saved_stage.py": {
+      "bytes": 1134,
+      "sha256": "6b583876e240ed1604a8c4afcc90f80d34d20e121027ea28cdbe99fc5ba9546d"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/06_verify_github.py": {
+      "bytes": 3041,
+      "sha256": "b0ed7679d842047e2c0753caaa02283a0bb5ea05288b149731ce6a925cfef6f2"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/13_refine_r2_interface.py": {
+      "bytes": 5260,
+      "sha256": "7487081419369ca7827e12ee343661ae38b3736f7c1df0b4f0837b8954da7c0d"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/14_verify_r2.py": {
+      "bytes": 7073,
+      "sha256": "dd60123c37991f8c96f340cd394858e0638eadb3efb54bce0283a11cf0bca178"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/07_structure_audit.py": {
+      "bytes": 1866,
+      "sha256": "cd3da68be3ae5cdceba973bb584158e3164c87ffed6561083c11f8464cdb7343"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/01_build_blockout.py": {
+      "bytes": 15614,
+      "sha256": "cb78e91e984e56b442703c795c94630f0efdb3c26466f50b10837c7c93140d12"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/12_compare_r2.py": {
+      "bytes": 3199,
+      "sha256": "4aa67ca70f3d716ea5d1fd4f9edf27e9b8cfb63cf7a654422c9efc2b34809c95"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/08_revise_connections.py": {
+      "bytes": 5385,
+      "sha256": "75198acdde76e0b6bf00061fa2dafadfba799507caa6c53314f991561c293b0c"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/05_review_render.py": {
+      "bytes": 2336,
+      "sha256": "a4ad5c112a3a7e58dc1bdb34716a2b17653c5c196a92254393bd05ca1927b6ec"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/04_verify_saved.py": {
+      "bytes": 3559,
+      "sha256": "fd6db70ed49c3b951005bdb5f8de769de4015195300f8d36b211c666563cead2"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/16_check_r2_evidence.py": {
+      "bytes": 3338,
+      "sha256": "8d47acf9f6bccd9f5cf558fe80db9ab66e8cc44012bc3b445aba2e3e683efbf9"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/09_build_comparisons.py": {
+      "bytes": 4570,
+      "sha256": "4bfddc0708ae2f66621c7179a0c3d2116b1afcc6c1462ed99405f9e7a41b9d1f"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/15_save_reviewed_r2.py": {
+      "bytes": 1711,
+      "sha256": "2e020cf4c094586493e311f92d62c7e58951941a0a83f0cd5b479d564ccb3875"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/02_refine.py": {
+      "bytes": 8096,
+      "sha256": "9ebd15de0f9ecf6e9d0af42b16aceb41889839b48fb9ed1e5c5d0fc87ce7d4dd"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/17_verify_remote_r2.py": {
+      "bytes": 3190,
+      "sha256": "e78c211bb692acfad62af806844227288f6feb919c2239029067698e45b92756"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/03_candidate.py": {
+      "bytes": 8206,
+      "sha256": "46f4ef1ac3c382814523d079c411d49268a462dc3ee9ae999076efd2d1139af3"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/10_preserve_small_uploads.py": {
+      "bytes": 4647,
+      "sha256": "a4b2a147c3f8ca8bff6612fd7850c54d62d79a1c357371a34447f303dfa02f00"
+    },
+    "art/s-creature/zero-rebuild-20261017/scripts/11_sculpt_r2.py": {
+      "bytes": 8279,
+      "sha256": "d9e08cb0a8952646dd0d50cbe0e40508e54a4b45578e0c9d9cdabb65f519b4b4"
+    }
+  },
+  "remote_checks": [
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/QUALITY_REVIEW.md",
+      "remote_blob": "2cd5b8286d60ad7671ca9cd6aefad5d27603bcdd",
+      "local_blob": "d84f62b7fa637344eb511347253093aa47bc1926",
+      "equal": false
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/README.md",
+      "remote_blob": "cd7af7fe492500da9dfd2bda0dfebe031c2e1f68",
+      "local_blob": "cd7af7fe492500da9dfd2bda0dfebe031c2e1f68",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/S_ZERO_BLOCKOUT.blend",
+      "remote_blob": "aaf27a67495eeb6aeda492e8bbd056e27a3ce1e3",
+      "local_blob": "aaf27a67495eeb6aeda492e8bbd056e27a3ce1e3",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE.blend",
+      "remote_blob": "84157b304cb8ef187eadf4cd1161dc795eefd21a",
+      "local_blob": "84157b304cb8ef187eadf4cd1161dc795eefd21a",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R1.blend",
+      "remote_blob": "6a2009282a49a119021569d3a05131de160aa5fa",
+      "local_blob": "6a2009282a49a119021569d3a05131de160aa5fa",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/S_ZERO_CANDIDATE_REVISED_R2.blend",
+      "remote_blob": "f0d9b68b836c27252362d26ce4587c41ca422a13",
+      "local_blob": "f0d9b68b836c27252362d26ce4587c41ca422a13",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/S_ZERO_REFINED.blend",
+      "remote_blob": "104d493f83db60c03110aebfb8ef20bab0bf8418",
+      "local_blob": "104d493f83db60c03110aebfb8ef20bab0bf8418",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/BEFORE_AFTER_FIVE_VIEWS.png",
+      "remote_blob": "81ba166a891ea151e3535de6d6d0554192f39133",
+      "local_blob": "81ba166a891ea151e3535de6d6d0554192f39133",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/CANDIDATE_FIVE_VIEWS.png",
+      "remote_blob": "140d5815d85fac19c00f7038016c11c9acc32e8c",
+      "local_blob": "140d5815d85fac19c00f7038016c11c9acc32e8c",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_A_DETAILS.png",
+      "remote_blob": "344e9f50ecde3706de6c00b425c74761d3ce0084",
+      "local_blob": "344e9f50ecde3706de6c00b425c74761d3ce0084",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_A_REFERENCE_R1_COMPARISON.png",
+      "remote_blob": "68da63f7db81d109aa8f23f20c175602bbbd07ce",
+      "local_blob": "68da63f7db81d109aa8f23f20c175602bbbd07ce",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_B_DETAILS.png",
+      "remote_blob": "83784fc7e7c7ed7bdbcace52112e10a4e3827447",
+      "local_blob": "83784fc7e7c7ed7bdbcace52112e10a4e3827447",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/R2_TRIAL_B_REFERENCE_R1_COMPARISON.png",
+      "remote_blob": "7917ae3daa6b9c7ddef6cc6c723c405ecad2bca3",
+      "local_blob": "7917ae3daa6b9c7ddef6cc6c723c405ecad2bca3",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REFERENCE_COMPARISON.png",
+      "remote_blob": "1bd62b2da19d898456b4b9397810b02d747ed56e",
+      "local_blob": "1bd62b2da19d898456b4b9397810b02d747ed56e",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R1_FIVE_VIEWS.png",
+      "remote_blob": "9ebb7aa1a8ec722d67af62679e4ff5c37d22c679",
+      "local_blob": "9ebb7aa1a8ec722d67af62679e4ff5c37d22c679",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R2_DETAILS.png",
+      "remote_blob": "e6077a837aed133a8c9a0452ac2f24f7c4e5b865",
+      "local_blob": "e6077a837aed133a8c9a0452ac2f24f7c4e5b865",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R2_FIVE_VIEWS.png",
+      "remote_blob": "76a585dd33016ad3118971f11856637945bfd35e",
+      "local_blob": "76a585dd33016ad3118971f11856637945bfd35e",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R2_R1_FIVE_VIEW_COMPARISON.png",
+      "remote_blob": "cbab660321af0ff0c82401896386c47189fbacd1",
+      "local_blob": "cbab660321af0ff0c82401896386c47189fbacd1",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/REVISED_R2_REFERENCE_R1_COMPARISON.png",
+      "remote_blob": "3372b38582286aea521259f2ed475df532d16ff8",
+      "local_blob": "3372b38582286aea521259f2ed475df532d16ff8",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/SHOULDER_HIP_PROGRESS.png",
+      "remote_blob": "5433c74950f9fce455db20cb4036879e3d02026d",
+      "local_blob": "5433c74950f9fce455db20cb4036879e3d02026d",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/comparisons/STATIC_128PX_PREVIEW.png",
+      "remote_blob": "658cf94b7adf6162dcd6fae647b926f04828fdbf",
+      "local_blob": "658cf94b7adf6162dcd6fae647b926f04828fdbf",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/BLOCKOUT_VIEWPORT_FRONT.png",
+      "remote_blob": "7ea6ff9ac52658bd1d4dcae550e5dcc2685366ef",
+      "local_blob": "7ea6ff9ac52658bd1d4dcae550e5dcc2685366ef",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/BLOCKOUT_VIEWPORT_FRONT34.png",
+      "remote_blob": "02dc2243cb352f7064b92ecee29cdfb24ff36489",
+      "local_blob": "02dc2243cb352f7064b92ecee29cdfb24ff36489",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/BLOCKOUT_VIEWPORT_SIDE.png",
+      "remote_blob": "8ec9451cbab8d1f7f838664c9892684b9f75fff9",
+      "local_blob": "8ec9451cbab8d1f7f838664c9892684b9f75fff9",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/CANDIDATE_CHANGES.json",
+      "remote_blob": "8317460565810c3a52634e2316eb21d1d3c08477",
+      "local_blob": "8317460565810c3a52634e2316eb21d1d3c08477",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/CANDIDATE_REVIEW.json",
+      "remote_blob": "867b2de5b91fc6e95d899ce2049132640dfe9d64",
+      "local_blob": "867b2de5b91fc6e95d899ce2049132640dfe9d64",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/COMPARISON_SOURCES.json",
+      "remote_blob": "71d015795bcc29310da237a738b7debc367c85b8",
+      "local_blob": "71d015795bcc29310da237a738b7debc367c85b8",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/FINAL_LOCAL_CHECKS.json",
+      "remote_blob": "27f80581d7249bca55d1cd3f6c7e16543ff9f876",
+      "local_blob": "27f80581d7249bca55d1cd3f6c7e16543ff9f876",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/FINAL_REVIEW.json",
+      "remote_blob": "e9619b53c518187583debef6353d8cd58e37d021",
+      "local_blob": "e9619b53c518187583debef6353d8cd58e37d021",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/ORIGINAL_ARTIFACTS.json",
+      "remote_blob": "afdfbe5043395a71445dc5241cd43ffd77823837",
+      "local_blob": "afdfbe5043395a71445dc5241cd43ffd77823837",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REFERENCE_SHA256.json",
+      "remote_blob": "4a2c940fecf50a9a325ca8be952da5932c7546f6",
+      "local_blob": "4a2c940fecf50a9a325ca8be952da5932c7546f6",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_FRONT.png",
+      "remote_blob": "a98eb7ece8b4fac6166d8ff9855afa3ed062caa8",
+      "local_blob": "a98eb7ece8b4fac6166d8ff9855afa3ed062caa8",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_FRONT34.png",
+      "remote_blob": "35adbf0f662f6207e8538d2a7388e0ab1ff6d8f3",
+      "local_blob": "35adbf0f662f6207e8538d2a7388e0ab1ff6d8f3",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_SIDE.png",
+      "remote_blob": "69b60d227f38a0a14ecae413c40ccf2258a70f28",
+      "local_blob": "69b60d227f38a0a14ecae413c40ccf2258a70f28",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REFINEMENT_CHANGES.json",
+      "remote_blob": "62acadb4cc6e988ee446d72a703ac53258b98757",
+      "local_blob": "62acadb4cc6e988ee446d72a703ac53258b98757",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REMOTE_PRESERVATION.json",
+      "remote_blob": "daf7b7be5e6480e34763b614a628c5dd1030f5e9",
+      "local_blob": "daf7b7be5e6480e34763b614a628c5dd1030f5e9",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_blockout.json",
+      "remote_blob": "28686a58d9efa26b2783aa842e72e76c93cdcf88",
+      "local_blob": "28686a58d9efa26b2783aa842e72e76c93cdcf88",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_candidate_review.json",
+      "remote_blob": "976baf90cf2d12da7dc8c51d169ae919e73e618e",
+      "local_blob": "976baf90cf2d12da7dc8c51d169ae919e73e618e",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_candidate_review.log",
+      "remote_blob": "52969c624643ba4ca32b69999f831b284bb2ab8d",
+      "local_blob": "52969c624643ba4ca32b69999f831b284bb2ab8d",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_refined.json",
+      "remote_blob": "4ff4f6e491b2a547e92af1f8bd271f5cbe4ff869",
+      "local_blob": "4ff4f6e491b2a547e92af1f8bd271f5cbe4ff869",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r1.json",
+      "remote_blob": "8e559e54296ff8f017267a15c112c96a8fed385d",
+      "local_blob": "8e559e54296ff8f017267a15c112c96a8fed385d",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/RENDER_revised_r1.log",
+      "remote_blob": "40f1d35137eb98747594cf8dbc5b7d8d23aba753",
+      "local_blob": "40f1d35137eb98747594cf8dbc5b7d8d23aba753",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R1.json",
+      "remote_blob": "9c3b0842733374344381609c8d945c7f658db037",
+      "local_blob": "9c3b0842733374344381609c8d945c7f658db037",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/REVISION_R1.log",
+      "remote_blob": "ce62231b7ffaa4b4fbbd41dfc2f7474b1b806493",
+      "local_blob": "ce62231b7ffaa4b4fbbd41dfc2f7474b1b806493",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/STRUCTURE_candidate_review.json",
+      "remote_blob": "17743c0807b2b399a8cfadcbee7dc44b62407a4d",
+      "local_blob": "17743c0807b2b399a8cfadcbee7dc44b62407a4d",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/STRUCTURE_candidate_review.log",
+      "remote_blob": "10e4697fb7115f68ed5fc981f0c9b2af6b9d6abe",
+      "local_blob": "10e4697fb7115f68ed5fc981f0c9b2af6b9d6abe",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/STRUCTURE_revised_r1.json",
+      "remote_blob": "9a8fdcddb1665446296e6327cdca8cb5ba89fac0",
+      "local_blob": "9a8fdcddb1665446296e6327cdca8cb5ba89fac0",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_REVISED_R1.log",
+      "remote_blob": "8837857ce43f471c73562c27dd24310ceaef3f89",
+      "local_blob": "8837857ce43f471c73562c27dd24310ceaef3f89",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_SAVED_ORIGINALS.json",
+      "remote_blob": "b3bd5309d39e44355d1013b071b41d139f25c1a1",
+      "local_blob": "b3bd5309d39e44355d1013b071b41d139f25c1a1",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_SAVED_ORIGINALS.log",
+      "remote_blob": "bfb35055288b43f26146e863dcc8af124daa1b49",
+      "local_blob": "bfb35055288b43f26146e863dcc8af124daa1b49",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_SAVED_ORIGINALS_UNSANDBOXED.log",
+      "remote_blob": "951430c1a0f4e7a7beb6509d7d8c120c1c31a9d2",
+      "local_blob": "951430c1a0f4e7a7beb6509d7d8c120c1c31a9d2",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/evidence/VERIFY_S_ZERO_CANDIDATE_REVISED_R1.json",
+      "remote_blob": "6ad0f15f6399dc55fc4c26327df7b07f4ce8f3db",
+      "local_blob": "6ad0f15f6399dc55fc4c26327df7b07f4ce8f3db",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/blockout/FRONT.png",
+      "remote_blob": "ddf2190e74133f5b6e9e913e2881d34680a5b13a",
+      "local_blob": "ddf2190e74133f5b6e9e913e2881d34680a5b13a",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/blockout/FRONT34.png",
+      "remote_blob": "d1d878e0da15794237bb1cd89d2627fc94586ada",
+      "local_blob": "d1d878e0da15794237bb1cd89d2627fc94586ada",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/blockout/SIDE.png",
+      "remote_blob": "5fa556bc9758133046d00ae12650a35c3c307194",
+      "local_blob": "5fa556bc9758133046d00ae12650a35c3c307194",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/candidate_review/BACK.png",
+      "remote_blob": "61c575dceeb283909883b92e537a90c4c770fe83",
+      "local_blob": "61c575dceeb283909883b92e537a90c4c770fe83",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/candidate_review/FRONT.png",
+      "remote_blob": "4f7806dd4238a63e3c6960ac95eb53dd0a9c7c0a",
+      "local_blob": "4f7806dd4238a63e3c6960ac95eb53dd0a9c7c0a",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/candidate_review/FRONT34.png",
+      "remote_blob": "78a21fca06702a64ad6dd130562d92f7e8186307",
+      "local_blob": "78a21fca06702a64ad6dd130562d92f7e8186307",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/candidate_review/REAR34.png",
+      "remote_blob": "37ba52ed2a4f72e4fa67842af37dfa52c23ff4a9",
+      "local_blob": "37ba52ed2a4f72e4fa67842af37dfa52c23ff4a9",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/candidate_review/SIDE.png",
+      "remote_blob": "68be52dc6e1774e1c809161d2349f0df2b4a8a8c",
+      "local_blob": "68be52dc6e1774e1c809161d2349f0df2b4a8a8c",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r2_trial_a/FRONT.png",
+      "remote_blob": "b3e8d671d85d8387bd3226db974c7931da1620be",
+      "local_blob": "b3e8d671d85d8387bd3226db974c7931da1620be",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r2_trial_a/FRONT34.png",
+      "remote_blob": "a3291c6414aeb03f840839e6aa8af54a286bae78",
+      "local_blob": "a3291c6414aeb03f840839e6aa8af54a286bae78",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r2_trial_a/SIDE.png",
+      "remote_blob": "4c6398b54f1cad6b6fc520932d0a759726ec549e",
+      "local_blob": "4c6398b54f1cad6b6fc520932d0a759726ec549e",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r2_trial_b/FRONT.png",
+      "remote_blob": "84a2250965710911cd9426fc1228b10b2e4607ef",
+      "local_blob": "84a2250965710911cd9426fc1228b10b2e4607ef",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r2_trial_b/FRONT34.png",
+      "remote_blob": "d6ea8873e769f13f7e2475c421921ed2dd962937",
+      "local_blob": "d6ea8873e769f13f7e2475c421921ed2dd962937",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/r2_trial_b/SIDE.png",
+      "remote_blob": "66dd7642d7f5fc787f3140ce4b1c566c0d07a997",
+      "local_blob": "66dd7642d7f5fc787f3140ce4b1c566c0d07a997",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/refined/FRONT.png",
+      "remote_blob": "2b451d84daeb4507dcb9bc44ad2ca19627609fc8",
+      "local_blob": "2b451d84daeb4507dcb9bc44ad2ca19627609fc8",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/refined/FRONT34.png",
+      "remote_blob": "86eba520a44ac9382c827746532441d2f59b25b4",
+      "local_blob": "86eba520a44ac9382c827746532441d2f59b25b4",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/refined/SIDE.png",
+      "remote_blob": "71c55f94efece4705a0dcbc495881bc520ee84ba",
+      "local_blob": "71c55f94efece4705a0dcbc495881bc520ee84ba",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r1/BACK.png",
+      "remote_blob": "7d959c325c32388524f9d6219bed7e1a755ba73c",
+      "local_blob": "7d959c325c32388524f9d6219bed7e1a755ba73c",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r1/FRONT.png",
+      "remote_blob": "5321e81f74db0c027c18a540bc28e513de254b2d",
+      "local_blob": "5321e81f74db0c027c18a540bc28e513de254b2d",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r1/FRONT34.png",
+      "remote_blob": "e614414c6e278609a68a61db0e540e83718c6f27",
+      "local_blob": "e614414c6e278609a68a61db0e540e83718c6f27",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r1/REAR34.png",
+      "remote_blob": "15b0e0fc73ccaa807b3d55523693d3bce8374cce",
+      "local_blob": "15b0e0fc73ccaa807b3d55523693d3bce8374cce",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r1/SIDE.png",
+      "remote_blob": "fda9ba76e473c7971bb37b57d5ee7f96a89453a9",
+      "local_blob": "fda9ba76e473c7971bb37b57d5ee7f96a89453a9",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r2/BACK.png",
+      "remote_blob": "a96498f1ed6ca803f2c0ed0066b42dde043620bf",
+      "local_blob": "a96498f1ed6ca803f2c0ed0066b42dde043620bf",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r2/FRONT.png",
+      "remote_blob": "b2c9bed2a716c7177558cccccd41e957c767d3b7",
+      "local_blob": "b2c9bed2a716c7177558cccccd41e957c767d3b7",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r2/FRONT34.png",
+      "remote_blob": "9e96591386fb228c09e243588ecef38f7047a1a1",
+      "local_blob": "9e96591386fb228c09e243588ecef38f7047a1a1",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r2/REAR34.png",
+      "remote_blob": "02e1ad0b89176cb9699c8bb820024cac808ebc3f",
+      "local_blob": "02e1ad0b89176cb9699c8bb820024cac808ebc3f",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/renders/revised_r2/SIDE.png",
+      "remote_blob": "36bc684cdb74d461aa404f61525027328d75f41f",
+      "local_blob": "36bc684cdb74d461aa404f61525027328d75f41f",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/01_build_blockout.py",
+      "remote_blob": "21e76a9b57c1188f3441251b36211e4f2482055d",
+      "local_blob": "21e76a9b57c1188f3441251b36211e4f2482055d",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/02_refine.py",
+      "remote_blob": "b18a804f685842c85137e983a322654138fa49df",
+      "local_blob": "b18a804f685842c85137e983a322654138fa49df",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/03_candidate.py",
+      "remote_blob": "be0f7de9b340a0c9f1b6e461873ddaa7cc3b2303",
+      "local_blob": "be0f7de9b340a0c9f1b6e461873ddaa7cc3b2303",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/04_verify_saved.py",
+      "remote_blob": "b1d1e30778981e9f73cf5663eb8244263157ebfe",
+      "local_blob": "b1d1e30778981e9f73cf5663eb8244263157ebfe",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/05_review_render.py",
+      "remote_blob": "e7a5c1e2fbaa799b38c84967ebcae0dbb59032f7",
+      "local_blob": "e7a5c1e2fbaa799b38c84967ebcae0dbb59032f7",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/06_verify_github.py",
+      "remote_blob": "392b41a09c8e5a80b326d7043800538bc2b837d9",
+      "local_blob": "392b41a09c8e5a80b326d7043800538bc2b837d9",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/07_structure_audit.py",
+      "remote_blob": "ea4f49529d088f55d9e7f0ff28c3d52abe826fb9",
+      "local_blob": "ea4f49529d088f55d9e7f0ff28c3d52abe826fb9",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/08_revise_connections.py",
+      "remote_blob": "d43ce15efd152bc2d0e66078b7160b5eb1db5e47",
+      "local_blob": "d43ce15efd152bc2d0e66078b7160b5eb1db5e47",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/09_build_comparisons.py",
+      "remote_blob": "f77de4a669dfd9fd1c8f5faef7ce9cbb5141f496",
+      "local_blob": "f77de4a669dfd9fd1c8f5faef7ce9cbb5141f496",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/scripts/render_saved_stage.py",
+      "remote_blob": "616170c7cd5614cfa743ed4ced3faf12e523fbd7",
+      "local_blob": "616170c7cd5614cfa743ed4ced3faf12e523fbd7",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_CANDIDATE_REVIEW.blend",
+      "remote_blob": "84157b304cb8ef187eadf4cd1161dc795eefd21a",
+      "local_blob": "84157b304cb8ef187eadf4cd1161dc795eefd21a",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R2_TRIAL_A.blend",
+      "remote_blob": "f14bd12d3ce48370552f78eaa185d39b125b3101",
+      "local_blob": "f14bd12d3ce48370552f78eaa185d39b125b3101",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R2_TRIAL_B.blend",
+      "remote_blob": "b261e23f64f8c162be5731cb5c0fadb10f2a8fb1",
+      "local_blob": "b261e23f64f8c162be5731cb5c0fadb10f2a8fb1",
+      "equal": true
+    },
+    {
+      "path": "art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R2_WORKING_COPY.blend",
+      "remote_blob": "6a2009282a49a119021569d3a05131de160aa5fa",
+      "local_blob": "6a2009282a49a119021569d3a05131de160aa5fa",
+      "equal": true
+    }
+  ]
+}
