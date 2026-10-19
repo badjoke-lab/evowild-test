@@ -1,0 +1,42 @@
+{
+  "reference": "art/s-creature/references/00_s_type_modeling_image_v1.png",
+  "review_method": "Direct inspection of actual SIDE, FRONT34, REAR34 and BACK Cycles renders and reference/R4/trial pixel comparison boards.",
+  "trials": {
+    "A": {
+      "decision": "REJECT",
+      "reason": "Common layer direction collapsed into a single blade in SIDE. Inlay faces bridged underlying facets and became visually fragmented. The exposed central rod was reduced but the canonical layered silhouette was lost."
+    },
+    "B": {
+      "decision": "REVISE",
+      "reason": "Alternating upper and lower layer exits restore the layered silhouette; conforming inlays remove the fragmented color panels. Independent reload found four distal root centers outside the core, so this checkpoint was not selected."
+    },
+    "C": {
+      "decision": "RETAIN_AS_WORKING_CHECKPOINT",
+      "reason": "Same improved layered silhouette with the distal two root pairs repositioned into the continuous tail. All 14 root centers are inside by the nearest-normal diagnostic. Four actual rendered views inspected."
+    }
+  },
+  "views": {
+    "SIDE": {
+      "improvement": "Long upper layers and deeper lower exits replace the identical repeated thin slats. The long round central highlight is mostly covered and the terminal silhouette retains its downward reach.",
+      "remaining": "The proximal root has a rounded cap; layer grouping is still simpler and straighter than the concept, with less sculpted faceting."
+    },
+    "FRONT34": {
+      "improvement": "The layers form a connected rearward flow rather than separate chips alongside a rod.",
+      "remaining": "Layer tips are still too linear and the side envelope is narrower than the concept in this projection; the concept camera and pose are not identical."
+    },
+    "REAR34": {
+      "improvement": "Broad lenticular volumes and embedded origins obscure the central tube; blue and ivory areas follow the actual surface.",
+      "remaining": "Paired contours remain too regular, with bright smooth surfaces rather than the concept's dark, sharply divided planes."
+    },
+    "BACK": {
+      "improvement": "The exposed central stalk and its separate needle tip are reduced; overlapping tapered layers form a continuous tail mass.",
+      "remaining": "Bilateral chevrons are still repetitive and the central white/blue pattern differs from the concept."
+    }
+  },
+  "working_checkpoint_decision": "RETAIN_TRIAL_C_AS_R5",
+  "overall": "REVISE",
+  "production_keep": false,
+  "root_connection": "Volumetric embedding of closed detail meshes; not a welded, rig-ready topology.",
+  "rig_gait_pc_mobile_validation": false,
+  "next_revision": "Refine the rounded root transition, irregular interlocking layer contours and dark/blue plane distribution without changing S identity; then resolve welded topology and validate gait/runtime before any production promotion."
+}

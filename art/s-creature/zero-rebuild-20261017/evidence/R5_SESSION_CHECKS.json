@@ -1,0 +1,18 @@
+{
+  "utc": "2026-10-19T15:54:39.898001+00:00",
+  "local_start_head": "b305613190a60e2d851b8599a95b7d4aafbc31e1",
+  "remote_fetch_head_at_start_and_before_publish": "b305613190a60e2d851b8599a95b7d4aafbc31e1",
+  "ahead": 0,
+  "behind": 0,
+  "blender_version": "4.3.2",
+  "addon_version": [
+    1,
+    8
+  ],
+  "protocol_version": 13,
+  "initial_scene_dirty": false,
+  "reference_and_all_325_prior_artifacts_unchanged": true,
+  "background_render_recovery": "Sandbox Blender failed at Metal initialization with exit 139; authorized unsandboxed Blender rendered successfully. Live MCP was available throughout.",
+  "visual_review": "Final five-view sheet and static 128px comparison inspected. Same S identity retained; overall and tail quality REVISE. No production promotion.",
+  "forbidden_actions_used": []
+}

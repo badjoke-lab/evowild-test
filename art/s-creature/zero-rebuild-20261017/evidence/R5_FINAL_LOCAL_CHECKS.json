@@ -1,0 +1,87 @@
+{
+  "model_sha256": "87fd6732a682ece45733e1c9ad78861a6b2543259c5feae38ba506fe6a509923",
+  "model_bytes": 1304535,
+  "views": {
+    "SIDE": {
+      "r4_camera_and_studio_match": true,
+      "sha256": "ec9820f7e9ae57c22e936f596927fa1e166eb464dbdb5c4dfa622034a3cee967",
+      "rgb_equal_to_reviewed_C": true
+    },
+    "FRONT": {
+      "r4_camera_and_studio_match": true,
+      "sha256": "e41a27ca8ac7c2e99aef4d26dd740d5dfa253cfa1dea2a25c95822ecc7960dcc"
+    },
+    "FRONT34": {
+      "r4_camera_and_studio_match": true,
+      "sha256": "67c5cefd954652dc2cc8e808144ca97efac8ea606781eac5f301a61f84fe5a24",
+      "rgb_equal_to_reviewed_C": true
+    },
+    "REAR34": {
+      "r4_camera_and_studio_match": true,
+      "sha256": "7b5399f0e7f3a9fcb01e8214d8428d83109fe6d73571d8fdea965e41f1ee3559",
+      "rgb_equal_to_reviewed_C": true
+    },
+    "BACK": {
+      "r4_camera_and_studio_match": true,
+      "sha256": "5ecd498002e9e9fc6180542bb3b647dac20599791e9eba8e9d96bd39f72cfdde",
+      "rgb_equal_to_reviewed_C": true
+    }
+  },
+  "viewport_images": [
+    "SIDE",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "protected_artifacts_unchanged": 325,
+  "changed_meshes": [
+    "S_ZERO_BODY_CONTINUOUS",
+    "TAIL_BLADE_0_-1",
+    "TAIL_BLADE_0_1",
+    "TAIL_BLADE_1_-1",
+    "TAIL_BLADE_1_1",
+    "TAIL_BLADE_2_-1",
+    "TAIL_BLADE_2_1",
+    "TAIL_BLADE_3_-1",
+    "TAIL_BLADE_3_1",
+    "TAIL_BLADE_4_-1",
+    "TAIL_BLADE_4_1",
+    "TAIL_BLADE_5_-1",
+    "TAIL_BLADE_5_1",
+    "TAIL_BLADE_6_-1",
+    "TAIL_BLADE_6_1",
+    "TAIL_BLUE_0_-1",
+    "TAIL_BLUE_0_1",
+    "TAIL_BLUE_1_-1",
+    "TAIL_BLUE_1_1",
+    "TAIL_BLUE_2_-1",
+    "TAIL_BLUE_2_1",
+    "TAIL_BLUE_3_-1",
+    "TAIL_BLUE_3_1",
+    "TAIL_BLUE_4_-1",
+    "TAIL_BLUE_4_1",
+    "TAIL_BLUE_5_-1",
+    "TAIL_BLUE_5_1",
+    "TAIL_BLUE_6_-1",
+    "TAIL_BLUE_6_1",
+    "TAIL_IVORY_0_-1",
+    "TAIL_IVORY_0_1",
+    "TAIL_IVORY_1_-1",
+    "TAIL_IVORY_1_1",
+    "TAIL_IVORY_2_-1",
+    "TAIL_IVORY_2_1",
+    "TAIL_IVORY_3_-1",
+    "TAIL_IVORY_3_1",
+    "TAIL_IVORY_4_-1",
+    "TAIL_IVORY_4_1",
+    "TAIL_TIP"
+  ],
+  "unchanged_meshes": 104,
+  "body_changed_vertices": 1920,
+  "tail_roots_embedded": true,
+  "no_nonadjacent_self_overlap_candidates_in_tail": true,
+  "overall": "REVISE",
+  "production_keep": false,
+  "rig_gait_pc_mobile_validation": false,
+  "limits": "Image similarity review and mesh integrity are distinct from rigging and runtime acceptance."
+}

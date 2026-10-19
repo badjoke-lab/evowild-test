@@ -1,0 +1,75 @@
+{
+  "method": "Unretouched pixels; crop, proportional resize, labels only.",
+  "reference_crops": {
+    "SIDE": [
+      505,
+      205,
+      754,
+      408
+    ],
+    "FRONT34": [
+      1325,
+      231,
+      1435,
+      403
+    ],
+    "REAR34": [
+      1084,
+      676,
+      1433,
+      848
+    ],
+    "BACK": [
+      1015,
+      231,
+      1072,
+      375
+    ]
+  },
+  "tail_crops": {
+    "SIDE": [
+      775,
+      325,
+      1145,
+      660
+    ],
+    "FRONT34": [
+      710,
+      305,
+      945,
+      665
+    ],
+    "REAR34": [
+      720,
+      330,
+      1040,
+      730
+    ],
+    "BACK": [
+      490,
+      310,
+      710,
+      700
+    ]
+  },
+  "source_sha256": {
+    "references/00_s_type_modeling_image_v1.png": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+    "zero-rebuild-20261017/renders/revised_r4/SIDE.png": "1300162ee23e0e9c361c08efeb30b4a083945f5a4397963d231aa0a0ceb0aaee",
+    "zero-rebuild-20261017/renders/revised_r5/SIDE.png": "ec9820f7e9ae57c22e936f596927fa1e166eb464dbdb5c4dfa622034a3cee967",
+    "zero-rebuild-20261017/renders/revised_r4/FRONT34.png": "ef4bf5e52bdae10024f346a6e24a1ee51167598bafcf441e63d1a01417cfe5da",
+    "zero-rebuild-20261017/renders/revised_r5/FRONT34.png": "67c5cefd954652dc2cc8e808144ca97efac8ea606781eac5f301a61f84fe5a24",
+    "zero-rebuild-20261017/renders/revised_r4/REAR34.png": "04bd90a2f77a0accc69b610cbd12eb1f5725d7119acdc2ead9762f58bf808cfe",
+    "zero-rebuild-20261017/renders/revised_r5/REAR34.png": "7b5399f0e7f3a9fcb01e8214d8428d83109fe6d73571d8fdea965e41f1ee3559",
+    "zero-rebuild-20261017/renders/revised_r4/BACK.png": "ee9f6d994ef16bbaa59a2a575e9845ad85bd5b5f36fdc543194e22c5db7c7fe3",
+    "zero-rebuild-20261017/renders/revised_r5/BACK.png": "5ecd498002e9e9fc6180542bb3b647dac20599791e9eba8e9d96bd39f72cfdde",
+    "zero-rebuild-20261017/renders/revised_r5/FRONT.png": "e41a27ca8ac7c2e99aef4d26dd740d5dfa253cfa1dea2a25c95822ecc7960dcc",
+    "zero-rebuild-20261017/renders/revised_r4/FRONT.png": "7589b36a8dc607a0d25b2167e82e1e484126d22f6cf9b50d1b0e638cb8cf76fe"
+  },
+  "outputs": [
+    "comparisons/REVISED_R5_TAIL_COMPARISON.png",
+    "comparisons/REVISED_R5_FIVE_VIEWS.png",
+    "comparisons/REVISED_R5_R4_FIVE_VIEW_COMPARISON.png",
+    "comparisons/REVISED_R5_REFERENCE_R4_COMPARISON.png",
+    "comparisons/REVISED_R5_STATIC_128PX.png"
+  ]
+}
