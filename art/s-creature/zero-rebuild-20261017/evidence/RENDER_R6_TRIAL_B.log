@@ -1,0 +1,749 @@
+Blender 4.3.2 (hash 32f5fdce0a0a built 2024-12-17 02:17:19)
+Read blend: "/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R6_TRIAL_B.blend"
+Fra:1 Mem:28.19M (Peak 28.19M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | S_ZERO_BODY_CONTINUOUS
+Fra:1 Mem:28.19M (Peak 28.19M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NAPE_FIN_N
+Fra:1 Mem:28.19M (Peak 28.19M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_FRAME_N
+Fra:1 Mem:30.97M (Peak 30.97M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | Ground
+Fra:1 Mem:30.97M (Peak 30.97M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_HIND_FAR_1
+Fra:1 Mem:30.99M (Peak 30.99M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_HIND_FAR_1
+Fra:1 Mem:31.02M (Peak 31.02M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_RIM_N
+Fra:1 Mem:31.04M (Peak 31.04M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_HIND_FAR_-1
+Fra:1 Mem:31.11M (Peak 31.11M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_FACE_N
+Fra:1 Mem:31.11M (Peak 31.12M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_SIGNAL_N
+Fra:1 Mem:31.08M (Peak 31.12M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NAPE_FIN_F
+Fra:1 Mem:31.13M (Peak 31.13M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_MAIN_F
+Fra:1 Mem:31.17M (Peak 31.17M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_BLUE_F
+Fra:1 Mem:31.21M (Peak 31.21M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | EYE_SOCKET_F
+Fra:1 Mem:31.69M (Peak 31.69M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_HIND_NEAR_1
+Fra:1 Mem:32.60M (Peak 32.60M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | EYE_F
+Fra:1 Mem:32.62M (Peak 32.62M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_HIND_NEAR_-1
+Fra:1 Mem:32.64M (Peak 32.64M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_FRAME_F
+Fra:1 Mem:33.09M (Peak 33.09M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_HIND_NEAR_-1
+Fra:1 Mem:33.13M (Peak 33.13M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_RIM_F
+Fra:1 Mem:33.14M (Peak 33.14M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_FORE_FAR_1
+Fra:1 Mem:33.17M (Peak 33.17M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_FACE_F
+Fra:1 Mem:33.19M (Peak 33.19M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_FORE_FAR_1
+Fra:1 Mem:33.55M (Peak 33.55M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_SIGNAL_F
+Fra:1 Mem:33.56M (Peak 33.56M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_FORE_FAR_-1
+Fra:1 Mem:33.59M (Peak 33.59M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_ROUND_F
+Fra:1 Mem:33.66M (Peak 33.66M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_FORE_FAR_-1
+Fra:1 Mem:33.75M (Peak 33.75M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_DOT_F
+Fra:1 Mem:33.82M (Peak 33.82M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_FORE_NEAR_1
+Fra:1 Mem:33.89M (Peak 33.89M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_FORE_NEAR_1
+Fra:1 Mem:33.97M (Peak 33.97M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_FORE_NEAR_-1
+Fra:1 Mem:33.98M (Peak 33.98M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_MANTLE
+Fra:1 Mem:34.09M (Peak 34.09M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_FORE_NEAR_-1
+Fra:1 Mem:34.12M (Peak 34.12M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_0_-1
+Fra:1 Mem:34.14M (Peak 34.14M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_6_1
+Fra:1 Mem:34.14M (Peak 34.14M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_0_-1
+Fra:1 Mem:34.18M (Peak 34.18M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_0_1
+Fra:1 Mem:34.18M (Peak 34.18M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_0_1
+Fra:1 Mem:34.18M (Peak 34.18M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_1_-1
+Fra:1 Mem:34.18M (Peak 34.18M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_1_-1
+Fra:1 Mem:34.71M (Peak 34.71M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_1_1
+Fra:1 Mem:34.71M (Peak 34.71M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_1_1
+Fra:1 Mem:34.71M (Peak 34.71M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_2_-1
+Fra:1 Mem:34.71M (Peak 34.71M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_2_-1
+Fra:1 Mem:34.73M (Peak 34.73M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_2_1
+Fra:1 Mem:34.73M (Peak 34.73M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_2_1
+Fra:1 Mem:34.63M (Peak 34.73M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ANKLE_FIN_FORE_NEAR
+Fra:1 Mem:34.95M (Peak 34.95M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_FORE_NEAR_-1
+Fra:1 Mem:35.04M (Peak 35.04M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_FORE_NEAR_-1
+Fra:1 Mem:35.07M (Peak 35.07M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_FORE_NEAR_-1
+Fra:1 Mem:35.07M (Peak 35.07M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_FORE_NEAR_1
+Fra:1 Mem:35.09M (Peak 35.09M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_6_1
+Fra:1 Mem:34.87M (Peak 35.09M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_FORE_NEAR_1
+Fra:1 Mem:34.87M (Peak 35.09M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ANKLE_FIN_FORE_FAR
+Fra:1 Mem:34.88M (Peak 35.09M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_FORE_FAR_-1
+Fra:1 Mem:34.88M (Peak 35.09M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_FORE_FAR_-1
+Fra:1 Mem:34.88M (Peak 35.09M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_FORE_FAR_1
+Fra:1 Mem:34.88M (Peak 35.09M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ANKLE_FIN_HIND_NEAR
+Fra:1 Mem:35.31M (Peak 35.31M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_HIND_NEAR_-1
+Fra:1 Mem:35.32M (Peak 35.32M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_HIND_NEAR_-1
+Fra:1 Mem:35.33M (Peak 35.33M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_HIND_NEAR_1
+Fra:1 Mem:35.33M (Peak 35.33M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_HIND_NEAR_1
+Fra:1 Mem:35.33M (Peak 35.33M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ANKLE_FIN_HIND_FAR
+Fra:1 Mem:35.35M (Peak 35.35M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_HIND_FAR_-1
+Fra:1 Mem:35.36M (Peak 35.36M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_HIND_FAR_-1
+Fra:1 Mem:35.37M (Peak 35.37M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_HIND_FAR_1
+Fra:1 Mem:35.38M (Peak 35.38M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_HIND_FAR_1
+Fra:1 Mem:35.39M (Peak 35.39M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_HIND_FAR_1
+Fra:1 Mem:35.39M (Peak 35.39M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_TIP
+Fra:1 Mem:35.40M (Peak 35.40M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | MOUTH_SEAM_-1
+Fra:1 Mem:35.43M (Peak 35.43M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | MOUTH_SEAM_1
+Fra:1 Mem:35.44M (Peak 35.44M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ELBOW_SPUR_FORE_NEAR
+Fra:1 Mem:35.46M (Peak 35.46M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | RIB_SHELL_N
+Fra:1 Mem:35.45M (Peak 35.46M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NECK_TENDON_N
+Fra:1 Mem:35.53M (Peak 35.53M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NAPE_IVORY_N
+Fra:1 Mem:35.57M (Peak 35.57M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_6_-1
+Fra:1 Mem:35.61M (Peak 35.61M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CHEEK_N
+Fra:1 Mem:35.64M (Peak 35.64M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_IVORY_RIDGE_N
+Fra:1 Mem:35.68M (Peak 35.68M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | LOWER_RIB_F
+Fra:1 Mem:35.69M (Peak 35.69M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NAPE_IVORY_F
+Fra:1 Mem:35.81M (Peak 35.81M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CHEEK_F
+Fra:1 Mem:35.81M (Peak 35.81M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_5_1
+Fra:1 Mem:36.05M (Peak 36.05M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_IVORY_RIDGE_F
+Fra:1 Mem:36.10M (Peak 36.10M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | FOREHEAD_MEDIAN
+Fra:1 Mem:36.11M (Peak 36.11M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CANNON_RIDGE_FORE_NEAR
+Fra:1 Mem:36.15M (Peak 36.15M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_5_1
+Fra:1 Mem:36.16M (Peak 36.16M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CANNON_RIDGE_HIND_FAR
+Fra:1 Mem:36.20M (Peak 36.20M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_0_-1
+Fra:1 Mem:36.25M (Peak 36.25M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_0_-1
+Fra:1 Mem:36.26M (Peak 36.26M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_0_1
+Fra:1 Mem:36.28M (Peak 36.28M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_0_1
+Fra:1 Mem:36.31M (Peak 36.31M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_0_1
+Fra:1 Mem:36.38M (Peak 36.38M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_1_-1
+Fra:1 Mem:36.39M (Peak 36.39M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_1_-1
+Fra:1 Mem:36.38M (Peak 36.39M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_1_-1
+Fra:1 Mem:36.38M (Peak 36.39M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_1_1
+Fra:1 Mem:36.37M (Peak 36.39M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_1_1
+Fra:1 Mem:36.39M (Peak 36.39M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_1_1
+Fra:1 Mem:38.95M (Peak 38.96M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_2_-1
+Fra:1 Mem:38.97M (Peak 38.97M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_2_-1
+Fra:1 Mem:38.98M (Peak 38.98M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_2_-1
+Fra:1 Mem:38.99M (Peak 38.99M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_2_1
+Fra:1 Mem:38.99M (Peak 38.99M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_2_1
+Fra:1 Mem:39.00M (Peak 39.00M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_4_1
+Fra:1 Mem:38.99M (Peak 39.00M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_3_-1
+Fra:1 Mem:39.03M (Peak 39.03M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_3_-1
+Fra:1 Mem:39.04M (Peak 39.04M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_3_1
+Fra:1 Mem:39.07M (Peak 39.07M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_3_1
+Fra:1 Mem:39.04M (Peak 39.07M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_3_1
+Fra:1 Mem:39.10M (Peak 39.10M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_4_-1
+Fra:1 Mem:39.08M (Peak 39.10M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_4_-1
+Fra:1 Mem:39.12M (Peak 39.12M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_4_1
+Fra:1 Mem:41.62M (Peak 44.15M) | Time:00:00.04 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Initializing
+Fra:1 Mem:36.35M (Peak 44.15M) | Time:00:00.04 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Waiting for render to start
+Fra:1 Mem:36.35M (Peak 44.15M) | Time:00:00.04 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:36.35M (Peak 44.15M) | Time:00:00.04 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Updating Scene
+Fra:1 Mem:36.35M (Peak 44.15M) | Time:00:00.04 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Updating Shaders
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.05 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Procedurals
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.05 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Background
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.05 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Camera
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.05 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.05 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Objects
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.05 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:36.48M (Peak 44.15M) | Time:00:00.05 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:36.48M (Peak 44.15M) | Time:00:00.05 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Particle Systems
+Fra:1 Mem:36.48M (Peak 44.15M) | Time:00:00.05 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:36.48M (Peak 44.15M) | Time:00:00.05 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Meshes
+Fra:1 Mem:37.74M (Peak 44.15M) | Time:00:00.05 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:43.35M (Peak 44.15M) | Time:00:00.06 | Mem:0.05M, Peak:0.05M | S_ZERO_STUDIO, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:43.33M (Peak 44.15M) | Time:00:00.06 | Mem:5.63M, Peak:5.63M | S_ZERO_STUDIO, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:43.33M (Peak 44.15M) | Time:00:00.06 | Mem:5.63M, Peak:5.63M | S_ZERO_STUDIO, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:43.33M (Peak 44.15M) | Time:00:00.06 | Mem:8.16M, Peak:8.16M | S_ZERO_STUDIO, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:43.33M (Peak 44.15M) | Time:00:00.07 | Mem:10.92M, Peak:13.45M | S_ZERO_STUDIO, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:43.33M (Peak 44.15M) | Time:00:00.07 | Mem:10.92M, Peak:13.45M | S_ZERO_STUDIO, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.07 | Mem:10.92M, Peak:13.45M | S_ZERO_STUDIO, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.07 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Objects Flags
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.07 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.07 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Images
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.08 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Camera Volume
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.08 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.08 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Lights
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.08 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.08 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Integrator
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.08 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Film
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.08 | Mem:13.84M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.08 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Baking
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.08 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.08 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.08 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Sample 0/32
+Fra:1 Mem:124.56M (Peak 124.56M) | Time:00:00.34 | Remaining:00:08.16 | Mem:92.20M, Peak:92.20M | S_ZERO_STUDIO, ViewLayer | Sample 1/32
+Fra:1 Mem:157.52M (Peak 206.96M) | Time:00:14.21 | Mem:92.20M, Peak:92.20M | S_ZERO_STUDIO, ViewLayer | Sample 32/32
+Fra:1 Mem:157.52M (Peak 206.96M) | Time:00:14.22 | Mem:92.20M, Peak:92.20M | S_ZERO_STUDIO, ViewLayer | Finished
+Saved: '/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/renders/r6_trial_b/SIDE.png'
+Time: 00:14.52 (Saving: 00:00.28)
+
+BlenderMCP addon registered
+REVIEW_RENDER r6_trial_b SIDE
+Fra:1 Mem:33.17M (Peak 33.17M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | S_ZERO_BODY_CONTINUOUS
+Fra:1 Mem:33.18M (Peak 33.18M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_FRAME_N
+Fra:1 Mem:34.50M (Peak 34.50M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_RIM_N
+Fra:1 Mem:34.53M (Peak 34.53M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_FACE_N
+Fra:1 Mem:34.58M (Peak 34.58M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_SIGNAL_N
+Fra:1 Mem:34.65M (Peak 34.65M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_ROUND_N
+Fra:1 Mem:35.14M (Peak 35.14M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_MAIN_F
+Fra:1 Mem:35.18M (Peak 35.18M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_BLUE_F
+Fra:1 Mem:35.19M (Peak 35.19M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | EYE_SOCKET_F
+Fra:1 Mem:35.24M (Peak 35.24M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | EYE_F
+Fra:1 Mem:35.35M (Peak 35.35M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_FRAME_F
+Fra:1 Mem:35.32M (Peak 35.35M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_FACE_F
+Fra:1 Mem:35.43M (Peak 35.43M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_SIGNAL_F
+Fra:1 Mem:35.51M (Peak 35.51M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_DOT_F
+Fra:1 Mem:35.53M (Peak 35.53M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_0_-1
+Fra:1 Mem:35.52M (Peak 35.53M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_0_-1
+Fra:1 Mem:35.46M (Peak 35.53M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_0_1
+Fra:1 Mem:35.88M (Peak 35.88M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_1_1
+Fra:1 Mem:35.88M (Peak 35.88M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_1_1
+Fra:1 Mem:35.90M (Peak 35.90M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | Ground
+Fra:1 Mem:35.91M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_2_-1
+Fra:1 Mem:35.83M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_2_1
+Fra:1 Mem:35.83M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ANKLE_FIN_FORE_NEAR
+Fra:1 Mem:35.83M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_FORE_NEAR_-1
+Fra:1 Mem:35.84M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_FORE_NEAR_-1
+Fra:1 Mem:35.84M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_FORE_NEAR_-1
+Fra:1 Mem:35.84M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_FORE_NEAR_1
+Fra:1 Mem:35.84M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_FORE_NEAR_1
+Fra:1 Mem:35.85M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_HIND_FAR_1
+Fra:1 Mem:35.85M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_HIND_FAR_-1
+Fra:1 Mem:35.86M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_FORE_FAR_-1
+Fra:1 Mem:35.87M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_HIND_FAR_-1
+Fra:1 Mem:35.87M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_FORE_FAR_1
+Fra:1 Mem:35.88M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_FORE_FAR_1
+Fra:1 Mem:35.88M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_FORE_FAR_1
+Fra:1 Mem:35.89M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ANKLE_FIN_HIND_NEAR
+Fra:1 Mem:35.89M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_HIND_NEAR_1
+Fra:1 Mem:35.89M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_HIND_NEAR_-1
+Fra:1 Mem:35.89M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_HIND_NEAR_1
+Fra:1 Mem:35.89M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_HIND_NEAR_1
+Fra:1 Mem:35.90M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_HIND_NEAR_1
+Fra:1 Mem:35.91M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_HIND_NEAR_1
+Fra:1 Mem:35.91M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_HIND_NEAR_-1
+Fra:1 Mem:35.92M (Peak 35.92M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_HIND_FAR_-1
+Fra:1 Mem:35.93M (Peak 35.93M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_HIND_FAR_-1
+Fra:1 Mem:35.93M (Peak 35.93M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_HIND_FAR_1
+Fra:1 Mem:35.93M (Peak 35.93M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_HIND_FAR_1
+Fra:1 Mem:35.94M (Peak 35.94M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_HIND_FAR_1
+Fra:1 Mem:35.94M (Peak 35.94M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_TIP
+Fra:1 Mem:35.96M (Peak 35.96M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_FORE_FAR_1
+Fra:1 Mem:35.96M (Peak 35.96M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NOSE_CAP
+Fra:1 Mem:35.97M (Peak 35.97M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_FORE_FAR_1
+Fra:1 Mem:35.99M (Peak 35.99M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_FORE_FAR_-1
+Fra:1 Mem:35.99M (Peak 35.99M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | MOUTH_SEAM_-1
+Fra:1 Mem:35.99M (Peak 35.99M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_FORE_FAR_-1
+Fra:1 Mem:35.99M (Peak 35.99M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ELBOW_SPUR_FORE_NEAR
+Fra:1 Mem:35.99M (Peak 35.99M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ELBOW_SPUR_FORE_FAR
+Fra:1 Mem:36.00M (Peak 36.00M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | RIB_SHELL_N
+Fra:1 Mem:36.02M (Peak 36.02M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | LOWER_RIB_N
+Fra:1 Mem:36.02M (Peak 36.02M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NECK_TENDON_N
+Fra:1 Mem:36.03M (Peak 36.03M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_FORE_NEAR_1
+Fra:1 Mem:36.03M (Peak 36.03M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NAPE_IVORY_N
+Fra:1 Mem:38.57M (Peak 38.57M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CHEEK_N
+Fra:1 Mem:38.61M (Peak 38.61M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_IVORY_RIDGE_N
+Fra:1 Mem:38.62M (Peak 38.62M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | LOWER_RIB_F
+Fra:1 Mem:38.64M (Peak 38.64M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NECK_TENDON_F
+Fra:1 Mem:38.70M (Peak 38.70M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NAPE_IVORY_F
+Fra:1 Mem:38.73M (Peak 38.73M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_IVORY_RIDGE_F
+Fra:1 Mem:38.74M (Peak 38.74M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CANNON_RIDGE_FORE_FAR
+Fra:1 Mem:38.74M (Peak 38.74M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_FORE_NEAR_-1
+Fra:1 Mem:38.76M (Peak 38.76M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CANNON_RIDGE_HIND_NEAR
+Fra:1 Mem:38.76M (Peak 38.76M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_FORE_NEAR_-1
+Fra:1 Mem:38.78M (Peak 38.78M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CANNON_RIDGE_HIND_FAR
+Fra:1 Mem:38.79M (Peak 38.79M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_0_-1
+Fra:1 Mem:38.81M (Peak 38.81M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_0_-1
+Fra:1 Mem:38.81M (Peak 38.81M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_0_-1
+Fra:1 Mem:38.84M (Peak 38.84M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_0_1
+Fra:1 Mem:38.87M (Peak 38.87M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_0_1
+Fra:1 Mem:38.91M (Peak 38.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_6_1
+Fra:1 Mem:38.94M (Peak 38.94M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_1_-1
+Fra:1 Mem:38.94M (Peak 38.94M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_1_-1
+Fra:1 Mem:38.92M (Peak 38.94M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_1_1
+Fra:1 Mem:38.94M (Peak 38.94M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_1_1
+Fra:1 Mem:38.92M (Peak 38.94M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_2_-1
+Fra:1 Mem:38.95M (Peak 38.95M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_2_-1
+Fra:1 Mem:38.96M (Peak 38.96M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_2_1
+Fra:1 Mem:38.97M (Peak 38.98M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_2_1
+Fra:1 Mem:39.01M (Peak 39.01M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_2_1
+Fra:1 Mem:39.03M (Peak 39.03M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_3_-1
+Fra:1 Mem:39.01M (Peak 39.03M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_6_-1
+Fra:1 Mem:39.01M (Peak 39.03M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_3_-1
+Fra:1 Mem:39.02M (Peak 39.03M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_3_1
+Fra:1 Mem:39.02M (Peak 39.03M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_3_1
+Fra:1 Mem:39.06M (Peak 39.06M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_6_-1
+Fra:1 Mem:39.05M (Peak 39.06M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_4_-1
+Fra:1 Mem:39.04M (Peak 39.06M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_4_-1
+Fra:1 Mem:39.05M (Peak 39.06M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_4_1
+Fra:1 Mem:39.07M (Peak 39.07M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_5_1
+Fra:1 Mem:39.09M (Peak 39.09M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_5_-1
+Fra:1 Mem:39.09M (Peak 39.09M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_5_-1
+Fra:1 Mem:39.15M (Peak 39.15M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_5_1
+Fra:1 Mem:41.62M (Peak 44.15M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Initializing
+Fra:1 Mem:36.35M (Peak 44.15M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Waiting for render to start
+Fra:1 Mem:36.35M (Peak 44.15M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:36.35M (Peak 44.15M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Updating Scene
+Fra:1 Mem:36.35M (Peak 44.15M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Updating Shaders
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.02 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Procedurals
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.02 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Background
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.02 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Camera
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.02 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.02 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Objects
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.02 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:36.48M (Peak 44.15M) | Time:00:00.02 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:36.48M (Peak 44.15M) | Time:00:00.03 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Particle Systems
+Fra:1 Mem:36.48M (Peak 44.15M) | Time:00:00.03 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:36.48M (Peak 44.15M) | Time:00:00.03 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Meshes
+Fra:1 Mem:37.74M (Peak 44.15M) | Time:00:00.03 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:43.35M (Peak 44.15M) | Time:00:00.03 | Mem:0.05M, Peak:0.05M | S_ZERO_STUDIO, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:43.33M (Peak 44.15M) | Time:00:00.03 | Mem:5.63M, Peak:5.63M | S_ZERO_STUDIO, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:43.33M (Peak 44.15M) | Time:00:00.03 | Mem:5.63M, Peak:5.63M | S_ZERO_STUDIO, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:43.33M (Peak 44.15M) | Time:00:00.03 | Mem:8.16M, Peak:8.16M | S_ZERO_STUDIO, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:43.33M (Peak 44.15M) | Time:00:00.04 | Mem:10.92M, Peak:13.45M | S_ZERO_STUDIO, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:43.33M (Peak 44.15M) | Time:00:00.04 | Mem:10.92M, Peak:13.45M | S_ZERO_STUDIO, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.04 | Mem:10.92M, Peak:13.45M | S_ZERO_STUDIO, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.04 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Objects Flags
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.04 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.04 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Images
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.04 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Camera Volume
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.04 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.04 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Lights
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.04 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.04 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Integrator
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.04 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Film
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.04 | Mem:13.84M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.04 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Baking
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.04 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.04 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.04 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Sample 0/32
+Fra:1 Mem:124.56M (Peak 124.56M) | Time:00:00.20 | Remaining:00:05.11 | Mem:92.20M, Peak:92.20M | S_ZERO_STUDIO, ViewLayer | Sample 1/32
+Fra:1 Mem:157.52M (Peak 206.96M) | Time:00:12.44 | Mem:92.20M, Peak:92.20M | S_ZERO_STUDIO, ViewLayer | Sample 32/32
+Fra:1 Mem:157.52M (Peak 206.96M) | Time:00:12.44 | Mem:92.20M, Peak:92.20M | S_ZERO_STUDIO, ViewLayer | Finished
+Saved: '/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/renders/r6_trial_b/FRONT.png'
+Time: 00:12.60 (Saving: 00:00.14)
+
+REVIEW_RENDER r6_trial_b FRONT
+Fra:1 Mem:33.17M (Peak 33.17M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_MAIN_N
+Fra:1 Mem:33.18M (Peak 33.18M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_FRAME_N
+Fra:1 Mem:33.21M (Peak 33.21M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_RIM_N
+Fra:1 Mem:33.27M (Peak 33.27M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_FACE_N
+Fra:1 Mem:33.34M (Peak 33.34M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_SIGNAL_N
+Fra:1 Mem:33.37M (Peak 33.37M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_DOT_N
+Fra:1 Mem:33.38M (Peak 33.38M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NAPE_FIN_F
+Fra:1 Mem:33.41M (Peak 33.41M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_MAIN_F
+Fra:1 Mem:34.78M (Peak 34.78M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_BLUE_F
+Fra:1 Mem:34.79M (Peak 34.79M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | EYE_F
+Fra:1 Mem:34.90M (Peak 34.90M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_FRAME_F
+Fra:1 Mem:34.98M (Peak 34.98M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_RIM_F
+Fra:1 Mem:34.91M (Peak 34.98M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_FACE_F
+Fra:1 Mem:34.92M (Peak 34.98M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_ROUND_F
+Fra:1 Mem:35.03M (Peak 35.03M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_DOT_F
+Fra:1 Mem:35.46M (Peak 35.46M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_0_-1
+Fra:1 Mem:35.53M (Peak 35.53M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_0_-1
+Fra:1 Mem:35.54M (Peak 35.54M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_0_1
+Fra:1 Mem:35.51M (Peak 35.54M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_0_1
+Fra:1 Mem:35.46M (Peak 35.54M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_1_-1
+Fra:1 Mem:35.47M (Peak 35.54M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_1_1
+Fra:1 Mem:35.48M (Peak 35.54M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_2_-1
+Fra:1 Mem:35.48M (Peak 35.54M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_2_-1
+Fra:1 Mem:35.48M (Peak 35.54M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_2_1
+Fra:1 Mem:35.48M (Peak 35.54M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_2_1
+Fra:1 Mem:35.50M (Peak 35.54M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ANKLE_FIN_FORE_NEAR
+Fra:1 Mem:35.83M (Peak 35.83M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_FORE_NEAR_-1
+Fra:1 Mem:35.83M (Peak 35.83M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_FORE_NEAR_1
+Fra:1 Mem:35.84M (Peak 35.84M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_FORE_NEAR_1
+Fra:1 Mem:35.85M (Peak 35.85M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_FORE_NEAR_1
+Fra:1 Mem:35.85M (Peak 35.85M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ANKLE_FIN_FORE_FAR
+Fra:1 Mem:35.85M (Peak 35.85M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_FORE_FAR_-1
+Fra:1 Mem:35.85M (Peak 35.85M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_FORE_FAR_-1
+Fra:1 Mem:35.85M (Peak 35.85M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_FORE_FAR_1
+Fra:1 Mem:35.86M (Peak 35.86M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_FORE_FAR_1
+Fra:1 Mem:35.87M (Peak 35.87M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_FORE_FAR_1
+Fra:1 Mem:35.87M (Peak 35.87M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ANKLE_FIN_HIND_NEAR
+Fra:1 Mem:35.87M (Peak 35.87M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_HIND_FAR_1
+Fra:1 Mem:35.87M (Peak 35.87M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_HIND_NEAR_-1
+Fra:1 Mem:35.87M (Peak 35.87M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_HIND_NEAR_1
+Fra:1 Mem:35.88M (Peak 35.88M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_HIND_NEAR_1
+Fra:1 Mem:35.89M (Peak 35.89M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_HIND_NEAR_1
+Fra:1 Mem:35.89M (Peak 35.89M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_HIND_FAR_-1
+Fra:1 Mem:35.90M (Peak 35.90M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_HIND_FAR_-1
+Fra:1 Mem:35.90M (Peak 35.90M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_HIND_FAR_-1
+Fra:1 Mem:35.91M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_HIND_FAR_-1
+Fra:1 Mem:38.45M (Peak 38.45M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_HIND_FAR_-1
+Fra:1 Mem:38.46M (Peak 38.46M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_HIND_FAR_1
+Fra:1 Mem:38.46M (Peak 38.46M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | MOUTH_SEAM_-1
+Fra:1 Mem:38.47M (Peak 38.47M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | MOUTH_SEAM_1
+Fra:1 Mem:38.47M (Peak 38.47M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ELBOW_SPUR_FORE_NEAR
+Fra:1 Mem:38.47M (Peak 38.47M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_HIND_NEAR_1
+Fra:1 Mem:38.48M (Peak 38.48M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | RIB_SHELL_N
+Fra:1 Mem:38.50M (Peak 38.50M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | LOWER_RIB_N
+Fra:1 Mem:38.52M (Peak 38.52M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NECK_TENDON_N
+Fra:1 Mem:38.54M (Peak 38.54M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CHEEK_N
+Fra:1 Mem:38.56M (Peak 38.56M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_IVORY_RIDGE_N
+Fra:1 Mem:38.59M (Peak 38.59M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | RIB_SHELL_F
+Fra:1 Mem:38.62M (Peak 38.62M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NECK_TENDON_F
+Fra:1 Mem:38.62M (Peak 38.62M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NAPE_IVORY_F
+Fra:1 Mem:38.64M (Peak 38.64M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CHEEK_F
+Fra:1 Mem:38.67M (Peak 38.67M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CANNON_RIDGE_FORE_FAR
+Fra:1 Mem:38.71M (Peak 38.71M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CANNON_RIDGE_HIND_NEAR
+Fra:1 Mem:38.72M (Peak 38.72M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CANNON_RIDGE_HIND_FAR
+Fra:1 Mem:38.74M (Peak 38.74M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_0_-1
+Fra:1 Mem:38.76M (Peak 38.76M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_0_1
+Fra:1 Mem:38.81M (Peak 38.81M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_0_1
+Fra:1 Mem:38.84M (Peak 38.84M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_0_1
+Fra:1 Mem:38.87M (Peak 38.87M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_HIND_NEAR_-1
+Fra:1 Mem:38.89M (Peak 38.89M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_HIND_NEAR_-1
+Fra:1 Mem:38.87M (Peak 38.89M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_1_-1
+Fra:1 Mem:38.89M (Peak 38.89M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_FORE_FAR_1
+Fra:1 Mem:38.87M (Peak 38.89M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_1_-1
+Fra:1 Mem:38.86M (Peak 38.89M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_1_1
+Fra:1 Mem:38.92M (Peak 38.92M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_FORE_FAR_1
+Fra:1 Mem:38.93M (Peak 38.93M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_FORE_FAR_-1
+Fra:1 Mem:38.93M (Peak 38.93M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_2_-1
+Fra:1 Mem:38.93M (Peak 38.93M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_2_1
+Fra:1 Mem:38.95M (Peak 38.95M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_2_1
+Fra:1 Mem:38.95M (Peak 38.95M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_2_1
+Fra:1 Mem:38.95M (Peak 38.95M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_FORE_NEAR_1
+Fra:1 Mem:38.95M (Peak 38.95M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_3_-1
+Fra:1 Mem:38.98M (Peak 38.98M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_3_-1
+Fra:1 Mem:38.99M (Peak 38.99M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_3_1
+Fra:1 Mem:39.01M (Peak 39.01M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_FORE_NEAR_-1
+Fra:1 Mem:39.01M (Peak 39.01M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_3_1
+Fra:1 Mem:39.00M (Peak 39.01M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_4_-1
+Fra:1 Mem:38.99M (Peak 39.01M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_4_1
+Fra:1 Mem:41.56M (Peak 41.56M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_6_1
+Fra:1 Mem:41.57M (Peak 41.57M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_4_1
+Fra:1 Mem:41.59M (Peak 41.59M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_4_1
+Fra:1 Mem:41.63M (Peak 41.63M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_5_-1
+Fra:1 Mem:41.63M (Peak 41.63M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_5_-1
+Fra:1 Mem:41.60M (Peak 41.63M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_5_1
+Fra:1 Mem:41.62M (Peak 41.63M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_6_1
+Fra:1 Mem:41.64M (Peak 41.64M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_6_-1
+Fra:1 Mem:41.63M (Peak 41.64M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_6_-1
+Fra:1 Mem:41.62M (Peak 44.15M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Initializing
+Fra:1 Mem:36.35M (Peak 44.15M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Waiting for render to start
+Fra:1 Mem:36.35M (Peak 44.15M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:36.35M (Peak 44.15M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Updating Scene
+Fra:1 Mem:36.35M (Peak 44.15M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Updating Shaders
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.02 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Procedurals
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.02 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Background
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.02 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Camera
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.02 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.02 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Objects
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.02 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:36.48M (Peak 44.15M) | Time:00:00.02 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:36.48M (Peak 44.15M) | Time:00:00.02 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Particle Systems
+Fra:1 Mem:36.48M (Peak 44.15M) | Time:00:00.02 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:36.48M (Peak 44.15M) | Time:00:00.02 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Meshes
+Fra:1 Mem:37.74M (Peak 44.15M) | Time:00:00.02 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:43.35M (Peak 44.15M) | Time:00:00.02 | Mem:0.05M, Peak:0.05M | S_ZERO_STUDIO, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:43.33M (Peak 44.15M) | Time:00:00.02 | Mem:5.63M, Peak:5.63M | S_ZERO_STUDIO, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:43.33M (Peak 44.15M) | Time:00:00.02 | Mem:5.63M, Peak:5.63M | S_ZERO_STUDIO, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:43.33M (Peak 44.15M) | Time:00:00.02 | Mem:8.16M, Peak:8.16M | S_ZERO_STUDIO, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:43.33M (Peak 44.15M) | Time:00:00.03 | Mem:10.92M, Peak:13.45M | S_ZERO_STUDIO, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:43.33M (Peak 44.15M) | Time:00:00.03 | Mem:10.92M, Peak:13.45M | S_ZERO_STUDIO, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.03 | Mem:10.92M, Peak:13.45M | S_ZERO_STUDIO, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.03 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Objects Flags
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.03 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.03 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Images
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.03 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Camera Volume
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.03 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.03 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Lights
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.03 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.03 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Integrator
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.03 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Film
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.03 | Mem:13.84M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.03 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Baking
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.03 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.03 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.03 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Sample 0/32
+Fra:1 Mem:124.56M (Peak 124.56M) | Time:00:00.64 | Remaining:00:18.86 | Mem:92.20M, Peak:92.20M | S_ZERO_STUDIO, ViewLayer | Sample 1/32
+Fra:1 Mem:157.52M (Peak 206.96M) | Time:00:36.57 | Mem:92.20M, Peak:92.20M | S_ZERO_STUDIO, ViewLayer | Sample 32/32
+Fra:1 Mem:157.52M (Peak 206.96M) | Time:00:36.57 | Mem:92.20M, Peak:92.20M | S_ZERO_STUDIO, ViewLayer | Finished
+Saved: '/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/renders/r6_trial_b/FRONT34.png'
+Time: 00:36.80 (Saving: 00:00.19)
+
+REVIEW_RENDER r6_trial_b FRONT34
+Fra:1 Mem:33.17M (Peak 33.17M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | S_ZERO_BODY_CONTINUOUS
+Fra:1 Mem:33.17M (Peak 33.17M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_MAIN_N
+Fra:1 Mem:33.17M (Peak 33.17M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | EYE_N
+Fra:1 Mem:33.17M (Peak 33.17M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_FRAME_N
+Fra:1 Mem:34.57M (Peak 34.57M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_RIM_N
+Fra:1 Mem:34.66M (Peak 34.66M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_FACE_N
+Fra:1 Mem:34.71M (Peak 34.71M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_SIGNAL_N
+Fra:1 Mem:34.68M (Peak 34.71M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_DOT_N
+Fra:1 Mem:34.78M (Peak 34.78M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_ROUND_N
+Fra:1 Mem:34.80M (Peak 34.80M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NAPE_FIN_F
+Fra:1 Mem:34.81M (Peak 34.81M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_MAIN_F
+Fra:1 Mem:34.84M (Peak 34.84M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_BLUE_F
+Fra:1 Mem:34.85M (Peak 34.85M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | EYE_SOCKET_F
+Fra:1 Mem:34.84M (Peak 34.85M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | EYE_F
+Fra:1 Mem:34.89M (Peak 34.89M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_FRAME_F
+Fra:1 Mem:34.83M (Peak 34.89M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_RIM_F
+Fra:1 Mem:34.85M (Peak 34.89M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_FACE_F
+Fra:1 Mem:34.88M (Peak 34.89M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_SIGNAL_F
+Fra:1 Mem:34.90M (Peak 34.90M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_DOT_F
+Fra:1 Mem:34.91M (Peak 34.91M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_ROUND_F
+Fra:1 Mem:34.90M (Peak 34.91M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_MANTLE
+Fra:1 Mem:35.35M (Peak 35.35M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_0_-1
+Fra:1 Mem:35.35M (Peak 35.35M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_0_-1
+Fra:1 Mem:35.36M (Peak 35.36M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_0_1
+Fra:1 Mem:35.36M (Peak 35.36M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_0_1
+Fra:1 Mem:35.36M (Peak 35.36M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_1_-1
+Fra:1 Mem:35.36M (Peak 35.36M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_1_1
+Fra:1 Mem:35.37M (Peak 35.37M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_2_-1
+Fra:1 Mem:35.38M (Peak 35.38M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_2_1
+Fra:1 Mem:35.39M (Peak 35.39M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_2_1
+Fra:1 Mem:35.40M (Peak 35.40M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ANKLE_FIN_FORE_NEAR
+Fra:1 Mem:35.40M (Peak 35.40M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_FORE_NEAR_-1
+Fra:1 Mem:35.41M (Peak 35.41M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_FORE_NEAR_-1
+Fra:1 Mem:35.43M (Peak 35.43M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_FORE_NEAR_-1
+Fra:1 Mem:35.43M (Peak 35.43M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_FORE_NEAR_1
+Fra:1 Mem:35.45M (Peak 35.45M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_FORE_NEAR_1
+Fra:1 Mem:35.42M (Peak 35.45M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_FORE_NEAR_1
+Fra:1 Mem:35.88M (Peak 35.88M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ANKLE_FIN_FORE_FAR
+Fra:1 Mem:35.89M (Peak 35.89M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_FORE_FAR_-1
+Fra:1 Mem:35.91M (Peak 35.91M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_FORE_FAR_1
+Fra:1 Mem:35.93M (Peak 35.93M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_FORE_FAR_1
+Fra:1 Mem:35.94M (Peak 35.94M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_FORE_FAR_1
+Fra:1 Mem:35.94M (Peak 35.94M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_HIND_NEAR_-1
+Fra:1 Mem:35.94M (Peak 35.94M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_HIND_NEAR_-1
+Fra:1 Mem:35.93M (Peak 35.94M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_HIND_NEAR_1
+Fra:1 Mem:35.87M (Peak 35.94M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_HIND_NEAR_1
+Fra:1 Mem:35.87M (Peak 35.94M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_HIND_NEAR_1
+Fra:1 Mem:35.88M (Peak 35.94M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_HIND_FAR_-1
+Fra:1 Mem:35.88M (Peak 35.94M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_HIND_FAR_-1
+Fra:1 Mem:35.89M (Peak 35.94M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_HIND_FAR_1
+Fra:1 Mem:35.89M (Peak 35.94M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_HIND_FAR_1
+Fra:1 Mem:35.89M (Peak 35.94M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_TIP
+Fra:1 Mem:35.89M (Peak 35.94M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NOSE_CAP
+Fra:1 Mem:35.90M (Peak 35.94M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | MOUTH_SEAM_-1
+Fra:1 Mem:35.90M (Peak 35.94M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ELBOW_SPUR_FORE_NEAR
+Fra:1 Mem:35.91M (Peak 35.94M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ELBOW_SPUR_FORE_FAR
+Fra:1 Mem:35.91M (Peak 35.94M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | LOWER_RIB_N
+Fra:1 Mem:35.92M (Peak 35.94M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NECK_TENDON_N
+Fra:1 Mem:35.94M (Peak 35.94M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NAPE_IVORY_N
+Fra:1 Mem:35.99M (Peak 35.99M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CHEEK_N
+Fra:1 Mem:36.00M (Peak 36.00M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_IVORY_RIDGE_N
+Fra:1 Mem:36.02M (Peak 36.02M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | LOWER_RIB_F
+Fra:1 Mem:36.03M (Peak 36.03M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NECK_TENDON_F
+Fra:1 Mem:36.05M (Peak 36.05M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NAPE_IVORY_F
+Fra:1 Mem:36.08M (Peak 36.08M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CHEEK_F
+Fra:1 Mem:36.08M (Peak 36.08M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_IVORY_RIDGE_F
+Fra:1 Mem:36.10M (Peak 36.10M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | FOREHEAD_MEDIAN
+Fra:1 Mem:36.13M (Peak 36.13M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CANNON_RIDGE_FORE_NEAR
+Fra:1 Mem:36.16M (Peak 36.16M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CANNON_RIDGE_FORE_FAR
+Fra:1 Mem:36.19M (Peak 36.19M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CANNON_RIDGE_HIND_FAR
+Fra:1 Mem:36.19M (Peak 36.19M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_0_-1
+Fra:1 Mem:36.20M (Peak 36.20M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_0_-1
+Fra:1 Mem:36.21M (Peak 36.21M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_0_1
+Fra:1 Mem:36.28M (Peak 36.28M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_0_1
+Fra:1 Mem:36.29M (Peak 36.29M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_0_1
+Fra:1 Mem:36.32M (Peak 36.32M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_1_-1
+Fra:1 Mem:36.30M (Peak 36.32M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_1_-1
+Fra:1 Mem:36.31M (Peak 36.32M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | Ground
+Fra:1 Mem:36.30M (Peak 36.32M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_1_1
+Fra:1 Mem:36.32M (Peak 36.32M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_HIND_FAR_1
+Fra:1 Mem:36.32M (Peak 36.32M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_1_1
+Fra:1 Mem:36.34M (Peak 36.34M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_2_-1
+Fra:1 Mem:36.32M (Peak 36.34M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_HIND_FAR_1
+Fra:1 Mem:36.34M (Peak 36.34M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_2_-1
+Fra:1 Mem:36.35M (Peak 36.35M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_2_1
+Fra:1 Mem:36.34M (Peak 36.35M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_2_1
+Fra:1 Mem:36.35M (Peak 36.35M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_HIND_FAR_-1
+Fra:1 Mem:36.36M (Peak 36.36M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_2_1
+Fra:1 Mem:36.39M (Peak 36.39M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_3_-1
+Fra:1 Mem:36.39M (Peak 36.39M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_3_-1
+Fra:1 Mem:36.40M (Peak 36.40M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_3_-1
+Fra:1 Mem:36.40M (Peak 36.40M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_HIND_NEAR_1
+Fra:1 Mem:36.42M (Peak 36.42M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_3_1
+Fra:1 Mem:36.42M (Peak 36.42M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_HIND_NEAR_1
+Fra:1 Mem:36.42M (Peak 36.42M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_4_-1
+Fra:1 Mem:36.42M (Peak 36.42M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_HIND_NEAR_-1
+Fra:1 Mem:36.41M (Peak 36.42M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_4_1
+Fra:1 Mem:36.43M (Peak 36.43M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_4_1
+Fra:1 Mem:36.45M (Peak 36.45M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_HIND_NEAR_-1
+Fra:1 Mem:36.49M (Peak 36.49M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_FORE_FAR_1
+Fra:1 Mem:36.49M (Peak 36.49M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_4_1
+Fra:1 Mem:36.47M (Peak 36.49M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_5_-1
+Fra:1 Mem:36.49M (Peak 36.49M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_5_1
+Fra:1 Mem:36.51M (Peak 36.51M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_FORE_FAR_1
+Fra:1 Mem:36.52M (Peak 36.52M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_5_1
+Fra:1 Mem:36.52M (Peak 36.52M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_FORE_FAR_-1
+Fra:1 Mem:36.52M (Peak 36.52M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_6_-1
+Fra:1 Mem:36.52M (Peak 36.52M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_6_1
+Fra:1 Mem:36.53M (Peak 36.53M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_6_1
+Fra:1 Mem:36.53M (Peak 36.53M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_FORE_NEAR_-1
+Fra:1 Mem:36.57M (Peak 36.57M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_FORE_NEAR_-1
+Fra:1 Mem:36.57M (Peak 36.57M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_FORE_NEAR_1
+Fra:1 Mem:41.62M (Peak 44.15M) | Time:00:00.04 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Initializing
+Fra:1 Mem:36.35M (Peak 44.15M) | Time:00:00.05 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Waiting for render to start
+Fra:1 Mem:36.35M (Peak 44.15M) | Time:00:00.05 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:36.35M (Peak 44.15M) | Time:00:00.05 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Updating Scene
+Fra:1 Mem:36.35M (Peak 44.15M) | Time:00:00.05 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Updating Shaders
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.05 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Procedurals
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.05 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Background
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.05 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Camera
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.05 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.05 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Objects
+Fra:1 Mem:36.44M (Peak 44.15M) | Time:00:00.05 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:36.48M (Peak 44.15M) | Time:00:00.05 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:36.48M (Peak 44.15M) | Time:00:00.05 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Particle Systems
+Fra:1 Mem:36.48M (Peak 44.15M) | Time:00:00.05 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:36.48M (Peak 44.15M) | Time:00:00.05 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Meshes
+Fra:1 Mem:37.74M (Peak 44.15M) | Time:00:00.05 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:43.35M (Peak 44.15M) | Time:00:00.05 | Mem:0.05M, Peak:0.05M | S_ZERO_STUDIO, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:43.33M (Peak 44.15M) | Time:00:00.05 | Mem:5.63M, Peak:5.63M | S_ZERO_STUDIO, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:43.33M (Peak 44.15M) | Time:00:00.05 | Mem:5.63M, Peak:5.63M | S_ZERO_STUDIO, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:43.33M (Peak 44.15M) | Time:00:00.05 | Mem:8.16M, Peak:8.16M | S_ZERO_STUDIO, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:43.33M (Peak 44.15M) | Time:00:00.06 | Mem:10.92M, Peak:13.45M | S_ZERO_STUDIO, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:43.33M (Peak 44.15M) | Time:00:00.06 | Mem:10.92M, Peak:13.45M | S_ZERO_STUDIO, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.07 | Mem:10.92M, Peak:13.45M | S_ZERO_STUDIO, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.07 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Objects Flags
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.07 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.07 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Images
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.07 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Camera Volume
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.07 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.07 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Lights
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.07 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.07 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Integrator
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.07 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Film
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.07 | Mem:13.84M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.07 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Baking
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.07 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.07 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.07 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Sample 0/32
+Fra:1 Mem:124.56M (Peak 124.56M) | Time:00:00.87 | Remaining:00:24.88 | Mem:92.20M, Peak:92.20M | S_ZERO_STUDIO, ViewLayer | Sample 1/32
+Fra:1 Mem:157.52M (Peak 206.96M) | Time:00:34.94 | Mem:92.20M, Peak:92.20M | S_ZERO_STUDIO, ViewLayer | Sample 32/32
+Fra:1 Mem:157.52M (Peak 206.96M) | Time:00:34.94 | Mem:92.20M, Peak:92.20M | S_ZERO_STUDIO, ViewLayer | Finished
+Saved: '/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/renders/r6_trial_b/REAR34.png'
+Time: 00:35.14 (Saving: 00:00.18)
+
+REVIEW_RENDER r6_trial_b REAR34
+Fra:1 Mem:33.17M (Peak 33.17M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | S_ZERO_BODY_CONTINUOUS
+Fra:1 Mem:33.18M (Peak 33.18M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_BLUE_N
+Fra:1 Mem:34.50M (Peak 34.50M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_RIM_N
+Fra:1 Mem:34.57M (Peak 34.57M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_SIGNAL_N
+Fra:1 Mem:34.59M (Peak 34.59M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_DOT_N
+Fra:1 Mem:34.67M (Peak 34.67M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NAPE_FIN_F
+Fra:1 Mem:34.70M (Peak 34.70M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_MAIN_F
+Fra:1 Mem:35.13M (Peak 35.13M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_BLUE_F
+Fra:1 Mem:35.26M (Peak 35.26M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | EYE_SOCKET_F
+Fra:1 Mem:35.33M (Peak 35.33M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | EYE_F
+Fra:1 Mem:35.34M (Peak 35.34M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_FRAME_F
+Fra:1 Mem:35.38M (Peak 35.38M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_RIM_F
+Fra:1 Mem:35.85M (Peak 35.85M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_FACE_F
+Fra:1 Mem:35.89M (Peak 35.89M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_SIGNAL_F
+Fra:1 Mem:35.91M (Peak 35.91M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CUE_DOT_F
+Fra:1 Mem:35.94M (Peak 35.94M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_MANTLE
+Fra:1 Mem:35.91M (Peak 35.94M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_0_-1
+Fra:1 Mem:35.94M (Peak 35.94M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_0_1
+Fra:1 Mem:35.94M (Peak 35.94M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_0_1
+Fra:1 Mem:35.87M (Peak 35.94M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_1_-1
+Fra:1 Mem:35.90M (Peak 35.94M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_1_1
+Fra:1 Mem:35.90M (Peak 35.94M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_1_1
+Fra:1 Mem:35.90M (Peak 35.94M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_2_-1
+Fra:1 Mem:35.82M (Peak 35.94M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_CREST_2_1
+Fra:1 Mem:38.36M (Peak 38.36M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | DORSAL_BLUE_2_1
+Fra:1 Mem:38.36M (Peak 38.36M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ANKLE_FIN_FORE_NEAR
+Fra:1 Mem:38.36M (Peak 38.36M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_FORE_NEAR_-1
+Fra:1 Mem:38.36M (Peak 38.36M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_FORE_NEAR_-1
+Fra:1 Mem:38.37M (Peak 38.37M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_FORE_NEAR_1
+Fra:1 Mem:38.37M (Peak 38.37M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_FORE_NEAR_1
+Fra:1 Mem:38.37M (Peak 38.37M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ANKLE_FIN_FORE_FAR
+Fra:1 Mem:38.37M (Peak 38.37M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_FORE_FAR_-1
+Fra:1 Mem:38.38M (Peak 38.38M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_FORE_FAR_-1
+Fra:1 Mem:38.38M (Peak 38.38M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_FORE_FAR_1
+Fra:1 Mem:38.38M (Peak 38.38M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_FORE_FAR_1
+Fra:1 Mem:38.39M (Peak 38.39M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | Ground
+Fra:1 Mem:38.39M (Peak 38.39M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ANKLE_FIN_HIND_NEAR
+Fra:1 Mem:38.39M (Peak 38.39M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_HIND_NEAR_-1
+Fra:1 Mem:38.41M (Peak 38.41M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_HIND_NEAR_-1
+Fra:1 Mem:38.42M (Peak 38.42M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_HIND_NEAR_1
+Fra:1 Mem:38.42M (Peak 38.42M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_HIND_NEAR_1
+Fra:1 Mem:38.43M (Peak 38.43M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ANKLE_FIN_HIND_FAR
+Fra:1 Mem:38.43M (Peak 38.43M) | Time:00:00.01 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_HIND_FAR_-1
+Fra:1 Mem:38.44M (Peak 38.44M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_IVORY_HIND_FAR_1
+Fra:1 Mem:38.44M (Peak 38.44M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TOE_CYAN_HIND_FAR_1
+Fra:1 Mem:38.44M (Peak 38.44M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_TIP
+Fra:1 Mem:38.45M (Peak 38.45M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NOSE_CAP
+Fra:1 Mem:38.47M (Peak 38.47M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | MOUTH_SEAM_1
+Fra:1 Mem:38.48M (Peak 38.48M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | ELBOW_SPUR_FORE_NEAR
+Fra:1 Mem:38.48M (Peak 38.48M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_HIND_FAR_-1
+Fra:1 Mem:38.49M (Peak 38.49M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_HIND_NEAR_1
+Fra:1 Mem:38.50M (Peak 38.50M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | LOWER_RIB_N
+Fra:1 Mem:38.52M (Peak 38.52M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_HIND_NEAR_1
+Fra:1 Mem:38.52M (Peak 38.52M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NAPE_IVORY_N
+Fra:1 Mem:38.54M (Peak 38.54M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CHEEK_N
+Fra:1 Mem:38.57M (Peak 38.57M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_IVORY_RIDGE_N
+Fra:1 Mem:38.58M (Peak 38.58M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | RIB_SHELL_F
+Fra:1 Mem:38.62M (Peak 38.62M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | LOWER_RIB_F
+Fra:1 Mem:38.63M (Peak 38.63M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | NAPE_IVORY_F
+Fra:1 Mem:41.19M (Peak 41.19M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CHEEK_F
+Fra:1 Mem:41.21M (Peak 41.21M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CROWN_IVORY_RIDGE_F
+Fra:1 Mem:41.22M (Peak 41.22M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | FOREHEAD_MEDIAN
+Fra:1 Mem:41.23M (Peak 41.23M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CANNON_RIDGE_FORE_NEAR
+Fra:1 Mem:41.25M (Peak 41.25M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CANNON_RIDGE_FORE_FAR
+Fra:1 Mem:41.26M (Peak 41.26M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CANNON_RIDGE_HIND_NEAR
+Fra:1 Mem:41.28M (Peak 41.28M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | CANNON_RIDGE_HIND_FAR
+Fra:1 Mem:41.28M (Peak 41.28M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_HIND_NEAR_-1
+Fra:1 Mem:41.30M (Peak 41.30M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_0_-1
+Fra:1 Mem:41.31M (Peak 41.31M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_0_-1
+Fra:1 Mem:41.32M (Peak 41.32M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_0_1
+Fra:1 Mem:41.36M (Peak 41.36M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_0_1
+Fra:1 Mem:41.37M (Peak 41.37M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_FORE_FAR_1
+Fra:1 Mem:41.36M (Peak 41.37M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_0_1
+Fra:1 Mem:41.38M (Peak 41.38M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_FORE_FAR_-1
+Fra:1 Mem:41.38M (Peak 41.38M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_1_-1
+Fra:1 Mem:41.42M (Peak 41.42M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_1_-1
+Fra:1 Mem:41.42M (Peak 41.42M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_1_1
+Fra:1 Mem:41.42M (Peak 41.42M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_1_1
+Fra:1 Mem:41.43M (Peak 41.43M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_1_1
+Fra:1 Mem:41.46M (Peak 41.46M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_2_-1
+Fra:1 Mem:41.47M (Peak 41.47M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_2_-1
+Fra:1 Mem:41.47M (Peak 41.47M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_2_-1
+Fra:1 Mem:41.47M (Peak 41.47M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_SIGNAL_FORE_NEAR_1
+Fra:1 Mem:41.47M (Peak 41.47M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_2_1
+Fra:1 Mem:41.46M (Peak 41.47M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_3_-1
+Fra:1 Mem:41.52M (Peak 41.52M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_3_-1
+Fra:1 Mem:41.55M (Peak 41.55M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_FORE_NEAR_1
+Fra:1 Mem:41.51M (Peak 41.55M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_3_-1
+Fra:1 Mem:41.51M (Peak 41.55M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_4_-1
+Fra:1 Mem:41.51M (Peak 41.55M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_4_-1
+Fra:1 Mem:41.57M (Peak 41.57M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | HOOF_FACE_FORE_NEAR_-1
+Fra:1 Mem:41.58M (Peak 41.58M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_4_-1
+Fra:1 Mem:41.56M (Peak 41.58M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_6_1
+Fra:1 Mem:41.59M (Peak 41.59M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_IVORY_4_1
+Fra:1 Mem:41.57M (Peak 41.59M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_5_-1
+Fra:1 Mem:41.58M (Peak 41.59M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_5_1
+Fra:1 Mem:41.62M (Peak 41.62M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_5_1
+Fra:1 Mem:41.62M (Peak 41.62M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_6_-1
+Fra:1 Mem:42.07M (Peak 42.07M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLUE_6_-1
+Fra:1 Mem:42.05M (Peak 42.07M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Synchronizing object | TAIL_BLADE_6_1
+Fra:1 Mem:41.62M (Peak 44.16M) | Time:00:00.02 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Initializing
+Fra:1 Mem:36.35M (Peak 44.16M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Waiting for render to start
+Fra:1 Mem:36.35M (Peak 44.16M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:36.35M (Peak 44.16M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Updating Scene
+Fra:1 Mem:36.35M (Peak 44.16M) | Time:00:00.03 | Mem:0.00M, Peak:0.00M | S_ZERO_STUDIO, ViewLayer | Updating Shaders
+Fra:1 Mem:36.44M (Peak 44.16M) | Time:00:00.03 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Procedurals
+Fra:1 Mem:36.44M (Peak 44.16M) | Time:00:00.03 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Background
+Fra:1 Mem:36.44M (Peak 44.16M) | Time:00:00.03 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Camera
+Fra:1 Mem:36.44M (Peak 44.16M) | Time:00:00.03 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:36.44M (Peak 44.16M) | Time:00:00.03 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Objects
+Fra:1 Mem:36.44M (Peak 44.16M) | Time:00:00.03 | Mem:0.01M, Peak:0.01M | S_ZERO_STUDIO, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:36.48M (Peak 44.16M) | Time:00:00.03 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:36.48M (Peak 44.16M) | Time:00:00.03 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Particle Systems
+Fra:1 Mem:36.48M (Peak 44.16M) | Time:00:00.03 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Particle Systems | Copying Particles to device
+Fra:1 Mem:36.48M (Peak 44.16M) | Time:00:00.03 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Meshes
+Fra:1 Mem:37.74M (Peak 44.16M) | Time:00:00.03 | Mem:0.04M, Peak:0.04M | S_ZERO_STUDIO, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:43.35M (Peak 44.16M) | Time:00:00.03 | Mem:0.05M, Peak:0.05M | S_ZERO_STUDIO, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:43.33M (Peak 44.16M) | Time:00:00.03 | Mem:5.63M, Peak:5.63M | S_ZERO_STUDIO, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:43.33M (Peak 44.16M) | Time:00:00.03 | Mem:5.63M, Peak:5.63M | S_ZERO_STUDIO, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:43.33M (Peak 44.16M) | Time:00:00.03 | Mem:8.16M, Peak:8.16M | S_ZERO_STUDIO, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:43.33M (Peak 44.16M) | Time:00:00.04 | Mem:10.92M, Peak:13.45M | S_ZERO_STUDIO, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:43.33M (Peak 44.16M) | Time:00:00.04 | Mem:10.92M, Peak:13.45M | S_ZERO_STUDIO, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.05 | Mem:10.92M, Peak:13.45M | S_ZERO_STUDIO, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.05 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Objects Flags
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.05 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.05 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Images
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.05 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Camera Volume
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.05 | Mem:13.83M, Peak:13.83M | S_ZERO_STUDIO, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.05 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Lights
+Fra:1 Mem:46.24M (Peak 46.24M) | Time:00:00.05 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.05 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Integrator
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.05 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Film
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.05 | Mem:13.84M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.05 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Baking
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.05 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.05 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:46.25M (Peak 46.25M) | Time:00:00.05 | Mem:13.92M, Peak:13.92M | S_ZERO_STUDIO, ViewLayer | Sample 0/32
+Fra:1 Mem:124.56M (Peak 124.56M) | Time:00:00.24 | Remaining:00:06.04 | Mem:92.20M, Peak:92.20M | S_ZERO_STUDIO, ViewLayer | Sample 1/32
+Fra:1 Mem:157.52M (Peak 206.96M) | Time:00:13.52 | Mem:92.20M, Peak:92.20M | S_ZERO_STUDIO, ViewLayer | Sample 32/32
+Fra:1 Mem:157.52M (Peak 206.96M) | Time:00:13.52 | Mem:92.20M, Peak:92.20M | S_ZERO_STUDIO, ViewLayer | Finished
+Saved: '/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/renders/r6_trial_b/BACK.png'
+Time: 00:13.74 (Saving: 00:00.20)
+
+REVIEW_RENDER r6_trial_b BACK
+REVIEW_RENDER_COMPLETE r6_trial_b
+BlenderMCP addon unregistered
+
+Blender quit

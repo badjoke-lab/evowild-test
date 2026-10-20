@@ -1,0 +1,16 @@
+{
+  "source": "verification/S_ZERO_R6_RECOVERED_C.blend",
+  "source_sha256": "484457b928aa7afba8b174436859b17b6773b603ab35c808dda1d3b5879c0082",
+  "output": "S_ZERO_CANDIDATE_REVISED_R6.blend",
+  "output_sha256": "efee1aab704c16fcdfcf09cd7b309aae4ae3cb8f5f584689b51847b7f285b15a",
+  "bytes": 1472522,
+  "blender": "4.3.2",
+  "armatures": 0,
+  "actions": 0,
+  "vertex_groups": 0,
+  "live_reloaded": true,
+  "static_decision": "REVISE; improved R5 pelvis continuity retained, B rest silhouette unchanged, tessellation repaired",
+  "deformation_decision": "REVISE; major observed defects reduced; residual stretch/compression and untested gait/runtime",
+  "production_keep": false,
+  "original_root_R6_preserved": true
+}

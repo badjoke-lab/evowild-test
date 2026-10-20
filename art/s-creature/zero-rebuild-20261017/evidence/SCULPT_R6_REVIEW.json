@@ -1,0 +1,37 @@
+{
+  "overall": "REVISE",
+  "production_keep": false,
+  "selected_trial": "B",
+  "static_local_shape_improvement": true,
+  "reference": "art/s-creature/references/00_s_type_modeling_image_v1.png",
+  "inspected_views": [
+    "SIDE",
+    "FRONT",
+    "FRONT34",
+    "REAR34",
+    "BACK"
+  ],
+  "A": "REJECT: topological union succeeded but the ivory pelvic region lost large patches; output kept as rejected trial.",
+  "B": "Continue as R6: less lateral bulb, no separate pelvic cap underneath; sacrum/pelvis/thigh are a welded continuous surface. Original staggered pose and species silhouette retained.",
+  "remaining_visual_issues": [
+    "Pelvic ivory edge too soft and locally irregular versus concept planes",
+    "Back view has uneven ivory/graphite boundary",
+    "Upper thigh remains rounder and less faceted than the concept",
+    "Full-body earlier REVISE issues remain"
+  ],
+  "deformation": "Actual validation armature executed on isolated copies. B corrects hard weight boundaries from A. Quality FAIL: 2.12x/2.01x maximum edge stretch, a compressed local triangle and thin ill-conditioned triangles; no production rig acceptance.",
+  "deformation_views_seen": [
+    "NEUTRAL SIDE and SIDE_HIP",
+    "NEAR_FORWARD SIDE and SIDE_HIP",
+    "NEAR_BACK SIDE and SIDE_HIP",
+    "frame 12 live MCP rear 3/4 solid view"
+  ],
+  "recovery_events": [
+    "MCP modifier context fixed with explicit temp_override",
+    "Local triangulation exposed an opposing doubled triangular fin, removed with recorded local cleanup",
+    "Exact Boolean retessellated pre-existing shoulder cuts; original surface outside pelvis was restored exactly by patch graft",
+    "Graft boundary frozen to prevent tiny stitch gaps",
+    "Sandbox Blender exited 139; authorized external Blender renders succeeded"
+  ],
+  "promotion": "No KEEP, no production replacement, no runtime/gait approval"
+}

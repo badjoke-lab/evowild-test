@@ -1,0 +1,979 @@
+{
+  "source": "verification/S_ZERO_R6_TRIAL_B.blend",
+  "source_sha256": "8748d32c0b842c15c5a3c5da910637b4dcc06bf8af112882c2447afdb47e4949",
+  "static": "verification/S_ZERO_R6_RECOVERED_C.blend",
+  "static_sha256": "484457b928aa7afba8b174436859b17b6773b603ab35c808dda1d3b5879c0082",
+  "rig": "verification/S_ZERO_R6_HIP_DEFORMATION_RECOVERED_C.blend",
+  "rig_sha256": "e0ab4954ad72ac9bb2ad2b154742564cbe723a286bd4f49bbadb132a1233783b",
+  "blender": "4.3.2",
+  "local_polygons_retessellated": 8388,
+  "all_original_vertices_exact": 27724,
+  "protected_objects_exact": 140,
+  "protected_body_faces_exact": 19626,
+  "tiny_rest_triangles_before": 5,
+  "tiny_rest_triangles_after": 0,
+  "weight_method": "Positive inverse-edge-length graph Laplacian with fixed torso/tail and rigid distal-leg Dirichlet conditions; normalized 3-bone dual-quaternion skinning",
+  "trials": [
+    {
+      "solve": {
+        "seed_z": 1.24,
+        "top_z": 1.96,
+        "unknown_vertices": 5989,
+        "iterations": [
+          304,
+          298
+        ],
+        "fixed_vertices": 17028
+      },
+      "pivot_variant": "original",
+      "pivots": {
+        "HIP_NEAR": [
+          0.78,
+          -0.235,
+          1.74
+        ],
+        "HIP_FAR": [
+          0.67,
+          0.235,
+          1.7
+        ]
+      },
+      "measurements": [
+        {
+          "state": "NEUTRAL",
+          "frame": 1,
+          "degrees": {
+            "HIP_NEAR": 0.0,
+            "HIP_FAR": 0.0
+          },
+          "edge_min": 0.9999998846126599,
+          "edge_max": 1.0000001176861224,
+          "edge_p99": 1.0,
+          "edges_above_1_5": 0,
+          "area_min": 0.999999873672446,
+          "area_max": 1.0000001378633663,
+          "triangles_below_0_35": 0,
+          "triangles_above_2": 0,
+          "rest_normal_dot_negative": 0,
+          "max_fixed_displacement": 0.0
+        },
+        {
+          "state": "NEAR_FORWARD",
+          "frame": 12,
+          "degrees": {
+            "HIP_NEAR": 25.0,
+            "HIP_FAR": -20.0
+          },
+          "edge_min": 0.6994647061740269,
+          "edge_max": 1.5063843753148798,
+          "edge_p99": 1.2881100738061937,
+          "edges_above_1_5": 2,
+          "area_min": 0.6761971488405424,
+          "area_max": 1.6882196287339637,
+          "triangles_below_0_35": 0,
+          "triangles_above_2": 0,
+          "rest_normal_dot_negative": 0,
+          "max_fixed_displacement": 0.0
+        },
+        {
+          "state": "NEAR_BACK",
+          "frame": 24,
+          "degrees": {
+            "HIP_NEAR": -20.0,
+            "HIP_FAR": 25.0
+          },
+          "edge_min": 0.6005323373971581,
+          "edge_max": 1.503387043480784,
+          "edge_p99": 1.245366194961123,
+          "edges_above_1_5": 1,
+          "area_min": 0.4423401851758846,
+          "area_max": 1.5570140619023907,
+          "triangles_below_0_35": 0,
+          "triangles_above_2": 0,
+          "rest_normal_dot_negative": 0,
+          "max_fixed_displacement": 0.0
+        }
+      ],
+      "selection_score": 1.7370236346113415
+    },
+    {
+      "solve": {
+        "seed_z": 1.24,
+        "top_z": 1.96,
+        "unknown_vertices": 5989,
+        "iterations": [
+          304,
+          298
+        ],
+        "fixed_vertices": 17028
+      },
+      "pivot_variant": "centered",
+      "pivots": {
+        "HIP_NEAR": [
+          0.8,
+          -0.29,
+          1.62
+        ],
+        "HIP_FAR": [
+          0.7,
+          0.29,
+          1.62
+        ]
+      },
+      "measurements": [
+        {
+          "state": "NEUTRAL",
+          "frame": 1,
+          "degrees": {
+            "HIP_NEAR": 0.0,
+            "HIP_FAR": 0.0
+          },
+          "edge_min": 0.9999991972148005,
+          "edge_max": 1.000000886420244,
+          "edge_p99": 1.0000000398159739,
+          "edges_above_1_5": 0,
+          "area_min": 0.9999993034351679,
+          "area_max": 1.0000011396158948,
+          "triangles_below_0_35": 0,
+          "triangles_above_2": 0,
+          "rest_normal_dot_negative": 0,
+          "max_fixed_displacement": 0.0
+        },
+        {
+          "state": "NEAR_FORWARD",
+          "frame": 12,
+          "degrees": {
+            "HIP_NEAR": 25.0,
+            "HIP_FAR": -20.0
+          },
+          "edge_min": 0.744797044709606,
+          "edge_max": 1.4348786495547459,
+          "edge_p99": 1.255590242775839,
+          "edges_above_1_5": 0,
+          "area_min": 0.7404413552577369,
+          "area_max": 1.5741704253707154,
+          "triangles_below_0_35": 0,
+          "triangles_above_2": 0,
+          "rest_normal_dot_negative": 0,
+          "max_fixed_displacement": 0.0
+        },
+        {
+          "state": "NEAR_BACK",
+          "frame": 24,
+          "degrees": {
+            "HIP_NEAR": -20.0,
+            "HIP_FAR": 25.0
+          },
+          "edge_min": 0.6638103100021341,
+          "edge_max": 1.383225243467891,
+          "edge_p99": 1.1823906409653513,
+          "edges_above_1_5": 0,
+          "area_min": 0.536693564787315,
+          "area_max": 1.43210330824753,
+          "triangles_below_0_35": 0,
+          "triangles_above_2": 0,
+          "rest_normal_dot_negative": 0,
+          "max_fixed_displacement": 0.0
+        }
+      ],
+      "selection_score": 1.4348786495547459
+    },
+    {
+      "solve": {
+        "seed_z": 1.12,
+        "top_z": 2.02,
+        "unknown_vertices": 7228,
+        "iterations": [
+          364,
+          368
+        ],
+        "fixed_vertices": 16634
+      },
+      "pivot_variant": "original",
+      "pivots": {
+        "HIP_NEAR": [
+          0.78,
+          -0.235,
+          1.74
+        ],
+        "HIP_FAR": [
+          0.67,
+          0.235,
+          1.7
+        ]
+      },
+      "measurements": [
+        {
+          "state": "NEUTRAL",
+          "frame": 1,
+          "degrees": {
+            "HIP_NEAR": 0.0,
+            "HIP_FAR": 0.0
+          },
+          "edge_min": 0.9999998846126599,
+          "edge_max": 1.0000001176861224,
+          "edge_p99": 1.0,
+          "edges_above_1_5": 0,
+          "area_min": 0.999999873672446,
+          "area_max": 1.0000001378633663,
+          "triangles_below_0_35": 0,
+          "triangles_above_2": 0,
+          "rest_normal_dot_negative": 0,
+          "max_fixed_displacement": 0.0
+        },
+        {
+          "state": "NEAR_FORWARD",
+          "frame": 12,
+          "degrees": {
+            "HIP_NEAR": 25.0,
+            "HIP_FAR": -20.0
+          },
+          "edge_min": 0.7349692384402239,
+          "edge_max": 1.6138036855239823,
+          "edge_p99": 1.2731828148357998,
+          "edges_above_1_5": 1,
+          "area_min": 0.6480534161445446,
+          "area_max": 1.5492241762475023,
+          "triangles_below_0_35": 0,
+          "triangles_above_2": 0,
+          "rest_normal_dot_negative": 0,
+          "max_fixed_displacement": 0.0
+        },
+        {
+          "state": "NEAR_BACK",
+          "frame": 24,
+          "degrees": {
+            "HIP_NEAR": -20.0,
+            "HIP_FAR": 25.0
+          },
+          "edge_min": 0.6334197942271309,
+          "edge_max": 1.5481153885065344,
+          "edge_p99": 1.2301614247220443,
+          "edges_above_1_5": 1,
+          "area_min": 0.5554450072608389,
+          "area_max": 1.5613914832185205,
+          "triangles_below_0_35": 0,
+          "triangles_above_2": 0,
+          "rest_normal_dot_negative": 0,
+          "max_fixed_displacement": 0.0
+        }
+      ],
+      "selection_score": 1.6138036855239823
+    },
+    {
+      "solve": {
+        "seed_z": 1.12,
+        "top_z": 2.02,
+        "unknown_vertices": 7228,
+        "iterations": [
+          364,
+          368
+        ],
+        "fixed_vertices": 16634
+      },
+      "pivot_variant": "centered",
+      "pivots": {
+        "HIP_NEAR": [
+          0.8,
+          -0.29,
+          1.62
+        ],
+        "HIP_FAR": [
+          0.7,
+          0.29,
+          1.62
+        ]
+      },
+      "measurements": [
+        {
+          "state": "NEUTRAL",
+          "frame": 1,
+          "degrees": {
+            "HIP_NEAR": 0.0,
+            "HIP_FAR": 0.0
+          },
+          "edge_min": 0.9999992547969266,
+          "edge_max": 1.000000886420244,
+          "edge_p99": 1.0000000434028904,
+          "edges_above_1_5": 0,
+          "area_min": 0.999999362469437,
+          "area_max": 1.0000010838079123,
+          "triangles_below_0_35": 0,
+          "triangles_above_2": 0,
+          "rest_normal_dot_negative": 0,
+          "max_fixed_displacement": 0.0
+        },
+        {
+          "state": "NEAR_FORWARD",
+          "frame": 12,
+          "degrees": {
+            "HIP_NEAR": 25.0,
+            "HIP_FAR": -20.0
+          },
+          "edge_min": 0.7634744377499814,
+          "edge_max": 1.5105164110530593,
+          "edge_p99": 1.2426541690616668,
+          "edges_above_1_5": 1,
+          "area_min": 0.7038849317075565,
+          "area_max": 1.4584319622952362,
+          "triangles_below_0_35": 0,
+          "triangles_above_2": 0,
+          "rest_normal_dot_negative": 0,
+          "max_fixed_displacement": 0.0
+        },
+        {
+          "state": "NEAR_BACK",
+          "frame": 24,
+          "degrees": {
+            "HIP_NEAR": -20.0,
+            "HIP_FAR": 25.0
+          },
+          "edge_min": 0.671513846646017,
+          "edge_max": 1.4331816226835379,
+          "edge_p99": 1.1772398009807765,
+          "edges_above_1_5": 0,
+          "area_min": 0.6302741621708808,
+          "area_max": 1.4439650439305756,
+          "triangles_below_0_35": 0,
+          "triangles_above_2": 0,
+          "rest_normal_dot_negative": 0,
+          "max_fixed_displacement": 0.0
+        }
+      ],
+      "selection_score": 1.5105164110530593
+    },
+    {
+      "solve": {
+        "seed_z": 1.18,
+        "top_z": 2.02,
+        "unknown_vertices": 6819,
+        "iterations": [
+          361,
+          364
+        ],
+        "fixed_vertices": 16634
+      },
+      "pivot_variant": "original",
+      "pivots": {
+        "HIP_NEAR": [
+          0.78,
+          -0.235,
+          1.74
+        ],
+        "HIP_FAR": [
+          0.67,
+          0.235,
+          1.7
+        ]
+      },
+      "measurements": [
+        {
+          "state": "NEUTRAL",
+          "frame": 1,
+          "degrees": {
+            "HIP_NEAR": 0.0,
+            "HIP_FAR": 0.0
+          },
+          "edge_min": 0.9999998846126599,
+          "edge_max": 1.0000001176861224,
+          "edge_p99": 1.0,
+          "edges_above_1_5": 0,
+          "area_min": 0.999999873672446,
+          "area_max": 1.0000001378633663,
+          "triangles_below_0_35": 0,
+          "triangles_above_2": 0,
+          "rest_normal_dot_negative": 0,
+          "max_fixed_displacement": 0.0
+        },
+        {
+          "state": "NEAR_FORWARD",
+          "frame": 12,
+          "degrees": {
+            "HIP_NEAR": 25.0,
+            "HIP_FAR": -20.0
+          },
+          "edge_min": 0.6782797455404699,
+          "edge_max": 1.582758819720922,
+          "edge_p99": 1.2730319889971269,
+          "edges_above_1_5": 1,
+          "area_min": 0.5915190569595399,
+          "area_max": 1.59999317717746,
+          "triangles_below_0_35": 0,
+          "triangles_above_2": 0,
+          "rest_normal_dot_negative": 0,
+          "max_fixed_displacement": 0.0
+        },
+        {
+          "state": "NEAR_BACK",
+          "frame": 24,
+          "degrees": {
+            "HIP_NEAR": -20.0,
+            "HIP_FAR": 25.0
+          },
+          "edge_min": 0.6267921970872062,
+          "edge_max": 1.4570028557195849,
+          "edge_p99": 1.232712874462698,
+          "edges_above_1_5": 0,
+          "area_min": 0.5111066031669821,
+          "area_max": 1.7805783646372082,
+          "triangles_below_0_35": 0,
+          "triangles_above_2": 0,
+          "rest_normal_dot_negative": 0,
+          "max_fixed_displacement": 0.0
+        }
+      ],
+      "selection_score": 1.582758819720922
+    },
+    {
+      "solve": {
+        "seed_z": 1.18,
+        "top_z": 2.02,
+        "unknown_vertices": 6819,
+        "iterations": [
+          361,
+          364
+        ],
+        "fixed_vertices": 16634
+      },
+      "pivot_variant": "centered",
+      "pivots": {
+        "HIP_NEAR": [
+          0.8,
+          -0.29,
+          1.62
+        ],
+        "HIP_FAR": [
+          0.7,
+          0.29,
+          1.62
+        ]
+      },
+      "measurements": [
+        {
+          "state": "NEUTRAL",
+          "frame": 1,
+          "degrees": {
+            "HIP_NEAR": 0.0,
+            "HIP_FAR": 0.0
+          },
+          "edge_min": 0.9999991477109659,
+          "edge_max": 1.000000886420244,
+          "edge_p99": 1.0000000432102667,
+          "edges_above_1_5": 0,
+          "area_min": 0.9999991775723837,
+          "area_max": 1.0000011396158948,
+          "triangles_below_0_35": 0,
+          "triangles_above_2": 0,
+          "rest_normal_dot_negative": 0,
+          "max_fixed_displacement": 0.0
+        },
+        {
+          "state": "NEAR_FORWARD",
+          "frame": 12,
+          "degrees": {
+            "HIP_NEAR": 25.0,
+            "HIP_FAR": -20.0
+          },
+          "edge_min": 0.7414108320990745,
+          "edge_max": 1.4718979033129846,
+          "edge_p99": 1.2457668054066935,
+          "edges_above_1_5": 0,
+          "area_min": 0.6422691384521727,
+          "area_max": 1.5012317767649463,
+          "triangles_below_0_35": 0,
+          "triangles_above_2": 0,
+          "rest_normal_dot_negative": 0,
+          "max_fixed_displacement": 0.0
+        },
+        {
+          "state": "NEAR_BACK",
+          "frame": 24,
+          "degrees": {
+            "HIP_NEAR": -20.0,
+            "HIP_FAR": 25.0
+          },
+          "edge_min": 0.6613462282127417,
+          "edge_max": 1.3557055816050028,
+          "edge_p99": 1.1754067456483093,
+          "edges_above_1_5": 0,
+          "area_min": 0.5931281124478309,
+          "area_max": 1.6322345710794042,
+          "triangles_below_0_35": 0,
+          "triangles_above_2": 0,
+          "rest_normal_dot_negative": 0,
+          "max_fixed_displacement": 0.0
+        }
+      ],
+      "selection_score": 1.4718979033129846
+    }
+  ],
+  "selected_pivots": {
+    "HIP_NEAR": [
+      0.8,
+      -0.29,
+      1.62
+    ],
+    "HIP_FAR": [
+      0.7,
+      0.29,
+      1.62
+    ]
+  },
+  "selected_pivot_variant": "centered",
+  "selected_solve": {
+    "seed_z": 1.24,
+    "top_z": 1.96,
+    "unknown_vertices": 5989,
+    "iterations": [
+      304,
+      298
+    ],
+    "fixed_vertices": 17028
+  },
+  "hip_edge_count": 22201,
+  "hip_triangle_count": 14745,
+  "measurements": [
+    {
+      "state": "NEUTRAL",
+      "frame": 1,
+      "degrees": {
+        "HIP_NEAR": 0.0,
+        "HIP_FAR": 0.0
+      },
+      "edge_min": 0.9999991972148005,
+      "edge_max": 1.000000886420244,
+      "edge_p99": 1.0000000398159739,
+      "edges_above_1_5": 0,
+      "area_min": 0.9999993034351679,
+      "area_max": 1.0000011396158948,
+      "triangles_below_0_35": 0,
+      "triangles_above_2": 0,
+      "rest_normal_dot_negative": 0,
+      "max_fixed_displacement": 0.0,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "volume": 0.8889441925088808,
+      "whole_body_nonadjacent_BVH_candidates": 0,
+      "hip_nonadjacent_BVH_candidates": 0,
+      "hip_pairs": [],
+      "largest_edges": [
+        {
+          "indices": [
+            25566,
+            25570
+          ],
+          "ratio": 1.000000886420244,
+          "rest_center": [
+            0.8178144097328186,
+            0.25068772584199905,
+            1.2486625909805298
+          ]
+        },
+        {
+          "indices": [
+            25601,
+            25636
+          ],
+          "ratio": 1.0000008570699463,
+          "rest_center": [
+            0.8452776968479156,
+            0.24661807715892792,
+            1.1435206532478333
+          ]
+        },
+        {
+          "indices": [
+            24287,
+            24327
+          ],
+          "ratio": 1.0000008532731703,
+          "rest_center": [
+            0.46802231669425964,
+            0.24614263325929642,
+            1.3383583426475525
+          ]
+        },
+        {
+          "indices": [
+            25562,
+            25603
+          ],
+          "ratio": 1.000000834049857,
+          "rest_center": [
+            0.8210304975509644,
+            0.24624016880989075,
+            1.166981279850006
+          ]
+        },
+        {
+          "indices": [
+            25675,
+            25677
+          ],
+          "ratio": 1.0000008246215317,
+          "rest_center": [
+            0.840366780757904,
+            0.25227687507867813,
+            1.2983868718147278
+          ]
+        },
+        {
+          "indices": [
+            24236,
+            24241
+          ],
+          "ratio": 1.000000812073898,
+          "rest_center": [
+            0.5381306707859039,
+            0.2505057230591774,
+            1.1362488269805908
+          ]
+        },
+        {
+          "indices": [
+            24163,
+            24172
+          ],
+          "ratio": 1.000000806018206,
+          "rest_center": [
+            0.4926187992095947,
+            0.25117164850234985,
+            1.251007318496704
+          ]
+        },
+        {
+          "indices": [
+            17541,
+            25648
+          ],
+          "ratio": 1.0000008025258538,
+          "rest_center": [
+            0.8879949450492859,
+            0.2511362135410309,
+            1.118150532245636
+          ]
+        },
+        {
+          "indices": [
+            24283,
+            24290
+          ],
+          "ratio": 1.0000007987227306,
+          "rest_center": [
+            0.44700227677822113,
+            0.2523323744535446,
+            1.4132020473480225
+          ]
+        },
+        {
+          "indices": [
+            24199,
+            24207
+          ],
+          "ratio": 1.0000007965852238,
+          "rest_center": [
+            0.5169012546539307,
+            0.2522316500544548,
+            1.1833180785179138
+          ]
+        }
+      ]
+    },
+    {
+      "state": "NEAR_FORWARD",
+      "frame": 12,
+      "degrees": {
+        "HIP_NEAR": 25.0,
+        "HIP_FAR": -20.0
+      },
+      "edge_min": 0.744797044709606,
+      "edge_max": 1.4348786495547459,
+      "edge_p99": 1.255590242775839,
+      "edges_above_1_5": 0,
+      "area_min": 0.7404413552577369,
+      "area_max": 1.5741704253707154,
+      "triangles_below_0_35": 0,
+      "triangles_above_2": 0,
+      "rest_normal_dot_negative": 0,
+      "max_fixed_displacement": 0.0,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "volume": 0.8947859396106105,
+      "whole_body_nonadjacent_BVH_candidates": 0,
+      "hip_nonadjacent_BVH_candidates": 0,
+      "hip_pairs": [],
+      "largest_edges": [
+        {
+          "indices": [
+            22642,
+            22643
+          ],
+          "ratio": 1.4348786495547459,
+          "rest_center": [
+            1.0898028016090393,
+            -0.13548199832439423,
+            1.2668454051017761
+          ]
+        },
+        {
+          "indices": [
+            23366,
+            23367
+          ],
+          "ratio": 1.430848903195862,
+          "rest_center": [
+            1.1356084942817688,
+            -0.15427564084529877,
+            1.2428264021873474
+          ]
+        },
+        {
+          "indices": [
+            22704,
+            22705
+          ],
+          "ratio": 1.4269377001522034,
+          "rest_center": [
+            1.0450347065925598,
+            -0.10994137823581696,
+            1.3354530334472656
+          ]
+        },
+        {
+          "indices": [
+            23358,
+            23360
+          ],
+          "ratio": 1.4251654613608382,
+          "rest_center": [
+            1.1213338375091553,
+            -0.1459263488650322,
+            1.261056900024414
+          ]
+        },
+        {
+          "indices": [
+            23356,
+            23357
+          ],
+          "ratio": 1.4194099261900774,
+          "rest_center": [
+            1.1048951745033264,
+            -0.1434667930006981,
+            1.2487582564353943
+          ]
+        },
+        {
+          "indices": [
+            22643,
+            22736
+          ],
+          "ratio": 1.4085386401735003,
+          "rest_center": [
+            1.091027557849884,
+            -0.13116785883903503,
+            1.289216160774231
+          ]
+        },
+        {
+          "indices": [
+            23383,
+            23428
+          ],
+          "ratio": 1.4034065585248445,
+          "rest_center": [
+            1.1684356927871704,
+            -0.16730871051549911,
+            1.282897174358368
+          ]
+        },
+        {
+          "indices": [
+            22630,
+            22631
+          ],
+          "ratio": 1.3931690836072563,
+          "rest_center": [
+            1.0679845213890076,
+            -0.13554125279188156,
+            1.2450304627418518
+          ]
+        },
+        {
+          "indices": [
+            23369,
+            23415
+          ],
+          "ratio": 1.383363918244825,
+          "rest_center": [
+            1.1271554827690125,
+            -0.14200450479984283,
+            1.2930505275726318
+          ]
+        },
+        {
+          "indices": [
+            23397,
+            23458
+          ],
+          "ratio": 1.3824508854022526,
+          "rest_center": [
+            1.194054901599884,
+            -0.18665333092212677,
+            1.287975251674652
+          ]
+        }
+      ]
+    },
+    {
+      "state": "NEAR_BACK",
+      "frame": 24,
+      "degrees": {
+        "HIP_NEAR": -20.0,
+        "HIP_FAR": 25.0
+      },
+      "edge_min": 0.6638103100021341,
+      "edge_max": 1.383225243467891,
+      "edge_p99": 1.1823906409653513,
+      "edges_above_1_5": 0,
+      "area_min": 0.536693564787315,
+      "area_max": 1.43210330824753,
+      "triangles_below_0_35": 0,
+      "triangles_above_2": 0,
+      "rest_normal_dot_negative": 0,
+      "max_fixed_displacement": 0.0,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "volume": 0.8844159763983651,
+      "whole_body_nonadjacent_BVH_candidates": 0,
+      "hip_nonadjacent_BVH_candidates": 0,
+      "hip_pairs": [],
+      "largest_edges": [
+        {
+          "indices": [
+            25559,
+            25560
+          ],
+          "ratio": 1.383225243467891,
+          "rest_center": [
+            0.8069861829280853,
+            0.2266443818807602,
+            1.2485957145690918
+          ]
+        },
+        {
+          "indices": [
+            25590,
+            27121
+          ],
+          "ratio": 1.374451709448141,
+          "rest_center": [
+            0.8168645203113556,
+            0.322902649641037,
+            1.239222228527069
+          ]
+        },
+        {
+          "indices": [
+            25590,
+            27537
+          ],
+          "ratio": 1.3593807882959683,
+          "rest_center": [
+            0.8165926039218903,
+            0.31962716579437256,
+            1.2416254878044128
+          ]
+        },
+        {
+          "indices": [
+            27118,
+            27120
+          ],
+          "ratio": 1.3585865148243415,
+          "rest_center": [
+            0.8213503062725067,
+            0.34423935413360596,
+            1.2402687072753906
+          ]
+        },
+        {
+          "indices": [
+            21863,
+            21882
+          ],
+          "ratio": 1.3488425493034835,
+          "rest_center": [
+            0.8152277767658234,
+            -0.22577491402626038,
+            1.240968406200409
+          ]
+        },
+        {
+          "indices": [
+            21882,
+            21884
+          ],
+          "ratio": 1.3294124673454595,
+          "rest_center": [
+            0.8170593678951263,
+            -0.21805766224861145,
+            1.2428552508354187
+          ]
+        },
+        {
+          "indices": [
+            21861,
+            21880
+          ],
+          "ratio": 1.3252338105181534,
+          "rest_center": [
+            0.811972439289093,
+            -0.24414755403995514,
+            1.2375859022140503
+          ]
+        },
+        {
+          "indices": [
+            25614,
+            25615
+          ],
+          "ratio": 1.3220363415795653,
+          "rest_center": [
+            0.8316617608070374,
+            0.2882929742336273,
+            1.2693290710449219
+          ]
+        },
+        {
+          "indices": [
+            25560,
+            25566
+          ],
+          "ratio": 1.3174642262873424,
+          "rest_center": [
+            0.8101233541965485,
+            0.23600183427333832,
+            1.2446807026863098
+          ]
+        },
+        {
+          "indices": [
+            21870,
+            21871
+          ],
+          "ratio": 1.3145504730805415,
+          "rest_center": [
+            0.8196122646331787,
+            -0.3308601528406143,
+            1.2450098395347595
+          ]
+        }
+      ]
+    }
+  ],
+  "limits": "Only three hip poses; no knee/hock/IK/contact/gait or PC/mobile runtime proof. BVH candidates are conservative. Rest-normal sign is not a rigorous inversion proof."
+}

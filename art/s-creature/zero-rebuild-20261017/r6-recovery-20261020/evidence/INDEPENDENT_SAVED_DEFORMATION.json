@@ -1,0 +1,256 @@
+{
+  "blender": "4.3.2",
+  "source_hashes": {
+    "/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/verification/S_ZERO_R6_HIP_DEFORMATION_TEST_B.blend": "a5bbee954a0ab43bc00eea73293492c690f9e5240f1e3730f16e556ea8115047",
+    "/Users/lyla/evowild-s-zero-20261017/art/s-creature/zero-rebuild-20261017/r6-recovery-20261020/verification/S_ZERO_R6_HIP_DEFORMATION_RECOVERED_C.blend": "e0ab4954ad72ac9bb2ad2b154742564cbe723a286bd4f49bbadb132a1233783b"
+  },
+  "rest_coordinates_exact": true,
+  "comparison_method": "Original B edge IDs for both models; corrected C triangle indices for common-tessellation area comparison. Native and whole-body metrics also retained.",
+  "records": {
+    "before": {
+      "weights_sum_range": [
+        0.9999999599531293,
+        1.0000000409781933
+      ],
+      "states": {
+        "NEUTRAL": {
+          "native_hip": {
+            "edge_count": 15819,
+            "triangle_count": 14743,
+            "excluded_rest_triangles": 4,
+            "edge_max": 1.0000002227523632,
+            "edge_min": 0.9999998300031622,
+            "edges_over_1_5": 0,
+            "area_min": 0.9999997821477881,
+            "area_max": 1.000000230276902,
+            "triangles_below_0_35": 0,
+            "rest_normal_dot_negative": 0
+          },
+          "same_original_edges_and_corrected_triangles": {
+            "edge_count": 15819,
+            "triangle_count": 14745,
+            "excluded_rest_triangles": 0,
+            "edge_max": 1.0000002227523632,
+            "edge_min": 0.9999998300031622,
+            "edges_over_1_5": 0,
+            "area_min": 0.9999998267942111,
+            "area_max": 1.0000002243473733,
+            "triangles_below_0_35": 0,
+            "rest_normal_dot_negative": 0
+          },
+          "whole_body": {
+            "edge_count": 55736,
+            "triangle_count": 55444,
+            "excluded_rest_triangles": 4,
+            "edge_max": 1.0000002227523632,
+            "edge_min": 0.9999998300031622,
+            "edges_over_1_5": 0,
+            "area_min": 0.9999997821477881,
+            "area_max": 1.000000230276902,
+            "triangles_below_0_35": 0,
+            "rest_normal_dot_negative": 0
+          }
+        },
+        "NEAR_FORWARD": {
+          "native_hip": {
+            "edge_count": 15819,
+            "triangle_count": 14743,
+            "excluded_rest_triangles": 4,
+            "edge_max": 2.1217142842216186,
+            "edge_min": 0.42756051031357123,
+            "edges_over_1_5": 107,
+            "area_min": 0.505175105586375,
+            "area_max": 15454.355991569757,
+            "triangles_below_0_35": 0,
+            "rest_normal_dot_negative": 3
+          },
+          "same_original_edges_and_corrected_triangles": {
+            "edge_count": 15819,
+            "triangle_count": 14745,
+            "excluded_rest_triangles": 0,
+            "edge_max": 2.1217142842216186,
+            "edge_min": 0.42756051031357123,
+            "edges_over_1_5": 107,
+            "area_min": 0.5343208269167801,
+            "area_max": 1.7518835310959506,
+            "triangles_below_0_35": 0,
+            "rest_normal_dot_negative": 0
+          },
+          "whole_body": {
+            "edge_count": 55736,
+            "triangle_count": 55444,
+            "excluded_rest_triangles": 4,
+            "edge_max": 2.1217142842216186,
+            "edge_min": 0.42756051031357123,
+            "edges_over_1_5": 107,
+            "area_min": 0.505175105586375,
+            "area_max": 15454.355991569757,
+            "triangles_below_0_35": 0,
+            "rest_normal_dot_negative": 3
+          }
+        },
+        "NEAR_BACK": {
+          "native_hip": {
+            "edge_count": 15819,
+            "triangle_count": 14743,
+            "excluded_rest_triangles": 4,
+            "edge_max": 2.0076494088793932,
+            "edge_min": 0.35500908101872847,
+            "edges_over_1_5": 88,
+            "area_min": 0.1498282741096955,
+            "area_max": 15137.197605433163,
+            "triangles_below_0_35": 1,
+            "rest_normal_dot_negative": 1
+          },
+          "same_original_edges_and_corrected_triangles": {
+            "edge_count": 15819,
+            "triangle_count": 14745,
+            "excluded_rest_triangles": 0,
+            "edge_max": 2.0076494088793932,
+            "edge_min": 0.35500908101872847,
+            "edges_over_1_5": 88,
+            "area_min": 0.5003476541243276,
+            "area_max": 1.6855313554071478,
+            "triangles_below_0_35": 0,
+            "rest_normal_dot_negative": 0
+          },
+          "whole_body": {
+            "edge_count": 55736,
+            "triangle_count": 55444,
+            "excluded_rest_triangles": 4,
+            "edge_max": 2.0076494088793932,
+            "edge_min": 0.35500908101872847,
+            "edges_over_1_5": 88,
+            "area_min": 0.1498282741096955,
+            "area_max": 15137.197605433163,
+            "triangles_below_0_35": 1,
+            "rest_normal_dot_negative": 1
+          }
+        }
+      }
+    },
+    "after": {
+      "weights_sum_range": [
+        0.9999999552965164,
+        1.0000000447034836
+      ],
+      "states": {
+        "NEUTRAL": {
+          "native_hip": {
+            "edge_count": 22201,
+            "triangle_count": 14745,
+            "excluded_rest_triangles": 0,
+            "edge_max": 1.000000886420244,
+            "edge_min": 0.9999991972148005,
+            "edges_over_1_5": 0,
+            "area_min": 0.9999993034351679,
+            "area_max": 1.0000011396158948,
+            "triangles_below_0_35": 0,
+            "rest_normal_dot_negative": 0
+          },
+          "same_original_edges_and_corrected_triangles": {
+            "edge_count": 15819,
+            "triangle_count": 14745,
+            "excluded_rest_triangles": 0,
+            "edge_max": 1.000000886420244,
+            "edge_min": 0.9999991972148005,
+            "edges_over_1_5": 0,
+            "area_min": 0.9999993034351679,
+            "area_max": 1.0000011396158948,
+            "triangles_below_0_35": 0,
+            "rest_normal_dot_negative": 0
+          },
+          "whole_body": {
+            "edge_count": 62186,
+            "triangle_count": 55444,
+            "excluded_rest_triangles": 0,
+            "edge_max": 1.000000886420244,
+            "edge_min": 0.9999991972148005,
+            "edges_over_1_5": 0,
+            "area_min": 0.9999993034351679,
+            "area_max": 1.0000017225452227,
+            "triangles_below_0_35": 0,
+            "rest_normal_dot_negative": 0
+          }
+        },
+        "NEAR_FORWARD": {
+          "native_hip": {
+            "edge_count": 22201,
+            "triangle_count": 14745,
+            "excluded_rest_triangles": 0,
+            "edge_max": 1.4348786495547459,
+            "edge_min": 0.744797044709606,
+            "edges_over_1_5": 0,
+            "area_min": 0.7404413552577369,
+            "area_max": 1.5741704253707154,
+            "triangles_below_0_35": 0,
+            "rest_normal_dot_negative": 0
+          },
+          "same_original_edges_and_corrected_triangles": {
+            "edge_count": 15819,
+            "triangle_count": 14745,
+            "excluded_rest_triangles": 0,
+            "edge_max": 1.4348786495547459,
+            "edge_min": 0.744797044709606,
+            "edges_over_1_5": 0,
+            "area_min": 0.7404413552577369,
+            "area_max": 1.5741704253707154,
+            "triangles_below_0_35": 0,
+            "rest_normal_dot_negative": 0
+          },
+          "whole_body": {
+            "edge_count": 62186,
+            "triangle_count": 55444,
+            "excluded_rest_triangles": 0,
+            "edge_max": 1.4348786495547459,
+            "edge_min": 0.744797044709606,
+            "edges_over_1_5": 0,
+            "area_min": 0.7404413552577369,
+            "area_max": 1.5741704253707154,
+            "triangles_below_0_35": 0,
+            "rest_normal_dot_negative": 0
+          }
+        },
+        "NEAR_BACK": {
+          "native_hip": {
+            "edge_count": 22201,
+            "triangle_count": 14745,
+            "excluded_rest_triangles": 0,
+            "edge_max": 1.383225243467891,
+            "edge_min": 0.6638103100021341,
+            "edges_over_1_5": 0,
+            "area_min": 0.536693564787315,
+            "area_max": 1.43210330824753,
+            "triangles_below_0_35": 0,
+            "rest_normal_dot_negative": 0
+          },
+          "same_original_edges_and_corrected_triangles": {
+            "edge_count": 15819,
+            "triangle_count": 14745,
+            "excluded_rest_triangles": 0,
+            "edge_max": 1.383225243467891,
+            "edge_min": 0.695530089757568,
+            "edges_over_1_5": 0,
+            "area_min": 0.536693564787315,
+            "area_max": 1.43210330824753,
+            "triangles_below_0_35": 0,
+            "rest_normal_dot_negative": 0
+          },
+          "whole_body": {
+            "edge_count": 62186,
+            "triangle_count": 55444,
+            "excluded_rest_triangles": 0,
+            "edge_max": 1.383225243467891,
+            "edge_min": 0.6638103100021341,
+            "edges_over_1_5": 0,
+            "area_min": 0.536693564787315,
+            "area_max": 1.43210330824753,
+            "triangles_below_0_35": 0,
+            "rest_normal_dot_negative": 0
+          }
+        }
+      }
+    }
+  },
+  "limits": "Only saved frames 1/12/24; no gait, ground contact, intermediate-frame sweep or runtime approval. Negative rest-normal dot is diagnostic only."
+}

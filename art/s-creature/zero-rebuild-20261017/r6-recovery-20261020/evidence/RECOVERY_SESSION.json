@@ -1,0 +1,22 @@
+{
+  "utc": "2026-10-20T14:57:18.000500+00:00",
+  "blender": "4.3.2",
+  "mcp_connected": true,
+  "addon_version": [
+    1,
+    8
+  ],
+  "protocol_version": 13,
+  "expected_protocol": 14,
+  "telemetry_consent": false,
+  "addon_upgraded": false,
+  "initial_scene": "unsaved default Cube scene, is_dirty=False",
+  "worktree": "/Users/lyla/evowild-s-zero-20261017",
+  "branch": "exp/s-fullbody-zero-verify-20261017",
+  "head": "b1dfb110c342d161c0d315724dff1d8f0e5b6389",
+  "ssh443_fetched_head": "b1dfb110c342d161c0d315724dff1d8f0e5b6389",
+  "history_divergence": "0\t0",
+  "render_recovery": "sandbox exit 139 during Blender startup; permitted external process used for saved-file Cycles renders",
+  "original_R6_formal_preserved": true,
+  "reset_hard_clean_force_push_used": false
+}

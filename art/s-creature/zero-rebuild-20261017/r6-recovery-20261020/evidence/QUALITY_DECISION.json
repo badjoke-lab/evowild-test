@@ -1,0 +1,24 @@
+{
+  "overall": "REVISE",
+  "static_shape": "REVISE",
+  "deformation_quality": "REVISE",
+  "production_keep": false,
+  "static_local_continuity_retained_from_B": true,
+  "B_source_vertex_positions_unchanged": true,
+  "local_tessellation_repaired": true,
+  "maximum_edge_stretch": {
+    "before": 2.1217142842216186,
+    "after": 1.4348786495547459
+  },
+  "minimum_triangle_area_ratio_after": 0.536693564787315,
+  "severe_collapse_area_threshold": 0.35,
+  "triangles_below_threshold_after": 0,
+  "remaining_issues": [
+    "Residual 43.49% maximum edge elongation and 46.33% triangle-area compression",
+    "Pelvic planes remain round and ivory/graphite boundary is less precise than canonical reference",
+    "Only neutral and two hip poses tested; gait, intermediate-frame sweep, IK/contact and PC/mobile runtime unverified"
+  ],
+  "formal_file": "S_ZERO_CANDIDATE_REVISED_R6.blend",
+  "validation_rig": "verification/S_ZERO_R6_HIP_DEFORMATION_RECOVERED_C.blend",
+  "old_R6_outputs_preserved": true
+}

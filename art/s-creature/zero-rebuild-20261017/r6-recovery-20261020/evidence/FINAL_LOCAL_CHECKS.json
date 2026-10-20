@@ -1,0 +1,11 @@
+{
+  "protected_existing_files": 463,
+  "all_protected_bytes_unchanged": true,
+  "source_and_formal_hashes_verified": true,
+  "new_saved_file_renders_verified": 17,
+  "R5_static_and_B_hip_cameras_exact": true,
+  "all_png_decode_checks_passed": true,
+  "formal_no_rig_evidence": "R6_RECOVERED_SAVE.json; ../evidence/VERIFY_R6_RECOVERED_C_RELOAD.json",
+  "deformation": "Independent saved-file audit and whole-body scan agree; residual 1.435x stretch and .537 area ratio, REVISE",
+  "production_keep": false
+}

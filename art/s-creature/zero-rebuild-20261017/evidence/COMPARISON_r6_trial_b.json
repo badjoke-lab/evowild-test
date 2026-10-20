@@ -1,0 +1,81 @@
+{
+  "method": "Unretouched actual render pixels; crop, proportional resize and labels only.",
+  "reference_hip_crops": {
+    "SIDE": [
+      405,
+      205,
+      646,
+      395
+    ],
+    "FRONT": [
+      806,
+      248,
+      913,
+      424
+    ],
+    "FRONT34": [
+      1280,
+      235,
+      1405,
+      420
+    ],
+    "BACK": [
+      979,
+      226,
+      1109,
+      422
+    ]
+  },
+  "render_hip_crops": {
+    "SIDE": [
+      650,
+      320,
+      935,
+      640
+    ],
+    "FRONT": [
+      490,
+      290,
+      710,
+      600
+    ],
+    "FRONT34": [
+      665,
+      310,
+      885,
+      625
+    ],
+    "REAR34": [
+      625,
+      325,
+      900,
+      650
+    ],
+    "BACK": [
+      445,
+      310,
+      755,
+      640
+    ]
+  },
+  "source_sha256": {
+    "references/00_s_type_modeling_image_v1.png": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+    "zero-rebuild-20261017/renders/r6_trial_b/SIDE.png": "910f0ec6677ff88804ed4c685826f6b5df4bb7a7ce4f7cc3d33c4c98e9e18493",
+    "zero-rebuild-20261017/renders/r6_trial_b/FRONT.png": "a903814a5bce3b929edd1551ebbe064205a312e4fc4566c240d7be0eac4b38ed",
+    "zero-rebuild-20261017/renders/r6_trial_b/FRONT34.png": "1baf47dd211cdc138da11387099b4e851da9c6cafe97522dc4f77bca52a2756c",
+    "zero-rebuild-20261017/renders/r6_trial_b/REAR34.png": "12f2c61c7683e59f20731839f248a21fed7996d297ed33b534b1f9d1fbac2a81",
+    "zero-rebuild-20261017/renders/r6_trial_b/BACK.png": "5a963400553d9697daa4b67427035d63e5f5c6a7a923811f43b5a1a46ff29cba",
+    "zero-rebuild-20261017/renders/revised_r5/SIDE.png": "ec9820f7e9ae57c22e936f596927fa1e166eb464dbdb5c4dfa622034a3cee967",
+    "zero-rebuild-20261017/renders/revised_r5/FRONT.png": "e41a27ca8ac7c2e99aef4d26dd740d5dfa253cfa1dea2a25c95822ecc7960dcc",
+    "zero-rebuild-20261017/renders/revised_r5/FRONT34.png": "67c5cefd954652dc2cc8e808144ca97efac8ea606781eac5f301a61f84fe5a24",
+    "zero-rebuild-20261017/renders/revised_r5/REAR34.png": "7b5399f0e7f3a9fcb01e8214d8428d83109fe6d73571d8fdea965e41f1ee3559",
+    "zero-rebuild-20261017/renders/revised_r5/BACK.png": "5ecd498002e9e9fc6180542bb3b647dac20599791e9eba8e9d96bd39f72cfdde"
+  },
+  "outputs": [
+    "comparisons/R6_TRIAL_B_FIVE_VIEWS.png",
+    "comparisons/R6_TRIAL_B_REFERENCE_R5_COMPARISON.png",
+    "comparisons/R6_TRIAL_B_PELVIS_COMPARISON.png",
+    "comparisons/R6_TRIAL_B_R5_FIVE_VIEW_COMPARISON.png",
+    "comparisons/R6_TRIAL_B_STATIC_128PX.png"
+  ]
+}

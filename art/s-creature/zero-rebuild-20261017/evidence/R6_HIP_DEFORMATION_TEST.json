@@ -1,0 +1,276 @@
+{
+  "source": "verification/S_ZERO_R6_TRIAL_B.blend",
+  "source_sha256": "8748d32c0b842c15c5a3c5da910637b4dcc06bf8af112882c2447afdb47e4949",
+  "output": "verification/S_ZERO_R6_HIP_DEFORMATION_TEST.blend",
+  "output_sha256": "3b133fcb3e0f5043dd5b93bede420d2665813d21a7c1b0a5d4573bf1910084de",
+  "pivot_positions": {
+    "HIP_NEAR": [
+      0.78,
+      -0.235,
+      1.74
+    ],
+    "HIP_FAR": [
+      0.67,
+      0.235,
+      1.7
+    ]
+  },
+  "rotation_axis_world": [
+    0,
+    1,
+    0
+  ],
+  "weights": "Analytic normalized weights; smooth pelvis-to-thigh transition over z=1.93 to 1.33; fixed midline/tail; distal hind accessories rigid.",
+  "preserve_volume": true,
+  "weight_counts": {
+    "S_ZERO_BODY_CONTINUOUS": {
+      "near": 5335,
+      "far": 4872,
+      "blend": 4834
+    },
+    "ANKLE_FIN_HIND_NEAR": {
+      "near": 10,
+      "far": 0,
+      "blend": 0
+    },
+    "TOE_HIND_NEAR_-1": {
+      "near": 102,
+      "far": 0,
+      "blend": 0
+    },
+    "TOE_IVORY_HIND_NEAR_-1": {
+      "near": 10,
+      "far": 0,
+      "blend": 0
+    },
+    "TOE_CYAN_HIND_NEAR_-1": {
+      "near": 10,
+      "far": 0,
+      "blend": 0
+    },
+    "TOE_HIND_NEAR_1": {
+      "near": 102,
+      "far": 0,
+      "blend": 0
+    },
+    "TOE_IVORY_HIND_NEAR_1": {
+      "near": 10,
+      "far": 0,
+      "blend": 0
+    },
+    "TOE_CYAN_HIND_NEAR_1": {
+      "near": 10,
+      "far": 0,
+      "blend": 0
+    },
+    "ANKLE_FIN_HIND_FAR": {
+      "near": 0,
+      "far": 10,
+      "blend": 0
+    },
+    "TOE_HIND_FAR_-1": {
+      "near": 0,
+      "far": 102,
+      "blend": 0
+    },
+    "TOE_IVORY_HIND_FAR_-1": {
+      "near": 0,
+      "far": 10,
+      "blend": 0
+    },
+    "TOE_CYAN_HIND_FAR_-1": {
+      "near": 0,
+      "far": 10,
+      "blend": 0
+    },
+    "TOE_HIND_FAR_1": {
+      "near": 0,
+      "far": 102,
+      "blend": 0
+    },
+    "TOE_IVORY_HIND_FAR_1": {
+      "near": 0,
+      "far": 10,
+      "blend": 0
+    },
+    "TOE_CYAN_HIND_FAR_1": {
+      "near": 0,
+      "far": 10,
+      "blend": 0
+    },
+    "CANNON_RIDGE_HIND_NEAR": {
+      "near": 132,
+      "far": 0,
+      "blend": 0
+    },
+    "CANNON_RIDGE_HIND_FAR": {
+      "near": 0,
+      "far": 132,
+      "blend": 0
+    },
+    "HOOF_FACE_HIND_NEAR_-1": {
+      "near": 72,
+      "far": 0,
+      "blend": 0
+    },
+    "HOOF_SIGNAL_HIND_NEAR_-1": {
+      "near": 58,
+      "far": 0,
+      "blend": 0
+    },
+    "HOOF_FACE_HIND_NEAR_1": {
+      "near": 72,
+      "far": 0,
+      "blend": 0
+    },
+    "HOOF_SIGNAL_HIND_NEAR_1": {
+      "near": 58,
+      "far": 0,
+      "blend": 0
+    },
+    "HOOF_FACE_HIND_FAR_-1": {
+      "near": 0,
+      "far": 72,
+      "blend": 0
+    },
+    "HOOF_SIGNAL_HIND_FAR_-1": {
+      "near": 0,
+      "far": 58,
+      "blend": 0
+    },
+    "HOOF_FACE_HIND_FAR_1": {
+      "near": 0,
+      "far": 72,
+      "blend": 0
+    },
+    "HOOF_SIGNAL_HIND_FAR_1": {
+      "near": 0,
+      "far": 58,
+      "blend": 0
+    }
+  },
+  "measurements": [
+    {
+      "state": "NEUTRAL",
+      "frame": 1,
+      "degrees": {
+        "HIP_NEAR": 0.0,
+        "HIP_FAR": 0.0
+      },
+      "max_fixed_vertex_displacement": 0.0,
+      "hip_edge_ratio_quantiles": {
+        "0": 0.9999998085779609,
+        "0.01": 1.0,
+        "0.05": 1.0,
+        "0.5": 1.0,
+        "0.95": 1.0,
+        "0.99": 1.0,
+        "1": 1.0000002585178522
+      },
+      "hip_triangle_area_ratio_quantiles": {
+        "0": 0.0,
+        "0.01": 1.0,
+        "0.05": 1.0,
+        "0.5": 1.0,
+        "0.95": 1.0,
+        "0.99": 1.0,
+        "1": 1.0000003086118658
+      },
+      "hip_edges_over_1_5": 0,
+      "hip_triangles_below_0_35": 2,
+      "hip_triangles_over_2": 0,
+      "rest_normal_dot_negative": 0,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "whole_body_nonadjacent_BVH_candidates": 0,
+      "hip_nonadjacent_BVH_candidates": 0,
+      "hip_overlap_pairs": [],
+      "absolute_volume": 0.8889161324026573
+    },
+    {
+      "state": "NEAR_FORWARD",
+      "frame": 12,
+      "degrees": {
+        "HIP_NEAR": 25.0,
+        "HIP_FAR": -20.0
+      },
+      "max_fixed_vertex_displacement": 0.0,
+      "hip_edge_ratio_quantiles": {
+        "0": 0.2853865112434485,
+        "0.01": 0.7452564644428222,
+        "0.05": 0.869078503971212,
+        "0.5": 1.0,
+        "0.95": 1.1889369458687078,
+        "0.99": 1.3523006378154845,
+        "1": 9.54434863166366
+      },
+      "hip_triangle_area_ratio_quantiles": {
+        "0": 0.24251869175052446,
+        "0.01": 0.6931065991434772,
+        "0.05": 0.8001006819265921,
+        "0.5": 1.0,
+        "0.95": 1.2524030479603474,
+        "0.99": 1.4153147976084204,
+        "1": 38119084.949187696
+      },
+      "hip_edges_over_1_5": 89,
+      "hip_triangles_below_0_35": 10,
+      "hip_triangles_over_2": 46,
+      "rest_normal_dot_negative": 11,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "whole_body_nonadjacent_BVH_candidates": 1,
+      "hip_nonadjacent_BVH_candidates": 1,
+      "hip_overlap_pairs": [
+        [
+          25287,
+          25290
+        ]
+      ],
+      "absolute_volume": 0.8940635477075761
+    },
+    {
+      "state": "NEAR_BACK",
+      "frame": 24,
+      "degrees": {
+        "HIP_NEAR": -20.0,
+        "HIP_FAR": 25.0
+      },
+      "max_fixed_vertex_displacement": 0.0,
+      "hip_edge_ratio_quantiles": {
+        "0": 0.3091453285983734,
+        "0.01": 0.7732014844082064,
+        "0.05": 0.856682391539252,
+        "0.5": 1.0,
+        "0.95": 1.1677778888239196,
+        "0.99": 1.350309876852966,
+        "1": 9.967495133307676
+      },
+      "hip_triangle_area_ratio_quantiles": {
+        "0": 0.10334851767787656,
+        "0.01": 0.7278262437861356,
+        "0.05": 0.8004807131271431,
+        "0.5": 1.0,
+        "0.95": 1.2286616565977275,
+        "0.99": 1.4155414484196944,
+        "1": 11759317.690653877
+      },
+      "hip_edges_over_1_5": 85,
+      "hip_triangles_below_0_35": 8,
+      "hip_triangles_over_2": 52,
+      "rest_normal_dot_negative": 11,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "whole_body_nonadjacent_BVH_candidates": 0,
+      "hip_nonadjacent_BVH_candidates": 0,
+      "hip_overlap_pairs": [],
+      "absolute_volume": 0.8858421691840559
+    }
+  ],
+  "hidden_ground_for_test": [
+    "Ground"
+  ],
+  "hip_edge_count": 15819,
+  "hip_triangle_count": 14743,
+  "limits": "Simplified thigh rotation only. No knee/hock articulation, ground contact, gait, IK or runtime proof. BVH candidates are not a formal intersection proof. Negative rest-normal dot flags require visual review."
+}
