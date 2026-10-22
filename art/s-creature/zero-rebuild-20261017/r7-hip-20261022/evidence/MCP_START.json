@@ -1,0 +1,7 @@
+{
+  "status": "success",
+  "result": {
+    "executed": true,
+    "result": "{\"file\": \"\", \"dirty\": false, \"version\": \"4.3.2\", \"armatures\": [], \"mcp\": true}\n"
+  }
+}

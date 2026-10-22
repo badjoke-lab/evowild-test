@@ -1,0 +1,7 @@
+{
+  "status": "success",
+  "result": {
+    "executed": true,
+    "result": "Warning: 1 \u00d7 Draw window and swap: 355.5970 ms, average: 355.59701920 ms\nWarning: 1 \u00d7 Draw window and swap: 23.9871 ms, average: 23.98705482 ms\nWarning: 1 \u00d7 Draw window and swap: 30.1120 ms, average: 30.11202812 ms\nWarning: 1 \u00d7 Draw window and swap: 80.3962 ms, average: 80.39617538 ms\nWarning: 1 \u00d7 Draw window and swap: 12.3730 ms, average: 12.37297058 ms\nWarning: 1 \u00d7 Draw window and swap: 12.5501 ms, average: 12.55011559 ms\nWarning: 1 \u00d7 Draw window and swap: 37.2319 ms, average: 37.23192215 ms\nWarning: 1 \u00d7 Draw window and swap: 10.8991 ms, average: 10.89906693 ms\nWarning: 1 \u00d7 Draw window and swap: 12.9509 ms, average: 12.95089722 ms\nWarning: 1 \u00d7 Draw window and swap: 36.1171 ms, average: 36.11707687 ms\nWarning: 1 \u00d7 Draw window and swap: 19.4039 ms, average: 19.40393448 ms\nWarning: 1 \u00d7 Draw window and swap: 15.4321 ms, average: 15.43211937 ms\nWarning: 1 \u00d7 Draw window and swap: 35.7718 ms, average: 35.77184677 ms\nWarning: 1 \u00d7 Draw window and swap: 12.4319 ms, average: 12.43185997 ms\nWarning: 1 \u00d7 Draw window and swap: 16.0570 ms, average: 16.05701447 ms\nR6 worst_edge 1.4348786495547459 worst_area 0.536693564787315 self_BVH 4 other_BVH_per_frame 241\nR7 worst_edge 1.3283835768434116 worst_area 0.7594524712711249 self_BVH 4 other_BVH_per_frame 241\nR7B_INDEPENDENT_SWEEP_AND_MCP_CAPTURES_COMPLETE\n"
+  }
+}

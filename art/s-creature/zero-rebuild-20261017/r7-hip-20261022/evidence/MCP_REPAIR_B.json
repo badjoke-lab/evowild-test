@@ -1,0 +1,7 @@
+{
+  "status": "success",
+  "result": {
+    "executed": true,
+    "result": "TRIAL mesh_only_original_weights max_edge 1.43488 min_area 0.57124 score 1.94939\nTRIAL mesh_weight_power_1.1 max_edge 1.41279 min_area 0.57814 score 1.91903\nTRIAL mesh_weight_power_1.25 max_edge 1.38159 min_area 0.5302 score 1.94536\nTRIAL mesh_weight_power_1.5 max_edge 1.40162 min_area 0.45821 score 2.05177\nTRIAL mesh_weight_power_1.75 max_edge 1.45701 min_area 0.39572 score 2.18214\nTRIAL mesh_weight_power_2.0 max_edge 1.50676 min_area 0.34296 score 2.29521\nTRIAL mesh_weight_smoothstep max_edge 1.41003 min_area 0.44991 score 2.07014\nTRIAL mesh_cotangent_power_1.0 max_edge 1.40296 min_area 0.57467 score 1.91335\nTRIAL mesh_cotangent_power_1.25 max_edge 1.32838 min_area 0.75945 score 1.61704\nTRIAL mesh_cotangent_power_1.5 max_edge 1.36071 min_area 0.74313 score 1.66896\nTRIAL mesh_cotangent_power_1.75 max_edge 1.4089 min_area 0.69857 score 1.77062\nTRIAL mesh_cotangent_power_2.0 max_edge 1.46244 min_area 0.65308 score 1.87875\nInfo: Saved \"S_ZERO_R7_HIP_TRIAL_B.blend\"\nR7_TRIAL_B_SAVED mesh_cotangent_power_1.25 moved 3711 max 0.004000059973439367\n"
+  }
+}

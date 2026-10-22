@@ -1,0 +1,240 @@
+{
+  "blender": "4.3.2",
+  "static_file": "S_ZERO_CANDIDATE_REVISED_R7.blend",
+  "static_sha256": "f08bcf47763682ceeadc8f7212cb187068059b274e19d9c7bb6f185b3a7f5724",
+  "static_bytes": 1472743,
+  "rig_file": "verification/S_ZERO_R7_HIP_DEFORMATION_VERIFIED_B.blend",
+  "rig_sha256": "114b43459c480014c30b6f4d0952742e0bd4116b35ddbd145d2f8242de09baf5",
+  "reloaded_static_exact": true,
+  "static_armatures": 0,
+  "static_actions": 0,
+  "static_vertex_groups": 0,
+  "static_armature_modifiers": 0,
+  "protected_mesh_objects_exact": 140,
+  "body_topology_materials_colors_exact": true,
+  "moved_vertices": 3711,
+  "max_rest_displacement": 0.004000059973439367,
+  "changed_bounds": [
+    [
+      0.32586967945098877,
+      -0.48802450299263,
+      1.2759369611740112
+    ],
+    [
+      1.235369324684143,
+      0.48687744140625,
+      1.922516942024231
+    ]
+  ],
+  "static_normal_comparison": {
+    "min_cosine": 0.9950000225670366,
+    "max_degrees": 5.731955019030821,
+    "negative_count": 0
+  },
+  "camera_projection_bounds": {
+    "SIDE": {
+      "max_projected_displacement_at_128px_vertical": 0.09062035966030187,
+      "ortho_scale": 5.650000095367432
+    },
+    "FRONT": {
+      "max_projected_displacement_at_128px_vertical": 0.1101089377250541,
+      "ortho_scale": 4.650000095367432
+    },
+    "FRONT34": {
+      "max_projected_displacement_at_128px_vertical": 0.11010714262424123,
+      "ortho_scale": 4.650000095367432
+    },
+    "REAR34": {
+      "max_projected_displacement_at_128px_vertical": 0.11010833096299016,
+      "ortho_scale": 4.650000095367432
+    },
+    "BACK": {
+      "max_projected_displacement_at_128px_vertical": 0.1101089377250541,
+      "ortho_scale": 4.650000095367432
+    }
+  },
+  "preexisting_self_BVH_candidates": [
+    {
+      "triangle_ids": [
+        21192,
+        40067
+      ],
+      "polygon_ids": [
+        10374,
+        19419
+      ],
+      "vertex_ids": [
+        11037,
+        11053,
+        11054,
+        11055,
+        11059,
+        20276
+      ],
+      "centers": [
+        [
+          -0.7633474071820577,
+          0.2597333788871765,
+          1.4703878959019978
+        ],
+        [
+          -0.7531046470006307,
+          0.26502471168835956,
+          1.4673643906911213
+        ]
+      ],
+      "bounds": [
+        [
+          -0.7689792513847351,
+          0.2556297779083252,
+          1.4574668407440186
+        ],
+        [
+          -0.7278832793235779,
+          0.27292400598526,
+          1.4758265018463135
+        ]
+      ],
+      "R7_rest_exact": true,
+      "all_fixed_pelvis_weights": true,
+      "same_original_polygon": false
+    },
+    {
+      "triangle_ids": [
+        21195,
+        40064
+      ],
+      "polygon_ids": [
+        10374,
+        19419
+      ],
+      "vertex_ids": [
+        11030,
+        11037,
+        11053,
+        11054,
+        11055,
+        11059
+      ],
+      "centers": [
+        [
+          -0.7637411952018738,
+          0.255952646334966,
+          1.4652097622553508
+        ],
+        [
+          -0.7651431361834208,
+          0.26097923517227173,
+          1.468392014503479
+        ]
+      ],
+      "bounds": [
+        [
+          -0.7689792513847351,
+          0.249445378780365,
+          1.4563482999801636
+        ],
+        [
+          -0.7586916089057922,
+          0.2627827823162079,
+          1.4758265018463135
+        ]
+      ],
+      "R7_rest_exact": true,
+      "all_fixed_pelvis_weights": true,
+      "same_original_polygon": false
+    },
+    {
+      "triangle_ids": [
+        21195,
+        40067
+      ],
+      "polygon_ids": [
+        10374,
+        19419
+      ],
+      "vertex_ids": [
+        11030,
+        11037,
+        11054,
+        11055,
+        11059,
+        20276
+      ],
+      "centers": [
+        [
+          -0.7637411952018738,
+          0.255952646334966,
+          1.4652097622553508
+        ],
+        [
+          -0.7531046470006307,
+          0.26502471168835956,
+          1.4673643906911213
+        ]
+      ],
+      "bounds": [
+        [
+          -0.7689792513847351,
+          0.249445378780365,
+          1.4563482999801636
+        ],
+        [
+          -0.7278832793235779,
+          0.27292400598526,
+          1.4758265018463135
+        ]
+      ],
+      "R7_rest_exact": true,
+      "all_fixed_pelvis_weights": true,
+      "same_original_polygon": false
+    },
+    {
+      "triangle_ids": [
+        21199,
+        40067
+      ],
+      "polygon_ids": [
+        10376,
+        19419
+      ],
+      "vertex_ids": [
+        11037,
+        11053,
+        11054,
+        11058,
+        11059,
+        20276
+      ],
+      "centers": [
+        [
+          -0.7603105505307516,
+          0.25813748439153034,
+          1.4749788045883179
+        ],
+        [
+          -0.7531046470006307,
+          0.26502471168835956,
+          1.4673643906911213
+        ]
+      ],
+      "bounds": [
+        [
+          -0.7689792513847351,
+          0.2556297779083252,
+          1.4574668407440186
+        ],
+        [
+          -0.7278832793235779,
+          0.27292400598526,
+          1.4789752960205078
+        ]
+      ],
+      "R7_rest_exact": true,
+      "all_fixed_pelvis_weights": true,
+      "same_original_polygon": false
+    }
+  ],
+  "trial_A_decision": "REJECT: two tiny static triangles reverse relative to R6. Kept as isolated evidence only.",
+  "trial_B_decision": "Retain as R7 continuation candidate, REVISE for static and deformation; not production KEEP."
+}

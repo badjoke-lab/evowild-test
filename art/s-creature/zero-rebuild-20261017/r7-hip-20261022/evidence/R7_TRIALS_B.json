@@ -1,0 +1,1060 @@
+{
+  "blender": "4.3.2",
+  "trials": [
+    {
+      "label": "mesh_only_original_weights",
+      "score": 1.9493854534444384,
+      "frames": [
+        {
+          "frame": 1,
+          "edge_max": 1.000000886420244,
+          "edge_min": 0.9999992279751264,
+          "edge_p99": 1.0,
+          "area_min": 0.9999993537148786,
+          "area_max": 1.0000017225452227,
+          "area_p01": 1.0,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 6,
+          "edge_max": 1.1796011472290762,
+          "edge_min": 0.8625365808917258,
+          "edge_p99": 1.0792852682953609,
+          "area_min": 0.8564661998338521,
+          "area_max": 1.2154843297480373,
+          "area_p01": 0.9458382836272412,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 12,
+          "edge_max": 1.4348786495547459,
+          "edge_min": 0.744797044709606,
+          "edge_p99": 1.1881206277083847,
+          "area_min": 0.7404413552577369,
+          "area_max": 1.4987035953436223,
+          "area_p01": 0.8797424030057026,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 18,
+          "edge_max": 1.0398970763620186,
+          "edge_min": 0.9631332917294391,
+          "edge_p99": 1.0168139233113247,
+          "area_min": 0.9617068368006669,
+          "area_max": 1.0484821928566295,
+          "area_p01": 0.9859035195975957,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 21,
+          "edge_max": 1.2583117174627898,
+          "edge_min": 0.7720951911045121,
+          "edge_p99": 1.086478149444963,
+          "area_min": 0.7098353914016552,
+          "area_max": 1.2982108007021718,
+          "area_p01": 0.8719253313403401,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 24,
+          "edge_max": 1.383225243467891,
+          "edge_min": 0.6638103100021341,
+          "edge_p99": 1.128831764579199,
+          "area_min": 0.5712443300919229,
+          "area_max": 1.43210330824753,
+          "area_p01": 0.8175169169543585,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 2,
+          "normal_dot_negative": 0
+        }
+      ]
+    },
+    {
+      "label": "mesh_weight_power_1.1",
+      "score": 1.9190267928226539,
+      "frames": [
+        {
+          "frame": 1,
+          "edge_max": 1.000000886420244,
+          "edge_min": 0.9999992814249405,
+          "edge_p99": 1.0,
+          "area_min": 0.9999993278455908,
+          "area_max": 1.0000017225452227,
+          "area_p01": 1.0,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 6,
+          "edge_max": 1.1670902250492294,
+          "edge_min": 0.8994296439284591,
+          "edge_p99": 1.0774272484878737,
+          "area_min": 0.8962173166933218,
+          "area_max": 1.2241051380296624,
+          "area_p01": 0.9446629085919647,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 12,
+          "edge_max": 1.4127906201233615,
+          "edge_min": 0.7987972368425188,
+          "edge_p99": 1.182975182226349,
+          "area_min": 0.7921343300391691,
+          "area_max": 1.5195565412419276,
+          "area_p01": 0.8774480747635385,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 18,
+          "edge_max": 1.0366180591486118,
+          "edge_min": 0.9740511439966381,
+          "edge_p99": 1.0168278993511524,
+          "area_min": 0.9724281808817224,
+          "area_max": 1.0495742201284357,
+          "area_p01": 0.9856081784361539,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 21,
+          "edge_max": 1.1868544713911888,
+          "edge_min": 0.8006047341280409,
+          "edge_p99": 1.0834659508933986,
+          "area_min": 0.7237382612606441,
+          "area_max": 1.2379410745618276,
+          "area_p01": 0.8748092318608977,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 24,
+          "edge_max": 1.2677544562576062,
+          "edge_min": 0.7203492912633579,
+          "edge_p99": 1.125599133252704,
+          "area_min": 0.5781365227505897,
+          "area_max": 1.3499782589037612,
+          "area_p01": 0.820711865984831,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 1,
+          "normal_dot_negative": 0
+        }
+      ]
+    },
+    {
+      "label": "mesh_weight_power_1.25",
+      "score": 1.94535885464389,
+      "frames": [
+        {
+          "frame": 1,
+          "edge_max": 1.000000886420244,
+          "edge_min": 0.9999992133392395,
+          "edge_p99": 1.0,
+          "area_min": 0.9999992859165561,
+          "area_max": 1.0000017225452227,
+          "area_p01": 1.0,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 6,
+          "edge_max": 1.1580189094686315,
+          "edge_min": 0.9064896779962591,
+          "edge_p99": 1.077474352070976,
+          "area_min": 0.9048469555091145,
+          "area_max": 1.2501968120864928,
+          "area_p01": 0.944123795338022,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 12,
+          "edge_max": 1.3815929381378906,
+          "edge_min": 0.7887251914974799,
+          "edge_p99": 1.183802795339941,
+          "area_min": 0.7854434912998088,
+          "area_max": 1.5803984456223605,
+          "area_p01": 0.8750169260922951,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 18,
+          "edge_max": 1.037538029917829,
+          "edge_min": 0.9737683100510406,
+          "edge_p99": 1.0176079637488762,
+          "area_min": 0.9717432812213987,
+          "area_max": 1.056076752846675,
+          "area_p01": 0.9853905848441611,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 21,
+          "edge_max": 1.1979385106384486,
+          "edge_min": 0.8131517379851775,
+          "edge_p99": 1.0803075348619586,
+          "area_min": 0.6925111808397258,
+          "area_max": 1.2010525242639631,
+          "area_p01": 0.8736641798192608,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 24,
+          "edge_max": 1.2785149729929626,
+          "edge_min": 0.7278363611111974,
+          "edge_p99": 1.1197614242211564,
+          "area_min": 0.5301950695783338,
+          "area_max": 1.2833124951423536,
+          "area_p01": 0.8188802756474789,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 1,
+          "normal_dot_negative": 0
+        }
+      ]
+    },
+    {
+      "label": "mesh_weight_power_1.5",
+      "score": 2.0517658005908093,
+      "frames": [
+        {
+          "frame": 1,
+          "edge_max": 1.000000886420244,
+          "edge_min": 0.9999993490873499,
+          "edge_p99": 1.0,
+          "area_min": 0.9999993867640924,
+          "area_max": 1.0000017225452227,
+          "area_p01": 1.0,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 6,
+          "edge_max": 1.1695859918272122,
+          "edge_min": 0.8914480165333256,
+          "edge_p99": 1.0807465129199965,
+          "area_min": 0.891861386973442,
+          "area_max": 1.2899978619171244,
+          "area_p01": 0.9410795972163586,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 12,
+          "edge_max": 1.4016221493443066,
+          "edge_min": 0.7559064148026122,
+          "edge_p99": 1.1910411933494742,
+          "area_min": 0.7574482973398818,
+          "area_max": 1.671437199310951,
+          "area_p01": 0.8668603988797536,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 18,
+          "edge_max": 1.038073072597795,
+          "edge_min": 0.9690149739541889,
+          "edge_p99": 1.0186456259922918,
+          "area_min": 0.969900310162581,
+          "area_max": 1.0659703012245678,
+          "area_p01": 0.9839917944933361,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 21,
+          "edge_max": 1.2278465174002762,
+          "edge_min": 0.7768635950029212,
+          "edge_p99": 1.0816634056681118,
+          "area_min": 0.6454567742973205,
+          "area_max": 1.230677115144447,
+          "area_p01": 0.8650309771831227,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 24,
+          "edge_max": 1.320139811239587,
+          "edge_min": 0.6917698327927716,
+          "edge_p99": 1.120823814035154,
+          "area_min": 0.4582136239612478,
+          "area_max": 1.3244554715094734,
+          "area_p01": 0.8031864262994027,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 1,
+          "normal_dot_negative": 0
+        }
+      ]
+    },
+    {
+      "label": "mesh_weight_power_1.75",
+      "score": 2.1821436902597133,
+      "frames": [
+        {
+          "frame": 1,
+          "edge_max": 1.000000886420244,
+          "edge_min": 0.9999992426975275,
+          "edge_p99": 1.0,
+          "area_min": 0.9999992383965015,
+          "area_max": 1.0000017225452227,
+          "area_p01": 1.0,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 6,
+          "edge_max": 1.1927769832537574,
+          "edge_min": 0.8768407321299828,
+          "edge_p99": 1.0854620998723572,
+          "area_min": 0.8800328997021258,
+          "area_max": 1.3245870813662044,
+          "area_p01": 0.9375363915866861,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 12,
+          "edge_max": 1.457005720871289,
+          "edge_min": 0.7243297655688564,
+          "edge_p99": 1.2035472653664545,
+          "area_min": 0.7224302266521619,
+          "area_max": 1.7508105958919613,
+          "area_p01": 0.858468986396465,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 18,
+          "edge_max": 1.0434823552523547,
+          "edge_min": 0.9636058770870649,
+          "edge_p99": 1.0197843128398338,
+          "area_min": 0.9647134548828914,
+          "area_max": 1.0741287478134633,
+          "area_p01": 0.9823012728334307,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 21,
+          "edge_max": 1.2517906016073228,
+          "edge_min": 0.7381157864180807,
+          "edge_p99": 1.0861258346391063,
+          "area_min": 0.6044978626709321,
+          "area_max": 1.2542614870960533,
+          "area_p01": 0.8511534541493626,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 24,
+          "edge_max": 1.3550681284407362,
+          "edge_min": 0.6385971941674515,
+          "edge_p99": 1.127158184070041,
+          "area_min": 0.39571835884297957,
+          "area_max": 1.356952717102967,
+          "area_p01": 0.7812732973424158,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 2,
+          "normal_dot_negative": 0
+        }
+      ]
+    },
+    {
+      "label": "mesh_weight_power_2.0",
+      "score": 2.295210647243165,
+      "frames": [
+        {
+          "frame": 1,
+          "edge_max": 1.000000886420244,
+          "edge_min": 0.9999992426975275,
+          "edge_p99": 1.0,
+          "area_min": 0.9999992383965015,
+          "area_max": 1.0000017225452227,
+          "area_p01": 1.0,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 6,
+          "edge_max": 1.213651507749466,
+          "edge_min": 0.863991866898138,
+          "edge_p99": 1.089223292127254,
+          "area_min": 0.8642189093979364,
+          "area_max": 1.3538907408526566,
+          "area_p01": 0.9326216538166353,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 12,
+          "edge_max": 1.5067644697320715,
+          "edge_min": 0.6969203241966121,
+          "edge_p99": 1.2127264701366627,
+          "area_min": 0.6859277555740215,
+          "area_max": 1.8186751384193744,
+          "area_p01": 0.8464585754113471,
+          "edges_over_1_5": 2,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 18,
+          "edge_max": 1.0482989440852404,
+          "edge_min": 0.9582518910210476,
+          "edge_p99": 1.0208893983261274,
+          "area_min": 0.9595687323694891,
+          "area_max": 1.0813740234178337,
+          "area_p01": 0.980555729467609,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 21,
+          "edge_max": 1.2774953796982775,
+          "edge_min": 0.699911715395291,
+          "edge_p99": 1.0906425936616573,
+          "area_min": 0.5692884514275403,
+          "area_max": 1.2782180658533868,
+          "area_p01": 0.8370197704895601,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 1,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 24,
+          "edge_max": 1.3943965249155896,
+          "edge_min": 0.5863544106753873,
+          "edge_p99": 1.133696951519599,
+          "area_min": 0.34296151874075564,
+          "area_max": 1.3890203947226718,
+          "area_p01": 0.7611542682017711,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 3,
+          "normal_dot_negative": 0
+        }
+      ]
+    },
+    {
+      "label": "mesh_weight_smoothstep",
+      "score": 2.0701379816326346,
+      "frames": [
+        {
+          "frame": 1,
+          "edge_max": 1.000000886420244,
+          "edge_min": 0.999999258117215,
+          "edge_p99": 1.0,
+          "area_min": 0.9999992558884357,
+          "area_max": 1.0000017225452227,
+          "area_p01": 1.0,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 6,
+          "edge_max": 1.1731261271324154,
+          "edge_min": 0.8825301542018457,
+          "edge_p99": 1.082640313046088,
+          "area_min": 0.8877972872723398,
+          "area_max": 1.2956052000238059,
+          "area_p01": 0.939526212948229,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 12,
+          "edge_max": 1.4100281031116992,
+          "edge_min": 0.7366039045564635,
+          "edge_p99": 1.1952104723478403,
+          "area_min": 0.7403435429338817,
+          "area_max": 1.6844171543306916,
+          "area_p01": 0.8632365436647901,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 18,
+          "edge_max": 1.0392353118118645,
+          "edge_min": 0.9679471813507052,
+          "edge_p99": 1.0193105460023344,
+          "area_min": 0.9689239034329316,
+          "area_max": 1.0679224431058467,
+          "area_p01": 0.9832254229000255,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 21,
+          "edge_max": 1.2371086976945174,
+          "edge_min": 0.76919097494147,
+          "edge_p99": 1.0844215875805139,
+          "area_min": 0.640206563357415,
+          "area_max": 1.2378815081123868,
+          "area_p01": 0.8617345127497541,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 24,
+          "edge_max": 1.337552915140136,
+          "edge_min": 0.6812565739616957,
+          "edge_p99": 1.1241744831247744,
+          "area_min": 0.4499084345658871,
+          "area_max": 1.3338775087160237,
+          "area_p01": 0.7969967675353425,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 1,
+          "normal_dot_negative": 0
+        }
+      ]
+    },
+    {
+      "label": "mesh_cotangent_power_1.0",
+      "score": 1.9133544267859683,
+      "frames": [
+        {
+          "frame": 1,
+          "edge_max": 1.000000886420244,
+          "edge_min": 0.9999992865490179,
+          "edge_p99": 1.0,
+          "area_min": 0.9999993672747115,
+          "area_max": 1.0000017225452227,
+          "area_p01": 1.0,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 6,
+          "edge_max": 1.1714781184475858,
+          "edge_min": 0.8564426095870483,
+          "edge_p99": 1.08749340978269,
+          "area_min": 0.8118898065749058,
+          "area_max": 1.1713939176973476,
+          "area_p01": 0.9455762375257475,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 12,
+          "edge_max": 1.40295648915511,
+          "edge_min": 0.736837589145887,
+          "edge_p99": 1.2090284039095487,
+          "area_min": 0.5746683853076181,
+          "area_max": 1.4058141838318725,
+          "area_p01": 0.8793964242685969,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 1,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 18,
+          "edge_max": 1.0386511823583577,
+          "edge_min": 0.9749513232152845,
+          "edge_p99": 1.0181031662206563,
+          "area_min": 0.9713478473104459,
+          "area_max": 1.0400255108281502,
+          "area_p01": 0.9849595539318388,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 21,
+          "edge_max": 1.2662356533500545,
+          "edge_min": 0.7516216457328435,
+          "edge_p99": 1.0877427192928764,
+          "area_min": 0.7304926265642245,
+          "area_max": 1.375078074442976,
+          "area_p01": 0.8616653159015732,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 24,
+          "edge_max": 1.3901347392179064,
+          "edge_min": 0.6591386659574981,
+          "edge_p99": 1.130137816949596,
+          "area_min": 0.6260978793919642,
+          "area_max": 1.5225904900919438,
+          "area_p01": 0.80144713413376,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        }
+      ]
+    },
+    {
+      "label": "mesh_cotangent_power_1.25",
+      "score": 1.6170406113180618,
+      "frames": [
+        {
+          "frame": 1,
+          "edge_max": 1.000000886420244,
+          "edge_min": 0.9999993060527884,
+          "edge_p99": 1.0,
+          "area_min": 0.9999993607757386,
+          "area_max": 1.0000017225452227,
+          "area_p01": 1.0,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 6,
+          "edge_max": 1.1375437473719365,
+          "edge_min": 0.9158329834624455,
+          "edge_p99": 1.08024404002644,
+          "area_min": 0.9151031746042699,
+          "area_max": 1.1188834526435822,
+          "area_p01": 0.9417666278096559,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 12,
+          "edge_max": 1.3283835768434116,
+          "edge_min": 0.8112893413534797,
+          "edge_p99": 1.1897410691367936,
+          "area_min": 0.8161107366589,
+          "area_max": 1.2798585730235144,
+          "area_p01": 0.8696983537640023,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 18,
+          "edge_max": 1.027353446302123,
+          "edge_min": 0.9747529099057655,
+          "edge_p99": 1.0182544400730262,
+          "area_min": 0.9749125947938353,
+          "area_max": 1.0272326200077153,
+          "area_p01": 0.9845524834518244,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 21,
+          "edge_max": 1.171773352653384,
+          "edge_min": 0.8307205604504779,
+          "edge_p99": 1.082798391478349,
+          "area_min": 0.8259009921356542,
+          "area_max": 1.1589648313703558,
+          "area_p01": 0.8719678227706408,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 24,
+          "edge_max": 1.2446445873550895,
+          "edge_min": 0.7547540608647211,
+          "edge_p99": 1.1231023686926043,
+          "area_min": 0.7594524712711249,
+          "area_max": 1.225046206274726,
+          "area_p01": 0.8139056693493103,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        }
+      ]
+    },
+    {
+      "label": "mesh_cotangent_power_1.5",
+      "score": 1.6689582455649274,
+      "frames": [
+        {
+          "frame": 1,
+          "edge_max": 1.000000886420244,
+          "edge_min": 0.9999992133392395,
+          "edge_p99": 1.0,
+          "area_min": 0.9999992859165561,
+          "area_max": 1.0000017225452227,
+          "area_p01": 1.0,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 6,
+          "edge_max": 1.1509003434037897,
+          "edge_min": 0.9026066614801258,
+          "edge_p99": 1.0828873398984389,
+          "area_min": 0.909248304759396,
+          "area_max": 1.1414244990870253,
+          "area_p01": 0.9382636991119412,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 12,
+          "edge_max": 1.3607112234173366,
+          "edge_min": 0.7829881489165216,
+          "edge_p99": 1.1976997619939898,
+          "area_min": 0.789979872024861,
+          "area_max": 1.332704267730262,
+          "area_p01": 0.8600831586723507,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 18,
+          "edge_max": 1.032976623240071,
+          "edge_min": 0.972406828365544,
+          "edge_p99": 1.0189944745460229,
+          "area_min": 0.9727859158512866,
+          "area_max": 1.0324917792793171,
+          "area_p01": 0.9830911800405865,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 21,
+          "edge_max": 1.201355686866558,
+          "edge_min": 0.8090064882342523,
+          "edge_p99": 1.083611923878766,
+          "area_min": 0.813696747821937,
+          "area_max": 1.1851886432422631,
+          "area_p01": 0.8646666751576878,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 24,
+          "edge_max": 1.2863801161078199,
+          "edge_min": 0.7366926276620719,
+          "edge_p99": 1.1226616251196977,
+          "area_min": 0.7431274815436743,
+          "area_max": 1.2593209650037145,
+          "area_p01": 0.8010772877192366,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        }
+      ]
+    },
+    {
+      "label": "mesh_cotangent_power_1.75",
+      "score": 1.7706198864578657,
+      "frames": [
+        {
+          "frame": 1,
+          "edge_max": 1.000000886420244,
+          "edge_min": 0.999999258117215,
+          "edge_p99": 1.0,
+          "area_min": 0.9999992558884357,
+          "area_max": 1.0000017225452227,
+          "area_p01": 1.0,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 6,
+          "edge_max": 1.1706923954835233,
+          "edge_min": 0.8909794376495935,
+          "edge_p99": 1.0889444709362346,
+          "area_min": 0.8944760607607993,
+          "area_max": 1.1650801216834252,
+          "area_p01": 0.9340777084320554,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 12,
+          "edge_max": 1.4089034074304438,
+          "edge_min": 0.7584142064746168,
+          "edge_p99": 1.2109673452690575,
+          "area_min": 0.7557849388658285,
+          "area_max": 1.388680020486532,
+          "area_p01": 0.850018937875136,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 18,
+          "edge_max": 1.0384961132789354,
+          "edge_min": 0.9687563876086637,
+          "edge_p99": 1.0200709283055218,
+          "area_min": 0.9689617999682691,
+          "area_max": 1.037875857661121,
+          "area_p01": 0.9809335015240416,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 21,
+          "edge_max": 1.2280411036658487,
+          "edge_min": 0.7776376436274192,
+          "edge_p99": 1.0885908060046496,
+          "area_min": 0.781424556215829,
+          "area_max": 1.2160106927040755,
+          "area_p01": 0.8478207751793434,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 24,
+          "edge_max": 1.323810788586403,
+          "edge_min": 0.6932083751468974,
+          "edge_p99": 1.1315809466434155,
+          "area_min": 0.6985696008104817,
+          "area_max": 1.3021391764263637,
+          "area_p01": 0.7762245625243301,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        }
+      ]
+    },
+    {
+      "label": "mesh_cotangent_power_2.0",
+      "score": 1.8787454971206405,
+      "frames": [
+        {
+          "frame": 1,
+          "edge_max": 1.000000886420244,
+          "edge_min": 0.9999992426975275,
+          "edge_p99": 1.0,
+          "area_min": 0.9999992383965015,
+          "area_max": 1.0000017225452227,
+          "area_p01": 1.0,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 6,
+          "edge_max": 1.1927194211103989,
+          "edge_min": 0.8808979897849402,
+          "edge_p99": 1.093403183627251,
+          "area_min": 0.8803991591729099,
+          "area_max": 1.188270728454979,
+          "area_p01": 0.929212702717314,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 12,
+          "edge_max": 1.462436844804241,
+          "edge_min": 0.7373894235810359,
+          "edge_p99": 1.2221374181038538,
+          "area_min": 0.7232604175246139,
+          "area_max": 1.443573786823284,
+          "area_p01": 0.8380910716501577,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 18,
+          "edge_max": 1.043912288751448,
+          "edge_min": 0.9642555294431289,
+          "edge_p99": 1.0211061811077338,
+          "area_min": 0.9645462469167698,
+          "area_max": 1.043081514848006,
+          "area_p01": 0.9789233927230839,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 21,
+          "edge_max": 1.2517159276425178,
+          "edge_min": 0.7449135578527697,
+          "edge_p99": 1.0931986343881075,
+          "area_min": 0.7485771388612178,
+          "area_max": 1.2456285022236482,
+          "area_p01": 0.8314404010261611,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        },
+        {
+          "frame": 24,
+          "edge_max": 1.3568039989587648,
+          "edge_min": 0.6481650561013654,
+          "edge_p99": 1.1366109692642636,
+          "area_min": 0.653076123069667,
+          "area_max": 1.3431949469636222,
+          "area_p01": 0.7534125297055964,
+          "edges_over_1_5": 0,
+          "area_below_0_6": 0,
+          "normal_dot_negative": 0
+        }
+      ]
+    }
+  ],
+  "selected": "mesh_cotangent_power_1.25",
+  "selected_frames": [
+    {
+      "frame": 1,
+      "edge_max": 1.000000886420244,
+      "edge_min": 0.9999993060527884,
+      "edge_p99": 1.0,
+      "area_min": 0.9999993607757386,
+      "area_max": 1.0000017225452227,
+      "area_p01": 1.0,
+      "edges_over_1_5": 0,
+      "area_below_0_6": 0,
+      "normal_dot_negative": 0
+    },
+    {
+      "frame": 6,
+      "edge_max": 1.1375437473719365,
+      "edge_min": 0.9158329834624455,
+      "edge_p99": 1.08024404002644,
+      "area_min": 0.9151031746042699,
+      "area_max": 1.1188834526435822,
+      "area_p01": 0.9417666278096559,
+      "edges_over_1_5": 0,
+      "area_below_0_6": 0,
+      "normal_dot_negative": 0
+    },
+    {
+      "frame": 12,
+      "edge_max": 1.3283835768434116,
+      "edge_min": 0.8112893413534797,
+      "edge_p99": 1.1897410691367936,
+      "area_min": 0.8161107366589,
+      "area_max": 1.2798585730235144,
+      "area_p01": 0.8696983537640023,
+      "edges_over_1_5": 0,
+      "area_below_0_6": 0,
+      "normal_dot_negative": 0
+    },
+    {
+      "frame": 18,
+      "edge_max": 1.027353446302123,
+      "edge_min": 0.9747529099057655,
+      "edge_p99": 1.0182544400730262,
+      "area_min": 0.9749125947938353,
+      "area_max": 1.0272326200077153,
+      "area_p01": 0.9845524834518244,
+      "edges_over_1_5": 0,
+      "area_below_0_6": 0,
+      "normal_dot_negative": 0
+    },
+    {
+      "frame": 21,
+      "edge_max": 1.171773352653384,
+      "edge_min": 0.8307205604504779,
+      "edge_p99": 1.082798391478349,
+      "area_min": 0.8259009921356542,
+      "area_max": 1.1589648313703558,
+      "area_p01": 0.8719678227706408,
+      "edges_over_1_5": 0,
+      "area_below_0_6": 0,
+      "normal_dot_negative": 0
+    },
+    {
+      "frame": 24,
+      "edge_max": 1.2446445873550895,
+      "edge_min": 0.7547540608647211,
+      "edge_p99": 1.1231023686926043,
+      "area_min": 0.7594524712711249,
+      "area_max": 1.225046206274726,
+      "area_p01": 0.8139056693493103,
+      "edges_over_1_5": 0,
+      "area_below_0_6": 0,
+      "normal_dot_negative": 0
+    }
+  ],
+  "vertex_count": 27724,
+  "moved_vertices": 3711,
+  "max_displacement": 0.004000059973439367,
+  "mean_moved_displacement": 0.0017663307213487143,
+  "permitted_vertex_count": 3711,
+  "protected_outside_patch_exact": true,
+  "changed_weight_vertices": 5989,
+  "rig_pivots_angles_keyframes_unchanged": true,
+  "rest_relaxation_guards": [
+    {
+      "iteration": 0,
+      "backtracks": 4,
+      "min_area_ratio": 0.7720185179427419,
+      "max_area_ratio": 1.4719344757381494,
+      "min_normal_cosine": 0.995271796347082
+    },
+    {
+      "iteration": 1,
+      "backtracks": 7,
+      "min_area_ratio": 0.750335345570972,
+      "max_area_ratio": 1.4990415008489377,
+      "min_normal_cosine": 0.9950011001823423
+    },
+    {
+      "iteration": 2,
+      "backtracks": 13,
+      "min_area_ratio": 0.7500433186324492,
+      "max_area_ratio": 1.499921186007464,
+      "min_normal_cosine": 0.9950005285905633
+    },
+    {
+      "iteration": 3,
+      "backtracks": 14,
+      "min_area_ratio": 0.75000219295549,
+      "max_area_ratio": 1.4999875119636277,
+      "min_normal_cosine": 0.9950002515700482
+    }
+  ],
+  "cotangent_solve_iterations": [
+    229,
+    235
+  ],
+  "file": "verification/S_ZERO_R7_HIP_TRIAL_B.blend",
+  "sha256": "b3c4fbb83ddccbc7fb4509a562f264367a221525a97bd571aba48ccd48466e82"
+}
