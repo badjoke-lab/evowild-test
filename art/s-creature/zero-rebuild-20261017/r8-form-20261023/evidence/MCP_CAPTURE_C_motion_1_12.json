@@ -1,0 +1,226 @@
+[
+  {
+    "time": 1.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T01.00_SIDE.png",
+    "sha256": "6332ac2ac0921a36d7f750f632ee4958a021ff9699a1f18ee4a9d587a54ccda0"
+  },
+  {
+    "time": 1.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T01.50_SIDE.png",
+    "sha256": "5e1f5903e67ba2ccad06e003f48119d1c8c268dc3ff4e01c1cd5b627f03cc054"
+  },
+  {
+    "time": 1.0,
+    "view": "REAR34",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T01.00_REAR34.png",
+    "sha256": "6fbcec1cc8b2c6517bdac91de02c931f932f3b53076efaf4dd448fa57929655f"
+  },
+  {
+    "time": 1.0,
+    "view": "BACK",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T01.00_BACK.png",
+    "sha256": "4262021adbaf8531e1108a20deb71cea8ac73382297fdb1b443a637d33d3a3d7"
+  },
+  {
+    "time": 2.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T02.00_SIDE.png",
+    "sha256": "ec247afaf3b522f0bf4e7ed510f1539326989a184da92a11a398f219f10ee5ad"
+  },
+  {
+    "time": 2.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T02.50_SIDE.png",
+    "sha256": "f238999405844718ee981a5c8e68f0285df122e5b1fc03b8836322a8b653fd98"
+  },
+  {
+    "time": 3.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T03.00_SIDE.png",
+    "sha256": "87c4764cd2310ec95dd436df0a64faefa3d33b4f42fe5639e54778e033a024c2"
+  },
+  {
+    "time": 3.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T03.50_SIDE.png",
+    "sha256": "3a968a475c0fc355f59a60cfa6c10c9da5f9e84a2f2ed288da0744b69fd9b220"
+  },
+  {
+    "time": 4.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T04.00_SIDE.png",
+    "sha256": "a9f29e987f9c5dae19d29e20e48bb1ef0cf9b1b3d280ef78dd42c8936af24cc7"
+  },
+  {
+    "time": 4.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T04.50_SIDE.png",
+    "sha256": "fec4ab24fb97fdbb2a9e61276044afce9ec8f657a6793ffe80bb43f8b78c05e8"
+  },
+  {
+    "time": 5.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T05.00_SIDE.png",
+    "sha256": "66b81c192adcfd6b47b9b4e87fba6640020034c5973626805e3f5fef75249271"
+  },
+  {
+    "time": 5.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T05.50_SIDE.png",
+    "sha256": "f9899a4d31715d10e1771f1600be36c6b23cc415ca94a3262ca615a0123a4afe"
+  },
+  {
+    "time": 6.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T06.00_SIDE.png",
+    "sha256": "0c4360380b17ae4a04e977411c1aaed36301a3e33d8b5471f1f65959e01acc98"
+  },
+  {
+    "time": 6.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T06.50_SIDE.png",
+    "sha256": "7c821caba9a8174a458fa096e5bb40a041b3c3ead030baa5b31061147cdb9d76"
+  },
+  {
+    "time": 7.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T07.00_SIDE.png",
+    "sha256": "bf4d50df24a0ba9a421a56abbea4a443ba03320cc944e5e4500ded0218d6396c"
+  },
+  {
+    "time": 7.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T07.50_SIDE.png",
+    "sha256": "e5a2dc1eed284ef08c72bd47c935a3aad404bf1e593280914e344fd029b7dab3"
+  },
+  {
+    "time": 8.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T08.00_SIDE.png",
+    "sha256": "7b9317eb9d55f4ec61992db760cc9c538ab36151c29f9272a12dfc8653858d85"
+  },
+  {
+    "time": 8.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T08.50_SIDE.png",
+    "sha256": "e60f61af2d16f7ee3be3369ea0255d279d63f973ca5962f76f58cca998bc9365"
+  },
+  {
+    "time": 9.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T09.00_SIDE.png",
+    "sha256": "2fa1930701000cc41cc6774cb2a370282ce8203f8aa968f5bec750146fb22bee"
+  },
+  {
+    "time": 9.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T09.50_SIDE.png",
+    "sha256": "eec203eda4752b6d94e8c4017a70767597527654a83cafced4f664114e234db0"
+  },
+  {
+    "time": 10.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T10.00_SIDE.png",
+    "sha256": "b9dc0e6b39cc4ed8bad0f6161a27be063032e2d9098008e636a144f35da03b4d"
+  },
+  {
+    "time": 10.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T10.50_SIDE.png",
+    "sha256": "40890c8b3a946eefe934840db0bb563f249703c414525bd4e1ccdc59220bcf8e"
+  },
+  {
+    "time": 11.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T11.00_SIDE.png",
+    "sha256": "4afac9732944d420f015c799767015c5ded377f1e36d6d6787b6e831ceed0d9c"
+  },
+  {
+    "time": 11.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T11.50_SIDE.png",
+    "sha256": "1f7450aec5d4a0e9acbaa5e3fdfa427c8ca7745567dd9d353bbf1d582b46d07c"
+  },
+  {
+    "time": 12.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T12.00_SIDE.png",
+    "sha256": "406f26ee0b01ca2d87c810fda4ee7b86f3353c905be72e637a73a2be7bab4db1"
+  },
+  {
+    "time": 12.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T12.50_SIDE.png",
+    "sha256": "520cb37cdc3af1001e6c2f416d968fc7c005f712eb476ecb891905e297d7f1b9"
+  },
+  {
+    "time": 12.0,
+    "view": "REAR34",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T12.00_REAR34.png",
+    "sha256": "02152adc0891b1c1b0a58fad50ff4f06672e27718c13c17359c8b9bd7bacfd36"
+  },
+  {
+    "time": 12.0,
+    "view": "BACK",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T12.00_BACK.png",
+    "sha256": "b6c9739a947bcf9a0f4989098c5085ad8ba02339463b44c2eabdd6787a966e8a"
+  }
+]

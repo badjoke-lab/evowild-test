@@ -1,0 +1,44 @@
+{
+  "reason": "Preserve R7 inner hip rim exactly (abs(y)<=0.23); smooth transition to external form edit. Removes the 0.0038 rearward edge regression in initial C.",
+  "static_area_min": 0.8484850562496629,
+  "static_normal_cos_min": 0.9806321467332634,
+  "max_displacement": 0.028926030152770094,
+  "vertices_moved": 2883,
+  "frames": [
+    {
+      "frame": 1,
+      "edge_max": 1.0000009173535527,
+      "area_min": 0.9999993607757386,
+      "area_max": 1.0000017225452227,
+      "negative_normals": 0
+    },
+    {
+      "frame": 6,
+      "edge_max": 1.1375437473719365,
+      "area_min": 0.9162125270057891,
+      "area_max": 1.1201059353007181,
+      "negative_normals": 0
+    },
+    {
+      "frame": 12,
+      "edge_max": 1.3283835768434116,
+      "area_min": 0.8187579074691214,
+      "area_max": 1.282811609925187,
+      "negative_normals": 0
+    },
+    {
+      "frame": 18,
+      "edge_max": 1.027353446302123,
+      "area_min": 0.9749125947938353,
+      "area_max": 1.0272326200077153,
+      "negative_normals": 0
+    },
+    {
+      "frame": 24,
+      "edge_max": 1.2446445873550895,
+      "area_min": 0.7606797550403543,
+      "area_max": 1.2268667069637569,
+      "negative_normals": 0
+    }
+  ]
+}

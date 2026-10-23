@@ -1,0 +1,26 @@
+[
+  {
+    "time": 24.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T24.00_SIDE.png",
+    "sha256": "313be47e505d68266bb235c3c90ccd3ebdb45811119db3fa6f7802b563886b5a"
+  },
+  {
+    "time": 24.0,
+    "view": "REAR34",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T24.00_REAR34.png",
+    "sha256": "9d8a81df902bced02dbb81edc45f59def08fd70768fc2b451532d56ee8ced62e"
+  },
+  {
+    "time": 24.0,
+    "view": "BACK",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8C_HIP_T24.00_BACK.png",
+    "sha256": "7991d2c40cbc85ffcc6cb9f5ec7eb7f41cf3dc40251bfa4a6e8fae51d4a192c1"
+  }
+]

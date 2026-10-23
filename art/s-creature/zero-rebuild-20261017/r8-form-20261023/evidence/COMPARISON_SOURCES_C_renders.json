@@ -1,0 +1,50 @@
+{
+  "method": "Source pixels only; proportional resize, crop, placement and labels. No generative or deformation edits.",
+  "reference_crop_pelvis": [
+    400,
+    188,
+    655,
+    414
+  ],
+  "reference_crop_side": [
+    14,
+    70,
+    755,
+    511
+  ],
+  "sources": {
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R7_static/F01_SIDE.png": "6617625ed81663f50b18aa4956e4b2741054fa7ae2ee01e11371fee5e19abf72",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R7_static/F01_FRONT.png": "8ffa9c849f58c1b891d04f47171ec396b3a4e78bb33b2f28a34fd1a0d31320e0",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R7_static/F01_FRONT34.png": "d3578181f742302da4979385706ef02e085873d77e0cf6838415e7c46c4baefc",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R7_static/F01_REAR34.png": "39173dc370aaf82ed01789e1f190fd9a5f7164d83e1d50b487efef214ae00b50",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R7_static/F01_BACK.png": "18f9daa393b496485b7fdef598d49231d73ce6a34e2ca9f5d9fb0c1ec05098dd",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R8C_static/F01_SIDE.png": "e0034a1ffeb79880538e2a2f45d4bcb94c6a144cbcd0b18d4b6d7662257df45a",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R8C_static/F01_FRONT.png": "88d303080e17d9c896e1f93c9b1340845f187fc736ec80a0814e272703425fc3",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R8C_static/F01_FRONT34.png": "e4213091b565e4510472381467731548ace64368bccda3cae9e25e6fb0b0f2c5",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R8C_static/F01_REAR34.png": "b03355e90d996808038adf7a0bbe6725c8b9e4b5cefa7cd4192e04b79f1cf1f9",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R8C_static/F01_BACK.png": "648a26523b16e8b0efd885d6d46a93b7f23ad5619d8b88225e121ea3cea62bf1",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R7_hip/F01_SIDE_HIP.png": "07d73c9d4c13e085e26051fde132d907f999733ddc302352c26b8e8d85b8a2b5",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R7_hip/F06_SIDE_HIP.png": "10cfcbf47f46519d08926ca7b564e967a6764b6ad27da1c7be82f147ac8c2200",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R7_hip/F12_SIDE_HIP.png": "97c9aa1e2b826fe79fc5ffff81e688bbfc81442391a9180ad5ac1269e49afc3f",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R7_hip/F18_SIDE_HIP.png": "ea4999d69bae7d1facd4be6d69da0e0ec3720ce0fdefba931a62886da7112d9f",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R7_hip/F24_SIDE_HIP.png": "c6c7f12760afd6e5de09f3e48b19e65f28bd1ff11b90a3889358de998a9d7b95",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R8C_hip/F01_SIDE_HIP.png": "8d009d2e0b97c0890b026ba42897ba519c245ca1b4b93bf087b33ad9d437dbc7",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R8C_hip/F06_SIDE_HIP.png": "e70142f9a8ebf0d474ef17798ba05f71228454dee984abee469bc681ab229221",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R8C_hip/F12_SIDE_HIP.png": "3a6e6960c2b5e0534d6addf5c53ced2efbae1c05ff9b24386361c35d53f2526e",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R8C_hip/F18_SIDE_HIP.png": "f3205d1b08f05c63db303abac67517e71ee420238a98796d01c837ffa3e9c7e1",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R8C_hip/F24_SIDE_HIP.png": "edbb58ada5ede0c00bcf648405217815b9e135cd6505fcfc0a908a477dcc62df",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R7_hip/F01_REAR34_HIP.png": "a83f6ef793882daa27d8facfba23afbd40a94666a2ab73bf13e37dd55e981f4b",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R7_hip/F12_REAR34_HIP.png": "d65f5e758535d095374cc0c1172093b1b1dfdcb3a1f3e1667f63c31a060f367a",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R7_hip/F24_REAR34_HIP.png": "2611ce61b4e5f3f5550d3e3edf0452996e95e7ccdfbcc8024a0ed73cc8a8d1b8",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R7_hip/F01_BACK_HIP.png": "c0a2771eb4bcea03a9a31a176cf63aa028b52462b2a94439f7554154a2d0a9aa",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R7_hip/F12_BACK_HIP.png": "1c5806e2b7181cd9a2ca5afdbbf8301ac2d71c88808fc53515d22d5fca15dc34",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R7_hip/F24_BACK_HIP.png": "5bbbe5d0fe311ae4da84b273577288979be4d825311a46a202915d647b59768a",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R8C_hip/F01_REAR34_HIP.png": "fb9fd22da01a5ee0ff3aa3a7a6692bf46d211b42cf4f0c04bf31dd7c12443f2e",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R8C_hip/F12_REAR34_HIP.png": "98f8acc5d1b435ec9a1aae90e2c1089cf0e0fdf08f84041650104f6e93289e33",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R8C_hip/F24_REAR34_HIP.png": "6d8322a2f85cf8e7b6e0ab6ac05224532f68b4d7a306f82579f52951310c5662",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R8C_hip/F01_BACK_HIP.png": "1c590b46cc4b1d382867da47a35edc3dec29e3880ba12d43da9798907e333c8c",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R8C_hip/F12_BACK_HIP.png": "40a20cadc86432be0567ed56a22472b81955c0f636c1e9b583144e7bd0d25ed7",
+    "art/s-creature/zero-rebuild-20261017/r8-form-20261023/renders/R8C_hip/F24_BACK_HIP.png": "46f60decf029dd4d57b8d273d909deed8ee3b6c4c29fed4143b20fd65b942c45",
+    "art/s-creature/references/00_s_type_modeling_image_v1.png": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6"
+  }
+}

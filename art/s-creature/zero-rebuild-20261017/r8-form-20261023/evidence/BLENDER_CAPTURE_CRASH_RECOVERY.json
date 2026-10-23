@@ -1,0 +1,29 @@
+{
+  "exception": {
+    "codes": "0x0000000000000000, 0x0000000000000000",
+    "rawCodes": [
+      0,
+      0
+    ],
+    "type": "EXC_CRASH",
+    "signal": "SIGSEGV"
+  },
+  "termination": {
+    "flags": 0,
+    "code": 11,
+    "namespace": "SIGNAL",
+    "indicator": "Segmentation fault: 11",
+    "byProc": "Blender",
+    "byPid": 698
+  },
+  "faulting_symbols": [
+    "semaphore_wait_trap",
+    "_dispatch_sema4_wait",
+    "_dispatch_semaphore_wait_slow",
+    "IlmThread_3_2::(anonymous namespace)::DefaultThreadPoolProvider::threadLoop(std::__1::shared_ptr<IlmThread_3_2::(anonymous namespace)::DefaultThreadPoolData>)",
+    "void* std::__1::__thread_proxy[abi:ue170006]<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct>>, void (IlmThread_3_2::(anonymous namespace)::DefaultThreadPoolProvider::*)(std::__1::shared_ptr<IlmThread_3_2::(anonymous namespace)::DefaultThreadPoolData>), IlmThread_3_2::(anonymous namespace)::DefaultThreadPoolProvider*, std::__1::shared_ptr<IlmThread_3_2::(anonymous namespace)::DefaultThreadPoolData>>>(void*)",
+    "_pthread_start",
+    "thread_start"
+  ],
+  "recovery": "Restart Blender with saved C trial and start installed MCP server for this session only. No preference/configuration changes."
+}

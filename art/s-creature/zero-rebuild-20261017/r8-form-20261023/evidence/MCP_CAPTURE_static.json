@@ -1,0 +1,37 @@
+[
+  {
+    "time": 1,
+    "view": "SIDE",
+    "detail": false,
+    "file": "viewport/R8_STATIC_SIDE.png",
+    "sha256": "22c52b172b3b0a26b9950aa74cbd945918eeb064604525d7d20929b7de180557"
+  },
+  {
+    "time": 1,
+    "view": "FRONT",
+    "detail": false,
+    "file": "viewport/R8_STATIC_FRONT.png",
+    "sha256": "9dc46e7cd42a01a6b8a145fbff643a17c52a4c88fdc8de7c7a8e8f3a3860ed5e"
+  },
+  {
+    "time": 1,
+    "view": "FRONT34",
+    "detail": false,
+    "file": "viewport/R8_STATIC_FRONT34.png",
+    "sha256": "1157f3d69d640f3bc970e1b5600efe52ce1a383e1fe352fd25227458795e8359"
+  },
+  {
+    "time": 1,
+    "view": "REAR34",
+    "detail": false,
+    "file": "viewport/R8_STATIC_REAR34.png",
+    "sha256": "9b63d1f918608909ad19b4b94b70e8e4c3d91cd228eb47afccc865dd7fc76e88"
+  },
+  {
+    "time": 1,
+    "view": "BACK",
+    "detail": false,
+    "file": "viewport/R8_STATIC_BACK.png",
+    "sha256": "984ae227baf86d2cb394ab7c6467c99e1bf0bb6917ddc4305c97a6b84f1a4ba7"
+  }
+]

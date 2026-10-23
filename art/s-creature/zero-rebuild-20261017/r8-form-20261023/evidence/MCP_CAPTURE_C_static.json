@@ -1,0 +1,42 @@
+[
+  {
+    "time": 1,
+    "view": "SIDE",
+    "detail": false,
+    "shading": "SOLID",
+    "file": "viewport/R8C_STATIC_SIDE.png",
+    "sha256": "d955915d234cbfd262228994ef85c54928876f0860e129b492ea898c39798cf8"
+  },
+  {
+    "time": 1,
+    "view": "FRONT",
+    "detail": false,
+    "shading": "SOLID",
+    "file": "viewport/R8C_STATIC_FRONT.png",
+    "sha256": "d528698c572fb528168e2185fbf6fb6a313894f5a0019552a5a3b56203fab5c0"
+  },
+  {
+    "time": 1,
+    "view": "FRONT34",
+    "detail": false,
+    "shading": "SOLID",
+    "file": "viewport/R8C_STATIC_FRONT34.png",
+    "sha256": "71072543c046c023b31c151b7b0d9db5c70b40e18248caa4cb7da38cef86fe03"
+  },
+  {
+    "time": 1,
+    "view": "REAR34",
+    "detail": false,
+    "shading": "SOLID",
+    "file": "viewport/R8C_STATIC_REAR34.png",
+    "sha256": "d232218db6278ab24ed836bd504d5e69183e3b9e751c774138514919685039dc"
+  },
+  {
+    "time": 1,
+    "view": "BACK",
+    "detail": false,
+    "shading": "SOLID",
+    "file": "viewport/R8C_STATIC_BACK.png",
+    "sha256": "f9dd3a6032e0463a9ef62079b551259bde21dcbfdff8802589bc98981b3f64aa"
+  }
+]

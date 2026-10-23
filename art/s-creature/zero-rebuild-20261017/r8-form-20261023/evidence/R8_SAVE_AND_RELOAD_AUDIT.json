@@ -1,0 +1,24 @@
+{
+  "blender": "4.3.2",
+  "source_trial_sha256": "04aaa9fe9d3e92ae07312bde69e4a145cf8c14a36b66ba979115e0738313f37b",
+  "static": {
+    "file": "S_ZERO_CANDIDATE_REVISED_R8.blend",
+    "sha256": "b23aad910bc3609855bd12de02966ec202643181d1d44a0ad9998a68e7d22607",
+    "bytes": 1610670
+  },
+  "rig": {
+    "file": "verification/S_ZERO_R8_HIP_DEFORMATION_VERIFIED.blend",
+    "sha256": "4f34377196b259c3736d0a568167ce54d55adce0e9042ebe214745245a33eaab",
+    "bytes": 1774503
+  },
+  "static_matches_rig_rest_geometry_materials_colors": true,
+  "saved_static_reloaded_exact": true,
+  "protected_other_meshes_exact": 140,
+  "static_armatures": 0,
+  "static_actions": 0,
+  "static_vertex_groups": 0,
+  "static_armature_modifiers": 0,
+  "static_decision": "REVISE: sharper anatomical boundary and modest real taper; broad planes and global reference silhouette remain incomplete.",
+  "deformation_decision": "Improved minima with preserved R7 peak strain across 93 samples; REVISE. Hip test only.",
+  "production_decision": "No KEEP. No runtime integration."
+}

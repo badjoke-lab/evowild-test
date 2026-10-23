@@ -1,0 +1,226 @@
+[
+  {
+    "time": 1.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T01.00_SIDE.png",
+    "sha256": "a1a0fc31d6e52d3c7944ee21fcbc3dfc59cc50d14c7f5c4bbb0d30fc0306d954"
+  },
+  {
+    "time": 1.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T01.50_SIDE.png",
+    "sha256": "4018aee60db6b7a4f8ca68c97f70b8614d30345e8311822a5012cd16adb65718"
+  },
+  {
+    "time": 1.0,
+    "view": "REAR34",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T01.00_REAR34.png",
+    "sha256": "983358b3f6ad8b7b39afc820c203169dfc0a8ca459732ff6a2310e7d246db833"
+  },
+  {
+    "time": 1.0,
+    "view": "BACK",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T01.00_BACK.png",
+    "sha256": "2515c99db7e5f6c1066308bd54bccadb2bd2598526624ca3def997c7be36de17"
+  },
+  {
+    "time": 2.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T02.00_SIDE.png",
+    "sha256": "0a15a1d2c68743ca70b357000bcedbad70d0eef3586ded5cefab52b9b2da0631"
+  },
+  {
+    "time": 2.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T02.50_SIDE.png",
+    "sha256": "ca714bac39092807cac27e1df98c0399846e9171a96bd592e52a496adec113dd"
+  },
+  {
+    "time": 3.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T03.00_SIDE.png",
+    "sha256": "f686db1237ed923a8685382b230a875f8496c107bb8bf12ac03fcc0d2a723226"
+  },
+  {
+    "time": 3.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T03.50_SIDE.png",
+    "sha256": "4bc9d320e661d045cbc5e9686eec47231c459bee7f2e187beb01382a14d86317"
+  },
+  {
+    "time": 4.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T04.00_SIDE.png",
+    "sha256": "d6b5187ca66f41d5be8f0570654bd7d2fd5484841b3808f6a0cbf4e9dd71065d"
+  },
+  {
+    "time": 4.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T04.50_SIDE.png",
+    "sha256": "6f327d211be669aece69d0abc7fcfe26fffc9093e04c491bdb5ee144938702a1"
+  },
+  {
+    "time": 5.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T05.00_SIDE.png",
+    "sha256": "5d49914b513dad8ff4eb8f34ddff6d35efd89fde3fd1123b62dfacbb164c84cf"
+  },
+  {
+    "time": 5.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T05.50_SIDE.png",
+    "sha256": "d85920e66d4ebc6d7c23f4b0b4879e10c79d270665563ca4758e9e85980c42b3"
+  },
+  {
+    "time": 6.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T06.00_SIDE.png",
+    "sha256": "617f2baf4b00a88e33feb2333a8c9a45f6524eedb9e849627047a026b5b3d2b8"
+  },
+  {
+    "time": 6.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T06.50_SIDE.png",
+    "sha256": "c77a3e2925954626efe0d9f1dd9db9b7aee3b220fe996a056209e0d774a39962"
+  },
+  {
+    "time": 7.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T07.00_SIDE.png",
+    "sha256": "f71d44fc0d157bca21bc031c2013765e8af3b453411189b05ebba33f677afed5"
+  },
+  {
+    "time": 7.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T07.50_SIDE.png",
+    "sha256": "6b830edd8748ecc3c9f93237403c21d0120f7241b44712ef967105ba07081de2"
+  },
+  {
+    "time": 8.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T08.00_SIDE.png",
+    "sha256": "83761bacb5ff2b12d4db236cf6ca468576696e45165c76703ca8f94b340c1d2e"
+  },
+  {
+    "time": 8.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T08.50_SIDE.png",
+    "sha256": "249338c9ce76f70fe2c6293ab5a433ad0ff27f8282efa71faa087864ad252742"
+  },
+  {
+    "time": 9.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T09.00_SIDE.png",
+    "sha256": "973e350b0d76b9e990cc42ace7de29a4777d7e2e7580049ecfe112669e3a0c77"
+  },
+  {
+    "time": 9.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T09.50_SIDE.png",
+    "sha256": "ac33142b5f202a56497e12587a4c52df276986003043593744987685709190cd"
+  },
+  {
+    "time": 10.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T10.00_SIDE.png",
+    "sha256": "fd164fd66c1785ef3bb5b4a49e48ed02f80cb9d525c9994f6e4aac8525964a71"
+  },
+  {
+    "time": 10.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T10.50_SIDE.png",
+    "sha256": "d1a3fc2b0bfc437a073cfc079d357010c5ecc010c12f992e2530986d12ab8016"
+  },
+  {
+    "time": 11.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T11.00_SIDE.png",
+    "sha256": "b69f1476c4298dbfe3506dd59896012e624ad6adbc33f9a6550a1f90ffb7df4a"
+  },
+  {
+    "time": 11.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T11.50_SIDE.png",
+    "sha256": "a6a629ec16558b863b3452807753c459404b7f875ff26c08076c38cf49b61019"
+  },
+  {
+    "time": 12.0,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T12.00_SIDE.png",
+    "sha256": "0191c4542f9f0a1089c82ad839a6ed77d5a55d014fe3767bea9df7afeb8da44b"
+  },
+  {
+    "time": 12.5,
+    "view": "SIDE",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T12.50_SIDE.png",
+    "sha256": "9feca96aa34deb6c63a70a8bc8b6ed141b74912e87610261bec91ca32a12a383"
+  },
+  {
+    "time": 12.0,
+    "view": "REAR34",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T12.00_REAR34.png",
+    "sha256": "7f9bb230e3d9d2ec7b25df6e60eb6f297f8076c06222d810f045185df4194469"
+  },
+  {
+    "time": 12.0,
+    "view": "BACK",
+    "detail": true,
+    "shading": "SOLID",
+    "file": "viewport/R8_HIP_T12.00_BACK.png",
+    "sha256": "a88d77eebe2c757cd2345f247d210a8f08b9d104ccc8947018cf0785768fd777"
+  }
+]

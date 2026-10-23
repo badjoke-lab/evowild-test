@@ -1,0 +1,56 @@
+{
+  "operation": "Smooth anatomical displacement of existing R7 vertices. No rings with hard attenuation edges, no remesh.",
+  "supersedes": "B form has visible high-frequency dimples in SOLID viewport; do not select it as the next modeling base.",
+  "guard": [
+    {
+      "iteration": 0,
+      "bad_faces": 0,
+      "area_min": 0.851035575546588,
+      "area_max": 1.0324911469327933,
+      "normal_cos_min": 0.9805195931066351
+    }
+  ],
+  "moved_vertices": 4656,
+  "max_displacement": 0.028926030152770094,
+  "static_area_min": 0.851035575546588,
+  "static_normal_cos_min": 0.9805195931066351,
+  "static_negative_normals": 0,
+  "frames": [
+    {
+      "frame": 1,
+      "edge_max": 1.0000010238132042,
+      "area_min": 0.9999992685514392,
+      "area_max": 1.0000017225452227,
+      "negative_normal_count": 0
+    },
+    {
+      "frame": 6,
+      "edge_max": 1.1375437473719365,
+      "area_min": 0.9200823344086296,
+      "area_max": 1.1177952999973368,
+      "negative_normal_count": 0
+    },
+    {
+      "frame": 12,
+      "edge_max": 1.3283835768434116,
+      "area_min": 0.8247887121367962,
+      "area_max": 1.2773785733802963,
+      "negative_normal_count": 0
+    },
+    {
+      "frame": 18,
+      "edge_max": 1.027353446302123,
+      "area_min": 0.9750876034423358,
+      "area_max": 1.0272326200077153,
+      "negative_normal_count": 0
+    },
+    {
+      "frame": 24,
+      "edge_max": 1.24846253694926,
+      "area_min": 0.7670504303180509,
+      "area_max": 1.2193681782144241,
+      "negative_normal_count": 0
+    }
+  ],
+  "status": "UNSAVED C; visual review required"
+}
