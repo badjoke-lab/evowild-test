@@ -1,0 +1,11 @@
+{
+  "utc": "2026-10-23T11:46:25.024543+00:00",
+  "event": "Preview render launched after attribute-handle failure, using inherited render filepath. One older comparison image was overwritten temporarily.",
+  "path": "art/s-creature/zero-rebuild-20261017/evidence/REFINED_VIEWPORT_FRONT34.png",
+  "restored_from_commit": "0ba8361d3c466837ac818c6e1f6e2fa901b22b95",
+  "restored_sha256": "e54465dfaf15602a147aa0388bcf6fd9c1df29435b5bc9c7c0ce9f6b333e4e5f",
+  "mistaken_render_retained_as": "art/s-creature/zero-rebuild-20261017/r8-form-20261023/evidence/FAILED_PREVIEW_OLD_PATH.png",
+  "original_byte_identity_restored": true,
+  "cause": "New mesh color attribute invalidated earlier RNA handle; dependent render incorrectly proceeded.",
+  "correction": "Re-fetch attribute after allocation; check code result before render; guard every render destination explicitly."
+}

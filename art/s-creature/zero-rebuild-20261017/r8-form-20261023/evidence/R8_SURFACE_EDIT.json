@@ -1,0 +1,8 @@
+{
+  "local_faces": 14838,
+  "white_corners": 13014,
+  "boundary_corners": 620,
+  "method": "Existing R7 pelvis palette mask narrowed; ivory/pearl/slate surface regions follow original thigh axis. No mesh overlay.",
+  "geometry_source": "R8_TRIAL_A_ARRAYS.npz",
+  "status": "UNSAVED visual trial"
+}

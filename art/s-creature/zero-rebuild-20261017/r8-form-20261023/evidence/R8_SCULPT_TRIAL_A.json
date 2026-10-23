@@ -1,0 +1,241 @@
+{
+  "blender": "4.3.2",
+  "source_sha256": "114b43459c480014c30b6f4d0952742e0bd4116b35ddbd145d2f8242de09baf5",
+  "operation": "Direct vertex edits of existing R7 continuous skin in live Blender MCP; no new meshes or generated assets.",
+  "vertices_moved": 4653,
+  "max_displacement": 0.022050010572509826,
+  "unguarded_rejected": {
+    "edge_max": 1.2263445854180133,
+    "edge_min": 0.14503012300348903,
+    "area_min": 0.12764264248514823,
+    "area_max": 1.158428138541285,
+    "normal_cos_min": -0.9503715904468663,
+    "negative_normals": 1
+  },
+  "local_static_guards": [
+    {
+      "iteration": 0,
+      "bad_faces": 1207,
+      "area_min": 0.12764264248514823,
+      "cos_min": -0.9503715904468663
+    },
+    {
+      "iteration": 1,
+      "bad_faces": 888,
+      "area_min": 0.153914685317155,
+      "cos_min": -0.6876176259751535
+    },
+    {
+      "iteration": 2,
+      "bad_faces": 721,
+      "area_min": 0.22334936973475952,
+      "cos_min": -0.0016379682140267575
+    },
+    {
+      "iteration": 3,
+      "bad_faces": 529,
+      "area_min": 0.44168153964871876,
+      "cos_min": 0.20529606279280754
+    },
+    {
+      "iteration": 4,
+      "bad_faces": 263,
+      "area_min": 0.6062219369184563,
+      "cos_min": 0.41554699649340543
+    },
+    {
+      "iteration": 5,
+      "bad_faces": 137,
+      "area_min": 0.541725978139123,
+      "cos_min": 0.4729643987815906
+    },
+    {
+      "iteration": 6,
+      "bad_faces": 126,
+      "area_min": 0.22600097641753886,
+      "cos_min": 0.18029517715038282
+    },
+    {
+      "iteration": 7,
+      "bad_faces": 95,
+      "area_min": 0.44647499866099205,
+      "cos_min": 0.307322984855199
+    },
+    {
+      "iteration": 8,
+      "bad_faces": 76,
+      "area_min": 0.6105215779955224,
+      "cos_min": 0.4629380854965567
+    },
+    {
+      "iteration": 9,
+      "bad_faces": 42,
+      "area_min": 0.6521394087359293,
+      "cos_min": 0.6280537492474902
+    },
+    {
+      "iteration": 10,
+      "bad_faces": 30,
+      "area_min": 0.6521394087359293,
+      "cos_min": 0.3458694580757442
+    },
+    {
+      "iteration": 11,
+      "bad_faces": 35,
+      "area_min": 0.6521394087359293,
+      "cos_min": 0.7004431006509576
+    },
+    {
+      "iteration": 12,
+      "bad_faces": 20,
+      "area_min": 0.6521394087359293,
+      "cos_min": 0.880429452738768
+    },
+    {
+      "iteration": 13,
+      "bad_faces": 12,
+      "area_min": 0.6521394087359293,
+      "cos_min": 0.8956727347511118
+    },
+    {
+      "iteration": 14,
+      "bad_faces": 4,
+      "area_min": 0.6521394087359293,
+      "cos_min": 0.876434747845395
+    },
+    {
+      "iteration": 15,
+      "bad_faces": 3,
+      "area_min": 0.6521394087359293,
+      "cos_min": 0.9124083654444028
+    },
+    {
+      "iteration": 16,
+      "bad_faces": 3,
+      "area_min": 0.6521394087359293,
+      "cos_min": 0.9267070515067688
+    },
+    {
+      "iteration": 17,
+      "bad_faces": 1,
+      "area_min": 0.6521394087359293,
+      "cos_min": 0.9381142892316567
+    },
+    {
+      "iteration": 18,
+      "bad_faces": 1,
+      "area_min": 0.6521394087359293,
+      "cos_min": 0.9352630579252189
+    },
+    {
+      "iteration": 19,
+      "bad_faces": 0,
+      "area_min": 0.6521394087359293,
+      "cos_min": 0.9402213433984241
+    }
+  ],
+  "static_relative_to_R7": {
+    "edge_max": 1.3483068228422386,
+    "edge_min": 0.6710502300043486,
+    "area_min": 0.6521394087359293,
+    "area_max": 1.4830279853671215,
+    "normal_cos_min": 0.9402213433984241,
+    "negative_normals": 0
+  },
+  "R7_frames": [
+    {
+      "frame": 1,
+      "edge_max": 1.000000886420244,
+      "edge_min": 0.9999993060527884,
+      "area_min": 0.9999993607757386,
+      "area_max": 1.0000017225452227,
+      "normal_cos_min": 0.99999999999925,
+      "negative_normals": 0
+    },
+    {
+      "frame": 6,
+      "edge_max": 1.1375437473719365,
+      "edge_min": 0.9158329834624455,
+      "area_min": 0.9151031746042699,
+      "area_max": 1.1188834526435822,
+      "normal_cos_min": 0.954746134452171,
+      "negative_normals": 0
+    },
+    {
+      "frame": 12,
+      "edge_max": 1.3283835768434116,
+      "edge_min": 0.8112893413534797,
+      "area_min": 0.8161107366589,
+      "area_max": 1.2798585730235144,
+      "normal_cos_min": 0.7794875314649796,
+      "negative_normals": 0
+    },
+    {
+      "frame": 18,
+      "edge_max": 1.027353446302123,
+      "edge_min": 0.9747529099057655,
+      "area_min": 0.9749125947938353,
+      "area_max": 1.0272326200077153,
+      "normal_cos_min": 0.9976800220292098,
+      "negative_normals": 0
+    },
+    {
+      "frame": 24,
+      "edge_max": 1.2446445873550895,
+      "edge_min": 0.7547540608647211,
+      "area_min": 0.7594524712711249,
+      "area_max": 1.225046206274726,
+      "normal_cos_min": 0.814236384018877,
+      "negative_normals": 0
+    }
+  ],
+  "trial_frames": [
+    {
+      "frame": 1,
+      "edge_max": 1.0000008920994974,
+      "edge_min": 0.9999993257976073,
+      "area_min": 0.9999993700313606,
+      "area_max": 1.0000017225452227,
+      "normal_cos_min": 0.99999999999925,
+      "negative_normals": 0
+    },
+    {
+      "frame": 6,
+      "edge_max": 1.1375437473719365,
+      "edge_min": 0.9161834502764554,
+      "area_min": 0.9192878367012032,
+      "area_max": 1.125895765719653,
+      "normal_cos_min": 0.9547265338157942,
+      "negative_normals": 0
+    },
+    {
+      "frame": 12,
+      "edge_max": 1.3283835768434116,
+      "edge_min": 0.8113747284366104,
+      "area_min": 0.8217978888896443,
+      "area_max": 1.2947314094936109,
+      "normal_cos_min": 0.7794059265490382,
+      "negative_normals": 0
+    },
+    {
+      "frame": 18,
+      "edge_max": 1.027353446302123,
+      "edge_min": 0.975362844897856,
+      "area_min": 0.9749867949981423,
+      "area_max": 1.0272326200077153,
+      "normal_cos_min": 0.9976842614490935,
+      "negative_normals": 0
+    },
+    {
+      "frame": 24,
+      "edge_max": 1.2417706202055758,
+      "edge_min": 0.7547540608647211,
+      "area_min": 0.7695609777942647,
+      "area_max": 1.2189243518604052,
+      "normal_cos_min": 0.8089949198453872,
+      "negative_normals": 0
+    }
+  ],
+  "weights_rig_animation_unchanged": true,
+  "status": "UNSAVED TRIAL; visual review and full sweep required"
+}
