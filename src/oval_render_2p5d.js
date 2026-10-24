@@ -141,7 +141,7 @@ function drawOvalMinimap(ctx,w,h,racers,focus){
 }
 export function drawOvalRace(opts){
   const {
-    ctx,width,height,elapsed,cameraMeters,racers,focus,framesByMorph,
+    ctx,width,height,elapsed,cameraMeters,racers,focus,raceState,framesByMorph,
     spritePhase,orbDrawer,stage,motionReviewMode=false
   }=opts;
   const cam=ovalChaseCamera(cameraMeters,focus.lane);
@@ -149,9 +149,12 @@ export function drawOvalRace(opts){
   grandstands(ctx,cam,width,height);
   drawOvalTrack(ctx,cam,width,height,cameraMeters);
   const renderable=[];
+  const gridFactor=raceState==="countdown" ? 1 : raceState==="running" ? clamp(1-elapsed/2400,0,1) : 0;
   for(const r of racers){
     if(motionReviewMode && r.id!==focus.id)continue;
-    const p=projectOvalRunner(cam,r.distance,r.lane,width,height);
+    // Preserve physically separated start grid before acceleration.
+    const position=r.distance+(r.startVisualOffset||0)*gridFactor;
+    const p=projectOvalRunner(cam,position,r.lane,width,height);
     if(!p||p.depth>410||p.x<-210||p.x>width+210||p.y<-200||p.y>height+280)continue;
     renderable.push({r,...p});
   }
