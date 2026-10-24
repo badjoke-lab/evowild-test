@@ -52,3 +52,27 @@ test("race screen course picker restarts with real selected distance and surface
   await expect(stage).toHaveAttribute("data-run-sheets","ready",{timeout:15000});
   await expect(stage).toHaveAttribute("data-race-state","running",{timeout:8000});
 });
+
+test("same 18-racer field has different measured finish times across Course surfaces",async({page})=>{
+  async function run(courseId) {
+    await page.goto("/evowild-test/race-quality.html?finishReview=1&course="+courseId,{waitUntil:"networkidle"});
+    const stage=page.locator("#stage");
+    await expect(stage).toHaveAttribute("data-field-size","18");
+    await expect(stage).toHaveAttribute("data-course-id",courseId);
+    await expect(stage).toHaveAttribute("data-run-sheets","ready",{timeout:15000});
+    await expect(stage).toHaveAttribute("data-race-state","finished",{timeout:20000});
+    await expect(stage).toHaveAttribute("data-result-count","18");
+    return {
+      course:await stage.getAttribute("data-result-course"),
+      winnerTime:Number(await stage.getAttribute("data-winner-time")),
+      ranks:await page.locator("#resultList > li").allTextContents()
+    };
+  }
+  const sprint=await run("sprint-800");
+  const heavy=await run("heavy-1200");
+  expect(sprint.course).toBe("sprint-800");
+  expect(heavy.course).toBe("heavy-1200");
+  expect(sprint.ranks).toHaveLength(18);
+  expect(heavy.ranks).toHaveLength(18);
+  expect(Math.abs(sprint.winnerTime-heavy.winnerTime)).toBeGreaterThan(.1);
+});
