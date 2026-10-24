@@ -55,3 +55,16 @@
   .auto-agent-reason,.auto-timeline{font-size:9px}
   .auto-timeline{max-height:50px}
 }
+
+/* Keep tactical alerts off the actual Creature and the corner apex. */
+.stage[data-mode="stadium-agent-isolated-preview"] .battle-readout{
+  left:auto;right:14px;top:clamp(165px,24vh,210px);
+  translate:0 0;
+  max-width:240px;min-width:165px;
+}
+@media(max-width:700px){
+  .stage[data-mode="stadium-agent-isolated-preview"] .battle-readout{
+    right:9px;top:176px;min-width:120px;max-width:45vw;
+    padding:6px 8px;
+  }
+}
