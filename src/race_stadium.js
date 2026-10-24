@@ -52,7 +52,7 @@ const MOTION_REVIEW_FRAME = Math.max(
   Math.min(5, Number(new URLSearchParams(location.search).get("motionFrame") ?? -1))
 );
 const FIELD_SIZE = 18;
-const SELECTED_ID = Math.max(
+let SELECTED_ID = Math.max(
   1,
   Math.min(FIELD_SIZE, Number(new URLSearchParams(location.search).get("selected")) || 1)
 );
@@ -1008,6 +1008,23 @@ function readEditorFile() {
 }
 function installPreRaceAgentUI(){
   if (!agentFields)return;
+  const entry=document.querySelector("#entryRunnerSelect");
+  if(entry){
+    entry.replaceChildren(...racers.map(r=>{
+      const opt=document.createElement("option");
+      opt.value=String(r.id);
+      opt.textContent="#"+String(r.id).padStart(2,"0")+" "+r.name+" · "+r.morph;
+      return opt;
+    }));
+    entry.value=String(SELECTED_ID);
+    entry.addEventListener("change",()=>{
+      SELECTED_ID=clamp(Number(entry.value)||1,1,FIELD_SIZE);
+      agentTargetIndex=SELECTED_ID-1;
+      stage.dataset.entryRunnerId=String(SELECTED_ID);
+      stage.dataset.entryRunnerMorph=selected()?.morph ?? "S";
+      stage.dataset.reviewSelectedId=String(SELECTED_ID);
+    });
+  }
   agentFields.replaceChildren();
   for (const field of AGENT_FIELDS){
     const label=document.createElement("label");
@@ -2046,6 +2063,8 @@ function fixedFrame(now){
   requestAnimationFrame(fixedFrame);
 }
 stage.dataset.manualControls="0";
+stage.dataset.entryRunnerId=String(SELECTED_ID);
+stage.dataset.entryRunnerMorph=selected()?.morph ?? "S";
 stage.dataset.cameraMode=OVAL_CHASE_ENABLED?"oval-three-quarter-follow":"legacy-side";
 stage.dataset.agentMode="autonomous-v1";
 if (new URLSearchParams(location.search).get("autoStart")==="1") startAutonomousRace();
