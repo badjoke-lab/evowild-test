@@ -1,5 +1,7 @@
 import {test,expect} from "@playwright/test";
 import fs from "node:fs";
+import {loadAgentProfile,saveAgentProfile,matchedAgentPreset} from "../src/race_agent_profile_store.js";
+import {makeAgentFile} from "../src/race_agent_v1.js";
 import {
   ENTRANTS,GAME_STORAGE_KEY,RACE_COURSE_ID,defaultGameState,
   validateGameState,makeRaceRecord,validateRaceRecord,loadGameState,
@@ -90,4 +92,30 @@ test("capture genuine home, course and selected Creature UI on desktop and Andro
   await capture("creatures");
   await page.locator('[data-nav="history"]').click();
   await capture("empty-history");
+});
+
+test("selected entrant keeps a validated Agent profile rather than losing it after race",async ({page})=>{
+  await page.goto("/evowild-test/race-stadium.html?selected=4",{waitUntil:"networkidle"});
+  const file=makeAgentFile("CLOSER");
+  await page.locator("#importAgent").setInputFiles({
+    name:"agent-file.json",mimeType:"application/json",
+    buffer:Buffer.from(JSON.stringify(file))
+  });
+  await expect(page.locator("#setupValidation")).toContainText("読み込みました");
+  await expect(page.locator('[name="basePace"]')).toHaveValue("CONSERVE");
+  await page.locator("#startAutonomous").click();
+  await expect(page.locator("#stage")).toHaveAttribute("data-agent-profile-saved","1");
+  await page.goto("/evowild-test/race-stadium.html?selected=4",{waitUntil:"networkidle"});
+  await expect(page.locator('[name="basePace"]')).toHaveValue("CONSERVE");
+  await expect(page.locator("#presetSelect")).toHaveValue("CLOSER");
+  await expect(page.locator("#entryRunnerSelect")).toHaveValue("4");
+});
+test("Agent per entrant profile storage validates JSON and does not spill between entrants",()=>{
+  const storage=fakeStorage();
+  const closer=makeAgentFile("CLOSER");
+  expect(saveAgentProfile(storage,4,closer)).toBe(true);
+  expect(loadAgentProfile(storage,4)).toEqual(closer);
+  expect(loadAgentProfile(storage,5)).toEqual(makeAgentFile());
+  expect(matchedAgentPreset(closer)).toBe("CLOSER");
+  expect(saveAgentProfile(storage,4,{...closer,unsafeScript:"alert(1)"})).toBe(false);
 });
