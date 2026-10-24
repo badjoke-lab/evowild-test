@@ -125,3 +125,28 @@ export function validateCourse(draft) {
   if (total<800 || total>4000 || !Number.isFinite(total)) errors.push("total length must be 800..4000m");
   return {valid:errors.length===0,errors,distance:total};
 }
+
+export const PLAYER_COURSE_KEY = "evowild:course-draft:v1";
+
+export function buildPlayerCourse(draft) {
+  const result=validateCourse(draft);
+  if (!result.valid) return {course:null,errors:result.errors};
+  if (draft.weather !== "clear" && draft.weather !== "rain") {
+    return {course:null,errors:["weather must be clear or rain"]};
+  }
+  const name=typeof draft.name==="string" ? draft.name.trim() : "";
+  if (!name || name.length>48) {
+    return {course:null,errors:["name must contain 1..48 characters"]};
+  }
+  const course=Object.freeze({
+    id:"custom",
+    name,description:"Player-created local draft",
+    weather:draft.weather,legacyTerrain:false,
+    distance:result.distance,
+    segments:Object.freeze(draft.segments.map(part=>Object.freeze({
+      length:part.length,surface:part.surface,width:part.width,
+      curve:part.curve,grade:part.grade
+    })))
+  });
+  return {course,errors:[]};
+}
