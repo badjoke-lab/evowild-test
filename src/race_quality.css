@@ -138,6 +138,31 @@ button { font: inherit; }
   display: flex;
   gap: 6px;
 }
+.course-status {
+  color: #c9e0df;
+  font: 750 10px/1.25 ui-monospace, Menlo, monospace;
+  letter-spacing: .03em;
+}
+.course-select-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 5px;
+  border: 1px solid rgba(225,245,255,.20);
+  border-radius: 8px;
+  background: rgba(4,11,17,.74);
+  color: rgba(239,249,255,.75);
+  font: 750 9px/1 ui-monospace, Menlo, monospace;
+}
+.course-select-label select {
+  max-width: 148px;
+  min-height: 30px;
+  border: 0;
+  color: #eff9ff;
+  background: rgba(6,19,28,.94);
+  font: 700 10px/1 ui-monospace, Menlo, monospace;
+}
+
 .controls button {
   padding: 7px 10px;
   border-radius: 8px;
@@ -174,6 +199,9 @@ button { font: inherit; }
   .agent small { font-size: 9px; }
   .controls { top: 57px; right: 9px; }
   .controls button { padding: 5px 7px; font-size: 10px; }
+  .course-status { font-size: 7px; max-width: 155px; }
+  .course-select-label { padding: 0 2px; gap: 3px; font-size: 7px; }
+  .course-select-label select { max-width: 120px; min-height: 24px; font-size: 9px; }
   .bottom { left: 10px; right: 10px; bottom: max(9px, env(safe-area-inset-bottom)); }
   .ranking { gap: 3px; }
   .ranking span { padding: 4px 5px; font-size: 8px; }
