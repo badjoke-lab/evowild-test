@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import fs from "node:fs";
 import {
   AGENT_FIELDS, AGENT_PRESETS, makeAgentFile, validateAgentFile,
   normalizedAgentFile, decideAgentAction
@@ -45,7 +46,8 @@ test("stadium Agent setup is pre-race only; race runs unattended with visible or
   await expect(page.locator("#autoTimeline li").first()).toBeVisible();
   await expect(page.locator("#autoAgentPanel")).toBeVisible();
   // Keep evidence in Actions artifacts; no claim that a build gate proves art quality.
-  await page.screenshot({path:"test-results/stadium-agent-"+testInfo.project.name+".png",fullPage:true});
+  fs.mkdirSync("test-results/visuals",{recursive:true});
+  await page.screenshot({path:"test-results/visuals/stadium-agent-"+testInfo.project.name+".png",fullPage:true});
 });
 
 test("original race-quality manual review controls remain isolated",async ({page})=>{
