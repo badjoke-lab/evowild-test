@@ -13,7 +13,7 @@
     data-mode="stadium-agent-isolated-preview"
     data-run-sheets="loading"
     data-race-state="loading"
-    data-renderer="fixed-step-side-racer">
+    data-renderer="fixed-step-world-oval-racer">
     <canvas id="raceCanvas" aria-label="EvoWild Run four-morph 2.5D race integration"></canvas>
 
     <header class="hud top">
@@ -55,7 +55,7 @@
         <button type="button" id="startAutonomous" class="start-autonomous">この設定で観戦開始 →</button>
       </div>
       <div id="setupValidation" role="status"></div>
-      <small class="setup-note">既存のS/P/E/A走行シートを利用。オーブ・動作判定・表示は技術検証中。コースの競馬場化は別検証です。</small>
+      <small class="setup-note">既存のS/P/E/A走行シートを利用。周回走路と3/4カメラは座標連動していますが、個体は横向き画像の仮表示です。正式な3/4走行アニメーションではありません。</small>
     </section>
     <section class="auto-agent-panel" id="autoAgentPanel" aria-label="Autonomous Race Agent state" hidden>
       <div class="auto-agent-title"><span class="auto-mini-orb" aria-hidden="true"></span><b>RACE AGENT · 自律</b></div>
@@ -99,6 +99,7 @@
     </section>
 
     <div class="controls">
+      <button id="cameraMode" type="button" aria-label="Switch viewing camera">Camera: 3/4</button>
       <button id="pause" type="button">Pause</button>
       <button id="reset" type="button">Reset</button>
     </div>
