@@ -1,5 +1,6 @@
 import { AGENT_FIELDS, AGENT_PRESETS, makeAgentFile, normalizedAgentFile, decideAgentAction } from "./race_agent_v1.js";
 import { drawOvalRace } from "./oval_render_2p5d.js";
+import { makeRaceRecord, appendRaceResult, selectPlayerRunner, loadGameState } from "./game_progress_2p5d.js";
 
 const canvas = document.querySelector("#raceCanvas");
 const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
@@ -460,6 +461,7 @@ function makeRacers() {
   }));
 }
 let racers = makeRacers();
+let activeRaceRunId = null;
 const INITIAL_LOGICAL_DISTANCE_SPREAD = (() => {
   const values = racers.map((r) => r.distance);
   return Math.max(...values)-Math.min(...values);
@@ -1088,6 +1090,10 @@ function startAutonomousRace(){
     r.agent.visualMode="HOLD";
   }
   editableAgentFile=file;
+  activeRaceRunId="local-"+crypto.randomUUID();
+  // Selection is a local convenience only, not a claim of Creature ownership.
+  try{selectPlayerRunner(localStorage,SELECTED_ID);}catch{}
+  stage.dataset.recordSaved="pending";
   raceState="countdown";
   countdownRemaining=2500;
   stage.dataset.raceState="countdown";
@@ -1859,6 +1865,25 @@ function renderResults() {
   stage.dataset.winnerId = String(winner.id);
   stage.dataset.winnerMorph = winner.morph;
   stage.dataset.winnerTime = winner.finishTime.toFixed(1);
+  // Record only a genuinely complete 1600m race (all 18 finish), and do not
+  // treat near-finish review/debug modes as playable/history-worthy races.
+  const reviewMode=FINISH_REVIEW_MODE||BATTLE_REVIEW_MODE||TRAFFIC_REVIEW_MODE||
+    LANE_REVIEW_MODE||MOTION_REVIEW_MODE;
+  if(reviewMode){
+    stage.dataset.recordSaved="review-excluded";
+    return;
+  }
+  const record=activeRaceRunId && makeRaceRecord({
+    id:activeRaceRunId,finishedAt:Date.now(),
+    selectedRunnerId:SELECTED_ID,results:ranks
+  });
+  let saved=false;
+  try{saved=record?appendRaceResult(localStorage,record):false;}catch{}
+  stage.dataset.recordSaved=saved?"1":"0";
+  const notice=document.querySelector("#saveRaceStatus");
+  if(notice) notice.textContent=saved
+    ? "18体の実レース結果を、このブラウザの戦績に保存しました。"
+    : "戦績の保存に失敗しました。ブラウザの保存設定をご確認ください。";
 }
 
 function fmtTime(ms){
@@ -1932,6 +1957,8 @@ function updateUI(now){
 }
 
 function resetRace(){
+  activeRaceRunId=null;
+  stage.dataset.recordSaved="none";
   racers=makeRacers();
   agentTargetIndex=0;
   agentFeedbackRunnerId=-1;
@@ -2070,6 +2097,7 @@ function fixedFrame(now){
   requestAnimationFrame(fixedFrame);
 }
 stage.dataset.manualControls="0";
+stage.dataset.recordSaved="none";
 stage.dataset.entryRunnerId=String(SELECTED_ID);
 stage.dataset.entryRunnerMorph=selected()?.morph ?? "S";
 stage.dataset.cameraMode=OVAL_CHASE_ENABLED?"oval-three-quarter-follow":"legacy-side";
