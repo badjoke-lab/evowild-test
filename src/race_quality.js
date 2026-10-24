@@ -1,3 +1,5 @@
+import { COURSE_PRESETS, DEFAULT_COURSE_ID, getCourse, courseSectionAt, courseEffects, SURFACE_SHADES, PLAYER_COURSE_KEY, buildPlayerCourse } from "./course_profiles_2p5d.js";
+
 const canvas = document.querySelector("#raceCanvas");
 const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
 const stage = document.querySelector("#stage");
@@ -5,6 +7,7 @@ const stage = document.querySelector("#stage");
 const ui = {
   rank: document.querySelector("#rank"),
   speed: document.querySelector("#speed"),
+  courseStatus: document.querySelector("#courseStatus"),
   command: document.querySelector("#command"),
   reason: document.querySelector("#reason"),
   distance: document.querySelector("#distance"),
@@ -21,6 +24,7 @@ const ui = {
   resultList: document.querySelector("#resultList")
 };
 
+const courseSelect = document.querySelector("#courseSelect");
 const agentTargetSelect = document.querySelector("#agentTargetSelect");
 const agentStaminaEl = document.querySelector("#agentStamina");
 const agentFatigueEl = document.querySelector("#agentFatigue");
@@ -52,7 +56,36 @@ const SELECTED_ID = Math.max(
   1,
   Math.min(FIELD_SIZE, Number(new URLSearchParams(location.search).get("selected")) || 1)
 );
-const RACE_METERS = 1600;
+function readSavedPlayerCourse() {
+  try {
+    return buildPlayerCourse(JSON.parse(localStorage.getItem(PLAYER_COURSE_KEY) || "null")).course;
+  } catch {
+    return null;
+  }
+}
+const SAVED_PLAYER_COURSE = readSavedPlayerCourse();
+const REQUESTED_COURSE = new URLSearchParams(location.search).get("course") || DEFAULT_COURSE_ID;
+const ACTIVE_COURSE = REQUESTED_COURSE === "custom" && SAVED_PLAYER_COURSE
+  ? SAVED_PLAYER_COURSE : getCourse(REQUESTED_COURSE);
+const RACE_METERS = ACTIVE_COURSE.distance;
+stage.dataset.courseId = ACTIVE_COURSE.id;
+stage.dataset.courseDistance = String(RACE_METERS);
+stage.dataset.courseWeather = ACTIVE_COURSE.weather;
+stage.dataset.courseModel = "segmented-v1";
+if (courseSelect) {
+  courseSelect.replaceChildren(...COURSE_PRESETS.map(course => {
+    const option = document.createElement("option");
+    option.value = course.id;
+    option.textContent = course.name;
+    return option;
+  }));
+  if (SAVED_PLAYER_COURSE) {
+    const option=document.createElement("option");
+    option.value="custom";option.textContent="MY COURSE · "+SAVED_PLAYER_COURSE.name;
+    courseSelect.append(option);
+  }
+  courseSelect.value = ACTIVE_COURSE.id;
+}
 stage.dataset.engineLineage = "lane5-fixed-step-plus-four-morph-run-sheets";
 stage.dataset.morphSet = "S,P,E,A";
 stage.dataset.fieldSize = String(FIELD_SIZE);
@@ -348,6 +381,18 @@ new ResizeObserver(resize).observe(canvas);
 resize();
 
 function terrainY(m) {
+  if (!ACTIVE_COURSE.legacyTerrain) {
+    const meter = Math.max(0, Math.min(RACE_METERS, m));
+    let elevation = 0;
+    let cursor = 0;
+    for (const part of ACTIVE_COURSE.segments) {
+      const travel = Math.max(0, Math.min(part.length, meter - cursor));
+      elevation += part.grade * travel * 0.8;
+      if (travel < part.length) return elevation + Math.sin(Math.PI * travel / part.length) * Math.abs(part.curve) * 7;
+      cursor += part.length;
+    }
+    return elevation;
+  }
   const a = Math.sin(m*0.0125)*14;
   const b = Math.sin(m*0.0042 + 0.8)*25;
   const c = Math.sin(m*0.021 + 1.7)*5;
@@ -363,6 +408,10 @@ function terrainSlope(m) {
 }
 
 function courseBank(m) {
+  if (!ACTIVE_COURSE.legacyTerrain) {
+    const {part, progress} = courseSectionAt(ACTIVE_COURSE, m);
+    return part.curve * Math.sin(Math.PI * progress) * 24;
+  }
   const bankA = m > 170 && m < 360
     ? Math.sin((m-170)/190*Math.PI)*22
     : 0;
@@ -386,7 +435,7 @@ function makeRacers() {
     name:NAMES[i],
     morph:MORPH_SEQUENCE[i],
     distance: FINISH_REVIEW_MODE
-      ? 1544 - Math.floor(i / 4) * 1.8 - (i % 4) * 0.22
+      ? RACE_METERS - 56 - Math.floor(i / 4) * 1.8 - (i % 4) * 0.22
       : BATTLE_REVIEW_MODE
         ? i===0 ? 120 : i===1 ? 124 : 72 - (i-2)*2
         : TRAFFIC_REVIEW_MODE
@@ -836,7 +885,7 @@ function targetSpeedFor(r) {
     r.command = "PRESERVE";
     r.reason = "Low stamina";
   }
-  return target * (.83 + .17*(r.stamina/100));
+  return target * (.83 + .17*(r.stamina/100)) * courseEffects(ACTIVE_COURSE,r.distance,r.morph,r.pressure).pace;
 }
 
 function updateRace(dtMs) {
@@ -887,7 +936,7 @@ function updateRace(dtMs) {
     const effort = Math.max(0,r.speed/r.cruise-.95);
     r.stamina = Math.max(
       0,
-      r.stamina-(.62+effort*effort*4.4)*dt*agentResolution.staminaDrainScale
+      r.stamina-(.62+effort*effort*4.4)*dt*agentResolution.staminaDrainScale*courseEffects(ACTIVE_COURSE,r.distance,r.morph,r.pressure).stamina
     );
     r.creatureState = deriveCreatureState(r);
     r.distance += Math.max(0,r.speed)*dt;
@@ -1020,7 +1069,8 @@ function drawTrack() {
   for(let lane=0;lane<4;lane++){
     const far=boundaries[lane];
     const near=boundaries[lane+1];
-    const shade=lane%2===0?"#4b5154":"#464c4f";
+    const shades = SURFACE_SHADES[courseSectionAt(ACTIVE_COURSE,cameraMeters).part.surface] || SURFACE_SHADES.firm;
+    const shade=shades[lane%2];
     ctx.fillStyle=shade;
     ctx.beginPath();
     let first=true;
@@ -1557,6 +1607,7 @@ function renderResults() {
   }
 
   stage.dataset.resultReady = "1";
+  stage.dataset.resultCourse = ACTIVE_COURSE.id;
   stage.dataset.resultCount = String(ranks.length);
   stage.dataset.winnerId = String(winner.id);
   stage.dataset.winnerMorph = winner.morph;
@@ -1577,6 +1628,14 @@ function updateUI(now){
   ui.command.textContent=focus.command;
   ui.reason.textContent=focus.reason;
   ui.distance.textContent=`${Math.round(focus.distance)} / ${RACE_METERS} m`;
+  const section = courseSectionAt(ACTIVE_COURSE, focus.distance);
+  const courseState = courseEffects(ACTIVE_COURSE, focus.distance, focus.morph, focus.pressure);
+  if (ui.courseStatus) ui.courseStatus.textContent = `${ACTIVE_COURSE.name} · ${section.part.surface.toUpperCase()} · ${section.part.width} LANES`;
+  stage.dataset.courseSurface = section.part.surface;
+  stage.dataset.courseWidth = String(section.part.width);
+  stage.dataset.courseCurve = section.part.curve.toFixed(2);
+  stage.dataset.coursePaceFactor = courseState.pace.toFixed(4);
+  stage.dataset.courseStaminaFactor = courseState.stamina.toFixed(4);
   ui.clock.textContent=fmtTime(elapsed);
   ui.progress.style.width=`${clamp(focus.distance/RACE_METERS*100,0,100).toFixed(2)}%`;
 
@@ -1695,6 +1754,14 @@ ui.pause.addEventListener("click",()=>{
   ui.pause.textContent=paused?"Resume":"Pause";
 });
 ui.reset.addEventListener("click",resetRace);
+if (courseSelect) courseSelect.addEventListener("change", () => {
+  // Switching profiles begins a clean race, with no carried-over review mode.
+  const target = courseSelect.value === "custom" && SAVED_PLAYER_COURSE
+    ? SAVED_PLAYER_COURSE : getCourse(courseSelect.value);
+  const url = new URL(window.location.href);
+  url.search = `?course=${encodeURIComponent(target.id)}`;
+  window.location.assign(url.toString());
+});
 
 if (agentTargetSelect) {
   agentTargetSelect.addEventListener("change", () => {
