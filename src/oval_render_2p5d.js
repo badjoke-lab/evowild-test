@@ -206,4 +206,6 @@ export function drawOvalRace(opts){
   stage.dataset.visibleRacers=String(renderable.length);
   stage.dataset.trackVisible="1";
   stage.dataset.creatureFacing="side-billboard-provisional";
+  stage.dataset.selectedMorph=focus.morph;
+  stage.dataset.selectedId=String(focus.id);
 }
