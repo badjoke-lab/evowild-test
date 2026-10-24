@@ -1757,7 +1757,7 @@ function render() {
         const cycle=((time/1000*cadence+r.phaseOffset)%6+6)%6;
         return r.morph==="S" ? Math.floor(cycle) : peaFrameIndex(r.morph,cycle);
       },
-      orbDrawer:drawRaceAgentOrb,stage,MOTION_REVIEW_MODE
+      orbDrawer:drawRaceAgentOrb,stage,motionReviewMode:MOTION_REVIEW_MODE
     });
     ctx.restore();
     stage.dataset.cameraSubject="oval-selected-follow";
