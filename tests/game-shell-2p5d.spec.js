@@ -1,4 +1,5 @@
 import {test,expect} from "@playwright/test";
+import fs from "node:fs";
 import {
   ENTRANTS,GAME_STORAGE_KEY,RACE_COURSE_ID,defaultGameState,
   validateGameState,makeRaceRecord,validateRaceRecord,loadGameState,
@@ -71,4 +72,22 @@ test("review-only finish never pollutes the local real race history",async ({pag
   await expect(page.locator("#resultList li").first()).toHaveAttribute("data-runner-id",/\d+/);
   await page.locator("#goToHistory").click();
   await expect(page.locator("#historyEmpty")).toBeVisible();
+});
+
+test("capture genuine home, course and selected Creature UI on desktop and Android",async ({page},testInfo)=>{
+  await page.goto("/evowild-test/game-2p5d.html",{waitUntil:"networkidle"});
+  fs.mkdirSync("test-results/visuals",{recursive:true});
+  const capture=async name=>page.screenshot({
+    path:"test-results/visuals/game-"+name+"-"+testInfo.project.name+".png",
+    fullPage:true
+  });
+  await expect(page.locator("#heroCreatureArt")).toHaveJSProperty("complete",true);
+  await capture("home");
+  await page.locator('[data-nav="course"]').click();
+  await capture("course");
+  await page.locator('[data-nav="creatures"]').click();
+  await page.locator('[data-runner-id="4"]').click();
+  await capture("creatures");
+  await page.locator('[data-nav="history"]').click();
+  await capture("empty-history");
 });
