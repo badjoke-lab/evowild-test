@@ -46,3 +46,27 @@ For 2.5D specifically, also read:
 - `docs/2p5d-creature-reference-lock.md`
 
 P/E/A animation work may use Motion First direct gait states as motion donors, but the final sprite artwork must remain the canonical P/E/A designs.
+
+
+## 2.5D game-first Codex handoff (2026-10-25)
+
+For any Codex/AI task changing 2.5D racing, courses, Race Agents, UI, stable, training, results or genetics, **first** read the following **before code changes**:
+
+- `docs/2p5d/CODEX_HANDOFF_20261025.md`
+- `docs/2p5d/MOCKUP_INDEX_20261025.md`
+- `docs/2p5d/CODEX_EXECUTION_ORDER_20261025.md`
+- `docs/2p5d/mockups/manifest.json`
+- `docs/design-spec-v0.1.md`
+- `docs/race-agent-spec-v0.1.md`
+
+The 11 user-supplied screen mocks have fixed SHA-256 checksums. **They are visual references, not new gameplay rules or canonical Creature art.** Verify with `python3 scripts/verify_2p5d_mockups.py` before changing UI visuals. If missing, report the exact blocker and import the authentic images; never fabricate replacements.
+
+Do not introduce countries, real-world racecourses, wilderness course defaults, in-race user commands, currency/levels/ownership/breeding odds invented by an image, or new Creature silhouettes. Work game-first, with visible real browser evidence. Do not merge to `main` or declare visual KEEP without explicit acceptance.
+
+### Anti-drift / anti-tampering policy
+
+- The hashes in `docs/2p5d/mockups/manifest.json` refer to **exact user-submitted files**. Never change hashes, filenames or the verifier/importer logic to make a substituted image pass.
+- Do not quietly rewrite `docs/design-spec-v0.1.md`, `docs/race-agent-spec-v0.1.md`, Creature reference locks, the mock register or handoff policy to rationalize an implementation. A correction to a reference requires explicit user authority, and a reviewed, isolated change.
+- Every new UI implementation PR must map its modified view to an **existing mock ID** and explicitly label illustrative data as `TBD`, with true real-game desktop/mobile evidence.
+- Maintain distinct evidence: **(a)** a verified original mock, **(b)** live runtime screenshot, **(c)** test results, **(d)** user approval. None substitutes for the others.
+- If verified original mock PNGs are missing, do not pretend they are present or create replicas. Explicitly report `REFERENCE_IMAGE_MISSING` and use the provided original ZIP import path.

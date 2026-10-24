@@ -1,0 +1,103 @@
+
+/* Isolated spectator-first stadium/Agent test; race-quality.css remains unchanged. */
+[hidden] {display:none!important}
+.stage[data-mode="stadium-agent-isolated-preview"] .agent {top:clamp(72px,12vh,118px)}
+.stage[data-mode="stadium-agent-isolated-preview"] .top strong{font-size:clamp(16px,2.3vw,27px)}
+.setup-overlay{
+  position:absolute;inset:9% auto auto 50%;translate:-50% 0;
+  z-index:12;width:min(620px,calc(100vw - 26px));max-height:81vh;
+  overflow:auto;padding:22px 24px;background:rgba(6,19,33,.97);
+  color:#e5f4ff;border:1px solid #6bbce3;border-radius:16px;
+  box-shadow:0 8px 50px #000c,0 0 35px #2a89db33;
+  text-shadow:none
+}
+.setup-heading{margin:0 0 18px}
+.setup-heading small{color:#84c7e7;letter-spacing:.11em;font:700 10px ui-monospace,monospace}
+.setup-heading h1{margin:7px 0;font-size:clamp(18px,3vw,28px)}
+.setup-heading p{color:#b3c6d2;font:500 12px/1.5 system-ui}
+.setup-overlay label{color:#d0dfe9;font:650 12px system-ui}
+.setup-overlay select{
+  display:block;width:100%;margin-top:7px;padding:9px 12px;
+  background:#142b40;color:#eef8ff;border:1px solid #416780;border-radius:7px
+}
+.agent-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.setup-actions{display:flex;gap:9px;justify-content:flex-end;flex-wrap:wrap}
+.setup-actions button{padding:11px 15px;color:#eaf9ff;background:#173a57;
+  border:1px solid #5b9cbe;border-radius:8px;font-weight:750;cursor:pointer}
+.setup-actions .start-autonomous{background:#66bff1;color:#041a2b;border-color:#66bff1}
+.setup-note{display:block;margin:13px 0 0;color:#9fb4bd;font-size:10px;line-height:1.5}
+#setupValidation{color:#ffc9a2;font-size:11px;margin-top:8px}
+.auto-agent-panel{
+  position:absolute;z-index:8;bottom:max(76px,env(safe-area-inset-bottom) + 65px);
+  left:14px;padding:12px 14px;max-width:min(360px,calc(100vw - 26px));
+  border:1px solid #4d8fae;border-radius:12px;
+  background:rgba(5,23,41,.85);backdrop-filter:blur(6px);
+  text-shadow:0 1px 3px #000a;color:#e5f4ff
+}
+.auto-agent-title{display:flex;align-items:center;gap:9px;color:#8fe2fa;font-size:13px}
+.auto-mini-orb{
+ display:inline-block;width:18px;height:18px;flex-shrink:0;
+ border-radius:50%;background:radial-gradient(circle at 35% 30%,#edffff,#4bbaff 38%,#053a7e 72%);
+ border:2px solid #b4eaff;box-shadow:0 0 13px #46bdf8
+}
+.auto-agent-state{display:flex;gap:10px;margin-top:9px;flex-wrap:wrap;font-size:10px}
+.auto-agent-state strong{color:#b5fff2;font-size:12px}
+.auto-agent-reason{color:#aac4d4;font-size:11px;line-height:1.4;margin:8px 0}
+.auto-timeline-title{font-weight:700;font-size:10px;color:#77b9d5;border-top:1px solid #31516b;padding-top:7px}
+.auto-timeline{font:650 10px/1.45 ui-monospace,monospace;padding:0;list-style:none;max-height:95px;overflow:auto;margin:5px 0 0}
+.auto-timeline li{padding:3px 0;border-bottom:1px solid #254159}
+@media(max-width:700px){
+  .setup-overlay{top:5%;max-height:89vh;padding:14px}
+  .agent-fields{gap:8px}
+  .setup-overlay select{padding:8px;font-size:11px}
+  .auto-agent-panel{bottom:55px;padding:8px;max-width:220px;left:8px}
+  .auto-agent-title{font-size:10px}.auto-agent-state{font-size:9px;gap:5px}
+  .auto-agent-reason,.auto-timeline{font-size:9px}
+  .auto-timeline{max-height:50px}
+}
+
+/* Keep tactical alerts off the actual Creature and the corner apex. */
+.stage[data-mode="stadium-agent-isolated-preview"] .battle-readout{
+  left:auto;right:14px;top:clamp(165px,24vh,210px);
+  translate:0 0;
+  max-width:240px;min-width:165px;
+}
+@media(max-width:700px){
+  .stage[data-mode="stadium-agent-isolated-preview"] .battle-readout{
+    right:9px;top:176px;min-width:120px;max-width:45vw;
+    padding:6px 8px;
+  }
+}
+
+/* Integrated navigation; race Agent commands remain autonomous. */
+.stage[data-mode="stadium-agent-isolated-preview"] .game-home-link{
+  display:inline-flex;align-items:center;justify-content:center;min-height:30px;
+  padding:5px 10px;border:1px solid #4e84a6;border-radius:7px;
+  color:#e9f6ff;background:rgba(10,28,47,.87);
+  text-decoration:none;font:800 10px ui-monospace,Menlo,monospace;
+}
+.stage[data-mode="stadium-agent-isolated-preview"] .result-save-status{
+  margin:9px 0;color:#b6f6e3;font:700 11px/1.4 system-ui,sans-serif;
+}
+.stage[data-mode="stadium-agent-isolated-preview"] .race-history-link{
+  margin-top:9px;display:inline-flex;align-items:center;padding:8px 12px;
+  color:#d9f9ff;background:#1a5f93;text-decoration:none;
+  border:1px solid #78cdeb;border-radius:8px;font:800 12px system-ui,sans-serif;
+}
+@media(max-width:700px){
+  .stage[data-mode="stadium-agent-isolated-preview"] .game-home-link{
+    padding:3px 6px;font-size:8px;min-height:23px;
+  }
+}
+
+.setup-actions .agent-import-label{
+  display:inline-flex;align-items:center;justify-content:center;
+  border:1px solid #5b9cbe;border-radius:8px;
+  background:#173a57;color:#eaf9ff;cursor:pointer;
+  padding:9px 12px;font:750 11px system-ui,sans-serif;
+}
+.setup-actions .agent-import-label input{display:none}
+
+.setup-back-link{display:inline-flex;color:#a6defb;text-decoration:none;
+ border:1px solid #3e7696;border-radius:7px;padding:7px 11px;
+ font:750 11px system-ui,sans-serif;margin-bottom:10px;background:#102d44}

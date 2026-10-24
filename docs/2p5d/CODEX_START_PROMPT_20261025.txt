@@ -1,0 +1,35 @@
+# Paste into Codex after attaching the original 11-mock ZIP
+
+Repository: badjoke-lab/evowild-test
+Start branch: origin/feat/2p5d-autonomous-agent-orbs-20261024
+Do NOT modify main or merge existing PR #130/#131.
+
+Read AGENTS.md, docs/2p5d/CODEX_HANDOFF_20261025.md,
+docs/2p5d/MOCKUP_INDEX_20261025.md, docs/2p5d/mockups/manifest.json,
+docs/2p5d/CODEX_EXECUTION_ORDER_20261025.md,
+docs/design-spec-v0.1.md, docs/race-agent-spec-v0.1.md,
+docs/2p5d-creature-reference-lock.md.
+
+The 11 real UI mock PNG files are provided in the attachment:
+evowild-2p5d-codex-mockups-originals.zip
+Import originals with
+python3 scripts/import_2p5d_mockups.py /path/to/evowild-2p5d-codex-mockups-originals.zip
+then verify with
+python3 scripts/verify_2p5d_mockups.py.
+If the ZIP is inaccessible, state REFERENCE_IMAGE_MISSING and do not
+invent or regenerate any mock or Creature. Do code-only work if safe.
+
+This is a GAME-FIRST 2.5D project, not a Creature-only task.
+First close the playable flow: Home -> oval course -> select runner ->
+configure one of 7 Race Agent fields / load validated Agent File ->
+autonomous 18-runner race with visible orb -> genuine result ->
+persistent history across reload. Fix real logic defects, do not
+paper over them with changed tests. Record real desktop+Android evidence.
+Keep the racecourse a fictional stadium-type oval, not a country map,
+wilderness or real-world circuit. No live race commands.
+This remains visually REVISE until true moving 3/4 Creature view passes.
+Never imply paper-cutout side sprites satisfy the animation quality gate.
+
+Work in a new feature branch off the stated start branch; commit and
+push work; create a DRAFT PR. No changes to main, no fees.
+At completion report SHA, PR, tests, evidence files and KEEP/REVISE.

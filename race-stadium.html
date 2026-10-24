@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#071018" />
+  <title>EvoWild Run — Autonomous Race Agent Orbit Test</title>
+  <link rel="stylesheet" href="/src/race_quality.css" />
+  <link rel="stylesheet" href="/src/race_stadium.css" />
+</head>
+<body>
+  <main id="stage" class="stage"
+    data-mode="stadium-agent-isolated-preview"
+    data-run-sheets="loading"
+    data-race-state="loading"
+    data-renderer="fixed-step-world-oval-racer">
+    <canvas id="raceCanvas" aria-label="EvoWild Run four-morph 2.5D race integration"></canvas>
+
+    <header class="hud top">
+      <div>
+        <span class="eyebrow">EVOWILD RUN / AUTONOMOUS AGENT PROOF</span>
+        <strong>2.5D RACE · AGENT ORBS</strong>
+      </div>
+      <div class="readout">
+        <span id="rank">18 / 18</span>
+        <b id="speed">0</b><small>km/h</small>
+      </div>
+    </header>
+
+    <section class="hud agent">
+      <span>RACE STATE · AUTO</span>
+      <strong id="command">HOLD FORM</strong>
+      <small id="reason">Pre-start</small>
+    </section>
+
+    <section class="battle-readout" id="battleReadout" aria-live="polite" data-state="clear" hidden>
+      <small>BATTLE</small>
+      <strong id="battleState">OVERTAKE ATTEMPT</strong>
+      <span id="battleMeta">YOU → P02 · 4.0 m</span>
+    </section>
+
+    <section id="preRacePanel" class="setup-overlay" aria-label="Race Agent pre-race configuration">
+      <a class="setup-back-link" href="./game-2p5d.html#home">← ホームへ戻る</a>
+      <div class="setup-heading">
+        <small>2.5D RACE · PROTOTYPE</small><h1>レース前のAgent設定</h1>
+        <p>スタート後は操作しません。すべての出走個体は同じRace Agent形式で自律判断します。</p>
+      </div>
+      <label>出走個体 <select id="entryRunnerSelect" aria-label="Select a Creature to enter"></select></label>
+      <label>戦術プリセット <select id="presetSelect">
+        <option value="FRONT">逃げ</option><option value="STALKER">先行</option>
+        <option value="BALANCED" selected>バランス</option><option value="CLOSER">差し</option>
+        <option value="DEEP_CLOSER">追込</option><option value="CUSTOM">カスタム</option>
+      </select></label>
+      <div id="agentFields" class="agent-fields"></div>
+      <div class="setup-actions">
+        <label class="agent-import-label">Agent Fileを読み込む <input id="importAgent" type="file" accept=".json,application/json" /></label>
+        <button type="button" id="exportAgent">Agent Fileを出力</button>
+        <button type="button" id="startAutonomous" class="start-autonomous">この設定で観戦開始 →</button>
+      </div>
+      <div id="setupValidation" role="status"></div>
+      <small class="setup-note">既存のS/P/E/A走行シートを利用。周回走路と3/4カメラは座標連動していますが、個体は横向き画像の仮表示です。正式な3/4走行アニメーションではありません。</small>
+    </section>
+    <section class="auto-agent-panel" id="autoAgentPanel" aria-label="Autonomous Race Agent state" hidden>
+      <div class="auto-agent-title"><span class="auto-mini-orb" aria-hidden="true"></span><b>RACE AGENT · 自律</b></div>
+      <div class="auto-agent-state">
+        <span>指令 <strong id="autoCommand">HOLD</strong></span>
+        <span>実行 <strong id="autoResult">—</strong></span>
+        <span>疲労 <strong id="autoFatigue">0%</strong></span>
+      </div>
+      <div id="autoReason" class="auto-agent-reason">レース開始後に自動判断</div>
+      <div class="auto-timeline-title">判断ログ</div>
+      <ol id="autoTimeline" class="auto-timeline"></ol>
+    </section>
+
+    <div class="agent-feedback" id="agentFeedback" aria-live="polite" data-tone="neutral" hidden>
+      <span class="agent-feedback-orb" aria-hidden="true"></span>
+      <div class="agent-feedback-copy">
+        <small id="agentFeedbackMeta">AGENT-01 → Mica</small>
+        <strong id="agentFeedbackCommand">PUSH</strong>
+        <span id="agentFeedbackResult">PENDING</span>
+      </div>
+    </div>
+
+    <div id="countdown" class="countdown" hidden>3</div>
+
+    <section class="results-panel" id="resultsPanel" aria-label="Race classification" hidden>
+      <div class="results-heading">
+        <span>FINAL CLASSIFICATION</span>
+        <strong id="resultWinner">—</strong>
+        <small id="resultRaceTime">—</small>
+      </div>
+      <ol id="resultList" class="result-list"></ol>
+      <p id="saveRaceStatus" class="result-save-status" role="status"></p>
+      <a id="goToHistory" class="race-history-link" href="./game-2p5d.html#history">戦績に戻る →</a>
+    </section>
+
+    <section class="hud bottom">
+      <div class="meta">
+        <span id="distance">0 / 1600 m</span>
+        <span id="clock">00:00.00</span>
+      </div>
+      <div class="progress"><i id="progress"></i></div>
+      <div id="ranking" class="ranking"></div>
+    </section>
+
+    <div class="controls">
+      <a class="game-home-link" href="./game-2p5d.html#home">ホームへ</a>
+      <button id="cameraMode" type="button" aria-label="Switch viewing camera">Camera: 3/4</button>
+      <button id="pause" type="button">Pause</button>
+      <button id="reset" type="button">Reset</button>
+    </div>
+
+    <div id="assetStatus" class="asset-status">Loading S / P / E / A run cycles…</div>
+  </main>
+
+  <script type="module" src="/src/race_stadium.js"></script>
+</body>
+</html>
