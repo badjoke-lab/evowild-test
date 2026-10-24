@@ -46,3 +46,19 @@ For 2.5D specifically, also read:
 - `docs/2p5d-creature-reference-lock.md`
 
 P/E/A animation work may use Motion First direct gait states as motion donors, but the final sprite artwork must remain the canonical P/E/A designs.
+
+
+## 2.5D game-first Codex handoff (2026-10-25)
+
+For any Codex/AI task changing 2.5D racing, courses, Race Agents, UI, stable, training, results or genetics, **first** read the following **before code changes**:
+
+- `docs/2p5d/CODEX_HANDOFF_20261025.md`
+- `docs/2p5d/MOCKUP_INDEX_20261025.md`
+- `docs/2p5d/CODEX_EXECUTION_ORDER_20261025.md`
+- `docs/2p5d/mockups/manifest.json`
+- `docs/design-spec-v0.1.md`
+- `docs/race-agent-spec-v0.1.md`
+
+The 11 user-supplied screen mocks have fixed SHA-256 checksums. **They are visual references, not new gameplay rules or canonical Creature art.** Verify with `python3 scripts/verify_2p5d_mockups.py` before changing UI visuals. If missing, report the exact blocker and import the authentic images; never fabricate replacements.
+
+Do not introduce countries, real-world racecourses, wilderness course defaults, in-race user commands, currency/levels/ownership/breeding odds invented by an image, or new Creature silhouettes. Work game-first, with visible real browser evidence. Do not merge to `main` or declare visual KEEP without explicit acceptance.
