@@ -12,7 +12,9 @@ docs/2p5d-creature-reference-lock.md.
 
 The 11 real UI mock PNG files are provided in the attachment:
 evowild-2p5d-codex-mockups-originals.zip
-Import originals to docs/2p5d/mockups/ and verify with
+Import originals with
+python3 scripts/import_2p5d_mockups.py /path/to/evowild-2p5d-codex-mockups-originals.zip
+then verify with
 python3 scripts/verify_2p5d_mockups.py.
 If the ZIP is inaccessible, state REFERENCE_IMAGE_MISSING and do not
 invent or regenerate any mock or Creature. Do code-only work if safe.
