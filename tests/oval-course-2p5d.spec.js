@@ -53,6 +53,21 @@ test("3/4 oval is the default spectator camera; can switch to legacy side",async
   await page.locator("#cameraMode").click();
   await expect(stage).toHaveAttribute("data-camera-mode","oval-three-quarter-follow");
 });
+test("entry selection determines observed Creature and the one receiving strategy", async ({page})=>{
+  await page.goto("/evowild-test/race-stadium.html",{waitUntil:"networkidle"});
+  const entry=page.locator("#entryRunnerSelect");
+  await expect(entry.locator("option")).toHaveCount(18);
+  await entry.selectOption("4");
+  const stage=page.locator("#stage");
+  await expect(stage).toHaveAttribute("data-entry-runner-id","4");
+  await expect(stage).toHaveAttribute("data-entry-runner-morph","A");
+  await page.locator("#presetSelect").selectOption("CLOSER");
+  await page.locator("#startAutonomous").click();
+  await expect(stage).toHaveAttribute("data-agent-auto-all","18");
+  await expect(stage).toHaveAttribute("data-race-state","running",{timeout:9000});
+  await expect(stage).toHaveAttribute("data-selected-id","4");
+  await expect(stage).toHaveAttribute("data-selected-morph","A");
+});
 test("real 3/4 follow screenshot is archived in CI for both desktop and mobile",async ({page},testInfo)=>{
   await page.goto("/evowild-test/race-stadium.html?autoStart=1",{waitUntil:"networkidle"});
   const stage=page.locator("#stage");
