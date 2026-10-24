@@ -21,6 +21,9 @@ test("Agent decisions respond to pressure and fatigue, never guarantee movement"
   expect(decideAgentAction(file,{progress:.22,pressure:.7,stamina:90,fatigue:.05,blocked:true}).command).toBe("SHIFT_LINE");
   expect(decideAgentAction(file,{progress:.30,pressure:0,stamina:15,fatigue:.8,blocked:false}).command).toBe("HOLD");
   expect(decideAgentAction(file,{progress:.91,pressure:0,stamina:75,fatigue:.1,blocked:false}).command).toBe("PUSH");
+  const wait=makeAgentFile();
+  wait.traffic="WAIT";
+  expect(decideAgentAction(wait,{progress:.22,pressure:.9,stamina:88,fatigue:.1,blocked:true}).command).toBe("HOLD");
 });
 
 test("stadium Agent setup is pre-race only; race runs unattended with visible orbs",async ({page},testInfo)=>{
