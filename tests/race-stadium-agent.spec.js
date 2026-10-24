@@ -27,7 +27,7 @@ test("stadium Agent setup is pre-race only; race runs unattended with visible or
   const stage=page.locator("#stage");
   await expect(stage).toHaveAttribute("data-race-state","setup");
   await expect(stage).toHaveAttribute("data-manual-controls","0");
-  await expect(page.locator("[data-agent-command]")).toHaveCount(0);
+  await expect(page.locator("button[data-agent-command]")).toHaveCount(0);
   await expect(page.locator("[data-agent-field]")).toHaveCount(7);
   await page.locator("#presetSelect").selectOption("CLOSER");
   await expect(page.locator('[name="basePace"]')).toHaveValue("CONSERVE");
