@@ -640,15 +640,20 @@ function laneOpportunityScore(r, lane) {
   return forward-rearPenalty-shiftCost;
 }
 
+function laneStrategyScore(r,lane) {
+  const strategy=r.agent?.config?.positioning ?? "NATURAL";
+  const bias=strategy==="INSIDE" ? (3-lane)*.75 : strategy==="OUTSIDE" ? lane*.75 : 0;
+  return laneOpportunityScore(r,lane)+bias;
+}
 function chooseLane(r) {
   const currentLane=clamp(Math.round(r.lane),0,3);
-  const currentScore=laneOpportunityScore(r,currentLane);
+  const currentScore=laneStrategyScore(r,currentLane);
   let bestLane=currentLane;
   let bestScore=currentScore;
 
   for (let lane=0;lane<=3;lane++) {
     if (lane===currentLane || occupiedNear(r,lane,7.0)) continue;
-    const score=laneOpportunityScore(r,lane);
+    const score=laneStrategyScore(r,lane);
     if (score>bestScore) {
       bestScore=score;
       bestLane=lane;
@@ -807,7 +812,9 @@ function targetSpeedFor(r) {
   const laneSettled=Math.abs(r.lane-r.targetLane)<0.04;
   const canReconsiderLane=r.cooldown<=0 && elapsed>=r.laneHoldUntil && laneSettled;
   if (gap<7.5) {
-    if (canReconsiderLane) {
+    // Respect the assigned Agent traffic policy. WAIT does not authorise
+    // opportunistic passing; safety is still handled by slowing down.
+    if (canReconsiderLane && r.agent?.config?.traffic!=="WAIT") {
       const nextLane = chooseLane(r);
       if (Math.abs(nextLane-r.lane)>=0.25) {
         r.targetLane = nextLane;
