@@ -62,3 +62,11 @@ For any Codex/AI task changing 2.5D racing, courses, Race Agents, UI, stable, tr
 The 11 user-supplied screen mocks have fixed SHA-256 checksums. **They are visual references, not new gameplay rules or canonical Creature art.** Verify with `python3 scripts/verify_2p5d_mockups.py` before changing UI visuals. If missing, report the exact blocker and import the authentic images; never fabricate replacements.
 
 Do not introduce countries, real-world racecourses, wilderness course defaults, in-race user commands, currency/levels/ownership/breeding odds invented by an image, or new Creature silhouettes. Work game-first, with visible real browser evidence. Do not merge to `main` or declare visual KEEP without explicit acceptance.
+
+### Anti-drift / anti-tampering policy
+
+- The hashes in `docs/2p5d/mockups/manifest.json` refer to **exact user-submitted files**. Never change hashes, filenames or the verifier/importer logic to make a substituted image pass.
+- Do not quietly rewrite `docs/design-spec-v0.1.md`, `docs/race-agent-spec-v0.1.md`, Creature reference locks, the mock register or handoff policy to rationalize an implementation. A correction to a reference requires explicit user authority, and a reviewed, isolated change.
+- Every new UI implementation PR must map its modified view to an **existing mock ID** and explicitly label illustrative data as `TBD`, with true real-game desktop/mobile evidence.
+- Maintain distinct evidence: **(a)** a verified original mock, **(b)** live runtime screenshot, **(c)** test results, **(d)** user approval. None substitutes for the others.
+- If verified original mock PNGs are missing, do not pretend they are present or create replicas. Explicitly report `REFERENCE_IMAGE_MISSING` and use the provided original ZIP import path.
