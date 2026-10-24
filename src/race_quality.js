@@ -1,4 +1,4 @@
-import { COURSE_PRESETS, DEFAULT_COURSE_ID, getCourse, courseSectionAt, courseEffects, SURFACE_SHADES } from "./course_profiles_2p5d.js";
+import { COURSE_PRESETS, DEFAULT_COURSE_ID, getCourse, courseSectionAt, courseEffects, SURFACE_SHADES, PLAYER_COURSE_KEY, buildPlayerCourse } from "./course_profiles_2p5d.js";
 
 const canvas = document.querySelector("#raceCanvas");
 const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
@@ -56,7 +56,17 @@ const SELECTED_ID = Math.max(
   1,
   Math.min(FIELD_SIZE, Number(new URLSearchParams(location.search).get("selected")) || 1)
 );
-const ACTIVE_COURSE = getCourse(new URLSearchParams(location.search).get("course") || DEFAULT_COURSE_ID);
+function readSavedPlayerCourse() {
+  try {
+    return buildPlayerCourse(JSON.parse(localStorage.getItem(PLAYER_COURSE_KEY) || "null")).course;
+  } catch {
+    return null;
+  }
+}
+const SAVED_PLAYER_COURSE = readSavedPlayerCourse();
+const REQUESTED_COURSE = new URLSearchParams(location.search).get("course") || DEFAULT_COURSE_ID;
+const ACTIVE_COURSE = REQUESTED_COURSE === "custom" && SAVED_PLAYER_COURSE
+  ? SAVED_PLAYER_COURSE : getCourse(REQUESTED_COURSE);
 const RACE_METERS = ACTIVE_COURSE.distance;
 stage.dataset.courseId = ACTIVE_COURSE.id;
 stage.dataset.courseDistance = String(RACE_METERS);
@@ -69,6 +79,11 @@ if (courseSelect) {
     option.textContent = course.name;
     return option;
   }));
+  if (SAVED_PLAYER_COURSE) {
+    const option=document.createElement("option");
+    option.value="custom";option.textContent="MY COURSE · "+SAVED_PLAYER_COURSE.name;
+    courseSelect.append(option);
+  }
   courseSelect.value = ACTIVE_COURSE.id;
 }
 stage.dataset.engineLineage = "lane5-fixed-step-plus-four-morph-run-sheets";
@@ -1741,7 +1756,8 @@ ui.pause.addEventListener("click",()=>{
 ui.reset.addEventListener("click",resetRace);
 if (courseSelect) courseSelect.addEventListener("change", () => {
   // Switching profiles begins a clean race, with no carried-over review mode.
-  const target = getCourse(courseSelect.value);
+  const target = courseSelect.value === "custom" && SAVED_PLAYER_COURSE
+    ? SAVED_PLAYER_COURSE : getCourse(courseSelect.value);
   const url = new URL(window.location.href);
   url.search = `?course=${encodeURIComponent(target.id)}`;
   window.location.assign(url.toString());
