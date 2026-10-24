@@ -1843,7 +1843,9 @@ function render() {
 }
 
 function renderResults() {
-  const ranks = order();
+  // All finishers have identical distance=1600; order() cannot rank them once
+  // finished. Use the recorded crossing order rather than stable input order.
+  const ranks = [...racers].sort((a,b)=>a.finishPlace-b.finishPlace);
   const winner = ranks[0];
   if (!winner) return;
 
