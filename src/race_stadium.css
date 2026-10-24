@@ -89,3 +89,11 @@
     padding:3px 6px;font-size:8px;min-height:23px;
   }
 }
+
+.setup-actions .agent-import-label{
+  display:inline-flex;align-items:center;justify-content:center;
+  border:1px solid #5b9cbe;border-radius:8px;
+  background:#173a57;color:#eaf9ff;cursor:pointer;
+  padding:9px 12px;font:750 11px system-ui,sans-serif;
+}
+.setup-actions .agent-import-label input{display:none}
