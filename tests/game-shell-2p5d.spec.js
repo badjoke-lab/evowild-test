@@ -61,7 +61,7 @@ test("game menus select only the implemented oval and navigate to the real race"
   await expect(page.locator("#entryRunnerSelect")).toHaveValue("4");
   await expect(page.locator("[data-agent-field]")).toHaveCount(7);
   await expect(page.locator("#preRacePanel")).toBeVisible();
-  await page.getByRole("link",{name:"ホームへ"}).click();
+  await page.locator("#preRacePanel .setup-back-link").click();
   await expect(page.getByRole("heading",{name:"一匹から、種を作れ。"})).toBeVisible();
   await expect(page.locator("#heroCreatureName")).toContainText("Serein");
 });
