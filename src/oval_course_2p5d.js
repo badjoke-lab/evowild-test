@@ -51,7 +51,7 @@ export function projectOval(camera,p,width,height,elevation=0) {
   const focalY=height*1.28;
   return {
     x:width*.5+side*focalX/depth,
-    y:height*camera.horizon+(camera.eyeHeight-elevation)*focalY/depth,
+    y:height*(width<700?0.15:camera.horizon)+(camera.eyeHeight-elevation)*focalY/depth,
     depth,
     scale:focalY/depth
   };
