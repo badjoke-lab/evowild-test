@@ -1592,6 +1592,7 @@ function renderResults() {
   }
 
   stage.dataset.resultReady = "1";
+  stage.dataset.resultCourse = ACTIVE_COURSE.id;
   stage.dataset.resultCount = String(ranks.length);
   stage.dataset.winnerId = String(winner.id);
   stage.dataset.winnerMorph = winner.morph;
@@ -1612,6 +1613,14 @@ function updateUI(now){
   ui.command.textContent=focus.command;
   ui.reason.textContent=focus.reason;
   ui.distance.textContent=`${Math.round(focus.distance)} / ${RACE_METERS} m`;
+  const section = courseSectionAt(ACTIVE_COURSE, focus.distance);
+  const courseState = courseEffects(ACTIVE_COURSE, focus.distance, focus.morph, focus.pressure);
+  if (ui.courseStatus) ui.courseStatus.textContent = `${ACTIVE_COURSE.name} · ${section.part.surface.toUpperCase()} · ${section.part.width} LANES`;
+  stage.dataset.courseSurface = section.part.surface;
+  stage.dataset.courseWidth = String(section.part.width);
+  stage.dataset.courseCurve = section.part.curve.toFixed(2);
+  stage.dataset.coursePaceFactor = courseState.pace.toFixed(4);
+  stage.dataset.courseStaminaFactor = courseState.stamina.toFixed(4);
   ui.clock.textContent=fmtTime(elapsed);
   ui.progress.style.width=`${clamp(focus.distance/RACE_METERS*100,0,100).toFixed(2)}%`;
 
@@ -1730,6 +1739,13 @@ ui.pause.addEventListener("click",()=>{
   ui.pause.textContent=paused?"Resume":"Pause";
 });
 ui.reset.addEventListener("click",resetRace);
+if (courseSelect) courseSelect.addEventListener("change", () => {
+  // Switching profiles begins a clean race, with no carried-over review mode.
+  const target = getCourse(courseSelect.value);
+  const url = new URL(window.location.href);
+  url.search = `?course=${encodeURIComponent(target.id)}`;
+  window.location.assign(url.toString());
+});
 
 if (agentTargetSelect) {
   agentTargetSelect.addEventListener("change", () => {
