@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#0c1820"/>
+  <title>EvoWild Run — Course Workshop</title>
+  <link rel="stylesheet" href="./src/course_builder_2p5d.css"/>
+</head>
+<body>
+<main class="workshop">
+  <header class="topbar">
+    <a href="./race-quality.html" class="back">← RACE</a>
+    <div class="brand"><small>EVOWILD RUN / 2.5D</small><strong>COURSE WORKSHOP</strong></div>
+    <span class="local">LOCAL DRAFT · v1</span>
+  </header>
+  <section class="intro">
+    <h1>Build the challenge.</h1>
+    <p>Combine track segments and test them against the same 18 runners. Surface, bends, slopes and congestion affect race pace and fatigue. This is a local prototype, not official race validation.</p>
+  </section>
+  <div class="workspace">
+    <section class="editor">
+      <div class="section-head"><h2>01 / Course identity</h2><span id="saveState">Unsaved</span></div>
+      <div class="identity">
+        <label>COURSE NAME <input id="courseName" maxlength="48" placeholder="My First Course" /></label>
+        <label>WEATHER <select id="weather"><option value="clear">Clear</option><option value="rain">Rain</option></select></label>
+      </div>
+      <div class="section-head"><h2>02 / Segments</h2><span id="segmentCount">0 modules</span></div>
+      <div id="segments" class="segments"></div>
+      <form id="addSegment" class="module-editor">
+        <div class="module-title">ADD MODULE</div>
+        <div class="module-fields">
+          <label>LENGTH <select name="length"><option value="200">200m</option><option value="400" selected>400m</option><option value="600">600m</option><option value="800">800m</option></select></label>
+          <label>SURFACE <select name="surface"><option value="firm">Firm</option><option value="fast">Fast</option><option value="grass">Grass</option><option value="mud">Mud</option><option value="sand">Sand</option></select></label>
+          <label>WIDTH <select name="width"><option value="4">4 lanes</option><option value="3">3 lanes</option><option value="2">2 lanes</option></select></label>
+          <label>BEND <select name="curve"><option value="0">Straight</option><option value="0.5">Left moderate</option><option value="1">Left sharp</option><option value="-0.5">Right moderate</option><option value="-1">Right sharp</option></select></label>
+          <label>SLOPE <select name="grade"><option value="0">Flat</option><option value="0.04">Uphill 4%</option><option value="0.08">Uphill 8%</option><option value="-0.04">Downhill 4%</option><option value="-0.08">Downhill 8%</option></select></label>
+        </div>
+        <button type="submit" class="add-btn">+ ADD SEGMENT</button>
+      </form>
+    </section>
+    <aside class="preview">
+      <div class="section-head"><h2>03 / Course preview</h2><span>COMPETITIVE DATA</span></div>
+      <div class="numbers"><div><strong id="distance">0</strong><small>METERS</small></div><div><strong id="sections">0</strong><small>SEGMENTS</small></div><div><strong id="surfaceTypes">0</strong><small>SURFACES</small></div></div>
+      <svg id="courseTrace" viewBox="0 0 480 240" role="img" aria-label="Track elevation and bends visualization"></svg>
+      <div class="legend"><span>START</span><span>SEGMENTED COURSE PROFILE</span><span>FINISH</span></div>
+      <div id="validation" class="validation" role="status"></div>
+      <div class="actions">
+        <button id="testCourse" class="primary" type="button">TEST IN REAL RACE →</button>
+        <button id="saveCourse" type="button">SAVE DRAFT</button>
+        <button id="exportCourse" type="button">EXPORT JSON</button>
+        <label class="import-label">IMPORT JSON <input id="importCourse" type="file" accept=".json,application/json"/></label>
+      </div>
+      <p class="disclaimer">Saved only in this browser (localStorage). Export a JSON file to move your design to another device. No account, publishing or multiplayer validation yet.</p>
+    </aside>
+  </div>
+</main>
+<script type="module" src="./src/course_builder_2p5d.js"></script>
+</body>
+</html>
