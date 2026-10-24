@@ -79,6 +79,9 @@ export function courseSectionAt(course, meter) {
 // Pressure is measured by the existing proximity resolver, not fabricated here.
 export function courseEffects(course, meter, morph, pressure=0) {
   const {part}=courseSectionAt(course,meter);
+  if (course.id === DEFAULT_COURSE_ID) {
+    return {pace:1,stamina:1,surface:part.surface,width:part.width,curve:part.curve,grade:part.grade};
+  }
   const base = {
     firm:{S:1,P:1,E:1,A:1},
     fast:{S:1.055,P:1.005,E:1.01,A:1.015},
