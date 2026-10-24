@@ -1749,7 +1749,7 @@ function render() {
   if(OVAL_CHASE_ENABLED){
     ctx.save();
     drawOvalRace({
-      ctx,width,height,elapsed,cameraMeters,racers,focus,
+      ctx,width,height,elapsed,cameraMeters,racers,focus,raceState,
       framesByMorph:spriteFrames,
       spritePhase:(r,time)=>{
         const meta=MORPH_META[r.morph] ?? MORPH_META.S;
