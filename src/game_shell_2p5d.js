@@ -90,6 +90,23 @@ function displayHistory(){
     }
     disclosure.append(table);
     card.append(disclosure);
+    if(record.agentDecisions?.length){
+      const agentLog=el("details","agent-history-details");
+      agentLog.append(el("summary","","Race Agent 判断ログ ("+record.agentDecisions.length+"件)"));
+      const list=el("ol","agent-history-list");
+      for(const action of [...record.agentDecisions].reverse()){
+        const row=el("li","");
+        row.append(
+          el("time","",formatRaceTime(action.at)),
+          el("strong","",action.command.replace("_"," ")),
+          el("span","",action.result),
+          el("small","",action.reason)
+        );
+        list.append(row);
+      }
+      agentLog.append(list);
+      card.append(agentLog);
+    }
     host.append(card);
   }
 }

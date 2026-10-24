@@ -887,6 +887,15 @@ function updateRace(dtMs) {
     runAutonomousAgent(r);
 
     const agentResolution = resolveAgentCommand(r, dt);
+    // Resolve recorded action from actual Creature responsiveness; do not
+    // leave PUSH/CONSERVE decisions as fictitious permanent PENDING entries.
+    const latestDecision=r.agent?.decisions?.[0];
+    if(latestDecision?.result==="PENDING"){
+      const state=r.agent.lastResult;
+      if(state==="STRONG"||state==="SETTLED")latestDecision.result="SUCCESS";
+      else if(state==="PARTIAL")latestDecision.result="PARTIAL";
+      else if(state==="WEAK")latestDecision.result="FAILED";
+    }
     let target = targetSpeedFor(r) *
       agentResolution.speedFactor *
       (1 - r.fatigue * 0.022);
@@ -1905,7 +1914,9 @@ function renderResults() {
   }
   const record=activeRaceRunId && makeRaceRecord({
     id:activeRaceRunId,finishedAt:Date.now(),
-    selectedRunnerId:SELECTED_ID,results:ranks
+    selectedRunnerId:SELECTED_ID,results:ranks,
+    agentFile:selected()?.agent?.config,
+    agentDecisions:selected()?.agent?.decisions
   });
   let saved=false;
   try{saved=record?appendRaceResult(localStorage,record):false;}catch{}

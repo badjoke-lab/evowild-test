@@ -119,3 +119,17 @@ test("Agent per entrant profile storage validates JSON and does not spill betwee
   expect(matchedAgentPreset(closer)).toBe("CLOSER");
   expect(saveAgentProfile(storage,4,{...closer,unsafeScript:"alert(1)"})).toBe(false);
 });
+
+test("recorded Agent decisions reject fabricated action types and preserve genuine results",()=>{
+  const agent=makeAgentFile("CLOSER");
+  const record=testRecord();
+  const source=ENTRANTS.map((r,i)=>({...r,finishPlace:i+1,finishTime:43500+i*700}));
+  const enriched=makeRaceRecord({
+    id:"test-agent-actions-0001",finishedAt:1761300000000,
+    selectedRunnerId:4,results:source,agentFile:agent,
+    agentDecisions:[{at:5000,command:"PUSH",result:"PARTIAL",reason:"Fatigue capped response"}]
+  });
+  expect(validateRaceRecord(enriched)).toBe(true);
+  expect(enriched.agentDecisions[0].result).toBe("PARTIAL");
+  expect(validateRaceRecord({...enriched,agentDecisions:[{...enriched.agentDecisions[0],command:"TELEPORT"}]})).toBe(false);
+});

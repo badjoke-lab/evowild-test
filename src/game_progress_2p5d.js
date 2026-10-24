@@ -1,3 +1,4 @@
+import {validateAgentFile} from "./race_agent_v1.js";
 // EvoWild Run — local-only playable loop storage v1.
 // This is a prototype. No account, server authority, real ownership or online race record.
 export const GAME_STORAGE_KEY="evowild:2p5d:game:v1";
@@ -30,6 +31,14 @@ export function validateRaceRecord(record){
   if(typeof record.id!=="string"||record.id.length<8||record.id.length>100)return false;
   if(!Number.isFinite(record.finishedAt)||record.finishedAt<=0)return false;
   if(!isId(record.playerRunnerId)||!Array.isArray(record.results)||record.results.length!==18)return false;
+  if(record.agentFile !== undefined && !validateAgentFile(record.agentFile).valid)return false;
+  if(record.agentDecisions !== undefined){
+    if(!Array.isArray(record.agentDecisions)||record.agentDecisions.length>30)return false;
+    if(record.agentDecisions.some(d=> !d||!Number.isFinite(d.at)||d.at<0||
+       !["PUSH","CONSERVE","HOLD","SHIFT_LINE"].includes(d.command)||
+       !["SUCCESS","PARTIAL","FAILED","PENDING"].includes(d.result)||
+       typeof d.reason!=="string"||d.reason.length>160))return false;
+  }
   if(record.results.some(e=>!isValidEntry(e)))return false;
   const ids=new Set(record.results.map(e=>e.id));
   const places=new Set(record.results.map(e=>e.place));
@@ -63,7 +72,7 @@ export function selectPlayerRunner(storage,id){
   state.selectedRunnerId=id;
   return storeGameState(storage,state);
 }
-export function makeRaceRecord({id,finishedAt,selectedRunnerId,results}){
+export function makeRaceRecord({id,finishedAt,selectedRunnerId,results,agentFile,agentDecisions}){
   const entries=Array.isArray(results)?results.map(r=>({
     id:Number(r.id),name:String(r.name),morph:String(r.morph),
     place:Number(r.finishPlace),timeMs:Number(r.finishTime)
@@ -72,7 +81,12 @@ export function makeRaceRecord({id,finishedAt,selectedRunnerId,results}){
   const record={
     schemaVersion:1,id,finishedAt,courseId:RACE_COURSE_ID,
     playerRunnerId:selectedRunnerId,playerPlace:player?.place,
-    results:entries
+    results:entries,
+    ...(agentFile ? {agentFile} : {}),
+    ...(agentDecisions ? {agentDecisions:agentDecisions.map(d=>({
+      at:Number(d.at),command:String(d.command),
+      result:String(d.result),reason:String(d.reason)
+    }))} : {})
   };
   return validateRaceRecord(record)?record:null;
 }
