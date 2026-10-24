@@ -4,6 +4,9 @@ import {
 } from "./oval_course_2p5d.js";
 
 const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));
+// Start/finish are placed 45m before the first turn so the oval is visibly
+// a curved racetrack, not an endless straight, from the opening shot.
+export const OVAL_RACE_START_M = 455;
 const quarter=(ctx,pts,fill,stroke)=>{
   if(pts.some(p=>!p))return;
   ctx.beginPath();
@@ -71,7 +74,7 @@ function trackSection(ctx,camera,w,h,m1,m2,fill){
   const d=projectOvalRunner(camera,m2,-.95,w,h);
   quarter(ctx,[a,b,c,d],fill);
 }
-function drawOvalTrack(ctx,camera,w,h,m){
+function drawOvalTrack(ctx,camera,w,h,m,finishAt){
   // Far-to-near ground quads follow exact oval geometry and take the actual
   // sim distance/lane as input; no disconnected decorative perspective lane.
   const start=m-65,end=m+300,step=5;
@@ -107,7 +110,7 @@ function drawOvalTrack(ctx,camera,w,h,m){
   }
   // Start/finish marker is a genuine world coordinate (m=0/1600).
   // Only displayed as a track stripe when in the local visible interval.
-  for(const finish of [0,OVAL_DISTANCE]){
+  for(const finish of [finishAt,finishAt+OVAL_DISTANCE]){
     if(finish<start || finish>end)continue;
     const near=projectOvalRunner(camera,finish,-.95,w,h);
     const far=projectOvalRunner(camera,finish,3.95,w,h);
@@ -118,7 +121,7 @@ function drawOvalTrack(ctx,camera,w,h,m){
     ctx.setLineDash([8,8]);ctx.stroke();ctx.setLineDash([]);
   }
 }
-function drawOvalMinimap(ctx,w,h,racers,focus){
+function drawOvalMinimap(ctx,w,h,racers,focus,worldStart){
   const boxW=clamp(w*.18,116,195),boxH=clamp(h*.20,81,124);
   const x=w-boxW-16,y=h-boxH-113;
   ctx.save();ctx.fillStyle="rgba(7,18,33,.85)";
@@ -131,7 +134,7 @@ function drawOvalMinimap(ctx,w,h,racers,focus){
   }
   ctx.closePath();ctx.strokeStyle="#cfb79b";ctx.lineWidth=5;ctx.stroke();
   for(const r of racers){
-    const p=ovalMinimapPoint(r.distance,x+5,y+7,boxW-10,boxH-14);
+    const p=ovalMinimapPoint(r.distance+worldStart,x+5,y+7,boxW-10,boxH-14);
     ctx.beginPath();ctx.arc(p.x,p.y,r.id===focus.id?5:2.75,0,Math.PI*2);
     ctx.fillStyle=r.id===focus.id?"#91f4ff":["#fda17b","#94c5ff","#e8d9a6","#b4f5b0"][r.id%4];
     ctx.fill();
@@ -144,17 +147,17 @@ export function drawOvalRace(opts){
     ctx,width,height,elapsed,cameraMeters,racers,focus,raceState,framesByMorph,
     spritePhase,orbDrawer,stage,motionReviewMode=false
   }=opts;
-  const cam=ovalChaseCamera(cameraMeters,focus.lane);
+  const cam=ovalChaseCamera(cameraMeters+OVAL_RACE_START_M,focus.lane);
   skyAndMountains(ctx,width,height,elapsed);
   grandstands(ctx,cam,width,height);
-  drawOvalTrack(ctx,cam,width,height,cameraMeters);
+  drawOvalTrack(ctx,cam,width,height,cameraMeters+OVAL_RACE_START_M,OVAL_RACE_START_M);
   const renderable=[];
   const gridFactor=raceState==="countdown" ? 1 : raceState==="running" ? clamp(1-elapsed/2400,0,1) : 0;
   for(const r of racers){
     if(motionReviewMode && r.id!==focus.id)continue;
     // Preserve physically separated start grid before acceleration.
     const position=r.distance+(r.startVisualOffset||0)*gridFactor;
-    const p=projectOvalRunner(cam,position,r.lane,width,height);
+    const p=projectOvalRunner(cam,position+OVAL_RACE_START_M,r.lane,width,height);
     if(!p||p.depth>410||p.x<-210||p.x>width+210||p.y<-200||p.y>height+280)continue;
     renderable.push({r,...p});
   }
@@ -168,7 +171,8 @@ export function drawOvalRace(opts){
     const frameIndex=spritePhase(r,elapsed);
     const frame=frames?.[frameIndex];
     const aspect=frame? frame.height/frame.width : .86;
-    const spriteH=clamp(scale*(chosen?10.8:9.4),12,height*.39);
+    const spriteCap=width<700 ? Math.min(110,width*.255) : Math.min(142,height*.195);
+    const spriteH=clamp(scale*(chosen?9.0:7.8),12,spriteCap*(chosen?1:.92));
     const spriteW=spriteH/clamp(aspect,.60,1.08);
     // Side-facing approved source sheets are temporarily billboarded.
     // Do NOT claim this is a true 3/4-animated Creature.
@@ -193,10 +197,11 @@ export function drawOvalRace(opts){
       stage.dataset.selectedRunFrame=String(frameIndex);
     }
   }
-  drawOvalMinimap(ctx,width,height,racers,focus);
+  drawOvalMinimap(ctx,width,height,racers,focus,OVAL_RACE_START_M);
   stage.dataset.cameraMode="oval-three-quarter-follow";
   stage.dataset.trackGeometry="world-space-1600m-oval";
-  stage.dataset.trackSegment=ovalSegmentAt(focus.distance);
+  stage.dataset.trackSegment=ovalSegmentAt(focus.distance+OVAL_RACE_START_M);
+  stage.dataset.worldStartOffsetMeters=String(OVAL_RACE_START_M);
   stage.dataset.orbCount=String(orbCount);
   stage.dataset.visibleRacers=String(renderable.length);
   stage.dataset.trackVisible="1";
