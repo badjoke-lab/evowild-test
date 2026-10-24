@@ -1,3 +1,5 @@
+import { COURSE_PRESETS, DEFAULT_COURSE_ID, getCourse, courseSectionAt, courseEffects, SURFACE_SHADES } from "./course_profiles_2p5d.js";
+
 const canvas = document.querySelector("#raceCanvas");
 const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
 const stage = document.querySelector("#stage");
@@ -5,6 +7,7 @@ const stage = document.querySelector("#stage");
 const ui = {
   rank: document.querySelector("#rank"),
   speed: document.querySelector("#speed"),
+  courseStatus: document.querySelector("#courseStatus"),
   command: document.querySelector("#command"),
   reason: document.querySelector("#reason"),
   distance: document.querySelector("#distance"),
@@ -21,6 +24,7 @@ const ui = {
   resultList: document.querySelector("#resultList")
 };
 
+const courseSelect = document.querySelector("#courseSelect");
 const agentTargetSelect = document.querySelector("#agentTargetSelect");
 const agentStaminaEl = document.querySelector("#agentStamina");
 const agentFatigueEl = document.querySelector("#agentFatigue");
@@ -52,7 +56,21 @@ const SELECTED_ID = Math.max(
   1,
   Math.min(FIELD_SIZE, Number(new URLSearchParams(location.search).get("selected")) || 1)
 );
-const RACE_METERS = 1600;
+const ACTIVE_COURSE = getCourse(new URLSearchParams(location.search).get("course") || DEFAULT_COURSE_ID);
+const RACE_METERS = ACTIVE_COURSE.distance;
+stage.dataset.courseId = ACTIVE_COURSE.id;
+stage.dataset.courseDistance = String(RACE_METERS);
+stage.dataset.courseWeather = ACTIVE_COURSE.weather;
+stage.dataset.courseModel = "segmented-v1";
+if (courseSelect) {
+  courseSelect.replaceChildren(...COURSE_PRESETS.map(course => {
+    const option = document.createElement("option");
+    option.value = course.id;
+    option.textContent = course.name;
+    return option;
+  }));
+  courseSelect.value = ACTIVE_COURSE.id;
+}
 stage.dataset.engineLineage = "lane5-fixed-step-plus-four-morph-run-sheets";
 stage.dataset.morphSet = "S,P,E,A";
 stage.dataset.fieldSize = String(FIELD_SIZE);
