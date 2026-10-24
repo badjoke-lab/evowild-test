@@ -68,3 +68,24 @@
     padding:6px 8px;
   }
 }
+
+/* Integrated navigation; race Agent commands remain autonomous. */
+.stage[data-mode="stadium-agent-isolated-preview"] .game-home-link{
+  display:inline-flex;align-items:center;justify-content:center;min-height:30px;
+  padding:5px 10px;border:1px solid #4e84a6;border-radius:7px;
+  color:#e9f6ff;background:rgba(10,28,47,.87);
+  text-decoration:none;font:800 10px ui-monospace,Menlo,monospace;
+}
+.stage[data-mode="stadium-agent-isolated-preview"] .result-save-status{
+  margin:9px 0;color:#b6f6e3;font:700 11px/1.4 system-ui,sans-serif;
+}
+.stage[data-mode="stadium-agent-isolated-preview"] .race-history-link{
+  margin-top:9px;display:inline-flex;align-items:center;padding:8px 12px;
+  color:#d9f9ff;background:#1a5f93;text-decoration:none;
+  border:1px solid #78cdeb;border-radius:8px;font:800 12px system-ui,sans-serif;
+}
+@media(max-width:700px){
+  .stage[data-mode="stadium-agent-isolated-preview"] .game-home-link{
+    padding:3px 6px;font-size:8px;min-height:23px;
+  }
+}
