@@ -1,4 +1,5 @@
 import { AGENT_FIELDS, AGENT_PRESETS, makeAgentFile, normalizedAgentFile, decideAgentAction } from "./race_agent_v1.js";
+import { drawOvalRace } from "./oval_render_2p5d.js";
 
 const canvas = document.querySelector("#raceCanvas");
 const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
@@ -45,6 +46,7 @@ const BATTLE_REVIEW_MODE = new URLSearchParams(location.search).get("battleRevie
 const TRAFFIC_REVIEW_MODE = new URLSearchParams(location.search).get("trafficReview") === "1";
 const LANE_REVIEW_MODE = new URLSearchParams(location.search).get("laneReview") === "1";
 const MOTION_REVIEW_MODE = new URLSearchParams(location.search).get("motionReview") === "1";
+let OVAL_CHASE_ENABLED = new URLSearchParams(location.search).get("camera") !== "side";
 const MOTION_REVIEW_FRAME = Math.max(
   -1,
   Math.min(5, Number(new URLSearchParams(location.search).get("motionFrame") ?? -1))
@@ -1744,6 +1746,25 @@ function drawSpeedRush() {
 function render() {
   const focus=selected();
   updateCamera();
+  if(OVAL_CHASE_ENABLED){
+    ctx.save();
+    drawOvalRace({
+      ctx,width,height,elapsed,cameraMeters,racers,focus,
+      framesByMorph:spriteFrames,
+      spritePhase:(r,time)=>{
+        const meta=MORPH_META[r.morph] ?? MORPH_META.S;
+        const cadence=(9.5+clamp(r.speed/34,0,1)*9.5)*meta.cadence;
+        const cycle=((time/1000*cadence+r.phaseOffset)%6+6)%6;
+        return r.morph==="S" ? Math.floor(cycle) : peaFrameIndex(r.morph,cycle);
+      },
+      orbDrawer:drawRaceAgentOrb,stage,MOTION_REVIEW_MODE
+    });
+    ctx.restore();
+    stage.dataset.cameraSubject="oval-selected-follow";
+    return;
+  }
+  stage.dataset.cameraMode="legacy-side";
+  stage.dataset.trackVisible="0";
 
   const speedNorm=clamp(focus.speed/36.5,0,1);
   const rankNow=rankOf(focus);
@@ -1949,6 +1970,14 @@ ui.pause.addEventListener("click",()=>{
 });
 ui.reset.addEventListener("click",resetRace);
 installPreRaceAgentUI();
+const cameraModeButton=document.querySelector("#cameraMode");
+if(cameraModeButton){
+  cameraModeButton.addEventListener("click",()=>{
+    OVAL_CHASE_ENABLED=!OVAL_CHASE_ENABLED;
+    cameraModeButton.textContent=OVAL_CHASE_ENABLED ? "Camera: 3/4" : "Camera: SIDE";
+    stage.dataset.cameraMode=OVAL_CHASE_ENABLED?"oval-three-quarter-follow":"legacy-side";
+  });
+}
 
 if (agentTargetSelect) {
   agentTargetSelect.addEventListener("change", () => {
@@ -2017,6 +2046,7 @@ function fixedFrame(now){
   requestAnimationFrame(fixedFrame);
 }
 stage.dataset.manualControls="0";
+stage.dataset.cameraMode=OVAL_CHASE_ENABLED?"oval-three-quarter-follow":"legacy-side";
 stage.dataset.agentMode="autonomous-v1";
 if (new URLSearchParams(location.search).get("autoStart")==="1") startAutonomousRace();
 requestAnimationFrame(now=>{last=now;fixedFrame(now);});
