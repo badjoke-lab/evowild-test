@@ -60,6 +60,7 @@ test("real 3/4 follow screenshot is archived in CI for both desktop and mobile",
   await expect(stage).toHaveAttribute("data-agent-decision-count",/[1-9]\d*/,{timeout:9500});
   await expect(stage).toHaveAttribute("data-selected-orb-x",/-?\d+\.\d+/);
   await expect(stage).toHaveAttribute("data-track-visible","1");
+  await page.waitForTimeout(3500); // evidence after the grid spreads, not an artificial still pose
   const fs=await import("node:fs");
   fs.mkdirSync("test-results/visuals",{recursive:true});
   await page.screenshot({path:"test-results/visuals/oval-three-quarter-"+testInfo.project.name+".png",fullPage:true});
