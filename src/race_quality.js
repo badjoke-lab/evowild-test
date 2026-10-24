@@ -366,6 +366,18 @@ new ResizeObserver(resize).observe(canvas);
 resize();
 
 function terrainY(m) {
+  if (!ACTIVE_COURSE.legacyTerrain) {
+    const meter = Math.max(0, Math.min(RACE_METERS, m));
+    let elevation = 0;
+    let cursor = 0;
+    for (const part of ACTIVE_COURSE.segments) {
+      const travel = Math.max(0, Math.min(part.length, meter - cursor));
+      elevation += part.grade * travel * 0.8;
+      if (travel < part.length) return elevation + Math.sin(Math.PI * travel / part.length) * Math.abs(part.curve) * 7;
+      cursor += part.length;
+    }
+    return elevation;
+  }
   const a = Math.sin(m*0.0125)*14;
   const b = Math.sin(m*0.0042 + 0.8)*25;
   const c = Math.sin(m*0.021 + 1.7)*5;
@@ -381,6 +393,10 @@ function terrainSlope(m) {
 }
 
 function courseBank(m) {
+  if (!ACTIVE_COURSE.legacyTerrain) {
+    const {part, progress} = courseSectionAt(ACTIVE_COURSE, m);
+    return part.curve * Math.sin(Math.PI * progress) * 24;
+  }
   const bankA = m > 170 && m < 360
     ? Math.sin((m-170)/190*Math.PI)*22
     : 0;
@@ -404,7 +420,7 @@ function makeRacers() {
     name:NAMES[i],
     morph:MORPH_SEQUENCE[i],
     distance: FINISH_REVIEW_MODE
-      ? 1544 - Math.floor(i / 4) * 1.8 - (i % 4) * 0.22
+      ? RACE_METERS - 56 - Math.floor(i / 4) * 1.8 - (i % 4) * 0.22
       : BATTLE_REVIEW_MODE
         ? i===0 ? 120 : i===1 ? 124 : 72 - (i-2)*2
         : TRAFFIC_REVIEW_MODE
@@ -854,7 +870,7 @@ function targetSpeedFor(r) {
     r.command = "PRESERVE";
     r.reason = "Low stamina";
   }
-  return target * (.83 + .17*(r.stamina/100));
+  return target * (.83 + .17*(r.stamina/100)) * courseEffects(ACTIVE_COURSE,r.distance,r.morph,r.pressure).pace;
 }
 
 function updateRace(dtMs) {
@@ -905,7 +921,7 @@ function updateRace(dtMs) {
     const effort = Math.max(0,r.speed/r.cruise-.95);
     r.stamina = Math.max(
       0,
-      r.stamina-(.62+effort*effort*4.4)*dt*agentResolution.staminaDrainScale
+      r.stamina-(.62+effort*effort*4.4)*dt*agentResolution.staminaDrainScale*courseEffects(ACTIVE_COURSE,r.distance,r.morph,r.pressure).stamina
     );
     r.creatureState = deriveCreatureState(r);
     r.distance += Math.max(0,r.speed)*dt;
@@ -1038,7 +1054,8 @@ function drawTrack() {
   for(let lane=0;lane<4;lane++){
     const far=boundaries[lane];
     const near=boundaries[lane+1];
-    const shade=lane%2===0?"#4b5154":"#464c4f";
+    const shades = SURFACE_SHADES[courseSectionAt(ACTIVE_COURSE,cameraMeters).part.surface] || SURFACE_SHADES.firm;
+    const shade=shades[lane%2];
     ctx.fillStyle=shade;
     ctx.beginPath();
     let first=true;
