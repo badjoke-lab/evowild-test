@@ -1,6 +1,7 @@
 import { AGENT_FIELDS, AGENT_PRESETS, makeAgentFile, normalizedAgentFile, decideAgentAction } from "./race_agent_v1.js";
 import { drawOvalRace } from "./oval_render_2p5d.js";
-import { makeRaceRecord, appendRaceResult, selectPlayerRunner, loadGameState } from "./game_progress_2p5d.js";
+import { makeRaceRecord, appendRaceResult, selectPlayerRunner } from "./game_progress_2p5d.js";
+import { loadAgentProfile, saveAgentProfile, matchedAgentPreset } from "./race_agent_profile_store.js";
 
 const canvas = document.querySelector("#raceCanvas");
 const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
@@ -1002,7 +1003,7 @@ const autoCommand = document.querySelector("#autoCommand");
 const autoResult = document.querySelector("#autoResult");
 const autoReason = document.querySelector("#autoReason");
 const autoFatigue = document.querySelector("#autoFatigue");
-let editableAgentFile = makeAgentFile();
+let editableAgentFile = loadAgentProfile(localStorage,SELECTED_ID);
 const ORB_COLORS = Object.freeze({
   HOLD:"#65c8ff",PUSH:"#6bffb4",CONSERVE:"#f27791",
   SHIFT_LINE:"#eec177",NEUTRAL:"#65c8ff"
@@ -1029,6 +1030,12 @@ function installPreRaceAgentUI(){
     entry.addEventListener("change",()=>{
       SELECTED_ID=clamp(Number(entry.value)||1,1,FIELD_SIZE);
       agentTargetIndex=SELECTED_ID-1;
+      editableAgentFile=loadAgentProfile(localStorage,SELECTED_ID);
+      for(const {key} of AGENT_FIELDS){
+        const input=agentFields.querySelector('[name="'+key+'"]');
+        if(input)input.value=editableAgentFile[key];
+      }
+      presetSelect.value=matchedAgentPreset(editableAgentFile);
       stage.dataset.entryRunnerId=String(SELECTED_ID);
       stage.dataset.entryRunnerMorph=selected()?.morph ?? "S";
       stage.dataset.reviewSelectedId=String(SELECTED_ID);
@@ -1054,12 +1061,32 @@ function installPreRaceAgentUI(){
     label.append(select);
     agentFields.append(label);
   }
+  presetSelect.value=matchedAgentPreset(editableAgentFile);
   presetSelect.addEventListener("change",()=>{
     if(!AGENT_PRESETS[presetSelect.value])return;
     editableAgentFile=makeAgentFile(presetSelect.value);
     for(const {key} of AGENT_FIELDS){
       const select=agentFields.querySelector('[name="'+key+'"]');
       if(select)select.value=editableAgentFile[key];
+    }
+  });
+  const imported=document.querySelector("#importAgent");
+  imported?.addEventListener("change",async ()=>{
+    const asset=imported.files?.[0];
+    imported.value="";
+    if(!asset)return;
+    const status=document.querySelector("#setupValidation");
+    try{
+      if(asset.size>16384)throw Error("Agent File is over 16 KB");
+      const parsed=JSON.parse(await asset.text());
+      const normalized=normalizedAgentFile(parsed);
+      if(!normalized.file)throw Error(normalized.errors.join("; "));
+      editableAgentFile=normalized.file;
+      for(const {key} of AGENT_FIELDS)agentFields.querySelector('[name="'+key+'"]').value=editableAgentFile[key];
+      presetSelect.value=matchedAgentPreset(editableAgentFile);
+      status.textContent="Agent Fileの内容を読み込みました。出走開始時に保存します。";
+    }catch(error){
+      status.textContent="Agent Fileの読み込み不可: "+(error.message||String(error));
     }
   });
   document.querySelector("#startAutonomous")?.addEventListener("click",startAutonomousRace);
@@ -1090,6 +1117,7 @@ function startAutonomousRace(){
     r.agent.visualMode="HOLD";
   }
   editableAgentFile=file;
+  stage.dataset.agentProfileSaved=saveAgentProfile(localStorage,SELECTED_ID,file)?"1":"0";
   activeRaceRunId="local-"+crypto.randomUUID();
   // Selection is a local convenience only, not a claim of Creature ownership.
   try{selectPlayerRunner(localStorage,SELECTED_ID);}catch{}
