@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "reference_set": "evowild-user-shared-2p5d-20261024",
+  "status": "NEEDS_BINARY_IMPORT",
+  "expected_size": [
+    1672,
+    941
+  ],
+  "authority": "UI layout and visual direction only; never final gameplay specs or replacement Creature canon",
+  "items": [
+    {
+      "id": "01",
+      "path": "docs/2p5d/mockups/01-race-agent-orb-race.png",
+      "source_file": "2.5d-01.png",
+      "description": "レース中の自律Race Agentオーブ・指令・結果",
+      "size_bytes": 3265280,
+      "sha256": "87af2121e2ba7b503c80efc7eabbafa573cf9fe59fe23bb7f260a5f7636ff6e7",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "id": "02",
+      "path": "docs/2p5d/mockups/02-race-agent-settings.png",
+      "source_file": "2.5d-02.png",
+      "description": "レース開始前のAgent 7項目設定とオーブ説明",
+      "size_bytes": 3447810,
+      "sha256": "c8b78fddc0b595b600a85742bd3249e6359e7c27ccdf3bb880c017fb4d3cea20",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "id": "03",
+      "path": "docs/2p5d/mockups/03-home.png",
+      "source_file": "2.5d-03.png",
+      "description": "ゲームのホームメニュー",
+      "size_bytes": 3211268,
+      "sha256": "388a6f6cab77f02b9fa56de50227420cf099710637d3300cdb12b801b92240a4",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "id": "04",
+      "path": "docs/2p5d/mockups/04-course-selection.png",
+      "source_file": "2.5d-04.png",
+      "description": "競馬場型のコース選択・周回コース情報",
+      "size_bytes": 3368532,
+      "sha256": "cdf8cec6ac4204a6f87bcd7996b527feb1a65d9c2443c0bfeb98d57fd0dbfacd",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "id": "05",
+      "path": "docs/2p5d/mockups/05-race-entry.png",
+      "source_file": "2.5d-05.png",
+      "description": "出走個体・Agent・レース条件確認",
+      "size_bytes": 3374290,
+      "sha256": "20731fded8b9d13ec489f39a96a7a45bd5e87f633ca64f80c84a3dcd457ffe15",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "id": "06",
+      "path": "docs/2p5d/mockups/06-display-settings.png",
+      "source_file": "2.5d-06.png",
+      "description": "レース中のカメラ・HUD・Agent表示設定",
+      "size_bytes": 3226606,
+      "sha256": "e1e33ff09e2fd3215da9802959d343ca623cf6843b1735b1c5176b78b58ac7d0",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "id": "07",
+      "path": "docs/2p5d/mockups/07-race-results.png",
+      "source_file": "2.5d-07.png",
+      "description": "順位・スタミナ推移・Agent判断の事後確認",
+      "size_bytes": 3313877,
+      "sha256": "6e7ed8c3667378426cee4dc97661998ca6b8f92b28e3cd8841b06ab06f938821",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "id": "08",
+      "path": "docs/2p5d/mockups/08-pedigree-history.png",
+      "source_file": "2.5d-08.png",
+      "description": "血統・戦績・相性履歴の情報構造",
+      "size_bytes": 3336157,
+      "sha256": "3b7a6289356f4cfd444f579eb7cc0e6b491b09804c27d6128a06a7bc03d3edf6",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "id": "09",
+      "path": "docs/2p5d/mockups/09-creature-stable.png",
+      "source_file": "2.5d-09.png",
+      "description": "個体一覧と厩舎詳細",
+      "size_bytes": 3400838,
+      "sha256": "8bd2f176eb90b9aaf2c3aaa5e6e290031d13619c3eb5291184f9f1611db22264",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "id": "10",
+      "path": "docs/2p5d/mockups/10-training.png",
+      "source_file": "2.5d-10.png",
+      "description": "育成・調整の画面構成（仕様数値は未確定）",
+      "size_bytes": 3361270,
+      "sha256": "f03f6e21e44c7a60423a9dbae0e363673547e6bca269943cb993c00dedcaafd7",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "id": "12",
+      "path": "docs/2p5d/mockups/12-breeding.png",
+      "source_file": "2.5d-12.png",
+      "description": "繁殖と子世代予測の画面構成（遺伝法則は未確定）",
+      "size_bytes": 3206172,
+      "sha256": "6ca1139b85f03282160b4cd81c608c12838bda7da47113a4a6579674b22951e9",
+      "dimensions": [
+        1672,
+        941
+      ]
+    }
+  ]
+}

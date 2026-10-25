@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#071525"/>
+<title>EvoWild Run — Playable 2.5D prototype</title>
+<link rel="stylesheet" href="./src/game_shell_2p5d.css"/>
+</head>
+<body>
+<div class="app">
+  <header class="app-topbar">
+    <a class="brand" href="#home"><strong>EvoWild Run</strong><span>BREED · TRAIN · RACE · LEAVE A HISTORY</span></a>
+    <span class="prototype">2.5D / LOCAL PROTOTYPE</span>
+  </header>
+  <nav class="global-nav" aria-label="ゲームメニュー">
+    <a data-nav="home" href="#home">ホーム</a>
+    <a data-nav="course" href="#course">コース</a>
+    <a data-nav="creatures" href="#creatures">生物一覧</a>
+    <a data-nav="history" href="#history">戦績</a>
+  </nav>
+  <main>
+    <section id="home" class="view">
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="kicker">EVOWILD RUN / FIRST PLAYABLE GAME LOOP</div>
+          <h1>一匹から、種を作れ。</h1>
+          <p>個体を選び、Race Agentの作戦を決める。レース中は自律判断を観戦し、結果を積み重ねる。</p>
+          <a id="playFromHome" class="primary-action" href="./race-stadium.html">出走設定に進む <span>→</span></a>
+          <span class="hint">このバージョンは18体によるローカル模擬レースです。育種・世代交代はまだ実装されていません。</span>
+        </div>
+        <div class="hero-creature">
+          <span class="small-label">SELECTED CREATURE · DEMO</span>
+          <img id="heroCreatureArt" alt="正式S/P/E/Aクリーチャー素材"/>
+          <div><strong id="heroCreatureName">#01 Mica</strong><span id="heroCreatureMorph">S / Sprint</span></div>
+        </div>
+      </div>
+      <div class="dashboard">
+        <a href="#course" class="dash-card"><span class="card-label">01 / COURSE</span><strong>競馬場型オーバル</strong><span>既存の1600m周回走路を確認 <b>→</b></span></a>
+        <a href="#creatures" class="dash-card"><span class="card-label">02 / CREATURE</span><strong>出走個体を選ぶ</strong><span>デモ出走個体18体から選択 <b>→</b></span></a>
+        <a href="#history" class="dash-card"><span class="card-label">03 / RACE HISTORY</span><strong id="homeHistoryCount">記録 0 レース</strong><span>完走したローカル模擬レースの成績 <b>→</b></span></a>
+      </div>
+    </section>
+    <section id="course" class="view" hidden>
+      <header class="section-header"><div class="kicker">COURSE SELECTION</div><h1>コース選択</h1><p>国別・実在競馬場別の区分はありません。現在実装された競馬場型コースは1種類です。</p></header>
+      <div class="course-layout">
+        <div class="course-card">
+          <div class="course-label"><span class="dot"></span> 実装済みの試験コース</div>
+          <h2>オーバル 1600</h2>
+          <p>スタンド、内外柵、直線、2つのコーナーを持つ周回コース。走路と18体の位置を共通座標で計算しています。</p>
+          <div class="track-panel"><svg viewBox="0 0 560 260" role="img" aria-label="1600m周回コースの平面図。直線2本と2つのコーナー">
+            <rect width="560" height="260" rx="12" fill="#162e3a"/>
+            <path d="M130 35 H430 A95 95 0 0 1 430 225 H130 A95 95 0 0 1 130 35 Z" fill="#355944"/>
+            <path d="M130 35 H430 A95 95 0 0 1 430 225 H130 A95 95 0 0 1 130 35 Z" stroke="#b99268" stroke-width="37" fill="none"/>
+            <path d="M130 35 H430 A95 95 0 0 1 430 225 H130 A95 95 0 0 1 130 35 Z" stroke="#e3d9bc" stroke-width="2" fill="none"/>
+            <path d="M130 35 H430 A95 95 0 0 1 430 225 H130 A95 95 0 0 1 130 35 Z" stroke="#704e39" stroke-width="2" stroke-dasharray="8 9" fill="none" />
+            <path d="M430 35 V71" stroke="#f6fdff" stroke-width="6"/>
+            <g fill="#e2ecf0" font-size="14" font-family="system-ui" font-weight="700"><text x="260" y="138">EVOWILD RUN</text><text x="436" y="64">START</text><text x="436" y="84">/ GOAL</text><text x="180" y="20">STRAIGHT</text><text x="177" y="253">STRAIGHT</text></g>
+          </svg></div>
+          <div class="course-stat-grid"><div><span>距離</span><strong>1,600m</strong></div><div><span>構造</span><strong>周回 / 左カーブ</strong></div><div><span>直線</span><strong>2 × 500m</strong></div><div><span>コーナー</span><strong>2 × 300m</strong></div></div>
+          <p class="disclaimer">距離と構造はこの試作の幾何モデルです。路面条件・天候・コース作成UIは未完成です。</p>
+          <a class="primary-action" id="playFromCourse" href="./race-stadium.html">このコースで出走設定へ <span>→</span></a>
+        </div>
+        <aside class="side-detail"><h3>観戦カメラ</h3><p>斜め後方視点と従来の横視点を切り替えられます。現行6フレームは横向き素材のため、斜め後方の生物アニメーションは品質検証中です。</p><h3>Race Agent</h3><p>レース前に7つの戦略項目を設定し、全個体のAgentがレース中に自動で判断します。指示はオーブとログで確認できます。</p></aside>
+      </div>
+    </section>
+    <section id="creatures" class="view" hidden>
+      <header class="section-header"><div class="kicker">CREATURE SELECTION</div><h1>生物一覧</h1><p>現行レースに登場する18体のデモ個体です。正式な所有・厩舎・育成・繁殖管理ではありません。</p></header>
+      <div class="creature-layout">
+        <div id="creatureGrid" class="creature-grid" aria-label="18体のデモ出走個体"></div>
+        <aside class="selection-panel">
+          <div class="card-label">SELECTED</div>
+          <img id="selectionArt" alt="選択した個体の正式コンセプト素材"/>
+          <h2 id="selectionName">#01 Mica</h2>
+          <p id="selectionMorph">S / Sprint</p>
+          <p class="disclaimer">ここではレースで観戦する個体を選択できます。個体の遺伝的な所有や能力成長はまだこの機能に接続していません。</p>
+          <button id="saveCreature" class="primary-action" type="button">この個体を選択 <span>✓</span></button>
+          <div id="saveNotice" role="status" class="save-notice"></div>
+          <a id="playFromCreatures" href="./race-stadium.html" class="quiet-action">出走設定へ →</a>
+        </aside>
+      </div>
+    </section>
+    <section id="history" class="view" hidden>
+      <header class="section-header"><div class="kicker">RACE HISTORY / LOCAL</div><h1>レース戦績</h1><p>実際に完走した模擬レースのみ保存します。サンプル成績や架空の勝利は表示しません。</p></header>
+      <div id="historyEmpty" class="empty"><h2>まだ完走記録がありません</h2><p>出走設定からレースを最後まで観戦すると、順位・タイム・全18体の着順をこのブラウザに保存します。</p><a id="playFromHistory" class="primary-action" href="./race-stadium.html">レースに参加する →</a></div>
+      <div id="historyList" class="history-list"></div>
+      <div class="history-footer"><small>ローカル保存・最大50レース。別ブラウザや端末とは同期しません。リプレイ映像は未実装です。</small><button type="button" id="exportHistory">戦績JSONを出力</button></div>
+    </section>
+  </main>
+  <footer class="app-footer">EvoWild Run — local playable loop / no wallet required / all assets from repository</footer>
+</div>
+<script type="module" src="./src/game_shell_2p5d.js"></script>
+</body>
+</html>
