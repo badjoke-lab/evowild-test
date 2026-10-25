@@ -7,13 +7,13 @@
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-25T13:14:52.331073+00:00",
+  "checkpoint_updated_at_utc": "2026-10-25T13:16:46.648145+00:00",
   "session_index": 4,
   "current_gate": "GATE_1",
   "current_unit": "Spectator HUD compact/disclosure improvement implemented, compared and pushed; render/identity work remains REVISE",
-  "last_commit_created": "89efbb1f82261409b01964818f31afb82d0caa85",
-  "last_remote_confirmed_sha": "89efbb1f82261409b01964818f31afb82d0caa85",
-  "last_remote_verified_at_utc": "2026-10-25T13:14:52.331073+00:00",
+  "last_commit_created": "e11660ec381d87725ae75a31146120fb7054f16b",
+  "last_remote_confirmed_sha": "e11660ec381d87725ae75a31146120fb7054f16b",
+  "last_remote_verified_at_utc": "2026-10-25T13:16:46.648145+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -46,7 +46,7 @@
     "latest_desktop_e2e": "PASS all 27 desktop cases in final-targeted.log, including real full journey, reloaded results, Agent roundtrip/validator, reset/abort, lane execution outcomes and screenshot capture",
     "latest_android_e2e": "PASS all 27 Pixel 7 Chromium emulation cases in final-targeted.log; physical Android not tested",
     "agent_outcome": "PASS 10/10 incl. controlled-clock actual lane arrival on desktop/Android; build PASS",
-    "latest_github_actions": "Verified baseline 40186097985: 101 passed / 2 failed / 81 skipped (Android+desktop race-quality.spec.js:47 PUSH). Prior new game-loop selectors fixed. Source 89efbb1 newly pushed: current Actions pending, not claimed green.",
+    "latest_github_actions": "Verified baseline 40186097985: 101 passed / 2 failed / 81 skipped (Android+desktop race-quality.spec.js:47 PUSH). Prior game-loop selectors fixed. HUD source 89efbb1 Actions 40196657092 in progress; no claim of latest-head green.",
     "latest_targeted": "54 passed (2.9m); existing completed log recovered and pushed, not rerun on resume",
     "history_layout": "PASS 2/2 desktop and Pixel 7 emulation, also 320px; red-before/green-after regression. No repeat of 54 tests or full race.",
     "lane_provenance": "PASS 26/26 focused tests (1.3m): 14 provenance + 10 existing outcome + 2 history layout. Desktop/Pixel 7; includes real normal-race engine adjustment, actual lane comparison and persistent snapshots. No manual full-race/54-suite rerun.",
@@ -75,5 +75,5 @@
   ],
   "next_action": "git fetch origin --prune && git fetch origin feat/2p5d-flow-persistence-20261025:refs/remotes/origin/feat/2p5d-flow-persistence-20261025 && git status --short && git log -5 --oneline; read HANDOFF_STATE.json. Inspect source 89efbb1 Actions and saved spectator-hud/README.md. Continue only the render-only camera/sprite overlap measurement unit in oval_course_2p5d.js and oval_render_2p5d.js; keep physics/art unchanged, compare PC/Pixel 7 at same four phases, test, commit/push and checkpoint within 15 minutes.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "Latest source/test/evidence SHA 89efbb1 was pushed and verified before this checkpoint commit. The checkpoint necessarily names its previously verified source SHA. No uncommitted implementation; artifacts/, public/models/evowild-s.{mtl,obj}, test-results/ and work/ are temporary generated files. No main changes or merge. One bounded HUD improvement completed; no next implementation started."
+  "checkpoint_note": "Latest source/test/evidence SHA 89efbb1 was pushed and verified before this checkpoint commit. The checkpoint necessarily names its previously verified source SHA. No uncommitted implementation; artifacts/, public/models/evowild-s.{mtl,obj}, test-results/ and work/ are temporary generated files. No main changes or merge. One bounded HUD improvement completed; no next implementation started. PR #132 description updated. Latest verified checkpoint e11660e precedes this documentation-only whitespace/state commit; source remains 89efbb1. Final formatting check trims trailing whitespace in the captured test log without changing results."
 }
