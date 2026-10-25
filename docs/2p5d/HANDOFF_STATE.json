@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
   "purpose": "Codex child-branch checkpoint, not the main repo project status",
-  "status": "QUOTA_INTERRUPTED_REMOTE_SAFE",
+  "status": "CHECKPOINTED_PARTIAL_READY_FOR_NEXT_UNIT",
   "base_repository": "badjoke-lab/evowild-test",
   "parent_branch": "feat/2p5d-autonomous-agent-orbs-20261024",
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-25T02:18:48.782185+00:00",
-  "session_index": 1,
+  "checkpoint_updated_at_utc": "2026-10-25T07:43:33.515910+00:00",
+  "session_index": 2,
   "current_gate": "GATE_1",
-  "current_unit": "Paused following quota; latest Actions complete; resume unfinished local targeted sweep only if evidence/log remains",
-  "last_commit_created": "ad0756349d707945da71588be2e93cdfd912ca7c",
-  "last_remote_confirmed_sha": "ad0756349d707945da71588be2e93cdfd912ca7c",
-  "last_remote_verified_at_utc": "2026-10-25T02:25:23Z",
+  "current_unit": "Recovered final targeted results and refreshed evidence; ready for one new bounded fix",
+  "last_commit_created": "066a60cda59e23d61b3a5dec7824e501d1b0486a",
+  "last_remote_confirmed_sha": "066a60cda59e23d61b3a5dec7824e501d1b0486a",
+  "last_remote_verified_at_utc": "2026-10-25T07:43:33.515910+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -26,22 +26,23 @@
     "Created child branch and Draft PR #132",
     "Imported all 11 exact PNG byte streams from split ZIPs; verifier passed; pushed f904fd9; GitHub contents API confirmed all 11 files and sizes",
     "Fixed same-step crossings using interpolated finish time and validated chronological rank/time; full real race journey passes on desktop and Pixel 7 emulation; eight genuine screenshots captured",
-    "Agent lane requests now remain PENDING until actual arrival; interrupted/expired/finish-cutoff movement is PARTIAL or FAILED. Live popup, HUD, log and archive use recorded execution. Ten outcome tests and build pass."
+    "Agent lane requests now remain PENDING until actual arrival; interrupted/expired/finish-cutoff movement is PARTIAL or FAILED. Live popup, HUD, log and archive use recorded execution. Ten outcome tests and build pass.",
+    "Resumed by fetching and fast-forwarding external checkpoint c040191; recovered existing final-targeted.log (54 passed), archived fourteen current real desktop/Pixel 7 screenshots and Actions summary without repeating imports, fixes or completed race tests"
   ],
   "pending_units": [
-    "Fetch latest origin child branch and inspect status; do not reset or reimport mock PNGs",
-    "Assess unfinished local `work/final-targeted.log` only if it exists; GitHub Actions 40153976228 already finished (84 passed/3 baseline failures/81 skipped)",
-    "Confirm whether latest targeted full-journey/Agent evidence requires archiving; 8 screenshot files and primary evidence are already committed",
-    "Triage only the remaining legacy E2E failures separately; no green claim by deleting/weaking tests",
-    "Return to visual REVISE issues or next scoped approved gameplay unit, push early and update checkpoint"
+    "Fix concatenated mobile Agent history text (time/command/result/reason) with focused view-only validation against mock 07/08; do not repeat full race completion or original imports",
+    "Audit separate opportunistic lane changes in targetSpeedFor versus runAutonomousAgent: COMPLETE SHIFT can coexist with failed Agent request; unify provenance/logging with a focused test before claiming complete movement explanation",
+    "Improve full-lap stadium/orb/runner readability against mocks 01/06; canonical rear-angle gait remains REVISE",
+    "Triage three legacy CI assertions separately; preserve tests and do not change balance simply to satisfy thresholds"
   ],
   "test_status": {
     "baseline_reference": "Parent dcd3f56 Actions 40152147602: 63 passed / 4 failed / 81 skipped. Original 3 + Android race-quality:125 pressure test (also before our changes).",
-    "latest_build": "PASS in run 40153976228; latest code at ad0756349d707945da71588be2e93cdfd912ca7c",
-    "latest_desktop_e2e": "PASS actual 18-runner full race + reload, pause, Agent import/export/validation, reset/abort. Targeted baseline 33 passed; desktop screenshot teardown artifact conflict caused by overlapping local test launch; rerun pending.",
-    "latest_android_e2e": "PASS actual 18-runner full race + reload, pause, Agent import/export/validation, reset/abort.",
+    "latest_build": "PASS at source ad07563 in Actions 40153976228; subsequent commits change only evidence/checkpoint documentation",
+    "latest_desktop_e2e": "PASS all 27 desktop cases in final-targeted.log, including real full journey, reloaded results, Agent roundtrip/validator, reset/abort, lane execution outcomes and screenshot capture",
+    "latest_android_e2e": "PASS all 27 Pixel 7 Chromium emulation cases in final-targeted.log; physical Android not tested",
     "agent_outcome": "PASS 10/10 incl. controlled-clock actual lane arrival on desktop/Android; build PASS",
-    "latest_github_actions": "40153976228: 84 passed, 3 failed, 81 skipped; overall failure. Failures: Android+desktop old race-quality.spec.js:47; desktop old motion-first.spec.js:3146. No additional new-test failures in this run."
+    "latest_github_actions": "40153976228 at ad07563: build PASS, 84 passed / 3 known failures / 81 skipped. No new-test failures. Later evidence/checkpoint-only commits can enqueue new Actions; no claim of latest-head green.",
+    "latest_targeted": "54 passed (2.9m); existing completed log recovered and pushed, not rerun on resume"
   },
   "original_mocks": {
     "expected_count": 11,
@@ -50,14 +51,17 @@
     "verifier": "scripts/verify_2p5d_mockups.py"
   },
   "blocker": [
-    "Codex quota exhausted; work cannot auto-resume. Final local test log work/final-targeted.log may exist only in the Codex environment; it was not confirmed pushed, and is not considered durable."
+    "Visual REVISE: side-facing six-frame sprites overlap in rear view; gait/contact quality unapproved; primitive stadium.",
+    "Full CI remains red on the original three legacy assertions; not caused by new tests."
   ],
   "last_checkpoint_evidence": [
-    "docs/2p5d/evidence/20261025-flow/",
-    "Full journey PASS in both projects; no fixture or instant finish",
-    "Github Actions https://github.com/badjoke-lab/evowild-test/actions/runs/40153976228 (84 passed/3 old failed/81 skipped)"
+    "docs/2p5d/evidence/20261025-flow/final-targeted.log",
+    "docs/2p5d/evidence/20261025-flow/actions-summary.log",
+    "docs/2p5d/evidence/20261025-flow/README.md",
+    "docs/2p5d/evidence/20261025-flow/*.png (14 current screenshots)",
+    "https://github.com/badjoke-lab/evowild-test/actions/runs/40153976228"
   ],
-  "next_action": "git fetch origin --prune && git checkout feat/2p5d-flow-persistence-20261025 && git status --short && git log -5 --oneline && cat docs/2p5d/HANDOFF_STATE.json; verify remote and check whether the final targeted test needs any continuation. Do not recreate already verified 11 PNGs or redo 18-runner browser journey.",
+  "next_action": "git fetch origin --prune && git fetch origin feat/2p5d-flow-persistence-20261025:refs/remotes/origin/feat/2p5d-flow-persistence-20261025 && git status --short && git log -5 --oneline; read HANDOFF_STATE.json; inspect src/game_shell_2p5d.css and .agent-history-list rendering in src/game_shell_2p5d.js plus saved loop-history-android-chromium.png; implement only the history readability unit, validate that view, commit/push and checkpoint.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "This state was updated through GitHub after Codex quota interruption. SHA in last_remote_confirmed_sha identifies last code+evidence head before the checkpoint-only state commit. Re-verify actual branch HEAD at next session."
+  "checkpoint_note": "Remote interruption checkpoint c040191 was preserved by fast-forward. Code/evidence units are pushed. last_remote_confirmed_sha intentionally identifies the verified head preceding this checkpoint-only commit. Local-only artifacts/, generated public/models/evowild-s.{mtl,obj}, test-results/ and work/ are temporary outputs, not unpushed implementation. Re-fetch actual branch HEAD on resume."
 }
