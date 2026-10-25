@@ -95,13 +95,21 @@ function displayHistory(){
       agentLog.append(el("summary","","Race Agent 判断ログ ("+record.agentDecisions.length+"件)"));
       const list=el("ol","agent-history-list");
       for(const action of [...record.agentDecisions].reverse()){
-        const row=el("li","");
-        row.append(
-          el("time","",formatRaceTime(action.at)),
-          el("strong","",action.command.replace("_"," ")),
-          el("span","",action.result),
-          el("small","",action.reason)
-        );
+        const row=el("li","agent-history-row");
+        const fields=el("dl","agent-history-fields");
+        for(const [key,label,value] of [
+          ["time","時刻",formatRaceTime(action.at)],
+          ["command","指令",action.command.replace("_"," ")],
+          ["result","実行結果",action.result],
+          ["reason","理由",action.reason]
+        ]){
+          const field=el("div","agent-history-"+key);
+          const content=el("dd","",value);
+          if(key==="result")content.dataset.result=action.result;
+          field.append(el("dt","",label),content);
+          fields.append(field);
+        }
+        row.append(fields);
         list.append(row);
       }
       agentLog.append(list);
