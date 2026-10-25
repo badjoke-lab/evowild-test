@@ -13,6 +13,6 @@ Before: time/command/result/reason run together. An unbroken long reason expands
 
 - Mock 07 (`../../mockups/07-race-results.png`): preserves the readable separation of decision time, command, result and reason, adapted to compact history cards. Execution results retain the existing recorded values, without adopting mock example numbers as rules.
 - Mock 08 (`../../mockups/08-pedigree-history.png`): keeps the dark navy panels, cyan hierarchy, and grouped history information. This task does not implement pedigree, breeding, or unknown numerical rules.
-- **KEEP for this readability fix; overall graphics remain REVISE.** Full mock composition, stadium, rear-view sprites, gait, and orb readability are not approved by these UI tests.
+- **Readability behavior validated; overall graphics remain REVISE. No visual approval is implied.** Full mock composition, stadium, rear-view sprites, gait, and orb readability are not approved by these UI tests.
 
 Validation: focused Playwright test passes on desktop and Android (2/2); Vite production build passes. The old 54-test suite and full 18-runner race were not repeated. System `/usr/bin/chromium` used through the local Playwright config because the bundled browser download is unavailable in this environment.

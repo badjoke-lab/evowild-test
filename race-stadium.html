@@ -29,6 +29,7 @@
 
     <section class="hud agent">
       <span>RACE STATE · AUTO</span>
+      <small>エンジン走行状態</small>
       <strong id="command">HOLD FORM</strong>
       <small id="reason">Pre-start</small>
     </section>
@@ -68,8 +69,12 @@
         <span>疲労 <strong id="autoFatigue">0%</strong></span>
       </div>
       <div id="autoReason" class="auto-agent-reason">レース開始後に自動判断</div>
-      <div class="auto-timeline-title">判断ログ</div>
+      <div class="auto-timeline-title">Agent 指令・実行結果</div>
       <ol id="autoTimeline" class="auto-timeline"></ol>
+      <details id="engineLaneDetails" hidden>
+        <summary class="auto-timeline-title">エンジン進路調整（Agent指令と別）</summary>
+        <ol id="engineTimeline" class="auto-timeline"></ol>
+      </details>
     </section>
 
     <div class="agent-feedback" id="agentFeedback" aria-live="polite" data-tone="neutral" hidden>

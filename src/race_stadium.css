@@ -101,3 +101,6 @@
 .setup-back-link{display:inline-flex;color:#a6defb;text-decoration:none;
  border:1px solid #3e7696;border-radius:7px;padding:7px 11px;
  font:750 11px system-ui,sans-serif;margin-bottom:10px;background:#102d44}
+
+#engineLaneDetails summary{cursor:pointer;margin-top:7px;line-height:1.5}
+.auto-timeline li{overflow-wrap:anywhere}

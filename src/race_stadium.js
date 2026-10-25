@@ -1,3 +1,4 @@
+import {recordLaneExecution, observeLaneExecution, laneExecutionText, laneSourceLabel} from "./race_lane_execution_2p5d.js";
 import { resolveRecordedAgentDecision } from "./race_agent_outcome_2p5d.js";
 import { classifyFinishCrossings } from "./race_finish_2p5d.js";
 import { AGENT_FIELDS, AGENT_PRESETS, makeAgentFile, normalizedAgentFile, decideAgentAction } from "./race_agent_v1.js";
@@ -455,6 +456,8 @@ function makeRacers() {
     cooldown:(BATTLE_REVIEW_MODE && i===1) || (TRAFFIC_REVIEW_MODE && i<2) || (LANE_REVIEW_MODE && (i===1 || i===2)) ? 999999 : 0,
     laneHoldUntil:0,
     laneDecisionCount:0,
+    engineLaneChanges:[],
+    activeLaneExecution:null,
     laneChangeStartedAt:-999999,
     command:"HOLD FORM",
     reason:"Pre-start",
@@ -818,6 +821,7 @@ function targetSpeedFor(r) {
     if (canReconsiderLane && r.agent?.config?.traffic!=="WAIT") {
       const nextLane = chooseLane(r);
       if (Math.abs(nextLane-r.lane)>=0.25) {
+        recordLaneExecution(r,{source:"ENGINE",at:elapsed,targetLane:nextLane,reason:"Better forward clearance"});
         r.targetLane = nextLane;
         r.cooldown = 1200;
         r.laneHoldUntil = elapsed + 3000;
@@ -918,6 +922,7 @@ function updateRace(dtMs) {
       r.finished=true;
     }
     resolveRecordedAgentDecision(r, elapsed);
+    observeLaneExecution(r.engineLaneChanges[0],r,elapsed);
   }
   finishCounter = classifyFinishCrossings(crossings, {
     stepEndMs:elapsed, stepMs:dt * 1000, finishCount:finishCounter, finishDistance:RACE_METERS
@@ -1153,7 +1158,7 @@ function runAutonomousAgent(r){
   });
   agent.nextDecisionAt=elapsed+1800+(r.id%4)*180;
   if (agent.visualMode===decision.command && elapsed<agent.commandUntil) return;
-  const fromLane=r.lane;
+  let requestedLane=null;
   if (decision.command==="SHIFT_LINE") {
     const preferred=agent.config.positioning;
     const candidates=[0,1,2,3].filter(lane=>Math.abs(lane-r.lane)>=.5 && !occupiedNear(r,lane,7));
@@ -1161,6 +1166,7 @@ function runAutonomousAgent(r){
       const favor=(lane)=>preferred==="INSIDE" ? lane : preferred==="OUTSIDE" ? 3-lane : Math.abs(lane-r.lane);
       return favor(a)-favor(b);
     });
+    requestedLane=ordered[0] ?? null;
     if(ordered.length && r.cooldown<=0 && elapsed>=r.laneHoldUntil && r.lane===r.targetLane){
       r.targetLane=ordered[0];
       r.cooldown=1200;r.laneHoldUntil=elapsed+3000;
@@ -1188,9 +1194,8 @@ function runAutonomousAgent(r){
   agent.lastDecisionAt=elapsed;
   const result=agent.lastResult;
   const recorded=recordDecision(r,decision.command,decision.reason,result);
-  if(decision.command==="SHIFT_LINE" && result==="PENDING"){
-    recorded.fromLane=fromLane;
-    recorded.targetLane=r.targetLane;
+  if(decision.command==="SHIFT_LINE"){
+    recordLaneExecution(r,{source:"AGENT",at:elapsed,targetLane:requestedLane,decision:recorded});
   }
   if(r.id===SELECTED_ID) {
     agentFeedbackRunnerId=r.id;
@@ -1249,18 +1254,40 @@ function updateAutonomousHUD(focus){
   autoReason.textContent=agent.lastDecisionReason;
   autoFatigue.textContent=Math.round(focus.fatigue*100)+"%";
   const visible=agent.decisions.slice(0,5);
-  const signature=visible.map(e=>e.at+e.command+e.result).join("|");
+  const signature=visible.map(e=>e.at+e.command+e.result+laneExecutionText(e)).join("|");
   if(autoTimeline.dataset.lastSignature!==signature){
     autoTimeline.dataset.lastSignature=signature;
     autoTimeline.replaceChildren(...visible.map(e=>{
       const li=document.createElement("li");
+      li.dataset.source="AGENT";
       li.dataset.command=e.command;
       li.dataset.result=e.result;
       li.textContent=formatAgentTime(e.at)+"  "+e.command.replace("_"," ")+
         "  /  "+e.result+"  /  "+e.reason;
+      if(e.fromLane!==undefined){
+        li.dataset.laneExecution=JSON.stringify(e);
+        const lanes=document.createElement("div");
+        lanes.textContent=laneSourceLabel(e.source)+" · "+laneExecutionText(e);
+        li.append(lanes);
+      }
       return li;
     }));
   }
+  const engineTimeline=document.querySelector("#engineTimeline");
+  const engineVisible=focus.engineLaneChanges.slice(0,5);
+  const engineSignature=engineVisible.map(e=>e.at+e.result+laneExecutionText(e)).join("|");
+  if(engineTimeline.dataset.lastSignature!==engineSignature){
+    engineTimeline.dataset.lastSignature=engineSignature;
+    engineTimeline.replaceChildren(...engineVisible.map(e=>{
+      const li=document.createElement("li");
+      li.dataset.source="ENGINE";
+      li.dataset.result=e.result;
+      li.dataset.laneExecution=JSON.stringify(e);
+      li.textContent=formatAgentTime(e.at)+" / "+e.result+" / "+laneExecutionText(e)+" / "+e.reason;
+      return li;
+    }));
+  }
+  document.querySelector("#engineLaneDetails").hidden=engineVisible.length===0;
   stage.dataset.agentDecisionCount=String(agent.decisions.length);
   stage.dataset.agentFocusCommand=agent.visualMode;
   stage.dataset.agentFocusResult=executionResult;
@@ -1920,7 +1947,8 @@ function renderResults() {
     id:activeRaceRunId,finishedAt:Date.now(),
     selectedRunnerId:SELECTED_ID,results:ranks,
     agentFile:selected()?.agent?.config,
-    agentDecisions:selected()?.agent?.decisions
+    agentDecisions:selected()?.agent?.decisions,
+    engineLaneChanges:selected()?.engineLaneChanges
   });
   let saved=false;
   try{saved=record?appendRaceResult(localStorage,record):false;}catch{}
@@ -1943,6 +1971,7 @@ function updateUI(now){
   ui.rank.textContent=`${rankOf(focus)} / ${FIELD_SIZE}`;
   ui.speed.textContent=String(Math.round(focus.speed*3.6));
   ui.command.textContent=focus.command;
+  ui.command.title="エンジンの走行状態（Agent指令の実行結果は左下の専用ログ）";
   ui.reason.textContent=focus.reason;
   ui.distance.textContent=`${Math.round(focus.distance)} / ${RACE_METERS} m`;
   ui.clock.textContent=fmtTime(elapsed);
