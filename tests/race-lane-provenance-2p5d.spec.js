@@ -98,7 +98,8 @@ test('live Agent lane observations match physical movement before and after arri
   await page.clock.pauseAt(new Date(Date.now()+1000));
   await page.locator('#startAutonomous').click();
   await page.clock.runFor(2600);
-  const row=page.locator('#autoTimeline li').first();
+  // Follow the issued lane request even if a later HOLD becomes the newest row.
+  const row=page.locator('#autoTimeline li[data-command="SHIFT_LINE"]').first();
   const stage=page.locator('#stage');
   await expect(row).toHaveAttribute('data-result','PENDING');
   let event=JSON.parse(await row.getAttribute('data-lane-execution'));
@@ -128,6 +129,7 @@ test('normal race exposes engine movement separately while the earlier Agent req
   const agentRow=page.locator('#autoTimeline li[data-command="SHIFT_LINE"]').first();
   await expect(agentRow).toHaveAttribute('data-result','FAILED');
   const rejected=JSON.parse(await agentRow.getAttribute('data-lane-execution'));
+  await page.locator('#spectatorDetails > summary').click();
   await page.locator('#engineLaneDetails summary').click();
   const engineRow=page.locator('#engineTimeline li').first();
   const moving=JSON.parse(await engineRow.getAttribute('data-lane-execution'));

@@ -1,0 +1,13 @@
+[WebServer] (node:13197) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 2 workers
+
+(node:13216) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:13217) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [desktop-chromium] › tests/race-lane-provenance-2p5d.spec.js:95:1 › live Agent lane observations match physical movement before and after arrival (9.7s)
+  ✓  2 [android-chromium] › tests/race-lane-provenance-2p5d.spec.js:95:1 › live Agent lane observations match physical movement before and after arrival (10.5s)
+
+  2 passed (13.2s)

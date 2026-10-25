@@ -1248,6 +1248,7 @@ function drawRaceAgentOrb(r,x,y,w,h,chosen){
 function updateAutonomousHUD(focus){
   if(!autoAgentPanel || !focus?.agent)return;
   const agent=focus.agent;
+  document.querySelector("#autoCreatureName").textContent="#"+String(focus.id).padStart(2,"0")+" "+focus.name+" · "+focus.morph;
   autoCommand.textContent=agent.visualMode || "HOLD";
   const executionResult=agent.decisions[0]?.result ?? agent.lastResult;
   autoResult.textContent=executionResult;
@@ -2032,6 +2033,7 @@ function updateUI(now){
 
 function resetRace(){
   activeRaceRunId=null;
+  document.querySelector("#spectatorDetails").open=false;
   stage.dataset.recordSaved="none";
   racers=makeRacers();
   agentTargetIndex=0;
@@ -2178,3 +2180,10 @@ stage.dataset.cameraMode=OVAL_CHASE_ENABLED?"oval-three-quarter-follow":"legacy-
 stage.dataset.agentMode="autonomous-v1";
 if (new URLSearchParams(location.search).get("autoStart")==="1") startAutonomousRace();
 requestAnimationFrame(now=>{last=now;fixedFrame(now);});
+// Disclosure changes information density only; it never issues a race command.
+document.querySelector("#spectatorDetails").addEventListener("keydown",event=>{
+  if(event.key==="Escape"){
+    event.currentTarget.open=false;
+    event.currentTarget.querySelector("summary").focus();
+  }
+});

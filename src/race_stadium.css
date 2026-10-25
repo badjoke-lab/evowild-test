@@ -104,3 +104,39 @@
 
 #engineLaneDetails summary{cursor:pointer;margin-top:7px;line-height:1.5}
 .auto-timeline li{overflow-wrap:anywhere}
+
+/* Mock 01/06: compact essential state; optional logs protect the playfield. */
+:root{--spectator-panel:rgba(5,23,41,.91);--spectator-border:#4d8fae;--spectator-accent:#8fe2fa}
+.stage[data-mode="stadium-agent-isolated-preview"] .top strong{font-size:18px}
+.stage[data-mode="stadium-agent-isolated-preview"] .top .eyebrow{font-size:9px;letter-spacing:.04em}
+.stage[data-mode="stadium-agent-isolated-preview"] .readout b{font-size:24px}
+.stage[data-mode="stadium-agent-isolated-preview"] .controls{top:58px}
+.auto-agent-panel{bottom:max(45px,env(safe-area-inset-bottom) + 36px);width:340px;padding:10px 12px;background:var(--spectator-panel);border-color:var(--spectator-border)}
+.auto-agent-title{justify-content:space-between;gap:8px;font-size:12px;color:var(--spectator-accent)}
+#autoCreatureName{min-width:0;overflow-wrap:anywhere}
+.hud-fatigue{font-size:10px;white-space:nowrap;color:#dceef7}
+.auto-agent-state{margin-top:6px;gap:7px;font-size:10px}
+.auto-agent-state strong{font-size:11px}
+.spectator-details>summary{cursor:pointer;margin-top:6px;padding:5px 0;font-size:11px;color:var(--spectator-accent);min-height:28px}
+.spectator-details>summary:focus-visible{outline:2px solid var(--spectator-accent);outline-offset:2px}
+.spectator-details-body{max-height:32vh;overflow:auto;overscroll-behavior:contain;padding-right:3px}
+.spectator-details .auto-timeline{max-height:110px}
+.stage[data-mode="stadium-agent-isolated-preview"] .spectator-details .hud.agent,
+.stage[data-mode="stadium-agent-isolated-preview"] .spectator-details .battle-readout{
+ position:static;min-width:0;max-width:none;translate:none;margin:9px 0;padding:8px;box-shadow:none;background:#0b2538;text-align:left
+}
+.spectator-details .ranking{flex-wrap:wrap;margin-top:7px}
+.stage[data-mode="stadium-agent-isolated-preview"] .agent-feedback{left:auto;right:15px;top:108px;min-width:0;max-width:280px;padding:7px 10px}
+@media(max-width:700px){
+ .stage[data-mode="stadium-agent-isolated-preview"] .top strong{font-size:15px}
+ .stage[data-mode="stadium-agent-isolated-preview"] .controls{top:52px;gap:5px}
+ .stage[data-mode="stadium-agent-isolated-preview"] .controls button,
+ .stage[data-mode="stadium-agent-isolated-preview"] .game-home-link{min-height:34px;font-size:10px}
+ .auto-agent-panel{width:220px;max-width:calc(100vw - 18px);left:9px;padding:8px}
+ .auto-agent-title{font-size:11px;gap:5px}
+ .hud-fatigue{font-size:9px}
+ .auto-agent-state{gap:5px;font-size:9px}
+ .auto-agent-state strong{font-size:10px}
+ .spectator-details>summary{min-height:32px;font-size:11px}
+ .stage[data-mode="stadium-agent-isolated-preview"] .agent-feedback{right:9px;left:auto;top:100px;max-width:240px}
+}
