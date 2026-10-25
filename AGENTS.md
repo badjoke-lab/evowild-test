@@ -70,3 +70,18 @@ Do not introduce countries, real-world racecourses, wilderness course defaults, 
 - Every new UI implementation PR must map its modified view to an **existing mock ID** and explicitly label illustrative data as `TBD`, with true real-game desktop/mobile evidence.
 - Maintain distinct evidence: **(a)** a verified original mock, **(b)** live runtime screenshot, **(c)** test results, **(d)** user approval. None substitutes for the others.
 - If verified original mock PNGs are missing, do not pretend they are present or create replicas. Explicitly report `REFERENCE_IMAGE_MISSING` and use the provided original ZIP import path.
+
+## Codex usage-limit resilience: mandatory checkpoints
+**A long uninterrupted job is unsafe: Codex can hit hourly/session limits without an opportunity for a final push.**
+
+Read `docs/2p5d/CODEX_QUOTA_RECOVERY_PROTOCOL.md` and `docs/2p5d/HANDOFF_STATE.json` before editing. This applies to **every** task even if the user prompt omits the instructions.
+
+1. Prefer a bounded unit that can be completed, tested and pushed independently, not a long chain of speculative edits.
+2. After **each meaningful edit/working unit or at most 15 minutes of actual work**, whichever happens first, immediately **commit AND push** to the active child branch; save checkpoint state to `docs/2p5d/HANDOFF_STATE.json` on that branch and push that as well. Do not save only locally or rely on an unpushed commit.
+3. If limits are nearing, the task is getting long, or remaining tool calls are uncertain: **stop new work**, record the current done/unfinished state, the latest confirmed remote SHA, the failed tests, the exact next operation, and push the checkpoint. Never wait for quota exhaustion.
+4. If quota unexpectedly interrupts before a checkpoint, work after the last **verified remote** checkpoint may be lost. On restart, fetch remote and recover actual files before any changes. Never describe unpushed work as saved.
+5. For resumption, read the saved checkpoint, inspect `git status`, `git log -5` and `git branch -vv`, confirm origin SHA; continue **the unfinished unit**, do not repeat completed tasks, wipe branches, regenerate mocks or start 3D.
+6. Unit completion ≠ global completion. Report blockers/REVISE and partial progress accurately. Do not merge main or run paid services.
+
+The 15-minute value is a *maximum checkpoint interval*, **not** a promise that the tool will remain available for 15 minutes or that it can sense account quota precisely.
+

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "purpose": "Codex child-branch checkpoint, not the main repo project status",
+  "status": "READY_FOR_CODEX",
+  "base_repository": "badjoke-lab/evowild-test",
+  "parent_branch": "feat/2p5d-autonomous-agent-orbs-20261024",
+  "child_work_branch": null,
+  "draft_pr_url": null,
+  "base_commit_at_handoff": null,
+  "checkpoint_updated_at_utc": null,
+  "session_index": 0,
+  "current_gate": "GATE_0",
+  "current_unit": "Start child branch, import attached original PNGs, verify assets and test baseline",
+  "last_commit_created": null,
+  "last_remote_confirmed_sha": null,
+  "last_remote_verified_at_utc": null,
+  "local_uncommitted_files": [],
+  "completed_units": [],
+  "pending_units": [
+    "Fetch latest origin and read AGENTS + handoff + quota protocol",
+    "Create/reuse a single Codex child branch from PR #131",
+    "Import user-provided original ZIP, verify exact PNG SHA-256, commit/push originals",
+    "Baseline existing Playwright and build without deleting existing failing tests",
+    "Fix one complete game-loop defect, test, commit/push, record evidence"
+  ],
+  "test_status": {
+    "baseline_reference": "GitHub Actions 40110098267: 64 passed, 3 failed, 81 skipped, full workflow FAILURE (dated 2026-10-24); reconfirm before working",
+    "latest_build": "NOT_RUN_IN_CHILD_BRANCH",
+    "latest_desktop_e2e": "NOT_RUN_IN_CHILD_BRANCH",
+    "latest_android_e2e": "NOT_RUN_IN_CHILD_BRANCH"
+  },
+  "original_mocks": {
+    "expected_count": 11,
+    "state": "ZIP_ATTACHED_FOR_CODEX_IMPORT; NOT YET COMMITTED TO GITHUB",
+    "manifest": "docs/2p5d/mockups/manifest.json",
+    "verifier": "scripts/verify_2p5d_mockups.py"
+  },
+  "blocker": [],
+  "last_checkpoint_evidence": [],
+  "next_action": "git fetch origin --prune && git status --short && git log -5 --oneline; read quota protocol; create or resume Codex child branch; inspect attached ZIP before import",
+  "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge"
+}

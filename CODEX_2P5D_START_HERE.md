@@ -14,3 +14,7 @@ Use this repository as the source of truth. **Do not start a new model-generatio
 Copy-ready prompt: [CODEX_START_PROMPT_20261025.txt](docs/2p5d/CODEX_START_PROMPT_20261025.txt).
 
 **Handoff status**: instructions and checksum-verified mock manifest are committed; binary images are an explicit handoff attachment, not falsely claimed as committed. 
+
+## Before any long task: quota and resume protection
+
+Read [the mandatory quota recovery protocol](docs/2p5d/CODEX_QUOTA_RECOVERY_PROTOCOL.md) and the [durable checkpoint](docs/2p5d/HANDOFF_STATE.json). Treat each meaningful change as a checkpoint and commit **and push** immediately; 15 minutes is the upper interval, not the target. When tool/quota remaining is uncertain, stop new tasks and save state. After interruption, resume from the last **remote-confirmed** SHA; never restart the project from scratch. See the protocol for the exact checkpoint fields and recovery command sequence.

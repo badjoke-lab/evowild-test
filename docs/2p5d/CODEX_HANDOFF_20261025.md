@@ -68,3 +68,7 @@ Main functionality to close next: Home -> oval Course choice -> Creature entry -
 ## Exit criteria for an individual Codex session
 
 Report: `base SHA` / `head SHA` / changed files / PR / build and targeted E2E status / count and nature of unrelated failures / real desktop & mobile visual evidence / gameplay paths tested / unresolved blockers. Finish with KEEP or REVISE per feature, not an unjustified one-word overall success.
+
+## Mandatory checkpoint / quota-loss recovery
+
+Before opening a code editor, read `docs/2p5d/CODEX_QUOTA_RECOVERY_PROTOCOL.md` and `docs/2p5d/HANDOFF_STATE.json`. All new Codex child branches must update and push this checkpoint repeatedly (after each unit, never later than 15 minutes). Checkpoint state includes last **remote verified SHA**, pending next actions, test outcome, errors and exact restart command. `git commit` alone does not secure the work; `git push` plus remote SHA verification is required. A sudden cut-off can still discard unpushed work, so never promise completion on a quota-bound job. On restart, fetch, inspect state and continue, never remake earlier work.

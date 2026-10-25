@@ -36,3 +36,7 @@
 ## Evidence required at every gate
 - Branch/commit and PR; steps actually performed; screenshots/recordings produced **by the running game**; desktop & Android; runnable commands; failure triage; explicitly REVISE when criteria unmet.
 - Do not merge to main automatically. No spend / paid third-party services. Stop expanding scope once a gate is done, instead of generating more mockups.
+
+## Quota guard — applies to Gates 0 through 5
+
+At each gate, divide work into a small independent `edit → targeted test → commit → push → verify remote → update and push HANDOFF_STATE.json` sequence. Record all partial work as `IN_PROGRESS` or `REVISE`, not `KEEP` without proof. If a gate cannot finish before the budget becomes uncertain, **stop new edits** and checkpoint the exact remaining command. Refer to `docs/2p5d/CODEX_QUOTA_RECOVERY_PROTOCOL.md`. Do not rely on Codex automatically waking up when an hourly limit resets.
