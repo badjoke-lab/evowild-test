@@ -7,13 +7,13 @@
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-25T09:26:58.063888+00:00",
+  "checkpoint_updated_at_utc": "2026-10-25T09:38:18.106469+00:00",
   "session_index": 3,
   "current_gate": "GATE_1",
-  "current_unit": "Task 1 complete and pushed; task 2 not started",
-  "last_commit_created": "8499c74f4d802dbb5d99fde01c4787b39f9938c3",
-  "last_remote_confirmed_sha": "8499c74f4d802dbb5d99fde01c4787b39f9938c3",
-  "last_remote_verified_at_utc": "2026-10-25T09:26:58.063888+00:00",
+  "current_unit": "Both requested units complete and pushed; source Actions awaiting completion",
+  "last_commit_created": "749872f1950c1f7feed6eef2ac5e60c845163102",
+  "last_remote_confirmed_sha": "749872f1950c1f7feed6eef2ac5e60c845163102",
+  "last_remote_verified_at_utc": "2026-10-25T09:38:18.106469+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -28,22 +28,24 @@
     "Fixed same-step crossings using interpolated finish time and validated chronological rank/time; full real race journey passes on desktop and Pixel 7 emulation; eight genuine screenshots captured",
     "Agent lane requests now remain PENDING until actual arrival; interrupted/expired/finish-cutoff movement is PARTIAL or FAILED. Live popup, HUD, log and archive use recorded execution. Ten outcome tests and build pass.",
     "Resumed by fetching and fast-forwarding external checkpoint c040191; recovered existing final-targeted.log (54 passed), archived fourteen current real desktop/Pixel 7 screenshots and Actions summary without repeating imports, fixes or completed race tests",
-    "Task 1: labeled Agent history fields, wrapping reasons, no overflow at Pixel 7 and 320px; desktop preserved. Isolated fixture before/after screenshots compared with mocks 07/08; 2 targeted tests and build PASS. Pushed 8499c74 and verified origin."
+    "Task 1: labeled Agent history fields, wrapping reasons, no overflow at Pixel 7 and 320px; desktop preserved. Isolated fixture before/after screenshots compared with mocks 07/08; 2 targeted tests and build PASS. Pushed 8499c74 and verified origin.",
+    "Task 2: independent AGENT/ENGINE lane provenance, observed from/target/actual lane + timestamp, takeover freezes earlier outcome, separate live/saved engine logs and backward-compatible validation. Normal-race live reproduction retains Agent FAILED while engine succeeds. 26 targeted tests and build PASS; six screenshots pushed at 749872f and verified origin."
   ],
   "pending_units": [
-    "Audit separate opportunistic lane changes in targetSpeedFor versus runAutonomousAgent: COMPLETE SHIFT can coexist with failed Agent request; unify provenance/logging with a focused test before claiming complete movement explanation",
     "Improve full-lap stadium/orb/runner readability against mocks 01/06; canonical rear-angle gait remains REVISE",
     "Triage three legacy CI assertions separately; preserve tests and do not change balance simply to satisfy thresholds"
   ],
   "test_status": {
     "baseline_reference": "Parent dcd3f56 Actions 40152147602: 63 passed / 4 failed / 81 skipped. Original 3 + Android race-quality:125 pressure test (also before our changes).",
-    "latest_build": "PASS local production build at 8499c74 (task 1)",
+    "latest_build": "PASS local production build at 749872f (task 2)",
     "latest_desktop_e2e": "PASS all 27 desktop cases in final-targeted.log, including real full journey, reloaded results, Agent roundtrip/validator, reset/abort, lane execution outcomes and screenshot capture",
     "latest_android_e2e": "PASS all 27 Pixel 7 Chromium emulation cases in final-targeted.log; physical Android not tested",
     "agent_outcome": "PASS 10/10 incl. controlled-clock actual lane arrival on desktop/Android; build PASS",
-    "latest_github_actions": "40153976228 at ad07563: build PASS, 84 passed / 3 known failures / 81 skipped. No new-test failures. Later evidence/checkpoint-only commits can enqueue new Actions; no claim of latest-head green.",
+    "latest_github_actions": "Task 1 source 8499c74: Actions 40180663784 build PASS, 86 passed / original 3 failed / 81 skipped; new layout tests passed. Task 2 source 749872f newly pushed; Actions result pending, not claimed green.",
     "latest_targeted": "54 passed (2.9m); existing completed log recovered and pushed, not rerun on resume",
-    "history_layout": "PASS 2/2 desktop and Pixel 7 emulation, also 320px; red-before/green-after regression. No repeat of 54 tests or full race."
+    "history_layout": "PASS 2/2 desktop and Pixel 7 emulation, also 320px; red-before/green-after regression. No repeat of 54 tests or full race.",
+    "lane_provenance": "PASS 26/26 focused tests (1.3m): 14 provenance + 10 existing outcome + 2 history layout. Desktop/Pixel 7; includes real normal-race engine adjustment, actual lane comparison and persistent snapshots. No manual full-race/54-suite rerun.",
+    "intermediate_local_failures": "Resolved: Vite hot reload during a source edit reset one browser test; final run made no concurrent source edits. New engine test initially advanced only 1.2s for a 3-lane move needing ~1.58s; now explicitly checks PENDING then actual arrival after 2s. Final 26/26 PASS, no assertion removed."
   },
   "original_mocks": {
     "expected_count": 11,
@@ -61,9 +63,10 @@
     "docs/2p5d/evidence/20261025-flow/README.md",
     "docs/2p5d/evidence/20261025-flow/*.png (14 current screenshots)",
     "https://github.com/badjoke-lab/evowild-test/actions/runs/40153976228",
-    "docs/2p5d/evidence/20261025-history-layout/README.md (4 real UI-fixture screenshots, target test and build logs)"
+    "docs/2p5d/evidence/20261025-history-layout/README.md (4 real UI-fixture screenshots, target test and build logs)",
+    "docs/2p5d/evidence/20261025-lane-provenance/README.md (6 screenshots, 26-pass log, build log)"
   ],
-  "next_action": "After verifying this checkpoint push: inspect targetSpeedFor and runAutonomousAgent in src/race_stadium.js plus src/race_agent_outcome_2p5d.js; implement task 2 lane-decision provenance and consistent actual execution in live/saved logs, run focused regressions, commit/push and update this checkpoint. Do not repeat completed task 1, 54 tests, imports or full race.",
+  "next_action": "git fetch origin --prune && git fetch origin feat/2p5d-flow-persistence-20261025:refs/remotes/origin/feat/2p5d-flow-persistence-20261025 && git status --short && git log -5 --oneline; read HANDOFF_STATE.json; inspect GitHub Actions for source 749872f1950c1f7feed6eef2ac5e60c845163102 and distinguish only the known legacy failures. Both requested implementation units are complete; do not repeat them. Next implementation is reducing spectator HUD/Creature/orb overlap against mocks 01/06, retaining graphics REVISE and canonical art.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "Remote interruption checkpoint c040191 was preserved by fast-forward. Code/evidence units are pushed. last_remote_confirmed_sha intentionally identifies the verified head preceding this checkpoint-only commit. Local-only artifacts/, generated public/models/evowild-s.{mtl,obj}, test-results/ and work/ are temporary outputs, not unpushed implementation. Re-fetch actual branch HEAD on resume."
+  "checkpoint_note": "Task 1 was pushed and checkpointed at e6b27d5 before task 2 began. last_remote_confirmed_sha identifies the verified source commit preceding this checkpoint-only commit. Source/tests/evidence are on origin; local-only artifacts/, public/models/evowild-s.{mtl,obj}, test-results/ and work/ are generated temporary outputs. No main merge."
 }
