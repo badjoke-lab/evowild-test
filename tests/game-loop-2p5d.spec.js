@@ -69,7 +69,16 @@ test('real complete journey saves exactly one 18-runner result and survives relo
   await page.locator('.history-details summary').click();
   await expect(page.locator('.race-places li')).toHaveCount(18);
   await expect(page.locator('.race-places li').first()).toContainText(formatRaceTime(ranked[0].timeMs));
-  await page.locator('.agent-history-details summary').click();
+  // Agent decisions and engine-initiated lane adjustments are separate logs.
+  // Scope each disclosure explicitly, rather than matching both with one click.
+  const agentHistory=page.locator('.agent-history-details[data-source="AGENT"]');
+  const engineHistory=page.locator('.agent-history-details[data-source="ENGINE"]');
+  await expect(agentHistory).toHaveCount(1);
+  await expect(engineHistory).toHaveCount(1);
+  await agentHistory.locator('summary').click();
+  await engineHistory.locator('summary').click();
+  await expect(agentHistory.locator('.agent-history-row')).toHaveCount(record.agentDecisions.length);
+  await expect(engineHistory.locator('.agent-history-row')).toHaveCount(record.engineLaneChanges.length);
   await screenshot(page,testInfo,'history');
   expect((await stored(page)).history).toEqual([record]);
   await page.reload({waitUntil:'networkidle'});
