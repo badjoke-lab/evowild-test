@@ -9,7 +9,7 @@ generated public/models/evowild-s.obj
 
 vite v7.3.7 building client environment for production...
 transforming...
-✓ 29 modules transformed.
+✓ 30 modules transformed.
 rendering chunks...
 computing gzip size...
 dist/race-lane5.html                              1.90 kB │ gzip:   0.87 kB
@@ -30,11 +30,11 @@ dist/assets/game_progress_2p5d-Dlqd2cLu.js        6.51 kB │ gzip:   2.58 kB
 dist/assets/race2_5d-JtDeRsQc.js                  9.41 kB │ gzip:   4.16 kB
 dist/assets/race_lane5-BZ0EtTVs.js               14.29 kB │ gzip:   6.14 kB
 dist/assets/race_quality-DGTDdWMd.js             33.71 kB │ gzip:  12.62 kB
-dist/assets/race_stadium-BrleXJXC.js             51.12 kB │ gzip:  19.27 kB
+dist/assets/race_stadium-CgvsXRk7.js             51.72 kB │ gzip:  19.46 kB
 dist/assets/main-nE_ODobT.js                    550.26 kB │ gzip: 146.00 kB
 
 (!) Some chunks are larger than 500 kB after minification. Consider:
 - Using dynamic import() to code-split the application
 - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
-✓ built in 8.23s
+✓ built in 2.59s

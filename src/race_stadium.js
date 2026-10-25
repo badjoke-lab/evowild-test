@@ -1,3 +1,4 @@
+import { resolveRecordedAgentDecision } from "./race_agent_outcome_2p5d.js";
 import { classifyFinishCrossings } from "./race_finish_2p5d.js";
 import { AGENT_FIELDS, AGENT_PRESETS, makeAgentFile, normalizedAgentFile, decideAgentAction } from "./race_agent_v1.js";
 import { drawOvalRace } from "./oval_render_2p5d.js";
@@ -742,9 +743,9 @@ function resolveAgentCommand(r, dt) {
 }
 
 function agentFeedbackTone(result) {
-  if (["STRONG","SETTLED"].includes(result)) return "positive";
+  if (["STRONG","SETTLED","SUCCESS"].includes(result)) return "positive";
   if (result==="PARTIAL") return "partial";
-  if (result==="WEAK") return "weak";
+  if (["WEAK","FAILED"].includes(result)) return "weak";
   return "neutral";
 }
 
@@ -776,11 +777,7 @@ function updateAgentFeedback() {
 
   const r = racers.find((runner) => runner.id===agentFeedbackRunnerId);
   if (!r?.agent) return;
-  const result = agentFeedbackCommand==="CLEAR"
-    ? "CLEARED"
-    : r.agent.lastResult==="NEUTRAL"
-      ? "PENDING"
-      : r.agent.lastResult;
+  const result = r.agent.decisions[0]?.result ?? (r.agent.lastResult==="NEUTRAL" ? "PENDING" : r.agent.lastResult);
 
   agentFeedbackEl.dataset.tone = agentFeedbackTone(result);
   if (agentFeedbackResultEl) agentFeedbackResultEl.textContent = result;
@@ -889,15 +886,6 @@ function updateRace(dtMs) {
     runAutonomousAgent(r);
 
     const agentResolution = resolveAgentCommand(r, dt);
-    // Resolve recorded action from actual Creature responsiveness; do not
-    // leave PUSH/CONSERVE decisions as fictitious permanent PENDING entries.
-    const latestDecision=r.agent?.decisions?.[0];
-    if(latestDecision?.result==="PENDING"){
-      const state=r.agent.lastResult;
-      if(state==="STRONG"||state==="SETTLED")latestDecision.result="SUCCESS";
-      else if(state==="PARTIAL")latestDecision.result="PARTIAL";
-      else if(state==="WEAK")latestDecision.result="FAILED";
-    }
     let target = targetSpeedFor(r) *
       agentResolution.speedFactor *
       (1 - r.fatigue * 0.022);
@@ -929,6 +917,7 @@ function updateRace(dtMs) {
       r.distance=RACE_METERS;
       r.finished=true;
     }
+    resolveRecordedAgentDecision(r, elapsed);
   }
   finishCounter = classifyFinishCrossings(crossings, {
     stepEndMs:elapsed, stepMs:dt * 1000, finishCount:finishCounter, finishDistance:RACE_METERS
@@ -1150,10 +1139,13 @@ function recordDecision(r,cmd,reason,result){
   const event={at:elapsed,command:cmd,reason,result};
   r.agent.decisions.unshift(event);
   r.agent.decisions.length=Math.min(30,r.agent.decisions.length);
+  return event;
 }
 function runAutonomousAgent(r){
   const agent=r.agent;
   if(!agent || elapsed<agent.nextDecisionAt) return;
+  // Let an issued move resolve (or expire) before replacing its decision.
+  if(agent.decisions[0]?.result==="PENDING")return;
   const progress=r.distance/RACE_METERS;
   const blocked=gapAhead(r)<8;
   const decision=decideAgentAction(agent.config,{
@@ -1161,19 +1153,19 @@ function runAutonomousAgent(r){
   });
   agent.nextDecisionAt=elapsed+1800+(r.id%4)*180;
   if (agent.visualMode===decision.command && elapsed<agent.commandUntil) return;
+  const fromLane=r.lane;
   if (decision.command==="SHIFT_LINE") {
     const preferred=agent.config.positioning;
-    const original=r.lane;
     const candidates=[0,1,2,3].filter(lane=>Math.abs(lane-r.lane)>=.5 && !occupiedNear(r,lane,7));
     const ordered=candidates.sort((a,b)=>{
       const favor=(lane)=>preferred==="INSIDE" ? lane : preferred==="OUTSIDE" ? 3-lane : Math.abs(lane-r.lane);
       return favor(a)-favor(b);
     });
-    if(ordered.length && r.cooldown<=0 && elapsed>=r.laneHoldUntil){
+    if(ordered.length && r.cooldown<=0 && elapsed>=r.laneHoldUntil && r.lane===r.targetLane){
       r.targetLane=ordered[0];
       r.cooldown=1200;r.laneHoldUntil=elapsed+3000;
       r.laneDecisionCount++;
-      agent.lastResult="SUCCESS";
+      agent.lastResult="PENDING";
     } else {
       agent.lastResult="FAILED";
     }
@@ -1195,7 +1187,11 @@ function runAutonomousAgent(r){
   agent.visualMode=decision.command;
   agent.lastDecisionAt=elapsed;
   const result=agent.lastResult;
-  recordDecision(r,decision.command,decision.reason,result);
+  const recorded=recordDecision(r,decision.command,decision.reason,result);
+  if(decision.command==="SHIFT_LINE" && result==="PENDING"){
+    recorded.fromLane=fromLane;
+    recorded.targetLane=r.targetLane;
+  }
   if(r.id===SELECTED_ID) {
     agentFeedbackRunnerId=r.id;
     agentFeedbackCommand=decision.command;
@@ -1248,23 +1244,26 @@ function updateAutonomousHUD(focus){
   if(!autoAgentPanel || !focus?.agent)return;
   const agent=focus.agent;
   autoCommand.textContent=agent.visualMode || "HOLD";
-  autoResult.textContent=agent.lastResult;
+  const executionResult=agent.decisions[0]?.result ?? agent.lastResult;
+  autoResult.textContent=executionResult;
   autoReason.textContent=agent.lastDecisionReason;
   autoFatigue.textContent=Math.round(focus.fatigue*100)+"%";
   const visible=agent.decisions.slice(0,5);
-  const signature=visible.map(e=>e.at+e.command).join("|");
+  const signature=visible.map(e=>e.at+e.command+e.result).join("|");
   if(autoTimeline.dataset.lastSignature!==signature){
     autoTimeline.dataset.lastSignature=signature;
     autoTimeline.replaceChildren(...visible.map(e=>{
       const li=document.createElement("li");
+      li.dataset.command=e.command;
+      li.dataset.result=e.result;
       li.textContent=formatAgentTime(e.at)+"  "+e.command.replace("_"," ")+
-        "  /  "+e.reason;
+        "  /  "+e.result+"  /  "+e.reason;
       return li;
     }));
   }
   stage.dataset.agentDecisionCount=String(agent.decisions.length);
   stage.dataset.agentFocusCommand=agent.visualMode;
-  stage.dataset.agentFocusResult=agent.lastResult;
+  stage.dataset.agentFocusResult=executionResult;
   stage.dataset.agentFocusReason=agent.lastDecisionReason;
 }
 function drawStadiumScenery(){
