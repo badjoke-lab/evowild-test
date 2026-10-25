@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
   "purpose": "Codex child-branch checkpoint, not the main repo project status",
-  "status": "CI_SELECTOR_REGRESSION_PATCHED_AWAITING_E2E",
+  "status": "CHECKPOINTED_SPECTATOR_HUD_UNIT_COMPLETE",
   "base_repository": "badjoke-lab/evowild-test",
   "parent_branch": "feat/2p5d-autonomous-agent-orbs-20261024",
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-25T09:38:18.106469+00:00",
-  "session_index": 3,
+  "checkpoint_updated_at_utc": "2026-10-25T13:14:52.331073+00:00",
+  "session_index": 4,
   "current_gate": "GATE_1",
-  "current_unit": "Verify Actions after disambiguating Agent vs ENGINE history disclosures in full race E2E",
-  "last_commit_created": "f09e7b8bb372eb77dd8ca8a14dfeb6d0f9076f65",
-  "last_remote_confirmed_sha": "f09e7b8bb372eb77dd8ca8a14dfeb6d0f9076f65",
-  "last_remote_verified_at_utc": "2026-10-25T09:38:18.106469+00:00",
+  "current_unit": "Spectator HUD compact/disclosure improvement implemented, compared and pushed; render/identity work remains REVISE",
+  "last_commit_created": "89efbb1f82261409b01964818f31afb82d0caa85",
+  "last_remote_confirmed_sha": "89efbb1f82261409b01964818f31afb82d0caa85",
+  "last_remote_verified_at_utc": "2026-10-25T13:14:52.331073+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -30,25 +30,28 @@
     "Resumed by fetching and fast-forwarding external checkpoint c040191; recovered existing final-targeted.log (54 passed), archived fourteen current real desktop/Pixel 7 screenshots and Actions summary without repeating imports, fixes or completed race tests",
     "Task 1: labeled Agent history fields, wrapping reasons, no overflow at Pixel 7 and 320px; desktop preserved. Isolated fixture before/after screenshots compared with mocks 07/08; 2 targeted tests and build PASS. Pushed 8499c74 and verified origin.",
     "Task 2: independent AGENT/ENGINE lane provenance, observed from/target/actual lane + timestamp, takeover freezes earlier outcome, separate live/saved engine logs and backward-compatible validation. Normal-race live reproduction retains Agent FAILED while engine succeeds. 26 targeted tests and build PASS; six screenshots pushed at 749872f and verified origin.",
-    "Follow-up QA 2026-10-25: existing CI 40181480712 discovered 2 new `game-loop-2p5d.spec.js:14` browser failures (Agent+ENGINE duplicate disclosure locator); updated full-journey test to target each `data-source` log and assert row counts, committed/pushed f09e7b8. New Actions verification pending."
+    "Follow-up QA 2026-10-25: existing CI 40181480712 discovered 2 new `game-loop-2p5d.spec.js:14` browser failures (Agent+ENGINE duplicate disclosure locator); updated full-journey test to target each `data-source` log and assert row counts, committed/pushed f09e7b8. New Actions verification pending.",
+    "Confirmed baseline Actions 40186097985: build PASS, 101 passed / 2 known race-quality PUSH failures / 81 skipped; prior duplicate-disclosure E2E regression fixed. Did not remake prior Agent/history/physics work.",
+    "Spectator HUD unit at 89efbb1: selected name/fatigue/Agent outcome remain visible; Agent/ENGINE logs, engine state, battle and full ranking are optional details with keyboard close/reset. Smaller top chrome and edge feedback. PC panel 255.4→94px; Pixel 7 198.6→91px. 16 real before/after screenshots over start/corner/pack/back straight, 4 observation JSONs, build and related tests pushed and remote verified."
   ],
   "pending_units": [
-    "Check run 40186015837 E2E result for f09e7b8 and verify only 3 pre-existing failures remain. Do not repeat previous 26-test suite or the implemented tasks.",
-    "If the new browser full-journey test still fails, inspect its precise error and fix only the failing assertion or underlying behavior; preserve result/persistence checks.",
-    "After CI verification, continue a separately bounded spectator HUD, Creature and Agent orb overlap improvement against mock 01/06; no Creature redesign.",
-    "Investigate remaining historical race-quality/motion-first CI failures independently; do not delete or weaken assertions."
+    "Inspect new Actions for 89efbb1; distinguish baseline Android+desktop race-quality.spec.js:47 PUSH failures and intermittent historical agility/pressure assertions from new regressions.",
+    "Next bounded render-only unit: measure all runner/orb screen bounds and overlap at the saved pack/straight phases, evaluate chase camera framing and sprite-size caps in oval_course_2p5d.js / oval_render_2p5d.js. Do not change physical distance/lane/speed/collision or canonical art.",
+    "Separate later unit: improve per-runner orb identity and anchor readability through corners/passing, keeping actual world-following positions and command/result truth.",
+    "Rear-angle gait, stadium detail and full visual fidelity remain REVISE; no source-sheet warping or new mock generation."
   ],
   "test_status": {
     "baseline_reference": "Parent dcd3f56 Actions 40152147602: 63 passed / 4 failed / 81 skipped. Original 3 + Android race-quality:125 pressure test (also before our changes).",
-    "latest_build": "PASS local production build at 749872f (task 2)",
+    "latest_build": "PASS local production build at 89efbb1; baseline Actions 40186097985 production build also PASS",
     "latest_desktop_e2e": "PASS all 27 desktop cases in final-targeted.log, including real full journey, reloaded results, Agent roundtrip/validator, reset/abort, lane execution outcomes and screenshot capture",
     "latest_android_e2e": "PASS all 27 Pixel 7 Chromium emulation cases in final-targeted.log; physical Android not tested",
     "agent_outcome": "PASS 10/10 incl. controlled-clock actual lane arrival on desktop/Android; build PASS",
-    "latest_github_actions": "Head c9fb5f4 at run 40181480712: build PASS, 98 passed/5 failed/81 skipped. 3 legacy failures; 2 NEW PC+Android game-loop locator strict-mode failures because Agent+Engine both use `.agent-history-details`. Targeted code patch f09e7b8 uses `data-source` selectors and checks both record lengths. New Actions 40186015837 is IN_PROGRESS (not yet verified PASS).",
+    "latest_github_actions": "Verified baseline 40186097985: 101 passed / 2 failed / 81 skipped (Android+desktop race-quality.spec.js:47 PUSH). Prior new game-loop selectors fixed. Source 89efbb1 newly pushed: current Actions pending, not claimed green.",
     "latest_targeted": "54 passed (2.9m); existing completed log recovered and pushed, not rerun on resume",
     "history_layout": "PASS 2/2 desktop and Pixel 7 emulation, also 320px; red-before/green-after regression. No repeat of 54 tests or full race.",
     "lane_provenance": "PASS 26/26 focused tests (1.3m): 14 provenance + 10 existing outcome + 2 history layout. Desktop/Pixel 7; includes real normal-race engine adjustment, actual lane comparison and persistent snapshots. No manual full-race/54-suite rerun.",
-    "intermediate_local_failures": "Resolved: Vite hot reload during a source edit reset one browser test; final run made no concurrent source edits. New engine test initially advanced only 1.2s for a 3-lane move needing ~1.58s; now explicitly checks PENDING then actual arrival after 2s. Final 26/26 PASS, no assertion removed."
+    "intermediate_local_failures": "Current HUD run exposed a lane-arrival test selecting newest HOLD after SHIFT_LINE completion. Selector now explicitly follows SHIFT_LINE; no arrival or result assertion removed. Dedicated desktop+Android rerun 2/2 PASS. Earlier resolved failures are documented in prior evidence.",
+    "spectator_hud": "24 unique related cases pass across runs: initial 23 passed + 1 desktop lane-arrival selector failure; corrected that test to follow SHIFT_LINE rather than later HOLD and both affected browser cases passed (2/2). New HUD PC+Pixel 7 four-phase capture/overlap/disclosure/320px/reset tests both passed. Build PASS. No old 54-suite or full-race manual rerun."
   },
   "original_mocks": {
     "expected_count": 11,
@@ -57,7 +60,8 @@
     "verifier": "scripts/verify_2p5d_mockups.py"
   },
   "blocker": [
-    "Codex usage limit. Changes already committed to origin. New regression-test patch has NOT yet passed Actions; awaiting run 40186015837."
+    "Visual REVISE: side-facing six-frame sprites still overlap in the pack; per-runner orb association remains ambiguous; stadium primitives and rear-angle gait unfinished.",
+    "Full CI baseline still fails two historical PUSH comparisons. New source Actions pending."
   ],
   "last_checkpoint_evidence": [
     "docs/2p5d/evidence/20261025-flow/final-targeted.log",
@@ -66,9 +70,10 @@
     "docs/2p5d/evidence/20261025-flow/*.png (14 current screenshots)",
     "https://github.com/badjoke-lab/evowild-test/actions/runs/40153976228",
     "docs/2p5d/evidence/20261025-history-layout/README.md (4 real UI-fixture screenshots, target test and build logs)",
-    "docs/2p5d/evidence/20261025-lane-provenance/README.md (6 screenshots, 26-pass log, build log)"
+    "docs/2p5d/evidence/20261025-lane-provenance/README.md (6 screenshots, 26-pass log, build log)",
+    "docs/2p5d/evidence/20261025-spectator-hud/README.md (16 real before/after captures, 4 observation JSONs, test/build logs, mock 01/06 comparison)"
   ],
-  "next_action": "git fetch origin --prune; inspect current branch and docs/2p5d/HANDOFF_STATE.json. First check GitHub Actions https://github.com/badjoke-lab/evowild-test/actions/runs/40186015837. Verify the patched desktop/Android complete-journey tests and list any remaining failures. Do not redo implemented Agent/mobile fixes. If only 3 old failures remain, mark new regression fixed and advance to spectator overlap work.",
+  "next_action": "git fetch origin --prune && git fetch origin feat/2p5d-flow-persistence-20261025:refs/remotes/origin/feat/2p5d-flow-persistence-20261025 && git status --short && git log -5 --oneline; read HANDOFF_STATE.json. Inspect source 89efbb1 Actions and saved spectator-hud/README.md. Continue only the render-only camera/sprite overlap measurement unit in oval_course_2p5d.js and oval_render_2p5d.js; keep physics/art unchanged, compare PC/Pixel 7 at same four phases, test, commit/push and checkpoint within 15 minutes.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "The remote SHA field refers to the last code/test commit preceding this checkpoint update; inspect the GitHub branch HEAD for the newer checkpoint-only commit. No main changes."
+  "checkpoint_note": "Latest source/test/evidence SHA 89efbb1 was pushed and verified before this checkpoint commit. The checkpoint necessarily names its previously verified source SHA. No uncommitted implementation; artifacts/, public/models/evowild-s.{mtl,obj}, test-results/ and work/ are temporary generated files. No main changes or merge. One bounded HUD improvement completed; no next implementation started."
 }
