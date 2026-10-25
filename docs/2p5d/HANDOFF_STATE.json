@@ -7,30 +7,38 @@
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-25T02:14:35.130203+00:00",
+  "checkpoint_updated_at_utc": "2026-10-25T02:18:48.782185+00:00",
   "session_index": 1,
   "current_gate": "GATE_1",
-  "current_unit": "Truthful autonomous Agent execution feedback",
-  "last_commit_created": "9893e6e518fb84244ead0e90b0af2706c79d7c2c",
-  "last_remote_confirmed_sha": "9893e6e518fb84244ead0e90b0af2706c79d7c2c",
-  "last_remote_verified_at_utc": "2026-10-25T02:14:35.130203+00:00",
-  "local_uncommitted_files": [],
+  "current_unit": "Final combined 2.5D tests and refreshed runtime evidence",
+  "last_commit_created": "c0acb5f218766c1d6769f95e58536586e83b9845",
+  "last_remote_confirmed_sha": "c0acb5f218766c1d6769f95e58536586e83b9845",
+  "last_remote_verified_at_utc": "2026-10-25T02:18:48.782185+00:00",
+  "local_uncommitted_files": [
+    "?? artifacts/",
+    "?? public/models/evowild-s.mtl",
+    "?? public/models/evowild-s.obj",
+    "?? test-results/",
+    "?? work/"
+  ],
   "completed_units": [
     "Fetched parent remote and read required specs/policy; inspected draft PRs #130/#131",
     "Created child branch and Draft PR #132",
     "Imported all 11 exact PNG byte streams from split ZIPs; verifier passed; pushed f904fd9; GitHub contents API confirmed all 11 files and sizes",
-    "Fixed same-step crossings using interpolated finish time and validated chronological rank/time; full real race journey passes on desktop and Pixel 7 emulation; eight genuine screenshots captured"
+    "Fixed same-step crossings using interpolated finish time and validated chronological rank/time; full real race journey passes on desktop and Pixel 7 emulation; eight genuine screenshots captured",
+    "Agent lane requests now remain PENDING until actual arrival; interrupted/expired/finish-cutoff movement is PARTIAL or FAILED. Live popup, HUD, log and archive use recorded execution. Ten outcome tests and build pass."
   ],
   "pending_units": [
-    "Fix SHIFT_LINE execution result being marked success before the lane change completes; show decision results in HUD",
-    "Re-run affected targeted suite sequentially; inspect child Actions",
-    "Review runtime screenshots against mocks; final checkpoint and PR update"
+    "Finish sequential combined 54-test suite in work/final-targeted.log",
+    "Copy updated real screenshots and final test log to docs/2p5d/evidence/20261025-flow",
+    "Check Actions for c0acb5f or later and distinguish baseline failures; update PR and checkpoint"
   ],
   "test_status": {
     "baseline_reference": "Parent dcd3f56 Actions 40152147602: 63 passed / 4 failed / 81 skipped. Original 3 + Android race-quality:125 pressure test (also before our changes).",
     "latest_build": "PASS after finish interpolation; evidence/20261025-flow/build.log",
     "latest_desktop_e2e": "PASS actual 18-runner full race + reload, pause, Agent import/export/validation, reset/abort. Targeted baseline 33 passed; desktop screenshot teardown artifact conflict caused by overlapping local test launch; rerun pending.",
-    "latest_android_e2e": "PASS actual 18-runner full race + reload, pause, Agent import/export/validation, reset/abort."
+    "latest_android_e2e": "PASS actual 18-runner full race + reload, pause, Agent import/export/validation, reset/abort.",
+    "agent_outcome": "PASS 10/10 incl. controlled-clock actual lane arrival on desktop/Android; build PASS"
   },
   "original_mocks": {
     "expected_count": 11,
@@ -43,6 +51,6 @@
     "docs/2p5d/evidence/20261025-flow/",
     "Full journey PASS in both projects; no fixture or instant finish"
   ],
-  "next_action": "Inspect runAutonomousAgent in src/race_stadium.js: keep SHIFT_LINE pending until target lane reached; test completion/interruption and HUD/history consistency",
+  "next_action": "tail -60 work/final-targeted.log; if complete, archive test-results/visuals/loop-*.png and report. Do not start another Playwright invocation while this suite is active.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge"
 }
