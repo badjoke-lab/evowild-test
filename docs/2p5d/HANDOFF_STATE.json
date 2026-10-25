@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "purpose": "Codex child-branch checkpoint, not the main repo project status",
-  "status": "IN_PROGRESS",
+  "status": "QUOTA_INTERRUPTED_REMOTE_SAFE",
   "base_repository": "badjoke-lab/evowild-test",
   "parent_branch": "feat/2p5d-autonomous-agent-orbs-20261024",
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
@@ -10,10 +10,10 @@
   "checkpoint_updated_at_utc": "2026-10-25T02:18:48.782185+00:00",
   "session_index": 1,
   "current_gate": "GATE_1",
-  "current_unit": "Final combined 2.5D tests and refreshed runtime evidence",
-  "last_commit_created": "c0acb5f218766c1d6769f95e58536586e83b9845",
-  "last_remote_confirmed_sha": "c0acb5f218766c1d6769f95e58536586e83b9845",
-  "last_remote_verified_at_utc": "2026-10-25T02:18:48.782185+00:00",
+  "current_unit": "Paused following quota; latest Actions complete; resume unfinished local targeted sweep only if evidence/log remains",
+  "last_commit_created": "ad0756349d707945da71588be2e93cdfd912ca7c",
+  "last_remote_confirmed_sha": "ad0756349d707945da71588be2e93cdfd912ca7c",
+  "last_remote_verified_at_utc": "2026-10-25T02:25:23Z",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -29,16 +29,19 @@
     "Agent lane requests now remain PENDING until actual arrival; interrupted/expired/finish-cutoff movement is PARTIAL or FAILED. Live popup, HUD, log and archive use recorded execution. Ten outcome tests and build pass."
   ],
   "pending_units": [
-    "Finish sequential combined 54-test suite in work/final-targeted.log",
-    "Copy updated real screenshots and final test log to docs/2p5d/evidence/20261025-flow",
-    "Check Actions for c0acb5f or later and distinguish baseline failures; update PR and checkpoint"
+    "Fetch latest origin child branch and inspect status; do not reset or reimport mock PNGs",
+    "Assess unfinished local `work/final-targeted.log` only if it exists; GitHub Actions 40153976228 already finished (84 passed/3 baseline failures/81 skipped)",
+    "Confirm whether latest targeted full-journey/Agent evidence requires archiving; 8 screenshot files and primary evidence are already committed",
+    "Triage only the remaining legacy E2E failures separately; no green claim by deleting/weaking tests",
+    "Return to visual REVISE issues or next scoped approved gameplay unit, push early and update checkpoint"
   ],
   "test_status": {
     "baseline_reference": "Parent dcd3f56 Actions 40152147602: 63 passed / 4 failed / 81 skipped. Original 3 + Android race-quality:125 pressure test (also before our changes).",
-    "latest_build": "PASS after finish interpolation; evidence/20261025-flow/build.log",
+    "latest_build": "PASS in run 40153976228; latest code at ad0756349d707945da71588be2e93cdfd912ca7c",
     "latest_desktop_e2e": "PASS actual 18-runner full race + reload, pause, Agent import/export/validation, reset/abort. Targeted baseline 33 passed; desktop screenshot teardown artifact conflict caused by overlapping local test launch; rerun pending.",
     "latest_android_e2e": "PASS actual 18-runner full race + reload, pause, Agent import/export/validation, reset/abort.",
-    "agent_outcome": "PASS 10/10 incl. controlled-clock actual lane arrival on desktop/Android; build PASS"
+    "agent_outcome": "PASS 10/10 incl. controlled-clock actual lane arrival on desktop/Android; build PASS",
+    "latest_github_actions": "40153976228: 84 passed, 3 failed, 81 skipped; overall failure. Failures: Android+desktop old race-quality.spec.js:47; desktop old motion-first.spec.js:3146. No additional new-test failures in this run."
   },
   "original_mocks": {
     "expected_count": 11,
@@ -46,11 +49,15 @@
     "manifest": "docs/2p5d/mockups/manifest.json",
     "verifier": "scripts/verify_2p5d_mockups.py"
   },
-  "blocker": [],
+  "blocker": [
+    "Codex quota exhausted; work cannot auto-resume. Final local test log work/final-targeted.log may exist only in the Codex environment; it was not confirmed pushed, and is not considered durable."
+  ],
   "last_checkpoint_evidence": [
     "docs/2p5d/evidence/20261025-flow/",
-    "Full journey PASS in both projects; no fixture or instant finish"
+    "Full journey PASS in both projects; no fixture or instant finish",
+    "Github Actions https://github.com/badjoke-lab/evowild-test/actions/runs/40153976228 (84 passed/3 old failed/81 skipped)"
   ],
-  "next_action": "tail -60 work/final-targeted.log; if complete, archive test-results/visuals/loop-*.png and report. Do not start another Playwright invocation while this suite is active.",
-  "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge"
+  "next_action": "git fetch origin --prune && git checkout feat/2p5d-flow-persistence-20261025 && git status --short && git log -5 --oneline && cat docs/2p5d/HANDOFF_STATE.json; verify remote and check whether the final targeted test needs any continuation. Do not recreate already verified 11 PNGs or redo 18-runner browser journey.",
+  "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
+  "checkpoint_note": "This state was updated through GitHub after Codex quota interruption. SHA in last_remote_confirmed_sha identifies last code+evidence head before the checkpoint-only state commit. Re-verify actual branch HEAD at next session."
 }
