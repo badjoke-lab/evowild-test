@@ -44,6 +44,8 @@ export function validateRaceRecord(record){
   const places=new Set(record.results.map(e=>e.place));
   if(ids.size!==18||places.size!==18)return false;
   for(let i=1;i<=18;i++)if(!places.has(i)||!ids.has(i))return false;
+  const ranked=[...record.results].sort((a,b)=>a.place-b.place);
+  if(ranked.some((entry,i)=>i>0 && entry.timeMs<ranked[i-1].timeMs))return false;
   const player=record.results.find(e=>e.id===record.playerRunnerId);
   return Boolean(player)&&player.place===record.playerPlace;
 }

@@ -1,3 +1,4 @@
+import { classifyFinishCrossings } from "./race_finish_2p5d.js";
 import { AGENT_FIELDS, AGENT_PRESETS, makeAgentFile, normalizedAgentFile, decideAgentAction } from "./race_agent_v1.js";
 import { drawOvalRace } from "./oval_render_2p5d.js";
 import { makeRaceRecord, appendRaceResult, selectPlayerRunner } from "./game_progress_2p5d.js";
@@ -879,6 +880,7 @@ function updateRace(dtMs) {
   elapsed += dtMs;
   if (elapsed>650) ui.countdown.hidden = true;
 
+  const crossings = [];
   for (const r of racers) {
     if (r.finished) continue;
     r.cooldown = Math.max(0,r.cooldown-dtMs);
@@ -919,15 +921,18 @@ function updateRace(dtMs) {
       r.stamina-(.62+effort*effort*4.4)*dt*agentResolution.staminaDrainScale
     );
     r.creatureState = deriveCreatureState(r);
+    const fromDistance = r.distance;
     r.distance += Math.max(0,r.speed)*dt;
 
     if (r.distance>=RACE_METERS) {
+      crossings.push({runner:r, fromDistance, toDistance:r.distance});
       r.distance=RACE_METERS;
       r.finished=true;
-      r.finishPlace=++finishCounter;
-      r.finishTime=elapsed;
     }
   }
+  finishCounter = classifyFinishCrossings(crossings, {
+    stepEndMs:elapsed, stepMs:dt * 1000, finishCount:finishCounter, finishDistance:RACE_METERS
+  });
   updateBattleState();
   if (finishCounter===racers.length) {
     raceState="finished";

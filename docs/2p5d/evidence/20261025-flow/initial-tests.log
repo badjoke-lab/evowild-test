@@ -1,0 +1,101 @@
+[WebServer] (node:2624) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 10 tests using 2 workers
+
+(node:2642) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:2643) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [android-chromium] › tests/race-finish-2p5d.spec.js:5:1 › same-step finish order follows actual crossing time rather than entrant array order (12ms)
+  ✓   2 [android-chromium] › tests/race-finish-2p5d.spec.js:27:1 › archive rejects a unique but chronologically false classification (1ms)
+(node:2662) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   4 [desktop-chromium] › tests/game-loop-2p5d.spec.js:14:1 › real complete journey saves exactly one 18-runner result and survives reload (14.7s)
+  ✘   3 [android-chromium] › tests/game-loop-2p5d.spec.js:14:1 › real complete journey saves exactly one 18-runner result and survives reload (16.3s)
+(node:2976) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:2986) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   5 [desktop-chromium] › tests/game-loop-2p5d.spec.js:80:1 › Agent File export/import roundtrip rejects malformed, privileged and oversized files (8.0s)
+  ✓   6 [android-chromium] › tests/game-loop-2p5d.spec.js:80:1 › Agent File export/import roundtrip rejects malformed, privileged and oversized files (8.5s)
+  ✓   7 [desktop-chromium] › tests/game-loop-2p5d.spec.js:103:1 › reset and navigation during an unfinished race never create a history record (12.4s)
+  ✓   9 [desktop-chromium] › tests/race-finish-2p5d.spec.js:5:1 › same-step finish order follows actual crossing time rather than entrant array order (4ms)
+  ✓  10 [desktop-chromium] › tests/race-finish-2p5d.spec.js:27:1 › archive rejects a unique but chronologically false classification (2ms)
+  ✓   8 [android-chromium] › tests/game-loop-2p5d.spec.js:103:1 › reset and navigation during an unfinished race never create a history record (11.6s)
+
+
+  1) [android-chromium] › tests/game-loop-2p5d.spec.js:14:1 › real complete journey saves exactly one 18-runner result and survives reload 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('[data-agent-command]')
+    Expected: 0
+    Received: 1
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('[data-agent-command]') with timeout 5000ms
+      - waiting for locator('[data-agent-command]')
+        12 × locator resolved to 1 element
+           - unexpected value "1"
+
+
+      30 |   const stage=page.locator('#stage');
+      31 |   await expect(stage).toHaveAttribute('data-race-state','running',{timeout:12000});
+    > 32 |   await expect(page.locator('[data-agent-command]')).toHaveCount(0);
+         |                                                      ^
+      33 |   await expect(stage).toHaveAttribute('data-agent-auto-all','18');
+      34 |   await expect.poll(async()=>Number(await stage.getAttribute('data-selected-distance')),{timeout:20000}).toBeGreaterThan(120);
+      35 |   await page.locator('#pause').click();
+        at /workspace/evowild-test/tests/game-loop-2p5d.spec.js:32:54
+
+    Error Context: test-results/game-loop-2p5d-real-comple-fed69--result-and-survives-reload-android-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/game-loop-2p5d-real-comple-fed69--result-and-survives-reload-android-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/game-loop-2p5d-real-comple-fed69--result-and-survives-reload-android-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [desktop-chromium] › tests/game-loop-2p5d.spec.js:14:1 › real complete journey saves exactly one 18-runner result and survives reload 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('[data-agent-command]')
+    Expected: 0
+    Received: 1
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('[data-agent-command]') with timeout 5000ms
+      - waiting for locator('[data-agent-command]')
+        12 × locator resolved to 1 element
+           - unexpected value "1"
+
+
+      30 |   const stage=page.locator('#stage');
+      31 |   await expect(stage).toHaveAttribute('data-race-state','running',{timeout:12000});
+    > 32 |   await expect(page.locator('[data-agent-command]')).toHaveCount(0);
+         |                                                      ^
+      33 |   await expect(stage).toHaveAttribute('data-agent-auto-all','18');
+      34 |   await expect.poll(async()=>Number(await stage.getAttribute('data-selected-distance')),{timeout:20000}).toBeGreaterThan(120);
+      35 |   await page.locator('#pause').click();
+        at /workspace/evowild-test/tests/game-loop-2p5d.spec.js:32:54
+
+    Error Context: test-results/game-loop-2p5d-real-comple-fed69--result-and-survives-reload-desktop-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/game-loop-2p5d-real-comple-fed69--result-and-survives-reload-desktop-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/game-loop-2p5d-real-comple-fed69--result-and-survives-reload-desktop-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [android-chromium] › tests/game-loop-2p5d.spec.js:14:1 › real complete journey saves exactly one 18-runner result and survives reload 
+    [desktop-chromium] › tests/game-loop-2p5d.spec.js:14:1 › real complete journey saves exactly one 18-runner result and survives reload 
+  8 passed (41.7s)
