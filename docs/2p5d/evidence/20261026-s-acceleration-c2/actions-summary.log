@@ -1,0 +1,6 @@
+Inspected 2026-10-26T17:35:06.258485+00:00
+Baseline 812c4a9 run40325691813: buildPASS,120passed/3knownfailed/81skipped.
+C1 c0d4d4a run40331622158 job121602224460: buildPASS,122passed/3knownfailed/81skipped.
+Failures: race-quality.spec.js:47 Android+desktop PUSH; motion-first.spec.js:3146 desktop AGILITY. No new S failure.
+C2 172a06e run40369840138: queued. Local dedicated tests PASS on PC and Pixel7 emulation.
+Scoped speed continuity KEEP; S visual/production gate REVISE.

@@ -7,13 +7,13 @@
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-26T17:33:52.935525+00:00",
+  "checkpoint_updated_at_utc": "2026-10-26T17:35:06.258485+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "C1 saved; C2 continuous acceleration/deceleration/abrupt actual-mesh and browser validation complete",
-  "last_commit_created": "c0d4d4ab1113b7abe9d844271166297e9ed708e6",
-  "last_remote_confirmed_sha": "d711705ef614d9ddfed4205b754fb35df4b7f2c2",
-  "last_remote_verified_at_utc": "2026-10-26T13:33:43.663559+00:00",
+  "current_unit": "C1/C2 complete, separately pushed and remote-verified; scoped continuity KEEP, S overall REVISE",
+  "last_commit_created": "172a06e9d446c8674b99c9fc3c04d266f8943fd8",
+  "last_remote_confirmed_sha": "172a06e9d446c8674b99c9fc3c04d266f8943fd8",
+  "last_remote_verified_at_utc": "2026-10-26T17:35:06.258485+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -54,7 +54,7 @@
     "latest_desktop_e2e": "PASS all 27 desktop cases in final-targeted.log, including real full journey, reloaded results, Agent roundtrip/validator, reset/abort, lane execution outcomes and screenshot capture",
     "latest_android_e2e": "PASS all 27 Pixel 7 Chromium emulation cases in final-targeted.log; physical Android not tested",
     "agent_outcome": "PASS 10/10 incl. controlled-clock actual lane arrival on desktop/Android; build PASS",
-    "latest_github_actions": "Prior812c4a9 run40325691813: buildPASS,120passed/3knownfailed/81skipped. C1 run40331622158 pending at first inspection. New C2 run pending publication.",
+    "latest_github_actions": "C1 c0d4d4a run40331622158: build PASS,122passed/3knownfailed/81skipped; no S regression. Known desktop/Android PUSH and desktop AGILITY. C2 172a06e run40369840138 queued at checkpoint; local C2 both device tests PASS.",
     "latest_targeted": "54 passed (2.9m); existing completed log recovered and pushed, not rerun on resume",
     "history_layout": "PASS 2/2 desktop and Pixel 7 emulation, also 320px; red-before/green-after regression. No repeat of 54 tests or full race.",
     "lane_provenance": "PASS 26/26 focused tests (1.3m): 14 provenance + 10 existing outcome + 2 history layout. Desktop/Pixel 7; includes real normal-race engine adjustment, actual lane comparison and persistent snapshots. No manual full-race/54-suite rerun.",
@@ -100,5 +100,5 @@
   ],
   "next_action": "git fetch origin refs/heads/feat/2p5d-flow-persistence-20261025:refs/remotes/origin/feat/2p5d-flow-persistence-20261025; read HANDOFF_STATE.json and C2 README. C1/C2 complete; do not redo. Check Actions, then implement the next authorized separate toe-roll/pitch unit while preserving continuous contact anchors, v3 GLB and existing tests.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "C1 c0d4d4a and checkpoint d711705 were pushed/remote-verified before C2. C2 collection finished; a pause occurred before final publication, so saving completed artifacts is prioritized now. No speculative new implementation started. C2 evidence and review are separate from C1. No main merge."
+  "checkpoint_note": "C1 c0d4d4a and checkpoint d711705 were pushed/remote-verified before C2. C2 collection finished; a pause occurred before final publication, so saving completed artifacts is prioritized now. No speculative new implementation started. C2 evidence and review are separate from C1. No main merge. C2 172a06e9d446c8674b99c9fc3c04d266f8943fd8 pushed and remote confirmed. C1 Actions final result inspected:122passed/3knownfailed/81skipped, no new S failure. Only pre-existing scratch/generated artifacts remain untracked. No further unit started."
 }
