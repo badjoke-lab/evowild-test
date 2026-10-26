@@ -1,0 +1,20 @@
+
+Running 2 tests using 1 worker
+
+(node:8535) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] [android-chromium] › tests/s-contact-transitions.spec.js:5:1 › S contact anchors survive fore/hind speed changes, zero elapsed time, freeze and swing replanning
+[android-chromium] › tests/s-contact-transitions.spec.js:5:1 › S contact anchors survive fore/hind speed changes, zero elapsed time, freeze and swing replanning
+C1 actual-mesh results [{"phase":0.2,"zeroJump":0,"maxPenetration":0,"maxStanceSlip":1.285077056373184e-8,"maxReachError":0,"minAngle":49.0585662792342,"maxAngle":159.0541882659968,"stanceCounts":[50,51,100,96],"freezeJump":0,"freezeTime":0,"freezeDistance":0,"seekDifference":0},{"phase":0.7,"zeroJump":0,"maxPenetration":0,"maxStanceSlip":1.2103587134157857e-8,"maxReachError":0,"minAngle":49.16575593339101,"maxAngle":158.583336105397,"stanceCounts":[73,78,71,71],"freezeJump":0,"freezeTime":0,"freezeDistance":0,"seekDifference":0}]
+
+(node:8710) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/2] [desktop-chromium] › tests/s-contact-transitions.spec.js:5:1 › S contact anchors survive fore/hind speed changes, zero elapsed time, freeze and swing replanning
+[desktop-chromium] › tests/s-contact-transitions.spec.js:5:1 › S contact anchors survive fore/hind speed changes, zero elapsed time, freeze and swing replanning
+C1 actual-mesh results [{"phase":0.2,"zeroJump":0,"maxPenetration":0,"maxStanceSlip":1.285077056373184e-8,"maxReachError":0,"minAngle":49.0585662792342,"maxAngle":159.0541882659968,"stanceCounts":[50,51,100,96],"freezeJump":0,"freezeTime":0,"freezeDistance":0,"seekDifference":0},{"phase":0.7,"zeroJump":0,"maxPenetration":0,"maxStanceSlip":1.2103587134157857e-8,"maxReachError":0,"minAngle":49.16575593339101,"maxAngle":158.583336105397,"stanceCounts":[73,78,71,71],"freezeJump":0,"freezeTime":0,"freezeDistance":0,"seekDifference":0}]
+
+  2 passed (19.8s)

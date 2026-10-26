@@ -39,8 +39,13 @@ function sample(){
     bones:mesh.skeleton.bones.length,vertices:mesh.geometry.attributes.position.count,feet:observations};
 }
 function render(){updateCamera();const state=sample();renderer.render(scene,camera);document.querySelector('#status').textContent=`${state.camera} · ${contactIK?'Contact IK v3 + native body':state.clip} · 位相 ${state.phase.toFixed(2)} · ${rate}×`;canvas.dataset.ready='1';canvas.dataset.time=String(time);return state;}
-function pose(){mixer.setTime(time);root.updateMatrixWorld(true);if(contactIK)contactState=contactIK.apply(time/clip.duration,root.position.z,rate||1);}
-function advance(dt){time+=dt*(contactIK?contactIK.kinematics(rate||1).cadence*clip.duration*(rate===0?0:1):rate);root.position.z+=dt*rate*speedMeters;pose();return render();}
+function pose(){mixer.setTime(time);root.updateMatrixWorld(true);if(contactIK)contactState=contactIK.apply();}
+function step(dt){
+  if(contactIK){const state=contactIK.advance(dt,rate);time=state.cycles*clip.duration;root.position.z=state.distance;}
+  else {time+=dt*rate;root.position.z+=dt*rate*speedMeters;}
+  pose();
+}
+function advance(dt){step(dt);return render();}
 function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;if(model){if(!paused)advance(dt);else render();}requestAnimationFrame(frame);}
 function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}
 addEventListener('resize',resize);resize();
@@ -77,16 +82,18 @@ try{
   solePatches=selectSolePatches(mesh);
   if(rig==='contact-v3')contactIK=createContactIK(mesh,solePatches);
   clip=gltf.animations.find(a=>a.name==='EvoWild_S_Run_V5');if(!clip)throw Error('Expected native run clip missing');
-  mixer=new THREE.AnimationMixer(model);mixer.clipAction(clip).play();mixer.setTime(0);
+  mixer=new THREE.AnimationMixer(model);mixer.clipAction(clip).play();mixer.setTime(0);if(contactIK){contactIK.reset(0,0,rate);pose();}
   // Isolated review/capture API. Never used by the race or saved as a race result.
-  window.sRunReview={sample,advance,solePatches,soleSample(){root.updateMatrixWorld(true);mesh.skeleton.update();return sampleSoles(mesh,solePatches);},measureCycle(speed=1,steps=240){
+  window.sRunReview={sample,advance,step,solePatches,motionSample(){return {time,rate,distance:root.position.z,contact:contactState,soles:sampleSoles(mesh,solePatches)};},setRate(value){rate=value;document.querySelector('#speed').value=String(value);if(contactIK)contactIK.advance(0,value);},soleSample(){root.updateMatrixWorld(true);mesh.skeleton.update();return sampleSoles(mesh,solePatches);},measureCycle(speed=1,steps=240){
     paused=true;rate=speed;document.querySelector('#speed').value=String(speed);const frames=[];
+    if(contactIK)contactIK.reset(0,0,speed);
     for(let i=0;i<=steps;i++){
-      time=i/steps*clip.duration;root.position.z=contactIK?i/steps*contactIK.kinematics(speed).stride:time*speedMeters;pose();
+      if(contactIK){if(i)step(contactIK.kinematics(speed).period/steps);else{time=0;root.position.z=0;pose();}}
+      else {time=i/steps*clip.duration;root.position.z=time*speedMeters;pose();}
       root.updateMatrixWorld(true);mesh.skeleton.update();
       frames.push({t:contactIK?i/steps*contactIK.kinematics(speed).period:time/speed,phase:i/steps,distance:root.position.z,contact:contactState,soles:sampleSoles(mesh,solePatches)});
     }
     render();return {asset,rate:speed,steps,groundY:0,cycleDuration:contactIK?contactIK.kinematics(speed).period:clip.duration/speed,patches:solePatches,frames};
-  },probe(indices){root.updateMatrixWorld(true);mesh.skeleton.update();return indices.map(i=>{mesh.getVertexPosition(i,v);return v.applyMatrix4(mesh.matrixWorld).toArray();});},setPhase(phase,view){paused=true;time=phase*clip.duration;root.position.z=contactIK?phase*contactIK.kinematics(rate||1).stride:time*speedMeters;document.querySelector('#camera').value=view;pose();return render();}};
+  },probe(indices){root.updateMatrixWorld(true);mesh.skeleton.update();return indices.map(i=>{mesh.getVertexPosition(i,v);return v.applyMatrix4(mesh.matrixWorld).toArray();});},setPhase(phase,view){paused=true;time=phase*clip.duration;root.position.z=contactIK?phase*contactIK.kinematics(rate||1).stride:time*speedMeters;document.querySelector('#camera').value=view;if(contactIK)contactIK.reset(phase,root.position.z,rate);pose();return render();}};
   render();requestAnimationFrame(now=>{last=now;frame(now);});
 }catch(error){document.querySelector('#error').textContent=String(error);canvas.dataset.error=String(error);throw error;}

@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
   "purpose": "Codex child-branch checkpoint, not the main repo project status",
-  "status": "CHECKPOINT_B3_SPEED_VALIDATION_REVISE",
+  "status": "CHECKPOINT_C1_CONTINUITY_PASS_S_REVISE",
   "base_repository": "badjoke-lab/evowild-test",
   "parent_branch": "feat/2p5d-autonomous-agent-orbs-20261024",
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-26T12:50:47.654337+00:00",
+  "checkpoint_updated_at_utc": "2026-10-26T13:33:25.071219+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "B1/B2/B3 separately published and remote-verified; saved at transition-repair boundary, REVISE",
+  "current_unit": "C1 continuity implementation and actual-mesh regression complete; C2 not started",
   "last_commit_created": "860f694e96189a96021c963331645774a9771260",
-  "last_remote_confirmed_sha": "860f694e96189a96021c963331645774a9771260",
-  "last_remote_verified_at_utc": "2026-10-26T12:50:47.654337+00:00",
+  "last_remote_confirmed_sha": "812c4a987814201e76b9039d1ec9e526b8a95e18",
+  "last_remote_verified_at_utc": "2026-10-26T13:33:25.071219+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -39,12 +39,12 @@
     "Unit A: separate focus-hind-fit-v2 GLB from preserved v1, explicit hip/knee/hock/toe chains; 21 bones, 7685 local hind vertices reweighted, mesh bytes preserved. Native four-view 48 frames + rear video + PC/Pixel 7 screenshots; protected-body motion tests 2/2 PASS and build PASS. Anatomical fit improved, recovery lower and penetration still REVISE.",
     "B1: 175 fixed real sole vertex IDs, 241 skinned world-coordinate samples, penetration/slip/contact/recovery and inferred phases. Four focused PC/Pixel 7 tests PASS; build PASS. v2 unchanged.",
     "B2: separate contact-v3 GLB + review-only analytic IK controller; exact v2 geometry/rest/clip preserved, sole surface weights, planted stance and .48m hind recovery. 48 four-view frames, rear video, PC/Pixel 7 before/after. 4 focused tests PASS; build PASS. Visual REVISE, no production promotion.",
-    "B3: v2/v3 .5/1/1.5 speed traces (241 real skinned samples each), unchanged 25mm support metric plus strict plane and declared stance metrics, 96 four-view frames, three real CDP rear videos, 6 focused tests + 2 metric-semantics cases PASS, build PASS. All steady speeds plant/recover without penetration/reach clamp; abrupt rate switching diagnosed REVISE (11.3–12.7cm jump)."
+    "B3: v2/v3 .5/1/1.5 speed traces (241 real skinned samples each), unchanged 25mm support metric plus strict plane and declared stance metrics, 96 four-view frames, three real CDP rear videos, 6 focused tests + 2 metric-semantics cases PASS, build PASS. All steady speeds plant/recover without penetration/reach clamp; abrupt rate switching diagnosed REVISE (11.3–12.7cm jump).",
+    "C1: persistent world stance anchors, elapsed-time integration, bounded continuous effective speed/cadence, swing replanning preserving position/velocity, explicit diagnostic reset and zero-rate freeze. Actual sole regression passes both .2/.7 previous failures on PC/Pixel 7: dt0 jump0, stance slip<=1.29e-8m/step, penetration/reach0, angles49..159. 2 tests PASS; build PASS; v3 GLB hash unchanged."
   ],
   "pending_units": [
-    "Next bounded unit: persistent world contact anchors and continuous cadence/stride/swing replanning across .5→1.5 transitions; reproduce phase .2/.7 jumps and add meaningful regression.",
-    "Then rolling toe-off, foot pitch, push/weight transfer and runtime performance review; keep geometry/rest rig/source assets locked.",
-    "No original imports/A joint refitting/full journey reruns; no race physics, Agent/HUD, P/E/A or 18-runner expansion."
+    "C2 after C1 remote confirmation: continuous .5→1→1.5 and reverse profiles, abrupt steps, real sole world positions/velocity/slip/recovery/reach/angles and integration consistency; SIDE/CHASE/LOW/REAR browser evidence, PC/Pixel 7, before/after videos. Save separately.",
+    "After C2: rolling toe-off/foot pitch, weight transfer and flight/extension naturalness, plus runtime performance. No GLB/production/race changes."
   ],
   "test_status": {
     "baseline_reference": "Parent dcd3f56 Actions 40152147602: 63 passed / 4 failed / 81 skipped. Original 3 + Android race-quality:125 pressure test (also before our changes).",
@@ -63,7 +63,8 @@
     "s_hind_fit": "PASS 2/2 PC/Pixel 7 targeted tests: 81 protected mesh probes x4 phases unchanged within 1e-5, articulated toe chains, no page errors; build PASS. Four-view real evidence captured.",
     "s_sole_b1": "PASS 4/4 desktop/Pixel 7; build PASS. Penetration 4.5/5.7/14.2/13.4cm; forward support slip 2.68/2.80/3.24/3.15m. REVISE.",
     "s_contact_b2": "PASS 4/4 PC/Pixel 7: geometry/rest/clip exact, penetration<1mm, support-band slip<8cm, declared stance vertex displacement<1mm/step, recovery>.30/.44m, reach<12mm, angles35..178. Actual 1x reach errors zero. Build PASS.",
-    "s_speeds_b3": "PASS 6 focused PC/Pixel 7 cases (steady .5/1/1.5 real animation + B1 vertex probe); 2 metric-semantics cases PASS; build PASS. Actual steady penetration 0, declared stance slip<.001mm, hind recovery~.48m, reach error0. Separate instantaneous speed-change diagnostic FAILS quality: .126981/.112702m jumps; graphics REVISE."
+    "s_speeds_b3": "PASS 6 focused PC/Pixel 7 cases (steady .5/1/1.5 real animation + B1 vertex probe); 2 metric-semantics cases PASS; build PASS. Actual steady penetration 0, declared stance slip<.001mm, hind recovery~.48m, reach error0. Separate instantaneous speed-change diagnostic FAILS quality: .126981/.112702m jumps; graphics REVISE.",
+    "s_continuity_c1": "PASS 2 dedicated PC/Pixel 7 tests; build PASS. dt0 jumps .126981/.112702m→0; freeze0; actual mesh stance slip<=1.29e-8m/step; penetration/reach0; angles49..159. v3 hash preserved."
   },
   "original_mocks": {
     "expected_count": 11,
@@ -72,10 +73,9 @@
     "verifier": "scripts/verify_2p5d_mockups.py"
   },
   "blocker": [
-    "NEW v3 controller limitation: instantaneous .5→1.5 rate switch jumps actual soles by .126981m at phase .2 and .112702m at phase .7; constant-speed tests do not approve this.",
-    "Fixed foot pitch/weak rolling toe-off and schematic force transfer remain REVISE.",
-    "Headless SwiftShader screen recordings run slower than simulation target due to existing dt cap; no physical Android/framerate acceptance.",
-    "Inherited crest/material differences remain REVISE; no production adoption."
+    "S overall REVISE: C2 continuous visual/velocity assessment pending despite C1 regression gate PASS.",
+    "Foot pitch/rolling push, weight transfer and natural flight/extension remain deferred separate units.",
+    "Inherited crest/material differences and headless runtime performance remain REVISE; no production adoption."
   ],
   "last_checkpoint_evidence": [
     "docs/2p5d/evidence/20261025-flow/final-targeted.log",
@@ -92,9 +92,10 @@
     "docs/2p5d/evidence/20261026-s-hind-fit/README.md (Unit A, 48 frames, video, PC/Pixel 7, fit distances, protected-body tests)",
     "docs/2p5d/evidence/20261026-s-soles-b1/README.md",
     "docs/2p5d/evidence/20261026-s-contact-b2/README.md",
-    "docs/2p5d/evidence/20261026-s-speeds-b3/README.md"
+    "docs/2p5d/evidence/20261026-s-speeds-b3/README.md",
+    "docs/2p5d/evidence/20261026-s-continuity-c1/README.md"
   ],
-  "next_action": "git fetch origin --prune; read HANDOFF_STATE.json and docs/2p5d/evidence/20261026-s-speeds-b3/README.md. B1/B2/B3 are complete; do not redo A or imports. Start a separate bounded v3 transition repair: in src/s_contact_ik.js latch world sole anchor at touchdown, integrate travel/cadence, replan swing continuously. Reproduce speed-transitions.json phases .2/.7; require <1mm jump and unchanged joint reach/angles. Preserve focus-hind-fit-v2.glb, original GLBs and production manifest. Commit/push within15min.",
+  "next_action": "Confirm C1 commit on origin, then start C2 only: collect continuous acceleration/deceleration and abrupt command traces from actual sole mesh; use immutable 812c4a9 worktree for before evidence, new controller for after; save four-view videos/frames and PC/Pixel 7. Preserve all GLBs/production manifest and publish C2 separately.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "Each unit published separately: B1 2df5c21 (+5ea6d03), B2 2db8745 (+52263dd), each remote SHA confirmed before next unit. B3 saves complete steady-speed evidence and honestly failed transition quality criterion; no KEEP or main merge. B3 860f694e96189a96021c963331645774a9771260 normal push succeeded and origin SHA confirmed. Tracked tree clean; only pre-existing generated/scratch artifacts remain untracked. Next unit deliberately not started before saving this checkpoint."
+  "checkpoint_note": "C1 is a controller/runtime-only fix. Explicit seeks reset validation state, normal time progression retains anchors. Known .2/.7 jumps reproduced from B3 evidence and now both pass actual-mesh regressions. No B1/B2/B3 reimplementation; no main merge."
 }

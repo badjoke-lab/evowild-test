@@ -1,5 +1,5 @@
 import {Vector3,Quaternion} from 'three';
-const up=new Vector3(0,1,0),forward=new Vector3(0,0,1);
+const forward=new Vector3(0,0,1);
 const mod=x=>((x%1)+1)%1;
 const smooth=x=>x*x*(3-2*x);
 // Review-only locomotion. Rest geometry/joint positions are immutable v2.
@@ -11,7 +11,6 @@ export function createContactIK(mesh,patches){
   const positions=bones.map(b=>b.getWorldPosition(new Vector3()));
   const rotations=bones.map(b=>b.getWorldQuaternion(new Quaternion()));
   const segments=positions.slice(1).map((p,i)=>p.clone().sub(positions[i]));
-  const sole=patch.bindPoints.reduce((a,p)=>p[1]<a[1]?p:a,patch.bindPoints[0]);
   const point=patch.indices.map(i=>mesh.localToWorld(mesh.getVertexPosition(i,new Vector3()))).reduce((a,p)=>p.y<a.y?p:a);
   return {name:patch.name,hind,bones,rotations,segments,lengths:segments.map(s=>s.length()),soleOffset:point.clone().sub(positions.at(-1)),base:point,offset:[.64,.72,.15,.24][i],stance:hind?.23:.17};
  });
@@ -26,19 +25,74 @@ export function createContactIK(mesh,patches){
   const along=(l1*l1-l2*l2+d*d)/(2*d),height=Math.sqrt(Math.max(0,l1*l1-along*along));
   return {knee:a.clone().addScaledVector(direction,along).addScaledVector(pole,height),end:a.clone().addScaledVector(direction,d),reachError:Math.abs(requested-d)};
  }
- return {limbs,kinematics(rate){const cadence=2.4*Math.sqrt(Math.max(.01,rate));return {speed:4*rate,cadence,period:1/cadence,stride:4*rate/cadence};},apply(cycles,distance,rate){
-  const k=this.kinematics(rate),diagnostics=[];
+ const kinematics=rate=>{const cadence=rate>0?2.4*Math.sqrt(rate):0;return {speed:4*rate,cadence,period:cadence?1/cadence:Infinity,stride:cadence?4*rate/cadence:0};};
+ let state;
+ function nominal(limb,cycles,distance,rate){
+  const k=kinematics(rate),p=mod(cycles-limb.offset),span=k.stride*limb.stance;
+  let z,y,vz,vy;
+  if(p<limb.stance){z=span/2-k.stride*p;y=0;vz=0;vy=0;}
+  else {const u=(p-limb.stance)/(1-limb.stance),d=-k.stride*(1-limb.stance);
+   z=-span/2+span*smooth(u)+d*(u-3*u*u+2*u*u*u);
+   y=(limb.hind?.48:.34)*Math.sin(Math.PI*u)**2;
+   vz=k.speed*6*u*(1-u)/(1-limb.stance);
+   vy=(limb.hind?.48:.34)*Math.PI*Math.sin(2*Math.PI*u)*k.cadence/(1-limb.stance);
+  }
+  return {target:new Vector3(limb.base.x,y,limb.base.z+distance+z+(limb.hind?.18:0)),velocity:new Vector3(0,vy,vz),stance:p<limb.stance,nextEvent:cycles+(p<limb.stance?limb.stance-p:1-p)};
+ }
+ function reset(cycles=0,distance=0,rate=1){
+  // Explicit diagnostic seek only. Normal time progression never resets anchors.
+  const activeRate=rate>0?rate:state?.rate||1;
+  state={cycles,distance,elapsed:0,rate:activeRate,requestedRate:rate,frozen:rate===0,feet:limbs.map(l=>{
+   const f=nominal(l,cycles,distance,activeRate);return {...f,anchor:f.stance?f.target.clone():null,touchdowns:0};
+  })};return state;
+ }
+ function events(){
+  state.feet.forEach((f,i)=>{
+   if(f.nextEvent>state.cycles+1e-9)return;
+   f.stance=!f.stance;f.velocity.set(0,0,0);
+   if(f.stance){f.target.y=0;f.anchor=f.target.clone();f.touchdowns++;f.nextEvent+=limbs[i].stance;}
+   else {f.anchor=null;f.nextEvent+=1-limbs[i].stance;}
+  });
+ }
+ function advance(dt,requestedRate){
+  if(!Number.isFinite(dt)||dt<0||!Number.isFinite(requestedRate)||requestedRate<0)throw Error('Invalid locomotion step');
+  state.requestedRate=requestedRate;state.frozen=requestedRate===0;
+  if(dt===0||state.frozen)return state; // A command has no positional side effect.
+  let remaining=dt;
+  while(remaining>1e-10){
+   events();const k=kinematics(state.rate);
+   const next=Math.min(...state.feet.map(f=>f.nextEvent));
+   const h=Math.min(remaining,1/480,(next-state.cycles)/k.cadence);
+   if(h<=1e-10){events();continue;}
+   // Replan longitudinal swing from its actual current position AND world
+   // velocity. Touchdown follows predicted travel; stance anchors never do.
+   state.feet.forEach((f,i)=>{
+    if(f.stance)return;
+    const l=limbs[i],duration=(f.nextEvent-state.cycles)/k.cadence;
+    const landing=l.base.z+(l.hind?.18:0)+state.distance+k.speed*duration+k.stride*l.stance/2;
+    const u=Math.min(1,h/duration),z0=f.target.z,v0=f.velocity.z;
+    f.target.z=(2*u*u*u-3*u*u+1)*z0+(u*u*u-2*u*u+u)*duration*v0+(-2*u*u*u+3*u*u)*landing;
+    f.velocity.z=((6*u*u-6*u)*z0+(3*u*u-4*u+1)*duration*v0+(-6*u*u+6*u)*landing)/duration;
+    const phase=1-(f.nextEvent-state.cycles-k.cadence*h)/(1-l.stance),height=l.hind?.48:.34;
+    f.target.y=height*Math.sin(Math.PI*phase)**2;
+    f.velocity.y=height*Math.PI*Math.sin(2*Math.PI*phase)*k.cadence/(1-l.stance);
+   });
+   state.cycles+=k.cadence*h;state.distance+=k.speed*h;state.elapsed+=h;
+   // Bounded acceleration changes both travel and cadence continuously in
+   // elapsed time. Zero is an explicit freeze, not a decay that moves feet.
+   state.rate+=Math.max(-4*h,Math.min(4*h,requestedRate-state.rate));
+   remaining-=h;events();
+  }
+  return state;
+ }
+ return {limbs,kinematics,reset,advance,get state(){return state;},apply(){
+  if(!state)reset();
+  const {cycles,distance}=state,k=kinematics(state.rate),diagnostics=[];
   mesh.updateWorldMatrix(true,false);
-  for(const limb of limbs){
-   const p=mod(cycles-limb.offset),span=k.stride*limb.stance;
-   let z,y,stage;
-   if(p<limb.stance){z=span/2-k.stride*p;y=0;stage=p<limb.stance*.55?'CONTACT':'PUSH';}
-   else {const u=(p-limb.stance)/(1-limb.stance),d=-k.stride*(1-limb.stance);
-    z=-span/2+span*smooth(u)+d*(u-3*u*u+2*u*u*u);
-    y=(limb.hind?.48:.34)*Math.sin(Math.PI*u)**2;
-    stage=u<.42?'RECOVERY':u<.58?'FLIGHT':'EXTENSION';
-   }
-   const target=new Vector3(limb.base.x,y,limb.base.z+distance+z+(limb.hind?.18:0));
+  for(let i=0;i<limbs.length;i++){
+   const limb=limbs[i],f=state.feet[i],p=mod(cycles-limb.offset),u=(p-limb.stance)/(1-limb.stance);
+   const stage=f.stance?(p<limb.stance*.55?'CONTACT':'PUSH'):(u<.42?'RECOVERY':u<.58?'FLIGHT':'EXTENSION');
+   const target=f.target;
    const end=target.clone().sub(limb.soleOffset),hip=limb.bones[0].getWorldPosition(new Vector3());
    let solved;
    if(limb.hind){
@@ -56,8 +110,8 @@ export function createContactIK(mesh,patches){
    const foot=limb.bones.at(-1);foot.quaternion.copy(foot.parent.getWorldQuaternion(new Quaternion()).invert().multiply(limb.rotations.at(-1)));foot.updateWorldMatrix(false,true);
    const joints=limb.bones.map(b=>b.getWorldPosition(new Vector3()));
    const angles=joints.slice(1,-1).map((p,j)=>joints[j].clone().sub(p).angleTo(joints[j+2].clone().sub(p))*180/Math.PI);
-   diagnostics.push({name:limb.name,stage,phase:p,target:target.toArray(),reachError:solved.reachError,jointAngles:angles,joints:joints.map(p=>p.toArray())});
+   diagnostics.push({name:limb.name,stage,phase:p,target:target.toArray(),velocity:(state.frozen?new Vector3():f.velocity).toArray(),anchor:f.anchor?.toArray()||null,touchdowns:f.touchdowns,reachError:solved.reachError,jointAngles:angles,joints:joints.map(p=>p.toArray())});
   }
-  mesh.skeleton.update();return {cycles,...k,limbs:diagnostics};
+  mesh.skeleton.update();return {cycles,distance,elapsed:state.elapsed,effectiveRate:state.rate,requestedRate:state.requestedRate,frozen:state.frozen,...k,limbs:diagnostics};
  }};
 }
