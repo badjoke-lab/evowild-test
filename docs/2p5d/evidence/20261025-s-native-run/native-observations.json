@@ -1,0 +1,2255 @@
+{
+  "first": {
+    "time": 0.2,
+    "phase": 0.19200000732421904,
+    "rate": 1,
+    "distance": 0.8,
+    "camera": "SIDE",
+    "clip": "EvoWild_S_Run_V5",
+    "duration": 1.0416666269302368,
+    "bones": 19,
+    "vertices": 38813,
+    "feet": [
+      {
+        "name": "fore_L_foot",
+        "weightBone": "fore_L_lower",
+        "maxFootInfluence": 0,
+        "x": -0.19689826241632072,
+        "y": -0.08055059866462913,
+        "z": 0.6725147651895046
+      },
+      {
+        "name": "fore_R_foot",
+        "weightBone": "fore_R_lower",
+        "maxFootInfluence": 0,
+        "x": 0.1924402460179738,
+        "y": -0.07380726719217752,
+        "z": 0.6997135162137869
+      },
+      {
+        "name": "hind_L_foot",
+        "weightBone": "hind_L_foot",
+        "maxFootInfluence": 0.7951162457466125,
+        "x": -0.025096481952397085,
+        "y": 2.0768419675862244,
+        "z": -0.37651767120879964
+      },
+      {
+        "name": "hind_R_foot",
+        "weightBone": "hind_R_foot",
+        "maxFootInfluence": 0.7949916124343872,
+        "x": 0.007471674567631785,
+        "y": 2.1850083351275686,
+        "z": -0.42527909767507427
+      }
+    ]
+  },
+  "running": {
+    "time": 0.49999999999999994,
+    "phase": 0.4800000183105475,
+    "rate": 1,
+    "distance": 1.9999999999999998,
+    "camera": "SIDE",
+    "clip": "EvoWild_S_Run_V5",
+    "duration": 1.0416666269302368,
+    "bones": 19,
+    "vertices": 38813,
+    "feet": [
+      {
+        "name": "fore_L_foot",
+        "weightBone": "fore_L_lower",
+        "maxFootInfluence": 0,
+        "x": -0.1927367542681958,
+        "y": 0.0670359783147887,
+        "z": 1.6003611733913496
+      },
+      {
+        "name": "fore_R_foot",
+        "weightBone": "fore_R_lower",
+        "maxFootInfluence": 0,
+        "x": 0.186668173393127,
+        "y": 0.179474419706064,
+        "z": 1.531526109574059
+      },
+      {
+        "name": "hind_L_foot",
+        "weightBone": "hind_L_foot",
+        "maxFootInfluence": 0.7951162457466125,
+        "x": -0.03342432445581628,
+        "y": 1.8888016163358472,
+        "z": 0.7047094106678388
+      },
+      {
+        "name": "hind_R_foot",
+        "weightBone": "hind_R_foot",
+        "maxFootInfluence": 0.7949916124343872,
+        "x": 0.021766865915127557,
+        "y": 1.5372795343061492,
+        "z": 0.7610458998102884
+      }
+    ]
+  },
+  "errors": [],
+  "samples": [
+    {
+      "time": 0,
+      "phase": 0,
+      "rate": 1,
+      "distance": 0,
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19469302928561288,
+          "y": 0.02244047981727656,
+          "z": 1.6645647559404897
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.19160965248755107,
+          "y": -0.028248393121186547,
+          "z": 1.8047771049125656
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.03138654691744993,
+          "y": 1.6174008589819178,
+          "z": 1.0177848892270778
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.01066204245104648,
+          "y": 1.8181066608426244,
+          "z": 0.9650900432660222
+        }
+      ]
+    },
+    {
+      "time": 0.0868055522441864,
+      "phase": 0.08333333333333333,
+      "rate": 1,
+      "distance": 0.3472222089767456,
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.1954844195844633,
+          "y": -0.01650881999189425,
+          "z": -0.442438703963995
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.1919946329995743,
+          "y": -0.04798488473926872,
+          "z": -0.31197855124205087
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.02955679961700239,
+          "y": 1.7214863299121388,
+          "z": -1.1932517510110854
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.009257651510226252,
+          "y": 1.9113828207714938,
+          "z": -1.2355666951719695
+        }
+      ]
+    },
+    {
+      "time": 0.1736111044883728,
+      "phase": 0.16666666666666666,
+      "rate": 1,
+      "distance": 0.6944444179534912,
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19681177164736974,
+          "y": -0.0764279247196472,
+          "z": 0.17849577068962916
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.19245803871344996,
+          "y": -0.07092685663641023,
+          "z": 0.223455838619497
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.02539547804515946,
+          "y": 2.024616873968982,
+          "z": -0.8379125448668902
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.007669758370602521,
+          "y": 2.158703809292894,
+          "z": -0.8769734796774348
+        }
+      ]
+    },
+    {
+      "time": 0.2604166567325592,
+      "phase": 0.25,
+      "rate": 1,
+      "distance": 1.0416666269302368,
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19690711554342133,
+          "y": -0.0866262310847701,
+          "z": 0.6205068228663033
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.19211266302378183,
+          "y": -0.07936905071806728,
+          "z": 0.6006113964679831
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.024807749510183847,
+          "y": 2.176537607303281,
+          "z": -0.477098919955766
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.0078965048354686,
+          "y": 2.2131849765370983,
+          "z": -0.5518113770432072
+        }
+      ]
+    },
+    {
+      "time": 0.3472222089767456,
+      "phase": 0.3333333333333333,
+      "rate": 1,
+      "distance": 1.3888888359069824,
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.196313764762457,
+          "y": -0.09051964794763155,
+          "z": 0.938362272498155
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.19058473524020442,
+          "y": -0.053908619137761786,
+          "z": 0.8433354245802344
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.025587405158404297,
+          "y": 2.2361237190420677,
+          "z": -0.17012361360537012
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.01053902670560023,
+          "y": 2.1799665943830813,
+          "z": -0.2808450534833568
+        }
+      ]
+    },
+    {
+      "time": 0.434027761220932,
+      "phase": 0.4166666666666667,
+      "rate": 1,
+      "distance": 1.736111044883728,
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19446296406791877,
+          "y": -0.03603208414772391,
+          "z": 1.1260229354678233
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.188359835879756,
+          "y": 0.05928189177737948,
+          "z": 1.0390167161527688
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.028787438281722,
+          "y": 2.1379369348314823,
+          "z": 0.09822222465013851
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.016593746489769672,
+          "y": 1.8435687369405824,
+          "z": 0.06256021505935068
+        }
+      ]
+    },
+    {
+      "time": 0.5208333134651184,
+      "phase": 0.5,
+      "rate": 1,
+      "distance": 2.0833332538604736,
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19214409393376997,
+          "y": 0.1056672696453218,
+          "z": 1.2913571517594304
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.1861498178155702,
+          "y": 0.21353971402324176,
+          "z": 1.2291336349385478
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.03502664981215238,
+          "y": 1.7924739334259605,
+          "z": 0.45444347505928123
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.023138362744065583,
+          "y": 1.4518294790733894,
+          "z": 0.535869996939198
+        }
+      ]
+    },
+    {
+      "time": 0.6076388657093048,
+      "phase": 0.5833333333333334,
+      "rate": 1,
+      "distance": 2.4305554628372192,
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19003069480422877,
+          "y": 0.26636524899669256,
+          "z": 1.4767748595041557
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.1845782383085268,
+          "y": 0.3366980631600178,
+          "z": 1.4389502077728382
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.04104700275479162,
+          "y": 1.430139197860959,
+          "z": 0.9316870564798501
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.027248829390176983,
+          "y": 1.1781124113873327,
+          "z": 1.069039580934808
+        }
+      ]
+    },
+    {
+      "time": 0.6944444179534912,
+      "phase": 0.6666666666666666,
+      "rate": 1,
+      "distance": 2.777777671813965,
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.18868512221750236,
+          "y": 0.37855593694935813,
+          "z": 1.7090442263143713
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.18395521841588272,
+          "y": 0.3870608977852851,
+          "z": 1.6851898702693489
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.04433607683485949,
+          "y": 1.195477817665756,
+          "z": 1.458527766405122
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.02806303750664778,
+          "y": 1.0645276103435541,
+          "z": 1.5403086661911523
+        }
+      ]
+    },
+    {
+      "time": 0.7812499701976776,
+      "phase": 0.75,
+      "rate": 1,
+      "distance": 3.1249998807907104,
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.18825895073380305,
+          "y": 0.3989544749115317,
+          "z": 1.9771979798242882
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.18416378526154892,
+          "y": 0.345871835821918,
+          "z": 1.9537332887122811
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.04462845323326942,
+          "y": 1.1156944911469053,
+          "z": 1.8929091726876326
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.02634564294923301,
+          "y": 1.1058307175651754,
+          "z": 1.8390977867320735
+        }
+      ]
+    },
+    {
+      "time": 0.868055522441864,
+      "phase": 0.8333333333333334,
+      "rate": 1,
+      "distance": 3.472222089767456,
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.18882397272719373,
+          "y": 0.32341110298961645,
+          "z": 2.277878949622546
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.18625147424312016,
+          "y": 0.21843282555965077,
+          "z": 2.3209344798961724
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.04227745914288315,
+          "y": 1.1785628469992786,
+          "z": 2.1643060986246674
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.02127295392080697,
+          "y": 1.2979025788629461,
+          "z": 2.000659532703863
+        }
+      ]
+    },
+    {
+      "time": 0.9548610746860504,
+      "phase": 0.9166666666666666,
+      "rate": 1,
+      "distance": 3.8194442987442017,
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.1915636991197164,
+          "y": 0.17070643359595636,
+          "z": 2.715700755533135
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.18951318654284238,
+          "y": 0.07157728669402781,
+          "z": 2.8420650377641827
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.03695674702084868,
+          "y": 1.3751986065371555,
+          "z": 2.3488953071273886
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.01559778769362614,
+          "y": 1.5361209268533138,
+          "z": 2.266202537387099
+        }
+      ]
+    },
+    {
+      "time": 0,
+      "phase": 0,
+      "rate": 1,
+      "distance": 0,
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19469302928561288,
+          "y": 0.02244047981727656,
+          "z": 3.2840090529415993
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.19160965248755107,
+          "y": -0.028248393121186547,
+          "z": 3.4242214025139264
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.031386546917449916,
+          "y": 1.6174008589819178,
+          "z": 2.6372291831635493
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.01066204245104648,
+          "y": 1.8181066608426244,
+          "z": 2.584534341084102
+        }
+      ]
+    },
+    {
+      "time": 0.0868055522441864,
+      "phase": 0.08333333333333333,
+      "rate": 1,
+      "distance": 0.3472222089767456,
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.1954844195844633,
+          "y": -0.01650881999189425,
+          "z": -0.442438703963995
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.1919946329995743,
+          "y": -0.04798488473926872,
+          "z": -0.31197855124205087
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.02955679961700239,
+          "y": 1.7214863299121388,
+          "z": -1.1932517510110854
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.009257651510226252,
+          "y": 1.9113828207714938,
+          "z": -1.2355666951719695
+        }
+      ]
+    },
+    {
+      "time": 0.1736111044883728,
+      "phase": 0.16666666666666666,
+      "rate": 1,
+      "distance": 0.6944444179534912,
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19681177164736974,
+          "y": -0.0764279247196472,
+          "z": 0.17849577068962916
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.19245803871344996,
+          "y": -0.07092685663641023,
+          "z": 0.223455838619497
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.02539547804515946,
+          "y": 2.024616873968982,
+          "z": -0.8379125448668902
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.007669758370602521,
+          "y": 2.158703809292894,
+          "z": -0.8769734796774348
+        }
+      ]
+    },
+    {
+      "time": 0.2604166567325592,
+      "phase": 0.25,
+      "rate": 1,
+      "distance": 1.0416666269302368,
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19690711554342133,
+          "y": -0.0866262310847701,
+          "z": 0.6205068228663033
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.19211266302378183,
+          "y": -0.07936905071806728,
+          "z": 0.6006113964679831
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.024807749510183847,
+          "y": 2.176537607303281,
+          "z": -0.477098919955766
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.0078965048354686,
+          "y": 2.2131849765370983,
+          "z": -0.5518113770432072
+        }
+      ]
+    },
+    {
+      "time": 0.3472222089767456,
+      "phase": 0.3333333333333333,
+      "rate": 1,
+      "distance": 1.3888888359069824,
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.196313764762457,
+          "y": -0.09051964794763155,
+          "z": 0.938362272498155
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.19058473524020442,
+          "y": -0.053908619137761786,
+          "z": 0.8433354245802344
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.025587405158404297,
+          "y": 2.2361237190420677,
+          "z": -0.17012361360537012
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.01053902670560023,
+          "y": 2.1799665943830813,
+          "z": -0.2808450534833568
+        }
+      ]
+    },
+    {
+      "time": 0.434027761220932,
+      "phase": 0.4166666666666667,
+      "rate": 1,
+      "distance": 1.736111044883728,
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19446296406791877,
+          "y": -0.03603208414772391,
+          "z": 1.1260229354678233
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.188359835879756,
+          "y": 0.05928189177737948,
+          "z": 1.0390167161527688
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.028787438281722,
+          "y": 2.1379369348314823,
+          "z": 0.09822222465013851
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.016593746489769672,
+          "y": 1.8435687369405824,
+          "z": 0.06256021505935068
+        }
+      ]
+    },
+    {
+      "time": 0.5208333134651184,
+      "phase": 0.5,
+      "rate": 1,
+      "distance": 2.0833332538604736,
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19214409393376997,
+          "y": 0.1056672696453218,
+          "z": 1.2913571517594304
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.1861498178155702,
+          "y": 0.21353971402324176,
+          "z": 1.2291336349385478
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.03502664981215238,
+          "y": 1.7924739334259605,
+          "z": 0.45444347505928123
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.023138362744065583,
+          "y": 1.4518294790733894,
+          "z": 0.535869996939198
+        }
+      ]
+    },
+    {
+      "time": 0.6076388657093048,
+      "phase": 0.5833333333333334,
+      "rate": 1,
+      "distance": 2.4305554628372192,
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19003069480422877,
+          "y": 0.26636524899669256,
+          "z": 1.4767748595041557
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.1845782383085268,
+          "y": 0.3366980631600178,
+          "z": 1.4389502077728382
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.04104700275479162,
+          "y": 1.430139197860959,
+          "z": 0.9316870564798501
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.027248829390176983,
+          "y": 1.1781124113873327,
+          "z": 1.069039580934808
+        }
+      ]
+    },
+    {
+      "time": 0.6944444179534912,
+      "phase": 0.6666666666666666,
+      "rate": 1,
+      "distance": 2.777777671813965,
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.18868512221750236,
+          "y": 0.37855593694935813,
+          "z": 1.7090442263143713
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.18395521841588272,
+          "y": 0.3870608977852851,
+          "z": 1.6851898702693489
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.04433607683485949,
+          "y": 1.195477817665756,
+          "z": 1.458527766405122
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.02806303750664778,
+          "y": 1.0645276103435541,
+          "z": 1.5403086661911523
+        }
+      ]
+    },
+    {
+      "time": 0.7812499701976776,
+      "phase": 0.75,
+      "rate": 1,
+      "distance": 3.1249998807907104,
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.18825895073380305,
+          "y": 0.3989544749115317,
+          "z": 1.9771979798242882
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.18416378526154892,
+          "y": 0.345871835821918,
+          "z": 1.9537332887122811
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.04462845323326942,
+          "y": 1.1156944911469053,
+          "z": 1.8929091726876326
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.02634564294923301,
+          "y": 1.1058307175651754,
+          "z": 1.8390977867320735
+        }
+      ]
+    },
+    {
+      "time": 0.868055522441864,
+      "phase": 0.8333333333333334,
+      "rate": 1,
+      "distance": 3.472222089767456,
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.18882397272719373,
+          "y": 0.32341110298961645,
+          "z": 2.277878949622546
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.18625147424312016,
+          "y": 0.21843282555965077,
+          "z": 2.3209344798961724
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.04227745914288315,
+          "y": 1.1785628469992786,
+          "z": 2.1643060986246674
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.02127295392080697,
+          "y": 1.2979025788629461,
+          "z": 2.000659532703863
+        }
+      ]
+    },
+    {
+      "time": 0.9548610746860504,
+      "phase": 0.9166666666666666,
+      "rate": 1,
+      "distance": 3.8194442987442017,
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.1915636991197164,
+          "y": 0.17070643359595636,
+          "z": 2.715700755533135
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.18951318654284238,
+          "y": 0.07157728669402781,
+          "z": 2.8420650377641827
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.03695674702084868,
+          "y": 1.3751986065371555,
+          "z": 2.3488953071273886
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.01559778769362614,
+          "y": 1.5361209268533138,
+          "z": 2.266202537387099
+        }
+      ]
+    },
+    {
+      "time": 0,
+      "phase": 0,
+      "rate": 1,
+      "distance": 0,
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19469302928561288,
+          "y": 0.02244047981727656,
+          "z": 3.2840090529415993
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.19160965248755107,
+          "y": -0.028248393121186547,
+          "z": 3.4242214025139264
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.031386546917449916,
+          "y": 1.6174008589819178,
+          "z": 2.6372291831635493
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.01066204245104648,
+          "y": 1.8181066608426244,
+          "z": 2.584534341084102
+        }
+      ]
+    },
+    {
+      "time": 0.0868055522441864,
+      "phase": 0.08333333333333333,
+      "rate": 1,
+      "distance": 0.3472222089767456,
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.1954844195844633,
+          "y": -0.01650881999189425,
+          "z": -0.442438703963995
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.1919946329995743,
+          "y": -0.04798488473926872,
+          "z": -0.31197855124205087
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.02955679961700239,
+          "y": 1.7214863299121388,
+          "z": -1.1932517510110854
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.009257651510226252,
+          "y": 1.9113828207714938,
+          "z": -1.2355666951719695
+        }
+      ]
+    },
+    {
+      "time": 0.1736111044883728,
+      "phase": 0.16666666666666666,
+      "rate": 1,
+      "distance": 0.6944444179534912,
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19681177164736974,
+          "y": -0.0764279247196472,
+          "z": 0.17849577068962916
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.19245803871344996,
+          "y": -0.07092685663641023,
+          "z": 0.223455838619497
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.02539547804515946,
+          "y": 2.024616873968982,
+          "z": -0.8379125448668902
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.007669758370602521,
+          "y": 2.158703809292894,
+          "z": -0.8769734796774348
+        }
+      ]
+    },
+    {
+      "time": 0.2604166567325592,
+      "phase": 0.25,
+      "rate": 1,
+      "distance": 1.0416666269302368,
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19690711554342133,
+          "y": -0.0866262310847701,
+          "z": 0.6205068228663033
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.19211266302378183,
+          "y": -0.07936905071806728,
+          "z": 0.6006113964679831
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.024807749510183847,
+          "y": 2.176537607303281,
+          "z": -0.477098919955766
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.0078965048354686,
+          "y": 2.2131849765370983,
+          "z": -0.5518113770432072
+        }
+      ]
+    },
+    {
+      "time": 0.3472222089767456,
+      "phase": 0.3333333333333333,
+      "rate": 1,
+      "distance": 1.3888888359069824,
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.196313764762457,
+          "y": -0.09051964794763155,
+          "z": 0.938362272498155
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.19058473524020442,
+          "y": -0.053908619137761786,
+          "z": 0.8433354245802344
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.025587405158404297,
+          "y": 2.2361237190420677,
+          "z": -0.17012361360537012
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.01053902670560023,
+          "y": 2.1799665943830813,
+          "z": -0.2808450534833568
+        }
+      ]
+    },
+    {
+      "time": 0.434027761220932,
+      "phase": 0.4166666666666667,
+      "rate": 1,
+      "distance": 1.736111044883728,
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19446296406791877,
+          "y": -0.03603208414772391,
+          "z": 1.1260229354678233
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.188359835879756,
+          "y": 0.05928189177737948,
+          "z": 1.0390167161527688
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.028787438281722,
+          "y": 2.1379369348314823,
+          "z": 0.09822222465013851
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.016593746489769672,
+          "y": 1.8435687369405824,
+          "z": 0.06256021505935068
+        }
+      ]
+    },
+    {
+      "time": 0.5208333134651184,
+      "phase": 0.5,
+      "rate": 1,
+      "distance": 2.0833332538604736,
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19214409393376997,
+          "y": 0.1056672696453218,
+          "z": 1.2913571517594304
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.1861498178155702,
+          "y": 0.21353971402324176,
+          "z": 1.2291336349385478
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.03502664981215238,
+          "y": 1.7924739334259605,
+          "z": 0.45444347505928123
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.023138362744065583,
+          "y": 1.4518294790733894,
+          "z": 0.535869996939198
+        }
+      ]
+    },
+    {
+      "time": 0.6076388657093048,
+      "phase": 0.5833333333333334,
+      "rate": 1,
+      "distance": 2.4305554628372192,
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19003069480422877,
+          "y": 0.26636524899669256,
+          "z": 1.4767748595041557
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.1845782383085268,
+          "y": 0.3366980631600178,
+          "z": 1.4389502077728382
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.04104700275479162,
+          "y": 1.430139197860959,
+          "z": 0.9316870564798501
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.027248829390176983,
+          "y": 1.1781124113873327,
+          "z": 1.069039580934808
+        }
+      ]
+    },
+    {
+      "time": 0.6944444179534912,
+      "phase": 0.6666666666666666,
+      "rate": 1,
+      "distance": 2.777777671813965,
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.18868512221750236,
+          "y": 0.37855593694935813,
+          "z": 1.7090442263143713
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.18395521841588272,
+          "y": 0.3870608977852851,
+          "z": 1.6851898702693489
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.04433607683485949,
+          "y": 1.195477817665756,
+          "z": 1.458527766405122
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.02806303750664778,
+          "y": 1.0645276103435541,
+          "z": 1.5403086661911523
+        }
+      ]
+    },
+    {
+      "time": 0.7812499701976776,
+      "phase": 0.75,
+      "rate": 1,
+      "distance": 3.1249998807907104,
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.18825895073380305,
+          "y": 0.3989544749115317,
+          "z": 1.9771979798242882
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.18416378526154892,
+          "y": 0.345871835821918,
+          "z": 1.9537332887122811
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.04462845323326942,
+          "y": 1.1156944911469053,
+          "z": 1.8929091726876326
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.02634564294923301,
+          "y": 1.1058307175651754,
+          "z": 1.8390977867320735
+        }
+      ]
+    },
+    {
+      "time": 0.868055522441864,
+      "phase": 0.8333333333333334,
+      "rate": 1,
+      "distance": 3.472222089767456,
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.18882397272719373,
+          "y": 0.32341110298961645,
+          "z": 2.277878949622546
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.18625147424312016,
+          "y": 0.21843282555965077,
+          "z": 2.3209344798961724
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.04227745914288315,
+          "y": 1.1785628469992786,
+          "z": 2.1643060986246674
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.02127295392080697,
+          "y": 1.2979025788629461,
+          "z": 2.000659532703863
+        }
+      ]
+    },
+    {
+      "time": 0.9548610746860504,
+      "phase": 0.9166666666666666,
+      "rate": 1,
+      "distance": 3.8194442987442017,
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.1915636991197164,
+          "y": 0.17070643359595636,
+          "z": 2.715700755533135
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.18951318654284238,
+          "y": 0.07157728669402781,
+          "z": 2.8420650377641827
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.03695674702084868,
+          "y": 1.3751986065371555,
+          "z": 2.3488953071273886
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.01559778769362614,
+          "y": 1.5361209268533138,
+          "z": 2.266202537387099
+        }
+      ]
+    },
+    {
+      "time": 0,
+      "phase": 0,
+      "rate": 1,
+      "distance": 0,
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19469302928561288,
+          "y": 0.02244047981727656,
+          "z": 3.2840090529415993
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.19160965248755107,
+          "y": -0.028248393121186547,
+          "z": 3.4242214025139264
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.031386546917449916,
+          "y": 1.6174008589819178,
+          "z": 2.6372291831635493
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.01066204245104648,
+          "y": 1.8181066608426244,
+          "z": 2.584534341084102
+        }
+      ]
+    },
+    {
+      "time": 0.0868055522441864,
+      "phase": 0.08333333333333333,
+      "rate": 1,
+      "distance": 0.3472222089767456,
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.1954844195844633,
+          "y": -0.01650881999189425,
+          "z": -0.442438703963995
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.1919946329995743,
+          "y": -0.04798488473926872,
+          "z": -0.31197855124205087
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.02955679961700239,
+          "y": 1.7214863299121388,
+          "z": -1.1932517510110854
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.009257651510226252,
+          "y": 1.9113828207714938,
+          "z": -1.2355666951719695
+        }
+      ]
+    },
+    {
+      "time": 0.1736111044883728,
+      "phase": 0.16666666666666666,
+      "rate": 1,
+      "distance": 0.6944444179534912,
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19681177164736974,
+          "y": -0.0764279247196472,
+          "z": 0.17849577068962916
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.19245803871344996,
+          "y": -0.07092685663641023,
+          "z": 0.223455838619497
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.02539547804515946,
+          "y": 2.024616873968982,
+          "z": -0.8379125448668902
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.007669758370602521,
+          "y": 2.158703809292894,
+          "z": -0.8769734796774348
+        }
+      ]
+    },
+    {
+      "time": 0.2604166567325592,
+      "phase": 0.25,
+      "rate": 1,
+      "distance": 1.0416666269302368,
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19690711554342133,
+          "y": -0.0866262310847701,
+          "z": 0.6205068228663033
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.19211266302378183,
+          "y": -0.07936905071806728,
+          "z": 0.6006113964679831
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.024807749510183847,
+          "y": 2.176537607303281,
+          "z": -0.477098919955766
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.0078965048354686,
+          "y": 2.2131849765370983,
+          "z": -0.5518113770432072
+        }
+      ]
+    },
+    {
+      "time": 0.3472222089767456,
+      "phase": 0.3333333333333333,
+      "rate": 1,
+      "distance": 1.3888888359069824,
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.196313764762457,
+          "y": -0.09051964794763155,
+          "z": 0.938362272498155
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.19058473524020442,
+          "y": -0.053908619137761786,
+          "z": 0.8433354245802344
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.025587405158404297,
+          "y": 2.2361237190420677,
+          "z": -0.17012361360537012
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.01053902670560023,
+          "y": 2.1799665943830813,
+          "z": -0.2808450534833568
+        }
+      ]
+    },
+    {
+      "time": 0.434027761220932,
+      "phase": 0.4166666666666667,
+      "rate": 1,
+      "distance": 1.736111044883728,
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19446296406791877,
+          "y": -0.03603208414772391,
+          "z": 1.1260229354678233
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.188359835879756,
+          "y": 0.05928189177737948,
+          "z": 1.0390167161527688
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.028787438281722,
+          "y": 2.1379369348314823,
+          "z": 0.09822222465013851
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.016593746489769672,
+          "y": 1.8435687369405824,
+          "z": 0.06256021505935068
+        }
+      ]
+    },
+    {
+      "time": 0.5208333134651184,
+      "phase": 0.5,
+      "rate": 1,
+      "distance": 2.0833332538604736,
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19214409393376997,
+          "y": 0.1056672696453218,
+          "z": 1.2913571517594304
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.1861498178155702,
+          "y": 0.21353971402324176,
+          "z": 1.2291336349385478
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.03502664981215238,
+          "y": 1.7924739334259605,
+          "z": 0.45444347505928123
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.023138362744065583,
+          "y": 1.4518294790733894,
+          "z": 0.535869996939198
+        }
+      ]
+    },
+    {
+      "time": 0.6076388657093048,
+      "phase": 0.5833333333333334,
+      "rate": 1,
+      "distance": 2.4305554628372192,
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.19003069480422877,
+          "y": 0.26636524899669256,
+          "z": 1.4767748595041557
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.1845782383085268,
+          "y": 0.3366980631600178,
+          "z": 1.4389502077728382
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.04104700275479162,
+          "y": 1.430139197860959,
+          "z": 0.9316870564798501
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.027248829390176983,
+          "y": 1.1781124113873327,
+          "z": 1.069039580934808
+        }
+      ]
+    },
+    {
+      "time": 0.6944444179534912,
+      "phase": 0.6666666666666666,
+      "rate": 1,
+      "distance": 2.777777671813965,
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.18868512221750236,
+          "y": 0.37855593694935813,
+          "z": 1.7090442263143713
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.18395521841588272,
+          "y": 0.3870608977852851,
+          "z": 1.6851898702693489
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.04433607683485949,
+          "y": 1.195477817665756,
+          "z": 1.458527766405122
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.02806303750664778,
+          "y": 1.0645276103435541,
+          "z": 1.5403086661911523
+        }
+      ]
+    },
+    {
+      "time": 0.7812499701976776,
+      "phase": 0.75,
+      "rate": 1,
+      "distance": 3.1249998807907104,
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.18825895073380305,
+          "y": 0.3989544749115317,
+          "z": 1.9771979798242882
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.18416378526154892,
+          "y": 0.345871835821918,
+          "z": 1.9537332887122811
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.04462845323326942,
+          "y": 1.1156944911469053,
+          "z": 1.8929091726876326
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.02634564294923301,
+          "y": 1.1058307175651754,
+          "z": 1.8390977867320735
+        }
+      ]
+    },
+    {
+      "time": 0.868055522441864,
+      "phase": 0.8333333333333334,
+      "rate": 1,
+      "distance": 3.472222089767456,
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.18882397272719373,
+          "y": 0.32341110298961645,
+          "z": 2.277878949622546
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.18625147424312016,
+          "y": 0.21843282555965077,
+          "z": 2.3209344798961724
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.04227745914288315,
+          "y": 1.1785628469992786,
+          "z": 2.1643060986246674
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.02127295392080697,
+          "y": 1.2979025788629461,
+          "z": 2.000659532703863
+        }
+      ]
+    },
+    {
+      "time": 0.9548610746860504,
+      "phase": 0.9166666666666666,
+      "rate": 1,
+      "distance": 3.8194442987442017,
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 19,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_lower",
+          "maxFootInfluence": 0,
+          "x": -0.1915636991197164,
+          "y": 0.17070643359595636,
+          "z": 2.715700755533135
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_lower",
+          "maxFootInfluence": 0,
+          "x": 0.18951318654284238,
+          "y": 0.07157728669402781,
+          "z": 2.8420650377641827
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_foot",
+          "maxFootInfluence": 0.7951162457466125,
+          "x": -0.03695674702084868,
+          "y": 1.3751986065371555,
+          "z": 2.3488953071273886
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_foot",
+          "maxFootInfluence": 0.7949916124343872,
+          "x": 0.01559778769362614,
+          "y": 1.5361209268533138,
+          "z": 2.266202537387099
+        }
+      ]
+    }
+  ]
+}
