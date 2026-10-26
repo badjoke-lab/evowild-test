@@ -7,13 +7,13 @@
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-26T07:23:06.913976+00:00",
+  "checkpoint_updated_at_utc": "2026-10-26T09:05:51.542085+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "Unit A hind joint/weight fitting complete; save before Unit B sole-contact work",
-  "last_commit_created": "4149ca0cc4a6aaa23946b35a9436f6251bdffc46",
-  "last_remote_confirmed_sha": "4149ca0cc4a6aaa23946b35a9436f6251bdffc46",
-  "last_remote_verified_at_utc": "2026-10-26T07:23:06.913976+00:00",
+  "current_unit": "Unit A saved and remote verified through GitHub Git Data API; Unit B NOT STARTED",
+  "last_commit_created": "20848b95e826785a58c9595edd44fd2444f9566b",
+  "last_remote_confirmed_sha": "20848b95e826785a58c9595edd44fd2444f9566b",
+  "last_remote_verified_at_utc": "2026-10-26T09:05:51.542085+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -39,7 +39,7 @@
     "Unit A: separate focus-hind-fit-v2 GLB from preserved v1, explicit hip/knee/hock/toe chains; 21 bones, 7685 local hind vertices reweighted, mesh bytes preserved. Native four-view 48 frames + rear video + PC/Pixel 7 screenshots; protected-body motion tests 2/2 PASS and build PASS. Anatomical fit improved, recovery lower and penetration still REVISE."
   ],
   "pending_units": [
-    "Unit B ONLY AFTER A push/remote verification: identify actual sole vertices, record world coordinates, implement contact/stride/IK at .5/1/1.5 speeds; save separately. Keep ground and cameras fixed.",
+    "Unit B NOT STARTED: actual sole vertices, world-space contact/penetration/slip, IK and speed-aware stride/cadence at .5/1/1.5, four-view evidence, targeted tests/build, separate commit/publication.",
     "No side-sheet tweaks, P/E/A, 18-runner production expansion, race physics/Agent/HUD edits.",
     "Check latest Actions; baseline 40275890477 supplied by user: 108 passed / 3 known failed / 81 skipped, no S failures."
   ],
@@ -49,7 +49,7 @@
     "latest_desktop_e2e": "PASS all 27 desktop cases in final-targeted.log, including real full journey, reloaded results, Agent roundtrip/validator, reset/abort, lane execution outcomes and screenshot capture",
     "latest_android_e2e": "PASS all 27 Pixel 7 Chromium emulation cases in final-targeted.log; physical Android not tested",
     "agent_outcome": "PASS 10/10 incl. controlled-clock actual lane arrival on desktop/Android; build PASS",
-    "latest_github_actions": "User-confirmed 40275890477: 108 passed / 3 known failures / 81 skipped, no new S failure. Unit A Actions pending push.",
+    "latest_github_actions": "Baseline 40275890477 supplied by user: 108 passed / 3 known failures / 81 skipped; no S-specific failures. Unit A 20848b9 Actions 40296827353 and 40296821052 in progress at checkpoint.",
     "latest_targeted": "54 passed (2.9m); existing completed log recovered and pushed, not rerun on resume",
     "history_layout": "PASS 2/2 desktop and Pixel 7 emulation, also 320px; red-before/green-after regression. No repeat of 54 tests or full race.",
     "lane_provenance": "PASS 26/26 focused tests (1.3m): 14 provenance + 10 existing outcome + 2 history layout. Desktop/Pixel 7; includes real normal-race engine adjustment, actual lane comparison and persistent snapshots. No manual full-race/54-suite rerun.",
@@ -83,7 +83,7 @@
     "docs/2p5d/evidence/20261026-s-bind-repair/README.md (48 frames, rear-quarter.mp4, PC/Pixel 7 images, asset hashes, contact diagnostics, tests/build logs)",
     "docs/2p5d/evidence/20261026-s-hind-fit/README.md (Unit A, 48 frames, video, PC/Pixel 7, fit distances, protected-body tests)"
   ],
-  "next_action": "Verify Unit A push using git ls-remote; then implement Unit B from focus-hind-fit-v2.glb and src/s_run_review.js. Select actual sole mesh vertices (not weighted group centroids); implement contact-aware IK/stride and record .5/1/1.5 speed contact/slip metrics and four views, test/build, commit/push separately within 15 minutes.",
+  "next_action": "git fetch origin --prune; read HANDOFF_STATE.json and docs/2p5d/evidence/20261026-s-hind-fit/README.md. Unit A is complete at remote 20848b9. Start Unit B from focus-hind-fit-v2.glb: identify actual sole mesh vertices, log world coordinates through gait, implement contact-aware IK/stride/cadence and measure .5/1/1.5 speeds with fixed ground/cameras. Preserve v1/v2/originals. Use connected GitHub Git Data tools if git credentials remain invalid; verify blob/tree equality and non-forced expected-head update. Do not redo A or prior completed work.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "Unit A only. Original GLBs/v1 and production manifest unchanged. Source before this unit verified at 4149ca0. No unrelated work staged."
+  "checkpoint_note": "A implementation/tests/local commit finished within 15 minutes, but git push failed (missing credential helper, then invalid GH token). Connected GitHub Git Data API uploaded all 62 blobs, verified every blob SHA and identical tree c5b4f000a4a576f10bb0084ca31ab528411cde05, created 20848b95e826785a58c9595edd44fd2444f9566b and advanced child ref with expected 4149ca0 and force=false. git ls-remote verified it. Local 6f816e1 preserved as checkpoint/local-unit-a-6f816e1; local child ref aligned to identical-tree remote without touching files. Upload recovery exceeded the 15-minute remote checkpoint interval; no success claimed until remote verification. Save/recovery took priority; B not started. No main merge or source asset overwrite."
 }
