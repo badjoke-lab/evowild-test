@@ -11,9 +11,9 @@
   "session_index": 6,
   "current_gate": "GATE_1",
   "current_unit": "C1 continuity implementation and actual-mesh regression complete; C2 not started",
-  "last_commit_created": "860f694e96189a96021c963331645774a9771260",
-  "last_remote_confirmed_sha": "812c4a987814201e76b9039d1ec9e526b8a95e18",
-  "last_remote_verified_at_utc": "2026-10-26T13:33:25.071219+00:00",
+  "last_commit_created": "c0d4d4ab1113b7abe9d844271166297e9ed708e6",
+  "last_remote_confirmed_sha": "c0d4d4ab1113b7abe9d844271166297e9ed708e6",
+  "last_remote_verified_at_utc": "2026-10-26T13:33:43.663559+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -97,5 +97,5 @@
   ],
   "next_action": "Confirm C1 commit on origin, then start C2 only: collect continuous acceleration/deceleration and abrupt command traces from actual sole mesh; use immutable 812c4a9 worktree for before evidence, new controller for after; save four-view videos/frames and PC/Pixel 7. Preserve all GLBs/production manifest and publish C2 separately.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "C1 is a controller/runtime-only fix. Explicit seeks reset validation state, normal time progression retains anchors. Known .2/.7 jumps reproduced from B3 evidence and now both pass actual-mesh regressions. No B1/B2/B3 reimplementation; no main merge."
+  "checkpoint_note": "C1 is a controller/runtime-only fix. Explicit seeks reset validation state, normal time progression retains anchors. Known .2/.7 jumps reproduced from B3 evidence and now both pass actual-mesh regressions. No B1/B2/B3 reimplementation; no main merge. C1 normal push succeeded and remote c0d4d4a verified; C2 may begin."
 }
