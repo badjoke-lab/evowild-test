@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EvoWild Run — AutoSprite S Sprint Trial</title>
+    <link rel="stylesheet" href="/src/race2_5d.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">EvoWild Run / AUTOSPRITE S TRIAL</p>
+          <h1>AutoSprite S Sprint Trial</h1>
+          <p class="sub">S型1体だけを対象に、AutoSpriteのSprint spritesheetを実レース描画へ差し込み、静止画揺らしとの差を検証する。</p>
+        </div>
+        <div class="top-actions">
+          <a class="ghost" href="./race-2_5d.html">2.5D baseline</a>
+          <button id="pause">Pause</button>
+          <button id="reset">Reset</button>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="stage" id="stage" data-assets="loading">
+          <canvas id="race2d"></canvas>
+
+          <div class="overlay top-left">
+            <strong>RIDGE STRAIGHT / 1800m</strong>
+            <span id="clock">00:00.00</span>
+          </div>
+
+          <div class="overlay top-right">
+            <span class="tag">2.5D</span>
+            <span id="assetState">Loading S AutoSprite export…</span>
+          </div>
+
+          <div class="agent-bubble" id="agentBubble">
+            <small>RACE AGENT</small>
+            <strong id="command">BUILD SPEED</strong>
+            <span id="reason">Start phase</span>
+          </div>
+
+          <div class="progress"><i id="progressBar"></i></div>
+        </section>
+
+        <aside class="panel">
+          <section class="card selected">
+            <p class="eyebrow">SELECTED</p>
+            <h2>#01 Vela</h2>
+            <div class="row"><span>Morph</span><b id="morph">S — Sprint</b></div>
+            <div class="row"><span>Rank</span><b id="rank">— / 18</b></div>
+            <div class="row"><span>Lane</span><b id="lane">—</b></div>
+            <div class="row"><span>Speed</span><b id="speed">0.0 m/s</b></div>
+            <div class="row"><span>Stamina</span><b id="stamina">100</b></div>
+            <div class="row"><span>Phase</span><b id="phase">START</b></div>
+          </section>
+
+          <section class="card">
+            <p class="eyebrow">WHAT THIS PROVES</p>
+            <p class="note">
+              This page is isolated from the existing 2.5D lane. When public/autosprite/s/sprint.png + sprint.json are present, only S uses the AutoSprite animation; P/E/A stay on the existing reference images. S bob/tilt fakery is disabled so the generated gait can be judged directly.
+            </p>
+          </section>
+
+          <section class="card">
+            <p class="eyebrow">FIELD</p>
+            <div id="ranking" class="ranking"></div>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <script type="module" src="/src/race_autosprite_s.js"></script>
+  </body>
+</html>
