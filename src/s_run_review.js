@@ -38,7 +38,7 @@ function sample(){
     asset,contact:contactState,camera:document.querySelector('#camera').value,clip:clip.name,duration:clip.duration,
     bones:mesh.skeleton.bones.length,vertices:mesh.geometry.attributes.position.count,feet:observations};
 }
-function render(){updateCamera();const state=sample();renderer.render(scene,camera);document.querySelector('#status').textContent=`${state.camera} · ${state.clip} · 位相 ${state.phase.toFixed(2)} · ${rate}×`;canvas.dataset.ready='1';canvas.dataset.time=String(time);return state;}
+function render(){updateCamera();const state=sample();renderer.render(scene,camera);document.querySelector('#status').textContent=`${state.camera} · ${contactIK?'Contact IK v3 + native body':state.clip} · 位相 ${state.phase.toFixed(2)} · ${rate}×`;canvas.dataset.ready='1';canvas.dataset.time=String(time);return state;}
 function pose(){mixer.setTime(time);root.updateMatrixWorld(true);if(contactIK)contactState=contactIK.apply(time/clip.duration,root.position.z,rate||1);}
 function advance(dt){time+=dt*(contactIK?contactIK.kinematics(rate||1).cadence*clip.duration*(rate===0?0:1):rate);root.position.z+=dt*rate*speedMeters;pose();return render();}
 function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;if(model){if(!paused)advance(dt);else render();}requestAnimationFrame(frame);}
@@ -79,8 +79,8 @@ try{
   clip=gltf.animations.find(a=>a.name==='EvoWild_S_Run_V5');if(!clip)throw Error('Expected native run clip missing');
   mixer=new THREE.AnimationMixer(model);mixer.clipAction(clip).play();mixer.setTime(0);
   // Isolated review/capture API. Never used by the race or saved as a race result.
-  window.sRunReview={sample,advance,solePatches,measureCycle(speed=1,steps=240){
-    paused=true;rate=speed;const frames=[];
+  window.sRunReview={sample,advance,solePatches,soleSample(){root.updateMatrixWorld(true);mesh.skeleton.update();return sampleSoles(mesh,solePatches);},measureCycle(speed=1,steps=240){
+    paused=true;rate=speed;document.querySelector('#speed').value=String(speed);const frames=[];
     for(let i=0;i<=steps;i++){
       time=i/steps*clip.duration;root.position.z=contactIK?i/steps*contactIK.kinematics(speed).stride:time*speedMeters;pose();
       root.updateMatrixWorld(true);mesh.skeleton.update();

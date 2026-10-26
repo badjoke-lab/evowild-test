@@ -1,0 +1,14 @@
+
+Running 2 tests using 1 worker
+
+(node:8112) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] [android-chromium] › tests/s-sole-metrics.spec.js:4:1 › sole metrics distinguish a planted patch from sliding penetrating geometry
+(node:8124) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/2] [desktop-chromium] › tests/s-sole-metrics.spec.js:4:1 › sole metrics distinguish a planted patch from sliding penetrating geometry
+  2 passed (2.9s)

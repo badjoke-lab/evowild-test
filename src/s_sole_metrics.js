@@ -59,3 +59,28 @@ export function summarizeSoles(frames,threshold=.025){
   return {duration,distance:frames.at(-1).distance-frames[0].distance,threshold,feet,
     interpretation:'Support candidate = sole minY <= 25mm, INCLUDING penetration so broken stance is not silently excluded. Slip sums per-vertex displacement (fixed IDs), not moving lowest-ID or weight centroid. Phases inferred from kinematics, not measured force.'};
 }
+
+// Additional B3 diagnostics. Keep the B1 support-band metric unchanged.
+export function summarizeContactRun(trace){
+ const summary=summarizeSoles(trace.frames),frames=trace.frames;
+ return {...summary,cycleDuration:trace.cycleDuration,travelSpeed:summary.distance/summary.duration,cadence:1/summary.duration,stride:summary.distance,
+  feet:summary.feet.map((foot,i)=>{
+   const result={...foot,strictPlaneTime:0,strictPlaneSlipForward:0,strictPlaneSlipLateral:0,controllerStanceTime:0,controllerStanceSlipForward:0,controllerStanceSlipLateral:0,maxReachError:0,jointAngleRanges:[]};
+   for(let j=0;j<frames.length;j++){
+    const curr=frames[j],limb=curr.contact?.limbs[i];
+    if(limb){result.maxReachError=Math.max(result.maxReachError,limb.reachError);limb.jointAngles.forEach((a,k)=>{const r=result.jointAngleRanges[k]||[Infinity,-Infinity];r[0]=Math.min(r[0],a);r[1]=Math.max(r[1],a);result.jointAngleRanges[k]=r;});}
+    if(!j)continue;
+    const prev=frames[j-1],a=prev.soles[i],b=curr.soles[i],dt=curr.t-prev.t;
+    const states=['CONTACT','PUSH'];
+    for(const [name,active] of [['strictPlane',Math.abs(a.minY)<=.001&&Math.abs(b.minY)<=.001],['controllerStance',limb&&states.includes(limb.stage)&&states.includes(prev.contact.limbs[i].stage)]]){
+     if(!active)continue;result[name+'Time']+=dt;
+     for(let k=0;k<b.points.length;k++){
+      result[name+'SlipForward']+=Math.abs(b.points[k][2]-a.points[k][2])/b.points.length;
+      result[name+'SlipLateral']+=Math.abs(b.points[k][0]-a.points[k][0])/b.points.length;
+     }
+    }
+   }
+   if(!frames[0].contact){for(const key of ['controllerStanceTime','controllerStanceSlipForward','controllerStanceSlipLateral','maxReachError'])result[key]=null;}
+   return result;
+  })};
+}
