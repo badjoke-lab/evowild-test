@@ -7,13 +7,13 @@
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-26T05:42:55.144386+00:00",
+  "checkpoint_updated_at_utc": "2026-10-26T05:44:45.789050+00:00",
   "session_index": 5,
   "current_gate": "GATE_1",
   "current_unit": "S bind-space and weight repair candidate verified in four views; geometry preserved, gait/contact still REVISE",
-  "last_commit_created": "e66969ab4fc2b6adca5aa1dc816386e31a79c9f9",
-  "last_remote_confirmed_sha": "e66969ab4fc2b6adca5aa1dc816386e31a79c9f9",
-  "last_remote_verified_at_utc": "2026-10-26T05:42:55.144386+00:00",
+  "last_commit_created": "43cd9e218656581794910cee13d45cfc9e6227ec",
+  "last_remote_confirmed_sha": "43cd9e218656581794910cee13d45cfc9e6227ec",
+  "last_remote_verified_at_utc": "2026-10-26T05:44:45.789050+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -49,7 +49,7 @@
     "latest_desktop_e2e": "PASS all 27 desktop cases in final-targeted.log, including real full journey, reloaded results, Agent roundtrip/validator, reset/abort, lane execution outcomes and screenshot capture",
     "latest_android_e2e": "PASS all 27 Pixel 7 Chromium emulation cases in final-targeted.log; physical Android not tested",
     "agent_outcome": "PASS 10/10 incl. controlled-clock actual lane arrival on desktop/Android; build PASS",
-    "latest_github_actions": "Prior 9f0ba10 Actions 40196894773: build PASS, 103 passed / 2 known PUSH failures / 81 skipped. First S native unit e66969a Actions 40274904424: build PASS, 104 passed / 3 failed / 81 skipped: PUSH x2 + previously known intermittent desktop AGILITY motion-first:3146. No new S-test failure. Bind candidate Actions pending after push.",
+    "latest_github_actions": "Prior 9f0ba10 Actions 40196894773: build PASS, 103 passed / 2 known PUSH failures / 81 skipped. First S native unit e66969a Actions 40274904424: build PASS, 104 passed / 3 failed / 81 skipped: PUSH x2 + previously known intermittent desktop AGILITY motion-first:3146. No new S-test failure. Bind candidate Actions pending after push. Candidate 43cd9e2 Actions 40275726610 and 40275720203 in progress at final checkpoint.",
     "latest_targeted": "54 passed (2.9m); existing completed log recovered and pushed, not rerun on resume",
     "history_layout": "PASS 2/2 desktop and Pixel 7 emulation, also 320px; red-before/green-after regression. No repeat of 54 tests or full race.",
     "lane_provenance": "PASS 26/26 focused tests (1.3m): 14 provenance + 10 existing outcome + 2 history layout. Desktop/Pixel 7; includes real normal-race engine adjustment, actual lane comparison and persistent snapshots. No manual full-race/54-suite rerun.",
@@ -84,5 +84,5 @@
   ],
   "next_action": "git fetch origin --prune; read HANDOFF_STATE.json and docs/2p5d/evidence/20261026-s-bind-repair/README.md; inspect latest Actions. Continue S-only hind joint/sole-contact repair from scripts/repair_s_bind_candidate.py and review/focus-bind-repair-v1.glb, leaving original models and geometry bytes unchanged. Open s-run-review.html?rig=bind-v1, compare four views at .5/1/1.5 speeds, save actual movement, targeted tests/build, commit/push/checkpoint within 15 minutes. Do not restart native diagnosis or side-sprite camera work.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "Native unit ca44038 and checkpoint e66969a were separately pushed/verified before starting this second unit. This commit saves bind-repair candidate/evidence. No production promotion, P/E/A expansion, race engine/HUD changes, paid API, image regeneration, or main merge. Temporary artifacts/, work/, test-results/, scripts/__pycache__/ and public/models/evowild-s.{obj,mtl} remain unstaged."
+  "checkpoint_note": "Native unit ca44038 and checkpoint e66969a were separately pushed/verified before starting this second unit. This commit saves bind-repair candidate/evidence. No production promotion, P/E/A expansion, race engine/HUD changes, paid API, image regeneration, or main merge. Temporary artifacts/, work/, test-results/, scripts/__pycache__/ and public/models/evowild-s.{obj,mtl} remain unstaged. Candidate 43cd9e2 pushed and confirmed via git ls-remote. GitHub contents API confirmed README, frames tree, PC/Android PNGs, MP4, hashes and logs at that SHA. Draft PR #132 description updated; this separate checkpoint records the verified source SHA."
 }
