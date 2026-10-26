@@ -1,0 +1,64 @@
+{
+  "note": "Weight group centroids, not verified soles. Negative centroid Y proves penetration; near-ground slip diagnostic is not an acceptance metric. Translation is diagnostic 4m/s.",
+  "errors": [],
+  "feet": [
+    {
+      "name": "fore_L_foot",
+      "minY": -0.01857410034213702,
+      "maxY": 0.3232148594460817,
+      "relativeZRange": [
+        0.09464339089621499,
+        1.364314703462929
+      ],
+      "nearGroundForwardSpeedSamples": [
+        5.731826948943547,
+        0.5934315405286671,
+        0.7454514034249876,
+        2.3106000104552407,
+        3.9188672173619263,
+        7.099106936127621
+      ]
+    },
+    {
+      "name": "fore_R_foot",
+      "minY": -0.04062971204945623,
+      "maxY": 0.30097289551741363,
+      "relativeZRange": [
+        0.0849407470049508,
+        1.373625880093234
+      ],
+      "nearGroundForwardSpeedSamples": [
+        0.6579093590348337,
+        1.7433027008319226,
+        3.230590892213004,
+        5.9500745951115865,
+        8.674549513648929
+      ]
+    },
+    {
+      "name": "hind_L_foot",
+      "minY": -0.11863473473671776,
+      "maxY": 0.2661696759201798,
+      "relativeZRange": [
+        -1.749590727612047,
+        -0.3545836687426962
+      ],
+      "nearGroundForwardSpeedSamples": [
+        2.5606370326386387,
+        2.9726513200933193
+      ]
+    },
+    {
+      "name": "hind_R_foot",
+      "minY": -0.11828418394046011,
+      "maxY": 0.27499744925413205,
+      "relativeZRange": [
+        -1.7428427379269449,
+        -0.3634793460340293
+      ],
+      "nearGroundForwardSpeedSamples": [
+        3.3748436782391056
+      ]
+    }
+  ]
+}

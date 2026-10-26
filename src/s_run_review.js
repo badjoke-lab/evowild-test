@@ -1,6 +1,9 @@
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 
+const candidate=new URLSearchParams(location.search).get('rig')==='bind-v1';
+const asset=candidate?'review/focus-bind-repair-v1.glb':'focus-rigged-v5.glb';
+if(candidate)document.querySelector('header small').textContent='S bind/weight repair v1 · 原本の頂点・面を保持 / REVISE・本番未採用';
 const canvas=document.querySelector('#view');
 const renderer=new THREE.WebGLRenderer({canvas,antialias:true,preserveDrawingBuffer:true});
 renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
@@ -21,7 +24,7 @@ const feet=[];
 const v=new THREE.Vector3();
 function updateCamera(){const offset=views[document.querySelector('#camera').value];camera.position.set(offset[0],offset[1],root.position.z+offset[2]);camera.lookAt(0,1.3,root.position.z);sun.position.z=root.position.z-4;sun.target.position.z=root.position.z;}
 function sample(){
-  model.updateMatrixWorld(true);mesh.skeleton.update();
+  root.updateMatrixWorld(true);mesh.skeleton.update();
   const observations=feet.map(foot=>{
     const p=new THREE.Vector3();
     for(const i of foot.vertices){mesh.getVertexPosition(i,v);p.add(v.applyMatrix4(mesh.matrixWorld));}
@@ -29,7 +32,7 @@ function sample(){
     return {name:foot.name,weightBone:foot.weightBone,maxFootInfluence:foot.maxFootInfluence,x:p.x,y:p.y,z:p.z};
   });
   return {time,phase:(time%clip.duration)/clip.duration,rate,distance:root.position.z,
-    camera:document.querySelector('#camera').value,clip:clip.name,duration:clip.duration,
+    asset,camera:document.querySelector('#camera').value,clip:clip.name,duration:clip.duration,
     bones:mesh.skeleton.bones.length,vertices:mesh.geometry.attributes.position.count,feet:observations};
 }
 function render(){updateCamera();const state=sample();renderer.render(scene,camera);document.querySelector('#status').textContent=`${state.camera} · ${state.clip} · 位相 ${state.phase.toFixed(2)} · ${rate}×`;canvas.dataset.ready='1';canvas.dataset.time=String(time);return state;}
@@ -40,7 +43,7 @@ addEventListener('resize',resize);resize();
 document.querySelector('#speed').onchange=e=>{rate=Number(e.target.value);};
 document.querySelector('#pause').onclick=()=>{paused=!paused;document.querySelector('#pause').textContent=paused?'再開':'一時停止';};
 try{
-  const gltf=await new GLTFLoader().loadAsync(import.meta.env.BASE_URL+'models/evowild-s/focus-rigged-v5.glb');
+  const gltf=await new GLTFLoader().loadAsync(import.meta.env.BASE_URL+'models/evowild-s/'+asset);
   model=gltf.scene;root.add(model);model.rotation.y=0; // Observed mesh head is +Z; keep translation and rear cameras on that axis.
   model.updateMatrixWorld(true);
   let bounds=new THREE.Box3().setFromObject(model);

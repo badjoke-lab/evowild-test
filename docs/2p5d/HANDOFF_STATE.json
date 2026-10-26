@@ -1,23 +1,24 @@
 {
   "schema_version": 1,
   "purpose": "Codex child-branch checkpoint, not the main repo project status",
-  "status": "CHECKPOINT_S_NATIVE_RUN_REVISE",
+  "status": "CHECKPOINT_S_BIND_REPAIR_V1_REVISE",
   "base_repository": "badjoke-lab/evowild-test",
   "parent_branch": "feat/2p5d-autonomous-agent-orbs-20261024",
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-26T05:33:53.571572+00:00",
+  "checkpoint_updated_at_utc": "2026-10-26T05:42:55.144386+00:00",
   "session_index": 5,
   "current_gate": "GATE_1",
-  "current_unit": "Actual canonical S native clip in four browser views; REVISE, bind-space / weights require correction",
-  "last_commit_created": "ca440389aada370460a85e9af45de2c8d3d81367",
-  "last_remote_confirmed_sha": "ca440389aada370460a85e9af45de2c8d3d81367",
-  "last_remote_verified_at_utc": "2026-10-26T05:33:53.571572+00:00",
+  "current_unit": "S bind-space and weight repair candidate verified in four views; geometry preserved, gait/contact still REVISE",
+  "last_commit_created": "e66969ab4fc2b6adca5aa1dc816386e31a79c9f9",
+  "last_remote_confirmed_sha": "e66969ab4fc2b6adca5aa1dc816386e31a79c9f9",
+  "last_remote_verified_at_utc": "2026-10-26T05:42:55.144386+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
     "?? public/models/evowild-s.obj",
+    "?? scripts/__pycache__/",
     "?? test-results/",
     "?? work/"
   ],
@@ -33,27 +34,29 @@
     "Follow-up QA 2026-10-25: existing CI 40181480712 discovered 2 new `game-loop-2p5d.spec.js:14` browser failures (Agent+ENGINE duplicate disclosure locator); updated full-journey test to target each `data-source` log and assert row counts, committed/pushed f09e7b8. New Actions verification pending.",
     "Confirmed baseline Actions 40186097985: build PASS, 101 passed / 2 known race-quality PUSH failures / 81 skipped; prior duplicate-disclosure E2E regression fixed. Did not remake prior Agent/history/physics work.",
     "Spectator HUD unit at 89efbb1: selected name/fatigue/Agent outcome remain visible; Agent/ENGINE logs, engine state, battle and full ranking are optional details with keyboard close/reset. Smaller top chrome and edge feedback. PC panel 255.4→94px; Pixel 7 198.6→91px. 16 real before/after screenshots over start/corner/pack/back straight, 4 observation JSONs, build and related tests pushed and remote verified.",
-    "S-only native motion unit: real focus-rigged-v5 GLB + native clip, SIDE/CHASE/LOW/REAR_3_4, 48 aligned continuous-phase browser frames plus initial yaw evidence; fixed isolated review yaw to actual +Z head. Speed 0/.5/1/1.5 controls; desktop + Pixel 7 tests 2/2 PASS, production build PASS. Diagnosed zero fore-foot weights and upper-body hind-foot weights. No source geometry or production sprite changes."
+    "S-only native motion unit: real focus-rigged-v5 GLB + native clip, SIDE/CHASE/LOW/REAR_3_4, 48 aligned continuous-phase browser frames plus initial yaw evidence; fixed isolated review yaw to actual +Z head. Speed 0/.5/1/1.5 controls; desktop + Pixel 7 tests 2/2 PASS, production build PASS. Diagnosed zero fore-foot weights and upper-body hind-foot weights. No source geometry or production sprite changes.",
+    "Second bounded S unit: separate review/focus-bind-repair-v1.glb corrects skeleton axes, inverse binds, root tracks and weights; POSITION/NORMAL/indices exact original bytes; no canonical GLB/manifest edits. Actual four-view 48 frames + rear-quarter video + PC/Pixel 7 screenshots; native/candidate target tests 6/6 and build PASS. Fixed new review telemetry stale-parent matrix bug. Ground penetration and sliding remain REVISE; no 2.5D extraction."
   ],
   "pending_units": [
-    "Current user CANCELLED side-sprite camera/size/overlap polish. Do not resume that prior next_action.",
-    "Repair isolated S bind-space orientation and skin weights, preserving exact POSITION/index bytes and original GLBs/manifest. Inspect four real browser views and contact/push/recovery/flight/extension again; no P/E/A/18-runner expansion.",
-    "Only extract rear-quarter 2.5D material and connect one-runner test after usable motion is demonstrated. Current native v5 is REVISE.",
-    "Prior CI and full-race completion already recorded; do not repeat 54 tests or 18-runner completion without relevant changes."
+    "Current user CANCELLED side-sprite camera/size/overlap polish; do not resume it.",
+    "Next S-only unit: fit hind hip/knee/hock/toe bind points to unchanged canonical mesh; inspect/adjust joint weights, then add explicit sole-contact targets and match stride/cadence through contact/push/recovery/flight/extension at .5/1/1.5 speed. Preserve originals and compare four browser views.",
+    "Candidate still REVISE: only extract rear-quarter 2.5D material and connect one-runner test after usable motion is demonstrated. No P/E/A or 18-runner expansion.",
+    "Check latest candidate Actions, distinguish historical PUSH x2 and intermittent AGILITY. No need to repeat completed 54 tests/full 18-finisher run."
   ],
   "test_status": {
     "baseline_reference": "Parent dcd3f56 Actions 40152147602: 63 passed / 4 failed / 81 skipped. Original 3 + Android race-quality:125 pressure test (also before our changes).",
-    "latest_build": "PASS local production build at 89efbb1; baseline Actions 40186097985 production build also PASS",
+    "latest_build": "PASS local build for S bind candidate; existing chunk-size warning only.",
     "latest_desktop_e2e": "PASS all 27 desktop cases in final-targeted.log, including real full journey, reloaded results, Agent roundtrip/validator, reset/abort, lane execution outcomes and screenshot capture",
     "latest_android_e2e": "PASS all 27 Pixel 7 Chromium emulation cases in final-targeted.log; physical Android not tested",
     "agent_outcome": "PASS 10/10 incl. controlled-clock actual lane arrival on desktop/Android; build PASS",
-    "latest_github_actions": "Verified baseline 40186097985: 101 passed / 2 failed / 81 skipped (Android+desktop race-quality.spec.js:47 PUSH). Prior game-loop selectors fixed. HUD source 89efbb1 Actions 40196657092 in progress; no claim of latest-head green.",
+    "latest_github_actions": "Prior 9f0ba10 Actions 40196894773: build PASS, 103 passed / 2 known PUSH failures / 81 skipped. First S native unit e66969a Actions 40274904424: build PASS, 104 passed / 3 failed / 81 skipped: PUSH x2 + previously known intermittent desktop AGILITY motion-first:3146. No new S-test failure. Bind candidate Actions pending after push.",
     "latest_targeted": "54 passed (2.9m); existing completed log recovered and pushed, not rerun on resume",
     "history_layout": "PASS 2/2 desktop and Pixel 7 emulation, also 320px; red-before/green-after regression. No repeat of 54 tests or full race.",
     "lane_provenance": "PASS 26/26 focused tests (1.3m): 14 provenance + 10 existing outcome + 2 history layout. Desktop/Pixel 7; includes real normal-race engine adjustment, actual lane comparison and persistent snapshots. No manual full-race/54-suite rerun.",
     "intermediate_local_failures": "Current HUD run exposed a lane-arrival test selecting newest HOLD after SHIFT_LINE completion. Selector now explicitly follows SHIFT_LINE; no arrival or result assertion removed. Dedicated desktop+Android rerun 2/2 PASS. Earlier resolved failures are documented in prior evidence.",
     "spectator_hud": "24 unique related cases pass across runs: initial 23 passed + 1 desktop lane-arrival selector failure; corrected that test to follow SHIFT_LINE rather than later HOLD and both affected browser cases passed (2/2). New HUD PC+Pixel 7 four-phase capture/overlap/disclosure/320px/reset tests both passed. Build PASS. No old 54-suite or full-race manual rerun.",
-    "s_native_run": "PASS 2/2 dedicated desktop/Pixel 7 runtime tests: actual native skin deformation, four views, speed zero freeze, rate scaling; npm run build PASS. These checks do not approve gait."
+    "s_native_run": "PASS 2/2 dedicated desktop/Pixel 7 runtime tests: actual native skin deformation, four views, speed zero freeze, rate scaling; npm run build PASS. These checks do not approve gait.",
+    "s_bind_repair": "PASS 6/6 dedicated desktop/Pixel 7 tests: geometry/non-root clip byte preservation, original hash, four foot influences/movement, stable telemetry, native runtime/view/rate controls. Production build PASS. Browser errors 0 in four-view capture. Visual/contact REVISE."
   },
   "original_mocks": {
     "expected_count": 11,
@@ -62,9 +65,9 @@
     "verifier": "scripts/verify_2p5d_mockups.py"
   },
   "blocker": [
-    "S native v5: both fore-foot bones have zero influence; hind-foot groups deform upper body; bind skeleton axes mismatch mesh. Running/contact is REVISE.",
-    "Canonical gray mesh / crest identity and rear-quarter animation remain visually unapproved. No extraction/promotions.",
-    "Historical CI failures unchanged by isolated review; latest source Actions not yet checked."
+    "S candidate foot group centroid minimum Y about -0.12m, visible sliding/rigid recovery. Hind joint placement and contact-aware motion still require work. No visual KEEP.",
+    "Inherited canonical GLB gray material / split crest differs from formal S image; geometry was preserved exactly, no redesign.",
+    "Full Actions still has historical PUSH x2 plus intermittent AGILITY. Candidate Actions not yet confirmed."
   ],
   "last_checkpoint_evidence": [
     "docs/2p5d/evidence/20261025-flow/final-targeted.log",
@@ -76,9 +79,10 @@
     "docs/2p5d/evidence/20261025-lane-provenance/README.md (6 screenshots, 26-pass log, build log)",
     "docs/2p5d/evidence/20261025-spectator-hud/README.md (16 real before/after captures, 4 observation JSONs, test/build logs, mock 01/06 comparison)",
     "docs/2p5d/evidence/20261026-s-run/README.md",
-    "docs/2p5d/evidence/20261025-s-native-run (initial incorrect-yaw captures, explicitly labelled in new README)"
+    "docs/2p5d/evidence/20261025-s-native-run (initial incorrect-yaw captures, explicitly labelled in new README)",
+    "docs/2p5d/evidence/20261026-s-bind-repair/README.md (48 frames, rear-quarter.mp4, PC/Pixel 7 images, asset hashes, contact diagnostics, tests/build logs)"
   ],
-  "next_action": "git fetch origin --prune; read HANDOFF_STATE.json and docs/2p5d/evidence/20261026-s-run/README.md; inspect native-weights.json. Repair only S rig bind alignment + skin weights into a separate candidate without changing POSITION/index/source files. Run s-run-review.html four-view native/candidate comparison, targeted tests/build, commit/push and update checkpoint within 15 minutes.",
+  "next_action": "git fetch origin --prune; read HANDOFF_STATE.json and docs/2p5d/evidence/20261026-s-bind-repair/README.md; inspect latest Actions. Continue S-only hind joint/sole-contact repair from scripts/repair_s_bind_candidate.py and review/focus-bind-repair-v1.glb, leaving original models and geometry bytes unchanged. Open s-run-review.html?rig=bind-v1, compare four views at .5/1/1.5 speeds, save actual movement, targeted tests/build, commit/push/checkpoint within 15 minutes. Do not restart native diagnosis or side-sprite camera work.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "Implementation/native evidence checkpoint; prior verified remote 9f0ba10. User explicitly authorizes existing S GLB rig/motion inspection in this task, superseding earlier no-3D-work/side-sprite camera unit. No model promotion, main merge, paid API, or regenerated images. Native unit source/evidence ca440389 pushed and verified by git ls-remote; this checkpoint records that verified SHA."
+  "checkpoint_note": "Native unit ca44038 and checkpoint e66969a were separately pushed/verified before starting this second unit. This commit saves bind-repair candidate/evidence. No production promotion, P/E/A expansion, race engine/HUD changes, paid API, image regeneration, or main merge. Temporary artifacts/, work/, test-results/, scripts/__pycache__/ and public/models/evowild-s.{obj,mtl} remain unstaged."
 }

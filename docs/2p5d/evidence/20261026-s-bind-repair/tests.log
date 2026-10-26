@@ -1,0 +1,17 @@
+[WebServer] (node:1500) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:1562) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [android-chromium] › tests/s-bind-candidate.spec.js:18:1 › S repair preserves canonical geometry bytes and changes only review skin/bind tracks (131ms)
+  ✓  2 [android-chromium] › tests/s-bind-candidate.spec.js:40:1 › S bind candidate loads and moves four weighted feet in rear-quarter view (9.3s)
+  ✓  3 [android-chromium] › tests/s-run-review.spec.js:3:1 › canonical S native clip runs in four views and scales/freeze with speed (36.8s)
+(node:1747) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  4 [desktop-chromium] › tests/s-bind-candidate.spec.js:18:1 › S repair preserves canonical geometry bytes and changes only review skin/bind tracks (84ms)
+  ✓  5 [desktop-chromium] › tests/s-bind-candidate.spec.js:40:1 › S bind candidate loads and moves four weighted feet in rear-quarter view (7.5s)
+  ✓  6 [desktop-chromium] › tests/s-run-review.spec.js:3:1 › canonical S native clip runs in four views and scales/freeze with speed (32.8s)
+
+  6 passed (1.5m)
