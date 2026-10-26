@@ -1,0 +1,32 @@
+[
+  {
+    "joint": "hind_L_upper",
+    "oldNearestMeshDistance": 0.06757264781045545,
+    "fittedNearestMeshDistance": 0.029421796016267886
+  },
+  {
+    "joint": "hind_L_lower",
+    "oldNearestMeshDistance": 0.15794971018147597,
+    "fittedNearestMeshDistance": 0.050474484894324705
+  },
+  {
+    "joint": "hind_L_foot",
+    "oldNearestMeshDistance": 0.35804198599720855,
+    "fittedNearestMeshDistance": 0.022694267088760437
+  },
+  {
+    "joint": "hind_R_upper",
+    "oldNearestMeshDistance": 0.06899197829732105,
+    "fittedNearestMeshDistance": 0.03046348078327727
+  },
+  {
+    "joint": "hind_R_lower",
+    "oldNearestMeshDistance": 0.15366267034005288,
+    "fittedNearestMeshDistance": 0.046931848918618665
+  },
+  {
+    "joint": "hind_R_foot",
+    "oldNearestMeshDistance": 0.35956847780722795,
+    "fittedNearestMeshDistance": 0.023203911407478055
+  }
+]

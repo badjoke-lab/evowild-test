@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
   "purpose": "Codex child-branch checkpoint, not the main repo project status",
-  "status": "CHECKPOINT_S_BIND_REPAIR_V1_REVISE",
+  "status": "CHECKPOINT_UNIT_A_HIND_FIT_REVISE",
   "base_repository": "badjoke-lab/evowild-test",
   "parent_branch": "feat/2p5d-autonomous-agent-orbs-20261024",
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-26T05:44:45.789050+00:00",
-  "session_index": 5,
+  "checkpoint_updated_at_utc": "2026-10-26T07:23:06.913976+00:00",
+  "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "S bind-space and weight repair candidate verified in four views; geometry preserved, gait/contact still REVISE",
-  "last_commit_created": "43cd9e218656581794910cee13d45cfc9e6227ec",
-  "last_remote_confirmed_sha": "43cd9e218656581794910cee13d45cfc9e6227ec",
-  "last_remote_verified_at_utc": "2026-10-26T05:44:45.789050+00:00",
+  "current_unit": "Unit A hind joint/weight fitting complete; save before Unit B sole-contact work",
+  "last_commit_created": "4149ca0cc4a6aaa23946b35a9436f6251bdffc46",
+  "last_remote_confirmed_sha": "4149ca0cc4a6aaa23946b35a9436f6251bdffc46",
+  "last_remote_verified_at_utc": "2026-10-26T07:23:06.913976+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -35,28 +35,29 @@
     "Confirmed baseline Actions 40186097985: build PASS, 101 passed / 2 known race-quality PUSH failures / 81 skipped; prior duplicate-disclosure E2E regression fixed. Did not remake prior Agent/history/physics work.",
     "Spectator HUD unit at 89efbb1: selected name/fatigue/Agent outcome remain visible; Agent/ENGINE logs, engine state, battle and full ranking are optional details with keyboard close/reset. Smaller top chrome and edge feedback. PC panel 255.4→94px; Pixel 7 198.6→91px. 16 real before/after screenshots over start/corner/pack/back straight, 4 observation JSONs, build and related tests pushed and remote verified.",
     "S-only native motion unit: real focus-rigged-v5 GLB + native clip, SIDE/CHASE/LOW/REAR_3_4, 48 aligned continuous-phase browser frames plus initial yaw evidence; fixed isolated review yaw to actual +Z head. Speed 0/.5/1/1.5 controls; desktop + Pixel 7 tests 2/2 PASS, production build PASS. Diagnosed zero fore-foot weights and upper-body hind-foot weights. No source geometry or production sprite changes.",
-    "Second bounded S unit: separate review/focus-bind-repair-v1.glb corrects skeleton axes, inverse binds, root tracks and weights; POSITION/NORMAL/indices exact original bytes; no canonical GLB/manifest edits. Actual four-view 48 frames + rear-quarter video + PC/Pixel 7 screenshots; native/candidate target tests 6/6 and build PASS. Fixed new review telemetry stale-parent matrix bug. Ground penetration and sliding remain REVISE; no 2.5D extraction."
+    "Second bounded S unit: separate review/focus-bind-repair-v1.glb corrects skeleton axes, inverse binds, root tracks and weights; POSITION/NORMAL/indices exact original bytes; no canonical GLB/manifest edits. Actual four-view 48 frames + rear-quarter video + PC/Pixel 7 screenshots; native/candidate target tests 6/6 and build PASS. Fixed new review telemetry stale-parent matrix bug. Ground penetration and sliding remain REVISE; no 2.5D extraction.",
+    "Unit A: separate focus-hind-fit-v2 GLB from preserved v1, explicit hip/knee/hock/toe chains; 21 bones, 7685 local hind vertices reweighted, mesh bytes preserved. Native four-view 48 frames + rear video + PC/Pixel 7 screenshots; protected-body motion tests 2/2 PASS and build PASS. Anatomical fit improved, recovery lower and penetration still REVISE."
   ],
   "pending_units": [
-    "Current user CANCELLED side-sprite camera/size/overlap polish; do not resume it.",
-    "Next S-only unit: fit hind hip/knee/hock/toe bind points to unchanged canonical mesh; inspect/adjust joint weights, then add explicit sole-contact targets and match stride/cadence through contact/push/recovery/flight/extension at .5/1/1.5 speed. Preserve originals and compare four browser views.",
-    "Candidate still REVISE: only extract rear-quarter 2.5D material and connect one-runner test after usable motion is demonstrated. No P/E/A or 18-runner expansion.",
-    "Check latest candidate Actions, distinguish historical PUSH x2 and intermittent AGILITY. No need to repeat completed 54 tests/full 18-finisher run."
+    "Unit B ONLY AFTER A push/remote verification: identify actual sole vertices, record world coordinates, implement contact/stride/IK at .5/1/1.5 speeds; save separately. Keep ground and cameras fixed.",
+    "No side-sheet tweaks, P/E/A, 18-runner production expansion, race physics/Agent/HUD edits.",
+    "Check latest Actions; baseline 40275890477 supplied by user: 108 passed / 3 known failed / 81 skipped, no S failures."
   ],
   "test_status": {
     "baseline_reference": "Parent dcd3f56 Actions 40152147602: 63 passed / 4 failed / 81 skipped. Original 3 + Android race-quality:125 pressure test (also before our changes).",
-    "latest_build": "PASS local build for S bind candidate; existing chunk-size warning only.",
+    "latest_build": "PASS Unit A local build; original chunk-size warning only.",
     "latest_desktop_e2e": "PASS all 27 desktop cases in final-targeted.log, including real full journey, reloaded results, Agent roundtrip/validator, reset/abort, lane execution outcomes and screenshot capture",
     "latest_android_e2e": "PASS all 27 Pixel 7 Chromium emulation cases in final-targeted.log; physical Android not tested",
     "agent_outcome": "PASS 10/10 incl. controlled-clock actual lane arrival on desktop/Android; build PASS",
-    "latest_github_actions": "Prior 9f0ba10 Actions 40196894773: build PASS, 103 passed / 2 known PUSH failures / 81 skipped. First S native unit e66969a Actions 40274904424: build PASS, 104 passed / 3 failed / 81 skipped: PUSH x2 + previously known intermittent desktop AGILITY motion-first:3146. No new S-test failure. Bind candidate Actions pending after push. Candidate 43cd9e2 Actions 40275726610 and 40275720203 in progress at final checkpoint.",
+    "latest_github_actions": "User-confirmed 40275890477: 108 passed / 3 known failures / 81 skipped, no new S failure. Unit A Actions pending push.",
     "latest_targeted": "54 passed (2.9m); existing completed log recovered and pushed, not rerun on resume",
     "history_layout": "PASS 2/2 desktop and Pixel 7 emulation, also 320px; red-before/green-after regression. No repeat of 54 tests or full race.",
     "lane_provenance": "PASS 26/26 focused tests (1.3m): 14 provenance + 10 existing outcome + 2 history layout. Desktop/Pixel 7; includes real normal-race engine adjustment, actual lane comparison and persistent snapshots. No manual full-race/54-suite rerun.",
     "intermediate_local_failures": "Current HUD run exposed a lane-arrival test selecting newest HOLD after SHIFT_LINE completion. Selector now explicitly follows SHIFT_LINE; no arrival or result assertion removed. Dedicated desktop+Android rerun 2/2 PASS. Earlier resolved failures are documented in prior evidence.",
     "spectator_hud": "24 unique related cases pass across runs: initial 23 passed + 1 desktop lane-arrival selector failure; corrected that test to follow SHIFT_LINE rather than later HOLD and both affected browser cases passed (2/2). New HUD PC+Pixel 7 four-phase capture/overlap/disclosure/320px/reset tests both passed. Build PASS. No old 54-suite or full-race manual rerun.",
     "s_native_run": "PASS 2/2 dedicated desktop/Pixel 7 runtime tests: actual native skin deformation, four views, speed zero freeze, rate scaling; npm run build PASS. These checks do not approve gait.",
-    "s_bind_repair": "PASS 6/6 dedicated desktop/Pixel 7 tests: geometry/non-root clip byte preservation, original hash, four foot influences/movement, stable telemetry, native runtime/view/rate controls. Production build PASS. Browser errors 0 in four-view capture. Visual/contact REVISE."
+    "s_bind_repair": "PASS 6/6 dedicated desktop/Pixel 7 tests: geometry/non-root clip byte preservation, original hash, four foot influences/movement, stable telemetry, native runtime/view/rate controls. Production build PASS. Browser errors 0 in four-view capture. Visual/contact REVISE.",
+    "s_hind_fit": "PASS 2/2 PC/Pixel 7 targeted tests: 81 protected mesh probes x4 phases unchanged within 1e-5, articulated toe chains, no page errors; build PASS. Four-view real evidence captured."
   },
   "original_mocks": {
     "expected_count": 11,
@@ -65,9 +66,8 @@
     "verifier": "scripts/verify_2p5d_mockups.py"
   },
   "blocker": [
-    "S candidate foot group centroid minimum Y about -0.12m, visible sliding/rigid recovery. Hind joint placement and contact-aware motion still require work. No visual KEEP.",
-    "Inherited canonical GLB gray material / split crest differs from formal S image; geometry was preserved exactly, no redesign.",
-    "Full Actions still has historical PUSH x2 plus intermittent AGILITY. Candidate Actions not yet confirmed."
+    "Hind v2 joint fit improved but toe recovery lower and visible penetration/sliding persists; actual sole contact is not yet implemented.",
+    "Formal S inherited crest/material differences remain REVISE; no asset promotion."
   ],
   "last_checkpoint_evidence": [
     "docs/2p5d/evidence/20261025-flow/final-targeted.log",
@@ -80,9 +80,10 @@
     "docs/2p5d/evidence/20261025-spectator-hud/README.md (16 real before/after captures, 4 observation JSONs, test/build logs, mock 01/06 comparison)",
     "docs/2p5d/evidence/20261026-s-run/README.md",
     "docs/2p5d/evidence/20261025-s-native-run (initial incorrect-yaw captures, explicitly labelled in new README)",
-    "docs/2p5d/evidence/20261026-s-bind-repair/README.md (48 frames, rear-quarter.mp4, PC/Pixel 7 images, asset hashes, contact diagnostics, tests/build logs)"
+    "docs/2p5d/evidence/20261026-s-bind-repair/README.md (48 frames, rear-quarter.mp4, PC/Pixel 7 images, asset hashes, contact diagnostics, tests/build logs)",
+    "docs/2p5d/evidence/20261026-s-hind-fit/README.md (Unit A, 48 frames, video, PC/Pixel 7, fit distances, protected-body tests)"
   ],
-  "next_action": "git fetch origin --prune; read HANDOFF_STATE.json and docs/2p5d/evidence/20261026-s-bind-repair/README.md; inspect latest Actions. Continue S-only hind joint/sole-contact repair from scripts/repair_s_bind_candidate.py and review/focus-bind-repair-v1.glb, leaving original models and geometry bytes unchanged. Open s-run-review.html?rig=bind-v1, compare four views at .5/1/1.5 speeds, save actual movement, targeted tests/build, commit/push/checkpoint within 15 minutes. Do not restart native diagnosis or side-sprite camera work.",
+  "next_action": "Verify Unit A push using git ls-remote; then implement Unit B from focus-hind-fit-v2.glb and src/s_run_review.js. Select actual sole mesh vertices (not weighted group centroids); implement contact-aware IK/stride and record .5/1/1.5 speed contact/slip metrics and four views, test/build, commit/push separately within 15 minutes.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "Native unit ca44038 and checkpoint e66969a were separately pushed/verified before starting this second unit. This commit saves bind-repair candidate/evidence. No production promotion, P/E/A expansion, race engine/HUD changes, paid API, image regeneration, or main merge. Temporary artifacts/, work/, test-results/, scripts/__pycache__/ and public/models/evowild-s.{obj,mtl} remain unstaged. Candidate 43cd9e2 pushed and confirmed via git ls-remote. GitHub contents API confirmed README, frames tree, PC/Android PNGs, MP4, hashes and logs at that SHA. Draft PR #132 description updated; this separate checkpoint records the verified source SHA."
+  "checkpoint_note": "Unit A only. Original GLBs/v1 and production manifest unchanged. Source before this unit verified at 4149ca0. No unrelated work staged."
 }

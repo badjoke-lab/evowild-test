@@ -1,9 +1,10 @@
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 
-const candidate=new URLSearchParams(location.search).get('rig')==='bind-v1';
-const asset=candidate?'review/focus-bind-repair-v1.glb':'focus-rigged-v5.glb';
-if(candidate)document.querySelector('header small').textContent='S bind/weight repair v1 · 原本の頂点・面を保持 / REVISE・本番未採用';
+const rig=new URLSearchParams(location.search).get('rig');
+const assets={'bind-v1':'review/focus-bind-repair-v1.glb','hind-v2':'review/focus-hind-fit-v2.glb'};
+const asset=assets[rig] || 'focus-rigged-v5.glb';
+if(assets[rig])document.querySelector('header small').textContent=`S ${rig} · 原本の頂点・面を保持 / REVISE・本番未採用`;
 const canvas=document.querySelector('#view');
 const renderer=new THREE.WebGLRenderer({canvas,antialias:true,preserveDrawingBuffer:true});
 renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
@@ -59,8 +60,8 @@ try{
     let boneIndex=mesh.skeleton.bones.findIndex(b=>b.name===name);
     let influence=0;
     for(let i=0;i<position.count;i++)for(let j=0;j<4;j++)if(skinIndex.getComponent(i,j)===boneIndex)influence=Math.max(influence,skinWeight.getComponent(i,j));
-    const weightBone=influence>0?name:name.replace('_foot','_lower');
-    if(influence===0)boneIndex=mesh.skeleton.bones.findIndex(b=>b.name===weightBone);
+    const weightBone=rig==='hind-v2'&&name.startsWith('hind_')?name.replace('_foot','_toe'):(influence>0?name:name.replace('_foot','_lower'));
+    boneIndex=mesh.skeleton.bones.findIndex(b=>b.name===weightBone);
     const points=[];
     for(let i=0;i<position.count;i++){
       let weight=0;for(let j=0;j<4;j++)if(skinIndex.getComponent(i,j)===boneIndex)weight+=skinWeight.getComponent(i,j);
@@ -73,6 +74,6 @@ try{
   clip=gltf.animations.find(a=>a.name==='EvoWild_S_Run_V5');if(!clip)throw Error('Expected native run clip missing');
   mixer=new THREE.AnimationMixer(model);mixer.clipAction(clip).play();mixer.setTime(0);
   // Isolated review/capture API. Never used by the race or saved as a race result.
-  window.sRunReview={sample,advance,setPhase(phase,view){paused=true;time=phase*clip.duration;root.position.z=time*speedMeters;document.querySelector('#camera').value=view;mixer.setTime(time);return render();}};
+  window.sRunReview={sample,advance,probe(indices){root.updateMatrixWorld(true);mesh.skeleton.update();return indices.map(i=>{mesh.getVertexPosition(i,v);return v.applyMatrix4(mesh.matrixWorld).toArray();});},setPhase(phase,view){paused=true;time=phase*clip.duration;root.position.z=time*speedMeters;document.querySelector('#camera').value=view;mixer.setTime(time);return render();}};
   render();requestAnimationFrame(now=>{last=now;frame(now);});
 }catch(error){document.querySelector('#error').textContent=String(error);canvas.dataset.error=String(error);throw error;}
