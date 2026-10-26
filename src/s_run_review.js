@@ -1,9 +1,10 @@
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import {createContactIK} from './s_contact_ik.js';
 import {selectSolePatches,sampleSoles} from './s_sole_metrics.js';
 
 const rig=new URLSearchParams(location.search).get('rig');
-const assets={'bind-v1':'review/focus-bind-repair-v1.glb','hind-v2':'review/focus-hind-fit-v2.glb'};
+const assets={'bind-v1':'review/focus-bind-repair-v1.glb','hind-v2':'review/focus-hind-fit-v2.glb','contact-v3':'review/focus-contact-v3.glb'};
 const asset=assets[rig] || 'focus-rigged-v5.glb';
 if(assets[rig])document.querySelector('header small').textContent=`S ${rig} · 原本の頂点・面を保持 / REVISE・本番未採用`;
 const canvas=document.querySelector('#view');
@@ -22,7 +23,7 @@ const root=new THREE.Group();scene.add(root);
 const views={SIDE:[10,2.8,0],CHASE:[1.8,3.0,-8],LOW:[2.2,.9,-7.5],REAR_3_4:[5,2.6,-7]};
 let model,mixer,clip,mesh,rate=1,time=0,paused=false,last=0;
 const speedMeters=4; // Isolated diagnostic translation, not a race balance value.
-const feet=[];let solePatches;
+const feet=[];let solePatches,contactIK,contactState;
 const v=new THREE.Vector3();
 function updateCamera(){const offset=views[document.querySelector('#camera').value];camera.position.set(offset[0],offset[1],root.position.z+offset[2]);camera.lookAt(0,1.3,root.position.z);sun.position.z=root.position.z-4;sun.target.position.z=root.position.z;}
 function sample(){
@@ -34,11 +35,12 @@ function sample(){
     return {name:foot.name,weightBone:foot.weightBone,maxFootInfluence:foot.maxFootInfluence,x:p.x,y:p.y,z:p.z};
   });
   return {time,phase:(time%clip.duration)/clip.duration,rate,distance:root.position.z,
-    asset,camera:document.querySelector('#camera').value,clip:clip.name,duration:clip.duration,
+    asset,contact:contactState,camera:document.querySelector('#camera').value,clip:clip.name,duration:clip.duration,
     bones:mesh.skeleton.bones.length,vertices:mesh.geometry.attributes.position.count,feet:observations};
 }
 function render(){updateCamera();const state=sample();renderer.render(scene,camera);document.querySelector('#status').textContent=`${state.camera} · ${state.clip} · 位相 ${state.phase.toFixed(2)} · ${rate}×`;canvas.dataset.ready='1';canvas.dataset.time=String(time);return state;}
-function advance(dt){time+=dt*rate;root.position.z+=dt*rate*speedMeters;mixer.setTime(time);return render();}
+function pose(){mixer.setTime(time);root.updateMatrixWorld(true);if(contactIK)contactState=contactIK.apply(time/clip.duration,root.position.z,rate||1);}
+function advance(dt){time+=dt*(contactIK?contactIK.kinematics(rate||1).cadence*clip.duration*(rate===0?0:1):rate);root.position.z+=dt*rate*speedMeters;pose();return render();}
 function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;if(model){if(!paused)advance(dt);else render();}requestAnimationFrame(frame);}
 function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}
 addEventListener('resize',resize);resize();
@@ -61,7 +63,7 @@ try{
     let boneIndex=mesh.skeleton.bones.findIndex(b=>b.name===name);
     let influence=0;
     for(let i=0;i<position.count;i++)for(let j=0;j<4;j++)if(skinIndex.getComponent(i,j)===boneIndex)influence=Math.max(influence,skinWeight.getComponent(i,j));
-    const weightBone=rig==='hind-v2'&&name.startsWith('hind_')?name.replace('_foot','_toe'):(influence>0?name:name.replace('_foot','_lower'));
+    const weightBone=['hind-v2','contact-v3'].includes(rig)&&name.startsWith('hind_')?name.replace('_foot','_toe'):(influence>0?name:name.replace('_foot','_lower'));
     boneIndex=mesh.skeleton.bones.findIndex(b=>b.name===weightBone);
     const points=[];
     for(let i=0;i<position.count;i++){
@@ -73,17 +75,18 @@ try{
     const marker=new THREE.Mesh(new THREE.SphereGeometry(.035,8,6),new THREE.MeshBasicMaterial({color:name.startsWith('fore')?0x66ffff:0xffbd68}));scene.add(marker);feet.push({name,vertices,marker,weightBone,maxFootInfluence:influence});
   }
   solePatches=selectSolePatches(mesh);
+  if(rig==='contact-v3')contactIK=createContactIK(mesh,solePatches);
   clip=gltf.animations.find(a=>a.name==='EvoWild_S_Run_V5');if(!clip)throw Error('Expected native run clip missing');
   mixer=new THREE.AnimationMixer(model);mixer.clipAction(clip).play();mixer.setTime(0);
   // Isolated review/capture API. Never used by the race or saved as a race result.
   window.sRunReview={sample,advance,solePatches,measureCycle(speed=1,steps=240){
     paused=true;rate=speed;const frames=[];
     for(let i=0;i<=steps;i++){
-      time=i/steps*clip.duration;root.position.z=time*speedMeters;mixer.setTime(time);
+      time=i/steps*clip.duration;root.position.z=contactIK?i/steps*contactIK.kinematics(speed).stride:time*speedMeters;pose();
       root.updateMatrixWorld(true);mesh.skeleton.update();
-      frames.push({t:time/speed,phase:i/steps,distance:root.position.z,soles:sampleSoles(mesh,solePatches)});
+      frames.push({t:contactIK?i/steps*contactIK.kinematics(speed).period:time/speed,phase:i/steps,distance:root.position.z,contact:contactState,soles:sampleSoles(mesh,solePatches)});
     }
-    render();return {asset,rate:speed,steps,groundY:0,cycleDuration:clip.duration/speed,patches:solePatches,frames};
-  },probe(indices){root.updateMatrixWorld(true);mesh.skeleton.update();return indices.map(i=>{mesh.getVertexPosition(i,v);return v.applyMatrix4(mesh.matrixWorld).toArray();});},setPhase(phase,view){paused=true;time=phase*clip.duration;root.position.z=time*speedMeters;document.querySelector('#camera').value=view;mixer.setTime(time);return render();}};
+    render();return {asset,rate:speed,steps,groundY:0,cycleDuration:contactIK?contactIK.kinematics(speed).period:clip.duration/speed,patches:solePatches,frames};
+  },probe(indices){root.updateMatrixWorld(true);mesh.skeleton.update();return indices.map(i=>{mesh.getVertexPosition(i,v);return v.applyMatrix4(mesh.matrixWorld).toArray();});},setPhase(phase,view){paused=true;time=phase*clip.duration;root.position.z=contactIK?phase*contactIK.kinematics(rate||1).stride:time*speedMeters;document.querySelector('#camera').value=view;pose();return render();}};
   render();requestAnimationFrame(now=>{last=now;frame(now);});
 }catch(error){document.querySelector('#error').textContent=String(error);canvas.dataset.error=String(error);throw error;}

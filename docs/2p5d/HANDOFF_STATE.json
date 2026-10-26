@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
   "purpose": "Codex child-branch checkpoint, not the main repo project status",
-  "status": "CHECKPOINT_B1_SOLE_MEASUREMENT_REVISE",
+  "status": "CHECKPOINT_B2_CONTACT_IK_REVISE",
   "base_repository": "badjoke-lab/evowild-test",
   "parent_branch": "feat/2p5d-autonomous-agent-orbs-20261024",
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-26T12:25:31.249706+00:00",
+  "checkpoint_updated_at_utc": "2026-10-26T12:37:20.518846+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "B1 real sole measurement complete; B2 not started",
+  "current_unit": "B2 implemented/verified; B3 not started",
   "last_commit_created": "2df5c21572d4b90e8336900faf324f41c690074a",
-  "last_remote_confirmed_sha": "2df5c21572d4b90e8336900faf324f41c690074a",
+  "last_remote_confirmed_sha": "5ea6d0347010d76093dcffa5bc0d1fda1a0d8822",
   "last_remote_verified_at_utc": "2026-10-26T12:25:58.331254+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
@@ -37,12 +37,12 @@
     "S-only native motion unit: real focus-rigged-v5 GLB + native clip, SIDE/CHASE/LOW/REAR_3_4, 48 aligned continuous-phase browser frames plus initial yaw evidence; fixed isolated review yaw to actual +Z head. Speed 0/.5/1/1.5 controls; desktop + Pixel 7 tests 2/2 PASS, production build PASS. Diagnosed zero fore-foot weights and upper-body hind-foot weights. No source geometry or production sprite changes.",
     "Second bounded S unit: separate review/focus-bind-repair-v1.glb corrects skeleton axes, inverse binds, root tracks and weights; POSITION/NORMAL/indices exact original bytes; no canonical GLB/manifest edits. Actual four-view 48 frames + rear-quarter video + PC/Pixel 7 screenshots; native/candidate target tests 6/6 and build PASS. Fixed new review telemetry stale-parent matrix bug. Ground penetration and sliding remain REVISE; no 2.5D extraction.",
     "Unit A: separate focus-hind-fit-v2 GLB from preserved v1, explicit hip/knee/hock/toe chains; 21 bones, 7685 local hind vertices reweighted, mesh bytes preserved. Native four-view 48 frames + rear video + PC/Pixel 7 screenshots; protected-body motion tests 2/2 PASS and build PASS. Anatomical fit improved, recovery lower and penetration still REVISE.",
-    "B1: 175 fixed real sole vertex IDs, 241 skinned world-coordinate samples, penetration/slip/contact/recovery and inferred phases. Four focused PC/Pixel 7 tests PASS; build PASS. v2 unchanged."
+    "B1: 175 fixed real sole vertex IDs, 241 skinned world-coordinate samples, penetration/slip/contact/recovery and inferred phases. Four focused PC/Pixel 7 tests PASS; build PASS. v2 unchanged.",
+    "B2: separate contact-v3 GLB + review-only analytic IK controller; exact v2 geometry/rest/clip preserved, sole surface weights, planted stance and .48m hind recovery. 48 four-view frames, rear video, PC/Pixel 7 before/after. 4 focused tests PASS; build PASS. Visual REVISE, no production promotion."
   ],
   "pending_units": [
-    "B2: separate contact IK/recovery candidate from immutable v2, actual browser comparison, tests and separate publication.",
-    "B3: .5/1/1.5 speed comparisons and four-view PC/Pixel 7 evidence; separate publication.",
-    "Inspect latest Actions (af446c7 build run 40297092762 failure; job details not yet checked)."
+    "B3: actual .5/1/1.5 v2/v3 sole metrics, strict plane-band and stance slip, multi-view/speed evidence, rate transition diagnostic, focused tests/build and separate publication.",
+    "Remaining visual REVISE: constant foot orientation/no rolling toe-off, schematic push/weight transfer, inherited gray material/crest. No P/E/A or production expansion."
   ],
   "test_status": {
     "baseline_reference": "Parent dcd3f56 Actions 40152147602: 63 passed / 4 failed / 81 skipped. Original 3 + Android race-quality:125 pressure test (also before our changes).",
@@ -50,7 +50,7 @@
     "latest_desktop_e2e": "PASS all 27 desktop cases in final-targeted.log, including real full journey, reloaded results, Agent roundtrip/validator, reset/abort, lane execution outcomes and screenshot capture",
     "latest_android_e2e": "PASS all 27 Pixel 7 Chromium emulation cases in final-targeted.log; physical Android not tested",
     "agent_outcome": "PASS 10/10 incl. controlled-clock actual lane arrival on desktop/Android; build PASS",
-    "latest_github_actions": "Baseline 40275890477 supplied by user: 108 passed / 3 known failures / 81 skipped; no S-specific failures. Unit A 20848b9 Actions 40296827353 and 40296821052 in progress at checkpoint.",
+    "latest_github_actions": "af446c7 run 40297092762 inspected: build PASS, 110 passed / 3 known failures / 81 skipped. PUSH desktop+Android; intermittent desktop AGILITY. No S-specific failure. B1/B2 new runs not yet checked.",
     "latest_targeted": "54 passed (2.9m); existing completed log recovered and pushed, not rerun on resume",
     "history_layout": "PASS 2/2 desktop and Pixel 7 emulation, also 320px; red-before/green-after regression. No repeat of 54 tests or full race.",
     "lane_provenance": "PASS 26/26 focused tests (1.3m): 14 provenance + 10 existing outcome + 2 history layout. Desktop/Pixel 7; includes real normal-race engine adjustment, actual lane comparison and persistent snapshots. No manual full-race/54-suite rerun.",
@@ -59,7 +59,8 @@
     "s_native_run": "PASS 2/2 dedicated desktop/Pixel 7 runtime tests: actual native skin deformation, four views, speed zero freeze, rate scaling; npm run build PASS. These checks do not approve gait.",
     "s_bind_repair": "PASS 6/6 dedicated desktop/Pixel 7 tests: geometry/non-root clip byte preservation, original hash, four foot influences/movement, stable telemetry, native runtime/view/rate controls. Production build PASS. Browser errors 0 in four-view capture. Visual/contact REVISE.",
     "s_hind_fit": "PASS 2/2 PC/Pixel 7 targeted tests: 81 protected mesh probes x4 phases unchanged within 1e-5, articulated toe chains, no page errors; build PASS. Four-view real evidence captured.",
-    "s_sole_b1": "PASS 4/4 desktop/Pixel 7; build PASS. Penetration 4.5/5.7/14.2/13.4cm; forward support slip 2.68/2.80/3.24/3.15m. REVISE."
+    "s_sole_b1": "PASS 4/4 desktop/Pixel 7; build PASS. Penetration 4.5/5.7/14.2/13.4cm; forward support slip 2.68/2.80/3.24/3.15m. REVISE.",
+    "s_contact_b2": "PASS 4/4 PC/Pixel 7: geometry/rest/clip exact, penetration<1mm, support-band slip<8cm, declared stance vertex displacement<1mm/step, recovery>.30/.44m, reach<12mm, angles35..178. Actual 1x reach errors zero. Build PASS."
   },
   "original_mocks": {
     "expected_count": 11,
@@ -68,8 +69,9 @@
     "verifier": "scripts/verify_2p5d_mockups.py"
   },
   "blocker": [
-    "Hind v2 joint fit improved but toe recovery lower and visible penetration/sliding persists; actual sole contact is not yet implemented.",
-    "Formal S inherited crest/material differences remain REVISE; no asset promotion."
+    "Contact/recovery numerically improved, but fixed foot pitch/weak toe-off and body weight transfer remain REVISE.",
+    "Rate switching not yet tested; B3 pending.",
+    "Inherited crest/material differences remain REVISE; no production adoption."
   ],
   "last_checkpoint_evidence": [
     "docs/2p5d/evidence/20261025-flow/final-targeted.log",
@@ -84,9 +86,10 @@
     "docs/2p5d/evidence/20261025-s-native-run (initial incorrect-yaw captures, explicitly labelled in new README)",
     "docs/2p5d/evidence/20261026-s-bind-repair/README.md (48 frames, rear-quarter.mp4, PC/Pixel 7 images, asset hashes, contact diagnostics, tests/build logs)",
     "docs/2p5d/evidence/20261026-s-hind-fit/README.md (Unit A, 48 frames, video, PC/Pixel 7, fit distances, protected-body tests)",
-    "docs/2p5d/evidence/20261026-s-soles-b1/README.md"
+    "docs/2p5d/evidence/20261026-s-soles-b1/README.md",
+    "docs/2p5d/evidence/20261026-s-contact-b2/README.md"
   ],
-  "next_action": "After remote publication of B1, implement isolated B2 contact-aware IK/recovery with immutable v2 geometry and fixed ground Y=0. Preserve originals/v1/v2/production manifest. Publish B2 before starting B3.",
+  "next_action": "After B2 remote confirmation, run B3 speed comparison on hind-v2 and contact-v3 at .5/1/1.5; preserve existing 25mm support metric, add strict plane contact and explicit controller stance metrics. Capture real WebGL speed evidence, test switching, save separately.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "Resumed existing uncommitted B1 measurement after interruption; latest remote af446c7 verified. Unit A not repeated. Exact vertices and raw trace saved; gait remains REVISE. B1 normal git push succeeded; remote SHA 2df5c21572d4b90e8336900faf324f41c690074a verified."
+  "checkpoint_note": "B1 remote saved before B2. B2 uses actual skinned sole offset, retains ground/model placement and corrected v2 rest joints. Normal git authentication now works. Source/frames/tests ready for publication; graphics remains REVISE."
 }
