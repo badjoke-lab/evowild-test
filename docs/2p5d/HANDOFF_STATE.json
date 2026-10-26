@@ -7,13 +7,13 @@
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-26T12:49:17.827908+00:00",
+  "checkpoint_updated_at_utc": "2026-10-26T12:50:47.654337+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "B1/B2/B3 separately implemented and verified; B3 speed validation complete with transition defect documented",
-  "last_commit_created": "2db874531283678394229848d2b38da1f81dbc40",
-  "last_remote_confirmed_sha": "52263dd9086b014be68c42c826f2c92b78c5415a",
-  "last_remote_verified_at_utc": "2026-10-26T12:37:38.569451+00:00",
+  "current_unit": "B1/B2/B3 separately published and remote-verified; saved at transition-repair boundary, REVISE",
+  "last_commit_created": "860f694e96189a96021c963331645774a9771260",
+  "last_remote_confirmed_sha": "860f694e96189a96021c963331645774a9771260",
+  "last_remote_verified_at_utc": "2026-10-26T12:50:47.654337+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -52,7 +52,7 @@
     "latest_desktop_e2e": "PASS all 27 desktop cases in final-targeted.log, including real full journey, reloaded results, Agent roundtrip/validator, reset/abort, lane execution outcomes and screenshot capture",
     "latest_android_e2e": "PASS all 27 Pixel 7 Chromium emulation cases in final-targeted.log; physical Android not tested",
     "agent_outcome": "PASS 10/10 incl. controlled-clock actual lane arrival on desktop/Android; build PASS",
-    "latest_github_actions": "B1 2df5c21 run 40322444560: build PASS, 114 passed / 3 known failures / 81 skipped (desktop/Android PUSH; desktop AGILITY). B2 40323960662 in progress at last inspection. No B1-specific failure. B3 CI pending publication.",
+    "latest_github_actions": "B1 40322444560: build PASS, 114 passed / 3 known failed / 81 skipped. B2 40323960662: build PASS, 118 passed / same 3 known failed / 81 skipped. No new S-specific CI failure. B3 860f694 run 40325500209 in progress; no global green claim.",
     "latest_targeted": "54 passed (2.9m); existing completed log recovered and pushed, not rerun on resume",
     "history_layout": "PASS 2/2 desktop and Pixel 7 emulation, also 320px; red-before/green-after regression. No repeat of 54 tests or full race.",
     "lane_provenance": "PASS 26/26 focused tests (1.3m): 14 provenance + 10 existing outcome + 2 history layout. Desktop/Pixel 7; includes real normal-race engine adjustment, actual lane comparison and persistent snapshots. No manual full-race/54-suite rerun.",
@@ -96,5 +96,5 @@
   ],
   "next_action": "git fetch origin --prune; read HANDOFF_STATE.json and docs/2p5d/evidence/20261026-s-speeds-b3/README.md. B1/B2/B3 are complete; do not redo A or imports. Start a separate bounded v3 transition repair: in src/s_contact_ik.js latch world sole anchor at touchdown, integrate travel/cadence, replan swing continuously. Reproduce speed-transitions.json phases .2/.7; require <1mm jump and unchanged joint reach/angles. Preserve focus-hind-fit-v2.glb, original GLBs and production manifest. Commit/push within15min.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "Each unit published separately: B1 2df5c21 (+5ea6d03), B2 2db8745 (+52263dd), each remote SHA confirmed before next unit. B3 saves complete steady-speed evidence and honestly failed transition quality criterion; no KEEP or main merge."
+  "checkpoint_note": "Each unit published separately: B1 2df5c21 (+5ea6d03), B2 2db8745 (+52263dd), each remote SHA confirmed before next unit. B3 saves complete steady-speed evidence and honestly failed transition quality criterion; no KEEP or main merge. B3 860f694e96189a96021c963331645774a9771260 normal push succeeded and origin SHA confirmed. Tracked tree clean; only pre-existing generated/scratch artifacts remain untracked. Next unit deliberately not started before saving this checkpoint."
 }
