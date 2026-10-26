@@ -1,0 +1,629 @@
+{
+  "errors": [],
+  "reports": [
+    {
+      "label": "before",
+      "profile": "acceleration",
+      "samples": 481,
+      "duration": 2,
+      "travel": 8.791666666666643,
+      "cycles": 4.948897534239625,
+      "speedIntegral": 8.800000000000052,
+      "travelIntegralError": -0.008333333333409243,
+      "cadenceIntegral": 4.951485724690708,
+      "cycleIntegralError": -0.002588190451083605,
+      "feet": [
+        {
+          "name": "fore_L",
+          "maxPenetration": 0,
+          "stanceSlip": 0.007011987027884643,
+          "maxStanceStepSlip": 0.0003073381443601253,
+          "contactTime": 0.3291666666666667,
+          "recoveryHeight": 0.3399986160516242,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            102.46687205027659,
+            155.06149444652706
+          ],
+          "maxSegmentLengthDrift": 4.443916346019705e-10,
+          "maxZeroTimeJump": 0.0005853501274342177,
+          "maxMeshVelocityResidual": 0.02512546956309746
+        },
+        {
+          "name": "fore_R",
+          "maxPenetration": 0,
+          "stanceSlip": 0.006242613843063304,
+          "maxStanceStepSlip": 0.0002992478425150047,
+          "contactTime": 0.31666666666666654,
+          "recoveryHeight": 0.33999471488286725,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            103.85933118774005,
+            157.84878995900888
+          ],
+          "maxSegmentLengthDrift": 5.253990920106588e-8,
+          "maxZeroTimeJump": 0.0006010570692436281,
+          "maxMeshVelocityResidual": 0.025123523074726727
+        },
+        {
+          "name": "hind_L",
+          "maxPenetration": 0,
+          "stanceSlip": 0.009763607697123918,
+          "maxStanceStepSlip": 0.0003493097224167574,
+          "contactTime": 0.44166666666666693,
+          "recoveryHeight": 0.4800006002964271,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            50.193255555776105,
+            158.67769410967065
+          ],
+          "maxSegmentLengthDrift": 1.8847353899786867e-8,
+          "maxZeroTimeJump": 0.0006595408985932142,
+          "maxMeshVelocityResidual": 0.027085095128431998
+        },
+        {
+          "name": "hind_R",
+          "maxPenetration": 0,
+          "stanceSlip": 0.008127717168427235,
+          "maxStanceStepSlip": 0.0003485827202993619,
+          "contactTime": 0.4624999999999999,
+          "recoveryHeight": 0.48000024784190065,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            50.644213135893416,
+            159.2238892421229
+          ],
+          "maxSegmentLengthDrift": 3.9142572294537104e-8,
+          "maxZeroTimeJump": 0.000682156103135628,
+          "maxMeshVelocityResidual": 0.02708784565147162
+        }
+      ]
+    },
+    {
+      "label": "before",
+      "profile": "deceleration",
+      "samples": 481,
+      "duration": 2,
+      "travel": 7.2083333333331865,
+      "cycles": 4.457141348544834,
+      "speedIntegral": 7.199999999999951,
+      "travelIntegralError": 0.00833333333323516,
+      "cadenceIntegral": 4.4545531580938365,
+      "cycleIntegralError": 0.002588190450997452,
+      "feet": [
+        {
+          "name": "fore_L",
+          "maxPenetration": 0,
+          "stanceSlip": 0.005715429458153435,
+          "maxStanceStepSlip": 0.00028469480187176543,
+          "contactTime": 0.32916666666666666,
+          "recoveryHeight": 0.33999268559979123,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            102.4658685011677,
+            154.43783348784143
+          ],
+          "maxSegmentLengthDrift": 4.4439152357966805e-10,
+          "maxZeroTimeJump": 0.0005624744708416869,
+          "maxMeshVelocityResidual": 0.025115898807092737
+        },
+        {
+          "name": "fore_R",
+          "maxPenetration": 0,
+          "stanceSlip": 0.005991100898984075,
+          "maxStanceStepSlip": 0.00029189875031487844,
+          "contactTime": 0.3541666666666664,
+          "recoveryHeight": 0.3399420112489109,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            103.85750657524055,
+            157.61965802552572
+          ],
+          "maxSegmentLengthDrift": 4.1413697249303993e-8,
+          "maxZeroTimeJump": 0.0005811121566381417,
+          "maxMeshVelocityResidual": 0.02512660752347606
+        },
+        {
+          "name": "hind_L",
+          "maxPenetration": 0,
+          "stanceSlip": 0.008262333962701934,
+          "maxStanceStepSlip": 0.0003476890051663517,
+          "contactTime": 0.3958333333333335,
+          "recoveryHeight": 0.479999906822387,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            50.19060222389252,
+            158.67947903439264
+          ],
+          "maxSegmentLengthDrift": 2.0578757031763928e-8,
+          "maxZeroTimeJump": 0.0006624446134910961,
+          "maxMeshVelocityResidual": 0.02708715391788016
+        },
+        {
+          "name": "hind_R",
+          "maxPenetration": 0,
+          "stanceSlip": 0.008613045610150026,
+          "maxStanceStepSlip": 0.00035534534051873123,
+          "contactTime": 0.3833333333333334,
+          "recoveryHeight": 0.4799907149800462,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            50.65220171726311,
+            159.24152143376313
+          ],
+          "maxSegmentLengthDrift": 4.9740195851022406e-8,
+          "maxZeroTimeJump": 0.0006900657437381172,
+          "maxMeshVelocityResidual": 0.027087417823263835
+        }
+      ]
+    },
+    {
+      "label": "before",
+      "profile": "abrupt-hind",
+      "samples": 289,
+      "duration": 1.2,
+      "travel": 4.516666666666711,
+      "cycles": 2.693867904377656,
+      "speedIntegral": 4.516666666666648,
+      "travelIntegralError": 6.306066779870889e-14,
+      "cadenceIntegral": 2.6938679043776492,
+      "cycleIntegralError": 6.661338147750939e-15,
+      "feet": [
+        {
+          "name": "fore_L",
+          "maxPenetration": 0,
+          "stanceSlip": 1.7117740538505518e-7,
+          "maxStanceStepSlip": 9.080122431726068e-9,
+          "contactTime": 0.20416666666666655,
+          "recoveryHeight": 0.33999817584700365,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            102.46687205027659,
+            155.06663539541051
+          ],
+          "maxSegmentLengthDrift": 4.4439152357966805e-10,
+          "maxZeroTimeJump": 0.12836380469052946,
+          "maxMeshVelocityResidual": 6.072647528723016
+        },
+        {
+          "name": "fore_R",
+          "maxPenetration": 0,
+          "stanceSlip": 2.1338139511932076e-7,
+          "maxStanceStepSlip": 7.2711223708665784e-9,
+          "contactTime": 0.20416666666666658,
+          "recoveryHeight": 0.33999471488286725,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            103.86284682812588,
+            157.5145187139983
+          ],
+          "maxSegmentLengthDrift": 5.22474578046328e-8,
+          "maxZeroTimeJump": 0.11653379861842253,
+          "maxMeshVelocityResidual": 6.896558782435841
+        },
+        {
+          "name": "hind_L",
+          "maxPenetration": 0,
+          "stanceSlip": 4.0425531179063716e-7,
+          "maxStanceStepSlip": 1.1872643757016021e-8,
+          "contactTime": 0.3125000000000001,
+          "recoveryHeight": 0.47999885133332887,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            50.19167772294573,
+            158.67443088337436
+          ],
+          "maxSegmentLengthDrift": 1.884386668926652e-8,
+          "maxZeroTimeJump": 0.1316563441917457,
+          "maxMeshVelocityResidual": 6.274390678768494
+        },
+        {
+          "name": "hind_R",
+          "maxPenetration": 0,
+          "stanceSlip": 0.04318941218162046,
+          "maxStanceStepSlip": 0.04318908939580057,
+          "contactTime": 0.3208333333333333,
+          "recoveryHeight": 0.4799175972791089,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            50.645792049119585,
+            159.24043590860444
+          ],
+          "maxSegmentLengthDrift": 3.91413907951943e-8,
+          "maxZeroTimeJump": 0.08184272665697567,
+          "maxMeshVelocityResidual": 7.439779990010109
+        }
+      ]
+    },
+    {
+      "label": "before",
+      "profile": "abrupt-fore",
+      "samples": 289,
+      "duration": 1.2,
+      "travel": 4.516666666666715,
+      "cycles": 2.693867904377652,
+      "speedIntegral": 4.516666666666648,
+      "travelIntegralError": 6.661338147750939e-14,
+      "cadenceIntegral": 2.6938679043776492,
+      "cycleIntegralError": 2.6645352591003757e-15,
+      "feet": [
+        {
+          "name": "fore_L",
+          "maxPenetration": 0,
+          "stanceSlip": 1.2362486852180122e-7,
+          "maxStanceStepSlip": 8.582631494391535e-9,
+          "contactTime": 0.20833333333333331,
+          "recoveryHeight": 0.33999675221007597,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            102.46471426522739,
+            155.07582973712232
+          ],
+          "maxSegmentLengthDrift": 4.443910794904582e-10,
+          "maxZeroTimeJump": 0.12459115099694354,
+          "maxMeshVelocityResidual": 5.145025948511325
+        },
+        {
+          "name": "fore_R",
+          "maxPenetration": 0,
+          "stanceSlip": 1.8056597180981864e-7,
+          "maxStanceStepSlip": 7.25740489926352e-9,
+          "contactTime": 0.2458333333333333,
+          "recoveryHeight": 0.3399547612953977,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            103.85671239580925,
+            157.73468163802187
+          ],
+          "maxSegmentLengthDrift": 3.7560574317474504e-8,
+          "maxZeroTimeJump": 0.09694066833765311,
+          "maxMeshVelocityResidual": 6.387423084803015
+        },
+        {
+          "name": "hind_L",
+          "maxPenetration": 0,
+          "stanceSlip": 5.145411168028247e-7,
+          "maxStanceStepSlip": 1.193605114746532e-8,
+          "contactTime": 0.2833333333333334,
+          "recoveryHeight": 0.4799989634597349,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            50.18871923586596,
+            158.68238002160504
+          ],
+          "maxSegmentLengthDrift": 1.8799388268320172e-8,
+          "maxZeroTimeJump": 0.14234397466468104,
+          "maxMeshVelocityResidual": 7.113843598816864
+        },
+        {
+          "name": "hind_R",
+          "maxPenetration": 0,
+          "stanceSlip": 0.09100711368881223,
+          "maxStanceStepSlip": 0.09100675780812173,
+          "contactTime": 0.24166666666666664,
+          "recoveryHeight": 0.4799977244042273,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            50.662958784764506,
+            159.23971623251103
+          ],
+          "maxSegmentLengthDrift": 5.257826507509833e-8,
+          "maxZeroTimeJump": 0.09100675265080763,
+          "maxMeshVelocityResidual": 7.721151670332902
+        }
+      ]
+    },
+    {
+      "label": "after",
+      "profile": "acceleration",
+      "samples": 481,
+      "duration": 2,
+      "travel": 8.783526991686369,
+      "cycles": 4.946370427383,
+      "speedIntegral": 8.783333333333387,
+      "travelIntegralError": 0.00019365835298224,
+      "cadenceIntegral": 4.946309343788657,
+      "cycleIntegralError": 0.00006108359434264798,
+      "feet": [
+        {
+          "name": "fore_L",
+          "maxPenetration": 0,
+          "stanceSlip": 2.8838412694260847e-7,
+          "maxStanceStepSlip": 8.968404685560927e-9,
+          "contactTime": 0.3208333333333334,
+          "recoveryHeight": 0.3400001322384447,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            102.46687205027659,
+            155.03550739565478
+          ],
+          "maxSegmentLengthDrift": 4.443916346019705e-10,
+          "maxZeroTimeJump": 0,
+          "maxMeshVelocityResidual": 0.004864161901273759
+        },
+        {
+          "name": "fore_R",
+          "maxPenetration": 0,
+          "stanceSlip": 3.654766420529452e-7,
+          "maxStanceStepSlip": 7.257235701274567e-9,
+          "contactTime": 0.3208333333333332,
+          "recoveryHeight": 0.3399947148828668,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            103.84835619671091,
+            157.75456819235637
+          ],
+          "maxSegmentLengthDrift": 5.245782530582943e-8,
+          "maxZeroTimeJump": 0,
+          "maxMeshVelocityResidual": 0.0027393347675054246
+        },
+        {
+          "name": "hind_L",
+          "maxPenetration": 0,
+          "stanceSlip": 7.959970395392853e-7,
+          "maxStanceStepSlip": 1.1865704863112114e-8,
+          "contactTime": 0.4375000000000003,
+          "recoveryHeight": 0.47998911479618456,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            50.18408569349292,
+            158.68273845270704
+          ],
+          "maxSegmentLengthDrift": 1.885005052049138e-8,
+          "maxZeroTimeJump": 0,
+          "maxMeshVelocityResidual": 0.005987021145295176
+        },
+        {
+          "name": "hind_R",
+          "maxPenetration": 0,
+          "stanceSlip": 6.258143007920049e-7,
+          "maxStanceStepSlip": 1.0487783974610922e-8,
+          "contactTime": 0.46666666666666656,
+          "recoveryHeight": 0.47998962348577634,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            50.66330055519834,
+            159.23852819440697
+          ],
+          "maxSegmentLengthDrift": 3.913938639854564e-8,
+          "maxZeroTimeJump": 0,
+          "maxMeshVelocityResidual": 0.003499962014643594
+        }
+      ]
+    },
+    {
+      "label": "after",
+      "profile": "deceleration",
+      "samples": 481,
+      "duration": 2,
+      "travel": 7.216537763878351,
+      "cycles": 4.45968995562348,
+      "speedIntegral": 7.216666666666619,
+      "travelIntegralError": -0.0001289027882673821,
+      "cadenceIntegral": 4.459729538995887,
+      "cycleIntegralError": -0.0000395833724073924,
+      "feet": [
+        {
+          "name": "fore_L",
+          "maxPenetration": 0,
+          "stanceSlip": 2.439590517779537e-7,
+          "maxStanceStepSlip": 8.139193319323113e-9,
+          "contactTime": 0.3333333333333333,
+          "recoveryHeight": 0.3399918299286313,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            102.41368653551272,
+            154.87647722614744
+          ],
+          "maxSegmentLengthDrift": 4.4439152357966805e-10,
+          "maxZeroTimeJump": 0,
+          "maxMeshVelocityResidual": 0.0015061433691117077
+        },
+        {
+          "name": "fore_R",
+          "maxPenetration": 0,
+          "stanceSlip": 3.3136503686882205e-7,
+          "maxStanceStepSlip": 7.2647514670620694e-9,
+          "contactTime": 0.3541666666666664,
+          "recoveryHeight": 0.339996224152761,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            103.87081787709407,
+            157.6196580255255
+          ],
+          "maxSegmentLengthDrift": 4.140598497404113e-8,
+          "maxZeroTimeJump": 0,
+          "maxMeshVelocityResidual": 0.0027770656546181687
+        },
+        {
+          "name": "hind_L",
+          "maxPenetration": 0,
+          "stanceSlip": 6.46953643945736e-7,
+          "maxStanceStepSlip": 1.18690044459413e-8,
+          "contactTime": 0.39166666666666683,
+          "recoveryHeight": 0.47999683016062955,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            50.00242772173373,
+            158.67947903439278
+          ],
+          "maxSegmentLengthDrift": 2.057875669869702e-8,
+          "maxZeroTimeJump": 0,
+          "maxMeshVelocityResidual": 0.0021890522311162333
+        },
+        {
+          "name": "hind_R",
+          "maxPenetration": 0,
+          "stanceSlip": 4.7205951947404406e-7,
+          "maxStanceStepSlip": 1.0404334727098785e-8,
+          "contactTime": 0.38750000000000007,
+          "recoveryHeight": 0.48000009609489014,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            50.46723129100473,
+            159.24152143376327
+          ],
+          "maxSegmentLengthDrift": 4.9740195851022406e-8,
+          "maxZeroTimeJump": 0,
+          "maxMeshVelocityResidual": 0.0021611199269396635
+        }
+      ]
+    },
+    {
+      "label": "after",
+      "profile": "abrupt-hind",
+      "samples": 289,
+      "duration": 1.2,
+      "travel": 4.516683904335102,
+      "cycles": 2.7216110555317945,
+      "speedIntegral": 4.516666666666648,
+      "travelIntegralError": 0.00001723766845440622,
+      "cadenceIntegral": 2.721599744656555,
+      "cycleIntegralError": 0.000011310875239534113,
+      "feet": [
+        {
+          "name": "fore_L",
+          "maxPenetration": 0,
+          "stanceSlip": 1.6355148571626445e-7,
+          "maxStanceStepSlip": 8.86262885302358e-9,
+          "contactTime": 0.2124999999999999,
+          "recoveryHeight": 0.3399476334251692,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            102.3941120525212,
+            154.91319659121993
+          ],
+          "maxSegmentLengthDrift": 4.4439152357966805e-10,
+          "maxZeroTimeJump": 0,
+          "maxMeshVelocityResidual": 0.0017255800939755227
+        },
+        {
+          "name": "fore_R",
+          "maxPenetration": 0,
+          "stanceSlip": 2.008909182401157e-7,
+          "maxStanceStepSlip": 7.215233743806948e-9,
+          "contactTime": 0.20833333333333337,
+          "recoveryHeight": 0.3399947148828668,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            103.86284682812587,
+            157.09193762234932
+          ],
+          "maxSegmentLengthDrift": 5.187283236285367e-8,
+          "maxZeroTimeJump": 0,
+          "maxMeshVelocityResidual": 0.0002159579660502218
+        },
+        {
+          "name": "hind_L",
+          "maxPenetration": 0,
+          "stanceSlip": 4.3588236577907217e-7,
+          "maxStanceStepSlip": 1.1859182857953954e-8,
+          "contactTime": 0.2833333333333333,
+          "recoveryHeight": 0.4799918645555573,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            50.23140710930241,
+            157.66923202742342
+          ],
+          "maxSegmentLengthDrift": 1.9098024162111926e-8,
+          "maxZeroTimeJump": 0,
+          "maxMeshVelocityResidual": 0.0012781991023207927
+        },
+        {
+          "name": "hind_R",
+          "maxPenetration": 0,
+          "stanceSlip": 3.363800475830736e-7,
+          "maxStanceStepSlip": 1.0473311773395723e-8,
+          "contactTime": 0.32083333333333336,
+          "recoveryHeight": 0.4799984834151797,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            50.47161879147295,
+            158.67571255526252
+          ],
+          "maxSegmentLengthDrift": 3.9142499796973595e-8,
+          "maxZeroTimeJump": 0,
+          "maxMeshVelocityResidual": 0.0013288147528893119
+        }
+      ]
+    },
+    {
+      "label": "after",
+      "profile": "abrupt-fore",
+      "samples": 289,
+      "duration": 1.2,
+      "travel": 4.516637830918295,
+      "cycles": 2.7215952527123397,
+      "speedIntegral": 4.516666666666648,
+      "travelIntegralError": -0.00002883574835266245,
+      "cadenceIntegral": 2.721599744656555,
+      "cycleIntegralError": -0.000004491944215256893,
+      "feet": [
+        {
+          "name": "fore_L",
+          "maxPenetration": 0,
+          "stanceSlip": 1.4171420681858318e-7,
+          "maxStanceStepSlip": 8.970385323436858e-9,
+          "contactTime": 0.18749999999999994,
+          "recoveryHeight": 0.3399975840948435,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            102.445600283751,
+            154.2835900475125
+          ],
+          "maxSegmentLengthDrift": 4.4439119051276066e-10,
+          "maxZeroTimeJump": 0,
+          "maxMeshVelocityResidual": 0.0007284884317665453
+        },
+        {
+          "name": "fore_R",
+          "maxPenetration": 0,
+          "stanceSlip": 1.9028747091239573e-7,
+          "maxStanceStepSlip": 7.229500997851801e-9,
+          "contactTime": 0.22916666666666657,
+          "recoveryHeight": 0.3399987863204583,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            103.85502976924032,
+            157.75681132905646
+          ],
+          "maxSegmentLengthDrift": 3.756154887124552e-8,
+          "maxZeroTimeJump": 0,
+          "maxMeshVelocityResidual": 0.0008391089036424416
+        },
+        {
+          "name": "hind_L",
+          "maxPenetration": 0,
+          "stanceSlip": 4.884608914266864e-7,
+          "maxStanceStepSlip": 1.1851776005045167e-8,
+          "contactTime": 0.2958333333333333,
+          "recoveryHeight": 0.4799858460286809,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            48.671394670070825,
+            158.65081804726384
+          ],
+          "maxSegmentLengthDrift": 1.8717521532707337e-8,
+          "maxZeroTimeJump": 0,
+          "maxMeshVelocityResidual": 0.00022822703975060478
+        },
+        {
+          "name": "hind_R",
+          "maxPenetration": 0,
+          "stanceSlip": 3.4942038444063515e-7,
+          "maxStanceStepSlip": 1.0457791077556067e-8,
+          "contactTime": 0.25833333333333336,
+          "recoveryHeight": 0.4799977244042284,
+          "maxReachError": 0,
+          "jointAngleRange": [
+            48.867833688835034,
+            159.20393551896237
+          ],
+          "maxSegmentLengthDrift": 5.2493506541573254e-8,
+          "maxZeroTimeJump": 0,
+          "maxMeshVelocityResidual": 0.00042472348591582484
+        }
+      ]
+    }
+  ]
+}
