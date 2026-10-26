@@ -11,9 +11,9 @@
   "session_index": 6,
   "current_gate": "GATE_1",
   "current_unit": "B2 implemented/verified; B3 not started",
-  "last_commit_created": "2df5c21572d4b90e8336900faf324f41c690074a",
-  "last_remote_confirmed_sha": "5ea6d0347010d76093dcffa5bc0d1fda1a0d8822",
-  "last_remote_verified_at_utc": "2026-10-26T12:25:58.331254+00:00",
+  "last_commit_created": "2db874531283678394229848d2b38da1f81dbc40",
+  "last_remote_confirmed_sha": "2db874531283678394229848d2b38da1f81dbc40",
+  "last_remote_verified_at_utc": "2026-10-26T12:37:38.569451+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -91,5 +91,5 @@
   ],
   "next_action": "After B2 remote confirmation, run B3 speed comparison on hind-v2 and contact-v3 at .5/1/1.5; preserve existing 25mm support metric, add strict plane contact and explicit controller stance metrics. Capture real WebGL speed evidence, test switching, save separately.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "B1 remote saved before B2. B2 uses actual skinned sole offset, retains ground/model placement and corrected v2 rest joints. Normal git authentication now works. Source/frames/tests ready for publication; graphics remains REVISE."
+  "checkpoint_note": "B1 remote saved before B2. B2 uses actual skinned sole offset, retains ground/model placement and corrected v2 rest joints. Normal git authentication now works. Source/frames/tests ready for publication; graphics remains REVISE. B2 normal push succeeded, 2db8745 verified on origin; B3 may now begin."
 }
