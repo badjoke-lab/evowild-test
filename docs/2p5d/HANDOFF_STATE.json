@@ -7,13 +7,13 @@
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-26T05:33:33.537534+00:00",
+  "checkpoint_updated_at_utc": "2026-10-26T05:33:53.571572+00:00",
   "session_index": 5,
   "current_gate": "GATE_1",
   "current_unit": "Actual canonical S native clip in four browser views; REVISE, bind-space / weights require correction",
-  "last_commit_created": "9f0ba10446413df4756a535678afeea98a888a18",
-  "last_remote_confirmed_sha": "9f0ba10446413df4756a535678afeea98a888a18",
-  "last_remote_verified_at_utc": "2026-10-26T05:33:33.537534+00:00",
+  "last_commit_created": "ca440389aada370460a85e9af45de2c8d3d81367",
+  "last_remote_confirmed_sha": "ca440389aada370460a85e9af45de2c8d3d81367",
+  "last_remote_verified_at_utc": "2026-10-26T05:33:53.571572+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -80,5 +80,5 @@
   ],
   "next_action": "git fetch origin --prune; read HANDOFF_STATE.json and docs/2p5d/evidence/20261026-s-run/README.md; inspect native-weights.json. Repair only S rig bind alignment + skin weights into a separate candidate without changing POSITION/index/source files. Run s-run-review.html four-view native/candidate comparison, targeted tests/build, commit/push and update checkpoint within 15 minutes.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "Implementation/native evidence checkpoint; prior verified remote 9f0ba10. User explicitly authorizes existing S GLB rig/motion inspection in this task, superseding earlier no-3D-work/side-sprite camera unit. No model promotion, main merge, paid API, or regenerated images."
+  "checkpoint_note": "Implementation/native evidence checkpoint; prior verified remote 9f0ba10. User explicitly authorizes existing S GLB rig/motion inspection in this task, superseding earlier no-3D-work/side-sprite camera unit. No model promotion, main merge, paid API, or regenerated images. Native unit source/evidence ca440389 pushed and verified by git ls-remote; this checkpoint records that verified SHA."
 }
