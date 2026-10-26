@@ -1,0 +1,3932 @@
+{
+  "errors": [],
+  "reports": [
+    {
+      "rig": "hind-v2",
+      "rate": 1,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "duration": 1.0416666269302368,
+      "distance": 4.166666507720947,
+      "threshold": 0.025,
+      "feet": [
+        {
+          "name": "fore_L",
+          "vertexCount": 47,
+          "minY": -0.04465802297596788,
+          "maxPenetration": 0.04465802297596788,
+          "recoveryHeight": 0.230108220410578,
+          "supportCandidateTime": 0.6640624746680259,
+          "validPlaneBandTime": 0.4470485940575599,
+          "penetratingTime": 0.5512152567505835,
+          "supportSlipForward": 2.682484361319149,
+          "supportSlipLateral": 0.025156600894529518,
+          "maxVertexSlipPerStep": 0.04588696839489788,
+          "phases": [
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            }
+          ]
+        },
+        {
+          "name": "fore_R",
+          "vertexCount": 53,
+          "minY": -0.05693291742983031,
+          "maxPenetration": 0.05693291742983031,
+          "recoveryHeight": 0.21402468389519136,
+          "supportCandidateTime": 0.6553819194436072,
+          "validPlaneBandTime": 0.5078124806284903,
+          "penetratingTime": 0.3732638746500014,
+          "supportSlipForward": 2.8015967011115745,
+          "supportSlipLateral": 0.024637646210798225,
+          "maxVertexSlipPerStep": 0.04493780358286386,
+          "phases": [
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            }
+          ]
+        },
+        {
+          "name": "hind_L",
+          "vertexCount": 35,
+          "minY": -0.14162165370610214,
+          "maxPenetration": 0.14162165370610214,
+          "recoveryHeight": 0.11151412909545066,
+          "supportCandidateTime": 0.7986110806465149,
+          "validPlaneBandTime": 0.17795138210058217,
+          "penetratingTime": 0.759548582136631,
+          "supportSlipForward": 3.243371785508828,
+          "supportSlipLateral": 0.044442864561654125,
+          "maxVertexSlipPerStep": 0.04250539110557263,
+          "phases": [
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            }
+          ]
+        },
+        {
+          "name": "hind_R",
+          "vertexCount": 40,
+          "minY": -0.1342471364705975,
+          "maxPenetration": 0.1342471364705975,
+          "recoveryHeight": 0.1287057618523033,
+          "supportCandidateTime": 0.7812499701976776,
+          "validPlaneBandTime": 0.14322916120290752,
+          "penetratingTime": 0.7552083045244217,
+          "supportSlipForward": 3.1511351807535495,
+          "supportSlipLateral": 0.04377139364194218,
+          "maxVertexSlipPerStep": 0.042502539246054204,
+          "phases": [
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "RECOVERY",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "EXTENSION",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": false
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "CONTACT",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            },
+            {
+              "phase": "PUSH",
+              "penetrating": true
+            }
+          ]
+        }
+      ],
+      "interpretation": "Support candidate = sole minY <= 25mm, INCLUDING penetration so broken stance is not silently excluded. Slip sums per-vertex displacement (fixed IDs), not moving lowest-ID or weight centroid. Phases inferred from kinematics, not measured force."
+    }
+  ]
+}

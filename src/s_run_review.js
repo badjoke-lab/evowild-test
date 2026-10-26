@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import {selectSolePatches,sampleSoles} from './s_sole_metrics.js';
 
 const rig=new URLSearchParams(location.search).get('rig');
 const assets={'bind-v1':'review/focus-bind-repair-v1.glb','hind-v2':'review/focus-hind-fit-v2.glb'};
@@ -21,7 +22,7 @@ const root=new THREE.Group();scene.add(root);
 const views={SIDE:[10,2.8,0],CHASE:[1.8,3.0,-8],LOW:[2.2,.9,-7.5],REAR_3_4:[5,2.6,-7]};
 let model,mixer,clip,mesh,rate=1,time=0,paused=false,last=0;
 const speedMeters=4; // Isolated diagnostic translation, not a race balance value.
-const feet=[];
+const feet=[];let solePatches;
 const v=new THREE.Vector3();
 function updateCamera(){const offset=views[document.querySelector('#camera').value];camera.position.set(offset[0],offset[1],root.position.z+offset[2]);camera.lookAt(0,1.3,root.position.z);sun.position.z=root.position.z-4;sun.target.position.z=root.position.z;}
 function sample(){
@@ -71,9 +72,18 @@ try{
     if(!vertices.length)throw Error('Missing weighted foot: '+name);
     const marker=new THREE.Mesh(new THREE.SphereGeometry(.035,8,6),new THREE.MeshBasicMaterial({color:name.startsWith('fore')?0x66ffff:0xffbd68}));scene.add(marker);feet.push({name,vertices,marker,weightBone,maxFootInfluence:influence});
   }
+  solePatches=selectSolePatches(mesh);
   clip=gltf.animations.find(a=>a.name==='EvoWild_S_Run_V5');if(!clip)throw Error('Expected native run clip missing');
   mixer=new THREE.AnimationMixer(model);mixer.clipAction(clip).play();mixer.setTime(0);
   // Isolated review/capture API. Never used by the race or saved as a race result.
-  window.sRunReview={sample,advance,probe(indices){root.updateMatrixWorld(true);mesh.skeleton.update();return indices.map(i=>{mesh.getVertexPosition(i,v);return v.applyMatrix4(mesh.matrixWorld).toArray();});},setPhase(phase,view){paused=true;time=phase*clip.duration;root.position.z=time*speedMeters;document.querySelector('#camera').value=view;mixer.setTime(time);return render();}};
+  window.sRunReview={sample,advance,solePatches,measureCycle(speed=1,steps=240){
+    paused=true;rate=speed;const frames=[];
+    for(let i=0;i<=steps;i++){
+      time=i/steps*clip.duration;root.position.z=time*speedMeters;mixer.setTime(time);
+      root.updateMatrixWorld(true);mesh.skeleton.update();
+      frames.push({t:time/speed,phase:i/steps,distance:root.position.z,soles:sampleSoles(mesh,solePatches)});
+    }
+    render();return {asset,rate:speed,steps,groundY:0,cycleDuration:clip.duration/speed,patches:solePatches,frames};
+  },probe(indices){root.updateMatrixWorld(true);mesh.skeleton.update();return indices.map(i=>{mesh.getVertexPosition(i,v);return v.applyMatrix4(mesh.matrixWorld).toArray();});},setPhase(phase,view){paused=true;time=phase*clip.duration;root.position.z=time*speedMeters;document.querySelector('#camera').value=view;mixer.setTime(time);return render();}};
   render();requestAnimationFrame(now=>{last=now;frame(now);});
 }catch(error){document.querySelector('#error').textContent=String(error);canvas.dataset.error=String(error);throw error;}
