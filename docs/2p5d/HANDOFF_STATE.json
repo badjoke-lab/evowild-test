@@ -11,9 +11,9 @@
   "session_index": 6,
   "current_gate": "GATE_1",
   "current_unit": "B1 real sole measurement complete; B2 not started",
-  "last_commit_created": "20848b95e826785a58c9595edd44fd2444f9566b",
-  "last_remote_confirmed_sha": "af446c790a463a8e987345ce1aaad45684ad4132",
-  "last_remote_verified_at_utc": "2026-10-26T12:25:31.249706+00:00",
+  "last_commit_created": "2df5c21572d4b90e8336900faf324f41c690074a",
+  "last_remote_confirmed_sha": "2df5c21572d4b90e8336900faf324f41c690074a",
+  "last_remote_verified_at_utc": "2026-10-26T12:25:58.331254+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -88,5 +88,5 @@
   ],
   "next_action": "After remote publication of B1, implement isolated B2 contact-aware IK/recovery with immutable v2 geometry and fixed ground Y=0. Preserve originals/v1/v2/production manifest. Publish B2 before starting B3.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "Resumed existing uncommitted B1 measurement after interruption; latest remote af446c7 verified. Unit A not repeated. Exact vertices and raw trace saved; gait remains REVISE."
+  "checkpoint_note": "Resumed existing uncommitted B1 measurement after interruption; latest remote af446c7 verified. Unit A not repeated. Exact vertices and raw trace saved; gait remains REVISE. B1 normal git push succeeded; remote SHA 2df5c21572d4b90e8336900faf324f41c690074a verified."
 }
