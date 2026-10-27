@@ -1,0 +1,14 @@
+
+Running 2 tests using 1 worker
+
+(node:10900) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/2] [android-chromium] › tests/s-foot-structure.spec.js:3:1 › S distal contact descriptors use actual rigid mesh vertices and distinct fore/hind terminal joints
+(node:11035) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/2] [desktop-chromium] › tests/s-foot-structure.spec.js:3:1 › S distal contact descriptors use actual rigid mesh vertices and distinct fore/hind terminal joints
+  2 passed (20.0s)

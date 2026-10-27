@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import {identifyFootSurfaces,sampleFootSurfaces} from './s_foot_contact_geometry.js';
 import {createContactIK} from './s_contact_ik.js';
 import {selectSolePatches,sampleSoles} from './s_sole_metrics.js';
 
@@ -23,7 +24,7 @@ const root=new THREE.Group();scene.add(root);
 const views={SIDE:[10,2.8,0],CHASE:[1.8,3.0,-8],LOW:[2.2,.9,-7.5],REAR_3_4:[5,2.6,-7]};
 let model,mixer,clip,mesh,rate=1,time=0,paused=false,last=0;
 const speedMeters=4; // Isolated diagnostic translation, not a race balance value.
-const feet=[];let solePatches,contactIK,contactState;
+const feet=[];let solePatches,contactIK,contactState,footSurfaces;
 const v=new THREE.Vector3();
 function updateCamera(){const offset=views[document.querySelector('#camera').value];camera.position.set(offset[0],offset[1],root.position.z+offset[2]);camera.lookAt(0,1.3,root.position.z);sun.position.z=root.position.z-4;sun.target.position.z=root.position.z;}
 function sample(){
@@ -80,11 +81,12 @@ try{
     const marker=new THREE.Mesh(new THREE.SphereGeometry(.035,8,6),new THREE.MeshBasicMaterial({color:name.startsWith('fore')?0x66ffff:0xffbd68}));scene.add(marker);feet.push({name,vertices,marker,weightBone,maxFootInfluence:influence});
   }
   solePatches=selectSolePatches(mesh);
+  if(rig==='contact-v3')footSurfaces=identifyFootSurfaces(mesh,solePatches);
   if(rig==='contact-v3')contactIK=createContactIK(mesh,solePatches);
   clip=gltf.animations.find(a=>a.name==='EvoWild_S_Run_V5');if(!clip)throw Error('Expected native run clip missing');
   mixer=new THREE.AnimationMixer(model);mixer.clipAction(clip).play();mixer.setTime(0);if(contactIK){contactIK.reset(0,0,rate);pose();}
   // Isolated review/capture API. Never used by the race or saved as a race result.
-  window.sRunReview={sample,advance,step,solePatches,motionSample(){return {time,rate,distance:root.position.z,contact:contactState,soles:sampleSoles(mesh,solePatches)};},setRate(value){rate=value;document.querySelector('#speed').value=String(value);if(contactIK)contactIK.advance(0,value);},soleSample(){root.updateMatrixWorld(true);mesh.skeleton.update();return sampleSoles(mesh,solePatches);},measureCycle(speed=1,steps=240){
+  window.sRunReview={sample,advance,step,solePatches,footSurfaces,footSample(){root.updateMatrixWorld(true);mesh.skeleton.update();return sampleFootSurfaces(mesh,footSurfaces);},probeFootRotation(index,degrees){paused=true;pose();const surface=footSurfaces[index],bone=mesh.skeleton.bones.find(b=>b.name===surface.terminal);const q=bone.getWorldQuaternion(new THREE.Quaternion());const rotation=new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1,0,0),degrees*Math.PI/180).multiply(q);bone.quaternion.copy(bone.parent.getWorldQuaternion(new THREE.Quaternion()).invert().multiply(rotation));root.updateMatrixWorld(true);mesh.skeleton.update();return sampleFootSurfaces(mesh,footSurfaces)[index];},motionSample(){return {time,rate,distance:root.position.z,contact:contactState,soles:sampleSoles(mesh,solePatches)};},setRate(value){rate=value;document.querySelector('#speed').value=String(value);if(contactIK)contactIK.advance(0,value);},soleSample(){root.updateMatrixWorld(true);mesh.skeleton.update();return sampleSoles(mesh,solePatches);},measureCycle(speed=1,steps=240){
     paused=true;rate=speed;document.querySelector('#speed').value=String(speed);const frames=[];
     if(contactIK)contactIK.reset(0,0,speed);
     for(let i=0;i<=steps;i++){
