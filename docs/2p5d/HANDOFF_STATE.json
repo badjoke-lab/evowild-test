@@ -11,9 +11,9 @@
   "session_index": 6,
   "current_gate": "GATE_1",
   "current_unit": "D1-B opt-in rolling support implemented; sqrt angular-time revision requires regression/capture completion",
-  "last_commit_created": "f14849675d02a66bbdeecba4db81136e9517d586",
-  "last_remote_confirmed_sha": "5a7b6616df3abaf453f865bc4ee45d892c83674c",
-  "last_remote_verified_at_utc": "2026-10-27T01:24:49.539660+00:00",
+  "last_commit_created": "b7d8cf2087693c172ae75c0f7410558e69062dcc",
+  "last_remote_confirmed_sha": "b7d8cf2087693c172ae75c0f7410558e69062dcc",
+  "last_remote_verified_at_utc": "2026-10-27T01:39:25.831696+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -105,5 +105,5 @@
   ],
   "next_action": "Run CHROMIUM_PATH=/usr/bin/chromium node scripts/measure_s_toe_roll.mjs --after-only; npx playwright test tests/s-toe-roll.spec.js tests/s-contact-transitions.spec.js tests/s-contact-acceleration.spec.js --config work/playwright.contact.config.js. If velocity residual still fails .02, fix motion timing, never weaken thresholds. Then capture_s_toe_roll.mjs and finalize D1-B evidence/review.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "D1-A separately saved first. D1-B intermediate saved before15min rather than waiting for all screenshots. Interrupted validation/capture processes intentionally stopped before timing revision; their partial outputs remain local. Do not claim final quality yet."
+  "checkpoint_note": "D1-A separately saved first. D1-B intermediate saved before15min rather than waiting for all screenshots. Interrupted validation/capture processes intentionally stopped before timing revision; their partial outputs remain local. Do not claim final quality yet. Intermediate b7d8cf2 pushed and remote verified; continue only unfinished validation."
 }
