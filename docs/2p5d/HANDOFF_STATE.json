@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
   "purpose": "Codex child-branch checkpoint, not the main repo project status",
-  "status": "D2A_SAVED_READY_FOR_D2B",
+  "status": "D2B_IMPLEMENTED_FINAL_REGRESSION_PENDING",
   "base_repository": "badjoke-lab/evowild-test",
   "parent_branch": "feat/2p5d-autonomous-agent-orbs-20261024",
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-27T15:38:56.412076+00:00",
+  "checkpoint_updated_at_utc": "2026-10-27T15:54:00.223756+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "D2-A complete, visual REVISE; D2-B next",
-  "last_commit_created": "ee86eb000580a27d4abf2798c3f2600d11d8f80c",
-  "last_remote_confirmed_sha": "ee86eb000580a27d4abf2798c3f2600d11d8f80c",
-  "last_remote_verified_at_utc": "2026-10-27T15:38:56.412076+00:00",
+  "current_unit": "D2-B support-limited native body phase blend; armature consistency fix pending tests",
+  "last_commit_created": "0d611d7c4f9caca9967c14207667c6181bd41380",
+  "last_remote_confirmed_sha": "0d611d7c4f9caca9967c14207667c6181bd41380",
+  "last_remote_verified_at_utc": "2026-10-27T15:54:00.223756+00:00",
   "local_uncommitted_files": [
     "M docs/2p5d/evidence/20261027-s-toe-roll-d1b/README.md",
     " M docs/2p5d/evidence/20261027-s-toe-roll-d1b/asset-integrity.json",
@@ -49,10 +49,11 @@
     "D1-B intermediate: opt-in toe=roll-v1, exact mesh support envelope, distinct fore22/hind28 terminal rotation, smooth support-vertex changes and recovery return. C1/C2 state paths and old thresholds remain unchanged. Initial new velocity check failed; sqrt facet-time revision implemented, final validation pending.",
     "D1-B: opt-in actual-vertex support roll, fore22/hind28deg, separate support/legacy metrics, sqrt facet timing fixes initial velocity failure. 8/8 PC/Pixel7 C1/C2+toe regressions PASS; buildPASS. Seven before/after profiles,192 frames,eight videos,PC/Pixel7 pairs; slip<.001mm,zero-time jump0,penetration/reach0,hind recovery~.48m. Overall visual REVISE; no GLB/production changes.",
     "D2-A implementation: opt-in roll-v2 removes interior pitch stops; exact horizontal rolling path plus bounded vertical envelope. Fourteen mesh profiles, unchanged1mm/.02 thresholds; boundary fixPASS/buildPASS. Final device test status pending. D2-B not started.",
-    "D2-A completed and remote ee86eb0 verified. All10 unique targeted tests pass across documented reruns; immutableGLB/manifest confirmed; final96frames/fourvideos+PC/Pixel7 stored. REVISE overall: whole-body propulsion remains D2-B."
+    "D2-A completed and remote ee86eb0 verified. All10 unique targeted tests pass across documented reruns; immutableGLB/manifest confirmed; final96frames/fourvideos+PC/Pixel7 stored. REVISE overall: whole-body propulsion remains D2-B.",
+    "D2-B interim: native241frame body measurement; review-only support-limited .25cycle pose blend. Full-cycle variant rejected for fore reach. Corrected native armature translation consistency after2.86cm protected-shape mismatch. Final regression pending; D2-A untouched."
   ],
   "pending_units": [
-    "D2-B: measure native hip/pelvis/body/chest linkage, implement separate opt-in review animation, run actual mesh regressions/capture and publish separately."
+    "Finish D2-B final regression after native armature fix: tests/s-body-coupling.spec.js (all6); measure_s_body_coupling.mjs; four-view and speed-change captures; compare actual mesh/body and publish final evidence."
   ],
   "test_status": {
     "baseline_reference": "Parent dcd3f56 Actions 40152147602: 63 passed / 4 failed / 81 skipped. Original 3 + Android race-quality:125 pressure test (also before our changes).",
@@ -76,7 +77,8 @@
     "s_acceleration_c2": "PASS 2 PC/Pixel7 tests covering 4 profiles each. Zero-time actual vertex jump0; max mesh velocity residual~.006m/s; accumulated stance slip<.001mm; penetration/reach0; retained .48m recovery and35..178° joint constraints. C1 build PASS, no C2 runtime edit.",
     "s_toe_structure_d1a": "PASS2 PC/Pixel7 geometry/terminal-rotation/independent-probe tests; buildPASS. Baseline pitch essentially constant; actual support vertices switch with pitch. Sweep is diagnostic, not gait approval.",
     "s_toe_roll_d1b": "PASS8/8 PC/Pixel7 including new rolling matrix and boundaries plus unchanged C1/C2; buildPASS. Initially failed velocity .031/.0216m/s, corrected to .00752 with unchanged .02 threshold. Active support slip<.001mm,zero-time jump0,guardpenetration/reach0,hind recovery47.98–48cm. VisualREVISE.",
-    "s_continuous_roll_d2a": "All10 distinct PC/Pixel7 cases PASS:7full-run+2Android artifact collision retests+1desktop30s timeout isolated retest14.4s. No threshold/timeout changes. BuildPASS;14profiles/96frames/4videos. Maxgap.92343mm,slip<.001mm,jump0,penetration/reach0,recovery~.48m. VisualREVISE."
+    "s_continuous_roll_d2a": "All10 distinct PC/Pixel7 cases PASS:7full-run+2Android artifact collision retests+1desktop30s timeout isolated retest14.4s. No threshold/timeout changes. BuildPASS;14profiles/96frames/4videos. Maxgap.92343mm,slip<.001mm,jump0,penetration/reach0,recovery~.48m. VisualREVISE.",
+    "s_body_coupling_d2b": "PENDING final armature-consistent trial. Rejected unrestricted retime causes~4cm fore reach; initial limited-support seven profiles pass Android but protected-shape mismatch2.86cm found/fixed. No threshold changes. Earlier generated after data not final."
   },
   "original_mocks": {
     "expected_count": 11,
@@ -108,9 +110,10 @@
     "docs/2p5d/evidence/20261026-s-acceleration-c2/README.md",
     "docs/2p5d/evidence/20261027-s-toe-structure-d1a/README.md",
     "docs/2p5d/evidence/20261027-s-toe-roll-d1b/README.md",
-    "docs/2p5d/evidence/20261028-s-continuous-d2a/README.md"
+    "docs/2p5d/evidence/20261028-s-continuous-d2a/README.md",
+    "docs/2p5d/evidence/20261028-s-body-d2b/README.md"
   ],
-  "next_action": "Start D2-B by measuring native pelvis/root/chest transforms throughout hind stance. Preserve roll-v1/v2, C1/C2 state and GLBs. Implement opt-in body linkage then compare all seven speed profiles and four camera views.",
+  "next_action": "Run npx playwright test tests/s-body-coupling.spec.js with unique output directory; CHROMIUM_PATH=/usr/bin/chromium node scripts/measure_s_body_coupling.mjs; then capture_s_motion_compare.mjs with D2B env and capture_s_body_speed_changes.mjs. Inspect actual four-view motion; finalize D2-B README/metrics/HANDOFF and push.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "D2-A source/evidence ee86eb0 pushed before15min, completed test results saved now before any D2-B change."
+  "checkpoint_note": "D2-B interim source/native measurement saved before15min; prior candidate capture processes stopped before final armature consistency change. D2-A already complete/remote. No partial after evidence claimed final."
 }

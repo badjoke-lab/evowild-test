@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {identifyFootSurfaces,sampleFootSurfaces} from './s_foot_contact_geometry.js';
 import {createContactIK} from './s_contact_ik.js';
+import {createBodyCoupling} from './s_body_coupling.js';
 import {selectSolePatches,sampleSoles} from './s_sole_metrics.js';
 
 const rig=new URLSearchParams(location.search).get('rig');
@@ -22,7 +23,7 @@ const grid=new THREE.GridHelper(160,160,0x344b5a,0xa3aa9c);grid.position.y=.002;
 const camera=new THREE.PerspectiveCamera(42,1,.05,240);
 const root=new THREE.Group();scene.add(root);
 const views={SIDE:[10,2.8,0],CHASE:[1.8,3.0,-8],LOW:[2.2,.9,-7.5],REAR_3_4:[5,2.6,-7]};
-let model,mixer,clip,mesh,rate=1,time=0,paused=false,last=0;
+let model,mixer,clip,mesh,bodyCoupling,rate=1,time=0,paused=false,last=0;
 const speedMeters=4; // Isolated diagnostic translation, not a race balance value.
 const feet=[];let solePatches,contactIK,contactState,footSurfaces;
 const v=new THREE.Vector3();
@@ -39,8 +40,12 @@ function sample(){
     asset,contact:contactState,camera:document.querySelector('#camera').value,clip:clip.name,duration:clip.duration,
     bones:mesh.skeleton.bones.length,vertices:mesh.geometry.attributes.position.count,feet:observations};
 }
+function bodySample(){
+ root.updateMatrixWorld(true);mesh.skeleton.update();
+ return mesh.skeleton.bones.filter(b=>!b.name.startsWith('fore_')&&!b.name.startsWith('hind_')).map(b=>({name:b.name,position:b.getWorldPosition(new THREE.Vector3()).toArray(),quaternion:b.getWorldQuaternion(new THREE.Quaternion()).toArray(),localQuaternion:b.quaternion.toArray()}));
+}
 function render(){updateCamera();const state=sample();renderer.render(scene,camera);document.querySelector('#status').textContent=`${state.camera} · ${contactIK?'Contact IK v3 + native body':state.clip} · 位相 ${state.phase.toFixed(2)} · ${rate}×`;canvas.dataset.ready='1';canvas.dataset.time=String(time);return state;}
-function pose(){mixer.setTime(time);root.updateMatrixWorld(true);if(contactIK)contactState=contactIK.apply();}
+function pose(){mixer.setTime(time);bodyCoupling?.apply(time);root.updateMatrixWorld(true);if(contactIK)contactState=contactIK.apply();}
 function step(dt){
   if(contactIK){const state=contactIK.advance(dt,rate);time=state.cycles*clip.duration;root.position.z=state.distance;}
   else {time+=dt*rate;root.position.z+=dt*rate*speedMeters;}
@@ -85,6 +90,7 @@ try{
   const toeMode=new URLSearchParams(location.search).get('toe');
   if(rig==='contact-v3')contactIK=createContactIK(mesh,solePatches,{toeSurfaces:['roll-v1','roll-v2'].includes(toeMode)?footSurfaces:null,continuousToe:toeMode==='roll-v2'});
   clip=gltf.animations.find(a=>a.name==='EvoWild_S_Run_V5');if(!clip)throw Error('Expected native run clip missing');
+  if(rig==='contact-v3'&&new URLSearchParams(location.search).get('body')==='push-v1')bodyCoupling=createBodyCoupling(mesh,clip);
   mixer=new THREE.AnimationMixer(model);mixer.clipAction(clip).play();mixer.setTime(0);if(contactIK){contactIK.reset(0,0,rate);pose();}
   // Isolated review/capture API. Never used by the race or saved as a race result.
   window.sRunReview={sample,advance,step,solePatches,footSurfaces,rollDescriptors:contactIK?.limbs.map(l=>l.roll?{name:l.name,maxDegrees:l.roll.maxDegrees,flatEnd:l.roll.flatEnd,segments:l.roll.segments}:null),footSample(){root.updateMatrixWorld(true);mesh.skeleton.update();return sampleFootSurfaces(mesh,footSurfaces);},probeFootRotation(index,degrees){paused=true;pose();const surface=footSurfaces[index],bone=mesh.skeleton.bones.find(b=>b.name===surface.terminal);const q=bone.getWorldQuaternion(new THREE.Quaternion());const rotation=new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1,0,0),degrees*Math.PI/180).multiply(q);bone.quaternion.copy(bone.parent.getWorldQuaternion(new THREE.Quaternion()).invert().multiply(rotation));root.updateMatrixWorld(true);mesh.skeleton.update();return sampleFootSurfaces(mesh,footSurfaces)[index];},motionSample(){return {time,rate,distance:root.position.z,contact:contactState,soles:sampleSoles(mesh,solePatches)};},setRate(value){rate=value;document.querySelector('#speed').value=String(value);if(contactIK)contactIK.advance(0,value);},soleSample(){root.updateMatrixWorld(true);mesh.skeleton.update();return sampleSoles(mesh,solePatches);},measureCycle(speed=1,steps=240){
@@ -97,6 +103,14 @@ try{
       frames.push({t:contactIK?i/steps*contactIK.kinematics(speed).period:time/speed,phase:i/steps,distance:root.position.z,contact:contactState,soles:sampleSoles(mesh,solePatches)});
     }
     render();return {asset,rate:speed,steps,groundY:0,cycleDuration:contactIK?contactIK.kinematics(speed).period:clip.duration/speed,patches:solePatches,frames};
-  },probe(indices){root.updateMatrixWorld(true);mesh.skeleton.update();return indices.map(i=>{mesh.getVertexPosition(i,v);return v.applyMatrix4(mesh.matrixWorld).toArray();});},setPhase(phase,view){paused=true;time=phase*clip.duration;root.position.z=contactIK?phase*contactIK.kinematics(rate||1).stride:time*speedMeters;document.querySelector('#camera').value=view;if(contactIK)contactIK.reset(phase,root.position.z,rate);pose();return render();}};
+  },probe(indices){root.updateMatrixWorld(true);mesh.skeleton.update();return indices.map(i=>{mesh.getVertexPosition(i,v);return v.applyMatrix4(mesh.matrixWorld).toArray();});},setPhase(phase,view,draw=true){paused=true;time=phase*clip.duration;root.position.z=contactIK?phase*contactIK.kinematics(rate||1).stride:time*speedMeters;document.querySelector('#camera').value=view;if(contactIK)contactIK.reset(phase,root.position.z,rate);pose();return draw?render():sample();}};
+  window.sRunReview.bodySample=bodySample;
+  const bodyIds=[];
+  for(let i=0;i<position.count;i++){
+    let onlyBody=true;for(let j=0;j<4;j++)if(skinWeight.getComponent(i,j)>0&&/^(fore_|hind_)/.test(mesh.skeleton.bones[skinIndex.getComponent(i,j)].name))onlyBody=false;
+    if(onlyBody)bodyIds.push(i);
+  }
+  window.sRunReview.bodyVertexIds=bodyIds.filter((_,i)=>i%Math.ceil(bodyIds.length/80)===0);
+  window.sRunReview.bodyPhaseLead=bodyCoupling?.phaseLead||0;
   render();requestAnimationFrame(now=>{last=now;frame(now);});
 }catch(error){document.querySelector('#error').textContent=String(error);canvas.dataset.error=String(error);throw error;}

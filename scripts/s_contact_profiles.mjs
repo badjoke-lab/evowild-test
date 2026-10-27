@@ -6,7 +6,7 @@ export const profiles=[
 ];
 // Serialized into the browser by Playwright; every observed point is a real
 // SkinnedMesh sole vertex. No controller-target surrogate is used for slip.
-export function captureContactProfile({profile,hz=240,recordFootSurface=false}){
+export function captureContactProfile({profile,hz=240,recordFootSurface=false,recordBody=false}){
  const api=window.sRunReview,rateAt=t=>{
   const k=profile.knots;let i=0;while(i+1<k.length&&t>=k[i+1][0]-1e-10)i++;
   if(profile.mode==='step'||i===k.length-1)return k[i][1];
@@ -19,6 +19,7 @@ export function captureContactProfile({profile,hz=240,recordFootSurface=false}){
   const t=i*dt,requested=rateAt(t),before=api.motionSample();api.setRate(requested);api.step(0);const after=api.motionSample();
   const jump=after.soles.map((s,f)=>Math.max(...s.points.map((p,k)=>Math.hypot(...p.map((x,d)=>x-before.soles[f].points[k][d])))));
   if(recordFootSurface){after.footSurfaces=api.footSample().map(({points,...f})=>f);after.supportVertices=after.contact.limbs.map((l,j)=>{const id=l.toe?.pivotId??api.footSurfaces[j].flatPivot;return {id,point:api.probe([id])[0],mode:l.toe?.mode??(['CONTACT','PUSH'].includes(l.stage)?'FLAT_SUPPORT':'SWING')};});}
+  if(recordBody)after.body=api.bodySample();
   frames.push({t,requested,...after});if(i===count)break;
   api.step(eps);const rightProbe=api.motionSample();
   if(Math.abs(requested-lastRate)>1e-9){

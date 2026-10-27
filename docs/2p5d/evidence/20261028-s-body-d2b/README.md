@@ -1,0 +1,9 @@
+# D2-B — hind support / native body timing (WIP checkpoint)
+
+D2-A completed and pushed at0d611d7 before this work. Compare `?rig=contact-v3&toe=roll-v2` with `?rig=contact-v3&toe=roll-v2&body=push-v1`. Review-only, all GLBs unchanged.
+
+[Native body measurement](native-body.json) records241 real skeleton samples. Native pelvis relative-Z trough is phase.4375, after much of hind push (.15–.47); native Y trough.3625. Original pelvis travel amplitude is1.55cm vertical/5.27cm fore-aft, chest vertical span12.89cm. The candidate blends original seven-bone body motion plus its native armature translation with a.25-cycle earlier pose, only during hind support/push: quintic entry.06–.18, full.18–.44, exit.44–.62. It returns to unmodified native motion before fore contact. No new bob amplitude, foot targets, physics force/COM model or shape change.
+
+Unrestricted full-cycle retiming FAILED fore recovery reach (up to~4cm) and is rejected. Initial support-limited trial passed the seven mesh profiles on Android, but exposed a protected-shape mismatch~2.86cm: the seven bones were retimed while their animated armature parent translation was not. The current fix includes that existing translation channel consistently. **Final full regression/measurement/capture pending.** Diagnostic seek now accepts draw=false so repeated actual-mesh assertions do not need redundant raster renders; default review rendering is unchanged.
+
+D2-B quality: REVISE / unfinished at this checkpoint. Initial failure logs are retained. Existing locally generated after frames/traces belong to earlier attempts and are NOT included as final evidence here. Next: rerun all D2-B tests and measurement after the armature fix, regenerate four-view comparison and speed-change videos, inspect real movement and archive numeric/body comparisons. Do not promote production or edit GLBs. D2-A remains separately complete and reproducible.
