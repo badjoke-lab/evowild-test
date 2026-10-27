@@ -7,15 +7,18 @@
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-27T01:49:37.117491+00:00",
+  "checkpoint_updated_at_utc": "2026-10-27T01:51:56.710151+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
   "current_unit": "D1-B rolling support complete: real mesh regression and four-view evidence; visual REVISE",
-  "last_commit_created": "ca848306ddd738964c8d6a70646143ed8b45df34",
-  "last_remote_confirmed_sha": "ca848306ddd738964c8d6a70646143ed8b45df34",
-  "last_remote_verified_at_utc": "2026-10-27T01:39:25.831696+00:00",
+  "last_commit_created": "2fb77e2cfdad20b0058f9239668d163e5e8032c8",
+  "last_remote_confirmed_sha": "2fb77e2cfdad20b0058f9239668d163e5e8032c8",
+  "last_remote_verified_at_utc": "2026-10-27T01:51:56.710151+00:00",
   "local_uncommitted_files": [
+    "M docs/2p5d/evidence/20261027-s-toe-roll-d1b/README.md",
+    " M docs/2p5d/evidence/20261027-s-toe-roll-d1b/asset-integrity.json",
     "?? artifacts/",
+    "?? docs/2p5d/evidence/20261027-s-toe-roll-d1b/actions-40433832747.log",
     "?? public/models/evowild-s.mtl",
     "?? public/models/evowild-s.obj",
     "?? scripts/__pycache__/",
@@ -49,7 +52,7 @@
   "pending_units": [
     "Review D1 rolling candidate visually; mechanical facet easing and limited propulsion remain REVISE.",
     "After D1 review, handle weight-transfer/flight/extension as a separate authorized unit. No P/E/A,18-runner rollout or production promotion.",
-    "Check final GitHub Actions; local8 tests passed, remote complete-suite status pending."
+    "Check latest documentation/evidence-only Actions on next resume; implementation run40433832747 has no new failures."
   ],
   "test_status": {
     "baseline_reference": "Parent dcd3f56 Actions 40152147602: 63 passed / 4 failed / 81 skipped. Original 3 + Android race-quality:125 pressure test (also before our changes).",
@@ -57,7 +60,7 @@
     "latest_desktop_e2e": "PASS all 27 desktop cases in final-targeted.log, including real full journey, reloaded results, Agent roundtrip/validator, reset/abort, lane execution outcomes and screenshot capture",
     "latest_android_e2e": "PASS all 27 Pixel 7 Chromium emulation cases in final-targeted.log; physical Android not tested",
     "agent_outcome": "PASS 10/10 incl. controlled-clock actual lane arrival on desktop/Android; build PASS",
-    "latest_github_actions": "Intermediate D1-B b7d8cf2 Actions40433832747 in progress; build passed. Baseline40370002226 user-reported124passed/3knownfailed/81skipped.",
+    "latest_github_actions": "D1-B implementation b7d8cf2 Actions40433832747 completed: buildPASS,130passed/3knownfailed/81skipped; no new S failure. Known Android+desktop race-quality PUSH and desktop Motion First AGILITY. Evidence-only2fb77e2 run40434893008 pending; no runtime changes since b7d8cf2.",
     "latest_targeted": "54 passed (2.9m); existing completed log recovered and pushed, not rerun on resume",
     "history_layout": "PASS 2/2 desktop and Pixel 7 emulation, also 320px; red-before/green-after regression. No repeat of 54 tests or full race.",
     "lane_provenance": "PASS 26/26 focused tests (1.3m): 14 provenance + 10 existing outcome + 2 history layout. Desktop/Pixel 7; includes real normal-race engine adjustment, actual lane comparison and persistent snapshots. No manual full-race/54-suite rerun.",
@@ -107,5 +110,5 @@
   ],
   "next_action": "Fetch origin, read HANDOFF, check latest Actions, open s-run-review.html?rig=contact-v3&toe=roll-v1 and review D1 SIDE/LOW/REAR videos. Continue only unresolved visual roll quality; weight-transfer/flight/extension require a separate unit after D1 review. Do not repeat D1-A/C1/C2 or alter GLBs.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "D1-A separately committed before D1-B. Intermediate D1-B source saved before15min. Final local regressions and deterministic four-view evidence complete; ready to publish. Initial failure retained in evidence; no thresholds weakened."
+  "checkpoint_note": "D1-A separately saved at f148496 before D1-B; implementation b7d8cf2 and full evidence2fb77e2 pushed and verified. GitHub fetch_file confirmed evidence README at2fb77e2. C1/C2+toe local8PASS; implementation CI130PASS/3knownFAIL/81skip. All substantive D1 work is remote. Local scratch contains preexisting artifacts and redundant preliminary diagnostics only."
 }

@@ -1,0 +1,86 @@
+GitHub Actions 40433832747, implementation commit b7d8cf2087693c172ae75c0f7410558e69062dcc
+Build PASS. E2E 130 passed / 3 known failures / 81 skipped. No new S failure.
+2026-10-27T01:50:11.3913017Z   1) [android-chromium] › tests/race-quality.spec.js:47:1 › 2.5D Race Agent commands are creature-resolved and morph-dependent
+2026-10-27T01:50:11.3913635Z
+2026-10-27T01:50:11.3913843Z     Error: expect(received).toBeLessThan(expected)
+2026-10-27T01:50:11.3914103Z
+2026-10-27T01:50:11.3914275Z     Expected: < 0.613
+2026-10-27T01:50:11.3914669Z     Received:   0.734
+2026-10-27T01:50:11.3914850Z
+2026-10-27T01:50:11.3915221Z       78 |   const ePushResponse = Number(await stage.getAttribute("data-agent-focus-response"));
+2026-10-27T01:50:11.3915822Z       79 |   expect(ePushResponse).toBeGreaterThan(0);
+2026-10-27T01:50:11.3916295Z     > 80 |   expect(ePushResponse).toBeLessThan(sPushResponse);
+2026-10-27T01:50:11.3916697Z          |                         ^
+2026-10-27T01:50:11.3916967Z       81 |
+2026-10-27T01:50:11.3917388Z       82 |   await page.getByRole("button", { name: "CONSERVE", exact: true }).click();
+2026-10-27T01:50:11.3917900Z       83 |   await page.waitForTimeout(100);
+2026-10-27T01:50:11.3918449Z         at /home/runner/work/evowild-test/evowild-test/tests/race-quality.spec.js:80:25
+2026-10-27T01:50:11.3918829Z
+2026-10-27T01:50:11.3919431Z     Error Context: test-results/race-quality-2-5D-Race-Age-797f9-esolved-and-morph-dependent-android-chromium/error-context.md
+2026-10-27T01:50:11.3920562Z
+2026-10-27T01:50:11.3921127Z     attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+2026-10-27T01:50:11.3922051Z     test-results/race-quality-2-5D-Race-Age-797f9-esolved-and-morph-dependent-android-chromium/trace.zip
+2026-10-27T01:50:11.3922659Z     Usage:
+2026-10-27T01:50:11.3922776Z
+2026-10-27T01:50:11.3923387Z         npx playwright show-trace test-results/race-quality-2-5D-Race-Age-797f9-esolved-and-morph-dependent-android-chromium/trace.zip
+2026-10-27T01:50:11.3924027Z
+2026-10-27T01:50:11.3924422Z     ────────────────────────────────────────────────────────────────────────────────────────────────
+2026-10-27T01:50:11.3924741Z
+2026-10-27T01:50:11.3925407Z   2) [desktop-chromium] › tests/motion-first.spec.js:3146:1 › Motion First AGILITY positioning v1 exploits a smaller safe opening
+2026-10-27T01:50:11.3926427Z
+2026-10-27T01:50:11.3926637Z     Error: expect(received).toBeGreaterThan(expected)
+2026-10-27T01:50:11.3926898Z
+2026-10-27T01:50:11.3926995Z     Expected: > 0.5
+2026-10-27T01:50:11.3927227Z     Received:   0
+2026-10-27T01:50:11.3927364Z
+2026-10-27T01:50:11.3927626Z       3194 |   expect(decision.chosenRear).toBeGreaterThanOrEqual(4.5);
+2026-10-27T01:50:11.3928184Z       3195 |   expect(decision.scoreGain).toBeGreaterThanOrEqual(0.8);
+2026-10-27T01:50:11.3928897Z     > 3196 |   expect(decision.holdRemaining).toBeGreaterThan(0.5);
+2026-10-27T01:50:11.3929403Z            |                                  ^
+2026-10-27T01:50:11.3930375Z       3197 |   expect(decision.holdRemaining).toBeLessThanOrEqual(2.2);
+2026-10-27T01:50:11.3931056Z       3198 |
+2026-10-27T01:50:11.3931663Z       3199 |   console.log("AGILITY_POSITIONING_V1", JSON.stringify(decision));
+2026-10-27T01:50:11.3932927Z         at /home/runner/work/evowild-test/evowild-test/tests/motion-first.spec.js:3196:34
+2026-10-27T01:50:11.3933569Z
+2026-10-27T01:50:11.3934513Z     Error Context: test-results/motion-first-Motion-First--3c405-oits-a-smaller-safe-opening-desktop-chromium/error-context.md
+2026-10-27T01:50:11.3935508Z
+2026-10-27T01:50:11.3936287Z     attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+2026-10-27T01:50:11.3937678Z     test-results/motion-first-Motion-First--3c405-oits-a-smaller-safe-opening-desktop-chromium/trace.zip
+2026-10-27T01:50:11.3938633Z     Usage:
+2026-10-27T01:50:11.3938816Z
+2026-10-27T01:50:11.3940043Z         npx playwright show-trace test-results/motion-first-Motion-First--3c405-oits-a-smaller-safe-opening-desktop-chromium/trace.zip
+2026-10-27T01:50:11.3941037Z
+2026-10-27T01:50:11.3941708Z     ────────────────────────────────────────────────────────────────────────────────────────────────
+2026-10-27T01:50:11.3942207Z
+2026-10-27T01:50:11.3943229Z   3) [desktop-chromium] › tests/race-quality.spec.js:47:1 › 2.5D Race Agent commands are creature-resolved and morph-dependent
+2026-10-27T01:50:11.3944061Z
+2026-10-27T01:50:11.3944341Z     Error: expect(received).toBeLessThan(expected)
+2026-10-27T01:50:11.3944727Z
+2026-10-27T01:50:11.3944884Z     Expected: < 0.613
+2026-10-27T01:50:11.3945276Z     Received:   0.738
+2026-10-27T01:50:11.3945508Z
+2026-10-27T01:50:11.3946130Z       78 |   const ePushResponse = Number(await stage.getAttribute("data-agent-focus-response"));
+2026-10-27T01:50:11.3947182Z       79 |   expect(ePushResponse).toBeGreaterThan(0);
+2026-10-27T01:50:11.3947982Z     > 80 |   expect(ePushResponse).toBeLessThan(sPushResponse);
+2026-10-27T01:50:11.3948646Z          |                         ^
+2026-10-27T01:50:11.3949072Z       81 |
+2026-10-27T01:50:11.3949970Z       82 |   await page.getByRole("button", { name: "CONSERVE", exact: true }).click();
+2026-10-27T01:50:11.3950766Z       83 |   await page.waitForTimeout(100);
+2026-10-27T01:50:11.3951896Z         at /home/runner/work/evowild-test/evowild-test/tests/race-quality.spec.js:80:25
+2026-10-27T01:50:11.3952490Z
+2026-10-27T01:50:11.3953372Z     Error Context: test-results/race-quality-2-5D-Race-Age-797f9-esolved-and-morph-dependent-desktop-chromium/error-context.md
+2026-10-27T01:50:11.3954354Z
+2026-10-27T01:50:11.3955139Z     attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+2026-10-27T01:50:11.3956506Z     test-results/race-quality-2-5D-Race-Age-797f9-esolved-and-morph-dependent-desktop-chromium/trace.zip
+2026-10-27T01:50:11.3957465Z     Usage:
+2026-10-27T01:50:11.3957657Z
+2026-10-27T01:50:11.3958623Z         npx playwright show-trace test-results/race-quality-2-5D-Race-Age-797f9-esolved-and-morph-dependent-desktop-chromium/trace.zip
+2026-10-27T01:50:11.3960010Z
+2026-10-27T01:50:11.3960705Z     ────────────────────────────────────────────────────────────────────────────────────────────────
+2026-10-27T01:50:11.3961233Z
+2026-10-27T01:50:11.3961626Z   3 failed
+2026-10-27T01:50:11.3962822Z     [android-chromium] › tests/race-quality.spec.js:47:1 › 2.5D Race Agent commands are creature-resolved and morph-dependent
+2026-10-27T01:50:11.3964643Z     [desktop-chromium] › tests/motion-first.spec.js:3146:1 › Motion First AGILITY positioning v1 exploits a smaller safe opening
+2026-10-27T01:50:11.3966456Z     [desktop-chromium] › tests/race-quality.spec.js:47:1 › 2.5D Race Agent commands are creature-resolved and morph-dependent
+2026-10-27T01:50:11.3967419Z   81 skipped
+2026-10-27T01:50:11.3967763Z   130 passed (10.4m)
