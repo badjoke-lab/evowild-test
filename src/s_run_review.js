@@ -82,7 +82,8 @@ try{
   }
   solePatches=selectSolePatches(mesh);
   if(rig==='contact-v3')footSurfaces=identifyFootSurfaces(mesh,solePatches);
-  if(rig==='contact-v3')contactIK=createContactIK(mesh,solePatches,{toeSurfaces:new URLSearchParams(location.search).get('toe')==='roll-v1'?footSurfaces:null});
+  const toeMode=new URLSearchParams(location.search).get('toe');
+  if(rig==='contact-v3')contactIK=createContactIK(mesh,solePatches,{toeSurfaces:['roll-v1','roll-v2'].includes(toeMode)?footSurfaces:null,continuousToe:toeMode==='roll-v2'});
   clip=gltf.animations.find(a=>a.name==='EvoWild_S_Run_V5');if(!clip)throw Error('Expected native run clip missing');
   mixer=new THREE.AnimationMixer(model);mixer.clipAction(clip).play();mixer.setTime(0);if(contactIK){contactIK.reset(0,0,rate);pose();}
   // Isolated review/capture API. Never used by the race or saved as a race result.
