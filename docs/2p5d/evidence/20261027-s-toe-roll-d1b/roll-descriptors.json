@@ -1,0 +1,114 @@
+[
+  {
+    "name": "fore_L",
+    "maxDegrees": 22,
+    "flatEnd": 0.25,
+    "segments": [
+      {
+        "from": 0,
+        "to": 0.1330244736050064,
+        "startDegrees": 0,
+        "endDegrees": 0.9539198616867431,
+        "pivotId": 738
+      },
+      {
+        "from": 0.1330244736050064,
+        "to": 0.6519173323237017,
+        "startDegrees": 0.9539198616867431,
+        "endDegrees": 15.46849008150973,
+        "pivotId": 2534
+      },
+      {
+        "from": 0.6519173323237017,
+        "to": 1,
+        "startDegrees": 15.46849008150973,
+        "endDegrees": 21.999999999999996,
+        "pivotId": 3131
+      }
+    ]
+  },
+  {
+    "name": "fore_R",
+    "maxDegrees": 22,
+    "flatEnd": 0.25,
+    "segments": [
+      {
+        "from": 0,
+        "to": 0.04465205489612628,
+        "startDegrees": 0,
+        "endDegrees": 0.1278060871335177,
+        "pivotId": 34245
+      },
+      {
+        "from": 0.04465205489612628,
+        "to": 0.17095556443430468,
+        "startDegrees": 0.1278060871335177,
+        "endDegrees": 1.1503912224672483,
+        "pivotId": 36856
+      },
+      {
+        "from": 0.17095556443430468,
+        "to": 0.43248243222795346,
+        "startDegrees": 1.1503912224672483,
+        "endDegrees": 5.534701320152048,
+        "pivotId": 35603
+      },
+      {
+        "from": 0.43248243222795346,
+        "to": 0.4973524722774985,
+        "startDegrees": 5.534701320152048,
+        "endDegrees": 5.8044485360470075,
+        "pivotId": 34962
+      },
+      {
+        "from": 0.4973524722774985,
+        "to": 1,
+        "startDegrees": 5.8044485360470075,
+        "endDegrees": 21.999999999999996,
+        "pivotId": 35609
+      }
+    ]
+  },
+  {
+    "name": "hind_L",
+    "maxDegrees": 28,
+    "flatEnd": 0.45,
+    "segments": [
+      {
+        "from": 0,
+        "to": 0.5010489841289586,
+        "startDegrees": 0,
+        "endDegrees": 14.058742852666729,
+        "pivotId": 2502
+      },
+      {
+        "from": 0.5010489841289586,
+        "to": 1,
+        "startDegrees": 14.058742852666729,
+        "endDegrees": 28,
+        "pivotId": 3865
+      }
+    ]
+  },
+  {
+    "name": "hind_R",
+    "maxDegrees": 28,
+    "flatEnd": 0.45,
+    "segments": [
+      {
+        "from": 0,
+        "to": 0.6247053818901732,
+        "startDegrees": 0,
+        "endDegrees": 20.574528073611347,
+        "pivotId": 34209
+      },
+      {
+        "from": 0.6247053818901732,
+        "to": 1,
+        "startDegrees": 20.574528073611347,
+        "endDegrees": 28,
+        "pivotId": 34942
+      }
+    ]
+  }
+]

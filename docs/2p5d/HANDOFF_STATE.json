@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
   "purpose": "Codex child-branch checkpoint, not the main repo project status",
-  "status": "CHECKPOINT_D1B_ROLL_IMPLEMENTED_VALIDATION_PENDING",
+  "status": "D1_COMPLETE_REVIEW_CANDIDATE_REVISE",
   "base_repository": "badjoke-lab/evowild-test",
   "parent_branch": "feat/2p5d-autonomous-agent-orbs-20261024",
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-27T01:39:03.711905+00:00",
+  "checkpoint_updated_at_utc": "2026-10-27T01:49:37.117491+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "D1-B opt-in rolling support implemented; sqrt angular-time revision requires regression/capture completion",
-  "last_commit_created": "b7d8cf2087693c172ae75c0f7410558e69062dcc",
-  "last_remote_confirmed_sha": "b7d8cf2087693c172ae75c0f7410558e69062dcc",
+  "current_unit": "D1-B rolling support complete: real mesh regression and four-view evidence; visual REVISE",
+  "last_commit_created": "ca848306ddd738964c8d6a70646143ed8b45df34",
+  "last_remote_confirmed_sha": "ca848306ddd738964c8d6a70646143ed8b45df34",
   "last_remote_verified_at_utc": "2026-10-27T01:39:25.831696+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
@@ -43,19 +43,21 @@
     "C1: persistent world stance anchors, elapsed-time integration, bounded continuous effective speed/cadence, swing replanning preserving position/velocity, explicit diagnostic reset and zero-rate freeze. Actual sole regression passes both .2/.7 previous failures on PC/Pixel 7: dt0 jump0, stance slip<=1.29e-8m/step, penetration/reach0, angles49..159. 2 tests PASS; build PASS; v3 GLB hash unchanged.",
     "C2: before 812c4a9 vs C1, four continuous/abrupt profiles at240Hz, eight full actual-sole traces; dt0 jumps0 after, max mesh velocity residual~.006m/s vs~7.7 before, no penetration/reach regression, hind recovery~.48m. 156 four-view/browser frames, six before/after videos, PC/Pixel7 pairs, 2 dedicated tests PASS (all profiles on each device). No C2 runtime/GLB edit.",
     "D1-A: actual distal foot IDs/rear-front groups/support sweep and native baseline pitch/height trace; separate fore foot vs hind toe structures. 0..35deg actual terminal-bone probes, rigid weights1.0 and independent vertex validation. 2 PC/Pixel7 tests PASS; buildPASS. All GLBs and C1/C2 untouched.",
-    "D1-B intermediate: opt-in toe=roll-v1, exact mesh support envelope, distinct fore22/hind28 terminal rotation, smooth support-vertex changes and recovery return. C1/C2 state paths and old thresholds remain unchanged. Initial new velocity check failed; sqrt facet-time revision implemented, final validation pending."
+    "D1-B intermediate: opt-in toe=roll-v1, exact mesh support envelope, distinct fore22/hind28 terminal rotation, smooth support-vertex changes and recovery return. C1/C2 state paths and old thresholds remain unchanged. Initial new velocity check failed; sqrt facet-time revision implemented, final validation pending.",
+    "D1-B: opt-in actual-vertex support roll, fore22/hind28deg, separate support/legacy metrics, sqrt facet timing fixes initial velocity failure. 8/8 PC/Pixel7 C1/C2+toe regressions PASS; buildPASS. Seven before/after profiles,192 frames,eight videos,PC/Pixel7 pairs; slip<.001mm,zero-time jump0,penetration/reach0,hind recovery~.48m. Overall visual REVISE; no GLB/production changes."
   ],
   "pending_units": [
-    "Finish D1-B: rerun after-only measurement with current sqrt timing; run new toe tests plus unchanged C1/C2 tests. Complete four-view before/after frames/videos and PC/Pixel7; inspect/record REVISE/KEEP; final separate publication.",
-    "No load transfer/whole-flight-extension tuning, GLB edits, production promotion or main merge."
+    "Review D1 rolling candidate visually; mechanical facet easing and limited propulsion remain REVISE.",
+    "After D1 review, handle weight-transfer/flight/extension as a separate authorized unit. No P/E/A,18-runner rollout or production promotion.",
+    "Check final GitHub Actions; local8 tests passed, remote complete-suite status pending."
   ],
   "test_status": {
     "baseline_reference": "Parent dcd3f56 Actions 40152147602: 63 passed / 4 failed / 81 skipped. Original 3 + Android race-quality:125 pressure test (also before our changes).",
-    "latest_build": "PASS Unit A local build; original chunk-size warning only.",
+    "latest_build": "PASS D1-B production build; existing chunk-size warning only.",
     "latest_desktop_e2e": "PASS all 27 desktop cases in final-targeted.log, including real full journey, reloaded results, Agent roundtrip/validator, reset/abort, lane execution outcomes and screenshot capture",
     "latest_android_e2e": "PASS all 27 Pixel 7 Chromium emulation cases in final-targeted.log; physical Android not tested",
     "agent_outcome": "PASS 10/10 incl. controlled-clock actual lane arrival on desktop/Android; build PASS",
-    "latest_github_actions": "User-provided latest baseline40370002226:124passed/3knownfailed/81skipped. No new run result yet.",
+    "latest_github_actions": "Intermediate D1-B b7d8cf2 Actions40433832747 in progress; build passed. Baseline40370002226 user-reported124passed/3knownfailed/81skipped.",
     "latest_targeted": "54 passed (2.9m); existing completed log recovered and pushed, not rerun on resume",
     "history_layout": "PASS 2/2 desktop and Pixel 7 emulation, also 320px; red-before/green-after regression. No repeat of 54 tests or full race.",
     "lane_provenance": "PASS 26/26 focused tests (1.3m): 14 provenance + 10 existing outcome + 2 history layout. Desktop/Pixel 7; includes real normal-race engine adjustment, actual lane comparison and persistent snapshots. No manual full-race/54-suite rerun.",
@@ -70,7 +72,7 @@
     "s_continuity_c1": "PASS 2 dedicated PC/Pixel 7 tests; build PASS. dt0 jumps .126981/.112702m→0; freeze0; actual mesh stance slip<=1.29e-8m/step; penetration/reach0; angles49..159. v3 hash preserved.",
     "s_acceleration_c2": "PASS 2 PC/Pixel7 tests covering 4 profiles each. Zero-time actual vertex jump0; max mesh velocity residual~.006m/s; accumulated stance slip<.001mm; penetration/reach0; retained .48m recovery and35..178° joint constraints. C1 build PASS, no C2 runtime edit.",
     "s_toe_structure_d1a": "PASS2 PC/Pixel7 geometry/terminal-rotation/independent-probe tests; buildPASS. Baseline pitch essentially constant; actual support vertices switch with pitch. Sweep is diagnostic, not gait approval.",
-    "s_toe_roll_d1b": "PENDING final regression. Initial right-front velocity residual .031m/s; first timing revision .0216m/s both exceed unchanged .02 bound. Current sqrt(angle-span) time allocation not yet validated. Initial boundary zero-time/freeze tests passed; do not treat as complete."
+    "s_toe_roll_d1b": "PASS8/8 PC/Pixel7 including new rolling matrix and boundaries plus unchanged C1/C2; buildPASS. Initially failed velocity .031/.0216m/s, corrected to .00752 with unchanged .02 threshold. Active support slip<.001mm,zero-time jump0,guardpenetration/reach0,hind recovery47.98–48cm. VisualREVISE."
   },
   "original_mocks": {
     "expected_count": 11,
@@ -79,8 +81,8 @@
     "verifier": "scripts/verify_2p5d_mockups.py"
   },
   "blocker": [
-    "Speed-continuity correction passes scoped gates; S overall remains REVISE for rolling toe-off/foot pitch, load transfer, flight/extension naturalness and inherited appearance.",
-    "Sampling videos do not approve realtime/physical Android performance."
+    "D1 isolated support mechanics pass; overall S remains REVISE for mechanical facet roll, limited weight-transfer/propulsion, flight/extension and inherited appearance.",
+    "Deterministic videos/Pixel7 emulation do not establish realtime or physical Android performance."
   ],
   "last_checkpoint_evidence": [
     "docs/2p5d/evidence/20261025-flow/final-targeted.log",
@@ -103,7 +105,7 @@
     "docs/2p5d/evidence/20261027-s-toe-structure-d1a/README.md",
     "docs/2p5d/evidence/20261027-s-toe-roll-d1b/README.md"
   ],
-  "next_action": "Run CHROMIUM_PATH=/usr/bin/chromium node scripts/measure_s_toe_roll.mjs --after-only; npx playwright test tests/s-toe-roll.spec.js tests/s-contact-transitions.spec.js tests/s-contact-acceleration.spec.js --config work/playwright.contact.config.js. If velocity residual still fails .02, fix motion timing, never weaken thresholds. Then capture_s_toe_roll.mjs and finalize D1-B evidence/review.",
+  "next_action": "Fetch origin, read HANDOFF, check latest Actions, open s-run-review.html?rig=contact-v3&toe=roll-v1 and review D1 SIDE/LOW/REAR videos. Continue only unresolved visual roll quality; weight-transfer/flight/extension require a separate unit after D1 review. Do not repeat D1-A/C1/C2 or alter GLBs.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "D1-A separately saved first. D1-B intermediate saved before15min rather than waiting for all screenshots. Interrupted validation/capture processes intentionally stopped before timing revision; their partial outputs remain local. Do not claim final quality yet. Intermediate b7d8cf2 pushed and remote verified; continue only unfinished validation."
+  "checkpoint_note": "D1-A separately committed before D1-B. Intermediate D1-B source saved before15min. Final local regressions and deterministic four-view evidence complete; ready to publish. Initial failure retained in evidence; no thresholds weakened."
 }
