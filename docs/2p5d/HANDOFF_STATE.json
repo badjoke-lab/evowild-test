@@ -11,9 +11,9 @@
   "session_index": 6,
   "current_gate": "GATE_1",
   "current_unit": "D1-A actual distal geometry and contact sweep complete; D1-B not started",
-  "last_commit_created": "172a06e9d446c8674b99c9fc3c04d266f8943fd8",
-  "last_remote_confirmed_sha": "025edfcd92e0c46119b325602a491b6556434772",
-  "last_remote_verified_at_utc": "2026-10-27T01:24:33.084384+00:00",
+  "last_commit_created": "f14849675d02a66bbdeecba4db81136e9517d586",
+  "last_remote_confirmed_sha": "f14849675d02a66bbdeecba4db81136e9517d586",
+  "last_remote_verified_at_utc": "2026-10-27T01:24:49.539660+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -102,5 +102,5 @@
   ],
   "next_action": "After confirming D1-A remote SHA, implement D1-B opt-in toe roll in existing contact IK. Use measured lower-support envelope and distinct fore/hind terminal nodes. Keep all existing GLBs and flat-controller tests/metrics unchanged; add actual active-support and liftoff continuity regressions. Publish within15min or checkpoint WIP.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "D1-A measurement only; 025edfc fetched and verified. C1/C2 not remade. Actual terminal probes are explicitly not grounded gait approval. Save before D1-B."
+  "checkpoint_note": "D1-A measurement only; 025edfc fetched and verified. C1/C2 not remade. Actual terminal probes are explicitly not grounded gait approval. Save before D1-B. D1-A f148496 normal push and remote SHA confirmed; D1-B may begin."
 }
