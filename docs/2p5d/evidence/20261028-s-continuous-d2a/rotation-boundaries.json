@@ -1,0 +1,92 @@
+[
+  {
+    "toe": "roll-v1",
+    "rows": [
+      {
+        "foot": 0,
+        "pivotId": 738,
+        "pitchSpeed": 3.0111912963093346e-06
+      },
+      {
+        "foot": 0,
+        "pivotId": 2534,
+        "pitchSpeed": 1.411137873219559e-06
+      },
+      {
+        "foot": 1,
+        "pivotId": 34245,
+        "pitchSpeed": 1.7318679823574712e-05
+      },
+      {
+        "foot": 1,
+        "pivotId": 36856,
+        "pitchSpeed": 1.2038903207667317e-05
+      },
+      {
+        "foot": 1,
+        "pivotId": 35603,
+        "pitchSpeed": 1.8127366274711676e-05
+      },
+      {
+        "foot": 1,
+        "pivotId": 34962,
+        "pitchSpeed": 1.8595258666209702e-05
+      },
+      {
+        "foot": 2,
+        "pivotId": 2502,
+        "pitchSpeed": 1.6567014426982496e-05
+      },
+      {
+        "foot": 3,
+        "pivotId": 34209,
+        "pitchSpeed": 1.0300027497578412e-05
+      }
+    ]
+  },
+  {
+    "toe": "roll-v2",
+    "rows": [
+      {
+        "foot": 0,
+        "pivotId": 738,
+        "pitchSpeed": 269.4061334551634
+      },
+      {
+        "foot": 0,
+        "pivotId": 2534,
+        "pitchSpeed": 700.4800077666573
+      },
+      {
+        "foot": 1,
+        "pivotId": 34245,
+        "pitchSpeed": 78.8459206990666
+      },
+      {
+        "foot": 1,
+        "pivotId": 36856,
+        "pitchSpeed": 300.08418781442003
+      },
+      {
+        "foot": 1,
+        "pivotId": 35603,
+        "pitchSpeed": 660.1758542341685
+      },
+      {
+        "foot": 1,
+        "pivotId": 34962,
+        "pitchSpeed": 672.0829331069211
+      },
+      {
+        "foot": 2,
+        "pivotId": 2502,
+        "pitchSpeed": 996.0373755070862
+      },
+      {
+        "foot": 3,
+        "pivotId": 34209,
+        "pitchSpeed": 863.7697638533837
+      }
+    ]
+  }
+]
