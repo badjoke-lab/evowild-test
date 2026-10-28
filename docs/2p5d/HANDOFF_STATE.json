@@ -7,15 +7,20 @@
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-28T00:55:12.282439+00:00",
+  "checkpoint_updated_at_utc": "2026-10-28T00:56:49.214035+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
   "current_unit": "D2-A and D2-B implementation/real browser comparison complete; overall visual REVISE",
-  "last_commit_created": "b27ba9e2a933b4468b85e5181641a0ccb335adab",
-  "last_remote_confirmed_sha": "b27ba9e2a933b4468b85e5181641a0ccb335adab",
-  "last_remote_verified_at_utc": "2026-10-28T00:55:12.282439+00:00",
+  "last_commit_created": "e4aaa6d79b423986b407d6477fb899fd17b6e1d9",
+  "last_remote_confirmed_sha": "e4aaa6d79b423986b407d6477fb899fd17b6e1d9",
+  "last_remote_verified_at_utc": "2026-10-28T00:56:49.214035+00:00",
   "local_uncommitted_files": [
-    "Untracked preexisting artifacts/,work/,test-results/,scripts/__pycache__/,public/models/evowild-s.obj and .mtl; task evidence is staged for final publication."
+    "?? artifacts/",
+    "?? public/models/evowild-s.mtl",
+    "?? public/models/evowild-s.obj",
+    "?? scripts/__pycache__/",
+    "?? test-results/",
+    "?? work/"
   ],
   "completed_units": [
     "Fetched parent remote and read required specs/policy; inspected draft PRs #130/#131",
@@ -111,5 +116,5 @@
   ],
   "next_action": "Fetch remote/read HANDOFF; open s-run-review.html?rig=contact-v3&toe=roll-v2&body=push-v1 and compare D2B SIDE/LOW/REAR plus speed-change videos. Next bounded unit: inspect/smooth body blend exit atphase.44–.62 and improve actual-mesh velocity margin, without changing thresholds or restarting B/C/D1/D2-A. Whole-flight/extension remains deferred.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "D2-A completed/pushed before D2-B. D2-B source b27ba9e saved before15min; resumed after interruption from same remote, completed pending evidence/retest only. Final runtime identical to tested b27ba9e; remaining publication includes evidence/helpers/HANDOFF."
+  "checkpoint_note": "D2-A ee86eb0/0d611d7 separately saved before D2-B b27ba9e. Final evidence e4aaa6d pushed and remote SHA verified; GitHub fetch_file confirmed README. All D2 work remote; local untracked files are preexisting/generated scratch only. Runtime unchanged from CI-tested b27ba9e. Next action is D2 quality refinement, not repeating completed stages."
 }
