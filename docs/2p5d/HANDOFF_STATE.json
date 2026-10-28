@@ -7,13 +7,13 @@
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-28T14:48:41.951467+00:00",
+  "checkpoint_updated_at_utc": "2026-10-28T14:49:58.282841+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
   "current_unit": "D2-C1 diagnosis and D2-C2 implementation/comparison complete; no S promotion",
-  "last_commit_created": "e207f8188260cfeac755ea9e8366b6b9739b88c8",
-  "last_remote_confirmed_sha": "e207f8188260cfeac755ea9e8366b6b9739b88c8",
-  "last_remote_verified_at_utc": "2026-10-28T14:48:41.951467+00:00",
+  "last_commit_created": "4892daccfeb15fb4192d82143ca838c1adecd591",
+  "last_remote_confirmed_sha": "4892daccfeb15fb4192d82143ca838c1adecd591",
+  "last_remote_verified_at_utc": "2026-10-28T14:49:58.282841+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -122,5 +122,5 @@
   ],
   "next_action": "Fetch remote and read HANDOFF. Compare s-run-review.html?rig=contact-v3&toe=roll-v3&body=push-v2 to preserved v1. Next bounded diagnostic: inspect native body key join near.64 into fore support with actual-body+sole epsilon probes; preserve completed .44-.62 return, push/recovery/contact and all thresholds. Do not restart B/C/D1/D2A/B/C work or expand production.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "C1 diagnosis4013beb pushed before C2 runtimee207f81. Resumed after environment pause, fetched and confirmed unchanged e207f81. Final local30-case verification and CI recorded; all final evidence now staged for publication. Old untracked artifacts/work/modelOBJ remain scratch only; no main merge."
+  "checkpoint_note": "C1 diagnosis4013beb separately pushed before C2 runtimee207f81. Final evidence4892dac pushed and remote SHA verified; GitHub fetch_file confirms README and fetched remote tree confirms PC/Pixel7 screenshots/videos/metrics. Runtime CI40615717824:152pass/3knownfail/81skip. All task work saved; local untracked artifacts/work/modelOBJ are scratch only. This final handoff commit records the previously verified evidence SHA; its own SHA is verified after push. No main merge."
 }
