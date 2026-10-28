@@ -17,7 +17,7 @@ export function captureBodyReturn(){
    boundaries.push({phase,eps,left,mid,command,right});
   }
  }
- return {bodyVertexIds:a.bodyVertexIds,traces,boundaries};
+ return {url:location.href,bodyVertexIds:a.bodyVertexIds,traces,boundaries};
 }
 export function summarizeBodyReturn(data){
  const sub=(p,q)=>p.map((v,i)=>v-q[i]),norm=v=>Math.hypot(...v),vel=(p,q,dt)=>sub(p,q).map(v=>v/dt);
@@ -32,8 +32,8 @@ export function summarizeBodyReturn(data){
    const p=rows[i-1],q=rows[i],v=vel(q.body[j].position,p.body[j].position,dt);v[2]-=(q.distance-p.distance)/dt;
    speeds.push(v);omegas.push(angular(p.body[j].quaternion,q.body[j].quaternion,dt));
   }
-  const peak=a=>{let index=0;a.forEach((v,i)=>{if(v>a[index])index=i;});return {value:a[index],phase:rows[index+1].phase};};
-  return {name:b.name,peakSpeed:peak(speeds.map(norm)),peakAngularSpeed:peak(omegas.map(norm)),peakAcceleration:peak(speeds.slice(1).map((v,i)=>norm(sub(v,speeds[i]))/dt)),peakAngularAcceleration:peak(omegas.slice(1).map((v,i)=>norm(sub(v,omegas[i]))/dt))};
+  const peak=(a,offset=1)=>{let index=0;a.forEach((v,i)=>{if(v>a[index])index=i;});return {value:a[index],phase:rows[index+offset].phase};};
+  return {name:b.name,peakSpeed:peak(speeds.map(norm)),peakAngularSpeed:peak(omegas.map(norm)),peakAcceleration:peak(speeds.slice(1).map((v,i)=>norm(sub(v,speeds[i]))/dt),2),peakAngularAcceleration:peak(omegas.slice(1).map((v,i)=>norm(sub(v,omegas[i]))/dt),2)};
  })}));
  const boundaries=data.boundaries.map(({phase,eps,left,mid,command,right})=>{
   const points=s=>[...s.bodyPoints,...s.soles.flatMap(f=>f.points)];const l=points(left),m=points(mid),c=points(command),r=points(right);
