@@ -1,0 +1,12 @@
+2026-10-28T00:57:25.3989875Z ##[group]Run npm run build
+2026-10-28T01:06:54.1757969Z   1) [android-chromium] › tests/race-quality.spec.js:47:1 › 2.5D Race Agent commands are creature-resolved and morph-dependent 
+2026-10-28T01:06:54.1762396Z         at /home/runner/work/evowild-test/evowild-test/tests/race-quality.spec.js:80:25
+2026-10-28T01:06:54.1767213Z   2) [desktop-chromium] › tests/motion-first.spec.js:3146:1 › Motion First AGILITY positioning v1 exploits a smaller safe opening 
+2026-10-28T01:06:54.1776505Z   3) [desktop-chromium] › tests/race-quality.spec.js:47:1 › 2.5D Race Agent commands are creature-resolved and morph-dependent 
+2026-10-28T01:06:54.1780622Z         at /home/runner/work/evowild-test/evowild-test/tests/race-quality.spec.js:80:25
+2026-10-28T01:06:54.1785181Z   3 failed
+2026-10-28T01:06:54.1785758Z     [android-chromium] › tests/race-quality.spec.js:47:1 › 2.5D Race Agent commands are creature-resolved and morph-dependent 
+2026-10-28T01:06:54.1786716Z     [desktop-chromium] › tests/motion-first.spec.js:3146:1 › Motion First AGILITY positioning v1 exploits a smaller safe opening 
+2026-10-28T01:06:54.1788572Z     [desktop-chromium] › tests/race-quality.spec.js:47:1 › 2.5D Race Agent commands are creature-resolved and morph-dependent 
+2026-10-28T01:06:54.1789329Z   81 skipped
+2026-10-28T01:06:54.1789534Z   142 passed (9.2m)
