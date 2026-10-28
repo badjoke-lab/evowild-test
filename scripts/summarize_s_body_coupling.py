@@ -1,7 +1,7 @@
 """Summarize actual browser bone/mesh traces; no force or COM inference."""
-import gzip,json,math
+import gzip,json,math,os
 from pathlib import Path
-p=Path('docs/2p5d/evidence/20261028-s-body-d2b')
+p=Path(os.environ.get('S_BODY_OUT','docs/2p5d/evidence/20261028-s-body-d2b'))
 def pitch(q):
  x,y,z,w=q;return math.degrees(math.atan2(2*(w*x+y*z),1-2*(x*x+y*y)))
 def body(frame):
@@ -11,7 +11,9 @@ def body(frame):
  pelvis=out['pelvis']['relativePosition'];chest=out['chest']['relativePosition'];out['trunkPitch']=math.degrees(math.atan2(chest[1]-pelvis[1],chest[2]-pelvis[2]));return out
 reports=[]
 for f in sorted(p.glob('*-trace.json.gz')):
- trace=json.loads(gzip.decompress(f.read_bytes()));frames=trace['frames'];rows=[body(x) for x in frames];ranges={}
+ trace=json.loads(gzip.decompress(f.read_bytes()))
+ if 'frames' not in trace:continue
+ frames=trace['frames'];rows=[body(x) for x in frames];ranges={}
  for name in ['pelvis','spine','chest','neck','head','tail']:
   ranges[name]={'relativePositionRange':[[min(r[name]['relativePosition'][i] for r in rows),max(r[name]['relativePosition'][i] for r in rows)] for i in range(3)],'pitchRange':[min(r[name]['pitchDegrees'] for r in rows),max(r[name]['pitchDegrees'] for r in rows)]}
  contacts=[]

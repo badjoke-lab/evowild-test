@@ -5,7 +5,7 @@ const mod=x=>((x%1)+1)%1;
 const smooth=x=>x*x*(3-2*x);
 // Review-only locomotion. Rest geometry/joint positions are immutable v2.
 // Root/chest/neck keep their native animation; only limb rotations are solved.
-export function createContactIK(mesh,patches,{toeSurfaces=null,continuousToe=false}={}){
+export function createContactIK(mesh,patches,{toeSurfaces=null,continuousToe=false,toeRoundingWidth=.003}={}){
  const limbs=patches.map((patch,i)=>{
   const hind=patch.name.startsWith('hind'),names=['_upper','_lower','_foot',...(hind?['_toe']:[])];
   const bones=names.map(s=>mesh.skeleton.bones.find(b=>b.name===patch.name+s));
@@ -15,7 +15,7 @@ export function createContactIK(mesh,patches,{toeSurfaces=null,continuousToe=fal
   const point=patch.indices.map(i=>mesh.localToWorld(mesh.getVertexPosition(i,new Vector3()))).reduce((a,p)=>p.y<a.y?p:a);
   return {name:patch.name,hind,bones,rotations,segments,lengths:segments.map(s=>s.length()),soleOffset:point.clone().sub(positions.at(-1)),base:point,offset:[.64,.72,.15,.24][i],stance:hind?.23:.17};
  });
- if(toeSurfaces)limbs.forEach((l,i)=>{l.roll=createToeRoll(toeSurfaces[i],l.base,l.hind?28:22,{continuous:continuousToe});});
+ if(toeSurfaces)limbs.forEach((l,i)=>{l.roll=createToeRoll(toeSurfaces[i],l.base,l.hind?28:22,{continuous:continuousToe,roundingWidth:toeRoundingWidth});});
  function rotate(limb,index,direction){
   const bone=limb.bones[index],delta=new Quaternion().setFromUnitVectors(limb.segments[index].clone().normalize(),direction.clone().normalize());
   const world=delta.multiply(limb.rotations[index]);

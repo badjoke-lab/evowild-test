@@ -4,7 +4,7 @@ const ease=x=>{x=Math.max(0,Math.min(1,x));return x*x*x*(x*(x*6-15)+10);};
 const rotated=(p,a)=>p.clone().applyAxisAngle(axis,a);
 // Piecewise lower envelope of the EXISTING distal vertices. Rotation is zero
 // velocity at each vertex change, avoiding an impulse on a polygonal sole.
-export function createToeRoll(surface,base,maxDegrees,{continuous=false}={}){
+export function createToeRoll(surface,base,maxDegrees,{continuous=false,roundingWidth=.003}={}){
  const points=surface.bindWorldPoints.map(p=>new Vector3(...p).sub(base));
  let index=points.reduce((best,p,i)=>p.y<points[best].y?i:best,0),angle=0,translation=new Vector3();
  const max=maxDegrees*Math.PI/180,segments=[],flatEnd=surface.hind?.45:.25;
@@ -32,7 +32,7 @@ export function createToeRoll(surface,base,maxDegrees,{continuous=false}={}){
    const heights=segments.map(segment=>-rotated(points[segment.index],angle).y);
    // Grow the rounding width before the FIRST real vertex transition. Scaling
    // the final correction across a transition would leave its velocity kink.
-   const width=.003*ease(angle/(segments[0].b*.5));
+   const width=roundingWidth*ease(angle/(segments[0].b*.5));
    const rounded=heights.reduce((a,b)=>roundedMax(a,b,width)),exact=Math.max(...heights);
    translation.y+=rounded-exact;
   }

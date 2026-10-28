@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
   "purpose": "Codex child-branch checkpoint, not the main repo project status",
-  "status": "D2C1_DIAGNOSED_SAVED_C2_PENDING",
+  "status": "D2C2_IMPLEMENTED_FINAL_VALIDATION_PENDING",
   "base_repository": "badjoke-lab/evowild-test",
   "parent_branch": "feat/2p5d-autonomous-agent-orbs-20261024",
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-28T01:25:35.988464+00:00",
+  "checkpoint_updated_at_utc": "2026-10-28T01:32:51.669247+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "D2-C1 diagnostics complete; D2-C2 not started",
-  "last_commit_created": "e4aaa6d79b423986b407d6477fb899fd17b6e1d9",
-  "last_remote_confirmed_sha": "6ff4a316be208334a65abb4780fef162c2456200",
+  "current_unit": "D2-C2 source checkpoint; final combined regression and comparison running",
+  "last_commit_created": "4013beb7369af12122c001cd3e794ec8705c1ef2",
+  "last_remote_confirmed_sha": "4013beb7369af12122c001cd3e794ec8705c1ef2",
   "last_remote_verified_at_utc": "2026-10-28T00:56:49.214035+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
@@ -49,7 +49,8 @@
     "D2-A completed and remote ee86eb0 verified. All10 unique targeted tests pass across documented reruns; immutableGLB/manifest confirmed; final96frames/fourvideos+PC/Pixel7 stored. REVISE overall: whole-body propulsion remains D2-B.",
     "D2-B interim: native241frame body measurement; review-only support-limited .25cycle pose blend. Full-cycle variant rejected for fore reach. Corrected native armature translation consistency after2.86cm protected-shape mismatch. Final regression pending; D2-A untouched.",
     "D2-B final: support-limited native seven-bone+armature timing blend. Six unique PC/Pixel7 tests pass (5+1load-timeout retest), buildPASS. Seven before/after profiles, native241body frames,96four-view frames/fourvideos, two speed-change videos194observations, active-push PC/Pixel7 pairs. Pelvis travels forward during hind support; recovery~48cm,penetration/reach0,zero-time jump<1mm. Shapes/GLBs/manifest preserved. VisualREVISE; velocity residual .01940 below .02 but little margin.",
-    "D2-C1: dense native/D2B body+actual mesh traces, dt0 repeated-blend body jump27.4655mm, Float32 microstep noise, native-key return corners diagnosed. 212 four-view frames/four16x-slow videos, PC/Pixel7 captured; no runtime edit."
+    "D2-C1: dense native/D2B body+actual mesh traces, dt0 repeated-blend body jump27.4655mm, Float32 microstep noise, native-key return corners diagnosed. 212 four-view frames/four16x-slow videos, PC/Pixel7 captured; no runtime edit.",
+    "D2-C2 interim: deterministic double native body sampling, same-duration endpoint-jet matched return, separate roll-v3 clearance option. Body-only8 tests/buildPASS; all-rate boundary clearance probePASS;212 after frames/4movies+PC/Pixel7 captured. Combined final regression pending."
   ],
   "pending_units": [
     "D2-C2: deterministic double channel evaluation and same-window velocity-matched return; preserve push, regress all requested profiles/devices, capture before/after, push."
@@ -77,7 +78,8 @@
     "s_toe_structure_d1a": "PASS2 PC/Pixel7 geometry/terminal-rotation/independent-probe tests; buildPASS. Baseline pitch essentially constant; actual support vertices switch with pitch. Sweep is diagnostic, not gait approval.",
     "s_toe_roll_d1b": "PASS8/8 PC/Pixel7 including new rolling matrix and boundaries plus unchanged C1/C2; buildPASS. Initially failed velocity .031/.0216m/s, corrected to .00752 with unchanged .02 threshold. Active support slip<.001mm,zero-time jump0,guardpenetration/reach0,hind recovery47.98–48cm. VisualREVISE.",
     "s_continuous_roll_d2a": "All10 distinct PC/Pixel7 cases PASS:7full-run+2Android artifact collision retests+1desktop30s timeout isolated retest14.4s. No threshold/timeout changes. BuildPASS;14profiles/96frames/4videos. Maxgap.92343mm,slip<.001mm,jump0,penetration/reach0,recovery~.48m. VisualREVISE.",
-    "s_body_coupling_d2b": "PASS6 unique cases:5full-run+1desktop page-load timeout isolated retest9.6s under unchanged30s timeout. BuildPASS. guardpenetration/reach0,jump1.05e-8m,maxsupportslip.001063mm,gap.92343mm,hindrecovery47.98cm,velocityresidual.01940<.02. Protectednativevertexerror1.70e-7m. OverallREVISE."
+    "s_body_coupling_d2b": "PASS6 unique cases:5full-run+1desktop page-load timeout isolated retest9.6s under unchanged30s timeout. BuildPASS. guardpenetration/reach0,jump1.05e-8m,maxsupportslip.001063mm,gap.92343mm,hindrecovery47.98cm,velocityresidual.01940<.02. Protectednativevertexerror1.70e-7m. OverallREVISE.",
+    "s_body_return_d2c": "Interim8 body-only cases PASS/buildPASS, new clearance probePASS. Final10 new +20 existing target cases running; do not claim complete."
   },
   "original_mocks": {
     "expected_count": 11,
@@ -112,9 +114,10 @@
     "docs/2p5d/evidence/20261027-s-toe-roll-d1b/README.md",
     "docs/2p5d/evidence/20261028-s-continuous-d2a/README.md",
     "docs/2p5d/evidence/20261028-s-body-d2b/README.md",
-    "docs/2p5d/evidence/20261028-s-return-d2c1/README.md"
+    "docs/2p5d/evidence/20261028-s-return-d2c1/README.md",
+    "docs/2p5d/evidence/20261028-s-return-d2c2/README.md"
   ],
-  "next_action": "After verifying C1 remote SHA, implement review-only body=push-v2 in s_body_coupling.js; fix repeated apply and Float32 results, then measure bounded .44-.62 return before promoting any numerical claim.",
+  "next_action": "Read work/d2c2-regression.log; finish final30-case suite. Capture full-cycle and speed-change before/after, summarize final roll-v3 profiles and dense return, inspect visual quality, then publish final C2 evidence.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
   "checkpoint_note": "D2-A ee86eb0/0d611d7 separately saved before D2-B b27ba9e. Final evidence e4aaa6d pushed and remote SHA verified; GitHub fetch_file confirmed README. All D2 work remote; local untracked files are preexisting/generated scratch only. Runtime unchanged from CI-tested b27ba9e. Next action is D2 quality refinement, not repeating completed stages."
 }
