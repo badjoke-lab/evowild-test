@@ -1,6 +1,6 @@
 // Review-only timing alignment of EXISTING native body animation. No added
 // bob, amplitude scaling, force/COM simulation or mesh/rest-pose modification.
-export function createBodyCoupling(mesh,clip,{smoothReturn=false}={}){
+export function createBodyCoupling(mesh,clip,{smoothReturn=false,smoothNativeJoin=false}={}){
  const ease=x=>{x=Math.max(0,Math.min(1,x));return x*x*x*(x*(x*6-15)+10);};
  const names=new Set(['root','pelvis','spine','chest','neck','head','tail','EvoWild_S_Armature_V3']);
  const channels=clip.tracks.flatMap(track=>{
@@ -17,7 +17,10 @@ export function createBodyCoupling(mesh,clip,{smoothReturn=false}={}){
  const phaseLead=.25;
  const wrap=t=>((t%clip.duration)+clip.duration)%clip.duration;
  const start=.44,end=.62,span=end-start;
+ // Opt-in D2-D candidate. Preserve C2 at .62 and return to native at .68.
+ const joinStart=.632,joinEnd=.648,joinSpan=joinEnd-joinStart;
  const sample=(channel,phase)=>Array.from(channel.interpolant.evaluate(wrap(phase*clip.duration)));
+ if(smoothNativeJoin&&!smoothReturn)throw Error('Native join requires the deterministic smooth return');
  if(smoothReturn)for(const c of channels){
   // Same return duration and native endpoint poses. Match their first AND
   // second derivatives instead of crossfading through interior key corners.
@@ -29,10 +32,19 @@ export function createBodyCoupling(mesh,clip,{smoothReturn=false}={}){
    return {v,d:v.map((_,i)=>(r[i]-l[i])/(2*h)),a:v.map((x,i)=>(r[i]-2*x+l[i])/(h*h))};};
   const from=jet(start+phaseLead),to=jet(end);
   if(c.property==='quaternion'&&from.v.reduce((s,x,i)=>s+x*to.v[i],0)<0)for(const a of Object.values(to))a.forEach((v,i)=>a[i]=-v);
-  c.returnCoefficients=from.v.map((p,i)=>{
-   const delta=to.v[i]-p,v0=from.d[i]*span,v1=to.d[i]*span,a0=from.a[i]*span*span,a1=to.a[i]*span*span;
+  const quintic=(a,b,width)=>a.v.map((p,i)=>{
+   const delta=b.v[i]-p,v0=a.d[i]*width,v1=b.d[i]*width,a0=a.a[i]*width*width,a1=b.a[i]*width*width;
    return [p,v0,a0/2,10*delta-6*v0-4*v1-1.5*a0+.5*a1,-15*delta+8*v0+7*v1+1.5*a0-a1,6*delta-3*v0-3*v1-.5*a0+.5*a1];
   });
+  c.returnCoefficients=quintic(from,to,span);
+  if(smoothNativeJoin){
+   // Interpolate the original native pose, never a previously altered bone.
+   // Match the first two phase derivatives at both splice boundaries.
+   const a=jet(joinStart),b=jet(joinEnd);
+   if(c.property==='quaternion'&&a.v.reduce((sum,x,i)=>sum+x*b.v[i],0)<0)
+    for(const part of Object.values(b))part.forEach((v,i)=>part[i]=-v);
+   c.nativeJoinCoefficients=quintic(a,b,joinSpan);
+  }
  }
  return {phaseLead,apply(time){
   const phase=((time/clip.duration)%1+1)%1;
@@ -49,6 +61,12 @@ export function createBodyCoupling(mesh,clip,{smoothReturn=false}={}){
     if(phase>start&&phase<end){
      const u=(phase-start)/span;
      bone[property].fromArray(channel.returnCoefficients.map(a=>a.reduceRight((s,c)=>s*u+c,0)));
+     if(property==='quaternion')bone[property].normalize();
+     continue;
+    }
+    if(smoothNativeJoin&&phase>joinStart&&phase<joinEnd){
+     const u=(phase-joinStart)/joinSpan;
+     bone[property].fromArray(channel.nativeJoinCoefficients.map(a=>a.reduceRight((sum,x)=>sum*u+x,0)));
      if(property==='quaternion')bone[property].normalize();
      continue;
     }
