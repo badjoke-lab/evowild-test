@@ -1,0 +1,41 @@
+[WebServer] (node:1142) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:1159) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+D3B_CONTACT {"profile":"steady-0.5","feet":[{"name":"fore_L","reach":0,"slip":8.21766303893412e-8,"jump":0,"clearance":0.00018496612807195056},{"name":"fore_R","reach":0,"slip":3.953936800193958e-8,"jump":0,"clearance":0.00029913254782698573},{"name":"hind_L","reach":0,"slip":2.7255316137342334e-7,"jump":0,"clearance":0.00022114706388665084},{"name":"hind_R","reach":0,"slip":2.0252985943880475e-7,"jump":0,"clearance":0.00024227563674283914}]}
+D3B_CONTACT {"profile":"steady-1","feet":[{"name":"fore_L","reach":0,"slip":1.384315599928243e-7,"jump":0,"clearance":0.0002629259824924457},{"name":"fore_R","reach":0,"slip":1.0800799365995317e-7,"jump":0,"clearance":0.00039037577384259947},{"name":"hind_L","reach":0,"slip":5.684878811029748e-7,"jump":0,"clearance":0.00015113101997243916},{"name":"hind_R","reach":0,"slip":3.8850407302337686e-7,"jump":0,"clearance":0.00015165488570612062}]}
+D3B_CONTACT {"profile":"steady-1.5","feet":[{"name":"fore_L","reach":0,"slip":2.150666960076819e-7,"jump":0,"clearance":0.00024085660210770854},{"name":"fore_R","reach":0,"slip":1.6416272652364228e-7,"jump":0,"clearance":0.0004162169423440609},{"name":"hind_L","reach":0,"slip":6.510373257162527e-7,"jump":0,"clearance":0.00021108351132492764},{"name":"hind_R","reach":0,"slip":4.802533694059363e-7,"jump":0,"clearance":0.00021399676970879078}]}
+  ✘  1 [desktop-chromium] › tests/s-d3-fore-reach.spec.js:56:1 › D3-B review keeps sole-contact guards on steady and abrupt speeds (31.1s)
+
+
+  1) [desktop-chromium] › tests/s-d3-fore-reach.spec.js:56:1 › D3-B review keeps sole-contact guards on steady and abrupt speeds 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 0.02
+    Received:   0.07352899508547898
+
+      68 |   for(const foot of r.feet){
+      69 |    expect(foot.maxZeroTimeJump).toBeLessThan(.001);
+    > 70 |    expect(foot.maxMeshVelocityResidual).toBeLessThan(.02);
+         |                                         ^
+      71 |    expect(foot.guardPenetration).toBeLessThan(.001);
+      72 |    expect(foot.maxReachError).toBeLessThan(.001);
+      73 |    expect(foot.supportSlip).toBeLessThan(.001);
+        at /workspace/evowild-test/tests/s-d3-fore-reach.spec.js:70:41
+
+    Error Context: work/d3b-reproduce/s-d3-fore-reach-D3-B-revie-27c64-on-steady-and-abrupt-speeds-desktop-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    work/d3b-reproduce/s-d3-fore-reach-D3-B-revie-27c64-on-steady-and-abrupt-speeds-desktop-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace work/d3b-reproduce/s-d3-fore-reach-D3-B-revie-27c64-on-steady-and-abrupt-speeds-desktop-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [desktop-chromium] › tests/s-d3-fore-reach.spec.js:56:1 › D3-B review keeps sole-contact guards on steady and abrupt speeds 
