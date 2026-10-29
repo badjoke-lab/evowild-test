@@ -51,8 +51,15 @@ jobs:
         env:
           S_D2D_OUT: docs/2p5d/evidence/20261029-s-native-join-d2d
         run: node scripts/capture_s_native_join_d2d.mjs
-      - name: Run focused browser regression
-        run: npx playwright test tests/s-native-join.spec.js --workers=1 --reporter=line | tee docs/2p5d/evidence/20261029-s-native-join-d2d/focused-test.log
+      - name: Run focused browser regression against captured WebGL server
+        shell: bash
+        run: |
+          cat > s_d2d_playwright_config.mjs <<'JS'
+          import config from './playwright.config.js';
+          export default {...config,webServer:{...config.webServer,reuseExistingServer:true}};
+          JS
+          npx playwright test tests/s-native-join.spec.js --config=s_d2d_playwright_config.mjs --workers=1 --reporter=line | tee docs/2p5d/evidence/20261029-s-native-join-d2d/focused-test.log
+          grep -Eq '[0-9]+ passed' docs/2p5d/evidence/20261029-s-native-join-d2d/focused-test.log
       - name: Record reproduction and cautious status
         shell: bash
         run: |
