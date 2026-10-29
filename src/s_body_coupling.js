@@ -1,7 +1,7 @@
 import {Quaternion,Vector3} from 'three';
 // Review-only timing alignment of EXISTING native body animation. No added
 // bob, amplitude scaling, force/COM simulation or mesh/rest-pose modification.
-export function createBodyCoupling(mesh,clip,{smoothReturn=false,smoothNativeJoin=false,driveFlex=false}={}){
+export function createBodyCoupling(mesh,clip,{smoothReturn=false,smoothNativeJoin=false,driveFlex=false,foreLoad=false}={}){
  const ease=x=>{x=Math.max(0,Math.min(1,x));return x*x*x*(x*(x*6-15)+10);};
  const names=new Set(['root','pelvis','spine','chest','neck','head','tail','EvoWild_S_Armature_V3']);
  const channels=clip.tracks.flatMap(track=>{
