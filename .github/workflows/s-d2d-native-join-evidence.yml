@@ -78,6 +78,7 @@ jobs:
           set -e
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          python3 -c "from pathlib import Path; p=Path('docs/2p5d/evidence/20261029-s-native-join-d2d/focused-test.log'); p.write_text(p.read_text().rstrip()+'\\n')"
           git add docs/2p5d/evidence/20261029-s-native-join-d2d/
           git diff --cached --check
           git diff --cached --stat
