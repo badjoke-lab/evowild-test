@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "purpose": "Codex child-branch checkpoint, not the main repo project status",
-  "status": "D2C1_D2C2_IMPLEMENTED_VALIDATED_VISUAL_REVISE",
+  "status": "D2D_NARROW_JOIN_COMMITTED_NUMERICAL_KEEP_VISUAL_REVISE",
   "base_repository": "badjoke-lab/evowild-test",
   "parent_branch": "feat/2p5d-autonomous-agent-orbs-20261024",
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
@@ -10,9 +10,9 @@
   "checkpoint_updated_at_utc": "2026-10-28T14:49:58.282841+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "D2-C1 diagnosis and D2-C2 implementation/comparison complete; no S promotion",
+  "current_unit": "D2-D phase .64 narrow join committed at 870ed41; local PC/Pixel7 regression 34 passed; browser video & full-cycle S quality still REVISE",
   "last_commit_created": "4892daccfeb15fb4192d82143ca838c1adecd591",
-  "last_remote_confirmed_sha": "4892daccfeb15fb4192d82143ca838c1adecd591",
+  "last_remote_confirmed_sha": "870ed41c851f1360aea348ca8909920ebf61598a",
   "last_remote_verified_at_utc": "2026-10-28T14:49:58.282841+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
@@ -51,12 +51,13 @@
     "D2-B final: support-limited native seven-bone+armature timing blend. Six unique PC/Pixel7 tests pass (5+1load-timeout retest), buildPASS. Seven before/after profiles, native241body frames,96four-view frames/fourvideos, two speed-change videos194observations, active-push PC/Pixel7 pairs. Pelvis travels forward during hind support; recovery~48cm,penetration/reach0,zero-time jump<1mm. Shapes/GLBs/manifest preserved. VisualREVISE; velocity residual .01940 below .02 but little margin.",
     "D2-C1: dense native/D2B body+actual mesh traces, dt0 repeated-blend body jump27.4655mm, Float32 microstep noise, native-key return corners diagnosed. 212 four-view frames/four16x-slow videos, PC/Pixel7 captured; no runtime edit.",
     "D2-C2 interim: deterministic double native body sampling, same-duration endpoint-jet matched return, separate roll-v3 clearance option. Body-only8 tests/buildPASS; all-rate boundary clearance probePASS;212 after frames/4movies+PC/Pixel7 captured. Combined final regression pending.",
-    "D2-C2 complete: body=push-v2 deterministic double native sampling and same .44-.62 endpoint-jet return; toe=roll-v3 smaller positive envelope.30 unique PC/Pixel7 regressionsPASS (29+1unchanged-timeout retest),buildPASS. CI40615717824:152pass/3knownfail/81skip. Sole velocity.019398→.005987m/s,gap.923→.424mm,zero-time body/sole jump0,penetration/reach0,recovery47.98cm.212dense afterframes,96normal-cycle frames,10videos,PC/Pixel7 and194speed observations saved. Visual/whole-cycle continuityREVISE; existing native key corner.64 remains."
+    "D2-C2 complete: body=push-v2 deterministic double native sampling and same .44-.62 endpoint-jet return; toe=roll-v3 smaller positive envelope.30 unique PC/Pixel7 regressionsPASS (29+1unchanged-timeout retest),buildPASS. CI40615717824:152pass/3knownfail/81skip. Sole velocity.019398→.005987m/s,gap.923→.424mm,zero-time body/sole jump0,penetration/reach0,recovery47.98cm.212dense afterframes,96normal-cycle frames,10videos,PC/Pixel7 and194speed observations saved. Visual/whole-cycle continuityREVISE; existing native key corner.64 remains.",
+    "D2-D narrow native join: user Mac tested body=push-v3 with phase .632-.648 and retained push-v2. Before native .64 body residual .240761m/s, after max among seven measured nearby phases .00225749m/s; center body vertex displacement .00015054m (0.151mm). Local npm build PASS; Playwright 34 passed (1 worker, two projects). Files src/s_body_coupling.js, src/s_run_review.js, tests/s-native-join.spec.js committed/pushed as 870ed41c851f1360aea348ca8909920ebf61598a. These are local log measurements, not independent CI or visual acceptance."
   ],
   "pending_units": [
-    "Next bounded D2 quality review: native body key join near phase.64 into fore support; do not redo the completed .44-.62 return correction.",
-    "S visual quality remains REVISE; no whole-flight/extension, P/E/A or18-runner expansion.",
-    "Known CI failures: PUSH both devices and desktop AGILITY; no new S failure."
+    "D2-D visual evidence: same-camera four-view videos (push-v2 versus push-v3) and dense .632-.648 frames; judge natural running, not just finite-difference smoothness.",
+    "D3 S full-cycle motion quality and canonical appearance remain REVISE; do not deploy to race or 18 runners.",
+    "Verify current Actions for new head 870ed41; targeted local results PASS 34, no formal video or physical Android performance claim."
   ],
   "test_status": {
     "baseline_reference": "Parent dcd3f56 Actions 40152147602: 63 passed / 4 failed / 81 skipped. Original 3 + Android race-quality:125 pressure test (also before our changes).",
@@ -82,7 +83,8 @@
     "s_toe_roll_d1b": "PASS8/8 PC/Pixel7 including new rolling matrix and boundaries plus unchanged C1/C2; buildPASS. Initially failed velocity .031/.0216m/s, corrected to .00752 with unchanged .02 threshold. Active support slip<.001mm,zero-time jump0,guardpenetration/reach0,hind recovery47.98–48cm. VisualREVISE.",
     "s_continuous_roll_d2a": "All10 distinct PC/Pixel7 cases PASS:7full-run+2Android artifact collision retests+1desktop30s timeout isolated retest14.4s. No threshold/timeout changes. BuildPASS;14profiles/96frames/4videos. Maxgap.92343mm,slip<.001mm,jump0,penetration/reach0,recovery~.48m. VisualREVISE.",
     "s_body_coupling_d2b": "PASS6 unique cases:5full-run+1desktop page-load timeout isolated retest9.6s under unchanged30s timeout. BuildPASS. guardpenetration/reach0,jump1.05e-8m,maxsupportslip.001063mm,gap.92343mm,hindrecovery47.98cm,velocityresidual.01940<.02. Protectednativevertexerror1.70e-7m. OverallREVISE.",
-    "s_body_return_d2c": "PASS30 unique requested cases across PC/Pixel7:29full-run+one old D2A Android load-timeout retest15.7s under unchanged30s. New10cases allPASS. BuildPASS; CI152/3known/81skip. Solemaxresidual.005987,gap.423754mm,actual body+sole return-boundarymax.002788,dt0jump0,penetration/reach0,hindrecovery47.98cm. Whole-cycle nativekey.64 stillREVISE."
+    "s_body_return_d2c": "PASS30 unique requested cases across PC/Pixel7:29full-run+one old D2A Android load-timeout retest15.7s under unchanged30s. New10cases allPASS. BuildPASS; CI152/3known/81skip. Solemaxresidual.005987,gap.423754mm,actual body+sole return-boundarymax.002788,dt0jump0,penetration/reach0,hindrecovery47.98cm. Whole-cycle nativekey.64 stillREVISE.",
+    "s_native_join_d2d": "Local Mac test report: 34 passed, npm build PASS; node-generated OBJ/MTL and test-results remain untracked. Narrow 0.632-.648 worst measured near .64 body velocity residual .00225749m/s vs .240761 native; max sampled central vertex deviation .15054mm. No four-view/video evidence recorded for this candidate yet."
   },
   "original_mocks": {
     "expected_count": 11,
@@ -91,9 +93,9 @@
     "verifier": "scripts/verify_2p5d_mockups.py"
   },
   "blocker": [
-    "Visual sprint quality remains REVISE; the return is smoother but overall propulsion still reads restrained/rigid.",
-    "Original native key near.64 has body velocity corner~.240m/s in10us probe, outside repaired window; not hidden by successful sole/profile gates.",
-    "No physical Android or realtime performance approval; no force/COM simulation claimed."
+    "D2-D numerical corner improved in local Mac logs but new runtime visual appearance unreviewed; gait/whole-cycle quality REVISE.",
+    "Original candidate S appearance differs from canonical concept; formal approval and physical Android real-time performance absent.",
+    "No production integration, source GLB/manifest/main changes."
   ],
   "last_checkpoint_evidence": [
     "docs/2p5d/evidence/20261025-flow/final-targeted.log",
@@ -120,7 +122,7 @@
     "docs/2p5d/evidence/20261028-s-return-d2c1/README.md",
     "docs/2p5d/evidence/20261028-s-return-d2c2/README.md"
   ],
-  "next_action": "Fetch remote and read HANDOFF. Compare s-run-review.html?rig=contact-v3&toe=roll-v3&body=push-v2 to preserved v1. Next bounded diagnostic: inspect native body key join near.64 into fore support with actual-body+sole epsilon probes; preserve completed .44-.62 return, push/recovery/contact and all thresholds. Do not restart B/C/D1/D2A/B/C work or expand production.",
+  "next_action": "Fetch remote; verify 870ed41 or newer and latest CI. Preserve D2-D. Capture real SIDE/CHASE/LOW/REAR3/4 before push-v2 vs after push-v3 from original GLB with same camera/scale; visually inspect phase .632-.648 and full cycle at normal speed, plus .5/1/1.5 and acceleration/reversal. Save evidence and quality verdict in a separate commit before D3 all-cycle assessment; no GLB/main/manifest modifications.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
   "checkpoint_note": "C1 diagnosis4013beb separately pushed before C2 runtimee207f81. Final evidence4892dac pushed and remote SHA verified; GitHub fetch_file confirms README and fetched remote tree confirms PC/Pixel7 screenshots/videos/metrics. Runtime CI40615717824:152pass/3knownfail/81skip. All task work saved; local untracked artifacts/work/modelOBJ are scratch only. This final handoff commit records the previously verified evidence SHA; its own SHA is verified after push. No main merge."
 }
