@@ -5,7 +5,7 @@ const mod=x=>((x%1)+1)%1;
 const smooth=x=>x*x*(3-2*x);
 // Review-only locomotion. Rest geometry/joint positions are immutable v2.
 // Root/chest/neck keep their native animation; only limb rotations are solved.
-export function createContactIK(mesh,patches,{toeSurfaces=null,continuousToe=false,toeRoundingWidth=.003}={}){
+export function createContactIK(mesh,patches,{toeSurfaces=null,continuousToe=false,toeRoundingWidth=.003,foreReach=false}={}){
  const limbs=patches.map((patch,i)=>{
   const hind=patch.name.startsWith('hind'),names=['_upper','_lower','_foot',...(hind?['_toe']:[])];
   const bones=names.map(s=>mesh.skeleton.bones.find(b=>b.name===patch.name+s));
@@ -95,9 +95,18 @@ export function createContactIK(mesh,patches,{toeSurfaces=null,continuousToe=fal
    const limb=limbs[i],f=state.feet[i],p=mod(cycles-limb.offset),u=(p-limb.stance)/(1-limb.stance);
    const stage=f.stance?(p<limb.stance*.55?'CONTACT':'PUSH'):(u<.42?'RECOVERY':u<.58?'FLIGHT':'EXTENSION');
    const target=f.target;
+   // D3-B opt-in. Add forward visual swing during the FORELEGS' airborne
+   // recovery only. The touchdown target/anchor stays exactly unchanged.
+   // Both value and slope vanish at swing endpoints, so rate switches and
+   // contact transitions retain their previously measured continuity.
+   const swing=Math.max(0,Math.min(1,u));
+   const forwardEnvelope=f.stance||limb.hind||!foreReach?0:
+    Math.sin(Math.PI*swing)**2*(.55+.45*swing);
+   const additionalReach=forwardEnvelope*(.045+.035*Math.max(0,Math.min(1.5,state.rate)));
+   const visualTarget=additionalReach?target.clone().addScaledVector(forward,additionalReach):target;
    const roll=limb.roll?.pose(p,limb.stance);
    const footRotation=roll?roll.rotation.clone().multiply(limb.rotations.at(-1)):limb.rotations.at(-1);
-   const end=roll?target.clone().add(roll.translation).sub(limb.soleOffset.clone().applyQuaternion(roll.rotation)):target.clone().sub(limb.soleOffset),hip=limb.bones[0].getWorldPosition(new Vector3());
+   const end=roll?visualTarget.clone().add(roll.translation).sub(limb.soleOffset.clone().applyQuaternion(roll.rotation)):visualTarget.clone().sub(limb.soleOffset),hip=limb.bones[0].getWorldPosition(new Vector3());
    let solved;
    if(limb.hind){
     // Retain hock-to-toe segment length and anatomical rear bend; solve knee
@@ -114,7 +123,7 @@ export function createContactIK(mesh,patches,{toeSurfaces=null,continuousToe=fal
    const foot=limb.bones.at(-1);foot.quaternion.copy(foot.parent.getWorldQuaternion(new Quaternion()).invert().multiply(footRotation));foot.updateWorldMatrix(false,true);
    const joints=limb.bones.map(b=>b.getWorldPosition(new Vector3()));
    const angles=joints.slice(1,-1).map((p,j)=>joints[j].clone().sub(p).angleTo(joints[j+2].clone().sub(p))*180/Math.PI);
-   diagnostics.push({name:limb.name,stage,phase:p,target:target.toArray(),velocity:(state.frozen?new Vector3():f.velocity).toArray(),anchor:f.anchor?.toArray()||null,touchdowns:f.touchdowns,toe:roll?{mode:roll.mode,angleDegrees:roll.angle*180/Math.PI,pivotId:roll.pivotId,supportWorld:target.clone().add(roll.translation).add(roll.pivotOffset.clone().applyQuaternion(roll.rotation)).toArray()}:null,reachError:solved.reachError,jointAngles:angles,joints:joints.map(p=>p.toArray())});
+   diagnostics.push({name:limb.name,stage,phase:p,foreVisualReach:additionalReach,target:target.toArray(),velocity:(state.frozen?new Vector3():f.velocity).toArray(),anchor:f.anchor?.toArray()||null,touchdowns:f.touchdowns,toe:roll?{mode:roll.mode,angleDegrees:roll.angle*180/Math.PI,pivotId:roll.pivotId,supportWorld:target.clone().add(roll.translation).add(roll.pivotOffset.clone().applyQuaternion(roll.rotation)).toArray()}:null,reachError:solved.reachError,jointAngles:angles,joints:joints.map(p=>p.toArray())});
   }
   mesh.skeleton.update();return {cycles,distance,elapsed:state.elapsed,effectiveRate:state.rate,requestedRate:state.requestedRate,frozen:state.frozen,...k,limbs:diagnostics};
  }};
