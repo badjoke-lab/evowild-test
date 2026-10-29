@@ -21,6 +21,8 @@ export function createBodyCoupling(mesh,clip,{smoothReturn=false,smoothNativeJoi
  const pitchAxis=new Vector3(1,0,0),pitchDelta=new Quaternion();
  const flexBones=driveFlex?['pelvis','spine','chest','neck','head'].map(name=>mesh.skeleton.bones.find(b=>b.name===name)):[];
  if(driveFlex&&flexBones.some(x=>!x))throw Error('Missing S-body flex bone');
+ const loadBones=foreLoad?['spine','chest','neck','head'].map(name=>mesh.skeleton.bones.find(b=>b.name===name)):[];
+ if(foreLoad&&loadBones.some(x=>!x))throw Error('Missing S-body fore-load bone');
  const wrap=t=>((t%clip.duration)+clip.duration)%clip.duration;
  const start=.44,end=.62,span=end-start;
  // Opt-in D2-D candidate. Preserve C2 at .62 and return to native at .68.
@@ -79,6 +81,20 @@ export function createBodyCoupling(mesh,clip,{smoothReturn=false,smoothNativeJoi
    }
    const target=bone[property].clone().fromArray(interpolant.evaluate(t));
    if(property==='quaternion')bone[property].slerp(target,weight);else bone[property].lerp(target,weight);
+  }
+  if(foreLoad){
+   // D3-B review-only angular response to the approaching fore-support phase.
+   const u=(phase-.58)/.36;
+   if(u>0&&u<1){
+    const wave=Math.sin(Math.PI*u)**2;
+    const speed=Math.max(0,Math.min(1,(effectiveRate-.5)));
+    const bend=(2.5+3.5*speed)*Math.PI/180*wave;
+    const weights=[-.4,1,-.35,.16];
+    for(let i=0;i<loadBones.length;i++){
+     pitchDelta.setFromAxisAngle(pitchAxis,bend*weights[i]);
+     loadBones[i].quaternion.multiply(pitchDelta).normalize();
+    }
+   }
   }
   if(driveFlex){
    // Anatomically scoped spring from hind loading to propulsion: pelvis
