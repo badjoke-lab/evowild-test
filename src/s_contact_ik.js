@@ -46,7 +46,9 @@ export function createContactIK(mesh,patches,{toeSurfaces=null,continuousToe=fal
   const activeRate=rate>0?rate:state?.rate||1;
   state={cycles,distance,elapsed:0,rate:activeRate,requestedRate:rate,frozen:rate===0,feet:limbs.map(l=>{
    const f=nominal(l,cycles,distance,activeRate);return {...f,anchor:f.stance?f.target.clone():null,touchdowns:0};
-  })};return state;
+  })};
+  if(foreReach){state.poseRate=activeRate;state.poseRateVelocity=0;}
+  return state;
  }
  function events(){
   state.feet.forEach((f,i)=>{
@@ -83,6 +85,16 @@ export function createContactIK(mesh,patches,{toeSurfaces=null,continuousToe=fal
    // Bounded acceleration changes both travel and cadence continuously in
    // elapsed time. Zero is an explicit freeze, not a decay that moves feet.
    state.rate+=Math.max(-4*h,Math.min(4*h,requestedRate-state.rate));
+   if(foreReach){
+    // D3-B amplitudes need continuous velocity, not just continuous rate.
+    // Keep locomotion rate/cadence/travel untouched. This exact critically
+    // damped response carries its velocity across commands and substeps.
+    // At steady speed the original reach and chest amplitudes are unchanged.
+    const omega=20,offset=state.poseRate-state.rate;
+    const c=state.poseRateVelocity+omega*offset,decay=Math.exp(-omega*h);
+    state.poseRate=state.rate+(offset+c*h)*decay;
+    state.poseRateVelocity=(state.poseRateVelocity-omega*c*h)*decay;
+   }
    remaining-=h;events();
   }
   return state;
@@ -97,12 +109,12 @@ export function createContactIK(mesh,patches,{toeSurfaces=null,continuousToe=fal
    const target=f.target;
    // D3-B opt-in. Add forward visual swing during the FORELEGS' airborne
    // recovery only. The touchdown target/anchor stays exactly unchanged.
-   // Both value and slope vanish at swing endpoints, so rate switches and
-   // contact transitions retain their previously measured continuity.
+   // Value and phase slope vanish at swing endpoints. The persistent pose
+   // rate additionally prevents speed commands from jumping its world velocity.
    const swing=Math.max(0,Math.min(1,u));
    const forwardEnvelope=f.stance||limb.hind||!foreReach?0:
     Math.sin(Math.PI*swing)**2*(.55+.45*swing);
-   const additionalReach=forwardEnvelope*(.045+.035*Math.max(0,Math.min(1.5,state.rate)));
+   const additionalReach=forwardEnvelope*(.045+.035*Math.max(0,Math.min(1.5,state.poseRate??state.rate)));
    const visualTarget=additionalReach?target.clone().addScaledVector(forward,additionalReach):target;
    const roll=limb.roll?.pose(p,limb.stance);
    const footRotation=roll?roll.rotation.clone().multiply(limb.rotations.at(-1)):limb.rotations.at(-1);
@@ -125,6 +137,6 @@ export function createContactIK(mesh,patches,{toeSurfaces=null,continuousToe=fal
    const angles=joints.slice(1,-1).map((p,j)=>joints[j].clone().sub(p).angleTo(joints[j+2].clone().sub(p))*180/Math.PI);
    diagnostics.push({name:limb.name,stage,phase:p,foreVisualReach:additionalReach,target:target.toArray(),velocity:(state.frozen?new Vector3():f.velocity).toArray(),anchor:f.anchor?.toArray()||null,touchdowns:f.touchdowns,toe:roll?{mode:roll.mode,angleDegrees:roll.angle*180/Math.PI,pivotId:roll.pivotId,supportWorld:target.clone().add(roll.translation).add(roll.pivotOffset.clone().applyQuaternion(roll.rotation)).toArray()}:null,reachError:solved.reachError,jointAngles:angles,joints:joints.map(p=>p.toArray())});
   }
-  mesh.skeleton.update();return {cycles,distance,elapsed:state.elapsed,effectiveRate:state.rate,requestedRate:state.requestedRate,frozen:state.frozen,...k,limbs:diagnostics};
+  mesh.skeleton.update();return {cycles,distance,elapsed:state.elapsed,effectiveRate:state.rate,...(foreReach?{poseRate:state.poseRate,poseRateVelocity:state.poseRateVelocity}:{}),requestedRate:state.requestedRate,frozen:state.frozen,...k,limbs:diagnostics};
  }};
 }

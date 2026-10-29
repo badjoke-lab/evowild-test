@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import {gzipSync} from 'node:zlib';
 import {test,expect} from '@playwright/test';
 import {profiles,captureContactProfile} from '../scripts/s_contact_profiles.mjs';
 import {summarizeToeProfile} from '../scripts/s_toe_metrics.mjs';
@@ -53,18 +55,22 @@ test('D3-B chest load is localized to front support and preserves native outside
  }
 });
 
-test('D3-B review keeps sole-contact guards on steady and abrupt speeds',async({page})=>{
+test('D3-B review keeps sole-contact guards on steady and abrupt speeds',async({page},testInfo)=>{
  test.setTimeout(240000);
  await page.goto(base+'push-v5');await page.waitForFunction(()=>window.sRunReview?.footSample);
  const choices=[
   {name:'steady-0.5',phase:0,mode:'step',knots:[[0,.5],[1,.5]]},
   {name:'steady-1',phase:0,mode:'step',knots:[[0,1],[1,1]]},
   {name:'steady-1.5',phase:0,mode:'step',knots:[[0,1.5],[1,1.5]]},
-  ...profiles.filter(p=>p.name?.startsWith('abrupt')).slice(0,2)
+  ...profiles
  ];
  for(const profile of choices){
-  const trace=await page.evaluate(captureContactProfile,{profile,recordFootSurface:true});
+  const trace=await page.evaluate(captureContactProfile,{profile,recordFootSurface:true,recordBody:!!process.env.S_D3B_EVIDENCE});
   const r=summarizeToeProfile(trace);
+  if(process.env.S_D3B_EVIDENCE&&testInfo.project.name==='desktop-chromium'){
+   const out=process.env.S_D3B_EVIDENCE;fs.mkdirSync(out,{recursive:true});fs.writeFileSync(`${out}/fixed-${profile.name}.json.gz`,gzipSync(JSON.stringify(trace)));
+   fs.writeFileSync(`${out}/fixed-${profile.name}-summary.json`,JSON.stringify(r,null,2)+'\n');
+  }
   for(const foot of r.feet){
    expect(foot.maxZeroTimeJump).toBeLessThan(.001);
    expect(foot.maxMeshVelocityResidual).toBeLessThan(.02);
@@ -75,5 +81,40 @@ test('D3-B review keeps sole-contact guards on steady and abrupt speeds',async({
    expect(foot.recoveryHeight).toBeGreaterThan(foot.name.startsWith('hind')?.44:.30);
   }
   console.log('D3B_CONTACT',JSON.stringify({profile:profile.name,feet:r.feet.map(f=>({name:f.name,reach:f.maxReachError,slip:f.supportSlip,jump:f.maxZeroTimeJump,clearance:f.maxSupportPlaneError}))}));
+ }
+});
+
+
+test('D3-B speed commands preserve actual fore-sole and chest-mesh velocity through swing and support',async({page})=>{
+ await page.goto(base+'push-v5');await page.waitForFunction(()=>window.sRunReview?.bodyVertexIds?.length);
+ const rows=await page.evaluate(()=>{
+  window.requestAnimationFrame=()=>0;const a=window.sRunReview,out=[],ids=[...a.bodyVertexIds,...a.solePatches.flatMap(p=>p.indices)];
+  for(const rate of [.5,1,1.5])for(const phase of [.40506096654409807,.58,.64,.75,.81,.89,.94]){
+   const eps=1e-5;a.setRate(rate);a.setPhase(phase-2.4*Math.sqrt(rate)*eps,'SIDE',false);const p=a.probe(ids);a.step(eps);const q=a.probe(ids);a.setRate(rate===1.5?.5:1.5);a.step(0);const q2=a.probe(ids);a.step(eps);const r=a.probe(ids);
+   const velocity=Math.max(...q.map((v,i)=>Math.hypot(...v.map((x,j)=>(r[i][j]-q2[i][j]-x+p[i][j])/eps))));
+   const jump=Math.max(...q.map((v,i)=>Math.hypot(...v.map((x,j)=>x-q2[i][j]))));
+   a.setRate(0);a.step(0);const f=a.probe(ids);a.step(.3);const still=a.probe(ids);
+   out.push({rate,phase,velocity,jump,freeze:Math.max(...f.map((v,i)=>Math.hypot(...v.map((x,j)=>x-still[i][j]))))});
+  }return out;
+ });
+ for(const r of rows){expect(r.velocity).toBeLessThan(.02);expect(r.jump).toBeLessThan(.001);expect(r.freeze).toBeLessThan(1e-7);}
+ console.log('D3B_SPEED_CONTINUITY',JSON.stringify(rows));
+});
+
+test('D3-B posture response preserves D2-D travel, cadence and contact-anchor evolution',async({page})=>{
+ const data=[];
+ for(const body of ['push-v3','push-v5']){
+  await page.goto(base+body);await page.waitForFunction(()=>window.sRunReview?.footSample);
+  data.push(await page.evaluate(()=>{
+   window.requestAnimationFrame=()=>0;const a=window.sRunReview;a.setRate(.5);a.setPhase(.2,'SIDE',false);const rows=[];
+   for(let i=0;i<240;i++){
+    a.setRate(i<30?.5:i<130?1.5:.5);a.step(1/240);const c=a.motionSample().contact;
+    rows.push({cycles:c.cycles,distance:c.distance,effectiveRate:c.effectiveRate,anchors:c.limbs.map(l=>l.anchor),stages:c.limbs.map(l=>l.stage),hind:a.motionSample().soles.slice(2).map(s=>s.points)});
+   }return rows;
+  }));
+ }
+ for(let i=0;i<data[0].length;i++){
+  const b=data[0][i],a=data[1][i];for(const key of ['cycles','distance','effectiveRate','anchors','stages'])expect(a[key]).toEqual(b[key]);
+  a.hind.forEach((foot,j)=>foot.forEach((p,k)=>expect(Math.hypot(...p.map((v,d)=>v-b.hind[j][k][d]))).toBeLessThan(.000001)));
  }
 });

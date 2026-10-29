@@ -3,7 +3,7 @@ import {chromium,devices} from 'playwright';
 import fs from 'node:fs';
 const out='docs/2p5d/evidence/20261029-s-d3b-fore-reach';
 fs.mkdirSync(out,{recursive:true});
-const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
+const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||undefined,args:['--enable-unsafe-swiftshader']});
 const page=await browser.newPage({viewport:{width:960,height:640}});
 const observations=[],errors=[];
 page.on('pageerror',e=>errors.push(e.message));

@@ -45,7 +45,7 @@ function bodySample(){
  return mesh.skeleton.bones.filter(b=>!b.name.startsWith('fore_')&&!b.name.startsWith('hind_')).map(b=>({name:b.name,position:b.getWorldPosition(new THREE.Vector3()).toArray(),quaternion:b.getWorldQuaternion(new THREE.Quaternion()).toArray(),localQuaternion:b.quaternion.toArray()}));
 }
 function render(){updateCamera();const state=sample();renderer.render(scene,camera);document.querySelector('#status').textContent=`${state.camera} · ${contactIK?'Contact IK v3 + native body':state.clip} · 位相 ${state.phase.toFixed(2)} · ${rate}×`;canvas.dataset.ready='1';canvas.dataset.time=String(time);return state;}
-function pose(){mixer.setTime(time);bodyCoupling?.apply(time,contactIK?.state?.rate??rate);root.updateMatrixWorld(true);if(contactIK)contactState=contactIK.apply();}
+function pose(){mixer.setTime(time);bodyCoupling?.apply(time,contactIK?.state?.poseRate??contactIK?.state?.rate??rate);root.updateMatrixWorld(true);if(contactIK)contactState=contactIK.apply();}
 function step(dt){
   if(contactIK){const state=contactIK.advance(dt,rate);time=state.cycles*clip.duration;root.position.z=state.distance;}
   else {time+=dt*rate;root.position.z+=dt*rate*speedMeters;}

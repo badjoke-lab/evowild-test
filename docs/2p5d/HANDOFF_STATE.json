@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
   "purpose": "Codex child-branch checkpoint, not the main repo project status",
-  "status": "D3B_CAUSE_REPRODUCED_FIX_PENDING",
+  "status": "D3B_CORRECTED_REGRESSION_AND_VIDEO_IN_PROGRESS",
   "base_repository": "badjoke-lab/evowild-test",
   "parent_branch": "feat/2p5d-autonomous-agent-orbs-20261024",
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-29T13:24:49.495580+00:00",
+  "checkpoint_updated_at_utc": "2026-10-29T13:32:23.453721+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "D3-B diagnosis complete; opt-in posture-rate correction next",
-  "last_commit_created": "ca1c41daef98d5565ca892a5927d08aeda57b84f",
-  "last_remote_confirmed_sha": "ca1c41daef98d5565ca892a5927d08aeda57b84f",
-  "last_remote_verified_at_utc": "2026-10-29T13:24:49.495580+00:00",
+  "current_unit": "D3-B source correction saved; final desktop/guard regression and four-view comparison pending",
+  "last_commit_created": "5d11ead944275553e413795527d44e81b52f1839",
+  "last_remote_confirmed_sha": "5d11ead944275553e413795527d44e81b52f1839",
+  "last_remote_verified_at_utc": "2026-10-29T13:32:23.453721+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -56,7 +56,8 @@
     "D2-D visual evidence saved as real WebGL 4-view before/after normal-cycle 8 MP4, join-slow 8 MP4, 40 matched phase stills plus desktop/Pixel7-emulated captures and observations. Evidence docs/2p5d/evidence/20261029-s-native-join-d2d/, auto-pushed at 2fb0ef845168c6c6176b41970389ba786eb09fe2. Fixed Actions run 40812067338 SUCCESS: captured videos and focused Playwright 4 passed (1 worker, desktop+Pixel7-emulated); previous run had masked port error, now resolved. Endpoint PNG bytes equal at .632/.648 on all four views; inside .638/.640/.642 differ. Numerical scoped KEEP, visual quality remains REVISE pending actual human review.",
     "D3-A: opened actual saved S WebGL frame sequences in SIDE and REAR_3_4. Action 40869948739 audited real rig at .5/1/1.5: pelvis vertical span 1.5445cm, pelvis 2.5708deg, spine4.0997deg, head2.0576deg; all three speed pose envelopes identical; 0-foot anchored 42/97 samples, not 'no flight'. Body drive trial push-v4 added as opt-in only, angular flex .15-.53 with effective-rate scaling, no fake bob, original GLB unchanged. Action 40870899739 SUCCESS focused 8 tests and 4-view before/after real WebGL videos saved at docs/2p5d/evidence/20261029-s-d3-flex-trial; 1x pelvis angle3.956deg, 1.5x5.894deg, but front limbs/chest still too stiff on actual frames. Full-S visual quality REVISE; evidence and verdict D3_VISUAL_REVIEW.md, source production not promoted.",
     "D3-B Actions 40872992098 FAILED: two desktop/android test failures on tests/s-d3-fore-reach.spec.js (0.073528995m/s maxMeshVelocityResidual > .02 limit). 8 other cases passed, fore reach ~0.06037m at 1x, chest diff 3.57265deg phase .75 1.5x. Subsequent video capture skipped. Recovery instructions docs/2p5d/CODEX_D3B_RECOVERY_TASK.md committed, requires Codex execution and evidence; current assistant cannot directly start Codex Cloud task in this chat.",
-    "D3B recovery diagnosis: fast-forwarded ca1c41d, canonical PNG acquired read-only/hash exact, PR132Draft confirmed. Local guard reproduces.073528995.14 baseline/failed seven-profile realmesh/body traces plus epsilon probes identify direct amplitude-rate derivative jump: foreL/R.07353/.10011 at t.120833 phase.405061, body.08331 atphase.75. No IK/contact/float noise root cause."
+    "D3B recovery diagnosis: fast-forwarded ca1c41d, canonical PNG acquired read-only/hash exact, PR132Draft confirmed. Local guard reproduces.073528995.14 baseline/failed seven-profile realmesh/body traces plus epsilon probes identify direct amplitude-rate derivative jump: foreL/R.07353/.10011 at t.120833 phase.405061, body.08331 atphase.75. No IK/contact/float noise root cause.",
+    "D3B correction: opt-in continuous-velocity postureRate drives fore reach/chest gains; locomotion state unchanged. Before/after realbody/sole microprobes show velocity corner removed; steady amplitudes intact. BuildPASS;7Android D3B/D2D casesPASS, desktop running."
   ],
   "pending_units": [
     "Correct D3-B rate-dependent reach/chest velocity corner without removing reach.",
@@ -127,7 +128,7 @@
     "docs/2p5d/evidence/20261028-s-return-d2c2/README.md",
     "docs/2p5d/evidence/20261029-s-d3b-fore-reach/DIAGNOSIS.md"
   ],
-  "next_action": "Implement push-v5-only critically damped poseRate state and route reach/chest gains through it; preserve rate/cadence/distance and D2-D. Run exact actual-mesh regression then full targeted tests and four-view/matched-phase capture.",
+  "next_action": "Read work/d3b-targeted.log; finish14 D3B/D2D cases, then relevant contact/sole/roll regressions without concurrent capture. Capture full-cycle four-view v3/v5 via capture_s_motion_compare.mjs and exact-phase/rate stills via capture_s_d3b_fore_reach.mjs. Review, save final metrics/videos/HANDOFF and verify remote.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
   "checkpoint_note": "C1 diagnosis4013beb separately pushed before C2 runtimee207f81. Final evidence4892dac pushed and remote SHA verified; GitHub fetch_file confirms README and fetched remote tree confirms PC/Pixel7 screenshots/videos/metrics. Runtime CI40615717824:152pass/3knownfail/81skip. All task work saved; local untracked artifacts/work/modelOBJ are scratch only. This final handoff commit records the previously verified evidence SHA; its own SHA is verified after push. No main merge."
 }
