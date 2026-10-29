@@ -1,6 +1,7 @@
+import {Quaternion,Vector3} from 'three';
 // Review-only timing alignment of EXISTING native body animation. No added
 // bob, amplitude scaling, force/COM simulation or mesh/rest-pose modification.
-export function createBodyCoupling(mesh,clip,{smoothReturn=false,smoothNativeJoin=false}={}){
+export function createBodyCoupling(mesh,clip,{smoothReturn=false,smoothNativeJoin=false,driveFlex=false}={}){
  const ease=x=>{x=Math.max(0,Math.min(1,x));return x*x*x*(x*(x*6-15)+10);};
  const names=new Set(['root','pelvis','spine','chest','neck','head','tail','EvoWild_S_Armature_V3']);
  const channels=clip.tracks.flatMap(track=>{
@@ -15,6 +16,11 @@ export function createBodyCoupling(mesh,clip,{smoothReturn=false,smoothNativeJoi
  // Advancing body timing places that trough at early support and its rise /
  // forward travel through the combined hind push (.25..47).
  const phaseLead=.25;
+ // D3 opt-in posture experiment: coordinated angular flex during actual
+ // hind push; no fake vertical bob and no underlying GLB/rest changes.
+ const pitchAxis=new Vector3(1,0,0),pitchDelta=new Quaternion();
+ const flexBones=driveFlex?['pelvis','spine','chest','neck','head'].map(name=>mesh.skeleton.bones.find(b=>b.name===name)):[];
+ if(driveFlex&&flexBones.some(x=>!x))throw Error('Missing S-body flex bone');
  const wrap=t=>((t%clip.duration)+clip.duration)%clip.duration;
  const start=.44,end=.62,span=end-start;
  // Opt-in D2-D candidate. Preserve C2 at .62 and return to native at .68.
@@ -46,7 +52,7 @@ export function createBodyCoupling(mesh,clip,{smoothReturn=false,smoothNativeJoi
    c.nativeJoinCoefficients=quintic(a,b,joinSpan);
   }
  }
- return {phaseLead,apply(time){
+ return {phaseLead,apply(time,effectiveRate=1){
   const phase=((time/clip.duration)%1+1)%1;
   // Align only hind load/push. Return to native motion before fore support;
   // all-cycle retiming overextended the fore chain during its recovery.
@@ -73,6 +79,21 @@ export function createBodyCoupling(mesh,clip,{smoothReturn=false,smoothNativeJoi
    }
    const target=bone[property].clone().fromArray(interpolant.evaluate(t));
    if(property==='quaternion')bone[property].slerp(target,weight);else bone[property].lerp(target,weight);
+  }
+  if(driveFlex){
+   // Anatomically scoped spring from hind loading to propulsion: pelvis
+   // pitches, spine/chest counter-rotate, neck/head maintain the gaze.
+   // Contact IK runs AFTER this, keeping world-locked soles anchored.
+   const u=(phase-.15)/.38;
+   if(u>0&&u<1){
+    const wave=Math.sin(Math.PI*u)**2;
+    const speed=Math.max(0,Math.min(1,(effectiveRate-.5)));
+    const angle=(2+4*speed)*Math.PI/180*wave;
+    for(let i=0;i<flexBones.length;i++){
+     pitchDelta.setFromAxisAngle(pitchAxis,angle*[-1,.48,.42,.12,-.1][i]);
+     flexBones[i].quaternion.multiply(pitchDelta).normalize();
+    }
+   }
   }
  }};
 }
