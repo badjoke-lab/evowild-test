@@ -8,7 +8,7 @@ const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
 const page=await browser.newPage({viewport:{width:960,height:640}});
 const errors=[];page.on('pageerror',e=>errors.push(e.message));
 const audit=[];
-for(const [label,body] of [['before','push-v2'],['after','push-v3']]){
+for(const [label,body] of [['before','push-v2'],['after','push-v3'],['trial','push-v4']]){
  await page.goto('http://127.0.0.1:4173/evowild-test/s-run-review.html?rig=contact-v3&toe=roll-v3&body='+body);
  await page.waitForFunction(()=>window.sRunReview?.bodySample);
  await page.evaluate(()=>{window.requestAnimationFrame=()=>0;});
@@ -56,5 +56,5 @@ for(const [label,body] of [['before','push-v2'],['after','push-v3']]){
  }
 }
 await browser.close();
-writeFileSync(output+'/d3-cycle-metrics.json',JSON.stringify({source:'Native S GLB via integrated continuous WebGL motion, no artificial image data',stepsPerCycle:96,variants:['push-v2','push-v3'],speeds:[.5,1,1.5],pageErrors:errors,results:audit},null,2)+'\n');
+writeFileSync(output+'/d3-cycle-metrics.json',JSON.stringify({source:'Native S GLB via integrated continuous WebGL motion, no artificial image data',stepsPerCycle:96,variants:['push-v2','push-v3','push-v4'],speeds:[.5,1,1.5],pageErrors:errors,results:audit},null,2)+'\n');
 if(errors.length)throw Error('Browser errors: '+JSON.stringify(errors));
