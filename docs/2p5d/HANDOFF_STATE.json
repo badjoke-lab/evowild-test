@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "purpose": "Codex child-branch checkpoint, not the main repo project status",
-  "status": "D3_A_GAIT_MEASURED_FLEX_TRIAL_REVISE",
+  "status": "D3B_PUSH_V5_CONTACT_REGRESSION_FAILED_CODEX_RECOVERY_REQUIRED",
   "base_repository": "badjoke-lab/evowild-test",
   "parent_branch": "feat/2p5d-autonomous-agent-orbs-20261024",
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
@@ -10,9 +10,9 @@
   "checkpoint_updated_at_utc": "2026-10-28T14:49:58.282841+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "D3-A evidence and opt-in push-v4 trial completed; full-S visual REVISE. Next D3-B forelimb reach and chest weight transfer, not micro-join.",
+  "current_unit": "D3-B push-v5 opt-in experimental fore reach and chest-load code committed but Actions 40872992098 failed sole mesh velocity residual guard (.073528995m/s vs <.02m/s). No D3-B four-view videos saved. Do not promote.",
   "last_commit_created": "4892daccfeb15fb4192d82143ca838c1adecd591",
-  "last_remote_confirmed_sha": "521f6f67a0b94ecd9c61e26c9c76baee8bf2fa6f",
+  "last_remote_confirmed_sha": "1fa9431d1ed7f935d83e724080def21a70ff5903",
   "last_remote_verified_at_utc": "2026-10-28T14:49:58.282841+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
@@ -54,12 +54,13 @@
     "D2-C2 complete: body=push-v2 deterministic double native sampling and same .44-.62 endpoint-jet return; toe=roll-v3 smaller positive envelope.30 unique PC/Pixel7 regressionsPASS (29+1unchanged-timeout retest),buildPASS. CI40615717824:152pass/3knownfail/81skip. Sole velocity.019398→.005987m/s,gap.923→.424mm,zero-time body/sole jump0,penetration/reach0,recovery47.98cm.212dense afterframes,96normal-cycle frames,10videos,PC/Pixel7 and194speed observations saved. Visual/whole-cycle continuityREVISE; existing native key corner.64 remains.",
     "D2-D narrow native join: user Mac tested body=push-v3 with phase .632-.648 and retained push-v2. Before native .64 body residual .240761m/s, after max among seven measured nearby phases .00225749m/s; center body vertex displacement .00015054m (0.151mm). Local npm build PASS; Playwright 34 passed (1 worker, two projects). Files src/s_body_coupling.js, src/s_run_review.js, tests/s-native-join.spec.js committed/pushed as 870ed41c851f1360aea348ca8909920ebf61598a. These are local log measurements, not independent CI or visual acceptance.",
     "D2-D visual evidence saved as real WebGL 4-view before/after normal-cycle 8 MP4, join-slow 8 MP4, 40 matched phase stills plus desktop/Pixel7-emulated captures and observations. Evidence docs/2p5d/evidence/20261029-s-native-join-d2d/, auto-pushed at 2fb0ef845168c6c6176b41970389ba786eb09fe2. Fixed Actions run 40812067338 SUCCESS: captured videos and focused Playwright 4 passed (1 worker, desktop+Pixel7-emulated); previous run had masked port error, now resolved. Endpoint PNG bytes equal at .632/.648 on all four views; inside .638/.640/.642 differ. Numerical scoped KEEP, visual quality remains REVISE pending actual human review.",
-    "D3-A: opened actual saved S WebGL frame sequences in SIDE and REAR_3_4. Action 40869948739 audited real rig at .5/1/1.5: pelvis vertical span 1.5445cm, pelvis 2.5708deg, spine4.0997deg, head2.0576deg; all three speed pose envelopes identical; 0-foot anchored 42/97 samples, not 'no flight'. Body drive trial push-v4 added as opt-in only, angular flex .15-.53 with effective-rate scaling, no fake bob, original GLB unchanged. Action 40870899739 SUCCESS focused 8 tests and 4-view before/after real WebGL videos saved at docs/2p5d/evidence/20261029-s-d3-flex-trial; 1x pelvis angle3.956deg, 1.5x5.894deg, but front limbs/chest still too stiff on actual frames. Full-S visual quality REVISE; evidence and verdict D3_VISUAL_REVIEW.md, source production not promoted."
+    "D3-A: opened actual saved S WebGL frame sequences in SIDE and REAR_3_4. Action 40869948739 audited real rig at .5/1/1.5: pelvis vertical span 1.5445cm, pelvis 2.5708deg, spine4.0997deg, head2.0576deg; all three speed pose envelopes identical; 0-foot anchored 42/97 samples, not 'no flight'. Body drive trial push-v4 added as opt-in only, angular flex .15-.53 with effective-rate scaling, no fake bob, original GLB unchanged. Action 40870899739 SUCCESS focused 8 tests and 4-view before/after real WebGL videos saved at docs/2p5d/evidence/20261029-s-d3-flex-trial; 1x pelvis angle3.956deg, 1.5x5.894deg, but front limbs/chest still too stiff on actual frames. Full-S visual quality REVISE; evidence and verdict D3_VISUAL_REVIEW.md, source production not promoted.",
+    "D3-B Actions 40872992098 FAILED: two desktop/android test failures on tests/s-d3-fore-reach.spec.js (0.073528995m/s maxMeshVelocityResidual > .02 limit). 8 other cases passed, fore reach ~0.06037m at 1x, chest diff 3.57265deg phase .75 1.5x. Subsequent video capture skipped. Recovery instructions docs/2p5d/CODEX_D3B_RECOVERY_TASK.md committed, requires Codex execution and evidence; current assistant cannot directly start Codex Cloud task in this chat."
   ],
   "pending_units": [
-    "D3-B: diagnose front foreleg extension and thoracic weight transfer at phases .60-1.0 against hind push .15-.47; trial one native gait hypothesis if feasible without GLB/rest edit.",
-    "Review new D3-B experimental real WebGL four-view full-cycle clips against push-v3/4 and canonical S identity; retain REVISE unless qualitatively convincing.",
-    "No production S adoption, no main/manifest changes, P/E/A or 18-creature rollout; zero-rebuild R9 sculpt branch is separate."
+    "Codex run D3-B root cause and fix, not rerunning same failed CI without code changes.",
+    "Four-view S WebGL videos and exact-phase matched frame visual comparison after actual contact guards pass.",
+    "D3-B and whole S visual verdict REVISE until accepted; no GLB/manifest/main deployment."
   ],
   "test_status": {
     "baseline_reference": "Parent dcd3f56 Actions 40152147602: 63 passed / 4 failed / 81 skipped. Original 3 + Android race-quality:125 pressure test (also before our changes).",
@@ -87,7 +88,8 @@
     "s_body_coupling_d2b": "PASS6 unique cases:5full-run+1desktop page-load timeout isolated retest9.6s under unchanged30s timeout. BuildPASS. guardpenetration/reach0,jump1.05e-8m,maxsupportslip.001063mm,gap.92343mm,hindrecovery47.98cm,velocityresidual.01940<.02. Protectednativevertexerror1.70e-7m. OverallREVISE.",
     "s_body_return_d2c": "PASS30 unique requested cases across PC/Pixel7:29full-run+one old D2A Android load-timeout retest15.7s under unchanged30s. New10cases allPASS. BuildPASS; CI152/3known/81skip. Solemaxresidual.005987,gap.423754mm,actual body+sole return-boundarymax.002788,dt0jump0,penetration/reach0,hindrecovery47.98cm. Whole-cycle nativekey.64 stillREVISE.",
     "s_native_join_d2d": "Actions 40812067338 SUCCESS: four focused Playwright tests passed (desktop and Pixel7 emulation), real unretouched WebGL four-view clips and dense .632-.648 frames committed; local Mac prior broader set 34 passed. Phase .64 residual .240761→.00225749m/s, center displacement .15054mm; geometry/GLB unchanged.",
-    "s_d3_push_v4": "Actions 40870899739 SUCCESS: 8 focused desktop/Pixel7-emulated Playwright passed; 4-view real WebGL before push-v3 vs after push-v4 captured and archived. Full-cycle run at rates .5/1/1.5: pelvis angular range 2.565/3.956/5.894 deg; support anchor counts unchanged 0:42,1:34,2:21 per 97 samples; max IK reach error 0. No true device timing or overall visual acceptance."
+    "s_d3_push_v4": "Actions 40870899739 SUCCESS: 8 focused desktop/Pixel7-emulated Playwright passed; 4-view real WebGL before push-v3 vs after push-v4 captured and archived. Full-cycle run at rates .5/1/1.5: pelvis angular range 2.565/3.956/5.894 deg; support anchor counts unchanged 0:42,1:34,2:21 per 97 samples; max IK reach error 0. No true device timing or overall visual acceptance.",
+    "s_d3b_fore_reach": "Actions 40872992098 FAILED: 2 tests fail maxMeshVelocityResidual .07352899508547898m/s vs .02; 8 pass. GitHub code opt-in push-v5 not production; no new D3-B 4-direction videos. Codex handoff docs/2p5d/CODEX_D3B_RECOVERY_TASK.md"
   },
   "original_mocks": {
     "expected_count": 11,
@@ -124,7 +126,7 @@
     "docs/2p5d/evidence/20261028-s-return-d2c1/README.md",
     "docs/2p5d/evidence/20261028-s-return-d2c2/README.md"
   ],
-  "next_action": "Read docs/2p5d/evidence/20261029-s-d3-flex-trial/D3_VISUAL_REVIEW.md and current src/s_contact_ik.js, src/s_body_coupling.js. Execute D3-B isolated front-limb forward-reach and shoulder/chest propulsion diagnosis, preserving all D2-D numerical support gates. If native GLB lacks acceptable fore reach, report REVISE and route to Blender authoring; do not mask defect with artificial bob or keep modifying phase .64.",
+  "next_action": "Use Codex coding environment to read and EXECUTE docs/2p5d/CODEX_D3B_RECOVERY_TASK.md on existing feat/2p5d-flow-persistence-20261025 branch. Reproduce and root-cause D3-B fore velocity failure, make bounded fix without weakening guard, then run local tests, capture real WebGL clips, save evidence and update this handoff. No production/main/GLB changes.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
   "checkpoint_note": "C1 diagnosis4013beb separately pushed before C2 runtimee207f81. Final evidence4892dac pushed and remote SHA verified; GitHub fetch_file confirms README and fetched remote tree confirms PC/Pixel7 screenshots/videos/metrics. Runtime CI40615717824:152pass/3knownfail/81skip. All task work saved; local untracked artifacts/work/modelOBJ are scratch only. This final handoff commit records the previously verified evidence SHA; its own SHA is verified after push. No main merge."
 }
