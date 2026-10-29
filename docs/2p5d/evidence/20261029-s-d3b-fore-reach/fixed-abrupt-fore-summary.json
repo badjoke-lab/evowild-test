@@ -1,0 +1,125 @@
+{
+  "profile": "abrupt-fore",
+  "samples": 289,
+  "duration": 1.2,
+  "travel": 4.516637830918295,
+  "cycles": 2.7215952527123397,
+  "speedIntegral": 4.516666666666648,
+  "travelIntegralError": -0.00002883574835266245,
+  "cadenceIntegral": 2.721599744656555,
+  "cycleIntegralError": -0.000004491944215256893,
+  "feet": [
+    {
+      "name": "fore_L",
+      "maxPenetration": 0,
+      "stanceSlip": 0.028541344039485966,
+      "maxStanceStepSlip": 0.004899800518105124,
+      "contactTime": 0.18749999999999994,
+      "recoveryHeight": 0.3399975979067338,
+      "maxReachError": 0,
+      "jointAngleRange": [
+        95.63550845601567,
+        151.78618399899335
+      ],
+      "maxSegmentLengthDrift": 4.443913015350631e-10,
+      "maxZeroTimeJump": 0,
+      "maxMeshVelocityResidual": 0.0008253998335654792,
+      "legacyAllPatchMovement": 0.028541344039485966,
+      "supportSlip": 1.6807570801802285e-7,
+      "maxSupportStep": 1.0355100776848758e-8,
+      "flatTime": 0.03333333333333338,
+      "toeTime": 0.16249999999999998,
+      "guardPenetration": 0,
+      "pitchRange": [
+        -22.569933432231494,
+        -0.5699334322313147
+      ],
+      "rearRise": 0.07685368643271079,
+      "maxSupportPlaneError": 0.00027821824419116403
+    },
+    {
+      "name": "fore_R",
+      "maxPenetration": 0,
+      "stanceSlip": 0.02450805984328979,
+      "maxStanceStepSlip": 0.004777494153727968,
+      "contactTime": 0.22916666666666657,
+      "recoveryHeight": 0.3399987690761732,
+      "maxReachError": 0,
+      "jointAngleRange": [
+        90.98792481807581,
+        145.95075312017295
+      ],
+      "maxSegmentLengthDrift": 3.9694042386351214e-8,
+      "maxZeroTimeJump": 0,
+      "maxMeshVelocityResidual": 0.0008710796878272526,
+      "legacyAllPatchMovement": 0.02450805984328979,
+      "supportSlip": 1.3920339902995238e-7,
+      "maxSupportStep": 7.275192448474854e-9,
+      "flatTime": 0.05833333333333327,
+      "toeTime": 0.18333333333333335,
+      "guardPenetration": 0,
+      "pitchRange": [
+        -23.14335396997371,
+        -1.1433525560847948
+      ],
+      "rearRise": 0.07384535864786193,
+      "maxSupportPlaneError": 0.00034122304129535763
+    },
+    {
+      "name": "hind_L",
+      "maxPenetration": 0,
+      "stanceSlip": 0.027400514835638556,
+      "maxStanceStepSlip": 0.004512094963653901,
+      "contactTime": 0.2958333333333333,
+      "recoveryHeight": 0.47998584602868033,
+      "maxReachError": 0,
+      "jointAngleRange": [
+        48.671394670070825,
+        159.0309113111099
+      ],
+      "maxSegmentLengthDrift": 1.8717521532707337e-8,
+      "maxZeroTimeJump": 0,
+      "maxMeshVelocityResidual": 0.0005547844884765493,
+      "legacyAllPatchMovement": 0.027400514835638556,
+      "supportSlip": 5.492420265262865e-7,
+      "maxSupportStep": 1.3825920408550019e-8,
+      "flatTime": 0.1375,
+      "toeTime": 0.17083333333333323,
+      "guardPenetration": 0,
+      "pitchRange": [
+        -29.92024594819383,
+        -1.920246408691448
+      ],
+      "rearRise": 0.046027553464022805,
+      "maxSupportPlaneError": 0.00023898298823543662
+    },
+    {
+      "name": "hind_R",
+      "maxPenetration": 0,
+      "stanceSlip": 0.023843119937961864,
+      "maxStanceStepSlip": 0.004794784355828918,
+      "contactTime": 0.25833333333333336,
+      "recoveryHeight": 0.4799977244042284,
+      "maxReachError": 0,
+      "jointAngleRange": [
+        48.867833688835034,
+        161.21569904603916
+      ],
+      "maxSegmentLengthDrift": 5.727634877494836e-8,
+      "maxZeroTimeJump": 0,
+      "maxMeshVelocityResidual": 0.0004247233772100698,
+      "legacyAllPatchMovement": 0.023843119937961864,
+      "supportSlip": 3.86396097673547e-7,
+      "maxSupportStep": 1.1215719464274801e-8,
+      "flatTime": 0.1333333333333333,
+      "toeTime": 0.1375,
+      "guardPenetration": 0,
+      "pitchRange": [
+        -30.308120446353914,
+        -2.3081225527827205
+      ],
+      "rearRise": 0.049074807647135406,
+      "maxSupportPlaneError": 0.00021125038645708472
+    }
+  ]
+}

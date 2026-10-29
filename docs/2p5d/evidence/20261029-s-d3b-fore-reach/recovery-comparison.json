@@ -1,0 +1,478 @@
+[
+  {
+    "profile": "abrupt-fore",
+    "foot": "fore_L",
+    "baselineVelocity": 0.000728488613425855,
+    "failedVelocity": 0.10237937959592511,
+    "fixedVelocity": 0.0008253998335654792,
+    "fixedGap": 0.00027821824419116403,
+    "fixedSlip": 1.6807570801802285e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.3399975979067338,
+    "jointRange": [
+      95.63550845601567,
+      151.78618399899335
+    ],
+    "segmentDrift": 4.443913015350631e-10
+  },
+  {
+    "profile": "abrupt-fore",
+    "foot": "fore_R",
+    "baselineVelocity": 0.0008391091060602432,
+    "failedVelocity": 0.10945744061912796,
+    "fixedVelocity": 0.0008710796878272526,
+    "fixedGap": 0.00034122304129535763,
+    "fixedSlip": 1.3920339902995238e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.3399987690761732,
+    "jointRange": [
+      90.98792481807581,
+      145.95075312017295
+    ],
+    "segmentDrift": 3.9694042386351214e-08
+  },
+  {
+    "profile": "abrupt-fore",
+    "foot": "hind_L",
+    "baselineVelocity": 0.0005547844884765493,
+    "failedVelocity": 0.0005547844884765493,
+    "fixedVelocity": 0.0005547844884765493,
+    "fixedGap": 0.00023898298823543662,
+    "fixedSlip": 5.492420265262865e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.47998584602868033,
+    "jointRange": [
+      48.671394670070825,
+      159.0309113111099
+    ],
+    "segmentDrift": 1.8717521532707337e-08
+  },
+  {
+    "profile": "abrupt-fore",
+    "foot": "hind_R",
+    "baselineVelocity": 0.0004247233772100698,
+    "failedVelocity": 0.0004247233772100698,
+    "fixedVelocity": 0.0004247233772100698,
+    "fixedGap": 0.00021125038645708472,
+    "fixedSlip": 3.86396097673547e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.4799977244042284,
+    "jointRange": [
+      48.867833688835034,
+      161.21569904603916
+    ],
+    "segmentDrift": 5.727634877494836e-08
+  },
+  {
+    "profile": "abrupt-hind",
+    "foot": "fore_L",
+    "baselineVelocity": 0.001725580180473203,
+    "failedVelocity": 0.07352899508547898,
+    "fixedVelocity": 0.0018449664196895498,
+    "fixedGap": 0.0002290146523440395,
+    "fixedSlip": 1.9146642293854654e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.33994764599531235,
+    "jointRange": [
+      96.09295652415399,
+      152.48274050633506
+    ],
+    "segmentDrift": 4.4439152357966805e-10
+  },
+  {
+    "profile": "abrupt-hind",
+    "foot": "fore_R",
+    "baselineVelocity": 0.0014553749497428635,
+    "failedVelocity": 0.10011212222472828,
+    "fixedVelocity": 0.001455374808024158,
+    "fixedGap": 0.0004237518579353061,
+    "fixedSlip": 1.4443957208065683e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.3399946946226027,
+    "jointRange": [
+      91.30166531126893,
+      145.46486149328643
+    ],
+    "segmentDrift": 4.2994134474838575e-08
+  },
+  {
+    "profile": "abrupt-hind",
+    "foot": "hind_L",
+    "baselineVelocity": 0.0012781991023207927,
+    "failedVelocity": 0.0012781991023207927,
+    "fixedVelocity": 0.0012781991023207927,
+    "fixedGap": 0.00022402533050924767,
+    "fixedSlip": 4.965770363796196e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.4799918645555573,
+    "jointRange": [
+      50.23140710930241,
+      158.40858769336873
+    ],
+    "segmentDrift": 1.73546389481416e-08
+  },
+  {
+    "profile": "abrupt-hind",
+    "foot": "hind_R",
+    "baselineVelocity": 0.0013288147528893119,
+    "failedVelocity": 0.0013288147528893119,
+    "fixedVelocity": 0.0013288147528893119,
+    "fixedGap": 0.00018296345746304787,
+    "fixedSlip": 3.7700120769645906e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.4799984834151797,
+    "jointRange": [
+      50.47161879147295,
+      160.52747290956424
+    ],
+    "segmentDrift": 4.204573256227917e-08
+  },
+  {
+    "profile": "acceleration",
+    "foot": "fore_L",
+    "baselineVelocity": 0.004864162144275983,
+    "failedVelocity": 0.10938317758971049,
+    "fixedVelocity": 0.004747126781228427,
+    "fixedGap": 0.00027517115401809455,
+    "fixedSlip": 3.300099586933669e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.34000015171813014,
+    "jointRange": [
+      96.046182060765,
+      152.61660686093987
+    ],
+    "segmentDrift": 4.443916346019705e-10
+  },
+  {
+    "profile": "acceleration",
+    "foot": "fore_R",
+    "baselineVelocity": 0.00451531241995659,
+    "failedVelocity": 0.10938118897517143,
+    "fixedVelocity": 0.004515312598606601,
+    "fixedGap": 0.00042357749539978506,
+    "fixedSlip": 2.6296433652817086e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.3399946946226027,
+    "jointRange": [
+      91.29007476905004,
+      145.945763791229
+    ],
+    "segmentDrift": 4.3551626638382857e-08
+  },
+  {
+    "profile": "acceleration",
+    "foot": "hind_L",
+    "baselineVelocity": 0.005987020926800682,
+    "failedVelocity": 0.005987020926800682,
+    "fixedVelocity": 0.005987020926800682,
+    "fixedGap": 0.00018181791099647349,
+    "fixedSlip": 8.932531250227527e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.47998911479618456,
+    "jointRange": [
+      50.18408569349292,
+      159.05959429010545
+    ],
+    "segmentDrift": 1.7106665306521052e-08
+  },
+  {
+    "profile": "acceleration",
+    "foot": "hind_R",
+    "baselineVelocity": 0.003499962156160411,
+    "failedVelocity": 0.003499962156160411,
+    "fixedVelocity": 0.003499962156160411,
+    "fixedGap": 0.0002627776399946047,
+    "fixedSlip": 6.893881145941805e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.47998962348577623,
+    "jointRange": [
+      50.66330055519834,
+      161.18526443431082
+    ],
+    "segmentDrift": 4.203706049921152e-08
+  },
+  {
+    "profile": "deceleration",
+    "foot": "fore_L",
+    "baselineVelocity": 0.003772892565393675,
+    "failedVelocity": 0.1096586151046954,
+    "fixedVelocity": 0.0037728923004777502,
+    "fixedGap": 0.00025729889942605055,
+    "fixedSlip": 2.8369821469809153e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.33999184340033617,
+    "jointRange": [
+      96.39913376937108,
+      152.4222219233872
+    ],
+    "segmentDrift": 4.4439096846815573e-10
+  },
+  {
+    "profile": "deceleration",
+    "foot": "fore_R",
+    "baselineVelocity": 0.0027770656546181687,
+    "failedVelocity": 0.109690064449593,
+    "fixedVelocity": 0.002984184216933252,
+    "fixedGap": 0.0003772665167656175,
+    "fixedSlip": 2.4053285985203843e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.33999620447135137,
+    "jointRange": [
+      91.46717680951645,
+      145.7960061520964
+    ],
+    "segmentDrift": 4.030078870620457e-08
+  },
+  {
+    "profile": "deceleration",
+    "foot": "hind_L",
+    "baselineVelocity": 0.0027359318713959715,
+    "failedVelocity": 0.0027359318713959715,
+    "fixedVelocity": 0.0027359318713959715,
+    "fixedGap": 0.00021964128959384155,
+    "fixedSlip": 7.286514371873665e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.47999683016062955,
+    "jointRange": [
+      50.00242772173373,
+      159.05864506939403
+    ],
+    "segmentDrift": 2.057875669869702e-08
+  },
+  {
+    "profile": "deceleration",
+    "foot": "hind_R",
+    "baselineVelocity": 0.002804381835378408,
+    "failedVelocity": 0.002804381835378408,
+    "fixedVelocity": 0.002804381835378408,
+    "fixedGap": 0.00024087137503725486,
+    "fixedSlip": 5.240655231997238e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.48000009609489014,
+    "jointRange": [
+      50.46723129100473,
+      161.1734724600971
+    ],
+    "segmentDrift": 5.433332683768555e-08
+  },
+  {
+    "profile": "steady-0.5",
+    "foot": "fore_L",
+    "baselineVelocity": 0,
+    "failedVelocity": 0,
+    "fixedVelocity": 0,
+    "fixedGap": 0.00018496612807195056,
+    "fixedSlip": 8.21766303893412e-08,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.3399922759741145,
+    "jointRange": [
+      96.0886753319878,
+      147.3033150530918
+    ],
+    "segmentDrift": 4.443914125573656e-10
+  },
+  {
+    "profile": "steady-0.5",
+    "foot": "fore_R",
+    "baselineVelocity": 0,
+    "failedVelocity": 0,
+    "fixedVelocity": 0,
+    "fixedGap": 0.00029913254782698573,
+    "fixedSlip": 3.953936800193958e-08,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.33999588857102503,
+    "jointRange": [
+      91.29942875784909,
+      140.25496319948638
+    ],
+    "segmentDrift": 3.97174499955355e-08
+  },
+  {
+    "profile": "steady-0.5",
+    "foot": "hind_L",
+    "baselineVelocity": 0,
+    "failedVelocity": 0,
+    "fixedVelocity": 0,
+    "fixedGap": 0.00022114706388665084,
+    "fixedSlip": 2.7255316137342334e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.4799866122221672,
+    "jointRange": [
+      51.1966392872518,
+      150.5287404236596
+    ],
+    "segmentDrift": 2.0054753080422927e-08
+  },
+  {
+    "profile": "steady-0.5",
+    "foot": "hind_R",
+    "baselineVelocity": 0,
+    "failedVelocity": 0,
+    "fixedVelocity": 0,
+    "fixedGap": 0.00024227563674283914,
+    "fixedSlip": 2.0252985943880475e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.47999739262355823,
+    "jointRange": [
+      51.78945884104635,
+      151.6119097788571
+    ],
+    "segmentDrift": 4.2053683979581535e-08
+  },
+  {
+    "profile": "steady-1",
+    "foot": "fore_L",
+    "baselineVelocity": 0,
+    "failedVelocity": 0,
+    "fixedVelocity": 0,
+    "fixedGap": 0.0002629259824924457,
+    "fixedSlip": 1.384315599928243e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.33987842766390153,
+    "jointRange": [
+      96.4959125714006,
+      149.72109752979782
+    ],
+    "segmentDrift": 4.4439174562427297e-10
+  },
+  {
+    "profile": "steady-1",
+    "foot": "fore_R",
+    "baselineVelocity": 0,
+    "failedVelocity": 0,
+    "fixedVelocity": 0,
+    "fixedGap": 0.00039037577384259947,
+    "fixedSlip": 1.0800799365995317e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.3398784699283317,
+    "jointRange": [
+      91.67456988499768,
+      143.09411905591617
+    ],
+    "segmentDrift": 4.353113436383893e-08
+  },
+  {
+    "profile": "steady-1",
+    "foot": "hind_L",
+    "baselineVelocity": 0,
+    "failedVelocity": 0,
+    "fixedVelocity": 0,
+    "fixedGap": 0.00015113101997243916,
+    "fixedSlip": 5.684878811029748e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.4798009057882491,
+    "jointRange": [
+      50.65451127229764,
+      154.97881297486947
+    ],
+    "segmentDrift": 2.7942639313494055e-08
+  },
+  {
+    "profile": "steady-1",
+    "foot": "hind_R",
+    "baselineVelocity": 0,
+    "failedVelocity": 0,
+    "fixedVelocity": 0,
+    "fixedGap": 0.00015165488570612062,
+    "fixedSlip": 3.8850407302337686e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.47980053409554757,
+    "jointRange": [
+      51.14347080631605,
+      156.66637179030795
+    ],
+    "segmentDrift": 5.1058937633463586e-08
+  },
+  {
+    "profile": "steady-1.5",
+    "foot": "fore_L",
+    "baselineVelocity": 0,
+    "failedVelocity": 0,
+    "fixedVelocity": 0,
+    "fixedGap": 0.00024085660210770854,
+    "fixedSlip": 2.150666960076819e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.3399998742970587,
+    "jointRange": [
+      96.88152401556097,
+      152.69761289302662
+    ],
+    "segmentDrift": 4.443914125573656e-10
+  },
+  {
+    "profile": "steady-1.5",
+    "foot": "fore_R",
+    "baselineVelocity": 0,
+    "failedVelocity": 0,
+    "fixedVelocity": 0,
+    "fixedGap": 0.0004162169423440609,
+    "fixedSlip": 1.6416272652364228e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.33999337900277515,
+    "jointRange": [
+      92.03307472165649,
+      145.9592967987914
+    ],
+    "segmentDrift": 4.740619741205876e-08
+  },
+  {
+    "profile": "steady-1.5",
+    "foot": "hind_L",
+    "baselineVelocity": 0,
+    "failedVelocity": 0,
+    "fixedVelocity": 0,
+    "fixedGap": 0.00021108351132492764,
+    "fixedSlip": 6.510373257162527e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.4799856934711957,
+    "jointRange": [
+      50.18984787117903,
+      159.0574046239339
+    ],
+    "segmentDrift": 3.33215239844975e-08
+  },
+  {
+    "profile": "steady-1.5",
+    "foot": "hind_R",
+    "baselineVelocity": 0,
+    "failedVelocity": 0,
+    "fixedVelocity": 0,
+    "fixedGap": 0.00021399676970879078,
+    "fixedSlip": 4.802533694059363e-07,
+    "penetration": 0,
+    "reachError": 0,
+    "recovery": 0.4799858186784933,
+    "jointRange": [
+      50.64241680715085,
+      161.21632297952644
+    ],
+    "segmentDrift": 5.771521127684309e-08
+  }
+]

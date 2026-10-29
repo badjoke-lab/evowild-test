@@ -1,0 +1,9 @@
+
+Running 1 test using 1 worker
+
+(node:3916) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+D2 support rotation [{"toe":"roll-v1","rows":[{"foot":0,"pivotId":738,"pitchSpeed":0.0000030111912963093346},{"foot":0,"pivotId":2534,"pitchSpeed":0.000001411137873219559},{"foot":1,"pivotId":34245,"pitchSpeed":0.000017318679823574712},{"foot":1,"pivotId":36856,"pitchSpeed":0.000012038903207667317},{"foot":1,"pivotId":35603,"pitchSpeed":0.000018127366274711676},{"foot":1,"pivotId":34962,"pitchSpeed":0.000018595258666209702},{"foot":2,"pivotId":2502,"pitchSpeed":0.000016567014426982496},{"foot":3,"pivotId":34209,"pitchSpeed":0.000010300027497578412}]},{"toe":"roll-v2","rows":[{"foot":0,"pivotId":738,"pitchSpeed":269.4061334551634},{"foot":0,"pivotId":2534,"pitchSpeed":700.4800077666573},{"foot":1,"pivotId":34245,"pitchSpeed":78.8459206990666},{"foot":1,"pivotId":36856,"pitchSpeed":300.08418781442003},{"foot":1,"pivotId":35603,"pitchSpeed":660.1758542341685},{"foot":1,"pivotId":34962,"pitchSpeed":672.0829331069211},{"foot":2,"pivotId":2502,"pitchSpeed":996.0373755070862},{"foot":3,"pivotId":34209,"pitchSpeed":863.7697638533837}]}]
+  ✓  1 [android-chromium] › tests/s-toe-continuous.spec.js:47:1 › D2 rolls through each mesh support boundary instead of stopping as in D1 (13.2s)
+
+  1 passed (14.4s)

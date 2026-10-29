@@ -1,0 +1,125 @@
+{
+  "profile": "acceleration",
+  "samples": 481,
+  "duration": 2,
+  "travel": 8.783526991686369,
+  "cycles": 4.946370427383,
+  "speedIntegral": 8.783333333333387,
+  "travelIntegralError": 0.00019365835298224,
+  "cadenceIntegral": 4.946309343788657,
+  "cycleIntegralError": 0.00006108359434264798,
+  "feet": [
+    {
+      "name": "fore_L",
+      "maxPenetration": 0,
+      "stanceSlip": 0.047637709412303005,
+      "maxStanceStepSlip": 0.0048999752889749,
+      "contactTime": 0.3208333333333334,
+      "recoveryHeight": 0.34000015171813014,
+      "maxReachError": 0,
+      "jointAngleRange": [
+        96.046182060765,
+        152.61660686093987
+      ],
+      "maxSegmentLengthDrift": 4.443916346019705e-10,
+      "maxZeroTimeJump": 0,
+      "maxMeshVelocityResidual": 0.004747126781228427,
+      "legacyAllPatchMovement": 0.047637709412303005,
+      "supportSlip": 3.300099586933669e-7,
+      "maxSupportStep": 1.0479784151584681e-8,
+      "flatTime": 0.0874999999999998,
+      "toeTime": 0.2541666666666669,
+      "guardPenetration": 0,
+      "pitchRange": [
+        -22.569933432231295,
+        -0.5699334322313098
+      ],
+      "rearRise": 0.0768739766394716,
+      "maxSupportPlaneError": 0.00027517115401809455
+    },
+    {
+      "name": "fore_R",
+      "maxPenetration": 0,
+      "stanceSlip": 0.040859817927535326,
+      "maxStanceStepSlip": 0.004906383649419865,
+      "contactTime": 0.3208333333333332,
+      "recoveryHeight": 0.3399946946226027,
+      "maxReachError": 0,
+      "jointAngleRange": [
+        91.29007476905004,
+        145.945763791229
+      ],
+      "maxSegmentLengthDrift": 4.3551626638382857e-8,
+      "maxZeroTimeJump": 0,
+      "maxMeshVelocityResidual": 0.004515312598606601,
+      "legacyAllPatchMovement": 0.040859817927535326,
+      "supportSlip": 2.6296433652817086e-7,
+      "maxSupportStep": 7.367031429339477e-9,
+      "flatTime": 0.0874999999999998,
+      "toeTime": 0.25416666666666665,
+      "guardPenetration": 0,
+      "pitchRange": [
+        -23.143354009154667,
+        -1.1433525561450222
+      ],
+      "rearRise": 0.07384538801574861,
+      "maxSupportPlaneError": 0.00042357749539978506
+    },
+    {
+      "name": "hind_L",
+      "maxPenetration": 0,
+      "stanceSlip": 0.0455794383518055,
+      "maxStanceStepSlip": 0.004629952047932484,
+      "contactTime": 0.4375000000000003,
+      "recoveryHeight": 0.47998911479618456,
+      "maxReachError": 0,
+      "jointAngleRange": [
+        50.18408569349292,
+        159.05959429010545
+      ],
+      "maxSegmentLengthDrift": 1.7106665306521052e-8,
+      "maxZeroTimeJump": 0,
+      "maxMeshVelocityResidual": 0.005987020926800682,
+      "legacyAllPatchMovement": 0.0455794383518055,
+      "supportSlip": 8.932531250227527e-7,
+      "maxSupportStep": 1.3805819598644575e-8,
+      "flatTime": 0.1875000000000001,
+      "toeTime": 0.2666666666666668,
+      "guardPenetration": 0,
+      "pitchRange": [
+        -29.92024606640263,
+        -1.920246407758703
+      ],
+      "rearRise": 0.04602061263748377,
+      "maxSupportPlaneError": 0.00018181791099647349
+    },
+    {
+      "name": "hind_R",
+      "maxPenetration": 0,
+      "stanceSlip": 0.04594500678020751,
+      "maxStanceStepSlip": 0.004971944372677228,
+      "contactTime": 0.46666666666666656,
+      "recoveryHeight": 0.47998962348577623,
+      "maxReachError": 0,
+      "jointAngleRange": [
+        50.66330055519834,
+        161.18526443431082
+      ],
+      "maxSegmentLengthDrift": 4.203706049921152e-8,
+      "maxZeroTimeJump": 0,
+      "maxMeshVelocityResidual": 0.003499962156160411,
+      "legacyAllPatchMovement": 0.04594500678020751,
+      "supportSlip": 6.893881145941805e-7,
+      "maxSupportStep": 1.1258864063279365e-8,
+      "flatTime": 0.220833333333333,
+      "toeTime": 0.2666666666666669,
+      "guardPenetration": 0,
+      "pitchRange": [
+        -30.308120446175597,
+        -2.3081225545453
+      ],
+      "rearRise": 0.049240369946678436,
+      "maxSupportPlaneError": 0.0002627776399946047
+    }
+  ]
+}
