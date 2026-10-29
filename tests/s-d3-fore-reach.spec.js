@@ -23,7 +23,8 @@ async function pose(page,variant,phase,rate=1){
 test('D3-B isolated fore swing improves reach without moving a support anchor',async({page})=>{
  test.setTimeout(120000);
  for(const rate of [.5,1,1.5]){
-  const [before,after]=await Promise.all([pose(page,'push-v3',.20,rate),pose(page,'push-v5',.20,rate)]);
+  const before=await pose(page,'push-v3',.20,rate);
+  const after=await pose(page,'push-v5',.20,rate);
   const fore=before.legs.filter(l=>l.name.startsWith('fore_'));
   const delta=fore.map(b=>{
    const a=after.legs.find(x=>x.name===b.name);
