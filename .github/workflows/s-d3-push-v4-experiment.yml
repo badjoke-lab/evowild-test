@@ -1,0 +1,97 @@
+name: S D3 push-v4 flex experiment
+
+on:
+  push:
+    branches: ["feat/2p5d-flow-persistence-20261025"]
+    paths:
+      - ".github/workflows/s-d3-push-v4-experiment.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  experiment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install browser and video encoder
+        run: |
+          npm install
+          npx playwright install --with-deps chromium
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          npm run build
+      - name: Start isolated actual S review
+        shell: bash
+        run: |
+          npm run dev -- --host 127.0.0.1 --port 4173 > /tmp/s-d3-vite.log 2>&1 &
+          for i in {1..40}; do
+            if curl -sf http://127.0.0.1:4173/evowild-test/s-run-review.html >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/s-d3-vite.log
+          exit 1
+      - name: Verify flex and native-join guards on desktop and Pixel7 emulation
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > s_d3_playwright_config.mjs <<'JS'
+          import config from './playwright.config.js';
+          export default {...config,webServer:{...config.webServer,reuseExistingServer:true}};
+          JS
+          mkdir -p docs/2p5d/evidence/20261029-s-d3-flex-trial
+          npx playwright test tests/s-d3-flex.spec.js tests/s-native-join.spec.js --config=s_d3_playwright_config.mjs --workers=1 --reporter=line | tee docs/2p5d/evidence/20261029-s-d3-flex-trial/targeted-test.log
+      - name: Record real-geometry body and foot motion
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/audit_s_d3_cycle.mjs | tee docs/2p5d/evidence/20261029-s-d3-flex-trial/cycle-summary.log
+          cp docs/2p5d/evidence/20261029-s-d3-cycle-audit/d3-cycle-metrics.json docs/2p5d/evidence/20261029-s-d3-flex-trial/d3-cycle-metrics.json
+      - name: Capture true WebGL four-view v3 vs v4 comparison
+        env:
+          S_COMPARE_OUT: docs/2p5d/evidence/20261029-s-d3-flex-trial
+          S_COMPARE_BEFORE: "&toe=roll-v3&body=push-v3"
+          S_COMPARE_AFTER: "&toe=roll-v3&body=push-v4"
+        run: node scripts/capture_s_motion_compare.mjs
+      - name: Save as evidence-only experimental review
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > docs/2p5d/evidence/20261029-s-d3-flex-trial/README.md <<'MD'
+          # D3 experimental speed-responsive torso flex (NOT approved)
+
+          Actual WebGL before/after candidate of the original skinned S GLB at the same camera and lighting.
+          - Before: contact-v3, roll-v3, push-v3 (D2-D established numeric candidate).
+          - After: contact-v3, roll-v3, push-v4 (new opt-in angular flex trial).
+          - Variation only during hind-load/propulsion phase .15-.53; pelvis/spine/chest/neck/head angular bending with rate-dependent 2-6 degree maximum at pelvis.
+          - No artificial vertical bob, no geometry/GLB/rest, race/manifest or main change.
+          - Before/after SIDE, CHASE, LOW, REAR_3_4 real WebGL videos and frame PNGs, desktop/Pixel7-emulated screenshots.
+          - Full-cycle bone/support metrics at speed .5,1,1.5 in d3-cycle-metrics.json; targeted browser tests in targeted-test.log.
+          
+          **Verdict:** D3 trial candidate, visual acceptance REVISE until frame-by-frame, full-cycle independent review. Passing tests alone never constitutes KEEP. Other creatures and 18-racer production remain untouched.
+          MD
+          git diff --exit-code -- src/ public/models/evowild-s/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          python3 - <<'PY'
+          from pathlib import Path
+          folder=Path('docs/2p5d/evidence/20261029-s-d3-flex-trial')
+          for name in ['targeted-test.log','cycle-summary.log']:
+              p=folder/name;p.write_text(p.read_text().rstrip()+'\n')
+          PY
+          git add docs/2p5d/evidence/20261029-s-d3-flex-trial/
+          git diff --cached --check
+          if ! git diff --cached --quiet; then
+            git commit -m 'art(s): archive real WebGL D3 flex experiment for visual review'
+            git push origin HEAD:feat/2p5d-flow-persistence-20261025
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: d3-speed-responsive-flex-trial
+          path: docs/2p5d/evidence/20261029-s-d3-flex-trial/
+          if-no-files-found: warn
