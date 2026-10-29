@@ -1,0 +1,55 @@
+name: S D3 full cycle gait audit
+
+on:
+  push:
+    branches: ["feat/2p5d-flow-persistence-20261025"]
+    paths:
+      - ".github/workflows/s-d3-cycle-audit.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install review dependencies
+        run: |
+          npm install
+          npx playwright install --with-deps chromium
+          npm run build
+      - name: Run native S WebGL gait audit
+        shell: bash
+        run: |
+          set -e
+          npm run dev -- --host 127.0.0.1 --port 4173 > /tmp/s-d3-vite.log 2>&1 &
+          for i in {1..40}; do
+            if curl -sf http://127.0.0.1:4173/evowild-test/s-run-review.html >/dev/null; then break; fi
+            sleep 1
+          done
+          curl -sf http://127.0.0.1:4173/evowild-test/s-run-review.html >/dev/null
+          node scripts/audit_s_d3_cycle.mjs | tee /tmp/s-d3-audit.log
+          git diff --exit-code -- src/ public/models/evowild-s/
+      - name: Save numerical gait diagnosis, not a quality approval
+        shell: bash
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/2p5d/evidence/20261029-s-d3-cycle-audit/d3-cycle-metrics.json
+          git diff --cached --check
+          if ! git diff --cached --quiet; then
+            git commit -m 'test(s): save native S D3 full-cycle gait diagnostic'
+            git push origin HEAD:feat/2p5d-flow-persistence-20261025
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s-d3-gait-diagnostic
+          path: docs/2p5d/evidence/20261029-s-d3-cycle-audit/
+          if-no-files-found: warn
