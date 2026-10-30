@@ -15,6 +15,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          python3 -V
           python3 scripts/audit_s_d3c_rig.py public/models/evowild-s/review/focus-contact-v3.glb
           test -s docs/2p5d/evidence/20261030-s-d3c-rig-feasibility/rig-inventory.json
           git diff --exit-code -- public/models/evowild-s/
