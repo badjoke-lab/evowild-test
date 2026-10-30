@@ -10,7 +10,7 @@
   "checkpoint_updated_at_utc": "2026-10-30T02:09:09.703213+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "D3-B complete; resumed remote/source/evidence audit passed and stale task status annotated",
+  "current_unit": "D3-B complete (limited numerical KEEP, S gait VISUAL REVISE); D3-C authored shoulder/elbow/chest task scoped for Codex, not yet executed.",
   "last_commit_created": "fe09ccc82259e934e5a36232747d5159b362f310",
   "last_remote_confirmed_sha": "fe09ccc82259e934e5a36232747d5159b362f310",
   "last_remote_verified_at_utc": "2026-10-30T02:09:09.703213+00:00",
@@ -134,7 +134,7 @@
     "docs/2p5d/evidence/20261029-s-d3b-fore-reach/VISUAL_REVIEW.md",
     "docs/2p5d/evidence/20261029-s-d3b-fore-reach/actions-summary.json"
   ],
-  "next_action": "Completed D3-B: do not repeat repair/tests/captures. On next authorized animation unit, first git fetch origin feat/2p5d-flow-persistence-20261025; compare FETCH_HEAD (origin fetch config currently tracks main only), read HANDOFF_STATE.json and docs/2p5d/evidence/20261029-s-d3b-fore-reach/VISUAL_REVIEW.md. Review saved SIDE and REAR_3_4 cycle clips and scope authored shoulder/elbow/chest motion in separate animation lane, preserving D2-D and contacts. No main merge or production promotion.",
+  "next_action": "D3-B is complete; do not repeat its corrections or evidence capture. Next execute docs/2p5d/CODEX_D3C_AUTHORED_MOTION_TASK.md with Codex: first inspect original review-GLB rig/bone hierarchy and shoulder/elbow authority, then implement actual authored S gait in isolated opt-in v6 only if rig is capable; otherwise route to separate Blender animation authoring lane. Preserve D2-D, production assets, source S silhouette and Draft PR #132.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
   "checkpoint_note": "Latest verified remote before this documentation commit:fe09ccc. Repeated recovery request reconciled with already-completed source/evidence; stale FAILED task wording now preceded by dated completion checkpoint. No source/test/asset modifications. Final documentation commit will be pushed and remote SHA verified; its parent is intentionally recorded here to avoid a self-referential hash. PR132 remains open Draft/unmerged."
 }
