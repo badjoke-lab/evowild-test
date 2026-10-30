@@ -18,6 +18,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          python3 -V
           python3 scripts/author_s_d3c_scapula.py
           test -s public/models/evowild-s/review/d3c-scapula-author-v1.glb
           python3 scripts/audit_s_d3c_rig.py public/models/evowild-s/review/d3c-scapula-author-v1.glb
