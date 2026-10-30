@@ -131,6 +131,10 @@ for side in ("L","R"):
  assert len(proximal)>50,("no upper proximal points",side,len(proximal))
  total=sum(w for _,w in proximal)
  center=[sum(v[k]*w for v,w in proximal)/total for k in range(3)]
+ chest_candidates=[(math.dist(v,center),i,sum(new_w[i][k] for k,j in enumerate(new_j[i]) if j==chestidx)) for i,v in enumerate(positions)]
+ chest_candidates=[x for x in chest_candidates if x[2]>.015]
+ chest_candidates.sort()
+ print("D3C_CHEST_PROXIMITY",side,{"center":center,"nearest":chest_candidates[:5],"counts":{r:sum(1 for d,_,_ in chest_candidates if d<r) for r in [.25,.35,.45,.60,.80]}},flush=True)
  radius=.25
  count=0
  transferred=0.
