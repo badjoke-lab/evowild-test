@@ -1,0 +1,35 @@
+name: S D3-C rig feasibility audit
+on:
+  push:
+    branches: ["feat/2p5d-flow-persistence-20261025"]
+    paths: [".github/workflows/s-d3c-rig-feasibility.yml"]
+permissions:
+  contents: write
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect actual unmodified S review GLB
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/audit_s_d3c_rig.py public/models/evowild-s/review/focus-contact-v3.glb
+          test -s docs/2p5d/evidence/20261030-s-d3c-rig-feasibility/rig-inventory.json
+          git diff --exit-code -- public/models/evowild-s/
+      - name: Save audit on Draft PR branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/2p5d/evidence/20261030-s-d3c-rig-feasibility/rig-inventory.json
+          git diff --cached --check
+          git commit -m 'docs(s): record verified D3-C original rig anatomy [skip ci]'
+          git push origin HEAD:feat/2p5d-flow-persistence-20261025
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s-d3c-actual-rig-anatomy
+          path: docs/2p5d/evidence/20261030-s-d3c-rig-feasibility/
