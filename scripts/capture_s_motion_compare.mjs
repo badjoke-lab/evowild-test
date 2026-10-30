@@ -3,7 +3,7 @@ const out=process.env.S_COMPARE_OUT||'docs/2p5d/evidence/20261028-s-continuous-d
 const page=await browser.newPage({viewport:{width:960,height:640}});page.on('pageerror',e=>errors.push(e.message));
 for(const [label,query] of variants){
  await page.goto('http://127.0.0.1:4173/evowild-test/s-run-review.html?rig=contact-v3'+query);await page.waitForFunction(()=>window.sRunReview);await page.evaluate(()=>{window.requestAnimationFrame=()=>0;});
- for(const view of ['SIDE','CHASE','LOW','REAR_3_4']){
+ for(const view of ['SIDE','FRONT','CHASE','LOW','REAR_3_4']){
   await page.evaluate(view=>{window.sRunReview.setRate(1);window.sRunReview.setPhase(.64,view);},view);
   const dir=`${out}/frames/${label}-${view}`;fs.mkdirSync(dir,{recursive:true});
   for(let i=0;i<24;i++){
