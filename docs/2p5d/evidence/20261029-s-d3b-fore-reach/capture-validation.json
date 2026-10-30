@@ -1,0 +1,73 @@
+{
+  "checked_at_utc": "2026-10-30T01:26:43.730867+00:00",
+  "movies": [
+    {
+      "file": "after-CHASE.mp4",
+      "codec_name": "h264",
+      "width": 960,
+      "height": 640,
+      "r_frame_rate": "288/5",
+      "nb_frames": "24"
+    },
+    {
+      "file": "after-LOW.mp4",
+      "codec_name": "h264",
+      "width": 960,
+      "height": 640,
+      "r_frame_rate": "288/5",
+      "nb_frames": "24"
+    },
+    {
+      "file": "after-REAR_3_4.mp4",
+      "codec_name": "h264",
+      "width": 960,
+      "height": 640,
+      "r_frame_rate": "288/5",
+      "nb_frames": "24"
+    },
+    {
+      "file": "after-SIDE.mp4",
+      "codec_name": "h264",
+      "width": 960,
+      "height": 640,
+      "r_frame_rate": "288/5",
+      "nb_frames": "24"
+    },
+    {
+      "file": "before-CHASE.mp4",
+      "codec_name": "h264",
+      "width": 960,
+      "height": 640,
+      "r_frame_rate": "288/5",
+      "nb_frames": "24"
+    },
+    {
+      "file": "before-LOW.mp4",
+      "codec_name": "h264",
+      "width": 960,
+      "height": 640,
+      "r_frame_rate": "288/5",
+      "nb_frames": "24"
+    },
+    {
+      "file": "before-REAR_3_4.mp4",
+      "codec_name": "h264",
+      "width": 960,
+      "height": 640,
+      "r_frame_rate": "288/5",
+      "nb_frames": "24"
+    },
+    {
+      "file": "before-SIDE.mp4",
+      "codec_name": "h264",
+      "width": 960,
+      "height": 640,
+      "r_frame_rate": "288/5",
+      "nb_frames": "24"
+    }
+  ],
+  "continuous_frames": 192,
+  "phase_stills": 60,
+  "cycle_page_errors": [],
+  "phase_page_errors": []
+}

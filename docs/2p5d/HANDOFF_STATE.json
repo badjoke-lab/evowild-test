@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
   "purpose": "Codex child-branch checkpoint, not the main repo project status",
-  "status": "D3B_REGRESSION_PASSED_VIDEO_REVIEW_PENDING",
+  "status": "D3B_RECOVERY_COMPLETE_VISUAL_REVISE",
   "base_repository": "badjoke-lab/evowild-test",
   "parent_branch": "feat/2p5d-autonomous-agent-orbs-20261024",
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-29T13:46:50.840740+00:00",
+  "checkpoint_updated_at_utc": "2026-10-30T01:26:43.730867+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "D3-B source and36 unique local regressions complete; actual video comparison next",
-  "last_commit_created": "6f5ac0164897a86c5639c46cbfac468bf7c4184a",
-  "last_remote_confirmed_sha": "6f5ac0164897a86c5639c46cbfac468bf7c4184a",
-  "last_remote_verified_at_utc": "2026-10-29T13:46:50.840740+00:00",
+  "current_unit": "D3-B repaired, measured and four-view comparison completed; final evidence publication",
+  "last_commit_created": "779901b8bcd52b4896cebb59b96c846ccb540116",
+  "last_remote_confirmed_sha": "779901b8bcd52b4896cebb59b96c846ccb540116",
+  "last_remote_verified_at_utc": "2026-10-30T01:26:43.730867+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -58,19 +58,20 @@
     "D3-B Actions 40872992098 FAILED: two desktop/android test failures on tests/s-d3-fore-reach.spec.js (0.073528995m/s maxMeshVelocityResidual > .02 limit). 8 other cases passed, fore reach ~0.06037m at 1x, chest diff 3.57265deg phase .75 1.5x. Subsequent video capture skipped. Recovery instructions docs/2p5d/CODEX_D3B_RECOVERY_TASK.md committed, requires Codex execution and evidence; current assistant cannot directly start Codex Cloud task in this chat.",
     "D3B recovery diagnosis: fast-forwarded ca1c41d, canonical PNG acquired read-only/hash exact, PR132Draft confirmed. Local guard reproduces.073528995.14 baseline/failed seven-profile realmesh/body traces plus epsilon probes identify direct amplitude-rate derivative jump: foreL/R.07353/.10011 at t.120833 phase.405061, body.08331 atphase.75. No IK/contact/float noise root cause.",
     "D3B correction: opt-in continuous-velocity postureRate drives fore reach/chest gains; locomotion state unchanged. Before/after realbody/sole microprobes show velocity corner removed; steady amplitudes intact. BuildPASS;7Android D3B/D2D casesPASS, desktop running.",
-    "D3B full local validation:14 focused D3B/D2D testsPASS +22 existing contact/sole/roll/continuity casesPASS across21+one unchanged-timeout isolatedretest13.2s. Seven fixed traces:allfootmaxvelocity.005987,zero-timejump/freeze0,penetration/reach0,gap.424mm,hindrecovery47.98cm; reach4.72/6.04/7.36cm andchest3.57265deg preserved. D2D probes exactbefore/after. BuildPASS. Four-view visual comparison still pending."
+    "D3B full local validation:14 focused D3B/D2D testsPASS +22 existing contact/sole/roll/continuity casesPASS across21+one unchanged-timeout isolatedretest13.2s. Seven fixed traces:allfootmaxvelocity.005987,zero-timejump/freeze0,penetration/reach0,gap.424mm,hindrecovery47.98cm; reach4.72/6.04/7.36cm andchest3.57265deg preserved. D2D probes exactbefore/after. BuildPASS. Four-view visual comparison still pending.",
+    "D3-B recovery complete: exact failure reproduced and derivative cause isolated; opt-in continuous-velocity posture rate repairs fore reach and chest without reducing steady amplitude. 36 unique local cases pass across documented runs; build PASS. CI40882876409:170 passed/3 known failed/81 skipped, no new S failure. Eight four-view real MP4,192 cycle frames,60 phase/rate stills,PC/Pixel7 pairs captured with zero page errors. Numeric limited KEEP; actual-frame whole-S visual REVISE. D2-D/body source,GLBs,manifest preserved."
   ],
   "pending_units": [
-    "Correct D3-B rate-dependent reach/chest velocity corner without removing reach.",
-    "Run regressions and real four-view/full-cycle+rate/phase comparisons; inspect and publish visual verdict."
+    "Separate future animation-authoring unit: shoulder protraction/retraction and elbow recovery synchronized with chest support; preserve canonical shape and contact constraints. No work in Blender/sculpt lane started.",
+    "Independent human visual acceptance and physical Android performance remain unverified; no production promotion."
   ],
   "test_status": {
     "baseline_reference": "Parent dcd3f56 Actions 40152147602: 63 passed / 4 failed / 81 skipped. Original 3 + Android race-quality:125 pressure test (also before our changes).",
-    "latest_build": "PASS D2-C2; existing chunk-size warning only.",
+    "latest_build": "PASS D3-B local and source CI6f5ac01; existing bundle-size warning only.",
     "latest_desktop_e2e": "PASS all 27 desktop cases in final-targeted.log, including real full journey, reloaded results, Agent roundtrip/validator, reset/abort, lane execution outcomes and screenshot capture",
     "latest_android_e2e": "PASS all 27 Pixel 7 Chromium emulation cases in final-targeted.log; physical Android not tested",
     "agent_outcome": "PASS 10/10 incl. controlled-clock actual lane arrival on desktop/Android; build PASS",
-    "latest_github_actions": "Sourcee207f81 run40615717824:152passed/3knownfailed/81skipped,buildPASS. No S failure. Historical Android pressure recurrence absent.",
+    "latest_github_actions": "Source6f5ac01 run40882876409:170 passed/3 known failed/81 skipped; build/page check PASS. Known PUSH comparison both projects and desktop AGILITY. No S-specific new failure.",
     "latest_targeted": "54 passed (2.9m); existing completed log recovered and pushed, not rerun on resume",
     "history_layout": "PASS 2/2 desktop and Pixel 7 emulation, also 320px; red-before/green-after regression. No repeat of 54 tests or full race.",
     "lane_provenance": "PASS 26/26 focused tests (1.3m): 14 provenance + 10 existing outcome + 2 history layout. Desktop/Pixel 7; includes real normal-race engine adjustment, actual lane comparison and persistent snapshots. No manual full-race/54-suite rerun.",
@@ -91,7 +92,7 @@
     "s_body_return_d2c": "PASS30 unique requested cases across PC/Pixel7:29full-run+one old D2A Android load-timeout retest15.7s under unchanged30s. New10cases allPASS. BuildPASS; CI152/3known/81skip. Solemaxresidual.005987,gap.423754mm,actual body+sole return-boundarymax.002788,dt0jump0,penetration/reach0,hindrecovery47.98cm. Whole-cycle nativekey.64 stillREVISE.",
     "s_native_join_d2d": "Actions 40812067338 SUCCESS: four focused Playwright tests passed (desktop and Pixel7 emulation), real unretouched WebGL four-view clips and dense .632-.648 frames committed; local Mac prior broader set 34 passed. Phase .64 residual .240761→.00225749m/s, center displacement .15054mm; geometry/GLB unchanged.",
     "s_d3_push_v4": "Actions 40870899739 SUCCESS: 8 focused desktop/Pixel7-emulated Playwright passed; 4-view real WebGL before push-v3 vs after push-v4 captured and archived. Full-cycle run at rates .5/1/1.5: pelvis angular range 2.565/3.956/5.894 deg; support anchor counts unchanged 0:42,1:34,2:21 per 97 samples; max IK reach error 0. No true device timing or overall visual acceptance.",
-    "s_d3b_fore_reach": "PASS14 focused +22 relevant existing unique PC/Pixel7 cases (21existing pass+one13.2s isolated load-timeout retest); buildPASS. Original failure reproduced.073528995; broaderfailedmax.109690→fixed.005987. Actualbodycorner.083252→.0000643; steadyreach/chest intact. CI40882876409 running; visual capture next."
+    "s_d3b_fore_reach": "PASS14 focused +22 relevant existing unique PC/Pixel7 cases (21 existing pass + one unchanged 30s-timeout isolated rerun PASS13.2s); buildPASS. Original .073528995 failure reproduced; broader failed max .109690 -> fixed .005987m/s. Body corner .083252 -> .0000643. Steady reach/chest intact. CI170/3known/81skip. Eight real videos +192 frames +60 phase stills +PC/Pixel7 pairs; visual REVISE."
   },
   "original_mocks": {
     "expected_count": 11,
@@ -100,8 +101,8 @@
     "verifier": "scripts/verify_2p5d_mockups.py"
   },
   "blocker": [
-    "S actual run still visually REVISE; video files now published but no independent visual approval/physical Android timing.",
-    "Current numeric continuity fix is scoped and does not solve the stiff sprint body and narrow propulsion seen in earlier review."
+    "Overall S visual REVISE: shoulder/chest/back articulation and whole-body compression remain too stiff for rear-quarter sprint. No production acceptance.",
+    "Physical Android performance and independent human visual acceptance remain unverified."
   ],
   "last_checkpoint_evidence": [
     "docs/2p5d/evidence/20261025-flow/final-targeted.log",
@@ -127,9 +128,12 @@
     "docs/2p5d/evidence/20261028-s-body-d2b/README.md",
     "docs/2p5d/evidence/20261028-s-return-d2c1/README.md",
     "docs/2p5d/evidence/20261028-s-return-d2c2/README.md",
-    "docs/2p5d/evidence/20261029-s-d3b-fore-reach/DIAGNOSIS.md"
+    "docs/2p5d/evidence/20261029-s-d3b-fore-reach/DIAGNOSIS.md",
+    "docs/2p5d/evidence/20261029-s-d3b-fore-reach/README.md",
+    "docs/2p5d/evidence/20261029-s-d3b-fore-reach/VISUAL_REVIEW.md",
+    "docs/2p5d/evidence/20261029-s-d3b-fore-reach/actions-summary.json"
   ],
-  "next_action": "Run CHROMIUM_PATH=/usr/bin/chromium S_COMPARE_OUT=docs/2p5d/evidence/20261029-s-d3b-fore-reach S_COMPARE_BEFORE=\"&toe=roll-v3&body=push-v3\" S_COMPARE_AFTER=\"&toe=roll-v3&body=push-v5\" node scripts/capture_s_motion_compare.mjs; then capture_s_d3b_fore_reach.mjs. Review all four views and canonical PNG, finish README/visual verdict, inspect source CI40882876409, push evidence and verify remote.",
+  "next_action": "Completed D3-B: do not repeat repair/tests/captures. On next authorized animation unit, first git fetch origin feat/2p5d-flow-persistence-20261025; compare FETCH_HEAD (origin fetch config currently tracks main only), read HANDOFF_STATE.json and docs/2p5d/evidence/20261029-s-d3b-fore-reach/VISUAL_REVIEW.md. Review saved SIDE and REAR_3_4 cycle clips and scope authored shoulder/elbow/chest motion in separate animation lane, preserving D2-D and contacts. No main merge or production promotion.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "C1 diagnosis4013beb separately pushed before C2 runtimee207f81. Final evidence4892dac pushed and remote SHA verified; GitHub fetch_file confirms README and fetched remote tree confirms PC/Pixel7 screenshots/videos/metrics. Runtime CI40615717824:152pass/3knownfail/81skip. All task work saved; local untracked artifacts/work/modelOBJ are scratch only. This final handoff commit records the previously verified evidence SHA; its own SHA is verified after push. No main merge."
+  "checkpoint_note": "Resumed after interruption, fetched child explicitly and verified FETCH_HEAD779901b via PR132 head; origin/child tracking ref was stale because fetch config tracks main only. Final source6f5ac01 was already pushed and CI finished. This evidence checkpoint records previously verified779901b; its own SHA will be verified after push. All remaining task evidence is included; only unrelated scratch artifacts/work/test-results/modelOBJ remain local."
 }

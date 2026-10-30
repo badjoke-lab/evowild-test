@@ -1,0 +1,38 @@
+{
+  "run_id": 40882876409,
+  "url": "https://github.com/badjoke-lab/evowild-test/actions/runs/40882876409",
+  "source_sha": "6f5ac0164897a86c5639c46cbfac468bf7c4184a",
+  "status": "completed",
+  "conclusion": "failure",
+  "build": "PASS",
+  "production_page_check": "PASS",
+  "passed": 170,
+  "failed": 3,
+  "skipped": 81,
+  "s_specific_failures": 0,
+  "known_failures": [
+    {
+      "project": "android-chromium",
+      "test": "race-quality.spec.js:47",
+      "assertion": "PUSH response E < S",
+      "expected": "< .613",
+      "received": 0.736
+    },
+    {
+      "project": "desktop-chromium",
+      "test": "race-quality.spec.js:47",
+      "assertion": "PUSH response E < S",
+      "expected": "< .613",
+      "received": 0.739
+    },
+    {
+      "project": "desktop-chromium",
+      "test": "motion-first.spec.js:3146",
+      "assertion": "AGILITY holdRemaining > .5",
+      "expected": "> .5",
+      "received": 0
+    }
+  ],
+  "note": "No full-CI-green claim. Evidence-only checkpoints skip CI; tested source unchanged. Local browser videos separately saved because full-suite downstream capture steps skip on known failures.",
+  "checked_at_utc": "2026-10-30T01:26:43.730867+00:00"
+}
