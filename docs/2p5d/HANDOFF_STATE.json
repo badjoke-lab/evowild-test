@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "purpose": "Codex child-branch checkpoint, not the main repo project status",
-  "status": "D3C_ACTUAL_RIG_AUDIT_NO_SCAPULA_SEPARATE_AUTHORING_REQUIRED",
+  "status": "D3C_SCAPULA_V1_RIGGED_WEBGL_VERIFIED_VISUAL_REVISE",
   "base_repository": "badjoke-lab/evowild-test",
   "parent_branch": "feat/2p5d-autonomous-agent-orbs-20261024",
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
@@ -10,7 +10,7 @@
   "checkpoint_updated_at_utc": "2026-10-30T02:09:09.703213+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "D3-C actual original GLB skeleton/skin/clip inspected, missing independent scapula bone; new authored rig not built. D3-B scoped numerical KEEP, full visual REVISE.",
+  "current_unit": "D3-C isolated experimental shoulder-authoring v1 created actual 23-joint GLB and 60-channel native gait clip on exp/d3c-scapula-authoring; neutral and contact guards pass, but visual motion still REVISE. No integration into parent Draft PR #132.",
   "last_commit_created": "fe09ccc82259e934e5a36232747d5159b362f310",
   "last_remote_confirmed_sha": "fe09ccc82259e934e5a36232747d5159b362f310",
   "last_remote_verified_at_utc": "2026-10-30T02:09:09.703213+00:00",
@@ -61,12 +61,13 @@
     "D3B full local validation:14 focused D3B/D2D testsPASS +22 existing contact/sole/roll/continuity casesPASS across21+one unchanged-timeout isolatedretest13.2s. Seven fixed traces:allfootmaxvelocity.005987,zero-timejump/freeze0,penetration/reach0,gap.424mm,hindrecovery47.98cm; reach4.72/6.04/7.36cm andchest3.57265deg preserved. D2D probes exactbefore/after. BuildPASS. Four-view visual comparison still pending.",
     "D3-B recovery complete: exact failure reproduced and derivative cause isolated; opt-in continuous-velocity posture rate repairs fore reach and chest without reducing steady amplitude. 36 unique local cases pass across documented runs; build PASS. CI40882876409:170 passed/3 known failed/81 skipped, no new S failure. Eight four-view real MP4,192 cycle frames,60 phase/rate stills,PC/Pixel7 pairs captured with zero page errors. Numeric limited KEEP; actual-frame whole-S visual REVISE. D2-D/body source,GLBs,manifest preserved.",
     "2026-10-30 resume audit: explicit child fetch and PR132 head both fe09ccc; eight movies/192 frames/60 rate-phase stills plus PC/Pixel7 pairs present in remote tree. Runtime/tests/scripts unchanged since tested6f5ac01; D2-D body source and all models unchanged sinceca1c41d. Source CI confirmed completed with known3 failures only. Added completion checkpoint to recovery task without removing historical failure/requirements. No repeated tests or captures and no new runtime work.",
-    "D3-C rig feasibility actually executed via Actions 41005210114. Original review GLB (SHA256 78dd511c...) has 38,813 vertices, 21 skin joints and NO separate shoulder/scapula/clavicle joint. fore_L_upper and fore_R_upper descend directly from chest and are overwritten each frame by two-bone contact IK, so shoulder protraction cannot be independently authored using current bones alone. Evidence docs/2p5d/evidence/20261030-s-d3c-rig-feasibility/rig-inventory.json and ANATOMY_VERDICT.md. No cosmetic push-v6, no new rig/clip built, visual REVISE."
+    "D3-C rig feasibility actually executed via Actions 41005210114. Original review GLB (SHA256 78dd511c...) has 38,813 vertices, 21 skin joints and NO separate shoulder/scapula/clavicle joint. fore_L_upper and fore_R_upper descend directly from chest and are overwritten each frame by two-bone contact IK, so shoulder protraction cannot be independently authored using current bones alone. Evidence docs/2p5d/evidence/20261030-s-d3c-rig-feasibility/rig-inventory.json and ANATOMY_VERDICT.md. No cosmetic push-v6, no new rig/clip built, visual REVISE.",
+    "D3-C v1 actually authored in separate exp/d3c-scapula-authoring branch. Model public/models/evowild-s/review/d3c-scapula-author-v1.glb (SHA256 963b52b0...), two independent scapula bones and 2 added rotation tracks, 1593 L / 1036 R nearby chest-weighted vertices. Original-vs-neutral sampled vertex max drift 1.125e-8m; authored skin movement up to .02669m. Actions 41075353979 SUCCESS (4 Playwright cases, actual before/after five-view WebGL clips) and 41076224940 SUCCESS (2 contact regression cases, worst velocity .005987m/s, gap .423752mm, reach/penetration 0). Saved actual comparison and visual REVISE in docs/2p5d/evidence/20261030-s-d3c-scapula-v1/. Parent Draft PR and original GLB/manifest/main untouched."
   ],
   "pending_units": [
-    "D3-C separate scapula rig and authored shoulder/elbow/chest motion NOT started. Need independently compatible rigged source and Blender execution to do it.",
-    "Match S canonical reference, retain original vertex/rest geometry where possible, capture actual full-cycle motion and measure contact.",
-    "Keep PR#132 Draft, main/GLB/manifest production untouched; no use of cosmetic push-v6 in existing review rig."
+    "D3-C v2 authored scapula + upper-arm + elbow + chest coordinated visible gallop, using separate experimental GLB and current v1 as rollback; visual REVISE until actual marked improvement.",
+    "Old R9 sculpt remains separately unapproved; canonical likeness validation required before any runtime S promotion.",
+    "No main, production GLB/manifest, other species or 18-racer integration."
   ],
   "test_status": {
     "baseline_reference": "Parent dcd3f56 Actions 40152147602: 63 passed / 4 failed / 81 skipped. Original 3 + Android race-quality:125 pressure test (also before our changes).",
@@ -96,7 +97,8 @@
     "s_native_join_d2d": "Actions 40812067338 SUCCESS: four focused Playwright tests passed (desktop and Pixel7 emulation), real unretouched WebGL four-view clips and dense .632-.648 frames committed; local Mac prior broader set 34 passed. Phase .64 residual .240761→.00225749m/s, center displacement .15054mm; geometry/GLB unchanged.",
     "s_d3_push_v4": "Actions 40870899739 SUCCESS: 8 focused desktop/Pixel7-emulated Playwright passed; 4-view real WebGL before push-v3 vs after push-v4 captured and archived. Full-cycle run at rates .5/1/1.5: pelvis angular range 2.565/3.956/5.894 deg; support anchor counts unchanged 0:42,1:34,2:21 per 97 samples; max IK reach error 0. No true device timing or overall visual acceptance.",
     "s_d3b_fore_reach": "PASS14 focused +22 relevant existing unique PC/Pixel7 cases (21 existing pass + one unchanged 30s-timeout isolated rerun PASS13.2s); buildPASS. Original .073528995 failure reproduced; broader failed max .109690 -> fixed .005987m/s. Body corner .083252 -> .0000643. Steady reach/chest intact. CI170/3known/81skip. Eight real videos +192 frames +60 phase stills +PC/Pixel7 pairs; visual REVISE.",
-    "s_d3c_rig_audit": "Actions 41005210114 SUCCESS; actual focus-contact-v3.glb 38,813 vertices, 21 skinned bones, no independent shoulder/scapula/clavicle, fore upper direct child chest. Diagnostic only; no gait fix."
+    "s_d3c_rig_audit": "Actions 41005210114 SUCCESS; actual focus-contact-v3.glb 38,813 vertices, 21 skinned bones, no independent shoulder/scapula/clavicle, fore upper direct child chest. Diagnostic only; no gait fix.",
+    "s_d3c_scapula_v1": "Actions 41075353979 SUCCESS (4 cases desktop/Pixel7 emulation, original-vs-neutral 1.125e-8m, active max vertex delta .026689m, five views ten real MP4). Actions 41076224940 SUCCESS (2 focused cases, 6 speed profiles each, max sole residual .005987m/s, support clearance .423752mm, slip < .0009mm, zero jumps/penetration/reach errors). Subjective visual REVISE."
   },
   "original_mocks": {
     "expected_count": 11,
@@ -137,7 +139,7 @@
     "docs/2p5d/evidence/20261029-s-d3b-fore-reach/VISUAL_REVIEW.md",
     "docs/2p5d/evidence/20261029-s-d3b-fore-reach/actions-summary.json"
   ],
-  "next_action": "Do NOT repeat D3-B or the D3-C rig inspection. Read docs/2p5d/evidence/20261030-s-d3c-rig-feasibility/ANATOMY_VERDICT.md and rig-inventory.json. Execute a separate Blender/rigging animation-authoring task to add left/right scapular pivots and local weights, preserve unchanged bind/rest and native zero-scapula reference, then animate shoulder-elbow-chest gallop; create real 5-direction renders and continuous gait videos before any 2.5D integration. Determine correct editable rigged source first; separate R9 unapproved sculpt is NOT automatically compatible.",
+  "next_action": "Read docs/2p5d/evidence/20261030-s-d3c-scapula-v1/VISUAL_REVIEW.md and author-report.json on exp/d3c-scapula-authoring; D3-C v1 already built and captured. Next isolated v2 should coordinate true scapular protraction/retraction, elbow folding/recovery, chest load and existing fore-contact IK; show real five-view A/B clips and keep sole guard constraints. Do not redo D3-B, reapply micro-corner fixes, or incorporate unapproved R9 sculpt.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
   "checkpoint_note": "Latest verified remote before this documentation commit:fe09ccc. Repeated recovery request reconciled with already-completed source/evidence; stale FAILED task wording now preceded by dated completion checkpoint. No source/test/asset modifications. Final documentation commit will be pushed and remote SHA verified; its parent is intentionally recorded here to avoid a self-referential hash. PR132 remains open Draft/unmerged."
 }
