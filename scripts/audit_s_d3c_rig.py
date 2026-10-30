@@ -11,7 +11,7 @@ assert struct.unpack_from('<I',raw,8)[0]==len(raw)
 size,tag=struct.unpack_from('<II',raw,12)
 assert tag==0x4E4F534A
 doc=json.loads(raw[20:20+size])
-bin_start=28+size
+bin_start=20+size
 bin_size,bin_tag=struct.unpack_from('<II',raw,bin_start)
 assert bin_tag==0x004E4942
 buffer=memoryview(raw)[bin_start+8:bin_start+8+bin_size]
