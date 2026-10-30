@@ -1,0 +1,95 @@
+name: S D3-C isolated authored scapula candidate
+on:
+  push:
+    branches: ["exp/d3c-scapula-authoring"]
+    paths: [".github/workflows/s-d3c-scapula-author.yml"]
+permissions:
+  contents: write
+jobs:
+  author:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build genuinely skinned left/right scapula asset
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/author_s_d3c_scapula.py
+          test -s public/models/evowild-s/review/d3c-scapula-author-v1.glb
+          python3 scripts/audit_s_d3c_rig.py public/models/evowild-s/review/d3c-scapula-author-v1.glb
+          git diff --exit-code -- public/models/evowild-s/review/focus-contact-v3.glb
+      - name: Prepare real WebGL and browser tests
+        shell: bash
+        run: |
+          npm install
+          npx playwright install --with-deps chromium
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          npm run build
+          npm run dev -- --host 127.0.0.1 --port 4173 >/tmp/d3c-scapula-vite.log 2>&1 &
+          for i in {1..40}; do
+            if curl -sf http://127.0.0.1:4173/evowild-test/s-run-review.html > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/d3c-scapula-vite.log
+          exit 1
+      - name: Test original-vs-neutral pose invariance and authored skinned movement
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > d3c_playwright.config.mjs <<'JS'
+          import config from './playwright.config.js';
+          export default {...config,webServer:{...config.webServer,reuseExistingServer:true}};
+          JS
+          npx playwright test tests/s-d3c-scapula.spec.js --config=d3c_playwright.config.mjs --workers=1 --reporter=line | tee docs/2p5d/evidence/20261030-s-d3c-scapula-v1/targeted-test.log
+      - name: Capture true full-cycle five-view WebGL videos
+        shell: bash
+        env:
+          S_COMPARE_OUT: docs/2p5d/evidence/20261030-s-d3c-scapula-v1
+          S_COMPARE_BEFORE: "&toe=roll-v3&body=push-v5"
+          S_COMPARE_AFTER: "&toe=roll-v3&body=push-v5&shoulder=authored-v1"
+        run: |
+          set -euo pipefail
+          node scripts/capture_s_motion_compare.mjs
+      - name: Save experiment and unretouched comparison, no production promotion
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > docs/2p5d/evidence/20261030-s-d3c-scapula-v1/README.md <<'MD'
+          # D3-C actual scapula-authoring experiment — unapproved
+          Original S skinned GLB has 21 joints and no independent scapular controls.
+          This candidate has 23 skinned joints (real left/right scapula), shoulder-adjacent skin weights
+          transferred from chest, and two native-cycle rotation channels. Existing upper-arm
+          translation keys are rebased to preserve the original bind/world locations.
+          - Original reference: \`?rig=contact-v3&toe=roll-v3&body=push-v5\`.
+          - New authored rig: \`?rig=contact-v3&toe=roll-v3&body=push-v5&shoulder=authored-v1\`.
+          - Neutral rig control: \`?rig=contact-v3&toe=roll-v3&body=push-v5&shoulder=neutral-v1\`.
+          - Five real WebGL videos from SIDE, FRONT, CHASE, LOW, REAR_3_4 (original versus authored).
+          - Full-cycle PNGs and desktop/Pixel7 emulated screenshots.
+          - Original model, manifest, unrelated lanes, branch PR#132 and main untouched.
+          - Numerical checks do not imply a visually acceptable gallop. Subjective visual gate remains **REVISE**.
+          MD
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('docs/2p5d/evidence/20261030-s-d3c-scapula-v1/targeted-test.log')
+          p.write_text(p.read_text().rstrip()+'\n')
+          PY
+          git diff --exit-code -- public/models/evowild-s/review/focus-contact-v3.glb
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/models/evowild-s/review/d3c-scapula-author-v1.glb docs/2p5d/evidence/20261030-s-d3c-scapula-v1/
+          git diff --cached --check
+          git commit -m 'art(s): save actual separately rigged D3-C shoulders and five-view WebGL evidence [skip ci]'
+          git push origin HEAD:exp/d3c-scapula-authoring
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s-d3c-scapula-real-webgl
+          path: |
+            docs/2p5d/evidence/20261030-s-d3c-scapula-v1/
+            public/models/evowild-s/review/d3c-scapula-author-v1.glb
+          if-no-files-found: warn
