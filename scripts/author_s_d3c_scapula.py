@@ -144,19 +144,19 @@ for side in ("L","R"):
   if oldchest<.015:continue
   dist=math.dist(v,center)
   if dist>=radius:continue
-  shape=(1-dist/radius)**2
-  take=oldchest*.68*shape
-  if take<.0003:continue
-  old={int(j):float(w) for j,w in zip(new_j[i],new_w[i]) if w>0}
-  old[chestidx]-=take
-  old[info["skinIndex"]]=old.get(info["skinIndex"],0)+take
-  four=sorted(old.items(),key=lambda kv:kv[1],reverse=True)[:4]
-  denom=sum(w for _,w in four)
-  if info["skinIndex"] not in [ji for ji,_ in four]:continue
-  four=[(j,w/denom) for j,w in four]
-  new_j[i]=[j for j,_ in four]+[0]*(4-len(four))
-  new_w[i]=[w for _,w in four]+[0.]*(4-len(four))
-  count+=1;transferred+=take;maxtransfer=max(maxtransfer,take)
+  # A glTF/Three.js skinned vertex has at most 4 influences; adding a
+  # fifth weak scapula influence gets discarded. Transfer the existing
+  # chest *slot* (with its entire old weight) to the new scapula instead.
+  # In neutral the two bones have the same skin transform at every phase,
+  # so the original animated bind/skin deformation is preserved.
+  for k,j in enumerate(new_j[i]):
+   if j==chestidx and new_w[i][k]>.015:
+    take=new_w[i][k]
+    new_j[i][k]=info["skinIndex"]
+    count+=1
+    transferred+=take
+    maxtransfer=max(maxtransfer,take)
+    break
  assert count>20,("shoulder region unexpectedly empty",side,count)
  stats[side]={"proximalUpperCount":len(proximal),"meshCenter":center,
               "influenceRadius":radius,"affectedVertices":count,
@@ -197,7 +197,7 @@ skin["inverseBindMatrices"]=append_floats(list(ibm)+new_mat,"MAT4")
 doc["buffers"][0]["byteLength"]=len(binary)
 doc.setdefault("extras",{})["d3cScapula"]={
  "status":"experimental_visual_REVISE","sourceSha256":SOURCE_SHA,
- "notes":"Separate shoulder pivots and chest-only local weight transfer; no topology/mesh positions altered",
+ "notes":"Separate shoulder pivots and chest-slot local weight transfer; no topology/mesh positions altered",
  "shoulder":shoulder,"weightStats":stats
 }
 encoded=json.dumps(doc,separators=(",",":"),ensure_ascii=False).encode()
