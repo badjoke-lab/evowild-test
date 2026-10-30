@@ -1,0 +1,60 @@
+name: S D3-C actual-skinned contact regression
+on:
+  push:
+    branches: ["exp/d3c-scapula-authoring"]
+    paths: [".github/workflows/s-d3c-scapula-contact.yml"]
+permissions:
+  contents: write
+jobs:
+  contact:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Existing authored source and review build
+        shell: bash
+        run: |
+          test -s public/models/evowild-s/review/d3c-scapula-author-v1.glb
+          npm install
+          npx playwright install --with-deps chromium
+          npm run build
+          npm run dev -- --host 127.0.0.1 --port 4173 > /tmp/d3c-contact.log 2>&1 &
+          for i in {1..40}; do
+            if curl -sf http://127.0.0.1:4173/evowild-test/s-run-review.html >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/d3c-contact.log
+          exit 1
+      - name: Test real original skinned soles across speed controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > d3c_contact.config.mjs <<'JS'
+          import config from './playwright.config.js';
+          export default {...config,webServer:{...config.webServer,reuseExistingServer:true}};
+          JS
+          npx playwright test tests/s-d3c-scapula-contact.spec.js --config=d3c_contact.config.mjs --workers=1 --reporter=line | tee docs/2p5d/evidence/20261030-s-d3c-scapula-v1/contact-test.log
+      - name: Archive focused results only
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('docs/2p5d/evidence/20261030-s-d3c-scapula-v1/contact-test.log')
+          p.write_text(p.read_text().rstrip()+'\n')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/2p5d/evidence/20261030-s-d3c-scapula-v1/contact-test.log
+          git diff --cached --check
+          git commit -m 'test(s): save authored-scapula original mesh sole regression [skip ci]'
+          git push origin HEAD:exp/d3c-scapula-authoring
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s-d3c-scapula-contact-guards
+          path: docs/2p5d/evidence/20261030-s-d3c-scapula-v1/contact-test.log
+          if-no-files-found: warn
