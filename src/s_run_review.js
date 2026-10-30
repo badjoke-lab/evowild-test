@@ -6,8 +6,10 @@ import {createBodyCoupling} from './s_body_coupling.js';
 import {selectSolePatches,sampleSoles} from './s_sole_metrics.js';
 
 const rig=new URLSearchParams(location.search).get('rig');
+// Independent D3-C authoring experiment, never used by race or manifest.
+const shoulderMode=new URLSearchParams(location.search).get('shoulder');
 const assets={'bind-v1':'review/focus-bind-repair-v1.glb','hind-v2':'review/focus-hind-fit-v2.glb','contact-v3':'review/focus-contact-v3.glb'};
-const asset=assets[rig] || 'focus-rigged-v5.glb';
+const asset=rig==='contact-v3'&&['neutral-v1','authored-v1'].includes(shoulderMode)?'review/d3c-scapula-author-v1.glb':(assets[rig] || 'focus-rigged-v5.glb');
 if(assets[rig])document.querySelector('header small').textContent=`S ${rig} · 原本の頂点・面を保持 / REVISE・本番未採用`;
 const canvas=document.querySelector('#view');
 const renderer=new THREE.WebGLRenderer({canvas,antialias:true,preserveDrawingBuffer:true});
@@ -22,7 +24,7 @@ const ground=new THREE.Mesh(new THREE.PlaneGeometry(160,160),new THREE.MeshStand
 const grid=new THREE.GridHelper(160,160,0x344b5a,0xa3aa9c);grid.position.y=.002;scene.add(grid);
 const camera=new THREE.PerspectiveCamera(42,1,.05,240);
 const root=new THREE.Group();scene.add(root);
-const views={SIDE:[10,2.8,0],CHASE:[1.8,3.0,-8],LOW:[2.2,.9,-7.5],REAR_3_4:[5,2.6,-7]};
+const views={SIDE:[10,2.8,0],FRONT:[0,2.8,8],CHASE:[1.8,3.0,-8],LOW:[2.2,.9,-7.5],REAR_3_4:[5,2.6,-7]};
 let model,mixer,clip,mesh,bodyCoupling,rate=1,time=0,paused=false,last=0;
 const speedMeters=4; // Isolated diagnostic translation, not a race balance value.
 const feet=[];let solePatches,contactIK,contactState,footSurfaces;
@@ -45,7 +47,7 @@ function bodySample(){
  return mesh.skeleton.bones.filter(b=>!b.name.startsWith('fore_')&&!b.name.startsWith('hind_')).map(b=>({name:b.name,position:b.getWorldPosition(new THREE.Vector3()).toArray(),quaternion:b.getWorldQuaternion(new THREE.Quaternion()).toArray(),localQuaternion:b.quaternion.toArray()}));
 }
 function render(){updateCamera();const state=sample();renderer.render(scene,camera);document.querySelector('#status').textContent=`${state.camera} · ${contactIK?'Contact IK v3 + native body':state.clip} · 位相 ${state.phase.toFixed(2)} · ${rate}×`;canvas.dataset.ready='1';canvas.dataset.time=String(time);return state;}
-function pose(){mixer.setTime(time);bodyCoupling?.apply(time,contactIK?.state?.poseRate??contactIK?.state?.rate??rate);root.updateMatrixWorld(true);if(contactIK)contactState=contactIK.apply();}
+function pose(){mixer.setTime(time);if(shoulderMode==='neutral-v1')for(const name of ['fore_L_scapula','fore_R_scapula'])mesh.skeleton.bones.find(b=>b.name===name)?.quaternion.identity();bodyCoupling?.apply(time,contactIK?.state?.poseRate??contactIK?.state?.rate??rate);root.updateMatrixWorld(true);if(contactIK)contactState=contactIK.apply();}
 function step(dt){
   if(contactIK){const state=contactIK.advance(dt,rate);time=state.cycles*clip.duration;root.position.z=state.distance;}
   else {time+=dt*rate;root.position.z+=dt*rate*speedMeters;}
