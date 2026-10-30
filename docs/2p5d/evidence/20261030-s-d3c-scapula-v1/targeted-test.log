@@ -1,0 +1,56 @@
+
+Running 4 tests using 1 worker
+
+[1/4] [android-chromium] › tests/s-d3c-scapula.spec.js:19:1 › D3-C real scapula bone skinning preserves original animation when zeroed
+[android-chromium] › tests/s-d3c-scapula.spec.js:19:1 › D3-C real scapula bone skinning preserves original animation when zeroed
+D3C_NEUTRAL {"phase":0,"drift":1.1249068889356287e-8}
+
+D3C_NEUTRAL {"phase":0.2,"drift":1.124906880433292e-8}
+
+D3C_NEUTRAL {"phase":0.32,"drift":1.124906896610387e-8}
+
+D3C_NEUTRAL {"phase":0.64,"drift":1.1249068974298326e-8}
+
+D3C_NEUTRAL {"phase":0.75,"drift":1.1249069115025242e-8}
+
+D3C_NEUTRAL {"phase":0.9,"drift":1.1249068710862312e-8}
+
+[2/4] [android-chromium] › tests/s-d3c-scapula.spec.js:36:1 › D3-C animated scapulas move actual skin, not only controller or foot targets
+[android-chromium] › tests/s-d3c-scapula.spec.js:36:1 › D3-C animated scapulas move actual skin, not only controller or foot targets
+D3C_ACTUAL_SKIN_DELTA {"phase":0.2,"displacement":0.026689414794393625}
+
+D3C_ACTUAL_SKIN_DELTA {"phase":0.32,"displacement":0.01946229435101382}
+
+D3C_ACTUAL_SKIN_DELTA {"phase":0.64,"displacement":0.02481367001370798}
+
+D3C_ACTUAL_SKIN_DELTA {"phase":0.75,"displacement":0.025394051263994348}
+
+D3C_ACTUAL_SKIN_DELTA {"phase":0.9,"displacement":0.012314879234701148}
+
+[3/4] [desktop-chromium] › tests/s-d3c-scapula.spec.js:19:1 › D3-C real scapula bone skinning preserves original animation when zeroed
+[desktop-chromium] › tests/s-d3c-scapula.spec.js:19:1 › D3-C real scapula bone skinning preserves original animation when zeroed
+D3C_NEUTRAL {"phase":0,"drift":1.1249068889356287e-8}
+
+D3C_NEUTRAL {"phase":0.2,"drift":1.124906880433292e-8}
+
+D3C_NEUTRAL {"phase":0.32,"drift":1.124906896610387e-8}
+
+D3C_NEUTRAL {"phase":0.64,"drift":1.1249068974298326e-8}
+
+D3C_NEUTRAL {"phase":0.75,"drift":1.1249069115025242e-8}
+
+D3C_NEUTRAL {"phase":0.9,"drift":1.1249068710862312e-8}
+
+[4/4] [desktop-chromium] › tests/s-d3c-scapula.spec.js:36:1 › D3-C animated scapulas move actual skin, not only controller or foot targets
+[desktop-chromium] › tests/s-d3c-scapula.spec.js:36:1 › D3-C animated scapulas move actual skin, not only controller or foot targets
+D3C_ACTUAL_SKIN_DELTA {"phase":0.2,"displacement":0.026689414794393625}
+
+D3C_ACTUAL_SKIN_DELTA {"phase":0.32,"displacement":0.01946229435101382}
+
+D3C_ACTUAL_SKIN_DELTA {"phase":0.64,"displacement":0.02481367001370798}
+
+D3C_ACTUAL_SKIN_DELTA {"phase":0.75,"displacement":0.025394051263994348}
+
+D3C_ACTUAL_SKIN_DELTA {"phase":0.9,"displacement":0.012314879234701148}
+
+  4 passed (1.3m)

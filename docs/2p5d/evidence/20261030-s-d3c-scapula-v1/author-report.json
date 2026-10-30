@@ -1,0 +1,71 @@
+{
+  "source": "public/models/evowild-s/review/focus-contact-v3.glb",
+  "sourceSha256": "78dd511cd82aa8afef04a7d61f21b68d4391a9a3143acbaa4b6473b9f8a42a6f",
+  "candidate": "public/models/evowild-s/review/d3c-scapula-author-v1.glb",
+  "candidateSha256": "963b52b0f82e58edb02423615415502f50e6245fa4f50a1606d192f0bae64a2d",
+  "status": "REVISE_REVIEW_ONLY",
+  "originalVertices": 38813,
+  "originalSkinnedJoints": 21,
+  "newSkinnedJoints": 23,
+  "animationChannels": 60,
+  "nativeUpperTranslationAdjusted": [
+    "fore_L_upper",
+    "fore_R_upper"
+  ],
+  "scapula": {
+    "L": {
+      "jointId": 23,
+      "skinIndex": 21,
+      "parent": "chest",
+      "child": "fore_L_upper",
+      "pivotLocalChest": [
+        0.11845682561397552,
+        0.06294570863246918,
+        -0.3239578604698181
+      ],
+      "phase": 0.64
+    },
+    "R": {
+      "jointId": 24,
+      "skinIndex": 22,
+      "parent": "chest",
+      "child": "fore_R_upper",
+      "pivotLocalChest": [
+        -0.11845682561397552,
+        0.06294570863246918,
+        -0.3239578604698181
+      ],
+      "phase": 0.72
+    }
+  },
+  "weights": {
+    "L": {
+      "proximalUpperCount": 1443,
+      "meshCenter": [
+        -0.13387618184563202,
+        -0.062084404971606,
+        0.31979692981777363
+      ],
+      "influenceRadius": 0.25,
+      "affectedVertices": 1593,
+      "transferredChestWeight": 174.9400254683569,
+      "maxIndividualTransfer": 0.46973904967308044
+    },
+    "R": {
+      "proximalUpperCount": 1476,
+      "meshCenter": [
+        0.09549741294796606,
+        -0.06251277647217948,
+        0.31880063240423767
+      ],
+      "influenceRadius": 0.25,
+      "affectedVertices": 1036,
+      "transferredChestWeight": 141.38504984416068,
+      "maxIndividualTransfer": 0.4684143364429474
+    }
+  },
+  "originalPositionAccessorUnchanged": true,
+  "originalIndicesAccessorUnchanged": true,
+  "originalGLBUnchanged": true,
+  "requiresActualVisualAndContactTests": true
+}
