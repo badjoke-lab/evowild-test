@@ -1,5 +1,16 @@
 # EvoWild Run S — Codex D3-B recovery task (2026-10-29)
 
+## Completion checkpoint — 2026-10-30 JST
+
+**The recovery below is complete. Overall visual quality remains REVISE.** The original failure description is retained as historical context, not the current source status. On resume, compare remote with `HANDOFF_STATE.json` before repeating any work.
+
+- Diagnosis: `5d11ead`; runtime correction: `6f5ac01`; regression evidence: `779901b`; four-view comparison: `2844677`; remote verification: `fe09ccc`.
+- [Final report and all four before/after video pairs](evidence/20261029-s-d3b-fore-reach/README.md), [root cause](evidence/20261029-s-d3b-fore-reach/DIAGNOSIS.md), [visual REVISE review](evidence/20261029-s-d3b-fore-reach/VISUAL_REVIEW.md).
+- 36 unique local cases passed across the documented runs (one load-timeout isolated retest); build passed. Source Actions [40882876409](https://github.com/badjoke-lab/evowild-test/actions/runs/40882876409): 170 passed, 3 known unrelated failures, 81 skipped; no new S failure. No thresholds relaxed.
+- Maximum all-foot velocity residual .109690 → .005987m/s, steady fore reach/chest amplitude retained. D2-D/body source, original GLBs and manifests unchanged.
+- Eight real videos, 192 continuous frames, 60 rate/phase stills and PC/Pixel 7 emulation pairs are published and verified in the remote tree.
+- Remaining visual work is coordinated shoulder/elbow/chest motion in a separate authored-motion unit. Do not rerun the completed recovery or promote the current candidate solely from numerical success.
+
 ## Actual objective
 Do not just rerun Actions or propose a plan. Diagnose and correct the D3-B experimental forelimb/chest movement so that actual skinned S looks like a quadruped driving forward, without breaking sole contact. Preserve all completed D2-D work and existing S canonical identity. Actual video evidence is a required result, not a numerical PASS substitute.
 

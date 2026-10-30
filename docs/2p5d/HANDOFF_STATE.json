@@ -7,13 +7,13 @@
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-30T01:27:58.938504+00:00",
+  "checkpoint_updated_at_utc": "2026-10-30T02:09:09.703213+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "D3-B complete and evidence verified on GitHub; next separate authored-motion unit",
-  "last_commit_created": "2844677a81d463d22e886bef4da5e8a30f3bd1b6",
-  "last_remote_confirmed_sha": "2844677a81d463d22e886bef4da5e8a30f3bd1b6",
-  "last_remote_verified_at_utc": "2026-10-30T01:27:58.938504+00:00",
+  "current_unit": "D3-B complete; resumed remote/source/evidence audit passed and stale task status annotated",
+  "last_commit_created": "fe09ccc82259e934e5a36232747d5159b362f310",
+  "last_remote_confirmed_sha": "fe09ccc82259e934e5a36232747d5159b362f310",
+  "last_remote_verified_at_utc": "2026-10-30T02:09:09.703213+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -59,7 +59,8 @@
     "D3B recovery diagnosis: fast-forwarded ca1c41d, canonical PNG acquired read-only/hash exact, PR132Draft confirmed. Local guard reproduces.073528995.14 baseline/failed seven-profile realmesh/body traces plus epsilon probes identify direct amplitude-rate derivative jump: foreL/R.07353/.10011 at t.120833 phase.405061, body.08331 atphase.75. No IK/contact/float noise root cause.",
     "D3B correction: opt-in continuous-velocity postureRate drives fore reach/chest gains; locomotion state unchanged. Before/after realbody/sole microprobes show velocity corner removed; steady amplitudes intact. BuildPASS;7Android D3B/D2D casesPASS, desktop running.",
     "D3B full local validation:14 focused D3B/D2D testsPASS +22 existing contact/sole/roll/continuity casesPASS across21+one unchanged-timeout isolatedretest13.2s. Seven fixed traces:allfootmaxvelocity.005987,zero-timejump/freeze0,penetration/reach0,gap.424mm,hindrecovery47.98cm; reach4.72/6.04/7.36cm andchest3.57265deg preserved. D2D probes exactbefore/after. BuildPASS. Four-view visual comparison still pending.",
-    "D3-B recovery complete: exact failure reproduced and derivative cause isolated; opt-in continuous-velocity posture rate repairs fore reach and chest without reducing steady amplitude. 36 unique local cases pass across documented runs; build PASS. CI40882876409:170 passed/3 known failed/81 skipped, no new S failure. Eight four-view real MP4,192 cycle frames,60 phase/rate stills,PC/Pixel7 pairs captured with zero page errors. Numeric limited KEEP; actual-frame whole-S visual REVISE. D2-D/body source,GLBs,manifest preserved."
+    "D3-B recovery complete: exact failure reproduced and derivative cause isolated; opt-in continuous-velocity posture rate repairs fore reach and chest without reducing steady amplitude. 36 unique local cases pass across documented runs; build PASS. CI40882876409:170 passed/3 known failed/81 skipped, no new S failure. Eight four-view real MP4,192 cycle frames,60 phase/rate stills,PC/Pixel7 pairs captured with zero page errors. Numeric limited KEEP; actual-frame whole-S visual REVISE. D2-D/body source,GLBs,manifest preserved.",
+    "2026-10-30 resume audit: explicit child fetch and PR132 head both fe09ccc; eight movies/192 frames/60 rate-phase stills plus PC/Pixel7 pairs present in remote tree. Runtime/tests/scripts unchanged since tested6f5ac01; D2-D body source and all models unchanged sinceca1c41d. Source CI confirmed completed with known3 failures only. Added completion checkpoint to recovery task without removing historical failure/requirements. No repeated tests or captures and no new runtime work."
   ],
   "pending_units": [
     "Separate future animation-authoring unit: shoulder protraction/retraction and elbow recovery synchronized with chest support; preserve canonical shape and contact constraints. No work in Blender/sculpt lane started.",
@@ -135,5 +136,5 @@
   ],
   "next_action": "Completed D3-B: do not repeat repair/tests/captures. On next authorized animation unit, first git fetch origin feat/2p5d-flow-persistence-20261025; compare FETCH_HEAD (origin fetch config currently tracks main only), read HANDOFF_STATE.json and docs/2p5d/evidence/20261029-s-d3b-fore-reach/VISUAL_REVIEW.md. Review saved SIDE and REAR_3_4 cycle clips and scope authored shoulder/elbow/chest motion in separate animation lane, preserving D2-D and contacts. No main merge or production promotion.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "All D3-B source, tests, metrics and actual visuals pushed. Verified evidence2844677 by explicit child fetch/tree (8 videos,192 frames,60 phase stills,PC/Pixel7 pairs) and GitHub README fetch. Source CI6f5ac01:170 pass/3known fail/81skip. This final handoff commit records previously verified2844677; its own SHA is checked after push. Only unrelated scratch artifacts/work/test-results/modelOBJ remain local. PR132 remains Draft, no main merge."
+  "checkpoint_note": "Latest verified remote before this documentation commit:fe09ccc. Repeated recovery request reconciled with already-completed source/evidence; stale FAILED task wording now preceded by dated completion checkpoint. No source/test/asset modifications. Final documentation commit will be pushed and remote SHA verified; its parent is intentionally recorded here to avoid a self-referential hash. PR132 remains open Draft/unmerged."
 }
