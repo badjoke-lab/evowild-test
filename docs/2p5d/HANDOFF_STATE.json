@@ -10,7 +10,7 @@
   "checkpoint_updated_at_utc": "2026-11-16T15:29:57.884937+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "D3-C v2 independent GLB, contact adapter, fresh tests and five-view comparison completed; review only",
+  "current_unit": "D3-C v2 authored, locally tested and actual five-view evidence committed; still visual REVISE. CI old run 43895276969 failed due npm ci missing lockfile before tests; workflow corrected at 9689bbbc. Codex v3 recovery task prepared, not executed.",
   "last_commit_created": "d6eb33c0b1875d56b47de4217218c52fe521e5fd",
   "last_remote_confirmed_sha": "d6eb33c0b1875d56b47de4217218c52fe521e5fd",
   "last_remote_verified_at_utc": "2026-11-16T15:29:57.884937+00:00",
@@ -64,11 +64,14 @@
     "D3-C v1 actually authored in separate exp/d3c-scapula-authoring branch. Model public/models/evowild-s/review/d3c-scapula-author-v1.glb (SHA256 963b52b0...), two independent scapula bones and 2 added rotation tracks, 1593 L / 1036 R nearby chest-weighted vertices. Original-vs-neutral sampled vertex max drift 1.125e-8m; authored skin movement up to .02669m. Actions 41075353979 SUCCESS (4 Playwright cases, actual before/after five-view WebGL clips) and 41076224940 SUCCESS (2 contact regression cases, worst velocity .005987m/s, gap .423752mm, reach/penetration 0). Saved actual comparison and visual REVISE in docs/2p5d/evidence/20261030-s-d3c-scapula-v1/. Parent Draft PR and original GLB/manifest/main untouched.",
     "2026-11-17 JST recovery: previous environment/local-only commits absent after replacement; GitHub read access restored, actual exp remote aaebb78. Recreated documented final v2 from immutable v1, GLB SHA6edb45e7 exactly matches prior final asset. Restored scapular reset and cubic tangent correction. Asset integrity/build/WebGL23-joint smoke PASS. Previous lost logs are not claimed as available; fresh tests/captures next.",
     "D3-C v2 recovery source/model published ef2cc60; fresh 16/16 PC/Pixel7 tests PASS including seven real sole speed profiles, sampled skin continuity, v1 and D2-D protection. Build/integrity PASS; no threshold relaxation.",
-    "D3-C v2 fresh final comparison: ten real five-view movies,240 successive WebGL frames,PC/Pixel7 before-after,five inspection sheets,97-phase three-speed articulation samples. Original assets preserved; 16/16 tests/build/integrity PASS. Visible recovery improvement but fore-foot clustering and weak full-body sprint remain REVISE. No production integration."
+    "D3-C v2 fresh final comparison: ten real five-view movies,240 successive WebGL frames,PC/Pixel7 before-after,five inspection sheets,97-phase three-speed articulation samples. Original assets preserved; 16/16 tests/build/integrity PASS. Visible recovery improvement but fore-foot clustering and weak full-body sprint remain REVISE. No production integration.",
+    "D3-C v2 21b42bbb evidence independently re-checked via GitHub connector 2026-11-17: same five-view real WebGL preview shows both fore feet crowded below chest around phase .307; deep elbows L62.39/R54.29 degrees vs v1 L96.50/R91.69. Existing v2 local 16/16 passed. CI failure 43895276969 environmental npm ci no package-lock; fixed workflow in 9689bbbc. Bounded v3 Codex task at docs/2p5d/CODEX_D3C_V3_FORE_RECOVERY.md, not executed yet."
   ],
   "pending_units": [
-    "Remote focused Actions conclusion remains unverified: API access blocked by environment HTTP403; git and connector file reads work.",
-    "Next visual unit only: preserve v1/v2, diagnose fore-foot clustering at phases .14–.47 (.25–.35 most evident), then author timing/path changes in a new candidate and rerun unchanged contact/skin constraints. S overall is REVISE."
+    "Corrected D3-C v2 Actions 43897785827 result needs inspection, old npm ci failure is understood.",
+    "Next Codex D3-C v3 isolated fore-recovery authoring; distinguish FK arm/elbow guide from D3-B foreReach and two-pass IK; quantify per-phase chest-clustering before change; new GLB only if supported.",
+    "Same-camera five-view actual v2/v3 full-cycle videos + dense .14-.47 frames and unchanged sole-contact regressions; full S visual REVISE until independently approved.",
+    "No main/manifest/production GLB, other species, PR132 merge; R9 Blender silhouette lane separate."
   ],
   "test_status": {
     "baseline_reference": "Parent dcd3f56 Actions 40152147602: 63 passed / 4 failed / 81 skipped. Original 3 + Android race-quality:125 pressure test (also before our changes).",
@@ -101,7 +104,8 @@
     "s_d3c_rig_audit": "Actions 41005210114 SUCCESS; actual focus-contact-v3.glb 38,813 vertices, 21 skinned bones, no independent shoulder/scapula/clavicle, fore upper direct child chest. Diagnostic only; no gait fix.",
     "s_d3c_scapula_v1": "Actions 41075353979 SUCCESS (4 cases desktop/Pixel7 emulation, original-vs-neutral 1.125e-8m, active max vertex delta .026689m, five views ten real MP4). Actions 41076224940 SUCCESS (2 focused cases, 6 speed profiles each, max sole residual .005987m/s, support clearance .423752mm, slip < .0009mm, zero jumps/penetration/reach errors). Subjective visual REVISE.",
     "s_d3c_v2": "Fresh16/16 PC/Pixel7 PASS(3.8m), buildPASS, immutable asset integrityPASS. Seven speed profiles: penetration/reach/jump0; support gap.423742mm; slip.000870mm; hind recovery47.98cm; sole residual.005987m/s and310sampledskin residual.003592m/s. v1/D2-D existing regression included; no lowered thresholds. Ten movies/240 frames captured, browser errors0. Overall visualREVISE.",
-    "s_d3c_v2_actions": "Workflow source confirmed on GitHub at995f9ea. Run statusUNVERIFIED: CLI and unauthenticated API network tunnel403; connector lacks push-run listing. See actions-status.json. Historical main-lane3known failures not rerun."
+    "s_d3c_v2_actions": "Workflow source confirmed on GitHub at995f9ea. Run statusUNVERIFIED: CLI and unauthenticated API network tunnel403; connector lacks push-run listing. See actions-status.json. Historical main-lane3known failures not rerun.",
+    "s_d3c_v2_ci": "Original Actions 43895276969 FAILED before Playwright because npm ci requires absent package-lock.json; not an animation test failure. Fixed in 9689bbbc to npm install --no-package-lock, new run 43897785827 running when last checked; exact conclusion pending. User-reported local 16/16 confirmed via stored log."
   },
   "original_mocks": {
     "expected_count": 11,
@@ -143,7 +147,7 @@
     "docs/2p5d/evidence/20261029-s-d3b-fore-reach/actions-summary.json",
     "docs/2p5d/evidence/20261117-s-d3c-v2/README.md and VISUAL_REVIEW.md; compare.html, ten five-viewMP4,240frames,PC/Pixel7 pairs,tests/build/actualvertexdata/assetintegrity"
   ],
-  "next_action": "git fetch origin refs/heads/exp/d3c-scapula-authoring:refs/remotes/origin/exp/d3c-scapula-authoring; read docs/2p5d/evidence/20261117-s-d3c-v2/VISUAL_REVIEW.md; gh run list --repo badjoke-lab/evowild-test --branch exp/d3c-scapula-authoring --limit 4. Do not rebuild v1 or repeat completed v2 capture. Continue only the documented fore-recovery visual diagnosis in a separate candidate.",
+  "next_action": "Fetch latest exp/d3c-scapula-authoring and EXECUTE docs/2p5d/CODEX_D3C_V3_FORE_RECOVERY.md with Codex. Do not repeat completed v2 authoring/capture. First quantify why fore feet cluster below chest at global .25-.35, distinguishing IK vs FK guide and shoulder timing; implement only isolated new v3 GLB/opt-in review when diagnosed; run focused unchanged contact tests and actual five-view v2/v3 videos. Check workflow run 43897785827 (corrected npm install without lockfile) before making CI claims.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
   "checkpoint_note": "Evidence/model/code/test commits ef2cc60,995f9ea,d6eb33c all pushed. git ls-remote confirmed d6eb33c; GitHub connector independently confirmed capture-validation.json at that exact commit. This metadata-only checkpoint records the last verified artifact SHA. No authored work remains local-only. Tracked tree clean apart from this checkpoint; listed untracked generated work outputs retained.",
   "draft_pr_note": "PR132 is the parent development lane. This experimental branch is not merged into PR132; no new PR created."
