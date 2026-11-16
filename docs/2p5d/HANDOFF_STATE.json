@@ -10,7 +10,7 @@
   "checkpoint_updated_at_utc": "2026-11-16T15:29:57.884937+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "D3-C v2 authored, locally tested and actual five-view evidence committed; still visual REVISE. CI old run 43895276969 failed due npm ci missing lockfile before tests; workflow corrected at 9689bbbc. Codex v3 recovery task prepared, not executed.",
+  "current_unit": "D3-C v2 GLB and five-view capture archived; local 16/16 and corrected Actions 43897785827 SUCCESS 16/16. Visual REVISE near .25-.35 fore clustering. Scoped next D3-C v3 Codex task committed, not executed.",
   "last_commit_created": "d6eb33c0b1875d56b47de4217218c52fe521e5fd",
   "last_remote_confirmed_sha": "d6eb33c0b1875d56b47de4217218c52fe521e5fd",
   "last_remote_verified_at_utc": "2026-11-16T15:29:57.884937+00:00",
@@ -68,10 +68,9 @@
     "D3-C v2 21b42bbb evidence independently re-checked via GitHub connector 2026-11-17: same five-view real WebGL preview shows both fore feet crowded below chest around phase .307; deep elbows L62.39/R54.29 degrees vs v1 L96.50/R91.69. Existing v2 local 16/16 passed. CI failure 43895276969 environmental npm ci no package-lock; fixed workflow in 9689bbbc. Bounded v3 Codex task at docs/2p5d/CODEX_D3C_V3_FORE_RECOVERY.md, not executed yet."
   ],
   "pending_units": [
-    "Corrected D3-C v2 Actions 43897785827 result needs inspection, old npm ci failure is understood.",
-    "Next Codex D3-C v3 isolated fore-recovery authoring; distinguish FK arm/elbow guide from D3-B foreReach and two-pass IK; quantify per-phase chest-clustering before change; new GLB only if supported.",
-    "Same-camera five-view actual v2/v3 full-cycle videos + dense .14-.47 frames and unchanged sole-contact regressions; full S visual REVISE until independently approved.",
-    "No main/manifest/production GLB, other species, PR132 merge; R9 Blender silhouette lane separate."
+    "Codex D3-C v3 isolated authoring task at docs/2p5d/CODEX_D3C_V3_FORE_RECOVERY.md has NOT been executed. Diagnose .14-.47, especially .25-.35 forefoot crowding, before modifying timing or path.",
+    "Then compare original WebGL v2 vs v3 SIDE/FRONT/CHASE/LOW/REAR_3_4 and unchanged sole-contact tests; S full visual REVISE until approved.",
+    "No main/manifest/production GLB or PR132 merge; R9 Blender silhouette separately unapproved."
   ],
   "test_status": {
     "baseline_reference": "Parent dcd3f56 Actions 40152147602: 63 passed / 4 failed / 81 skipped. Original 3 + Android race-quality:125 pressure test (also before our changes).",
@@ -105,7 +104,7 @@
     "s_d3c_scapula_v1": "Actions 41075353979 SUCCESS (4 cases desktop/Pixel7 emulation, original-vs-neutral 1.125e-8m, active max vertex delta .026689m, five views ten real MP4). Actions 41076224940 SUCCESS (2 focused cases, 6 speed profiles each, max sole residual .005987m/s, support clearance .423752mm, slip < .0009mm, zero jumps/penetration/reach errors). Subjective visual REVISE.",
     "s_d3c_v2": "Fresh16/16 PC/Pixel7 PASS(3.8m), buildPASS, immutable asset integrityPASS. Seven speed profiles: penetration/reach/jump0; support gap.423742mm; slip.000870mm; hind recovery47.98cm; sole residual.005987m/s and310sampledskin residual.003592m/s. v1/D2-D existing regression included; no lowered thresholds. Ten movies/240 frames captured, browser errors0. Overall visualREVISE.",
     "s_d3c_v2_actions": "Workflow source confirmed on GitHub at995f9ea. Run statusUNVERIFIED: CLI and unauthenticated API network tunnel403; connector lacks push-run listing. See actions-status.json. Historical main-lane3known failures not rerun.",
-    "s_d3c_v2_ci": "Original Actions 43895276969 FAILED before Playwright because npm ci requires absent package-lock.json; not an animation test failure. Fixed in 9689bbbc to npm install --no-package-lock, new run 43897785827 running when last checked; exact conclusion pending. User-reported local 16/16 confirmed via stored log."
+    "s_d3c_v2_ci": "Actions #43897785827 completed SUCCESS on commit 9689bbbc: GLB generator + verifier PASS, unchanged v2 GLB check PASS, npm install --no-package-lock PASS, production build PASS, chromium installation PASS, focused Playwright 16/16 PASS. Old #43895276969 failure caused by npm ci without lockfile, resolved."
   },
   "original_mocks": {
     "expected_count": 11,
