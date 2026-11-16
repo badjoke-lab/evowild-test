@@ -1,0 +1,27 @@
+{
+  "profiles": [
+    "abrupt-fore",
+    "abrupt-hind",
+    "acceleration",
+    "deceleration",
+    "steady-0.5",
+    "steady-1",
+    "steady-1.5"
+  ],
+  "maxPenetration_m": 0,
+  "maxSupportSlip_m": 8.696963426091386e-07,
+  "maxSupportGap_m": 0.00042374185471882875,
+  "maxReachError_m": 0,
+  "maxSoleVelocityResidual_mps": 0.0059870210813868,
+  "maxZeroTimeJump_m": 0,
+  "minHindRecovery_m": 0.47980053409554757,
+  "foreRecoveryRange_m": [
+    0.6370589101174144,
+    0.6536786823732724
+  ],
+  "jointRange_deg": [
+    48.671394670070825,
+    161.4210263048053
+  ],
+  "definition": "Active support is distinct from the moving non-support sole during toe roll. Old all-patch movement remains in per-profile summaries."
+}

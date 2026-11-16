@@ -1,0 +1,125 @@
+{
+  "profile": "abrupt-fore",
+  "samples": 289,
+  "duration": 1.2,
+  "travel": 4.516637830918295,
+  "cycles": 2.7215952527123397,
+  "speedIntegral": 4.516666666666648,
+  "travelIntegralError": -0.00002883574835266245,
+  "cadenceIntegral": 2.721599744656555,
+  "cycleIntegralError": -0.000004491944215256893,
+  "feet": [
+    {
+      "name": "fore_L",
+      "maxPenetration": 0,
+      "stanceSlip": 0.028541363654877635,
+      "maxStanceStepSlip": 0.004899799690699869,
+      "contactTime": 0.18749999999999994,
+      "recoveryHeight": 0.6371295667905474,
+      "maxReachError": 0,
+      "jointAngleRange": [
+        61.73802477124974,
+        155.16036710434804
+      ],
+      "maxSegmentLengthDrift": 7.771561172376096e-16,
+      "maxZeroTimeJump": 0,
+      "maxMeshVelocityResidual": 0.0010254767614234952,
+      "legacyAllPatchMovement": 0.028541363654877635,
+      "supportSlip": 1.8664006584678816e-7,
+      "maxSupportStep": 1.0637272840341438e-8,
+      "flatTime": 0.03333333333333338,
+      "toeTime": 0.16249999999999998,
+      "guardPenetration": 0,
+      "pitchRange": [
+        -22.56993343223139,
+        -0.5699334322312705
+      ],
+      "rearRise": 0.0768536851419202,
+      "maxSupportPlaneError": 0.0002782066048501175
+    },
+    {
+      "name": "fore_R",
+      "maxPenetration": 0,
+      "stanceSlip": 0.024508018360751758,
+      "maxStanceStepSlip": 0.004777491662466549,
+      "contactTime": 0.22916666666666657,
+      "recoveryHeight": 0.6535762864017515,
+      "maxReachError": 0,
+      "jointAngleRange": [
+        53.79758279719091,
+        143.86396692121062
+      ],
+      "maxSegmentLengthDrift": 4.277800025320744e-8,
+      "maxZeroTimeJump": 0,
+      "maxMeshVelocityResidual": 0.002528253248456222,
+      "legacyAllPatchMovement": 0.024508018360751758,
+      "supportSlip": 9.87554718001605e-8,
+      "maxSupportStep": 7.476651298077286e-9,
+      "flatTime": 0.05833333333333327,
+      "toeTime": 0.18333333333333335,
+      "guardPenetration": 0,
+      "pitchRange": [
+        -23.14335393619779,
+        -1.1433526604473185
+      ],
+      "rearRise": 0.07384535912085233,
+      "maxSupportPlaneError": 0.0003412131997924117
+    },
+    {
+      "name": "hind_L",
+      "maxPenetration": 0,
+      "stanceSlip": 0.027400501251202563,
+      "maxStanceStepSlip": 0.004512095266167471,
+      "contactTime": 0.2958333333333333,
+      "recoveryHeight": 0.47998584602868033,
+      "maxReachError": 0,
+      "jointAngleRange": [
+        48.671394670070825,
+        159.03095347104758
+      ],
+      "maxSegmentLengthDrift": 1.8805503709806715e-8,
+      "maxZeroTimeJump": 0,
+      "maxMeshVelocityResidual": 0.0005547847739477071,
+      "legacyAllPatchMovement": 0.027400501251202563,
+      "supportSlip": 5.35359242270772e-7,
+      "maxSupportStep": 1.3723818081956551e-8,
+      "flatTime": 0.1375,
+      "toeTime": 0.17083333333333323,
+      "guardPenetration": 0,
+      "pitchRange": [
+        -29.920245935767948,
+        -1.9202464086914666
+      ],
+      "rearRise": 0.04602755311220544,
+      "maxSupportPlaneError": 0.0002389820592509917
+    },
+    {
+      "name": "hind_R",
+      "maxPenetration": 0,
+      "stanceSlip": 0.023843135361890415,
+      "maxStanceStepSlip": 0.004794785144732527,
+      "contactTime": 0.25833333333333336,
+      "recoveryHeight": 0.4799977244042284,
+      "maxReachError": 0,
+      "jointAngleRange": [
+        48.86783368883507,
+        161.39961498864076
+      ],
+      "maxSegmentLengthDrift": 5.771493560846608e-8,
+      "maxZeroTimeJump": 0,
+      "maxMeshVelocityResidual": 0.0004247234045951612,
+      "legacyAllPatchMovement": 0.023843135361890415,
+      "supportSlip": 4.005898605052849e-7,
+      "maxSupportStep": 1.0702661867867391e-8,
+      "flatTime": 0.1333333333333333,
+      "toeTime": 0.1375,
+      "guardPenetration": 0,
+      "pitchRange": [
+        -30.30812044580718,
+        -2.3081225422908944
+      ],
+      "rearRise": 0.04907480918227122,
+      "maxSupportPlaneError": 0.0002112504218403366
+    }
+  ]
+}
