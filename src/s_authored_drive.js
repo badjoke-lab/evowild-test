@@ -20,10 +20,11 @@ export function createAuthoredDrive(mesh,nativeClip,driveClip){
    else if(t.property==='quaternion')t.bone.quaternion.multiply(t.bone.quaternion.clone().fromArray(values)).normalize();
    else t.bone.position.add(new Vector3().fromArray(values));
   }mesh.updateWorldMatrix(true,false);
- },swingGuides(limbs){const result={};for(const l of limbs){if(l.hind)continue;
+ },swingGuides(limbs,trace=null){const result={};for(const l of limbs){if(l.hind)continue;
    const before=l.bones.at(-1).getWorldPosition(new Vector3()),saved=l.bones.slice(0,2).map(b=>b.quaternion.clone());
    for(const t of delta)if(l.bones.slice(0,2).includes(t.bone))t.bone.quaternion.multiply(t.bone.quaternion.clone().fromArray(t.it.evaluate(stamp))).normalize();
    l.bones[0].updateWorldMatrix(true,true);result[l.name]=l.bones.at(-1).getWorldPosition(new Vector3()).sub(before);
+   if(trace){const joints=l.bones.map(b=>b.getWorldPosition(new Vector3()));trace[l.name]={offset:result[l.name].toArray(),joints:joints.map(p=>p.toArray()),elbowDegrees:joints[0].clone().sub(joints[1]).angleTo(joints[2].clone().sub(joints[1]))*180/Math.PI};}
    l.bones.slice(0,2).forEach((b,i)=>b.quaternion.copy(saved[i]));l.bones[0].updateWorldMatrix(true,true);
   }return result;
  }};

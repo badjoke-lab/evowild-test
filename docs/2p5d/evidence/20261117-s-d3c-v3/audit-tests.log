@@ -1,0 +1,23 @@
+
+Running 2 tests using 1 worker
+
+(node:3339) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+FORE_AUDIT {
+  restore: 0,
+  double: 0,
+  fold: [ 17.217331375362534, 30.760962110211608 ],
+  nearest: 0.22987721995174715
+}
+  ✓  1 [android-chromium] › tests/s-d3c-recovery.spec.js:2:1 › fore recovery ablation observes actual skin and restores unchanged v2 pose (3.7s)
+(node:3474) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+FORE_AUDIT {
+  restore: 0,
+  double: 0,
+  fold: [ 17.217331375362534, 30.760962110211608 ],
+  nearest: 0.22987721995174715
+}
+  ✓  2 [desktop-chromium] › tests/s-d3c-recovery.spec.js:2:1 › fore recovery ablation observes actual skin and restores unchanged v2 pose (3.5s)
+
+  2 passed (9.2s)

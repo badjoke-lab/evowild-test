@@ -3,6 +3,7 @@ import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {identifyFootSurfaces,sampleFootSurfaces} from './s_foot_contact_geometry.js';
 import {createContactIK} from './s_contact_ik.js';
 import {createAuthoredDrive} from './s_authored_drive.js';
+import {sampleForeRecovery} from './s_fore_recovery_audit.js';
 import {createBodyCoupling} from './s_body_coupling.js';
 import {selectSolePatches,sampleSoles} from './s_sole_metrics.js';
 
@@ -111,6 +112,24 @@ try{
     render();return {asset,rate:speed,steps,groundY:0,cycleDuration:contactIK?contactIK.kinematics(speed).period:clip.duration/speed,patches:solePatches,frames};
   },probe(indices){root.updateMatrixWorld(true);mesh.skeleton.update();return indices.map(i=>{mesh.getVertexPosition(i,v);return v.applyMatrix4(mesh.matrixWorld).toArray();});},setPhase(phase,view,draw=true){paused=true;time=phase*clip.duration;root.position.z=contactIK?phase*contactIK.kinematics(rate||1).stride:time*speedMeters;document.querySelector('#camera').value=view;if(contactIK)contactIK.reset(phase,root.position.z,rate);pose();return draw?render():sample();}};
   window.sRunReview.bodySample=bodySample;
+  // Explicit diagnostic ablations. Normal pose()/elapsed-time state is untouched.
+  window.sRunReview.recoveryAudit=()=>{
+   updateCamera();pose();
+   const snap=c=>sampleForeRecovery(mesh,footSurfaces,camera,root.position.z,c);
+   const full=snap(contactState),firstState=contactIK.apply(),first=snap(firstState),secondState=contactIK.apply(),zeroSecond=snap(secondState);
+   const fkGuide={};const guide=authoredDrive?.swingGuides(contactIK.limbs,fkGuide);
+   const cancel=Object.fromEntries(firstState.limbs.filter(l=>l.name.startsWith('fore')).map(l=>[l.name,new THREE.Vector3(0,0,-l.foreVisualReach)]));
+   const noReachFirst=contactIK.apply(cancel),withoutForeReachFirst=snap(noReachFirst);
+   const noReachGuide=authoredDrive?.swingGuides(contactIK.limbs)||{};
+   for(const [name,offset] of Object.entries(cancel))noReachGuide[name]=(noReachGuide[name]||new THREE.Vector3()).add(offset);
+   const noReachFinal=contactIK.apply(noReachGuide),withoutForeReach=snap(noReachFinal);
+   mixer.setTime(time);bodyCoupling?.apply(time,contactIK.state.poseRate??rate);authoredDrive?.applyBody(time);root.updateMatrixWorld(true);
+   // Mixer property caches may skip identical-time writes after IK. Explicitly
+   // sample native limb tracks for this diagnostic-only FK snapshot.
+   for(const track of clip.tracks){const [name,property]=track.name.split('.');if(!name.startsWith('fore_')||name.endsWith('_scapula'))continue;const bone=mesh.skeleton.bones.find(b=>b.name===name);if(bone)bone[property].fromArray(track.createInterpolant().evaluate(((time%clip.duration)+clip.duration)%clip.duration));}
+   const nativeFK=snap(null);pose();
+   return {phase:(time%clip.duration)/clip.duration,asset,view:document.querySelector('#camera').value,distance:root.position.z,full,first,zeroSecond,fkGuide,guide:guide?Object.fromEntries(Object.entries(guide).map(([k,v])=>[k,v.toArray()])):null,withoutForeReachFirst,withoutForeReach,nativeFK};
+  };
   const bodyIds=[];
   for(let i=0;i<position.count;i++){
     let onlyBody=true;for(let j=0;j<4;j++)if(skinWeight.getComponent(i,j)>0&&/^(fore_|hind_)/.test(mesh.skeleton.bones[skinIndex.getComponent(i,j)].name))onlyBody=false;
