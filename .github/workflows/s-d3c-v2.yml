@@ -17,7 +17,7 @@ jobs:
           node-version: 22
       - run: python3 scripts/author_s_d3c_v2.py && python3 scripts/verify_s_d3c_v2.py
       - run: git diff --exit-code -- public/models/evowild-s/review/d3c-scapula-author-v2.glb
-      - run: npm ci
+      - run: npm install --no-package-lock
       - run: npm run build
       - run: npx playwright install --with-deps chromium
       - run: npx playwright test tests/s-d3c-v2.spec.js tests/s-d3c-scapula.spec.js tests/s-native-join.spec.js --workers=1
