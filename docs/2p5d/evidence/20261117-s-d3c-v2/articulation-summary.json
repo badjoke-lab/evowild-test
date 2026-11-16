@@ -1,0 +1,336 @@
+[
+  {
+    "variant": "authored-v1",
+    "conditions": [
+      {
+        "rate": 0.5,
+        "bones": [
+          {
+            "name": "root",
+            "angularSpan": 0,
+            "verticalSpan": 0.015445220757060785
+          },
+          {
+            "name": "pelvis",
+            "angularSpan": 2.5707741251138096,
+            "verticalSpan": 0.015445220757060785
+          },
+          {
+            "name": "spine",
+            "angularSpan": 5.099688182311058,
+            "verticalSpan": 0.011242286458565509
+          },
+          {
+            "name": "chest",
+            "angularSpan": 3.342866342283381,
+            "verticalSpan": 0.1254775718751131
+          },
+          {
+            "name": "neck",
+            "angularSpan": 2.327922059423635,
+            "verticalSpan": 0.14728004105928227
+          },
+          {
+            "name": "head",
+            "angularSpan": 2.509070770586126,
+            "verticalSpan": 0.1525328193309483
+          },
+          {
+            "name": "tail",
+            "angularSpan": 6.89971964336612,
+            "verticalSpan": 0.015436498697114054
+          }
+        ],
+        "fore": [
+          {
+            "name": "fore_L",
+            "minElbow": 96.09318723257154,
+            "maxElbow": 147.23352541357374,
+            "shoulderLocalTravel": 0.03601810255016524
+          },
+          {
+            "name": "fore_R",
+            "minElbow": 91.30430746177998,
+            "maxElbow": 140.2784490365098,
+            "shoulderLocalTravel": 0.03601810178872977
+          }
+        ]
+      },
+      {
+        "rate": 1,
+        "bones": [
+          {
+            "name": "root",
+            "angularSpan": 0,
+            "verticalSpan": 0.015445220757060785
+          },
+          {
+            "name": "pelvis",
+            "angularSpan": 2.5707741251138096,
+            "verticalSpan": 0.015445220757060785
+          },
+          {
+            "name": "spine",
+            "angularSpan": 5.799678927482492,
+            "verticalSpan": 0.011242286458565509
+          },
+          {
+            "name": "chest",
+            "angularSpan": 3.342866342283381,
+            "verticalSpan": 0.13495300016836964
+          },
+          {
+            "name": "neck",
+            "angularSpan": 2.327922059423635,
+            "verticalSpan": 0.15048097069852928
+          },
+          {
+            "name": "head",
+            "angularSpan": 3.187546519173859,
+            "verticalSpan": 0.1537800962560909
+          },
+          {
+            "name": "tail",
+            "angularSpan": 6.89971964336612,
+            "verticalSpan": 0.015436498697114054
+          }
+        ],
+        "fore": [
+          {
+            "name": "fore_L",
+            "minElbow": 96.49584978137717,
+            "maxElbow": 149.8193480107938,
+            "shoulderLocalTravel": 0.03601810255016524
+          },
+          {
+            "name": "fore_R",
+            "minElbow": 91.68582940998824,
+            "maxElbow": 143.00653552969985,
+            "shoulderLocalTravel": 0.03601810178872977
+          }
+        ]
+      },
+      {
+        "rate": 1.5,
+        "bones": [
+          {
+            "name": "root",
+            "angularSpan": 0,
+            "verticalSpan": 0.015445220757060785
+          },
+          {
+            "name": "pelvis",
+            "angularSpan": 2.5707741251138096,
+            "verticalSpan": 0.015445220757060785
+          },
+          {
+            "name": "spine",
+            "angularSpan": 6.49966967265388,
+            "verticalSpan": 0.011242286458565509
+          },
+          {
+            "name": "chest",
+            "angularSpan": 3.342866342283381,
+            "verticalSpan": 0.14443112724968077
+          },
+          {
+            "name": "neck",
+            "angularSpan": 2.327922059423635,
+            "verticalSpan": 0.15369535404466128
+          },
+          {
+            "name": "head",
+            "angularSpan": 3.885651053057423,
+            "verticalSpan": 0.1550641470404246
+          },
+          {
+            "name": "tail",
+            "angularSpan": 6.89971964336612,
+            "verticalSpan": 0.015436498697114054
+          }
+        ],
+        "fore": [
+          {
+            "name": "fore_L",
+            "minElbow": 96.89327923343232,
+            "maxElbow": 152.66751569784122,
+            "shoulderLocalTravel": 0.04230798908585309
+          },
+          {
+            "name": "fore_R",
+            "minElbow": 92.03111107612914,
+            "maxElbow": 145.86383042555974,
+            "shoulderLocalTravel": 0.04230798877132269
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "variant": "authored-v2",
+    "conditions": [
+      {
+        "rate": 0.5,
+        "bones": [
+          {
+            "name": "root",
+            "angularSpan": 0,
+            "verticalSpan": 0.015445220757060785
+          },
+          {
+            "name": "pelvis",
+            "angularSpan": 3.4426273499749187,
+            "verticalSpan": 0.015445220757060785
+          },
+          {
+            "name": "spine",
+            "angularSpan": 7.4732028755724045,
+            "verticalSpan": 0.030015745297039986
+          },
+          {
+            "name": "chest",
+            "angularSpan": 3.3400828491426346,
+            "verticalSpan": 0.15647623391186438
+          },
+          {
+            "name": "neck",
+            "angularSpan": 2.2620548351013183,
+            "verticalSpan": 0.15842983655807608
+          },
+          {
+            "name": "head",
+            "angularSpan": 2.26886289100439,
+            "verticalSpan": 0.16259195576565277
+          },
+          {
+            "name": "tail",
+            "angularSpan": 10.434316361700258,
+            "verticalSpan": 0.015430770854574227
+          }
+        ],
+        "fore": [
+          {
+            "name": "fore_L",
+            "minElbow": 62.257664388511266,
+            "maxElbow": 152.06463725876958,
+            "shoulderLocalTravel": 0.15599453394701346
+          },
+          {
+            "name": "fore_R",
+            "minElbow": 54.195385658245634,
+            "maxElbow": 141.94871923793767,
+            "shoulderLocalTravel": 0.18411454132340888
+          }
+        ]
+      },
+      {
+        "rate": 1,
+        "bones": [
+          {
+            "name": "root",
+            "angularSpan": 0,
+            "verticalSpan": 0.015445220757060785
+          },
+          {
+            "name": "pelvis",
+            "angularSpan": 3.4426273499749187,
+            "verticalSpan": 0.015445220757060785
+          },
+          {
+            "name": "spine",
+            "angularSpan": 8.149405629821162,
+            "verticalSpan": 0.030015745297039986
+          },
+          {
+            "name": "chest",
+            "angularSpan": 4.0147174368949265,
+            "verticalSpan": 0.16581631494809113
+          },
+          {
+            "name": "neck",
+            "angularSpan": 2.2620548351013183,
+            "verticalSpan": 0.16164628621279364
+          },
+          {
+            "name": "head",
+            "angularSpan": 2.6953306695923516,
+            "verticalSpan": 0.16388416532777228
+          },
+          {
+            "name": "tail",
+            "angularSpan": 10.434316361700258,
+            "verticalSpan": 0.015430770854574227
+          }
+        ],
+        "fore": [
+          {
+            "name": "fore_L",
+            "minElbow": 62.394335293798946,
+            "maxElbow": 153.6338898319911,
+            "shoulderLocalTravel": 0.16492093113613282
+          },
+          {
+            "name": "fore_R",
+            "minElbow": 54.29386418856692,
+            "maxElbow": 142.94306860936143,
+            "shoulderLocalTravel": 0.19254441839164915
+          }
+        ]
+      },
+      {
+        "rate": 1.5,
+        "bones": [
+          {
+            "name": "root",
+            "angularSpan": 0,
+            "verticalSpan": 0.015445220757060785
+          },
+          {
+            "name": "pelvis",
+            "angularSpan": 3.4426273499749187,
+            "verticalSpan": 0.015445220757060785
+          },
+          {
+            "name": "spine",
+            "angularSpan": 8.832639428213719,
+            "verticalSpan": 0.030015745297039986
+          },
+          {
+            "name": "chest",
+            "angularSpan": 5.02902156826858,
+            "verticalSpan": 0.17520888632468212
+          },
+          {
+            "name": "neck",
+            "angularSpan": 2.2620548351013183,
+            "verticalSpan": 0.1648777818604723
+          },
+          {
+            "name": "head",
+            "angularSpan": 3.2523615688102985,
+            "verticalSpan": 0.16521438516540243
+          },
+          {
+            "name": "tail",
+            "angularSpan": 10.434316361700258,
+            "verticalSpan": 0.015430770854574227
+          }
+        ],
+        "fore": [
+          {
+            "name": "fore_L",
+            "minElbow": 62.50955096880943,
+            "maxElbow": 155.82094815623338,
+            "shoulderLocalTravel": 0.17364163756006157
+          },
+          {
+            "name": "fore_R",
+            "minElbow": 54.417735909366506,
+            "maxElbow": 144.47248489326847,
+            "shoulderLocalTravel": 0.20074757983108216
+          }
+        ]
+      }
+    ]
+  }
+]

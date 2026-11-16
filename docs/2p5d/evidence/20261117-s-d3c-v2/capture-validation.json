@@ -1,0 +1,88 @@
+{
+  "browserErrors": [],
+  "samples": 240,
+  "rawPngFrames": 240,
+  "videos": [
+    {
+      "file": "after-CHASE.mp4",
+      "width": 960,
+      "height": 640,
+      "avg_frame_rate": "288/5",
+      "duration": "0.416667",
+      "nb_frames": "24"
+    },
+    {
+      "file": "after-FRONT.mp4",
+      "width": 960,
+      "height": 640,
+      "avg_frame_rate": "288/5",
+      "duration": "0.416667",
+      "nb_frames": "24"
+    },
+    {
+      "file": "after-LOW.mp4",
+      "width": 960,
+      "height": 640,
+      "avg_frame_rate": "288/5",
+      "duration": "0.416667",
+      "nb_frames": "24"
+    },
+    {
+      "file": "after-REAR_3_4.mp4",
+      "width": 960,
+      "height": 640,
+      "avg_frame_rate": "288/5",
+      "duration": "0.416667",
+      "nb_frames": "24"
+    },
+    {
+      "file": "after-SIDE.mp4",
+      "width": 960,
+      "height": 640,
+      "avg_frame_rate": "288/5",
+      "duration": "0.416667",
+      "nb_frames": "24"
+    },
+    {
+      "file": "before-CHASE.mp4",
+      "width": 960,
+      "height": 640,
+      "avg_frame_rate": "288/5",
+      "duration": "0.416667",
+      "nb_frames": "24"
+    },
+    {
+      "file": "before-FRONT.mp4",
+      "width": 960,
+      "height": 640,
+      "avg_frame_rate": "288/5",
+      "duration": "0.416667",
+      "nb_frames": "24"
+    },
+    {
+      "file": "before-LOW.mp4",
+      "width": 960,
+      "height": 640,
+      "avg_frame_rate": "288/5",
+      "duration": "0.416667",
+      "nb_frames": "24"
+    },
+    {
+      "file": "before-REAR_3_4.mp4",
+      "width": 960,
+      "height": 640,
+      "avg_frame_rate": "288/5",
+      "duration": "0.416667",
+      "nb_frames": "24"
+    },
+    {
+      "file": "before-SIDE.mp4",
+      "width": 960,
+      "height": 640,
+      "avg_frame_rate": "288/5",
+      "duration": "0.416667",
+      "nb_frames": "24"
+    }
+  ],
+  "capture": "Actual WebGL; 24 consecutive simulation steps per 1x cycle starting phase .64; .416667s encoded at57.6fps; no synthesized/interpolated frames. Preview contact sheets crop/resize actual screenshots only; original full frames preserved. Not physical-device realtime performance."
+}

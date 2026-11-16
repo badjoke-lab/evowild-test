@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S D3-C v1 / v2 実動作比較</title>
+<style>body{margin:24px;background:#162632;color:#edf4fa;font:16px system-ui}main{max-width:1500px;margin:auto}button,select{font:inherit;padding:8px;margin:4px}section{display:grid;grid-template-columns:1fr 1fr;gap:16px}video{width:100%;background:#111}a{color:#90d7ff}p{max-width:1000px}figure{margin:0}figcaption{padding:8px 0}@media(max-width:700px){section{grid-template-columns:1fr}}</style>
+<main><h1>S D3-C v1 / v2 — 実動作比較・REVISE</h1>
+<p>同じカメラ・地面で実際のWebGL走行を撮影。各動画は1倍速の1周期（24連続フレーム・約0.417秒）をループ再生します。肩と前脚の回収は改善していますが、自然な疾走としては未完成です。<a href="VISUAL_REVIEW.md">判定と測定結果</a></p>
+<label>視点 <select id="view"><option>SIDE</option><option>FRONT</option><option>CHASE</option><option>LOW</option><option>REAR_3_4</option></select></label>
+<button id="play">先頭から両方を再生</button><button id="pause">両方を一時停止</button>
+<section><figure><figcaption>v1 — 保存済み基準</figcaption><video id="before" controls muted loop playsinline preload="auto"></video></figure><figure><figcaption>v2 — 肩甲骨・上腕・肘・胸・骨盤の連動候補</figcaption><video id="after" controls muted loop playsinline preload="auto"></video></figure></section>
+<p>このページは保存した比較動画の閲覧用です。動画の再生負荷は実ゲーム性能ではありません。接地性能は実メッシュの別測定で検証しています。原寸画像は <a href="desktop-after.png">PC</a> / <a href="android-after.png">Pixel 7相当</a>、<a href="capture-validation.json">撮影条件</a>。</p></main>
+<script>
+const videos=[document.querySelector('#before'),document.querySelector('#after')],view=document.querySelector('#view');
+function load(){videos.forEach(v=>{v.src=`${v.id}-${view.value}.mp4`;v.load();});}
+view.addEventListener('change',load);
+document.querySelector('#play').onclick=()=>{videos.forEach(v=>v.currentTime=0);Promise.all(videos.map(v=>v.play())).catch(()=>{});};
+document.querySelector('#pause').onclick=()=>videos.forEach(v=>v.pause());load();
+</script></html>

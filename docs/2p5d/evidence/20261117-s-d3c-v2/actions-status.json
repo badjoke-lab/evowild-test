@@ -1,0 +1,15 @@
+{
+  "checkedAtUtc": "2026-11-16T15:27:11.690671+00:00",
+  "testedCommit": "995f9eab3c20f5b4cd64c277cba34ba7a39ba566",
+  "workflow": ".github/workflows/s-d3c-v2.yml",
+  "workflowSourceConfirmedWithGitHubConnector": true,
+  "remoteRunStatus": "UNVERIFIED",
+  "accessFailure": "gh run list: API Forbidden; urllib API: Tunnel connection failed: 403 Forbidden. Git transport and GitHub connector file fetch successful.",
+  "connectorLimitation": "Commit-workflow wrapper only lists PR-triggered runs; github.fetch does not accept Actions pages.",
+  "lastKnownV1Runs": [
+    "https://github.com/badjoke-lab/evowild-test/actions/runs/41075353979",
+    "https://github.com/badjoke-lab/evowild-test/actions/runs/41076224940"
+  ],
+  "localResult": "16 passed (3.8m), build PASS; no new local test failure",
+  "historicalMainLaneFailures": "PUSH comparison on both browser projects and desktop AGILITY, not rerun in this scope."
+}
