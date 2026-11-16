@@ -1,0 +1,12 @@
+{
+  "v1Sha256": "963b52b0f82e58edb02423615415502f50e6245fa4f50a1606d192f0bae64a2d",
+  "v2Sha256": "6edb45e7aeb3179104d5b406d09eaa1f34da6baf09ddc9a6a0535d7e96f3f1c0",
+  "geometrySkinBindingsNodesMaterialsOriginalBytesUnchanged": true,
+  "v1NativeClipPreserved": true,
+  "joints": 23,
+  "clips": [
+    "EvoWild_S_D3C_V2",
+    "EvoWild_S_Run_V5",
+    "D3C_V2_Drive_Pose"
+  ]
+}

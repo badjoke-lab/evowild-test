@@ -99,7 +99,7 @@ export function createContactIK(mesh,patches,{toeSurfaces=null,continuousToe=fal
   }
   return state;
  }
- return {limbs,kinematics,reset,advance,get state(){return state;},apply(){
+ return {limbs,kinematics,reset,advance,get state(){return state;},apply(authoredSwing=null){
   if(!state)reset();
   const {cycles,distance}=state,k=kinematics(state.rate),diagnostics=[];
   mesh.updateWorldMatrix(true,false);
@@ -115,7 +115,8 @@ export function createContactIK(mesh,patches,{toeSurfaces=null,continuousToe=fal
    const forwardEnvelope=f.stance||limb.hind||!foreReach?0:
     Math.sin(Math.PI*swing)**2*(.55+.45*swing);
    const additionalReach=forwardEnvelope*(.045+.035*Math.max(0,Math.min(1.5,state.poseRate??state.rate)));
-   const visualTarget=additionalReach?target.clone().addScaledVector(forward,additionalReach):target;
+   let visualTarget=additionalReach?target.clone().addScaledVector(forward,additionalReach):target;
+   if(authoredSwing&&!f.stance&&!limb.hind&&authoredSwing[limb.name])visualTarget=visualTarget.clone().add(authoredSwing[limb.name]);
    const roll=limb.roll?.pose(p,limb.stance);
    const footRotation=roll?roll.rotation.clone().multiply(limb.rotations.at(-1)):limb.rotations.at(-1);
    const end=roll?visualTarget.clone().add(roll.translation).sub(limb.soleOffset.clone().applyQuaternion(roll.rotation)):visualTarget.clone().sub(limb.soleOffset),hip=limb.bones[0].getWorldPosition(new Vector3());
