@@ -11,8 +11,8 @@ const rig=new URLSearchParams(location.search).get('rig');
 // Independent D3-C authoring experiment, never used by race or manifest.
 const shoulderMode=new URLSearchParams(location.search).get('shoulder');
 const assets={'bind-v1':'review/focus-bind-repair-v1.glb','hind-v2':'review/focus-hind-fit-v2.glb','contact-v3':'review/focus-contact-v3.glb'};
-const authoredV2=rig==='contact-v3'&&shoulderMode==='authored-v2';
-const asset=authoredV2?'review/d3c-scapula-author-v2.glb':rig==='contact-v3'&&['neutral-v1','authored-v1'].includes(shoulderMode)?'review/d3c-scapula-author-v1.glb':(assets[rig] || 'focus-rigged-v5.glb');
+const authoredVersion=rig==='contact-v3'&&['authored-v2','authored-v3'].includes(shoulderMode)?Number(shoulderMode.at(-1)):null;
+const asset=authoredVersion?`review/d3c-scapula-author-v${authoredVersion}.glb`:rig==='contact-v3'&&['neutral-v1','authored-v1'].includes(shoulderMode)?'review/d3c-scapula-author-v1.glb':(assets[rig] || 'focus-rigged-v5.glb');
 if(assets[rig])document.querySelector('header small').textContent=`S ${rig} · 原本の頂点・面を保持 / REVISE・本番未採用`;
 const canvas=document.querySelector('#view');
 const renderer=new THREE.WebGLRenderer({canvas,antialias:true,preserveDrawingBuffer:true});
@@ -97,7 +97,7 @@ try{
   if(rig==='contact-v3')contactIK=createContactIK(mesh,solePatches,{toeSurfaces:['roll-v1','roll-v2','roll-v3'].includes(toeMode)?footSurfaces:null,continuousToe:['roll-v2','roll-v3'].includes(toeMode),toeRoundingWidth:toeMode==='roll-v3'?.0015:.003,foreReach:bodyMode==='push-v5'});
   clip=gltf.animations.find(a=>a.name==='EvoWild_S_Run_V5');if(!clip)throw Error('Expected native run clip missing');
   if(rig==='contact-v3'&&['push-v1','push-v2','push-v3','push-v4','push-v5'].includes(bodyMode))bodyCoupling=createBodyCoupling(mesh,clip,{smoothReturn:bodyMode!=='push-v1',smoothNativeJoin:['push-v3','push-v4','push-v5'].includes(bodyMode),driveFlex:bodyMode==='push-v4',foreLoad:bodyMode==='push-v5'});
-  if(authoredV2)authoredDrive=createAuthoredDrive(mesh,clip,gltf.animations.find(a=>a.name==='D3C_V2_Drive_Pose'));
+  if(authoredVersion)authoredDrive=createAuthoredDrive(mesh,clip,gltf.animations.find(a=>a.name===`D3C_V${authoredVersion}_Drive_Pose`));
   mixer=new THREE.AnimationMixer(model);mixer.clipAction(clip).play();mixer.setTime(0);if(contactIK){contactIK.reset(0,0,rate);pose();}
   // Isolated review/capture API. Never used by the race or saved as a race result.
   window.sRunReview={sample,advance,step,solePatches,footSurfaces,rollDescriptors:contactIK?.limbs.map(l=>l.roll?{name:l.name,maxDegrees:l.roll.maxDegrees,flatEnd:l.roll.flatEnd,segments:l.roll.segments}:null),footSample(){root.updateMatrixWorld(true);mesh.skeleton.update();return sampleFootSurfaces(mesh,footSurfaces);},probeFootRotation(index,degrees){paused=true;pose();const surface=footSurfaces[index],bone=mesh.skeleton.bones.find(b=>b.name===surface.terminal);const q=bone.getWorldQuaternion(new THREE.Quaternion());const rotation=new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1,0,0),degrees*Math.PI/180).multiply(q);bone.quaternion.copy(bone.parent.getWorldQuaternion(new THREE.Quaternion()).invert().multiply(rotation));root.updateMatrixWorld(true);mesh.skeleton.update();return sampleFootSurfaces(mesh,footSurfaces)[index];},motionSample(){return {time,rate,distance:root.position.z,contact:contactState,soles:sampleSoles(mesh,solePatches)};},setRate(value){rate=value;document.querySelector('#speed').value=String(value);if(contactIK)contactIK.advance(0,value);},soleSample(){root.updateMatrixWorld(true);mesh.skeleton.update();return sampleSoles(mesh,solePatches);},measureCycle(speed=1,steps=240){

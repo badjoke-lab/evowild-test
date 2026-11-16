@@ -1,0 +1,28 @@
+name: S D3-C v3 fore recovery review
+on:
+  workflow_dispatch:
+  push:
+    branches: [exp/d3c-scapula-authoring]
+    paths: ['scripts/author_s_d3c_v3.py', 'scripts/verify_s_d3c_v3.py', 'src/s_authored_drive.js', 'src/s_contact_ik.js', 'src/s_run_review.js', 'src/s_fore_recovery_audit.js', 'tests/s-d3c-v3.spec.js', 'tests/s-d3c-recovery.spec.js', '.github/workflows/s-d3c-v3.yml']
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: python3 scripts/author_s_d3c_v3.py && python3 scripts/verify_s_d3c_v3.py
+      - run: git diff --exit-code -- public/models/evowild-s/review/d3c-scapula-author-v3.glb
+      - run: npm install --no-package-lock
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test tests/s-d3c-v3.spec.js tests/s-d3c-recovery.spec.js tests/s-native-join.spec.js --workers=1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s-d3c-v3-regression
+          path: test-results/

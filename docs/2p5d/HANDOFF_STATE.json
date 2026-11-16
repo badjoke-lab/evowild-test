@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
   "purpose": "Codex child-branch checkpoint, not the main repo project status",
-  "status": "D3C_V3_DIAGNOSIS_COMPLETE_AUTHORING_NEXT",
+  "status": "D3C_V3_AUTHORED_CONTACT_PASS_NATIVE_KEY_FIX_PENDING",
   "base_repository": "badjoke-lab/evowild-test",
   "parent_branch": "feat/2p5d-autonomous-agent-orbs-20261024",
   "child_work_branch": "exp/d3c-scapula-authoring",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-11-16T16:00:45.119208+00:00",
+  "checkpoint_updated_at_utc": "2026-11-16T16:14:11.632909+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "v3 cause isolation complete; actual FK guide overfolds, no double-IK accumulation",
-  "last_commit_created": "729ba4a47e5dbd11601beca421acae68427368b5",
-  "last_remote_confirmed_sha": "729ba4a47e5dbd11601beca421acae68427368b5",
-  "last_remote_verified_at_utc": "2026-11-16T16:00:45.119208+00:00",
+  "current_unit": "Independent v3 authored; 12/14 regressions PASS, 2 new-coverage body-velocity failures at inherited native key .72",
+  "last_commit_created": "e26697e8fdda5e8c7319368ccf1008834a1cd592",
+  "last_remote_confirmed_sha": "e26697e8fdda5e8c7319368ccf1008834a1cd592",
+  "last_remote_verified_at_utc": "2026-11-16T16:14:11.632909+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -66,11 +66,12 @@
     "D3-C v2 recovery source/model published ef2cc60; fresh 16/16 PC/Pixel7 tests PASS including seven real sole speed profiles, sampled skin continuity, v1 and D2-D protection. Build/integrity PASS; no threshold relaxation.",
     "D3-C v2 fresh final comparison: ten real five-view movies,240 successive WebGL frames,PC/Pixel7 before-after,five inspection sheets,97-phase three-speed articulation samples. Original assets preserved; 16/16 tests/build/integrity PASS. Visible recovery improvement but fore-foot clustering and weak full-body sprint remain REVISE. No production integration.",
     "D3-C v2 21b42bbb evidence independently re-checked via GitHub connector 2026-11-17: same five-view real WebGL preview shows both fore feet crowded below chest around phase .307; deep elbows L62.39/R54.29 degrees vs v1 L96.50/R91.69. Existing v2 local 16/16 passed. CI failure 43895276969 environmental npm ci no package-lock; fixed workflow in 9689bbbc. Bounded v3 Codex task at docs/2p5d/CODEX_D3C_V3_FORE_RECOVERY.md, not executed yet.",
-    "D3C v3 diagnosis: 36 phases x2views x v1/v2 actual skin/fore joints. Zero-guide doubleIK displacement0. v2 at.307 FK adds Y17.5/29.9cm causing elbows74.68/55.10deg; removing D3B reach does not resolve. Surface separation~23cm means visual crowding, not diagnosed 3D foot collision. Diagnostic restore2/2PCPixel7PASS; v2 correctedActions43897785827 SUCCESS independently confirmed."
+    "D3C v3 diagnosis: 36 phases x2views x v1/v2 actual skin/fore joints. Zero-guide doubleIK displacement0. v2 at.307 FK adds Y17.5/29.9cm causing elbows74.68/55.10deg; removing D3B reach does not resolve. Surface separation~23cm means visual crowding, not diagnosed 3D foot collision. Diagnostic restore2/2PCPixel7PASS; v2 correctedActions43897785827 SUCCESS independently confirmed.",
+    "Independent v3 fore recovery authored: leading fold shorter, trailing fold reduced/earlier end, upper advances staggered; body/rear support poses preserved. Initial14 regressions12PASS/2FAIL:7profile sole matrixPASS bothdevices, freeze/unchangedbodyPASS; extra .72 sampledskin guard discovers existing v2 constant-speed .64577m/s native body corner (v3same), not contact or speed-command regression. Preserve failure logs and fix v3only."
   ],
   "pending_units": [
-    "Author independent v3 with staggered/shorter fore fold windows and continuous extension, preserving original/v1/v2 and D2-D/D3-B.",
-    "Run unchanged contact/velocity guards, compare five views and dense phases, save verdict and push."
+    "Fix inherited .72 native body key velocity corner for v3 only with an authored endpoint-tangent splice; preserve D2-D/D3-B and v2.",
+    "Rerun unchanged failed guard plus related contact tests; final5view+densecapture and visual review/push."
   ],
   "test_status": {
     "baseline_reference": "Parent dcd3f56 Actions 40152147602: 63 passed / 4 failed / 81 skipped. Original 3 + Android race-quality:125 pressure test (also before our changes).",
@@ -105,7 +106,7 @@
     "s_d3c_v2": "Fresh16/16 PC/Pixel7 PASS(3.8m), buildPASS, immutable asset integrityPASS. Seven speed profiles: penetration/reach/jump0; support gap.423742mm; slip.000870mm; hind recovery47.98cm; sole residual.005987m/s and310sampledskin residual.003592m/s. v1/D2-D existing regression included; no lowered thresholds. Ten movies/240 frames captured, browser errors0. Overall visualREVISE.",
     "s_d3c_v2_actions": "Workflow source confirmed on GitHub at995f9ea. Run statusUNVERIFIED: CLI and unauthenticated API network tunnel403; connector lacks push-run listing. See actions-status.json. Historical main-lane3known failures not rerun.",
     "s_d3c_v2_ci": "Actions #43897785827 completed SUCCESS on commit 9689bbbc: GLB generator + verifier PASS, unchanged v2 GLB check PASS, npm install --no-package-lock PASS, production build PASS, chromium installation PASS, focused Playwright 16/16 PASS. Old #43895276969 failure caused by npm ci without lockfile, resolved.",
-    "s_d3c_v3": "Diagnosis restore/idempotence2/2PASS; new animation not yet authored. Prior v2Actions43897785827 success confirmed via GitHub jobs."
+    "s_d3c_v3": "WIP12/14PASS; 2FAIL newcoverage at.72 residual .64579>.02. Existingv2 reproduces.64577 even constant speed. Contact/IK/slip/gap/freeze/zero-timejump and preservedbody/rear guardsPASS. No thresholds relaxed."
   },
   "original_mocks": {
     "expected_count": 11,
@@ -146,8 +147,8 @@
     "docs/2p5d/evidence/20261029-s-d3b-fore-reach/actions-summary.json",
     "docs/2p5d/evidence/20261117-s-d3c-v2/README.md and VISUAL_REVIEW.md; compare.html, ten five-viewMP4,240frames,PC/Pixel7 pairs,tests/build/actualvertexdata/assetintegrity"
   ],
-  "next_action": "Implement scripts/author_s_d3c_v3.py and shoulder=authored-v3; use DIAGNOSIS.md and recovery-authored-v1-authored-v2.json. No v1/v2 regeneration.",
+  "next_action": "Add D3C_V3_Native_Join clip at .712-.728 and opt-in authored-drive correction; retain v2/native clips byte-exact. Failed guard is tests/s-d3c-v3.spec.js sampled body velocity. See boundary-probe.json.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "Diagnosis-only bounded checkpoint. Existing v2 assets/video not regenerated. Next is new v3 authoring.",
+  "checkpoint_note": "Bounded WIP authoring checkpoint: preserve actual candidate and failures before further fix. No acceptance; no v1/v2 overwrite.",
   "draft_pr_note": "PR132 is the parent development lane. This experimental branch is not merged into PR132; no new PR created."
 }
