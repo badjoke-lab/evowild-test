@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "child_work_branch": "exp/2p5d-sprite-stacking-20261118",
-  "status": "IN_PROGRESS_PERFORMANCE_AND_CAPTURE",
-  "current_unit": "Desktop/mobile browser QA passed; 76-condition cold-load benchmark running",
+  "status": "IN_PROGRESS_CAPTURE_AND_DECISION",
+  "current_unit": "76 cold-load performance conditions complete, zero browser errors; deterministic video capture underway",
   "completed_units": [
     "Inspected main, D3-C v2/v3 and modeling reference",
     "Imported immutable source, reference, six runtime modules and existing oval into isolated public/exp-sprite-stacking",
@@ -12,17 +12,18 @@
     "Real desktop Canvas screenshot inspected",
     "Same-source 16-direction 2D bake complete",
     "Desktop/mobile QA passes: actual input, all layer/frame variants, renderer roundtrip, no errors/overflow, eighteen runners",
-    "Analytic cube slicing, immutable source/reference and four actual limb recovery checks pass"
+    "Analytic cube slicing, immutable source/reference and four actual limb recovery checks pass",
+    "76 conditions measured: PC/mobile equivalents, Canvas/WebGL layer-frame matrix and 1/6/18-runner baselines; raw frame times, heap/RSS/decoded memory, transfer bytes and cold load saved"
   ],
   "unfinished_units": [
     "Canvas demo and WebGL slice comparison if needed",
     "2D/GLB/stack performance and quality comparison",
     "Videos, five views, decision and final push"
   ],
-  "last_remote_confirmed_sha": "465cb91e6d903ae9326001c34320fe12e1676bd7",
-  "next_action": "Finish scripts/stacking-benchmark.mjs; capture five views and videos without concurrent benchmark load; write decision",
+  "last_remote_confirmed_sha": "9cdfc8e3940c4858f957317342c2966226a1b5a1",
+  "next_action": "Complete capture/quality inspection, generate report and standalone offline demo; verify and push final package",
   "source_limitations": [
     "Existing source GLB contains no textures/UV/materials/colors; preserve neutral appearance and report limitation"
   ],
-  "updated_at_utc": "2026-11-17T15:38:55.250937+00:00"
+  "updated_at_utc": "2026-11-17T15:47:57.939472+00:00"
 }
