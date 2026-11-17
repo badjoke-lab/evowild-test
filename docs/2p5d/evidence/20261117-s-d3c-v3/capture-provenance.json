@@ -1,0 +1,29 @@
+{
+  "baseline": "docs/2p5d/evidence/20261117-s-d3c-v2",
+  "reusedV2FullCycleFrames": 120,
+  "newV3FullCycleFrames": 120,
+  "newDenseFrames": 90,
+  "views": [
+    "SIDE",
+    "FRONT",
+    "CHASE",
+    "LOW",
+    "REAR_3_4"
+  ],
+  "phases": [
+    0.14,
+    0.2,
+    0.25,
+    0.28,
+    0.307,
+    0.32,
+    0.35,
+    0.4,
+    0.473
+  ],
+  "rate": 1,
+  "cycleStart": 0.64,
+  "stepsPerCycle": 24,
+  "stepSeconds": 0.017361111111111112,
+  "description": "Actual WebGL simulation-time capture, no interpolation. V2 full cycles/device stills copied byte-for-byte from already completed evidence; dense matched phases newly captured. Pixel7 is emulation, not physical-device performance."
+}

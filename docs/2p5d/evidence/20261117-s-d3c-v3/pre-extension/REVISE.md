@@ -1,0 +1,3 @@
+# Pre-extension candidate — REVISE
+
+GLB SHA5dda5fc5. v3 source14/14 PASS and buildPASS at bd01b7e. Actual SIDE and REAR_3_4 phase.307 show less elbow cramp, but the feet now reach similar heights. SIDE sole bbox overlap .000477→.000270 NDC²; rear-quarter overlap0→.000149. Not a measured3D collision. Left positive extension after its early fold is still absent: it merely removes added fold while base IK stays flexed. Next bounded correction authors a positive extension lobe after the negative fold, keeping max absolute joint addition below the existing20deg fold and stance timing unchanged. It must be retested and recaptured; no visual KEEP.
