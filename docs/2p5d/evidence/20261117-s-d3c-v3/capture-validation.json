@@ -1,0 +1,100 @@
+{
+  "candidateSha256": "f894573f8f89e6d3067e64494dcecf300c6083d76f80c7890813e544c2a86822",
+  "cycleFrames": 240,
+  "denseFrames": 90,
+  "baselineFullCycleBytesMatchV2": true,
+  "errors": [],
+  "movies": [
+    {
+      "file": "before-SIDE.mp4",
+      "sha256": "366d4a2cc824ef1d6fbaf25d491b8545ea58d94be3aa8ed76cee4a70c3ab70ed",
+      "width": 960,
+      "height": 640,
+      "avg_frame_rate": "288/5",
+      "duration": "0.416667",
+      "nb_frames": "24"
+    },
+    {
+      "file": "after-SIDE.mp4",
+      "sha256": "f500f8a092cfb5896ca21f9259091559d6fd23080713eaa0f8d5b72c928e943e",
+      "width": 960,
+      "height": 640,
+      "avg_frame_rate": "288/5",
+      "duration": "0.416667",
+      "nb_frames": "24"
+    },
+    {
+      "file": "before-FRONT.mp4",
+      "sha256": "66c4dafb0af1cfd471d1879e340ea31ae696376ee994dba6ec9b02c5facb869a",
+      "width": 960,
+      "height": 640,
+      "avg_frame_rate": "288/5",
+      "duration": "0.416667",
+      "nb_frames": "24"
+    },
+    {
+      "file": "after-FRONT.mp4",
+      "sha256": "ec9ea028505033e4da622caf2c013a2bd39725f66b6a88f4795957868d9d1aa7",
+      "width": 960,
+      "height": 640,
+      "avg_frame_rate": "288/5",
+      "duration": "0.416667",
+      "nb_frames": "24"
+    },
+    {
+      "file": "before-CHASE.mp4",
+      "sha256": "047f0c5682c1348f15b41ea2d79084d3bf8474480e763ba79e70ab1e2dbc08fb",
+      "width": 960,
+      "height": 640,
+      "avg_frame_rate": "288/5",
+      "duration": "0.416667",
+      "nb_frames": "24"
+    },
+    {
+      "file": "after-CHASE.mp4",
+      "sha256": "264e6c381d41f33e6e1b5fad554dd85c7781d277f536b07e704ba9e91d4ba559",
+      "width": 960,
+      "height": 640,
+      "avg_frame_rate": "288/5",
+      "duration": "0.416667",
+      "nb_frames": "24"
+    },
+    {
+      "file": "before-LOW.mp4",
+      "sha256": "802b270458748b94724654763f930da61e193c4f5e27e45da8444ea92da662da",
+      "width": 960,
+      "height": 640,
+      "avg_frame_rate": "288/5",
+      "duration": "0.416667",
+      "nb_frames": "24"
+    },
+    {
+      "file": "after-LOW.mp4",
+      "sha256": "02469ee6eb22d67eb2ff4aa7b04c73455d053ca7e824b9dee0ad3f3cc902742c",
+      "width": 960,
+      "height": 640,
+      "avg_frame_rate": "288/5",
+      "duration": "0.416667",
+      "nb_frames": "24"
+    },
+    {
+      "file": "before-REAR_3_4.mp4",
+      "sha256": "6c834b5e99940f87bb7029a4595093bc9b875fa1eae67e7136978ec1e22c9b10",
+      "width": 960,
+      "height": 640,
+      "avg_frame_rate": "288/5",
+      "duration": "0.416667",
+      "nb_frames": "24"
+    },
+    {
+      "file": "after-REAR_3_4.mp4",
+      "sha256": "da87cfa4c1e9e588c76210a3f70bcf485a7f4d051c256abda004cfdf27ac1af3",
+      "width": 960,
+      "height": 640,
+      "avg_frame_rate": "288/5",
+      "duration": "0.416667",
+      "nb_frames": "24"
+    }
+  ],
+  "reviewMethod": "Ordered real WebGL frames and contact sheets. Movies encoded from consecutive real renders; no normal-speed personal playback claim; no generated/interpolated frames."
+}

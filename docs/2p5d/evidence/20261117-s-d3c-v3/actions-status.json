@@ -1,0 +1,13 @@
+{
+  "checkedAtUtc": "2026-11-17T03:42:57.684528+00:00",
+  "finalSourceCommit": "5f65e96f892b4cff76577dcfaf19049282d08855",
+  "workflow": ".github/workflows/s-d3c-v3.yml",
+  "v3RunStatus": "UNVERIFIED",
+  "accessFailure": "gh run list: API Forbidden through environment network route. Git push succeeds; connector supports known run job lookup but not push-run enumeration.",
+  "v2KnownRun": {
+    "id": 43897785827,
+    "url": "https://github.com/badjoke-lab/evowild-test/actions/runs/43897785827",
+    "independentlyConfirmed": "verify job completed SUCCESS via GitHub connector; corrected lockfile-free install"
+  },
+  "local": "Final curve8/8 affected testsPASS; earlier14/14 includes6unchangedbaselinecases, retained. BuildPASS. All failures retained and corrected."
+}

@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
   "purpose": "Codex child-branch checkpoint, not the main repo project status",
-  "status": "D3C_V3_EXTENSION_REFINEMENT_PASS_FINAL_CAPTURE_PENDING",
+  "status": "D3C_V3_COMPLETE_REVIEW_ONLY_VISUAL_REVISE",
   "base_repository": "badjoke-lab/evowild-test",
   "parent_branch": "feat/2p5d-autonomous-agent-orbs-20261024",
   "child_work_branch": "exp/d3c-scapula-authoring",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-11-17T03:36:52.733965+00:00",
+  "checkpoint_updated_at_utc": "2026-11-17T03:45:58.433471+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "Leading foreleg now advances earlier then unfolds forward/down; final8/8 affected testsPASS/buildPASS",
-  "last_commit_created": "afa67239d4faf70787cf3b4e002639fafdabd15d",
-  "last_remote_confirmed_sha": "afa67239d4faf70787cf3b4e002639fafdabd15d",
-  "last_remote_verified_at_utc": "2026-11-17T03:36:52.733965+00:00",
+  "current_unit": "D3-C v3 final independent GLB, five-view comparison and regression verified; visual REVISE",
+  "last_commit_created": "5f65e96f892b4cff76577dcfaf19049282d08855",
+  "last_remote_confirmed_sha": "5f65e96f892b4cff76577dcfaf19049282d08855",
+  "last_remote_verified_at_utc": "2026-11-17T03:45:58.433471+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
     "?? public/models/evowild-s.mtl",
@@ -70,15 +70,16 @@
     "Independent v3 fore recovery authored: leading fold shorter, trailing fold reduced/earlier end, upper advances staggered; body/rear support poses preserved. Initial14 regressions12PASS/2FAIL:7profile sole matrixPASS bothdevices, freeze/unchangedbodyPASS; extra .72 sampledskin guard discovers existing v2 constant-speed .64577m/s native body corner (v3same), not contact or speed-command regression. Preserve failure logs and fix v3only.",
     "D3C v3 final source: authored tangent bridge .712-.728 for inherited v2 native corner; optional v3-only adapter retains existing load and stance IK. Expanded boundary tests including both splice edges PASS, final14/14PCPixel7PASS(2.6m), buildPASS. Initial12/14 failure logs preserved. Sampledskin maximum residual.008396<.02, no threshold relaxation.",
     "First final v3 capture: all10 before/aftermovies,240cycleframes,90matched denseframes,PC/Pixel7 pairs. V2fullcycles reused byte-exact. Actualframe inspection shows elbow improvement but near-equal foot heights and rear-quarter overlap regression. Preserved pre-extension evidence; refine active leading-foot extension, not lateral spreading/camera changes.",
-    "v3 visual-driven refinement: left upper advance earlier (0..0.90 swing), left lower transitions -20fold to +14extension; trailing recovery preserved. First extension attempt failed new10cm separation guard(9.595cm); timing corrected, unchangedguard15.456cm and final8/8affectedPCPixel7PASS. Prior6unaffectedbaselinecases remainvalid; buildPASS. v1/v2/source geometry and D2D/D3B untouched."
+    "v3 visual-driven refinement: left upper advance earlier (0..0.90 swing), left lower transitions -20fold to +14extension; trailing recovery preserved. First extension attempt failed new10cm separation guard(9.595cm); timing corrected, unchangedguard15.456cm and final8/8affectedPCPixel7PASS. Prior6unaffectedbaselinecases remainvalid; buildPASS. v1/v2/source geometry and D2D/D3B untouched.",
+    "Final v3 f894573f: five real WebGL after videos, 120 after cycle frames and 45 requested dense phase images captured; exact v2 baseline retained. Total comparison10movies/240cycleframes/90denseframes, zero browser errors, PC/Pixel7 screenshots. Ordered five-view frames reviewed; leading extension less cramped, whole-body propulsion still REVISE. Native join extent measured: root .04025mm, body skin .34890mm, zero outside splice. Final capture/review complete; do not repeat to resume."
   ],
   "pending_units": [
-    "Measure final v3 recovery, recapture v3 five views/dense phases only; reuse prior v2 evidence byte-exact.",
-    "Inspect final visuals and record exact remaining defects/KEEP-REVISE, save and verify remote."
+    "Check new v3 push-workflow result when GitHub Actions API access is available (current environment route403; not a test failure).",
+    "Next separate review candidate: measure chest/scapula skin and pelvis orientation relative to support at .24–.47, then author minimum chest–pelvis timing/pose change preserving solved fore extension and contact. Do not restart v3 or alter D2-D/D3-B."
   ],
   "test_status": {
     "baseline_reference": "Parent dcd3f56 Actions 40152147602: 63 passed / 4 failed / 81 skipped. Original 3 + Android race-quality:125 pressure test (also before our changes).",
-    "latest_build": "PASS D3-B local and source CI6f5ac01; existing bundle-size warning only.",
+    "latest_build": "PASS final D3-C v3 production build; existing bundle-size warning only.",
     "latest_desktop_e2e": "PASS all 27 desktop cases in final-targeted.log, including real full journey, reloaded results, Agent roundtrip/validator, reset/abort, lane execution outcomes and screenshot capture",
     "latest_android_e2e": "PASS all 27 Pixel 7 Chromium emulation cases in final-targeted.log; physical Android not tested",
     "agent_outcome": "PASS 10/10 incl. controlled-clock actual lane arrival on desktop/Android; build PASS",
@@ -109,7 +110,8 @@
     "s_d3c_v2": "Fresh16/16 PC/Pixel7 PASS(3.8m), buildPASS, immutable asset integrityPASS. Seven speed profiles: penetration/reach/jump0; support gap.423742mm; slip.000870mm; hind recovery47.98cm; sole residual.005987m/s and310sampledskin residual.003592m/s. v1/D2-D existing regression included; no lowered thresholds. Ten movies/240 frames captured, browser errors0. Overall visualREVISE.",
     "s_d3c_v2_actions": "Workflow source confirmed on GitHub at995f9ea. Run statusUNVERIFIED: CLI and unauthenticated API network tunnel403; connector lacks push-run listing. See actions-status.json. Historical main-lane3known failures not rerun.",
     "s_d3c_v2_ci": "Actions #43897785827 completed SUCCESS on commit 9689bbbc: GLB generator + verifier PASS, unchanged v2 GLB check PASS, npm install --no-package-lock PASS, production build PASS, chromium installation PASS, focused Playwright 16/16 PASS. Old #43895276969 failure caused by npm ci without lockfile, resolved.",
-    "s_d3c_v3": "Final affected8/8PASS1.5m + prior6unaffected(v2audit/D2D)PASS from14/14run; buildPASS. Sevenprofiles with unchanged contact/slip/velocity guards, actualbody/hinddelta0 inrecoverywindow; left/right endpointheightgap15.456cm at.307. Two prior failure rounds preserved and fixed; no threshold relaxation. Finalvisual capturepending."
+    "s_d3c_v3": "Final affected8/8 PC/Pixel7 PASS(1.5m); earlier full14/14 includes6unchangedbaseline cases. Build/integrityPASS. Seven speed profiles: penetration/reach/dt0jump0; support slip.000870mm; gap.423742mm; hind recovery47.98cm; sole residual.005987m/s; sampled skin residual~.008396m/s. All old limits unchanged. Final five-view capture complete; overall visualREVISE.",
+    "s_d3c_v3_actions": "UNVERIFIED: GitHub API route403; push/remote read works. Known v2 run43897785827 independently confirmedSUCCESS. No claim of new v3 CI success; local results recorded separately."
   },
   "original_mocks": {
     "expected_count": 11,
@@ -118,7 +120,8 @@
     "verifier": "scripts/verify_2p5d_mockups.py"
   },
   "blocker": [
-    "Overall S visual REVISE; no production integration."
+    "Overall S visual REVISE: residual under-chest projection crowding and weak chest/pelvis-to-rear-kick connection; no production integration.",
+    "V3 Actions status unavailable through current environment API route403."
   ],
   "last_checkpoint_evidence": [
     "docs/2p5d/evidence/20261025-flow/final-targeted.log",
@@ -148,10 +151,18 @@
     "docs/2p5d/evidence/20261029-s-d3b-fore-reach/README.md",
     "docs/2p5d/evidence/20261029-s-d3b-fore-reach/VISUAL_REVIEW.md",
     "docs/2p5d/evidence/20261029-s-d3b-fore-reach/actions-summary.json",
-    "docs/2p5d/evidence/20261117-s-d3c-v2/README.md and VISUAL_REVIEW.md; compare.html, ten five-viewMP4,240frames,PC/Pixel7 pairs,tests/build/actualvertexdata/assetintegrity"
+    "docs/2p5d/evidence/20261117-s-d3c-v2/README.md and VISUAL_REVIEW.md; compare.html, ten five-viewMP4,240frames,PC/Pixel7 pairs,tests/build/actualvertexdata/assetintegrity",
+    "docs/2p5d/evidence/20261117-s-d3c-v3/README.md, VISUAL_REVIEW.md, compare.html, final10movies/240frames/90denseframes, PC/Pixel7 pairs, actual mesh/contact/native-join measurements and unchanged-threshold test logs"
   ],
-  "next_action": "CHROMIUM_PATH=/usr/bin/chromium D3C_VARIANTS=authored-v3 node scripts/measure_s_d3c_recovery.mjs; CHROMIUM_PATH=/usr/bin/chromium node scripts/capture_s_d3c_v3.mjs",
+  "next_action": "Fetch exp/d3c-scapula-authoring; read this state and final v3 VISUAL_REVIEW.md. Check pending v3 CI if accessible; proceed only to the bounded new chest–pelvis authoring unit. Do not rerun completed v3 captures/tests without new changes.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "Pre-extension real comparison saved afa6723. Final fore refinement source/test unit ready: source14/14 earlier plus8/8 affected tests after final curve change; no repeated unaffected tests.",
-  "draft_pr_note": "PR132 is the parent development lane. This experimental branch is not merged into PR132; no new PR created."
+  "checkpoint_note": "Final source verified on remote5f65e96. This next evidence-only checkpoint saves final rendered comparisons and handoff; last_remote_confirmed_sha deliberately records the already verified source commit, not a self-referential commit hash.",
+  "draft_pr_note": "PR132 is the parent development lane. This experimental branch is not merged into PR132; no new PR created.",
+  "candidate_artifact": {
+    "path": "public/models/evowild-s/review/d3c-scapula-author-v3.glb",
+    "sha256": "f894573f8f89e6d3067e64494dcecf300c6083d76f80c7890813e544c2a86822",
+    "source_commit": "5f65e96f892b4cff76577dcfaf19049282d08855",
+    "visual_verdict": "REVISE",
+    "production_adoption": false
+  }
 }
