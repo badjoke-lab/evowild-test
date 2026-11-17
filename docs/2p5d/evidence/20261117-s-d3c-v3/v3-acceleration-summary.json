@@ -15,15 +15,15 @@
       "stanceSlip": 0.047637749735171896,
       "maxStanceStepSlip": 0.00489997448771895,
       "contactTime": 0.3208333333333334,
-      "recoveryHeight": 0.4617080658613588,
+      "recoveryHeight": 0.46464011363100466,
       "maxReachError": 0,
       "jointAngleRange": [
-        84.13789786311584,
-        155.81512931891888
+        84.3304022494351,
+        155.81512934246723
       ],
-      "maxSegmentLengthDrift": 1.2212453270876722e-15,
+      "maxSegmentLengthDrift": 9.992007221626409e-16,
       "maxZeroTimeJump": 0,
-      "maxMeshVelocityResidual": 0.0047470407755532155,
+      "maxMeshVelocityResidual": 0.004747127041027955,
       "legacyAllPatchMovement": 0.047637749735171896,
       "supportSlip": 3.6681652493264504e-7,
       "maxSupportStep": 1.0521338467128771e-8,
@@ -31,8 +31,8 @@
       "toeTime": 0.2541666666666669,
       "guardPenetration": 0,
       "pitchRange": [
-        -22.56993343223137,
-        -0.5699334322312991
+        -22.569933432231476,
+        -0.5699334322313016
       ],
       "rearRise": 0.07687397561232218,
       "maxSupportPlaneError": 0.00027515951176493303

@@ -2,7 +2,7 @@
   "source": "public/models/evowild-s/review/d3c-scapula-author-v2.glb",
   "sourceSha256": "6edb45e7aeb3179104d5b406d09eaa1f34da6baf09ddc9a6a0535d7e96f3f1c0",
   "candidate": "public/models/evowild-s/review/d3c-scapula-author-v3.glb",
-  "candidateSha256": "5dda5fc5248bf4b97b73407a85a65d66454008c49e93555aeab71441a740e2e0",
+  "candidateSha256": "f894573f8f89e6d3067e64494dcecf300c6083d76f80c7890813e544c2a86822",
   "joints": 23,
   "duration": 1.0416666269302368,
   "clips": [
@@ -74,8 +74,8 @@
         0.0,
         0.0,
         0.0,
-        0.9876883553837511,
-        0.15643437166857233,
+        0.9876883647407357,
+        0.15643431259084883,
         0.0,
         0.0,
         1.0
@@ -85,11 +85,11 @@
       "bone": "fore_L_lower",
       "path": "rotation",
       "range": [
-        -0.17364566494885544,
+        -0.17355825863323793,
         0.0,
         0.0,
-        0.9848081960688944,
-        -0.0,
+        0.9848236039312818,
+        0.11698084108244025,
         0.0,
         0.0,
         1.0

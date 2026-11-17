@@ -40,4 +40,4 @@ dist/assets/three.module-BfTwxwhy.js            569.53 kB │ gzip: 147.77 kB
 - Using dynamic import() to code-split the application
 - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
-✓ built in 2.84s
+✓ built in 2.13s

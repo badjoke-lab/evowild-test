@@ -56,11 +56,11 @@ def delta(name,path,p):
    deg=8.5*math.sin(2*math.pi*(p-off+.19))+10*glide
   elif name.endswith('upper'):
    # Advance the upper arm as the earlier fold opens; trailing arm follows.
-   deg=18*pulse(sw,.08 if '_L_' in name else .22,1)
+   deg=18*pulse(sw,0,.90) if '_L_' in name else 18*pulse(sw,.22,1)
   else:
    # Same stance timing, distinct airborne recovery windows. Both have zero
    # position/slope at their boundaries. No extra lift or larger rotation.
-   deg=-20*pulse(sw,0,.70) if '_L_' in name else -14*pulse(sw,.08,.78)
+   deg=(-20*pulse(sw,0,.70)+14*pulse(sw,.32,.88)) if '_L_' in name else -14*pulse(sw,.08,.78)
  else:
   push=pulse(p,.10,.52);load=pulse(p,.59,.99)
   deg={'pelvis':-4.0*push,'spine':2.4*push-2.5*load,'chest':1.5*push+6*load,'neck':-1*push-3.2*load,'head':-.5*push-1.3*load,'tail':2.0*pulse(p,.20,.64)}[name]

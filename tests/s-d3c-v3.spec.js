@@ -25,6 +25,7 @@ test('D3-C v3 unfolds the leading foreleg while preserving v2 body and rear pose
  const old=poses[0][4].contact.limbs,now=poses[1][4].contact.limbs;
  console.log('D3C_V3_RECOVERY',JSON.stringify({bodyDrift,hindDrift,at307:now.slice(0,2).map(l=>({name:l.name,elbow:l.jointAngles[0],endpoint:l.joints.at(-1)}))}));
  expect(bodyDrift).toBeLessThan(1e-6);expect(hindDrift).toBeLessThan(1e-6);
+ expect(now[1].joints.at(-1)[1]-now[0].joints.at(-1)[1]).toBeGreaterThan(.10);
  for(let i=0;i<2;i++)expect(now[i].jointAngles[0]-old[i].jointAngles[0]).toBeGreaterThan(10);
  expect(Math.min(...poses[1].map(p=>p.contact.limbs[0].jointAngles[0]))).toBeGreaterThan(80);
  expect(Math.min(...poses[1].map(p=>p.contact.limbs[1].jointAngles[0]))).toBeGreaterThan(70);
