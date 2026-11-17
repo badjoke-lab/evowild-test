@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "child_work_branch": "exp/2p5d-sprite-stacking-20261118",
+  "status": "IN_PROGRESS_SOURCE_AND_BAKE",
+  "current_unit": "Existing D3-C v2 evaluated; horizontal cross-section generation running",
+  "completed_units": [
+    "Inspected main, D3-C v2/v3 and modeling reference",
+    "Imported immutable source, reference, six runtime modules and existing oval into isolated public/exp-sprite-stacking",
+    "Integrated 48 real skinned poses with original contact IK"
+  ],
+  "unfinished_units": [
+    "Canvas demo and WebGL slice comparison if needed",
+    "2D/GLB/stack performance and quality comparison",
+    "Videos, five views, decision and final push"
+  ],
+  "last_remote_confirmed_sha": null,
+  "next_action": "Complete scripts/stacking-slices.py, implement isolated public/exp-sprite-stacking/index.html and runtime, then browser-test",
+  "source_limitations": [
+    "Existing source GLB contains no textures/UV/materials/colors; preserve neutral appearance and report limitation"
+  ],
+  "updated_at_utc": "2026-11-17T15:24:17.521286+00:00"
+}
