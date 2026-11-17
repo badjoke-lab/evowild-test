@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "child_work_branch": "exp/2p5d-sprite-stacking-20261118",
-  "status": "IN_PROGRESS_FINAL_PACKAGE",
-  "current_unit": "Five direction images, five motion videos, quality/contact analysis and REVISE report saved; native IK baseline and offline packaging remain",
+  "status": "COMPLETE_EXPERIMENT_REVISE",
+  "current_unit": "All requested experiment deliverables complete; final push pending",
   "completed_units": [
     "Inspected main, D3-C v2/v3 and modeling reference",
     "Imported immutable source, reference, six runtime modules and existing oval into isolated public/exp-sprite-stacking",
@@ -18,17 +18,27 @@
     "360 rotation, four-leg run, parallel renderer, course and 12/24/48 pose videos complete; zero capture errors",
     "128-layer 5-degree failure inspected; four-leg motion and course sequences inspected; overall REVISE",
     "Independent continuous-IK comparison: 12/24/48 max stance sample error 131.9/62.5/27.8mm",
-    "npm run build PASS"
+    "npm run build PASS",
+    "Added six original continuous-IK GLB benchmark conditions and independent continuous comparison video; total82, zero measurement/capture errors",
+    "Five renderer modes pass desktop/mobile QA; source actual IK advances",
+    "Standalone all-assets HTML and ZIP with six videos, five comparison views, raw data, report and local HTTP launcher",
+    "Extracted ZIP validated: offline after HTTP bootstrap, five modes, twelve layer/frame conditions, zero further HTTP requests, local report/video playback PASS",
+    "Final production build, ZIP CRC/HTML SHA, FFprobe and existing-path isolation checks PASS"
   ],
-  "unfinished_units": [
-    "Canvas demo and WebGL slice comparison if needed",
-    "2D/GLB/stack performance and quality comparison",
-    "Videos, five views, decision and final push"
-  ],
-  "last_remote_confirmed_sha": "a313f3e6ae86f435910246cdcf5be069dc2045c3",
-  "next_action": "Finish native baseline; update report, build/test offline HTML+ZIP, verify final build and push",
+  "unfinished_units": [],
+  "last_remote_confirmed_sha": "790d6ab1783b7ebebfc2821436287f646a471e22",
+  "next_action": "Review docs/experiments/sprite-stacking/README.md and downloadable public/exp-sprite-stacking-demo.zip; no main integration",
   "source_limitations": [
     "Existing source GLB contains no textures/UV/materials/colors; preserve neutral appearance and report limitation"
   ],
-  "updated_at_utc": "2026-11-17T16:00:06.036511+00:00"
+  "updated_at_utc": "2026-11-17T16:12:46.716328+00:00",
+  "pending_units": [],
+  "verdict": "REVISE_NO_PRODUCTION_ADOPTION",
+  "limitations": [
+    "Source GLB has no texture/material/UV/colors",
+    "128 slices still fail grazing camera and have contact sampling error",
+    "Software GPU and mobile emulation; no physical GPU/device claim",
+    "Terrain is planar and rail ordering is approximate",
+    "file:// direct navigation blocked; provided local HTTP launcher"
+  ]
 }

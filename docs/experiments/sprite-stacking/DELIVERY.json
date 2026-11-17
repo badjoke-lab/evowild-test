@@ -1,0 +1,85 @@
+{
+  "branch": "exp/2p5d-sprite-stacking-20261118",
+  "verdict": "REVISE_NO_PRODUCTION_ADOPTION",
+  "date": "2026-11-18 Asia/Tokyo",
+  "package": {
+    "path": "public/exp-sprite-stacking-demo.zip",
+    "bytes": 37154042,
+    "sha256": "f01bc570c1dca93b4f9fb4f9d3b13531885a5850d8316aa4591ea8b1c5103206",
+    "crc": "PASS",
+    "entries": 62
+  },
+  "standalone": {
+    "bytes": 39053563,
+    "sha256": "77b22ac23d4ce81fbb0afd517d5924ebf3bcb78b651b73a62ae0458c07dcbabc",
+    "offlineAfterHttpBootstrap": "PASS",
+    "fileOrigin": "UNVERIFIED_BLOCKED_BY_ADMIN_POLICY"
+  },
+  "videos": [
+    {
+      "file": "course-run.mp4",
+      "codec_name": "h264",
+      "width": 1294,
+      "height": 620,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "360"
+    },
+    {
+      "file": "native-glb-comparison.mp4",
+      "codec_name": "h264",
+      "width": 1294,
+      "height": 620,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "180"
+    },
+    {
+      "file": "parallel-comparison.mp4",
+      "codec_name": "h264",
+      "width": 1294,
+      "height": 620,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "180"
+    },
+    {
+      "file": "pose-frame-comparison.mp4",
+      "codec_name": "h264",
+      "width": 2370,
+      "height": 532,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "180"
+    },
+    {
+      "file": "quadruped-run.mp4",
+      "codec_name": "h264",
+      "width": 1294,
+      "height": 620,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "180"
+    },
+    {
+      "file": "rotation-360.mp4",
+      "codec_name": "h264",
+      "width": 1294,
+      "height": 620,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "240"
+    }
+  ],
+  "performanceConditions": 82,
+  "browserQA": [
+    "desktop PASS",
+    "mobile emulation PASS",
+    "offline embedded five renderers/twelve configs PASS",
+    "real native IK advance PASS"
+  ],
+  "productionBuild": "PASS",
+  "sourceIdentity": "unchanged source/reference hashes; six copied controllers byte-identical",
+  "existingPathsModified": [],
+  "limitations": [
+    "Source GLB has no texture/material/UV/colors",
+    "128 slices still fail grazing camera and have contact sampling error",
+    "Software GPU and mobile emulation; no physical GPU/device claim",
+    "Terrain is planar and rail ordering is approximate",
+    "file:// direct navigation blocked; provided local HTTP launcher"
+  ]
+}

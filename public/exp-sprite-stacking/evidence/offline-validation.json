@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "source": "Extracted ZIP. Bootstrap over local HTTP, then browser offline:true for all five renderers and twelve layer/frame conditions",
+  "fileOriginValidation": "NOT RUN: file:// navigation blocked by environment administrator policy; no policy bypass attempted",
+  "standaloneHTMLSha256": "77b22ac23d4ce81fbb0afd517d5924ebf3bcb78b651b73a62ae0458c07dcbabc",
+  "htmlBytes": 39053563,
+  "rendererStates": [
+    {
+      "method": "canvas",
+      "calls": 370,
+      "triangles": 0,
+      "nativeControllers": 0
+    },
+    {
+      "method": "webgl",
+      "calls": 6,
+      "triangles": 0,
+      "nativeControllers": 0
+    },
+    {
+      "method": "glb",
+      "calls": 6,
+      "triangles": 77634,
+      "nativeControllers": 0
+    },
+    {
+      "method": "native",
+      "calls": 6,
+      "triangles": 77634,
+      "nativeControllers": 6
+    },
+    {
+      "method": "sprite",
+      "calls": 6,
+      "triangles": 0,
+      "nativeControllers": 6
+    }
+  ],
+  "layerFrameConditions": 12,
+  "localReportValidated": true,
+  "localHttpVideo": {
+    "width": 1294,
+    "height": 620,
+    "currentTime": 0.50123,
+    "error": null
+  },
+  "offlineHttpRequests": [],
+  "externalHttpRequests": [],
+  "browserErrors": []
+}

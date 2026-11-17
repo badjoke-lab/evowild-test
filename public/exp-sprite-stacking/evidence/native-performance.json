@@ -1,6 +1,6 @@
 {
   "date": "2026-11-18 Asia/Tokyo",
-  "sourceCommit": "a313f3e6ae86f435910246cdcf5be069dc2045c3",
+  "sourceCommit": "790d6ab1783b7ebebfc2821436287f646a471e22",
   "environment": {
     "os": "linux",
     "cpus": 3,
@@ -125,7 +125,7 @@
     "Single run per condition; short samples are indicative, not hardware guarantees.",
     "Headless Chromium with SwiftShader software WebGL; CPU throttle does not emulate a physical mobile GPU.",
     "Network shaping applies to local server; cold HTTP cache. Nav ready includes HTML, modules, assets and decode.",
-    "Every renderer uses identical discrete skinned source poses, creature-local lighting, orthographic camera, count and common Canvas course.",
+    "Native baseline evaluates original continuous existing IK at 1x, with the same source and common Canvas course.",
     "Native GLB baseline includes existing body/authored/sole/toe IK each frame at 1x speed; no offline pose replay.",
     "RSS sums CDP-reported Chromium process resident sets; shared pages can be double-counted and driver/GPU allocations are not fully represented. Baseline is separately reported, not blindly subtracted.",
     "JS heap and decoded RGBA backing estimate are separate scopes; do not add them as total RAM.",
@@ -1452,6 +1452,390 @@
         26.699999999720603,
         16.699999999720603,
         24.699999999720603
+      ]
+    },
+    {
+      "profile": "mobile-equivalent",
+      "method": "native",
+      "layers": 64,
+      "frames": 48,
+      "count": 6,
+      "navReadyMs": 7153.399999999907,
+      "initialReadyMs": 5049.4000000003725,
+      "fps": 8.06756586411156,
+      "meanIntervalMs": 123.9531250000058,
+      "p95IntervalMs": 183.39999999999964,
+      "meanRenderCpuMs": 120.53750000002037,
+      "p95RenderCpuMs": 187,
+      "samples": 32,
+      "calls": 6,
+      "triangles": 77634,
+      "heap": {
+        "usedJSHeapSize": 18388574,
+        "totalJSHeapSize": 32989822
+      },
+      "assets": {
+        "stackTransferBytes": 0,
+        "spriteTransferBytes": 0,
+        "decodedStackBytes": 0,
+        "decodedSpriteBytes": 0,
+        "glbBytes": 2043424
+      },
+      "processRssBytes": 684597248,
+      "baselineBrowserRssBytes": 208228352,
+      "resources": [
+        {
+          "name": "style.css",
+          "bytes": 6510,
+          "duration": 95.3000000002794
+        },
+        {
+          "name": "app.js",
+          "bytes": 11126,
+          "duration": 99.39999999990687
+        },
+        {
+          "name": "renderers.js",
+          "bytes": 6530,
+          "duration": 92.10000000009313
+        },
+        {
+          "name": "world.js",
+          "bytes": 4470,
+          "duration": 90.60000000009313
+        },
+        {
+          "name": "runtime/oval_course_2p5d.js",
+          "bytes": 2631,
+          "duration": 84.39999999990687
+        },
+        {
+          "name": "assets/manifest.json",
+          "bytes": 284079,
+          "duration": 317.90000000037253
+        },
+        {
+          "name": "glb-renderer.js",
+          "bytes": 3406,
+          "duration": 86.89999999990687
+        },
+        {
+          "name": "vendor/three.module.js",
+          "bytes": 626071,
+          "duration": 751.5999999996275
+        },
+        {
+          "name": "vendor/GLTFLoader.js",
+          "bytes": 114882,
+          "duration": 302.89999999990687
+        },
+        {
+          "name": "vendor/SkeletonUtils.js",
+          "bytes": 11062,
+          "duration": 111.3000000002794
+        },
+        {
+          "name": "runtime/pose.js",
+          "bytes": 2201,
+          "duration": 90.60000000009313
+        },
+        {
+          "name": "runtime/s_contact_ik.js",
+          "bytes": 9687,
+          "duration": 118.5
+        },
+        {
+          "name": "runtime/s_authored_drive.js",
+          "bytes": 3489,
+          "duration": 99.3000000002794
+        },
+        {
+          "name": "runtime/s_body_coupling.js",
+          "bytes": 6510,
+          "duration": 111.89999999990687
+        },
+        {
+          "name": "runtime/s_sole_metrics.js",
+          "bytes": 5385,
+          "duration": 119.89999999990687
+        },
+        {
+          "name": "runtime/s_foot_contact_geometry.js",
+          "bytes": 2431,
+          "duration": 186
+        },
+        {
+          "name": "runtime/s_toe_roll.js",
+          "bytes": 3557,
+          "duration": 88.10000000009313
+        },
+        {
+          "name": "vendor/utils/BufferGeometryUtils.js",
+          "bytes": 35539,
+          "duration": 136.60000000009313
+        },
+        {
+          "name": "vendor/three.core.js",
+          "bytes": 1405971,
+          "duration": 1216.1999999997206
+        },
+        {
+          "name": "assets/source.glb",
+          "bytes": 2043424,
+          "duration": 1892.6000000000931
+        },
+        {
+          "name": "assets/pose-tracks.json",
+          "bytes": 204884,
+          "duration": 412
+        }
+      ],
+      "canvas": {
+        "width": 357,
+        "height": 464
+      },
+      "errors": [],
+      "intervals": [
+        -16.69999999981337,
+        100,
+        116.60000000000036,
+        100.09999999999854,
+        100,
+        99.90000000000146,
+        100.09999999999854,
+        99.90000000000146,
+        116.69999999999891,
+        116.70000000000073,
+        99.89999999999964,
+        100,
+        100.10000000000036,
+        116.60000000000036,
+        166.6999999999989,
+        183.3000000000011,
+        183.29999999999927,
+        150,
+        100,
+        100,
+        100,
+        100,
+        183.39999999999964,
+        199.89999999999964,
+        116.70000000000073,
+        149.89999999999964,
+        100.10000000000036,
+        116.60000000000036,
+        183.29999999999927,
+        200.10000000000036,
+        149.89999999999964,
+        133.39999999999964
+      ],
+      "renderCpuMs": [
+        89.60000000009313,
+        99.20000000018626,
+        90,
+        102.20000000018626,
+        89.60000000009313,
+        92.20000000018626,
+        99.10000000009313,
+        103.10000000009313,
+        99.60000000009313,
+        92.20000000018626,
+        99.79999999981374,
+        98.70000000018626,
+        95,
+        172.09999999962747,
+        161.39999999990687,
+        175.1999999997206,
+        136.5,
+        97.60000000009313,
+        98,
+        87.8000000002794,
+        89.89999999990687,
+        187,
+        190.39999999990687,
+        110.5,
+        141.6999999997206,
+        92.8000000002794,
+        110,
+        168.1999999997206,
+        196.3000000002794,
+        137,
+        140,
+        114.5
+      ]
+    },
+    {
+      "profile": "mobile-equivalent",
+      "method": "native",
+      "layers": 64,
+      "frames": 48,
+      "count": 18,
+      "navReadyMs": 9050.100000000093,
+      "initialReadyMs": 4839.5,
+      "fps": 3.709002278386931,
+      "meanIntervalMs": 269.614285714299,
+      "p95IntervalMs": 350,
+      "meanRenderCpuMs": 279.67142857148843,
+      "p95RenderCpuMs": 316.5,
+      "samples": 14,
+      "calls": 18,
+      "triangles": 232902,
+      "heap": {
+        "usedJSHeapSize": 18628150,
+        "totalJSHeapSize": 37098334
+      },
+      "assets": {
+        "stackTransferBytes": 0,
+        "spriteTransferBytes": 0,
+        "decodedStackBytes": 0,
+        "decodedSpriteBytes": 0,
+        "glbBytes": 2043424
+      },
+      "processRssBytes": 688582656,
+      "baselineBrowserRssBytes": 208072704,
+      "resources": [
+        {
+          "name": "style.css",
+          "bytes": 6510,
+          "duration": 143.39999999990687
+        },
+        {
+          "name": "app.js",
+          "bytes": 11126,
+          "duration": 111.6999999997206
+        },
+        {
+          "name": "renderers.js",
+          "bytes": 6530,
+          "duration": 95.29999999981374
+        },
+        {
+          "name": "world.js",
+          "bytes": 4470,
+          "duration": 93.10000000009313
+        },
+        {
+          "name": "runtime/oval_course_2p5d.js",
+          "bytes": 2631,
+          "duration": 83.89999999990687
+        },
+        {
+          "name": "assets/manifest.json",
+          "bytes": 284079,
+          "duration": 315.5
+        },
+        {
+          "name": "glb-renderer.js",
+          "bytes": 3406,
+          "duration": 86.59999999962747
+        },
+        {
+          "name": "vendor/three.module.js",
+          "bytes": 626071,
+          "duration": 755
+        },
+        {
+          "name": "vendor/GLTFLoader.js",
+          "bytes": 114882,
+          "duration": 308.29999999981374
+        },
+        {
+          "name": "runtime/pose.js",
+          "bytes": 2201,
+          "duration": 93.5
+        },
+        {
+          "name": "vendor/SkeletonUtils.js",
+          "bytes": 11062,
+          "duration": 115.09999999962747
+        },
+        {
+          "name": "runtime/s_contact_ik.js",
+          "bytes": 9687,
+          "duration": 121
+        },
+        {
+          "name": "runtime/s_authored_drive.js",
+          "bytes": 3489,
+          "duration": 100.29999999981374
+        },
+        {
+          "name": "runtime/s_body_coupling.js",
+          "bytes": 6510,
+          "duration": 113.20000000018626
+        },
+        {
+          "name": "runtime/s_sole_metrics.js",
+          "bytes": 5385,
+          "duration": 121
+        },
+        {
+          "name": "runtime/s_foot_contact_geometry.js",
+          "bytes": 2431,
+          "duration": 186.39999999990687
+        },
+        {
+          "name": "runtime/s_toe_roll.js",
+          "bytes": 3557,
+          "duration": 91.20000000018626
+        },
+        {
+          "name": "vendor/utils/BufferGeometryUtils.js",
+          "bytes": 35539,
+          "duration": 136.79999999981374
+        },
+        {
+          "name": "vendor/three.core.js",
+          "bytes": 1405971,
+          "duration": 1234.3999999999069
+        },
+        {
+          "name": "assets/source.glb",
+          "bytes": 2043424,
+          "duration": 1903.5
+        },
+        {
+          "name": "assets/pose-tracks.json",
+          "bytes": 204884,
+          "duration": 410.89999999990687
+        }
+      ],
+      "canvas": {
+        "width": 357,
+        "height": 464
+      },
+      "errors": [],
+      "intervals": [
+        -8.699999999813372,
+        250.10000000000036,
+        216.59999999999854,
+        283.40000000000146,
+        249.89999999999964,
+        266.60000000000036,
+        233.39999999999964,
+        350,
+        316.6999999999989,
+        299.90000000000146,
+        300,
+        316.6999999999989,
+        366.60000000000036,
+        333.39999999999964
+      ],
+      "renderCpuMs": [
+        239.20000000018626,
+        215,
+        273.60000000009313,
+        232.6999999997206,
+        259.09999999962747,
+        225.8000000002794,
+        308.70000000018626,
+        316.5,
+        275.39999999990687,
+        298.10000000009313,
+        296.20000000018626,
+        370.90000000037253,
+        314.90000000037253,
+        289.29999999981374
       ]
     }
   ]

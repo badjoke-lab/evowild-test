@@ -42,10 +42,10 @@
     }
   ],
   "runtimeHashes": {
-    "app.js": "071d067d35f2fafd5d1ab50db24c1e7410843b15484a15a827ffba384fa0d0b2",
+    "app.js": "42badd415cbaa2aa60ed0d608160a665aacc64f6e1c274a7064cf74e1493f6ae",
     "renderers.js": "2f045fed4309269712b354abf0b75a4881e6b7047800f527193a215a036b02d2",
     "world.js": "2f9329744c8a91c332c3acbf36788b86403093645d6109a936323ef00a46b656",
-    "glb-renderer.js": "9e28fffb14ac81cff9ecbe6d7bcef5ff277858c03929ea3c651736e6b4895166"
+    "glb-renderer.js": "125c4aa8b1db05bcd40f0a84938091b791d072b512b6da26c34cfec1b1de0615"
   },
   "dependencies": {
     "three": "0.181.2",

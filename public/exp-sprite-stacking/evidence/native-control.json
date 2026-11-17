@@ -1,0 +1,10 @@
+{
+  "file": "native-glb-comparison.mp4",
+  "frames": 180,
+  "fps": 30,
+  "simulationTimeCapture": true,
+  "nativeControllers": 1,
+  "nativeCycles": 14.320000000000011,
+  "browserErrors": [],
+  "note": "Center GLB evaluates original continuous D3-C v2 native/body/authored/foot/toe IK every step. Left and right replay same source at 48 discrete poses. This complements the matched discrete-pose renderer-only benchmark."
+}

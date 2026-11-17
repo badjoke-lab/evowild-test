@@ -7,7 +7,7 @@ Branch: `exp/2p5d-sprite-stacking-20261118`。main統合・本番素材変更・
 ## デモと成果物
 
 - [通常版ブラウザデモ](../../../public/exp-sprite-stacking/index.html) — ローカルHTTPサーバーで開く。GitHubのソース表示自体では実行されない。
-- [オフライン版ZIP](../../../public/exp-sprite-stacking-demo.zip) — ダウンロードして展開し、`index.html`をブラウザで開く。デモは通信・サーバー不要。動画とレポートを同梱。
+- [オフライン版ZIP](../../../public/exp-sprite-stacking-demo.zip) — ダウンロードして展開し、`index.html`をブラウザで開く。全素材埋め込みHTMLと動画・レポートを同梱。`file://`直開きは本環境の管理ポリシーで未検証。制限環境向けの`start-demo.py`でローカルHTTP起動できる。
 - [HTML検証レポート](../../../public/exp-sprite-stacking/evidence/report.html)。ZIP内では直接開ける。
 - [360°回転](../../../public/exp-sprite-stacking/evidence/rotation-360.mp4)、[四足走行](../../../public/exp-sprite-stacking/evidence/quadruped-run.mp4)、[既存方式との並列比較](../../../public/exp-sprite-stacking/evidence/parallel-comparison.mp4)、[コース走行](../../../public/exp-sprite-stacking/evidence/course-run.mp4)、[12/24/48ポーズ比較](../../../public/exp-sprite-stacking/evidence/pose-frame-comparison.mp4)。
 - 5方向：[前方](../../../public/exp-sprite-stacking/evidence/comparison-front.png) / [前方3/4](../../../public/exp-sprite-stacking/evidence/comparison-front-quarter.png) / [側方](../../../public/exp-sprite-stacking/evidence/comparison-side.png) / [後方3/4](../../../public/exp-sprite-stacking/evidence/comparison-rear-quarter.png) / [後方](../../../public/exp-sprite-stacking/evidence/comparison-rear.png)。各画像は2D、GLB、16/32/64/128層の同条件比較。
@@ -86,13 +86,29 @@ PC 1440×1080、モバイル390×844で実際のキー操作・タッチhold/can
 | mobile-equivalent | WebGL積層 | 40.5 | 24.7 | 33.4 | 3.06 | 7.5 | 683 |
 
 
-6体・24ポーズ・積層64層の抜粋。[全76条件](../../../public/exp-sprite-stacking/evidence/performance.csv)には16/32/64/128×12/24/48、各方式1/6/18体を含む。各条件の冷キャッシュ初期表示、4秒の実時間frame間隔、CPU描画時間、生配列、JS heap、Chrome process RSS、素材bytes、復号RGBAを保存。
+6体・24ポーズ・積層64層の抜粋。[全76条件](../../../public/exp-sprite-stacking/evidence/performance.csv)には16/32/64/128×12/24/48、各方式1/6/18体を含む。各環境はCanvas/WebGLの4層×3ポーズ×6体＝24条件、2D/GLBの3ポーズ×6体＝6条件、4方式の1/18体・64層24ポーズ＝8条件、計38条件。各条件の冷キャッシュ初期表示、4秒の実時間frame間隔、CPU描画時間、生配列、JS heap、Chrome process RSS、素材bytes、復号RGBAを保存。
 
 **測定環境の限界：** Chromium 151、SwiftShaderのソフトウェアWebGL、同じクラウドCPU。PC相当はCPU1×・100Mbps/20ms、モバイル相当はCPU4×throttle・10Mbps/80ms。実機PC GPUやスマートフォンGPUの性能を代表する数値ではない。単回・1秒warmup＋4秒sampleで統計的なハード保証はしない。GLBが遅いことを一般のGPU端末に外挿しない。
 
 JS heap、画像RGBA見積り、Chrome RSSは違う範囲。RSSはChromeプロセスを合算し共有ページを二重計上しうる。GPU/driver領域も網羅しない。WebGL積層のテクスチャはCPU画像に加えて同寸法のGPU backingを持ちうる。素材容量とRAMを混同しない。オフライン単一HTMLは全素材を埋め込むため、この通常版ベンチマークとはロード／メモリ条件が異なる。
 
 24ポーズ時、16/32/64/128層PNGは .44/.82/1.61/3.06MB、復号RGBAは15.0/16.7/32.2/58.8MiB。GLBは2.04MB＋骨ポーズJSON約.20MB（Three等のコードは別途）。同一素材の16方向2Dは5.92MB、RGBA96MiB。フレーム数の増加は方向画像と断面の両方で素材／画像RAMを増やす。元本番2D WebPとこの16方向PNGを同じ圧縮条件とみなさない。
+
+
+### 既存IKを実行時に評価する連続GLB基準（追加6条件）
+
+描画単体76条件に加え、元のnative/body/authored/足裏IK/toe-rollを実行時に評価する1×のGLB基準も測定した。新しい足運動の生成ではなく、元の同じ制御を動かす。通常のモデルローダーを共有するラボ用基準で、本番ページ全体の測定とは区別する。比較用pose JSONはローダーで取得するが、このモードのポーズ再生には使わない。
+
+| 環境 | 体数 | FPS | 平均間隔 ms | p95 ms | 初期表示 s |
+| --- | --- | --- | --- | --- | --- |
+| pc-equivalent | 1 | 43.6 | 22.9 | 33.4 | 1.70 |
+| pc-equivalent | 6 | 10.8 | 92.8 | 100.1 | 1.68 |
+| pc-equivalent | 18 | 4.8 | 208.2 | 250.0 | 2.29 |
+| mobile-equivalent | 1 | 33.5 | 29.9 | 50.0 | 6.15 |
+| mobile-equivalent | 6 | 8.1 | 124.0 | 183.4 | 7.15 |
+| mobile-equivalent | 18 | 3.7 | 269.6 | 350.0 | 9.05 |
+
+[連続IK GLB並列動画](../../../public/exp-sprite-stacking/evidence/native-glb-comparison.mp4) / [6条件CSV](../../../public/exp-sprite-stacking/evidence/native-performance.csv) / [生データ](../../../public/exp-sprite-stacking/evidence/native-performance.json)。描画76＋連続IK6＝82条件。単回・ソフトウェアGPUという制約は共通。
 
 ## KEEP / REVISE / REJECTの根拠
 
@@ -118,6 +134,8 @@ CHROMIUM_PATH=/usr/bin/chromium node scripts/stacking-bake-sprites.mjs
 CHROMIUM_PATH=/usr/bin/chromium node scripts/stacking-qa.mjs
 CHROMIUM_PATH=/usr/bin/chromium node scripts/stacking-benchmark.mjs
 # 性能計測を終えてから動画を収録し、負荷を混ぜない
+STACK_NATIVE_ONLY=1 CHROMIUM_PATH=/usr/bin/chromium node scripts/stacking-benchmark.mjs
+CHROMIUM_PATH=/usr/bin/chromium node scripts/stacking-native-control.mjs
 CHROMIUM_PATH=/usr/bin/chromium node scripts/stacking-capture.mjs
 CHROMIUM_PATH=/usr/bin/chromium node scripts/stacking-capture-frames.mjs
 python3 scripts/stacking-quality.py
@@ -127,5 +145,7 @@ npm run build
 ```
 
 通常版URLは `http://127.0.0.1:4173/evowild-test/exp-sprite-stacking/index.html`。Viteのディレクトリfallbackを避けるため `index.html` まで指定する。Blenderや有料生成APIは不要。Python/numpy/Pillowによる三角形切断、既存Three.js制御のNode評価、Playwright、FFmpegのみ。FFmpeg/H.264は動画作成時に必要。
+
+`file://`の初回直接ナビゲーションは`ERR_BLOCKED_BY_ADMINISTRATOR`で拒否された。管理制限の回避はせず、ZIPの実ファイルをlocalhostから読み込み、その後通信を遮断して埋め込みデモを検証する。直接file originでの合格とは区別する。起動スクリプトはPython標準ライブラリのみ。
 
 元のsprite-stacking参考repositoryの技術説明は確認し、コードはコピーしていない。UI8 `/fly` は環境のネットワーク許可先に含まれず取得できなかったため、見たと主張しない。Three.js MIT licenseを同梱。初回2Dベイクにfavicon 404が1件あったが、favicon設定後の最終QA・性能・動画収録にはbrowser error 0。キャプチャの初回待機失敗は、決定的収録でRAFを停止したためで、待機を100ms pollingへ修正して完了した。合格基準を下げていない。
