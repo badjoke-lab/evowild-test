@@ -1,0 +1,142 @@
+{
+  "checks": [
+    "analytic 1m cube cross-section 256 opaque pixels",
+    "outside-plane empty",
+    "outside-solid alpha zero",
+    "source and reference immutable SHA256",
+    "192 atlas configurations",
+    "all four independent limbs >30cm recovery"
+  ],
+  "feet": [
+    {
+      "name": "fore_L",
+      "minSourceY": 1.6234387056890398e-07,
+      "recoveryHeight": 0.6361612165402446,
+      "excursion": 0.636161054196374
+    },
+    {
+      "name": "fore_R",
+      "minSourceY": 2.897223065900789e-07,
+      "recoveryHeight": 0.6522622700796222,
+      "excursion": 0.6522619803573156
+    },
+    {
+      "name": "hind_L",
+      "minSourceY": 7.00689213539718e-07,
+      "recoveryHeight": 0.4797287954864088,
+      "excursion": 0.47972809479719525
+    },
+    {
+      "name": "hind_R",
+      "minSourceY": 4.5117055802457173e-07,
+      "recoveryHeight": 0.47999471258355175,
+      "excursion": 0.47999426141299373
+    }
+  ],
+  "quantizedMotion": [
+    {
+      "frames": 12,
+      "steps": 240,
+      "period": 0.4166666666666667,
+      "note": "Discrete source poses with continuous root travel. Real sole points, 1mm source plane band. Includes sample-hold drift and pose jumps; not IK anchor slip.",
+      "feet": [
+        {
+          "foot": 0,
+          "accumulatedSoleDisplacement": 0.39203327135843447,
+          "maxStepDisplacement": 0.12814438246954543,
+          "supportPairs": 39
+        },
+        {
+          "foot": 1,
+          "accumulatedSoleDisplacement": 0.39222933013966643,
+          "maxStepDisplacement": 0.1283404412507776,
+          "supportPairs": 39
+        },
+        {
+          "foot": 2,
+          "accumulatedSoleDisplacement": 0.6539311332063596,
+          "maxStepDisplacement": 0.13194437771329948,
+          "supportPairs": 59
+        },
+        {
+          "foot": 3,
+          "accumulatedSoleDisplacement": 0.6549082452042383,
+          "maxStepDisplacement": 0.13194439154215437,
+          "supportPairs": 59
+        }
+      ]
+    },
+    {
+      "frames": 24,
+      "steps": 240,
+      "period": 0.4166666666666667,
+      "note": "Discrete source poses with continuous root travel. Real sole points, 1mm source plane band. Includes sample-hold drift and pose jumps; not IK anchor slip.",
+      "feet": [
+        {
+          "foot": 0,
+          "accumulatedSoleDisplacement": 0.4283120677292925,
+          "maxStepDisplacement": 0.06226091147990961,
+          "supportPairs": 39
+        },
+        {
+          "foot": 1,
+          "accumulatedSoleDisplacement": 0.5536822025190768,
+          "maxStepDisplacement": 0.06220800120803357,
+          "supportPairs": 49
+        },
+        {
+          "foot": 2,
+          "accumulatedSoleDisplacement": 0.6783743577996981,
+          "maxStepDisplacement": 0.06249996679420714,
+          "supportPairs": 59
+        },
+        {
+          "foot": 3,
+          "accumulatedSoleDisplacement": 0.6783909753612198,
+          "maxStepDisplacement": 0.06249997398578529,
+          "supportPairs": 59
+        }
+      ]
+    },
+    {
+      "frames": 48,
+      "steps": 240,
+      "period": 0.4166666666666667,
+      "note": "Discrete source poses with continuous root travel. Real sole points, 1mm source plane band. Includes sample-hold drift and pose jumps; not IK anchor slip.",
+      "feet": [
+        {
+          "foot": 0,
+          "accumulatedSoleDisplacement": 0.46261310582114995,
+          "maxStepDisplacement": 0.027777763134971586,
+          "supportPairs": 44
+        },
+        {
+          "foot": 1,
+          "accumulatedSoleDisplacement": 0.5185075532761382,
+          "maxStepDisplacement": 0.027777767241144433,
+          "supportPairs": 49
+        },
+        {
+          "foot": 2,
+          "accumulatedSoleDisplacement": 0.6296173517306789,
+          "maxStepDisplacement": 0.027777761367151363,
+          "supportPairs": 59
+        },
+        {
+          "foot": 3,
+          "accumulatedSoleDisplacement": 0.6835543695211385,
+          "maxStepDisplacement": 0.02777776490162538,
+          "supportPairs": 64
+        }
+      ]
+    }
+  ],
+  "planeCenterGroundGapMeters": {
+    "16": 0.0909375,
+    "32": 0.04546875,
+    "64": 0.022734375,
+    "128": 0.0113671875
+  },
+  "oddScanlinesTotal": 2,
+  "material": "Existing D3-C v2 GLB has no materials, UVs, images or COLOR_0. Neutral default white and coverage alpha preserved. No painted texture invented."
+}

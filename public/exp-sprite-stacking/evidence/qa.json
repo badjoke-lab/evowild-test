@@ -1,0 +1,39 @@
+{
+  "results": [
+    {
+      "profile": "desktop",
+      "status": "PASS",
+      "cases": [
+        "boot and Canvas no GLB",
+        "no overflow",
+        "keyboard acceleration and steering",
+        "free steering",
+        "layer/frame variants",
+        "renderer roundtrip and actual draws",
+        "three-way view",
+        "18-creature course"
+      ],
+      "browserErrors": [],
+      "httpFailures": []
+    },
+    {
+      "profile": "mobile",
+      "status": "PASS",
+      "cases": [
+        "boot and Canvas no GLB",
+        "no overflow",
+        "keyboard acceleration and steering",
+        "free steering",
+        "layer/frame variants",
+        "renderer roundtrip and actual draws",
+        "three-way view",
+        "18-creature course",
+        "touch hold/cancel"
+      ],
+      "browserErrors": [],
+      "httpFailures": []
+    }
+  ],
+  "physicalDevice": false,
+  "sourceUnchanged": true
+}
