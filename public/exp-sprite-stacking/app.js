@@ -1,7 +1,8 @@
 import {StackAssets,SpriteAssets,WebGLSlices,drawStack,projected} from './renderers.js';
 import {createSimulation,stepSimulation,entities,floor,shadows,rails,coursePoint} from './world.js';
 const $=s=>document.querySelector(s),canvas=$('#view'),ctx=canvas.getContext('2d',{alpha:false}),params=new URLSearchParams(location.search),start=performance.now();
-const config={method:params.get('method')||'canvas',layers:Number(params.get('layers')||64),frames:Number(params.get('frames')||24),scene:params.get('scene')||'course',count:Number(params.get('count')||6),elevation:35,azimuth:0,auto:true,rotate:true,animate:true};
+let nativeTime=0;
+const config={nativeComparison:params.has('nativeComparison'),method:params.get('method')||'canvas',layers:Number(params.get('layers')||64),frames:Number(params.get('frames')||24),scene:params.get('scene')||'course',count:Number(params.get('count')||6),elevation:35,azimuth:0,auto:true,rotate:true,animate:true};
 const comparisonBuffers=[];
 let manifest,stack,sprite,webgl,glb,simulation=createSimulation(config.count),paused=false,ready=false,last=0,lastHud=0,epoch=0,error=null,initialReadyMs=0,renderMs=0,calls=0,triangles=0,intervals=[],costs=[],measure=false;
 function camera(w,h,scene=config.scene){const az=config.azimuth*Math.PI/180,el=config.elevation*Math.PI/180;return {w,h,az,cos:Math.cos(az),sin:Math.sin(az),se:Math.sin(el),ce:Math.cos(el),scale:scene==='course'?Math.min(w/(w<700?9.6:22),h/8):Math.min(w/(scene==='compare'?5.2:7),h/5.7),x:scene==='course'?simulation.player.x:0,z:scene==='course'?simulation.player.z:0};}
@@ -10,20 +11,20 @@ function frameFor(e){const index=Math.floor((((e.phase%1)+1)%1)*config.frames)%c
 function releaseUnused(){if(config.method!=='canvas'&&config.method!=='webgl'&&config.scene!=='compare'){stack?.dispose();if(webgl)webgl.resetTextures();}if(config.method!=='sprite'&&config.scene!=='compare')sprite?.dispose();}
 async function configure(changes={}){Object.assign(config,changes);const id=++epoch;ready=false;$('#loading').hidden=false;$('#loading').style.display='grid';$('#loading').textContent='既存の素材を読み込み中…';error=null;releaseUnused();try{
  if(config.scene==='compare'||['canvas','webgl'].includes(config.method))await stack.load(config.layers,config.frames);
- if(config.scene==='compare'||config.method==='glb')await ensureGLB();
+ if(config.scene==='compare'||['glb','native'].includes(config.method))await ensureGLB();
  if(config.scene==='compare'||config.method==='sprite')await sprite.load(config.frames);
  if(config.method==='webgl'&&!webgl)webgl=new WebGLSlices();
- if(id!==epoch)return;ready=true;initialReadyMs ||=performance.now()-start;$('#loading').style.display='none';updateControls();render();
+ if(id!==epoch)return;nativeTime=simulation.time;ready=true;initialReadyMs ||=performance.now()-start;$('#loading').style.display='none';updateControls();render();
  }catch(e){if(id!==epoch)return;error=String(e);$('#loading').textContent='読み込みエラー: '+e.message;console.error(e);throw e;}}
 function updateControls(){for(const k of ['renderer','layers','frames','count'])$('#'+k).value=String(config[k==='renderer'?'method':k]);for(const k of ['elevation','azimuth']){$('#'+k).value=config[k];$('#'+k+'-value').textContent=config[k]+'°';}for(const k of ['auto','rotate','animate'])$('#'+k).checked=config[k];$('#rate').value=simulation.targetRate;$('#rate-value').textContent=simulation.targetRate.toFixed(1)+'×';document.querySelectorAll('[data-scene]').forEach(b=>b.classList.toggle('active',b.dataset.scene===config.scene));}
 function drawView(method,w,h){const c=camera(w,h),list=entities(simulation,config.scene,config.count);list.sort((a,b)=>(c.sin*(a.x-c.x)+c.cos*(a.z-c.z))-(c.sin*(b.x-c.x)+c.cos*(b.z-c.z)));floor(ctx,c,config.scene);if(config.scene==='course')rails(ctx,c,false);shadows(ctx,list,c);let dc=0,tr=0;
  if(method==='canvas'){for(const e of list)dc+=drawStack(ctx,stack,e,c,frameFor(e));}
  else if(method==='sprite'){for(const e of list)dc+=sprite.draw(ctx,e,c,frameFor(e));}
- else{const r=method==='glb'?glb.render(list,c,frameFor):webgl.render(stack,list,c,frameFor);ctx.drawImage(r.canvas,0,0);dc=r.calls;tr=r.triangles||0;}
+ else{const delta=Math.max(0,simulation.time-nativeTime);const r=['glb','native'].includes(method)?glb.render(list,c,frameFor,method==='native'&&config.animate?delta:method==='native'?0:undefined):webgl.render(stack,list,c,frameFor);if(method==='native')nativeTime=simulation.time;ctx.drawImage(r.canvas,0,0);dc=r.calls;tr=r.triangles||0;}
  if(config.scene==='course')rails(ctx,c,true);return {calls:dc,triangles:tr};
 }
 function render(){if(!ready)return;const begin=performance.now(),w=canvas.width,h=canvas.height;calls=triangles=0;
- if(config.scene==='compare'){const width=Math.floor(w/3),methods=['sprite','glb','canvas'],titles=['2D / 16方向ベイク','GLB / 元モデル',`STACK / ${config.layers}層`];
+ if(config.scene==='compare'){const width=Math.floor(w/3),methods=['sprite',config.nativeComparison?'native':'glb','canvas'],titles=['2D / 16方向ベイク',config.nativeComparison?'GLB / 連続IK 1×基準':'GLB / 同一離散ポーズ',`STACK / ${config.layers}層`];
   // Render at identical dimensions into a staging canvas, preserving affine origins.
   const parts=[];for(let i=0;i<3;i++){const temporary=comparisonBuffers[i] ||= document.createElement('canvas');if(temporary.width!==width||temporary.height!==h){temporary.width=width;temporary.height=h;}const result=drawView(methods[i],width,h);temporary.getContext('2d').drawImage(canvas,0,0,width,h,0,0,width,h);parts.push(temporary);calls+=result.calls;triangles+=result.triangles;}
   ctx.fillStyle='#dfe3d6';ctx.fillRect(0,0,w,h);for(let i=0;i<3;i++){ctx.drawImage(parts[i],i*width,0);ctx.fillStyle='#35472e';ctx.font='11px Arial';ctx.fillText(titles[i],i*width+17,64);if(i){ctx.fillStyle='#bac4ad';ctx.fillRect(i*width,0,1,h);}}
@@ -33,9 +34,9 @@ function render(){if(!ready)return;const begin=performance.now(),w=canvas.width,
 function resize(){const r=canvas.getBoundingClientRect();canvas.width=Math.round(r.width);canvas.height=Math.round(r.height);render();}
 function state(){return {config:{...config},ready,error,initialReadyMs,renderMs,calls,triangles,time:simulation.time,phase:simulation.phase,speed:simulation.speed,distance:simulation.distance,heading:simulation.heading,player:{...simulation.player},canvas:{width:canvas.width,height:canvas.height},assets:{stackTransferBytes:stack?.bytes||0,spriteTransferBytes:sprite?.bytes||0,decodedStackBytes:stack?.decodedBytes||0,decodedSpriteBytes:sprite?.decodedBytes||0,glbBytes:glb?2043424:0},heap:performance.memory?{usedJSHeapSize:performance.memory.usedJSHeapSize,totalJSHeapSize:performance.memory.totalJSHeapSize}:null};}
 function hud(now){if(now-lastHud<400)return;lastHud=now;const recent=intervals.slice(-90),mean=recent.reduce((a,b)=>a+b,0)/Math.max(1,recent.length);$('#stats').textContent=`${mean?(1000/mean).toFixed(0):'—'} fps · ${renderMs.toFixed(1)} ms`;
- $('#scene-label').textContent=config.scene==='course'?'OVAL / 1600 m SOURCE':config.scene==='compare'?'SAME SOURCE / SAME CAMERA':'360° / CONTINUOUS HEADING';$('#state-label').textContent=`${config.method.toUpperCase()} / ${config.layers} LAYERS / ${config.frames} FRAMES`;$('#speed-label').textContent=simulation.speed.toFixed(1)+' m/s';}
+ $('#scene-label').textContent=config.scene==='course'?'OVAL / 1600 m SOURCE':config.scene==='compare'?'SAME SOURCE / SAME CAMERA':'360° / CONTINUOUS HEADING';$('#state-label').textContent=`${config.method.toUpperCase()} / ${config.layers} LAYERS / ${config.frames} FRAMES${config.elevation!==35&&(config.method==='sprite'||config.scene==='compare')?' / 2D 35°固定':''}${config.method==='native'?' / IK 1×基準':''}`;$('#speed-label').textContent=simulation.speed.toFixed(1)+' m/s';}
 function loop(now){const dt=last?Math.min(.08,(now-last)/1000):0;if(ready){if(last){intervals.push(now-last);if(intervals.length>18000)intervals.shift();}if(!paused)stepSimulation(simulation,dt,config,manifest.stride);render();hud(now);}last=now;requestAnimationFrame(loop);}
-function reset(){simulation=createSimulation(config.count);updateControls();render();}
+function reset(){nativeTime=0;simulation=createSimulation(config.count);updateControls();render();}
 for(const key of ['layers','frames','count'])$('#'+key).onchange=e=>configure({[key]:Number(e.target.value)}).catch(()=>{});
 $('#renderer').onchange=e=>configure({method:e.target.value}).catch(()=>{});document.querySelectorAll('[data-scene]').forEach(b=>b.onclick=()=>configure({scene:b.dataset.scene}).catch(()=>{}));
 for(const key of ['elevation','azimuth'])$('#'+key).oninput=e=>{config[key]=Number(e.target.value);$('#'+key+'-value').textContent=config[key]+'°';render();};

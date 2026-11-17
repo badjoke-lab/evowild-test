@@ -1,0 +1,57 @@
+{
+  "sourceCommit": "ec9695146e78a24b39bfa9fca7c5d87e89564a6e",
+  "sourceGLB": "6edb45e7aeb3179104d5b406d09eaa1f34da6baf09ddc9a6a0535d7e96f3f1c0",
+  "referenceModelingCommit": "48b39d8b64aa5146dc2028876b448c3e884295e6",
+  "referencePNG": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "imports": [
+    {
+      "source": "src/s_authored_drive.js",
+      "copied": "runtime/s_authored_drive.js",
+      "sha256": "168b7add9515697a70264572b624d56e6739c3dc9869affb796ce2916a048e00",
+      "unchanged": true
+    },
+    {
+      "source": "src/s_body_coupling.js",
+      "copied": "runtime/s_body_coupling.js",
+      "sha256": "ce4e6fcc0cc43e848b64b13f59782615bb597da0626a49da665f1ded217e89d2",
+      "unchanged": true
+    },
+    {
+      "source": "src/s_contact_ik.js",
+      "copied": "runtime/s_contact_ik.js",
+      "sha256": "8553204c4d19f1ecc6d41a690e0c699957b3e36c4c0410ee47e7f5f93613e594",
+      "unchanged": true
+    },
+    {
+      "source": "src/s_foot_contact_geometry.js",
+      "copied": "runtime/s_foot_contact_geometry.js",
+      "sha256": "cfdddac6c657acf04cbaa6e9c2dcd912ba627869fd443a9350918fab1c418d8f",
+      "unchanged": true
+    },
+    {
+      "source": "src/s_toe_roll.js",
+      "copied": "runtime/s_toe_roll.js",
+      "sha256": "109ea1ff03aaec81ab15bcc2cf88b1b8ba1a6657484ef41c9ef226b4f330f252",
+      "unchanged": true
+    },
+    {
+      "source": "src/s_sole_metrics.js",
+      "copied": "runtime/s_sole_metrics.js",
+      "sha256": "89e3a3f10f5c84403c789dab99971cf3650a6244b97e432457ca8d4b0a1cf128",
+      "unchanged": true
+    }
+  ],
+  "runtimeHashes": {
+    "app.js": "071d067d35f2fafd5d1ab50db24c1e7410843b15484a15a827ffba384fa0d0b2",
+    "renderers.js": "2f045fed4309269712b354abf0b75a4881e6b7047800f527193a215a036b02d2",
+    "world.js": "2f9329744c8a91c332c3acbf36788b86403093645d6109a936323ef00a46b656",
+    "glb-renderer.js": "9e28fffb14ac81cff9ecbe6d7bcef5ff277858c03929ea3c651736e6b4895166"
+  },
+  "dependencies": {
+    "three": "0.181.2",
+    "Chromium": "151.0.7922.173",
+    "numpy": "2.3.5",
+    "Pillow": "12.3.0",
+    "matplotlib": "3.10.8"
+  }
+}

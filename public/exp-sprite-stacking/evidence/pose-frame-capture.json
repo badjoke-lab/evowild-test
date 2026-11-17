@@ -1,0 +1,17 @@
+{
+  "file": "pose-frame-comparison.mp4",
+  "frames": 180,
+  "fps": 30,
+  "duration": 6,
+  "conditions": [
+    12,
+    24,
+    48
+  ],
+  "layers": 128,
+  "elevation": 35,
+  "azimuth": 90,
+  "simulationTimeCapture": true,
+  "concatenatedPngSha256": "c3d285b3f7f8b908b5dc9a0b7128f2dbcfa255b40049718f8432bb2dd6cac592",
+  "browserErrors": []
+}

@@ -1,0 +1,245 @@
+{
+  "fiveDirections": [
+    {
+      "view": "front",
+      "method": "2d",
+      "approxSilhouetteIoU": 0.9488277903263495,
+      "sourceCoverage": 0.9581563630643385,
+      "sourcePixels": 12714,
+      "candidatePixels": 12307
+    },
+    {
+      "view": "front",
+      "method": "16",
+      "approxSilhouetteIoU": 0.7643001085103085,
+      "sourceCoverage": 0.7756016989145823,
+      "sourcePixels": 12714,
+      "candidatePixels": 10049
+    },
+    {
+      "view": "front",
+      "method": "32",
+      "approxSilhouetteIoU": 0.8697742961296828,
+      "sourceCoverage": 0.8820198206701274,
+      "sourcePixels": 12714,
+      "candidatePixels": 11393
+    },
+    {
+      "view": "front",
+      "method": "64",
+      "approxSilhouetteIoU": 0.9432459599474213,
+      "sourceCoverage": 0.9594934717634104,
+      "sourcePixels": 12714,
+      "candidatePixels": 12418
+    },
+    {
+      "view": "front",
+      "method": "128",
+      "approxSilhouetteIoU": 0.9600520394887886,
+      "sourceCoverage": 0.9867075664621677,
+      "sourcePixels": 12714,
+      "candidatePixels": 12898
+    },
+    {
+      "view": "front-quarter",
+      "method": "2d",
+      "approxSilhouetteIoU": 0.951968757548917,
+      "sourceCoverage": 0.9621566632756867,
+      "sourcePixels": 24575,
+      "candidatePixels": 23908
+    },
+    {
+      "view": "front-quarter",
+      "method": "16",
+      "approxSilhouetteIoU": 0.655944674520526,
+      "sourceCoverage": 0.6638453713123093,
+      "sourcePixels": 24575,
+      "candidatePixels": 16610
+    },
+    {
+      "view": "front-quarter",
+      "method": "32",
+      "approxSilhouetteIoU": 0.8133950120675785,
+      "sourceCoverage": 0.8228280773143438,
+      "sourcePixels": 24575,
+      "candidatePixels": 20506
+    },
+    {
+      "view": "front-quarter",
+      "method": "64",
+      "approxSilhouetteIoU": 0.9168606985146528,
+      "sourceCoverage": 0.9293591047812818,
+      "sourcePixels": 24575,
+      "candidatePixels": 23174
+    },
+    {
+      "view": "front-quarter",
+      "method": "128",
+      "approxSilhouetteIoU": 0.9600463925771876,
+      "sourceCoverage": 0.9768056968463886,
+      "sourcePixels": 24575,
+      "candidatePixels": 24434
+    },
+    {
+      "view": "side",
+      "method": "2d",
+      "approxSilhouetteIoU": 0.9599971679410931,
+      "sourceCoverage": 0.9669459796755215,
+      "sourcePixels": 28045,
+      "candidatePixels": 27321
+    },
+    {
+      "view": "side",
+      "method": "16",
+      "approxSilhouetteIoU": 0.6494732376440642,
+      "sourceCoverage": 0.655054376894277,
+      "sourcePixels": 28045,
+      "candidatePixels": 18612
+    },
+    {
+      "view": "side",
+      "method": "32",
+      "approxSilhouetteIoU": 0.8199844479004665,
+      "sourceCoverage": 0.8272062756284543,
+      "sourcePixels": 28045,
+      "candidatePixels": 23446
+    },
+    {
+      "view": "side",
+      "method": "64",
+      "approxSilhouetteIoU": 0.9236881135673424,
+      "sourceCoverage": 0.9326796220360135,
+      "sourcePixels": 28045,
+      "candidatePixels": 26430
+    },
+    {
+      "view": "side",
+      "method": "128",
+      "approxSilhouetteIoU": 0.9626747420683827,
+      "sourceCoverage": 0.9748261722232127,
+      "sourcePixels": 28045,
+      "candidatePixels": 27693
+    },
+    {
+      "view": "rear-quarter",
+      "method": "2d",
+      "approxSilhouetteIoU": 0.9581438778824294,
+      "sourceCoverage": 0.96397500306335,
+      "sourcePixels": 24483,
+      "candidatePixels": 23750
+    },
+    {
+      "view": "rear-quarter",
+      "method": "16",
+      "approxSilhouetteIoU": 0.6902830724308541,
+      "sourceCoverage": 0.6952170894089776,
+      "sourcePixels": 24483,
+      "candidatePixels": 17196
+    },
+    {
+      "view": "rear-quarter",
+      "method": "32",
+      "approxSilhouetteIoU": 0.8526537728581276,
+      "sourceCoverage": 0.8589225176653188,
+      "sourcePixels": 24483,
+      "candidatePixels": 21209
+    },
+    {
+      "view": "rear-quarter",
+      "method": "64",
+      "approxSilhouetteIoU": 0.9374417568169847,
+      "sourceCoverage": 0.9450230772372666,
+      "sourcePixels": 24483,
+      "candidatePixels": 23335
+    },
+    {
+      "view": "rear-quarter",
+      "method": "128",
+      "approxSilhouetteIoU": 0.9702534711010655,
+      "sourceCoverage": 0.9818649675284892,
+      "sourcePixels": 24483,
+      "candidatePixels": 24332
+    },
+    {
+      "view": "rear",
+      "method": "2d",
+      "approxSilhouetteIoU": 0.9508096919517838,
+      "sourceCoverage": 0.9544704516286745,
+      "sourcePixels": 16363,
+      "candidatePixels": 15681
+    },
+    {
+      "view": "rear",
+      "method": "16",
+      "approxSilhouetteIoU": 0.7897008754863813,
+      "sourceCoverage": 0.79380309234248,
+      "sourcePixels": 16363,
+      "candidatePixels": 13074
+    },
+    {
+      "view": "rear",
+      "method": "32",
+      "approxSilhouetteIoU": 0.8964363901727074,
+      "sourceCoverage": 0.9008739228747784,
+      "sourcePixels": 16363,
+      "candidatePixels": 14822
+    },
+    {
+      "view": "rear",
+      "method": "64",
+      "approxSilhouetteIoU": 0.9561132327089774,
+      "sourceCoverage": 0.9639430422294201,
+      "sourcePixels": 16363,
+      "candidatePixels": 15907
+    },
+    {
+      "view": "rear",
+      "method": "128",
+      "approxSilhouetteIoU": 0.9726191905848445,
+      "sourceCoverage": 0.989916274521787,
+      "sourcePixels": 16363,
+      "candidatePixels": 16489
+    }
+  ],
+  "elevationStress": [
+    {
+      "elevation": 5,
+      "approxSilhouetteIoU": 0.6858061404918824,
+      "sourceCoverage": 0.6871979898202435,
+      "sourcePixels": 31042,
+      "candidatePixels": 21395
+    },
+    {
+      "elevation": 15,
+      "approxSilhouetteIoU": 0.9049405069839628,
+      "sourceCoverage": 0.9097055190795034,
+      "sourcePixels": 30766,
+      "candidatePixels": 28150
+    },
+    {
+      "elevation": 35,
+      "approxSilhouetteIoU": 0.9626747420683827,
+      "sourceCoverage": 0.9748261722232127,
+      "sourcePixels": 28045,
+      "candidatePixels": 27693
+    },
+    {
+      "elevation": 60,
+      "approxSilhouetteIoU": 0.9627131749645603,
+      "sourceCoverage": 0.9897540078611491,
+      "sourcePixels": 22643,
+      "candidatePixels": 23047
+    },
+    {
+      "elevation": 80,
+      "approxSilhouetteIoU": 0.9529116136785754,
+      "sourceCoverage": 0.9926027085467167,
+      "sourcePixels": 17574,
+      "candidatePixels": 18176
+    }
+  ],
+  "measurement": "Approximate grayscale silhouette mask from same-camera actual rendered images, excluding tinted floor/shadow. Grayscale threshold abs(R-G),abs(G-B)<=2 and 50<R<254. Antialias edges and near-white highlights can be excluded; this is not exact mesh silhouette ground truth. Use side-by-side PNGs for final inspection.",
+  "phase": 0.625,
+  "frames": 48,
+  "lighting": "shared creature-local Lambert"
+}

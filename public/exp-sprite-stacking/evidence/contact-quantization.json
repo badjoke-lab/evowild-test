@@ -1,0 +1,32 @@
+{
+  "steps": 240,
+  "period": 0.4166666666666667,
+  "stride": 1.6666666666666667,
+  "supportDefinition": "Existing IK declared stance AND actual skinned sole vertex within 1mm of ground",
+  "comparison": "Continuous existing D3-C v2 IK versus sample-and-hold of identical baked poses with continuous root travel at 4m/s. Same source vertex IDs, no targets used as measurements.",
+  "rows": [
+    {
+      "frames": 12,
+      "supportSamples": 384,
+      "maxStanceVertexPositionErrorMeters": 0.1319443940484236,
+      "rmsStanceVertexPositionErrorMeters": 0.07214433932314038
+    },
+    {
+      "frames": 24,
+      "supportSamples": 384,
+      "maxStanceVertexPositionErrorMeters": 0.06250028686434886,
+      "rmsStanceVertexPositionErrorMeters": 0.036608914317640184
+    },
+    {
+      "frames": 48,
+      "supportSamples": 384,
+      "maxStanceVertexPositionErrorMeters": 0.02778289766119155,
+      "rmsStanceVertexPositionErrorMeters": 0.017048576793615787
+    }
+  ],
+  "limits": [
+    "Pose sampling errors at straight 1x speed only.",
+    "Turning changes planted foot world orientation and adds further error; not quantified as IK-correct turning.",
+    "Speed changes use distance-linked cadence with a fixed baked stride, not the original runtime variable-stride solver."
+  ]
+}

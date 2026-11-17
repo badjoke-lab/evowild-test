@@ -3,7 +3,7 @@ const out='public/exp-sprite-stacking/evidence',work='work/sprite-stacking/quali
 const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox','--enable-unsafe-swiftshader']});const context=await browser.newContext({viewport:{width:1440,height:1000},deviceScaleFactor:1});const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(String(e)));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
 // Deterministic render capture. Real browser draws, controlled simulation time;
 // these videos are NOT a recording of the measured realtime frame rate.
-await page.addInitScript(()=>{window.requestAnimationFrame=()=>0;});await page.goto(url);await page.waitForFunction(()=>window.lab?.state().ready);await page.evaluate(()=>window.lab.setPaused(true));
+await page.addInitScript(()=>{window.requestAnimationFrame=()=>0;});await page.goto(url);await page.waitForFunction(()=>window.lab?.state().ready,null,{polling:100,timeout:60000});await page.evaluate(()=>window.lab.setPaused(true));
 const read=async()=>Buffer.from(await page.evaluate(()=>document.querySelector('#view').toDataURL('image/png').split(',')[1]),'base64');
 const sources=[];
 for(const [view,azimuth]of [['front',0],['front-quarter',45],['side',90],['rear-quarter',135],['rear',180]]){

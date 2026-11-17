@@ -1,0 +1,397 @@
+{
+  "sourceSha256": "6edb45e7aeb3179104d5b406d09eaa1f34da6baf09ddc9a6a0535d7e96f3f1c0",
+  "referenceSha256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "videos": [
+    {
+      "file": "rotation-360.mp4",
+      "frames": 240,
+      "fps": 30,
+      "duration": 8,
+      "simulationTimeCapture": true,
+      "concatenatedPngSha256": "15c91912287161dc4c2b9712e481b4731a29360983754d438fc72153cab760df"
+    },
+    {
+      "file": "quadruped-run.mp4",
+      "frames": 180,
+      "fps": 30,
+      "duration": 6,
+      "simulationTimeCapture": true,
+      "concatenatedPngSha256": "a6a78f10f070e2b56eca7d0e6966eb280885f8b6df34094d41031c7511cd5c86"
+    },
+    {
+      "file": "parallel-comparison.mp4",
+      "frames": 180,
+      "fps": 30,
+      "duration": 6,
+      "simulationTimeCapture": true,
+      "concatenatedPngSha256": "7f6155a83f04ac7e4ed0b5db59c7b3f0deed1fe5574b0f477a4b922b80f3defa"
+    },
+    {
+      "file": "course-run.mp4",
+      "frames": 360,
+      "fps": 30,
+      "duration": 12,
+      "simulationTimeCapture": true,
+      "concatenatedPngSha256": "4ea4c3eeb0242e703b7dc9a0cfe06f65fc59b3ab870728f1dc94f3f5162894c1"
+    }
+  ],
+  "images": [
+    {
+      "view": "front",
+      "name": "2d",
+      "path": "work/sprite-stacking/quality/front-2d.png",
+      "sha256": "989741119b14caeea9c97ae60cf3ed9dc941d1a913f7e2fe9d9659cf8b3f6914",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 0
+    },
+    {
+      "view": "front",
+      "name": "glb",
+      "path": "work/sprite-stacking/quality/front-glb.png",
+      "sha256": "d9b59db0ece99f36c4ebacc0e063d3b562bbfc37a28843a46a9d51ea6f6ce3b2",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 0
+    },
+    {
+      "view": "front",
+      "name": "16",
+      "path": "work/sprite-stacking/quality/front-16.png",
+      "sha256": "6d60596970253fdef3873057e64081509e668150e92a77a54a400a54f85ae02a",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 0
+    },
+    {
+      "view": "front",
+      "name": "32",
+      "path": "work/sprite-stacking/quality/front-32.png",
+      "sha256": "de3b4b948931e67ba247195fa961a3dbd064d74c2f60819675bf8424f4c41ef3",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 0
+    },
+    {
+      "view": "front",
+      "name": "64",
+      "path": "work/sprite-stacking/quality/front-64.png",
+      "sha256": "c5ccf4d09609ec129800bbd834c758b1abaffd4d7462280f3199481c55cbd155",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 0
+    },
+    {
+      "view": "front",
+      "name": "128",
+      "path": "work/sprite-stacking/quality/front-128.png",
+      "sha256": "8db497ce943060424e6e4c7b7f549f7c8911a14b6914c360d03fc384c71d7bed",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 0
+    },
+    {
+      "view": "front-quarter",
+      "name": "2d",
+      "path": "work/sprite-stacking/quality/front-quarter-2d.png",
+      "sha256": "4a4243b4eeeef205e9c766277ccdcd95369d7ea97cb0a9dd7eb72e8593e08588",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 45
+    },
+    {
+      "view": "front-quarter",
+      "name": "glb",
+      "path": "work/sprite-stacking/quality/front-quarter-glb.png",
+      "sha256": "d263df1635572f361a8f03e0218e7fa2aed56ff66a99655da76b25179766cc4e",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 45
+    },
+    {
+      "view": "front-quarter",
+      "name": "16",
+      "path": "work/sprite-stacking/quality/front-quarter-16.png",
+      "sha256": "237271cd93da7cbabe1c2d0fff698e896c3fc2a2696c2a97d89dd64ea98334a0",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 45
+    },
+    {
+      "view": "front-quarter",
+      "name": "32",
+      "path": "work/sprite-stacking/quality/front-quarter-32.png",
+      "sha256": "f019eedeb75b715838a3f6bd5a4ee327edb66dc93739e2872578bd2ee515c2ca",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 45
+    },
+    {
+      "view": "front-quarter",
+      "name": "64",
+      "path": "work/sprite-stacking/quality/front-quarter-64.png",
+      "sha256": "720aee193ae43e61bb903a17eb4483a8da89688aab06f1220c3801c0dcad078a",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 45
+    },
+    {
+      "view": "front-quarter",
+      "name": "128",
+      "path": "work/sprite-stacking/quality/front-quarter-128.png",
+      "sha256": "bfd720fd036faaa7ecc9f59e34b292a89eef8a1740c7b3a7d6ed14242e3fbb61",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 45
+    },
+    {
+      "view": "side",
+      "name": "2d",
+      "path": "work/sprite-stacking/quality/side-2d.png",
+      "sha256": "61f24e776feb2e62e95164c7253bbf59266fea648ed697257b6406fbecc74f77",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 90
+    },
+    {
+      "view": "side",
+      "name": "glb",
+      "path": "work/sprite-stacking/quality/side-glb.png",
+      "sha256": "50c89cdf465fbab152e230f2420a87ffcb8b5bf4a810651a02b58412f71135f2",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 90
+    },
+    {
+      "view": "side",
+      "name": "16",
+      "path": "work/sprite-stacking/quality/side-16.png",
+      "sha256": "9553eda4463be9af52ffb257c88c685081dc9bc55469a4a691753cb861aad329",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 90
+    },
+    {
+      "view": "side",
+      "name": "32",
+      "path": "work/sprite-stacking/quality/side-32.png",
+      "sha256": "4c6ff50690c0799883f499cec6346b14e5c88e023e5e3e1a69bc0b9824bcd822",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 90
+    },
+    {
+      "view": "side",
+      "name": "64",
+      "path": "work/sprite-stacking/quality/side-64.png",
+      "sha256": "bb925911e4e8577af8e56a41eb06c15dc6406609ab4534d0e20170bb6c8d18e2",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 90
+    },
+    {
+      "view": "side",
+      "name": "128",
+      "path": "work/sprite-stacking/quality/side-128.png",
+      "sha256": "07a83ededbb734f17d1a387244a3ac5de78db91b0f53596027b34aa5c8001a6e",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 90
+    },
+    {
+      "view": "rear-quarter",
+      "name": "2d",
+      "path": "work/sprite-stacking/quality/rear-quarter-2d.png",
+      "sha256": "31d00543a295843937ab90085f3db4973bae77288f51d5f4d500d2532e059694",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 135
+    },
+    {
+      "view": "rear-quarter",
+      "name": "glb",
+      "path": "work/sprite-stacking/quality/rear-quarter-glb.png",
+      "sha256": "15fd68a8e90f9076eb3cad97596f559a65913fb23b964ee245491f25e3c4e269",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 135
+    },
+    {
+      "view": "rear-quarter",
+      "name": "16",
+      "path": "work/sprite-stacking/quality/rear-quarter-16.png",
+      "sha256": "b0f8dff720aceb79d9ccf8ba3372d004d85e59e4f6ce6e3edad8cfc2d9ed2583",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 135
+    },
+    {
+      "view": "rear-quarter",
+      "name": "32",
+      "path": "work/sprite-stacking/quality/rear-quarter-32.png",
+      "sha256": "d9cf63a567abb8848ec202ccafb5de5c479213629a6efc77417c3f9f23b48c41",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 135
+    },
+    {
+      "view": "rear-quarter",
+      "name": "64",
+      "path": "work/sprite-stacking/quality/rear-quarter-64.png",
+      "sha256": "2dfe2f9837688a2b42b1b9ff707e6c01d0a03e95039931766527aaadba3b85fc",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 135
+    },
+    {
+      "view": "rear-quarter",
+      "name": "128",
+      "path": "work/sprite-stacking/quality/rear-quarter-128.png",
+      "sha256": "bd776eeab5d2f7761a0ec26c69832162feaf856aad540d3272fbacb82a6c17b8",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 135
+    },
+    {
+      "view": "rear",
+      "name": "2d",
+      "path": "work/sprite-stacking/quality/rear-2d.png",
+      "sha256": "f4139dcaf38a620c481cb25fcd1739727410cb10baaf02856b06fecbcfd70c41",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 180
+    },
+    {
+      "view": "rear",
+      "name": "glb",
+      "path": "work/sprite-stacking/quality/rear-glb.png",
+      "sha256": "5e50d5df88caaa9bd6ccf02f760303c12d84f091cd33ba0cee76124e67b30911",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 180
+    },
+    {
+      "view": "rear",
+      "name": "16",
+      "path": "work/sprite-stacking/quality/rear-16.png",
+      "sha256": "3fd38fc124d65b87b05c000e93034b022877c133996f30129ece78c071584a43",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 180
+    },
+    {
+      "view": "rear",
+      "name": "32",
+      "path": "work/sprite-stacking/quality/rear-32.png",
+      "sha256": "57e10f03d99513624f731bb8e0a36a5a64cf5747d47c717710d2bc941d9dc7ac",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 180
+    },
+    {
+      "view": "rear",
+      "name": "64",
+      "path": "work/sprite-stacking/quality/rear-64.png",
+      "sha256": "24614c3b3db8fe47882344217e1f4ec85280196bf049281ced862a24d260eb19",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 180
+    },
+    {
+      "view": "rear",
+      "name": "128",
+      "path": "work/sprite-stacking/quality/rear-128.png",
+      "sha256": "770376cc299a0a1a317c888ce4d23a3e77f397dd6c96c5a3358d16b6c10a332f",
+      "phase": 0.625,
+      "elevation": 35,
+      "azimuth": 180
+    },
+    {
+      "elevation": 5,
+      "method": "glb",
+      "path": "work/sprite-stacking/quality/elevation-5-glb.png",
+      "phase": 0.625,
+      "azimuth": 90,
+      "sha256": "9ee59e1891721d2f03bf748fee82809e852c8f31da3c71497ef547a03864c440"
+    },
+    {
+      "elevation": 5,
+      "method": "canvas",
+      "path": "work/sprite-stacking/quality/elevation-5-canvas.png",
+      "phase": 0.625,
+      "azimuth": 90,
+      "sha256": "6df78ef8fff62a47827639c3c94f0759f6eaccd11c6dd39452a1c8d50b3dfcb6"
+    },
+    {
+      "elevation": 15,
+      "method": "glb",
+      "path": "work/sprite-stacking/quality/elevation-15-glb.png",
+      "phase": 0.625,
+      "azimuth": 90,
+      "sha256": "ed59771103bec20e3033ae17d1d342a8d7d368d9872b36fb782d4dee4df1c17f"
+    },
+    {
+      "elevation": 15,
+      "method": "canvas",
+      "path": "work/sprite-stacking/quality/elevation-15-canvas.png",
+      "phase": 0.625,
+      "azimuth": 90,
+      "sha256": "e55e1d4abccf78967d150e914e07ee02ccf5a0b62bc9301a8788a321024dfb6c"
+    },
+    {
+      "elevation": 35,
+      "method": "glb",
+      "path": "work/sprite-stacking/quality/elevation-35-glb.png",
+      "phase": 0.625,
+      "azimuth": 90,
+      "sha256": "50c89cdf465fbab152e230f2420a87ffcb8b5bf4a810651a02b58412f71135f2"
+    },
+    {
+      "elevation": 35,
+      "method": "canvas",
+      "path": "work/sprite-stacking/quality/elevation-35-canvas.png",
+      "phase": 0.625,
+      "azimuth": 90,
+      "sha256": "07a83ededbb734f17d1a387244a3ac5de78db91b0f53596027b34aa5c8001a6e"
+    },
+    {
+      "elevation": 60,
+      "method": "glb",
+      "path": "work/sprite-stacking/quality/elevation-60-glb.png",
+      "phase": 0.625,
+      "azimuth": 90,
+      "sha256": "c7b2b3a04e4d155764bec06d351b943e52121a0d353fe3309d809a96df88ca3e"
+    },
+    {
+      "elevation": 60,
+      "method": "canvas",
+      "path": "work/sprite-stacking/quality/elevation-60-canvas.png",
+      "phase": 0.625,
+      "azimuth": 90,
+      "sha256": "a3e9d1f2f57ae79f7daa5f77515b20753aa411ff8be18fa4f2a62de3a1ea5563"
+    },
+    {
+      "elevation": 80,
+      "method": "glb",
+      "path": "work/sprite-stacking/quality/elevation-80-glb.png",
+      "phase": 0.625,
+      "azimuth": 90,
+      "sha256": "39a9fd00eab53e82ef8b09c24097e034b82f766c56bcad82bc48e87ec45ee491"
+    },
+    {
+      "elevation": 80,
+      "method": "canvas",
+      "path": "work/sprite-stacking/quality/elevation-80-canvas.png",
+      "phase": 0.625,
+      "azimuth": 90,
+      "sha256": "cbb0cbf2bb3860195dfdeb7f0937de93c5748298cdda1bff51c801b3c28f406c"
+    }
+  ],
+  "browserErrors": [],
+  "notes": [
+    "Actual browser Canvas/GLB outputs; no generated creature, optical flow, retouching or substitute body bob.",
+    "Deterministic 30fps encodes sampled simulation. Do not use them as realtime FPS evidence; use performance.json.",
+    "All five direction comparisons use identical .625 phase, 48 poses, 35 degree orthographic camera and local Lambert light.",
+    "2D comparator uses 16 discrete heading bins, fixed 35-degree elevation. Elevation stress compares GLB and stacking only."
+  ]
+}
