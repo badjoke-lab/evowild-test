@@ -1,22 +1,25 @@
 {
   "schema_version": 1,
   "child_work_branch": "exp/2p5d-sprite-stacking-20261118",
-  "status": "IN_PROGRESS_SOURCE_AND_BAKE",
-  "current_unit": "Existing D3-C v2 evaluated; horizontal cross-section generation running",
+  "status": "IN_PROGRESS_PLAYABLE_DEMO",
+  "current_unit": "Canvas course and comparison runtime implemented; same-source sprite bake completing",
   "completed_units": [
     "Inspected main, D3-C v2/v3 and modeling reference",
     "Imported immutable source, reference, six runtime modules and existing oval into isolated public/exp-sprite-stacking",
-    "Integrated 48 real skinned poses with original contact IK"
+    "Integrated 48 real skinned poses with original contact IK",
+    "All 16/32/64/128 horizontal atlases generated (11,851,908 bytes total)",
+    "Isolated playable course, 360-degree stage, Canvas/WebGL-slice/GLB/2D renderer adapters implemented",
+    "Real desktop Canvas screenshot inspected"
   ],
   "unfinished_units": [
     "Canvas demo and WebGL slice comparison if needed",
     "2D/GLB/stack performance and quality comparison",
     "Videos, five views, decision and final push"
   ],
-  "last_remote_confirmed_sha": null,
-  "next_action": "Complete scripts/stacking-slices.py, implement isolated public/exp-sprite-stacking/index.html and runtime, then browser-test",
+  "last_remote_confirmed_sha": "c5cd1f56bc01d29515cf870738a747fcf1277275",
+  "next_action": "Run node scripts/stacking-qa.mjs and inspect screenshots, then capture comparisons and performance",
   "source_limitations": [
     "Existing source GLB contains no textures/UV/materials/colors; preserve neutral appearance and report limitation"
   ],
-  "updated_at_utc": "2026-11-17T15:24:17.521286+00:00"
+  "updated_at_utc": "2026-11-17T15:34:07.481441+00:00"
 }

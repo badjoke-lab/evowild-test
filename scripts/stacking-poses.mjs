@@ -10,7 +10,7 @@ const gltf=await new GLTFLoader().parseAsync(buffer.buffer.slice(buffer.byteOffs
 const p=preparePose(gltf),g=p.mesh.geometry,n=g.attributes.position.count;
 const positions=new Float32Array(n*3),normals=new Float32Array(n*3),v=new THREE.Vector3(),mat=new THREE.Matrix4(),bone=new THREE.Matrix4(),normal=new THREE.Matrix3();
 const indices=Uint32Array.from(g.index?g.index.array:Array.from({length:n},(_,i)=>i));await fs.writeFile(path.join(out,'indices.bin'),Buffer.from(indices.buffer));
-const samples=[];let min=[Infinity,Infinity,Infinity],max=[-Infinity,-Infinity,-Infinity];
+const samples=[],poseFrames=[];let min=[Infinity,Infinity,Infinity],max=[-Infinity,-Infinity,-Infinity];
 for(let f=0;f<48;f++){
  if(f)p.advance(p.period/48);p.localize();
  for(let i=0;i<n;i++){
@@ -22,6 +22,7 @@ for(let f=0;f<48;f++){
   normal.getNormalMatrix(mat);v.fromBufferAttribute(g.attributes.normal,i).applyMatrix3(normal).normalize().toArray(normals,i*3);
  }
  await fs.writeFile(path.join(out,`${String(f).padStart(2,'0')}.bin`),Buffer.concat([Buffer.from(positions.buffer),Buffer.from(normals.buffer)]));
+ poseFrames.push(Object.fromEntries([...p.mesh.skeleton.bones,p.mesh.parent].map(b=>[b.name,{p:b.position.toArray(),q:b.quaternion.toArray(),s:b.scale.toArray()}])));
  samples.push({frame:f,phase:f/48,soles:p.soles(),bones:Object.fromEntries(['fore_L_scapula','fore_R_scapula','chest','pelvis','head','tail'].map(name=>{const b=p.mesh.skeleton.bones.find(b=>b.name===name);return [name,{position:b.getWorldPosition(new THREE.Vector3()).toArray(),quaternion:b.getWorldQuaternion(new THREE.Quaternion()).toArray()}];}))});
  if(f%12===0)console.log('Pose',f);
  // Restore travelled distance for authoritative next integrated step.
@@ -29,3 +30,5 @@ for(let f=0;f<48;f++){
 }
 const manifest={source:file,sourceSha256:crypto.createHash('sha256').update(buffer).digest('hex'),referenceSha256:crypto.createHash('sha256').update(await fs.readFile('public/exp-sprite-stacking/assets/reference.png')).digest('hex'),vertices:n,triangles:indices.length/3,min,max,frames:48,period:p.period,stride:p.stride,hasTexture:false,hasVertexColors:false,alphaMode:'OPAQUE source; transparent outside cross-section',sourceCommit:'ec9695146e78a24b39bfa9fca7c5d87e89564a6e',samples};
 await fs.writeFile(path.join(out,'manifest.json'),JSON.stringify(manifest,null,2));console.log('Bounds',min,max);
+
+await fs.writeFile('public/exp-sprite-stacking/assets/pose-tracks.json',JSON.stringify(poseFrames));
