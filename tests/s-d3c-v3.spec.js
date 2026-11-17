@@ -13,7 +13,7 @@ test('D3-C v3 authored GLB preserves real sole contact across seven speed profil
 });
 test('D3-C v3 sampled skin freezes and repeated dt0 does not accumulate shoulder glide',async({page})=>{
  await open(page);const r=await page.evaluate(()=>{const s=window.sRunReview,ids=Array.from({length:310},(_,i)=>i*125),dist=(a,b)=>Math.max(...a.map((v,i)=>Math.hypot(...v.map((x,j)=>x-b[i][j]))));let jump=0,freeze=0,repeat=0;
-  for(const phase of [.2,.32,.64,.75,.9]){s.setRate(.5);s.setPhase(phase,'SIDE',false);const start=s.probe(ids);for(let i=0;i<10;i++)s.step(0);repeat=Math.max(repeat,dist(start,s.probe(ids)));s.setRate(1.5);s.step(0);jump=Math.max(jump,dist(start,s.probe(ids)));s.setRate(0);s.step(.5);freeze=Math.max(freeze,dist(start,s.probe(ids)));}return {jump,freeze,repeat,asset:s.sample().asset,bones:s.sample().bones};
+  for(const phase of [.2,.32,.64,.72,.75,.9]){s.setRate(.5);s.setPhase(phase,'SIDE',false);const start=s.probe(ids);for(let i=0;i<10;i++)s.step(0);repeat=Math.max(repeat,dist(start,s.probe(ids)));s.setRate(1.5);s.step(0);jump=Math.max(jump,dist(start,s.probe(ids)));s.setRate(0);s.step(.5);freeze=Math.max(freeze,dist(start,s.probe(ids)));}return {jump,freeze,repeat,asset:s.sample().asset,bones:s.sample().bones};
  });console.log('D3C_V3_FREEZE',JSON.stringify(r));expect(r.asset).toContain('author-v3.glb');expect(r.bones).toBe(23);expect(r.jump).toBeLessThan(.001);expect(r.freeze).toBeLessThan(.001);expect(r.repeat).toBeLessThan(.000001);
 });
 test('D3-C v3 unfolds the leading foreleg while preserving v2 body and rear pose',async({page})=>{
@@ -31,6 +31,6 @@ test('D3-C v3 unfolds the leading foreleg while preserving v2 body and rear pose
 });
 test('D3-C v3 sampled body and fore skin retain velocity continuity at speed commands',async({page})=>{
  await open(page);const rows=await page.evaluate(()=>{const s=window.sRunReview,h=1e-5,ids=Array.from({length:310},(_,i)=>i*125),result=[];
-  for(const phase of [.14,.2,.25,.307,.32,.4,.473,.64,.7,.72,.75,.81,.89,.9])for(const [from,to] of [[.5,1.5],[1.5,.5]]){s.setRate(from);s.setPhase(phase-h*2.4*Math.sqrt(from),'SIDE',false);const a=s.probe(ids);s.step(h);const before=s.probe(ids);s.setRate(to);s.step(0);const at=s.probe(ids);s.step(h);const after=s.probe(ids);result.push({phase,from,to,jump:Math.max(...at.map((p,i)=>Math.hypot(...p.map((v,j)=>v-before[i][j])))),residual:Math.max(...at.map((p,i)=>Math.hypot(...p.map((v,j)=>(after[i][j]-v)/h-(before[i][j]-a[i][j])/h))))});}return result;
+  for(const phase of [.14,.2,.25,.307,.32,.4,.473,.64,.7,.71199,.712,.71201,.72,.72799,.728,.72801,.75,.81,.89,.9])for(const [from,to] of [[.5,1.5],[1.5,.5]]){s.setRate(from);s.setPhase(phase-h*2.4*Math.sqrt(from),'SIDE',false);const a=s.probe(ids);s.step(h);const before=s.probe(ids);s.setRate(to);s.step(0);const at=s.probe(ids);s.step(h);const after=s.probe(ids);result.push({phase,from,to,jump:Math.max(...at.map((p,i)=>Math.hypot(...p.map((v,j)=>v-before[i][j])))),residual:Math.max(...at.map((p,i)=>Math.hypot(...p.map((v,j)=>(after[i][j]-v)/h-(before[i][j]-a[i][j])/h))))});}return result;
  });console.log('D3C_V3_BODY_VELOCITY',JSON.stringify(rows));for(const r of rows){expect(r.jump).toBeLessThan(.001);expect(r.residual).toBeLessThan(.02);}
 });

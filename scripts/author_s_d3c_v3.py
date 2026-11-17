@@ -79,7 +79,22 @@ for name,path in changes:
  if c:c['sampler']=len(auth['samplers'])-1
  else:auth['channels'].append({'sampler':len(auth['samplers'])-1,'target':{'node':node,'path':path}})
  report.append({'bone':name,'path':path,'range':[min(v[k] for v in values) for k in range(len(values[0]))]+[max(v[k] for v in values) for k in range(len(values[0]))]})
-doc['animations']=[auth,*original_animations,add];doc.setdefault('extras',{})['d3cV3']={'sourceSha256':hashlib.sha256(raw).hexdigest(),'authoring':'stagger fore fold then humerus extension; preserve v2 shoulder/body/rear support poses and 23-joint rest/skin' ,'status':'REVISE_REVIEW_ONLY','poseClip':'D3C_V3_Drive_Pose','absoluteScapulaRotation':True}
+# New coverage found a v2 native body tangent corner at .72, even at constant
+# speed. Store a narrow C1 bridge in THIS candidate, not in D2-D/D3-B or v2.
+# Runtime applies only its difference from the native pose, retaining load pose.
+join={'name':'D3C_V3_Native_Join','samplers':[],'channels':[]}
+join_phases=[.712,.728];join_times=append([(p*D,) for p in join_phases],'SCALAR')
+body_names={'root','pelvis','spine','chest','neck','head','tail','EvoWild_S_Armature_V3'}
+for channel in base['channels']:
+ node=channel['target']['node'];path=channel['target']['path']
+ if nodes[node].get('name') not in body_names:continue
+ kind='VEC4' if path=='rotation' else 'VEC3';packed=[];h=1e-5
+ for p in join_phases:
+  value=sample(node,path,p*D);left=sample(node,path,(p-h)*D);right=sample(node,path,(p+h)*D)
+  derivative=tuple((b-a)/(2*h*D) for a,b in zip(left,right));packed.extend([derivative,value,derivative])
+ join['samplers'].append({'input':join_times,'output':append(packed,kind),'interpolation':'CUBICSPLINE'})
+ join['channels'].append({'sampler':len(join['samplers'])-1,'target':channel['target']})
+doc['animations']=[auth,*original_animations,add,join];doc.setdefault('extras',{})['d3cV3']={'sourceSha256':hashlib.sha256(raw).hexdigest(),'authoring':'stagger fore fold then humerus extension; preserve v2 support poses except local native tangent bridge .712-.728; original 23-joint rest/skin' ,'status':'REVISE_REVIEW_ONLY','poseClip':'D3C_V3_Drive_Pose','absoluteScapulaRotation':True,'nativeJoin':join_phases}
 doc['buffers'][0]['byteLength']=len(binary);data=json.dumps(doc,separators=(',',':')).encode();data+=b' '*((-len(data))%4);binary+=b'\0'*((-len(binary))%4)
 out=struct.pack('<III',0x46546c67,2,28+len(data)+len(binary))+struct.pack('<II',len(data),0x4e4f534a)+data+struct.pack('<II',len(binary),0x004e4942)+binary
 DEST.write_bytes(out);assert SOURCE.read_bytes()==raw;OUT.mkdir(parents=True,exist_ok=True)

@@ -1,6 +1,6 @@
 {
   "v2Sha256": "6edb45e7aeb3179104d5b406d09eaa1f34da6baf09ddc9a6a0535d7e96f3f1c0",
-  "v3Sha256": "284bf4cbb54137b98e41d2abd2c643fc617a809696d736776a369140feb5d931",
+  "v3Sha256": "5dda5fc5248bf4b97b73407a85a65d66454008c49e93555aeab71441a740e2e0",
   "allOriginalGeometrySkinRestAndClipsPreserved": true,
   "joints": 23,
   "clips": [
@@ -8,6 +8,7 @@
     "EvoWild_S_D3C_V2",
     "EvoWild_S_Run_V5",
     "D3C_V2_Drive_Pose",
-    "D3C_V3_Drive_Pose"
+    "D3C_V3_Drive_Pose",
+    "D3C_V3_Native_Join"
   ]
 }
