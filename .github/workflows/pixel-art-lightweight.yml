@@ -1,0 +1,58 @@
+name: Pixel-art E-F comparison
+on:
+  push:
+    branches: [exp/pixelart-point-rendering]
+    paths:
+      - '.github/workflows/pixel-art-lightweight.yml'
+      - 'src/pixel-art/**'
+      - 'pixel-art.html'
+      - 'scripts/pixel-art-evidence.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: pixelart-lightweight
+  cancel-in-progress: false
+jobs:
+  evidence:
+    if: github.ref == 'refs/heads/exp/pixelart-point-rendering'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-package-lock
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: sudo apt-get install -y ffmpeg
+      - name: Start dev server
+        run: |
+          npm run dev -- --host 127.0.0.1 > /tmp/pixel-art-vite.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:5173/evowild-test/pixel-art.html >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/pixel-art-vite.log
+          exit 1
+      - name: Capture and audit six modes
+        run: node scripts/pixel-art-evidence.mjs capture
+      - name: Benchmark 24 conditions per profile
+        run: node scripts/pixel-art-evidence.mjs benchmark
+      - name: Upload comparison
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pixel-art-lightweight-v2
+          path: docs/evidence/pixel-art/lightweight-v2/
+          if-no-files-found: warn
+      - name: Commit evidence to the same experimental branch
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- docs/evidence/pixel-art/lightweight-v2/
+          git diff --cached --quiet && exit 0
+          git commit -m "Record six-mode pixel-art comparison and benchmark"
+          git push origin HEAD:refs/heads/exp/pixelart-point-rendering
