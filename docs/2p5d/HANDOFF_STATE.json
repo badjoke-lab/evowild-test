@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "purpose": "Codex child-branch checkpoint, not the main repo project status",
-  "status": "D3C_ACTUAL_RIG_AUDIT_NO_SCAPULA_SEPARATE_AUTHORING_REQUIRED",
+  "status": "BASELINE_CAPTURED",
   "base_repository": "badjoke-lab/evowild-test",
   "parent_branch": "feat/2p5d-autonomous-agent-orbs-20261024",
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
@@ -10,9 +10,9 @@
   "checkpoint_updated_at_utc": "2026-10-30T02:09:09.703213+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "D3-C actual original GLB skeleton/skin/clip inspected, missing independent scapula bone; new authored rig not built. D3-B scoped numerical KEEP, full visual REVISE.",
+  "current_unit": "Eight-view 2D stadium race",
   "last_commit_created": "fe09ccc82259e934e5a36232747d5159b362f310",
-  "last_remote_confirmed_sha": "fe09ccc82259e934e5a36232747d5159b362f310",
+  "last_remote_confirmed_sha": "bb5f97aa4b3cd3d571f1bd5d8248e84b8e589a60",
   "last_remote_verified_at_utc": "2026-10-30T02:09:09.703213+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
@@ -137,7 +137,7 @@
     "docs/2p5d/evidence/20261029-s-d3b-fore-reach/VISUAL_REVIEW.md",
     "docs/2p5d/evidence/20261029-s-d3b-fore-reach/actions-summary.json"
   ],
-  "next_action": "Do NOT repeat D3-B or the D3-C rig inspection. Read docs/2p5d/evidence/20261030-s-d3c-rig-feasibility/ANATOMY_VERDICT.md and rig-inventory.json. Execute a separate Blender/rigging animation-authoring task to add left/right scapular pivots and local weights, preserve unchanged bind/rest and native zero-scapula reference, then animate shoulder-elbow-chest gallop; create real 5-direction renders and continuous gait videos before any 2.5D integration. Determine correct editable rigged source first; separate R9 unapproved sculpt is NOT automatically compatible.",
+  "next_action": "Integrate recovered directional art and test the 18-runner stadium race.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
   "checkpoint_note": "Latest verified remote before this documentation commit:fe09ccc. Repeated recovery request reconciled with already-completed source/evidence; stale FAILED task wording now preceded by dated completion checkpoint. No source/test/asset modifications. Final documentation commit will be pushed and remote SHA verified; its parent is intentionally recorded here to avoid a self-referential hash. PR132 remains open Draft/unmerged."
 }
