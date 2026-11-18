@@ -1,0 +1,39 @@
+name: Ink Studio race proof
+on:
+  push:
+    branches: [scratch/ink-studio-20261119]
+    paths: ['proof/ink-studio/**', '.github/workflows/ink-studio-proof.yml']
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /proof/ink-studio/
+            /public/models/evowild-s/review/d3c-scapula-author-v3.glb
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Fetch pinned Ink Studio
+        run: |
+          git init "$RUNNER_TEMP/ink"
+          git -C "$RUNNER_TEMP/ink" fetch --depth 1 https://github.com/siliconjungle/shapeshift-labs-ink-studio.git 9b1b3b99282262aeffa0561176035fdbf3f4ff58
+          git -C "$RUNNER_TEMP/ink" checkout --detach FETCH_HEAD
+          test "$(git -C "$RUNNER_TEMP/ink" rev-parse HEAD)" = 9b1b3b99282262aeffa0561176035fdbf3f4ff58
+          npm install --prefix proof/ink-studio --no-save --no-package-lock three@0.181.0
+      - name: Render real source animation and course
+        run: |
+          mkdir -p proof/ink-studio/output
+          node proof/ink-studio/render.mjs "$RUNNER_TEMP/ink" public/models/evowild-s/review/d3c-scapula-author-v3.glb proof/ink-studio/output 2>&1 | tee proof/ink-studio/output/render.log
+        shell: bash
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ink-studio-race-proof
+          path: proof/ink-studio/output

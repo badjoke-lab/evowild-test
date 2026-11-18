@@ -1,0 +1,44 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EvoWild Run | Ink Studio</title><style>
+*{box-sizing:border-box}body{margin:0;background:#102127;color:#e1e6d6;font:15px system-ui,sans-serif}main{max-width:1000px;margin:auto;padding:18px}h1{font-size:22px;letter-spacing:3px;margin:0}header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}small{color:#a2b9a5}canvas{width:100%;height:auto;image-rendering:pixelated;background:#102127;border:1px solid #466154;display:block}button{font:inherit;padding:12px 20px;border:1px solid #789274;background:#30463d;color:#f0f4df;border-radius:4px;touch-action:manipulation}button:active{background:#567751}footer{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}p{color:#adc0aa;line-height:1.5}#status{font-variant-numeric:tabular-nums}</style>
+<main><header><div><h1>EVOWILD RUN</h1><small>INK STUDIO / S-TYPE RACE PROOF</small></div><span id="status">READY</span></header><canvas id="race" width="960" height="480"></canvas><footer><button id="start">START / RESET</button><button id="boost">BOOST · SPACE</button></footer><p>1番の選手を操作。スタート後、ブーストを使って先着を狙ってください。全員が既存S型の実走行クリップから生成されたInk Studio描画フレームを使用します。試作独自のレースルールです。</p></main>
+<script>
+const assets=/*__ASSETS__*/null;
+const canvas=document.getElementById('race'),ctx=canvas.getContext('2d'),status=document.getElementById('status'),start=document.getElementById('start'),boost=document.getElementById('boost');
+const load=src=>new Promise((ok,fail)=>{const img=new Image();img.onload=()=>ok(img);img.onerror=fail;img.src=src});
+let runners=[],state='loading',last=0,elapsed=0,held=false,finish=[];
+function reset(){runners=Array.from({length:4},(_,i)=>({i,x:0,phase:i*.18,energy:1,done:false}));elapsed=0;finish=[];state='race'}
+start.onclick=()=>{if(state!=='loading')reset()};
+boost.onpointerdown=e=>{held=true;boost.setPointerCapture(e.pointerId)};boost.onpointerup=boost.onpointercancel=()=>held=false;window.addEventListener('blur',()=>held=false);
+addEventListener('keydown',e=>{if(e.code==='Space'){e.preventDefault();held=true}});addEventListener('keyup',e=>{if(e.code==='Space')held=false});
+Promise.all([load(assets.background),...assets.frames.map(load)]).then(([bg,...frames])=>{
+state='ready';runners=Array.from({length:4},(_,i)=>({i,x:0,phase:i*.18,energy:1,done:false}));
+function tick(now){
+ const dt=Math.min(.04,(now-last)/1000||0);last=now;
+ if(state==='race'){
+ elapsed+=dt;
+ for(const r of runners){
+  if(r.done)continue;
+  const use=r.i===0&&held&&r.energy>.02;r.energy=Math.max(0,Math.min(1,r.energy+(use?-.35:.11)*dt));
+  const speed=r.i===0?.073+(use?.045:0):.073+r.i*.002+Math.sin(elapsed*.8+r.i)*.007;
+  r.x=Math.min(1,r.x+speed*dt);r.phase+=dt*(speed/.073)/assets.duration;
+  if(r.x===1){r.done=true;finish.push(r.i+1)}
+ }
+ if(finish.length===4)state='done';
+ }
+ ctx.imageSmoothingEnabled=false;ctx.drawImage(bg,0,0,960,480);
+ // Track projection and HUD are screen-space host elements. Source poses are never redrawn or morphed.
+ const left=185,right=775;for(const x of [left,right]){ctx.fillStyle='#e5d8a3';ctx.fillRect(x,170,4,125)}
+ const ys=[188,211,234,257];
+ for(const r of runners){
+ const x=left+(right-left)*r.x, y=ys[r.i];const frame=frames[Math.floor((r.phase%1+1)%1*frames.length)];
+ ctx.fillStyle='#101a1a77';ctx.beginPath();ctx.ellipse(x,y+22,35,7,0,0,Math.PI*2);ctx.fill();
+ ctx.drawImage(frame,x-74,y-57,148,99);
+ ctx.fillStyle=r.i===0?'#b9e985':'#f5e5b5';ctx.fillRect(x-9,y-43,18,17);ctx.fillStyle='#172523';ctx.font='bold 12px monospace';ctx.fillText(r.i+1,x-3,y-31);
+ }
+ ctx.fillStyle='#102127dd';ctx.fillRect(18,18,240,54);ctx.font='bold 16px monospace';ctx.fillStyle='#d8eac3';ctx.fillText('BOOST',30,38);ctx.fillStyle='#2d4336';ctx.fillRect(30,48,216,10);ctx.fillStyle='#b7df82';ctx.fillRect(30,48,216*runners[0].energy,10);
+ status.textContent=state==='done'?'FINISH '+finish.join(' > '):state==='ready'?'READY':elapsed.toFixed(1)+' s · '+(1+runners.filter(r=>r.i!==0&&r.x>runners[0].x).length)+'/4';
+ requestAnimationFrame(tick)
+}
+requestAnimationFrame(tick);
+}).catch(e=>{status.textContent='LOAD FAILED';console.error(e)});
+</script></html>
