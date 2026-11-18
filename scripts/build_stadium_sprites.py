@@ -35,6 +35,14 @@ def normalized(image, scale, center, foot):
 
 
 def side_keys(morph):
+    if morph == "p":
+        # Twelve individually drawn, phase-ordered P keys. The canonical
+        # correction carries its own sole baseline and airborne clearance.
+        image = Image.open(io.BytesIO(git_bytes("6c0c7986:public/concept/p-run-sheet.webp"))).convert("RGBA")
+        for i in range(12):
+            x, y = (i % 4)*416, (i // 4)*320
+            yield normalized(image.crop((x,y,x+416,y+320)), .48, 208, 296)
+        return
     image = Image.open(f"public/concept/{morph}-run-sheet.webp").convert("RGBA")
     pixels = np.asarray(image)
     labels, _ = ndimage.label(pixels[:, :, 3] > 12, np.ones((3, 3)))
@@ -78,7 +86,7 @@ def flex(layer, root, foot, phase, stride, lift):
     y = np.arange(layer.height)
     weight = np.clip((y-root)/(foot-root), 0, 1)
     swing = math.cos(phase)
-    recovery = max(0, math.sin(phase))
+    recovery = max(0, -math.sin(phase))
     bend = np.sin(np.pi * weight) * recovery
     dx = stride * (weight * swing - .70 * bend)
     dy = -lift * recovery * weight**1.4
@@ -170,7 +178,7 @@ def sprint_row(view):
         for leg in posed[:2]: frame.alpha_composite(leg)
         frame.alpha_composite(body,(0,round(4*math.sin(2*np.pi*t))))
         for leg in posed[2:]: frame.alpha_composite(leg)
-        result = normalized(frame,.273,center,434)
+        result = normalized(frame,.273,center,434 + 18 * max(0, -math.cos(2*np.pi*t))**3)
         yield ImageOps.mirror(result) if diagonal else result
 
 
@@ -237,9 +245,10 @@ def recovered_row(image, row, morph):
         right=polygon(original,[(cut+1,root-2),(59,root-2),(59,52),(cut+1,52)])
         t=2*math.pi*i/PHASES
         frame=Image.new('RGBA',original.size)
+        stride = {0:-7, 1:2.3, 2:7, 3:2.3}[row]
         for half,offset in ((left,0),(right,.48)):
             frame.alpha_composite(flex(half,root,46,t+2*math.pi*offset,
-                                       7 if row in (0,2) else 2.3,8))
+                                       stride,8))
         upper = original.crop((0,0,60,root+2))
         # Close the shoulder overlap as weight passes over the planted leg.
         frame.alpha_composite(upper,(0,round(math.sin(t) * 1.2)))
@@ -247,6 +256,17 @@ def recovered_row(image, row, morph):
         ground=46
         result=normalized(frame,body_height/(ground-4),30,ground+max(0, -math.cos(t))*2.2)
         yield ImageOps.mirror(result) if row==0 else result
+
+
+def register_row(frames, target_height):
+    # One transform for the whole row preserves compression and flight. Use
+    # high-alpha pixels so a Lanczos fringe cannot shift the contact plane.
+    keys = list(frames)
+    bounds = [frame.getchannel("A").point(lambda a: 255 if a>110 else 0).getbbox() for frame in keys]
+    scale = target_height / np.median([b[3]-b[1] for b in bounds])
+    scale = min(scale, (CELL[0]-4)/max(b[2]-b[0] for b in bounds))
+    foot = max(bounds[i][3] for i in (0,1,len(keys)-1))
+    return [normalized(frame,scale,CELL[0]/2,foot) for frame in keys]
 
 
 def bake(morph):
@@ -260,7 +280,7 @@ def bake(morph):
               recovered_row(source,2,morph),recovered_row(source,3,morph)]
     atlas=Image.new('RGBA',(CELL[0]*PHASES,CELL[1]*len(rows)))
     for row,frames in enumerate(rows):
-        for col,frame in enumerate(frames):
+        for col,frame in enumerate(register_row(frames, {"s":105,"p":100,"e":102,"a":78}[morph])):
             atlas.alpha_composite(frame,(col*CELL[0],row*CELL[1]))
     atlas.save(OUT/f'{morph}-run.webp',lossless=True,method=4)
 

@@ -2,7 +2,7 @@ import {recordLaneExecution, observeLaneExecution, laneExecutionText, laneSource
 import { resolveRecordedAgentDecision } from "./race_agent_outcome_2p5d.js";
 import { classifyFinishCrossings } from "./race_finish_2p5d.js";
 import { AGENT_FIELDS, AGENT_PRESETS, makeAgentFile, normalizedAgentFile, decideAgentAction } from "./race_agent_v1.js";
-import { RUN_VIEWS, CELL_WIDTH, CELL_HEIGHT, drawRunSprite, loadRunAtlas } from "./stadium_sprites.js";
+import { RUN_VIEWS, RIGHT_VIEW, CELL_WIDTH, CELL_HEIGHT, runFrame, drawRunSprite, loadRunAtlas } from "./stadium_sprites.js";
 import { OVAL_LANE_WIDTH } from "./oval_course_2p5d.js";
 import { drawOvalRace } from "./oval_render_2p5d.js";
 import { makeRaceRecord, appendRaceResult, selectPlayerRunner } from "./game_progress_2p5d.js";
@@ -101,10 +101,10 @@ const MORPH_SEQUENCE = Array.from(
   (_, i) => ["S","P","E","A"][i % 4]
 );
 const MORPH_META = {
-  S: { cadence:1.00, width:1.00, lift:1.00 },
-  P: { cadence:0.94, width:1.08, lift:0.62 },
-  E: { cadence:0.97, width:1.02, lift:0.52 },
-  A: { cadence:1.02, width:1.06, lift:0.82 }
+  S: { cadence:1.00, width:1.00 },
+  P: { cadence:0.94, width:1.08 },
+  E: { cadence:0.97, width:1.02 },
+  A: { cadence:1.02, width:1.06 }
 };
 
 // Durations of CONTACT, PUSH, LIFT, FLIGHT, REACH and LAND in six-key units.
@@ -151,14 +151,7 @@ function createAgentState(id) {
   };
 }
 
-const RUN_FRAMES = [
-  { phase:"CONTACT", col:0, row:0, y:0.00 },
-  { phase:"PUSH",    col:1, row:0, y:0.00 },
-  { phase:"LIFT",    col:2, row:0, y:0.00 },
-  { phase:"FLIGHT",  col:0, row:1, y:-0.42 },
-  { phase:"REACH",   col:1, row:1, y:-0.17 },
-  { phase:"LAND",    col:2, row:1, y:-0.16 }
-];
+const RUN_PHASES = ["CONTACT","PUSH","LIFT","FLIGHT","REACH","LAND"];
 
 let readySheets = 0;
 const assetsReady = Promise.all(["S","P","E","A"].map(async morph => {
@@ -982,7 +975,9 @@ function startAutonomousRace(){
   }
   editableAgentFile=file;
   stage.dataset.agentProfileSaved=saveAgentProfile(localStorage,SELECTED_ID,file)?"1":"0";
-  activeRaceRunId="local-"+crypto.randomUUID();
+  const runId = crypto.randomUUID?.() ?? Array.from(crypto.getRandomValues(new Uint32Array(4)),
+    n => n.toString(16).padStart(8,"0")).join("");
+  activeRaceRunId = "local-" + runId;
   // Selection is a local convenience only, not a claim of Creature ownership.
   try{selectPlayerRunner(localStorage,SELECTED_ID);}catch{}
   stage.dataset.recordSaved="pending";
@@ -1429,13 +1424,13 @@ function drawRacers() {
     maxEdge=Math.max(maxEdge,item.x+spriteW*.52);
     const phase=spritePhase(r);
     const frameIndex=Math.floor(phase * 6);
-    const frame=RUN_FRAMES[frameIndex];
+    const pose=RUN_PHASES[frameIndex];
 
 
     const flight =
-      frame.phase==="FLIGHT" ? 1 :
-      frame.phase==="REACH" ? .55 :
-      frame.phase==="LIFT" ? .28 : 0;
+      pose==="FLIGHT" ? 1 :
+      pose==="REACH" ? .55 :
+      pose==="LIFT" ? .28 : 0;
     const shadowW=spriteW*(.40-flight*.09);
     const shadowH=Math.max(3,spriteH*(.05-flight*.012));
     ctx.save();
@@ -1446,7 +1441,7 @@ function drawRacers() {
     ctx.fill();
     ctx.restore();
 
-    const contactKick=frame.phase==="LAND"||frame.phase==="CONTACT"||frame.phase==="PUSH";
+    const contactKick=pose==="LAND"||pose==="CONTACT"||pose==="PUSH";
     if(r.speed>16&&contactKick){
       ctx.save();
       ctx.globalAlpha=.14;
@@ -1464,7 +1459,7 @@ function drawRacers() {
       ctx.shadowColor=selectedRacer ? "#7ee2ff" : "#ffdc82";
       ctx.shadowBlur=8;
     }
-    drawRunSprite(ctx,r,RUN_VIEWS[2],phase,item.x,item.y,spriteH);
+    drawRunSprite(ctx,r,RIGHT_VIEW,phase,item.x,item.y,spriteH);
     ctx.restore();
 
     drawRaceAgentOrb(r,item.x,item.y,spriteW,spriteH,selectedRacer);
@@ -1489,8 +1484,8 @@ function drawRacers() {
 
     if(selectedRacer){
       stage.dataset.stridePhase=phase.toFixed(8);
-      stage.dataset.selectedRunFrame=String(frameIndex);
-      stage.dataset.selectedRunPhase=frame.phase;
+      stage.dataset.selectedRunFrame=String(runFrame(r.morph,RIGHT_VIEW,phase));
+      stage.dataset.selectedRunPhase=pose;
       stage.dataset.selectedMorph=r.morph;
       stage.dataset.selectedX=item.x.toFixed(1);
       stage.dataset.selectedY=item.y.toFixed(1);

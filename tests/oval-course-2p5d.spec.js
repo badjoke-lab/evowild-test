@@ -79,9 +79,9 @@ test("all eight cuts use the same paused stride for each morph",async ({page})=>
       await page.locator("#cameraMode").selectOption(view);
       await expect(stage).toHaveAttribute("data-selected-direction",view);
       await expect(stage).toHaveAttribute("data-stride-phase",phase);
-      const count=["right","left"].includes(view)?6:12;
+      const count=id!==2 && ["right","left"].includes(view) ? 6 : 12;
       const frame=Number(await stage.getAttribute("data-selected-run-frame"));
-      expect(Math.abs(frame-Math.floor(Number(phase)*count))).toBeLessThanOrEqual(1);
+      expect(frame).toBe(Math.floor(Number(phase)*count));
     }
   }
 });

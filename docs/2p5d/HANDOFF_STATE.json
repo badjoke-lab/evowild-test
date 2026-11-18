@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
   "purpose": "Codex child-branch checkpoint, not the main repo project status",
-  "status": "STADIUM_DIRECTIONAL_RENDER_IMPLEMENTED_QA_IN_PROGRESS",
+  "status": "STADIUM_DIRECTIONAL_ART_REVISE_GAME_AND_RECORDINGS_VERIFIED",
   "base_repository": "badjoke-lab/evowild-test",
   "parent_branch": "feat/2p5d-autonomous-agent-orbs-20261024",
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-11-18T23:02:03.977286+00:00",
+  "checkpoint_updated_at_utc": "2026-11-18T23:11:33.970972+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "Eight-view 2D stadium renderer and recovered or articulated directional run atlases",
+  "current_unit": "S/P/E/A eight-direction 2D stadium rendering, playable build, asset audit and live race evidence",
   "last_commit_created": "fe09ccc82259e934e5a36232747d5159b362f310",
-  "last_remote_confirmed_sha": "df0786cef14daa2dacac24f815990ed8554dde0c",
+  "last_remote_confirmed_sha": "069bca0308a76e32537a552add814fc3f4d8bb7c",
   "last_remote_verified_at_utc": "2026-10-30T02:09:09.703213+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
@@ -61,7 +61,8 @@
     "D3B full local validation:14 focused D3B/D2D testsPASS +22 existing contact/sole/roll/continuity casesPASS across21+one unchanged-timeout isolatedretest13.2s. Seven fixed traces:allfootmaxvelocity.005987,zero-timejump/freeze0,penetration/reach0,gap.424mm,hindrecovery47.98cm; reach4.72/6.04/7.36cm andchest3.57265deg preserved. D2D probes exactbefore/after. BuildPASS. Four-view visual comparison still pending.",
     "D3-B recovery complete: exact failure reproduced and derivative cause isolated; opt-in continuous-velocity posture rate repairs fore reach and chest without reducing steady amplitude. 36 unique local cases pass across documented runs; build PASS. CI40882876409:170 passed/3 known failed/81 skipped, no new S failure. Eight four-view real MP4,192 cycle frames,60 phase/rate stills,PC/Pixel7 pairs captured with zero page errors. Numeric limited KEEP; actual-frame whole-S visual REVISE. D2-D/body source,GLBs,manifest preserved.",
     "2026-10-30 resume audit: explicit child fetch and PR132 head both fe09ccc; eight movies/192 frames/60 rate-phase stills plus PC/Pixel7 pairs present in remote tree. Runtime/tests/scripts unchanged since tested6f5ac01; D2-D body source and all models unchanged sinceca1c41d. Source CI confirmed completed with known3 failures only. Added completion checkpoint to recovery task without removing historical failure/requirements. No repeated tests or captures and no new runtime work.",
-    "D3-C rig feasibility actually executed via Actions 41005210114. Original review GLB (SHA256 78dd511c...) has 38,813 vertices, 21 skin joints and NO separate shoulder/scapula/clavicle joint. fore_L_upper and fore_R_upper descend directly from chest and are overwritten each frame by two-bone contact IK, so shoulder protraction cannot be independently authored using current bones alone. Evidence docs/2p5d/evidence/20261030-s-d3c-rig-feasibility/rig-inventory.json and ANATOMY_VERDICT.md. No cosmetic push-v6, no new rig/clip built, visual REVISE."
+    "D3-C rig feasibility actually executed via Actions 41005210114. Original review GLB (SHA256 78dd511c...) has 38,813 vertices, 21 skin joints and NO separate shoulder/scapula/clavicle joint. fore_L_upper and fore_R_upper descend directly from chest and are overwritten each frame by two-bone contact IK, so shoulder protraction cannot be independently authored using current bones alone. Evidence docs/2p5d/evidence/20261030-s-d3c-rig-feasibility/rig-inventory.json and ANATOMY_VERDICT.md. No cosmetic push-v6, no new rig/clip built, visual REVISE.",
+    "Stadium camera-relative sectors, stable phase and art registration; recovered canonical P twelve-pose side run; 2D directional atlases; verified desktop and Pixel 7 emulation; playable offline ZIP and before/after/camera recordings."
   ],
   "pending_units": [
     "D3-C separate scapula rig and authored shoulder/elbow/chest motion NOT started. Need independently compatible rigged source and Blender execution to do it.",
@@ -137,7 +138,8 @@
     "docs/2p5d/evidence/20261029-s-d3b-fore-reach/VISUAL_REVIEW.md",
     "docs/2p5d/evidence/20261029-s-d3b-fore-reach/actions-summary.json"
   ],
-  "next_action": "Run the stadium camera and game-loop suites and save final desktop/mobile race evidence.",
+  "next_action": "Finish the final targeted regression run and record its result.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "2D race only. Visual quality remains under review. Prior 3D units recorded below are historical."
+  "checkpoint_note": "2D race only. Visual quality remains under review. Prior 3D units recorded below are historical.",
+  "directional_evidence": "docs/2p5d/evidence/directional-run/README.md"
 }

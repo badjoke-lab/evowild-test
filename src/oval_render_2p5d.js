@@ -194,7 +194,7 @@ export function drawOvalRace(opts){
     if(chosen){
       stage.dataset.selectedX=x.toFixed(1);
       stage.dataset.selectedY=y.toFixed(1);
-      stage.dataset.selectedRunFrame=String(runFrame(view,phase));
+      stage.dataset.selectedRunFrame=String(runFrame(r.morph,view,phase));
       stage.dataset.selectedDirection=view.name;
       stage.dataset.stridePhase=phase.toFixed(8);
     }
