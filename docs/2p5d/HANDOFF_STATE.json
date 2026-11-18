@@ -146,5 +146,22 @@
   "next_action": "git fetch origin refs/heads/exp/d3c-scapula-authoring:refs/remotes/origin/exp/d3c-scapula-authoring; read docs/2p5d/evidence/20261117-s-d3c-v2/VISUAL_REVIEW.md; gh run list --repo badjoke-lab/evowild-test --branch exp/d3c-scapula-authoring --limit 4. Do not rebuild v1 or repeat completed v2 capture. Continue only the documented fore-recovery visual diagnosis in a separate candidate.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
   "checkpoint_note": "Evidence/model/code/test commits ef2cc60,995f9ea,d6eb33c all pushed. git ls-remote confirmed d6eb33c; GitHub connector independently confirmed capture-validation.json at that exact commit. This metadata-only checkpoint records the last verified artifact SHA. No authored work remains local-only. Tracked tree clean apart from this checkpoint; listed untracked generated work outputs retained.",
-  "draft_pr_note": "PR132 is the parent development lane. This experimental branch is not merged into PR132; no new PR created."
+  "draft_pr_note": "PR132 is the parent development lane. This experimental branch is not merged into PR132; no new PR created.",
+  "pixelart_point_rendering": {
+    "branch": "exp/pixelart-point-rendering",
+    "base": "9689bbbc",
+    "status": "IMPLEMENTED_EVIDENCE_PENDING",
+    "last_verified_source_sha": "c4f1d4114f15fcd5743e4d4c1e4bdfcd026fc453",
+    "verified": [
+      "D3-C v2 asset integrity",
+      "Vite build",
+      "four WebGL modes and 23 joints in desktop Chromium"
+    ],
+    "pending": [
+      "Desktop and Pixel 7 viewport benchmark",
+      "Synchronized stills and videos",
+      "Comparison and adoption report"
+    ],
+    "next_action": "Run browser capture and benchmark for /evowild-test/pixel-art.html and record evidence under docs/evidence/pixel-art/."
+  }
 }
