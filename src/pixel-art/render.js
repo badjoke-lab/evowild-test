@@ -7,7 +7,10 @@ const palette = [
   '#2a4033', '#354e40', '#536b50', '#65704b', '#77835b', '#a6a775', '#6f7d72', '#b6c3bb',
   '#3d4443', '#586260', '#858f89', '#a6afaa', '#392c2a', '#564838', '#8b7965', '#f4ede0',
   '#566753', '#5e7560', '#849b80', '#bbc5a4', '#4a514a', '#947f73', '#c7ab89', '#f6e0be'
-].map(value => new THREE.Color(value));
+].map(value => {
+  const { r, g, b } = new THREE.Color(value);
+  return new THREE.Vector3(Math.sqrt(r), Math.sqrt(g), Math.sqrt(b));
+});
 
 export function makePointMaterial(mesh, vertices) {
   return new THREE.ShaderMaterial({
@@ -137,8 +140,8 @@ function target(depth, type = THREE.UnsignedByteType) {
 
 export function createRenderPipeline(renderer, scene, camera) {
   const gl = renderer.getContext();
-  const canGaussian = !!gl.getExtension('EXT_color_buffer_float');
   const pointLimit = gl.getParameter(gl.ALIASED_POINT_SIZE_RANGE)[1];
+  const canGaussian = pointLimit >= 3 && !!gl.getExtension('EXT_color_buffer_float');
   const color = target(true);
   const meshDepth = canGaussian ? target(true) : null;
   const accum = canGaussian ? target(false, THREE.HalfFloatType) : null;
@@ -183,15 +186,16 @@ export function createRenderPipeline(renderer, scene, camera) {
         float threshold = 0.24 + front * 0.026;
         float edge = smoothstep(threshold, threshold * 1.65, d - front);
         rgb *= 1.0 - edge * uOutline * 0.73;
+        vec3 perceptual = sqrt(max(rgb, 0.0));
         vec3 chosen = uPalette[0];
         float nearest = 99.0;
         for (int i = 0; i < 32; i++) {
           if (i >= uColors) break;
-          vec3 diff = sqrt(max(rgb, 0.0)) - sqrt(uPalette[i]);
+          vec3 diff = perceptual - uPalette[i];
           float error = dot(diff * diff, vec3(0.29, 0.52, 0.19));
           if (error < nearest) { nearest = error; chosen = uPalette[i]; }
         }
-        gl_FragColor = vec4(chosen, 1.0);
+        gl_FragColor = vec4(chosen * chosen, 1.0);
         #include <colorspace_fragment>
       }`
   });

@@ -60,7 +60,6 @@ async function start() {
   let manual = false;
   let lost = false;
   let lastTimestamp = null;
-  let frame;
   let measurement;
   let liveGpu = null;
   let lastRefresh = 0;
@@ -142,7 +141,6 @@ async function start() {
     if (dt && speed[settings.motion]) {
       for (const subject of active) subject.step(dt, speed[settings.motion]);
     }
-    timer.poll();
     const query = timer.begin();
     const info = pipeline.draw(settings, active);
     timer.end(query, ms => {
@@ -184,29 +182,38 @@ async function start() {
   }
 
   const liveFrames = [];
+  let previousSampleFrame;
+  function updateMetrics(data, fps) {
+    $('fps').textContent = Number.isFinite(fps) ? fps.toFixed(1) : '—';
+    $('points').textContent = data.points.toLocaleString();
+    $('gpu').textContent = liveGpu === null ? (timer.available ? '計測中' : '未対応') : `${liveGpu.toFixed(2)} ms`;
+    $('memory').textContent = `${(data.gpuBufferEstimateBytes / 1048576).toFixed(2)} MiB`;
+  }
+
   function animate(now) {
     if (!lost && !manual) {
       const frameMs = lastTimestamp === null ? 0 : now - lastTimestamp;
       const dt = Math.min(frameMs / 1000, .05);
       lastTimestamp = now;
       let sample = measurement?.current;
-      if (measurement && (!sample || now >= sample.recordFrom + measurement.windowMs + (sample.frames.length ? 0 : frameMs))) {
+      if (previousSampleFrame?.sample === sample && sample && frameMs > 0) {
+        sample.frames.push({ ...previousSampleFrame.frame, frameMs });
+      }
+      timer.poll();
+      if (measurement && (!sample || sample.frames.length && now >= sample.recordFrom + measurement.windowMs)) {
         finishCase(now);
         nextCase(now);
         sample = measurement?.current;
       }
-      const recording = sample && now >= sample.recordFrom && frameMs > 0;
+      const recording = sample && now >= sample.recordFrom;
       controls.autoRotate = settings.orbit;
       controls.update(dt);
-      frame = render(dt, frameMs, recording ? sample : null);
-      if (recording) sample.frames.push(frame);
+      const frame = render(dt, frameMs, recording ? sample : null);
+      previousSampleFrame = recording ? { sample, frame } : null;
       if (frameMs > 0) liveFrames.push(frameMs);
       if (now - lastRefresh > 600) {
         const average = liveFrames.reduce((sum, value) => sum + value, 0) / liveFrames.length;
-        $('fps').textContent = Number.isFinite(average) ? (1000 / average).toFixed(1) : '—';
-        $('points').textContent = frame.points.toLocaleString();
-        $('gpu').textContent = liveGpu === null ? (timer.available ? '計測中' : '未対応') : `${liveGpu.toFixed(2)} ms`;
-        $('memory').textContent = `${(frame.gpuBufferEstimateBytes / 1048576).toFixed(2)} MiB`;
+        updateMetrics(frame, 1000 / average);
         liveFrames.length = 0;
         lastRefresh = now;
       }
@@ -283,6 +290,7 @@ async function start() {
         setCamera(azimuth, elevation);
         for (const subject of active) subject.reset(speed[motion], seconds);
         const data = render(0, 0);
+        updateMetrics(data, NaN);
         return { ...data, phase: active[0].contact.cycles % 1, png: canvas.toDataURL('image/png') };
       },
       resume() { manual = false; lastTimestamp = null; },
