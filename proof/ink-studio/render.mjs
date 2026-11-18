@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import {gzipSync} from 'node:zlib';
 import path from 'node:path';
 import {createRequire} from 'node:module';
 import {createHash} from 'node:crypto';
@@ -95,9 +96,16 @@ const rest=bake(fitted);
 for(const [name,yaw] of [['side',Math.PI/2],['front',0],['front34',Math.PI/4],['rear34',3*Math.PI/4],['back',Math.PI]]){
   views.push(alphaFrame(rest,{...baseOpts,yaw},'view-'+name+'.png'));console.log('VIEW',name,views.at(-1).splats);
 }
-const frames=[],count=24;
+const frames=[],splatFrames=[],count=24;
+function compact(w){
+  const out=new Float32Array(w.count*11);
+  for(let i=0;i<w.count;i++)out.set(w.data.subarray(i*16,i*16+11),i*11);
+  if(!out.every(Number.isFinite))throw Error('Invalid splat data');
+  return out;
+}
 for(let f=0;f<count;f++){
   const t=clip.duration*f/count, world=bake(fixedMesh(geometry(t)));
+  splatFrames.push(compact(world));
   frames.push({...alphaFrame(world,{...baseOpts,yaw:Math.PI/2},'run-'+String(f).padStart(2,'0')+'.png'),t});
   console.log('FRAME',f,world.count);
 }
@@ -129,3 +137,10 @@ const assets={background:image('course.png'),frames:frames.map(f=>image(f.file))
 const html=fs.readFileSync(new URL('./race.html',import.meta.url),'utf8').replace('/*__ASSETS__*/null',JSON.stringify(assets));
 fs.writeFileSync(path.join(output,'race.html'),html);
 console.log('RENDER_DONE',JSON.stringify({frames:frames.length,courseSplats:course.count,duration:clip.duration}));
+
+const sceneData=[compact(course),...splatFrames];
+const pack=Buffer.concat(sceneData.map(a=>Buffer.from(a.buffer,a.byteOffset,a.byteLength)));
+const payload={counts:sceneData.map(a=>a.length/11),duration:clip.duration,bytes:pack.length,gzip:gzipSync(pack).toString('base64'),sourceSha256:digest,revision:'live-3d-1'};
+const live=fs.readFileSync(new URL('./live.html',import.meta.url),'utf8').replace('/*__LIVE__*/null',JSON.stringify(payload));
+fs.writeFileSync(path.join(output,'live-race.html'),live);
+console.log('LIVE_PACK',JSON.stringify({counts:payload.counts,bytes:pack.length,compressed:payload.gzip.length}));
