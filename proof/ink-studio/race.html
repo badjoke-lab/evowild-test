@@ -25,15 +25,15 @@ function tick(now){
  }
  if(finish.length===4)state='done';
  }
- ctx.imageSmoothingEnabled=false;ctx.drawImage(bg,0,0,960,480);
+ ctx.imageSmoothingEnabled=false;ctx.drawImage(bg,55,25,210,105,0,0,960,480);
  // Track projection and HUD are screen-space host elements. Source poses are never redrawn or morphed.
- const left=185,right=775;for(const x of [left,right]){ctx.fillStyle='#e5d8a3';ctx.fillRect(x,170,4,125)}
- const ys=[188,211,234,257];
+ const left=130,right=830;for(const x of [left,right]){ctx.fillStyle='#e5d8a3';ctx.fillRect(x,204,4,89)}
+ const ys=[216,238,260,282];
  for(const r of runners){
  const x=left+(right-left)*r.x, y=ys[r.i];const frame=frames[Math.floor((r.phase%1+1)%1*frames.length)];
- ctx.fillStyle='#101a1a77';ctx.beginPath();ctx.ellipse(x,y+22,35,7,0,0,Math.PI*2);ctx.fill();
- ctx.drawImage(frame,x-74,y-57,148,99);
- ctx.fillStyle=r.i===0?'#b9e985':'#f5e5b5';ctx.fillRect(x-9,y-43,18,17);ctx.fillStyle='#172523';ctx.font='bold 12px monospace';ctx.fillText(r.i+1,x-3,y-31);
+ ctx.fillStyle='#101a1a77';ctx.beginPath();ctx.ellipse(x,y,26,5,0,0,Math.PI*2);ctx.fill();
+ ctx.save();ctx.translate(x,y);ctx.scale(-1,1);ctx.drawImage(frame,-60,-65,120,80);ctx.restore();
+ ctx.fillStyle=r.i===0?'#b9e985':'#f5e5b5';ctx.fillRect(x-9,y-54,18,17);ctx.fillStyle='#172523';ctx.font='bold 12px monospace';ctx.fillText(r.i+1,x-3,y-42);
  }
  ctx.fillStyle='#102127dd';ctx.fillRect(18,18,240,54);ctx.font='bold 16px monospace';ctx.fillStyle='#d8eac3';ctx.fillText('BOOST',30,38);ctx.fillStyle='#2d4336';ctx.fillRect(30,48,216,10);ctx.fillStyle='#b7df82';ctx.fillRect(30,48,216*runners[0].energy,10);
  status.textContent=state==='done'?'FINISH '+finish.join(' > '):state==='ready'?'READY':elapsed.toFixed(1)+' s · '+(1+runners.filter(r=>r.i!==0&&r.x>runners[0].x).length)+'/4';

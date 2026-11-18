@@ -82,7 +82,8 @@ function alphaFrame(world,options,filename){
   let occupied=0;
   for(let i=0;i<mask.coverage.length;i++){
     rgba[i*4]=img.rgb[i*3];rgba[i*4+1]=img.rgb[i*3+1];rgba[i*4+2]=img.rgb[i*3+2];
-    const a=mask.coverage[i];rgba[i*4+3]=a>.25?255:0;if(a>.25)occupied++;
+    const x=i%img.w,y=Math.floor(i/img.w);
+    const a=mask.coverage[(img.h-1-y)*img.w+x];rgba[i*4+3]=a>.25?255:0;if(a>.25)occupied++;
   }
   if(occupied<50)throw Error('Empty rendered frame');
   const buf=PNG.encode(img.w,img.h,rgba,4);fs.writeFileSync(path.join(output,filename),buf);
