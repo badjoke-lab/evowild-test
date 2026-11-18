@@ -1,0 +1,88 @@
+{
+  "order": [
+    "Pixel 7 Chromium emulation",
+    "desktop Chromium"
+  ],
+  "reports": [
+    [
+      {
+        "phase": 0.2,
+        "zeroJump": 0,
+        "maxPenetration": 0,
+        "maxStanceSlip": 1.285077056373184e-08,
+        "maxReachError": 0,
+        "minAngle": 49.0585662792342,
+        "maxAngle": 159.0541882659968,
+        "stanceCounts": [
+          50,
+          51,
+          100,
+          96
+        ],
+        "freezeJump": 0,
+        "freezeTime": 0,
+        "freezeDistance": 0,
+        "seekDifference": 0
+      },
+      {
+        "phase": 0.7,
+        "zeroJump": 0,
+        "maxPenetration": 0,
+        "maxStanceSlip": 1.2103587134157857e-08,
+        "maxReachError": 0,
+        "minAngle": 49.16575593339101,
+        "maxAngle": 158.583336105397,
+        "stanceCounts": [
+          73,
+          78,
+          71,
+          71
+        ],
+        "freezeJump": 0,
+        "freezeTime": 0,
+        "freezeDistance": 0,
+        "seekDifference": 0
+      }
+    ],
+    [
+      {
+        "phase": 0.2,
+        "zeroJump": 0,
+        "maxPenetration": 0,
+        "maxStanceSlip": 1.285077056373184e-08,
+        "maxReachError": 0,
+        "minAngle": 49.0585662792342,
+        "maxAngle": 159.0541882659968,
+        "stanceCounts": [
+          50,
+          51,
+          100,
+          96
+        ],
+        "freezeJump": 0,
+        "freezeTime": 0,
+        "freezeDistance": 0,
+        "seekDifference": 0
+      },
+      {
+        "phase": 0.7,
+        "zeroJump": 0,
+        "maxPenetration": 0,
+        "maxStanceSlip": 1.2103587134157857e-08,
+        "maxReachError": 0,
+        "minAngle": 49.16575593339101,
+        "maxAngle": 158.583336105397,
+        "stanceCounts": [
+          73,
+          78,
+          71,
+          71
+        ],
+        "freezeJump": 0,
+        "freezeTime": 0,
+        "freezeDistance": 0,
+        "seekDifference": 0
+      }
+    ]
+  ]
+}

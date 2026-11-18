@@ -1,0 +1,95 @@
+name: S D3-B fore reach comparison
+
+on:
+  push:
+    branches: ["feat/2p5d-flow-persistence-20261025"]
+    paths:
+      - ".github/workflows/s-d3b-fore-reach.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build and prepare actual WebGL review
+        run: |
+          npm install
+          npx playwright install --with-deps chromium
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          npm run build
+      - name: Serve native S candidate
+        shell: bash
+        run: |
+          npm run dev -- --host 127.0.0.1 --port 4173 >/tmp/d3b-vite.log 2>&1 &
+          for i in {1..40}; do
+            if curl -sf http://127.0.0.1:4173/evowild-test/s-run-review.html >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/d3b-vite.log
+          exit 1
+      - name: Re-test native join and D3-B fore reach with contact guards
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p docs/2p5d/evidence/20261029-s-d3b-fore-reach
+          cat > s_d3b_config.mjs <<'JS'
+          import config from './playwright.config.js';
+          export default {...config,webServer:{...config.webServer,reuseExistingServer:true}};
+          JS
+          npx playwright test tests/s-d3-fore-reach.spec.js tests/s-native-join.spec.js --config=s_d3b_config.mjs --workers=1 --reporter=line | tee docs/2p5d/evidence/20261029-s-d3b-fore-reach/focused-test.log
+      - name: Capture 4-view continuous real WebGL motion
+        env:
+          S_COMPARE_OUT: docs/2p5d/evidence/20261029-s-d3b-fore-reach
+          S_COMPARE_BEFORE: "&toe=roll-v3&body=push-v3"
+          S_COMPARE_AFTER: "&toe=roll-v3&body=push-v5"
+        run: node scripts/capture_s_motion_compare.mjs
+      - name: Capture matched actual WebGL swing and fore-support stills
+        run: node scripts/capture_s_d3b_fore_reach.mjs
+      - name: Record and push non-production evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > docs/2p5d/evidence/20261029-s-d3b-fore-reach/README.md <<'MD'
+          # S D3-B forelimb swing / chest load: evidence only
+          
+          Real WebGL captures use the existing skinned S candidate GLB, unchanged rest mesh and four fixed views.
+          
+          - **Before:** `rig=contact-v3&toe=roll-v3&body=push-v3`.
+          - **After:** `rig=contact-v3&toe=roll-v3&body=push-v5`.
+          - `before/after-SIDE,CHASE,LOW,REAR_3_4.mp4`: full real cycle at 1x, same camera and timing.
+          - `frames/`: full-cycle unretouched source frames.
+          - `before/after-SIDE,REAR_3_4-0p5x,1x,1p5x-p{20,32,64,75,90}.png`: exact phase/velocity visual probes.
+          - `fore-reach-visual-probes.json`: actual ankle/fore foot reach and thorax bone poses.
+          - `focused-test.log`: browser results on desktop and Pixel7 emulation.
+          
+          D3-B is an opt-in experiment, **not** visual KEEP, production integration or model approval.
+          No GLB, rest mesh, HUD, other morphs, 18-racer state or main changes.
+          MD
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('docs/2p5d/evidence/20261029-s-d3b-fore-reach/focused-test.log')
+          p.write_text(p.read_text().rstrip()+'\n')
+          PY
+          git diff --exit-code -- src/ public/models/evowild-s/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/2p5d/evidence/20261029-s-d3b-fore-reach/
+          git diff --cached --check
+          if ! git diff --cached --quiet; then
+            git commit -m 'art(s): save real WebGL D3-B fore-reach review evidence'
+            git push origin HEAD:feat/2p5d-flow-persistence-20261025
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s-d3b-fore-reach-webgl
+          path: docs/2p5d/evidence/20261029-s-d3b-fore-reach/
+          if-no-files-found: warn

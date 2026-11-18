@@ -1,0 +1,2305 @@
+{
+  "first": {
+    "time": 0.15000000000000002,
+    "phase": 0.1440000054931643,
+    "rate": 1,
+    "distance": 0.6000000000000001,
+    "asset": "review/focus-hind-fit-v2.glb",
+    "camera": "SIDE",
+    "clip": "EvoWild_S_Run_V5",
+    "duration": 1.0416666269302368,
+    "bones": 21,
+    "vertices": 38813,
+    "feet": [
+      {
+        "name": "fore_L_foot",
+        "weightBone": "fore_L_foot",
+        "maxFootInfluence": 0.9968985915184021,
+        "x": -0.18985019939270956,
+        "y": 0.20593981964168614,
+        "z": 1.8414251279450151
+      },
+      {
+        "name": "fore_R_foot",
+        "weightBone": "fore_R_foot",
+        "maxFootInfluence": 0.993881344795227,
+        "x": 0.19731680999505782,
+        "y": 0.2705719853187761,
+        "z": 1.9497203343151654
+      },
+      {
+        "name": "hind_L_foot",
+        "weightBone": "hind_L_toe",
+        "maxFootInfluence": 0.9996288418769836,
+        "x": -0.1632196730696087,
+        "y": -0.055039070144908143,
+        "z": -0.724666906276102
+      },
+      {
+        "name": "hind_R_foot",
+        "weightBone": "hind_R_toe",
+        "maxFootInfluence": 0.9996142387390137,
+        "x": 0.1652726375758922,
+        "y": 0.03923322507236589,
+        "z": -0.9441385354122592
+      }
+    ]
+  },
+  "running": {
+    "time": 0.3,
+    "phase": 0.28800001098632855,
+    "rate": 1,
+    "distance": 1.2,
+    "asset": "review/focus-hind-fit-v2.glb",
+    "camera": "SIDE",
+    "clip": "EvoWild_S_Run_V5",
+    "duration": 1.0416666269302368,
+    "bones": 21,
+    "vertices": 38813,
+    "feet": [
+      {
+        "name": "fore_L_foot",
+        "weightBone": "fore_L_foot",
+        "maxFootInfluence": 0.9968985915184021,
+        "x": -0.18809660488052493,
+        "y": 0.3239359445237584,
+        "z": 2.556618131892142
+      },
+      {
+        "name": "fore_R_foot",
+        "weightBone": "fore_R_foot",
+        "maxFootInfluence": 0.993881344795227,
+        "x": 0.19137111076438038,
+        "y": 0.2563847815113214,
+        "z": 2.456275546678169
+      },
+      {
+        "name": "hind_L_foot",
+        "weightBone": "hind_L_toe",
+        "maxFootInfluence": 0.9996288418769836,
+        "x": -0.1664107359098293,
+        "y": 0.10079637112400362,
+        "z": -0.4780044638028507
+      },
+      {
+        "name": "hind_R_foot",
+        "weightBone": "hind_R_toe",
+        "maxFootInfluence": 0.9996142387390137,
+        "x": 0.1724463784916035,
+        "y": 0.12827396040810235,
+        "z": -0.5072154111448599
+      }
+    ]
+  },
+  "errors": [],
+  "samples": [
+    {
+      "time": 0,
+      "phase": 0,
+      "rate": 1,
+      "distance": 0,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.18511293033585705,
+          "y": 0.010097200909870598,
+          "z": 0.7985444162993758
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.19545290980420554,
+          "y": 0.0759545956981187,
+          "z": 1.0635585406627173
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.1703455375110097,
+          "y": -0.12487270323780182,
+          "z": -0.9185085518013613
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.16672863962195178,
+          "y": -0.08892078487332893,
+          "z": -1.1918520202882354
+        }
+      ]
+    },
+    {
+      "time": 0.0868055522441864,
+      "phase": 0.08333333333333333,
+      "rate": 1,
+      "distance": 0.3472222089767456,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.1869266392438915,
+          "y": 0.055512036149165285,
+          "z": 1.2960986714503382
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.19650546415452694,
+          "y": 0.1389456879011076,
+          "z": 1.5264654796748658
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.16759249905916435,
+          "y": -0.11743879004533204,
+          "z": -0.6852677980068127
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.16512379075385505,
+          "y": -0.05885953595817521,
+          "z": -0.9519448279518815
+        }
+      ]
+    },
+    {
+      "time": 0.1736111044883728,
+      "phase": 0.16666666666666666,
+      "rate": 1,
+      "distance": 0.6944444179534912,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.19030722405340744,
+          "y": 0.25390534517966656,
+          "z": 1.9991279942653999
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.19706294646819947,
+          "y": 0.2985144689421155,
+          "z": 2.068069317589973
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.16271628436445443,
+          "y": -0.02550950750412817,
+          "z": -0.7162684136293423
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.1659889792400756,
+          "y": 0.06977809184929494,
+          "z": -0.9109864506256938
+        }
+      ]
+    },
+    {
+      "time": 0.2604166567325592,
+      "phase": 0.25,
+      "rate": 1,
+      "distance": 1.0416666269302368,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.18958896483108667,
+          "y": 0.3231875393055024,
+          "z": 2.4059809058979678
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.19386328125932017,
+          "y": 0.30095671482567005,
+          "z": 2.375543536326876
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.16458791550168203,
+          "y": 0.0646954193407292,
+          "z": -0.5704881226028515
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.16944921010822286,
+          "y": 0.11267511550734938,
+          "z": -0.6456608967570947
+        }
+      ]
+    },
+    {
+      "time": 0.3472222089767456,
+      "phase": 0.3333333333333333,
+      "rate": 1,
+      "distance": 1.3888888359069824,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.18546403699158315,
+          "y": 0.2748193535968239,
+          "z": 2.672791406949713
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.18783541370254492,
+          "y": 0.19025008036779828,
+          "z": 2.5317778558094433
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.16925516006307006,
+          "y": 0.11946529894812731,
+          "z": -0.3150918774797765
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.17614252007903972,
+          "y": 0.12309489105909963,
+          "z": -0.28827384696846875
+        }
+      ]
+    },
+    {
+      "time": 0.434027761220932,
+      "phase": 0.4166666666666667,
+      "rate": 1,
+      "distance": 1.736111044883728,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.1790252764908864,
+          "y": 0.13674157871218987,
+          "z": 2.8072416105884503
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.18130826625831886,
+          "y": 0.08499727591542075,
+          "z": 2.658450663574869
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.17551503582193095,
+          "y": 0.0943579583035421,
+          "z": 0.11349855871384647
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.18163842345882572,
+          "y": -0.028364692596912232,
+          "z": 0.39584071994452347
+        }
+      ]
+    },
+    {
+      "time": 0.5208333134651184,
+      "phase": 0.5,
+      "rate": 1,
+      "distance": 2.0833332538604736,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.17287697204991806,
+          "y": 0.028455741309573634,
+          "z": 2.909892969783023
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.17708356895433922,
+          "y": 0.021440869034595963,
+          "z": 2.721074012103005
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.18137270120696292,
+          "y": -0.047460562682998454,
+          "z": 0.8355395559599925
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.18811941012256944,
+          "y": -0.09827671737606927,
+          "z": 1.2194178336922183
+        }
+      ]
+    },
+    {
+      "time": 0.6076388657093048,
+      "phase": 0.5833333333333334,
+      "rate": 1,
+      "distance": 2.4305554628372192,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.16950441695197693,
+          "y": -0.01573109026442556,
+          "z": 2.961411865068269
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.17614993314592575,
+          "y": 0.010597498867333114,
+          "z": 2.778188310126702
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.1877795485220695,
+          "y": -0.08666523614281804,
+          "z": 1.6623390392869053
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.19304550259624725,
+          "y": -0.03821082868259799,
+          "z": 1.9764125107513395
+        }
+      ]
+    },
+    {
+      "time": 0.6944444179534912,
+      "phase": 0.6666666666666666,
+      "rate": 1,
+      "distance": 2.777777671813965,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.1694743106390456,
+          "y": -0.0025031554767608434,
+          "z": 3.026125880599856
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.17780565757633815,
+          "y": 0.020764193061684536,
+          "z": 2.9295186268894327
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.19182321269065775,
+          "y": -0.015842188846631387,
+          "z": 2.3753426633463754
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.19372145757682935,
+          "y": 0.03102015445013814,
+          "z": 2.519288520068809
+        }
+      ]
+    },
+    {
+      "time": 0.7812499701976776,
+      "phase": 0.75,
+      "rate": 1,
+      "distance": 3.1249998807907104,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.1715193220595297,
+          "y": 0.01818002343360217,
+          "z": 3.2267006075500877
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.18113969063345015,
+          "y": 0.020055011523358413,
+          "z": 3.209951388799379
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.1916888431732557,
+          "y": 0.037145101886714486,
+          "z": 2.8686691745492605
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.1906440894629252,
+          "y": 0.008633181806861897,
+          "z": 2.806176598224273
+        }
+      ]
+    },
+    {
+      "time": 0.868055522441864,
+      "phase": 0.8333333333333334,
+      "rate": 1,
+      "distance": 3.472222089767456,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.17534297866674234,
+          "y": 0.026013561964530446,
+          "z": 3.5668786143533073
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.18549609178731533,
+          "y": -0.020919818400529634,
+          "z": 3.7264473537952485
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.18756125092251794,
+          "y": -0.0016795002212130032,
+          "z": 3.1184326490309093
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.1835560268463743,
+          "y": -0.0667863040985808,
+          "z": 2.8611835227670386
+        }
+      ]
+    },
+    {
+      "time": 0.9548610746860504,
+      "phase": 0.9166666666666666,
+      "rate": 1,
+      "distance": 3.8194442987442017,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "SIDE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.1797679460498222,
+          "y": -0.018580122099627217,
+          "z": 4.183116507094365
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.19062216421032782,
+          "y": -0.040645598051538945,
+          "z": 4.479445397313438
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.17981362739992054,
+          "y": -0.08014896374509699,
+          "z": 3.1748284652588405
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.17412099696040514,
+          "y": -0.12132506842986406,
+          "z": 2.934968480910306
+        }
+      ]
+    },
+    {
+      "time": 0,
+      "phase": 0,
+      "rate": 1,
+      "distance": 0,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.18511293033585705,
+          "y": 0.010097200909870598,
+          "z": 0.7985444162993758
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.19545290980420554,
+          "y": 0.0759545956981187,
+          "z": 1.0635585406627173
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.1703455375110097,
+          "y": -0.12487270323780182,
+          "z": -0.9185085518013613
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.16672863962195178,
+          "y": -0.08892078487332893,
+          "z": -1.1918520202882354
+        }
+      ]
+    },
+    {
+      "time": 0.0868055522441864,
+      "phase": 0.08333333333333333,
+      "rate": 1,
+      "distance": 0.3472222089767456,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.1869266392438915,
+          "y": 0.055512036149165285,
+          "z": 1.2960986714503382
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.19650546415452694,
+          "y": 0.1389456879011076,
+          "z": 1.5264654796748658
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.16759249905916435,
+          "y": -0.11743879004533204,
+          "z": -0.6852677980068127
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.16512379075385505,
+          "y": -0.05885953595817521,
+          "z": -0.9519448279518815
+        }
+      ]
+    },
+    {
+      "time": 0.1736111044883728,
+      "phase": 0.16666666666666666,
+      "rate": 1,
+      "distance": 0.6944444179534912,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.19030722405340744,
+          "y": 0.25390534517966656,
+          "z": 1.9991279942653999
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.19706294646819947,
+          "y": 0.2985144689421155,
+          "z": 2.068069317589973
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.16271628436445443,
+          "y": -0.02550950750412817,
+          "z": -0.7162684136293423
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.1659889792400756,
+          "y": 0.06977809184929494,
+          "z": -0.9109864506256938
+        }
+      ]
+    },
+    {
+      "time": 0.2604166567325592,
+      "phase": 0.25,
+      "rate": 1,
+      "distance": 1.0416666269302368,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.18958896483108667,
+          "y": 0.3231875393055024,
+          "z": 2.4059809058979678
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.19386328125932017,
+          "y": 0.30095671482567005,
+          "z": 2.375543536326876
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.16458791550168203,
+          "y": 0.0646954193407292,
+          "z": -0.5704881226028515
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.16944921010822286,
+          "y": 0.11267511550734938,
+          "z": -0.6456608967570947
+        }
+      ]
+    },
+    {
+      "time": 0.3472222089767456,
+      "phase": 0.3333333333333333,
+      "rate": 1,
+      "distance": 1.3888888359069824,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.18546403699158315,
+          "y": 0.2748193535968239,
+          "z": 2.672791406949713
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.18783541370254492,
+          "y": 0.19025008036779828,
+          "z": 2.5317778558094433
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.16925516006307006,
+          "y": 0.11946529894812731,
+          "z": -0.3150918774797765
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.17614252007903972,
+          "y": 0.12309489105909963,
+          "z": -0.28827384696846875
+        }
+      ]
+    },
+    {
+      "time": 0.434027761220932,
+      "phase": 0.4166666666666667,
+      "rate": 1,
+      "distance": 1.736111044883728,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.1790252764908864,
+          "y": 0.13674157871218987,
+          "z": 2.8072416105884503
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.18130826625831886,
+          "y": 0.08499727591542075,
+          "z": 2.658450663574869
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.17551503582193095,
+          "y": 0.0943579583035421,
+          "z": 0.11349855871384647
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.18163842345882572,
+          "y": -0.028364692596912232,
+          "z": 0.39584071994452347
+        }
+      ]
+    },
+    {
+      "time": 0.5208333134651184,
+      "phase": 0.5,
+      "rate": 1,
+      "distance": 2.0833332538604736,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.17287697204991806,
+          "y": 0.028455741309573634,
+          "z": 2.909892969783023
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.17708356895433922,
+          "y": 0.021440869034595963,
+          "z": 2.721074012103005
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.18137270120696292,
+          "y": -0.047460562682998454,
+          "z": 0.8355395559599925
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.18811941012256944,
+          "y": -0.09827671737606927,
+          "z": 1.2194178336922183
+        }
+      ]
+    },
+    {
+      "time": 0.6076388657093048,
+      "phase": 0.5833333333333334,
+      "rate": 1,
+      "distance": 2.4305554628372192,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.16950441695197693,
+          "y": -0.01573109026442556,
+          "z": 2.961411865068269
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.17614993314592575,
+          "y": 0.010597498867333114,
+          "z": 2.778188310126702
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.1877795485220695,
+          "y": -0.08666523614281804,
+          "z": 1.6623390392869053
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.19304550259624725,
+          "y": -0.03821082868259799,
+          "z": 1.9764125107513395
+        }
+      ]
+    },
+    {
+      "time": 0.6944444179534912,
+      "phase": 0.6666666666666666,
+      "rate": 1,
+      "distance": 2.777777671813965,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.1694743106390456,
+          "y": -0.0025031554767608434,
+          "z": 3.026125880599856
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.17780565757633815,
+          "y": 0.020764193061684536,
+          "z": 2.9295186268894327
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.19182321269065775,
+          "y": -0.015842188846631387,
+          "z": 2.3753426633463754
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.19372145757682935,
+          "y": 0.03102015445013814,
+          "z": 2.519288520068809
+        }
+      ]
+    },
+    {
+      "time": 0.7812499701976776,
+      "phase": 0.75,
+      "rate": 1,
+      "distance": 3.1249998807907104,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.1715193220595297,
+          "y": 0.01818002343360217,
+          "z": 3.2267006075500877
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.18113969063345015,
+          "y": 0.020055011523358413,
+          "z": 3.209951388799379
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.1916888431732557,
+          "y": 0.037145101886714486,
+          "z": 2.8686691745492605
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.1906440894629252,
+          "y": 0.008633181806861897,
+          "z": 2.806176598224273
+        }
+      ]
+    },
+    {
+      "time": 0.868055522441864,
+      "phase": 0.8333333333333334,
+      "rate": 1,
+      "distance": 3.472222089767456,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.17534297866674234,
+          "y": 0.026013561964530446,
+          "z": 3.5668786143533073
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.18549609178731533,
+          "y": -0.020919818400529634,
+          "z": 3.7264473537952485
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.18756125092251794,
+          "y": -0.0016795002212130032,
+          "z": 3.1184326490309093
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.1835560268463743,
+          "y": -0.0667863040985808,
+          "z": 2.8611835227670386
+        }
+      ]
+    },
+    {
+      "time": 0.9548610746860504,
+      "phase": 0.9166666666666666,
+      "rate": 1,
+      "distance": 3.8194442987442017,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "CHASE",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.1797679460498222,
+          "y": -0.018580122099627217,
+          "z": 4.183116507094365
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.19062216421032782,
+          "y": -0.040645598051538945,
+          "z": 4.479445397313438
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.17981362739992054,
+          "y": -0.08014896374509699,
+          "z": 3.1748284652588405
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.17412099696040514,
+          "y": -0.12132506842986406,
+          "z": 2.934968480910306
+        }
+      ]
+    },
+    {
+      "time": 0,
+      "phase": 0,
+      "rate": 1,
+      "distance": 0,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.18511293033585705,
+          "y": 0.010097200909870598,
+          "z": 0.7985444162993758
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.19545290980420554,
+          "y": 0.0759545956981187,
+          "z": 1.0635585406627173
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.1703455375110097,
+          "y": -0.12487270323780182,
+          "z": -0.9185085518013613
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.16672863962195178,
+          "y": -0.08892078487332893,
+          "z": -1.1918520202882354
+        }
+      ]
+    },
+    {
+      "time": 0.0868055522441864,
+      "phase": 0.08333333333333333,
+      "rate": 1,
+      "distance": 0.3472222089767456,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.1869266392438915,
+          "y": 0.055512036149165285,
+          "z": 1.2960986714503382
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.19650546415452694,
+          "y": 0.1389456879011076,
+          "z": 1.5264654796748658
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.16759249905916435,
+          "y": -0.11743879004533204,
+          "z": -0.6852677980068127
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.16512379075385505,
+          "y": -0.05885953595817521,
+          "z": -0.9519448279518815
+        }
+      ]
+    },
+    {
+      "time": 0.1736111044883728,
+      "phase": 0.16666666666666666,
+      "rate": 1,
+      "distance": 0.6944444179534912,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.19030722405340744,
+          "y": 0.25390534517966656,
+          "z": 1.9991279942653999
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.19706294646819947,
+          "y": 0.2985144689421155,
+          "z": 2.068069317589973
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.16271628436445443,
+          "y": -0.02550950750412817,
+          "z": -0.7162684136293423
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.1659889792400756,
+          "y": 0.06977809184929494,
+          "z": -0.9109864506256938
+        }
+      ]
+    },
+    {
+      "time": 0.2604166567325592,
+      "phase": 0.25,
+      "rate": 1,
+      "distance": 1.0416666269302368,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.18958896483108667,
+          "y": 0.3231875393055024,
+          "z": 2.4059809058979678
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.19386328125932017,
+          "y": 0.30095671482567005,
+          "z": 2.375543536326876
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.16458791550168203,
+          "y": 0.0646954193407292,
+          "z": -0.5704881226028515
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.16944921010822286,
+          "y": 0.11267511550734938,
+          "z": -0.6456608967570947
+        }
+      ]
+    },
+    {
+      "time": 0.3472222089767456,
+      "phase": 0.3333333333333333,
+      "rate": 1,
+      "distance": 1.3888888359069824,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.18546403699158315,
+          "y": 0.2748193535968239,
+          "z": 2.672791406949713
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.18783541370254492,
+          "y": 0.19025008036779828,
+          "z": 2.5317778558094433
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.16925516006307006,
+          "y": 0.11946529894812731,
+          "z": -0.3150918774797765
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.17614252007903972,
+          "y": 0.12309489105909963,
+          "z": -0.28827384696846875
+        }
+      ]
+    },
+    {
+      "time": 0.434027761220932,
+      "phase": 0.4166666666666667,
+      "rate": 1,
+      "distance": 1.736111044883728,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.1790252764908864,
+          "y": 0.13674157871218987,
+          "z": 2.8072416105884503
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.18130826625831886,
+          "y": 0.08499727591542075,
+          "z": 2.658450663574869
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.17551503582193095,
+          "y": 0.0943579583035421,
+          "z": 0.11349855871384647
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.18163842345882572,
+          "y": -0.028364692596912232,
+          "z": 0.39584071994452347
+        }
+      ]
+    },
+    {
+      "time": 0.5208333134651184,
+      "phase": 0.5,
+      "rate": 1,
+      "distance": 2.0833332538604736,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.17287697204991806,
+          "y": 0.028455741309573634,
+          "z": 2.909892969783023
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.17708356895433922,
+          "y": 0.021440869034595963,
+          "z": 2.721074012103005
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.18137270120696292,
+          "y": -0.047460562682998454,
+          "z": 0.8355395559599925
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.18811941012256944,
+          "y": -0.09827671737606927,
+          "z": 1.2194178336922183
+        }
+      ]
+    },
+    {
+      "time": 0.6076388657093048,
+      "phase": 0.5833333333333334,
+      "rate": 1,
+      "distance": 2.4305554628372192,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.16950441695197693,
+          "y": -0.01573109026442556,
+          "z": 2.961411865068269
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.17614993314592575,
+          "y": 0.010597498867333114,
+          "z": 2.778188310126702
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.1877795485220695,
+          "y": -0.08666523614281804,
+          "z": 1.6623390392869053
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.19304550259624725,
+          "y": -0.03821082868259799,
+          "z": 1.9764125107513395
+        }
+      ]
+    },
+    {
+      "time": 0.6944444179534912,
+      "phase": 0.6666666666666666,
+      "rate": 1,
+      "distance": 2.777777671813965,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.1694743106390456,
+          "y": -0.0025031554767608434,
+          "z": 3.026125880599856
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.17780565757633815,
+          "y": 0.020764193061684536,
+          "z": 2.9295186268894327
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.19182321269065775,
+          "y": -0.015842188846631387,
+          "z": 2.3753426633463754
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.19372145757682935,
+          "y": 0.03102015445013814,
+          "z": 2.519288520068809
+        }
+      ]
+    },
+    {
+      "time": 0.7812499701976776,
+      "phase": 0.75,
+      "rate": 1,
+      "distance": 3.1249998807907104,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.1715193220595297,
+          "y": 0.01818002343360217,
+          "z": 3.2267006075500877
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.18113969063345015,
+          "y": 0.020055011523358413,
+          "z": 3.209951388799379
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.1916888431732557,
+          "y": 0.037145101886714486,
+          "z": 2.8686691745492605
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.1906440894629252,
+          "y": 0.008633181806861897,
+          "z": 2.806176598224273
+        }
+      ]
+    },
+    {
+      "time": 0.868055522441864,
+      "phase": 0.8333333333333334,
+      "rate": 1,
+      "distance": 3.472222089767456,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.17534297866674234,
+          "y": 0.026013561964530446,
+          "z": 3.5668786143533073
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.18549609178731533,
+          "y": -0.020919818400529634,
+          "z": 3.7264473537952485
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.18756125092251794,
+          "y": -0.0016795002212130032,
+          "z": 3.1184326490309093
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.1835560268463743,
+          "y": -0.0667863040985808,
+          "z": 2.8611835227670386
+        }
+      ]
+    },
+    {
+      "time": 0.9548610746860504,
+      "phase": 0.9166666666666666,
+      "rate": 1,
+      "distance": 3.8194442987442017,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "LOW",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.1797679460498222,
+          "y": -0.018580122099627217,
+          "z": 4.183116507094365
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.19062216421032782,
+          "y": -0.040645598051538945,
+          "z": 4.479445397313438
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.17981362739992054,
+          "y": -0.08014896374509699,
+          "z": 3.1748284652588405
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.17412099696040514,
+          "y": -0.12132506842986406,
+          "z": 2.934968480910306
+        }
+      ]
+    },
+    {
+      "time": 0,
+      "phase": 0,
+      "rate": 1,
+      "distance": 0,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.18511293033585705,
+          "y": 0.010097200909870598,
+          "z": 0.7985444162993758
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.19545290980420554,
+          "y": 0.0759545956981187,
+          "z": 1.0635585406627173
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.1703455375110097,
+          "y": -0.12487270323780182,
+          "z": -0.9185085518013613
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.16672863962195178,
+          "y": -0.08892078487332893,
+          "z": -1.1918520202882354
+        }
+      ]
+    },
+    {
+      "time": 0.0868055522441864,
+      "phase": 0.08333333333333333,
+      "rate": 1,
+      "distance": 0.3472222089767456,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.1869266392438915,
+          "y": 0.055512036149165285,
+          "z": 1.2960986714503382
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.19650546415452694,
+          "y": 0.1389456879011076,
+          "z": 1.5264654796748658
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.16759249905916435,
+          "y": -0.11743879004533204,
+          "z": -0.6852677980068127
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.16512379075385505,
+          "y": -0.05885953595817521,
+          "z": -0.9519448279518815
+        }
+      ]
+    },
+    {
+      "time": 0.1736111044883728,
+      "phase": 0.16666666666666666,
+      "rate": 1,
+      "distance": 0.6944444179534912,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.19030722405340744,
+          "y": 0.25390534517966656,
+          "z": 1.9991279942653999
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.19706294646819947,
+          "y": 0.2985144689421155,
+          "z": 2.068069317589973
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.16271628436445443,
+          "y": -0.02550950750412817,
+          "z": -0.7162684136293423
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.1659889792400756,
+          "y": 0.06977809184929494,
+          "z": -0.9109864506256938
+        }
+      ]
+    },
+    {
+      "time": 0.2604166567325592,
+      "phase": 0.25,
+      "rate": 1,
+      "distance": 1.0416666269302368,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.18958896483108667,
+          "y": 0.3231875393055024,
+          "z": 2.4059809058979678
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.19386328125932017,
+          "y": 0.30095671482567005,
+          "z": 2.375543536326876
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.16458791550168203,
+          "y": 0.0646954193407292,
+          "z": -0.5704881226028515
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.16944921010822286,
+          "y": 0.11267511550734938,
+          "z": -0.6456608967570947
+        }
+      ]
+    },
+    {
+      "time": 0.3472222089767456,
+      "phase": 0.3333333333333333,
+      "rate": 1,
+      "distance": 1.3888888359069824,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.18546403699158315,
+          "y": 0.2748193535968239,
+          "z": 2.672791406949713
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.18783541370254492,
+          "y": 0.19025008036779828,
+          "z": 2.5317778558094433
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.16925516006307006,
+          "y": 0.11946529894812731,
+          "z": -0.3150918774797765
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.17614252007903972,
+          "y": 0.12309489105909963,
+          "z": -0.28827384696846875
+        }
+      ]
+    },
+    {
+      "time": 0.434027761220932,
+      "phase": 0.4166666666666667,
+      "rate": 1,
+      "distance": 1.736111044883728,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.1790252764908864,
+          "y": 0.13674157871218987,
+          "z": 2.8072416105884503
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.18130826625831886,
+          "y": 0.08499727591542075,
+          "z": 2.658450663574869
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.17551503582193095,
+          "y": 0.0943579583035421,
+          "z": 0.11349855871384647
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.18163842345882572,
+          "y": -0.028364692596912232,
+          "z": 0.39584071994452347
+        }
+      ]
+    },
+    {
+      "time": 0.5208333134651184,
+      "phase": 0.5,
+      "rate": 1,
+      "distance": 2.0833332538604736,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.17287697204991806,
+          "y": 0.028455741309573634,
+          "z": 2.909892969783023
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.17708356895433922,
+          "y": 0.021440869034595963,
+          "z": 2.721074012103005
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.18137270120696292,
+          "y": -0.047460562682998454,
+          "z": 0.8355395559599925
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.18811941012256944,
+          "y": -0.09827671737606927,
+          "z": 1.2194178336922183
+        }
+      ]
+    },
+    {
+      "time": 0.6076388657093048,
+      "phase": 0.5833333333333334,
+      "rate": 1,
+      "distance": 2.4305554628372192,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.16950441695197693,
+          "y": -0.01573109026442556,
+          "z": 2.961411865068269
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.17614993314592575,
+          "y": 0.010597498867333114,
+          "z": 2.778188310126702
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.1877795485220695,
+          "y": -0.08666523614281804,
+          "z": 1.6623390392869053
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.19304550259624725,
+          "y": -0.03821082868259799,
+          "z": 1.9764125107513395
+        }
+      ]
+    },
+    {
+      "time": 0.6944444179534912,
+      "phase": 0.6666666666666666,
+      "rate": 1,
+      "distance": 2.777777671813965,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.1694743106390456,
+          "y": -0.0025031554767608434,
+          "z": 3.026125880599856
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.17780565757633815,
+          "y": 0.020764193061684536,
+          "z": 2.9295186268894327
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.19182321269065775,
+          "y": -0.015842188846631387,
+          "z": 2.3753426633463754
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.19372145757682935,
+          "y": 0.03102015445013814,
+          "z": 2.519288520068809
+        }
+      ]
+    },
+    {
+      "time": 0.7812499701976776,
+      "phase": 0.75,
+      "rate": 1,
+      "distance": 3.1249998807907104,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.1715193220595297,
+          "y": 0.01818002343360217,
+          "z": 3.2267006075500877
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.18113969063345015,
+          "y": 0.020055011523358413,
+          "z": 3.209951388799379
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.1916888431732557,
+          "y": 0.037145101886714486,
+          "z": 2.8686691745492605
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.1906440894629252,
+          "y": 0.008633181806861897,
+          "z": 2.806176598224273
+        }
+      ]
+    },
+    {
+      "time": 0.868055522441864,
+      "phase": 0.8333333333333334,
+      "rate": 1,
+      "distance": 3.472222089767456,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.17534297866674234,
+          "y": 0.026013561964530446,
+          "z": 3.5668786143533073
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.18549609178731533,
+          "y": -0.020919818400529634,
+          "z": 3.7264473537952485
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.18756125092251794,
+          "y": -0.0016795002212130032,
+          "z": 3.1184326490309093
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.1835560268463743,
+          "y": -0.0667863040985808,
+          "z": 2.8611835227670386
+        }
+      ]
+    },
+    {
+      "time": 0.9548610746860504,
+      "phase": 0.9166666666666666,
+      "rate": 1,
+      "distance": 3.8194442987442017,
+      "asset": "review/focus-hind-fit-v2.glb",
+      "camera": "REAR_3_4",
+      "clip": "EvoWild_S_Run_V5",
+      "duration": 1.0416666269302368,
+      "bones": 21,
+      "vertices": 38813,
+      "feet": [
+        {
+          "name": "fore_L_foot",
+          "weightBone": "fore_L_foot",
+          "maxFootInfluence": 0.9968985915184021,
+          "x": -0.1797679460498222,
+          "y": -0.018580122099627217,
+          "z": 4.183116507094365
+        },
+        {
+          "name": "fore_R_foot",
+          "weightBone": "fore_R_foot",
+          "maxFootInfluence": 0.993881344795227,
+          "x": 0.19062216421032782,
+          "y": -0.040645598051538945,
+          "z": 4.479445397313438
+        },
+        {
+          "name": "hind_L_foot",
+          "weightBone": "hind_L_toe",
+          "maxFootInfluence": 0.9996288418769836,
+          "x": -0.17981362739992054,
+          "y": -0.08014896374509699,
+          "z": 3.1748284652588405
+        },
+        {
+          "name": "hind_R_foot",
+          "weightBone": "hind_R_toe",
+          "maxFootInfluence": 0.9996142387390137,
+          "x": 0.17412099696040514,
+          "y": -0.12132506842986406,
+          "z": 2.934968480910306
+        }
+      ]
+    }
+  ]
+}

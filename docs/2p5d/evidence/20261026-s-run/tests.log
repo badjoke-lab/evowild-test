@@ -1,0 +1,13 @@
+[WebServer] (node:845) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:865) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [android-chromium] › tests/s-run-review.spec.js:3:1 › canonical S native clip runs in four views and scales/freeze with speed (27.4s)
+(node:1008) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  2 [desktop-chromium] › tests/s-run-review.spec.js:3:1 › canonical S native clip runs in four views and scales/freeze with speed (26.0s)
+
+  2 passed (56.7s)

@@ -1,0 +1,16 @@
+
+Running 4 tests using 1 worker
+
+(node:6838) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/4] [android-chromium] › tests/s-contact-ik.spec.js:7:1 › contact candidate preserves v2 geometry, all rest joints and native clip bytes
+[2/4] [android-chromium] › tests/s-contact-ik.spec.js:14:1 › actual contact IK plants soles, lifts recovery and avoids inverted knee solutions
+(node:6990) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[3/4] [desktop-chromium] › tests/s-contact-ik.spec.js:7:1 › contact candidate preserves v2 geometry, all rest joints and native clip bytes
+[4/4] [desktop-chromium] › tests/s-contact-ik.spec.js:14:1 › actual contact IK plants soles, lifts recovery and avoids inverted knee solutions
+  4 passed (1.2m)

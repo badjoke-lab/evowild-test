@@ -1,0 +1,102 @@
+name: S D2-D native join WebGL evidence
+
+on:
+  push:
+    branches: ["feat/2p5d-flow-persistence-20261025"]
+    paths:
+      - ".github/workflows/s-d2d-native-join-evidence.yml"
+      - "scripts/capture_s_native_join_d2d.mjs"
+
+permissions:
+  contents: write
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install project and browser
+        run: |
+          npm install
+          npx playwright install --with-deps chromium
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          command -v ffmpeg
+          ffmpeg -version | head -1
+          npm run build
+      - name: Start isolated S review WebGL server
+        shell: bash
+        run: |
+          npm run dev -- --host 127.0.0.1 --port 4173 > /tmp/s-d2d-vite.log 2>&1 &
+          echo $! > /tmp/s-d2d-vite.pid
+          for i in {1..40}; do
+            if curl -sf http://127.0.0.1:4173/evowild-test/s-run-review.html > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/s-d2d-vite.log
+          exit 1
+      - name: Run D2-D original-mesh four-view full-cycle comparison
+        env:
+          S_COMPARE_OUT: docs/2p5d/evidence/20261029-s-native-join-d2d
+          S_COMPARE_BEFORE: "&toe=roll-v3&body=push-v2"
+          S_COMPARE_AFTER: "&toe=roll-v3&body=push-v3"
+        run: node scripts/capture_s_motion_compare.mjs
+      - name: Capture D2-D original-mesh dense join
+        env:
+          S_D2D_OUT: docs/2p5d/evidence/20261029-s-native-join-d2d
+        run: node scripts/capture_s_native_join_d2d.mjs
+      - name: Run focused browser regression against captured WebGL server
+        shell: bash
+        run: |
+          cat > s_d2d_playwright_config.mjs <<'JS'
+          import config from './playwright.config.js';
+          export default {...config,webServer:{...config.webServer,reuseExistingServer:true}};
+          JS
+          npx playwright test tests/s-native-join.spec.js --config=s_d2d_playwright_config.mjs --workers=1 --reporter=line | tee docs/2p5d/evidence/20261029-s-native-join-d2d/focused-test.log
+          grep -Eq '[0-9]+ passed' docs/2p5d/evidence/20261029-s-native-join-d2d/focused-test.log
+      - name: Record reproduction and cautious status
+        shell: bash
+        run: |
+          cat > docs/2p5d/evidence/20261029-s-native-join-d2d/README.md <<'MD'
+          # S D2-D — original WebGL motion evidence
+
+          These videos and images are unretouched WebGL captures from the existing candidate GLB, camera and lighting. No rendered or generated creature substitute was used.
+
+          - **Before:** `s-run-review.html?rig=contact-v3&toe=roll-v3&body=push-v2`
+          - **After:** `s-run-review.html?rig=contact-v3&toe=roll-v3&body=push-v3`
+          - **Normal full cycle:** `before-{SIDE,CHASE,LOW,REAR_3_4}.mp4` and matching `after-*.mp4` at 57.6fps, 24 real frames per native cycle. Complete frame PNGs are included under `frames/`.
+          - **Dense join:** `before-*-join-slow80x.mp4` and `after-*-join-slow80x.mp4`, 17 real WebGL frames at phases .632 through .648, .001 per sample, displayed at 30fps (80x slow). No in-between frames synthesized.
+          - **Still comparisons:** `before/after-*-phase-{632,638,640,642,648}.png` at identical view/phase.
+          - **Device emulation:** `desktop-before/after.png`, `android-before/after.png`; Pixel 7 is emulated, not a physical Android test.
+          - **Raw readings:** `join-observations.json`, `visual-observations.json`, `focused-test.log`.
+          
+          **Gate:** D2-D numerical continuity scoped KEEP from prior measured tests; overall S visual-quality REVISE pending human review of these real videos. This pipeline does not claim qualitative acceptance, physical Android runtime, or production integration. GLB, race manifest, main and unrelated stages unchanged.
+          MD
+          git diff --exit-code -- public/models/evowild-s
+      - name: Save actual review evidence on same Draft PR branch
+        shell: bash
+        run: |
+          set -e
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          python3 -c "from pathlib import Path; p=Path('docs/2p5d/evidence/20261029-s-native-join-d2d/focused-test.log'); p.write_text(p.read_text().rstrip()+'\\n')"
+          git add docs/2p5d/evidence/20261029-s-native-join-d2d/
+          git diff --cached --check
+          git diff --cached --stat
+          if ! git diff --cached --quiet; then
+            git commit -m 'art(s): save real WebGL D2-D four-view comparison evidence'
+            git push origin HEAD:feat/2p5d-flow-persistence-20261025
+          fi
+      - name: Upload raw comparison artifact as fallback
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: d2d-native-join-real-webgl-${{ github.run_id }}
+          path: docs/2p5d/evidence/20261029-s-native-join-d2d/
+          if-no-files-found: warn

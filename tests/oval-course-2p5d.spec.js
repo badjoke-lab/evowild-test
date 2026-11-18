@@ -1,7 +1,7 @@
 import {test,expect} from "@playwright/test";
 import {
   OVAL_DISTANCE, OVAL_RADIUS, wrapOvalDistance, ovalWorld, ovalChaseCamera,
-  projectOvalRunner, ovalSegmentAt,ovalMinimapPoint
+  projectOvalRunner, ovalSegmentAt,ovalMinimapPoint,runnerViewAngle,viewSector
 } from "../src/oval_course_2p5d.js";
 
 test("continuous closed 1600m oval connects both straights and turns",()=>{
@@ -38,6 +38,21 @@ test("inside/outside lanes stay apart and camera looks along heading throughout 
     expect(Number.isFinite(pin.x)&&Number.isFinite(pin.y)).toBe(true);
   }
 });
+test("view bearings follow the tangent through both turns and the lap seam",()=>{
+  for(const count of [8,16]){
+    for(let sector=0;sector<count;sector++){
+      const bearing=2*Math.PI*sector/count;
+      for(const m of [0,499.99,500.01,650,800,1300,1470,1599.99]){
+        const camera=ovalChaseCamera(m,2,bearing);
+        const angle=runnerViewAngle(camera,ovalWorld(m,2),30);
+        expect(viewSector(angle,count)).toBe(sector);
+      }
+    }
+  }
+  expect(viewSector(-Math.PI+.01,8,4)).toBe(4);
+  expect(viewSector(Math.PI/8+.01,8,0)).toBe(0);
+  expect(viewSector(Math.PI/8+.08,8,0)).toBe(1);
+});
 test("3/4 oval is the default spectator camera; can switch to legacy side",async ({page})=>{
   await page.goto("/evowild-test/race-stadium.html?autoStart=1",{waitUntil:"networkidle"});
   const stage=page.locator("#stage");
@@ -45,13 +60,30 @@ test("3/4 oval is the default spectator camera; can switch to legacy side",async
   await expect(stage).toHaveAttribute("data-track-geometry","world-space-1600m-oval");
   await expect(stage).toHaveAttribute("data-track-segment","HOME_STRAIGHT");
   await expect(stage).toHaveAttribute("data-track-visible","1");
-  await expect(stage).toHaveAttribute("data-creature-facing","side-billboard-provisional");
+  await expect(stage).toHaveAttribute("data-creature-facing","directional-atlas");
   await expect(stage).toHaveAttribute("data-orb-count",/[1-9]\d*/);
-  await page.locator("#cameraMode").click();
+  await page.locator("#cameraMode").selectOption("side");
   await expect(stage).toHaveAttribute("data-camera-mode","legacy-side");
   await expect(stage).toHaveAttribute("data-track-visible","0");
-  await page.locator("#cameraMode").click();
+  await page.locator("#cameraMode").selectOption("rear-right");
   await expect(stage).toHaveAttribute("data-camera-mode","oval-three-quarter-follow");
+});
+test("all eight cuts use the same paused stride for each morph",async ({page})=>{
+  for (const id of [1,2,3,4]){
+    await page.goto("/evowild-test/race-stadium.html?autoStart=1&selected="+id);
+    const stage=page.locator("#stage");
+    await expect(stage).toHaveAttribute("data-race-state","running",{timeout:9000});
+    await page.locator("#pause").click();
+    const phase=await stage.getAttribute("data-stride-phase");
+    for (const view of ["front","front-right","right","rear-right","rear","rear-left","left","front-left"]){
+      await page.locator("#cameraMode").selectOption(view);
+      await expect(stage).toHaveAttribute("data-selected-direction",view);
+      await expect(stage).toHaveAttribute("data-stride-phase",phase);
+      const count=id!==2 && ["right","left"].includes(view) ? 6 : 12;
+      const frame=Number(await stage.getAttribute("data-selected-run-frame"));
+      expect(frame).toBe(Math.floor(Number(phase)*count));
+    }
+  }
 });
 test("entry selection determines observed Creature and the one receiving strategy", async ({page})=>{
   await page.goto("/evowild-test/race-stadium.html",{waitUntil:"networkidle"});

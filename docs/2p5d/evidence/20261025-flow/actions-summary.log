@@ -1,0 +1,10 @@
+Run: https://github.com/badjoke-lab/evowild-test/actions/runs/40153976228
+Source SHA: ad0756349d707945da71588be2e93cdfd912ca7c
+Build: PASS. Overall workflow: FAILURE (legacy tests).
+  3 failed
+2026-10-25T02:25:15.3748264Z     [android-chromium] › tests/race-quality.spec.js:47:1 › 2.5D Race Agent commands are creature-resolved and morph-dependent 
+2026-10-25T02:25:15.3750022Z     [desktop-chromium] › tests/motion-first.spec.js:3146:1 › Motion First AGILITY positioning v1 exploits a smaller safe opening 
+2026-10-25T02:25:15.3751663Z     [desktop-chromium] › tests/race-quality.spec.js:47:1 › 2.5D Race Agent commands are creature-resolved and morph-dependent 
+2026-10-25T02:25:15.3752531Z   81 skipped
+2026-10-25T02:25:15.3752843Z   84 passed (5.6m)
+2026-10-25T02:25:15.3944377Z

@@ -56,3 +56,23 @@
 .app-footer{margin:48px 0 21px;font:700 10px ui-monospace,Menlo,monospace;color:#658ca1;border-top:1px solid #2c5368;padding-top:20px}
 @media(max-width:900px){.course-layout,.creature-layout{grid-template-columns:1fr}.creature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.selection-panel{position:static}.selection-panel img{height:150px}}
 @media(max-width:650px){.app{padding:0 11px}.app-topbar{padding:20px 0 12px}.brand strong{font-size:24px}.brand span{font-size:7px}.prototype{font-size:8px}.global-nav{margin-bottom:17px}.global-nav a{font-size:11px;padding:10px 15px}.hero{grid-template-columns:1fr}.hero-copy{padding:20px}.hero h1{margin:12px 0;font-size:35px}.hero-creature{min-height:230px;border-left:0;border-top:1px solid #43749266}.hero-creature img{height:160px}.dashboard,.history-list{grid-template-columns:1fr}.dash-card{padding:17px;gap:8px}.course-stat-grid{grid-template-columns:1fr 1fr}.creature-grid{grid-template-columns:1fr 1fr}.creature-card{padding:6px;gap:3px;min-height:80px}.creature-icon{width:47px;height:58px}.creature-titles strong{font-size:11px}.creature-titles small{font-size:8px}.course-card,.side-detail,.selection-panel,.history-card{padding:15px}.history-footer{flex-direction:column;align-items:flex-start}}
+
+/* Archive decisions: labelled values remain distinct at race-card and phone widths. */
+.history-card{min-width:0}
+.agent-history-details{margin-top:14px;min-width:0}
+.agent-history-details summary{cursor:pointer;color:#8fd9f1;font-size:12px;font-weight:750;padding:9px;border:1px solid #345a75;border-radius:7px;overflow-wrap:anywhere}
+.agent-history-list{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:10px;min-width:0}
+.agent-history-row{padding:12px;background:#081b2d;border:1px solid #294d68;border-radius:8px;min-width:0}
+.agent-history-fields{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr) minmax(0,1fr);gap:10px 12px;margin:0;min-width:0}
+.agent-history-fields>div{min-width:0}
+.agent-history-fields dt{font-size:10px;color:#93b6c9;line-height:1.5;margin-bottom:4px}
+.agent-history-fields dd{margin:0;font-size:12px;line-height:1.6;overflow-wrap:anywhere}
+.agent-history-time dd{font-variant-numeric:tabular-nums}
+.agent-history-command dd{font-weight:750;color:#d7f1ff}
+.agent-history-result dd{display:inline-block;padding:1px 5px;border:1px solid #49718b;border-radius:4px;font-size:11px;font-weight:750}
+.agent-history-result [data-result="SUCCESS"]{color:#b0f5d2;border-color:#467c6b}
+.agent-history-result [data-result="PARTIAL"]{color:#f4d99c;border-color:#8d7950}
+.agent-history-result [data-result="FAILED"]{color:#ffc1c6;border-color:#985b69}
+.agent-history-reason{grid-column:1/-1;border-top:1px solid #23445c;padding-top:8px}
+.agent-history-reason dd{color:#b7cfdd}
+@media(max-width:400px){.agent-history-row{padding:10px}.agent-history-fields{column-gap:8px}}

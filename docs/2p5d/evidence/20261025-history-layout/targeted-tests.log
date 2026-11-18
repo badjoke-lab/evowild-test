@@ -1,0 +1,13 @@
+[WebServer] (node:7850) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 2 workers
+
+(node:7869) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7868) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [desktop-chromium] › tests/game-history-layout-2p5d.spec.js:6:1 › Agent history separates readable values and wraps long reasons without horizontal overflow (3.7s)
+  ✓  2 [android-chromium] › tests/game-history-layout-2p5d.spec.js:6:1 › Agent history separates readable values and wraps long reasons without horizontal overflow (4.3s)
+
+  2 passed (6.5s)

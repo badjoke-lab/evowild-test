@@ -1,3 +1,4 @@
+import {laneExecutionText,laneSourceLabel} from "./race_lane_execution_2p5d.js";
 import {
   ENTRANTS, loadGameState, selectPlayerRunner, GAME_STORAGE_KEY,formatRaceTime
 } from "./game_progress_2p5d.js";
@@ -90,18 +91,37 @@ function displayHistory(){
     }
     disclosure.append(table);
     card.append(disclosure);
-    if(record.agentDecisions?.length){
+    for(const [actions,source,title] of [
+      [record.agentDecisions,"AGENT","Race Agent 判断ログ"],
+      [record.engineLaneChanges,"ENGINE","エンジン進路調整（Agent指令と別）"]
+    ]){
+      if(!actions?.length)continue;
       const agentLog=el("details","agent-history-details");
-      agentLog.append(el("summary","","Race Agent 判断ログ ("+record.agentDecisions.length+"件)"));
+      agentLog.dataset.source=source;
+      agentLog.append(el("summary","",title+" ("+actions.length+"件)"));
       const list=el("ol","agent-history-list");
-      for(const action of [...record.agentDecisions].reverse()){
-        const row=el("li","");
-        row.append(
-          el("time","",formatRaceTime(action.at)),
-          el("strong","",action.command.replace("_"," ")),
-          el("span","",action.result),
-          el("small","",action.reason)
-        );
+      for(const action of [...actions].reverse()){
+        const row=el("li","agent-history-row");
+        const fields=el("dl","agent-history-fields");
+        for(const [key,label,value] of [
+          ["time","時刻",formatRaceTime(action.at)],
+          ["command","指令",action.command.replace("_"," ")],
+          ["result","実行結果",action.result],
+          ["reason","理由",action.reason]
+        ]){
+          const field=el("div","agent-history-"+key);
+          const content=el("dd","",value);
+          if(key==="result")content.dataset.result=action.result;
+          field.append(el("dt","",label),content);
+          fields.append(field);
+        }
+        if(action.source){
+          const lanes=el("div","agent-history-reason");
+          lanes.append(el("dt","","判断元・レーン"),el("dd","",laneSourceLabel(action.source)+" · "+laneExecutionText(action)));
+          fields.append(lanes);
+          row.dataset.laneExecution=JSON.stringify(action);
+        }
+        row.append(fields);
         list.append(row);
       }
       agentLog.append(list);

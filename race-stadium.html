@@ -18,26 +18,14 @@
 
     <header class="hud top">
       <div>
-        <span class="eyebrow">EVOWILD RUN / AUTONOMOUS AGENT PROOF</span>
-        <strong>2.5D RACE · AGENT ORBS</strong>
+        <strong>EvoWild Run</strong>
+        <span class="eyebrow">自律レース観戦</span>
       </div>
       <div class="readout">
         <span id="rank">18 / 18</span>
         <b id="speed">0</b><small>km/h</small>
       </div>
     </header>
-
-    <section class="hud agent">
-      <span>RACE STATE · AUTO</span>
-      <strong id="command">HOLD FORM</strong>
-      <small id="reason">Pre-start</small>
-    </section>
-
-    <section class="battle-readout" id="battleReadout" aria-live="polite" data-state="clear" hidden>
-      <small>BATTLE</small>
-      <strong id="battleState">OVERTAKE ATTEMPT</strong>
-      <span id="battleMeta">YOU → P02 · 4.0 m</span>
-    </section>
 
     <section id="preRacePanel" class="setup-overlay" aria-label="Race Agent pre-race configuration">
       <a class="setup-back-link" href="./game-2p5d.html#home">← ホームへ戻る</a>
@@ -55,21 +43,44 @@
       <div class="setup-actions">
         <label class="agent-import-label">Agent Fileを読み込む <input id="importAgent" type="file" accept=".json,application/json" /></label>
         <button type="button" id="exportAgent">Agent Fileを出力</button>
-        <button type="button" id="startAutonomous" class="start-autonomous">この設定で観戦開始 →</button>
+        <button type="button" id="startAutonomous" disabled class="start-autonomous">この設定で観戦開始 →</button>
       </div>
       <div id="setupValidation" role="status"></div>
-      <small class="setup-note">既存のS/P/E/A走行シートを利用。周回走路と3/4カメラは座標連動していますが、個体は横向き画像の仮表示です。正式な3/4走行アニメーションではありません。</small>
+
     </section>
     <section class="auto-agent-panel" id="autoAgentPanel" aria-label="Autonomous Race Agent state" hidden>
-      <div class="auto-agent-title"><span class="auto-mini-orb" aria-hidden="true"></span><b>RACE AGENT · 自律</b></div>
+      <div class="auto-agent-title"><b id="autoCreatureName">出走個体</b><span class="hud-fatigue">疲労 <strong id="autoFatigue">0%</strong></span></div>
       <div class="auto-agent-state">
         <span>指令 <strong id="autoCommand">HOLD</strong></span>
         <span>実行 <strong id="autoResult">—</strong></span>
-        <span>疲労 <strong id="autoFatigue">0%</strong></span>
       </div>
+      <details id="spectatorDetails" class="spectator-details">
+        <summary>Agent・レース詳細</summary>
+        <div class="spectator-details-body">
       <div id="autoReason" class="auto-agent-reason">レース開始後に自動判断</div>
-      <div class="auto-timeline-title">判断ログ</div>
+      <div class="auto-timeline-title">Agent 指令・実行結果</div>
       <ol id="autoTimeline" class="auto-timeline"></ol>
+      <details id="engineLaneDetails" hidden>
+        <summary class="auto-timeline-title">エンジン進路調整（Agent指令と別）</summary>
+        <ol id="engineTimeline" class="auto-timeline"></ol>
+      </details>
+    <section class="hud agent">
+      <span>RACE STATE · AUTO</span>
+      <small>エンジン走行状態</small>
+      <strong id="command">HOLD FORM</strong>
+      <small id="reason">Pre-start</small>
+    </section>
+
+    <section class="battle-readout" id="battleReadout" aria-live="polite" data-state="clear" hidden>
+      <small>BATTLE</small>
+      <strong id="battleState">OVERTAKE ATTEMPT</strong>
+      <span id="battleMeta">YOU → P02 · 4.0 m</span>
+    </section>
+
+      <div class="auto-timeline-title">全18体の順位</div>
+      <div id="ranking" class="ranking"></div>
+        </div>
+      </details>
     </section>
 
     <div class="agent-feedback" id="agentFeedback" aria-live="polite" data-tone="neutral" hidden>
@@ -100,12 +111,17 @@
         <span id="clock">00:00.00</span>
       </div>
       <div class="progress"><i id="progress"></i></div>
-      <div id="ranking" class="ranking"></div>
     </section>
 
     <div class="controls">
       <a class="game-home-link" href="./game-2p5d.html#home">ホームへ</a>
-      <button id="cameraMode" type="button" aria-label="Switch viewing camera">Camera: 3/4</button>
+      <select id="cameraMode" aria-label="観戦カメラ">
+        <option value="rear-right" selected>後方斜め右</option><option value="rear">後方</option>
+        <option value="rear-left">後方斜め左</option><option value="left">左向き</option>
+        <option value="front-left">前方斜め左</option><option value="front">正面</option>
+        <option value="front-right">前方斜め右</option><option value="right">右向き</option>
+        <option value="side">横追従</option>
+      </select>
       <button id="pause" type="button">Pause</button>
       <button id="reset" type="button">Reset</button>
     </div>

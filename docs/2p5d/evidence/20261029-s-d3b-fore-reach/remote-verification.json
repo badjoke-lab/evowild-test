@@ -1,0 +1,20 @@
+{
+  "verified_at_utc": "2026-10-30T01:27:58.938504+00:00",
+  "verified_remote_sha": "2844677a81d463d22e886bef4da5e8a30f3bd1b6",
+  "source_sha": "6f5ac0164897a86c5639c46cbfac468bf7c4184a",
+  "binary_verification": "Fetched explicit child ref; git tree matches committed 8 movies,192 frames,60 phase stills and four PC/Pixel7 images",
+  "movie_blobs": [
+    "100644 blob ceb7ac6f70f0832b06031cc900b80b8191310608\tdocs/2p5d/evidence/20261029-s-d3b-fore-reach/after-CHASE.mp4",
+    "100644 blob b7a53999e2b8df5df98040ba7ba05bd3c500dde8\tdocs/2p5d/evidence/20261029-s-d3b-fore-reach/after-LOW.mp4",
+    "100644 blob 04eded80a3794a2b3f4f708bf23f1fe4fbebc04e\tdocs/2p5d/evidence/20261029-s-d3b-fore-reach/after-REAR_3_4.mp4",
+    "100644 blob 348d8acd6687080a406d6df3f545df978dec4f8c\tdocs/2p5d/evidence/20261029-s-d3b-fore-reach/after-SIDE.mp4",
+    "100644 blob 7a7f5d92260584fbc9b265362ecffbc852e6953b\tdocs/2p5d/evidence/20261029-s-d3b-fore-reach/before-CHASE.mp4",
+    "100644 blob 9b630c343683a01d657960262ca9dc22218cffcb\tdocs/2p5d/evidence/20261029-s-d3b-fore-reach/before-LOW.mp4",
+    "100644 blob 5405e7b95f6137403ed6ace50835b6c5fe2ab075\tdocs/2p5d/evidence/20261029-s-d3b-fore-reach/before-REAR_3_4.mp4",
+    "100644 blob eb5a440ea933885d5c3e82b42bc17b7ea17503f8\tdocs/2p5d/evidence/20261029-s-d3b-fore-reach/before-SIDE.mp4"
+  ],
+  "protected_changes": [],
+  "ci_run": 40882876409,
+  "draft_pr": 132,
+  "note": "This verification commit follows the evidence SHA above; its own remote SHA is checked after push."
+}

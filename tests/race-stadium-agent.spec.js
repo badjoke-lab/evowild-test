@@ -46,6 +46,7 @@ test("stadium Agent setup is pre-race only; race runs unattended with visible or
   await expect(stage).toHaveAttribute("data-selected-orb-y",/-?\d+\.\d+/);
   const orbCount=Number(await stage.getAttribute("data-orb-count"));
   expect(orbCount).toBeGreaterThan(0);
+  await page.locator("#spectatorDetails > summary").click();
   await expect(page.locator("#autoTimeline li").first()).toBeVisible();
   await expect(page.locator("#autoAgentPanel")).toBeVisible();
   // Keep evidence in Actions artifacts; no claim that a build gate proves art quality.

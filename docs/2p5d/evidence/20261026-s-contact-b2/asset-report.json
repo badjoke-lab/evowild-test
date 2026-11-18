@@ -1,0 +1,9 @@
+{
+  "source": "public/models/evowild-s/review/focus-hind-fit-v2.glb",
+  "candidate": "public/models/evowild-s/review/focus-contact-v3.glb",
+  "sha256": "78dd511cd82aa8afef04a7d61f21b68d4391a9a3143acbaa4b6473b9f8a42a6f",
+  "changedWeightVertices": 4934,
+  "positionNormalIndexAndRestRigUnchanged": true,
+  "controller": "src/s_contact_ik.js",
+  "status": "REVISE"
+}

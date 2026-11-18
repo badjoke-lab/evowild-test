@@ -1,0 +1,39 @@
+[WebServer] (node:10603) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 26 tests using 2 workers
+
+(node:10621) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10620) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [android-chromium] › tests/race-agent-outcome-2p5d.spec.js:5:1 › lane request remains pending until the Creature actually reaches its target (9ms)
+  ✓   2 [android-chromium] › tests/race-agent-outcome-2p5d.spec.js:15:1 › interrupted, expired or finish-cutoff lane changes cannot be recorded as success (2ms)
+  ✓   3 [android-chromium] › tests/race-agent-outcome-2p5d.spec.js:24:1 › recorded effort results retain the actual Creature resolver grade (7ms)
+  ✓   5 [android-chromium] › tests/game-history-layout-2p5d.spec.js:6:1 › Agent history separates readable values and wraps long reasons without horizontal overflow (5.5s)
+  ✓   6 [android-chromium] › tests/race-lane-provenance-2p5d.spec.js:25:1 › failed Agent request cannot inherit a later engine adjustment success; exact observations survive storage (12ms)
+  ✓   7 [android-chromium] › tests/race-lane-provenance-2p5d.spec.js:41:1 › ownership replacement cannot credit Agent arrival even when the target lane matches (6ms)
+  ✓   8 [android-chromium] › tests/race-lane-provenance-2p5d.spec.js:52:1 › engine movement stays pending while moving and records partial or failed interruptions (41ms)
+  ✓   9 [android-chromium] › tests/race-lane-provenance-2p5d.spec.js:63:1 › legacy records still load; forged provenance, lanes and unobserved success are rejected (12ms)
+  ✓   4 [android-chromium] › tests/race-agent-outcome-2p5d.spec.js:33:1 › spectator HUD shows execution results alongside each autonomous decision (7.2s)
+  ✓  10 [android-chromium] › tests/race-lane-provenance-2p5d.spec.js:77:1 › saved history separates engine success from rejected Agent request after reload (3.8s)
+  ✓  11 [android-chromium] › tests/race-agent-outcome-2p5d.spec.js:45:1 › live lane-change feedback waits for arrival before showing SUCCESS (10.8s)
+(node:10984) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  12 [android-chromium] › tests/race-lane-provenance-2p5d.spec.js:95:1 › live Agent lane observations match physical movement before and after arrival (10.5s)
+  ✓  13 [desktop-chromium] › tests/game-history-layout-2p5d.spec.js:6:1 › Agent history separates readable values and wraps long reasons without horizontal overflow (4.7s)
+  ✓  15 [desktop-chromium] › tests/race-agent-outcome-2p5d.spec.js:5:1 › lane request remains pending until the Creature actually reaches its target (13ms)
+  ✓  16 [desktop-chromium] › tests/race-agent-outcome-2p5d.spec.js:15:1 › interrupted, expired or finish-cutoff lane changes cannot be recorded as success (5ms)
+  ✓  17 [desktop-chromium] › tests/race-agent-outcome-2p5d.spec.js:24:1 › recorded effort results retain the actual Creature resolver grade (6ms)
+  ✓  18 [desktop-chromium] › tests/race-agent-outcome-2p5d.spec.js:33:1 › spectator HUD shows execution results alongside each autonomous decision (6.9s)
+  ✓  19 [desktop-chromium] › tests/race-agent-outcome-2p5d.spec.js:45:1 › live lane-change feedback waits for arrival before showing SUCCESS (15.5s)
+  ✓  20 [desktop-chromium] › tests/race-lane-provenance-2p5d.spec.js:25:1 › failed Agent request cannot inherit a later engine adjustment success; exact observations survive storage (29ms)
+  ✓  21 [desktop-chromium] › tests/race-lane-provenance-2p5d.spec.js:41:1 › ownership replacement cannot credit Agent arrival even when the target lane matches (16ms)
+  ✓  22 [desktop-chromium] › tests/race-lane-provenance-2p5d.spec.js:52:1 › engine movement stays pending while moving and records partial or failed interruptions (21ms)
+  ✓  23 [desktop-chromium] › tests/race-lane-provenance-2p5d.spec.js:63:1 › legacy records still load; forged provenance, lanes and unobserved success are rejected (18ms)
+  ✓  24 [desktop-chromium] › tests/race-lane-provenance-2p5d.spec.js:77:1 › saved history separates engine success from rejected Agent request after reload (5.4s)
+  ✓  14 [android-chromium] › tests/race-lane-provenance-2p5d.spec.js:121:1 › normal race exposes engine movement separately while the earlier Agent request stays failed (35.1s)
+  ✓  25 [desktop-chromium] › tests/race-lane-provenance-2p5d.spec.js:95:1 › live Agent lane observations match physical movement before and after arrival (7.9s)
+  ✓  26 [desktop-chromium] › tests/race-lane-provenance-2p5d.spec.js:121:1 › normal race exposes engine movement separately while the earlier Agent request stays failed (15.9s)
+
+  26 passed (1.3m)

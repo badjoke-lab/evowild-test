@@ -25,6 +25,15 @@ const isFiniteTime=x=>Number.isFinite(x)&&x>0&&x<1_000_000;
 const isValidEntry=e=>e&&isId(e.id)&&typeof e.name==="string"&&
  e.name.length<=48&&["S","P","E","A"].includes(e.morph)&&
  Number.isInteger(e.place)&&e.place>=1&&e.place<=18&&isFiniteTime(e.timeMs);
+const isLane=x=>Number.isFinite(x)&&x>=0&&x<=3;
+const isLaneExecution=(d,source)=>d.source===source&&isLane(d.fromLane)&&
+  (isLane(d.targetLane)||(d.targetLane===null&&d.result==="FAILED"))&&isLane(d.actualLane)&&
+  Number.isFinite(d.observedAt)&&d.observedAt>=d.at&&
+  (d.result!=="SUCCESS" || Math.abs(d.actualLane-d.targetLane)<1e-6);
+const copyLaneExecution=d=>d.source===undefined?{}:{
+  source:d.source,fromLane:d.fromLane,targetLane:d.targetLane,
+  actualLane:d.actualLane,observedAt:d.observedAt
+};
 export function validateRaceRecord(record){
   if(!record||typeof record!=="object")return false;
   if(record.schemaVersion!==1||record.courseId!==RACE_COURSE_ID)return false;
@@ -37,13 +46,22 @@ export function validateRaceRecord(record){
     if(record.agentDecisions.some(d=> !d||!Number.isFinite(d.at)||d.at<0||
        !["PUSH","CONSERVE","HOLD","SHIFT_LINE"].includes(d.command)||
        !["SUCCESS","PARTIAL","FAILED","PENDING"].includes(d.result)||
-       typeof d.reason!=="string"||d.reason.length>160))return false;
+       typeof d.reason!=="string"||d.reason.length>160||
+       (d.source!==undefined && (d.command!=="SHIFT_LINE"||!isLaneExecution(d,"AGENT")))))return false;
+  }
+  if(record.engineLaneChanges!==undefined){
+    if(!Array.isArray(record.engineLaneChanges)||record.engineLaneChanges.length>30)return false;
+    if(record.engineLaneChanges.some(d=>!d||!Number.isFinite(d.at)||d.at<0||
+      d.command!=="SHIFT_LINE"||!["SUCCESS","PARTIAL","FAILED","PENDING"].includes(d.result)||
+      typeof d.reason!=="string"||d.reason.length>160||!isLaneExecution(d,"ENGINE")))return false;
   }
   if(record.results.some(e=>!isValidEntry(e)))return false;
   const ids=new Set(record.results.map(e=>e.id));
   const places=new Set(record.results.map(e=>e.place));
   if(ids.size!==18||places.size!==18)return false;
   for(let i=1;i<=18;i++)if(!places.has(i)||!ids.has(i))return false;
+  const ranked=[...record.results].sort((a,b)=>a.place-b.place);
+  if(ranked.some((entry,i)=>i>0 && entry.timeMs<ranked[i-1].timeMs))return false;
   const player=record.results.find(e=>e.id===record.playerRunnerId);
   return Boolean(player)&&player.place===record.playerPlace;
 }
@@ -72,7 +90,7 @@ export function selectPlayerRunner(storage,id){
   state.selectedRunnerId=id;
   return storeGameState(storage,state);
 }
-export function makeRaceRecord({id,finishedAt,selectedRunnerId,results,agentFile,agentDecisions}){
+export function makeRaceRecord({id,finishedAt,selectedRunnerId,results,agentFile,agentDecisions,engineLaneChanges}){
   const entries=Array.isArray(results)?results.map(r=>({
     id:Number(r.id),name:String(r.name),morph:String(r.morph),
     place:Number(r.finishPlace),timeMs:Number(r.finishTime)
@@ -85,7 +103,11 @@ export function makeRaceRecord({id,finishedAt,selectedRunnerId,results,agentFile
     ...(agentFile ? {agentFile} : {}),
     ...(agentDecisions ? {agentDecisions:agentDecisions.map(d=>({
       at:Number(d.at),command:String(d.command),
-      result:String(d.result),reason:String(d.reason)
+      result:String(d.result),reason:String(d.reason),...copyLaneExecution(d)
+    }))} : {}),
+    ...(engineLaneChanges ? {engineLaneChanges:engineLaneChanges.map(d=>({
+      at:Number(d.at),command:String(d.command),result:String(d.result),reason:String(d.reason),
+      ...copyLaneExecution(d)
     }))} : {})
   };
   return validateRaceRecord(record)?record:null;

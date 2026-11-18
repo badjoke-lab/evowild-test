@@ -1,0 +1,114 @@
+[
+  {
+    "phase": "start",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "segment": "HOME_STRAIGHT",
+    "distance": "0.17",
+    "lane": "3.00",
+    "speed": "2.03",
+    "rank": "12",
+    "creature": {
+      "x": 632.8,
+      "y": 497.9
+    },
+    "orb": {
+      "x": 574.3,
+      "y": 391.4
+    },
+    "visibleRacers": 18,
+    "orbs": 18,
+    "hud": {
+      "x": 14,
+      "y": 492.109375,
+      "width": 220.609375,
+      "height": 151.890625
+    }
+  },
+  {
+    "phase": "corner",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "segment": "FIRST_TURN",
+    "distance": "69.81",
+    "lane": "3.00",
+    "speed": "27.64",
+    "rank": "13",
+    "creature": {
+      "x": 645.7,
+      "y": 485.1
+    },
+    "orb": {
+      "x": 587.2,
+      "y": 377.5
+    },
+    "visibleRacers": 18,
+    "orbs": 18,
+    "hud": {
+      "x": 14,
+      "y": 456.109375,
+      "width": 310,
+      "height": 187.890625
+    }
+  },
+  {
+    "phase": "pack",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "segment": "FIRST_TURN",
+    "distance": "186.74",
+    "lane": "0.00",
+    "speed": "35.78",
+    "rank": "12",
+    "creature": {
+      "x": 648.4,
+      "y": 482.2
+    },
+    "orb": {
+      "x": 589.9,
+      "y": 371.4
+    },
+    "visibleRacers": 18,
+    "orbs": 18,
+    "hud": {
+      "x": 14,
+      "y": 388.609375,
+      "width": 310,
+      "height": 255.390625
+    }
+  },
+  {
+    "phase": "straight",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "segment": "BACK_STRAIGHT",
+    "distance": "500.03",
+    "lane": "0.00",
+    "speed": "34.30",
+    "rank": "12",
+    "creature": {
+      "x": 649.1,
+      "y": 481.9
+    },
+    "orb": {
+      "x": 590.6,
+      "y": 369.8
+    },
+    "visibleRacers": 16,
+    "orbs": 16,
+    "hud": {
+      "x": 14,
+      "y": 388.609375,
+      "width": 310,
+      "height": 255.390625
+    }
+  }
+]

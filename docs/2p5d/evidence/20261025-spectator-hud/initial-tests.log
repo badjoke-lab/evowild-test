@@ -1,0 +1,67 @@
+[WebServer] (node:12181) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 24 tests using 2 workers
+
+(node:12198) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [android-chromium] › tests/race-lane-provenance-2p5d.spec.js:25:1 › failed Agent request cannot inherit a later engine adjustment success; exact observations survive storage (11ms)
+  ✓   2 [android-chromium] › tests/race-lane-provenance-2p5d.spec.js:41:1 › ownership replacement cannot credit Agent arrival even when the target lane matches (2ms)
+(node:12199) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   3 [android-chromium] › tests/race-lane-provenance-2p5d.spec.js:52:1 › engine movement stays pending while moving and records partial or failed interruptions (3ms)
+  ✓   4 [android-chromium] › tests/race-lane-provenance-2p5d.spec.js:63:1 › legacy records still load; forged provenance, lanes and unobserved success are rejected (3ms)
+  ✓   6 [android-chromium] › tests/race-stadium-agent.spec.js:8:1 › common Agent File validates all seven fields without external-AI privileges (17ms)
+  ✓   7 [android-chromium] › tests/race-stadium-agent.spec.js:19:1 › Agent decisions respond to pressure and fatigue, never guarantee movement (5ms)
+  ✓   5 [android-chromium] › tests/race-lane-provenance-2p5d.spec.js:77:1 › saved history separates engine success from rejected Agent request after reload (5.7s)
+  ✓   8 [android-chromium] › tests/race-stadium-agent.spec.js:29:1 › stadium Agent setup is pre-race only; race runs unattended with visible orbs (12.7s)
+  ✓  10 [android-chromium] › tests/race-stadium-agent.spec.js:57:1 › original race-quality manual review controls remain isolated (2.2s)
+  ✓   9 [android-chromium] › tests/race-lane-provenance-2p5d.spec.js:95:1 › live Agent lane observations match physical movement before and after arrival (11.3s)
+  ✓  12 [android-chromium] › tests/race-lane-provenance-2p5d.spec.js:121:1 › normal race exposes engine movement separately while the earlier Agent request stays failed (27.6s)
+(node:12612) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  13 [desktop-chromium] › tests/race-lane-provenance-2p5d.spec.js:25:1 › failed Agent request cannot inherit a later engine adjustment success; exact observations survive storage (22ms)
+  ✓  14 [desktop-chromium] › tests/race-lane-provenance-2p5d.spec.js:41:1 › ownership replacement cannot credit Agent arrival even when the target lane matches (7ms)
+  ✓  15 [desktop-chromium] › tests/race-lane-provenance-2p5d.spec.js:52:1 › engine movement stays pending while moving and records partial or failed interruptions (34ms)
+  ✓  16 [desktop-chromium] › tests/race-lane-provenance-2p5d.spec.js:63:1 › legacy records still load; forged provenance, lanes and unobserved success are rejected (28ms)
+  ✓  17 [desktop-chromium] › tests/race-lane-provenance-2p5d.spec.js:77:1 › saved history separates engine success from rejected Agent request after reload (6.6s)
+  ✓  11 [android-chromium] › tests/spectator-hud-2p5d.spec.js:4:1 › compact spectator HUD leaves selected Creature and orb clear through start, turn, pack and straight (52.1s)
+(node:12775) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  19 [desktop-chromium] › tests/race-stadium-agent.spec.js:8:1 › common Agent File validates all seven fields without external-AI privileges (24ms)
+  ✓  20 [desktop-chromium] › tests/race-stadium-agent.spec.js:19:1 › Agent decisions respond to pressure and fatigue, never guarantee movement (5ms)
+  ✘  18 [desktop-chromium] › tests/race-lane-provenance-2p5d.spec.js:95:1 › live Agent lane observations match physical movement before and after arrival (15.9s)
+(node:12905) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  21 [desktop-chromium] › tests/race-stadium-agent.spec.js:29:1 › stadium Agent setup is pre-race only; race runs unattended with visible orbs (8.5s)
+  ✓  23 [desktop-chromium] › tests/race-stadium-agent.spec.js:57:1 › original race-quality manual review controls remain isolated (2.1s)
+  ✓  22 [desktop-chromium] › tests/race-lane-provenance-2p5d.spec.js:121:1 › normal race exposes engine movement separately while the earlier Agent request stays failed (24.6s)
+  ✓  24 [desktop-chromium] › tests/spectator-hud-2p5d.spec.js:4:1 › compact spectator HUD leaves selected Creature and orb clear through start, turn, pack and straight (33.5s)
+
+
+  1) [desktop-chromium] › tests/race-lane-provenance-2p5d.spec.js:95:1 › live Agent lane observations match physical movement before and after arrival
+
+    TypeError: Cannot read properties of null (reading 'actualLane')
+
+      109 |   await expect(row).toHaveAttribute('data-result','SUCCESS');
+      110 |   event=JSON.parse(await row.getAttribute('data-lane-execution'));
+    > 111 |   expect(event.actualLane).toBe(event.targetLane);
+          |                ^
+      112 |   expect(event.actualLane).toBe(Number(await stage.getAttribute('data-selected-lane')));
+      113 |   await expect(page.locator('#autoResult')).toHaveText(event.result);
+      114 |   // Reuse the exact observed live event through the real record/store validator.
+        at /workspace/evowild-test/tests/race-lane-provenance-2p5d.spec.js:111:16
+
+    Error Context: test-results/race-lane-provenance-2p5d--cefe9-nt-before-and-after-arrival-desktop-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/race-lane-provenance-2p5d--cefe9-nt-before-and-after-arrival-desktop-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/race-lane-provenance-2p5d--cefe9-nt-before-and-after-arrival-desktop-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [desktop-chromium] › tests/race-lane-provenance-2p5d.spec.js:95:1 › live Agent lane observations match physical movement before and after arrival
+  23 passed (1.9m)

@@ -1,0 +1,148 @@
+
+Running 6 tests using 1 worker
+
+(node:3729) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/6] [android-chromium] › tests/s-body-coupling.spec.js:5:1 › rolling support preserves mesh contact across steady speeds and all C2 speed profiles
+  1) [android-chromium] › tests/s-body-coupling.spec.js:5:1 › rolling support preserves mesh contact across steady speeds and all C2 speed profiles
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 0.001
+    Received:   0.0029412117724885167
+
+      10 |   for(const f of s.feet){
+      11 |    expect(f.maxZeroTimeJump).toBeLessThan(.001);expect(f.maxMeshVelocityResidual).toBeLessThan(.02);
+    > 12 |    expect(f.supportSlip).toBeLessThan(.001);expect(f.maxSupportPlaneError).toBeLessThan(.001);expect(f.guardPenetration).toBeLessThan(.001);expect(f.maxReachError).toBeLessThan(.001);
+         |                                                                            ^
+      13 |    expect(f.jointAngleRange[0]).toBeGreaterThan(35);expect(f.jointAngleRange[1]).toBeLessThan(178);expect(f.maxSegmentLengthDrift).toBeLessThan(.00001);
+      14 |    expect(f.recoveryHeight).toBeGreaterThan(f.name.startsWith('hind')?.44:.30);
+      15 |    expect(f.rearRise).toBeGreaterThan(f.name.startsWith('hind')?.03:.04);expect(f.pitchRange[1]-f.pitchRange[0]).toBeGreaterThan(f.name.startsWith('hind')?24:18);
+        at /workspace/evowild-test/tests/s-body-coupling.spec.js:12:76
+
+    Error Context: work/d2b-test-results/s-body-coupling-rolling-su-00b3d-s-and-all-C2-speed-profiles-android-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    work/d2b-test-results/s-body-coupling-rolling-su-00b3d-s-and-all-C2-speed-profiles-android-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace work/d2b-test-results/s-body-coupling-rolling-su-00b3d-s-and-all-C2-speed-profiles-android-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:3863) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/6] [android-chromium] › tests/s-body-coupling.spec.js:25:1 › support-vertex changes and lift-off have continuous actual mesh motion and zero-speed freeze
+[android-chromium] › tests/s-body-coupling.spec.js:25:1 › support-vertex changes and lift-off have continuous actual mesh motion and zero-speed freeze
+D2-B boundaries [{"foot":0,"boundary":0.06538208214891975,"zeroJump":0,"velocityResidual":0.0025016040011780743,"freeze":0},{"foot":0,"boundary":0.12053241842570242,"zeroJump":0,"velocityResidual":0.001293178479193934,"freeze":0},{"foot":0,"boundary":0.16999976574429218,"zeroJump":0,"velocityResidual":0.00045386977681193935,"freeze":0},{"foot":0,"boundary":0.17,"zeroJump":0,"velocityResidual":0.01518590177505787,"freeze":0},{"foot":0,"boundary":1,"zeroJump":0,"velocityResidual":0.0063127790022067835,"freeze":0},{"foot":1,"boundary":0.05362861945188532,"zeroJump":0,"velocityResidual":0.0012627446636989095,"freeze":0},{"foot":1,"boundary":0.06703824500261324,"zeroJump":0,"velocityResidual":0.0022537039268993404,"freeze":0},{"foot":1,"boundary":0.08845441582472989,"zeroJump":0,"velocityResidual":0.0023264944711283726,"freeze":0},{"foot":1,"boundary":0.08942622067957665,"zeroJump":0,"velocityResidual":0.01024352238197918,"freeze":0},{"foot":1,"boundary":0.16999976574429218,"zeroJump":0,"velocityResidual":0.01588109960626788,"freeze":0},{"foot":1,"boundary":0.17,"zeroJump":0,"velocityResidual":0.011712026550133684,"freeze":0},{"foot":1,"boundary":1,"zeroJump":0,"velocityResidual":0.006265618119638908,"freeze":0},{"foot":2,"boundary":0.16689154277469248,"zeroJump":0,"velocityResidual":0.0004970676392985244,"freeze":0},{"foot":2,"boundary":0.22999976758159188,"zeroJump":0,"velocityResidual":0.01769200467027579,"freeze":0},{"foot":2,"boundary":0.23,"zeroJump":0,"velocityResidual":0.008350503349389868,"freeze":0},{"foot":2,"boundary":1,"zeroJump":0,"velocityResidual":0.002241403866126437,"freeze":0},{"foot":3,"boundary":0.18333616715623205,"zeroJump":0,"velocityResidual":0.008005042751190879,"freeze":0},{"foot":3,"boundary":0.22999976758159188,"zeroJump":0,"velocityResidual":0.012697730689636526,"freeze":0},{"foot":3,"boundary":0.23,"zeroJump":0,"velocityResidual":0.0046272307405004634,"freeze":0},{"foot":3,"boundary":1,"zeroJump":0,"velocityResidual":0.0066352978916109214,"freeze":0}]
+
+[3/6] [android-chromium] › tests/s-body-coupling.spec.js:48:1 › body coupling retimes the native seven-bone shape and keeps protected skinned vertices
+  2) [android-chromium] › tests/s-body-coupling.spec.js:48:1 › body coupling retimes the native seven-bone shape and keeps protected skinned vertices
+
+    Test timeout of 30000ms exceeded.
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 0.00001
+    Received:   0.036765181050546936
+
+      56 |  }
+      57 |  let maxShapeError=0;
+    > 58 |  samples[0].forEach((b,i)=>{const a=samples[1][i];expect(a.lead).toBe(.25);a.points.forEach((p,k)=>{const d=Math.hypot(...p.map((v,j)=>v-b.points[k][j]));maxShapeError=Math.max(maxShapeError,d);expect(d).toBeLessThan(.00001);});a.body.forEach((bone,k)=>{bone.quaternion.forEach((v,j)=>expect(Math.abs(v-b.body[k].quaternion[j])).toBeLessThan(.00001));});});
+         |                                                                                                                                                                                                             ^
+      59 |  console.log('D2-B protected native shape',JSON.stringify({maxShapeError,samples}));
+      60 | });
+      61 |
+        at forEach (/workspace/evowild-test/tests/s-body-coupling.spec.js:58:205)
+        at forEach (/workspace/evowild-test/tests/s-body-coupling.spec.js:58:85)
+        at /workspace/evowild-test/tests/s-body-coupling.spec.js:58:13
+
+    Error Context: work/d2b-test-results/s-body-coupling-body-coupl-f020e--protected-skinned-vertices-android-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    work/d2b-test-results/s-body-coupling-body-coupl-f020e--protected-skinned-vertices-android-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace work/d2b-test-results/s-body-coupling-body-coupl-f020e--protected-skinned-vertices-android-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:4361) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[4/6] [desktop-chromium] › tests/s-body-coupling.spec.js:5:1 › rolling support preserves mesh contact across steady speeds and all C2 speed profiles
+  3) [desktop-chromium] › tests/s-body-coupling.spec.js:5:1 › rolling support preserves mesh contact across steady speeds and all C2 speed profiles
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 0.001
+    Received:   0.0029412117724885167
+
+      10 |   for(const f of s.feet){
+      11 |    expect(f.maxZeroTimeJump).toBeLessThan(.001);expect(f.maxMeshVelocityResidual).toBeLessThan(.02);
+    > 12 |    expect(f.supportSlip).toBeLessThan(.001);expect(f.maxSupportPlaneError).toBeLessThan(.001);expect(f.guardPenetration).toBeLessThan(.001);expect(f.maxReachError).toBeLessThan(.001);
+         |                                                                            ^
+      13 |    expect(f.jointAngleRange[0]).toBeGreaterThan(35);expect(f.jointAngleRange[1]).toBeLessThan(178);expect(f.maxSegmentLengthDrift).toBeLessThan(.00001);
+      14 |    expect(f.recoveryHeight).toBeGreaterThan(f.name.startsWith('hind')?.44:.30);
+      15 |    expect(f.rearRise).toBeGreaterThan(f.name.startsWith('hind')?.03:.04);expect(f.pitchRange[1]-f.pitchRange[0]).toBeGreaterThan(f.name.startsWith('hind')?24:18);
+        at /workspace/evowild-test/tests/s-body-coupling.spec.js:12:76
+
+    Error Context: work/d2b-test-results/s-body-coupling-rolling-su-00b3d-s-and-all-C2-speed-profiles-desktop-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    work/d2b-test-results/s-body-coupling-rolling-su-00b3d-s-and-all-C2-speed-profiles-desktop-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace work/d2b-test-results/s-body-coupling-rolling-su-00b3d-s-and-all-C2-speed-profiles-desktop-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:4534) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[5/6] [desktop-chromium] › tests/s-body-coupling.spec.js:25:1 › support-vertex changes and lift-off have continuous actual mesh motion and zero-speed freeze
+[desktop-chromium] › tests/s-body-coupling.spec.js:25:1 › support-vertex changes and lift-off have continuous actual mesh motion and zero-speed freeze
+D2-B boundaries [{"foot":0,"boundary":0.06538208214891975,"zeroJump":0,"velocityResidual":0.0025016040011780743,"freeze":0},{"foot":0,"boundary":0.12053241842570242,"zeroJump":0,"velocityResidual":0.001293178479193934,"freeze":0},{"foot":0,"boundary":0.16999976574429218,"zeroJump":0,"velocityResidual":0.00045386977681193935,"freeze":0},{"foot":0,"boundary":0.17,"zeroJump":0,"velocityResidual":0.01518590177505787,"freeze":0},{"foot":0,"boundary":1,"zeroJump":0,"velocityResidual":0.0063127790022067835,"freeze":0},{"foot":1,"boundary":0.05362861945188532,"zeroJump":0,"velocityResidual":0.0012627446636989095,"freeze":0},{"foot":1,"boundary":0.06703824500261324,"zeroJump":0,"velocityResidual":0.0022537039268993404,"freeze":0},{"foot":1,"boundary":0.08845441582472989,"zeroJump":0,"velocityResidual":0.0023264944711283726,"freeze":0},{"foot":1,"boundary":0.08942622067957665,"zeroJump":0,"velocityResidual":0.01024352238197918,"freeze":0},{"foot":1,"boundary":0.16999976574429218,"zeroJump":0,"velocityResidual":0.01588109960626788,"freeze":0},{"foot":1,"boundary":0.17,"zeroJump":0,"velocityResidual":0.011712026550133684,"freeze":0},{"foot":1,"boundary":1,"zeroJump":0,"velocityResidual":0.006265618119638908,"freeze":0},{"foot":2,"boundary":0.16689154277469248,"zeroJump":0,"velocityResidual":0.0004970676392985244,"freeze":0},{"foot":2,"boundary":0.22999976758159188,"zeroJump":0,"velocityResidual":0.01769200467027579,"freeze":0},{"foot":2,"boundary":0.23,"zeroJump":0,"velocityResidual":0.008350503349389868,"freeze":0},{"foot":2,"boundary":1,"zeroJump":0,"velocityResidual":0.002241403866126437,"freeze":0},{"foot":3,"boundary":0.18333616715623205,"zeroJump":0,"velocityResidual":0.008005042751190879,"freeze":0},{"foot":3,"boundary":0.22999976758159188,"zeroJump":0,"velocityResidual":0.012697730689636526,"freeze":0},{"foot":3,"boundary":0.23,"zeroJump":0,"velocityResidual":0.0046272307405004634,"freeze":0},{"foot":3,"boundary":1,"zeroJump":0,"velocityResidual":0.0066352978916109214,"freeze":0}]
+
+[6/6] [desktop-chromium] › tests/s-body-coupling.spec.js:48:1 › body coupling retimes the native seven-bone shape and keeps protected skinned vertices
+  4) [desktop-chromium] › tests/s-body-coupling.spec.js:48:1 › body coupling retimes the native seven-bone shape and keeps protected skinned vertices
+
+    Test timeout of 30000ms exceeded.
+
+    Error: page.waitForFunction: Test timeout of 30000ms exceeded.
+
+      49 |  const samples=[];
+      50 |  for(const coupled of [false,true]){
+    > 51 |   await page.goto('/evowild-test/s-run-review.html?rig=contact-v3&toe=roll-v2'+(coupled?'&body=push-v1':''));await page.waitForFunction(()=>window.sRunReview?.bodySample);
+         |                                                                                                                         ^
+      52 |   samples.push(await page.evaluate(coupled=>{
+      53 |    window.requestAnimationFrame=()=>0;const a=window.sRunReview;a.setRate(1);
+      54 |    return [0,.15,.24,.35,.47,.7,.99].map(p=>{a.setPhase(p+(coupled?0:.25),'SIDE');const d=a.sample().distance;return {phase:p,lead:a.bodyPhaseLead,body:a.bodySample().map(b=>({...b,position:b.position.map((x,i)=>x-(i===2?d:0))})),points:a.probe(a.bodyVertexIds).map(p=>p.map((x,i)=>x-(i===2?d:0)))};});
+        at /workspace/evowild-test/tests/s-body-coupling.spec.js:51:121
+
+    Error Context: work/d2b-test-results/s-body-coupling-body-coupl-f020e--protected-skinned-vertices-desktop-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    work/d2b-test-results/s-body-coupling-body-coupl-f020e--protected-skinned-vertices-desktop-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace work/d2b-test-results/s-body-coupling-body-coupl-f020e--protected-skinned-vertices-desktop-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  4 failed
+    [android-chromium] › tests/s-body-coupling.spec.js:5:1 › rolling support preserves mesh contact across steady speeds and all C2 speed profiles
+    [android-chromium] › tests/s-body-coupling.spec.js:48:1 › body coupling retimes the native seven-bone shape and keeps protected skinned vertices
+    [desktop-chromium] › tests/s-body-coupling.spec.js:5:1 › rolling support preserves mesh contact across steady speeds and all C2 speed profiles
+    [desktop-chromium] › tests/s-body-coupling.spec.js:48:1 › body coupling retimes the native seven-bone shape and keeps protected skinned vertices
+  2 passed (2.8m)

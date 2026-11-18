@@ -1,0 +1,43 @@
+
+> evowild-test@0.0.1 prebuild
+> node scripts/generate-s-model.mjs
+
+generated public/models/evowild-s.obj
+
+> evowild-test@0.0.1 build
+> vite build
+
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 36 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/s-run-review.html                            1.82 kB │ gzip:   1.12 kB
+dist/race-lane5.html                              1.90 kB │ gzip:   0.87 kB
+dist/race-2_5d.html                               3.06 kB │ gzip:   1.22 kB
+dist/index.html                                   3.65 kB │ gzip:   1.30 kB
+dist/race-quality.html                            4.16 kB │ gzip:   1.51 kB
+dist/race-stadium.html                            6.41 kB │ gzip:   2.57 kB
+dist/game-2p5d.html                               8.05 kB │ gzip:   3.26 kB
+dist/assets/race_lane5-OeTLpWgh.css               3.67 kB │ gzip:   1.39 kB
+dist/assets/race2_5d-DefcRidv.css                 4.05 kB │ gzip:   1.58 kB
+dist/assets/main-CMZSGyjx.css                     4.76 kB │ gzip:   1.61 kB
+dist/assets/race_stadium-5CMiB8ns.css             7.33 kB │ gzip:   2.19 kB
+dist/assets/game_2p5d-BcYQEvCJ.css               10.27 kB │ gzip:   3.12 kB
+dist/assets/race_quality-CdPDXUyA.css            10.85 kB │ gzip:   2.83 kB
+dist/assets/modulepreload-polyfill-B5Qt9EMX.js    0.71 kB │ gzip:   0.40 kB
+dist/assets/game_2p5d-uZaSDNgP.js                 4.85 kB │ gzip:   2.34 kB
+dist/assets/game_progress_2p5d-Bc2fJg9i.js        8.62 kB │ gzip:   3.32 kB
+dist/assets/race2_5d-JtDeRsQc.js                  9.41 kB │ gzip:   4.16 kB
+dist/assets/race_lane5-BZ0EtTVs.js               14.29 kB │ gzip:   6.14 kB
+dist/assets/main-la0DrrZJ.js                     30.71 kB │ gzip:  11.84 kB
+dist/assets/race_quality-DGTDdWMd.js             33.71 kB │ gzip:  12.62 kB
+dist/assets/s_run_review-DA4zjmnR.js             49.73 kB │ gzip:  15.51 kB
+dist/assets/race_stadium-DI1-YyV3.js             52.87 kB │ gzip:  19.91 kB
+dist/assets/three.module-1WAQZsjS.js            569.52 kB │ gzip: 147.77 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 7.17s

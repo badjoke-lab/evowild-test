@@ -1,0 +1,1084 @@
+[
+  {
+    "label": "native",
+    "ranges": [
+      {
+        "range": [
+          0.04,
+          0.2
+        ],
+        "parts": [
+          {
+            "name": "root",
+            "peakSpeed": {
+              "value": 0.6643542796698699,
+              "phase": 0.17500000000000002
+            },
+            "peakAngularSpeed": {
+              "value": 0,
+              "phase": 0.0405
+            },
+            "peakAcceleration": {
+              "value": 1482.5511556018432,
+              "phase": 0.12000000000000006
+            },
+            "peakAngularAcceleration": {
+              "value": 0,
+              "phase": 0.0405
+            }
+          },
+          {
+            "name": "pelvis",
+            "peakSpeed": {
+              "value": 0.6643542796698699,
+              "phase": 0.17500000000000002
+            },
+            "peakAngularSpeed": {
+              "value": 0.8113594377549143,
+              "phase": 0.10050000000000005
+            },
+            "peakAcceleration": {
+              "value": 1482.5511556018432,
+              "phase": 0.12000000000000006
+            },
+            "peakAngularAcceleration": {
+              "value": 1826.7749880087056,
+              "phase": 0.08000000000000003
+            }
+          },
+          {
+            "name": "spine",
+            "peakSpeed": {
+              "value": 0.6899637441207427,
+              "phase": 0.20000000000000004
+            },
+            "peakAngularSpeed": {
+              "value": 1.499461425398739,
+              "phase": 0.10000000000000005
+            },
+            "peakAcceleration": {
+              "value": 1435.106216316018,
+              "phase": 0.12000000000000006
+            },
+            "peakAngularAcceleration": {
+              "value": 3311.4233203548006,
+              "phase": 0.08000000000000003
+            }
+          },
+          {
+            "name": "chest",
+            "peakSpeed": {
+              "value": 1.3390285324423976,
+              "phase": 0.12000000000000006
+            },
+            "peakAngularSpeed": {
+              "value": 1.0218657887286389,
+              "phase": 0.10000000000000005
+            },
+            "peakAcceleration": {
+              "value": 3089.8556496744945,
+              "phase": 0.08000000000000003
+            },
+            "peakAngularAcceleration": {
+              "value": 2309.0003735220066,
+              "phase": 0.08000000000000003
+            }
+          },
+          {
+            "name": "neck",
+            "peakSpeed": {
+              "value": 1.6816585914653566,
+              "phase": 0.12000000000000006
+            },
+            "peakAngularSpeed": {
+              "value": 0.3594239440733049,
+              "phase": 0.10050000000000005
+            },
+            "peakAcceleration": {
+              "value": 3839.808315689078,
+              "phase": 0.08000000000000003
+            },
+            "peakAngularAcceleration": {
+              "value": 865.5724101938059,
+              "phase": 0.08000000000000003
+            }
+          },
+          {
+            "name": "head",
+            "peakSpeed": {
+              "value": 1.8166719193845495,
+              "phase": 0.12000000000000006
+            },
+            "peakAngularSpeed": {
+              "value": 0.1762144243037701,
+              "phase": 0.18000000000000002
+            },
+            "peakAcceleration": {
+              "value": 4185.630429945226,
+              "phase": 0.08000000000000003
+            },
+            "peakAngularAcceleration": {
+              "value": 587.6983942801982,
+              "phase": 0.16
+            }
+          },
+          {
+            "name": "tail",
+            "peakSpeed": {
+              "value": 0.6796551680543149,
+              "phase": 0.20000000000000004
+            },
+            "peakAngularSpeed": {
+              "value": 0.7182325323196175,
+              "phase": 0.18050000000000002
+            },
+            "peakAcceleration": {
+              "value": 1452.3280760002274,
+              "phase": 0.12000000000000006
+            },
+            "peakAngularAcceleration": {
+              "value": 1134.6929858415049,
+              "phase": 0.12000000000000006
+            }
+          }
+        ]
+      },
+      {
+        "range": [
+          0.38,
+          0.68
+        ],
+        "parts": [
+          {
+            "name": "root",
+            "peakSpeed": {
+              "value": 0.4878161106025318,
+              "phase": 0.5209999999999976
+            },
+            "peakAngularSpeed": {
+              "value": 0,
+              "phase": 0.3805
+            },
+            "peakAcceleration": {
+              "value": 1119.981172282369,
+              "phase": 0.47999999999999987
+            },
+            "peakAngularAcceleration": {
+              "value": 0,
+              "phase": 0.3805
+            }
+          },
+          {
+            "name": "pelvis",
+            "peakSpeed": {
+              "value": 0.4878161106025318,
+              "phase": 0.5209999999999976
+            },
+            "peakAngularSpeed": {
+              "value": 0.6228188570637595,
+              "phase": 0.580499999999991
+            },
+            "peakAcceleration": {
+              "value": 1119.981172282369,
+              "phase": 0.47999999999999987
+            },
+            "peakAngularAcceleration": {
+              "value": 1142.0769358286068,
+              "phase": 0.4
+            }
+          },
+          {
+            "name": "spine",
+            "peakSpeed": {
+              "value": 0.5276732915066553,
+              "phase": 0.5204999999999976
+            },
+            "peakAngularSpeed": {
+              "value": 1.1816283441119957,
+              "phase": 0.5404999999999954
+            },
+            "peakAcceleration": {
+              "value": 1127.931295848919,
+              "phase": 0.47999999999999987
+            },
+            "peakAngularAcceleration": {
+              "value": 1480.0350162641037,
+              "phase": 0.4
+            }
+          },
+          {
+            "name": "chest",
+            "peakSpeed": {
+              "value": 1.187013860540154,
+              "phase": 0.5204999999999976
+            },
+            "peakAngularSpeed": {
+              "value": 0.7851014445706762,
+              "phase": 0.580499999999991
+            },
+            "peakAcceleration": {
+              "value": 1527.4107901308878,
+              "phase": 0.4
+            },
+            "peakAngularAcceleration": {
+              "value": 1260.0726314853725,
+              "phase": 0.4
+            }
+          },
+          {
+            "name": "neck",
+            "peakSpeed": {
+              "value": 1.4314648663319836,
+              "phase": 0.5204999999999976
+            },
+            "peakAngularSpeed": {
+              "value": 0.3687659284565005,
+              "phase": 0.6599999999999823
+            },
+            "peakAcceleration": {
+              "value": 1955.3432179531603,
+              "phase": 0.4
+            },
+            "peakAngularAcceleration": {
+              "value": 852.5832270588955,
+              "phase": 0.4
+            }
+          },
+          {
+            "name": "head",
+            "peakSpeed": {
+              "value": 1.5317482851106095,
+              "phase": 0.5204999999999976
+            },
+            "peakAngularSpeed": {
+              "value": 0.3245128612835508,
+              "phase": 0.3805
+            },
+            "peakAcceleration": {
+              "value": 2269.0520633865117,
+              "phase": 0.4
+            },
+            "peakAngularAcceleration": {
+              "value": 555.9344518613723,
+              "phase": 0.4
+            }
+          },
+          {
+            "name": "tail",
+            "peakSpeed": {
+              "value": 0.5079802711260494,
+              "phase": 0.5209999999999976
+            },
+            "peakAngularSpeed": {
+              "value": 0.74043189207925,
+              "phase": 0.3805
+            },
+            "peakAcceleration": {
+              "value": 1129.3847977993694,
+              "phase": 0.47999999999999987
+            },
+            "peakAngularAcceleration": {
+              "value": 1206.174717298419,
+              "phase": 0.5199999999999977
+            }
+          }
+        ]
+      }
+    ],
+    "boundaries": [
+      {
+        "phase": 0.06,
+        "eps": 0.0001,
+        "positionJump": 0,
+        "velocityResidual": 0.015383158570165804,
+        "bodyVelocityResidual": 0.0000704623813544679
+      },
+      {
+        "phase": 0.06,
+        "eps": 0.00001,
+        "positionJump": 0,
+        "velocityResidual": 0.0015383272378417213,
+        "bodyVelocityResidual": 0.000007046229389774883
+      },
+      {
+        "phase": 0.06,
+        "eps": 0.000001,
+        "positionJump": 0,
+        "velocityResidual": 0.00015383244930314117,
+        "bodyVelocityResidual": 7.047203243420294e-7
+      },
+      {
+        "phase": 0.18,
+        "eps": 0.0001,
+        "positionJump": 0,
+        "velocityResidual": 0.011543169257605275,
+        "bodyVelocityResidual": 0.00006281456194529496
+      },
+      {
+        "phase": 0.18,
+        "eps": 0.00001,
+        "positionJump": 0,
+        "velocityResidual": 0.0011543170657066705,
+        "bodyVelocityResidual": 0.000006281464029840414
+      },
+      {
+        "phase": 0.18,
+        "eps": 0.000001,
+        "positionJump": 0,
+        "velocityResidual": 0.000115431055933888,
+        "bodyVelocityResidual": 6.269734443809179e-7
+      },
+      {
+        "phase": 0.3940692842400813,
+        "eps": 0.0001,
+        "positionJump": 0,
+        "velocityResidual": 0.013085291783370086,
+        "bodyVelocityResidual": 0.00003936529477100075
+      },
+      {
+        "phase": 0.3940692842400813,
+        "eps": 0.00001,
+        "positionJump": 0,
+        "velocityResidual": 0.0013085296235044999,
+        "bodyVelocityResidual": 0.000003936486679333288
+      },
+      {
+        "phase": 0.3940692842400813,
+        "eps": 0.000001,
+        "positionJump": 0,
+        "velocityResidual": 0.00013085606637517337,
+        "bodyVelocityResidual": 3.9460968558266404e-7
+      },
+      {
+        "phase": 0.40506096654409807,
+        "eps": 0.0001,
+        "positionJump": 0,
+        "velocityResidual": 0.01279694424620903,
+        "bodyVelocityResidual": 0.00008571253658225668
+      },
+      {
+        "phase": 0.40506096654409807,
+        "eps": 0.00001,
+        "positionJump": 0,
+        "velocityResidual": 0.0012796944503080173,
+        "bodyVelocityResidual": 0.000008571052992534314
+      },
+      {
+        "phase": 0.40506096654409807,
+        "eps": 0.000001,
+        "positionJump": 0,
+        "velocityResidual": 0.00012796920751111563,
+        "bodyVelocityResidual": 8.56579478292147e-7
+      },
+      {
+        "phase": 0.44,
+        "eps": 0.0001,
+        "positionJump": 0,
+        "velocityResidual": 0.29278429438122305,
+        "bodyVelocityResidual": 0.29278429438122305
+      },
+      {
+        "phase": 0.44,
+        "eps": 0.00001,
+        "positionJump": 0,
+        "velocityResidual": 0.29255648354464064,
+        "bodyVelocityResidual": 0.29255648354464064
+      },
+      {
+        "phase": 0.44,
+        "eps": 0.000001,
+        "positionJump": 0,
+        "velocityResidual": 0.28967168735522725,
+        "bodyVelocityResidual": 0.28967168735522725
+      },
+      {
+        "phase": 0.47,
+        "eps": 0.0001,
+        "positionJump": 0,
+        "velocityResidual": 0.010515708532371416,
+        "bodyVelocityResidual": 0.00011615858344214659
+      },
+      {
+        "phase": 0.47,
+        "eps": 0.00001,
+        "positionJump": 0,
+        "velocityResidual": 0.0010515702527287498,
+        "bodyVelocityResidual": 0.000011615774718300663
+      },
+      {
+        "phase": 0.47,
+        "eps": 0.000001,
+        "positionJump": 0,
+        "velocityResidual": 0.00010515596244605862,
+        "bodyVelocityResidual": 0.0000011601851855600979
+      },
+      {
+        "phase": 0.5,
+        "eps": 0.0001,
+        "positionJump": 0,
+        "velocityResidual": 0.014038113558382541,
+        "bodyVelocityResidual": 0.00013664256786715442
+      },
+      {
+        "phase": 0.5,
+        "eps": 0.00001,
+        "positionJump": 0,
+        "velocityResidual": 0.001403824680573364,
+        "bodyVelocityResidual": 0.00001366401047402538
+      },
+      {
+        "phase": 0.5,
+        "eps": 0.000001,
+        "positionJump": 0,
+        "velocityResidual": 0.00014038230571844731,
+        "bodyVelocityResidual": 0.000001364069617476308
+      },
+      {
+        "phase": 0.53,
+        "eps": 0.0001,
+        "positionJump": 0,
+        "velocityResidual": 0.016694426685139763,
+        "bodyVelocityResidual": 0.0001486525199745897
+      },
+      {
+        "phase": 0.53,
+        "eps": 0.00001,
+        "positionJump": 0,
+        "velocityResidual": 0.0016694525171449467,
+        "bodyVelocityResidual": 0.000014865257686952593
+      },
+      {
+        "phase": 0.53,
+        "eps": 0.000001,
+        "positionJump": 0,
+        "velocityResidual": 0.00016694477177543214,
+        "bodyVelocityResidual": 0.0000014866292740273788
+      },
+      {
+        "phase": 0.56,
+        "eps": 0.0001,
+        "positionJump": 0,
+        "velocityResidual": 0.09750360631852606,
+        "bodyVelocityResidual": 0.09750360631852606
+      },
+      {
+        "phase": 0.56,
+        "eps": 0.00001,
+        "positionJump": 0,
+        "velocityResidual": 0.09740470313516715,
+        "bodyVelocityResidual": 0.09740470313516715
+      },
+      {
+        "phase": 0.56,
+        "eps": 0.000001,
+        "positionJump": 0,
+        "velocityResidual": 0.09731204882014889,
+        "bodyVelocityResidual": 0.09731204882014889
+      },
+      {
+        "phase": 0.59,
+        "eps": 0.0001,
+        "positionJump": 0,
+        "velocityResidual": 0.01413209059901518,
+        "bodyVelocityResidual": 0.0001402820934548281
+      },
+      {
+        "phase": 0.59,
+        "eps": 0.00001,
+        "positionJump": 0,
+        "velocityResidual": 0.0014132218063141592,
+        "bodyVelocityResidual": 0.000014028279076584716
+      },
+      {
+        "phase": 0.59,
+        "eps": 0.000001,
+        "positionJump": 0,
+        "velocityResidual": 0.00014132086871101703,
+        "bodyVelocityResidual": 0.0000014035333390103324
+      },
+      {
+        "phase": 0.62,
+        "eps": 0.0001,
+        "positionJump": 0,
+        "velocityResidual": 0.01787477334269133,
+        "bodyVelocityResidual": 0.00011219791934095129
+      },
+      {
+        "phase": 0.62,
+        "eps": 0.00001,
+        "positionJump": 0,
+        "velocityResidual": 0.001787488354599184,
+        "bodyVelocityResidual": 0.000011219882013133061
+      },
+      {
+        "phase": 0.62,
+        "eps": 0.000001,
+        "positionJump": 0,
+        "velocityResidual": 0.00017874956134402196,
+        "bodyVelocityResidual": 0.0000011218432686101115
+      },
+      {
+        "phase": 0.64,
+        "eps": 0.0001,
+        "positionJump": 0,
+        "velocityResidual": 0.24082093971114021,
+        "bodyVelocityResidual": 0.24082093971114021
+      },
+      {
+        "phase": 0.64,
+        "eps": 0.00001,
+        "positionJump": 0,
+        "velocityResidual": 0.24043001705389186,
+        "bodyVelocityResidual": 0.24043001705389186
+      },
+      {
+        "phase": 0.64,
+        "eps": 0.000001,
+        "positionJump": 0,
+        "velocityResidual": 0.23650219376423298,
+        "bodyVelocityResidual": 0.23650219376423298
+      }
+    ]
+  },
+  {
+    "label": "before",
+    "ranges": [
+      {
+        "range": [
+          0.04,
+          0.2
+        ],
+        "parts": [
+          {
+            "name": "root",
+            "peakSpeed": {
+              "value": 2.1211758119708604,
+              "phase": 0.12050000000000007
+            },
+            "peakAngularSpeed": {
+              "value": 0,
+              "phase": 0.0405
+            },
+            "peakAcceleration": {
+              "value": 1049.1726021191455,
+              "phase": 0.08000000000000003
+            },
+            "peakAngularAcceleration": {
+              "value": 0,
+              "phase": 0.0405
+            }
+          },
+          {
+            "name": "pelvis",
+            "peakSpeed": {
+              "value": 2.121175811970991,
+              "phase": 0.12050000000000007
+            },
+            "peakAngularSpeed": {
+              "value": 1.7185638424981986,
+              "phase": 0.10400000000000005
+            },
+            "peakAcceleration": {
+              "value": 1049.1726021173465,
+              "phase": 0.08000000000000003
+            },
+            "peakAngularAcceleration": {
+              "value": 1842.2785672552668,
+              "phase": 0.08000000000000003
+            }
+          },
+          {
+            "name": "spine",
+            "peakSpeed": {
+              "value": 2.1731853361913074,
+              "phase": 0.12050000000000007
+            },
+            "peakAngularSpeed": {
+              "value": 2.537034435878829,
+              "phase": 0.09700000000000004
+            },
+            "peakAcceleration": {
+              "value": 1125.5582045117815,
+              "phase": 0.08000000000000003
+            },
+            "peakAngularAcceleration": {
+              "value": 3298.700633228216,
+              "phase": 0.08000000000000003
+            }
+          },
+          {
+            "name": "chest",
+            "peakSpeed": {
+              "value": 2.9793869775410378,
+              "phase": 0.10750000000000005
+            },
+            "peakAngularSpeed": {
+              "value": 2.2191923207532214,
+              "phase": 0.10450000000000005
+            },
+            "peakAcceleration": {
+              "value": 3113.718831377696,
+              "phase": 0.08000000000000003
+            },
+            "peakAngularAcceleration": {
+              "value": 2332.4379855323104,
+              "phase": 0.08000000000000003
+            }
+          },
+          {
+            "name": "neck",
+            "peakSpeed": {
+              "value": 3.5703117432604383,
+              "phase": 0.10550000000000005
+            },
+            "peakAngularSpeed": {
+              "value": 1.4196945939293864,
+              "phase": 0.11000000000000006
+            },
+            "peakAcceleration": {
+              "value": 3865.325485944191,
+              "phase": 0.08000000000000003
+            },
+            "peakAngularAcceleration": {
+              "value": 906.5701583011808,
+              "phase": 0.08000000000000003
+            }
+          },
+          {
+            "name": "head",
+            "peakSpeed": {
+              "value": 4.203282520580053,
+              "phase": 0.10750000000000005
+            },
+            "peakAngularSpeed": {
+              "value": 1.0720197960501419,
+              "phase": 0.12900000000000006
+            },
+            "peakAcceleration": {
+              "value": 4232.270741752868,
+              "phase": 0.08000000000000003
+            },
+            "peakAngularAcceleration": {
+              "value": 548.6199796752406,
+              "phase": 0.15
+            }
+          },
+          {
+            "name": "tail",
+            "peakSpeed": {
+              "value": 2.163008412163908,
+              "phase": 0.12050000000000007
+            },
+            "peakAngularSpeed": {
+              "value": 3.825440037220203,
+              "phase": 0.12200000000000005
+            },
+            "peakAcceleration": {
+              "value": 1106.7216124054428,
+              "phase": 0.08000000000000003
+            },
+            "peakAngularAcceleration": {
+              "value": 1213.8382194348035,
+              "phase": 0.08000000000000003
+            }
+          }
+        ]
+      },
+      {
+        "range": [
+          0.38,
+          0.68
+        ],
+        "parts": [
+          {
+            "name": "root",
+            "peakSpeed": {
+              "value": 0.45200477330145694,
+              "phase": 0.5199999999999977
+            },
+            "peakAngularSpeed": {
+              "value": 0,
+              "phase": 0.3805
+            },
+            "peakAcceleration": {
+              "value": 895.720500350137,
+              "phase": 0.5999999999999889
+            },
+            "peakAngularAcceleration": {
+              "value": 0,
+              "phase": 0.3805
+            }
+          },
+          {
+            "name": "pelvis",
+            "peakSpeed": {
+              "value": 0.45200477330145694,
+              "phase": 0.5199999999999977
+            },
+            "peakAngularSpeed": {
+              "value": 0.9923496920409022,
+              "phase": 0.5134999999999984
+            },
+            "peakAcceleration": {
+              "value": 895.720500350137,
+              "phase": 0.5999999999999889
+            },
+            "peakAngularAcceleration": {
+              "value": 1109.3841279516666,
+              "phase": 0.46999999999999986
+            }
+          },
+          {
+            "name": "spine",
+            "peakSpeed": {
+              "value": 0.4769317000395206,
+              "phase": 0.5194999999999977
+            },
+            "peakAngularSpeed": {
+              "value": 1.6689743642989814,
+              "phase": 0.5104999999999987
+            },
+            "peakAcceleration": {
+              "value": 915.5154785533837,
+              "phase": 0.5999999999999889
+            },
+            "peakAngularAcceleration": {
+              "value": 1478.0870019827885,
+              "phase": 0.46999999999999986
+            }
+          },
+          {
+            "name": "chest",
+            "peakSpeed": {
+              "value": 1.5222212455748514,
+              "phase": 0.5104999999999987
+            },
+            "peakAngularSpeed": {
+              "value": 1.2302660990471561,
+              "phase": 0.5144999999999983
+            },
+            "peakAcceleration": {
+              "value": 1424.9375919192707,
+              "phase": 0.46999999999999986
+            },
+            "peakAngularAcceleration": {
+              "value": 1078.280629805485,
+              "phase": 0.46999999999999986
+            }
+          },
+          {
+            "name": "neck",
+            "peakSpeed": {
+              "value": 1.9276727545429733,
+              "phase": 0.5104999999999987
+            },
+            "peakAngularSpeed": {
+              "value": 0.5959406025560006,
+              "phase": 0.5199999999999977
+            },
+            "peakAcceleration": {
+              "value": 1794.1535340477085,
+              "phase": 0.46999999999999986
+            },
+            "peakAngularAcceleration": {
+              "value": 524.5472772216913,
+              "phase": 0.46999999999999986
+            }
+          },
+          {
+            "name": "head",
+            "peakSpeed": {
+              "value": 2.127928109240827,
+              "phase": 0.5114999999999986
+            },
+            "peakAngularSpeed": {
+              "value": 0.3235924536875537,
+              "phase": 0.5499999999999944
+            },
+            "peakAcceleration": {
+              "value": 1938.011434847493,
+              "phase": 0.46999999999999986
+            },
+            "peakAngularAcceleration": {
+              "value": 500.5198693037517,
+              "phase": 0.39
+            }
+          },
+          {
+            "name": "tail",
+            "peakSpeed": {
+              "value": 0.48102863034349586,
+              "phase": 0.5199999999999977
+            },
+            "peakAngularSpeed": {
+              "value": 1.3626385317108984,
+              "phase": 0.5504999999999943
+            },
+            "peakAcceleration": {
+              "value": 902.7646837972252,
+              "phase": 0.5999999999999889
+            },
+            "peakAngularAcceleration": {
+              "value": 1138.1563610575222,
+              "phase": 0.5999999999999889
+            }
+          }
+        ]
+      }
+    ],
+    "boundaries": [
+      {
+        "phase": 0.06,
+        "eps": 0.0001,
+        "positionJump": 0,
+        "velocityResidual": 0.015383158591962641,
+        "bodyVelocityResidual": 0.00014502657296252986
+      },
+      {
+        "phase": 0.06,
+        "eps": 0.00001,
+        "positionJump": 0,
+        "velocityResidual": 0.0015383273950230411,
+        "bodyVelocityResidual": 0.000007492703571909761
+      },
+      {
+        "phase": 0.06,
+        "eps": 0.000001,
+        "positionJump": 0,
+        "velocityResidual": 0.00015383157501075098,
+        "bodyVelocityResidual": 7.074947771860568e-7
+      },
+      {
+        "phase": 0.18,
+        "eps": 0.0001,
+        "positionJump": 1.6806875622552292e-13,
+        "velocityResidual": 0.011375054703526608,
+        "bodyVelocityResidual": 0.0008704091392968481
+      },
+      {
+        "phase": 0.18,
+        "eps": 0.00001,
+        "positionJump": 1.6815009442171769e-13,
+        "velocityResidual": 0.01754460312183483,
+        "bodyVelocityResidual": 0.01754460312183483
+      },
+      {
+        "phase": 0.18,
+        "eps": 0.000001,
+        "positionJump": 1.6815009442171769e-13,
+        "velocityResidual": 0.04783677531638787,
+        "bodyVelocityResidual": 0.04783677531638787
+      },
+      {
+        "phase": 0.3940692842400813,
+        "eps": 0.0001,
+        "positionJump": 0,
+        "velocityResidual": 0.01307296928817451,
+        "bodyVelocityResidual": 0.000313228295967876
+      },
+      {
+        "phase": 0.3940692842400813,
+        "eps": 0.00001,
+        "positionJump": 0,
+        "velocityResidual": 0.04287865284097316,
+        "bodyVelocityResidual": 0.04287865284097316
+      },
+      {
+        "phase": 0.3940692842400813,
+        "eps": 0.000001,
+        "positionJump": 0,
+        "velocityResidual": 0.34521536619233817,
+        "bodyVelocityResidual": 0.34521536619233817
+      },
+      {
+        "phase": 0.40506096654409807,
+        "eps": 0.0001,
+        "positionJump": 0,
+        "velocityResidual": 0.01278416714904557,
+        "bodyVelocityResidual": 0.0005049845195183171
+      },
+      {
+        "phase": 0.40506096654409807,
+        "eps": 0.00001,
+        "positionJump": 0,
+        "velocityResidual": 0.05449655075961638,
+        "bodyVelocityResidual": 0.05449655075961638
+      },
+      {
+        "phase": 0.40506096654409807,
+        "eps": 0.000001,
+        "positionJump": 0,
+        "velocityResidual": 0.558554134678089,
+        "bodyVelocityResidual": 0.558554134678089
+      },
+      {
+        "phase": 0.44,
+        "eps": 0.0001,
+        "positionJump": 0,
+        "velocityResidual": 0.013176476072237021,
+        "bodyVelocityResidual": 0.001880802563937903
+      },
+      {
+        "phase": 0.44,
+        "eps": 0.00001,
+        "positionJump": 0,
+        "velocityResidual": 0.02890328246125686,
+        "bodyVelocityResidual": 0.02890328246125686
+      },
+      {
+        "phase": 0.44,
+        "eps": 0.000001,
+        "positionJump": 0,
+        "velocityResidual": 0.15714159988372045,
+        "bodyVelocityResidual": 0.15714159988372045
+      },
+      {
+        "phase": 0.47,
+        "eps": 0.0001,
+        "positionJump": 0.004583723706331982,
+        "velocityResidual": 46.23117323658963,
+        "bodyVelocityResidual": 46.23117323658963
+      },
+      {
+        "phase": 0.47,
+        "eps": 0.00001,
+        "positionJump": 0.004583723706331982,
+        "velocityResidual": 458.7413504233877,
+        "bodyVelocityResidual": 458.7413504233877
+      },
+      {
+        "phase": 0.47,
+        "eps": 0.000001,
+        "positionJump": 0.004583723706331982,
+        "velocityResidual": 4584.178770608994,
+        "bodyVelocityResidual": 4584.178770608994
+      },
+      {
+        "phase": 0.5,
+        "eps": 0.0001,
+        "positionJump": 0.02059118225412443,
+        "velocityResidual": 205.91875582955743,
+        "bodyVelocityResidual": 205.91875582955743
+      },
+      {
+        "phase": 0.5,
+        "eps": 0.00001,
+        "positionJump": 0.02059118225412478,
+        "velocityResidual": 2059.1295803070793,
+        "bodyVelocityResidual": 2059.1295803070793
+      },
+      {
+        "phase": 0.5,
+        "eps": 0.000001,
+        "positionJump": 0.02059118225412478,
+        "velocityResidual": 20591.010482379643,
+        "bodyVelocityResidual": 20591.010482379643
+      },
+      {
+        "phase": 0.53,
+        "eps": 0.0001,
+        "positionJump": 0.0274655177497073,
+        "velocityResidual": 274.6482644029412,
+        "bodyVelocityResidual": 274.6482644029412
+      },
+      {
+        "phase": 0.53,
+        "eps": 0.00001,
+        "positionJump": 0.027465517749707114,
+        "velocityResidual": 2746.5511514895993,
+        "bodyVelocityResidual": 2746.5511514895993
+      },
+      {
+        "phase": 0.53,
+        "eps": 0.000001,
+        "positionJump": 0.0274655177497073,
+        "velocityResidual": 27465.52454230929,
+        "bodyVelocityResidual": 27465.52454230929
+      },
+      {
+        "phase": 0.56,
+        "eps": 0.0001,
+        "positionJump": 0.01530141569628768,
+        "velocityResidual": 153.02749824127824,
+        "bodyVelocityResidual": 153.02749824127824
+      },
+      {
+        "phase": 0.56,
+        "eps": 0.00001,
+        "positionJump": 0.015301415696288323,
+        "velocityResidual": 1530.167835735311,
+        "bodyVelocityResidual": 1530.167835735311
+      },
+      {
+        "phase": 0.56,
+        "eps": 0.000001,
+        "positionJump": 0.01530141569628811,
+        "velocityResidual": 15301.440248422137,
+        "bodyVelocityResidual": 15301.440248422137
+      },
+      {
+        "phase": 0.59,
+        "eps": 0.0001,
+        "positionJump": 0.002552733672953967,
+        "velocityResidual": 25.52723331422132,
+        "bodyVelocityResidual": 25.52723331422132
+      },
+      {
+        "phase": 0.59,
+        "eps": 0.00001,
+        "positionJump": 0.002552733672953967,
+        "velocityResidual": 255.28210519427228,
+        "bodyVelocityResidual": 255.28210519427228
+      },
+      {
+        "phase": 0.59,
+        "eps": 0.000001,
+        "positionJump": 0.002552733672954203,
+        "velocityResidual": 2552.740768553763,
+        "bodyVelocityResidual": 2552.740768553763
+      },
+      {
+        "phase": 0.62,
+        "eps": 0.0001,
+        "positionJump": 0,
+        "velocityResidual": 0.017874773354515844,
+        "bodyVelocityResidual": 0.00010677913774885547
+      },
+      {
+        "phase": 0.62,
+        "eps": 0.00001,
+        "positionJump": 0,
+        "velocityResidual": 0.0017874883737600078,
+        "bodyVelocityResidual": 0.000011161869182000629
+      },
+      {
+        "phase": 0.62,
+        "eps": 0.000001,
+        "positionJump": 0,
+        "velocityResidual": 0.00017874872930307095,
+        "bodyVelocityResidual": 0.0000011215059538417463
+      },
+      {
+        "phase": 0.64,
+        "eps": 0.0001,
+        "positionJump": 0,
+        "velocityResidual": 0.24082093971114021,
+        "bodyVelocityResidual": 0.24082093971114021
+      },
+      {
+        "phase": 0.64,
+        "eps": 0.00001,
+        "positionJump": 0,
+        "velocityResidual": 0.24043001705389186,
+        "bodyVelocityResidual": 0.24043001705389186
+      },
+      {
+        "phase": 0.64,
+        "eps": 0.000001,
+        "positionJump": 0,
+        "velocityResidual": 0.23650219376423298,
+        "bodyVelocityResidual": 0.23650219376423298
+      }
+    ]
+  }
+]

@@ -1,0 +1,7 @@
+Inspected 2026-10-26T12:50:47.654337+00:00
+B1 2df5c21 / run 40322444560 / job 121570505919: build PASS; 114 passed, 3 failed, 81 skipped.
+B2 2db8745 / run 40323960662 / job 121575720955: build PASS; 118 passed, 3 failed, 81 skipped.
+Known failures on both runs: tests/race-quality.spec.js:47 android + desktop (PUSH comparison); tests/motion-first.spec.js:3146 desktop (AGILITY). No new S-specific failure.
+B3 860f694 / run 40325500209: in_progress, conclusion null.
+Local B1 4/4 PASS; B2 4/4 PASS; B3 6/6 + 2 metric semantics PASS; all unit builds PASS.
+Independent quality diagnostic FAILED: .5 to 1.5 instantaneous switching causes .126981/.112702m sole jumps. Overall REVISE.

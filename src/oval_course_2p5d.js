@@ -33,10 +33,30 @@ export function ovalWorld(m, lane=1.5) {
   const lateral=(1.5-lane)*OVAL_LANE_WIDTH;
   return {x:x-tz*lateral,z:z+tx*lateral,tx,tz,heading:Math.atan2(tz,tx)};
 }
-export function ovalChaseCamera(m, lane=1.5) {
+// A bearing of zero places the eye ahead. Positive bearings show the runner
+// moving towards screen right. World tangent and lane travel share x/z units.
+export function runnerViewAngle(camera, world, speed, laneSpeed = 0) {
+  const forward = speed || (laneSpeed ? 0 : 1);
+  const tx = world.tx * forward + world.tz * laneSpeed;
+  const tz = world.tz * forward - world.tx * laneSpeed;
+  const dx = camera.eyeX - world.x, dz = camera.eyeZ - world.z;
+  return Math.atan2(tz * dx - tx * dz, tx * dx + tz * dz);
+}
+
+export function viewSector(angle, count, previous) {
+  const step = TAU / count;
+  if (previous != null) {
+    const delta = angle - previous * step;
+    if (Math.abs(Math.atan2(Math.sin(delta), Math.cos(delta))) <= step * .56) return previous;
+  }
+  return (Math.round(angle / step) + count) % count;
+}
+
+export function ovalChaseCamera(m, lane=1.5, bearing=3*Math.PI/4) {
   const c=ovalWorld(m,lane);
-  const eyeX=c.x-c.tx*54+c.tz*13;
-  const eyeZ=c.z-c.tz*54-c.tx*13;
+  const along = 56 * Math.cos(bearing), across = 56 * Math.sin(bearing);
+  const eyeX = c.x + c.tx * along + c.tz * across;
+  const eyeZ = c.z + c.tz * along - c.tx * across;
   const dx=c.x-eyeX, dz=c.z-eyeZ;
   const length=Math.hypot(dx,dz);
   const fx=dx/length,fz=dz/length;

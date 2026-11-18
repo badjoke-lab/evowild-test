@@ -1,0 +1,12 @@
+
+Running 1 test using 1 worker
+
+(node:1769) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] [desktop-chromium] › tests/s-toe-continuous.spec.js:25:1 › support-vertex changes and lift-off have continuous actual mesh motion and zero-speed freeze
+[desktop-chromium] › tests/s-toe-continuous.spec.js:25:1 › support-vertex changes and lift-off have continuous actual mesh motion and zero-speed freeze
+D1-B boundaries [{"foot":0,"boundary":0.06538208214891975,"zeroJump":0,"velocityResidual":0.0022843904003754796,"freeze":0},{"foot":0,"boundary":0.12053241842570242,"zeroJump":0,"velocityResidual":0.0012931783839374934,"freeze":0},{"foot":0,"boundary":0.16999976574429218,"zeroJump":0,"velocityResidual":0.0004936970355796326,"freeze":0},{"foot":0,"boundary":0.17,"zeroJump":0,"velocityResidual":0.0005034773379035574,"freeze":0},{"foot":0,"boundary":1,"zeroJump":0,"velocityResidual":0.0005035959937204335,"freeze":0},{"foot":1,"boundary":0.05362861945188532,"zeroJump":0,"velocityResidual":0.0012627445107012965,"freeze":0},{"foot":1,"boundary":0.06703824500261324,"zeroJump":0,"velocityResidual":0.00225370402144643,"freeze":0},{"foot":1,"boundary":0.08845441582472989,"zeroJump":0,"velocityResidual":0.0016977499891818104,"freeze":0},{"foot":1,"boundary":0.08942622067957665,"zeroJump":0,"velocityResidual":0.0016463197537095566,"freeze":0},{"foot":1,"boundary":0.16999976574429218,"zeroJump":0,"velocityResidual":0.0004937034783375784,"freeze":0},{"foot":1,"boundary":0.17,"zeroJump":0,"velocityResidual":0.000503483187120745,"freeze":0},{"foot":1,"boundary":1,"zeroJump":0,"velocityResidual":0.0005035482810975043,"freeze":0},{"foot":2,"boundary":0.16689154277469248,"zeroJump":0,"velocityResidual":0.0004963459945541858,"freeze":0},{"foot":2,"boundary":0.22999976758159188,"zeroJump":0,"velocityResidual":0.0006562641482787664,"freeze":0},{"foot":2,"boundary":0.23,"zeroJump":0,"velocityResidual":0.0006691608120933317,"freeze":0},{"foot":2,"boundary":1,"zeroJump":0,"velocityResidual":0.0006691483916225881,"freeze":0},{"foot":3,"boundary":0.18333616715623205,"zeroJump":0,"velocityResidual":0.0012077866626976823,"freeze":0},{"foot":3,"boundary":0.22999976758159188,"zeroJump":0,"velocityResidual":0.0006562622754699564,"freeze":0},{"foot":3,"boundary":0.23,"zeroJump":0,"velocityResidual":0.0006691592888997952,"freeze":0},{"foot":3,"boundary":1,"zeroJump":0,"velocityResidual":0.0006691627563898558,"freeze":0}]
+
+  1 passed (14.6s)
