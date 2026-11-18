@@ -2,7 +2,7 @@
   "schema_version": 1,
   "child_work_branch": "exp/2p5d-sprite-stacking-20261118",
   "status": "COMPLETE_EXPERIMENT_REVISE",
-  "current_unit": "All requested experiment deliverables complete; final push pending",
+  "current_unit": "Complete: final content commit pushed and independently verified on origin",
   "completed_units": [
     "Inspected main, D3-C v2/v3 and modeling reference",
     "Imported immutable source, reference, six runtime modules and existing oval into isolated public/exp-sprite-stacking",
@@ -23,15 +23,16 @@
     "Five renderer modes pass desktop/mobile QA; source actual IK advances",
     "Standalone all-assets HTML and ZIP with six videos, five comparison views, raw data, report and local HTTP launcher",
     "Extracted ZIP validated: offline after HTTP bootstrap, five modes, twelve layer/frame conditions, zero further HTTP requests, local report/video playback PASS",
-    "Final production build, ZIP CRC/HTML SHA, FFprobe and existing-path isolation checks PASS"
+    "Final production build, ZIP CRC/HTML SHA, FFprobe and existing-path isolation checks PASS",
+    "Final content2133134 verified by git ls-remote and independent raw GitHub DELIVERY.json readback; main remains cde1bd7"
   ],
   "unfinished_units": [],
-  "last_remote_confirmed_sha": "790d6ab1783b7ebebfc2821436287f646a471e22",
-  "next_action": "Review docs/experiments/sprite-stacking/README.md and downloadable public/exp-sprite-stacking-demo.zip; no main integration",
+  "last_remote_confirmed_sha": "21331344e8412af771e7a987048b7c629b8c7b21",
+  "next_action": "Review/download the experiment and REVISE evidence. No unfinished implementation work; do not merge main.",
   "source_limitations": [
     "Existing source GLB contains no textures/UV/materials/colors; preserve neutral appearance and report limitation"
   ],
-  "updated_at_utc": "2026-11-17T16:12:46.716328+00:00",
+  "updated_at_utc": "2026-11-18T22:31:17.806269+00:00",
   "pending_units": [],
   "verdict": "REVISE_NO_PRODUCTION_ADOPTION",
   "limitations": [
@@ -40,5 +41,7 @@
     "Software GPU and mobile emulation; no physical GPU/device claim",
     "Terrain is planar and rail ordering is approximate",
     "file:// direct navigation blocked; provided local HTTP launcher"
-  ]
+  ],
+  "last_remote_verified_at_utc": "2026-11-18T22:31:17.806255+00:00",
+  "checkpoint_note": "This metadata checkpoint records the verified content commit. The metadata commit itself is verified separately after push."
 }
