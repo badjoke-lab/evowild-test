@@ -1,0 +1,83 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EvoWild — procedural S / point surface v0</title><style>*{box-sizing:border-box}body{margin:0;background:#101c2a;color:#e1eff1;font:15px system-ui}main{max-width:1000px;margin:auto;padding:16px}h1{font-size:20px;margin:0 0 5px}p{color:#adc5ce}canvas{width:100%;aspect-ratio:16/9;image-rendering:pixelated;display:block;border:1px solid #527580;touch-action:none}.controls{display:flex;gap:14px;flex-wrap:wrap;margin:14px 0}label{display:flex;align-items:center;gap:6px}input{max-width:110px}button{background:#244e60;border:1px solid #608e98;color:white;padding:8px 14px;border-radius:5px}small{display:block;color:#abc2cc}#state{font-variant-numeric:tabular-nums}</style><main><h1>EvoWild / Procedural S — surface point authoring v0</h1><p>Independent geometry and gait. No imported model, images, rig or dependencies.</p><canvas width="512" height="288" aria-label="Procedural creature running"></canvas><div class="controls"><button id="pause">Pause</button><button id="side">Side view</button><label>Speed <input id="speed" type="range" min="0" max="1.5" step=".1" value="1"></label><label>Yaw <input id="yaw" type="range" min="-3.14" max="3.14" step=".01" value=".6"></label><label>Tilt <input id="tilt" type="range" min="0" max=".65" step=".01" value=".18"></label><label>Point size <input id="size" type="range" min=".6" max="2.3" step=".1" value="1.5"></label><label><input id="auto" type="checkbox">Auto orbit</label></div><p id="state"></p><small>Working draft from the written S morphology contract. Exact reference PNG not inspected; not a morphology-approved asset. Projected surface points, not trained Gaussian splats. Keyboard-free; drag to orbit.</small></main><script>function model(phase, travel=0) {
+  const out=[], tau=2*Math.PI, clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+  const add=(a,b)=>a.map((v,i)=>v+b[i]), sub=(a,b)=>a.map((v,i)=>v-b[i]), mul=(a,k)=>a.map(v=>v*k);
+  const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0), cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]], unit=a=>mul(a,1/(Math.hypot(...a)||1));
+  const mix=(a,b,t)=>add(mul(a,1-t),mul(b,t));
+  const ivory=[218,230,225], blue=[67,124,151], navy=[35,54,77], cyan=[109,193,207], black=[18,30,43];
+  const light=unit([-.45,.8,.65]);
+  function push(p,n,c,r){const l=.48+.52*Math.max(0,dot(n,light));out.push({p,n,c:c.map(x=>Math.round(x*l)),r});}
+  function ell(c,rad,col,n=420,rot=0, dorsal=null){
+    const co=Math.cos(rot),si=Math.sin(rot);
+    for(let i=0;i<n;i++){let y=1-2*(i+.5)/n, a=i*2.39996323, s=Math.sqrt(1-y*y), v=[s*Math.cos(a),y,s*Math.sin(a)], q=v.map((x,k)=>x*rad[k]), nn=unit(v.map((x,k)=>x/rad[k]));
+      let tr=x=>[x[0]*co-x[1]*si,x[0]*si+x[1]*co,x[2]];
+      let cc=dorsal && v[1]>.35?dorsal:col; push(add(c,tr(q)),tr(nn),cc,Math.sqrt(rad[0]*rad[1]+rad[1]*rad[2]+rad[0]*rad[2])/Math.sqrt(n)*1.4);}
+  }
+  function tube(nodes,radii,col,steps=30,around=22, dorsal=null){
+    for(let k=0;k<steps;k++){let u=(k+.5)/steps*(nodes.length-1),j=Math.min(nodes.length-2,Math.floor(u)),f=u-j,c=mix(nodes[j],nodes[j+1],f),t=unit(sub(nodes[j+1],nodes[j])),b=unit(cross(t,[0,0,1])),d=unit(cross(t,b)), r=mix(radii[j],radii[j+1],f);
+      for(let i=0;i<around;i++){let a=tau*(i+.5*(k%2))/around, v=add(mul(b,Math.cos(a)),mul(d,Math.sin(a))),p=add(c,add(mul(b,r[0]*Math.cos(a)),mul(d,r[1]*Math.sin(a))));
+      push(p,v,dorsal&&v[1]>.3?dorsal:col,Math.max(.009,Math.hypot(...sub(nodes[nodes.length-1],nodes[0]))/steps*.77));}}
+  }
+  function blade(a,b,c,w,col,steps=24,rows=12){
+    let tangent=unit(sub(c,a)), side=unit(cross(tangent,[0,0,1]));if(Math.hypot(...side)<.1)side=[0,1,0];
+    for(let i=0;i<steps;i++){let t=(i+.5)/steps, center=add(add(mul(a,(1-t)**2),mul(b,2*t*(1-t))),mul(c,t*t)), width=w*Math.sin(Math.PI*t)**.7;
+      for(let j=0;j<rows;j++){let s=(j+.5)/rows*2-1;
+        for(const sign of [-1,1]){let p=add(add(center,mul(side,s*width)),[0,0,sign*.027*(1-s*s)*Math.sin(Math.PI*t)]);push(p,[0,0,sign],Math.abs(s)>.76?cyan:col,.026);}}}
+  }
+  const bob=.035*Math.cos(tau*phase*2), pitch=.07*Math.sin(tau*phase*2);
+  const body=p=>[p[0]*Math.cos(pitch)-(p[1]-1.34)*Math.sin(pitch),1.34+bob+p[0]*Math.sin(pitch)+(p[1]-1.34)*Math.cos(pitch),p[2]];
+  function E(p,...args){ell(body(p),...args)} function T(ps,...args){tube(ps.map(body),...args)} function B(a,b,c,...args){blade(body(a),body(b),body(c),...args)}
+  // Anatomical anchors are from the text contract, not a visual approval.
+  T([[-.64,1.39,0],[-.38,1.4,0],[.03,1.42,0],[.42,1.40,0],[.66,1.36,0]],[[.17,.12],[.28,.24],[.155,.15],[.24,.21],[.15,.13]],ivory,46,36,blue);
+  E([-.37,1.39,0],[.33,.28,.24],ivory,650,-.13,blue);
+  E([.46,1.36,0],[.27,.235,.20],ivory,480,.12,blue);
+  T([[-.48,1.46,0],[-.72,1.59,0],[-.96,1.81,0],[-1.13,1.88,0]],[[.20,.17],[.145,.13],[.105,.09],[.075,.075]],navy,36,30,blue);
+  E([-1.24,1.86,0],[.22,.115,.095],ivory,350,.17,blue);
+  E([-1.40,1.82,0],[.085,.071,.059],ivory,180,.19);
+  for(const z of [-1,1]){
+    E([-1.29,1.887,z*.088],[.042,.026,.017],black,100);
+    E([-1.30,1.895,z*.099],[.018,.013,.008],cyan,65);
+    B([-1.22,1.94,z*.073],[-.96,2.33,z*.12],[-.55,2.25,z*.19],.105,blue,32,15);
+    B([-1.15,1.92,z*.085],[-.89,2.12,z*.16],[-.66,2.04,z*.20],.065,ivory,20,10);
+    B([-.56,1.56,z*.14],[-.24,1.77,z*.23],[.02,1.47,z*.22],.12,blue,26,13);
+  }
+  const tail=Math.sin(tau*phase)*.07;
+  T([[.58,1.38,0],[.91,1.43,tail*.4],[1.26,1.48,tail],[1.63,1.43,tail*1.6]],[[.13,.12],[.09,.08],[.055,.05],[.012,.014]],navy,36,22);
+  for(let j=0;j<5;j++){let z=(j-2)*.058;B([.83+j*.075,1.47,z*.3],[1.38,1.67-Math.abs(j-2)*.04,z+tail],[1.84-Math.abs(j-2)*.1,1.48-Math.abs(j-2)*.045,z*1.5+tail*1.5],.075,j%2?ivory:blue,27,10)}
+  const feet=[];
+  for(const hind of [false,true])for(const side of [-1,1]){
+    const id=(hind?2:0)+(side>0?1:0), offset=[.04,.19,.57,.72][id], q=((phase+offset)%1+1)%1, stance=.42, stride=.82, swing=(q-stance)/(1-stance);
+    const x0=hind?.53:-.48, z=side*(hind?.15:.17);
+    const hip=body([x0,1.35,z]), foot=[x0+(q<stance?(-stride/2+stride*q/stance):stride/2-stride*(swing*swing*(3-2*swing))),.063+(q<stance?0:.34*Math.sin(Math.PI*swing)**2),z*1.1];
+    const ankle=add(foot,[hind?.045:.025,.14,0]), aLen=hind?.64:.61,bLen=hind?.68:.66;
+    const dir=unit(sub(ankle,hip)),dist=clamp(Math.hypot(...sub(ankle,hip)),Math.abs(aLen-bLen)+.001,aLen+bLen-.001),along=(aLen*aLen-bLen*bLen+dist*dist)/(2*dist);
+    const perp=unit([dir[1],-dir[0],0]),knee=add(add(hip,mul(dir,along)),mul(perp,(hind?1:-1)*Math.sqrt(Math.max(0,aLen*aLen-along*along))));
+    ell(hip,hind?[.17,.20,.125]:[.15,.2,.115],ivory,260,hind?-.28:.25,blue);
+    tube([hip,mix(hip,knee,.38),knee],[[.115,.10],[.09,.076],[.05,.056]],ivory,23,22,blue);
+    ell(knee,[.065,.078,.059],navy,140);
+    tube([knee,mix(knee,ankle,.63),ankle],[[.058,.054],[.039,.037],[.034,.036]],ivory,22,17);
+    tube([ankle,foot],[[.038,.038],[.035,.04]],navy,10,14);
+    for(const dz of [-.024,.024])ell(add(foot,[-.058,-.014,dz]),[.085,.047,.023],navy,115,.08,blue);
+    feet.push({id,stance:q<stance,foot,hip,knee,ankle});
+  }
+  return {points:out,feet};
+}
+function boot(){
+ const canvas=document.querySelector('canvas'), ctx=canvas.getContext('2d',{alpha:false}), label=document.querySelector('#state');
+ let phase=0,last=0,travel=0, yaw=.6, tilt=.18, speed=1, pause=false, drag=null, auto=false;
+ const $=id=>document.getElementById(id); $('speed').oninput=e=>speed=+e.target.value;$('yaw').oninput=e=>yaw=+e.target.value;$('tilt').oninput=e=>tilt=+e.target.value;$('auto').onchange=e=>auto=e.target.checked;
+ $('pause').onclick=()=>{pause=!pause;$('pause').textContent=pause?'Resume':'Pause'}; $('side').onclick=()=>{yaw=0;$('yaw').value=0};
+ canvas.onpointerdown=e=>{drag=[e.clientX,yaw];canvas.setPointerCapture(e.pointerId)};canvas.onpointermove=e=>{if(drag){yaw=drag[1]+(e.clientX-drag[0])*.012;$('yaw').value=yaw}};canvas.onpointerup=canvas.onpointercancel=()=>drag=null;
+ function frame(now){let dt=Math.min(.05,(now-last)/1000||0);last=now;if(!pause){phase=(phase+dt*speed*1.55)%1;travel+=dt*speed*3.03;if(auto)yaw+=dt*.4}
+ const m=model(phase,travel),w=canvas.width,h=canvas.height,s=101,co=Math.cos(yaw),si=Math.sin(yaw),ce=Math.cos(tilt),se=Math.sin(tilt);
+ const project=p=>{let x=p[0]*co-p[2]*si,z=p[0]*si+p[2]*co;return [w/2+x*s,h*.82-(p[1]*ce-z*se)*s,z*ce+p[1]*se]};
+ ctx.fillStyle='#14283d';ctx.fillRect(0,0,w,h);const gr=ctx.createLinearGradient(0,0,0,h);gr.addColorStop(0,'#182a46');gr.addColorStop(.63,'#37606c');gr.addColorStop(1,'#3b625e');ctx.fillStyle=gr;ctx.fillRect(0,0,w,h);
+ function line(a,b,color){let p=project(a),q=project(b);ctx.beginPath();ctx.moveTo(p[0],p[1]);ctx.lineTo(q[0],q[1]);ctx.strokeStyle=color;ctx.stroke()}
+ for(let i=-12;i<=12;i++){let x=i*.48+(travel%.48);line([x,0,-4],[x,0,4],'#507774')}
+ for(let i=-8;i<=8;i++)line([-6,0,i*.48],[6,0,i*.48],'#4b7270');
+ const shadow=project([.1,0,0]);ctx.fillStyle='#192d39aa';ctx.beginPath();ctx.ellipse(shadow[0],shadow[1],s*1.27,s*(.065+.25*Math.abs(Math.sin(tilt))),yaw*.03,0,Math.PI*2);ctx.fill();
+ const arr=m.points.map(v=>({q:project(v.p),c:v.c,r:v.r})).sort((a,b)=>a.q[2]-b.q[2]);
+ const rscale=+$('size').value; for(const {q,c,r} of arr){let sz=Math.max(1,Math.round(r*s*rscale));ctx.fillStyle=`rgb(${c.join(',')})`;ctx.fillRect(Math.round(q[0]-sz/2),Math.round(q[1]-sz/2),sz,sz)}
+ label.textContent=`${m.points.length.toLocaleString()} generated surface points | phase ${phase.toFixed(2)} | ${m.feet.filter(f=>f.stance).length} support feet | ${speed.toFixed(1)}×`;requestAnimationFrame(frame)}
+ requestAnimationFrame(frame)
+}
+boot();</script></html>
