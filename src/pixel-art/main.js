@@ -7,7 +7,7 @@ import { COUNTS, createGpuTimer, geometryBytes, sceneGeometryBytes, summarize } 
 import './lab.css';
 
 const $ = id => document.getElementById(id);
-const modes = { A: '既存 3D', B: '表面点群', C: 'ピクセル点群', D: 'Gaussian splats' };
+const modes = { A: '既存 3D', B: '表面点群', C: 'ピクセル点群', D: 'Gaussian splats', E: '軽量ガウス点群', F: 'メッシュ＋点群' };
 const motionText = { idle: '静止', slow: '歩行相当 · 0.5×', run: '走行 · 1.0×' };
 const speed = { idle: 0, slow: .5, run: 1 };
 const sliders = {
@@ -70,7 +70,7 @@ async function start() {
       button.disabled = !!measurement || (button.dataset.mode === 'D' && !pipeline.canGaussian);
       button.setAttribute('aria-pressed', String(button.dataset.mode === settings.mode));
     }
-    const pixelated = ['C', 'D'].includes(settings.mode);
+    const pixelated = ['C', 'D', 'E', 'F'].includes(settings.mode);
     for (const [key, format] of Object.entries(sliders)) {
       $(key).disabled = !!measurement || settings.mode === 'A' || (['resolution', 'colors', 'outline'].includes(key) && !pixelated);
       $(key).value = settings[key];
@@ -88,7 +88,9 @@ async function start() {
       A: 'D3-C v2 の GLB メッシュと元の材質を使用。',
       B: '表面に固定した不透明な点を、画面解像度で描画。',
       C: '点群と背景を低解像度で描画し、パレットと深度輪郭を適用。',
-      D: '面に沿う Gaussian を深度で選別し、加重合成後にピクセル化。'
+      D: '面に沿う Gaussian を深度で選別し、加重合成後にピクセル化。',
+      E: '等方的なガウス濃淡を持つ不透明点群。深度テストとピクセル化のみ。',
+      F: 'E に既存メッシュ下地を追加。脚先と角の欠けを抑える比較候補。'
     }[settings.mode];
     if (!pipeline.canGaussian) $('control-note').textContent += ' この環境は D に必要な浮動小数点描画に未対応です。';
   }
@@ -150,7 +152,7 @@ async function start() {
     const { calls, triangles, points } = renderer.info.render;
     const boneBytes = active.length * active[0].mesh.skeleton.boneTexture.image.data.byteLength;
     const buffers = landscapeBytes + boneBytes + info.targetBytes + (settings.mode !== 'A' ? surfaceBytes : 0)
-      + (settings.mode === 'A' || settings.mode === 'D' ? meshBytes : 0);
+      + (['A', 'D', 'F'].includes(settings.mode) ? meshBytes : 0);
     return { ...info, calls, triangles, points, gpuBufferEstimateBytes: buffers, frameMs, cpuMs: performance.now() - cpuStart };
   }
 

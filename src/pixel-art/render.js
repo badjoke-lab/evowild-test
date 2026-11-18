@@ -21,6 +21,7 @@ export function makePointMaterial(mesh, vertices) {
       uSun: { value: SUN }, uSky: { value: SKY }, uFog: { value: FOG }, uShading: { value: .65 },
       uSize: { value: .024 }, uViewport: { value: new THREE.Vector2() },
       uPointLimit: { value: 64 }, uGaussian: { value: false },
+      uRadial: { value: false }, uHybrid: { value: false },
       uWorldDepth: { value: null }, uMeshDepth: { value: null }, uRange: { value: new THREE.Vector2() }
     },
     vertexShader: `
@@ -30,7 +31,7 @@ export function makePointMaterial(mesh, vertices) {
       uniform vec3 uSun, uSky;
       uniform float uShading, uSize, uPointLimit, uFog;
       uniform vec2 uViewport;
-      uniform bool uGaussian;
+      uniform bool uGaussian, uHybrid;
       out vec3 vColor;
       out vec3 vInverseCovariance;
       out float vDepth;
@@ -71,6 +72,8 @@ export function makePointMaterial(mesh, vertices) {
         vec4 view = modelViewMatrix * vec4(point, 1.0);
         vDepth = -view.z;
         gl_Position = projectionMatrix * view;
+        // A small clip-depth offset separates surface points from the mesh underlay.
+        if (uHybrid) gl_Position.z -= 0.00001 * gl_Position.w;
         vec3 normal = normalize(mat3(modelMatrix) * surfaceNormal);
         float bright = 0.28 + 1.42 * max(dot(normal, uSun), 0.0) + 0.20 * normal.y;
         vec3 lit = vec3(0.33, 0.35, 0.36) * mix(1.0, bright, uShading);
@@ -97,7 +100,7 @@ export function makePointMaterial(mesh, vertices) {
         gl_PointSize = vDiameter;
       }`,
     fragmentShader: `
-      uniform bool uGaussian;
+      uniform bool uGaussian, uRadial;
       uniform highp sampler2D uWorldDepth, uMeshDepth;
       uniform vec2 uRange;
       uniform float uSize;
@@ -124,7 +127,9 @@ export function makePointMaterial(mesh, vertices) {
           fragmentColor = vec4(vColor * alphaWeight, alphaWeight);
         } else {
           if (dot(p, p) > 0.25) discard;
-          fragmentColor = linearToOutputTexel(vec4(vColor, 1.0));
+          // Opaque isotropic Gaussian tonal profile; no alpha accumulation or depth sort.
+          float shade = uRadial ? mix(0.68, 1.15, exp(-8.0 * dot(p, p))) : 1.0;
+          fragmentColor = linearToOutputTexel(vec4(vColor * shade, 1.0));
         }
       }`
   });
@@ -206,7 +211,9 @@ export function createRenderPipeline(renderer, scene, camera) {
 
   function draw(settings, subjects) {
     const gaussian = settings.mode === 'D';
-    const pixelated = settings.mode === 'C' || gaussian;
+    const radial = settings.mode === 'E' || settings.mode === 'F';
+    const hybrid = settings.mode === 'F';
+    const pixelated = settings.mode === 'C' || gaussian || radial;
     renderer.getDrawingBufferSize(viewport);
     if (pixelated) {
       viewport.set(Math.max(1, Math.round(viewport.x * settings.resolution / 100)),
@@ -224,6 +231,8 @@ export function createRenderPipeline(renderer, scene, camera) {
         uniforms.uViewport.value.copy(viewport);
         uniforms.uPointLimit.value = pointLimit;
         uniforms.uGaussian.value = gaussian;
+        uniforms.uRadial.value = radial;
+        uniforms.uHybrid.value = hybrid;
         uniforms.uWorldDepth.value = gaussian ? color.depthTexture : null;
         uniforms.uMeshDepth.value = gaussian ? meshDepth.depthTexture : null;
         uniforms.uRange.value.set(camera.near, camera.far);
@@ -240,7 +249,10 @@ export function createRenderPipeline(renderer, scene, camera) {
     renderer.info.reset();
     camera.layers.set(0);
     if (settings.mode === 'A') camera.layers.enable(MESH_LAYER);
-    else if (!gaussian) camera.layers.enable(POINT_LAYER);
+    else if (!gaussian) {
+      camera.layers.enable(POINT_LAYER);
+      if (hybrid) camera.layers.enable(MESH_LAYER);
+    }
     if (!pixelated) {
       renderer.setRenderTarget(null);
       renderer.render(scene, camera);

@@ -8,8 +8,8 @@ import { chromium, devices } from 'playwright';
 const task = process.argv[2] ?? 'all';
 assert(['all', 'capture', 'benchmark', 'heavy'].includes(task), 'Expected all, capture, benchmark, or heavy.');
 const base = process.env.PIXEL_ART_URL ?? 'http://localhost:5173/evowild-test/';
-const out = resolve(process.env.PIXEL_ART_OUT ?? 'docs/evidence/pixel-art');
-const modes = ['A', 'B', 'C', 'D'];
+const out = resolve(process.env.PIXEL_ART_OUT ?? 'docs/evidence/pixel-art/lightweight-v2');
+const modes = ['A', 'B', 'C', 'D', 'E', 'F'];
 const motions = ['idle', 'slow', 'run'];
 const browser = await chromium.launch({
   executablePath: process.env.CHROMIUM_PATH,
@@ -59,6 +59,12 @@ async function smoke(page) {
   const [download] = await Promise.all([page.waitForEvent('download'), page.locator('#capture').click()]);
   assert.equal(download.suggestedFilename(), 'evowild-C-slow-10.png');
   await page.locator('#reset-camera').click();
+  for (const mode of ['E', 'F']) {
+    await page.locator(`[data-mode="${mode}"]`).click();
+    assert.equal(await page.evaluate(() => window.pixelArtExperiment.inspect().settings.mode), mode);
+    assert(await page.locator('#resolution').isEnabled());
+    await page.waitForFunction(() => Number(document.querySelector('#points').textContent.replace(/\D/g, '')) === 22000);
+  }
   const layout = await page.evaluate(() => ({ css: innerWidth, document: document.documentElement.scrollWidth }));
   assert(layout.document <= layout.css, 'The page should fit the viewport width.');
 }
@@ -192,7 +198,7 @@ async function captureAll() {
     }
     const tiles = modes.map((mode, i) => `[${i}:v]scale=620:-2,drawtext=text=${mode}:x=16:y=12:fontcolor=white:fontsize=22:box=1:boxcolor=black@0.65:boxborderw=6[${mode}]`).join(';');
     execFileSync('ffmpeg', ['-v', 'error', '-y', ...modes.flatMap(mode => ['-i', join(out, `${mode}.mp4`)]),
-      '-filter_complex_threads', '1', '-filter_complex', `${tiles};[A][B][C][D]xstack=inputs=4:layout=0_0|w0_0|0_h0|w0_h0`,
+      '-filter_complex_threads', '1', '-filter_complex', `${tiles};[A][B][C][D][E][F]xstack=inputs=6:layout=0_0|w0_0|w0+w1_0|0_h0|w0_h0|w0+w1_h0`,
       '-c:v', 'libx264', '-threads', '1', '-crf', '21', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', join(out, 'comparison.mp4')], { stdio: 'pipe' });
     const contact = await poseAudit(context, page);
     await page.evaluate(() => window.pixelArtExperiment.capture({ mode: 'C', motion: 'run', seconds: .25 }));
@@ -225,7 +231,7 @@ async function benchmarkAll(heavy = false) {
       const result = await page.evaluate(heavy => window.pixelArtExperiment.benchmark(heavy ? {
         warmup: 1800, windowMs: 15000, filter: ({ mode, count }) => mode === 'D' && count === 100
       } : undefined), heavy);
-      assert.equal(result.results.length, heavy ? 1 : 16);
+      assert.equal(result.results.length, heavy ? 1 : 24);
       assert(result.results.every(row => row.frames > 0 && row.fps > 0 && row.pointCount === (row.mode === 'A' ? 0 : 4000 * row.count)));
       const suffix = heavy ? 'd100-benchmark' : 'benchmark';
       await writeJson(`${name}-${suffix}.json`, { ...result, profile: name, browser: browser.version(), cpu: cpus()[0].model, cpuThreads: cpus().length, errors });

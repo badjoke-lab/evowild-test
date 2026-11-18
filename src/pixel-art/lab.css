@@ -30,7 +30,7 @@ h1 { font-size: clamp(30px, 4.5vw, 62px); letter-spacing: -.065em; line-height: 
 .secondary, .view-tools button, select { border: 1px solid var(--border); color: inherit; border-radius: 5px; background: #263029; padding: 8px 12px; font-size: 12px; }
 .secondary:hover:enabled, .view-tools button:hover { border-color: var(--accent); }
 .intro button { white-space: nowrap; }
-.modes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-bottom: 12px; }
+.modes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; margin-bottom: 12px; }
 .modes button { min-height: 46px; border: 1px solid var(--border); border-radius: 5px; background: var(--surface); color: #d5ddce; display: flex; align-items: center; justify-content: center; gap: 9px; font-size: 13px; }
 .modes button b { font: 700 12px ui-monospace, monospace; color: var(--accent); }
 .modes button[aria-pressed="true"] { background: #e4bd8e; color: #24251c; border-color: #e4bd8e; }
