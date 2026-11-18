@@ -221,10 +221,11 @@ async function start() {
     requestAnimationFrame(animate);
   }
 
-  function benchmark({ warmup = 1200, windowMs = 3000 } = {}) {
+  function benchmark({ warmup = 1200, windowMs = 3000, filter = () => true } = {}) {
     if (measurement || lost || manual) throw new Error('描画の準備が完了してから計測してください。');
     const queue = Object.keys(modes).filter(mode => mode !== 'D' || pipeline.canGaussian)
-      .flatMap(mode => COUNTS.map(count => ({ mode, count })));
+      .flatMap(mode => COUNTS.map(count => ({ mode, count }))).filter(filter);
+    if (!queue.length) throw new Error('該当する計測条件がありません。');
     const debug = gl.getExtension('WEBGL_debug_renderer_info');
     const metadata = {
       timestamp: new Date().toISOString(), asset: ASSET, clip: source.clip.name, authoredClip: source.authored.name,

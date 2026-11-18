@@ -1,13 +1,12 @@
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
+import { cpus, tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
-import { cpus } from 'node:os';
 import { chromium, devices } from 'playwright';
 
 const task = process.argv[2] ?? 'all';
-assert(['all', 'capture', 'benchmark'].includes(task), 'Expected all, capture, or benchmark.');
+assert(['all', 'capture', 'benchmark', 'heavy'].includes(task), 'Expected all, capture, benchmark, or heavy.');
 const base = process.env.PIXEL_ART_URL ?? 'http://localhost:5173/evowild-test/';
 const out = resolve(process.env.PIXEL_ART_OUT ?? 'docs/evidence/pixel-art');
 const modes = ['A', 'B', 'C', 'D'];
@@ -194,7 +193,7 @@ async function captureAll() {
     const tiles = modes.map((mode, i) => `[${i}:v]scale=620:-2,drawtext=text=${mode}:x=16:y=12:fontcolor=white:fontsize=22:box=1:boxcolor=black@0.65:boxborderw=6[${mode}]`).join(';');
     execFileSync('ffmpeg', ['-v', 'error', '-y', ...modes.flatMap(mode => ['-i', join(out, `${mode}.mp4`)]),
       '-filter_complex_threads', '1', '-filter_complex', `${tiles};[A][B][C][D]xstack=inputs=4:layout=0_0|w0_0|0_h0|w0_h0`,
-      '-c:v', 'libx264', '-threads', '1', '-crf', '21', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', join(out, 'comparison.mp4')]);
+      '-c:v', 'libx264', '-threads', '1', '-crf', '21', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', join(out, 'comparison.mp4')], { stdio: 'pipe' });
     const contact = await poseAudit(context, page);
     await page.evaluate(() => window.pixelArtExperiment.capture({ mode: 'C', motion: 'run', seconds: .25 }));
     await page.screenshot({ path: join(out, 'desktop-ui.png'), fullPage: true });
@@ -217,16 +216,19 @@ async function captureAll() {
   }
 }
 
-async function benchmarkAll() {
+async function benchmarkAll(heavy = false) {
   for (const [name, profile] of Object.entries(profiles)) {
     const errors = [];
     const { context, page } = await open(profile, errors);
     try {
-      console.log(`Benchmarking ${name}`);
-      const result = await page.evaluate(() => window.pixelArtExperiment.benchmark());
-      assert.equal(result.results.length, 16);
+      console.log(`Benchmarking ${name}${heavy ? ' / D100' : ''}`);
+      const result = await page.evaluate(heavy => window.pixelArtExperiment.benchmark(heavy ? {
+        warmup: 1800, windowMs: 15000, filter: ({ mode, count }) => mode === 'D' && count === 100
+      } : undefined), heavy);
+      assert.equal(result.results.length, heavy ? 1 : 16);
       assert(result.results.every(row => row.frames > 0 && row.fps > 0 && row.pointCount === (row.mode === 'A' ? 0 : 4000 * row.count)));
-      await writeJson(`${name}-benchmark.json`, { ...result, profile: name, browser: browser.version(), cpu: cpus()[0].model, cpuThreads: cpus().length, errors });
+      const suffix = heavy ? 'd100-benchmark' : 'benchmark';
+      await writeJson(`${name}-${suffix}.json`, { ...result, profile: name, browser: browser.version(), cpu: cpus()[0].model, cpuThreads: cpus().length, errors });
       assert.deepEqual(errors, []);
     } finally {
       await context.close();
@@ -235,8 +237,8 @@ async function benchmarkAll() {
 }
 
 try {
-  if (task !== 'capture') await benchmarkAll();
-  if (task !== 'benchmark') await captureAll();
+  if (task !== 'capture') await benchmarkAll(task === 'heavy');
+  if (task === 'all' || task === 'capture') await captureAll();
 } finally {
   await browser.close();
 }
