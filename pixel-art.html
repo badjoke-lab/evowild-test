@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#151b18" />
+    <link rel="icon" href="data:," />
+    <title>EvoWild | Pixel-art 点群描画</title>
+    <script type="module" src="/src/pixel-art/main.js"></script>
+  </head>
+  <body>
+    <main class="lab">
+      <header class="masthead">
+        <div class="brand"><span class="mark" aria-hidden="true"></span><strong>EvoWild</strong><span>描画実験</span></div>
+        <div class="asset">S TYPE <span>／</span> D3-C v2</div>
+      </header>
+      <section class="intro" aria-labelledby="title">
+        <div><h1 id="title">Pixel-art 点群描画</h1><p>既存の S モデルと走行クリップで、4 つの描画方式を比較。</p></div>
+        <button type="button" id="capture" class="secondary" disabled>PNG を保存</button>
+      </section>
+      <nav class="modes" aria-label="描画方式">
+        <button type="button" data-mode="A" aria-pressed="true"><b>A</b><span>既存 3D</span></button>
+        <button type="button" data-mode="B" aria-pressed="false"><b>B</b><span>表面点群</span></button>
+        <button type="button" data-mode="C" aria-pressed="false"><b>C</b><span>ピクセル点群</span></button>
+        <button type="button" data-mode="D" aria-pressed="false"><b>D</b><span>Gaussian splats</span></button>
+      </nav>
+      <div class="workspace">
+        <section aria-label="ビューポート" class="view">
+          <div class="stage" id="stage">
+            <canvas id="scene" aria-label="S モデルの 3D ビューポート"></canvas>
+            <div class="view-label"><span id="mode-label">A · 既存 3D</span><span id="motion-label">走行 · 1.0×</span></div>
+            <p id="status" role="status">D3-C v2 を読み込み中…</p>
+            <div class="view-tools"><button type="button" id="orbit" aria-pressed="false">自動回転</button><button type="button" id="reset-camera">視点リセット</button></div>
+          </div>
+          <dl class="metrics" aria-label="描画計測">
+            <div><dt>FPS</dt><dd id="fps">—</dd></div>
+            <div><dt>描画点数</dt><dd id="points">—</dd></div>
+            <div><dt>GPU / フレーム</dt><dd id="gpu">—</dd></div>
+            <div><dt>GPU バッファ概算</dt><dd id="memory">—</dd></div>
+          </dl>
+          <p class="hint">ドラッグで回転。スクロールまたはピンチでズーム。動作は定点表示。</p>
+        </section>
+        <aside class="controls" aria-label="比較の設定">
+          <div class="panel">
+            <h2>比較条件</h2>
+            <label for="motion">動作</label>
+            <select id="motion"><option value="idle">静止</option><option value="slow">歩行相当（走行 0.5×）</option><option value="run" selected>走行（1.0×）</option></select>
+            <label for="count">個体数</label>
+            <select id="count"><option>1</option><option>10</option><option>50</option><option>100</option></select>
+            <label class="check"><input type="checkbox" id="landscape" checked />草・樹木・岩を表示</label>
+          </div>
+          <div class="panel shader">
+            <h2>描画調整</h2>
+            <div class="slider"><label for="density">点の密度</label><output for="density" id="density-value"></output><input id="density" type="range" min="400" max="12000" step="100" value="4000" /></div>
+            <div class="slider"><label for="size">点の大きさ</label><output for="size" id="size-value"></output><input id="size" type="range" min="12" max="120" step="1" value="44" /></div>
+            <div class="slider"><label for="resolution">描画解像度</label><output for="resolution" id="resolution-value"></output><input id="resolution" type="range" min="25" max="100" step="5" value="35" /></div>
+            <div class="slider"><label for="colors">色数</label><output for="colors" id="colors-value"></output><input id="colors" type="range" min="8" max="32" step="8" value="24" /></div>
+            <div class="slider"><label for="shading">陰影</label><output for="shading" id="shading-value"></output><input id="shading" type="range" min="0" max="100" step="5" value="65" /></div>
+            <div class="slider"><label for="outline">輪郭の強さ</label><output for="outline" id="outline-value"></output><input id="outline" type="range" min="0" max="100" step="5" value="60" /></div>
+            <p id="control-note" class="control-note"></p>
+          </div>
+          <div class="panel measure">
+            <h2>負荷計測</h2>
+            <button type="button" id="benchmark" class="secondary" disabled>全方式 × 4 個体数を計測</button>
+            <button type="button" id="export" class="secondary" disabled>計測結果の JSON を保存</button>
+            <p id="benchmark-status" role="status">走行と自動回転で計測します。</p>
+          </div>
+        </aside>
+      </div>
+    </main>
+  </body>
+</html>
