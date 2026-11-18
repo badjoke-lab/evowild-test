@@ -140,3 +140,13 @@
  .spectator-details>summary{min-height:32px;font-size:11px}
  .stage[data-mode="stadium-agent-isolated-preview"] .agent-feedback{right:9px;left:auto;top:100px;max-width:240px}
 }
+
+#cameraMode {
+  max-width: 8em;
+  border: 1px solid rgba(225,245,255,.3);
+  border-radius: 8px;
+  background: #182933;
+  color: #eff9ff;
+  font: inherit;
+  font-size: 12px;
+}

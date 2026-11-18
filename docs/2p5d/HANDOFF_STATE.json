@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
   "purpose": "Codex child-branch checkpoint, not the main repo project status",
-  "status": "BASELINE_CAPTURED",
+  "status": "STADIUM_DIRECTIONAL_RENDER_IMPLEMENTED_QA_IN_PROGRESS",
   "base_repository": "badjoke-lab/evowild-test",
   "parent_branch": "feat/2p5d-autonomous-agent-orbs-20261024",
   "child_work_branch": "feat/2p5d-flow-persistence-20261025",
   "draft_pr_url": "https://github.com/badjoke-lab/evowild-test/pull/132",
   "base_commit_at_handoff": "dcd3f56d0d3187b972ac3919141889a2933b0c9d",
-  "checkpoint_updated_at_utc": "2026-10-30T02:09:09.703213+00:00",
+  "checkpoint_updated_at_utc": "2026-11-18T23:02:03.977286+00:00",
   "session_index": 6,
   "current_gate": "GATE_1",
-  "current_unit": "Eight-view 2D stadium race",
+  "current_unit": "Eight-view 2D stadium renderer and recovered or articulated directional run atlases",
   "last_commit_created": "fe09ccc82259e934e5a36232747d5159b362f310",
-  "last_remote_confirmed_sha": "bb5f97aa4b3cd3d571f1bd5d8248e84b8e589a60",
+  "last_remote_confirmed_sha": "df0786cef14daa2dacac24f815990ed8554dde0c",
   "last_remote_verified_at_utc": "2026-10-30T02:09:09.703213+00:00",
   "local_uncommitted_files": [
     "?? artifacts/",
@@ -137,7 +137,7 @@
     "docs/2p5d/evidence/20261029-s-d3b-fore-reach/VISUAL_REVIEW.md",
     "docs/2p5d/evidence/20261029-s-d3b-fore-reach/actions-summary.json"
   ],
-  "next_action": "Integrate recovered directional art and test the 18-runner stadium race.",
+  "next_action": "Run the stadium camera and game-loop suites and save final desktop/mobile race evidence.",
   "continuation_rule": "Resume from last_remote_confirmed_sha and the first unfinished pending_unit, never restart all work; no destructive reset or main merge",
-  "checkpoint_note": "Latest verified remote before this documentation commit:fe09ccc. Repeated recovery request reconciled with already-completed source/evidence; stale FAILED task wording now preceded by dated completion checkpoint. No source/test/asset modifications. Final documentation commit will be pushed and remote SHA verified; its parent is intentionally recorded here to avoid a self-referential hash. PR132 remains open Draft/unmerged."
+  "checkpoint_note": "2D race only. Visual quality remains under review. Prior 3D units recorded below are historical."
 }

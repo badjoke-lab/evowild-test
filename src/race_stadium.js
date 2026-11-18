@@ -2,6 +2,8 @@ import {recordLaneExecution, observeLaneExecution, laneExecutionText, laneSource
 import { resolveRecordedAgentDecision } from "./race_agent_outcome_2p5d.js";
 import { classifyFinishCrossings } from "./race_finish_2p5d.js";
 import { AGENT_FIELDS, AGENT_PRESETS, makeAgentFile, normalizedAgentFile, decideAgentAction } from "./race_agent_v1.js";
+import { RUN_VIEWS, CELL_WIDTH, CELL_HEIGHT, drawRunSprite, loadRunAtlas } from "./stadium_sprites.js";
+import { OVAL_LANE_WIDTH } from "./oval_course_2p5d.js";
 import { drawOvalRace } from "./oval_render_2p5d.js";
 import { makeRaceRecord, appendRaceResult, selectPlayerRunner } from "./game_progress_2p5d.js";
 import { loadAgentProfile, saveAgentProfile, matchedAgentPreset } from "./race_agent_profile_store.js";
@@ -51,7 +53,10 @@ const BATTLE_REVIEW_MODE = new URLSearchParams(location.search).get("battleRevie
 const TRAFFIC_REVIEW_MODE = new URLSearchParams(location.search).get("trafficReview") === "1";
 const LANE_REVIEW_MODE = new URLSearchParams(location.search).get("laneReview") === "1";
 const MOTION_REVIEW_MODE = new URLSearchParams(location.search).get("motionReview") === "1";
-let OVAL_CHASE_ENABLED = new URLSearchParams(location.search).get("camera") !== "side";
+const cameraSelect = document.querySelector("#cameraMode");
+const requestedCamera = new URLSearchParams(location.search).get("camera");
+cameraSelect.value = [...cameraSelect.options].some(o => o.value === requestedCamera)
+  ? requestedCamera : "rear-right";
 const MOTION_REVIEW_FRAME = Math.max(
   -1,
   Math.min(5, Number(new URLSearchParams(location.search).get("motionFrame") ?? -1))
@@ -66,9 +71,7 @@ stage.dataset.engineLineage = "lane5-fixed-step-plus-four-morph-run-sheets";
 stage.dataset.morphSet = "S,P,E,A";
 stage.dataset.fieldSize = String(FIELD_SIZE);
 stage.dataset.cameraPolicy = "selected-plus-nearby";
-stage.dataset.peaMotionVersion = "grounded-stride-v2";
-stage.dataset.peaAnchorVersion = "alpha-bbox-x-v3";
-stage.dataset.aSheetLayout = "2x3";
+
 const LANE_PATTERN = [1, 2, 0, 3, 1, 3, 0, 2];
 const CRUISE_PATTERN = [36.8,34.7,35.9,34.9,36.1,35.2,35.6,34.8];
 const ACCEL_PATTERN = [15.0,13.4,14.3,13.6,14.0,13.5,13.9,13.4];
@@ -104,51 +107,22 @@ const MORPH_META = {
   A: { cadence:1.02, width:1.06, lift:0.82 }
 };
 
-const PEA_MOTION_V2 = {
-  P: {
-    durations:[0.76,1.18,0.82,0.82,1.26,1.16],
-    transform:{
-      CONTACT:{ sx:1.00, sy:1.01, lean:-0.004, lift: 0.000 },
-      PUSH:   { sx:1.06, sy:0.98, lean: 0.018, lift:-0.006 },
-      LIFT:   { sx:1.02, sy:0.99, lean: 0.014, lift:-0.020 },
-      FLIGHT: { sx:1.08, sy:0.96, lean: 0.018, lift:-0.052 },
-      REACH:  { sx:1.07, sy:0.97, lean: 0.010, lift:-0.030 },
-      LAND:   { sx:1.00, sy:1.02, lean:-0.006, lift:-0.004 }
-    }
-  },
-  E: {
-    durations:[0.82,0.98,0.78,1.08,1.36,0.98],
-    transform:{
-      CONTACT:{ sx:1.00, sy:1.00, lean:-0.004, lift: 0.000 },
-      PUSH:   { sx:1.03, sy:0.99, lean: 0.010, lift:-0.006 },
-      LIFT:   { sx:1.02, sy:1.00, lean: 0.008, lift:-0.018 },
-      FLIGHT: { sx:1.08, sy:0.98, lean: 0.006, lift:-0.044 },
-      REACH:  { sx:1.10, sy:0.98, lean: 0.004, lift:-0.026 },
-      LAND:   { sx:0.99, sy:1.01, lean:-0.006, lift:-0.003 }
-    }
-  },
-  A: {
-    durations:[0.72,1.12,0.74,1.14,1.28,1.00],
-    transform:{
-      CONTACT:{ sx:1.00, sy:0.99, lean: 0.004, lift: 0.000 },
-      PUSH:   { sx:1.07, sy:0.96, lean: 0.022, lift:-0.008 },
-      LIFT:   { sx:1.04, sy:0.97, lean: 0.018, lift:-0.024 },
-      FLIGHT: { sx:1.12, sy:0.94, lean: 0.020, lift:-0.060 },
-      REACH:  { sx:1.10, sy:0.95, lean: 0.014, lift:-0.035 },
-      LAND:   { sx:0.99, sy:1.00, lean:-0.006, lift:-0.004 }
-    }
-  }
+// Durations of CONTACT, PUSH, LIFT, FLIGHT, REACH and LAND in six-key units.
+const KEY_DURATIONS = {
+  P:[.76,1.18,.82,.82,1.26,1.16], E:[.82,.98,.78,1.08,1.36,.98], A:[.72,1.12,.74,1.14,1.28,1]
 };
-
-function peaFrameIndex(morph, cyclePosition) {
-  const profile = PEA_MOTION_V2[morph];
-  if (!profile) return Math.floor(cyclePosition) % RUN_FRAMES.length;
-  let cursor = 0;
-  for (let index = 0; index < profile.durations.length; index++) {
-    cursor += profile.durations[index];
-    if (cyclePosition < cursor) return index;
+function spritePhase(r) {
+  if (MOTION_REVIEW_MODE && r.id === SELECTED_ID && MOTION_REVIEW_FRAME >= 0) {
+    return MOTION_REVIEW_FRAME / 6;
   }
-  return profile.durations.length - 1;
+  let t = r.stridePhase;
+  const durations = KEY_DURATIONS[r.morph];
+  if (!durations) return t / 6;
+  for (let k = 0; k < durations.length; k++) {
+    if (t < durations[k]) return (k + t / durations[k]) / 6;
+    t -= durations[k];
+  }
+  return 0;
 }
 
 const AGENT_COMMAND_DURATION_MS = 8000;
@@ -186,144 +160,21 @@ const RUN_FRAMES = [
   { phase:"LAND",    col:2, row:1, y:-0.16 }
 ];
 
-const SHEET_LAYOUTS = {
-  S: { cols:3, rows:2, coords:[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1]] },
-  P: { cols:3, rows:2, coords:[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1]] },
-  E: { cols:3, rows:2, coords:[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1]] },
-  A: { cols:2, rows:3, coords:[[0,0],[1,0],[0,1],[1,1],[0,2],[1,2]] }
-};
-
-const spriteSheets = new Map();
-const spriteFrames = new Map();
 let readySheets = 0;
-let failedSheets = 0;
-
-function extractConnectedFrame(image, col, row, cols=3, rows=2) {
-  const fw = Math.floor(image.naturalWidth / cols);
-  const fh = Math.floor(image.naturalHeight / rows);
-  const canvas = document.createElement("canvas");
-  canvas.width = fw;
-  canvas.height = fh;
-  const c = canvas.getContext("2d", { willReadFrequently: true });
-  c.clearRect(0, 0, fw, fh);
-  c.drawImage(image, col * fw, row * fh, fw, fh, 0, 0, fw, fh);
-
-  const pixels = c.getImageData(0, 0, fw, fh);
-  const alpha = pixels.data;
-  const count = fw * fh;
-  let seed = -1;
-  let bestDistance = Infinity;
-  const centerX = fw * 0.5;
-  const centerY = fh * 0.48;
-
-  for (let i = 0; i < count; i++) {
-    if (alpha[i * 4 + 3] <= 12) continue;
-    const x = i % fw;
-    const y = Math.floor(i / fw);
-    const dx = x - centerX;
-    const dy = y - centerY;
-    const d = dx * dx + dy * dy;
-    if (d < bestDistance) {
-      bestDistance = d;
-      seed = i;
-    }
-  }
-
-  if (seed < 0) return canvas;
-
-  const visited = new Uint8Array(count);
-  const queue = new Int32Array(count);
-  let head = 0;
-  let tail = 0;
-  queue[tail++] = seed;
-  visited[seed] = 1;
-
-  while (head < tail) {
-    const index = queue[head++];
-    const x = index % fw;
-    const y = Math.floor(index / fw);
-
-    for (let oy = -1; oy <= 1; oy++) {
-      for (let ox = -1; ox <= 1; ox++) {
-        if (ox === 0 && oy === 0) continue;
-        const nx = x + ox;
-        const ny = y + oy;
-        if (nx < 0 || nx >= fw || ny < 0 || ny >= fh) continue;
-        const next = ny * fw + nx;
-        if (visited[next] || alpha[next * 4 + 3] <= 12) continue;
-        visited[next] = 1;
-        queue[tail++] = next;
-      }
-    }
-  }
-
-  let minX = fw;
-  let maxX = -1;
-  let minY = fh;
-  let maxY = -1;
-  let footY = -1;
-  const footMinX = fw * 0.18;
-  const footMaxX = fw * 0.88;
-
-  for (let i = 0; i < count; i++) {
-    if (!visited[i]) {
-      alpha[i * 4 + 3] = 0;
-      continue;
-    }
-    const x = i % fw;
-    const y = Math.floor(i / fw);
-    minX = Math.min(minX, x);
-    maxX = Math.max(maxX, x);
-    minY = Math.min(minY, y);
-    maxY = Math.max(maxY, y);
-    if (x >= footMinX && x <= footMaxX) footY = Math.max(footY, y);
-  }
-  c.putImageData(pixels, 0, 0);
-  const centerXNorm = maxX >= minX
-    ? ((minX + maxX) * 0.5) / Math.max(1, fw - 1)
-    : 0.5;
-  canvas.__motionMetrics = {
-    minX, maxX, minY, maxY,
-    centerXNorm,
-    footYNorm: footY >= 0 ? footY / Math.max(1, fh - 1) : 0.98
-  };
-  return canvas;
-}
-
-for (const morph of ["S","P","E","A"]) {
-  const image = new Image();
-  image.decoding = "async";
-  image.onload = () => {
-    const layout = SHEET_LAYOUTS[morph] ?? SHEET_LAYOUTS.S;
-    const frames = RUN_FRAMES.map((frame,index) => {
-      const [col,row] = layout.coords[index] ?? [frame.col,frame.row];
-      return extractConnectedFrame(image,col,row,layout.cols,layout.rows);
-    });
-    spriteFrames.set(morph, frames);
-    stage.dataset[`${morph.toLowerCase()}SheetLayout`] = `${layout.cols}x${layout.rows}`;
-    if (morph !== "S") {
-      const feet = frames.map((frame) => frame.__motionMetrics?.footYNorm ?? 0.98);
-      const spread = Math.max(...feet) - Math.min(...feet);
-      stage.dataset[`${morph.toLowerCase()}FootSpreadRaw`] = spread.toFixed(3);
-      stage.dataset[`${morph.toLowerCase()}GroundAnchor`] = "auto-foot-v2";
-    }
-    readySheets++;
-    stage.dataset.runSheetsReady = String(readySheets);
-    stage.dataset.runSheetCleanup = "connected-body-alpha";
-    if (readySheets === 4 && failedSheets === 0) {
-      stage.dataset.runSheets = "ready";
-      ui.assetStatus.textContent = "S / P / E / A run cycles ready";
-    }
-  };
-  image.onerror = () => {
-    failedSheets++;
-    stage.dataset.runSheets = "error";
-    stage.dataset.runSheetsFailed = String(failedSheets);
-    ui.assetStatus.textContent = morph + " run cycle failed";
-  };
-  image.src = BASE + "concept/" + morph.toLowerCase() + "-run-sheet.webp";
-  spriteSheets.set(morph, image);
-}
+const assetsReady = Promise.all(["S","P","E","A"].map(async morph => {
+  await loadRunAtlas(morph, BASE);
+  stage.dataset.runSheetsReady = String(++readySheets);
+})).then(() => {
+  stage.dataset.runSheets = "ready";
+  ui.assetStatus.textContent = "S / P / E / A run cycles ready";
+  document.querySelector("#startAutonomous").disabled = false;
+  return true;
+}).catch(error => {
+  stage.dataset.runSheets = "error";
+  ui.assetStatus.textContent = "走行画像の読み込みに失敗しました。再読み込みしてください。";
+  console.error(error);
+  return false;
+});
 
 let width = 1;
 let height = 1;
@@ -452,7 +303,8 @@ function makeRacers() {
                 : MOTION_REVIEW_MODE && i===SELECTED_ID-1
                   ? 1.5
                   : LANES[i],
-    phaseOffset:i*0.87,
+    stridePhase:(i * .87) % 6,
+    laneSpeed:0,
     cooldown:(BATTLE_REVIEW_MODE && i===1) || (TRAFFIC_REVIEW_MODE && i<2) || (LANE_REVIEW_MODE && (i===1 || i===2)) ? 999999 : 0,
     laneHoldUntil:0,
     laneDecisionCount:0,
@@ -899,6 +751,7 @@ function updateRace(dtMs) {
     const step = r.accel*dt*(diff>=0 ? 1 : 1.45);
     r.speed += clamp(diff,-step,step);
 
+    const previousLane = r.lane;
     if (r.lane!==r.targetLane) {
       const dir = Math.sign(r.targetLane-r.lane);
       const laneStep = dt*1.9;
@@ -907,6 +760,9 @@ function updateRace(dtMs) {
       else r.lane=next;
     }
 
+    r.laneSpeed = (r.lane - previousLane) * OVAL_LANE_WIDTH / dt;
+    const cadence = (9.5 + clamp(r.speed / 34, 0, 1) * 9.5) * MORPH_META[r.morph].cadence;
+    r.stridePhase = (r.stridePhase + cadence * dt) % 6;
     const effort = Math.max(0,r.speed/r.cruise-.95);
     r.stamina = Math.max(
       0,
@@ -1562,33 +1418,19 @@ function drawRacers() {
     const battleRival=r.id===battleRivalId && stage.dataset.battleVisible==="1";
     const scale=laneScale(item.lane);
     const meta=MORPH_META[r.morph] ?? MORPH_META.S;
-    const frames=spriteFrames.get(r.morph);
     const baseW = MOTION_REVIEW_MODE && r.id===SELECTED_ID
       ? (width<700 ? clamp(width*.42,170,240) : clamp(width*.23,250,340))
       : width<700
         ? clamp(width*.13,78,108)
         : clamp(width*.078,104,128);
     const spriteW=baseW*scale*(selectedRacer?1.04:1)*meta.width;
-    const sampleFrame=frames?.[0];
-    const sourceAspect=sampleFrame
-      ? sampleFrame.height/sampleFrame.width
-      : .84;
-    const spriteH=spriteW*clamp(sourceAspect,.58,1.08);
+    const spriteH=spriteW * CELL_HEIGHT / CELL_WIDTH;
     minEdge=Math.min(minEdge,item.x-spriteW*.52);
     maxEdge=Math.max(maxEdge,item.x+spriteW*.52);
-
-    const cadence=(9.5+clamp(r.speed/34,0,1)*9.5)*meta.cadence;
-    const frameFloat=elapsed/1000*cadence+r.phaseOffset;
-    const cyclePosition=((frameFloat%RUN_FRAMES.length)+RUN_FRAMES.length)%RUN_FRAMES.length;
-    const frameIndex=MOTION_REVIEW_MODE && r.id===SELECTED_ID && MOTION_REVIEW_FRAME>=0
-      ? MOTION_REVIEW_FRAME
-      : r.morph==="S"
-        ? Math.floor(cyclePosition)
-        : peaFrameIndex(r.morph,cyclePosition);
+    const phase=spritePhase(r);
+    const frameIndex=Math.floor(phase * 6);
     const frame=RUN_FRAMES[frameIndex];
 
-    const slope=terrainSlope(item.visualDistance);
-    const lean=clamp(slope*.022,-.045,.045);
 
     const flight =
       frame.phase==="FLIGHT" ? 1 :
@@ -1617,45 +1459,13 @@ function drawRacers() {
       ctx.restore();
     }
 
-    const frameCanvas=frames?.[frameIndex];
-    if(frameCanvas){
-      const peaProfile=PEA_MOTION_V2[r.morph];
-      const phaseTransform=peaProfile?.transform?.[frame.phase] ?? { sx:1, sy:1, lean:0, lift:0 };
-      const drawW=spriteW*phaseTransform.sx;
-      const drawH=spriteH*phaseTransform.sy;
-      const footNorm=frameCanvas.__motionMetrics?.footYNorm ?? 0.98;
-      const centerXNorm=frameCanvas.__motionMetrics?.centerXNorm ?? 0.5;
-      const groundCorrection=r.morph==="S" ? 0 : (0.98-footNorm)*drawH;
-      const horizontalCorrection=r.morph==="S"
-        ? 0
-        : clamp((0.5-centerXNorm)*drawW,-drawW*.18,drawW*.18);
-      const legacyLift=r.morph==="S" ? frame.y*drawH*.12*meta.lift : 0;
-      const phaseLift=r.morph==="S" ? 0 : phaseTransform.lift*drawH;
-      const footAdjust=groundCorrection+legacyLift+phaseLift;
-
-      ctx.save();
-      ctx.translate(item.x+horizontalCorrection,item.y-drawH*.48);
-      ctx.rotate(lean+phaseTransform.lean);
-      if(selectedRacer){
-        ctx.shadowColor="rgba(126,226,255,.85)";
-        ctx.shadowBlur=clamp(drawW*.08,4,18);
-      } else if(battleRival){
-        ctx.shadowColor="rgba(255,220,130,.88)";
-        ctx.shadowBlur=clamp(drawW*.075,4,16);
-      }
-      ctx.drawImage(frameCanvas,-drawW/2,-drawH/2+footAdjust,drawW,drawH);
-      ctx.restore();
-
-      stage.dataset[`${r.morph.toLowerCase()}Animated`] = "true";
-      stage.dataset[`${r.morph.toLowerCase()}Frame`] = String(frameIndex);
-      if(r.morph!=="S"){
-        stage.dataset[`${r.morph.toLowerCase()}MotionProfile`] = "grounded-stride-v2";
-        stage.dataset[`${r.morph.toLowerCase()}FootAdjust`] = footAdjust.toFixed(2);
-        stage.dataset[`${r.morph.toLowerCase()}HorizontalAdjust`] = horizontalCorrection.toFixed(2);
-        stage.dataset[`${r.morph.toLowerCase()}FrameCenterX`] = centerXNorm.toFixed(3);
-        stage.dataset.peaAnchorVersion = "alpha-bbox-x-v3";
-      }
+    ctx.save();
+    if(selectedRacer || battleRival){
+      ctx.shadowColor=selectedRacer ? "#7ee2ff" : "#ffdc82";
+      ctx.shadowBlur=8;
     }
+    drawRunSprite(ctx,r,RUN_VIEWS[2],phase,item.x,item.y,spriteH);
+    ctx.restore();
 
     drawRaceAgentOrb(r,item.x,item.y,spriteW,spriteH,selectedRacer);
 
@@ -1678,6 +1488,7 @@ function drawRacers() {
     }
 
     if(selectedRacer){
+      stage.dataset.stridePhase=phase.toFixed(8);
       stage.dataset.selectedRunFrame=String(frameIndex);
       stage.dataset.selectedRunPhase=frame.phase;
       stage.dataset.selectedMorph=r.morph;
@@ -1845,17 +1656,12 @@ function drawSpeedRush() {
 function render() {
   const focus=selected();
   updateCamera();
-  if(OVAL_CHASE_ENABLED){
+  if(cameraSelect.value !== "side"){
     ctx.save();
     drawOvalRace({
       ctx,width,height,elapsed,cameraMeters,racers,focus,raceState,
-      framesByMorph:spriteFrames,
-      spritePhase:(r,time)=>{
-        const meta=MORPH_META[r.morph] ?? MORPH_META.S;
-        const cadence=(9.5+clamp(r.speed/34,0,1)*9.5)*meta.cadence;
-        const cycle=((time/1000*cadence+r.phaseOffset)%6+6)%6;
-        return r.morph==="S" ? Math.floor(cycle) : peaFrameIndex(r.morph,cycle);
-      },
+      bearing:RUN_VIEWS.findIndex(view => view.name === cameraSelect.value) * Math.PI * 2 / RUN_VIEWS.length,
+      spritePhase,
       orbDrawer:drawRaceAgentOrb,stage,motionReviewMode:MOTION_REVIEW_MODE
     });
     ctx.restore();
@@ -1863,6 +1669,8 @@ function render() {
     return;
   }
   stage.dataset.cameraMode="legacy-side";
+  stage.dataset.selectedDirection="right";
+  stage.dataset.creatureFacing="directional-atlas";
   stage.dataset.trackVisible="0";
 
   const speedNorm=clamp(focus.speed/36.5,0,1);
@@ -2097,14 +1905,7 @@ ui.pause.addEventListener("click",()=>{
 });
 ui.reset.addEventListener("click",resetRace);
 installPreRaceAgentUI();
-const cameraModeButton=document.querySelector("#cameraMode");
-if(cameraModeButton){
-  cameraModeButton.addEventListener("click",()=>{
-    OVAL_CHASE_ENABLED=!OVAL_CHASE_ENABLED;
-    cameraModeButton.textContent=OVAL_CHASE_ENABLED ? "Camera: 3/4" : "Camera: SIDE";
-    stage.dataset.cameraMode=OVAL_CHASE_ENABLED?"oval-three-quarter-follow":"legacy-side";
-  });
-}
+
 
 if (agentTargetSelect) {
   agentTargetSelect.addEventListener("change", () => {
@@ -2176,9 +1977,9 @@ stage.dataset.manualControls="0";
 stage.dataset.recordSaved="none";
 stage.dataset.entryRunnerId=String(SELECTED_ID);
 stage.dataset.entryRunnerMorph=selected()?.morph ?? "S";
-stage.dataset.cameraMode=OVAL_CHASE_ENABLED?"oval-three-quarter-follow":"legacy-side";
+
 stage.dataset.agentMode="autonomous-v1";
-if (new URLSearchParams(location.search).get("autoStart")==="1") startAutonomousRace();
+if (new URLSearchParams(location.search).get("autoStart")==="1") assetsReady.then(ok => { if (ok) startAutonomousRace(); });
 requestAnimationFrame(now=>{last=now;fixedFrame(now);});
 // Disclosure changes information density only; it never issues a race command.
 document.querySelector("#spectatorDetails").addEventListener("keydown",event=>{

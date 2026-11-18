@@ -43,10 +43,10 @@
       <div class="setup-actions">
         <label class="agent-import-label">Agent Fileを読み込む <input id="importAgent" type="file" accept=".json,application/json" /></label>
         <button type="button" id="exportAgent">Agent Fileを出力</button>
-        <button type="button" id="startAutonomous" class="start-autonomous">この設定で観戦開始 →</button>
+        <button type="button" id="startAutonomous" disabled class="start-autonomous">この設定で観戦開始 →</button>
       </div>
       <div id="setupValidation" role="status"></div>
-      <small class="setup-note">既存のS/P/E/A走行シートを利用。周回走路と3/4カメラは座標連動していますが、個体は横向き画像の仮表示です。正式な3/4走行アニメーションではありません。</small>
+
     </section>
     <section class="auto-agent-panel" id="autoAgentPanel" aria-label="Autonomous Race Agent state" hidden>
       <div class="auto-agent-title"><b id="autoCreatureName">出走個体</b><span class="hud-fatigue">疲労 <strong id="autoFatigue">0%</strong></span></div>
@@ -115,7 +115,13 @@
 
     <div class="controls">
       <a class="game-home-link" href="./game-2p5d.html#home">ホームへ</a>
-      <button id="cameraMode" type="button" aria-label="Switch viewing camera">Camera: 3/4</button>
+      <select id="cameraMode" aria-label="観戦カメラ">
+        <option value="rear-right" selected>後方斜め右</option><option value="rear">後方</option>
+        <option value="rear-left">後方斜め左</option><option value="left">左向き</option>
+        <option value="front-left">前方斜め左</option><option value="front">正面</option>
+        <option value="front-right">前方斜め右</option><option value="right">右向き</option>
+        <option value="side">横追従</option>
+      </select>
       <button id="pause" type="button">Pause</button>
       <button id="reset" type="button">Reset</button>
     </div>

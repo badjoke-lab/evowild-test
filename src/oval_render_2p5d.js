@@ -1,6 +1,7 @@
+import {RUN_VIEWS, CELL_WIDTH, CELL_HEIGHT, drawRunSprite, runFrame} from "./stadium_sprites.js";
 import {
   OVAL_DISTANCE,OVAL_RADIUS,ovalWorld,ovalChaseCamera,
-  projectOval,projectOvalRunner,ovalMinimapPoint,ovalSegmentAt
+  projectOval,projectOvalRunner,runnerViewAngle,viewSector,ovalMinimapPoint,ovalSegmentAt
 } from "./oval_course_2p5d.js";
 
 const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));
@@ -77,8 +78,11 @@ function trackSection(ctx,camera,w,h,m1,m2,fill){
 function drawOvalTrack(ctx,camera,w,h,m,finishAt){
   // Far-to-near ground quads follow exact oval geometry and take the actual
   // sim distance/lane as input; no disconnected decorative perspective lane.
-  const start=m-65,end=m+300,step=5;
-  for(let pos=end;pos>start;pos-=step){
+  const center=ovalWorld(m);
+  const forward=center.tx*camera.fx+center.tz*camera.fz;
+  const start=m-(forward>.3 ? 65 : 300),end=m+(forward<-.3 ? 65 : 300),step=5;
+  for(let offset=0;offset<end-start;offset+=step){
+    const pos=forward>=0 ? end-offset : start+offset+step;
     const rear=Math.max(start,pos-step);
     trackSection(ctx,camera,w,h,rear,pos,
       Math.floor(pos/20)%2===0?"#987452":"#a37a56");
@@ -142,12 +146,13 @@ function drawOvalMinimap(ctx,w,h,racers,focus,worldStart){
   }
   ctx.restore();
 }
+const lastSector = new WeakMap();
 export function drawOvalRace(opts){
   const {
-    ctx,width,height,elapsed,cameraMeters,racers,focus,raceState,framesByMorph,
+    ctx,width,height,elapsed,cameraMeters,racers,focus,raceState,bearing,
     spritePhase,orbDrawer,stage,motionReviewMode=false
   }=opts;
-  const cam=ovalChaseCamera(cameraMeters+OVAL_RACE_START_M,focus.lane);
+  const cam=ovalChaseCamera(cameraMeters+OVAL_RACE_START_M,focus.lane,bearing);
   skyAndMountains(ctx,width,height,elapsed);
   grandstands(ctx,cam,width,height);
   drawOvalTrack(ctx,cam,width,height,cameraMeters+OVAL_RACE_START_M,OVAL_RACE_START_M);
@@ -157,9 +162,10 @@ export function drawOvalRace(opts){
     if(motionReviewMode && r.id!==focus.id)continue;
     // Preserve physically separated start grid before acceleration.
     const position=r.distance+(r.startVisualOffset||0)*gridFactor;
-    const p=projectOvalRunner(cam,position+OVAL_RACE_START_M,r.lane,width,height);
+    const world=ovalWorld(position+OVAL_RACE_START_M,r.lane);
+    const p=projectOval(cam,world,width,height);
     if(!p||p.depth>410||p.x<-210||p.x>width+210||p.y<-200||p.y>height+280)continue;
-    renderable.push({r,...p});
+    renderable.push({r,world,...p});
   }
   // Correct painter ordering by projected depth: distant runners drawn first.
   renderable.sort((a,b)=>b.depth-a.depth);
@@ -167,45 +173,41 @@ export function drawOvalRace(opts){
   for(const item of renderable){
     const {r,x,y,scale}=item;
     const chosen=r.id===focus.id;
-    const frames=framesByMorph.get(r.morph);
-    const frameIndex=spritePhase(r,elapsed);
-    const frame=frames?.[frameIndex];
-    const aspect=frame? frame.height/frame.width : .86;
+    const angle=runnerViewAngle(cam,item.world,r.speed,r.laneSpeed);
+    const sector=viewSector(angle,RUN_VIEWS.length,lastSector.get(r));
+    lastSector.set(r,sector);
+    const view=RUN_VIEWS[sector], phase=spritePhase(r);
     const spriteCap=width<700 ? Math.min(110,width*.255) : Math.min(142,height*.195);
     const spriteH=clamp(scale*(chosen?9.0:7.8),12,spriteCap*(chosen?1:.92));
-    const spriteW=spriteH/clamp(aspect,.60,1.08);
-    // Side-facing approved source sheets are temporarily billboarded.
-    // Do NOT claim this is a true 3/4-animated Creature.
-    const shadowW=spriteW*.29;
+    const spriteW=spriteH*CELL_WIDTH/CELL_HEIGHT;
+    const shadowW=spriteH*(.18+.18*Math.abs(Math.sin(angle)));
     ctx.save();ctx.globalAlpha=.38;ctx.fillStyle="#302a24";
     ctx.beginPath();ctx.ellipse(x,y+1,shadowW,spriteH*.047,0,0,Math.PI*2);ctx.fill();
     ctx.restore();
-    if(frame){
-      const footY=frame.__motionMetrics?.footYNorm??.98;
-      const offY=clamp((.98-footY)*spriteH,-spriteH*.16,spriteH*.16);
-      ctx.save();ctx.translate(x,y-spriteH*.48);
-      if(chosen){ctx.shadowColor="#79d5ff";ctx.shadowBlur=10;}
-      ctx.drawImage(frame,-spriteW*.5,-spriteH*.5+offY,spriteW,spriteH);
-      ctx.restore();
-    }
+    ctx.save();
+    if(chosen){ctx.shadowColor="#79d5ff";ctx.shadowBlur=8;}
+    drawRunSprite(ctx,r,view,phase,x,y,spriteH);
+    ctx.restore();
     // One autonomous Agent orb per *visible* runner, with actual command state.
     orbDrawer(r,x,y,spriteW,spriteH,chosen);
     orbCount++;
     if(chosen){
       stage.dataset.selectedX=x.toFixed(1);
       stage.dataset.selectedY=y.toFixed(1);
-      stage.dataset.selectedRunFrame=String(frameIndex);
+      stage.dataset.selectedRunFrame=String(runFrame(view,phase));
+      stage.dataset.selectedDirection=view.name;
+      stage.dataset.stridePhase=phase.toFixed(8);
     }
   }
   drawOvalMinimap(ctx,width,height,racers,focus,OVAL_RACE_START_M);
-  stage.dataset.cameraMode="oval-three-quarter-follow";
+  stage.dataset.cameraMode=bearing===3*Math.PI/4 ? "oval-three-quarter-follow" : "oval-orbit-follow";
   stage.dataset.trackGeometry="world-space-1600m-oval";
   stage.dataset.trackSegment=ovalSegmentAt(focus.distance+OVAL_RACE_START_M);
   stage.dataset.worldStartOffsetMeters=String(OVAL_RACE_START_M);
   stage.dataset.orbCount=String(orbCount);
   stage.dataset.visibleRacers=String(renderable.length);
   stage.dataset.trackVisible="1";
-  stage.dataset.creatureFacing="side-billboard-provisional";
+  stage.dataset.creatureFacing="directional-atlas";
   stage.dataset.selectedMorph=focus.morph;
   stage.dataset.selectedId=String(focus.id);
 }
