@@ -1,10 +1,10 @@
 <!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EvoWild Run — live splats</title><style>
 *{box-sizing:border-box}body{margin:0;background:#142321;color:#e8ebd7;font:14px system-ui,sans-serif}main{max-width:1100px;margin:auto;padding:14px}header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}h1{font-size:22px;letter-spacing:3px;margin:0}small{color:#a9bba6}canvas{display:block;width:100%;aspect-ratio:16/9;image-rendering:pixelated;touch-action:none;background:#102127;border:1px solid #3a5650}button{background:#2a4038;color:#f0eed6;border:1px solid #66816b;padding:10px 13px;border-radius:5px;font:inherit;touch-action:manipulation}button.active{background:#637c51}section{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}#hud{display:flex;gap:12px;flex-wrap:wrap;color:#cdd9bf;font-variant-numeric:tabular-nums}#err{white-space:pre-wrap;color:#f1b8a4}#rank{font-weight:bold}p{color:#a6bba8;line-height:1.5}#energy{height:8px;width:100px;accent-color:#95c478}</style>
-<main><header><div><h1>EVOWILD RUN</h1><small>INK STUDIO · LIVE 3D SPLATS / S D3-C v3</small></div><span id="status">LOADING</span></header><canvas id="view" width="480" height="270"></canvas><section><button id="start">START / RESET</button><button id="boost">BOOST</button><button id="pause">PAUSE</button><button data-camera="side">SIDE</button><button data-camera="chase">CHASE</button><button data-camera="front">FRONT</button><button data-camera="overhead">HIGH</button><button id="zin">＋</button><button id="zout">－</button></section><div id="hud"><span id="rank">—</span><span>BOOST <progress id="energy" max="1" value="1"></progress></span><span id="perf">—</span></div><p>ドラッグで任意の角度へ。走行中もカメラを変更できます。Ink Studioでベイクした三次元Gaussian splatをWebGL2で毎フレーム投影。四足走行は既存GLBの24姿勢。固定画像・スプライトは使用していません。試作レースであり既存レースとは未統合です。</p><div id="err"></div></main>
+<main><header><div><h1>EVOWILD RUN</h1><small>INK STUDIO · LIVE 3D SPLATS / S D3-C v3</small></div><span id="status">LOADING</span></header><canvas id="view" width="384" height="216"></canvas><section><button id="start">START / RESET</button><button id="boost">BOOST</button><button id="pause">PAUSE</button><button data-camera="side">SIDE</button><button data-camera="chase">CHASE</button><button data-camera="front">FRONT</button><button data-camera="overhead">HIGH</button><button id="zin">＋</button><button id="zout">－</button></section><div id="hud"><span id="rank">—</span><span>BOOST <progress id="energy" max="1" value="1"></progress></span><span id="perf">—</span></div><p>ドラッグで任意の角度へ。走行中もカメラを変更できます。Ink Studioでベイクした三次元Gaussian splatをWebGL2で毎フレーム投影。四足走行は既存GLBの24姿勢。描画負荷軽減のため低密度ベイクを使用。固定画像・スプライトは使用していません。試作レースであり既存レースとは未統合です。</p><div id="err"></div></main>
 <script>
 (async()=>{
 const data=/*__LIVE__*/null;
-const $=id=>document.getElementById(id), canvas=$('view'),gl=canvas.getContext('webgl2',{antialias:false,alpha:false,preserveDrawingBuffer:true});
+const $=id=>document.getElementById(id), canvas=$('view'),gl=canvas.getContext('webgl2',{antialias:false,alpha:false,preserveDrawingBuffer:false});
 if(!gl)throw Error('WebGL2 unavailable');
 if(!data)throw Error('Missing baked splat data');
 const compressed=Uint8Array.from(atob(data.gzip),c=>c.charCodeAt(0));
@@ -65,7 +65,7 @@ const un=Object.fromEntries(['rightV','upV','target','res','pixels'].map(k=>[k,g
 gl.disable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
 const max=ground.length/11+4*Math.max(...data.counts.slice(1)),work=new Float32Array(max*11),sorted=new Float32Array(max*11),keys=new Uint8Array(max),hist=new Int32Array(256),cursor=new Int32Array(256);
 let yaw=Math.PI/2,pitch=.37,scale=1,follow=true,mode='ready',resumeMode='ready',elapsed=0,last=0,held=false,runners=[],finish=[],cam='side',frameN=0,perfAt=performance.now(),frameTimes=[];
-const presets={side:[Math.PI/2,.37,1],chase:[Math.PI,.27,1.4],front:[0,.28,1.25],overhead:[Math.PI/2,1.08,.8]};
+const presets={side:[-1.14,.62,1.22],chase:[Math.PI,.55,1.5],front:[0,.55,1.5],overhead:[-Math.PI/2,1.08,.85]};
 function camera(k){cam=k;[yaw,pitch,scale]=presets[k];document.querySelectorAll('[data-camera]').forEach(b=>b.classList.toggle('active',b.dataset.camera===k))}
 function setup(){elapsed=0;finish=[];runners=Array.from({length:4},(_,i)=>({i,z:-10,phase:i*.18,energy:1,done:false}));}
 setup();camera('side');$('start').onclick=()=>{setup();mode='race'};$('pause').onclick=()=>{if(mode==='paused'){mode=resumeMode;$('pause').textContent='PAUSE'}else if(mode==='race'){resumeMode=mode;mode='paused';$('pause').textContent='RESUME'}};
@@ -80,10 +80,10 @@ function render(){
  // head is +Z: the side preset views the course from +X. Invert side yaw for left-to-right travel.
  const target=[0,.75,runners[0].z*.72];
  if(cam==='overhead')target[2]=0;
- const pix=canvas.height/17*scale;
+ const pix=canvas.height/15*scale;
  let n=ground.length/11;work.set(ground);
  for(const r of runners){
-   const src=poses[Math.floor(((r.phase%1+1)%1)*nFrames)],s=.44,ss=s*s,x=(r.i-1.5)*1.18;
+   const src=poses[Math.floor(((r.phase%1+1)%1)*nFrames)],s=.46,ss=s*s,x=(r.i-1.5)*1.76;
    for(let i=0;i<src.length;i+=11){const p=n*11;work[p]=src[i]*s+x;work[p+1]=src[i+1]*s+.06;work[p+2]=src[i+2]*s+r.z;work[p+3]=src[i+3];work[p+4]=src[i+4]*ss;work[p+5]=src[i+5]*ss;work[p+6]=src[i+6]*ss;work[p+7]=src[i+7];work[p+8]=src[i+8]*ss;work[p+9]=src[i+9]*ss;work[p+10]=src[i+10]*ss;n++;}
  }
  // Global stable bucket sorting, far to near; approximate order within each bucket.
@@ -95,16 +95,16 @@ function render(){
  gl.bindBuffer(gl.ARRAY_BUFFER,instance);gl.bufferData(gl.ARRAY_BUFFER,sorted.subarray(0,n*11),gl.DYNAMIC_DRAW);gl.drawArraysInstanced(gl.TRIANGLE_STRIP,0,4,n);
  return n;
 }
-camera('side');yaw=-Math.PI/2;presets.side[0]=-Math.PI/2;
+camera('side');
 function tick(now){
- const begin=performance.now(),dt=Math.min(.05,(now-last)/1000||0);last=now;
+ const begin=performance.now(),dt=last?Math.max(0,Math.min(1,(now-last)/1000)):0;last=now;
  if(mode==='race'){
- elapsed+=dt;for(const r of runners){if(r.done)continue;const use=r.i===0&&held&&r.energy>.02;r.energy=Math.max(0,Math.min(1,r.energy+(use?-.36:.11)*dt));const speed=r.i===0?1.65+(use?1:0):1.65+r.i*.045+Math.sin(elapsed*.8+r.i)*.14;r.z=Math.min(10,r.z+speed*dt);r.phase+=dt*speed/1.65/data.duration;if(r.z===10){r.done=true;finish.push(r.i+1)}}if(finish.length===4)mode='done';
+ for(let remaining=dt;remaining>1e-9;){const step=Math.min(remaining,.025);remaining-=step;elapsed+=step;for(const r of runners){if(r.done)continue;const use=r.i===0&&held&&r.energy>.02;r.energy=Math.max(0,Math.min(1,r.energy+(use?-.36:.11)*step));const speed=r.i===0?1.65+(use?1:0):1.65+r.i*.045+Math.sin(elapsed*.8+r.i)*.14;r.z=Math.min(10,r.z+speed*step);r.phase+=step*speed/1.65/data.duration;if(r.z===10){r.done=true;finish.push(r.i+1)}}if(finish.length===4){mode='done';break;}}
  }
  const n=render();frameTimes.push(performance.now()-begin);if(frameTimes.length>120)frameTimes.shift();frameN++;
  const pos=1+runners.slice(1).filter(r=>r.z>runners[0].z).length;$('energy').value=runners[0].energy;$('rank').textContent='PLAYER 1 · '+pos+'/4';$('status').textContent=mode==='done'?'FINISH '+finish.join(' > '):mode.toUpperCase()+' '+elapsed.toFixed(1)+' s';
- if(now-perfAt>500){$('perf').textContent=(frameN*1000/(now-perfAt)).toFixed(0)+' fps · '+n.toLocaleString()+' splats';frameN=0;perfAt=now}
- window.__race={mode,elapsed,finish:finish.slice(),camera:cam,yaw,pitch,playerZ:runners[0].z,energy:runners[0].energy,n,averageSubmitMs:frameTimes.reduce((a,b)=>a+b,0)/frameTimes.length,glError:gl.getError()};
+ if(now-perfAt>500){$('perf').textContent=(frameN*1000/(now-perfAt)).toFixed(0)+' fps · '+n.toLocaleString()+' splats';window.__fps=frameN*1000/(now-perfAt);frameN=0;perfAt=now}
+ window.__race={mode,elapsed,finish:finish.slice(),camera:cam,yaw,pitch,playerZ:runners[0].z,energy:runners[0].energy,n,fps:window.__fps??null,averageSubmitMs:frameTimes.reduce((a,b)=>a+b,0)/frameTimes.length,glError:gl.getError()};
  requestAnimationFrame(tick);
 }
 requestAnimationFrame(tick);

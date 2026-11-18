@@ -26,7 +26,7 @@ jobs:
           git -C "$RUNNER_TEMP/ink" fetch --depth 1 https://github.com/siliconjungle/shapeshift-labs-ink-studio.git 9b1b3b99282262aeffa0561176035fdbf3f4ff58
           git -C "$RUNNER_TEMP/ink" checkout --detach FETCH_HEAD
           test "$(git -C "$RUNNER_TEMP/ink" rev-parse HEAD)" = 9b1b3b99282262aeffa0561176035fdbf3f4ff58
-          npm install --prefix proof/ink-studio --no-save --no-package-lock three@0.181.0 playwright@1.55.0
+          npm install --prefix proof/ink-studio --no-save --no-package-lock three@0.181.0 playwright@1.55.0 sharp@0.34.3
       - name: Render real source animation and course
         run: |
           mkdir -p proof/ink-studio/output
