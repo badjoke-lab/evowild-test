@@ -150,18 +150,20 @@
   "pixelart_point_rendering": {
     "branch": "exp/pixelart-point-rendering",
     "base": "9689bbbc",
-    "status": "IMPLEMENTED_EVIDENCE_PENDING",
-    "last_verified_source_sha": "c4f1d4114f15fcd5743e4d4c1e4bdfcd026fc453",
+    "status": "EVIDENCE_COMPLETE_HARDWARE_UNMEASURED",
+    "last_verified_source_sha": "6ad206d35f7b05bff40cf6ef0d92fefe0cefba9a",
     "verified": [
-      "D3-C v2 asset integrity",
-      "Vite build",
-      "four WebGL modes and 23 joints in desktop Chromium"
+      "D3-C v2 GLB, native clip and existing runtime source integrity",
+      "Vite build and built browser preview",
+      "Desktop and Pixel 7 emulation, 16 cases each and extended D100",
+      "12 matched stills, five MP4s, 121 frames per speed against the original IK review",
+      "Existing D3-C v2 freeze test 2/2"
     ],
     "pending": [
-      "Desktop and Pixel 7 viewport benchmark",
-      "Synchronized stills and videos",
-      "Comparison and adoption report"
+      "Physical Pixel 7 and hardware-GPU PC validation when either is available"
     ],
-    "next_action": "Run browser capture and benchmark for /evowild-test/pixel-art.html and record evidence under docs/evidence/pixel-art/."
+    "next_action": "On physical test hardware run npm run dev, open /evowild-test/pixel-art.html, and export a new JSON from the benchmark button.",
+    "report": "docs/pixel-art-point-rendering.md",
+    "evidence": "docs/evidence/pixel-art/"
   }
 }

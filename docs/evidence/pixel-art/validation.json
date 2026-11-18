@@ -1,0 +1,102 @@
+{
+  "browser": "151.0.7922.173",
+  "errors": [],
+  "phaseChecks": [
+    {
+      "mode": "A",
+      "motion": "idle",
+      "phase": 0,
+      "points": 0
+    },
+    {
+      "mode": "A",
+      "motion": "slow",
+      "phase": 0.4242640687119285,
+      "points": 0
+    },
+    {
+      "mode": "A",
+      "motion": "run",
+      "phase": 0.6,
+      "points": 0
+    },
+    {
+      "mode": "B",
+      "motion": "idle",
+      "phase": 0,
+      "points": 4000
+    },
+    {
+      "mode": "B",
+      "motion": "slow",
+      "phase": 0.4242640687119285,
+      "points": 4000
+    },
+    {
+      "mode": "B",
+      "motion": "run",
+      "phase": 0.6,
+      "points": 4000
+    },
+    {
+      "mode": "C",
+      "motion": "idle",
+      "phase": 0,
+      "points": 4000
+    },
+    {
+      "mode": "C",
+      "motion": "slow",
+      "phase": 0.4242640687119285,
+      "points": 4000
+    },
+    {
+      "mode": "C",
+      "motion": "run",
+      "phase": 0.6,
+      "points": 4000
+    },
+    {
+      "mode": "D",
+      "motion": "idle",
+      "phase": 0,
+      "points": 4000
+    },
+    {
+      "mode": "D",
+      "motion": "slow",
+      "phase": 0.4242640687119285,
+      "points": 4000
+    },
+    {
+      "mode": "D",
+      "motion": "run",
+      "phase": 0.6,
+      "points": 4000
+    }
+  ],
+  "contact": [
+    {
+      "rate": 0.5,
+      "frames": 121,
+      "maxJointDeltaM": 2.7755575615628914e-15,
+      "maxSurfaceDeltaM": 1.6689345595936682e-7,
+      "maxSupportGapM": 0.0004163155338565705,
+      "maxPenetrationM": 0,
+      "supportSamples": 97,
+      "samplesPerFrame": 256
+    },
+    {
+      "rate": 1,
+      "frames": 121,
+      "maxJointDeltaM": 1.6165091241761062e-15,
+      "maxSurfaceDeltaM": 1.6326869584311416e-7,
+      "maxSupportGapM": 0.0004163141488060518,
+      "maxPenetrationM": 0,
+      "supportSamples": 97,
+      "samplesPerFrame": 256
+    }
+  ],
+  "motionFramesPerMode": 120,
+  "encodedFps": 24
+}
