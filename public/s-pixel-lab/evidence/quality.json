@@ -1,0 +1,703 @@
+{
+ "unit": "source side drawing units; 3 per longitudinal texel",
+ "connectivity": {
+  "16": [
+   {
+    "pose": "idle",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 13041
+   },
+   {
+    "pose": "run-00",
+    "islands": 3,
+    "loose_texels": 6,
+    "total": 13194
+   },
+   {
+    "pose": "run-01",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 13260
+   },
+   {
+    "pose": "run-02",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 13356
+   },
+   {
+    "pose": "run-03",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 13502
+   },
+   {
+    "pose": "run-04",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 13746
+   },
+   {
+    "pose": "run-05",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 13863
+   },
+   {
+    "pose": "run-06",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 14185
+   },
+   {
+    "pose": "run-07",
+    "islands": 1,
+    "loose_texels": 2,
+    "total": 14241
+   },
+   {
+    "pose": "run-08",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 14295
+   },
+   {
+    "pose": "run-09",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 14229
+   },
+   {
+    "pose": "run-10",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 14141
+   },
+   {
+    "pose": "run-11",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 13840
+   },
+   {
+    "pose": "run-12",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 13498
+   },
+   {
+    "pose": "run-13",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 13369
+   },
+   {
+    "pose": "run-14",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 13280
+   },
+   {
+    "pose": "run-15",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 13485
+   },
+   {
+    "pose": "run-16",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 13502
+   },
+   {
+    "pose": "run-17",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 13664
+   },
+   {
+    "pose": "run-18",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 13930
+   },
+   {
+    "pose": "run-19",
+    "islands": 2,
+    "loose_texels": 2,
+    "total": 14019
+   },
+   {
+    "pose": "run-20",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 14156
+   },
+   {
+    "pose": "run-21",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 13911
+   },
+   {
+    "pose": "run-22",
+    "islands": 1,
+    "loose_texels": 2,
+    "total": 13618
+   },
+   {
+    "pose": "run-23",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 13539
+   }
+  ],
+  "32": [
+   {
+    "pose": "idle",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 22194
+   },
+   {
+    "pose": "run-00",
+    "islands": 3,
+    "loose_texels": 8,
+    "total": 22312
+   },
+   {
+    "pose": "run-01",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 22477
+   },
+   {
+    "pose": "run-02",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 22463
+   },
+   {
+    "pose": "run-03",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 22420
+   },
+   {
+    "pose": "run-04",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 22636
+   },
+   {
+    "pose": "run-05",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 22804
+   },
+   {
+    "pose": "run-06",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 23075
+   },
+   {
+    "pose": "run-07",
+    "islands": 1,
+    "loose_texels": 2,
+    "total": 23124
+   },
+   {
+    "pose": "run-08",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 23103
+   },
+   {
+    "pose": "run-09",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 23088
+   },
+   {
+    "pose": "run-10",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 23207
+   },
+   {
+    "pose": "run-11",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 23047
+   },
+   {
+    "pose": "run-12",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 22849
+   },
+   {
+    "pose": "run-13",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 22655
+   },
+   {
+    "pose": "run-14",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 22506
+   },
+   {
+    "pose": "run-15",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 22595
+   },
+   {
+    "pose": "run-16",
+    "islands": 2,
+    "loose_texels": 4,
+    "total": 22509
+   },
+   {
+    "pose": "run-17",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 22420
+   },
+   {
+    "pose": "run-18",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 22579
+   },
+   {
+    "pose": "run-19",
+    "islands": 4,
+    "loose_texels": 6,
+    "total": 22711
+   },
+   {
+    "pose": "run-20",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 22767
+   },
+   {
+    "pose": "run-21",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 22517
+   },
+   {
+    "pose": "run-22",
+    "islands": 3,
+    "loose_texels": 4,
+    "total": 22466
+   },
+   {
+    "pose": "run-23",
+    "islands": 2,
+    "loose_texels": 2,
+    "total": 22455
+   }
+  ],
+  "64": [
+   {
+    "pose": "idle",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 39557
+   },
+   {
+    "pose": "run-00",
+    "islands": 5,
+    "loose_texels": 12,
+    "total": 39614
+   },
+   {
+    "pose": "run-01",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 39818
+   },
+   {
+    "pose": "run-02",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 40029
+   },
+   {
+    "pose": "run-03",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 39892
+   },
+   {
+    "pose": "run-04",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 40294
+   },
+   {
+    "pose": "run-05",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 40592
+   },
+   {
+    "pose": "run-06",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 40769
+   },
+   {
+    "pose": "run-07",
+    "islands": 1,
+    "loose_texels": 2,
+    "total": 40809
+   },
+   {
+    "pose": "run-08",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 40896
+   },
+   {
+    "pose": "run-09",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 40945
+   },
+   {
+    "pose": "run-10",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 41064
+   },
+   {
+    "pose": "run-11",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 40934
+   },
+   {
+    "pose": "run-12",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 40591
+   },
+   {
+    "pose": "run-13",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 40286
+   },
+   {
+    "pose": "run-14",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 39963
+   },
+   {
+    "pose": "run-15",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 40092
+   },
+   {
+    "pose": "run-16",
+    "islands": 2,
+    "loose_texels": 4,
+    "total": 39987
+   },
+   {
+    "pose": "run-17",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 39870
+   },
+   {
+    "pose": "run-18",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 40070
+   },
+   {
+    "pose": "run-19",
+    "islands": 4,
+    "loose_texels": 8,
+    "total": 39982
+   },
+   {
+    "pose": "run-20",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 40109
+   },
+   {
+    "pose": "run-21",
+    "islands": 0,
+    "loose_texels": 0,
+    "total": 39922
+   },
+   {
+    "pose": "run-22",
+    "islands": 3,
+    "loose_texels": 4,
+    "total": 39797
+   },
+   {
+    "pose": "run-23",
+    "islands": 2,
+    "loose_texels": 2,
+    "total": 39709
+   }
+  ],
+  "128": [
+   {
+    "pose": "idle",
+    "islands": 1,
+    "loose_texels": 10,
+    "total": 74117
+   },
+   {
+    "pose": "run-00",
+    "islands": 6,
+    "loose_texels": 22,
+    "total": 73926
+   },
+   {
+    "pose": "run-01",
+    "islands": 1,
+    "loose_texels": 10,
+    "total": 74273
+   },
+   {
+    "pose": "run-02",
+    "islands": 1,
+    "loose_texels": 10,
+    "total": 74710
+   },
+   {
+    "pose": "run-03",
+    "islands": 1,
+    "loose_texels": 10,
+    "total": 74753
+   },
+   {
+    "pose": "run-04",
+    "islands": 1,
+    "loose_texels": 10,
+    "total": 75004
+   },
+   {
+    "pose": "run-05",
+    "islands": 1,
+    "loose_texels": 10,
+    "total": 75647
+   },
+   {
+    "pose": "run-06",
+    "islands": 3,
+    "loose_texels": 16,
+    "total": 76104
+   },
+   {
+    "pose": "run-07",
+    "islands": 2,
+    "loose_texels": 12,
+    "total": 76086
+   },
+   {
+    "pose": "run-08",
+    "islands": 3,
+    "loose_texels": 12,
+    "total": 76190
+   },
+   {
+    "pose": "run-09",
+    "islands": 2,
+    "loose_texels": 12,
+    "total": 76417
+   },
+   {
+    "pose": "run-10",
+    "islands": 1,
+    "loose_texels": 10,
+    "total": 76336
+   },
+   {
+    "pose": "run-11",
+    "islands": 3,
+    "loose_texels": 14,
+    "total": 76068
+   },
+   {
+    "pose": "run-12",
+    "islands": 1,
+    "loose_texels": 10,
+    "total": 75708
+   },
+   {
+    "pose": "run-13",
+    "islands": 1,
+    "loose_texels": 10,
+    "total": 75304
+   },
+   {
+    "pose": "run-14",
+    "islands": 1,
+    "loose_texels": 10,
+    "total": 74716
+   },
+   {
+    "pose": "run-15",
+    "islands": 1,
+    "loose_texels": 10,
+    "total": 74668
+   },
+   {
+    "pose": "run-16",
+    "islands": 3,
+    "loose_texels": 14,
+    "total": 74508
+   },
+   {
+    "pose": "run-17",
+    "islands": 1,
+    "loose_texels": 10,
+    "total": 74379
+   },
+   {
+    "pose": "run-18",
+    "islands": 1,
+    "loose_texels": 10,
+    "total": 74437
+   },
+   {
+    "pose": "run-19",
+    "islands": 5,
+    "loose_texels": 18,
+    "total": 74400
+   },
+   {
+    "pose": "run-20",
+    "islands": 1,
+    "loose_texels": 10,
+    "total": 74441
+   },
+   {
+    "pose": "run-21",
+    "islands": 1,
+    "loose_texels": 10,
+    "total": 74211
+   },
+   {
+    "pose": "run-22",
+    "islands": 4,
+    "loose_texels": 14,
+    "total": 74251
+   },
+   {
+    "pose": "run-23",
+    "islands": 3,
+    "loose_texels": 12,
+    "total": 73891
+   }
+  ]
+ },
+ "contact": {
+  "12-straight": {
+   "subsamples": 88,
+   "corrected_displacement": {
+    "max": 8.667,
+    "median": 0.0,
+    "p95": 1.5
+   },
+   "uncorrected_displacement": {
+    "max": 40.688,
+    "median": 20.344,
+    "p95": 40.688
+   },
+   "max_sole_floor_height": 0.0
+  },
+  "12-bend": {
+   "subsamples": 88,
+   "corrected_displacement": {
+    "max": 8.463,
+    "median": 1.94,
+    "p95": 5.172
+   },
+   "uncorrected_displacement": {
+    "max": 42.064,
+    "median": 20.344,
+    "p95": 41.311
+   },
+   "max_sole_floor_height": 0.0
+  },
+  "24-straight": {
+   "subsamples": 192,
+   "corrected_displacement": {
+    "max": 6.926,
+    "median": 0.0,
+    "p95": 1.825
+   },
+   "uncorrected_displacement": {
+    "max": 20.344,
+    "median": 10.172,
+    "p95": 20.344
+   },
+   "max_sole_floor_height": 0.0
+  },
+  "24-bend": {
+   "subsamples": 192,
+   "corrected_displacement": {
+    "max": 7.271,
+    "median": 0.953,
+    "p95": 2.814
+   },
+   "uncorrected_displacement": {
+    "max": 21.065,
+    "median": 10.174,
+    "p95": 20.644
+   },
+   "max_sole_floor_height": 0.0
+  }
+ },
+ "airborne_frames": [
+  19,
+  20,
+  21,
+  22
+ ],
+ "rendered_clearance_128": [
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  3.625,
+  7.25,
+  0.0,
+  0.0
+ ]
+}

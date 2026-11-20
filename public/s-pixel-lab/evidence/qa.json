@@ -1,0 +1,126 @@
+{
+  "controls": [
+    "desktop / initial specimen",
+    "desktop / play advances time",
+    "desktop / course motion",
+    "desktop / reset",
+    "desktop / 12-pose seek",
+    "desktop / top preset",
+    "desktop / camera drag",
+    "desktop / viewport fits",
+    "desktop / WebGL error",
+    "mobile / initial specimen",
+    "mobile / play advances time",
+    "mobile / course motion",
+    "mobile / reset",
+    "mobile / 12-pose seek",
+    "mobile / top preset",
+    "mobile / camera drag",
+    "mobile / viewport fits",
+    "mobile / WebGL error"
+  ],
+  "artifacts": [
+    {
+      "layers": 16,
+      "rotation": [
+        {
+          "tilt": 3,
+          "steps": 180,
+          "reversal_fraction": 0.00485,
+          "peak_fraction": 0.03058
+        },
+        {
+          "tilt": 15,
+          "steps": 180,
+          "reversal_fraction": 0.0076,
+          "peak_fraction": 0.02384
+        },
+        {
+          "tilt": 60,
+          "steps": 180,
+          "reversal_fraction": 0.01162,
+          "peak_fraction": 0.03671
+        }
+      ]
+    },
+    {
+      "layers": 32,
+      "rotation": [
+        {
+          "tilt": 3,
+          "steps": 180,
+          "reversal_fraction": 0.00804,
+          "peak_fraction": 0.04267
+        },
+        {
+          "tilt": 15,
+          "steps": 180,
+          "reversal_fraction": 0.0112,
+          "peak_fraction": 0.03526
+        },
+        {
+          "tilt": 60,
+          "steps": 180,
+          "reversal_fraction": 0.01508,
+          "peak_fraction": 0.03856
+        }
+      ]
+    },
+    {
+      "layers": 64,
+      "rotation": [
+        {
+          "tilt": 3,
+          "steps": 180,
+          "reversal_fraction": 0.01114,
+          "peak_fraction": 0.04569
+        },
+        {
+          "tilt": 15,
+          "steps": 180,
+          "reversal_fraction": 0.01416,
+          "peak_fraction": 0.04143
+        },
+        {
+          "tilt": 60,
+          "steps": 180,
+          "reversal_fraction": 0.01753,
+          "peak_fraction": 0.04065
+        }
+      ]
+    },
+    {
+      "layers": 128,
+      "rotation": [
+        {
+          "tilt": 3,
+          "steps": 180,
+          "reversal_fraction": 0.01351,
+          "peak_fraction": 0.04815
+        },
+        {
+          "tilt": 15,
+          "steps": 180,
+          "reversal_fraction": 0.01606,
+          "peak_fraction": 0.04049
+        },
+        {
+          "tilt": 60,
+          "steps": 180,
+          "reversal_fraction": 0.01877,
+          "peak_fraction": 0.04153
+        }
+      ]
+    }
+  ],
+  "screens": [
+    {
+      "mobile": false,
+      "errors": []
+    },
+    {
+      "mobile": true,
+      "errors": []
+    }
+  ]
+}
