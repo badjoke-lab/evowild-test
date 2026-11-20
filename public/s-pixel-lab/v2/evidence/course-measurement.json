@@ -1,0 +1,3506 @@
+[
+  {
+    "profile": "desktop-1x",
+    "count": 50,
+    "scenario": "overview",
+    "zoom": 1,
+    "mixSamples": [
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      }
+    ],
+    "frames": 79,
+    "fps": 32.774643212739704,
+    "p95_ms": 55.70000000111759,
+    "draw_sync_ms": 27.637974683619753,
+    "mix": {
+      "near": 0,
+      "transition": 0,
+      "sprite": 50,
+      "spriteBlend": 0,
+      "offscreen": 0
+    },
+    "intervals_ms": [
+      31.799999998882413,
+      60.90000000037253,
+      34.80000000074506,
+      21,
+      53.09999999962747,
+      23.90000000037253,
+      23.299999998882413,
+      54.100000001490116,
+      22.59999999962747,
+      21.299999998882413,
+      53.20000000111759,
+      21.299999998882413,
+      22.5,
+      55.70000000111759,
+      21.09999999962747,
+      21,
+      51.90000000037253,
+      21.299999998882413,
+      21,
+      56.70000000111759,
+      21.40000000037253,
+      20.799999998882413,
+      55.20000000111759,
+      21.699999999254942,
+      20.300000000745058,
+      17.199999999254942,
+      49.40000000037253,
+      17.90000000037253,
+      17.199999999254942,
+      16.800000000745058,
+      52.59999999962747,
+      20.90000000037253,
+      21.799999998882413,
+      67,
+      15.300000000745058,
+      21.5,
+      51.90000000037253,
+      22.899999998509884,
+      21.200000001117587,
+      49.69999999925494,
+      17.59999999962747,
+      17.200000001117587,
+      16.5,
+      53.59999999962747,
+      20.800000000745058,
+      21.299999998882413,
+      51.5,
+      23,
+      17,
+      53.59999999962747,
+      23.300000000745058,
+      10.400000000372529,
+      16.799999998882413,
+      54.90000000037253,
+      12.700000001117587,
+      20.5,
+      21.799999998882413,
+      52.59999999962747,
+      21.700000001117587,
+      20.799999998882413,
+      53.30000000074506,
+      31.199999999254942,
+      11.300000000745058,
+      53.19999999925494,
+      21.100000001490116,
+      18.699999999254942,
+      17.300000000745058,
+      49.19999999925494,
+      18,
+      16.40000000037253,
+      17.59999999962747,
+      48.09999999962747,
+      19.5,
+      18.09999999962747,
+      54.20000000111759,
+      22.799999998882413,
+      20.800000000745058,
+      54.40000000037253,
+      22.40000000037253
+    ]
+  },
+  {
+    "profile": "desktop-1x",
+    "count": 100,
+    "scenario": "overview",
+    "zoom": 1,
+    "mixSamples": [
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      }
+    ],
+    "frames": 76,
+    "fps": 31.072406884986478,
+    "p95_ms": 57.70000000111759,
+    "draw_sync_ms": 30.382894736788188,
+    "mix": {
+      "near": 0,
+      "transition": 0,
+      "sprite": 100,
+      "spriteBlend": 0,
+      "offscreen": 0
+    },
+    "intervals_ms": [
+      48.30000000074506,
+      19.299999998882413,
+      20.300000000745058,
+      57.80000000074506,
+      23.399999998509884,
+      23.40000000037253,
+      57.70000000111759,
+      23.399999998509884,
+      23.200000001117587,
+      52.79999999888241,
+      23,
+      23.300000000745058,
+      52.59999999962747,
+      20.40000000037253,
+      23.5,
+      61.69999999925494,
+      21.600000001490116,
+      23.299999998882413,
+      60.5,
+      24.800000000745058,
+      56.19999999925494,
+      24.59999999962747,
+      23.5,
+      51.70000000111759,
+      22.90000000037253,
+      22.699999999254942,
+      54.30000000074506,
+      23.399999998509884,
+      22.700000001117587,
+      53.5,
+      19.299999998882413,
+      20.100000001490116,
+      55.79999999888241,
+      23.300000000745058,
+      23.699999999254942,
+      53.70000000111759,
+      19.399999998509884,
+      22.700000001117587,
+      22.199999999254942,
+      56.70000000111759,
+      22.899999998509884,
+      56,
+      32.30000000074506,
+      11.599999999627471,
+      18.200000001117587,
+      49.29999999888241,
+      18.700000001117587,
+      19,
+      57.59999999962747,
+      34.5,
+      12.299999998882413,
+      50.100000001490116,
+      23.799999998882413,
+      22.200000001117587,
+      54.29999999888241,
+      23.09999999962747,
+      18.90000000037253,
+      19.59999999962747,
+      49.20000000111759,
+      17.799999998882413,
+      18.90000000037253,
+      51.59999999962747,
+      19.200000001117587,
+      17.699999999254942,
+      20.90000000037253,
+      53.59999999962747,
+      22.59999999962747,
+      21.5,
+      54.70000000111759,
+      20.299999998882413,
+      19.40000000037253,
+      50.80000000074506,
+      18.799999998882413,
+      18.700000001117587,
+      19.40000000037253,
+      49.69999999925494
+    ]
+  },
+  {
+    "profile": "desktop-1x",
+    "count": 50,
+    "scenario": "mixed",
+    "zoom": 2.7995169082125604,
+    "mixSamples": [
+      {
+        "near": 3,
+        "transition": 29,
+        "sprite": 18,
+        "spriteBlend": 18,
+        "offscreen": 0
+      },
+      {
+        "near": 3,
+        "transition": 26,
+        "sprite": 21,
+        "spriteBlend": 21,
+        "offscreen": 0
+      },
+      {
+        "near": 15,
+        "transition": 11,
+        "sprite": 24,
+        "spriteBlend": 24,
+        "offscreen": 0
+      },
+      {
+        "near": 18,
+        "transition": 8,
+        "sprite": 24,
+        "spriteBlend": 24,
+        "offscreen": 0
+      },
+      {
+        "near": 18,
+        "transition": 9,
+        "sprite": 23,
+        "spriteBlend": 23,
+        "offscreen": 0
+      },
+      {
+        "near": 22,
+        "transition": 20,
+        "sprite": 8,
+        "spriteBlend": 8,
+        "offscreen": 0
+      },
+      {
+        "near": 23,
+        "transition": 26,
+        "sprite": 1,
+        "spriteBlend": 1,
+        "offscreen": 0
+      },
+      {
+        "near": 24,
+        "transition": 8,
+        "sprite": 18,
+        "spriteBlend": 18,
+        "offscreen": 0
+      }
+    ],
+    "frames": 8,
+    "fps": 1.704702848984501,
+    "p95_ms": 812.0999999996275,
+    "draw_sync_ms": 584.0375000000931,
+    "mix": {
+      "near": 24,
+      "transition": 8,
+      "sprite": 18,
+      "spriteBlend": 18,
+      "offscreen": 0
+    },
+    "intervals_ms": [
+      663.5,
+      516.6999999992549,
+      512.6000000014901,
+      491.7999999988824,
+      435.30000000074506,
+      740.4000000003725,
+      812.0999999996275,
+      520.5
+    ]
+  },
+  {
+    "profile": "desktop-1x",
+    "count": 100,
+    "scenario": "mixed",
+    "zoom": 3.999309868875086,
+    "mixSamples": [
+      {
+        "near": 19,
+        "transition": 33,
+        "sprite": 28,
+        "spriteBlend": 28,
+        "offscreen": 20
+      },
+      {
+        "near": 20,
+        "transition": 31,
+        "sprite": 39,
+        "spriteBlend": 39,
+        "offscreen": 10
+      },
+      {
+        "near": 43,
+        "transition": 12,
+        "sprite": 45,
+        "spriteBlend": 45,
+        "offscreen": 0
+      },
+      {
+        "near": 41,
+        "transition": 25,
+        "sprite": 29,
+        "spriteBlend": 29,
+        "offscreen": 5
+      },
+      {
+        "near": 61,
+        "transition": 29,
+        "sprite": 5,
+        "spriteBlend": 5,
+        "offscreen": 5
+      },
+      {
+        "near": 36,
+        "transition": 12,
+        "sprite": 45,
+        "spriteBlend": 45,
+        "offscreen": 7
+      },
+      {
+        "near": 3,
+        "transition": 29,
+        "sprite": 63,
+        "spriteBlend": 63,
+        "offscreen": 5
+      },
+      {
+        "near": 4,
+        "transition": 25,
+        "sprite": 70,
+        "spriteBlend": 70,
+        "offscreen": 1
+      }
+    ],
+    "frames": 8,
+    "fps": 1.1068681166639565,
+    "p95_ms": 1415.0999999996275,
+    "draw_sync_ms": 893.7125000001397,
+    "mix": {
+      "near": 4,
+      "transition": 25,
+      "sprite": 70,
+      "spriteBlend": 70,
+      "offscreen": 1
+    },
+    "intervals_ms": [
+      922.9000000003725,
+      788.8000000007451,
+      1095.2999999988824,
+      1214.5,
+      1415.0999999996275,
+      764,
+      508.1000000014901,
+      518.8999999985099
+    ]
+  },
+  {
+    "profile": "mobile-4x",
+    "count": 50,
+    "scenario": "overview",
+    "zoom": 1,
+    "mixSamples": [
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 50,
+        "spriteBlend": 0,
+        "offscreen": 0
+      }
+    ],
+    "frames": 121,
+    "fps": 50.18872620186436,
+    "p95_ms": 41.59999999962747,
+    "draw_sync_ms": 15.96776859502285,
+    "mix": {
+      "near": 0,
+      "transition": 0,
+      "sprite": 50,
+      "spriteBlend": 0,
+      "offscreen": 0
+    },
+    "intervals_ms": [
+      35.19999999925494,
+      17.59999999962747,
+      39.09999999962747,
+      18.600000001490116,
+      16.799999998882413,
+      15.700000001117587,
+      22,
+      42.19999999925494,
+      19.300000000745058,
+      16.59999999962747,
+      19.5,
+      36.29999999888241,
+      12.5,
+      11.200000001117587,
+      20.90000000037253,
+      17.299999998882413,
+      32.40000000037253,
+      17.90000000037253,
+      15,
+      15.5,
+      16,
+      41.59999999962747,
+      19.09999999962747,
+      18.300000000745058,
+      19.40000000037253,
+      37.399999998509884,
+      9.900000000372529,
+      16.40000000037253,
+      12.300000000745058,
+      12.599999999627471,
+      14.699999999254942,
+      33.90000000037253,
+      13.599999999627471,
+      12.5,
+      9.700000001117587,
+      10.399999998509884,
+      16,
+      72.20000000111759,
+      9.199999999254942,
+      11.700000001117587,
+      17.799999998882413,
+      50.90000000037253,
+      17,
+      21.90000000037253,
+      37.19999999925494,
+      14.200000001117587,
+      11.599999999627471,
+      11.699999999254942,
+      14.300000000745058,
+      14.099999999627471,
+      43.90000000037253,
+      18.59999999962747,
+      12.900000000372529,
+      13.400000000372529,
+      44.399999998509884,
+      15.200000001117587,
+      14.599999999627471,
+      12.300000000745058,
+      18.199999999254942,
+      40.59999999962747,
+      11.599999999627471,
+      22.90000000037253,
+      14.700000001117587,
+      17.699999999254942,
+      36.5,
+      12.900000000372529,
+      16.5,
+      9.400000000372529,
+      10.199999999254942,
+      14,
+      36.90000000037253,
+      11.299999998882413,
+      19.200000001117587,
+      16.799999998882413,
+      16,
+      34.5,
+      13.400000000372529,
+      13,
+      12,
+      11.599999999627471,
+      15.600000001490116,
+      38.09999999962747,
+      13.099999999627471,
+      14.699999999254942,
+      17.300000000745058,
+      17,
+      31.5,
+      12.5,
+      14.900000000372529,
+      13.299999998882413,
+      12.800000000745058,
+      13.800000000745058,
+      39.399999998509884,
+      12.100000001490116,
+      17.5,
+      15.899999998509884,
+      16.100000001490116,
+      37.69999999925494,
+      15.5,
+      16.300000000745058,
+      14.799999998882413,
+      22.09999999962747,
+      28.700000001117587,
+      10.400000000372529,
+      11.099999999627471,
+      10.799999998882413,
+      14.700000001117587,
+      16.699999999254942,
+      35.70000000111759,
+      10.699999999254942,
+      10.900000000372529,
+      10.699999999254942,
+      15.099999999627471,
+      16.700000001117587,
+      39.29999999888241,
+      14.800000000745058,
+      13.699999999254942,
+      18.800000000745058,
+      12.199999999254942,
+      41.90000000037253,
+      11.599999999627471
+    ]
+  },
+  {
+    "profile": "mobile-4x",
+    "count": 100,
+    "scenario": "overview",
+    "zoom": 1,
+    "mixSamples": [
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      },
+      {
+        "near": 0,
+        "transition": 0,
+        "sprite": 100,
+        "spriteBlend": 0,
+        "offscreen": 0
+      }
+    ],
+    "frames": 109,
+    "fps": 45.263901000796004,
+    "p95_ms": 46.69999999925494,
+    "draw_sync_ms": 18.769724770731063,
+    "mix": {
+      "near": 0,
+      "transition": 0,
+      "sprite": 100,
+      "spriteBlend": 0,
+      "offscreen": 0
+    },
+    "intervals_ms": [
+      16.59999999962747,
+      23.300000000745058,
+      14.899999998509884,
+      35.20000000111759,
+      13.900000000372529,
+      15.399999998509884,
+      15.700000001117587,
+      16.299999998882413,
+      40,
+      14.800000000745058,
+      13.699999999254942,
+      18.300000000745058,
+      15,
+      38,
+      14.599999999627471,
+      13.700000001117587,
+      15.699999999254942,
+      46.69999999925494,
+      15.600000001490116,
+      21.799999998882413,
+      19.5,
+      42.70000000111759,
+      20.199999999254942,
+      17.40000000037253,
+      15.299999998882413,
+      47.20000000111759,
+      13.400000000372529,
+      25.59999999962747,
+      19.699999999254942,
+      41.5,
+      22.700000001117587,
+      15.5,
+      19.5,
+      13.799999998882413,
+      38.40000000037253,
+      15.5,
+      17.59999999962747,
+      17.200000001117587,
+      48.09999999962747,
+      17.09999999962747,
+      18.59999999962747,
+      17.300000000745058,
+      43.5,
+      17.5,
+      18.199999999254942,
+      17.40000000037253,
+      42,
+      18.59999999962747,
+      15.900000000372529,
+      20,
+      15.599999999627471,
+      45.40000000037253,
+      14.599999999627471,
+      15.599999999627471,
+      15,
+      38,
+      16,
+      14,
+      17.600000001490116,
+      14.099999999627471,
+      39.69999999925494,
+      15.300000000745058,
+      20.40000000037253,
+      11.799999998882413,
+      18.40000000037253,
+      41.80000000074506,
+      16.199999999254942,
+      16,
+      14.900000000372529,
+      15.099999999627471,
+      40.80000000074506,
+      15.599999999627471,
+      14.099999999627471,
+      11.900000000372529,
+      50,
+      18.299999998882413,
+      17.800000000745058,
+      15.300000000745058,
+      46,
+      13.799999998882413,
+      16.700000001117587,
+      16.299999998882413,
+      15.400000000372529,
+      49.09999999962747,
+      14.099999999627471,
+      13.700000001117587,
+      13.900000000372529,
+      48.69999999925494,
+      24.59999999962747,
+      15.5,
+      14.099999999627471,
+      13.800000000745058,
+      41.19999999925494,
+      14,
+      13.300000000745058,
+      14.300000000745058,
+      14,
+      39.29999999888241,
+      14.300000000745058,
+      15,
+      18,
+      13.5,
+      40.90000000037253,
+      13.899999998509884,
+      13.700000001117587,
+      21.699999999254942,
+      43.20000000111759,
+      13,
+      13.699999999254942
+    ]
+  },
+  {
+    "profile": "mobile-4x",
+    "count": 50,
+    "scenario": "mixed",
+    "zoom": 4.141266233766234,
+    "mixSamples": [
+      {
+        "near": 5,
+        "transition": 18,
+        "sprite": 11,
+        "spriteBlend": 11,
+        "offscreen": 16
+      },
+      {
+        "near": 6,
+        "transition": 14,
+        "sprite": 19,
+        "spriteBlend": 19,
+        "offscreen": 11
+      },
+      {
+        "near": 16,
+        "transition": 7,
+        "sprite": 25,
+        "spriteBlend": 25,
+        "offscreen": 2
+      },
+      {
+        "near": 18,
+        "transition": 8,
+        "sprite": 19,
+        "spriteBlend": 19,
+        "offscreen": 5
+      },
+      {
+        "near": 18,
+        "transition": 12,
+        "sprite": 8,
+        "spriteBlend": 8,
+        "offscreen": 12
+      },
+      {
+        "near": 18,
+        "transition": 18,
+        "sprite": 4,
+        "spriteBlend": 4,
+        "offscreen": 10
+      },
+      {
+        "near": 20,
+        "transition": 7,
+        "sprite": 19,
+        "spriteBlend": 19,
+        "offscreen": 4
+      },
+      {
+        "near": 10,
+        "transition": 10,
+        "sprite": 19,
+        "spriteBlend": 19,
+        "offscreen": 11
+      }
+    ],
+    "frames": 8,
+    "fps": 1.3793579088936758,
+    "p95_ms": 999.9000000003725,
+    "draw_sync_ms": 717.1875,
+    "mix": {
+      "near": 10,
+      "transition": 10,
+      "sprite": 19,
+      "spriteBlend": 19,
+      "offscreen": 11
+    },
+    "intervals_ms": [
+      721.6999999992549,
+      568.1999999992549,
+      590.8000000007451,
+      735.0999999996275,
+      802.0999999996275,
+      999.9000000003725,
+      753.2000000011176,
+      628.7999999988824
+    ]
+  },
+  {
+    "profile": "mobile-4x",
+    "count": 100,
+    "scenario": "mixed",
+    "zoom": 5.308782467532468,
+    "mixSamples": [
+      {
+        "near": 9,
+        "transition": 19,
+        "sprite": 12,
+        "spriteBlend": 12,
+        "offscreen": 60
+      },
+      {
+        "near": 7,
+        "transition": 23,
+        "sprite": 10,
+        "spriteBlend": 10,
+        "offscreen": 60
+      },
+      {
+        "near": 14,
+        "transition": 14,
+        "sprite": 40,
+        "spriteBlend": 40,
+        "offscreen": 32
+      },
+      {
+        "near": 39,
+        "transition": 7,
+        "sprite": 33,
+        "spriteBlend": 33,
+        "offscreen": 21
+      },
+      {
+        "near": 23,
+        "transition": 19,
+        "sprite": 4,
+        "spriteBlend": 4,
+        "offscreen": 54
+      },
+      {
+        "near": 39,
+        "transition": 10,
+        "sprite": 16,
+        "spriteBlend": 16,
+        "offscreen": 35
+      },
+      {
+        "near": 8,
+        "transition": 18,
+        "sprite": 40,
+        "spriteBlend": 40,
+        "offscreen": 34
+      },
+      {
+        "near": 6,
+        "transition": 16,
+        "sprite": 28,
+        "spriteBlend": 28,
+        "offscreen": 50
+      }
+    ],
+    "frames": 8,
+    "fps": 1.0848634428139714,
+    "p95_ms": 1394.4000000003725,
+    "draw_sync_ms": 913.0125000001863,
+    "mix": {
+      "near": 6,
+      "transition": 16,
+      "sprite": 28,
+      "spriteBlend": 28,
+      "offscreen": 50
+    },
+    "intervals_ms": [
+      695.2000000011176,
+      670.0999999996275,
+      834.8000000007451,
+      1362.5999999996275,
+      1049.2999999988824,
+      1394.4000000003725,
+      786.0999999996275,
+      581.7000000011176
+    ]
+  }
+]

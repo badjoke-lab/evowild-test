@@ -1,0 +1,963 @@
+{
+  "v1": {
+    "samples": 180,
+    "roi": "upper 25% of silhouette, 12 degrees elevation",
+    "coverage_reversal_fraction": 0.00855536230646934,
+    "mean_luma_reversal_255": 13.783734354826663,
+    "union_pixels": 468595
+  },
+  "v2": {
+    "samples": 180,
+    "roi": "upper 25% of silhouette, 12 degrees elevation",
+    "coverage_reversal_fraction": 0.0063712773684756665,
+    "mean_luma_reversal_255": 10.38212099200996,
+    "union_pixels": 481850
+  },
+  "switchTests": [
+    {
+      "yaw": -90,
+      "tilt": 0,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9244712990936556,
+      "centroid_delta_px": 0.22674575057969684,
+      "rgb_mae_255": 24.811681772406846
+    },
+    {
+      "yaw": -45,
+      "tilt": 0,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9267707082833133,
+      "centroid_delta_px": 0.06676335864486163,
+      "rgb_mae_255": 21.831932773109223
+    },
+    {
+      "yaw": -22,
+      "tilt": 0,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9291084854994629,
+      "centroid_delta_px": 0.20389547958697254,
+      "rgb_mae_255": 21.846043680630107
+    },
+    {
+      "yaw": 0,
+      "tilt": 0,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9052863436123348,
+      "centroid_delta_px": 0.10637728240218243,
+      "rgb_mae_255": 21.791850220264323
+    },
+    {
+      "yaw": 45,
+      "tilt": 0,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.930011862396204,
+      "centroid_delta_px": 0.14379792921334805,
+      "rgb_mae_255": 23.74060893633845
+    },
+    {
+      "yaw": 90,
+      "tilt": 0,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9292307692307692,
+      "centroid_delta_px": 0.2033268778913377,
+      "rgb_mae_255": 24.057435897435894
+    },
+    {
+      "yaw": 155,
+      "tilt": 0,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9198266522210184,
+      "centroid_delta_px": 0.2260443533207895,
+      "rgb_mae_255": 19.640664499819454
+    },
+    {
+      "yaw": -90,
+      "tilt": 0,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9038461538461539,
+      "centroid_delta_px": 0.6136801086043189,
+      "rgb_mae_255": 25.15155677655674
+    },
+    {
+      "yaw": -45,
+      "tilt": 0,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9104720564297342,
+      "centroid_delta_px": 0.20325486799230003,
+      "rgb_mae_255": 23.76451437873034
+    },
+    {
+      "yaw": -22,
+      "tilt": 0,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9022628791526239,
+      "centroid_delta_px": 0.213748474794956,
+      "rgb_mae_255": 22.087305408441697
+    },
+    {
+      "yaw": 0,
+      "tilt": 0,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.8796019900497513,
+      "centroid_delta_px": 0.3575993382682807,
+      "rgb_mae_255": 23.329353233830876
+    },
+    {
+      "yaw": 45,
+      "tilt": 0,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9146079484425349,
+      "centroid_delta_px": 0.16760979877614027,
+      "rgb_mae_255": 24.594522019334097
+    },
+    {
+      "yaw": 90,
+      "tilt": 0,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9041666666666667,
+      "centroid_delta_px": 0.48989966269907964,
+      "rgb_mae_255": 24.62361111111112
+    },
+    {
+      "yaw": 155,
+      "tilt": 0,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9102564102564102,
+      "centroid_delta_px": 0.23451150228991868,
+      "rgb_mae_255": 20.823964497041437
+    },
+    {
+      "yaw": -90,
+      "tilt": 0,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.8547681539807525,
+      "centroid_delta_px": 0.869360020678173,
+      "rgb_mae_255": 25.553805774278228
+    },
+    {
+      "yaw": -45,
+      "tilt": 0,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.9053909318100678,
+      "centroid_delta_px": 0.5873753286536835,
+      "rgb_mae_255": 24.32262287278356
+    },
+    {
+      "yaw": -22,
+      "tilt": 0,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.9005419190309213,
+      "centroid_delta_px": 0.6653819531794609,
+      "rgb_mae_255": 23.566358516629435
+    },
+    {
+      "yaw": 0,
+      "tilt": 0,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.8753280839895013,
+      "centroid_delta_px": 0.49261219212755375,
+      "rgb_mae_255": 24.74442257217839
+    },
+    {
+      "yaw": 45,
+      "tilt": 0,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.9027826699542092,
+      "centroid_delta_px": 0.7752502538186246,
+      "rgb_mae_255": 25.61089585534813
+    },
+    {
+      "yaw": 90,
+      "tilt": 0,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.8547387068201948,
+      "centroid_delta_px": 1.136417632360568,
+      "rgb_mae_255": 25.75258340714498
+    },
+    {
+      "yaw": 155,
+      "tilt": 0,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.9009964641594342,
+      "centroid_delta_px": 0.4042990830834713,
+      "rgb_mae_255": 21.284581592199697
+    },
+    {
+      "yaw": -90,
+      "tilt": 12,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9003021148036254,
+      "centroid_delta_px": 0.43155420521534993,
+      "rgb_mae_255": 30.546827794561935
+    },
+    {
+      "yaw": -45,
+      "tilt": 12,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9182464454976303,
+      "centroid_delta_px": 0.20509255281625471,
+      "rgb_mae_255": 22.65679304897315
+    },
+    {
+      "yaw": -22,
+      "tilt": 12,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9278242677824268,
+      "centroid_delta_px": 0.28836442962461284,
+      "rgb_mae_255": 23.649581589958157
+    },
+    {
+      "yaw": 0,
+      "tilt": 12,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9251559251559252,
+      "centroid_delta_px": 0.327508203112131,
+      "rgb_mae_255": 22.65280665280667
+    },
+    {
+      "yaw": 45,
+      "tilt": 12,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9413173652694611,
+      "centroid_delta_px": 0.10711341106447009,
+      "rgb_mae_255": 23.48063872255486
+    },
+    {
+      "yaw": 90,
+      "tilt": 12,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9398907103825137,
+      "centroid_delta_px": 0.17765941808069724,
+      "rgb_mae_255": 26.00546448087433
+    },
+    {
+      "yaw": 155,
+      "tilt": 12,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.92,
+      "centroid_delta_px": 0.29784880321828505,
+      "rgb_mae_255": 21.394954954954947
+    },
+    {
+      "yaw": -90,
+      "tilt": 12,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9028727770177839,
+      "centroid_delta_px": 0.8311966986473447,
+      "rgb_mae_255": 30.632010943912434
+    },
+    {
+      "yaw": -45,
+      "tilt": 12,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9093833780160858,
+      "centroid_delta_px": 0.2941073325736166,
+      "rgb_mae_255": 24.849329758713118
+    },
+    {
+      "yaw": -22,
+      "tilt": 12,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9065155807365439,
+      "centroid_delta_px": 0.4107736078262284,
+      "rgb_mae_255": 23.606547056971973
+    },
+    {
+      "yaw": 0,
+      "tilt": 12,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9041803663691874,
+      "centroid_delta_px": 0.5610341015934397,
+      "rgb_mae_255": 23.4941286989197
+    },
+    {
+      "yaw": 45,
+      "tilt": 12,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9160427807486631,
+      "centroid_delta_px": 0.4197183277000478,
+      "rgb_mae_255": 24.439215686274483
+    },
+    {
+      "yaw": 90,
+      "tilt": 12,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9210850801479655,
+      "centroid_delta_px": 0.2909762905047035,
+      "rgb_mae_255": 26.272503082614065
+    },
+    {
+      "yaw": 155,
+      "tilt": 12,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9102060843964671,
+      "centroid_delta_px": 0.17576372681590577,
+      "rgb_mae_255": 23.21099116781163
+    },
+    {
+      "yaw": -90,
+      "tilt": 12,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.8762071992976295,
+      "centroid_delta_px": 0.8310855162662821,
+      "rgb_mae_255": 31.422300263388927
+    },
+    {
+      "yaw": -45,
+      "tilt": 12,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.8984126984126984,
+      "centroid_delta_px": 0.5169688802393602,
+      "rgb_mae_255": 25.333568489124072
+    },
+    {
+      "yaw": -22,
+      "tilt": 12,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.8980099502487562,
+      "centroid_delta_px": 0.6067751708968614,
+      "rgb_mae_255": 24.51181592039798
+    },
+    {
+      "yaw": 0,
+      "tilt": 12,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.900555898702903,
+      "centroid_delta_px": 0.6334115809068807,
+      "rgb_mae_255": 24.405703108914985
+    },
+    {
+      "yaw": 45,
+      "tilt": 12,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.9077789510735657,
+      "centroid_delta_px": 0.606298470358756,
+      "rgb_mae_255": 25.22984864484335
+    },
+    {
+      "yaw": 90,
+      "tilt": 12,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.8778747026169706,
+      "centroid_delta_px": 0.7831999969088508,
+      "rgb_mae_255": 26.887655300026434
+    },
+    {
+      "yaw": 155,
+      "tilt": 12,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.8948717948717949,
+      "centroid_delta_px": 0.5822446275628285,
+      "rgb_mae_255": 24.215064102564074
+    },
+    {
+      "yaw": -90,
+      "tilt": 35,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9156010230179028,
+      "centroid_delta_px": 0.45474468850277855,
+      "rgb_mae_255": 34.45012787723784
+    },
+    {
+      "yaw": -45,
+      "tilt": 35,
+      "desiredSpan": 68,
+      "projected_span": 67.99999999999999,
+      "iou": 0.9174876847290641,
+      "centroid_delta_px": 0.22236544731710406,
+      "rgb_mae_255": 27.368226600985214
+    },
+    {
+      "yaw": -22,
+      "tilt": 35,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9012875536480687,
+      "centroid_delta_px": 0.10884006437917076,
+      "rgb_mae_255": 25.43848354792562
+    },
+    {
+      "yaw": 0,
+      "tilt": 35,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9181721572794899,
+      "centroid_delta_px": 0.20640573770582613,
+      "rgb_mae_255": 24.27630180658874
+    },
+    {
+      "yaw": 45,
+      "tilt": 35,
+      "desiredSpan": 68,
+      "projected_span": 67.99999999999999,
+      "iou": 0.927360774818402,
+      "centroid_delta_px": 0.11021494295328377,
+      "rgb_mae_255": 28.844632768361567
+    },
+    {
+      "yaw": 90,
+      "tilt": 35,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9364035087719298,
+      "centroid_delta_px": 0.3319632572680239,
+      "rgb_mae_255": 25.970029239766074
+    },
+    {
+      "yaw": 155,
+      "tilt": 35,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9170258620689655,
+      "centroid_delta_px": 0.12169427498627279,
+      "rgb_mae_255": 23.821839080459736
+    },
+    {
+      "yaw": -90,
+      "tilt": 35,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9229885057471264,
+      "centroid_delta_px": 0.05252692059774505,
+      "rgb_mae_255": 35.77164750957855
+    },
+    {
+      "yaw": -45,
+      "tilt": 35,
+      "desiredSpan": 102,
+      "projected_span": 101.99999999999999,
+      "iou": 0.8921023359288098,
+      "centroid_delta_px": 0.4125390904403376,
+      "rgb_mae_255": 28.752131998516855
+    },
+    {
+      "yaw": -22,
+      "tilt": 35,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9026290165530672,
+      "centroid_delta_px": 0.2293085296855829,
+      "rgb_mae_255": 25.300714053878615
+    },
+    {
+      "yaw": 0,
+      "tilt": 35,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.8986197049024274,
+      "centroid_delta_px": 0.13079816723990925,
+      "rgb_mae_255": 24.96985562430591
+    },
+    {
+      "yaw": 45,
+      "tilt": 35,
+      "desiredSpan": 102,
+      "projected_span": 101.99999999999999,
+      "iou": 0.9122902003248511,
+      "centroid_delta_px": 0.05738272915061198,
+      "rgb_mae_255": 26.004331348132048
+    },
+    {
+      "yaw": 90,
+      "tilt": 35,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9196865817825661,
+      "centroid_delta_px": 0.3460457730403944,
+      "rgb_mae_255": 25.694090760692163
+    },
+    {
+      "yaw": 155,
+      "tilt": 35,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9101178781925344,
+      "centroid_delta_px": 0.1767210642471687,
+      "rgb_mae_255": 23.902914210870975
+    },
+    {
+      "yaw": -90,
+      "tilt": 35,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.9084870848708487,
+      "centroid_delta_px": 0.04032214474437237,
+      "rgb_mae_255": 35.15694956949572
+    },
+    {
+      "yaw": -45,
+      "tilt": 35,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.8918720117690327,
+      "centroid_delta_px": 0.4862148812466386,
+      "rgb_mae_255": 28.16047566507296
+    },
+    {
+      "yaw": -22,
+      "tilt": 35,
+      "desiredSpan": 126,
+      "projected_span": 126.00000000000001,
+      "iou": 0.887572069186419,
+      "centroid_delta_px": 0.5060691551144936,
+      "rgb_mae_255": 26.185671578048243
+    },
+    {
+      "yaw": 0,
+      "tilt": 35,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.8966824644549763,
+      "centroid_delta_px": 0.21948739808968243,
+      "rgb_mae_255": 25.48562401263827
+    },
+    {
+      "yaw": 45,
+      "tilt": 35,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.9002484913028044,
+      "centroid_delta_px": 0.27814329787194336,
+      "rgb_mae_255": 25.68950420068632
+    },
+    {
+      "yaw": 90,
+      "tilt": 35,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.9045194143857416,
+      "centroid_delta_px": 0.7377050673838049,
+      "rgb_mae_255": 24.821981752599214
+    },
+    {
+      "yaw": 155,
+      "tilt": 35,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.9002267573696145,
+      "centroid_delta_px": 0.6412752196428037,
+      "rgb_mae_255": 24.224489795918387
+    },
+    {
+      "yaw": -90,
+      "tilt": 65,
+      "desiredSpan": 68,
+      "projected_span": 67.99999999999999,
+      "iou": 0.941544885177453,
+      "centroid_delta_px": 0.365010410472127,
+      "rgb_mae_255": 29.842032011134332
+    },
+    {
+      "yaw": -45,
+      "tilt": 65,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9335394126738794,
+      "centroid_delta_px": 0.24264991609373288,
+      "rgb_mae_255": 31.57135497166411
+    },
+    {
+      "yaw": -22,
+      "tilt": 65,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9275956284153005,
+      "centroid_delta_px": 0.10189155391713237,
+      "rgb_mae_255": 30.990437158469952
+    },
+    {
+      "yaw": 0,
+      "tilt": 65,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.899746192893401,
+      "centroid_delta_px": 0.12245917810085984,
+      "rgb_mae_255": 30.071065989847718
+    },
+    {
+      "yaw": 45,
+      "tilt": 65,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9018492176386913,
+      "centroid_delta_px": 0.18095026580849272,
+      "rgb_mae_255": 30.702228544333803
+    },
+    {
+      "yaw": 90,
+      "tilt": 65,
+      "desiredSpan": 68,
+      "projected_span": 67.99999999999999,
+      "iou": 0.9410681399631676,
+      "centroid_delta_px": 0.0730667950964955,
+      "rgb_mae_255": 27.670963781461
+    },
+    {
+      "yaw": 155,
+      "tilt": 65,
+      "desiredSpan": 68,
+      "projected_span": 68.00000000000001,
+      "iou": 0.9095816464237517,
+      "centroid_delta_px": 0.1951940224207468,
+      "rgb_mae_255": 27.02968960863701
+    },
+    {
+      "yaw": -90,
+      "tilt": 65,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9303201506591338,
+      "centroid_delta_px": 0.08892738049211386,
+      "rgb_mae_255": 31.18518518518523
+    },
+    {
+      "yaw": -45,
+      "tilt": 65,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9051546391752577,
+      "centroid_delta_px": 0.27480135510363585,
+      "rgb_mae_255": 31.5963344788087
+    },
+    {
+      "yaw": -22,
+      "tilt": 65,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.8993865030674847,
+      "centroid_delta_px": 0.19484948760667226,
+      "rgb_mae_255": 32.68302658486709
+    },
+    {
+      "yaw": 0,
+      "tilt": 65,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.8831318364997122,
+      "centroid_delta_px": 0.18920040203559815,
+      "rgb_mae_255": 30.456342352715403
+    },
+    {
+      "yaw": 45,
+      "tilt": 65,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.8933161953727506,
+      "centroid_delta_px": 0.18067399991735084,
+      "rgb_mae_255": 28.531919451585246
+    },
+    {
+      "yaw": 90,
+      "tilt": 65,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9283387622149837,
+      "centroid_delta_px": 0.2752839425662907,
+      "rgb_mae_255": 26.68051031487516
+    },
+    {
+      "yaw": 155,
+      "tilt": 65,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.8960880195599022,
+      "centroid_delta_px": 0.369555067235118,
+      "rgb_mae_255": 29.323349633251766
+    },
+    {
+      "yaw": -90,
+      "tilt": 65,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.9251369446135118,
+      "centroid_delta_px": 0.21321449466412676,
+      "rgb_mae_255": 31.86792452830184
+    },
+    {
+      "yaw": -45,
+      "tilt": 65,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.9057377049180327,
+      "centroid_delta_px": 0.15904449825148176,
+      "rgb_mae_255": 30.351092896174876
+    },
+    {
+      "yaw": -22,
+      "tilt": 65,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.8901408450704226,
+      "centroid_delta_px": 0.10962918380647897,
+      "rgb_mae_255": 32.12555331991956
+    },
+    {
+      "yaw": 0,
+      "tilt": 65,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.8885484488701647,
+      "centroid_delta_px": 0.18296468201313132,
+      "rgb_mae_255": 30.581641771990327
+    },
+    {
+      "yaw": 45,
+      "tilt": 65,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.8904923599320883,
+      "centroid_delta_px": 0.5193272636933035,
+      "rgb_mae_255": 28.5779569892473
+    },
+    {
+      "yaw": 90,
+      "tilt": 65,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.9297210300429185,
+      "centroid_delta_px": 1.015339699860729,
+      "rgb_mae_255": 27.46530758226035
+    },
+    {
+      "yaw": 155,
+      "tilt": 65,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.8915759774284563,
+      "centroid_delta_px": 0.23424568584627495,
+      "rgb_mae_255": 29.696896412736752
+    },
+    {
+      "yaw": -90,
+      "tilt": 90,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9305301645338209,
+      "centroid_delta_px": 0.20251361003255886,
+      "rgb_mae_255": 27.81230956733701
+    },
+    {
+      "yaw": -45,
+      "tilt": 90,
+      "desiredSpan": 68,
+      "projected_span": 67.99999999999999,
+      "iou": 0.9562043795620438,
+      "centroid_delta_px": 0.047721881834357986,
+      "rgb_mae_255": 25.46046228710463
+    },
+    {
+      "yaw": -22,
+      "tilt": 90,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9272727272727272,
+      "centroid_delta_px": 0.07359592183915378,
+      "rgb_mae_255": 29.276363636363655
+    },
+    {
+      "yaw": 0,
+      "tilt": 90,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9514018691588785,
+      "centroid_delta_px": 0.22134371697798205,
+      "rgb_mae_255": 27.77507788161992
+    },
+    {
+      "yaw": 45,
+      "tilt": 90,
+      "desiredSpan": 68,
+      "projected_span": 67.99999999999999,
+      "iou": 0.9579524680073126,
+      "centroid_delta_px": 0.03508232101896515,
+      "rgb_mae_255": 25.23095673369895
+    },
+    {
+      "yaw": 90,
+      "tilt": 90,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9531835205992509,
+      "centroid_delta_px": 0.19811380440642348,
+      "rgb_mae_255": 27.48876404494382
+    },
+    {
+      "yaw": 155,
+      "tilt": 90,
+      "desiredSpan": 68,
+      "projected_span": 68,
+      "iou": 0.9447513812154696,
+      "centroid_delta_px": 0.323852740027167,
+      "rgb_mae_255": 27.880294659300166
+    },
+    {
+      "yaw": -90,
+      "tilt": 90,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.923785594639866,
+      "centroid_delta_px": 0.1838521920012042,
+      "rgb_mae_255": 28.605806811836995
+    },
+    {
+      "yaw": -45,
+      "tilt": 90,
+      "desiredSpan": 102,
+      "projected_span": 101.99999999999999,
+      "iou": 0.9584717607973422,
+      "centroid_delta_px": 0.1041946382152165,
+      "rgb_mae_255": 27.175526024363236
+    },
+    {
+      "yaw": -22,
+      "tilt": 90,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.93476465730801,
+      "centroid_delta_px": 0.2681854038886582,
+      "rgb_mae_255": 29.84888521882746
+    },
+    {
+      "yaw": 0,
+      "tilt": 90,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9246861924686193,
+      "centroid_delta_px": 0.16751556300560067,
+      "rgb_mae_255": 28.522454672245523
+    },
+    {
+      "yaw": 45,
+      "tilt": 90,
+      "desiredSpan": 102,
+      "projected_span": 101.99999999999999,
+      "iou": 0.9576059850374065,
+      "centroid_delta_px": 0.07809138625059504,
+      "rgb_mae_255": 26.418952618453858
+    },
+    {
+      "yaw": 90,
+      "tilt": 90,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9335016835016835,
+      "centroid_delta_px": 0.1298049907501708,
+      "rgb_mae_255": 28.772727272727316
+    },
+    {
+      "yaw": 155,
+      "tilt": 90,
+      "desiredSpan": 102,
+      "projected_span": 102,
+      "iou": 0.9172131147540984,
+      "centroid_delta_px": 0.3426459830519921,
+      "rgb_mae_255": 30.24617486338798
+    },
+    {
+      "yaw": -90,
+      "tilt": 90,
+      "desiredSpan": 126,
+      "projected_span": 126.00000000000001,
+      "iou": 0.9206090266449157,
+      "centroid_delta_px": 0.1748044437815834,
+      "rgb_mae_255": 29.00960667029192
+    },
+    {
+      "yaw": -45,
+      "tilt": 90,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.9166666666666666,
+      "centroid_delta_px": 0.12419385342485152,
+      "rgb_mae_255": 28.367784992785097
+    },
+    {
+      "yaw": -22,
+      "tilt": 90,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.9054271896829661,
+      "centroid_delta_px": 0.15596080823947933,
+      "rgb_mae_255": 31.758373634246816
+    },
+    {
+      "yaw": 0,
+      "tilt": 90,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.9321566464423607,
+      "centroid_delta_px": 0.293220110632546,
+      "rgb_mae_255": 29.025372311086596
+    },
+    {
+      "yaw": 45,
+      "tilt": 90,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.9172077922077922,
+      "centroid_delta_px": 0.1391808521149777,
+      "rgb_mae_255": 27.58639971139974
+    },
+    {
+      "yaw": 90,
+      "tilt": 90,
+      "desiredSpan": 126,
+      "projected_span": 126.00000000000001,
+      "iou": 0.9348066298342541,
+      "centroid_delta_px": 0.46258583891891375,
+      "rgb_mae_255": 29.68011049723755
+    },
+    {
+      "yaw": 155,
+      "tilt": 90,
+      "desiredSpan": 126,
+      "projected_span": 126,
+      "iou": 0.9124797406807131,
+      "centroid_delta_px": 0.42668863299859283,
+      "rgb_mae_255": 31.391139924365195
+    }
+  ]
+}

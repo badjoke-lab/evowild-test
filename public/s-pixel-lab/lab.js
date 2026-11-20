@@ -1,6 +1,7 @@
 import {SectionsRenderer} from './renderer.js';
 const $=id=>document.getElementById(id);
-const defaults={yaw:-22,tilt:12,number:1,layers:128,samples:24,course:false,idle:true,spin:false,playing:false,time:0,zoom:1,mask:false};
+const v2=Boolean($('method'));
+const defaults={yaw:-22,tilt:12,number:1,layers:128,samples:24,course:false,idle:true,spin:false,playing:false,time:0,zoom:1,mask:false,method:'lod',magnification:1};
 const state={...defaults};
 const views=[
  ['side','側面','SIDE',0,0],['front','正面','FRONT',-90,0],['rear','背面','REAR',90,0],
@@ -12,6 +13,10 @@ function pressed(group,key,fn=b=>Number(b.textContent)){
  for(const b of $(group).querySelectorAll('button'))b.setAttribute('aria-pressed',String(fn(b)===key));
 }
 function sync(){
+ if(v2){
+   pressed('method',state.method,b=>b.dataset.method);
+   $('magnification').value=state.magnification;$('zoomOut').textContent=state.magnification.toFixed(2)+'×';
+ }
  for(const key of ['layers','number','samples'])pressed(key,state[key]);
  pressed('mode',Number(state.course),b=>Number(b.dataset.v));
  $('spin').setAttribute('aria-pressed',String(state.spin));$('play').classList.toggle('running',state.playing);
@@ -25,7 +30,16 @@ function sync(){
  $('phase').textContent=state.idle?'静止姿勢':support?.length?'接地 · '+support.join(' / '):'空中局面';
  [...$('tiles').children].forEach((b,i)=>b.setAttribute('aria-pressed',String(state.yaw===views[i][3]&&state.tilt===views[i][4])));
 }
-function draw(){if(renderer)return renderer.draw(state);}
+function draw(){
+ if(!renderer)return;
+ const triangles=renderer.draw(state);
+ if(v2){
+  const {near,transition,sprite,offscreen}=renderer.mix;
+  const summary='積層 '+near+'　移行 '+transition+'　スプライト '+sprite+(offscreen?'　画面外 '+offscreen:'');
+  if($('lodCounts').textContent!==summary)$('lodCounts').textContent=summary;
+ }
+ return triangles;
+}
 let activeWorker=null,resolveCancelled=null;
 async function selectLayers(count){
  if(!renderer||count===loadedCount)return completion;
@@ -37,7 +51,7 @@ async function selectLayers(count){
  $('loading').textContent='断面を読み込み中…';
  completion=new Promise((resolve,reject)=>{
    resolveCancelled=resolve;
-   const worker=new Worker(new URL('sections.js',import.meta.url));activeWorker=worker;
+   const worker=new Worker(new URL('sections.js',document.baseURI));activeWorker=worker;
    const fail=message=>{worker.terminate();$('loading').textContent=message;loading=false;reject(Error(message));};
    worker.onerror=e=>fail(e.message);
    let received=0;
@@ -61,6 +75,10 @@ function angles(y,t){
  sync();draw();
 }
 function handleGroup(id,fn){$(id).onclick=e=>{const b=e.target.closest('button');if(b)fn(b);};}
+if(v2){
+ handleGroup('method',b=>{state.method=b.dataset.method;sync();draw();});
+ $('magnification').oninput=e=>{state.magnification=Number(e.target.value);sync();draw();};
+}
 for(const v of views){
  const b=document.createElement('button');b.className='tile';b.innerHTML='<img src="assets/views/'+v[0]+'.png" alt=""><span>'+v[1]+'<small>'+v[2]+'</small></span>';
  b.onclick=()=>{state.spin=false;state.course=false;state.number=1;angles(v[3],v[4]);};
@@ -87,7 +105,14 @@ window.addEventListener('keydown',e=>{
 });
 async function boot(){
  const response=await fetch('assets/manifest.json');if(!response.ok)throw Error('断面の目録を取得できません。');
- meta=await response.json();renderer=new SectionsRenderer($('scene'),meta);
+ meta=await response.json();
+ if(v2){
+   const [{CrowdRenderer},atlas]=await Promise.all([import('./v2/renderer.js'),fetch('assets/angles/index.json').then(r=>r.json())]);
+   renderer=new CrowdRenderer($('scene'),meta,atlas,error=>{
+    if(error)$('loading').textContent='スプライトを取得できず積層で表示しています。';
+    draw();
+   });
+ }else renderer=new SectionsRenderer($('scene'),meta);
  $('scene').addEventListener('webglcontextlost',e=>{e.preventDefault();$('loading').textContent='描画を中断しました。復旧を待っています。';manual=true;});
  $('scene').addEventListener('webglcontextrestored',()=>location.reload());
  function tick(now){

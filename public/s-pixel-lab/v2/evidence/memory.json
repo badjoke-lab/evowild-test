@@ -1,0 +1,386 @@
+[
+  {
+    "profile": "desktop-1x",
+    "method": "v1",
+    "number": 1,
+    "rss_mib": 845.0234375,
+    "by_type": {
+      "browser": 282.34765625,
+      "renderer": 282.87109375,
+      "GPU": 196.09375,
+      "network.mojom.NetworkService": 61.09375,
+      "storage.mojom.StorageService": 22.6171875
+    },
+    "atlas_bytes": 0,
+    "coverage_bytes": 0,
+    "cache_bytes": 0
+  },
+  {
+    "profile": "desktop-1x",
+    "method": "v1",
+    "number": 10,
+    "rss_mib": 845.30078125,
+    "by_type": {
+      "browser": 282.34765625,
+      "renderer": 283.0234375,
+      "GPU": 196.21875,
+      "network.mojom.NetworkService": 61.09375,
+      "storage.mojom.StorageService": 22.6171875
+    },
+    "atlas_bytes": 0,
+    "coverage_bytes": 0,
+    "cache_bytes": 0
+  },
+  {
+    "profile": "desktop-1x",
+    "method": "v1",
+    "number": 50,
+    "rss_mib": 846.125,
+    "by_type": {
+      "browser": 282.50390625,
+      "renderer": 283.6796875,
+      "GPU": 196.23046875,
+      "network.mojom.NetworkService": 61.09375,
+      "storage.mojom.StorageService": 22.6171875
+    },
+    "atlas_bytes": 0,
+    "coverage_bytes": 0,
+    "cache_bytes": 0
+  },
+  {
+    "profile": "desktop-1x",
+    "method": "v1",
+    "number": 100,
+    "rss_mib": 846.3359375,
+    "by_type": {
+      "browser": 282.50390625,
+      "renderer": 283.8671875,
+      "GPU": 196.25390625,
+      "network.mojom.NetworkService": 61.09375,
+      "storage.mojom.StorageService": 22.6171875
+    },
+    "atlas_bytes": 0,
+    "coverage_bytes": 0,
+    "cache_bytes": 0
+  },
+  {
+    "profile": "desktop-1x",
+    "method": "stack",
+    "number": 1,
+    "rss_mib": 880.34765625,
+    "by_type": {
+      "browser": 282.68359375,
+      "renderer": 290.171875,
+      "GPU": 223.515625,
+      "network.mojom.NetworkService": 61.390625,
+      "storage.mojom.StorageService": 22.5859375
+    },
+    "atlas_bytes": 0,
+    "coverage_bytes": 8713872,
+    "cache_bytes": 1452312
+  },
+  {
+    "profile": "desktop-1x",
+    "method": "stack",
+    "number": 10,
+    "rss_mib": 880.578125,
+    "by_type": {
+      "browser": 282.8515625,
+      "renderer": 290.2578125,
+      "GPU": 223.4921875,
+      "network.mojom.NetworkService": 61.390625,
+      "storage.mojom.StorageService": 22.5859375
+    },
+    "atlas_bytes": 0,
+    "coverage_bytes": 8713872,
+    "cache_bytes": 1452312
+  },
+  {
+    "profile": "desktop-1x",
+    "method": "stack",
+    "number": 50,
+    "rss_mib": 881.33984375,
+    "by_type": {
+      "browser": 282.86328125,
+      "renderer": 290.80078125,
+      "GPU": 223.69921875,
+      "network.mojom.NetworkService": 61.390625,
+      "storage.mojom.StorageService": 22.5859375
+    },
+    "atlas_bytes": 0,
+    "coverage_bytes": 8713872,
+    "cache_bytes": 1452312
+  },
+  {
+    "profile": "desktop-1x",
+    "method": "stack",
+    "number": 100,
+    "rss_mib": 841.70703125,
+    "by_type": {
+      "browser": 282.94140625,
+      "renderer": 259.03515625,
+      "GPU": 215.734375,
+      "network.mojom.NetworkService": 61.40625,
+      "storage.mojom.StorageService": 22.58984375
+    },
+    "atlas_bytes": 0,
+    "coverage_bytes": 8713872,
+    "cache_bytes": 1452312
+  },
+  {
+    "profile": "desktop-1x",
+    "method": "lod",
+    "number": 1,
+    "rss_mib": 871.12109375,
+    "by_type": {
+      "browser": 283.26171875,
+      "renderer": 291.625,
+      "GPU": 212.078125,
+      "network.mojom.NetworkService": 61.33984375,
+      "storage.mojom.StorageService": 22.81640625
+    },
+    "atlas_bytes": 0,
+    "coverage_bytes": 8713872,
+    "cache_bytes": 1452312
+  },
+  {
+    "profile": "desktop-1x",
+    "method": "lod",
+    "number": 10,
+    "rss_mib": 917.3203125,
+    "by_type": {
+      "browser": 287.56640625,
+      "renderer": 299,
+      "GPU": 242.41796875,
+      "network.mojom.NetworkService": 65.51953125,
+      "storage.mojom.StorageService": 22.81640625
+    },
+    "atlas_bytes": 19170155,
+    "coverage_bytes": 8713872,
+    "cache_bytes": 1452312
+  },
+  {
+    "profile": "desktop-1x",
+    "method": "lod",
+    "number": 50,
+    "rss_mib": 919.29296875,
+    "by_type": {
+      "browser": 287.56640625,
+      "renderer": 299.1015625,
+      "GPU": 244.2890625,
+      "network.mojom.NetworkService": 65.51953125,
+      "storage.mojom.StorageService": 22.81640625
+    },
+    "atlas_bytes": 19170155,
+    "coverage_bytes": 8713872,
+    "cache_bytes": 1452312
+  },
+  {
+    "profile": "desktop-1x",
+    "method": "lod",
+    "number": 100,
+    "rss_mib": 919.50390625,
+    "by_type": {
+      "browser": 287.56640625,
+      "renderer": 299.296875,
+      "GPU": 244.3046875,
+      "network.mojom.NetworkService": 65.51953125,
+      "storage.mojom.StorageService": 22.81640625
+    },
+    "atlas_bytes": 19170155,
+    "coverage_bytes": 8713872,
+    "cache_bytes": 1452312
+  },
+  {
+    "profile": "mobile-4x",
+    "method": "v1",
+    "number": 1,
+    "rss_mib": 795.5390625,
+    "by_type": {
+      "browser": 282.41796875,
+      "renderer": 286.0859375,
+      "GPU": 143.24609375,
+      "network.mojom.NetworkService": 61.17578125,
+      "storage.mojom.StorageService": 22.61328125
+    },
+    "atlas_bytes": 0,
+    "coverage_bytes": 0,
+    "cache_bytes": 0
+  },
+  {
+    "profile": "mobile-4x",
+    "method": "v1",
+    "number": 10,
+    "rss_mib": 796.625,
+    "by_type": {
+      "browser": 282.3671875,
+      "renderer": 286.421875,
+      "GPU": 144.046875,
+      "network.mojom.NetworkService": 61.17578125,
+      "storage.mojom.StorageService": 22.61328125
+    },
+    "atlas_bytes": 0,
+    "coverage_bytes": 0,
+    "cache_bytes": 0
+  },
+  {
+    "profile": "mobile-4x",
+    "method": "v1",
+    "number": 50,
+    "rss_mib": 796.72265625,
+    "by_type": {
+      "browser": 282.546875,
+      "renderer": 286.53515625,
+      "GPU": 143.84765625,
+      "network.mojom.NetworkService": 61.1796875,
+      "storage.mojom.StorageService": 22.61328125
+    },
+    "atlas_bytes": 0,
+    "coverage_bytes": 0,
+    "cache_bytes": 0
+  },
+  {
+    "profile": "mobile-4x",
+    "method": "v1",
+    "number": 100,
+    "rss_mib": 796.34375,
+    "by_type": {
+      "browser": 282.55859375,
+      "renderer": 286.66796875,
+      "GPU": 143.32421875,
+      "network.mojom.NetworkService": 61.1796875,
+      "storage.mojom.StorageService": 22.61328125
+    },
+    "atlas_bytes": 0,
+    "coverage_bytes": 0,
+    "cache_bytes": 0
+  },
+  {
+    "profile": "mobile-4x",
+    "method": "stack",
+    "number": 1,
+    "rss_mib": 803.3359375,
+    "by_type": {
+      "browser": 284.265625,
+      "renderer": 290.40234375,
+      "GPU": 144.65625,
+      "network.mojom.NetworkService": 61.3671875,
+      "storage.mojom.StorageService": 22.64453125
+    },
+    "atlas_bytes": 0,
+    "coverage_bytes": 2830080,
+    "cache_bytes": 471680
+  },
+  {
+    "profile": "mobile-4x",
+    "method": "stack",
+    "number": 10,
+    "rss_mib": 803.55859375,
+    "by_type": {
+      "browser": 283.85546875,
+      "renderer": 290.51953125,
+      "GPU": 145.171875,
+      "network.mojom.NetworkService": 61.3671875,
+      "storage.mojom.StorageService": 22.64453125
+    },
+    "atlas_bytes": 0,
+    "coverage_bytes": 2830080,
+    "cache_bytes": 471680
+  },
+  {
+    "profile": "mobile-4x",
+    "method": "stack",
+    "number": 50,
+    "rss_mib": 804.484375,
+    "by_type": {
+      "browser": 284.01953125,
+      "renderer": 291.0546875,
+      "GPU": 145.3984375,
+      "network.mojom.NetworkService": 61.3671875,
+      "storage.mojom.StorageService": 22.64453125
+    },
+    "atlas_bytes": 0,
+    "coverage_bytes": 2830080,
+    "cache_bytes": 471680
+  },
+  {
+    "profile": "mobile-4x",
+    "method": "stack",
+    "number": 100,
+    "rss_mib": 804.60546875,
+    "by_type": {
+      "browser": 284.1171875,
+      "renderer": 291.02734375,
+      "GPU": 145.421875,
+      "network.mojom.NetworkService": 61.390625,
+      "storage.mojom.StorageService": 22.6484375
+    },
+    "atlas_bytes": 0,
+    "coverage_bytes": 2830080,
+    "cache_bytes": 471680
+  },
+  {
+    "profile": "mobile-4x",
+    "method": "lod",
+    "number": 1,
+    "rss_mib": 796.75390625,
+    "by_type": {
+      "browser": 282.875,
+      "renderer": 287.4375,
+      "GPU": 142.52734375,
+      "network.mojom.NetworkService": 61.328125,
+      "storage.mojom.StorageService": 22.5859375
+    },
+    "atlas_bytes": 0,
+    "coverage_bytes": 2830080,
+    "cache_bytes": 471680
+  },
+  {
+    "profile": "mobile-4x",
+    "method": "lod",
+    "number": 10,
+    "rss_mib": 847.35546875,
+    "by_type": {
+      "browser": 287.71875,
+      "renderer": 294.78515625,
+      "GPU": 176.7109375,
+      "network.mojom.NetworkService": 65.5546875,
+      "storage.mojom.StorageService": 22.5859375
+    },
+    "atlas_bytes": 19170155,
+    "coverage_bytes": 2830080,
+    "cache_bytes": 471680
+  },
+  {
+    "profile": "mobile-4x",
+    "method": "lod",
+    "number": 50,
+    "rss_mib": 847.140625,
+    "by_type": {
+      "browser": 287.71875,
+      "renderer": 294.59765625,
+      "GPU": 176.68359375,
+      "network.mojom.NetworkService": 65.5546875,
+      "storage.mojom.StorageService": 22.5859375
+    },
+    "atlas_bytes": 19170155,
+    "coverage_bytes": 2830080,
+    "cache_bytes": 471680
+  },
+  {
+    "profile": "mobile-4x",
+    "method": "lod",
+    "number": 100,
+    "rss_mib": 847.40234375,
+    "by_type": {
+      "browser": 287.71875,
+      "renderer": 294.84765625,
+      "GPU": 176.6953125,
+      "network.mojom.NetworkService": 65.5546875,
+      "storage.mojom.StorageService": 22.5859375
+    },
+    "atlas_bytes": 19170155,
+    "coverage_bytes": 2830080,
+    "cache_bytes": 471680
+  }
+]

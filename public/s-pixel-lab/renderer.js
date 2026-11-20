@@ -108,12 +108,12 @@ export function course(distance,lane=0){
  const a=(s-3800)/R;return [1900+R*Math.sin(a),-R*Math.cos(a),-Math.cos(a),-Math.sin(a)];
 }
 export class SectionsRenderer{
- constructor(canvas,meta){
+ constructor(canvas,meta,actorShaders=[runnerVS,runnerFS]){
    this.canvas=canvas;this.meta=meta;
    const gl=canvas.getContext('webgl2',{alpha:false,antialias:false,preserveDrawingBuffer:true});
    if(!gl) throw Error('WebGL 2 を利用できません。ブラウザのハードウェアアクセラレーションを確認してください。');
    this.gl=gl;this.mesh=new Map();
-   this.runner=program(gl,runnerVS,runnerFS);this.floor=program(gl,floorVS,floorFS);
+   this.runner=program(gl,...actorShaders);this.floor=program(gl,floorVS,floorFS);
    this.shadow=program(gl,shadowVS,shadowFS);
    this.palette=Float32Array.from(meta.palette.flatMap(v=>[1,3,5].map(i=>parseInt(v.slice(i,i+2),16)/255)));
    this.instance=gl.createBuffer();this.blank=gl.createVertexArray();
@@ -182,21 +182,32 @@ export class SectionsRenderer{
      }
      ext=Math.max(ext,extentOn(up)*1.025,extentOn(right)*h/w*1.025);
    }
+   ext/=s.magnification||1;
    function use(pass){
      const {p,u}=pass;gl.useProgram(p);
      gl.uniform3fv(u.uEye,eye);gl.uniform3fv(u.uRight,right);gl.uniform3fv(u.uUp,up);gl.uniform3fv(u.uTarget,aim);gl.uniform2f(u.uExtent,ext*w/h,ext);
    }
+   this.beginFrame?.(s,ext,w,h);
    gl.clear(gl.DEPTH_BUFFER_BIT);gl.disable(gl.CULL_FACE);
    if(s.mask){gl.clearColor(0,0,0,1);gl.clear(gl.COLOR_BUFFER_BIT);}
    else{
-     use(this.floor);gl.uniform1i(this.floor.u.uCourse,s.course?1:0);gl.bindVertexArray(this.blank);
-     gl.disable(gl.DEPTH_TEST);gl.drawArrays(gl.TRIANGLES,0,3);
+     this.drawFloor(s,{aim,ext,w,h},use);
      use(this.shadow);gl.bindVertexArray(this.shadowVAO);gl.bindBuffer(gl.ARRAY_BUFFER,this.instance);
      gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(movers),gl.STREAM_DRAW);
      gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
      gl.drawArraysInstanced(gl.TRIANGLES,0,3,s.number);gl.disable(gl.BLEND);
    }
    gl.enable(gl.DEPTH_TEST);gl.enable(gl.CULL_FACE);
+   const triangles=this.drawActors(s,{groups,aim,eye,up,right,ext,w,h},use);
+   this.endFrame?.();return triangles;
+ }
+ drawFloor(s,frame,use){
+   const gl=this.gl;
+   use(this.floor);gl.uniform1i(this.floor.u.uCourse,s.course?1:0);gl.bindVertexArray(this.blank);
+   gl.disable(gl.DEPTH_TEST);gl.drawArrays(gl.TRIANGLES,0,3);
+ }
+ drawActors(s,{groups},use){
+   const {gl,meta}=this;
    use(this.runner);const {u}=this.runner;
    gl.uniform3f(u.uOrigin,meta.x0-385,0,meta.z0);gl.uniform3f(u.uStep,meta.sx,meta.height/s.layers,meta.sz);
    gl.uniform3fv(u.uPalette,this.palette);
@@ -207,7 +218,7 @@ export class SectionsRenderer{
      const drift=s.course&&!s.idle?(tick-Math.floor(tick+1e-6))*meta.stride/s.samples:0;
      const feet=meta.poses[pose].feet;
      gl.uniform4fv(u.uFootDrift,['nearF','farF','nearH','farH'].map(k=>feet[k].contact?drift:0));
-     gl.bindVertexArray(m.vao);gl.bindBuffer(gl.ARRAY_BUFFER,this.instance);
+     gl.bindVertexArray(m.vao);this.bindFade?.(pose);gl.bindBuffer(gl.ARRAY_BUFFER,this.instance);
      gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(places),gl.STREAM_DRAW);
      gl.drawElementsInstanced(gl.TRIANGLES,m.len,gl.UNSIGNED_INT,0,places.length/4);
      tris+=m.len/3*places.length/4;
@@ -215,3 +226,5 @@ export class SectionsRenderer{
    gl.bindVertexArray(null);return tris;
  }
 }
+
+export {common,program,runnerVS,runnerFS};

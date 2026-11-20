@@ -1,0 +1,17 @@
+[
+  {
+    "instance_cap_per_pose": 100,
+    "last_runner_triangles": 3410030,
+    "draw_sync_ms": 592.2000000000533
+  },
+  {
+    "instance_cap_per_pose": 1,
+    "last_runner_triangles": 818242,
+    "draw_sync_ms": 144.4999999994678
+  },
+  {
+    "instance_cap_per_pose": 0,
+    "last_runner_triangles": 0,
+    "draw_sync_ms": 26.15714285708964
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "mobile": false,
+    "errors": [],
+    "checks": [
+      "play",
+      "orbit",
+      "100 sprites",
+      "course",
+      "full stack",
+      "64 layers",
+      "uncached 90-degree bank",
+      "zoom",
+      "drag",
+      "quarter",
+      "WebGL",
+      "viewport"
+    ]
+  },
+  {
+    "mobile": true,
+    "errors": [],
+    "checks": [
+      "play",
+      "orbit",
+      "100 sprites",
+      "course",
+      "full stack",
+      "64 layers",
+      "uncached 90-degree bank",
+      "zoom",
+      "drag",
+      "quarter",
+      "WebGL",
+      "viewport"
+    ]
+  }
+]
