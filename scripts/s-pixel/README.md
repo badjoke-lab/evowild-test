@@ -4,6 +4,8 @@
 
 ## デモを開く
 
+[ホスト版の観察室](https://evowild-s01-sprite-stacking-lab.bracedllama8.chatgpt.site) は所有者アカウントで開ける。共有用・オフライン起動用には以下のZIPを使う。
+
 配布用の [デモZIP](../../public/s-pixel-lab-demo.zip) を展開し、Python 3で `start-demo.py` を実行する。WebGL 2対応ブラウザで開く。ビルド・npm・外部CDNは起動に不要。リポジトリでは次のコマンドを使う。
 
 ```sh
