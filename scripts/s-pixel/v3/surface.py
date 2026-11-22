@@ -25,7 +25,7 @@ LEVELS = {'fine': 2600, 'race': 1400, 'mid': 650}
 QUANTIZATION = 64
 
 
-def extract_shell(solid):
+def extract_shell(solid, isovalue=.48):
     # Occupancy topology comes from the source even where the crest is one cell
     # thick. Limit the filtered field so every solid centre remains inside.
     # Storage in VTK's native x-fastest, then y, then z order.
@@ -38,7 +38,7 @@ def extract_shell(solid):
     image.GetPointData().SetScalars(numpy_to_vtk(field.ravel(), deep=True))
     surface = vtk.vtkFlyingEdges3D()
     surface.SetInputData(image)
-    surface.SetValue(0, .48)
+    surface.SetValue(0, isovalue)
     surface.ComputeNormalsOff()
     surface.ComputeScalarsOff()
     surface.Update()

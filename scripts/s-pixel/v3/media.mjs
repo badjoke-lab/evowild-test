@@ -7,17 +7,19 @@ import os from 'node:os';
 import {once} from 'node:events';
 import {openLab,DEMO} from '../browser.mjs';
 
-const dir=path.join(DEMO,'v3/evidence');
+const version=process.env.FILM_VERSION || 'v3';
+if(!['v3','v4'].includes(version))throw Error('Unknown film version');
+const dir=path.join(DEMO,version,'evidence');
 const timeline={turntable:144,gallop:144,'lod-transition':120,near10:72,mixed50:72,mixed100:72};
 const chosen=process.argv.slice(2);
 const origin=process.env.LAB_ORIGIN||'http://127.0.0.1:4173';
-process.env.LAB_URL=origin+'/s-pixel-lab/v3/';
+process.env.LAB_URL=origin+'/s-pixel-lab/'+version+'/';
 const {page,browser,errors}=await openLab({width:1280,height:900});
 try{
  await page.evaluate(async()=>{
   const lab=window.sLab;
   lab.manual(true);await lab.ready();await lab.ensureStack();
-  const {raceState}=await import('./scenarios.js');
+  const {raceState}=await import('../v3/scenarios.js');
   const out=document.createElement('canvas');out.width=880;out.height=480;
   const ctx=out.getContext('2d');
   const canvas=lab.renderer.canvas;

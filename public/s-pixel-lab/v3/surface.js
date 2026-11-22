@@ -9,7 +9,7 @@ export async function bytes(url){
  return magic[0]===31&&magic[1]===139 ? new Response(new Blob([buffer]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer() : buffer;
 }
 
-const vertex=`#version 300 es
+export const vertex=`#version 300 es
 precision highp float;
 layout(location=0) in vec4 gridPose;
 layout(location=1) in vec4 placement;
@@ -26,7 +26,7 @@ void main(){
  vec2 world=vec2(dir.x*p.x-dir.y*p.z,dir.y*p.x+dir.x*p.z)+placement.xy;
  gl_Position=project(vec3(world.x,p.y,world.y));
 }`;
-const fragment=`#version 300 es
+export const fragment=`#version 300 es
 precision highp float;precision highp int;precision highp sampler2DArray;
 in vec3 grid;flat in int pose;flat in float cover;
 uniform sampler2DArray paint;uniform ivec3 paintOrigin,paintSize;uniform vec3 palette[18],stepSize;
@@ -43,10 +43,10 @@ void main(){
 }`;
 
 export class PaintedSurface{
- constructor(gl,meta){this.gl=gl;this.meta=meta;this.pass=program(gl,vertex,fragment);this.bytes=0;}
+ constructor(gl,meta){this.gl=gl;this.meta=meta;this.pass=program(gl,this.constructor.vertex || vertex,this.constructor.fragment || fragment);this.bytes=0;}
  async load(){
   const url=f=>new URL('./assets/runtime/'+f,import.meta.url);
-  const [info,geo,paint]=await Promise.all([fetch(url('index.json')).then(r=>r.json()),bytes(url('geometry.gz')),bytes(url('paint.gz'))]);
+  const [info,geo,paint]=await Promise.all([fetch(this.constructor.index || url('index.json')).then(r=>r.json()),bytes(this.constructor.geometry || url('geometry.gz')),bytes(url('paint.gz'))]);
   this.info=info;const gl=this.gl;
   this.vao=gl.createVertexArray();gl.bindVertexArray(this.vao);
   this.vb=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,this.vb);gl.bufferData(gl.ARRAY_BUFFER,new Uint8Array(geo,0,info.vertexBytes),gl.STATIC_DRAW);
@@ -64,13 +64,16 @@ export class PaintedSurface{
   for(let i=0;i<info.poses.length;i++)gl.texSubImage3D(gl.TEXTURE_2D_ARRAY,0,(i%5)*sx,Math.floor(i/5)*sz,0,sx,sz,sy,gl.RED,gl.UNSIGNED_BYTE,new Uint8Array(paint,i*section,section));
   for(const key of [gl.TEXTURE_MIN_FILTER,gl.TEXTURE_MAG_FILTER])gl.texParameteri(gl.TEXTURE_2D_ARRAY,key,gl.NEAREST);
   gl.pixelStorei(gl.UNPACK_ALIGNMENT,4);
-  const {p,u}=this.pass;gl.useProgram(p);gl.uniform1i(u.paint,2);
+  this.configure(this.pass);
+  this.bytes=geo.byteLength+paint.byteLength+this.scratch.byteLength;
+  this.facing=new FacingIndices(gl,geo,info,this.meta);
+ }
+ configure(pass){
+  const gl=this.gl,info=this.info,{p,u}=pass;gl.useProgram(p);gl.uniform1i(u.paint,2);
   gl.uniform3iv(u.paintSize,info.paintSizeYZX);gl.uniform3iv(u.paintOrigin,info.paintOriginYZX);
   gl.uniform1f(u.quantization,info.quantization);gl.uniform3f(u.origin,this.meta.x0-385,0,this.meta.z0);
   gl.uniform3f(u.stepSize,this.meta.sx,this.meta.height/128,this.meta.sz);
   gl.uniform3fv(u.palette,Float32Array.from(this.meta.palette.flatMap(c=>[1,3,5].map(i=>parseInt(c.slice(i,i+2),16)/255))));
-  this.bytes=geo.byteLength+paint.byteLength+this.scratch.byteLength;
-  this.facing=new FacingIndices(gl,geo,info,this.meta);
  }
  draw(batches,use,drift){
   if(!batches.size)return 0;

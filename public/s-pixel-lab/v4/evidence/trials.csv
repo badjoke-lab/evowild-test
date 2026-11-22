@@ -1,0 +1,9 @@
+trial,profile,case,samples,avg_fps,p95_ms,gpu_ms,mean_triangles,mean_draws
+720/370 dense feature locks,desktop,mixed50,48,26.962,58.5,22.994,16105.458,38
+720/370 dense feature locks,desktop,mixed100,48,19.514,78.1,33.199,31787.458,63.979
+floor first / midsize trial,desktop,mixed100,48,19.864,75.9,35.369,37387.021,63.979
+floor after opaque / same midsize trial,desktop,mixed100,48,19.056,77.6,35.712,37387.021,63.979
+instanced / midsize 850,desktop,mixed50,48,25.806,62.6,27.697,21900.438,38
+instanced / midsize 850,desktop,mixed100,48,17.941,95.8,39.722,42157.896,63.979
+combined indices / same midsize 850,desktop,mixed50,48,24.982,69.5,25.387,21900.438,4.479
+combined indices / same midsize 850,desktop,mixed100,48,17.286,79.8,47.266,42157.896,5

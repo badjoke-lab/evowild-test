@@ -70,7 +70,7 @@ $('idle').onclick=()=>{freeCamera();Object.assign(state,{time:0,playing:false,id
 $('spin').onclick=()=>{selected='';state.spin=!state.spin;sync();};
 for(const k of ['yaw','tilt','magnification'])$(k).oninput=e=>{freeCamera();state[k]=Number(e.target.value);sync();draw();};
 $('scrub').oninput=e=>{freeCamera();Object.assign(state,{time:Number(e.target.value)*meta.period/24,idle:false,playing:false});sync();draw();};
-for(const [key,name,en,yaw,tilt] of views){const b=document.createElement('button');b.className='tile';b.dataset.view=key;b.innerHTML=`<img src="assets/views/${key}.png" alt=""><span>${name}<small>${en}</small></span>`;b.onclick=()=>{freeCamera();Object.assign(state,{number:1,course:false,magnification:1,yaw,tilt});sync();draw();};$('tiles').append(b);}
+for(const [key,name,en,yaw,tilt] of views){const b=document.createElement('button');b.className='tile';b.dataset.view=key;b.innerHTML=`<img src="${new URL(key+'.png',new URL(document.body.dataset.viewImages || './assets/views/',import.meta.url))}" alt=""><span>${name}<small>${en}</small></span>`;b.onclick=()=>{freeCamera();Object.assign(state,{number:1,course:false,magnification:1,yaw,tilt});sync();draw();};$('tiles').append(b);}
 for(const id of ['scene','reference']){
  const c=$(id);let drag;c.onpointerdown=e=>{drag=[e.clientX,e.clientY,state.yaw,state.tilt];c.setPointerCapture(e.pointerId);};
  c.onpointermove=e=>{if(!drag)return;freeCamera();state.yaw=((drag[2]+(e.clientX-drag[0])*.48+540)%360)-180;state.tilt=Math.max(0,Math.min(90,drag[3]-(e.clientY-drag[1])*.33));sync();draw();};c.onlostpointercapture=()=>{drag=null;};

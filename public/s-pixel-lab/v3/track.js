@@ -36,7 +36,7 @@ export class TrackFloor{
   oval(1750,'#b1bfb8',1110);for(let r=1195;r<=2305;r+=110)oval(r,'#ebede4',4.5);
   ctx.fillStyle='#cc8a69';ctx.fillRect(-12,1195,24,1110);
   this.texture=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,this.texture);
-  gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA8,gl.RGBA,gl.UNSIGNED_BYTE,c);
+  gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA8,gl.RGBA,gl.UNSIGNED_BYTE,this.preparePlan?.(c) || c);
   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
   for(const key of [gl.TEXTURE_WRAP_S,gl.TEXTURE_WRAP_T])gl.texParameteri(gl.TEXTURE_2D,key,gl.CLAMP_TO_EDGE);
   gl.generateMipmap(gl.TEXTURE_2D);this.bytes=Math.round(c.width*c.height*4*4/3);

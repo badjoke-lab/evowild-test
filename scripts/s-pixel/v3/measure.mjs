@@ -6,11 +6,11 @@ import {DEMO} from '../browser.mjs';
 import {RACES,raceState} from '../../../public/s-pixel-lab/v3/scenarios.js';
 
 const version=process.argv[2];
-if(!['v2','v3'].includes(version))throw Error('Pass v2 or v3');
+if(!['v2','v3','v4'].includes(version))throw Error('Pass v2, v3 or v4');
 const profiles={desktop:{mobile:false,width:877,height:414,viewport:{width:1280,height:900},cpu:1},mobile:{mobile:true,width:352,height:335,viewport:{width:390,height:844},cpu:4}};
 const filter=process.env.MEASURE_PROFILE,scenarioFilter=process.env.MEASURE_RACE;
 const method=process.env.MEASURE_METHOD||'lod',samples=Number(process.env.MEASURE_FRAMES||48);
-const destination=process.env.MEASURE_OUT||path.join(DEMO,'v3/evidence',version+'-race.json');
+const destination=process.env.MEASURE_OUT||path.join(DEMO,version==='v4'?'v4/evidence':'v3/evidence',version+'-race.json');
 if(!Number.isInteger(samples)||samples<2||!['lod','surface','stack','sprite','exact'].includes(method))throw Error('Invalid measurement configuration');
 if(filter && !(filter in profiles) || scenarioFilter && !(scenarioFilter in RACES))throw Error('Unknown selected scenario or profile');
 const url=(process.env.LAB_BASE_URL||'http://127.0.0.1:4173/s-pixel-lab/')+version+'/';

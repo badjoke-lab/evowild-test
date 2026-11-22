@@ -5,9 +5,11 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {openLab,DEMO} from '../browser.mjs';
 
-const evidence=path.join(DEMO,'v3/evidence');
+const version=process.argv[2] || 'v3';
+if(!['v3','v4'].includes(version))throw Error('Unknown UI version');
+const evidence=path.join(DEMO,version,'evidence');
 const results=[];
-process.env.LAB_URL=(process.env.LAB_ORIGIN||'http://127.0.0.1:4173')+'/s-pixel-lab/v3/';
+process.env.LAB_URL=(process.env.LAB_ORIGIN||'http://127.0.0.1:4173')+'/s-pixel-lab/'+version+'/';
 for(const mobile of [false,true]){
  const {page,browser,errors}=await openLab(mobile?{width:390,height:844}:{width:1280,height:900},mobile);
  const checks=[];

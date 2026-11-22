@@ -58,8 +58,8 @@ for(const version of (process.env.V3_QA_VERSIONS||'v2,v3').split(',')){
    }
    window.captureAppearance=async(recipe,method)=>{
     const {yaw,tilt,time,idle,span}=recipe;
-    Object.assign(lab.state,{yaw,tilt,time,idle:!!idle,method,magnification:magnification(span,yaw,tilt)});
-    if(method==='lod'&&lab.renderer.sprites?.load)await lab.renderer.sprites.load(Math.round(tilt/10));
+    Object.assign(lab.state,{heroAA:method==='lod-race'?0:undefined,yaw,tilt,time,idle:!!idle,method:method==='lod-race'?'lod':method,magnification:magnification(span,yaw,tilt)});
+    if(lab.state.method==='lod'&&lab.renderer.sprites?.load)await lab.renderer.sprites.load(Math.round(tilt/10));
     lab.draw();
     const gl=lab.renderer.gl;
     if(gl.getError()!==gl.NO_ERROR)throw Error('WebGL readback failed');
@@ -77,6 +77,7 @@ for(const version of (process.env.V3_QA_VERSIONS||'v2,v3').split(',')){
    try{draws=JSON.parse(await fs.readFile(path.join(folder,'draws.json'),'utf8'));}catch(e){if(e.code!=='ENOENT')throw e;}
    const work=recipes.filter(r=>{
     if(groups&&!groups.includes(r.group))return false;
+    if(process.env.V3_QA_ALL==='1')return true;
     if(version==='v2')return r.group!=='switch'&&r.group!=='cut';
     if(method==='stack')return r.group==='views'||r.group==='switch'||r.group==='cut';
     if(method==='lod')return r.group!=='views';

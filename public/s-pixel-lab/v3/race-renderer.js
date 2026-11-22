@@ -18,7 +18,7 @@ export class RaceRenderer extends CrowdRenderer{
  constructor(canvas,meta,atlas,onReady){
   super(canvas,meta,atlas,onReady);
   this.footBits=meta.poses.map(({feet})=>['nearF','farF','nearH','farH'].reduce((n,k,i)=>n|(Number(feet[k].contact)<<i),0));
-  this.maxCoverage=this.coverage.samples;this.track=new TrackFloor(this.gl);this.surface=new PaintedSurface(this.gl,meta);
+  this.maxCoverage=this.coverage.samples;this.track=new (this.constructor.Floor || TrackFloor)(this.gl);this.surface=new (this.constructor.Surface || PaintedSurface)(this.gl,meta);
  }
  beginFrame(s,ext,w,h){
   const hero=s.number===1&&s.method!=='exact'&&700*h/(2*ext)>=205;
