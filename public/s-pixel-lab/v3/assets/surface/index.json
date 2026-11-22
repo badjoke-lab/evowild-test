@@ -1,0 +1,785 @@
+{
+ "quantization": 64,
+ "levels": [
+  "fine",
+  "race",
+  "mid"
+ ],
+ "poses": [
+  {
+   "name": "idle",
+   "paint": "idle.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "idle-fine.bin",
+     "vertices": 1311,
+     "indices": 7800,
+     "volumeInCells": 72081.7,
+     "volumeRatio": 0.972
+    },
+    "race": {
+     "file": "idle-race.bin",
+     "vertices": 711,
+     "indices": 4188,
+     "volumeInCells": 70123.5,
+     "volumeRatio": 0.9456
+    },
+    "mid": {
+     "file": "idle-mid.bin",
+     "vertices": 336,
+     "indices": 1932,
+     "volumeInCells": 66283.47,
+     "volumeRatio": 0.8938
+    }
+   },
+   "sourceSha256": "09bfc0ea07ab0b27113a1a99eb1d9a4f649987769143d8a8734277d25ee6ce24",
+   "lockedVertices": 73,
+   "contourTriangles": 67648,
+   "enclosedAirCells": 9
+  },
+  {
+   "name": "run-00",
+   "paint": "run-00.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-00-fine.bin",
+     "vertices": 1314,
+     "indices": 7788,
+     "volumeInCells": 71481.63,
+     "volumeRatio": 0.9665
+    },
+    "race": {
+     "file": "run-00-race.bin",
+     "vertices": 712,
+     "indices": 4176,
+     "volumeInCells": 69470.65,
+     "volumeRatio": 0.9393
+    },
+    "mid": {
+     "file": "run-00-mid.bin",
+     "vertices": 346,
+     "indices": 1950,
+     "volumeInCells": 64289.9,
+     "volumeRatio": 0.8692
+    }
+   },
+   "sourceSha256": "0604c7792d3490092418a2ade57b0397f7bf54dadef94916a3578c4ab2922bf7",
+   "lockedVertices": 95,
+   "contourTriangles": 67540,
+   "enclosedAirCells": 4
+  },
+  {
+   "name": "run-01",
+   "paint": "run-01.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-01-fine.bin",
+     "vertices": 1306,
+     "indices": 7794,
+     "volumeInCells": 71858.29,
+     "volumeRatio": 0.967
+    },
+    "race": {
+     "file": "run-01-race.bin",
+     "vertices": 709,
+     "indices": 4200,
+     "volumeInCells": 70642.48,
+     "volumeRatio": 0.9506
+    },
+    "mid": {
+     "file": "run-01-mid.bin",
+     "vertices": 338,
+     "indices": 1944,
+     "volumeInCells": 65160.15,
+     "volumeRatio": 0.8769
+    }
+   },
+   "sourceSha256": "1858e45141679404f76c0554ff51218dda5807791602d35a5e93e13858ba56b2",
+   "lockedVertices": 80,
+   "contourTriangles": 67956,
+   "enclosedAirCells": 7
+  },
+  {
+   "name": "run-02",
+   "paint": "run-02.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-02-fine.bin",
+     "vertices": 1311,
+     "indices": 7782,
+     "volumeInCells": 72624.79,
+     "volumeRatio": 0.9715
+    },
+    "race": {
+     "file": "run-02-race.bin",
+     "vertices": 712,
+     "indices": 4188,
+     "volumeInCells": 70868.44,
+     "volumeRatio": 0.948
+    },
+    "mid": {
+     "file": "run-02-mid.bin",
+     "vertices": 343,
+     "indices": 1950,
+     "volumeInCells": 65138.41,
+     "volumeRatio": 0.8714
+    }
+   },
+   "sourceSha256": "b3026e2d9b042a9e876b2470264deb4b6025ef5d1ba2c927c7820b2002f31a9e",
+   "lockedVertices": 76,
+   "contourTriangles": 68280,
+   "enclosedAirCells": 6
+  },
+  {
+   "name": "run-03",
+   "paint": "run-03.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-03-fine.bin",
+     "vertices": 1316,
+     "indices": 7788,
+     "volumeInCells": 72160.51,
+     "volumeRatio": 0.9648
+    },
+    "race": {
+     "file": "run-03-race.bin",
+     "vertices": 713,
+     "indices": 4170,
+     "volumeInCells": 70369.76,
+     "volumeRatio": 0.9408
+    },
+    "mid": {
+     "file": "run-03-mid.bin",
+     "vertices": 341,
+     "indices": 1950,
+     "volumeInCells": 65917.99,
+     "volumeRatio": 0.8813
+    }
+   },
+   "sourceSha256": "d3a179872c860378eccf5184ee1f643f7528bdf5c5ccceeac1adfd58c9094f16",
+   "lockedVertices": 81,
+   "contourTriangles": 68112,
+   "enclosedAirCells": 4
+  },
+  {
+   "name": "run-04",
+   "paint": "run-04.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-04-fine.bin",
+     "vertices": 1308,
+     "indices": 7788,
+     "volumeInCells": 72768.66,
+     "volumeRatio": 0.9697
+    },
+    "race": {
+     "file": "run-04-race.bin",
+     "vertices": 708,
+     "indices": 4176,
+     "volumeInCells": 71550.88,
+     "volumeRatio": 0.9535
+    },
+    "mid": {
+     "file": "run-04-mid.bin",
+     "vertices": 338,
+     "indices": 1950,
+     "volumeInCells": 65999.62,
+     "volumeRatio": 0.8795
+    }
+   },
+   "sourceSha256": "89c7801e4e9518d147129a820f239dee813d5b69aeedbe97b435897f015d59ea",
+   "lockedVertices": 80,
+   "contourTriangles": 69084,
+   "enclosedAirCells": 4
+  },
+  {
+   "name": "run-05",
+   "paint": "run-05.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-05-fine.bin",
+     "vertices": 1310,
+     "indices": 7794,
+     "volumeInCells": 73301.36,
+     "volumeRatio": 0.9685
+    },
+    "race": {
+     "file": "run-05-race.bin",
+     "vertices": 712,
+     "indices": 4182,
+     "volumeInCells": 71603.89,
+     "volumeRatio": 0.9461
+    },
+    "mid": {
+     "file": "run-05-mid.bin",
+     "vertices": 341,
+     "indices": 1950,
+     "volumeInCells": 67474.92,
+     "volumeRatio": 0.8915
+    }
+   },
+   "sourceSha256": "03bc24321c1ef342c401461cb551fe989fe8110be4f0ee58edb285694f71c79f",
+   "lockedVertices": 79,
+   "contourTriangles": 70476,
+   "enclosedAirCells": 4
+  },
+  {
+   "name": "run-06",
+   "paint": "run-06.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-06-fine.bin",
+     "vertices": 1310,
+     "indices": 7794,
+     "volumeInCells": 73582.85,
+     "volumeRatio": 0.9664
+    },
+    "race": {
+     "file": "run-06-race.bin",
+     "vertices": 712,
+     "indices": 4194,
+     "volumeInCells": 71163.7,
+     "volumeRatio": 0.9346
+    },
+    "mid": {
+     "file": "run-06-mid.bin",
+     "vertices": 340,
+     "indices": 1950,
+     "volumeInCells": 65441.18,
+     "volumeRatio": 0.8595
+    }
+   },
+   "sourceSha256": "0245214a72c34892a50690556bded10ecb88c79112d13a1edd48acdbd51b8c15",
+   "lockedVertices": 71,
+   "contourTriangles": 71292,
+   "enclosedAirCells": 5
+  },
+  {
+   "name": "run-07",
+   "paint": "run-07.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-07-fine.bin",
+     "vertices": 1313,
+     "indices": 7782,
+     "volumeInCells": 74173.2,
+     "volumeRatio": 0.9744
+    },
+    "race": {
+     "file": "run-07-race.bin",
+     "vertices": 712,
+     "indices": 4188,
+     "volumeInCells": 71734.61,
+     "volumeRatio": 0.9424
+    },
+    "mid": {
+     "file": "run-07-mid.bin",
+     "vertices": 341,
+     "indices": 1944,
+     "volumeInCells": 65694.13,
+     "volumeRatio": 0.863
+    }
+   },
+   "sourceSha256": "2a985ad9d139aaf224aa109bff1818d4c012deed4d77d1bef8b034be2de90827",
+   "lockedVertices": 77,
+   "contourTriangles": 71688,
+   "enclosedAirCells": 4
+  },
+  {
+   "name": "run-08",
+   "paint": "run-08.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-08-fine.bin",
+     "vertices": 1315,
+     "indices": 7788,
+     "volumeInCells": 73660.51,
+     "volumeRatio": 0.9663
+    },
+    "race": {
+     "file": "run-08-race.bin",
+     "vertices": 712,
+     "indices": 4182,
+     "volumeInCells": 71876.28,
+     "volumeRatio": 0.9429
+    },
+    "mid": {
+     "file": "run-08-mid.bin",
+     "vertices": 342,
+     "indices": 1950,
+     "volumeInCells": 65429.8,
+     "volumeRatio": 0.8583
+    }
+   },
+   "sourceSha256": "2aa70ff13eb4397f49a2b2f818c0607a1d94dc8284de802335d5eab940e5e10c",
+   "lockedVertices": 78,
+   "contourTriangles": 72188,
+   "enclosedAirCells": 4
+  },
+  {
+   "name": "run-09",
+   "paint": "run-09.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-09-fine.bin",
+     "vertices": 1310,
+     "indices": 7788,
+     "volumeInCells": 74003.86,
+     "volumeRatio": 0.9679
+    },
+    "race": {
+     "file": "run-09-race.bin",
+     "vertices": 708,
+     "indices": 4182,
+     "volumeInCells": 71705.18,
+     "volumeRatio": 0.9378
+    },
+    "mid": {
+     "file": "run-09-mid.bin",
+     "vertices": 342,
+     "indices": 1950,
+     "volumeInCells": 66167.02,
+     "volumeRatio": 0.8654
+    }
+   },
+   "sourceSha256": "dd5f8e8ce975979bdcb481a14118d894653bf82cae8f45dab379980c289ba2a8",
+   "lockedVertices": 86,
+   "contourTriangles": 72612,
+   "enclosedAirCells": 5
+  },
+  {
+   "name": "run-10",
+   "paint": "run-10.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-10-fine.bin",
+     "vertices": 1308,
+     "indices": 7776,
+     "volumeInCells": 73599.24,
+     "volumeRatio": 0.9637
+    },
+    "race": {
+     "file": "run-10-race.bin",
+     "vertices": 713,
+     "indices": 4188,
+     "volumeInCells": 71092.42,
+     "volumeRatio": 0.9309
+    },
+    "mid": {
+     "file": "run-10-mid.bin",
+     "vertices": 340,
+     "indices": 1944,
+     "volumeInCells": 65142.16,
+     "volumeRatio": 0.853
+    }
+   },
+   "sourceSha256": "649aa04b4aaf8c34d9b48ee3b048887b1cd1bdf31976f39d6ec7c69c52dab287",
+   "lockedVertices": 80,
+   "contourTriangles": 72396,
+   "enclosedAirCells": 4
+  },
+  {
+   "name": "run-11",
+   "paint": "run-11.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-11-fine.bin",
+     "vertices": 1315,
+     "indices": 7788,
+     "volumeInCells": 73627.61,
+     "volumeRatio": 0.9675
+    },
+    "race": {
+     "file": "run-11-race.bin",
+     "vertices": 714,
+     "indices": 4188,
+     "volumeInCells": 71769.81,
+     "volumeRatio": 0.9431
+    },
+    "mid": {
+     "file": "run-11-mid.bin",
+     "vertices": 344,
+     "indices": 1938,
+     "volumeInCells": 65144.9,
+     "volumeRatio": 0.856
+    }
+   },
+   "sourceSha256": "6635308b97fc05c2d8e967176b166927f661aebd4ba80381fdec0abc0f129ee6",
+   "lockedVertices": 81,
+   "contourTriangles": 72136,
+   "enclosedAirCells": 4
+  },
+  {
+   "name": "run-12",
+   "paint": "run-12.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-12-fine.bin",
+     "vertices": 1312,
+     "indices": 7794,
+     "volumeInCells": 73435.27,
+     "volumeRatio": 0.9695
+    },
+    "race": {
+     "file": "run-12-race.bin",
+     "vertices": 712,
+     "indices": 4194,
+     "volumeInCells": 71571.98,
+     "volumeRatio": 0.9449
+    },
+    "mid": {
+     "file": "run-12-mid.bin",
+     "vertices": 338,
+     "indices": 1944,
+     "volumeInCells": 66787.53,
+     "volumeRatio": 0.8818
+    }
+   },
+   "sourceSha256": "8a45591edbfd739a81f717383c0f28945496bd638587ed2b6a9a608c821cfee3",
+   "lockedVertices": 81,
+   "contourTriangles": 71460,
+   "enclosedAirCells": 4
+  },
+  {
+   "name": "run-13",
+   "paint": "run-13.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-13-fine.bin",
+     "vertices": 1310,
+     "indices": 7770,
+     "volumeInCells": 73271.67,
+     "volumeRatio": 0.9725
+    },
+    "race": {
+     "file": "run-13-race.bin",
+     "vertices": 715,
+     "indices": 4176,
+     "volumeInCells": 71275.27,
+     "volumeRatio": 0.946
+    },
+    "mid": {
+     "file": "run-13-mid.bin",
+     "vertices": 344,
+     "indices": 1950,
+     "volumeInCells": 64861.66,
+     "volumeRatio": 0.8609
+    }
+   },
+   "sourceSha256": "de3e9d4bc9c19e33e293e8581360db17c97afb34ecec6b913106d37a2774605b",
+   "lockedVertices": 91,
+   "contourTriangles": 70684,
+   "enclosedAirCells": 4
+  },
+  {
+   "name": "run-14",
+   "paint": "run-14.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-14-fine.bin",
+     "vertices": 1308,
+     "indices": 7782,
+     "volumeInCells": 72209.48,
+     "volumeRatio": 0.966
+    },
+    "race": {
+     "file": "run-14-race.bin",
+     "vertices": 711,
+     "indices": 4188,
+     "volumeInCells": 70588.89,
+     "volumeRatio": 0.9443
+    },
+    "mid": {
+     "file": "run-14-mid.bin",
+     "vertices": 340,
+     "indices": 1944,
+     "volumeInCells": 65222.46,
+     "volumeRatio": 0.8725
+    }
+   },
+   "sourceSha256": "26793e70803306bf7fc17c7807bc4263f6f148eb44e5e9737b71dd1ce717120e",
+   "lockedVertices": 81,
+   "contourTriangles": 69632,
+   "enclosedAirCells": 4
+  },
+  {
+   "name": "run-15",
+   "paint": "run-15.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-15-fine.bin",
+     "vertices": 1319,
+     "indices": 7794,
+     "volumeInCells": 72338.68,
+     "volumeRatio": 0.9683
+    },
+    "race": {
+     "file": "run-15-race.bin",
+     "vertices": 720,
+     "indices": 4182,
+     "volumeInCells": 70422.29,
+     "volumeRatio": 0.9426
+    },
+    "mid": {
+     "file": "run-15-mid.bin",
+     "vertices": 348,
+     "indices": 1938,
+     "volumeInCells": 64147.56,
+     "volumeRatio": 0.8587
+    }
+   },
+   "sourceSha256": "8ea0da1c48f262a3ab1c70b4dcb14872bf4615e62d7fa5653b4cc32004f04d13",
+   "lockedVertices": 101,
+   "contourTriangles": 70084,
+   "enclosedAirCells": 5
+  },
+  {
+   "name": "run-16",
+   "paint": "run-16.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-16-fine.bin",
+     "vertices": 1311,
+     "indices": 7794,
+     "volumeInCells": 72193.09,
+     "volumeRatio": 0.9684
+    },
+    "race": {
+     "file": "run-16-race.bin",
+     "vertices": 711,
+     "indices": 4194,
+     "volumeInCells": 70186.96,
+     "volumeRatio": 0.9415
+    },
+    "mid": {
+     "file": "run-16-mid.bin",
+     "vertices": 339,
+     "indices": 1944,
+     "volumeInCells": 64789.12,
+     "volumeRatio": 0.8691
+    }
+   },
+   "sourceSha256": "74a6070031012e8f94833b319498f51ed8fae1cb2a1ce86d040c4b21ddb64bf5",
+   "lockedVertices": 72,
+   "contourTriangles": 70392,
+   "enclosedAirCells": 6
+  },
+  {
+   "name": "run-17",
+   "paint": "run-17.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-17-fine.bin",
+     "vertices": 1312,
+     "indices": 7788,
+     "volumeInCells": 72279.1,
+     "volumeRatio": 0.9713
+    },
+    "race": {
+     "file": "run-17-race.bin",
+     "vertices": 710,
+     "indices": 4182,
+     "volumeInCells": 70382.45,
+     "volumeRatio": 0.9458
+    },
+    "mid": {
+     "file": "run-17-mid.bin",
+     "vertices": 341,
+     "indices": 1950,
+     "volumeInCells": 64435.84,
+     "volumeRatio": 0.8659
+    }
+   },
+   "sourceSha256": "6570f48316a33e278307189cb89a4f22091518f75b4193ec6789296cc46cfc50",
+   "lockedVertices": 74,
+   "contourTriangles": 69736,
+   "enclosedAirCells": 4
+  },
+  {
+   "name": "run-18",
+   "paint": "run-18.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-18-fine.bin",
+     "vertices": 1310,
+     "indices": 7788,
+     "volumeInCells": 72221.8,
+     "volumeRatio": 0.9698
+    },
+    "race": {
+     "file": "run-18-race.bin",
+     "vertices": 712,
+     "indices": 4188,
+     "volumeInCells": 70546.93,
+     "volumeRatio": 0.9473
+    },
+    "mid": {
+     "file": "run-18-mid.bin",
+     "vertices": 339,
+     "indices": 1950,
+     "volumeInCells": 66431.76,
+     "volumeRatio": 0.892
+    }
+   },
+   "sourceSha256": "f965c21e243b4c84b57f9aa69df461d78df3c316d286cffe541c893422839245",
+   "lockedVertices": 66,
+   "contourTriangles": 70040,
+   "enclosedAirCells": 4
+  },
+  {
+   "name": "run-19",
+   "paint": "run-19.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-19-fine.bin",
+     "vertices": 1312,
+     "indices": 7800,
+     "volumeInCells": 72186.68,
+     "volumeRatio": 0.9697
+    },
+    "race": {
+     "file": "run-19-race.bin",
+     "vertices": 712,
+     "indices": 4188,
+     "volumeInCells": 70174.36,
+     "volumeRatio": 0.9427
+    },
+    "mid": {
+     "file": "run-19-mid.bin",
+     "vertices": 342,
+     "indices": 1938,
+     "volumeInCells": 64596.28,
+     "volumeRatio": 0.8678
+    }
+   },
+   "sourceSha256": "80c97164303a22273208ffe57ebfcd1b17b8908dc7a7ec6486770f44e792d0df",
+   "lockedVertices": 81,
+   "contourTriangles": 70248,
+   "enclosedAirCells": 5
+  },
+  {
+   "name": "run-20",
+   "paint": "run-20.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-20-fine.bin",
+     "vertices": 1306,
+     "indices": 7782,
+     "volumeInCells": 71988.61,
+     "volumeRatio": 0.9665
+    },
+    "race": {
+     "file": "run-20-race.bin",
+     "vertices": 707,
+     "indices": 4182,
+     "volumeInCells": 70620.08,
+     "volumeRatio": 0.9481
+    },
+    "mid": {
+     "file": "run-20-mid.bin",
+     "vertices": 337,
+     "indices": 1950,
+     "volumeInCells": 65174.17,
+     "volumeRatio": 0.875
+    }
+   },
+   "sourceSha256": "f79929651ea072079ae9a777d752e0b05a57af75b3b94c147381668feed2763b",
+   "lockedVertices": 57,
+   "contourTriangles": 70152,
+   "enclosedAirCells": 5
+  },
+  {
+   "name": "run-21",
+   "paint": "run-21.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-21-fine.bin",
+     "vertices": 1312,
+     "indices": 7794,
+     "volumeInCells": 71695.73,
+     "volumeRatio": 0.9657
+    },
+    "race": {
+     "file": "run-21-race.bin",
+     "vertices": 715,
+     "indices": 4200,
+     "volumeInCells": 70129.84,
+     "volumeRatio": 0.9446
+    },
+    "mid": {
+     "file": "run-21-mid.bin",
+     "vertices": 343,
+     "indices": 1950,
+     "volumeInCells": 64755.62,
+     "volumeRatio": 0.8722
+    }
+   },
+   "sourceSha256": "112719dfe822f27f528ebf1ee6d75f5a4a6c297578a5b2f66d1dd54bead0930d",
+   "lockedVertices": 67,
+   "contourTriangles": 69772,
+   "enclosedAirCells": 4
+  },
+  {
+   "name": "run-22",
+   "paint": "run-22.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-22-fine.bin",
+     "vertices": 1317,
+     "indices": 7788,
+     "volumeInCells": 71763.19,
+     "volumeRatio": 0.966
+    },
+    "race": {
+     "file": "run-22-race.bin",
+     "vertices": 714,
+     "indices": 4182,
+     "volumeInCells": 69428.64,
+     "volumeRatio": 0.9346
+    },
+    "mid": {
+     "file": "run-22-mid.bin",
+     "vertices": 341,
+     "indices": 1944,
+     "volumeInCells": 64686.88,
+     "volumeRatio": 0.8708
+    }
+   },
+   "sourceSha256": "463a87795b698def86e9eac8b5b7780a8ffca41d56d5fd39d787eabd2f2d3aee",
+   "lockedVertices": 88,
+   "contourTriangles": 69044,
+   "enclosedAirCells": 4
+  },
+  {
+   "name": "run-23",
+   "paint": "run-23.paint.gz",
+   "levels": {
+    "fine": {
+     "file": "run-23-fine.bin",
+     "vertices": 1310,
+     "indices": 7788,
+     "volumeInCells": 71614.07,
+     "volumeRatio": 0.9687
+    },
+    "race": {
+     "file": "run-23-race.bin",
+     "vertices": 710,
+     "indices": 4194,
+     "volumeInCells": 70229.7,
+     "volumeRatio": 0.95
+    },
+    "mid": {
+     "file": "run-23-mid.bin",
+     "vertices": 339,
+     "indices": 1944,
+     "volumeInCells": 64356.84,
+     "volumeRatio": 0.8705
+    }
+   },
+   "sourceSha256": "f09d39ea96d811784f606155f26a8074131d41bf8f5f1639e2bee49ee6d9c93e",
+   "lockedVertices": 74,
+   "contourTriangles": 68064,
+   "enclosedAirCells": 4
+  }
+ ]
+}

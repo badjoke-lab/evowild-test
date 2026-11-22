@@ -1,0 +1,8 @@
+{
+  "name": "evowild-s-pixel-offline-surface",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "meshoptimizer": "0.25.0"
+  }
+}

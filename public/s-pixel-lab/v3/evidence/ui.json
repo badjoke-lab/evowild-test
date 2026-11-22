@@ -1,0 +1,116 @@
+[
+ {
+  "profile": "desktop 1280×900",
+  "checks": [
+   "viewport fits",
+   "running clock",
+   "pause",
+   "mouse orbit",
+   "128-layer stack",
+   "surface mode",
+   "side-by-side canvases",
+   "course near10",
+   "course mixed50",
+   "course mixed100",
+   "course overview100",
+   "steep camera cut has a visible body during & after loading",
+   "WebGL readback",
+   "no browser errors"
+  ],
+  "cold": {
+   "wasLoaded": false,
+   "immediate": {
+    "near": 0,
+    "mid": 1,
+    "transition": 0,
+    "sprite": 0,
+    "offscreen": 0,
+    "fine": 0,
+    "race": 0
+   },
+   "settled": {
+    "near": 0,
+    "mid": 0,
+    "transition": 1,
+    "sprite": 0,
+    "offscreen": 0,
+    "fine": 0,
+    "race": 0
+   },
+   "before": {
+    "iou": 0.8252730109204368,
+    "reference_px": 1282,
+    "candidate_px": 1058
+   },
+   "after": {
+    "iou": 0.8853454821564161,
+    "reference_px": 1282,
+    "candidate_px": 1201
+   },
+   "beforeAfter": {
+    "iou": 0.880932556203164,
+    "reference_px": 1058,
+    "candidate_px": 1201
+   },
+   "webgl": 0
+  },
+  "errors": []
+ },
+ {
+  "profile": "touch emulation 390×844",
+  "checks": [
+   "viewport fits",
+   "running clock",
+   "pause",
+   "touch orbit",
+   "128-layer stack",
+   "surface mode",
+   "side-by-side canvases",
+   "course near10",
+   "course mixed50",
+   "course mixed100",
+   "course overview100",
+   "steep camera cut has a visible body during & after loading",
+   "WebGL readback",
+   "no browser errors"
+  ],
+  "cold": {
+   "wasLoaded": false,
+   "immediate": {
+    "near": 0,
+    "mid": 1,
+    "transition": 0,
+    "sprite": 0,
+    "offscreen": 0,
+    "fine": 0,
+    "race": 0
+   },
+   "settled": {
+    "near": 0,
+    "mid": 0,
+    "transition": 0,
+    "sprite": 1,
+    "offscreen": 0,
+    "fine": 0,
+    "race": 0
+   },
+   "before": {
+    "iou": 0.8005215123859192,
+    "reference_px": 767,
+    "candidate_px": 614
+   },
+   "after": {
+    "iou": 0.9483204134366925,
+    "reference_px": 767,
+    "candidate_px": 741
+   },
+   "beforeAfter": {
+    "iou": 0.8286099865047234,
+    "reference_px": 614,
+    "candidate_px": 741
+   },
+   "webgl": 0
+  },
+  "errors": []
+ }
+]

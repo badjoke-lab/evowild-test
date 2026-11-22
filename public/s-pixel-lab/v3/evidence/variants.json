@@ -1,0 +1,801 @@
+[
+ {
+  "id": "all-faces",
+  "options": {
+   "frontFaces": false
+  },
+  "profile": "desktop",
+  "scenario": "mixed100",
+  "number": 100,
+  "method": "lod",
+  "width": 877,
+  "height": 414,
+  "cpu": 1,
+  "frames": 48,
+  "fps": 16.626,
+  "p95_ms": 87,
+  "gpu_ms": 44.276,
+  "gpu_samples": 48,
+  "submit_ms": 0.54,
+  "draw_sync_ms": 54.396,
+  "triangles": {
+   "min": 72481,
+   "mean": 76651.333,
+   "max": 103157
+  },
+  "draw_calls": {
+   "min": 41,
+   "mean": 45.875,
+   "max": 51
+  },
+  "blits": {
+   "min": 0,
+   "mean": 0,
+   "max": 0
+  },
+  "mix": {
+   "near": {
+    "min": 40,
+    "mean": 42.188,
+    "max": 47
+   },
+   "mid": {
+    "min": 9,
+    "mean": 10.271,
+    "max": 11
+   },
+   "transition": {
+    "min": 3,
+    "mean": 11.708,
+    "max": 43
+   },
+   "sprite": {
+    "min": 0,
+    "mean": 35.833,
+    "max": 40
+   },
+   "offscreen": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "fine": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "race": {
+    "min": 40,
+    "mean": 42.188,
+    "max": 47
+   }
+  },
+  "visibility": {
+   "intersects": {
+    "min": 100,
+    "mean": 100,
+    "max": 100
+   },
+   "centre": {
+    "min": 98,
+    "mean": 99.896,
+    "max": 100
+   },
+   "whole": {
+    "min": 78,
+    "mean": 91.792,
+    "max": 100
+   },
+   "min_span_px": {
+    "min": 95.19999999999999,
+    "mean": 99.2,
+    "max": 103.2
+   },
+   "max_span_px": {
+    "min": 148.74999999999997,
+    "mean": 155,
+    "max": 161.25
+   }
+  },
+  "memory": {
+   "buffer_bytes": 1891200,
+   "texture_bytes": 92430339,
+   "renderbuffer_bytes": 7401880,
+   "unknown_formats": [],
+   "gl_mib": 97.01101207733154,
+   "js_heap_mib": 5.491077423095703,
+   "rss_mib": 1044.046875,
+   "rss_kib_by_type": {
+    "browser": 300316,
+    "renderer": 346032,
+    "GPU": 325080,
+    "network.mojom.NetworkService": 74420,
+    "storage.mojom.StorageService": 23256
+   }
+  }
+ },
+ {
+  "id": "facing",
+  "options": {},
+  "profile": "desktop",
+  "scenario": "mixed100",
+  "number": 100,
+  "method": "lod",
+  "width": 877,
+  "height": 414,
+  "cpu": 1,
+  "frames": 48,
+  "fps": 18.285,
+  "p95_ms": 81.3,
+  "gpu_ms": 41.45,
+  "gpu_samples": 48,
+  "submit_ms": 0.915,
+  "draw_sync_ms": 48.55,
+  "triangles": {
+   "min": 47743,
+   "mean": 52106.563,
+   "max": 68505
+  },
+  "draw_calls": {
+   "min": 51,
+   "mean": 63.979,
+   "max": 93
+  },
+  "blits": {
+   "min": 0,
+   "mean": 0,
+   "max": 0
+  },
+  "mix": {
+   "near": {
+    "min": 40,
+    "mean": 42.188,
+    "max": 47
+   },
+   "mid": {
+    "min": 9,
+    "mean": 10.271,
+    "max": 11
+   },
+   "transition": {
+    "min": 3,
+    "mean": 11.708,
+    "max": 43
+   },
+   "sprite": {
+    "min": 0,
+    "mean": 35.833,
+    "max": 40
+   },
+   "offscreen": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "fine": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "race": {
+    "min": 40,
+    "mean": 42.188,
+    "max": 47
+   }
+  },
+  "visibility": {
+   "intersects": {
+    "min": 100,
+    "mean": 100,
+    "max": 100
+   },
+   "centre": {
+    "min": 98,
+    "mean": 99.896,
+    "max": 100
+   },
+   "whole": {
+    "min": 78,
+    "mean": 91.792,
+    "max": 100
+   },
+   "min_span_px": {
+    "min": 95.19999999999999,
+    "mean": 99.2,
+    "max": 103.2
+   },
+   "max_span_px": {
+    "min": 148.74999999999997,
+    "mean": 155,
+    "max": 161.25
+   }
+  },
+  "memory": {
+   "buffer_bytes": 5456220,
+   "texture_bytes": 92430339,
+   "renderbuffer_bytes": 7401880,
+   "unknown_formats": [],
+   "gl_mib": 100.41088008880615,
+   "js_heap_mib": 7.178157806396484,
+   "rss_mib": 1059.8125,
+   "rss_kib_by_type": {
+    "browser": 300196,
+    "renderer": 353788,
+    "GPU": 334192,
+    "network.mojom.NetworkService": 73904,
+    "storage.mojom.StorageService": 23168
+   }
+  }
+ },
+ {
+  "id": "hero-0",
+  "options": {
+   "heroAA": 0
+  },
+  "profile": "desktop",
+  "scenario": "near1",
+  "number": 1,
+  "method": "lod",
+  "width": 877,
+  "height": 414,
+  "cpu": 1,
+  "frames": 32,
+  "fps": 39.747,
+  "p95_ms": 50.7,
+  "gpu_ms": 12.197,
+  "gpu_samples": 32,
+  "submit_ms": 0.438,
+  "draw_sync_ms": 23.791,
+  "triangles": {
+   "min": 1565,
+   "mean": 1594.156,
+   "max": 1657
+  },
+  "draw_calls": {
+   "min": 3,
+   "mean": 3,
+   "max": 3
+  },
+  "blits": {
+   "min": 0,
+   "mean": 0,
+   "max": 0
+  },
+  "mix": {
+   "near": {
+    "min": 1,
+    "mean": 1,
+    "max": 1
+   },
+   "mid": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "transition": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "sprite": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "offscreen": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "fine": {
+    "min": 1,
+    "mean": 1,
+    "max": 1
+   },
+   "race": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   }
+  },
+  "visibility": {
+   "intersects": {
+    "min": 1,
+    "mean": 1,
+    "max": 1
+   },
+   "centre": {
+    "min": 1,
+    "mean": 1,
+    "max": 1
+   },
+   "whole": {
+    "min": 1,
+    "mean": 1,
+    "max": 1
+   },
+   "min_span_px": {
+    "min": 310,
+    "mean": 335,
+    "max": 360
+   },
+   "max_span_px": {
+    "min": 310,
+    "mean": 335,
+    "max": 360
+   }
+  },
+  "memory": {
+   "buffer_bytes": 2423196,
+   "texture_bytes": 92430339,
+   "renderbuffer_bytes": 7401880,
+   "unknown_formats": [],
+   "gl_mib": 97.5183629989624,
+   "js_heap_mib": 2.726154327392578,
+   "rss_mib": 973.44140625,
+   "rss_kib_by_type": {
+    "browser": 288868,
+    "renderer": 256456,
+    "GPU": 353896,
+    "network.mojom.NetworkService": 74448,
+    "storage.mojom.StorageService": 23136
+   }
+  }
+ },
+ {
+  "id": "hero-2",
+  "options": {
+   "heroAA": 2
+  },
+  "profile": "desktop",
+  "scenario": "near1",
+  "number": 1,
+  "method": "lod",
+  "width": 877,
+  "height": 414,
+  "cpu": 1,
+  "frames": 32,
+  "fps": 30.987,
+  "p95_ms": 56.5,
+  "gpu_ms": 17.043,
+  "gpu_samples": 32,
+  "submit_ms": 0.562,
+  "draw_sync_ms": 30.162,
+  "triangles": {
+   "min": 1565,
+   "mean": 1594.156,
+   "max": 1657
+  },
+  "draw_calls": {
+   "min": 3,
+   "mean": 3,
+   "max": 3
+  },
+  "blits": {
+   "min": 1,
+   "mean": 1,
+   "max": 1
+  },
+  "mix": {
+   "near": {
+    "min": 1,
+    "mean": 1,
+    "max": 1
+   },
+   "mid": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "transition": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "sprite": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "offscreen": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "fine": {
+    "min": 1,
+    "mean": 1,
+    "max": 1
+   },
+   "race": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   }
+  },
+  "visibility": {
+   "intersects": {
+    "min": 1,
+    "mean": 1,
+    "max": 1
+   },
+   "centre": {
+    "min": 1,
+    "mean": 1,
+    "max": 1
+   },
+   "whole": {
+    "min": 1,
+    "mean": 1,
+    "max": 1
+   },
+   "min_span_px": {
+    "min": 310,
+    "mean": 335,
+    "max": 360
+   },
+   "max_span_px": {
+    "min": 310,
+    "mean": 335,
+    "max": 360
+   }
+  },
+  "memory": {
+   "buffer_bytes": 2423196,
+   "texture_bytes": 92430339,
+   "renderbuffer_bytes": 3630780,
+   "unknown_formats": [],
+   "gl_mib": 93.9219617843628,
+   "js_heap_mib": 4.419834136962891,
+   "rss_mib": 1032.66796875,
+   "rss_kib_by_type": {
+    "browser": 299316,
+    "renderer": 341644,
+    "GPU": 319364,
+    "network.mojom.NetworkService": 73980,
+    "storage.mojom.StorageService": 23148
+   }
+  }
+ },
+ {
+  "id": "hero-4",
+  "options": {
+   "heroAA": 4
+  },
+  "profile": "desktop",
+  "scenario": "near1",
+  "number": 1,
+  "method": "lod",
+  "width": 877,
+  "height": 414,
+  "cpu": 1,
+  "frames": 32,
+  "fps": 33.313,
+  "p95_ms": 53.5,
+  "gpu_ms": 13.393,
+  "gpu_samples": 32,
+  "submit_ms": 0.344,
+  "draw_sync_ms": 28.794,
+  "triangles": {
+   "min": 1565,
+   "mean": 1594.156,
+   "max": 1657
+  },
+  "draw_calls": {
+   "min": 3,
+   "mean": 3,
+   "max": 3
+  },
+  "blits": {
+   "min": 1,
+   "mean": 1,
+   "max": 1
+  },
+  "mix": {
+   "near": {
+    "min": 1,
+    "mean": 1,
+    "max": 1
+   },
+   "mid": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "transition": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "sprite": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "offscreen": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "fine": {
+    "min": 1,
+    "mean": 1,
+    "max": 1
+   },
+   "race": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   }
+  },
+  "visibility": {
+   "intersects": {
+    "min": 1,
+    "mean": 1,
+    "max": 1
+   },
+   "centre": {
+    "min": 1,
+    "mean": 1,
+    "max": 1
+   },
+   "whole": {
+    "min": 1,
+    "mean": 1,
+    "max": 1
+   },
+   "min_span_px": {
+    "min": 310,
+    "mean": 335,
+    "max": 360
+   },
+   "max_span_px": {
+    "min": 310,
+    "mean": 335,
+    "max": 360
+   }
+  },
+  "memory": {
+   "buffer_bytes": 2423196,
+   "texture_bytes": 92430339,
+   "renderbuffer_bytes": 7261560,
+   "unknown_formats": [],
+   "gl_mib": 97.38454341888428,
+   "js_heap_mib": 4.762657165527344,
+   "rss_mib": 1065.765625,
+   "rss_kib_by_type": {
+    "browser": 299700,
+    "renderer": 342768,
+    "GPU": 351448,
+    "network.mojom.NetworkService": 74224,
+    "storage.mojom.StorageService": 23204
+   }
+  }
+ },
+ {
+  "id": "ray-1",
+  "options": {},
+  "profile": "desktop",
+  "scenario": "near1",
+  "number": 1,
+  "method": "exact",
+  "width": 877,
+  "height": 414,
+  "cpu": 1,
+  "frames": 24,
+  "fps": 30.204,
+  "p95_ms": 54.8,
+  "gpu_ms": 19.386,
+  "gpu_samples": 24,
+  "submit_ms": 0.2,
+  "draw_sync_ms": 29.533,
+  "triangles": {
+   "min": 436,
+   "mean": 456.333,
+   "max": 474
+  },
+  "draw_calls": {
+   "min": 3,
+   "mean": 3,
+   "max": 3
+  },
+  "blits": {
+   "min": 0,
+   "mean": 0,
+   "max": 0
+  },
+  "mix": {
+   "near": {
+    "min": 1,
+    "mean": 1,
+    "max": 1
+   },
+   "mid": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "transition": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "sprite": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "offscreen": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "fine": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "race": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   }
+  },
+  "visibility": {
+   "intersects": {
+    "min": 1,
+    "mean": 1,
+    "max": 1
+   },
+   "centre": {
+    "min": 1,
+    "mean": 1,
+    "max": 1
+   },
+   "whole": {
+    "min": 1,
+    "mean": 1,
+    "max": 1
+   },
+   "min_span_px": {
+    "min": 310,
+    "mean": 335,
+    "max": 360
+   },
+   "max_span_px": {
+    "min": 310,
+    "mean": 335,
+    "max": 360
+   }
+  },
+  "memory": {
+   "buffer_bytes": 1887440,
+   "texture_bytes": 95907843,
+   "renderbuffer_bytes": 7401880,
+   "unknown_formats": [],
+   "gl_mib": 100.32383251190186,
+   "js_heap_mib": 4.481266021728516,
+   "rss_mib": 1099.7890625,
+   "rss_kib_by_type": {
+    "browser": 300152,
+    "renderer": 354856,
+    "GPU": 373216,
+    "network.mojom.NetworkService": 74804,
+    "storage.mojom.StorageService": 23156
+   }
+  }
+ },
+ {
+  "id": "ray-10",
+  "options": {},
+  "profile": "desktop",
+  "scenario": "near10",
+  "number": 10,
+  "method": "exact",
+  "width": 877,
+  "height": 414,
+  "cpu": 1,
+  "frames": 24,
+  "fps": 13.604,
+  "p95_ms": 92.6,
+  "gpu_ms": 56.615,
+  "gpu_samples": 24,
+  "submit_ms": 0.242,
+  "draw_sync_ms": 64.446,
+  "triangles": {
+   "min": 4651,
+   "mean": 4703.5,
+   "max": 4731
+  },
+  "draw_calls": {
+   "min": 3,
+   "mean": 3,
+   "max": 3
+  },
+  "blits": {
+   "min": 0,
+   "mean": 0,
+   "max": 0
+  },
+  "mix": {
+   "near": {
+    "min": 10,
+    "mean": 10,
+    "max": 10
+   },
+   "mid": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "transition": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "sprite": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "offscreen": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "fine": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "race": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   }
+  },
+  "visibility": {
+   "intersects": {
+    "min": 10,
+    "mean": 10,
+    "max": 10
+   },
+   "centre": {
+    "min": 10,
+    "mean": 10,
+    "max": 10
+   },
+   "whole": {
+    "min": 10,
+    "mean": 10,
+    "max": 10
+   },
+   "min_span_px": {
+    "min": 149.6,
+    "mean": 157.6,
+    "max": 165.60000000000002
+   },
+   "max_span_px": {
+    "min": 233.75,
+    "mean": 246.25,
+    "max": 258.75
+   }
+  },
+  "memory": {
+   "buffer_bytes": 1887640,
+   "texture_bytes": 95907843,
+   "renderbuffer_bytes": 7401880,
+   "unknown_formats": [],
+   "gl_mib": 100.32402324676514,
+   "js_heap_mib": 4.791709899902344,
+   "rss_mib": 1059.08203125,
+   "rss_kib_by_type": {
+    "browser": 300256,
+    "renderer": 352720,
+    "GPU": 333440,
+    "network.mojom.NetworkService": 74976,
+    "storage.mojom.StorageService": 23108
+   }
+  }
+ }
+]

@@ -1,0 +1,954 @@
+{
+  "format": "indexed-voxel-v1",
+  "dtype": "uint8",
+  "compression": "gzip",
+  "order": [
+    "y",
+    "z",
+    "x"
+  ],
+  "shape": [
+    128,
+    60,
+    283
+  ],
+  "originXYZ": [
+    -420,
+    0,
+    -118.80000000000001
+  ],
+  "stepXYZ": [
+    3,
+    3.625,
+    3.96
+  ],
+  "sideDrawingPivotX": 385,
+  "transparentIndex": 0,
+  "palette": [
+    "#000000",
+    "#171e30",
+    "#242b40",
+    "#354057",
+    "#505d74",
+    "#798499",
+    "#969fb2",
+    "#a9b4cb",
+    "#c7d2e6",
+    "#e4e5e9",
+    "#fff9ef",
+    "#e4f5ff",
+    "#28518c",
+    "#548de2",
+    "#8dcaff",
+    "#38d7ee",
+    "#c99745",
+    "#ffe5a0"
+  ],
+  "period": 0.72,
+  "frames": 24,
+  "stride": 558.0,
+  "referenceSHA256": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+  "reference": "art/s-creature/references/00_s_type_modeling_image_v1.png",
+  "poses": [
+    {
+      "name": "idle",
+      "file": "idle.u8.gz",
+      "sha256": "09bfc0ea07ab0b27113a1a99eb1d9a4f649987769143d8a8734277d25ee6ce24",
+      "occupied": 74147,
+      "feet": {
+        "nearF": {
+          "contact": false,
+          "toe": [
+            353.0,
+            502.0
+          ]
+        },
+        "nearH": {
+          "contact": false,
+          "toe": [
+            655.0,
+            502.0
+          ]
+        },
+        "farF": {
+          "contact": false,
+          "toe": [
+            221.0,
+            502.0
+          ]
+        },
+        "farH": {
+          "contact": false,
+          "toe": [
+            481.0,
+            502.0
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-00",
+      "file": "run-00.u8.gz",
+      "sha256": "0604c7792d3490092418a2ade57b0397f7bf54dadef94916a3578c4ab2922bf7",
+      "occupied": 73957,
+      "feet": {
+        "nearF": {
+          "contact": false,
+          "toe": [
+            342.818,
+            439.595
+          ]
+        },
+        "nearH": {
+          "contact": false,
+          "toe": [
+            444.416,
+            491.469
+          ]
+        },
+        "farF": {
+          "contact": false,
+          "toe": [
+            257.956,
+            427.063
+          ]
+        },
+        "farH": {
+          "contact": true,
+          "toe": [
+            510.94,
+            502.0
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-01",
+      "file": "run-01.u8.gz",
+      "sha256": "1858e45141679404f76c0554ff51218dda5807791602d35a5e93e13858ba56b2",
+      "occupied": 74304,
+      "feet": {
+        "nearF": {
+          "contact": false,
+          "toe": [
+            319.539,
+            431.425
+          ]
+        },
+        "nearH": {
+          "contact": false,
+          "toe": [
+            457.198,
+            500.295
+          ]
+        },
+        "farF": {
+          "contact": false,
+          "toe": [
+            232.495,
+            431.955
+          ]
+        },
+        "farH": {
+          "contact": true,
+          "toe": [
+            534.19,
+            502.0
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-02",
+      "file": "run-02.u8.gz",
+      "sha256": "b3026e2d9b042a9e876b2470264deb4b6025ef5d1ba2c927c7820b2002f31a9e",
+      "occupied": 74747,
+      "feet": {
+        "nearF": {
+          "contact": false,
+          "toe": [
+            293.944,
+            426.841
+          ]
+        },
+        "nearH": {
+          "contact": true,
+          "toe": [
+            479.32,
+            502.0
+          ]
+        },
+        "farF": {
+          "contact": false,
+          "toe": [
+            209.462,
+            440.383
+          ]
+        },
+        "farH": {
+          "contact": true,
+          "toe": [
+            557.44,
+            502.0
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-03",
+      "file": "run-03.u8.gz",
+      "sha256": "d3a179872c860378eccf5184ee1f643f7528bdf5c5ccceeac1adfd58c9094f16",
+      "occupied": 74790,
+      "feet": {
+        "nearF": {
+          "contact": false,
+          "toe": [
+            267.445,
+            426.267
+          ]
+        },
+        "nearH": {
+          "contact": true,
+          "toe": [
+            502.57,
+            502.0
+          ]
+        },
+        "farF": {
+          "contact": false,
+          "toe": [
+            190.27,
+            451.556
+          ]
+        },
+        "farH": {
+          "contact": true,
+          "toe": [
+            580.69,
+            502.0
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-04",
+      "file": "run-04.u8.gz",
+      "sha256": "89c7801e4e9518d147129a820f239dee813d5b69aeedbe97b435897f015d59ea",
+      "occupied": 75038,
+      "feet": {
+        "nearF": {
+          "contact": false,
+          "toe": [
+            241.455,
+            429.755
+          ]
+        },
+        "nearH": {
+          "contact": true,
+          "toe": [
+            525.82,
+            502.0
+          ]
+        },
+        "farF": {
+          "contact": false,
+          "toe": [
+            176.332,
+            464.396
+          ]
+        },
+        "farH": {
+          "contact": true,
+          "toe": [
+            603.94,
+            502.0
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-05",
+      "file": "run-05.u8.gz",
+      "sha256": "03bc24321c1ef342c401461cb551fe989fe8110be4f0ee58edb285694f71c79f",
+      "occupied": 75679,
+      "feet": {
+        "nearF": {
+          "contact": false,
+          "toe": [
+            217.385,
+            436.985
+          ]
+        },
+        "nearH": {
+          "contact": true,
+          "toe": [
+            549.07,
+            502.0
+          ]
+        },
+        "farF": {
+          "contact": false,
+          "toe": [
+            169.059,
+            477.602
+          ]
+        },
+        "farH": {
+          "contact": true,
+          "toe": [
+            627.19,
+            502.0
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-06",
+      "file": "run-06.u8.gz",
+      "sha256": "0245214a72c34892a50690556bded10ecb88c79112d13a1edd48acdbd51b8c15",
+      "occupied": 76138,
+      "feet": {
+        "nearF": {
+          "contact": false,
+          "toe": [
+            196.648,
+            447.28
+          ]
+        },
+        "nearH": {
+          "contact": true,
+          "toe": [
+            572.32,
+            502.0
+          ]
+        },
+        "farF": {
+          "contact": false,
+          "toe": [
+            169.864,
+            489.689
+          ]
+        },
+        "farH": {
+          "contact": false,
+          "toe": [
+            647.453,
+            498.352
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-07",
+      "file": "run-07.u8.gz",
+      "sha256": "2a985ad9d139aaf224aa109bff1818d4c012deed4d77d1bef8b034be2de90827",
+      "occupied": 76116,
+      "feet": {
+        "nearF": {
+          "contact": false,
+          "toe": [
+            180.656,
+            459.659
+          ]
+        },
+        "nearH": {
+          "contact": true,
+          "toe": [
+            595.57,
+            502.0
+          ]
+        },
+        "farF": {
+          "contact": false,
+          "toe": [
+            180.159,
+            498.904
+          ]
+        },
+        "farH": {
+          "contact": false,
+          "toe": [
+            657.341,
+            488.241
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-08",
+      "file": "run-08.u8.gz",
+      "sha256": "2aa70ff13eb4397f49a2b2f818c0607a1d94dc8284de802335d5eab940e5e10c",
+      "occupied": 76225,
+      "feet": {
+        "nearF": {
+          "contact": false,
+          "toe": [
+            170.821,
+            472.895
+          ]
+        },
+        "nearH": {
+          "contact": true,
+          "toe": [
+            618.82,
+            502.0
+          ]
+        },
+        "farF": {
+          "contact": true,
+          "toe": [
+            200.74,
+            502.0
+          ]
+        },
+        "farH": {
+          "contact": false,
+          "toe": [
+            657.796,
+            475.118
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-09",
+      "file": "run-09.u8.gz",
+      "sha256": "dd5f8e8ce975979bdcb481a14118d894653bf82cae8f45dab379980c289ba2a8",
+      "occupied": 76454,
+      "feet": {
+        "nearF": {
+          "contact": false,
+          "toe": [
+            168.555,
+            485.568
+          ]
+        },
+        "nearH": {
+          "contact": false,
+          "toe": [
+            641.312,
+            500.75
+          ]
+        },
+        "farF": {
+          "contact": true,
+          "toe": [
+            223.99,
+            502.0
+          ]
+        },
+        "farH": {
+          "contact": false,
+          "toe": [
+            650.229,
+            460.855
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-10",
+      "file": "run-10.u8.gz",
+      "sha256": "649aa04b4aaf8c34d9b48ee3b048887b1cd1bdf31976f39d6ec7c69c52dab287",
+      "occupied": 76366,
+      "feet": {
+        "nearF": {
+          "contact": false,
+          "toe": [
+            175.27,
+            496.053
+          ]
+        },
+        "nearH": {
+          "contact": false,
+          "toe": [
+            654.942,
+            492.342
+          ]
+        },
+        "farF": {
+          "contact": true,
+          "toe": [
+            247.24,
+            502.0
+          ]
+        },
+        "farH": {
+          "contact": false,
+          "toe": [
+            636.053,
+            447.048
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-11",
+      "file": "run-11.u8.gz",
+      "sha256": "6635308b97fc05c2d8e967176b166927f661aebd4ba80381fdec0abc0f129ee6",
+      "occupied": 76098,
+      "feet": {
+        "nearF": {
+          "contact": false,
+          "toe": [
+            192.379,
+            501.962
+          ]
+        },
+        "nearH": {
+          "contact": false,
+          "toe": [
+            658.63,
+            480.063
+          ]
+        },
+        "farF": {
+          "contact": true,
+          "toe": [
+            270.49,
+            502.0
+          ]
+        },
+        "farH": {
+          "contact": false,
+          "toe": [
+            616.681,
+            435.091
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-12",
+      "file": "run-12.u8.gz",
+      "sha256": "8a45591edbfd739a81f717383c0f28945496bd638587ed2b6a9a608c821cfee3",
+      "occupied": 75740,
+      "feet": {
+        "nearF": {
+          "contact": true,
+          "toe": [
+            215.62,
+            502.0
+          ]
+        },
+        "nearH": {
+          "contact": false,
+          "toe": [
+            653.788,
+            466.017
+          ]
+        },
+        "farF": {
+          "contact": true,
+          "toe": [
+            293.74,
+            502.0
+          ]
+        },
+        "farH": {
+          "contact": false,
+          "toe": [
+            593.524,
+            426.136
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-13",
+      "file": "run-13.u8.gz",
+      "sha256": "de3e9d4bc9c19e33e293e8581360db17c97afb34ecec6b913106d37a2774605b",
+      "occupied": 75338,
+      "feet": {
+        "nearF": {
+          "contact": true,
+          "toe": [
+            238.87,
+            502.0
+          ]
+        },
+        "nearH": {
+          "contact": false,
+          "toe": [
+            641.829,
+            451.874
+          ]
+        },
+        "farF": {
+          "contact": true,
+          "toe": [
+            316.99,
+            502.0
+          ]
+        },
+        "farH": {
+          "contact": false,
+          "toe": [
+            567.995,
+            421.024
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-14",
+      "file": "run-14.u8.gz",
+      "sha256": "26793e70803306bf7fc17c7807bc4263f6f148eb44e5e9737b71dd1ce717120e",
+      "occupied": 74750,
+      "feet": {
+        "nearF": {
+          "contact": true,
+          "toe": [
+            262.12,
+            502.0
+          ]
+        },
+        "nearH": {
+          "contact": false,
+          "toe": [
+            624.165,
+            439.104
+          ]
+        },
+        "farF": {
+          "contact": true,
+          "toe": [
+            340.24,
+            502.0
+          ]
+        },
+        "farH": {
+          "contact": false,
+          "toe": [
+            541.505,
+            420.227
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-15",
+      "file": "run-15.u8.gz",
+      "sha256": "8ea0da1c48f262a3ab1c70b4dcb14872bf4615e62d7fa5653b4cc32004f04d13",
+      "occupied": 74702,
+      "feet": {
+        "nearF": {
+          "contact": true,
+          "toe": [
+            285.37,
+            502.0
+          ]
+        },
+        "nearH": {
+          "contact": false,
+          "toe": [
+            602.208,
+            428.954
+          ]
+        },
+        "farF": {
+          "contact": false,
+          "toe": [
+            363.405,
+            501.789
+          ]
+        },
+        "farH": {
+          "contact": false,
+          "toe": [
+            515.467,
+            423.82
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-16",
+      "file": "run-16.u8.gz",
+      "sha256": "74a6070031012e8f94833b319498f51ed8fae1cb2a1ce86d040c4b21ddb64bf5",
+      "occupied": 74541,
+      "feet": {
+        "nearF": {
+          "contact": true,
+          "toe": [
+            308.62,
+            502.0
+          ]
+        },
+        "nearH": {
+          "contact": false,
+          "toe": [
+            577.37,
+            422.384
+          ]
+        },
+        "farF": {
+          "contact": false,
+          "toe": [
+            379.631,
+            495.339
+          ]
+        },
+        "farH": {
+          "contact": false,
+          "toe": [
+            491.293,
+            431.47
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-17",
+      "file": "run-17.u8.gz",
+      "sha256": "6570f48316a33e278307189cb89a4f22091518f75b4193ec6789296cc46cfc50",
+      "occupied": 74410,
+      "feet": {
+        "nearF": {
+          "contact": true,
+          "toe": [
+            331.87,
+            502.0
+          ]
+        },
+        "nearH": {
+          "contact": false,
+          "toe": [
+            551.063,
+            420.004
+          ]
+        },
+        "farF": {
+          "contact": false,
+          "toe": [
+            385.576,
+            484.612
+          ]
+        },
+        "farH": {
+          "contact": false,
+          "toe": [
+            470.396,
+            442.464
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-18",
+      "file": "run-18.u8.gz",
+      "sha256": "f965c21e243b4c84b57f9aa69df461d78df3c316d286cffe541c893422839245",
+      "occupied": 74469,
+      "feet": {
+        "nearF": {
+          "contact": true,
+          "toe": [
+            355.12,
+            502.0
+          ]
+        },
+        "nearH": {
+          "contact": false,
+          "toe": [
+            524.7,
+            422.034
+          ]
+        },
+        "farF": {
+          "contact": false,
+          "toe": [
+            382.652,
+            471.837
+          ]
+        },
+        "farH": {
+          "contact": false,
+          "toe": [
+            454.187,
+            455.755
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-19",
+      "file": "run-19.u8.gz",
+      "sha256": "80c97164303a22273208ffe57ebfcd1b17b8908dc7a7ec6486770f44e792d0df",
+      "occupied": 74435,
+      "feet": {
+        "nearF": {
+          "contact": false,
+          "toe": [
+            375.048,
+            498.326
+          ]
+        },
+        "nearH": {
+          "contact": false,
+          "toe": [
+            499.692,
+            428.286
+          ]
+        },
+        "farF": {
+          "contact": false,
+          "toe": [
+            372.273,
+            458.62
+          ]
+        },
+        "farH": {
+          "contact": false,
+          "toe": [
+            444.078,
+            470.027
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-20",
+      "file": "run-20.u8.gz",
+      "sha256": "f79929651ea072079ae9a777d752e0b05a57af75b3b94c147381668feed2763b",
+      "occupied": 74479,
+      "feet": {
+        "nearF": {
+          "contact": false,
+          "toe": [
+            384.531,
+            488.802
+          ]
+        },
+        "nearH": {
+          "contact": false,
+          "toe": [
+            477.453,
+            438.181
+          ]
+        },
+        "farF": {
+          "contact": false,
+          "toe": [
+            355.849,
+            446.365
+          ]
+        },
+        "farH": {
+          "contact": false,
+          "toe": [
+            441.482,
+            483.757
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-21",
+      "file": "run-21.u8.gz",
+      "sha256": "112719dfe822f27f528ebf1ee6d75f5a4a6c297578a5b2f66d1dd54bead0930d",
+      "occupied": 74241,
+      "feet": {
+        "nearF": {
+          "contact": false,
+          "toe": [
+            384.637,
+            476.566
+          ]
+        },
+        "nearH": {
+          "contact": false,
+          "toe": [
+            459.393,
+            450.784
+          ]
+        },
+        "farF": {
+          "contact": false,
+          "toe": [
+            334.793,
+            436.283
+          ]
+        },
+        "farH": {
+          "contact": false,
+          "toe": [
+            447.812,
+            495.202
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-22",
+      "file": "run-22.u8.gz",
+      "sha256": "463a87795b698def86e9eac8b5b7780a8ffca41d56d5fd39d787eabd2f2d3aee",
+      "occupied": 74284,
+      "feet": {
+        "nearF": {
+          "contact": false,
+          "toe": [
+            376.779,
+            463.337
+          ]
+        },
+        "nearH": {
+          "contact": false,
+          "toe": [
+            446.926,
+            464.868
+          ]
+        },
+        "farF": {
+          "contact": false,
+          "toe": [
+            310.518,
+            429.332
+          ]
+        },
+        "farH": {
+          "contact": false,
+          "toe": [
+            464.478,
+            501.878
+          ]
+        }
+      }
+    },
+    {
+      "name": "run-23",
+      "file": "run-23.u8.gz",
+      "sha256": "f09d39ea96d811784f606155f26a8074131d41bf8f5f1639e2bee49ee6d9c93e",
+      "occupied": 73923,
+      "feet": {
+        "nearF": {
+          "contact": false,
+          "toe": [
+            362.369,
+            450.585
+          ]
+        },
+        "nearH": {
+          "contact": false,
+          "toe": [
+            441.462,
+            478.98
+          ]
+        },
+        "farF": {
+          "contact": false,
+          "toe": [
+            284.435,
+            426.161
+          ]
+        },
+        "farH": {
+          "contact": true,
+          "toe": [
+            487.69,
+            502.0
+          ]
+        }
+      }
+    }
+  ]
+}

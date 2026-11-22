@@ -1,0 +1,15 @@
+{
+  "scratchPose": "idle",
+  "scratchIndexExchange": [
+    10,
+    9
+  ],
+  "changedVoxels": 17426,
+  "scratchStack128SHA256": "b503320bd95ab5b11645a70b612701e483d0f235437eb54d4dd18ddbdd445699",
+  "scratchFarIndex": "angles-ae280e87f2f4c0ea/index.json",
+  "unchangedPoses": 24,
+  "totalViews": 12000,
+  "idleChangedViews": 480,
+  "runChangedViews": 0,
+  "changedDepthPages": 0
+}

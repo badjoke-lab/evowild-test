@@ -1,0 +1,252 @@
+[
+ {
+  "pose": "idle",
+  "voxelCells": 74147,
+  "faces": 33912,
+  "exteriorFaces": 33860,
+  "stackQuads": 16127,
+  "outsideColorQuads": 16079,
+  "outsideMaterialFreeQuads": 9700,
+  "dualScanQuads": 9528
+ },
+ {
+  "pose": "run-00",
+  "voxelCells": 73957,
+  "faces": 33842,
+  "exteriorFaces": 33818,
+  "stackQuads": 16390,
+  "outsideColorQuads": 16366,
+  "outsideMaterialFreeQuads": 9876,
+  "dualScanQuads": 9667
+ },
+ {
+  "pose": "run-01",
+  "voxelCells": 74304,
+  "faces": 34060,
+  "exteriorFaces": 34018,
+  "stackQuads": 16501,
+  "outsideColorQuads": 16459,
+  "outsideMaterialFreeQuads": 9928,
+  "dualScanQuads": 9721
+ },
+ {
+  "pose": "run-02",
+  "voxelCells": 74747,
+  "faces": 34214,
+  "exteriorFaces": 34178,
+  "stackQuads": 16520,
+  "outsideColorQuads": 16484,
+  "outsideMaterialFreeQuads": 10061,
+  "dualScanQuads": 9848
+ },
+ {
+  "pose": "run-03",
+  "voxelCells": 74790,
+  "faces": 34116,
+  "exteriorFaces": 34092,
+  "stackQuads": 16215,
+  "outsideColorQuads": 16191,
+  "outsideMaterialFreeQuads": 9741,
+  "dualScanQuads": 9575
+ },
+ {
+  "pose": "run-04",
+  "voxelCells": 75038,
+  "faces": 34596,
+  "exteriorFaces": 34572,
+  "stackQuads": 16701,
+  "outsideColorQuads": 16677,
+  "outsideMaterialFreeQuads": 10198,
+  "dualScanQuads": 9989
+ },
+ {
+  "pose": "run-05",
+  "voxelCells": 75679,
+  "faces": 35300,
+  "exteriorFaces": 35276,
+  "stackQuads": 17162,
+  "outsideColorQuads": 17138,
+  "outsideMaterialFreeQuads": 10514,
+  "dualScanQuads": 10277
+ },
+ {
+  "pose": "run-06",
+  "voxelCells": 76138,
+  "faces": 35716,
+  "exteriorFaces": 35686,
+  "stackQuads": 17387,
+  "outsideColorQuads": 17357,
+  "outsideMaterialFreeQuads": 10672,
+  "dualScanQuads": 10417
+ },
+ {
+  "pose": "run-07",
+  "voxelCells": 76116,
+  "faces": 35916,
+  "exteriorFaces": 35892,
+  "stackQuads": 17640,
+  "outsideColorQuads": 17616,
+  "outsideMaterialFreeQuads": 10829,
+  "dualScanQuads": 10593
+ },
+ {
+  "pose": "run-08",
+  "voxelCells": 76225,
+  "faces": 36160,
+  "exteriorFaces": 36136,
+  "stackQuads": 17845,
+  "outsideColorQuads": 17821,
+  "outsideMaterialFreeQuads": 11034,
+  "dualScanQuads": 10811
+ },
+ {
+  "pose": "run-09",
+  "voxelCells": 76454,
+  "faces": 36374,
+  "exteriorFaces": 36344,
+  "stackQuads": 17862,
+  "outsideColorQuads": 17832,
+  "outsideMaterialFreeQuads": 11033,
+  "dualScanQuads": 10800
+ },
+ {
+  "pose": "run-10",
+  "voxelCells": 76366,
+  "faces": 36264,
+  "exteriorFaces": 36240,
+  "stackQuads": 17703,
+  "outsideColorQuads": 17679,
+  "outsideMaterialFreeQuads": 10913,
+  "dualScanQuads": 10654
+ },
+ {
+  "pose": "run-11",
+  "voxelCells": 76098,
+  "faces": 36130,
+  "exteriorFaces": 36106,
+  "stackQuads": 17753,
+  "outsideColorQuads": 17729,
+  "outsideMaterialFreeQuads": 11076,
+  "dualScanQuads": 10817
+ },
+ {
+  "pose": "run-12",
+  "voxelCells": 75740,
+  "faces": 35804,
+  "exteriorFaces": 35780,
+  "stackQuads": 17567,
+  "outsideColorQuads": 17543,
+  "outsideMaterialFreeQuads": 10984,
+  "dualScanQuads": 10734
+ },
+ {
+  "pose": "run-13",
+  "voxelCells": 75338,
+  "faces": 35410,
+  "exteriorFaces": 35386,
+  "stackQuads": 17424,
+  "outsideColorQuads": 17400,
+  "outsideMaterialFreeQuads": 10891,
+  "dualScanQuads": 10639
+ },
+ {
+  "pose": "run-14",
+  "voxelCells": 74750,
+  "faces": 34880,
+  "exteriorFaces": 34856,
+  "stackQuads": 17129,
+  "outsideColorQuads": 17105,
+  "outsideMaterialFreeQuads": 10712,
+  "dualScanQuads": 10480
+ },
+ {
+  "pose": "run-15",
+  "voxelCells": 74702,
+  "faces": 35110,
+  "exteriorFaces": 35080,
+  "stackQuads": 17387,
+  "outsideColorQuads": 17357,
+  "outsideMaterialFreeQuads": 10811,
+  "dualScanQuads": 10583
+ },
+ {
+  "pose": "run-16",
+  "voxelCells": 74541,
+  "faces": 35284,
+  "exteriorFaces": 35248,
+  "stackQuads": 17645,
+  "outsideColorQuads": 17609,
+  "outsideMaterialFreeQuads": 11022,
+  "dualScanQuads": 10830
+ },
+ {
+  "pose": "run-17",
+  "voxelCells": 74410,
+  "faces": 34948,
+  "exteriorFaces": 34924,
+  "stackQuads": 17396,
+  "outsideColorQuads": 17372,
+  "outsideMaterialFreeQuads": 10766,
+  "dualScanQuads": 10559
+ },
+ {
+  "pose": "run-18",
+  "voxelCells": 74469,
+  "faces": 35096,
+  "exteriorFaces": 35072,
+  "stackQuads": 17462,
+  "outsideColorQuads": 17438,
+  "outsideMaterialFreeQuads": 10821,
+  "dualScanQuads": 10590
+ },
+ {
+  "pose": "run-19",
+  "voxelCells": 74435,
+  "faces": 35200,
+  "exteriorFaces": 35170,
+  "stackQuads": 17523,
+  "outsideColorQuads": 17493,
+  "outsideMaterialFreeQuads": 10733,
+  "dualScanQuads": 10520
+ },
+ {
+  "pose": "run-20",
+  "voxelCells": 74479,
+  "faces": 35158,
+  "exteriorFaces": 35128,
+  "stackQuads": 17445,
+  "outsideColorQuads": 17415,
+  "outsideMaterialFreeQuads": 10687,
+  "dualScanQuads": 10466
+ },
+ {
+  "pose": "run-21",
+  "voxelCells": 74241,
+  "faces": 34946,
+  "exteriorFaces": 34922,
+  "stackQuads": 17253,
+  "outsideColorQuads": 17229,
+  "outsideMaterialFreeQuads": 10535,
+  "dualScanQuads": 10317
+ },
+ {
+  "pose": "run-22",
+  "voxelCells": 74284,
+  "faces": 34598,
+  "exteriorFaces": 34574,
+  "stackQuads": 16885,
+  "outsideColorQuads": 16861,
+  "outsideMaterialFreeQuads": 10202,
+  "dualScanQuads": 10001
+ },
+ {
+  "pose": "run-23",
+  "voxelCells": 73923,
+  "faces": 34098,
+  "exteriorFaces": 34074,
+  "stackQuads": 16506,
+  "outsideColorQuads": 16482,
+  "outsideMaterialFreeQuads": 9900,
+  "dualScanQuads": 9714
+ }
+]

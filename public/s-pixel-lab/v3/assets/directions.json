@@ -1,0 +1,42 @@
+{
+  "index": "../../v2/assets/angles/index.json",
+  "stack128SHA256": "10b91d1e63b26140c43894cea0dfbef17987647f5eda5d1de7da1106a851fdea",
+  "recipeSHA256": "1de0ca3948f89e3967da04e718a983cef06c6509d8c463ec22cc98935c0dbae1",
+  "indexSHA256": "28c379a7bcce1ad1f6412a5ffc7cb39049b32bd20c44f88f291c42e4818bca34",
+  "pageSHA256": {
+    "e0-0-paint.png": "1b0c296e82a2737a10db0fabec44fc0629a561cea3b01a61a69a7103734bacc1",
+    "e0-0-depth.png": "483c055a2125ab988a9b56dcb36f8e0c2ac6e85ed0cbe3d2fbfb8bac4a04f092",
+    "e10-0-paint.png": "7683fa2c7f9bf2bfb460b5624ddfef0418e15bfad1f8a32b7d0241ecb5293824",
+    "e10-0-depth.png": "0a97ba06e98194cfd348180deb843c67ef1821f9619f07e07efe1116e7a12b80",
+    "e20-0-paint.png": "3c9d02d6ef7dda1afb7cbae617356174f8d3de7c0d2c04fec4639d83773fd07d",
+    "e20-0-depth.png": "f26140f56ec3b21cd7bedbc8c89333e89869b1f65ac4be7c26e30a21ef72d4b8",
+    "e30-0-paint.png": "7090e3996144dc3a98131c5ace75c8e36d59cffd68310968a04c40868b3c2d07",
+    "e30-0-depth.png": "4336124d044bad0a61acf0082fa01e9a8e706cab4582e90c9df06976f3ffab34",
+    "e40-0-paint.png": "32d1f1c43b82a4ab20c1185530d0e877b08d32e167705d1f7edbf5640063f85d",
+    "e40-0-depth.png": "b508948ed7c57704db6f64c5c15e266d060ea054e3c4d7a121a30b50663e5d2f",
+    "e50-0-paint.png": "103199eccdd7064525a89d74b4d739cb137e52aad4e0a6a61ec1ff78bc8c4e04",
+    "e50-0-depth.png": "b65193887538d31de7ecdad222695aa194aa9871693d20768cf400f60bf96f82",
+    "e60-0-paint.png": "9bd323687bbb8bbc0f4632450e21b9638292e84ecb2b9d114f258e56b1985d16",
+    "e60-0-depth.png": "33c9d71f310f962ec9292fa97c3830ca50d0f176cd717c4d1af43a811aafd677",
+    "e70-0-paint.png": "b90cc7301b5993e0fe035e33b37c80d7eb9bfaa1abe47535d6ce5c207fbfd13d",
+    "e70-0-depth.png": "db7bb22ed10ea081eb89ed5cc180be46f1e14ccf5758b261562bde48d87b0fbd",
+    "e80-0-paint.png": "ca79a184335f42f7fd1aa9448c715e05e8f796be389aded9c18ddd435b7d1a29",
+    "e80-0-depth.png": "03f4a07631f1d185d536b34d3b3913b6fbc229b27ed2d49a6990563715a20022",
+    "e90-0-paint.png": "b26f1ae6dd1f9c3b6e8877a4da721ce81a83cd9658e72d1abdeff6ad03d5cad3",
+    "e90-0-depth.png": "8322749a2e71289a34d9bc494ef645d953d2d084f3ce4ccc96ea99f5267da759"
+  },
+  "directions": 48,
+  "elevations": [
+    0,
+    10,
+    20,
+    30,
+    40,
+    50,
+    60,
+    70,
+    80,
+    90
+  ],
+  "samples": 12000
+}

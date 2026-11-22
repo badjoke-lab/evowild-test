@@ -1,0 +1,94 @@
+{
+  "reference": "v2 128 stack, MSAA disabled for like-for-like single samples",
+  "bytes": 3477728,
+  "rows": [
+    {
+      "yaw": 0,
+      "tilt": 0,
+      "idle": true,
+      "referencePixels": 22439,
+      "maskIoU": 0.9941860465116279,
+      "colourMatch": 0.9755015089650275,
+      "mae": 1.8610420734954731,
+      "stackTriangles": 32254,
+      "brickTriangles": 458
+    },
+    {
+      "yaw": -90,
+      "tilt": 0,
+      "idle": true,
+      "referencePixels": 8284,
+      "maskIoU": 0.9951888381044022,
+      "colourMatch": 0.9821987009862881,
+      "mae": 1.140084997193489,
+      "stackTriangles": 32254,
+      "brickTriangles": 458
+    },
+    {
+      "yaw": 90,
+      "tilt": 0,
+      "idle": true,
+      "referencePixels": 8288,
+      "maskIoU": 0.9923141587606581,
+      "colourMatch": 0.9759817461270566,
+      "mae": 1.6662263320123294,
+      "stackTriangles": 32254,
+      "brickTriangles": 458
+    },
+    {
+      "yaw": 0,
+      "tilt": 90,
+      "idle": true,
+      "referencePixels": 14188,
+      "maskIoU": 0.9982389405466329,
+      "colourMatch": 0.9771766694843618,
+      "mae": 1.7741617357001973,
+      "stackTriangles": 32254,
+      "brickTriangles": 458
+    },
+    {
+      "yaw": -45,
+      "tilt": 13,
+      "idle": true,
+      "referencePixels": 20429,
+      "maskIoU": 0.9956551454793986,
+      "colourMatch": 0.9614821323960164,
+      "mae": 1.6398815335546442,
+      "stackTriangles": 32254,
+      "brickTriangles": 458
+    },
+    {
+      "yaw": 27,
+      "tilt": 18,
+      "idle": false,
+      "referencePixels": 8489,
+      "maskIoU": 0.9951810061118946,
+      "colourMatch": 0.961212976022567,
+      "mae": 1.7328396803008932,
+      "stackTriangles": 34890,
+      "brickTriangles": 454
+    },
+    {
+      "yaw": 105,
+      "tilt": 31,
+      "idle": false,
+      "referencePixels": 12955,
+      "maskIoU": 0.9953066092175117,
+      "colourMatch": 0.9675309686850811,
+      "mae": 1.5748249596060628,
+      "stackTriangles": 33012,
+      "brickTriangles": 434
+    },
+    {
+      "yaw": -88,
+      "tilt": 2,
+      "idle": false,
+      "referencePixels": 11791,
+      "maskIoU": 0.9912110200287332,
+      "colourMatch": 0.9492943463196146,
+      "mae": 2.9116594833657286,
+      "stackTriangles": 33002,
+      "brickTriangles": 438
+    }
+  ]
+}
