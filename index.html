@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:,">
     <title>EvoWild Run — Race Visual Test</title>
   </head>
   <body>
@@ -18,6 +19,7 @@
           <button data-view="follow">3 Follow</button>
           <button data-view="tactical">4 Tactical</button>
           <a class="mode-link" href="./race-2_5d.html">2.5D Proof</a>
+          <a id="trial-entry" class="mode-link" href="?raceTrial=1">S型レース試験</a>
           <button id="pause">Pause</button>
           <button id="reset">Reset</button>
         </div>
@@ -51,8 +53,30 @@
         </section>
 
         <aside class="sidebar">
+          <section class="card trial-card" id="race-trial" hidden>
+            <h2>S型レース試験</h2>
+            <label>S型表示
+              <select id="trial-mode"><option value="pixel">ピクセル v4.1</option><option value="classic">従来モデル</option></select>
+            </label>
+            <p id="trial-hud" aria-label="レース描画統計"></p>
+            <details open><summary>出走設定</summary>
+              <div class="trial-options">
+                <label>頭数<select id="trial-count"><option>1</option><option>10</option><option>18</option><option>50</option><option>100</option></select></label>
+                <label>編成<select id="trial-field"><option value="mixed">S / P / E / A</option><option value="s">S のみ</option></select></label>
+              </div>
+              <button id="trial-apply">新しいレース</button>
+            </details>
+            <details><summary>実機計測</summary>
+              <label>端末名<input id="trial-device" maxlength="80" placeholder="例　Pixel 7"></label>
+              <button id="trial-measure">スタートから96フレーム測定</button>
+              <button id="trial-cancel" hidden>中断</button>
+              <button id="trial-save" disabled>JSONを保存</button>
+              <p><a href="./race-integration/compare.html">保存したJSONを比較</a> · <a href="./s-pixel-lab/v4.1/index.html">v4.1 単体計測</a></p>
+            </details>
+            <p id="trial-note" role="status"></p>
+          </section>
           <section class="card">
-            <h2>Selected #06</h2>
+            <h2 id="selected-title">Selected #06</h2>
             <div class="row"><span>Morph</span><b id="morphName">A — Agility</b></div>
             <div class="row"><span>Lane</span><b id="lane">2</b></div>
             <div class="row"><span>Gap ahead</span><b id="gap">—</b></div>

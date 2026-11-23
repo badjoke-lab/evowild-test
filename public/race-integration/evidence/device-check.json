@@ -1,0 +1,53 @@
+{
+  "software": true,
+  "checks": [
+    "normal game entry, field restart, native cameras, pause cancels incomplete export",
+    "mobile touch cameras and export, standalone v4.1 export, compare groups, duplicate and invalid import"
+  ],
+  "results": [
+    {
+      "count": 50,
+      "mode": "classic",
+      "fps": 5.0263622226992615,
+      "p95_ms": 266.6000000000022,
+      "raster": [
+        736,
+        500
+      ],
+      "streaming": 0
+    },
+    {
+      "count": 50,
+      "mode": "pixel",
+      "fps": 7.423043911944143,
+      "p95_ms": 199.90000000000146,
+      "raster": [
+        736,
+        500
+      ],
+      "streaming": 0
+    },
+    {
+      "count": 100,
+      "mode": "pixel",
+      "fps": 5.030761007409891,
+      "p95_ms": 333.2999999999993,
+      "raster": [
+        736,
+        500
+      ],
+      "streaming": 0
+    },
+    {
+      "count": 100,
+      "mode": "classic",
+      "fps": 3.132269884203898,
+      "p95_ms": 399.90000000000146,
+      "raster": [
+        736,
+        500
+      ],
+      "streaming": 0
+    }
+  ]
+}

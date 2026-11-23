@@ -1,0 +1,48 @@
+"""Publish the browser measurements and an offline evidence index."""
+import csv
+import json
+from pathlib import Path
+
+folder=Path(__file__).resolve().parents[2]/'public/race-integration'
+ev=folder/'evidence'
+get=lambda name: json.loads((ev/name).read_text())
+measure=get('device-check.json')['results']
+table=['| S型出走数 | 従来 平均fps / p95 | v4.1 平均fps / p95 |','| --- | ---: | ---: |']
+web_rows=[]
+with (ev/'performance.csv').open('w',newline='') as f:
+    writer=csv.writer(f,lineterminator='\n')
+    writer.writerow(['environment','field','count','camera','renderer_mode','raster','frames','mean_fps','p95_ms','streaming_frames'])
+    for n in (50,100):
+        cells=[]
+        for mode in ('classic','pixel'):
+            r=next(x for x in measure if x['count']==n and x['mode']==mode)
+            w,h=r['raster']
+            writer.writerow(['Chromium SwiftShader','all-S',n,'race',mode,f'{w}x{h}',96,f"{r['fps']:.4f}",f"{r['p95_ms']:.2f}",r['streaming']])
+            cells.append(f"{r['fps']:.2f} / {r['p95_ms']:.1f} ms")
+        table.append(f'| {n} | {cells[0]} | {cells[1]} |')
+        web_rows.append(f'<tr><td>{n}体</td><td>{cells[0]}</td><td>{cells[1]}</td></tr>')
+note=f'Chromium / ANGLE SwiftShader、{w}×{h}、デスクトップ、本体のRaceカメラ、全員S。各条件1回の操作試験。両表示で96時点のカメラ、選択順位・距離・レーンが一致した。表のp95は実時間のRAF間隔。'
+readme=folder/'README.md';s=readme.read_text()
+before,tail=s.split('<!-- measurements -->',1)
+_,after=tail.split('<!-- /measurements -->',1)
+readme.write_text(before+'<!-- measurements -->\n'+note+'\n\n'+'\n'.join(table)+'\n\n[性能CSV](evidence/performance.csv) · [実際に保存した各JSON](evidence/measurements/)\n<!-- /measurements -->'+after)
+
+q=get('quality.json')
+ground=q['sole_height_above_road_world_range']
+result=f"支持脚が同じ姿勢に留まる{q['contact_pairs_same_pose']}組で、接地中の足底の水平ずれはp95 {q['sole_xz_drift_world_p95']:.4f}、最大{q['sole_xz_drift_world_max']:.4f}本体単位（体長{q['world_body_length']:.3f}）。最低足底は路面から{ground[0]:.3f}–{ground[1]:.3f}。細部メッシュの支持頂点から求めた検算で、姿勢が切り替わる瞬間の滑りは未評価。"
+(folder/'review.html').write_text(f'''<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="data:,"><title>Ridge Oval｜S型仮統合試験</title>
+<style>*{{box-sizing:border-box}}body{{margin:0 auto;max-width:1000px;padding:24px 16px 60px;color:#1c3031;background:#f2f4ed;font:16px/1.6 system-ui,sans-serif}}a{{color:#175669}}h2{{margin-top:36px;border-top:1px solid #acbeb3;padding-top:14px}}img,video{{width:100%;height:auto;display:block}}table{{border-collapse:collapse}}td,th{{padding:6px 10px;border-bottom:1px solid #b0bdb4}}small{{display:block}}code{{overflow-wrap:anywhere}}</style></head><body>
+<a href="../?raceTrial=1">レースを開く</a> · <a href="compare.html">保存したJSONを比較</a>
+<h1>Ridge Oval — S型レース仮統合</h1><p><strong>製品採用は保留（REVISE）。</strong> 既存ゲームのRidge OvalでS型だけをv4.1に切り替えられる。物理Android・GPU搭載PCの計測は未取得。</p>
+<img src="evidence/race-controls.jpg" alt="レース本体の操作画面と出走設定">
+<h2>走行・順位・接地</h2><p>1・10・50・100体のS編成と18体混走で、同じ入力・時刻・リセットを通した。7地点の全走行状態、順位、カメラが両表示で一致した。Tacticalでは同一のマーカー画像になった。進路の空き、ブロック、追越しは本体のレーン処理を使用する。</p>
+<a href="evidence/race-comparison.jpg"><img src="evidence/race-comparison.jpg" alt="同じ走行状態での従来表示とv4.1"></a><p>{result}</p>
+<a href="evidence/lod-detail.png"><img loading="lazy" src="evidence/lod-detail.png" alt="同一個体の遠景・移行・中景・近景を2倍拡大"></a>
+<p>近景で頭冠・四脚・尾を確認した。後方視点では脚と尾が重なり、遠景の団子状態では個体間の識別性が落ちる。色・深度スプライトと17色の表面はv4.1以前の既存データを使用した。</p>
+<h2>Sのみ50体</h2><video controls preload="metadata" playsinline src="evidence/race-50.mp4"></video>
+<h2>Sのみ100体</h2><video controls preload="metadata" playsinline src="evidence/race-100.mp4"></video>
+<p>ゲームが描いた実時間映像。RaceからFollowへ操作し、ゲーム時計と順位を併記した。</p>
+<h2>性能</h2><p>{note}</p><table><tr><th>出走数</th><th>従来 fps / p95</th><th>v4.1 fps / p95</th></tr>{''.join(web_rows)}</table>
+<p><a href="evidence/performance.csv">性能CSV</a> · <a href="evidence/quality.json">画質・接地検算</a> · <a href="evidence/regression.json">回帰テスト</a></p>
+<h2>実機での採用条件</h2><p>展開したZIPのルートで <code>python3 -m http.server 8000 --bind 0.0.0.0</code> を起動する。PCはlocalhost:8000、Androidは同じWi-FiでPCのLANアドレスのポート8000を開く。</p>
+<p>RaceかFollowを選び、「実機計測」で端末名を入力して96フレームを測定し、JSONを保存する。両端末で50・100体の両表示を交互に各3回以上測る。比較画面で同条件を並べ、平均30fpsとp95の33.3ms予算を確認する。持続性能、密集時の識別性、姿勢間の足滑りは未解決。<a href="README.md">詳細手順と接続点</a></p></body></html>''')

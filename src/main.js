@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
 import "./styles.css";
+import { createTrial, fieldSize, sprintField, trialEnabled } from "./race-trial.js";
 
 const canvas = document.querySelector("#game");
 const stage = document.querySelector("#stage");
@@ -415,25 +416,26 @@ function buildMorph(index, morph, forcedColor = null) {
 }
 
 const racers = [];
-const selectedId = 6;
+const selectedId = Math.min(6, fieldSize);
+let trial;
 const raceMeters = 1800;
 const laneCount = 6;
 const laneSpacing = 1.55;
 const laneOffset = (lane) => (lane - (laneCount - 1) / 2) * laneSpacing;
 
-for (let i = 0; i < 18; i++) {
-  const morph = i === 5 ? "A" : morphCycle[i % 4];
-  const obj = buildMorph(i, morph);
+for (let i = 0; i < fieldSize; i++) {
+  const morph = sprintField ? "S" : i === 5 ? "A" : morphCycle[i % 4];
+  const obj = buildMorph(i % palette.length, morph);
   obj.scale.setScalar(isMobile ? 1.02 : 0.88);
   scene.add(obj);
 
   const stats = morphStats[morph];
   racers.push({
     id: i + 1,
-    name: names[i],
+    name: names[i % names.length],
     morph,
     obj,
-    distance: Math.max(0, (17 - i) * 1.1),
+    distance: Math.max(0, (fieldSize - 1 - i) * 1.1),
     lane: i % laneCount,
     laneF: i % laneCount,
     cruise: stats.cruise + (i % 5) * 0.18,
@@ -444,7 +446,7 @@ for (let i = 0; i < 18; i++) {
     decision: "START",
     command: "BUILD SPEED",
     cooldown: 0,
-    color: "#" + palette[i].toString(16).padStart(6, "0")
+    color: "#" + palette[i % palette.length].toString(16).padStart(6, "0")
   });
 }
 
@@ -460,7 +462,7 @@ const tacticalMarkers = racers.map((r) => {
   const marker = new THREE.Mesh(
     new THREE.CircleGeometry(r.id === selectedId ? 1.25 : 0.88, 18),
     new THREE.MeshBasicMaterial({
-      color: r.id === selectedId ? 0xffffff : palette[r.id - 1],
+      color: r.id === selectedId ? 0xffffff : palette[(r.id - 1) % palette.length],
       transparent: true,
       opacity: r.id === selectedId ? 1 : 0.9,
       depthTest: false,
@@ -766,7 +768,7 @@ function setCamera() {
   scene.fog = (lab || tactical) ? null : raceFog;
   scene.background = new THREE.Color(lab ? 0x202a35 : 0x9bc6dc);
   raceEnvironment.forEach((obj) => { obj.visible = !lab; });
-  racers.forEach((r) => { r.obj.visible = !lab && !tactical; });
+  racers.forEach((r) => { r.obj.visible = !lab && !tactical && !(trial?.active && r.morph === "S"); });
   ring.visible = !lab && !tactical;
   tacticalMarkers.forEach((marker) => { marker.visible = tactical; });
   labGroup.visible = lab;
@@ -824,7 +826,7 @@ function updateHud() {
   const currentPhase = phase(selected);
   const sec = elapsed / 1000;
 
-  document.querySelector("#position").textContent = `${position} / 18`;
+  document.querySelector("#position").textContent = `${position} / ${racers.length}`;
   document.querySelector("#speed").textContent = Math.round(selected.speed);
   document.querySelector("#stamina").textContent = Math.round(selected.stamina);
   document.querySelector("#morph").textContent = `${selected.morph} / ${morphLabel[selected.morph].toUpperCase()}`;
@@ -896,7 +898,7 @@ resize();
 
 function resetRace() {
   racers.forEach((r, i) => {
-    r.distance = Math.max(0, (17 - i) * 1.1);
+    r.distance = Math.max(0, (fieldSize - 1 - i) * 1.1);
     r.lane = i % laneCount;
     r.laneF = i % laneCount;
     r.stamina = 100;
@@ -914,8 +916,37 @@ function resetRace() {
     r.obj.rotation.y = Math.atan2(-tangent.z, tangent.x);
   });
   elapsed = 0;
+  trial?.resetTravel();
 }
 resetRace();
+
+if (trialEnabled) {
+  document.querySelector("#app").classList.add("trial-active");
+  const shortId = String(selected.id).padStart(2, "0");
+  document.querySelector(".hud-selected > strong").textContent = "#"+shortId+" "+selected.name;
+  document.querySelector("#selected-title").textContent = "Selected #"+shortId;
+  document.querySelector(".standings h2").textContent = "Field — "+fieldSize+" racers";
+  document.querySelector(".topbar p").textContent = "1800m Ridge Oval / "+fieldSize+" racers";
+  document.querySelector("#trial-entry").hidden = true;
+  const status = () => ({
+    view, elapsed_ms:elapsed, selected:selected.id, rank:rankOf(selected), lane:selected.laneF,
+    distance:selected.distance, camera_position:camera.position.toArray(),
+    camera_quaternion:camera.quaternion.toArray()
+  });
+  trial = createTrial({THREE, renderer, racers, mobile:isMobile, status, restart:() => {
+    resetRace(); paused=false; document.querySelector("#pause").textContent="Pause";
+    camera.position.set(-12,12,28); camera.up.set(0,1,0); camera.lookAt(0,.8,0);
+  }});
+  if (new URLSearchParams(location.search).get("verify")==="1") {
+    // Read-only snapshot for fixed-input browser regression tests.
+    window.raceSnapshot = () => ({...status(), paused, order:ranks().map(r=>r.id),
+      projection:camera.projectionMatrix.toArray(), pixels:trial.inspect(),
+      runners:racers.map(r=>({id:r.id,morph:r.morph,distance:r.distance,speed:r.speed,
+        stamina:r.stamina,lane:r.lane,laneF:r.laneF,cooldown:r.cooldown,decision:r.decision,
+        command:r.command,gap:gapAhead(r),position:r.obj.position.toArray(),yaw:r.obj.rotation.y,
+        legs:r.obj.userData.legs.map(leg=>leg.rotation.z),visible:r.obj.visible}))});
+  }
+}
 
 // Draw a valid scene immediately instead of waiting for the first animation tick.
 camera.position.set(-12, 12, 28);
@@ -930,11 +961,14 @@ function frame(now) {
   try {
     const dt = Math.min(45, Math.max(0, now - last));
     last = now;
-    update(dt);
+    update(trial?.step ?? dt);
+    trial?.sync();
     setCamera();
     renderer.render(scene, camera);
+    trial?.draw(camera,view);
     updateHud();
     drawMiniMap();
+    trial?.frame(now,view);
 
     renderedFrames += 1;
     if (renderedFrames === 2) {
@@ -950,6 +984,7 @@ renderer.setAnimationLoop(frame);
 
 document.querySelectorAll("[data-view]").forEach((button) => {
   button.addEventListener("click", () => {
+    trial?.cancel("カメラ変更のため測定を中断しました。");
     view = button.dataset.view;
     resize();
     document.querySelector("#viewLabel").textContent =
@@ -965,8 +1000,14 @@ document.querySelectorAll("[data-morph]").forEach((button) => {
 });
 
 document.querySelector("#pause").addEventListener("click", (event) => {
+  trial?.cancel("一時停止のため測定を中断しました。");
   paused = !paused;
   event.currentTarget.textContent = paused ? "Resume" : "Pause";
 });
 
-document.querySelector("#reset").addEventListener("click", resetRace);
+document.querySelector("#reset").addEventListener("click", () => {
+  trial?.cancel("リセットのため測定を中断しました。");
+  resetRace();
+});
+
+if (trialEnabled) document.querySelector('[data-view="race"]').click();

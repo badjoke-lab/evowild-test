@@ -1,0 +1,5 @@
+environment,field,count,camera,renderer_mode,raster,frames,mean_fps,p95_ms,streaming_frames
+Chromium SwiftShader,all-S,50,race,classic,736x500,96,5.0264,266.60,0
+Chromium SwiftShader,all-S,50,race,pixel,736x500,96,7.4230,199.90,0
+Chromium SwiftShader,all-S,100,race,classic,736x500,96,3.1323,399.90,0
+Chromium SwiftShader,all-S,100,race,pixel,736x500,96,5.0308,333.30,0
