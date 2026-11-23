@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#1e3028">
+  <link rel="icon" href="data:,">
+  <title>S型 v4.1 実機レース計測 | EvoWild Run</title>
+  <link rel="stylesheet" href="meter.css">
+</head>
+<body>
+  <header><div>
+    <strong>EvoWild <i>Run</i></strong><span>レース計測</span>
+    <a href="evidence/review.html">採用試験・比較映像 ↗</a>
+  </div></header>
+  <main>
+    <div class="heading">
+      <div><h1>S型の群走</h1><p>同じカーブ、走行姿勢、投影幅で描画を比較します。</p></div>
+      <nav aria-label="描画バージョン">
+        <a id="old" href="?version=v4">v4</a><a id="current" href="?version=v4.1">v4.1</a>
+      </nav>
+    </div>
+    <section aria-label="レース画面">
+      <div class="bar"><h2 id="case-name">混在100体</h2><button id="play" disabled>一時停止</button></div>
+      <div class="stage"><canvas id="scene" aria-label="走行中のS型とコース床"></canvas></div>
+      <div class="hud">
+        <div><span>平均 FPS</span><b id="fps">—</b></div>
+        <div><span>p95 フレーム時間</span><b id="p95">—</b></div>
+        <div><span>描画個体数</span><b id="actors">—</b></div>
+        <div class="breakdown"><span>LOD 内訳</span><b id="lod">—</b></div>
+      </div>
+      <div id="cases" class="cases" aria-label="観察する走行条件">
+        <button value="near1">近景1体</button><button value="near10">近景10体</button>
+        <button value="mixed50">混在50体</button><button value="mixed100">混在100体</button>
+        <button value="overview100">全景100体</button>
+      </div>
+    </section>
+    <section class="bench">
+      <h2>実機の性能測定</h2>
+      <p>混在50体・100体を各48時点で測定します。完了までこのタブを前面に保ってください。</p>
+      <div class="form">
+        <label>描画サイズ
+          <select id="profile">
+            <option value="desktop">PC幅　877 × 414 px</option>
+            <option value="mobile">スマホ幅　352 × 335 px</option>
+          </select>
+        </label>
+        <label>端末名（任意）<input id="device" maxlength="100" placeholder="例：Pixel 7"></label>
+        <button id="run" disabled>2条件を測定</button><button id="save" disabled>JSONを保存</button>
+      </div>
+      <p id="loading" role="status">素材を読み込み中…</p><div id="results"></div>
+    </section>
+    <footer><a href="evidence/review.html">実験結果と測定手順</a><span>S–01 / EvoWild Run</span></footer>
+  </main>
+  <script type="module" src="device.js"></script>
+</body>
+</html>

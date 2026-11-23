@@ -6,13 +6,13 @@ import {DEMO} from '../browser.mjs';
 import {RACES,raceState} from '../../../public/s-pixel-lab/v3/scenarios.js';
 
 const version=process.argv[2];
-if(!['v2','v3','v4'].includes(version))throw Error('Pass v2, v3 or v4');
+if(!['v2','v3','v4','v4.1'].includes(version))throw Error('Pass v2, v3, v4 or v4.1');
 const profiles={desktop:{mobile:false,width:877,height:414,viewport:{width:1280,height:900},cpu:1},mobile:{mobile:true,width:352,height:335,viewport:{width:390,height:844},cpu:4}};
 const filter=process.env.MEASURE_PROFILE,scenarioFilter=process.env.MEASURE_RACE;
 const method=process.env.MEASURE_METHOD||'lod',samples=Number(process.env.MEASURE_FRAMES||48);
-const destination=process.env.MEASURE_OUT||path.join(DEMO,version==='v4'?'v4/evidence':'v3/evidence',version+'-race.json');
+const destination=process.env.MEASURE_OUT||path.join(DEMO,['v4','v4.1'].includes(version)?version+'/evidence':'v3/evidence',version+'-race.json');
 if(!Number.isInteger(samples)||samples<2||!['lod','surface','stack','sprite','exact'].includes(method))throw Error('Invalid measurement configuration');
-if(filter && !(filter in profiles) || scenarioFilter && !(scenarioFilter in RACES))throw Error('Unknown selected scenario or profile');
+if(filter && !(filter in profiles) || scenarioFilter && scenarioFilter.split(',').some(k=>!(k in RACES)))throw Error('Unknown selected scenario or profile');
 const url=(process.env.LAB_BASE_URL||'http://127.0.0.1:4173/s-pixel-lab/')+version+'/';
 
 // Observe logical allocation sizes at their WebGL entry points. Record the
@@ -164,7 +164,7 @@ for(const [profile,{mobile,width,height,viewport,cpu}] of Object.entries(profile
   const info=await page.evaluate(()=>{const g=sLab.renderer.gl,e=g.getExtension('WEBGL_debug_renderer_info');return e?g.getParameter(e.UNMASKED_RENDERER_WEBGL):g.getParameter(g.RENDERER);});
   environment={chromium:browser.version(),renderer:info,dpr:1,animation_seconds:3,samples,sync_readback:'RGBA/UNSIGNED_BYTE, 1 x 1 center pixel after every frame',warmup:3,scenario:'v3/scenarios.js'};
   for(const key of Object.keys(RACES)){
-   if(scenarioFilter && scenarioFilter!==key)continue;
+   if(scenarioFilter && !scenarioFilter.split(',').includes(key))continue;
    const states=Array.from({length:samples},(_,i)=>({...raceState(key,i/samples,width,height,meta),method,...tune}));
    await page.evaluate(async (states)=>{
     const r=sLab.renderer;

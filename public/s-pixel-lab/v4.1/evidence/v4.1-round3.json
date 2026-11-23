@@ -1,0 +1,6419 @@
+{
+ "version": "v4.1",
+ "environment": {
+  "chromium": "151.0.7922.173",
+  "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "dpr": 1,
+  "animation_seconds": 3,
+  "samples": 48,
+  "sync_readback": "RGBA/UNSIGNED_BYTE, 1 x 1 center pixel after every frame",
+  "warmup": 3,
+  "scenario": "v3/scenarios.js"
+ },
+ "rows": [
+  {
+   "profile": "desktop",
+   "scenario": "mixed50",
+   "number": 50,
+   "method": "lod",
+   "width": 877,
+   "height": 414,
+   "cpu": 1,
+   "frames": 48,
+   "fps": 25.861,
+   "p95_ms": 64.2,
+   "gpu_ms": 26.088,
+   "gpu_samples": 48,
+   "submit_ms": 0.802,
+   "draw_sync_ms": 35.702,
+   "triangles": {
+    "min": 21138,
+    "mean": 22065.542,
+    "max": 23389
+   },
+   "draw_calls": {
+    "min": 35,
+    "mean": 36.771,
+    "max": 40
+   },
+   "blits": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "mix": {
+    "near": {
+     "min": 24,
+     "mean": 24,
+     "max": 24
+    },
+    "mid": {
+     "min": 8,
+     "mean": 8,
+     "max": 8
+    },
+    "transition": {
+     "min": 0,
+     "mean": 1.771,
+     "max": 5
+    },
+    "sprite": {
+     "min": 13,
+     "mean": 16.229,
+     "max": 18
+    },
+    "offscreen": {
+     "min": 0,
+     "mean": 0,
+     "max": 0
+    },
+    "fine": {
+     "min": 0,
+     "mean": 0,
+     "max": 0
+    },
+    "race": {
+     "min": 24,
+     "mean": 24,
+     "max": 24
+    }
+   },
+   "visibility": {
+    "intersects": {
+     "min": 50,
+     "mean": 50,
+     "max": 50
+    },
+    "centre": {
+     "min": 50,
+     "mean": 50,
+     "max": 50
+    },
+    "whole": {
+     "min": 48,
+     "mean": 49.771,
+     "max": 50
+    },
+    "min_span_px": {
+     "min": 95.19999999999999,
+     "mean": 99.2,
+     "max": 103.2
+    },
+    "max_span_px": {
+     "min": 148.74999999999997,
+     "mean": 155,
+     "max": 161.25
+    }
+   },
+   "memory": {
+    "buffer_bytes": 4801844,
+    "texture_bytes": 90949963,
+    "renderbuffer_bytes": 0,
+    "unknown_formats": [],
+    "gl_mib": 91.31603908538818,
+    "js_heap_mib": 5.636226654052734,
+    "rss_mib": 986.4453125,
+    "rss_kib_by_type": {
+     "browser": 221580,
+     "renderer": 362832,
+     "GPU": 328000,
+     "network.mojom.NetworkService": 74584,
+     "storage.mojom.StorageService": 23124
+    }
+   },
+   "samples": [
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 24.5,
+     "calls": 35,
+     "triangles": 21606,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.1,
+      "yaw": -73,
+      "tilt": 14.028693422366354,
+      "magnification": 2.845410628019324
+     },
+     "interval_ms": 26.5,
+     "gpu_ms": 16.516091,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 99.2,
+      "max_span_px": 155
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 38.89999999990687,
+     "calls": 36,
+     "triangles": 21919,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 1,
+      "sprite": 17,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.1625,
+      "yaw": -71.69473807779949,
+      "tilt": 14.387731037384325,
+      "magnification": 2.8603864592523003
+     },
+     "interval_ms": 39.89999999990687,
+     "gpu_ms": 31.502669,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 99.7221047688802,
+      "max_span_px": 155.8157887013753
+     }
+    },
+    {
+     "submit_ms": 0.6000000000931323,
+     "sync_ms": 22.700000000186265,
+     "calls": 37,
+     "triangles": 22062,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 2,
+      "sprite": 16,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.225,
+      "yaw": -70.41180954897479,
+      "tilt": 14.723024189600919,
+      "magnification": 2.8751060498607965
+     },
+     "interval_ms": 30.800000000279397,
+     "gpu_ms": 14.948181,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 100.2352761804101,
+      "max_span_px": 156.61761903189077
+     }
+    },
+    {
+     "submit_ms": 1,
+     "sync_ms": 63.60000000009313,
+     "calls": 38,
+     "triangles": 22605,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 3,
+      "sprite": 15,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.2875,
+      "yaw": -69.1731656763491,
+      "tilt": 15.028835920220885,
+      "magnification": 2.8893175435684584
+     },
+     "interval_ms": 64.1999999997206,
+     "gpu_ms": 34.480733,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 100.73073372946038,
+      "max_span_px": 157.39177145228183
+     }
+    },
+    {
+     "submit_ms": 0.7999999998137355,
+     "sync_ms": 22,
+     "calls": 38,
+     "triangles": 22515,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 3,
+      "sprite": 15,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.35,
+      "yaw": -68,
+      "tilt": 15.299933705746286,
+      "magnification": 2.9027777777777777
+     },
+     "interval_ms": 31.300000000279397,
+     "gpu_ms": 14.529258,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 101.2,
+      "max_span_px": 158.125
+     }
+    },
+    {
+     "submit_ms": 0.7999999998137355,
+     "sync_ms": 25.5,
+     "calls": 39,
+     "triangles": 23023,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 4,
+      "sprite": 14,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.4125,
+      "yaw": -66.9123857099128,
+      "tilt": 15.531678987904275,
+      "magnification": 2.915256444149551
+     },
+     "interval_ms": 26,
+     "gpu_ms": 17.715434,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 101.63504571603488,
+      "max_span_px": 158.8047589313045
+     }
+    },
+    {
+     "submit_ms": 0.8000000002793968,
+     "sync_ms": 47.3000000002794,
+     "calls": 39,
+     "triangles": 22957,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 4,
+      "sprite": 14,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.475,
+      "yaw": -65.92893218813452,
+      "tilt": 15.720106540665203,
+      "magnification": 2.926540029242418
+     },
+     "interval_ms": 47.89999999990687,
+     "gpu_ms": 45.433692,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 102.0284271247462,
+      "max_span_px": 159.41941738241593
+     }
+    },
+    {
+     "submit_ms": 0.8000000002793968,
+     "sync_ms": 24.100000000093132,
+     "calls": 39,
+     "triangles": 22945,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 4,
+      "sprite": 14,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.5375,
+      "yaw": -65.06646659708765,
+      "tilt": 15.861992316359334,
+      "magnification": 2.936435467787038
+     },
+     "interval_ms": 31.899999999906868,
+     "gpu_ms": 23.013185,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 102.37341336116496,
+      "max_span_px": 159.95845837682023
+     }
+    },
+    {
+     "submit_ms": 0.7999999998137355,
+     "sync_ms": 60.299999999813735,
+     "calls": 40,
+     "triangles": 23337,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 5,
+      "sprite": 13,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.6,
+      "yaw": -64.33974596215562,
+      "tilt": 15.954908610026381,
+      "magnification": 2.9447734460863786
+     },
+     "interval_ms": 61,
+     "gpu_ms": 51.943716,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 102.66410161513775,
+      "max_span_px": 160.41265877365274
+     }
+    },
+    {
+     "submit_ms": 0.7000000001862645,
+     "sync_ms": 19.100000000093132,
+     "calls": 40,
+     "triangles": 23318,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 5,
+      "sprite": 13,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.6625,
+      "yaw": -63.76120467488713,
+      "tilt": 15.997265598120434,
+      "magnification": 2.9514112990200143
+     },
+     "interval_ms": 19.600000000093132,
+     "gpu_ms": 17.543736,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 102.89551813004512,
+      "max_span_px": 160.7742470781955
+     }
+    },
+    {
+     "submit_ms": 0.7999999998137355,
+     "sync_ms": 27.200000000186265,
+     "calls": 40,
+     "triangles": 23187,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 5,
+      "sprite": 13,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.725,
+      "yaw": -63.34074173710932,
+      "tilt": 15.988338540831629,
+      "magnification": 2.95623545108389
+     },
+     "interval_ms": 34.60000000009313,
+     "gpu_ms": 17.120466,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 103.06370330515625,
+      "max_span_px": 161.0370364143066
+     }
+    },
+    {
+     "submit_ms": 0.6999999997206032,
+     "sync_ms": 61.89999999990687,
+     "calls": 40,
+     "triangles": 23169,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 5,
+      "sprite": 13,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.7875,
+      "yaw": -63.0855513862619,
+      "tilt": 15.928280182585222,
+      "magnification": 2.959163359698686
+     },
+     "interval_ms": 62.89999999990687,
+     "gpu_ms": 21.570475,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 103.16577944549525,
+      "max_span_px": 161.19653038358632
+     }
+    },
+    {
+     "submit_ms": 0.599999999627471,
+     "sync_ms": 26.399999999906868,
+     "calls": 40,
+     "triangles": 23226,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 5,
+      "sprite": 13,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.85,
+      "yaw": -63,
+      "tilt": 15.818118138542136,
+      "magnification": 2.960144927536232
+     },
+     "interval_ms": 27,
+     "gpu_ms": 22.913675,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 103.2,
+      "max_span_px": 161.25
+     }
+    },
+    {
+     "submit_ms": 0.6000000000931323,
+     "sync_ms": 61.10000000009313,
+     "calls": 40,
+     "triangles": 23227,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 5,
+      "sprite": 13,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.9125,
+      "yaw": -63.0855513862619,
+      "tilt": 15.659737311818636,
+      "magnification": 2.959163359698686
+     },
+     "interval_ms": 70.39999999990687,
+     "gpu_ms": 18.416715,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 103.16577944549525,
+      "max_span_px": 161.19653038358632
+     }
+    },
+    {
+     "submit_ms": 0.5,
+     "sync_ms": 29.59999999962747,
+     "calls": 40,
+     "triangles": 23206,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 5,
+      "sprite": 13,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.975,
+      "yaw": -63.34074173710932,
+      "tilt": 15.45584764227142,
+      "magnification": 2.95623545108389
+     },
+     "interval_ms": 30.299999999813735,
+     "gpu_ms": 28.475223,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 103.06370330515625,
+      "max_span_px": 161.0370364143066
+     }
+    },
+    {
+     "submit_ms": 0.900000000372529,
+     "sync_ms": 55.40000000037253,
+     "calls": 40,
+     "triangles": 23335,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 5,
+      "sprite": 13,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 2.0375,
+      "yaw": -63.76120467488713,
+      "tilt": 15.20993773867534,
+      "magnification": 2.9514112990200143
+     },
+     "interval_ms": 55.90000000037253,
+     "gpu_ms": 44.864419,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 102.89551813004512,
+      "max_span_px": 160.7742470781955
+     }
+    },
+    {
+     "submit_ms": 7,
+     "sync_ms": 26,
+     "calls": 40,
+     "triangles": 23389,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 5,
+      "sprite": 13,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 2.1,
+      "yaw": -64.33974596215562,
+      "tilt": 14.926215187660027,
+      "magnification": 2.9447734460863786
+     },
+     "interval_ms": 26.5,
+     "gpu_ms": 16.941244,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 102.66410161513775,
+      "max_span_px": 160.41265877365274
+     }
+    },
+    {
+     "submit_ms": 0.8999999999068677,
+     "sync_ms": 26.199999999720603,
+     "calls": 39,
+     "triangles": 22947,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 4,
+      "sprite": 14,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 2.1625,
+      "yaw": -65.06646659708765,
+      "tilt": 14.609534560736108,
+      "magnification": 2.936435467787038
+     },
+     "interval_ms": 26.59999999962747,
+     "gpu_ms": 18.001517,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 102.37341336116496,
+      "max_span_px": 159.95845837682023
+     }
+    },
+    {
+     "submit_ms": 0.6000000000931323,
+     "sync_ms": 71.70000000018626,
+     "calls": 39,
+     "triangles": 22851,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 4,
+      "sprite": 14,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 2.225,
+      "yaw": -65.92893218813452,
+      "tilt": 14.265314351230709,
+      "magnification": 2.926540029242418
+     },
+     "interval_ms": 72.20000000018626,
+     "gpu_ms": 29.453684,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 102.0284271247462,
+      "max_span_px": 159.41941738241593
+     }
+    },
+    {
+     "submit_ms": 0.6999999997206032,
+     "sync_ms": 40,
+     "calls": 38,
+     "triangles": 22471,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 3,
+      "sprite": 15,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 2.2875,
+      "yaw": -66.9123857099128,
+      "tilt": 13.899444262364337,
+      "magnification": 2.915256444149551
+     },
+     "interval_ms": 44.10000000009313,
+     "gpu_ms": 29.330876,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 101.63504571603488,
+      "max_span_px": 158.8047589313045
+     }
+    },
+    {
+     "submit_ms": 0.7000000001862645,
+     "sync_ms": 28.800000000279397,
+     "calls": 38,
+     "triangles": 22461,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 3,
+      "sprite": 15,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 2.35,
+      "yaw": -68,
+      "tilt": 13.51818443279585,
+      "magnification": 2.9027777777777777
+     },
+     "interval_ms": 53,
+     "gpu_ms": 18.754411,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 101.2,
+      "max_span_px": 158.125
+     }
+    },
+    {
+     "submit_ms": 0.6999999997206032,
+     "sync_ms": 27.600000000093132,
+     "calls": 37,
+     "triangles": 21985,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 2,
+      "sprite": 16,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 2.4125,
+      "yaw": -69.1731656763491,
+      "tilt": 13.12805832391436,
+      "magnification": 2.8893175435684584
+     },
+     "interval_ms": 28.100000000093132,
+     "gpu_ms": 18.374211,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 100.73073372946038,
+      "max_span_px": 157.39177145228183
+     }
+    },
+    {
+     "submit_ms": 0.599999999627471,
+     "sync_ms": 55.89999999990687,
+     "calls": 37,
+     "triangles": 22013,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 2,
+      "sprite": 16,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 2.475,
+      "yaw": -70.41180954897479,
+      "tilt": 12.73574110160622,
+      "magnification": 2.8751060498607965
+     },
+     "interval_ms": 56.39999999990687,
+     "gpu_ms": 51.829453,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 100.2352761804101,
+      "max_span_px": 156.61761903189077
+     }
+    },
+    {
+     "submit_ms": 0.6000000000931323,
+     "sync_ms": 28.100000000093132,
+     "calls": 36,
+     "triangles": 21595,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 1,
+      "sprite": 17,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 2.5375,
+      "yaw": -71.69473807779949,
+      "tilt": 12.347945422316004,
+      "magnification": 2.8603864592523003
+     },
+     "interval_ms": 34.89999999990687,
+     "gpu_ms": 18.584379,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 99.7221047688802,
+      "max_span_px": 155.8157887013753
+     }
+    },
+    {
+     "submit_ms": 0.5,
+     "sync_ms": 16,
+     "calls": 35,
+     "triangles": 21203,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 2.6,
+      "yaw": -73,
+      "tilt": 11.971306577633646,
+      "magnification": 2.845410628019324
+     },
+     "interval_ms": 16.5,
+     "gpu_ms": 14.030663,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 99.2,
+      "max_span_px": 155
+     }
+    },
+    {
+     "submit_ms": 0.7000000001862645,
+     "sync_ms": 53.60000000009313,
+     "calls": 35,
+     "triangles": 21138,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 2.6625,
+      "yaw": -74.30526192220051,
+      "tilt": 11.612268962615675,
+      "magnification": 2.830434796786347
+     },
+     "interval_ms": 53.89999999990687,
+     "gpu_ms": 14.196716,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 98.6778952311198,
+      "max_span_px": 154.1842112986247
+     }
+    },
+    {
+     "submit_ms": 0.5,
+     "sync_ms": 22.899999999906868,
+     "calls": 35,
+     "triangles": 21207,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 2.725,
+      "yaw": -75.5881904510252,
+      "tilt": 11.276975810399081,
+      "magnification": 2.8157152061778508
+     },
+     "interval_ms": 25.700000000186265,
+     "gpu_ms": 17.103439,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 98.16472381958992,
+      "max_span_px": 153.38238096810923
+     }
+    },
+    {
+     "submit_ms": 0.7999999998137355,
+     "sync_ms": 58.5,
+     "calls": 35,
+     "triangles": 21162,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 2.7875,
+      "yaw": -76.8268343236509,
+      "tilt": 10.971164079779115,
+      "magnification": 2.801503712470189
+     },
+     "interval_ms": 59,
+     "gpu_ms": 49.184325,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 97.66926627053965,
+      "max_span_px": 152.6082285477182
+     }
+    },
+    {
+     "submit_ms": 0.5,
+     "sync_ms": 22.600000000093132,
+     "calls": 35,
+     "triangles": 21164,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 2.85,
+      "yaw": -78,
+      "tilt": 10.700066294253714,
+      "magnification": 2.7880434782608696
+     },
+     "interval_ms": 30.299999999813735,
+     "gpu_ms": 14.545321,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 97.2,
+      "max_span_px": 151.875
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 23.200000000186265,
+     "calls": 35,
+     "triangles": 21553,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 2.9125,
+      "yaw": -79.0876142900872,
+      "tilt": 10.468321012095725,
+      "magnification": 2.775564811889096
+     },
+     "interval_ms": 23.800000000279397,
+     "gpu_ms": 14.305409,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 96.76495428396512,
+      "max_span_px": 151.1952410686955
+     }
+    },
+    {
+     "submit_ms": 0.5,
+     "sync_ms": 49.89999999990687,
+     "calls": 35,
+     "triangles": 21612,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 2.975,
+      "yaw": -80.07106781186548,
+      "tilt": 10.279893459334799,
+      "magnification": 2.76428122679623
+     },
+     "interval_ms": 50.39999999990687,
+     "gpu_ms": 48.034175,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 96.37157287525383,
+      "max_span_px": 150.5805826175841
+     }
+    },
+    {
+     "submit_ms": 0.6999999997206032,
+     "sync_ms": 22.699999999720603,
+     "calls": 35,
+     "triangles": 21571,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 3.0375,
+      "yaw": -80.93353340291235,
+      "tilt": 10.138007683640666,
+      "magnification": 2.7543857882516094
+     },
+     "interval_ms": 30.299999999813735,
+     "gpu_ms": 14.015591,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 96.02658663883506,
+      "max_span_px": 150.04154162317977
+     }
+    },
+    {
+     "submit_ms": 0.3000000002793968,
+     "sync_ms": 23.100000000093132,
+     "calls": 35,
+     "triangles": 21615,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 3.1,
+      "yaw": -82.06950960579498,
+      "tilt": 10.045091389973619,
+      "magnification": 2.7460478099522683
+     },
+     "interval_ms": 23.600000000093132,
+     "gpu_ms": 14.286931,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 95.73589838486225,
+      "max_span_px": 149.58734122634726
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 47.5,
+     "calls": 35,
+     "triangles": 21569,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 3.1625,
+      "yaw": -84.23391621887198,
+      "tilt": 10.002734401879566,
+      "magnification": 2.7394099570186325
+     },
+     "interval_ms": 48,
+     "gpu_ms": 45.856252,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 95.50448186995487,
+      "max_span_px": 149.22575292180449
+     }
+    },
+    {
+     "submit_ms": 0.5,
+     "sync_ms": 15.699999999720603,
+     "calls": 35,
+     "triangles": 21523,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 3.225,
+      "yaw": -86.24024448245834,
+      "tilt": 10.011661459168371,
+      "magnification": 2.7345858049547567
+     },
+     "interval_ms": 22.899999999906868,
+     "gpu_ms": 14.432261,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 95.33629669484372,
+      "max_span_px": 148.96296358569333
+     }
+    },
+    {
+     "submit_ms": 0.6999999997206032,
+     "sync_ms": 23,
+     "calls": 35,
+     "triangles": 21568,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 3.2875,
+      "yaw": -88.08130015911428,
+      "tilt": 10.071719817414778,
+      "magnification": 2.731657896339961
+     },
+     "interval_ms": 23.300000000279397,
+     "gpu_ms": 14.37911,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 95.23422055450476,
+      "max_span_px": 148.80346961641368
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 56.89999999990687,
+     "calls": 35,
+     "triangles": 21522,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 3.35,
+      "yaw": -89.7527168711847,
+      "tilt": 10.181881861457862,
+      "magnification": 2.7306763285024154
+     },
+     "interval_ms": 57.39999999990687,
+     "gpu_ms": 47.43552,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 95.19999999999999,
+      "max_span_px": 148.74999999999997
+     }
+    },
+    {
+     "submit_ms": 0.599999999627471,
+     "sync_ms": 25.299999999813735,
+     "calls": 35,
+     "triangles": 21586,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 3.4125,
+      "yaw": -91.25303081073133,
+      "tilt": 10.340262688181364,
+      "magnification": 2.731657896339961
+     },
+     "interval_ms": 33.89999999990687,
+     "gpu_ms": 15.409819,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 95.23422055450476,
+      "max_span_px": 148.80346961641368
+     }
+    },
+    {
+     "submit_ms": 0.5,
+     "sync_ms": 56.200000000186265,
+     "calls": 35,
+     "triangles": 21556,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 3.475,
+      "yaw": -92.58370578569244,
+      "tilt": 10.544152357728578,
+      "magnification": 2.7345858049547567
+     },
+     "interval_ms": 56.60000000009313,
+     "gpu_ms": 47.992493,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 95.33629669484372,
+      "max_span_px": 148.96296358569333
+     }
+    },
+    {
+     "submit_ms": 0.6000000000931323,
+     "sync_ms": 24.699999999720603,
+     "calls": 35,
+     "triangles": 21537,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 3.5375,
+      "yaw": -93.74910817372314,
+      "tilt": 10.79006226132466,
+      "magnification": 2.7394099570186325
+     },
+     "interval_ms": 25.199999999720603,
+     "gpu_ms": 22.524686,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 50,
+      "min_span_px": 95.50448186995487,
+      "max_span_px": 149.22575292180449
+     }
+    },
+    {
+     "submit_ms": 3.3000000002793968,
+     "sync_ms": 23.40000000037253,
+     "calls": 35,
+     "triangles": 21543,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 3.6,
+      "yaw": -94.75643221226319,
+      "tilt": 11.073784812339971,
+      "magnification": 2.7460478099522683
+     },
+     "interval_ms": 24.40000000037253,
+     "gpu_ms": 22.364644,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 49,
+      "min_span_px": 95.73589838486225,
+      "max_span_px": 149.58734122634726
+     }
+    },
+    {
+     "submit_ms": 1.2000000001862645,
+     "sync_ms": 53,
+     "calls": 35,
+     "triangles": 21468,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 3.6625,
+      "yaw": -95.61557690313968,
+      "tilt": 11.39046543926389,
+      "magnification": 2.7543857882516094
+     },
+     "interval_ms": 53.6999999997206,
+     "gpu_ms": 51.885288,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 49,
+      "min_span_px": 96.02658663883506,
+      "max_span_px": 150.04154162317977
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 22.199999999720603,
+     "calls": 35,
+     "triangles": 21392,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 3.725,
+      "yaw": -96.33897663790135,
+      "tilt": 11.73468564876929,
+      "magnification": 2.76428122679623
+     },
+     "interval_ms": 23,
+     "gpu_ms": 21.142127,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 49,
+      "min_span_px": 96.37157287525383,
+      "max_span_px": 150.5805826175841
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 22.600000000093132,
+     "calls": 35,
+     "triangles": 21351,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 3.7875,
+      "yaw": -96.94138844193161,
+      "tilt": 12.100555737635661,
+      "magnification": 2.775564811889096
+     },
+     "interval_ms": 23.300000000279397,
+     "gpu_ms": 13.92862,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 49,
+      "min_span_px": 96.76495428396512,
+      "max_span_px": 151.1952410686955
+     }
+    },
+    {
+     "submit_ms": 0.3000000002793968,
+     "sync_ms": 47.3000000002794,
+     "calls": 35,
+     "triangles": 21330,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 3.85,
+      "yaw": -97.43963947765293,
+      "tilt": 12.481815567204148,
+      "magnification": 2.7880434782608696
+     },
+     "interval_ms": 48.39999999990687,
+     "gpu_ms": 39.448545,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 49,
+      "min_span_px": 97.2,
+      "max_span_px": 151.875
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 16,
+     "calls": 35,
+     "triangles": 21295,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 3.9125,
+      "yaw": -97.85233912711236,
+      "tilt": 12.871941676085637,
+      "magnification": 2.801503712470189
+     },
+     "interval_ms": 24.600000000093132,
+     "gpu_ms": 14.350597,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 48,
+      "min_span_px": 97.66926627053965,
+      "max_span_px": 152.6082285477182
+     }
+    },
+    {
+     "submit_ms": 0.5,
+     "sync_ms": 21.300000000279397,
+     "calls": 35,
+     "triangles": 21169,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 3.975,
+      "yaw": -98.1995605802952,
+      "tilt": 13.26425889839378,
+      "magnification": 2.8157152061778508
+     },
+     "interval_ms": 22,
+     "gpu_ms": 13.832164,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 48,
+      "min_span_px": 98.16472381958992,
+      "max_span_px": 153.38238096810923
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 52.200000000186265,
+     "calls": 35,
+     "triangles": 21163,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 4.0375,
+      "yaw": -98.50249737727903,
+      "tilt": 13.652054577683995,
+      "magnification": 2.830434796786347
+     },
+     "interval_ms": 53.89999999990687,
+     "gpu_ms": 45.294784,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 48,
+      "min_span_px": 98.6778952311198,
+      "max_span_px": 154.1842112986247
+     }
+    }
+   ]
+  },
+  {
+   "profile": "desktop",
+   "scenario": "mixed100",
+   "number": 100,
+   "method": "lod",
+   "width": 877,
+   "height": 414,
+   "cpu": 1,
+   "frames": 48,
+   "fps": 20.792,
+   "p95_ms": 69.3,
+   "gpu_ms": 35.325,
+   "gpu_samples": 48,
+   "submit_ms": 0.56,
+   "draw_sync_ms": 44.212,
+   "triangles": {
+    "min": 41031,
+    "mean": 42107.729,
+    "max": 44030
+   },
+   "draw_calls": {
+    "min": 55,
+    "mean": 60.854,
+    "max": 63
+   },
+   "blits": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "mix": {
+    "near": {
+     "min": 40,
+     "mean": 42.188,
+     "max": 47
+    },
+    "mid": {
+     "min": 10,
+     "mean": 10.563,
+     "max": 12
+    },
+    "transition": {
+     "min": 2,
+     "mean": 7.25,
+     "max": 10
+    },
+    "sprite": {
+     "min": 40,
+     "mean": 40,
+     "max": 40
+    },
+    "offscreen": {
+     "min": 0,
+     "mean": 0,
+     "max": 0
+    },
+    "fine": {
+     "min": 0,
+     "mean": 0,
+     "max": 0
+    },
+    "race": {
+     "min": 40,
+     "mean": 42.188,
+     "max": 47
+    }
+   },
+   "visibility": {
+    "intersects": {
+     "min": 100,
+     "mean": 100,
+     "max": 100
+    },
+    "centre": {
+     "min": 98,
+     "mean": 99.896,
+     "max": 100
+    },
+    "whole": {
+     "min": 78,
+     "mean": 91.792,
+     "max": 100
+    },
+    "min_span_px": {
+     "min": 95.19999999999999,
+     "mean": 99.2,
+     "max": 103.2
+    },
+    "max_span_px": {
+     "min": 148.74999999999997,
+     "mean": 155,
+     "max": 161.25
+    }
+   },
+   "memory": {
+    "buffer_bytes": 5476132,
+    "texture_bytes": 90949963,
+    "renderbuffer_bytes": 0,
+    "unknown_formats": [],
+    "gl_mib": 91.95909023284912,
+    "js_heap_mib": 6.398723602294922,
+    "rss_mib": 874.5078125,
+    "rss_kib_by_type": {
+     "browser": 211300,
+     "renderer": 267240,
+     "GPU": 319248,
+     "network.mojom.NetworkService": 74584,
+     "storage.mojom.StorageService": 23124
+    }
+   },
+   "samples": [
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 68.6999999997206,
+     "calls": 57,
+     "triangles": 43841,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 1.1,
+      "yaw": -86,
+      "tilt": 14.028693422366354,
+      "magnification": 4.064872325741891
+     },
+     "interval_ms": 69.29999999981374,
+     "gpu_ms": 60.349035,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 99,
+      "min_span_px": 99.19999999999999,
+      "max_span_px": 154.99999999999997
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 22.800000000279397,
+     "calls": 57,
+     "triangles": 43759,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 11,
+      "transition": 9,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 1.1625,
+      "yaw": -84.69473807779949,
+      "tilt": 14.387731037384325,
+      "magnification": 4.08626637036043
+     },
+     "interval_ms": 31.300000000279397,
+     "gpu_ms": 21.572206,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 96,
+      "min_span_px": 99.72210476888023,
+      "max_span_px": 155.81578870137534
+     }
+    },
+    {
+     "submit_ms": 0.2999999998137355,
+     "sync_ms": 63,
+     "calls": 55,
+     "triangles": 44030,
+     "blits": 0,
+     "mix": {
+      "near": 42,
+      "mid": 11,
+      "transition": 7,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 42
+     },
+     "camera": {
+      "time": 1.225,
+      "yaw": -83.41180954897479,
+      "tilt": 14.723024189600919,
+      "magnification": 4.107294356943996
+     },
+     "interval_ms": 63.799999999813735,
+     "gpu_ms": 55.556379,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 94,
+      "min_span_px": 100.23527618041011,
+      "max_span_px": 156.6176190318908
+     }
+    },
+    {
+     "submit_ms": 0.8999999999068677,
+     "sync_ms": 28.100000000093132,
+     "calls": 60,
+     "triangles": 43423,
+     "blits": 0,
+     "mix": {
+      "near": 43,
+      "mid": 11,
+      "transition": 6,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 43
+     },
+     "camera": {
+      "time": 1.2875,
+      "yaw": -82.1731656763491,
+      "tilt": 15.028835920220885,
+      "magnification": 4.127596490812084
+     },
+     "interval_ms": 37.5,
+     "gpu_ms": 25.958407,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 92,
+      "min_span_px": 100.73073372946038,
+      "max_span_px": 157.39177145228183
+     }
+    },
+    {
+     "submit_ms": 0.6000000000931323,
+     "sync_ms": 64.10000000009313,
+     "calls": 59,
+     "triangles": 43534,
+     "blits": 0,
+     "mix": {
+      "near": 44,
+      "mid": 11,
+      "transition": 5,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 44
+     },
+     "camera": {
+      "time": 1.35,
+      "yaw": -81,
+      "tilt": 15.299933705746286,
+      "magnification": 4.146825396825397
+     },
+     "interval_ms": 64.60000000009313,
+     "gpu_ms": 54.674535,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 91,
+      "min_span_px": 101.20000000000002,
+      "max_span_px": 158.12500000000003
+     }
+    },
+    {
+     "submit_ms": 0.5,
+     "sync_ms": 25.700000000186265,
+     "calls": 58,
+     "triangles": 43606,
+     "blits": 0,
+     "mix": {
+      "near": 45,
+      "mid": 11,
+      "transition": 4,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 45
+     },
+     "camera": {
+      "time": 1.4125,
+      "yaw": -79.9123857099128,
+      "tilt": 15.531678987904275,
+      "magnification": 4.164652063070787
+     },
+     "interval_ms": 33,
+     "gpu_ms": 24.329495,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 80,
+      "min_span_px": 101.63504571603488,
+      "max_span_px": 158.8047589313045
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 62.5,
+     "calls": 58,
+     "triangles": 43342,
+     "blits": 0,
+     "mix": {
+      "near": 45,
+      "mid": 12,
+      "transition": 3,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 45
+     },
+     "camera": {
+      "time": 1.475,
+      "yaw": -78.92893218813452,
+      "tilt": 15.720106540665203,
+      "magnification": 4.180771470346311
+     },
+     "interval_ms": 62.89999999990687,
+     "gpu_ms": 54.996366,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 79,
+      "min_span_px": 102.0284271247462,
+      "max_span_px": 159.41941738241593
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 24.200000000186265,
+     "calls": 57,
+     "triangles": 41494,
+     "blits": 0,
+     "mix": {
+      "near": 46,
+      "mid": 11,
+      "transition": 3,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 46
+     },
+     "camera": {
+      "time": 1.5375,
+      "yaw": -78.06646659708765,
+      "tilt": 15.861992316359334,
+      "magnification": 4.19490781112434
+     },
+     "interval_ms": 31.600000000093132,
+     "gpu_ms": 23.014227,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 78,
+      "min_span_px": 102.37341336116496,
+      "max_span_px": 159.95845837682023
+     }
+    },
+    {
+     "submit_ms": 0.5,
+     "sync_ms": 60.299999999813735,
+     "calls": 57,
+     "triangles": 41427,
+     "blits": 0,
+     "mix": {
+      "near": 46,
+      "mid": 11,
+      "transition": 3,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 46
+     },
+     "camera": {
+      "time": 1.6,
+      "yaw": -77.33974596215562,
+      "tilt": 15.954908610026381,
+      "magnification": 4.206819208694826
+     },
+     "interval_ms": 67.79999999981374,
+     "gpu_ms": 59.081097,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 78,
+      "min_span_px": 102.66410161513775,
+      "max_span_px": 160.41265877365274
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 23.399999999906868,
+     "calls": 57,
+     "triangles": 41415,
+     "blits": 0,
+     "mix": {
+      "near": 46,
+      "mid": 12,
+      "transition": 2,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 46
+     },
+     "camera": {
+      "time": 1.6625,
+      "yaw": -76.76120467488713,
+      "tilt": 15.997265598120434,
+      "magnification": 4.216301855742878
+     },
+     "interval_ms": 31,
+     "gpu_ms": 22.302831,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 78,
+      "min_span_px": 102.89551813004515,
+      "max_span_px": 160.77424707819551
+     }
+    },
+    {
+     "submit_ms": 0.5,
+     "sync_ms": 62.60000000009313,
+     "calls": 57,
+     "triangles": 41321,
+     "blits": 0,
+     "mix": {
+      "near": 46,
+      "mid": 12,
+      "transition": 2,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 46
+     },
+     "camera": {
+      "time": 1.725,
+      "yaw": -76.34074173710931,
+      "tilt": 15.988338540831629,
+      "magnification": 4.2231935015484146
+     },
+     "interval_ms": 70,
+     "gpu_ms": 54.810511,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 79,
+      "min_span_px": 103.06370330515625,
+      "max_span_px": 161.0370364143066
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 24.800000000279397,
+     "calls": 57,
+     "triangles": 41197,
+     "blits": 0,
+     "mix": {
+      "near": 46,
+      "mid": 12,
+      "transition": 2,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 46
+     },
+     "camera": {
+      "time": 1.7875,
+      "yaw": -76.0855513862619,
+      "tilt": 15.928280182585222,
+      "magnification": 4.22737622814098
+     },
+     "interval_ms": 25.300000000279397,
+     "gpu_ms": 23.585911,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 80,
+      "min_span_px": 103.16577944549525,
+      "max_span_px": 161.19653038358632
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 63.6999999997206,
+     "calls": 57,
+     "triangles": 41399,
+     "blits": 0,
+     "mix": {
+      "near": 47,
+      "mid": 11,
+      "transition": 2,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 47
+     },
+     "camera": {
+      "time": 1.85,
+      "yaw": -76,
+      "tilt": 15.818118138542136,
+      "magnification": 4.228778467908903
+     },
+     "interval_ms": 64.1999999997206,
+     "gpu_ms": 55.652254,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 80,
+      "min_span_px": 103.2,
+      "max_span_px": 161.25
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 23.200000000186265,
+     "calls": 57,
+     "triangles": 41177,
+     "blits": 0,
+     "mix": {
+      "near": 46,
+      "mid": 12,
+      "transition": 2,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 46
+     },
+     "camera": {
+      "time": 1.9125,
+      "yaw": -76.0855513862619,
+      "tilt": 15.659737311818636,
+      "magnification": 4.22737622814098
+     },
+     "interval_ms": 30.800000000279397,
+     "gpu_ms": 22.069217,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 80,
+      "min_span_px": 103.16577944549525,
+      "max_span_px": 161.19653038358632
+     }
+    },
+    {
+     "submit_ms": 0.5,
+     "sync_ms": 63.200000000186265,
+     "calls": 57,
+     "triangles": 41263,
+     "blits": 0,
+     "mix": {
+      "near": 46,
+      "mid": 12,
+      "transition": 2,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 46
+     },
+     "camera": {
+      "time": 1.975,
+      "yaw": -76.34074173710931,
+      "tilt": 15.45584764227142,
+      "magnification": 4.2231935015484146
+     },
+     "interval_ms": 64,
+     "gpu_ms": 23.296082,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 80,
+      "min_span_px": 103.06370330515625,
+      "max_span_px": 161.0370364143066
+     }
+    },
+    {
+     "submit_ms": 0.3000000002793968,
+     "sync_ms": 23.600000000093132,
+     "calls": 57,
+     "triangles": 41331,
+     "blits": 0,
+     "mix": {
+      "near": 46,
+      "mid": 11,
+      "transition": 3,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 46
+     },
+     "camera": {
+      "time": 2.0375,
+      "yaw": -76.76120467488713,
+      "tilt": 15.20993773867534,
+      "magnification": 4.216301855742878
+     },
+     "interval_ms": 32.299999999813735,
+     "gpu_ms": 22.215789,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 81,
+      "min_span_px": 102.89551813004515,
+      "max_span_px": 160.77424707819551
+     }
+    },
+    {
+     "submit_ms": 0.3000000002793968,
+     "sync_ms": 67.3000000002794,
+     "calls": 57,
+     "triangles": 41031,
+     "blits": 0,
+     "mix": {
+      "near": 46,
+      "mid": 11,
+      "transition": 3,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 46
+     },
+     "camera": {
+      "time": 2.1,
+      "yaw": -77.33974596215562,
+      "tilt": 14.926215187660027,
+      "magnification": 4.206819208694826
+     },
+     "interval_ms": 67.70000000018626,
+     "gpu_ms": 27.830748,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 83,
+      "min_span_px": 102.66410161513775,
+      "max_span_px": 160.41265877365274
+     }
+    },
+    {
+     "submit_ms": 0.5,
+     "sync_ms": 28.600000000093132,
+     "calls": 57,
+     "triangles": 41248,
+     "blits": 0,
+     "mix": {
+      "near": 46,
+      "mid": 11,
+      "transition": 3,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 46
+     },
+     "camera": {
+      "time": 2.1625,
+      "yaw": -78.06646659708765,
+      "tilt": 14.609534560736108,
+      "magnification": 4.19490781112434
+     },
+     "interval_ms": 37,
+     "gpu_ms": 27.348189,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 87,
+      "min_span_px": 102.37341336116496,
+      "max_span_px": 159.95845837682023
+     }
+    },
+    {
+     "submit_ms": 3.900000000372529,
+     "sync_ms": 65.90000000037253,
+     "calls": 63,
+     "triangles": 42746,
+     "blits": 0,
+     "mix": {
+      "near": 45,
+      "mid": 11,
+      "transition": 4,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 45
+     },
+     "camera": {
+      "time": 2.225,
+      "yaw": -78.92893218813452,
+      "tilt": 14.265314351230709,
+      "magnification": 4.180771470346311
+     },
+     "interval_ms": 66.5,
+     "gpu_ms": 56.459854,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 90,
+      "min_span_px": 102.0284271247462,
+      "max_span_px": 159.41941738241593
+     }
+    },
+    {
+     "submit_ms": 0.3000000002793968,
+     "sync_ms": 22.600000000093132,
+     "calls": 63,
+     "triangles": 42737,
+     "blits": 0,
+     "mix": {
+      "near": 45,
+      "mid": 11,
+      "transition": 4,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 45
+     },
+     "camera": {
+      "time": 2.2875,
+      "yaw": -79.9123857099128,
+      "tilt": 13.899444262364337,
+      "magnification": 4.164652063070787
+     },
+     "interval_ms": 30.299999999813735,
+     "gpu_ms": 21.625586,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 90,
+      "min_span_px": 101.63504571603488,
+      "max_span_px": 158.8047589313045
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 32.5,
+     "calls": 63,
+     "triangles": 42571,
+     "blits": 0,
+     "mix": {
+      "near": 44,
+      "mid": 11,
+      "transition": 5,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 44
+     },
+     "camera": {
+      "time": 2.35,
+      "yaw": -81,
+      "tilt": 13.51818443279585,
+      "magnification": 4.146825396825397
+     },
+     "interval_ms": 32.89999999990687,
+     "gpu_ms": 23.378767,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 90,
+      "min_span_px": 101.20000000000002,
+      "max_span_px": 158.12500000000003
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 22.5,
+     "calls": 63,
+     "triangles": 42403,
+     "blits": 0,
+     "mix": {
+      "near": 43,
+      "mid": 11,
+      "transition": 6,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 43
+     },
+     "camera": {
+      "time": 2.4125,
+      "yaw": -82.1731656763491,
+      "tilt": 13.12805832391436,
+      "magnification": 4.127596490812084
+     },
+     "interval_ms": 62.700000000186265,
+     "gpu_ms": 21.787101,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 90,
+      "min_span_px": 100.73073372946038,
+      "max_span_px": 157.39177145228183
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 29.100000000093132,
+     "calls": 63,
+     "triangles": 42390,
+     "blits": 0,
+     "mix": {
+      "near": 42,
+      "mid": 10,
+      "transition": 8,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 42
+     },
+     "camera": {
+      "time": 2.475,
+      "yaw": -83.41180954897479,
+      "tilt": 12.73574110160622,
+      "magnification": 4.107294356943996
+     },
+     "interval_ms": 36.10000000009313,
+     "gpu_ms": 20.988023,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 90,
+      "min_span_px": 100.23527618041011,
+      "max_span_px": 156.6176190318908
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 61.1999999997206,
+     "calls": 63,
+     "triangles": 41986,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 2.5375,
+      "yaw": -84.69473807779949,
+      "tilt": 12.347945422316004,
+      "magnification": 4.08626637036043
+     },
+     "interval_ms": 61.59999999962747,
+     "gpu_ms": 22.119064,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 100,
+      "min_span_px": 99.72210476888023,
+      "max_span_px": 155.81578870137534
+     }
+    },
+    {
+     "submit_ms": 0.40000000037252903,
+     "sync_ms": 29.100000000093132,
+     "calls": 63,
+     "triangles": 42002,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 2.6,
+      "yaw": -86,
+      "tilt": 11.971306577633646,
+      "magnification": 4.064872325741891
+     },
+     "interval_ms": 29.600000000093132,
+     "gpu_ms": 20.94652,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 100,
+      "min_span_px": 99.19999999999999,
+      "max_span_px": 154.99999999999997
+     }
+    },
+    {
+     "submit_ms": 0.7999999998137355,
+     "sync_ms": 65.09999999962747,
+     "calls": 63,
+     "triangles": 42464,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 2.6625,
+      "yaw": -87.30526192220051,
+      "tilt": 11.612268962615675,
+      "magnification": 4.0434782811233525
+     },
+     "interval_ms": 65.39999999990687,
+     "gpu_ms": 56.134232,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 100,
+      "min_span_px": 98.6778952311198,
+      "max_span_px": 154.1842112986247
+     }
+    },
+    {
+     "submit_ms": 1.7000000001862645,
+     "sync_ms": 35.60000000009313,
+     "calls": 63,
+     "triangles": 42448,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 2.725,
+      "yaw": -88.5881904510252,
+      "tilt": 11.276975810399081,
+      "magnification": 4.022450294539786
+     },
+     "interval_ms": 36.200000000186265,
+     "gpu_ms": 25.967393,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 100,
+      "min_span_px": 98.16472381958992,
+      "max_span_px": 153.38238096810923
+     }
+    },
+    {
+     "submit_ms": 0.6000000000931323,
+     "sync_ms": 63,
+     "calls": 63,
+     "triangles": 42490,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 2.7875,
+      "yaw": -89.8268343236509,
+      "tilt": 10.971164079779115,
+      "magnification": 4.002148160671698
+     },
+     "interval_ms": 63.60000000009313,
+     "gpu_ms": 20.389148,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 100,
+      "min_span_px": 97.66926627053965,
+      "max_span_px": 152.6082285477182
+     }
+    },
+    {
+     "submit_ms": 0.2999999998137355,
+     "sync_ms": 30.5,
+     "calls": 63,
+     "triangles": 42439,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 2.85,
+      "yaw": -91,
+      "tilt": 10.700066294253714,
+      "magnification": 3.982919254658385
+     },
+     "interval_ms": 31.100000000093132,
+     "gpu_ms": 29.571741,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 100,
+      "min_span_px": 97.2,
+      "max_span_px": 151.875
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 56.799999999813735,
+     "calls": 63,
+     "triangles": 42412,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 2.9125,
+      "yaw": -92.0876142900872,
+      "tilt": 10.468321012095725,
+      "magnification": 3.9650925884129946
+     },
+     "interval_ms": 57.299999999813735,
+     "gpu_ms": 55.681472,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 100,
+      "min_span_px": 96.76495428396512,
+      "max_span_px": 151.1952410686955
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 30.399999999906868,
+     "calls": 63,
+     "triangles": 42491,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 2.975,
+      "yaw": -93.07106781186548,
+      "tilt": 10.279893459334799,
+      "magnification": 3.948973181137471
+     },
+     "interval_ms": 38.10000000009313,
+     "gpu_ms": 22.483214,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 100,
+      "min_span_px": 96.37157287525383,
+      "max_span_px": 150.5805826175841
+     }
+    },
+    {
+     "submit_ms": 0.6999999997206032,
+     "sync_ms": 67.6999999997206,
+     "calls": 63,
+     "triangles": 41987,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 3.0375,
+      "yaw": -93.93353340291235,
+      "tilt": 10.138007683640666,
+      "magnification": 3.934836840359442
+     },
+     "interval_ms": 68.1999999997206,
+     "gpu_ms": 58.115138,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 100,
+      "min_span_px": 96.02658663883506,
+      "max_span_px": 150.04154162317977
+     }
+    },
+    {
+     "submit_ms": 0.6000000000931323,
+     "sync_ms": 34.8000000002794,
+     "calls": 63,
+     "triangles": 42031,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 3.1,
+      "yaw": -94.66025403784438,
+      "tilt": 10.045091389973619,
+      "magnification": 3.9229254427889546
+     },
+     "interval_ms": 35.3000000002794,
+     "gpu_ms": 25.080691,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 100,
+      "min_span_px": 95.73589838486224,
+      "max_span_px": 149.58734122634723
+     }
+    },
+    {
+     "submit_ms": 0.2999999998137355,
+     "sync_ms": 60.89999999990687,
+     "calls": 63,
+     "triangles": 42146,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 3.1625,
+      "yaw": -95.23879532511286,
+      "tilt": 10.002734401879566,
+      "magnification": 3.9134427957409037
+     },
+     "interval_ms": 61.5,
+     "gpu_ms": 53.071803,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 100,
+      "min_span_px": 95.50448186995487,
+      "max_span_px": 149.22575292180449
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 28.199999999720603,
+     "calls": 63,
+     "triangles": 42128,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 3.225,
+      "yaw": -95.65925826289069,
+      "tilt": 10.011661459168371,
+      "magnification": 3.9065511499353667
+     },
+     "interval_ms": 28.699999999720603,
+     "gpu_ms": 20.216557,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 100,
+      "min_span_px": 95.33629669484372,
+      "max_span_px": 148.96296358569333
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 64.89999999990687,
+     "calls": 63,
+     "triangles": 42169,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 3.2875,
+      "yaw": -95.9144486137381,
+      "tilt": 10.071719817414778,
+      "magnification": 3.902368423342802
+     },
+     "interval_ms": 65.3000000002794,
+     "gpu_ms": 55.822151,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 100,
+      "min_span_px": 95.23422055450477,
+      "max_span_px": 148.8034696164137
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 37.60000000009313,
+     "calls": 63,
+     "triangles": 42026,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 3.35,
+      "yaw": -96,
+      "tilt": 10.181881861457862,
+      "magnification": 3.9009661835748792
+     },
+     "interval_ms": 38.10000000009313,
+     "gpu_ms": 24.779215,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 100,
+      "min_span_px": 95.19999999999999,
+      "max_span_px": 148.74999999999997
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 58.1999999997206,
+     "calls": 63,
+     "triangles": 42063,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 3.4125,
+      "yaw": -95.9144486137381,
+      "tilt": 10.340262688181364,
+      "magnification": 3.902368423342802
+     },
+     "interval_ms": 58.59999999962747,
+     "gpu_ms": 56.909238,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 100,
+      "min_span_px": 95.23422055450477,
+      "max_span_px": 148.8034696164137
+     }
+    },
+    {
+     "submit_ms": 0.40000000037252903,
+     "sync_ms": 21.90000000037253,
+     "calls": 63,
+     "triangles": 41919,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 3.475,
+      "yaw": -95.65925826289069,
+      "tilt": 10.544152357728578,
+      "magnification": 3.9065511499353667
+     },
+     "interval_ms": 22.40000000037253,
+     "gpu_ms": 20.738796,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 100,
+      "min_span_px": 95.33629669484372,
+      "max_span_px": 148.96296358569333
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 30.09999999962747,
+     "calls": 63,
+     "triangles": 41810,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 3.5375,
+      "yaw": -95.23879532511286,
+      "tilt": 10.79006226132466,
+      "magnification": 3.9134427957409037
+     },
+     "interval_ms": 37.59999999962747,
+     "gpu_ms": 29.361332,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 99,
+      "min_span_px": 95.50448186995487,
+      "max_span_px": 149.22575292180449
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 65.1999999997206,
+     "calls": 63,
+     "triangles": 41726,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 3.6,
+      "yaw": -94.66025403784438,
+      "tilt": 11.073784812339971,
+      "magnification": 3.9229254427889546
+     },
+     "interval_ms": 65.60000000009313,
+     "gpu_ms": 26.230798,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 99,
+      "min_span_px": 95.73589838486224,
+      "max_span_px": 149.58734122634723
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 31.600000000093132,
+     "calls": 63,
+     "triangles": 41635,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 3.6625,
+      "yaw": -93.93353340291235,
+      "tilt": 11.39046543926389,
+      "magnification": 3.934836840359442
+     },
+     "interval_ms": 32.3000000002794,
+     "gpu_ms": 23.128299,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 98,
+      "min_span_px": 96.02658663883506,
+      "max_span_px": 150.04154162317977
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 55.59999999962747,
+     "calls": 63,
+     "triangles": 41612,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 3.725,
+      "yaw": -93.07106781186548,
+      "tilt": 11.73468564876929,
+      "magnification": 3.948973181137471
+     },
+     "interval_ms": 56.09999999962747,
+     "gpu_ms": 54.433681,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 98,
+      "min_span_px": 96.37157287525383,
+      "max_span_px": 150.5805826175841
+     }
+    },
+    {
+     "submit_ms": 0.5,
+     "sync_ms": 37.799999999813735,
+     "calls": 63,
+     "triangles": 41446,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 3.7875,
+      "yaw": -92.0876142900872,
+      "tilt": 12.100555737635661,
+      "magnification": 3.9650925884129946
+     },
+     "interval_ms": 45.700000000186265,
+     "gpu_ms": 28.56585,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 97,
+      "min_span_px": 96.76495428396512,
+      "max_span_px": 151.1952410686955
+     }
+    },
+    {
+     "submit_ms": 0.5,
+     "sync_ms": 62.799999999813735,
+     "calls": 63,
+     "triangles": 41287,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 3.85,
+      "yaw": -91,
+      "tilt": 12.481815567204148,
+      "magnification": 3.982919254658385
+     },
+     "interval_ms": 63.299999999813735,
+     "gpu_ms": 61.229807,
+     "visible": {
+      "intersects": 100,
+      "centre": 100,
+      "whole": 96,
+      "min_span_px": 97.2,
+      "max_span_px": 151.875
+     }
+    },
+    {
+     "submit_ms": 1,
+     "sync_ms": 69.29999999981374,
+     "calls": 63,
+     "triangles": 41278,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 3.9125,
+      "yaw": -89.8268343236509,
+      "tilt": 12.871941676085637,
+      "magnification": 4.002148160671698
+     },
+     "interval_ms": 81.70000000018626,
+     "gpu_ms": 59.71744,
+     "visible": {
+      "intersects": 100,
+      "centre": 99,
+      "whole": 86,
+      "min_span_px": 97.66926627053965,
+      "max_span_px": 152.6082285477182
+     }
+    },
+    {
+     "submit_ms": 0.599999999627471,
+     "sync_ms": 29.5,
+     "calls": 63,
+     "triangles": 41274,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 3.975,
+      "yaw": -88.58819045102521,
+      "tilt": 13.26425889839378,
+      "magnification": 4.022450294539786
+     },
+     "interval_ms": 30.200000000186265,
+     "gpu_ms": 21.207374,
+     "visible": {
+      "intersects": 100,
+      "centre": 98,
+      "whole": 85,
+      "min_span_px": 98.16472381958992,
+      "max_span_px": 153.38238096810923
+     }
+    },
+    {
+     "submit_ms": 0.599999999627471,
+     "sync_ms": 22,
+     "calls": 63,
+     "triangles": 41217,
+     "blits": 0,
+     "mix": {
+      "near": 40,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 40
+     },
+     "camera": {
+      "time": 4.0375,
+      "yaw": -87.30526192220051,
+      "tilt": 13.652054577683995,
+      "magnification": 4.0434782811233525
+     },
+     "interval_ms": 22.5,
+     "gpu_ms": 20.802432,
+     "visible": {
+      "intersects": 100,
+      "centre": 98,
+      "whole": 83,
+      "min_span_px": 98.6778952311198,
+      "max_span_px": 154.1842112986247
+     }
+    }
+   ]
+  },
+  {
+   "profile": "mobile",
+   "scenario": "mixed50",
+   "number": 50,
+   "method": "lod",
+   "width": 352,
+   "height": 335,
+   "cpu": 4,
+   "frames": 48,
+   "fps": 27.899,
+   "p95_ms": 59.5,
+   "gpu_ms": 24.657,
+   "gpu_samples": 48,
+   "submit_ms": 5.656,
+   "draw_sync_ms": 33.458,
+   "triangles": {
+    "min": 18950,
+    "mean": 20938.292,
+    "max": 23177
+   },
+   "draw_calls": {
+    "min": 31,
+    "mean": 33.729,
+    "max": 35
+   },
+   "blits": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "mix": {
+    "near": {
+     "min": 20,
+     "mean": 22.729,
+     "max": 24
+    },
+    "mid": {
+     "min": 8,
+     "mean": 8,
+     "max": 8
+    },
+    "transition": {
+     "min": 0,
+     "mean": 0,
+     "max": 0
+    },
+    "sprite": {
+     "min": 18,
+     "mean": 18,
+     "max": 18
+    },
+    "offscreen": {
+     "min": 0,
+     "mean": 1.271,
+     "max": 4
+    },
+    "fine": {
+     "min": 0,
+     "mean": 0,
+     "max": 0
+    },
+    "race": {
+     "min": 20,
+     "mean": 22.729,
+     "max": 24
+    }
+   },
+   "visibility": {
+    "intersects": {
+     "min": 46,
+     "mean": 48.729,
+     "max": 50
+    },
+    "centre": {
+     "min": 41,
+     "mean": 45.625,
+     "max": 50
+    },
+    "whole": {
+     "min": 33,
+     "mean": 39.021,
+     "max": 47
+    },
+    "min_span_px": {
+     "min": 95.19999999999999,
+     "mean": 99.2,
+     "max": 103.2
+    },
+    "max_span_px": {
+     "min": 148.74999999999997,
+     "mean": 155,
+     "max": 161.25
+    }
+   },
+   "memory": {
+    "buffer_bytes": 4320452,
+    "texture_bytes": 90949963,
+    "renderbuffer_bytes": 0,
+    "unknown_formats": [],
+    "gl_mib": 90.85694789886475,
+    "js_heap_mib": 4.238895416259766,
+    "rss_mib": 925.8984375,
+    "rss_kib_by_type": {
+     "browser": 221244,
+     "renderer": 360384,
+     "GPU": 268828,
+     "network.mojom.NetworkService": 74484,
+     "storage.mojom.StorageService": 23180
+    }
+   },
+   "samples": [
+    {
+     "submit_ms": 5.7000000001862645,
+     "sync_ms": 22.5,
+     "calls": 35,
+     "triangles": 23177,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.1,
+      "yaw": -86,
+      "tilt": 14.028693422366354,
+      "magnification": 4.209155844155844
+     },
+     "interval_ms": 27.399999999906868,
+     "gpu_ms": 16.375909,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 47,
+      "min_span_px": 99.19999999999999,
+      "max_span_px": 154.99999999999997
+     }
+    },
+    {
+     "submit_ms": 2.2000000001862645,
+     "sync_ms": 46.700000000186265,
+     "calls": 35,
+     "triangles": 23151,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.1625,
+      "yaw": -84.69473807779949,
+      "tilt": 14.387731037384325,
+      "magnification": 4.231309274994491
+     },
+     "interval_ms": 51.3000000002794,
+     "gpu_ms": 43.391837,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 46,
+      "min_span_px": 99.72210476888021,
+      "max_span_px": 155.8157887013753
+     }
+    },
+    {
+     "submit_ms": 5.399999999906868,
+     "sync_ms": 26.799999999813735,
+     "calls": 35,
+     "triangles": 23172,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.225,
+      "yaw": -83.41180954897479,
+      "tilt": 14.723024189600919,
+      "magnification": 4.253083654489397
+     },
+     "interval_ms": 31.199999999720603,
+     "gpu_ms": 18.133295,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 46,
+      "min_span_px": 100.2352761804101,
+      "max_span_px": 156.61761903189077
+     }
+    },
+    {
+     "submit_ms": 7.100000000093132,
+     "sync_ms": 50.1999999997206,
+     "calls": 35,
+     "triangles": 22578,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.2875,
+      "yaw": -82.1731656763491,
+      "tilt": 15.028835920220885,
+      "magnification": 4.274106416970406
+     },
+     "interval_ms": 59.5,
+     "gpu_ms": 34.272257,
+     "visible": {
+      "intersects": 50,
+      "centre": 50,
+      "whole": 45,
+      "min_span_px": 100.73073372946038,
+      "max_span_px": 157.39177145228183
+     }
+    },
+    {
+     "submit_ms": 4.7999999998137355,
+     "sync_ms": 32.39999999990687,
+     "calls": 35,
+     "triangles": 22602,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.35,
+      "yaw": -81,
+      "tilt": 15.299933705746286,
+      "magnification": 4.294017857142857
+     },
+     "interval_ms": 37.8000000002794,
+     "gpu_ms": 26.518349,
+     "visible": {
+      "intersects": 50,
+      "centre": 49,
+      "whole": 44,
+      "min_span_px": 101.20000000000002,
+      "max_span_px": 158.12500000000003
+     }
+    },
+    {
+     "submit_ms": 3.900000000372529,
+     "sync_ms": 26.40000000037253,
+     "calls": 35,
+     "triangles": 22494,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.4125,
+      "yaw": -79.9123857099128,
+      "tilt": 15.531678987904275,
+      "magnification": 4.312477284744905
+     },
+     "interval_ms": 29.600000000093132,
+     "gpu_ms": 21.412364,
+     "visible": {
+      "intersects": 50,
+      "centre": 49,
+      "whole": 43,
+      "min_span_px": 101.63504571603488,
+      "max_span_px": 158.8047589313045
+     }
+    },
+    {
+     "submit_ms": 5.2999999998137355,
+     "sync_ms": 57.1999999997206,
+     "calls": 35,
+     "triangles": 22343,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.475,
+      "yaw": -78.92893218813452,
+      "tilt": 15.720106540665203,
+      "magnification": 4.32916885385236
+     },
+     "interval_ms": 61.1999999997206,
+     "gpu_ms": 16.675392,
+     "visible": {
+      "intersects": 50,
+      "centre": 48,
+      "whole": 43,
+      "min_span_px": 102.0284271247462,
+      "max_span_px": 159.41941738241593
+     }
+    },
+    {
+     "submit_ms": 2.5,
+     "sync_ms": 18.5,
+     "calls": 35,
+     "triangles": 21536,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.5375,
+      "yaw": -78.06646659708765,
+      "tilt": 15.861992316359334,
+      "magnification": 4.343806967090014
+     },
+     "interval_ms": 21.800000000279397,
+     "gpu_ms": 14.812396,
+     "visible": {
+      "intersects": 50,
+      "centre": 48,
+      "whole": 41,
+      "min_span_px": 102.37341336116495,
+      "max_span_px": 159.95845837682023
+     }
+    },
+    {
+     "submit_ms": 0.5,
+     "sync_ms": 14.299999999813735,
+     "calls": 35,
+     "triangles": 21445,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.6,
+      "yaw": -77.33974596215562,
+      "tilt": 15.954908610026381,
+      "magnification": 4.35614116228192
+     },
+     "interval_ms": 14.699999999720603,
+     "gpu_ms": 13.187257,
+     "visible": {
+      "intersects": 50,
+      "centre": 47,
+      "whole": 41,
+      "min_span_px": 102.66410161513775,
+      "max_span_px": 160.41265877365274
+     }
+    },
+    {
+     "submit_ms": 38.700000000186265,
+     "sync_ms": 55.40000000037253,
+     "calls": 35,
+     "triangles": 21481,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.6625,
+      "yaw": -76.76120467488713,
+      "tilt": 15.997265598120434,
+      "magnification": 4.36596039792866
+     },
+     "interval_ms": 55.8000000002794,
+     "gpu_ms": 14.598853,
+     "visible": {
+      "intersects": 50,
+      "centre": 47,
+      "whole": 39,
+      "min_span_px": 102.89551813004515,
+      "max_span_px": 160.77424707819551
+     }
+    },
+    {
+     "submit_ms": 4.5,
+     "sync_ms": 21.5,
+     "calls": 35,
+     "triangles": 21441,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.725,
+      "yaw": -76.34074173710931,
+      "tilt": 15.988338540831629,
+      "magnification": 4.373096664185912
+     },
+     "interval_ms": 22.899999999906868,
+     "gpu_ms": 14.734628,
+     "visible": {
+      "intersects": 50,
+      "centre": 46,
+      "whole": 39,
+      "min_span_px": 103.06370330515627,
+      "max_span_px": 161.03703641430667
+     }
+    },
+    {
+     "submit_ms": 6.5,
+     "sync_ms": 54,
+     "calls": 35,
+     "triangles": 21451,
+     "blits": 0,
+     "mix": {
+      "near": 24,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 24
+     },
+     "camera": {
+      "time": 1.7875,
+      "yaw": -76.0855513862619,
+      "tilt": 15.928280182585222,
+      "magnification": 4.377427857559467
+     },
+     "interval_ms": 55.299999999813735,
+     "gpu_ms": 44.666852,
+     "visible": {
+      "intersects": 50,
+      "centre": 46,
+      "whole": 39,
+      "min_span_px": 103.16577944549525,
+      "max_span_px": 161.19653038358632
+     }
+    },
+    {
+     "submit_ms": 7,
+     "sync_ms": 29.399999999906868,
+     "calls": 34,
+     "triangles": 20778,
+     "blits": 0,
+     "mix": {
+      "near": 23,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 1,
+      "fine": 0,
+      "race": 23
+     },
+     "camera": {
+      "time": 1.85,
+      "yaw": -76,
+      "tilt": 15.818118138542136,
+      "magnification": 4.37887987012987
+     },
+     "interval_ms": 33.10000000009313,
+     "gpu_ms": 21.887692,
+     "visible": {
+      "intersects": 49,
+      "centre": 46,
+      "whole": 38,
+      "min_span_px": 103.2,
+      "max_span_px": 161.25
+     }
+    },
+    {
+     "submit_ms": 7.7000000001862645,
+     "sync_ms": 28.299999999813735,
+     "calls": 34,
+     "triangles": 20760,
+     "blits": 0,
+     "mix": {
+      "near": 23,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 1,
+      "fine": 0,
+      "race": 23
+     },
+     "camera": {
+      "time": 1.9125,
+      "yaw": -76.0855513862619,
+      "tilt": 15.659737311818636,
+      "magnification": 4.377427857559467
+     },
+     "interval_ms": 31.299999999813735,
+     "gpu_ms": 18.514462,
+     "visible": {
+      "intersects": 49,
+      "centre": 46,
+      "whole": 37,
+      "min_span_px": 103.16577944549525,
+      "max_span_px": 161.19653038358632
+     }
+    },
+    {
+     "submit_ms": 7.800000000279397,
+     "sync_ms": 43.90000000037253,
+     "calls": 34,
+     "triangles": 20734,
+     "blits": 0,
+     "mix": {
+      "near": 23,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 1,
+      "fine": 0,
+      "race": 23
+     },
+     "camera": {
+      "time": 1.975,
+      "yaw": -76.34074173710931,
+      "tilt": 15.45584764227142,
+      "magnification": 4.373096664185912
+     },
+     "interval_ms": 46.40000000037253,
+     "gpu_ms": 35.605683,
+     "visible": {
+      "intersects": 49,
+      "centre": 45,
+      "whole": 37,
+      "min_span_px": 103.06370330515627,
+      "max_span_px": 161.03703641430667
+     }
+    },
+    {
+     "submit_ms": 5.199999999720603,
+     "sync_ms": 25.5,
+     "calls": 34,
+     "triangles": 20715,
+     "blits": 0,
+     "mix": {
+      "near": 23,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 1,
+      "fine": 0,
+      "race": 23
+     },
+     "camera": {
+      "time": 2.0375,
+      "yaw": -76.76120467488713,
+      "tilt": 15.20993773867534,
+      "magnification": 4.36596039792866
+     },
+     "interval_ms": 26.899999999906868,
+     "gpu_ms": 16.196327,
+     "visible": {
+      "intersects": 49,
+      "centre": 45,
+      "whole": 37,
+      "min_span_px": 102.89551813004515,
+      "max_span_px": 160.77424707819551
+     }
+    },
+    {
+     "submit_ms": 7.2999999998137355,
+     "sync_ms": 26.5,
+     "calls": 34,
+     "triangles": 20622,
+     "blits": 0,
+     "mix": {
+      "near": 23,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 1,
+      "fine": 0,
+      "race": 23
+     },
+     "camera": {
+      "time": 2.1,
+      "yaw": -77.33974596215562,
+      "tilt": 14.926215187660027,
+      "magnification": 4.35614116228192
+     },
+     "interval_ms": 30.100000000093132,
+     "gpu_ms": 18.812262,
+     "visible": {
+      "intersects": 49,
+      "centre": 45,
+      "whole": 37,
+      "min_span_px": 102.66410161513775,
+      "max_span_px": 160.41265877365274
+     }
+    },
+    {
+     "submit_ms": 28,
+     "sync_ms": 44.89999999990687,
+     "calls": 34,
+     "triangles": 20664,
+     "blits": 0,
+     "mix": {
+      "near": 23,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 1,
+      "fine": 0,
+      "race": 23
+     },
+     "camera": {
+      "time": 2.1625,
+      "yaw": -78.06646659708765,
+      "tilt": 14.609534560736108,
+      "magnification": 4.343806967090014
+     },
+     "interval_ms": 46.6999999997206,
+     "gpu_ms": 15.287773,
+     "visible": {
+      "intersects": 49,
+      "centre": 45,
+      "whole": 37,
+      "min_span_px": 102.37341336116495,
+      "max_span_px": 159.95845837682023
+     }
+    },
+    {
+     "submit_ms": 16.700000000186265,
+     "sync_ms": 40,
+     "calls": 34,
+     "triangles": 21044,
+     "blits": 0,
+     "mix": {
+      "near": 23,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 1,
+      "fine": 0,
+      "race": 23
+     },
+     "camera": {
+      "time": 2.225,
+      "yaw": -78.92893218813452,
+      "tilt": 14.265314351230709,
+      "magnification": 4.32916885385236
+     },
+     "interval_ms": 41.10000000009313,
+     "gpu_ms": 20.005006,
+     "visible": {
+      "intersects": 49,
+      "centre": 45,
+      "whole": 37,
+      "min_span_px": 102.0284271247462,
+      "max_span_px": 159.41941738241593
+     }
+    },
+    {
+     "submit_ms": 9.799999999813735,
+     "sync_ms": 46.89999999990687,
+     "calls": 34,
+     "triangles": 21077,
+     "blits": 0,
+     "mix": {
+      "near": 23,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 1,
+      "fine": 0,
+      "race": 23
+     },
+     "camera": {
+      "time": 2.2875,
+      "yaw": -79.9123857099128,
+      "tilt": 13.899444262364337,
+      "magnification": 4.312477284744905
+     },
+     "interval_ms": 48.10000000009313,
+     "gpu_ms": 32.989408,
+     "visible": {
+      "intersects": 49,
+      "centre": 45,
+      "whole": 37,
+      "min_span_px": 101.63504571603488,
+      "max_span_px": 158.8047589313045
+     }
+    },
+    {
+     "submit_ms": 3.8999999999068677,
+     "sync_ms": 28.200000000186265,
+     "calls": 34,
+     "triangles": 21081,
+     "blits": 0,
+     "mix": {
+      "near": 23,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 1,
+      "fine": 0,
+      "race": 23
+     },
+     "camera": {
+      "time": 2.35,
+      "yaw": -81,
+      "tilt": 13.51818443279585,
+      "magnification": 4.294017857142857
+     },
+     "interval_ms": 30,
+     "gpu_ms": 21.105471,
+     "visible": {
+      "intersects": 49,
+      "centre": 45,
+      "whole": 37,
+      "min_span_px": 101.20000000000002,
+      "max_span_px": 158.12500000000003
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 18.399999999906868,
+     "calls": 34,
+     "triangles": 21036,
+     "blits": 0,
+     "mix": {
+      "near": 23,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 1,
+      "fine": 0,
+      "race": 23
+     },
+     "camera": {
+      "time": 2.4125,
+      "yaw": -82.1731656763491,
+      "tilt": 13.12805832391436,
+      "magnification": 4.274106416970406
+     },
+     "interval_ms": 18.899999999906868,
+     "gpu_ms": 16.269228,
+     "visible": {
+      "intersects": 49,
+      "centre": 45,
+      "whole": 37,
+      "min_span_px": 100.73073372946038,
+      "max_span_px": 157.39177145228183
+     }
+    },
+    {
+     "submit_ms": 4.399999999906868,
+     "sync_ms": 48.299999999813735,
+     "calls": 34,
+     "triangles": 21051,
+     "blits": 0,
+     "mix": {
+      "near": 23,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 1,
+      "fine": 0,
+      "race": 23
+     },
+     "camera": {
+      "time": 2.475,
+      "yaw": -83.41180954897479,
+      "tilt": 12.73574110160622,
+      "magnification": 4.253083654489397
+     },
+     "interval_ms": 51.89999999990687,
+     "gpu_ms": 43.186555,
+     "visible": {
+      "intersects": 49,
+      "centre": 45,
+      "whole": 37,
+      "min_span_px": 100.2352761804101,
+      "max_span_px": 156.61761903189077
+     }
+    },
+    {
+     "submit_ms": 0.39999999990686774,
+     "sync_ms": 21.200000000186265,
+     "calls": 34,
+     "triangles": 20999,
+     "blits": 0,
+     "mix": {
+      "near": 23,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 1,
+      "fine": 0,
+      "race": 23
+     },
+     "camera": {
+      "time": 2.5375,
+      "yaw": -84.69473807779949,
+      "tilt": 12.347945422316004,
+      "magnification": 4.231309274994491
+     },
+     "interval_ms": 24.700000000186265,
+     "gpu_ms": 15.295106,
+     "visible": {
+      "intersects": 49,
+      "centre": 45,
+      "whole": 38,
+      "min_span_px": 99.72210476888021,
+      "max_span_px": 155.8157887013753
+     }
+    },
+    {
+     "submit_ms": 2,
+     "sync_ms": 16.300000000279397,
+     "calls": 34,
+     "triangles": 21008,
+     "blits": 0,
+     "mix": {
+      "near": 23,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 1,
+      "fine": 0,
+      "race": 23
+     },
+     "camera": {
+      "time": 2.6,
+      "yaw": -86,
+      "tilt": 11.971306577633646,
+      "magnification": 4.209155844155844
+     },
+     "interval_ms": 19.600000000093132,
+     "gpu_ms": 13.621405,
+     "visible": {
+      "intersects": 49,
+      "centre": 45,
+      "whole": 39,
+      "min_span_px": 99.19999999999999,
+      "max_span_px": 154.99999999999997
+     }
+    },
+    {
+     "submit_ms": 3.2999999998137355,
+     "sync_ms": 50.5,
+     "calls": 34,
+     "triangles": 21111,
+     "blits": 0,
+     "mix": {
+      "near": 23,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 1,
+      "fine": 0,
+      "race": 23
+     },
+     "camera": {
+      "time": 2.6625,
+      "yaw": -87.30526192220051,
+      "tilt": 11.612268962615675,
+      "magnification": 4.187002413317197
+     },
+     "interval_ms": 50.89999999990687,
+     "gpu_ms": 43.90728,
+     "visible": {
+      "intersects": 49,
+      "centre": 46,
+      "whole": 39,
+      "min_span_px": 98.67789523111979,
+      "max_span_px": 154.18421129862466
+     }
+    },
+    {
+     "submit_ms": 2.3000000002793968,
+     "sync_ms": 18.5,
+     "calls": 34,
+     "triangles": 21151,
+     "blits": 0,
+     "mix": {
+      "near": 23,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 1,
+      "fine": 0,
+      "race": 23
+     },
+     "camera": {
+      "time": 2.725,
+      "yaw": -88.5881904510252,
+      "tilt": 11.276975810399081,
+      "magnification": 4.165228033822291
+     },
+     "interval_ms": 19.799999999813735,
+     "gpu_ms": 12.923328,
+     "visible": {
+      "intersects": 49,
+      "centre": 46,
+      "whole": 40,
+      "min_span_px": 98.16472381958991,
+      "max_span_px": 153.38238096810923
+     }
+    },
+    {
+     "submit_ms": 8.399999999906868,
+     "sync_ms": 23.59999999962747,
+     "calls": 34,
+     "triangles": 21075,
+     "blits": 0,
+     "mix": {
+      "near": 23,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 1,
+      "fine": 0,
+      "race": 23
+     },
+     "camera": {
+      "time": 2.7875,
+      "yaw": -89.8268343236509,
+      "tilt": 10.971164079779115,
+      "magnification": 4.144205271341282
+     },
+     "interval_ms": 24.899999999906868,
+     "gpu_ms": 14.776561,
+     "visible": {
+      "intersects": 49,
+      "centre": 46,
+      "whole": 40,
+      "min_span_px": 97.66926627053965,
+      "max_span_px": 152.6082285477182
+     }
+    },
+    {
+     "submit_ms": 1.900000000372529,
+     "sync_ms": 19,
+     "calls": 34,
+     "triangles": 21113,
+     "blits": 0,
+     "mix": {
+      "near": 23,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 1,
+      "fine": 0,
+      "race": 23
+     },
+     "camera": {
+      "time": 2.85,
+      "yaw": -91,
+      "tilt": 10.700066294253714,
+      "magnification": 4.124293831168831
+     },
+     "interval_ms": 20.5,
+     "gpu_ms": 14.296305,
+     "visible": {
+      "intersects": 49,
+      "centre": 46,
+      "whole": 40,
+      "min_span_px": 97.2,
+      "max_span_px": 151.875
+     }
+    },
+    {
+     "submit_ms": 2.3999999999068677,
+     "sync_ms": 50.299999999813735,
+     "calls": 33,
+     "triangles": 20432,
+     "blits": 0,
+     "mix": {
+      "near": 22,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 22
+     },
+     "camera": {
+      "time": 2.9125,
+      "yaw": -92.0876142900872,
+      "tilt": 10.468321012095725,
+      "magnification": 4.105834403566782
+     },
+     "interval_ms": 51.60000000009313,
+     "gpu_ms": 45.541946,
+     "visible": {
+      "intersects": 48,
+      "centre": 46,
+      "whole": 40,
+      "min_span_px": 96.76495428396511,
+      "max_span_px": 151.19524106869548
+     }
+    },
+    {
+     "submit_ms": 0.40000000037252903,
+     "sync_ms": 22.200000000186265,
+     "calls": 33,
+     "triangles": 20383,
+     "blits": 0,
+     "mix": {
+      "near": 22,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 22
+     },
+     "camera": {
+      "time": 2.975,
+      "yaw": -93.07106781186548,
+      "tilt": 10.279893459334799,
+      "magnification": 4.089142834459329
+     },
+     "interval_ms": 23.600000000093132,
+     "gpu_ms": 18.384702,
+     "visible": {
+      "intersects": 48,
+      "centre": 45,
+      "whole": 40,
+      "min_span_px": 96.37157287525383,
+      "max_span_px": 150.5805826175841
+     }
+    },
+    {
+     "submit_ms": 2.8999999999068677,
+     "sync_ms": 17.5,
+     "calls": 33,
+     "triangles": 20274,
+     "blits": 0,
+     "mix": {
+      "near": 22,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 22
+     },
+     "camera": {
+      "time": 3.0375,
+      "yaw": -93.93353340291235,
+      "tilt": 10.138007683640666,
+      "magnification": 4.074504721221674
+     },
+     "interval_ms": 22.5,
+     "gpu_ms": 13.657689,
+     "visible": {
+      "intersects": 48,
+      "centre": 45,
+      "whole": 39,
+      "min_span_px": 96.02658663883506,
+      "max_span_px": 150.04154162317977
+     }
+    },
+    {
+     "submit_ms": 2.599999999627471,
+     "sync_ms": 43.6999999997206,
+     "calls": 33,
+     "triangles": 20324,
+     "blits": 0,
+     "mix": {
+      "near": 22,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 22
+     },
+     "camera": {
+      "time": 3.1,
+      "yaw": -95.06950960579498,
+      "tilt": 10.045091389973619,
+      "magnification": 4.062170526029767
+     },
+     "interval_ms": 44.89999999990687,
+     "gpu_ms": 38.058261,
+     "visible": {
+      "intersects": 48,
+      "centre": 45,
+      "whole": 39,
+      "min_span_px": 95.73589838486225,
+      "max_span_px": 149.58734122634726
+     }
+    },
+    {
+     "submit_ms": 3.1999999997206032,
+     "sync_ms": 20.399999999906868,
+     "calls": 33,
+     "triangles": 20326,
+     "blits": 0,
+     "mix": {
+      "near": 22,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 22
+     },
+     "camera": {
+      "time": 3.1625,
+      "yaw": -97.23391621887198,
+      "tilt": 10.002734401879566,
+      "magnification": 4.052351290383027
+     },
+     "interval_ms": 22.100000000093132,
+     "gpu_ms": 14.618884,
+     "visible": {
+      "intersects": 48,
+      "centre": 45,
+      "whole": 40,
+      "min_span_px": 95.50448186995484,
+      "max_span_px": 149.22575292180443
+     }
+    },
+    {
+     "submit_ms": 5.399999999906868,
+     "sync_ms": 20.799999999813735,
+     "calls": 33,
+     "triangles": 20350,
+     "blits": 0,
+     "mix": {
+      "near": 22,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 22
+     },
+     "camera": {
+      "time": 3.225,
+      "yaw": -99.24024448245834,
+      "tilt": 10.011661459168371,
+      "magnification": 4.045215024125776
+     },
+     "interval_ms": 21.799999999813735,
+     "gpu_ms": 14.026508,
+     "visible": {
+      "intersects": 48,
+      "centre": 46,
+      "whole": 40,
+      "min_span_px": 95.33629669484374,
+      "max_span_px": 148.96296358569333
+     }
+    },
+    {
+     "submit_ms": 5.2999999998137355,
+     "sync_ms": 51.5,
+     "calls": 33,
+     "triangles": 20307,
+     "blits": 0,
+     "mix": {
+      "near": 22,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 22
+     },
+     "camera": {
+      "time": 3.2875,
+      "yaw": -101.08130015911428,
+      "tilt": 10.071719817414778,
+      "magnification": 4.040883830752221
+     },
+     "interval_ms": 53.700000000186265,
+     "gpu_ms": 43.155418,
+     "visible": {
+      "intersects": 48,
+      "centre": 46,
+      "whole": 40,
+      "min_span_px": 95.23422055450476,
+      "max_span_px": 148.80346961641368
+     }
+    },
+    {
+     "submit_ms": 0.6999999997206032,
+     "sync_ms": 20.299999999813735,
+     "calls": 33,
+     "triangles": 20251,
+     "blits": 0,
+     "mix": {
+      "near": 22,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 22
+     },
+     "camera": {
+      "time": 3.35,
+      "yaw": -102.7527168711847,
+      "tilt": 10.181881861457862,
+      "magnification": 4.039431818181818
+     },
+     "interval_ms": 22.5,
+     "gpu_ms": 14.519372,
+     "visible": {
+      "intersects": 48,
+      "centre": 46,
+      "whole": 39,
+      "min_span_px": 95.19999999999999,
+      "max_span_px": 148.74999999999997
+     }
+    },
+    {
+     "submit_ms": 7.2000000001862645,
+     "sync_ms": 26.600000000093132,
+     "calls": 33,
+     "triangles": 20299,
+     "blits": 0,
+     "mix": {
+      "near": 22,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 22
+     },
+     "camera": {
+      "time": 3.4125,
+      "yaw": -104.25303081073133,
+      "tilt": 10.340262688181364,
+      "magnification": 4.040883830752221
+     },
+     "interval_ms": 27.399999999906868,
+     "gpu_ms": 17.414209,
+     "visible": {
+      "intersects": 48,
+      "centre": 46,
+      "whole": 39,
+      "min_span_px": 95.23422055450476,
+      "max_span_px": 148.80346961641368
+     }
+    },
+    {
+     "submit_ms": 8.200000000186265,
+     "sync_ms": 48.8000000002794,
+     "calls": 33,
+     "triangles": 20330,
+     "blits": 0,
+     "mix": {
+      "near": 22,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 22
+     },
+     "camera": {
+      "time": 3.475,
+      "yaw": -105.58370578569244,
+      "tilt": 10.544152357728578,
+      "magnification": 4.045215024125776
+     },
+     "interval_ms": 51.3000000002794,
+     "gpu_ms": 36.801251,
+     "visible": {
+      "intersects": 48,
+      "centre": 45,
+      "whole": 38,
+      "min_span_px": 95.33629669484374,
+      "max_span_px": 148.96296358569333
+     }
+    },
+    {
+     "submit_ms": 3.5,
+     "sync_ms": 23,
+     "calls": 33,
+     "triangles": 20359,
+     "blits": 0,
+     "mix": {
+      "near": 22,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 22
+     },
+     "camera": {
+      "time": 3.5375,
+      "yaw": -106.74910817372314,
+      "tilt": 10.79006226132466,
+      "magnification": 4.052351290383027
+     },
+     "interval_ms": 25.899999999906868,
+     "gpu_ms": 16.804527,
+     "visible": {
+      "intersects": 48,
+      "centre": 44,
+      "whole": 38,
+      "min_span_px": 95.50448186995484,
+      "max_span_px": 149.22575292180443
+     }
+    },
+    {
+     "submit_ms": 2.7999999998137355,
+     "sync_ms": 24.299999999813735,
+     "calls": 33,
+     "triangles": 20327,
+     "blits": 0,
+     "mix": {
+      "near": 22,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 22
+     },
+     "camera": {
+      "time": 3.6,
+      "yaw": -107.75643221226319,
+      "tilt": 11.073784812339971,
+      "magnification": 4.062170526029767
+     },
+     "interval_ms": 25.399999999906868,
+     "gpu_ms": 16.67445,
+     "visible": {
+      "intersects": 48,
+      "centre": 44,
+      "whole": 38,
+      "min_span_px": 95.73589838486225,
+      "max_span_px": 149.58734122634726
+     }
+    },
+    {
+     "submit_ms": 6.100000000093132,
+     "sync_ms": 49.90000000037253,
+     "calls": 33,
+     "triangles": 20359,
+     "blits": 0,
+     "mix": {
+      "near": 22,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 22
+     },
+     "camera": {
+      "time": 3.6625,
+      "yaw": -108.61557690313968,
+      "tilt": 11.39046543926389,
+      "magnification": 4.074504721221674
+     },
+     "interval_ms": 52.200000000186265,
+     "gpu_ms": 42.386985,
+     "visible": {
+      "intersects": 48,
+      "centre": 44,
+      "whole": 38,
+      "min_span_px": 96.02658663883506,
+      "max_span_px": 150.04154162317977
+     }
+    },
+    {
+     "submit_ms": 1.1999999997206032,
+     "sync_ms": 20.799999999813735,
+     "calls": 33,
+     "triangles": 20388,
+     "blits": 0,
+     "mix": {
+      "near": 22,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 22
+     },
+     "camera": {
+      "time": 3.725,
+      "yaw": -109.33897663790135,
+      "tilt": 11.73468564876929,
+      "magnification": 4.089142834459329
+     },
+     "interval_ms": 23.699999999720603,
+     "gpu_ms": 15.510797,
+     "visible": {
+      "intersects": 48,
+      "centre": 43,
+      "whole": 36,
+      "min_span_px": 96.37157287525383,
+      "max_span_px": 150.5805826175841
+     }
+    },
+    {
+     "submit_ms": 0.5,
+     "sync_ms": 19.799999999813735,
+     "calls": 32,
+     "triangles": 19665,
+     "blits": 0,
+     "mix": {
+      "near": 21,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 3,
+      "fine": 0,
+      "race": 21
+     },
+     "camera": {
+      "time": 3.7875,
+      "yaw": -109.94138844193161,
+      "tilt": 12.100555737635661,
+      "magnification": 4.105834403566782
+     },
+     "interval_ms": 21.399999999906868,
+     "gpu_ms": 18.444717,
+     "visible": {
+      "intersects": 47,
+      "centre": 43,
+      "whole": 35,
+      "min_span_px": 96.76495428396511,
+      "max_span_px": 151.19524106869548
+     }
+    },
+    {
+     "submit_ms": 3.6000000000931323,
+     "sync_ms": 49.10000000009313,
+     "calls": 32,
+     "triangles": 19612,
+     "blits": 0,
+     "mix": {
+      "near": 21,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 3,
+      "fine": 0,
+      "race": 21
+     },
+     "camera": {
+      "time": 3.85,
+      "yaw": -110.43963947765293,
+      "tilt": 12.481815567204148,
+      "magnification": 4.124293831168831
+     },
+     "interval_ms": 51.40000000037253,
+     "gpu_ms": 44.296265,
+     "visible": {
+      "intersects": 47,
+      "centre": 42,
+      "whole": 35,
+      "min_span_px": 97.2,
+      "max_span_px": 151.875
+     }
+    },
+    {
+     "submit_ms": 4.199999999720603,
+     "sync_ms": 21,
+     "calls": 32,
+     "triangles": 19618,
+     "blits": 0,
+     "mix": {
+      "near": 21,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 3,
+      "fine": 0,
+      "race": 21
+     },
+     "camera": {
+      "time": 3.9125,
+      "yaw": -110.85233912711236,
+      "tilt": 12.871941676085637,
+      "magnification": 4.144205271341282
+     },
+     "interval_ms": 22.5,
+     "gpu_ms": 15.449283,
+     "visible": {
+      "intersects": 47,
+      "centre": 42,
+      "whole": 35,
+      "min_span_px": 97.66926627053965,
+      "max_span_px": 152.6082285477182
+     }
+    },
+    {
+     "submit_ms": 6.100000000093132,
+     "sync_ms": 22.5,
+     "calls": 32,
+     "triangles": 19594,
+     "blits": 0,
+     "mix": {
+      "near": 21,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 3,
+      "fine": 0,
+      "race": 21
+     },
+     "camera": {
+      "time": 3.975,
+      "yaw": -111.1995605802952,
+      "tilt": 13.26425889839378,
+      "magnification": 4.165228033822291
+     },
+     "interval_ms": 23.299999999813735,
+     "gpu_ms": 12.63333,
+     "visible": {
+      "intersects": 47,
+      "centre": 41,
+      "whole": 34,
+      "min_span_px": 98.16472381958991,
+      "max_span_px": 153.38238096810923
+     }
+    },
+    {
+     "submit_ms": 1.599999999627471,
+     "sync_ms": 98.1999999997206,
+     "calls": 31,
+     "triangles": 18950,
+     "blits": 0,
+     "mix": {
+      "near": 20,
+      "mid": 8,
+      "transition": 0,
+      "sprite": 18,
+      "offscreen": 4,
+      "fine": 0,
+      "race": 20
+     },
+     "camera": {
+      "time": 4.0375,
+      "yaw": -111.50249737727903,
+      "tilt": 13.652054577683995,
+      "magnification": 4.187002413317197
+     },
+     "interval_ms": 99.89999999990687,
+     "gpu_ms": 91.70001,
+     "visible": {
+      "intersects": 46,
+      "centre": 41,
+      "whole": 33,
+      "min_span_px": 98.67789523111979,
+      "max_span_px": 154.18421129862466
+     }
+    }
+   ]
+  },
+  {
+   "profile": "mobile",
+   "scenario": "mixed100",
+   "number": 100,
+   "method": "lod",
+   "width": 352,
+   "height": 335,
+   "cpu": 4,
+   "frames": 48,
+   "fps": 19.32,
+   "p95_ms": 80.3,
+   "gpu_ms": 41.982,
+   "gpu_samples": 48,
+   "submit_ms": 3.038,
+   "draw_sync_ms": 48.742,
+   "triangles": {
+    "min": 33614,
+    "mean": 40019.063,
+    "max": 45760
+   },
+   "draw_calls": {
+    "min": 48,
+    "mean": 55.771,
+    "max": 61
+   },
+   "blits": {
+    "min": 0,
+    "mean": 0,
+    "max": 0
+   },
+   "mix": {
+    "near": {
+     "min": 29,
+     "mean": 41.417,
+     "max": 49
+    },
+    "mid": {
+     "min": 1,
+     "mean": 6.063,
+     "max": 10
+    },
+    "transition": {
+     "min": 5,
+     "mean": 8.104,
+     "max": 10
+    },
+    "sprite": {
+     "min": 37,
+     "mean": 40.5,
+     "max": 44
+    },
+    "offscreen": {
+     "min": 0,
+     "mean": 3.917,
+     "max": 13
+    },
+    "fine": {
+     "min": 0,
+     "mean": 0,
+     "max": 0
+    },
+    "race": {
+     "min": 29,
+     "mean": 41.417,
+     "max": 49
+    }
+   },
+   "visibility": {
+    "intersects": {
+     "min": 87,
+     "mean": 96.083,
+     "max": 100
+    },
+    "centre": {
+     "min": 79,
+     "mean": 87.833,
+     "max": 94
+    },
+    "whole": {
+     "min": 48,
+     "mean": 62.667,
+     "max": 78
+    },
+    "min_span_px": {
+     "min": 95.19999999999999,
+     "mean": 99.2,
+     "max": 103.2
+    },
+    "max_span_px": {
+     "min": 148.74999999999997,
+     "mean": 155,
+     "max": 161.25
+    }
+   },
+   "memory": {
+    "buffer_bytes": 4705312,
+    "texture_bytes": 90949963,
+    "renderbuffer_bytes": 0,
+    "unknown_formats": [],
+    "gl_mib": 91.22397899627686,
+    "js_heap_mib": 5.025703430175781,
+    "rss_mib": 816.28515625,
+    "rss_kib_by_type": {
+     "browser": 210608,
+     "renderer": 266744,
+     "GPU": 260860,
+     "network.mojom.NetworkService": 74484,
+     "storage.mojom.StorageService": 23180
+    }
+   },
+   "samples": [
+    {
+     "submit_ms": 2.5,
+     "sync_ms": 63.90000000037253,
+     "calls": 49,
+     "triangles": 45479,
+     "blits": 0,
+     "mix": {
+      "near": 48,
+      "mid": 2,
+      "transition": 10,
+      "sprite": 37,
+      "offscreen": 3,
+      "fine": 0,
+      "race": 48
+     },
+     "camera": {
+      "time": 1.1,
+      "yaw": -86,
+      "tilt": 14.028693422366354,
+      "magnification": 5.395811688311688
+     },
+     "interval_ms": 65.8000000002794,
+     "gpu_ms": 57.618725,
+     "visible": {
+      "intersects": 97,
+      "centre": 93,
+      "whole": 70,
+      "min_span_px": 99.19999999999999,
+      "max_span_px": 154.99999999999997
+     }
+    },
+    {
+     "submit_ms": 3.8000000002793968,
+     "sync_ms": 42.40000000037253,
+     "calls": 48,
+     "triangles": 45760,
+     "blits": 0,
+     "mix": {
+      "near": 49,
+      "mid": 1,
+      "transition": 10,
+      "sprite": 38,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 49
+     },
+     "camera": {
+      "time": 1.1625,
+      "yaw": -84.69473807779949,
+      "tilt": 14.387731037384325,
+      "magnification": 5.424210670312163
+     },
+     "interval_ms": 44,
+     "gpu_ms": 35.327412,
+     "visible": {
+      "intersects": 98,
+      "centre": 93,
+      "whole": 70,
+      "min_span_px": 99.72210476888021,
+      "max_span_px": 155.8157887013753
+     }
+    },
+    {
+     "submit_ms": 2.6000000000931323,
+     "sync_ms": 65,
+     "calls": 48,
+     "triangles": 45725,
+     "blits": 0,
+     "mix": {
+      "near": 49,
+      "mid": 1,
+      "transition": 10,
+      "sprite": 38,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 49
+     },
+     "camera": {
+      "time": 1.225,
+      "yaw": -83.41180954897479,
+      "tilt": 14.723024189600919,
+      "magnification": 5.452123737856924
+     },
+     "interval_ms": 67.1999999997206,
+     "gpu_ms": 59.521973,
+     "visible": {
+      "intersects": 98,
+      "centre": 94,
+      "whole": 62,
+      "min_span_px": 100.2352761804101,
+      "max_span_px": 156.61761903189077
+     }
+    },
+    {
+     "submit_ms": 4.100000000093132,
+     "sync_ms": 81.20000000018626,
+     "calls": 56,
+     "triangles": 45056,
+     "blits": 0,
+     "mix": {
+      "near": 49,
+      "mid": 1,
+      "transition": 10,
+      "sprite": 39,
+      "offscreen": 1,
+      "fine": 0,
+      "race": 49
+     },
+     "camera": {
+      "time": 1.2875,
+      "yaw": -82.1731656763491,
+      "tilt": 15.028835920220885,
+      "magnification": 5.479073290621317
+     },
+     "interval_ms": 83.60000000009313,
+     "gpu_ms": 72.336928,
+     "visible": {
+      "intersects": 99,
+      "centre": 94,
+      "whole": 57,
+      "min_span_px": 100.73073372946037,
+      "max_span_px": 157.3917714522818
+     }
+    },
+    {
+     "submit_ms": 2.6000000000931323,
+     "sync_ms": 81.5,
+     "calls": 57,
+     "triangles": 45024,
+     "blits": 0,
+     "mix": {
+      "near": 49,
+      "mid": 2,
+      "transition": 9,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 49
+     },
+     "camera": {
+      "time": 1.35,
+      "yaw": -81,
+      "tilt": 15.299933705746286,
+      "magnification": 5.504598214285714
+     },
+     "interval_ms": 85.60000000009313,
+     "gpu_ms": 43.391275,
+     "visible": {
+      "intersects": 100,
+      "centre": 89,
+      "whole": 52,
+      "min_span_px": 101.2,
+      "max_span_px": 158.125
+     }
+    },
+    {
+     "submit_ms": 7.699999999720603,
+     "sync_ms": 36.299999999813735,
+     "calls": 57,
+     "triangles": 44823,
+     "blits": 0,
+     "mix": {
+      "near": 49,
+      "mid": 3,
+      "transition": 8,
+      "sprite": 40,
+      "offscreen": 0,
+      "fine": 0,
+      "race": 49
+     },
+     "camera": {
+      "time": 1.4125,
+      "yaw": -79.9123857099128,
+      "tilt": 15.531678987904275,
+      "magnification": 5.528261770329372
+     },
+     "interval_ms": 38.39999999990687,
+     "gpu_ms": 27.418244,
+     "visible": {
+      "intersects": 100,
+      "centre": 86,
+      "whole": 49,
+      "min_span_px": 101.63504571603488,
+      "max_span_px": 158.8047589313045
+     }
+    },
+    {
+     "submit_ms": 5.800000000279397,
+     "sync_ms": 61,
+     "calls": 56,
+     "triangles": 43906,
+     "blits": 0,
+     "mix": {
+      "near": 48,
+      "mid": 4,
+      "transition": 7,
+      "sprite": 40,
+      "offscreen": 1,
+      "fine": 0,
+      "race": 48
+     },
+     "camera": {
+      "time": 1.475,
+      "yaw": -78.92893218813452,
+      "tilt": 15.720106540665203,
+      "magnification": 5.549659068747609
+     },
+     "interval_ms": 62.89999999990687,
+     "gpu_ms": 54.210022,
+     "visible": {
+      "intersects": 99,
+      "centre": 84,
+      "whole": 49,
+      "min_span_px": 102.0284271247462,
+      "max_span_px": 159.41941738241593
+     }
+    },
+    {
+     "submit_ms": 2,
+     "sync_ms": 37.6999999997206,
+     "calls": 55,
+     "triangles": 41073,
+     "blits": 0,
+     "mix": {
+      "near": 47,
+      "mid": 5,
+      "transition": 6,
+      "sprite": 40,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 47
+     },
+     "camera": {
+      "time": 1.5375,
+      "yaw": -78.06646659708765,
+      "tilt": 15.861992316359334,
+      "magnification": 5.568423995832034
+     },
+     "interval_ms": 40.5,
+     "gpu_ms": 32.192272,
+     "visible": {
+      "intersects": 98,
+      "centre": 84,
+      "whole": 49,
+      "min_span_px": 102.37341336116495,
+      "max_span_px": 159.95845837682023
+     }
+    },
+    {
+     "submit_ms": 2.5,
+     "sync_ms": 72.29999999981374,
+     "calls": 55,
+     "triangles": 41019,
+     "blits": 0,
+     "mix": {
+      "near": 47,
+      "mid": 5,
+      "transition": 6,
+      "sprite": 40,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 47
+     },
+     "camera": {
+      "time": 1.6,
+      "yaw": -77.33974596215562,
+      "tilt": 15.954908610026381,
+      "magnification": 5.584235478477612
+     },
+     "interval_ms": 74.5,
+     "gpu_ms": 66.66313,
+     "visible": {
+      "intersects": 98,
+      "centre": 82,
+      "whole": 48,
+      "min_span_px": 102.66410161513775,
+      "max_span_px": 160.41265877365274
+     }
+    },
+    {
+     "submit_ms": 2.6000000000931323,
+     "sync_ms": 45.60000000009313,
+     "calls": 54,
+     "triangles": 40389,
+     "blits": 0,
+     "mix": {
+      "near": 46,
+      "mid": 5,
+      "transition": 6,
+      "sprite": 40,
+      "offscreen": 3,
+      "fine": 0,
+      "race": 46
+     },
+     "camera": {
+      "time": 1.6625,
+      "yaw": -76.76120467488713,
+      "tilt": 15.997265598120434,
+      "magnification": 5.596822977832508
+     },
+     "interval_ms": 47.8000000002794,
+     "gpu_ms": 38.896409,
+     "visible": {
+      "intersects": 97,
+      "centre": 81,
+      "whole": 48,
+      "min_span_px": 102.89551813004515,
+      "max_span_px": 160.77424707819551
+     }
+    },
+    {
+     "submit_ms": 1.7999999998137355,
+     "sync_ms": 62.5,
+     "calls": 54,
+     "triangles": 40215,
+     "blits": 0,
+     "mix": {
+      "near": 46,
+      "mid": 6,
+      "transition": 5,
+      "sprite": 40,
+      "offscreen": 3,
+      "fine": 0,
+      "race": 46
+     },
+     "camera": {
+      "time": 1.725,
+      "yaw": -76.34074173710931,
+      "tilt": 15.988338540831629,
+      "magnification": 5.605971118292843
+     },
+     "interval_ms": 66.39999999990687,
+     "gpu_ms": 31.08729,
+     "visible": {
+      "intersects": 97,
+      "centre": 81,
+      "whole": 48,
+      "min_span_px": 103.06370330515625,
+      "max_span_px": 161.0370364143066
+     }
+    },
+    {
+     "submit_ms": 3.7000000001862645,
+     "sync_ms": 65.10000000009313,
+     "calls": 53,
+     "triangles": 39530,
+     "blits": 0,
+     "mix": {
+      "near": 45,
+      "mid": 6,
+      "transition": 5,
+      "sprite": 40,
+      "offscreen": 4,
+      "fine": 0,
+      "race": 45
+     },
+     "camera": {
+      "time": 1.7875,
+      "yaw": -76.0855513862619,
+      "tilt": 15.928280182585222,
+      "magnification": 5.6115233726390015
+     },
+     "interval_ms": 69.5,
+     "gpu_ms": 58.841313,
+     "visible": {
+      "intersects": 96,
+      "centre": 80,
+      "whole": 48,
+      "min_span_px": 103.16577944549525,
+      "max_span_px": 161.19653038358632
+     }
+    },
+    {
+     "submit_ms": 3.1999999997206032,
+     "sync_ms": 33.5,
+     "calls": 53,
+     "triangles": 39488,
+     "blits": 0,
+     "mix": {
+      "near": 45,
+      "mid": 6,
+      "transition": 5,
+      "sprite": 40,
+      "offscreen": 4,
+      "fine": 0,
+      "race": 45
+     },
+     "camera": {
+      "time": 1.85,
+      "yaw": -76,
+      "tilt": 15.818118138542136,
+      "magnification": 5.61338474025974
+     },
+     "interval_ms": 39.10000000009313,
+     "gpu_ms": 26.871308,
+     "visible": {
+      "intersects": 96,
+      "centre": 79,
+      "whole": 48,
+      "min_span_px": 103.2,
+      "max_span_px": 161.25
+     }
+    },
+    {
+     "submit_ms": 2.3999999999068677,
+     "sync_ms": 53.59999999962747,
+     "calls": 53,
+     "triangles": 39485,
+     "blits": 0,
+     "mix": {
+      "near": 45,
+      "mid": 6,
+      "transition": 5,
+      "sprite": 40,
+      "offscreen": 4,
+      "fine": 0,
+      "race": 45
+     },
+     "camera": {
+      "time": 1.9125,
+      "yaw": -76.0855513862619,
+      "tilt": 15.659737311818636,
+      "magnification": 5.6115233726390015
+     },
+     "interval_ms": 61.09999999962747,
+     "gpu_ms": 49.884271,
+     "visible": {
+      "intersects": 96,
+      "centre": 79,
+      "whole": 48,
+      "min_span_px": 103.16577944549525,
+      "max_span_px": 161.19653038358632
+     }
+    },
+    {
+     "submit_ms": 2.900000000372529,
+     "sync_ms": 33.60000000009313,
+     "calls": 53,
+     "triangles": 39595,
+     "blits": 0,
+     "mix": {
+      "near": 45,
+      "mid": 5,
+      "transition": 6,
+      "sprite": 40,
+      "offscreen": 4,
+      "fine": 0,
+      "race": 45
+     },
+     "camera": {
+      "time": 1.975,
+      "yaw": -76.34074173710931,
+      "tilt": 15.45584764227142,
+      "magnification": 5.605971118292843
+     },
+     "interval_ms": 37.60000000009313,
+     "gpu_ms": 29.882942,
+     "visible": {
+      "intersects": 96,
+      "centre": 79,
+      "whole": 48,
+      "min_span_px": 103.06370330515625,
+      "max_span_px": 161.0370364143066
+     }
+    },
+    {
+     "submit_ms": 3.1999999997206032,
+     "sync_ms": 63.89999999990687,
+     "calls": 53,
+     "triangles": 39606,
+     "blits": 0,
+     "mix": {
+      "near": 45,
+      "mid": 5,
+      "transition": 6,
+      "sprite": 40,
+      "offscreen": 4,
+      "fine": 0,
+      "race": 45
+     },
+     "camera": {
+      "time": 2.0375,
+      "yaw": -76.76120467488713,
+      "tilt": 15.20993773867534,
+      "magnification": 5.596822977832508
+     },
+     "interval_ms": 67.10000000009313,
+     "gpu_ms": 56.828672,
+     "visible": {
+      "intersects": 96,
+      "centre": 79,
+      "whole": 49,
+      "min_span_px": 102.89551813004515,
+      "max_span_px": 160.77424707819551
+     }
+    },
+    {
+     "submit_ms": 4.100000000093132,
+     "sync_ms": 36.6999999997206,
+     "calls": 53,
+     "triangles": 39252,
+     "blits": 0,
+     "mix": {
+      "near": 45,
+      "mid": 5,
+      "transition": 6,
+      "sprite": 40,
+      "offscreen": 4,
+      "fine": 0,
+      "race": 45
+     },
+     "camera": {
+      "time": 2.1,
+      "yaw": -77.33974596215562,
+      "tilt": 14.926215187660027,
+      "magnification": 5.584235478477612
+     },
+     "interval_ms": 40.299999999813735,
+     "gpu_ms": 31.922374,
+     "visible": {
+      "intersects": 96,
+      "centre": 79,
+      "whole": 51,
+      "min_span_px": 102.66410161513775,
+      "max_span_px": 160.41265877365274
+     }
+    },
+    {
+     "submit_ms": 3.400000000372529,
+     "sync_ms": 58.40000000037253,
+     "calls": 53,
+     "triangles": 39470,
+     "blits": 0,
+     "mix": {
+      "near": 45,
+      "mid": 4,
+      "transition": 7,
+      "sprite": 40,
+      "offscreen": 4,
+      "fine": 0,
+      "race": 45
+     },
+     "camera": {
+      "time": 2.1625,
+      "yaw": -78.06646659708765,
+      "tilt": 14.609534560736108,
+      "magnification": 5.568423995832034
+     },
+     "interval_ms": 61.40000000037253,
+     "gpu_ms": 53.766281,
+     "visible": {
+      "intersects": 96,
+      "centre": 79,
+      "whole": 54,
+      "min_span_px": 102.37341336116495,
+      "max_span_px": 159.95845837682023
+     }
+    },
+    {
+     "submit_ms": 2,
+     "sync_ms": 30.299999999813735,
+     "calls": 59,
+     "triangles": 41223,
+     "blits": 0,
+     "mix": {
+      "near": 45,
+      "mid": 4,
+      "transition": 7,
+      "sprite": 40,
+      "offscreen": 4,
+      "fine": 0,
+      "race": 45
+     },
+     "camera": {
+      "time": 2.225,
+      "yaw": -78.92893218813452,
+      "tilt": 14.265314351230709,
+      "magnification": 5.549659068747609
+     },
+     "interval_ms": 35.6999999997206,
+     "gpu_ms": 27.228358,
+     "visible": {
+      "intersects": 96,
+      "centre": 80,
+      "whole": 57,
+      "min_span_px": 102.0284271247462,
+      "max_span_px": 159.41941738241593
+     }
+    },
+    {
+     "submit_ms": 1.8999999999068677,
+     "sync_ms": 56.89999999990687,
+     "calls": 59,
+     "triangles": 41300,
+     "blits": 0,
+     "mix": {
+      "near": 45,
+      "mid": 3,
+      "transition": 8,
+      "sprite": 40,
+      "offscreen": 4,
+      "fine": 0,
+      "race": 45
+     },
+     "camera": {
+      "time": 2.2875,
+      "yaw": -79.9123857099128,
+      "tilt": 13.899444262364337,
+      "magnification": 5.528261770329372
+     },
+     "interval_ms": 64.10000000009313,
+     "gpu_ms": 52.804207,
+     "visible": {
+      "intersects": 96,
+      "centre": 90,
+      "whole": 60,
+      "min_span_px": 101.63504571603488,
+      "max_span_px": 158.8047589313045
+     }
+    },
+    {
+     "submit_ms": 2.1000000000931323,
+     "sync_ms": 33.8000000002794,
+     "calls": 59,
+     "triangles": 41381,
+     "blits": 0,
+     "mix": {
+      "near": 45,
+      "mid": 2,
+      "transition": 9,
+      "sprite": 40,
+      "offscreen": 4,
+      "fine": 0,
+      "race": 45
+     },
+     "camera": {
+      "time": 2.35,
+      "yaw": -81,
+      "tilt": 13.51818443279585,
+      "magnification": 5.504598214285714
+     },
+     "interval_ms": 41.60000000009313,
+     "gpu_ms": 30.221272,
+     "visible": {
+      "intersects": 96,
+      "centre": 91,
+      "whole": 64,
+      "min_span_px": 101.2,
+      "max_span_px": 158.125
+     }
+    },
+    {
+     "submit_ms": 1.3000000002793968,
+     "sync_ms": 61.10000000009313,
+     "calls": 59,
+     "triangles": 41425,
+     "blits": 0,
+     "mix": {
+      "near": 45,
+      "mid": 1,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 4,
+      "fine": 0,
+      "race": 45
+     },
+     "camera": {
+      "time": 2.4125,
+      "yaw": -82.1731656763491,
+      "tilt": 13.12805832391436,
+      "magnification": 5.479073290621317
+     },
+     "interval_ms": 64.29999999981374,
+     "gpu_ms": 56.89408,
+     "visible": {
+      "intersects": 96,
+      "centre": 91,
+      "whole": 64,
+      "min_span_px": 100.73073372946037,
+      "max_span_px": 157.3917714522818
+     }
+    },
+    {
+     "submit_ms": 2.5,
+     "sync_ms": 37.60000000009313,
+     "calls": 60,
+     "triangles": 42048,
+     "blits": 0,
+     "mix": {
+      "near": 46,
+      "mid": 1,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 3,
+      "fine": 0,
+      "race": 46
+     },
+     "camera": {
+      "time": 2.475,
+      "yaw": -83.41180954897479,
+      "tilt": 12.73574110160622,
+      "magnification": 5.452123737856924
+     },
+     "interval_ms": 41.60000000009313,
+     "gpu_ms": 33.607352,
+     "visible": {
+      "intersects": 97,
+      "centre": 91,
+      "whole": 65,
+      "min_span_px": 100.2352761804101,
+      "max_span_px": 156.61761903189077
+     }
+    },
+    {
+     "submit_ms": 2.3999999999068677,
+     "sync_ms": 60.5,
+     "calls": 60,
+     "triangles": 42062,
+     "blits": 0,
+     "mix": {
+      "near": 46,
+      "mid": 1,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 3,
+      "fine": 0,
+      "race": 46
+     },
+     "camera": {
+      "time": 2.5375,
+      "yaw": -84.69473807779949,
+      "tilt": 12.347945422316004,
+      "magnification": 5.424210670312163
+     },
+     "interval_ms": 63,
+     "gpu_ms": 54.227909,
+     "visible": {
+      "intersects": 97,
+      "centre": 92,
+      "whole": 65,
+      "min_span_px": 99.72210476888021,
+      "max_span_px": 155.8157887013753
+     }
+    },
+    {
+     "submit_ms": 1.599999999627471,
+     "sync_ms": 31.09999999962747,
+     "calls": 60,
+     "triangles": 41843,
+     "blits": 0,
+     "mix": {
+      "near": 45,
+      "mid": 2,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 3,
+      "fine": 0,
+      "race": 45
+     },
+     "camera": {
+      "time": 2.6,
+      "yaw": -86,
+      "tilt": 11.971306577633646,
+      "magnification": 5.395811688311688
+     },
+     "interval_ms": 34.799999999813735,
+     "gpu_ms": 27.589413,
+     "visible": {
+      "intersects": 97,
+      "centre": 93,
+      "whole": 67,
+      "min_span_px": 99.19999999999999,
+      "max_span_px": 154.99999999999997
+     }
+    },
+    {
+     "submit_ms": 3.6000000000931323,
+     "sync_ms": 77.8000000002794,
+     "calls": 60,
+     "triangles": 42121,
+     "blits": 0,
+     "mix": {
+      "near": 44,
+      "mid": 3,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 3,
+      "fine": 0,
+      "race": 44
+     },
+     "camera": {
+      "time": 2.6625,
+      "yaw": -87.30526192220051,
+      "tilt": 11.612268962615675,
+      "magnification": 5.367412706311213
+     },
+     "interval_ms": 80.3000000002794,
+     "gpu_ms": 71.369096,
+     "visible": {
+      "intersects": 97,
+      "centre": 93,
+      "whole": 67,
+      "min_span_px": 98.67789523111979,
+      "max_span_px": 154.18421129862466
+     }
+    },
+    {
+     "submit_ms": 4.100000000093132,
+     "sync_ms": 58.8000000002794,
+     "calls": 60,
+     "triangles": 41626,
+     "blits": 0,
+     "mix": {
+      "near": 42,
+      "mid": 5,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 3,
+      "fine": 0,
+      "race": 42
+     },
+     "camera": {
+      "time": 2.725,
+      "yaw": -88.5881904510252,
+      "tilt": 11.276975810399081,
+      "magnification": 5.339499638766452
+     },
+     "interval_ms": 68,
+     "gpu_ms": 51.53706,
+     "visible": {
+      "intersects": 97,
+      "centre": 93,
+      "whole": 67,
+      "min_span_px": 98.16472381958994,
+      "max_span_px": 153.38238096810926
+     }
+    },
+    {
+     "submit_ms": 7.7000000001862645,
+     "sync_ms": 39.10000000009313,
+     "calls": 61,
+     "triangles": 41124,
+     "blits": 0,
+     "mix": {
+      "near": 38,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 38
+     },
+     "camera": {
+      "time": 2.7875,
+      "yaw": -89.8268343236509,
+      "tilt": 10.971164079779115,
+      "magnification": 5.31255008600206
+     },
+     "interval_ms": 40.799999999813735,
+     "gpu_ms": 30.256386,
+     "visible": {
+      "intersects": 98,
+      "centre": 94,
+      "whole": 78,
+      "min_span_px": 97.66926627053965,
+      "max_span_px": 152.6082285477182
+     }
+    },
+    {
+     "submit_ms": 4.199999999720603,
+     "sync_ms": 63.60000000009313,
+     "calls": 61,
+     "triangles": 41090,
+     "blits": 0,
+     "mix": {
+      "near": 38,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 38
+     },
+     "camera": {
+      "time": 2.85,
+      "yaw": -91,
+      "tilt": 10.700066294253714,
+      "magnification": 5.287025162337662
+     },
+     "interval_ms": 65.3000000002794,
+     "gpu_ms": 55.110884,
+     "visible": {
+      "intersects": 98,
+      "centre": 94,
+      "whole": 78,
+      "min_span_px": 97.2,
+      "max_span_px": 151.875
+     }
+    },
+    {
+     "submit_ms": 2,
+     "sync_ms": 37.3000000002794,
+     "calls": 61,
+     "triangles": 41046,
+     "blits": 0,
+     "mix": {
+      "near": 38,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 38
+     },
+     "camera": {
+      "time": 2.9125,
+      "yaw": -92.0876142900872,
+      "tilt": 10.468321012095725,
+      "magnification": 5.263361606294003
+     },
+     "interval_ms": 39.89999999990687,
+     "gpu_ms": 30.045487,
+     "visible": {
+      "intersects": 98,
+      "centre": 94,
+      "whole": 78,
+      "min_span_px": 96.76495428396512,
+      "max_span_px": 151.1952410686955
+     }
+    },
+    {
+     "submit_ms": 2,
+     "sync_ms": 56.89999999990687,
+     "calls": 61,
+     "triangles": 41089,
+     "blits": 0,
+     "mix": {
+      "near": 38,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 38
+     },
+     "camera": {
+      "time": 2.975,
+      "yaw": -93.07106781186548,
+      "tilt": 10.279893459334799,
+      "magnification": 5.241964307875768
+     },
+     "interval_ms": 58,
+     "gpu_ms": 51.384159,
+     "visible": {
+      "intersects": 98,
+      "centre": 94,
+      "whole": 78,
+      "min_span_px": 96.37157287525383,
+      "max_span_px": 150.5805826175841
+     }
+    },
+    {
+     "submit_ms": 1.6000000000931323,
+     "sync_ms": 34.200000000186265,
+     "calls": 60,
+     "triangles": 40075,
+     "blits": 0,
+     "mix": {
+      "near": 38,
+      "mid": 10,
+      "transition": 9,
+      "sprite": 41,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 38
+     },
+     "camera": {
+      "time": 3.0375,
+      "yaw": -93.93353340291235,
+      "tilt": 10.138007683640666,
+      "magnification": 5.223199380791343
+     },
+     "interval_ms": 36.60000000009313,
+     "gpu_ms": 26.750089,
+     "visible": {
+      "intersects": 98,
+      "centre": 94,
+      "whole": 78,
+      "min_span_px": 96.02658663883506,
+      "max_span_px": 150.04154162317977
+     }
+    },
+    {
+     "submit_ms": 3.7000000001862645,
+     "sync_ms": 61.200000000186265,
+     "calls": 58,
+     "triangles": 39058,
+     "blits": 0,
+     "mix": {
+      "near": 38,
+      "mid": 10,
+      "transition": 7,
+      "sprite": 43,
+      "offscreen": 2,
+      "fine": 0,
+      "race": 38
+     },
+     "camera": {
+      "time": 3.1,
+      "yaw": -94.66025403784438,
+      "tilt": 10.045091389973619,
+      "magnification": 5.207387898145764
+     },
+     "interval_ms": 63,
+     "gpu_ms": 55.641161,
+     "visible": {
+      "intersects": 98,
+      "centre": 94,
+      "whole": 78,
+      "min_span_px": 95.73589838486225,
+      "max_span_px": 149.58734122634726
+     }
+    },
+    {
+     "submit_ms": 2,
+     "sync_ms": 35.39999999990687,
+     "calls": 57,
+     "triangles": 38489,
+     "blits": 0,
+     "mix": {
+      "near": 37,
+      "mid": 10,
+      "transition": 7,
+      "sprite": 43,
+      "offscreen": 3,
+      "fine": 0,
+      "race": 37
+     },
+     "camera": {
+      "time": 3.1625,
+      "yaw": -95.23879532511286,
+      "tilt": 10.002734401879566,
+      "magnification": 5.194800398790869
+     },
+     "interval_ms": 39.59999999962747,
+     "gpu_ms": 30.668027,
+     "visible": {
+      "intersects": 97,
+      "centre": 94,
+      "whole": 78,
+      "min_span_px": 95.50448186995487,
+      "max_span_px": 149.22575292180449
+     }
+    },
+    {
+     "submit_ms": 4.599999999627471,
+     "sync_ms": 65,
+     "calls": 56,
+     "triangles": 37960,
+     "blits": 0,
+     "mix": {
+      "near": 37,
+      "mid": 10,
+      "transition": 6,
+      "sprite": 44,
+      "offscreen": 3,
+      "fine": 0,
+      "race": 37
+     },
+     "camera": {
+      "time": 3.225,
+      "yaw": -95.65925826289069,
+      "tilt": 10.011661459168371,
+      "magnification": 5.185652258330531
+     },
+     "interval_ms": 66.40000000037253,
+     "gpu_ms": 57.49517,
+     "visible": {
+      "intersects": 97,
+      "centre": 94,
+      "whole": 78,
+      "min_span_px": 95.33629669484372,
+      "max_span_px": 148.96296358569333
+     }
+    },
+    {
+     "submit_ms": 1.5,
+     "sync_ms": 28.09999999962747,
+     "calls": 56,
+     "triangles": 38004,
+     "blits": 0,
+     "mix": {
+      "near": 37,
+      "mid": 10,
+      "transition": 6,
+      "sprite": 44,
+      "offscreen": 3,
+      "fine": 0,
+      "race": 37
+     },
+     "camera": {
+      "time": 3.2875,
+      "yaw": -95.9144486137381,
+      "tilt": 10.071719817414778,
+      "magnification": 5.180100003984374
+     },
+     "interval_ms": 30.09999999962747,
+     "gpu_ms": 22.592668,
+     "visible": {
+      "intersects": 97,
+      "centre": 93,
+      "whole": 77,
+      "min_span_px": 95.23422055450474,
+      "max_span_px": 148.80346961641365
+     }
+    },
+    {
+     "submit_ms": 7,
+     "sync_ms": 59,
+     "calls": 56,
+     "triangles": 37861,
+     "blits": 0,
+     "mix": {
+      "near": 37,
+      "mid": 10,
+      "transition": 6,
+      "sprite": 44,
+      "offscreen": 3,
+      "fine": 0,
+      "race": 37
+     },
+     "camera": {
+      "time": 3.35,
+      "yaw": -96,
+      "tilt": 10.181881861457862,
+      "magnification": 5.178238636363636
+     },
+     "interval_ms": 60.200000000186265,
+     "gpu_ms": 50.494494,
+     "visible": {
+      "intersects": 97,
+      "centre": 92,
+      "whole": 77,
+      "min_span_px": 95.19999999999999,
+      "max_span_px": 148.74999999999997
+     }
+    },
+    {
+     "submit_ms": 2.099999999627471,
+     "sync_ms": 26.5,
+     "calls": 55,
+     "triangles": 37228,
+     "blits": 0,
+     "mix": {
+      "near": 36,
+      "mid": 10,
+      "transition": 6,
+      "sprite": 44,
+      "offscreen": 4,
+      "fine": 0,
+      "race": 36
+     },
+     "camera": {
+      "time": 3.4125,
+      "yaw": -95.9144486137381,
+      "tilt": 10.340262688181364,
+      "magnification": 5.180100003984374
+     },
+     "interval_ms": 28.200000000186265,
+     "gpu_ms": 21.63505,
+     "visible": {
+      "intersects": 96,
+      "centre": 92,
+      "whole": 76,
+      "min_span_px": 95.23422055450474,
+      "max_span_px": 148.80346961641365
+     }
+    },
+    {
+     "submit_ms": 3.5,
+     "sync_ms": 26.300000000279397,
+     "calls": 55,
+     "triangles": 37085,
+     "blits": 0,
+     "mix": {
+      "near": 36,
+      "mid": 10,
+      "transition": 6,
+      "sprite": 44,
+      "offscreen": 4,
+      "fine": 0,
+      "race": 36
+     },
+     "camera": {
+      "time": 3.475,
+      "yaw": -95.65925826289069,
+      "tilt": 10.544152357728578,
+      "magnification": 5.185652258330531
+     },
+     "interval_ms": 27.5,
+     "gpu_ms": 21.084688,
+     "visible": {
+      "intersects": 96,
+      "centre": 91,
+      "whole": 74,
+      "min_span_px": 95.33629669484372,
+      "max_span_px": 148.96296358569333
+     }
+    },
+    {
+     "submit_ms": 1.6000000000931323,
+     "sync_ms": 57.5,
+     "calls": 56,
+     "triangles": 37500,
+     "blits": 0,
+     "mix": {
+      "near": 36,
+      "mid": 10,
+      "transition": 7,
+      "sprite": 43,
+      "offscreen": 4,
+      "fine": 0,
+      "race": 36
+     },
+     "camera": {
+      "time": 3.5375,
+      "yaw": -95.23879532511286,
+      "tilt": 10.79006226132466,
+      "magnification": 5.194800398790869
+     },
+     "interval_ms": 58.59999999962747,
+     "gpu_ms": 52.260977,
+     "visible": {
+      "intersects": 96,
+      "centre": 90,
+      "whole": 73,
+      "min_span_px": 95.50448186995487,
+      "max_span_px": 149.22575292180449
+     }
+    },
+    {
+     "submit_ms": 2.8000000002793968,
+     "sync_ms": 29.700000000186265,
+     "calls": 56,
+     "triangles": 37246,
+     "blits": 0,
+     "mix": {
+      "near": 35,
+      "mid": 10,
+      "transition": 8,
+      "sprite": 42,
+      "offscreen": 5,
+      "fine": 0,
+      "race": 35
+     },
+     "camera": {
+      "time": 3.6,
+      "yaw": -94.66025403784438,
+      "tilt": 11.073784812339971,
+      "magnification": 5.207387898145764
+     },
+     "interval_ms": 30.800000000279397,
+     "gpu_ms": 28.278323,
+     "visible": {
+      "intersects": 95,
+      "centre": 89,
+      "whole": 72,
+      "min_span_px": 95.73589838486225,
+      "max_span_px": 149.58734122634726
+     }
+    },
+    {
+     "submit_ms": 2.3000000002793968,
+     "sync_ms": 57.39999999990687,
+     "calls": 57,
+     "triangles": 37551,
+     "blits": 0,
+     "mix": {
+      "near": 34,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 6,
+      "fine": 0,
+      "race": 34
+     },
+     "camera": {
+      "time": 3.6625,
+      "yaw": -93.93353340291235,
+      "tilt": 11.39046543926389,
+      "magnification": 5.223199380791343
+     },
+     "interval_ms": 58.1999999997206,
+     "gpu_ms": 51.057918,
+     "visible": {
+      "intersects": 94,
+      "centre": 88,
+      "whole": 71,
+      "min_span_px": 96.02658663883506,
+      "max_span_px": 150.04154162317977
+     }
+    },
+    {
+     "submit_ms": 3.3000000002793968,
+     "sync_ms": 27.200000000186265,
+     "calls": 56,
+     "triangles": 36895,
+     "blits": 0,
+     "mix": {
+      "near": 33,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 7,
+      "fine": 0,
+      "race": 33
+     },
+     "camera": {
+      "time": 3.725,
+      "yaw": -93.07106781186548,
+      "tilt": 11.73468564876929,
+      "magnification": 5.241964307875768
+     },
+     "interval_ms": 31.300000000279397,
+     "gpu_ms": 22.411894,
+     "visible": {
+      "intersects": 93,
+      "centre": 87,
+      "whole": 60,
+      "min_span_px": 96.37157287525383,
+      "max_span_px": 150.5805826175841
+     }
+    },
+    {
+     "submit_ms": 4,
+     "sync_ms": 26.600000000093132,
+     "calls": 54,
+     "triangles": 35294,
+     "blits": 0,
+     "mix": {
+      "near": 31,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 9,
+      "fine": 0,
+      "race": 31
+     },
+     "camera": {
+      "time": 3.7875,
+      "yaw": -92.0876142900872,
+      "tilt": 12.100555737635661,
+      "magnification": 5.263361606294003
+     },
+     "interval_ms": 27,
+     "gpu_ms": 21.482199,
+     "visible": {
+      "intersects": 91,
+      "centre": 86,
+      "whole": 59,
+      "min_span_px": 96.76495428396512,
+      "max_span_px": 151.1952410686955
+     }
+    },
+    {
+     "submit_ms": 0.3000000002793968,
+     "sync_ms": 54,
+     "calls": 53,
+     "triangles": 34585,
+     "blits": 0,
+     "mix": {
+      "near": 30,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 10,
+      "fine": 0,
+      "race": 30
+     },
+     "camera": {
+      "time": 3.85,
+      "yaw": -91,
+      "tilt": 12.481815567204148,
+      "magnification": 5.287025162337662
+     },
+     "interval_ms": 54.299999999813735,
+     "gpu_ms": 52.748622,
+     "visible": {
+      "intersects": 90,
+      "centre": 84,
+      "whole": 58,
+      "min_span_px": 97.2,
+      "max_span_px": 151.875
+     }
+    },
+    {
+     "submit_ms": 2,
+     "sync_ms": 24.5,
+     "calls": 52,
+     "triangles": 33810,
+     "blits": 0,
+     "mix": {
+      "near": 29,
+      "mid": 10,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 11,
+      "fine": 0,
+      "race": 29
+     },
+     "camera": {
+      "time": 3.9125,
+      "yaw": -89.8268343236509,
+      "tilt": 12.871941676085637,
+      "magnification": 5.31255008600206
+     },
+     "interval_ms": 30.700000000186265,
+     "gpu_ms": 21.782274,
+     "visible": {
+      "intersects": 89,
+      "centre": 82,
+      "whole": 56,
+      "min_span_px": 97.66926627053965,
+      "max_span_px": 152.6082285477182
+     }
+    },
+    {
+     "submit_ms": 3.5,
+     "sync_ms": 61.299999999813735,
+     "calls": 50,
+     "triangles": 33614,
+     "blits": 0,
+     "mix": {
+      "near": 32,
+      "mid": 5,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 13,
+      "fine": 0,
+      "race": 32
+     },
+     "camera": {
+      "time": 3.975,
+      "yaw": -88.58819045102521,
+      "tilt": 13.26425889839378,
+      "magnification": 5.339499638766452
+     },
+     "interval_ms": 62.39999999990687,
+     "gpu_ms": 56.68954,
+     "visible": {
+      "intersects": 87,
+      "centre": 81,
+      "whole": 54,
+      "min_span_px": 98.16472381958994,
+      "max_span_px": 153.38238096810926
+     }
+    },
+    {
+     "submit_ms": 1.6999999997206032,
+     "sync_ms": 26.699999999720603,
+     "calls": 50,
+     "triangles": 34387,
+     "blits": 0,
+     "mix": {
+      "near": 35,
+      "mid": 2,
+      "transition": 10,
+      "sprite": 40,
+      "offscreen": 13,
+      "fine": 0,
+      "race": 35
+     },
+     "camera": {
+      "time": 4.0375,
+      "yaw": -87.30526192220051,
+      "tilt": 13.652054577683995,
+      "magnification": 5.367412706311213
+     },
+     "interval_ms": 29.399999999906868,
+     "gpu_ms": 23.103621,
+     "visible": {
+      "intersects": 87,
+      "centre": 80,
+      "whole": 53,
+      "min_span_px": 98.67789523111979,
+      "max_span_px": 154.18421129862466
+     }
+    }
+   ]
+  }
+ ]
+}

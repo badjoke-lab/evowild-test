@@ -1,5 +1,4 @@
 import {CrowdRenderer} from '../v2/renderer.js';
-import {FacingIndices} from './visible.js';
 import {PaintedSurface} from './surface.js';
 import {ExactSurface} from './exact.js';
 import {TrackFloor} from './track.js';
@@ -53,10 +52,11 @@ export class RaceRenderer extends CrowdRenderer{
      if(!exact.has(pose))exact.set(pose,[]);
      exact.get(pose).push(x,z,a,b);mix.near++;continue;
     }
-    const card=bank<0?0:clamp((113-span)/10,0,1);
+    const fraction=bank<0?0:clamp((113-span)/10,0,1);
+    const card=this.effectiveCoverage?.(fraction) ?? fraction;
     if(card<1){
      const level=s.level||((s.method==='surface'||span>=245)?'fine':span>=148?'race':'mid');
-     const direction=s.frontFaces===false?null:FacingIndices.direction(yaw+Math.atan2(b,a),tilt);
+     const direction=s.frontFaces===false?null:this.surface.facing.constructor.direction(yaw+Math.atan2(b,a),tilt);
      const key=pose+'/'+level+'/'+direction;
      if(!batches.has(key))batches.set(key,{pose,level,direction,places:[]});
      batches.get(key).places.push(x,z,a,b,feet,1-card);

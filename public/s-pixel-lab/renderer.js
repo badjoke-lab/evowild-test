@@ -140,7 +140,8 @@ export class SectionsRenderer{
  }
  draw(s){
    const {gl,canvas:c,meta}=this;
-   const w=Math.max(1,Math.round(c.clientWidth*Math.min(devicePixelRatio,1.5))), h=Math.max(1,Math.round(c.clientHeight*Math.min(devicePixelRatio,1.5)));
+   const w=this.fixedRaster?.width ?? Math.max(1,Math.round(c.clientWidth*Math.min(devicePixelRatio,1.5)));
+   const h=this.fixedRaster?.height ?? Math.max(1,Math.round(c.clientHeight*Math.min(devicePixelRatio,1.5)));
    if(w!==c.width||h!==c.height){c.width=w;c.height=h;}
    gl.viewport(0,0,w,h);
    const yaw=s.yaw*Math.PI/180, tilt=s.tilt*Math.PI/180;

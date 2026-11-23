@@ -1,0 +1,17 @@
+version,case,component,mean_gpu_ms,p95_gpu_ms,mean_draws
+v4,mixed50,mesh,12.9357,42.4472,35
+v4,mixed50,floor,7.7217,24.5782,1
+v4,mixed50,shadow,0.6593,0.8941,1
+v4,mixed50,sprites,2.9192,5.1025,1
+v4,mixed100,mesh,25.5577,54.1031,60.9792
+v4,mixed100,floor,9.6807,37.7266,1
+v4,mixed100,shadow,1.2983,1.7796,1
+v4,mixed100,sprites,3.6609,5.0439,1
+v4.1,mixed50,mesh,14.1566,40.883,33.7708
+v4.1,mixed50,floor,10.0419,38.3293,1
+v4.1,mixed50,shadow,0.7318,1.0165,1
+v4.1,mixed50,sprites,1.5428,2.9041,1
+v4.1,mixed100,mesh,21.1935,48.7718,57.8542
+v4.1,mixed100,floor,8.589,36.0035,1
+v4.1,mixed100,shadow,1.6363,2.9563,1
+v4.1,mixed100,sprites,6.9535,35.6664,1

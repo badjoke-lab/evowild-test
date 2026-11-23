@@ -1,0 +1,596 @@
+[
+ {
+  "key": "mixed50",
+  "cullPixels": 0,
+  "coveragePixels": 0,
+  "prunedMeshes": 69,
+  "prunedCards": 0,
+  "transitions": [
+   {
+    "i": 0,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 1,
+    "logical": 1,
+    "submitted": 1,
+    "mesh_skips": 0
+   },
+   {
+    "i": 2,
+    "logical": 2,
+    "submitted": 2,
+    "mesh_skips": 0
+   },
+   {
+    "i": 3,
+    "logical": 3,
+    "submitted": 3,
+    "mesh_skips": 0
+   },
+   {
+    "i": 4,
+    "logical": 3,
+    "submitted": 3,
+    "mesh_skips": 0
+   },
+   {
+    "i": 5,
+    "logical": 4,
+    "submitted": 4,
+    "mesh_skips": 0
+   },
+   {
+    "i": 6,
+    "logical": 4,
+    "submitted": 4,
+    "mesh_skips": 0
+   },
+   {
+    "i": 7,
+    "logical": 5,
+    "submitted": 4,
+    "mesh_skips": 1
+   },
+   {
+    "i": 8,
+    "logical": 5,
+    "submitted": 5,
+    "mesh_skips": 0
+   },
+   {
+    "i": 9,
+    "logical": 5,
+    "submitted": 5,
+    "mesh_skips": 0
+   },
+   {
+    "i": 10,
+    "logical": 18,
+    "submitted": 5,
+    "mesh_skips": 13
+   },
+   {
+    "i": 11,
+    "logical": 18,
+    "submitted": 5,
+    "mesh_skips": 13
+   },
+   {
+    "i": 12,
+    "logical": 18,
+    "submitted": 5,
+    "mesh_skips": 13
+   },
+   {
+    "i": 13,
+    "logical": 18,
+    "submitted": 5,
+    "mesh_skips": 13
+   },
+   {
+    "i": 14,
+    "logical": 18,
+    "submitted": 5,
+    "mesh_skips": 13
+   },
+   {
+    "i": 15,
+    "logical": 5,
+    "submitted": 5,
+    "mesh_skips": 0
+   },
+   {
+    "i": 16,
+    "logical": 5,
+    "submitted": 5,
+    "mesh_skips": 0
+   },
+   {
+    "i": 17,
+    "logical": 5,
+    "submitted": 4,
+    "mesh_skips": 1
+   },
+   {
+    "i": 18,
+    "logical": 4,
+    "submitted": 4,
+    "mesh_skips": 0
+   },
+   {
+    "i": 19,
+    "logical": 4,
+    "submitted": 3,
+    "mesh_skips": 1
+   },
+   {
+    "i": 20,
+    "logical": 3,
+    "submitted": 3,
+    "mesh_skips": 0
+   },
+   {
+    "i": 21,
+    "logical": 3,
+    "submitted": 2,
+    "mesh_skips": 1
+   },
+   {
+    "i": 22,
+    "logical": 2,
+    "submitted": 2,
+    "mesh_skips": 0
+   },
+   {
+    "i": 23,
+    "logical": 1,
+    "submitted": 1,
+    "mesh_skips": 0
+   },
+   {
+    "i": 24,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 25,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 26,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 27,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 28,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 29,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 30,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 31,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 32,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 33,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 34,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 35,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 36,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 37,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 38,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 39,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 40,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 41,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 42,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 43,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 44,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 45,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 46,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   },
+   {
+    "i": 47,
+    "logical": 0,
+    "submitted": 0,
+    "mesh_skips": 0
+   }
+  ]
+ },
+ {
+  "key": "mixed100",
+  "cullPixels": 0,
+  "coveragePixels": 0,
+  "prunedMeshes": 200,
+  "prunedCards": 14,
+  "transitions": [
+   {
+    "i": 0,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 1,
+    "logical": 10,
+    "submitted": 9,
+    "mesh_skips": 0
+   },
+   {
+    "i": 2,
+    "logical": 8,
+    "submitted": 7,
+    "mesh_skips": 0
+   },
+   {
+    "i": 3,
+    "logical": 6,
+    "submitted": 6,
+    "mesh_skips": 0
+   },
+   {
+    "i": 4,
+    "logical": 5,
+    "submitted": 5,
+    "mesh_skips": 0
+   },
+   {
+    "i": 5,
+    "logical": 4,
+    "submitted": 4,
+    "mesh_skips": 0
+   },
+   {
+    "i": 6,
+    "logical": 4,
+    "submitted": 3,
+    "mesh_skips": 0
+   },
+   {
+    "i": 7,
+    "logical": 3,
+    "submitted": 3,
+    "mesh_skips": 0
+   },
+   {
+    "i": 8,
+    "logical": 3,
+    "submitted": 3,
+    "mesh_skips": 0
+   },
+   {
+    "i": 9,
+    "logical": 3,
+    "submitted": 2,
+    "mesh_skips": 0
+   },
+   {
+    "i": 10,
+    "logical": 43,
+    "submitted": 2,
+    "mesh_skips": 40
+   },
+   {
+    "i": 11,
+    "logical": 43,
+    "submitted": 2,
+    "mesh_skips": 40
+   },
+   {
+    "i": 12,
+    "logical": 43,
+    "submitted": 2,
+    "mesh_skips": 40
+   },
+   {
+    "i": 13,
+    "logical": 43,
+    "submitted": 2,
+    "mesh_skips": 40
+   },
+   {
+    "i": 14,
+    "logical": 43,
+    "submitted": 2,
+    "mesh_skips": 40
+   },
+   {
+    "i": 15,
+    "logical": 3,
+    "submitted": 3,
+    "mesh_skips": 0
+   },
+   {
+    "i": 16,
+    "logical": 3,
+    "submitted": 3,
+    "mesh_skips": 0
+   },
+   {
+    "i": 17,
+    "logical": 4,
+    "submitted": 3,
+    "mesh_skips": 0
+   },
+   {
+    "i": 18,
+    "logical": 4,
+    "submitted": 4,
+    "mesh_skips": 0
+   },
+   {
+    "i": 19,
+    "logical": 5,
+    "submitted": 4,
+    "mesh_skips": 0
+   },
+   {
+    "i": 20,
+    "logical": 6,
+    "submitted": 5,
+    "mesh_skips": 0
+   },
+   {
+    "i": 21,
+    "logical": 7,
+    "submitted": 6,
+    "mesh_skips": 0
+   },
+   {
+    "i": 22,
+    "logical": 9,
+    "submitted": 8,
+    "mesh_skips": 0
+   },
+   {
+    "i": 23,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 24,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 25,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 26,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 27,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 28,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 29,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 30,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 31,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 32,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 33,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 34,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 35,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 36,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 37,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 38,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 39,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 40,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 41,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 42,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 43,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 44,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 45,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 46,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   },
+   {
+    "i": 47,
+    "logical": 10,
+    "submitted": 10,
+    "mesh_skips": 0
+   }
+  ]
+ }
+]

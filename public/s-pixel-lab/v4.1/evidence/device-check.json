@@ -1,0 +1,30 @@
+[
+ {
+  "profile": "desktop",
+  "version": "v4",
+  "dpr": 1,
+  "raster": [
+   877,
+   414
+  ],
+  "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "frames": 96,
+  "exported": true,
+  "hidden_tab_abort": true,
+  "errors": []
+ },
+ {
+  "profile": "mobile",
+  "version": "v4.1",
+  "dpr": 2.625,
+  "raster": [
+   352,
+   335
+  ],
+  "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "frames": 96,
+  "exported": true,
+  "hidden_tab_abort": true,
+  "errors": []
+ }
+]

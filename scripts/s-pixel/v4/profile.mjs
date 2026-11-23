@@ -70,5 +70,5 @@ try {
   console.log(key,mean);result.push({scenario:key,mean,samples:rows});
  }
  if(errors.length)throw Error(errors.join('\n'));
- await fs.writeFile(path.join(DEMO,'v4/evidence',version+(transitionOnly?'-transition-passes.json':'-passes.json')),JSON.stringify(result,null,1)+'\n');
+ await fs.writeFile(path.join(process.env.PASS_OUT_DIR || path.join(DEMO,'v4/evidence'),version+(transitionOnly?'-transition-passes.json':'-passes.json')),JSON.stringify(result,null,1)+'\n');
 }finally{await browser.close();}

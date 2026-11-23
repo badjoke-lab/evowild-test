@@ -1,0 +1,3 @@
+policy,frames,fps,p95_ms,gpu_ms,phase10_14_gpu_ms,phase10_14_triangles
+all,144,17.9647,85.6,44.1827,54.9938,60674.6
+skip,144,18.6923,78.3,40.8049,42.5553,40979.4
