@@ -1,6 +1,7 @@
 // The game owns the framebuffer, camera, course and racers. Only S geometry is
 // submitted here. Import the frozen lab implementations and their original data.
 import { common, program } from '../s-pixel-lab/renderer.js';
+import { PerspectiveFaces, includeEye } from './perspective-faces.js';
 import { Surface } from '../s-pixel-lab/v4.1/surface.js';
 import { RaceRenderer } from '../s-pixel-lab/v4.1/race-renderer.js';
 import { Impostors } from '../s-pixel-lab/v2/impostors.js';
@@ -26,7 +27,24 @@ function gameProgram(gl, pass, mask, far = false) {
   if (!vs.includes(common) || !vs.includes('p.x+=drift*')) throw Error('v4.1 頂点入力が一致しません');
   vs = vs.replace(common, perspective).replace('p.x+=drift*', 'p.x+=drift*fract('+mask+')*');
   if (far) vs = vs.replace('int(tile.w+.5)', 'int(tile.w)');
-  const next = program(gl, vs, sources.get(gl.FRAGMENT_SHADER));
+  let fs = sources.get(gl.FRAGMENT_SHADER);
+  if (!far) {
+    vs=vs.replace('void main(){',`layout(location=3) in float vertexShade;
+flat out float faceShade;
+void main(){ faceShade=vertexShade;`);
+    // The sign of screen derivatives can flip at grazing angles when a helper
+    // pixel extrapolates beyond the perspective plane. Keep v4.1 shading there.
+    const normal='vec3 n=cross(dFdx(grid*stepSize),dFdy(grid*stepSize));';
+    if(!fs.includes(normal))throw Error('v4.1 表面の陰影入力が一致しません');
+    fs=fs.replace('void main(){','flat in float faceShade;\nvoid main(){')
+      .replace(normal,`vec3 dx=dFdx(grid*stepSize), dy=dFdy(grid*stepSize);
+ float shade=faceShade;
+ if(faceShade<=0. || 2.*fwidth(gl_FragCoord.w)>=gl_FragCoord.w){
+   vec3 n=cross(dx,dy);`)
+      .replace('float shade=dot','shade=dot')
+      .replace('color=vec4(palette','} color=vec4(palette');
+  }
+  const next = program(gl, vs, fs);
   gl.deleteProgram(pass.p);
   return next;
 }
@@ -44,6 +62,7 @@ export async function loadActors(THREE, renderer, racers) {
   const sprites = new Impostors(gl, atlas);
   try {
     await surface.load();
+    surface.facing=new PerspectiveFaces(gl,surface,meta);
     for (const key of ['pass', 'solid']) {
       surface[key] = gameProgram(gl, surface[key], 'instanceInfo.x');
       surface.configure(surface[key]);
@@ -104,7 +123,9 @@ export async function loadActors(THREE, renderer, racers) {
       if (card<1) {
         const key = pose+'/'+level;
         if (!batches.has(key)) batches.set(key,{pose,level,direction:null,places:[]});
-        batches.get(key).places.push(x,z,Math.cos(theta),Math.sin(theta),mask,1-card);
+        const batch=batches.get(key), c=Math.cos(theta), s=Math.sin(theta);
+        batch.direction=includeEye(batch.direction,(c*dx+s*dz)/unit,(camera.position.y-trackHeight)/unit,(-s*dx+c*dz)/unit);
+        batch.places.push(x,z,c,s,mask,1-card);
       }
       if (card>0) {
         const n=atlas.directions, k=(Math.round(yaw*n/(2*Math.PI))%n+n)%n;

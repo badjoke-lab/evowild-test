@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
 import "./styles.css";
+import { prepareRidgeGround } from "./ridge-ground.js";
 import { createTrial, fieldSize, sprintField, trialEnabled } from "./race-trial.js";
 
 const canvas = document.querySelector("#game");
@@ -73,6 +74,7 @@ const ground = new THREE.Mesh(
 ground.rotation.x = -Math.PI / 2;
 ground.position.y = -0.03;
 scene.add(ground);
+if (trialEnabled) prepareRidgeGround(renderer,ground,scene.children.filter(o=>o.isLight));
 
 const curve = new THREE.CatmullRomCurve3(
   [

@@ -81,7 +81,7 @@ export function createTrial({THREE, renderer, racers, mobile, restart, status}) 
     const c=renderer.domElement;
     saved=null;
     run={schema:'evowild-ridge-race/1',protocol:'ridge-oval-30hz-24warm-96raf-v1',
-      started_at:new Date().toISOString(),device_label:byId('trial-device').value,renderer:gpu(),
+      integrated_build:'ridge-surface-ground-1',started_at:new Date().toISOString(),device_label:byId('trial-device').value,renderer:gpu(),
       user_agent:navigator.userAgent,dpr:devicePixelRatio,raster:[c.width,c.height],mobile,
       version:mode.value==='classic'?'classic':'v4.1',camera:view,count:racers.length,s_count:sCount,
       field:sprintField?'s':'mixed',antialias:renderer.getContext().getContextAttributes().antialias,

@@ -20,7 +20,7 @@ function rows(data) {
     const streamed=data.samples.filter(s=>s.streaming||s.atlas_errors?.length).length;
     const key=['Ridge Oval',data.field==='s'?'Sのみ':'混走',data.count+'体',data.camera,
       checkSize(data.raster),data.mobile?'モバイル画角':'PC画角',data.antialias?'AA有':'AA無'].join(' ／ ');
-    return [{...labels,...rate,key,comparable:!streamed,note:streamed?'方位素材の読込・エラー '+streamed+'フレーム':''}];
+    return [{...labels,version:labels.version+' ／ '+(data.integrated_build||'初回統合'),...rate,key,comparable:!streamed,note:streamed?'方位素材の読込・エラー '+streamed+'フレーム':''}];
   }
   if(data.schema_version===1&&['v4','v4.1'].includes(data.version)&&['desktop','mobile'].includes(data.profile)&&Array.isArray(data.rows)){
     if(data.rows.length!==2||new Set(data.rows.map(r=>r.scenario)).size!==2)fail('単体試験の2条件が必要です');

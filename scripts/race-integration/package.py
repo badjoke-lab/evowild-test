@@ -6,14 +6,16 @@ from pathlib import Path
 
 root=Path(__file__).resolve().parents[2]
 built=Path(sys.argv[1]).resolve()
-destination=root/'public/race-integration/ridge-race-demo.zip'
+destination=Path(sys.argv[2]).resolve() if len(sys.argv)>2 else root/'public/race-integration/ridge-race-demo.zip'
 # Never sweep another demo ZIP, node_modules or unrelated public experiments.
 files={built/'index.html',built/'race-2_5d.html'}
 for html in list(files):
     for asset in re.findall(r'["\']/evowild-test/(assets/[^"\']+)["\']',html.read_text()):
         files.add(built/asset)
 for name in ('concept','race-integration'):
-    files.update(p for p in (built/name).rglob('*') if p.is_file() and p.suffix not in {'.zip'})
+    files.update(p for p in (built/name).rglob('*') if p.is_file() and p.suffix not in {'.zip'} and p.name!='probe-actors.js')
+if (built/'ridge-performance').is_dir():
+    files.update(p for p in (built/'ridge-performance').rglob('*') if p.is_file() and p.suffix!='.zip')
 for name in ('evowild-s.mtl','evowild-s.obj'):files.add(built/'models'/name)
 lab=built/'s-pixel-lab'
 for folder in (lab,lab/'v2',lab/'v3',lab/'v4',lab/'v4.1'):

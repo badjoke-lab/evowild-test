@@ -3,7 +3,7 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 export const root=fileURLToPath(new URL('../../',import.meta.url));
-export const evidence=path.join(root,'public/race-integration/evidence');
+export const evidence=process.env.TRIAL_EVIDENCE||path.join(root,'public/race-integration/evidence');
 export const base=process.env.TRIAL_URL||'http://127.0.0.1:4180/evowild-test/';
 export function launch(){
   return chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',
