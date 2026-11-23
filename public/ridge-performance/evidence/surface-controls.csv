@@ -1,0 +1,13 @@
+id,control,frames,mesh_gpu_ms,ground_gpu_ms,wait_ms,mesh_triangles,mesh_draws
+pc-100-pixel-race,ground-only,7,108.498,6.332,116.343,109208,33.429
+pc-100-pixel-race,measured-after,7,89.76,9.011,94.929,68338.714,33.429
+pc-100-pixel-race,flat-color,7,50.945,6.71,57.643,68338.714,33.429
+pc-100-pixel-follow,ground-only,7,109.331,5.114,116.214,201715.429,17.714
+pc-100-pixel-follow,measured-after,7,107.403,8.732,118.286,160277.286,17.714
+pc-100-pixel-follow,flat-color,7,70.569,5.166,79.229,160277.286,17.714
+phone-100-pixel-race,ground-only,7,68.673,5.177,70.9,202198.571,23.429
+phone-100-pixel-race,measured-after,7,64.138,5.201,66.657,117983.429,23.429
+phone-100-pixel-race,flat-color,7,26.803,4.64,33.757,117983.429,23.429
+phone-100-pixel-follow,ground-only,7,50.421,4.743,56.329,187728.857,13.429
+phone-100-pixel-follow,measured-after,7,64.391,5.081,68.286,153552.286,13.429
+phone-100-pixel-follow,flat-color,7,37.451,4.886,45.486,153552.286,13.429

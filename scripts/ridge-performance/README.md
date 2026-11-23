@@ -45,3 +45,28 @@ TRIAL_URL="$AFTER_URL" TRIAL_EVIDENCE="$REPORT" node scripts/race-integration/re
 `quality.csv` 比較は同じ投影・走行状態で全画面RGBと、背景を一時的に隠した個体画像の差を算出する。後者には選択表示を含む。提出個体ID・LOD・姿勢、全個体の状態、カメラが改修前後で一致しなければ集計を停止する。`raw.zip` に全計時JSONと7時点の個票を格納した。実機では配布版の「実機計測」を使う。
 
 `slow-replay.csv` は50・100体の各カメラ・画面幅で、実RAFの遅い3区間の直前フレームを同じ状態で再描画したもの。同期再生からブラウザのキュー待ちや合成の時間までは一意に復元できない。
+
+比較ページと配布物は次で作成する。測定とテストの完了後に実行する。`frameplot.py` はMatplotlibを使用する。
+
+```sh
+python3 scripts/ridge-performance/frameplot.py "$RIDGE_WORK" "$REPORT"
+python3 scripts/ridge-performance/review.py public/ridge-performance
+node_modules/.bin/vite build --outDir "$RIDGE_WORK/package/evowild-test"
+python3 scripts/race-integration/package.py "$RIDGE_WORK/package/evowild-test" public/ridge-performance/ridge-optimized.zip
+unzip -q public/ridge-performance/ridge-optimized.zip -d "$RIDGE_WORK/unpacked"
+python3 -m http.server 4203 --bind 127.0.0.1 --directory "$RIDGE_WORK/unpacked"
+```
+
+別シェルで `node scripts/ridge-performance/package-check.mjs http://127.0.0.1:4203/evowild-test/ "$RIDGE_WORK" "$REPORT/package-check.json"` を実行すると、展開したZIPでレース表示を切り替え、両動画、全比較画像、改修前後のJSONの読込を検証する。`RIDGE_ORIGIN=http://127.0.0.1:4202 node_modules/.bin/playwright test --config scripts/ridge-performance/race-test.config.mjs --workers 1` は通常ゲームの既存回帰を実行する。
+
+100体のGPU原因を絞る対照試験は次の順に実行する。前者は地面だけを新版にして元のS表面を再生する。後者は全三角形・ディザ・深度を保ちSの表面色だけを定数にする診断で、採用FPSや画質の集計には入れない。
+
+```sh
+export RIDGE_CASE=pc-100-pixel-race,pc-100-pixel-follow,phone-100-pixel-race,phone-100-pixel-follow
+RIDGE_ACTORS="$RIDGE_WORK/before/evowild-test/race-integration/probe-actors.js" node scripts/ridge-performance/profile.mjs "$AFTER_URL" "$RIDGE_WORK/ground-only"
+RIDGE_FLAT_COLOR=1 node scripts/ridge-performance/profile.mjs "$AFTER_URL" "$RIDGE_WORK/flat-color"
+unset RIDGE_CASE
+python3 scripts/ridge-performance/diagnostics.py "$RIDGE_WORK" "$REPORT"
+```
+
+低速区間の追加試行は `node scripts/ridge-performance/trace.mjs "$AFTER_URL" "$RIDGE_WORK/chrome-trace.json"`、続いて `python3 scripts/ridge-performance/trace.py "$RIDGE_WORK/chrome-trace.json" "$REPORT/chrome-follow-100.csv"`。PC・100体Followで、24フレーム予熱後のコールバック間隔に重なるChromeイベントの和集合を各列で計算する。GPUプロセスのスケジューラタスク区間は実行中の待機を含む。診断完了後、`evidence.py` をもう一度実行すると対照試験の個票も `raw.zip` に加わる。

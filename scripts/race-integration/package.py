@@ -14,8 +14,9 @@ for html in list(files):
         files.add(built/asset)
 for name in ('concept','race-integration'):
     files.update(p for p in (built/name).rglob('*') if p.is_file() and p.suffix not in {'.zip'} and p.name!='probe-actors.js')
-if (built/'ridge-performance').is_dir():
-    files.update(p for p in (built/'ridge-performance').rglob('*') if p.is_file() and p.suffix!='.zip')
+if len(sys.argv)>2:
+    report=built/'ridge-performance'
+    files.update(p for p in report.rglob('*') if p.is_file() and (p.suffix!='.zip' or p.name=='raw.zip'))
 for name in ('evowild-s.mtl','evowild-s.obj'):files.add(built/'models'/name)
 lab=built/'s-pixel-lab'
 for folder in (lab,lab/'v2',lab/'v3',lab/'v4',lab/'v4.1'):
@@ -30,9 +31,16 @@ with zipfile.ZipFile(destination,'w',zipfile.ZIP_DEFLATED,compresslevel=5) as ar
         if relative=='race-integration/README.md':
             # Inside the archive, point directly to the unpacked game.
             archive.writestr(name,file.read_text().replace('[ビルド済み操作デモ ZIP](ridge-race-demo.zip)','[同梱の操作デモを開く](../?raceTrial=1)'))
+        elif relative=='ridge-performance/README.md':
+            body=file.read_text().replace('[ビルド済み操作デモ ZIP](ridge-optimized.zip)','[同梱の操作デモ](../?raceTrial=1)')
+            body=body.replace('../../scripts/ridge-performance/', '../scripts/ridge-performance/')
+            body=body.replace('../race-integration/ridge-race-demo.zip','https://raw.githubusercontent.com/badjoke-lab/evowild-test/b13743d5a473660f2b7979b504fcb32cda43ce11/public/race-integration/ridge-race-demo.zip')
+            archive.writestr(name,body)
         else:
             archive.write(file,name)
     archive.write(root/'scripts/race-integration/README.md','evowild-test/scripts/race-integration/README.md')
+    if len(sys.argv)>2:
+        archive.write(root/'scripts/ridge-performance/README.md','evowild-test/scripts/ridge-performance/README.md')
     archive.writestr('index.html','<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=/evowild-test/?raceTrial=1"><a href="/evowild-test/?raceTrial=1">EvoWild Run</a>')
     archive.writestr('README.txt','''EvoWild Run / Ridge Oval — S型v4.1 仮統合
 ZIPを展開し、このREADMEと同じフォルダーで次を実行してください。
@@ -42,5 +50,5 @@ Android: PCと同じWi-Fiに接続し、Chromeで http://PCのLANアドレス:80
 初期編成は通常の18体です。「出走設定」で頭数・編成を選んだら「新しいレース」。
 「S型表示」は走行中に変更できます。実機計測と比較の手順は
 evowild-test/race-integration/README.md にあります。
-''')
+'''+('統合レースの改修前後の比較・負荷表・動画は http://localhost:8000/evowild-test/ridge-performance/ にあります。\n' if len(sys.argv)>2 else ''))
 print(destination,destination.stat().st_size)

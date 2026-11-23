@@ -3,7 +3,6 @@ import csv
 import json
 import sys
 from pathlib import Path
-from statistics import mean
 
 work,out=map(Path,sys.argv[1:3])
 versions=('before','after')
@@ -34,4 +33,4 @@ if len(sys.argv)>3:
         row['surface_triangles']=data['triangles'].get('pixelMesh',0)
         row.update(data['lod'])
     with (out/'slow-replay.csv').open('w',newline='') as f:
-        w=csv.DictWriter(f,fieldnames=rows[0]);w.writeheader();w.writerows(rows)
+        w=csv.DictWriter(f,fieldnames=rows[0],lineterminator='\n');w.writeheader();w.writerows(rows)

@@ -20,7 +20,7 @@ def load(folder, key):
 
 def write_csv(file, rows):
     with (out/file).open('w',newline='') as f:
-        writer=csv.DictWriter(f,fieldnames=rows[0]); writer.writeheader();writer.writerows(rows)
+        writer=csv.DictWriter(f,fieldnames=rows[0],lineterminator='\n'); writer.writeheader();writer.writerows(rows)
 
 def image(kind, folder, stem):
     with Image.open(work/folder/kind/(stem+'.png')) as source:
@@ -62,7 +62,10 @@ with zipfile.ZipFile(out/'raw.zip','w',compression=zipfile.ZIP_DEFLATED,compress
             native=['ground','course','sceneOther','otherMorph','classicS']
             cpu=lambda k: avg('cpu',k)
             gpu=lambda k: avg('gpu',k)
-            costs.append(dict(**stats,states=len(rows),cpu_simulation_and_rank_ms=round(cpu('simulation')-cpu('classicSPose'),3),
+            visible=[len(set(r['nativeVisible'])|set(r['pixel_ids'])) for r in rows]
+            costs.append(dict(**stats,states=len(rows),visible_min=min(visible),visible_max=max(visible),
+                gpu_timed_total_ms=round(mean(sum(r['gpu'].values()) for r in rows),3),
+                shadow_map_passes=0,depth_prepasses=0,postprocess_passes=0,cpu_simulation_and_rank_ms=round(cpu('simulation')-cpu('classicSPose')-cpu('otherRigPose'),3),cpu_other_rig_ms=cpu('otherRigPose'),
                 cpu_s_rig_ms=cpu('classicSPose'),cpu_s_travel_ms=cpu('sTravel'),cpu_s_pose_lod_ms=cpu('sLod'),cpu_camera_ms=cpu('camera'),
                 cpu_submit_three_setup_ms=round(cpu('three')-sum(map(cpu,native)),3),
                 **{'cpu_submit_'+k+'_ms':cpu(k) for k in native+['pixelMesh','sprite']},
@@ -89,6 +92,11 @@ with zipfile.ZipFile(out/'raw.zip','w',compression=zipfile.ZIP_DEFLATED,compress
                         s_triangles_before=a['triangles'].get('pixelMesh',0),s_triangles_after=b['triangles'].get('pixelMesh',0),**metrics))
         summary.append(dict(id=key,state_pairs=7,actor_identical=same,actor_changed=actor_changes,mask_changed=loss,
                             max_channel=worst,total_pixels=total,changed_rgb_pixels=color_changes))
+    for stage in ('tail-before','tail-after','ground-only','flat-color'):
+        for item in sorted((work/stage).glob('*.json')):
+            raw.write(item,stage+'/'+item.name)
+    if (work/'tail-frames.json').is_file():
+        raw.write(work/'tail-frames.json','tail-frames.json')
 write_csv('performance.csv',timing);write_csv('cpu-gpu.csv',costs);write_csv('quality.csv',quality);write_csv('tails.csv',tails)
 (out/'checks.json').write_text(json.dumps(summary,indent=1)+'\n')
 
@@ -98,7 +106,9 @@ def plate(name, entries, crop=None):
     cols=2; tiles=[]
     for label,folder,stem in entries:
         im=Image.open(work/('measured-'+folder)/'frames'/(stem+'.png')).convert('RGB')
-        if crop: im=im.crop(crop).resize(((crop[2]-crop[0])*2,(crop[3]-crop[1])*2),Image.Resampling.NEAREST)
+        if crop:
+            box=crop[stem]
+            im=im.crop(box).resize(((box[2]-box[0])*2,(box[3]-box[1])*2),Image.Resampling.NEAREST)
         tiles.append((label,im))
     w,h=tiles[0][1].size
     dest=Image.new('RGB',(cols*w,(len(tiles)//cols)*(h+36)),(20,32,39));draw=ImageDraw.Draw(dest)
@@ -109,5 +119,6 @@ plate('race-pc.png',[(f'{v.title()}  /  {look}  /  100 S  /  Race',v,'pc-100-'+l
                      for look in ('classic','pixel') for v in ('before','after')])
 plate('follow-phone.png',[(f'{v.title()}  /  {look}  /  18 mixed  /  Follow',v,'phone-18-'+look+'-follow-89')
                           for look in ('classic','pixel') for v in ('before','after')])
-plate('pack-detail.png',[(f'{v.title()}  /  100 S  /  {cam}',v,'pc-100-pixel-'+cam+'-73')
-                         for cam in ('race','follow') for v in ('before','after')],(220,150,540,365))
+detail={'pc-100-pixel-race-25':(95,255,415,470),'pc-100-pixel-follow-73':(10,215,330,430)}
+plate('pack-detail.png',[(f'{v.title()}  /  100 S  /  {cam}  /  frame {frame}',v,f'pc-100-pixel-{cam}-{frame}')
+                         for cam,frame in [('race',25),('follow',73)] for v in ('before','after')],detail)

@@ -1,0 +1,9 @@
+{
+  "baseline": "b13743d5a473660f2b7979b504fcb32cda43ce11",
+  "implementation": "8fd56df8408ea416bdf351672c952d5587a4cbcf",
+  "package": "ridge-optimized.zip",
+  "sha256": "ceecf9adc98706387a73dbf94f2c4691160a9fd514fa1f2a2670e7e1858f7505",
+  "archive_bytes": 59728814,
+  "members": 155,
+  "original_files_compared_byte_for_byte": 106
+}

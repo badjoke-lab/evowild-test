@@ -47,8 +47,8 @@ await build({absWorkingDir:root,entryPoints:['src/main.js'],bundle:true,format:'
  for(const [orig,name] of [['update(trial?.step ?? dt);','simulation'],['trial?.sync();','sTravel'],['setCamera();','camera'],['renderer.render(scene, camera);','three'],['trial?.draw(camera,view);','pixel'],['updateHud();','ui'],['drawMiniMap();','ui'],['trial?.frame(now,view);','ui']]){
    const at=s.indexOf('function frame(now)');s=s.slice(0,at)+edit(s.slice(at),orig,'window.ridgeMeter.time("'+name+'",()=>{'+(name==='simulation'?'update(1000/30);':orig)+'});');
  }
- s=edit(s,'    const stride = Math.sin(elapsed','    const poseStart = window.ridgeMeter.active && r.morph==="S" ? performance.now() : null;\n    const stride = Math.sin(elapsed');
- s=edit(s,'    });\n  }\n\n  ring.position','    });\n    if(poseStart!==null)window.ridgeMeter.add("classicSPose",performance.now()-poseStart);\n  }\n\n  ring.position');
+ s=edit(s,'    const stride = Math.sin(elapsed','    const poseStart = window.ridgeMeter.active ? performance.now() : null;\n    const stride = Math.sin(elapsed');
+ s=edit(s,'    });\n  }\n\n  ring.position','    });\n    if(poseStart!==null)window.ridgeMeter.add(r.morph==="S"?"classicSPose":"otherRigPose",performance.now()-poseStart);\n  }\n\n  ring.position');
  return {contents:s,loader:'js',resolveDir:path.join(root,'src')};
  });
  }}]});

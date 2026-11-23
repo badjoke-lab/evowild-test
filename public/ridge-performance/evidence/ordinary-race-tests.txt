@@ -1,0 +1,12 @@
+
+Running 4 tests using 1 worker
+
+RUNTIME_STATE {"clock":"00:00.85","position":"6 / 18","pauseLabel":"Pause","pageErrors":[],"consoleErrors":[]}
+  ✓  1 [android-chromium] › ../../../evowild-test/tests/race.spec.js:4:1 › race scene renders and advances (3.4s)
+  ✓  2 [android-chromium] › ../../../evowild-test/tests/race.spec.js:46:1 › capture mobile race camera views (14.9s)
+RUNTIME_STATE {"clock":"00:00.58","position":"6 / 18","pauseLabel":"Pause","pageErrors":[],"consoleErrors":[]}
+  ✓  3 [desktop-chromium] › ../../../evowild-test/tests/race.spec.js:4:1 › race scene renders and advances (4.4s)
+  -  4 [desktop-chromium] › ../../../evowild-test/tests/race.spec.js:46:1 › capture mobile race camera views
+
+  1 skipped
+  3 passed (25.2s)

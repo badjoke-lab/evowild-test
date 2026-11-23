@@ -1,0 +1,1236 @@
+[
+ {
+  "count": 50,
+  "renderer": "Chromium SwiftShader",
+  "width": 836,
+  "height": 540,
+  "samples": [
+   {
+    "wall_ms": 3.4999999992542143,
+    "game_ms": 4200.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 24,
+     "mid": 26,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 203.49999999925421,
+    "game_ms": 4245.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 24,
+     "mid": 26,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 353.5999999992564,
+    "game_ms": 4290.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 24,
+     "mid": 26,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 470.19999999925494,
+    "game_ms": 4335.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 24,
+     "mid": 26,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 703.4999999992542,
+    "game_ms": 4380.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 24,
+     "mid": 26,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 903.5999999992564,
+    "game_ms": 4425.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 24,
+     "mid": 26,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 1053.5999999992564,
+    "game_ms": 4470.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 24,
+     "mid": 26,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 1203.4999999992542,
+    "game_ms": 4515.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 24,
+     "mid": 26,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 1353.5999999992564,
+    "game_ms": 4560.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 24,
+     "mid": 26,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 1486.7999999992535,
+    "game_ms": 4605.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 24,
+     "mid": 26,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 1653.4999999992542,
+    "game_ms": 4650.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 24,
+     "mid": 26,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 1770.199999999255,
+    "game_ms": 4695.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 24,
+     "mid": 26,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 1903.4999999992542,
+    "game_ms": 4740.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 24,
+     "mid": 26,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 2053.499999999254,
+    "game_ms": 4785.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 23,
+     "mid": 27,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 2186.7999999992535,
+    "game_ms": 4830.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 23,
+     "mid": 27,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 2353.3999999992557,
+    "game_ms": 4875.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 23,
+     "mid": 27,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 2503.499999999254,
+    "game_ms": 4920.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 23,
+     "mid": 27,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 2653.499999999254,
+    "game_ms": 4965.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 23,
+     "mid": 27,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 2770.0999999992564,
+    "game_ms": 5010.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 23,
+     "mid": 27,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 2886.7999999992535,
+    "game_ms": 5055.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 23,
+     "mid": 27,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 3003.3999999992557,
+    "game_ms": 5100.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 23,
+     "mid": 27,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 3170.199999999255,
+    "game_ms": 5145.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 23,
+     "mid": 27,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 3286.7999999992535,
+    "game_ms": 5190.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 22,
+     "mid": 28,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 3453.3999999992557,
+    "game_ms": 5235.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 22,
+     "mid": 28,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 3586.699999999255,
+    "game_ms": 5280.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 22,
+     "mid": 28,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 3770.0999999992564,
+    "game_ms": 5325.1,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 22,
+     "mid": 28,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 3886.699999999255,
+    "game_ms": 5370.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 40,
+     "mid": 10,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 4053.3999999992557,
+    "game_ms": 5415.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 47,
+     "mid": 3,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 4269.999999999254,
+    "game_ms": 5460.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 0,
+     "race": 49,
+     "mid": 1,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 4386.7999999992535,
+    "game_ms": 5505.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 2,
+     "race": 48,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 4570.099999999256,
+    "game_ms": 5550.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 9,
+     "race": 41,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 4703.399999999256,
+    "game_ms": 5595.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 14,
+     "race": 36,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 4870.099999999256,
+    "game_ms": 5640.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 19,
+     "race": 30,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 1
+    }
+   },
+   {
+    "wall_ms": 5003.399999999256,
+    "game_ms": 5685.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 24,
+     "race": 24,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 2
+    }
+   },
+   {
+    "wall_ms": 5170.099999999256,
+    "game_ms": 5730.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 27,
+     "race": 21,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 2
+    }
+   },
+   {
+    "wall_ms": 5353.2999999992535,
+    "game_ms": 5775.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 31,
+     "race": 17,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 2
+    }
+   },
+   {
+    "wall_ms": 5503.399999999256,
+    "game_ms": 5820.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 33,
+     "race": 14,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 3
+    }
+   },
+   {
+    "wall_ms": 5670.099999999256,
+    "game_ms": 5865.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 35,
+     "race": 12,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 3
+    }
+   },
+   {
+    "wall_ms": 5853.2999999992535,
+    "game_ms": 5910.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 36,
+     "race": 10,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 4
+    }
+   },
+   {
+    "wall_ms": 5986.699999999255,
+    "game_ms": 5955.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 37,
+     "race": 8,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 5
+    }
+   },
+   {
+    "wall_ms": 6169.999999999254,
+    "game_ms": 6000.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 37,
+     "race": 8,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 5
+    }
+   },
+   {
+    "wall_ms": 6353.2999999992535,
+    "game_ms": 6045.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 38,
+     "race": 7,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 5
+    }
+   },
+   {
+    "wall_ms": 6569.899999999256,
+    "game_ms": 6090.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 40,
+     "race": 5,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 5
+    }
+   },
+   {
+    "wall_ms": 6769.999999999254,
+    "game_ms": 6135.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 40,
+     "race": 5,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 5
+    }
+   },
+   {
+    "wall_ms": 6953.2999999992535,
+    "game_ms": 6180.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 40,
+     "race": 4,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 6
+    }
+   },
+   {
+    "wall_ms": 7153.2999999992535,
+    "game_ms": 6225.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 40,
+     "race": 4,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 6
+    }
+   },
+   {
+    "wall_ms": 7303.199999999255,
+    "game_ms": 6270.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 41,
+     "race": 3,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 6
+    }
+   },
+   {
+    "wall_ms": 7503.199999999255,
+    "game_ms": 6315.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 41,
+     "race": 3,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 6
+    }
+   },
+   {
+    "wall_ms": 7686.599999999256,
+    "game_ms": 6360.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 41,
+     "race": 3,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 6
+    }
+   },
+   {
+    "wall_ms": 7869.899999999256,
+    "game_ms": 6405.1,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 42,
+     "race": 2,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 6
+    }
+   }
+  ]
+ },
+ {
+  "count": 100,
+  "renderer": "Chromium SwiftShader",
+  "width": 836,
+  "height": 540,
+  "samples": [
+   {
+    "wall_ms": 174.80000000149084,
+    "game_ms": 4066.5999999999995,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 3,
+     "race": 73,
+     "mid": 24,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 374.80000000149084,
+    "game_ms": 4111.599999999999,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 3,
+     "race": 73,
+     "mid": 24,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 591.4000000014894,
+    "game_ms": 4156.599999999999,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 3,
+     "race": 73,
+     "mid": 24,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 791.4000000014894,
+    "game_ms": 4201.599999999999,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 3,
+     "race": 73,
+     "mid": 24,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 1074.7000000014887,
+    "game_ms": 4246.599999999999,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 3,
+     "race": 73,
+     "mid": 24,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 1258.1000000014901,
+    "game_ms": 4291.599999999999,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 3,
+     "race": 73,
+     "mid": 24,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 1458.1000000014901,
+    "game_ms": 4336.599999999999,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 3,
+     "race": 73,
+     "mid": 24,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 1658.1000000014901,
+    "game_ms": 4381.599999999999,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 3,
+     "race": 73,
+     "mid": 24,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 1841.4000000014894,
+    "game_ms": 4426.599999999999,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 3,
+     "race": 73,
+     "mid": 24,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 2008.1000000014901,
+    "game_ms": 4471.599999999999,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 3,
+     "race": 73,
+     "mid": 24,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 2191.4000000014894,
+    "game_ms": 4516.599999999999,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 3,
+     "race": 73,
+     "mid": 24,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 2374.7000000014887,
+    "game_ms": 4561.599999999999,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 3,
+     "race": 73,
+     "mid": 24,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 2574.7000000014887,
+    "game_ms": 4606.599999999999,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 3,
+     "race": 73,
+     "mid": 24,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 2774.7000000014887,
+    "game_ms": 4651.599999999999,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 3,
+     "race": 73,
+     "mid": 24,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 2958.0000000014916,
+    "game_ms": 4696.599999999999,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 3,
+     "race": 73,
+     "mid": 24,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 3174.7000000014887,
+    "game_ms": 4741.599999999999,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 3,
+     "race": 73,
+     "mid": 24,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 3508.0000000014916,
+    "game_ms": 4786.599999999999,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 3,
+     "race": 73,
+     "mid": 24,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 3708.0000000014916,
+    "game_ms": 4831.599999999999,
+    "view": "race",
+    "rank": 6,
+    "lod": {
+     "fine": 3,
+     "race": 72,
+     "mid": 25,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 0
+    }
+   },
+   {
+    "wall_ms": 3958.0000000014916,
+    "game_ms": 4876.599999999999,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 21,
+     "race": 67,
+     "mid": 9,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 3
+    }
+   },
+   {
+    "wall_ms": 4141.300000001491,
+    "game_ms": 4921.599999999999,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 30,
+     "race": 63,
+     "mid": 3,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 4
+    }
+   },
+   {
+    "wall_ms": 4341.300000001491,
+    "game_ms": 4966.599999999999,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 38,
+     "race": 54,
+     "mid": 1,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 7
+    }
+   },
+   {
+    "wall_ms": 4508.000000001492,
+    "game_ms": 5011.599999999999,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 44,
+     "race": 47,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 9
+    }
+   },
+   {
+    "wall_ms": 4741.200000001489,
+    "game_ms": 5056.599999999999,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 48,
+     "race": 40,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 12
+    }
+   },
+   {
+    "wall_ms": 4991.200000001489,
+    "game_ms": 5101.599999999999,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 51,
+     "race": 35,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 14
+    }
+   },
+   {
+    "wall_ms": 5208.000000001492,
+    "game_ms": 5146.599999999999,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 56,
+     "race": 29,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 15
+    }
+   },
+   {
+    "wall_ms": 5491.200000001489,
+    "game_ms": 5191.599999999999,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 60,
+     "race": 24,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 16
+    }
+   },
+   {
+    "wall_ms": 5691.200000001489,
+    "game_ms": 5236.599999999999,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 61,
+     "race": 21,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 18
+    }
+   },
+   {
+    "wall_ms": 5891.200000001489,
+    "game_ms": 5281.599999999999,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 63,
+     "race": 17,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 20
+    }
+   },
+   {
+    "wall_ms": 6141.200000001489,
+    "game_ms": 5326.599999999999,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 64,
+     "race": 14,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 22
+    }
+   },
+   {
+    "wall_ms": 6341.300000001491,
+    "game_ms": 5371.599999999999,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 67,
+     "race": 11,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 22
+    }
+   },
+   {
+    "wall_ms": 6557.800000001491,
+    "game_ms": 5416.599999999999,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 66,
+     "race": 10,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 24
+    }
+   },
+   {
+    "wall_ms": 6774.500000001492,
+    "game_ms": 5461.599999999999,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 67,
+     "race": 8,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 25
+    }
+   },
+   {
+    "wall_ms": 7057.900000001489,
+    "game_ms": 5506.599999999999,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 68,
+     "race": 7,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 25
+    }
+   },
+   {
+    "wall_ms": 7274.500000001492,
+    "game_ms": 5551.599999999999,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 68,
+     "race": 6,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 26
+    }
+   },
+   {
+    "wall_ms": 7491.200000001489,
+    "game_ms": 5596.599999999999,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 69,
+     "race": 5,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 26
+    }
+   },
+   {
+    "wall_ms": 7757.800000001491,
+    "game_ms": 5641.599999999999,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 69,
+     "race": 5,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 26
+    }
+   },
+   {
+    "wall_ms": 8007.800000001491,
+    "game_ms": 5686.599999999999,
+    "view": "follow",
+    "rank": 6,
+    "lod": {
+     "fine": 69,
+     "race": 4,
+     "mid": 0,
+     "transition": 0,
+     "sprite": 0,
+     "outside": 27
+    }
+   }
+  ]
+ }
+]

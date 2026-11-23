@@ -12,8 +12,21 @@ const sha=s=>createHash('sha256').update(s).digest('hex');
 await fs.mkdir(folder,{recursive:true});
 try{
  for(const [screen,options] of Object.entries(screens))for(const count of [100,18,50])for(const mode of ['pixel','classic']) {
-   if(cases&&!cases.some(id=>id.startsWith([screen,count,mode,''].join('-'))))continue;
+   const prefix=[screen,count,mode,''].join('-');
+   if((cases&&!cases.some(id=>id.startsWith(prefix)))||(tailFrames&&!Object.keys(tailFrames).some(id=>id.startsWith(prefix))))continue;
    const ctx=await browser.newContext(options),page=await ctx.newPage();
+   if(process.env.RIDGE_ACTORS)await page.route('**/race-integration/probe-actors.js',route=>
+     route.fulfill({path:process.env.RIDGE_ACTORS,contentType:'text/javascript'}));
+   if(process.env.RIDGE_FLAT_COLOR==='1')await page.route('**/race-integration/probe-actors.js',async route=>{
+     const original=await route.fetch(),source=await original.text();
+     const seam='const next = program(gl, vs, fs);', color='color=vec4(palette[ink]*shade,1.);';
+     if(!source.includes(seam))throw Error('Missing diagnostic shader seam');
+     // Same geometry, dither, tests and depth writes. This control isolates
+     // the marginal cost of computing the surface colour from its voxel.
+     const replacement=`if(!far&&!fs.includes('${color}'))throw Error('Missing surface colour seam');
+       const next=program(gl,vs,far?fs:fs.replace('${color}','color=vec4(1.);'));`;
+     await route.fulfill({status:original.status(),contentType:'text/javascript',body:source.replace(seam,replacement)});
+   });
    const errors=[];page.on('console',m=>{if(m.type()==='error'&&!m.text().includes('404'))errors.push(m.text());});page.on('pageerror',e=>errors.push(e.message));await page.addInitScript(installMeter);
    await page.goto(base+'probe.html?raceTrial=1&verify=1&count='+count+'&field='+(count===18?'mixed':'s')+'&look='+mode);
    await page.waitForFunction(pixel=>window.ridgePrepare&&(!pixel||raceSnapshot().pixels.ready),mode==='pixel');

@@ -1,0 +1,242 @@
+[
+ {
+  "id": "pc-18-classic-race",
+  "state_pairs": 7,
+  "actor_identical": 7,
+  "actor_changed": 0,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 2576000,
+  "changed_rgb_pixels": 244884
+ },
+ {
+  "id": "pc-18-classic-follow",
+  "state_pairs": 7,
+  "actor_identical": 7,
+  "actor_changed": 0,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 2576000,
+  "changed_rgb_pixels": 126754
+ },
+ {
+  "id": "pc-18-pixel-race",
+  "state_pairs": 7,
+  "actor_identical": 3,
+  "actor_changed": 5,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 2576000,
+  "changed_rgb_pixels": 244555
+ },
+ {
+  "id": "pc-18-pixel-follow",
+  "state_pairs": 7,
+  "actor_identical": 1,
+  "actor_changed": 48,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 2576000,
+  "changed_rgb_pixels": 124967
+ },
+ {
+  "id": "pc-50-classic-race",
+  "state_pairs": 7,
+  "actor_identical": 7,
+  "actor_changed": 0,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 2576000,
+  "changed_rgb_pixels": 220574
+ },
+ {
+  "id": "pc-50-classic-follow",
+  "state_pairs": 7,
+  "actor_identical": 7,
+  "actor_changed": 0,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 2576000,
+  "changed_rgb_pixels": 109556
+ },
+ {
+  "id": "pc-50-pixel-race",
+  "state_pairs": 7,
+  "actor_identical": 0,
+  "actor_changed": 34,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 2576000,
+  "changed_rgb_pixels": 218731
+ },
+ {
+  "id": "pc-50-pixel-follow",
+  "state_pairs": 7,
+  "actor_identical": 0,
+  "actor_changed": 158,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 2576000,
+  "changed_rgb_pixels": 106088
+ },
+ {
+  "id": "pc-100-classic-race",
+  "state_pairs": 7,
+  "actor_identical": 7,
+  "actor_changed": 0,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 2576000,
+  "changed_rgb_pixels": 161405
+ },
+ {
+  "id": "pc-100-classic-follow",
+  "state_pairs": 7,
+  "actor_identical": 7,
+  "actor_changed": 0,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 2576000,
+  "changed_rgb_pixels": 120171
+ },
+ {
+  "id": "pc-100-pixel-race",
+  "state_pairs": 7,
+  "actor_identical": 0,
+  "actor_changed": 38,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 2576000,
+  "changed_rgb_pixels": 159791
+ },
+ {
+  "id": "pc-100-pixel-follow",
+  "state_pairs": 7,
+  "actor_identical": 0,
+  "actor_changed": 97,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 2576000,
+  "changed_rgb_pixels": 115706
+ },
+ {
+  "id": "phone-18-classic-race",
+  "state_pairs": 7,
+  "actor_identical": 7,
+  "actor_changed": 0,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 3373293,
+  "changed_rgb_pixels": 350753
+ },
+ {
+  "id": "phone-18-classic-follow",
+  "state_pairs": 7,
+  "actor_identical": 7,
+  "actor_changed": 0,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 3373293,
+  "changed_rgb_pixels": 154938
+ },
+ {
+  "id": "phone-18-pixel-race",
+  "state_pairs": 7,
+  "actor_identical": 5,
+  "actor_changed": 8,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 3373293,
+  "changed_rgb_pixels": 342641
+ },
+ {
+  "id": "phone-18-pixel-follow",
+  "state_pairs": 7,
+  "actor_identical": 2,
+  "actor_changed": 24,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 3373293,
+  "changed_rgb_pixels": 153286
+ },
+ {
+  "id": "phone-50-classic-race",
+  "state_pairs": 7,
+  "actor_identical": 7,
+  "actor_changed": 0,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 3373293,
+  "changed_rgb_pixels": 318494
+ },
+ {
+  "id": "phone-50-classic-follow",
+  "state_pairs": 7,
+  "actor_identical": 7,
+  "actor_changed": 0,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 3373293,
+  "changed_rgb_pixels": 131163
+ },
+ {
+  "id": "phone-50-pixel-race",
+  "state_pairs": 7,
+  "actor_identical": 0,
+  "actor_changed": 71,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 3373293,
+  "changed_rgb_pixels": 309720
+ },
+ {
+  "id": "phone-50-pixel-follow",
+  "state_pairs": 7,
+  "actor_identical": 0,
+  "actor_changed": 317,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 3373293,
+  "changed_rgb_pixels": 128106
+ },
+ {
+  "id": "phone-100-classic-race",
+  "state_pairs": 7,
+  "actor_identical": 7,
+  "actor_changed": 0,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 3373293,
+  "changed_rgb_pixels": 254323
+ },
+ {
+  "id": "phone-100-classic-follow",
+  "state_pairs": 7,
+  "actor_identical": 7,
+  "actor_changed": 0,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 3373293,
+  "changed_rgb_pixels": 146301
+ },
+ {
+  "id": "phone-100-pixel-race",
+  "state_pairs": 7,
+  "actor_identical": 1,
+  "actor_changed": 55,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 3373293,
+  "changed_rgb_pixels": 247260
+ },
+ {
+  "id": "phone-100-pixel-follow",
+  "state_pairs": 7,
+  "actor_identical": 0,
+  "actor_changed": 135,
+  "mask_changed": 0,
+  "max_channel": 1,
+  "total_pixels": 3373293,
+  "changed_rgb_pixels": 142150
+ }
+]

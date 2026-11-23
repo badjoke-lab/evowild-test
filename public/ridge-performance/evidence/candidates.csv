@@ -1,0 +1,17 @@
+variant,case,states,ground_gpu_ms,surface_color_gpu_ms,completion_wait_ms,surface_color_triangles,actor_pixels_changed,actor_pixels_delta_gt1,max_rgb_delta
+original,pc-100-pixel-race,7,31.74,113.3,143.39,109208.0,0,0,0
+original,pc-100-pixel-follow,7,29.46,126.67,160.64,201715.43,0,0,0
+original,phone-100-pixel-race,7,32.65,73.99,103.71,202198.57,0,0,0
+ground + cull,pc-100-pixel-race,7,9.57,105.34,111.27,68338.71,0,0,0
+ground + cull + flat shade,pc-100-pixel-race,7,12.32,83.78,90.66,68338.71,44,6,30
+ground + cull + flat shade,pc-100-pixel-follow,7,5.59,100.01,104.37,160277.29,103,6,29
+ground + cull + flat shade,phone-100-pixel-race,7,7.93,50.7,60.71,117983.43,58,3,228
+ground + cull + opaque depth prepass,pc-100-pixel-race,7,9.11,84.76,146.34,68338.71,0,0,0
+ground + cull + opaque depth prepass,pc-100-pixel-follow,7,8.59,105.05,171.43,160277.29,0,0,0
+ground + cull + opaque depth prepass,phone-100-pixel-race,7,4.78,67.53,96.11,117983.43,0,0,0
+ground + cull + sort near first,pc-100-pixel-race,7,6.73,101.86,106.47,68338.71,471,433,99
+ground + cull + sort near first,pc-100-pixel-follow,7,5.54,134.35,139.34,160277.29,79,68,52
+ground + cull + sort near first,phone-100-pixel-race,7,5.67,65.83,72.04,117983.43,145,142,224
+ground + cull + guarded shade (prototype),pc-100-pixel-race,7,9.21,95.8,103.99,68338.71,38,0,1
+ground + cull + guarded shade (prototype),pc-100-pixel-follow,7,12.36,102.66,123.79,160277.29,97,0,1
+ground + cull + guarded shade (prototype),phone-100-pixel-race,7,5.4,66.97,71.66,117983.43,55,0,1

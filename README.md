@@ -2,6 +2,8 @@
 
 Web prototype for validating the initial EvoWild Run race presentation.
 
+[Ridge Oval 統合レースの負荷解析・操作デモ・測定結果](public/ridge-performance/README.md)
+
 ## Current scope
 
 - 18 simultaneous racers
