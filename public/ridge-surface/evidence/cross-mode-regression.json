@@ -1,0 +1,58 @@
+[
+  {
+    "mode": "group",
+    "matching_state_checkpoints": 35,
+    "initial_loading_lod_differences": [
+      {
+        "count": 50,
+        "checkpoint": "race",
+        "base": {
+          "fine": 0,
+          "race": 0,
+          "mid": 19,
+          "transition": 19,
+          "sprite": 12,
+          "outside": 0
+        },
+        "candidate": {
+          "fine": 0,
+          "race": 0,
+          "mid": 50,
+          "transition": 0,
+          "sprite": 0,
+          "outside": 0
+        }
+      },
+      {
+        "count": 50,
+        "checkpoint": "pause",
+        "base": {
+          "fine": 0,
+          "race": 0,
+          "mid": 31,
+          "transition": 13,
+          "sprite": 6,
+          "outside": 0
+        },
+        "candidate": {
+          "fine": 0,
+          "race": 0,
+          "mid": 50,
+          "transition": 0,
+          "sprite": 0,
+          "outside": 0
+        }
+      }
+    ]
+  },
+  {
+    "mode": "color",
+    "matching_state_checkpoints": 35,
+    "initial_loading_lod_differences": []
+  },
+  {
+    "mode": "both",
+    "matching_state_checkpoints": 35,
+    "initial_loading_lod_differences": []
+  }
+]

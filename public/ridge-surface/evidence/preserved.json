@@ -1,0 +1,21 @@
+{
+  "starting_head": "2606922a521ae9d9d8a4563824c22b13f2d12815",
+  "preserved_trees": {
+    "src": "9d253ff7cb956804c2cfc972b19088c3dfd09dd5",
+    "public/s-pixel-lab": "d03c651c34f803871f933609bdc34f49c4683a84",
+    "public/race-integration": "8f275a5d67253415a3b9d1371e3d08f71dbfa72b",
+    "public/ridge-performance": "a6709ca0ffa9327358bb7bafd6aba2119b3f497b"
+  },
+  "poses": 24,
+  "palette_entries": 18,
+  "renderer": "Chromium / ANGLE SwiftShader",
+  "physical_gpu_measured": false,
+  "chromium": "Chromium 151.0.7922.173 built on Debian GNU/Linux 13 (trixie)",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "cpu_quota": "200000 100000",
+  "assets": {
+    "public/s-pixel-lab/v4.1/assets/geometry.gz": "1323c2ca5817a994624dab50c092b8294ac0f488be69b895f84b0274fddf5568",
+    "public/s-pixel-lab/v3/assets/runtime/paint.gz": "6293cef966ab8bad65d2ec0dba4103046624cee47edf3a1988b66aa382727a4d",
+    "public/ridge-performance/ridge-optimized.zip": "ceecf9adc98706387a73dbf94f2c4691160a9fd514fa1f2a2670e7e1858f7505"
+  }
+}

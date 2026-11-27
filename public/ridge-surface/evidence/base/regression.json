@@ -1,0 +1,433 @@
+{
+  "engine_sha256": "4470b652dd3a9f0aa572b728037372ee6dc4c3dcdd68705a69d85917284f3206",
+  "cases": [
+    {
+      "count": 1,
+      "field": "s",
+      "matching_checkpoints": 7,
+      "tactical_pixels_equal": true,
+      "checkpoints": [
+        {
+          "label": "race",
+          "hash": "3c5e1d037e831be7ac3b7c6319dd0f2153a5a226db44b0d4bfc579a7de8f5bb8",
+          "mix": {
+            "fine": 0,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 1,
+            "outside": 0
+          },
+          "elapsed": 766.6666666666649,
+          "rank": 1
+        },
+        {
+          "label": "pause",
+          "hash": "a74121bc6735206b0812f2ffbf2531d98d778c6b28bc54f1bfa2186f5c5ba90c",
+          "mix": {
+            "fine": 0,
+            "race": 0,
+            "mid": 0,
+            "transition": 1,
+            "sprite": 0,
+            "outside": 0
+          },
+          "elapsed": 766.6666666666649,
+          "rank": 1
+        },
+        {
+          "label": "temporary-classic",
+          "hash": "2ac0e83fe0a658b90c6136c3cc7713852df6cd08acba1936a6bab22a3136476d",
+          "elapsed": 766.6666666666649,
+          "rank": 1
+        },
+        {
+          "label": "follow",
+          "hash": "f82641d8b0c19c8527f3fef0d5356dff2c70cab55087248c588db226e85f20f7",
+          "mix": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          },
+          "elapsed": 1666.666666666668,
+          "rank": 1
+        },
+        {
+          "label": "tactical",
+          "hash": "29842b9b87bae8fb350a5fbe4874688213457ec793550b3bc4a04a0e9d1bb4ac",
+          "elapsed": 2100.000000000003,
+          "rank": 1
+        },
+        {
+          "label": "lab",
+          "hash": "f5d5a625a578b24117c906b5a00550b888b89d0dff339904963325f631416478",
+          "elapsed": 2233.333333333337,
+          "rank": 1
+        },
+        {
+          "label": "reset",
+          "hash": "1dbf9ce20e173e7f0c7cf62e09bbc4142ed3347e9b723e5690d8f91465be95d9",
+          "mix": {
+            "fine": 0,
+            "race": 0,
+            "mid": 1,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          },
+          "elapsed": 0,
+          "rank": 1
+        }
+      ]
+    },
+    {
+      "count": 10,
+      "field": "s",
+      "matching_checkpoints": 7,
+      "tactical_pixels_equal": true,
+      "checkpoints": [
+        {
+          "label": "race",
+          "hash": "4656b700d82d4e7c8852d660f5f63384b3a0bc6b15e9d8552b437c40ef88f728",
+          "mix": {
+            "fine": 0,
+            "race": 0,
+            "mid": 1,
+            "transition": 4,
+            "sprite": 5,
+            "outside": 0
+          },
+          "elapsed": 766.6666666666649,
+          "rank": 6
+        },
+        {
+          "label": "pause",
+          "hash": "c90896fcad8a0bfe1b399a406d2dd06d004eb14735fd4a11c28d52ab0961ae54",
+          "mix": {
+            "fine": 0,
+            "race": 0,
+            "mid": 3,
+            "transition": 4,
+            "sprite": 3,
+            "outside": 0
+          },
+          "elapsed": 766.6666666666649,
+          "rank": 6
+        },
+        {
+          "label": "temporary-classic",
+          "hash": "9a3f209f1959be77d1c9200d1ff1f5f13082b6f137fb488a683b6983d8ee102d",
+          "elapsed": 766.6666666666649,
+          "rank": 6
+        },
+        {
+          "label": "follow",
+          "hash": "ea3c1d166b98d9b208f2c325fd69d26fa8366c9d014518c177cd6657ad4797b6",
+          "mix": {
+            "fine": 9,
+            "race": 1,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          },
+          "elapsed": 1666.666666666668,
+          "rank": 6
+        },
+        {
+          "label": "tactical",
+          "hash": "6341a3b6de5eda541281c51a3bf76a5909400a18badb1ef6ae9bbca00ad3f92a",
+          "elapsed": 2100.000000000003,
+          "rank": 6
+        },
+        {
+          "label": "lab",
+          "hash": "919a2251ccabe7a75aac41b17fbc375d1f4ece43c9c1aee440738183fa620bc5",
+          "elapsed": 2233.333333333337,
+          "rank": 6
+        },
+        {
+          "label": "reset",
+          "hash": "fa3368287be1a5b25c0c2b7b41abac68936d0cac5d0a583bb0cea3c4c04dc742",
+          "mix": {
+            "fine": 0,
+            "race": 0,
+            "mid": 10,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          },
+          "elapsed": 0,
+          "rank": 6
+        }
+      ]
+    },
+    {
+      "count": 50,
+      "field": "s",
+      "matching_checkpoints": 7,
+      "tactical_pixels_equal": true,
+      "checkpoints": [
+        {
+          "label": "race",
+          "hash": "1db1661cef9995b221a1cb30becb92ef414b58d610659204ff79cae5a7be061c",
+          "mix": {
+            "fine": 0,
+            "race": 0,
+            "mid": 19,
+            "transition": 19,
+            "sprite": 12,
+            "outside": 0
+          },
+          "elapsed": 766.6666666666649,
+          "rank": 6
+        },
+        {
+          "label": "pause",
+          "hash": "27ce4856a86fa6e28df8d24a792520e682f408bf91d05becd3c5c8e2104756f9",
+          "mix": {
+            "fine": 0,
+            "race": 0,
+            "mid": 31,
+            "transition": 13,
+            "sprite": 6,
+            "outside": 0
+          },
+          "elapsed": 766.6666666666649,
+          "rank": 6
+        },
+        {
+          "label": "temporary-classic",
+          "hash": "8013971bd0052cc1c2e66130c89263ca10ef8037e18c1d39d86bb3c4af0d0f4b",
+          "elapsed": 766.6666666666649,
+          "rank": 6
+        },
+        {
+          "label": "follow",
+          "hash": "6757c01924a35ad0407240437430db910306a9cd9349648549bbaf9b07c86e42",
+          "mix": {
+            "fine": 39,
+            "race": 1,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 10
+          },
+          "elapsed": 1666.666666666668,
+          "rank": 6
+        },
+        {
+          "label": "tactical",
+          "hash": "20bc39310ad41ca5a903890dc269feb36c3d657486eca48d8be3c279aed9fb80",
+          "elapsed": 2100.000000000003,
+          "rank": 6
+        },
+        {
+          "label": "lab",
+          "hash": "a30ba9f74d60478c32a43ebd62b166a943ed3f61a7d30aa1db224cf9d5e085ae",
+          "elapsed": 2233.333333333337,
+          "rank": 6
+        },
+        {
+          "label": "reset",
+          "hash": "48e1ad045726653c42dcaf016028cb5fd05ab65367d76929223a32b1c7feb077",
+          "mix": {
+            "fine": 0,
+            "race": 0,
+            "mid": 50,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          },
+          "elapsed": 0,
+          "rank": 6
+        }
+      ]
+    },
+    {
+      "count": 100,
+      "field": "s",
+      "matching_checkpoints": 7,
+      "tactical_pixels_equal": true,
+      "checkpoints": [
+        {
+          "label": "race",
+          "hash": "51a7f03b0d6d453c820499735929ba7c89f76e609b703d26d8cab91185de0c64",
+          "mix": {
+            "fine": 0,
+            "race": 6,
+            "mid": 60,
+            "transition": 19,
+            "sprite": 15,
+            "outside": 0
+          },
+          "elapsed": 766.6666666666649,
+          "rank": 6
+        },
+        {
+          "label": "pause",
+          "hash": "81e8a67b5246fdfe70d92d6d32c51e7e9b06d7ef3a64b72dca4b5d3705284f79",
+          "mix": {
+            "fine": 0,
+            "race": 21,
+            "mid": 59,
+            "transition": 14,
+            "sprite": 6,
+            "outside": 0
+          },
+          "elapsed": 766.6666666666649,
+          "rank": 6
+        },
+        {
+          "label": "temporary-classic",
+          "hash": "33d8b364319e9235817d5ea700557bedd8d98286b4e48eefa870eb491732696e",
+          "elapsed": 766.6666666666649,
+          "rank": 6
+        },
+        {
+          "label": "follow",
+          "hash": "91e94e07d4a22c14b7894b3094005bf0b229fc7276b3dd779bf42b047b39d9b5",
+          "mix": {
+            "fine": 63,
+            "race": 1,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 36
+          },
+          "elapsed": 1666.666666666668,
+          "rank": 6
+        },
+        {
+          "label": "tactical",
+          "hash": "c7a558a90121c0177fd4f3b078482df1656cff8930dfab639273b6c6cdbb02ef",
+          "elapsed": 2100.000000000003,
+          "rank": 6
+        },
+        {
+          "label": "lab",
+          "hash": "118ce673bdb63ed34bd960c59415ae4323be9d8e5feacee9916d57a8d27423d0",
+          "elapsed": 2233.333333333337,
+          "rank": 6
+        },
+        {
+          "label": "reset",
+          "hash": "3e91ad250fe88eed82fea81b205e6560700c60f80ae31437dfa469f1483b416a",
+          "mix": {
+            "fine": 0,
+            "race": 0,
+            "mid": 100,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          },
+          "elapsed": 0,
+          "rank": 6
+        }
+      ]
+    },
+    {
+      "count": 18,
+      "field": "mixed",
+      "matching_checkpoints": 7,
+      "tactical_pixels_equal": true,
+      "checkpoints": [
+        {
+          "label": "race",
+          "hash": "928693f992db08f9dd2c3f1c87c3f8106b76f1b4077062c7fe4079b6a4374f00",
+          "mix": {
+            "fine": 0,
+            "race": 0,
+            "mid": 1,
+            "transition": 2,
+            "sprite": 2,
+            "outside": 0
+          },
+          "elapsed": 766.6666666666649,
+          "rank": 6
+        },
+        {
+          "label": "pause",
+          "hash": "70bf9b4601a8a34f67b87c2e8d05baedb667308cebc314c2e489621e2eefa59e",
+          "mix": {
+            "fine": 0,
+            "race": 0,
+            "mid": 2,
+            "transition": 1,
+            "sprite": 2,
+            "outside": 0
+          },
+          "elapsed": 766.6666666666649,
+          "rank": 6
+        },
+        {
+          "label": "temporary-classic",
+          "hash": "2cc60c9d09aa7c5344e5faaef7b6caeddb93f5a6d0641df7ac39687042205acf",
+          "elapsed": 766.6666666666649,
+          "rank": 6
+        },
+        {
+          "label": "follow",
+          "hash": "929bc4631abae56b7d97189140b6e84cf97922cc17f04337a54762d79729b13d",
+          "mix": {
+            "fine": 4,
+            "race": 1,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          },
+          "elapsed": 1666.666666666668,
+          "rank": 6
+        },
+        {
+          "label": "tactical",
+          "hash": "b7ae23268270210eaeadd96014d2f29e5ead22234b852b5c8714d46be2b3cc15",
+          "elapsed": 2100.000000000003,
+          "rank": 6
+        },
+        {
+          "label": "lab",
+          "hash": "ecf27fd7871c2e704bb2d2b836899745d96ac684e7d502cafc3ebb3e20551d8e",
+          "elapsed": 2233.333333333337,
+          "rank": 6
+        },
+        {
+          "label": "reset",
+          "hash": "a625c1f91ed9af111fb403a8f640b362c9ff43ae60506df5013b873fecf5a235",
+          "mix": {
+            "fine": 0,
+            "race": 0,
+            "mid": 5,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          },
+          "elapsed": 0,
+          "rank": 6
+        }
+      ]
+    }
+  ],
+  "race_logic": {
+    "decisions": [
+      "START",
+      "BLOCKED",
+      "OVERTAKE",
+      "HOLD",
+      "ADVANCE",
+      "ATTACK"
+    ],
+    "phases": [
+      "START",
+      "MID",
+      "BUILD",
+      "FINAL"
+    ],
+    "orders": 57,
+    "changed_lane_observations": 1970
+  }
+}

@@ -1,0 +1,88 @@
+"""Create the decision report once all evidence is available."""
+import csv,json
+from pathlib import Path
+root=Path('public/ridge-surface');e=root/'evidence'
+summary=json.loads((e/'summary.json').read_text())
+assert all(s['mask_difference']==0 and s['max_rgb_difference']<=1 for s in summary.values()),'Quality gate failed; revise the report wording'
+gpu=list(csv.DictReader((e/'gpu.csv').open()));perf=list(csv.DictReader((e/'performance.csv').open()))
+def value(rows,mode,key,column):
+ return float(next(r[column] for r in rows if r['mode']==mode and r['case']==key))
+status=[]
+for mode,label in [('group','群カリング'),('color','単色領域'),('both','併用')]:
+ s=summary[mode]
+ status.append(f"| {label} | {s['pairs']} | {s['mask_difference']} | {s['max_rgb_difference']} | {s['gpu_improved']}/12 | {s['p95_improved']}/12 | {s['both_improved']}/12 |")
+table=[]
+for screen in ('pc','phone'):
+ for count in (50,100):
+  for cam in ('race','follow'):
+   key=f'{screen}-{count}-pixel-{cam}'
+   row=[('PC' if screen=='pc' else 'スマホ幅')+f'・{count}体・'+cam.capitalize()]
+   for mode in ('base','group','color','both'):
+    row.append(f"{value(gpu,mode,key,'mesh_gpu_ms'):.1f} / {value(perf,mode,key,'p95_ms'):.1f}")
+   table.append('| '+' | '.join(row)+' |')
+text='''# Ridge Oval S型表面の限定最適化
+
+**候補の採用判定はREJECT。通常レースの基準は2606922を継続する。** 三角形群カリング、単色領域の色参照省略、両者の併用をそれぞれ実装し、実際の1800m Ridge Ovalで測定した。画質とレース状態の条件は満たしたが、各編成・カメラ・画面幅にわたるGPU時間とp95の改善を確認できなかった。
+
+[比較画像・動画・測定表](index.html) · [GPUと三角形CSV](evidence/gpu.csv) · [FPS・p95 CSV](evidence/performance.csv) · [計測JSON一式](evidence/raw.zip)
+
+## 個別の結果
+
+通常18体混走、S型50体・100体、Race／Follow、PC幅／スマホ幅で12のピクセル条件。従来表示12条件を対照に加え、各方式で24条件×7時点＝168組を画質・状態照合した。以下の改善数は同条件の開始HEADとの比較で、単発試行の小さな時間差を含む。
+
+| 試作 | 画質比較組 | 前景マスク差 px | RGB最大差 | 表面GPU短縮 | p95短縮 | 両方短縮 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+STATUS
+
+表面GPU時間は7時点の平均、p95は予熱24フレーム後の96実RAF。下表は「表面GPU ms / p95 ms」。通常18体を含む全条件はCSVと比較ページにある。
+
+| 条件 | 基準 | 群 | 単色 | 併用 |
+| --- | ---: | ---: | ---: | ---: |
+TABLE
+
+FINDINGS
+
+## 何を実装したか
+
+群カリングは姿勢・LODごとに重心の空間セルへ分けた最大24面の群を使う。群の境界は接地補正の両端を含み、視錐台の各平面は実際の個体の回転・位置でローカル座標に変換する。全個体について群全体が外側と証明できた場合だけ除外する。裏面は群内の面係数の区間から上界を求め、群全体を除外できない場合に既存の個別面判定を使う。
+
+単色候補は、各三角形が覆うgrid座標の箱を1ボクセル拡張し、元ボクセル配列を列挙して全セルが同色の面だけに限定した。透視補間が箱を外れる画素と、既存の陰影フォールバックが必要な画素は元のtexelFetchに戻す。元のパレットと陰影の式を使い、位置を保った頂点にだけ色判定属性を追加する。
+
+[保守性の導出と数値の余裕](PROOF.md) · [試作コード](candidate.js)
+
+## 画質とレース状態
+
+各候補168組で全個体状態のハッシュ、カメラ、姿勢、LOD、提出個体IDを基準と照合した。96実RAFの各区間でもレース時刻・選択個体の位置・順位・進路・カメラ・LODが一致した。Sのみ1・10・50・100体と通常18体混走の7地点で、表示切替、一時停止・再開、リセット、Race／Follow／Tactical／Morphを検証した。STARTからFINALのブロック・追越し・順位変動も検証済み。
+
+[画質CSV](evidence/quality.csv) · [基準の回帰](evidence/base/regression.json) · [群の回帰](evidence/group/regression.json) · [単色の回帰](evidence/color/regression.json) · [併用の回帰](evidence/both/regression.json)
+
+
+初回読込を含む固定時計の操作回帰では、群50体のRaceとPauseの2地点で、方位素材の準備時刻に伴うLOD内訳差を記録した。全35地点のゲーム状態ハッシュは各候補で基準と一致した。予熱を行った168組の比較と96実RAFではLODも一致し、ストリーミング中の測定区間は0件だった。[候補間の回帰照合](evidence/cross-mode-regression.json)
+
+画像の差分欄はRGB差を64倍にして表示した。黒は差0。走行動画は基準と併用版をそれぞれ実時間収録し、ゲーム時計と順位を重ねた。各映像でRaceからFollowへ切り替えている。
+
+[50体Raceの差分](evidence/race-50-difference.png) · [50体Followの差分](evidence/follow-50-difference.png) · [100体Raceの差分](evidence/race-100-difference.png) · [100体Followの差分](evidence/follow-100-difference.png)
+
+## 操作と再現
+
+リポジトリのルートで `python3 scripts/ridge-surface/serve.py` を実行し、PCで `http://localhost:8000/` を開く。同じWi-FiのスマホはPCのLANアドレスのポート8000を開く。基準・群・単色・併用をそれぞれ選び、「出走設定」で頭数を変更できる。通常の従来／ピクセル表示の切替と実機計測機能も使える。実機JSONの統合ビルド名に試作名を記録する。
+
+[再測定・ビルド・回帰の手順](../../scripts/ridge-surface/README.md) · [配信デモ検証](evidence/demo-check.json)
+
+開始HEADは `2606922a521ae9d9d8a4563824c22b13f2d12815`。比較用の候補と証拠を追加した。元のゲーム、S型原本、24姿勢、LOD、従来の比較資料は開始HEADのツリーと一致する。[ソース・素材の検算](evidence/preserved.json)
+
+計測はChromium / ANGLE SwiftShader、CPU割当上限2コア相当。PCは1100×745のブラウザ、実描画736×500・AA有。スマホ幅は390×844、タッチ・DPR 2.625、実描画561×859・AA無。各候補の実RAFは各条件1試行で、ホスト負荷とブラウザスケジューリングの変動を含む。物理GPU搭載PCとAndroid実機は未測定。通常18体とS型群走の表面負荷、密集時の頭冠・四脚の重なりは継続課題となる。
+'''
+key='pc-100-pixel-follow'
+f=lambda mode,col:value(gpu,mode,key,col)
+key_race='pc-100-pixel-race'
+r=lambda mode,col:value(gpu,mode,key_race,col)
+p=lambda mode,col:value(perf,mode,key_race,col)
+findings=f'''群カリングはPC・100体Followで提出三角形を{f('group','triangle_reduction_pct'):.2f}%削減し、表面GPUは{f('base','mesh_gpu_ms'):.1f}→{f('group','mesh_gpu_ms'):.1f} msだった。メッシュ提出を含むCPU時間は{f('base','cpu_submit_mesh_ms'):.2f}→{f('group','cpu_submit_mesh_ms'):.2f} ms。PC・100体Raceの三角形削減は{r('group','triangle_reduction_pct'):.2f}%、p95は{p('base','p95_ms'):.1f}→{p('group','p95_ms'):.1f} msとなった。
+
+単色候補は全129,550面のうち1,202面、約0.93%。条件に合う頂点だけを複製したが、追加属性と画素ごとの範囲・陰影判定に対して参照を省ける割合は小さい。PC・100体Raceでは表面GPUが{r('base','mesh_gpu_ms'):.1f}→{r('color','mesh_gpu_ms'):.1f} ms、p95が{p('base','p95_ms'):.1f}→{p('color','p95_ms'):.1f} msだった。
+
+併用のPC・100体Followは三角形を{f('both','triangle_reduction_pct'):.2f}%削減し、表面GPUが{f('base','mesh_gpu_ms'):.1f}→{f('both','mesh_gpu_ms'):.1f} msだった。提出数の削減と実処理時間の短縮は必ずしも一致しなかった。0.1 ms程度のp95差も上表の短縮件数に含む。今回の単発試行から小差の再現性は確定できない。
+
+候補の初期実装では、非同期素材読込の途中で共有WebGLの頂点配列を誤更新し得る問題も見つかった。素材取得を先に終え、描画状態を復元した後に候補専用の頂点配列を設定する順序へ修正した。読込を意図的に遅延させながら走行を継続する追加テストでは、全4条件で既存281個の配列が一致し、WebGLエラーは0。提出するGPU・実RAF・画質・回帰・動画は修正後のコードで再測定した。[非同期読込回帰](evidence/async-load.json)'''
+(root/'README.md').write_text(text.replace('STATUS','\n'.join(status)).replace('TABLE','\n'.join(table)).replace('FINDINGS',findings))

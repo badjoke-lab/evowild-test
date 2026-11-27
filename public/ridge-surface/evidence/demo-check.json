@@ -1,0 +1,108 @@
+{
+  "cases": [
+    {
+      "mode": "base",
+      "draw": {
+        "fine": 0,
+        "race": 0,
+        "mid": 50,
+        "transition": 0,
+        "sprite": 0,
+        "outside": 0
+      },
+      "stats": null,
+      "errors": []
+    },
+    {
+      "mode": "group",
+      "draw": {
+        "fine": 0,
+        "race": 0,
+        "mid": 50,
+        "transition": 0,
+        "sprite": 0,
+        "outside": 0
+      },
+      "stats": {
+        "mode": "group",
+        "eligible": 0,
+        "total": 129550,
+        "groups": 9192,
+        "groupsTested": 2107,
+        "groupBack": 157,
+        "groupOutside": 0,
+        "trianglesBefore": 40876,
+        "trianglesAfter": 22186
+      },
+      "errors": []
+    },
+    {
+      "mode": "color",
+      "draw": {
+        "fine": 0,
+        "race": 0,
+        "mid": 50,
+        "transition": 0,
+        "sprite": 0,
+        "outside": 0
+      },
+      "stats": {
+        "mode": "color",
+        "eligible": 1202,
+        "total": 129550,
+        "groups": 0,
+        "groupsTested": 0,
+        "groupBack": 0,
+        "groupOutside": 0,
+        "trianglesBefore": 0,
+        "trianglesAfter": 0
+      },
+      "errors": []
+    },
+    {
+      "mode": "both",
+      "draw": {
+        "fine": 0,
+        "race": 0,
+        "mid": 50,
+        "transition": 0,
+        "sprite": 0,
+        "outside": 0
+      },
+      "stats": {
+        "mode": "both",
+        "eligible": 1202,
+        "total": 129550,
+        "groups": 9192,
+        "groupsTested": 2107,
+        "groupBack": 149,
+        "groupOutside": 0,
+        "trianglesBefore": 40876,
+        "trianglesAfter": 22519
+      },
+      "errors": []
+    }
+  ],
+  "movies": [
+    {
+      "width": 836,
+      "height": 540,
+      "duration": 6.934
+    },
+    {
+      "width": 836,
+      "height": 540,
+      "duration": 6.915
+    },
+    {
+      "width": 836,
+      "height": 540,
+      "duration": 6.617
+    },
+    {
+      "width": 836,
+      "height": 540,
+      "duration": 6.796
+    }
+  ]
+}

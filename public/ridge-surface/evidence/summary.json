@@ -1,0 +1,212 @@
+{
+  "group": {
+    "pairs": 168,
+    "mask_difference": 0,
+    "max_rgb_difference": 0,
+    "gpu_improved": 6,
+    "p95_improved": 3,
+    "both_improved": 3,
+    "cases": [
+      {
+        "case": "pc-100-pixel-follow",
+        "gpu_improved": true,
+        "p95_improved": false
+      },
+      {
+        "case": "pc-100-pixel-race",
+        "gpu_improved": false,
+        "p95_improved": false
+      },
+      {
+        "case": "pc-18-pixel-follow",
+        "gpu_improved": false,
+        "p95_improved": false
+      },
+      {
+        "case": "pc-18-pixel-race",
+        "gpu_improved": false,
+        "p95_improved": false
+      },
+      {
+        "case": "pc-50-pixel-follow",
+        "gpu_improved": true,
+        "p95_improved": true
+      },
+      {
+        "case": "pc-50-pixel-race",
+        "gpu_improved": true,
+        "p95_improved": false
+      },
+      {
+        "case": "phone-100-pixel-follow",
+        "gpu_improved": false,
+        "p95_improved": false
+      },
+      {
+        "case": "phone-100-pixel-race",
+        "gpu_improved": false,
+        "p95_improved": false
+      },
+      {
+        "case": "phone-18-pixel-follow",
+        "gpu_improved": true,
+        "p95_improved": true
+      },
+      {
+        "case": "phone-18-pixel-race",
+        "gpu_improved": false,
+        "p95_improved": false
+      },
+      {
+        "case": "phone-50-pixel-follow",
+        "gpu_improved": true,
+        "p95_improved": true
+      },
+      {
+        "case": "phone-50-pixel-race",
+        "gpu_improved": true,
+        "p95_improved": false
+      }
+    ]
+  },
+  "color": {
+    "pairs": 168,
+    "mask_difference": 0,
+    "max_rgb_difference": 0,
+    "gpu_improved": 2,
+    "p95_improved": 3,
+    "both_improved": 0,
+    "cases": [
+      {
+        "case": "pc-100-pixel-follow",
+        "gpu_improved": false,
+        "p95_improved": true
+      },
+      {
+        "case": "pc-100-pixel-race",
+        "gpu_improved": false,
+        "p95_improved": false
+      },
+      {
+        "case": "pc-18-pixel-follow",
+        "gpu_improved": false,
+        "p95_improved": false
+      },
+      {
+        "case": "pc-18-pixel-race",
+        "gpu_improved": false,
+        "p95_improved": false
+      },
+      {
+        "case": "pc-50-pixel-follow",
+        "gpu_improved": false,
+        "p95_improved": true
+      },
+      {
+        "case": "pc-50-pixel-race",
+        "gpu_improved": true,
+        "p95_improved": false
+      },
+      {
+        "case": "phone-100-pixel-follow",
+        "gpu_improved": false,
+        "p95_improved": false
+      },
+      {
+        "case": "phone-100-pixel-race",
+        "gpu_improved": false,
+        "p95_improved": false
+      },
+      {
+        "case": "phone-18-pixel-follow",
+        "gpu_improved": false,
+        "p95_improved": true
+      },
+      {
+        "case": "phone-18-pixel-race",
+        "gpu_improved": false,
+        "p95_improved": false
+      },
+      {
+        "case": "phone-50-pixel-follow",
+        "gpu_improved": false,
+        "p95_improved": false
+      },
+      {
+        "case": "phone-50-pixel-race",
+        "gpu_improved": true,
+        "p95_improved": false
+      }
+    ]
+  },
+  "both": {
+    "pairs": 168,
+    "mask_difference": 0,
+    "max_rgb_difference": 0,
+    "gpu_improved": 5,
+    "p95_improved": 2,
+    "both_improved": 1,
+    "cases": [
+      {
+        "case": "pc-100-pixel-follow",
+        "gpu_improved": false,
+        "p95_improved": false
+      },
+      {
+        "case": "pc-100-pixel-race",
+        "gpu_improved": false,
+        "p95_improved": false
+      },
+      {
+        "case": "pc-18-pixel-follow",
+        "gpu_improved": true,
+        "p95_improved": false
+      },
+      {
+        "case": "pc-18-pixel-race",
+        "gpu_improved": false,
+        "p95_improved": false
+      },
+      {
+        "case": "pc-50-pixel-follow",
+        "gpu_improved": true,
+        "p95_improved": true
+      },
+      {
+        "case": "pc-50-pixel-race",
+        "gpu_improved": false,
+        "p95_improved": false
+      },
+      {
+        "case": "phone-100-pixel-follow",
+        "gpu_improved": true,
+        "p95_improved": false
+      },
+      {
+        "case": "phone-100-pixel-race",
+        "gpu_improved": false,
+        "p95_improved": false
+      },
+      {
+        "case": "phone-18-pixel-follow",
+        "gpu_improved": true,
+        "p95_improved": false
+      },
+      {
+        "case": "phone-18-pixel-race",
+        "gpu_improved": false,
+        "p95_improved": false
+      },
+      {
+        "case": "phone-50-pixel-follow",
+        "gpu_improved": false,
+        "p95_improved": true
+      },
+      {
+        "case": "phone-50-pixel-race",
+        "gpu_improved": true,
+        "p95_improved": false
+      }
+    ]
+  }
+}

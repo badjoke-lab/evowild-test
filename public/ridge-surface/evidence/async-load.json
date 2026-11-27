@@ -1,0 +1,34 @@
+[
+  {
+    "mode": "base",
+    "differences": [],
+    "existing_arrays": 281,
+    "unchanged": true,
+    "elapsed_ms": 899.999999999998,
+    "gl": 0
+  },
+  {
+    "mode": "group",
+    "differences": [],
+    "existing_arrays": 281,
+    "unchanged": true,
+    "elapsed_ms": 999.9999999999977,
+    "gl": 0
+  },
+  {
+    "mode": "color",
+    "differences": [],
+    "existing_arrays": 281,
+    "unchanged": true,
+    "elapsed_ms": 1333.3333333333321,
+    "gl": 0
+  },
+  {
+    "mode": "both",
+    "differences": [],
+    "existing_arrays": 281,
+    "unchanged": true,
+    "elapsed_ms": 1366.6666666666656,
+    "gl": 0
+  }
+]

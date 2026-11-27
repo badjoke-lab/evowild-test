@@ -1,0 +1,28 @@
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 19 modules transformed.
+
+(!) outDir /workspace/scratch/ridge-surface/build is not inside project root and will not be emptied.
+Use --emptyOutDir to override.
+
+rendering chunks...
+computing gzip size...
+../scratch/ridge-surface/build/race-lane5.html                              1.90 kB │ gzip:   0.87 kB
+../scratch/ridge-surface/build/race-2_5d.html                               3.06 kB │ gzip:   1.22 kB
+../scratch/ridge-surface/build/race-quality.html                            4.16 kB │ gzip:   1.51 kB
+../scratch/ridge-surface/build/index.html                                   5.24 kB │ gzip:   1.92 kB
+../scratch/ridge-surface/build/assets/race_lane5-OeTLpWgh.css               3.67 kB │ gzip:   1.39 kB
+../scratch/ridge-surface/build/assets/race2_5d-DefcRidv.css                 4.05 kB │ gzip:   1.58 kB
+../scratch/ridge-surface/build/assets/main-7IC1lUYQ.css                     5.39 kB │ gzip:   1.79 kB
+../scratch/ridge-surface/build/assets/race_quality-CdPDXUyA.css            10.85 kB │ gzip:   2.83 kB
+../scratch/ridge-surface/build/assets/modulepreload-polyfill-B5Qt9EMX.js    0.71 kB │ gzip:   0.40 kB
+../scratch/ridge-surface/build/assets/race2_5d-JtDeRsQc.js                  9.41 kB │ gzip:   4.16 kB
+../scratch/ridge-surface/build/assets/race_lane5-BZ0EtTVs.js               14.29 kB │ gzip:   6.14 kB
+../scratch/ridge-surface/build/assets/race_quality-MJM96CVX.js             33.68 kB │ gzip:  12.60 kB
+../scratch/ridge-surface/build/assets/main-CrT2t-7-.js                    757.91 kB │ gzip: 203.82 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 2.71s
