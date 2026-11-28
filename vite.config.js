@@ -7,6 +7,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(process.cwd(), "index.html"),
+        s_form: resolve(process.cwd(), "s-form.html"),
         race2_5d: resolve(process.cwd(), "race-2_5d.html"),
         race_lane5: resolve(process.cwd(), "race-lane5.html"),
         race_quality: resolve(process.cwd(), "race-quality.html")

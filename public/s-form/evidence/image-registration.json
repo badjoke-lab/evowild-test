@@ -1,0 +1,92 @@
+[
+  {
+    "view": "side",
+    "shared_capture_crop": [
+      137,
+      74,
+      914,
+      573
+    ],
+    "shared_scale": 0.4864864864864865,
+    "reference_scale": 0.5396181164099253,
+    "reference_crop": [
+      66,
+      70,
+      750,
+      508
+    ],
+    "tail_only": false
+  },
+  {
+    "view": "front",
+    "shared_capture_crop": [
+      415,
+      74,
+      585,
+      573
+    ],
+    "shared_scale": 0.531062124248497,
+    "reference_scale": 0.6382748648461221,
+    "reference_crop": [
+      787,
+      107,
+      930,
+      506
+    ],
+    "tail_only": false
+  },
+  {
+    "view": "rear",
+    "shared_capture_crop": [
+      415,
+      74,
+      585,
+      573
+    ],
+    "shared_scale": 0.531062124248497,
+    "reference_scale": 0.6382748648461221,
+    "reference_crop": [
+      978,
+      107,
+      1110,
+      506
+    ],
+    "tail_only": false
+  },
+  {
+    "view": "top",
+    "shared_capture_crop": [
+      137,
+      240,
+      914,
+      410
+    ],
+    "shared_scale": 0.3963963963963964,
+    "reference_scale": 1.2173913043478262,
+    "reference_crop": [
+      1177,
+      781,
+      1430,
+      851
+    ],
+    "tail_only": true
+  },
+  {
+    "view": "quarter",
+    "shared_capture_crop": [
+      247,
+      82,
+      794,
+      586
+    ],
+    "shared_scale": 0.5257936507936508,
+    "reference_scale": 0.5813345723793314,
+    "reference_crop": [
+      1138,
+      87,
+      1430,
+      504
+    ],
+    "tail_only": false
+  }
+]

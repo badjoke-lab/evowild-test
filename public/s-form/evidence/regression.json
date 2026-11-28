@@ -1,0 +1,647 @@
+{
+  "main_js_sha256": "a8e6f290a636b558cdbd31dcefdea7ca9e24232909674e78c07ba32f499627a3",
+  "renderer": "Chromium / SwiftShader",
+  "cases": [
+    {
+      "count": 1,
+      "field": "s",
+      "matching_checkpoints": 7,
+      "old": [
+        {
+          "label": "race",
+          "state_sha256": "c93441fcc5970174d8624a555fa001d97fd7335b7586c06423179b4b8a140811",
+          "elapsed_ms": 2000.0000000000018,
+          "rank": 1,
+          "draw": {
+            "fine": 0,
+            "race": 0,
+            "mid": 1,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "label": "follow",
+          "state_sha256": "fab343c5fe84fc22b140572785abc6d2d60291ec5cd302c6d52e8f51c6033ac7",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 1,
+          "draw": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "label": "pause",
+          "state_sha256": "b65bfb60e28e115137a429933763ed980529b49afdedac220e4aa46f7d67936b",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 1,
+          "draw": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "label": "switch-paused",
+          "state_sha256": "b65bfb60e28e115137a429933763ed980529b49afdedac220e4aa46f7d67936b",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 1
+        },
+        {
+          "label": "tactical",
+          "state_sha256": "01e7a3e35e5c193e50f1b7ae204eb5eed0509adbadb7cae39f465c7b01504ab7",
+          "elapsed_ms": 3999.999999999998,
+          "rank": 1
+        },
+        {
+          "label": "morph",
+          "state_sha256": "c6992dc7e266da65dab6857455a41833964a4ce1b9151fcdf3446fd42f63763a",
+          "elapsed_ms": 4099.999999999997,
+          "rank": 1
+        },
+        {
+          "label": "reset",
+          "state_sha256": "bde97cc44fb6b0a0a6863e914bce8bb731251bcbe7c04005642e9e6229bab006",
+          "elapsed_ms": 0,
+          "rank": 1
+        }
+      ],
+      "form": [
+        {
+          "label": "race",
+          "state_sha256": "c93441fcc5970174d8624a555fa001d97fd7335b7586c06423179b4b8a140811",
+          "elapsed_ms": 2000.0000000000018,
+          "rank": 1,
+          "draw": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "label": "follow",
+          "state_sha256": "fab343c5fe84fc22b140572785abc6d2d60291ec5cd302c6d52e8f51c6033ac7",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 1,
+          "draw": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "label": "pause",
+          "state_sha256": "b65bfb60e28e115137a429933763ed980529b49afdedac220e4aa46f7d67936b",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 1,
+          "draw": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "label": "switch-paused",
+          "state_sha256": "b65bfb60e28e115137a429933763ed980529b49afdedac220e4aa46f7d67936b",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 1
+        },
+        {
+          "label": "tactical",
+          "state_sha256": "01e7a3e35e5c193e50f1b7ae204eb5eed0509adbadb7cae39f465c7b01504ab7",
+          "elapsed_ms": 3999.999999999998,
+          "rank": 1
+        },
+        {
+          "label": "morph",
+          "state_sha256": "c6992dc7e266da65dab6857455a41833964a4ce1b9151fcdf3446fd42f63763a",
+          "elapsed_ms": 4099.999999999997,
+          "rank": 1
+        },
+        {
+          "label": "reset",
+          "state_sha256": "bde97cc44fb6b0a0a6863e914bce8bb731251bcbe7c04005642e9e6229bab006",
+          "elapsed_ms": 0,
+          "rank": 1
+        }
+      ]
+    },
+    {
+      "count": 18,
+      "field": "mixed",
+      "matching_checkpoints": 7,
+      "old": [
+        {
+          "label": "race",
+          "state_sha256": "797f84cc1b2484d2a95c0f18d0632d49e41844b37be13f48e4477a9bdd25c760",
+          "elapsed_ms": 2000.0000000000018,
+          "rank": 6,
+          "draw": {
+            "fine": 0,
+            "race": 1,
+            "mid": 4,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "label": "follow",
+          "state_sha256": "fea13207795b8d10133b3ff4539f30ecf48fca52694d4e8af0544ee5d74f1ee6",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 4,
+          "draw": {
+            "fine": 3,
+            "race": 1,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 1
+          }
+        },
+        {
+          "label": "pause",
+          "state_sha256": "e5a5723dcadb98a8fd8b5a7260763fbd6319e5e97dc29261b380065a9a645c00",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 4,
+          "draw": {
+            "fine": 4,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 1
+          }
+        },
+        {
+          "label": "switch-paused",
+          "state_sha256": "e5a5723dcadb98a8fd8b5a7260763fbd6319e5e97dc29261b380065a9a645c00",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 4
+        },
+        {
+          "label": "tactical",
+          "state_sha256": "ebefb71eae001fbcf5a5438e5919482c30297e9efe02492272399acfcdf82230",
+          "elapsed_ms": 3999.999999999998,
+          "rank": 3
+        },
+        {
+          "label": "morph",
+          "state_sha256": "c4a12f9f2ba3dd44262efa14c2956f161d49e8cdbddb0d750a9bc709c6103103",
+          "elapsed_ms": 4099.999999999997,
+          "rank": 3
+        },
+        {
+          "label": "reset",
+          "state_sha256": "415e07a712648a4693821f8aa8712b756f542eef9539dce5111926d08939fdfb",
+          "elapsed_ms": 0,
+          "rank": 6
+        }
+      ],
+      "form": [
+        {
+          "label": "race",
+          "state_sha256": "797f84cc1b2484d2a95c0f18d0632d49e41844b37be13f48e4477a9bdd25c760",
+          "elapsed_ms": 2000.0000000000018,
+          "rank": 6,
+          "draw": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "label": "follow",
+          "state_sha256": "fea13207795b8d10133b3ff4539f30ecf48fca52694d4e8af0544ee5d74f1ee6",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 4,
+          "draw": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "label": "pause",
+          "state_sha256": "e5a5723dcadb98a8fd8b5a7260763fbd6319e5e97dc29261b380065a9a645c00",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 4,
+          "draw": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "label": "switch-paused",
+          "state_sha256": "e5a5723dcadb98a8fd8b5a7260763fbd6319e5e97dc29261b380065a9a645c00",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 4
+        },
+        {
+          "label": "tactical",
+          "state_sha256": "ebefb71eae001fbcf5a5438e5919482c30297e9efe02492272399acfcdf82230",
+          "elapsed_ms": 3999.999999999998,
+          "rank": 3
+        },
+        {
+          "label": "morph",
+          "state_sha256": "c4a12f9f2ba3dd44262efa14c2956f161d49e8cdbddb0d750a9bc709c6103103",
+          "elapsed_ms": 4099.999999999997,
+          "rank": 3
+        },
+        {
+          "label": "reset",
+          "state_sha256": "415e07a712648a4693821f8aa8712b756f542eef9539dce5111926d08939fdfb",
+          "elapsed_ms": 0,
+          "rank": 6
+        }
+      ]
+    },
+    {
+      "count": 50,
+      "field": "s",
+      "matching_checkpoints": 7,
+      "old": [
+        {
+          "label": "race",
+          "state_sha256": "c82f2a776b7e7b069e8e856c424dfa8bbf09b45aad33d71c01f3397045050dde",
+          "elapsed_ms": 2000.0000000000018,
+          "rank": 6,
+          "draw": {
+            "fine": 0,
+            "race": 21,
+            "mid": 29,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "label": "follow",
+          "state_sha256": "62aa9db4c900f7971fb8d3c95481a90a7957725b58567507ba4e3955d18f0a2a",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 6,
+          "draw": {
+            "fine": 39,
+            "race": 1,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 10
+          }
+        },
+        {
+          "label": "pause",
+          "state_sha256": "a3b91d3ee66c176cdeb7a39d875dacc62133f46521829f44ec912d5b6aa5c814",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 6,
+          "draw": {
+            "fine": 39,
+            "race": 1,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 10
+          }
+        },
+        {
+          "label": "switch-paused",
+          "state_sha256": "a3b91d3ee66c176cdeb7a39d875dacc62133f46521829f44ec912d5b6aa5c814",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 6
+        },
+        {
+          "label": "tactical",
+          "state_sha256": "8fce3f48bc11c5cb410c9e9572ea195642c17cf19223c698292f546bf3694719",
+          "elapsed_ms": 3999.999999999998,
+          "rank": 6
+        },
+        {
+          "label": "morph",
+          "state_sha256": "e9e411c23b7a9585716d85a67dde5218f1efff81ea0f4c2b999cf039f64aa9d7",
+          "elapsed_ms": 4099.999999999997,
+          "rank": 6
+        },
+        {
+          "label": "reset",
+          "state_sha256": "b4afb500d1c7b9b2dd922d9411eef1ed2348767c2336e10fcec61e9589807f18",
+          "elapsed_ms": 0,
+          "rank": 6
+        }
+      ],
+      "form": [
+        {
+          "label": "race",
+          "state_sha256": "c82f2a776b7e7b069e8e856c424dfa8bbf09b45aad33d71c01f3397045050dde",
+          "elapsed_ms": 2000.0000000000018,
+          "rank": 6,
+          "draw": {
+            "fine": 50,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "label": "follow",
+          "state_sha256": "62aa9db4c900f7971fb8d3c95481a90a7957725b58567507ba4e3955d18f0a2a",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 6,
+          "draw": {
+            "fine": 41,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 9
+          }
+        },
+        {
+          "label": "pause",
+          "state_sha256": "a3b91d3ee66c176cdeb7a39d875dacc62133f46521829f44ec912d5b6aa5c814",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 6,
+          "draw": {
+            "fine": 41,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 9
+          }
+        },
+        {
+          "label": "switch-paused",
+          "state_sha256": "a3b91d3ee66c176cdeb7a39d875dacc62133f46521829f44ec912d5b6aa5c814",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 6
+        },
+        {
+          "label": "tactical",
+          "state_sha256": "8fce3f48bc11c5cb410c9e9572ea195642c17cf19223c698292f546bf3694719",
+          "elapsed_ms": 3999.999999999998,
+          "rank": 6
+        },
+        {
+          "label": "morph",
+          "state_sha256": "e9e411c23b7a9585716d85a67dde5218f1efff81ea0f4c2b999cf039f64aa9d7",
+          "elapsed_ms": 4099.999999999997,
+          "rank": 6
+        },
+        {
+          "label": "reset",
+          "state_sha256": "b4afb500d1c7b9b2dd922d9411eef1ed2348767c2336e10fcec61e9589807f18",
+          "elapsed_ms": 0,
+          "rank": 6
+        }
+      ]
+    }
+  ],
+  "mobile": [
+    {
+      "count": 1,
+      "field": "s",
+      "checkpoints": [
+        {
+          "label": "race",
+          "state_sha256": "e08d71464de9b182357e8f158f70d91b7e612e6529a32f3b761cbc6638bb2fb7",
+          "elapsed_ms": 2000.0000000000018,
+          "rank": 1,
+          "draw": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "label": "follow",
+          "state_sha256": "591f23aada1f0b01e25a6943accdbf3b1f20089d3601e1caab05a11b7df98575",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 1,
+          "draw": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "label": "pause",
+          "state_sha256": "d56ba908a06256d1ac53f179fe733463579cd2c6ae01da167c5a430fe1d2b0fd",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 1,
+          "draw": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "label": "switch-paused",
+          "state_sha256": "d56ba908a06256d1ac53f179fe733463579cd2c6ae01da167c5a430fe1d2b0fd",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 1
+        },
+        {
+          "label": "tactical",
+          "state_sha256": "ee8782ef5086c62dbbb3cc97208f5ddcfbc370b1c0023a3cac54382c50acf82d",
+          "elapsed_ms": 3999.999999999998,
+          "rank": 1
+        },
+        {
+          "label": "morph",
+          "state_sha256": "6391bb1ced380e8c21934cf8586adde425417a932cc6fc00e57dd3a42962982f",
+          "elapsed_ms": 4099.999999999997,
+          "rank": 1
+        },
+        {
+          "label": "reset",
+          "state_sha256": "8258f6a51f1dcf8b5d281f937e5436fe84dfe2a5fdd82e53d9ceeaf63bc17b7a",
+          "elapsed_ms": 0,
+          "rank": 1
+        }
+      ]
+    },
+    {
+      "count": 18,
+      "field": "mixed",
+      "checkpoints": [
+        {
+          "label": "race",
+          "state_sha256": "a3228cef328ea651c070d754194330bf22f6fba094b53369b184475ad0e39695",
+          "elapsed_ms": 2000.0000000000018,
+          "rank": 6,
+          "draw": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "label": "follow",
+          "state_sha256": "237b33d4f57fcd9a647c53c841aa07f7daf72e22983e20b1dc725669b5f68666",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 4,
+          "draw": {
+            "fine": 3,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 2
+          }
+        },
+        {
+          "label": "pause",
+          "state_sha256": "866467d4974e2635027f7548e48c2ad1bf8ffc6709959295e2b7ce5fd23dd174",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 4,
+          "draw": {
+            "fine": 3,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 2
+          }
+        },
+        {
+          "label": "switch-paused",
+          "state_sha256": "866467d4974e2635027f7548e48c2ad1bf8ffc6709959295e2b7ce5fd23dd174",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 4
+        },
+        {
+          "label": "tactical",
+          "state_sha256": "2aa4ee1665e29feb97eb3ef1a0b8e88273a6203d9e07612fd6a9db7f25a6248f",
+          "elapsed_ms": 3999.999999999998,
+          "rank": 3
+        },
+        {
+          "label": "morph",
+          "state_sha256": "19f81ad2a121aa3851072fbd3d61d080a523b54295cc472d243254c896d123e3",
+          "elapsed_ms": 4099.999999999997,
+          "rank": 3
+        },
+        {
+          "label": "reset",
+          "state_sha256": "bc733aa4baee26005cb2ec4dd7dcd53c608cdac9ff0789c1f5e1226180ff256a",
+          "elapsed_ms": 0,
+          "rank": 6
+        }
+      ]
+    },
+    {
+      "count": 50,
+      "field": "s",
+      "checkpoints": [
+        {
+          "label": "race",
+          "state_sha256": "6027bf1ad21c45f7b57e041d138004e82c8051d566c1aa3522f6b2850c97a0fe",
+          "elapsed_ms": 2000.0000000000018,
+          "rank": 6,
+          "draw": {
+            "fine": 50,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "label": "follow",
+          "state_sha256": "0952d3c4ca70c7d15e76757dc0eacf21bacafaaf385e1f8199c2d9908d8baa08",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 6,
+          "draw": {
+            "fine": 35,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 15
+          }
+        },
+        {
+          "label": "pause",
+          "state_sha256": "75158258c9633064af3e59ae2a72964b8047fc57a9918f0bdd61025e95e4c7f8",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 6,
+          "draw": {
+            "fine": 35,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 15
+          }
+        },
+        {
+          "label": "switch-paused",
+          "state_sha256": "75158258c9633064af3e59ae2a72964b8047fc57a9918f0bdd61025e95e4c7f8",
+          "elapsed_ms": 3666.666666666668,
+          "rank": 6
+        },
+        {
+          "label": "tactical",
+          "state_sha256": "e7af14833d0476e3d0f816eea86961df6158d37abdfed63f38460f4a8db8e078",
+          "elapsed_ms": 3999.999999999998,
+          "rank": 6
+        },
+        {
+          "label": "morph",
+          "state_sha256": "c2e3437017e83a1b5c6a01d899815581d448bd91ca9b477d1e9ea1eb2910a433",
+          "elapsed_ms": 4099.999999999997,
+          "rank": 6
+        },
+        {
+          "label": "reset",
+          "state_sha256": "2716afe3580b532f3dc1431084c3508a57c6eec9745bd47f944f1c17996fcd5e",
+          "elapsed_ms": 0,
+          "rank": 6
+        }
+      ]
+    }
+  ]
+}

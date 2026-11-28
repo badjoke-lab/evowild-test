@@ -1,0 +1,16 @@
+{
+  "start_head": "a93fa4b65ea398d4e8ec0560c600f0d50abe1e72",
+  "old_game_assets_and_renderers_unchanged": true,
+  "sha256": {
+    "src/main.js": "a8e6f290a636b558cdbd31dcefdea7ca9e24232909674e78c07ba32f499627a3",
+    "public/s-form/s-form.glb": "34ce4cec8dae78ffc127df5f56458a3436579a0c4d3c56f5fbd2f9057fe5d2c1",
+    "public/s-form/anatomy.json": "0a92fdb5a27def8580f8bfdbf1deba24c0eaaac17c7c1336e1a11d5f3d47fbd3",
+    "src/s-form/model.js": "3b1327bc8fae8e47c137c1c8474b3ff3bf79db139cc6c0a94eee591a7b3faade",
+    "src/s-form/race.js": "b56930a9ebf8b139ebfcefaab9095fcd910eb93e7b4d5d466d757d56e6427123",
+    "src/race-trial.js": "0d56d20c3acd329527f5577a2763a8680e5c48e495b6728f1a17fc99e2437edd",
+    "scripts/s-form/build.py": "3f17211ee461fe2d742d23c2e10a4a802e76c2a03bd84913c0ec19e7f0e9ffe0",
+    "art/s-creature/references/00_s_type_modeling_image_v1.png": "93befcfdbe8863abd3140ec6b92d9f06ca2dcbf70bb551334eb063831b9831f6",
+    "art/s-creature/studies/s-form-20261128/s-form.blend": "78a461c631d77cf455e8cda1e82429c75d0dca5a394e42199cb7e1ce9efe18a6"
+  },
+  "baseline_distribution_sha256": "ceecf9adc98706387a73dbf94f2c4691160a9fd514fa1f2a2670e7e1858f7505"
+}

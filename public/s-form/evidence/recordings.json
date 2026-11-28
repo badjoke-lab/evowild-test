@@ -1,0 +1,2467 @@
+{
+  "renderer": "Chromium SwiftShader",
+  "recordings": [
+    {
+      "name": "turntable",
+      "kind": "orbit",
+      "count": 1,
+      "sampling": "real browser wall clock / MediaRecorder, no generated animation frames",
+      "samples": [
+        {
+          "wall_ms": 734.9999999999068,
+          "phase": null,
+          "yaw": 22.049999999997205
+        },
+        {
+          "wall_ms": 1018.299999999907,
+          "phase": null,
+          "yaw": 30.54899999999721
+        },
+        {
+          "wall_ms": 1034.8999999999069,
+          "phase": null,
+          "yaw": 31.046999999997205
+        },
+        {
+          "wall_ms": 1134.8999999999069,
+          "phase": null,
+          "yaw": 34.046999999997205
+        },
+        {
+          "wall_ms": 1384.8999999999069,
+          "phase": null,
+          "yaw": 41.546999999997205
+        },
+        {
+          "wall_ms": 1601.5999999999067,
+          "phase": null,
+          "yaw": 48.047999999997195
+        },
+        {
+          "wall_ms": 1768.199999999907,
+          "phase": null,
+          "yaw": 53.045999999997214
+        },
+        {
+          "wall_ms": 1901.5999999999067,
+          "phase": null,
+          "yaw": 57.0479999999972
+        },
+        {
+          "wall_ms": 2068.199999999907,
+          "phase": null,
+          "yaw": 62.045999999997214
+        },
+        {
+          "wall_ms": 2184.899999999907,
+          "phase": null,
+          "yaw": 65.54699999999721
+        },
+        {
+          "wall_ms": 2301.4999999999072,
+          "phase": null,
+          "yaw": 69.04499999999722
+        },
+        {
+          "wall_ms": 2468.199999999907,
+          "phase": null,
+          "yaw": 74.0459999999972
+        },
+        {
+          "wall_ms": 2584.7999999999065,
+          "phase": null,
+          "yaw": 77.5439999999972
+        },
+        {
+          "wall_ms": 2701.4999999999072,
+          "phase": null,
+          "yaw": 81.04499999999722
+        },
+        {
+          "wall_ms": 2818.0999999999067,
+          "phase": null,
+          "yaw": 84.5429999999972
+        },
+        {
+          "wall_ms": 2968.199999999907,
+          "phase": null,
+          "yaw": 89.0459999999972
+        },
+        {
+          "wall_ms": 3068.0999999999067,
+          "phase": null,
+          "yaw": 92.04299999999719
+        },
+        {
+          "wall_ms": 3184.899999999907,
+          "phase": null,
+          "yaw": 95.54699999999721
+        },
+        {
+          "wall_ms": 3301.4999999999072,
+          "phase": null,
+          "yaw": 99.04499999999723
+        },
+        {
+          "wall_ms": 3418.199999999907,
+          "phase": null,
+          "yaw": 102.54599999999722
+        },
+        {
+          "wall_ms": 3568.0999999999067,
+          "phase": null,
+          "yaw": 107.0429999999972
+        },
+        {
+          "wall_ms": 3668.0999999999067,
+          "phase": null,
+          "yaw": 110.04299999999719
+        },
+        {
+          "wall_ms": 3784.7999999999065,
+          "phase": null,
+          "yaw": 113.54399999999718
+        },
+        {
+          "wall_ms": 3901.399999999907,
+          "phase": null,
+          "yaw": 117.0419999999972
+        },
+        {
+          "wall_ms": 4018.0999999999067,
+          "phase": null,
+          "yaw": 120.54299999999719
+        },
+        {
+          "wall_ms": 4168.099999999907,
+          "phase": null,
+          "yaw": 125.04299999999719
+        },
+        {
+          "wall_ms": 4284.7999999999065,
+          "phase": null,
+          "yaw": 128.5439999999972
+        },
+        {
+          "wall_ms": 4401.399999999907,
+          "phase": null,
+          "yaw": 132.04199999999722
+        },
+        {
+          "wall_ms": 4534.7999999999065,
+          "phase": null,
+          "yaw": 136.0439999999972
+        },
+        {
+          "wall_ms": 4684.699999999907,
+          "phase": null,
+          "yaw": 140.5409999999972
+        },
+        {
+          "wall_ms": 4901.399999999907,
+          "phase": null,
+          "yaw": 147.04199999999722
+        },
+        {
+          "wall_ms": 5068.099999999907,
+          "phase": null,
+          "yaw": 152.0429999999972
+        },
+        {
+          "wall_ms": 5184.7999999999065,
+          "phase": null,
+          "yaw": 155.5439999999972
+        },
+        {
+          "wall_ms": 5318.099999999908,
+          "phase": null,
+          "yaw": 159.54299999999725
+        },
+        {
+          "wall_ms": 5468.099999999908,
+          "phase": null,
+          "yaw": 164.04299999999722
+        },
+        {
+          "wall_ms": 5601.399999999907,
+          "phase": null,
+          "yaw": 168.0419999999972
+        },
+        {
+          "wall_ms": 5734.7999999999065,
+          "phase": null,
+          "yaw": 172.0439999999972
+        },
+        {
+          "wall_ms": 5884.699999999906,
+          "phase": null,
+          "yaw": 176.54099999999718
+        },
+        {
+          "wall_ms": 6017.999999999907,
+          "phase": null,
+          "yaw": 180.53999999999724
+        },
+        {
+          "wall_ms": 6184.699999999906,
+          "phase": null,
+          "yaw": 185.54099999999718
+        },
+        {
+          "wall_ms": 6318.099999999908,
+          "phase": null,
+          "yaw": 189.54299999999722
+        },
+        {
+          "wall_ms": 6467.999999999907,
+          "phase": null,
+          "yaw": 194.0399999999972
+        },
+        {
+          "wall_ms": 6601.399999999907,
+          "phase": null,
+          "yaw": 198.04199999999722
+        },
+        {
+          "wall_ms": 6717.999999999907,
+          "phase": null,
+          "yaw": 201.53999999999724
+        },
+        {
+          "wall_ms": 6884.699999999906,
+          "phase": null,
+          "yaw": 206.54099999999718
+        },
+        {
+          "wall_ms": 7017.999999999907,
+          "phase": null,
+          "yaw": 210.53999999999724
+        },
+        {
+          "wall_ms": 7167.999999999907,
+          "phase": null,
+          "yaw": 215.0399999999972
+        },
+        {
+          "wall_ms": 7301.2999999999065,
+          "phase": null,
+          "yaw": 219.0389999999972
+        },
+        {
+          "wall_ms": 7417.999999999907,
+          "phase": null,
+          "yaw": 222.53999999999724
+        },
+        {
+          "wall_ms": 7601.2999999999065,
+          "phase": null,
+          "yaw": 228.0389999999972
+        },
+        {
+          "wall_ms": 7717.899999999907,
+          "phase": null,
+          "yaw": 231.53699999999722
+        },
+        {
+          "wall_ms": 7867.999999999907,
+          "phase": null,
+          "yaw": 236.03999999999724
+        },
+        {
+          "wall_ms": 8001.2999999999065,
+          "phase": null,
+          "yaw": 240.0389999999972
+        },
+        {
+          "wall_ms": 8117.999999999907,
+          "phase": null,
+          "yaw": 243.5399999999972
+        },
+        {
+          "wall_ms": 8234.599999999908,
+          "phase": null,
+          "yaw": 247.03799999999723
+        },
+        {
+          "wall_ms": 8384.599999999908,
+          "phase": null,
+          "yaw": 251.53799999999723
+        },
+        {
+          "wall_ms": 8501.199999999906,
+          "phase": null,
+          "yaw": 255.03599999999716
+        },
+        {
+          "wall_ms": 8617.999999999907,
+          "phase": null,
+          "yaw": 258.53999999999724
+        },
+        {
+          "wall_ms": 8784.599999999908,
+          "phase": null,
+          "yaw": 263.5379999999972
+        },
+        {
+          "wall_ms": 8901.199999999906,
+          "phase": null,
+          "yaw": 267.03599999999716
+        },
+        {
+          "wall_ms": 9017.899999999907,
+          "phase": null,
+          "yaw": 270.5369999999972
+        },
+        {
+          "wall_ms": 9201.199999999906,
+          "phase": null,
+          "yaw": 276.03599999999716
+        },
+        {
+          "wall_ms": 9317.899999999907,
+          "phase": null,
+          "yaw": 279.5369999999972
+        },
+        {
+          "wall_ms": 9467.899999999907,
+          "phase": null,
+          "yaw": 284.0369999999972
+        },
+        {
+          "wall_ms": 9584.599999999908,
+          "phase": null,
+          "yaw": 287.5379999999972
+        },
+        {
+          "wall_ms": 9717.899999999907,
+          "phase": null,
+          "yaw": 291.5369999999972
+        },
+        {
+          "wall_ms": 9817.899999999907,
+          "phase": null,
+          "yaw": 294.5369999999972
+        },
+        {
+          "wall_ms": 9967.899999999907,
+          "phase": null,
+          "yaw": 299.03699999999725
+        },
+        {
+          "wall_ms": 10084.599999999908,
+          "phase": null,
+          "yaw": 302.5379999999972
+        },
+        {
+          "wall_ms": 10201.199999999906,
+          "phase": null,
+          "yaw": 306.0359999999972
+        },
+        {
+          "wall_ms": 10317.899999999907,
+          "phase": null,
+          "yaw": 309.53699999999725
+        },
+        {
+          "wall_ms": 10467.799999999907,
+          "phase": null,
+          "yaw": 314.0339999999972
+        },
+        {
+          "wall_ms": 10601.199999999906,
+          "phase": null,
+          "yaw": 318.0359999999972
+        },
+        {
+          "wall_ms": 10767.899999999907,
+          "phase": null,
+          "yaw": 323.0369999999972
+        },
+        {
+          "wall_ms": 10884.499999999907,
+          "phase": null,
+          "yaw": 326.53499999999724
+        },
+        {
+          "wall_ms": 11017.899999999907,
+          "phase": null,
+          "yaw": 330.5369999999972
+        },
+        {
+          "wall_ms": 11184.499999999907,
+          "phase": null,
+          "yaw": 335.5349999999972
+        },
+        {
+          "wall_ms": 11301.099999999908,
+          "phase": null,
+          "yaw": 339.03299999999723
+        },
+        {
+          "wall_ms": 11434.499999999907,
+          "phase": null,
+          "yaw": 343.03499999999724
+        },
+        {
+          "wall_ms": 11584.499999999907,
+          "phase": null,
+          "yaw": 347.53499999999724
+        },
+        {
+          "wall_ms": 11717.799999999907,
+          "phase": null,
+          "yaw": 351.53399999999715
+        },
+        {
+          "wall_ms": 11867.799999999907,
+          "phase": null,
+          "yaw": 356.0339999999972
+        },
+        {
+          "wall_ms": 12001.099999999908,
+          "phase": null,
+          "yaw": 360
+        }
+      ],
+      "width": 960,
+      "height": 640
+    },
+    {
+      "name": "gallop",
+      "kind": "gallop",
+      "count": 1,
+      "sampling": "real browser wall clock / MediaRecorder, no generated animation frames",
+      "samples": [
+        {
+          "wall_ms": 11.399999999954161,
+          "phase": 0.3799999999984721,
+          "yaw": 0
+        },
+        {
+          "wall_ms": 27.999999999952706,
+          "phase": 0.9333333333317569,
+          "yaw": 0
+        },
+        {
+          "wall_ms": 44.59999999995489,
+          "phase": 1.4866666666651631,
+          "yaw": 0
+        },
+        {
+          "wall_ms": 144.69999999995343,
+          "phase": 4.823333333331782,
+          "yaw": 0
+        },
+        {
+          "wall_ms": 277.9999999999527,
+          "phase": 9.266666666665092,
+          "yaw": 0
+        },
+        {
+          "wall_ms": 427.9999999999527,
+          "phase": 14.266666666665088,
+          "yaw": 0
+        },
+        {
+          "wall_ms": 561.299999999952,
+          "phase": 18.7099999999984,
+          "yaw": 0
+        },
+        {
+          "wall_ms": 694.6999999999534,
+          "phase": 23.156666666665117,
+          "yaw": 0
+        },
+        {
+          "wall_ms": 844.5999999999549,
+          "phase": 4.153333333331837,
+          "yaw": 0
+        },
+        {
+          "wall_ms": 977.8999999999542,
+          "phase": 8.596666666665136,
+          "yaw": 0
+        },
+        {
+          "wall_ms": 1127.9999999999527,
+          "phase": 13.599999999998424,
+          "yaw": 0
+        },
+        {
+          "wall_ms": 1261.1999999999534,
+          "phase": 18.03999999999845,
+          "yaw": 0
+        },
+        {
+          "wall_ms": 1394.6999999999534,
+          "phase": 22.489999999998446,
+          "yaw": 0
+        },
+        {
+          "wall_ms": 1544.599999999955,
+          "phase": 3.4866666666651653,
+          "yaw": 0
+        },
+        {
+          "wall_ms": 1677.8999999999542,
+          "phase": 7.929999999998479,
+          "yaw": 0
+        },
+        {
+          "wall_ms": 1827.8999999999542,
+          "phase": 12.929999999998472,
+          "yaw": 0
+        },
+        {
+          "wall_ms": 1961.1999999999534,
+          "phase": 17.373333333331786,
+          "yaw": 0
+        },
+        {
+          "wall_ms": 2077.899999999954,
+          "phase": 21.263333333331815,
+          "yaw": 0
+        },
+        {
+          "wall_ms": 2244.599999999955,
+          "phase": 2.819999999998501,
+          "yaw": 0
+        },
+        {
+          "wall_ms": 2377.899999999954,
+          "phase": 7.263333333331801,
+          "yaw": 0
+        },
+        {
+          "wall_ms": 2527.899999999954,
+          "phase": 12.263333333331815,
+          "yaw": -90
+        },
+        {
+          "wall_ms": 2677.899999999954,
+          "phase": 17.2633333333318,
+          "yaw": -90
+        },
+        {
+          "wall_ms": 2844.4999999999527,
+          "phase": 22.816666666665085,
+          "yaw": -90
+        },
+        {
+          "wall_ms": 2961.1999999999534,
+          "phase": 2.7066666666651287,
+          "yaw": -90
+        },
+        {
+          "wall_ms": 3061.1999999999534,
+          "phase": 6.039999999998457,
+          "yaw": -90
+        },
+        {
+          "wall_ms": 3177.899999999954,
+          "phase": 9.929999999998472,
+          "yaw": -90
+        },
+        {
+          "wall_ms": 3277.899999999954,
+          "phase": 13.263333333331815,
+          "yaw": -90
+        },
+        {
+          "wall_ms": 3427.899999999954,
+          "phase": 18.263333333331815,
+          "yaw": -90
+        },
+        {
+          "wall_ms": 3544.599999999955,
+          "phase": 22.15333333333183,
+          "yaw": -90
+        },
+        {
+          "wall_ms": 3644.4999999999527,
+          "phase": 1.4833333333317569,
+          "yaw": -90
+        },
+        {
+          "wall_ms": 3761.1999999999534,
+          "phase": 5.373333333331786,
+          "yaw": -90
+        },
+        {
+          "wall_ms": 3877.799999999952,
+          "phase": 9.259999999998428,
+          "yaw": -90
+        },
+        {
+          "wall_ms": 3977.799999999952,
+          "phase": 12.593333333331742,
+          "yaw": -90
+        },
+        {
+          "wall_ms": 4094.4999999999527,
+          "phase": 16.483333333331757,
+          "yaw": -90
+        },
+        {
+          "wall_ms": 4227.799999999952,
+          "phase": 20.926666666665085,
+          "yaw": -90
+        },
+        {
+          "wall_ms": 4327.799999999952,
+          "phase": 0.2599999999983993,
+          "yaw": -90
+        },
+        {
+          "wall_ms": 4444.499999999953,
+          "phase": 4.149999999998414,
+          "yaw": -90
+        },
+        {
+          "wall_ms": 4561.099999999955,
+          "phase": 8.036666666665184,
+          "yaw": -90
+        },
+        {
+          "wall_ms": 4677.799999999952,
+          "phase": 11.926666666665056,
+          "yaw": -90
+        },
+        {
+          "wall_ms": 4777.799999999952,
+          "phase": 15.2599999999984,
+          "yaw": -90
+        },
+        {
+          "wall_ms": 4877.799999999952,
+          "phase": 18.593333333331714,
+          "yaw": -90
+        },
+        {
+          "wall_ms": 5027.799999999952,
+          "phase": 23.593333333331742,
+          "yaw": 90
+        },
+        {
+          "wall_ms": 5144.399999999954,
+          "phase": 3.4799999999984834,
+          "yaw": 90
+        },
+        {
+          "wall_ms": 5244.499999999953,
+          "phase": 6.816666666665071,
+          "yaw": 90
+        },
+        {
+          "wall_ms": 5361.099999999955,
+          "phase": 10.703333333331841,
+          "yaw": 90
+        },
+        {
+          "wall_ms": 5477.799999999952,
+          "phase": 14.59333333333177,
+          "yaw": 90
+        },
+        {
+          "wall_ms": 5627.799999999952,
+          "phase": 19.593333333331714,
+          "yaw": 90
+        },
+        {
+          "wall_ms": 5761.099999999955,
+          "phase": 0.03666666666515539,
+          "yaw": 90
+        },
+        {
+          "wall_ms": 5844.499999999953,
+          "phase": 2.816666666665128,
+          "yaw": 90
+        },
+        {
+          "wall_ms": 5977.799999999952,
+          "phase": 7.259999999998428,
+          "yaw": 90
+        },
+        {
+          "wall_ms": 6077.699999999953,
+          "phase": 10.58999999999844,
+          "yaw": 90
+        },
+        {
+          "wall_ms": 6244.399999999954,
+          "phase": 16.14666666666514,
+          "yaw": 90
+        },
+        {
+          "wall_ms": 6344.399999999954,
+          "phase": 19.479999999998483,
+          "yaw": 90
+        },
+        {
+          "wall_ms": 6461.099999999955,
+          "phase": 23.36999999999847,
+          "yaw": 90
+        },
+        {
+          "wall_ms": 6577.699999999953,
+          "phase": 3.2566666666650974,
+          "yaw": 90
+        },
+        {
+          "wall_ms": 6677.799999999952,
+          "phase": 6.593333333331742,
+          "yaw": 90
+        },
+        {
+          "wall_ms": 6794.399999999954,
+          "phase": 10.479999999998483,
+          "yaw": 90
+        },
+        {
+          "wall_ms": 6944.299999999952,
+          "phase": 15.476666666665068,
+          "yaw": 90
+        },
+        {
+          "wall_ms": 7061.099999999955,
+          "phase": 19.369999999998498,
+          "yaw": 90
+        },
+        {
+          "wall_ms": 7194.299999999952,
+          "phase": 23.80999999999841,
+          "yaw": 90
+        },
+        {
+          "wall_ms": 7327.699999999953,
+          "phase": 4.256666666665126,
+          "yaw": 90
+        },
+        {
+          "wall_ms": 7444.299999999952,
+          "phase": 8.143333333331725,
+          "yaw": 90
+        },
+        {
+          "wall_ms": 7560.999999999953,
+          "phase": 12.033333333331768,
+          "yaw": -45
+        },
+        {
+          "wall_ms": 7660.999999999953,
+          "phase": 15.366666666665083,
+          "yaw": -45
+        },
+        {
+          "wall_ms": 7777.699999999953,
+          "phase": 19.256666666665126,
+          "yaw": -45
+        },
+        {
+          "wall_ms": 7894.299999999952,
+          "phase": 23.143333333331725,
+          "yaw": -45
+        },
+        {
+          "wall_ms": 8044.399999999954,
+          "phase": 4.146666666665169,
+          "yaw": -45
+        },
+        {
+          "wall_ms": 8177.699999999953,
+          "phase": 8.58999999999844,
+          "yaw": -45
+        },
+        {
+          "wall_ms": 8277.699999999953,
+          "phase": 11.923333333331811,
+          "yaw": -45
+        },
+        {
+          "wall_ms": 8427.599999999955,
+          "phase": 16.91999999999848,
+          "yaw": -45
+        },
+        {
+          "wall_ms": 8560.899999999954,
+          "phase": 21.36333333333181,
+          "yaw": -45
+        },
+        {
+          "wall_ms": 8677.599999999955,
+          "phase": 1.2533333333318524,
+          "yaw": -45
+        },
+        {
+          "wall_ms": 8827.699999999953,
+          "phase": 6.256666666665126,
+          "yaw": -45
+        },
+        {
+          "wall_ms": 8944.299999999952,
+          "phase": 10.143333333331725,
+          "yaw": -45
+        },
+        {
+          "wall_ms": 9077.599999999955,
+          "phase": 14.586666666665167,
+          "yaw": -45
+        },
+        {
+          "wall_ms": 9227.699999999953,
+          "phase": 19.58999999999844,
+          "yaw": -45
+        },
+        {
+          "wall_ms": 9344.299999999952,
+          "phase": 23.476666666665096,
+          "yaw": -45
+        },
+        {
+          "wall_ms": 9460.899999999954,
+          "phase": 3.363333333331809,
+          "yaw": -45
+        },
+        {
+          "wall_ms": 9577.599999999955,
+          "phase": 7.253333333331852,
+          "yaw": -45
+        },
+        {
+          "wall_ms": 9727.599999999955,
+          "phase": 12.253333333331852,
+          "yaw": -45
+        },
+        {
+          "wall_ms": 9860.899999999954,
+          "phase": 16.696666666665124,
+          "yaw": -45
+        },
+        {
+          "wall_ms": 9994.299999999952,
+          "phase": 21.143333333331725,
+          "yaw": -45
+        },
+        {
+          "wall_ms": 10144.299999999952,
+          "phase": 2.143333333331725,
+          "yaw": -45
+        }
+      ],
+      "width": 960,
+      "height": 640
+    },
+    {
+      "name": "ridge-1",
+      "kind": "race",
+      "count": 1,
+      "sampling": "real browser wall clock / MediaRecorder, no generated animation frames",
+      "samples": [
+        {
+          "wall_ms": 86.89999999999964,
+          "game_ms": 4083.4000000000005,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 203.60000000000036,
+          "game_ms": 4128.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 353.5,
+          "game_ms": 4173.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 470.2000000000007,
+          "game_ms": 4218.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 570.2000000000007,
+          "game_ms": 4263.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 703.5,
+          "game_ms": 4308.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 903.5,
+          "game_ms": 4353.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 1070.1000000000004,
+          "game_ms": 4398.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 1203.5,
+          "game_ms": 4443.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 1370.2000000000007,
+          "game_ms": 4488.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 1503.5,
+          "game_ms": 4533.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 1703.5,
+          "game_ms": 4578.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 1870.0999999999985,
+          "game_ms": 4623.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 2020.0999999999985,
+          "game_ms": 4668.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 2186.7999999999993,
+          "game_ms": 4713.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 2370.0999999999985,
+          "game_ms": 4758.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 2553.4000000000015,
+          "game_ms": 4803.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 2703.4000000000015,
+          "game_ms": 4848.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 2870.0999999999985,
+          "game_ms": 4893.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 2986.7000000000007,
+          "game_ms": 4938.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 3170,
+          "game_ms": 4983.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 3320.0999999999985,
+          "game_ms": 5028.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 3470.0999999999985,
+          "game_ms": 5073.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 3603.4000000000015,
+          "game_ms": 5118.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 3770.0999999999985,
+          "game_ms": 5163.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 3903.4000000000015,
+          "game_ms": 5208.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 4120,
+          "game_ms": 5253.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 4270,
+          "game_ms": 5298.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 4403.4000000000015,
+          "game_ms": 5343.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 4570,
+          "game_ms": 5388.400000000001,
+          "camera": "race",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 4703.4000000000015,
+          "game_ms": 5433.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 4886.700000000001,
+          "game_ms": 5478.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 5020,
+          "game_ms": 5523.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 5186.700000000001,
+          "game_ms": 5568.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 5303.4000000000015,
+          "game_ms": 5613.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 5453.299999999999,
+          "game_ms": 5658.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 5586.5999999999985,
+          "game_ms": 5703.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 5703.299999999999,
+          "game_ms": 5748.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 5886.5999999999985,
+          "game_ms": 5793.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 6003.299999999999,
+          "game_ms": 5838.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 6170,
+          "game_ms": 5883.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 6286.5999999999985,
+          "game_ms": 5928.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 6420,
+          "game_ms": 5973.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 6586.5999999999985,
+          "game_ms": 6018.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 6703.299999999999,
+          "game_ms": 6063.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 6869.9000000000015,
+          "game_ms": 6108.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 7019.9000000000015,
+          "game_ms": 6153.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 7169.9000000000015,
+          "game_ms": 6198.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 7303.200000000001,
+          "game_ms": 6243.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 7453.200000000001,
+          "game_ms": 6288.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 7586.5,
+          "game_ms": 6333.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 7753.200000000001,
+          "game_ms": 6378.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 7903.200000000001,
+          "game_ms": 6423.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 8053.200000000001,
+          "game_ms": 6468.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 8186.5,
+          "game_ms": 6513.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 8319.900000000001,
+          "game_ms": 6558.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 8469.900000000001,
+          "game_ms": 6603.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 8586.5,
+          "game_ms": 6648.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 8719.900000000001,
+          "game_ms": 6693.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 8919.900000000001,
+          "game_ms": 6738.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 9153.099999999999,
+          "game_ms": 6783.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 9353.099999999999,
+          "game_ms": 6828.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 9569.8,
+          "game_ms": 6873.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 9769.8,
+          "game_ms": 6918.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 10003.099999999999,
+          "game_ms": 6963.400000000001,
+          "camera": "follow",
+          "rank": 1,
+          "lod": {
+            "fine": 1,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        }
+      ],
+      "width": 836,
+      "height": 540
+    },
+    {
+      "name": "ridge-18",
+      "kind": "race",
+      "count": 18,
+      "sampling": "real browser wall clock / MediaRecorder, no generated animation frames",
+      "samples": [
+        {
+          "wall_ms": 149.99999999981446,
+          "game_ms": 4066.7,
+          "camera": "race",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 549.9999999998145,
+          "game_ms": 4111.7,
+          "camera": "race",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 733.2999999998137,
+          "game_ms": 4156.7,
+          "camera": "race",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 983.2999999998137,
+          "game_ms": 4201.7,
+          "camera": "race",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 1283.2999999998137,
+          "game_ms": 4246.7,
+          "camera": "race",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 1533.2999999998137,
+          "game_ms": 4291.7,
+          "camera": "race",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 1799.9999999998145,
+          "game_ms": 4336.7,
+          "camera": "race",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 2049.9999999998145,
+          "game_ms": 4381.7,
+          "camera": "race",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 2316.699999999815,
+          "game_ms": 4426.7,
+          "camera": "race",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 2549.9999999998145,
+          "game_ms": 4471.7,
+          "camera": "race",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 2799.8999999998123,
+          "game_ms": 4516.7,
+          "camera": "race",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 3099.8999999998123,
+          "game_ms": 4561.7,
+          "camera": "race",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 3333.2999999998137,
+          "game_ms": 4606.7,
+          "camera": "race",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 3616.4999999998145,
+          "game_ms": 4651.7,
+          "camera": "race",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 3849.8999999998123,
+          "game_ms": 4696.7,
+          "camera": "race",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 4249.899999999812,
+          "game_ms": 4741.7,
+          "camera": "race",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 4549.799999999814,
+          "game_ms": 4786.7,
+          "camera": "race",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 4833.199999999815,
+          "game_ms": 4831.7,
+          "camera": "follow",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 5116.4999999998145,
+          "game_ms": 4876.7,
+          "camera": "follow",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 5399.799999999814,
+          "game_ms": 4921.7,
+          "camera": "follow",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 5699.799999999814,
+          "game_ms": 4966.7,
+          "camera": "follow",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 5999.699999999815,
+          "game_ms": 5011.7,
+          "camera": "follow",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 6299.799999999814,
+          "game_ms": 5056.7,
+          "camera": "follow",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 6549.799999999814,
+          "game_ms": 5101.7,
+          "camera": "follow",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 6916.4999999998145,
+          "game_ms": 5146.7,
+          "camera": "follow",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 7216.399999999812,
+          "game_ms": 5191.7,
+          "camera": "follow",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 7516.399999999812,
+          "game_ms": 5236.7,
+          "camera": "follow",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 7832.9999999998145,
+          "game_ms": 5281.7,
+          "camera": "follow",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 8199.699999999815,
+          "game_ms": 5326.7,
+          "camera": "follow",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 8499.699999999815,
+          "game_ms": 5371.7,
+          "camera": "follow",
+          "rank": 3,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 8782.99999999981,
+          "game_ms": 5416.7,
+          "camera": "follow",
+          "rank": 4,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 9049.699999999815,
+          "game_ms": 5461.7,
+          "camera": "follow",
+          "rank": 4,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 9332.99999999981,
+          "game_ms": 5506.7,
+          "camera": "follow",
+          "rank": 4,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 9616.299999999814,
+          "game_ms": 5551.7,
+          "camera": "follow",
+          "rank": 4,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 9932.99999999981,
+          "game_ms": 5596.7,
+          "camera": "follow",
+          "rank": 4,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 10232.899999999812,
+          "game_ms": 5641.7,
+          "camera": "follow",
+          "rank": 4,
+          "lod": {
+            "fine": 5,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        }
+      ],
+      "width": 836,
+      "height": 540
+    },
+    {
+      "name": "ridge-50",
+      "kind": "race",
+      "count": 50,
+      "sampling": "real browser wall clock / MediaRecorder, no generated animation frames",
+      "samples": [
+        {
+          "wall_ms": 790.3000000000029,
+          "game_ms": 4066.7,
+          "camera": "race",
+          "rank": 6,
+          "lod": {
+            "fine": 50,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 1657,
+          "game_ms": 4111.7,
+          "camera": "race",
+          "rank": 6,
+          "lod": {
+            "fine": 50,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 3190.199999999997,
+          "game_ms": 4156.7,
+          "camera": "race",
+          "rank": 6,
+          "lod": {
+            "fine": 50,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 3290.199999999997,
+          "game_ms": 4201.7,
+          "camera": "race",
+          "rank": 6,
+          "lod": {
+            "fine": 50,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 4256.800000000003,
+          "game_ms": 4246.7,
+          "camera": "race",
+          "rank": 6,
+          "lod": {
+            "fine": 50,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 5090.100000000006,
+          "game_ms": 4291.7,
+          "camera": "race",
+          "rank": 6,
+          "lod": {
+            "fine": 50,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 6073.5,
+          "game_ms": 4336.7,
+          "camera": "follow",
+          "rank": 6,
+          "lod": {
+            "fine": 50,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 6940.100000000006,
+          "game_ms": 4381.7,
+          "camera": "follow",
+          "rank": 6,
+          "lod": {
+            "fine": 50,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 7790.100000000006,
+          "game_ms": 4426.7,
+          "camera": "follow",
+          "rank": 6,
+          "lod": {
+            "fine": 50,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 8773.399999999994,
+          "game_ms": 4471.7,
+          "camera": "follow",
+          "rank": 6,
+          "lod": {
+            "fine": 50,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 9673.300000000003,
+          "game_ms": 4516.7,
+          "camera": "follow",
+          "rank": 6,
+          "lod": {
+            "fine": 50,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        },
+        {
+          "wall_ms": 10623.300000000003,
+          "game_ms": 4561.7,
+          "camera": "follow",
+          "rank": 6,
+          "lod": {
+            "fine": 50,
+            "race": 0,
+            "mid": 0,
+            "transition": 0,
+            "sprite": 0,
+            "outside": 0
+          }
+        }
+      ],
+      "width": 836,
+      "height": 540
+    }
+  ]
+}

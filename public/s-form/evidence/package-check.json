@@ -1,0 +1,57 @@
+{
+  "movies": [
+    {
+      "source": "evidence/turntable.mp4",
+      "duration": 10.163,
+      "time": 0.270854,
+      "width": 960,
+      "height": 640,
+      "error": null
+    },
+    {
+      "source": "evidence/gallop.mp4",
+      "duration": 9.357,
+      "time": 0.26055,
+      "width": 960,
+      "height": 640,
+      "error": null
+    },
+    {
+      "source": "evidence/ridge-1.mp4",
+      "duration": 8.33,
+      "time": 0.258844,
+      "width": 836,
+      "height": 540,
+      "error": null
+    },
+    {
+      "source": "evidence/ridge-18.mp4",
+      "duration": 8.845,
+      "time": 0.254735,
+      "width": 836,
+      "height": 540,
+      "error": null
+    },
+    {
+      "source": "evidence/ridge-50.mp4",
+      "duration": 6.144,
+      "time": 0.251582,
+      "width": 836,
+      "height": 540,
+      "error": null
+    }
+  ],
+  "modes": [
+    {
+      "mode": "pixel",
+      "error": null,
+      "count": 1
+    },
+    {
+      "mode": "form",
+      "error": null,
+      "count": 1
+    }
+  ],
+  "errors": []
+}

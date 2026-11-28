@@ -1,0 +1,44 @@
+import * as THREE from 'three';
+import {loadForm,setPose,addLight} from './model.js';
+import './studio.css';
+const canvas=document.querySelector('#form-canvas');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,preserveDrawingBuffer:true});
+renderer.setPixelRatio(1);renderer.setClearColor(0xdfe6e9);
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;
+const scene=new THREE.Scene();addLight(scene);
+const camera=new THREE.OrthographicCamera(-2,2,1.5,-1.5,.01,100);
+const {create,meta}=await loadForm();const mesh=create();scene.add(mesh);
+const grid=new THREE.GridHelper(6,12,0xa8b4bc,0xc8d1d6);grid.position.y=-.008;scene.add(grid);
+const state={yaw:0,tilt:0,time:0,idle:true,spin:false,paused:false,manual:false,width:1000,height:650,ground:true,scale:1};
+function draw(){
+  const w=state.manual?state.width:canvas.clientWidth,h=state.manual?state.height:canvas.clientHeight;
+  if(canvas.width!==w||canvas.height!==h)renderer.setSize(w,h,false);
+  const v=state.extent?state.extent/100:2.48/state.scale,aspect=w/h;
+  camera.left=-v*aspect/2;camera.right=v*aspect/2;camera.top=v/2;camera.bottom=-v/2;camera.updateProjectionMatrix();
+  const a=state.yaw*Math.PI/180,e=state.tilt*Math.PI/180;
+  const target=state.target?new THREE.Vector3(...state.target.map(n=>n/200)):new THREE.Vector3(0,1.15,0);
+  camera.up.set(0,Math.cos(e),-Math.sin(e));
+  camera.position.set(7*Math.sin(a)*Math.cos(e),target.y+7*Math.sin(e),7*Math.cos(a)*Math.cos(e));camera.lookAt(target);
+  setPose(mesh,state.idle?-1:state.time/meta.period*24);
+  grid.visible=state.ground;
+  renderer.render(scene,camera);
+  document.querySelector('#status').textContent=state.idle?'静止形状':'走行位相 '+(state.time/meta.period*24%24).toFixed(1)+' / 24';
+}
+document.querySelectorAll('[data-yaw]').forEach(b=>b.onclick=()=>{state.spin=false;state.yaw=+b.dataset.yaw;state.tilt=+b.dataset.tilt;draw();});
+document.querySelector('#motion').onchange=e=>{state.idle=e.target.value==='idle';state.paused=false;document.querySelector('#pause').textContent='一時停止';draw();};
+document.querySelector('#orbit').onclick=()=>{state.spin=!state.spin;state.tilt=10;};
+document.querySelector('#pause').onclick=e=>{state.paused=!state.paused;e.target.textContent=state.paused?'再開':'一時停止';};
+document.querySelector('#phase').oninput=e=>{state.idle=false;state.paused=true;state.time=+e.target.value/24*meta.period;document.querySelector('#motion').value='run';document.querySelector('#pause').textContent='再開';draw();};
+document.querySelector('#surface').onchange=e=>{mesh.material.wireframe=e.target.value==='wire';mesh.material.vertexColors=e.target.value!=='clay';mesh.material.needsUpdate=true;draw();};
+let last;
+let drag;
+canvas.style.touchAction='none';
+canvas.onpointerdown=e=>{drag=[e.clientX,e.clientY,state.yaw,state.tilt];state.spin=false;canvas.setPointerCapture(e.pointerId);};
+canvas.onpointermove=e=>{if(!drag)return;state.yaw=drag[2]+(e.clientX-drag[0])*.4;state.tilt=Math.max(-5,Math.min(90,drag[3]+(e.clientY-drag[1])*.25));draw();};
+canvas.onlostpointercapture=()=>{drag=null;};
+canvas.onwheel=e=>{e.preventDefault();state.scale=Math.max(.6,Math.min(1.8,state.scale*Math.exp(-e.deltaY*.001)));draw();};
+function frame(now){if(last===undefined)last=now;const dt=Math.min(.05,(now-last)/1000);last=now;
+ if(!state.manual){if(!state.paused){state.time+=dt;if(state.spin)state.yaw+=dt*28;}draw();}requestAnimationFrame(frame);}
+window.formStudy={state,draw,mesh,meta,renderer,camera,scene,ready:true};
+draw();requestAnimationFrame(frame);

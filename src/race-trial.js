@@ -13,8 +13,14 @@ export function createTrial({THREE, renderer, racers, mobile, restart, status}) 
   const panel = byId('race-trial');
   panel.hidden = false;
   const count = byId('trial-count'), field = byId('trial-field'), mode = byId('trial-mode');
+  const formStudy=query.get('sForm')==='1';
+  if(formStudy){
+    mode.add(new Option('造形修正版（試作）','form'));
+    byId('race-trial').querySelector('h2').textContent='S型レース造形試験';
+  }
   count.value = String(fieldSize); field.value = sprintField ? 's' : 'mixed';
   mode.value = query.get('look') === 'classic' ? 'classic' : 'pixel';
+  if(formStudy&&query.get('look')==='form')mode.value='form';
   byId('trial-apply').onclick = () => {
     const next = new URL(location.href);
     for (const [k,v] of [['count',count.value],['field',field.value],['look',mode.value]]) next.searchParams.set(k,v);
@@ -22,6 +28,7 @@ export function createTrial({THREE, renderer, racers, mobile, restart, status}) 
   };
 
   let actors, loading, loadError, generation = 0, lastDraw = null;
+  let actorMode=null;const actorCache=new Map();
   let run = null, saved = null, lastRAF = null, recent = [];
   const travel = new Map(), previous = new Map();
   const sCount = racers.filter(r=>r.morph==='S').length;
@@ -30,7 +37,7 @@ export function createTrial({THREE, renderer, racers, mobile, restart, status}) 
     return gl.getParameter(ext?ext.UNMASKED_RENDERER_WEBGL:gl.RENDERER);
   };
   function controls() {
-    byId('trial-measure').disabled = !!run || (mode.value==='pixel' && !actors);
+    byId('trial-measure').disabled = !!run || (mode.value!=='classic' && actorMode!==mode.value);
     byId('trial-save').disabled = !saved;
     byId('trial-cancel').hidden = !run;
     for (const element of [mode, count, field, byId('trial-apply'), byId('trial-device')]) element.disabled=!!run;
@@ -42,15 +49,19 @@ export function createTrial({THREE, renderer, racers, mobile, restart, status}) 
     byId('trial-note').textContent=reason;
   }
   async function load() {
-    if (actors || loading || mode.value!=='pixel') return;
+    if (mode.value==='classic') return;
+    if(actorCache.has(mode.value)){actors=actorCache.get(mode.value);actorMode=mode.value;controls();return;}
+    if(loading)return;
+    const wanted=mode.value;
     const token = generation;
     loading = true; loadError=null; controls();
-    byId('trial-note').textContent='v4.1 を読込中。従来表示で走行しています。';
+    byId('trial-note').textContent=(wanted==='form'?'造形修正版':'v4.1')+' を読込中。従来表示で走行しています。';
     try {
-      const {loadActors} = await import(/* @vite-ignore */ new URL('race-integration/actors.js',root).href);
+      const {loadActors} = wanted==='form'?await import('./s-form/race.js'):
+        await import(/* @vite-ignore */ new URL('race-integration/actors.js',root).href);
       const draw = await loadActors(THREE,renderer,racers);
       if(token===generation) {
-        actors=draw;
+        actorCache.set(wanted,draw);actors=draw;actorMode=wanted;
         byId('trial-note').textContent='走行中も表示を切り替えられます。';
       }
     } catch(error) {
@@ -59,12 +70,12 @@ export function createTrial({THREE, renderer, racers, mobile, restart, status}) 
         byId('trial-note').textContent='従来表示で継続。v4.1 読込エラー '+loadError;
       }
     } finally {
-      if(token===generation){loading=false;controls();}
+      if(token===generation){loading=false;controls();if(mode.value!==wanted)load();}
     }
   }
   mode.onchange=()=>{ recent=[];lastRAF=null;lastDraw=null;load();controls(); };
   renderer.domElement.addEventListener('webglcontextlost',()=>{
-    generation++; actors=null; loading=false; cancel('コンテキスト消失のため中断しました。');controls();
+    generation++; actors=null;actorMode=null;actorCache.clear(); loading=false; cancel('コンテキスト消失のため中断しました。');controls();
   });
   renderer.domElement.addEventListener('webglcontextrestored',load);
   document.addEventListener('visibilitychange',()=>{
@@ -81,9 +92,9 @@ export function createTrial({THREE, renderer, racers, mobile, restart, status}) 
     const c=renderer.domElement;
     saved=null;
     run={schema:'evowild-ridge-race/1',protocol:'ridge-oval-30hz-24warm-96raf-v1',
-      integrated_build:'ridge-surface-ground-1',started_at:new Date().toISOString(),device_label:byId('trial-device').value,renderer:gpu(),
+      integrated_build:formStudy?'ridge-s-form-20261128':'ridge-surface-ground-1',started_at:new Date().toISOString(),device_label:byId('trial-device').value,renderer:gpu(),
       user_agent:navigator.userAgent,dpr:devicePixelRatio,raster:[c.width,c.height],mobile,
-      version:mode.value==='classic'?'classic':'v4.1',camera:view,count:racers.length,s_count:sCount,
+      version:mode.value==='classic'?'classic':mode.value==='form'?'s-form-20261128':'v4.1',camera:view,count:racers.length,s_count:sCount,
       field:sprintField?'s':'mixed',antialias:renderer.getContext().getContextAttributes().antialias,
       warmup,step_ms:1000/30,samples:[],frame:0,previous:null};
     controls();byId('trial-note').textContent='予熱中…';
@@ -106,7 +117,7 @@ export function createTrial({THREE, renderer, racers, mobile, restart, status}) 
     return {fps:intervals.length*1000/intervals.reduce((a,b)=>a+b,0),p95_ms:sorted[Math.ceil(.95*sorted.length)-1]};
   }
   return {
-    get active(){return !!actors && mode.value==='pixel';},
+    get active(){return !!actors && actorMode===mode.value && mode.value!=='classic';},
     get step(){return run?.step_ms;},
     resetTravel, cancel,
     sync(){
@@ -153,8 +164,8 @@ export function createTrial({THREE, renderer, racers, mobile, restart, status}) 
         const summary=m?'近 '+(m.fine+m.race)+' ／ 中 '+m.mid+' ／ 移行 '+m.transition+' ／ 遠 '+m.sprite+' ／ 画角外 '+m.outside:'';
         byId('trial-hud').textContent=t.fps.toFixed(1)+' fps ・ p95 '+t.p95_ms.toFixed(1)+' ms ・ 出走 '+racers.length+'（S '+sCount+'） '+summary+(lastDraw?.atlasErrors.length?' 方位素材読込エラー':'');
       }
-      panel.dataset.renderer=this.active?'pixel':'classic';
+      panel.dataset.renderer=this.active?mode.value:'classic';
     },
-    inspect(){return {ready:!!actors,mode:mode.value,error:loadError,draw:lastDraw,travel:[...travel.values()]};}
+    inspect(){return {ready:!!actors&&actorMode===mode.value,mode:mode.value,error:loadError,draw:lastDraw,travel:[...travel.values()]};}
   };
 }
